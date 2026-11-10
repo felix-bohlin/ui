@@ -569,7 +569,15 @@ When a component gains a shadow-only edge or a color-only state, it gets a block
 
 ### More contrast
 
-`theme.css` sets no color for more contrast. It tightens the knobs the roles are derived from (the `--ui-*-strength-*` mixes, the `*-max-lightness`, `*-min-lightness` and `*-max-chroma` limits, `--ui-focus-ring-width`) on `html` under `prefers-contrast: more` and on `.ui-contrast-more`, which is a scope, and every role follows. A component only adds its own `@container style(--ui-contrast: more)` block when the shape changes (an outline added, a translucent fill made solid) or to swap a private property to another role. It never re-tunes numbers: a limit it needs is a knob in `theme.css`, set in both contrast rules. A role that has to get stronger with more contrast is a formula of a knob, never a second value in a contrast block.
+`theme.css` sets no color for more contrast. It tightens the knobs the roles are derived from (the `--ui-*-strength-*` mixes, the `*-max-lightness`, `*-min-lightness` and `*-max-chroma` limits, `--ui-focus-ring-width`) on `html` under `prefers-contrast: more` and on `.ui-contrast-more`, which is a scope, and every role follows. A component only adds its own `@container style(--ui-contrast: more)` block, or an `if()` value (Switch values and `if()` below), when the shape changes (an outline added, a translucent fill made solid) or to swap a private property to another role. It never re-tunes numbers: a limit it needs is a knob in `theme.css`, set in both contrast rules. A role that has to get stronger with more contrast is a formula of a knob, never a second value in a contrast block.
+
+### Switch values and `if()`
+
+`if()` reads a switch token (`--ui-contrast`, `--ui-motion`) on the element itself, so it also sees a value the element sets, which `@container style()` can't:
+
+- One declaration of a standard property that swaps on the switch is an `if(style(…): …; else: …)` value: `scroll-behavior` on `html` and the `Carousel`, the `Spinner` opacity. A browser without `if()` drops the declaration, so the compat layer holds the style query it replaced, behind `@supports not (inline-size: if(else: 0px))`.
+- Several declarations, a nested rule or a query that also reads a size stay a `@container style()` block.
+- A custom property takes `if()` only where the value has to follow a token set on the element itself, like the `ControlGroup` dividers. A browser without `if()` can't drop it: it is invalid wherever it is read, so it needs its compat rule too. A swap that a `@container style()` block can do stays one.
 
 ---
 

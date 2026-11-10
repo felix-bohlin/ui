@@ -421,7 +421,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Summary: VoiceOver in Safari may not announce a carousel as a list or say how many items it holds.
   - Recommended: Fix. It applies the decision already recorded for the other lists, and a redundant role costs nothing in Chromium, which already exposes `list "Destinations"`.
   - Fix: render `role="list"` on the root before `...rest` in all four frameworks, and add it to the 13 HTML carousel examples. The markup snapshots change on purpose.
-- [ ] (2) Carousel: the scroll button icon is a white SVG blended with `background-blend-mode: difference`, so it is drawn in the inverse of `--_button-bg-color`. The Custom buttons example sets that color to `--ui-primary`, which gives an orange arrow on a blue button at about 2.2:1, under the 3:1 a control's icon needs (`src/component-examples/carousel/CustomButtons.html:23-28`, `src/component-examples/carousel/CustomButtons.astro:18-23`, `packages/opui/css/components/carousel.css:146-148`, `src/component-api/custom-properties/carousel.ts:13-17`, `src/docs/components/carousel.astro:222-227`)
+- [ ] (2) Carousel: the scroll button icon is a white SVG blended with `background-blend-mode: difference`, so it is drawn in the inverse of `--_button-bg-color`. The Custom buttons example sets that color to `--ui-primary`, which gives an orange arrow on a blue button at about 2.2:1, under the 3:1 a control's icon needs (`src/component-examples/carousel/CustomButtons.html:23-28`, `src/component-examples/carousel/CustomButtons.astro:18-23`, `packages/opui/css/components/carousel.css:138-140`, `src/component-api/custom-properties/carousel.ts:13-17`, `src/docs/components/carousel.astro:222-227`)
   - Summary: The arrows on the custom carousel buttons are hard to see, and readers who copy the example get the same.
   - Recommended: Fix. The default `--ui-surface-inverse` gives a near-white or near-black arrow, and the example only needs to show a custom icon.
   - Fix: measured in Chromium with the default theme. The button is oklch(0.499 0.191 222.8) in light mode, and its inverse, rgb(255 139 79), is 2.21:1 against it. In dark mode it is 2.16:1. Drop the `--_button-bg-color` override from the example in all five formats, and say in the `--_button-bg-color` description that the icon is drawn in its inverse, so the color has to be very dark or very light.
@@ -1047,7 +1047,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
       }
     }
     ```
-- [ ] (1) Carousel: the snap axis is physical, `scroll-snap-type: x mandatory` (and `y` in `.ui-vertical`), while the carousel scrolls with `overflow-inline` and pads with `scroll-padding-inline`. So in a vertical writing mode it scrolls along the inline axis and never snaps (`packages/opui/css/components/carousel.css:64-71`, `packages/opui/css/components/carousel.css:124-131`)
+- [ ] (1) Carousel: the snap axis is physical, `scroll-snap-type: x mandatory` (and `y` in `.ui-vertical`), while the carousel scrolls with `overflow-inline` and pads with `scroll-padding-inline`. So in a vertical writing mode it scrolls along the inline axis and never snaps (`packages/opui/css/components/carousel.css:64-71`, `packages/opui/css/components/carousel.css:116-123`)
   - Summary: In a vertical writing mode, such as vertical Japanese text, a carousel scrolls freely instead of stopping on each slide.
   - Recommended: Fix. The logical keywords work in every engine and match the logical properties around them.
   - Fix: `scroll-snap-type: inline mandatory` on the root and `block mandatory` in `.ui-vertical`. Checked in Chromium in `writing-mode: vertical-rl`: after scrolling 40px, `x mandatory` stays at 40px and `inline mandatory` snaps back to 0.
@@ -1099,7 +1099,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
       background-position-x: 100%, 50%, 0;
     }
     ```
-- [ ] (1) TextField: an autofilled value is painted in `--ui-text`, from the `-webkit-text-fill-color` that `normalize.css` sets on every `:autofill` input, while the field's own text is `--ui-text-strong`; the `:autofill` rule in `text-field.css` only covers the background (`packages/opui/core/normalize.css:99-111`, `packages/opui/css/components/text-field.css:73-93`)
+- [ ] (1) TextField: an autofilled value is painted in `--ui-text`, from the `-webkit-text-fill-color` that `normalize.css` sets on every `:autofill` input, while the field's own text is `--ui-text-strong`; the `:autofill` rule in `text-field.css` only covers the background (`packages/opui/core/normalize.css:102-114`, `packages/opui/css/components/text-field.css:73-93`)
   - Summary: Text the browser autofills into a text field looks fainter than text the user types.
   - Recommended: Fix. One declaration next to the existing autofill rule keeps the field's text color.
   - Fix: `-webkit-text-fill-color` wins over `color`, so set it to the field's color in the field's own rule.
@@ -2725,7 +2725,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Summary: A copied snippet animates at a different speed than the component it explains.
   - Recommended: Fix. Reading the tokens keeps the snippets from drifting again.
   - Fix: use the tokens instead of the numbers. That is `var(--ui-duration-slow)` in the drawer post and the Dialog and Drawer steps, and `var(--ui-duration)` in the accordion and select posts.
-- [ ] (2) Carousel: the Basics and Grid layout examples put text cards under the inside scroll buttons, which sit over each item's edges at mid height. Once the carousel has moved one slide, the Previous button covers the start of the heading: "Lima" reads "ima" in Basics and "ma" in Grid layout (`src/component-examples/carousel/Basics.html:1-47`, `src/component-examples/carousel/GridLayout.html:9-34`, `packages/opui/css/components/carousel.css:172-188`)
+- [ ] (2) Carousel: the Basics and Grid layout examples put text cards under the inside scroll buttons, which sit over each item's edges at mid height. Once the carousel has moved one slide, the Previous button covers the start of the heading: "Lima" reads "ima" in Basics and "ma" in Grid layout (`src/component-examples/carousel/Basics.html:1-47`, `src/component-examples/carousel/GridLayout.html:9-34`, `packages/opui/css/components/carousel.css:164-180`)
   - Summary: In the first carousel example the Previous button hides the first letters of each heading after one slide.
   - Recommended: Fix with option A. Inside buttons suit media, and the first example readers copy should not hide its text.
   - Fix: seen in Chromium at 500px and 600px wide after scrolling one item, in LTR and RTL.
@@ -2858,7 +2858,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
       }
       ```
     - B: add `callout: ["scope"]` and `toast: ["scope"]` to `ignore` and drop the ids.
-- [ ] (2) Docs: no pattern detects alternative text for generated content (`content: "*" / ""`). The CSS uses it to keep the required asterisk, the rating's count and the stepper's numbers out of what screen readers read, and to name the carousel's scroll buttons, yet none of the twelve pages that use it lists `alt-text-generated-content` (Baseline 2024) (`packages/opui/scripts/features.mjs:60-158`, `packages/opui/css/components/choice.css:59-70`, `packages/opui/css/components/form.css:68-79`, `packages/opui/css/components/rating.css:144-174`, `packages/opui/css/components/stepper.css:55-70`, `packages/opui/css/components/text-field.css:188-199`, `packages/opui/css/components/carousel.css:175-220`)
+- [ ] (2) Docs: no pattern detects alternative text for generated content (`content: "*" / ""`). The CSS uses it to keep the required asterisk, the rating's count and the stepper's numbers out of what screen readers read, and to name the carousel's scroll buttons, yet none of the twelve pages that use it lists `alt-text-generated-content` (Baseline 2024) (`packages/opui/scripts/features.mjs:60-158`, `packages/opui/css/components/choice.css:59-70`, `packages/opui/css/components/form.css:68-79`, `packages/opui/css/components/rating.css:144-174`, `packages/opui/css/components/stepper.css:55-70`, `packages/opui/css/components/text-field.css:188-199`, `packages/opui/css/components/carousel.css:167-212`)
   - Summary: Twelve pages leave out a newly available feature their CSS uses to keep asterisks and counters out of what screen readers read.
   - Recommended: Fix. It is one pattern, one test sample and a `--write` run, like every other detected id.
   - Fix: - Add the pattern below, and its sample to `samples` in `tests/unit/check-scripts.test.ts`.
@@ -2933,7 +2933,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix. Two clauses change, and MIGRATING.md:485 already has the right wording.
   - Fix: - 211: "Outside a `Drawer`, set `commandfor` to the dialog's `id`. A dev warning says when it's missing."
     - 208: "through the dialog's `id`".
-- [ ] (2) Drawer, Typography: the What's new notes say that browsers older than Chrome 135, Firefox 69 and Safari 26 "ignore them and don't scroll it". The compat layer scrolls drawer content and rich text there through `overflow-y` and `overflow-x`, as CHANGELOG 271 and 341 say (`src/utils/whats-new.ts:687`, `src/utils/whats-new.ts:1564`, `packages/opui/css/compat/drawer.css:1-7`, `packages/opui/css/compat/typography.css:1-16`)
+- [ ] (2) Drawer, Typography: the What's new notes say that browsers older than Chrome 135, Firefox 69 and Safari 26 "ignore them and don't scroll it". The compat layer scrolls drawer content and rich text there through `overflow-y` and `overflow-x`, as CHANGELOG 271 and 341 say (`src/utils/whats-new.ts:687`, `src/utils/whats-new.ts:1564`, `packages/opui/css/compat/drawer.css:1-7`, `packages/opui/css/compat/typography.css:14-29`)
   - Summary: The notes say older browsers can't scroll drawer content or wide rich text, but the compat layer scrolls both.
   - Recommended: Fix. The notes were written before the compat fallbacks (TODO.md:383-387, done).
   - Fix: replace "and don't scroll it" with "and `compat.css` scrolls it through `overflow-y` there". For rich text, use `overflow-x`.
@@ -4324,7 +4324,7 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Options:
     - A (recommended): add `"choice.css": "card.css"` to `BUILDS_ON` in `tests/unit/layers.test.ts` and import `choice.css` right after `card.css`. With that order, the Checkbox, Radio, Switch, Card, Carousel and Chip examples render the same in Chromium.
     - B: declare the layout in the `.ui-card` block, `display: inline-grid` and `row-gap: 0`, so it wins by its class like the `overflow` and `padding` next to it. Choice cards then render the same with either import order.
-- [ ] (1) CSS: the autofill reset repeats each selector with `:hover` and `:focus`. That specificity bump does nothing inside the `normalize` layer, where no other rule sets these properties and the component layers win whatever the specificity, and it forces two exceptions in the Stylelint config (`packages/opui/core/normalize.css:99-111`, `stylelint.config.mjs:68-89`)
+- [ ] (1) CSS: the autofill reset repeats each selector with `:hover` and `:focus`. That specificity bump does nothing inside the `normalize` layer, where no other rule sets these properties and the component layers win whatever the specificity, and it forces two exceptions in the Stylelint config (`packages/opui/core/normalize.css:102-114`, `stylelint.config.mjs:68-89`)
   - Summary: The autofill reset lists nine selectors where one does, and the lint config carries two exceptions just for them.
   - Recommended: Fix. The layer makes the specificity bump pointless, and the lint exceptions go with it.
   - Fix: replace the nine selectors with one, and drop the `except` lists of `opui/focus-visible` and `opui/hover-media` for `core/normalize.css`. Confirm by autofilling a plain email input in Chromium, hovered and focused.
@@ -4336,7 +4336,7 @@ Custom elements (web components) the library could add, for behavior that HTML a
       transition: background-color 5000s ease-in-out 0s;
     }
     ```
-- [ ] (1) CSS: `html` switches smooth scrolling with a reduced-motion media query and the `.ui-motion-off` and `.ui-motion-on` classes, so a theme that sets `--ui-motion: 0` on `html` still scrolls smoothly. `if(style(--ui-motion: 0))` can read the token on `html` itself (`packages/opui/core/normalize.css:30-40`, `packages/opui/css/theme.css:623-627`, `packages/opui/core/utils.css:6-16`)
+- [x] (1) CSS: `html` switches smooth scrolling with a reduced-motion media query and the `.ui-motion-off` and `.ui-motion-on` classes, so a theme that sets `--ui-motion: 0` on `html` still scrolls smoothly. `if(style(--ui-motion: 0))` can read the token on `html` itself (`packages/opui/core/normalize.css:30-40`, `packages/opui/css/theme.css:623-627`, `packages/opui/core/utils.css:6-16`)
   - Summary: A theme that turns motion off with the token still animates anchor jumps and scrolling to a focused element.
   - Recommended: Fix with option A. One declaration replaces three rules and follows the token wherever `if()` runs.
   - Fix: the done item on smooth scrolling chose the classes because `html` couldn't query its own `--ui-motion`. `if()` evaluates `style()` against the element itself, which `control-group.css:149-156` already relies on. Checked: `--ui-motion: 0` gives `auto`, and `1` and `10` give `smooth`, with and without reduced motion.
@@ -4349,6 +4349,7 @@ Custom elements (web components) the library could add, for behavior that HTML a
       ```
     - B: keep the three rules for Firefox and Safari and add the declaration after them, so only Chromium also follows a theme's token.
     - C: keep it as is.
+  - Fixed: between options A and B. `normalize.css` sets `scroll-behavior: if(style(--ui-motion: 0): auto; else: smooth)` on `html`, and keeps the media query and the two class rules for Firefox and Safari inside `@supports not (inline-size: if(else: 0px))`, since a declaration after nested rules fails `pnpm sort-css:check` and one before them loses to the media query. `tests/e2e/theming.spec.ts` checks it with reduced motion, both classes and a `--ui-motion: 0` set on `html`. The Carousel, the Spinner opacity and the heading group subtitle color read their switch with `if()` too, with the style queries they replaced in the compat layer.
 - [ ] (1) ControlGroup: `.ui-overflow-scroll` sets `scrollbar-width: thin`, which `normalize.css` already sets on every element. `tabs.css`, `table.css`, `toggle-group.css` and the prose `pre` in `typography.css` repeat it too (`packages/opui/css/components/control-group.css:357`, `packages/opui/core/normalize.css:10-12`)
   - Summary: Nothing visible; five component rules repeat a declaration the reset already makes.
   - Recommended: Fix. It follows the done tap highlight and box sizing items, whose copies of normalize declarations were dropped.
@@ -4704,7 +4705,7 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - A (recommended): decide the Tooltip item, then move the screen reader check to the Tooltip line of the release checks in `docs/releases/6.0.0.md` and remove this item.
     - B: keep the item open until someone runs the check.
   - Still open: the Tooltip item about the command pair is fixed with option A, so the triggers have `interestfor` only. Checked in headless Chromium 153: Save is a button named "Save" with the description "Save your changes" and no expanded state, so screen readers in Chrome should say the name and the description. A correction to the notes above: Firefox and Safari now show the tooltip on hover and keyboard focus through `css/compat/tooltip.css`, but without interest invokers nothing ties its text to the button, so a screen reader there should hear only "Save". On iOS there is neither hover nor `interestfor`, so the tooltip doesn't show. Left: the words NVDA, JAWS and VoiceOver use in Chrome.
-- [ ] (2) Typography: rich text tables are `display: block` so they can scroll. Chromium keeps the table, column header and cell roles. Check with VoiceOver in Safari on `/html/components/typography/` (Default) that the table is still announced as a table with headers (`packages/opui/css/components/typography.css:641-646`)
+- [ ] (2) Typography: rich text tables are `display: block` so they can scroll. Chromium keeps the table, column header and cell roles. Check with VoiceOver in Safari on `/html/components/typography/` (Default) that the table is still announced as a table with headers (`packages/opui/css/components/typography.css:640-645`)
   - Summary: VoiceOver in Safari may stop announcing rich text tables as tables because they are display block for scrolling.
   - Recommended: Fix with option A. Keeping the table a table is the only way that is safe in Safari, and a scroll wrapper costs one documented `div`.
   > Explain further

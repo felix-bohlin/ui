@@ -20,6 +20,7 @@
     interpolate-size: allow-keywords;
     line-height: var(--ui-line-height-relaxed);
     min-block-size: 100%;
+    scroll-behavior: if(style(--ui-motion: 0): auto; else: smooth);
 
     /* https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/ */
     /* Firefox and Safari fallback */
@@ -27,16 +28,18 @@
     -webkit-text-size-adjust: none;
     text-size-adjust: none;
 
-    @media (prefers-reduced-motion: no-preference) {
-      scroll-behavior: smooth;
-    }
+    @supports not (inline-size: if(else: 0px)) {
+      @media (prefers-reduced-motion: no-preference) {
+        scroll-behavior: smooth;
+      }
 
-    &.ui-motion-off {
-      scroll-behavior: auto;
-    }
+      &.ui-motion-off {
+        scroll-behavior: auto;
+      }
 
-    &.ui-motion-on {
-      scroll-behavior: smooth;
+      &.ui-motion-on {
+        scroll-behavior: smooth;
+      }
     }
   }
 

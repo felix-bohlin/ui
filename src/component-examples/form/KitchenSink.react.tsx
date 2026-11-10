@@ -33,13 +33,13 @@ export default function KitchenSink() {
           <TextField
             autoComplete="name"
             label="Full name"
-            placeholder="Jane Doe"
+            placeholder="Ada Lovelace"
             required
           />
           <TextField
             autoComplete="email"
             label="Email address"
-            placeholder="jane@example.com"
+            placeholder="name@example.com"
             required
             type="email"
           />
@@ -116,10 +116,10 @@ export default function KitchenSink() {
       </Fieldset>
       <Divider />
       <FieldGroup>
+        <Button>Cancel</Button>
         <Button type="submit" variant="filled">
           Send
         </Button>
-        <Button>Cancel</Button>
       </FieldGroup>
     </Form>
   )

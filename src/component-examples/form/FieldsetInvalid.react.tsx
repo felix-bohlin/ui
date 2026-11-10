@@ -20,7 +20,7 @@ export default function FieldsetInvalid() {
         </Checkbox>
       </FieldGroup>
       <span className="ui-end-text" id="form-fieldset-invalid-1-error">
-        Your pet is hungry.
+        Choose at least one food.
       </span>
     </Fieldset>
   )

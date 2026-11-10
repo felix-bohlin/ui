@@ -17,7 +17,7 @@ import {
       <Checkbox error value="wet-food">Wet food</Checkbox>
     </FieldGroup>
     <span class="ui-end-text" id="form-fieldset-invalid-1-error"
-      >Your pet is hungry.</span
+      >Choose at least one food.</span
     >
   </Fieldset>
 </template>

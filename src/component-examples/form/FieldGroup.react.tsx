@@ -12,42 +12,37 @@ export default function FieldGroupExample() {
   return (
     <Form>
       <Fieldset>
-        <FieldLegend>Choose your favorite Radiohead album</FieldLegend>
-        <FieldDescription>There are no wrong answers.</FieldDescription>
-        <FieldGroup name="albums">
-          <Radio value="ok-computer">OK Computer</Radio>
-          <Radio value="kid-a">Kid A</Radio>
-          <Radio value="in-rainbows">In Rainbows</Radio>
-          <Radio value="king-of-limbs">The King of Limbs</Radio>
+        <FieldLegend>Plan</FieldLegend>
+        <FieldDescription>
+          You can change your plan at any time.
+        </FieldDescription>
+        <FieldGroup name="plan">
+          <Radio value="starter">Starter</Radio>
+          <Radio value="team">Team</Radio>
+          <Radio value="business">Business</Radio>
         </FieldGroup>
       </Fieldset>
       <Fieldset>
-        <FieldLegend>Which side projects do you follow?</FieldLegend>
-        <FieldDescription>Some are better than others.</FieldDescription>
-        <FieldGroup name="projects">
+        <FieldLegend>Add-ons</FieldLegend>
+        <FieldDescription>Billed monthly with your plan.</FieldDescription>
+        <FieldGroup name="add-ons">
           <Checkbox
-            endText="Thom Yorke, Flea, Nigel Godrich"
-            value="atoms-for-peace"
+            endText="Daily snapshots, kept for 30 days."
+            value="backups"
           >
-            Atoms for Peace
-          </Checkbox>
-          <Checkbox endText="Ed O'Brien solo" value="eob">
-            EOB
+            Backups
           </Checkbox>
           <Checkbox
-            endText="Film compositions by Jonny Greenwood"
-            value="jonny-scores"
+            endText="Encrypt your files with your own keys."
+            value="encryption"
           >
-            Film Scores
-          </Checkbox>
-          <Checkbox endText="Philip Selway solo albums" value="selway-solo">
-            Philip Selway
+            Encryption
           </Checkbox>
           <Checkbox
-            endText="Thom Yorke, Jonny Greenwood, Tom Skinner"
-            value="the-smile"
+            endText="Sign in with your company account."
+            value="single-sign-on"
           >
-            The Smile
+            Single sign-on
           </Checkbox>
         </FieldGroup>
       </Fieldset>

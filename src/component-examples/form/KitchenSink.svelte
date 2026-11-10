@@ -33,13 +33,13 @@
       <TextField
         autocomplete="name"
         label="Full name"
-        placeholder="Jane Doe"
+        placeholder="Ada Lovelace"
         required
       />
       <TextField
         autocomplete="email"
         label="Email address"
-        placeholder="jane@example.com"
+        placeholder="name@example.com"
         required
         type="email"
       />
@@ -109,7 +109,7 @@
   </Fieldset>
   <Divider />
   <FieldGroup>
-    <Button type="submit" variant="filled">Send</Button>
     <Button>Cancel</Button>
+    <Button type="submit" variant="filled">Send</Button>
   </FieldGroup>
 </Form>

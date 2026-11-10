@@ -12,24 +12,29 @@ import {
 
 <template>
   <Table density="dense">
-    <TableCaption>Band Members</TableCaption>
+    <TableCaption>Team members</TableCaption>
     <TableHead>
       <TableRow>
-        <TableHeaderCell>Band</TableHeaderCell>
         <TableHeaderCell>Name</TableHeaderCell>
-        <TableHeaderCell>Instrument</TableHeaderCell>
+        <TableHeaderCell>Role</TableHeaderCell>
+        <TableHeaderCell>Location</TableHeaderCell>
       </TableRow>
     </TableHead>
     <TableBody>
       <TableRow>
-        <TableCell>Korn</TableCell>
-        <TableCell>Jonathan Davis</TableCell>
-        <TableCell>Vocals</TableCell>
+        <TableCell>Lena Ek</TableCell>
+        <TableCell>Product designer</TableCell>
+        <TableCell>Göteborg</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>Radiohead</TableCell>
-        <TableCell>Ed O'Brien</TableCell>
-        <TableCell>Guitar/Vocals</TableCell>
+        <TableCell>Tom Tanaka</TableCell>
+        <TableCell>Frontend developer</TableCell>
+        <TableCell>Lisbon</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Elif Rahman</TableCell>
+        <TableCell>Support lead</TableCell>
+        <TableCell>Berlin</TableCell>
       </TableRow>
     </TableBody>
   </Table>

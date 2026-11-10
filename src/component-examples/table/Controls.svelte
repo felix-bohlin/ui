@@ -11,56 +11,56 @@
     TextField,
   } from "opui-css/svelte"
 
-  const instruments = [
-    { label: "Bass", value: "bass" },
-    { label: "Drums", value: "drums" },
-    { label: "Guitar", value: "guitar" },
-    { label: "Vocals", value: "vocals" },
+  const roles = [
+    { label: "Designer", value: "designer" },
+    { label: "Developer", value: "developer" },
+    { label: "Product manager", value: "product-manager" },
+    { label: "Support", value: "support" },
   ]
 </script>
 
 <Table density="dense">
-  <TableCaption>Band Members</TableCaption>
+  <TableCaption>Team members</TableCaption>
   <TableHead>
     <TableRow>
       <TableHeaderCell>Name</TableHeaderCell>
-      <TableHeaderCell>Instrument</TableHeaderCell>
+      <TableHeaderCell>Role</TableHeaderCell>
       <TableHeaderCell>Notes</TableHeaderCell>
     </TableRow>
   </TableHead>
   <TableBody>
     <TableRow>
-      <TableCell>Jonathan Davis</TableCell>
+      <TableCell>Lena Ek</TableCell>
       <TableCell>
         <Select
           hideLabel
-          items={instruments}
-          label="Instrument for Jonathan Davis"
-          value="vocals"
+          items={roles}
+          label="Role for Lena Ek"
+          value="designer"
         />
       </TableCell>
       <TableCell>
         <TextField
           hideLabel
-          label="Notes for Jonathan Davis"
+          label="Notes for Lena Ek"
           placeholder="Add a note"
         />
       </TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Ed O'Brien</TableCell>
+      <TableCell>Tom Tanaka</TableCell>
       <TableCell>
         <Select
           hideLabel
-          items={instruments}
-          label="Instrument for Ed O'Brien"
-          value="guitar"
+          items={roles}
+          label="Role for Tom Tanaka"
+          value="developer"
         />
       </TableCell>
       <TableCell>
         <TextField
           hideLabel
-          label="Notes for Ed O'Brien"
+          label="Notes for Tom Tanaka"
           placeholder="Add a note"
         />
       </TableCell>

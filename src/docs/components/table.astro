@@ -207,7 +207,10 @@ export const keywords = ["data table", "grid", "rows", "sort"]
     <h2>Sticky header</h2>
     <p>
       Use <PropOrClass prop="stickyHeader" class=".ui-sticky-header" />, without
-      <PropOrClass prop='overflow="scroll"' class=".ui-overflow-scroll" />.
+      <PropOrClass prop='overflow="scroll"' class=".ui-overflow-scroll" />. Give
+      the scroll box, or <code>html</code> when the header sticks to the page, a
+      <code>scroll-padding-block-start</code> as tall as the header, so a
+      control that takes focus doesn't land under it.
     </p>
 
     <AutoExample name="StickyHeader" />
@@ -244,8 +247,19 @@ export const keywords = ["data table", "grid", "rows", "sort"]
   </section>
 
   <section id="advanced">
-    <h2>Advanced</h2>
-
+    <h2>Grouped headers</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Group columns with <code>TableColumnGroup</code>, span headers with
+        <code>colspan</code> and <code>rowspan</code>, and give each header a
+        <code>scope</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Group columns with <code>&lt;colgroup&gt;</code>, span headers with
+        <code>colspan</code> and <code>rowspan</code>, and give each header a
+        <code>scope</code>.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Advanced" />
   </section>
 

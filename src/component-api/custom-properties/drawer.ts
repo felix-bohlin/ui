@@ -3,12 +3,12 @@ import type { CustomProperties } from "../types"
 export default {
   "--_backdrop-bg-color": {
     description:
-      "The backdrop color. Defaults to `--ui-backdrop-bg-color`, `.ui-backdrop-transparent` clears it.",
+      "The backdrop color. `card.css` declares it for dialogs and drawers, and `.ui-backdrop-transparent` clears it.",
     kind: "input",
   },
   "--_backdrop-blur": {
     description:
-      "The backdrop filter. Defaults to a `--ui-backdrop-blur` blur, `.ui-backdrop-transparent` removes it.",
+      "The backdrop filter. `card.css` declares it for dialogs and drawers, and `.ui-backdrop-transparent` removes it.",
     kind: "input",
   },
   "--_bg-color": {

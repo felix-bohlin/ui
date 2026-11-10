@@ -332,6 +332,8 @@
 
   /* Header, content and footer of a dialog or drawer */
   :where(.ui-dialog, .ui-drawer) {
+    --_backdrop-bg-color: var(--ui-backdrop-bg-color);
+    --_backdrop-blur: blur(var(--ui-backdrop-blur));
     --_content-anchor: --ui-dialog-content;
     --_footer-gap: var(--ui-space-2);
     --_scroll-shadow: var(--ui-shadow-scroll);
@@ -339,6 +341,32 @@
 
     &:where(.ui-drawer) {
       --_content-anchor: --ui-drawer-content;
+    }
+
+    &::backdrop {
+      backdrop-filter: var(--_backdrop-blur);
+      background-color: var(--_backdrop-bg-color);
+      opacity: 0;
+      transition:
+        display var(--_duration) allow-discrete,
+        opacity var(--_duration) var(--_ease),
+        overlay var(--_duration) allow-discrete;
+    }
+
+    &:not([open]) {
+      display: none;
+    }
+
+    &[open] {
+      &::backdrop {
+        opacity: 1;
+      }
+
+      @starting-style {
+        &::backdrop {
+          opacity: 0;
+        }
+      }
     }
 
     & > .ui-header {

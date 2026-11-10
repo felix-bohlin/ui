@@ -63,7 +63,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Drawer` in Astro and Vue no longer locks page scroll by default. Set `scrollLock` (`.ui-scroll-lock`) on drawers that should lock it.
 - `Drawer` requires `id` (types) and no longer generates one, since its trigger points at it with `commandfor`.
 - `Drawer` title is `--ui-font-size-h4`, like the `Dialog` title, instead of `--font-size-3`, and `--_header-font-size` is `--_title-font-size`. It sizes a heading that is a direct child of `.ui-header`.
-- `Drawer` header, content and footer rules live in `card.css`, shared with `Dialog`. If you import single files, import `card.css` too, or the drawer's parts lose their layout and scroll shadows.
+- `Drawer` header, content and footer rules, its backdrop and its closed state live in `card.css`, shared with `Dialog`. If you import single files, import `card.css` too, or the drawer's parts lose their layout and scroll shadows, and a closed drawer stays on the page.
 - `DrawerFooter` takes `align`, like `DialogFooter`. Its content sits at the end on every side, and `align="start"` (`.ui-align-start`) moves it to the start, instead of starting in an `inline-end` drawer.
 - `FieldGroup` no longer sets `role="group"`. Wrap it in a `Fieldset` (a `<fieldset>`, already a group) to group and name the fields. `Fieldset` with another element in `as` gets `role="group"`.
 - `FieldGroup` `direction` (`"row"`, `"column"`) is `orientation` (`"auto"`, `"horizontal"`, `"vertical"`), like `ControlGroup`, `ToggleGroup` and `Carousel`, and `.ui-row` and `.ui-column` are `.ui-horizontal` and `.ui-vertical`. `auto`, the default, stacks fields and lines up a group of only buttons in a row, and `vertical` stacks the buttons too.

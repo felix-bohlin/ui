@@ -1,6 +1,16 @@
 import type { CustomProperties } from "../types"
 
 export default {
+  "--_backdrop-bg-color": {
+    description:
+      "Backdrop color of a dialog or drawer. Defaults to `--ui-backdrop-bg-color`.",
+    kind: "input",
+  },
+  "--_backdrop-blur": {
+    description:
+      "Backdrop filter of a dialog or drawer. Defaults to a `--ui-backdrop-blur` blur.",
+    kind: "input",
+  },
   "--_bg-color": {
     description: "The current background. Set by the variants.",
     kind: "output",

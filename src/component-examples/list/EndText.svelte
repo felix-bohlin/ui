@@ -10,7 +10,7 @@
     {#snippet end()}860 kB{/snippet}
   </ListItem>
   <ListItem
-    description="Logo, colors and type for print and the web, with an example of each in use."
+    description="Logo, colors and type in print and on the web, with an example of each in use."
     label="Brand guidelines.pdf"
   >
     {#snippet end()}12 MB{/snippet}

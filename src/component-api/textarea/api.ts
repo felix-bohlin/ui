@@ -82,7 +82,8 @@ export default {
       prop: "hideLabel",
     },
     {
-      description: "The id of the `<textarea>`.",
+      description:
+        'The id of the `<textarea>`. Without a label, the start and end text ids start with it: `x-start-text` and `x-end-text` for `id="x"`.',
       inherited: true,
       prop: "id",
       type: "string",

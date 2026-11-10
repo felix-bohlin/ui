@@ -96,7 +96,7 @@ export default {
     },
     {
       description:
-        'The id of the `<input>`. With `passwordToggle`, the label and the toggle point at it, so the component generates one when it\'s left out, and the start and end text ids start with it: `x-start-text` and `x-end-text` for `id="x"`.',
+        'The id of the `<input>`. With `passwordToggle`, the label and the toggle point at it, so the component generates one when it\'s left out. With `passwordToggle` or without a label, the start and end text ids start with it: `x-start-text` and `x-end-text` for `id="x"`.',
       inherited: true,
       prop: "id",
       type: "string",

@@ -104,8 +104,17 @@ export default {
     {
       description:
         'The `inputmode` of the `<input>`. With `type="numeric"` it is `numeric`.',
+      frameworks: ["astro", "svelte", "vue"],
       inherited: true,
       prop: "inputmode",
+      type: "string",
+    },
+    {
+      description:
+        'The `inputmode` of the `<input>`, as `inputMode` like on the element. With `type="numeric"` it is `numeric`.',
+      frameworks: ["react"],
+      inherited: true,
+      prop: "inputMode",
       type: "string",
     },
     {

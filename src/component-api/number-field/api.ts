@@ -32,7 +32,7 @@ export default {
     ...passThrough(
       "input",
       "opui-number-field",
-      ["min", "max", "step", "placeholder"],
+      ["max", "min", "placeholder", "step"],
       {
         astro:
           "The component loads `opui-css/elements/number-field.js`, which steps the value when a button is pressed or held.",

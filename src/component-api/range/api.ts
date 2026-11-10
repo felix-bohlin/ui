@@ -70,7 +70,7 @@ export default {
     type: "number | string",
   },
   notes: {
-    ...passThrough("input", "label", ["max", "min", "step"], {
+    ...passThrough("input", "label", ["autofocus", "form"], {
       react:
         "Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.",
     }),

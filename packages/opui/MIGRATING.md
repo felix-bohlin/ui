@@ -796,10 +796,10 @@ The slots inside the field's border are `start` and `end` instead of `prefix` an
 
 ```diff
 - <Select label="Price" items={items}><span slot="prefix">€</span></Select>
-+ <Select label="Price" start="€" items={items} />
++ <Select label="Price" items={items}><span slot="start">€</span></Select>
 ```
 
-In Astro these are slots (`<span slot="start">€</span>`); in Vue use `<template #start>€</template>`. The prop form is React and Svelte.
+In Vue, use `<template #start>€</template>`.
 
 ## Switch
 
@@ -976,10 +976,10 @@ The slots inside the field's border are `start` and `end` instead of `prefix` an
 
 ```diff
 - <TextField label="Amount"><span slot="prefix">€</span><span slot="suffix">EUR</span></TextField>
-+ <TextField label="Amount" start="€" end="EUR" />
++ <TextField label="Amount"><span slot="start">€</span><span slot="end">EUR</span></TextField>
 ```
 
-In Astro these are slots (`<span slot="start">€</span>`); in Vue use `<template #start>€</template>`. The prop form is React and Svelte.
+In Vue, use `<template #start>€</template>` and `<template #end>EUR</template>`.
 
 ## Textarea
 
@@ -1012,10 +1012,10 @@ The slots inside the field's border are `start` and `end` instead of `prefix` an
 
 ```diff
 - <Textarea label="Bio"><span slot="footer">0 / 160</span></Textarea>
-+ <Textarea label="Bio" bottom="0 / 160" />
++ <Textarea label="Bio"><span slot="bottom">0 / 160</span></Textarea>
 ```
 
-In Astro these are slots (`<span slot="start">€</span>`); in Vue use `<template #start>€</template>`. The prop form is React and Svelte.
+In Vue, use `<template #bottom>0 / 160</template>`.
 
 ## Toast
 

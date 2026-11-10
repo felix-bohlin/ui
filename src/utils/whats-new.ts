@@ -1293,10 +1293,10 @@ export const whatsNew = {
     `<a href="#sizes">Small and x-small fields</a> set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons. On touch screens they keep <code>--ui-font-size-control</code>, so iOS Safari doesn't zoom in on focus.`,
     `The field border, <a href="#api"><code>--ui-field-border-color</code></a>, reaches 3:1 against the page by default.`,
     `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
+    slots(
+      `Breaking: <a href="#sizes"><code>size="small"</code></a> replaces <code>small</code>.`,
+    ),
     {
-      ...slots(
-        `<a href="#sizes">x-small and large</a> sizes. Breaking: <code>size="small"</code> replaces <code>small</code>.`,
-      ),
       default: `<a href="#sizes">x-small and large</a> sizes with the <code>size</code> prop.`,
       html: `<a href="#sizes">x-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
     },
@@ -1372,10 +1372,10 @@ export const whatsNew = {
     `<a href="#sizes">Small and x-small fields</a> set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons. On touch screens they keep <code>--ui-font-size-control</code>, so iOS Safari doesn't zoom in on focus.`,
     `The field border, <a href="#api"><code>--ui-field-border-color</code></a>, reaches 3:1 against the page by default.`,
     `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
+    slots(
+      `Breaking: <a href="#sizes"><code>size="small"</code></a> replaces <code>small</code>.`,
+    ),
     {
-      ...slots(
-        `<a href="#sizes">x-small and large</a> sizes. Breaking: <code>size="small"</code> replaces <code>small</code>.`,
-      ),
       default: `<a href="#sizes">x-small and large</a> sizes with the <code>size</code> prop.`,
       html: `<a href="#sizes">x-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
     },

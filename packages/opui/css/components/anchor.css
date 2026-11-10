@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(.ui-anchor, .ui-badge, .ui-tooltip) {
+  :where(.ui-anchor, .ui-tooltip) {
     --_shift-x: 0;
     --_shift-y: 0;
 

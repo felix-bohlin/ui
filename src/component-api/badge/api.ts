@@ -2,7 +2,6 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Badge",
-  css: ["anchor", "badge"],
   options: [
     {
       description: "Optional colors.",
@@ -76,7 +75,6 @@ export default {
     },
   ],
   root: {
-    anchorName: "--anchor",
     description: "Container element.",
     selector: ".ui-badge",
   },

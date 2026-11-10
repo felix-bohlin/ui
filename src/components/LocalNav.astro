@@ -3,11 +3,12 @@ import TableOfContents from "./TableOfContents.astro"
 import { Button, Drawer, DrawerContent, DrawerFooter } from "opui-css/astro"
 
 type Props = {
+  headings?: { id: string; level: number; text: string }[]
   sidebarDrawerId?: string
   showToc?: boolean
 }
 
-const { sidebarDrawerId, showToc = true } = Astro.props
+const { headings = [], sidebarDrawerId, showToc = true } = Astro.props
 ---
 
 <div class="local-nav">
@@ -60,7 +61,7 @@ const { sidebarDrawerId, showToc = true } = Astro.props
   closedby="any"
 >
   <DrawerContent>
-    <TableOfContents variant="drawer" />
+    <TableOfContents headings={headings} variant="drawer" />
   </DrawerContent>
   <DrawerFooter>
     <Button size="small" commandfor="toc-dialog" command="close">

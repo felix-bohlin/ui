@@ -46,7 +46,7 @@ export const whatsNew = {
       ),
       html: `<a href="#actions">Actions</a> take <code>.ui-align-start</code>.`,
     },
-    `Breaking: <code>--_transition</code> is <code>--_duration</code>, and <code>--_svg-transition</code> is gone, the chevron and the open and close transition use <code>--_duration</code> and <code>--_ease</code>, and the group's <code>--_gutter-color</code> is <code>--_divider-border-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_transition</code> is <code>--_motion</code> (or <code>--ui-duration</code> in a theme), which <code>--_duration</code> is derived from, <code>--_svg-transition</code> is gone, the chevron and the open and close transition use <code>--_duration</code> and <code>--_ease</code>, and the group's <code>--_gutter-color</code> is <code>--_divider-border-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     {
       ...slots(
         `Breaking: an accordion without a <a href="#variants">variant</a> is <code>plain</code>, the page surface with padding, like a card. <code>variant="default"</code> is gone: use <code>variant="transparent"</code> for the previous look.`,
@@ -138,7 +138,7 @@ export const whatsNew = {
     `<a href="#sizes">Sizes</a> follow <code>--ui-control-size</code> and its <code>-x-small</code>, <code>-small</code> and <code>-large</code> steps, which buttons share by default.`,
   ],
   badge: [
-    `Breaking: <code>--_anchor-tx</code> and <code>--_anchor-ty</code> are <code>--_shift-x</code> and <code>--_shift-y</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_anchor-tx</code> and <code>--_anchor-ty</code> are no longer overrides: the corner classes set <code>--_sign-x</code> and <code>--_sign-y</code> (<a href="#under-the-hood">Under the hood</a>).`,
     {
       ...slots(
         `Breaking: <code>Badge</code> no longer renders <code>.ui-anchor</code>. Style <a href="#api"><code>.ui-badge</code></a> instead.`,
@@ -163,7 +163,7 @@ export const whatsNew = {
     components(
       `<a href="#corners"><code>corner</code></a> takes <code>"start-end"</code>, the default corner.`,
     ),
-    `Breaking: <code>--_badge-inset</code> is <code>--_inset-block</code> and <code>--_inset-inline</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_badge-inset</code> is <code>--_inset</code>, one length that the badge turns into <code>--_inset-block</code> and <code>--_inset-inline</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `The indicator border reads <a href="#api"><code>--ui-border-width-thick</code></a>.`,
     `<a href="#colors">Warning</a> badges read <code>--ui-on-warning</code>, the text color on a warning fill.`,
@@ -232,7 +232,7 @@ export const whatsNew = {
     slots(
       `Breaking: no <code>role="note"</code>, so screen readers announce the <a href="#accessibility"><code>&lt;article&gt;</code></a> it is. Add <code>role="note"</code> to keep the old announcement.`,
     ),
-    `Breaking: <code>--_border-radius</code> is <code>--_radius</code>, and <code>--_icon-color</code>, <code>--_outlined-icon-color</code> and <code>--_link-hover-color</code> are <code>--_icon-text-color</code>, <code>--_outlined-icon-text-color</code> and <code>--_link-hover-text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_border-radius</code> is <code>--_radius</code>, <code>--_outlined-icon-color</code> and <code>--_link-hover-color</code> are <code>--_outlined-icon-text-color</code> and <code>--_link-hover-text-color</code>, and <code>--_icon-color</code> is no longer an override: the severity classes and <code>.ui-outlined</code> set <code>--_icon-text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `Severity fills, borders, icons and text read the <a href="#api"><code>--ui-palette-*</code></a> roles, so a theme restyles every severity at once.`,
     `Tonal <a href="#severities">severity callouts</a> have a visible fill in light mode.`,
     `<a href="#severities">Severity callouts</a> take their palette from <code>--ui-critical</code>, <code>--ui-info</code>, <code>--ui-neutral</code>, <code>--ui-success</code> and <code>--ui-warning</code>, so a theme recolors each with one token.`,
@@ -242,7 +242,7 @@ export const whatsNew = {
     components(
       `<a href="#icon"><code>CalloutIcon</code></a> has a <code>success</code> icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
     ),
-    `Breaking: <code>--_color</code> is <code>--_text-color</code>, <code>--_outlined-color</code> is <code>--_outlined-text-color</code> and <code>--_surface-bg</code> is <code>--_surface-bg-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_outlined-color</code> is <code>--_outlined-text-color</code> and <code>--_surface-bg</code> is <code>--_surface-bg-color</code>. <code>--_color</code> is no longer an override: recolor a severity through its intent token, such as <code>--ui-info</code>, or set <code>--_outlined-text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `<a href="#variants">Callouts</a> read <a href="#api"><code>--ui-shadow-surface</code></a>, and tonal callouts without a severity <code>--ui-border-color-raised</code>, when a theme sets them.`,
     `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
     `<a href="#severities">Links</a> in a callout only show hover styles on devices that can hover, so they no longer stick after a tap.`,
@@ -283,7 +283,7 @@ export const whatsNew = {
       react: `<a href="#actions-alignment">Actions</a> sit at the end by default, and <code>align="start"</code> lines them up with the content.`,
       svelte: `<a href="#actions-alignment">Actions</a> sit at the end by default, and <code>align="start"</code> lines them up with the content.`,
     },
-    `Breaking: <code>--_card-bg-color</code>, <code>--_card-border-color</code>, <code>--_card-border-width</code> and <code>--_card-shadow</code> drop the <code>card-</code> prefix, the outlined <code>--_border-color</code> is <code>--_outlined-border-color</code>, and <code>--_bg-surface</code>, <code>--_bg-tonal</code> and <code>--_bg-elevated</code> are <code>--_surface-bg-color</code>, <code>--_tonal-bg-color</code> and <code>--_elevated-bg-color</code>, and <code>--_shadow-elevated</code> is <code>--_elevated-shadow</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_bg-surface</code>, <code>--_bg-tonal</code> and <code>--_bg-elevated</code> are <code>--_surface-bg-color</code>, <code>--_tonal-bg-color</code> and <code>--_elevated-bg-color</code>, which also replace <code>--_card-bg-color</code> in each variant. <code>--_card-border-color</code> and the outlined <code>--_border-color</code> are <code>--_outlined-border-color</code>, <code>--_card-shadow</code> and <code>--_shadow-elevated</code> are <code>--_elevated-shadow</code>, and <code>--_card-border-width</code> is no longer an override, the variants set the border width (<a href="#under-the-hood">Under the hood</a>).`,
     `<code>--_duration</code> and <code>--_ease</code> set the duration and easing of the card link border transition and the focus ring animation (<a href="#under-the-hood">Under the hood</a>).`,
     `Elevated cards use <a href="#api"><code>--ui-shadow-elevated</code></a>, and padding and gaps read the <code>--ui-space-*</code> scale.`,
     `Breaking: <code>--_shadow-light</code> and <code>--_shadow-dark</code> are gone. Set <a href="#api"><code>--ui-shadow-elevated</code></a> in your theme, one shadow whose color follows <code>--ui-shadow-color</code> in each scheme, or <a href="#component-properties"><code>--_elevated-shadow</code></a> on the card.`,
@@ -456,7 +456,7 @@ export const whatsNew = {
       html: `<a href="#severities">Severities</a> for statuses with <code>.ui-success</code>, <code>.ui-warning</code> and more, and a shape-coded <a href="#dot"><code>.ui-dot</code></a>.`,
     },
     `<a href="#disabled">Disabled</a> chips: <code>aria-disabled="true"</code> on a link chip, and <code>.ui-disabled</code> for an inactive static chip.`,
-    `Breaking: <code>--_color</code> is <code>--_text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_color</code> is no longer an override: the variant, color and disabled classes set <code>--_text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     components(
       `<a href="#disabled"><code>disabled</code></a> works on button and link chips. A link chip gets <code>aria-disabled="true"</code>.`,
     ),
@@ -497,7 +497,7 @@ export const whatsNew = {
     `<a href="#labels">Labels</a> sit above their control, and the controls line up at the bottom.`,
     `Buttons and fields draw their corners from <code>--_start-start-radius</code>, <code>--_start-end-radius</code>, <code>--_end-start-radius</code> and <code>--_end-end-radius</code>, which the group sets where controls meet, and fields take <code>--_radius</code> and <code>--_shadow</code> like buttons. Controls in a group drop their shadows (<a href="#under-the-hood">Under the hood</a>).`,
     `Themes can set <a href="#api"><code>--ui-button-hover</code></a> to <code>layer</code> for state-layer hover and pressed states, or to <code>shade-all</code> to shade tonal buttons like filled ones, <code>--ui-button-padding-inline</code> with its size variants, and <code>--ui-button-accent-filled</code> with <code>--ui-button-on-accent-filled</code> for the filled color.`,
-    `Breaking: <code>--_border-radius</code>, <code>--_divider-color</code> and <code>--_min-height</code> are gone. Set <code>--_radius</code> on the buttons and fields and <code>--_size</code> on the buttons, and the lines between buttons follow <code>--_divider-border-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_border-radius</code>, <code>--_divider-color</code> and <code>--_min-height</code> are gone. Set <code>--_radius</code> on the buttons and fields and <code>--_size</code> on the buttons, and the lines between buttons follow <code>--_divider-accent</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `Every control keeps its own <a href="#accessibility">focus ring</a> in <code>--ui-focus-ring-color</code>, on top of its neighbours, and the edges between buttons stay visible in forced colors.`,
     `Primary tonal groups read <a href="#api"><code>--ui-primary-tonal</code></a> and <code>--ui-on-primary-tonal</code> when a theme sets them.`,
     `<a href="#icons">Icon-only buttons</a> stay square and use Button's icon-only icon size, 60% of the button.`,
@@ -694,7 +694,7 @@ export const whatsNew = {
       html: `Name it with <a href="#accessibility"><code>aria-labelledby</code></a> pointing at the header heading.`,
     },
     `The <a href="#basics">backdrop</a> dims and blurs like <code>Dialog</code>, through <code>--ui-backdrop-bg-color</code> and <code>--ui-backdrop-blur</code>.`,
-    `Breaking: <code>--_color</code> is <code>--_text-color</code>, and <code>--_transition-duration</code> and <code>--_transition-timing</code> are <code>--_duration</code> and <code>--_ease</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_color</code> is <code>--_text-color</code>, <code>--_transition-duration</code> is <code>--_motion</code> (or <code>--ui-duration-slow</code> in a theme), which <code>--_duration</code> is derived from, and <code>--_transition-timing</code> is no longer an override: the easing follows <code>--ui-ease-enter</code> and <code>--ui-ease-exit</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `The drawer shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with menus and select pickers. Padding reads the <code>--ui-space-*</code> scale.`,
     `Content padding is <code>--ui-space-3</code>, like the header and the footer (<a href="#basics">Basics</a>).`,
     `The scroll shadow reads <a href="#api"><code>--ui-shadow-scroll</code></a>.`,
@@ -966,7 +966,7 @@ export const whatsNew = {
     components(
       `<a href="#api"><code>hideLabel</code></a> hides the label visually and keeps it as the accessible name.`,
     ),
-    `Breaking: <code>--_thumb-highlight-color</code>, <code>--_track-color</code>, <code>--_track-fill-color</code>, <code>--_track-fill</code> and <code>--_track-height</code> are <code>--_thumb-highlight-bg-color</code>, <code>--_track-bg-color</code>, <code>--_track-fill-bg-color</code>, <code>--_track-fill-fraction</code> and <code>--_track-block-size</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_thumb-bg</code>, <code>--_thumb-highlight-color</code> and <code>--_track-fill-color</code> are <code>--_accent</code>, which the thumb, its halo and the fill are derived from, <code>--_track-color</code> is <code>--_track-base-bg-color</code> and <code>--_track-height</code> is <code>--_track-block-size</code> (<a href="#under-the-hood">Under the hood</a>).`,
     slots(
       `Breaking: <a href="#tick-marks"><code>items</code></a> replaces <code>options</code>, the label goes in the <code>label</code> slot, and the readout slot is <a href="#value"><code>value-text</code></a>.`,
     ),
@@ -997,7 +997,6 @@ export const whatsNew = {
     {
       html: `Breaking: mark an invalid range with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
-    `Breaking: <code>--_thumb-bg</code> is <code>--_thumb-bg-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     components(
       `<a href="#tick-marks"><code>items</code></a> is typed as <code>RangeItem[]</code>, exported from every framework.`,
     ),
@@ -1158,7 +1157,7 @@ export const whatsNew = {
       default: `<code>size</code> takes <code>"x-small"</code> and <code>"large"</code>. <a href="#sizes">Sizes</a>`,
       html: `Takes <code>.ui-x-small</code> and <code>.ui-large</code>. <a href="#sizes">Sizes</a>`,
     },
-    `Breaking: <code>--_accent-color</code> is <code>--_accent</code>, and <code>--_transition-time</code> and <code>--_transition-tf</code> are <code>--_duration</code> and <code>--_ease</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_accent-color</code> is <code>--_accent</code>, and <code>--_transition-time</code> and <code>--_transition-tf</code> are <code>--_motion</code> and <code>--_ease</code>, which only time the card focus ring now that the switch turns on and off at once (<a href="#under-the-hood">Under the hood</a>).`,
     `Breaking: <code>choice.css</code> holds the layout, label, end text, sizes and disabled styles shared with Checkbox and Radio. Import it with them when you <a href="#installation">install single files</a>, or use <code>components.css</code>.`,
     {
       react: `A switch without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
@@ -1499,7 +1498,7 @@ export const whatsNew = {
       html: `<a href="#overflow">Groups wrap</a> when they don't fit, or scrolls with <code>.ui-overflow-scroll</code> or truncates with <code>.ui-overflow-shrink</code>.`,
     },
     `Breaking: no <code>.ui-disabled</code>. A <a href="#toggle-button">toggle</a> looks disabled when its input is <code>disabled</code>.`,
-    `Breaking: <code>ToggleButton</code> <code>--_button-bg-color</code> is <code>--_bg-color</code> and <code>--_svg-size</code> is <code>--_icon-size</code>, which sizes direct child <code>svg</code>s like Button (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>ToggleButton</code> <code>--_button-bg-color</code> is <code>--_selected-bg-color</code> for the checked button, and <code>--_svg-size</code> is <code>--_icon-size</code>, which sizes direct child <code>svg</code>s like Button (<a href="#under-the-hood">Under the hood</a>).`,
     slots(
       `Breaking: <a href="#sizes"><code>size="default"</code></a> is <code>size="medium"</code> on <code>ToggleGroup</code>, like every sized component.`,
     ),

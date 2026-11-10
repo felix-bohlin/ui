@@ -4,7 +4,7 @@ export default function CharacterCount() {
   return (
     <TextField
       characterCount
-      endText="Letters, numbers and dashes."
+      endText="Up to 20 letters, numbers and dashes."
       label="Username"
       maxLength={20}
     />

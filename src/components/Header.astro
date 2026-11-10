@@ -160,6 +160,7 @@ const { link } = Astro.locals
     <slot name="toolbar" />
   </div>
 </div>
+<div class="site-header-backdrop" aria-hidden="true"></div>
 
 <Drawer
   aria-label="Menu"
@@ -273,6 +274,50 @@ const { link } = Astro.locals
           display: none;
         }
       }
+
+      & + .site-header-backdrop {
+        display: none;
+      }
+    }
+  }
+
+  header .ui-content::before,
+  .site-header-backdrop::before {
+    animation-fill-mode: both;
+    animation-name: fade-bg;
+    animation-range: 0 150px;
+    animation-timeline: scroll();
+    animation-timing-function: linear;
+    background-color: var(--ui-surface-elevated);
+    border: var(--ui-border-width) solid
+      oklch(from var(--ui-primary) l c h / 0.2);
+    border-radius: 0;
+    box-shadow: var(--shadow-2);
+    content: "";
+    inset: 0;
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+
+    @media (width >= 1150px) {
+      border-radius: var(--radius-3);
+    }
+
+    @supports (corner-shape: squircle) {
+      border-radius: 0;
+      corner-shape: squircle;
+
+      @media (width >= 1150px) {
+        border-radius: var(--radius-round);
+      }
+    }
+  }
+
+  .site-header-backdrop {
+    display: none;
+
+    &::before {
+      inset-block-end: var(--ui-border-width);
     }
   }
 
@@ -290,37 +335,6 @@ const { link } = Astro.locals
       max-inline-size: var(--site-content-lg);
       padding: var(--size-4);
       position: relative;
-
-      &::before {
-        animation-fill-mode: both;
-        animation-name: fade-bg;
-        animation-range: 0 150px;
-        animation-timeline: scroll();
-        animation-timing-function: linear;
-        background-color: var(--ui-surface-elevated);
-        border: var(--ui-border-width) solid
-          oklch(from var(--ui-primary) l c h / 0.2);
-        border-radius: 0;
-        box-shadow: var(--shadow-2);
-        content: "";
-        inset: 0;
-        opacity: 0;
-        position: absolute;
-        z-index: -1;
-
-        @media (width >= 1150px) {
-          border-radius: var(--radius-3);
-        }
-
-        @supports (corner-shape: squircle) {
-          border-radius: 0;
-          corner-shape: squircle;
-
-          @media (width >= 1150px) {
-            border-radius: var(--radius-round);
-          }
-        }
-      }
     }
 
     nav {
@@ -416,6 +430,36 @@ const { link } = Astro.locals
     }
   }
 
+  @supports (anchor-name: --site-header) {
+    .site-header {
+      z-index: 23;
+    }
+
+    header .ui-content {
+      anchor-name: --site-header;
+      backdrop-filter: none;
+
+      &::before {
+        display: none;
+      }
+    }
+
+    .site-header-backdrop {
+      animation-fill-mode: both;
+      animation-name: fade-backdrop;
+      animation-range: 0 150px;
+      animation-timeline: scroll();
+      animation-timing-function: linear;
+      backdrop-filter: blur(3px);
+      display: block;
+      inset: anchor(--site-header top) anchor(--site-header right)
+        anchor(--site-header bottom) anchor(--site-header left);
+      pointer-events: none;
+      position: fixed;
+      z-index: 21;
+    }
+  }
+
   /* Mobile menu styles */
   #mobile-menu-drawer {
     nav {
@@ -504,6 +548,12 @@ const { link } = Astro.locals
     to {
       font-size: var(--font-size-1);
       line-height: 1.4;
+    }
+  }
+
+  @keyframes fade-backdrop {
+    to {
+      opacity: 0.9;
     }
   }
 

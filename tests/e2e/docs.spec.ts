@@ -538,7 +538,7 @@ test("renews the highlight ranges of an Installation tab when it is shown", asyn
   })
 })
 
-test("a long section heading takes the content width and sticks as a one-line copy without changing its height or the scroll position", async ({
+test("a long section heading takes the content width, passes under the header links and sticks as a one-line copy without changing its height or the scroll position", async ({
   page,
 }) => {
   await page.setViewportSize({ height: 800, width: 1300 })
@@ -568,6 +568,38 @@ test("a long section heading takes the content width and sticks as a one-line co
     })
   expect(width).toBe(paragraphWidth)
   expect(width).toBeGreaterThan(copyMaxWidth)
+
+  if (await page.evaluate(() => CSS.supports("anchor-name", "--a"))) {
+    await page.evaluate(async (y) => {
+      scrollTo(0, y)
+      await new Promise(requestAnimationFrame)
+      await new Promise(requestAnimationFrame)
+    }, stick - 14)
+    expect(
+      await page
+        .getByRole("navigation", { name: "Main navigation" })
+        .getByRole("link", { name: "Guide" })
+        .evaluate(
+          (link, element) => {
+            const box = link.getBoundingClientRect()
+            const x = box.left + box.width / 2
+            const y = box.top + box.height / 2
+            const text = element!
+              .querySelector(":scope > span")!
+              .getBoundingClientRect()
+            return {
+              textCoversLink:
+                x > text.left &&
+                x < text.right &&
+                y > text.top &&
+                y < text.bottom,
+              linkOnTop: link.contains(document.elementFromPoint(x, y)),
+            }
+          },
+          await heading.elementHandle(),
+        ),
+    ).toEqual({ linkOnTop: true, textCoversLink: true })
+  }
 
   for (const offset of [2, 20, 60]) {
     const frames = await heading.evaluate(async (element, y) => {

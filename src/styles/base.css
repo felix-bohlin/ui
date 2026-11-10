@@ -6,18 +6,25 @@
   view-transition-name: site-header;
 }
 
+.site-header-backdrop {
+  view-transition-name: site-header-backdrop;
+}
+
 aside.sidebar {
   view-transition-name: site-sidebar;
 }
 
 ::view-transition-group(site-header),
+::view-transition-group(site-header-backdrop),
 ::view-transition-group(site-sidebar),
 ::view-transition-new(site-header),
+::view-transition-new(site-header-backdrop),
 ::view-transition-new(site-sidebar) {
   animation: none;
 }
 
 ::view-transition-old(site-header),
+::view-transition-old(site-header-backdrop),
 ::view-transition-old(site-sidebar) {
   display: none;
 }

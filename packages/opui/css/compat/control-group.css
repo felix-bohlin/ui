@@ -5,6 +5,13 @@
     }
   }
 
+  @supports not (inline-size: if(else: 0px)) {
+    :where(.ui-control-group):is(.ui-filled, .ui-tonal) {
+      --_divider-gap: 0px;
+      --_start-border-color: var(--_divider-border-color);
+    }
+  }
+
   @supports not (row-rule: none) {
     :where(.ui-control-group) {
       --_divider-gap: 0px;

@@ -1046,6 +1046,66 @@ for (const name of ["Fields", "Variants", "Vertical"]) {
   )
 }
 
+interaction(
+  "control-group",
+  "Fields",
+  "a button that wraps after a field starts its row without a line",
+  async ({ page, root }) => {
+    await needs(
+      page,
+      "gap decorations and if()",
+      () =>
+        CSS.supports("row-rule", "none") &&
+        CSS.supports("inline-size", "if(else: 0px)"),
+    )
+    const group = root.locator(".ui-control-group").first()
+    const field = group.locator(":scope > .ui-text-field")
+    const button = group.locator(":scope > .ui-button")
+
+    await group.evaluate((element) => (element.style.maxInlineSize = "8rem"))
+    const [fieldBox, buttonBox] = await Promise.all([
+      field.boundingBox(),
+      button.boundingBox(),
+    ])
+    expect(buttonBox!.y).toBeGreaterThan(fieldBox!.y + fieldBox!.height)
+    const [start, top] = await button.evaluate((element) => {
+      const style = getComputedStyle(element)
+      return [style.borderInlineStartColor, style.borderBlockStartColor]
+    })
+    expect(start).toBe(top)
+  },
+  ["html"],
+)
+
+interaction(
+  "control-group",
+  "Variants",
+  "a filled control border set on the group joins its buttons by their borders",
+  async ({ root }) => {
+    const group = root.locator(".ui-control-group.ui-tonal")
+
+    await group.evaluate((element) =>
+      element.style.setProperty(
+        "--ui-control-border-color-filled",
+        "oklch(0.5 0.2 30)",
+      ),
+    )
+    expect(
+      await group.evaluate((element) => getComputedStyle(element).columnGap),
+    ).toBe("0px")
+    const sides = await group
+      .locator(":scope > .ui-button")
+      .evaluateAll((elements) =>
+        elements.map((element) => {
+          const style = getComputedStyle(element)
+          return [style.borderInlineStartColor, style.borderInlineEndColor]
+        }),
+      )
+    expect(sides.filter(([start, end]) => start !== end)).toEqual([])
+  },
+  ["html"],
+)
+
 const nextButtonPoint = (carousel: Locator) =>
   carousel.evaluate((element) => {
     const style = getComputedStyle(element, "::scroll-button(inline-end)")

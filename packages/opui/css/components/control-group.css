@@ -135,18 +135,26 @@
 
     &:not(
       .ui-outlined,
-      :has(> :is(.ui-number-field, .ui-select, .ui-text-field, .ui-textarea))
+      :has(
+        > :is(.ui-number-field, .ui-select, .ui-text-field, .ui-textarea)
+          > :is(.ui-end-text, .ui-label, .ui-start-text):not([hidden])
+      ),
+      :not(.ui-vertical):has(> .ui-textarea)
     ) {
       @media (forced-colors: none) {
         --_divider-gap: var(--ui-border-width);
         --_start-border-color: transparent;
-      }
-    }
 
-    &:is(.ui-filled, .ui-tonal) {
-      @container style(--ui-control-border-color-filled) {
-        --_divider-gap: 0px;
-        --_start-border-color: var(--_divider-border-color);
+        &:is(.ui-filled, .ui-tonal) {
+          --_divider-gap: if(
+            not style(--ui-control-border-color-filled): var(--ui-border-width);
+              else: 0px
+          );
+          --_start-border-color: if(
+            not style(--ui-control-border-color-filled): transparent;
+              else: var(--_divider-border-color)
+          );
+        }
       }
     }
 
@@ -167,6 +175,10 @@
         ) {
         --_end-start-radius: 0;
         --_start-start-radius: 0;
+
+        &:not(.ui-button) {
+          margin-inline-start: calc(-1 * var(--_divider-gap));
+        }
       }
 
       &
@@ -209,6 +221,10 @@
         ) {
         --_start-end-radius: 0;
         --_start-start-radius: 0;
+
+        &:not(.ui-button) {
+          margin-block-start: calc(-1 * var(--_divider-gap));
+        }
       }
 
       &

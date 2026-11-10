@@ -28,7 +28,7 @@ export default {
   },
   "--_divider-gap": {
     description:
-      "The gap between two controls, and the width of the rule the browser draws in it (`column-rule`, or `row-rule` in `.ui-vertical`), only between controls on the same row. `--ui-border-width` in a group of buttons that isn't outlined, so a wrapped row never starts with a line. `0px` in a group with a field, in forced colors, where a theme gives tonal and filled controls a border, and in browsers without gap decorations (`css/compat/control-group.css`). There the controls overlap and `--_start-border-color` draws the line. The group reads the theme's border from its parent, so set `--ui-control-border-color-filled` on an ancestor of the group, not on the group.",
+      "The gap between two controls, and the width of the rule the browser draws in it (`column-rule`, or `row-rule` in `.ui-vertical`), only between controls on the same row. `--ui-border-width` in a group that isn't outlined, so a wrapped row never starts with a line. `0px` where a field's label or help text shows or a textarea sits beside the buttons, since the rule runs the full height of the row, in forced colors, in a tonal or filled group where `--ui-control-border-color-filled` is set on the group or an ancestor (`if()`), and in browsers without gap decorations or `if()` (`css/compat/control-group.css`). There the controls overlap and `--_start-border-color` draws the line.",
     kind: "output",
   },
   "--_end-end-radius": {
@@ -43,7 +43,7 @@ export default {
   },
   "--_overlap": {
     description:
-      "How far each control overlaps the next one, so their borders draw one line: the wider of `--ui-border-width` and `--ui-field-border-width` next to a field. Between two buttons the overlap is the button's own border width less `--_divider-gap`, so buttons with a rule between them don't overlap.",
+      "How far each control overlaps the next one, so their borders draw one line: the wider of `--ui-border-width` and `--ui-field-border-width` next to a field. Between two buttons the overlap is the button's own border width less `--_divider-gap`, so buttons with a rule between them don't overlap. A field after another control starts `--_divider-gap` earlier, so the rule sits under the field, and a field that wraps starts its row that much before the rows above.",
     kind: "output",
   },
   "--_ring-reach": {

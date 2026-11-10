@@ -96,6 +96,7 @@ export const patterns = [
     pattern: /(?<![\w-])(?:column-|row-)?rule(?:-[a-z]+)*:/,
   },
   { id: "has", pattern: /:has\(/ },
+  { id: "if", pattern: /(?<![\w-])if\(/ },
   {
     id: "interest-invokers",
     pattern: /\binterest-delay(?:-end|-start)?:|:interest-(?:source|target)\b/,

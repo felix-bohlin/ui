@@ -117,6 +117,7 @@ describe("check-browser-support", () => {
     "field-sizing": "textarea { field-sizing: content; }",
     "gap-decorations": ".a { row-rule: 1px solid; }",
     has: ".a:has(> svg) { gap: 0; }",
+    if: ".a { --b: if(style(--c): 0px; else: 1px); }",
     "interest-invokers": ".a { interest-delay: 0.5s; }",
     "interpolate-size": ":root { interpolate-size: allow-keywords; }",
     lh: ".a { block-size: 0.5lh; }",

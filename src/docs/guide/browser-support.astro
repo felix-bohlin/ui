@@ -87,7 +87,9 @@ const years = Object.keys(categorized)
         <code>.ui-overflow-scroll</code> scrolls through <code>overflow-x</code
         >. Without gap decorations, buttons overlap and the later button's start
         border is the line between them, so a row that wraps starts with that
-        line.
+        line. Without <code>if()</code>, which reads a
+        <code>--ui-control-border-color-filled</code> set on the group itself, a
+        filled or tonal group does the same.
       </li>
       <li>
         Copy (<code>css/compat/copy.css</code>): without interest invokers, a

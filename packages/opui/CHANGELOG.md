@@ -226,7 +226,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Range` has a `--_track-base-bg-color` property for the empty track at rest. The pressed and disabled states override it.
 - `Range` names its value for screen readers with the label of the tick at it, since the datalist is hidden from them: with labeled `items`, or labeled options in the `datalist` slot, and no `valueSuffix`, the input's `aria-valuetext` is the label ("Medium" rather than 1), and `opui-css/css/js/range.js` keeps it in sync and removes it between labeled ticks.
 - `Rating` component (`meter.ui-rating` for a score, `fieldset.ui-rating` for input) in Astro, React, Svelte and Vue: stars drawn with one mask. The meter fills the exact fraction and is `max` stars wide, read with typed `attr()` or `--_max`. With `name` it renders a `<fieldset>` of radios, one per star plus a clear radio, that preview on hover and show a `3/5` counter, and takes `clearLabel`, `starLabel`, `disabled`, `error`, `required`, the sizes (`.ui-small`, `.ui-large`) and `value` as the model. The empty stars read `--ui-track-bg-color` when a theme sets it. The stars and the clear icon are masks, `--_star-image` and `--_clear-image`.
-- `Select` items take `selected`, and `value` preselects options in Astro, Svelte and Vue, and `defaultValue` or `value` in React (an array with `multiple`). Options render `selected` on the server.
+- `Select` items take `selected`, and `value` preselects options in Astro, Svelte and Vue, and `defaultValue` or `value` in React (an array with `multiple`), matched as text like the native select, so `"2"` picks an item valued `2`. Options render `selected` on the server.
 - `Select` and `Range` export `SelectItem` and `RangeItem` from every framework barrel.
 - `Select` takes `autoFit` (`.ui-auto-fit`), like `TextField`: the field's width follows the selected option, from `25ch`.
 - `Select` styles `<optgroup>` groups like `<div role="group">` ones. A `<legend>` first in the group is the heading, and the `label` attribute names the group and shows in browsers without customizable select.
@@ -373,7 +373,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Dialog` has a maximum height. The header and footer stay in place and the content scrolls.
 - `Dialog` width is set with `--_max-inline-size` (`60ch` by default), and the dialog keeps its margin on small screens at any width.
 - `Dialog` fades and scales in from `0.96` with its backdrop, and fades and scales out again when it closes, kept in the top layer by `display` and `overlay` transitions with `allow-discrete`.
-- `Dialog`, `Range`, `Select` and `TextField` start every id they generate with the `id` you pass, or with one id they generate per instance: for `id="x"` the label is `x-label`, the start and end text `x-start-text` and `x-end-text`, the top and bottom of a Select `x-top` and `x-bottom`, the tick list of a Range `x-list` and the title of a Dialog `x-title`.
+- `Dialog`, `Range`, `Select` and `TextField` start every id they generate with the `id` you pass, or with one id they generate per instance: for `id="x"` the label is `x-label`, the start and end text `x-start-text` and `x-end-text`, the affixes, top and bottom of a Select `x-start`, `x-end`, `x-top` and `x-bottom`, the tick list of a Range `x-list` and the title of a Dialog `x-title`.
 - `Divider` that is a direct child of a card has no margin, since the card's gap spaces it.
 - `Drawer` backdrop dims and blurs like `Dialog`, through `--ui-backdrop-bg-color` and `--ui-backdrop-blur`. `.ui-backdrop-transparent` still removes it.
 - `Drawer` content padding is `--ui-space-3`, like its header and footer and `Dialog`. It was `--ui-space-4`, so the title and the body text didn't line up.
@@ -614,6 +614,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Select` and `Range` merge a user `aria-describedby` with the end text id instead of overwriting it.
 - `Select` (Vue) keeps the browser's selection without `v-model`.
 - `Select` adds its top slot, start text (`.ui-start-text`), end text and bottom slot to `aria-describedby`, in that order.
+- `Select` adds its `start` and `end` affixes to its name after the label, like a `TextField`, so a unit such as "days" is read with it.
 - `Select` and `Range` in Astro merge a passed `aria-labelledby` instead of rendering the attribute twice.
 - `Select` in Astro closes its `<selectedcontent>` element. The Astro compiler drops the end tag of a literal `<selectedcontent>`, so the whitespace after it ended up inside it.
 - `Select` draws the chevron of a plain select in `--ui-text-strong`, like the customizable select and the autosuggest field.

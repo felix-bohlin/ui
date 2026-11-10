@@ -9,3 +9,5 @@ export const initialValue = (
     .map((item) => item.value)
   return multiple ? selected : selected[0]
 }
+
+export const sameValue = (a: unknown, b: unknown) => String(a) === String(b)

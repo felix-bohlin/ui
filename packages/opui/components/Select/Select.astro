@@ -5,6 +5,7 @@ import type { Props } from "./types.astro"
 import { cx } from "../cx"
 import { createIds, idRefs } from "../id"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
+import { sameValue } from "./selection"
 
 export const title = "Select"
 
@@ -39,6 +40,8 @@ const startTextId =
   startText || Astro.slots.has("start-text") ? ids("start-text") : undefined
 const endTextId =
   endText || Astro.slots.has("end-text") ? ids("end-text") : undefined
+const startId = Astro.slots.has("start") ? ids("start") : undefined
+const endId = Astro.slots.has("end") ? ids("end") : undefined
 const topId = Astro.slots.has("top") ? ids("top") : undefined
 const bottomId = Astro.slots.has("bottom") ? ids("bottom") : undefined
 const describedBy = idRefs(
@@ -52,8 +55,8 @@ const isSelected = (item: SelectItem) =>
   value === undefined
     ? item.selected
     : Array.isArray(value)
-      ? value.some((selected) => selected === item.value)
-      : item.value === value
+      ? value.some((selected) => sameValue(selected, item.value))
+      : sameValue(item.value, value)
 const labelSlot = Astro.slots.has("label")
   ? trimEdges(await Astro.slots.render("label"))
   : ""
@@ -89,7 +92,9 @@ const LabelTag = label || labelSlot ? "span" : Fragment
       aria-describedby={describedBy}
       aria-invalid={error ? "true" : ariaInvalid}
       aria-labelledby={
-        label || Astro.slots.has("label") ? labelId : ariaLabelledBy
+        label || Astro.slots.has("label")
+          ? idRefs(labelId, startId, endId)
+          : ariaLabelledBy
       }
       id={id}
       name={name ?? field?.name}
@@ -107,10 +112,10 @@ const LabelTag = label || labelSlot ? "span" : Fragment
         <slot />
       </div>
     </select>
-    {Astro.slots.has("start") && <span class="ui-start">
+    {Astro.slots.has("start") && <span class="ui-start" id={startId}>
       <slot name="start" />
     </span>}
-    {Astro.slots.has("end") && <span class="ui-end">
+    {Astro.slots.has("end") && <span class="ui-end" id={endId}>
       <slot name="end" />
     </span>}
     {Astro.slots.has("top") && <span class="ui-top" id={topId}>

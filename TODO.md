@@ -4757,7 +4757,7 @@ Custom elements (web components) the library could add, for behavior that HTML a
     }
     ```
   - Fixed: The file field root sets `--_file-button-padding` to `--ui-space-2`, and it feeds the one `--_file-button-inset` formula. The small and x-small rule only sets it to `--ui-space-1`. `custom-properties/text-field.ts` documents it. Checked in Chromium: the button's margin and height are the same as before at every size, in a drop zone and in small and x-small control groups.
-- [ ] (1) TextField: small and x-small fields switch to `--ui-font-size-control` under `@media (pointer: coarse)`. This works around iOS Safari's zoom on focused text under 16px, sits in the component CSS, and also applies on Android and touch laptops, which don't zoom (`packages/opui/css/components/text-field.css:573-578`, `packages/opui/CHANGELOG.md:251`, `packages/opui/CHANGELOG.md:420`)
+- [x] (1) TextField: small and x-small fields switch to `--ui-font-size-control` under `@media (pointer: coarse)`. This works around iOS Safari's zoom on focused text under 16px, sits in the component CSS, and also applies on Android and touch laptops, which don't zoom (`packages/opui/css/components/text-field.css:573-578`, `packages/opui/CHANGELOG.md:251`, `packages/opui/CHANGELOG.md:420`)
   - Summary: Small fields show default-size text on every touch screen, though only iPhone and iPad zoom in on small text.
   - Recommended: Fix with option A. It follows the browser support rules, which keep engine workarounds in the compat layer.
   - Fix: with either option, the rule only stops the zoom when `--ui-font-size-control` is at least 16px. The m3, shadcn and brutalist themes set it to `0.875rem`.
@@ -4779,6 +4779,7 @@ Custom elements (web components) the library could add, for behavior that HTML a
     }
     ```
     Then add a TextField item to the Compat layer list in `src/docs/guide/browser-support.astro` and the `## To check` item. Say "on iPhone and iPad" in both CHANGELOG entries and both What's new notes. With the m3, shadcn and brutalist themes, `--ui-font-size-control` is `0.875rem`, so iOS zooms into every field, not only small ones. Neither option changes that.
+  - Fixed: option A. The rule moved to a new `css/compat/text-field.css` under `@supports (-webkit-touch-callout: none)`, so it only applies on iPhone and iPad, and it now covers fields of every size (`.ui-text-field`, `.ui-textarea`, `.ui-select` and `.ui-number-field`) with `max(16px, var(--ui-font-size-control))`, so the m3, shadcn and brutalist themes, which set `--ui-font-size-control` to `0.875rem`, no longer zoom either (found in Fredahead, felix-bohlin/ui#443). Listed in the Compat layer section of `src/docs/guide/browser-support.astro`, the two CHANGELOG entries and the three What's new notes say "on iPhone and iPad", and `--_font-size` names the floor. The gate is already in the conditions `tests/e2e/compat.spec.ts` sees and applies in no desktop engine, so its engine lists don't change. A `## To check` item covers iOS.
 - [x] (1) Timeline: `--_icon-size` is the size of the whole marker that holds an icon (`--ui-space-5`), while in Stepper, Button, Switch and the other components `--_icon-size` is the size of the icon itself; the timeline icon is `0.625 * --_marker-size` (`packages/opui/css/components/timeline.css:3-6`, `packages/opui/css/components/timeline.css:34-40`, `packages/opui/css/components/timeline.css:162-167`, `src/component-api/custom-properties/timeline.ts:14-18`)
   - Summary: Setting the Timeline's icon size property resizes the whole marker circle, unlike the same property elsewhere.
   - Recommended: Fix. Timeline is new in 6.0, so the rename needs no Breaking entry.
@@ -4946,6 +4947,10 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Options if Safari shows both:
     - A: hide the native part with `input[list]::-webkit-list-button { display: none; }` next to the Chromium rule. It is a native control part with no standard pseudo-element.
     - B: keep it.
+- [ ] (1) TextField: on iPhone and iPad, the compat rule sets every field's text to `--ui-font-size-control` or 16px, whichever is larger, so iOS Safari doesn't zoom in on focus. Playwright's WebKit doesn't take the `(-webkit-touch-callout: none)` gate, so no test runs it. Open `/tests/forms/?theme=brutalist` on an iPhone, tap a default, small and x-small TextField, a Textarea and a Select, and check that the page doesn't zoom (`packages/opui/css/compat/text-field.css:1-7`)
+  - Summary: Whether iPhone and iPad stop zooming in on fields under every theme is only checked by hand.
+  - Recommended: Explain further. It needs a run on an iPhone before it can be confirmed.
+  - Fix: if the page still zooms, check the computed font size of the focused control in Web Inspector, and that the compat layer loaded.
 - [ ] (2) Anchor: on `/html/components/anchor/` in Chrome 142+, Tab to "felix-bohlin/ui" in the RepoCard example, wait for the card, press Tab and check whether focus reaches "Star" in the `popover="hint"` card, and whether a screen reader announces the card. On touch, tapping the link follows it, so "Star" can't be reached (`src/component-examples/anchor/RepoCard.html:7-35`)
   - Summary: Whether keyboard focus reaches the Star button in the repo hover card, and what a screen reader says about it, is unknown.
   - Recommended: Fix with option A. Only a manual run in Chrome can confirm it, and the release checks are where manual runs happen.

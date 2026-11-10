@@ -106,6 +106,8 @@ The floating content is `.ui-floating` instead of `.ui-anchor-floating`, also in
 
 `alt` is required when `src` is set (types). Use `alt=""` for decorative images.
 
+A button avatar needs `as="button"`, and `disabled` only goes with it or with `href` (types).
+
 `Avatar` with `as="button"` renders `type="button"` by default in Astro and Vue, so it no longer submits a form. Pass `type="submit"` if it should.
 
 Text uses `--ui-on-primary`, and sizes follow `--ui-control-size` and `--ui-control-size-*`.
@@ -198,6 +200,8 @@ In Astro and Vue, `Button` renders `type="button"` by default, so it no longer s
 ```
 
 Colors changed: critical buttons keep light text on their fill, tonal primary and critical buttons use dark text on a light container in light mode and light text on a dark container in dark mode, and text and outlined buttons use a lighter accent for text in dark mode.
+
+`Button` takes link attributes only with `href` (types).
 
 A disabled link has no `href`. The components drop it for you. In HTML, remove `href` from links with `aria-disabled="true"`, because the CSS doesn't block clicks on them. The same goes for `Chip` links.
 
@@ -1087,6 +1091,13 @@ In Astro and Vue, `style` on a `ToggleButton` goes to the root `<label>` instead
 ```diff
 - <span class="ui-anchor ui-tooltip">
 + <span class="ui-tooltip">
+```
+
+The floating content is `.ui-floating` instead of `.ui-anchor-floating`.
+
+```diff
+- <span class="ui-anchor-floating">
++ <span class="ui-floating">
 ```
 
 `Tooltip` no longer wraps the trigger in a `<span interestfor>`. Give the tooltip an `id` (now required in the types) and add `interestfor` with that id to the trigger.

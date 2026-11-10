@@ -121,9 +121,9 @@ const steps = [
 .tooltip {
   opacity: 0;
   transition:
-    display calc(0.2s * var(--ui-motion, 1)) allow-discrete,
-    opacity calc(0.2s * var(--ui-motion, 1)),
-    overlay calc(0.2s * var(--ui-motion, 1)) allow-discrete;
+    display calc(var(--ui-duration) * var(--ui-motion, 1)) allow-discrete,
+    opacity calc(var(--ui-duration) * var(--ui-motion, 1)),
+    overlay calc(var(--ui-duration) * var(--ui-motion, 1)) allow-discrete;
 }
 
 .tooltip:popover-open {

@@ -25,9 +25,9 @@ const steps = [
   opacity: 0;
   overflow-block: clip;
   transition:
-    block-size 0.2s,
-    content-visibility 0.2s allow-discrete,
-    opacity 0.2s;
+    block-size var(--ui-duration),
+    content-visibility var(--ui-duration) allow-discrete,
+    opacity var(--ui-duration);
 }
 
 .accordion[open]::details-content {
@@ -64,8 +64,8 @@ const steps = [
 .accordion > summary .marker {
   margin-inline-start: auto;
   transition:
-    rotate 0.2s,
-    scale 0.2s;
+    rotate var(--ui-duration),
+    scale var(--ui-duration);
 }
 
 .marker-flip[open] > summary .marker {

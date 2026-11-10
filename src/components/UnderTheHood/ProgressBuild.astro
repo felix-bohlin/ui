@@ -58,7 +58,7 @@ const steps = [
     css: `
 .progress > progress[value]::-webkit-progress-value {
   background-color: var(--ui-selected-strong);
-  transition: inline-size calc(0.2s * var(--ui-motion, 1)) ease-out;
+  transition: inline-size calc(var(--ui-duration) * var(--ui-motion, 1)) ease-out;
 }
 
 .progress > progress::-moz-progress-bar {

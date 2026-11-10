@@ -156,13 +156,13 @@ const steps = [
 .range::-webkit-slider-thumb {
   box-shadow: 0 0 0 var(--halo)
     oklch(from var(--ui-primary) 70% 100% h / var(--ui-state-active-alpha-light));
-  transition: box-shadow calc(0.2s * var(--ui-motion, 1)) var(--ui-ease);
+  transition: box-shadow calc(var(--ui-duration-fast) * var(--ui-motion, 1)) var(--ui-ease);
 }
 
 .range::-moz-range-thumb {
   box-shadow: 0 0 0 var(--halo)
     oklch(from var(--ui-primary) 70% 100% h / var(--ui-state-active-alpha-light));
-  transition: box-shadow calc(0.2s * var(--ui-motion, 1)) var(--ui-ease);
+  transition: box-shadow calc(var(--ui-duration-fast) * var(--ui-motion, 1)) var(--ui-ease);
 }`,
     features: ["relative-color"],
     notes: [

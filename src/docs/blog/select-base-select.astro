@@ -53,10 +53,10 @@ import Variants from "../../component-examples/select/Variants.astro"
   opacity: 1;
   scale: 1;
   transition:
-    display 0.2s allow-discrete,
-    opacity 0.2s,
-    overlay 0.2s allow-discrete,
-    scale 0.2s;
+    display var(--ui-duration) allow-discrete,
+    opacity var(--ui-duration),
+    overlay var(--ui-duration) allow-discrete,
+    scale var(--ui-duration);
 
   @starting-style {
     opacity: 0;

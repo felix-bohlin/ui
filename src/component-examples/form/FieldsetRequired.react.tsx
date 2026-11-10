@@ -9,9 +9,11 @@ import {
 
 export default function FieldsetRequired() {
   return (
-    <Fieldset>
+    <Fieldset aria-describedby="form-fieldset-required-1-description">
       <FieldLegend>Delivery</FieldLegend>
-      <FieldDescription>Where should we send your order?</FieldDescription>
+      <FieldDescription id="form-fieldset-required-1-description">
+        Where should we send your order?
+      </FieldDescription>
       <FieldGroup>
         <TextField label="Recipient" name="recipient" />
         <Textarea label="Address" name="address" required />

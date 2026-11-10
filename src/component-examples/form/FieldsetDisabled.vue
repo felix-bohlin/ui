@@ -9,9 +9,9 @@ import {
 </script>
 
 <template>
-  <Fieldset disabled>
+  <Fieldset aria-describedby="form-fieldset-disabled-1-description" disabled>
     <FieldLegend>Security alerts</FieldLegend>
-    <FieldDescription
+    <FieldDescription id="form-fieldset-disabled-1-description"
       >Your administrator manages these settings.</FieldDescription
     >
     <FieldGroup name="alerts">

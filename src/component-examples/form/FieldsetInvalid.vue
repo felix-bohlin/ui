@@ -9,9 +9,13 @@ import {
 </script>
 
 <template>
-  <Fieldset aria-describedby="form-fieldset-invalid-1-error">
+  <Fieldset
+    aria-describedby="form-fieldset-invalid-1-description form-fieldset-invalid-1-error"
+  >
     <FieldLegend>Pet food</FieldLegend>
-    <FieldDescription>Pick at least one.</FieldDescription>
+    <FieldDescription id="form-fieldset-invalid-1-description"
+      >Pick at least one.</FieldDescription
+    >
     <FieldGroup name="food">
       <Checkbox error value="kibble">Kibble</Checkbox>
       <Checkbox error value="wet-food">Wet food</Checkbox>

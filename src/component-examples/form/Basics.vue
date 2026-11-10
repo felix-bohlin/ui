@@ -12,9 +12,11 @@ import {
 
 <template>
   <Form>
-    <Fieldset>
+    <Fieldset aria-describedby="form-basics-1-description">
       <FieldLegend>Contact</FieldLegend>
-      <FieldDescription>How can we reach you?</FieldDescription>
+      <FieldDescription id="form-basics-1-description"
+        >How can we reach you?</FieldDescription
+      >
       <FieldGroup>
         <TextField autocomplete="name" label="Name" />
         <TextField autocomplete="email" label="Email" type="email" />

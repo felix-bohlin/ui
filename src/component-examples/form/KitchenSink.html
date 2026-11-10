@@ -1,7 +1,12 @@
 <form class="ui-form" id="form-kitchen-sink-1">
-  <fieldset class="ui-fieldset">
+  <fieldset
+    class="ui-fieldset"
+    aria-describedby="form-kitchen-sink-2-description"
+  >
     <legend>User profile</legend>
-    <p class="ui-description">Please provide your basic contact details.</p>
+    <p class="ui-description" id="form-kitchen-sink-2-description">
+      Please provide your basic contact details.
+    </p>
     <div class="ui-field-group">
       <label class="ui-text-field">
         <span class="ui-label">Full name</span>
@@ -26,9 +31,9 @@
         </span>
       </label>
       <label class="ui-select">
-        <span class="ui-label" id="form-kitchen-sink-2-label">Role</span>
+        <span class="ui-label" id="form-kitchen-sink-7-label">Role</span>
         <span class="ui-field">
-          <select aria-labelledby="form-kitchen-sink-2-label">
+          <select aria-labelledby="form-kitchen-sink-7-label">
             <button>
               <selectedcontent></selectedcontent>
             </button>
@@ -43,9 +48,14 @@
     </div>
   </fieldset>
   <hr class="ui-divider" />
-  <fieldset class="ui-fieldset">
+  <fieldset
+    class="ui-fieldset"
+    aria-describedby="form-kitchen-sink-3-description"
+  >
     <legend>Notifications</legend>
-    <p class="ui-description">Configure how you want to receive updates.</p>
+    <p class="ui-description" id="form-kitchen-sink-3-description">
+      Configure how you want to receive updates.
+    </p>
     <div class="ui-field-group">
       <label class="ui-switch">
         <input type="checkbox" role="switch" name="email_notifs" checked />
@@ -58,9 +68,14 @@
     </div>
   </fieldset>
   <hr class="ui-divider" />
-  <fieldset class="ui-fieldset">
+  <fieldset
+    class="ui-fieldset"
+    aria-describedby="form-kitchen-sink-4-description"
+  >
     <legend>Theme preference</legend>
-    <p class="ui-description">Select your preferred visual style.</p>
+    <p class="ui-description" id="form-kitchen-sink-4-description">
+      Select your preferred visual style.
+    </p>
     <div class="ui-field-group">
       <label class="ui-radio">
         <input type="radio" name="theme" checked value="light" />
@@ -77,20 +92,25 @@
     </div>
   </fieldset>
   <hr class="ui-divider" />
-  <fieldset class="ui-fieldset">
+  <fieldset
+    class="ui-fieldset"
+    aria-describedby="form-kitchen-sink-5-description"
+  >
     <legend>Experience level</legend>
-    <p class="ui-description">How many years of experience do you have?</p>
+    <p class="ui-description" id="form-kitchen-sink-5-description">
+      How many years of experience do you have?
+    </p>
     <div class="ui-field-group">
       <label class="ui-range">
-        <span class="ui-label" id="form-kitchen-sink-3-label"
+        <span class="ui-label" id="form-kitchen-sink-8-label"
           >Professional experience</span
         >
-        <span class="ui-start-text" id="form-kitchen-sink-3-start-text"
+        <span class="ui-start-text" id="form-kitchen-sink-8-start-text"
           >Drag the slider to match your total tenure.</span
         >
         <input
-          aria-describedby="form-kitchen-sink-3-start-text"
-          aria-labelledby="form-kitchen-sink-3-label"
+          aria-describedby="form-kitchen-sink-8-start-text"
+          aria-labelledby="form-kitchen-sink-8-label"
           max="20"
           min="0"
           step="1"
@@ -101,9 +121,14 @@
     </div>
   </fieldset>
   <hr class="ui-divider" />
-  <fieldset class="ui-fieldset">
+  <fieldset
+    class="ui-fieldset"
+    aria-describedby="form-kitchen-sink-6-description"
+  >
     <legend>Additional info</legend>
-    <p class="ui-description">Anything else we should know?</p>
+    <p class="ui-description" id="form-kitchen-sink-6-description">
+      Anything else we should know?
+    </p>
     <div class="ui-field-group">
       <label class="ui-textarea">
         <span class="ui-label">Biography</span>

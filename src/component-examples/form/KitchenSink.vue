@@ -25,9 +25,9 @@ const roleItems = [
 
 <template>
   <Form id="form-kitchen-sink-1">
-    <Fieldset>
+    <Fieldset aria-describedby="form-kitchen-sink-2-description">
       <FieldLegend>User profile</FieldLegend>
-      <FieldDescription>
+      <FieldDescription id="form-kitchen-sink-2-description">
         Please provide your basic contact details.
       </FieldDescription>
       <FieldGroup>
@@ -48,9 +48,9 @@ const roleItems = [
       </FieldGroup>
     </Fieldset>
     <Divider />
-    <Fieldset>
+    <Fieldset aria-describedby="form-kitchen-sink-3-description">
       <FieldLegend>Notifications</FieldLegend>
-      <FieldDescription>
+      <FieldDescription id="form-kitchen-sink-3-description">
         Configure how you want to receive updates.
       </FieldDescription>
       <FieldGroup>
@@ -59,9 +59,11 @@ const roleItems = [
       </FieldGroup>
     </Fieldset>
     <Divider />
-    <Fieldset>
+    <Fieldset aria-describedby="form-kitchen-sink-4-description">
       <FieldLegend>Theme preference</FieldLegend>
-      <FieldDescription>Select your preferred visual style.</FieldDescription>
+      <FieldDescription id="form-kitchen-sink-4-description"
+        >Select your preferred visual style.</FieldDescription
+      >
       <FieldGroup name="theme">
         <Radio checked value="light">Light theme</Radio>
         <Radio value="dark">Dark theme</Radio>
@@ -69,9 +71,9 @@ const roleItems = [
       </FieldGroup>
     </Fieldset>
     <Divider />
-    <Fieldset>
+    <Fieldset aria-describedby="form-kitchen-sink-5-description">
       <FieldLegend>Experience level</FieldLegend>
-      <FieldDescription
+      <FieldDescription id="form-kitchen-sink-5-description"
         >How many years of experience do you have?</FieldDescription
       >
       <FieldGroup>
@@ -86,9 +88,11 @@ const roleItems = [
       </FieldGroup>
     </Fieldset>
     <Divider />
-    <Fieldset>
+    <Fieldset aria-describedby="form-kitchen-sink-6-description">
       <FieldLegend>Additional info</FieldLegend>
-      <FieldDescription>Anything else we should know?</FieldDescription>
+      <FieldDescription id="form-kitchen-sink-6-description"
+        >Anything else we should know?</FieldDescription
+      >
       <FieldGroup>
         <Textarea
           label="Biography"

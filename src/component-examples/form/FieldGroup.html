@@ -1,7 +1,12 @@
 <form class="ui-form">
-  <fieldset class="ui-fieldset">
+  <fieldset
+    class="ui-fieldset"
+    aria-describedby="form-field-group-1-description"
+  >
     <legend>Plan</legend>
-    <p class="ui-description">You can change your plan at any time.</p>
+    <p class="ui-description" id="form-field-group-1-description">
+      You can change your plan at any time.
+    </p>
     <div class="ui-field-group">
       <label class="ui-radio">
         <input type="radio" name="plan" value="starter" />
@@ -17,9 +22,14 @@
       </label>
     </div>
   </fieldset>
-  <fieldset class="ui-fieldset">
+  <fieldset
+    class="ui-fieldset"
+    aria-describedby="form-field-group-2-description"
+  >
     <legend>Add-ons</legend>
-    <p class="ui-description">Billed monthly with your plan.</p>
+    <p class="ui-description" id="form-field-group-2-description">
+      Billed monthly with your plan.
+    </p>
     <div class="ui-field-group">
       <label class="ui-checkbox">
         <input type="checkbox" name="add-ons" value="backups" />

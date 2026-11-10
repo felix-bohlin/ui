@@ -8,9 +8,9 @@ import {
 
 export default function FieldsetStacked() {
   return (
-    <Fieldset>
+    <Fieldset aria-describedby="form-fieldset-stacked-1-description">
       <FieldLegend>Favorite pet</FieldLegend>
-      <FieldDescription>
+      <FieldDescription id="form-fieldset-stacked-1-description">
         Please select your favorite type of pet.
       </FieldDescription>
       <FieldGroup name="pet">

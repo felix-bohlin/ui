@@ -11,9 +11,9 @@ import {
 export default function FieldGroupExample() {
   return (
     <Form>
-      <Fieldset>
+      <Fieldset aria-describedby="form-field-group-1-description">
         <FieldLegend>Plan</FieldLegend>
-        <FieldDescription>
+        <FieldDescription id="form-field-group-1-description">
           You can change your plan at any time.
         </FieldDescription>
         <FieldGroup name="plan">
@@ -22,9 +22,11 @@ export default function FieldGroupExample() {
           <Radio value="business">Business</Radio>
         </FieldGroup>
       </Fieldset>
-      <Fieldset>
+      <Fieldset aria-describedby="form-field-group-2-description">
         <FieldLegend>Add-ons</FieldLegend>
-        <FieldDescription>Billed monthly with your plan.</FieldDescription>
+        <FieldDescription id="form-field-group-2-description">
+          Billed monthly with your plan.
+        </FieldDescription>
         <FieldGroup name="add-ons">
           <Checkbox
             endText="Daily snapshots, kept for 30 days."

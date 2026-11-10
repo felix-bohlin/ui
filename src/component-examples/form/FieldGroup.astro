@@ -11,9 +11,11 @@ import {
 ---
 
 <Form>
-  <Fieldset>
+  <Fieldset aria-describedby="form-field-group-1-description">
     <FieldLegend>Plan</FieldLegend>
-    <FieldDescription>You can change your plan at any time.</FieldDescription>
+    <FieldDescription id="form-field-group-1-description"
+      >You can change your plan at any time.</FieldDescription
+    >
     <FieldGroup name="plan">
       <Radio value="starter">Starter</Radio>
       <Radio value="team">Team</Radio>
@@ -21,9 +23,11 @@ import {
     </FieldGroup>
   </Fieldset>
 
-  <Fieldset>
+  <Fieldset aria-describedby="form-field-group-2-description">
     <FieldLegend>Add-ons</FieldLegend>
-    <FieldDescription>Billed monthly with your plan.</FieldDescription>
+    <FieldDescription id="form-field-group-2-description"
+      >Billed monthly with your plan.</FieldDescription
+    >
     <FieldGroup name="add-ons">
       <Checkbox value="backups">
         Backups

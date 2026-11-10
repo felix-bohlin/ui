@@ -73,7 +73,11 @@ export const patterns = [
     pattern:
       /\bcontainer(?:-type)?:[^;]*\b(?:inline-)?size\b|@container\s+(?:[\w-]+\s+)?\(|(?<![\w.-])\d*\.?\d+cq(?:b|h|i|max|min|w)\b/,
   },
-  { id: "container-scroll-state-queries", pattern: /scroll-state\(/ },
+  {
+    id: "container-scroll-state-queries",
+    key: "css.at-rules.container.scroll-state_queries",
+    pattern: /scroll-state\(/,
+  },
   {
     id: "container-style-queries",
     pattern: /@container\s[^{]*?(?<![\w-])style\(/,

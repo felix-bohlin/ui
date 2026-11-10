@@ -17,11 +17,7 @@ import VueLogo from "../../components/VueLogo.astro"
 const elements = ["button", "details", "dialog", "input"]
 const installs = ["npm i opui-css", "<link>", "button.css"]
 const logos = [Html5Logo, AstroLogo, ReactLogo, SvelteLogo, VueLogo]
-const looks = [
-  { font: "inherit", hue: 30, radius: "var(--ui-radius-round)" },
-  { font: "var(--ui-font-code)", hue: 145, radius: "0" },
-  { font: "ui-serif, Georgia, serif", hue: 300, radius: "0.5rem" },
-]
+const steps = Array.from({ length: 16 }, (_, index) => index + 1)
 ---
 
 <Guide overline="Guide">
@@ -84,12 +80,11 @@ const looks = [
       </Card>
       <Card variant="outlined">
         <div class="pillar-art ui-not-rich-text" aria-hidden="true">
-          {looks.map(({ font, hue, radius }) => <span
-            class="pillar-look ui-palette"
-            style={`--ui-palette-hue: ${hue}; --ui-radius: ${radius}; font-family: ${font}`}
-          >
-            <span class="ui-button ui-filled ui-primary">Save</span>
-          </span>)}
+          <span class="pillar-palette">
+            {steps.map((step) => (
+              <span style={`background-color: var(--ui-color-${step})`} />
+            ))}
+          </span>
         </div>
         <CardHeader>
           <h3>Make it yours</h3>
@@ -216,15 +211,21 @@ const looks = [
     }
   }
 
-  .pillar-look {
-    --ui-palette-source: oklch(
-      58% calc(0.21 * var(--ui-palette-chroma)) var(--ui-palette-hue)
-    );
-    --ui-primary-source: light-dark(var(--ui-color-9), var(--ui-color-6));
-  }
-
   .pillar-or {
     color: var(--ui-text);
     font-size: var(--ui-font-size-small);
+  }
+
+  .pillar-palette {
+    border-radius: var(--ui-radius-small);
+    display: grid;
+    flex: 1;
+    forced-color-adjust: none;
+    grid-template-columns: repeat(16, 1fr);
+    overflow: hidden;
+
+    > span {
+      block-size: var(--size-5);
+    }
   }
 </style>

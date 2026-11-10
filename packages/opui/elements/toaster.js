@@ -239,11 +239,21 @@ export class Toaster extends Base {
   }
 }
 
+function defaultToaster() {
+  const modal =
+    document.activeElement?.closest("dialog:modal") ??
+    document.querySelector("dialog:modal")
+  return (
+    modal?.querySelector("opui-toaster") ??
+    document.querySelector("opui-toaster")
+  )
+}
+
 export function toast(message, { toaster, ...options } = {}) {
   const element =
     typeof toaster === "string"
       ? document.getElementById(toaster)
-      : (toaster ?? document.querySelector("opui-toaster"))
+      : (toaster ?? defaultToaster())
   if (!(element instanceof Toaster)) {
     console.warn("toast(): no <opui-toaster> on the page")
     return null

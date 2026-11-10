@@ -562,6 +562,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `List` `.ui-dense` also shrinks group labels in grouped lists, such as a dense Select.
 - `List` text inherits the item's font weight, so `font-weight` on an `li` makes the whole row bold, e.g. for unread items.
 - `List` only caps the start column at the icon size when it holds an `svg` directly, so an `Avatar` with an icon keeps its size.
+- `List` sizes an `Avatar` in `.ui-start` or `.ui-end` of a dense row like `.ui-x-small` instead of capping its width, so a size class on the avatar wins and a large letter avatar stays round.
 - `List` sizes switches, checkboxes and radios through the public tokens, so switch sizes round to whole pixels in lists, and a size class on the control wins over the list's size.
 - `List` `.ui-dense` tightens the separators of `.ui-bordered` lists too, not only `.ui-border-top`.
 - `List` without a variant sets the field border to its own border, so checkbox and radio rings show on the filled row.

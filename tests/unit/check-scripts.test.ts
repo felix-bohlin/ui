@@ -115,6 +115,7 @@ describe("check-browser-support", () => {
     "display-animation": ".a { transition: display 1s allow-discrete; }",
     "exp-functions": ".a { font-size: calc(1rem * pow(1.2, 2)); }",
     "field-sizing": "textarea { field-sizing: content; }",
+    function: ".a { color: --ui-text-of(red); }",
     "gap-decorations": ".a { row-rule: 1px solid; }",
     has: ".a:has(> svg) { gap: 0; }",
     if: ".a { --b: if(style(--c): 0px; else: 1px); }",
@@ -168,6 +169,14 @@ describe("check-browser-support", () => {
       ),
     ).toEqual([])
     expect(featureIds(".a { overflow-clip-margin: 4px; }")).toEqual([])
+    expect(
+      featureIds(
+        ".a:is(.b) { --_x: var(--ui-text); container-name: --a; view-transition-name: --b; }",
+      ),
+    ).toEqual([])
+    expect(
+      featureIds("@function --ui-on(--fill) { result: var(--fill); }"),
+    ).toEqual(["function"])
   })
 
   test("anchor positioning is found in every property, function and at-rule of its compat keys", () => {
@@ -330,6 +339,34 @@ const size = knob("--ui-tpyo")
       "--ui-contrast",
       "--ui-primary",
       "--ui-text-strnog",
+    ])
+  })
+
+  test("reads a custom function's parameters and locals only outside it, and lists the functions a sheet defines and calls", () => {
+    const { called, declared, functions, read } = customProperties(
+      "css/a.css",
+      `@function --ui-on(--fill, --floor: var(--ui-floor)) {
+        --mixed: oklch(from var(--fill) max(l, var(--floor)) c h);
+        result: --ui-tint(var(--mixed), var(--ui-alpha));
+      }
+      .a {
+        --_a: --ui-on(var(--ui-primary));
+        anchor-name: --a;
+        color: --ui-tpyo(var(--fill));
+      }`,
+    )
+    expect([...called].toSorted()).toEqual([
+      "--ui-on",
+      "--ui-tint",
+      "--ui-tpyo",
+    ])
+    expect([...declared].toSorted()).toEqual(["--_a", "--mixed"])
+    expect([...functions]).toEqual(["--ui-on"])
+    expect([...read].toSorted()).toEqual([
+      "--fill",
+      "--ui-alpha",
+      "--ui-floor",
+      "--ui-primary",
     ])
   })
 

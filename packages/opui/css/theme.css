@@ -1,4 +1,52 @@
 @layer theme.base {
+  @function --ui-dark-text-of(--color) {
+    result: oklch(
+      from var(--color) max(l, var(--ui-text-min-lightness))
+        min(c, var(--ui-text-max-chroma)) h
+    );
+  }
+
+  @function --ui-fluid(--min, --max) {
+    result: calc(
+      var(--min) + (var(--max) - var(--min)) * var(--ui-fluid-progress)
+    );
+  }
+
+  @function --ui-on(--fill) {
+    result: color(
+      from var(--fill) xyz-d65
+        calc(0.9505 * (0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1)))
+        calc(0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1))
+        calc(1.089 * (0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1)))
+    );
+  }
+
+  @function --ui-shade(--fill, --by) {
+    result: light-dark(
+      oklch(
+        from var(--fill)
+          calc(
+            l + var(--by) / 2 + var(--by) * 1.5 * clamp(-1, (0.3 - l) * 1000, 1)
+          )
+          c h
+      ),
+      oklch(from var(--fill) calc(l - var(--by)) c h)
+    );
+  }
+
+  @function --ui-shadow-layer(--alpha) {
+    result: oklch(
+      from var(--ui-shadow-color) l c h / calc(alpha + var(--alpha))
+    );
+  }
+
+  @function --ui-text-of(--color) {
+    result: light-dark(
+      oklch(from var(--color) min(l, var(--ui-text-max-lightness)) c h),
+      --ui-dark-text-of(var(--color))
+    );
+  }
+
   /* Color scheme */
   .ui-light {
     --ui-color-scheme: light;
@@ -244,25 +292,21 @@
       var(--ui-fluid-min-inline-size),
       var(--ui-fluid-max-inline-size)
     );
-    --ui-font-size-h1: calc(
-      var(--ui-font-size-700) +
-        (var(--ui-font-size-900) - var(--ui-font-size-700)) *
-        var(--ui-fluid-progress)
+    --ui-font-size-h1: --ui-fluid(
+      var(--ui-font-size-700),
+      var(--ui-font-size-900)
     );
-    --ui-font-size-h2: calc(
-      var(--ui-font-size-600) +
-        (var(--ui-font-size-800) - var(--ui-font-size-600)) *
-        var(--ui-fluid-progress)
+    --ui-font-size-h2: --ui-fluid(
+      var(--ui-font-size-600),
+      var(--ui-font-size-800)
     );
-    --ui-font-size-h3: calc(
-      var(--ui-font-size-500) +
-        (var(--ui-font-size-600) - var(--ui-font-size-500)) *
-        var(--ui-fluid-progress)
+    --ui-font-size-h3: --ui-fluid(
+      var(--ui-font-size-500),
+      var(--ui-font-size-600)
     );
-    --ui-font-size-h4: calc(
-      var(--ui-font-size-400) +
-        (var(--ui-font-size-500) - var(--ui-font-size-400)) *
-        var(--ui-fluid-progress)
+    --ui-font-size-h4: --ui-fluid(
+      var(--ui-font-size-400),
+      var(--ui-font-size-500)
     );
     --ui-font-size-h5: var(--ui-font-size-400);
     --ui-font-size-h6: var(--ui-font-size-300);
@@ -416,21 +460,9 @@
 
     /* Intent tokens */
     --ui-critical: var(--ui-red);
-    --ui-critical-text: light-dark(
-      oklch(from var(--ui-critical) min(l, var(--ui-text-max-lightness)) c h),
-      oklch(
-        from var(--ui-critical) max(l, var(--ui-text-min-lightness))
-          min(c, var(--ui-text-max-chroma)) h
-      )
-    );
+    --ui-critical-text: --ui-text-of(var(--ui-critical));
     --ui-info: var(--ui-blue);
-    --ui-info-text: light-dark(
-      oklch(from var(--ui-info) min(l, var(--ui-text-max-lightness)) c h),
-      oklch(
-        from var(--ui-info) max(l, var(--ui-text-min-lightness))
-          min(c, var(--ui-text-max-chroma)) h
-      )
-    );
+    --ui-info-text: --ui-text-of(var(--ui-info));
     --ui-invalid: light-dark(
       var(--ui-critical),
       oklch(
@@ -438,13 +470,7 @@
           min(c, var(--ui-accent-max-chroma)) h
       )
     );
-    --ui-invalid-text: light-dark(
-      oklch(from var(--ui-invalid) min(l, var(--ui-text-max-lightness)) c h),
-      oklch(
-        from var(--ui-invalid) max(l, var(--ui-text-min-lightness))
-          min(c, var(--ui-text-max-chroma)) h
-      )
-    );
+    --ui-invalid-text: --ui-text-of(var(--ui-invalid));
     --ui-neutral: light-dark(
       oklch(
         min(0.53, var(--ui-accent-max-lightness)) var(--ui-gray-chroma)
@@ -452,36 +478,13 @@
       ),
       oklch(0.53 var(--ui-gray-chroma) var(--ui-gray-hue))
     );
-    --ui-neutral-text: light-dark(
-      oklch(from var(--ui-neutral) min(l, var(--ui-text-max-lightness)) c h),
-      oklch(
-        from var(--ui-neutral) max(l, var(--ui-text-min-lightness))
-          min(c, var(--ui-text-max-chroma)) h
-      )
-    );
+    --ui-neutral-text: --ui-text-of(var(--ui-neutral));
     --ui-success: var(--ui-green);
-    --ui-success-text: light-dark(
-      oklch(from var(--ui-success) min(l, var(--ui-text-max-lightness)) c h),
-      oklch(
-        from var(--ui-success) max(l, var(--ui-text-min-lightness))
-          min(c, var(--ui-text-max-chroma)) h
-      )
-    );
+    --ui-success-text: --ui-text-of(var(--ui-success));
     --ui-warning: var(--ui-orange);
     /* White on fills below 0.182 relative luminance (xyz y), near-black on lighter ones, so either side keeps 4.5:1 */
-    --ui-on-warning: color(
-      from var(--ui-warning) xyz-d65
-        calc(0.9505 * (0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1)))
-        calc(0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1))
-        calc(1.089 * (0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1)))
-    );
-    --ui-warning-text: light-dark(
-      oklch(from var(--ui-warning) min(l, var(--ui-text-max-lightness)) c h),
-      oklch(
-        from var(--ui-warning) max(l, var(--ui-text-min-lightness))
-          min(c, var(--ui-text-max-chroma)) h
-      )
-    );
+    --ui-on-warning: --ui-on(var(--ui-warning));
+    --ui-warning-text: --ui-text-of(var(--ui-warning));
 
     /* Primary */
     --ui-primary-source: light-dark(
@@ -502,19 +505,8 @@
       )
     );
     /* White on fills below 0.182 relative luminance (xyz y), near-black on lighter ones, so either side keeps 4.5:1 */
-    --ui-on-primary: color(
-      from var(--ui-primary) xyz-d65
-        calc(0.9505 * (0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1)))
-        calc(0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1))
-        calc(1.089 * (0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1)))
-    );
-    --ui-primary-text: light-dark(
-      oklch(from var(--ui-primary) min(l, var(--ui-text-max-lightness)) c h),
-      oklch(
-        from var(--ui-primary) max(l, var(--ui-text-min-lightness))
-          min(c, var(--ui-text-max-chroma)) h
-      )
-    );
+    --ui-on-primary: --ui-on(var(--ui-primary));
+    --ui-primary-text: --ui-text-of(var(--ui-primary));
     /* --ui-link-visited-text-color: var(--ui-primary-text); */
     /* --ui-primary-tonal: light-dark(var(--ui-color-6), var(--ui-color-11)); */
     /* --ui-on-primary-tonal: light-dark(var(--ui-gray-15), var(--ui-gray-1)); */
@@ -588,30 +580,20 @@
 
     /* Elevation */
     --ui-shadow-elevated:
-      0 -1px 3px 0 oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.02)),
-      0 1px 2px -5px
-        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.02)),
-      0 2px 5px -5px
-        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.04)),
-      0 4px 12px -5px
-        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.05)),
-      0 12px 15px -5px
-        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.07));
+      0 -1px 3px 0 --ui-shadow-layer(0.02),
+      0 1px 2px -5px --ui-shadow-layer(0.02),
+      0 2px 5px -5px --ui-shadow-layer(0.04),
+      0 4px 12px -5px --ui-shadow-layer(0.05),
+      0 12px 15px -5px --ui-shadow-layer(0.07);
     --ui-shadow-overlay: var(--ui-shadow-elevated);
     --ui-shadow-scroll:
-      0 -2px 5px 0 oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.02)),
-      0 1px 1px -2px
-        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.03)),
-      0 2px 2px -2px
-        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.03)),
-      0 5px 5px -2px
-        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.04)),
-      0 9px 9px -2px
-        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.05)),
-      0 16px 16px -2px
-        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.06));
-    --ui-shadow-selected: 0 1px 2px -1px
-      oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.09));
+      0 -2px 5px 0 --ui-shadow-layer(0.02),
+      0 1px 1px -2px --ui-shadow-layer(0.03),
+      0 2px 2px -2px --ui-shadow-layer(0.03),
+      0 5px 5px -2px --ui-shadow-layer(0.04),
+      0 9px 9px -2px --ui-shadow-layer(0.05),
+      0 16px 16px -2px --ui-shadow-layer(0.06);
+    --ui-shadow-selected: 0 1px 2px -1px --ui-shadow-layer(0.09);
 
     /* Overlays */
     --ui-backdrop-bg-color: light-dark(

@@ -202,13 +202,7 @@
       &:where(:not(:disabled, [aria-disabled="true"])) {
         @media (hover: hover) {
           &:hover {
-            --_bg-color: light-dark(
-              oklch(
-                from var(--_selected-bg-color)
-                  calc(l + 0.05 + 0.15 * clamp(-1, (0.3 - l) * 1000, 1)) c h
-              ),
-              oklch(from var(--_selected-bg-color) calc(l - 0.1) c h)
-            );
+            --_bg-color: --ui-shade(var(--_selected-bg-color), 0.1);
           }
         }
       }

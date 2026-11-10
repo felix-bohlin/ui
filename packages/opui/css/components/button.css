@@ -8,10 +8,7 @@
     --_accent-fill: var(--ui-button-accent-filled, var(--_accent));
     --_accent-text: light-dark(
       var(--_accent),
-      oklch(
-        from var(--_accent) max(l, var(--ui-text-min-lightness))
-          min(c, var(--ui-text-max-chroma)) h
-      )
+      --ui-dark-text-of(var(--_accent))
     );
     --_accent-tonal: var(--ui-surface-tonal);
     --_actions-shift: min(
@@ -42,21 +39,9 @@
     --_end-end-radius: var(--_radius);
     --_end-start-radius: var(--_radius);
     /* Lightens accents darker than L 0.3, darkens the rest */
-    --_filled-active-bg-color: light-dark(
-      oklch(
-        from var(--_accent-fill)
-          calc(l + 0.075 + 0.225 * clamp(-1, (0.3 - l) * 1000, 1)) c h
-      ),
-      oklch(from var(--_accent-fill) calc(l - 0.15) c h)
-    );
+    --_filled-active-bg-color: --ui-shade(var(--_accent-fill), 0.15);
     /* Lightens accents darker than L 0.3, darkens the rest */
-    --_filled-hover-bg-color: light-dark(
-      oklch(
-        from var(--_accent-fill)
-          calc(l + 0.05 + 0.15 * clamp(-1, (0.3 - l) * 1000, 1)) c h
-      ),
-      oklch(from var(--_accent-fill) calc(l - 0.1) c h)
-    );
+    --_filled-hover-bg-color: --ui-shade(var(--_accent-fill), 0.1);
     --_font-size: var(--ui-font-size-control);
     --_icon-size: 0.7lh;
     --_on-accent: var(

@@ -1,6 +1,8 @@
 import { expect, test } from "@playwright/test"
 import type { Page } from "@playwright/test"
+import { needs } from "./fixtures"
 import {
+  CHROMIUM_FUNCTION_ARGUMENT_CYCLE,
   ENGINE_BUGS,
   FIREFOX_SELF_RTL,
   FIREFOX_STALE_FALLBACK_OPACITY,
@@ -56,6 +58,37 @@ test("every engine bug has a repro", () => {
       .filter((bug) => !reproduced.has(bug)),
     "every reason in engine-bugs.ts needs a plain-HTML repro here, in a repro() block titled with it",
   ).toEqual([])
+})
+
+repro(CHROMIUM_FUNCTION_ARGUMENT_CYCLE, () => {
+  for (const inner of ["--other", "--half"]) {
+    test(`a custom function takes an argument that reads a property set with ${inner === "--half" ? "the same" : "another"} function`, async ({
+      browserName,
+      page: tab,
+    }) => {
+      failsIn(
+        browserName,
+        inner === "--half"
+          ? { chromium: CHROMIUM_FUNCTION_ARGUMENT_CYCLE }
+          : {},
+      )
+      await tab.setContent(`<!doctype html>
+<style>
+  @function --half(--length) { result: calc(var(--length) / 2) }
+  @function --other(--length) { result: calc(var(--length) / 2) }
+  #box { --inner: ${inner}(80px); --outer: --half(var(--inner)); inline-size: var(--outer) }
+</style>
+<div id="box"></div>`)
+      await needs(tab, "@function", () =>
+        CSS.supports("inline-size", "--half(1px)"),
+      )
+      expect(
+        await tab
+          .locator("#box")
+          .evaluate((box) => getComputedStyle(box).inlineSize),
+      ).toBe("20px")
+    })
+  }
 })
 
 repro(WEBKIT_TOP_LAYER_ANCHOR, () => {

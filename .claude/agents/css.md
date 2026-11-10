@@ -49,5 +49,6 @@ Look for older patterns that a newer feature replaces, and for JavaScript that C
 - Anchor positioning, `popover` and invoker commands instead of positioning scripts
 - `field-sizing`, `appearance: base-select`, `::details-content`, `::scroll-button()` and scroll-driven animations
 - Logical properties and `inset` shorthands, nesting, `@layer` and `@scope` where they make a rule simpler
+- `@function` for a formula repeated across tokens or stylesheets, and `if()` for one declaration that swaps on `--ui-contrast` or `--ui-motion`, by Custom functions and Switch values and `if()` in `packages/opui/components/AGENTS.md`
 
 When a feature is used, check the component page's `browserSupport` lists it. Leave the details to the `browser-support` agent.

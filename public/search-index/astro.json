@@ -3633,6 +3633,13 @@
     "url": "/astro/guide/theming/#forced-colors"
   },
   {
+    "id": "guide-theming-astro-functions",
+    "title": "Functions",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/astro/guide/theming/#functions"
+  },
+  {
     "id": "guide-why-opui-astro",
     "title": "Why Open Props UI?",
     "description": "Components built from the HTML and CSS the platform ships today, as files you can read, copy and own.",

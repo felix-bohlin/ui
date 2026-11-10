@@ -38,6 +38,25 @@ const tokens = new Set([
   ...sources.flatMap((source) => source.match(/--ui-[a-z0-9-]+/g) ?? []),
 ])
 
+const FUNCTION = /@function\s+(--[\w-]+)([^{]*)\{/g
+const typedColors = (source: string) =>
+  [...source.matchAll(FUNCTION)]
+    .filter(([, , prelude]) => prelude.includes("<color>"))
+    .map(([, name]) => name)
+
+test("custom functions type no color, so light-dark() resolves where the token is used", () => {
+  expect(
+    typedColors(
+      "@function --ui-a(--fill <color>) { result: var(--fill); } @function --ui-b(--fill) returns <color> { result: var(--fill); } @function --ui-c(--size <length>) { result: var(--size); }",
+    ),
+  ).toEqual(["--ui-a", "--ui-b"])
+  expect(
+    sources.flatMap(typedColors),
+    "drop the <color> type: a typed parameter or result resolves light-dark() on the scope that calls the function, so .ui-dark and .ui-light parts of the page keep the color of the page's scheme",
+  ).toEqual([])
+  expect(sources.join().match(FUNCTION)?.length).toBeGreaterThan(0)
+})
+
 const ON_FILL = /^--ui-((?:[a-z]+-)?)on-([a-z0-9-]+)$/
 const ON_FILL_EXCEPTION = "--ui-on-fill"
 const SURFACE_CONTEXTS = ["filled", "raised"]

@@ -46,11 +46,19 @@ import Severities from "../../component-examples/callout/Severities.astro"
     </ul>
     <Code
       lang="css"
-      code={`.info {
+      code={`@function --ui-palette-step(--step, --lightness, --chroma) {
+  result: oklch(
+    from var(--ui-palette-source) var(--lightness)
+      calc(var(--chroma) * (c / 0.21))
+      calc(h + ((var(--step) - 1) * var(--ui-palette-hue-rotate-by)))
+  );
+}
+
+.info {
   --ui-palette-source: oklch(from var(--ui-info) 0.58 0.21 h);
   --ui-palette-hue-rotate-by: 1;
-  --ui-color-3: oklch(from var(--ui-palette-source) 93% calc(0.1 * (c / 0.21)) calc(h + (2 * var(--ui-palette-hue-rotate-by))));
-  --ui-color-6: oklch(from var(--ui-palette-source) 71% calc(0.19 * (c / 0.21)) calc(h + (5 * var(--ui-palette-hue-rotate-by))));
+  --ui-color-3: --ui-palette-step(3, 93%, 0.1);
+  --ui-color-6: --ui-palette-step(6, 71%, 0.19);
   --ui-palette-tint-subtle: light-dark(
     oklch(from var(--ui-color-3) l c h / 60%),
     oklch(from var(--ui-color-6) l c h / 5%)

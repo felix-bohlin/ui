@@ -987,6 +987,7 @@ interaction(
       .first()
       .evaluate((element) => element.setAttribute("hidden", ""))
     await expect(buttons.first()).toBeHidden()
+    await settle(root)
     const [first, last] = await Promise.all([
       styleOf(buttons.nth(1)),
       styleOf(buttons.last()),

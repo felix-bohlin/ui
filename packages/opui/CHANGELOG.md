@@ -501,6 +501,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Callout` rich text inside `.ui-content` no longer gets doubled margins.
 - `Callout` icons take the severity color with `color`, so fill icons no longer get a colored outline.
 - `Callout` links in a tonal callout take the hover color on keyboard focus too, and it keeps 4.5:1 on the tonal background.
+- `Callout` only gives plain links and `.ui-link` its text color, so a link `Avatar`, `Button` or `Chip` in a callout or a toast keeps its own, where a filled link button's label took the color of its fill.
 - `Callout` severity icons use a lighter palette step in dark mode, so they reach 3:1 against the callout.
 - `Callout` with `variant="tonal"` no longer renders `.ui-tonal`, a class without a rule.
 - `Callout` icon offset scales with the font size.

@@ -61,6 +61,12 @@ export const whatsNew = {
     },
     `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
     `The open <a href="#basics">panel</a> clips with <code>overflow-block: clip</code> while it animates, so it follows the writing mode.`,
+    {
+      ...components(
+        `<a href="#basics"><code>AccordionContent</code></a> is a stack with <code>--ui-space-3</code> between its children and no block margins, like card content, so a body with several elements needs no CSS. Content with inline children keeps the normal flow.`,
+      ),
+      html: `<a href="#basics"><code>.ui-content</code></a> is a stack with <code>--ui-space-3</code> between its children and no block margins, like card content, so a body with several elements needs no CSS. Content with inline children keeps the normal flow.`,
+    },
   ],
   anchor: [
     `Breaking: <code>--_anchor-tx</code> and <code>--_anchor-ty</code> are <code>--_shift-x</code> and <code>--_shift-y</code> (<a href="#under-the-hood">Under the hood</a>).`,
@@ -227,6 +233,7 @@ export const whatsNew = {
     `<a href="#keyboard">Keyboard hints</a> use <code>--ui-line-height-tight</code> (1.25), shared with card captions and tooltips.`,
     `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of <code>--border-size-1</code>.`,
     `Themes can shrink a button while it's pressed with <a href="#api"><code>--ui-press-scale</code></a>, eased by <code>--ui-ease-move</code>. Buttons in a group never scale.`,
+    `Buttons only show <a href="#variants">hover styles</a> on devices that can hover, so they no longer stick after a tap.`,
   ],
   callout: [
     slots(
@@ -253,6 +260,7 @@ export const whatsNew = {
       ),
       html: `<a href="#actions"><code>.ui-actions</code></a> puts a row of buttons under the content, and a <a href="#dismissible">close button</a> sits at the end of the first row.`,
     },
+    `<a href="#severities">Links</a> in a callout turn <code>--ui-primary-text</code> on hover and focus, the primary that keeps 4.5:1 on every surface.`,
   ],
   card: [
     `<a href="#density"><code>density</code></a> takes <code>spacious</code> for a card that stands alone, such as a sign-in form, and <code>dense</code> for a small stat.`,
@@ -426,6 +434,9 @@ export const whatsNew = {
       default: `<a href="#select-all"><code>SelectAll</code></a> makes a <code>data-select-all</code> checkbox check and uncheck the others in a group, and shows it indeterminate when some are checked, with the <code>&lt;opui-select-all&gt;</code> custom element, which the component loads.`,
       html: `<a href="#select-all"><code>&lt;opui-select-all&gt;</code></a> makes a <code>data-select-all</code> checkbox check and uncheck the others in a group, and shows it indeterminate when some are checked. Import <code>opui-css/elements/select-all.js</code>.`,
     },
+    {
+      vue: `<a href="#checkbox-input"><code>CheckboxInput</code></a> takes <code>class</code>.`,
+    },
   ],
   chip: [
     `Themes can set <a href="#api"><code>--ui-chip-radius</code></a> for a corner radius of its own.`,
@@ -534,6 +545,7 @@ export const whatsNew = {
     ),
     `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
     `<a href="#sizes">Sizes</a> follow <code>--ui-control-size</code> and <code>--ui-button-size-*</code>, like buttons.`,
+    `Buttons in a group only show <a href="#variants">hover styles</a> on devices that can hover, so they no longer stick after a tap.`,
   ],
   copy: [
     {
@@ -632,6 +644,13 @@ export const whatsNew = {
         `<a href="#basics"><code>closeLabel</code></a> on <code>DialogHeader</code> adds a close button at the end of the title row.`,
       ),
       html: `A <a href="#basics">close button</a> after the heading stays on the title row when a paragraph follows it.`,
+    },
+    `Dialogs have a border in the page background color, or <a href="#api"><code>--ui-border-color-raised</code></a> when a theme sets it, so they stay visible on tonal surfaces.`,
+    {
+      ...components(
+        `<a href="#basics"><code>DialogContent</code></a> is a stack with <code>--ui-space-3</code> between its children and no block margins, like <code>Drawer</code> content, so paragraphs don't touch. Content with inline children keeps the normal flow.`,
+      ),
+      html: `<a href="#basics"><code>.ui-content</code></a> is a stack with <code>--ui-space-3</code> between its children and no block margins, like <code>Drawer</code> content, so paragraphs don't touch. Content with inline children keeps the normal flow.`,
     },
   ],
   divider: [
@@ -895,6 +914,7 @@ export const whatsNew = {
       html: `<a href="#round"><code>.ui-round</code></a> draws the progress as a ring for small spaces, in browsers with typed <code>attr()</code>.`,
     },
     `The bar reads <a href="#api"><code>--ui-selected-strong</code></a>, like the done part of a Stepper and a tracked Timeline, so one theme value recolors all three.`,
+    `<a href="#component-properties"><code>--_loop-duration</code></a> sets the length of the <a href="#indeterminate">indeterminate</a> loop.`,
   ],
   radio: [
     `<a href="#cards">Cards</a> take <code>--ui-card-padding</code>.`,
@@ -958,6 +978,9 @@ export const whatsNew = {
     `Borders read <a href="#api"><code>--ui-field-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
     `The root selector is wrapped in <code>:where()</code>, like other components, so your own selectors win (<a href="#under-the-hood">Under the hood</a>).`,
     `The hover <a href="#basics">halo</a> only shows on devices that can hover, so it no longer sticks after a tap.`,
+    {
+      vue: `<a href="#radio-input"><code>RadioInput</code></a> takes <code>class</code>.`,
+    },
   ],
   range: [
     components(
@@ -1033,6 +1056,8 @@ export const whatsNew = {
     `The <a href="#basics">thumb</a> and its ring only show hover styles on devices that can hover, so they no longer stick after a tap.`,
     `The container query reads <code>inline-size</code>, so <a href="#spread">spread</a> layouts follow the writing mode.`,
     `With labeled <a href="#tick-marks">tick marks</a>, the input names its value with the label of the tick at it, through <code>aria-valuetext</code>, so a screen reader says Medium rather than 1.`,
+    `The pressed <a href="#basics">thumb</a> ring reads <code>--ui-state-active-alpha-light</code> and <code>--ui-state-active-alpha-dark</code>, so it is 30% in dark mode instead of 20%.`,
+    `An <a href="#validation">invalid</a> range reads <code>--ui-invalid</code>, like every invalid control.`,
   ],
   rating: [
     `New: a <a href="#basics">Rating</a> draws a score as stars in a <code>&lt;meter&gt;</code>, down to a fraction, and with a <a href="#input">name</a> collects one with radios that preview on hover. The stars and the clear icon are masks that <a href="#input"><code>--_star-image</code> and <code>--_clear-image</code></a> replace.`,
@@ -1114,6 +1139,7 @@ export const whatsNew = {
     `<a href="#variants">Filled selects</a> fade their hover background, and options highlight at once on hover and fade back over <code>--ui-duration-fast</code>.`,
     `Themes can make the picker spring open with <a href="#api"><code>--ui-ease-move</code></a>.`,
     `Options take <a href="#rich-options">avatars, icons, swatches and descriptions</a>, and the field shows the icon and label of the selected one.`,
+    `A select in a table cell keeps a <code>12ch</code> minimum width, so it stays usable with a <a href="#hidden-label">hidden label</a> in a narrow column.`,
   ],
   spinner: [
     `Busy buttons and links with <code>aria-describedby</code> <a href="#blocked-by-another-use-case">get a spinner</a> now.`,
@@ -1184,7 +1210,10 @@ export const whatsNew = {
     `Borders read <a href="#api"><code>--ui-field-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
     `Styles use logical properties only, so the <a href="#basics">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
     `The <a href="#basics">switch</a> turns on and off at once, so a click or tap shows right away.`,
-    `An invalid switch colors its <a href="#validation">track border</a>, like an invalid checkbox, instead of drawing a ring around the track.`,
+    `An invalid switch colors its <a href="#validation">track border</a> with <code>--ui-invalid</code>, like an invalid checkbox, instead of drawing a ring around the track.`,
+    {
+      vue: `<a href="#switch-input"><code>SwitchInput</code></a> takes <code>class</code>.`,
+    },
   ],
   table: [
     `The caption reads <a href="#api"><code>--ui-text-subtle</code></a>.`,
@@ -1392,6 +1421,7 @@ export const whatsNew = {
       react: `Without a <code>label</code>, the root is a <a href="#hidden-label"><code>div</code></a> instead of a <code>label</code>, like the HTML of a field named with <code>aria-label</code>, and the start and end text describe the input.`,
       svelte: `Without a <code>label</code>, the root is a <a href="#hidden-label"><code>div</code></a> instead of a <code>label</code>, like the HTML of a field named with <code>aria-label</code>, and the start and end text describe the input.`,
     },
+    `A field in a table cell keeps a <code>12ch</code> minimum width, so it stays usable with a <a href="#hidden-label">hidden label</a> in a narrow column.`,
   ],
   textarea: [
     `Placeholders and helper text read <a href="#api"><code>--ui-text-subtle</code></a>.`,
@@ -1459,6 +1489,7 @@ export const whatsNew = {
       react: `Without a <code>label</code>, the root is a <code>div</code> instead of a <code>label</code>, and the start and end text describe the textarea (<a href="#api">API</a>).`,
       svelte: `Without a <code>label</code>, the root is a <code>div</code> instead of a <code>label</code>, and the start and end text describe the textarea (<a href="#api">API</a>).`,
     },
+    `A textarea in a table cell keeps a <code>12ch</code> minimum width, so it stays usable with a <a href="#hidden-label">hidden label</a> in a narrow column.`,
   ],
   timeline: [
     `New: a <a href="#basics">Timeline</a> lists dated events with markers and a connecting line, with <a href="#colors">colors</a>, a <a href="#current">current item</a> and a <a href="#tracked">tracked</a> line.`,
@@ -1612,6 +1643,9 @@ export const whatsNew = {
     `<a href="#swatch"><code>.ui-swatch</code></a> is a small dot for a color legend, painted by a severity class or <code>--_swatch-bg-color</code>.`,
     `<a href="#link">Links</a> fade to their hover and focus color.`,
     `Themes can set <a href="#link"><code>--ui-link-focus: highlight</code></a> to fill a focused link with the focus color and draw a bar under it instead of the ring, like GOV.UK.`,
+    `<a href="#rich-text-showcase">Rich text</a> list gutters are measured in <code>ch</code>, so two-digit markers fit and ordered lists widen them for longer numbers, also with <code>start</code>. Bulleted and numbered list text starts at the same position.`,
+    `<code>sup</code> and <code>sub</code> are <code>0.75em</code> in rich text and in <a href="#inline-text-elements"><code>.ui-sup</code> and <code>.ui-sub</code></a>, and no longer change the line height.`,
+    `<a href="#rich-text-showcase">Rich text</a> figure captions are muted and start-aligned under quotes, code blocks and tables.`,
   ],
 } satisfies Record<string, Note[]>
 

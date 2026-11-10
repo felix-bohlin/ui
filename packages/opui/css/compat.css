@@ -11,6 +11,7 @@
 @import "./compat/spinner.css";
 @import "./compat/table.css";
 @import "./compat/tabs.css";
+@import "./compat/text-field.css";
 @import "./compat/toggle-group.css";
 @import "./compat/tooltip.css";
 @import "./compat/typography.css";

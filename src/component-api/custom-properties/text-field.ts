@@ -88,7 +88,8 @@ export default {
     kind: "input",
   },
   "--_font-size": {
-    description: "The font size of the control and affixes.",
+    description:
+      "The font size of the control and affixes. At least 16px on iPhone and iPad (`css/compat/text-field.css`), so iOS Safari doesn't zoom in on focus.",
     kind: "input",
   },
   "--_helper-text-color": {

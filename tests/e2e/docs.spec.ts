@@ -584,7 +584,6 @@ test("a long section heading takes the content width and its one-line copy shows
     }),
   )
   expect(width).toBe(paragraphWidth)
-  expect(width).toBeGreaterThan(copyMaxWidth)
 
   const below = await scrollTo("heading-top", 300)
   const under = await scrollTo("heading-bottom", 0)
@@ -592,6 +591,20 @@ test("a long section heading takes the content width and its one-line copy shows
   expect([under.height, past.height]).toEqual([below.height, below.height])
 
   if (await page.evaluate(() => CSS.supports("animation-timeline", "view()"))) {
+    expect(width).toBeGreaterThan(copyMaxWidth)
+    await page.evaluate(() => {
+      location.hash = "#sizes"
+    })
+    await expect
+      .poll(() =>
+        page.evaluate(() => [
+          getComputedStyle(document.querySelector("#sizes > h2")!, "::after")
+            .opacity,
+          getComputedStyle(document.querySelector("#basics > h2")!, "::after")
+            .filter,
+        ]),
+      )
+      .toEqual(["0", "opacity(0)"])
     expect([below, under, past]).toEqual([
       {
         copy: "0 opacity(1)",

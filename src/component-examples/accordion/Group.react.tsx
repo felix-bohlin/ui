@@ -27,7 +27,7 @@ export default function Group() {
       <Accordion>
         <AccordionSummary>What does shipping cost?</AccordionSummary>
         <AccordionContent>
-          <p>Orders over 50 EUR ship free. Smaller orders cost 4.90 EUR.</p>
+          <p>Orders over €50 ship free. Smaller orders cost €4.90.</p>
         </AccordionContent>
       </Accordion>
     </Card>

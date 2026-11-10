@@ -128,7 +128,11 @@ export const keywords = [
 
   <section id="actions">
     <h2>Actions</h2>
-    <p>Use <PropOrClass prop="AccordionActions" class=".ui-actions" />.</p>
+    <p>
+      Use <PropOrClass prop="AccordionActions" class=".ui-actions" />, with
+      <PropOrClass prop='align="start"' class=".ui-align-start" /> to line them
+      up with the content.
+    </p>
     <AutoExample name="Actions" column />
   </section>
 
@@ -147,11 +151,13 @@ export const keywords = [
     <h2>Marker animation</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Rotates by default. Use <code>markerAnimation</code> to change it.
+        Rotates by default. Use <code>markerAnimation</code> to change it, with
+        a marker that points to the inline end for <code>turn</code>.
       </Fragment>
       <Fragment slot="html">
-        Rotates by default. Use <code>.ui-marker-animation-flip</code> or
-        <code>.ui-marker-animation-turn</code> to change it.
+        Rotates by default. Use <code>.ui-marker-animation-flip</code>, or
+        <code>.ui-marker-animation-turn</code> with a marker that points to the
+        inline end.
       </Fragment>
     </Conditional>
     <AutoExample name="MarkerAnimation" column />

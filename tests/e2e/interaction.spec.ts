@@ -1910,10 +1910,13 @@ interaction(
     await expect(toasts).toHaveCount(0)
     await expect(toaster.locator("ol")).toBeHidden()
 
-    await root.getByRole("button", { name: "Save changes" }).click()
+    const save = root.getByRole("button", { name: "Save changes" })
+    await save.focus()
+    await page.keyboard.press("Enter")
     await toasts.first().getByRole("button", { name: "Close" }).focus()
     await page.keyboard.press("Escape")
     await expect(toasts).toHaveCount(0)
+    await expect(save).toBeFocused()
   },
 )
 

@@ -11,11 +11,12 @@ export default {
     },
     {
       description:
-        'On a button with `command="--toast"`, shows its toast. On an action button, runs the action and dismisses the toast. On a close button, dismisses the toast.',
+        'On a button with `command="--toast"`, shows its toast. On an action button, runs the action and dismisses the toast. On a close button, dismisses the toast and moves focus like Esc.',
       keys: ["Enter", "Space"],
     },
     {
-      description: "Dismisses the toast that has focus.",
+      description:
+        "Dismisses the toast that has focus. Focus moves to the next toast, or back to where it was before the toasts once the last one is gone.",
       keys: ["Esc"],
     },
   ],

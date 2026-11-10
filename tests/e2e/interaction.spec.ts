@@ -1153,6 +1153,7 @@ interaction(
     )
 
     await carousel.evaluate((element) => {
+      element.classList.remove("ui-buttons-outside")
       for (const card of element.querySelectorAll<HTMLElement>(".ui-card")) {
         card.style.position = "relative"
         card.style.zIndex = "10"

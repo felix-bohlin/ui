@@ -222,7 +222,7 @@ Without a bundler, add this import map to the `head`:
 
 #### [Components](https://open-props-ui.netlify.app/html/components.md)
 
-41 components, each with HTML examples and its API.
+42 components, each with HTML examples and its API.
 
 #### [Concepts](https://open-props-ui.netlify.app/html/guide/concepts.md)
 
@@ -334,7 +334,7 @@ Add `/// <reference types="opui-css/env.d.ts" />` to `env.d.ts` for the types.
 
 #### [Components](https://open-props-ui.netlify.app/astro/components.md)
 
-41 components, each with Astro examples and its API.
+42 components, each with Astro examples and its API.
 
 #### [Concepts](https://open-props-ui.netlify.app/astro/guide/concepts.md)
 
@@ -400,9 +400,9 @@ Slots are props: `children`, and camelCased names like `endText`.
 
 Every component renders full HTML on the server. Components with state or effects are marked `"use client"`, the rest are Server Components. The props in the last column need hydration.
 
-- **66** of 69 need no hydration
+- **67** of 70 need no hydration
 - **3** hydrate for `indeterminate`, `valueSuffix`, `valueText`
-- **39** are Server Components
+- **40** are Server Components
 
 | Component | Client | Server | Server Component | Needs hydration |
 | --- | --- | --- | --- | --- |
@@ -452,6 +452,7 @@ Every component renders full HTML on the server. Components with state or effect
 | [`Rating`](https://open-props-ui.netlify.app/react/components/rating.md) | Yes | Yes | No | - |
 | [`Select`](https://open-props-ui.netlify.app/react/components/select.md) | Yes | Yes | No | - |
 | [`SelectAll`](https://open-props-ui.netlify.app/react/components/checkbox.md) | Yes | Yes | No | - |
+| [`Skeleton`](https://open-props-ui.netlify.app/react/components/skeleton.md) | Yes | Yes | Yes | - |
 | [`SortableTable`](https://open-props-ui.netlify.app/react/components/table.md) | Yes | Yes | No | - |
 | [`Stat`](https://open-props-ui.netlify.app/react/components/stat.md) | Yes | Yes | Yes | - |
 | [`Stepper`](https://open-props-ui.netlify.app/react/components/stepper.md) | Yes | Yes | Yes | - |
@@ -484,7 +485,7 @@ Every component renders full HTML on the server. Components with state or effect
 
 #### [Components](https://open-props-ui.netlify.app/react/components.md)
 
-41 components, each with React examples and its API.
+42 components, each with React examples and its API.
 
 #### [Concepts](https://open-props-ui.netlify.app/react/guide/concepts.md)
 
@@ -585,7 +586,7 @@ Slots are snippets: `children`, and camelCased names like `endText`. Form contro
 
 Every component renders full HTML on the server. The props in the last column need hydration.
 
-- **53** of 69 need no hydration
+- **54** of 70 need no hydration
 - **16** hydrate for `bind:checked`, `bind:group`, `bind:value`, `indeterminate`, `valueSuffix`, `valueText`
 
 | Component | Client | Server | Needs hydration |
@@ -636,6 +637,7 @@ Every component renders full HTML on the server. The props in the last column ne
 | [`Rating`](https://open-props-ui.netlify.app/svelte/components/rating.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Select`](https://open-props-ui.netlify.app/svelte/components/select.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`SelectAll`](https://open-props-ui.netlify.app/svelte/components/checkbox.md) | Yes | Yes | - |
+| [`Skeleton`](https://open-props-ui.netlify.app/svelte/components/skeleton.md) | Yes | Yes | - |
 | [`SortableTable`](https://open-props-ui.netlify.app/svelte/components/table.md) | Yes | Yes | - |
 | [`Stat`](https://open-props-ui.netlify.app/svelte/components/stat.md) | Yes | Yes | - |
 | [`Stepper`](https://open-props-ui.netlify.app/svelte/components/stepper.md) | Yes | Yes | - |
@@ -668,7 +670,7 @@ Every component renders full HTML on the server. The props in the last column ne
 
 #### [Components](https://open-props-ui.netlify.app/svelte/components.md)
 
-41 components, each with Svelte examples and its API.
+42 components, each with Svelte examples and its API.
 
 #### [Concepts](https://open-props-ui.netlify.app/svelte/guide/concepts.md)
 
@@ -738,7 +740,7 @@ import "./styles/main.css"
 
 ### Server rendering
 
-- **53** of 69 need no hydration
+- **54** of 70 need no hydration
 - **16** hydrate for `indeterminate`, `v-model`, `valueSuffix`
 
 | Component | Client | Server | Needs hydration |
@@ -789,6 +791,7 @@ import "./styles/main.css"
 | [`Rating`](https://open-props-ui.netlify.app/vue/components/rating.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Select`](https://open-props-ui.netlify.app/vue/components/select.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`SelectAll`](https://open-props-ui.netlify.app/vue/components/checkbox.md) | Yes | Yes | - |
+| [`Skeleton`](https://open-props-ui.netlify.app/vue/components/skeleton.md) | Yes | Yes | - |
 | [`SortableTable`](https://open-props-ui.netlify.app/vue/components/table.md) | Yes | Yes | - |
 | [`Stat`](https://open-props-ui.netlify.app/vue/components/stat.md) | Yes | Yes | - |
 | [`Stepper`](https://open-props-ui.netlify.app/vue/components/stepper.md) | Yes | Yes | - |
@@ -821,7 +824,7 @@ import "./styles/main.css"
 
 #### [Components](https://open-props-ui.netlify.app/vue/components.md)
 
-41 components, each with Vue examples and its API.
+42 components, each with Vue examples and its API.
 
 #### [Concepts](https://open-props-ui.netlify.app/vue/guide/concepts.md)
 

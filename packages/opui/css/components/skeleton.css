@@ -1,0 +1,66 @@
+@layer components.root {
+  :where(.ui-skeleton) {
+    --_motion: var(--ui-motion);
+    --_bg-color: var(--ui-surface-tonal);
+    --_duration: calc(1.6s / max(var(--_motion), 0.0001));
+    --_radius: var(--ui-radius);
+    --_shine-bg-color: light-dark(
+      oklch(from var(--_bg-color) calc(l + 0.04) c h),
+      oklch(from var(--_bg-color) calc(l + 0.06) c h)
+    );
+
+    background: linear-gradient(
+        100deg,
+        transparent 30%,
+        var(--_shine-bg-color) 50%,
+        transparent 70%
+      )
+      var(--_bg-color);
+    background-size: 200% 100%;
+    border-radius: var(--_radius);
+    display: block;
+    min-block-size: 1lh;
+
+    &.ui-circle {
+      aspect-ratio: 1;
+      border-radius: 50%;
+      min-block-size: 0;
+    }
+
+    &.ui-squared {
+      border-radius: 0;
+    }
+
+    &.ui-line {
+      block-size: 0.8lh;
+      border-radius: calc(var(--_radius) / 2);
+      min-block-size: 0;
+
+      &:where(:last-child:not(:first-child)) {
+        inline-size: 60%;
+      }
+
+      & + :where(.ui-line) {
+        margin-block-start: 0.4lh;
+      }
+    }
+
+    @media (forced-colors: active) {
+      border: var(--ui-border-width) solid GrayText;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      animation: ui-skeleton-shimmer var(--_duration) linear infinite;
+    }
+  }
+
+  @keyframes ui-skeleton-shimmer {
+    from {
+      background-position: 100% 0;
+    }
+
+    to {
+      background-position: -100% 0;
+    }
+  }
+}

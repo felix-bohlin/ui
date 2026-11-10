@@ -1,0 +1,18 @@
+---
+import type { Props } from "./types.astro"
+
+export const title = "Skeleton"
+
+const { class: className, line, shape = "rounded", ...rest } = Astro.props
+---
+
+<span
+  aria-hidden="true"
+  class:list={[
+    "ui-skeleton",
+    { "ui-line": line },
+    shape !== "rounded" && `ui-${shape}`,
+    className,
+  ]}
+  {...rest}
+></span>

@@ -25,6 +25,7 @@
 @import "./components/range.css";
 @import "./components/rating.css";
 @import "./components/select-all.css";
+@import "./components/skeleton.css";
 @import "./components/sortable-table.css";
 @import "./components/spinner.css";
 @import "./components/stat.css";

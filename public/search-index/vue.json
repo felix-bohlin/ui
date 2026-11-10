@@ -2149,6 +2149,35 @@
     "url": "/vue/components/select/#keyboard-support"
   },
   {
+    "id": "component-skeleton-vue",
+    "title": "Skeleton",
+    "description": "A skeleton is a placeholder shaped like the content that's on its way.",
+    "keywords": "loading placeholder shimmer",
+    "category": "Component",
+    "url": "/vue/components/skeleton/"
+  },
+  {
+    "id": "component-skeleton-vue-basics",
+    "title": "Basics",
+    "page": "Skeleton",
+    "category": "Component",
+    "url": "/vue/components/skeleton/#basics"
+  },
+  {
+    "id": "component-skeleton-vue-shapes",
+    "title": "Shapes",
+    "page": "Skeleton",
+    "category": "Component",
+    "url": "/vue/components/skeleton/#shapes"
+  },
+  {
+    "id": "component-skeleton-vue-card",
+    "title": "Card",
+    "page": "Skeleton",
+    "category": "Component",
+    "url": "/vue/components/skeleton/#card"
+  },
+  {
     "id": "component-spinner-vue",
     "title": "Spinner",
     "description": "A spinner on any element with aria-busy=\"true\", for content that is loading, in every size.",
@@ -4581,6 +4610,14 @@
     "api": "Select Container element. The label for the field. label label Start text displayed above the field. startText start-text The boxed select area. Content above the select, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start The select. Its options are in a popover list. Content at the inline-end of the field, inside the border. end Content below the select, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text autoFit Lets the width follow the selected option, from `25ch`. dense Packs the items tighter. disabled Dims the select and blocks input. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<select>`. The ids the component generates start with it: `x-label`, `x-start-text`, `x-end-text`, `x-top` and `x-bottom` for `id=\"x\"`. items The options, as `{ label, selected, value }` objects. `value` selects among them; child `<option>` elements set `selected` themselves. name The name of the `<select>`. Inside a `FieldGroup`, the group's `name` applies. required Adds a required mark after the label. The form won't submit until an option with a value is selected. size The size of the element. spread Pushes the label and start text to one side and the select to the other. variant The variant to use.",
     "category": "API",
     "url": "/vue/api/#select"
+  },
+  {
+    "id": "api-skeleton-vue",
+    "title": "Skeleton API",
+    "description": "Reference for Skeleton Vue component.",
+    "api": "Skeleton An empty `span` with `aria-hidden`. Mark the region that's loading with `aria-busy` instead, so screen readers wait for the real content. shape The corners: `rounded` like a card or an image, `circle` for an avatar, `squared` for a block that runs edge to edge. line A line of text: as tall as a line of the surrounding text, with space between lines. The last of several lines is shorter.",
+    "category": "API",
+    "url": "/vue/api/#skeleton"
   },
   {
     "id": "api-sortable-table-vue",

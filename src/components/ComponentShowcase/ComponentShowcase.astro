@@ -39,6 +39,7 @@ import {
   Radio,
   Range,
   Rating,
+  Skeleton,
   Stat,
   Stepper,
   Switch,
@@ -439,6 +440,13 @@ import FrameworkPicker from "../FrameworkPicker.astro"
           </TableRow>
         </TableBody>
       </Table>
+    </Fragment>
+
+    <Fragment slot="skeleton">
+      <div style="inline-size: 10rem">
+        <Skeleton line />
+        <Skeleton line />
+      </div>
     </Fragment>
 
     <Fragment slot="stat">

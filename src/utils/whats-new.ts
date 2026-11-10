@@ -1207,6 +1207,9 @@ export const whatsNew = {
     },
     `<a href="#density">Rows</a> highlight at once on hover and fade back over <code>--ui-duration-fast</code>.`,
   ],
+  skeleton: [
+    `New: a <a href="#basics">Skeleton</a> is a placeholder shaped like the content that's loading, rounded, a <a href="#basics">circle</a> or <a href="#basics">lines</a> of text, with a shimmer that follows <code>--ui-motion</code>.`,
+  ],
   stat: [
     `New: a <a href="#basics">Stat</a> shows one number with its label and the change behind it, in a row of <a href="#cards">cards</a> on a dashboard.`,
   ],
@@ -1593,6 +1596,7 @@ export const highlighted = new Set<string>([
   "number-field",
   "one-time-code",
   "rating",
+  "skeleton",
   "stat",
   "stepper",
   "tabs",
@@ -1610,6 +1614,7 @@ export const added = new Set<string>([
   "number-field",
   "one-time-code",
   "rating",
+  "skeleton",
   "stat",
   "stepper",
   "timeline",

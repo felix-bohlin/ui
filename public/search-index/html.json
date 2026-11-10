@@ -2149,6 +2149,35 @@
     "url": "/html/components/select/#keyboard-support"
   },
   {
+    "id": "component-skeleton-html",
+    "title": "Skeleton",
+    "description": "A skeleton is a placeholder shaped like the content that's on its way.",
+    "keywords": "loading placeholder shimmer",
+    "category": "Component",
+    "url": "/html/components/skeleton/"
+  },
+  {
+    "id": "component-skeleton-html-basics",
+    "title": "Basics",
+    "page": "Skeleton",
+    "category": "Component",
+    "url": "/html/components/skeleton/#basics"
+  },
+  {
+    "id": "component-skeleton-html-shapes",
+    "title": "Shapes",
+    "page": "Skeleton",
+    "category": "Component",
+    "url": "/html/components/skeleton/#shapes"
+  },
+  {
+    "id": "component-skeleton-html-card",
+    "title": "Card",
+    "page": "Skeleton",
+    "category": "Component",
+    "url": "/html/components/skeleton/#card"
+  },
+  {
     "id": "component-spinner-html",
     "title": "Spinner",
     "description": "A spinner on any element with aria-busy=\"true\", for content that is loading, in every size.",
@@ -4602,6 +4631,14 @@
     "api": "label.ui-select Container element. The label for the field. .ui-label Start text displayed above the field. .ui-start-text The boxed select area. .ui-field Content above the select, inside the border, with a divider. .ui-field > .ui-top Content at the inline-start of the field, inside the border. .ui-field > .ui-start The select. Its options are in a popover list. select Content at the inline-end of the field, inside the border. .ui-field > .ui-end Content below the select, inside the border, with a divider. .ui-field > .ui-bottom Supporting text displayed below the field. .ui-end-text .ui-auto-fit Auto fit Lets the width follow the selected option, from `25ch`. .ui-dense Dense Packs the items tighter. [disabled] Disabled Dims the select and blocks input. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. .ui-sr-only Label Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. [required] Required Adds a required mark after the label. The form won't submit until an option with a value is selected. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Spread Pushes the label and start text to one side and the select to the other. .ui-filled Variants The variant to use.",
     "category": "API",
     "url": "/html/api/#select"
+  },
+  {
+    "id": "api-skeleton-html",
+    "title": "Skeleton API",
+    "description": "Reference for Skeleton HTML component.",
+    "api": "span.ui-skeleton An empty `span` with `aria-hidden`. Mark the region that's loading with `aria-busy` instead, so screen readers wait for the real content. .ui-circle .ui-squared Shape The corners: `rounded` like a card or an image, `circle` for an avatar, `squared` for a block that runs edge to edge. .ui-line Line A line of text: as tall as a line of the surrounding text, with space between lines. The last of several lines is shorter.",
+    "category": "API",
+    "url": "/html/api/#skeleton"
   },
   {
     "id": "api-sortable-table-html",

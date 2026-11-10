@@ -1,0 +1,115 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import Usage from "./partials/Usage.astro"
+import AutoExample from "../../components/AutoExample.astro"
+
+import Anatomy from "../../components/Anatomy.astro"
+import { Skeleton as UISkeleton } from "opui-css/astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+
+import SkeletonCSS from "@opui/css/components/skeleton.css?raw"
+
+import skeletonApi from "../../component-api/skeleton/api"
+export const description =
+  "A skeleton is a placeholder shaped like the content that's on its way."
+
+export const keywords = ["loading", "placeholder", "shimmer"]
+---
+
+<Component
+  browserSupport={["lh", "light-dark", "relative-color"]}
+  description={description}
+  slug="skeleton"
+  heroAnatomy
+  apis={[{ title: "Skeleton API", api: skeletonApi }]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Skeleton/Skeleton.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/skeleton.astro", type: "docs" },
+    { path: "src/component-examples/skeleton", type: "docs" },
+    {
+      path: "packages/opui/css/components/skeleton.css",
+      type: "css",
+    },
+    { path: "src/component-api/skeleton", type: "api" },
+  ]}
+  installationTabs={[{ title: "skeleton.css", code: SkeletonCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Skeleton</Fragment>
+  <Fragment slot="preamble">
+    A placeholder shaped like the content that's loading. For a wait without a
+    known shape, use a <DocLink href="/components/spinner">Spinner</DocLink>.
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <div style="inline-size: 14rem">
+        <UISkeleton line />
+        <UISkeleton line />
+      </div>
+    </Anatomy>
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      Content that takes a moment and has a known shape, like a
+      <a href="#card">card</a> or a <a href="#basics">list item</a>.
+    </li>
+    <li slot="when">Behind a lazy image, until it loads.</li>
+    <li slot="when-not">
+      A wait without a known shape, or one the person started: use a
+      <DocLink href="/components/spinner">Spinner</DocLink>.
+    </li>
+    <li slot="when-not">
+      Progress you can measure: use a
+      <DocLink href="/components/progress">Progress</DocLink>.
+    </li>
+  </Usage>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <p>
+      Use <PropOrClass prop="shape" class=".ui-circle" /> for an avatar and
+      <PropOrClass prop="line" class=".ui-line" /> for lines of text. The last
+      of several lines is shorter. Size a skeleton like what it stands for.
+    </p>
+    <AutoExample name="Basics" />
+  </section>
+
+  <section id="shapes">
+    <h2>Shapes</h2>
+    <p>
+      <PropOrClass prop="shape" class=".ui-circle" /> for an avatar, the rounded
+      default for images and cards, and
+      <PropOrClass prop="shape" class=".ui-squared" /> for a block that runs
+      edge to edge.
+    </p>
+    <AutoExample name="Shapes" row />
+  </section>
+
+  <section id="card">
+    <h2>Card</h2>
+    <p>
+      A block takes the space of an image, here with an <code>aspect-ratio</code
+      >.
+    </p>
+    <AutoExample name="Card" />
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Skeletons are hidden from screen readers. Put
+        <code>aria-busy="true"</code> on the region that's loading, and remove
+        it when the content is in.
+      </li>
+      <li>
+        The shimmer only runs without reduced motion and follows
+        <code>--ui-motion</code>; otherwise the skeleton is a still tint.
+      </li>
+    </ul>
+  </Fragment>
+</Component>

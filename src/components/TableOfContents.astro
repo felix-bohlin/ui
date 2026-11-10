@@ -1,83 +1,50 @@
 ---
+type Heading = { id: string; level: number; text: string }
+type Item = Heading & { children: Item[] }
+
 type Props = {
-  selector?: string
+  headings: Heading[]
   variant?: "default" | "drawer"
 }
 
-const { selector = "#main-content", variant = "default" } = Astro.props
+const { headings, variant = "default" } = Astro.props
+
+const items: Item[] = []
+const stack = [{ children: items, level: 1 }]
+for (const heading of headings) {
+  while (stack.length > 1 && stack[stack.length - 1].level >= heading.level) {
+    stack.pop()
+  }
+  const item = { ...heading, children: [] }
+  stack[stack.length - 1].children.push(item)
+  stack.push(item)
+}
 ---
 
 <nav
   aria-label="On this page"
-  data-toc-selector={selector}
-  class:list={{ "toc-drawer": variant === "drawer" }}
+  class:list={["table-of-contents", { "toc-drawer": variant === "drawer" }]}
 >
   <h3>On this page</h3>
-  <menu></menu>
+  <menu>
+    <li><a href="#main-content" title="Overview">Overview</a></li>
+    {items.map((item) => <li>
+      <a href={`#${item.id}`} title={item.text}>{item.text}</a>
+      {item.children.length > 0 && <ul>
+        {item.children.map((child) => <li>
+          <a href={`#${child.id}`} title={child.text}>{child.text}</a>
+          {child.children.length > 0 && <ul>
+            {child.children.map((grandchild) => <li>
+              <a href={`#${grandchild.id}`} title={grandchild.text}>
+                {grandchild.text}
+              </a>
+            </li>)}
+          </ul>}
+        </li>)}
+      </ul>}
+    </li>)}
+  </menu>
 </nav>
-
-<script>
-  import { getHeadings, headingId, headingText } from "../utils/headings"
-
-  function initTableOfContents() {
-    const tocNavs = document.querySelectorAll<HTMLElement>(
-      "nav[data-toc-selector]",
-    )
-
-    tocNavs.forEach((tocNav) => {
-      const selector = tocNav.dataset.tocSelector
-      if (!selector) return
-
-      const container = document.querySelector(selector)
-      const rootMenu = tocNav.querySelector("menu")
-      if (!container || !rootMenu) return
-
-      const headings = getHeadings(
-        container,
-        "h2[id], section[id] > h2:first-child, h3[id], h4[id]",
-      )
-
-      // Clear and add Overview
-      rootMenu.innerHTML = ""
-      const overviewLi = document.createElement("li")
-      const overviewA = document.createElement("a")
-      overviewA.href = selector.startsWith("#") ? selector : "#main-content"
-      overviewA.textContent = "Overview"
-      overviewA.title = "Overview"
-      overviewLi.appendChild(overviewA)
-      rootMenu.appendChild(overviewLi)
-
-      const stack = [{ ul: rootMenu, level: 1 }]
-
-      headings.forEach((heading) => {
-        const level = parseInt(heading.tagName[1])
-
-        while (stack.length > 1 && stack[stack.length - 1].level >= level) {
-          stack.pop()
-        }
-
-        const currentUl = stack[stack.length - 1].ul
-        const li = document.createElement("li")
-        const a = document.createElement("a")
-        const nestedUl = document.createElement("ul")
-
-        const text = headingText(heading)
-        a.href = `#${headingId(heading)}`
-        a.textContent = text
-        a.title = text.trim()
-
-        li.append(a, nestedUl)
-        currentUl.appendChild(li)
-        stack.push({ ul: nestedUl, level })
-      })
-
-      // Remove empty nested uls
-      tocNav.querySelectorAll("ul:empty").forEach((ul) => ul.remove())
-    })
-  }
-
-  initTableOfContents()
-</script>
 
 <style>
   nav {
@@ -100,7 +67,7 @@ const { selector = "#main-content", variant = "default" } = Astro.props
 </style>
 
 <style is:global>
-  [data-toc-selector] {
+  .table-of-contents {
     ul {
       font-size: var(--ui-font-size-caption);
       list-style-type: none;

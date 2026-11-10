@@ -50,12 +50,15 @@ const titleText = rawTitle
 const descText =
   description ?? (preamble ? preamble.replace(/<[^>]+>/g, "").trim() : "")
 
-const content = addHeadingAnchors(await Astro.slots.render("default"))
+const { headings, html: content } = addHeadingAnchors(
+  await Astro.slots.render("default"),
+)
 ---
 
 <Default title={titleText} description={descText} hasMarkdown image={image}>
   <Fragment slot="toolbar">
     <LocalNav
+      headings={headings}
       sidebarDrawerId={hasSidebarNav ? "sidebar-drawer" : undefined}
       showToc={showToc}
     />
@@ -107,7 +110,7 @@ const content = addHeadingAnchors(await Astro.slots.render("default"))
 
     {showToc && <aside class="page-contents">
       <ReadingProgress />
-      <TableOfContents slot="table-of-contents" />
+      <TableOfContents headings={headings} slot="table-of-contents" />
     </aside>}
   </div>
 </Default>

@@ -288,8 +288,22 @@ const inKeyframes = (node) => {
   return false
 }
 
+const scopeRoot = (node) => {
+  for (let ancestor = node.parent; ancestor; ancestor = ancestor.parent) {
+    if (ancestor.type === "atrule" && ancestor.name === "scope") {
+      const params = ancestor.params.trim()
+      return params.startsWith("(")
+        ? params.slice(1, groupEnd(params, 0) - 1)
+        : undefined
+    }
+  }
+  return undefined
+}
+
 const ruleApplies = (rule, elements) => {
   if (inKeyframes(rule)) return true
+  const root = scopeRoot(rule)
+  if (root !== undefined && !listMatches(root, true, elements)) return false
   const parentRule = ancestorRule(rule)
   const parent = parentRule ? ruleApplies(parentRule, elements) : true
   return splitList(rule.selector).some(
@@ -301,29 +315,32 @@ const ruleApplies = (rule, elements) => {
 
 const parsed = new Map()
 
+const parseSource = (source, file) => {
+  const atRules = []
+  const rules = []
+  const root = postcss.parse(source, { from: file })
+  root.walkAtRules((atRule) => {
+    const start = atRule.source.start.offset
+    const body = source.indexOf("{", start)
+    atRules.push({
+      atRule,
+      end: body === -1 ? atRule.source.end.offset : body,
+      start,
+    })
+  })
+  root.walkRules((rule) => {
+    rules.push(rule)
+  })
+  const tries = []
+  root.walkAtRules("position-try", (atRule) => {
+    tries.push([atRule.source.start.offset, atRule.source.end.offset])
+  })
+  return { atRules, rules, source, tries }
+}
+
 const parseCss = async (file) => {
   if (!parsed.has(file)) {
-    const source = await readCss([file])
-    const atRules = []
-    const rules = []
-    const root = postcss.parse(source, { from: file })
-    root.walkAtRules((atRule) => {
-      const start = atRule.source.start.offset
-      const body = source.indexOf("{", start)
-      atRules.push({
-        atRule,
-        end: body === -1 ? atRule.source.end.offset : body,
-        start,
-      })
-    })
-    root.walkRules((rule) => {
-      rules.push(rule)
-    })
-    const tries = []
-    root.walkAtRules("position-try", (atRule) => {
-      tries.push([atRule.source.start.offset, atRule.source.end.offset])
-    })
-    parsed.set(file, { atRules, rules, source, tries })
+    parsed.set(file, parseSource(await readCss([file]), file))
   }
   return parsed.get(file)
 }
@@ -358,6 +375,13 @@ const usesFeature = ({ atRules, rules, source, tries }, pattern, elements) => {
       return !rule || ruleApplies(rule, elements)
     },
   )
+}
+
+export const usedFeatureIds = (source, elements) => {
+  const sheet = parseSource(source, "sample.css")
+  return patterns
+    .filter(({ pattern }) => usesFeature(sheet, pattern, elements))
+    .map(({ id }) => id)
 }
 
 const ignore = {
@@ -433,7 +457,7 @@ const main = async () => {
   }
 
   report(
-    "browserSupport is missing ids that the page uses, in the stylesheets of its api.ts files (in rules whose selectors can match the elements of its HTML examples and the classes of those examples and api.ts files; inside :has() only the elements count) or in the HTML examples, Baseline widely available ones included. Run node scripts/check-browser-support.mjs --write to fix the lists:",
+    "browserSupport is missing ids that the page uses, in the stylesheets of its api.ts files (in rules whose selectors and @scope roots can match the elements of its HTML examples and the classes of those examples and api.ts files; inside :has() only the elements count) or in the HTML examples, Baseline widely available ones included. Run node scripts/check-browser-support.mjs --write to fix the lists:",
     missing,
   )
   report(

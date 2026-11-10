@@ -8,6 +8,7 @@ import { featureIds, patterns } from "../../packages/opui/scripts/features.mjs"
 import {
   htmlFeatureIds,
   pageProblems,
+  usedFeatureIds,
   withBrowserSupport,
 } from "../../scripts/check-browser-support.mjs"
 import { findProblems } from "../../scripts/check-characters.mjs"
@@ -182,6 +183,15 @@ describe("check-browser-support", () => {
         "@position-try --a { inset: auto; }",
       ].filter((css) => !featureIds(css).includes("anchor-positioning")),
     ).toEqual([])
+  })
+
+  test("a rule inside @scope applies only when its root can match the examples", () => {
+    const css =
+      "@scope (.ui-rich-text) to (.ui-not-rich-text) { .ui-callout { border: 0; } }"
+    expect(usedFeatureIds(css, new Set([".ui-callout"]))).toEqual([])
+    expect(
+      usedFeatureIds(css, new Set([".ui-callout", ".ui-rich-text"])),
+    ).toEqual(["scope"])
   })
 
   test("reads the HTML features from the attributes and elements of the examples", () => {

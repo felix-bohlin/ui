@@ -4,19 +4,19 @@ export default function Spacing() {
   return (
     <>
       <Card variant="outlined">
-        <CardContent>Inside a card, the gap spaces the divider.</CardContent>
+        <CardContent>Order 1042, placed on 3 March.</CardContent>
         <Divider />
         <CardContent>
-          Nested deeper, it uses the card's tighter space.
+          Two linen shirts: €98
           <Divider />
-          So everything stays close together.
+          Shipping: free
         </CardContent>
       </Card>
 
       <div style={{ "--ui-divider-gap": "var(--ui-space-1)" }}>
-        A custom space on any wrapper
+        Ships to Lena Ek, Stockholm
         <Divider />
-        reaches every divider inside it.
+        Arrives in 2 to 4 days
       </div>
     </>
   )

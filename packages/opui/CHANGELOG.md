@@ -423,7 +423,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `TextField`, `Textarea` and `Select` keep a `12ch` minimum width in table cells.
 - `TextField` and `Textarea` render a `div` root instead of a `label` when they have no `label`, like the HTML of a field named with `aria-label`.
 - `ToggleButton` when checked is filled with `--ui-primary` (or `--ui-selected`) instead of a tint, and keeps the fill on hover, also in a `ToggleGroup`: it lightens a fill darker than L 0.3 and darkens the rest, like a filled `Button`, and doesn't change on a disabled button. Its focus ring takes `--ui-on-selected` (or `--ui-on-primary`), so the inset ring shows on the fill in dark mode.
-- `ToggleButton` standalone and `Chip` outlined take `--ui-shadow-control` like buttons (none by default), and toggle corners are capped at half the control height so a round `--ui-button-radius` doesn't clip grouped toggles.
+- `ToggleButton` standalone and `Chip` outlined take `--ui-shadow-control` like buttons (none by default), and toggle corners are capped at half the control height, those of a `ToggleGroup` at half the height of its size, so a round `--ui-button-radius` doesn't clip grouped toggles.
 - `ToggleButton` and `ToggleGroup` text shrinks with the size like `Button`: `--ui-font-size-small` when small and `--ui-font-size-caption` when x-small.
 - `ToggleButton` disabled state uses `--ui-disabled-opacity` like `Button`, and `--ui-text-disabled` when unchecked (a checked one keeps its selected text color), its hover uses `--ui-state-hover-alpha-light`, and `ToggleButton` and `ToggleGroup` read `--ui-button-size*` instead of `--ui-field-size*`.
 - `ToggleButton` grows from `--ui-button-size` with its content instead of having a fixed height.

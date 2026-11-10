@@ -5,10 +5,8 @@
     --_divider-border-width: 0px;
     --_divider-gap: var(--ui-border-width);
     --_divider-shadow: none;
-    --_radius: min(
-      var(--ui-button-radius, var(--ui-radius)),
-      var(--ui-button-size) / 2
-    );
+    --_radius: min(var(--ui-button-radius, var(--ui-radius)), var(--_size) / 2);
+    --_size: var(--ui-button-size);
 
     background-color: var(--_bg-color);
     border-radius: var(--_radius);
@@ -33,6 +31,18 @@
       flex: auto;
       margin: 0;
       scale: none;
+    }
+
+    &.ui-x-small {
+      --_size: var(--ui-button-size-x-small);
+    }
+
+    &.ui-small {
+      --_size: var(--ui-button-size-small);
+    }
+
+    &.ui-large {
+      --_size: var(--ui-button-size-large);
     }
 
     &.ui-vertical {

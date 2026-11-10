@@ -693,7 +693,7 @@ export const whatsNew = {
       html: `A drawer opens from the <a href="#basics">inline start</a> without <code>.ui-inline-start</code>.`,
     },
     `Styles use logical properties only, so the <a href="#basics">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
-    `<a href="#basics">Content</a> scrolls with <code>overflow-inline</code> and <code>overflow-block</code>, so it follows the writing mode. Browsers older than Chrome 135, Firefox 69 and Safari 26 ignore them and don't scroll it.`,
+    `<a href="#basics">Content</a> scrolls with <code>overflow-inline</code> and <code>overflow-block</code>, so it follows the writing mode. Browsers older than Chrome 135, Firefox 69 and Safari 26 ignore them, and <code>compat.css</code> scrolls it through <code>overflow-y</code> there.`,
     components(
       `A <code>Drawer</code> without an <code>id</code> warns in development, since its trigger and <code>DrawerHeader</code> point at it (<a href="#basics">Basics</a>).`,
     ),
@@ -1584,7 +1584,7 @@ export const whatsNew = {
     `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of <code>--border-size-1</code>.`,
     `<a href="#link">Links</a> only show hover styles on devices that can hover, so they no longer stick after a tap.`,
     `Styles use logical properties only, so the <a href="#classless">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
-    `<a href="#rich-text-showcase">Rich text</a> with tables and code blocks scrolls with <code>overflow-inline</code> and <code>overflow-block</code>, so it follows the writing mode. Browsers older than Chrome 135, Firefox 69 and Safari 26 ignore them and don't scroll it.`,
+    `<a href="#rich-text-showcase">Rich text</a> with tables and code blocks scrolls with <code>overflow-inline</code> and <code>overflow-block</code>, so it follows the writing mode. Browsers older than Chrome 135, Firefox 69 and Safari 26 ignore them, and <code>compat.css</code> scrolls the tables and code blocks through <code>overflow-x</code> there.`,
     `<a href="#icon"><code>.ui-icon</code></a> sizes an <code>svg</code> to <code>--ui-icon-size</code>, with <code>.ui-small</code> and <code>.ui-large</code>.`,
     `<a href="#swatch"><code>.ui-swatch</code></a> is a small dot for a color legend, painted by a severity class or <code>--_swatch-bg-color</code>.`,
     `<a href="#link">Links</a> fade to their hover and focus color.`,

@@ -170,6 +170,7 @@ describe("check-browser-support", () => {
       ),
     ).toEqual([])
     expect(featureIds(".a { overflow-clip-margin: 4px; }")).toEqual([])
+    expect(featureIds(".a::before { content: attr(data-label); }")).toEqual([])
   })
 
   test("anchor positioning is found in every property, function and at-rule of its compat keys", () => {

@@ -67,7 +67,10 @@ export const patterns = [
     pattern:
       /\b(?:anchor-name|anchor-scope|position-anchor|position-area|position-try(?:-fallbacks|-order)?|position-visibility):|\banchor(?:-size)?\(|@position-try\b/,
   },
-  { id: "attr", pattern: /\battr\(/ },
+  {
+    id: "attr",
+    pattern: /(?<!\bcontent:[^;{}]*)\battr\(|\battr\([^()]*\btype\(/,
+  },
   { id: "backdrop-filter", pattern: /\bbackdrop-filter:/ },
   { id: "box-decoration-break", pattern: /\bbox-decoration-break:/ },
   { id: "calc-size", pattern: /\bcalc-size\(/ },

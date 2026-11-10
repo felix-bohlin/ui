@@ -52,8 +52,11 @@ const couldMatch = (compound, tag, classes) => {
   const type = compound.find((simple) => simple.type === "type")
   if (type && type.name !== tag) return false
   const named = compound.filter((simple) => simple.type === "class")
-  if (named.length > 0) {
-    return named.some((simple) => classes.includes(simple.name))
+  if (
+    named.length > 0 &&
+    !named.some((simple) => classes.includes(simple.name))
+  ) {
+    return false
   }
   const nested = compound.filter(
     (simple) =>

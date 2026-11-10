@@ -59,6 +59,10 @@ export const keepsFallback = (condition, year) => {
 
 export const patterns = [
   {
+    id: "alt-text-generated-content",
+    pattern: /\bcontent:[^;{}]*\s\/\s*(?:["']|var\()/,
+  },
+  {
     id: "anchor-positioning",
     pattern:
       /\b(?:anchor-name|anchor-scope|position-anchor|position-area|position-try(?:-fallbacks|-order)?|position-visibility):|\banchor(?:-size)?\(|@position-try\b/,

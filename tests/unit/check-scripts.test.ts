@@ -98,6 +98,7 @@ describe("sort-css", () => {
 
 describe("check-browser-support", () => {
   const samples: Record<string, string> = {
+    "alt-text-generated-content": '.a::after { content: "*" / ""; }',
     "anchor-positioning": ".a { anchor-name: --a; }",
     attr: '.a { content: attr(data-label type(<string>), ""); }',
     "backdrop-filter": "::backdrop { backdrop-filter: blur(4px); }",

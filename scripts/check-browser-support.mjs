@@ -387,6 +387,7 @@ export const usedFeatureIds = (source, elements) => {
 const ignore = {
   badge: ["anchor-positioning"],
   "number-field": ["popover"],
+  radio: ["alt-text-generated-content"],
   typography: ["marker"],
 }
 const viaCore = {

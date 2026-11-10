@@ -17,7 +17,7 @@ export default function Drawer({
   children,
   ...rest
 }: Props) {
-  const labelledBy = autoLabelledBy(rest, `${id}-heading`)
+  const labelledBy = autoLabelledBy(rest, `${id}-title`)
   warnMissingId("Drawer", id)
 
   return (

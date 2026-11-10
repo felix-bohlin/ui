@@ -21,7 +21,7 @@ defineOptions({
 
 const attrs = useAttrs() as HTMLAttributes
 
-const labelledBy = computed(() => autoLabelledBy(attrs, `${id}-heading`))
+const labelledBy = computed(() => autoLabelledBy(attrs, `${id}-title`))
 
 warnMissingId("Drawer", id)
 

@@ -492,6 +492,13 @@
       &:is(.ui-outlined, :where(.ui-control-group.ui-outlined) > *) {
         --_border-color: var(--ui-text-disabled);
       }
+
+      &[aria-disabled="true"] {
+        @media (forced-colors: active) {
+          --_border-color: GrayText;
+          --_text-color: GrayText;
+        }
+      }
     }
 
     &.ui-round {

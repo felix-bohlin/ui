@@ -1,0 +1,24 @@
+@layer components.compat {
+  @supports not (inline-size: if(else: 0px)) {
+    :where(
+      [aria-busy="true"]:not(
+        input,
+        select,
+        textarea,
+        html,
+        progress,
+        [aria-describedby]:not(button, a)
+      )
+    )::before {
+      opacity: 0.5;
+
+      @container style(--ui-contrast: more) {
+        opacity: 1;
+      }
+
+      @media (forced-colors: active) {
+        opacity: 1;
+      }
+    }
+  }
+}

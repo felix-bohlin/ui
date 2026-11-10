@@ -23,12 +23,8 @@
       content: "";
       display: inline-block;
       inline-size: 1em;
-      opacity: 0.5;
+      opacity: if(style(--ui-contrast: more): 1; else: 0.5);
       vertical-align: -0.14em;
-
-      @container style(--ui-contrast: more) {
-        opacity: 1;
-      }
 
       @media (forced-colors: active) {
         border-block-color: transparent CanvasText;

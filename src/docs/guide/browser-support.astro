@@ -79,7 +79,9 @@ const years = Object.keys(categorized)
         Carousel (<code>css/compat/carousel.css</code>): without
         <code>overflow-inline</code>, the carousel scrolls through
         <code>overflow-x</code>, or <code>overflow-y</code> when it's vertical,
-        instead of spilling its items into the page.
+        instead of spilling its items into the page. Without <code>if()</code>,
+        smooth scrolling follows <code>--ui-motion</code> through a style query,
+        and <code>.ui-motion-off</code> on the carousel itself.
       </li>
       <li>
         ControlGroup (<code>css/compat/control-group.css</code>): without
@@ -121,6 +123,10 @@ const years = Object.keys(categorized)
         box, where the field's <code>overflow: clip</code> doesn't reach it.
       </li>
       <li>
+        Spinner (<code>css/compat/spinner.css</code>): without <code>if()</code
+        >, the spinner reads more contrast through a style query.
+      </li>
+      <li>
         Table (<code>css/compat/table.css</code>): without
         <code>overflow-inline</code>, a table with
         <code>.ui-overflow-scroll</code> scrolls through <code>overflow-x</code
@@ -149,7 +155,8 @@ const years = Object.keys(categorized)
       <li>
         Typography (<code>css/compat/typography.css</code>): without
         <code>overflow-inline</code>, code blocks and plain tables in rich text
-        scroll through <code>overflow-x</code>.
+        scroll through <code>overflow-x</code>. Without <code>if()</code>, the
+        heading group subtitle reads more contrast through a style query.
       </li>
     </ul>
     <h3 id="support-level">Support level</h3>

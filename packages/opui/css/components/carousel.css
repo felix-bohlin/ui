@@ -66,17 +66,9 @@
     padding-block: var(--_block-room);
     padding-inline: calc(var(--_padding-inline) + var(--_inline-room));
 
-    scroll-behavior: smooth;
+    scroll-behavior: if(style(--ui-motion: 0): auto; else: smooth);
     scroll-padding-inline: calc(var(--_padding-inline) + var(--_inline-room));
     scroll-snap-type: x mandatory;
-
-    @container style(--ui-motion: 0) {
-      scroll-behavior: auto;
-    }
-
-    &.ui-motion-off {
-      scroll-behavior: auto;
-    }
 
     & > * {
       counter-increment: ui-carousel-item;

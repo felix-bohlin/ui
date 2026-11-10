@@ -10,7 +10,6 @@ import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 
 import BadgeCSS from "@opui/css/components/badge.css?raw"
-import AnchorCSS from "@opui/css/components/anchor.css?raw"
 
 import badgeApi from "../../component-api/badge/api"
 import BadgeBuild from "../../components/UnderTheHood/BadgeBuild.astro"
@@ -39,10 +38,7 @@ export const keywords = ["counter", "dot", "indicator", "notification count"]
     },
     { path: "src/component-api/badge", type: "api" },
   ]}
-  installationTabs={[
-    { title: "badge.css", code: BadgeCSS, lang: "css" },
-    { title: "anchor.css", code: AnchorCSS, lang: "css", isDependency: true },
-  ]}
+  installationTabs={[{ title: "badge.css", code: BadgeCSS, lang: "css" }]}
 >
   <Fragment slot="title">Badge</Fragment>
 

@@ -49,7 +49,6 @@
       overflow-block: hidden;
       overflow-inline: auto;
       overscroll-behavior-inline: contain;
-      scrollbar-width: thin;
 
       & > .ui-toggle-button {
         flex: none;

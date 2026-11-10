@@ -39,16 +39,6 @@ export default {
     description: "The border width.",
     kind: "input",
   },
-  "--_current-bg-color": {
-    description:
-      'Background of the current page (`aria-current="page"`) in text and outlined buttons: `--_accent` at `--ui-state-selected-alpha-accent`, the tint of the current `List` row, so a theme tunes it apart from the hover and press feedback.',
-    kind: "output",
-  },
-  "--_current-text-color": {
-    description:
-      "Text color of the current page in text, outlined and tonal buttons. `--ui-text-strong`, which stays readable on the tint in every theme.",
-    kind: "output",
-  },
   "--_default-active-bg-color": {
     description:
       "Pressed background of text buttons, from `--_accent`. As light as the hover background in dark mode with more contrast, so the text keeps 7:1.",
@@ -152,6 +142,16 @@ export default {
       "The corner radius. Defaults to `--ui-button-radius`, or `--ui-radius` when the theme doesn't set it. `.ui-round` makes it round.",
     kind: "input",
   },
+  "--_selected-bg-color": {
+    description:
+      'Background of the current page (`aria-current="page"`) in text and outlined buttons: `--_accent` at `--ui-state-selected-alpha-accent`, the tint of the current `List` row, so a theme tunes it apart from the hover and press feedback.',
+    kind: "output",
+  },
+  "--_selected-text-color": {
+    description:
+      "Text color of the current page in text, outlined and tonal buttons. `--ui-text-strong`, which stays readable on the tint in every theme.",
+    kind: "output",
+  },
   "--_shadow": {
     description:
       "The shadow. `--ui-button-shadow`, or `--ui-shadow-control` when the theme leaves it unset, on `.ui-filled`, `.ui-outlined` and `.ui-tonal`, `--ui-button-hover-shadow` on hover when a theme sets it, none on text buttons and in a `ControlGroup`.",
@@ -187,11 +187,6 @@ export default {
       "Pressed text color of tonal buttons. `--_on-accent-fill`, or `--_on-accent-tonal` with `--ui-button-hover` set to `layer` or `shade-all`.",
     kind: "output",
   },
-  "--_tonal-current-bg-color": {
-    description:
-      "Background of the current page in tonal buttons: `--_accent-tonal` with white or black at `--ui-state-selected-alpha-accent`, away from the text where the fill has room. White on fills darker than L 0.9 in light mode and on fills darker than L 0.3 in dark mode, black on the rest, so it differs from its tonal neighbors even when the fill is already as light or as dark as the page.",
-    kind: "output",
-  },
   "--_tonal-hover-bg-color": {
     description:
       "Hover background of tonal buttons. `--_accent-fill`, the hover state layer over `--_accent-tonal` with `--ui-button-hover: layer`, or with `shade-all` `--ui-surface-tonal-hover`, and in `.ui-primary` and `.ui-critical` `--_accent-tonal` shaded the same way.",
@@ -200,6 +195,11 @@ export default {
   "--_tonal-hover-text-color": {
     description:
       "Hover text color of tonal buttons. `--_on-accent-fill`, or `--_on-accent-tonal` with `--ui-button-hover` set to `layer` or `shade-all`.",
+    kind: "output",
+  },
+  "--_tonal-selected-bg-color": {
+    description:
+      "Background of the current page in tonal buttons: `--_accent-tonal` with white or black at `--ui-state-selected-alpha-accent`, away from the text where the fill has room. White on fills darker than L 0.9 in light mode and on fills darker than L 0.3 in dark mode, black on the rest, so it differs from its tonal neighbors even when the fill is already as light or as dark as the page.",
     kind: "output",
   },
 } satisfies CustomProperties

@@ -263,7 +263,6 @@
       overflow-inline: auto;
       padding-block: var(--ui-space-3);
       padding-inline: var(--ui-space-4);
-      scrollbar-width: thin;
       white-space: pre;
 
       > :is(code, samp) {

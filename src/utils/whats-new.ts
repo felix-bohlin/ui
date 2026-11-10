@@ -135,7 +135,7 @@ export const whatsNew = {
       ...slots(
         `Breaking: <code>Badge</code> no longer renders <code>.ui-anchor</code>. Style <a href="#api"><code>.ui-badge</code></a> instead.`,
       ),
-      html: `Breaking: <code>.ui-anchor</code> is no longer needed on <a href="#api"><code>.ui-badge</code></a>, which <code>anchor.css</code> positions itself.`,
+      html: `Breaking: <code>.ui-anchor</code> is no longer needed on <a href="#api"><code>.ui-badge</code></a>, which <code>badge.css</code> positions without <code>anchor.css</code>.`,
     },
     `<a href="#colors">Severity</a> text reads <code>--ui-on-fill</code> instead of fixed grays.`,
     `Badges on round avatars sit on the avatar's edge (<a href="#corners">Corners</a>), and in an avatar group on the start side.`,
@@ -149,7 +149,9 @@ export const whatsNew = {
       ),
       html: `Breaking: the indicator is <a href="#indicator"><code>.ui-indicator</code></a> instead of <code>.ui-badge-indicator</code>, inside <code>.ui-floating</code> instead of <code>.ui-anchor-floating</code>.`,
     },
-    slots(`Breaking: <a href="#indicator"><code>label</code></a> is a string.`),
+    slots(
+      `Breaking: <a href="#indicator"><code>label</code></a> is a string, and <code>dot</code> requires it.`,
+    ),
     components(
       `<a href="#corners"><code>corner</code></a> takes <code>"start-end"</code>, the default corner.`,
     ),

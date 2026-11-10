@@ -153,7 +153,6 @@
       display: block;
       overflow-inline: auto;
       overscroll-behavior-inline: contain;
-      scrollbar-width: thin;
 
       :where(th, td) {
         white-space: nowrap;

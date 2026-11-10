@@ -25,10 +25,6 @@
     --_bg-color: transparent;
     --_border-color: transparent;
     --_border-width: var(--ui-border-width);
-    --_current-bg-color: oklch(
-      from var(--_accent) l c h / var(--ui-state-selected-alpha-accent)
-    );
-    --_current-text-color: var(--ui-text-strong);
     --_default-active-bg-color: light-dark(
       oklch(from var(--_accent) l 0.06 h / var(--ui-state-active-alpha-light)),
       oklch(from var(--_accent) l 0.06 h / var(--ui-state-active-alpha-dark))
@@ -73,6 +69,10 @@
     --_outlined-hover-text-color: var(--_on-accent-fill);
     --_padding-inline: var(--ui-button-padding-inline, 1.5ex);
     --_radius: var(--ui-button-radius, var(--ui-radius));
+    --_selected-bg-color: oklch(
+      from var(--_accent) l c h / var(--ui-state-selected-alpha-accent)
+    );
+    --_selected-text-color: var(--ui-text-strong);
     --_shadow: none;
     --_size: var(--ui-button-size);
     --_start-end-radius: var(--_radius);
@@ -80,7 +80,9 @@
     --_text-color: var(--_accent-text);
     --_tonal-active-bg-color: var(--_outlined-active-bg-color);
     --_tonal-active-text-color: var(--_on-accent-fill);
-    --_tonal-current-bg-color: color-mix(
+    --_tonal-hover-bg-color: var(--_accent-fill);
+    --_tonal-hover-text-color: var(--_on-accent-fill);
+    --_tonal-selected-bg-color: color-mix(
       in srgb,
       var(--_accent-tonal),
       light-dark(
@@ -89,8 +91,6 @@
         )
         var(--ui-state-selected-alpha-accent)
     );
-    --_tonal-hover-bg-color: var(--_accent-fill);
-    --_tonal-hover-text-color: var(--_on-accent-fill);
 
     @container style(--ui-button-hover: layer) {
       --_filled-active-bg-color: color-mix(
@@ -222,8 +222,8 @@
       }
 
       &[aria-current="page"] {
-        --_bg-color: var(--_current-bg-color);
-        --_text-color: var(--_current-text-color);
+        --_bg-color: var(--_selected-bg-color);
+        --_text-color: var(--_selected-text-color);
       }
 
       &:where(:active) {
@@ -374,8 +374,8 @@
         }
 
         &[aria-current="page"] {
-          --_bg-color: var(--_current-bg-color);
-          --_text-color: var(--_current-text-color);
+          --_bg-color: var(--_selected-bg-color);
+          --_text-color: var(--_selected-text-color);
         }
       }
     }
@@ -420,8 +420,8 @@
         }
 
         &[aria-current="page"] {
-          --_bg-color: var(--_tonal-current-bg-color);
-          --_text-color: var(--_current-text-color);
+          --_bg-color: var(--_tonal-selected-bg-color);
+          --_text-color: var(--_selected-text-color);
         }
       }
     }
@@ -492,27 +492,17 @@
       &:is(.ui-outlined, :where(.ui-control-group.ui-outlined) > *) {
         --_border-color: var(--ui-text-disabled);
       }
+
+      &[aria-disabled="true"] {
+        @media (forced-colors: active) {
+          --_border-color: GrayText;
+          --_text-color: GrayText;
+        }
+      }
     }
 
     &.ui-round {
       --_radius: var(--ui-radius-round);
     }
-  }
-
-  /* File input */
-  :where(input[type="file"]) {
-    align-self: flex-start;
-    border: var(--ui-field-border-width) solid var(--ui-field-border-color);
-    border-radius: var(--ui-radius-small);
-    box-shadow: var(--ui-shadow-field, var(--ui-shadow-control));
-    color: var(--ui-text);
-    cursor: initial;
-    max-inline-size: 100%;
-    padding: 0;
-  }
-
-  :where(input[type="file"])::file-selector-button {
-    cursor: pointer;
-    margin-inline-end: var(--ui-space-3);
   }
 }

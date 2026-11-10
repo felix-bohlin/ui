@@ -97,6 +97,14 @@ export const keywords = ["btn", "cta", "icon button", "submit"]
 
   <section id="colors">
     <h2>Colors</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Use <code>color</code> for critical or primary buttons.
+      </Fragment>
+      <Fragment slot="html">
+        Use <code>.ui-critical</code> or <code>.ui-primary</code>.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Colors" column spacious />
   </section>
 
@@ -133,6 +141,9 @@ export const keywords = ["btn", "cta", "icon button", "submit"]
   <section id="disabled">
     <h2>Disabled</h2>
     <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>disabled</code>, on a link too.
+      </Fragment>
       <Fragment slot="html">
         Links: drop <code>href</code>, add <code>role="link"</code> and
         <code>aria-disabled="true"</code>.
@@ -153,7 +164,12 @@ export const keywords = ["btn", "cta", "icon button", "submit"]
     <ul>
       <li>
         A <a href="#keyboard"><code>&lt;kbd&gt;</code></a> hint is part of the
-        name. Handle the shortcut in your own script.
+        name. Handle the shortcut in your own script, and name it in
+        <code>aria-keyshortcuts</code>.
+      </li>
+      <li>
+        A link button with <code>aria-current="page"</code> gets the current
+        page style, and screen readers announce it as the current page.
       </li>
     </ul>
     <KeyboardSupport />

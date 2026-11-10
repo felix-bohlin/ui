@@ -3,7 +3,7 @@ import { Button, ControlGroup, TextField } from "opui-css/react"
 export default function Labels() {
   return (
     <>
-      <ControlGroup variant="outlined">
+      <ControlGroup aria-label="Discount" variant="outlined">
         <TextField
           aria-describedby="control-group-labels-1"
           defaultValue="SPRING10"

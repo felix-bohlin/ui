@@ -9,9 +9,9 @@ export default function Button() {
       </div>
       <div className="example-row">
         <Chip
+          aria-label="Remove tag Design"
           as="button"
-          label="Open now"
-          start={
+          end={
             <svg
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
@@ -21,10 +21,11 @@ export default function Button() {
             >
               <path
                 fill="currentColor"
-                d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"
+                d="M6.293 6.293a1 1 0 0 1 1.414 0L16 14.586l8.293-8.293a1 1 0 1 1 1.414 1.414L17.414 16l8.293 8.293a1 1 0 0 1-1.414 1.414L16 17.414l-8.293 8.293a1 1 0 0 1-1.414-1.414L14.586 16L6.293 7.707a1 1 0 0 1 0-1.414"
               ></path>
             </svg>
           }
+          label="Design"
           variant="tonal"
         />
         <Chip

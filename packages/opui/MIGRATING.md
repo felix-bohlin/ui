@@ -129,7 +129,7 @@ Text uses `--ui-on-primary`, and sizes follow `--ui-control-size` and `--ui-cont
 
 ## Badge
 
-`.ui-anchor` is no longer needed on `.ui-badge`, and the components no longer render it. `anchor.css` positions the badge itself.
+`.ui-anchor` is no longer needed on `.ui-badge`, and the components no longer render it. `badge.css` positions the badge itself, without `anchor.css`.
 
 ```diff
 - <span class="ui-anchor ui-badge">
@@ -158,7 +158,7 @@ The indicator is `.ui-indicator` instead of `.ui-badge-indicator`. For a count w
   </span>
 ```
 
-`label` is a `string`. Pass a number as a string (`label="5"`).
+`label` is a `string`. Pass a number as a string (`label="5"`). A `dot` badge requires `label`, the text screen readers get.
 
 ## Button
 

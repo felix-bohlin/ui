@@ -3,7 +3,11 @@ import { Button } from "opui-css/vue"
 </script>
 
 <template>
-  <Button> Terminal <kbd>Ctrl+Alt+T</kbd> </Button>
-  <Button variant="outlined"> Spotlight <kbd>⌘Space</kbd> </Button>
-  <Button variant="tonal"> Lock <kbd>Win+L</kbd> </Button>
+  <Button aria-keyshortcuts="Control+S"> Save <kbd>Ctrl+S</kbd> </Button>
+  <Button aria-keyshortcuts="Control+K" variant="outlined">
+    Search <kbd>Ctrl+K</kbd>
+  </Button>
+  <Button aria-keyshortcuts="Control+Alt+M" variant="tonal">
+    Comment <kbd>Ctrl+Alt+M</kbd>
+  </Button>
 </template>

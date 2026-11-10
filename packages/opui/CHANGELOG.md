@@ -421,7 +421,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `TextField` file input takes `--ui-shadow-field` like other fields instead of an inset Open Props shadow, so it's flat by default.
 - `TextField`, `Textarea`, `Select` and `Range` with `spread` split their container into equal label and field columns, so spread fields line up at one width. The fixed `30ch` textarea and `25ch` range minimums are gone.
 - `TextField`, `Textarea` and `Select` keep a `12ch` minimum width in table cells.
-- `TextField` and `Textarea` render a `div` root instead of a `label` when they have no `label`, like the HTML of a field named with `aria-label`.
+- `TextField` and `Textarea` render a `div` root instead of a `label` when they have no `label`, like the HTML of a field named with `aria-label`, and link the start and end text to the control with `aria-describedby` (`x-start-text` and `x-end-text` for `id="x"`), like `NumberField`.
 - `ToggleButton` when checked is filled with `--ui-primary` (or `--ui-selected`) instead of a tint, and keeps the fill on hover, also in a `ToggleGroup`: it lightens a fill darker than L 0.3 and darkens the rest, like a filled `Button`, and doesn't change on a disabled button. Its focus ring takes `--ui-on-selected` (or `--ui-on-primary`), so the inset ring shows on the fill in dark mode.
 - `ToggleButton` standalone and `Chip` outlined take `--ui-shadow-control` like buttons (none by default), and toggle corners are capped at half the control height so a round `--ui-button-radius` doesn't clip grouped toggles.
 - `ToggleButton` and `ToggleGroup` text shrinks with the size like `Button`: `--ui-font-size-small` when small and `--ui-font-size-caption` when x-small.

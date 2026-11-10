@@ -108,7 +108,15 @@ export const keywords = ["email", "input", "password", "search", "text box"]
       keeps the accessible name.
     </p>
     <AutoExample name="HiddenLabel" />
-    <p>Without a label, add <code>aria-label</code>.</p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Without a label, add <code>aria-label</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Without a label, add <code>aria-label</code>, and link the start and end
+        text with <code>aria-describedby</code>.
+      </Fragment>
+    </Conditional>
     <AutoExample name="NoLabel" />
   </section>
 

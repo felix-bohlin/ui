@@ -2,11 +2,13 @@
 import type { Props } from "./types.astro"
 import { trimEdges } from "../whitespace"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
+import { createIds, idRefs } from "../id"
 import { cx } from "../cx"
 
 export const title = "Textarea"
 
 const {
+  "aria-describedby": ariaDescribedBy,
   "aria-invalid": ariaInvalid,
   autoFit,
   characterCount,
@@ -28,11 +30,19 @@ const {
 } = Astro.props
 
 const field = fieldGroupContext.get()
+const ids = createIds(Astro.locals, "textarea", id)
 const labelSlot = Astro.slots.has("label")
   ? trimEdges(await Astro.slots.render("label"))
   : ""
 const LabelTag = label || labelSlot ? "span" : Fragment
 const Root = label || labelSlot ? "label" : "div"
+const hasStartText = Boolean(startText || Astro.slots.has("start-text"))
+const hasEndText = Boolean(
+  endText || Astro.slots.has("end-text") || characterCount,
+)
+const linked = !(label || labelSlot)
+const startTextId = linked && hasStartText ? ids("start-text") : undefined
+const endTextId = linked && hasEndText ? ids("end-text") : undefined
 ---
 
 <Root
@@ -52,13 +62,14 @@ const Root = label || labelSlot ? "label" : "div"
     >{label}<Fragment set:html={labelSlot}
   /></LabelTag>
 
-  {(startText || Astro.slots.has("start-text")) && <span class="ui-start-text">
+  {hasStartText && <span class="ui-start-text" id={startTextId}>
     {startText}
     <slot name="start-text" />
   </span>}
   <span class="ui-field">
     <textarea
       {...rest}
+      aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
       aria-invalid={error ? "true" : ariaInvalid}
       id={id}
       name={name ?? field?.name}
@@ -76,9 +87,7 @@ const Root = label || labelSlot ? "label" : "div"
       <slot name="bottom" />
     </span>}
   </span>
-  {(endText || Astro.slots.has("end-text") || characterCount) && <span
-    class="ui-end-text"
-  >
+  {hasEndText && <span class="ui-end-text" id={endTextId}>
     {endText}
     <slot name="end-text" />
     {characterCount && (

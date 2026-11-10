@@ -53,9 +53,9 @@ const hasEndText = Boolean(
   endText || Astro.slots.has("end-text") || characterCount,
 )
 const inputId = passwordToggle ? ids() : id
-const startTextId =
-  passwordToggle && hasStartText ? ids("start-text") : undefined
-const endTextId = passwordToggle && hasEndText ? ids("end-text") : undefined
+const linked = passwordToggle || !(label || labelSlot)
+const startTextId = linked && hasStartText ? ids("start-text") : undefined
+const endTextId = linked && hasEndText ? ids("end-text") : undefined
 ---
 
 <Root

@@ -1354,7 +1354,7 @@ export const whatsNew = {
       html: `<a href="#drop-zone"><code>.ui-drop-zone</code></a> makes a file field a tall area that takes dropped files.`,
     },
     components(
-      `Without a <code>label</code>, the root is a <a href="#hidden-label"><code>div</code></a> instead of a <code>label</code>, like the HTML of a field named with <code>aria-label</code>.`,
+      `Without a <code>label</code>, the root is a <a href="#hidden-label"><code>div</code></a> instead of a <code>label</code>, like the HTML of a field named with <code>aria-label</code>, and the start and end text describe the input.`,
     ),
   ],
   textarea: [
@@ -1417,7 +1417,7 @@ export const whatsNew = {
     },
     `<a href="#variants">Filled textareas</a> fade their hover background, like the border.`,
     components(
-      `Without a <code>label</code>, the root is a <code>div</code> instead of a <code>label</code> (<a href="#api">API</a>).`,
+      `Without a <code>label</code>, the root is a <code>div</code> instead of a <code>label</code>, and the start and end text describe the textarea (<a href="#api">API</a>).`,
     ),
   ],
   timeline: [

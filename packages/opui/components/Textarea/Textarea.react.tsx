@@ -1,11 +1,13 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useId } from "react"
 import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
+import { idRefs } from "../id"
 import type { Props } from "./types.react"
 
 export default function Textarea({
+  "aria-describedby": ariaDescribedBy,
   "aria-invalid": ariaInvalid,
   autoFit,
   characterCount,
@@ -30,7 +32,14 @@ export default function Textarea({
   ...rest
 }: Props) {
   const field = useFieldGroupContext()
+  const uid = useId()
+  const base = id || `textarea-${uid}`
   const Root = label ? "label" : "div"
+  const hasStartText = Boolean(startText)
+  const hasEndText = Boolean(endText || characterCount)
+  const linked = !label
+  const startTextId = linked && hasStartText ? `${base}-start-text` : undefined
+  const endTextId = linked && hasEndText ? `${base}-end-text` : undefined
   useEffect(() => {
     void import("../../elements/character-count.js")
   }, [])
@@ -52,10 +61,15 @@ export default function Textarea({
       {label && (
         <span className={hideLabel ? "ui-sr-only" : "ui-label"}>{label}</span>
       )}
-      {startText && <span className="ui-start-text">{startText}</span>}
+      {hasStartText && (
+        <span className="ui-start-text" id={startTextId}>
+          {startText}
+        </span>
+      )}
       <span className="ui-field">
         <textarea
           {...rest}
+          aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
           aria-invalid={error ? "true" : ariaInvalid}
           id={id}
           name={name ?? field?.name}
@@ -65,8 +79,8 @@ export default function Textarea({
         {top && <span className="ui-top">{top}</span>}
         {bottom && <span className="ui-bottom">{bottom}</span>}
       </span>
-      {(endText || characterCount) && (
-        <span className="ui-end-text">
+      {hasEndText && (
+        <span className="ui-end-text" id={endTextId}>
           {endText}
           {characterCount && (
             <opui-character-count

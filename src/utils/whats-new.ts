@@ -110,12 +110,20 @@ export const whatsNew = {
     {
       vue: `<code>command</code>, <code>commandfor</code> and <code>interestfor</code> pass through as attributes instead of props (<a href="#api">API</a>).`,
     },
-    components(
-      `Breaking: a button avatar needs <code>as="button"</code>, and <code>disabled</code> goes only with it or with <code>href</code> (<a href="#api">types</a>).`,
-    ),
-    components(
-      `Breaking: <a href="#grouped"><code>AvatarGroup</code></a> groups avatars and replaces the <code>isGroup</code> prop.`,
-    ),
+    {
+      ...slots(
+        `Breaking: a button avatar needs <code>as="button"</code>, and <code>disabled</code> goes only with it or with <code>href</code> (<a href="#api">types</a>).`,
+      ),
+      react: `A button avatar needs <code>as="button"</code>, and <code>disabled</code> goes only with it or with <code>href</code> (<a href="#api">types</a>).`,
+      svelte: `A button avatar needs <code>as="button"</code>, and <code>disabled</code> goes only with it or with <code>href</code> (<a href="#api">types</a>).`,
+    },
+    {
+      ...slots(
+        `Breaking: <a href="#grouped"><code>AvatarGroup</code></a> groups avatars and replaces the <code>isGroup</code> prop.`,
+      ),
+      react: `<a href="#grouped"><code>AvatarGroup</code></a> groups avatars.`,
+      svelte: `<a href="#grouped"><code>AvatarGroup</code></a> groups avatars.`,
+    },
     `Rounded avatars never get rounder than <a href="#api"><code>--ui-radius</code></a>, so <code>0</code> squares them.`,
     `Without <code>corner-shape</code>, a squircle is a rounded square with corners at 27% of its size, from the compat layer (<a href="#browser-support">Browser support</a>).`,
     `The ring around <a href="#grouped">grouped</a> avatars reads <code>--ui-border-width-thick</code>.`,
@@ -199,9 +207,13 @@ export const whatsNew = {
       react: `<a href="#icon-only">Icon-only</a> buttons need <code>aria-label</code> or <code>aria-labelledby</code> when there are no <code>children</code> (types only).`,
       svelte: `<a href="#icon-only">Icon-only</a> buttons need <code>aria-label</code> or <code>aria-labelledby</code> when there are no <code>children</code> (types only).`,
     },
-    components(
-      `Breaking: a button takes link attributes only with <code>href</code> (<a href="#api">types</a>).`,
-    ),
+    {
+      ...slots(
+        `Breaking: a button takes link attributes only with <code>href</code> (<a href="#api">types</a>).`,
+      ),
+      react: `A button takes link attributes only with <code>href</code> (<a href="#api">types</a>).`,
+      svelte: `A button takes link attributes only with <code>href</code> (<a href="#api">types</a>).`,
+    },
     `Breaking: <code>--_color</code>, <code>--_color-contrast</code> and <code>--_color-tonal</code> are <code>--_accent</code>, <code>--_on-accent</code> and <code>--_accent-tonal</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `Breaking: <a href="#disabled">disabled links</a> have no <code>href</code>, so they can't be focused or followed.`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
@@ -451,9 +463,13 @@ export const whatsNew = {
     components(
       `<a href="#api"><code>as="span"</code></a> renders a chip that fits inside a <code>&lt;label&gt;</code> or <code>&lt;button&gt;</code>, like a count in a tab.`,
     ),
-    components(
-      `Breaking: a button chip needs <code>as="button"</code>, and a link chip needs <code>href</code> (<a href="#api">types</a>).`,
-    ),
+    {
+      ...slots(
+        `Breaking: a button chip needs <code>as="button"</code>, and a link chip needs <code>href</code> (<a href="#api">types</a>).`,
+      ),
+      react: `A button chip needs <code>as="button"</code>, and a link chip needs <code>href</code> (<a href="#api">types</a>).`,
+      svelte: `A button chip needs <code>as="button"</code>, and a link chip needs <code>href</code> (<a href="#api">types</a>).`,
+    },
     `Breaking: <a href="#disabled">disabled link chips</a> have no <code>href</code>, so they can't be focused or followed.`,
     `<a href="#button">Button</a> and <a href="#link">link</a> chips hover with <code>--ui-surface-tonal-hover</code>, like filled fields.`,
     {
@@ -779,9 +795,13 @@ export const whatsNew = {
     ),
     `Breaking: <code>--_bg-color-hover</code> is <code>--_hover-bg-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `A checked <a href="#radio">option</a> uses <code>--ui-state-selected-alpha-accent</code>.`,
-    components(
-      `Breaking: <a href="#checkbox"><code>type</code></a> can't be combined with <code>as</code> or <code>href</code> (types).`,
-    ),
+    {
+      ...slots(
+        `Breaking: <a href="#checkbox"><code>type</code></a> can't be combined with <code>as</code> or <code>href</code> (types).`,
+      ),
+      react: `<a href="#checkbox"><code>type</code></a> can't be combined with <code>as</code> or <code>href</code> (types).`,
+      svelte: `<a href="#checkbox"><code>type</code></a> can't be combined with <code>as</code> or <code>href</code> (types).`,
+    },
     `Breaking: rows no longer style <code>aria-selected="true"</code> on a link, button, label or list item, where ARIA doesn't allow it. Mark the current row with <a href="#selected"><code>aria-current="page"</code></a>.`,
     `<a href="#selected">Selected and current rows</a> have a bar on their start edge in <code>--ui-selected-strong</code> and a stronger fill than hover, so they don't rely on a tint alone.`,
     {
@@ -1063,13 +1083,17 @@ export const whatsNew = {
       html: `Breaking: mark an invalid select with <code>aria-invalid="true"</code> on the <code>&lt;select&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
     `Breaking: <code>--_accent-color</code> is <code>--_accent</code>, <code>--_height</code> is <code>--_size</code>, and <code>--_label-color</code> and <code>--_end-text-color</code> are gone: set <code>--ui-text</code> or <code>--ui-field-helper-text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
-    components(
-      `Breaking: <a href="#preselected"><code>items</code></a> takes <code>SelectItem[]</code>, exported under that name.`,
-    ),
-    components(
+    {
+      ...slots(
+        `Breaking: <a href="#preselected"><code>items</code></a> takes <code>SelectItem[]</code>, exported under that name.`,
+      ),
+      react: `<a href="#preselected"><code>items</code></a> is typed as <code>SelectItem[]</code>, exported from every framework.`,
+      svelte: `<a href="#preselected"><code>items</code></a> is typed as <code>SelectItem[]</code>, exported from every framework.`,
+    },
+    slots(
       `Breaking: <code>ClassicSelect</code> is gone. Use <code>Select</code>, which falls back to the browser's own picker (<a href="#fallback">Fallback</a>).`,
     ),
-    components(
+    slots(
       `Breaking: <code>startText</code> replaces <code>description</code>, matching <code>endText</code> (<a href="#spread">Spread</a>).`,
     ),
     slots(
@@ -1328,7 +1352,7 @@ export const whatsNew = {
       html: `Breaking: mark an invalid field with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
     `Breaking: <code>--_accent-color</code> is <code>--_accent</code>, <code>--_height</code> is <code>--_size</code>, and <code>--_label-color</code> and <code>--_end-text-color</code> are gone: set <code>--ui-text</code> or <code>--ui-field-helper-text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
-    components(
+    slots(
       `Breaking: <a href="#start-text"><code>startText</code></a> replaces <code>description</code>, matching <code>endText</code>. <code>supportingText</code> is gone, use <a href="#end-text"><code>endText</code></a>.`,
     ),
     `Breaking: the <a href="#autosuggest">autosuggest</a> and other input styles are in <code>text-field.css</code>, and <code>text-input.css</code> is gone. Remove its import.`,
@@ -1411,7 +1435,7 @@ export const whatsNew = {
       html: `Breaking: mark an invalid field with <code>aria-invalid="true"</code> on the <code>&lt;textarea&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
     `Breaking: <code>--_accent-color</code> is <code>--_accent</code>, <code>--_height</code> is <code>--_size</code>, and <code>--_label-color</code> and <code>--_end-text-color</code> are gone: set <code>--ui-text</code> or <code>--ui-field-helper-text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
-    components(
+    slots(
       `Breaking: <a href="#start-text"><code>startText</code></a> replaces <code>description</code>, matching <code>endText</code>. <code>supportingText</code> is gone, use <a href="#end-text"><code>endText</code></a>.`,
     ),
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,

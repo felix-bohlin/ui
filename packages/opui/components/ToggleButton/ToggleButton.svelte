@@ -9,6 +9,7 @@
   let {
     checked = $bindable(),
     class: className,
+    defaultChecked,
     label,
     name,
     onchange,
@@ -30,7 +31,12 @@
   )
   const grouped = $derived(isSelected(group?.value, value))
   untrack(() =>
-    warnGroupedChecked("ToggleButton", grouped, checked, "ToggleGroup"),
+    warnGroupedChecked(
+      "ToggleButton",
+      grouped,
+      checked ?? defaultChecked,
+      "ToggleGroup",
+    ),
   )
 </script>
 
@@ -43,7 +49,8 @@
   {style}
 >
   <input
-    checked={grouped ?? checked ?? rest.defaultChecked}
+    checked={grouped ?? checked ?? defaultChecked}
+    defaultChecked={grouped === undefined ? defaultChecked : undefined}
     name={finalName}
     type={finalType}
     {value}

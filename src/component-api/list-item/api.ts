@@ -1,10 +1,16 @@
+import { components } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
   component: "ListItem",
   css: ["list", "menu"],
   notes: {
+    ...components(
+      "With `as` or `href`, attributes that aren't props go to the `<a>` or `<button>`, like `aria-current`, `target` or `style`. Without them, and with `type`, they go to the `<li>`. `class` always goes to the `<li>`.",
+    ),
     html: "To make the item interactive, wrap the content in an `<a>`, `<button>` or `<label>`.",
+    react:
+      "With `as` or `href`, attributes that aren't props go to the `<a>` or `<button>`, like `aria-current`, `target` or `style`. Without them, and with `type`, they go to the `<li>`. `className` always goes to the `<li>`.",
   },
   options: [
     {

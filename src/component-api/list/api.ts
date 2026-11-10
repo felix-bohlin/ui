@@ -48,8 +48,7 @@ export default {
     },
     {
       default: '"filled"',
-      description:
-        "The variant to use. The default `filled` list uses the filled surface.",
+      description: "The variant to use.",
       group: "Variants",
       prop: "variant",
       values: {

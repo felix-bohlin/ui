@@ -187,10 +187,13 @@ export const keywords = ["listbox", "menu list", "ul"]
     <h3 id="radio">Radio</h3>
     <Conditional as="p">
       <Fragment slot="components">
-        Set <code>type="radio"</code> with a <code>RadioInput</code>.
+        Set <code>type="radio"</code> with a <code>RadioInput</code>, and name
+        the group with a <code>Fieldset</code> and a <code>FieldLegend</code>.
       </Fragment>
       <Fragment slot="html">
-        Wrap the content in <code>&lt;label class="ui-radio"&gt;</code>.
+        Wrap the content in <code>&lt;label class="ui-radio"&gt;</code>, and
+        name the group with a <code>&lt;fieldset&gt;</code> and a
+        <code>&lt;legend&gt;</code>.
       </Fragment>
     </Conditional>
     <AutoExample name="EndRadio" />
@@ -280,10 +283,3 @@ export const keywords = ["listbox", "menu list", "ul"]
     </Anatomy>
   </Fragment>
 </Component>
-
-<style is:global>
-  .tab-panel ul {
-    margin: 0 auto;
-    max-inline-size: 40ch;
-  }
-</style>

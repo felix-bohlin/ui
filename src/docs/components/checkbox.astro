@@ -7,15 +7,7 @@ import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
-import {
-  Checkbox as UICheckbox,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeaderCell,
-  TableRow,
-} from "opui-css/astro"
+import { Checkbox as UICheckbox } from "opui-css/astro"
 import CheckboxCSS from "@opui/css/components/checkbox.css?raw"
 import ChoiceCSS from "@opui/css/components/choice.css?raw"
 import CardCSS from "@opui/css/components/card.css?raw"
@@ -150,8 +142,10 @@ export const keywords = ["check", "tick"]
     <h3 id="end-text">End text</h3>
     <p>Use <PropOrClass prop="endText" class=".ui-end-text" />.</p>
     <AutoExample name="EndText" row spacious />
+  </section>
 
-    <h3 id="validation">Validation</h3>
+  <section id="validation">
+    <h2>Validation</h2>
     <ValidationNotes element="input" named subject="Checkboxes" />
 
     <AutoExample name="Validation" column spacious />
@@ -209,6 +203,15 @@ export const keywords = ["check", "tick"]
     <LabelAlignment control="checkbox" />
   </section>
 
+  <section id="checkbox-input">
+    <h2>Checkbox input</h2>
+    <p>
+      <PropOrClass prop="CheckboxInput" class='<input type="checkbox">' />
+      without the label, as in a
+      <DocLink href="/components/list#checkbox" class="ui-link">List</DocLink>.
+    </p>
+  </section>
+
   <section id="field-group">
     <h2>Field group</h2>
     <FieldGroupNotes control="checkbox">
@@ -219,40 +222,12 @@ export const keywords = ["check", "tick"]
   <CheckboxBuild slot="under-the-hood" />
 
   <Fragment slot="accessibility">
-    <h3 id="labels">Labels</h3>
-    <p>
-      Accessible checkboxes must have a label. You can choose between three
-      approaches:
-    </p>
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableHeaderCell>Approach</TableHeaderCell>
-          <TableHeaderCell>Usage in Checkbox component</TableHeaderCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        <TableRow>
-          <TableCell>
-            Provide a label text inside the <code>label</code> element
-          </TableCell>
-          <TableCell>Default</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell
-            >Add an <code>aria-label</code> on the input element</TableCell
-          >
-          <TableCell>Not used</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>
-            Have a visible label that you reference with
-            <code>aria-labelledby</code>
-          </TableCell>
-          <TableCell>Not used</TableCell>
-        </TableRow>
-      </TableBody>
-    </Table>
+    <ul>
+      <li>
+        The label text names the checkbox. To hide it, use
+        <PropOrClass prop="hideLabel" class=".ui-sr-only" />.
+      </li>
+    </ul>
 
     <KeyboardSupport />
   </Fragment>

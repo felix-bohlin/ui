@@ -299,7 +299,7 @@ export const posts = [
     component: "tabs",
     date: "2026-10-02",
     description: "Radio inputs, a grid and :nth-child(of S) for CSS-only tabs.",
-    features: ["nth-child-of"],
+    features: ["nth-child-of", "sibling-count"],
     now: "One radio group, and `:checked + label + panel` shows the right panel.",
     slug: "tabs-radio-buttons",
     technique: ":nth-child(of S)",

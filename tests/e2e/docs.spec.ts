@@ -328,6 +328,20 @@ test.describe("search", () => {
     expect(indexes).toEqual(["/search-index/html.json"])
   })
 
+  test("links to the roadmap when no framework has a result", async ({
+    page,
+  }) => {
+    await page.locator("[data-open-search]").filter({ visible: true }).click()
+    await page.locator("#search-input").fill("skeleton")
+    await expect(page.locator("#search-empty")).toHaveText(
+      "No results in HTML. See what's planned",
+    )
+    await expect(page.locator("#search-empty a")).toHaveAttribute(
+      "href",
+      "https://github.com/felix-bohlin/ui/issues/441",
+    )
+  })
+
   test("loads the index when a shortcut opens search", async ({ page }) => {
     const request = page.waitForRequest(/\/search-index\/html\.json$/)
     await page.keyboard.press("/")
@@ -676,6 +690,43 @@ test("a long section heading takes the content width, passes under the header li
       whiteSpace: "nowrap",
     })
   }
+})
+
+test("the API page filter keeps the components and rows that match", async ({
+  page,
+}) => {
+  await page.goto("/html/api/")
+  const input = page.locator(".api-filter input")
+  const sections = page.locator(".api-section:visible")
+  const total = await sections.count()
+  await input.fill("closedby")
+  await expect(page.locator(".api-filter-status")).toHaveText(
+    `2 of ${total} components`,
+  )
+  await expect(sections.locator("h2")).toHaveText(["Dialog", "Drawer"])
+  await expect(page.locator(".api-section tbody tr:visible")).toHaveCount(2)
+  await expect(page).toHaveURL(/\?filter=closedby$/)
+  await input.fill("no such prop")
+  await expect(page.locator(".api-filter-empty")).toBeVisible()
+  await page.goto("/html/api/?filter=closedby#button")
+  await expect(sections).toHaveCount(2)
+  await page
+    .locator('.table-of-contents:not(.toc-drawer) a[href="#accordion"]')
+    .click()
+  await expect(input).toHaveValue("")
+  await expect(sections).toHaveCount(total)
+})
+
+test("the blog feed lists every post", async ({ page }) => {
+  const feed = await (await page.request.get("/blog/rss.xml")).text()
+  await page.goto("/blog/")
+  await expect(
+    page.locator('link[rel="alternate"][type="application/rss+xml"]'),
+  ).toHaveAttribute("href", "/blog/rss.xml")
+  expect(feed.match(/<item>/g)?.length).toBeGreaterThan(20)
+  expect(feed).toContain(
+    "<link>https://open-props-ui.netlify.app/blog/release-6/</link>",
+  )
 })
 
 for (const path of DOCS_PAGES) {

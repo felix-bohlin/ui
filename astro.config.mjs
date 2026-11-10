@@ -158,7 +158,7 @@ export default defineConfig({
       options: {
         variants: [
           {
-            src: ["./public/BricolageGrotesque[opsz,wdth,wght].ttf"],
+            src: ["./src/fonts/BricolageGrotesque[opsz,wdth,wght].woff2"],
             style: "normal",
             weight: "300 900",
             display: "swap",

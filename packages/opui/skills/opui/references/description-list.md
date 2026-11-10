@@ -1,6 +1,6 @@
 # Description list
 
-Description lists are used to display a list of terms and their descriptions.
+A list of terms and their values on the native dl element.
 
 - CSS: `opui-css/css/components/description-list.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/description-list.md), [Astro](https://open-props-ui.netlify.app/astro/components/description-list.md), [React](https://open-props-ui.netlify.app/react/components/description-list.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/description-list.md), [Vue](https://open-props-ui.netlify.app/vue/components/description-list.md).

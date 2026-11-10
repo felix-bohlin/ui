@@ -10,7 +10,7 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Anchor | `anchor.md` | Places floating content next to an element with CSS anchor positioning. |
 | Avatar | `avatar.md` | Avatars show a person or entity as an image, initials or icon. |
 | Badge | `badge.md` | Badges attach a small count or status dot to another element. |
-| Button | `button.md` | Buttons allow users to take actions with a single tap. |
+| Button | `button.md` | A button for actions, like saving a form, with variants, colors, sizes and icons. |
 | Callout | `callout.md` | A message in the flow of the page, without interrupting the task. |
 | Card | `card.md` | A surface for related content and actions. |
 | Carousel | `carousel.md` | A scrolling list with snap points, buttons and markers. |
@@ -18,13 +18,13 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Chip | `chip.md` | Filters, tags and choices. For the main action, use a Button. |
 | Control group | `control-group.md` | Related buttons and fields joined into one control, like a split button, a search field with its button, or a currency and an amount. |
 | Copy | `copy.md` | A button that copies text or a field's value to the clipboard. |
-| Description list | `description-list.md` | Description lists are used to display a list of terms and their descriptions. |
-| Dialog | `dialog.md` | A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use. |
+| Description list | `description-list.md` | A list of terms and their values on the native dl element. |
+| Dialog | `dialog.md` | A window over the page for a question or short task that needs full attention, modal or non-modal. |
 | Divider | `divider.md` | A line between content: an hr, or a label with a line on both sides, at the start, the middle or the end. |
 | Drawer | `drawer.md` | Slides in from an edge of the screen. For a task that needs full attention, use a Dialog. |
 | Form | `form.md` | Spacing and grouping for form fields. |
 | Layout | `layout.md` | Classes for the space between components. Put them on wrappers. Gaps follow the --ui-space-* scale. |
-| List | `list.md` | Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it. |
+| List | `list.md` | A vertical list of items with text, start and end items, to find an item and act on it. |
 | Menu | `menu.md` | A popover list of actions or links. |
 | Message | `message.md` | Chat bubbles that group by sender, with attachments, reactions and a typing indicator. |
 | Number field | `number-field.md` | A number field with buttons that step the value down and up, for amounts like a quantity. |

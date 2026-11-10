@@ -1,6 +1,6 @@
 # Button
 
-Buttons allow users to take actions with a single tap.
+A button for actions, like saving a form, with variants, colors, sizes and icons.
 
 - CSS: `opui-css/css/components/button.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/button.md), [Astro](https://open-props-ui.netlify.app/astro/components/button.md), [React](https://open-props-ui.netlify.app/react/components/button.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/button.md), [Vue](https://open-props-ui.netlify.app/vue/components/button.md).

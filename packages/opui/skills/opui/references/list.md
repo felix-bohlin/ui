@@ -1,6 +1,6 @@
 # List
 
-Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it.
+A vertical list of items with text, start and end items, to find an item and act on it.
 
 - CSS: `opui-css/css/components/list.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/list.md), [Astro](https://open-props-ui.netlify.app/astro/components/list.md), [React](https://open-props-ui.netlify.app/react/components/list.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/list.md), [Vue](https://open-props-ui.netlify.app/vue/components/list.md).

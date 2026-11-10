@@ -11,7 +11,7 @@ export const keywords = ["columns", "container", "grid", "stack"]
 
 <Component
   slug="layout"
-  browserSupport={["container-queries"]}
+  browserSupport={["container-queries", "gap-decorations"]}
   changelogPaths={[
     { path: "src/docs/components/layout.astro", type: "docs" },
     { path: "src/component-examples/layout", type: "docs" },
@@ -116,6 +116,16 @@ export const keywords = ["columns", "container", "grid", "stack"]
     <h2>Gap</h2>
     <p>Use a size class like <code>.ui-small</code>, or <code>--_gap</code>.</p>
     <AutoExample name="Gap" />
+  </section>
+
+  <section id="divided">
+    <h2>Divided</h2>
+    <p>
+      Use <code>.ui-divided</code> to draw a line in each gap. A line only runs
+      between two children, so a wrapped row or a short last row gets no stray
+      one. Set its color with <code>--_divider-border-color</code>.
+    </p>
+    <AutoExample name="Divided" />
   </section>
 
   <section id="container">

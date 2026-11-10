@@ -161,6 +161,19 @@
     }
   }
 
+  :where(
+    .ui-layout-column,
+    .ui-layout-row,
+    .ui-layout-grid,
+    .ui-layout-columns
+  ).ui-divided {
+    --_divider-border-color: var(--ui-border-color);
+
+    column-rule: var(--ui-border-width) solid var(--_divider-border-color);
+    row-rule: var(--ui-border-width) solid var(--_divider-border-color);
+    rule-visibility-items: between;
+  }
+
   :where(ul, ol):where(.ui-layout-column, .ui-layout-row, .ui-layout-grid) {
     list-style: none;
     margin: 0;

@@ -55,6 +55,14 @@ export default {
       prop: "container",
     },
     {
+      class: ".ui-divided",
+      default: "false",
+      description:
+        "Draws a line in the middle of each gap of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid` and `.ui-layout-columns`, only between two children, so a wrapped row or the short last row of a grid starts and ends without one. Browsers without gap decorations leave the gap without the line.",
+      group: "Divided",
+      prop: "divided",
+    },
+    {
       class: ".ui-layout-grid",
       description:
         "Columns that fill the width and wrap. On a `ul` or `ol` it also drops the list bullets and margins, and a `.ui-card` in each `li` fills its cell.",

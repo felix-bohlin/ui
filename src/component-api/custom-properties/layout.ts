@@ -11,6 +11,11 @@ export default {
       "The `grid-template-columns` of `.ui-layout-columns` from its breakpoint on, such as `3fr 2fr` or `15rem 1fr`. Defaults to `1fr 1fr`.",
     kind: "input",
   },
+  "--_divider-border-color": {
+    description:
+      "Color of the lines `.ui-divided` draws between the children. Defaults to `--ui-border-color`.",
+    kind: "input",
+  },
   "--_gap": {
     description:
       "Space between the children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid`, `.ui-layout-columns` and `.ui-layout-media`. Defaults to `--ui-space-3`, set by the size classes.",

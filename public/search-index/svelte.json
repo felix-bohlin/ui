@@ -1236,6 +1236,13 @@
     "url": "/svelte/components/layout/#gap"
   },
   {
+    "id": "component-layout-svelte-divided",
+    "title": "Divided",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/svelte/components/layout/#divided"
+  },
+  {
     "id": "component-layout-svelte-container",
     "title": "Container",
     "page": "Layout",
@@ -4466,7 +4473,7 @@
     "id": "api-layout-svelte",
     "title": "Layout API",
     "description": "Reference for Layout Svelte component.",
-    "api": "Layout Any element. The classes only set its layout. align Where `.ui-layout-row` puts its children along the row, and where `.ui-layout-column` lines up its children and their text. breakpoint The container width at which `.ui-layout-columns` goes from one column to `--_columns`: `40rem`, `56rem` or `72rem`. column A column with even space between its children. columns One column that becomes the `--_columns` tracks at the breakpoint, measured on the nearest container, such as `.ui-layout-container`. container Centers its content, caps its width and is the container `.ui-layout-columns` measures. grid Columns that fill the width and wrap. On a `ul` or `ol` it also drops the list bullets and margins, and a `.ui-card` in each `li` fills its cell. media A media object: a fixed-size start, such as an avatar, next to text that fills the rest and wraps instead of widening the row. row A wrapping row with its children centered on one line. On a `ul` or `ol` it also drops the list bullets and margins. size The space between children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid`, `.ui-layout-columns` and `.ui-layout-media`. spread Pushes the children of `.ui-layout-row` to its two ends, for a page header with a heading group and its actions. sticky On a child of `.ui-layout-columns`, keeps it in view at `--_sticky-inset` from the top while the other column scrolls, once the columns sit side by side. stretch Stretches the columns of `.ui-layout-grid` over the row when there are fewer children than fit, instead of leaving the rest empty.",
+    "api": "Layout Any element. The classes only set its layout. align Where `.ui-layout-row` puts its children along the row, and where `.ui-layout-column` lines up its children and their text. breakpoint The container width at which `.ui-layout-columns` goes from one column to `--_columns`: `40rem`, `56rem` or `72rem`. column A column with even space between its children. columns One column that becomes the `--_columns` tracks at the breakpoint, measured on the nearest container, such as `.ui-layout-container`. container Centers its content, caps its width and is the container `.ui-layout-columns` measures. divided Draws a line in the middle of each gap of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid` and `.ui-layout-columns`, only between two children, so a wrapped row or the short last row of a grid starts and ends without one. Browsers without gap decorations leave the gap without the line. grid Columns that fill the width and wrap. On a `ul` or `ol` it also drops the list bullets and margins, and a `.ui-card` in each `li` fills its cell. media A media object: a fixed-size start, such as an avatar, next to text that fills the rest and wraps instead of widening the row. row A wrapping row with its children centered on one line. On a `ul` or `ol` it also drops the list bullets and margins. size The space between children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid`, `.ui-layout-columns` and `.ui-layout-media`. spread Pushes the children of `.ui-layout-row` to its two ends, for a page header with a heading group and its actions. sticky On a child of `.ui-layout-columns`, keeps it in view at `--_sticky-inset` from the top while the other column scrolls, once the columns sit side by side. stretch Stretches the columns of `.ui-layout-grid` over the row when there are fewer children than fit, instead of leaving the rest empty.",
     "category": "API",
     "url": "/svelte/api/#layout"
   },

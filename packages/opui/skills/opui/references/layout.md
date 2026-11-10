@@ -18,6 +18,7 @@ Classes for the space between components. Put them on wrappers. Gaps follow the 
 - Column: `.ui-layout-column`. A column with even space between its children.
 - Columns: `.ui-layout-columns`. One column that becomes the `--_columns` tracks at the breakpoint, measured on the nearest container, such as `.ui-layout-container`.
 - Container: `.ui-layout-container`. Centers its content, caps its width and is the container `.ui-layout-columns` measures.
+- Divided: `.ui-divided`. Draws a line in the middle of each gap of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid` and `.ui-layout-columns`, only between two children, so a wrapped row or the short last row of a grid starts and ends without one. Browsers without gap decorations leave the gap without the line.
 - Grid: `.ui-layout-grid`. Columns that fill the width and wrap. On a `ul` or `ol` it also drops the list bullets and margins, and a `.ui-card` in each `li` fills its cell.
 - Media: `.ui-layout-media`. A media object: a fixed-size start, such as an avatar, next to text that fills the rest and wraps instead of widening the row.
 - Row: `.ui-layout-row`. A wrapping row with its children centered on one line. On a `ul` or `ol` it also drops the list bullets and margins.
@@ -38,6 +39,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 ### layout.css
 
 - `--_columns`: The `grid-template-columns` of `.ui-layout-columns` from its breakpoint on, such as `3fr 2fr` or `15rem 1fr`. Defaults to `1fr 1fr`.
+- `--_divider-border-color`: Color of the lines `.ui-divided` draws between the children. Defaults to `--ui-border-color`.
 - `--_gap`: Space between the children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid`, `.ui-layout-columns` and `.ui-layout-media`. Defaults to `--ui-space-3`, set by the size classes.
 - `--_justify-content`: How `.ui-layout-row` distributes its children along the row, such as `space-evenly`. `.ui-align-center`, `.ui-align-end` and `.ui-spread` set it.
 - `--_max-columns`: Most columns `.ui-layout-grid` makes, such as `3`. Defaults to `infinity`, as many as fit at `--_min-inline-size`.
@@ -50,7 +52,7 @@ Outputs: `--_auto-repeat`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4` and `--ui-space-5`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4` and `--ui-space-5`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

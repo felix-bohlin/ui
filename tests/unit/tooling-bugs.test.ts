@@ -93,6 +93,24 @@ describe("tooling bugs the generator and the components work around", () => {
     ).toBe(".a{animation:linear both fill scroll(root)}")
   })
 
+  test("Lightning CSS rejects an anchored() container query", () => {
+    const astro = createRequire(import.meta.url).resolve("astro/package.json")
+    const vite = createRequire(astro).resolve("vite")
+    const { transform } = createRequire(vite)("lightningcss")
+    expect(
+      () =>
+        transform({
+          code: Buffer.from(
+            "@container anchored(fallback: flip-inline){.a{color:red}}",
+          ),
+          filename: "a.css",
+        }),
+      fixed(
+        "packages/opui/css/components/menu.css, the inset formula for submenus of submenus",
+      ),
+    ).toThrow('Function("anchored")')
+  })
+
   test("parse5 drops the button and div inside a select", () => {
     const [select] = parseFragment(
       "<select><button><selectedcontent></selectedcontent></button><div><option>a</option></div></select>",

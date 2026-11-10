@@ -5,6 +5,7 @@ import { useInputAttrs, vSeed } from "../vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { idRefs } from "../id"
 import { middleValue } from "./value"
+import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
@@ -102,7 +103,7 @@ const describedBy = () =>
       $props.class,
     ]"
     :for="hasValue() ? inputId() : undefined"
-    :style="$attrs.style"
+    v-bind="styleAttrs($attrs.style)"
   >
     <span
       v-if="hasLabel()"

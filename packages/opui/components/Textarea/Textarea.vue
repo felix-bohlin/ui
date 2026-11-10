@@ -4,6 +4,7 @@ import { computed, inject } from "vue"
 import { useInputAttrs, vSeed } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
+import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
@@ -57,7 +58,7 @@ const Root = () => (label || slots.label ? "label" : "div")
       size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
-    :style="$attrs.style"
+    v-bind="styleAttrs($attrs.style)"
   >
     <span
       v-if="label || $slots.label"

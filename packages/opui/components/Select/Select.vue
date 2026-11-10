@@ -12,6 +12,7 @@ import type { Props, Slots } from "./types.vue-props"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { idRefs } from "../id"
 import { initialValue } from "./selection"
+import { styleAttrs } from "../style"
 
 defineOptions({
   inheritAttrs: false,
@@ -77,7 +78,7 @@ const field = inject(FieldGroupKey, undefined)
       size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
-    :style="$attrs.style"
+    v-bind="styleAttrs($attrs.style)"
   >
     <span
       v-if="label || $slots.label"

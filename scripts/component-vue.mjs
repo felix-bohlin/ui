@@ -60,33 +60,58 @@ const withoutUnused = (lines, markup, declarations) => {
     : lines
 }
 const CLASS_BINDING = /^:class="(.*)"$/s
+const STYLE_BINDING = /^:style="(.*)"$/s
 const OBJECT_BINDING = /^v-bind="(.*)"$/s
 
-export const omitEmptyClass = (attributes) => {
-  const at = attributes.findIndex((entry) => CLASS_BINDING.test(entry))
-  if (at === -1) return { attributes, omitted: false }
-  const code = CLASS_BINDING.exec(attributes[at])[1]
-  if (!classMayBeEmpty(code)) return { attributes, omitted: false }
-  const classAttrs = `classAttrs(${code})`
+const emptyBindings = (attributes) =>
+  attributes.flatMap((entry, at) => {
+    const classCode = CLASS_BINDING.exec(entry)?.[1]
+    if (classCode !== undefined) {
+      return classMayBeEmpty(classCode)
+        ? [{ at, code: `classAttrs(${classCode})`, helper: "classAttrs" }]
+        : []
+    }
+    const styleCode = STYLE_BINDING.exec(entry)?.[1]
+    return styleCode === undefined
+      ? []
+      : [{ at, code: `styleAttrs(${styleCode})`, helper: "styleAttrs" }]
+  })
+
+export const omitEmptyAttributes = (attributes) => {
+  const omitted = emptyBindings(attributes)
+  if (omitted.length === 0) return { attributes, helpers: [] }
   const bound = attributes.filter((entry) => OBJECT_BINDING.test(entry))
   if (bound.length > 1) {
     throw new Error(
-      `a class list that can be empty next to ${bound.length} v-bind objects`,
+      `a class list or style that can be empty next to ${bound.length} v-bind objects`,
     )
   }
+  const codes = omitted.map(({ code }) => code)
+  const helpers = omitted.map(({ helper }) => helper)
   const spread = bound.length ? OBJECT_BINDING.exec(bound[0])[1].trim() : ""
   const entries = /^\{[\s\S]*\}$/.test(spread)
     ? spread.slice(1, -1).trim().replace(/,$/, "")
     : `...${spread}`
-  const object = bound.length
-    ? `v-bind="{ ${entries}, ...${classAttrs} }"`
-    : `v-bind="${classAttrs}"`
-  const place = bound.length ? attributes.indexOf(bound[0]) : at
+  const place = bound.length ? attributes.indexOf(bound[0]) : omitted[0].at
+  const merged = [...omitted, { at: place, code: spread }]
+    .toSorted((a, b) => a.at - b.at)
+    .map(({ code }) => code)
+  const object = !bound.length
+    ? codes.length === 1
+      ? `v-bind="${codes[0]}"`
+      : `v-bind="{ ${codes.map((code) => `...${code}`).join(", ")} }"`
+    : helpers.includes("styleAttrs")
+      ? `v-bind="mergeProps(${merged.join(", ")})"`
+      : `v-bind="{ ${entries}, ${codes.map((code) => `...${code}`).join(", ")} }"`
+  const dropped = new Set(omitted.map(({ at }) => at))
   return {
     attributes: attributes
       .map((entry, index) => (index === place ? object : entry))
-      .filter((_, index) => index === place || index !== at),
-    omitted: true,
+      .filter((_, index) => index === place || !dropped.has(index)),
+    helpers: [
+      ...helpers,
+      ...(bound.length && helpers.includes("styleAttrs") ? ["mergeProps"] : []),
+    ],
   }
 }
 
@@ -287,7 +312,7 @@ export const toVue = (component) => {
       trimmedSlots.some(({ local }) => identifiersIn(code).has(local)),
   )
   let usesTrimmedSlot = false
-  let usesClassAttrs = false
+  const attributeHelpers = new Set()
   let usesDefined = false
   const filteredSpread = (node, item, code) => {
     if (!filtersRest(node, item, component)) return code
@@ -484,9 +509,9 @@ export const toVue = (component) => {
         ? [':class="$props.class"']
         : []),
     ].flatMap((entry) => entry.match(ATTRIBUTE) ?? [])
-    const classed = omitEmptyClass(listed)
-    if (classed.omitted) usesClassAttrs = true
-    const attributes = classed.attributes.join(" ")
+    const omitted = omitEmptyAttributes(listed)
+    for (const helper of omitted.helpers) attributeHelpers.add(helper)
+    const attributes = omitted.attributes.join(" ")
     const tag = node.variable || node.custom ? "component" : node.tag
     const is = node.variable
       ? ` :is="${scope.rename.get(node.tag) ?? node.tag}"`
@@ -560,6 +585,7 @@ export const toVue = (component) => {
       : allAttrs || definedRoot || (restUsed && !attrsOnInner)
         ? ["type HTMLAttributes", "useAttrs"]
         : []),
+    ...(attributeHelpers.has("mergeProps") ? ["mergeProps"] : []),
     ...(item ? ["watchEffect"] : []),
     ...(uid ? ["useId"] : []),
   ].toSorted((a, b) => byName(a.replace(/^type /, ""), b.replace(/^type /, "")))
@@ -589,7 +615,10 @@ export const toVue = (component) => {
     ...[
       ...(usesDefined ? [["../attrs", "defined"]] : []),
       ...(item ? [["../dev", "warnGroupedChecked"]] : []),
-      ...(usesClassAttrs ? [["../cx", "classAttrs"]] : []),
+      ...(attributeHelpers.has("classAttrs") ? [["../cx", "classAttrs"]] : []),
+      ...(attributeHelpers.has("styleAttrs")
+        ? [["../style", "styleAttrs"]]
+        : []),
     ].reduce(
       (lines, [module, name]) => withImport(lines, module, name),
       imports,

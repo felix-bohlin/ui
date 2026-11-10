@@ -3,6 +3,7 @@ import { useInputAttrs } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import RadioInput from "./RadioInput.vue"
 import { hasName, warnUnnamed } from "../dev"
+import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
@@ -41,7 +42,7 @@ warnUnnamed("Radio", hasName({ ...attrs.value, label }, slots.default))
       size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
-    :style="$attrs.style"
+    v-bind="styleAttrs($attrs.style)"
   >
     <RadioInput
       v-bind="attrs"

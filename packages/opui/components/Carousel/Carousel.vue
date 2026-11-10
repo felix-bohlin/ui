@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { counterLabel, cssString, mergeStyle } from "../style"
+import { counterLabel, cssString, mergeStyle, styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
@@ -34,17 +34,19 @@ defineSlots<Slots>()
       buttons && buttons !== 'inside' && `ui-buttons-${buttons}`,
       $props.class,
     ]"
-    :style="
-      mergeStyle(
-        {
-          '--_button-next-label': nextLabel && cssString(nextLabel),
-          '--_button-prev-label': previousLabel && cssString(previousLabel),
-          '--_items-per-view': itemsPerView,
-          '--_marker-label':
-            markerLabel && counterLabel(markerLabel, 'ui-carousel-item'),
-          '--_media-aspect-ratio': aspectRatio,
-        },
-        {},
+    v-bind="
+      styleAttrs(
+        mergeStyle(
+          {
+            '--_button-next-label': nextLabel && cssString(nextLabel),
+            '--_button-prev-label': previousLabel && cssString(previousLabel),
+            '--_items-per-view': itemsPerView,
+            '--_marker-label':
+              markerLabel && counterLabel(markerLabel, 'ui-carousel-item'),
+            '--_media-aspect-ratio': aspectRatio,
+          },
+          {},
+        ),
       )
     "
   >

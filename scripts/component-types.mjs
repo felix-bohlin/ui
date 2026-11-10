@@ -727,7 +727,10 @@ export const toTypes = (
     : []
   const vueBody = [
     ...vueAliases,
-    ...(slotTypes.has("Slots") ? [] : ["export type Slots = DefaultSlots"]),
+    ...(slotTypes.has("Slots") ||
+    !(slotsByComponent[folder] ?? ["default"]).includes("default")
+      ? []
+      : ["export type Slots = DefaultSlots"]),
     ...[...vueSlotTypes, ...defaultOnlySlotTypes].toSorted(byName),
   ]
   const vue = [

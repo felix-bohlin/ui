@@ -53,6 +53,18 @@ const checkable = (field: Field): field is HTMLInputElement =>
 const optionValue = (option: HTMLOptionElement | HTMLInputElement) =>
   "_value" in option ? option._value : option.value
 
+const ownValue = (field: HTMLInputElement, vnode: VNode) =>
+  "_value" in field || !(vnode.props && "value" in vnode.props)
+    ? optionValue(field)
+    : vnode.props.value
+
+const serverIndex = (field: HTMLSelectElement) => {
+  const options = [...field.options]
+  const marked = options.findLastIndex((option) => option.defaultSelected)
+  if (marked !== -1 || field.size > 1) return marked
+  return options.findIndex((option) => !option.matches(":disabled"))
+}
+
 const serverValue = (field: HTMLInputElement | HTMLTextAreaElement) => {
   if (!isInput(field)) return field.defaultValue
   const probe = document.createElement("input")
@@ -72,8 +84,7 @@ const changed = (field: Field) => {
         (option) => option.selected !== option.defaultSelected,
       )
     }
-    const initial = options.findIndex((option) => option.defaultSelected)
-    return field.selectedIndex !== Math.max(initial, 0)
+    return field.selectedIndex !== serverIndex(field)
   }
   return field.value !== serverValue(field)
 }
@@ -82,7 +93,7 @@ const pending = new WeakMap<unknown[], unknown[]>()
 
 const toggled = (field: HTMLInputElement, list: unknown[], vnode: VNode) => {
   const base = pending.get(list) ?? list
-  const value = "_value" in field ? optionValue(field) : vnode.props?.value
+  const value = ownValue(field, vnode)
   if (base.includes(value) === field.checked) return base
   const next = field.checked
     ? [...base, value]
@@ -98,7 +109,7 @@ const stateOf = (
   vnode: VNode,
 ) => {
   if (checkable(field)) {
-    if (field.type !== "checkbox") return vnode.props?.value ?? field.value
+    if (field.type !== "checkbox") return ownValue(field, vnode)
     return Array.isArray(model) ? toggled(field, model, vnode) : field.checked
   }
   if (isSelect(field)) {

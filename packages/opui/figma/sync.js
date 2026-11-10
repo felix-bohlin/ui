@@ -83,21 +83,32 @@ async function opuiFigmaSync(theme, options) {
   }
   const ensureModes = (collection, list) => {
     const ids = {}
-    list.forEach((mode, index) => {
-      const match = collection.modes.find((entry) => entry.name === mode.name)
-      if (match) {
-        ids[mode.id] = match.modeId
-      } else if (
-        index === 0 &&
-        collection.modes.length === 1 &&
-        collection.variableIds.length === 0
-      ) {
-        collection.renameMode(collection.modes[0].modeId, mode.name)
-        ids[mode.id] = collection.modes[0].modeId
-      } else {
-        ids[mode.id] = collection.addMode(mode.name)
-      }
-    })
+    const added = []
+    let renamed
+    try {
+      list.forEach((mode, index) => {
+        const match = collection.modes.find((entry) => entry.name === mode.name)
+        if (match) {
+          ids[mode.id] = match.modeId
+        } else if (
+          index === 0 &&
+          collection.modes.length === 1 &&
+          collection.variableIds.length === 0
+        ) {
+          const only = collection.modes[0]
+          renamed = { modeId: only.modeId, name: only.name }
+          collection.renameMode(only.modeId, mode.name)
+          ids[mode.id] = only.modeId
+        } else {
+          ids[mode.id] = collection.addMode(mode.name)
+          added.push(ids[mode.id])
+        }
+      })
+    } catch (error) {
+      for (const modeId of added) collection.removeMode(modeId)
+      if (renamed) collection.renameMode(renamed.modeId, renamed.name)
+      throw error
+    }
     return ids
   }
 
@@ -120,6 +131,14 @@ async function opuiFigmaSync(theme, options) {
       const own = findCollection(name) || createCollection(name)
       return { collection: own, ids: ensureModes(own, [mode]), modes: [mode] }
     })
+  }
+
+  const stored = (variable, modeId, seen) => {
+    const value = variable.valuesByMode[modeId]
+    if (!value || value.type !== "VARIABLE_ALIAS") return value
+    if ((seen || []).indexOf(value.id) !== -1) return undefined
+    const target = existing.find((entry) => entry.id === value.id)
+    return target && stored(target, modeId, (seen || []).concat(value.id))
   }
 
   const lookup = (group, name) =>
@@ -311,7 +330,7 @@ async function opuiFigmaSync(theme, options) {
         if (!variable) continue
         if (
           field === "fontFamily" &&
-          variable.valuesByMode[first.ids[firstMode]] !== family
+          stored(variable, first.ids[firstMode]) !== family
         ) {
           continue
         }

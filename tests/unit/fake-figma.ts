@@ -23,6 +23,7 @@ export type FakeCollection = {
   modes: { modeId: string; name: string }[]
   name: string
   remove: () => void
+  removeMode: (modeId: string) => void
   renameMode: (modeId: string, name: string) => void
   variableIds: string[]
 }
@@ -152,6 +153,11 @@ export const fakeFigma = ({
           name,
           remove: () => {
             collections.splice(collections.indexOf(collection), 1)
+          },
+          removeMode: (modeId) => {
+            collection.modes = collection.modes.filter(
+              (candidate) => candidate.modeId !== modeId,
+            )
           },
           renameMode: (modeId, mode) => {
             const entry = collection.modes.find(

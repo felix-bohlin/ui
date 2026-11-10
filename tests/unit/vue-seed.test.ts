@@ -83,8 +83,11 @@ const inputOf = (
 const selectOf = (values: string[], form: Form) => {
   const options = values.map((value) => {
     const base = attributed()
-    return {
+    const option = {
       ...base,
+      disabled: false,
+      matches: (selector: string): boolean =>
+        selector === ":disabled" && option.disabled,
       selected: false,
       value,
       get defaultSelected() {
@@ -95,6 +98,7 @@ const selectOf = (values: string[], form: Form) => {
         else base.attributes.delete("selected")
       },
     }
+    return option
   })
   const select = {
     ...attributed(),
@@ -109,6 +113,7 @@ const selectOf = (values: string[], form: Form) => {
         option.selected = index === Math.max(initial, 0)
       }
     },
+    size: 0,
     type: "select-one",
     get selectedIndex() {
       return options.findIndex((option) => option.selected)
@@ -359,6 +364,35 @@ describe("vSeed while hydrating", () => {
       vnodeOf(vModelCheckbox, ["ham", "cheese"], assigned, { value: "cheese" }),
     )
     expect(assigned).toEqual([["ham"]])
+  })
+
+  test("a box without a value joins an array by the value the browser submits", async () => {
+    const field = inputOf("checkbox", { server: "on" })
+    field.parentNode = {}
+    field.checked = true
+    const assigned: unknown[] = []
+    hook("created", field, vnodeOf(vModelCheckbox, ["ham"], assigned))
+    expect(assigned).toEqual([["ham", "on"]])
+  })
+
+  test("a select the browser opened on its first enabled or last selected option isn't edited", async () => {
+    const placeholder = selectOf(["", "a", "b"], formOf())
+    placeholder.parentNode = {}
+    placeholder.options[0]!.disabled = true
+    placeholder.options[1]!.selected = true
+    const repeated = selectOf(["a", "b", "c"], formOf())
+    repeated.parentNode = {}
+    repeated.options[0]!.defaultSelected = true
+    repeated.options[2]!.defaultSelected = true
+    repeated.options[2]!.selected = true
+    const assigned: unknown[] = []
+    await mount(placeholder, vnodeOf(vModelSelect, "z", assigned), () => {})
+    await mount(repeated, vnodeOf(vModelSelect, "z", assigned), () => {})
+    expect(assigned).toEqual([])
+    placeholder.options[1]!.selected = false
+    placeholder.options[2]!.selected = true
+    await mount(placeholder, vnodeOf(vModelSelect, "z", assigned), () => {})
+    expect(assigned).toEqual(["b"])
   })
 
   test("a box unchecked before hydration seeds the model", async () => {

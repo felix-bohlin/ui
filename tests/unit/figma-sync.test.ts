@@ -105,6 +105,25 @@ describe("opuiFigmaSync", () => {
     ).toBe(4)
   })
 
+  test("leaves the modes of a collection it can't fill as they were", async () => {
+    const fake = fakeFigma({ modeLimit: 2 })
+    const base = fake.figma.variables.createVariableCollection("opui")
+    fake.figma.variables.createVariable("custom/brand", base, "COLOR")
+    const modes = base.modes.map(({ name }) => name)
+    const report = await runSync(fake.figma, theme)
+    expect(base.modes.map(({ name }) => name)).toEqual(modes)
+    expect(report.collections.map(({ name }) => name)).toEqual([
+      "opui Light",
+      "opui Dark",
+      "opui Light more contrast",
+      "opui Dark more contrast",
+    ])
+    const empty = fakeFigma({ modeLimit: 2 })
+    const unused = empty.figma.variables.createVariableCollection("opui")
+    await runSync(empty.figma, theme)
+    expect(unused.modes.map(({ name }) => name)).toEqual(modes)
+  })
+
   test("updates the same variables and styles when it runs again", async () => {
     const fake = fakeFigma()
     await runSync(fake.figma, theme)
@@ -242,6 +261,35 @@ describe("opuiFigmaSync", () => {
       fake.textStyles.find(({ name }) => name === "code")!.fontName,
     ).toEqual({ family: "Inconsolata", style: "Regular" })
     expect(fake.loaded).toContainEqual({ family: "Inter", style: "Bold" })
+  })
+
+  test("binds a text style to a font variable that aliases another", async () => {
+    const body = definition("typography/ui-font-body")
+    const heading = {
+      ...body,
+      name: "typography/ui-font-heading",
+      values: Object.fromEntries(
+        Object.keys(body.values).map((mode) => [mode, { alias: body.name }]),
+      ),
+    }
+    const fake = fakeFigma()
+    await runSync(fake.figma, {
+      ...theme,
+      text: theme.text.map((style) =>
+        style.name === "heading/h1"
+          ? {
+              ...style,
+              variables: { ...style.variables, fontFamily: heading.name },
+            }
+          : style,
+      ),
+      variables: [...theme.variables, heading],
+    })
+    const variable = fake.variables.find(({ name }) => name === heading.name)!
+    expect(
+      fake.textStyles.find(({ name }) => name === "heading/h1")!.boundVariables
+        .fontFamily,
+    ).toEqual({ id: variable.id, type: "VARIABLE_ALIAS" })
   })
 
   test("falls back to the nearest weight and to Inter", async () => {

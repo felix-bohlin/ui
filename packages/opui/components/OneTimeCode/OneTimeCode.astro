@@ -8,14 +8,19 @@ export const title = "One-Time Code"
 const {
   alphanumeric,
   "aria-invalid": ariaInvalid,
+  autocapitalize,
+  autocomplete,
   class: className,
   endText,
   error,
   grouped,
+  inputmode,
   label,
   length = 6,
   name,
+  pattern,
   size,
+  spellcheck,
   style,
   ...rest
 } = Astro.props
@@ -40,11 +45,16 @@ const LabelTag = label || labelSlot ? "span" : Fragment
   <LabelTag class="ui-label">{label}<Fragment set:html={labelSlot} /></LabelTag>
   <span class="ui-field">
     <input
-      autocapitalize={alphanumeric ? "characters" : undefined}
-      autocomplete="one-time-code"
-      inputmode={alphanumeric ? undefined : "numeric"}
-      pattern={alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`}
-      spellcheck={alphanumeric ? "false" : undefined}
+      autocapitalize={
+        autocapitalize ?? (alphanumeric ? "characters" : undefined)
+      }
+      autocomplete={autocomplete ?? "one-time-code"}
+      inputmode={inputmode ?? (alphanumeric ? undefined : "numeric")}
+      pattern={
+        pattern ??
+        (alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`)
+      }
+      spellcheck={spellcheck ?? (alphanumeric ? "false" : undefined)}
       {...rest}
       aria-invalid={error ? "true" : ariaInvalid}
       maxlength={length}

@@ -3,18 +3,22 @@ import { computed, inject } from "vue"
 import { useInputAttrs, vSeed } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
-import { defined } from "../attrs"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
   alphanumeric,
+  autocapitalize,
+  autocomplete,
   endText,
   error,
   grouped,
+  inputmode,
   label,
   length = 6,
   name,
+  pattern,
   size,
+  spellcheck = undefined,
   value,
 } = defineProps<Props>()
 defineSlots<Slots>()
@@ -53,12 +57,17 @@ const field = inject(FieldGroupKey, undefined)
     /></span>
     <span class="ui-field">
       <input
-        :autocapitalize="alphanumeric ? 'characters' : undefined"
-        autocomplete="one-time-code"
-        :inputmode="alphanumeric ? undefined : 'numeric'"
-        :pattern="alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`"
-        :spellcheck="alphanumeric ? 'false' : undefined"
-        v-bind="defined(attrs)"
+        :autocapitalize="
+          autocapitalize ?? (alphanumeric ? 'characters' : undefined)
+        "
+        :autocomplete="autocomplete ?? 'one-time-code'"
+        :inputmode="inputmode ?? (alphanumeric ? undefined : 'numeric')"
+        :pattern="
+          pattern ??
+          (alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`)
+        "
+        :spellcheck="spellcheck ?? (alphanumeric ? 'false' : undefined)"
+        v-bind="attrs"
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
         :maxlength="length"
         :name="name ?? field?.name"

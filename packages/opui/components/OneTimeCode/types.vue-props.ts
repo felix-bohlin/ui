@@ -3,6 +3,14 @@ import type { Class } from "../vue"
 import type { Props as BaseProps } from "./types"
 
 export type Props = BaseProps &
-  Class & { name?: IntrinsicElementAttributes["input"]["name"]; value?: string }
+  Class & {
+    autocapitalize?: IntrinsicElementAttributes["input"]["autocapitalize"]
+    autocomplete?: IntrinsicElementAttributes["input"]["autocomplete"]
+    inputmode?: IntrinsicElementAttributes["input"]["inputmode"]
+    name?: IntrinsicElementAttributes["input"]["name"]
+    pattern?: IntrinsicElementAttributes["input"]["pattern"]
+    spellcheck?: IntrinsicElementAttributes["input"]["spellcheck"]
+    value?: string
+  }
 
 export type Slots = { "end-text"?: Slot; label?: Slot }

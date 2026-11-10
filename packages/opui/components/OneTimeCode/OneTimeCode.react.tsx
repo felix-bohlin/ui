@@ -1,6 +1,5 @@
 "use client"
 
-import { defined } from "../attrs"
 import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
 import type { Props } from "./types.react"
@@ -8,12 +7,17 @@ import type { Props } from "./types.react"
 export default function OneTimeCode({
   alphanumeric,
   "aria-invalid": ariaInvalid,
+  autoCapitalize,
+  autoComplete,
   className,
   error,
   grouped,
+  inputMode,
   length = 6,
   name,
+  pattern,
   size,
+  spellCheck,
   style,
   endText,
   label,
@@ -35,12 +39,17 @@ export default function OneTimeCode({
       {label && <span className="ui-label">{label}</span>}
       <span className="ui-field">
         <input
-          autoCapitalize={alphanumeric ? "characters" : undefined}
-          autoComplete="one-time-code"
-          inputMode={alphanumeric ? undefined : "numeric"}
-          pattern={alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`}
-          spellCheck={alphanumeric ? "false" : undefined}
-          {...defined(rest)}
+          autoCapitalize={
+            autoCapitalize ?? (alphanumeric ? "characters" : undefined)
+          }
+          autoComplete={autoComplete ?? "one-time-code"}
+          inputMode={inputMode ?? (alphanumeric ? undefined : "numeric")}
+          pattern={
+            pattern ??
+            (alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`)
+          }
+          spellCheck={spellCheck ?? (alphanumeric ? "false" : undefined)}
+          {...rest}
           aria-invalid={error ? "true" : ariaInvalid}
           maxLength={length}
           name={name ?? field?.name}

@@ -17,8 +17,7 @@ A spinner on any element with aria-busy="true", for content that is loading, in 
 
 ### Notes
 
-- HTML: These never show a spinner: `<html>`, `<input>`, `<progress>`, `<select>` and `<textarea>`. Neither do elements with `aria-describedby`, except buttons and links.
-- Astro, React, Svelte and Vue: Set `aria-busy="true"` on any element to show a spinner.
+- Set `aria-busy="true"` on an element to show a spinner. `<html>`, `<input>`, `<progress>`, `<select>` and `<textarea>` never show one, and neither do elements with `aria-describedby`, except buttons and links.
 
 ## Component properties
 

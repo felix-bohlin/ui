@@ -2,7 +2,7 @@
 
 Badges attach a small count or status dot to another element.
 
-- CSS: `opui-css/css/components/badge.css` and `opui-css/css/components/anchor.css`.
+- CSS: `opui-css/css/components/badge.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/badge.md), [Astro](https://open-props-ui.netlify.app/astro/components/badge.md), [React](https://open-props-ui.netlify.app/react/components/badge.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/badge.md), [Vue](https://open-props-ui.netlify.app/vue/components/badge.md).
 
 ## Badge
@@ -20,6 +20,7 @@ Badges attach a small count or status dot to another element.
 - `dot`: `boolean`, `.ui-dot`. Renders the indicator as a dot. `label` stays as screen reader text, and the `indicator` slot isn't shown.
 - `hideLabel`: `boolean`, `.ui-indicator > span.ui-sr-only`. Hides `label` visually, for the whole sentence screen readers read, such as "5 unread messages". The `indicator` slot then holds the visible text and is hidden from screen readers.
 - `invisible`: `boolean`, `.ui-invisible`. Hides the indicator.
+- `label`: `string`. The indicator text, such as a count. With `hideLabel` or `dot`, only screen readers get it.
 
 ## Component properties
 
@@ -35,11 +36,6 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_size`: Height and minimum width of the indicator.
 
 Outputs: `--_accent`, `--_bg-color`, `--_border-color`, `--_direction`, `--_duration`, `--_inset-block`, `--_inset-inline`, `--_shift-x`, `--_shift-y`, `--_sign-x`, `--_sign-y` and `--_text-color`.
-
-### anchor.css
-
-- `--_shift-x`: Horizontal shift of `.ui-floating`. Defaults to `0`.
-- `--_shift-y`: Vertical shift of `.ui-floating`. Defaults to `0`.
 
 ## Theme tokens
 

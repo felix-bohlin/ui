@@ -28,7 +28,7 @@ Related buttons and fields joined into one control, like a split button, a searc
 
 ### Notes
 
-- HTML: The root needs `role="group"`.
+- HTML: The root needs `role="group"` and a name.
 
 ## Component properties
 
@@ -36,10 +36,10 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### control-group.css
 
-- `--_divider-accent`: The color `--_divider-border-color` lightens or darkens by 0.1, like the button's `--_accent-tonal`: `--ui-surface-tonal`, the palette tint in `.ui-critical`, and `--ui-primary-tonal` or the tint in `.ui-primary`. In a filled `.ui-critical` or `.ui-primary` group, `--ui-critical` within `--ui-accent-fill-max-lightness` or `--ui-primary`, like the button's `--_accent-fill`.
-- `--_divider-border-color-enabled`: Color of the line while a button in the group is enabled, from `--_divider-accent`. In a `.ui-filled` group without a color, `currentColor`, so where the buttons overlap each one draws the line in its own text color, and the rule between them is `transparent`, so the surface behind the group shows through. `--ui-control-border-color-filled`, the hook for filled controls, replaces it when a theme sets it.
+- `--_divider-accent`: The color `--_divider-enabled-border-color` lightens or darkens by 0.1, like the button's `--_accent-tonal`: `--ui-surface-tonal`, the palette tint in `.ui-critical`, and `--ui-primary-tonal` or the tint in `.ui-primary`. In a filled `.ui-critical` or `.ui-primary` group, `--ui-critical` within `--ui-accent-fill-max-lightness` or `--ui-primary`, like the button's `--_accent-fill`.
+- `--_divider-enabled-border-color`: Color of the line while a button in the group is enabled, from `--_divider-accent`. In a `.ui-filled` group without a color, `currentColor`, so where the buttons overlap each one draws the line in its own text color, and the rule between them is `transparent`, so the surface behind the group shows through. `--ui-control-border-color-filled`, the hook for filled controls, replaces it when a theme sets it.
 
-Outputs: `--_border-color`, `--_divider-border-color`, `--_divider-border-color-disabled`, `--_divider-gap`, `--_end-end-radius`, `--_end-start-radius`, `--_overlap`, `--_ring-reach`, `--_shadow`, `--_start-border-color`, `--_start-end-radius` and `--_start-start-radius`.
+Outputs: `--_border-color`, `--_divider-border-color`, `--_divider-disabled-border-color`, `--_divider-gap`, `--_end-end-radius`, `--_end-start-radius`, `--_overlap`, `--_ring-reach`, `--_shadow`, `--_start-border-color`, `--_start-end-radius` and `--_start-start-radius`.
 
 ### button.css
 
@@ -62,7 +62,7 @@ Outputs: `--_border-color`, `--_divider-border-color`, `--_divider-border-color-
 - `--_start-end-radius`: The radius of the start-end corner. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the button joins another control.
 - `--_start-start-radius`: The radius of the start-start corner. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the button joins the control before it.
 
-Outputs: `--_accent-text`, `--_actions-shift`, `--_bg-color`, `--_border-color`, `--_current-bg-color`, `--_current-text-color`, `--_default-active-bg-color`, `--_default-hover-bg-color`, `--_duration`, `--_filled-active-bg-color`, `--_filled-hover-bg-color`, `--_outlined-active-bg-color`, `--_outlined-active-border-color`, `--_outlined-active-text-color`, `--_outlined-hover-bg-color`, `--_outlined-hover-border-color`, `--_outlined-hover-text-color`, `--_shadow`, `--_text-color`, `--_tonal-active-bg-color`, `--_tonal-active-text-color`, `--_tonal-current-bg-color`, `--_tonal-hover-bg-color` and `--_tonal-hover-text-color`.
+Outputs: `--_accent-text`, `--_actions-shift`, `--_bg-color`, `--_border-color`, `--_default-active-bg-color`, `--_default-hover-bg-color`, `--_duration`, `--_filled-active-bg-color`, `--_filled-hover-bg-color`, `--_outlined-active-bg-color`, `--_outlined-active-border-color`, `--_outlined-active-text-color`, `--_outlined-hover-bg-color`, `--_outlined-hover-border-color`, `--_outlined-hover-text-color`, `--_selected-bg-color`, `--_selected-text-color`, `--_shadow`, `--_text-color`, `--_tonal-active-bg-color`, `--_tonal-active-text-color`, `--_tonal-hover-bg-color`, `--_tonal-hover-text-color` and `--_tonal-selected-bg-color`.
 
 ### text-field.css
 
@@ -75,6 +75,7 @@ Outputs: `--_accent-text`, `--_actions-shift`, `--_bg-color`, `--_border-color`,
 - `--_end-start-radius`: The radius of the end-start corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
 - `--_field-padding-block`: The preferred block padding of the control. Set by the size classes.
 - `--_field-padding-inline`: The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`.
+- `--_file-button-padding`: The preferred gap around the `::file-selector-button` of a file field: `--ui-space-2`, or `--ui-space-1` in `.ui-small` and `.ui-x-small`.
 - `--_font-size`: The font size of the control and affixes.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
 - `--_radius`: The corner radius of `.ui-field` and a file input's button. Defaults to `--ui-field-radius`, or `--ui-radius` when the theme doesn't set it.
@@ -94,28 +95,32 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--u
 ### Example: Variants
 
 ```html
-<div class="ui-control-group" role="group">
-  <button class="ui-button" type="button">Transparent</button>
-  <button class="ui-button" type="button">Transparent</button>
-  <a class="ui-button" href="#">Transparent</a>
+<div class="ui-control-group" role="group" aria-label="Edit history">
+  <button class="ui-button" type="button">Undo</button>
+  <button class="ui-button" type="button">Redo</button>
+  <a class="ui-button" href="#">History</a>
 </div>
 
-<div class="ui-control-group ui-outlined" role="group">
-  <button class="ui-button" type="button">Outlined</button>
-  <button class="ui-button" type="button">Outlined</button>
-  <a class="ui-button" href="#">Outlined</a>
+<div
+  class="ui-control-group ui-outlined"
+  role="group"
+  aria-label="Edit history"
+>
+  <button class="ui-button" type="button">Undo</button>
+  <button class="ui-button" type="button">Redo</button>
+  <a class="ui-button" href="#">History</a>
 </div>
 
-<div class="ui-control-group ui-tonal" role="group">
-  <button class="ui-button" type="button">Tonal</button>
-  <button class="ui-button" type="button">Tonal</button>
-  <a class="ui-button" href="#">Tonal</a>
+<div class="ui-control-group ui-tonal" role="group" aria-label="Edit history">
+  <button class="ui-button" type="button">Undo</button>
+  <button class="ui-button" type="button">Redo</button>
+  <a class="ui-button" href="#">History</a>
 </div>
 
-<div class="ui-control-group ui-filled" role="group">
-  <button class="ui-button" type="button">Filled</button>
-  <button class="ui-button" type="button">Filled</button>
-  <a class="ui-button" href="#">Filled</a>
+<div class="ui-control-group ui-filled" role="group" aria-label="Edit history">
+  <button class="ui-button" type="button">Undo</button>
+  <button class="ui-button" type="button">Redo</button>
+  <a class="ui-button" href="#">History</a>
 </div>
 ```
 
@@ -130,28 +135,28 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--u
 import { Button, ControlGroup } from "opui-css/astro"
 ---
 
-<ControlGroup>
-  <Button>Transparent</Button>
-  <Button>Transparent</Button>
-  <Button href="#">Transparent</Button>
+<ControlGroup aria-label="Edit history">
+  <Button>Undo</Button>
+  <Button>Redo</Button>
+  <Button href="#">History</Button>
 </ControlGroup>
 
-<ControlGroup variant="outlined">
-  <Button>Outlined</Button>
-  <Button>Outlined</Button>
-  <Button href="#">Outlined</Button>
+<ControlGroup aria-label="Edit history" variant="outlined">
+  <Button>Undo</Button>
+  <Button>Redo</Button>
+  <Button href="#">History</Button>
 </ControlGroup>
 
-<ControlGroup variant="tonal">
-  <Button>Tonal</Button>
-  <Button>Tonal</Button>
-  <Button href="#">Tonal</Button>
+<ControlGroup aria-label="Edit history" variant="tonal">
+  <Button>Undo</Button>
+  <Button>Redo</Button>
+  <Button href="#">History</Button>
 </ControlGroup>
 
-<ControlGroup variant="filled">
-  <Button>Filled</Button>
-  <Button>Filled</Button>
-  <Button href="#">Filled</Button>
+<ControlGroup aria-label="Edit history" variant="filled">
+  <Button>Undo</Button>
+  <Button>Redo</Button>
+  <Button href="#">History</Button>
 </ControlGroup>
 ```
 
@@ -167,28 +172,28 @@ import { Button, ControlGroup } from "opui-css/react"
 export default function Variants() {
   return (
     <>
-      <ControlGroup>
-        <Button>Transparent</Button>
-        <Button>Transparent</Button>
-        <Button href="#">Transparent</Button>
+      <ControlGroup aria-label="Edit history">
+        <Button>Undo</Button>
+        <Button>Redo</Button>
+        <Button href="#">History</Button>
       </ControlGroup>
 
-      <ControlGroup variant="outlined">
-        <Button>Outlined</Button>
-        <Button>Outlined</Button>
-        <Button href="#">Outlined</Button>
+      <ControlGroup aria-label="Edit history" variant="outlined">
+        <Button>Undo</Button>
+        <Button>Redo</Button>
+        <Button href="#">History</Button>
       </ControlGroup>
 
-      <ControlGroup variant="tonal">
-        <Button>Tonal</Button>
-        <Button>Tonal</Button>
-        <Button href="#">Tonal</Button>
+      <ControlGroup aria-label="Edit history" variant="tonal">
+        <Button>Undo</Button>
+        <Button>Redo</Button>
+        <Button href="#">History</Button>
       </ControlGroup>
 
-      <ControlGroup variant="filled">
-        <Button>Filled</Button>
-        <Button>Filled</Button>
-        <Button href="#">Filled</Button>
+      <ControlGroup aria-label="Edit history" variant="filled">
+        <Button>Undo</Button>
+        <Button>Redo</Button>
+        <Button href="#">History</Button>
       </ControlGroup>
     </>
   )
@@ -206,28 +211,28 @@ export default function Variants() {
   import { Button, ControlGroup } from "opui-css/svelte"
 </script>
 
-<ControlGroup>
-  <Button>Transparent</Button>
-  <Button>Transparent</Button>
-  <Button href="#">Transparent</Button>
+<ControlGroup aria-label="Edit history">
+  <Button>Undo</Button>
+  <Button>Redo</Button>
+  <Button href="#">History</Button>
 </ControlGroup>
 
-<ControlGroup variant="outlined">
-  <Button>Outlined</Button>
-  <Button>Outlined</Button>
-  <Button href="#">Outlined</Button>
+<ControlGroup aria-label="Edit history" variant="outlined">
+  <Button>Undo</Button>
+  <Button>Redo</Button>
+  <Button href="#">History</Button>
 </ControlGroup>
 
-<ControlGroup variant="tonal">
-  <Button>Tonal</Button>
-  <Button>Tonal</Button>
-  <Button href="#">Tonal</Button>
+<ControlGroup aria-label="Edit history" variant="tonal">
+  <Button>Undo</Button>
+  <Button>Redo</Button>
+  <Button href="#">History</Button>
 </ControlGroup>
 
-<ControlGroup variant="filled">
-  <Button>Filled</Button>
-  <Button>Filled</Button>
-  <Button href="#">Filled</Button>
+<ControlGroup aria-label="Edit history" variant="filled">
+  <Button>Undo</Button>
+  <Button>Redo</Button>
+  <Button href="#">History</Button>
 </ControlGroup>
 ```
 
@@ -243,28 +248,28 @@ import { Button, ControlGroup } from "opui-css/vue"
 </script>
 
 <template>
-  <ControlGroup>
-    <Button>Transparent</Button>
-    <Button>Transparent</Button>
-    <Button href="#">Transparent</Button>
+  <ControlGroup aria-label="Edit history">
+    <Button>Undo</Button>
+    <Button>Redo</Button>
+    <Button href="#">History</Button>
   </ControlGroup>
 
-  <ControlGroup variant="outlined">
-    <Button>Outlined</Button>
-    <Button>Outlined</Button>
-    <Button href="#">Outlined</Button>
+  <ControlGroup aria-label="Edit history" variant="outlined">
+    <Button>Undo</Button>
+    <Button>Redo</Button>
+    <Button href="#">History</Button>
   </ControlGroup>
 
-  <ControlGroup variant="tonal">
-    <Button>Tonal</Button>
-    <Button>Tonal</Button>
-    <Button href="#">Tonal</Button>
+  <ControlGroup aria-label="Edit history" variant="tonal">
+    <Button>Undo</Button>
+    <Button>Redo</Button>
+    <Button href="#">History</Button>
   </ControlGroup>
 
-  <ControlGroup variant="filled">
-    <Button>Filled</Button>
-    <Button>Filled</Button>
-    <Button href="#">Filled</Button>
+  <ControlGroup aria-label="Edit history" variant="filled">
+    <Button>Undo</Button>
+    <Button>Redo</Button>
+    <Button href="#">History</Button>
   </ControlGroup>
 </template>
 ```

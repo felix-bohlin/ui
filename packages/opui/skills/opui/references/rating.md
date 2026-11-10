@@ -24,9 +24,9 @@ A star rating: a meter that shows a score, or radios that collect one.
 - `max`: `number | string`, `[max]`, `--_max`, default `5`. Number of stars.
 - `name`: `string`. Renders the input: a `<fieldset>` of radios with this name. Without it, a read-only `<meter>`.
 - `onChange` (React): `ChangeEventHandler<HTMLInputElement>`. Called when a star or the clear radio is picked.
-- `required`: `boolean`, `input[required]`. Requires a star and drops the clear radio.
+- `required`: `boolean`, `input[required]`. Adds a required mark after the legend, requires a star and drops the clear radio.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`). The size of the element.
-- `starLabel`: `(value: number) => string`, default `(value) => "1 star", "2 stars"`. Returns the accessible name of each star radio. Use it to translate.
+- `starLabel`: `(value: number) => string`. Returns the accessible name of each star radio. Use it to translate. Defaults to `1 star`, `2 stars` and so on.
 
 Model: `value` (`number | string`), the score of the meter, fractions included, or the checked star of the input. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
 
@@ -59,7 +59,7 @@ Outputs: `--_duration` and `--_fill-bg-color`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-required-text-color`, `--ui-font-size-caption`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-motion`, `--ui-radius-small`, `--ui-space-1`, `--ui-space-2`, `--ui-text`, `--ui-text-subtle`, `--ui-track-bg-color` and `--ui-warning`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-required-text-color`, `--ui-font-size-caption`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-motion`, `--ui-radius-small`, `--ui-space-1`, `--ui-space-2`, `--ui-text`, `--ui-text-subtle`, `--ui-track-bg-color` and `--ui-warning`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

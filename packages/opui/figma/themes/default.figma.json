@@ -2565,7 +2565,7 @@
     },
     {
       "codeSyntax": "var(--ui-selected-strong)",
-      "description": "Mark of a selected item that has to stand out from the page on its own: the current `Carousel` marker, the bar on the start edge of a selected `List` row, the selected tab of filled `Tabs`, the current `Stepper` and `Timeline` markers, and the done part of a `Progress` bar, a `Stepper` and a tracked `Timeline`. Defaults to `--ui-primary`. `--ui-selected` is the fill behind a selected item and may be faint.",
+      "description": "Mark of a selected item that has to stand out from the page on its own: the current `Carousel` marker, the bar on the start edge of a selected `List` row, the selected tab of filled `Tabs`, the current `Stepper` and `Timeline` markers, the border of a checked `Message` reaction, and the done part of a `Progress` bar, a `Stepper` and a tracked `Timeline`. Defaults to `--ui-primary`. `--ui-selected` is the fill behind a selected item and may be faint.",
       "hidden": false,
       "name": "primary/ui-selected-strong",
       "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"],

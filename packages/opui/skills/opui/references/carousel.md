@@ -44,7 +44,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 ### carousel.css
 
 - `--_block-size`: The height of `.ui-vertical`.
-- `--_button-bg-color`: Background of the scroll buttons. Defaults to `--ui-surface-inverse`.
+- `--_button-bg-color`: Background of the scroll buttons. Defaults to `--ui-surface-inverse`. The icon is drawn in its inverse, so keep it very dark or very light.
 - `--_button-disabled-opacity`: Opacity of disabled scroll buttons. `0` hides them, `.ui-persistent-buttons` sets `1`.
 - `--_button-image`: Icon of the scroll buttons, pointing forward. The previous button mirrors it.
 - `--_button-image-size`: The icon size in the scroll buttons.
@@ -83,7 +83,11 @@ The stylesheets read `--ui-border-width`, `--ui-button-size-small`, `--ui-contro
 ### Example: Basics
 
 ```html
-<ul class="ui-carousel ui-markers" aria-label="Destinations">
+<ul
+  class="ui-carousel ui-markers ui-buttons-outside"
+  role="list"
+  aria-label="Destinations"
+>
   <li>
     <div class="ui-card ui-tonal">
       <hgroup class="ui-header">
@@ -151,7 +155,7 @@ const places = [
 ]
 ---
 
-<Carousel aria-label="Destinations" markers>
+<Carousel aria-label="Destinations" buttons="outside" markers>
   {places.map(({ description, title }) => <li>
     <Card variant="tonal">
       <CardHeader>
@@ -183,7 +187,7 @@ const places = [
 
 export default function Basics() {
   return (
-    <Carousel aria-label="Destinations" markers>
+    <Carousel aria-label="Destinations" buttons="outside" markers>
       {places.map(({ description, title }) => (
         <li key={title}>
           <Card variant="tonal">
@@ -219,7 +223,7 @@ export default function Basics() {
   ]
 </script>
 
-<Carousel aria-label="Destinations" markers>
+<Carousel aria-label="Destinations" buttons="outside" markers>
   {#each places as { description, title } (title)}
     <li>
       <Card variant="tonal">
@@ -254,7 +258,7 @@ const places = [
 </script>
 
 <template>
-  <Carousel aria-label="Destinations" markers>
+  <Carousel aria-label="Destinations" buttons="outside" markers>
     <li v-for="{ description, title } in places" :key="title">
       <Card variant="tonal">
         <CardHeader>

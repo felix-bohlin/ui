@@ -37,11 +37,10 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 ### copy.css
 
 - `--_bg-color`: Background of the label. Defaults to `--ui-surface-elevated`.
-- `--_ease`: Easing of the reveal and the fade. Defaults to `--ui-ease-enter`.
 - `--_motion`: Motion multiplier for the reveal and the fade. `0` turns them off.
 - `--_offset`: The gap between the label and the button.
 
-Outputs: `--_accent`, `--_border-color`, `--_duration`, `--_font-size`, `--_hidden-clip-path`, `--_radius`, `--_shown-clip-path` and `--_text-color`.
+Outputs: `--_accent`, `--_border-color`, `--_duration`, `--_ease`, `--_font-size`, `--_hidden-clip-path`, `--_radius`, `--_shown-clip-path` and `--_text-color`.
 
 ## Theme tokens
 

@@ -20,7 +20,7 @@ Radio inputs that switch panels. To pick an option, use a Toggle group.
 - `name`: `string`, `.ui-input[name]`. The name shared by the tab inputs. Generated when omitted.
 - `onValueChange` (React): `(value: string) => void`. Called with the `value` of the tab when one is selected.
 - `orientation`: `"horizontal"` (default), `"vertical"` (`.ui-vertical`). The orientation of the tabs. `vertical` stacks them in a column at the inline start, with the panel beside them.
-- `overflow`: `"scroll"` (default), `"wrap"` (`.ui-overflow-wrap`). What the tabs do when they don't fit. `"scroll"` keeps them on one row and scrolls it sideways, and `"wrap"` wraps them onto more rows. Vertical tabs ignore it: long labels wrap within the column.
+- `overflow`: `"scroll"` (default), `"wrap"` (`.ui-overflow-wrap`). What the tabs do when they don't fit. `scroll` keeps them on one row and scrolls it sideways, and `wrap` wraps them onto more rows. Vertical tabs ignore it: long labels wrap within the column.
 - `value` (Astro and React): `string`. The `value` of the selected tab. The item whose `value` matches is checked, and the items' own `checked` is ignored.
 - `variant`: `"filled"` (`.ui-filled`), `"line"` (`.ui-line`), `"outlined"` (`.ui-outlined`), `"tonal"` (default). The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.
 
@@ -69,7 +69,7 @@ Model: `value` (`string`), the `value` of the selected tab. Astro and React `val
 
 ### Props and modifiers
 
-- `for` (Astro, Svelte and Vue): `string`, `[for]`. The id of the input it labels. Set by the item.
+- `for` (Astro, HTML, Svelte and Vue): `string`, `[for]`. The id of the input it labels. Set by the item.
 - `htmlFor` (React): `string`. The id of the input it labels, as `htmlFor` like on the element. Set by the item.
 
 ### Slots

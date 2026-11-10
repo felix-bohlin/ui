@@ -14,7 +14,7 @@ A progress bar on the native progress element, for a task that reports how far a
 
 ### Props and modifiers
 
-- `max`: `number | string`. The maximum value.
+- `max`: `number | string`, default `1`. The maximum value. `value` runs from 0 to it.
 - `round`: `boolean`, `.ui-round`. Draws the progress as a ring, `--ui-icon-size-large` wide, for a small space such as a button or a list item. Needs typed `attr()`; other browsers show the bar.
 - `value`: `number | string`, `progress[value]`. The current value. Omit it for an indeterminate state.
 - `variant`: `"filled"` (`.ui-filled`), `"tonal"` (default). The variant to use.

@@ -15,13 +15,13 @@ Classes for the space between components. Put them on wrappers. Gaps follow the 
 
 - Alignment: `center` (`.ui-align-center`), `end` (`.ui-align-end`), `start` (default). Where `.ui-layout-row` puts its children along the row, and where `.ui-layout-column` lines up its children and their text.
 - Breakpoint: `large` (`.ui-breakpoint-large`), `medium` (default), `small` (`.ui-breakpoint-small`). The container width at which `.ui-layout-columns` goes from one column to `--_columns`: `40rem`, `56rem` or `72rem`.
-- Column: `.ui-layout-column`. A column with even space between its children.
+- Column: `.ui-layout-column`. A column with even space between its children. On a `ul` or `ol` it also drops the list bullets and margins.
 - Columns: `.ui-layout-columns`. One column that becomes the `--_columns` tracks at the breakpoint, measured on the nearest container, such as `.ui-layout-container`.
 - Container: `.ui-layout-container`. Centers its content, caps its width and is the container `.ui-layout-columns` measures.
 - Divided: `.ui-divided`. Draws a line in the middle of each gap of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid` and `.ui-layout-columns`, only between two children, so a wrapped row or the short last row of a grid starts and ends without one. Browsers without gap decorations leave the gap without the line.
 - Grid: `.ui-layout-grid`. Columns that fill the width and wrap. On a `ul` or `ol` it also drops the list bullets and margins, and a `.ui-card` in each `li` fills its cell.
 - Media: `.ui-layout-media`. A media object: a fixed-size start, such as an avatar, next to text that fills the rest and wraps instead of widening the row.
-- Row: `.ui-layout-row`. A wrapping row with its children centered on one line. On a `ul` or `ol` it also drops the list bullets and margins.
+- Row: `.ui-layout-row`. A wrapping row with its children centered vertically. On a `ul` or `ol` it also drops the list bullets and margins.
 - Sizes: `large` (`.ui-large`), `medium` (default), `small` (`.ui-small`), `x-small` (`.ui-x-small`). The space between children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid`, `.ui-layout-columns` and `.ui-layout-media`.
 - Spread: `.ui-spread`. Pushes the children of `.ui-layout-row` to its two ends, for a page header with a heading group and its actions.
 - Sticky: `.ui-sticky`. On a child of `.ui-layout-columns`, keeps it in view at `--_sticky-inset` from the top while the other column scrolls, once the columns sit side by side.

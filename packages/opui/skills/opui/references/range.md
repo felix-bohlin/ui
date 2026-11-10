@@ -11,7 +11,7 @@ Range lets users pick a number by sliding a thumb along a track.
 
 - `label.ui-range` (root): Container element.
 - `.ui-label` (prop `label`, slot `label`): The label for the range.
-- `<output>` (prop `valueSuffix`, slot `value-text`): Shows the current value, with an optional `valueSuffix`. `opui-css/css/js/range.js` keeps it in step with the thumb, and content in the `value-text` slot replaces it.
+- `<output class="ui-value" data-live>` (prop `valueSuffix`, slot `value-text`): Shows the current value, with an optional `valueSuffix`. `opui-css/css/js/range.js` keeps it in step with the thumb, and content in the `value-text` slot replaces it.
 - `.ui-start-text` (prop `startText`, slot `start-text`): Description text displayed above the input.
 - `<input>` (model): The range input.
 - `<datalist>` (prop `items`, prop `list`, slot `datalist`): Tick marks and their labels, under the input.
@@ -27,7 +27,7 @@ Range lets users pick a number by sliding a thumb along a track.
 - `list`: `string`. The id of the `<datalist>`. Generated when `items` or the `datalist` slot is used.
 - `max`: `number | string`, default `100`. The largest value of the `<input>`.
 - `min`: `number | string`, default `0`. The smallest value of the `<input>`.
-- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.
+- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
 - `spread`: `boolean`, `.ui-spread`. Pushes the label and start text to one side and the input to the other.
 - `step`: `number | string`, default `1`. The step between values of the `<input>`. Without a `value`, the slider starts at the step nearest the middle.
@@ -39,9 +39,9 @@ Model: `value` (`number | string`), the current value. Astro and React `value`, 
 
 ### Notes
 
-- HTML: Add a `<datalist aria-hidden="true">` after the input for tick marks.
-- Astro, Svelte and Vue: Attributes that aren't props go to the `<input>`, like `max`, `min` and `step`, and `class` and `style` go to the root `<label>`.
-- React: Attributes that aren't props go to the `<input>`, like `max`, `min` and `step`, and `className` and `style` go to the root `<label>`. Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.
+- HTML: Add a `<datalist aria-hidden="true">` after the input for tick marks. `data-suffix` on the `.ui-value` output adds text after the value.
+- Astro, Svelte and Vue: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`.
+- React: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `className` and `style` go to the root `<label>`. Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.
 
 ## Component properties
 
@@ -53,7 +53,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_ease`: Easing of the thumb ring transition and focus ring. Defaults to `--ui-ease`.
 - `--_motion`: Motion multiplier for the thumb highlight and focus ring. `0` turns them off.
 - `--_thumb-border-width`: Width of the page-colored ring between the thumb and the track. Set on the `<input>`.
-- `--_thumb-size`: Width and height of the thumb. Set by the sizes, and larger on touch screens at the default size.
+- `--_thumb-size`: Width and height of the thumb. Set by the sizes, and larger on touch screens at every size but `.ui-large`.
 - `--_track-base-bg-color`: Color of the empty track at rest. `--ui-track-bg-color` when the theme sets it, otherwise the field border, and `--ui-surface` under more contrast; set by `.ui-filled` and `.ui-tonal`.
 - `--_track-block-size`: Height of the track. Set by the sizes.
 - `--_track-radius`: Corner radius of the track.

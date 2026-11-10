@@ -52,7 +52,7 @@ Model: `value` (`string | string[]`), the value of the checked button, or the va
 - `name`: `string`. The name of the input. Falls back to the `ToggleGroup`'s name, then to a `FieldGroup`'s.
 - `required`: `boolean`. The form won't submit until it's checked. A `ToggleGroup` without `multiple` needs it on one button only.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
-- `type`: `"checkbox"` (`input[type="checkbox"]`, default), `"radio"` (`input[type="radio"]`). The input type. `"radio"` allows one selection in a group. A `ToggleGroup` without `multiple` makes every button a radio.
+- `type`: `"checkbox"` (`input[type="checkbox"]`, default), `"radio"` (`input[type="radio"]`). The input type. `radio` allows one selection in a group. A `ToggleGroup` without `multiple` makes every button a radio.
 - `value`: `string`. The value of the input.
 
 ### Slots
@@ -76,7 +76,8 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 - `--_bg-color`: Background of the group. Defaults to `--ui-surface`.
 - `--_border-color`: Color of the outline around the group and the lines between buttons. Defaults to `--ui-control-border-color`, or `--ui-border-color` when the theme doesn't set it.
-- `--_radius`: Corner radius of the group. Defaults to `--ui-button-radius`, or `--ui-radius` when the theme doesn't set it, capped at half a button height so a round radius doesn't clip the end items.
+- `--_radius`: Corner radius of the group. Defaults to `--ui-button-radius`, or `--ui-radius` when the theme doesn't set it, capped at half of `--_size` so a round radius doesn't clip the end items.
+- `--_size`: Height of a button in the group, which caps `--_radius`. Defaults to `--ui-button-size`, set by the size classes.
 
 Outputs: `--_divider-border-width`, `--_divider-gap` and `--_divider-shadow`.
 
@@ -102,7 +103,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-radi
 ```html
 <label class="ui-toggle-button">
   <input name="standalone-demo-1" type="checkbox" />
-  Toggle me
+  Show grid
 </label>
 <label class="ui-toggle-button">
   <input name="standalone-demo-2" type="checkbox" />
@@ -122,7 +123,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-radi
     <path d="M12 8v4"></path>
     <path d="M12 16h.01"></path>
   </svg>
-  Toggle with icon
+  Show warnings
 </label>
 ```
 
@@ -137,10 +138,10 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-radi
 import { ToggleButton } from "opui-css/astro"
 ---
 
-<ToggleButton label="Toggle me" name="standalone-demo-1" />
+<ToggleButton label="Show grid" name="standalone-demo-1" />
 <ToggleButton name="standalone-demo-2">
   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
-  Toggle with icon
+  Show warnings
 </ToggleButton>
 ```
 
@@ -158,10 +159,10 @@ import { ToggleButton } from "opui-css/react"
 export default function Standalone() {
   return (
     <>
-      <ToggleButton label="Toggle me" name="standalone-demo-1" />
+      <ToggleButton label="Show grid" name="standalone-demo-1" />
       <ToggleButton name="standalone-demo-2">
         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></svg>
-        Toggle with icon
+        Show warnings
       </ToggleButton>
     </>
   )
@@ -181,10 +182,10 @@ export default function Standalone() {
   import { ToggleButton } from "opui-css/svelte"
 </script>
 
-<ToggleButton label="Toggle me" name="standalone-demo-1" />
+<ToggleButton label="Show grid" name="standalone-demo-1" />
 <ToggleButton name="standalone-demo-2">
   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
-  Toggle with icon
+  Show warnings
 </ToggleButton>
 ```
 
@@ -202,10 +203,10 @@ import { ToggleButton } from "opui-css/vue"
 </script>
 
 <template>
-  <ToggleButton label="Toggle me" name="standalone-demo-1" />
+  <ToggleButton label="Show grid" name="standalone-demo-1" />
   <ToggleButton name="standalone-demo-2">
     <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
-    Toggle with icon
+    Show warnings
   </ToggleButton>
 </template>
 ```

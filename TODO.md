@@ -694,6 +694,13 @@ Findings with a page and section in brackets come from the stress pages in `src/
       ```
     - B: inline the slot checks into the template (`v-if="endText || $slots['end-text'] || characterCount"`). It only covers the values the template reads: the ids that `aria-describedby` merges in the script would still need a getter.
   - Fixed: with option A: `toVue` emits a derived value that reads a slot, or reads such a value, as a getter called in the script and the template (`hasEndText()`, `:is="Root()"`), in TextField, NumberField, Textarea, Range and ListItem, and refuses a provided value that reads a slot. `slotsUsedIn` reads the syntax tree, so a slot check the formatter breaks across lines still counts. `tests/unit/vue-slot-getters.test.ts` compiles a sample, mounts it on an in-memory renderer, adds an `end-text` slot after mount and expects the end text with its `aria-describedby` and a `label` root; the old `computed` keeps the `div` and no end text. The components guide names the exception next to "Derived values go in `computed()`".
+- [ ] (2) Package: The Svelte declarations of Avatar, Button, Chip, FieldLegend, Fieldset, Form and ListItem spell out every member of their props union, and `svelte-check` with `skipLibCheck: false` reports "Expression produces a union type that is too complex to represent" in each of their `dist/components/*.svelte.d.ts` files (`packages/opui/scripts/build-frameworks.mjs:304-311`, `packages/opui/components/Avatar/types.svelte.ts:4-9`)
+  - Summary: A Svelte project that type-checks its dependencies gets errors in seven opui-css declaration files.
+  - Recommended: Fix with option A. Users then need no tsconfig setting to type-check the package.
+  - Options:
+    - A (recommended): emit declarations that reference the props type (`import("./types.svelte").Props`) instead of the expanded union, for example by typing `$props()` with a named type svelte2tsx keeps.
+    - B: document in Getting started that the Svelte types need `skipLibCheck: true`, as the templates set.
+  - Found while adding the create-vite flags to the package fixtures for the 6.0 checklist: the Svelte fixture passes with `skipLibCheck: true`, and with `false` svelte-check 4.7 reports the error at the first line of each file. React and Vue pass with `false`.
 
 ## Docs
 

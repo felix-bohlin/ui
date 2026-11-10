@@ -70,7 +70,7 @@ const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
       :aria-label="clearLabel"
       :name="name"
       type="radio"
-      value="0"
+      :value="0"
       v-seed
       v-model="model"
     /><input

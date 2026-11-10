@@ -51,7 +51,7 @@ export default function Rating({
           onChange={onChange}
           name={name}
           type="radio"
-          value="0"
+          value={0}
         />
       )}
       {stars.map((star, index) => (

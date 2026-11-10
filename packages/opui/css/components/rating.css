@@ -174,7 +174,15 @@
     }
 
     &:has([aria-invalid="true"], :user-invalid) {
-      --_empty-bg-color: oklch(from var(--ui-invalid) l c h / 60%);
+      @media (forced-colors: none) {
+        --_empty-bg-color: oklch(from var(--ui-invalid) l c h / 60%);
+      }
+
+      @media (forced-colors: active) {
+        input:not([value="0"]) {
+          border: var(--ui-border-width) dashed CanvasText;
+        }
+      }
     }
 
     @media (forced-colors: active) {

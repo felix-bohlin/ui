@@ -370,7 +370,7 @@ importers:
         specifier: ^5.57
         version: 5.57.3
       vue:
-        specifier: ^3.5
+        specifier: ^3.5.2
         version: 3.5.45(typescript@6.0.3)
     devDependencies:
       '@jridgewell/remapping':

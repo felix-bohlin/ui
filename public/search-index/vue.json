@@ -3663,7 +3663,7 @@
   {
     "id": "guide-getting-started-vue",
     "title": "Getting started",
-    "description": "OPUI ships first-class components for Vue 3.5 and later. Install the package, import what you need, and you're set.",
+    "description": "OPUI ships first-class components for Vue 3.5.2 and later. Install the package, import what you need, and you're set.",
     "category": "Guide",
     "url": "/vue/guide/getting-started/"
   },

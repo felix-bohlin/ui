@@ -13,13 +13,13 @@ HTML, [Astro](https://astro.build/), [React](https://react.dev/), [Svelte](https
 pnpm add opui-css
 ```
 
-Peer dependencies:
+It needs Node 26.10 or later. Peer dependencies:
 
 - `astro` `^7` (only required if you use the Astro components)
 - `open-props` `^1.7.23` (only required if you import `opui-css/open-props.css`, the Open Props source)
 - `react` and `react-dom` `^19` (only required if you use the React components)
 - `svelte` `^5.57` (only required if you use the Svelte components)
-- `vue` `^3.5` (only required if you use the Vue components)
+- `vue` `^3.5.2` (only required if you use the Vue components)
 
 ## Usage
 
@@ -102,7 +102,7 @@ import { Button, Card } from "opui-css/vue"
 
 `opui-css/react` and `opui-css/vue` export compiled JavaScript with `.d.ts` types, so they load in any bundler and in Node without extra configuration, on the server too, Next.js and Nuxt included. `opui-css/svelte` exports the `.svelte` files with their `.d.ts` types, which `@sveltejs/vite-plugin-svelte` compiles through the package's `svelte` export condition, in SvelteKit and in Vite alike. `opui-css/astro` exports the `.astro` sources, which Astro compiles.
 
-The compiled files are ES modules for ES2022, and Node 22 and later can also `require()` them. A test runner that loads `node_modules` as CommonJS, such as Jest in its default setup, has to transform `opui-css` (Jest: leave it out of `transformIgnorePatterns`). Source maps and declaration maps point at the sources the package ships in `components/`, so stack traces and Go to Definition open the `.tsx`, `.vue` or `.svelte` file. The Vue components are compiled in production mode, so Vue doesn't warn at runtime when a prop has the wrong type; your type checker does.
+The compiled files are ES modules for ES2022, and Node can also `require()` them. A test runner that loads `node_modules` as CommonJS, such as Jest in its default setup, has to transform `opui-css` (Jest: leave it out of `transformIgnorePatterns`). Source maps and declaration maps point at the sources the package ships in `components/`, so stack traces and Go to Definition open the `.tsx`, `.vue` or `.svelte` file. The Vue components are compiled in production mode, so Vue doesn't warn at runtime when a prop has the wrong type; your type checker does.
 
 #### One component at a time
 

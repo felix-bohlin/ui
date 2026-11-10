@@ -426,55 +426,114 @@ test("dist/op.css has no palette, as MIGRATING.md promises", () => {
   ).toEqual([])
 })
 
-test("every opui-css specifier in the README resolves in the tarball", () => {
-  const readme = readFileSync(path.join(unpacked, "README.md"), "utf8")
-  const specifiers = [
-    ...new Set(
-      [...readme.matchAll(/(?<![\w@/.-])opui-css\/([\w/<>.*-]+)/g)].map(
-        ([, subpath]) => subpath.replace(/\.$/, ""),
-      ),
-    ),
-  ].toSorted()
-  expect(specifiers.length).toBeGreaterThan(0)
+const specifiersIn = (text: string) => [
+  ...new Set(
+    [...text.matchAll(/(?<![\w@/.-])opui-css\/((?:[\w.*/-]|<[\w-]+>)+)/g)]
+      .map(([, subpath = ""]) => subpath.replace(/\.+$/, ""))
+      .filter(Boolean),
+  ),
+]
 
-  const consumer = path.join(work, "readme")
-  mkdirSync(path.join(consumer, "node_modules"), { recursive: true })
-  symlinkSync(unpacked, path.join(consumer, "node_modules/opui-css"))
-  const require = createRequire(path.join(consumer, "index.js"))
-  const resolves = (subpath: string) => {
-    try {
-      require.resolve(`opui-css/${subpath}`)
-      return true
-    } catch {
-      return false
+const DOCS_SOURCE = /\.(astro|html|md|mdx|svelte|ts|tsx|vue)$/
+
+describe("every opui-css specifier resolves in the tarball", () => {
+  let exported: (subpath: string) => boolean
+
+  beforeAll(() => {
+    const consumer = path.join(work, "specifiers")
+    mkdirSync(path.join(consumer, "node_modules"), { recursive: true })
+    symlinkSync(unpacked, path.join(consumer, "node_modules/opui-css"))
+    const require = createRequire(path.join(consumer, "index.js"))
+    const resolves = (subpath: string) => {
+      try {
+        require.resolve(`opui-css/${subpath}`)
+        return true
+      } catch {
+        return false
+      }
     }
-  }
-  const PLACEHOLDER = /(\*)|<[^>]+>/
-  const shipped = files.flatMap((file) => [file, file.replace(/\.[^./]+$/, "")])
-  const candidates = (subpath: string) => {
-    if (!PLACEHOLDER.test(subpath)) return [subpath]
-    const pattern = new RegExp(
-      `^${subpath
-        .split(new RegExp(PLACEHOLDER, "g"))
-        .map((part, index) =>
-          index % 2 === 1
-            ? part === "*"
-              ? ".+"
-              : "[^/]+"
-            : (part ?? "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
-        )
-        .join("")}$`,
+    const PLACEHOLDER = /(\*)|<[^>]+>/
+    const shipped = files.flatMap((file) => [
+      file,
+      file.replace(/\.[^./]+$/, ""),
+    ])
+    const candidates = (subpath: string) => {
+      if (!PLACEHOLDER.test(subpath)) return [subpath]
+      const pattern = new RegExp(
+        `^${subpath
+          .split(new RegExp(PLACEHOLDER, "g"))
+          .map((part, index) =>
+            index % 2 === 1
+              ? part === "*"
+                ? ".+"
+                : "[^/]+"
+              : (part ?? "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
+          )
+          .join("")}$`,
+      )
+      return shipped.filter((file) => pattern.test(file))
+    }
+    exported = (subpath) =>
+      subpath.endsWith("/")
+        ? files.some((file) => file.startsWith(subpath))
+        : candidates(subpath).some(resolves)
+    expect(candidates("components/*.react")).toContain(
+      "components/Button/Button.react",
     )
-    return shipped.filter((file) => pattern.test(file))
-  }
-  expect(candidates("components/*.react")).toContain(
-    "components/Button/Button.react",
-  )
-  expect(candidates("components/<Name>.react")).toEqual([])
-  expect(
-    specifiers.filter((subpath) => !candidates(subpath).some(resolves)),
-    "the README names opui-css/... imports the package doesn't export",
-  ).toEqual([])
+    expect(candidates("components/<Name>.react")).toEqual([])
+  })
+
+  test("finds the specifiers in prose, code and markup, and flags a missing one", () => {
+    expect(
+      specifiersIn(
+        'import "opui-css/css/imports.css" from opui-css/elements/, <code>opui-css/components/*</code>, opui-css/{script.file} and opui-css/....',
+      ),
+    ).toEqual(["css/imports.css", "elements/", "components/*"])
+    expect(exported("css/imports.css")).toBe(true)
+    expect(exported("css/components/<name>.css")).toBe(true)
+    expect(exported("elements/")).toBe(true)
+    expect(exported("css/nope.css")).toBe(false)
+    expect(exported("nope/")).toBe(false)
+  })
+
+  test.each([
+    {
+      name: "the README",
+      sources: () => [path.join(unpacked, "README.md")],
+    },
+    {
+      name: "the agent skill",
+      sources: () =>
+        files
+          .filter((file) => file.startsWith("skills/opui/"))
+          .map((file) => path.join(unpacked, file)),
+    },
+    {
+      name: "the docs",
+      sources: () =>
+        readdirSync(path.join(root, "src"), { recursive: true })
+          .map(String)
+          .filter((file) => DOCS_SOURCE.test(file))
+          .map((file) => path.join(root, "src", file)),
+    },
+  ])("in $name", ({ sources }) => {
+    const found = sources().flatMap((file) =>
+      specifiersIn(readFileSync(file, "utf8")).map((subpath) => ({
+        file,
+        subpath,
+      })),
+    )
+    expect(found.length).toBeGreaterThan(0)
+    expect(
+      found
+        .filter(({ subpath }) => !exported(subpath))
+        .map(
+          ({ file, subpath }) =>
+            `${path.relative(file.startsWith(unpacked) ? unpacked : root, file)}: ${subpath}`,
+        ),
+      "these opui-css/... paths aren't in the package or aren't exported",
+    ).toEqual([])
+  })
 })
 
 describe("the opui-css command", () => {

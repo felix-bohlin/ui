@@ -141,6 +141,13 @@ const years = Object.keys(categorized)
         <code>.ui-overflow-wrap</code> scroll through <code>overflow-x</code>.
       </li>
       <li>
+        TextField, Textarea, Select and NumberField
+        (<code>css/compat/text-field.css</code>): on iPhone and iPad, fields of
+        every size set their text in <code>--ui-font-size-control</code> or
+        16px, whichever is larger, because iOS Safari zooms the page in on a
+        focused field with text under 16px.
+      </li>
+      <li>
         ToggleGroup (<code>css/compat/toggle-group.css</code>): without
         <code>overflow-inline</code>, a group with
         <code>.ui-overflow-scroll</code> scrolls through <code>overflow-x</code

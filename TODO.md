@@ -4939,7 +4939,7 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Options if the swatch differs:
     - A: add `&::-moz-color-swatch { border: none; }` next to the WebKit rules. It is a native control part with no standard pseudo-element, like `::-moz-range-track`.
     - B: keep it.
-- [ ] (1) TextField: the autosuggest field hides the browser's own datalist arrow only through Chromium's `::-webkit-calendar-picker-indicator`. Safari draws its arrow as `::-webkit-list-button`, which no rule reaches, so Safari may show it next to the drawn chevron. Check in Safari on `/html/components/text-field/` (Autosuggest) (`packages/opui/css/components/text-field.css:655-660`, `packages/opui/css/components/text-field.css:674-686`)
+- [ ] (1) TextField: the autosuggest field hides the browser's own datalist arrow only through Chromium's `::-webkit-calendar-picker-indicator`. Safari draws its arrow as `::-webkit-list-button`, which no rule reaches, so Safari may show it next to the drawn chevron. Check in Safari on `/html/components/text-field/` (Autosuggest) (`packages/opui/css/components/text-field.css:651-656`, `packages/opui/css/components/text-field.css:670-682`)
   - Summary: In Safari an autosuggest field may show two dropdown arrows, the browser's and the library's.
   - Recommended: Explain further. It needs a look in Safari before choosing a fix.
   - Fix: open the Autosuggest example in Safari and compare it with Chromium.

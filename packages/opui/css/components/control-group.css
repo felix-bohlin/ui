@@ -2,7 +2,13 @@
   :where(.ui-control-group) {
     /* button.css > --_accent-tonal */
     --_divider-accent: var(--ui-surface-tonal);
-    --_divider-border-color: var(
+    --_divider-border-color: var(--_divider-border-color-enabled);
+    --_divider-border-color-disabled: color-mix(
+      in oklch,
+      var(--_divider-border-color-enabled) 40%,
+      transparent
+    );
+    --_divider-border-color-enabled: var(
       --ui-control-border-color-filled,
       light-dark(
         oklch(from var(--_divider-accent) calc(l - 0.1) c h),
@@ -62,7 +68,10 @@
           .ui-text-field,
           .ui-textarea
         ):hover,
-      &:where(.ui-outlined) > :where(.ui-button):hover {
+      &:where(.ui-outlined)
+        > :where(.ui-button):where(
+          :not(:disabled, [aria-disabled="true"])
+        ):hover {
         z-index: 1;
       }
     }
@@ -94,7 +103,7 @@
       flex: auto;
     }
 
-    &:not(.ui-overflow-scroll, .ui-vertical)
+    &:not(.ui-overflow-scroll, .ui-overflow-shrink, .ui-vertical)
       > :where(.ui-text-field, .ui-textarea):not(.ui-auto-fit) {
       flex-basis: 0;
       min-inline-size: 10ch;
@@ -110,7 +119,9 @@
 
     /* button.css > --_accent */
     &.ui-filled.ui-critical {
-      --_divider-accent: var(--ui-critical);
+      --_divider-accent: oklch(
+        from var(--ui-critical) min(l, var(--ui-accent-fill-max-lightness)) c h
+      );
     }
 
     &.ui-filled.ui-primary {
@@ -172,7 +183,7 @@
       &
         > .ui-button:is(
           :has(+ .ui-button:not([hidden])),
-          :has(+ :is([hidden], [popover]) + .ui-button)
+          :has(+ :is([hidden], [popover]) + .ui-button:not([hidden]))
         ) {
         margin-inline-end: calc(var(--_divider-gap) - var(--_border-width));
       }
@@ -218,7 +229,7 @@
       &
         > .ui-button:is(
           :has(+ .ui-button:not([hidden])),
-          :has(+ :is([hidden], [popover]) + .ui-button)
+          :has(+ :is([hidden], [popover]) + .ui-button:not([hidden]))
         ) {
         margin-block-end: calc(var(--_divider-gap) - var(--_border-width));
       }
@@ -237,26 +248,17 @@
     }
 
     &:not(:has(> .ui-button:not(:disabled, [aria-disabled="true"]))) {
-      column-rule-color: color-mix(
-        in oklch,
-        var(--_divider-border-color) 40%,
-        transparent
-      );
-      row-rule-color: color-mix(
-        in oklch,
-        var(--_divider-border-color) 40%,
-        transparent
-      );
+      --_divider-border-color: var(--_divider-border-color-disabled);
     }
 
     &.ui-filled:not(.ui-critical, .ui-primary) {
-      --_divider-border-color: var(
+      --_divider-border-color-enabled: var(
         --ui-control-border-color-filled,
         currentColor
       );
 
-      column-rule-color: var(--ui-control-border-color-filled, transparent);
-      row-rule-color: var(--ui-control-border-color-filled, transparent);
+      column-rule-color: transparent;
+      row-rule-color: transparent;
     }
 
     /* Button */
@@ -290,18 +292,10 @@
 
     &:not(.ui-outlined, .ui-vertical)
       > .ui-button:not(:focus-visible):is(
-        .ui-button + *,
-        .ui-button + :is([hidden], [popover]) + *
+        .ui-button:not([hidden]) + *,
+        .ui-button:not([hidden]) + :is([hidden], [popover]) + *
       ) {
       border-inline-start-color: var(--_start-border-color);
-
-      &:is(:disabled, [aria-disabled="true"]) {
-        border-inline-start-color: color-mix(
-          in oklch,
-          var(--_start-border-color) 40%,
-          transparent
-        );
-      }
 
       @media (forced-colors: active) {
         border-inline-start-color: ButtonBorder;
@@ -314,18 +308,10 @@
 
     &.ui-vertical:not(.ui-outlined)
       > .ui-button:not(:focus-visible):is(
-        .ui-button + *,
-        .ui-button + :is([hidden], [popover]) + *
+        .ui-button:not([hidden]) + *,
+        .ui-button:not([hidden]) + :is([hidden], [popover]) + *
       ) {
       border-block-start-color: var(--_start-border-color);
-
-      &:is(:disabled, [aria-disabled="true"]) {
-        border-block-start-color: color-mix(
-          in oklch,
-          var(--_start-border-color) 40%,
-          transparent
-        );
-      }
 
       @media (forced-colors: active) {
         border-block-start-color: ButtonBorder;

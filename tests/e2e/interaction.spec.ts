@@ -966,6 +966,38 @@ interaction(
   },
 )
 
+interaction(
+  "control-group",
+  "Variants",
+  "a hidden button leaves the group and the next one becomes its first",
+  async ({ root }) => {
+    const buttons = root.locator(".ui-control-group.ui-tonal > .ui-button")
+    const styleOf = (button: Locator) =>
+      button.evaluate((element) => {
+        const style = getComputedStyle(element)
+        return {
+          endColor: style.borderInlineEndColor,
+          endRadius: style.borderEndEndRadius,
+          startColor: style.borderInlineStartColor,
+          startRadius: style.borderStartStartRadius,
+        }
+      })
+
+    await buttons
+      .first()
+      .evaluate((element) => element.setAttribute("hidden", ""))
+    await expect(buttons.first()).toBeHidden()
+    const [first, last] = await Promise.all([
+      styleOf(buttons.nth(1)),
+      styleOf(buttons.last()),
+    ])
+    expect(parseFloat(last.endRadius)).toBeGreaterThan(0)
+    expect(first.startRadius).toBe(last.endRadius)
+    expect(first.startColor).toBe(first.endColor)
+  },
+  ["html"],
+)
+
 const nextButtonPoint = (carousel: Locator) =>
   carousel.evaluate((element) => {
     const style = getComputedStyle(element, "::scroll-button(inline-end)")

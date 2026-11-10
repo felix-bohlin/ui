@@ -8,17 +8,27 @@ export default {
   },
   "--_divider-accent": {
     description:
-      "The color `--_divider-border-color` lightens or darkens by 0.1, like the button's `--_accent-tonal`: `--ui-surface-tonal`, the palette tint in `.ui-critical`, and `--ui-primary-tonal` or the tint in `.ui-primary`. In a filled `.ui-critical` or `.ui-primary` group, `--ui-critical` or `--ui-primary`, like the button's `--_accent`.",
+      "The color `--_divider-border-color` lightens or darkens by 0.1, like the button's `--_accent-tonal`: `--ui-surface-tonal`, the palette tint in `.ui-critical`, and `--ui-primary-tonal` or the tint in `.ui-primary`. In a filled `.ui-critical` or `.ui-primary` group, `--ui-critical` within `--ui-accent-fill-max-lightness` or `--ui-primary`, like the button's `--_accent-fill`.",
     kind: "input",
   },
   "--_divider-border-color": {
     description:
-      "Color of the line between two buttons without a border of their own, from `--_divider-accent`. In a `.ui-filled` group without a color, `currentColor`, so where the buttons overlap each one draws the line in its own text color, and the rule between them is `transparent`, so the surface behind the group shows through. `--ui-control-border-color-filled`, the hook for filled controls, replaces it when a theme sets it. A group whose buttons are all disabled draws its rules at 40%.",
+      "Color of the line between two buttons without a border of their own, which the rule and `--_start-border-color` both read: `--_divider-border-color-enabled`, or `--_divider-border-color-disabled` in a group whose buttons are all disabled.",
+    kind: "output",
+  },
+  "--_divider-border-color-disabled": {
+    description:
+      "`--_divider-border-color-enabled` at 40%, the line in a group whose buttons are all disabled.",
+    kind: "output",
+  },
+  "--_divider-border-color-enabled": {
+    description:
+      "Color of the line while a button in the group is enabled, from `--_divider-accent`. In a `.ui-filled` group without a color, `currentColor`, so where the buttons overlap each one draws the line in its own text color, and the rule between them is `transparent`, so the surface behind the group shows through. `--ui-control-border-color-filled`, the hook for filled controls, replaces it when a theme sets it.",
     kind: "input",
   },
   "--_divider-gap": {
     description:
-      "The gap between two controls, and the width of the rule the browser draws in it (`column-rule`, or `row-rule` in `.ui-vertical`), only between controls on the same row. `--ui-border-width` in a group of buttons that isn't outlined, so a wrapped row never starts with a line. `0px` in a group with a field, in forced colors, and where a theme gives tonal and filled controls a border. There the controls overlap and `--_start-border-color` draws the line. Browsers without gap decorations keep the gap and draw the line in it as the later button's shadow, and the group clips its inline edges so the shadow at the start of a wrapped row doesn't show, except while a control in it has keyboard focus (`css/compat/control-group.css`).",
+      "The gap between two controls, and the width of the rule the browser draws in it (`column-rule`, or `row-rule` in `.ui-vertical`), only between controls on the same row. `--ui-border-width` in a group of buttons that isn't outlined, so a wrapped row never starts with a line. `0px` in a group with a field, in forced colors, where a theme gives tonal and filled controls a border, and in browsers without gap decorations (`css/compat/control-group.css`). There the controls overlap and `--_start-border-color` draws the line. The group reads the theme's border from its parent, so set `--ui-control-border-color-filled` on an ancestor of the group, not on the group.",
     kind: "output",
   },
   "--_end-end-radius": {

@@ -1,4 +1,8 @@
 @layer utils {
+  [hidden]:where(:not([hidden="until-found" i])) {
+    display: none;
+  }
+
   .ui-motion-off {
     --ui-motion: 0;
   }

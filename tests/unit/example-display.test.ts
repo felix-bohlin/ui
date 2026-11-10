@@ -212,9 +212,12 @@ describe("boxesOf", () => {
     })
   })
 
-  test("an author display beats the UA hidden rule, and hidden keeps the display it would show with", () => {
+  test("the hidden rule in utils.css beats a component's display, an inline display beats it, and hidden keeps the display it would show with", () => {
     expect(
       boxOf('<span class="ui-button" hidden>a</span>', "span"),
+    ).toMatchObject({ outer: "none" })
+    expect(
+      boxOf('<span style="display: inline-block" hidden>a</span>', "span"),
     ).toMatchObject({ outer: "atomic" })
     expect(boxOf("<p hidden>a</p>", "p")).toMatchObject({
       outer: "none",

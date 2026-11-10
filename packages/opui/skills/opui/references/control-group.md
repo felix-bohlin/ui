@@ -36,10 +36,10 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### control-group.css
 
-- `--_divider-accent`: The color `--_divider-border-color` lightens or darkens by 0.1, like the button's `--_accent-tonal`: `--ui-surface-tonal`, the palette tint in `.ui-critical`, and `--ui-primary-tonal` or the tint in `.ui-primary`. In a filled `.ui-critical` or `.ui-primary` group, `--ui-critical` or `--ui-primary`, like the button's `--_accent`.
-- `--_divider-border-color`: Color of the line between two buttons without a border of their own, from `--_divider-accent`. In a `.ui-filled` group without a color, `currentColor`, so where the buttons overlap each one draws the line in its own text color, and the rule between them is `transparent`, so the surface behind the group shows through. `--ui-control-border-color-filled`, the hook for filled controls, replaces it when a theme sets it. A group whose buttons are all disabled draws its rules at 40%.
+- `--_divider-accent`: The color `--_divider-border-color` lightens or darkens by 0.1, like the button's `--_accent-tonal`: `--ui-surface-tonal`, the palette tint in `.ui-critical`, and `--ui-primary-tonal` or the tint in `.ui-primary`. In a filled `.ui-critical` or `.ui-primary` group, `--ui-critical` within `--ui-accent-fill-max-lightness` or `--ui-primary`, like the button's `--_accent-fill`.
+- `--_divider-border-color-enabled`: Color of the line while a button in the group is enabled, from `--_divider-accent`. In a `.ui-filled` group without a color, `currentColor`, so where the buttons overlap each one draws the line in its own text color, and the rule between them is `transparent`, so the surface behind the group shows through. `--ui-control-border-color-filled`, the hook for filled controls, replaces it when a theme sets it.
 
-Outputs: `--_border-color`, `--_divider-gap`, `--_end-end-radius`, `--_end-start-radius`, `--_overlap`, `--_ring-reach`, `--_shadow`, `--_start-border-color`, `--_start-end-radius` and `--_start-start-radius`.
+Outputs: `--_border-color`, `--_divider-border-color`, `--_divider-border-color-disabled`, `--_divider-gap`, `--_end-end-radius`, `--_end-start-radius`, `--_overlap`, `--_ring-reach`, `--_shadow`, `--_start-border-color`, `--_start-end-radius` and `--_start-start-radius`.
 
 ### button.css
 

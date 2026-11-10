@@ -25,7 +25,7 @@ export default {
     type: "string | number",
   },
   notes: {
-    ...passThrough("input", "label", ["autocomplete", "placeholder"], {
+    ...passThrough("input", ".ui-text-field", ["autocomplete", "placeholder"], {
       react: "Use `value` with `onChange`, or `defaultValue`.",
     }),
     html: "Use `.ui-select` for a `<select>` and `.ui-textarea` for a `<textarea>`. You can put a `<datalist>` inside the root.",
@@ -260,7 +260,7 @@ export default {
   ],
   root: {
     description:
-      "Container element, a `<label>`, or the `<opui-text-field>` custom element with `passwordToggle`.",
+      "Container element: a `<label>`, a `<div>` when there's no label, or the `<opui-text-field>` custom element with a password toggle.",
     selector: ".ui-text-field",
   },
   slots: [

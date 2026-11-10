@@ -21,7 +21,7 @@ export default {
     prop: "value",
     type: "string",
   },
-  notes: passThrough("textarea", "label", ["maxlength", "placeholder"], {
+  notes: passThrough("textarea", ".ui-textarea", ["maxlength", "placeholder"], {
     react: "Use `value` with `onChange`, or `defaultValue`.",
   }),
   options: [
@@ -194,8 +194,9 @@ export default {
     },
   ],
   root: {
-    description: "Container element.",
-    selector: "label.ui-textarea",
+    description:
+      "Container element: a `<label>`, or a `<div>` when there's no label.",
+    selector: ".ui-textarea",
   },
   slots: [
     {

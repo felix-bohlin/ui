@@ -4,6 +4,7 @@ import FrameworkPicker from "./FrameworkPicker.astro"
 import ComponentAPI, { type FrameworkApis } from "./ComponentAPI.astro"
 import type { AstroInstance } from "astro"
 import type { ComponentApi } from "../component-api/types"
+import { TextField } from "opui-css/astro"
 import { components } from "../utils/components"
 import { componentName } from "../utils/names"
 import {
@@ -111,7 +112,21 @@ const apiList = Object.values(groups)
     }
   </style>
 
-  {apiList.map(({ title, slug, apis, href }) => <section id={slug}>
+  <search class="api-filter ui-not-rich-text">
+    <TextField
+      autocomplete="off"
+      label="Filter"
+      name="api-filter"
+      placeholder="Component, prop or class"
+      type="search"
+    />
+    <p aria-live="polite" class="api-filter-status" role="status"></p>
+  </search>
+
+  {apiList.map(({ title, slug, apis, href }) => <section
+    class="api-section"
+    id={slug}
+  >
     <h2>{href ? <a href={href}>{title}</a> : title}</h2>
     <ComponentAPI
       apis={apis}
@@ -119,4 +134,109 @@ const apiList = Object.values(groups)
       hideTitle
     />
   </section>)}
+
+  <p class="api-filter-empty" hidden>No component, prop or class matches.</p>
 </Document>
+
+<script>
+  const input = document.querySelector<HTMLInputElement>(".api-filter input")
+  const status = document.querySelector(".api-filter-status")
+  const empty = document.querySelector<HTMLElement>(".api-filter-empty")
+  const search = document.querySelector(".api-filter")
+  const sections = [...document.querySelectorAll<HTMLElement>(".api-section")]
+  const texts = new WeakMap<Element, string>()
+
+  const textOf = (element: Element) => {
+    let text = texts.get(element)
+    if (text === undefined) {
+      text = (element.textContent ?? "").toLowerCase()
+      texts.set(element, text)
+    }
+    return text
+  }
+
+  const filter = () => {
+    if (!input) return
+    const terms = input.value.toLowerCase().split(/\s+/).filter(Boolean)
+    const matches = (element: Element | null) =>
+      !!element && terms.every((term) => textOf(element).includes(term))
+    const filtering = terms.length > 0
+    let shown = 0
+    for (const section of sections) {
+      const whole = matches(section.querySelector("h2"))
+      let visible = whole
+      for (const table of section.querySelectorAll("table")) {
+        const wrapper = table.closest<HTMLElement>(".docs-table") ?? table
+        let rows = 0
+        for (const row of table.querySelectorAll<HTMLElement>("tbody tr")) {
+          row.hidden = !whole && !matches(row)
+          if (!row.hidden) rows++
+        }
+        wrapper.hidden = rows === 0
+        visible ||= rows > 0
+        if (filtering && wrapper.hasAttribute("data-collapsed")) {
+          wrapper.removeAttribute("data-collapsed")
+          wrapper.setAttribute("data-filter-expanded", "")
+        } else if (!filtering && wrapper.hasAttribute("data-filter-expanded")) {
+          wrapper.removeAttribute("data-filter-expanded")
+          wrapper.setAttribute("data-collapsed", "")
+        }
+      }
+      section.hidden = !visible
+      if (visible) shown++
+    }
+    search?.toggleAttribute("data-filtering", filtering)
+    if (status) {
+      status.textContent = filtering
+        ? `${shown} of ${sections.length} components`
+        : ""
+    }
+    if (empty) empty.hidden = shown > 0
+    const url = new URL(location.href)
+    if (filtering) url.searchParams.set("filter", input.value)
+    else url.searchParams.delete("filter")
+    history.replaceState(history.state, "", url)
+  }
+
+  if (input) {
+    input.value = new URLSearchParams(location.search).get("filter") ?? ""
+    input.addEventListener("input", filter)
+    if (input.value) filter()
+    addEventListener("hashchange", () => {
+      const target = document.getElementById(location.hash.slice(1))
+      if (!target?.closest("[hidden]")) return
+      input.value = ""
+      filter()
+      target.scrollIntoView()
+    })
+  }
+</script>
+
+<style>
+  .api-filter {
+    align-items: end;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+    margin-block: var(--size-5);
+  }
+
+  .api-filter-status {
+    color: var(--ui-text-subtle);
+    font-size: var(--ui-font-size-caption);
+    margin: 0;
+  }
+
+  .api-section {
+    &[hidden],
+    :global([hidden]),
+    :global(:is(h3, h4):has(+ .docs-table[hidden])),
+    :global(.docs-table[hidden] + p) {
+      display: none;
+    }
+  }
+
+  .api-filter[data-filtering] ~ .api-section :global([data-table-toggle]) {
+    display: none;
+  }
+</style>

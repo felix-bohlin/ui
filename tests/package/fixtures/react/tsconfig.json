@@ -1,16 +1,22 @@
 {
   "compilerOptions": {
+    "erasableSyntaxOnly": true,
     "exactOptionalPropertyTypes": true,
     "jsx": "react-jsx",
     "lib": ["DOM", "DOM.Iterable", "ES2023"],
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "noEmit": true,
+    "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
+    "noUncheckedSideEffectImports": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "skipLibCheck": true,
     "strict": true,
     "target": "ES2023",
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "verbatimModuleSyntax": true
   },
   "include": ["src"]
 }

@@ -3,6 +3,7 @@ import { computed, inject, provide, reactive } from "vue"
 import { MenuKey } from "./context.vue"
 import { warnMissingId } from "../dev"
 import { tagAttrs } from "../tag"
+import { defined } from "../attrs"
 import { classAttrs } from "../cx"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -66,7 +67,7 @@ provide(MenuKey, reactive({ rootId }))
           ...tagAttrs(href ? 'a' : 'button', disabled, href),
           command: !href && !keepOpen && !disabled ? 'hide-popover' : undefined,
           commandfor: !href && !keepOpen && !disabled ? rootId : undefined,
-          ...itemRest,
+          ...defined(itemRest),
         }"
       >
         <div class="ui-text">

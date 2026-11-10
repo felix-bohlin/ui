@@ -19,7 +19,7 @@ import {
   byName,
   chosenSpreadCode,
   classMayBeEmpty,
-  filtersRest,
+  filtersSpread,
   PRESERVED_TAGS,
   propKey,
   unsupported,
@@ -113,9 +113,11 @@ export const toSvelte = (component) => {
         element &&
         node.tag !== element
       if (cast) usesElements = true
-      const filtered = filtersRest(node, item, component)
+      const filtered = filtersSpread(node, item, component)
       if (filtered) usesDefined = true
-      const code = filtered ? `defined(${rest})` : rest
+      const code = filtered
+        ? `defined(${item.code === rest ? rest : rewriteExpression(item.code, options)})`
+        : rest
       const spread = cast
         ? `${code} as SvelteHTMLElements[${JSON.stringify(node.tag)}]`
         : filtered

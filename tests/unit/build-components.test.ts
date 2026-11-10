@@ -510,6 +510,24 @@ describe("the three ports of a sample", () => {
     )
   })
 
+  test("a spread the Astro file filters with defined() stays filtered in every framework", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport { defined } from "../attrs"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<ul class:list={["ui-sample", className]} {...rest}>\n  {\n    items?.map(({ label, ...itemRest }) => (\n      <li>\n        <button type="button" {...defined(itemRest)}>{label}</button>\n      </li>\n    ))\n  }\n</ul>\n',
+    )
+    for (const port of Object.values(ports)) {
+      expect(port).toContain('import { defined } from "../attrs"')
+    }
+    expect(ports["react.tsx"]).toContain(
+      '<button type="button" {...defined(itemRest)}>',
+    )
+    expect(ports.svelte).toContain(
+      '<button type="button" {...defined(itemRest)}>',
+    )
+    expect(ports.vue).toContain(
+      '<button type="button" v-bind="defined(itemRest)">',
+    )
+  })
+
   test("a tag that is sometimes Fragment compiles as a condition when its content is the condition's", async () => {
     const ports = await compile(
       '---\nimport type { Props } from "./types.astro"\nimport { trimEdges } from "../whitespace"\n\nconst hint = (text: string) => text.toUpperCase()\n\nconst { class: className, label, ...rest } = Astro.props as Props\n\nconst labelSlot = Astro.slots.has("label")\n  ? trimEdges(await Astro.slots.render("label"))\n  : ""\nconst LabelTag = label || labelSlot ? "span" : Fragment\n---\n\n<label class:list={["ui-sample", className]} data-hint={hint(label ?? "")} {...rest}>\n  <LabelTag class="ui-label">{label}<Fragment set:html={labelSlot} /></LabelTag>\n</label>\n',

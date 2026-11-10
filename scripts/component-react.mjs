@@ -22,7 +22,7 @@ import {
   byName,
   chosenSpreadCode,
   classText,
-  filtersRest,
+  filtersSpread,
   isBlank,
   isIdentifierName,
   REACT_ATTRIBUTE_NAMES,
@@ -163,7 +163,7 @@ export const toReact = (component) => {
       return `className={cx(${rewriteExpression(item.code, options)})}`
     }
     if (item.kind === "spread") {
-      const filtered = filtersRest(node, item, component)
+      const filtered = filtersSpread(node, item, component)
       if (filtered) usesDefined = true
       if (item.condition !== undefined) {
         const chosen = chosenSpreadCode(

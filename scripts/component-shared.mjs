@@ -70,6 +70,12 @@ export const filtersRest = (node, item, component) => {
     )
 }
 
+export const filtersSpread = (node, item, component) =>
+  item.kind === "spread" &&
+  (item.code === component.rest
+    ? filtersRest(node, item, component)
+    : item.defined === true)
+
 export const chosenSpreadCode = (item, spread, condition) =>
   item.negated
     ? `${condition} ? {} : ${spread}`

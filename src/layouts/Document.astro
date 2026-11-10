@@ -131,6 +131,17 @@ const { headings, html: content } = addHeadingAnchors(
     max-inline-size: var(--content-inline-size);
   }
 
+  :where(#main-content > .ui-rich-text) > :where(blockquote, dl, ol, p, ul),
+  :where(#main-content > .ui-rich-text)
+    > section
+    > :where(blockquote, dl, ol, p, ul),
+  :where(#main-content > .ui-rich-text)
+    > section
+    > :where(.conditional)
+    > :where(blockquote, dl, ol, p, ul) {
+    max-inline-size: min(var(--content-inline-size), var(--site-content-text));
+  }
+
   #document-page {
     display: grid;
     grid-template-columns:

@@ -447,6 +447,9 @@ export const whatsNew = {
       `<a href="#disabled"><code>disabled</code></a> works on button and link chips. A link chip gets <code>aria-disabled="true"</code>.`,
     ),
     components(
+      `<a href="#api"><code>as="span"</code></a> renders a chip that fits inside a <code>&lt;label&gt;</code> or <code>&lt;button&gt;</code>, like a count in a tab.`,
+    ),
+    components(
       `Breaking: a button chip needs <code>as="button"</code>, and a link chip needs <code>href</code> (<a href="#api">types</a>).`,
     ),
     `Breaking: <a href="#disabled">disabled link chips</a> have no <code>href</code>, so they can't be focused or followed.`,

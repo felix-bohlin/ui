@@ -20,9 +20,10 @@ export default {
   options: [
     {
       default: '"div"',
-      description: 'The element to render. Defaults to `"a"` with `href`.',
+      description:
+        'The element to render. Defaults to `"a"` with `href`. Use `"span"` inside a `<label>` or `<button>`, like a count in a tab.',
       prop: "as",
-      type: '"a" | "button" | "div"',
+      type: '"a" | "button" | "div" | "span"',
     },
     {
       default: "false",

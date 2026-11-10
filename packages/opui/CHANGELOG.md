@@ -545,6 +545,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Dialog` sets `pointer-events: auto` when open, instead of the SVG-only value `all`.
 - `Dialog`, `Fieldset`, `Range`, `Select` and `TextField` take an empty `id` as no `id` and generate their part ids, so two of them with `id=""` no longer share ids such as `-label` or `-title`. `NumberField` does the same.
 - `Drawer` is hidden (`display: none`) when closed, so it is no longer keyboard focusable.
+- `Drawer` `--_block-size` sets the height of a top or bottom drawer up to the full viewport, instead of stopping at 80%. Its default, `min(80dvb, 650px)`, keeps that cap.
 - `Drawer` with `.ui-backdrop-transparent` (`backdrop="transparent"`) no longer dims the page behind it. It only removed the blur before.
 - `Drawer` with a transparent backdrop locks the page below `31.25rem` instead of `500px`, so the threshold follows the reader's font size.
 - `FieldGroup` `name` only applies to its own fields in Astro and Vue.

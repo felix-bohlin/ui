@@ -4,7 +4,7 @@
     --_backdrop-bg-color: var(--ui-backdrop-bg-color);
     --_backdrop-blur: blur(var(--ui-backdrop-blur));
     --_bg-color: var(--ui-surface-elevated);
-    --_block-size: min(80vb, 650px);
+    --_block-size: min(80dvb, 650px);
     --_border-color: var(--ui-border-color);
     --_border-width: var(--ui-border-width);
     --_closed-translate: calc(-100% * var(--_direction)) 0;
@@ -99,7 +99,7 @@
       block-size: var(--_block-size);
       inline-size: 100dvi;
       inset-inline: 0;
-      max-block-size: 80dvb;
+      max-block-size: 100%;
     }
 
     &.ui-block-start {

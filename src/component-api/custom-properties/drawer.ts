@@ -16,7 +16,8 @@ export default {
     kind: "input",
   },
   "--_block-size": {
-    description: "Height of `.ui-block-start` and `.ui-block-end` drawers.",
+    description:
+      "Height of `.ui-block-start` and `.ui-block-end` drawers. Defaults to 80% of the viewport, at most `650px`.",
     kind: "input",
   },
   "--_border-color": {

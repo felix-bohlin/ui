@@ -509,43 +509,55 @@ const checks = [
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
       .compiler-source {
-        animation: compiler-rise linear both;
+        animation-fill-mode: both;
+        animation-name: compiler-rise;
         animation-range: entry 0% entry 60%;
         animation-timeline: view();
+        animation-timing-function: linear;
       }
 
       .compiler-stages::before {
-        animation: compiler-fill linear both;
+        animation-fill-mode: both;
+        animation-name: compiler-fill;
         animation-range: cover 20% cover 50%;
         animation-timeline: --compiler-stages;
+        animation-timing-function: linear;
       }
 
       .compiler-stage {
-        animation: compiler-light linear both;
+        animation-fill-mode: both;
+        animation-name: compiler-light;
         animation-range: cover calc(20% + var(--compiler-i) * 8%) cover
           calc(26% + var(--compiler-i) * 8%);
         animation-timeline: --compiler-stages;
+        animation-timing-function: linear;
       }
 
       .compiler-cell {
-        animation: compiler-rise linear both;
+        animation-fill-mode: both;
+        animation-name: compiler-rise;
         animation-range: entry calc(var(--compiler-j) * 25%) cover
           calc(20% + var(--compiler-j) * 6%);
         animation-timeline: --compiler-row;
+        animation-timing-function: linear;
 
         &::before {
-          animation: compiler-drop linear both;
+          animation-fill-mode: both;
+          animation-name: compiler-drop;
           animation-range: cover calc(14% + var(--compiler-j) * 6%) cover
             calc(20% + var(--compiler-j) * 6%);
           animation-timeline: --compiler-row;
+          animation-timing-function: linear;
         }
       }
 
       .compiler-tick {
-        animation: compiler-tick linear both;
+        animation-fill-mode: both;
+        animation-name: compiler-tick;
         animation-range: cover calc(15% + var(--compiler-i) * 5%) cover
           calc(19% + var(--compiler-i) * 5%);
         animation-timeline: --compiler-checks;
+        animation-timing-function: linear;
       }
     }
   }

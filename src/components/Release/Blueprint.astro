@@ -411,9 +411,11 @@ const pathLength = built ? 1 : undefined
     @media (prefers-reduced-motion: no-preference) {
       .blueprint[data-state="built"] {
         & .blueprint-wire {
-          animation: blueprint-draw linear both;
+          animation-fill-mode: both;
+          animation-name: blueprint-draw;
           animation-range: entry 100% cover 22%;
           animation-timeline: view();
+          animation-timing-function: linear;
         }
       }
     }

@@ -656,9 +656,11 @@ const newComponents = addedComponents(
     @media (prefers-reduced-motion: no-preference) {
       section > h2,
       section > :global(:not(h2)) {
-        animation: release-reveal linear backwards;
+        animation-fill-mode: backwards;
+        animation-name: release-reveal;
         animation-range: entry 0% entry 30%;
         animation-timeline: view();
+        animation-timing-function: linear;
       }
     }
   }

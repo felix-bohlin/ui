@@ -34,6 +34,15 @@ const MARKDOWN_LINK = /\]\((\S+?)\)/g
 const NO_MARKDOWN = /^\/[^/]+\/$/
 const NOT_IN_LLMS = /^\/[^/]+\/(?:components\/)?$/
 
+const ANIMATION_SHORTHAND = /(?<![\w-])animation\s*:([^;{}]+)/g
+const VAR_CALL = /var\([^()]*(?:\([^()]*\)[^()]*)*\)/g
+const TIMELINE = /\b(?:scroll|view)\(|(?:^|[\s,])--[\w-]/
+
+const timelineShorthands = (css) =>
+  [...css.replace(/\/\*[\s\S]*?\*\//g, "").matchAll(ANIMATION_SHORTHAND)]
+    .filter(([, value]) => TIMELINE.test(value.replace(VAR_CALL, "")))
+    .map(([declaration]) => declaration.trim())
+
 export const distProblems = ({ dist, searchIndex, site }) => {
   const files = walk(dist).toSorted()
   const urlPath = (file) =>
@@ -46,12 +55,16 @@ export const distProblems = ({ dist, searchIndex, site }) => {
   for (const file of files.filter((file) => file.endsWith(".html"))) {
     const ids = []
     const links = []
+    const styles = []
     let noindex = false
     let redirect
     const visit = (node, inExample = false) => {
       if (node.tagName === "template") return
       const id = attr(node, "id")
       if (id) ids.push(id)
+      if (node.tagName === "style") {
+        styles.push(node.childNodes.map((child) => child.value ?? "").join(""))
+      }
       if (node.tagName === "a" && attr(node, "href") !== undefined) {
         links.push({ href: attr(node, "href"), inExample })
       }
@@ -85,6 +98,7 @@ export const distProblems = ({ dist, searchIndex, site }) => {
       links,
       noindex,
       redirect,
+      styles,
       all: ids,
     })
   }
@@ -140,6 +154,23 @@ export const distProblems = ({ dist, searchIndex, site }) => {
     for (const id of page.all) {
       if (seen.has(id)) problem(`id "${id}" is used more than once`, path)
       seen.add(id)
+    }
+  }
+
+  const stylesheets = [
+    ...files
+      .filter((file) => file.endsWith(".css"))
+      .map((file) => [urlPath(file), readFileSync(file, "utf-8")]),
+    ...[...pages].flatMap(([path, page]) =>
+      page.styles.map((css) => [path, css]),
+    ),
+  ]
+  for (const [from, css] of stylesheets) {
+    for (const declaration of timelineShorthands(css)) {
+      problem(
+        `"${declaration}" puts a timeline in the animation shorthand, which browsers drop with the whole declaration: Lightning CSS folds an animation-timeline that follows the shorthand into it when Astro minifies, so write that rule with animation-* longhands`,
+        from,
+      )
     }
   }
 

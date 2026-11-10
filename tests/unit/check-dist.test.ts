@@ -14,7 +14,12 @@ const BUTTON = page(
   '<h2 id="sizes">Sizes</h2><a href="/html/components/button/#sizes">Sizes</a><a href="#top">Top</a>',
 )
 
+const TIMELINE_SHORTHAND =
+  "puts a timeline in the animation shorthand, which browsers drop with the whole declaration: Lightning CSS folds an animation-timeline that follows the shorthand into it when Astro minifies, so write that rule with animation-* longhands"
+
 const clean = () => ({
+  "/_astro/page.css":
+    ".a{animation:spin 1s var(--ease,linear) infinite}.b{animation-fill-mode:both;animation-name:fill;animation-timeline:scroll(root)}.c{--animation:fill view()}",
   "/html/components/button/index.html": BUTTON,
   "/html/components/button.md": "# Button\n",
   ...Object.fromEntries(
@@ -98,6 +103,24 @@ describe("check-dist", () => {
       "a missing llms.txt",
       { "/vue/llms.txt": undefined },
       "/vue/llms.txt does not exist <- /vue/",
+    ],
+    [
+      "an animation shorthand with a scroll timeline in a stylesheet",
+      {
+        "/_astro/page.css":
+          ".a::before{animation:linear both fill scroll(root);position:absolute}",
+      },
+      `"animation:linear both fill scroll(root)" ${TIMELINE_SHORTHAND} <- /_astro/page.css`,
+    ],
+    [
+      "an animation shorthand with a named timeline in a style element",
+      {
+        "/html/components/button/index.html": BUTTON.replace(
+          "<head>",
+          "<head><style>.a{animation:linear both fill --stages}</style>",
+        ),
+      },
+      `"animation:linear both fill --stages" ${TIMELINE_SHORTHAND} <- /html/components/button/`,
     ],
   ])("reports %s", (_, files, problem) => {
     expect(check({ ...clean(), ...files })).toEqual([problem])

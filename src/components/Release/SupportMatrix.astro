@@ -493,9 +493,11 @@ const PATHS = { full: check, none: cross, partial: warn } satisfies Record<
 
     @supports (animation-timeline: view()) {
       @media (prefers-reduced-motion: no-preference) {
-        animation: support-matrix-rise linear both;
+        animation-fill-mode: both;
+        animation-name: support-matrix-rise;
         animation-range: entry 0% entry 40%;
         animation-timeline: view();
+        animation-timing-function: linear;
       }
     }
   }

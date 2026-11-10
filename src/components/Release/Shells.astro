@@ -483,10 +483,12 @@ const activeSourceCss = FRAMEWORKS.map(
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
       .shells-bar {
-        animation: shells-grow cubic-bezier(0.2, 0, 0, 1) both;
+        animation-fill-mode: both;
+        animation-name: shells-grow;
         animation-range: entry calc(var(--shells-i) * 8%) entry
           calc(55% + var(--shells-i) * 8%);
         animation-timeline: --shells-cost;
+        animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
       }
     }
   }

@@ -334,10 +334,12 @@ const sectionHref = (anchor: string) => link(`/guide/migrating#${anchor}`)
       }
 
       .renames-pair {
-        animation: renames-width linear both;
+        animation-fill-mode: both;
+        animation-name: renames-width;
         animation-range-end: cover calc(32% + var(--i) * 2.5%);
         animation-range-start: cover calc(12% + var(--i) * 2.5%);
         animation-timeline: --renames;
+        animation-timing-function: linear;
         transition: none;
 
         & > span {
@@ -346,17 +348,21 @@ const sectionHref = (anchor: string) => link(`/guide/migrating#${anchor}`)
       }
 
       .renames-old {
-        animation: renames-out linear both;
+        animation-fill-mode: both;
+        animation-name: renames-out;
         animation-range-end: cover calc(32% + var(--i) * 2.5%);
         animation-range-start: cover calc(12% + var(--i) * 2.5%);
         animation-timeline: --renames;
+        animation-timing-function: linear;
       }
 
       .renames-new {
-        animation: renames-in linear both;
+        animation-fill-mode: both;
+        animation-name: renames-in;
         animation-range-end: cover calc(32% + var(--i) * 2.5%);
         animation-range-start: cover calc(12% + var(--i) * 2.5%);
         animation-timeline: --renames;
+        animation-timing-function: linear;
       }
     }
   }

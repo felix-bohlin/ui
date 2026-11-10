@@ -1,4 +1,6 @@
 import { readFileSync } from "node:fs"
+import { createRequire } from "node:module"
+import { pathToFileURL } from "node:url"
 import { convertToTSX } from "@astrojs/compiler"
 import { experimental_AstroContainer as AstroContainer } from "astro/container"
 import { parseFragment } from "parse5"
@@ -65,6 +67,30 @@ describe("tooling bugs the generator and the components work around", () => {
         'src/components/Conditional.astro, which writes its Props as Partial<Record<"as", ...>>',
       ),
     ).toContain("_props: Record<string, any>")
+  })
+
+  test("Lightning CSS folds animation-timeline into the animation shorthand when Astro minifies", () => {
+    const astro = createRequire(import.meta.url).resolve("astro/package.json")
+    const vite = createRequire(astro).resolve("vite")
+    const { transform } = createRequire(vite)("lightningcss")
+    expect(
+      readFileSync(
+        new URL("dist/core/build/vite-build-config.js", pathToFileURL(astro)),
+        "utf-8",
+      ),
+    ).toContain('target: "esnext"')
+    expect(
+      transform({
+        code: Buffer.from(
+          ".a{animation:fill linear both;animation-timeline:scroll(root)}",
+        ),
+        filename: "a.css",
+        minify: true,
+      }).code.toString(),
+      fixed(
+        "the components that write animation-* longhands, and the timeline shorthand problem in scripts/check-dist.mjs",
+      ),
+    ).toBe(".a{animation:linear both fill scroll(root)}")
   })
 
   test("parse5 drops the button and div inside a select", () => {

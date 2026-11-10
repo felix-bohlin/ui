@@ -1535,7 +1535,7 @@ export const whatsNew = {
       `A <code>Tooltip</code> without an <code>id</code> warns in development, since its trigger points at it with <code>interestfor</code> (<a href="#basics">Basics</a>).`,
     ),
     `In browsers without interest invokers, the compat layer shows the tooltip while its trigger is hovered or has keyboard focus (<a href="#accessibility">Accessibility</a>).`,
-    `A <a href="#basics">tooltip</a> scales in as it fades, like a menu. One with an <a href="#arrow">arrow</a> only fades.`,
+    `A <a href="#basics">tooltip</a> scales in as it fades and closes with <code>--ui-ease-exit</code>, like a menu. One with an <a href="#arrow">arrow</a> only fades.`,
     `Themes can make a tooltip without an arrow spring open with <a href="#api"><code>--ui-ease-move</code></a>.`,
   ],
   typography: [

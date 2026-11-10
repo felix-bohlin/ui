@@ -3,7 +3,7 @@
     --_motion: var(--ui-motion);
     --_bg-color: var(--ui-surface-inverse);
     --_duration: calc(var(--ui-duration) * var(--_motion));
-    --_ease: var(--ui-ease-enter);
+    --_ease: var(--ui-ease-exit);
     --_max-inline-size: 15rem;
     --_min-inline-size: 10rem;
     --_offset: var(--ui-space-2);
@@ -105,6 +105,7 @@
         scale var(--_duration) var(--_ease-move);
 
       &:popover-open {
+        --_ease: var(--ui-ease-enter);
         --_ease-move: var(--ui-ease-move, var(--_ease));
 
         opacity: 1;

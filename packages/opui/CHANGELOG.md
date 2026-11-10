@@ -429,7 +429,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `ToggleButton` grows from `--ui-button-size` with its content instead of having a fixed height.
 - `ToggleGroup` is in the `components.extended` layer, like `ControlGroup`.
 - `ToggleGroup` warns in development when it has no `aria-label` or `aria-labelledby`, since a single-select group renders `role="radiogroup"`, which needs a name.
-- `Tooltip` without an arrow scales in from `0.96` as it fades, like `Menu`. Tooltips with `.ui-arrow` only fade, since a scale would move the arrow's containing block.
+- `Tooltip` without an arrow scales in from `0.96` as it fades, like `Menu`. Tooltips with `.ui-arrow` only fade, since a scale would move the arrow's containing block. Every tooltip opens with `--ui-ease-enter` and closes with `--ui-ease-exit`, also in the compat layer.
 - `Tooltip` uses `--ui-surface-inverse` and `--ui-on-inverse`.
 - `Typography` inline `code` in rich text is rounded with `--ui-radius-small` (5px by default) like `kbd` and `mark`, instead of the full `--ui-radius`.
 - `Typography` rich text spacing derives from one flow space (`1.25em` of the body text), and every margin derived from it snaps to `--ui-rhythm-step`. Headings get more space above than below, so they sit closer to the text they introduce, and lists with block content, description lists, `details`, `address`, code blocks and figures follow the same rhythm.

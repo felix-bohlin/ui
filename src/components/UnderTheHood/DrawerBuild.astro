@@ -28,6 +28,7 @@ const steps = [
       "dialog",
       "dialog-closedby",
       "invoker-commands",
+      "logical-properties",
       "overscroll-behavior",
     ],
     html: `
@@ -81,7 +82,7 @@ const steps = [
   inset-inline: 0;
   max-block-size: 80dvb;
 }`,
-    features: ["logical-properties", "viewport-unit-variants"],
+    features: ["viewport-unit-variants"],
     notes: [
       "<code>margin: 0</code> undoes the centering, <code>inset</code> pins it to an edge",
       "Logical properties: <code>inline-start</code> is the left in LTR and the right in RTL",

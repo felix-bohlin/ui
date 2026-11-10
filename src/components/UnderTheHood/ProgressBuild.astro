@@ -88,7 +88,7 @@ const steps = [
 .progress > progress:indeterminate::-moz-progress-bar {
   background-color: transparent;
 }`,
-    features: ["has", "indeterminate", "logical-properties"],
+    features: ["has", "indeterminate"],
     notes: [
       "<code>:has(&gt; progress:indeterminate)</code> lets the wrapper react to the missing <code>value</code>",
       "Its <code>::after</code> slides across by animating <code>inset-inline-start</code> and <code>inset-inline-end</code>",

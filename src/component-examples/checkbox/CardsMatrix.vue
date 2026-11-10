@@ -5,36 +5,36 @@ import { Checkbox, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/vue"
 <template>
   <Form>
     <Fieldset>
-      <FieldLegend>Input at the end</FieldLegend>
+      <FieldLegend>Add-ons</FieldLegend>
       <FieldGroup name="checkbox-cards-end" orientation="horizontal">
-        <Checkbox card checked spread value="outlined">
-          Outlined
-          <template #end-text>The default surface.</template>
+        <Checkbox card checked spread value="support">
+          Priority support
+          <template #end-text>€8 per month</template>
         </Checkbox>
-        <Checkbox card spread value="tonal" variant="tonal">
-          Tonal
-          <template #end-text>A tinted surface.</template>
+        <Checkbox card spread value="storage" variant="elevated">
+          Extra storage
+          <template #end-text>€4 per month</template>
         </Checkbox>
-        <Checkbox card spread value="elevated" variant="elevated">
-          Elevated
-          <template #end-text>A raised surface.</template>
+        <Checkbox card spread value="audit-log" variant="tonal">
+          Audit log
+          <template #end-text>€6 per month</template>
         </Checkbox>
       </FieldGroup>
     </Fieldset>
     <Fieldset>
-      <FieldLegend>Input at the start</FieldLegend>
+      <FieldLegend>Email reports</FieldLegend>
       <FieldGroup name="checkbox-cards-start" orientation="horizontal">
-        <Checkbox card checked value="outlined">
-          Outlined
-          <template #end-text>The default surface.</template>
+        <Checkbox card checked value="weekly">
+          Weekly summary
+          <template #end-text>Every Monday morning.</template>
         </Checkbox>
-        <Checkbox card value="tonal" variant="tonal">
-          Tonal
-          <template #end-text>A tinted surface.</template>
+        <Checkbox card value="usage" variant="elevated">
+          Usage alerts
+          <template #end-text>At 80% of your plan.</template>
         </Checkbox>
-        <Checkbox card value="elevated" variant="elevated">
-          Elevated
-          <template #end-text>A raised surface.</template>
+        <Checkbox card value="invoices" variant="tonal">
+          Invoices
+          <template #end-text>After each payment.</template>
         </Checkbox>
       </FieldGroup>
     </Fieldset>

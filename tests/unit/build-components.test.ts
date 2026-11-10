@@ -442,7 +442,7 @@ describe("the three ports of a sample", () => {
     )
   })
 
-  test("mergeStyle merges into an object in React and into the attrs in Vue", async () => {
+  test("mergeStyle merges into an object in React and binds through styleAttrs in Vue", async () => {
     const ports = await compile(
       '---\nimport type { Props } from "./types.astro"\nimport { mergeStyle } from "../style"\n\nconst { class: className, style, width, ...rest } = Astro.props\n---\n\n<col class:list={[className]} style={mergeStyle({ width }, style)} {...rest} />\n',
     )
@@ -451,7 +451,7 @@ describe("the three ports of a sample", () => {
     )
     expect(ports.svelte).toContain("style={mergeStyle({ width }, style)}")
     expect(ports.vue).toBe(
-      '<script setup lang="ts">\nimport { mergeStyle } from "../style"\nimport { classAttrs } from "../cx"\nimport type { Props } from "./types.vue-props"\n\nconst { width } = defineProps<Props>()\n</script>\n\n<template>\n  <col v-bind="classAttrs([$props.class])" :style="mergeStyle({ width }, {})" />\n</template>\n',
+      '<script setup lang="ts">\nimport { mergeStyle, styleAttrs } from "../style"\nimport { classAttrs } from "../cx"\nimport type { Props } from "./types.vue-props"\n\nconst { width } = defineProps<Props>()\n</script>\n\n<template>\n  <col\n    v-bind="{\n      ...classAttrs([$props.class]),\n      ...styleAttrs(mergeStyle({ width }, {})),\n    }"\n  />\n</template>\n',
     )
   })
 
@@ -640,6 +640,22 @@ describe("the three ports of a sample", () => {
       'Object.entries(attrs).filter(([key]) => key !== "aria-describedby")',
     )
     expect(ports.vue).toContain('v-bind="restAttrs"')
+  })
+
+  test("Vue binds a style that can be empty through styleAttrs, merged with the attrs in attribute order", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport { mergeStyle } from "../style"\n\nconst { "aria-describedby": ariaDescribedBy, class: className, max, style, ...rest } = Astro.props\n---\n\n<fieldset class:list={["ui-sample", className]} style={mergeStyle({ "--_max": max }, style)} {...rest}>\n  <input aria-describedby={ariaDescribedBy} />\n</fieldset>\n',
+    )
+    expect(ports.vue).toContain(
+      'import { computed, type HTMLAttributes, mergeProps, useAttrs } from "vue"',
+    )
+    expect(ports.vue).toContain(
+      'import { mergeStyle, styleAttrs } from "../style"',
+    )
+    expect(ports.vue).toContain(
+      "mergeProps(styleAttrs(mergeStyle({ '--_max': max }, {})), restAttrs)",
+    )
+    expect(ports.vue).not.toContain(":style=")
   })
 
   test("a value model from api.ts binds the control in Svelte and Vue and stays in rest in React", async () => {
@@ -927,7 +943,10 @@ describe("the three ports of a sample", () => {
     )
     const svelte = outputs.get(sampleFile().replace(".astro", ".svelte"))
     expect(svelte).toContain(
-      "  checked={grouped ?? checked ?? rest.defaultChecked}\n",
+      '    warnGroupedChecked("Sample", grouped, checked ?? defaultChecked, "Tabs"),\n',
+    )
+    expect(svelte).toContain(
+      "  checked={grouped ?? checked ?? defaultChecked}\n  defaultChecked={grouped === undefined ? defaultChecked : undefined}\n",
     )
     expect(svelte).toContain(
       "  {...defined(rest)}\n  onchange={(event) => {\n    parent?.change?.(event.currentTarget)\n    onchange?.(event)\n  }}\n/>{@render children?.()}\n",

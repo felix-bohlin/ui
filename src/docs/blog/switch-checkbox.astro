@@ -48,31 +48,26 @@ import Basics from "../../component-examples/switch/Basics.astro"
     <Code
       lang="css"
       code={`[role="switch"] {
-  --dot-inset: calc((var(--track-height) - var(--dot-size)) / 2);
+  --thumb-inset: calc((var(--track-block-size) - var(--thumb-size)) / 2);
 
   appearance: none;
   position: relative;
 }
 
 [role="switch"]::after {
-  background-color: var(--dot-color);
+  background-color: var(--thumb-bg-color);
   border-radius: var(--ui-radius-round);
   content: "";
-  inset-inline-start: var(--dot-inset);
-  outline: var(--dot-outline-size) solid var(--dot-color);
+  inset-inline-start: var(--thumb-inset);
+  outline: var(--thumb-outline-width) solid var(--thumb-bg-color);
   outline-offset: -1px;
   position: absolute;
-  transition:
-    background-color 0.2s var(--ui-ease),
-    inset-inline-start 0.2s var(--ui-ease),
-    outline-color 0.2s var(--ui-ease),
-    outline-width 0.2s var(--ui-ease);
 }
 
 [role="switch"]:checked::after {
-  --dot-outline-size: calc(var(--dot-inset) - 1px);
+  --thumb-outline-width: calc(var(--thumb-inset) - 1px);
 
-  inset-inline-start: calc(var(--track-width) - var(--dot-size) - var(--dot-inset));
+  inset-inline-start: calc(var(--track-inline-size) - var(--thumb-size) - var(--thumb-inset));
 }`}
     />
   </section>
@@ -120,8 +115,8 @@ import Basics from "../../component-examples/switch/Basics.astro"
         colors
       </li>
       <li>
-        Under reduced motion <code>--ui-motion</code> is <code>0</code> and the
-        dot jumps instead of sliding
+        Nothing transitions, in any motion setting: the dot moves the moment you
+        click or tap, like Checkbox and Radio, so a press never looks missed
       </li>
     </ul>
   </section>

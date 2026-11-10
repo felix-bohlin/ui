@@ -57,7 +57,7 @@ const position = { x: 50, y: 50 }
     grid-area: 2 / 2;
     inline-size: fit-content;
 
-    & :is(a, button) {
+    & :is(a, button):not([popover] *, .ui-floating *) {
       cursor: move;
       touch-action: none;
     }

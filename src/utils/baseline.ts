@@ -1,5 +1,8 @@
-import { features } from "web-features"
+import { featureOf, patterns } from "../../packages/opui/scripts/features.mjs"
 import { componentName } from "./names"
+
+export const hasCompatKey = (id: string) =>
+  patterns.some((pattern) => pattern.id === id && "key" in pattern)
 
 export async function getBaselineMappings() {
   const modules = import.meta.glob("../docs/components/*.astro", {
@@ -66,10 +69,11 @@ export async function getCategorizedBaselineIds() {
   }
 
   ids.forEach((id) => {
-    const feature = (features as Record<string, any>)[id]
+    const feature = featureOf(id)
+    const status = feature && "status" in feature ? feature.status : undefined
     categories.all.push(id)
-    const year = feature?.status?.baseline
-      ? feature.status.baseline_low_date?.match(/\d{4}/)?.[0]
+    const year = status?.baseline
+      ? status.baseline_low_date?.match(/\d{4}/)?.[0]
       : undefined
 
     if (!year) {

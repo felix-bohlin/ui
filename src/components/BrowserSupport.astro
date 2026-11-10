@@ -2,7 +2,7 @@
 import Baseline from "./Baseline.astro"
 import BrowserSupportChips from "./BrowserSupportChips.astro"
 import DocLink from "./DocLink.astro"
-import { pageStylesheets } from "../component-api/custom-properties"
+import { pageSources } from "../component-api/custom-properties"
 import { compatCss } from "../utils/compat"
 import { components } from "../utils/components"
 
@@ -16,10 +16,10 @@ const name = components.find(
   (component) => component.slug === Astro.locals.componentSlug,
 )?.name
 const slug = Astro.locals.componentSlug ?? ""
-const compat = pageStylesheets(slug)
-  .filter((stylesheet) => stylesheet === slug)
-  .map((stylesheet) => `${stylesheet}.css`)
+const compat = [...new Set([slug, ...pageSources(slug)])]
+  .map((name) => `${name}.css`)
   .filter((file) => compatCss[file])
+  .toSorted()
 const guideHref = name
   ? `/guide/browser-support?${new URLSearchParams({ components: name })}`
   : "/guide/browser-support"

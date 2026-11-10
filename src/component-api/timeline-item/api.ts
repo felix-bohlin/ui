@@ -19,7 +19,7 @@ export default {
       attribute: "[aria-current]",
       default: "false",
       description:
-        'Marks the current item, which fills its marker with `--ui-selected-strong` and a halo. `true` renders `aria-current="true"`, and `"step"`, `"date"` or `"time"` that value.',
+        'Marks the current item, which fills its marker with `--ui-selected-strong` and a halo. `true` renders `aria-current="true"`, and `step`, `date` or `time` that value.',
       group: "Current",
       prop: "current",
     },

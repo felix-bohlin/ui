@@ -9,7 +9,7 @@ const steps = [
     var(--ui-primary),
     oklch(from var(--ui-primary) min(l, 0.62) c h)
   );
-  --accent-contrast: light-dark(var(--ui-on-primary), var(--ui-on-fill));
+  --on-accent: light-dark(var(--ui-on-primary), var(--ui-on-fill));
 
   appearance: none;
   aspect-ratio: 1;
@@ -39,7 +39,7 @@ const steps = [
   {
     css: `
 .checkbox::after {
-  background-color: var(--accent-contrast);
+  background-color: var(--on-accent);
   clip-path: polygon(15% 52%, 40% 77%, 85% 32%, 75% 22%, 40% 57%, 25% 42%);
   content: "";
   inset: 0;

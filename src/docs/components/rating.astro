@@ -24,7 +24,13 @@ export const keywords = ["review", "score", "stars"]
   slug="rating"
   heroAnatomy
   apis={[{ title: "Rating API", api: ratingApi }]}
-  browserSupport={["attr", "has", "relative-color", "user-pseudos"]}
+  browserSupport={[
+    "alt-text-generated-content",
+    "attr",
+    "has",
+    "relative-color",
+    "user-pseudos",
+  ]}
   changelogPaths={[
     { path: "packages/opui/components/Rating", type: "component" },
     { path: "src/docs/components/rating.astro", type: "docs" },

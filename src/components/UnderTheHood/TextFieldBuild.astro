@@ -6,9 +6,9 @@ const steps = [
     css: `
 .text-field {
   --accent: var(--ui-primary);
-  --affix: var(--ui-text);
-  --border: var(--ui-field-border-color);
-  --helper: var(--ui-field-helper-text-color);
+  --affix-text-color: var(--ui-text);
+  --border-color: var(--ui-field-border-color);
+  --helper-text-color: var(--ui-field-helper-text-color);
 
   display: grid;
 }
@@ -21,7 +21,7 @@ const steps = [
 
 .field {
   background-color: var(--ui-surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-color);
   border-radius: var(--ui-radius);
   display: grid;
   min-block-size: var(--ui-field-size);
@@ -48,7 +48,7 @@ const steps = [
 }
 
 .end-text {
-  color: var(--helper);
+  color: var(--helper-text-color);
   font-size: var(--ui-field-helper-font-size);
   margin-block-start: var(--ui-space-1);
 }`,
@@ -82,7 +82,7 @@ const steps = [
 .prefix,
 .suffix {
   align-items: center;
-  color: var(--affix);
+  color: var(--affix-text-color);
   display: inline-flex;
   padding-inline: var(--ui-space-2);
 }
@@ -132,9 +132,9 @@ const steps = [
     css: `
 .text-field:has([aria-invalid="true"], :user-invalid) {
   --accent: var(--ui-invalid);
-  --affix: var(--ui-invalid-text);
-  --border: var(--ui-invalid);
-  --helper: var(--ui-invalid-text);
+  --affix-text-color: var(--ui-invalid-text);
+  --border-color: var(--ui-invalid);
+  --helper-text-color: var(--ui-invalid-text);
 }`,
     features: ["user-pseudos"],
     notes: [

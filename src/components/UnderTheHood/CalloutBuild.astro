@@ -5,9 +5,9 @@ const steps = [
   {
     css: `
 .callout {
-  --border: var(--ui-surface-tonal);
+  --border-color: var(--ui-surface-tonal);
   background-color: var(--ui-surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-color);
   border-radius: var(--ui-radius);
   color: var(--ui-text-strong);
   padding: 0.75rem;
@@ -35,13 +35,13 @@ const steps = [
   {
     css: `
 .callout {
-  --bg: var(--ui-surface-tonal);
+  --bg-color: var(--ui-surface-tonal);
   isolation: isolate;
   position: relative;
 }
 
 .callout::before {
-  background-color: var(--bg);
+  background-color: var(--bg-color);
   border-radius: calc(var(--ui-radius) - 1px);
   content: "";
   inset: 0;
@@ -87,15 +87,15 @@ const steps = [
 }
 
 .callout:is(.info, .warning) {
-  --bg: light-dark(
+  --bg-color: light-dark(
     oklch(from var(--tone) 93% 0.1 calc(h + 2) / 60%),
     oklch(from var(--tone) 71% 0.19 calc(h + 5) / 5%)
   );
-  --border: light-dark(
+  --border-color: light-dark(
     oklch(from var(--tone) 80% 0.16 calc(h + 4)),
     oklch(from var(--tone) 42% 0.17 calc(h + 10))
   );
-  --icon: light-dark(
+  --icon-text-color: light-dark(
     oklch(from var(--tone) 53% 0.2 calc(h + 8)),
     oklch(from var(--tone) 66% 0.2 calc(h + 6))
   );
@@ -106,7 +106,7 @@ const steps = [
 }
 
 .callout > svg {
-  color: var(--icon, currentColor);
+  color: var(--icon-text-color, currentColor);
 }`,
     features: ["light-dark", "relative-color"],
     notes: [

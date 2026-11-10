@@ -404,7 +404,8 @@ const render: Record<Framework, (entry: Case) => Promise<string | undefined>> =
     },
   }
 
-const emptyClass = (markup: string) => /\sclass=""/.test(markup)
+const emptyAttribute = (markup: string) =>
+  /\s(?:class|style)=""/.exec(markup)?.[0].trim()
 
 describe("every component renders the same in Astro, React, Svelte and Vue", () => {
   test("covers the components with a matrix of props and slots", () => {
@@ -429,10 +430,10 @@ describe("every component renders the same in Astro, React, Svelte and Vue", () 
     }
     expect
       .soft(
-        emptyClass(expected),
-        `${entry.component} with ${entry.name}: astro renders class=""`,
+        emptyAttribute(expected),
+        `${entry.component} with ${entry.name}: astro renders an empty attribute`,
       )
-      .toBe(false)
+      .toBeUndefined()
     for (const framework of FRAMEWORKS.filter((id) => id !== "astro")) {
       const rendered = await render[framework](entry)
       if (rendered === undefined) continue
@@ -450,10 +451,10 @@ describe("every component renders the same in Astro, React, Svelte and Vue", () 
         : rendered
       expect
         .soft(
-          emptyClass(actual),
-          `${entry.component} with ${entry.name}: ${framework} renders class="", which the parity check drops; bind the class only when it isn't empty (classAttrs() in Vue)`,
+          emptyAttribute(actual),
+          `${entry.component} with ${entry.name}: ${framework} renders an empty attribute, which the parity check drops; bind the class and style only when they aren't empty (classAttrs() and styleAttrs() in Vue)`,
         )
-        .toBe(false)
+        .toBeUndefined()
       const key = `${entry.component} ${entry.name} ${framework}`
       if (key in KNOWN_DIFFERENCES) {
         expect
@@ -475,9 +476,14 @@ describe("every component renders the same in Astro, React, Svelte and Vue", () 
     }
   })
 
-  test("a sample the check must flag: an empty class attribute", () => {
-    expect(emptyClass('<h2 class="">Title</h2>')).toBe(true)
-    expect(emptyClass('<h2 class="ui-title">Title</h2>')).toBe(false)
+  test("a sample the check must flag: an empty class or style attribute", () => {
+    expect(emptyAttribute('<h2 class="">Title</h2>')).toBe('class=""')
+    expect(emptyAttribute('<div class="ui-progress" style="">')).toBe(
+      'style=""',
+    )
+    expect(
+      emptyAttribute('<h2 class="ui-title" style="color:red;">Title</h2>'),
+    ).toBeUndefined()
   })
 
   test("a sample the check must flag: a known attribute the framework no longer renders", () => {

@@ -61,7 +61,7 @@ export default {
     {
       default: '"scroll"',
       description:
-        'What the tabs do when they don\'t fit. `"scroll"` keeps them on one row and scrolls it sideways, and `"wrap"` wraps them onto more rows. Vertical tabs ignore it: long labels wrap within the column.',
+        "What the tabs do when they don't fit. `scroll` keeps them on one row and scrolls it sideways, and `wrap` wraps them onto more rows. Vertical tabs ignore it: long labels wrap within the column.",
       group: "Overflow",
       prop: "overflow",
       values: { scroll: null, wrap: ".ui-overflow-wrap" },

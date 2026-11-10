@@ -64,17 +64,17 @@ const steps = [
   {
     css: `
 .range {
-  --inset: max(0.5rem, var(--thumb-size) / 2);
+  --padding: max(0.5rem, var(--thumb-size) / 2);
   animation-fill-mode: both;
   animation-name: build-range-fill;
   animation-range: contain;
   animation-timeline: --thumb;
   animation-timing-function: linear;
   box-sizing: content-box;
-  margin: calc(-1 * var(--inset));
-  outline-offset: calc(1ex - var(--inset));
+  margin: calc(-1 * var(--padding));
+  outline-offset: calc(1ex - var(--padding));
   overflow: hidden;
-  padding: var(--inset);
+  padding: var(--padding);
   timeline-scope: --thumb;
 }
 
@@ -84,13 +84,13 @@ const steps = [
 
 .range::-webkit-slider-thumb {
   view-timeline: --thumb inline;
-  view-timeline-inset: var(--inset);
+  view-timeline-inset: var(--padding);
 }
 
 .range::-webkit-slider-runnable-track {
   background-image: linear-gradient(var(--ui-primary), var(--ui-primary));
   background-repeat: no-repeat;
-  background-size: var(--track-fill, 0%) 100%;
+  background-size: var(--track-fill-fraction, 0%) 100%;
 }
 
 .range:dir(rtl)::-webkit-slider-runnable-track {
@@ -110,7 +110,7 @@ const steps = [
     ],
     html: `
 <style>
-  @property --track-fill {
+  @property --track-fill-fraction {
     syntax: "<percentage>";
     inherits: true;
     initial-value: 0%;
@@ -118,24 +118,24 @@ const steps = [
 
   @keyframes build-range-fill {
     from {
-      --track-fill: 100%;
+      --track-fill-fraction: 100%;
     }
 
     to {
-      --track-fill: 0%;
+      --track-fill-fraction: 0%;
     }
   }
 </style>`,
     notes: [
       "Firefox draws the filled part with <code>::-moz-range-progress</code>",
-      "Elsewhere a one-color <code>linear-gradient</code>, sized to <code>--track-fill</code>, paints it",
+      "Elsewhere a one-color <code>linear-gradient</code>, sized to <code>--track-fill-fraction</code>, paints it",
       "<code>overflow: hidden</code> makes the input a scroller, and the thumb a <code>view-timeline</code> inside it. <code>timeline-scope</code> lets the input use it",
-      "The thumb's position drives the animation: <code>--track-fill</code> is registered as a <code>&lt;percentage&gt;</code>, so it animates. No JavaScript",
+      "The thumb's position drives the animation: <code>--track-fill-fraction</code> is registered as a <code>&lt;percentage&gt;</code>, so it animates. No JavaScript",
       "The timeline runs from the end edge, so the keyframes go from <code>100%</code> to <code>0%</code>",
       "In right-to-left the animation runs in reverse and the gradient moves to the right edge",
       "Without scroll-driven animations there's no fill, the slider still works",
       "Padding with an equal negative margin leaves room for the thumb and halo, <code>view-timeline-inset</code> and <code>outline-offset</code> take it back out",
-      "<code>--inset</code> is half a thumb, and at least <code>0.5rem</code> for the halo, so it follows <code>--thumb-size</code>",
+      "<code>--padding</code> is half a thumb, and at least <code>0.5rem</code> for the halo, so it follows <code>--thumb-size</code>",
     ],
     title: "Fill",
   },
@@ -156,13 +156,13 @@ const steps = [
 .range::-webkit-slider-thumb {
   box-shadow: 0 0 0 var(--halo)
     oklch(from var(--ui-primary) 70% 100% h / var(--ui-state-active-alpha-light));
-  transition: box-shadow calc(0.2s * var(--ui-motion, 1)) var(--ui-ease);
+  transition: box-shadow calc(var(--ui-duration-fast) * var(--ui-motion, 1)) var(--ui-ease);
 }
 
 .range::-moz-range-thumb {
   box-shadow: 0 0 0 var(--halo)
     oklch(from var(--ui-primary) 70% 100% h / var(--ui-state-active-alpha-light));
-  transition: box-shadow calc(0.2s * var(--ui-motion, 1)) var(--ui-ease);
+  transition: box-shadow calc(var(--ui-duration-fast) * var(--ui-motion, 1)) var(--ui-ease);
 }`,
     features: ["relative-color"],
     notes: [
@@ -275,7 +275,7 @@ const ticks = [0, 25, 50, 75, 100]
     initial-value: 24px;
   }
 
-  @property --track-fill {
+  @property --track-fill-fraction {
     syntax: "<percentage>";
     inherits: true;
     initial-value: 0%;
@@ -283,11 +283,11 @@ const ticks = [0, 25, 50, 75, 100]
 
   @keyframes build-range-fill {
     from {
-      --track-fill: 100%;
+      --track-fill-fraction: 100%;
     }
 
     to {
-      --track-fill: 0%;
+      --track-fill-fraction: 0%;
     }
   }
 </style>

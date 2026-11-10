@@ -14,7 +14,7 @@ export default {
     {
       default: '"blurred"',
       description:
-        'The backdrop style. `"transparent"` keeps the page behind it fully visible.',
+        "The backdrop style. `transparent` keeps the page behind it fully visible.",
       group: "Backdrop",
       prop: "backdrop",
       values: { blurred: null, transparent: ".ui-backdrop-transparent" },
@@ -23,7 +23,7 @@ export default {
       attribute: "[closedby]",
       default: '"any"',
       description:
-        'How the drawer can be closed. `"any"` also closes it on a click outside.',
+        "How the drawer can be closed. `any` also closes it on a click outside.",
       group: "Behavior",
       prop: "closedby",
     },

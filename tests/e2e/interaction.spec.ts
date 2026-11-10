@@ -1544,7 +1544,7 @@ interaction(
       await input.evaluate((element: HTMLInputElement) =>
         [...(element.list?.options ?? [])].map((option) => option.value),
       ),
-    ).toEqual(["Jonny Greenwood", "Marika Hackman", "Ray Manzarek"])
+    ).toEqual(["Elif Rahman", "Lena Ek", "Tom Tanaka"])
   },
 )
 

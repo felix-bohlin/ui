@@ -202,14 +202,29 @@ const apiList = Object.values(groups)
     input.value = new URLSearchParams(location.search).get("filter") ?? ""
     input.addEventListener("input", filter)
     if (input.value) filter()
-    addEventListener("hashchange", () => {
-      const target = document.getElementById(location.hash.slice(1))
-      if (!target?.closest("[hidden]")) return
+  }
+
+  const settle = () => {
+    const target = document.getElementById(location.hash.slice(1))
+    if (!target) return
+    if (input && target.closest("[hidden]")) {
       input.value = ""
       filter()
+    }
+    let frames = 0
+    let last = NaN
+    const align = () => {
+      const top = target.getBoundingClientRect().top
+      if (top === last || ++frames > 30) return
       target.scrollIntoView()
-    })
+      last = target.getBoundingClientRect().top
+      requestAnimationFrame(align)
+    }
+    align()
   }
+
+  addEventListener("hashchange", settle)
+  if (location.hash) settle()
 </script>
 
 <style>
@@ -227,7 +242,15 @@ const apiList = Object.values(groups)
     margin: 0;
   }
 
+  :global(html:has(.api-section)) {
+    scroll-behavior: auto;
+  }
+
   .api-section {
+    contain-intrinsic-block-size: auto 40rem;
+    content-visibility: auto;
+    overflow-clip-margin: var(--size-2);
+
     &[hidden],
     :global([hidden]),
     :global(:is(h3, h4):has(+ .docs-table[hidden])),

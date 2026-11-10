@@ -717,6 +717,17 @@ test("the API page filter keeps the components and rows that match", async ({
   await expect(sections).toHaveCount(total)
 })
 
+test("the API page lands on a section far down the page", async ({ page }) => {
+  await page.goto("/html/api/#tooltip")
+  await expect(page.locator("#tooltip h2")).toBeInViewport()
+  for (const id of ["button", "menu", "tooltip"]) {
+    await page
+      .locator(`.table-of-contents:not(.toc-drawer) a[href="#${id}"]`)
+      .click()
+    await expect(page.locator(`#${id} h2`)).toBeInViewport()
+  }
+})
+
 test("the blog feed lists every post", async ({ page }) => {
   const feed = await (await page.request.get("/blog/rss.xml")).text()
   await page.goto("/blog/")

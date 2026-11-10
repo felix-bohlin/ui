@@ -93,6 +93,11 @@
 
           forced-color-adjust: none;
         }
+
+        &:is(:disabled, [aria-disabled="true"]) {
+          --_accent: GrayText;
+          --_border-color: GrayText;
+        }
       }
     }
   }

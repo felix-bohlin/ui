@@ -3,12 +3,12 @@ import type { CustomProperties } from "../types"
 export default {
   "--_accent": {
     description:
-      "Fill and border of the checked circle. `SelectedItem` in forced colors.",
+      "Fill and border of the checked circle. `SelectedItem` in forced colors, and `GrayText` there when disabled.",
     kind: "input",
   },
   "--_border-color": {
     description:
-      "Border of the radio input. Defaults to `--ui-choice-border-color`, or `--ui-field-border-color` when the theme leaves it unset, `--_accent` when checked and `--ui-invalid` when invalid. `CanvasText` in forced colors. A focused radio draws `--ui-focus-border-color` instead when the theme sets it. Set on `input`.",
+      "Border of the radio input. Defaults to `--ui-choice-border-color`, or `--ui-field-border-color` when the theme leaves it unset, `--_accent` when checked and `--ui-invalid` when invalid. `CanvasText` in forced colors, and `GrayText` there when disabled. A focused radio draws `--ui-focus-border-color` instead when the theme sets it. Set on `input`.",
     kind: "output",
   },
   "--_border-width": {

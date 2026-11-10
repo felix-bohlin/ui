@@ -8,20 +8,20 @@ export default {
   },
   "--_divider-accent": {
     description:
-      "The color `--_divider-border-color` lightens or darkens by 0.1, like the button's `--_accent-tonal`: `--ui-surface-tonal`, the palette tint in `.ui-critical`, and `--ui-primary-tonal` or the tint in `.ui-primary`. In a filled `.ui-critical` or `.ui-primary` group, `--ui-critical` within `--ui-accent-fill-max-lightness` or `--ui-primary`, like the button's `--_accent-fill`.",
+      "The color `--_divider-enabled-border-color` lightens or darkens by 0.1, like the button's `--_accent-tonal`: `--ui-surface-tonal`, the palette tint in `.ui-critical`, and `--ui-primary-tonal` or the tint in `.ui-primary`. In a filled `.ui-critical` or `.ui-primary` group, `--ui-critical` within `--ui-accent-fill-max-lightness` or `--ui-primary`, like the button's `--_accent-fill`.",
     kind: "input",
   },
   "--_divider-border-color": {
     description:
-      "Color of the line between two buttons without a border of their own, which the rule and `--_start-border-color` both read: `--_divider-border-color-enabled`, or `--_divider-border-color-disabled` in a group whose buttons are all disabled.",
+      "Color of the line between two buttons without a border of their own, which the rule reads, and `--_start-border-color` in a group that isn't tonal or filled: `--_divider-enabled-border-color`, or `--_divider-disabled-border-color` in a group whose buttons are all disabled.",
     kind: "output",
   },
-  "--_divider-border-color-disabled": {
+  "--_divider-disabled-border-color": {
     description:
-      "`--_divider-border-color-enabled` at 40%, the line in a group whose buttons are all disabled.",
+      "`--_divider-enabled-border-color` at `--ui-disabled-opacity`, the line in a group whose buttons are all disabled.",
     kind: "output",
   },
-  "--_divider-border-color-enabled": {
+  "--_divider-enabled-border-color": {
     description:
       "Color of the line while a button in the group is enabled, from `--_divider-accent`. In a `.ui-filled` group without a color, `currentColor`, so where the buttons overlap each one draws the line in its own text color, and the rule between them is `transparent`, so the surface behind the group shows through. `--ui-control-border-color-filled`, the hook for filled controls, replaces it when a theme sets it.",
     kind: "input",
@@ -58,7 +58,7 @@ export default {
   },
   "--_start-border-color": {
     description:
-      "Start border color of a button after another button, which the buttons inherit: `--_divider-border-color` where the buttons overlap and that border is the line between them, and `transparent` where the group draws the line as a rule.",
+      "Start border color of a button after another button, which the buttons inherit: `--_divider-border-color` where the buttons overlap and that border is the line between them, `--_divider-enabled-border-color` in a tonal or filled group, whose disabled buttons dim it with their opacity, and `transparent` where the group draws the line as a rule. In forced colors each button sets it to `ButtonBorder`, or `SelectedItem` on the current page.",
     kind: "output",
   },
   "--_start-end-radius": {

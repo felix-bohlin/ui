@@ -2,13 +2,14 @@
   :where(.ui-control-group) {
     /* button.css > --_accent-tonal */
     --_divider-accent: var(--ui-surface-tonal);
-    --_divider-border-color: var(--_divider-border-color-enabled);
-    --_divider-border-color-disabled: color-mix(
+    --_divider-border-color: var(--_divider-enabled-border-color);
+    --_divider-disabled-border-color: color-mix(
       in oklch,
-      var(--_divider-border-color-enabled) 40%,
+      var(--_divider-enabled-border-color)
+        calc(var(--ui-disabled-opacity) * 100%),
       transparent
     );
-    --_divider-border-color-enabled: var(
+    --_divider-enabled-border-color: var(
       --ui-control-border-color-filled,
       light-dark(
         oklch(from var(--_divider-accent) calc(l - 0.1) c h),
@@ -114,6 +115,10 @@
       min-inline-size: 10ch;
     }
 
+    &:is(.ui-filled, .ui-tonal) {
+      --_start-border-color: var(--_divider-enabled-border-color);
+    }
+
     &.ui-critical {
       --_divider-accent: var(--ui-palette-tint);
     }
@@ -152,7 +157,7 @@
           );
           --_start-border-color: if(
             not style(--ui-control-border-color-filled): transparent;
-              else: var(--_divider-border-color)
+              else: var(--_divider-enabled-border-color)
           );
         }
       }
@@ -261,11 +266,11 @@
     }
 
     &:not(:has(> .ui-button:not(:disabled, [aria-disabled="true"]))) {
-      --_divider-border-color: var(--_divider-border-color-disabled);
+      --_divider-border-color: var(--_divider-disabled-border-color);
     }
 
     &.ui-filled:not(.ui-critical, .ui-primary) {
-      --_divider-border-color-enabled: var(
+      --_divider-enabled-border-color: var(
         --ui-control-border-color-filled,
         currentColor
       );
@@ -280,6 +285,11 @@
 
       @media (forced-colors: active) {
         --_border-color: ButtonBorder;
+        --_start-border-color: ButtonBorder;
+
+        &[aria-current="page"] {
+          --_start-border-color: SelectedItem;
+        }
       }
 
       &:has(> svg:only-child) {
@@ -314,14 +324,6 @@
         ):not([hidden])
       ) {
       border-inline-start-color: var(--_start-border-color);
-
-      @media (forced-colors: active) {
-        border-inline-start-color: ButtonBorder;
-
-        &[aria-current="page"] {
-          border-inline-start-color: SelectedItem;
-        }
-      }
     }
 
     &.ui-vertical:not(.ui-outlined)
@@ -335,14 +337,6 @@
         ):not([hidden])
       ) {
       border-block-start-color: var(--_start-border-color);
-
-      @media (forced-colors: active) {
-        border-block-start-color: ButtonBorder;
-
-        &[aria-current="page"] {
-          border-block-start-color: SelectedItem;
-        }
-      }
     }
 
     /* Overflow */

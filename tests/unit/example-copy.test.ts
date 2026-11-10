@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync } from "node:fs"
 import { join } from "node:path"
 import { describe, expect, test } from "vitest"
+import { FRAMEWORK_AGNOSTIC_EXAMPLES } from "../../src/utils/framework.js"
 import allowlist from "./example-copy-allowlist.json"
 
 const TEXT_ATTRIBUTES = [
@@ -67,18 +68,20 @@ export const problemsOf = (source: string) => [
 ]
 
 const root = "src/component-examples"
-const found: Record<string, string[]> = Object.fromEntries(
-  readdirSync(root)
+const files = [
+  ...readdirSync(root)
     .toSorted()
     .flatMap((folder) =>
       readdirSync(join(root, folder))
         .filter((file) => file.endsWith(".astro"))
         .toSorted()
-        .map((file) => [
-          `${folder}/${file}`,
-          problemsOf(readFileSync(join(root, folder, file), "utf8")),
-        ]),
-    )
+        .map((file) => `${folder}/${file}`),
+    ),
+  ...FRAMEWORK_AGNOSTIC_EXAMPLES.map((example) => `${example}.html`),
+]
+const found: Record<string, string[]> = Object.fromEntries(
+  files
+    .map((file) => [file, problemsOf(readFileSync(join(root, file), "utf8"))])
     .filter(([, problems]) => problems.length > 0),
 )
 
@@ -118,6 +121,18 @@ describe("example copy", () => {
       "a short exclamation: Pick me!",
       "a placeholder label: Checkbox 1",
       "a placeholder label: Option 1",
+    ])
+  })
+
+  test("reads the HTML of the examples that have no Astro file", () => {
+    expect(files).toEqual(expect.arrayContaining(["typography/Default.html"]))
+    expect(
+      problemsOf(
+        '<article class="ui-rich-text">\n  <h1>Fixie beard</h1>\n  <p>Kitsch tbh knausgaard tousled.</p>\n  <img alt="Lorem ipsum" src="a.jpg" />\n</article>',
+      ),
+    ).toEqual([
+      "filler ipsum: Kitsch tbh knausgaard tousled.",
+      "placeholder Latin: Lorem ipsum",
     ])
   })
 })

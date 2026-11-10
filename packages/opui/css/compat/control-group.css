@@ -7,8 +7,46 @@
 
   @supports not (row-rule: none) {
     :where(.ui-control-group) {
-      --_divider-gap: 0px;
-      --_start-border-color: var(--_divider-border-color);
+      --_divider-offset: calc(-1 * var(--_divider-gap)) 0;
+      --_divider-shadow: var(--_divider-offset) 0 0 var(--_divider-border-color);
+
+      &:dir(rtl) {
+        --_divider-offset: var(--_divider-gap) 0;
+      }
+
+      &.ui-vertical {
+        --_divider-offset: 0 calc(-1 * var(--_divider-gap));
+      }
+
+      &:not(:has(> .ui-button:not(:disabled, [aria-disabled="true"]))) {
+        --_divider-shadow: var(--_divider-offset) 0 0
+          color-mix(in oklch, var(--_divider-border-color) 40%, transparent);
+      }
+
+      &.ui-filled:not(.ui-critical, .ui-primary) {
+        --_divider-shadow: none;
+      }
+
+      &:not(
+        .ui-outlined,
+        .ui-overflow-scroll,
+        .ui-overflow-shrink,
+        .ui-vertical,
+        :has(
+          :focus-visible,
+          > :is(.ui-number-field, .ui-select, .ui-text-field, .ui-textarea)
+        )
+      ) {
+        overflow-x: clip;
+      }
+
+      &
+        > .ui-button:not(:focus-visible):is(
+          .ui-button + *,
+          .ui-button + :is([hidden], [popover]) + *
+        ) {
+        --_shadow: var(--_divider-shadow);
+      }
     }
   }
 }

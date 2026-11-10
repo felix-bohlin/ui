@@ -18,7 +18,7 @@ export default {
   },
   "--_divider-gap": {
     description:
-      "The gap between two controls, and the width of the rule the browser draws in it (`column-rule`, or `row-rule` in `.ui-vertical`), only between controls on the same row. `--ui-border-width` in a group of buttons that isn't outlined, so a wrapped row never starts with a line. `0px` in a group with a field, in forced colors, where a theme gives tonal and filled controls a border, and in browsers without gap decorations (`css/compat/control-group.css`). There the controls overlap and `--_start-border-color` draws the line.",
+      "The gap between two controls, and the width of the rule the browser draws in it (`column-rule`, or `row-rule` in `.ui-vertical`), only between controls on the same row. `--ui-border-width` in a group of buttons that isn't outlined, so a wrapped row never starts with a line. `0px` in a group with a field, in forced colors, and where a theme gives tonal and filled controls a border. There the controls overlap and `--_start-border-color` draws the line. Browsers without gap decorations keep the gap and draw the line in it as the later button's shadow, and the group clips its inline edges so the shadow at the start of a wrapped row doesn't show, except while a control in it has keyboard focus (`css/compat/control-group.css`).",
     kind: "output",
   },
   "--_end-end-radius": {

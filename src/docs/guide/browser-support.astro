@@ -85,9 +85,11 @@ const years = Object.keys(categorized)
         ControlGroup (<code>css/compat/control-group.css</code>): without
         <code>overflow-inline</code>, a group with
         <code>.ui-overflow-scroll</code> scrolls through <code>overflow-x</code
-        >. Without gap decorations, buttons overlap and the later button's start
-        border is the line between them, so a row that wraps starts with that
-        line.
+        >. Without gap decorations, each button draws the line before it as a
+        shadow in the gap, and the group clips its inline edges, so a row that
+        wraps doesn't start with a line. The clip lifts while a control in the
+        group has keyboard focus, so its focus ring shows whole, and a disabled
+        filled or tonal button fades the line before it.
       </li>
       <li>
         Copy (<code>css/compat/copy.css</code>): without interest invokers, a

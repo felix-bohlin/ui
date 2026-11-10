@@ -20,7 +20,7 @@ export default {
       class: ".ui-tracked",
       default: "false",
       description:
-        "Colors the line and the plain markers before the current item with the primary color, like a progress tracker.",
+        "Colors the line and the plain markers before the current item with `--ui-selected-strong`, like a progress tracker.",
       group: "Tracked",
       prop: "tracked",
     },

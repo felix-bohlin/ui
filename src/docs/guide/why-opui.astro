@@ -162,8 +162,9 @@ const steps = Array.from({ length: 16 }, (_, index) => index + 1)
           Yes and no. Components use a new feature as soon as a browser ships
           it, whichever browser that is. Browsers without it fall back to what
           they do by default, or to a fallback from the
-          <DocLink href="/guide/browser-support#compat">compat layer</DocLink>,
-          which is included unless you leave it out. If your users' browsers
+          <DocLink class="ui-link" href="/guide/browser-support#compat"
+            >compat layer</DocLink
+          >, which is included unless you leave it out. If your users' browsers
           have the features, or those fallbacks are good enough, it's ready. The
           point is to let the spec and the components mature alongside each
           other.

@@ -143,6 +143,8 @@ const editUrl = `${githubRepo}/edit/main/src/docs/components/${currentSlug}.astr
 
 const notes = currentSlug ? whatsNewFor(currentFramework, currentSlug) : []
 const isBreaking = (note: string) => note.startsWith("Breaking:")
+const withLinkClass = (note: string) =>
+  note.replaceAll("<a href=", '<a class="ui-link" href=')
 const whatsNew = notes.filter((note) => !isBreaking(note))
 const migrating = notes
   .filter(isBreaking)
@@ -349,7 +351,7 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
         <h3>What's new</h3>
         <ul>
           {whatsNew.map((note) => (
-            <li set:html={note} />
+            <li set:html={withLinkClass(note)} />
           ))}
         </ul>
       </CalloutContent>
@@ -366,11 +368,14 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
           {migrating.map((note, index) => (
             <li
               class={index >= COLLAPSED ? "changelog-extra" : undefined}
-              set:html={note}
+              set:html={withLinkClass(note)}
             />
           ))}
         </ul>
-        <p><a href={migratingHref}>The migration guide</a> has the steps.</p>
+        <p>
+          <a class="ui-link" href={migratingHref}>The migration guide</a> has
+          the steps.
+        </p>
         {migrating.length > COLLAPSED && <div class="ui-not-rich-text">
           <Button
             class="changelog-toggle"

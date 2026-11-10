@@ -671,7 +671,7 @@ describe("the three ports of a sample", () => {
       'import { mergeStyle, styleAttrs } from "../style"',
     )
     expect(ports.vue).toContain(
-      "mergeProps(styleAttrs(mergeStyle({ '--_max': max }, {})), { ...restAttrs })",
+      "mergeProps(styleAttrs(mergeStyle({ '--_max': max }, {})), {\n        ...restAttrs,\n      })",
     )
     expect(ports.vue).not.toContain(":style=")
   })

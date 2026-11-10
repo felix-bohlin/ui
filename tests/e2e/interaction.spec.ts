@@ -1816,6 +1816,27 @@ interaction(
 
 interaction(
   "copy",
+  "Snippet",
+  "copy selects the snippet without the failure label when the clipboard is blocked",
+  async ({ page, root }) => {
+    const button = root.getByRole("button", { name: "Copy" })
+
+    await expect(button).toBeVisible()
+    await stubCopyCommand(page, false)
+    await page.evaluate(() => {
+      navigator.clipboard.writeText = () =>
+        Promise.reject(new DOMException("Blocked", "NotAllowedError"))
+    })
+    await button.click()
+    await expect(root.getByRole("status")).toHaveText("Copy failed")
+    const selected = await page.evaluate(() => getSelection()!.toString())
+    expect(selected).toContain("npm install opui-css")
+    expect(selected).not.toContain("Copy failed")
+  },
+)
+
+interaction(
+  "copy",
   "Basics",
   "copy copies with a selection where the page has no Clipboard API",
   async ({ page, root }) => {

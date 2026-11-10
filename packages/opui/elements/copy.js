@@ -85,7 +85,15 @@ export class Copy extends Base {
       field.select()
       return
     }
-    this.ownerDocument.getSelection()?.selectAllChildren(this)
+    const range = this.ownerDocument.createRange()
+    range.selectNodeContents(this)
+    const end = this.querySelector(
+      ':scope > [role="status"], :scope > .ui-floating[popover]',
+    )
+    if (end) range.setEndBefore(end)
+    const selection = this.ownerDocument.getSelection()
+    selection?.removeAllRanges()
+    selection?.addRange(range)
   }
 
   async #write(text) {

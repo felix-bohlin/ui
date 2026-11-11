@@ -216,7 +216,7 @@
   {
     "id": "component-button-html",
     "title": "Button",
-    "description": "Buttons allow users to take actions with a single tap.",
+    "description": "A button for actions, like saving a form, with variants, colors, sizes and icons.",
     "keywords": "btn cta icon button submit",
     "category": "Component",
     "url": "/html/components/button/"
@@ -3243,6 +3243,7 @@
     "id": "guide-accessibility-html",
     "title": "Accessibility",
     "description": "A few basics to get you started. OPUI leans on native HTML, so a lot comes for free, but you still decide the names, the order and the content. Test with a keyboard and a screen reader, it always depends.",
+    "keywords": "a11y aria focus ring forced colors high contrast keyboard navigation reduced motion screen reader",
     "category": "Guide",
     "url": "/html/guide/accessibility/"
   },
@@ -3306,6 +3307,7 @@
     "id": "guide-acknowledgments-html",
     "title": "Acknowledgments",
     "description": "Open Props UI stands on a lot of shoulders. These are the people, projects and resources that made it possible.",
+    "keywords": "credits inspiration thanks",
     "category": "Guide",
     "url": "/html/guide/acknowledgments/"
   },
@@ -3341,6 +3343,7 @@
     "id": "guide-browser-support-html",
     "title": "Browser support",
     "description": "The web platform features the components rely on, and the browsers that ship each one.",
+    "keywords": "baseline chrome compat fallback firefox safari",
     "category": "Guide",
     "url": "/html/guide/browser-support/"
   },
@@ -3383,6 +3386,7 @@
     "id": "guide-concepts-html",
     "title": "Concepts",
     "description": "The architecture: cascade layers, token tiers, scopes, props and classes, naming, rich text, and where JavaScript is still needed.",
+    "keywords": "architecture cascade layers color scheme dark mode light mode naming",
     "category": "Guide",
     "url": "/html/guide/concepts/"
   },
@@ -3467,6 +3471,7 @@
     "id": "guide-customizing-html",
     "title": "Customizing",
     "description": "A theme in theme.custom, --_* properties for one component, and your own layer for the rest.",
+    "keywords": "css variables custom properties override restyle",
     "category": "Guide",
     "url": "/html/guide/customizing/"
   },
@@ -3502,6 +3507,7 @@
     "id": "guide-migrating-html",
     "title": "Migrating from v5 to v6",
     "description": "The breaking changes in v6 and how to update your code, component by component.",
+    "keywords": "breaking changes migrate migration upgrade v5 v6",
     "headings": "Accordion Anchor Avatar Badge Button Callout Card Checkbox Chip Classic select Control group Description list Dialog Divider Drawer Field group and fieldset Icon button List List item Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
     "category": "Guide",
     "url": "/html/guide/migrating/"
@@ -3510,6 +3516,7 @@
     "id": "guide-theme-tokens-html",
     "title": "Theme tokens",
     "description": "Every token, its default and what it does.",
+    "keywords": "css variables custom properties design tokens variables",
     "category": "Guide",
     "url": "/html/guide/theme-tokens/"
   },
@@ -3559,6 +3566,7 @@
     "id": "guide-theming-html",
     "title": "Theming",
     "description": "The knobs and roles behind colors, density, spacing, corners, fonts, elevation, motion and contrast, and the classes that scope them.",
+    "keywords": "brand color color scheme dark mode dark theme light mode radius shadows theme",
     "category": "Guide",
     "url": "/html/guide/theming/"
   },
@@ -3685,6 +3693,7 @@
     "id": "guide-why-opui-html",
     "title": "Why Open Props UI?",
     "description": "Components built from the HTML and CSS the platform ships today, as files you can read, copy and own.",
+    "keywords": "about backstory philosophy",
     "category": "Guide",
     "url": "/html/guide/why-opui/"
   },
@@ -3706,6 +3715,7 @@
     "id": "guide-getting-started-html",
     "title": "Getting started",
     "description": "Add the CSS from the CDN, from npm or by copying the files, then write the class names.",
+    "keywords": "cdn install npm setup",
     "category": "Guide",
     "url": "/html/guide/getting-started/"
   },

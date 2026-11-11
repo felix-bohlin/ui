@@ -10,7 +10,7 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Anchor | `anchor.md` | Places floating content next to an element with CSS anchor positioning. |
 | Avatar | `avatar.md` | Avatars show a person or entity as an image, initials or icon. |
 | Badge | `badge.md` | Badges attach a small count or status dot to another element. |
-| Button | `button.md` | Buttons allow users to take actions with a single tap. |
+| Button | `button.md` | A button for actions, like saving a form, with variants, colors, sizes and icons. |
 | Callout | `callout.md` | A message in the flow of the page, without interrupting the task. |
 | Card | `card.md` | A surface for related content and actions. |
 | Carousel | `carousel.md` | A scrolling list with snap points, buttons and markers. |

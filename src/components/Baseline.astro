@@ -1,50 +1,19 @@
 ---
 import FeatureSupport from "./UnderTheHood/FeatureSupport.astro"
-import { hasCompatKey } from "../utils/baseline"
 
 type Props = {
   ids: string[]
 }
 
 const { ids } = Astro.props
-const live = ids.filter((id) => !hasCompatKey(id))
-const local = ids.filter(hasCompatKey)
 ---
 
-{live.length > 0 && <article class="ui-card ui-outlined ui-not-rich-text">
-  {live.map((id) => (
-    <baseline-status featureId={id} />
-  ))}
-</article>}
-{local.length > 0 && <FeatureSupport ids={local} />}
-
-<script>
-  import { BaselineStatus } from "baseline-status/baseline-status"
-
-  if (!customElements.get("baseline-status")) {
-    customElements.define("baseline-status", BaselineStatus)
-  }
-</script>
+{ids.length > 0 && <div class="baseline ui-not-rich-text">
+  <FeatureSupport ids={ids} />
+</div>}
 
 <style>
-  article {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+  .baseline {
     margin-block: var(--size-3);
-  }
-
-  baseline-status {
-    border-radius: 0;
-    display: block;
-    padding: var(--size-3) var(--size-3);
-
-    &[hidden] {
-      display: none;
-    }
-
-    &:not([hidden]):nth-child(even of :not([hidden])) {
-      background-color: var(--ui-surface-tonal);
-    }
   }
 </style>

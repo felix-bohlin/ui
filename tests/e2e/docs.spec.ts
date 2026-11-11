@@ -2,6 +2,7 @@ import { readdirSync } from "node:fs"
 import { expect, test } from "@playwright/test"
 import type { Locator, Page } from "@playwright/test"
 import { FRAMEWORK_IDS } from "../../src/utils/framework"
+import { FIREFOX_STICKY_ANCHOR_SCROLL, failsIn } from "./engine-bugs"
 import {
   computed,
   instantScrolling,
@@ -328,6 +329,20 @@ test.describe("search", () => {
     expect(indexes).toEqual(["/search-index/html.json"])
   })
 
+  test("links to the roadmap when no framework has a result", async ({
+    page,
+  }) => {
+    await page.locator("[data-open-search]").filter({ visible: true }).click()
+    await page.locator("#search-input").fill("skeleton")
+    await expect(page.locator("#search-empty")).toHaveText(
+      "No results in HTML. See what's planned",
+    )
+    await expect(page.locator("#search-empty a")).toHaveAttribute(
+      "href",
+      "https://github.com/felix-bohlin/ui/issues/441",
+    )
+  })
+
   test("loads the index when a shortcut opens search", async ({ page }) => {
     const request = page.waitForRequest(/\/search-index\/html\.json$/)
     await page.keyboard.press("/")
@@ -539,8 +554,10 @@ test("renews the highlight ranges of an Installation tab when it is shown", asyn
 })
 
 test("a long section heading takes the content width, passes under the header links and sticks as a one-line copy without changing its height or the scroll position", async ({
+  browserName,
   page,
 }) => {
+  failsIn(browserName, { firefox: FIREFOX_STICKY_ANCHOR_SCROLL })
   await page.setViewportSize({ height: 800, width: 1300 })
   await page.goto("/html/components/spinner/")
   await page.evaluate(() => document.fonts.ready)
@@ -599,30 +616,41 @@ test("a long section heading takes the content width, passes under the header li
           await heading.elementHandle(),
         ),
     ).toEqual({ linkOnTop: true, textCoversLink: true })
-    expect(
-      await heading.evaluate((element, copyWidth) => {
-        const box = (selector: string) =>
-          document.querySelector(selector)!.getBoundingClientRect()
-        const zIndex = (selector: string) =>
-          Number(getComputedStyle(document.querySelector(selector)!).zIndex)
-        const header = box("header .ui-content")
-        const backdrop = box(".site-header-backdrop")
-        const panel = box(".site-header-panel")
-        return {
+    const { checks, edges } = await heading.evaluate((element, copyWidth) => {
+      const box = (selector: string) =>
+        document.querySelector(selector)!.getBoundingClientRect()
+      const zIndex = (selector: string) =>
+        Number(getComputedStyle(document.querySelector(selector)!).zIndex)
+      const header = box("header .ui-content")
+      const backdrop = box(".site-header-backdrop")
+      const panel = box(".site-header-panel")
+      const near = (a: number, b: number) => Math.abs(a - b) < 1
+      return {
+        checks: {
           backdropMeetsPanel: backdrop.right === panel.left,
           copyClearsPanel:
             element.getBoundingClientRect().left + copyWidth < panel.left,
           fillsHeader: [backdrop, panel].every(
-            (part) => part.top === header.top && part.bottom === header.bottom,
+            (part) =>
+              near(part.top, header.top) && near(part.bottom, header.bottom),
           ),
           panelAboveHeading:
             zIndex(".site-header-panel") >
             Number(getComputedStyle(element).zIndex),
           panelBehindLinks: panel.left < box("header nav ul").left,
           panelReachesEnd: panel.right === header.right,
-        }
-      }, copyMaxWidth),
-    ).toEqual({
+        },
+        edges: JSON.stringify(
+          Object.fromEntries(
+            Object.entries({ backdrop, header, panel }).map(([name, part]) => [
+              name,
+              [part.top, part.right, part.bottom, part.left],
+            ]),
+          ),
+        ),
+      }
+    }, copyMaxWidth)
+    expect(checks, `top, right, bottom, left: ${edges}`).toEqual({
       backdropMeetsPanel: true,
       copyClearsPanel: true,
       fillsHeader: true,
@@ -678,6 +706,56 @@ test("a long section heading takes the content width, passes under the header li
   }
 })
 
+test("the API page filter keeps the components and rows that match", async ({
+  page,
+}) => {
+  test.setTimeout(60_000)
+  await page.goto("/html/api/")
+  const input = page.locator(".api-filter input")
+  const sections = page.locator(".api-section:visible")
+  const total = await sections.count()
+  await input.fill("closedby")
+  await expect(page.locator(".api-filter-status")).toHaveText(
+    `2 of ${total} components`,
+  )
+  await expect(sections.locator("h2")).toHaveText(["Dialog", "Drawer"])
+  await expect(page.locator(".api-section tbody tr:visible")).toHaveCount(2)
+  await expect(page).toHaveURL(/\?filter=closedby$/)
+  await input.fill("no such prop")
+  await expect(page.locator(".api-filter-empty")).toBeVisible()
+  await page.goto("/html/api/?filter=closedby#dialog")
+  await expect(sections).toHaveCount(2)
+  await page
+    .locator('.table-of-contents:not(.toc-drawer) a[href="#accordion"]')
+    .click()
+  await expect(input).toHaveValue("")
+  await expect(sections).toHaveCount(total)
+})
+
+test("the API page lands on a section far down the page", async ({ page }) => {
+  test.setTimeout(60_000)
+  await page.goto("/html/api/#tooltip")
+  await expect(page.locator("#tooltip h2")).toBeInViewport()
+  for (const id of ["button", "menu", "tooltip"]) {
+    await page
+      .locator(`.table-of-contents:not(.toc-drawer) a[href="#${id}"]`)
+      .click()
+    await expect(page.locator(`#${id} h2`)).toBeInViewport()
+  }
+})
+
+test("the blog feed lists every post", async ({ page }) => {
+  const feed = await (await page.request.get("/blog/rss.xml")).text()
+  await page.goto("/blog/")
+  await expect(
+    page.locator('link[rel="alternate"][type="application/rss+xml"]'),
+  ).toHaveAttribute("href", "/blog/rss.xml")
+  expect(feed.match(/<item>/g)?.length).toBeGreaterThan(20)
+  expect(feed).toContain(
+    "<link>https://open-props-ui.netlify.app/blog/release-6/</link>",
+  )
+})
+
 for (const path of DOCS_PAGES) {
   test(`${path} doesn't scroll sideways at 320px`, async ({ page }) => {
     await page.setViewportSize({ height: 640, width: 320 })
@@ -721,6 +799,7 @@ for (const path of DOCS_PAGES.filter(
   test(`${path} keeps its blocks within the content width`, async ({
     page,
   }) => {
+    if (path === "/html/api/") test.setTimeout(60_000)
     await page.goto(path)
     await page
       .locator("#main-content > .ui-rich-text > section")

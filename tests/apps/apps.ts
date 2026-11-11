@@ -22,6 +22,7 @@ type App = {
   name: string
   port: number
   prefixes?: string[]
+  publicDir: string
   readmeBuild?: {
     css: string
     readmeCss: string
@@ -42,6 +43,7 @@ const ALL_APPS: App[] = [
     name: "next",
     port: 4401,
     prefixes: ["", "/elements-first"],
+    publicDir: "public",
     readmeBuild: {
       css: ".next/static",
       readmeCss: ".next-readme/static",
@@ -59,6 +61,7 @@ const ALL_APPS: App[] = [
     framework: "vue",
     name: "nuxt",
     port: 4402,
+    publicDir: "public",
     readmeBuild: {
       css: ".output/public",
       readmeCss: ".output-readme/public",
@@ -78,6 +81,7 @@ const ALL_APPS: App[] = [
     framework: "svelte",
     name: "sveltekit",
     port: 4403,
+    publicDir: "static",
     readmeBuild: {
       css: "build/client",
       readmeCss: "build-readme/client",
@@ -94,6 +98,7 @@ const ALL_APPS: App[] = [
     framework: "react",
     name: "vite-react",
     port: 4404,
+    publicDir: "public",
     ssr: false,
     start: "pnpm exec vite preview --port 4404 --strictPort",
   },
@@ -105,6 +110,7 @@ const ALL_APPS: App[] = [
     framework: "react",
     name: "vite-react-dev",
     port: 4407,
+    publicDir: "public",
     ssr: false,
     start: "pnpm exec vite --port 4407 --strictPort",
   },
@@ -115,6 +121,7 @@ const ALL_APPS: App[] = [
     framework: "svelte",
     name: "vite-svelte",
     port: 4405,
+    publicDir: "public",
     readmeBuild: {
       css: "dist",
       readmeCss: "dist-readme",
@@ -130,6 +137,7 @@ const ALL_APPS: App[] = [
     framework: "vue",
     name: "vite-vue",
     port: 4406,
+    publicDir: "public",
     ssr: false,
     start: "pnpm exec vite preview --port 4406 --strictPort",
   },

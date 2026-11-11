@@ -4,11 +4,17 @@ import { Button, Drawer, DrawerContent, DrawerFooter } from "opui-css/astro"
 
 type Props = {
   headings?: { id: string; level: number; text: string }[]
-  sidebarDrawerId?: string
   showToc?: boolean
+  sidebarDrawerId?: string
+  sidebarLabel?: string
 }
 
-const { headings = [], sidebarDrawerId, showToc = true } = Astro.props
+const {
+  headings = [],
+  showToc = true,
+  sidebarDrawerId,
+  sidebarLabel = "Pages",
+} = Astro.props
 ---
 
 <div class="local-nav">
@@ -29,7 +35,7 @@ const { headings = [], sidebarDrawerId, showToc = true } = Astro.props
         d="M2 5.75A.75.75 0 0 1 2.75 5h15.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 5.75m0 12a.75.75 0 0 1 .75-.75h12.5a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1-.75-.75M2.75 11a.75.75 0 0 0 0 1.5h18.5a.75.75 0 0 0 0-1.5z"
       />
     </svg>
-    <span>Menu</span>
+    <span>{sidebarLabel}</span>
   </Button>}
   {showToc && <Button
     size="small"

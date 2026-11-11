@@ -51,7 +51,6 @@
   "dependencies": {
     "@astrojs/check": "^0.9.12",
     "astro": "catalog:",
-    "baseline-status": "^1.2.0",
     "globby": "^16.2.4",
     "microlighter": "^2.2.0",
     "minisearch": "^7.2.0",

@@ -66,6 +66,12 @@ const markdownUrl = hasMarkdown
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     {!noindex && <link rel="canonical" href={canonicalURL} />}
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Open Props UI blog"
+      href="/blog/rss.xml"
+    />
     {markdownUrl && (
       <link rel="alternate" type="text/markdown" href={markdownUrl} />
     )}

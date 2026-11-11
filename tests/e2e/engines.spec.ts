@@ -4,6 +4,7 @@ import {
   ENGINE_BUGS,
   FIREFOX_SELF_RTL,
   FIREFOX_STALE_FALLBACK_OPACITY,
+  FIREFOX_STICKY_ANCHOR_SCROLL,
   WEBKIT_ARROW_FOCUS_SCROLL,
   WEBKIT_HIGHLIGHT_HIDDEN_TEXT,
   WEBKIT_INNER_TEXT_HIDDEN_NODES,
@@ -153,6 +154,45 @@ repro(FIREFOX_STALE_FALLBACK_OPACITY, () => {
             .evaluate((popover) => getComputedStyle(popover).opacity),
         )
         .toBe("1")
+    })
+  }
+})
+
+repro(FIREFOX_STICKY_ANCHOR_SCROLL, () => {
+  for (const scrolled of [false, true]) {
+    test(`a fixed element anchored inside a sticky header lines up with it after a layout ${scrolled ? "on a scrolled page" : "at the top of the page"}`, async ({
+      browserName,
+      page: tab,
+    }) => {
+      failsIn(
+        browserName,
+        scrolled ? { firefox: FIREFOX_STICKY_ANCHOR_SCROLL } : {},
+      )
+      await tab.setContent(`<!doctype html>
+<style>
+  body { margin: 0 }
+  #sticky { inset-block-start: 0; padding-block-start: 16px; position: sticky; z-index: 1 }
+  #header { anchor-name: --header; block-size: 60px; margin-inline: auto; max-inline-size: 600px }
+  #overlay { bottom: anchor(--header bottom); left: 0; position: fixed; right: 0; top: anchor(--header top) }
+  .spacer { block-size: 3000px }
+</style>
+<div id="sticky"><header><div id="header">Header</div></header></div>
+<div id="overlay"></div>
+<div class="spacer"></div>`)
+      if (scrolled) await tab.evaluate(() => scrollTo(0, 1000))
+      await tab.evaluate(async () => {
+        await new Promise(requestAnimationFrame)
+        document.getElementById("overlay")!.style.insetInline = "8px"
+      })
+      await expect
+        .poll(() =>
+          tab.evaluate(() => {
+            const box = (id: string) =>
+              document.getElementById(id)!.getBoundingClientRect()
+            return Math.round(box("overlay").top - box("header").top)
+          }),
+        )
+        .toBe(0)
     })
   }
 })
@@ -330,6 +370,7 @@ ${Array.from({ length: 8 }, (_, index) => `  #radio-${index + 1} { grid-column: 
 const readers = (spaced: string, tight: string) => `<!doctype html>
 <style>
   .avatar { display: flex; grid-area: start; margin-inline-end: 8px }
+  .counter { align-items: center; display: inline-flex; justify-content: center; position: relative }
   .content { display: grid; gap: 4px; grid-area: content; padding: 8px 16px }
   .floating { margin: 8px; padding: 4px 8px }
   .footer { display: flex; gap: 4px }
@@ -354,6 +395,10 @@ const READERS = {
   "a button with an open popover": [
     `<span class="tooltip">   <button type="button"> Save </button> <span class="floating" popover="manual"> Save your changes </span>   </span>`,
     `<span class="tooltip"><button type="button">Save</button><span class="floating" popover="manual">Save your changes</span></span>`,
+  ],
+  "a button with a visually hidden span after its text": [
+    `<button class="counter" type="button">  +4<span class="hidden"> more reviewers</span>  </button>`,
+    `<button class="counter" type="button">+4<span class="hidden">more reviewers</span></button>`,
   ],
   "a grid item of text before a visually hidden span": [
     `<ol class="steps">

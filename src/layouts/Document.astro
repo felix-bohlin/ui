@@ -60,6 +60,7 @@ const { headings, html: content } = addHeadingAnchors(
     <LocalNav
       headings={headings}
       sidebarDrawerId={hasSidebarNav ? "sidebar-drawer" : undefined}
+      sidebarLabel={sidebarGroups[0]?.label}
       showToc={showToc}
     />
   </Fragment>
@@ -72,7 +73,7 @@ const { headings, html: content } = addHeadingAnchors(
     </aside>}
 
     {hasSidebarNav && <Drawer
-      aria-label="Sidebar"
+      aria-label={sidebarGroups[0]?.label}
       id="sidebar-drawer"
       backdrop="transparent"
       scrollLock

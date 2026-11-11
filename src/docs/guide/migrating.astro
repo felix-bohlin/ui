@@ -31,6 +31,15 @@ const decode = (code: string) =>
     hex ? String.fromCodePoint(parseInt(hex, 16)) : (ENTITIES[name] ?? entity),
   )
 const segments = content.split(CODE_BLOCK)
+
+export const keywords = [
+  "breaking changes",
+  "migrate",
+  "migration",
+  "upgrade",
+  "v5",
+  "v6",
+]
 ---
 
 <Guide overline="Guide">

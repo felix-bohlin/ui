@@ -1,8 +1,5 @@
-import { featureOf, patterns } from "../../packages/opui/scripts/features.mjs"
+import { featureOf } from "../../packages/opui/scripts/features.mjs"
 import { componentName } from "./names"
-
-export const hasCompatKey = (id: string) =>
-  patterns.some((pattern) => pattern.id === id && "key" in pattern)
 
 export async function getBaselineMappings() {
   const modules = import.meta.glob("../docs/components/*.astro", {

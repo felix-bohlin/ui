@@ -48,6 +48,8 @@ tests/apps/*/build/
 tests/apps/*/build-readme/
 tests/apps/*/dist-readme/
 tests/apps/*/next-env.d.ts
+tests/apps/*/public/photos/
+tests/apps/*/static/photos/
 tests/apps/*/tsconfig.tsbuildinfo
 
 # Claude Code agent worktrees

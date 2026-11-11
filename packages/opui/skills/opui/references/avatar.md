@@ -75,24 +75,15 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 
 ```html
 <div class="ui-avatar">
-  <img
-    src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?w=96&h=96&fit=crop&auto=format"
-    alt="Maya Lind"
-  />
+  <img src="/photos/maya-lind.png" alt="Maya Lind" />
 </div>
 
 <div class="ui-avatar">
-  <img
-    src="https://images.unsplash.com/photo-1672714413950-c9f7c5a45fa1?w=96&h=96&fit=crop&auto=format"
-    alt="Omar Haddad"
-  />
+  <img src="/photos/omar-haddad.png" alt="Omar Haddad" />
 </div>
 
 <div class="ui-avatar">
-  <img
-    src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?w=96&h=96&fit=crop&auto=format"
-    alt="Priya Nair"
-  />
+  <img src="/photos/jonas-berg.png" alt="Jonas Berg" />
 </div>
 ```
 
@@ -107,20 +98,11 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 import { Avatar } from "opui-css/astro"
 ---
 
-<Avatar
-  alt="Maya Lind"
-  src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?w=96&h=96&fit=crop&auto=format"
-/>
+<Avatar alt="Maya Lind" src="/photos/maya-lind.png" />
 
-<Avatar
-  alt="Omar Haddad"
-  src="https://images.unsplash.com/photo-1672714413950-c9f7c5a45fa1?w=96&h=96&fit=crop&auto=format"
-/>
+<Avatar alt="Omar Haddad" src="/photos/omar-haddad.png" />
 
-<Avatar
-  alt="Priya Nair"
-  src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?w=96&h=96&fit=crop&auto=format"
-/>
+<Avatar alt="Jonas Berg" src="/photos/jonas-berg.png" />
 ```
 
 ## React
@@ -135,20 +117,11 @@ import { Avatar } from "opui-css/react"
 export default function Image() {
   return (
     <>
-      <Avatar
-        alt="Maya Lind"
-        src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?w=96&h=96&fit=crop&auto=format"
-      />
+      <Avatar alt="Maya Lind" src="/photos/maya-lind.png" />
 
-      <Avatar
-        alt="Omar Haddad"
-        src="https://images.unsplash.com/photo-1672714413950-c9f7c5a45fa1?w=96&h=96&fit=crop&auto=format"
-      />
+      <Avatar alt="Omar Haddad" src="/photos/omar-haddad.png" />
 
-      <Avatar
-        alt="Priya Nair"
-        src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?w=96&h=96&fit=crop&auto=format"
-      />
+      <Avatar alt="Jonas Berg" src="/photos/jonas-berg.png" />
     </>
   )
 }
@@ -165,20 +138,11 @@ export default function Image() {
   import { Avatar } from "opui-css/svelte"
 </script>
 
-<Avatar
-  alt="Maya Lind"
-  src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?w=96&h=96&fit=crop&auto=format"
-/>
+<Avatar alt="Maya Lind" src="/photos/maya-lind.png" />
 
-<Avatar
-  alt="Omar Haddad"
-  src="https://images.unsplash.com/photo-1672714413950-c9f7c5a45fa1?w=96&h=96&fit=crop&auto=format"
-/>
+<Avatar alt="Omar Haddad" src="/photos/omar-haddad.png" />
 
-<Avatar
-  alt="Priya Nair"
-  src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?w=96&h=96&fit=crop&auto=format"
-/>
+<Avatar alt="Jonas Berg" src="/photos/jonas-berg.png" />
 ```
 
 ## Vue
@@ -193,19 +157,10 @@ import { Avatar } from "opui-css/vue"
 </script>
 
 <template>
-  <Avatar
-    alt="Maya Lind"
-    src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?w=96&h=96&fit=crop&auto=format"
-  />
+  <Avatar alt="Maya Lind" src="/photos/maya-lind.png" />
 
-  <Avatar
-    alt="Omar Haddad"
-    src="https://images.unsplash.com/photo-1672714413950-c9f7c5a45fa1?w=96&h=96&fit=crop&auto=format"
-  />
+  <Avatar alt="Omar Haddad" src="/photos/omar-haddad.png" />
 
-  <Avatar
-    alt="Priya Nair"
-    src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?w=96&h=96&fit=crop&auto=format"
-  />
+  <Avatar alt="Jonas Berg" src="/photos/jonas-berg.png" />
 </template>
 ```

@@ -1043,7 +1043,7 @@ interaction(
   async ({ root }) => {
     const label = root.locator(".ui-sr-only").first()
 
-    await expect(label).toHaveText("5 unread messages")
+    await expect(label).toHaveText("More than 99 unread messages")
     const box = await label.boundingBox()
     expect(box?.width).toBeLessThanOrEqual(1)
     expect(box?.height).toBeLessThanOrEqual(1)
@@ -1199,6 +1199,13 @@ interaction(
       element.style.setProperty(
         "--ui-control-border-color-filled",
         "oklch(0.5 0.2 30)",
+      ),
+    )
+    await group.evaluate((element) =>
+      Promise.all(
+        element
+          .getAnimations({ subtree: true })
+          .map(({ finished }) => finished),
       ),
     )
     expect(

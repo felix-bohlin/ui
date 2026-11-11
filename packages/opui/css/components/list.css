@@ -194,7 +194,8 @@ Lists meant to be used stand-alone or as part of Select elements
         &:where([role="option"])[aria-selected="true"]
           > :where(a, button, label),
         &:where([role="option"])[aria-selected="true"],
-        &:has(> [aria-current="page"]) > :where(a, button, label) {
+        &:has(> [aria-current]:where(:not([aria-current="false"])))
+          > :where(a, button, label) {
           --_description-text-color: var(
             --ui-on-selected,
             var(--ui-text-subtle)
@@ -266,7 +267,7 @@ Lists meant to be used stand-alone or as part of Select elements
           }
         }
 
-        &[aria-current="page"] {
+        &[aria-current]:where(:not([aria-current="false"])) {
           --_description-text-color: var(
             --ui-on-selected,
             var(--ui-text-subtle)
@@ -417,7 +418,10 @@ Lists meant to be used stand-alone or as part of Select elements
         &:where(option, [role="option"])[aria-selected="true"],
         &:where([role="option"])[aria-selected="true"] > :is(a, button, label),
         &:checked,
-        & > :is(a, button, label)[aria-current="page"] {
+        &
+          > :is(a, button, label)[aria-current]:where(
+            :not([aria-current="false"])
+          ) {
           --_description-text-color: SelectedItemText;
           background-color: SelectedItem;
           color: SelectedItemText;

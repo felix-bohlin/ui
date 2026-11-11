@@ -62,12 +62,12 @@ export default {
     },
     {
       description:
-        'Highlights the current item, or dims a disabled one. `[disabled]` and `[aria-disabled="true"]` go on the `<a>` or `<button>` (a `<label>` row dims when its input is disabled); `[aria-current="page"]` on the `<a>`, `<button>` or `<label>`.',
+        'Highlights the current item, or dims a disabled one. `[disabled]` and `[aria-disabled="true"]` go on the `<a>` or `<button>` (a `<label>` row dims when its input is disabled); `[aria-current]` (any value but `false`, like `page` on a link or `true` on a button) on the `<a>`, `<button>` or `<label>`.',
       frameworks: ["html"],
       group: "State",
       prop: "state",
       values: {
-        current: '[aria-current="page"]',
+        current: "[aria-current]",
         disabled: "[disabled]",
         disabledLink: '[aria-disabled="true"]',
       },

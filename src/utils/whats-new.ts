@@ -778,6 +778,7 @@ export const whatsNew = {
     `<a href="#divided"><code>.ui-divided</code></a> draws a line in each gap between two children of a column, row, grid or columns, so a wrapped row gets no stray line.`,
   ],
   list: [
+    `Rows with any <a href="#selected"><code>aria-current</code></a> but <code>false</code> look current, like <code>true</code> on a button, not only <code>page</code>.`,
     `<a href="#flush"><code>flush</code></a> also drops the block padding of the list, for a list in a card.`,
     `Themes can set <a href="#api"><code>--ui-list-item-padding-inline</code></a>. Descriptions read <code>--ui-text-subtle</code>, and <code>--ui-on-selected</code> on a selected row.`,
     components(
@@ -838,6 +839,7 @@ export const whatsNew = {
     `<a href="#clickable-list-item">Clickable rows</a> and <a href="#selected">selected rows</a> fade, and a hovered row changes at once and fades back over <code>--ui-duration-fast</code>, so the highlight trails the pointer.`,
   ],
   menu: [
+    `Mark the <a href="#current-item">current item</a> with <code>aria-current</code>, like the language in use.`,
     `Themes can set <a href="#api"><code>--ui-menu-radius</code></a> for a corner radius of its own.`,
     `The edge reads <a href="#api"><code>--ui-border-color-raised</code></a> when a theme sets it, like drawers and elevated cards, and the separators keep <code>--ui-border-color-on-raised</code>.`,
     `Themes can set <a href="#api"><code>--ui-list-item-padding-inline</code></a>. Descriptions read <code>--ui-text-subtle</code>.`,

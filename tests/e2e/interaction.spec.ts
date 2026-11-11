@@ -1370,6 +1370,22 @@ interaction(
 
 interaction(
   "menu",
+  "Current",
+  "an item with aria-current true looks current",
+  async ({ page, root }) => {
+    await root.getByRole("button", { name: "Language" }).click()
+    await page.mouse.move(0, 0)
+    const background = (name: string) =>
+      computed(root.getByRole("button", { name }), "background-color")
+
+    await expect
+      .poll(() => background("English"))
+      .not.toBe(await background("Svenska"))
+  },
+)
+
+interaction(
+  "menu",
   "Basics",
   "menu closes with Escape and returns focus to the trigger",
   async ({ page, root }) => {

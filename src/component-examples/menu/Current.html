@@ -1,0 +1,47 @@
+<button
+  class="ui-button ui-outlined"
+  type="button"
+  command="toggle-popover"
+  commandfor="menu-current-1"
+>
+  Language
+</button>
+<menu class="ui-menu" id="menu-current-1" popover>
+  <li>
+    <button
+      type="button"
+      command="hide-popover"
+      commandfor="menu-current-1"
+      aria-current="true"
+      lang="en"
+    >
+      <div class="ui-text">
+        <p>English</p>
+      </div>
+    </button>
+  </li>
+  <li>
+    <button
+      type="button"
+      command="hide-popover"
+      commandfor="menu-current-1"
+      lang="sv"
+    >
+      <div class="ui-text">
+        <p>Svenska</p>
+      </div>
+    </button>
+  </li>
+  <li>
+    <button
+      type="button"
+      command="hide-popover"
+      commandfor="menu-current-1"
+      lang="de"
+    >
+      <div class="ui-text">
+        <p>Deutsch</p>
+      </div>
+    </button>
+  </li>
+</menu>

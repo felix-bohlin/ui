@@ -421,6 +421,13 @@
       }
     }
 
+    &:where(.ui-dialog, .ui-popover):has(
+        > :not(.ui-content, .ui-divider, .ui-footer, .ui-header)
+      )
+      > .ui-content {
+      flex-shrink: 0;
+    }
+
     & > .ui-footer {
       align-items: center;
       display: flex;
@@ -440,6 +447,13 @@
 
       & > * + .ui-actions {
         margin-inline-start: auto;
+      }
+
+      &
+        > :where(form, .ui-control-group):has(
+          :is(.ui-text-field, .ui-textarea):not(.ui-auto-fit)
+        ) {
+        flex: 1 1 100%;
       }
     }
   }

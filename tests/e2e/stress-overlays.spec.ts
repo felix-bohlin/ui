@@ -168,3 +168,88 @@ test("a popover without a footer can't scroll itself", async ({ page }) => {
     }),
   ).toBe(0)
 })
+
+for (const name of ["popover-list", "popover-content-list"]) {
+  test(`a list between the header and footer of ${name} scrolls on its own`, async ({
+    page,
+  }) => {
+    await openFixture(page, "html", "stress/overlays")
+    await run(page, { open: name })
+    const edges = await page.locator(id(name)).evaluate((popover) => {
+      const list = popover.querySelector(":scope > .ui-list")!
+      const box = popover.getBoundingClientRect()
+      const header = popover.querySelector(":scope > .ui-header")!
+      const footer = popover.querySelector(":scope > .ui-footer")!
+      popover.scrollTop = 40
+      list.scrollTop = list.scrollHeight
+      return {
+        footerInside: footer.getBoundingClientRect().bottom <= box.bottom,
+        headerInside: header.getBoundingClientRect().top >= box.top,
+        lastRowInside:
+          list.lastElementChild!.getBoundingClientRect().bottom <=
+          footer.getBoundingClientRect().top + 1,
+        listScrolled: list.scrollTop > 0,
+        popoverScrolled: popover.scrollTop > 0,
+      }
+    })
+    expect(edges).toEqual({
+      footerInside: true,
+      headerInside: true,
+      lastRowInside: true,
+      listScrolled: true,
+      popoverScrolled: false,
+    })
+  })
+}
+
+test("the content fills a popover with a set height, so its footer stays at the bottom", async ({
+  page,
+}) => {
+  await openFixture(page, "html", "stress/overlays")
+  await run(page, { open: "popover-fixed" })
+  const gap = await page.locator(id("popover-fixed")).evaluate((popover) => {
+    const footer = popover.querySelector(":scope > .ui-footer")!
+    return (
+      popover.getBoundingClientRect().bottom -
+      footer.getBoundingClientRect().bottom
+    )
+  })
+  expect(gap).toBeLessThanOrEqual(2)
+})
+
+test("a form with a field takes the footer's row, and a form with only a button doesn't", async ({
+  page,
+}) => {
+  await openFixture(page, "html", "stress/overlays")
+  await run(page, { open: "popover-fixed" })
+  const widths = await page
+    .locator(`${id("popover-fixed")} > .ui-footer`)
+    .evaluate((footer) => {
+      const style = getComputedStyle(footer)
+      const row =
+        footer.clientWidth -
+        parseFloat(style.paddingInlineStart) -
+        parseFloat(style.paddingInlineEnd)
+      return [...footer.querySelectorAll(":scope > form")].map((form) =>
+        Math.round(form.getBoundingClientRect().width - row),
+      )
+    })
+  expect(widths[0]).toBe(0)
+  expect(widths[1]).toBeLessThan(0)
+})
+
+test("a dialog with a list beside its content can scroll to its footer", async ({
+  page,
+}) => {
+  await openFixture(page, "html", "stress/overlays")
+  await run(page, { open: "list-dialog" })
+  const reach = await page.locator(id("list-dialog")).evaluate((dialog) => {
+    const footer = dialog.querySelector(":scope > .ui-footer")!
+    dialog.scrollTop = dialog.scrollHeight
+    return (
+      footer.getBoundingClientRect().bottom <=
+      dialog.getBoundingClientRect().bottom + 1
+    )
+  })
+  expect(reach).toBe(true)
+})

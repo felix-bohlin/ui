@@ -1,6 +1,8 @@
 @layer components.compat {
   @supports not (overflow-block: auto) {
-    :where(.ui-popover, .ui-popover > .ui-content) {
+    :where(.ui-popover, .ui-popover > .ui-content),
+    :where(.ui-popover):has(> .ui-header, > .ui-footer)
+      > :where(:not(.ui-content, .ui-divider, .ui-footer, .ui-header)) {
       overflow-y: auto;
     }
   }

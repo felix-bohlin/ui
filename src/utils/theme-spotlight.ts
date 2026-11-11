@@ -62,6 +62,7 @@ const BY_CONTROL: Record<string, string> = {
   "motion-personality": ".ui-tabs, .ui-button, .ui-chip, .ui-toggle-group",
   neutral:
     ".ui-callout.ui-neutral, .ui-chip:not([class*='ui-s'], [class*='ui-c'])",
+  "popover-radius": ".ui-popover",
   "primary-text": ".ui-link, .ui-button.ui-primary.ui-transparent",
   "primary-tone": ".ui-button.ui-primary.ui-filled, .ui-checkbox, .ui-switch",
   "raised-edges": ".ui-card, .ui-dialog, .ui-menu",

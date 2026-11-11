@@ -19,7 +19,7 @@ A surface next to its trigger for content that isn't a list of actions.
 
 - `align`: `"end"` (`.ui-align-end`), `"start"` (default). Which edge of the trigger the popover lines up with.
 - Anchor position area (HTML): `--ui-anchor-position-area`, default `"self-block-end span-self-inline-end"`. Any valid `position-area` value. Overrides the side and alignment classes. The `self-` keywords follow the popover's own direction, so the placement mirrors in a right-to-left part of a left-to-right page.
-- `closeOnNavigate`: `boolean`, `[data-close-on-navigate]`. Closes the popover when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API.
+- `closeOnNavigate`: `boolean`, `[data-close-on-navigate]`. Closes the popover when the page navigates: a link inside it, Back and Forward, or a client router. A hash link or a replaced query on the same path keeps it open. Reads the Navigation API.
 - `id`: `string`. The id of the popover, which the trigger's `commandfor` points at. Required.
 - `popover`: `"auto"` (default), `"manual"` (`[popover="manual"]`). The popover type. With `manual`, Esc and a click outside don't close the popover, and opening another popover doesn't either.
 - `side`: `"block-end"` (default), `"block-start"` (`.ui-block-start`), `"inline-end"` (`.ui-inline-end`), `"inline-start"` (`.ui-inline-start`). The side of the trigger the popover opens on.
@@ -27,7 +27,7 @@ A surface next to its trigger for content that isn't a list of actions.
 
 ### Slots
 
-- `default`: The popover parts. Other content, such as a `List`, sits edge to edge.
+- `default`: The popover parts. Other content, such as a `List`, sits edge to edge, and scrolls on its own between a header and a footer.
 
 ### Notes
 

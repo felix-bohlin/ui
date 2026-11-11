@@ -1760,6 +1760,13 @@
     "url": "/html/components/popover/#basics"
   },
   {
+    "id": "component-popover-html-list",
+    "title": "List",
+    "page": "Popover",
+    "category": "Component",
+    "url": "/html/components/popover/#list"
+  },
+  {
     "id": "component-popover-html-placement",
     "title": "Placement",
     "page": "Popover",
@@ -4531,7 +4538,7 @@
     "id": "api-drawer-html",
     "title": "Drawer API",
     "description": "Reference for Drawer HTML component.",
-    "api": "dialog.ui-drawer Container element. The header, a row for the title and anything next to it, with a close button. .ui-header The title. Names the drawer through `aria-labelledby`. .ui-header > h2 The scrollable content. .ui-content The footer, a row at the end. .ui-footer .ui-backdrop-transparent Backdrop The backdrop style. `transparent` keeps the page behind it fully visible. [closedby] Behavior How the drawer can be closed. `any` also closes it on a click outside. [data-close-on-navigate] Close on navigate Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API. .ui-scroll-lock Scroll lock Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. .ui-block-end .ui-block-start .ui-inline-end Position The side it opens from.",
+    "api": "dialog.ui-drawer Container element. The header, a row for the title and anything next to it, with a close button. .ui-header The title. Names the drawer through `aria-labelledby`. .ui-header > h2 The scrollable content. .ui-content The footer, a row at the end. .ui-footer .ui-backdrop-transparent Backdrop The backdrop style. `transparent` keeps the page behind it fully visible. [closedby] Behavior How the drawer can be closed. `any` also closes it on a click outside. [data-close-on-navigate] Close on navigate Closes the drawer when the page navigates: a link inside it, also a hash link, Back and Forward, or a client router. A replaced query on the same path keeps it open. Reads the Navigation API. .ui-scroll-lock Scroll lock Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. .ui-block-end .ui-block-start .ui-inline-end Position The side it opens from.",
     "category": "API",
     "url": "/html/api/#drawer"
   },
@@ -4659,7 +4666,7 @@
     "id": "api-popover-html",
     "title": "Popover API",
     "description": "Reference for Popover HTML component.",
-    "api": "div.ui-popover[popover] The surface, a `<div>` with `popover` and `role=\"dialog\"`, placed next to its trigger. The header, a row for the title and anything next to it, with an optional close button. .ui-header The title. Names the popover through `aria-labelledby`. .ui-header > h2 The scrollable content. .ui-content The footer, a row at the end. .ui-footer .ui-align-end Alignment Which edge of the trigger the popover lines up with. --ui-anchor-position-area Anchor position area Any valid `position-area` value. Overrides the side and alignment classes. The `self-` keywords follow the popover's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. [data-close-on-navigate] Close on navigate Closes the popover when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API. [popover=\"manual\"] Behavior The popover type. With `manual`, Esc and a click outside don't close the popover, and opening another popover doesn't either. .ui-block-start .ui-inline-end .ui-inline-start Position The side of the trigger the popover opens on. [commandfor][command=\"toggle-popover\"] Trigger Opens the popover. `commandfor` is the popover id.",
+    "api": "div.ui-popover[popover] The surface, a `<div>` with `popover` and `role=\"dialog\"`, placed next to its trigger. The header, a row for the title and anything next to it, with an optional close button. .ui-header The title. Names the popover through `aria-labelledby`. .ui-header > h2 The scrollable content. .ui-content The footer, a row at the end. .ui-footer .ui-align-end Alignment Which edge of the trigger the popover lines up with. --ui-anchor-position-area Anchor position area Any valid `position-area` value. Overrides the side and alignment classes. The `self-` keywords follow the popover's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. [data-close-on-navigate] Close on navigate Closes the popover when the page navigates: a link inside it, Back and Forward, or a client router. A hash link or a replaced query on the same path keeps it open. Reads the Navigation API. [popover=\"manual\"] Behavior The popover type. With `manual`, Esc and a click outside don't close the popover, and opening another popover doesn't either. .ui-block-start .ui-inline-end .ui-inline-start Position The side of the trigger the popover opens on. [commandfor][command=\"toggle-popover\"] Trigger Opens the popover. `commandfor` is the popover id.",
     "category": "API",
     "url": "/html/api/#popover"
   },

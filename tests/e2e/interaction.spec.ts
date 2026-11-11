@@ -1572,7 +1572,7 @@ interaction(
 interaction(
   "popover",
   "Basics",
-  "a popover with closeOnNavigate closes when a client router navigates, and one without stays open",
+  "a popover with closeOnNavigate stays open on a replaced query and a hash, closes when a client router navigates, and one without stays open",
   async ({ page, root }) => {
     await needs(page, "the Navigation API", () => "navigation" in window)
     const manual = page.locator('[data-example="Manual"]')
@@ -1581,6 +1581,11 @@ interaction(
     const popover = root.locator(".ui-popover")
     await expect(popover).toBeVisible()
     await expect(manual.locator(".ui-popover")).toBeVisible()
+    await page.evaluate(() => history.replaceState({}, "", "?filter=unread"))
+    await page.evaluate(() => {
+      location.hash = "manual"
+    })
+    await expect(popover).toBeVisible()
     await page.evaluate(() => history.pushState({}, "", location.href))
     await expect(popover).toBeHidden()
     await expect(manual.locator(".ui-popover")).toBeVisible()

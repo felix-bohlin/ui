@@ -132,9 +132,18 @@
       display: flex;
     }
 
-    &:has(> .ui-content) {
+    &:has(> .ui-content):not(
+        :has(> :not(.ui-content, .ui-divider, .ui-footer, .ui-header))
+      ) {
       overflow-block: clip;
       overflow-inline: clip;
+    }
+
+    &:has(> .ui-header, > .ui-footer)
+      > :where(:not(.ui-content, .ui-divider, .ui-footer, .ui-header)) {
+      min-block-size: 0;
+      overflow-block: auto;
+      overscroll-behavior: contain;
     }
 
     & > .ui-header {
@@ -148,6 +157,7 @@
     }
 
     & > .ui-content {
+      flex: 1 1 auto;
       gap: var(--ui-space-2);
       padding: var(--_padding);
     }

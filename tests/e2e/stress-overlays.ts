@@ -320,6 +320,26 @@ export const SCENARIOS: Scenario[] = [
     top: id("popover-tall"),
   },
   {
+    name: "popover with a list between its header and footer",
+    steps: [open("popover-list")],
+    top: id("popover-list"),
+  },
+  {
+    name: "popover with a list beside its content",
+    steps: [open("popover-content-list")],
+    top: id("popover-content-list"),
+  },
+  {
+    name: "popover with a set height",
+    steps: [open("popover-fixed")],
+    top: id("popover-fixed"),
+  },
+  {
+    name: "dialog with a list beside its content",
+    steps: [open("list-dialog")],
+    top: id("list-dialog"),
+  },
+  {
     name: "end aligned popover at the end edge",
     steps: [open("popover-end")],
     top: id("popover-end"),

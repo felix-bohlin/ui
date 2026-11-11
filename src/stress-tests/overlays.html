@@ -3019,7 +3019,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
     content, with more content than fits, at the end edge and inside a dialog.
     The menu opens above its popover and keeps it open, the sentence stays one
     paragraph, and the tall popover scrolls its content between the header and
-    the footer. The dialog has no footer, and only its content can scroll.
+    the footer. A list between a header and a footer scrolls on its own, also
+    next to a content part, a popover with a set height keeps its footer at the
+    bottom, and a form with a field takes the footer's row. The Order dialog has
+    no footer, and only its content can scroll. The Move dialog has a list
+    beside its content and scrolls as a whole, so its footer stays in reach.
   </p>
   <div class="stress-overlays-spread">
     <button
@@ -3191,6 +3195,402 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
     <button
       class="ui-button ui-outlined"
       type="button"
+      commandfor="stress-overlays-popover-list"
+      command="toggle-popover"
+    >
+      Messages
+    </button>
+    <div
+      aria-labelledby="stress-overlays-popover-list-title"
+      class="ui-popover"
+      id="stress-overlays-popover-list"
+      popover
+      role="dialog"
+    >
+      <div class="ui-header">
+        <h2 id="stress-overlays-popover-list-title">Messages</h2>
+      </div>
+      <ul class="ui-list ui-transparent" role="list">
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 1</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 2</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 3</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 4</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 5</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 6</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 7</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 8</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 9</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 10</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 11</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 12</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 13</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 14</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 15</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 16</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 17</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 18</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 19</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 20</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 21</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 22</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 23</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 24</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 25</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 26</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 27</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 28</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 29</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 30</p></div></a
+          >
+        </li>
+      </ul>
+      <div class="ui-footer">
+        <a class="ui-button" href="#stress-overlays-popover-list">See all</a>
+      </div>
+    </div>
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-popover-content-list"
+      command="toggle-popover"
+    >
+      Archive
+    </button>
+    <div
+      aria-labelledby="stress-overlays-popover-content-list-title"
+      class="ui-popover"
+      id="stress-overlays-popover-content-list"
+      popover
+      role="dialog"
+    >
+      <div class="ui-header">
+        <h2 id="stress-overlays-popover-content-list-title">Archive</h2>
+      </div>
+      <div class="ui-content">
+        <p>Conversations you archived.</p>
+      </div>
+      <ul class="ui-list ui-transparent" role="list">
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 1</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 2</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 3</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 4</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 5</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 6</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 7</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 8</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 9</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 10</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 11</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 12</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 13</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 14</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 15</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 16</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 17</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 18</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 19</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 20</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 21</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 22</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 23</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 24</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 25</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 26</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 27</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 28</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 29</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-list"
+            ><div class="ui-text"><p>Conversation 30</p></div></a
+          >
+        </li>
+      </ul>
+      <div class="ui-footer">
+        <a class="ui-button" href="#stress-overlays-popover-content-list"
+          >See all</a
+        >
+      </div>
+    </div>
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-popover-fixed"
+      command="toggle-popover"
+    >
+      Thread
+    </button>
+    <div
+      aria-labelledby="stress-overlays-popover-fixed-title"
+      class="ui-popover"
+      id="stress-overlays-popover-fixed"
+      popover
+      role="dialog"
+      style="block-size: 20rem"
+    >
+      <div class="ui-header">
+        <h2 id="stress-overlays-popover-fixed-title">Maja Lind</h2>
+      </div>
+      <div class="ui-content">
+        <p>Are we still on for Thursday?</p>
+      </div>
+      <div class="ui-footer">
+        <form class="ui-control-group">
+          <label class="ui-text-field"
+            ><span class="ui-field"
+              ><input type="text" name="reply" aria-label="Reply" /></span
+          ></label>
+          <button class="ui-button" type="button">Send</button>
+        </form>
+        <form>
+          <button class="ui-button" type="button">Mute</button>
+        </form>
+      </div>
+    </div>
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-list-dialog"
+      command="show-modal"
+    >
+      Move
+    </button>
+    <button
+      class="ui-button ui-outlined"
+      type="button"
       commandfor="stress-overlays-popover-dialog"
       command="show-modal"
     >
@@ -3219,6 +3619,181 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
       </div>
     </div>
   </div>
+  <dialog
+    id="stress-overlays-list-dialog"
+    class="ui-dialog ui-elevated"
+    aria-labelledby="stress-overlays-list-dialog-heading"
+    closedby="any"
+  >
+    <div class="ui-header">
+      <h2 id="stress-overlays-list-dialog-heading">Move to a conversation</h2>
+    </div>
+    <div class="ui-content">
+      <p>Pick where the message goes.</p>
+    </div>
+    <ul class="ui-list ui-transparent" role="list">
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 1</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 2</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 3</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 4</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 5</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 6</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 7</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 8</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 9</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 10</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 11</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 12</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 13</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 14</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 15</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 16</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 17</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 18</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 19</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 20</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 21</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 22</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 23</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 24</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 25</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 26</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 27</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 28</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 29</p></div></a
+        >
+      </li>
+      <li>
+        <a href="#stress-overlays-list-dialog"
+          ><div class="ui-text"><p>Conversation 30</p></div></a
+        >
+      </li>
+    </ul>
+    <div class="ui-footer">
+      <button
+        class="ui-button"
+        type="button"
+        commandfor="stress-overlays-list-dialog"
+        command="close"
+      >
+        Cancel
+      </button>
+    </div>
+  </dialog>
   <dialog
     id="stress-overlays-popover-dialog"
     class="ui-dialog ui-elevated"

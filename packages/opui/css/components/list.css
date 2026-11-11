@@ -57,8 +57,13 @@ Lists meant to be used stand-alone or as part of Select elements
         --_motion: var(--ui-motion);
       }
 
-      :where(.ui-accordion, .ui-card, .ui-dialog) > & {
+      :where(.ui-accordion, .ui-card, .ui-dialog, .ui-popover) > & {
         --_radius: 0;
+      }
+
+      :where(.ui-popover) > & {
+        overflow-block: auto;
+        overscroll-behavior: contain;
       }
     }
 

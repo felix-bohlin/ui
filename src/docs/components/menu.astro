@@ -136,7 +136,8 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
     <Conditional as="p">
       <Fragment slot="components">
         An open menu closes when the page navigates, also with a client router,
-        so a link item never leaves it open over the next page.
+        so a link item never leaves it open over the next page. A replaced query
+        on the same path keeps it open.
       </Fragment>
       <Fragment slot="html">
         Import <code>opui-css/elements/close-on-navigate.js</code> to close an

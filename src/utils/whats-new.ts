@@ -904,6 +904,7 @@ export const whatsNew = {
       html: `With <code>data-close-on-navigate</code> and <code>opui-css/elements/close-on-navigate.js</code>, an open popover <a href="#basics">closes when the page navigates</a>.`,
     },
     `Themes can set <a href="#api"><code>--ui-popover-radius</code></a> for a corner radius of its own.`,
+    `A <a href="#list">List</a> between the header and the footer sits edge to edge and scrolls on its own.`,
   ],
   progress: [
     `The <a href="#determinate">track</a> is always outlined with <code>--ui-field-border-color</code>, so the empty part is visible.`,

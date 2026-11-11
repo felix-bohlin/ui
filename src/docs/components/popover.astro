@@ -135,6 +135,33 @@ export const keywords = ["dropdown", "flyout", "overlay", "panel", "popup"]
         footer never leaves it open over the next page.
       </Fragment>
     </Conditional>
+    <p>
+      A hash link or a replaced query on the same path keeps it open, so a
+      filter that writes its state to the URL doesn't close its own popover.
+    </p>
+    <p>
+      Set <code>block-size</code> on a popover that switches views to keep its
+      size. The content fills it, and the footer stays at the bottom.
+    </p>
+  </section>
+
+  <section id="list">
+    <h2>List</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Content outside the parts, such as a
+        <DocLink href="/components/list">List</DocLink>, sits edge to edge.
+        Between a <code>PopoverHeader</code> and a <code>PopoverFooter</code> it
+        scrolls on its own, so they stay in view.
+      </Fragment>
+      <Fragment slot="html">
+        Content outside the parts, such as a
+        <DocLink href="/components/list">List</DocLink>, sits edge to edge.
+        Between a <code>.ui-header</code> and a <code>.ui-footer</code> it
+        scrolls on its own, so they stay in view.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="List" centered />
   </section>
 
   <section id="placement">

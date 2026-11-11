@@ -36,7 +36,9 @@
       padding-inline: var(--_padding);
     }
 
-    &:has(> .ui-content) {
+    &:has(> .ui-content):not(
+        :has(> :not(.ui-content, .ui-divider, .ui-footer, .ui-header))
+      ) {
       overflow-block: clip;
       overflow-inline: clip;
     }

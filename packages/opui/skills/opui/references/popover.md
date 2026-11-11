@@ -19,7 +19,7 @@ A surface next to its trigger for content that isn't a list of actions.
 
 - `align`: `"end"` (`.ui-align-end`), `"start"` (default). Which edge of the trigger the popover lines up with.
 - Anchor position area (HTML): `--ui-anchor-position-area`, default `"self-block-end span-self-inline-end"`. Any valid `position-area` value. Overrides the side and alignment classes. The `self-` keywords follow the popover's own direction, so the placement mirrors in a right-to-left part of a left-to-right page.
-- `closeOnNavigate`: `boolean`, `[data-close-on-navigate]`. Closes the popover when the page navigates: a link inside it, Back and Forward, or a client router. A hash link or a replaced query on the same path keeps it open. Reads the Navigation API.
+- `closeOnNavigate`: `boolean`, `[data-close-on-navigate]`. Closes the popover when the page navigates: a link inside it, also a hash link, Back and Forward, or a client router. A replaced query on the same path keeps it open. Reads the Navigation API.
 - `id`: `string`. The id of the popover, which the trigger's `commandfor` points at. Required.
 - `popover`: `"auto"` (default), `"manual"` (`[popover="manual"]`). The popover type. With `manual`, Esc and a click outside don't close the popover, and opening another popover doesn't either.
 - `side`: `"block-end"` (default), `"block-start"` (`.ui-block-start`), `"inline-end"` (`.ui-inline-end`), `"inline-start"` (`.ui-inline-start`). The side of the trigger the popover opens on.
@@ -48,6 +48,21 @@ A surface next to its trigger for content that isn't a list of actions.
 ### Slots
 
 - `default`: The `PopoverTitle`, and any other content before the close button.
+
+## PopoverTitle
+
+### Parts
+
+- `<h2>` (root): The title. Names the popover through `aria-labelledby`.
+
+### Props and modifiers
+
+- `as`: `"h2" | "h3" | "h4" | "h5" | "h6"`, default `"h2"`. The heading to render, `h2` to `h6`. A popover stays in the page's heading outline, so pick the level below the heading above its trigger.
+- `id`: `string`. The id of the title. Inside a `Popover`, the title takes the popover's generated id instead, unless the popover has `aria-label` or `aria-labelledby`.
+
+### Slots
+
+- `default`: The title text.
 
 ## PopoverFooter
 
@@ -82,9 +97,8 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_padding`: Padding of the header, content and footer of a `.ui-popover`. Defaults to `--ui-space-3`.
 - `--_radius`: The corner radius. Defaults to `--ui-popover-radius`, or `--ui-radius` when the theme doesn't set it. `Menu` reads `--ui-menu-radius` first.
 - `--_shadow`: The shadow. Defaults to `--ui-shadow-overlay`.
-- `--_title-font-size`: Font size of the title in the header, declared in `card.css` and set to `--ui-font-size-h6` here.
 
-Outputs: `--_content-anchor`, `--_duration`, `--_ease`, `--_ease-move`, `--_fit-max-block-size`, `--_margin-block`, `--_margin-inline`, `--_position-area`, `--_side` and `--_span`.
+Outputs: `--_duration`, `--_ease`, `--_ease-move`, `--_fit-max-block-size`, `--_margin-block`, `--_margin-inline`, `--_position-area`, `--_side` and `--_span`.
 
 ### card.css
 
@@ -102,7 +116,7 @@ Outputs: `--_content-anchor`, `--_duration`, `--_ease`, `--_ease-move`, `--_fit-
 - `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
 - `--_scroll-shadow`: Shadow at the edges of a dialog's, drawer's or popover's `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
 - `--_surface-bg-color`: Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-surface`.
-- `--_title-font-size`: Font size of a dialog's, drawer's or popover's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`, and `popover.css` sets it to `--ui-font-size-h6`.
+- `--_title-font-size`: Font size of a dialog's, drawer's or popover's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`, and to `--ui-font-size-h6` in a popover.
 - `--_tonal-bg-color`: Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`.
 
 Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor`, `--_duration`, `--_orientation` and `--_shadow`.
@@ -215,7 +229,7 @@ import {
 `import { Popover, PopoverContent, PopoverFooter, PopoverHeader, PopoverTitle } from "opui-css/react"`
 
 - `PopoverHeader` slot props (`ReactNode`): `children` and `closeIcon`.
-- Client components (`"use client"`): `Popover` and `PopoverHeader`.
+- Client components (`"use client"`): `Popover`, `PopoverHeader` and `PopoverTitle`.
 
 ### Example: Basics
 

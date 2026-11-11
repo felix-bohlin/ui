@@ -344,6 +344,11 @@
       --_content-anchor: --ui-drawer-content;
     }
 
+    &:where(.ui-popover) {
+      --_content-anchor: --ui-popover-content;
+      --_title-font-size: var(--ui-font-size-h6);
+    }
+
     & > .ui-header {
       align-items: center;
       column-gap: var(--ui-space-1);
@@ -422,7 +427,19 @@
     }
 
     &:where(.ui-dialog, .ui-popover):has(
-        > :not(.ui-content, .ui-divider, .ui-footer, .ui-header)
+        > :not(
+          .ui-content,
+          .ui-divider,
+          .ui-footer,
+          .ui-header,
+          [hidden],
+          [popover],
+          [type="hidden"],
+          dialog,
+          script,
+          style,
+          template
+        )
       )
       > .ui-content {
       flex-shrink: 0;

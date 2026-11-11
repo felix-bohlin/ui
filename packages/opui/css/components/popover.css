@@ -110,11 +110,9 @@
   }
 
   :where(.ui-popover) {
-    --_content-anchor: --ui-popover-content;
     --_max-inline-size: 24rem;
     --_min-inline-size: 16rem;
     --_padding: var(--ui-space-3);
-    --_title-font-size: var(--ui-font-size-h6);
 
     color: var(--ui-text);
     flex-direction: column;
@@ -133,14 +131,43 @@
     }
 
     &:has(> .ui-content):not(
-        :has(> :not(.ui-content, .ui-divider, .ui-footer, .ui-header))
+        :has(
+          > :not(
+            .ui-content,
+            .ui-divider,
+            .ui-footer,
+            .ui-header,
+            [hidden],
+            [popover],
+            [type="hidden"],
+            dialog,
+            script,
+            style,
+            template
+          )
+        )
       ) {
-      overflow-block: clip;
-      overflow-inline: clip;
+      overflow: clip;
     }
 
     &:has(> .ui-header, > .ui-footer)
-      > :where(:not(.ui-content, .ui-divider, .ui-footer, .ui-header)) {
+      > :where(
+        :nth-last-child(
+          1 of :not(
+            .ui-content,
+            .ui-divider,
+            .ui-footer,
+            .ui-header,
+            [hidden],
+            [popover],
+            [type="hidden"],
+            dialog,
+            script,
+            style,
+            template
+          )
+        )
+      ) {
       min-block-size: 0;
       overflow-block: auto;
       overscroll-behavior: contain;
@@ -164,6 +191,7 @@
 
     & > .ui-footer {
       flex-shrink: 0;
+      margin-block-start: auto;
       padding-block: 0 var(--_padding);
       padding-inline: var(--_padding);
     }

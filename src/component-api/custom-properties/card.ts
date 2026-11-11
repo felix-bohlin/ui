@@ -106,7 +106,7 @@ export default {
   },
   "--_title-font-size": {
     description:
-      "Font size of a dialog's, drawer's or popover's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`, and `popover.css` sets it to `--ui-font-size-h6`.",
+      "Font size of a dialog's, drawer's or popover's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`, and to `--ui-font-size-h6` in a popover.",
     kind: "input",
   },
   "--_tonal-bg-color": {

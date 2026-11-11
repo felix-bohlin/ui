@@ -6,6 +6,7 @@
   import type { PopoverTitleProps as Props } from "./types.svelte"
 
   let {
+    as: Tag = "h2",
     class: className,
     id,
 
@@ -18,6 +19,11 @@
   untrack(() => warnReplacedId("PopoverTitle", "Popover", id, popover?.titleId))
 </script>
 
-<h2 {...classAttrs([className])} id={popover?.titleId ?? id} {...rest}>
+<svelte:element
+  this={Tag}
+  {...classAttrs([className])}
+  id={popover?.titleId ?? id}
+  {...rest}
+>
   {@render children?.()}
-</h2>
+</svelte:element>

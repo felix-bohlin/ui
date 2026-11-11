@@ -37,10 +37,23 @@
     }
 
     &:has(> .ui-content):not(
-        :has(> :not(.ui-content, .ui-divider, .ui-footer, .ui-header))
+        :has(
+          > :not(
+            .ui-content,
+            .ui-divider,
+            .ui-footer,
+            .ui-header,
+            [hidden],
+            [popover],
+            [type="hidden"],
+            dialog,
+            script,
+            style,
+            template
+          )
+        )
       ) {
-      overflow-block: clip;
-      overflow-inline: clip;
+      overflow: clip;
     }
 
     &[open] {

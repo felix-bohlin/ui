@@ -19,7 +19,7 @@ import {
   </Button>
   <Popover id="popover-manual-1" popover="manual">
     <PopoverHeader>
-      <PopoverTitle>Free shipping</PopoverTitle>
+      <PopoverTitle as="h3">Free shipping</PopoverTitle>
     </PopoverHeader>
     <PopoverContent>
       <p>Orders over 50 euros ship for free within the EU.</p>

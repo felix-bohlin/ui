@@ -20,7 +20,9 @@ export type PopoverHeaderSlots<S> = {
   closeIcon?: S
 }
 
-export type PopoverTitleProps = {}
+export type PopoverTitleProps = {
+  as?: "h2" | "h3" | "h4" | "h5" | "h6"
+}
 
 export type Context = {
   id?: string

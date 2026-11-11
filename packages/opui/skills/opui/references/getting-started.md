@@ -421,7 +421,7 @@ Slots are props: `children`, and camelCased names like `endText`.
 
 Every component renders full HTML on the server. Components with state or effects are marked `"use client"`, the rest are Server Components. The props in the last column need hydration.
 
-- **69** of 72 need no hydration
+- **70** of 73 need no hydration
 - **3** hydrate for `indeterminate`, `valueSuffix`, `valueText`
 - **40** are Server Components
 
@@ -469,6 +469,7 @@ Every component renders full HTML on the server. Components with state or effect
 | [`Popover`](https://open-props-ui.netlify.app/react/components/popover.md) | Yes | Yes | No | - |
 | [`PopoverFooter`](https://open-props-ui.netlify.app/react/components/popover.md) | Yes | Yes | Yes | - |
 | [`PopoverHeader`](https://open-props-ui.netlify.app/react/components/popover.md) | Yes | Yes | No | - |
+| [`PopoverTitle`](https://open-props-ui.netlify.app/react/components/popover.md) | Yes | Yes | No | - |
 | [`Progress`](https://open-props-ui.netlify.app/react/components/progress.md) | Yes | Yes | Yes | - |
 | [`Radio`](https://open-props-ui.netlify.app/react/components/radio.md) | Yes | Yes | Yes | - |
 | [`RadioInput`](https://open-props-ui.netlify.app/react/components/radio.md) | Yes | Yes | No | - |
@@ -611,7 +612,7 @@ Slots are snippets: `children`, and camelCased names like `endText`. Form contro
 
 Every component renders full HTML on the server. The props in the last column need hydration.
 
-- **56** of 72 need no hydration
+- **57** of 73 need no hydration
 - **16** hydrate for `bind:checked`, `bind:group`, `bind:value`, `indeterminate`, `valueSuffix`, `valueText`
 
 | Component | Client | Server | Needs hydration |
@@ -658,6 +659,7 @@ Every component renders full HTML on the server. The props in the last column ne
 | [`Popover`](https://open-props-ui.netlify.app/svelte/components/popover.md) | Yes | Yes | - |
 | [`PopoverFooter`](https://open-props-ui.netlify.app/svelte/components/popover.md) | Yes | Yes | - |
 | [`PopoverHeader`](https://open-props-ui.netlify.app/svelte/components/popover.md) | Yes | Yes | - |
+| [`PopoverTitle`](https://open-props-ui.netlify.app/svelte/components/popover.md) | Yes | Yes | - |
 | [`Progress`](https://open-props-ui.netlify.app/svelte/components/progress.md) | Yes | Yes | - |
 | [`Radio`](https://open-props-ui.netlify.app/svelte/components/radio.md) | Yes | No | `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`RadioInput`](https://open-props-ui.netlify.app/svelte/components/radio.md) | Yes | No | `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
@@ -769,7 +771,7 @@ import "./styles/main.css"
 
 ### Server rendering
 
-- **56** of 72 need no hydration
+- **57** of 73 need no hydration
 - **16** hydrate for `indeterminate`, `v-model`, `valueSuffix`
 
 | Component | Client | Server | Needs hydration |
@@ -816,6 +818,7 @@ import "./styles/main.css"
 | [`Popover`](https://open-props-ui.netlify.app/vue/components/popover.md) | Yes | Yes | - |
 | [`PopoverFooter`](https://open-props-ui.netlify.app/vue/components/popover.md) | Yes | Yes | - |
 | [`PopoverHeader`](https://open-props-ui.netlify.app/vue/components/popover.md) | Yes | Yes | - |
+| [`PopoverTitle`](https://open-props-ui.netlify.app/vue/components/popover.md) | Yes | Yes | - |
 | [`Progress`](https://open-props-ui.netlify.app/vue/components/progress.md) | Yes | Yes | - |
 | [`Radio`](https://open-props-ui.netlify.app/vue/components/radio.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`RadioInput`](https://open-props-ui.netlify.app/vue/components/radio.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |

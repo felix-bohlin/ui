@@ -1465,7 +1465,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Summary: A dialog without a footer can be scrolled a few pixels, and shows a scrollbar where scrollbars are always visible.
   - Recommended: Fix. The shadow only has to stay inside the dialog.
   - Fix: confirm with a `dialog.ui-dialog` that has a header and content but no footer: `scrollHeight` is 8px more than `clientHeight`, measured in Chromium. Then keep the bottom shadow inside the dialog's padding box where `.ui-content` is the last child.
-  - Fixed: A `.ui-dialog` whose children are only its parts and dividers, with a `.ui-content` among them, clips its own overflow (`overflow-block` and `overflow-inline: clip` in `dialog.css`), like a `Drawer`, so only its content scrolls. Any other dialog keeps `overflow: auto`, so a tall child beside the parts stays in reach. `tests/e2e/stress-overlays.spec.ts` checks a dialog without a footer. Popover shares the scroll shadows and clips the same way.
+  - Fixed: A `.ui-dialog` whose children are only its parts and dividers, with a `.ui-content` among them, clips its own overflow (`overflow: clip` in `dialog.css`), like a `Drawer`, so only its content scrolls. Any other dialog keeps `overflow: auto`, so a tall child beside the parts stays in reach. `tests/e2e/stress-overlays.spec.ts` checks a dialog without a footer. Popover shares the scroll shadows and clips the same way.
 
 ## Docs
 

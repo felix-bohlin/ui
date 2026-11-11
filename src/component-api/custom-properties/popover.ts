@@ -15,11 +15,6 @@ export default {
     description: "The border width. Defaults to `--ui-border-width`.",
     kind: "input",
   },
-  "--_content-anchor": {
-    description:
-      "Anchor name of the `.ui-content`, which places its scroll shadows. Declared in `card.css` and set to `--ui-popover-content` here.",
-    kind: "output",
-  },
   "--_duration": {
     description:
       "Duration of the transitions, `--ui-duration-slow` times `--_motion`.",
@@ -105,10 +100,5 @@ export default {
     description:
       "Direction the popover extends along the invoker. Set by the side classes and `.ui-align-end`.",
     kind: "output",
-  },
-  "--_title-font-size": {
-    description:
-      "Font size of the title in the header, declared in `card.css` and set to `--ui-font-size-h6` here.",
-    kind: "input",
   },
 } satisfies CustomProperties

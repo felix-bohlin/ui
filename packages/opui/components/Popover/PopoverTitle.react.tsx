@@ -6,17 +6,23 @@ import { warnReplacedId } from "../dev"
 import type { PopoverTitleProps as Props } from "./types.react"
 
 export default function PopoverTitle({
+  as,
   className,
   id,
   children,
   ...rest
 }: Props) {
   const popover = usePopoverContext()
+  const Tag = as || "h2"
   warnReplacedId("PopoverTitle", "Popover", id, popover?.titleId)
 
   return (
-    <h2 className={cx([className])} id={popover?.titleId ?? id} {...rest}>
+    <Tag
+      className={cx([className])}
+      id={popover?.titleId ?? id}
+      {...(rest as object)}
+    >
       {children}
-    </h2>
+    </Tag>
   )
 }

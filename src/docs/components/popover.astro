@@ -20,6 +20,7 @@ import CardCSS from "@opui/css/components/card.css?raw"
 import popoverApi from "../../component-api/popover/api"
 import popoverFooterApi from "../../component-api/popover-footer/api"
 import popoverHeaderApi from "../../component-api/popover-header/api"
+import popoverTitleApi from "../../component-api/popover-title/api"
 
 export const description =
   "A surface next to its trigger for content that isn't a list of actions."
@@ -39,6 +40,7 @@ export const keywords = ["dropdown", "flyout", "overlay", "panel", "popup"]
     "has",
     "invoker-commands",
     "logical-properties",
+    "nth-child-of",
     "overflow-clip",
     "overlay",
     "popover",
@@ -49,6 +51,7 @@ export const keywords = ["dropdown", "flyout", "overlay", "panel", "popup"]
   apis={[
     { title: "Popover API", api: popoverApi },
     { title: "Popover header API", api: popoverHeaderApi },
+    { title: "Popover title API", api: popoverTitleApi },
     { title: "Popover footer API", api: popoverFooterApi },
   ]}
   changelogPaths={[
@@ -136,8 +139,9 @@ export const keywords = ["dropdown", "flyout", "overlay", "panel", "popup"]
       </Fragment>
     </Conditional>
     <p>
-      A hash link or a replaced query on the same path keeps it open, so a
-      filter that writes its state to the URL doesn't close its own popover.
+      A link inside it that stays on the page, like a hash link, closes it too.
+      A replaced query on the same path keeps it open, so a filter that writes
+      its state to the URL doesn't close its own popover.
     </p>
     <p>
       Set <code>block-size</code> on a popover that switches views to keep its
@@ -186,6 +190,12 @@ export const keywords = ["dropdown", "flyout", "overlay", "panel", "popup"]
       outside.
     </p>
     <AutoExample name="Manual" centered />
+    <p>
+      To open a popover from a script, pass its button as the source:
+      <code>popover.showPopover(&#123; source: button &#125;)</code>. Without a
+      source the popover has no button to open next to, and opens in the start
+      corner of the page.
+    </p>
   </section>
 
   <Fragment slot="accessibility">
@@ -204,6 +214,18 @@ export const keywords = ["dropdown", "flyout", "overlay", "panel", "popup"]
         A popover without a heading has no name: set <code>aria-label</code>
         instead of <code>aria-labelledby</code>, like the popovers in
         <a href="#placement">Placement</a>.
+      </Fragment>
+    </Conditional>
+    <Conditional as="p">
+      <Fragment slot="components">
+        A popover stays in the page's heading outline. Set <code>as</code> on
+        <code>PopoverTitle</code> to the level below the heading above its
+        trigger, like the <code>h3</code> in <a href="#manual">Manual</a>.
+      </Fragment>
+      <Fragment slot="html">
+        A popover stays in the page's heading outline. Use the heading level
+        below the heading above its trigger, like the <code>h3</code> in
+        <a href="#manual">Manual</a>.
       </Fragment>
     </Conditional>
     <p>

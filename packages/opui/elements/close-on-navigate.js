@@ -1,21 +1,18 @@
 const KEY = Symbol.for("opui-close-on-navigate")
-const CHOICES =
-  ".ui-menu:popover-open, dialog.ui-drawer[data-close-on-navigate][open]"
-const OVERLAYS = `${CHOICES}, .ui-popover[data-close-on-navigate]:popover-open`
+const OVERLAYS =
+  ".ui-menu:popover-open, .ui-popover[data-close-on-navigate]:popover-open, dialog.ui-drawer[data-close-on-navigate][open]"
 
 const overlays = (event) => {
   if (event.defaultPrevented || event.downloadRequest != null) return []
+  const open = [...document.querySelectorAll(OVERLAYS)]
   const inPlace =
     event.hashChange ||
     (event.navigationType === "replace" &&
       new URL(event.destination.url).pathname === location.pathname)
-  if (!inPlace) return [...document.querySelectorAll(OVERLAYS)]
-  const link = event.sourceElement
-  return link
-    ? [...document.querySelectorAll(CHOICES)].filter((overlay) =>
-        overlay.contains(link),
-      )
-    : []
+  if (!inPlace) return open
+  const source =
+    event.sourceElement ?? document.activeElement?.closest("a[href]")
+  return source ? open.filter((overlay) => overlay.contains(source)) : []
 }
 
 const close = (event) => {

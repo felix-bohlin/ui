@@ -708,7 +708,7 @@ test("the API page filter keeps the components and rows that match", async ({
   await expect(page).toHaveURL(/\?filter=closedby$/)
   await input.fill("no such prop")
   await expect(page.locator(".api-filter-empty")).toBeVisible()
-  await page.goto("/html/api/?filter=closedby#button")
+  await page.goto("/html/api/?filter=closedby#dialog")
   await expect(sections).toHaveCount(2)
   await page
     .locator('.table-of-contents:not(.toc-drawer) a[href="#accordion"]')

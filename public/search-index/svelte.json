@@ -2589,6 +2589,13 @@
     "url": "/svelte/components/tabs/#vertical"
   },
   {
+    "id": "component-tabs-svelte-without-panels",
+    "title": "Without panels",
+    "page": "Tabs",
+    "category": "Component",
+    "url": "/svelte/components/tabs/#without-panels"
+  },
+  {
     "id": "component-tabs-svelte-binding",
     "title": "Binding",
     "page": "Tabs",

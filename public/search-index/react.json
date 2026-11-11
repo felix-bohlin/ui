@@ -2589,6 +2589,13 @@
     "url": "/react/components/tabs/#vertical"
   },
   {
+    "id": "component-tabs-react-without-panels",
+    "title": "Without panels",
+    "page": "Tabs",
+    "category": "Component",
+    "url": "/react/components/tabs/#without-panels"
+  },
+  {
     "id": "component-tabs-react-binding",
     "title": "Binding",
     "page": "Tabs",

@@ -2589,6 +2589,13 @@
     "url": "/html/components/tabs/#vertical"
   },
   {
+    "id": "component-tabs-html-without-panels",
+    "title": "Without panels",
+    "page": "Tabs",
+    "category": "Component",
+    "url": "/html/components/tabs/#without-panels"
+  },
+  {
     "id": "component-tabs-html-binding",
     "title": "Binding",
     "page": "Tabs",

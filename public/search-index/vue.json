@@ -2589,6 +2589,13 @@
     "url": "/vue/components/tabs/#vertical"
   },
   {
+    "id": "component-tabs-vue-without-panels",
+    "title": "Without panels",
+    "page": "Tabs",
+    "category": "Component",
+    "url": "/vue/components/tabs/#without-panels"
+  },
+  {
     "id": "component-tabs-vue-binding",
     "title": "Binding",
     "page": "Tabs",

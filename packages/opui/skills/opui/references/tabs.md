@@ -119,7 +119,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 ### Example: Basics
 
 ```html
-<div class="ui-tabs" aria-label="Account settings" role="radiogroup">
+<div class="ui-tabs" role="radiogroup" aria-label="Account settings">
   <input
     checked
     class="ui-input"
@@ -149,7 +149,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
 ---
 
-<Tabs aria-label="Account settings" name="basic-tabs" role="radiogroup">
+<Tabs aria-label="Account settings" name="basic-tabs">
   <TabsItem checked>
     <TabsLabel>Profile</TabsLabel>
     <TabsPanel>Profile settings and information.</TabsPanel>
@@ -178,7 +178,7 @@ import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/react"
 
 export default function Basics() {
   return (
-    <Tabs aria-label="Account settings" name="basic-tabs" role="radiogroup">
+    <Tabs aria-label="Account settings" name="basic-tabs">
       <TabsItem defaultChecked>
         <TabsLabel>Profile</TabsLabel>
         <TabsPanel>Profile settings and information.</TabsPanel>
@@ -209,7 +209,7 @@ export default function Basics() {
   import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/svelte"
 </script>
 
-<Tabs aria-label="Account settings" name="basic-tabs" role="radiogroup">
+<Tabs aria-label="Account settings" name="basic-tabs">
   <TabsItem defaultChecked>
     <TabsLabel>Profile</TabsLabel>
     <TabsPanel>Profile settings and information.</TabsPanel>
@@ -239,7 +239,7 @@ import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/vue"
 </script>
 
 <template>
-  <Tabs aria-label="Account settings" name="basic-tabs" role="radiogroup">
+  <Tabs aria-label="Account settings" name="basic-tabs">
     <TabsItem checked>
       <TabsLabel>Profile</TabsLabel>
       <TabsPanel>Profile settings and information.</TabsPanel>

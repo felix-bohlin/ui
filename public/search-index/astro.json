@@ -2589,6 +2589,13 @@
     "url": "/astro/components/tabs/#vertical"
   },
   {
+    "id": "component-tabs-astro-without-panels",
+    "title": "Without panels",
+    "page": "Tabs",
+    "category": "Component",
+    "url": "/astro/components/tabs/#without-panels"
+  },
+  {
     "id": "component-tabs-astro-binding",
     "title": "Binding",
     "page": "Tabs",

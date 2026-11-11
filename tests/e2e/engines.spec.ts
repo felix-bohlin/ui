@@ -330,6 +330,7 @@ ${Array.from({ length: 8 }, (_, index) => `  #radio-${index + 1} { grid-column: 
 const readers = (spaced: string, tight: string) => `<!doctype html>
 <style>
   .avatar { display: flex; grid-area: start; margin-inline-end: 8px }
+  .counter { align-items: center; display: inline-flex; justify-content: center; position: relative }
   .content { display: grid; gap: 4px; grid-area: content; padding: 8px 16px }
   .floating { margin: 8px; padding: 4px 8px }
   .footer { display: flex; gap: 4px }
@@ -354,6 +355,10 @@ const READERS = {
   "a button with an open popover": [
     `<span class="tooltip">   <button type="button"> Save </button> <span class="floating" popover="manual"> Save your changes </span>   </span>`,
     `<span class="tooltip"><button type="button">Save</button><span class="floating" popover="manual">Save your changes</span></span>`,
+  ],
+  "a button with a visually hidden span after its text": [
+    `<button class="counter" type="button">  +4<span class="hidden"> more reviewers</span>  </button>`,
+    `<button class="counter" type="button">+4<span class="hidden">more reviewers</span></button>`,
   ],
   "a grid item of text before a visually hidden span": [
     `<ol class="steps">

@@ -897,6 +897,9 @@ export const whatsNew = {
   "one-time-code": [
     `New: a <a href="#basics">One-time code</a> field draws one input as a box per character, with <a href="#grouped">grouped</a> halves, a <a href="#length">length</a> from 4 to 8 and <a href="#alphanumeric">alphanumeric</a> codes.`,
   ],
+  popover: [
+    `New component. A <a href="#basics">popover</a> next to its trigger, with a header, content and footer, <a href="#placement">placements</a> and a <a href="#manual">manual</a> mode. No JavaScript.`,
+  ],
   progress: [
     `The <a href="#determinate">track</a> is always outlined with <code>--ui-field-border-color</code>, so the empty part is visible.`,
     `The track reads <a href="#api"><code>--ui-track-bg-color</code></a> when a theme sets it.`,
@@ -1694,6 +1697,7 @@ export const highlighted = new Set<string>([
   "message",
   "number-field",
   "one-time-code",
+  "popover",
   "rating",
   "stat",
   "stepper",
@@ -1711,6 +1715,7 @@ export const added = new Set<string>([
   "message",
   "number-field",
   "one-time-code",
+  "popover",
   "rating",
   "stat",
   "stepper",

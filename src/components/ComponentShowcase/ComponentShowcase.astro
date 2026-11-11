@@ -376,6 +376,13 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       <OneTimeCode aria-hidden="true" inert grouped label="Code" value="4821" />
     </Fragment>
 
+    <Fragment slot="popover">
+      <div class="ui-popover showcase-popover" aria-hidden="true" inert>
+        <div class="ui-header"><h2>Notifications</h2></div>
+        <div class="ui-content"><p>Jonas wrote on your wall.</p></div>
+      </div>
+    </Fragment>
+
     <Fragment slot="progress">
       <Progress variant="filled" aria-busy="true" aria-hidden="true" />
     </Fragment>
@@ -704,6 +711,12 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     }
 
     .showcase-menu {
+      inline-size: 100%;
+      max-inline-size: 14rem;
+    }
+
+    .showcase-popover {
+      display: flex;
       inline-size: 100%;
       max-inline-size: 14rem;
     }

@@ -222,7 +222,7 @@ Without a bundler, add this import map to the `head`:
 
 #### [Components](https://open-props-ui.netlify.app/html/components.md)
 
-41 components, each with HTML examples and its API.
+42 components, each with HTML examples and its API.
 
 #### [Concepts](https://open-props-ui.netlify.app/html/guide/concepts.md)
 
@@ -334,7 +334,7 @@ Add `/// <reference types="opui-css/env.d.ts" />` to `env.d.ts` for the types.
 
 #### [Components](https://open-props-ui.netlify.app/astro/components.md)
 
-41 components, each with Astro examples and its API.
+42 components, each with Astro examples and its API.
 
 #### [Concepts](https://open-props-ui.netlify.app/astro/guide/concepts.md)
 
@@ -421,9 +421,9 @@ Slots are props: `children`, and camelCased names like `endText`.
 
 Every component renders full HTML on the server. Components with state or effects are marked `"use client"`, the rest are Server Components. The props in the last column need hydration.
 
-- **66** of 69 need no hydration
+- **69** of 72 need no hydration
 - **3** hydrate for `indeterminate`, `valueSuffix`, `valueText`
-- **39** are Server Components
+- **40** are Server Components
 
 | Component | Client | Server | Server Component | Needs hydration |
 | --- | --- | --- | --- | --- |
@@ -466,6 +466,9 @@ Every component renders full HTML on the server. Components with state or effect
 | [`Messages`](https://open-props-ui.netlify.app/react/components/message.md) | Yes | Yes | Yes | - |
 | [`NumberField`](https://open-props-ui.netlify.app/react/components/number-field.md) | Yes | Yes | No | - |
 | [`OneTimeCode`](https://open-props-ui.netlify.app/react/components/one-time-code.md) | Yes | Yes | No | - |
+| [`Popover`](https://open-props-ui.netlify.app/react/components/popover.md) | Yes | Yes | No | - |
+| [`PopoverFooter`](https://open-props-ui.netlify.app/react/components/popover.md) | Yes | Yes | Yes | - |
+| [`PopoverHeader`](https://open-props-ui.netlify.app/react/components/popover.md) | Yes | Yes | No | - |
 | [`Progress`](https://open-props-ui.netlify.app/react/components/progress.md) | Yes | Yes | Yes | - |
 | [`Radio`](https://open-props-ui.netlify.app/react/components/radio.md) | Yes | Yes | Yes | - |
 | [`RadioInput`](https://open-props-ui.netlify.app/react/components/radio.md) | Yes | Yes | No | - |
@@ -505,7 +508,7 @@ Every component renders full HTML on the server. Components with state or effect
 
 #### [Components](https://open-props-ui.netlify.app/react/components.md)
 
-41 components, each with React examples and its API.
+42 components, each with React examples and its API.
 
 #### [Concepts](https://open-props-ui.netlify.app/react/guide/concepts.md)
 
@@ -608,7 +611,7 @@ Slots are snippets: `children`, and camelCased names like `endText`. Form contro
 
 Every component renders full HTML on the server. The props in the last column need hydration.
 
-- **53** of 69 need no hydration
+- **56** of 72 need no hydration
 - **16** hydrate for `bind:checked`, `bind:group`, `bind:value`, `indeterminate`, `valueSuffix`, `valueText`
 
 | Component | Client | Server | Needs hydration |
@@ -652,6 +655,9 @@ Every component renders full HTML on the server. The props in the last column ne
 | [`Messages`](https://open-props-ui.netlify.app/svelte/components/message.md) | Yes | Yes | - |
 | [`NumberField`](https://open-props-ui.netlify.app/svelte/components/number-field.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`OneTimeCode`](https://open-props-ui.netlify.app/svelte/components/one-time-code.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Popover`](https://open-props-ui.netlify.app/svelte/components/popover.md) | Yes | Yes | - |
+| [`PopoverFooter`](https://open-props-ui.netlify.app/svelte/components/popover.md) | Yes | Yes | - |
+| [`PopoverHeader`](https://open-props-ui.netlify.app/svelte/components/popover.md) | Yes | Yes | - |
 | [`Progress`](https://open-props-ui.netlify.app/svelte/components/progress.md) | Yes | Yes | - |
 | [`Radio`](https://open-props-ui.netlify.app/svelte/components/radio.md) | Yes | No | `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`RadioInput`](https://open-props-ui.netlify.app/svelte/components/radio.md) | Yes | No | `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
@@ -691,7 +697,7 @@ Every component renders full HTML on the server. The props in the last column ne
 
 #### [Components](https://open-props-ui.netlify.app/svelte/components.md)
 
-41 components, each with Svelte examples and its API.
+42 components, each with Svelte examples and its API.
 
 #### [Concepts](https://open-props-ui.netlify.app/svelte/guide/concepts.md)
 
@@ -763,7 +769,7 @@ import "./styles/main.css"
 
 ### Server rendering
 
-- **53** of 69 need no hydration
+- **56** of 72 need no hydration
 - **16** hydrate for `indeterminate`, `v-model`, `valueSuffix`
 
 | Component | Client | Server | Needs hydration |
@@ -807,6 +813,9 @@ import "./styles/main.css"
 | [`Messages`](https://open-props-ui.netlify.app/vue/components/message.md) | Yes | Yes | - |
 | [`NumberField`](https://open-props-ui.netlify.app/vue/components/number-field.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`OneTimeCode`](https://open-props-ui.netlify.app/vue/components/one-time-code.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Popover`](https://open-props-ui.netlify.app/vue/components/popover.md) | Yes | Yes | - |
+| [`PopoverFooter`](https://open-props-ui.netlify.app/vue/components/popover.md) | Yes | Yes | - |
+| [`PopoverHeader`](https://open-props-ui.netlify.app/vue/components/popover.md) | Yes | Yes | - |
 | [`Progress`](https://open-props-ui.netlify.app/vue/components/progress.md) | Yes | Yes | - |
 | [`Radio`](https://open-props-ui.netlify.app/vue/components/radio.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`RadioInput`](https://open-props-ui.netlify.app/vue/components/radio.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
@@ -846,7 +855,7 @@ import "./styles/main.css"
 
 #### [Components](https://open-props-ui.netlify.app/vue/components.md)
 
-41 components, each with Vue examples and its API.
+42 components, each with Vue examples and its API.
 
 #### [Concepts](https://open-props-ui.netlify.app/vue/guide/concepts.md)
 

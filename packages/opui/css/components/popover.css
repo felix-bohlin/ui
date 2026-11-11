@@ -1,0 +1,227 @@
+@layer components.root {
+  :where(.ui-menu, .ui-popover) {
+    --_motion: var(--ui-motion);
+    --_bg-color: var(--ui-surface-elevated);
+    --_border-color: var(
+      --ui-border-color-raised,
+      var(--ui-border-color-on-raised)
+    );
+    --_border-width: var(--ui-border-width);
+    --_duration: calc(var(--ui-duration-slow) * var(--_motion));
+    --_ease: var(--ui-ease-exit);
+    --_fit-max-block-size: min(
+      var(--_max-block-size),
+      calc(100% - 2 * var(--_offset))
+    );
+    --_margin-block: var(--_offset);
+    --_margin-inline: 0;
+    --_max-block-size: 60dvb;
+    --_min-block-size: min(12rem, 40dvb);
+    --_offset: var(--ui-space-1);
+    --_position-area: var(--_side) var(--_span);
+    --_radius: var(--ui-radius);
+    --_shadow: var(--ui-shadow-overlay);
+    --_side: self-block-end;
+    --_span: span-self-inline-end;
+    --ui-border-color: var(--ui-border-color-on-raised);
+    --ui-field-border-color: var(--ui-field-border-color-on-raised);
+
+    background-color: var(--_bg-color);
+    border: var(--_border-width) solid var(--_border-color);
+    border-radius: var(--_radius);
+    box-shadow: var(--_shadow);
+    margin: 0;
+    max-block-size: var(--_max-block-size);
+    overflow-block: auto;
+    overscroll-behavior: contain;
+
+    /* Popover - positioned against its invoker (implicit anchor) */
+    &[popover] {
+      --_ease-move: var(--_ease);
+
+      inset: auto;
+      margin-block: var(--_margin-block);
+      margin-inline: var(--_margin-inline);
+
+      opacity: 0;
+      position-area: var(--ui-anchor-position-area, var(--_position-area));
+      position-try-fallbacks:
+        flip-block,
+        flip-inline,
+        flip-block flip-inline,
+        --ui-popover-block-end,
+        --ui-popover-block-start;
+      scale: 0.96;
+      transition:
+        display var(--_duration) allow-discrete,
+        opacity var(--_duration) var(--_ease),
+        overlay var(--_duration) allow-discrete,
+        scale var(--_duration) var(--_ease-move);
+
+      /* Where calc-size() works: cap to the side's space, flip below --_min-block-size */
+      @supports (min-block-size: calc-size(fit-content, size)) {
+        max-block-size: var(--_fit-max-block-size);
+        min-block-size: calc-size(
+          fit-content,
+          min(size, var(--_min-block-size))
+        );
+      }
+
+      &:popover-open {
+        --_ease: var(--ui-ease-enter);
+        --_ease-move: var(--ui-ease-move, var(--_ease));
+
+        opacity: 1;
+        scale: 1;
+
+        @starting-style {
+          opacity: 0;
+          scale: 0.96;
+        }
+      }
+    }
+
+    /* Placements */
+    &.ui-block-start {
+      --_side: self-block-start;
+    }
+
+    &.ui-inline-end {
+      --_margin-block: 0;
+      --_margin-inline: var(--_offset);
+      --_side: self-inline-end;
+      --_span: span-self-block-end;
+    }
+
+    &.ui-inline-start {
+      --_margin-block: 0;
+      --_margin-inline: var(--_offset);
+      --_side: self-inline-start;
+      --_span: span-self-block-end;
+    }
+
+    &.ui-align-end {
+      --_span: span-self-inline-start;
+
+      &:is(.ui-inline-end, .ui-inline-start) {
+        --_span: span-self-block-start;
+      }
+    }
+  }
+
+  :where(.ui-popover) {
+    --_footer-gap: var(--ui-space-2);
+    --_max-inline-size: 24rem;
+    --_min-inline-size: 16rem;
+    --_padding: var(--ui-space-3);
+    --_title-font-size: var(--ui-font-size-h6);
+
+    color: var(--ui-text);
+    flex-direction: column;
+    max-inline-size: min(
+      var(--_max-inline-size),
+      100dvi - 2 * var(--ui-space-3)
+    );
+    min-inline-size: min(
+      var(--_min-inline-size),
+      100dvi - 2 * var(--ui-space-3)
+    );
+    padding: 0;
+
+    &:popover-open {
+      display: flex;
+    }
+
+    & > .ui-header {
+      align-items: center;
+      column-gap: var(--ui-space-1);
+      display: flex;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+      padding-block: var(--_padding) 0;
+      padding-inline: var(--_padding);
+
+      & > :where(h1, h2, h3, h4, h5, h6) {
+        color: var(--ui-text-strong);
+        flex: 1;
+        font-size: var(--_title-font-size);
+        margin: 0;
+      }
+
+      & > :where(p) {
+        flex-basis: 100%;
+        order: 1;
+      }
+
+      &:not(:has(> :where(h1, h2, h3, h4, h5, h6)))
+        > :where(.ui-button:has(> svg:only-child)):first-of-type {
+        margin-inline-start: auto;
+      }
+    }
+
+    & > .ui-content {
+      align-content: start;
+      display: grid;
+      gap: var(--ui-space-2);
+      grid-template-columns: minmax(0, 1fr);
+      overflow-block: auto;
+      overscroll-behavior: contain;
+      padding: var(--_padding);
+
+      & > * {
+        margin-block: 0;
+      }
+
+      &:focus-visible {
+        outline-offset: var(--ui-focus-ring-inset);
+      }
+    }
+
+    & > .ui-footer {
+      align-items: center;
+      display: flex;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+      gap: var(--_footer-gap);
+      justify-content: end;
+      padding-block: 0 var(--_padding);
+      padding-inline: var(--_padding);
+
+      &.ui-align-start {
+        justify-content: start;
+      }
+
+      & > .ui-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--_footer-gap);
+      }
+
+      & > * + .ui-actions {
+        margin-inline-start: auto;
+      }
+    }
+
+    & > :where(.ui-header + .ui-footer, .ui-footer:first-child) {
+      padding-block-start: var(--_padding);
+    }
+
+    & > .ui-header:last-child {
+      padding-block-end: var(--_padding);
+    }
+  }
+}
+
+@position-try --ui-popover-block-end {
+  margin-block: var(--_offset);
+  margin-inline: 0;
+  max-block-size: var(--_fit-max-block-size);
+  position-area: self-block-end span-all;
+}
+
+@position-try --ui-popover-block-start {
+  margin-block: var(--_offset);
+  margin-inline: 0;
+  max-block-size: var(--_fit-max-block-size);
+  position-area: self-block-start span-all;
+}

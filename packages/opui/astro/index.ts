@@ -49,6 +49,11 @@ export { default as Message } from "../components/Message/Message.astro"
 export { default as Messages } from "../components/Message/Messages.astro"
 export { default as NumberField } from "../components/NumberField/NumberField.astro"
 export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.astro"
+export { default as Popover } from "../components/Popover/Popover.astro"
+export { default as PopoverContent } from "../components/Popover/PopoverContent.astro"
+export { default as PopoverFooter } from "../components/Popover/PopoverFooter.astro"
+export { default as PopoverHeader } from "../components/Popover/PopoverHeader.astro"
+export { default as PopoverTitle } from "../components/Popover/PopoverTitle.astro"
 export { default as Progress } from "../components/Progress/Progress.astro"
 export { default as Radio } from "../components/Radio/Radio.astro"
 export { default as RadioInput } from "../components/Radio/RadioInput.astro"
@@ -160,6 +165,13 @@ export type {
 } from "../components/Message/types.astro"
 export type { Props as NumberFieldProps } from "../components/NumberField/types.astro"
 export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.astro"
+export type {
+  PopoverContentProps,
+  PopoverFooterProps,
+  PopoverHeaderProps,
+  Props as PopoverProps,
+  PopoverTitleProps,
+} from "../components/Popover/types.astro"
 export type { Props as ProgressProps } from "../components/Progress/types.astro"
 export type {
   RadioInputProps,

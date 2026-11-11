@@ -1,0 +1,58 @@
+<script lang="ts">
+  import { Button, Popover, PopoverContent } from "opui-css/svelte"
+</script>
+
+<Button
+  command="toggle-popover"
+  commandfor="popover-placement-1"
+  variant="outlined"
+>
+  Block end
+</Button>
+<Popover aria-label="Block end" id="popover-placement-1">
+  <PopoverContent>Opens below the button.</PopoverContent>
+</Popover>
+
+<Button
+  command="toggle-popover"
+  commandfor="popover-placement-2"
+  variant="outlined"
+>
+  Block start
+</Button>
+<Popover aria-label="Block start" id="popover-placement-2" side="block-start">
+  <PopoverContent>Opens above the button.</PopoverContent>
+</Popover>
+
+<Button
+  command="toggle-popover"
+  commandfor="popover-placement-3"
+  variant="outlined"
+>
+  Inline end
+</Button>
+<Popover aria-label="Inline end" id="popover-placement-3" side="inline-end">
+  <PopoverContent>Opens after the button.</PopoverContent>
+</Popover>
+
+<Button
+  command="toggle-popover"
+  commandfor="popover-placement-4"
+  variant="outlined"
+>
+  Inline start
+</Button>
+<Popover aria-label="Inline start" id="popover-placement-4" side="inline-start">
+  <PopoverContent>Opens before the button.</PopoverContent>
+</Popover>
+
+<Button
+  command="toggle-popover"
+  commandfor="popover-placement-5"
+  variant="outlined"
+>
+  Align end
+</Button>
+<Popover align="end" aria-label="Align end" id="popover-placement-5">
+  <PopoverContent>Lines up with the end of the button.</PopoverContent>
+</Popover>

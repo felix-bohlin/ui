@@ -29,6 +29,7 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Message | `message.md` | Chat bubbles that group by sender, with attachments, reactions and a typing indicator. |
 | Number field | `number-field.md` | A number field with buttons that step the value down and up, for amounts like a quantity. |
 | One-time code | `one-time-code.md` | A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill. |
+| Popover | `popover.md` | A surface next to its trigger for content that isn't a list of actions. |
 | Progress | `progress.md` | A progress bar on the native progress element, for a task that reports how far along it is, or one that doesn't. |
 | Radio | `radio.md` | Radio buttons on the native radio input, for picking one option from a few, with sizes, cards and an invalid state. |
 | Range | `range.md` | Range lets users pick a number by sliding a thumb along a track. |
@@ -81,6 +82,10 @@ Components documented on another component's page:
 | Fieldset | `form.md` |
 | ListItem | `list.md` |
 | Messages | `message.md` |
+| PopoverContent | `popover.md` |
+| PopoverFooter | `popover.md` |
+| PopoverHeader | `popover.md` |
+| PopoverTitle | `popover.md` |
 | RadioInput | `radio.md` |
 | SelectAll | `checkbox.md` |
 | SortableTable | `table.md` |

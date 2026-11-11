@@ -1,0 +1,32 @@
+<button
+  class="ui-button ui-outlined"
+  type="button"
+  command="toggle-popover"
+  commandfor="popover-manual-1"
+>
+  Shipping
+</button>
+<div
+  aria-labelledby="popover-manual-1-title"
+  class="ui-popover"
+  id="popover-manual-1"
+  popover="manual"
+  role="dialog"
+>
+  <div class="ui-header">
+    <h2 id="popover-manual-1-title">Free shipping</h2>
+  </div>
+  <div class="ui-content">
+    <p>Orders over 50 euros ship for free within the EU.</p>
+  </div>
+  <div class="ui-footer ui-align-start">
+    <button
+      class="ui-button"
+      type="button"
+      command="hide-popover"
+      commandfor="popover-manual-1"
+    >
+      Got it
+    </button>
+  </div>
+</div>

@@ -1745,6 +1745,49 @@
     "url": "/svelte/components/one-time-code/#paste-and-auto-submit"
   },
   {
+    "id": "component-popover-svelte",
+    "title": "Popover",
+    "description": "A surface next to its trigger for content that isn't a list of actions.",
+    "keywords": "dropdown flyout overlay panel popup",
+    "category": "Component",
+    "url": "/svelte/components/popover/"
+  },
+  {
+    "id": "component-popover-svelte-basics",
+    "title": "Basics",
+    "page": "Popover",
+    "category": "Component",
+    "url": "/svelte/components/popover/#basics"
+  },
+  {
+    "id": "component-popover-svelte-placement",
+    "title": "Placement",
+    "page": "Popover",
+    "category": "Component",
+    "url": "/svelte/components/popover/#placement"
+  },
+  {
+    "id": "component-popover-svelte-manual",
+    "title": "Manual",
+    "page": "Popover",
+    "category": "Component",
+    "url": "/svelte/components/popover/#manual"
+  },
+  {
+    "id": "component-popover-svelte-role-attributes",
+    "title": "Role & attributes",
+    "page": "Popover",
+    "category": "Component",
+    "url": "/svelte/components/popover/#role-attributes"
+  },
+  {
+    "id": "component-popover-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Popover",
+    "category": "Component",
+    "url": "/svelte/components/popover/#keyboard-support"
+  },
+  {
     "id": "component-progress-svelte",
     "title": "Progress",
     "description": "A progress bar on the native progress element, for a task that reports how far along it is, or one that doesn't.",
@@ -4581,6 +4624,30 @@
     "api": "OneTimeCode Container element. The label for the field. label label Draws a box per character and a ring on the next one. The input element. Supporting text displayed below the field. endText end-text alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. autocapitalize The `autocapitalize` of the `<input>`. With `alphanumeric` it is `characters`. autocomplete The `autocomplete` of the `<input>`. `one-time-code` lets the browser fill in a code it received. disabled Dims the field and blocks input. error Marks the control invalid and shows error styles. grouped Draws a dash between the two halves of the code. Use it with an even `length`. id The id of the `<input>`. inputmode The `inputmode` of the `<input>`. Without `alphanumeric` it is `numeric`. length The number of characters and boxes, from 4 to 8. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. pattern The `pattern` of the `<input>`. It is `[0-9]{length}`, or `[A-Za-z0-9]{length}` with `alphanumeric`. required Adds a required mark after the label. The form won't submit while the code is incomplete. size The size of the element. spellcheck The `spellcheck` of the `<input>`. With `alphanumeric` it is `false`.",
     "category": "API",
     "url": "/svelte/api/#one-time-code"
+  },
+  {
+    "id": "api-popover-footer-svelte",
+    "title": "Popover Footer API",
+    "description": "Reference for Popover Footer Svelte component.",
+    "api": "PopoverFooter A row at the end, for buttons, text or anything else. Groups buttons. Moves to the end when other content comes first. align Alignment for the footer content.",
+    "category": "API",
+    "url": "/svelte/api/#popover-footer"
+  },
+  {
+    "id": "api-popover-header-svelte",
+    "title": "Popover Header API",
+    "description": "Reference for Popover Header Svelte component.",
+    "api": "PopoverHeader Container element. Closes the popover. Renders a close icon by default, or the `svg` in `close-icon`. closeLabel close-icon closeLabel The accessible name of the close button. Set it to add a close button at the end of the title row, which closes its `Popover` through the popover's `id`.",
+    "category": "API",
+    "url": "/svelte/api/#popover-header"
+  },
+  {
+    "id": "api-popover-svelte",
+    "title": "Popover API",
+    "description": "Reference for Popover Svelte component.",
+    "api": "Popover The surface, a `<div>` with `popover` and `role=\"dialog\"`, placed next to its trigger. The header, a row for the title and anything next to it, with an optional close button. The title. Names the popover through `aria-labelledby`. The scrollable content. The footer, a row at the end. align Which edge of the trigger the popover lines up with. id The id of the popover, which the trigger's `commandfor` points at. Required. popover The popover type. With `manual`, Esc and a click outside don't close the popover, and opening another popover doesn't either. side The side of the trigger the popover opens on.",
+    "category": "API",
+    "url": "/svelte/api/#popover"
   },
   {
     "id": "api-progress-svelte",

@@ -1,0 +1,152 @@
+---
+import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import DocLink from "../../components/DocLink.astro"
+import {
+  Button as UIButton,
+  Popover as UIPopover,
+  PopoverContent as UIPopoverContent,
+  PopoverFooter as UIPopoverFooter,
+  PopoverHeader as UIPopoverHeader,
+  PopoverTitle as UIPopoverTitle,
+} from "opui-css/astro"
+import PopoverCSS from "@opui/css/components/popover.css?raw"
+
+import popoverApi from "../../component-api/popover/api"
+import popoverFooterApi from "../../component-api/popover-footer/api"
+import popoverHeaderApi from "../../component-api/popover-header/api"
+
+export const description =
+  "A surface next to its trigger for content that isn't a list of actions."
+
+export const keywords = ["dropdown", "flyout", "overlay", "panel", "popup"]
+---
+
+<Component
+  description={description}
+  slug="popover"
+  heroAnatomy
+  browserSupport={[
+    "anchor-positioning",
+    "calc-size",
+    "display-animation",
+    "has",
+    "invoker-commands",
+    "logical-properties",
+    "overlay",
+    "popover",
+    "starting-style",
+    "transition-behavior",
+  ]}
+  apis={[
+    { title: "Popover API", api: popoverApi },
+    { title: "Popover header API", api: popoverHeaderApi },
+    { title: "Popover footer API", api: popoverFooterApi },
+  ]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Popover/Popover.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/popover.astro", type: "docs" },
+    { path: "src/component-examples/popover", type: "docs" },
+    { path: "packages/opui/css/components/popover.css", type: "css" },
+    { path: "src/component-api/popover", type: "api" },
+  ]}
+  installationTabs={[{ title: "popover.css", code: PopoverCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Popover</Fragment>
+  <Fragment slot="preamble">
+    A surface next to the button that opens it. For a list of actions, use a
+    <DocLink href="/components/menu">Menu</DocLink>.
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UIPopover
+        id="popover-anatomy"
+        style="display: flex; inline-size: 18rem; opacity: 1; position: static; scale: none"
+      >
+        <UIPopoverHeader closeLabel="Close">
+          <UIPopoverTitle>Notifications</UIPopoverTitle>
+        </UIPopoverHeader>
+        <UIPopoverContent>
+          <p>Jonas wrote on your wall.</p>
+        </UIPopoverContent>
+        <UIPopoverFooter>
+          <UIButton>See all</UIButton>
+        </UIPopoverFooter>
+      </UIPopover>
+    </Anatomy>
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      A panel behind a button, like <a href="#basics">notifications</a>.
+    </li>
+    <li slot="when">
+      A short note that stays until it's dismissed: a
+      <a href="#manual">manual popover</a>.
+    </li>
+    <li slot="when-not">
+      A list of actions or links: use a
+      <DocLink href="/components/menu">Menu</DocLink>.
+    </li>
+    <li slot="when-not">
+      A task that needs full attention: use a
+      <DocLink href="/components/dialog">Dialog</DocLink>.
+    </li>
+  </Usage>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>closeLabel</code> on <code>PopoverHeader</code> for a close
+        button.
+      </Fragment>
+      <Fragment slot="html">
+        Open with <code>command="toggle-popover"</code>, and point
+        <code>aria-labelledby</code> at the heading.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Basics" centered row />
+  </section>
+
+  <section id="placement">
+    <h2>Placement</h2>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Below by default. Use <code>side</code> and <code>align</code> to
+        change it.</Fragment
+      >
+      <Fragment slot="html"
+        >Below by default. Use a side class, like <code>.ui-inline-end</code>,
+        and <code>.ui-align-end</code>.</Fragment
+      >
+    </Conditional>
+    <AutoExample name="Placement" row centered />
+  </section>
+
+  <section id="manual">
+    <h2>Manual</h2>
+    <p>
+      Use <code>popover="manual"</code> to keep it open on Esc and a click
+      outside.
+    </p>
+    <AutoExample name="Manual" centered />
+  </section>
+
+  <Fragment slot="accessibility">
+    <h3 id="role-attributes">Role & attributes</h3>
+    <p>
+      A non-modal <code>role="dialog"</code>, named by its title. The page
+      behind it stays interactive.
+    </p>
+    <KeyboardSupport />
+  </Fragment>
+</Component>

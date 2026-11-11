@@ -159,40 +159,41 @@ repro(FIREFOX_STALE_FALLBACK_OPACITY, () => {
 })
 
 repro(FIREFOX_STICKY_ANCHOR_SCROLL, () => {
-  for (const inside of [false, true]) {
-    for (const scrolled of [false, true]) {
-      test(`a fixed element anchored ${inside ? "inside" : "to"} a sticky header lines up with it ${scrolled ? "on a scrolled page" : "at the top of the page"}`, async ({
+  for (const scrolled of [false, true]) {
+    test(`a fixed element anchored inside a sticky header lines up with it after a layout ${scrolled ? "on a scrolled page" : "at the top of the page"}`, async ({
+      browserName,
+      page: tab,
+    }) => {
+      failsIn(
         browserName,
-        page: tab,
-      }) => {
-        failsIn(
-          browserName,
-          inside && scrolled ? { firefox: FIREFOX_STICKY_ANCHOR_SCROLL } : {},
-        )
-        await tab.setContent(`<!doctype html>
+        scrolled ? { firefox: FIREFOX_STICKY_ANCHOR_SCROLL } : {},
+      )
+      await tab.setContent(`<!doctype html>
 <style>
   body { margin: 0 }
-  #header { anchor-name: --header; block-size: 60px }
   #sticky { inset-block-start: 0; padding-block-start: 16px; position: sticky; z-index: 1 }
-  #sticky #header { backdrop-filter: blur(3px); container-type: inline-size; margin-inline: auto; max-inline-size: 600px }
+  #header { anchor-name: --header; block-size: 60px; margin-inline: auto; max-inline-size: 600px }
   #overlay { bottom: anchor(--header bottom); left: 0; position: fixed; right: 0; top: anchor(--header top) }
   .spacer { block-size: 3000px }
 </style>
-${inside ? '<div id="sticky"><header><div id="header">Header</div></header></div>' : '<header id="header" style="inset-block-start: 16px; margin-block-start: 16px; position: sticky">Header</header>'}
+<div id="sticky"><header><div id="header">Header</div></header></div>
 <div id="overlay"></div>
 <div class="spacer"></div>`)
-        if (scrolled) await tab.evaluate(() => scrollTo(0, 1000))
-        await expect
-          .poll(() =>
-            tab.evaluate(() => {
-              const box = (id: string) =>
-                document.getElementById(id)!.getBoundingClientRect()
-              return Math.round(box("overlay").top - box("header").top)
-            }),
-          )
-          .toBe(0)
+      if (scrolled) await tab.evaluate(() => scrollTo(0, 1000))
+      await tab.evaluate(async () => {
+        await new Promise(requestAnimationFrame)
+        document.getElementById("overlay")!.style.insetInline = "8px"
       })
-    }
+      await expect
+        .poll(() =>
+          tab.evaluate(() => {
+            const box = (id: string) =>
+              document.getElementById(id)!.getBoundingClientRect()
+            return Math.round(box("overlay").top - box("header").top)
+          }),
+        )
+        .toBe(0)
+    })
   }
 })
 

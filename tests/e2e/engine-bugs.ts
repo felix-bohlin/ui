@@ -7,7 +7,7 @@ export const FIREFOX_STALE_FALLBACK_OPACITY =
   "Firefox's getComputedStyle keeps an opacity from partway through a fade, while it paints the end value, on a popover that a position-try fallback moved after a hover rule started the fade"
 
 export const FIREFOX_STICKY_ANCHOR_SCROLL =
-  "Firefox moves a fixed element whose insets use anchor() down by the page scroll when its anchor is inside a sticky header at the top of the page, instead of keeping it on the stuck header"
+  "Firefox moves a fixed element whose insets use anchor() down by the page scroll when it lays the element out again on a scrolled page and the anchor is inside a sticky header at the top, instead of keeping it on the stuck header"
 
 export const WEBKIT_ARROW_FOCUS_SCROLL =
   "WebKit doesn't bring the label of a clipped radio that the arrow keys focus fully into view in its scroll container"

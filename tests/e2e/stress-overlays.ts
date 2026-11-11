@@ -298,6 +298,37 @@ export const SCENARIOS: Scenario[] = [
     steps: [open("launch-menu"), open("launch-drawer")],
     top: id("launch-drawer"),
   },
+  {
+    name: "popover",
+    steps: [open("popover")],
+    top: id("popover"),
+  },
+  {
+    name: "menu in popover",
+    steps: [open("popover"), open("popover-menu")],
+    stillOpen: ["popover"],
+    top: id("popover-menu"),
+  },
+  {
+    name: "popover with inline content",
+    steps: [open("popover-inline")],
+    top: id("popover-inline"),
+  },
+  {
+    name: "tall popover",
+    steps: [open("popover-tall")],
+    top: id("popover-tall"),
+  },
+  {
+    name: "end aligned popover at the end edge",
+    steps: [open("popover-end")],
+    top: id("popover-end"),
+  },
+  {
+    name: "popover in dialog",
+    steps: [open("popover-dialog"), open("popover-in-dialog")],
+    top: id("popover-in-dialog"),
+  },
   ...["filled", "outlined"].flatMap((variant) =>
     SIZES.map((size) => ({
       name: `${variant} ${size} split button menu`,

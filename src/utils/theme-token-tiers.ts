@@ -114,6 +114,7 @@ const componentTokens = [
   "--ui-link-visited-text-color",
   "--ui-list-item-padding-inline",
   "--ui-menu-radius",
+  "--ui-popover-radius",
   "--ui-switch-thumb-bg-color",
   "--ui-switch-thumb-size",
   "--ui-switch-thumb-size-large",

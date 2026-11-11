@@ -4645,7 +4645,7 @@
     "id": "api-popover-vue",
     "title": "Popover API",
     "description": "Reference for Popover Vue component.",
-    "api": "Popover The surface, a `<div>` with `popover` and `role=\"dialog\"`, placed next to its trigger. The header, a row for the title and anything next to it, with an optional close button. The title. Names the popover through `aria-labelledby`. The scrollable content. The footer, a row at the end. align Which edge of the trigger the popover lines up with. id The id of the popover, which the trigger's `commandfor` points at. Required. popover The popover type. With `manual`, Esc and a click outside don't close the popover, and opening another popover doesn't either. side The side of the trigger the popover opens on.",
+    "api": "Popover The surface, a `<div>` with `popover` and `role=\"dialog\"`, placed next to its trigger. The header, a row for the title and anything next to it, with an optional close button. The title. Names the popover through `aria-labelledby`. The scrollable content. The footer, a row at the end. align Which edge of the trigger the popover lines up with. closeOnNavigate Closes the popover when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API. id The id of the popover, which the trigger's `commandfor` points at. Required. popover The popover type. With `manual`, Esc and a click outside don't close the popover, and opening another popover doesn't either. side The side of the trigger the popover opens on.",
     "category": "API",
     "url": "/vue/api/#popover"
   },

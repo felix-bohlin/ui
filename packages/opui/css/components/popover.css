@@ -19,7 +19,7 @@
     --_min-block-size: min(12rem, 40dvb);
     --_offset: var(--ui-space-1);
     --_position-area: var(--_side) var(--_span);
-    --_radius: var(--ui-radius);
+    --_radius: var(--ui-popover-radius, var(--ui-radius));
     --_shadow: var(--ui-shadow-overlay);
     --_side: self-block-end;
     --_span: span-self-inline-end;
@@ -110,7 +110,6 @@
   }
 
   :where(.ui-popover) {
-    --_footer-gap: var(--ui-space-2);
     --_max-inline-size: 24rem;
     --_min-inline-size: 16rem;
     --_padding: var(--ui-space-3);
@@ -133,73 +132,24 @@
     }
 
     & > .ui-header {
-      align-items: center;
-      column-gap: var(--ui-space-1);
-      display: flex;
       flex-shrink: 0;
-      flex-wrap: wrap;
       padding-block: var(--_padding) 0;
       padding-inline: var(--_padding);
 
       & > :where(h1, h2, h3, h4, h5, h6) {
-        color: var(--ui-text-strong);
-        flex: 1;
-        font-size: var(--_title-font-size);
-        margin: 0;
-      }
-
-      & > :where(p) {
-        flex-basis: 100%;
-        order: 1;
-      }
-
-      &:not(:has(> :where(h1, h2, h3, h4, h5, h6)))
-        > :where(.ui-button:has(> svg:only-child)):first-of-type {
-        margin-inline-start: auto;
+        letter-spacing: normal;
       }
     }
 
     & > .ui-content {
-      align-content: start;
-      display: grid;
       gap: var(--ui-space-2);
-      grid-template-columns: minmax(0, 1fr);
-      overflow-block: auto;
-      overscroll-behavior: contain;
       padding: var(--_padding);
-
-      & > * {
-        margin-block: 0;
-      }
-
-      &:focus-visible {
-        outline-offset: var(--ui-focus-ring-inset);
-      }
     }
 
     & > .ui-footer {
-      align-items: center;
-      display: flex;
       flex-shrink: 0;
-      flex-wrap: wrap;
-      gap: var(--_footer-gap);
-      justify-content: end;
       padding-block: 0 var(--_padding);
       padding-inline: var(--_padding);
-
-      &.ui-align-start {
-        justify-content: start;
-      }
-
-      & > .ui-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--_footer-gap);
-      }
-
-      & > * + .ui-actions {
-        margin-inline-start: auto;
-      }
     }
 
     & > :where(.ui-header + .ui-footer, .ui-footer:first-child) {

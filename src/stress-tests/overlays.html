@@ -3012,6 +3012,259 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
   </dialog>
 </section>
 
+<section class="stress" data-example="Popovers">
+  <h2>Popovers</h2>
+  <p>
+    Popovers with a form and a menu inside, with text and a link straight in the
+    content, with more content than fits, at the end edge and inside a dialog.
+    The menu opens above its popover and keeps it open, the sentence stays one
+    paragraph, and the tall popover scrolls its content between the header and
+    the footer.
+  </p>
+  <div class="stress-overlays-spread">
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-popover"
+      command="toggle-popover"
+    >
+      Filters
+    </button>
+    <div
+      aria-labelledby="stress-overlays-popover-title"
+      class="ui-popover"
+      id="stress-overlays-popover"
+      popover
+      role="dialog"
+    >
+      <div class="ui-header">
+        <h2 id="stress-overlays-popover-title">Filters</h2>
+        <button
+          class="ui-button ui-round ui-small"
+          type="button"
+          aria-label="Close"
+          commandfor="stress-overlays-popover"
+          command="hide-popover"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+            ></path>
+          </svg>
+        </button>
+      </div>
+      <div class="ui-content">
+        <label class="ui-text-field"
+          ><span class="ui-label">Customer</span
+          ><span class="ui-field"><input type="text" name="customer" /></span
+        ></label>
+        <button
+          class="ui-button ui-outlined"
+          type="button"
+          commandfor="stress-overlays-popover-menu"
+          command="toggle-popover"
+        >
+          Status
+        </button>
+        <menu class="ui-menu" id="stress-overlays-popover-menu" popover>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-popover-menu"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Open</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-popover-menu"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Shipped</p></div>
+            </button>
+          </li>
+        </menu>
+      </div>
+      <div class="ui-footer">
+        <button class="ui-button" type="button">Reset</button
+        ><button class="ui-button ui-filled" type="button">Apply</button>
+      </div>
+    </div>
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-popover-inline"
+      command="toggle-popover"
+    >
+      Returns
+    </button>
+    <div
+      aria-label="Returns"
+      class="ui-popover"
+      id="stress-overlays-popover-inline"
+      popover
+      role="dialog"
+    >
+      <div class="ui-content">
+        Read the
+        <a class="ui-link" href="#stress-overlays-popover">terms</a> and the
+        <strong>return policy</strong> first.
+      </div>
+    </div>
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-popover-tall"
+      command="toggle-popover"
+    >
+      Checklist
+    </button>
+    <div
+      aria-labelledby="stress-overlays-popover-tall-title"
+      class="ui-popover"
+      id="stress-overlays-popover-tall"
+      popover
+      role="dialog"
+    >
+      <div class="ui-header">
+        <h2 id="stress-overlays-popover-tall-title">Packing checklist</h2>
+      </div>
+      <div
+        class="ui-content"
+        aria-label="Packing steps"
+        role="region"
+        tabindex="0"
+      >
+        <ol>
+          <li>Step 1: check the stock, the address and the carrier.</li>
+          <li>Step 2: check the stock, the address and the carrier.</li>
+          <li>Step 3: check the stock, the address and the carrier.</li>
+          <li>Step 4: check the stock, the address and the carrier.</li>
+          <li>Step 5: check the stock, the address and the carrier.</li>
+          <li>Step 6: check the stock, the address and the carrier.</li>
+          <li>Step 7: check the stock, the address and the carrier.</li>
+          <li>Step 8: check the stock, the address and the carrier.</li>
+          <li>Step 9: check the stock, the address and the carrier.</li>
+          <li>Step 10: check the stock, the address and the carrier.</li>
+          <li>Step 11: check the stock, the address and the carrier.</li>
+          <li>Step 12: check the stock, the address and the carrier.</li>
+          <li>Step 13: check the stock, the address and the carrier.</li>
+          <li>Step 14: check the stock, the address and the carrier.</li>
+          <li>Step 15: check the stock, the address and the carrier.</li>
+          <li>Step 16: check the stock, the address and the carrier.</li>
+          <li>Step 17: check the stock, the address and the carrier.</li>
+          <li>Step 18: check the stock, the address and the carrier.</li>
+          <li>Step 19: check the stock, the address and the carrier.</li>
+          <li>Step 20: check the stock, the address and the carrier.</li>
+          <li>Step 21: check the stock, the address and the carrier.</li>
+          <li>Step 22: check the stock, the address and the carrier.</li>
+          <li>Step 23: check the stock, the address and the carrier.</li>
+          <li>Step 24: check the stock, the address and the carrier.</li>
+          <li>Step 25: check the stock, the address and the carrier.</li>
+          <li>Step 26: check the stock, the address and the carrier.</li>
+          <li>Step 27: check the stock, the address and the carrier.</li>
+          <li>Step 28: check the stock, the address and the carrier.</li>
+          <li>Step 29: check the stock, the address and the carrier.</li>
+          <li>Step 30: check the stock, the address and the carrier.</li>
+        </ol>
+      </div>
+      <div class="ui-footer">
+        <button
+          class="ui-button"
+          type="button"
+          commandfor="stress-overlays-popover-tall"
+          command="hide-popover"
+        >
+          Done
+        </button>
+      </div>
+    </div>
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-popover-dialog"
+      command="show-modal"
+    >
+      Order
+    </button>
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-popover-end"
+      command="toggle-popover"
+    >
+      Shipping
+    </button>
+    <div
+      aria-labelledby="stress-overlays-popover-end-title"
+      class="ui-popover ui-align-end"
+      id="stress-overlays-popover-end"
+      popover
+      role="dialog"
+    >
+      <div class="ui-header">
+        <h2 id="stress-overlays-popover-end-title">Free shipping</h2>
+      </div>
+      <div class="ui-content">
+        <p>Orders over 50 euros ship for free within the EU.</p>
+      </div>
+    </div>
+  </div>
+  <dialog
+    id="stress-overlays-popover-dialog"
+    class="ui-dialog ui-elevated"
+    aria-labelledby="stress-overlays-popover-dialog-heading"
+    closedby="any"
+  >
+    <div class="ui-header">
+      <h2 id="stress-overlays-popover-dialog-heading">Order 1042</h2>
+    </div>
+    <div class="ui-content">
+      <p>Three items, paid by card.</p>
+      <button
+        class="ui-button ui-outlined"
+        type="button"
+        commandfor="stress-overlays-popover-in-dialog"
+        command="toggle-popover"
+      >
+        Delivery
+      </button>
+      <div
+        aria-labelledby="stress-overlays-popover-in-dialog-title"
+        class="ui-popover"
+        id="stress-overlays-popover-in-dialog"
+        popover
+        role="dialog"
+      >
+        <div class="ui-header">
+          <h3 id="stress-overlays-popover-in-dialog-title">Delivery</h3>
+        </div>
+        <div class="ui-content">
+          <p>On Thursday.</p>
+        </div>
+      </div>
+    </div>
+    <div class="ui-footer">
+      <button
+        class="ui-button"
+        type="button"
+        commandfor="stress-overlays-popover-dialog"
+        command="close"
+      >
+        Close
+      </button>
+    </div>
+  </dialog>
+</section>
 <section class="stress" data-example="SplitButtonMenu">
   <h2>Split button menus</h2>
   <p>

@@ -810,6 +810,10 @@ describe("HTML", () => {
       imports('<dialog class="ui-drawer" data-close-on-navigate></dialog>'),
     ).toEqual(['import "opui-css/elements/close-on-navigate.js"'])
     expect(imports('<dialog class="ui-drawer"></dialog>')).toEqual([])
+    expect(
+      imports('<div class="ui-popover" data-close-on-navigate popover></div>'),
+    ).toEqual(['import "opui-css/elements/close-on-navigate.js"'])
+    expect(imports('<div class="ui-popover" popover></div>')).toEqual([])
   })
 
   test("matches elements and attributes, not text", () => {

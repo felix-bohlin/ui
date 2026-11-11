@@ -64,9 +64,9 @@
     --ui-line-height-relaxed: 1.5;
     --ui-link-font-weight: 500;
     --ui-list-item-padding-inline: 0.5rem;
-    --ui-menu-radius: 0.5rem;
     --ui-on-inverse: var(--ui-on-primary);
     --ui-palette-chroma: 0;
+    --ui-popover-radius: 0.5rem;
     --ui-primary-source: light-dark(oklch(0.205 0 0), oklch(0.922 0 0));
     --ui-primary-tonal: var(--ui-surface-tonal);
     --ui-on-primary-tonal: var(--ui-text-strong);

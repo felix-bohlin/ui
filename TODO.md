@@ -698,6 +698,10 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fix: in `HTML_SCRIPT_RULES`, also import `range.js` for a `.ui-range` whose `datalist` has an `option` with a `label`. `htmlElements` needs the class or the parent to tell it apart from an autosuggest `datalist`. Add the same hook to `HOOKS` in `tests/unit/example-scripts.test.ts`, with a sample it flags, and run `pnpm build-examples`. Give the HTML Tick marks text the import: "Link a `<datalist>` with `list`, and import `opui-css/css/js/range.js` so labeled ticks are read as `aria-valuetext`."
   - This came back after the done Range Quality item: commit 34504492 removed the Tick marks sentence that item's fix added. The docs preview hides the bug because the Value example on the same page loads `range.js`.
   - Fixed: `HTML_SCRIPT_RULES` in `scripts/build-examples.mjs` also imports `range.js` for a `datalist` `option` with a `label` inside a `.ui-range` (`htmlElements` now keeps each element's classes and parent), with cases in `tests/unit/build-examples.test.ts`, and `tests/unit/example-scripts.test.ts` has the same hook with a sample it flags next to an autosuggest datalist it doesn't. `pnpm build-examples` added the import to the HTML Tick marks and Spread examples, and the HTML Tick marks text reads: "Link a `<datalist>` with `list`, and import `opui-css/css/js/range.js` so labeled ticks are read as `aria-valuetext`."
+- [ ] (3) Popover, Dialog: the root always renders `aria-labelledby` with the generated title id, also when no `PopoverTitle` or `DialogTitle` is rendered and no `aria-label` is passed, so the dialog has no name and nothing warns in dev (`packages/opui/components/Popover/Popover.astro:28`, `packages/opui/components/Dialog/Dialog.astro:19`)
+  - Summary: A popover or dialog written without a title and without `aria-label` is announced as an unnamed dialog, and nothing tells the developer.
+  - Recommended: Explain further. The warning needs code that runs after the children render, which the components don't have today.
+  - Fix: the docs say to set `aria-label` on a popover without a title (`/components/popover/#role-attributes`). A dev warning can't be written like the others: every `warn*` helper in `components/dev.ts` reads props while the root renders, and the root can't know then whether a title part will render inside it in React, Svelte or Vue. It would take an effect after mount in each framework that looks for the element the `aria-labelledby` id names, which `scripts/build-components.mjs` doesn't emit.
 
 ## Bugs
 
@@ -1457,6 +1461,10 @@ Findings with a page and section in brackets come from the stress pages in `src/
     }
     ```
   - Fixed: `callout.css` limits the rule to `a[href]:where(:not([class*="ui-"]), .ui-link)`. Checked in Chromium in an info callout and a callout without severity: a filled link Button goes from 1.00:1 and 1.06:1 to 19.4:1 in light and dark mode, a primary one from 4.05:1, 3.80:1 and 2.35:1 to 5.09:1 in light and 8.21:1 in dark, a link Chip keeps its own text color, and plain links and `.ui-link` still take the callout's. Added a `Callout` Fixed entry to the CHANGELOG.
+- [ ] (3) Dialog: a dialog whose `.ui-content` is its last child scrolls by the height of the bottom scroll shadow. The `::after` of `.ui-content` sits below the content, outside the dialog's padding box, and `dialog.css` gives the dialog `overflow: auto`, so the dialog's `scrollHeight` is `--ui-space-2` more than its `clientHeight` (`packages/opui/css/components/card.css:462-465`, `packages/opui/css/components/dialog.css:18`)
+  - Summary: A dialog without a footer can be scrolled a few pixels, and shows a scrollbar where scrollbars are always visible.
+  - Recommended: Fix. The shadow only has to stay inside the dialog.
+  - Fix: confirm with a `dialog.ui-dialog` that has a header and content but no footer: `scrollHeight` is 8px more than `clientHeight`, measured in Chromium. Then keep the bottom shadow inside the dialog's padding box where `.ui-content` is the last child. Popover shares the header, content and footer rules in `card.css` but not the scroll shadows, for this reason.
 
 ## Docs
 

@@ -1695,10 +1695,7 @@ export const HTML_SCRIPT_RULES = [
   {
     covers: (path) => path === "elements/close-on-navigate.js",
     lines: (elements) =>
-      elements.some(
-        ({ attrs, tag }) =>
-          tag === "dialog" && attrs.has("data-close-on-navigate"),
-      )
+      elements.some(({ attrs }) => attrs.has("data-close-on-navigate"))
         ? ['import "opui-css/elements/close-on-navigate.js"']
         : [],
   },

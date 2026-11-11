@@ -2,7 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "PopoverHeader",
-  css: ["popover"],
+  css: ["card", "popover"],
   options: [
     {
       description:

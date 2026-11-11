@@ -1522,6 +1522,90 @@ interaction(
 )
 
 interaction(
+  "popover",
+  "Basics",
+  "popover opens from its trigger and closes with its close button",
+  async ({ root }) => {
+    const popover = root.getByRole("dialog", { name: "Notifications" })
+
+    await expect(popover).toBeHidden()
+    await root.getByRole("button", { name: "Notifications" }).click()
+    await expect(popover).toBeVisible()
+    await popover.getByRole("button", { name: "Close" }).click()
+    await expect(popover).toBeHidden()
+  },
+)
+
+interaction(
+  "popover",
+  "Basics",
+  "popover closes with Escape and returns focus to the trigger",
+  async ({ page, root }) => {
+    const trigger = root.getByRole("button", { name: "Notifications" })
+    const popover = root.locator(".ui-popover")
+
+    await trigger.focus()
+    await page.keyboard.press("Enter")
+    await expect(popover).toBeVisible()
+    await page.keyboard.press("Tab")
+    await expectFocusWithin(popover)
+    await page.keyboard.press("Escape")
+    await expect(popover).toBeHidden()
+    await expect(trigger).toBeFocused()
+  },
+)
+
+interaction(
+  "popover",
+  "Basics",
+  "popover closes on an outside click",
+  async ({ page, root }) => {
+    const popover = root.locator(".ui-popover")
+
+    await root.getByRole("button", { name: "Notifications" }).click()
+    await expect(popover).toBeVisible()
+    await page.mouse.click(1, 1)
+    await expect(popover).toBeHidden()
+  },
+)
+
+interaction(
+  "popover",
+  "Basics",
+  "a popover with closeOnNavigate closes when a client router navigates, and one without stays open",
+  async ({ page, root }) => {
+    await needs(page, "the Navigation API", () => "navigation" in window)
+    const manual = page.locator('[data-example="Manual"]')
+    await manual.getByRole("button", { name: "Shipping" }).click()
+    await root.getByRole("button", { name: "Notifications" }).click()
+    const popover = root.locator(".ui-popover")
+    await expect(popover).toBeVisible()
+    await expect(manual.locator(".ui-popover")).toBeVisible()
+    await page.evaluate(() => history.pushState({}, "", location.href))
+    await expect(popover).toBeHidden()
+    await expect(manual.locator(".ui-popover")).toBeVisible()
+  },
+)
+
+interaction(
+  "popover",
+  "Manual",
+  "a manual popover stays open until Got it",
+  async ({ page, root }) => {
+    const popover = root.locator(".ui-popover")
+
+    await root.getByRole("button", { name: "Shipping" }).click()
+    await expect(popover).toBeVisible()
+    await page.keyboard.press("Escape")
+    await page.mouse.click(1, 1)
+    await expect(popover).toBeVisible()
+
+    await popover.getByRole("button", { name: "Got it" }).click()
+    await expect(popover).toBeHidden()
+  },
+)
+
+interaction(
   "rating",
   "Input",
   "a rating input moves its checked star to the one chosen",

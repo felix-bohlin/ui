@@ -23,7 +23,7 @@ export default {
   },
   "--_radius": {
     description:
-      "The corner radius. Defaults to `--ui-menu-radius`, or `--ui-radius` when the theme doesn't set it.",
+      "The corner radius. Defaults to `--ui-menu-radius`, then `--ui-popover-radius`, or `--ui-radius` when the theme sets neither.",
     kind: "input",
   },
 } satisfies CustomProperties

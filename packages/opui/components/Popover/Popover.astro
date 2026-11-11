@@ -9,6 +9,7 @@ export const title = "Popover"
 const {
   align,
   class: className,
+  closeOnNavigate,
   id,
   popover = "auto",
   side,
@@ -31,6 +32,7 @@ const html = await popoverContext.provide({ id, titleId: labelledBy }, () =>
     side && side !== "block-end" && `ui-${side}`,
     className,
   ]}
+  data-close-on-navigate={closeOnNavigate ? "" : undefined}
   id={id}
   popover={popover === "auto" ? "" : popover}
   role="dialog"
@@ -38,3 +40,7 @@ const html = await popoverContext.provide({ id, titleId: labelledBy }, () =>
 >
   <Fragment set:html={html} />
 </div>
+
+<script>
+  import "../../elements/close-on-navigate.js"
+</script>

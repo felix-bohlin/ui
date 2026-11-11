@@ -68,9 +68,8 @@ const HOOKS = [
         : undefined,
   },
   {
-    hook: "a dialog[data-close-on-navigate]",
+    hook: "an element with [data-close-on-navigate]",
     module: (element: Element) =>
-      element.tagName === "dialog" &&
       hasAttribute(element, "data-close-on-navigate")
         ? "opui-css/elements/close-on-navigate.js"
         : undefined,
@@ -186,7 +185,15 @@ describe("example scripts", () => {
         name: "a/Drawer",
       }),
     ).toEqual([
-      'a/Drawer.html has a dialog[data-close-on-navigate] but doesn\'t import "opui-css/elements/close-on-navigate.js"',
+      'a/Drawer.html has an element with [data-close-on-navigate] but doesn\'t import "opui-css/elements/close-on-navigate.js"',
+    ])
+    expect(
+      problemsOf({
+        html: '<div class="ui-popover" data-close-on-navigate popover></div>',
+        name: "a/Popover",
+      }),
+    ).toEqual([
+      'a/Popover.html has an element with [data-close-on-navigate] but doesn\'t import "opui-css/elements/close-on-navigate.js"',
     ])
     expect(
       problemsOf({

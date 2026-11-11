@@ -58,3 +58,61 @@ test("a menu in a right-to-left part of the page opens from its trigger's right 
     })
   await expect.poll(edges).toBe(0)
 })
+
+test("text and inline elements straight in a popover's content stay on one line", async ({
+  page,
+}) => {
+  await openFixture(page, "html", "stress/overlays")
+  await run(page, { open: "popover-inline" })
+  const tops = await page
+    .locator(`${id("popover-inline")} > .ui-content`)
+    .evaluate((content) =>
+      [...content.querySelectorAll("a, strong")].map((element) =>
+        Math.round(element.getBoundingClientRect().top),
+      ),
+    )
+  expect(tops).toHaveLength(2)
+  expect(Math.abs(tops[0] - tops[1])).toBeLessThanOrEqual(2)
+})
+
+test("a tall popover stops at 60% of the viewport and scrolls its content, not itself", async ({
+  page,
+}) => {
+  await openFixture(page, "html", "stress/overlays")
+  await run(page, { open: "popover-tall" })
+  const sizes = await page.locator(id("popover-tall")).evaluate((popover) => {
+    const content = popover.querySelector(".ui-content")!
+    const footer = popover.querySelector(".ui-footer")!
+    return {
+      contentScrolls: content.scrollHeight > content.clientHeight,
+      footerInside:
+        footer.getBoundingClientRect().bottom <=
+        popover.getBoundingClientRect().bottom,
+      popoverScrolls: popover.scrollHeight > popover.clientHeight,
+      share: popover.getBoundingClientRect().height / window.innerHeight,
+    }
+  })
+  expect(sizes.share).toBeLessThanOrEqual(0.6)
+  expect(sizes).toMatchObject({
+    contentScrolls: true,
+    footerInside: true,
+    popoverScrolls: false,
+  })
+})
+
+test("a popover is between 16rem and 24rem wide", async ({ page }) => {
+  await openFixture(page, "html", "stress/overlays")
+  const widthOf = (name: string) =>
+    page
+      .locator(id(name))
+      .evaluate(
+        (popover) =>
+          popover.getBoundingClientRect().width /
+          parseFloat(getComputedStyle(document.documentElement).fontSize),
+      )
+  await run(page, { open: "popover-tall" })
+  expect(await widthOf("popover-tall")).toBe(24)
+  await run(page, { open: "popover-dialog" })
+  await run(page, { open: "popover-in-dialog" })
+  expect(await widthOf("popover-in-dialog")).toBe(16)
+})

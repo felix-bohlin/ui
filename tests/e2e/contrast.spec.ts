@@ -252,7 +252,11 @@ test("stress/contrast has no AAA contrast violations inside .ui-contrast-more", 
   )
 })
 
-for (const id of ["contrast-overlays-menu", "contrast-overlays-tooltip"]) {
+for (const id of [
+  "contrast-overlays-menu",
+  "contrast-overlays-popover",
+  "contrast-overlays-tooltip",
+]) {
   test(`stress/contrast #${id} has no AAA contrast violations when open`, async ({
     page,
   }) => {

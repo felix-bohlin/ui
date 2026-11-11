@@ -35,10 +35,6 @@ export default {
       "Maximum height of the popover in the space on its side: `--_max-block-size`, capped to that space minus `--_offset` at both ends. Needs `calc-size()`, and the `--ui-popover-block-end` and `--ui-popover-block-start` fallbacks read it too.",
     kind: "output",
   },
-  "--_footer-gap": {
-    description: "Gap between the footer's children.",
-    kind: "input",
-  },
   "--_margin-block": {
     description:
       "Block margin of the popover, `--_offset` or `0` depending on the side.",
@@ -88,7 +84,7 @@ export default {
   },
   "--_radius": {
     description:
-      "The corner radius. Defaults to `--ui-radius`. `Menu` sets it to `--ui-menu-radius` when the theme sets that.",
+      "The corner radius. Defaults to `--ui-popover-radius`, or `--ui-radius` when the theme doesn't set it. `Menu` reads `--ui-menu-radius` first.",
     kind: "input",
   },
   "--_shadow": {
@@ -107,7 +103,7 @@ export default {
   },
   "--_title-font-size": {
     description:
-      "Font size of the title in the header. Defaults to `--ui-font-size-h6`.",
+      "Font size of the title in the header, declared in `card.css` and set to `--ui-font-size-h6` here.",
     kind: "input",
   },
 } satisfies CustomProperties

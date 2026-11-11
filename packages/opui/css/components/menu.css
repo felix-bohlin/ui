@@ -3,7 +3,10 @@
     --_bg-color: var(--ui-surface-elevated);
     --_divider-border-color: var(--ui-border-color-on-raised);
     --_min-inline-size: 12rem;
-    --_radius: var(--ui-menu-radius, var(--ui-radius));
+    --_radius: var(
+      --ui-menu-radius,
+      var(--ui-popover-radius, var(--ui-radius))
+    );
 
     min-inline-size: var(--_min-inline-size);
     padding-block: var(--ui-space-1);

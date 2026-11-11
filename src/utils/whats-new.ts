@@ -848,7 +848,7 @@ export const whatsNew = {
       html: `Import <code>opui-css/elements/close-on-navigate.js</code> to <a href="#basics">close an open menu</a> when the page navigates.`,
     },
     `Mark the <a href="#current-item">current item</a> with <code>aria-current</code>, like the language in use.`,
-    `Themes can set <a href="#api"><code>--ui-menu-radius</code></a> for a corner radius of its own.`,
+    `Themes can set <a href="#api"><code>--ui-menu-radius</code></a> for a corner radius of its own. Without it, a menu follows <code>--ui-popover-radius</code>.`,
     `The edge reads <a href="#api"><code>--ui-border-color-raised</code></a> when a theme sets it, like drawers and elevated cards, and the separators keep <code>--ui-border-color-on-raised</code>.`,
     `Themes can set <a href="#api"><code>--ui-list-item-padding-inline</code></a>. Descriptions read <code>--ui-text-subtle</code>.`,
     `The border and dividers are <a href="#api"><code>--ui-border-color-on-raised</code></a>, like other elevated surfaces.`,
@@ -899,6 +899,11 @@ export const whatsNew = {
   ],
   popover: [
     `New component. A <a href="#basics">popover</a> next to its trigger, with a header, content and footer, <a href="#placement">placements</a> and a <a href="#manual">manual</a> mode. No JavaScript.`,
+    {
+      default: `With <code>closeOnNavigate</code>, an open popover <a href="#basics">closes when the page navigates</a>, also with a client router.`,
+      html: `With <code>data-close-on-navigate</code> and <code>opui-css/elements/close-on-navigate.js</code>, an open popover <a href="#basics">closes when the page navigates</a>.`,
+    },
+    `Themes can set <a href="#api"><code>--ui-popover-radius</code></a> for a corner radius of its own.`,
   ],
   progress: [
     `The <a href="#determinate">track</a> is always outlined with <code>--ui-field-border-color</code>, so the empty part is visible.`,

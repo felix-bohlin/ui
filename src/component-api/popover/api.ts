@@ -2,7 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Popover",
-  css: ["popover"],
+  css: ["card", "popover"],
   keyboard: [
     {
       description:
@@ -28,7 +28,7 @@ export default {
   notes: {
     default:
       "Attributes that aren't props go to the `<div>`, like `aria-label`. Without `aria-label` or `aria-labelledby`, the `PopoverTitle` names the popover. A popover without a `PopoverTitle` needs an `aria-label`.",
-    html: 'Open the popover with a button that has `commandfor` set to the popover id and `command="toggle-popover"`, and point `aria-labelledby` at its heading.',
+    html: 'Open the popover with a button that has `commandfor` set to the popover id and `command="toggle-popover"`, and point `aria-labelledby` at its heading. For `[data-close-on-navigate]`, import `opui-css/elements/close-on-navigate.js`.',
   },
   options: [
     {
@@ -46,6 +46,14 @@ export default {
       frameworks: ["html"],
       group: "Anchor position area",
       prop: "anchorPositionArea",
+    },
+    {
+      attribute: "[data-close-on-navigate]",
+      default: "false",
+      description:
+        "Closes the popover when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API.",
+      group: "Close on navigate",
+      prop: "closeOnNavigate",
     },
     {
       description:
@@ -112,7 +120,8 @@ export default {
   },
   slots: [
     {
-      description: "The popover parts, and any other content.",
+      description:
+        "The popover parts. Other content, such as a `List`, sits edge to edge.",
       name: "default",
     },
   ],

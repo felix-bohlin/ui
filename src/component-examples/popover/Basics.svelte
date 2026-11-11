@@ -16,7 +16,7 @@
 >
   Notifications
 </Button>
-<Popover id="popover-basics-1">
+<Popover closeOnNavigate id="popover-basics-1">
   <PopoverHeader closeLabel="Close">
     <PopoverTitle>Notifications</PopoverTitle>
   </PopoverHeader>

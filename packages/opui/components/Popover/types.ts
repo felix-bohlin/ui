@@ -1,5 +1,6 @@
 export type Props = {
   align?: "start" | "end"
+  closeOnNavigate?: boolean
   id: string
   popover?: "auto" | "manual"
   side?: "block-end" | "block-start" | "inline-end" | "inline-start"

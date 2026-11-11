@@ -743,6 +743,7 @@ for (const [component, trigger] of [
   ["dialog", '[command="show-modal"]'],
   ["drawer", '[command="show-modal"]'],
   ["menu", '[command="toggle-popover"]'],
+  ["popover", '[command="toggle-popover"]'],
   ["tooltip", '[command="toggle-popover"]'],
 ]) {
   test(`the ${component} page examples don't animate with reduced motion`, async ({

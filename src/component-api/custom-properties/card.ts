@@ -56,7 +56,7 @@ export default {
   },
   "--_footer-gap": {
     description:
-      "Gap between the items in a dialog's or drawer's `.ui-footer` and between the buttons in its `.ui-actions`. Defaults to `--ui-space-2`.",
+      "Gap between the items in a dialog's, drawer's or popover's `.ui-footer` and between the buttons in its `.ui-actions`. Defaults to `--ui-space-2`.",
     kind: "input",
   },
   "--_gap": {
@@ -106,7 +106,7 @@ export default {
   },
   "--_title-font-size": {
     description:
-      "Font size of a dialog's or drawer's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.",
+      "Font size of a dialog's, drawer's or popover's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`, and `popover.css` sets it to `--ui-font-size-h6`.",
     kind: "input",
   },
   "--_tonal-bg-color": {

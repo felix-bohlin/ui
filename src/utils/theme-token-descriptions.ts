@@ -301,7 +301,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-list-item-padding-inline":
     "Horizontal padding of `List` and `Menu` items, headings and `Select` options. When unset, `--ui-space-3`.",
   "--ui-menu-radius":
-    "Corner radius for `Menu`. When unset, menus follow `--ui-radius`.",
+    "Corner radius for `Menu`. When unset, menus follow `--ui-popover-radius`.",
   "--ui-motion":
     "Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](/guide/theming#motion).",
   "--ui-neutral":
@@ -363,6 +363,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "The lowest OKLCH lightness of `--ui-palette-tint` in light mode. `0`, and `0.84` with more contrast.",
   "--ui-palette-tint-subtle":
     "A faint fill of the current palette: tonal severity `Callout`s. Tonal severity `Chip`s read it. Re-derived inside every severity scope.",
+  "--ui-popover-radius":
+    "Corner radius for `Popover`, and for `Menu` unless `--ui-menu-radius` is set. When unset, both follow `--ui-radius`.",
   "--ui-press-scale":
     "Scale of `Button`, `ToggleButton` and button and link `Chip`s while pressed, over `--ui-duration` with `--ui-ease-move`. Unset, so pressing doesn't scale; `0.97` gives a light press. Buttons in a `ControlGroup` and toggles in a `ToggleGroup` never scale.",
   "--ui-primary":

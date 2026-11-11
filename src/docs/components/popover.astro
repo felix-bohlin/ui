@@ -15,6 +15,7 @@ import {
   PopoverTitle as UIPopoverTitle,
 } from "opui-css/astro"
 import PopoverCSS from "@opui/css/components/popover.css?raw"
+import CardCSS from "@opui/css/components/card.css?raw"
 
 import popoverApi from "../../component-api/popover/api"
 import popoverFooterApi from "../../component-api/popover-footer/api"
@@ -39,6 +40,7 @@ export const keywords = ["dropdown", "flyout", "overlay", "panel", "popup"]
     "logical-properties",
     "overlay",
     "popover",
+    "round-mod-rem",
     "starting-style",
     "transition-behavior",
   ]}
@@ -57,7 +59,10 @@ export const keywords = ["dropdown", "flyout", "overlay", "panel", "popup"]
     { path: "packages/opui/css/components/popover.css", type: "css" },
     { path: "src/component-api/popover", type: "api" },
   ]}
-  installationTabs={[{ title: "popover.css", code: PopoverCSS, lang: "css" }]}
+  installationTabs={[
+    { title: "popover.css", code: PopoverCSS, lang: "css" },
+    { title: "card.css", code: CardCSS, lang: "css", isDependency: true },
+  ]}
 >
   <Fragment slot="title">Popover</Fragment>
   <Fragment slot="preamble">
@@ -115,6 +120,19 @@ export const keywords = ["dropdown", "flyout", "overlay", "panel", "popup"]
       </Fragment>
     </Conditional>
     <AutoExample name="Basics" centered row />
+    <Conditional as="p">
+      <Fragment slot="components">
+        With <code>closeOnNavigate</code>, the popover closes when the page
+        navigates, also with a client router, so the link in the footer never
+        leaves it open over the next page.
+      </Fragment>
+      <Fragment slot="html">
+        With <code>data-close-on-navigate</code> and
+        <code>opui-css/elements/close-on-navigate.js</code>, the popover closes
+        when the page navigates, also with a client router, so the link in the
+        footer never leaves it open over the next page.
+      </Fragment>
+    </Conditional>
   </section>
 
   <section id="placement">
@@ -146,6 +164,23 @@ export const keywords = ["dropdown", "flyout", "overlay", "panel", "popup"]
     <p>
       A non-modal <code>role="dialog"</code>, named by its title. The page
       behind it stays interactive.
+    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        A popover without a <code>PopoverTitle</code> has no name: set
+        <code>aria-label</code>, like the popovers in
+        <a href="#placement">Placement</a>.
+      </Fragment>
+      <Fragment slot="html">
+        A popover without a heading has no name: set <code>aria-label</code>
+        instead of <code>aria-labelledby</code>, like the popovers in
+        <a href="#placement">Placement</a>.
+      </Fragment>
+    </Conditional>
+    <p>
+      Content that scrolls and has only text needs <code>tabindex="0"</code>,
+      <code>role="region"</code> and an <code>aria-label</code> to scroll by
+      keyboard in Safari.
     </p>
     <KeyboardSupport />
   </Fragment>

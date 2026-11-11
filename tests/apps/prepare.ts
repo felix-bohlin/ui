@@ -137,6 +137,10 @@ for (const app of APPS) {
     ),
   )
 
+  const photosDir = path.join(dir, app.publicDir, "photos")
+  rmSync(photosDir, { force: true, recursive: true })
+  cpSync(path.join(root, "public/photos"), photosDir, { recursive: true })
+
   const examplesDir = path.join(dir, app.examples)
   rmSync(examplesDir, { force: true, recursive: true })
   const examples = examplesOf(app.framework)

@@ -61,7 +61,7 @@
     --ui-list-item-padding-inline: 0.5rem;
     --ui-on-inverse: var(--ui-on-primary);
     --ui-palette-source: oklch(0.675 0.1725 259.5);
-    --ui-primary-source: oklch(0.675 0.1725 259.5);
+    --ui-primary-source: var(--ui-palette-source);
     --ui-primary-text: var(--ui-text);
     --ui-selected: var(--ui-primary);
     --ui-on-selected: var(--ui-on-primary);
@@ -72,13 +72,16 @@
     --ui-shadow-scroll: 0 2px 0 0 oklch(0 0 0);
     --ui-shadow-surface: var(--ui-shadow-control);
     --ui-shadow-selected: none;
-    --ui-surface: light-dark(oklch(0.92 0.019 266), oklch(0.283 0.019 276));
+    --ui-surface: light-dark(
+      oklch(from var(--ui-palette-source) 0.92 0.019 calc(h + 6.5)),
+      oklch(from var(--ui-palette-source) 0.283 0.019 calc(h + 16.5))
+    );
     --ui-surface-elevated: light-dark(oklch(1 0 0), oklch(0.248 0 0));
     --ui-surface-filled: light-dark(oklch(1 0 0), oklch(0.248 0 0));
     --ui-surface-inverse: var(--ui-primary);
     --ui-surface-tonal: light-dark(
-      oklch(0.852 0.073 260),
-      oklch(0.34 0.04 270)
+      oklch(from var(--ui-palette-source) 0.852 0.073 calc(h + 0.5)),
+      oklch(from var(--ui-palette-source) 0.34 0.04 calc(h + 10.5))
     );
     --ui-switch-thumb-bg-color: var(--ui-text);
     --ui-text: light-dark(oklch(0 0 0), oklch(0.925 0 0));

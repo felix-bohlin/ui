@@ -211,8 +211,9 @@ describe("brand", () => {
   test("presetBrand reads the example theme's brand", () => {
     expect(presetBrand(null)).toBeUndefined()
     expect(presetBrand("bootstrap")).toBe("oklch(0.578 0.228 260)")
+    expect(presetBrand("brutalist")).toBe("oklch(0.675 0.1725 259.5)")
     expect(presetBrand("m3")).toBe(
-      "light-dark(oklch(0.496 0.13 294), oklch(0.835 0.095 298))",
+      "light-dark(oklch(0.496 0.13 294), oklch(from oklch(0.496 0.13 294) 0.835 0.095 calc(h + 4)))",
     )
     expect(presetBrand("shadcn")).toBe(
       "light-dark(oklch(0.205 0 0), oklch(0.922 0 0))",

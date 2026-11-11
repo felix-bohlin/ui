@@ -96,3 +96,50 @@ for (const theme of THEMES) {
     })
   }
 }
+
+const RECOLORED: Record<string, string[]> = {
+  bootstrap: ["--ui-focus-ring-color", "--ui-primary"],
+  brutalist: ["--ui-primary", "--ui-surface", "--ui-surface-tonal"],
+  govuk: ["--ui-primary", "--ui-primary-text", "--ui-surface-filled"],
+  m3: ["--ui-border-color", "--ui-primary", "--ui-surface", "--ui-text"],
+}
+const NEUTRAL: Record<string, string> = {
+  shadcn: "a black or white primary and gray surfaces, on purpose",
+}
+
+test("every theme says which tokens follow --ui-palette-source", () => {
+  expect(
+    THEMES.filter((theme) => !RECOLORED[theme] && !NEUTRAL[theme]),
+    "add the theme to RECOLORED with the tokens that follow --ui-palette-source, or to NEUTRAL with the reason",
+  ).toEqual([])
+})
+
+for (const [theme, tokens] of Object.entries(RECOLORED)) {
+  test(`the ${theme} theme follows --ui-palette-source in a .ui-palette scope`, async ({
+    page,
+  }) => {
+    await openFixture(page, "html", STRESS_TESTS[0]!, `?theme=${theme}`)
+    const colors = await page.evaluate((names) => {
+      const scope = document.createElement("div")
+      scope.className = "ui-palette"
+      scope.style.setProperty("--ui-palette-source", "oklch(0.6 0.15 30)")
+      document.body.append(scope)
+      const resolve = (host: Element, name: string) => {
+        const probe = document.createElement("div")
+        probe.style.color = `var(${name})`
+        host.append(probe)
+        const color = getComputedStyle(probe).color
+        probe.remove()
+        return color
+      }
+      return names.map((name) => ({
+        name,
+        page: resolve(document.body, name),
+        scope: resolve(scope, name),
+      }))
+    }, tokens)
+    for (const { name, page: color, scope } of colors) {
+      expect(scope, `${name} in the scope`).not.toBe(color)
+    }
+  })
+}

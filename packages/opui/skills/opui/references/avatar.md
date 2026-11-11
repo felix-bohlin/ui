@@ -83,10 +83,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 </div>
 
 <div class="ui-avatar">
-  <img
-    src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?w=96&h=96&fit=crop&auto=format"
-    alt="Priya Nair"
-  />
+  <img src="/photos/jonas-berg.png" alt="Jonas Berg" />
 </div>
 ```
 
@@ -105,10 +102,7 @@ import { Avatar } from "opui-css/astro"
 
 <Avatar alt="Omar Haddad" src="/photos/omar-haddad.png" />
 
-<Avatar
-  alt="Priya Nair"
-  src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?w=96&h=96&fit=crop&auto=format"
-/>
+<Avatar alt="Jonas Berg" src="/photos/jonas-berg.png" />
 ```
 
 ## React
@@ -127,10 +121,7 @@ export default function Image() {
 
       <Avatar alt="Omar Haddad" src="/photos/omar-haddad.png" />
 
-      <Avatar
-        alt="Priya Nair"
-        src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?w=96&h=96&fit=crop&auto=format"
-      />
+      <Avatar alt="Jonas Berg" src="/photos/jonas-berg.png" />
     </>
   )
 }
@@ -151,10 +142,7 @@ export default function Image() {
 
 <Avatar alt="Omar Haddad" src="/photos/omar-haddad.png" />
 
-<Avatar
-  alt="Priya Nair"
-  src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?w=96&h=96&fit=crop&auto=format"
-/>
+<Avatar alt="Jonas Berg" src="/photos/jonas-berg.png" />
 ```
 
 ## Vue
@@ -173,9 +161,6 @@ import { Avatar } from "opui-css/vue"
 
   <Avatar alt="Omar Haddad" src="/photos/omar-haddad.png" />
 
-  <Avatar
-    alt="Priya Nair"
-    src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?w=96&h=96&fit=crop&auto=format"
-  />
+  <Avatar alt="Jonas Berg" src="/photos/jonas-berg.png" />
 </template>
 ```

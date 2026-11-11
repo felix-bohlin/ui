@@ -1,6 +1,7 @@
 const Base = globalThis.HTMLElement ?? class {}
 
 const DURATION = 5000
+const LIMIT = 3
 const SEVERITIES = new Set([
   "critical",
   "info",
@@ -132,6 +133,7 @@ export class Toaster extends Base {
     item.append(this.#closeButton())
     list.append(item)
     if (!list.matches(":popover-open")) list.showPopover?.()
+    this.#limit(list)
     this.#announce(message, severity)
     const base = Number(this.getAttribute("duration")) || DURATION
     const time = duration ?? (action?.label ? base * 2 : base)
@@ -177,6 +179,16 @@ export class Toaster extends Base {
     })
     this.#leaving.set(item, left)
     return left
+  }
+
+  #limit(list) {
+    const limit = Number(this.getAttribute("limit")) || LIMIT
+    const staying = [...list.children].filter(
+      (child) => !this.#leaving.has(child),
+    )
+    for (const child of staying.slice(0, -limit)) {
+      if (!child.contains(this.ownerDocument.activeElement)) this.dismiss(child)
+    }
   }
 
   #announce(message, severity) {

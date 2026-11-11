@@ -62,6 +62,14 @@ export default {
       prop: "id",
     },
     {
+      attribute: "[limit]",
+      default: "3",
+      description:
+        "The most toasts shown at once. Past it, the oldest is dismissed, unless it holds focus.",
+      group: "Limit",
+      prop: "limit",
+    },
+    {
       default: '"block-end"',
       description: "The side of the viewport the toasts sit on.",
       group: "Position",

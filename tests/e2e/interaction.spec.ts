@@ -2145,6 +2145,31 @@ interaction(
 
 interaction(
   "toast",
+  "Limit",
+  "past its limit, a toaster dismisses the oldest toast",
+  async ({ page, root }) => {
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    const button = root.getByRole("button", { name: "Add to cart" })
+    for (let click = 0; click < 3; click++) await button.click()
+    await expect(root.locator("opui-toaster li:not([inert])")).toHaveCount(1)
+    await expect(root.locator("opui-toaster li")).toHaveCount(1)
+  },
+)
+
+interaction(
+  "toast",
+  "Basics",
+  "a toaster shows at most three toasts by default",
+  async ({ page, root }) => {
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    const button = root.getByRole("button", { name: "Save changes" })
+    for (let click = 0; click < 5; click++) await button.click()
+    await expect(root.locator("opui-toaster li")).toHaveCount(3)
+  },
+)
+
+interaction(
+  "toast",
   "Dialog",
   "a toaster inside a modal dialog announces its toast and its close button works",
   async ({ page, root }) => {

@@ -27,6 +27,7 @@ declare module "svelte/elements" {
     "opui-toaster": HTMLAttributes<HTMLElement> & {
       "close-label"?: string | undefined | null
       duration?: number | undefined | null
+      limit?: number | undefined | null
     }
   }
 }

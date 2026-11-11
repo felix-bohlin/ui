@@ -1509,6 +1509,7 @@ export const whatsNew = {
     },
     `Themes can make toasts spring in with <a href="#api"><code>--ui-ease-move</code></a>.`,
     `A modal dialog <a href="#in-a-dialog">gets a toaster of its own</a>, and a toaster outside the open dialog warns in the console.`,
+    `At most three toasts show at once, and <a href="#limit"><code>limit</code></a> changes it. Past it, the oldest is dismissed.`,
     `The severity and close <a href="#icons">icons</a> are masks, so <code>--_critical-image</code>, <code>--_info-image</code>, <code>--_success-image</code>, <code>--_warning-image</code> and <code>--_close-image</code> swap them for your own.`,
     `A critical toast is announced through an <a href="#accessibility">assertive region</a>, so it interrupts other speech.`,
     {

@@ -580,6 +580,24 @@ interaction(
 )
 
 interaction(
+  "avatar",
+  "Grouped",
+  "a badge on a filled avatar has a ring in the page background color",
+  async ({ root }) => {
+    const badge = root.locator(".ui-badge")
+    const ring = await computed(
+      badge.locator(".ui-indicator"),
+      "border-top-color",
+    )
+
+    expect(ring).not.toBe(
+      await computed(badge.locator(".ui-avatar"), "background-color"),
+    )
+    expect(ring).toBe(await resolveColor(badge, "var(--ui-surface)"))
+  },
+)
+
+interaction(
   "list",
   "EndSwitch",
   "a size class on a switch in a list row wins over the list size",

@@ -349,6 +349,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Avatar` no longer declares `command`, `commandfor` and `interestfor` as props. They pass through as attributes.
 - `Avatar` squircle without `corner-shape` falls back to a rounded square with corners at 27% of its size instead of `--radius-3`. The fallback moved from `avatar.css` to `css/compat/avatar.css`: import it, or `compat.css`, with `avatar.css`, or the squircle is a circle there, as in `dist/opui.no-compat.css`.
 - `Avatar` (rounded), `Checkbox`, `Tooltip`, file inputs outside `TextField`, `kbd`, `mark` and `var` never get rounder than `--ui-radius`.
+- `Badge` indicator has a ring in the page background color (`--_border-color` is `--ui-surface`) instead of a border in its own fill color, so it stands out on a filled `Avatar` or `Button`.
 - `Badge` on a round `Avatar` sits on the avatar's edge instead of the corner of its box.
 - `Button` critical keeps light text on a fill a little darker than `--ui-critical`, while its border keeps `--ui-critical`, tonal primary and critical buttons use dark text on a light container in light mode and light text on a dark container in dark mode, and text and outlined buttons use a lighter accent for text in dark mode.
 - `Button`, `Callout` links, `Card` links, `Chip`, `ControlGroup`, `Link`, `List`, `Range`, `Table`, `TextField`, the `Checkbox` and `Radio` halo and rich text links only show hover styles on devices that can hover, so they no longer stick after a tap.

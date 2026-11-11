@@ -173,6 +173,7 @@ export const whatsNew = {
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `The indicator border reads <a href="#api"><code>--ui-border-width-thick</code></a>.`,
     `<a href="#colors">Warning</a> badges read <code>--ui-on-warning</code>, the text color on a warning fill.`,
+    `The indicator has a <a href="#colors">ring in the page background color</a>, so it stands out on a filled avatar or button. Set <code>--_border-color</code> on another surface.`,
     `<a href="#colors">Critical, info, neutral and success</a> fills stay below <code>--ui-accent-fill-max-lightness</code>, so their text keeps its contrast.`,
     slots(
       `Breaking: <code>alignment</code> is <a href="#corners"><code>corner</code></a>.`,

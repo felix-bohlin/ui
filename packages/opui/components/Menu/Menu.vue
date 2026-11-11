@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import "../../elements/close-on-navigate.js"
 import { computed, inject, provide, reactive } from "vue"
 import { MenuKey } from "./context.vue"
 import { warnMissingId } from "../dev"

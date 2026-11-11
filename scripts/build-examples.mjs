@@ -1692,6 +1692,16 @@ export const HTML_SCRIPT_RULES = [
         ? ['import "opui-css/css/js/range.js"']
         : [],
   },
+  {
+    covers: (path) => path === "elements/close-on-navigate.js",
+    lines: (elements) =>
+      elements.some(
+        ({ attrs, tag }) =>
+          tag === "dialog" && attrs.has("data-close-on-navigate"),
+      )
+        ? ['import "opui-css/elements/close-on-navigate.js"']
+        : [],
+  },
 ]
 
 export const scriptImports = (markup, tags) => {

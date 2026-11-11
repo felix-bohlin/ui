@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect } from "react"
 import { defined } from "../attrs"
 import { cx } from "../cx"
 import { MenuContext, useMenuContext } from "./context.react"
@@ -22,6 +23,9 @@ export default function Menu({
   const parent = useMenuContext()
   const rootId = parent?.rootId ?? id
   warnMissingId("Menu", id)
+  useEffect(() => {
+    void import("../../elements/close-on-navigate.js")
+  }, [])
 
   return (
     <MenuContext value={{ rootId }}>

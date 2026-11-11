@@ -304,6 +304,26 @@ interaction(
   },
 )
 
+interaction(
+  "drawer",
+  "Basics",
+  "a drawer with closeOnNavigate closes when the page navigates, and one without stays open",
+  async ({ page, root }) => {
+    await needs(page, "the Navigation API", () => "navigation" in window)
+    await root.getByRole("button", { name: "Inline start" }).click()
+    const menu = root.locator("dialog#drawer-basics-1")
+    await expect(menu).toHaveAttribute("open")
+    await menu.getByRole("link", { name: "Projects" }).click()
+    await expect(menu).not.toHaveAttribute("open")
+
+    await root.getByRole("button", { name: "Inline end" }).click()
+    const details = root.locator("dialog#drawer-basics-2")
+    await expect(details).toHaveAttribute("open")
+    await page.evaluate(() => history.pushState({}, "", location.href))
+    await expect(details).toHaveAttribute("open")
+  },
+)
+
 const clickBackdrop = async (page: Page, dialog: Locator) => {
   const box = (await dialog.boundingBox())!
   const { height, width } = page.viewportSize()!
@@ -1366,6 +1386,21 @@ interaction(
     await menu.getByRole("button", { name: "Delete" }).click()
     await expect(menu).toBeHidden()
   },
+)
+
+interaction(
+  "menu",
+  "Basics",
+  "an open menu closes when a client router navigates",
+  async ({ page, root }) => {
+    await needs(page, "the Navigation API", () => "navigation" in window)
+    await root.getByRole("button", { name: "Options" }).click()
+    const menu = root.locator("menu.ui-menu")
+    await expect(menu).toBeVisible()
+    await page.evaluate(() => history.pushState({}, "", location.href))
+    await expect(menu).toBeHidden()
+  },
+  ["astro", "react", "svelte", "vue"],
 )
 
 interaction(

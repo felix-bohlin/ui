@@ -140,6 +140,26 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
     </BlockLink>
   </section>
 
+  <section id="navigation">
+    <h2>Navigation</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        A drawer used as navigation, like the menu in
+        <a href="#basics">Basics</a>, closes when the page navigates with
+        <code>closeOnNavigate</code>: a link inside it, Back and Forward, or a
+        client router in SvelteKit, Next or Nuxt. Otherwise the new page loads
+        behind a modal drawer, inert, and screen readers miss the change.
+      </Fragment>
+      <Fragment slot="html">
+        A drawer used as navigation, like the menu in
+        <a href="#basics">Basics</a>, closes when the page navigates with
+        <code>data-close-on-navigate</code> and
+        <code>opui-css/elements/close-on-navigate.js</code>: a link inside it,
+        Back and Forward, or a client router.
+      </Fragment>
+    </Conditional>
+  </section>
+
   <section id="close-button">
     <h2>Close button</h2>
     <Conditional as="p">

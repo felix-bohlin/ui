@@ -1,4 +1,5 @@
 <script lang="ts">
+  import "../../elements/close-on-navigate.js"
   import { untrack } from "svelte"
   import { getMenuContext, setMenuContext } from "./context.svelte"
   import { warnMissingId } from "../dev"

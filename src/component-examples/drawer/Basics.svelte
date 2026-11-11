@@ -23,7 +23,7 @@
   <Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
 </div>
 
-<Drawer id="drawer-basics-1" scrollLock side="inline-start">
+<Drawer closeOnNavigate id="drawer-basics-1" scrollLock side="inline-start">
   <DrawerHeader>
     <DrawerTitle>Menu</DrawerTitle>
   </DrawerHeader>

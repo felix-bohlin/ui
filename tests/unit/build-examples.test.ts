@@ -806,6 +806,10 @@ describe("HTML", () => {
         '<label class="ui-text-field"><input list="b"><datalist id="b"><option label="Low" value="Low"></option></datalist></label>',
       ),
     ).toEqual([])
+    expect(
+      imports('<dialog class="ui-drawer" data-close-on-navigate></dialog>'),
+    ).toEqual(['import "opui-css/elements/close-on-navigate.js"'])
+    expect(imports('<dialog class="ui-drawer"></dialog>')).toEqual([])
   })
 
   test("matches elements and attributes, not text", () => {

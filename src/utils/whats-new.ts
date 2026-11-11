@@ -675,6 +675,10 @@ export const whatsNew = {
     `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of <code>--border-size-1</code>.`,
   ],
   drawer: [
+    {
+      default: `<a href="#navigation"><code>closeOnNavigate</code></a> closes a navigation drawer when the page navigates, also with a client router.`,
+      html: `<a href="#navigation"><code>data-close-on-navigate</code></a> with <code>opui-css/elements/close-on-navigate.js</code> closes a navigation drawer when the page navigates, also with a client router.`,
+    },
     `Breaking: the header, content and footer rules live in <code>card.css</code>, shared with Dialog. Import it too when you <a href="#installation">install single files</a>.`,
     `The <a href="#basics">footer</a> spaces its items and buttons by <code>--ui-space-2</code>, like Dialog.`,
     `Themes can set <a href="#api"><code>--ui-card-padding</code></a> for the header, content and footer padding.`,
@@ -839,6 +843,10 @@ export const whatsNew = {
     `<a href="#clickable-list-item">Clickable rows</a> and <a href="#selected">selected rows</a> fade, and a hovered row changes at once and fades back over <code>--ui-duration-fast</code>, so the highlight trails the pointer.`,
   ],
   menu: [
+    {
+      default: `An open menu <a href="#basics">closes when the page navigates</a>, also with a client router.`,
+      html: `Import <code>opui-css/elements/close-on-navigate.js</code> to <a href="#basics">close an open menu</a> when the page navigates.`,
+    },
     `Mark the <a href="#current-item">current item</a> with <code>aria-current</code>, like the language in use.`,
     `Themes can set <a href="#api"><code>--ui-menu-radius</code></a> for a corner radius of its own.`,
     `The edge reads <a href="#api"><code>--ui-border-color-raised</code></a> when a theme sets it, like drawers and elevated cards, and the separators keep <code>--ui-border-color-on-raised</code>.`,

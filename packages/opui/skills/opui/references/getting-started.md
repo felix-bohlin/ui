@@ -392,6 +392,27 @@ Same code as in the HTML section.
 import "./styles/main.css"
 ```
 
+### Builds
+
+Vite 8, which SvelteKit and Nuxt build with, and Next 16 rewrite `light-dark()` for older browsers by default. The colors still follow the OS, and `.ui-light` or `.ui-dark` on `html` still works, but on a part of the page it stops switching after a build. Target browsers that have `light-dark()`:
+
+```js
+experimental: {
+  lightningCssFeatures: {
+    exclude: ["light-dark"]
+  }
+}
+```
+
+```js
+// vite.config, or under `vite` in nuxt.config
+build: {
+  cssTarget: ["chrome123", "edge123", "firefox120", "safari17.5"]
+}
+```
+
+Vite also prints warnings like `'scroll-button' is not recognized as a valid pseudo-element` for the Carousel, even without one on the page. They're harmless: the rules stay in the output.
+
 ### How to use
 
 Slots are props: `children`, and camelCased names like `endText`.
@@ -553,6 +574,8 @@ Same code as in the HTML section.
 
 {@render children()}
 ```
+
+### Builds
 
 ### How to use
 
@@ -733,6 +756,8 @@ In Nuxt, add the file to `css` in `nuxt.config.ts` instead.
 ```ts
 import "./styles/main.css"
 ```
+
+### Builds
 
 ### How to use
 

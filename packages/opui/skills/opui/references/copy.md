@@ -53,9 +53,14 @@ The stylesheets read `--ui-border-width`, `--ui-button-accent`, `--ui-button-fon
 ```html
 <opui-copy id="copy-basics-1" class="ui-copy">
   <label class="ui-text-field">
-    <span class="ui-sr-only">Invite link</span>
+    <span class="ui-sr-only" id="copy-basics-2-label">Invite link</span>
     <span class="ui-field">
-      <input readonly value="https://example.com/invite/8f3k2" type="text" />
+      <input
+        readonly
+        value="https://example.com/invite/8f3k2"
+        aria-labelledby="copy-basics-2-label"
+        type="text"
+      />
     </span>
   </label>
   <span class="ui-sr-only" role="status"></span>

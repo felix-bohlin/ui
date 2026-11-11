@@ -35,6 +35,15 @@ Tokens only, no component CSS. They name their fonts but don't load them. Each b
 @import "opui-css/themes/brutalist.css";
 ```
 
+The bootstrap, brutalist, govuk and m3 themes derive their primary color and their tinted surfaces, text and borders from `--ui-palette-source`, so setting it recolors them, on the page or in a [`.ui-palette`](https://open-props-ui.netlify.app/html/guide/theming.md#scopes) scope. The shadcn theme stays black, white and gray. The gray ramp keeps `--ui-gray-hue`, so set it too:
+
+```css
+:where(html) {
+  --ui-palette-source: oklch(0.65 0.15 30);
+  --ui-gray-hue: 30;
+}
+```
+
 ## Component properties
 
 Each component page lists its `--_*` properties. Button reads these:

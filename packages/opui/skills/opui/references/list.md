@@ -45,7 +45,7 @@ Rows of similar items, like contacts, files or settings, with icons, controls an
 - `href`: `string`. The link to use. Renders an `<a>` inside the `<li>`.
 - `htmlFor` (React): `string`. The `for` attribute of the `<label>` when `type` is set, as `htmlFor` like on the element.
 - `inset`: `boolean`, `.ui-inset`. Aligns the text with items that have start content.
-- State (HTML): `current` (`[aria-current="page"]`), `disabled` (`[disabled]`), `disabledLink` (`[aria-disabled="true"]`). Highlights the current item, or dims a disabled one. `[disabled]` and `[aria-disabled="true"]` go on the `<a>` or `<button>` (a `<label>` row dims when its input is disabled); `[aria-current="page"]` on the `<a>`, `<button>` or `<label>`.
+- State (HTML): `current` (`[aria-current]`), `disabled` (`[disabled]`), `disabledLink` (`[aria-disabled="true"]`). Highlights the current item, or dims a disabled one. `[disabled]` and `[aria-disabled="true"]` go on the `<a>` or `<button>` (a `<label>` row dims when its input is disabled); `[aria-current]` (any value but `false`, like `page` on a link or `true` on a button) on the `<a>`, `<button>` or `<label>`.
 - `type`: `"checkbox"` (`label.ui-checkbox`), `"radio"` (`label.ui-radio`), `"switch"` (`label.ui-switch`). Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.
 
 ### Slots

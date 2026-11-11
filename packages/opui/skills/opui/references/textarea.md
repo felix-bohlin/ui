@@ -19,7 +19,7 @@ An input for multi-line text data. Basic textareas with labels, supporting text,
 - `.ui-field > .ui-end` (slot `end`): Content at the inline-end of the field, inside the border.
 - `.ui-field > .ui-bottom` (slot `bottom`): Content below the textarea, inside the border, with a divider.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
-- `<opui-character-count>` (prop `characterCount`, prop `characterCountLabel`): The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left.
+- `<opui-character-count>` (prop `characterCount`, prop `characterCountLabel`): The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left.
 
 ### Props and modifiers
 
@@ -29,7 +29,7 @@ An input for multi-line text data. Basic textareas with labels, supporting text,
 - `disabled`: `boolean`, `textarea[aria-disabled="true"]`, `textarea[disabled]`. Dims the field and blocks input. `aria-disabled="true"` looks the same, but keeps the field focusable, its text editable and its value in the form.
 - `error`: `boolean`, `textarea[aria-invalid="true"]`. Marks the control invalid and shows error styles.
 - `hideLabel`: `boolean`, `.ui-textarea > span.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
-- `id`: `string`. The id of the `<textarea>`. Without a label, the start and end text ids start with it: `x-start-text` and `x-end-text` for `id="x"`.
+- `id`: `string`. The id of the `<textarea>`. The ids the component generates start with it: `x-label`, `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id="x"`.
 - `name`: `string`. The name of the `<textarea>`. Inside a `FieldGroup`, the group's `name` when omitted.
 - `required`: `boolean`, `textarea[required]`. Adds a required mark after the label. The form won't submit while the field is empty.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
@@ -44,7 +44,7 @@ Model: `value` (`string`), the textarea value. Astro and React `value`, Svelte `
 
 ### Notes
 
-- HTML: For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`.
+- HTML: For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. With a label, give `.ui-label` an id and point `aria-labelledby` on the field at it, then at `.ui-start` and `.ui-end`, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-bottom` and `.ui-end-text`, so a hint or an error is read as the description, not in the name.
 - Astro, Svelte and Vue: Attributes that aren't props go to the `<textarea>`, like `maxlength` and `placeholder`, and `class` and `style` go to the `.ui-textarea` root.
 - React: Attributes that aren't props go to the `<textarea>`, like `maxlength` and `placeholder`, and `className` and `style` go to the `.ui-textarea` root. Use `value` with `onChange`, or `defaultValue`.
 
@@ -88,15 +88,21 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--u
 
 ```html
 <label class="ui-textarea">
-  <span class="ui-label">Outlined</span>
+  <span class="ui-label" id="textarea-variants-1-label">Outlined</span>
   <span class="ui-field">
-    <textarea placeholder="Write a message"></textarea>
+    <textarea
+      placeholder="Write a message"
+      aria-labelledby="textarea-variants-1-label"
+    ></textarea>
   </span>
 </label>
 <label class="ui-textarea ui-filled">
-  <span class="ui-label">Filled</span>
+  <span class="ui-label" id="textarea-variants-2-label">Filled</span>
   <span class="ui-field">
-    <textarea placeholder="Write a message"></textarea>
+    <textarea
+      placeholder="Write a message"
+      aria-labelledby="textarea-variants-2-label"
+    ></textarea>
   </span>
 </label>
 ```

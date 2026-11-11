@@ -19,6 +19,7 @@ Slides in from an edge of the screen. For a task that needs full attention, use 
 
 - `backdrop`: `"blurred"` (default), `"transparent"` (`.ui-backdrop-transparent`). The backdrop style. `transparent` keeps the page behind it fully visible.
 - `closedby`: `"any" | "closerequest" | "none"`, `[closedby]`, default `"any"`. How the drawer can be closed. `any` also closes it on a click outside.
+- `closeOnNavigate`: `boolean`, `[data-close-on-navigate]`. Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API.
 - `id`: `string`. The id of the `<dialog>`, which the trigger's `commandfor` points at. Required.
 - `scrollLock`: `boolean`, `.ui-scroll-lock`. Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px.
 - `side`: `"block-end"` (`.ui-block-end`), `"block-start"` (`.ui-block-start`), `"inline-end"` (`.ui-inline-end`), `"inline-start"` (default). The side it opens from.
@@ -29,7 +30,7 @@ Slides in from an edge of the screen. For a task that needs full attention, use 
 
 ### Notes
 
-- HTML: Add `autofocus` to the element that gets focus on open. It can be the root or an element inside.
+- HTML: Add `autofocus` to the element that gets focus on open. It can be the root or an element inside. For `[data-close-on-navigate]`, import `opui-css/elements/close-on-navigate.js`.
 - Astro, React, Svelte and Vue: Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer, with the id `x-title` for `id="x"`. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`.
 
 ## DrawerHeader

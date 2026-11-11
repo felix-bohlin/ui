@@ -3,7 +3,10 @@ import Guide from "../../layouts/Guide.astro"
 import Code from "../../components/Code.astro"
 import Conditional from "../../components/Conditional.astro"
 import DocLink from "../../components/DocLink.astro"
+import { builtInLabels } from "../../utils/built-in-labels"
 import { componentsWithSlot } from "../../utils/components"
+
+const html = Astro.locals.framework === "html"
 ---
 
 <Guide
@@ -97,6 +100,34 @@ import { componentsWithSlot } from "../../utils/components"
         with <code>role="radiogroup"</code> and <code>aria-label</code>.
       </li>
     </ul>
+  </section>
+
+  <section id="built-in-labels">
+    <h2>Built-in labels</h2>
+    <p>
+      Some components write text of their own, in English unless you pass
+      another. Translate each one for a page in another language:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Component</th>
+          <th scope="col">{html ? "Set" : "Prop"}</th>
+          <th scope="col">Default</th>
+        </tr>
+      </thead>
+      <tbody>
+        {builtInLabels.map((label) => <tr>
+          <td>
+            <DocLink href={`/components/${label.page}`}
+              >{label.component}</DocLink
+            >
+          </td>
+          <td><code>{html ? label.html : label.prop}</code></td>
+          <td>{label.shown ?? label.default}</td>
+        </tr>)}
+      </tbody>
+    </table>
   </section>
 
   <section id="keyboard">

@@ -144,9 +144,18 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
     <h2>Close button</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Translate it with <code>closeLabel</code>.
+        It says "Close" unless you translate it with <code>closeLabel</code>,
+        like the other
+        <DocLink href="/guide/accessibility#built-in-labels"
+          >built-in labels</DocLink
+        >.
       </Fragment>
-      <Fragment slot="html"> Translate its <code>aria-label</code>. </Fragment>
+      <Fragment slot="html">
+        Translate its <code>aria-label</code>, like the other
+        <DocLink href="/guide/accessibility#built-in-labels"
+          >built-in labels</DocLink
+        >.
+      </Fragment>
     </Conditional>
   </section>
 

@@ -216,16 +216,28 @@ const apiList = Object.values(groups)
     }
     target.scrollIntoView()
     let top = target.getBoundingClientRect().top
-    const observer = new ResizeObserver(() => {
-      if (Math.abs(target.getBoundingClientRect().top - top) < 1) return
-      target.scrollIntoView()
-      top = target.getBoundingClientRect().top
-    })
+    let idle = 0
+    let limit = 0
     const controller = new AbortController()
     const stop = () => {
+      clearTimeout(idle)
+      clearTimeout(limit)
       observer.disconnect()
       controller.abort()
     }
+    const stopWhenIdle = () => {
+      if (document.readyState !== "complete") return
+      clearTimeout(idle)
+      idle = window.setTimeout(stop, 2000)
+      limit ||= window.setTimeout(stop, 10_000)
+    }
+    const observer = new ResizeObserver(() => {
+      if (Math.abs(target.getBoundingClientRect().top - top) >= 1) {
+        target.scrollIntoView()
+        top = target.getBoundingClientRect().top
+      }
+      stopWhenIdle()
+    })
     stopSettling = stop
     const content = sections[0]?.parentElement
     if (content) observer.observe(content)
@@ -236,7 +248,8 @@ const apiList = Object.values(groups)
         signal: controller.signal,
       })
     }
-    setTimeout(stop, 5000)
+    addEventListener("load", stopWhenIdle, { signal: controller.signal })
+    stopWhenIdle()
   }
 
   addEventListener("hashchange", settle)
@@ -266,6 +279,10 @@ const apiList = Object.values(groups)
     contain-intrinsic-block-size: auto 40rem;
     content-visibility: auto;
     overflow-clip-margin: var(--size-2);
+
+    &:has(~ :global(.api-section:is(:target, :has(:target)))) {
+      content-visibility: visible;
+    }
 
     &[hidden],
     :global([hidden]),

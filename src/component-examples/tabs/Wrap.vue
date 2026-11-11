@@ -7,7 +7,6 @@ import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/vue"
     aria-label="Account settings"
     name="wrap-tabs"
     overflow="wrap"
-    role="radiogroup"
     variant="line"
   >
     <TabsItem checked>

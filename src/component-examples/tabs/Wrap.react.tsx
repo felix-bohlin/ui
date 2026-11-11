@@ -6,7 +6,6 @@ export default function Wrap() {
       aria-label="Account settings"
       name="wrap-tabs"
       overflow="wrap"
-      role="radiogroup"
       variant="line"
     >
       <TabsItem defaultChecked>

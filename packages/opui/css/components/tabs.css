@@ -293,11 +293,14 @@
 
     &:not(.ui-overflow-wrap, .ui-vertical) {
       column-gap: 0;
-      container-type: inline-size;
       display: grid;
       grid-auto-columns: max-content;
       overflow-inline: auto;
       overscroll-behavior-inline: contain;
+
+      &:has(> .ui-panel) {
+        container-type: inline-size;
+      }
 
       & > .ui-input[type="radio"] {
         grid-column: calc((sibling-index() + 2) / 3) / span 1;
@@ -305,6 +308,10 @@
         inset-block-start: 50%;
         inset-inline-start: 50%;
         margin: 0;
+      }
+
+      &:not(:has(> .ui-panel)) > .ui-input[type="radio"] {
+        grid-column: calc((sibling-index() + 1) / 2) / span 1;
       }
 
       & > .ui-label {

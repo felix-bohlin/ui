@@ -1286,6 +1286,10 @@ export const whatsNew = {
     `New: a <a href="#basics">Stepper</a> shows where someone is in a flow of steps, like a checkout, with <a href="#complete">complete</a> steps, steps with an <a href="#errors">error</a> and a <a href="#narrow">vertical</a> layout in narrow containers.`,
   ],
   tabs: [
+    components(
+      `<code>Tabs</code> renders <code>role="radiogroup"</code>, so <code>aria-label</code> <a href="#accessibility">names the group</a>.`,
+    ),
+    `<a href="#without-panels">Tabs without panels</a> size to their labels, also in a row next to a heading.`,
     `<a href="#api"><code>--_panel-gap</code></a> sets the space between the tab list and the panel.`,
     `Unselected labels read <a href="#api"><code>--ui-text-subtle</code></a>.`,
     `Themes can set <a href="#api"><code>--ui-tabs-accent</code></a> for the selected label and the <a href="#line">line</a> indicator.`,

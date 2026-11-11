@@ -2,12 +2,7 @@ import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/react"
 
 export default function Outlined() {
   return (
-    <Tabs
-      aria-label="Account settings"
-      name="outlined-tabs"
-      role="radiogroup"
-      variant="outlined"
-    >
+    <Tabs aria-label="Account settings" name="outlined-tabs" variant="outlined">
       <TabsItem defaultChecked>
         <TabsLabel>Profile</TabsLabel>
         <TabsPanel>Profile settings and information.</TabsPanel>

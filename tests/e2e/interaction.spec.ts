@@ -691,6 +691,33 @@ interaction(
 
 interaction(
   "tabs",
+  "WithoutPanels",
+  "tabs without panels size to their labels in a row and keep each radio under its label",
+  async ({ page, root }) => {
+    await needs(page, "sibling-index()", () =>
+      CSS.supports("order", "sibling-index()"),
+    )
+    const group = root.getByRole("radiogroup", { name: "Show in the feed" })
+    await expect(group).toBeVisible()
+    expect((await group.boundingBox())!.width).toBeGreaterThan(0)
+
+    for (const name of ["All", "Posts", "Events"]) {
+      const radio = group.getByRole("radio", { name })
+      const label = group.locator(".ui-label", { hasText: name })
+      await expect(label).toBeVisible()
+      const [radioBox, labelBox] = [
+        (await radio.boundingBox())!,
+        (await label.boundingBox())!,
+      ]
+      const center = radioBox.x + radioBox.width / 2
+      expect(center, name).toBeGreaterThan(labelBox.x)
+      expect(center, name).toBeLessThan(labelBox.x + labelBox.width)
+    }
+  },
+)
+
+interaction(
+  "tabs",
   "Basics",
   "tabs wrap between the last and the first tab with the arrow keys",
   async ({ page, root }) => {

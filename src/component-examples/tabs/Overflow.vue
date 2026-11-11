@@ -3,7 +3,7 @@ import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/vue"
 </script>
 
 <template>
-  <Tabs aria-label="Account settings" name="overflow-tabs" role="radiogroup">
+  <Tabs aria-label="Account settings" name="overflow-tabs">
     <TabsItem checked>
       <TabsLabel>Profile</TabsLabel>
       <TabsPanel>Profile settings and information.</TabsPanel>

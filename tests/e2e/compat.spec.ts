@@ -9,11 +9,7 @@ const APPLIES: Record<string, string[]> = {
     "not (row-rule: none)",
     "not selector(: interest-source)",
   ],
-  webkit: [
-    "not (inline-size: if(else: 0px))",
-    "not (row-rule: none)",
-    "not selector(: interest-source)",
-  ],
+  webkit: ["not (row-rule: none)", "not selector(: interest-source)"],
 }
 
 test.beforeEach(async ({ page }) => {

@@ -108,6 +108,14 @@ export class Toaster extends Base {
   show(message, { action, duration, severity } = {}) {
     const list = this.list
     if (!list) return null
+    if (
+      !this.closest("dialog:modal") &&
+      this.ownerDocument.querySelector("dialog:modal")
+    ) {
+      console.warn(
+        `<opui-toaster id="${this.id}">: a modal dialog is open, so this toast is inert and screen readers don't announce it. Put a toaster inside the dialog.`,
+      )
+    }
     const item = this.ownerDocument.createElement("li")
     item.className = SEVERITIES.has(severity)
       ? `ui-callout ui-${severity}`

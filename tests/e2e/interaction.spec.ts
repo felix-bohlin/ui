@@ -2145,6 +2145,49 @@ interaction(
 
 interaction(
   "toast",
+  "Dialog",
+  "a toaster inside a modal dialog announces its toast and its close button works",
+  async ({ page, root }) => {
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    await root.getByRole("button", { name: "Edit profile" }).click()
+    const dialog = root.getByRole("dialog", { name: "Profile" })
+    await expect(dialog).toBeVisible()
+    await dialog.getByRole("button", { name: "Save" }).click()
+    const toaster = dialog.locator("opui-toaster")
+    await expect(toaster.locator("li")).toHaveText("Profile saved")
+    await expect(toaster.getByRole("status")).toHaveText("Profile saved")
+    await toaster.locator("li").getByRole("button", { name: "Close" }).click()
+    await expect(toaster.locator("li")).toHaveCount(0)
+    await expect(dialog).toBeVisible()
+  },
+)
+
+interaction(
+  "toast",
+  "Dialog",
+  "a toaster outside the open modal dialog warns",
+  async ({ page, root }) => {
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    const warnings: string[] = []
+    page.on("console", (message) => {
+      if (message.type() === "warning") warnings.push(message.text())
+    })
+    await root.getByRole("button", { name: "Edit profile" }).click()
+    await expect(root.getByRole("dialog", { name: "Profile" })).toBeVisible()
+    await page.evaluate(() => {
+      const outside = [...document.querySelectorAll("opui-toaster")].find(
+        (toaster) => !toaster.closest("dialog"),
+      ) as HTMLElement & { show: (message: string) => void }
+      outside.show("Changes saved")
+    })
+    await expect
+      .poll(() => warnings.join("\n"))
+      .toContain("a modal dialog is open, so this toast is inert")
+  },
+)
+
+interaction(
+  "toast",
   "Severities",
   "a toast without a severity has no icon",
   async ({ page, root }) => {

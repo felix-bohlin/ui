@@ -1,0 +1,62 @@
+<button
+  class="ui-button ui-outlined"
+  type="button"
+  command="show-modal"
+  commandfor="toast-dialog-1"
+>
+  Edit profile
+</button>
+
+<dialog
+  aria-labelledby="toast-dialog-1-title"
+  class="ui-dialog ui-elevated"
+  id="toast-dialog-1"
+>
+  <div class="ui-header">
+    <h2 id="toast-dialog-1-title">Profile</h2>
+    <button
+      class="ui-button ui-round ui-small"
+      type="button"
+      aria-label="Close"
+      command="close"
+      commandfor="toast-dialog-1"
+    >
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+        ></path>
+      </svg>
+    </button>
+  </div>
+  <div class="ui-content">
+    <p>Your name and photo are shown next to your posts.</p>
+  </div>
+  <div class="ui-footer">
+    <button
+      class="ui-button ui-filled"
+      type="button"
+      command="--toast"
+      commandfor="toast-dialog-2"
+      data-toast="Profile saved"
+      data-toast-severity="success"
+    >
+      Save
+    </button>
+  </div>
+  <opui-toaster id="toast-dialog-2" class="ui-toaster">
+    <ol popover="manual"></ol>
+    <div class="ui-sr-only" role="status"></div>
+    <div class="ui-sr-only" role="alert"></div>
+  </opui-toaster>
+</dialog>
+
+<script type="module">
+  import "opui-css/elements/toaster.js"
+</script>

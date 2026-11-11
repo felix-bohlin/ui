@@ -1503,6 +1503,7 @@ export const whatsNew = {
       html: `New component. <a href="#basics">Toasts</a> that confirm an action and dismiss themselves, shown by a button with <code>command="--toast"</code> or <a href="#from-a-script"><code>toast()</code></a>. Import <code>opui-css/elements/toaster.js</code> for the <code>&lt;opui-toaster&gt;</code> custom element that runs them. <a href="#action"><code>action</code></a> adds a button like Undo. A dismissed toast fades out and the stack closes the gap.`,
     },
     `Themes can make toasts spring in with <a href="#api"><code>--ui-ease-move</code></a>.`,
+    `A modal dialog <a href="#in-a-dialog">gets a toaster of its own</a>, and a toaster outside the open dialog warns in the console.`,
     `The severity and close <a href="#icons">icons</a> are masks, so <code>--_critical-image</code>, <code>--_info-image</code>, <code>--_success-image</code>, <code>--_warning-image</code> and <code>--_close-image</code> swap them for your own.`,
     `A critical toast is announced through an <a href="#accessibility">assertive region</a>, so it interrupts other speech.`,
     {

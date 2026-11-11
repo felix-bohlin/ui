@@ -237,6 +237,18 @@ export const keywords = ["notification", "snackbar"]
     <AutoExample name="Duration" row />
   </section>
 
+  <section id="in-a-dialog">
+    <h2>In a dialog</h2>
+    <p>
+      A modal <DocLink href="/components/dialog">Dialog</DocLink> or
+      <DocLink href="/components/drawer">Drawer</DocLink> makes the rest of the
+      page inert, toasts included. Give it a toaster of its own:
+      <code>toast()</code> uses the one inside the open dialog, and a toaster
+      outside it warns in the console.
+    </p>
+    <AutoExample name="Dialog" centered />
+  </section>
+
   <Fragment slot="accessibility">
     <ul>
       <li>
@@ -245,8 +257,8 @@ export const keywords = ["notification", "snackbar"]
       <li>
         Give a modal <DocLink href="/components/dialog">Dialog</DocLink> or
         <DocLink href="/components/drawer">Drawer</DocLink> that shows toasts a
-        toaster of its own, since the page behind it is inert.
-        <code>toast()</code> uses it while the dialog is open.
+        <a href="#in-a-dialog">toaster of its own</a>, since the page behind it
+        is inert. <code>toast()</code> uses it while the dialog is open.
       </li>
     </ul>
     <KeyboardSupport />

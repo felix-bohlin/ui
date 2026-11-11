@@ -2,6 +2,7 @@ import { readdirSync } from "node:fs"
 import { expect, test } from "@playwright/test"
 import type { Locator, Page } from "@playwright/test"
 import { FRAMEWORK_IDS } from "../../src/utils/framework"
+import { FIREFOX_STICKY_ANCHOR_SCROLL, failsIn } from "./engine-bugs"
 import {
   computed,
   instantScrolling,
@@ -553,8 +554,10 @@ test("renews the highlight ranges of an Installation tab when it is shown", asyn
 })
 
 test("a long section heading takes the content width, passes under the header links and sticks as a one-line copy without changing its height or the scroll position", async ({
+  browserName,
   page,
 }) => {
+  failsIn(browserName, { firefox: FIREFOX_STICKY_ANCHOR_SCROLL })
   await page.setViewportSize({ height: 800, width: 1300 })
   await page.goto("/html/components/spinner/")
   await page.evaluate(() => document.fonts.ready)

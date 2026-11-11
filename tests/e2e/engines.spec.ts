@@ -4,6 +4,7 @@ import {
   ENGINE_BUGS,
   FIREFOX_SELF_RTL,
   FIREFOX_STALE_FALLBACK_OPACITY,
+  FIREFOX_STICKY_ANCHOR_SCROLL,
   WEBKIT_ARROW_FOCUS_SCROLL,
   WEBKIT_HIGHLIGHT_HIDDEN_TEXT,
   WEBKIT_INNER_TEXT_HIDDEN_NODES,
@@ -153,6 +154,40 @@ repro(FIREFOX_STALE_FALLBACK_OPACITY, () => {
             .evaluate((popover) => getComputedStyle(popover).opacity),
         )
         .toBe("1")
+    })
+  }
+})
+
+repro(FIREFOX_STICKY_ANCHOR_SCROLL, () => {
+  for (const scrolled of [false, true]) {
+    test(`a fixed element anchored to a sticky header lines up with it ${scrolled ? "on a scrolled page" : "at the top of the page"}`, async ({
+      browserName,
+      page: tab,
+    }) => {
+      failsIn(
+        browserName,
+        scrolled ? { firefox: FIREFOX_STICKY_ANCHOR_SCROLL } : {},
+      )
+      await tab.setContent(`<!doctype html>
+<style>
+  body { margin: 0 }
+  #header { anchor-name: --header; block-size: 60px; inset-block-start: 16px; margin-block-start: 16px; position: sticky }
+  #overlay { bottom: anchor(--header bottom); left: 0; position: fixed; right: 0; top: anchor(--header top) }
+  .spacer { block-size: 3000px }
+</style>
+<div id="header">Header</div>
+<div id="overlay"></div>
+<div class="spacer"></div>`)
+      if (scrolled) await tab.evaluate(() => scrollTo(0, 1000))
+      await expect
+        .poll(() =>
+          tab.evaluate(() => {
+            const box = (id: string) =>
+              document.getElementById(id)!.getBoundingClientRect()
+            return Math.round(box("overlay").top - box("header").top)
+          }),
+        )
+        .toBe(0)
     })
   }
 })

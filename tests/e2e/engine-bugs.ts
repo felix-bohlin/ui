@@ -6,6 +6,9 @@ export const FIREFOX_SELF_RTL =
 export const FIREFOX_STALE_FALLBACK_OPACITY =
   "Firefox's getComputedStyle keeps an opacity from partway through a fade, while it paints the end value, on a popover that a position-try fallback moved after a hover rule started the fade"
 
+export const FIREFOX_STICKY_ANCHOR_SCROLL =
+  "Firefox moves a fixed element whose insets use anchor() down by the page scroll when its anchor is a sticky header at the top of the page, instead of keeping it on the stuck header"
+
 export const WEBKIT_ARROW_FOCUS_SCROLL =
   "WebKit doesn't bring the label of a clipped radio that the arrow keys focus fully into view in its scroll container"
 
@@ -25,7 +28,11 @@ export const WEBKIT_TOP_LAYER_ANCHOR =
   "WebKit moves a popover up by the page scroll when its anchor is in the top layer too, inside a modal dialog or another popover"
 
 export const ENGINE_BUGS = {
-  firefox: [FIREFOX_SELF_RTL, FIREFOX_STALE_FALLBACK_OPACITY],
+  firefox: [
+    FIREFOX_SELF_RTL,
+    FIREFOX_STALE_FALLBACK_OPACITY,
+    FIREFOX_STICKY_ANCHOR_SCROLL,
+  ],
   webkit: [
     WEBKIT_ARROW_FOCUS_SCROLL,
     WEBKIT_HIGHLIGHT_HIDDEN_TEXT,

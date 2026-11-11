@@ -982,7 +982,7 @@ interaction(
     const tooltip = root.locator(".ui-floating")
     const resting = await computed(trigger, "background-color")
 
-    await tooltip.evaluate((element) => element.showPopover())
+    await tooltip.evaluate((element: HTMLElement) => element.showPopover())
     await expect(tooltip).toBeVisible()
     await trigger.evaluate((element) =>
       Promise.all(element.getAnimations().map(({ finished }) => finished)),

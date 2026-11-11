@@ -25,7 +25,7 @@ import {
     <DialogFooter>
       <Button
         command="--toast"
-        commandfor="toast-dialog-2"
+        commandfor="toast-dialog-1-toaster"
         data-toast="Profile saved"
         data-toast-severity="success"
         variant="filled"
@@ -33,6 +33,6 @@ import {
         Save
       </Button>
     </DialogFooter>
-    <Toaster id="toast-dialog-2" />
+    <Toaster id="toast-dialog-1-toaster" />
   </Dialog>
 </template>

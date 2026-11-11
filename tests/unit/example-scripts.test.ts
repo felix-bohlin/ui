@@ -67,6 +67,14 @@ const HOOKS = [
         ? "opui-css/css/js/range.js"
         : undefined,
   },
+  {
+    hook: "a dialog[data-close-on-navigate]",
+    module: (element: Element) =>
+      element.tagName === "dialog" &&
+      hasAttribute(element, "data-close-on-navigate")
+        ? "opui-css/elements/close-on-navigate.js"
+        : undefined,
+  },
 ]
 
 const IMPORT = /\bimport\s+(?:[^"';]*?\sfrom\s+)?["']([^"']+)["'];?/g
@@ -171,6 +179,14 @@ describe("example scripts", () => {
       }),
     ).toEqual([
       'a/Ticks.html has a datalist option[label] in a .ui-range but doesn\'t import "opui-css/css/js/range.js"',
+    ])
+    expect(
+      problemsOf({
+        html: '<dialog class="ui-drawer" data-close-on-navigate></dialog>',
+        name: "a/Drawer",
+      }),
+    ).toEqual([
+      'a/Drawer.html has a dialog[data-close-on-navigate] but doesn\'t import "opui-css/elements/close-on-navigate.js"',
     ])
     expect(
       problemsOf({

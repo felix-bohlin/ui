@@ -4,6 +4,7 @@ export default function Autosuggest() {
   return (
     <>
       <TextField
+        id="text-field-autosuggest-1"
         label="Users"
         list="text-field-autosuggest-1-list"
         placeholder="Search people"
@@ -16,6 +17,7 @@ export default function Autosuggest() {
       </TextField>
 
       <TextField
+        id="text-field-autosuggest-2"
         label="Emails"
         list="text-field-autosuggest-2-list"
         placeholder="name@example.com"

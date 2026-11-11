@@ -87,6 +87,7 @@ const OWNERS = [
   "ui-range",
   "ui-select",
   "ui-text-field",
+  "ui-textarea",
 ]
 
 const GROUPS = ["ui-tabs", "ui-toggle-group"]

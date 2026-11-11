@@ -3,6 +3,7 @@
 </script>
 
 <TextField
+  id="text-field-autosuggest-1"
   label="Users"
   list="text-field-autosuggest-1-list"
   placeholder="Search people"
@@ -15,6 +16,7 @@
 </TextField>
 
 <TextField
+  id="text-field-autosuggest-2"
   label="Emails"
   list="text-field-autosuggest-2-list"
   placeholder="name@example.com"

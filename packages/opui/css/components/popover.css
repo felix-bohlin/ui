@@ -110,6 +110,7 @@
   }
 
   :where(.ui-popover) {
+    --_content-anchor: --ui-popover-content;
     --_max-inline-size: 24rem;
     --_min-inline-size: 16rem;
     --_padding: var(--ui-space-3);
@@ -129,6 +130,11 @@
 
     &:popover-open {
       display: flex;
+    }
+
+    &:has(> .ui-content) {
+      overflow-block: clip;
+      overflow-inline: clip;
     }
 
     & > .ui-header {

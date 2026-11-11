@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test"
 import { FIREFOX_SELF_RTL, failsIn } from "./engine-bugs"
-import { openFixture } from "./fixtures"
+import { needs, openFixture } from "./fixtures"
 import {
   SCENARIOS,
   id,
@@ -124,6 +124,45 @@ test("a dialog without a footer can't scroll itself", async ({ page }) => {
   await expect(dialog.locator("> .ui-footer")).toHaveCount(0)
   expect(
     await dialog.evaluate((element) => {
+      element.scrollTop = 40
+      return element.scrollTop
+    }),
+  ).toBe(0)
+})
+
+test("a tall popover shows a scroll shadow where its content has more to scroll", async ({
+  page,
+}) => {
+  await openFixture(page, "html", "stress/overlays")
+  await needs(page, "scroll-state container queries", () =>
+    CSS.supports("container-type", "scroll-state"),
+  )
+  await run(page, { open: "popover-tall" })
+  const content = page.locator(`${id("popover-tall")} > .ui-content`)
+  const shadows = () =>
+    content.evaluate((element) =>
+      ["::before", "::after"].map(
+        (pseudo) => getComputedStyle(element, pseudo).opacity,
+      ),
+    )
+  await expect.poll(shadows).toEqual(["0", "1"])
+  await content.evaluate((element) => {
+    element.scrollTop = 80
+  })
+  await expect.poll(shadows).toEqual(["1", "1"])
+  await content.evaluate((element) => {
+    element.scrollTop = element.scrollHeight
+  })
+  await expect.poll(shadows).toEqual(["1", "0"])
+})
+
+test("a popover without a footer can't scroll itself", async ({ page }) => {
+  await openFixture(page, "html", "stress/overlays")
+  await run(page, { open: "popover-end" })
+  const popover = page.locator(id("popover-end"))
+  await expect(popover.locator("> .ui-footer")).toHaveCount(0)
+  expect(
+    await popover.evaluate((element) => {
       element.scrollTop = 40
       return element.scrollTop
     }),

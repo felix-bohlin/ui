@@ -103,6 +103,7 @@ export default {
       selector: ".ui-header > h2",
     },
     {
+      anchorName: "--ui-popover-content",
       component: "PopoverContent",
       description: "The scrollable content.",
       selector: ".ui-content",

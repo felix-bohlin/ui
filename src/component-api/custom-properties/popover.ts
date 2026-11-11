@@ -15,6 +15,11 @@ export default {
     description: "The border width. Defaults to `--ui-border-width`.",
     kind: "input",
   },
+  "--_content-anchor": {
+    description:
+      "Anchor name of the `.ui-content`, which places its scroll shadows. Declared in `card.css` and set to `--ui-popover-content` here.",
+    kind: "output",
+  },
   "--_duration": {
     description:
       "Duration of the transitions, `--ui-duration-slow` times `--_motion`.",

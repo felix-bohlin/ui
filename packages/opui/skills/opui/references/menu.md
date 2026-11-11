@@ -81,7 +81,7 @@ Outputs: `--_font-size`, `--_icon-size`, `--_item-duration`, `--_selected-shadow
 - `--_shadow`: The shadow. Defaults to `--ui-shadow-overlay`.
 - `--_title-font-size`: Font size of the title in the header, declared in `card.css` and set to `--ui-font-size-h6` here.
 
-Outputs: `--_duration`, `--_ease`, `--_ease-move`, `--_fit-max-block-size`, `--_margin-block`, `--_margin-inline`, `--_position-area`, `--_side` and `--_span`.
+Outputs: `--_content-anchor`, `--_duration`, `--_ease`, `--_ease-move`, `--_fit-max-block-size`, `--_margin-block`, `--_margin-inline`, `--_position-area`, `--_side` and `--_span`.
 
 ### menu.css
 

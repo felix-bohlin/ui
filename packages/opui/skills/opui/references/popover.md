@@ -84,7 +84,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_shadow`: The shadow. Defaults to `--ui-shadow-overlay`.
 - `--_title-font-size`: Font size of the title in the header, declared in `card.css` and set to `--ui-font-size-h6` here.
 
-Outputs: `--_duration`, `--_ease`, `--_ease-move`, `--_fit-max-block-size`, `--_margin-block`, `--_margin-inline`, `--_position-area`, `--_side` and `--_span`.
+Outputs: `--_content-anchor`, `--_duration`, `--_ease`, `--_ease-move`, `--_fit-max-block-size`, `--_margin-block`, `--_margin-inline`, `--_position-area`, `--_side` and `--_span`.
 
 ### card.css
 
@@ -100,7 +100,7 @@ Outputs: `--_duration`, `--_ease`, `--_ease-move`, `--_fit-max-block-size`, `--_
 - `--_motion`: Motion multiplier for the card link border transition and the focus ring animation. `0` turns them off.
 - `--_outlined-border-color`: Border color of `.ui-outlined`. Defaults to `--ui-border-color`.
 - `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
-- `--_scroll-shadow`: Shadow at the edges of a dialog's or drawer's `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
+- `--_scroll-shadow`: Shadow at the edges of a dialog's, drawer's or popover's `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
 - `--_surface-bg-color`: Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-surface`.
 - `--_title-font-size`: Font size of a dialog's, drawer's or popover's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`, and `popover.css` sets it to `--ui-font-size-h6`.
 - `--_tonal-bg-color`: Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`.

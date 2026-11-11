@@ -1464,8 +1464,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (3) Dialog: a dialog whose `.ui-content` is its last child scrolls by the height of the bottom scroll shadow. The `::after` of `.ui-content` sits below the content, outside the dialog's padding box, and `dialog.css` gives the dialog `overflow: auto`, so the dialog's `scrollHeight` is `--ui-space-2` more than its `clientHeight` (`packages/opui/css/components/card.css:462-465`, `packages/opui/css/components/dialog.css:18`)
   - Summary: A dialog without a footer can be scrolled a few pixels, and shows a scrollbar where scrollbars are always visible.
   - Recommended: Fix. The shadow only has to stay inside the dialog.
-  - Fix: confirm with a `dialog.ui-dialog` that has a header and content but no footer: `scrollHeight` is 8px more than `clientHeight`, measured in Chromium. Then keep the bottom shadow inside the dialog's padding box where `.ui-content` is the last child. Popover shares the header, content and footer rules in `card.css` but not the scroll shadows, for this reason.
-  - Fixed: A `.ui-dialog` with a `.ui-content` child clips its own overflow (`overflow-block` and `overflow-inline: clip` in `dialog.css`), like a `Drawer`, so only its content scrolls. A dialog without a `.ui-content` child keeps `overflow: auto`. `tests/e2e/stress-overlays.spec.ts` checks a dialog without a footer. Popover still has no scroll shadows.
+  - Fix: confirm with a `dialog.ui-dialog` that has a header and content but no footer: `scrollHeight` is 8px more than `clientHeight`, measured in Chromium. Then keep the bottom shadow inside the dialog's padding box where `.ui-content` is the last child.
+  - Fixed: A `.ui-dialog` with a `.ui-content` child clips its own overflow (`overflow-block` and `overflow-inline: clip` in `dialog.css`), like a `Drawer`, so only its content scrolls. A dialog without a `.ui-content` child keeps `overflow: auto`. `tests/e2e/stress-overlays.spec.ts` checks a dialog without a footer. Popover shares the scroll shadows and clips the same way.
 
 ## Docs
 

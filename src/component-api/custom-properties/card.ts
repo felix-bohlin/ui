@@ -31,7 +31,7 @@ export default {
   },
   "--_content-anchor": {
     description:
-      "Anchor name of a dialog's or drawer's `.ui-content`, which places its scroll shadows. `--ui-dialog-content` or `--ui-drawer-content`.",
+      "Anchor name of a dialog's, drawer's or popover's `.ui-content`, which places its scroll shadows. `--ui-dialog-content`, `--ui-drawer-content` or `--ui-popover-content`.",
     kind: "output",
   },
   "--_duration": {
@@ -91,7 +91,7 @@ export default {
   },
   "--_scroll-shadow": {
     description:
-      "Shadow at the edges of a dialog's or drawer's `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.",
+      "Shadow at the edges of a dialog's, drawer's or popover's `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.",
     kind: "input",
   },
   "--_shadow": {

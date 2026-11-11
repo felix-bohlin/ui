@@ -201,7 +201,7 @@ export const whatsNew = {
       html: `Breaking: <code>.ui-icon-only</code> is removed. A button whose only child is an <code>svg</code> is <a href="#icon-only">square</a>.`,
     },
     `Links with <code>aria-disabled="true"</code> <a href="#disabled">look and act disabled</a>.`,
-    `A button keeps its <a href="#variants">pressed colors</a> while the popover right after it is open.`,
+    `A button with <code>commandfor</code> or <code>popovertarget</code> keeps its <a href="#variants">pressed colors</a> while the popover right after it is open. A tooltip doesn't count.`,
     slots(
       `Breaking: no <code>.ui-disabled</code> on a <a href="#disabled">disabled</a> button. Style <code>:disabled</code> or <code>[aria-disabled="true"]</code>.`,
     ),

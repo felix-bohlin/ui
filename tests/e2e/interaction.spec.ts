@@ -937,6 +937,24 @@ interaction(
 
 interaction(
   "tooltip",
+  "IconButton",
+  "a button keeps its resting colors while its tooltip is open",
+  async ({ root }) => {
+    const trigger = root.getByRole("button", { name: "Save to wishlist" })
+    const tooltip = root.locator(".ui-floating")
+    const resting = await computed(trigger, "background-color")
+
+    await tooltip.evaluate((element) => element.showPopover())
+    await expect(tooltip).toBeVisible()
+    await trigger.evaluate((element) =>
+      Promise.all(element.getAnimations().map(({ finished }) => finished)),
+    )
+    expect(await computed(trigger, "background-color")).toBe(resting)
+  },
+)
+
+interaction(
+  "tooltip",
   "Toggletip",
   "toggletip toggles on click without hover",
   async ({ root }) => {
@@ -1315,13 +1333,18 @@ interaction(
   "menu",
   "Basics",
   "menu opens from its trigger and closes on an item",
-  async ({ root }) => {
+  async ({ page, root }) => {
     const trigger = root.getByRole("button", { name: "Options" })
     const menu = root.locator("menu.ui-menu")
 
     await expect(menu).toBeHidden()
+    const resting = await computed(trigger, "background-color")
     await trigger.click()
     await expect(menu).toBeVisible()
+    await page.mouse.move(0, 0)
+    await expect
+      .poll(() => computed(trigger, "background-color"))
+      .not.toBe(resting)
     await menu.getByRole("button", { name: "Delete" }).click()
     await expect(menu).toBeHidden()
   },

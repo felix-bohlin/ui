@@ -217,7 +217,12 @@
         }
       }
 
-      &:where(:active, :has(+ :popover-open)) {
+      &:where(
+        :active,
+        :is([commandfor], [popovertarget]):has(
+          + :popover-open:not([popover="hint"])
+        )
+      ) {
         --_bg-color: var(--_default-active-bg-color);
       }
 
@@ -364,7 +369,12 @@
           }
         }
 
-        &:where(:active, :has(+ :popover-open)) {
+        &:where(
+          :active,
+          :is([commandfor], [popovertarget]):has(
+            + :popover-open:not([popover="hint"])
+          )
+        ) {
           --_bg-color: var(--_outlined-active-bg-color);
           --_border-color: var(
             --ui-control-border-color,
@@ -414,7 +424,12 @@
           }
         }
 
-        &:where(:active, :has(+ :popover-open)) {
+        &:where(
+          :active,
+          :is([commandfor], [popovertarget]):has(
+            + :popover-open:not([popover="hint"])
+          )
+        ) {
           --_bg-color: var(--_tonal-active-bg-color);
           --_text-color: var(--_tonal-active-text-color);
         }
@@ -438,7 +453,12 @@
           }
         }
 
-        &:where(:active, :has(+ :popover-open)) {
+        &:where(
+          :active,
+          :is([commandfor], [popovertarget]):has(
+            + :popover-open:not([popover="hint"])
+          )
+        ) {
           --_bg-color: var(--_filled-active-bg-color);
         }
 

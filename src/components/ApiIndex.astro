@@ -204,23 +204,39 @@ const apiList = Object.values(groups)
     if (input.value) filter()
   }
 
+  let stopSettling = () => {}
+
   const settle = () => {
+    stopSettling()
     const target = document.getElementById(location.hash.slice(1))
     if (!target) return
     if (input && target.closest("[hidden]")) {
       input.value = ""
       filter()
     }
-    let frames = 0
-    let last = NaN
-    const align = () => {
-      const top = target.getBoundingClientRect().top
-      if (top === last || ++frames > 30) return
+    target.scrollIntoView()
+    let top = target.getBoundingClientRect().top
+    const observer = new ResizeObserver(() => {
+      if (Math.abs(target.getBoundingClientRect().top - top) < 1) return
       target.scrollIntoView()
-      last = target.getBoundingClientRect().top
-      requestAnimationFrame(align)
+      top = target.getBoundingClientRect().top
+    })
+    const controller = new AbortController()
+    const stop = () => {
+      observer.disconnect()
+      controller.abort()
     }
-    align()
+    stopSettling = stop
+    const content = sections[0]?.parentElement
+    if (content) observer.observe(content)
+    for (const section of sections) observer.observe(section)
+    for (const type of ["keydown", "pointerdown", "touchstart", "wheel"]) {
+      addEventListener(type, stop, {
+        passive: true,
+        signal: controller.signal,
+      })
+    }
+    setTimeout(stop, 5000)
   }
 
   addEventListener("hashchange", settle)

@@ -1,0 +1,42 @@
+---
+import Code from "../../../../components/Code.astro"
+import readme from "../../../../../packages/opui/README.md?raw"
+
+type Props = {
+  tools: ("next" | "vite")[]
+}
+
+const { tools } = Astro.props
+
+const SECTION = "### Builds that rewrite `light-dark()`"
+const start = readme.indexOf(SECTION)
+const section = readme.slice(start, readme.indexOf("\n## ", start))
+const blocks = new Map(
+  [...section.matchAll(/```js\n(\/\/ (\w+)\.config[^\n]*\n[\s\S]*?)```/g)].map(
+    ([, code = "", tool = ""]) => [tool, code.trim()],
+  ),
+)
+const missing = tools.filter((tool) => !blocks.has(tool))
+if (start === -1 || missing.length > 0) {
+  throw new Error(
+    `The README's "${SECTION}" section has no ${missing.join(" or ")}.config block`,
+  )
+}
+---
+
+<p>
+  Vite 8, which SvelteKit and Nuxt build with, and Next 16 rewrite
+  <code>light-dark()</code> for older browsers by default. The colors still
+  follow the OS, and <code>.ui-light</code> or <code>.ui-dark</code> on
+  <code>html</code> still works, but on a part of the page it stops switching
+  after a build. Target browsers that have <code>light-dark()</code>:
+</p>
+{tools.map((tool) => (
+  <Code code={blocks.get(tool)!} lang="js" />
+))}
+<p>
+  Vite also prints warnings like
+  <code>'scroll-button' is not recognized as a valid pseudo-element</code>
+  for the Carousel, even without one on the page. They're harmless: the rules
+  stay in the output.
+</p>

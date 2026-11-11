@@ -1,6 +1,7 @@
 ---
 import Guide from "../../../layouts/Guide.astro"
 import Code from "../../../components/Code.astro"
+import Builds from "./partials/Builds.astro"
 import CssFiles from "./partials/CssFiles.astro"
 import InstallCommand from "./partials/InstallCommand.astro"
 import NextSteps from "./partials/NextSteps.astro"
@@ -56,6 +57,11 @@ export default function App() {
 import "./styles/main.css"`}
       lang="tsx"
     />
+  </section>
+
+  <section id="builds">
+    <h2>Builds</h2>
+    <Builds tools={["next", "vite"]} />
   </section>
 
   <section id="usage">

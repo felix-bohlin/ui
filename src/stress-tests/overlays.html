@@ -3023,7 +3023,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
     next to a content part, a popover with a set height keeps its footer at the
     bottom, and a form with a field takes the footer's row. The Order dialog has
     no footer, and only its content can scroll. The Move dialog has a list
-    beside its content and scrolls as a whole, so its footer stays in reach.
+    beside its content and scrolls as a whole, so its footer stays in reach. The
+    second row has children that render nothing straight in a popover and in a
+    dialog, a hidden input, a closed menu and a template: only the content
+    scrolls, and the menu keeps its minimum height. A paragraph above a list
+    keeps its height while the list scrolls, and a popover with a set height and
+    a list keeps its footer at the bottom.
   </p>
   <div class="stress-overlays-spread">
     <button
@@ -3619,6 +3624,332 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
       </div>
     </div>
   </div>
+  <div class="stress-overlays-spread">
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-popover-hidden"
+      command="toggle-popover"
+    >
+      Labels
+    </button>
+    <div
+      aria-labelledby="stress-overlays-popover-hidden-title"
+      class="ui-popover"
+      id="stress-overlays-popover-hidden"
+      popover
+      role="dialog"
+    >
+      <div class="ui-header">
+        <h2 id="stress-overlays-popover-hidden-title">Labels</h2>
+        <button
+          class="ui-button ui-small"
+          type="button"
+          commandfor="stress-overlays-popover-hidden-menu"
+          command="toggle-popover"
+        >
+          Sort
+        </button>
+      </div>
+      <div
+        class="ui-content"
+        aria-label="All labels"
+        role="region"
+        tabindex="0"
+      >
+        <ol>
+          <li>Label 1: bug, feature, docs or question.</li>
+          <li>Label 2: bug, feature, docs or question.</li>
+          <li>Label 3: bug, feature, docs or question.</li>
+          <li>Label 4: bug, feature, docs or question.</li>
+          <li>Label 5: bug, feature, docs or question.</li>
+          <li>Label 6: bug, feature, docs or question.</li>
+          <li>Label 7: bug, feature, docs or question.</li>
+          <li>Label 8: bug, feature, docs or question.</li>
+          <li>Label 9: bug, feature, docs or question.</li>
+          <li>Label 10: bug, feature, docs or question.</li>
+          <li>Label 11: bug, feature, docs or question.</li>
+          <li>Label 12: bug, feature, docs or question.</li>
+          <li>Label 13: bug, feature, docs or question.</li>
+          <li>Label 14: bug, feature, docs or question.</li>
+          <li>Label 15: bug, feature, docs or question.</li>
+          <li>Label 16: bug, feature, docs or question.</li>
+          <li>Label 17: bug, feature, docs or question.</li>
+          <li>Label 18: bug, feature, docs or question.</li>
+          <li>Label 19: bug, feature, docs or question.</li>
+          <li>Label 20: bug, feature, docs or question.</li>
+          <li>Label 21: bug, feature, docs or question.</li>
+          <li>Label 22: bug, feature, docs or question.</li>
+          <li>Label 23: bug, feature, docs or question.</li>
+          <li>Label 24: bug, feature, docs or question.</li>
+          <li>Label 25: bug, feature, docs or question.</li>
+          <li>Label 26: bug, feature, docs or question.</li>
+          <li>Label 27: bug, feature, docs or question.</li>
+          <li>Label 28: bug, feature, docs or question.</li>
+          <li>Label 29: bug, feature, docs or question.</li>
+          <li>Label 30: bug, feature, docs or question.</li>
+        </ol>
+      </div>
+      <div class="ui-footer">
+        <button
+          class="ui-button"
+          type="button"
+          commandfor="stress-overlays-popover-hidden"
+          command="hide-popover"
+        >
+          Done
+        </button>
+      </div>
+      <input type="hidden" name="scope" value="project" />
+      <menu
+        class="ui-menu ui-align-end"
+        id="stress-overlays-popover-hidden-menu"
+        popover
+      >
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-popover-hidden-menu"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>By name</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-popover-hidden-menu"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>By use</p></div>
+          </button>
+        </li>
+      </menu>
+      <template></template>
+    </div>
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-popover-intro"
+      command="toggle-popover"
+    >
+      Teams
+    </button>
+    <div
+      aria-labelledby="stress-overlays-popover-intro-title"
+      class="ui-popover"
+      id="stress-overlays-popover-intro"
+      popover
+      role="dialog"
+    >
+      <div class="ui-header">
+        <h2 id="stress-overlays-popover-intro-title">Teams</h2>
+      </div>
+      <p style="margin: 0; padding: var(--size-2) var(--size-3)">
+        Pick the team that owns the project. You can change it later.
+      </p>
+      <ul class="ui-list ui-transparent" role="list">
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 1</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 2</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 3</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 4</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 5</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 6</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 7</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 8</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 9</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 10</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 11</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 12</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 13</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 14</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 15</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 16</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 17</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 18</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 19</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 20</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 21</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 22</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 23</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 24</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 25</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 26</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 27</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 28</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 29</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-intro"
+            ><div class="ui-text"><p>Team 30</p></div></a
+          >
+        </li>
+      </ul>
+      <div class="ui-footer">
+        <a class="ui-button" href="#stress-overlays-popover-intro">See all</a>
+      </div>
+    </div>
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-popover-fixed-list"
+      command="toggle-popover"
+    >
+      Recent
+    </button>
+    <div
+      aria-labelledby="stress-overlays-popover-fixed-list-title"
+      class="ui-popover"
+      id="stress-overlays-popover-fixed-list"
+      popover
+      role="dialog"
+      style="block-size: 20rem"
+    >
+      <div class="ui-header">
+        <h2 id="stress-overlays-popover-fixed-list-title">Recent</h2>
+      </div>
+      <ul class="ui-list ui-transparent" role="list">
+        <li>
+          <a href="#stress-overlays-popover-fixed-list"
+            ><div class="ui-text"><p>Project 1</p></div></a
+          >
+        </li>
+        <li>
+          <a href="#stress-overlays-popover-fixed-list"
+            ><div class="ui-text"><p>Project 2</p></div></a
+          >
+        </li>
+      </ul>
+      <div class="ui-footer">
+        <a class="ui-button" href="#stress-overlays-popover-fixed-list"
+          >See all</a
+        >
+      </div>
+    </div>
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-hidden-dialog"
+      command="show-modal"
+    >
+      Import
+    </button>
+  </div>
   <dialog
     id="stress-overlays-list-dialog"
     class="ui-dialog ui-elevated"
@@ -3828,6 +4159,129 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
         </div>
       </div>
     </div>
+  </dialog>
+  <dialog
+    id="stress-overlays-hidden-dialog"
+    class="ui-dialog ui-elevated"
+    aria-labelledby="stress-overlays-hidden-dialog-heading"
+    closedby="any"
+  >
+    <div class="ui-header">
+      <h2 id="stress-overlays-hidden-dialog-heading">Import members</h2>
+    </div>
+    <div
+      class="ui-content"
+      aria-label="Rows to import"
+      role="region"
+      tabindex="0"
+    >
+      <ol>
+        <li>Row 1: name, email, team and role.</li>
+        <li>Row 2: name, email, team and role.</li>
+        <li>Row 3: name, email, team and role.</li>
+        <li>Row 4: name, email, team and role.</li>
+        <li>Row 5: name, email, team and role.</li>
+        <li>Row 6: name, email, team and role.</li>
+        <li>Row 7: name, email, team and role.</li>
+        <li>Row 8: name, email, team and role.</li>
+        <li>Row 9: name, email, team and role.</li>
+        <li>Row 10: name, email, team and role.</li>
+        <li>Row 11: name, email, team and role.</li>
+        <li>Row 12: name, email, team and role.</li>
+        <li>Row 13: name, email, team and role.</li>
+        <li>Row 14: name, email, team and role.</li>
+        <li>Row 15: name, email, team and role.</li>
+        <li>Row 16: name, email, team and role.</li>
+        <li>Row 17: name, email, team and role.</li>
+        <li>Row 18: name, email, team and role.</li>
+        <li>Row 19: name, email, team and role.</li>
+        <li>Row 20: name, email, team and role.</li>
+        <li>Row 21: name, email, team and role.</li>
+        <li>Row 22: name, email, team and role.</li>
+        <li>Row 23: name, email, team and role.</li>
+        <li>Row 24: name, email, team and role.</li>
+        <li>Row 25: name, email, team and role.</li>
+        <li>Row 26: name, email, team and role.</li>
+        <li>Row 27: name, email, team and role.</li>
+        <li>Row 28: name, email, team and role.</li>
+        <li>Row 29: name, email, team and role.</li>
+        <li>Row 30: name, email, team and role.</li>
+        <li>Row 31: name, email, team and role.</li>
+        <li>Row 32: name, email, team and role.</li>
+        <li>Row 33: name, email, team and role.</li>
+        <li>Row 34: name, email, team and role.</li>
+        <li>Row 35: name, email, team and role.</li>
+        <li>Row 36: name, email, team and role.</li>
+        <li>Row 37: name, email, team and role.</li>
+        <li>Row 38: name, email, team and role.</li>
+        <li>Row 39: name, email, team and role.</li>
+        <li>Row 40: name, email, team and role.</li>
+        <li>Row 41: name, email, team and role.</li>
+        <li>Row 42: name, email, team and role.</li>
+        <li>Row 43: name, email, team and role.</li>
+        <li>Row 44: name, email, team and role.</li>
+        <li>Row 45: name, email, team and role.</li>
+        <li>Row 46: name, email, team and role.</li>
+        <li>Row 47: name, email, team and role.</li>
+        <li>Row 48: name, email, team and role.</li>
+        <li>Row 49: name, email, team and role.</li>
+        <li>Row 50: name, email, team and role.</li>
+        <li>Row 51: name, email, team and role.</li>
+        <li>Row 52: name, email, team and role.</li>
+        <li>Row 53: name, email, team and role.</li>
+        <li>Row 54: name, email, team and role.</li>
+        <li>Row 55: name, email, team and role.</li>
+        <li>Row 56: name, email, team and role.</li>
+        <li>Row 57: name, email, team and role.</li>
+        <li>Row 58: name, email, team and role.</li>
+        <li>Row 59: name, email, team and role.</li>
+        <li>Row 60: name, email, team and role.</li>
+      </ol>
+    </div>
+    <div class="ui-footer">
+      <button
+        class="ui-button"
+        type="button"
+        commandfor="stress-overlays-hidden-dialog-menu"
+        command="toggle-popover"
+      >
+        Format
+      </button>
+      <button
+        class="ui-button ui-filled"
+        type="button"
+        commandfor="stress-overlays-hidden-dialog"
+        command="close"
+      >
+        Import
+      </button>
+    </div>
+    <input type="hidden" name="source" value="upload" />
+    <menu
+      class="ui-menu ui-block-start"
+      id="stress-overlays-hidden-dialog-menu"
+      popover
+    >
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-hidden-dialog-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>CSV</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-hidden-dialog-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>JSON</p></div>
+        </button>
+      </li>
+    </menu>
+    <template></template>
   </dialog>
 </section>
 <section class="stress" data-example="SplitButtonMenu">

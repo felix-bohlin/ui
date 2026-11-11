@@ -1594,6 +1594,52 @@ interaction(
 
 interaction(
   "popover",
+  "Basics",
+  "a link in a popover with closeOnNavigate that stays on the page closes it, also through a client router, and a field that replaces the query keeps it open",
+  async ({ page, root }) => {
+    await needs(page, "the Navigation API", () => "navigation" in window)
+    const trigger = root.getByRole("button", { name: "Notifications" })
+    const popover = root.locator(".ui-popover")
+    const link = popover.locator(".ui-footer a")
+
+    await link.evaluate((element) => element.setAttribute("href", "#basics"))
+    await trigger.click()
+    await link.focus()
+    await page.keyboard.press("Enter")
+    await expect(popover).toBeHidden()
+    expect(new URL(page.url()).hash).toBe("#basics")
+
+    await link.evaluate((element) => {
+      element.setAttribute("href", "?filter=unread")
+      element.addEventListener("click", (event) => {
+        event.preventDefault()
+        history.replaceState({}, "", "?filter=unread")
+      })
+    })
+    await trigger.click()
+    await link.focus()
+    await page.keyboard.press("Enter")
+    await expect(popover).toBeHidden()
+    expect(new URL(page.url()).search).toBe("?filter=unread")
+
+    await popover.evaluate((element) => {
+      const field = document.createElement("input")
+      field.ariaLabel = "Unread only"
+      field.type = "checkbox"
+      field.addEventListener("change", () =>
+        history.replaceState({}, "", "?unread=true"),
+      )
+      element.querySelector(".ui-content")!.append(field)
+    })
+    await trigger.click()
+    await popover.getByRole("checkbox", { name: "Unread only" }).check()
+    await expect.poll(() => new URL(page.url()).search).toBe("?unread=true")
+    await expect(popover).toBeVisible()
+  },
+)
+
+interaction(
+  "popover",
   "Manual",
   "a manual popover stays open until Got it",
   async ({ page, root }) => {

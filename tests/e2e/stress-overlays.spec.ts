@@ -253,3 +253,106 @@ test("a dialog with a list beside its content can scroll to its footer", async (
   })
   expect(reach).toBe(true)
 })
+
+for (const name of ["popover-hidden", "hidden-dialog"]) {
+  test(`only the content of ${name} scrolls next to children that render nothing`, async ({
+    page,
+  }) => {
+    await openFixture(page, "html", "stress/overlays")
+    await run(page, { open: name })
+    const scrolled = await page.locator(id(name)).evaluate((overlay) => {
+      const content = overlay.querySelector(":scope > .ui-content")!
+      const header = overlay.querySelector(":scope > .ui-header")!
+      overlay.scrollTop = 40
+      content.scrollTop = 40
+      return {
+        content: content.scrollTop,
+        headerInside:
+          header.getBoundingClientRect().top >=
+          overlay.getBoundingClientRect().top,
+        hidden: [
+          ...overlay.querySelectorAll(
+            ':scope > :is([popover], [type="hidden"], template)',
+          ),
+        ].map((element) => element.localName),
+        overlay: overlay.scrollTop,
+      }
+    })
+    expect(scrolled).toEqual({
+      content: 40,
+      headerInside: true,
+      hidden: ["input", "menu", "template"],
+      overlay: 0,
+    })
+  })
+}
+
+test("a menu straight in a popover keeps its minimum height", async ({
+  page,
+}) => {
+  await openFixture(page, "html", "stress/overlays")
+  await run(page, { open: "popover-hidden" })
+  await run(page, { open: "popover-hidden-menu" })
+  const sizes = await page
+    .locator(id("popover-hidden-menu"))
+    .evaluate((menu) => ({
+      inPopover: menu.parentElement!.id,
+      minBlockSize: getComputedStyle(menu).minBlockSize,
+    }))
+  expect(sizes.inPopover).toBe("stress-overlays-popover-hidden")
+  expect(sizes.minBlockSize).not.toBe("0px")
+})
+
+test("a paragraph above a list in a popover keeps its height, and only the list scrolls", async ({
+  page,
+}) => {
+  await openFixture(page, "html", "stress/overlays")
+  await run(page, { open: "popover-intro" })
+  const sizes = await page.locator(id("popover-intro")).evaluate((popover) => {
+    const footer = popover.querySelector(":scope > .ui-footer")!
+    const list = popover.querySelector(":scope > .ui-list")!
+    const paragraph = popover.querySelector(":scope > p")!
+    popover.scrollTop = 40
+    paragraph.scrollTop = 40
+    list.scrollTop = 40
+    return {
+      footerInside:
+        footer.getBoundingClientRect().bottom <=
+        popover.getBoundingClientRect().bottom,
+      list: list.scrollTop,
+      paragraph: paragraph.scrollTop,
+      paragraphCut: paragraph.scrollHeight > paragraph.clientHeight,
+      popover: popover.scrollTop,
+    }
+  })
+  expect(sizes).toEqual({
+    footerInside: true,
+    list: 40,
+    paragraph: 0,
+    paragraphCut: false,
+    popover: 0,
+  })
+})
+
+test("the footer stays at the bottom of a popover with a set height and a list", async ({
+  page,
+}) => {
+  await openFixture(page, "html", "stress/overlays")
+  await run(page, { open: "popover-fixed-list" })
+  const edges = await page
+    .locator(id("popover-fixed-list"))
+    .evaluate((popover) => {
+      const footer = popover.querySelector(":scope > .ui-footer")!
+      const list = popover.querySelector(":scope > .ui-list")!
+      return {
+        gap:
+          popover.getBoundingClientRect().bottom -
+          footer.getBoundingClientRect().bottom,
+        room:
+          footer.getBoundingClientRect().top -
+          list.getBoundingClientRect().bottom,
+      }
+    })
+  expect(edges.gap).toBeLessThanOrEqual(2)
+  expect(edges.room).toBeGreaterThan(0)
+})

@@ -349,6 +349,37 @@ export const SCENARIOS: Scenario[] = [
     steps: [open("popover-dialog"), open("popover-in-dialog")],
     top: id("popover-in-dialog"),
   },
+  {
+    name: "popover with children that render nothing",
+    steps: [open("popover-hidden")],
+    top: id("popover-hidden"),
+  },
+  {
+    name: "menu straight in a popover",
+    steps: [open("popover-hidden"), open("popover-hidden-menu")],
+    stillOpen: ["popover-hidden"],
+    top: id("popover-hidden-menu"),
+  },
+  {
+    name: "popover with a paragraph above its list",
+    steps: [open("popover-intro")],
+    top: id("popover-intro"),
+  },
+  {
+    name: "popover with a set height and a list",
+    steps: [open("popover-fixed-list")],
+    top: id("popover-fixed-list"),
+  },
+  {
+    name: "dialog with children that render nothing",
+    steps: [open("hidden-dialog")],
+    top: id("hidden-dialog"),
+  },
+  {
+    name: "menu straight in a dialog",
+    steps: [open("hidden-dialog"), open("hidden-dialog-menu")],
+    top: id("hidden-dialog-menu"),
+  },
   ...["filled", "outlined"].flatMap((variant) =>
     SIZES.map((size) => ({
       name: `${variant} ${size} split button menu`,

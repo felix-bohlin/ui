@@ -55,7 +55,6 @@ export default {
       default: "false",
       description: "Dims the field and blocks input and the step buttons.",
       group: "Disabled",
-      inherited: true,
       part: "input",
       prop: "disabled",
       type: "boolean",
@@ -188,7 +187,7 @@ export default {
   ],
   root: {
     description:
-      "The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max` and disables both while the input is disabled.",
+      "The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max` and keeps both disabled while the input is disabled, as the component renders them.",
     selector: "opui-number-field.ui-number-field",
   },
   source: "NumberField",

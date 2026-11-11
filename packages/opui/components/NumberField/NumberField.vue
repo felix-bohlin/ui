@@ -12,6 +12,7 @@ import type { Props, Slots } from "./types.vue-props"
 
 const {
   decreaseLabel = "Decrease",
+  disabled,
   endText,
   error,
   hideLabel,
@@ -92,6 +93,7 @@ const endTextId = () =>
           :aria-label="decreaseLabel"
           command="--step-down"
           :commandfor="inputId"
+          :disabled="disabled"
           round
         >
           <slot v-if="$slots['decrease-icon']" name="decrease-icon"></slot>
@@ -113,6 +115,7 @@ const endTextId = () =>
           idRefs(startTextId(), endTextId(), attrs['aria-describedby'])
         "
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+        :disabled="disabled"
         :id="inputId"
         :name="name ?? field?.name"
         type="number"
@@ -125,6 +128,7 @@ const endTextId = () =>
           :aria-label="increaseLabel"
           command="--step-up"
           :commandfor="inputId"
+          :disabled="disabled"
           round
         >
           <slot v-if="$slots['increase-icon']" name="increase-icon"></slot>

@@ -15,6 +15,7 @@ const {
   "aria-invalid": ariaInvalid,
   class: className,
   decreaseLabel = "Decrease",
+  disabled,
   endText,
   error,
   hideLabel,
@@ -74,6 +75,7 @@ const LabelTag = label || labelSlot ? "label" : Fragment
         aria-label={decreaseLabel}
         command="--step-down"
         commandfor={inputId}
+        disabled={disabled}
         round
       >
         <slot name="decrease-icon">
@@ -93,6 +95,7 @@ const LabelTag = label || labelSlot ? "label" : Fragment
       {...rest}
       aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
       aria-invalid={error ? "true" : ariaInvalid}
+      disabled={disabled}
       id={inputId}
       name={name ?? field?.name}
       type="number"
@@ -103,6 +106,7 @@ const LabelTag = label || labelSlot ? "label" : Fragment
         aria-label={increaseLabel}
         command="--step-up"
         commandfor={inputId}
+        disabled={disabled}
         round
       >
         <slot name="increase-icon">

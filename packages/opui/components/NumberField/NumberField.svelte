@@ -14,6 +14,7 @@
     class: className,
     decreaseLabel = "Decrease",
     defaultValue,
+    disabled,
     error,
     hideLabel,
     id,
@@ -78,6 +79,7 @@
         aria-label={decreaseLabel}
         command="--step-down"
         commandfor={inputId}
+        {disabled}
         round
       >
         {#if decreaseIcon}
@@ -99,6 +101,7 @@
       {...rest}
       aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
       aria-invalid={error ? "true" : ariaInvalid}
+      {disabled}
       id={inputId}
       name={name ?? field?.name}
       type="number"
@@ -111,6 +114,7 @@
         aria-label={increaseLabel}
         command="--step-up"
         commandfor={inputId}
+        {disabled}
         round
       >
         {#if increaseIcon}

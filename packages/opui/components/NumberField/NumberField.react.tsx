@@ -13,6 +13,7 @@ export default function NumberField({
   "aria-invalid": ariaInvalid,
   className,
   decreaseLabel = "Decrease",
+  disabled,
   error,
   hideLabel,
   id,
@@ -74,6 +75,7 @@ export default function NumberField({
             aria-label={decreaseLabel}
             command="--step-down"
             commandfor={inputId}
+            disabled={disabled}
             round
           >
             {decreaseIcon === undefined ? (
@@ -95,6 +97,7 @@ export default function NumberField({
           {...rest}
           aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
           aria-invalid={error ? "true" : ariaInvalid}
+          disabled={disabled}
           id={inputId}
           name={name ?? field?.name}
           type="number"
@@ -105,6 +108,7 @@ export default function NumberField({
             aria-label={increaseLabel}
             command="--step-up"
             commandfor={inputId}
+            disabled={disabled}
             round
           >
             {increaseIcon === undefined ? (

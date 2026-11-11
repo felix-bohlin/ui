@@ -36,6 +36,11 @@
       padding-inline: var(--_padding);
     }
 
+    &:has(> .ui-content) {
+      overflow-block: clip;
+      overflow-inline: clip;
+    }
+
     &[open] {
       --_ease: var(--ui-ease-enter);
 

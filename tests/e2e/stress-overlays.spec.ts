@@ -116,3 +116,16 @@ test("a popover is between 16rem and 24rem wide", async ({ page }) => {
   await run(page, { open: "popover-in-dialog" })
   expect(await widthOf("popover-in-dialog")).toBe(16)
 })
+
+test("a dialog without a footer can't scroll itself", async ({ page }) => {
+  await openFixture(page, "html", "stress/overlays")
+  await run(page, { open: "popover-dialog" })
+  const dialog = page.locator(id("popover-dialog"))
+  await expect(dialog.locator("> .ui-footer")).toHaveCount(0)
+  expect(
+    await dialog.evaluate((element) => {
+      element.scrollTop = 40
+      return element.scrollTop
+    }),
+  ).toBe(0)
+})

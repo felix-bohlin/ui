@@ -4,21 +4,21 @@
     <p class="ui-description" id="id-2">Please provide your basic contact details.</p>
     <div class="ui-field-group">
       <label class="ui-text-field">
-        <span class="ui-label">Full name</span>
+        <span class="ui-label" id="id-3">Full name</span>
         <span class="ui-field">
-          <input autocomplete="name" placeholder="Ada Lovelace" required type="text">
+          <input aria-labelledby="id-3" autocomplete="name" placeholder="Ada Lovelace" required type="text">
         </span>
       </label>
       <label class="ui-text-field">
-        <span class="ui-label">Email address</span>
+        <span class="ui-label" id="id-4">Email address</span>
         <span class="ui-field">
-          <input autocomplete="email" placeholder="name@example.com" required type="email">
+          <input aria-labelledby="id-4" autocomplete="email" placeholder="name@example.com" required type="email">
         </span>
       </label>
       <label class="ui-select">
-        <span class="ui-label" id="id-3">Role</span>
+        <span class="ui-label" id="id-5">Role</span>
         <span class="ui-field">
-          <select aria-labelledby="id-3">
+          <select aria-labelledby="id-5">
             <button>
               <selectedcontent></selectedcontent>
             </button>
@@ -33,9 +33,9 @@
     </div>
   </fieldset>
   <hr class="ui-divider">
-  <fieldset aria-describedby="id-4" class="ui-fieldset">
+  <fieldset aria-describedby="id-6" class="ui-fieldset">
     <legend>Notifications</legend>
-    <p class="ui-description" id="id-4">Configure how you want to receive updates.</p>
+    <p class="ui-description" id="id-6">Configure how you want to receive updates.</p>
     <div class="ui-field-group">
       <label class="ui-switch">
         <input checked name="email_notifs" role="switch" type="checkbox">
@@ -48,9 +48,9 @@
     </div>
   </fieldset>
   <hr class="ui-divider">
-  <fieldset aria-describedby="id-5" class="ui-fieldset">
+  <fieldset aria-describedby="id-7" class="ui-fieldset">
     <legend>Theme preference</legend>
-    <p class="ui-description" id="id-5">Select your preferred visual style.</p>
+    <p class="ui-description" id="id-7">Select your preferred visual style.</p>
     <div class="ui-field-group">
       <label class="ui-radio">
         <input checked name="theme" type="radio" value="light">
@@ -67,26 +67,26 @@
     </div>
   </fieldset>
   <hr class="ui-divider">
-  <fieldset aria-describedby="id-6" class="ui-fieldset">
+  <fieldset aria-describedby="id-8" class="ui-fieldset">
     <legend>Experience level</legend>
-    <p class="ui-description" id="id-6">How many years of experience do you have?</p>
+    <p class="ui-description" id="id-8">How many years of experience do you have?</p>
     <div class="ui-field-group">
       <label class="ui-range">
-        <span class="ui-label" id="id-7">Professional experience</span>
-        <span class="ui-start-text" id="id-8">Drag the slider to match your total tenure.</span>
-        <input aria-describedby="id-8" aria-labelledby="id-7" max="20" min="0" step="1" type="range" value="5">
+        <span class="ui-label" id="id-9">Professional experience</span>
+        <span class="ui-start-text" id="id-10">Drag the slider to match your total tenure.</span>
+        <input aria-describedby="id-10" aria-labelledby="id-9" max="20" min="0" step="1" type="range" value="5">
       </label>
     </div>
   </fieldset>
   <hr class="ui-divider">
-  <fieldset aria-describedby="id-9" class="ui-fieldset">
+  <fieldset aria-describedby="id-11" class="ui-fieldset">
     <legend>Additional info</legend>
-    <p class="ui-description" id="id-9">Anything else we should know?</p>
+    <p class="ui-description" id="id-11">Anything else we should know?</p>
     <div class="ui-field-group">
       <label class="ui-textarea">
-        <span class="ui-label">Biography</span>
+        <span class="ui-label" id="id-12">Biography</span>
         <span class="ui-field">
-          <textarea name="biography" placeholder="Tell us about yourself..." rows="4"></textarea>
+          <textarea aria-labelledby="id-12" name="biography" placeholder="Tell us about yourself..." rows="4"></textarea>
         </span>
       </label>
     </div>

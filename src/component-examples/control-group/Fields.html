@@ -4,9 +4,15 @@
   aria-label="Find an order"
 >
   <label class="ui-text-field">
-    <span class="ui-sr-only">Order number or customer name</span>
+    <span class="ui-sr-only" id="control-group-fields-2-label"
+      >Order number or customer name</span
+    >
     <span class="ui-field">
-      <input placeholder="Search orders" type="search" />
+      <input
+        placeholder="Search orders"
+        aria-labelledby="control-group-fields-2-label"
+        type="search"
+      />
     </span>
   </label>
   <button class="ui-button" type="button">Search</button>
@@ -17,12 +23,12 @@
   <div class="ui-field-group">
     <div class="ui-control-group" role="group">
       <label class="ui-select">
-        <span class="ui-sr-only" id="control-group-fields-2-label"
+        <span class="ui-sr-only" id="control-group-fields-3-label"
           >Currency</span
         >
         <span class="ui-field">
           <select
-            aria-labelledby="control-group-fields-2-label"
+            aria-labelledby="control-group-fields-3-label"
             name="currency"
           >
             <button>
@@ -37,10 +43,11 @@
         </span>
       </label>
       <label class="ui-text-field">
-        <span class="ui-sr-only">Amount</span>
+        <span class="ui-sr-only" id="control-group-fields-4-label">Amount</span>
         <span class="ui-field">
           <input
             placeholder="0.00"
+            aria-labelledby="control-group-fields-4-label"
             inputmode="decimal"
             name="amount"
             type="text"

@@ -1,8 +1,11 @@
 <label class="ui-textarea">
-  <span class="ui-label">Notes</span>
+  <span class="ui-label" id="textarea-affix-1-label">Notes</span>
   <span class="ui-field">
-    <textarea placeholder="Add a note..."></textarea>
-    <span class="ui-start">
+    <textarea
+      placeholder="Add a note..."
+      aria-labelledby="textarea-affix-1-label textarea-affix-1-start"
+    ></textarea>
+    <span class="ui-start" id="textarea-affix-1-start">
       <svg
         aria-hidden="true"
         width="16"
@@ -26,9 +29,12 @@
 </label>
 
 <label class="ui-textarea">
-  <span class="ui-label">Comment</span>
+  <span class="ui-label" id="textarea-affix-2-label">Comment</span>
   <span class="ui-field">
-    <textarea placeholder="Write a comment..."></textarea>
-    <span class="ui-end">Markdown</span>
+    <textarea
+      placeholder="Write a comment..."
+      aria-labelledby="textarea-affix-2-label textarea-affix-2-end"
+    ></textarea>
+    <span class="ui-end" id="textarea-affix-2-end">Markdown</span>
   </span>
 </label>

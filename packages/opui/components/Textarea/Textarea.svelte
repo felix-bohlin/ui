@@ -9,6 +9,7 @@
   let {
     "aria-describedby": ariaDescribedBy,
     "aria-invalid": ariaInvalid,
+    "aria-labelledby": ariaLabelledBy,
     autoFit,
     characterCount,
     characterCountLabel,
@@ -44,16 +45,17 @@
   }
   const initialValue = untrack(getValue)
   const base = $derived(id || `textarea-${uid}`)
-  const Root = $derived(label ? "label" : "div")
+  const named = $derived(Boolean(label))
+  const Root = $derived(named ? "label" : "div")
   const hasStartText = $derived(Boolean(startText))
   const hasEndText = $derived(Boolean(endText || characterCount))
-  const linked = $derived(!label)
-  const startTextId = $derived(
-    linked && hasStartText ? `${base}-start-text` : undefined,
-  )
-  const endTextId = $derived(
-    linked && hasEndText ? `${base}-end-text` : undefined,
-  )
+  const labelId = $derived(named ? `${base}-label` : undefined)
+  const startId = $derived(named && start ? `${base}-start` : undefined)
+  const endId = $derived(named && end ? `${base}-end` : undefined)
+  const topId = $derived(top ? `${base}-top` : undefined)
+  const bottomId = $derived(bottom ? `${base}-bottom` : undefined)
+  const startTextId = $derived(hasStartText ? `${base}-start-text` : undefined)
+  const endTextId = $derived(hasEndText ? `${base}-end-text` : undefined)
 </script>
 
 <svelte:element
@@ -70,10 +72,12 @@
   ]}
   {style}
 >
-  {#if label}
-    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}>
+  {#if named}
+    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]} id={labelId}>
       {@render content(label)}
     </span>
+  {:else}
+    {@render content(label)}
   {/if}
   {#if hasStartText}
     <span class="ui-start-text" id={startTextId}>
@@ -83,29 +87,36 @@
   <span class="ui-field">
     <textarea
       {...rest}
-      aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
+      aria-describedby={idRefs(
+        startTextId,
+        topId,
+        bottomId,
+        endTextId,
+        ariaDescribedBy,
+      )}
       aria-invalid={error ? "true" : ariaInvalid}
+      aria-labelledby={named ? idRefs(labelId, startId, endId) : ariaLabelledBy}
       {id}
       name={name ?? field?.name}
       bind:value={getValue, setValue}
       defaultValue={defaultValue ?? initialValue}></textarea>
     {#if start}
-      <span class="ui-start">
+      <span class="ui-start" id={startId}>
         {@render content(start)}
       </span>
     {/if}
     {#if end}
-      <span class="ui-end">
+      <span class="ui-end" id={endId}>
         {@render content(end)}
       </span>
     {/if}
     {#if top}
-      <span class="ui-top">
+      <span class="ui-top" id={topId}>
         {@render content(top)}
       </span>
     {/if}
     {#if bottom}
-      <span class="ui-bottom">
+      <span class="ui-bottom" id={bottomId}>
         {@render content(bottom)}
       </span>
     {/if}

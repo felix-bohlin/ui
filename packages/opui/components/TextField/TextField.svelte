@@ -12,6 +12,7 @@
   let {
     "aria-describedby": ariaDescribedBy,
     "aria-invalid": ariaInvalid,
+    "aria-labelledby": ariaLabelledBy,
     autoFit,
     characterCount,
     characterCountLabel,
@@ -55,20 +56,22 @@
   }
   const initialValue = untrack(getValue)
   const base = $derived(id || `text-field-${uid}`)
+  const hasLabel = $derived(Boolean(label))
   const Root = $derived(
-    passwordToggle ? "opui-text-field" : label ? "label" : "div",
+    passwordToggle ? "opui-text-field" : hasLabel ? "label" : "div",
   )
   const Label = $derived(passwordToggle ? "label" : "span")
   const hasStartText = $derived(Boolean(startText))
   const hasEndText = $derived(Boolean(endText || characterCount))
   const inputId = $derived(passwordToggle ? base : id)
-  const linked = $derived(passwordToggle || !label)
-  const startTextId = $derived(
-    linked && hasStartText ? `${base}-start-text` : undefined,
-  )
-  const endTextId = $derived(
-    linked && hasEndText ? `${base}-end-text` : undefined,
-  )
+  const named = $derived(hasLabel && !passwordToggle)
+  const labelId = $derived(named ? `${base}-label` : undefined)
+  const startId = $derived(named && start ? `${base}-start` : undefined)
+  const endId = $derived(named && end ? `${base}-end` : undefined)
+  const topId = $derived(top ? `${base}-top` : undefined)
+  const bottomId = $derived(bottom ? `${base}-bottom` : undefined)
+  const startTextId = $derived(hasStartText ? `${base}-start-text` : undefined)
+  const endTextId = $derived(hasEndText ? `${base}-end-text` : undefined)
 </script>
 
 <svelte:element
@@ -86,11 +89,12 @@
   ]}
   {style}
 >
-  {#if label}
+  {#if hasLabel}
     <svelte:element
       this={Label}
       class={[hideLabel ? "ui-sr-only" : "ui-label"]}
       for={passwordToggle ? inputId : undefined}
+      id={labelId}
     >
       {@render content(label)}
     </svelte:element>
@@ -103,8 +107,15 @@
   <span class="ui-field">
     <input
       {...rest}
-      aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
+      aria-describedby={idRefs(
+        startTextId,
+        topId,
+        bottomId,
+        endTextId,
+        ariaDescribedBy,
+      )}
       aria-invalid={error ? "true" : ariaInvalid}
+      aria-labelledby={named ? idRefs(labelId, startId, endId) : ariaLabelledBy}
       id={inputId}
       inputmode={inputmode ?? (type === "numeric" ? "numeric" : undefined)}
       name={name ?? field?.name}
@@ -114,12 +125,12 @@
       defaultValue={defaultValue ?? initialValue}
     />
     {#if start}
-      <span class="ui-start">
+      <span class="ui-start" id={startId}>
         {@render content(start)}
       </span>
     {/if}
     {#if end || passwordToggle}
-      <span class="ui-end">
+      <span class="ui-end" id={endId}>
         {@render content(end)}{#if passwordToggle}
           <Button
             aria-label={passwordToggleLabel}
@@ -164,12 +175,12 @@
       </span>
     {/if}
     {#if top}
-      <span class="ui-top">
+      <span class="ui-top" id={topId}>
         {@render content(top)}
       </span>
     {/if}
     {#if bottom}
-      <span class="ui-bottom">
+      <span class="ui-bottom" id={bottomId}>
         {@render content(bottom)}
       </span>
     {/if}

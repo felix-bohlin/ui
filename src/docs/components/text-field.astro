@@ -325,8 +325,10 @@ export const keywords = ["email", "input", "password", "search", "text box"]
   <Fragment slot="accessibility">
     <ul>
       <li>
-        Everything in the <code>&lt;label&gt;</code> is part of the name: keep
-        start text, end text and affixes short.
+        The label and the affixes are the field's name, through
+        <code>aria-labelledby</code>. The start text, end text and the top and
+        bottom regions are its description, through <code>aria-describedby</code
+        >, so a hint or an error is read after the name.
       </li>
     </ul>
     <KeyboardSupport />

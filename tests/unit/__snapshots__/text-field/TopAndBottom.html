@@ -1,17 +1,17 @@
 <label class="ui-text-field">
-  <span class="ui-label">Name</span>
+  <span class="ui-label" id="id-1">Name</span>
   <span class="ui-field">
-    <input placeholder="Ada Lovelace" type="text">
-    <span class="ui-top">Shown on your profile</span>
+    <input aria-describedby="id-2" aria-labelledby="id-1" placeholder="Ada Lovelace" type="text">
+    <span class="ui-top" id="id-2">Shown on your profile</span>
   </span>
 </label>
 <label class="ui-text-field">
-  <span class="ui-label">Tagline</span>
+  <span class="ui-label" id="id-3">Tagline</span>
   <span class="ui-field">
-    <input maxlength="80" placeholder="A short description" type="text">
-    <span class="ui-bottom">Plain text, no links</span>
+    <input aria-describedby="id-4 id-5" aria-labelledby="id-3" maxlength="80" placeholder="A short description" type="text">
+    <span class="ui-bottom" id="id-4">Plain text, no links</span>
   </span>
-  <span class="ui-end-text">
+  <span class="ui-end-text" id="id-5">
     <opui-character-count aria-hidden="true" class="ui-value"></opui-character-count>
   </span>
 </label>

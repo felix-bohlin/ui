@@ -1,16 +1,23 @@
 <div class="example-row">
   <label class="ui-textarea">
-    <span class="ui-label">Message</span>
+    <span class="ui-label" id="textarea-validation-1-label">Message</span>
     <span class="ui-field">
-      <textarea placeholder="How can we help?" required></textarea>
+      <textarea
+        placeholder="How can we help?"
+        required
+        aria-labelledby="textarea-validation-1-label"
+      ></textarea>
     </span>
   </label>
   <label class="ui-textarea ui-filled">
-    <span class="ui-label">Delivery instructions</span>
+    <span class="ui-label" id="textarea-validation-2-label"
+      >Delivery instructions</span
+    >
     <span class="ui-field">
       <textarea
         placeholder="Gate code, floor, where to leave it"
         required
+        aria-labelledby="textarea-validation-2-label"
       ></textarea>
     </span>
   </label>
@@ -18,17 +25,31 @@
 
 <div class="example-row">
   <label class="ui-textarea">
-    <span class="ui-label">Review</span>
+    <span class="ui-label" id="textarea-validation-3-label">Review</span>
     <span class="ui-field">
-      <textarea aria-invalid="true">Great</textarea>
+      <textarea
+        aria-describedby="textarea-validation-3-end-text"
+        aria-invalid="true"
+        aria-labelledby="textarea-validation-3-label"
+      >
+Great</textarea>
     </span>
-    <span class="ui-end-text">Write at least 20 characters.</span>
+    <span class="ui-end-text" id="textarea-validation-3-end-text"
+      >Write at least 20 characters.</span
+    >
   </label>
   <label class="ui-textarea ui-filled">
-    <span class="ui-label">Bio</span>
+    <span class="ui-label" id="textarea-validation-4-label">Bio</span>
     <span class="ui-field">
-      <textarea aria-invalid="true">Designer at https://example.com</textarea>
+      <textarea
+        aria-describedby="textarea-validation-4-end-text"
+        aria-invalid="true"
+        aria-labelledby="textarea-validation-4-label"
+      >
+Designer at https://example.com</textarea>
     </span>
-    <span class="ui-end-text">Remove the link. Bios are plain text.</span>
+    <span class="ui-end-text" id="textarea-validation-4-end-text"
+      >Remove the link. Bios are plain text.</span
+    >
   </label>
 </div>

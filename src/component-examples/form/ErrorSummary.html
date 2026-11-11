@@ -30,29 +30,35 @@
   </article>
   <div class="ui-field-group">
     <label class="ui-text-field">
-      <span class="ui-label">Email</span>
+      <span class="ui-label" id="form-error-summary-2-label">Email</span>
       <span class="ui-field">
         <input
           autocomplete="email"
+          aria-describedby="form-error-summary-2-end-text"
           aria-invalid="true"
+          aria-labelledby="form-error-summary-2-label"
           id="form-error-summary-2"
           type="email"
         />
       </span>
-      <span class="ui-end-text">Enter your work email.</span>
+      <span class="ui-end-text" id="form-error-summary-2-end-text"
+        >Enter your work email.</span
+      >
     </label>
     <label class="ui-text-field">
-      <span class="ui-label">Password</span>
+      <span class="ui-label" id="form-error-summary-3-label">Password</span>
       <span class="ui-field">
         <input
           autocomplete="new-password"
           value="hunter2"
+          aria-describedby="form-error-summary-3-end-text"
           aria-invalid="true"
+          aria-labelledby="form-error-summary-3-label"
           id="form-error-summary-3"
           type="password"
         />
       </span>
-      <span class="ui-end-text"
+      <span class="ui-end-text" id="form-error-summary-3-end-text"
         >Choose a password with at least 12 characters.</span
       >
     </label>

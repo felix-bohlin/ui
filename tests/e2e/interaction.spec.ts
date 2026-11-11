@@ -2267,12 +2267,48 @@ interaction(
     await expect(count).toHaveText("0/20")
     await input.fill("opui-fan-2026")
     await expect(count).toHaveText("13/20")
-    await expect(input).toHaveAccessibleName(
-      "Username Up to 20 letters, numbers and dashes.",
+    await expect(input).toHaveAccessibleName("Username")
+    await expect(input).toHaveAccessibleDescription(
+      "Up to 20 letters, numbers and dashes.",
     )
     await expect(page.locator("[data-opui-announcer]")).toHaveText(
       "Characters left: 7",
     )
+  },
+)
+
+interaction(
+  "text-field",
+  "Validation",
+  "a labelled field is named by its label and described by its end text",
+  async ({ root }) => {
+    const input = root.getByRole("textbox", { name: "Username", exact: true })
+
+    await expect(input).toHaveAccessibleDescription(
+      "This username is taken. Try another one.",
+    )
+  },
+)
+
+interaction(
+  "text-field",
+  "Affix",
+  "the affixes join the name of a labelled field",
+  async ({ root }) => {
+    await expect(
+      root.getByRole("textbox", { name: "Weight kg", exact: true }),
+    ).toHaveCount(1)
+  },
+)
+
+interaction(
+  "textarea",
+  "Validation",
+  "a labelled textarea is named by its label and described by its end text",
+  async ({ root }) => {
+    await expect(
+      root.getByRole("textbox", { name: "Review", exact: true }),
+    ).toHaveAccessibleDescription("Write at least 20 characters.")
   },
 )
 

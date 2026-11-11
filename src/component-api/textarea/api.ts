@@ -25,7 +25,7 @@ export default {
     ...passThrough("textarea", ".ui-textarea", ["maxlength", "placeholder"], {
       react: "Use `value` with `onChange`, or `defaultValue`.",
     }),
-    html: 'For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`.',
+    html: 'For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. With a label, give `.ui-label` an id and point `aria-labelledby` on the field at it, then at `.ui-start` and `.ui-end`, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-bottom` and `.ui-end-text`, so a hint or an error is read as the description, not in the name.',
   },
   options: [
     {
@@ -82,7 +82,7 @@ export default {
     },
     {
       description:
-        'The id of the `<textarea>`. Without a label, the start and end text ids start with it: `x-start-text` and `x-end-text` for `id="x"`.',
+        'The id of the `<textarea>`. The ids the component generates start with it: `x-label`, `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id="x"`.',
       inherited: true,
       prop: "id",
       type: "string",
@@ -187,7 +187,7 @@ export default {
     {
       code: "<opui-character-count>",
       description:
-        "The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left.",
+        "The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left.",
       props: ["characterCount", "characterCountLabel"],
       selector: ".ui-end-text > .ui-value",
     },

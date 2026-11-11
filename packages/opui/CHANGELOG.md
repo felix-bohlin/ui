@@ -425,6 +425,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `TextField` file input takes `--ui-shadow-field` like other fields instead of an inset Open Props shadow, so it's flat by default.
 - `TextField`, `Textarea`, `Select` and `Range` with `spread` split their container into equal label and field columns, so spread fields line up at one width. The fixed `30ch` textarea and `25ch` range minimums are gone.
 - `TextField`, `Textarea` and `Select` keep a `12ch` minimum width in table cells.
+- `TextField` and `Textarea` with a `label` name the control with `aria-labelledby`, the label and then the `start` and `end` affixes, and describe it with the start text, top, bottom and end text through `aria-describedby`, like `Select`. A hint or an error is read once, as the description, instead of in the name. The part ids start with the `id`: `x-label`, `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id="x"`.
 - `ToggleButton` when checked is filled with `--ui-primary` (or `--ui-selected`) instead of a tint, and keeps the fill on hover, also in a `ToggleGroup`: it lightens a fill darker than L 0.3 and darkens the rest, like a filled `Button`, and doesn't change on a disabled button. Its focus ring takes `--ui-on-selected` (or `--ui-on-primary`), so the inset ring shows on the fill in dark mode.
 - `ToggleButton` standalone and `Chip` outlined take `--ui-shadow-control` like buttons (none by default), and toggle corners are capped at half the control height, those of a `ToggleGroup` at half the height of its size, so a round `--ui-button-radius` doesn't clip grouped toggles.
 - `ToggleButton` and `ToggleGroup` text shrinks with the size like `Button`: `--ui-font-size-small` when small and `--ui-font-size-caption` when x-small.
@@ -523,7 +524,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Checkbox`, `Radio`, `Switch`, `TextField`, `Textarea`, `Select` and `Range` pass a user `aria-invalid` to the control when `error` isn't set.
 - `Checkbox` unchecked border reads `--ui-field-border-color` like Radio and the text fields.
 - `Checkbox`, `Dialog`, `Drawer`, `Radio`, `Switch`, `Tabs` and `ToggleButton` no longer need Vite's `import.meta.env` types or runtime for their dev-only warnings. Where `import.meta.env.DEV` is undefined they read `process.env.NODE_ENV`, so the warnings also show with webpack and Turbopack (Next.js).
-- `Checkbox`, `Radio`, `Switch`, `TextField` and `Textarea` no longer point `aria-describedby` at the end text, so screen readers don't read it twice. The wrapping `<label>` already makes it part of the name.
+- `Checkbox`, `Radio` and `Switch` no longer point `aria-describedby` at the end text, so screen readers don't read it twice. The wrapping `<label>` already makes it part of the name.
 - `Checkbox` and `Radio` no longer set `--ui-primary` when invalid, so links and other content in their label keep the primary color.
 - `Checkbox`, `Radio`, `Switch`, `TextField`, `Textarea`, `Select` and `Fieldset` required asterisks are left out of the accessible name, so screen readers don't read "star".
 - `Checkbox`, `Radio`, `Range`, `Select`, `Switch`, `TextField` and `Textarea` in Vue render a text prop and its slot together, like Astro, instead of dropping the prop.

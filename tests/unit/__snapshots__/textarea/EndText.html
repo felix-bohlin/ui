@@ -1,14 +1,14 @@
 <label class="ui-textarea">
-  <span class="ui-label">Description</span>
+  <span class="ui-label" id="id-1">Description</span>
   <span class="ui-field">
-    <textarea placeholder="What is this project about?"></textarea>
+    <textarea aria-describedby="id-2" aria-labelledby="id-1" placeholder="What is this project about?"></textarea>
   </span>
-  <span class="ui-end-text">Visible to everyone on the team.</span>
+  <span class="ui-end-text" id="id-2">Visible to everyone on the team.</span>
 </label>
 <label class="ui-filled ui-textarea">
-  <span class="ui-label">Private notes</span>
+  <span class="ui-label" id="id-3">Private notes</span>
   <span class="ui-field">
-    <textarea placeholder="Add a note..."></textarea>
+    <textarea aria-describedby="id-4" aria-labelledby="id-3" placeholder="Add a note..."></textarea>
   </span>
-  <span class="ui-end-text">Only you can see these.</span>
+  <span class="ui-end-text" id="id-4">Only you can see these.</span>
 </label>

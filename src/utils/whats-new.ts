@@ -1340,9 +1340,10 @@ export const whatsNew = {
     },
   ],
   "text-field": [
-    components(
-      `With <code>passwordToggle</code>, the start and end text ids start with the <a href="#api"><code>id</code></a>: <code>x-start-text</code> and <code>x-end-text</code> for <code>id="x"</code>.`,
-    ),
+    {
+      default: `The label and the affixes <a href="#accessibility">name the field</a> through <code>aria-labelledby</code>, and the start text, end text, top and bottom describe it through <code>aria-describedby</code>, so a hint or an error is read after the name. The ids start with the <code>id</code>: <code>x-label</code>, <code>x-start-text</code>, <code>x-end-text</code> and so on for <code>id="x"</code>.`,
+      html: `Give <code>.ui-label</code> an id and <a href="#accessibility">name the field</a> with <code>aria-labelledby</code>, and describe it with the start and end text through <code>aria-describedby</code>, so a hint or an error is read after the name, not in it.`,
+    },
     `Placeholders and helper text read <a href="#api"><code>--ui-text-subtle</code></a>.`,
     `Themes can set <a href="#api"><code>--ui-field-bg-color</code></a>, <code>--ui-field-padding-inline</code> (<code>--ui-field-padding-inline-large</code> for large fields) and <code>--ui-field-placeholder-text-color</code>.`,
     components(
@@ -1427,6 +1428,10 @@ export const whatsNew = {
     `A field in a table cell keeps a <code>12ch</code> minimum width, so it stays usable with a <a href="#hidden-label">hidden label</a> in a narrow column.`,
   ],
   textarea: [
+    {
+      default: `The label and the affixes <a href="#accessibility">name the field</a> through <code>aria-labelledby</code>, and the start text, end text, top and bottom describe it through <code>aria-describedby</code>, so a hint or an error is read after the name.`,
+      html: `Give <code>.ui-label</code> an id and <a href="#accessibility">name the field</a> with <code>aria-labelledby</code>, and describe it with the start and end text through <code>aria-describedby</code>, so a hint or an error is read after the name, not in it.`,
+    },
     `Placeholders and helper text read <a href="#api"><code>--ui-text-subtle</code></a>.`,
     `Themes can set <a href="#api"><code>--ui-field-bg-color</code></a>, <code>--ui-field-padding-inline</code> (<code>--ui-field-padding-inline-large</code> for large fields) and <code>--ui-field-placeholder-text-color</code>.`,
     components(

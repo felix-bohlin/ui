@@ -353,7 +353,7 @@ Most inputs should be wrapped in a `<label>` to provide a larger hit area and bu
 
 ### End Text & ARIA
 
-When providing `endText`, give it a part id (see [Unique IDs](#unique-ids)) and link it to the input via `aria-describedby`, merged with the user's own `aria-describedby` by `idRefs` from `../id`. Checkbox, Radio, Switch, TextField and Textarea are the exception while their `<label>` root wraps the control: the label names it and already includes the end text, so they don't link it. A TextField or Textarea without a label, and a TextField with `passwordToggle`, link their start and end text.
+When providing `endText`, give it a part id (see [Unique IDs](#unique-ids)) and link it to the input via `aria-describedby`, merged with the user's own `aria-describedby` by `idRefs` from `../id`. Checkbox, Radio and Switch are the exception while their `<label>` root wraps the control: the label names it and already includes the end text, so they don't link it. A Select, TextField or Textarea with a label names the control with `aria-labelledby` (the label, then the `start` and `end` affixes), so its start text, end text, top and bottom stay out of the name and describe it instead. A TextField with `passwordToggle` names it with `<label for>` and describes it the same way.
 
 ```astro
 ---

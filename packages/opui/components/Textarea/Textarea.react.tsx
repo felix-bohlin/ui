@@ -9,6 +9,7 @@ import type { Props } from "./types.react"
 export default function Textarea({
   "aria-describedby": ariaDescribedBy,
   "aria-invalid": ariaInvalid,
+  "aria-labelledby": ariaLabelledBy,
   autoFit,
   characterCount,
   characterCountLabel,
@@ -34,12 +35,17 @@ export default function Textarea({
   const field = useFieldGroupContext()
   const uid = useId()
   const base = id || `textarea-${uid}`
-  const Root = label ? "label" : "div"
+  const named = Boolean(label)
+  const Root = named ? "label" : "div"
   const hasStartText = Boolean(startText)
   const hasEndText = Boolean(endText || characterCount)
-  const linked = !label
-  const startTextId = linked && hasStartText ? `${base}-start-text` : undefined
-  const endTextId = linked && hasEndText ? `${base}-end-text` : undefined
+  const labelId = named ? `${base}-label` : undefined
+  const startId = named && start ? `${base}-start` : undefined
+  const endId = named && end ? `${base}-end` : undefined
+  const topId = top ? `${base}-top` : undefined
+  const bottomId = bottom ? `${base}-bottom` : undefined
+  const startTextId = hasStartText ? `${base}-start-text` : undefined
+  const endTextId = hasEndText ? `${base}-end-text` : undefined
   useEffect(() => {
     void import("../../elements/character-count.js")
   }, [])
@@ -58,8 +64,12 @@ export default function Textarea({
       ])}
       style={style}
     >
-      {label && (
-        <span className={hideLabel ? "ui-sr-only" : "ui-label"}>{label}</span>
+      {named ? (
+        <span className={hideLabel ? "ui-sr-only" : "ui-label"} id={labelId}>
+          {label}
+        </span>
+      ) : (
+        label
       )}
       {hasStartText && (
         <span className="ui-start-text" id={startTextId}>
@@ -69,15 +79,40 @@ export default function Textarea({
       <span className="ui-field">
         <textarea
           {...rest}
-          aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
+          aria-describedby={idRefs(
+            startTextId,
+            topId,
+            bottomId,
+            endTextId,
+            ariaDescribedBy,
+          )}
           aria-invalid={error ? "true" : ariaInvalid}
+          aria-labelledby={
+            named ? idRefs(labelId, startId, endId) : ariaLabelledBy
+          }
           id={id}
           name={name ?? field?.name}
         />
-        {start && <span className="ui-start">{start}</span>}
-        {end && <span className="ui-end">{end}</span>}
-        {top && <span className="ui-top">{top}</span>}
-        {bottom && <span className="ui-bottom">{bottom}</span>}
+        {start && (
+          <span className="ui-start" id={startId}>
+            {start}
+          </span>
+        )}
+        {end && (
+          <span className="ui-end" id={endId}>
+            {end}
+          </span>
+        )}
+        {top && (
+          <span className="ui-top" id={topId}>
+            {top}
+          </span>
+        )}
+        {bottom && (
+          <span className="ui-bottom" id={bottomId}>
+            {bottom}
+          </span>
+        )}
       </span>
       {hasEndText && (
         <span className="ui-end-text" id={endTextId}>

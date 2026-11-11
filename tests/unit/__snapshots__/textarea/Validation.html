@@ -1,30 +1,30 @@
 <div class="example-row">
   <label class="ui-textarea">
-    <span class="ui-label">Message</span>
+    <span class="ui-label" id="id-1">Message</span>
     <span class="ui-field">
-      <textarea placeholder="How can we help?" required></textarea>
+      <textarea aria-labelledby="id-1" placeholder="How can we help?" required></textarea>
     </span>
   </label>
   <label class="ui-filled ui-textarea">
-    <span class="ui-label">Delivery instructions</span>
+    <span class="ui-label" id="id-2">Delivery instructions</span>
     <span class="ui-field">
-      <textarea placeholder="Gate code, floor, where to leave it" required></textarea>
+      <textarea aria-labelledby="id-2" placeholder="Gate code, floor, where to leave it" required></textarea>
     </span>
   </label>
 </div>
 <div class="example-row">
   <label class="ui-textarea">
-    <span class="ui-label">Review</span>
+    <span class="ui-label" id="id-3">Review</span>
     <span class="ui-field">
-      <textarea aria-invalid="true">"Great"</textarea>
+      <textarea aria-describedby="id-4" aria-invalid="true" aria-labelledby="id-3">"Great"</textarea>
     </span>
-    <span class="ui-end-text">Write at least 20 characters.</span>
+    <span class="ui-end-text" id="id-4">Write at least 20 characters.</span>
   </label>
   <label class="ui-filled ui-textarea">
-    <span class="ui-label">Bio</span>
+    <span class="ui-label" id="id-5">Bio</span>
     <span class="ui-field">
-      <textarea aria-invalid="true">"Designer at https://example.com"</textarea>
+      <textarea aria-describedby="id-6" aria-invalid="true" aria-labelledby="id-5">"Designer at https://example.com"</textarea>
     </span>
-    <span class="ui-end-text">Remove the link. Bios are plain text.</span>
+    <span class="ui-end-text" id="id-6">Remove the link. Bios are plain text.</span>
   </label>
 </div>

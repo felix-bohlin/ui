@@ -1,18 +1,29 @@
 <label class="ui-textarea">
-  <span class="ui-label">Code</span>
+  <span class="ui-label" id="textarea-top-and-bottom-1-label">Code</span>
   <span class="ui-field">
-    <textarea placeholder="console.log('Hello, world!')"></textarea>
-    <span class="ui-top">script.js</span>
+    <textarea
+      placeholder="console.log('Hello, world!')"
+      aria-describedby="textarea-top-and-bottom-1-top"
+      aria-labelledby="textarea-top-and-bottom-1-label"
+    ></textarea>
+    <span class="ui-top" id="textarea-top-and-bottom-1-top">script.js</span>
   </span>
 </label>
 
 <label class="ui-textarea">
-  <span class="ui-label">Comment</span>
+  <span class="ui-label" id="textarea-top-and-bottom-2-label">Comment</span>
   <span class="ui-field">
-    <textarea maxlength="280" placeholder="Write a comment..."></textarea>
-    <span class="ui-bottom">Markdown supported</span>
+    <textarea
+      maxlength="280"
+      placeholder="Write a comment..."
+      aria-describedby="textarea-top-and-bottom-2-bottom textarea-top-and-bottom-2-end-text"
+      aria-labelledby="textarea-top-and-bottom-2-label"
+    ></textarea>
+    <span class="ui-bottom" id="textarea-top-and-bottom-2-bottom"
+      >Markdown supported</span
+    >
   </span>
-  <span class="ui-end-text">
+  <span class="ui-end-text" id="textarea-top-and-bottom-2-end-text">
     <opui-character-count
       aria-hidden="true"
       class="ui-value"

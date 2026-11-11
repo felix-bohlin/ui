@@ -134,15 +134,7 @@
       --_label-text-color: var(--ui-text);
       --_marker-bg-color: var(--_accent);
       --_marker-border-color: var(--_accent);
-
-      &::before {
-        color: transparent;
-        mask-composite: exclude;
-        mask-image: var(--_check-image), linear-gradient(oklch(0% 0 0) 0 0);
-        mask-position: center;
-        mask-repeat: no-repeat;
-        mask-size: var(--_icon-size), 100%;
-      }
+      --_marker-image: var(--_check-image);
 
       &:not(.ui-error):has(> .ui-icon-checked)::before {
         mask: none;
@@ -158,15 +150,21 @@
       --_label-text-color: var(--ui-invalid-text);
       --_marker-bg-color: var(--ui-invalid);
       --_marker-border-color: var(--ui-invalid);
+      --_marker-image: var(--_error-image);
+    }
 
-      &::before {
-        color: transparent;
-        mask-composite: exclude;
-        mask-image: var(--_error-image), linear-gradient(oklch(0% 0 0) 0 0);
-        mask-position: center;
-        mask-repeat: no-repeat;
-        mask-size: var(--_icon-size), 100%;
-      }
+    &
+      > :is(
+        li:has(~ [aria-current="step"]),
+        li.ui-complete,
+        li.ui-error
+      )::before {
+      color: transparent;
+      mask-composite: exclude;
+      mask-image: var(--_marker-image), linear-gradient(oklch(0% 0 0) 0 0);
+      mask-position: center;
+      mask-repeat: no-repeat;
+      mask-size: var(--_icon-size), 100%;
     }
 
     /* Size */

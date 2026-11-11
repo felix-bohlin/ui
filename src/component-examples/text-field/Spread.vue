@@ -8,10 +8,15 @@ import { TextField } from "opui-css/vue"
     <template #start-text>Provide your full name for identification</template>
   </TextField>
 
-  <TextField placeholder="you@example.com" spread type="email" variant="filled">
+  <TextField
+    placeholder="name@example.com"
+    spread
+    type="email"
+    variant="filled"
+  >
     <template #label>Email</template>
     <template #start-text>We'll use this to contact you</template>
-    <template #end-text>Please use a valid email address</template>
+    <template #end-text>Use a work address.</template>
   </TextField>
 
   <TextField label="Company" required spread>
@@ -36,7 +41,7 @@ import { TextField } from "opui-css/vue"
   <TextField label="Website" placeholder="example.com" spread variant="filled">
     <template #start-text>Your public profile URL</template>
     <template #start>https://</template>
-    <template #end-text>Must include a valid domain</template>
+    <template #end-text>Include the domain, like example.com.</template>
   </TextField>
 
   <TextField label="Project name" placeholder="my-project" spread>
@@ -71,6 +76,6 @@ import { TextField } from "opui-css/vue"
     </template>
     <template #top>Secret</template>
     <template #bottom>Rotates every 90 days</template>
-    <template #end-text>Treat like a password</template>
+    <template #end-text>Treat it like a password.</template>
   </TextField>
 </template>

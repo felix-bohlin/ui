@@ -66,7 +66,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-button-size-x-small":
     "`Button` and `ControlGroup` height with `.ui-x-small`.",
   "--ui-card-padding":
-    "Padding of `Card`, `Dialog`, `Drawer` and `Accordion` content, headers, footers and actions, and of `Checkbox`, `Radio` and `Switch` cards. When unset, `--ui-space-3`.",
+    "Padding of `Card`, `Dialog`, `Drawer` and `Accordion` content, headers, footers and actions, and of `Checkbox`, `Radio` and `Switch` cards. When unset, `--ui-space-3`. Card and accordion actions set it to their own inline padding, which caps how far a text button at either end pulls itself out.",
   "--ui-chip-radius":
     "Corner radius for `Chip`. When unset, chips follow `--ui-radius`.",
   "--ui-chip-size": "Default `Chip` height.",
@@ -320,7 +320,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-on-primary-tonal":
     "Text color on `--ui-primary-tonal`. Set it with `--ui-primary-tonal`.",
   "--ui-on-selected":
-    "Text color on `--ui-selected`. When unset, `--ui-on-primary` on toggles, the item's own text color on list items and selected `Select` options.",
+    "Text color on `--ui-selected`. When unset, `--ui-on-primary` on toggles, the item's own text color on list items and selected `Select` options, and `--ui-text-strong` on a checked `Message` reaction.",
   "--ui-on-selected-strong":
     "Text color on `--ui-selected-strong`: the selected tab of filled `Tabs` and the number or icon of the current `Stepper` and `Timeline` markers. Defaults to `--ui-on-primary`.",
   "--ui-on-warning":
@@ -392,9 +392,9 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-rhythm-step":
     "Vertical rhythm unit. Rich text margins and heading line heights round to it.",
   "--ui-selected":
-    "Background of a selected control: a checked `ToggleButton`, the selected `ToggleGroup` item, a pressed `Chip`, and a selected or current `List` item and `Select` option. When unset, `--ui-primary` on toggles and `--ui-primary` at `--ui-state-selected-alpha-accent` on list items and options. Pair it with `--ui-on-selected`.",
+    "Background of a selected control: a checked `ToggleButton`, the selected `ToggleGroup` item, a pressed `Chip`, a selected or current `List` item and `Select` option, and a checked `Message` reaction. When unset, `--ui-primary` on toggles, `--ui-primary` at `--ui-state-selected-alpha-accent` on list items and options, and the same mixed into `--ui-surface` on reactions. Pair it with `--ui-on-selected`.",
   "--ui-selected-strong":
-    "Mark of a selected item that has to stand out from the page on its own: the current `Carousel` marker, the bar on the start edge of a selected `List` row, the selected tab of filled `Tabs`, the current `Stepper` and `Timeline` markers, and the done part of a `Progress` bar, a `Stepper` and a tracked `Timeline`. Defaults to `--ui-primary`. `--ui-selected` is the fill behind a selected item and may be faint.",
+    "Mark of a selected item that has to stand out from the page on its own: the current `Carousel` marker, the bar on the start edge of a selected `List` row, the selected tab of filled `Tabs`, the current `Stepper` and `Timeline` markers, the border of a checked `Message` reaction, and the done part of a `Progress` bar, a `Stepper` and a tracked `Timeline`. Defaults to `--ui-primary`. `--ui-selected` is the fill behind a selected item and may be faint.",
   "--ui-shadow-color":
     "Color of every shadow, with its base opacity. Each layer of `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll` and `--ui-shadow-selected` adds its own opacity on top, with relative color. `oklch(0.268 0.003 265 / 1%)` in light mode and `oklch(0.11 0.01 259 / 20%)` in dark mode, also in `.ui-light` and `.ui-dark` parts of the page.",
   "--ui-shadow-control":
@@ -497,7 +497,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-text-subtle":
     "Secondary text: placeholders, field helper text, overlines, descriptions in `List` and `Menu` items, unselected `Tabs` labels and `Table` captions. `--ui-text` unless a theme sets it.",
   "--ui-track-bg-color":
-    "The empty part of a track: the unchecked `Switch`, `Progress` and the `Range` track. When unset, `Progress` and tonal ranges use `--ui-surface-tonal`, the default range its field border and the switch `--ui-switch-track-bg-color`.",
+    "The empty part of a track: the unchecked `Switch`, `Progress`, the `Range` track and the empty `Rating` stars. When unset, `Progress` and tonal ranges use `--ui-surface-tonal`, the default range its field border, the switch `--ui-switch-track-bg-color` and the stars `--ui-border-color`.",
   "--ui-underline-offset":
     "Gap between text and its underline for `Link`, rich text links and `Stepper` links.",
   "--ui-underline-offset-small":

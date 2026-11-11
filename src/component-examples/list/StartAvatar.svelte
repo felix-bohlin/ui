@@ -3,12 +3,12 @@
 </script>
 
 <List>
-  <ListItem label="Headline">
+  <ListItem label="Elif Rahman">
     {#snippet start()}
-      <Avatar aria-hidden="true">AB</Avatar>
+      <Avatar aria-hidden="true">ER</Avatar>
     {/snippet}
   </ListItem>
-  <ListItem description="Supporting text" label="Headline">
+  <ListItem description="Product designer" label="Lena Ek">
     {#snippet start()}
       <Avatar>
         <img

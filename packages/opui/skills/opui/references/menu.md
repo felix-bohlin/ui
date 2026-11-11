@@ -25,7 +25,7 @@ A popover list of actions or links.
 - `id`: `string`. The id of the menu, which the trigger's `commandfor` points at. Required.
 - `items`: `MenuItem[]`. The items, as `{ borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `borderTop` adds a border above the item, `color: "critical"` marks a destructive one, a disabled link has no `href`, and `keepOpen` keeps the menu open on click. Other keys go to the item's `<a>` or `<button>`.
 - Items (HTML): `borderTop` (`li.ui-border-top`), `close` (`li > button[command="hide-popover"]`), `critical` (`li.ui-critical`), `disabled` (`li > button[disabled], li > a[aria-disabled="true"]`). The item states. `close` closes the whole menu on click, also from a submenu, and only button items take it. A disabled link has no `href`.
-- `popover`: `"auto"` (default), `"manual"` (`[popover="manual"]`). The popover type. With `"manual"`, Esc and a click outside don't close the menu, and opening another menu doesn't either.
+- `popover`: `"auto"` (default), `"manual"` (`[popover="manual"]`). The popover type. With `manual`, Esc and a click outside don't close the menu, and opening another menu doesn't either.
 - `side`: `"block-end"` (default), `"block-start"` (`.ui-block-start`), `"inline-end"` (`.ui-inline-end`), `"inline-start"` (`.ui-inline-start`). The side of the trigger the menu opens on.
 - Trigger (HTML): `button[commandfor][command="toggle-popover"]`. Opens the menu. `commandfor` is the menu id.
 
@@ -35,10 +35,10 @@ A popover list of actions or links.
 
 ### Notes
 
-- HTML: Items are built like `List` items: icons in `.ui-start`, the text in `.ui-text` and shortcuts in `.ui-end`. Open the menu with a button that has `commandfor` set to the menu id and `command="toggle-popover"`.
-- Astro and Vue: Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `target` or `data-*`.
-- React: Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onClick`, `target` or `data-*`.
-- Svelte: Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onclick`, `target` or `data-*`.
+- HTML: Items are built like `List` items: icons in `.ui-start`, the text in `.ui-text` and shortcuts in `.ui-end`. Open the menu with a button that has `commandfor` set to the menu id and `command="toggle-popover"`. Import `opui-css/elements/close-on-navigate.js` to close open menus when the page navigates, also with a client router.
+- Astro and Vue: Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `target` or `data-*`. Open menus close when the page navigates, also with a client router, through `opui-css/elements/close-on-navigate.js`, which the component loads.
+- React: Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onClick`, `target` or `data-*`. Open menus close when the page navigates, also with a client router, through `opui-css/elements/close-on-navigate.js`, which the component loads.
+- Svelte: Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onclick`, `target` or `data-*`. Open menus close when the page navigates, also with a client router, through `opui-css/elements/close-on-navigate.js`, which the component loads.
 
 ## Component properties
 
@@ -63,7 +63,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_start-size`: Maximum size of leading and trailing icons, and the indent of `.ui-inset` items. Smaller in `.ui-dense`.
 - `--_start-video-size`: Height of a video in `.ui-start`, which keeps a 16:9 ratio.
 
-Outputs: `--_item-duration` and `--_selected-shadow`.
+Outputs: `--_font-size`, `--_icon-size`, `--_item-duration`, `--_selected-shadow` and `--_size`.
 
 ### menu.css
 
@@ -83,7 +83,7 @@ Outputs: `--_duration`, `--_ease`, `--_ease-move`, `--_fit-max-block-size`, `--_
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-choice-size-small`, `--ui-control-size`, `--ui-control-size-small`, `--ui-disabled-opacity`, `--ui-duration-fast`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-field-border-color-on-filled`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-inset`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-line-height`, `--ui-list-item-padding-inline`, `--ui-menu-radius`, `--ui-motion`, `--ui-on-selected`, `--ui-palette-accent`, `--ui-palette-text`, `--ui-primary`, `--ui-radius`, `--ui-selected`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-6`, `--ui-state-hover-alpha-accent`, `--ui-state-selected-alpha-accent`, `--ui-surface-elevated`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-switch-thumb-size-small`, `--ui-switch-track-block-size-small`, `--ui-switch-track-inline-size-small`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-choice-size-small`, `--ui-control-size`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-duration-fast`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-field-border-color-on-filled`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-inset`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-line-height`, `--ui-list-item-padding-inline`, `--ui-menu-radius`, `--ui-motion`, `--ui-on-selected`, `--ui-palette-accent`, `--ui-palette-text`, `--ui-primary`, `--ui-radius`, `--ui-selected`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-state-hover-alpha-accent`, `--ui-state-selected-alpha-accent`, `--ui-surface-elevated`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-switch-thumb-size-small`, `--ui-switch-track-block-size-small`, `--ui-switch-track-inline-size-small`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

@@ -8,6 +8,7 @@ import { featureIds, patterns } from "../../packages/opui/scripts/features.mjs"
 import {
   htmlFeatureIds,
   pageProblems,
+  usedFeatureIds,
   withBrowserSupport,
 } from "../../scripts/check-browser-support.mjs"
 import { findProblems } from "../../scripts/check-characters.mjs"
@@ -97,6 +98,7 @@ describe("sort-css", () => {
 
 describe("check-browser-support", () => {
   const samples: Record<string, string> = {
+    "alt-text-generated-content": '.a::after { content: "*" / ""; }',
     "anchor-positioning": ".a { anchor-name: --a; }",
     attr: '.a { content: attr(data-label type(<string>), ""); }',
     "backdrop-filter": "::backdrop { backdrop-filter: blur(4px); }",
@@ -168,6 +170,7 @@ describe("check-browser-support", () => {
       ),
     ).toEqual([])
     expect(featureIds(".a { overflow-clip-margin: 4px; }")).toEqual([])
+    expect(featureIds(".a::before { content: attr(data-label); }")).toEqual([])
   })
 
   test("anchor positioning is found in every property, function and at-rule of its compat keys", () => {
@@ -182,6 +185,15 @@ describe("check-browser-support", () => {
         "@position-try --a { inset: auto; }",
       ].filter((css) => !featureIds(css).includes("anchor-positioning")),
     ).toEqual([])
+  })
+
+  test("a rule inside @scope applies only when its root can match the examples", () => {
+    const css =
+      "@scope (.ui-rich-text) to (.ui-not-rich-text) { .ui-callout { border: 0; } }"
+    expect(usedFeatureIds(css, new Set([".ui-callout"]))).toEqual([])
+    expect(
+      usedFeatureIds(css, new Set([".ui-callout", ".ui-rich-text"])),
+    ).toEqual(["scope"])
   })
 
   test("reads the HTML features from the attributes and elements of the examples", () => {

@@ -301,6 +301,11 @@
           border-color: Highlight;
         }
       }
+
+      &:has(.ui-field > input:is([aria-invalid="true"], :user-invalid))
+        .ui-field {
+        outline: var(--ui-field-border-width) dashed CanvasText;
+      }
     }
   }
 }

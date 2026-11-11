@@ -12,6 +12,7 @@ export default function Toaster({
   closeLabel,
   duration,
   id,
+  limit,
   side,
   ...rest
 }: Props) {
@@ -31,6 +32,7 @@ export default function Toaster({
       close-label={closeLabel}
       duration={duration}
       id={id}
+      limit={limit}
       {...defined(rest)}
     >
       <ol

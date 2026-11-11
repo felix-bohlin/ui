@@ -4,9 +4,15 @@
   aria-label="Find an order"
 >
   <label class="ui-text-field">
-    <span class="ui-sr-only">Order number or customer name</span>
+    <span class="ui-sr-only" id="control-group-fields-2-label"
+      >Order number or customer name</span
+    >
     <span class="ui-field">
-      <input placeholder="Search orders" type="search" />
+      <input
+        placeholder="Search orders"
+        aria-labelledby="control-group-fields-2-label"
+        type="search"
+      />
     </span>
   </label>
   <button class="ui-button" type="button">Search</button>
@@ -17,12 +23,12 @@
   <div class="ui-field-group">
     <div class="ui-control-group" role="group">
       <label class="ui-select">
-        <span class="ui-sr-only" id="control-group-fields-1-label"
+        <span class="ui-sr-only" id="control-group-fields-3-label"
           >Currency</span
         >
         <span class="ui-field">
           <select
-            aria-labelledby="control-group-fields-1-label"
+            aria-labelledby="control-group-fields-3-label"
             name="currency"
           >
             <button>
@@ -37,10 +43,11 @@
         </span>
       </label>
       <label class="ui-text-field">
-        <span class="ui-sr-only">Amount</span>
+        <span class="ui-sr-only" id="control-group-fields-4-label">Amount</span>
         <span class="ui-field">
           <input
             placeholder="0.00"
+            aria-labelledby="control-group-fields-4-label"
             inputmode="decimal"
             name="amount"
             type="text"
@@ -50,3 +57,71 @@
     </div>
   </div>
 </fieldset>
+
+<div
+  class="ui-control-group ui-primary ui-filled"
+  role="group"
+  aria-label="Add to cart"
+>
+  <opui-number-field class="ui-number-field">
+    <label class="ui-sr-only" for="control-group-fields-1">Quantity</label>
+    <span class="ui-field">
+      <span class="ui-start">
+        <button
+          class="ui-button ui-round"
+          type="button"
+          aria-controls="control-group-fields-1"
+          aria-label="Decrease"
+          command="--step-down"
+          commandfor="control-group-fields-1"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path fill="currentColor" d="M19 13H5v-2h14z"></path>
+          </svg>
+        </button>
+      </span>
+      <input
+        max="10"
+        min="1"
+        value="1"
+        id="control-group-fields-1"
+        name="quantity"
+        type="number"
+      />
+      <span class="ui-end">
+        <button
+          class="ui-button ui-round"
+          type="button"
+          aria-controls="control-group-fields-1"
+          aria-label="Increase"
+          command="--step-up"
+          commandfor="control-group-fields-1"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+            ></path>
+          </svg>
+        </button>
+      </span>
+    </span>
+  </opui-number-field>
+  <button class="ui-button" type="button">Add to cart</button>
+</div>
+
+<script type="module">
+  import "opui-css/elements/number-field.js"
+</script>

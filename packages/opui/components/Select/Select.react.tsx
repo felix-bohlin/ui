@@ -39,6 +39,8 @@ export default function Select({
   const labelId = `${base}-label`
   const startTextId = startText ? `${base}-start-text` : undefined
   const endTextId = endText ? `${base}-end-text` : undefined
+  const startId = start ? `${base}-start` : undefined
+  const endId = end ? `${base}-end` : undefined
   const topId = top ? `${base}-top` : undefined
   const bottomId = bottom ? `${base}-bottom` : undefined
   const describedBy = idRefs(
@@ -80,7 +82,9 @@ export default function Select({
           {...rest}
           aria-describedby={describedBy}
           aria-invalid={error ? "true" : rest["aria-invalid"]}
-          aria-labelledby={label ? labelId : rest["aria-labelledby"]}
+          aria-labelledby={
+            label ? idRefs(labelId, startId, endId) : rest["aria-labelledby"]
+          }
           defaultValue={
             value === undefined
               ? (defaultValue ??
@@ -107,8 +111,16 @@ export default function Select({
             {children}
           </div>
         </select>
-        {start && <span className="ui-start">{start}</span>}
-        {end && <span className="ui-end">{end}</span>}
+        {start && (
+          <span className="ui-start" id={startId}>
+            {start}
+          </span>
+        )}
+        {end && (
+          <span className="ui-end" id={endId}>
+            {end}
+          </span>
+        )}
         {top && (
           <span className="ui-top" id={topId}>
             {top}

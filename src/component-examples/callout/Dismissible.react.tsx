@@ -48,7 +48,12 @@ export default function Dismissible() {
       </Button>
     </Callout>
   ) : (
-    <Button onClick={() => toggle(true)} ref={show} variant="outlined">
+    <Button
+      id="callout-dismissible-1-show"
+      onClick={() => toggle(true)}
+      ref={show}
+      variant="outlined"
+    >
       Show the callout again
     </Button>
   )

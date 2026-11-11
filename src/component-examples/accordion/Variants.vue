@@ -13,7 +13,7 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/vue"
   <Accordion variant="elevated">
     <AccordionSummary>Elevated</AccordionSummary>
     <AccordionContent>
-      <p>Orders over 50 EUR ship free within the EU.</p>
+      <p>Orders over €50 ship free within the EU.</p>
     </AccordionContent>
   </Accordion>
 

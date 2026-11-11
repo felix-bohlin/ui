@@ -14,7 +14,7 @@ Chat bubbles that group by sender, with attachments, reactions and a typing indi
 
 ### Slots
 
-- `default`: The messages, and any other `li` between them, such as a date `Divider`, which starts a new run.
+- `default`: The messages, and any other `li` between them, such as a date in `li.ui-divider`, which starts a new run.
 
 ### Notes
 
@@ -55,7 +55,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_text-color`: Text color in the bubble. Defaults to `--ui-text-strong`, and `--ui-on-primary` with `.ui-outgoing`.
 - `--_tight-radius`: Radius of the corners inside a run. Defaults to `--ui-radius-small`.
 
-Outputs: `--_block-end-radius`, `--_block-start-radius`, `--_divider-gap`, `--_dot-image`, `--_font-size`, `--_selected-bg-color` and `--_size`.
+Outputs: `--_block-end-radius`, `--_block-start-radius`, `--_border-color`, `--_divider-gap`, `--_dot-image`, `--_font-size`, `--_selected-bg-color` and `--_size`.
 
 ### avatar.css
 
@@ -73,7 +73,7 @@ Outputs: `--_block-end-radius`, `--_block-start-radius`, `--_divider-gap`, `--_d
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size-x-small`, `--ui-contrast`, `--ui-control-size-small`, `--ui-font-size-caption`, `--ui-font-weight-semibold`, `--ui-motion`, `--ui-on-primary`, `--ui-on-selected`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-selected`, `--ui-selected-strong`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-7`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size-x-small`, `--ui-contrast`, `--ui-control-size-small`, `--ui-focus-border-color`, `--ui-font-size-caption`, `--ui-font-weight-semibold`, `--ui-motion`, `--ui-on-primary`, `--ui-on-selected`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-selected`, `--ui-selected-strong`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-7`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

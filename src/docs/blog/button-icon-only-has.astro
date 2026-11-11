@@ -41,20 +41,20 @@ import IconOnly from "../../component-examples/button/IconOnly.astro"
     <Code
       lang="css"
       code={`.button {
-  --icon: 0.7lh;
-  --min-height: var(--ui-button-size);
-  min-block-size: var(--min-height);
+  --icon-size: 0.7lh;
+  --size: var(--ui-button-size);
+  min-block-size: var(--size);
   padding-inline: 1.5ex;
 }
 
 .button:where(:has(> svg:only-child)) {
-  --icon: calc(var(--min-height) * 0.6);
-  min-inline-size: var(--min-height);
+  --icon-size: calc(var(--size) * 0.6);
+  min-inline-size: var(--size);
   padding-inline: 0;
 }
 
 .button > svg {
-  max-block-size: var(--icon);
+  max-block-size: var(--icon-size);
 }`}
     />
   </section>

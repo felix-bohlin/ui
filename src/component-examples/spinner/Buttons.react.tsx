@@ -5,23 +5,23 @@ export default function Buttons() {
     <>
       <div className="example-row">
         <Button aria-busy="true" variant="filled">
-          Filled
+          Save
         </Button>
         <Button aria-busy="true" disabled variant="outlined">
-          Outlined
+          Upload
         </Button>
-        <Button aria-busy="true">Text</Button>
+        <Button aria-busy="true">Send</Button>
       </div>
 
       <div className="example-row">
         <Button aria-busy="true" variant="filled">
-          <span className="ui-sr-only">Filled</span>
+          <span className="ui-sr-only">Save</span>
         </Button>
         <Button aria-busy="true" disabled variant="outlined">
-          <span className="ui-sr-only">Outlined</span>
+          <span className="ui-sr-only">Upload</span>
         </Button>
         <Button aria-busy="true">
-          <span className="ui-sr-only">Text</span>
+          <span className="ui-sr-only">Send</span>
         </Button>
       </div>
     </>

@@ -1,31 +1,35 @@
 <label class="ui-text-field">
-  <span class="ui-label">Users</span>
+  <span class="ui-label" id="text-field-autosuggest-1-label">Users</span>
   <span class="ui-field">
     <input
       list="text-field-autosuggest-1-list"
-      placeholder="Placeholder"
+      placeholder="Search people"
+      aria-labelledby="text-field-autosuggest-1-label"
+      id="text-field-autosuggest-1"
       type="text"
     />
   </span>
   <datalist id="text-field-autosuggest-1-list">
-    <option value="Jonny Greenwood"></option>
-    <option value="Marika Hackman"></option>
-    <option value="Ray Manzarek"></option>
+    <option value="Elif Rahman"></option>
+    <option value="Lena Ek"></option>
+    <option value="Tom Tanaka"></option>
   </datalist>
 </label>
 
 <label class="ui-text-field ui-filled">
-  <span class="ui-label">Emails</span>
+  <span class="ui-label" id="text-field-autosuggest-2-label">Emails</span>
   <span class="ui-field">
     <input
       list="text-field-autosuggest-2-list"
-      placeholder="Placeholder"
+      placeholder="name@example.com"
+      aria-labelledby="text-field-autosuggest-2-label"
+      id="text-field-autosuggest-2"
       type="email"
     />
   </span>
   <datalist id="text-field-autosuggest-2-list">
-    <option value="jonny.greenwood@radio.head"></option>
-    <option value="marika@hack.man"></option>
-    <option value="ray.manzarek@the.doors"></option>
+    <option value="elif.rahman@example.com"></option>
+    <option value="lena.ek@example.com"></option>
+    <option value="tom.tanaka@example.com"></option>
   </datalist>
 </label>

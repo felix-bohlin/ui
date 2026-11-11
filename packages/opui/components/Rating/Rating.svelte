@@ -43,16 +43,16 @@
         aria-label={clearLabel}
         {name}
         type="radio"
-        value="0"
+        value={0}
         defaultChecked={untrack(() => current === 0)}
         {@attach seedChecked(
           () => current === 0,
           () => {
-            value = "0"
+            value = 0
           },
         )}
         onchange={() => {
-          value = "0"
+          value = 0
         }}
       />
     {/if}{#each stars as star, index (index)}

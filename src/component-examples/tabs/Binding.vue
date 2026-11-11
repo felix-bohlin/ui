@@ -10,7 +10,12 @@ function reset() {
 </script>
 
 <template>
-  <Tabs name="tabs-binding" v-model="tab">
+  <Tabs
+    aria-label="Account settings"
+    name="tabs-binding"
+    role="radiogroup"
+    v-model="tab"
+  >
     <TabsItem id="tabs-binding-1" value="profile">
       <TabsLabel>Profile</TabsLabel>
       <TabsPanel>Profile settings and information.</TabsPanel>

@@ -4,8 +4,7 @@
 
 <Select spread>
   {#snippet label()}Country{/snippet}
-  {#snippet startText()}Select your country of residence{/snippet}
-  <option value="">Select a country</option>
+  <option value="">-</option>
   <option>Denmark</option>
   <option>Finland</option>
   <option>Iceland</option>
@@ -15,9 +14,9 @@
 
 <Select spread variant="filled">
   {#snippet label()}Language{/snippet}
-  {#snippet startText()}Choose your preferred language{/snippet}
-  {#snippet endText()}This affects UI translations{/snippet}
-  <option value="">Select a language</option>
+  {#snippet startText()}Choose your preferred language.{/snippet}
+  {#snippet endText()}This affects UI translations.{/snippet}
+  <option value="">-</option>
   <option>Danish</option>
   <option>Finnish</option>
   <option>Icelandic</option>
@@ -27,21 +26,21 @@
 
 <Select required spread>
   {#snippet label()}Department{/snippet}
-  {#snippet startText()}Routes your request to the right team{/snippet}
-  <option value="">Select a department</option>
+  {#snippet startText()}Routes your request to the right team.{/snippet}
+  <option value="">-</option>
   <option>Billing</option>
   <option>Support</option>
 </Select>
 
 <Select disabled spread>
   {#snippet label()}Plan{/snippet}
-  {#snippet startText()}Managed by your organization{/snippet}
+  {#snippet startText()}Managed by your organization.{/snippet}
   <option>Business</option>
 </Select>
 
 <Select error spread>
   {#snippet label()}Payment method{/snippet}
-  {#snippet startText()}Charged on the first of each month{/snippet}
+  {#snippet startText()}Charged on the first of each month.{/snippet}
   {#snippet endText()}This card has expired. Pick another one.{/snippet}
   <option>Visa ending in 4242</option>
   <option>Mastercard ending in 5100</option>
@@ -49,7 +48,7 @@
 
 <Select spread>
   {#snippet label()}Time zone{/snippet}
-  {#snippet startText()}Used for reminders and due dates{/snippet}
+  {#snippet startText()}Used for reminders and due dates.{/snippet}
   {#snippet start()}UTC{/snippet}
   <option>-03:00</option>
   <option>+00:00</option>
@@ -60,7 +59,7 @@
 
 <Select spread variant="filled">
   {#snippet label()}Region{/snippet}
-  {#snippet startText()}Affects data residency and latency{/snippet}
+  {#snippet startText()}Affects data residency and latency.{/snippet}
   {#snippet start()}
     <svg
       aria-hidden="true"
@@ -80,7 +79,7 @@
       ></path>
     </svg>
   {/snippet}
-  {#snippet endText()}Cannot be changed after deploy{/snippet}
+  {#snippet endText()}Cannot be changed after deploy.{/snippet}
   <option value="">-</option>
   <option>ap-southeast-1</option>
   <option>eu-north-1</option>

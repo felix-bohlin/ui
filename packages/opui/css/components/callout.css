@@ -103,7 +103,7 @@
     * Can't make sure contrast will be acceptable (yet) so we use the current text color instead.
     */
     &:not(.ui-outlined) {
-      a[href] {
+      a[href]:where(:not([class*="ui-"]), .ui-link) {
         color: inherit;
 
         &:where(:not([class*="ui-"])) {

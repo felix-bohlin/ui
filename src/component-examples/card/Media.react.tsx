@@ -52,8 +52,7 @@ export default function Media() {
             width="800"
           />
           <CardContent>
-            Base camp sat at 3,200 meters. The image is cropped to 2:1 with{" "}
-            <code>aspect-ratio</code>.
+            Base camp sat at 3,200 meters, two days from the road.
           </CardContent>
         </Card>
       </li>

@@ -26,6 +26,7 @@ export const keywords = ["multiline", "text area"]
   description={description}
   slug="textarea"
   browserSupport={[
+    "alt-text-generated-content",
     "container-queries",
     "field-sizing",
     "has",
@@ -115,11 +116,14 @@ export const keywords = ["multiline", "text area"]
     <h2>Character count</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        With <code>maxlength</code>, set <code>characterCount</code>.
+        With <code>maxlength</code>, set <code>characterCount</code>. Screen
+        readers only hear the count near the limit, so name the limit in the end
+        text.
       </Fragment>
       <Fragment slot="html">
         With <code>maxlength</code>, import
-        <code>opui-css/elements/character-count.js</code>.
+        <code>opui-css/elements/character-count.js</code>. Screen readers only
+        hear the count near the limit, so name the limit in the end text.
       </Fragment>
     </Conditional>
     <AutoExample name="CharacterCount" centered />
@@ -195,8 +199,10 @@ export const keywords = ["multiline", "text area"]
   <Fragment slot="accessibility">
     <ul>
       <li>
-        Everything in the <code>&lt;label&gt;</code> is part of the name: keep
-        start text, end text and affixes short.
+        The label and the affixes are the field's name, through
+        <code>aria-labelledby</code>. The start text, end text and the top and
+        bottom regions are its description, through <code>aria-describedby</code
+        >, so a hint or an error is read after the name.
       </li>
     </ul>
     <KeyboardSupport />

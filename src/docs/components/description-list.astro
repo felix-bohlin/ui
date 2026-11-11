@@ -19,7 +19,7 @@ import descriptionListItemApi from "../../component-api/description-list-item/ap
 import DescriptionListBuild from "../../components/UnderTheHood/DescriptionListBuild.astro"
 
 export const description =
-  "A list of terms and their values on the native dl element."
+  "Terms and their values, like order details or totals."
 
 export const keywords = ["dl", "key value", "properties"]
 ---
@@ -93,7 +93,7 @@ export const keywords = ["dl", "key value", "properties"]
       <PropOrClass prop='orientation="horizontal"' class=".ui-horizontal" /> to
       keep a row.
     </p>
-    <AutoExample name="Orientation" />
+    <AutoExample name="Orientation" column spacious />
   </section>
 
   <section id="total">
@@ -122,8 +122,8 @@ export const keywords = ["dl", "key value", "properties"]
     <Anatomy zoom={1.25}>
       <UIDescriptionList style="inline-size: 16rem">
         <UIDescriptionListItem>
-          <UIDescriptionListTerm>Price</UIDescriptionListTerm>
-          <UIDescriptionListDescription>6 950 000</UIDescriptionListDescription>
+          <UIDescriptionListTerm>Order number</UIDescriptionListTerm>
+          <UIDescriptionListDescription>10482</UIDescriptionListDescription>
         </UIDescriptionListItem>
       </UIDescriptionList>
     </Anatomy>

@@ -32,7 +32,7 @@ export default {
     ...passThrough(
       "input",
       "opui-number-field",
-      ["min", "max", "step", "placeholder"],
+      ["max", "min", "placeholder", "step"],
       {
         astro:
           "The component loads `opui-css/elements/number-field.js`, which steps the value when a button is pressed or held.",
@@ -55,7 +55,6 @@ export default {
       default: "false",
       description: "Dims the field and blocks input and the step buttons.",
       group: "Disabled",
-      inherited: true,
       part: "input",
       prop: "disabled",
       type: "boolean",
@@ -91,7 +90,7 @@ export default {
     },
     {
       description:
-        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.",
+        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
       inherited: true,
       prop: "name",
       type: "string",
@@ -188,7 +187,7 @@ export default {
   ],
   root: {
     description:
-      "The `<opui-number-field>` custom element. It steps the value and marks a button `aria-disabled` at `min` or `max`.",
+      "The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max` and keeps both disabled while the input is disabled, as the component renders them.",
     selector: "opui-number-field.ui-number-field",
   },
   source: "NumberField",

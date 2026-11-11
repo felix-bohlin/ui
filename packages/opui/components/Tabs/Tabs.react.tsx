@@ -1,6 +1,7 @@
 "use client"
 
 import { useId, useState } from "react"
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import { TabsContext } from "./context.react"
 import type { Props } from "./types.react"
@@ -36,7 +37,8 @@ export default function Tabs({
           variant && variant !== "tonal" && `ui-${variant}`,
           className,
         ])}
-        {...rest}
+        role="radiogroup"
+        {...defined(rest)}
       >
         {children}
       </div>

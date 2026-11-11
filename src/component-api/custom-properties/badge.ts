@@ -12,8 +12,9 @@ export default {
     kind: "output",
   },
   "--_border-color": {
-    description: "Border color of the indicator. Set by the color classes.",
-    kind: "output",
+    description:
+      "Border color of the indicator, a ring in `--ui-surface` that sets it off from what it sits on. Set it to the background behind the badge on another surface.",
+    kind: "input",
   },
   "--_border-width": {
     description: "Border width of the indicator.",

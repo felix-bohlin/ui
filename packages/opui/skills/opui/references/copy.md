@@ -37,11 +37,10 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 ### copy.css
 
 - `--_bg-color`: Background of the label. Defaults to `--ui-surface-elevated`.
-- `--_ease`: Easing of the reveal and the fade. Defaults to `--ui-ease-enter`.
 - `--_motion`: Motion multiplier for the reveal and the fade. `0` turns them off.
 - `--_offset`: The gap between the label and the button.
 
-Outputs: `--_accent`, `--_border-color`, `--_duration`, `--_font-size`, `--_hidden-clip-path`, `--_radius`, `--_shown-clip-path` and `--_text-color`.
+Outputs: `--_accent`, `--_border-color`, `--_duration`, `--_ease`, `--_font-size`, `--_hidden-clip-path`, `--_radius`, `--_shown-clip-path` and `--_text-color`.
 
 ## Theme tokens
 
@@ -54,9 +53,14 @@ The stylesheets read `--ui-border-width`, `--ui-button-accent`, `--ui-button-fon
 ```html
 <opui-copy id="copy-basics-1" class="ui-copy">
   <label class="ui-text-field">
-    <span class="ui-sr-only">Invite link</span>
+    <span class="ui-sr-only" id="copy-basics-2-label">Invite link</span>
     <span class="ui-field">
-      <input readonly value="https://example.com/invite/8f3k2" type="text" />
+      <input
+        readonly
+        value="https://example.com/invite/8f3k2"
+        aria-labelledby="copy-basics-2-label"
+        type="text"
+      />
     </span>
   </label>
   <span class="ui-sr-only" role="status"></span>

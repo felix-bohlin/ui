@@ -9,16 +9,20 @@ import {
   Fieldset,
 } from "opui-css/react"
 
+const topics = ["updates", "events", "offers"]
+
 export default function FieldGroupBinding() {
-  const [fruit, setFruit] = useState(["apples"])
+  const [selected, setSelected] = useState(["updates"])
+  const summary =
+    topics.filter((topic) => selected.includes(topic)).join(", ") || "none"
 
   function reset() {
-    setFruit(["apples"])
+    setSelected(["updates"])
   }
 
   function toggle(event: ChangeEvent<HTMLInputElement>) {
     const { checked, value } = event.target
-    setFruit((current) =>
+    setSelected((current) =>
       checked ? [...current, value] : current.filter((item) => item !== value),
     )
   }
@@ -26,34 +30,32 @@ export default function FieldGroupBinding() {
   return (
     <>
       <Fieldset>
-        <FieldLegend>Fruit</FieldLegend>
+        <FieldLegend>Newsletter topics</FieldLegend>
         <FieldGroup name="checkbox-binding">
           <Checkbox
-            checked={fruit.includes("apples")}
+            checked={selected.includes("updates")}
             onChange={toggle}
-            value="apples"
+            value="updates"
           >
-            Apples
+            Product updates
           </Checkbox>
           <Checkbox
-            checked={fruit.includes("bananas")}
+            checked={selected.includes("events")}
             onChange={toggle}
-            value="bananas"
+            value="events"
           >
-            Bananas
+            Events
           </Checkbox>
           <Checkbox
-            checked={fruit.includes("cherries")}
+            checked={selected.includes("offers")}
             onChange={toggle}
-            value="cherries"
+            value="offers"
           >
-            Cherries
+            Offers
           </Checkbox>
         </FieldGroup>
       </Fieldset>
-      <p className="checkbox-binding-text">
-        Selected: {fruit.join(", ") || "none"}
-      </p>
+      <p className="checkbox-binding-text">Selected: {summary}</p>
       <Button className="checkbox-binding-reset" onClick={reset}>
         Reset
       </Button>

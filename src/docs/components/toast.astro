@@ -47,7 +47,6 @@ export const keywords = ["notification", "snackbar"]
     "overflow-clip",
     "popover",
     "relative-color",
-    "scope",
     "starting-style",
   ]}
   apis={[{ title: "Toaster API", api: toastApi }]}
@@ -231,14 +230,46 @@ export const keywords = ["notification", "snackbar"]
 
   <section id="duration">
     <h2>Duration</h2>
-    <p>5 seconds by default. Use <code>duration</code> to change it.</p>
+    <p>
+      5 seconds by default, 10 with an action. Use <code>duration</code> to
+      change it.
+    </p>
     <AutoExample name="Duration" row />
+  </section>
+
+  <section id="limit">
+    <h2>Limit</h2>
+    <p>
+      Three toasts at a time by default. Past
+      <PropOrClass prop="limit" class="limit" />, the oldest is dismissed, so a
+      burst of toasts never covers the page. With <code>1</code>, each toast
+      replaces the last.
+    </p>
+    <AutoExample name="Limit" row />
+  </section>
+
+  <section id="in-a-dialog">
+    <h2>In a dialog</h2>
+    <p>
+      A modal <DocLink href="/components/dialog">Dialog</DocLink> or
+      <DocLink href="/components/drawer">Drawer</DocLink> makes the rest of the
+      page inert, toasts included. Give it a toaster of its own:
+      <code>toast()</code> uses the one inside the open dialog, and a toaster
+      outside it warns in the console.
+    </p>
+    <AutoExample name="Dialog" centered />
   </section>
 
   <Fragment slot="accessibility">
     <ul>
       <li>
         Put the toaster near the content it confirms, or at the end of the page.
+      </li>
+      <li>
+        Give a modal <DocLink href="/components/dialog">Dialog</DocLink> or
+        <DocLink href="/components/drawer">Drawer</DocLink> that shows toasts a
+        <a href="#in-a-dialog">toaster of its own</a>, since the page behind it
+        is inert. <code>toast()</code> uses it while the dialog is open.
       </li>
     </ul>
     <KeyboardSupport />

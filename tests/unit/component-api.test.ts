@@ -85,7 +85,7 @@ describe("component api checks", () => {
 
   test("report stylesheet classes that no api.ts names", () => {
     expect(checkClasses([])).toContain(
-      'carousel.css: class ".ui-motion-off" is in no api.ts; document it as an option, a part or in a note',
+      'carousel.css: class ".ui-markers" is in no api.ts; document it as an option, a part or in a note',
     )
   })
 

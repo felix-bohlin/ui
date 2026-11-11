@@ -10,13 +10,18 @@ export default function Indeterminate() {
   return (
     <SelectAll>
       <Fieldset>
-        <FieldLegend>
-          <Checkbox data-select-all="">Select all</Checkbox>
-        </FieldLegend>
-        <FieldGroup name="indeterminate-children">
-          <Checkbox defaultChecked>Apples</Checkbox>
-          <Checkbox>Bananas</Checkbox>
-          <Checkbox>Cherries</Checkbox>
+        <FieldLegend>Notifications</FieldLegend>
+        <FieldGroup>
+          <Checkbox data-select-all="">All notifications</Checkbox>
+          <Checkbox defaultChecked name="checkbox-indeterminate" value="email">
+            Email
+          </Checkbox>
+          <Checkbox name="checkbox-indeterminate" value="push">
+            Push
+          </Checkbox>
+          <Checkbox name="checkbox-indeterminate" value="sms">
+            SMS
+          </Checkbox>
         </FieldGroup>
       </Fieldset>
     </SelectAll>

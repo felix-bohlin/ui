@@ -1,0 +1,20 @@
+---
+import { Badge } from "opui-css/astro"
+---
+
+<Badge corner="start-start" hideLabel label="35 unread messages">
+  <svg aria-hidden="true"><!-- --></svg>
+  <Fragment slot="indicator">35</Fragment>
+</Badge>
+<Badge hideLabel label="More than 99 unread messages">
+  <svg aria-hidden="true"><!-- --></svg>
+  <Fragment slot="indicator">99+</Fragment>
+</Badge>
+<Badge corner="end-start" hideLabel label="New messages">
+  <svg aria-hidden="true"><!-- --></svg>
+  <Fragment slot="indicator">New</Fragment>
+</Badge>
+<Badge corner="end-end" hideLabel label="About 3,000 unread messages">
+  <svg aria-hidden="true"><!-- --></svg>
+  <Fragment slot="indicator">3K</Fragment>
+</Badge>

@@ -1,80 +1,80 @@
 <label class="ui-spread ui-text-field">
-  <span class="ui-label">Name</span>
-  <span class="ui-start-text">Provide your full name for identification</span>
+  <span class="ui-label" id="id-1">Name</span>
+  <span class="ui-start-text" id="id-2">Provide your full name for identification</span>
   <span class="ui-field">
-    <input placeholder="Ada Lovelace" type="text">
+    <input aria-describedby="id-2" aria-labelledby="id-1" placeholder="Ada Lovelace" type="text">
   </span>
 </label>
 <label class="ui-filled ui-spread ui-text-field">
-  <span class="ui-label">Email</span>
-  <span class="ui-start-text">We'll use this to contact you</span>
+  <span class="ui-label" id="id-3">Email</span>
+  <span class="ui-start-text" id="id-4">We'll use this to contact you</span>
   <span class="ui-field">
-    <input placeholder="you@example.com" type="email">
+    <input aria-describedby="id-4 id-5" aria-labelledby="id-3" placeholder="name@example.com" type="email">
   </span>
-  <span class="ui-end-text">Please use a valid email address</span>
+  <span class="ui-end-text" id="id-5">Use a work address.</span>
 </label>
 <label class="ui-spread ui-text-field">
-  <span class="ui-label">Company</span>
-  <span class="ui-start-text">Shown on your invoices</span>
+  <span class="ui-label" id="id-6">Company</span>
+  <span class="ui-start-text" id="id-7">Shown on your invoices</span>
   <span class="ui-field">
-    <input required type="text">
-  </span>
-</label>
-<label class="ui-spread ui-text-field">
-  <span class="ui-label">Account ID</span>
-  <span class="ui-start-text">Assigned when you signed up</span>
-  <span class="ui-field">
-    <input disabled type="text" value="ACC-20931">
+    <input aria-describedby="id-7" aria-labelledby="id-6" required type="text">
   </span>
 </label>
 <label class="ui-spread ui-text-field">
-  <span class="ui-label">Display name</span>
-  <span class="ui-start-text">Shown next to your comments</span>
+  <span class="ui-label" id="id-8">Account ID</span>
+  <span class="ui-start-text" id="id-9">Assigned when you signed up</span>
   <span class="ui-field">
-    <input aria-invalid="true" type="text" value="A">
+    <input aria-describedby="id-9" aria-labelledby="id-8" disabled type="text" value="ACC-20931">
   </span>
-  <span class="ui-end-text">Enter at least two characters.</span>
 </label>
 <label class="ui-spread ui-text-field">
-  <span class="ui-label">Amount</span>
-  <span class="ui-start-text">Daily spending limit</span>
+  <span class="ui-label" id="id-10">Display name</span>
+  <span class="ui-start-text" id="id-11">Shown next to your comments</span>
   <span class="ui-field">
-    <input placeholder="0.00" type="text">
-    <span class="ui-start">€</span>
-    <span class="ui-end">EUR</span>
+    <input aria-describedby="id-11 id-12" aria-invalid="true" aria-labelledby="id-10" type="text" value="A">
+  </span>
+  <span class="ui-end-text" id="id-12">Enter at least two characters.</span>
+</label>
+<label class="ui-spread ui-text-field">
+  <span class="ui-label" id="id-13">Amount</span>
+  <span class="ui-start-text" id="id-14">Daily spending limit</span>
+  <span class="ui-field">
+    <input aria-describedby="id-14" aria-labelledby="id-13 id-15 id-16" placeholder="0.00" type="text">
+    <span class="ui-start" id="id-15">€</span>
+    <span class="ui-end" id="id-16">EUR</span>
   </span>
 </label>
 <label class="ui-filled ui-spread ui-text-field">
-  <span class="ui-label">Website</span>
-  <span class="ui-start-text">Your public profile URL</span>
+  <span class="ui-label" id="id-17">Website</span>
+  <span class="ui-start-text" id="id-18">Your public profile URL</span>
   <span class="ui-field">
-    <input placeholder="example.com" type="text">
-    <span class="ui-start">https://</span>
+    <input aria-describedby="id-18 id-20" aria-labelledby="id-17 id-19" placeholder="example.com" type="text">
+    <span class="ui-start" id="id-19">https://</span>
   </span>
-  <span class="ui-end-text">Must include a valid domain</span>
+  <span class="ui-end-text" id="id-20">Include the domain, like example.com.</span>
 </label>
 <label class="ui-spread ui-text-field">
-  <span class="ui-label">Project name</span>
-  <span class="ui-start-text">Used to generate the project URL</span>
+  <span class="ui-label" id="id-21">Project name</span>
+  <span class="ui-start-text" id="id-22">Used to generate the project URL</span>
   <span class="ui-field">
-    <input placeholder="my-project" type="text">
-    <span class="ui-top">acme.dev/</span>
-    <span class="ui-bottom">Lowercase letters and dashes only</span>
+    <input aria-describedby="id-22 id-23 id-24" aria-labelledby="id-21" placeholder="my-project" type="text">
+    <span class="ui-top" id="id-23">acme.dev/</span>
+    <span class="ui-bottom" id="id-24">Lowercase letters and dashes only</span>
   </span>
 </label>
 <label class="ui-filled ui-spread ui-text-field">
-  <span class="ui-label">API key</span>
-  <span class="ui-start-text">Stored encrypted at rest</span>
+  <span class="ui-label" id="id-25">API key</span>
+  <span class="ui-start-text" id="id-26">Stored encrypted at rest</span>
   <span class="ui-field">
-    <input placeholder="Paste your key" type="password">
-    <span class="ui-start">
+    <input aria-describedby="id-26 id-28 id-29 id-30" aria-labelledby="id-25 id-27" placeholder="Paste your key" type="password">
+    <span class="ui-start" id="id-27">
       <svg aria-hidden="true" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16">
         <rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect>
         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
       </svg>
     </span>
-    <span class="ui-top">Secret</span>
-    <span class="ui-bottom">Rotates every 90 days</span>
+    <span class="ui-top" id="id-28">Secret</span>
+    <span class="ui-bottom" id="id-29">Rotates every 90 days</span>
   </span>
-  <span class="ui-end-text">Treat like a password</span>
+  <span class="ui-end-text" id="id-30">Treat it like a password.</span>
 </label>

@@ -3,6 +3,7 @@ import { useInputAttrs } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import CheckboxInput from "./CheckboxInput.vue"
 import { hasName, warnUnnamed } from "../dev"
+import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
@@ -42,7 +43,7 @@ warnUnnamed("Checkbox", hasName({ ...attrs.value, label }, slots.default))
       size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
-    :style="$attrs.style"
+    v-bind="styleAttrs($attrs.style)"
   >
     <CheckboxInput
       v-bind="attrs"

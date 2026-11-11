@@ -81,7 +81,8 @@ export default {
     {
       attribute: "[required]",
       default: "false",
-      description: "Requires a star and drops the clear radio.",
+      description:
+        "Adds a required mark after the legend, requires a star and drops the clear radio.",
       group: "Required",
       part: "input",
       prop: "required",
@@ -98,9 +99,8 @@ export default {
       },
     },
     {
-      default: '(value) => "1 star", "2 stars"',
       description:
-        "Returns the accessible name of each star radio. Use it to translate.",
+        "Returns the accessible name of each star radio. Use it to translate. Defaults to `1 star`, `2 stars` and so on.",
       prop: "starLabel",
     },
   ],

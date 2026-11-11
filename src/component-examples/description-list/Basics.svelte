@@ -9,15 +9,15 @@
 
 <DescriptionList>
   <DescriptionListItem>
-    <DescriptionListTerm>Price</DescriptionListTerm>
-    <DescriptionListDescription>6 950 000</DescriptionListDescription>
+    <DescriptionListTerm>Order number</DescriptionListTerm>
+    <DescriptionListDescription>10482</DescriptionListDescription>
   </DescriptionListItem>
   <DescriptionListItem>
-    <DescriptionListTerm>Size</DescriptionListTerm>
-    <DescriptionListDescription>64 m²</DescriptionListDescription>
+    <DescriptionListTerm>Placed on</DescriptionListTerm>
+    <DescriptionListDescription>Oct 8, 2026</DescriptionListDescription>
   </DescriptionListItem>
   <DescriptionListItem>
-    <DescriptionListTerm>Rooms</DescriptionListTerm>
-    <DescriptionListDescription>3</DescriptionListDescription>
+    <DescriptionListTerm>Status</DescriptionListTerm>
+    <DescriptionListDescription>Shipped</DescriptionListDescription>
   </DescriptionListItem>
 </DescriptionList>

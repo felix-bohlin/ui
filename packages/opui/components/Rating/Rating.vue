@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, type HTMLAttributes, useAttrs } from "vue"
+import { computed, type HTMLAttributes, mergeProps, useAttrs } from "vue"
 import { vSeed } from "../vue"
-import { mergeStyle } from "../style"
+import { mergeStyle, styleAttrs } from "../style"
 import { defined } from "../attrs"
 import type { Props } from "./types.vue-props"
 
@@ -59,8 +59,7 @@ const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
       $props.class,
     ]"
     :disabled="disabled"
-    :style="$attrs.style"
-    v-bind="restAttrs"
+    v-bind="mergeProps(styleAttrs($attrs.style), { ...restAttrs })"
   >
     <legend>{{ label }}</legend>
     <input
@@ -70,7 +69,7 @@ const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
       :aria-label="clearLabel"
       :name="name"
       type="radio"
-      value="0"
+      :value="0"
       v-seed
       v-model="model"
     /><input
@@ -97,8 +96,14 @@ const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
       $props.class,
     ]"
     :max="max"
-    :style="mergeStyle({ '--_max': count === 5 ? undefined : count }, {})"
     :value="model ?? 0"
-    v-bind="defined(restAttrs)"
+    v-bind="
+      mergeProps(
+        styleAttrs(
+          mergeStyle({ '--_max': count === 5 ? undefined : count }, {}),
+        ),
+        { ...defined(restAttrs) },
+      )
+    "
   ></meter>
 </template>

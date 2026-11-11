@@ -7,20 +7,25 @@
     Fieldset,
   } from "opui-css/svelte"
 
-  let fruit = $state(["apples"])
+  const topics = ["updates", "events", "offers"]
+
+  let selected = $state(["updates"])
+  const summary = $derived(
+    topics.filter((topic) => selected.includes(topic)).join(", ") || "none",
+  )
 
   function reset() {
-    fruit = ["apples"]
+    selected = ["updates"]
   }
 </script>
 
 <Fieldset>
-  <FieldLegend>Fruit</FieldLegend>
+  <FieldLegend>Newsletter topics</FieldLegend>
   <FieldGroup name="checkbox-binding">
-    <Checkbox bind:group={fruit} value="apples">Apples</Checkbox>
-    <Checkbox bind:group={fruit} value="bananas">Bananas</Checkbox>
-    <Checkbox bind:group={fruit} value="cherries">Cherries</Checkbox>
+    <Checkbox bind:group={selected} value="updates">Product updates</Checkbox>
+    <Checkbox bind:group={selected} value="events">Events</Checkbox>
+    <Checkbox bind:group={selected} value="offers">Offers</Checkbox>
   </FieldGroup>
 </Fieldset>
-<p class="checkbox-binding-text">Selected: {fruit.join(", ") || "none"}</p>
+<p class="checkbox-binding-text">Selected: {summary}</p>
 <Button class="checkbox-binding-reset" onclick={reset}>Reset</Button>

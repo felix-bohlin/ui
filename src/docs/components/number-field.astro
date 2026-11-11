@@ -28,6 +28,7 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
   heroAnatomy
   slug="number-field"
   browserSupport={[
+    "alt-text-generated-content",
     "color-mix",
     "container-queries",
     "container-style-queries",
@@ -36,7 +37,6 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
     "invoker-commands",
     "lh",
     "light-dark",
-    "popover",
     "relative-color",
     "user-pseudos",
   ]}
@@ -110,7 +110,7 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
     <h2>Basics</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Set <code>min</code>, <code>max</code> and <code>step</code>.
+        Set <code>min</code> and <code>max</code>.
       </Fragment>
       <Fragment slot="html">
         Import <code>opui-css/elements/number-field.js</code>.
@@ -145,6 +145,7 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
 
   <section id="step">
     <h2>Step</h2>
+    <p>Use <code>step</code> for decimals.</p>
     <AutoExample name="Step" />
   </section>
 
@@ -174,6 +175,7 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
         Translate their <code>aria-label</code>.
       </Fragment>
     </Conditional>
+    <AutoExample name="Buttons" />
   </section>
 
   <section id="disabled">
@@ -197,6 +199,12 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
   </section>
 
   <Fragment slot="accessibility">
+    <ul>
+      <li>
+        A step button changes the value without moving focus, so screen readers
+        don't announce it. The arrow keys on the input do.
+      </li>
+    </ul>
     <KeyboardSupport />
   </Fragment>
 </Component>

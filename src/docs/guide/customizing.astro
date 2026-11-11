@@ -66,6 +66,22 @@ export const keywords = [
 @import "opui-css/themes/brutalist.css";`}
       lang="css"
     />
+    <p>
+      The bootstrap, brutalist, govuk and m3 themes derive their primary color
+      and their tinted surfaces, text and borders from
+      <code>--ui-palette-source</code>, so setting it recolors them, on the page
+      or in a
+      <DocLink href="/guide/theming#scopes"><code>.ui-palette</code></DocLink>
+      scope. The shadcn theme stays black, white and gray. The gray ramp keeps
+      <code>--ui-gray-hue</code>, so set it too:
+    </p>
+    <Code
+      code={`:where(html) {
+  --ui-palette-source: oklch(0.65 0.15 30);
+  --ui-gray-hue: 30;
+}`}
+      lang="css"
+    />
   </section>
 
   <section id="component-properties">

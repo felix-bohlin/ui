@@ -442,7 +442,7 @@ describe("the three ports of a sample", () => {
     )
   })
 
-  test("mergeStyle merges into an object in React and into the attrs in Vue", async () => {
+  test("mergeStyle merges into an object in React and binds through styleAttrs in Vue", async () => {
     const ports = await compile(
       '---\nimport type { Props } from "./types.astro"\nimport { mergeStyle } from "../style"\n\nconst { class: className, style, width, ...rest } = Astro.props\n---\n\n<col class:list={[className]} style={mergeStyle({ width }, style)} {...rest} />\n',
     )
@@ -451,7 +451,7 @@ describe("the three ports of a sample", () => {
     )
     expect(ports.svelte).toContain("style={mergeStyle({ width }, style)}")
     expect(ports.vue).toBe(
-      '<script setup lang="ts">\nimport { mergeStyle } from "../style"\nimport { classAttrs } from "../cx"\nimport type { Props } from "./types.vue-props"\n\nconst { width } = defineProps<Props>()\n</script>\n\n<template>\n  <col v-bind="classAttrs([$props.class])" :style="mergeStyle({ width }, {})" />\n</template>\n',
+      '<script setup lang="ts">\nimport { mergeStyle, styleAttrs } from "../style"\nimport { classAttrs } from "../cx"\nimport type { Props } from "./types.vue-props"\n\nconst { width } = defineProps<Props>()\n</script>\n\n<template>\n  <col\n    v-bind="{\n      ...classAttrs([$props.class]),\n      ...styleAttrs(mergeStyle({ width }, {})),\n    }"\n  />\n</template>\n',
     )
   })
 
@@ -507,6 +507,24 @@ describe("the three ports of a sample", () => {
     )
     expect(ports.vue).toBe(
       '<script setup lang="ts">\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { items } = defineProps<Props>()\ndefineSlots<Slots>()\n</script>\n\n<template>\n  <ul :class="[\'ui-sample\', $props.class]">\n    <li v-for="({ href, label, ...itemRest }, index) in items" :key="index">\n      <component :is="href ? \'a\' : \'span\'" :href="href" v-bind="itemRest">{{\n        label\n      }}</component>\n    </li>\n    <slot></slot>\n  </ul>\n</template>\n',
+    )
+  })
+
+  test("a spread the Astro file filters with defined() stays filtered in every framework", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport { defined } from "../attrs"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<ul class:list={["ui-sample", className]} {...rest}>\n  {\n    items?.map(({ label, ...itemRest }) => (\n      <li>\n        <button type="button" {...defined(itemRest)}>{label}</button>\n      </li>\n    ))\n  }\n</ul>\n',
+    )
+    for (const port of Object.values(ports)) {
+      expect(port).toContain('import { defined } from "../attrs"')
+    }
+    expect(ports["react.tsx"]).toContain(
+      '<button type="button" {...defined(itemRest)}>',
+    )
+    expect(ports.svelte).toContain(
+      '<button type="button" {...defined(itemRest)}>',
+    )
+    expect(ports.vue).toContain(
+      '<button type="button" v-bind="defined(itemRest)">',
     )
   })
 
@@ -640,6 +658,22 @@ describe("the three ports of a sample", () => {
       'Object.entries(attrs).filter(([key]) => key !== "aria-describedby")',
     )
     expect(ports.vue).toContain('v-bind="restAttrs"')
+  })
+
+  test("Vue binds a style that can be empty through styleAttrs, merged with the attrs in attribute order", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport { mergeStyle } from "../style"\n\nconst { "aria-describedby": ariaDescribedBy, class: className, max, style, ...rest } = Astro.props\n---\n\n<fieldset class:list={["ui-sample", className]} style={mergeStyle({ "--_max": max }, style)} {...rest}>\n  <input aria-describedby={ariaDescribedBy} />\n</fieldset>\n',
+    )
+    expect(ports.vue).toContain(
+      'import { computed, type HTMLAttributes, mergeProps, useAttrs } from "vue"',
+    )
+    expect(ports.vue).toContain(
+      'import { mergeStyle, styleAttrs } from "../style"',
+    )
+    expect(ports.vue).toContain(
+      "mergeProps(styleAttrs(mergeStyle({ '--_max': max }, {})), {\n        ...restAttrs,\n      })",
+    )
+    expect(ports.vue).not.toContain(":style=")
   })
 
   test("a value model from api.ts binds the control in Svelte and Vue and stays in rest in React", async () => {
@@ -927,7 +961,10 @@ describe("the three ports of a sample", () => {
     )
     const svelte = outputs.get(sampleFile().replace(".astro", ".svelte"))
     expect(svelte).toContain(
-      "  checked={grouped ?? checked ?? rest.defaultChecked}\n",
+      '    warnGroupedChecked("Sample", grouped, checked ?? defaultChecked, "Tabs"),\n',
+    )
+    expect(svelte).toContain(
+      "  checked={grouped ?? checked ?? defaultChecked}\n  defaultChecked={grouped === undefined ? defaultChecked : undefined}\n",
     )
     expect(svelte).toContain(
       "  {...defined(rest)}\n  onchange={(event) => {\n    parent?.change?.(event.currentTarget)\n    onchange?.(event)\n  }}\n/>{@render children?.()}\n",
@@ -1312,6 +1349,21 @@ describe("toTypes", () => {
     )
     expect(types.vue).toBe(
       'import type { Class, DefaultSlots } from "../vue"\nimport type {\n  Props as BaseProps,\n} from "./types"\n\nexport type Props = BaseProps & Class\n\nexport type SamplePartProps = Class\n\nexport type Slots = DefaultSlots\n',
+    )
+  })
+
+  test("a component without a slot gets no Vue slot type", () => {
+    const { vue } = toTypes(
+      "Sample",
+      {
+        astro:
+          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"div">\n',
+        base: 'export type Props = {\n  variant?: "a" | "b"\n}\n',
+      },
+      { Sample: [] },
+    )
+    expect(vue).toBe(
+      'import type { Class } from "../vue"\nimport type {\n  Props as BaseProps,\n} from "./types"\n\nexport type Props = BaseProps & Class\n',
     )
   })
 

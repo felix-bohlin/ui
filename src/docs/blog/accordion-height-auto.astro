@@ -49,9 +49,9 @@ details::details-content {
   opacity: 0;
   overflow-block: clip;
   transition:
-    block-size 0.2s,
-    content-visibility 0.2s allow-discrete,
-    opacity 0.2s;
+    block-size var(--ui-duration),
+    content-visibility var(--ui-duration) allow-discrete,
+    opacity var(--ui-duration);
 }
 
 details[open]::details-content {

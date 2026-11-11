@@ -2,7 +2,12 @@
 import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
 ---
 
-<Tabs name="line-tabs" variant="line">
+<Tabs
+  aria-label="Account settings"
+  name="line-tabs"
+
+  variant="line"
+>
   <TabsItem checked>
     <TabsLabel>Profile</TabsLabel>
     <TabsPanel>Profile settings and information.</TabsPanel>

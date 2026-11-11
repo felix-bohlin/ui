@@ -32,6 +32,8 @@ export function mergeStyle(vars: Vars, style?: object | string | null) {
   return [styleVars(vars), style].filter(Boolean).join(" ") || undefined
 }
 
+export const styleAttrs = <S>(style: S) => (style ? { style } : {})
+
 export const cssString = (text: string) =>
   `"${text.replace(/["\\]/g, "\\$&").replace(/\n/g, "\\a ")}"`
 

@@ -5,12 +5,12 @@ const steps = [
   {
     css: `
 .switch {
-  --dot-color: var(--ui-switch-thumb-bg-color);
+  --thumb-bg-color: var(--ui-switch-thumb-bg-color);
 
   appearance: none;
   block-size: 1.5rem;
   cursor: pointer;
-  inline-size: var(--track-width);
+  inline-size: var(--track-inline-size);
   margin: 0;
   position: relative;
 }
@@ -44,11 +44,11 @@ const steps = [
     var(--ui-primary),
     oklch(from var(--ui-primary) min(l, 0.62) c h)
   );
-  --accent-contrast: light-dark(var(--ui-on-primary), var(--ui-on-fill));
+  --on-accent: light-dark(var(--ui-on-primary), var(--ui-on-fill));
 }
 
 .switch::after {
-  background-color: var(--dot-color);
+  background-color: var(--thumb-bg-color);
   block-size: 1rem;
   border-radius: 50%;
   content: "";
@@ -64,15 +64,15 @@ const steps = [
 }
 
 .switch:checked::after {
-  --dot-color: var(--accent-contrast);
+  --thumb-bg-color: var(--on-accent);
 
-  inset-inline-start: calc(var(--track-width) - 1rem - 0.25rem);
+  inset-inline-start: calc(var(--track-inline-size) - 1rem - 0.25rem);
 }`,
-    features: ["light-dark", "logical-properties", "relative-color"],
+    features: ["light-dark", "relative-color"],
     notes: [
       "<code>::after</code> is the dot",
       "<code>:checked</code> moves it to the end: track − dot − gap",
-      "Checked, it takes the checkbox's <code>--accent</code> and <code>--accent-contrast</code>, so the dot keeps 3:1 in dark mode",
+      "Checked, it takes the checkbox's <code>--accent</code> and <code>--on-accent</code>, so the dot keeps 3:1 in dark mode",
       "Logical insets, so it slides the other way in RTL",
     ],
     title: "Dot",
@@ -82,7 +82,7 @@ const steps = [
 .switch::after {
   --ring: 0px;
 
-  outline: var(--ring) solid var(--dot-color);
+  outline: var(--ring) solid var(--thumb-bg-color);
   outline-offset: -1px;
 }
 
@@ -117,7 +117,7 @@ const steps = [
   }
 
   .icon-unchecked {
-    margin-inline-start: calc(var(--track-width) - 1rem - 0.25rem);
+    margin-inline-start: calc(var(--track-inline-size) - 1rem - 0.25rem);
   }
 
   .switch {
@@ -159,7 +159,7 @@ const knobs = [
     label: "Track width",
     max: 72,
     min: 40,
-    property: "--track-width",
+    property: "--track-inline-size",
     step: 4,
     unit: "px",
     value: 48,

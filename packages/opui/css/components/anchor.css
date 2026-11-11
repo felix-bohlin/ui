@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(.ui-anchor, .ui-badge, .ui-tooltip) {
+  :where(.ui-anchor, .ui-tooltip) {
     --_shift-x: 0;
     --_shift-y: 0;
 
@@ -25,6 +25,7 @@
       color: inherit;
       inset: unset;
       margin: 0;
+      /* UA sets overflow: auto on [popover], which clips the Tooltip arrow. */
       overflow: visible;
       padding: 0;
       position: fixed;

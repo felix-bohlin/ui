@@ -102,10 +102,16 @@ export const keywords = ["panel", "surface", "tile"]
 
   <section id="density">
     <h2>Density</h2>
-    <p>
-      Use <PropOrClass prop="density" class=".ui-spacious" /> or
-      <code>--ui-card-padding</code> to change density.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Use <code>density</code> or <code>--ui-card-padding</code> to change
+        density.
+      </Fragment>
+      <Fragment slot="html">
+        Use <code>.ui-dense</code>, <code>.ui-spacious</code> or
+        <code>--ui-card-padding</code> to change it.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Density" column />
   </section>
 
@@ -148,10 +154,16 @@ export const keywords = ["panel", "surface", "tile"]
 
   <section id="orientation">
     <h2>Orientation</h2>
-    <p>
-      An image first goes beside the content from <code>40rem</code>. Use
-      <PropOrClass prop="orientation" class=".ui-vertical" /> to fix it.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        An image first goes beside the content from <code>40rem</code>. Use
+        <code>orientation</code> to fix it.
+      </Fragment>
+      <Fragment slot="html">
+        An image first goes beside the content from <code>40rem</code>. Use
+        <code>.ui-horizontal</code> or <code>.ui-vertical</code> to fix it.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Orientation" column />
   </section>
 

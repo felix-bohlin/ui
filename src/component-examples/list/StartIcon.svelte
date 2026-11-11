@@ -3,7 +3,7 @@
 </script>
 
 <List>
-  <ListItem label="Headline">
+  <ListItem label="Lena Ek">
     {#snippet start()}
       <svg
         aria-hidden="true"
@@ -19,7 +19,7 @@
       </svg>
     {/snippet}
   </ListItem>
-  <ListItem description="Supporting text" label="Headline">
+  <ListItem description="Frontend developer" label="Tom Tanaka">
     {#snippet start()}
       <svg
         aria-hidden="true"

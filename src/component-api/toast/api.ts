@@ -11,11 +11,12 @@ export default {
     },
     {
       description:
-        'On a button with `command="--toast"`, shows its toast. On an action button, runs the action and dismisses the toast. On a close button, dismisses the toast.',
+        'On a button with `command="--toast"`, shows its toast. On an action button, runs the action and dismisses the toast. On a close button, dismisses the toast and moves focus like Esc.',
       keys: ["Enter", "Space"],
     },
     {
-      description: "Dismisses the toast that has focus.",
+      description:
+        "Dismisses the toast that has focus. Focus moves to the next toast, or back to where it was before the toasts once the last one is gone.",
       keys: ["Esc"],
     },
   ],
@@ -52,13 +53,21 @@ export default {
       attribute: "[duration]",
       default: "5000",
       description:
-        "How long a toast stays, in milliseconds, while the pointer and focus are elsewhere.",
+        "How long a toast stays, in milliseconds, while the pointer and focus are elsewhere. A toast with an action stays twice as long.",
       group: "Duration",
       prop: "duration",
     },
     {
       description: "The id the buttons point at with `commandfor`. Required.",
       prop: "id",
+    },
+    {
+      attribute: "[limit]",
+      default: "3",
+      description:
+        "The most toasts shown at once. Past it, the oldest is dismissed, unless it holds focus.",
+      group: "Limit",
+      prop: "limit",
     },
     {
       default: '"block-end"',

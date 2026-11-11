@@ -4,14 +4,12 @@ export default {
   component: "Stat",
   options: [
     {
-      description:
-        "Text under the value, such as the change since last week. Rich content, such as a severity colored change, goes in the `description` slot.",
+      description: "Text under the value, such as the change since last week.",
       group: "Description",
       prop: "description",
     },
     {
-      description:
-        "What the value counts, such as Visitors. Rich content goes in the `label` slot.",
+      description: "What the value counts, such as Visitors.",
       group: "Label",
       prop: "label",
     },
@@ -25,20 +23,20 @@ export default {
   ],
   parts: [
     {
-      code: "<dt>",
+      code: '<dt class="ui-label">',
       description: "The label.",
       props: ["label"],
       selector: ".ui-label",
       slots: ["label"],
     },
     {
-      code: "<dd>",
+      code: '<dd class="ui-value">',
       description: "The value, in tabular numbers.",
       selector: ".ui-value",
       slots: ["default"],
     },
     {
-      code: "<dd>",
+      code: '<dd class="ui-description">',
       description: "The description.",
       props: ["description"],
       selector: ".ui-description",

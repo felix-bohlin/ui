@@ -79,10 +79,10 @@
     );
     --ui-on-inverse: light-dark(oklch(1 0 0), oklch(0.153 0 0));
     --ui-palette-source: oklch(0.535 0.136 249.9);
-    --ui-primary-source: oklch(0.535 0.136 249.9);
+    --ui-primary-source: var(--ui-palette-source);
     --ui-primary-text: light-dark(
-      oklch(0.497 0.125 249.8),
-      oklch(0.765 0.069 244.7)
+      oklch(from var(--ui-palette-source) 0.497 0.125 calc(h - 0.1)),
+      oklch(from var(--ui-palette-source) 0.765 0.069 calc(h - 5.2))
     );
     --ui-shadow-elevated: none;
     --ui-shadow-overlay: none;
@@ -92,8 +92,8 @@
     --ui-surface: light-dark(oklch(1 0 0), oklch(0.153 0 0));
     --ui-surface-elevated: light-dark(oklch(1 0 0), oklch(0.2 0 0));
     --ui-surface-filled: light-dark(
-      oklch(0.977 0.006 239.8),
-      oklch(0.22 0.02 245)
+      oklch(from var(--ui-palette-source) 0.977 0.006 calc(h - 10.1)),
+      oklch(from var(--ui-palette-source) 0.22 0.02 calc(h - 4.9))
     );
     --ui-surface-inverse: light-dark(oklch(0.153 0 0), oklch(1 0 0));
     --ui-surface-tonal: light-dark(oklch(0.964 0 0), oklch(0.26 0 0));

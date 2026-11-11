@@ -7,7 +7,6 @@ export default function Vertical() {
         aria-label="Account settings"
         name="vertical-tabs"
         orientation="vertical"
-        role="radiogroup"
       >
         <TabsItem defaultChecked>
           <TabsLabel>Profile</TabsLabel>
@@ -45,7 +44,6 @@ export default function Vertical() {
         aria-label="Conference schedule"
         name="vertical-line-tabs"
         orientation="vertical"
-        role="radiogroup"
         variant="line"
       >
         <TabsItem defaultChecked>

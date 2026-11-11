@@ -4,8 +4,8 @@ export default function StartImage() {
   return (
     <List>
       <ListItem
-        description="Supporting text"
-        label="Headline"
+        description="48 photos"
+        label="Summer in Lisbon"
         start={
           <img
             src="/photos/maya-lind.png"
@@ -16,8 +16,8 @@ export default function StartImage() {
         }
       />
       <ListItem
-        description="Supporting text"
-        label="Headline"
+        description="112 photos"
+        label="Team offsite"
         start={
           <img
             src="/photos/maya-lind.png"

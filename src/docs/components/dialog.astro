@@ -30,7 +30,7 @@ import dialogHeaderApi from "../../component-api/dialog-header/api"
 import DialogBuild from "../../components/UnderTheHood/DialogBuild.astro"
 
 export const description =
-  "A window over the page for a question or short task that needs full attention, modal or non-modal."
+  "A window over the page for a question or a short task, modal or not."
 
 export const keywords = ["lightbox", "modal", "overlay", "popup"]
 ---
@@ -236,8 +236,6 @@ export const keywords = ["lightbox", "modal", "overlay", "popup"]
       </TableRow>
     </DocsTable>
 
-    <KeyboardSupport />
-
     <p>
       Source:
       <a
@@ -252,5 +250,7 @@ export const keywords = ["lightbox", "modal", "overlay", "popup"]
       >
       wraps focus with a script. A native modal dialog doesn't need one.
     </p>
+
+    <KeyboardSupport />
   </Fragment>
 </Component>

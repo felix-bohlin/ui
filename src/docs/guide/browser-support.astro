@@ -1,5 +1,6 @@
 ---
 import Guide from "../../layouts/Guide.astro"
+import FeatureSupport from "../../components/UnderTheHood/FeatureSupport.astro"
 import {
   getCategorizedBaselineIds,
   getBaselineMappings,
@@ -8,7 +9,6 @@ import { componentHrefFor } from "../../utils/components"
 import { componentHasFramework } from "../../utils/framework"
 import { baselineYears } from "../../../packages/opui/scripts/features.mjs"
 import DocLink from "../../components/DocLink.astro"
-import FeatureSupport from "../../components/UnderTheHood/FeatureSupport.astro"
 import { Chip } from "opui-css/astro"
 
 const categorized = await getCategorizedBaselineIds()
@@ -76,7 +76,8 @@ export const keywords = [
       <li>
         Anchor (<code>css/compat/anchor.css</code>): without interest invokers,
         a hover card shows while its anchor is hovered or holds keyboard focus,
-        also while the pointer or the focus is in the card. Like the Tooltip
+        also while the pointer or the focus is in the card, and Esc doesn't hide
+        it, also with the <code>interestfor</code> polyfill. Like the Tooltip
         fallback, it isn't in the top layer there, and a tap on a touch screen
         follows the trigger link instead of opening the card.
       </li>
@@ -89,7 +90,9 @@ export const keywords = [
         Carousel (<code>css/compat/carousel.css</code>): without
         <code>overflow-inline</code>, the carousel scrolls through
         <code>overflow-x</code>, or <code>overflow-y</code> when it's vertical,
-        instead of spilling its items into the page.
+        instead of spilling its items into the page. Without <code>if()</code>,
+        smooth scrolling follows <code>--ui-motion</code> through a style query,
+        and <code>.ui-motion-off</code> on the carousel itself.
       </li>
       <li>
         ControlGroup (<code>css/compat/control-group.css</code>): without
@@ -131,6 +134,10 @@ export const keywords = [
         box, where the field's <code>overflow: clip</code> doesn't reach it.
       </li>
       <li>
+        Spinner (<code>css/compat/spinner.css</code>): without <code>if()</code
+        >, the spinner reads more contrast through a style query.
+      </li>
+      <li>
         Table (<code>css/compat/table.css</code>): without
         <code>overflow-inline</code>, a table with
         <code>.ui-overflow-scroll</code> scrolls through <code>overflow-x</code
@@ -140,6 +147,13 @@ export const keywords = [
         Tabs (<code>css/compat/tabs.css</code>): without
         <code>overflow-inline</code>, horizontal tabs without
         <code>.ui-overflow-wrap</code> scroll through <code>overflow-x</code>.
+      </li>
+      <li>
+        TextField, Textarea, Select and NumberField
+        (<code>css/compat/text-field.css</code>): on iPhone and iPad, fields of
+        every size set their text in <code>--ui-font-size-control</code> or
+        16px, whichever is larger, because iOS Safari zooms the page in on a
+        focused field with text under 16px.
       </li>
       <li>
         ToggleGroup (<code>css/compat/toggle-group.css</code>): without
@@ -152,14 +166,16 @@ export const keywords = [
       <li>
         Tooltip (<code>css/compat/tooltip.css</code>): without interest
         invokers, the tooltip shows while its trigger is hovered or has keyboard
-        focus. It isn't in the top layer there, so an ancestor that clips its
+        focus, and Esc doesn't hide it, also with the <code>interestfor</code>
+        polyfill. It isn't in the top layer there, so an ancestor that clips its
         overflow and has a transform, filter or containment can hide it, and
         later content can cover it.
       </li>
       <li>
         Typography (<code>css/compat/typography.css</code>): without
         <code>overflow-inline</code>, code blocks and plain tables in rich text
-        scroll through <code>overflow-x</code>.
+        scroll through <code>overflow-x</code>. Without <code>if()</code>, the
+        heading group subtitle reads more contrast through a style query.
       </li>
     </ul>
     <h3 id="support-level">Support level</h3>

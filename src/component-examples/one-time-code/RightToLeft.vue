@@ -4,6 +4,11 @@ import { OneTimeCode } from "opui-css/vue"
 
 <template>
   <div dir="rtl" lang="ar">
-    <OneTimeCode label="رمز التحقق" name="code" value="905113" />
+    <OneTimeCode
+      label="رمز التحقق"
+      name="code"
+      pattern="[0-9٠-٩۰-۹]{6}"
+      value="905113"
+    />
   </div>
 </template>

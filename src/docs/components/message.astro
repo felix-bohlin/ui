@@ -39,6 +39,7 @@ export const keywords = ["chat", "chat bubble", "conversation"]
     "container-queries",
     "container-style-queries",
     "corner-shape",
+    "dir-pseudo",
     "has",
     "lh",
   ]}
@@ -116,7 +117,10 @@ export const keywords = ["chat", "chat bubble", "conversation"]
     <h2>Group chat</h2>
     <p>
       Mark each change of sender with
-      <PropOrClass prop="newAuthor" class=".ui-new-author" />.
+      <PropOrClass prop="newAuthor" class=".ui-new-author" />. Put a date or an
+      event, like someone joining, in an <code>li.ui-divider</code>. Every child
+      of <PropOrClass prop="Messages" class=".ui-messages" /> is an
+      <code>li</code>, since it's a list.
     </p>
     <AutoExample name="GroupChat" />
   </section>
@@ -156,6 +160,11 @@ export const keywords = ["chat", "chat bubble", "conversation"]
       <li>
         Name the list with <code>aria-label</code>. Keep
         <code>role="list"</code> for Safari.
+      </li>
+      <li>
+        Keep every child an <code>li</code>: a <code>div</code> or
+        <code>p</code> in the list breaks it for screen readers, without a sign
+        on screen.
       </li>
       <li>Put the time in a <code>&lt;time datetime&gt;</code>.</li>
     </ul>

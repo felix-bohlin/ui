@@ -43,7 +43,10 @@ tests/apps/*/.nuxt-readme/
 tests/apps/*/.output/
 tests/apps/*/.output-readme/
 tests/apps/*/.svelte-kit/
+tests/apps/*/.svelte-kit-readme/
 tests/apps/*/build/
+tests/apps/*/build-readme/
+tests/apps/*/dist-readme/
 tests/apps/*/next-env.d.ts
 tests/apps/*/tsconfig.tsbuildinfo
 

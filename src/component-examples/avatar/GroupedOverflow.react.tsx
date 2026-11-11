@@ -12,8 +12,8 @@ export default function GroupedOverflow() {
       <Avatar aria-label="Eva Falk" role="img">
         EF
       </Avatar>
-      <Avatar aria-label="Show 4 more reviewers" as="button" variant="tonal">
-        +4
+      <Avatar as="button" variant="tonal">
+        +4<span className="ui-sr-only">more reviewers</span>
       </Avatar>
     </AvatarGroup>
   )

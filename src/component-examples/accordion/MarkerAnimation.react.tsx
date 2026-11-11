@@ -13,7 +13,7 @@ export default function MarkerAnimation() {
       <Accordion markerAnimation="rotate" variant="outlined">
         <AccordionSummary>Rotate</AccordionSummary>
         <AccordionContent>
-          <p>Orders over 50 EUR ship free within the EU.</p>
+          <p>Orders over €50 ship free within the EU.</p>
         </AccordionContent>
       </Accordion>
 

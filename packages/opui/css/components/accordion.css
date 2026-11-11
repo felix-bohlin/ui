@@ -8,9 +8,6 @@
       var(--_content-padding-inline),
       var(--ui-focus-ring-offset) + var(--ui-focus-ring-width)
     );
-    --_bg-color: transparent;
-    --_border-color: transparent;
-    --_border-width: 0;
     --_content-padding-block: var(--ui-space-2) var(--_padding);
     --_content-padding-inline: var(--_padding-inline);
     --_duration: calc(var(--ui-duration) * var(--_motion));
@@ -21,14 +18,10 @@
     --_padding: var(--ui-card-padding, var(--ui-space-3));
     --_padding-inline: 0em;
     --_radius: var(--ui-radius);
-    --_shadow: none;
     --_summary-padding-block: var(--_padding);
     --_summary-padding-inline: var(--_padding-inline);
 
-    background-color: var(--_bg-color);
-    border: var(--_border-width) solid var(--_border-color);
     border-radius: var(--_radius);
-    box-shadow: var(--_shadow);
     display: block;
     margin-inline: var(--_margin-inline);
     overflow: var(--_overflow);
@@ -44,33 +37,10 @@
     interpolate-size: allow-keywords;
 
     &:not(.ui-transparent) {
-      --_bg-color: var(--ui-surface);
       --_focus-ring-offset: var(--ui-focus-ring-inset);
       --_margin-inline: 0;
       --_overflow: hidden;
       --_padding-inline: var(--_padding);
-    }
-
-    &:is(.ui-elevated, .ui-tonal) {
-      --_border-color: var(--ui-border-color-raised, var(--ui-surface));
-      --_border-width: var(--ui-border-width);
-    }
-
-    &.ui-elevated {
-      --_bg-color: var(--ui-surface-elevated);
-      --_shadow: var(--ui-shadow-elevated);
-    }
-
-    &.ui-outlined {
-      --_bg-color: var(--ui-surface);
-      --_border-color: var(--ui-border-color);
-      --_border-width: var(--ui-border-width);
-      --_shadow: var(--ui-shadow-surface);
-    }
-
-    &.ui-tonal {
-      --_bg-color: var(--ui-surface-tonal);
-      --_shadow: var(--ui-shadow-surface);
     }
 
     &::details-content {
@@ -90,7 +60,6 @@
 
     /* Layout */
     & > summary {
-      background-color: inherit;
       cursor: pointer;
       font-weight: var(--ui-font-weight-bold);
       padding-block: var(--_summary-padding-block);
@@ -206,7 +175,7 @@
         border-start-end-radius: var(--_group-radius);
         border-start-start-radius: var(--_group-radius);
 
-        summary {
+        & > summary {
           border-start-end-radius: var(--_group-radius);
           border-start-start-radius: var(--_group-radius);
         }
@@ -217,7 +186,7 @@
         border-end-end-radius: var(--_group-radius);
         border-end-start-radius: var(--_group-radius);
 
-        summary {
+        & > summary {
           border-end-end-radius: var(--_group-radius);
           border-end-start-radius: var(--_group-radius);
         }

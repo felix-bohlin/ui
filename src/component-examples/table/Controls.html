@@ -1,21 +1,21 @@
 <table class="ui-table ui-dense">
   <caption>
-    Band Members
+    Team members
   </caption>
   <thead>
     <tr>
       <th>Name</th>
-      <th>Instrument</th>
+      <th>Role</th>
       <th>Notes</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Jonathan Davis</td>
+      <td>Lena Ek</td>
       <td>
         <label class="ui-select">
           <span class="ui-sr-only" id="table-controls-1-label"
-            >Instrument for Jonathan Davis</span
+            >Role for Lena Ek</span
           >
           <span class="ui-field">
             <select aria-labelledby="table-controls-1-label">
@@ -23,10 +23,10 @@
                 <selectedcontent></selectedcontent>
               </button>
               <div class="ui-list">
-                <option value="bass">Bass</option>
-                <option value="drums">Drums</option>
-                <option value="guitar">Guitar</option>
-                <option selected value="vocals">Vocals</option>
+                <option selected value="designer">Designer</option>
+                <option value="developer">Developer</option>
+                <option value="product-manager">Product manager</option>
+                <option value="support">Support</option>
               </div>
             </select>
           </span>
@@ -34,30 +34,36 @@
       </td>
       <td>
         <label class="ui-text-field">
-          <span class="ui-sr-only">Notes for Jonathan Davis</span>
+          <span class="ui-sr-only" id="table-controls-2-label"
+            >Notes for Lena Ek</span
+          >
           <span class="ui-field">
-            <input placeholder="Add a note" type="text" />
+            <input
+              placeholder="Add a note"
+              aria-labelledby="table-controls-2-label"
+              type="text"
+            />
           </span>
         </label>
       </td>
     </tr>
     <tr>
-      <td>Ed O'Brien</td>
+      <td>Tom Tanaka</td>
       <td>
         <label class="ui-select">
-          <span class="ui-sr-only" id="table-controls-2-label"
-            >Instrument for Ed O'Brien</span
+          <span class="ui-sr-only" id="table-controls-3-label"
+            >Role for Tom Tanaka</span
           >
           <span class="ui-field">
-            <select aria-labelledby="table-controls-2-label">
+            <select aria-labelledby="table-controls-3-label">
               <button>
                 <selectedcontent></selectedcontent>
               </button>
               <div class="ui-list">
-                <option value="bass">Bass</option>
-                <option value="drums">Drums</option>
-                <option selected value="guitar">Guitar</option>
-                <option value="vocals">Vocals</option>
+                <option value="designer">Designer</option>
+                <option selected value="developer">Developer</option>
+                <option value="product-manager">Product manager</option>
+                <option value="support">Support</option>
               </div>
             </select>
           </span>
@@ -65,9 +71,15 @@
       </td>
       <td>
         <label class="ui-text-field">
-          <span class="ui-sr-only">Notes for Ed O'Brien</span>
+          <span class="ui-sr-only" id="table-controls-4-label"
+            >Notes for Tom Tanaka</span
+          >
           <span class="ui-field">
-            <input placeholder="Add a note" type="text" />
+            <input
+              placeholder="Add a note"
+              aria-labelledby="table-controls-4-label"
+              type="text"
+            />
           </span>
         </label>
       </td>

@@ -92,8 +92,12 @@ selectedcontent {
 }
 
 .list {
-  background-color: var(--ui-surface-filled);
-  border: var(--ui-field-border-width) solid var(--ui-field-border-color);
+  --ui-border-color: var(--ui-border-color-on-raised);
+  --ui-field-border-color: var(--ui-field-border-color-on-raised);
+
+  background-color: var(--ui-surface-elevated);
+  border: var(--ui-border-width) solid
+    var(--ui-border-color-raised, var(--ui-border-color-on-raised));
   border-radius: var(--ui-radius);
   padding: 0.5rem 0;
 }

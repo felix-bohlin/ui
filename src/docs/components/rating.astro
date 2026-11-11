@@ -24,7 +24,13 @@ export const keywords = ["review", "score", "stars"]
   slug="rating"
   heroAnatomy
   apis={[{ title: "Rating API", api: ratingApi }]}
-  browserSupport={["attr", "has", "relative-color", "user-pseudos"]}
+  browserSupport={[
+    "alt-text-generated-content",
+    "attr",
+    "has",
+    "relative-color",
+    "user-pseudos",
+  ]}
   changelogPaths={[
     { path: "packages/opui/components/Rating", type: "component" },
     { path: "src/docs/components/rating.astro", type: "docs" },
@@ -145,13 +151,13 @@ export const keywords = ["review", "score", "stars"]
   </section>
 
   <Fragment slot="accessibility">
-    <KeyboardSupport />
     <ul>
       <li>
         Screen readers may read a meter as a percentage: put the score in the
         label.
       </li>
     </ul>
+    <KeyboardSupport />
   </Fragment>
 
   <Fragment slot="under-the-hood">

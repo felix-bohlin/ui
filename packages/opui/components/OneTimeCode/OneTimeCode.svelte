@@ -8,13 +8,17 @@
   let {
     alphanumeric,
     "aria-invalid": ariaInvalid,
+    autocapitalize,
     class: className,
     defaultValue,
     error,
     grouped,
+    inputmode,
     length = 6,
     name,
+    pattern,
     size,
+    spellcheck,
     style,
     value = $bindable(),
 
@@ -49,11 +53,13 @@
   {/if}
   <span class="ui-field">
     <input
-      autocapitalize={alphanumeric ? "characters" : undefined}
+      autocapitalize={autocapitalize ??
+        (alphanumeric ? "characters" : undefined)}
       autocomplete="one-time-code"
-      inputmode={alphanumeric ? undefined : "numeric"}
-      pattern={alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`}
-      spellcheck={alphanumeric ? "false" : undefined}
+      inputmode={inputmode ?? (alphanumeric ? undefined : "numeric")}
+      pattern={pattern ??
+        (alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`)}
+      spellcheck={spellcheck ?? (alphanumeric ? "false" : undefined)}
       {...defined(rest)}
       aria-invalid={error ? "true" : ariaInvalid}
       maxlength={length}

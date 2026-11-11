@@ -4,14 +4,13 @@
 
 <Textarea placeholder="Hi, I have a question about my order." spread>
   {#snippet label()}Message{/snippet}
-  {#snippet startText()}You can write your message here. Keep it short,
-    preferably under 100 characters.{/snippet}
+  {#snippet startText()}Keep it under 100 characters.{/snippet}
 </Textarea>
 
 <Textarea placeholder="Additional notes..." spread variant="filled">
   {#snippet label()}Notes{/snippet}
   {#snippet startText()}Add any additional notes or comments{/snippet}
-  {#snippet endText()}Maximum 500 characters{/snippet}
+  {#snippet endText()}Only your team sees these.{/snippet}
 </Textarea>
 
 <Textarea label="Reason for return" required spread>
@@ -63,5 +62,5 @@
   {#snippet startText()}Shown on the changelog page{/snippet}
   {#snippet top()}v1.4.0{/snippet}
   {#snippet bottom()}Saved 2 minutes ago{/snippet}
-  {#snippet endText()}Drafts are auto-saved{/snippet}
+  {#snippet endText()}Drafts save automatically.{/snippet}
 </Textarea>

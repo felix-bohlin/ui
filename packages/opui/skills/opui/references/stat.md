@@ -10,14 +10,14 @@ A stat shows one number with its label and the change behind it.
 ### Parts
 
 - `dl.ui-stat` (root): A `dl` with the label, the value and the description, so a screen reader reads them as one term with its details.
-- `<dt>` (prop `label`, slot `label`): The label.
-- `<dd>` (slot `default`): The value, in tabular numbers.
-- `<dd>` (prop `description`, slot `description`): The description.
+- `<dt class="ui-label">` (prop `label`, slot `label`): The label.
+- `<dd class="ui-value">` (slot `default`): The value, in tabular numbers.
+- `<dd class="ui-description">` (prop `description`, slot `description`): The description.
 
 ### Props and modifiers
 
-- `description`: `string`. Text under the value, such as the change since last week. Rich content, such as a severity colored change, goes in the `description` slot.
-- `label`: `string`. What the value counts, such as Visitors. Rich content goes in the `label` slot.
+- `description`: `string`. Text under the value, such as the change since last week.
+- `label`: `string`. What the value counts, such as Visitors.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`). The size of the value.
 
 ### Slots
@@ -43,7 +43,7 @@ The stylesheets read `--ui-font-size-caption`, `--ui-font-size-h3`, `--ui-font-s
 ```html
 <dl class="ui-stat">
   <dt class="ui-label">Visitors</dt>
-  <dd class="ui-value">48 210</dd>
+  <dd class="ui-value">48,210</dd>
   <dd class="ui-description">
     <span class="ui-caption ui-success">+12.4%</span> from last week
   </dd>
@@ -64,7 +64,7 @@ import { Stat } from "opui-css/astro"
 ---
 
 <Stat label="Visitors">
-  48 210
+  48,210
   <Fragment slot="description">
     <span class="ui-caption ui-success">+12.4%</span> from last week
   </Fragment>
@@ -92,7 +92,7 @@ export default function Basics() {
       }
       label="Visitors"
     >
-      48 210
+      48,210
     </Stat>
   )
 }
@@ -112,7 +112,7 @@ export default function Basics() {
 </script>
 
 <Stat label="Visitors">
-  48 210
+  48,210
   {#snippet description()}
     <span class="ui-caption ui-success">+12.4%</span> from last week
   {/snippet}
@@ -134,7 +134,7 @@ import { Stat } from "opui-css/vue"
 
 <template>
   <Stat label="Visitors">
-    48 210
+    48,210
     <template #description>
       <span class="ui-caption ui-success">+12.4%</span> from last week
     </template>

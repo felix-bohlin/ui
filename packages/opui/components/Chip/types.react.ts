@@ -9,4 +9,5 @@ export type Props = Without<Base.Props, "label"> &
     | ({ as?: "a" } & Omit<ComponentProps<"a">, "children">)
     | ({ as: "button" } & Omit<ComponentProps<"button">, "children">)
     | ({ as?: "div" } & Omit<ComponentProps<"div">, "children">)
+    | ({ as: "span" } & Omit<ComponentProps<"span">, "children">)
   )

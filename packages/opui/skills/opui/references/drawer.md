@@ -17,8 +17,9 @@ Slides in from an edge of the screen. For a task that needs full attention, use 
 
 ### Props and modifiers
 
-- `backdrop`: `"blurred"` (default), `"transparent"` (`.ui-backdrop-transparent`). The backdrop style. `"transparent"` keeps the page behind it fully visible.
-- `closedby`: `"any" | "closerequest" | "none"`, `[closedby]`, default `"any"`. How the drawer can be closed. `"any"` also closes it on a click outside.
+- `backdrop`: `"blurred"` (default), `"transparent"` (`.ui-backdrop-transparent`). The backdrop style. `transparent` keeps the page behind it fully visible.
+- `closedby`: `"any" | "closerequest" | "none"`, `[closedby]`, default `"any"`. How the drawer can be closed. `any` also closes it on a click outside.
+- `closeOnNavigate`: `boolean`, `[data-close-on-navigate]`. Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API.
 - `id`: `string`. The id of the `<dialog>`, which the trigger's `commandfor` points at. Required.
 - `scrollLock`: `boolean`, `.ui-scroll-lock`. Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px.
 - `side`: `"block-end"` (`.ui-block-end`), `"block-start"` (`.ui-block-start`), `"inline-end"` (`.ui-inline-end`), `"inline-start"` (default). The side it opens from.
@@ -29,8 +30,8 @@ Slides in from an edge of the screen. For a task that needs full attention, use 
 
 ### Notes
 
-- HTML: Add `autofocus` to the element that gets focus on open. It can be the root or an element inside.
-- Astro, React, Svelte and Vue: Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`.
+- HTML: Add `autofocus` to the element that gets focus on open. It can be the root or an element inside. For `[data-close-on-navigate]`, import `opui-css/elements/close-on-navigate.js`.
+- Astro, React, Svelte and Vue: Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer, with the id `x-title` for `id="x"`. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`.
 
 ## DrawerHeader
 
@@ -69,10 +70,10 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### drawer.css
 
-- `--_backdrop-bg-color`: The backdrop color. Defaults to `--ui-backdrop-bg-color`, `.ui-backdrop-transparent` clears it.
-- `--_backdrop-blur`: The backdrop filter. Defaults to a `--ui-backdrop-blur` blur, `.ui-backdrop-transparent` removes it.
+- `--_backdrop-bg-color`: The backdrop color. `card.css` declares it for dialogs and drawers, and `.ui-backdrop-transparent` clears it.
+- `--_backdrop-blur`: The backdrop filter. `card.css` declares it for dialogs and drawers, and `.ui-backdrop-transparent` removes it.
 - `--_bg-color`: The background. Defaults to `--ui-surface-elevated`.
-- `--_block-size`: Height of `.ui-block-start` and `.ui-block-end` drawers.
+- `--_block-size`: Height of `.ui-block-start` and `.ui-block-end` drawers. Defaults to 80% of the viewport, at most `650px`.
 - `--_border-color`: Color of the `.ui-header` and `.ui-footer` dividers, and of the inner edge unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-border-color-on-raised`.
 - `--_border-width`: Width of the inner edge border and the `.ui-header` and `.ui-footer` dividers.
 - `--_content-padding`: Padding of `.ui-content`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
@@ -88,6 +89,9 @@ Outputs: `--_closed-translate`, `--_direction`, `--_duration` and `--_ease`.
 
 ### card.css
 
+- `--_actions-padding-inline`: Inline padding of `.ui-actions`. Defaults to `--_padding`. The actions pass it on as `--ui-card-padding`, so a text button at either end keeps its focus ring inside the card.
+- `--_backdrop-bg-color`: Backdrop color of a dialog or drawer. Defaults to `--ui-backdrop-bg-color`.
+- `--_backdrop-blur`: Backdrop filter of a dialog or drawer. Defaults to a `--ui-backdrop-blur` blur.
 - `--_ease`: Easing of the card link border transition and the focus ring animation. Defaults to `--ui-ease`.
 - `--_elevated-bg-color`: Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.
 - `--_elevated-shadow`: Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.
@@ -113,49 +117,47 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 ### Example: Basics
 
 ```html
-<div class="example-compass">
-  <button
-    class="ui-button"
-    type="button"
-    command="show-modal"
-    commandfor="drawer-basics-3"
-  >
-    Block start
-  </button>
-  <button
-    class="ui-button"
-    type="button"
-    command="show-modal"
-    commandfor="drawer-basics-1"
-  >
-    Inline start
-  </button>
-  <button
-    class="ui-button"
-    type="button"
-    command="show-modal"
-    commandfor="drawer-basics-2"
-  >
-    Inline end
-  </button>
-  <button
-    class="ui-button"
-    type="button"
-    command="show-modal"
-    commandfor="drawer-basics-4"
-  >
-    Block end
-  </button>
-</div>
+<button
+  class="ui-button"
+  type="button"
+  command="show-modal"
+  commandfor="drawer-basics-3"
+>
+  Block start
+</button>
+<button
+  class="ui-button"
+  type="button"
+  command="show-modal"
+  commandfor="drawer-basics-1"
+>
+  Inline start
+</button>
+<button
+  class="ui-button"
+  type="button"
+  command="show-modal"
+  commandfor="drawer-basics-2"
+>
+  Inline end
+</button>
+<button
+  class="ui-button"
+  type="button"
+  command="show-modal"
+  commandfor="drawer-basics-4"
+>
+  Block end
+</button>
 
 <dialog
   closedby="any"
   class="ui-drawer ui-scroll-lock"
-  aria-labelledby="drawer-basics-1-heading"
+  aria-labelledby="drawer-basics-1-title"
   id="drawer-basics-1"
 >
   <div class="ui-header">
-    <h2 id="drawer-basics-1-heading">Menu</h2>
+    <h2 id="drawer-basics-1-title">Menu</h2>
     <button
       class="ui-button ui-round ui-small"
       type="button"
@@ -224,11 +226,11 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 <dialog
   closedby="any"
   class="ui-drawer ui-backdrop-transparent ui-scroll-lock ui-inline-end"
-  aria-labelledby="drawer-basics-2-heading"
+  aria-labelledby="drawer-basics-2-title"
   id="drawer-basics-2"
 >
   <div class="ui-header">
-    <h2 id="drawer-basics-2-heading">Onboarding emails</h2>
+    <h2 id="drawer-basics-2-title">Onboarding emails</h2>
     <button class="ui-button ui-round ui-small" type="button" aria-label="Edit">
       <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
@@ -263,11 +265,11 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 <dialog
   closedby="any"
   class="ui-drawer ui-scroll-lock ui-block-start"
-  aria-labelledby="drawer-basics-3-heading"
+  aria-labelledby="drawer-basics-3-title"
   id="drawer-basics-3"
 >
   <div class="ui-header">
-    <h2 id="drawer-basics-3-heading">Notifications</h2>
+    <h2 id="drawer-basics-3-title">Notifications</h2>
     <button
       class="ui-button ui-round ui-small"
       type="button"
@@ -296,11 +298,11 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 <dialog
   closedby="any"
   class="ui-drawer ui-scroll-lock ui-block-end"
-  aria-labelledby="drawer-basics-4-heading"
+  aria-labelledby="drawer-basics-4-title"
   id="drawer-basics-4"
 >
   <div class="ui-header">
-    <h2 id="drawer-basics-4-heading">Filters</h2>
+    <h2 id="drawer-basics-4-title">Filters</h2>
     <button
       class="ui-button ui-round ui-small"
       type="button"
@@ -375,14 +377,10 @@ import {
 const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
 ---
 
-<div class="example-compass">
-  <Button command="show-modal" commandfor="drawer-basics-3">Block start</Button>
-  <Button command="show-modal" commandfor="drawer-basics-1"
-    >Inline start</Button
-  >
-  <Button command="show-modal" commandfor="drawer-basics-2">Inline end</Button>
-  <Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
-</div>
+<Button command="show-modal" commandfor="drawer-basics-3">Block start</Button>
+<Button command="show-modal" commandfor="drawer-basics-1">Inline start</Button>
+<Button command="show-modal" commandfor="drawer-basics-2">Inline end</Button>
+<Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
 
 <Drawer id="drawer-basics-1" scrollLock side="inline-start">
   <DrawerHeader>
@@ -501,23 +499,21 @@ import {
   ListItem,
 } from "opui-css/react"
 
-export default function Basics() {
+export default function BasicsCode() {
   return (
     <>
-      <div className="example-compass">
-        <Button command="show-modal" commandfor="drawer-basics-3">
-          Block start
-        </Button>
-        <Button command="show-modal" commandfor="drawer-basics-1">
-          Inline start
-        </Button>
-        <Button command="show-modal" commandfor="drawer-basics-2">
-          Inline end
-        </Button>
-        <Button command="show-modal" commandfor="drawer-basics-4">
-          Block end
-        </Button>
-      </div>
+      <Button command="show-modal" commandfor="drawer-basics-3">
+        Block start
+      </Button>
+      <Button command="show-modal" commandfor="drawer-basics-1">
+        Inline start
+      </Button>
+      <Button command="show-modal" commandfor="drawer-basics-2">
+        Inline end
+      </Button>
+      <Button command="show-modal" commandfor="drawer-basics-4">
+        Block end
+      </Button>
 
       <Drawer id="drawer-basics-1" scrollLock side="inline-start">
         <DrawerHeader>
@@ -646,13 +642,10 @@ export default function Basics() {
   } from "opui-css/svelte"
 </script>
 
-<div class="example-compass">
-  <Button command="show-modal" commandfor="drawer-basics-3">Block start</Button>
-  <Button command="show-modal" commandfor="drawer-basics-1">Inline start</Button
-  >
-  <Button command="show-modal" commandfor="drawer-basics-2">Inline end</Button>
-  <Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
-</div>
+<Button command="show-modal" commandfor="drawer-basics-3">Block start</Button>
+<Button command="show-modal" commandfor="drawer-basics-1">Inline start</Button>
+<Button command="show-modal" commandfor="drawer-basics-2">Inline end</Button>
+<Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
 
 <Drawer id="drawer-basics-1" scrollLock side="inline-start">
   <DrawerHeader>
@@ -771,18 +764,12 @@ import {
 </script>
 
 <template>
-  <div class="example-compass">
-    <Button command="show-modal" commandfor="drawer-basics-3"
-      >Block start</Button
-    >
-    <Button command="show-modal" commandfor="drawer-basics-1"
-      >Inline start</Button
-    >
-    <Button command="show-modal" commandfor="drawer-basics-2"
-      >Inline end</Button
-    >
-    <Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
-  </div>
+  <Button command="show-modal" commandfor="drawer-basics-3">Block start</Button>
+  <Button command="show-modal" commandfor="drawer-basics-1"
+    >Inline start</Button
+  >
+  <Button command="show-modal" commandfor="drawer-basics-2">Inline end</Button>
+  <Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
 
   <Drawer id="drawer-basics-1" scrollLock side="inline-start">
     <DrawerHeader>

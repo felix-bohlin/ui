@@ -46,13 +46,13 @@
 
       &.ui-total {
         border-block-start: var(--ui-border-width) solid var(--ui-border-color);
+        color: var(--ui-text-strong);
         font-size: var(--ui-font-size-large);
         font-weight: var(--ui-font-weight-bold);
         padding-block-start: var(--ui-space-3);
 
-        dd,
-        dt {
-          color: var(--ui-text-strong);
+        dd {
+          color: inherit;
         }
       }
     }

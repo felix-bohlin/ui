@@ -3,17 +3,17 @@ import { Button } from "opui-css/react"
 export default function Keyboard() {
   return (
     <>
-      <Button>
-        Terminal
-        <kbd>Ctrl+Alt+T</kbd>
+      <Button aria-keyshortcuts="Control+S">
+        Save
+        <kbd>Ctrl+S</kbd>
       </Button>
-      <Button variant="outlined">
-        Spotlight
-        <kbd>⌘Space</kbd>
+      <Button aria-keyshortcuts="Control+K" variant="outlined">
+        Search
+        <kbd>Ctrl+K</kbd>
       </Button>
-      <Button variant="tonal">
-        Lock
-        <kbd>Win+L</kbd>
+      <Button aria-keyshortcuts="Control+Alt+M" variant="tonal">
+        Comment
+        <kbd>Ctrl+Alt+M</kbd>
       </Button>
     </>
   )

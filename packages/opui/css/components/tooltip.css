@@ -3,7 +3,7 @@
     --_motion: var(--ui-motion);
     --_bg-color: var(--ui-surface-inverse);
     --_duration: calc(var(--ui-duration) * var(--_motion));
-    --_ease: var(--ui-ease-enter);
+    --_ease: var(--ui-ease-exit);
     --_max-inline-size: 15rem;
     --_min-inline-size: 10rem;
     --_offset: var(--ui-space-2);
@@ -22,8 +22,6 @@
         max-content,
         min(size, var(--_min-inline-size))
       );
-      /* UA sets overflow: auto on [popover], which clips the arrow. */
-      overflow: visible;
       padding-block: var(--ui-space-1);
       padding-inline: var(--ui-space-2);
       position-area: var(--ui-anchor-position-area, self-block-start);
@@ -34,7 +32,6 @@
         --ui-tooltip-shift-end,
         --ui-tooltip-shift-start flip-block,
         --ui-tooltip-shift-end flip-block;
-      position-visibility: anchors-visible;
       text-align: center;
       text-wrap: pretty;
 
@@ -105,6 +102,7 @@
         scale var(--_duration) var(--_ease-move);
 
       &:popover-open {
+        --_ease: var(--ui-ease-enter);
         --_ease-move: var(--ui-ease-move, var(--_ease));
 
         opacity: 1;

@@ -46,6 +46,7 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
   heroAnatomy
   apis={[{ title: "One-time code API", api: oneTimeCodeApi }]}
   browserSupport={[
+    "alt-text-generated-content",
     "container-queries",
     "field-sizing",
     "has",
@@ -188,7 +189,7 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
     <h2>Right-to-left</h2>
     <p>
       The code always runs left to right. Widen <code>pattern</code> to accept
-      Arabic-Indic digits.
+      Arabic-Indic digits, and convert them to 0 to 9 on the server.
     </p>
 
     <AutoExample name="RightToLeft" />

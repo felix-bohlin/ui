@@ -104,23 +104,26 @@ interaction(
   "FieldGroupBinding",
   "checkbox group binds the checked values",
   async ({ root }) => {
-    const apples = root.getByRole("checkbox", { name: "Apples" })
-    const bananas = root.getByRole("checkbox", { name: "Bananas" })
+    const updates = root.getByRole("checkbox", { name: "Product updates" })
+    const events = root.getByRole("checkbox", { name: "Events" })
     const selection = root.getByText(/Selected:/)
 
-    await expect(apples).toBeChecked()
-    await expect(selection).toHaveText("Selected: apples")
-    await root.getByText("Bananas", { exact: true }).click()
-    await expect(bananas).toBeChecked()
-    await expect(selection).toHaveText("Selected: apples, bananas")
-    await root.getByText("Apples", { exact: true }).click()
-    await expect(apples).not.toBeChecked()
-    await expect(selection).toHaveText("Selected: bananas")
+    await expect(updates).toBeChecked()
+    await expect(selection).toHaveText("Selected: updates")
+    await root.getByText("Events", { exact: true }).click()
+    await expect(events).toBeChecked()
+    await expect(selection).toHaveText("Selected: updates, events")
+    await root.getByText("Product updates", { exact: true }).click()
+    await expect(updates).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: events")
+    await root.getByText("Product updates", { exact: true }).click()
+    await expect(updates).toBeChecked()
+    await expect(selection).toHaveText("Selected: updates, events")
 
     await root.getByRole("button", { name: "Reset" }).click()
-    await expect(apples).toBeChecked()
-    await expect(bananas).not.toBeChecked()
-    await expect(selection).toHaveText("Selected: apples")
+    await expect(updates).toBeChecked()
+    await expect(events).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: updates")
   },
 )
 
@@ -129,28 +132,30 @@ interaction(
   "Indeterminate",
   "a select all checkbox is indeterminate while some children are checked",
   async ({ root }) => {
-    const all = root.getByRole("checkbox", { name: "Select all" })
-    const children = root.locator(".ui-field-group").getByRole("checkbox")
+    const all = root.getByRole("checkbox", { name: "All notifications" })
+    const children = root.locator(
+      ".ui-field-group input:not([data-select-all])",
+    )
     const indeterminate = () =>
       all.evaluate((input) => (input as HTMLInputElement).indeterminate)
 
     await expect.poll(indeterminate).toBe(true)
     await expect(all).not.toBeChecked()
 
-    await root.getByText("Select all", { exact: true }).click()
+    await root.getByText("All notifications", { exact: true }).click()
     await expect.poll(indeterminate).toBe(false)
     await expect(all).toBeChecked()
     for (const child of await children.all()) await expect(child).toBeChecked()
 
-    await root.getByText("Bananas", { exact: true }).click()
+    await root.getByText("Push", { exact: true }).click()
     await expect.poll(indeterminate).toBe(true)
     await expect(all).not.toBeChecked()
 
-    await root.getByText("Bananas", { exact: true }).click()
+    await root.getByText("Push", { exact: true }).click()
     await expect.poll(indeterminate).toBe(false)
     await expect(all).toBeChecked()
 
-    await root.getByText("Select all", { exact: true }).click()
+    await root.getByText("All notifications", { exact: true }).click()
     await expect(all).not.toBeChecked()
     for (const child of await children.all()) {
       await expect(child).not.toBeChecked()
@@ -163,8 +168,8 @@ interaction(
   "Indeterminate",
   "select all leaves out a checkbox in a disabled fieldset",
   async ({ root }) => {
-    const all = root.getByRole("checkbox", { name: "Select all" })
-    const cherries = root.getByRole("checkbox", { name: "Cherries" })
+    const all = root.getByRole("checkbox", { name: "All notifications" })
+    const sms = root.getByRole("checkbox", { name: "SMS" })
 
     await root.locator(".ui-field-group").evaluate((group) => {
       const fieldset = document.createElement("fieldset")
@@ -172,12 +177,12 @@ interaction(
       fieldset.append(group.lastElementChild!)
       group.append(fieldset)
     })
-    await expect(cherries).toBeDisabled()
+    await expect(sms).toBeDisabled()
 
-    await root.getByText("Select all", { exact: true }).click()
+    await root.getByText("All notifications", { exact: true }).click()
     await expect(all).toBeChecked()
     await expect(all).toHaveJSProperty("indeterminate", false)
-    await expect(cherries).not.toBeChecked()
+    await expect(sms).not.toBeChecked()
   },
 )
 
@@ -186,7 +191,7 @@ interaction(
   "Indeterminate",
   "select all follows its checkboxes back after a form reset",
   async ({ page, root }) => {
-    const all = root.getByRole("checkbox", { name: "Select all" })
+    const all = root.getByRole("checkbox", { name: "All notifications" })
     await root.getByRole("checkbox").evaluateAll((inputs) => {
       const form = document.createElement("form")
       form.id = "select-all-reset"
@@ -194,17 +199,15 @@ interaction(
       for (const input of inputs) input.setAttribute("form", form.id)
     })
 
-    await root.getByText("Select all", { exact: true }).click()
+    await root.getByText("All notifications", { exact: true }).click()
     await expect(all).toBeChecked()
     await expect(all).toHaveJSProperty("indeterminate", false)
 
     await page.evaluate(() =>
       document.querySelector<HTMLFormElement>("#select-all-reset")!.reset(),
     )
-    await expect(root.getByRole("checkbox", { name: "Apples" })).toBeChecked()
-    await expect(
-      root.getByRole("checkbox", { name: "Bananas" }),
-    ).not.toBeChecked()
+    await expect(root.getByRole("checkbox", { name: "Email" })).toBeChecked()
+    await expect(root.getByRole("checkbox", { name: "Push" })).not.toBeChecked()
     await expect(all).toHaveJSProperty("indeterminate", true)
     await expect(all).not.toBeChecked()
   },
@@ -301,6 +304,26 @@ interaction(
   },
 )
 
+interaction(
+  "drawer",
+  "Basics",
+  "a drawer with closeOnNavigate closes when the page navigates, and one without stays open",
+  async ({ page, root }) => {
+    await needs(page, "the Navigation API", () => "navigation" in window)
+    await root.getByRole("button", { name: "Inline start" }).click()
+    const menu = root.locator("dialog#drawer-basics-1")
+    await expect(menu).toHaveAttribute("open")
+    await menu.getByRole("link", { name: "Projects" }).click()
+    await expect(menu).not.toHaveAttribute("open")
+
+    await root.getByRole("button", { name: "Inline end" }).click()
+    const details = root.locator("dialog#drawer-basics-2")
+    await expect(details).toHaveAttribute("open")
+    await page.evaluate(() => history.pushState({}, "", location.href))
+    await expect(details).toHaveAttribute("open")
+  },
+)
+
 const clickBackdrop = async (page: Page, dialog: Locator) => {
   const box = (await dialog.boundingBox())!
   const { height, width } = page.viewportSize()!
@@ -358,24 +381,24 @@ interaction(
   "FieldGroupBinding",
   "radio group binds the selected value and resets",
   async ({ root }) => {
-    const free = root.getByRole("radio", { name: "Free" })
-    const pro = root.getByRole("radio", { name: "Pro" })
+    const starter = root.getByRole("radio", { name: "Starter" })
+    const team = root.getByRole("radio", { name: "Team" })
     const selection = root.getByText(/Selected:/)
 
-    await expect(free).toBeChecked()
-    await root.getByText("Pro", { exact: true }).click()
-    await expect(pro).toBeChecked()
-    await expect(selection).toHaveText("Selected: pro")
-    await root.getByText("Free", { exact: true }).click()
-    await expect(free).toBeChecked()
-    await expect(selection).toHaveText("Selected: free")
-    await root.getByText("Pro", { exact: true }).click()
-    await expect(pro).toBeChecked()
+    await expect(starter).toBeChecked()
+    await root.getByText("Team", { exact: true }).click()
+    await expect(team).toBeChecked()
+    await expect(selection).toHaveText("Selected: team")
+    await root.getByText("Starter", { exact: true }).click()
+    await expect(starter).toBeChecked()
+    await expect(selection).toHaveText("Selected: starter")
+    await root.getByText("Team", { exact: true }).click()
+    await expect(team).toBeChecked()
 
     await root.getByRole("button", { name: "Reset" }).click()
-    await expect(free).toBeChecked()
-    await expect(pro).not.toBeChecked()
-    await expect(selection).toHaveText("Selected: free")
+    await expect(starter).toBeChecked()
+    await expect(team).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: starter")
   },
 )
 
@@ -577,6 +600,24 @@ interaction(
 )
 
 interaction(
+  "avatar",
+  "Grouped",
+  "a badge on a filled avatar has a ring in the page background color",
+  async ({ root }) => {
+    const badge = root.locator(".ui-badge")
+    const ring = await computed(
+      badge.locator(".ui-indicator"),
+      "border-top-color",
+    )
+
+    expect(ring).not.toBe(
+      await computed(badge.locator(".ui-avatar"), "background-color"),
+    )
+    expect(ring).toBe(await resolveColor(badge, "var(--ui-surface)"))
+  },
+)
+
+interaction(
   "list",
   "EndSwitch",
   "a size class on a switch in a list row wins over the list size",
@@ -610,6 +651,9 @@ interaction(
     await root.getByText("Email", { exact: true }).click()
     await expect(email).not.toBeChecked()
     await expect(selection).toHaveText("Selected: push")
+    await root.getByText("Email", { exact: true }).click()
+    await expect(email).toBeChecked()
+    await expect(selection).toHaveText("Selected: email, push")
 
     await root.getByRole("button", { name: "Reset" }).click()
     await expect(email).toBeChecked()
@@ -642,6 +686,33 @@ interaction(
     await expect(root.getByRole("radio", { name: "Settings" })).toBeChecked()
     await expect(panels.nth(1)).toBeVisible()
     await expect(panels.nth(2)).toBeHidden()
+  },
+)
+
+interaction(
+  "tabs",
+  "WithoutPanels",
+  "tabs without panels size to their labels in a row and keep each radio under its label",
+  async ({ page, root }) => {
+    await needs(page, "sibling-index()", () =>
+      CSS.supports("order", "sibling-index()"),
+    )
+    const group = root.getByRole("radiogroup", { name: "Show in the feed" })
+    await expect(group).toBeVisible()
+    expect((await group.boundingBox())!.width).toBeGreaterThan(0)
+
+    for (const name of ["All", "Posts", "Events"]) {
+      const radio = group.getByRole("radio", { name })
+      const label = group.locator(".ui-label", { hasText: name })
+      await expect(label).toBeVisible()
+      const [radioBox, labelBox] = [
+        (await radio.boundingBox())!,
+        (await label.boundingBox())!,
+      ]
+      const center = radioBox.x + radioBox.width / 2
+      expect(center, name).toBeGreaterThan(labelBox.x)
+      expect(center, name).toBeLessThan(labelBox.x + labelBox.width)
+    }
   },
 )
 
@@ -850,6 +921,28 @@ interaction(
 
 interaction(
   "toggle",
+  "Interactive",
+  "toggle groups in right-to-left text move to the next button with Left Arrow",
+  async ({ page, root }) => {
+    failsIn(page.context().browser()!.browserType().name(), {
+      webkit: WEBKIT_RADIO_RTL_ARROWS,
+    })
+    const options = root.getByRole("radio")
+    await root
+      .locator(".ui-toggle-group")
+      .evaluate((element) => element.setAttribute("dir", "rtl"))
+
+    await root.getByText("Walking").click()
+    await expect(options.nth(0)).toBeChecked()
+    await page.keyboard.press("ArrowLeft")
+    await expect(options.nth(1)).toBeChecked()
+    await page.keyboard.press("ArrowRight")
+    await expect(options.nth(0)).toBeChecked()
+  },
+)
+
+interaction(
+  "toggle",
   "MultiSelect",
   "toggle group presses several options",
   async ({ root }) => {
@@ -904,6 +997,24 @@ interaction(
     await expect(tooltip).toBeVisible()
     await page.mouse.move(0, 0)
     await expect(tooltip).toBeHidden()
+  },
+)
+
+interaction(
+  "tooltip",
+  "IconButton",
+  "a button keeps its resting colors while its tooltip is open",
+  async ({ root }) => {
+    const trigger = root.getByRole("button", { name: "Save to wishlist" })
+    const tooltip = root.locator(".ui-floating")
+    const resting = await computed(trigger, "background-color")
+
+    await tooltip.evaluate((element: HTMLElement) => element.showPopover())
+    await expect(tooltip).toBeVisible()
+    await trigger.evaluate((element) =>
+      Promise.all(element.getAnimations().map(({ finished }) => finished)),
+    )
+    expect(await computed(trigger, "background-color")).toBe(resting)
   },
 )
 
@@ -1153,6 +1264,7 @@ interaction(
     )
 
     await carousel.evaluate((element) => {
+      element.classList.remove("ui-buttons-outside")
       for (const card of element.querySelectorAll<HTMLElement>(".ui-card")) {
         card.style.position = "relative"
         card.style.zIndex = "10"
@@ -1286,15 +1398,51 @@ interaction(
   "menu",
   "Basics",
   "menu opens from its trigger and closes on an item",
-  async ({ root }) => {
+  async ({ page, root }) => {
     const trigger = root.getByRole("button", { name: "Options" })
     const menu = root.locator("menu.ui-menu")
 
     await expect(menu).toBeHidden()
+    const resting = await computed(trigger, "background-color")
     await trigger.click()
     await expect(menu).toBeVisible()
+    await page.mouse.move(0, 0)
+    await expect
+      .poll(() => computed(trigger, "background-color"))
+      .not.toBe(resting)
     await menu.getByRole("button", { name: "Delete" }).click()
     await expect(menu).toBeHidden()
+  },
+)
+
+interaction(
+  "menu",
+  "Basics",
+  "an open menu closes when a client router navigates",
+  async ({ page, root }) => {
+    await needs(page, "the Navigation API", () => "navigation" in window)
+    await root.getByRole("button", { name: "Options" }).click()
+    const menu = root.locator("menu.ui-menu")
+    await expect(menu).toBeVisible()
+    await page.evaluate(() => history.pushState({}, "", location.href))
+    await expect(menu).toBeHidden()
+  },
+  ["astro", "react", "svelte", "vue"],
+)
+
+interaction(
+  "menu",
+  "Current",
+  "an item with aria-current true looks current",
+  async ({ page, root }) => {
+    await root.getByRole("button", { name: "Language" }).click()
+    await page.mouse.move(0, 0)
+    const background = (name: string) =>
+      computed(root.getByRole("button", { name }), "background-color")
+
+    await expect
+      .poll(() => background("English"))
+      .not.toBe(await background("Svenska"))
   },
 )
 
@@ -1544,7 +1692,7 @@ interaction(
       await input.evaluate((element: HTMLInputElement) =>
         [...(element.list?.options ?? [])].map((option) => option.value),
       ),
-    ).toEqual(["Jonny Greenwood", "Marika Hackman", "Ray Manzarek"])
+    ).toEqual(["Elif Rahman", "Lena Ek", "Tom Tanaka"])
   },
 )
 
@@ -1816,6 +1964,27 @@ interaction(
 
 interaction(
   "copy",
+  "Snippet",
+  "copy selects the snippet without the failure label when the clipboard is blocked",
+  async ({ page, root }) => {
+    const button = root.getByRole("button", { name: "Copy" })
+
+    await expect(button).toBeVisible()
+    await stubCopyCommand(page, false)
+    await page.evaluate(() => {
+      navigator.clipboard.writeText = () =>
+        Promise.reject(new DOMException("Blocked", "NotAllowedError"))
+    })
+    await button.click()
+    await expect(root.getByRole("status")).toHaveText("Copy failed")
+    const selected = await page.evaluate(() => getSelection()!.toString())
+    expect(selected).toContain("npm install opui-css")
+    expect(selected).not.toContain("Copy failed")
+  },
+)
+
+interaction(
+  "copy",
   "Basics",
   "copy copies with a selection where the page has no Clipboard API",
   async ({ page, root }) => {
@@ -1859,7 +2028,7 @@ interaction(
 interaction(
   "copy",
   "Snippet",
-  "copy leaves the button and its tooltip out of the copied text",
+  "copy leaves the button, its tooltip and the ignored prompt out of the copied text",
   async ({ page, root }) => {
     const button = root.getByRole("button", { name: "Copy" })
     const label = root.locator(".ui-copy > .ui-floating")
@@ -1910,10 +2079,13 @@ interaction(
     await expect(toasts).toHaveCount(0)
     await expect(toaster.locator("ol")).toBeHidden()
 
-    await root.getByRole("button", { name: "Save changes" }).click()
+    const save = root.getByRole("button", { name: "Save changes" })
+    await save.focus()
+    await page.keyboard.press("Enter")
     await toasts.first().getByRole("button", { name: "Close" }).focus()
     await page.keyboard.press("Escape")
     await expect(toasts).toHaveCount(0)
+    await expect(save).toBeFocused()
   },
 )
 
@@ -2035,6 +2207,74 @@ interaction(
 
 interaction(
   "toast",
+  "Limit",
+  "past its limit, a toaster dismisses the oldest toast",
+  async ({ page, root }) => {
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    const button = root.getByRole("button", { name: "Add to cart" })
+    for (let click = 0; click < 3; click++) await button.click()
+    await expect(root.locator("opui-toaster li:not([inert])")).toHaveCount(1)
+    await expect(root.locator("opui-toaster li")).toHaveCount(1)
+  },
+)
+
+interaction(
+  "toast",
+  "Basics",
+  "a toaster shows at most three toasts by default",
+  async ({ page, root }) => {
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    const button = root.getByRole("button", { name: "Save changes" })
+    for (let click = 0; click < 5; click++) await button.click()
+    await expect(root.locator("opui-toaster li")).toHaveCount(3)
+  },
+)
+
+interaction(
+  "toast",
+  "Dialog",
+  "a toaster inside a modal dialog announces its toast and its close button works",
+  async ({ page, root }) => {
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    await root.getByRole("button", { name: "Edit profile" }).click()
+    const dialog = root.getByRole("dialog", { name: "Profile" })
+    await expect(dialog).toBeVisible()
+    await dialog.getByRole("button", { name: "Save" }).click()
+    const toaster = dialog.locator("opui-toaster")
+    await expect(toaster.locator("li")).toHaveText("Profile saved")
+    await expect(toaster.getByRole("status")).toHaveText("Profile saved")
+    await toaster.locator("li").getByRole("button", { name: "Close" }).click()
+    await expect(toaster.locator("li")).toHaveCount(0)
+    await expect(dialog).toBeVisible()
+  },
+)
+
+interaction(
+  "toast",
+  "Dialog",
+  "a toaster outside the open modal dialog warns",
+  async ({ page, root }) => {
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    const warnings: string[] = []
+    page.on("console", (message) => {
+      if (message.type() === "warning") warnings.push(message.text())
+    })
+    await root.getByRole("button", { name: "Edit profile" }).click()
+    await expect(root.getByRole("dialog", { name: "Profile" })).toBeVisible()
+    await page.evaluate(() => {
+      const outside = [...document.querySelectorAll("opui-toaster")].find(
+        (toaster) => !toaster.closest("dialog"),
+      ) as HTMLElement & { show: (message: string) => void }
+      outside.show("Changes saved")
+    })
+    await expect
+      .poll(() => warnings.join("\n"))
+      .toContain("a modal dialog is open, so this toast is inert")
+  },
+)
+
+interaction(
+  "toast",
   "Severities",
   "a toast without a severity has no icon",
   async ({ page, root }) => {
@@ -2114,12 +2354,48 @@ interaction(
     await expect(count).toHaveText("0/20")
     await input.fill("opui-fan-2026")
     await expect(count).toHaveText("13/20")
-    await expect(input).toHaveAccessibleName(
-      "Username Letters, numbers and dashes.",
+    await expect(input).toHaveAccessibleName("Username")
+    await expect(input).toHaveAccessibleDescription(
+      "Up to 20 letters, numbers and dashes.",
     )
     await expect(page.locator("[data-opui-announcer]")).toHaveText(
       "Characters left: 7",
     )
+  },
+)
+
+interaction(
+  "text-field",
+  "Validation",
+  "a labelled field is named by its label and described by its end text",
+  async ({ root }) => {
+    const input = root.getByRole("textbox", { name: "Username", exact: true })
+
+    await expect(input).toHaveAccessibleDescription(
+      "This username is taken. Try another one.",
+    )
+  },
+)
+
+interaction(
+  "text-field",
+  "Affix",
+  "the affixes join the name of a labelled field",
+  async ({ root }) => {
+    await expect(
+      root.getByRole("textbox", { name: "Weight kg", exact: true }),
+    ).toHaveCount(1)
+  },
+)
+
+interaction(
+  "textarea",
+  "Validation",
+  "a labelled textarea is named by its label and described by its end text",
+  async ({ root }) => {
+    await expect(
+      root.getByRole("textbox", { name: "Review", exact: true }),
+    ).toHaveAccessibleDescription("Write at least 20 characters.")
   },
 )
 

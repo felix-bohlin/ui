@@ -1,45 +1,45 @@
 <script lang="ts">
   import {
-    Radio,
     FieldGroup,
     FieldLegend,
     Fieldset,
     Form,
+    Radio,
   } from "opui-css/svelte"
 </script>
 
 <Form>
   <Fieldset>
-    <FieldLegend>Input at the end</FieldLegend>
+    <FieldLegend>Plan</FieldLegend>
     <FieldGroup name="radio-cards-end" orientation="horizontal">
-      <Radio card defaultChecked spread value="outlined">
-        Outlined
-        {#snippet endText()}The default surface.{/snippet}
+      <Radio card defaultChecked spread value="starter">
+        Starter
+        {#snippet endText()}€0 per month{/snippet}
       </Radio>
-      <Radio card spread value="tonal" variant="tonal">
-        Tonal
-        {#snippet endText()}A tinted surface.{/snippet}
+      <Radio card spread value="team" variant="elevated">
+        Team
+        {#snippet endText()}€12 per person per month{/snippet}
       </Radio>
-      <Radio card spread value="elevated" variant="elevated">
-        Elevated
-        {#snippet endText()}A raised surface.{/snippet}
+      <Radio card spread value="business" variant="tonal">
+        Business
+        {#snippet endText()}€24 per person per month{/snippet}
       </Radio>
     </FieldGroup>
   </Fieldset>
   <Fieldset>
-    <FieldLegend>Input at the start</FieldLegend>
+    <FieldLegend>Billing</FieldLegend>
     <FieldGroup name="radio-cards-start" orientation="horizontal">
-      <Radio card defaultChecked value="outlined">
-        Outlined
-        {#snippet endText()}The default surface.{/snippet}
+      <Radio card defaultChecked value="monthly">
+        Monthly
+        {#snippet endText()}Cancel at any time.{/snippet}
       </Radio>
-      <Radio card value="tonal" variant="tonal">
-        Tonal
-        {#snippet endText()}A tinted surface.{/snippet}
+      <Radio card value="yearly" variant="elevated">
+        Yearly
+        {#snippet endText()}Two months free.{/snippet}
       </Radio>
-      <Radio card value="elevated" variant="elevated">
-        Elevated
-        {#snippet endText()}A raised surface.{/snippet}
+      <Radio card value="invoice" variant="tonal">
+        Invoice
+        {#snippet endText()}Pay by bank transfer.{/snippet}
       </Radio>
     </FieldGroup>
   </Fieldset>

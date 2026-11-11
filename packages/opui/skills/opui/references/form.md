@@ -100,20 +100,30 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-field-helper-font-size`, `--
 
 ```html
 <form class="ui-form">
-  <fieldset class="ui-fieldset">
+  <fieldset class="ui-fieldset" aria-describedby="form-basics-1-description">
     <legend>Contact</legend>
-    <p class="ui-description">How can we reach you?</p>
+    <p class="ui-description" id="form-basics-1-description">
+      How can we reach you?
+    </p>
     <div class="ui-field-group">
       <label class="ui-text-field">
-        <span class="ui-label">Name</span>
+        <span class="ui-label" id="form-basics-2-label">Name</span>
         <span class="ui-field">
-          <input autocomplete="name" type="text" />
+          <input
+            autocomplete="name"
+            aria-labelledby="form-basics-2-label"
+            type="text"
+          />
         </span>
       </label>
       <label class="ui-text-field">
-        <span class="ui-label">Email</span>
+        <span class="ui-label" id="form-basics-3-label">Email</span>
         <span class="ui-field">
-          <input autocomplete="email" type="email" />
+          <input
+            autocomplete="email"
+            aria-labelledby="form-basics-3-label"
+            type="email"
+          />
         </span>
       </label>
     </div>
@@ -144,9 +154,11 @@ import {
 ---
 
 <Form>
-  <Fieldset>
+  <Fieldset aria-describedby="form-basics-1-description">
     <FieldLegend>Contact</FieldLegend>
-    <FieldDescription>How can we reach you?</FieldDescription>
+    <FieldDescription id="form-basics-1-description"
+      >How can we reach you?</FieldDescription
+    >
     <FieldGroup>
       <TextField autocomplete="name" label="Name" />
       <TextField autocomplete="email" label="Email" type="email" />
@@ -180,9 +192,11 @@ import {
 export default function Basics() {
   return (
     <Form>
-      <Fieldset>
+      <Fieldset aria-describedby="form-basics-1-description">
         <FieldLegend>Contact</FieldLegend>
-        <FieldDescription>How can we reach you?</FieldDescription>
+        <FieldDescription id="form-basics-1-description">
+          How can we reach you?
+        </FieldDescription>
         <FieldGroup>
           <TextField autoComplete="name" label="Name" />
           <TextField autoComplete="email" label="Email" type="email" />
@@ -218,9 +232,11 @@ export default function Basics() {
 </script>
 
 <Form>
-  <Fieldset>
+  <Fieldset aria-describedby="form-basics-1-description">
     <FieldLegend>Contact</FieldLegend>
-    <FieldDescription>How can we reach you?</FieldDescription>
+    <FieldDescription id="form-basics-1-description"
+      >How can we reach you?</FieldDescription
+    >
     <FieldGroup>
       <TextField autocomplete="name" label="Name" />
       <TextField autocomplete="email" label="Email" type="email" />
@@ -253,9 +269,11 @@ import {
 
 <template>
   <Form>
-    <Fieldset>
+    <Fieldset aria-describedby="form-basics-1-description">
       <FieldLegend>Contact</FieldLegend>
-      <FieldDescription>How can we reach you?</FieldDescription>
+      <FieldDescription id="form-basics-1-description"
+        >How can we reach you?</FieldDescription
+      >
       <FieldGroup>
         <TextField autocomplete="name" label="Name" />
         <TextField autocomplete="email" label="Email" type="email" />

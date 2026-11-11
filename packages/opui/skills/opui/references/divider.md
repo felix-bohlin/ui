@@ -38,9 +38,9 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-contrast`, 
 ### Example: Basics
 
 ```html
-This text is placed over
+Email me when someone mentions me in a comment.
 <hr class="ui-divider" />
-This text is placed under
+Send me a summary of my projects every Monday.
 ```
 
 ## Astro
@@ -54,9 +54,9 @@ This text is placed under
 import { Divider } from "opui-css/astro"
 ---
 
-This text is placed over
+Email me when someone mentions me in a comment.
 <Divider />
-This text is placed under
+Send me a summary of my projects every Monday.
 ```
 
 ## React
@@ -71,9 +71,9 @@ import { Divider } from "opui-css/react"
 export default function Basics() {
   return (
     <>
-      This text is placed over
+      Email me when someone mentions me in a comment.
       <Divider />
-      This text is placed under
+      Send me a summary of my projects every Monday.
     </>
   )
 }
@@ -90,9 +90,9 @@ export default function Basics() {
   import { Divider } from "opui-css/svelte"
 </script>
 
-This text is placed over
+Email me when someone mentions me in a comment.
 <Divider />
-This text is placed under
+Send me a summary of my projects every Monday.
 ```
 
 ## Vue
@@ -107,8 +107,8 @@ import { Divider } from "opui-css/vue"
 </script>
 
 <template>
-  This text is placed over
+  Email me when someone mentions me in a comment.
   <Divider />
-  This text is placed under
+  Send me a summary of my projects every Monday.
 </template>
 ```

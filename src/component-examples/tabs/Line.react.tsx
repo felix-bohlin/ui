@@ -2,7 +2,7 @@ import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/react"
 
 export default function Line() {
   return (
-    <Tabs name="line-tabs" variant="line">
+    <Tabs aria-label="Account settings" name="line-tabs" variant="line">
       <TabsItem defaultChecked>
         <TabsLabel>Profile</TabsLabel>
         <TabsPanel>Profile settings and information.</TabsPanel>

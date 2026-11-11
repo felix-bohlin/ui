@@ -4,7 +4,7 @@ import { Avatar } from "opui-css/vue"
 
 <template>
   <div class="ui-layout-media">
-    <Avatar aria-label="Lena Ek" role="img">LE</Avatar>
+    <Avatar aria-hidden="true">LE</Avatar>
     <div>
       <p>Lena Ek</p>
       <p class="ui-caption">Product designer, joined in March</p>

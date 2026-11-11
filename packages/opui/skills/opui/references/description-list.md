@@ -1,6 +1,6 @@
 # Description list
 
-A list of terms and their values on the native dl element.
+Terms and their values, like order details or totals.
 
 - CSS: `opui-css/css/components/description-list.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/description-list.md), [Astro](https://open-props-ui.netlify.app/astro/components/description-list.md), [React](https://open-props-ui.netlify.app/react/components/description-list.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/description-list.md), [Vue](https://open-props-ui.netlify.app/vue/components/description-list.md).
@@ -45,7 +45,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 ### description-list.css
 
 - `--_border-style`: Style of the line between term and description. `.ui-bordered.ui-dotted` makes it dotted.
-- `--_border-width`: Width of the line between term and description. `.ui-bordered.ui-dotted` sets it to `2px`.
+- `--_border-width`: Width of the line between term and description. Defaults to `--ui-border-width`, and `--ui-border-width-thick` in `.ui-bordered.ui-dotted`.
 
 ## Theme tokens
 
@@ -58,16 +58,16 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 ```html
 <dl class="ui-description-list">
   <div>
-    <dt>Price</dt>
-    <dd>6 950 000</dd>
+    <dt>Order number</dt>
+    <dd>10482</dd>
   </div>
   <div>
-    <dt>Size</dt>
-    <dd>64 m²</dd>
+    <dt>Placed on</dt>
+    <dd>Oct 8, 2026</dd>
   </div>
   <div>
-    <dt>Rooms</dt>
-    <dd>3</dd>
+    <dt>Status</dt>
+    <dd>Shipped</dd>
   </div>
 </dl>
 ```
@@ -90,16 +90,16 @@ import {
 
 <DescriptionList>
   <DescriptionListItem>
-    <DescriptionListTerm>Price</DescriptionListTerm>
-    <DescriptionListDescription>6 950 000</DescriptionListDescription>
+    <DescriptionListTerm>Order number</DescriptionListTerm>
+    <DescriptionListDescription>10482</DescriptionListDescription>
   </DescriptionListItem>
   <DescriptionListItem>
-    <DescriptionListTerm>Size</DescriptionListTerm>
-    <DescriptionListDescription>64 m²</DescriptionListDescription>
+    <DescriptionListTerm>Placed on</DescriptionListTerm>
+    <DescriptionListDescription>Oct 8, 2026</DescriptionListDescription>
   </DescriptionListItem>
   <DescriptionListItem>
-    <DescriptionListTerm>Rooms</DescriptionListTerm>
-    <DescriptionListDescription>3</DescriptionListDescription>
+    <DescriptionListTerm>Status</DescriptionListTerm>
+    <DescriptionListDescription>Shipped</DescriptionListDescription>
   </DescriptionListItem>
 </DescriptionList>
 ```
@@ -122,16 +122,16 @@ export default function Basics() {
   return (
     <DescriptionList>
       <DescriptionListItem>
-        <DescriptionListTerm>Price</DescriptionListTerm>
-        <DescriptionListDescription>6 950 000</DescriptionListDescription>
+        <DescriptionListTerm>Order number</DescriptionListTerm>
+        <DescriptionListDescription>10482</DescriptionListDescription>
       </DescriptionListItem>
       <DescriptionListItem>
-        <DescriptionListTerm>Size</DescriptionListTerm>
-        <DescriptionListDescription>64 m²</DescriptionListDescription>
+        <DescriptionListTerm>Placed on</DescriptionListTerm>
+        <DescriptionListDescription>Oct 8, 2026</DescriptionListDescription>
       </DescriptionListItem>
       <DescriptionListItem>
-        <DescriptionListTerm>Rooms</DescriptionListTerm>
-        <DescriptionListDescription>3</DescriptionListDescription>
+        <DescriptionListTerm>Status</DescriptionListTerm>
+        <DescriptionListDescription>Shipped</DescriptionListDescription>
       </DescriptionListItem>
     </DescriptionList>
   )
@@ -156,16 +156,16 @@ export default function Basics() {
 
 <DescriptionList>
   <DescriptionListItem>
-    <DescriptionListTerm>Price</DescriptionListTerm>
-    <DescriptionListDescription>6 950 000</DescriptionListDescription>
+    <DescriptionListTerm>Order number</DescriptionListTerm>
+    <DescriptionListDescription>10482</DescriptionListDescription>
   </DescriptionListItem>
   <DescriptionListItem>
-    <DescriptionListTerm>Size</DescriptionListTerm>
-    <DescriptionListDescription>64 m²</DescriptionListDescription>
+    <DescriptionListTerm>Placed on</DescriptionListTerm>
+    <DescriptionListDescription>Oct 8, 2026</DescriptionListDescription>
   </DescriptionListItem>
   <DescriptionListItem>
-    <DescriptionListTerm>Rooms</DescriptionListTerm>
-    <DescriptionListDescription>3</DescriptionListDescription>
+    <DescriptionListTerm>Status</DescriptionListTerm>
+    <DescriptionListDescription>Shipped</DescriptionListDescription>
   </DescriptionListItem>
 </DescriptionList>
 ```
@@ -189,16 +189,16 @@ import {
 <template>
   <DescriptionList>
     <DescriptionListItem>
-      <DescriptionListTerm>Price</DescriptionListTerm>
-      <DescriptionListDescription>6 950 000</DescriptionListDescription>
+      <DescriptionListTerm>Order number</DescriptionListTerm>
+      <DescriptionListDescription>10482</DescriptionListDescription>
     </DescriptionListItem>
     <DescriptionListItem>
-      <DescriptionListTerm>Size</DescriptionListTerm>
-      <DescriptionListDescription>64 m²</DescriptionListDescription>
+      <DescriptionListTerm>Placed on</DescriptionListTerm>
+      <DescriptionListDescription>Oct 8, 2026</DescriptionListDescription>
     </DescriptionListItem>
     <DescriptionListItem>
-      <DescriptionListTerm>Rooms</DescriptionListTerm>
-      <DescriptionListDescription>3</DescriptionListDescription>
+      <DescriptionListTerm>Status</DescriptionListTerm>
+      <DescriptionListDescription>Shipped</DescriptionListDescription>
     </DescriptionListItem>
   </DescriptionList>
 </template>

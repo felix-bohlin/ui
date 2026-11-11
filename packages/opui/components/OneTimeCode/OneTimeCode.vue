@@ -4,17 +4,22 @@ import { useInputAttrs, vSeed } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { defined } from "../attrs"
+import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
   alphanumeric,
+  autocapitalize,
   endText,
   error,
   grouped,
+  inputmode,
   label,
   length = 6,
   name,
+  pattern,
   size,
+  spellcheck = undefined,
   value,
 } = defineProps<Props>()
 defineSlots<Slots>()
@@ -46,18 +51,23 @@ const field = inject(FieldGroupKey, undefined)
       size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
-    :style="$attrs.style"
+    v-bind="styleAttrs($attrs.style)"
   >
     <span v-if="label || $slots.label" class="ui-label"
       >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
     /></span>
     <span class="ui-field">
       <input
-        :autocapitalize="alphanumeric ? 'characters' : undefined"
+        :autocapitalize="
+          autocapitalize ?? (alphanumeric ? 'characters' : undefined)
+        "
         autocomplete="one-time-code"
-        :inputmode="alphanumeric ? undefined : 'numeric'"
-        :pattern="alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`"
-        :spellcheck="alphanumeric ? 'false' : undefined"
+        :inputmode="inputmode ?? (alphanumeric ? undefined : 'numeric')"
+        :pattern="
+          pattern ??
+          (alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`)
+        "
+        :spellcheck="spellcheck ?? (alphanumeric ? 'false' : undefined)"
         v-bind="defined(attrs)"
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
         :maxlength="length"

@@ -8,7 +8,7 @@
   @supports not (inline-size: if(else: 0px)) {
     :where(.ui-control-group):is(.ui-filled, .ui-tonal) {
       --_divider-gap: 0px;
-      --_start-border-color: var(--_divider-border-color);
+      --_start-border-color: var(--_divider-enabled-border-color);
     }
   }
 
@@ -16,6 +16,10 @@
     :where(.ui-control-group) {
       --_divider-gap: 0px;
       --_start-border-color: var(--_divider-border-color);
+
+      &:is(.ui-filled, .ui-tonal) {
+        --_start-border-color: var(--_divider-enabled-border-color);
+      }
     }
   }
 }

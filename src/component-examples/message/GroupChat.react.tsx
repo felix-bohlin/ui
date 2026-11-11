@@ -3,6 +3,7 @@ import { Avatar, Message, Messages } from "opui-css/react"
 export default function GroupChat() {
   return (
     <Messages aria-label="Messages in #design">
+      <li className="ui-divider">Today</li>
       <Message
         author="Leila"
         datetime="2026-10-08T09:12"
@@ -52,6 +53,7 @@ export default function GroupChat() {
       >
         <p>I'll book a room.</p>
       </Message>
+      <li className="ui-divider">Omar added you</li>
       <Message author="You" datetime="2026-10-08T09:20" outgoing time="09:20">
         <p>See you at one.</p>
       </Message>

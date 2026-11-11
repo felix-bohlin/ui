@@ -7,7 +7,6 @@ import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/vue"
     aria-label="Account settings"
     name="vertical-tabs"
     orientation="vertical"
-    role="radiogroup"
   >
     <TabsItem checked>
       <TabsLabel>Profile</TabsLabel>
@@ -45,7 +44,6 @@ import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/vue"
     aria-label="Conference schedule"
     name="vertical-line-tabs"
     orientation="vertical"
-    role="radiogroup"
     variant="line"
   >
     <TabsItem checked>

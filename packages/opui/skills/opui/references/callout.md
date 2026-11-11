@@ -12,8 +12,8 @@ A message in the flow of the page, without interrupting the task.
 - `.ui-callout` (root): Container element.
 - `<svg>` (`CalloutIcon`): An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning.
 - `.ui-content` (`CalloutContent`): The content, with an optional heading first.
-- `.ui-actions` (`CalloutActions`): A row of buttons under the content.
 - `<button>`: A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row.
+- `.ui-actions` (`CalloutActions`): A row of buttons under the content.
 
 ### Props and modifiers
 

@@ -4,6 +4,7 @@ import { Avatar, Message, Messages } from "opui-css/vue"
 
 <template>
   <Messages aria-label="Messages in #design">
+    <li class="ui-divider">Today</li>
     <Message author="Leila" datetime="2026-10-08T09:12" time="09:12">
       <template #start>
         <Avatar aria-label="Leila Haddad" role="img">LH</Avatar>
@@ -28,6 +29,7 @@ import { Avatar, Message, Messages } from "opui-css/vue"
       </template>
       <p>I'll book a room.</p>
     </Message>
+    <li class="ui-divider">Omar added you</li>
     <Message author="You" datetime="2026-10-08T09:20" outgoing time="09:20">
       <p>See you at one.</p>
     </Message>

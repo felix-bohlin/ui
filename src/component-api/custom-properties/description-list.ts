@@ -8,7 +8,7 @@ export default {
   },
   "--_border-width": {
     description:
-      "Width of the line between term and description. `.ui-bordered.ui-dotted` sets it to `2px`.",
+      "Width of the line between term and description. Defaults to `--ui-border-width`, and `--ui-border-width-thick` in `.ui-bordered.ui-dotted`.",
     kind: "input",
   },
 } satisfies CustomProperties

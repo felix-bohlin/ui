@@ -124,6 +124,9 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
     <h2>Disabled</h2>
 
     <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>disabled</code>, on a link too.
+      </Fragment>
       <Fragment slot="html">
         Links: drop <code>href</code>, add <code>role="link"</code> and
         <code>aria-disabled="true"</code>.
@@ -138,7 +141,8 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
 
     <p>
       Use <PropOrClass prop="AvatarGroup" class=".ui-avatar-group" /> with an
-      <code>aria-label</code>.
+      <code>aria-label</code>. Link and button avatars in a group need the
+      default size or larger.
     </p>
 
     <AutoExample name="Grouped" row />
@@ -155,7 +159,8 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
       </li>
       <li>
         Give initials and icons <code>role="img"</code> and an
-        <code>aria-label</code>.
+        <code>aria-label</code>, or <code>aria-hidden="true"</code> next to the
+        name.
       </li>
       <li>
         Link and button avatars take their name from what they show: the image's

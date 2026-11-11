@@ -37,7 +37,7 @@ declare module "react" {
       "opui-toaster": DetailedHTMLProps<
         HTMLAttributes<HTMLElement>,
         HTMLElement
-      > & { duration?: number | undefined }
+      > & { duration?: number | undefined; limit?: number | undefined }
     }
   }
 }

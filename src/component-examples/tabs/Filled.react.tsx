@@ -2,7 +2,7 @@ import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/react"
 
 export default function Filled() {
   return (
-    <Tabs name="filled-tabs" variant="filled">
+    <Tabs aria-label="Account settings" name="filled-tabs" variant="filled">
       <TabsItem defaultChecked>
         <TabsLabel>Profile</TabsLabel>
         <TabsPanel>Profile settings and information.</TabsPanel>

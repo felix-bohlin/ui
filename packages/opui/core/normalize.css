@@ -20,6 +20,7 @@
     interpolate-size: allow-keywords;
     line-height: var(--ui-line-height-relaxed);
     min-block-size: 100%;
+    scroll-behavior: if(style(--ui-motion: 0): auto; else: smooth);
 
     /* https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/ */
     /* Firefox and Safari fallback */
@@ -27,16 +28,18 @@
     -webkit-text-size-adjust: none;
     text-size-adjust: none;
 
-    @media (prefers-reduced-motion: no-preference) {
-      scroll-behavior: smooth;
-    }
+    @supports not (inline-size: if(else: 0px)) {
+      @media (prefers-reduced-motion: no-preference) {
+        scroll-behavior: smooth;
+      }
 
-    &.ui-motion-off {
-      scroll-behavior: auto;
-    }
+      &.ui-motion-off {
+        scroll-behavior: auto;
+      }
 
-    &.ui-motion-on {
-      scroll-behavior: smooth;
+      &.ui-motion-on {
+        scroll-behavior: smooth;
+      }
     }
   }
 
@@ -96,15 +99,7 @@
     letter-spacing: inherit;
   }
 
-  :where(input):autofill,
-  :where(input):autofill:hover,
-  :where(input):autofill:focus,
-  :where(textarea):autofill,
-  :where(textarea):autofill:hover,
-  :where(textarea):autofill:focus,
-  :where(select):autofill,
-  :where(select):autofill:hover,
-  :where(select):autofill:focus {
+  :where(input, select, textarea):autofill {
     -webkit-text-fill-color: var(--ui-text);
     box-shadow: 0 0 0px 1e5px var(--ui-field-bg-color, var(--ui-surface)) inset;
     transition: background-color 5000s ease-in-out 0s;
@@ -152,6 +147,23 @@
     summary
   ) {
     cursor: pointer;
+  }
+
+  /* File input */
+  :where(input[type="file"]) {
+    align-self: flex-start;
+    border: var(--ui-field-border-width) solid var(--ui-field-border-color);
+    border-radius: var(--ui-radius-small);
+    box-shadow: var(--ui-shadow-field, var(--ui-shadow-control));
+    color: var(--ui-text);
+    cursor: initial;
+    max-inline-size: 100%;
+    padding: 0;
+  }
+
+  :where(input[type="file"])::file-selector-button {
+    cursor: pointer;
+    margin-inline-end: var(--ui-space-3);
   }
 
   :where(

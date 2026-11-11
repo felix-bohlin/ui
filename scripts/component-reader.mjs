@@ -506,13 +506,12 @@ const attributeNode = (item, context) => {
   if (item.kind === "spread") {
     const sourceFile = sourceFileOf(`(${item.name})`, "spread.ts")
     const written = unwrap(sourceFile.statements[0].expression)
-    const expression =
+    const filtered =
       ts.isCallExpression(written) &&
       ts.isIdentifier(written.expression) &&
       written.expression.text === "defined" &&
       written.arguments.length === 1
-        ? unwrap(written.arguments[0])
-        : written
+    const expression = filtered ? unwrap(written.arguments[0]) : written
     const cast =
       ts.isAsExpression(expression) &&
       ts.isIdentifier(unwrap(expression.expression))
@@ -523,11 +522,16 @@ const attributeNode = (item, context) => {
       return {
         code: chosen.spread.text,
         condition: chosen.condition.getText(sourceFile),
+        ...(filtered && { defined: true }),
         kind: "spread",
         negated: chosen.negated,
       }
     }
-    return { code: cast.getText(sourceFile), kind: "spread" }
+    return {
+      code: cast.getText(sourceFile),
+      ...(filtered && { defined: true }),
+      kind: "spread",
+    }
   }
   if (item.kind === "expression") {
     if (item.name === "class:list") return { kind: "class", code: item.value }

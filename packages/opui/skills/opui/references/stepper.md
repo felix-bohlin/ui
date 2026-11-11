@@ -74,7 +74,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_motion`: Motion multiplier for the marker and line transitions.
 - `--_on-accent`: Color of a `.ui-icon-checked` on the `--_accent` fill. Defaults to `--ui-on-selected-strong`.
 
-Outputs: `--_connector-border-color`, `--_duration`, `--_label-text-color`, `--_marker-bg-color`, `--_marker-border-color`, `--_marker-text-color` and `--_orientation`.
+Outputs: `--_connector-border-color`, `--_duration`, `--_label-text-color`, `--_marker-bg-color`, `--_marker-border-color`, `--_marker-image`, `--_marker-text-color` and `--_orientation`.
 
 ## Theme tokens
 

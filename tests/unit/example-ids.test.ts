@@ -87,6 +87,7 @@ const OWNERS = [
   "ui-range",
   "ui-select",
   "ui-text-field",
+  "ui-textarea",
 ]
 
 const GROUPS = ["ui-tabs", "ui-toggle-group"]
@@ -187,6 +188,7 @@ describe("the ids in the HTML examples", () => {
   const files = globSync("src/component-examples/**/*.html").toSorted()
   const keyOf = (file: string) =>
     file.replace("src/component-examples/", "").replace(/\.html$/, "")
+  const exampleOf = (file: string) => keyOf(file).replace(/Code$/, "")
 
   test("are unique and every reference points at one", () => {
     const problems = files.flatMap((file) =>
@@ -247,10 +249,10 @@ describe("the ids in the HTML examples", () => {
         if ([...groups].some(Boolean) && groups.size > 1) {
           problems.push(`${file}: ${groups.size} groups share the name ${name}`)
         }
-        if (owners.has(page) && owners.get(page) !== file) {
+        if (owners.has(page) && owners.get(page) !== exampleOf(file)) {
           problems.push(`${file}: ${owners.get(page)} also uses ${name}`)
         }
-        owners.set(page, file)
+        owners.set(page, exampleOf(file))
       }
     }
     expect(problems).toEqual([])

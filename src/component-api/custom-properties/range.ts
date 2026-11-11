@@ -66,7 +66,7 @@ export default {
   },
   "--_thumb-size": {
     description:
-      "Width and height of the thumb. Set by the sizes, and larger on touch screens at the default size.",
+      "Width and height of the thumb. Set by the sizes, and larger on touch screens at every size but `.ui-large`.",
     kind: "input",
   },
   "--_track-base-bg-color": {

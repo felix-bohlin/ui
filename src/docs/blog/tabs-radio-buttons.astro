@@ -92,6 +92,13 @@ import Basics from "../../component-examples/tabs/Basics.astro"
         first and last tabs lose their outer rounding, switching still works
       </li>
       <li>
+        Browsers without <code>sibling-count()</code> and
+        <code>sibling-index()</code> (Firefox before 154, Safari before 26.2)
+        drop the declarations that place the radios and span the panels. The
+        panel still fills the row, but when the tabs scroll, the arrow keys
+        don't scroll the tab they select into view
+      </li>
+      <li>
         <code>order</code> only moves the tabs visually. Focus follows the DOM,
         which already has the right order: the checked radio, then the content
         of its open panel. No <code>reading-flow</code> needed

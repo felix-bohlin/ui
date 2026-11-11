@@ -10,7 +10,7 @@ import { Rating } from "opui-css/vue"
   </div>
   <div class="example-column">
     <Rating label="Small" name="size-small" size="small" :value="4" />
-    <Rating label="Default" name="size-default" :value="4" />
+    <Rating label="Medium" name="size-medium" :value="4" />
     <Rating label="Large" name="size-large" size="large" :value="4" />
   </div>
 </template>

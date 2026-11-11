@@ -2,7 +2,12 @@
   import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/svelte"
 </script>
 
-<Tabs name="wrap-tabs" overflow="wrap" variant="line">
+<Tabs
+  aria-label="Account settings"
+  name="wrap-tabs"
+  overflow="wrap"
+  variant="line"
+>
   <TabsItem defaultChecked>
     <TabsLabel>Profile</TabsLabel>
     <TabsPanel>Profile settings and information.</TabsPanel>

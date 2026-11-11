@@ -16,7 +16,7 @@ export const description =
 <Component
   description={description}
   slug="spinner"
-  browserSupport={["container-style-queries"]}
+  browserSupport={["if"]}
   apis={[{ title: "Spinner API", api: spinnerApi }]}
   changelogPaths={[
     { path: "src/docs/components/spinner.astro", type: "docs" },
@@ -40,14 +40,17 @@ export const description =
       A short wait in a button:
       <a href="#buttons"><code>aria-busy="true"</code></a>.
     </li>
-    <li slot="when">Loading content in a small area, like a card.</li>
+    <li slot="when">
+      Loading content in a small area, like a card:
+      <a href="#basics"><code>aria-busy</code> on the area</a>.
+    </li>
     <li slot="when-not">
       A task with a known length: use a
       <DocLink href="/components/progress">Progress</DocLink> bar.
     </li>
     <li slot="when-not">
-      A busy section with a progress bar: it gets no spinner (see
-      <a href="#no-spinner">the exceptions</a>).
+      A long task in the background, like an export: say when it's done with a
+      <DocLink href="/components/toast">Toast</DocLink>.
     </li>
   </Usage>
 
@@ -71,16 +74,14 @@ export const description =
   <section id="no-spinner">
     <h2>When <code>aria-busy="true"</code> shows no spinner</h2>
 
-    <h3 id="blocked-by-another-use-case">
-      1. Because it's blocked by another use case
-    </h3>
+    <h3 id="blocked-by-another-use-case">With <code>aria-describedby</code></h3>
     <p>
-      With <code>aria-describedby</code>, for a
-      <DocLink href="/components/progress#accessibility">progress bar</DocLink>.
-      Buttons and links always get one.
+      That's the pattern for a busy section that a
+      <DocLink href="/components/progress#accessibility">progress bar</DocLink>
+      describes. Buttons and links always get one.
     </p>
 
-    <h3 id="doesnt-make-sense">2. Because it doesn't make sense</h3>
+    <h3 id="doesnt-make-sense">On elements that can't show one</h3>
     <ul>
       <li><code>&lt;html&gt;</code></li>
       <li><code>&lt;input&gt;</code></li>

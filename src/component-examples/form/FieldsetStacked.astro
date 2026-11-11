@@ -8,9 +8,11 @@ import {
 } from "opui-css/astro"
 ---
 
-<Fieldset>
+<Fieldset aria-describedby="form-fieldset-stacked-1-description">
   <FieldLegend>Favorite pet</FieldLegend>
-  <FieldDescription>Please select your favorite type of pet.</FieldDescription>
+  <FieldDescription id="form-fieldset-stacked-1-description"
+    >Please select your favorite type of pet.</FieldDescription
+  >
   <FieldGroup name="pet">
     <Radio value="cat">Cat</Radio>
     <Radio value="dog">Dog</Radio>

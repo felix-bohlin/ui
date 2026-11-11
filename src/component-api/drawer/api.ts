@@ -7,14 +7,14 @@ export default {
   keyboard: modalKeyboard("drawer"),
   notes: {
     default:
-      "Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`.",
-    html: "Add `autofocus` to the element that gets focus on open. It can be the root or an element inside.",
+      'Attributes that aren\'t props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer, with the id `x-title` for `id="x"`. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`.',
+    html: "Add `autofocus` to the element that gets focus on open. It can be the root or an element inside. For `[data-close-on-navigate]`, import `opui-css/elements/close-on-navigate.js`.",
   },
   options: [
     {
       default: '"blurred"',
       description:
-        'The backdrop style. `"transparent"` keeps the page behind it fully visible.',
+        "The backdrop style. `transparent` keeps the page behind it fully visible.",
       group: "Backdrop",
       prop: "backdrop",
       values: { blurred: null, transparent: ".ui-backdrop-transparent" },
@@ -23,9 +23,17 @@ export default {
       attribute: "[closedby]",
       default: '"any"',
       description:
-        'How the drawer can be closed. `"any"` also closes it on a click outside.',
+        "How the drawer can be closed. `any` also closes it on a click outside.",
       group: "Behavior",
       prop: "closedby",
+    },
+    {
+      attribute: "[data-close-on-navigate]",
+      default: "false",
+      description:
+        "Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API.",
+      group: "Close on navigate",
+      prop: "closeOnNavigate",
     },
     {
       description:

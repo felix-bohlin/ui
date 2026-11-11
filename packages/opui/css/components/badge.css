@@ -1,8 +1,8 @@
-@layer components.extended {
+@layer components.root {
   :where(.ui-badge) {
     --_motion: var(--ui-motion);
     --_bg-color: var(--ui-primary);
-    --_border-color: var(--ui-primary);
+    --_border-color: var(--ui-surface);
     --_border-width: var(--ui-border-width-thick);
     --_direction: 1;
     --_dot-size: var(--ui-space-2);
@@ -20,16 +20,18 @@
 
     display: inline-flex;
     flex-shrink: 0;
+    inline-size: fit-content;
     position: relative;
     vertical-align: middle;
 
     /* Floating wrapper: traditional inset-based positioning so this works
        in browsers without position-area support (Firefox, older Safari). */
-    & > .ui-floating:not([popover]) {
+    & > .ui-floating {
+      block-size: max-content;
+      inline-size: max-content;
       inset-block: var(--_inset-block);
       inset-inline: var(--_inset-inline);
-      position-anchor: auto;
-      position-area: none;
+      position: absolute;
       translate: calc(var(--_shift-x) * var(--_direction)) var(--_shift-y);
     }
 
@@ -63,7 +65,6 @@
       --_bg-color: oklch(
         from var(--_accent) min(l, var(--ui-accent-fill-max-lightness)) c h
       );
-      --_border-color: var(--_bg-color);
       --_text-color: var(--ui-on-fill);
     }
 
@@ -85,7 +86,6 @@
 
     &.ui-warning {
       --_bg-color: var(--ui-warning);
-      --_border-color: var(--ui-warning);
       --_text-color: var(--ui-on-warning);
     }
 

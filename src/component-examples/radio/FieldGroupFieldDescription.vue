@@ -11,9 +11,13 @@ import {
 
 <template>
   <Form>
-    <Fieldset>
+    <Fieldset
+      aria-describedby="radio-field-group-field-description-1-description"
+    >
       <FieldLegend>Contact method</FieldLegend>
-      <FieldDescription>We only contact you about your order.</FieldDescription>
+      <FieldDescription id="radio-field-group-field-description-1-description"
+        >We only contact you about your order.</FieldDescription
+      >
       <FieldGroup
         name="radio-group-field-description-1"
         orientation="horizontal"
@@ -23,7 +27,9 @@ import {
         <Radio value="sms">SMS</Radio>
       </FieldGroup>
     </Fieldset>
-    <Fieldset>
+    <Fieldset
+      aria-describedby="radio-field-group-field-description-2-description"
+    >
       <FieldLegend>Theme</FieldLegend>
       <FieldGroup
         name="radio-group-field-description-2"
@@ -33,7 +39,9 @@ import {
         <Radio value="light">Light</Radio>
         <Radio value="dark">Dark</Radio>
       </FieldGroup>
-      <FieldDescription>System follows your device setting.</FieldDescription>
+      <FieldDescription id="radio-field-group-field-description-2-description"
+        >System follows your device setting.</FieldDescription
+      >
     </Fieldset>
   </Form>
 </template>

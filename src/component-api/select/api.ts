@@ -90,7 +90,7 @@ export default {
     },
     {
       description:
-        'The id of the `<select>`. The ids the component generates start with it: `x-label`, `x-start-text`, `x-end-text`, `x-top` and `x-bottom` for `id="x"`.',
+        'The id of the `<select>`. The ids the component generates start with it: `x-label`, `x-start-text`, `x-end-text`, `x-start`, `x-end`, `x-top` and `x-bottom` for `id="x"`.',
       inherited: true,
       prop: "id",
       type: "string",
@@ -103,7 +103,7 @@ export default {
     },
     {
       description:
-        "The name of the `<select>`. Inside a `FieldGroup`, the group's `name` applies.",
+        "The name of the `<select>`. Inside a `FieldGroup`, the group's `name` when omitted.",
       inherited: true,
       prop: "name",
       type: "string",

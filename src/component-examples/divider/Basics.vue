@@ -3,7 +3,7 @@ import { Divider } from "opui-css/vue"
 </script>
 
 <template>
-  This text is placed over
+  Email me when someone mentions me in a comment.
   <Divider />
-  This text is placed under
+  Send me a summary of my projects every Monday.
 </template>

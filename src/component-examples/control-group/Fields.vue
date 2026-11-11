@@ -5,6 +5,7 @@ import {
   FieldGroup,
   FieldLegend,
   Fieldset,
+  NumberField,
   Select,
   TextField,
 } from "opui-css/vue"
@@ -45,4 +46,17 @@ import {
       </ControlGroup>
     </FieldGroup>
   </Fieldset>
+
+  <ControlGroup aria-label="Add to cart" color="primary" variant="filled">
+    <NumberField
+      hideLabel
+      id="control-group-fields-1"
+      label="Quantity"
+      :max="10"
+      :min="1"
+      name="quantity"
+      :value="1"
+    />
+    <Button>Add to cart</Button>
+  </ControlGroup>
 </template>

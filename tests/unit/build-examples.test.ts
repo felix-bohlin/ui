@@ -790,12 +790,26 @@ describe("HTML", () => {
       'import "opui-css/elements/copy.js"',
       'import "opui-css/elements/toaster.js"',
     ])
-    expect(imports("<input data-indeterminate>")).toContain(
-      "activateIndeterminate()",
-    )
+    expect(imports("<input data-indeterminate>")).toEqual([
+      'import "opui-css/css/js/checkbox.js"',
+    ])
     expect(imports('<output class="ui-value" data-live>')).toEqual([
       'import "opui-css/css/js/range.js"',
     ])
+    expect(
+      imports(
+        '<label class="ui-range"><input list="a" type="range"><datalist id="a"><option label="Low" value="0"></option></datalist></label>',
+      ),
+    ).toEqual(['import "opui-css/css/js/range.js"'])
+    expect(
+      imports(
+        '<label class="ui-text-field"><input list="b"><datalist id="b"><option label="Low" value="Low"></option></datalist></label>',
+      ),
+    ).toEqual([])
+    expect(
+      imports('<dialog class="ui-drawer" data-close-on-navigate></dialog>'),
+    ).toEqual(['import "opui-css/elements/close-on-navigate.js"'])
+    expect(imports('<dialog class="ui-drawer"></dialog>')).toEqual([])
   })
 
   test("matches elements and attributes, not text", () => {
@@ -817,9 +831,7 @@ describe("HTML", () => {
       ),
     ).toEqual([
       'import "opui-css/elements/select-all.js"',
-      'import { activateIndeterminate } from "opui-css/css/js/checkbox.js"',
-      "",
-      "activateIndeterminate()",
+      'import "opui-css/css/js/checkbox.js"',
     ])
   })
 

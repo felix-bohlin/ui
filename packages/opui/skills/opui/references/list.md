@@ -1,6 +1,6 @@
 # List
 
-A vertical list of items with text, start and end items, to find an item and act on it.
+Rows of similar items, like contacts, files or settings, with icons, controls and links.
 
 - CSS: `opui-css/css/components/list.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/list.md), [Astro](https://open-props-ui.netlify.app/astro/components/list.md), [React](https://open-props-ui.netlify.app/react/components/list.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/list.md), [Vue](https://open-props-ui.netlify.app/vue/components/list.md).
@@ -17,7 +17,7 @@ A vertical list of items with text, start and end items, to find an item and act
 - `bordered`: `boolean`, `.ui-bordered`. Adds a border between list items.
 - `dense`: `boolean`, `.ui-dense`. Packs the items tighter.
 - `flush`: `boolean`, `.ui-flush`. Removes the inline padding of the items and the block padding of the list.
-- `variant`: `"filled"` (default), `"tonal"` (`.ui-tonal`), `"transparent"` (`.ui-transparent`). The variant to use. The default `filled` list uses the filled surface.
+- `variant`: `"filled"` (default), `"tonal"` (`.ui-tonal`), `"transparent"` (`.ui-transparent`). The variant to use.
 
 ### Slots
 
@@ -45,7 +45,7 @@ A vertical list of items with text, start and end items, to find an item and act
 - `href`: `string`. The link to use. Renders an `<a>` inside the `<li>`.
 - `htmlFor` (React): `string`. The `for` attribute of the `<label>` when `type` is set, as `htmlFor` like on the element.
 - `inset`: `boolean`, `.ui-inset`. Aligns the text with items that have start content.
-- State (HTML): `current` (`[aria-current="page"]`), `disabled` (`[disabled]`), `disabledLink` (`[aria-disabled="true"]`). Highlights the current item, or dims a disabled one. `[disabled]` and `[aria-disabled="true"]` go on the `<a>` or `<button>` (a `<label>` row dims when its input is disabled); `[aria-current="page"]` on the `<a>`, `<button>` or `<label>`.
+- State (HTML): `current` (`[aria-current]`), `disabled` (`[disabled]`), `disabledLink` (`[aria-disabled="true"]`). Highlights the current item, or dims a disabled one. `[disabled]` and `[aria-disabled="true"]` go on the `<a>` or `<button>` (a `<label>` row dims when its input is disabled); `[aria-current]` (any value but `false`, like `page` on a link or `true` on a button) on the `<a>`, `<button>` or `<label>`.
 - `type`: `"checkbox"` (`label.ui-checkbox`), `"radio"` (`label.ui-radio`), `"switch"` (`label.ui-switch`). Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.
 
 ### Slots
@@ -56,6 +56,8 @@ A vertical list of items with text, start and end items, to find an item and act
 ### Notes
 
 - HTML: To make the item interactive, wrap the content in an `<a>`, `<button>` or `<label>`.
+- Astro, Svelte and Vue: With `as` or `href`, attributes that aren't props go to the `<a>` or `<button>`, like `aria-current`, `target` or `style`. Without them, and with `type`, they go to the `<li>`. `class` always goes to the `<li>`.
+- React: With `as` or `href`, attributes that aren't props go to the `<a>` or `<button>`, like `aria-current`, `target` or `style`. Without them, and with `type`, they go to the `<li>`. `className` always goes to the `<li>`.
 
 ## Component properties
 
@@ -80,11 +82,11 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_start-size`: Maximum size of leading and trailing icons, and the indent of `.ui-inset` items. Smaller in `.ui-dense`.
 - `--_start-video-size`: Height of a video in `.ui-start`, which keeps a 16:9 ratio.
 
-Outputs: `--_item-duration` and `--_selected-shadow`.
+Outputs: `--_font-size`, `--_icon-size`, `--_item-duration`, `--_selected-shadow` and `--_size`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-choice-size-small`, `--ui-control-size`, `--ui-control-size-small`, `--ui-disabled-opacity`, `--ui-duration-fast`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-field-border-color-on-filled`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-inset`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-line-height`, `--ui-list-item-padding-inline`, `--ui-menu-radius`, `--ui-motion`, `--ui-on-selected`, `--ui-palette-accent`, `--ui-palette-text`, `--ui-primary`, `--ui-radius`, `--ui-selected`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-6`, `--ui-state-hover-alpha-accent`, `--ui-state-selected-alpha-accent`, `--ui-surface-elevated`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-switch-thumb-size-small`, `--ui-switch-track-block-size-small`, `--ui-switch-track-inline-size-small`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-choice-size-small`, `--ui-control-size`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-duration-fast`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-field-border-color-on-filled`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-inset`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-line-height`, `--ui-list-item-padding-inline`, `--ui-menu-radius`, `--ui-motion`, `--ui-on-selected`, `--ui-palette-accent`, `--ui-palette-text`, `--ui-primary`, `--ui-radius`, `--ui-selected`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-state-hover-alpha-accent`, `--ui-state-selected-alpha-accent`, `--ui-surface-elevated`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-switch-thumb-size-small`, `--ui-switch-track-block-size-small`, `--ui-switch-track-inline-size-small`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -94,21 +96,21 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 <ul class="ui-list" role="list">
   <li>
     <div class="ui-text">
-      <p>Headline</p>
+      <p>Q3 report.pdf</p>
     </div>
   </li>
   <li>
     <div class="ui-text">
-      <p>Headline</p>
+      <p>Brand guidelines.pdf</p>
       <p>
-        Supporting text that truly is quite long enough to fill up multiple
-        lines.
+        Logo, colors and type in print and on the web, with an example of each
+        in use.
       </p>
     </div>
   </li>
   <li>
     <div class="ui-text">
-      <p>Trailing supporting text</p>
+      <p>Photos</p>
     </div>
     <div class="ui-end">100+</div>
   </li>
@@ -129,12 +131,12 @@ import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
-  <ListItem label="Headline" />
+  <ListItem label="Q3 report.pdf" />
   <ListItem
-    description="Supporting text that truly is quite long enough to fill up multiple lines."
-    label="Headline"
+    description="Logo, colors and type in print and on the web, with an example of each in use."
+    label="Brand guidelines.pdf"
   />
-  <ListItem label="Trailing supporting text">
+  <ListItem label="Photos">
     <Fragment slot="end">100+</Fragment>
   </ListItem>
 </List>
@@ -154,12 +156,12 @@ import { List, ListItem } from "opui-css/react"
 export default function Basics() {
   return (
     <List>
-      <ListItem label="Headline" />
+      <ListItem label="Q3 report.pdf" />
       <ListItem
-        description="Supporting text that truly is quite long enough to fill up multiple lines."
-        label="Headline"
+        description="Logo, colors and type in print and on the web, with an example of each in use."
+        label="Brand guidelines.pdf"
       />
-      <ListItem end="100+" label="Trailing supporting text" />
+      <ListItem end="100+" label="Photos" />
     </List>
   )
 }
@@ -179,12 +181,12 @@ export default function Basics() {
 </script>
 
 <List>
-  <ListItem label="Headline" />
+  <ListItem label="Q3 report.pdf" />
   <ListItem
-    description="Supporting text that truly is quite long enough to fill up multiple lines."
-    label="Headline"
+    description="Logo, colors and type in print and on the web, with an example of each in use."
+    label="Brand guidelines.pdf"
   />
-  <ListItem label="Trailing supporting text">
+  <ListItem label="Photos">
     {#snippet end()}100+{/snippet}
   </ListItem>
 </List>
@@ -205,12 +207,12 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem label="Headline" />
+    <ListItem label="Q3 report.pdf" />
     <ListItem
-      description="Supporting text that truly is quite long enough to fill up multiple lines."
-      label="Headline"
+      description="Logo, colors and type in print and on the web, with an example of each in use."
+      label="Brand guidelines.pdf"
     />
-    <ListItem label="Trailing supporting text">
+    <ListItem label="Photos">
       <template #end>100+</template>
     </ListItem>
   </List>

@@ -11,39 +11,34 @@
 </script>
 
 <Form>
-  <Fieldset>
-    <FieldLegend>Choose your favorite Radiohead album</FieldLegend>
-    <FieldDescription>There are no wrong answers.</FieldDescription>
-    <FieldGroup name="albums">
-      <Radio value="ok-computer">OK Computer</Radio>
-      <Radio value="kid-a">Kid A</Radio>
-      <Radio value="in-rainbows">In Rainbows</Radio>
-      <Radio value="king-of-limbs">The King of Limbs</Radio>
+  <Fieldset aria-describedby="form-field-group-1-description">
+    <FieldLegend>Plan</FieldLegend>
+    <FieldDescription id="form-field-group-1-description"
+      >You can change your plan at any time.</FieldDescription
+    >
+    <FieldGroup name="plan">
+      <Radio value="starter">Starter</Radio>
+      <Radio value="team">Team</Radio>
+      <Radio value="business">Business</Radio>
     </FieldGroup>
   </Fieldset>
-  <Fieldset>
-    <FieldLegend>Which side projects do you follow?</FieldLegend>
-    <FieldDescription>Some are better than others.</FieldDescription>
-    <FieldGroup name="projects">
-      <Checkbox value="atoms-for-peace">
-        Atoms for Peace
-        {#snippet endText()}Thom Yorke, Flea, Nigel Godrich{/snippet}
+  <Fieldset aria-describedby="form-field-group-2-description">
+    <FieldLegend>Add-ons</FieldLegend>
+    <FieldDescription id="form-field-group-2-description"
+      >Billed monthly with your plan.</FieldDescription
+    >
+    <FieldGroup name="add-ons">
+      <Checkbox value="backups">
+        Backups
+        {#snippet endText()}Daily snapshots, kept for 30 days.{/snippet}
       </Checkbox>
-      <Checkbox value="eob">
-        EOB
-        {#snippet endText()}Ed O'Brien solo{/snippet}
+      <Checkbox value="encryption">
+        Encryption
+        {#snippet endText()}Encrypt your files with your own keys.{/snippet}
       </Checkbox>
-      <Checkbox value="jonny-scores">
-        Film Scores
-        {#snippet endText()}Film compositions by Jonny Greenwood{/snippet}
-      </Checkbox>
-      <Checkbox value="selway-solo">
-        Philip Selway
-        {#snippet endText()}Philip Selway solo albums{/snippet}
-      </Checkbox>
-      <Checkbox value="the-smile">
-        The Smile
-        {#snippet endText()}Thom Yorke, Jonny Greenwood, Tom Skinner{/snippet}
+      <Checkbox value="single-sign-on">
+        Single sign-on
+        {#snippet endText()}Sign in with your company account.{/snippet}
       </Checkbox>
     </FieldGroup>
   </Fieldset>

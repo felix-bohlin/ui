@@ -2,4 +2,4 @@
   import { TextField } from "opui-css/svelte"
 </script>
 
-<TextField label="Numeric" placeholder="Numeric" type="numeric" />
+<TextField label="Verification code" placeholder="123456" type="numeric" />

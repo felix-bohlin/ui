@@ -67,11 +67,10 @@
     /* Body paragraphs after the heading */
     :where(:scope.ui-hgroup) > p:not(:first-of-type:first-child),
     hgroup > p:not(:first-of-type:first-child) {
-      color: oklch(from currentColor l c h / 75%);
-
-      @container style(--ui-contrast: more) {
-        color: inherit;
-      }
+      color: if(
+        style(--ui-contrast: more): inherit;
+          else: oklch(from currentColor l c h / 75%)
+      );
 
       font-size: var(--ui-font-size-large);
       line-height: round(
@@ -264,7 +263,6 @@
       overflow-inline: auto;
       padding-block: var(--ui-space-3);
       padding-inline: var(--ui-space-4);
-      scrollbar-width: thin;
       white-space: pre;
 
       > :is(code, samp) {

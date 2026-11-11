@@ -149,7 +149,7 @@ const { as: Tag = Astro.props.href ? "a" : "button", ...rest } = Astro.props
 
 ### Styling Inheritance
 
-Components often share another component's styles (`Accordion` and `Dialog` look like a `Card`, `Menu` like a `List`, `Badge` and `Tooltip` position like an `Anchor`). The shared stylesheet lists every root it styles (`card.css` targets `:where(.ui-accordion, .ui-card, .ui-dialog)`, and the header, content and footer of `:where(.ui-dialog, .ui-drawer)`, `list.css` `:where(.ui-list, .ui-menu)` and `anchor.css` `:where(.ui-anchor, .ui-badge, .ui-tooltip)`), so a component renders only its own root class and the variant class it styles.
+Components often share another component's styles (`Accordion` and `Dialog` look like a `Card`, `Menu` like a `List`, `Tooltip` positions like an `Anchor`). The shared stylesheet lists every root it styles (`card.css` targets `:where(.ui-accordion, .ui-card, .ui-dialog)`, and the header, content and footer of `:where(.ui-dialog, .ui-drawer)`, `list.css` `:where(.ui-list, .ui-menu)` and `anchor.css` `:where(.ui-anchor, .ui-tooltip)`), so a component renders only its own root class and the variant class it styles.
 
 ```astro
 <details
@@ -353,7 +353,7 @@ Most inputs should be wrapped in a `<label>` to provide a larger hit area and bu
 
 ### End Text & ARIA
 
-When providing `endText`, give it a part id (see [Unique IDs](#unique-ids)) and link it to the input via `aria-describedby`, merged with the user's own `aria-describedby` by `idRefs` from `../id`. Checkbox, Radio, Switch, TextField and Textarea are the exception: the wrapping `<label>` names the control and already includes the end text, so they don't link it.
+When providing `endText`, give it a part id (see [Unique IDs](#unique-ids)) and link it to the input via `aria-describedby`, merged with the user's own `aria-describedby` by `idRefs` from `../id`. Checkbox, Radio and Switch are the exception while their `<label>` root wraps the control: the label names it and already includes the end text, so they don't link it. A Select, TextField or Textarea with a label names the control with `aria-labelledby` (the label, then the `start` and `end` affixes), so its start text, end text, top and bottom stay out of the name and describe it instead. A TextField with `passwordToggle` names it with `<label for>` and describes it the same way.
 
 ```astro
 ---
@@ -529,24 +529,24 @@ Private `--_*` properties follow the same suffixes as component tokens, so one w
 Windows High Contrast (`forced-colors: active`) repaints everything with system colors and drops backgrounds and shadows. A component needs a `@media (forced-colors: active)` block only where a boundary or a state is carried by color alone: a shadow-only edge, a tinted selected state, a filled track. Borders are forced to `CanvasText` by the browser and need nothing, and Chromium forces a `transparent` border color like any other. `tests/unit/forced-colors.test.ts` checks both lists against the stylesheets that contain the media query. The components with a block, and why:
 
 - `Avatar`: a letter avatar is a fill, so it gets a `CanvasText` border.
-- `Button`: the current page (`aria-current="page"`) is a tint, or a dropped fill on a filled button, so it gets `SelectedItem`.
+- `Button`: the current page (`aria-current="page"`) is a tint, or a dropped fill on a filled button, so it gets `SelectedItem`, and `aria-disabled="true"` only dims the text or the fill, so it gets the `GrayText` the browser gives a native disabled button.
 - `Card`: the hovered card-link border only changes color, so it gets `Highlight`.
 - `Carousel`: the scroll markers are fills, so they get a `ButtonText` outline and `SelectedItem` for the current one.
 - `Checkbox`, `Radio`, `Switch` and `Choice` (their shared root): the checked mark, the switch track and the checked `.ui-card` border are tints, so they get `SelectedItem`, `SelectedItemText` and `CanvasText`, and the invalid state is a color, so an invalid input, switch track or card gets a dashed border.
-- `Chip`: the severity dot and the selected state are fills, so they get `CanvasText` and `SelectedItem`.
+- `Chip`: the severity dot and the selected state are fills, so they get `CanvasText` and `SelectedItem`, and the dot on a pressed chip `SelectedItemText`, like its label. `aria-disabled="true"` gets `GrayText`, like `Button`.
 - `ControlGroup`: the edges between controls are real borders, but a link button's would be `LinkText`, so every button gets a `ButtonBorder` border and the edges are one color.
 - `Divider`: the line is a background, so it becomes a `CanvasText` border.
 - `List`: selected and current items are tints, so they get `SelectedItem`.
 - `Message`: the bubble is a fill, so it gets a `CanvasText` border, the typing dots keep `CanvasText`, and a checked reaction is a tint, so it gets `SelectedItem`.
-- `OneTimeCode`: the boxes and the ring are masks, so they get `CanvasText`, `GrayText` when disabled and `Highlight` with focus.
+- `OneTimeCode`: the boxes and the ring are masks, so they get `CanvasText`, `GrayText` when disabled and `Highlight` with focus, and the field has no border for the dashed invalid border of `TextField`, so an invalid code gets a dashed outline.
 - `Progress`: the filled track, so it gets `SelectedItem` and a `CanvasText` outline, and the ring of `.ui-round` is a gradient, so it keeps `SelectedItem` and `GrayText` with `forced-color-adjust: none`.
-- `Range`: the track and its fill are backgrounds, so they get `CanvasText` and `SelectedItem`.
-- `Rating`: the stars are masks over backgrounds, so filled stars get `SelectedItem` on the input and `CanvasText` on the meter, empty stars `GrayText` and the clear icon `ButtonText`.
+- `Range`: the track and its fill are backgrounds, so they get `CanvasText` and `SelectedItem`, and the invalid state is a color, so an invalid thumb gets a dashed border.
+- `Rating`: the stars are masks over backgrounds, so filled stars get `SelectedItem` on the input and `CanvasText` on the meter, empty stars `GrayText` and the clear icon `ButtonText`, and the invalid state is a color, so the stars of an invalid input get a dashed border.
 - `Select`: the picker chevron is a mask, so it gets `ButtonText`.
 - `SortableTable`: the sort arrow is a mask, so it gets `ButtonText`.
 - `Spinner`: a `CanvasText` ring with `forced-color-adjust: none`, so its transparent segment is kept and the spin stays visible.
 - `Stepper`: complete and error markers and the line after a complete step are fills, so they get `CanvasText`, the current marker `Highlight` and the line to a later step `GrayText`.
-- `Tabs`: the selected tab is a tint, so it gets `SelectedItem` and a `CanvasText` border.
+- `Tabs`: the selected tab is a tint, so it gets `SelectedItem` and a `CanvasText` border, and its focus ring, where it's drawn inside the fill, `SelectedItemText`.
 - `TextField`: the field border is real, but the focus outline gets `Highlight`, an invalid field, whose red border is forced away, a dashed border, and the autosuggest mask chevron `ButtonText`. `Select` and `Textarea` share the stylesheet.
 - `Timeline`: colored and current markers are fills, so they get `CanvasText`, and the current marker and the tracked line `Highlight`.
 - `Toaster`: every toast is a `Callout`, whose boundary is a real border, and the severity and close icons are masks, so they get `CanvasText` and `ButtonText`.
@@ -558,7 +558,8 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 The components without a block, and why:
 
 - `Accordion`: every variant border is real, including the elevated and tonal edge, which the browser forces to `CanvasText`.
-- `Anchor`, `Copy`, `Form`, `Layout`, `DescriptionList`, `SelectAll`: layout only, no boundary or state of their own. The `Copy` label is a bordered surface, which the browser forces to `CanvasText`, next to its announcement.
+- `Anchor`, `Copy`, `SelectAll`: layout only, no boundary or state of their own. The `Copy` label is a bordered surface, which the browser forces to `CanvasText`, next to its announcement.
+- `DescriptionList`, `Form`, `Layout`: the browser forces their lines and colors itself. The `DescriptionList` leaders and total line are real borders and the `Layout` `.ui-divided` lines are column and row rules, both forced to `CanvasText`. The invalid end text of a `Form` fieldset loses its color, while the invalid controls inside keep their dashed border.
 - `Badge`, `Callout`, `Dialog`, `Drawer`, `Menu`, `Table`: every boundary is a real border, which the browser forces to `CanvasText`.
 - `Link`: text and underlines, forced to `LinkText` and `CanvasText`.
 - `Stat`: text only, no boundary or state.
@@ -569,7 +570,15 @@ When a component gains a shadow-only edge or a color-only state, it gets a block
 
 ### More contrast
 
-`theme.css` sets no color for more contrast. It tightens the knobs the roles are derived from (the `--ui-*-strength-*` mixes, the `*-max-lightness`, `*-min-lightness` and `*-max-chroma` limits, `--ui-focus-ring-width`) on `html` under `prefers-contrast: more` and on `.ui-contrast-more`, which is a scope, and every role follows. A component only adds its own `@container style(--ui-contrast: more)` block when the shape changes (an outline added, a translucent fill made solid) or to swap a private property to another role. It never re-tunes numbers: a limit it needs is a knob in `theme.css`, set in both contrast rules. A role that has to get stronger with more contrast is a formula of a knob, never a second value in a contrast block.
+`theme.css` sets no color for more contrast. It tightens the knobs the roles are derived from (the `--ui-*-strength-*` mixes, the `*-max-lightness`, `*-min-lightness` and `*-max-chroma` limits, `--ui-focus-ring-width`) on `html` under `prefers-contrast: more` and on `.ui-contrast-more`, which is a scope, and every role follows. A component only adds its own `@container style(--ui-contrast: more)` block, or an `if()` value (Switch values and `if()` below), when the shape changes (an outline added, a translucent fill made solid) or to swap a private property to another role. It never re-tunes numbers: a limit it needs is a knob in `theme.css`, set in both contrast rules. A role that has to get stronger with more contrast is a formula of a knob, never a second value in a contrast block.
+
+### Switch values and `if()`
+
+`if()` reads a switch token (`--ui-contrast`, `--ui-motion`) on the element itself, so it also sees a value the element sets, which `@container style()` can't:
+
+- One declaration of a standard property that swaps on the switch is an `if(style(…): …; else: …)` value: `scroll-behavior` on `html` and the `Carousel`, the `Spinner` opacity. A browser without `if()` drops the declaration, so the compat layer holds the style query it replaced, behind `@supports not (inline-size: if(else: 0px))`.
+- Several declarations, a nested rule or a query that also reads a size stay a `@container style()` block.
+- A custom property takes `if()` only where the value has to follow a token set on the element itself, like the `ControlGroup` dividers. A browser without `if()` can't drop it: it is invalid wherever it is read, so it needs its compat rule too. A swap that a `@container style()` block can do stays one.
 
 ---
 
@@ -577,8 +586,8 @@ When a component gains a shadow-only edge or a color-only state, it gets a block
 
 `css/components.css` imports every component stylesheet in one of three groups, named by the layer the files declare, and `tests/unit/layers.test.ts` checks each file against its group:
 
-- **Root components** declare `components.root`: base rules shared by several roots (`card.css` for `.ui-accordion`, `.ui-card` and `.ui-dialog`, and the parts of `.ui-dialog` and `.ui-drawer`, `anchor.css` for `.ui-anchor`, `.ui-badge` and `.ui-tooltip`, `choice.css` for the checkbox, radio and switch) and per-component rules, none of which has to beat another component's rules on the same element. `typography.css` also declares `components.prose`, the classless rich text below every component.
-- **Extended components** declare `components.extended` for the rules that must beat another component's rules on the same element (a `Dialog` on top of `card.css`, a `Badge` on top of `anchor.css`, a `Menu` or `Select` over `list.css` and `text-field.css`), and `components.root` for rules that must not (the dense `List` sizes for a `Checkbox`, which an explicit size class on the checkbox has to beat).
+- **Root components** declare `components.root`: base rules shared by several roots (`card.css` for `.ui-accordion`, `.ui-card` and `.ui-dialog`, and the parts of `.ui-dialog` and `.ui-drawer`, `anchor.css` for `.ui-anchor` and `.ui-tooltip`, `choice.css` for the checkbox, radio and switch) and per-component rules, none of which has to beat another component's rules on the same element. `typography.css` also declares `components.prose`, the classless rich text below every component.
+- **Extended components** declare `components.extended` for the rules that must beat another component's rules on the same element (a `Dialog` on top of `card.css`, a `Tooltip` on top of `anchor.css`, a `Menu` or `Select` over `list.css` and `text-field.css`), and `components.root` for rules that must not (the dense `List` sizes for a `Checkbox`, which an explicit size class on the checkbox has to beat).
 - **Utilities** declare `utils`: `layout.css`, whose classes beat every component, like `core/utils.css`.
 
 A new stylesheet goes in the group of the layer it declares, and a file that needs a layer its group doesn't allow moves group instead of opening the layer. `tests/unit/layers.test.ts` also checks the import order within a group, including `BUILDS_ON`, the stylesheets that must follow the one they extend.

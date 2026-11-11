@@ -184,11 +184,20 @@
   </div>
 </div>
 
-<div class="ui-control-group ui-vertical ui-filled" role="group">
+<div
+  class="ui-control-group ui-vertical ui-filled"
+  role="group"
+  aria-label="Delivery note"
+>
   <label class="ui-textarea">
-    <span class="ui-sr-only">Delivery note</span>
+    <span class="ui-sr-only" id="control-group-vertical-1-label"
+      >Delivery note</span
+    >
     <span class="ui-field">
-      <textarea placeholder="Leave it at the back door"></textarea>
+      <textarea
+        placeholder="Leave it at the back door"
+        aria-labelledby="control-group-vertical-1-label"
+      ></textarea>
     </span>
   </label>
   <button class="ui-button" type="button">Send note</button>

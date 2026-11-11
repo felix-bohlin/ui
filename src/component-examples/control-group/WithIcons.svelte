@@ -47,7 +47,7 @@
   </svg>
 {/snippet}
 
-<ControlGroup variant="outlined">
+<ControlGroup aria-label="RSVP" variant="outlined">
   <Button aria-label="OK">
     {@render checkIcon()}
   </Button>
@@ -57,7 +57,7 @@
   </Button>
 </ControlGroup>
 
-<ControlGroup variant="outlined">
+<ControlGroup aria-label="RSVP" variant="outlined">
   <Button>
     {@render checkIcon()}
     <span class="ui-text">OK</span>

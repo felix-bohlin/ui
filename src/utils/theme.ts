@@ -130,10 +130,14 @@ export const presetCss = (preset: string | null) =>
 export const presetBrand = (preset: string | null) => {
   const tokens =
     EXAMPLE_THEMES.find((theme) => theme.name === preset)?.tokens ?? {}
-  const primary = tokens["--ui-primary-source"]
-  return primary && !primary.includes("var(")
-    ? primary
-    : tokens["--ui-palette-source"]
+  const source = tokens["--ui-palette-source"]
+  const primary = source
+    ? tokens["--ui-primary-source"]?.replaceAll(
+        "var(--ui-palette-source)",
+        source,
+      )
+    : tokens["--ui-primary-source"]
+  return primary && !primary.includes("var(") ? primary : source
 }
 
 export const customCss = (tokens: ThemeTokens) => {

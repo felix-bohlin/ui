@@ -32,15 +32,14 @@ export const keywords = ["font", "heading", "prose", "text"]
     "container-style-queries",
     "exp-functions",
     "has",
+    "if",
     "lh",
     "light-dark",
     "logical-properties",
-    "progress-function",
     "registered-custom-properties",
     "relative-color",
     "round-mod-rem",
     "scope",
-    "scrollbar-width",
     "text-wrap-pretty",
   ]}
   apis={[{ title: "Typography API", api: typographyApi }]}
@@ -89,6 +88,10 @@ export const keywords = ["font", "heading", "prose", "text"]
     <AutoExample name="Variants" column />
 
     <h3 id="heading-group">Heading group</h3>
+    <p>
+      One heading, with a <code>p</code> before it for an overline and after it
+      for a subtitle.
+    </p>
     <AutoExample name="HeadingGroupClass" column />
 
     <h3 id="blockquote">Blockquote</h3>
@@ -262,6 +265,10 @@ export const keywords = ["font", "heading", "prose", "text"]
       <li>
         Hide a decorative <a href="#icon"><code>svg.ui-icon</code></a> with
         <code>aria-hidden="true"</code>.
+      </li>
+      <li>
+        A <a href="#swatch"><code>.ui-swatch</code></a> has no text: a screen
+        reader only gets the words next to it.
       </li>
     </ul>
   </Fragment>

@@ -29,7 +29,7 @@ export default {
     },
   ],
   notes: {
-    html: 'The root needs `role="group"`.',
+    html: 'The root needs `role="group"` and a name.',
   },
   options: [
     {

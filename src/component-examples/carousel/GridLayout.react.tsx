@@ -12,7 +12,7 @@ export default function GridLayout() {
       }}
     >
       <div>
-        <Carousel aria-label="Destinations" markers>
+        <Carousel aria-label="Destinations" buttons="outside" markers>
           {places.map((title) => (
             <li key={title}>
               <Card variant="tonal">

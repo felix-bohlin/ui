@@ -3,7 +3,7 @@ import { Button, ControlGroup } from "opui-css/react"
 export default function WithIconsCode() {
   return (
     <>
-      <ControlGroup variant="outlined">
+      <ControlGroup aria-label="RSVP" variant="outlined">
         <Button aria-label="OK">
           <svg aria-hidden="true">{/* */}</svg>
         </Button>
@@ -13,7 +13,7 @@ export default function WithIconsCode() {
         </Button>
       </ControlGroup>
 
-      <ControlGroup variant="outlined">
+      <ControlGroup aria-label="RSVP" variant="outlined">
         <Button>
           <svg aria-hidden="true">{/* */}</svg>
           <span className="ui-text">OK</span>

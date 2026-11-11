@@ -4,6 +4,7 @@ import {
   FieldGroup,
   FieldLegend,
   Fieldset,
+  NumberField,
   Select,
   TextField,
 } from "opui-css/react"
@@ -45,6 +46,19 @@ export default function Fields() {
           </ControlGroup>
         </FieldGroup>
       </Fieldset>
+
+      <ControlGroup aria-label="Add to cart" color="primary" variant="filled">
+        <NumberField
+          defaultValue={1}
+          hideLabel
+          id="control-group-fields-1"
+          label="Quantity"
+          max={10}
+          min={1}
+          name="quantity"
+        />
+        <Button>Add to cart</Button>
+      </ControlGroup>
     </>
   )
 }

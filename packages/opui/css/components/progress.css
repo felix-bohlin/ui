@@ -52,7 +52,7 @@
     }
   }
 
-  :where(.ui-progress):has(> progress:indeterminate) {
+  :where(.ui-progress:has(> progress:indeterminate)) {
     &::after {
       animation: ui-indeterminate calc(var(--_loop-duration) * var(--_motion))
         linear infinite;
@@ -92,7 +92,6 @@
       border-radius: var(--ui-radius-round);
       flex-shrink: 0;
       inline-size: var(--_ring-size);
-      outline: 0;
 
       &::after {
         content: none;
@@ -128,6 +127,11 @@
 
           animation: ui-progress-spin
             calc(var(--_loop-duration) / 2 * var(--_motion)) linear infinite;
+
+          @container style(--_motion: 0) {
+            animation: ui-indeterminate-pulse var(--_loop-duration) ease-in-out
+              infinite;
+          }
         }
 
         @media (forced-colors: active) {

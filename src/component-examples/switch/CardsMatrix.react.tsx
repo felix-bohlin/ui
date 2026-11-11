@@ -1,66 +1,66 @@
-import { Switch, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/react"
+import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/react"
 
 export default function CardsMatrix() {
   return (
     <Form>
       <Fieldset>
-        <FieldLegend>Input at the end</FieldLegend>
+        <FieldLegend>Notifications</FieldLegend>
         <FieldGroup name="switch-cards-end" orientation="horizontal">
           <Switch
             card
             defaultChecked
-            endText="The default surface."
+            endText="A summary every morning."
             spread
-            value="outlined"
+            value="email"
           >
-            Outlined
+            Email
           </Switch>
           <Switch
             card
-            endText="A tinted surface."
+            endText="On this device only."
             spread
-            value="tonal"
-            variant="tonal"
-          >
-            Tonal
-          </Switch>
-          <Switch
-            card
-            endText="A raised surface."
-            spread
-            value="elevated"
+            value="push"
             variant="elevated"
           >
-            Elevated
+            Push
+          </Switch>
+          <Switch
+            card
+            endText="For security alerts only."
+            spread
+            value="sms"
+            variant="tonal"
+          >
+            SMS
           </Switch>
         </FieldGroup>
       </Fieldset>
       <Fieldset>
-        <FieldLegend>Input at the start</FieldLegend>
+        <FieldLegend>Privacy</FieldLegend>
         <FieldGroup name="switch-cards-start" orientation="horizontal">
           <Switch
             card
             defaultChecked
-            endText="The default surface."
-            value="outlined"
+            endText="Others see when you're active."
+            value="status"
           >
-            Outlined
+            Online status
           </Switch>
           <Switch
             card
-            endText="A tinted surface."
-            value="tonal"
-            variant="tonal"
-          >
-            Tonal
-          </Switch>
-          <Switch
-            card
-            endText="A raised surface."
-            value="elevated"
+            endText="Others see when you've read a message."
+            value="receipts"
             variant="elevated"
           >
-            Elevated
+            Read receipts
+          </Switch>
+          <Switch
+            card
+            endText="People can find you by email."
+            value="search"
+            variant="tonal"
+          >
+            Profile search
           </Switch>
         </FieldGroup>
       </Fieldset>

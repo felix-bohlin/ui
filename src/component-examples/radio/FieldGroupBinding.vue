@@ -2,10 +2,10 @@
 import { ref } from "vue"
 import { Button, FieldGroup, FieldLegend, Fieldset, Radio } from "opui-css/vue"
 
-const plan = ref("free")
+const plan = ref("starter")
 
 function reset() {
-  plan.value = "free"
+  plan.value = "starter"
 }
 </script>
 
@@ -13,9 +13,9 @@ function reset() {
   <Fieldset>
     <FieldLegend>Plan</FieldLegend>
     <FieldGroup name="radio-binding">
-      <Radio v-model="plan" value="free">Free</Radio>
-      <Radio v-model="plan" value="pro">Pro</Radio>
+      <Radio v-model="plan" value="starter">Starter</Radio>
       <Radio v-model="plan" value="team">Team</Radio>
+      <Radio v-model="plan" value="business">Business</Radio>
     </FieldGroup>
   </Fieldset>
   <p class="radio-binding-text">Selected: {{ plan }}</p>

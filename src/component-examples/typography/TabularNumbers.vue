@@ -2,11 +2,11 @@
   <ul role="list" class="ui-layout-column ui-x-small ui-tabular-nums">
     <li class="ui-layout-row ui-spread">
       <span>Visitors</span>
-      <span>48 210</span>
+      <span>48,210</span>
     </li>
     <li class="ui-layout-row ui-spread">
       <span>Page views</span>
-      <span>162 904</span>
+      <span>162,904</span>
     </li>
     <li class="ui-layout-row ui-spread">
       <span>Bounce rate</span>

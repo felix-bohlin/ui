@@ -17,9 +17,7 @@ export default function Clickable() {
             </a>
           </h3>
         </CardHeader>
-        <CardContent>
-          Plans for any team. Click anywhere on the card.
-        </CardContent>
+        <CardContent>Plans for teams of every size.</CardContent>
       </Card>
 
       <Card variant="outlined">

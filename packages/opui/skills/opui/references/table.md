@@ -22,7 +22,7 @@ Displays tabular data. Basic tables with row and column headers, and optional ca
 
 - `density`: `"dense"` (`.ui-dense`), `"normal"` (default), `"spacious"` (`.ui-spacious`). The cell padding.
 - `flush`: `boolean`, `.ui-flush`. Drops the block margin, for a table that sits in a card or another padded box.
-- `overflow`: `"scroll"` (`.ui-overflow-scroll`), `"wrap"` (default). What the table does when its columns don't fit. `"wrap"` lets the cells wrap their text, and `"scroll"` keeps each cell on one line, scrolls the table sideways and lets the last column take the space left over. Give a scrolling table `tabindex="0"`, so keyboard users can scroll it.
+- `overflow`: `"scroll"` (`.ui-overflow-scroll`), `"wrap"` (default). What the table does when its columns don't fit. `wrap` lets the cells wrap their text, and `scroll` keeps each cell on one line, scrolls the table sideways and lets the last column take the space left over. Give a scrolling table `tabindex="0"`, so keyboard users can scroll it.
 - `stickyHeader`: `boolean`, `.ui-sticky-header`. Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`.
 
 ### Slots
@@ -132,7 +132,7 @@ Outputs: `--_duration`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-width`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-field-border-color-on-filled`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-small`, `--ui-font-weight-semibold`, `--ui-icon-size-small`, `--ui-line-height-tight`, `--ui-motion`, `--ui-radius`, `--ui-radius-small`, `--ui-shadow-scroll`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-6`, `--ui-surface`, `--ui-surface-filled`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-width`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-field-border-color-on-filled`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-small`, `--ui-font-weight-semibold`, `--ui-icon-size-small`, `--ui-line-height-tight`, `--ui-motion`, `--ui-radius`, `--ui-radius-small`, `--ui-shadow-scroll`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-6`, `--ui-surface`, `--ui-surface-filled`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -141,25 +141,30 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 ```html
 <table class="ui-table">
   <caption>
-    Band Members
+    Team members
   </caption>
   <thead>
     <tr>
-      <th>Band</th>
       <th>Name</th>
-      <th>Instrument</th>
+      <th>Role</th>
+      <th>Location</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Korn</td>
-      <td>Jonathan Davis</td>
-      <td>Vocals</td>
+      <td>Lena Ek</td>
+      <td>Product designer</td>
+      <td>Göteborg</td>
     </tr>
     <tr>
-      <td>Radiohead</td>
-      <td>Ed O'Brien</td>
-      <td>Guitar/Vocals</td>
+      <td>Tom Tanaka</td>
+      <td>Frontend developer</td>
+      <td>Lisbon</td>
+    </tr>
+    <tr>
+      <td>Elif Rahman</td>
+      <td>Support lead</td>
+      <td>Berlin</td>
     </tr>
   </tbody>
 </table>
@@ -185,24 +190,29 @@ import {
 ---
 
 <Table>
-  <TableCaption>Band Members</TableCaption>
+  <TableCaption>Team members</TableCaption>
   <TableHead>
     <TableRow>
-      <TableHeaderCell>Band</TableHeaderCell>
       <TableHeaderCell>Name</TableHeaderCell>
-      <TableHeaderCell>Instrument</TableHeaderCell>
+      <TableHeaderCell>Role</TableHeaderCell>
+      <TableHeaderCell>Location</TableHeaderCell>
     </TableRow>
   </TableHead>
   <TableBody>
     <TableRow>
-      <TableCell>Korn</TableCell>
-      <TableCell>Jonathan Davis</TableCell>
-      <TableCell>Vocals</TableCell>
+      <TableCell>Lena Ek</TableCell>
+      <TableCell>Product designer</TableCell>
+      <TableCell>Göteborg</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Radiohead</TableCell>
-      <TableCell>Ed O'Brien</TableCell>
-      <TableCell>Guitar/Vocals</TableCell>
+      <TableCell>Tom Tanaka</TableCell>
+      <TableCell>Frontend developer</TableCell>
+      <TableCell>Lisbon</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Elif Rahman</TableCell>
+      <TableCell>Support lead</TableCell>
+      <TableCell>Berlin</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -230,24 +240,29 @@ import {
 export default function Normal() {
   return (
     <Table>
-      <TableCaption>Band Members</TableCaption>
+      <TableCaption>Team members</TableCaption>
       <TableHead>
         <TableRow>
-          <TableHeaderCell>Band</TableHeaderCell>
           <TableHeaderCell>Name</TableHeaderCell>
-          <TableHeaderCell>Instrument</TableHeaderCell>
+          <TableHeaderCell>Role</TableHeaderCell>
+          <TableHeaderCell>Location</TableHeaderCell>
         </TableRow>
       </TableHead>
       <TableBody>
         <TableRow>
-          <TableCell>Korn</TableCell>
-          <TableCell>Jonathan Davis</TableCell>
-          <TableCell>Vocals</TableCell>
+          <TableCell>Lena Ek</TableCell>
+          <TableCell>Product designer</TableCell>
+          <TableCell>Göteborg</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Radiohead</TableCell>
-          <TableCell>Ed O'Brien</TableCell>
-          <TableCell>Guitar/Vocals</TableCell>
+          <TableCell>Tom Tanaka</TableCell>
+          <TableCell>Frontend developer</TableCell>
+          <TableCell>Lisbon</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Elif Rahman</TableCell>
+          <TableCell>Support lead</TableCell>
+          <TableCell>Berlin</TableCell>
         </TableRow>
       </TableBody>
     </Table>
@@ -275,24 +290,29 @@ export default function Normal() {
 </script>
 
 <Table>
-  <TableCaption>Band Members</TableCaption>
+  <TableCaption>Team members</TableCaption>
   <TableHead>
     <TableRow>
-      <TableHeaderCell>Band</TableHeaderCell>
       <TableHeaderCell>Name</TableHeaderCell>
-      <TableHeaderCell>Instrument</TableHeaderCell>
+      <TableHeaderCell>Role</TableHeaderCell>
+      <TableHeaderCell>Location</TableHeaderCell>
     </TableRow>
   </TableHead>
   <TableBody>
     <TableRow>
-      <TableCell>Korn</TableCell>
-      <TableCell>Jonathan Davis</TableCell>
-      <TableCell>Vocals</TableCell>
+      <TableCell>Lena Ek</TableCell>
+      <TableCell>Product designer</TableCell>
+      <TableCell>Göteborg</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Radiohead</TableCell>
-      <TableCell>Ed O'Brien</TableCell>
-      <TableCell>Guitar/Vocals</TableCell>
+      <TableCell>Tom Tanaka</TableCell>
+      <TableCell>Frontend developer</TableCell>
+      <TableCell>Lisbon</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Elif Rahman</TableCell>
+      <TableCell>Support lead</TableCell>
+      <TableCell>Berlin</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -319,24 +339,29 @@ import {
 
 <template>
   <Table>
-    <TableCaption>Band Members</TableCaption>
+    <TableCaption>Team members</TableCaption>
     <TableHead>
       <TableRow>
-        <TableHeaderCell>Band</TableHeaderCell>
         <TableHeaderCell>Name</TableHeaderCell>
-        <TableHeaderCell>Instrument</TableHeaderCell>
+        <TableHeaderCell>Role</TableHeaderCell>
+        <TableHeaderCell>Location</TableHeaderCell>
       </TableRow>
     </TableHead>
     <TableBody>
       <TableRow>
-        <TableCell>Korn</TableCell>
-        <TableCell>Jonathan Davis</TableCell>
-        <TableCell>Vocals</TableCell>
+        <TableCell>Lena Ek</TableCell>
+        <TableCell>Product designer</TableCell>
+        <TableCell>Göteborg</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>Radiohead</TableCell>
-        <TableCell>Ed O'Brien</TableCell>
-        <TableCell>Guitar/Vocals</TableCell>
+        <TableCell>Tom Tanaka</TableCell>
+        <TableCell>Frontend developer</TableCell>
+        <TableCell>Lisbon</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Elif Rahman</TableCell>
+        <TableCell>Support lead</TableCell>
+        <TableCell>Berlin</TableCell>
       </TableRow>
     </TableBody>
   </Table>

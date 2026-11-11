@@ -1,5 +1,7 @@
 "use client"
 
+import { useEffect } from "react"
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import { MenuContext, useMenuContext } from "./context.react"
 import { warnMissingId } from "../dev"
@@ -21,6 +23,9 @@ export default function Menu({
   const parent = useMenuContext()
   const rootId = parent?.rootId ?? id
   warnMissingId("Menu", id)
+  useEffect(() => {
+    void import("../../elements/close-on-navigate.js")
+  }, [])
 
   return (
     <MenuContext value={{ rootId }}>
@@ -67,7 +72,7 @@ export default function Menu({
                   {...tagAttrs(Tag, disabled, href)}
                   command={closes ? "hide-popover" : undefined}
                   commandfor={closes ? rootId : undefined}
-                  {...itemRest}
+                  {...defined(itemRest)}
                 >
                   <div className="ui-text">
                     <p>{label}</p>

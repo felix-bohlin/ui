@@ -2,7 +2,7 @@
 
 Badges attach a small count or status dot to another element.
 
-- CSS: `opui-css/css/components/badge.css` and `opui-css/css/components/anchor.css`.
+- CSS: `opui-css/css/components/badge.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/badge.md), [Astro](https://open-props-ui.netlify.app/astro/components/badge.md), [React](https://open-props-ui.netlify.app/react/components/badge.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/badge.md), [Vue](https://open-props-ui.netlify.app/vue/components/badge.md).
 
 ## Badge
@@ -20,6 +20,7 @@ Badges attach a small count or status dot to another element.
 - `dot`: `boolean`, `.ui-dot`. Renders the indicator as a dot. `label` stays as screen reader text, and the `indicator` slot isn't shown.
 - `hideLabel`: `boolean`, `.ui-indicator > span.ui-sr-only`. Hides `label` visually, for the whole sentence screen readers read, such as "5 unread messages". The `indicator` slot then holds the visible text and is hidden from screen readers.
 - `invisible`: `boolean`, `.ui-invisible`. Hides the indicator.
+- `label`: `string`. The indicator text, such as a count. With `hideLabel` or `dot`, only screen readers get it.
 
 ## Component properties
 
@@ -27,6 +28,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### badge.css
 
+- `--_border-color`: Border color of the indicator, a ring in `--ui-surface` that sets it off from what it sits on. Set it to the background behind the badge on another surface.
 - `--_border-width`: Border width of the indicator.
 - `--_dot-size`: Width and height of the indicator in `.ui-dot`.
 - `--_ease`: Easing of the indicator fade. Defaults to `--ui-ease-enter`.
@@ -34,16 +36,11 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
 - `--_size`: Height and minimum width of the indicator.
 
-Outputs: `--_accent`, `--_bg-color`, `--_border-color`, `--_direction`, `--_duration`, `--_inset-block`, `--_inset-inline`, `--_shift-x`, `--_shift-y`, `--_sign-x`, `--_sign-y` and `--_text-color`.
-
-### anchor.css
-
-- `--_shift-x`: Horizontal shift of `.ui-floating`. Defaults to `0`.
-- `--_shift-y`: Vertical shift of `.ui-floating`. Defaults to `0`.
+Outputs: `--_accent`, `--_bg-color`, `--_direction`, `--_duration`, `--_inset-block`, `--_inset-inline`, `--_shift-x`, `--_shift-y`, `--_sign-x`, `--_sign-y` and `--_text-color`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width-thick`, `--ui-critical`, `--ui-duration`, `--ui-ease-enter`, `--ui-font-size-caption`, `--ui-font-weight-medium`, `--ui-info`, `--ui-motion`, `--ui-neutral`, `--ui-on-fill`, `--ui-on-primary`, `--ui-on-warning`, `--ui-primary`, `--ui-radius-round`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4`, `--ui-success` and `--ui-warning`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width-thick`, `--ui-critical`, `--ui-duration`, `--ui-ease-enter`, `--ui-font-size-caption`, `--ui-font-weight-medium`, `--ui-info`, `--ui-motion`, `--ui-neutral`, `--ui-on-fill`, `--ui-on-primary`, `--ui-on-warning`, `--ui-primary`, `--ui-radius-round`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4`, `--ui-success`, `--ui-surface` and `--ui-warning`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

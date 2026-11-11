@@ -19,7 +19,6 @@ const slides = [1, 2, 3, 4, 5]
 
 <style>
 .carousel-custom-buttons {
-  --_button-bg-color: var(--ui-primary);
   --_button-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 12h14m-6-6 6 6-6 6'/%3E%3C/svg%3E");
 }
 </style>

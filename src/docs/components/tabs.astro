@@ -46,11 +46,11 @@ export const keywords = ["tab panel", "tablist"]
   browserSupport={[
     "anchor-positioning",
     "container-queries",
+    "has",
     "lh",
     "light-dark",
     "logical-properties",
     "nth-child-of",
-    "scrollbar-width",
     "sibling-count",
   ]}
   installationTabs={[{ title: "tabs.css", code: TabsCSS, lang: "css" }]}
@@ -75,7 +75,6 @@ export const keywords = ["tab panel", "tablist"]
       <UITabs
         aria-label="Account settings"
         name="tabs-anatomy"
-        role="radiogroup"
         style="inline-size: 18rem"
       >
         <UITabsItem>
@@ -149,8 +148,9 @@ export const keywords = ["tab panel", "tablist"]
   <section id="overflow">
     <h2>Overflow</h2>
     <p>
-      Scrolls by default. Inside flex and grid layouts that size to their
-      content, give the tabs a width.
+      Scrolls by default. Tabs with panels take the width of their container, so
+      inside flex and grid layouts that size to their content, give them a
+      width.
     </p>
     <AutoExample name="Overflow" />
     <p>
@@ -168,6 +168,16 @@ export const keywords = ["tab panel", "tablist"]
       tabs in a column.
     </p>
     <AutoExample name="Vertical" />
+  </section>
+
+  <section id="without-panels">
+    <h2>Without panels</h2>
+    <p>
+      Leave out the panels when changing the tab changes the page, like a filter
+      that loads another list. The tabs size to their labels, also in a row next
+      to a heading.
+    </p>
+    <AutoExample name="WithoutPanels" row />
   </section>
 
   <section id="binding">
@@ -195,11 +205,17 @@ export const keywords = ["tab panel", "tablist"]
   </section>
 
   <Fragment slot="accessibility">
-    <p>
-      Tabs are a radio group, not ARIA tabs. Name it with
-      <code>role="radiogroup"</code> and <code>aria-label</code> on
-      <PropOrClass prop="Tabs" class=".ui-tabs" />.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Tabs are a radio group, not ARIA tabs. <code>Tabs</code> renders
+        <code>role="radiogroup"</code>: name it with <code>aria-label</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Tabs are a radio group, not ARIA tabs. Name it with
+        <code>role="radiogroup"</code> and <code>aria-label</code> on
+        <code>.ui-tabs</code>.
+      </Fragment>
+    </Conditional>
 
     <Table>
       <TableColumnGroup>

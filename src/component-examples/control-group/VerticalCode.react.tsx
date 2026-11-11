@@ -83,7 +83,11 @@ export default function VerticalCode() {
         <Button>Down</Button>
       </ControlGroup>
 
-      <ControlGroup orientation="vertical" variant="filled">
+      <ControlGroup
+        aria-label="Delivery note"
+        orientation="vertical"
+        variant="filled"
+      >
         <Textarea
           hideLabel
           label="Delivery note"

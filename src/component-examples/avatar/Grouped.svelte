@@ -13,7 +13,7 @@
   <Avatar href="#"><span aria-label="Karl Lund" role="img">KL</span></Avatar>
   <Badge dot label="Online">
     <Avatar href="#"
-      ><span aria-label="Maja Nilsson" role="img">MN</span></Avatar
+      ><span aria-label="Maja Nilsson, online" role="img">MN</span></Avatar
     >
   </Badge>
 </AvatarGroup>

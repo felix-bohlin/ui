@@ -67,9 +67,10 @@ const translation = `.ui-carousel:lang(sv) {
   heroAnatomy
   apis={[{ title: "Carousel API", api: carouselApi }]}
   browserSupport={[
+    "alt-text-generated-content",
     "anchor-positioning",
-    "container-style-queries",
     "dir-pseudo",
+    "if",
     "light-dark",
     "logical-properties",
     "relative-color",
@@ -203,7 +204,8 @@ const translation = `.ui-carousel:lang(sv) {
   <section id="buttons-outside">
     <h2>Buttons outside</h2>
     <p>
-      Use <PropOrClass prop='buttons="outside"' class=".ui-buttons-outside" />.
+      Use <PropOrClass prop='buttons="outside"' class=".ui-buttons-outside" />
+      for items with text, which the inside buttons cover at their edges.
     </p>
 
     <AutoExample name="ButtonsOutside" />
@@ -356,6 +358,7 @@ const translation = `.ui-carousel:lang(sv) {
         Name the carousel with <code>aria-label</code> or
         <code>aria-labelledby</code>.
       </li>
+      <li>Keep <code>role="list"</code> for Safari.</li>
     </ul>
     <KeyboardSupport>
       <p>Chromium's keys. Other browsers may differ.</p>
@@ -381,11 +384,11 @@ const translation = `.ui-carousel:lang(sv) {
   const htmlSnippet = (state: State, label: string) => {
     const classes = [
       "ui-carousel",
-      state.persistentButtons && "ui-persistent-buttons",
+      state.markers && "ui-markers",
       state.peek && "ui-peek",
+      state.persistentButtons && "ui-persistent-buttons",
       state.stretch && "ui-stretch",
       state.orientation && "ui-vertical",
-      state.markers && "ui-markers",
       state.align && "ui-align-center",
       state.buttons !== "inside" && `ui-buttons-${state.buttons}`,
     ].filter(Boolean)
@@ -414,12 +417,12 @@ const translation = `.ui-carousel:lang(sv) {
       `aria-label="${label}"`,
       state.aspectRatio !== "16 / 9" && `aspectRatio="${state.aspectRatio}"`,
       state.buttons !== "inside" && `buttons="${state.buttons}"`,
+      state.itemsPerView > 1 &&
+        expression("itemsPerView", String(state.itemsPerView)),
       state.markers && "markers",
       state.orientation && `orientation="vertical"`,
       state.peek && "peek",
       state.persistentButtons && "persistentButtons",
-      state.itemsPerView > 1 &&
-        expression("itemsPerView", String(state.itemsPerView)),
       state.stretch && "stretch",
       state.orientation &&
         (framework === "react"

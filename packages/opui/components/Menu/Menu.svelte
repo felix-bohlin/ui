@@ -1,8 +1,10 @@
 <script lang="ts">
+  import "../../elements/close-on-navigate.js"
   import { untrack } from "svelte"
   import { getMenuContext, setMenuContext } from "./context.svelte"
   import { warnMissingId } from "../dev"
   import { tagAttrs } from "../tag"
+  import { defined } from "../attrs"
   import { classAttrs } from "../cx"
   import type { Props } from "./types.svelte"
 
@@ -57,7 +59,7 @@
         {...tagAttrs(Tag, disabled, href)}
         command={closes ? "hide-popover" : undefined}
         commandfor={closes ? rootId : undefined}
-        {...itemRest}
+        {...defined(itemRest)}
       >
         <div class="ui-text">
           <p>{label}</p>

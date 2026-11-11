@@ -1,3 +1,4 @@
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import { counterLabel, cssString, mergeStyle } from "../style"
 import type { Props } from "./types.react"
@@ -25,11 +26,11 @@ export default function Carousel({
       className={cx([
         "ui-carousel",
         {
-          "ui-persistent-buttons": persistentButtons,
+          "ui-markers": markers,
           "ui-peek": peek,
+          "ui-persistent-buttons": persistentButtons,
           "ui-stretch": stretch,
           "ui-vertical": orientation === "vertical",
-          "ui-markers": markers,
         },
         align && align !== "start" && `ui-align-${align}`,
         buttons && buttons !== "inside" && `ui-buttons-${buttons}`,
@@ -46,7 +47,8 @@ export default function Carousel({
         },
         style ?? {},
       )}
-      {...rest}
+      role="list"
+      {...defined(rest)}
     >
       {children}
     </ul>

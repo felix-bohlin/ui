@@ -66,6 +66,10 @@ export const todoExamples = {
     match:
       "Range: under `forced-colors: active` the range source sets its fill",
   },
+  "rating-empty-stars": {
+    match:
+      "Rating: filled and empty stars differ by color alone, and more contrast pulls them together",
+  },
   "resolved-tokens": {
     match: "Tokens: there is no Figma kit",
   },
@@ -80,6 +84,9 @@ export const todoExamples = {
   "spread-rem-breakpoint": {
     match:
       "TextField: the spread layout collapses at `@container (inline-size < 400px)`",
+  },
+  "state-fill-tint": {
+    match: "CSS: two state fills are literal black and white",
   },
   "switch-invalid": {
     match: "Switch: an invalid switch draws a `--ui-focus-ring-width` halo",

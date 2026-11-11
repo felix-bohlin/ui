@@ -4,7 +4,7 @@ export default function StartIcon() {
   return (
     <List>
       <ListItem
-        label="Headline"
+        label="Lena Ek"
         start={
           <svg
             aria-hidden="true"
@@ -21,8 +21,8 @@ export default function StartIcon() {
         }
       />
       <ListItem
-        description="Supporting text"
-        label="Headline"
+        description="Frontend developer"
+        label="Tom Tanaka"
         start={
           <svg
             aria-hidden="true"

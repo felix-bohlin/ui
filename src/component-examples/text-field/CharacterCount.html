@@ -1,10 +1,15 @@
 <label class="ui-text-field">
-  <span class="ui-label">Username</span>
+  <span class="ui-label" id="text-field-character-count-1-label">Username</span>
   <span class="ui-field">
-    <input maxlength="20" type="text" />
+    <input
+      maxlength="20"
+      aria-describedby="text-field-character-count-1-end-text"
+      aria-labelledby="text-field-character-count-1-label"
+      type="text"
+    />
   </span>
-  <span class="ui-end-text">
-    Letters, numbers and dashes.
+  <span class="ui-end-text" id="text-field-character-count-1-end-text">
+    Up to 20 letters, numbers and dashes.
     <opui-character-count
       aria-hidden="true"
       class="ui-value"

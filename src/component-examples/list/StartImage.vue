@@ -4,7 +4,7 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem description="Supporting text" label="Headline">
+    <ListItem description="48 photos" label="Summer in Lisbon">
       <template #start>
         <img
           src="/photos/maya-lind.png"
@@ -14,7 +14,7 @@ import { List, ListItem } from "opui-css/vue"
         />
       </template>
     </ListItem>
-    <ListItem description="Supporting text" label="Headline">
+    <ListItem description="112 photos" label="Team offsite">
       <template #start>
         <img
           src="/photos/maya-lind.png"

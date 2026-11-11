@@ -9,6 +9,7 @@
   let {
     checked,
     class: className,
+    defaultChecked,
     id,
     name,
     onchange,
@@ -24,7 +25,9 @@
   const groupName = $derived(name || parent?.groupName || `tabs-${uid}`)
   const tabId = $derived(id || `tab-${uid}`)
   const grouped = $derived(isSelected(parent?.value, value))
-  untrack(() => warnGroupedChecked("TabsItem", grouped, checked, "Tabs"))
+  untrack(() =>
+    warnGroupedChecked("TabsItem", grouped, checked ?? defaultChecked, "Tabs"),
+  )
   setTabsContext({
     get groupName() {
       return groupName
@@ -36,7 +39,8 @@
 </script>
 
 <input
-  checked={grouped ?? checked ?? rest.defaultChecked}
+  checked={grouped ?? checked ?? defaultChecked}
+  defaultChecked={grouped === undefined ? defaultChecked : undefined}
   class={["ui-input", className]}
   id={tabId}
   name={groupName}

@@ -30,6 +30,7 @@ const html = await tabsContext.provide({ groupName, value }, () =>
     variant && variant !== "tonal" && `ui-${variant}`,
     className,
   ]}
+  role="radiogroup"
   {...rest}
 >
   <Fragment set:html={html} />

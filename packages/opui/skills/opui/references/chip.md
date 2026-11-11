@@ -16,15 +16,15 @@ Filters, tags and choices. For the main action, use a Button.
 
 ### Props and modifiers
 
-- `as`: `"a" | "button" | "div"`, default `"div"`. The element to render. Defaults to `"a"` with `href`.
+- `as`: `"a" | "button" | "div" | "span"`, default `"div"`. The element to render. Defaults to `"a"` with `href`. Use `"span"` inside a `<label>` or `<button>`, like a count in a tab.
 - `disabled`: `boolean`. Disables a button chip. A link chip drops its `href` and gets `role="link"` and `aria-disabled="true"` instead.
 - `dot`: `boolean`, `.ui-dot`. Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it.
 - `href`: `string`. The link to use. Renders an `<a>`.
 - `multiline`: `boolean`, `.ui-multiline`. Lets the label wrap to multiple lines.
 - Pressed (HTML): `[aria-pressed="true"]`. Fills a pressed button chip with `--ui-selected`, or `--ui-primary`, for a filter or a choice.
-- `severity`: `"critical"` (`.ui-critical`), `"info"` (`.ui-info`), `"neutral"` (`.ui-neutral`), `"success"` (`.ui-success`), `"warning"` (`.ui-warning`). The severity of a status chip. It tints the chip, and colors and shapes its dot.
+- `severity`: `"critical"` (`.ui-critical`), `"info"` (`.ui-info`), `"neutral"` (`.ui-neutral`), `"success"` (`.ui-success`), `"warning"` (`.ui-warning`). The severity of a status chip. It tints a tonal chip, and colors and shapes its dot, the only mark on an outlined one.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
-- State (HTML): `button` (`button[disabled]`), `link` (`a[aria-disabled="true"]`), `static` (`.ui-disabled`). Disables a button chip. A link chip, which can't take `disabled`, drops its `href` and takes `aria-disabled="true"` instead. A static chip can't be disabled; `.ui-disabled` gives it an inactive look without announcing a state.
+- State (HTML): `button` (`button[disabled]`), `link` (`a[aria-disabled="true"]`), `static` (`.ui-disabled`). Disables a button chip. A link chip, which can't take `disabled`, drops its `href` and takes `role="link"` and `aria-disabled="true"` instead. A static chip can't be disabled; `.ui-disabled` gives it an inactive look without announcing a state.
 - `variant`: `"outlined"` (`.ui-outlined`), `"tonal"` (default). The variant to use.
 
 ## Component properties

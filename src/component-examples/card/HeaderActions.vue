@@ -5,7 +5,7 @@ import { Avatar, Button, Card, CardContent, CardHeader } from "opui-css/vue"
 <template>
   <Card variant="outlined">
     <CardHeader as="div">
-      <Avatar aria-label="Lena Ek" role="img">LE</Avatar>
+      <Avatar aria-hidden="true">LE</Avatar>
       <hgroup>
         <h3>Lena Ek</h3>
         <p>Posted 2 hours ago</p>

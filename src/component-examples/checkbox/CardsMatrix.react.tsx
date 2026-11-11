@@ -10,63 +10,63 @@ export default function CardsMatrix() {
   return (
     <Form>
       <Fieldset>
-        <FieldLegend>Input at the end</FieldLegend>
+        <FieldLegend>Add-ons</FieldLegend>
         <FieldGroup name="checkbox-cards-end" orientation="horizontal">
           <Checkbox
             card
             defaultChecked
-            endText="The default surface."
+            endText="€8 per month"
             spread
-            value="outlined"
+            value="support"
           >
-            Outlined
+            Priority support
           </Checkbox>
           <Checkbox
             card
-            endText="A tinted surface."
+            endText="€4 per month"
             spread
-            value="tonal"
-            variant="tonal"
-          >
-            Tonal
-          </Checkbox>
-          <Checkbox
-            card
-            endText="A raised surface."
-            spread
-            value="elevated"
+            value="storage"
             variant="elevated"
           >
-            Elevated
+            Extra storage
+          </Checkbox>
+          <Checkbox
+            card
+            endText="€6 per month"
+            spread
+            value="audit-log"
+            variant="tonal"
+          >
+            Audit log
           </Checkbox>
         </FieldGroup>
       </Fieldset>
       <Fieldset>
-        <FieldLegend>Input at the start</FieldLegend>
+        <FieldLegend>Email reports</FieldLegend>
         <FieldGroup name="checkbox-cards-start" orientation="horizontal">
           <Checkbox
             card
             defaultChecked
-            endText="The default surface."
-            value="outlined"
+            endText="Every Monday morning."
+            value="weekly"
           >
-            Outlined
+            Weekly summary
           </Checkbox>
           <Checkbox
             card
-            endText="A tinted surface."
-            value="tonal"
-            variant="tonal"
-          >
-            Tonal
-          </Checkbox>
-          <Checkbox
-            card
-            endText="A raised surface."
-            value="elevated"
+            endText="At 80% of your plan."
+            value="usage"
             variant="elevated"
           >
-            Elevated
+            Usage alerts
+          </Checkbox>
+          <Checkbox
+            card
+            endText="After each payment."
+            value="invoices"
+            variant="tonal"
+          >
+            Invoices
           </Checkbox>
         </FieldGroup>
       </Fieldset>

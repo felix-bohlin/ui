@@ -19,7 +19,7 @@ import {
   byName,
   chosenSpreadCode,
   classMayBeEmpty,
-  filtersRest,
+  filtersSpread,
   PRESERVED_TAGS,
   propKey,
   unsupported,
@@ -67,7 +67,7 @@ export const toSvelte = (component) => {
   const bindableProps = kind ? kind.bindables(model) : []
   const plainProps = [
     ...(kind?.plainProps?.(model) ?? []),
-    ...(component.item ? ["onchange"] : []),
+    ...(component.item ? ["defaultChecked", "onchange"] : []),
   ]
   const added = [...bindableProps, ...plainProps]
     .filter((prop) => !props.some((entry) => entry.prop === prop))
@@ -113,9 +113,11 @@ export const toSvelte = (component) => {
         element &&
         node.tag !== element
       if (cast) usesElements = true
-      const filtered = filtersRest(node, item, component)
+      const filtered = filtersSpread(node, item, component)
       if (filtered) usesDefined = true
-      const code = filtered ? `defined(${rest})` : rest
+      const code = filtered
+        ? `defined(${item.code === rest ? rest : rewriteExpression(item.code, options)})`
+        : rest
       const spread = cast
         ? `${code} as SvelteHTMLElements[${JSON.stringify(node.tag)}]`
         : filtered
@@ -146,9 +148,12 @@ export const toSvelte = (component) => {
         (entry) => entry.kind === "spread" && entry.code === rest,
       )
     const code = keepsDefault
-      ? `(${item.code}) ?? ${rest}.defaultChecked`
+      ? `(${item.code}) ?? ${node.item ? "defaultChecked" : `${rest}.defaultChecked`}`
       : item.code
-    return `${item.name}={${rewriteExpression(code, options)}}`
+    const emitted = `${item.name}={${rewriteExpression(code, options)}}`
+    return node.item && item.name === "checked"
+      ? `${emitted} defaultChecked={${component.item.grouped} === undefined ? defaultChecked : undefined}`
+      : emitted
   }
   const body = (nodes, scope, head = "") => {
     const inner = scope.preserved ? undefined : edgeTrimmed(nodes)
@@ -306,7 +311,7 @@ export const toSvelte = (component) => {
     ),
     ...(component.item
       ? [
-          `untrack(() => ${groupWarning(component, component.item, component.item.checked ?? "undefined")})`,
+          `untrack(() => ${groupWarning(component, component.item, `${component.item.checked ?? "undefined"} ?? defaultChecked`)})`,
         ]
       : []),
     ...(provide

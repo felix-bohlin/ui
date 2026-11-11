@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync } from "node:fs"
 import { join } from "node:path"
 import { describe, expect, test } from "vitest"
+import { FRAMEWORK_AGNOSTIC_EXAMPLES } from "../../src/utils/framework.js"
 import allowlist from "./example-copy-allowlist.json"
 
 const TEXT_ATTRIBUTES = [
@@ -8,9 +9,11 @@ const TEXT_ATTRIBUTES = [
   "aria-label",
   "description",
   "end-text",
+  "endText",
   "label",
   "placeholder",
   "start-text",
+  "startText",
   "title",
   "value",
 ]
@@ -47,12 +50,12 @@ const RULES: [string, RegExp][] = [
   ],
   [
     "a placeholder label",
-    /^(?:Label|Legend|Option|(?:Button|Card|Checkbox|Item|Label|Link|Option|Radio|Step|Switch|Tab) \d+|Option (?:One|Two|Three)|One|Two|Three|Four|Five|Six|First|Second|Third)$/,
+    /^(?:Label|Legend|Option|Supporting text|(?:Button|Card|Checkbox|Item|Label|Link|Option|Radio|Step|Switch|Tab) \d+|Option (?:One|Two|Three)|One|Two|Three|Four|Five|Six|First|Second|Third)$/,
   ],
   ["a short exclamation", /^.{1,30}!$/],
   [
     "text about the example",
-    /^This is an? |\bNotice (?:how|the)\b|\bLook at that\b|\bWorks too\b/i,
+    /^This is an? |\bClick anywhere\b|\bNotice (?:how|the)\b|\bLook at that\b|\bWorks too\b/i,
   ],
 ]
 
@@ -67,18 +70,20 @@ export const problemsOf = (source: string) => [
 ]
 
 const root = "src/component-examples"
-const found: Record<string, string[]> = Object.fromEntries(
-  readdirSync(root)
+const files = [
+  ...readdirSync(root)
     .toSorted()
     .flatMap((folder) =>
       readdirSync(join(root, folder))
         .filter((file) => file.endsWith(".astro"))
         .toSorted()
-        .map((file) => [
-          `${folder}/${file}`,
-          problemsOf(readFileSync(join(root, folder, file), "utf8")),
-        ]),
-    )
+        .map((file) => `${folder}/${file}`),
+    ),
+  ...FRAMEWORK_AGNOSTIC_EXAMPLES.map((example) => `${example}.html`),
+]
+const found: Record<string, string[]> = Object.fromEntries(
+  files
+    .map((file) => [file, problemsOf(readFileSync(join(root, file), "utf8"))])
     .filter(([, problems]) => problems.length > 0),
 )
 
@@ -107,17 +112,41 @@ describe("example copy", () => {
     ).toEqual([])
   })
 
+  test("reads the end and start text props", () => {
+    expect(
+      problemsOf(
+        '<Radio endText="Supporting text" />\n<TextField startText="Option 1" />',
+      ),
+    ).toEqual([
+      "a placeholder label: Supporting text",
+      "a placeholder label: Option 1",
+    ])
+  })
+
   test("flags placeholders, filler, short exclamations and text about the example, and reads text, attributes and items", () => {
     expect(
       problemsOf(
-        '---\nconst items = [{ label: "Option 1" }, { label: "Archive" }]\n---\n<Checkbox label="Checkbox 1" />\n<p>Lorem ipsum dolor sit amet</p>\n<Callout>This is a tonal callout</Callout>\n<p>Pick me!</p>\n<p>The deck is out. Thanks for the help, everyone!</p>\n<Menu label="Options" />\n<script>if (!ok) console.log("Label")</script>',
+        '---\nconst items = [{ label: "Option 1" }, { label: "Archive" }]\n---\n<Checkbox label="Checkbox 1" />\n<p>Lorem ipsum dolor sit amet</p>\n<Callout>This is a tonal callout</Callout>\n<p>Plans for any team. Click anywhere on the card.</p>\n<p>Pick me!</p>\n<p>The deck is out. Thanks for the help, everyone!</p>\n<Menu label="Options" />\n<script>if (!ok) console.log("Label")</script>',
       ),
     ).toEqual([
       "placeholder Latin: Lorem ipsum dolor sit amet",
       "text about the example: This is a tonal callout",
+      "text about the example: Plans for any team. Click anywhere on the card.",
       "a short exclamation: Pick me!",
       "a placeholder label: Checkbox 1",
       "a placeholder label: Option 1",
+    ])
+  })
+
+  test("reads the HTML of the examples that have no Astro file", () => {
+    expect(files).toEqual(expect.arrayContaining(["typography/Default.html"]))
+    expect(
+      problemsOf(
+        '<article class="ui-rich-text">\n  <h1>Fixie beard</h1>\n  <p>Kitsch tbh knausgaard tousled.</p>\n  <img alt="Lorem ipsum" src="a.jpg" />\n</article>',
+      ),
+    ).toEqual([
+      "filler ipsum: Kitsch tbh knausgaard tousled.",
+      "placeholder Latin: Lorem ipsum",
     ])
   })
 })

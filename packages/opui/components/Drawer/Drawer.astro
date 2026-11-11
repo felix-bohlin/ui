@@ -10,6 +10,7 @@ const {
   backdrop = "blurred",
   class: className,
   closedby = "any",
+  closeOnNavigate,
   id,
   scrollLock,
   side = "inline-start",
@@ -17,7 +18,7 @@ const {
 } = Astro.props
 
 warnMissingId("Drawer", id)
-const labelledBy = autoLabelledBy(rest, `${id}-heading`)
+const labelledBy = autoLabelledBy(rest, `${id}-title`)
 const html = await drawerContext.provide({ id, titleId: labelledBy }, () =>
   Astro.slots.render("default"),
 )
@@ -35,8 +36,13 @@ const html = await drawerContext.provide({ id, titleId: labelledBy }, () =>
     className,
   ]}
   aria-labelledby={labelledBy}
+  data-close-on-navigate={closeOnNavigate ? "" : undefined}
   id={id}
   {...rest}
 >
   <Fragment set:html={html} />
 </dialog>
+
+<script>
+  import "../../elements/close-on-navigate.js"
+</script>

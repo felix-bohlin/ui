@@ -22,11 +22,12 @@ A one-time password (OTP) field: one input drawn as a box per character, with pa
 - `autocomplete`: `string`, default `"one-time-code"`. The `autocomplete` of the `<input>`. `one-time-code` lets the browser fill in a code it received.
 - `disabled`: `boolean`, `input[disabled]`. Dims the field and blocks input.
 - `error`: `boolean`, `input[aria-invalid="true"]`. Marks the control invalid and shows error styles.
-- `grouped`: `boolean`, `.ui-grouped`. Draws a dash between the two halves of the code.
+- `grouped`: `boolean`, `.ui-grouped`. Draws a dash between the two halves of the code. Use it with an even `length`.
 - `id`: `string`. The id of the `<input>`.
-- `inputmode`: `string`. The `inputmode` of the `<input>`. Without `alphanumeric` it is `numeric`.
+- `inputmode` (Astro, Svelte and Vue): `string`. The `inputmode` of the `<input>`. Without `alphanumeric` it is `numeric`.
+- `inputMode` (React): `string`. The `inputmode` of the `<input>`, as `inputMode` like on the element. Without `alphanumeric` it is `numeric`.
 - `length`: `4 | 5 | 6 | 7 | 8`, `input[maxlength]`, default `6`. The number of characters and boxes, from 4 to 8.
-- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.
+- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
 - `pattern`: `string`. The `pattern` of the `<input>`. It is `[0-9]{length}`, or `[A-Za-z0-9]{length}` with `alphanumeric`.
 - `required`: `boolean`, `input[required]`. Adds a required mark after the label. The form won't submit while the code is incomplete.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
@@ -37,8 +38,8 @@ Model: `value` (`string`), the code. Astro and React `value`, Svelte `bind:value
 ### Notes
 
 - HTML: Use one `<input>` with `autocomplete="one-time-code"`, `maxlength` and a matching `pattern`, such as `[0-9]{6}`, plus `inputmode="numeric"` for digits.
-- Astro, Svelte and Vue: Attributes that aren't props go to the `<input>`, like `autocomplete` and `placeholder`, and `class` and `style` go to the root `<label>`.
-- React: Attributes that aren't props go to the `<input>`, like `autocomplete` and `placeholder`, and `className` and `style` go to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.
+- Astro, Svelte and Vue: Attributes that aren't props go to the `<input>`, like `autofocus` and `placeholder`, and `class` and `style` go to the root `<label>`.
+- React: Attributes that aren't props go to the `<input>`, like `autofocus` and `placeholder`, and `className` and `style` go to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.
 
 ## Component properties
 
@@ -55,7 +56,8 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_end-start-radius`: The radius of the end-start corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
 - `--_field-padding-block`: The preferred block padding of the control. Set by the size classes.
 - `--_field-padding-inline`: The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`.
-- `--_font-size`: The font size of the control and affixes.
+- `--_file-button-padding`: The preferred gap around the `::file-selector-button` of a file field: `--ui-space-2`, or `--ui-space-1` in `.ui-small` and `.ui-x-small`.
+- `--_font-size`: The font size of the control and affixes. At least 16px on iPhone and iPad (`css/compat/text-field.css`), so iOS Safari doesn't zoom in on focus.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
 - `--_radius`: The corner radius of `.ui-field` and a file input's button. Defaults to `--ui-field-radius`, or `--ui-radius` when the theme doesn't set it.
 - `--_shadow`: The shadow of `.ui-field`. Defaults to `--ui-shadow-field`, or `--ui-shadow-control` when the theme leaves it unset. `none` in a `ControlGroup`.

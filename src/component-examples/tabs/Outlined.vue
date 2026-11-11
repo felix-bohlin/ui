@@ -3,7 +3,7 @@ import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/vue"
 </script>
 
 <template>
-  <Tabs name="outlined-tabs" variant="outlined">
+  <Tabs aria-label="Account settings" name="outlined-tabs" variant="outlined">
     <TabsItem checked>
       <TabsLabel>Profile</TabsLabel>
       <TabsPanel>Profile settings and information.</TabsPanel>

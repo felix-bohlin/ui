@@ -11,7 +11,8 @@ import { useInputAttrs, vSeed } from "../vue"
 import type { Props, Slots } from "./types.vue-props"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { idRefs } from "../id"
-import { initialValue } from "./selection"
+import { initialValue, sameValue } from "./selection"
+import { styleAttrs } from "../style"
 
 defineOptions({
   inheritAttrs: false,
@@ -52,14 +53,16 @@ const initialSelection = model.value
 
 const selectedAtFirst = (value: unknown) =>
   Array.isArray(initialSelection)
-    ? initialSelection.includes(value as string | number)
-    : initialSelection === value
+    ? initialSelection.some((selected) => sameValue(selected, value))
+    : initialSelection !== undefined && sameValue(initialSelection, value)
 
 const uid = useId()
 const base = computed(() => id || `select-${uid}`)
 const labelId = computed(() => `${base.value}-label`)
 const startTextId = computed(() => `${base.value}-start-text`)
 const endTextId = computed(() => `${base.value}-end-text`)
+const startId = computed(() => `${base.value}-start`)
+const endId = computed(() => `${base.value}-end`)
 const topId = computed(() => `${base.value}-top`)
 const bottomId = computed(() => `${base.value}-bottom`)
 const field = inject(FieldGroupKey, undefined)
@@ -77,7 +80,7 @@ const field = inject(FieldGroupKey, undefined)
       size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
-    :style="$attrs.style"
+    v-bind="styleAttrs($attrs.style)"
   >
     <span
       v-if="label || $slots.label"
@@ -111,7 +114,9 @@ const field = inject(FieldGroupKey, undefined)
         "
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
         :aria-labelledby="
-          label || $slots.label ? labelId : attrs['aria-labelledby']
+          label || $slots.label
+            ? idRefs(labelId, $slots.start && startId, $slots.end && endId)
+            : attrs['aria-labelledby']
         "
         :id="id"
         :name="name ?? field?.name"
@@ -131,10 +136,12 @@ const field = inject(FieldGroupKey, undefined)
           <slot></slot>
         </div>
       </select>
-      <span class="ui-start" v-if="$slots.start"
+      <span class="ui-start" :id="startId" v-if="$slots.start"
         ><slot name="start"></slot
       ></span>
-      <span class="ui-end" v-if="$slots.end"><slot name="end"></slot></span>
+      <span class="ui-end" :id="endId" v-if="$slots.end"
+        ><slot name="end"></slot
+      ></span>
       <span class="ui-top" :id="topId" v-if="$slots.top"
         ><slot name="top"></slot
       ></span>

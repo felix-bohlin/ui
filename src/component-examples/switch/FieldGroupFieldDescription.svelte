@@ -10,9 +10,13 @@
 </script>
 
 <Form>
-  <Fieldset>
+  <Fieldset
+    aria-describedby="switch-field-group-field-description-1-description"
+  >
     <FieldLegend>Email me about</FieldLegend>
-    <FieldDescription>We send at most one email a week.</FieldDescription>
+    <FieldDescription id="switch-field-group-field-description-1-description"
+      >We send at most one email a week.</FieldDescription
+    >
     <FieldGroup
       name="switch-group-field-description-1"
       orientation="horizontal"
@@ -22,7 +26,9 @@
       <Switch value="offers">Offers</Switch>
     </FieldGroup>
   </Fieldset>
-  <Fieldset>
+  <Fieldset
+    aria-describedby="switch-field-group-field-description-2-description"
+  >
     <FieldLegend>Accessibility</FieldLegend>
     <FieldGroup
       name="switch-group-field-description-2"
@@ -32,6 +38,8 @@
       <Switch value="high-contrast">High contrast</Switch>
       <Switch value="captions">Captions</Switch>
     </FieldGroup>
-    <FieldDescription>These apply on this device only.</FieldDescription>
+    <FieldDescription id="switch-field-group-field-description-2-description"
+      >These apply on this device only.</FieldDescription
+    >
   </Fieldset>
 </Form>

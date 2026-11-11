@@ -1,6 +1,6 @@
 # Dialog
 
-A window over the page for a question or short task that needs full attention, modal or non-modal.
+A window over the page for a question or a short task, modal or not.
 
 - CSS: `opui-css/css/components/dialog.css` and `opui-css/css/components/card.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/dialog.md), [Astro](https://open-props-ui.netlify.app/astro/components/dialog.md), [React](https://open-props-ui.netlify.app/react/components/dialog.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/dialog.md), [Vue](https://open-props-ui.netlify.app/vue/components/dialog.md).
@@ -17,7 +17,7 @@ A window over the page for a question or short task that needs full attention, m
 
 ### Props and modifiers
 
-- `closedby`: `"any" | "closerequest" | "none"`, `[closedby]`. How the dialog can be closed. `"any"` also closes it on a click outside.
+- `closedby`: `"any" | "closerequest" | "none"`, `[closedby]`. How the dialog can be closed. Without it, a modal dialog acts like `closerequest` and a non-modal one like `none`. `any` also closes it on a click outside.
 
 ### Slots
 
@@ -64,8 +64,6 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### dialog.css
 
-- `--_backdrop-bg-color`: The backdrop color. Defaults to `--ui-backdrop-bg-color`.
-- `--_backdrop-blur`: The backdrop filter. Defaults to a `--ui-backdrop-blur` blur.
 - `--_elevated-shadow`: Shadow of the dialog. `card.css` declares it for `.ui-elevated` surfaces, and the dialog sets it to `--ui-shadow-overlay`, like `Drawer` and `Menu`.
 - `--_max-inline-size`: Maximum width, capped to fit the viewport.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
@@ -74,6 +72,9 @@ Outputs: `--_duration` and `--_ease`.
 
 ### card.css
 
+- `--_actions-padding-inline`: Inline padding of `.ui-actions`. Defaults to `--_padding`. The actions pass it on as `--ui-card-padding`, so a text button at either end keeps its focus ring inside the card.
+- `--_backdrop-bg-color`: Backdrop color of a dialog or drawer. Defaults to `--ui-backdrop-bg-color`.
+- `--_backdrop-blur`: Backdrop filter of a dialog or drawer. Defaults to a `--ui-backdrop-blur` blur.
 - `--_ease`: Easing of the card link border transition and the focus ring animation. Defaults to `--ui-ease`.
 - `--_elevated-bg-color`: Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.
 - `--_elevated-shadow`: Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.

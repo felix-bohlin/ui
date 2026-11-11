@@ -1,6 +1,7 @@
 const Base = globalThis.HTMLElement ?? class {}
 
 const DURATION = 5000
+const LIMIT = 3
 const SEVERITIES = new Set([
   "critical",
   "info",
@@ -15,6 +16,7 @@ export class Toaster extends Base {
   #focused = false
   #hovered = false
   #leaving = new Map()
+  #origin = null
   #timers = new Map()
 
   get alert() {
@@ -62,7 +64,10 @@ export class Toaster extends Base {
     )
     list?.addEventListener(
       "focusin",
-      () => {
+      (event) => {
+        if (!list.contains(event.relatedTarget)) {
+          this.#origin = event.relatedTarget
+        }
         this.#focused = true
         this.#pause()
       },
@@ -104,6 +109,14 @@ export class Toaster extends Base {
   show(message, { action, duration, severity } = {}) {
     const list = this.list
     if (!list) return null
+    if (
+      !this.closest("dialog:modal") &&
+      this.ownerDocument.querySelector("dialog:modal")
+    ) {
+      console.warn(
+        `<opui-toaster id="${this.id}">: a modal dialog is open, so this toast is inert and screen readers don't announce it. Put a toaster inside the dialog.`,
+      )
+    }
     const item = this.ownerDocument.createElement("li")
     item.className = SEVERITIES.has(severity)
       ? `ui-callout ui-${severity}`
@@ -120,6 +133,7 @@ export class Toaster extends Base {
     item.append(this.#closeButton())
     list.append(item)
     if (!list.matches(":popover-open")) list.showPopover?.()
+    this.#limit(list)
     this.#announce(message, severity)
     const base = Number(this.getAttribute("duration")) || DURATION
     const time = duration ?? (action?.label ? base * 2 : base)
@@ -145,10 +159,14 @@ export class Toaster extends Base {
           Node.DOCUMENT_POSITION_FOLLOWING,
       ) ?? staying.at(-1)
     item.inert = true
-    if (focused) next?.querySelector("button")?.focus()
+    if (focused) {
+      const target = next?.querySelector("button") ?? this.#origin
+      if (target?.isConnected) target.focus()
+    }
     if (!staying.length) {
       this.#focused = false
       this.#hovered = false
+      this.#origin = null
     }
     const left = Promise.allSettled(
       item.getAnimations().map((animation) => animation.finished),
@@ -161,6 +179,16 @@ export class Toaster extends Base {
     })
     this.#leaving.set(item, left)
     return left
+  }
+
+  #limit(list) {
+    const limit = Number(this.getAttribute("limit")) || LIMIT
+    const staying = [...list.children].filter(
+      (child) => !this.#leaving.has(child),
+    )
+    for (const child of staying.slice(0, -limit)) {
+      if (!child.contains(this.ownerDocument.activeElement)) this.dismiss(child)
+    }
   }
 
   #announce(message, severity) {
@@ -231,11 +259,21 @@ export class Toaster extends Base {
   }
 }
 
+function defaultToaster() {
+  const modal =
+    document.activeElement?.closest("dialog:modal") ??
+    document.querySelector("dialog:modal")
+  return (
+    modal?.querySelector("opui-toaster") ??
+    document.querySelector("opui-toaster")
+  )
+}
+
 export function toast(message, { toaster, ...options } = {}) {
   const element =
     typeof toaster === "string"
       ? document.getElementById(toaster)
-      : (toaster ?? document.querySelector("opui-toaster"))
+      : (toaster ?? defaultToaster())
   if (!(element instanceof Toaster)) {
     console.warn("toast(): no <opui-toaster> on the page")
     return null

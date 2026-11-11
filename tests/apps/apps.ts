@@ -78,6 +78,11 @@ const ALL_APPS: App[] = [
     framework: "svelte",
     name: "sveltekit",
     port: 4403,
+    readmeBuild: {
+      css: "build/client",
+      readmeCss: "build-readme/client",
+      settings: "vite",
+    },
     scripts: "/_app/",
     ssr: true,
     start: "node build",
@@ -110,6 +115,11 @@ const ALL_APPS: App[] = [
     framework: "svelte",
     name: "vite-svelte",
     port: 4405,
+    readmeBuild: {
+      css: "dist",
+      readmeCss: "dist-readme",
+      settings: "vite",
+    },
     ssr: false,
     start: "pnpm exec vite preview --port 4405 --strictPort",
   },

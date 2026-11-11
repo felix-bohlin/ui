@@ -7,7 +7,7 @@ export type Props = {
   variant?: "outlined" | "tonal"
 } & (
   | {
-      as?: "div"
+      as?: "div" | "span"
       disabled?: never
       href?: never
     }

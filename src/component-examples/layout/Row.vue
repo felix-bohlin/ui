@@ -4,9 +4,9 @@ import { Button } from "opui-css/vue"
 
 <template>
   <div class="ui-layout-row">
-    <Button color="primary" variant="filled">Save</Button>
-    <Button variant="outlined">Preview</Button>
-    <Button variant="outlined">Share</Button>
     <Button>Cancel</Button>
+    <Button variant="outlined">Share</Button>
+    <Button variant="outlined">Preview</Button>
+    <Button color="primary" variant="filled">Save</Button>
   </div>
 </template>

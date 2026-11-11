@@ -132,6 +132,16 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
       >
     </Conditional>
     <AutoExample name="Basics" centered row />
+    <Conditional as="p">
+      <Fragment slot="components">
+        An open menu closes when the page navigates, also with a client router,
+        so a link item never leaves it open over the next page.
+      </Fragment>
+      <Fragment slot="html">
+        Import <code>opui-css/elements/close-on-navigate.js</code> to close an
+        open menu when the page navigates, also with a client router.
+      </Fragment>
+    </Conditional>
   </section>
 
   <section id="bordered">
@@ -155,6 +165,14 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
       Put a checkbox or radio in <PropOrClass prop="end" class=".ui-end" />.
     </p>
     <AutoExample name="Checkable" centered />
+
+    <h3 id="current-item">Current item</h3>
+    <p>
+      Mark the current choice with <code>aria-current</code>: <code>page</code>
+      on a link to the page you're on, or <code>true</code> on a button, like
+      the language in use.
+    </p>
+    <AutoExample name="Current" centered />
   </section>
 
   <section id="placement">

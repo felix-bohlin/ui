@@ -3,15 +3,15 @@ import { Button, ControlGroup } from "opui-css/vue"
 </script>
 
 <template>
-  <ControlGroup variant="filled">
-    <Button>Enabled</Button>
-    <Button disabled>Disabled</Button>
-    <Button>Enabled</Button>
+  <ControlGroup aria-label="Message actions" variant="filled">
+    <Button>Archive</Button>
+    <Button disabled>Move</Button>
+    <Button>Delete</Button>
   </ControlGroup>
 
-  <ControlGroup color="primary" variant="filled">
-    <Button>Enabled</Button>
-    <Button disabled>Disabled</Button>
-    <Button>Enabled</Button>
+  <ControlGroup aria-label="Message actions" color="primary" variant="filled">
+    <Button>Archive</Button>
+    <Button disabled>Move</Button>
+    <Button>Delete</Button>
   </ControlGroup>
 </template>

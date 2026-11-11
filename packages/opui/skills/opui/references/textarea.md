@@ -9,7 +9,7 @@ An input for multi-line text data. Basic textareas with labels, supporting text,
 
 ### Parts
 
-- `label.ui-textarea` (root): Container element.
+- `.ui-textarea` (root): Container element: a `<label>`, or a `<div>` when there's no label.
 - `.ui-label` (prop `label`, slot `label`): The label for the field.
 - `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
 - `.ui-field`: The boxed textarea area.
@@ -19,7 +19,7 @@ An input for multi-line text data. Basic textareas with labels, supporting text,
 - `.ui-field > .ui-end` (slot `end`): Content at the inline-end of the field, inside the border.
 - `.ui-field > .ui-bottom` (slot `bottom`): Content below the textarea, inside the border, with a divider.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
-- `<opui-character-count>` (prop `characterCount`, prop `characterCountLabel`): The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left.
+- `<opui-character-count>` (prop `characterCount`, prop `characterCountLabel`): The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left.
 
 ### Props and modifiers
 
@@ -29,8 +29,8 @@ An input for multi-line text data. Basic textareas with labels, supporting text,
 - `disabled`: `boolean`, `textarea[aria-disabled="true"]`, `textarea[disabled]`. Dims the field and blocks input. `aria-disabled="true"` looks the same, but keeps the field focusable, its text editable and its value in the form.
 - `error`: `boolean`, `textarea[aria-invalid="true"]`. Marks the control invalid and shows error styles.
 - `hideLabel`: `boolean`, `.ui-textarea > span.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
-- `id`: `string`. The id of the `<textarea>`.
-- `name`: `string`. The name of the `<textarea>`. Inside a `FieldGroup`, the group's `name` applies.
+- `id`: `string`. The id of the `<textarea>`. The ids the component generates start with it: `x-label`, `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id="x"`.
+- `name`: `string`. The name of the `<textarea>`. Inside a `FieldGroup`, the group's `name` when omitted.
 - `required`: `boolean`, `textarea[required]`. Adds a required mark after the label. The form won't submit while the field is empty.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
 - `spread`: `boolean`, `.ui-spread`. Pushes the label and start text to one side and the textarea to the other.
@@ -44,8 +44,9 @@ Model: `value` (`string`), the textarea value. Astro and React `value`, Svelte `
 
 ### Notes
 
-- Astro, Svelte and Vue: Attributes that aren't props go to the `<textarea>`, like `maxlength` and `placeholder`, and `class` and `style` go to the root `<label>`.
-- React: Attributes that aren't props go to the `<textarea>`, like `maxlength` and `placeholder`, and `className` and `style` go to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.
+- HTML: For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. With a label, give `.ui-label` an id and point `aria-labelledby` on the field at it, then at `.ui-start` and `.ui-end`, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-bottom` and `.ui-end-text`, so a hint or an error is read as the description, not in the name.
+- Astro, Svelte and Vue: Attributes that aren't props go to the `<textarea>`, like `maxlength` and `placeholder`, and `class` and `style` go to the `.ui-textarea` root.
+- React: Attributes that aren't props go to the `<textarea>`, like `maxlength` and `placeholder`, and `className` and `style` go to the `.ui-textarea` root. Use `value` with `onChange`, or `defaultValue`.
 
 ## Component properties
 
@@ -62,7 +63,8 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_end-start-radius`: The radius of the end-start corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
 - `--_field-padding-block`: The preferred block padding of the control. Set by the size classes.
 - `--_field-padding-inline`: The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`.
-- `--_font-size`: The font size of the control and affixes.
+- `--_file-button-padding`: The preferred gap around the `::file-selector-button` of a file field: `--ui-space-2`, or `--ui-space-1` in `.ui-small` and `.ui-x-small`.
+- `--_font-size`: The font size of the control and affixes. At least 16px on iPhone and iPad (`css/compat/text-field.css`), so iOS Safari doesn't zoom in on focus.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
 - `--_radius`: The corner radius of `.ui-field` and a file input's button. Defaults to `--ui-field-radius`, or `--ui-radius` when the theme doesn't set it.
 - `--_shadow`: The shadow of `.ui-field`. Defaults to `--ui-shadow-field`, or `--ui-shadow-control` when the theme leaves it unset. `none` in a `ControlGroup`.
@@ -86,15 +88,21 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--u
 
 ```html
 <label class="ui-textarea">
-  <span class="ui-label">Outlined</span>
+  <span class="ui-label" id="textarea-variants-1-label">Outlined</span>
   <span class="ui-field">
-    <textarea placeholder="Placeholder"></textarea>
+    <textarea
+      placeholder="Write a message"
+      aria-labelledby="textarea-variants-1-label"
+    ></textarea>
   </span>
 </label>
 <label class="ui-textarea ui-filled">
-  <span class="ui-label">Filled</span>
+  <span class="ui-label" id="textarea-variants-2-label">Filled</span>
   <span class="ui-field">
-    <textarea placeholder="Placeholder"></textarea>
+    <textarea
+      placeholder="Write a message"
+      aria-labelledby="textarea-variants-2-label"
+    ></textarea>
   </span>
 </label>
 ```
@@ -112,8 +120,8 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--u
 import { Textarea } from "opui-css/astro"
 ---
 
-<Textarea label="Outlined" placeholder="Placeholder" />
-<Textarea label="Filled" placeholder="Placeholder" variant="filled" />
+<Textarea label="Outlined" placeholder="Write a message" />
+<Textarea label="Filled" placeholder="Write a message" variant="filled" />
 ```
 
 ## React
@@ -131,8 +139,8 @@ import { Textarea } from "opui-css/react"
 export default function Variants() {
   return (
     <>
-      <Textarea label="Outlined" placeholder="Placeholder" />
-      <Textarea label="Filled" placeholder="Placeholder" variant="filled" />
+      <Textarea label="Outlined" placeholder="Write a message" />
+      <Textarea label="Filled" placeholder="Write a message" variant="filled" />
     </>
   )
 }
@@ -152,8 +160,8 @@ export default function Variants() {
   import { Textarea } from "opui-css/svelte"
 </script>
 
-<Textarea label="Outlined" placeholder="Placeholder" />
-<Textarea label="Filled" placeholder="Placeholder" variant="filled" />
+<Textarea label="Outlined" placeholder="Write a message" />
+<Textarea label="Filled" placeholder="Write a message" variant="filled" />
 ```
 
 ## Vue
@@ -171,7 +179,7 @@ import { Textarea } from "opui-css/vue"
 </script>
 
 <template>
-  <Textarea label="Outlined" placeholder="Placeholder" />
-  <Textarea label="Filled" placeholder="Placeholder" variant="filled" />
+  <Textarea label="Outlined" placeholder="Write a message" />
+  <Textarea label="Filled" placeholder="Write a message" variant="filled" />
 </template>
 ```

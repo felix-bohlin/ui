@@ -330,7 +330,11 @@
   plugins: ["oat-milk", "pour-over"],
 }</code></pre>
   <p>The whole menu on one line, too long for the column, scrolls:</p>
-  <pre><code>const menu = ["cold brew", "pour-over", "oat milk latte", "matcha", "kombucha", "espresso tonic", "turmeric latte", "flat white"]</code></pre>
+  <pre
+    aria-label="Menu"
+    role="region"
+    tabindex="0"
+  ><code>const menu = ["cold brew", "pour-over", "oat milk latte", "matcha", "kombucha", "espresso tonic", "turmeric latte", "flat white"]</code></pre>
   <p>Markup inside a code block has to be escaped:</p>
   <pre><code>&lt;article class="ui-rich-text"&gt;
   &lt;h1&gt;Hello &amp;amp; welcome&lt;/h1&gt;

@@ -151,6 +151,7 @@ for (const component of TARGETS) {
 
 const DOCS_PAGE_RULES: Record<string, string[]> = {
   "/blocks/account-settings/": ["landmark-unique"],
+  "/blocks/app-shell/": ["landmark-unique"],
   "/blocks/inbox/": ["landmark-unique"],
   "/html/components/button/": [
     "label",

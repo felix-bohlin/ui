@@ -3,35 +3,17 @@ import {
   Button,
   Card,
   Checkbox,
-  Chip,
   Divider,
-  FieldGroup,
-  FieldLegend,
-  FieldSet,
   IconButton,
-  Range,
   Switch,
   TextField,
   ToggleButton,
   ToggleGroup,
 } from "@opui/astro"
+import ThemeControls from "../ThemeControls.astro"
 import { PLACEHOLDER_CSS } from "./generateCss"
 
 const surfaces = ["default", "tonal", "filled", "elevated"]
-
-const borderRadiusItems = [
-  { text: "0", value: "0" },
-  { text: "1", value: "var(--radius-1)" },
-  { text: "2", value: "var(--radius-2)" },
-  { text: "3", value: "var(--radius-3)" },
-  { text: "4", value: "var(--radius-4)" },
-]
-
-const radiusGroups = [
-  { name: "--border-radius", label: "Border Radius" },
-  { name: "--field-border-radius", label: "Field Border Radius" },
-  { name: "--button-border-radius", label: "Button Border Radius" },
-] as const
 ---
 
 <div class="theme-generator" id="theme-generator-root">
@@ -53,104 +35,7 @@ const radiusGroups = [
       <h3 slot="header">Theme controls</h3>
 
       <form id="theme-generator-form" class="ui-form" slot="content">
-        <FieldSet>
-          <FieldLegend>Color Palette</FieldLegend>
-          <FieldGroup>
-            <TextField
-              type="color"
-              label="Source color"
-              name="--palette-source-color"
-              value="#000000"
-              spread
-              small
-            />
-            <Range
-              label="Hue"
-              name="--palette-hue"
-              min="0"
-              max="360"
-              step="1"
-              value="240"
-              valueSuffix="°"
-            />
-            <Range
-              label="Chroma"
-              name="--palette-chroma"
-              min="0"
-              max="1"
-              step="0.01"
-              value="0.5"
-              valueSuffix=""
-            />
-            <Range
-              label="Hue Rotation"
-              name="--palette-hue-rotate-by"
-              min="-10"
-              max="10"
-              step="1"
-              value="0"
-              valueSuffix=""
-            />
-          </FieldGroup>
-        </FieldSet>
-
-        <Divider />
-
-        <FieldSet>
-          <FieldLegend>Grays</FieldLegend>
-          <FieldGroup>
-            <Switch name="enable-grays" checked small spread>Enable</Switch>
-            <Range
-              label="Gray Chroma"
-              name="--gray-chroma"
-              min="0"
-              max="0.1"
-              step="0.001"
-              value="0.01"
-              valueSuffix=""
-            />
-            <Range
-              label="Gray Hue"
-              name="--gray-hue"
-              min="0"
-              max="360"
-              step="1"
-              value="255"
-              valueSuffix="°"
-            />
-          </FieldGroup>
-        </FieldSet>
-
-        <Divider />
-
-        {
-          radiusGroups.map((group) => (
-            <FieldSet>
-              <FieldLegend>{group.label}</FieldLegend>
-              <FieldGroup>
-                <div class="chip-group" data-radius-group={group.name}>
-                  {borderRadiusItems.map((item) => (
-                    <Chip
-                      as="button"
-                      type="button"
-                      size="small"
-                      variant={
-                        item.value === "var(--radius-2)" ? "tonal" : "outlined"
-                      }
-                      data-name={group.name}
-                      data-value={item.value}
-                      data-default={
-                        item.value === "var(--radius-2)" ? "true" : undefined
-                      }
-                      label={item.text}
-                      title={item.value}
-                    />
-                  ))}
-                </div>
-              </FieldGroup>
-            </FieldSet>
-          ))
-        }
+        <ThemeControls />
       </form>
 
       <Fragment slot="actions">
@@ -291,12 +176,6 @@ const radiusGroups = [
       display: flex;
       flex-direction: column;
       gap: var(--size-4);
-    }
-
-    .chip-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-2);
     }
   }
 

@@ -1,0 +1,131 @@
+---
+import {
+  Chip,
+  Divider,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Range,
+  Switch,
+  TextField,
+} from "@opui/astro"
+
+const borderRadiusItems = [
+  { text: "0", value: "0" },
+  { text: "1", value: "var(--radius-1)" },
+  { text: "2", value: "var(--radius-2)" },
+  { text: "3", value: "var(--radius-3)" },
+  { text: "4", value: "var(--radius-4)" },
+]
+
+const radiusGroups = [
+  { name: "--border-radius", label: "Border radius" },
+  { name: "--field-border-radius", label: "Field border radius" },
+  { name: "--button-border-radius", label: "Button border radius" },
+] as const
+---
+
+<FieldSet>
+  <FieldLegend>Color palette</FieldLegend>
+  <FieldGroup>
+    <TextField
+      type="color"
+      label="Source color"
+      name="--palette-source-color"
+      value="#000000"
+      spread
+      small
+    />
+    <Range
+      label="Hue"
+      name="--palette-hue"
+      min="0"
+      max="360"
+      step="1"
+      value="240"
+      valueSuffix="°"
+    />
+    <Range
+      label="Chroma"
+      name="--palette-chroma"
+      min="0"
+      max="1"
+      step="0.01"
+      value="0.5"
+      valueSuffix=""
+    />
+    <Range
+      label="Hue rotation"
+      name="--palette-hue-rotate-by"
+      min="-10"
+      max="10"
+      step="1"
+      value="0"
+      valueSuffix=""
+    />
+  </FieldGroup>
+</FieldSet>
+
+<Divider />
+
+<FieldSet>
+  <FieldLegend>Grays</FieldLegend>
+  <FieldGroup>
+    <Switch name="enable-grays" checked spread>Enable</Switch>
+    <Range
+      label="Gray chroma"
+      name="--gray-chroma"
+      min="0"
+      max="0.1"
+      step="0.001"
+      value="0.01"
+      valueSuffix=""
+    />
+    <Range
+      label="Gray hue"
+      name="--gray-hue"
+      min="0"
+      max="360"
+      step="1"
+      value="255"
+      valueSuffix="°"
+    />
+  </FieldGroup>
+</FieldSet>
+
+<Divider />
+
+{
+  radiusGroups.map((group) => (
+    <FieldSet>
+      <FieldLegend>{group.label}</FieldLegend>
+      <FieldGroup>
+        <div class="chip-group" data-radius-group={group.name}>
+          {borderRadiusItems.map((item) => (
+            <Chip
+              as="button"
+              type="button"
+              size="small"
+              variant={item.value === "var(--radius-2)" ? "tonal" : "outlined"}
+              data-name={group.name}
+              data-value={item.value}
+              data-default={
+                item.value === "var(--radius-2)" ? "true" : undefined
+              }
+              label={item.text}
+              title={item.value}
+            />
+          ))}
+        </div>
+      </FieldGroup>
+    </FieldSet>
+  ))
+}
+
+<style>
+  .chip-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+  }
+</style>

@@ -1,7 +1,6 @@
 ---
 import {
   Button,
-  Chip,
   Divider,
   Drawer,
   DrawerFooter,
@@ -9,18 +8,9 @@ import {
   FieldGroup,
   FieldLegend,
   FieldSet,
-  Range,
   Switch,
-  TextField,
 } from "@opui/astro"
-
-const borderRadiusItems = [
-  { text: "0", value: "0" },
-  { text: "1", value: "var(--radius-1)" },
-  { text: "2", value: "var(--radius-2)" },
-  { text: "3", value: "var(--radius-3)" },
-  { text: "4", value: "var(--radius-4)" },
-]
+import ThemeControls from "./ThemeControls.astro"
 
 const { link } = Astro.locals
 ---
@@ -72,159 +62,7 @@ const { link } = Astro.locals
 
         <Divider />
 
-        <FieldSet>
-          <FieldLegend>Color palette</FieldLegend>
-          <FieldGroup>
-            <TextField
-              type="color"
-              label="Source color"
-              name="--palette-source-color"
-              value="#000000"
-              spread
-              small
-            />
-            <Range
-              label="Hue"
-              name="--palette-hue"
-              min="0"
-              max="360"
-              step="1"
-              value="240"
-              valueSuffix="°"
-            />
-            <Range
-              label="Chroma"
-              name="--palette-chroma"
-              min="0"
-              max="1"
-              step="0.01"
-              value="0.5"
-              valueSuffix=""
-            />
-            <Range
-              label="Hue rotation"
-              name="--palette-hue-rotate-by"
-              min="-10"
-              max="10"
-              step="1"
-              value="0"
-              valueSuffix=""
-            />
-          </FieldGroup>
-        </FieldSet>
-
-        <Divider />
-
-        <FieldSet>
-          <FieldLegend>Grays</FieldLegend>
-          <FieldGroup>
-            <Switch id="enable-grays" name="enable-grays" checked spread>
-              Enable
-            </Switch>
-            <Range
-              label="Gray chroma"
-              name="--gray-chroma"
-              min="0"
-              max="0.1"
-              step="0.001"
-              value="0.01"
-              valueSuffix=""
-            />
-            <Range
-              label="Gray hue"
-              name="--gray-hue"
-              min="0"
-              max="360"
-              step="1"
-              value="255"
-              valueSuffix="°"
-            />
-          </FieldGroup>
-        </FieldSet>
-
-        <Divider />
-
-        <FieldSet>
-          <FieldLegend>Border radii/radiuses/radiopedes/you know</FieldLegend>
-          <FieldGroup>
-            <div class="chip-group-wrapper">
-              <span class="ui-label">Border radius</span>
-              <div class="chip-group">
-                {
-                  borderRadiusItems.map((item) => (
-                    <Chip
-                      as="button"
-                      type="button"
-                      size="small"
-                      variant={
-                        item.value === "var(--radius-2)" ? "tonal" : "outlined"
-                      }
-                      data-name="--border-radius"
-                      data-value={item.value}
-                      data-default={
-                        item.value === "var(--radius-2)" ? "true" : undefined
-                      }
-                      label={item.text}
-                      title={item.value}
-                    />
-                  ))
-                }
-              </div>
-            </div>
-          </FieldGroup>
-          <FieldGroup>
-            <div class="chip-group-wrapper">
-              <span class="ui-label">Field border radius</span>
-              <div class="chip-group">
-                {
-                  borderRadiusItems.map((item) => (
-                    <Chip
-                      as="button"
-                      type="button"
-                      size="small"
-                      variant={
-                        item.value === "var(--radius-2)" ? "tonal" : "outlined"
-                      }
-                      data-name="--field-border-radius"
-                      data-value={item.value}
-                      data-default={
-                        item.value === "var(--radius-2)" ? "true" : undefined
-                      }
-                      label={item.text}
-                      title={item.value}
-                    />
-                  ))
-                }
-              </div>
-            </div>
-          </FieldGroup>
-          <FieldGroup>
-            <div class="chip-group-wrapper">
-              <span class="ui-label">Button border radius</span>
-              <div class="chip-group">
-                {
-                  borderRadiusItems.map((item) => (
-                    <Chip
-                      as="button"
-                      type="button"
-                      size="small"
-                      variant={
-                        item.value === "var(--radius-2)" ? "tonal" : "outlined"
-                      }
-                      data-name="--button-border-radius"
-                      data-value={item.value}
-                      data-default={
-                        item.value === "var(--radius-2)" ? "true" : undefined
-                      }
-                      label={item.text}
-                      title={item.value}
-                    />
-                  ))
-                }
-              </div>
-            </div>
-          </FieldGroup>
-        </FieldSet>
+        <ThemeControls />
       </form>
     </div>
   </Fragment>
@@ -445,23 +283,6 @@ const { link } = Astro.locals
       display: flex;
       flex-direction: column;
       gap: var(--size-4);
-    }
-
-    .chip-group-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: var(--size-2);
-
-      .ui-label {
-        font-size: var(--font-size-05);
-        font-weight: var(--font-weight-5);
-      }
-    }
-
-    .chip-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-2);
     }
   }
 </style>

@@ -22,6 +22,10 @@
     --_focus-ring-duration: calc(var(--ui-duration) * var(--_motion));
     --_thumb-size: 3ex;
 
+    @media print {
+      print-color-adjust: exact;
+    }
+
     @media (hover: none) {
       --_thumb-size: 30px;
     }

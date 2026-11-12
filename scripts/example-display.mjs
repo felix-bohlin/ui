@@ -526,6 +526,8 @@ export const cssRules = (css, { layered = true, rank } = {}) => {
           if (!node.nodes) continue
           const name = layer ? `${layer}.${node.params}` : node.params
           visit(node, parents, name)
+        } else if (node.name === "media" && /^print$/i.test(node.params)) {
+          continue
         } else if (node.name === "supports") {
           node.walkDecls((decl) => {
             if (decl.prop === "display" || decl.prop === "white-space") {

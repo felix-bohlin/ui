@@ -109,14 +109,16 @@ const { headings, html: content } = addHeadingAnchors(
       </article>
     </main>
 
-    {showToc && <aside class="page-contents">
+    {showToc && <div class="page-contents">
       <ReadingProgress />
       <TableOfContents headings={headings} slot="table-of-contents" />
-    </aside>}
+    </div>}
   </div>
 </Default>
 
 <script>
+  import "../utils/scroll-regions"
+
   const sidebar = document.querySelector<HTMLElement>("aside.sidebar")
   const current = sidebar?.querySelector<HTMLElement>('[aria-current="page"]')
   if (sidebar && current) {

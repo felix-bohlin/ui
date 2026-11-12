@@ -76,9 +76,7 @@ const Wrapper = wrap ? "ul" : Carousel
   aria-label={label}
   class:list={[
     "component-showcase",
-    wrap
-      ? "showcase-list ui-not-rich-text"
-      : "component-showcase--hero showcase-grid",
+    wrap ? "showcase-list ui-not-rich-text" : "component-showcase--hero",
   ]}
 >
   {Astro.slots.has("default") && <li class="component-showcase__intro">
@@ -87,18 +85,22 @@ const Wrapper = wrap ? "ul" : Carousel
 
   <ShowcaseCards
     slugs={slugs}
-    sizes={{
-      accordion: "wide",
-      callout: "wide",
-      card: "xl",
-      carousel: "wide",
-      dialog: "wide",
-      form: "wide",
-      list: "wide",
-      range: "wide",
-      table: "wide",
-      tabs: "wide",
-    }}
+    sizes={
+      wrap
+        ? {
+            accordion: "wide",
+            callout: "wide",
+            card: "xl",
+            carousel: "wide",
+            dialog: "wide",
+            form: "wide",
+            list: "wide",
+            range: "wide",
+            table: "wide",
+            tabs: "wide",
+          }
+        : {}
+    }
   >
     <Fragment slot="accordion">
       <Accordion aria-hidden="true" inert variant="outlined">
@@ -547,14 +549,30 @@ const Wrapper = wrap ? "ul" : Carousel
       gap: var(--size-3);
       grid-auto-rows: minmax(180px, auto);
       margin-block: var(--size-8);
-
-      @media (width >= 900px) {
-        grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
-      }
     }
 
     .component-showcase--hero {
+      --_items-per-view: 1.15;
+
       margin-block: 0 var(--size-8);
+
+      @media (width < 900px) {
+        margin-inline: calc(var(--site-page-gutters) / -2);
+        padding-inline: calc(var(--site-page-gutters) / 2);
+        scroll-padding-inline: calc(var(--site-page-gutters) / 2);
+      }
+
+      @media (width >= 600px) {
+        --_items-per-view: 2.15;
+      }
+
+      @media (width >= 900px) {
+        --_items-per-view: 3.15;
+      }
+
+      @media (width >= 1140px) {
+        --_items-per-view: 4.15;
+      }
     }
 
     .showcase-list {

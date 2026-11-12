@@ -8,6 +8,7 @@ import { featureIds, patterns } from "../../packages/opui/scripts/features.mjs"
 import {
   htmlFeatureIds,
   pageProblems,
+  unusedSharedFeatures,
   usedFeatureIds,
   withBrowserSupport,
 } from "../../scripts/check-browser-support.mjs"
@@ -62,6 +63,7 @@ import { localBaselines } from "../../scripts/check-screenshot-authors.mjs"
 import { releasedApi } from "../../scripts/released-api.mjs"
 import { sortSource } from "../../scripts/sort-css.mjs"
 import logicalShorthands from "../../scripts/stylelint-logical-shorthands.mjs"
+import { SHARED_FEATURES } from "../../src/utils/browser-support"
 
 const EM_DASH = String.fromCodePoint(0x2014)
 const MIDDLE_DOT = String.fromCodePoint(0x00b7)
@@ -161,6 +163,26 @@ describe("check-browser-support", () => {
         ([id, css]) => !featureIds(css).includes(id),
       ),
     ).toEqual([])
+  })
+
+  test("finds each shared feature in a sheet, and reports the ones it doesn't use", () => {
+    const shared: Record<string, string> = {
+      "cascade-layers": "@layer a { .a { gap: 0; } }",
+      "color-mix": ".a { color: color-mix(in oklch, red, blue); }",
+      "light-dark": ".a { color: light-dark(white, black); }",
+      nesting: ".a { @media (width > 30em) { gap: 0; } }",
+      oklab: ".a { color: oklch(50% 0.1 200); }",
+      "relative-color": ".a { color: oklch(from red l c h); }",
+    }
+    expect(Object.keys(shared)).toEqual(SHARED_FEATURES)
+    expect(
+      Object.entries(shared).filter(([id, css]) =>
+        unusedSharedFeatures(css).includes(id),
+      ),
+    ).toEqual([])
+    expect(
+      unusedSharedFeatures("@media (width > 30em) { .a { color: red; } }"),
+    ).toEqual(SHARED_FEATURES)
   })
 
   test("the patterns skip near misses", () => {

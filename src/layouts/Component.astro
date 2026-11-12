@@ -41,6 +41,7 @@ import {
   getComponentChangelog,
   type ChangelogPathEntry,
 } from "../utils/changelog"
+import { withSharedFeatures } from "../utils/browser-support"
 import { FRAMEWORKS, isHydratedFramework } from "../utils/framework"
 import { posts } from "../utils/blog-posts"
 import { whatsNewFor } from "../utils/whats-new"
@@ -226,8 +227,8 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
   <slot name="title" slot="title" />
   <slot name="preamble" slot="preamble" />
 
-  {(browserSupport?.length || hydrationApis.length > 0) && <BrowserSupportChips
-    ids={browserSupport ?? []}
+  {(browserSupport || hydrationApis.length > 0) && <BrowserSupportChips
+    ids={browserSupport ? withSharedFeatures(browserSupport) : []}
   >
     {hydrationApis.length > 0 && (
       <HydrationChip apis={hydrationApis} framework={hydrationFramework!} />

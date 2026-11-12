@@ -23,6 +23,8 @@ const CONTRAST_SCOPE =
   /prefers-contrast:\s*more|:where\(\.ui-contrast-more\)|--ui-contrast:\s*more/
 const DARK_SCOPE = /\.ui-dark|prefers-color-scheme:\s*dark/
 const FALLBACK_SCOPE = /@supports not\b/
+// The right-to-left swap of a token, not another value of it.
+const RTL_SCOPE = /:dir\(rtl\)/
 const THEME_SCOPE = /\bhtml\b/
 const SECTION_ORDER = [
   "Color scheme",
@@ -52,6 +54,7 @@ const SECTION_ORDER = [
   "Choice controls",
   "Elevation",
   "Overlays",
+  "Safe areas",
   "Instance inputs",
 ]
 const sectionOrder = (title: string) => {
@@ -125,7 +128,9 @@ function* walk(lines: string[]): Generator<[number, Line]> {
     const contrast = scopes.some((scope) => CONTRAST_SCOPE.test(scope))
     if (
       !declaration ||
-      scopes.some((scope) => FALLBACK_SCOPE.test(scope)) ||
+      scopes.some(
+        (scope) => FALLBACK_SCOPE.test(scope) || RTL_SCOPE.test(scope),
+      ) ||
       !(contrast || scopes.some((scope) => THEME_SCOPE.test(scope)))
     ) {
       prelude =

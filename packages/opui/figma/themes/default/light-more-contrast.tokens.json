@@ -3248,5 +3248,59 @@
         "hex": "#1D2025"
       }
     }
+  },
+  "safe-areas": {
+    "ui-safe-area-inset-block-start": {
+      "$description": "The part of the top of the screen a notch or a status bar covers, `env(safe-area-inset-top)`. A `Drawer` at the block start or on an inline side pads its content below it, and a `Toaster` at the block start sits below it. `0px` unless the viewport meta tag has `viewport-fit=cover`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-safe-area-inset-block-start)"
+          },
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 0
+    },
+    "ui-safe-area-inset-block-end": {
+      "$description": "The part of the bottom of the screen a home indicator covers, `env(safe-area-inset-bottom)`. A `Drawer` at the block end or on an inline side pads its content above it, and a `Toaster` at the block end sits above it. `0px` unless the viewport meta tag has `viewport-fit=cover`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-safe-area-inset-block-end)"
+          },
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 0
+    },
+    "ui-safe-area-inset-inline-start": {
+      "$description": "The part of the inline start side a notch or a rounded corner covers, as on a phone held sideways: `env(safe-area-inset-left)`, and `env(safe-area-inset-right)` on a right-to-left page. A `Drawer` on that side or at the block start or end pads its content clear of it, and a `Toaster` keeps its toasts clear of it. `0px` unless the viewport meta tag has `viewport-fit=cover`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-safe-area-inset-inline-start)"
+          },
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 0
+    },
+    "ui-safe-area-inset-inline-end": {
+      "$description": "The part of the inline end side a notch or a rounded corner covers, as on a phone held sideways: `env(safe-area-inset-right)`, and `env(safe-area-inset-left)` on a right-to-left page. A `Drawer` on that side or at the block start or end pads its content clear of it, and a `Toaster` keeps its toasts clear of it. `0px` unless the viewport meta tag has `viewport-fit=cover`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-safe-area-inset-inline-end)"
+          },
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 0
+    }
   }
 }

@@ -1052,6 +1052,13 @@
     "url": "/svelte/components/drawer/#close-button"
   },
   {
+    "id": "component-drawer-svelte-safe-areas",
+    "title": "Safe areas",
+    "page": "Drawer",
+    "category": "Component",
+    "url": "/svelte/components/drawer/#safe-areas"
+  },
+  {
     "id": "component-drawer-svelte-how-to-close",
     "title": "How to close a drawer",
     "page": "Drawer",

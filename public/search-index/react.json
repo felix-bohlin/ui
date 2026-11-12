@@ -1052,6 +1052,13 @@
     "url": "/react/components/drawer/#close-button"
   },
   {
+    "id": "component-drawer-react-safe-areas",
+    "title": "Safe areas",
+    "page": "Drawer",
+    "category": "Component",
+    "url": "/react/components/drawer/#safe-areas"
+  },
+  {
     "id": "component-drawer-react-how-to-close",
     "title": "How to close a drawer",
     "page": "Drawer",

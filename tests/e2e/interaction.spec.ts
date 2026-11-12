@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test"
-import type { Locator, Page } from "@playwright/test"
+import type { CDPSession, Locator, Page } from "@playwright/test"
 import {
   failsIn,
   WEBKIT_ARROW_FOCUS_SCROLL,
@@ -332,6 +332,113 @@ const clickBackdrop = async (page: Page, dialog: Locator) => {
     Math.min(height - 5, box.y + box.height / 2),
   )
 }
+
+// A phone held sideways: a notch on the left, a smaller one on the right and
+// a home indicator. Chromium emulates the insets without viewport-fit=cover.
+const SAFE_AREA = { bottom: 21, left: 47, right: 30, top: 20 }
+const NO_SAFE_AREA = { bottom: 0, left: 0, right: 0, top: 0 }
+
+const setSafeArea = (cdp: CDPSession, insets: typeof SAFE_AREA) =>
+  cdp.send("Emulation.setSafeAreaInsetsOverride", { insets })
+
+// How far the box moves in from each edge of the viewport once the insets apply.
+const insetBy = async (cdp: CDPSession, measure: () => Promise<DOMRect>) => {
+  await setSafeArea(cdp, NO_SAFE_AREA)
+  const before = await measure()
+  await setSafeArea(cdp, SAFE_AREA)
+  const after = await measure()
+  await setSafeArea(cdp, NO_SAFE_AREA)
+  return {
+    bottom: before.bottom - after.bottom,
+    left: after.left - before.left,
+    right: before.right - after.right,
+    top: after.top - before.top,
+  }
+}
+
+test("html drawer pads each side on a screen edge by the safe area", async ({
+  browserName,
+  page,
+}) => {
+  test.skip(browserName !== "chromium", "only Chromium emulates safe areas")
+  await page.setViewportSize({ height: 400, width: 700 })
+  const cdp = await page.context().newCDPSession(page)
+  await openFixture(page, "html", "drawer")
+  const root = page.locator('[data-example="Basics"]')
+  // The parts inside the drawer, which have to stay clear.
+  const content = (drawer: Locator) => () =>
+    drawer.evaluate((element) => {
+      const boxes = [...element.children].map((child) =>
+        child.getBoundingClientRect(),
+      )
+      const top = Math.min(...boxes.map((box) => box.top))
+      const left = Math.min(...boxes.map((box) => box.left))
+      return new DOMRect(
+        left,
+        top,
+        Math.max(...boxes.map((box) => box.right)) - left,
+        Math.max(...boxes.map((box) => box.bottom)) - top,
+      )
+    })
+  const { bottom, left, right, top } = SAFE_AREA
+  const sides = [
+    ["Inline start", { bottom, left, right: 0, top }],
+    ["Inline end", { bottom, left: 0, right, top }],
+    ["Block start", { bottom: 0, left, right, top }],
+    ["Block end", { bottom, left, right, top: 0 }],
+  ] as const
+  for (const [name, expected] of sides) {
+    await root.getByRole("button", { exact: true, name }).click()
+    const drawer = root.locator("dialog[open]")
+    await settle(drawer)
+    expect(await insetBy(cdp, content(drawer)), name).toEqual(expected)
+    await page.keyboard.press("Escape")
+    await expect(drawer).toHaveCount(0)
+  }
+
+  // Right to left, the inline start is the right edge.
+  await page.evaluate(() => (document.documentElement.dir = "rtl"))
+  await root.getByRole("button", { exact: true, name: "Inline start" }).click()
+  const drawer = root.locator("dialog[open]")
+  await settle(drawer)
+  expect(await insetBy(cdp, content(drawer))).toEqual({
+    bottom,
+    left: 0,
+    right,
+    top,
+  })
+})
+
+test("html toaster measures its insets from the safe area", async ({
+  browserName,
+  page,
+}) => {
+  test.skip(browserName !== "chromium", "only Chromium emulates safe areas")
+  await page.setViewportSize({ height: 400, width: 700 })
+  const cdp = await page.context().newCDPSession(page)
+  await openFixture(page, "html", "toast")
+  await page.waitForFunction(() => customElements.get("opui-toaster"))
+  const root = page.locator('[data-example="Position"]')
+  const { bottom, left, right, top } = SAFE_AREA
+  const stack = (name: string) => () =>
+    root
+      .locator("opui-toaster ol")
+      .filter({ hasText: name })
+      .evaluate((element) => element.getBoundingClientRect())
+  for (const [name, check] of [
+    ["Top start", { left, top }],
+    ["Bottom end", { bottom, right }],
+  ] as const) {
+    await root.getByRole("button", { exact: true, name }).click()
+    expect(await insetBy(cdp, stack(name)), name).toMatchObject(check)
+  }
+
+  // Centered in the safe area, between the two notches.
+  await root.getByRole("button", { exact: true, name: "Bottom center" }).click()
+  const moved = await insetBy(cdp, stack("Bottom center"))
+  expect(moved.bottom).toBe(bottom)
+  expect(moved.left).toBe((left - right) / 2)
+})
 
 for (const component of ["dialog", "drawer"]) {
   interaction(

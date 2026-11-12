@@ -112,6 +112,7 @@ describe("theme tokens", () => {
       "Choice controls",
       "Elevation",
       "Overlays",
+      "Safe areas",
     ])
   })
 
@@ -185,6 +186,10 @@ describe("theme tokens", () => {
 
   .ui-card {
     --x-card: 1;
+  }
+
+  :where(html:dir(rtl)) {
+    --x-motion: -1;
   }
 
   @container style(--ui-contrast: more) {

@@ -359,7 +359,11 @@
       "--ui-shadow-scroll": "oklch(0.268 0.003 265 / 0.03) 0px -2px 5px 0px, oklch(0.268 0.003 265 / 0.04) 0px 1px 1px -2px, oklch(0.268 0.003 265 / 0.04) 0px 2px 2px -2px, oklch(0.268 0.003 265 / 0.05) 0px 5px 5px -2px, oklch(0.268 0.003 265 / 0.06) 0px 9px 9px -2px, oklch(0.268 0.003 265 / 0.07) 0px 16px 16px -2px",
       "--ui-shadow-selected": "none",
       "--ui-backdrop-blur": "0px",
-      "--ui-backdrop-bg-color": "oklch(0.153 0 0 / 0.5)"
+      "--ui-backdrop-bg-color": "oklch(0.153 0 0 / 0.5)",
+      "--ui-safe-area-inset-block-start": "0px",
+      "--ui-safe-area-inset-block-end": "0px",
+      "--ui-safe-area-inset-inline-start": "0px",
+      "--ui-safe-area-inset-inline-end": "0px"
     }
   },
   "dark": {
@@ -722,7 +726,11 @@
       "--ui-shadow-scroll": "oklch(0.11 0.01 259 / 0.22) 0px -2px 5px 0px, oklch(0.11 0.01 259 / 0.23) 0px 1px 1px -2px, oklch(0.11 0.01 259 / 0.23) 0px 2px 2px -2px, oklch(0.11 0.01 259 / 0.24) 0px 5px 5px -2px, oklch(0.11 0.01 259 / 0.25) 0px 9px 9px -2px, oklch(0.11 0.01 259 / 0.26) 0px 16px 16px -2px",
       "--ui-shadow-selected": "none",
       "--ui-backdrop-blur": "0px",
-      "--ui-backdrop-bg-color": "oklch(0.0765 0 0 / 0.5)"
+      "--ui-backdrop-bg-color": "oklch(0.0765 0 0 / 0.5)",
+      "--ui-safe-area-inset-block-start": "0px",
+      "--ui-safe-area-inset-block-end": "0px",
+      "--ui-safe-area-inset-inline-start": "0px",
+      "--ui-safe-area-inset-inline-end": "0px"
     }
   },
   "light-more-contrast": {
@@ -1085,7 +1093,11 @@
       "--ui-shadow-scroll": "oklch(0.268 0.003 265 / 0.03) 0px -2px 5px 0px, oklch(0.268 0.003 265 / 0.04) 0px 1px 1px -2px, oklch(0.268 0.003 265 / 0.04) 0px 2px 2px -2px, oklch(0.268 0.003 265 / 0.05) 0px 5px 5px -2px, oklch(0.268 0.003 265 / 0.06) 0px 9px 9px -2px, oklch(0.268 0.003 265 / 0.07) 0px 16px 16px -2px",
       "--ui-shadow-selected": "none",
       "--ui-backdrop-blur": "0px",
-      "--ui-backdrop-bg-color": "oklch(0.153 0 0 / 0.5)"
+      "--ui-backdrop-bg-color": "oklch(0.153 0 0 / 0.5)",
+      "--ui-safe-area-inset-block-start": "0px",
+      "--ui-safe-area-inset-block-end": "0px",
+      "--ui-safe-area-inset-inline-start": "0px",
+      "--ui-safe-area-inset-inline-end": "0px"
     }
   },
   "dark-more-contrast": {
@@ -1448,7 +1460,11 @@
       "--ui-shadow-scroll": "oklch(0.11 0.01 259 / 0.22) 0px -2px 5px 0px, oklch(0.11 0.01 259 / 0.23) 0px 1px 1px -2px, oklch(0.11 0.01 259 / 0.23) 0px 2px 2px -2px, oklch(0.11 0.01 259 / 0.24) 0px 5px 5px -2px, oklch(0.11 0.01 259 / 0.25) 0px 9px 9px -2px, oklch(0.11 0.01 259 / 0.26) 0px 16px 16px -2px",
       "--ui-shadow-selected": "none",
       "--ui-backdrop-blur": "0px",
-      "--ui-backdrop-bg-color": "oklch(0.0765 0 0 / 0.5)"
+      "--ui-backdrop-bg-color": "oklch(0.0765 0 0 / 0.5)",
+      "--ui-safe-area-inset-block-start": "0px",
+      "--ui-safe-area-inset-block-end": "0px",
+      "--ui-safe-area-inset-inline-start": "0px",
+      "--ui-safe-area-inset-inline-end": "0px"
     }
   }
 }

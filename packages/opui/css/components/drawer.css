@@ -61,17 +61,21 @@
       padding: var(--_footer-padding);
     }
 
+    /* Each side on a screen edge keeps its content out of the safe area. */
     &:not(.ui-block-end, .ui-block-start) {
       block-size: 100dvb;
       inline-size: var(--_inline-size);
       inset-block: 0;
       max-block-size: 100%;
+      padding-block: var(--ui-safe-area-inset-block-start)
+        var(--ui-safe-area-inset-block-end);
     }
 
     &:not(.ui-block-end, .ui-block-start, .ui-inline-end) {
       border-inline-end: var(--_border-width) solid var(--_edge-border-color);
       inset-inline-end: auto;
       inset-inline-start: 0;
+      padding-inline-start: var(--ui-safe-area-inset-inline-start);
     }
 
     &.ui-inline-end {
@@ -80,6 +84,7 @@
       border-inline-start: var(--_border-width) solid var(--_edge-border-color);
       inset-inline-end: 0;
       inset-inline-start: auto;
+      padding-inline-end: var(--ui-safe-area-inset-inline-end);
     }
 
     &.ui-block-start,
@@ -88,6 +93,8 @@
       inline-size: 100dvi;
       inset-inline: 0;
       max-block-size: 100%;
+      padding-inline: var(--ui-safe-area-inset-inline-start)
+        var(--ui-safe-area-inset-inline-end);
     }
 
     &.ui-block-start {
@@ -96,6 +103,7 @@
       border-block-end: var(--_border-width) solid var(--_edge-border-color);
       inset-block-end: auto;
       inset-block-start: 0;
+      padding-block-start: var(--ui-safe-area-inset-block-start);
     }
 
     &.ui-block-end {
@@ -104,6 +112,7 @@
       border-block-start: var(--_border-width) solid var(--_edge-border-color);
       inset-block-end: 0;
       inset-block-start: auto;
+      padding-block-end: var(--ui-safe-area-inset-block-end);
     }
 
     &[open] {

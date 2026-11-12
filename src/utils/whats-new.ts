@@ -699,6 +699,7 @@ export const whatsNew = {
     },
     `The edge reads <a href="#api"><code>--ui-border-color-raised</code></a> when a theme sets it, like menus and elevated cards, and <code>--_edge-border-color</code> sets it alone.`,
     `Opens over <a href="#api"><code>--ui-duration-slow</code></a> with <code>--ui-ease-enter</code> and closes with <code>--ui-ease-exit</code>.`,
+    `With <code>viewport-fit=cover</code>, each side on a screen edge pads its content clear of a phone's notch and home indicator (<a href="#safe-areas">Safe areas</a>).`,
     slots(
       `Breaking: <a href="#basics"><code>DrawerTitle</code> and <code>DrawerContent</code></a> replace the <code>heading</code> prop and the slots. <code>DrawerTitle</code> names the drawer; without it, pass <code>aria-label</code>. The <code>DrawerHeader</code> close button uses <code>command="close"</code>; outside a <code>Drawer</code>, set its <code>commandfor</code>.`,
     ),
@@ -1532,6 +1533,7 @@ export const whatsNew = {
       html: `New component. <a href="#basics">Toasts</a> that confirm an action and dismiss themselves, shown by a button with <code>command="--toast"</code> or <a href="#from-a-script"><code>toast()</code></a>. Import <code>opui-css/elements/toaster.js</code> for the <code>&lt;opui-toaster&gt;</code> custom element that runs them. <a href="#action"><code>action</code></a> adds a button like Undo. A dismissed toast fades out and the stack closes the gap.`,
     },
     `Themes can make toasts spring in with <a href="#api"><code>--ui-ease-move</code></a>.`,
+    `With <code>viewport-fit=cover</code>, toasts stay clear of a phone's notch and home indicator (<a href="#position">Position</a>).`,
     `A modal dialog <a href="#in-a-dialog">gets a toaster of its own</a>, and a toaster outside the open dialog warns in the console.`,
     `At most three toasts show at once, and <a href="#limit"><code>limit</code></a> changes it. Past it, the oldest is dismissed.`,
     `The severity and close <a href="#icons">icons</a> are masks, so <code>--_critical-image</code>, <code>--_info-image</code>, <code>--_success-image</code>, <code>--_warning-image</code> and <code>--_close-image</code> swap them for your own.`,

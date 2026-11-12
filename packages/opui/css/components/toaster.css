@@ -22,11 +22,18 @@
       gap: var(--_gap);
       inline-size: min(
         var(--_max-inline-size),
-        100dvi - var(--_inset-inline) * 2
+        100dvi - var(--_inset-inline) * 2 -
+          var(--ui-safe-area-inset-inline-start) -
+          var(--ui-safe-area-inset-inline-end)
       );
       inset: auto;
-      inset-block-end: var(--_inset-block);
-      inset-inline-end: var(--_inset-inline);
+      /* The insets are measured from the safe area. */
+      inset-block-end: calc(
+        var(--_inset-block) + var(--ui-safe-area-inset-block-end)
+      );
+      inset-inline-end: calc(
+        var(--_inset-inline) + var(--ui-safe-area-inset-inline-end)
+      );
       list-style: none;
       margin: 0;
       overflow: visible;
@@ -39,15 +46,22 @@
       }
 
       .ui-block-start > & {
-        inset-block: var(--_inset-block) auto;
+        inset-block: calc(
+            var(--_inset-block) + var(--ui-safe-area-inset-block-start)
+          )
+          auto;
       }
 
       .ui-align-start > & {
-        inset-inline: var(--_inset-inline) auto;
+        inset-inline: calc(
+            var(--_inset-inline) + var(--ui-safe-area-inset-inline-start)
+          )
+          auto;
       }
 
       .ui-align-center > & {
-        inset-inline: 0;
+        inset-inline: var(--ui-safe-area-inset-inline-start)
+          var(--ui-safe-area-inset-inline-end);
         margin-inline: auto;
       }
 

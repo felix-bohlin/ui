@@ -357,7 +357,11 @@
       "--ui-shadow-scroll": "oklch(0 0 0 / 0.1) 0px 10px 15px -3px, oklch(0 0 0 / 0.1) 0px 4px 6px -4px",
       "--ui-shadow-selected": "oklch(0 0 0 / 0.1) 0px 1px 3px 0px, oklch(0 0 0 / 0.1) 0px 1px 2px -1px",
       "--ui-backdrop-blur": "0px",
-      "--ui-backdrop-bg-color": "oklch(0.269 0 0 / 0.5)"
+      "--ui-backdrop-bg-color": "oklch(0.269 0 0 / 0.5)",
+      "--ui-safe-area-inset-block-start": "0px",
+      "--ui-safe-area-inset-block-end": "0px",
+      "--ui-safe-area-inset-inline-start": "0px",
+      "--ui-safe-area-inset-inline-end": "0px"
     }
   },
   "dark": {
@@ -718,7 +722,11 @@
       "--ui-shadow-scroll": "oklch(0 0 0 / 0.1) 0px 10px 15px -3px, oklch(0 0 0 / 0.1) 0px 4px 6px -4px",
       "--ui-shadow-selected": "oklch(0 0 0 / 0.1) 0px 1px 3px 0px, oklch(0 0 0 / 0.1) 0px 1px 2px -1px",
       "--ui-backdrop-blur": "0px",
-      "--ui-backdrop-bg-color": "oklch(0.0725 0 0 / 0.5)"
+      "--ui-backdrop-bg-color": "oklch(0.0725 0 0 / 0.5)",
+      "--ui-safe-area-inset-block-start": "0px",
+      "--ui-safe-area-inset-block-end": "0px",
+      "--ui-safe-area-inset-inline-start": "0px",
+      "--ui-safe-area-inset-inline-end": "0px"
     }
   },
   "light-more-contrast": {
@@ -1079,7 +1087,11 @@
       "--ui-shadow-scroll": "oklch(0 0 0 / 0.1) 0px 10px 15px -3px, oklch(0 0 0 / 0.1) 0px 4px 6px -4px",
       "--ui-shadow-selected": "oklch(0 0 0 / 0.1) 0px 1px 3px 0px, oklch(0 0 0 / 0.1) 0px 1px 2px -1px",
       "--ui-backdrop-blur": "0px",
-      "--ui-backdrop-bg-color": "oklch(0.269 0 0 / 0.5)"
+      "--ui-backdrop-bg-color": "oklch(0.269 0 0 / 0.5)",
+      "--ui-safe-area-inset-block-start": "0px",
+      "--ui-safe-area-inset-block-end": "0px",
+      "--ui-safe-area-inset-inline-start": "0px",
+      "--ui-safe-area-inset-inline-end": "0px"
     }
   },
   "dark-more-contrast": {
@@ -1440,7 +1452,11 @@
       "--ui-shadow-scroll": "oklch(0 0 0 / 0.1) 0px 10px 15px -3px, oklch(0 0 0 / 0.1) 0px 4px 6px -4px",
       "--ui-shadow-selected": "oklch(0 0 0 / 0.1) 0px 1px 3px 0px, oklch(0 0 0 / 0.1) 0px 1px 2px -1px",
       "--ui-backdrop-blur": "0px",
-      "--ui-backdrop-bg-color": "oklch(0.0725 0 0 / 0.5)"
+      "--ui-backdrop-bg-color": "oklch(0.0725 0 0 / 0.5)",
+      "--ui-safe-area-inset-block-start": "0px",
+      "--ui-safe-area-inset-block-end": "0px",
+      "--ui-safe-area-inset-inline-start": "0px",
+      "--ui-safe-area-inset-inline-end": "0px"
     }
   }
 }

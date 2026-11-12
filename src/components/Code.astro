@@ -114,6 +114,10 @@ const id = Astro.locals.$id("code")
       margin: 0;
       overflow-x: auto;
       padding: 1rem 1.35rem;
+
+      &:focus-visible {
+        outline-offset: var(--ui-focus-ring-inset);
+      }
     }
 
     code {
@@ -257,12 +261,5 @@ const id = Astro.locals.$id("code")
 </style>
 
 <script>
-  import {
-    highlightCode,
-    renewHighlightsWhenShown,
-  } from "../utils/syntax-highlight"
-
-  document.addEventListener("syntax-highlight", () => highlightCode())
-  renewHighlightsWhenShown()
-  highlightCode()
+  import "../utils/code-blocks"
 </script>

@@ -553,6 +553,52 @@ test("renews the highlight ranges of an Installation tab when it is shown", asyn
   })
 })
 
+const codeFocus = (page: Page) =>
+  page.locator(".code-block pre").evaluateAll((blocks) =>
+    blocks
+      .filter((pre) => pre.checkVisibility())
+      .map((pre) => ({
+        focusable:
+          pre.getAttribute("tabindex") === "0" &&
+          pre.getAttribute("role") === "group" &&
+          !!pre.getAttribute("aria-label"),
+        scrolls: pre.scrollWidth > pre.clientWidth,
+      })),
+  )
+
+test("a code block takes focus only while it scrolls sideways", async ({
+  page,
+}) => {
+  await page.setViewportSize({ height: 844, width: 390 })
+  await page.goto("/html/guide/customizing/")
+  const scrolling = async () => {
+    const blocks = await codeFocus(page)
+    expect(
+      blocks.filter(({ focusable, scrolls }) => focusable !== scrolls),
+    ).toEqual([])
+    return blocks.filter(({ scrolls }) => scrolls).length
+  }
+  await expect.poll(scrolling).toBeGreaterThan(1)
+  await page.setViewportSize({ height: 844, width: 1280 })
+  await expect.poll(scrolling).toBe(1)
+})
+
+test("an example's code takes focus when it opens and scrolls sideways", async ({
+  page,
+}) => {
+  await page.setViewportSize({ height: 844, width: 390 })
+  await page.goto("/html/components/button/")
+  const example = page.locator("section#variants .example-container").first()
+  await example
+    .locator(".show-code-button")
+    .evaluate((button) => (button as HTMLElement).click())
+  const pre = example.locator(".code-block pre")
+  await expect(pre).toBeVisible()
+  await expect(pre).toHaveAttribute("tabindex", "0")
+  await expect(pre).toHaveAttribute("role", "group")
+  await expect(pre).toHaveAttribute("aria-label", "Code")
+})
+
 test("a long section heading takes the content width, passes under the header links and sticks as a one-line copy without changing its height or the scroll position", async ({
   browserName,
   page,

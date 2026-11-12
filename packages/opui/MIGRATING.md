@@ -117,7 +117,7 @@ Text uses `--ui-on-primary`, and sizes follow `--ui-control-size` and `--ui-cont
 ```diff
 - <Avatar aria-label="Team" isGroup>
 + <AvatarGroup aria-label="Team">
-    <Avatar alt="Jane Doe" src="/jane.jpg" />
+    <Avatar alt="Lena Handén" src="/lena.jpg" />
 - </Avatar>
 + </AvatarGroup>
 ```
@@ -402,9 +402,9 @@ The part files are renamed to `DescriptionListDescription.*`, `DescriptionListIt
 
 ```diff
 - <dt class="ui-term">Name</dt>
-- <dd class="ui-description">Ada</dd>
+- <dd class="ui-description">Hakki</dd>
 + <dt>Name</dt>
-+ <dd>Ada</dd>
++ <dd>Hakki</dd>
 ```
 
 In Astro and Vue, `bordered` is a boolean, and `dotted` makes its line dotted. The classes are unchanged.

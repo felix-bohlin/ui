@@ -80,12 +80,12 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size
 ### Example: Basics
 
 ```html
-<div aria-label="Chat with Saga" role="log">
-  <ol class="ui-messages" role="list" aria-label="Messages with Saga">
+<div aria-label="Chat with Sirkka" role="log">
+  <ol class="ui-messages" role="list" aria-label="Messages with Sirkka">
     <li class="ui-message">
-      <div class="ui-avatar" aria-label="Saga Nyström" role="img">SN</div>
+      <div class="ui-avatar" aria-label="Sirkka Nitti" role="img">SN</div>
       <div class="ui-content">
-        <p class="ui-header">Saga</p>
+        <p class="ui-header">Sirkka</p>
         <p>Did you get a chance to look at the pricing proposal?</p>
         <p class="ui-footer">
           <time datetime="2026-10-08T14:02">14:02</time>
@@ -93,9 +93,9 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size
       </div>
     </li>
     <li class="ui-message">
-      <div class="ui-avatar" aria-label="Saga Nyström" role="img">SN</div>
+      <div class="ui-avatar" aria-label="Sirkka Nitti" role="img">SN</div>
       <div class="ui-content">
-        <p class="ui-header">Saga</p>
+        <p class="ui-header">Sirkka</p>
         <p>No rush, Friday is fine.</p>
         <p class="ui-footer">
           <time datetime="2026-10-08T14:03">14:03</time>
@@ -138,14 +138,14 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size
 import { Avatar, Message, Messages } from "opui-css/astro"
 ---
 
-<div aria-label="Chat with Saga" role="log">
-  <Messages aria-label="Messages with Saga">
-    <Message author="Saga" datetime="2026-10-08T14:02" time="14:02">
-      <Avatar aria-label="Saga Nyström" role="img" slot="start">SN</Avatar>
+<div aria-label="Chat with Sirkka" role="log">
+  <Messages aria-label="Messages with Sirkka">
+    <Message author="Sirkka" datetime="2026-10-08T14:02" time="14:02">
+      <Avatar aria-label="Sirkka Nitti" role="img" slot="start">SN</Avatar>
       <p>Did you get a chance to look at the pricing proposal?</p>
     </Message>
-    <Message author="Saga" datetime="2026-10-08T14:03" time="14:03">
-      <Avatar aria-label="Saga Nyström" role="img" slot="start">SN</Avatar>
+    <Message author="Sirkka" datetime="2026-10-08T14:03" time="14:03">
+      <Avatar aria-label="Sirkka Nitti" role="img" slot="start">SN</Avatar>
       <p>No rush, Friday is fine.</p>
     </Message>
     <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
@@ -172,13 +172,13 @@ import { Avatar, Message, Messages } from "opui-css/react"
 
 export default function Basics() {
   return (
-    <div aria-label="Chat with Saga" role="log">
-      <Messages aria-label="Messages with Saga">
+    <div aria-label="Chat with Sirkka" role="log">
+      <Messages aria-label="Messages with Sirkka">
         <Message
-          author="Saga"
+          author="Sirkka"
           datetime="2026-10-08T14:02"
           start={
-            <Avatar aria-label="Saga Nyström" role="img">
+            <Avatar aria-label="Sirkka Nitti" role="img">
               SN
             </Avatar>
           }
@@ -187,10 +187,10 @@ export default function Basics() {
           <p>Did you get a chance to look at the pricing proposal?</p>
         </Message>
         <Message
-          author="Saga"
+          author="Sirkka"
           datetime="2026-10-08T14:03"
           start={
-            <Avatar aria-label="Saga Nyström" role="img">
+            <Avatar aria-label="Sirkka Nitti" role="img">
               SN
             </Avatar>
           }
@@ -229,17 +229,17 @@ export default function Basics() {
   import { Avatar, Message, Messages } from "opui-css/svelte"
 </script>
 
-<div aria-label="Chat with Saga" role="log">
-  <Messages aria-label="Messages with Saga">
-    <Message author="Saga" datetime="2026-10-08T14:02" time="14:02">
+<div aria-label="Chat with Sirkka" role="log">
+  <Messages aria-label="Messages with Sirkka">
+    <Message author="Sirkka" datetime="2026-10-08T14:02" time="14:02">
       {#snippet start()}
-        <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
+        <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
       {/snippet}
       <p>Did you get a chance to look at the pricing proposal?</p>
     </Message>
-    <Message author="Saga" datetime="2026-10-08T14:03" time="14:03">
+    <Message author="Sirkka" datetime="2026-10-08T14:03" time="14:03">
       {#snippet start()}
-        <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
+        <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
       {/snippet}
       <p>No rush, Friday is fine.</p>
     </Message>
@@ -268,17 +268,17 @@ import { Avatar, Message, Messages } from "opui-css/vue"
 </script>
 
 <template>
-  <div aria-label="Chat with Saga" role="log">
-    <Messages aria-label="Messages with Saga">
-      <Message author="Saga" datetime="2026-10-08T14:02" time="14:02">
+  <div aria-label="Chat with Sirkka" role="log">
+    <Messages aria-label="Messages with Sirkka">
+      <Message author="Sirkka" datetime="2026-10-08T14:02" time="14:02">
         <template #start>
-          <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
+          <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
         </template>
         <p>Did you get a chance to look at the pricing proposal?</p>
       </Message>
-      <Message author="Saga" datetime="2026-10-08T14:03" time="14:03">
+      <Message author="Sirkka" datetime="2026-10-08T14:03" time="14:03">
         <template #start>
-          <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
+          <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
         </template>
         <p>No rush, Friday is fine.</p>
       </Message>

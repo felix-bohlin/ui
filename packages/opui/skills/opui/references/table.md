@@ -152,17 +152,17 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
   </thead>
   <tbody>
     <tr>
-      <td>Lena Ek</td>
+      <td>Lena Handén</td>
       <td>Product designer</td>
       <td>Göteborg</td>
     </tr>
     <tr>
-      <td>Tom Tanaka</td>
+      <td>Pekka Gåpåbottanen</td>
       <td>Frontend developer</td>
       <td>Lisbon</td>
     </tr>
     <tr>
-      <td>Elif Rahman</td>
+      <td>Inga Halonen</td>
       <td>Support lead</td>
       <td>Berlin</td>
     </tr>
@@ -200,17 +200,17 @@ import {
   </TableHead>
   <TableBody>
     <TableRow>
-      <TableCell>Lena Ek</TableCell>
+      <TableCell>Lena Handén</TableCell>
       <TableCell>Product designer</TableCell>
       <TableCell>Göteborg</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Tom Tanaka</TableCell>
+      <TableCell>Pekka Gåpåbottanen</TableCell>
       <TableCell>Frontend developer</TableCell>
       <TableCell>Lisbon</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Elif Rahman</TableCell>
+      <TableCell>Inga Halonen</TableCell>
       <TableCell>Support lead</TableCell>
       <TableCell>Berlin</TableCell>
     </TableRow>
@@ -250,17 +250,17 @@ export default function Normal() {
       </TableHead>
       <TableBody>
         <TableRow>
-          <TableCell>Lena Ek</TableCell>
+          <TableCell>Lena Handén</TableCell>
           <TableCell>Product designer</TableCell>
           <TableCell>Göteborg</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Tom Tanaka</TableCell>
+          <TableCell>Pekka Gåpåbottanen</TableCell>
           <TableCell>Frontend developer</TableCell>
           <TableCell>Lisbon</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Elif Rahman</TableCell>
+          <TableCell>Inga Halonen</TableCell>
           <TableCell>Support lead</TableCell>
           <TableCell>Berlin</TableCell>
         </TableRow>
@@ -300,17 +300,17 @@ export default function Normal() {
   </TableHead>
   <TableBody>
     <TableRow>
-      <TableCell>Lena Ek</TableCell>
+      <TableCell>Lena Handén</TableCell>
       <TableCell>Product designer</TableCell>
       <TableCell>Göteborg</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Tom Tanaka</TableCell>
+      <TableCell>Pekka Gåpåbottanen</TableCell>
       <TableCell>Frontend developer</TableCell>
       <TableCell>Lisbon</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Elif Rahman</TableCell>
+      <TableCell>Inga Halonen</TableCell>
       <TableCell>Support lead</TableCell>
       <TableCell>Berlin</TableCell>
     </TableRow>
@@ -349,17 +349,17 @@ import {
     </TableHead>
     <TableBody>
       <TableRow>
-        <TableCell>Lena Ek</TableCell>
+        <TableCell>Lena Handén</TableCell>
         <TableCell>Product designer</TableCell>
         <TableCell>Göteborg</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>Tom Tanaka</TableCell>
+        <TableCell>Pekka Gåpåbottanen</TableCell>
         <TableCell>Frontend developer</TableCell>
         <TableCell>Lisbon</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>Elif Rahman</TableCell>
+        <TableCell>Inga Halonen</TableCell>
         <TableCell>Support lead</TableCell>
         <TableCell>Berlin</TableCell>
       </TableRow>

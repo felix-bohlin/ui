@@ -75,15 +75,15 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 
 ```html
 <div class="ui-avatar">
-  <img src="/photos/maya-lind.png" alt="Maya Lind" />
+  <img src="/photos/lena-handen.png" alt="Lena Handén" />
 </div>
 
 <div class="ui-avatar">
-  <img src="/photos/omar-haddad.png" alt="Omar Haddad" />
+  <img src="/photos/hakki-halinen.png" alt="Hakki Hälinen" />
 </div>
 
 <div class="ui-avatar">
-  <img src="/photos/jonas-berg.png" alt="Jonas Berg" />
+  <img src="/photos/pekka-gapabottanen.png" alt="Pekka Gåpåbottanen" />
 </div>
 ```
 
@@ -98,11 +98,11 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 import { Avatar } from "opui-css/astro"
 ---
 
-<Avatar alt="Maya Lind" src="/photos/maya-lind.png" />
+<Avatar alt="Lena Handén" src="/photos/lena-handen.png" />
 
-<Avatar alt="Omar Haddad" src="/photos/omar-haddad.png" />
+<Avatar alt="Hakki Hälinen" src="/photos/hakki-halinen.png" />
 
-<Avatar alt="Jonas Berg" src="/photos/jonas-berg.png" />
+<Avatar alt="Pekka Gåpåbottanen" src="/photos/pekka-gapabottanen.png" />
 ```
 
 ## React
@@ -117,11 +117,11 @@ import { Avatar } from "opui-css/react"
 export default function Image() {
   return (
     <>
-      <Avatar alt="Maya Lind" src="/photos/maya-lind.png" />
+      <Avatar alt="Lena Handén" src="/photos/lena-handen.png" />
 
-      <Avatar alt="Omar Haddad" src="/photos/omar-haddad.png" />
+      <Avatar alt="Hakki Hälinen" src="/photos/hakki-halinen.png" />
 
-      <Avatar alt="Jonas Berg" src="/photos/jonas-berg.png" />
+      <Avatar alt="Pekka Gåpåbottanen" src="/photos/pekka-gapabottanen.png" />
     </>
   )
 }
@@ -138,11 +138,11 @@ export default function Image() {
   import { Avatar } from "opui-css/svelte"
 </script>
 
-<Avatar alt="Maya Lind" src="/photos/maya-lind.png" />
+<Avatar alt="Lena Handén" src="/photos/lena-handen.png" />
 
-<Avatar alt="Omar Haddad" src="/photos/omar-haddad.png" />
+<Avatar alt="Hakki Hälinen" src="/photos/hakki-halinen.png" />
 
-<Avatar alt="Jonas Berg" src="/photos/jonas-berg.png" />
+<Avatar alt="Pekka Gåpåbottanen" src="/photos/pekka-gapabottanen.png" />
 ```
 
 ## Vue
@@ -157,10 +157,10 @@ import { Avatar } from "opui-css/vue"
 </script>
 
 <template>
-  <Avatar alt="Maya Lind" src="/photos/maya-lind.png" />
+  <Avatar alt="Lena Handén" src="/photos/lena-handen.png" />
 
-  <Avatar alt="Omar Haddad" src="/photos/omar-haddad.png" />
+  <Avatar alt="Hakki Hälinen" src="/photos/hakki-halinen.png" />
 
-  <Avatar alt="Jonas Berg" src="/photos/jonas-berg.png" />
+  <Avatar alt="Pekka Gåpåbottanen" src="/photos/pekka-gapabottanen.png" />
 </template>
 ```

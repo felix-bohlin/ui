@@ -1,0 +1,463 @@
+---
+import {
+  Accordion,
+  Anchor,
+  Avatar,
+  Badge,
+  Button,
+  ButtonGroup,
+  Callout,
+  Card,
+  Checkbox,
+  Chip,
+  DescriptionList,
+  Dialog,
+  Divider,
+  Drawer,
+  DrawerHeader,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+  IconButton,
+  List,
+  ListItem,
+  Progress,
+  Radio,
+  Range,
+  Switch,
+  Table,
+  Tabs,
+  TextField,
+  Textarea,
+  ToggleButton,
+  ToggleGroup,
+} from "@opui/astro"
+import FrameworkPicker from "../FrameworkPicker.astro"
+
+type Props = {
+  slug: string
+}
+
+const { slug } = Astro.props
+---
+
+{
+  slug === "accordion" && (
+    <Accordion aria-hidden="true" variant="outlined">
+      <Fragment slot="summary">How does it work?</Fragment>
+      It's pretty simple, actually.
+    </Accordion>
+  )
+}
+
+{
+  slug === "anchor" && (
+    <div class="ui-anchor" aria-hidden="true">
+      <Chip variant="outlined">Anchored</Chip>
+      {(
+        [
+          { bottom: "anchor(top)", right: "anchor(left)" },
+          { bottom: "anchor(top)", left: "anchor(right)" },
+          { top: "anchor(bottom)", right: "anchor(left)" },
+          { top: "anchor(bottom)", left: "anchor(right)" },
+        ] as const
+      ).map((position) => (
+        <svg
+          style={`position: absolute; position-anchor: --anchor; ${Object.entries(
+            position,
+          )
+            .map(([prop, value]) => `${prop}: ${value};`)
+            .join(" ")}`}
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            fill="currentColor"
+            d="M12 22q-1.525 0-3.125-.55t-2.9-1.5t-2.137-2.225T3 15v-3l4 3l-1.55 1.55q.725 1.275 2.3 2.2T11 19.925V11H8V9h3V7.825q-.875-.325-1.437-1.088T9 5q0-1.25.875-2.125T12 2t2.125.875T15 5q0 .975-.562 1.738T13 7.825V9h3v2h-3v8.925q1.675-.25 3.25-1.175t2.3-2.2L17 15l4-3v3q0 1.45-.837 2.725t-2.138 2.225t-2.9 1.5T12 22m0-16q.425 0 .713-.287T13 5t-.288-.712T12 4t-.712.288T11 5t.288.713T12 6"
+          />
+        </svg>
+      ))}
+    </div>
+  )
+}
+
+{
+  slug === "avatar" && (
+    <Avatar aria-hidden="true" isGroup>
+      <Avatar
+        src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?q=80&w=1827&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        alt="Avatar"
+      />
+      <Avatar>OP</Avatar>
+      <Avatar>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M16 2C8.268 2 2 8.268 2 16s6.268 14 14 14s14-6.268 14-14S23.732 2 16 2m0 22.5c-3.866 0-7-2.429-7-6.071A2.43 2.43 0 0 1 11.429 16h9.142A2.43 2.43 0 0 1 23 18.429c0 3.642-3.134 6.071-7 6.071m0-10A3.75 3.75 0 1 1 16 7a3.75 3.75 0 0 1 0 7.5"
+          />
+        </svg>
+      </Avatar>
+    </Avatar>
+  )
+}
+
+{
+  slug === "badge" && (
+    <Badge aria-hidden="true" label="3">
+      Inbox
+    </Badge>
+  )
+}
+
+{
+  slug === "button" && (
+    <Button aria-hidden="true" variant="filled">
+      Get started
+    </Button>
+  )
+}
+
+{
+  slug === "button-group" && (
+    <ButtonGroup aria-hidden="true" variant="outlined" size="small">
+      <Button>Day</Button>
+      <Button>Week</Button>
+    </ButtonGroup>
+  )
+}
+
+{
+  slug === "callout" && (
+    <Callout aria-hidden="true" variant="tonal" severity="neutral">
+      <Fragment slot="title">Heads up!</Fragment>
+      Nah, just kidding. It wasn't important.
+    </Callout>
+  )
+}
+
+{
+  slug === "card" && (
+    <Card aria-hidden="true" variant="outlined">
+      <Fragment slot="header">
+        <p>Article</p>
+        <h3>Build something nice</h3>
+      </Fragment>
+      <Fragment slot="content">
+        Components you can copy-paste into your project.
+      </Fragment>
+      <Fragment slot="actions">
+        <Button variant="tonal" size="small">
+          Read
+        </Button>
+      </Fragment>
+    </Card>
+  )
+}
+
+{
+  slug === "checkbox" && (
+    <Checkbox aria-hidden="true" checked>
+      This checks out
+    </Checkbox>
+  )
+}
+
+{
+  slug === "chip" && (
+    <Chip aria-hidden="true" variant="outlined">
+      CSS
+    </Chip>
+  )
+}
+
+{
+  slug === "description-list" && (
+    <DescriptionList aria-hidden="true" bordered="dotted">
+      <DescriptionList.Item>
+        <DescriptionList.Term>Name</DescriptionList.Term>
+        <DescriptionList.Description>Open Props UI</DescriptionList.Description>
+      </DescriptionList.Item>
+      <DescriptionList.Item>
+        <DescriptionList.Term>Status</DescriptionList.Term>
+        <DescriptionList.Description>Awesome</DescriptionList.Description>
+      </DescriptionList.Item>
+    </DescriptionList>
+  )
+}
+
+{
+  slug === "dialog" && (
+    <Dialog aria-hidden="true">
+      <h3 class="ui-h5" slot="header">
+        Are you sure?
+      </h3>
+      <Fragment slot="actions">
+        <Button size="small" type="button">
+          Cancel
+        </Button>
+        <Button size="small" type="button" variant="filled">
+          Save
+        </Button>
+      </Fragment>
+    </Dialog>
+  )
+}
+
+{slug === "divider" && <Divider variant="filled" aria-hidden="true" />}
+
+{
+  slug === "drawer" && (
+    <div class="showcase-drawer" aria-hidden="true">
+      <Drawer backdrop="transparent" scrollLock={false} side="inline-end">
+        <DrawerHeader heading="Menu" slot="header" />
+        <Fragment slot="content">
+          <p>Hello there!</p>
+        </Fragment>
+      </Drawer>
+    </div>
+  )
+}
+
+{
+  slug === "form" && (
+    <Form aria-hidden="true" as="div">
+      <FieldSet as="div">
+        <FieldLegend as="p">User Profile</FieldLegend>
+        <FieldGroup>
+          <TextField label="Full Name" placeholder="Jane Doe" />
+        </FieldGroup>
+      </FieldSet>
+    </Form>
+  )
+}
+
+{
+  slug === "icon-button" && (
+    <IconButton variant="filled" aria-hidden="true">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M5 12h14" />
+        <path d="M12 5v14" />
+      </svg>
+    </IconButton>
+  )
+}
+
+{
+  slug === "list" && (
+    <List variant="default" aria-hidden="true" bordered dense>
+      <ListItem headline="Angel Investor" description="Re: Horse thing pitch">
+        <Avatar slot="start">AI</Avatar>
+        <div slot="end">15:42</div>
+      </ListItem>
+      <ListItem
+        headline="Jonathan Blow"
+        description="Where are we at with the Horse Tinder programming language?"
+      >
+        <Avatar slot="start">JB</Avatar>
+        <div slot="end">09:18</div>
+      </ListItem>
+    </List>
+  )
+}
+
+{
+  slug === "progress" && (
+    <Progress variant="filled" aria-busy="true" aria-hidden="true" />
+  )
+}
+
+{
+  slug === "radio" && (
+    <FieldGroup name="index-radio-showcase" aria-hidden="true">
+      <Radio checked>Whoa</Radio>
+      <Radio>Nice</Radio>
+    </FieldGroup>
+  )
+}
+
+{
+  slug === "range" && (
+    <Range variant="filled" aria-hidden="true" value={50} min={0} max={100} />
+  )
+}
+
+{slug === "select" && <FrameworkPicker />}
+
+{
+  slug === "spinner" && (
+    <Fragment>
+      <p aria-busy="true">Loading</p>
+      <Button variant="filled" aria-busy="true">
+        Loading
+      </Button>
+    </Fragment>
+  )
+}
+
+{
+  slug === "switch" && (
+    <Switch id="showcase-theme-switcher" aria-hidden="true">
+      Dark mode
+    </Switch>
+  )
+}
+
+{
+  slug === "table" && (
+    <Table aria-hidden="true" variant="dense">
+      <Table.Head>
+        <Table.Row>
+          <Table.HeaderCell>Band</Table.HeaderCell>
+          <Table.HeaderCell>Name</Table.HeaderCell>
+        </Table.Row>
+      </Table.Head>
+      <Table.Body>
+        <Table.Row>
+          <Table.Cell>Korn</Table.Cell>
+          <Table.Cell>Jonathan Davis</Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell>Radiohead</Table.Cell>
+          <Table.Cell>Ed O'Brien</Table.Cell>
+        </Table.Row>
+      </Table.Body>
+    </Table>
+  )
+}
+
+{
+  slug === "tabs" && (
+    <Tabs aria-hidden="true" name="showcase-tabs">
+      <Tabs.Item open>
+        <Tabs.Tab>Profile</Tabs.Tab>
+        <Tabs.Panel>Profile settings and information.</Tabs.Panel>
+      </Tabs.Item>
+      <Tabs.Item>
+        <Tabs.Tab>Settings</Tabs.Tab>
+        <Tabs.Panel>General account settings.</Tabs.Panel>
+      </Tabs.Item>
+    </Tabs>
+  )
+}
+
+{
+  slug === "text-field" && (
+    <TextField aria-hidden="true" placeholder="you@example.com" />
+  )
+}
+
+{
+  slug === "textarea" && (
+    <Textarea aria-hidden="true" placeholder="Write a comment…" />
+  )
+}
+
+{
+  slug === "toast" && (
+    <div aria-hidden="true" class="ui-toast" data-severity="success">
+      <span class="ui-icon" />
+      <div class="ui-content">
+        <div class="ui-title">Saved</div>
+        <div class="ui-description">Your changes are live.</div>
+      </div>
+    </div>
+  )
+}
+
+{
+  slug === "toggle" && (
+    <ToggleGroup aria-hidden="true">
+      <ToggleButton pressed size="small" aria-label="Bold">
+        <strong>B</strong>
+      </ToggleButton>
+      <ToggleButton size="small" aria-label="Italic">
+        <i>I</i>
+      </ToggleButton>
+      <ToggleButton size="small" aria-label="Underline">
+        <u>U</u>
+      </ToggleButton>
+    </ToggleGroup>
+  )
+}
+
+{
+  slug === "tooltip" && (
+    <Anchor aria-hidden="true" class="ui-tooltip ui-with-arrow">
+      <Button size="small" variant="outlined">
+        Hover me
+      </Button>
+      <Fragment slot="anchored">Tooltip</Fragment>
+    </Anchor>
+  )
+}
+
+{
+  slug === "typography" && (
+    <hgroup aria-hidden="true" class="ui-hgroup">
+      <p>Overline</p>
+      <h3 class="ui-h3">Heading</h3>
+      <p>Followed by body text.</p>
+    </hgroup>
+  )
+}
+
+<style is:global>
+  .showcase-preview {
+    & > .ui-dialog {
+      display: flex;
+      inset: auto;
+      margin: 0;
+      max-inline-size: 100%;
+      opacity: 1;
+      pointer-events: auto;
+      position: static;
+    }
+
+    & > .ui-toast {
+      animation: none;
+      min-inline-size: 0;
+    }
+
+    & > .ui-tooltip {
+      margin-block-start: var(--size-9);
+    }
+  }
+
+  .showcase-drawer {
+    background-color: var(--surface-tonal);
+    block-size: 8rem;
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    position: relative;
+
+    .ui-drawer {
+      block-size: 100%;
+      display: flex;
+      inline-size: 70%;
+      position: absolute;
+      translate: none;
+      visibility: visible;
+      z-index: auto;
+    }
+  }
+</style>

@@ -4,14 +4,13 @@ import { Button, Card } from "@opui/astro"
 type Props = {
   href: string
   name: string
-  size?: "wide" | "xl"
 }
 
-const { href, name, size } = Astro.props
+const { href, name } = Astro.props
 const { link } = Astro.locals
 ---
 
-<Card variant="elevated" class:list={["showcase-card", size && `ui-${size}`]}>
+<Card variant="elevated" class="showcase-card">
   <div class="showcase-preview">
     <slot />
   </div>
@@ -66,21 +65,8 @@ const { link } = Astro.locals
       z-index: 0;
     }
 
-    &.wide {
-      grid-column: span 2;
-    }
-
-    &.xl {
-      grid-column: span 2;
-      grid-row: span 2;
-    }
-
     @media (width <= 600px) {
-      &.wide,
-      &.xl {
-        grid-column: auto;
-        grid-row: auto;
-      }
+      padding: var(--size-2);
     }
   }
 
@@ -93,21 +79,30 @@ const { link } = Astro.locals
 
     &
       > :where(
-        .ui-card,
+        .showcase-drawer,
         .ui-callout,
+        .ui-card,
+        .ui-description-list,
         .ui-divider,
+        .ui-form,
         .ui-list,
-        .ui-text-field,
-        .ui-textarea,
         .ui-progress,
         .ui-range,
-        .ui-description-list
+        .ui-table,
+        .ui-tabs,
+        .ui-text-field,
+        .ui-textarea,
+        .ui-toast
       ) {
       inline-size: 100%;
     }
 
     & select {
-      min-inline-size: 20ch;
+      min-inline-size: min(20ch, 100%);
+    }
+
+    @media (width <= 600px) {
+      zoom: 0.7;
     }
   }
 
@@ -121,6 +116,14 @@ const { link } = Astro.locals
 
     &:hover svg {
       translate: var(--size-1) 0;
+    }
+
+    @media (width <= 600px) {
+      font-size: var(--font-size-05);
+
+      & svg {
+        display: none;
+      }
     }
   }
 </style>

@@ -1,5 +1,5 @@
 ---
-import ComponentList from "../../../components/ComponentList.astro"
+import ComponentCards from "../../../components/ComponentShowcase/ComponentCards.astro"
 import Component from "../../../layouts/Component.astro"
 import { frameworkPaths } from "../../../utils/framework-routing"
 
@@ -12,13 +12,22 @@ export const getStaticPaths = frameworkPaths
     Here are all OPUI components. More components are continuously being added!
   </Fragment>
 
-  <section>
-    <ComponentList />
+  <section class="component-showcase ui-not-rich-text">
+    <ComponentCards />
   </section>
 </Component>
 
 <style>
   section {
     margin-block-start: var(--size-8);
+  }
+</style>
+
+<style is:global>
+  @media (width >= 1140px) {
+    #document-page:has(> #main-content .component-showcase) #main-content {
+      grid-column: 4 / 6;
+      max-inline-size: none;
+    }
   }
 </style>

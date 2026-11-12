@@ -669,6 +669,49 @@ test("in print, code blocks wrap and the sidebar, contents and footer are hidden
   }
 })
 
+for (const [path, selector, name] of [
+  ["/html/guide/concepts/", ".token-tiers > .scroll", "Token tiers"],
+  ["/html/guide/migrating/", "#main-content table:not([class])", null],
+] as const) {
+  test(`${selector} on ${path} takes focus only while it scrolls sideways`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ height: 844, width: 390 })
+    await page.goto(path)
+    const regions = page.locator(selector)
+    const states = () =>
+      regions.evaluateAll((elements) =>
+        elements.map((element) => ({
+          focusable: element.getAttribute("tabindex") === "0",
+          label: element.getAttribute("aria-label"),
+          role: element.getAttribute("role"),
+          scrolls: element.scrollWidth > element.clientWidth,
+        })),
+      )
+    const scrolling = async () => {
+      const all = await states()
+      expect(
+        all.filter(({ focusable, scrolls }) => focusable !== scrolls),
+      ).toEqual([])
+      return all.filter(({ scrolls }) => scrolls)
+    }
+    await expect.poll(async () => (await scrolling()).length).toBeGreaterThan(0)
+    expect(await scrolling()).toContainEqual(
+      expect.objectContaining(
+        name ? { label: name, role: "group" } : { label: null, role: null },
+      ),
+    )
+    await page.setViewportSize({ height: 844, width: 1280 })
+    await expect
+      .poll(async () =>
+        (await states()).filter(
+          ({ focusable, scrolls }) => focusable !== scrolls,
+        ),
+      )
+      .toEqual([])
+  })
+}
+
 test("the block preview's Tablet and Mobile widths give the block 768px and 390px", async ({
   page,
 }) => {

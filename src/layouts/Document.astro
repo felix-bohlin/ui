@@ -117,6 +117,8 @@ const { headings, html: content } = addHeadingAnchors(
 </Default>
 
 <script>
+  import "../utils/scroll-regions"
+
   const sidebar = document.querySelector<HTMLElement>("aside.sidebar")
   const current = sidebar?.querySelector<HTMLElement>('[aria-current="page"]')
   if (sidebar && current) {

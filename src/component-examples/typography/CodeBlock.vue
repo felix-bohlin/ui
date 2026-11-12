@@ -7,5 +7,10 @@ const code = `.ui-card {
 </script>
 
 <template>
-  <pre class="ui-code-block"><code>{{ code }}</code></pre>
+  <pre
+    aria-label="Card styles"
+    class="ui-code-block"
+    role="region"
+    tabindex="0"
+  ><code>{{ code }}</code></pre>
 </template>

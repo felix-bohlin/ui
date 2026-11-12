@@ -166,29 +166,42 @@ const DOCS_PAGE_RULES: Record<string, string[]> = {
   "/react/components/typography/": ["label", "scrollable-region-focusable"],
 }
 
-for (const [path, rules] of Object.entries(DOCS_PAGE_RULES)) {
-  test(`${path} has no ${rules.join(", ")} violations with its examples' code open`, async ({
-    page,
-  }) => {
-    await instantScrolling(page)
-    await stubExternalHosts(page)
-    await page.goto(path)
-    await page
-      .locator(".show-code-button")
-      .evaluateAll((buttons) =>
-        buttons.forEach((button) => (button as HTMLElement).click()),
-      )
-    await page.evaluate(async () => {
-      await new Promise(requestAnimationFrame)
-      await new Promise(requestAnimationFrame)
+const NARROW_DOCS_PAGE_RULES: Record<string, string[]> = {
+  "/blocks/app-shell/": ["landmark-unique"],
+  "/html/components/typography/": ["scrollable-region-focusable"],
+  "/html/guide/concepts/": ["scrollable-region-focusable"],
+  "/html/guide/migrating/": ["scrollable-region-focusable"],
+}
+
+for (const [width, pages] of [
+  [1280, DOCS_PAGE_RULES],
+  [390, NARROW_DOCS_PAGE_RULES],
+] as const) {
+  for (const [path, rules] of Object.entries(pages)) {
+    test(`${path} at ${width}px has no ${rules.join(", ")} violations with its examples' code open`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ height: 844, width })
+      await instantScrolling(page)
+      await stubExternalHosts(page)
+      await page.goto(path)
+      await page
+        .locator(".show-code-button")
+        .evaluateAll((buttons) =>
+          buttons.forEach((button) => (button as HTMLElement).click()),
+        )
+      await page.evaluate(async () => {
+        await new Promise(requestAnimationFrame)
+        await new Promise(requestAnimationFrame)
+      })
+      const { violations } = await new AxeBuilder({ page })
+        .withRules(rules)
+        .analyze()
+      expect(
+        axeNodes(violations).map(({ id, target }) => `${id}: ${target}`),
+      ).toEqual([])
     })
-    const { violations } = await new AxeBuilder({ page })
-      .withRules(rules)
-      .analyze()
-    expect(
-      axeNodes(violations).map(({ id, target }) => `${id}: ${target}`),
-    ).toEqual([])
-  })
+  }
 }
 
 test("a11y-known-violations.json only lists pages that exist", () => {

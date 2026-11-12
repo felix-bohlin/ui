@@ -172,6 +172,12 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         </header>
 
         <ComponentShowcase />
+
+        <div class="hero-ctas">
+          <Button href={link("/components")} variant="outlined" color="primary">
+            Browse all {components.length} components
+          </Button>
+        </div>
       </section>
 
       <section class="sheet" aria-labelledby="blocks-heading">

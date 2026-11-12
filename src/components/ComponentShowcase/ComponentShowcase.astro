@@ -61,29 +61,46 @@ import {
 } from "opui-css/astro"
 import ShowcaseCards from "./ShowcaseCards.astro"
 import FrameworkPicker from "../FrameworkPicker.astro"
+
+type Props = {
+  label?: string
+  slugs?: string[]
+  wrap?: boolean
+}
+
+const { label = "Components", slugs, wrap } = Astro.props
+const Wrapper = wrap ? "ul" : Carousel
 ---
 
-<Carousel
-  aria-label="Components"
-  class="component-showcase component-showcase--hero showcase-grid"
+<Wrapper
+  aria-label={label}
+  class:list={[
+    "component-showcase",
+    wrap ? "showcase-list ui-not-rich-text" : "component-showcase--hero",
+  ]}
 >
   {Astro.slots.has("default") && <li class="component-showcase__intro">
     <slot />
   </li>}
 
   <ShowcaseCards
-    sizes={{
-      accordion: "wide",
-      callout: "wide",
-      card: "xl",
-      carousel: "wide",
-      dialog: "wide",
-      form: "wide",
-      list: "wide",
-      range: "wide",
-      table: "wide",
-      tabs: "wide",
-    }}
+    slugs={slugs}
+    sizes={
+      wrap
+        ? {
+            accordion: "wide",
+            callout: "wide",
+            card: "xl",
+            carousel: "wide",
+            dialog: "wide",
+            form: "wide",
+            list: "wide",
+            range: "wide",
+            table: "wide",
+            tabs: "wide",
+          }
+        : {}
+    }
   >
     <Fragment slot="accordion">
       <Accordion aria-hidden="true" inert variant="outlined">
@@ -532,14 +549,72 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       gap: var(--size-3);
       grid-auto-rows: minmax(180px, auto);
       margin-block: var(--size-8);
-
-      @media (width >= 900px) {
-        grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
-      }
     }
 
     .component-showcase--hero {
+      --_items-per-view: 1.15;
+
       margin-block: 0 var(--size-8);
+
+      @media (width < 900px) {
+        margin-inline: calc(var(--site-page-gutters) / -2);
+        padding-inline: calc(var(--site-page-gutters) / 2);
+        scroll-padding-inline: calc(var(--site-page-gutters) / 2);
+      }
+
+      @media (width >= 600px) {
+        --_items-per-view: 2.15;
+      }
+
+      @media (width >= 900px) {
+        --_items-per-view: 3.15;
+      }
+
+      @media (width >= 1140px) {
+        --_items-per-view: 4.15;
+      }
+    }
+
+    .showcase-list {
+      display: grid;
+      grid-auto-flow: row dense;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      list-style: none;
+      margin-block: var(--size-4) 0;
+      padding: 0;
+
+      .showcase-card,
+      .showcase-preview {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .showcase-preview {
+        & > * {
+          max-inline-size: 100%;
+        }
+
+        & select {
+          min-inline-size: 0;
+        }
+      }
+
+      @media (width < 600px) {
+        .showcase-card {
+          padding: var(--size-3);
+        }
+
+        .showcase-item:is(.ui-wide, .ui-xl) {
+          grid-column: span 2;
+        }
+
+        .showcase-preview {
+          zoom: 0.75;
+        }
+      }
+
+      @media (width >= 600px) {
+        grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
+      }
     }
 
     .component-showcase__intro {
@@ -713,13 +788,14 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       margin: 0;
     }
   </style>
-</Carousel>
+</Wrapper>
 
 <script is:inline>
   ;(function () {
     const themeSwitcher = document.getElementById("showcase-theme-switcher")
 
-    if (themeSwitcher) {
+    if (themeSwitcher && !themeSwitcher.dataset.bound) {
+      themeSwitcher.dataset.bound = "true"
       const syncTheme = () => {
         themeSwitcher.checked =
           document.documentElement.classList.contains("ui-dark")

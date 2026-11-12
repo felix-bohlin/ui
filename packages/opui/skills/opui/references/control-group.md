@@ -11,7 +11,7 @@ Related buttons and fields joined into one control, like a split button, a searc
 ### Parts
 
 - `.ui-control-group` (root): Container element.
-- `& > :is(.ui-number-field, .ui-select, .ui-text-field, .ui-textarea)` (`TextField`): A number field, select, text field or textarea. Its `.ui-field` joins the controls next to it.
+- `& > :is(.ui-number-field, .ui-select, .ui-text-field, .ui-textarea)` (`TextField`): A number field, select, text field or textarea (a textarea only in a vertical group). Its `.ui-field` joins the controls next to it.
 - `& > .ui-button` (`Button`): A button or button link.
 
 ### Props and modifiers

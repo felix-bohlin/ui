@@ -146,3 +146,61 @@ aside.sidebar {
     margin-block-start: 0;
   }
 }
+
+@media print {
+  body #document-page {
+    display: block;
+    padding-inline: var(--site-gap);
+
+    &::before {
+      display: none;
+    }
+  }
+
+  body #document-page > :is(.page-contents, .sidebar),
+  body .site-header .local-nav,
+  body .site-header > header :is(nav, .ui-actions),
+  body > footer :is(hr, nav),
+  #main-content
+    :is(
+      .block-link-thumbnail,
+      .code-copy,
+      .component-footer,
+      .guide-footer,
+      .show-code-button,
+      [data-table-toggle]
+    ) {
+    display: none;
+  }
+
+  #main-content :is(.block-link, .example-preview) {
+    break-inside: avoid;
+  }
+
+  #main-content .block-link {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #main-content .code-block code {
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+  }
+
+  #main-content .code-block .is-diff code {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #main-content .docs-table .scroll {
+    mask-image: none;
+  }
+
+  #main-content .docs-table[data-collapsed] tbody > tr {
+    display: table-row;
+  }
+
+  @container (width < 36rem) {
+    #main-content .docs-table[data-collapsed] tbody > tr {
+      display: block;
+    }
+  }
+}

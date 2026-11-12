@@ -96,6 +96,7 @@ const Wrapper = wrap ? "ul" : Carousel
             form: "wide",
             list: "wide",
             range: "wide",
+            stepper: "wide",
             table: "wide",
             tabs: "wide",
           }
@@ -578,7 +579,7 @@ const Wrapper = wrap ? "ul" : Carousel
     .showcase-list {
       display: grid;
       grid-auto-flow: row dense;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(min(14rem, 100%), 1fr));
       list-style: none;
       margin-block: var(--size-4) 0;
       padding: 0;
@@ -596,24 +597,6 @@ const Wrapper = wrap ? "ul" : Carousel
         & select {
           min-inline-size: 0;
         }
-      }
-
-      @media (width < 600px) {
-        .showcase-card {
-          padding: var(--size-3);
-        }
-
-        .showcase-item:is(.ui-wide, .ui-xl) {
-          grid-column: span 2;
-        }
-
-        .showcase-preview {
-          zoom: 0.75;
-        }
-      }
-
-      @media (width >= 600px) {
-        grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
       }
     }
 

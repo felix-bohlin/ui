@@ -299,6 +299,10 @@ import "../styles/global.css"
 ---
 ```
 
+### TypeScript
+
+`astro check` runs on TypeScript 6, not on 7. Keep `moduleResolution` set to `"bundler"`, as Astro's `tsconfig.json` presets do: with `"nodenext"`, the component props aren't checked.
+
 ### How to use
 
 Named slots take rich content, like `end-text`.
@@ -413,6 +417,10 @@ build: {
 ```
 
 Vite also prints warnings like `'scroll-button' is not recognized as a valid pseudo-element` for the Carousel, even without one on the page. They're harmless: the rules stay in the output.
+
+### TypeScript
+
+The types work with TypeScript 6 and 7, with `moduleResolution` set to `"bundler"` or `"nodenext"`.
 
 ### How to use
 
@@ -577,6 +585,14 @@ Same code as in the HTML section.
 ```
 
 ### Builds
+
+### TypeScript
+
+The types resolve with `moduleResolution` set to `"bundler"` or `"nodenext"`. `svelte-check` 4.7 runs on TypeScript 6. For TypeScript 7, install it next to TypeScript 6 and run `svelte-check --tsgo`:
+
+```sh
+npm install -D typescript@6 @typescript/native@npm:typescript@7
+```
 
 The types need `skipLibCheck: true` in `tsconfig.json`, as the Svelte and SvelteKit templates set it. Without it, `svelte-check` reports a union type that is too complex to represent.
 
@@ -761,6 +777,10 @@ import "./styles/main.css"
 ```
 
 ### Builds
+
+### TypeScript
+
+Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` files: vue-tsc 3.3 runs on TypeScript 6, not on 7. The types resolve with `moduleResolution` set to `"bundler"` or `"nodenext"`.
 
 ### How to use
 

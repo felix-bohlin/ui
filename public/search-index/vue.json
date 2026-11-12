@@ -3769,6 +3769,13 @@
     "url": "/vue/guide/getting-started/#builds"
   },
   {
+    "id": "guide-getting-started-vue-typescript",
+    "title": "TypeScript",
+    "page": "Getting started",
+    "category": "Guide",
+    "url": "/vue/guide/getting-started/#typescript"
+  },
+  {
     "id": "guide-getting-started-vue-usage",
     "title": "How to use",
     "page": "Getting started",

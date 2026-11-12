@@ -6,7 +6,12 @@ const code = `.ui-card {
 
 export default function CodeBlock() {
   return (
-    <pre className="ui-code-block">
+    <pre
+      aria-label="Card styles"
+      className="ui-code-block"
+      role="region"
+      tabIndex={0}
+    >
       <code>{code}</code>
     </pre>
   )

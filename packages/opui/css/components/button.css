@@ -446,6 +446,10 @@
       --_bg-color: var(--_accent-fill);
       --_text-color: var(--_on-accent-fill);
 
+      @media print {
+        print-color-adjust: exact;
+      }
+
       &:where(:not(:disabled, [aria-disabled="true"])) {
         @media (hover: hover) {
           &:where(:not(:active):hover) {

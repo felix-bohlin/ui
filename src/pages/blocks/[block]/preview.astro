@@ -16,6 +16,14 @@ export function getStaticPaths() {
 const { block } = Astro.props
 const fullPage = isFullPage(block.source)
 const label = `${block.name} preview`
+const mainAt = block.source.search(/<main\b/)
+const fullPageSource = fullPage
+  ? `${block.source
+      .slice(0, mainAt)
+      .replace(/<header\b/, `<header aria-label="${label}"`)}${block.source
+      .slice(mainAt)
+      .replace(/<main\b/, `<main aria-label="${label}"`)}`
+  : block.source
 const themes = testPagesEnabled()
   ? Object.fromEntries(
       Object.entries(
@@ -86,12 +94,7 @@ const themes = testPagesEnabled()
   <body>
     {fullPage ? (
       <div class="block-preview" data-block={block.slug}>
-        <Fragment
-          set:html={block.source.replace(
-            /<main\b/,
-            `<main aria-label="${label}"`,
-          )}
-        />
+        <Fragment set:html={fullPageSource} />
       </div>
     ) : (
       <main aria-label={label} class="block-preview" data-block={block.slug}>

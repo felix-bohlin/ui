@@ -151,6 +151,10 @@
       background-color: CanvasText;
       forced-color-adjust: none;
     }
+
+    @media print {
+      print-color-adjust: exact;
+    }
   }
 
   /* Inline text elements - class utilities */
@@ -189,6 +193,10 @@
     overflow-wrap: anywhere;
     padding-block: calc(0.1ex + var(--ui-border-width));
     padding-inline: calc(0.3ex + var(--ui-border-width));
+
+    @media print {
+      print-color-adjust: exact;
+    }
   }
 
   :where(.ui-mark) {
@@ -264,6 +272,11 @@
       padding-block: var(--ui-space-3);
       padding-inline: var(--ui-space-4);
       white-space: pre;
+
+      @media print {
+        overflow-wrap: anywhere;
+        white-space: pre-wrap;
+      }
 
       > :is(code, samp) {
         background: none;
@@ -799,6 +812,10 @@
       color: var(--ui-on-inverse);
       padding-block: calc(0.1ex + var(--ui-border-width));
       padding-inline: calc(0.3ex + var(--ui-border-width));
+
+      @media print {
+        print-color-adjust: exact;
+      }
     }
 
     :not(pre) > code,

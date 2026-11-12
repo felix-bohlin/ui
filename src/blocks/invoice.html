@@ -66,6 +66,16 @@
     .invoice-footer {
       text-align: center;
     }
+
+    @media print {
+      .invoice-toolbar {
+        display: none;
+      }
+
+      .invoice-sheet :is(section, .ui-callout) {
+        break-inside: avoid;
+      }
+    }
   }
 </style>
 
@@ -73,7 +83,7 @@
   class="invoice ui-layout-container ui-layout-column ui-large"
   style="--_max-inline-size: 58rem"
 >
-  <div class="ui-layout-row ui-small ui-spread">
+  <div class="ui-layout-row ui-small ui-spread invoice-toolbar">
     <a class="ui-button ui-small" href="#invoice-all"
       ><svg
         aria-hidden="true"

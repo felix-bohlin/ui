@@ -39,6 +39,10 @@
     -webkit-user-select: none;
     user-select: none;
 
+    @media print {
+      print-color-adjust: exact;
+    }
+
     & :is(input[type="checkbox"], input[type="radio"]) {
       block-size: 1lh;
       clip-path: inset(50%);

@@ -35,6 +35,10 @@
       color var(--_duration) var(--_ease),
       scale var(--_duration) var(--ui-ease-move, var(--_ease));
 
+    @media print {
+      print-color-adjust: exact;
+    }
+
     &:not(.ui-multiline) > .ui-text {
       min-inline-size: 0;
       overflow: hidden;

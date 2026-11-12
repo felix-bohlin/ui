@@ -467,6 +467,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `theme.css` named colors use the Open Props hue angles: `--ui-blue` is `240`, `--ui-green` `145`, `--ui-orange` `75` and `--ui-red` `25`, like the severity scopes. `--ui-info` and `--ui-blue` use `240`, the same blue as the `.ui-info` palette. White text on an info `Badge` is 4.58:1.
 - `theme.css` is in the `theme.base` layer instead of `theme`, so overrides in `@layer theme` or `@layer theme.custom` beat the defaults wherever they load.
 - `theme.css` control and chip sizes are in `rem` (`1.75rem`, `2rem`, `2.5rem` and `3rem`, and `1.5rem` for the x-small chip) instead of `px`, like the choice, switch and icon sizes, so the whole size scale follows the root font size. At the default 16px the sizes are the same, except `--ui-control-size-large`, which is 48px instead of 46px, so large buttons, fields, toggles and selects grow by 2px.
+- `theme.css` prints the light scheme: in print, `html`, `.ui-light` and `.ui-dark` set `--ui-color-scheme` and `color-scheme` to `light`, so a page shown in dark mode, by `.ui-dark` or by the OS preference, prints dark text on white paper instead of the dark scheme's pale text.
 
 ### Fixed
 

@@ -214,6 +214,16 @@
     }
   }
 
+  @media print {
+    :where(html),
+    .ui-light,
+    .ui-dark {
+      --ui-color-scheme: light;
+
+      color-scheme: light;
+    }
+  }
+
   /* Derived tokens. Formulas of the knobs, computed again on every scope element. */
   :where(html, .ui-palette, .ui-contrast-more) {
     /* Borders */

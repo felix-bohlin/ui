@@ -158,6 +158,30 @@ describe("theme tokens", () => {
     expect(find("--ui-radius")).toBeDefined()
   })
 
+  test("the parser skips print-only values", () => {
+    const parsed = parseThemeTokens(`@layer theme.base {
+  :where(html) {
+    /* Color scheme */
+    --x-scheme: light;
+  }
+
+  :where(html.ui-dark) {
+    --x-scheme: dark;
+  }
+
+  @media print {
+    :where(html),
+    .ui-dark {
+      --x-scheme: print;
+    }
+  }
+}
+`)
+    expect(parsed.flatMap(({ tokens }) => tokens)).toEqual([
+      { dark: "dark", name: "--x-scheme", value: "light" },
+    ])
+  })
+
   test("the parser reads light, dark, more-contrast and optional values", () => {
     const parsed = parseThemeTokens(`@layer theme.base {
   :where(html) {

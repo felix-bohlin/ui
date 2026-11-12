@@ -477,6 +477,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Accordion` group styles only apply to a `Card` with `role="group"` whose accordions are direct children, and to their own `summary`, so a card with an accordion inside its `CardContent` keeps its layout and padding, and an accordion nested in the first or last item keeps its own corners and focus ring.
 - `Accordion` summaries with a marker let their items shrink and cut off with an ellipsis, so a badge, a chip or a long word no longer pushes the marker out.
 - `Accordion` actions keep room for the focus ring, so the last button's ring isn't clipped in a transparent group.
+- `Accordion`, `Callout`, `Card` and `Dialog` keep together on one page in print (`break-inside: avoid`), so a printed card or callout no longer starts on one page and ends on the next. One taller than the page still breaks.
 - `Anchor` with `trigger="hover"` and `Tooltip` stay visible on a scrolled page in Chrome 141. `normalize.css` gives `html` `min-block-size: 100%` instead of `block-size: 100%`, and `body` `min-block-size: 100svb` instead of `100%`, because `position-visibility: anchors-visible` hid every popover whose trigger was below the first screen.
 - `Anchor` and `Badge` render a user `id` on the root. With `trigger="hover"` it stays the floating element's id.
 - `Anchor`, `Badge`, `Divider`, `Drawer`, `TableColumn`, `Tabs`, `ToggleButton` and `ToggleGroup` in Vue update derived values when props change.

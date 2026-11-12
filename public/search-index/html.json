@@ -2156,13 +2156,6 @@
     "url": "/html/components/select/#auto-fit"
   },
   {
-    "id": "component-select-html-fallback",
-    "title": "Fallback",
-    "page": "Select",
-    "category": "Component",
-    "url": "/html/components/select/#fallback"
-  },
-  {
     "id": "component-select-html-keyboard-support",
     "title": "Keyboard support",
     "page": "Select",
@@ -3353,6 +3346,13 @@
     "page": "Browser support",
     "category": "Guide",
     "url": "/html/guide/browser-support/#policy"
+  },
+  {
+    "id": "guide-browser-support-html-shared-features",
+    "title": "Shared features",
+    "page": "Browser support",
+    "category": "Guide",
+    "url": "/html/guide/browser-support/#shared-features"
   },
   {
     "id": "guide-browser-support-html-compat",

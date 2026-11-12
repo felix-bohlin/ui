@@ -2156,13 +2156,6 @@
     "url": "/react/components/select/#auto-fit"
   },
   {
-    "id": "component-select-react-fallback",
-    "title": "Fallback",
-    "page": "Select",
-    "category": "Component",
-    "url": "/react/components/select/#fallback"
-  },
-  {
     "id": "component-select-react-keyboard-support",
     "title": "Keyboard support",
     "page": "Select",
@@ -3353,6 +3346,13 @@
     "page": "Browser support",
     "category": "Guide",
     "url": "/react/guide/browser-support/#policy"
+  },
+  {
+    "id": "guide-browser-support-react-shared-features",
+    "title": "Shared features",
+    "page": "Browser support",
+    "category": "Guide",
+    "url": "/react/guide/browser-support/#shared-features"
   },
   {
     "id": "guide-browser-support-react-compat",

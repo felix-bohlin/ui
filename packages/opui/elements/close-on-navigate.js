@@ -6,7 +6,7 @@ const overlays = (event) => {
   if (event.defaultPrevented || event.downloadRequest != null) return []
   const open = [...document.querySelectorAll(OVERLAYS)]
   const inPlace =
-    event.hashChange ||
+    (event.hashChange && event.navigationType !== "traverse") ||
     (event.navigationType === "replace" &&
       new URL(event.destination.url).pathname === location.pathname)
   if (!inPlace) return open

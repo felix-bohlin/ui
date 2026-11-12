@@ -740,8 +740,8 @@ export const GROUPS: ControlGroup[] = [
       },
       {
         display: "unit",
-        fallback: FOLLOW_RADIUS,
-        follows: "Follows corners",
+        fallback: "var(--ui-popover-radius, var(--ui-radius))",
+        follows: "Follows popover corners",
         id: "menu-radius",
         kind: "range",
         label: "Menu corners",

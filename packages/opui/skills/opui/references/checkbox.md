@@ -118,6 +118,7 @@ Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration`, `--
 - `--_scroll-shadow`: Shadow at the edges of a dialog's, drawer's or popover's `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
 - `--_surface-bg-color`: Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-surface`.
 - `--_title-font-size`: Font size of a dialog's, drawer's or popover's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`, and to `--ui-font-size-h6` in a popover.
+- `--_title-letter-spacing`: Letter spacing of a dialog's, drawer's or popover's title. Defaults to `--ui-letter-spacing-heading`, and to `normal` in a popover.
 - `--_tonal-bg-color`: Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`.
 
 Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor`, `--_duration`, `--_orientation` and `--_shadow`.

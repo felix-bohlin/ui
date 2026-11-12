@@ -90,7 +90,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_border-width`: The border width. Defaults to `--ui-border-width`.
 - `--_max-block-size`: Maximum height.
 - `--_max-inline-size`: Maximum width of a `.ui-popover`, capped to fit the viewport. Defaults to `24rem`.
-- `--_min-block-size`: Height the popover keeps when space is tight, unless its content is shorter. Needs `calc-size()`.
+- `--_min-block-size`: Height the popover keeps when space is tight, unless its content is shorter. In a `.ui-popover` with content, the child that scrolls on its own keeps half of it. Needs `calc-size()`.
 - `--_min-inline-size`: Minimum width of a `.ui-popover`, capped to fit the viewport. Defaults to `16rem`, so a popover too wide for the space on its side moves below or above its trigger instead of shrinking.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
 - `--_offset`: Gap between the popover and its invoker.
@@ -117,6 +117,7 @@ Outputs: `--_duration`, `--_ease`, `--_ease-move`, `--_fit-max-block-size`, `--_
 - `--_scroll-shadow`: Shadow at the edges of a dialog's, drawer's or popover's `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
 - `--_surface-bg-color`: Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-surface`.
 - `--_title-font-size`: Font size of a dialog's, drawer's or popover's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`, and to `--ui-font-size-h6` in a popover.
+- `--_title-letter-spacing`: Letter spacing of a dialog's, drawer's or popover's title. Defaults to `--ui-letter-spacing-heading`, and to `normal` in a popover.
 - `--_tonal-bg-color`: Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`.
 
 Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor`, `--_duration`, `--_orientation` and `--_shadow`.

@@ -24,6 +24,7 @@
 
     :where(.ui-popover):has(> .ui-content):not(
         :has(
+          > .ui-footer,
           > :not(
             .ui-content,
             .ui-divider,

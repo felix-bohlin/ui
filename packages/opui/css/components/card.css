@@ -339,6 +339,7 @@
     --_footer-gap: var(--ui-space-2);
     --_scroll-shadow: var(--ui-shadow-scroll);
     --_title-font-size: var(--ui-font-size-h4);
+    --_title-letter-spacing: var(--ui-letter-spacing-heading);
 
     &:where(.ui-drawer) {
       --_content-anchor: --ui-drawer-content;
@@ -347,6 +348,7 @@
     &:where(.ui-popover) {
       --_content-anchor: --ui-popover-content;
       --_title-font-size: var(--ui-font-size-h6);
+      --_title-letter-spacing: normal;
     }
 
     & > .ui-header {
@@ -359,7 +361,7 @@
         color: var(--ui-text-strong);
         flex: 1;
         font-size: var(--_title-font-size);
-        letter-spacing: var(--ui-letter-spacing-heading);
+        letter-spacing: var(--_title-letter-spacing);
         line-height: round(
           up,
           1em + 2 * var(--ui-rhythm-step),
@@ -426,7 +428,7 @@
       }
     }
 
-    &:where(.ui-dialog, .ui-popover):has(
+    &:where(.ui-popover):has(
         > :not(
           .ui-content,
           .ui-divider,

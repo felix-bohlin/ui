@@ -29,14 +29,14 @@ const cases = [
   },
   { file: "Drawer/DrawerHeader", props: {}, slots: ["close-icon"] },
   {
-    file: "Popover/PopoverHeader",
-    props: { closeLabel: "Close" },
-    slots: ["close-icon"],
-  },
-  {
     file: "NumberField/NumberField",
     props: { label: "Quantity" },
     slots: ["decrease-icon", "increase-icon"],
+  },
+  {
+    file: "Popover/PopoverHeader",
+    props: { closeLabel: "Close" },
+    slots: ["close-icon"],
   },
   {
     file: "TextField/TextField",

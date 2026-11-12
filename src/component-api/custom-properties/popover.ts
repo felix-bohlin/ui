@@ -56,7 +56,7 @@ export default {
   },
   "--_min-block-size": {
     description:
-      "Height the popover keeps when space is tight, unless its content is shorter. Needs `calc-size()`.",
+      "Height the popover keeps when space is tight, unless its content is shorter. In a `.ui-popover` with content, the child that scrolls on its own keeps half of it. Needs `calc-size()`.",
     kind: "input",
   },
   "--_min-inline-size": {

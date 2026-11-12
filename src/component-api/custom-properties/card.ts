@@ -109,6 +109,11 @@ export default {
       "Font size of a dialog's, drawer's or popover's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`, and to `--ui-font-size-h6` in a popover.",
     kind: "input",
   },
+  "--_title-letter-spacing": {
+    description:
+      "Letter spacing of a dialog's, drawer's or popover's title. Defaults to `--ui-letter-spacing-heading`, and to `normal` in a popover.",
+    kind: "input",
+  },
   "--_tonal-bg-color": {
     description: "Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`.",
     kind: "input",

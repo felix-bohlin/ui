@@ -81,6 +81,7 @@ test("a navigation to another page closes the open overlays", () => {
   expect(closed("push", "/feed?tab=2")).toEqual(ALL)
   expect(closed("replace", "/elsewhere")).toEqual(ALL)
   expect(closed("traverse", "/feed")).toEqual(ALL)
+  expect(closed("traverse", "/feed#s-42", { hashChange: true })).toEqual(ALL)
   expect(closed("reload", "/feed")).toEqual(ALL)
 })
 
@@ -88,7 +89,6 @@ test("an update of the URL in place keeps them open", () => {
   expect(closed("replace", "/feed?sort=new")).toEqual([])
   expect(closed("replace", "/feed?pages=2")).toEqual([])
   expect(closed("push", "/feed#s-42", { hashChange: true })).toEqual([])
-  expect(closed("traverse", "/feed#s-42", { hashChange: true })).toEqual([])
 })
 
 test("a link that stays on the page closes the overlays it sits in, and no other", () => {

@@ -72,7 +72,7 @@ Outputs: `--_font-size`, `--_icon-size`, `--_item-duration`, `--_selected-shadow
 - `--_border-width`: The border width. Defaults to `--ui-border-width`.
 - `--_max-block-size`: Maximum height.
 - `--_max-inline-size`: Maximum width of a `.ui-popover`, capped to fit the viewport. Defaults to `24rem`.
-- `--_min-block-size`: Height the popover keeps when space is tight, unless its content is shorter. Needs `calc-size()`.
+- `--_min-block-size`: Height the popover keeps when space is tight, unless its content is shorter. In a `.ui-popover` with content, the child that scrolls on its own keeps half of it. Needs `calc-size()`.
 - `--_min-inline-size`: Minimum width of a `.ui-popover`, capped to fit the viewport. Defaults to `16rem`, so a popover too wide for the space on its side moves below or above its trigger instead of shrinking.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
 - `--_offset`: Gap between the popover and its invoker.

@@ -3,7 +3,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Menu",
-  css: ["list", "popover", "menu"],
+  css: ["list", "menu", "popover"],
   keyboard: [
     {
       description:

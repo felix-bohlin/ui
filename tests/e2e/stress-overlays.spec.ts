@@ -169,6 +169,30 @@ test("a popover without a footer can't scroll itself", async ({ page }) => {
   ).toBe(0)
 })
 
+test("a dialog with a footer scrolls to it when its header and footer don't fit", async ({
+  page,
+}) => {
+  await openFixture(page, "html", "stress/overlays")
+  await run(page, { open: "long-dialog" })
+  await page.setViewportSize({ height: 120, width: 320 })
+  const reach = await page.locator(id("long-dialog")).evaluate((dialog) => {
+    const footer = dialog.querySelector(":scope > .ui-footer")!
+    const header = dialog.querySelector(":scope > .ui-header")!
+    const tooTall =
+      header.getBoundingClientRect().height +
+        footer.getBoundingClientRect().height >
+      dialog.clientHeight
+    dialog.scrollTop = dialog.scrollHeight
+    return {
+      footerInside:
+        footer.getBoundingClientRect().bottom <=
+        dialog.getBoundingClientRect().bottom + 1,
+      tooTall,
+    }
+  })
+  expect(reach).toEqual({ footerInside: true, tooTall: true })
+})
+
 for (const name of ["popover-list", "popover-content-list"]) {
   test(`a list between the header and footer of ${name} scrolls on its own`, async ({
     page,
@@ -201,6 +225,47 @@ for (const name of ["popover-list", "popover-content-list"]) {
     })
   })
 }
+
+test("a list or an image beside content taller than the popover keeps a height, and the popover scrolls to its footer", async ({
+  page,
+}) => {
+  await openFixture(page, "html", "stress/overlays")
+  await needs(page, "calc-size()", () =>
+    CSS.supports("min-block-size: calc-size(fit-content, size)"),
+  )
+  await run(page, { open: "popover-content-list" })
+  const sizes = await page
+    .locator(id("popover-content-list"))
+    .evaluate((popover) => {
+      const content = popover.querySelector(":scope > .ui-content")!
+      const footer = popover.querySelector(":scope > .ui-footer")!
+      const list = popover.querySelector(":scope > .ui-list")!
+      for (let index = 0; index < 40; index++) {
+        const paragraph = document.createElement("p")
+        paragraph.textContent = "Older conversations are kept for a year."
+        content.append(paragraph)
+      }
+      const contentCut = content.scrollHeight > content.clientHeight
+      popover.scrollTop = popover.scrollHeight
+      const footerInside =
+        footer.getBoundingClientRect().bottom <=
+        popover.getBoundingClientRect().bottom + 1
+      const listHeight = list.clientHeight
+      const image = document.createElement("canvas")
+      image.height = 150
+      list.replaceWith(image)
+      return {
+        contentCut,
+        footerInside,
+        image: image.getBoundingClientRect().height,
+        list: listHeight,
+      }
+    })
+  expect(sizes.contentCut).toBe(false)
+  expect(sizes.footerInside).toBe(true)
+  expect(sizes.image).toBeGreaterThanOrEqual(150)
+  expect(sizes.list).toBeGreaterThan(80)
+})
 
 test("the content fills a popover with a set height, so its footer stays at the bottom", async ({
   page,

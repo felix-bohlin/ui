@@ -132,6 +132,7 @@
 
     &:has(> .ui-content):not(
         :has(
+          > .ui-footer,
           > :not(
             .ui-content,
             .ui-divider,
@@ -171,16 +172,25 @@
       min-block-size: 0;
       overflow-block: auto;
       overscroll-behavior: contain;
+
+      @supports (min-block-size: calc-size(fit-content, size)) {
+        :where(.ui-popover:has(> .ui-content)) > & {
+          min-block-size: calc-size(
+            fit-content,
+            min(size, var(--_min-block-size) / 2)
+          );
+        }
+      }
+    }
+
+    & > :where(canvas, iframe, img, picture, svg, video) {
+      flex-shrink: 0;
     }
 
     & > .ui-header {
       flex-shrink: 0;
       padding-block: var(--_padding) 0;
       padding-inline: var(--_padding);
-
-      & > :where(h1, h2, h3, h4, h5, h6) {
-        letter-spacing: normal;
-      }
     }
 
     & > .ui-content {

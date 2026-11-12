@@ -2,7 +2,7 @@
 
 A popover list of actions or links.
 
-- CSS: `opui-css/css/components/list.css` and `opui-css/css/components/menu.css`.
+- CSS: `opui-css/css/components/list.css`, `opui-css/css/components/popover.css` and `opui-css/css/components/menu.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/menu.md), [Astro](https://open-props-ui.netlify.app/astro/components/menu.md), [React](https://open-props-ui.netlify.app/react/components/menu.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/menu.md), [Vue](https://open-props-ui.netlify.app/vue/components/menu.md).
 
 ## Menu
@@ -65,25 +65,35 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 Outputs: `--_font-size`, `--_icon-size`, `--_item-duration`, `--_selected-shadow` and `--_size`.
 
-### menu.css
+### popover.css
 
-- `--_bg-color`: The background. Defaults to `--ui-surface-elevated`.
+- `--_bg-color`: The background. Defaults to `--ui-surface-elevated`, which `Menu` sets again over `list.css`.
 - `--_border-color`: The edge color. `--ui-border-color-raised` when a theme sets it, otherwise `--ui-border-color-on-raised`.
 - `--_border-width`: The border width. Defaults to `--ui-border-width`.
-- `--_divider-border-color`: Color of the item separators. Defaults to `--ui-border-color-on-raised`.
 - `--_max-block-size`: Maximum height.
-- `--_min-block-size`: Height a popover menu keeps when space is tight, unless its content is shorter. Needs `calc-size()`.
-- `--_min-inline-size`: Minimum width. A popover menu is also at least as wide as its invoker.
+- `--_max-inline-size`: Maximum width of a `.ui-popover`, capped to fit the viewport. Defaults to `24rem`.
+- `--_min-block-size`: Height the popover keeps when space is tight, unless its content is shorter. In a `.ui-popover` with content, the child that scrolls on its own keeps half of it. Needs `calc-size()`.
+- `--_min-inline-size`: Minimum width of a `.ui-popover`, capped to fit the viewport. Defaults to `16rem`, so a popover too wide for the space on its side moves below or above its trigger instead of shrinking.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
-- `--_offset`: Gap between a popover menu and its invoker.
-- `--_radius`: The corner radius. Defaults to `--ui-menu-radius`, or `--ui-radius` when the theme doesn't set it.
+- `--_offset`: Gap between the popover and its invoker.
+- `--_padding`: Padding of the header, content and footer of a `.ui-popover`. Defaults to `--ui-space-3`.
+- `--_radius`: The corner radius. Defaults to `--ui-popover-radius`, or `--ui-radius` when the theme doesn't set it. `Menu` reads `--ui-menu-radius` first.
 - `--_shadow`: The shadow. Defaults to `--ui-shadow-overlay`.
 
-Outputs: `--_duration`, `--_ease`, `--_ease-move`, `--_fit-max-block-size`, `--_hover-bg-color`, `--_margin-block`, `--_margin-inline`, `--_position-area`, `--_side` and `--_span`.
+Outputs: `--_duration`, `--_ease`, `--_ease-move`, `--_fit-max-block-size`, `--_margin-block`, `--_margin-inline`, `--_position-area`, `--_side` and `--_span`.
+
+### menu.css
+
+- `--_bg-color`: The background. Defaults to `--ui-surface-elevated`, like `Popover`, set again here over `list.css`.
+- `--_divider-border-color`: Color of the item separators. Defaults to `--ui-border-color-on-raised`.
+- `--_min-inline-size`: Minimum width. A popover menu is also at least as wide as its invoker.
+- `--_radius`: The corner radius. Defaults to `--ui-menu-radius`, then `--ui-popover-radius`, or `--ui-radius` when the theme sets neither.
+
+Outputs: `--_hover-bg-color`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-choice-size-small`, `--ui-control-size`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-duration-fast`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-field-border-color-on-filled`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-inset`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-line-height`, `--ui-list-item-padding-inline`, `--ui-menu-radius`, `--ui-motion`, `--ui-on-selected`, `--ui-palette-accent`, `--ui-palette-text`, `--ui-primary`, `--ui-radius`, `--ui-selected`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-state-hover-alpha-accent`, `--ui-state-selected-alpha-accent`, `--ui-surface-elevated`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-switch-thumb-size-small`, `--ui-switch-track-block-size-small`, `--ui-switch-track-inline-size-small`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-choice-size-small`, `--ui-control-size`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-duration-fast`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-field-border-color-on-filled`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-inset`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-line-height`, `--ui-list-item-padding-inline`, `--ui-menu-radius`, `--ui-motion`, `--ui-on-selected`, `--ui-palette-accent`, `--ui-palette-text`, `--ui-popover-radius`, `--ui-primary`, `--ui-radius`, `--ui-selected`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-state-hover-alpha-accent`, `--ui-state-selected-alpha-accent`, `--ui-surface-elevated`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-switch-thumb-size-small`, `--ui-switch-track-block-size-small`, `--ui-switch-track-inline-size-small`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

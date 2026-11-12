@@ -37,7 +37,8 @@
     --ui-radius-round: 1e5px;
     /* --ui-chip-radius: var(--ui-radius); */
     /* --ui-dialog-radius: var(--ui-radius); */
-    /* --ui-menu-radius: var(--ui-radius); */
+    /* --ui-menu-radius: var(--ui-popover-radius); */
+    /* --ui-popover-radius: var(--ui-radius); */
 
     /* Focus ring */
     /* --ui-focus-border-width: 4px; */

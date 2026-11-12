@@ -28,6 +28,7 @@ export const GALLERY: GalleryEntry[] = [
         "--ui-gray-hue": "55",
         "--ui-menu-radius": "var(--ui-radius)",
         "--ui-palette-source": "oklch(0.6 0.14 45)",
+        "--ui-popover-radius": "var(--ui-radius)",
         "--ui-primary-source":
           "light-dark(oklch(0.6 0.14 45), oklch(0.72 0.14 45))",
         "--ui-radius": "1rem",

@@ -1,0 +1,46 @@
+@layer components.compat {
+  @supports not (overflow-block: auto) {
+    :where(.ui-popover, .ui-popover > .ui-content),
+    :where(.ui-popover):has(> .ui-header, > .ui-footer)
+      > :where(
+        :nth-last-child(
+          1 of :not(
+            .ui-content,
+            .ui-divider,
+            .ui-footer,
+            .ui-header,
+            [hidden],
+            [popover],
+            [type="hidden"],
+            dialog,
+            script,
+            style,
+            template
+          )
+        )
+      ) {
+      overflow-y: auto;
+    }
+
+    :where(.ui-popover):has(> .ui-content):not(
+        :has(
+          > .ui-footer,
+          > :not(
+            .ui-content,
+            .ui-divider,
+            .ui-footer,
+            .ui-header,
+            [hidden],
+            [popover],
+            [type="hidden"],
+            dialog,
+            script,
+            style,
+            template
+          )
+        )
+      ) {
+      overflow-y: clip;
+    }
+  }
+}

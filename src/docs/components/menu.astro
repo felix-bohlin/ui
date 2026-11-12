@@ -11,6 +11,7 @@ import MenuBuild from "../../components/UnderTheHood/MenuBuild.astro"
 import { ListItem as UIListItem, Menu as UIMenu } from "opui-css/astro"
 import ListCSS from "@opui/css/components/list.css?raw"
 import MenuCSS from "@opui/css/components/menu.css?raw"
+import PopoverCSS from "@opui/css/components/popover.css?raw"
 
 import menuApi from "../../component-api/menu/api"
 
@@ -50,6 +51,7 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
   ]}
   installationTabs={[
     { title: "list.css", code: ListCSS, lang: "css", isDependency: true },
+    { title: "popover.css", code: PopoverCSS, lang: "css", isDependency: true },
     { title: "menu.css", code: MenuCSS, lang: "css" },
   ]}
 >
@@ -117,8 +119,7 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
       <DocLink href="/components/button">Buttons</DocLink>.
     </li>
     <li slot="when-not">
-      Rich content: use an <DocLink href="/components/anchor">Anchor</DocLink>
-      or a <DocLink href="/components/dialog">Dialog</DocLink>.
+      Rich content: use a <DocLink href="/components/popover">Popover</DocLink>.
     </li>
   </Usage>
 
@@ -135,7 +136,8 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
     <Conditional as="p">
       <Fragment slot="components">
         An open menu closes when the page navigates, also with a client router,
-        so a link item never leaves it open over the next page.
+        so a link item never leaves it open over the next page. A replaced query
+        on the same path keeps it open.
       </Fragment>
       <Fragment slot="html">
         Import <code>opui-css/elements/close-on-navigate.js</code> to close an

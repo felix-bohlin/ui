@@ -560,7 +560,7 @@ The components without a block, and why:
 - `Accordion`: every variant border is real, including the elevated and tonal edge, which the browser forces to `CanvasText`.
 - `Anchor`, `Copy`, `SelectAll`: layout only, no boundary or state of their own. The `Copy` label is a bordered surface, which the browser forces to `CanvasText`, next to its announcement.
 - `DescriptionList`, `Form`, `Layout`: the browser forces their lines and colors itself. The `DescriptionList` leaders and total line are real borders and the `Layout` `.ui-divided` lines are column and row rules, both forced to `CanvasText`. The invalid end text of a `Form` fieldset loses its color, while the invalid controls inside keep their dashed border.
-- `Badge`, `Callout`, `Dialog`, `Drawer`, `Menu`, `Table`: every boundary is a real border, which the browser forces to `CanvasText`.
+- `Badge`, `Callout`, `Dialog`, `Drawer`, `Menu`, `Popover`, `Table`: every boundary is a real border, which the browser forces to `CanvasText`.
 - `Link`: text and underlines, forced to `LinkText` and `CanvasText`.
 - `Stat`: text only, no boundary or state.
 - `NumberField`: `number-field.css` only centers the value and hides the spin buttons; `text-field.css` and `button.css` cover the field and the buttons.
@@ -586,7 +586,7 @@ When a component gains a shadow-only edge or a color-only state, it gets a block
 
 `css/components.css` imports every component stylesheet in one of three groups, named by the layer the files declare, and `tests/unit/layers.test.ts` checks each file against its group:
 
-- **Root components** declare `components.root`: base rules shared by several roots (`card.css` for `.ui-accordion`, `.ui-card` and `.ui-dialog`, and the parts of `.ui-dialog` and `.ui-drawer`, `anchor.css` for `.ui-anchor` and `.ui-tooltip`, `choice.css` for the checkbox, radio and switch) and per-component rules, none of which has to beat another component's rules on the same element. `typography.css` also declares `components.prose`, the classless rich text below every component.
+- **Root components** declare `components.root`: base rules shared by several roots (`card.css` for `.ui-accordion`, `.ui-card` and `.ui-dialog`, and the parts of `.ui-dialog`, `.ui-drawer` and `.ui-popover`, `anchor.css` for `.ui-anchor` and `.ui-tooltip`, `choice.css` for the checkbox, radio and switch, `popover.css` for `.ui-menu` and `.ui-popover`) and per-component rules, none of which has to beat another component's rules on the same element. `typography.css` also declares `components.prose`, the classless rich text below every component.
 - **Extended components** declare `components.extended` for the rules that must beat another component's rules on the same element (a `Dialog` on top of `card.css`, a `Tooltip` on top of `anchor.css`, a `Menu` or `Select` over `list.css` and `text-field.css`), and `components.root` for rules that must not (the dense `List` sizes for a `Checkbox`, which an explicit size class on the checkbox has to beat).
 - **Utilities** declare `utils`: `layout.css`, whose classes beat every component, like `core/utils.css`.
 

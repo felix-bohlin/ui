@@ -84,6 +84,7 @@ const OWNERS = [
   "ui-dialog",
   "ui-drawer",
   "ui-number-field",
+  "ui-popover",
   "ui-range",
   "ui-select",
   "ui-text-field",

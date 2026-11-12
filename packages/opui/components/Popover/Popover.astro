@@ -1,0 +1,46 @@
+---
+import type { Props } from "./types.astro"
+import { warnMissingId } from "../dev"
+import { autoLabelledBy, createIds } from "../id"
+import { popoverContext } from "./context.astro"
+
+export const title = "Popover"
+
+const {
+  align,
+  class: className,
+  closeOnNavigate,
+  id,
+  popover = "auto",
+  side,
+  ...rest
+} = Astro.props
+
+warnMissingId("Popover", id)
+const titleId = createIds(Astro.locals, "popover", id)("title")
+const labelledBy = autoLabelledBy(rest, titleId)
+const html = await popoverContext.provide({ id, titleId: labelledBy }, () =>
+  Astro.slots.render("default"),
+)
+---
+
+<div
+  aria-labelledby={labelledBy}
+  class:list={[
+    "ui-popover",
+    { "ui-align-end": align === "end" },
+    side && side !== "block-end" && `ui-${side}`,
+    className,
+  ]}
+  data-close-on-navigate={closeOnNavigate ? "" : undefined}
+  id={id}
+  popover={popover === "auto" ? "" : popover}
+  role="dialog"
+  {...rest}
+>
+  <Fragment set:html={html} />
+</div>
+
+<script>
+  import "../../elements/close-on-navigate.js"
+</script>

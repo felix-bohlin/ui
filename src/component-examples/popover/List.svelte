@@ -1,0 +1,40 @@
+<script lang="ts">
+  import {
+    Button,
+    List,
+    ListItem,
+    Popover,
+    PopoverFooter,
+    PopoverHeader,
+    PopoverTitle,
+  } from "opui-css/svelte"
+</script>
+
+<Button command="toggle-popover" commandfor="popover-list-1" variant="outlined">
+  Messages
+</Button>
+<Popover closeOnNavigate id="popover-list-1">
+  <PopoverHeader closeLabel="Close">
+    <PopoverTitle>Messages</PopoverTitle>
+  </PopoverHeader>
+  <List variant="transparent">
+    <ListItem
+      description="Are we still on for Thursday?"
+      href="/guide/getting-started/"
+      label="Maja Lind"
+    />
+    <ListItem
+      description="I sent the photos from the trip."
+      href="/guide/getting-started/"
+      label="Jonas Berg"
+    />
+    <ListItem
+      description="Thanks, see you then."
+      href="/guide/getting-started/"
+      label="Sara Holm"
+    />
+  </List>
+  <PopoverFooter>
+    <Button href="/guide/getting-started/">See all</Button>
+  </PopoverFooter>
+</Popover>

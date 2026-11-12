@@ -34,6 +34,11 @@ const cases = [
     slots: ["decrease-icon", "increase-icon"],
   },
   {
+    file: "Popover/PopoverHeader",
+    props: { closeLabel: "Close" },
+    slots: ["close-icon"],
+  },
+  {
     file: "TextField/TextField",
     props: { label: "Password", passwordToggle: true, type: "password" },
     slots: ["icon-checked", "icon-unchecked"],

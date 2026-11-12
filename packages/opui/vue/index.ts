@@ -49,6 +49,11 @@ export { default as Message } from "../components/Message/Message.vue"
 export { default as Messages } from "../components/Message/Messages.vue"
 export { default as NumberField } from "../components/NumberField/NumberField.vue"
 export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.vue"
+export { default as Popover } from "../components/Popover/Popover.vue"
+export { default as PopoverContent } from "../components/Popover/PopoverContent.vue"
+export { default as PopoverFooter } from "../components/Popover/PopoverFooter.vue"
+export { default as PopoverHeader } from "../components/Popover/PopoverHeader.vue"
+export { default as PopoverTitle } from "../components/Popover/PopoverTitle.vue"
 export { default as Progress } from "../components/Progress/Progress.vue"
 export { default as Radio } from "../components/Radio/Radio.vue"
 export { default as RadioInput } from "../components/Radio/RadioInput.vue"
@@ -161,6 +166,13 @@ export type {
 } from "../components/Message/types.vue-props"
 export type { Props as NumberFieldProps } from "../components/NumberField/types.vue-props"
 export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.vue-props"
+export type {
+  PopoverContentProps,
+  PopoverFooterProps,
+  PopoverHeaderProps,
+  Props as PopoverProps,
+  PopoverTitleProps,
+} from "../components/Popover/types.vue-props"
 export type { Props as ProgressProps } from "../components/Progress/types.vue-props"
 export type {
   RadioInputProps,

@@ -1,0 +1,39 @@
+---
+import Button from "../Button/Button.astro"
+
+import type { PopoverHeaderProps as Props } from "./types.astro"
+import { warnMissingCloseTarget } from "../dev"
+import { popoverContext } from "./context.astro"
+import { closePath } from "./icons"
+import { trimEdges } from "../whitespace"
+
+const { class: className, closeLabel, ...rest } = Astro.props
+
+const popover = popoverContext.get()
+if (closeLabel) warnMissingCloseTarget("PopoverHeader", popover?.id, "Popover")
+const content = Astro.slots.has("default")
+  ? trimEdges(await Astro.slots.render("default"))
+  : ""
+---
+
+<div class:list={["ui-header", className]} {...rest}>
+  <Fragment set:html={content} />{closeLabel && <Button
+    aria-label={closeLabel}
+    command="hide-popover"
+    commandfor={popover?.id}
+    round
+    size="small"
+  >
+    <slot name="close-icon">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path fill="currentColor" d={closePath} />
+      </svg>
+    </slot>
+  </Button>}
+</div>

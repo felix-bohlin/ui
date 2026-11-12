@@ -1850,7 +1850,7 @@
     Overlay surfaces rendered without script under
     <code>.ui-contrast-more</code>: a non-modal dialog shown in place, a menu
     and a tooltip rendered without a popover, an avatar group and a carousel.
-    The triggers open the real menu and tooltip popovers, which the contrast
+    The triggers open the real menu, tooltip and popover, which the contrast
     test checks too.
   </p>
   <div class="ui-contrast-more stress-contrast-grid">
@@ -1985,6 +1985,41 @@
             >Save your changes</span
           ></span
         >
+        <button
+          class="ui-button ui-outlined"
+          type="button"
+          commandfor="contrast-overlays-popover"
+          command="toggle-popover"
+        >
+          Shipping
+        </button>
+        <div
+          aria-labelledby="contrast-overlays-popover-title"
+          class="ui-popover ui-align-end"
+          id="contrast-overlays-popover"
+          popover
+          role="dialog"
+        >
+          <div class="ui-header">
+            <h3 id="contrast-overlays-popover-title">Free shipping</h3>
+          </div>
+          <div class="ui-content">
+            <p>
+              Orders over 50 euros ship for free within the EU.
+              <a class="ui-link" href="#contrast-overlays">See the rates</a>.
+            </p>
+          </div>
+          <div class="ui-footer">
+            <button
+              class="ui-button"
+              type="button"
+              commandfor="contrast-overlays-popover"
+              command="hide-popover"
+            >
+              Got it
+            </button>
+          </div>
+        </div>
       </div>
       <p class="ui-caption">Tooltip without a popover</p>
       <div class="stress-contrast-tooltip">

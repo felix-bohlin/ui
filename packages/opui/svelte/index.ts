@@ -51,6 +51,11 @@ export { default as Message } from "../components/Message/Message.svelte"
 export { default as Messages } from "../components/Message/Messages.svelte"
 export { default as NumberField } from "../components/NumberField/NumberField.svelte"
 export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.svelte"
+export { default as Popover } from "../components/Popover/Popover.svelte"
+export { default as PopoverContent } from "../components/Popover/PopoverContent.svelte"
+export { default as PopoverFooter } from "../components/Popover/PopoverFooter.svelte"
+export { default as PopoverHeader } from "../components/Popover/PopoverHeader.svelte"
+export { default as PopoverTitle } from "../components/Popover/PopoverTitle.svelte"
 export { default as Progress } from "../components/Progress/Progress.svelte"
 export { default as Radio } from "../components/Radio/Radio.svelte"
 export { default as RadioInput } from "../components/Radio/RadioInput.svelte"
@@ -163,6 +168,13 @@ export type {
 } from "../components/Message/types.svelte"
 export type { Props as NumberFieldProps } from "../components/NumberField/types.svelte"
 export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.svelte"
+export type {
+  PopoverContentProps,
+  PopoverFooterProps,
+  PopoverHeaderProps,
+  Props as PopoverProps,
+  PopoverTitleProps,
+} from "../components/Popover/types.svelte"
 export type { Props as ProgressProps } from "../components/Progress/types.svelte"
 export type {
   RadioInputProps,

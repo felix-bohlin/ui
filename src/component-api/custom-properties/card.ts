@@ -31,8 +31,13 @@ export default {
   },
   "--_content-anchor": {
     description:
-      "Anchor name of a dialog's or drawer's `.ui-content`, which places its scroll shadows. `--ui-dialog-content` or `--ui-drawer-content`.",
+      "Anchor name of a dialog's, drawer's or popover's `.ui-content`, which places its scroll shadows. `--ui-dialog-content`, `--ui-drawer-content` or `--ui-popover-content`.",
     kind: "output",
+  },
+  "--_content-min-block-size": {
+    description:
+      "Height a dialog's `.ui-content` keeps next to a child outside the parts, unless the content is shorter. Defaults to `min(12rem, 40dvb)`. Needs `calc-size()`.",
+    kind: "input",
   },
   "--_duration": {
     description:
@@ -56,7 +61,7 @@ export default {
   },
   "--_footer-gap": {
     description:
-      "Gap between the items in a dialog's or drawer's `.ui-footer` and between the buttons in its `.ui-actions`. Defaults to `--ui-space-2`.",
+      "Gap between the items in a dialog's, drawer's or popover's `.ui-footer` and between the buttons in its `.ui-actions`. Defaults to `--ui-space-2`.",
     kind: "input",
   },
   "--_gap": {
@@ -91,7 +96,7 @@ export default {
   },
   "--_scroll-shadow": {
     description:
-      "Shadow at the edges of a dialog's or drawer's `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.",
+      "Shadow at the edges of a dialog's, drawer's or popover's `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.",
     kind: "input",
   },
   "--_shadow": {
@@ -106,7 +111,12 @@ export default {
   },
   "--_title-font-size": {
     description:
-      "Font size of a dialog's or drawer's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.",
+      "Font size of a dialog's, drawer's or popover's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`, and to `--ui-font-size-h6` in a popover.",
+    kind: "input",
+  },
+  "--_title-letter-spacing": {
+    description:
+      "Letter spacing of a dialog's, drawer's or popover's title. Defaults to `--ui-letter-spacing-heading`, and to `normal` in a popover.",
     kind: "input",
   },
   "--_tonal-bg-color": {

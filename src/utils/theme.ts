@@ -64,6 +64,7 @@ export const CORNER_TOKENS = [
   "--ui-dialog-radius",
   "--ui-field-radius",
   "--ui-menu-radius",
+  "--ui-popover-radius",
   "--ui-radius",
   "--ui-radius-small",
   "--ui-radius-x-small",

@@ -297,6 +297,92 @@ export const SCENARIOS: Scenario[] = [
     steps: [open("launch-menu"), open("launch-drawer")],
     top: id("launch-drawer"),
   },
+  {
+    name: "popover",
+    steps: [open("popover")],
+    top: id("popover"),
+  },
+  {
+    failingIn: { webkit: WEBKIT_TOP_LAYER_ANCHOR },
+    name: "menu in popover",
+    steps: [open("popover"), open("popover-menu")],
+    stillOpen: ["popover"],
+    top: id("popover-menu"),
+  },
+  {
+    name: "popover with inline content",
+    steps: [open("popover-inline")],
+    top: id("popover-inline"),
+  },
+  {
+    name: "tall popover",
+    steps: [open("popover-tall")],
+    top: id("popover-tall"),
+  },
+  {
+    name: "popover with a list between its header and footer",
+    steps: [open("popover-list")],
+    top: id("popover-list"),
+  },
+  {
+    name: "popover with a list beside its content",
+    steps: [open("popover-content-list")],
+    top: id("popover-content-list"),
+  },
+  {
+    name: "popover with a set height",
+    steps: [open("popover-fixed")],
+    top: id("popover-fixed"),
+  },
+  {
+    name: "dialog with a list beside its content",
+    steps: [open("list-dialog")],
+    top: id("list-dialog"),
+  },
+  {
+    name: "end aligned popover at the end edge",
+    steps: [open("popover-end")],
+    top: id("popover-end"),
+  },
+  {
+    failingIn: { webkit: WEBKIT_TOP_LAYER_ANCHOR },
+    name: "popover in dialog",
+    steps: [open("popover-dialog"), open("popover-in-dialog")],
+    top: id("popover-in-dialog"),
+  },
+  {
+    name: "popover with children that render nothing",
+    steps: [open("popover-hidden")],
+    top: id("popover-hidden"),
+  },
+  {
+    failingIn: { webkit: WEBKIT_TOP_LAYER_ANCHOR },
+    name: "menu straight in a popover",
+    steps: [open("popover-hidden"), open("popover-hidden-menu")],
+    stillOpen: ["popover-hidden"],
+    top: id("popover-hidden-menu"),
+  },
+  {
+    name: "popover with a paragraph above its list",
+    steps: [open("popover-intro")],
+    top: id("popover-intro"),
+  },
+  {
+    name: "popover with a set height and a list",
+    steps: [open("popover-fixed-list")],
+    top: id("popover-fixed-list"),
+  },
+  {
+    name: "dialog with children that render nothing",
+    steps: [open("hidden-dialog")],
+    top: id("hidden-dialog"),
+  },
+  {
+    failingIn: { webkit: WEBKIT_TOP_LAYER_ANCHOR },
+    name: "menu straight in a dialog",
+    steps: [open("hidden-dialog"), open("hidden-dialog-menu")],
+    top: id("hidden-dialog-menu"),
+  },
   ...["filled", "outlined"].flatMap((variant) =>
     SIZES.map((size) => ({
       name: `${variant} ${size} split button menu`,

@@ -1,0 +1,238 @@
+---
+import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import DocLink from "../../components/DocLink.astro"
+import {
+  Button as UIButton,
+  Popover as UIPopover,
+  PopoverContent as UIPopoverContent,
+  PopoverFooter as UIPopoverFooter,
+  PopoverHeader as UIPopoverHeader,
+  PopoverTitle as UIPopoverTitle,
+} from "opui-css/astro"
+import PopoverCSS from "@opui/css/components/popover.css?raw"
+import CardCSS from "@opui/css/components/card.css?raw"
+
+import popoverApi from "../../component-api/popover/api"
+import popoverFooterApi from "../../component-api/popover-footer/api"
+import popoverHeaderApi from "../../component-api/popover-header/api"
+import popoverTitleApi from "../../component-api/popover-title/api"
+
+export const description =
+  "A surface next to its trigger for content that isn't a list of actions."
+
+export const keywords = ["dropdown", "flyout", "overlay", "panel", "popup"]
+---
+
+<Component
+  description={description}
+  slug="popover"
+  heroAnatomy
+  browserSupport={[
+    "anchor-positioning",
+    "calc-size",
+    "container-scroll-state-queries",
+    "display-animation",
+    "has",
+    "invoker-commands",
+    "logical-properties",
+    "nth-child-of",
+    "overflow-clip",
+    "overlay",
+    "popover",
+    "round-mod-rem",
+    "starting-style",
+    "transition-behavior",
+  ]}
+  apis={[
+    { title: "Popover API", api: popoverApi },
+    { title: "Popover header API", api: popoverHeaderApi },
+    { title: "Popover title API", api: popoverTitleApi },
+    { title: "Popover footer API", api: popoverFooterApi },
+  ]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Popover/Popover.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/popover.astro", type: "docs" },
+    { path: "src/component-examples/popover", type: "docs" },
+    { path: "packages/opui/css/components/popover.css", type: "css" },
+    { path: "src/component-api/popover", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "popover.css", code: PopoverCSS, lang: "css" },
+    { title: "card.css", code: CardCSS, lang: "css", isDependency: true },
+  ]}
+>
+  <Fragment slot="title">Popover</Fragment>
+  <Fragment slot="preamble">
+    A surface next to the button that opens it. For a list of actions, use a
+    <DocLink href="/components/menu">Menu</DocLink>.
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UIPopover
+        id="popover-anatomy"
+        style="display: flex; inline-size: 18rem; opacity: 1; position: static; scale: none"
+      >
+        <UIPopoverHeader closeLabel="Close">
+          <UIPopoverTitle>Notifications</UIPopoverTitle>
+        </UIPopoverHeader>
+        <UIPopoverContent>
+          <p>Jonas wrote on your wall.</p>
+        </UIPopoverContent>
+        <UIPopoverFooter>
+          <UIButton>See all</UIButton>
+        </UIPopoverFooter>
+      </UIPopover>
+    </Anatomy>
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      A panel behind a button, like <a href="#basics">notifications</a>.
+    </li>
+    <li slot="when">
+      A short note that stays until it's dismissed: a
+      <a href="#manual">manual popover</a>.
+    </li>
+    <li slot="when-not">
+      A list of actions or links: use a
+      <DocLink href="/components/menu">Menu</DocLink>.
+    </li>
+    <li slot="when-not">
+      A task that needs full attention: use a
+      <DocLink href="/components/dialog">Dialog</DocLink>.
+    </li>
+  </Usage>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>closeLabel</code> on <code>PopoverHeader</code> for a close
+        button.
+      </Fragment>
+      <Fragment slot="html">
+        Open with <code>command="toggle-popover"</code>, and point
+        <code>aria-labelledby</code> at the heading.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Basics" centered row />
+    <Conditional as="p">
+      <Fragment slot="components">
+        With <code>closeOnNavigate</code>, the popover closes when the page
+        navigates, also with a client router, so the link in the footer never
+        leaves it open over the next page.
+      </Fragment>
+      <Fragment slot="html">
+        With <code>data-close-on-navigate</code> and
+        <code>opui-css/elements/close-on-navigate.js</code>, the popover closes
+        when the page navigates, also with a client router, so the link in the
+        footer never leaves it open over the next page.
+      </Fragment>
+    </Conditional>
+    <p>
+      A link inside it that stays on the page, like a hash link, closes it too.
+      A replaced query on the same path keeps it open, so a filter that writes
+      its state to the URL doesn't close its own popover.
+    </p>
+    <p>
+      Set <code>block-size</code> on a popover that switches views to keep its
+      size. The content fills it, and the footer stays at the bottom.
+    </p>
+  </section>
+
+  <section id="list">
+    <h2>List</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Content outside the parts, such as a
+        <DocLink href="/components/list">List</DocLink>, sits edge to edge.
+        Between a <code>PopoverHeader</code> and a <code>PopoverFooter</code> it
+        scrolls on its own, so they stay in view.
+      </Fragment>
+      <Fragment slot="html">
+        Content outside the parts, such as a
+        <DocLink href="/components/list">List</DocLink>, sits edge to edge.
+        Between a <code>.ui-header</code> and a <code>.ui-footer</code> it
+        scrolls on its own, so they stay in view.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="List" centered />
+  </section>
+
+  <section id="placement">
+    <h2>Placement</h2>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Below by default. Use <code>side</code> and <code>align</code> to
+        change it.</Fragment
+      >
+      <Fragment slot="html"
+        >Below by default. Use a side class, like <code>.ui-inline-end</code>,
+        and <code>.ui-align-end</code>.</Fragment
+      >
+    </Conditional>
+    <AutoExample name="Placement" row centered />
+  </section>
+
+  <section id="manual">
+    <h2>Manual</h2>
+    <p>
+      Use <code>popover="manual"</code> to keep it open on Esc and a click
+      outside.
+    </p>
+    <AutoExample name="Manual" centered />
+    <p>
+      To open a popover from a script, pass its button as the source:
+      <code>popover.showPopover(&#123; source: button &#125;)</code>. Without a
+      source the popover has no button to open next to, and opens in the start
+      corner of the page.
+    </p>
+  </section>
+
+  <Fragment slot="accessibility">
+    <h3 id="role-attributes">Role & attributes</h3>
+    <p>
+      A non-modal <code>role="dialog"</code>, named by its title. The page
+      behind it stays interactive.
+    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        A popover without a <code>PopoverTitle</code> has no name: set
+        <code>aria-label</code>, like the popovers in
+        <a href="#placement">Placement</a>.
+      </Fragment>
+      <Fragment slot="html">
+        A popover without a heading has no name: set <code>aria-label</code>
+        instead of <code>aria-labelledby</code>, like the popovers in
+        <a href="#placement">Placement</a>.
+      </Fragment>
+    </Conditional>
+    <Conditional as="p">
+      <Fragment slot="components">
+        A popover stays in the page's heading outline. Set <code>as</code> on
+        <code>PopoverTitle</code> to the level below the heading above its
+        trigger, like the <code>h3</code> in <a href="#manual">Manual</a>.
+      </Fragment>
+      <Fragment slot="html">
+        A popover stays in the page's heading outline. Use the heading level
+        below the heading above its trigger, like the <code>h3</code> in
+        <a href="#manual">Manual</a>.
+      </Fragment>
+    </Conditional>
+    <p>
+      Content that scrolls and has only text needs <code>tabindex="0"</code>,
+      <code>role="region"</code> and an <code>aria-label</code> to scroll by
+      keyboard in Safari.
+    </p>
+    <KeyboardSupport />
+  </Fragment>
+</Component>

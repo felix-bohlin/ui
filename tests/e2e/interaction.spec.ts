@@ -1529,6 +1529,141 @@ interaction(
 )
 
 interaction(
+  "popover",
+  "Basics",
+  "popover opens from its trigger and closes with its close button",
+  async ({ root }) => {
+    const popover = root.getByRole("dialog", { name: "Notifications" })
+
+    await expect(popover).toBeHidden()
+    await root.getByRole("button", { name: "Notifications" }).click()
+    await expect(popover).toBeVisible()
+    await popover.getByRole("button", { name: "Close" }).click()
+    await expect(popover).toBeHidden()
+  },
+)
+
+interaction(
+  "popover",
+  "Basics",
+  "popover closes with Escape and returns focus to the trigger",
+  async ({ page, root }) => {
+    const trigger = root.getByRole("button", { name: "Notifications" })
+    const popover = root.locator(".ui-popover")
+
+    await trigger.focus()
+    await page.keyboard.press("Enter")
+    await expect(popover).toBeVisible()
+    await page.keyboard.press("Tab")
+    await expectFocusWithin(popover)
+    await page.keyboard.press("Escape")
+    await expect(popover).toBeHidden()
+    await expect(trigger).toBeFocused()
+  },
+)
+
+interaction(
+  "popover",
+  "Basics",
+  "popover closes on an outside click",
+  async ({ page, root }) => {
+    const popover = root.locator(".ui-popover")
+
+    await root.getByRole("button", { name: "Notifications" }).click()
+    await expect(popover).toBeVisible()
+    await page.mouse.click(1, 1)
+    await expect(popover).toBeHidden()
+  },
+)
+
+interaction(
+  "popover",
+  "Basics",
+  "a popover with closeOnNavigate stays open on a replaced query and a hash, closes when a client router navigates, and one without stays open",
+  async ({ page, root }) => {
+    await needs(page, "the Navigation API", () => "navigation" in window)
+    const manual = page.locator('[data-example="Manual"]')
+    await manual.getByRole("button", { name: "Shipping" }).click()
+    await root.getByRole("button", { name: "Notifications" }).click()
+    const popover = root.locator(".ui-popover")
+    await expect(popover).toBeVisible()
+    await expect(manual.locator(".ui-popover")).toBeVisible()
+    await page.evaluate(() => history.replaceState({}, "", "?filter=unread"))
+    await page.evaluate(() => {
+      location.hash = "manual"
+    })
+    await expect(popover).toBeVisible()
+    await page.evaluate(() => history.pushState({}, "", location.href))
+    await expect(popover).toBeHidden()
+    await expect(manual.locator(".ui-popover")).toBeVisible()
+  },
+)
+
+interaction(
+  "popover",
+  "Basics",
+  "a link in a popover with closeOnNavigate that stays on the page closes it, also through a client router, and a field that replaces the query keeps it open",
+  async ({ page, root }) => {
+    await needs(page, "the Navigation API", () => "navigation" in window)
+    const trigger = root.getByRole("button", { name: "Notifications" })
+    const popover = root.locator(".ui-popover")
+    const link = popover.locator(".ui-footer a")
+
+    await link.evaluate((element) => element.setAttribute("href", "#basics"))
+    await trigger.click()
+    await link.focus()
+    await page.keyboard.press("Enter")
+    await expect(popover).toBeHidden()
+    expect(new URL(page.url()).hash).toBe("#basics")
+
+    await link.evaluate((element) => {
+      element.setAttribute("href", "?filter=unread")
+      element.addEventListener("click", (event) => {
+        event.preventDefault()
+        history.replaceState({}, "", "?filter=unread")
+      })
+    })
+    await trigger.click()
+    await link.focus()
+    await page.keyboard.press("Enter")
+    await expect(popover).toBeHidden()
+    expect(new URL(page.url()).search).toBe("?filter=unread")
+
+    await popover.evaluate((element) => {
+      const field = document.createElement("input")
+      field.ariaLabel = "Unread only"
+      field.type = "checkbox"
+      field.addEventListener("change", () =>
+        history.replaceState({}, "", "?unread=true"),
+      )
+      element.querySelector(".ui-content")!.append(field)
+    })
+    await trigger.click()
+    await popover.getByRole("checkbox", { name: "Unread only" }).check()
+    await expect.poll(() => new URL(page.url()).search).toBe("?unread=true")
+    await expect(popover).toBeVisible()
+  },
+)
+
+interaction(
+  "popover",
+  "Manual",
+  "a manual popover stays open until Got it",
+  async ({ page, root }) => {
+    const popover = root.locator(".ui-popover")
+
+    await root.getByRole("button", { name: "Shipping" }).click()
+    await expect(popover).toBeVisible()
+    await page.keyboard.press("Escape")
+    await page.mouse.click(1, 1)
+    await expect(popover).toBeVisible()
+
+    await popover.getByRole("button", { name: "Got it" }).click()
+    await expect(popover).toBeHidden()
+  },
+)
+
+interaction(
   "rating",
   "Input",
   "a rating input moves its checked star to the one chosen",

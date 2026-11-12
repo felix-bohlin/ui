@@ -36,6 +36,27 @@
       padding-inline: var(--_padding);
     }
 
+    &:has(> .ui-content):not(
+        :has(
+          > .ui-footer,
+          > :not(
+            .ui-content,
+            .ui-divider,
+            .ui-footer,
+            .ui-header,
+            [hidden],
+            [popover],
+            [type="hidden"],
+            dialog,
+            script,
+            style,
+            template
+          )
+        )
+      ) {
+      overflow: clip;
+    }
+
     &[open] {
       --_ease: var(--ui-ease-enter);
 

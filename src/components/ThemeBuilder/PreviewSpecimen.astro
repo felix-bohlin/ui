@@ -277,6 +277,16 @@ const callouts = [
   </div>
 
   <div class="specimen-block">
+    <p class="specimen-caption">Popover</p>
+    <div aria-label="Shipping" class="ui-popover specimen-popover" role="group">
+      <div class="ui-header"><div class="ui-h6">Free shipping</div></div>
+      <div class="ui-content">
+        <p>Orders over 50 euros ship for free within the EU.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="specimen-block">
     <p class="specimen-caption">List</p>
     <List bordered variant="transparent">
       <ListItem description="Can we move the review to Friday?" label="Grace">
@@ -413,6 +423,12 @@ const callouts = [
   }
 
   .specimen-menu {
+    max-inline-size: 16rem;
+    min-inline-size: 0;
+  }
+
+  .specimen-popover {
+    display: flex;
     max-inline-size: 16rem;
     min-inline-size: 0;
   }

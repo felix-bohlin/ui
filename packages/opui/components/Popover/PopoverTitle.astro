@@ -1,0 +1,15 @@
+---
+import type { PopoverTitleProps as Props } from "./types.astro"
+import { popoverContext } from "./context.astro"
+import { cx } from "../cx"
+import { warnReplacedId } from "../dev"
+
+const { as: Tag = "h2", class: className, id, ...rest } = Astro.props
+
+const popover = popoverContext.get()
+warnReplacedId("PopoverTitle", "Popover", id, popover?.titleId)
+---
+
+<Tag class={cx([className])} id={popover?.titleId ?? id} {...rest}>
+  <slot />
+</Tag>

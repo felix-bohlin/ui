@@ -577,6 +577,8 @@ Same code as in the HTML section.
 
 ### Builds
 
+The types need `skipLibCheck: true` in `tsconfig.json`, as the Svelte and SvelteKit templates set it. Without it, `svelte-check` reports a union type that is too complex to represent.
+
 ### How to use
 
 Slots are snippets: `children`, and camelCased names like `endText`. Form controls bind their value:

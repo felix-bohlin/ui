@@ -110,7 +110,7 @@ The compiled files are ES modules for ES2022, and Node can also `require()` them
 
 #### TypeScript
 
-`opui-css/react`, `opui-css/svelte` and `opui-css/vue` ship `.d.ts` files, so `skipLibCheck` skips them and your `compilerOptions` only apply to your own code. They resolve with `moduleResolution: "bundler"`, `"node16"` or `"nodenext"` (not `"node10"`).
+`opui-css/react`, `opui-css/svelte` and `opui-css/vue` ship `.d.ts` files, so `skipLibCheck` skips them and your `compilerOptions` only apply to your own code. They resolve with `moduleResolution: "bundler"`, `"node16"` or `"nodenext"` (not `"node10"`). The Svelte types need `skipLibCheck: true`, as the Svelte and SvelteKit templates set it: without it, `svelte-check` reports a union type that is too complex to represent.
 
 The Astro components import their `.ts` sources, which your `tsconfig.json` type-checks with your own `compilerOptions`. They are checked with `strict: true`, `verbatimModuleSyntax` and `isolatedModules`. `exactOptionalPropertyTypes` and `noUncheckedIndexedAccess` aren't checked, so they can report errors in the package, and `skipLibCheck` doesn't skip its `.ts` files.
 

@@ -29,12 +29,65 @@ const currentFramework = Astro.locals.framework
     stripFrameworkPrefix,
     type FrameworkId,
   } from "../utils/framework"
+  import { HEADING_EXCLUSION_SELECTOR } from "../utils/headings"
+
+  const SCROLL_ANCHOR_LINE = 160
+  const SCROLL_KEY = "opui-framework-scroll"
+  const SCROLL_MAX_AGE = 10_000
 
   function urlForFramework(framework: FrameworkId): string {
     const { hash, pathname, search } = window.location
     return pathHasFramework(framework, stripFrameworkPrefix(pathname))
       ? hrefFor(framework, `${pathname}${search}${hash}`)
       : hrefFor(framework, "/components")
+  }
+
+  function saveScroll() {
+    const anchor = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        "#main-content :is(h2, h3, h4, section)[id]",
+      ),
+    )
+      .filter(
+        (element) =>
+          !element.closest(HEADING_EXCLUSION_SELECTOR) &&
+          element.getBoundingClientRect().top <= SCROLL_ANCHOR_LINE,
+      )
+      .at(-1)
+    try {
+      sessionStorage.setItem(
+        SCROLL_KEY,
+        JSON.stringify({
+          id: anchor?.id,
+          offset: anchor?.getBoundingClientRect().top,
+          path: stripFrameworkPrefix(window.location.pathname),
+          time: Date.now(),
+          y: window.scrollY,
+        }),
+      )
+    } catch {}
+  }
+
+  function restoreScroll() {
+    try {
+      const saved = sessionStorage.getItem(SCROLL_KEY)
+      if (!saved) return
+      sessionStorage.removeItem(SCROLL_KEY)
+      const { id, offset, path, time, y } = JSON.parse(saved)
+      if (path !== stripFrameworkPrefix(window.location.pathname)) return
+      if (Date.now() - time > SCROLL_MAX_AGE) return
+      const scroll = () => {
+        const anchor = id ? document.getElementById(id) : null
+        const top = anchor
+          ? anchor.getBoundingClientRect().top + window.scrollY - offset
+          : y
+        window.scrollTo({ behavior: "instant", top })
+      }
+      scroll()
+      if (document.readyState !== "complete") {
+        window.addEventListener("load", scroll, { once: true })
+      }
+    } catch {}
   }
 
   function init() {
@@ -56,10 +109,12 @@ const currentFramework = Astro.locals.framework
         } catch (_) {
           // private mode / storage disabled - non-fatal
         }
+        saveScroll()
         window.location.href = urlForFramework(framework)
       })
     })
   }
 
   init()
+  restoreScroll()
 </script>

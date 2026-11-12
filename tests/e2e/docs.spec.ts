@@ -638,6 +638,37 @@ test("an example's code takes focus when it opens and scrolls sideways", async (
   await expect(pre).toHaveAttribute("aria-label", "Code")
 })
 
+test("in print, code blocks wrap and the sidebar, contents and footer are hidden", async ({
+  page,
+}) => {
+  await page.setViewportSize({ height: 794, width: 1123 })
+  await page.goto("/html/components/typography/")
+  await page.emulateMedia({ media: "print" })
+  const overflowing = (selector: string) =>
+    page
+      .locator(selector)
+      .evaluateAll(
+        (elements) =>
+          elements.filter(
+            (element) =>
+              element.checkVisibility() &&
+              element.scrollWidth > element.clientWidth,
+          ).length,
+      )
+  await expect.poll(() => overflowing("#main-content .code-block pre")).toBe(0)
+  await expect
+    .poll(() => overflowing("#main-content .example-preview pre"))
+    .toBe(0)
+  for (const selector of [
+    "#document-page > .page-contents",
+    "#document-page > .sidebar",
+    ".component-footer",
+    "[data-table-toggle]",
+  ]) {
+    await expect(page.locator(selector).first()).toBeHidden()
+  }
+})
+
 test("the block preview's Tablet and Mobile widths give the block 768px and 390px", async ({
   page,
 }) => {

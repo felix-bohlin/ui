@@ -152,8 +152,13 @@ for (const component of TARGETS) {
 const DOCS_PAGE_RULES: Record<string, string[]> = {
   "/blocks/account-settings/": ["landmark-unique"],
   "/blocks/inbox/": ["landmark-unique"],
-  "/html/components/button/": ["label", "scrollable-region-focusable"],
+  "/html/components/button/": [
+    "label",
+    "landmark-unique",
+    "scrollable-region-focusable",
+  ],
   "/html/components/typography/": ["label", "scrollable-region-focusable"],
+  "/html/guide/concepts/": ["landmark-unique"],
   "/html/guide/customizing/": ["scrollable-region-focusable"],
   "/html/guide/migrating/": ["scrollable-region-focusable"],
   "/html/guide/why-opui/": ["heading-order"],

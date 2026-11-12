@@ -109,10 +109,10 @@ const { headings, html: content } = addHeadingAnchors(
       </article>
     </main>
 
-    {showToc && <aside class="page-contents">
+    {showToc && <div class="page-contents">
       <ReadingProgress />
       <TableOfContents headings={headings} slot="table-of-contents" />
-    </aside>}
+    </div>}
   </div>
 </Default>
 

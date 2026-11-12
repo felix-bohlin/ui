@@ -35,7 +35,7 @@ const splitType = (type: string) => type.split("|").map((part) => part.trim())
 
 {
   html.length > 0 && (
-    <div class="table-scroll wide">
+    <div class="table-scroll">
       <Table>
         <Table.ColumnGroup>
           <Table.Column width="min-width: 20%" />
@@ -56,12 +56,11 @@ const splitType = (type: string) => type.split("|").map((part) => part.trim())
             <Table.Row>
               <Table.Cell>{row.name}</Table.Cell>
               <Table.Cell>
-                {row.modifiers.map((modifier, i) => (
-                  <Fragment>
-                    {i > 0 && ", "}
-                    {modifier ? <code>{modifier}</code> : "default"}
-                  </Fragment>
-                ))}
+                <span class="tokens">
+                  {row.modifiers.map((modifier) =>
+                    modifier ? <code>{modifier}</code> : <span>default</span>,
+                  )}
+                </span>
               </Table.Cell>
               <Table.Cell>
                 {row.default === undefined ? (
@@ -83,7 +82,7 @@ const splitType = (type: string) => type.split("|").map((part) => part.trim())
 
 {
   rows.length > 0 && (
-    <div class="table-scroll wide">
+    <div class="table-scroll">
       <Table>
         <Table.ColumnGroup>
           <Table.Column width="min-width: 20%" />
@@ -106,14 +105,15 @@ const splitType = (type: string) => type.split("|").map((part) => part.trim())
                 <code>{row.name}</code>
               </Table.Cell>
               <Table.Cell>
-                {row.type
-                  ? splitType(row.type).map((type, i) => (
-                      <Fragment>
-                        {i > 0 && ", "}
-                        <code>{type}</code>
-                      </Fragment>
-                    ))
-                  : "-"}
+                {row.type ? (
+                  <span class="tokens">
+                    {splitType(row.type).map((type) => (
+                      <code>{type}</code>
+                    ))}
+                  </span>
+                ) : (
+                  "-"
+                )}
               </Table.Cell>
               <Table.Cell>
                 {row.default ? <code>{row.default}</code> : "-"}
@@ -165,20 +165,3 @@ const splitType = (type: string) => type.split("|").map((part) => part.trim())
 }
 
 {note && <p set:html={formatInline(note)} />}
-
-<style>
-  .table-scroll {
-    margin-block-end: var(--size-4);
-    overflow-x: auto;
-
-    > :global(table) {
-      inline-size: 100%;
-      margin: 0;
-      table-layout: fixed;
-    }
-
-    &.wide > :global(table) {
-      min-inline-size: 40rem;
-    }
-  }
-</style>

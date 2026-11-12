@@ -131,12 +131,11 @@ const hasFrameworkSpecificApi =
                                 )}
                               </Table.Cell>
                               <Table.Cell>
-                                {row.modifiers.map((m: any, i: number) => (
-                                  <Fragment>
-                                    {i > 0 && ", "}
+                                <span class="tokens">
+                                  {row.modifiers.map((m: any) => (
                                     <code>{m}</code>
-                                  </Fragment>
-                                ))}
+                                  ))}
+                                </span>
                               </Table.Cell>
                               <Table.Cell>
                                 {row.default === "-" ? (
@@ -166,18 +165,90 @@ const hasFrameworkSpecificApi =
   )
 }
 
-<style>
-  .api-table-container {
-    overflow-x: auto;
-    margin-block-end: var(--size-4);
-  }
+<script>
+  document
+    .querySelectorAll<HTMLTableElement>(
+      ":is(.api-table-container, .table-scroll) table",
+    )
+    .forEach((table) => {
+      const labels = Array.from(
+        table.querySelectorAll("thead th"),
+        (th) => th.textContent?.trim() ?? "",
+      )
+      table.querySelectorAll("tbody tr").forEach((row) => {
+        Array.from(row.children).forEach((cell, index) => {
+          if (labels[index]) cell.setAttribute("data-label", labels[index])
+        })
+      })
+    })
+</script>
 
-  .api-table-container :global(table),
-  .api-table-container :global(.api-table) {
-    display: table;
-    table-layout: fixed;
-    width: 100%;
-    min-width: 700px;
-    margin: 0;
+<style is:global>
+  :is(.api-table-container, .table-scroll) {
+    container-type: inline-size;
+    margin-block-end: var(--size-4);
+    overflow-x: auto;
+
+    table {
+      inline-size: 100%;
+      margin: 0;
+      table-layout: fixed;
+    }
+
+    code {
+      overflow-wrap: anywhere;
+    }
+
+    .tokens {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-1);
+    }
+
+    @container (width < 36rem) {
+      table {
+        display: block;
+      }
+
+      colgroup,
+      thead {
+        display: none;
+      }
+
+      tbody,
+      tr {
+        display: block;
+      }
+
+      tr {
+        background-color: var(--surface-default);
+        border-block-end: var(--border-width) solid var(--border-color);
+        padding-block: var(--size-2);
+
+        &:last-child {
+          border-block-end: none;
+        }
+      }
+
+      td {
+        background-color: transparent;
+        border: none;
+        display: block;
+      }
+
+      table:has(th:nth-child(3)) td {
+        padding-inline-start: calc(6.5rem + var(--size-5));
+        position: relative;
+
+        &::before {
+          color: var(--text-muted);
+          content: attr(data-label);
+          font-weight: 600;
+          inset-inline-start: var(--size-2);
+          position: absolute;
+        }
+      }
+    }
   }
 </style>

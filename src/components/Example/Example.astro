@@ -235,38 +235,32 @@ const outputPanelId = `${groupName}-output-panel`
   {
     hasCode && (
       <div class="example-code-area">
-        <Tabs class="source-tabs" name={groupName}>
-          <Tabs.Item
-            tabId={sourceId}
-            panelId={sourcePanelId}
-            name={groupName}
-            open
-          >
-            <Tabs.Tab tabId={sourceId} data-tab="source">
-              {codeLangLabel}
-            </Tabs.Tab>
-            <Tabs.Panel
-              panelId={sourcePanelId}
+        {showOutput ? (
+          <Tabs class="source-tabs" name={groupName}>
+            <Tabs.Item
               tabId={sourceId}
-              data-panel="source"
+              panelId={sourcePanelId}
+              name={groupName}
+              open
             >
-              <div class="ui-tab-panel">
-                <Code
-                  code={codeContent}
-                  lang={
-                    codeLangId === "astro"
-                      ? "astro"
-                      : codeLangId === "html"
-                        ? "html"
-                        : codeLangId
-                  }
-                  mark={marks[codeLangId]}
-                />
-              </div>
-            </Tabs.Panel>
-          </Tabs.Item>
+              <Tabs.Tab tabId={sourceId} data-tab="source">
+                {codeLangLabel}
+              </Tabs.Tab>
+              <Tabs.Panel
+                panelId={sourcePanelId}
+                tabId={sourceId}
+                data-panel="source"
+              >
+                <div class="ui-tab-panel">
+                  <Code
+                    code={codeContent}
+                    lang={codeLangId}
+                    mark={marks[codeLangId]}
+                  />
+                </div>
+              </Tabs.Panel>
+            </Tabs.Item>
 
-          {showOutput && (
             <Tabs.Item
               tabId={outputId}
               panelId={outputPanelId}
@@ -285,8 +279,16 @@ const outputPanelId = `${groupName}-output-panel`
                 </div>
               </Tabs.Panel>
             </Tabs.Item>
-          )}
-        </Tabs>
+          </Tabs>
+        ) : (
+          <div class="example-code">
+            <Code
+              code={codeContent}
+              lang={codeLangId}
+              mark={marks[codeLangId]}
+            />
+          </div>
+        )}
       </div>
     )
   }
@@ -431,7 +433,7 @@ const outputPanelId = `${groupName}-output-panel`
 </style>
 
 <style is:global>
-  .ui-tab-panel .expressive-code pre {
+  :is(.example-code, .ui-tab-panel) .expressive-code pre {
     border-radius: 0;
   }
 

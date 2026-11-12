@@ -16,18 +16,25 @@ const { tabs } = Astro.props
 ---
 
 <div class="code-group ui-card ui-outlined ui-not-rich-text">
-  <Tabs class="underlined" aria-label="Code tabs">
-    {
-      tabs.map((tab, index) => (
-        <Tabs.Item open={index === 0}>
-          <Tabs.Tab>{tab.title}</Tabs.Tab>
-          <Tabs.Panel>
-            {tab.code && <Code code={tab.code} lang={tab.lang} />}
-          </Tabs.Panel>
-        </Tabs.Item>
-      ))
-    }
-  </Tabs>
+  {
+    tabs.length === 1 ? (
+      <Fragment>
+        <p class="code-group-title">{tabs[0].title}</p>
+        {tabs[0].code && <Code code={tabs[0].code} lang={tabs[0].lang} />}
+      </Fragment>
+    ) : (
+      <Tabs class="underlined" aria-label="Code tabs">
+        {tabs.map((tab, index) => (
+          <Tabs.Item open={index === 0}>
+            <Tabs.Tab>{tab.title}</Tabs.Tab>
+            <Tabs.Panel>
+              {tab.code && <Code code={tab.code} lang={tab.lang} />}
+            </Tabs.Panel>
+          </Tabs.Item>
+        ))}
+      </Tabs>
+    )
+  }
 </div>
 
 <style>
@@ -37,9 +44,22 @@ const { tabs } = Astro.props
     padding: 0;
     overflow: hidden;
   }
+
+  .code-group-title {
+    border-block-end: var(--border-width) solid var(--border-color);
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-0);
+    margin: 0;
+    padding: var(--size-2) var(--size-3);
+  }
 </style>
 
 <style is:global>
+  .code-group > .expressive-code pre {
+    border-radius: 0;
+  }
+
   .ui-tab-panel {
     * {
       isolation: isolate;

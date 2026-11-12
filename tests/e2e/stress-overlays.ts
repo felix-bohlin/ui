@@ -303,6 +303,7 @@ export const SCENARIOS: Scenario[] = [
     top: id("popover"),
   },
   {
+    failingIn: { webkit: WEBKIT_TOP_LAYER_ANCHOR },
     name: "menu in popover",
     steps: [open("popover"), open("popover-menu")],
     stillOpen: ["popover"],
@@ -344,6 +345,7 @@ export const SCENARIOS: Scenario[] = [
     top: id("popover-end"),
   },
   {
+    failingIn: { webkit: WEBKIT_TOP_LAYER_ANCHOR },
     name: "popover in dialog",
     steps: [open("popover-dialog"), open("popover-in-dialog")],
     top: id("popover-in-dialog"),
@@ -354,6 +356,7 @@ export const SCENARIOS: Scenario[] = [
     top: id("popover-hidden"),
   },
   {
+    failingIn: { webkit: WEBKIT_TOP_LAYER_ANCHOR },
     name: "menu straight in a popover",
     steps: [open("popover-hidden"), open("popover-hidden-menu")],
     stillOpen: ["popover-hidden"],
@@ -375,6 +378,7 @@ export const SCENARIOS: Scenario[] = [
     top: id("hidden-dialog"),
   },
   {
+    failingIn: { webkit: WEBKIT_TOP_LAYER_ANCHOR },
     name: "menu straight in a dialog",
     steps: [open("hidden-dialog"), open("hidden-dialog-menu")],
     top: id("hidden-dialog-menu"),

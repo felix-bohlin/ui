@@ -135,6 +135,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Chip` hover and press ripple. Remove any `--ripple` overrides.
 - `ClassicSelect`. Use `Select`: it renders the same field, with the browser's own picker where customizable select isn't supported.
 - `DescriptionList` `.ui-term` and `.ui-description`. The list styles `dt` and `dd` by element, and `DescriptionListTerm` and `DescriptionListDescription` render a plain `dt` and `dd`.
+- `Dialog` takes only `.ui-elevated` from `card.css`: `.ui-dense`, `.ui-spacious`, `.ui-transparent`, `.ui-tonal` and `.ui-outlined` no longer change a dialog. Set `--_padding` for a denser dialog.
 - `IconButton` (`.ui-icon-button`). Use `Button`: an icon-only button is square by default, `round` (`.ui-round`) makes it a circle. The hover halo is gone: icon-only buttons get the button's hover background. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_size: 1.25rem`. Icons are smaller (`--_icon-size: 1.5rem` matches the old 24px), and the icon color is the button's accent instead of the inherited text color.
 - `Range` thumbs no longer change their border inside a focused `.ui-fieldset-item`, a class no component renders.
 - `Select` no longer hides `option::before`.

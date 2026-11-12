@@ -470,6 +470,8 @@ The footer holds buttons, text or anything else. Wrap the buttons in `.ui-action
 
 The page scroll lock behind a modal dialog moved to `core/utils.css`. If you import single files, import `utils.css` too.
 
+A dialog takes only `.ui-elevated` from `card.css`. `.ui-tonal` and `.ui-outlined`, which a 5.x dialog took through `.ui-card`, no longer change it.
+
 ## Divider
 
 A divider that is a direct child of a card has no margin, since the card's gap spaces it.

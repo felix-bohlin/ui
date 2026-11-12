@@ -323,10 +323,12 @@ export const rewriteSpecifiers = (code, file, root, dist) =>
   code.replace(SPECIFIER, (_match, before, quote, specifier) => {
     const fromDir = dirname(file)
     const base = resolve(fromDir, specifier)
+    const declaration = [`${base}.d.ts`, `${specifier}.js`]
     const inDist = [
+      ...(file.endsWith(".d.ts") ? [declaration] : []),
       [base, specifier],
       [`${base}.js`, `${specifier}.js`],
-      [`${base}.d.ts`, `${specifier}.js`],
+      declaration,
     ].find(([target]) => isFile(target))
     if (inDist) return `${before}${quote}${inDist[1]}${quote}`
     const source = resolve(join(root, relative(dist, fromDir)), specifier)

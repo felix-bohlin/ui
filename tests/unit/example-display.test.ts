@@ -130,6 +130,14 @@ describe("cssRules", () => {
     expect(() => cssRules(css)).toThrow(reason)
   })
 
+  test("skips @media print, which never applies on screen", () => {
+    expect(
+      cssRules(
+        "pre { white-space: pre; @media print { white-space: pre-wrap } } @media print { .a { display: none } }",
+      ).map(({ display, text, whiteSpace }) => ({ display, text, whiteSpace })),
+    ).toEqual([{ display: undefined, text: "pre", whiteSpace: "pre" }])
+  })
+
   test("follows content inside @supports, which reads the same either way", () => {
     expect(
       cssRules(

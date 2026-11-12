@@ -32,6 +32,10 @@
     padding: var(--_padding);
     position: relative;
 
+    @media print {
+      break-inside: avoid;
+    }
+
     &:not(
       .ui-critical,
       .ui-info,

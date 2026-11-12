@@ -948,13 +948,16 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       box-shadow: var(--_selected-shadow);
       color: var(--ui-on-selected, currentColor);
 
+      mark {
+        color: inherit;
+      }
+
       @media (forced-colors: active) {
         --_description-text-color: SelectedItemText;
         background-color: SelectedItem;
         color: SelectedItemText;
         forced-color-adjust: none;
 
-        mark,
         .ui-title {
           color: inherit;
         }

@@ -52,6 +52,10 @@
         justify-self: center;
         margin-block-start: calc((1lh - var(--_marker-size)) / 2);
         margin-inline: var(--_gap);
+
+        @media print {
+          print-color-adjust: exact;
+        }
       }
 
       &::before {

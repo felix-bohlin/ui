@@ -3769,6 +3769,13 @@
     "url": "/astro/guide/getting-started/#css"
   },
   {
+    "id": "guide-getting-started-astro-typescript",
+    "title": "TypeScript",
+    "page": "Getting started",
+    "category": "Guide",
+    "url": "/astro/guide/getting-started/#typescript"
+  },
+  {
     "id": "guide-getting-started-astro-usage",
     "title": "How to use",
     "page": "Getting started",

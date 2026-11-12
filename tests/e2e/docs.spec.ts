@@ -638,6 +638,93 @@ test("an example's code takes focus when it opens and scrolls sideways", async (
   await expect(pre).toHaveAttribute("aria-label", "Code")
 })
 
+test("in print, code blocks wrap and the sidebar, contents and footer are hidden", async ({
+  page,
+}) => {
+  await page.setViewportSize({ height: 794, width: 1123 })
+  await page.goto("/html/components/typography/")
+  await page.emulateMedia({ media: "print" })
+  const overflowing = (selector: string) =>
+    page
+      .locator(selector)
+      .evaluateAll(
+        (elements) =>
+          elements.filter(
+            (element) =>
+              element.checkVisibility() &&
+              element.scrollWidth > element.clientWidth,
+          ).length,
+      )
+  await expect.poll(() => overflowing("#main-content .code-block pre")).toBe(0)
+  await expect
+    .poll(() => overflowing("#main-content .example-preview pre"))
+    .toBe(0)
+  for (const selector of [
+    "#document-page > .page-contents",
+    "#document-page > .sidebar",
+    ".component-footer",
+    "[data-table-toggle]",
+  ]) {
+    await expect(page.locator(selector).first()).toBeHidden()
+  }
+})
+
+for (const [path, selector, name] of [
+  ["/html/guide/concepts/", ".token-tiers > .scroll", "Token tiers"],
+  ["/html/guide/migrating/", "#main-content table:not([class])", null],
+] as const) {
+  test(`${selector} on ${path} takes focus only while it scrolls sideways`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ height: 844, width: 390 })
+    await page.goto(path)
+    const regions = page.locator(selector)
+    const states = () =>
+      regions.evaluateAll((elements) =>
+        elements.map((element) => ({
+          focusable: element.getAttribute("tabindex") === "0",
+          label: element.getAttribute("aria-label"),
+          role: element.getAttribute("role"),
+          scrolls: element.scrollWidth > element.clientWidth,
+        })),
+      )
+    const scrolling = async () => {
+      const all = await states()
+      expect(
+        all.filter(({ focusable, scrolls }) => focusable !== scrolls),
+      ).toEqual([])
+      return all.filter(({ scrolls }) => scrolls)
+    }
+    await expect.poll(async () => (await scrolling()).length).toBeGreaterThan(0)
+    expect(await scrolling()).toContainEqual(
+      expect.objectContaining(
+        name ? { label: name, role: "group" } : { label: null, role: null },
+      ),
+    )
+    await page.setViewportSize({ height: 844, width: 1280 })
+    await expect
+      .poll(async () =>
+        (await states()).filter(
+          ({ focusable, scrolls }) => focusable !== scrolls,
+        ),
+      )
+      .toEqual([])
+  })
+}
+
+test("a focused copy button in a code block is fully opaque", async ({
+  page,
+}) => {
+  await page.goto("/html/guide/customizing/")
+  const block = page.locator("#main-content .code-block").first()
+  await block.scrollIntoViewIfNeeded()
+  await block.locator(".code-copy").focus()
+  await expect(block.locator(".code-copy")).toHaveCSS("opacity", "1")
+  await page.mouse.move(0, 0)
+  await page.locator("h1").click()
+  await expect(block.locator(".code-copy")).toHaveCSS("opacity", "0")
+})
+
 test("the block preview's Tablet and Mobile widths give the block 768px and 390px", async ({
   page,
 }) => {

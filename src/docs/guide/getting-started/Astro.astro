@@ -63,6 +63,16 @@ import "../styles/global.css"
     />
   </section>
 
+  <section id="typescript">
+    <h2>TypeScript</h2>
+    <p>
+      <code>astro check</code> runs on TypeScript 6, not on 7. Keep
+      <code>moduleResolution</code> set to <code>"bundler"</code>, as Astro's
+      <code>tsconfig.json</code> presets do: with <code>"nodenext"</code>, the
+      component props aren't checked.
+    </p>
+  </section>
+
   <section id="usage">
     <h2>How to use</h2>
     <p>Named slots take rich content, like <code>end-text</code>.</p>

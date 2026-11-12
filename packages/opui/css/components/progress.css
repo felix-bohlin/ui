@@ -17,6 +17,10 @@
     position: relative;
     vertical-align: middle;
 
+    @media print {
+      print-color-adjust: exact;
+    }
+
     /* Color */
     &.ui-filled {
       --_bg-color: var(--ui-surface-filled);

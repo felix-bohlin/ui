@@ -36,6 +36,10 @@
     -webkit-user-select: none;
     user-select: none;
 
+    @media print {
+      print-color-adjust: exact;
+    }
+
     &:not(:has(.ui-label, .ui-text)) {
       align-items: center;
       min-block-size: var(--ui-space-5);

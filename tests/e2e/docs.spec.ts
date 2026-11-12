@@ -116,7 +116,7 @@ test.describe("framework picker", () => {
       await expect(visiblePicker(page)).toHaveAttribute("data-bound", "true")
       await visiblePicker(page).selectOption(framework)
       await page.waitForURL(`/${framework}/components/divider/#spacing`, {
-        waitUntil: "commit",
+        waitUntil: "domcontentloaded",
       })
       await expect(page.locator("html")).toHaveAttribute(
         "data-framework",

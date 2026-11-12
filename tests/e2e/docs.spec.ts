@@ -131,6 +131,23 @@ test.describe("framework picker", () => {
     await visiblePicker(page).selectOption("vue")
     await page.waitForURL("/vue/guide/theming/", { waitUntil: "commit" })
   })
+
+  test("shows and changes the framework the links follow on a framework-free page", async ({
+    page,
+  }) => {
+    await page.goto("/react/components/button/")
+    await page.goto("/blocks/")
+    await expect(visiblePicker(page)).toHaveValue("react")
+    await expect(page.locator('a[href^="/react/components/"]')).not.toHaveCount(
+      0,
+    )
+    await expect(visiblePicker(page)).toHaveAttribute("data-bound", "true")
+    await visiblePicker(page).selectOption("vue")
+    await expect(page.locator("html")).toHaveAttribute("data-framework", "vue")
+    await expect(visiblePicker(page)).toHaveValue("vue")
+    await expect(page.locator('a[href^="/react/components/"]')).toHaveCount(0)
+    await expect(page.locator('a[href^="/vue/components/"]')).not.toHaveCount(0)
+  })
 })
 
 test.describe("search", () => {

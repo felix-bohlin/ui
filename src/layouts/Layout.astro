@@ -142,6 +142,11 @@ const markdownUrl = hasMarkdown
     const framework = preferredFramework()
     document.documentElement.dataset.framework = framework
     document
+      .querySelectorAll<HTMLSelectElement>(".framework-picker select")
+      .forEach((select) => {
+        select.value = framework
+      })
+    document
       .querySelectorAll<HTMLAnchorElement>('a[href^="/"]')
       .forEach((anchor) => {
         const href = anchor.getAttribute("href")!

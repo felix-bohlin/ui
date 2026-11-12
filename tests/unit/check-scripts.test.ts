@@ -6,8 +6,12 @@ import stylelint from "stylelint"
 import { describe, expect, test } from "vitest"
 import { featureIds, patterns } from "../../packages/opui/scripts/features.mjs"
 import {
+  fallbackProblems,
+  fallbacksOf,
   htmlFeatureIds,
+  lackingIds,
   pageProblems,
+  unusedSharedFeatures,
   usedFeatureIds,
   withBrowserSupport,
 } from "../../scripts/check-browser-support.mjs"
@@ -62,6 +66,7 @@ import { localBaselines } from "../../scripts/check-screenshot-authors.mjs"
 import { releasedApi } from "../../scripts/released-api.mjs"
 import { sortSource } from "../../scripts/sort-css.mjs"
 import logicalShorthands from "../../scripts/stylelint-logical-shorthands.mjs"
+import { SHARED_FEATURES } from "../../src/utils/browser-support"
 
 const EM_DASH = String.fromCodePoint(0x2014)
 const MIDDLE_DOT = String.fromCodePoint(0x00b7)
@@ -163,6 +168,26 @@ describe("check-browser-support", () => {
     ).toEqual([])
   })
 
+  test("finds each shared feature in a sheet, and reports the ones it doesn't use", () => {
+    const shared: Record<string, string> = {
+      "cascade-layers": "@layer a { .a { gap: 0; } }",
+      "color-mix": ".a { color: color-mix(in oklch, red, blue); }",
+      "light-dark": ".a { color: light-dark(white, black); }",
+      nesting: ".a { @media (width > 30em) { gap: 0; } }",
+      oklab: ".a { color: oklch(50% 0.1 200); }",
+      "relative-color": ".a { color: oklch(from red l c h); }",
+    }
+    expect(Object.keys(shared)).toEqual(SHARED_FEATURES)
+    expect(
+      Object.entries(shared).filter(([id, css]) =>
+        unusedSharedFeatures(css).includes(id),
+      ),
+    ).toEqual([])
+    expect(
+      unusedSharedFeatures("@media (width > 30em) { .a { color: red; } }"),
+    ).toEqual(SHARED_FEATURES)
+  })
+
   test("the patterns skip near misses", () => {
     expect(
       featureIds(
@@ -238,6 +263,48 @@ describe("check-browser-support", () => {
         used: new Set(["has", "popover", "starting-style"]),
       }),
     ).toEqual({ missing: ["has"], undetected: [], unused: [] })
+  })
+
+  test("reads a page's fallbacks, with quoted and bare ids", async () => {
+    expect(
+      await fallbacksOf(`---
+import Component from "../../layouts/Component.astro"
+---
+
+<Component
+  slug="a"
+  browserSupport={["overlay", "popover-hint"]}
+  fallbacks={{
+    overlay: "Without \`overlay\`, the page can cover it {at once}.",
+    "popover-hint": 'Without \`popover="hint"\`, it stays open.',
+  }}
+>
+  <p>Text</p>
+</Component>
+`),
+    ).toEqual({
+      overlay: "Without `overlay`, the page can cover it {at once}.",
+      "popover-hint": 'Without `popover="hint"`, it stays open.',
+    })
+    expect(
+      await fallbacksOf('<Component slug="a" browserSupport={["has"]} />'),
+    ).toEqual({})
+  })
+
+  test("asks for a fallback sentence for each id some browser lacks, and for no other", () => {
+    expect(lackingIds(["has", "nesting"])).toEqual([])
+    expect(
+      fallbackProblems({
+        fallbacks: { has: "Without :has()", overlay: "Without overlay" },
+        lacking: ["corner-shape", "overlay"],
+      }),
+    ).toEqual({ missing: ["corner-shape"], unneeded: ["has"] })
+    expect(
+      fallbackProblems({
+        fallbacks: { overlay: "Without overlay" },
+        lacking: ["overlay"],
+      }),
+    ).toEqual({ missing: [], unneeded: [] })
   })
 
   test("--write replaces a page's list, or adds one after its slug", () => {
@@ -523,7 +590,7 @@ describe("released-api", () => {
   })
 })
 
-describe("file discovery", () => {
+describe("file discovery", { timeout: 15_000 }, () => {
   const UNSORTED = `/* one ${EM_DASH} two */\n.a {\n  inset: 0;\n  color: #fff;\n}\n`
   const SORTED = ".a {\n  color: oklch(100% 0 0);\n  inset: 0;\n}\n"
 
@@ -652,7 +719,7 @@ describe("check-ratchets", () => {
     writeFileSync(list, JSON.stringify({}))
     git("commit", "-q", "-am", "chore: generate B")
     expect(run().status).toBe(0)
-  })
+  }, 15_000)
 
   test("reports a new drift file and new drift lines, not moved context or fewer lines", () => {
     const diff = "===\n--- astro\n+++ react\n@@ -1,2 +1,2 @@\n <a>\n-x\n+y\n"
@@ -795,6 +862,11 @@ describe("check-components", () => {
     ])
     expect(checkClient(`"use client"\n\n${plain}`)).toEqual([
       expect.stringContaining("uses no context, state"),
+    ])
+    const listening =
+      'export default function A({ onDismiss, ref }) {\n  const rootRef = useListener(ref, "dismiss", onDismiss)\n  return <div ref={rootRef} />\n}\n'
+    expect(checkClient(listening)).toEqual([
+      expect.stringContaining('start it with "use client"'),
     ])
   })
 

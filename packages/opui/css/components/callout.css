@@ -162,6 +162,10 @@
       }
     }
 
+    &:not(:defined) > .ui-button[command="--dismiss"] {
+      display: none;
+    }
+
     & > .ui-actions {
       display: flex;
       flex-wrap: wrap;

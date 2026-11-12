@@ -23,6 +23,11 @@ const components = import.meta.glob<unknown>(
 
 const cases = [
   {
+    file: "Callout/Callout",
+    props: { dismissible: true },
+    slots: ["close-icon"],
+  },
+  {
     file: "Dialog/DialogHeader",
     props: { closeLabel: "Close" },
     slots: ["close-icon"],

@@ -2,7 +2,7 @@
   import { TextField } from "opui-css/svelte"
 </script>
 
-<TextField placeholder="Ada Lovelace" spread>
+<TextField placeholder="Hakki Hälinen" spread>
   {#snippet label()}Name{/snippet}
   {#snippet startText()}Provide your full name for identification{/snippet}
 </TextField>

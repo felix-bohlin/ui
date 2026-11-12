@@ -3,7 +3,7 @@
 A button for actions, like saving a form, with variants, colors, sizes and icons.
 
 - CSS: `opui-css/css/components/button.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/button.md), [Astro](https://open-props-ui.netlify.app/astro/components/button.md), [React](https://open-props-ui.netlify.app/react/components/button.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/button.md), [Vue](https://open-props-ui.netlify.app/vue/components/button.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/button.md), [Astro](https://opui.dev/astro/components/button.md), [React](https://opui.dev/react/components/button.md), [Svelte](https://opui.dev/svelte/components/button.md), [Vue](https://opui.dev/vue/components/button.md).
 
 ## Button
 

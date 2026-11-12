@@ -21,7 +21,7 @@
       </Button>
     {/snippet}
   </ListItem>
-  <ListItem description="Product designer" label="Lena Ek">
+  <ListItem description="Product designer" label="Lena Handén">
     {#snippet start()}
       <svg
         aria-hidden="true"

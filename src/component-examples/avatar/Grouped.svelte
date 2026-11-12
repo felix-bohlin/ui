@@ -4,16 +4,22 @@
 
 <AvatarGroup aria-label="Team">
   <Avatar aria-label="Anna Berg" role="img">AB</Avatar>
-  <Avatar aria-label="Carl Dahl" role="img">CD</Avatar>
-  <Avatar as="button"><span aria-label="Eva Falk" role="img">EF</span></Avatar>
+  <Avatar aria-label="Hakki Hälinen" role="img">HH</Avatar>
   <Avatar as="button"
-    ><span aria-label="Gustav Holm" role="img">GH</span></Avatar
+    ><span aria-label="Inga Halonen" role="img">IH</span></Avatar
   >
-  <Avatar href="#"><span aria-label="Ida Jansson" role="img">IJ</span></Avatar>
-  <Avatar href="#"><span aria-label="Karl Lund" role="img">KL</span></Avatar>
+  <Avatar as="button"
+    ><span aria-label="Lena Handén" role="img">LH</span></Avatar
+  >
+  <Avatar href="#"
+    ><span aria-label="Pekka Gåpåbottanen" role="img">PG</span></Avatar
+  >
+  <Avatar href="#"
+    ><span aria-label="Ranta Runtiringen" role="img">RR</span></Avatar
+  >
   <Badge dot label="Online">
     <Avatar href="#"
-      ><span aria-label="Maja Nilsson, online" role="img">MN</span></Avatar
+      ><span aria-label="Sirkka Nitti, online" role="img">SN</span></Avatar
     >
   </Badge>
 </AvatarGroup>

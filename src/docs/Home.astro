@@ -512,7 +512,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     @media (width >= 900px) {
       align-items: center;
       gap: var(--size-10);
-      grid-template-columns: minmax(0, 7fr) minmax(0, 6fr);
+      grid-template-columns: minmax(24rem, 1fr) minmax(0, 38rem);
     }
   }
 
@@ -561,7 +561,9 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
   /* Drawing, a button with dimension lines */
   .drawing {
+    container: drawing / inline-size;
     display: grid;
+    font-size: var(--ui-font-size-caption);
     gap: var(--size-4);
     justify-items: stretch;
     margin: 0;
@@ -569,7 +571,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
   .drawing-stage {
     align-items: center;
-    container-type: inline-size;
     display: flex;
     justify-content: center;
     min-block-size: 22rem;
@@ -739,7 +740,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     inset-inline-start: calc(anchor(right) + 1rem);
   }
 
-  @container (width < 30rem) {
+  @container drawing (width < 50em) {
     .drawing-stage {
       flex-direction: column;
       gap: var(--size-7);

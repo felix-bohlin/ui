@@ -3,7 +3,7 @@
 Toggle buttons and toggle groups switch options on and off, alone or as a set.
 
 - CSS: `opui-css/css/components/toggle-group.css` and `opui-css/css/components/toggle-button.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/toggle.md), [Astro](https://open-props-ui.netlify.app/astro/components/toggle.md), [React](https://open-props-ui.netlify.app/react/components/toggle.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/toggle.md), [Vue](https://open-props-ui.netlify.app/vue/components/toggle.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/toggle.md), [Astro](https://opui.dev/astro/components/toggle.md), [React](https://opui.dev/react/components/toggle.md), [Svelte](https://opui.dev/svelte/components/toggle.md), [Vue](https://opui.dev/vue/components/toggle.md).
 
 ## ToggleGroup
 

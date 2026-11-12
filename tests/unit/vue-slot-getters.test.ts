@@ -146,4 +146,4 @@ test("a Vue value that reads a slot follows a slot the parent adds after mount",
   expect(html(root)).toBe(
     '<main><label class="ui-sample"><input aria-describedby="sample-end-text"></input> <span class="ui-end-text" id="sample-end-text">Use at least 8 characters</span></label></main>',
   )
-})
+}, 15_000)

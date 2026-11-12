@@ -1,24 +1,67 @@
 ---
+import Button from "../Button/Button.astro"
+
 import type { Props } from "./types.astro"
+// A dynamic <Tag> or a custom element lets an undefined spread value remove an attribute set before it: tests/unit/tooling-bugs.test.ts
+import { defined } from "../attrs"
 import { calloutContext } from "./context.astro"
+import { cx } from "../cx"
+import { closePath } from "./icons"
+import { createIds } from "../id"
 
 export const title = "Callout"
 
-const { class: className, severity, variant, ...rest } = Astro.props
+const {
+  class: className,
+  closeLabel = "Close",
+  dismissible,
+  id,
+  severity,
+  variant,
+  ...rest
+} = Astro.props
+
+const ids = createIds(Astro.locals, "callout", id)
+const Root = dismissible ? "opui-callout" : "article"
+const rootId = dismissible ? ids() : id
 
 const html = await calloutContext.provide({ severity }, () =>
   Astro.slots.render("default"),
 )
 ---
 
-<article
-  class:list={[
+<Root
+  class={cx([
     "ui-callout",
     severity && `ui-${severity}`,
     variant && variant !== "tonal" && `ui-${variant}`,
     className,
-  ]}
-  {...rest}
+  ])}
+  id={rootId}
+  role={dismissible ? "article" : undefined}
+  {...defined(rest)}
 >
-  <Fragment set:html={html} />
-</article>
+  <Fragment set:html={html} />{dismissible && <Button
+    aria-label={closeLabel}
+    command="--dismiss"
+    commandfor={rootId}
+    round
+    size="small"
+  >
+    <slot name="close-icon">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path fill="currentColor" d={closePath} />
+      </svg>
+    </slot>
+  </Button>}
+</Root>
+
+<script>
+  import "../../elements/callout.js"
+</script>

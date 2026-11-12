@@ -25,7 +25,7 @@ export default function Flush() {
       <ListItem
         description="Product designer"
         end="Owner"
-        label="Lena Ek"
+        label="Lena Handén"
         start={
           <svg
             aria-hidden="true"

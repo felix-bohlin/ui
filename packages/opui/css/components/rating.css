@@ -8,6 +8,7 @@
     --_empty-bg-color: var(--ui-track-bg-color, var(--ui-border-color));
     --_max: 5;
     --_size: var(--ui-icon-size);
+    --_star-empty-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill-rule='evenodd' d='M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z'/%3E%3C/svg%3E");
     --_star-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/%3E%3C/svg%3E");
   }
 
@@ -27,6 +28,10 @@
 
     &.ui-large {
       --_size: var(--ui-icon-size-large);
+    }
+
+    &:dir(rtl) {
+      mask-position: 100% 0;
     }
 
     &::-webkit-meter-bar {
@@ -57,6 +62,15 @@
   @supports (inline-size: calc(attr(max type(<number>), 5) * 1px)) {
     :where(meter.ui-rating) {
       inline-size: calc(attr(max type(<number>), var(--_max)) * var(--_size));
+      mask:
+        var(--_star-empty-image) 0 0 / var(--_size) var(--_size) repeat-x add,
+        linear-gradient(oklch(0% 0 0) 0 0) 0 0 /
+          calc(
+            attr(value type(<number>), 0) /
+              attr(max type(<number>), var(--_max)) * 100%
+          )
+          100% no-repeat intersect,
+        var(--_star-image) 0 0 / var(--_size) var(--_size) repeat-x;
     }
   }
 
@@ -94,6 +108,7 @@
 
     input {
       --_fill-bg-color: var(--_empty-bg-color);
+      --_fill-image: var(--_star-empty-image);
 
       appearance: none;
       block-size: var(--_size);
@@ -108,7 +123,7 @@
         background-color: var(--_fill-bg-color);
         content: "";
         inset: 0;
-        mask: var(--_star-image) center / contain no-repeat;
+        mask: var(--_fill-image) center / contain no-repeat;
         position: absolute;
         transition: background-color var(--_duration) var(--_ease);
       }
@@ -116,18 +131,19 @@
 
     input[value="0"] {
       --_fill-bg-color: var(--_clear-bg-color);
+      --_fill-image: var(--_clear-image);
 
       counter-increment: none;
       margin-inline-end: var(--ui-space-1);
 
       &::before {
-        mask-image: var(--_clear-image);
         mask-size: 65%;
       }
     }
 
     input:not([value="0"]):is(:checked, :has(~ :checked)) {
       --_fill-bg-color: var(--_accent);
+      --_fill-image: var(--_star-image);
 
       counter-increment: ui-rating ui-rating-max;
     }
@@ -135,9 +151,11 @@
     @media (hover: hover) {
       &:has(input:enabled:hover) input:not([value="0"]) {
         --_fill-bg-color: var(--_empty-bg-color);
+        --_fill-image: var(--_star-empty-image);
 
         &:is(:hover, :has(~ input:hover)) {
           --_fill-bg-color: var(--_accent);
+          --_fill-image: var(--_star-image);
         }
       }
 

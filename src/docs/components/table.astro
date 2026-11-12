@@ -60,6 +60,10 @@ export const keywords = ["data table", "grid", "rows", "sort"]
     "overflow-clip",
     "relative-color",
   ]}
+  fallbacks={{
+    "container-scroll-state-queries":
+      "Without scroll-state queries, a sticky header gets no shadow once it's stuck.",
+  }}
   changelogPaths={[
     {
       path: "packages/opui/components/Table",

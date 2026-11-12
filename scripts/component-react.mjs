@@ -7,6 +7,7 @@ import {
 import {
   componentImport,
   contextImports,
+  eventRoots,
   groupWarning,
   indent,
   objectCode,
@@ -18,6 +19,7 @@ import {
   withImport,
 } from "./component-emit.mjs"
 import { MODEL_KINDS } from "./component-models.mjs"
+import { eventProp } from "./component-types.mjs"
 import {
   byName,
   chosenSpreadCode,
@@ -26,6 +28,7 @@ import {
   isBlank,
   isIdentifierName,
   REACT_ATTRIBUTE_NAMES,
+  unsupported,
 } from "./component-shared.mjs"
 
 export const toReact = (component) => {
@@ -67,6 +70,19 @@ export const toReact = (component) => {
     ...component.props.map(({ local }) => local),
     ...derived.map(({ name }) => name),
   ])
+  const events = component.events ?? []
+  const listened = eventRoots(component)
+  const handlers = events.map((event) => eventProp("react", event))
+  const clash = ["ref", "rootRef", ...handlers].find(
+    (name) => events.length > 0 && taken.has(name),
+  )
+  if (clash) {
+    throw unsupported(
+      component.file,
+      `the name \`${clash}\`, which the React port also declares for its events`,
+      "rename the prop or const in the Astro file",
+    )
+  }
   const renamed = new Map(
     props
       .filter(
@@ -114,6 +130,7 @@ export const toReact = (component) => {
   const extraEntries = [
     ...(kind?.entries?.() ?? []),
     ...(item ? ["defaultChecked", "onChange"] : []),
+    ...(events.length ? [...handlers, "ref"] : []),
   ]
     .filter((key) => !entries.some((entry) => entry.key === key))
     .map((key) => ({ key, text: key }))
@@ -145,6 +162,15 @@ export const toReact = (component) => {
             item,
             `${item.checked ?? "undefined"} ?? defaultChecked`,
           ),
+        ]
+      : []),
+    ...(events.length
+      ? [
+          `const rootRef = ${events.reduce(
+            (ref, event, index) =>
+              `useListener(${ref}, ${JSON.stringify(event)}, ${handlers[index]})`,
+            "ref",
+          )}`,
         ]
       : []),
     ...(scripts.length
@@ -260,9 +286,16 @@ export const toReact = (component) => {
             : `(\n${body}\n)`
           return `{${node.list}${node.optional ? "?" : ""}.map((${node.item}, ${node.index}) => ${returned})}`
         }
+        const listens = listened.includes(node)
+        const restAt = listens
+          ? node.attributes.findIndex(
+              (entry) => entry.kind === "spread" && entry.code === rest,
+            )
+          : -1
         const attributes = [
           ...(node.keyed ? [`key={${node.keyed}}`] : []),
-          ...node.attributes.flatMap((entry) => [
+          ...node.attributes.flatMap((entry, index) => [
+            ...(index === restAt ? ["ref={rootRef}"] : []),
             ...(node.groupRadio !== undefined &&
             entry.kind === "expression" &&
             entry.name === "checked"
@@ -290,6 +323,7 @@ export const toReact = (component) => {
                 "suppressHydrationWarning",
               ]
             : []),
+          ...(listens && restAt === -1 ? ["ref={rootRef}"] : []),
         ].join(" ")
         const open = `<${node.tag}${attributes ? ` ${attributes}` : ""}`
         return node.children.length === 0
@@ -318,6 +352,7 @@ export const toReact = (component) => {
     ...(reactImport ? [reactImport] : []),
     ...(usesDefined ? [`import { defined } from "../attrs"`] : []),
     ...(usesCx ? [`import { cx } from "../cx"`] : []),
+    ...(events.length ? [`import { useListener } from "../react"`] : []),
     ...components
       .map((entry) => componentImport(entry, ".react"))
       .toSorted(byName),
@@ -330,6 +365,10 @@ export const toReact = (component) => {
     propsImport(propsType, "types.react"),
   ]
   const client =
-    reads.length > 0 || provide || scripts.length > 0 || kind?.client === true
+    reads.length > 0 ||
+    provide ||
+    scripts.length > 0 ||
+    events.length > 0 ||
+    kind?.client === true
   return `${client ? '"use client"\n\n' : ""}${importLines.join("\n")}\n\nexport default function ${component.name}({ ${destructured.join(", ")} }: Props) {\n${body.map((line) => `  ${line}\n`).join("")}${body.length ? "\n" : ""}  return (\n${indent(returned, 4)}\n  )\n}\n`
 }

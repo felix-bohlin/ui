@@ -328,6 +328,13 @@
     "url": "/vue/components/callout/#dismissible"
   },
   {
+    "id": "component-callout-vue-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Callout",
+    "category": "Component",
+    "url": "/vue/components/callout/#keyboard-support"
+  },
+  {
     "id": "component-card-vue",
     "title": "Card",
     "description": "A surface for related content and actions.",
@@ -2163,13 +2170,6 @@
     "url": "/vue/components/select/#auto-fit"
   },
   {
-    "id": "component-select-vue-fallback",
-    "title": "Fallback",
-    "page": "Select",
-    "category": "Component",
-    "url": "/vue/components/select/#fallback"
-  },
-  {
     "id": "component-select-vue-keyboard-support",
     "title": "Keyboard support",
     "page": "Select",
@@ -3362,6 +3362,13 @@
     "url": "/vue/guide/browser-support/#policy"
   },
   {
+    "id": "guide-browser-support-vue-shared-features",
+    "title": "Shared features",
+    "page": "Browser support",
+    "category": "Guide",
+    "url": "/vue/guide/browser-support/#shared-features"
+  },
+  {
     "id": "guide-browser-support-vue-compat",
     "title": "Compat layer",
     "page": "Browser support",
@@ -3703,6 +3710,13 @@
     "keywords": "about backstory philosophy",
     "category": "Guide",
     "url": "/vue/guide/why-opui/"
+  },
+  {
+    "id": "guide-why-opui-vue-at-a-glance",
+    "title": "At a glance",
+    "page": "Why Open Props UI?",
+    "category": "Guide",
+    "url": "/vue/guide/why-opui/#at-a-glance"
   },
   {
     "id": "guide-why-opui-vue-backstory",
@@ -4347,7 +4361,7 @@
     "id": "api-callout-vue",
     "title": "Callout API",
     "description": "Reference for Callout Vue component.",
-    "api": "Callout Container element. An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. The content, with an optional heading first. A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. A row of buttons under the content. severity The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders. variant The variant to use.",
+    "api": "Callout Container element, an `<article>`. With `dismissible`, the `<opui-callout>` custom element with `role=\"article\"`. A button with `commandfor` and `command=\"--dismiss\"` fires a cancelable `dismiss` event on it that bubbles, and unless a listener calls `preventDefault()`, the element sets `hidden` on itself and moves focus that was inside it to the next focusable element after it, or else the one before. `dismiss()` does the same from a script and returns whether the callout was hidden. An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. The content, with an optional heading first. A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `dismissible`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. closeLabel dismissible close-icon A row of buttons under the content. @dismiss Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first. closeLabel The accessible name of the close button. dismissible Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>` with `role=\"article\"`, and the component loads `opui-css/elements/callout.js`, which runs the button. id The id of the callout. With `dismissible`, the close button points at it with `commandfor`, so the component generates one when it's left out. severity The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders. variant The variant to use.",
     "category": "API",
     "url": "/vue/api/#callout"
   },
@@ -4659,7 +4673,7 @@
     "id": "api-sortable-table-vue",
     "title": "Sortable Table API",
     "description": "Reference for Sortable Table Vue component.",
-    "api": "SortableTable The `<opui-sortable-table>` custom element, `display: contents`, around the table. It fires a cancelable `sort` event, moves the body rows and announces the new order. The button around a sortable header's label. A press sorts by its column, ascending first, and sets `aria-sort` on the header. ascendingLabel What a sort in ascending order announces, with `{column}` where the header's label goes. descendingLabel What a sort in descending order announces, with `{column}` where the header's label goes.",
+    "api": "SortableTable The `<opui-sortable-table>` custom element, `display: contents`, around the table. It fires a cancelable `sort` event, moves the body rows and announces the new order. The button around a sortable header's label. A press sorts by its column, ascending first, and sets `aria-sort` on the header. @sort Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are. ascendingLabel What a sort in ascending order announces, with `{column}` where the header's label goes. descendingLabel What a sort in descending order announces, with `{column}` where the header's label goes.",
     "category": "API",
     "url": "/vue/api/#sortable-table"
   },

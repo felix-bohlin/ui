@@ -3,7 +3,7 @@
 Range lets users pick a number by sliding a thumb along a track.
 
 - CSS: `opui-css/css/components/range.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/range.md), [Astro](https://open-props-ui.netlify.app/astro/components/range.md), [React](https://open-props-ui.netlify.app/react/components/range.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/range.md), [Vue](https://open-props-ui.netlify.app/vue/components/range.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/range.md), [Astro](https://opui.dev/astro/components/range.md), [React](https://opui.dev/react/components/range.md), [Svelte](https://opui.dev/svelte/components/range.md), [Vue](https://opui.dev/vue/components/range.md).
 
 ## Range
 

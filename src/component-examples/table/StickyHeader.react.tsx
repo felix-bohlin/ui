@@ -32,32 +32,32 @@ export default function StickyHeader() {
         <TableBody>
           <TableRow>
             <TableCell>INV-1000</TableCell>
-            <TableCell>Ada Lindqvist</TableCell>
+            <TableCell>Hakki Hälinen</TableCell>
             <TableCell numeric>€1,240.00</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>INV-1001</TableCell>
-            <TableCell>Grace Mensah</TableCell>
+            <TableCell>Pekka Gåpåbottanen</TableCell>
             <TableCell numeric>€86.50</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>INV-1002</TableCell>
-            <TableCell>Linus Berg</TableCell>
+            <TableCell>Ranta Runtiringen</TableCell>
             <TableCell numeric>€412.90</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>INV-1003</TableCell>
-            <TableCell>Margaret Doyle</TableCell>
+            <TableCell>Sirkka Nitti</TableCell>
             <TableCell numeric>€2,075.00</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>INV-1004</TableCell>
-            <TableCell>Alan Kowalski</TableCell>
+            <TableCell>Inga Halonen</TableCell>
             <TableCell numeric>€318.40</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>INV-1005</TableCell>
-            <TableCell>Barbara Silva</TableCell>
+            <TableCell>Lena Handén</TableCell>
             <TableCell numeric>€59.99</TableCell>
           </TableRow>
           <TableRow>

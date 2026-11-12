@@ -34,7 +34,7 @@ const roleItems = [
         <TextField
           autocomplete="name"
           label="Full name"
-          placeholder="Ada Lovelace"
+          placeholder="Hakki Hälinen"
           required
         />
         <TextField

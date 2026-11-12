@@ -2,11 +2,16 @@ import { existsSync, realpathSync } from "node:fs"
 import { readdir, readFile, writeFile } from "node:fs/promises"
 import { join, basename } from "node:path"
 import { fileURLToPath, pathToFileURL } from "node:url"
+import { parse as parseAstro } from "@astrojs/compiler"
 import { parseFragment } from "parse5"
 import postcss from "postcss"
+import ts from "typescript"
 
 import { featureOf, patterns } from "../packages/opui/scripts/features.mjs"
-import { computeBrowserSupport } from "../src/utils/browser-support.ts"
+import {
+  computeBrowserSupport,
+  SHARED_FEATURES,
+} from "../src/utils/browser-support.ts"
 
 const componentsDir = fileURLToPath(
   new URL("../src/docs/components", import.meta.url),
@@ -82,6 +87,47 @@ export const pageProblems = ({ available, ids, ignored = [], used }) => ({
   unused: ids.filter(
     (id) => DETECTED.has(id) && !used.has(id) && !available.has(id),
   ),
+})
+
+const componentOf = (node) =>
+  node.type === "component" && node.name === "Component"
+    ? node
+    : (node.children ?? []).map(componentOf).find(Boolean)
+
+export const fallbacksOf = async (source) => {
+  const { ast } = await parseAstro(source, { position: false })
+  const value = componentOf(ast)?.attributes.find(
+    ({ name }) => name === "fallbacks",
+  )?.value
+  if (!value) return {}
+  const [statement] = ts.createSourceFile(
+    "fallbacks.ts",
+    `(${value})`,
+    ts.ScriptTarget.Latest,
+  ).statements
+  return Object.fromEntries(
+    statement.expression.expression.properties.map((property) => [
+      property.name.text,
+      property.initializer.text,
+    ]),
+  )
+}
+
+export const lackingIds = (ids) =>
+  [
+    ...new Set(
+      computeBrowserSupport(ids).flatMap(
+        ({ unsupportedFeatures }) => unsupportedFeatures,
+      ),
+    ),
+  ].toSorted()
+
+/** @param {{ fallbacks: Record<string, string>, lacking: string[] }} page */
+export const fallbackProblems = ({ fallbacks, lacking }) => ({
+  missing: lacking.filter((id) => !Object.hasOwn(fallbacks, id)),
+  unneeded: Object.keys(fallbacks)
+    .filter((id) => !lacking.includes(id))
+    .toSorted(),
 })
 
 const kebab = (name) =>
@@ -384,6 +430,42 @@ export const usedFeatureIds = (source, elements) => {
     .map(({ id }) => id)
 }
 
+const nests = (source) => {
+  let nested = false
+  postcss.parse(source).walk((node) => {
+    if (node.parent?.type === "rule" && node.type !== "decl") nested = true
+  })
+  return nested
+}
+
+const SHARED_DETECTORS = {
+  "cascade-layers": (source) => /@layer\b/.test(source),
+  nesting: nests,
+  oklab: (source) => /\boklch\(/.test(source),
+}
+
+export const unusedSharedFeatures = (source) =>
+  SHARED_FEATURES.filter((id) => {
+    const pattern = patterns.find((entry) => entry.id === id)?.pattern
+    const detect = SHARED_DETECTORS[id] ?? ((css) => !!pattern?.test(css))
+    return !detect(source)
+  })
+
+const sharedSheets = async () => {
+  const coreDir = fileURLToPath(
+    new URL("../packages/opui/core", import.meta.url),
+  )
+  return [
+    ...(await readdir(coreDir))
+      .filter((file) => file.endsWith(".css"))
+      .toSorted()
+      .map((file) => join(coreDir, file)),
+    ...["layers.css", "theme.css"].map((file) =>
+      fileURLToPath(new URL(`../packages/opui/css/${file}`, import.meta.url)),
+    ),
+  ]
+}
+
 const ignore = {
   "number-field": ["popover"],
   radio: ["alt-text-generated-content"],
@@ -470,13 +552,41 @@ const main = async () => {
   )
   report("browserSupport is not sorted, expected:", unsorted)
   report("Unknown web-features ids in browserSupport:", unknown)
+  const unusedShared = unusedSharedFeatures(await readCss(await sharedSheets()))
+  const fallbackMissing = []
+  const fallbackUnneeded = []
+  for (const [comp, ids] of Object.entries(components)) {
+    const problems = fallbackProblems({
+      fallbacks: await fallbacksOf(
+        await readFile(join(componentsDir, `${comp}.astro`), "utf-8"),
+      ),
+      lacking: lackingIds(ids),
+    })
+    fallbackMissing.push(...problems.missing.map((id) => `${comp}: "${id}"`))
+    fallbackUnneeded.push(...problems.unneeded.map((id) => `${comp}: "${id}"`))
+  }
+  report(
+    "browserSupport lists ids that some browser lacks, and the page's fallbacks has no sentence for them. Add one: say plainly what the component still does without the feature and what's missing, as its CSS, packages/opui/css/compat/ and the features data show it:",
+    fallbackMissing,
+  )
+  report(
+    "fallbacks has sentences for ids that browserSupport doesn't list or that every browser supports. Remove them:",
+    fallbackUnneeded,
+  )
+  report(
+    "SHARED_FEATURES in src/utils/browser-support.ts lists ids that packages/opui/core, css/layers.css and css/theme.css don't use, which every page counts into its browser versions. Remove them, or detect the id with a pattern in packages/opui/scripts/features.mjs or SHARED_DETECTORS in scripts/check-browser-support.mjs:",
+    unusedShared,
+  )
 
   if (
     missing.length +
       undetected.length +
       unused.length +
       unsorted.length +
-      unknown.length >
+      unknown.length +
+      unusedShared.length +
+      fallbackMissing.length +
+      fallbackUnneeded.length >
     0
   ) {
     process.exit(1)

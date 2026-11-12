@@ -1,7 +1,10 @@
 import type * as Base from "./types"
-import type { ComponentProps } from "react"
+import type { ComponentProps, ReactNode } from "react"
 
-export type Props = Base.Props & ComponentProps<"article">
+export type Props = Base.Props &
+  Base.Slots<ReactNode> & {
+    onDismiss?: (event: Base.Events["dismiss"]) => void
+  } & ComponentProps<"article">
 
 export type CalloutActionsProps = Base.CalloutActionsProps &
   ComponentProps<"div">

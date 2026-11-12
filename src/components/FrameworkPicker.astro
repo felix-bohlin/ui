@@ -105,6 +105,7 @@ const currentFramework = Astro.locals.framework
         // explicit change - never on plain URL navigation, so deep links
         // can't silently overwrite a saved preference.
         try {
+          sessionStorage.setItem(FRAMEWORK_STORAGE_KEY, framework)
           localStorage.setItem(FRAMEWORK_STORAGE_KEY, framework)
         } catch (_) {
           // private mode / storage disabled - non-fatal

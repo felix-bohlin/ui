@@ -5,7 +5,7 @@ export default function Spread() {
     <>
       <TextField
         label="Name"
-        placeholder="Ada Lovelace"
+        placeholder="Hakki Hälinen"
         spread
         startText="Provide your full name for identification"
       />

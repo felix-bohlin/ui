@@ -4,10 +4,10 @@
   const slides = [1, 2, 3, 4]
 </script>
 
-<Carousel aria-label="Plans" buttons="outside" itemsPerView={2}>
+<Carousel aria-label="Destinations" buttons="outside" itemsPerView={2}>
   {#each slides as slide (slide)}
     <li>
-      <Card style="block-size: 8rem" variant="outlined" />
+      <Card style="block-size: 8rem" variant="tonal" />
     </li>
   {/each}
 </Carousel>

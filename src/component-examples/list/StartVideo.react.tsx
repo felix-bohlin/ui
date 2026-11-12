@@ -4,7 +4,7 @@ export default function StartVideo() {
   return (
     <List>
       <ListItem
-        description="Uploaded by Lena Ek"
+        description="Uploaded by Lena Handén"
         end="1:30"
         label="Product tour"
         start={
@@ -17,7 +17,7 @@ export default function StartVideo() {
         }
       />
       <ListItem
-        description="Uploaded by Tom Tanaka"
+        description="Uploaded by Pekka Gåpåbottanen"
         end="0:45"
         label="Release highlights"
         start={

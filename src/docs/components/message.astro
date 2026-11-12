@@ -43,6 +43,10 @@ export const keywords = ["chat", "chat bubble", "conversation"]
     "has",
     "lh",
   ]}
+  fallbacks={{
+    "corner-shape":
+      "Without `corner-shape`, the bubbles keep plain rounded corners.",
+  }}
   changelogPaths={[
     { path: "packages/opui/components/Message", type: "component" },
     { path: "src/docs/components/message.astro", type: "docs" },
@@ -68,9 +72,9 @@ export const keywords = ["chat", "chat bubble", "conversation"]
 
   <Fragment slot="anatomy">
     <Anatomy>
-      <UIMessages aria-label="Messages with Saga" style="inline-size: 22rem">
-        <UIMessage author="Saga" datetime="2026-10-08T14:31" time="14:31">
-          <UIAvatar aria-label="Saga Nyström" role="img" slot="start"
+      <UIMessages aria-label="Messages with Sirkka" style="inline-size: 22rem">
+        <UIMessage author="Sirkka" datetime="2026-10-08T14:31" time="14:31">
+          <UIAvatar aria-label="Sirkka Nitti" role="img" slot="start"
             >SN</UIAvatar
           >
           <p>Here's the current draft.</p>
@@ -167,6 +171,11 @@ export const keywords = ["chat", "chat bubble", "conversation"]
         on screen.
       </li>
       <li>Put the time in a <code>&lt;time datetime&gt;</code>.</li>
+      <li>
+        Wrap the list of a live conversation in
+        <code>&lt;div role="log" aria-label="…"&gt;</code> so screen readers
+        announce new messages. The list keeps its items and count.
+      </li>
     </ul>
   </Fragment>
 

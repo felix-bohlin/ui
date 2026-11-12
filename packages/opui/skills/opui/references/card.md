@@ -3,7 +3,7 @@
 A surface for related content and actions.
 
 - CSS: `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/card.md), [Astro](https://open-props-ui.netlify.app/astro/components/card.md), [React](https://open-props-ui.netlify.app/react/components/card.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/card.md), [Vue](https://open-props-ui.netlify.app/vue/components/card.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/card.md), [Astro](https://opui.dev/astro/components/card.md), [React](https://opui.dev/react/components/card.md), [Svelte](https://opui.dev/svelte/components/card.md), [Vue](https://opui.dev/vue/components/card.md).
 
 ## Card
 

@@ -80,8 +80,8 @@ export default function Basics() {
         </DrawerHeader>
         <DrawerContent aria-label="Task details" role="region" tabIndex={0}>
           <p>
-            Assigned to Lena Ek, due Friday. Marco Rossi reviews the copy, and
-            the design team sends the new header images by Wednesday.
+            Assigned to Lena Handén, due Friday. Hakki Hälinen reviews the copy,
+            and the design team sends the new header images by Wednesday.
           </p>
           <p>
             The welcome series sends five emails over the first two weeks.
@@ -122,8 +122,8 @@ export default function Basics() {
             version of the three biggest mail apps, before it goes out.
           </p>
           <p>
-            Marco Rossi created the task on 3 March, and Lena Ek moved it to In
-            progress on 5 March.
+            Hakki Hälinen created the task on 3 March, and Lena Handén moved it
+            to In progress on 5 March.
           </p>
         </DrawerContent>
         <DrawerFooter>
@@ -143,9 +143,9 @@ export default function Basics() {
           <DrawerTitle>Notifications</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
-          <p>Marco Rossi commented on Onboarding emails.</p>
+          <p>Hakki Hälinen commented on Onboarding emails.</p>
           <p>Your export is ready to download.</p>
-          <p>Lena Ek invited you to the Design team.</p>
+          <p>Lena Handén invited you to the Design team.</p>
         </DrawerContent>
         <DrawerFooter>
           <Button command="close" commandfor="drawer-basics-3" size="small">

@@ -151,7 +151,16 @@ jobs:
           - project: dark
             shard: 1/1
     steps:
-      - run: apt-get update && apt-get install --yes --no-install-recommends git-lfs
+      - run: |
+          for attempt in 1 2 3; do
+            if apt-get -o Acquire::Retries=5 update && apt-get -o Acquire::Retries=5 install --yes --no-install-recommends git-lfs; then
+              break
+            fi
+            if [ "$attempt" = 3 ]; then
+              exit 1
+            fi
+            sleep 20
+          done
       - uses: actions/checkout@v7
       - name: List the visual baselines in Git LFS
         id: lfs

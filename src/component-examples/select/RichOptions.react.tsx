@@ -7,31 +7,31 @@ export default function RichOptions() {
         <option value="lena">
           <span className="ui-start">
             <span aria-hidden="true" className="ui-avatar ui-x-small">
-              LE
+              LH
             </span>
           </span>{" "}
           <span className="ui-text">
-            <span>Lena Ek</span> <span>Product designer</span>
+            <span>Lena Handén</span> <span>Product designer</span>
           </span>
         </option>
-        <option value="tom">
+        <option value="pekka">
           <span className="ui-start">
             <span aria-hidden="true" className="ui-avatar ui-x-small">
-              TT
+              PG
             </span>
           </span>{" "}
           <span className="ui-text">
-            <span>Tom Tanaka</span> <span>Frontend developer</span>
+            <span>Pekka Gåpåbottanen</span> <span>Frontend developer</span>
           </span>
         </option>
-        <option value="elif">
+        <option value="inga">
           <span className="ui-start">
             <span aria-hidden="true" className="ui-avatar ui-x-small">
-              ER
+              IH
             </span>
           </span>{" "}
           <span className="ui-text">
-            <span>Elif Rahman</span> <span>Support lead</span>
+            <span>Inga Halonen</span> <span>Support lead</span>
           </span>
         </option>
       </Select>

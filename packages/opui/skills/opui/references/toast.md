@@ -3,7 +3,7 @@
 Short messages that confirm an action and dismiss themselves.
 
 - CSS: `opui-css/css/components/toaster.css`, `opui-css/css/components/callout.css` and `opui-css/css/components/button.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/toast.md), [Astro](https://open-props-ui.netlify.app/astro/components/toast.md), [React](https://open-props-ui.netlify.app/react/components/toast.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/toast.md), [Vue](https://open-props-ui.netlify.app/vue/components/toast.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/toast.md), [Astro](https://opui.dev/astro/components/toast.md), [React](https://opui.dev/react/components/toast.md), [Svelte](https://opui.dev/svelte/components/toast.md), [Vue](https://opui.dev/vue/components/toast.md).
 
 ## Toaster
 

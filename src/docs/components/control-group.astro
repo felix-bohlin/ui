@@ -53,6 +53,13 @@ export const description =
     "relative-color",
     "user-pseudos",
   ]}
+  fallbacks={{
+    "customizable-select":
+      "Without customizable select, a select in the group opens the browser's own picker.",
+    "gap-decorations":
+      "Without gap decorations, the compat layer overlaps the controls and draws each line with a control's start border, so a row that wraps starts with a line.",
+    if: "Without `if()`, the compat layer draws the lines of a filled or tonal group with the controls' start borders.",
+  }}
   heroAnatomy
   apis={[
     { title: "Control group API", api: controlGroupApi },

@@ -3,5 +3,5 @@ import type { HTMLAttributes } from "react"
 
 export type Props = Base.Props &
   HTMLAttributes<HTMLElement> & {
-    onSort?: (event: CustomEvent<Base.SortDetail>) => void
+    onSort?: (event: Base.Events["sort"]) => void
   }

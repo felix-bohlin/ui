@@ -31,37 +31,37 @@ const roles = [
     </TableHead>
     <TableBody>
       <TableRow>
-        <TableCell>Lena Ek</TableCell>
+        <TableCell>Lena Handén</TableCell>
         <TableCell>
           <Select
             hideLabel
             :items="roles"
-            label="Role for Lena Ek"
+            label="Role for Lena Handén"
             value="designer"
           />
         </TableCell>
         <TableCell>
           <TextField
             hideLabel
-            label="Notes for Lena Ek"
+            label="Notes for Lena Handén"
             placeholder="Add a note"
           />
         </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>Tom Tanaka</TableCell>
+        <TableCell>Pekka Gåpåbottanen</TableCell>
         <TableCell>
           <Select
             hideLabel
             :items="roles"
-            label="Role for Tom Tanaka"
+            label="Role for Pekka Gåpåbottanen"
             value="developer"
           />
         </TableCell>
         <TableCell>
           <TextField
             hideLabel
-            label="Notes for Tom Tanaka"
+            label="Notes for Pekka Gåpåbottanen"
             placeholder="Add a note"
           />
         </TableCell>

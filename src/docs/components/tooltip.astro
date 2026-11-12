@@ -44,6 +44,20 @@ export const keywords = ["hint", "hover", "title", "toggletip"]
     "text-wrap-pretty",
     "transition-behavior",
   ]}
+  fallbacks={{
+    "calc-size":
+      "Without `calc-size()`, a long tooltip near the edge of the window can wrap into a narrow column.",
+    "display-animation":
+      "Without display animation, the tooltip disappears at once instead of fading out.",
+    "interest-invokers":
+      "Without interest invokers, the compat layer shows the tooltip while its trigger is hovered or has keyboard focus, and Esc doesn't hide it. Content later on the page can cover it.",
+    overlay:
+      "Without `overlay`, the page can cover a tooltip while it fades out.",
+    "popover-hint":
+      'Without `popover="hint"`, a toggletip is a manual popover, so Esc and a click outside leave it open.',
+    "text-wrap-pretty":
+      "Without `text-wrap: pretty`, the last line of a tooltip can hold a single word.",
+  }}
   changelogPaths={[
     {
       path: "packages/opui/components/Tooltip/Tooltip.astro",

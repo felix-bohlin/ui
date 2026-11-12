@@ -3,7 +3,7 @@ import type { CustomProperties } from "../types"
 export default {
   "--_bg-color": {
     description:
-      "The current background. Set by the hover and selected states.",
+      "The current background. Set by the hover state, `--ui-text-strong` at `--ui-state-hover-alpha-light` or `--ui-state-hover-alpha-dark`, and the selected state.",
     kind: "output",
   },
   "--_border-color": {

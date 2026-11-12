@@ -29,6 +29,10 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
     { title: "Avatar group API", api: avatarGroupApi },
   ]}
   browserSupport={["corner-shape", "has", "overflow-clip"]}
+  fallbacks={{
+    "corner-shape":
+      "Without `corner-shape`, the compat layer draws a squircle avatar as a rounded square with corners at 27% of its size.",
+  }}
   changelogPaths={[
     {
       path: "packages/opui/components/Avatar/Avatar.astro",
@@ -48,7 +52,7 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
 
   <Fragment slot="anatomy">
     <Anatomy zoom={2}>
-      <UIAvatar alt="Maya Lind" size="large" src="/photos/maya-lind.png" />
+      <UIAvatar alt="Lena Handén" size="large" src="/photos/lena-handen.png" />
     </Anatomy>
   </Fragment>
 

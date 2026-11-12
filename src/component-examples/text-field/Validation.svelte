@@ -3,7 +3,7 @@
 </script>
 
 <div class="example-row">
-  <TextField label="Full name" placeholder="Ada Lovelace" required />
+  <TextField label="Full name" placeholder="Hakki Hälinen" required />
   <TextField
     label="Email"
     placeholder="name@example.com"

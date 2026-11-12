@@ -40,6 +40,16 @@ export const keywords = ["clipboard", "copy to clipboard"]
     "starting-style",
     "transition-behavior",
   ]}
+  fallbacks={{
+    "display-animation":
+      "Without display animation, the Copied label disappears at once instead of sliding back.",
+    "interest-invokers":
+      "Without interest invokers, a tooltip on the copy button shows while the button is hovered or has keyboard focus, and the compat layer hides it while the Copied label shows.",
+    overlay:
+      "Without `overlay`, the page can cover the Copied label while it slides back.",
+    "popover-hint":
+      'Without `popover="hint"`, the tooltip on the copy button is a manual popover, which the compat layer still shows on hover and focus.',
+  }}
   apis={[{ title: "Copy API", api: copyApi }]}
   changelogPaths={[
     { path: "packages/opui/components/Copy/Copy.astro", type: "component" },

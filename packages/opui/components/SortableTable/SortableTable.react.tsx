@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react"
 import { defined } from "../attrs"
 import { cx } from "../cx"
+import { useListener } from "../react"
 import type { Props } from "./types.react"
 
 export default function SortableTable({
@@ -14,18 +15,11 @@ export default function SortableTable({
   ...rest
 }: Props) {
   const ref = useRef<HTMLElement>(null)
+  const rootRef = useListener(ref, "sort", onSort)
 
   useEffect(() => {
     void import("../../elements/sortable-table.js")
   }, [])
-
-  useEffect(() => {
-    const element = ref.current
-    if (!element || !onSort) return
-    const listener = (event: Event) => onSort(event as CustomEvent)
-    element.addEventListener("sort", listener)
-    return () => element.removeEventListener("sort", listener)
-  }, [onSort])
 
   useEffect(() => {
     ref.current?.removeAttribute("data-hydrating")
@@ -37,7 +31,7 @@ export default function SortableTable({
       className={cx(["ui-sortable-table", className])}
       data-hydrating=""
       descending-label={descendingLabel}
-      ref={ref}
+      ref={rootRef}
       {...defined(rest)}
     >
       {children}

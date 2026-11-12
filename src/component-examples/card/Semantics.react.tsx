@@ -7,7 +7,7 @@ export default function Semantics() {
         <hgroup>
           <p>Engineering</p>
           <h3>How we cut our build time in half</h3>
-          <p>Lena Ek, 12 March</p>
+          <p>Lena Handén, 12 March</p>
         </hgroup>
         <Chip label="5 min read" size="small" />
       </CardHeader>

@@ -4,9 +4,9 @@ import { Avatar, AvatarGroup } from "opui-css/vue"
 
 <template>
   <AvatarGroup aria-label="Reviewers">
-    <Avatar aria-label="Anna Berg" role="img">AB</Avatar>
-    <Avatar aria-label="Carl Dahl" role="img">CD</Avatar>
-    <Avatar aria-label="Eva Falk" role="img">EF</Avatar>
+    <Avatar aria-label="Hakki Hälinen" role="img">HH</Avatar>
+    <Avatar aria-label="Inga Halonen" role="img">IH</Avatar>
+    <Avatar aria-label="Lena Handén" role="img">LH</Avatar>
     <Avatar as="button" variant="tonal">
       +4<span class="ui-sr-only"> more reviewers</span>
     </Avatar>

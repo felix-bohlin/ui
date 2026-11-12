@@ -20,7 +20,7 @@ export const renewHighlightsWhenShown = () => {
       requestAnimationFrame(renewHighlights)
   }
   document.addEventListener("change", (event) =>
-    renewIfCode((event.target as Element).closest(".ui-tabs")),
+    renewIfCode((event.target as Element).closest(".code-files, .ui-tabs")),
   )
   document.addEventListener(
     "toggle",

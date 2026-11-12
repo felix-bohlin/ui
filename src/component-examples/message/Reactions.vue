@@ -9,10 +9,10 @@ import {
 </script>
 
 <template>
-  <Messages aria-label="Messages with Saga">
-    <Message author="Saga" datetime="2026-10-08T16:05" time="16:05">
+  <Messages aria-label="Messages with Sirkka">
+    <Message author="Sirkka" datetime="2026-10-08T16:05" time="16:05">
       <template #start>
-        <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
+        <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
       </template>
       <p>The deck is out. Thanks everyone!</p>
       <template #bottom>

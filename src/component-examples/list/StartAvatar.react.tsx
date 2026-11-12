@@ -4,16 +4,16 @@ export default function StartAvatar() {
   return (
     <List>
       <ListItem
-        label="Elif Rahman"
-        start={<Avatar aria-hidden="true">ER</Avatar>}
+        label="Inga Halonen"
+        start={<Avatar aria-hidden="true">IH</Avatar>}
       />
       <ListItem
         description="Product designer"
-        label="Lena Ek"
+        label="Lena Handén"
         start={
           <Avatar>
             <img
-              src="/photos/maya-lind.png"
+              src="/photos/lena-handen.png"
               alt=""
               decoding="async"
               loading="lazy"

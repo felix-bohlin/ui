@@ -2,13 +2,13 @@ import { Avatar, Message, Messages } from "opui-css/react"
 
 export default function Basics() {
   return (
-    <div aria-label="Chat with Saga" role="log">
-      <Messages aria-label="Messages with Saga">
+    <div aria-label="Chat with Sirkka" role="log">
+      <Messages aria-label="Messages with Sirkka">
         <Message
-          author="Saga"
+          author="Sirkka"
           datetime="2026-10-08T14:02"
           start={
-            <Avatar aria-label="Saga Nyström" role="img">
+            <Avatar aria-label="Sirkka Nitti" role="img">
               SN
             </Avatar>
           }
@@ -17,10 +17,10 @@ export default function Basics() {
           <p>Did you get a chance to look at the pricing proposal?</p>
         </Message>
         <Message
-          author="Saga"
+          author="Sirkka"
           datetime="2026-10-08T14:03"
           start={
-            <Avatar aria-label="Saga Nyström" role="img">
+            <Avatar aria-label="Sirkka Nitti" role="img">
               SN
             </Avatar>
           }

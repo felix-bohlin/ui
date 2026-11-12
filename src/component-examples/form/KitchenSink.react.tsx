@@ -33,7 +33,7 @@ export default function KitchenSink() {
           <TextField
             autoComplete="name"
             label="Full name"
-            placeholder="Ada Lovelace"
+            placeholder="Hakki Hälinen"
             required
           />
           <TextField

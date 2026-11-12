@@ -8,9 +8,9 @@ import {
 
 export default function Reactions() {
   return (
-    <Messages aria-label="Messages with Saga">
+    <Messages aria-label="Messages with Sirkka">
       <Message
-        author="Saga"
+        author="Sirkka"
         bottom={
           <ToggleGroup aria-label="Reactions" multiple name="reaction">
             <ToggleButton aria-label="Thumbs up, 2" defaultChecked value="+1">
@@ -23,7 +23,7 @@ export default function Reactions() {
         }
         datetime="2026-10-08T16:05"
         start={
-          <Avatar aria-label="Saga Nyström" role="img">
+          <Avatar aria-label="Sirkka Nitti" role="img">
             SN
           </Avatar>
         }

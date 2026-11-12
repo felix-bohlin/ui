@@ -6,7 +6,7 @@
   <ListItem label="Q3 report.pdf">
     {#snippet end()}2.4 MB{/snippet}
   </ListItem>
-  <ListItem description="Uploaded by Lena Ek" label="Team photo.jpg">
+  <ListItem description="Uploaded by Lena Handén" label="Team photo.jpg">
     {#snippet end()}860 kB{/snippet}
   </ListItem>
   <ListItem

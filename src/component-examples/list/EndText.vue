@@ -7,7 +7,7 @@ import { List, ListItem } from "opui-css/vue"
     <ListItem label="Q3 report.pdf">
       <template #end>2.4 MB</template>
     </ListItem>
-    <ListItem description="Uploaded by Lena Ek" label="Team photo.jpg">
+    <ListItem description="Uploaded by Lena Handén" label="Team photo.jpg">
       <template #end>860 kB</template>
     </ListItem>
     <ListItem

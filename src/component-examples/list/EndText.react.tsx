@@ -5,7 +5,7 @@ export default function EndText() {
     <List>
       <ListItem end="2.4 MB" label="Q3 report.pdf" />
       <ListItem
-        description="Uploaded by Lena Ek"
+        description="Uploaded by Lena Handén"
         end="860 kB"
         label="Team photo.jpg"
       />

@@ -5,7 +5,7 @@ export default function TopAndBottom() {
     <>
       <TextField
         label="Name"
-        placeholder="Ada Lovelace"
+        placeholder="Hakki Hälinen"
         top="Shown on your profile"
       />
 

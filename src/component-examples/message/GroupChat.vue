@@ -5,31 +5,31 @@ import { Avatar, Message, Messages } from "opui-css/vue"
 <template>
   <Messages aria-label="Messages in #design">
     <li class="ui-divider">Today</li>
-    <Message author="Leila" datetime="2026-10-08T09:12" time="09:12">
+    <Message author="Lena" datetime="2026-10-08T09:12" time="09:12">
       <template #start>
-        <Avatar aria-label="Leila Haddad" role="img">LH</Avatar>
+        <Avatar aria-label="Lena Handén" role="img">LH</Avatar>
       </template>
       <p>The new icons are ready.</p>
     </Message>
-    <Message author="Leila" datetime="2026-10-08T09:13" time="09:13">
+    <Message author="Lena" datetime="2026-10-08T09:13" time="09:13">
       <template #start>
-        <Avatar aria-label="Leila Haddad" role="img">LH</Avatar>
+        <Avatar aria-label="Lena Handén" role="img">LH</Avatar>
       </template>
       <p>Can we review them today?</p>
     </Message>
-    <Message author="Omar" datetime="2026-10-08T09:15" newAuthor time="09:15">
+    <Message author="Hakki" datetime="2026-10-08T09:15" newAuthor time="09:15">
       <template #start>
-        <Avatar aria-label="Omar Saleh" role="img">OS</Avatar>
+        <Avatar aria-label="Hakki Hälinen" role="img">HH</Avatar>
       </template>
       <p>I'm free after lunch.</p>
     </Message>
-    <Message author="Omar" datetime="2026-10-08T09:16" time="09:16">
+    <Message author="Hakki" datetime="2026-10-08T09:16" time="09:16">
       <template #start>
-        <Avatar aria-label="Omar Saleh" role="img">OS</Avatar>
+        <Avatar aria-label="Hakki Hälinen" role="img">HH</Avatar>
       </template>
       <p>I'll book a room.</p>
     </Message>
-    <li class="ui-divider">Omar added you</li>
+    <li class="ui-divider">Hakki added you</li>
     <Message author="You" datetime="2026-10-08T09:20" outgoing time="09:20">
       <p>See you at one.</p>
     </Message>

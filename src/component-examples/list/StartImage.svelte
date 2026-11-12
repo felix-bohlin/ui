@@ -5,12 +5,22 @@
 <List>
   <ListItem description="48 photos" label="Summer in Lisbon">
     {#snippet start()}
-      <img src="/photos/maya-lind.png" alt="" decoding="async" loading="lazy" />
+      <img
+        src="/photos/lena-handen.png"
+        alt=""
+        decoding="async"
+        loading="lazy"
+      />
     {/snippet}
   </ListItem>
   <ListItem description="112 photos" label="Team offsite">
     {#snippet start()}
-      <img src="/photos/maya-lind.png" alt="" decoding="async" loading="lazy" />
+      <img
+        src="/photos/lena-handen.png"
+        alt=""
+        decoding="async"
+        loading="lazy"
+      />
     {/snippet}
   </ListItem>
 </List>

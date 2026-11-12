@@ -22,7 +22,7 @@ import { Button, List, ListItem } from "opui-css/vue"
         </Button>
       </template>
     </ListItem>
-    <ListItem description="Product designer" label="Lena Ek">
+    <ListItem description="Product designer" label="Lena Handén">
       <template #start>
         <svg
           aria-hidden="true"

@@ -8,7 +8,7 @@ export default function StartImage() {
         label="Summer in Lisbon"
         start={
           <img
-            src="/photos/maya-lind.png"
+            src="/photos/lena-handen.png"
             alt=""
             decoding="async"
             loading="lazy"
@@ -20,7 +20,7 @@ export default function StartImage() {
         label="Team offsite"
         start={
           <img
-            src="/photos/maya-lind.png"
+            src="/photos/lena-handen.png"
             alt=""
             decoding="async"
             loading="lazy"

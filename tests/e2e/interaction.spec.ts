@@ -840,16 +840,16 @@ interaction(
     const input = root.getByRole("textbox", { name: "Name" })
     const text = root.locator(".text-field-binding-text")
 
-    await expect(input).toHaveValue("Ada")
-    await expect(text).toHaveText("Hello, Ada.")
-    await input.fill("Grace")
-    await expect(text).toHaveText("Hello, Grace.")
+    await expect(input).toHaveValue("Hakki")
+    await expect(text).toHaveText("Hello, Hakki.")
+    await input.fill("Pekka")
+    await expect(text).toHaveText("Hello, Pekka.")
     await input.fill("")
     await expect(text).toHaveText("Hello, stranger.")
 
     await root.getByRole("button", { name: "Reset" }).click()
-    await expect(input).toHaveValue("Ada")
-    await expect(text).toHaveText("Hello, Ada.")
+    await expect(input).toHaveValue("Hakki")
+    await expect(text).toHaveText("Hello, Hakki.")
   },
 )
 
@@ -876,7 +876,7 @@ interaction(
     await expect.poll(border).toBe(invalid)
 
     await input.focus()
-    await page.keyboard.type("Ada")
+    await page.keyboard.type("Hakki")
     await page.keyboard.press("Tab")
     await expect.poll(border).toBe(initial)
   },
@@ -1699,7 +1699,7 @@ interaction(
       await input.evaluate((element: HTMLInputElement) =>
         [...(element.list?.options ?? [])].map((option) => option.value),
       ),
-    ).toEqual(["Elif Rahman", "Lena Ek", "Tom Tanaka"])
+    ).toEqual(["Inga Halonen", "Lena Handén", "Pekka Gåpåbottanen"])
   },
 )
 

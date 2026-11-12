@@ -531,7 +531,7 @@ In Astro and Vue the regions are parts instead of slots. The root no longer rend
 
 The `Slots` type in `types.ts` drops `icon` and `title`, and has `closeIcon` for the close button's icon.
 
-In Astro and Vue the root no longer has `role="note"`, so screen readers announce the `<article>` it is. Pass `role="note"` to keep the old announcement.
+The root is a `<div>` instead of an `<article>`, and in Astro and Vue it no longer has `role="note"`, so screen readers read the callout as part of the content around it. Pass `role="note"` to keep the old announcement, and select `.ui-callout` where a selector or a test matched the `article`. The CSS still styles an `<article class="ui-callout">`, so HTML can stay as it is.
 
 ## Card
 

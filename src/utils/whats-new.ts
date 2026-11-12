@@ -239,8 +239,9 @@ export const whatsNew = {
     `Buttons only show <a href="#variants">hover styles</a> on devices that can hover, so they no longer stick after a tap.`,
   ],
   callout: [
+    `Breaking: the root is a <a href="#accessibility"><code>&lt;div&gt;</code></a> instead of an <code>&lt;article&gt;</code>, so select <code>.ui-callout</code> where a selector matched the <code>article</code>.`,
     slots(
-      `Breaking: no <code>role="note"</code>, so screen readers announce the <a href="#accessibility"><code>&lt;article&gt;</code></a> it is. Add <code>role="note"</code> to keep the old announcement.`,
+      `Breaking: no <code>role="note"</code>, so screen readers read the callout as <a href="#accessibility">part of the content</a> around it. Add <code>role="note"</code> to keep the old announcement.`,
     ),
     `Breaking: <code>--_border-radius</code> is <code>--_radius</code>, <code>--_outlined-icon-color</code> and <code>--_link-hover-color</code> are <code>--_outlined-icon-text-color</code> and <code>--_link-hover-text-color</code>, and <code>--_icon-color</code> is no longer an override: the severity classes and <code>.ui-outlined</code> set <code>--_icon-text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `Severity fills, borders, icons and text read the <a href="#api"><code>--ui-palette-*</code></a> roles, so a theme restyles every severity at once.`,

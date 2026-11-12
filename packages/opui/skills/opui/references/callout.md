@@ -77,7 +77,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
 ### Example: Variants
 
 ```html
-<article class="ui-callout">
+<div class="ui-callout">
   <div class="ui-content">
     <h3>Scheduled maintenance</h3>
     <p>
@@ -85,8 +85,8 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
       upgrade the database.
     </p>
   </div>
-</article>
-<article class="ui-callout ui-outlined">
+</div>
+<div class="ui-callout ui-outlined">
   <div class="ui-content">
     <h3>Billing has moved</h3>
     <p>
@@ -94,7 +94,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
       settings.
     </p>
   </div>
-</article>
+</div>
 ```
 
 ## Astro

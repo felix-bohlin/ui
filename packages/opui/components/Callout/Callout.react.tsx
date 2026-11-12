@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useId } from "react"
-import { defined } from "../attrs"
 import { cx } from "../cx"
 import { useListener } from "../react"
 import Button from "../Button/Button.react"
@@ -24,7 +23,7 @@ export default function Callout({
 }: Props) {
   const uid = useId()
   const base = id || `callout-${uid}`
-  const Root = closeButton ? "opui-callout" : "article"
+  const Root = closeButton ? "opui-callout" : "div"
   const rootId = closeButton ? base : id
   const rootRef = useListener(ref, "dismiss", onDismiss)
   useEffect(() => {
@@ -41,9 +40,8 @@ export default function Callout({
           className,
         ])}
         id={rootId}
-        role={closeButton ? "article" : undefined}
         ref={rootRef}
-        {...defined(rest as object)}
+        {...(rest as object)}
       >
         {children}
         {closeButton && (

@@ -31,6 +31,10 @@
     grid-template-columns: auto minmax(0, auto);
     max-inline-size: var(--_max-inline-size);
 
+    @media print {
+      print-color-adjust: exact;
+    }
+
     @supports (corner-shape: squircle) {
       --_radius: calc(var(--ui-radius) * 1.75);
     }

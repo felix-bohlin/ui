@@ -102,6 +102,10 @@
       user-select: none;
       white-space: nowrap;
 
+      @media print {
+        print-color-adjust: exact;
+      }
+
       &::before {
         border: var(--ui-border-width) solid transparent;
         border-radius: calc(
@@ -363,6 +367,10 @@
           transition: inset var(--_indicator-duration)
             var(--ui-ease-move, var(--_ease));
           z-index: -2;
+
+          @media print {
+            print-color-adjust: exact;
+          }
         }
 
         &.ui-line::after {

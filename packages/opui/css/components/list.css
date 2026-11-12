@@ -204,6 +204,10 @@ Lists meant to be used stand-alone or as part of Select elements
           background-color: var(--_selected-bg-color);
           box-shadow: var(--_selected-shadow);
           color: var(--ui-on-selected, currentColor);
+
+          @media print {
+            print-color-adjust: exact;
+          }
         }
       }
 
@@ -233,6 +237,10 @@ Lists meant to be used stand-alone or as part of Select elements
           background-color: var(--_selected-bg-color);
           box-shadow: var(--_selected-shadow);
           color: var(--ui-on-selected, currentColor);
+
+          @media print {
+            print-color-adjust: exact;
+          }
         }
       }
 
@@ -276,6 +284,10 @@ Lists meant to be used stand-alone or as part of Select elements
           background-color: var(--_selected-bg-color);
           box-shadow: var(--_selected-shadow);
           color: var(--ui-on-selected, currentColor);
+
+          @media print {
+            print-color-adjust: exact;
+          }
         }
       }
 

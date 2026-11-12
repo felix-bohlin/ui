@@ -25,7 +25,7 @@ Chat bubbles that group by sender, with attachments, reactions and a typing indi
 ### Parts
 
 - `li.ui-message` (root): A message.
-- `.ui-avatar` (slot `start`): The sender's `Avatar`, from the `start` slot, shown on the last message of a run.
+- `.ui-avatar` (slot `start`): The sender's `Avatar`, from the `start` slot, shown on the last message of a run. It takes no `label`: `author` names the message.
 - `.ui-content` (slot `default`): The bubble.
 - `.ui-header` (prop `author`): The sender's name.
 - `.ui-footer` (prop `datetime`, prop `time`): The time, and content such as a read receipt.

@@ -20,7 +20,7 @@ const footerItems = [
     <nav aria-label="Footer">
       <ul>
         {footerItems.map((item) => <li>
-          <a class="ui-link" href={item.href} title={item.label}>
+          <a class="ui-button ui-small" href={item.href} title={item.label}>
             {item.label}
           </a>
         </li>)}
@@ -73,9 +73,40 @@ const footerItems = [
 
 <style>
   footer {
-    background-color: var(--ui-surface-tonal);
-    margin-block-start: var(--size-12);
-    padding-block: var(--size-9);
+    border-block-start: var(--ui-border-width) solid var(--ui-border-color);
+    isolation: isolate;
+    margin-block-start: var(--size-10);
+    overflow: clip;
+    padding-block: var(--size-8);
+    position: relative;
+
+    &::before,
+    &::after {
+      content: "";
+      inset: 0;
+      pointer-events: none;
+      position: absolute;
+      z-index: -1;
+    }
+
+    &::before {
+      background: radial-gradient(
+        100% 100% at 50% 100%,
+        var(--ui-primary),
+        transparent
+      );
+      opacity: 0.3;
+    }
+
+    &::after {
+      background-image: radial-gradient(
+        var(--ui-text) 1.45px,
+        transparent 1.45px
+      );
+      background-size: 20px 20px;
+      mask-image: linear-gradient(to bottom, transparent, oklch(0 0 0));
+      opacity: 0.1;
+    }
   }
 
   .ui-content {
@@ -87,32 +118,30 @@ const footerItems = [
   ul {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--size-6);
+    gap: var(--size-2);
     justify-content: center;
     list-style: none;
     margin: 0;
     padding: 0;
   }
 
-  a {
-    color: var(--ui-text);
-    text-decoration: none;
-
-    &:hover {
-      color: var(--ui-text-strong);
-      text-decoration: underline;
-    }
-  }
-
   hr {
-    border: none;
-    border-block-start: 1px solid var(--ui-border-color);
-    margin-block: var(--size-8);
+    margin-block: var(--size-6);
   }
 
   p {
     color: var(--ui-text);
     font-size: var(--ui-font-size-caption);
+    margin: 0;
     text-align: center;
+    text-wrap: balance;
+
+    & + p {
+      margin-block-start: var(--size-1);
+    }
+
+    a {
+      color: var(--ui-text-strong);
+    }
   }
 </style>

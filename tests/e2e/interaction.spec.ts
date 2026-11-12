@@ -2399,6 +2399,17 @@ interaction(
 )
 
 interaction(
+  "select",
+  "Affix",
+  "the label alone names a select, and its affix describes it",
+  async ({ root }) => {
+    await expect(
+      root.getByRole("combobox", { name: "Delivery time", exact: true }),
+    ).toHaveAccessibleDescription("days")
+  },
+)
+
+interaction(
   "textarea",
   "AffixButton",
   "a button in an affix stays out of the field's name",

@@ -1,8 +1,8 @@
 import { readdirSync, readFileSync } from "node:fs"
 import AxeBuilder from "@axe-core/playwright"
-import { expect, test, type Page } from "@playwright/test"
+import { expect, test, type Locator, type Page } from "@playwright/test"
 import { strFromU8, unzipSync } from "fflate"
-import { axeNodes } from "./fixtures"
+import { axeNodes, settle } from "./fixtures"
 
 const PRESETS =
   readdirSync(new URL("../../packages/opui/themes/", import.meta.url)).filter(
@@ -25,6 +25,30 @@ const toast = (page: Page) =>
 const room = (page: Page, id: string) => page.locator(`[data-room="${id}"]`)
 
 const group = (page: Page, id: string) => page.locator(`[data-group="${id}"]`)
+
+const opened = async (drawer: Locator) => {
+  await expect(drawer).toHaveAttribute("open")
+  await settle(drawer)
+}
+
+const closed = async (drawer: Locator) => {
+  await expect(drawer).not.toHaveAttribute("open")
+  await settle(drawer)
+}
+
+const saved = (page: Page) => page.locator("#builder-saved")
+
+const openSaved = async (page: Page) => {
+  await page.locator("[data-saved]").click()
+  await opened(saved(page))
+}
+
+const lockIds = async (page: Page) =>
+  [
+    ...(await (await page.request.get("/theme-builder/")).text()).matchAll(
+      /data-lock="([^"]+)"/g,
+    ),
+  ].map(([, id]) => id)
 
 test("opens on Start with the preset cards and no changes", async ({
   page,
@@ -141,22 +165,45 @@ test("shuffle skips locked rooms", async ({ page }) => {
     "false",
   )
   await page.locator('[data-lock="status"]').click()
+  await expect(page.locator('[data-lock="status"]')).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  )
   await page.locator("[data-shuffle]").click()
   await expect(toast(page)).toHaveText("Shuffled the unlocked settings.")
   await expect(changes(page)).not.toHaveText("No changes")
   await expect(page.locator('[data-room-count="status"]')).toBeHidden()
-  await page.locator("[data-reset-all]").click()
-  await expect(changes(page)).toHaveText("No changes")
-  for (const lock of await page.locator("[data-lock]").all()) {
-    if ((await lock.getAttribute("aria-pressed")) !== "true") await lock.click()
-  }
+})
+
+test("shuffle changes nothing when every room is locked", async ({ page }) => {
+  const locks = await lockIds(page)
+  expect(locks).toContain("status")
+  await page.addInitScript(
+    (ids) => localStorage.setItem("opui-builder-locks", JSON.stringify(ids)),
+    locks,
+  )
+  await open(page)
+  await expect(page.locator('[data-lock][aria-pressed="true"]')).toHaveCount(
+    locks.length,
+  )
   await page.locator("[data-shuffle]").click()
   await expect(toast(page)).toHaveText("Shuffled the unlocked settings.")
   await expect(changes(page)).toHaveText("No changes")
-  await page.reload()
-  await expect(page.locator('[data-lock][aria-pressed="true"]')).toHaveCount(
-    await page.locator("[data-lock]").count(),
+})
+
+test("locks survive a reload", async ({ page }) => {
+  await open(page)
+  await page.locator('[data-lock="status"]').click()
+  await expect(page.locator('[data-lock="status"]')).toHaveAttribute(
+    "aria-pressed",
+    "true",
   )
+  await page.reload()
+  await expect(page.locator('[data-lock="status"]')).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  )
+  await expect(page.locator('[data-lock][aria-pressed="true"]')).toHaveCount(1)
 })
 
 test("the contrast drawer links a check to its setting", async ({ page }) => {
@@ -342,20 +389,18 @@ test("undo and redo walk the history, also from the keyboard", async ({
   await expect(page.locator("[data-redo-history]")).toBeEnabled()
 })
 
-test("saved themes load, compare and delete, and the gallery loads", async ({
-  page,
-}) => {
+test("a saved theme loads and compares", async ({ page }) => {
   await open(page)
   await page.locator('[data-mood="minimal"]').click()
-  await page.locator("[data-saved]").click()
-  const drawer = page.locator("#builder-saved")
-  await expect(drawer).toHaveAttribute("open")
+  await expect(changes(page)).not.toHaveText("No changes")
+  const drawer = saved(page)
+  await openSaved(page)
   await drawer.locator('input[name="snapshot-name"]').fill("Mono")
   await drawer.locator("[data-save-form] button[type=submit]").click()
   await expect(drawer.locator("[data-saved-status]")).toHaveText("Saved Mono.")
   await expect(drawer.locator("[data-snapshots] li")).toHaveCount(1)
   await drawer.locator("[data-snapshots] [data-compare]").click()
-  await expect(drawer).not.toHaveAttribute("open")
+  await closed(drawer)
   await expect(
     page.locator('input[name="preview-tab"][value="compare"]'),
   ).toBeChecked()
@@ -363,18 +408,41 @@ test("saved themes load, compare and delete, and the gallery loads", async ({
   await expect(page.locator("#preview-compare-yours")).toHaveText("Yours")
   await page.locator("[data-reset-all]").click()
   await expect(changes(page)).toHaveText("No changes")
-  await page.locator("[data-saved]").click()
+  await openSaved(page)
   await drawer.locator("[data-snapshots] [data-load]").click()
+  await closed(drawer)
   await expect(toast(page)).toHaveText("Loaded Mono.")
   await expect(page.locator('[data-mood="minimal"]')).toHaveAttribute(
     "aria-pressed",
     "true",
   )
-  await page.locator("[data-saved]").click()
+})
+
+test("a gallery theme loads and a saved theme deletes", async ({ page }) => {
+  await page.addInitScript(
+    (snapshots) =>
+      localStorage.setItem("opui-builder-snapshots", JSON.stringify(snapshots)),
+    [
+      {
+        id: "mono",
+        name: "Mono",
+        saved: Date.UTC(2026, 10, 2),
+        theme: { preset: null, tokens: { "--ui-radius": "0" } },
+      },
+    ],
+  )
+  await open(page)
+  const drawer = saved(page)
+  await openSaved(page)
+  await expect(drawer.locator("[data-snapshots] li")).toHaveCount(1)
+  await expect(drawer.locator("[data-snapshots] [data-name]")).toHaveText(
+    "Mono",
+  )
   await drawer.locator('[data-gallery="paper"] [data-gallery-use]').click()
+  await closed(drawer)
   await expect(toast(page)).toHaveText("Using Paper from the gallery.")
   await expect(changes(page)).not.toHaveText("No changes")
-  await page.locator("[data-saved]").click()
+  await openSaved(page)
   await drawer.locator("[data-snapshots] [data-delete]").click()
   await expect(drawer.locator("[data-snapshots] li")).toHaveCount(0)
   await expect(drawer.locator("[data-snapshots-empty]")).toBeVisible()

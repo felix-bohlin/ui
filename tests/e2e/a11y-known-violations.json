@@ -50,9 +50,6 @@
   "dark/checkbox/VisibleLabel": [
     "color-contrast"
   ],
-  "dark/drawer/Usage": [
-    "scrollable-region-focusable"
-  ],
   "dark/list/Default": [
     "color-contrast"
   ],
@@ -157,9 +154,6 @@
   ],
   "light/checkbox/VisibleLabel": [
     "color-contrast"
-  ],
-  "light/drawer/Usage": [
-    "scrollable-region-focusable"
   ],
   "light/list/Default": [
     "color-contrast"

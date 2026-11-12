@@ -15,6 +15,7 @@ const { title, description, image } = Astro.props
   <a href="#main-content" class="ui-sr-only">Skip to main content</a>
 
   <Header>
+    <slot name="section-nav" slot="section-nav" />
     <slot name="toolbar" slot="toolbar" />
   </Header>
 

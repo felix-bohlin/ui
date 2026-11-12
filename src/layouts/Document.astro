@@ -2,7 +2,6 @@
 import Default from "./Default.astro"
 import TableOfContents from "../components/TableOfContents.astro"
 import LocalNav from "../components/LocalNav.astro"
-import { Button, Drawer, DrawerFooter } from "@opui/astro"
 
 type Props = {
   title?: string
@@ -14,7 +13,7 @@ type Props = {
 
 const { title, description, image, overline, showToc = true } = Astro.props
 const sidebar = await Astro.slots.render("sidebar")
-const hasSidebarDrawer = sidebar?.includes("<nav")
+const sectionNav = sidebar?.includes("<nav") ? sidebar : ""
 
 const preamble = Astro.slots.has("preamble")
   ? await Astro.slots.render("preamble")
@@ -39,13 +38,11 @@ const descText =
 ---
 
 <Default title={titleText} description={descText} image={image}>
+  <Fragment slot="section-nav" set:html={sectionNav} />
   <Fragment slot="toolbar">
-    <LocalNav
-      sidebarDrawerId={hasSidebarDrawer ? "sidebar-drawer" : undefined}
-      showToc={showToc}
-    />
+    {showToc && <LocalNav />}
   </Fragment>
-  <div id="document-page">
+  <div id="document-page" class:list={{ "has-toolbar": showToc }}>
     {
       sidebar && (
         <aside class="sidebar">
@@ -53,24 +50,6 @@ const descText =
             <Fragment set:html={sidebar} />
           </div>
         </aside>
-      )
-    }
-
-    {
-      hasSidebarDrawer && (
-        <Drawer
-          id="sidebar-drawer"
-          backdrop="transparent"
-          side="inline-start"
-          closedby="any"
-        >
-          <Fragment slot="content" set:html={sidebar} />
-          <DrawerFooter slot="footer">
-            <Button size="small" commandfor="sidebar-drawer" command="close">
-              Close
-            </Button>
-          </DrawerFooter>
-        </Drawer>
       )
     }
 
@@ -139,12 +118,18 @@ const descText =
 
 <style is:global>
   #document-page {
+    --_toolbar-size: 0px;
+
     display: grid;
     grid-template-columns:
       var(--_gap) 1fr 0 minmax(auto, 100%)
       0 1fr var(--_gap);
     margin: 0 auto;
     max-inline-size: calc(var(--_content-lg) + var(--_page-gutters));
+
+    &.has-toolbar {
+      --_toolbar-size: var(--size-8);
+    }
 
     &:before {
       background: radial-gradient(
@@ -171,6 +156,10 @@ const descText =
         max-inline-size: 100%;
         padding-inline: 0;
       }
+
+      &:not(.has-toolbar) #main-content {
+        padding-block-start: var(--_gap);
+      }
     }
 
     @media (width >= 900px) {
@@ -193,7 +182,7 @@ const descText =
       }
     }
 
-    :where(.sidebar, #sidebar-drawer) {
+    :where(.sidebar) {
       .ui-content {
         padding-inline: var(--size-4);
 
@@ -317,13 +306,6 @@ const descText =
       }
     }
 
-    #sidebar-drawer {
-      .framework-picker,
-      hr {
-        display: none;
-      }
-    }
-
     .sidebar {
       align-self: start;
       background-color: var(--surface-filled);
@@ -345,9 +327,11 @@ const descText =
       }
 
       @media (width >= 900px) and (width < 1140px) {
-        inset-block-start: calc(var(--size-10) + var(--size-8) + var(--_gap));
+        inset-block-start: calc(
+          var(--size-10) + var(--_toolbar-size) + var(--_gap)
+        );
         max-block-size: calc(
-          100dvb - var(--size-10) - var(--size-8) - var(--_page-gutters)
+          100dvb - var(--size-10) - var(--_toolbar-size) - var(--_page-gutters)
         );
       }
     }
@@ -423,8 +407,8 @@ const descText =
       position: sticky;
 
       @media (width >= 900px) and (width < 1140px) {
-        inset-block-start: calc(var(--size-10) + var(--size-8));
-        max-block-size: calc(100dvb - var(--size-10) - var(--size-8));
+        inset-block-start: calc(var(--size-10) + var(--_toolbar-size));
+        max-block-size: calc(100dvb - var(--size-10) - var(--_toolbar-size));
       }
     }
   }

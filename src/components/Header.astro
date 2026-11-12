@@ -1,14 +1,6 @@
 ---
 import GithubLogo from "./GithubLogo.astro"
-import {
-  Button,
-  Drawer,
-  DrawerFooter,
-  DrawerHeader,
-  IconButton,
-  List,
-  ListItem,
-} from "@opui/astro"
+import { Drawer, DrawerHeader, IconButton } from "@opui/astro"
 import ThemeConfigurator from "./ThemeConfigurator.astro"
 import FrameworkPicker from "./FrameworkPicker.astro"
 import Search from "./Search.astro"
@@ -41,6 +33,8 @@ const resolvedNavItems = navItems.map((item) => ({
 }))
 
 const { link } = Astro.locals
+
+const sectionNav = (await Astro.slots.render("section-nav"))?.trim()
 ---
 
 <script is:inline>
@@ -193,6 +187,7 @@ const { link } = Astro.locals
 
         <!-- Mobile menu button -->
         <button
+          aria-label="Menu"
           class="mobile-menu-button ui-icon-button"
           commandfor="mobile-menu-drawer"
           command="show-modal"
@@ -217,44 +212,47 @@ const { link } = Astro.locals
   </div>
 </div>
 
-<Drawer id="mobile-menu-drawer" side="inline-end" closedby="any">
+<Drawer
+  aria-label="Menu"
+  closedby="any"
+  id="mobile-menu-drawer"
+  side="inline-end"
+>
   <DrawerHeader slot="header" />
   <Fragment slot="content">
     <nav aria-label="Mobile navigation">
-      <List variant="transparent">
+      <ul>
         {
           resolvedNavItems.map((item) => (
-            <ListItem>
+            <li>
               <a
+                class="ui-button ui-small"
                 href={item.href}
                 aria-current={item.isActive ? "page" : "false"}
               >
                 {item.label}
               </a>
-            </ListItem>
+            </li>
           ))
         }
-        <ListItem>
-          <a href="https://github.com/felix-bohlin/ui" target="_blank">
-            <div class="ui-start">
-              <GithubLogo />
-            </div>
-            <p>GitHub</p>
-          </a>
-        </ListItem>
-      </List>
+      </ul>
     </nav>
+
+    <FrameworkPicker />
+
+    {sectionNav && <div class="section-nav" set:html={sectionNav} />}
 
     <hr class="ui-divider" />
 
-    <FrameworkPicker />
-  </Fragment>
-
-  <DrawerFooter slot="footer">
-    <Button size="small" commandfor="mobile-menu-drawer" command="close"
-      >Close</Button
+    <a
+      class="github-link"
+      href="https://github.com/felix-bohlin/ui"
+      target="_blank"
     >
-  </DrawerFooter>
+      <GithubLogo />
+      <span>GitHub</span>
+    </a>
+  </Fragment>
 </Drawer>
 
 <ThemeConfigurator />
@@ -430,51 +428,6 @@ const { link } = Astro.locals
     }
   }
 
-  /* Mobile menu styles */
-  #mobile-menu-drawer {
-    nav {
-      display: block;
-      margin-inline: calc(var(--size-4) * -1);
-      margin-block-start: calc(var(--size-4) * -1);
-
-      a {
-        align-items: center;
-        color: inherit;
-        display: flex;
-        font-weight: var(--font-weight-6);
-        padding: var(--size-3) var(--size-4);
-        text-decoration: none;
-        width: 100%;
-        transition: background-color 0.2s ease;
-
-        &[aria-current="page"] {
-          background-color: var(--surface-tonal);
-          color: var(--primary);
-        }
-
-        &:hover {
-          background-color: var(--surface-tonal);
-        }
-      }
-    }
-
-    .drawer-footer {
-      padding-block: var(--size-4);
-      display: flex;
-      flex-direction: column;
-      gap: var(--size-3);
-
-      .ui-label {
-        color: var(--text-2);
-        font-size: var(--font-size-0);
-        font-weight: var(--font-weight-7);
-        letter-spacing: var(--font-letter-spacing-1);
-        margin: 0;
-        text-transform: uppercase;
-      }
-    }
-  }
-
   /* Scroll-driven animations */
   .ui-content {
     animation: fade-content linear both;
@@ -515,5 +468,101 @@ const { link } = Astro.locals
     }
   }
 </style>
+
+<style is:global>
+  /* Mobile menu styles */
+  #mobile-menu-drawer {
+    .ui-content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-4);
+    }
+
+    nav[aria-label="Mobile navigation"] ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      a {
+        min-block-size: 44px;
+      }
+    }
+
+    .section-nav {
+      .framework-picker,
+      hr {
+        display: none;
+      }
+
+      h3 {
+        font-size: var(--font-size-05);
+        margin-block: var(--size-2) var(--size-1);
+      }
+
+      menu {
+        font-size: var(--font-size-1);
+        list-style: none;
+        margin-block: 0;
+        margin-inline: calc(var(--size-4) * -1);
+        padding: 0;
+      }
+
+      a {
+        align-items: center;
+        color: oklch(from var(--text-primary) l c h / 75%);
+        display: flex;
+        font-weight: 500;
+        min-block-size: 44px;
+        padding-block: 0;
+        padding-inline: var(--size-4);
+        text-decoration: none;
+
+        &:hover {
+          background-color: var(--surface-tonal);
+        }
+
+        &[aria-current="page"] {
+          background-color: var(--surface-tonal);
+          color: var(--text-primary);
+          font-weight: 700;
+        }
+      }
+    }
+
+    hr {
+      margin: 0;
+    }
+
+    .github-link {
+      align-items: center;
+      color: inherit;
+      display: flex;
+      font-weight: var(--font-weight-6);
+      gap: var(--size-3);
+      min-block-size: 44px;
+      text-decoration: none;
+    }
+  }
+</style>
+
+<script>
+  const drawer = document.getElementById("mobile-menu-drawer")
+  const content = drawer?.querySelector(".ui-content")
+
+  if (drawer && content) {
+    new MutationObserver(() => {
+      if (!drawer.hasAttribute("open")) return
+      const active = content.querySelector('.section-nav [aria-current="page"]')
+      if (!active) return
+      const item = active.getBoundingClientRect()
+      const view = content.getBoundingClientRect()
+      if (item.top >= view.top && item.bottom <= view.bottom) return
+      content.scrollTop += item.top - view.top - (view.height - item.height) / 2
+    }).observe(drawer, { attributeFilter: ["open"] })
+  }
+</script>
 
 <Search />

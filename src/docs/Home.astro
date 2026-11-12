@@ -14,6 +14,8 @@ import {
 import opuiPackage from "../../packages/opui/package.json"
 
 const version = opuiPackage.version
+const changelogHref =
+  "https://github.com/felix-bohlin/ui/blob/main/packages/opui/CHANGELOG.md"
 
 const currentFramework = (Astro.currentLocale ??
   DEFAULT_FRAMEWORK) as FrameworkId
@@ -31,10 +33,14 @@ const FRAMEWORK_BRANDING: Record<
 ---
 
 <Default>
-  <section id="main-content" class="container ui-large">
+  <main id="main-content" class="container ui-large">
     <ComponentShowcase aria-hidden="true">
       <hgroup class="ui-hgroup" id="main-heading">
-        <p>{version}</p>
+        <p>
+          <a class="version" href={changelogHref} title="Changelog"
+            >v{version}</a
+          >
+        </p>
 
         <h1 class="ui-h1">Open Props UI</h1>
 
@@ -79,7 +85,7 @@ const FRAMEWORK_BRANDING: Record<
         </p>
       </hgroup>
     </ComponentShowcase>
-  </section>
+  </main>
 </Default>
 
 <script>
@@ -142,6 +148,15 @@ const FRAMEWORK_BRANDING: Record<
 <style>
   .hero-badge {
     margin-block-end: var(--size-4);
+  }
+
+  .version {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   .hero-description {

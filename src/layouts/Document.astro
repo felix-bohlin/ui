@@ -135,6 +135,24 @@ const descText =
       heading.appendChild(anchor)
     }
   })
+
+  const sidebar = document.querySelector<HTMLElement>("aside.sidebar")
+  const activeLink = sidebar?.querySelector<HTMLElement>(
+    '[aria-current="page"]',
+  )
+  if (sidebar && activeLink) {
+    const sidebarRect = sidebar.getBoundingClientRect()
+    const linkRect = activeLink.getBoundingClientRect()
+    if (
+      linkRect.top < sidebarRect.top ||
+      linkRect.bottom > sidebarRect.bottom
+    ) {
+      sidebar.scrollTop +=
+        linkRect.top -
+        sidebarRect.top -
+        (sidebar.clientHeight - linkRect.height) / 2
+    }
+  }
 </script>
 
 <style is:global>
@@ -231,11 +249,11 @@ const descText =
                 }
 
                 &:hover {
-                  color: var(--primary);
+                  color: var(--_link-color);
                 }
 
                 &[aria-current="page"] {
-                  color: var(--primary);
+                  color: var(--_link-color);
                   font-weight: 700;
                 }
               }

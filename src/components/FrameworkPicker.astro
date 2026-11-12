@@ -32,6 +32,11 @@ const currentFramework = (Astro.currentLocale ??
     frameworkPrefixPattern,
     type FrameworkId,
   } from "../utils/framework"
+  import { getHeadings } from "../utils/headings"
+
+  const SCROLL_KEY = "opui-framework-scroll"
+  const SCROLL_ANCHOR_LINE = 160
+  const SCROLL_MAX_AGE = 10_000
 
   function stripFrameworkPrefix(pathname: string): string {
     const match = pathname.match(frameworkPrefixPattern())
@@ -46,6 +51,52 @@ const currentFramework = (Astro.currentLocale ??
     const sharedPath = stripFrameworkPrefix(window.location.pathname)
     const path = sharedPath === "/" ? "" : sharedPath
     return `/${framework}${path}${window.location.search}${window.location.hash}`
+  }
+
+  function saveScroll() {
+    const main = document.querySelector("#main-content")
+    const anchor = main
+      ? getHeadings(main, "h2[id], h3[id], h4[id]")
+          .filter(
+            (heading) =>
+              heading.getBoundingClientRect().top <= SCROLL_ANCHOR_LINE,
+          )
+          .at(-1)
+      : undefined
+    try {
+      sessionStorage.setItem(
+        SCROLL_KEY,
+        JSON.stringify({
+          id: anchor?.id,
+          offset: anchor?.getBoundingClientRect().top,
+          path: stripFrameworkPrefix(window.location.pathname),
+          time: Date.now(),
+          y: window.scrollY,
+        }),
+      )
+    } catch (_) {}
+  }
+
+  function restoreScroll() {
+    try {
+      const saved = sessionStorage.getItem(SCROLL_KEY)
+      if (!saved) return
+      sessionStorage.removeItem(SCROLL_KEY)
+      const { id, offset, path, time, y } = JSON.parse(saved)
+      if (path !== stripFrameworkPrefix(window.location.pathname)) return
+      if (Date.now() - time > SCROLL_MAX_AGE) return
+      const scroll = () => {
+        const anchor = id ? document.getElementById(id) : null
+        const top = anchor
+          ? anchor.getBoundingClientRect().top + window.scrollY - offset
+          : y
+        window.scrollTo({ behavior: "instant", top })
+      }
+      scroll()
+      if (document.readyState !== "complete") {
+        window.addEventListener("load", scroll, { once: true })
+      }
+    } catch (_) {}
   }
 
   function init() {
@@ -67,11 +118,13 @@ const currentFramework = (Astro.currentLocale ??
         } catch (_) {
           // private mode / storage disabled - non-fatal
         }
+        saveScroll()
         window.location.href = urlForFramework(framework)
       })
     })
   }
 
   init()
+  restoreScroll()
   document.addEventListener("astro:after-swap", init)
 </script>

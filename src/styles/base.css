@@ -55,6 +55,21 @@
   --_content-md: 1140px;
   --_content-lg: 1500px;
   --_content-text: 65ch;
+
+  --_link-color: light-dark(var(--primary-dark), var(--primary-light));
+}
+
+#main-content {
+  @scope (&) to (.anatomy, .example-container) {
+    :where(a.ui-link, a:not([class])) {
+      color: var(--_link-color);
+      text-decoration-color: currentColor;
+
+      &:hover {
+        color: var(--primary);
+      }
+    }
+  }
 }
 
 :where(h1, h2, h3, h4, h5, h6) {
@@ -89,5 +104,18 @@
 
   &.ui-end {
     margin-inline: auto var(--_gap);
+  }
+}
+
+@media (hover: none) {
+  .expressive-code .frame:not(.has-title, .is-terminal) {
+    .copy button {
+      block-size: 2.25rem;
+      inline-size: 2.25rem;
+    }
+
+    pre {
+      padding-block-start: 3rem;
+    }
   }
 }

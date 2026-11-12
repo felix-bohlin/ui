@@ -1,0 +1,63 @@
+---
+import { Button } from "@opui/astro"
+import Default from "../layouts/Default.astro"
+
+const { link } = Astro.locals
+---
+
+<Default title="Page not found">
+  <main id="main-content" class="container ui-text">
+    <hgroup class="ui-hgroup">
+      <p>404</p>
+      <h1 class="ui-h1">Page not found</h1>
+      <p>This page doesn't exist, or it has moved.</p>
+    </hgroup>
+
+    <div class="ui-actions">
+      <Button color="primary" href={link("/")} variant="filled">Home</Button>
+      <Button color="primary" href={link("/components")} variant="outlined">
+        Components
+      </Button>
+      <Button data-open-search variant="outlined">Search</Button>
+    </div>
+  </main>
+</Default>
+
+<script>
+  import { FRAMEWORK_IDS, frameworkPrefixPattern } from "../utils/framework"
+
+  const fromPath = window.location.pathname.match(frameworkPrefixPattern())?.[1]
+  let saved: string | null = null
+  try {
+    saved = localStorage.getItem("opui-framework")
+  } catch (_) {}
+  const framework = [fromPath, saved].find(
+    (id) => id && (FRAMEWORK_IDS as string[]).includes(id),
+  )
+
+  if (framework) {
+    document
+      .querySelectorAll<HTMLAnchorElement>(
+        `a[href^="/${document.documentElement.dataset.framework}/"]`,
+      )
+      .forEach((a) => {
+        a.href = a
+          .getAttribute("href")!
+          .replace(frameworkPrefixPattern(), `/${framework}/`)
+      })
+  }
+</script>
+
+<style>
+  main {
+    min-block-size: 60dvb;
+    padding-block: var(--size-10);
+  }
+
+  .ui-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+    margin-block-start: var(--size-7);
+  }
+</style>

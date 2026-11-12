@@ -1445,10 +1445,10 @@ export const whatsNew = {
     },
     {
       ...slots(
-        `Breaking: without a <code>label</code>, the root is a <a href="#hidden-label"><code>div</code></a> instead of a <code>label</code>, and the start and end text describe the input instead of naming it. Give the field <code>aria-label</code> or <code>aria-labelledby</code>, and target <code>.ui-text-field</code> instead of <code>label.ui-text-field</code>.`,
+        `Breaking: the start and end text describe the input instead of naming it, so give a field without a <code>label</code> <a href="#hidden-label"><code>aria-label</code></a> or <code>aria-labelledby</code>.`,
       ),
-      react: `Without a <code>label</code>, the root is a <a href="#hidden-label"><code>div</code></a> instead of a <code>label</code>, like the HTML of a field named with <code>aria-label</code>, and the start and end text describe the input.`,
-      svelte: `Without a <code>label</code>, the root is a <a href="#hidden-label"><code>div</code></a> instead of a <code>label</code>, like the HTML of a field named with <code>aria-label</code>, and the start and end text describe the input.`,
+      react: `A field without a <code>label</code> is named by <a href="#hidden-label"><code>aria-label</code></a> or <code>aria-labelledby</code> alone, and the start and end text describe the input.`,
+      svelte: `A field without a <code>label</code> is named by <a href="#hidden-label"><code>aria-label</code></a> or <code>aria-labelledby</code> alone, and the start and end text describe the input.`,
     },
     `A field in a table cell keeps a <code>12ch</code> minimum width, so it stays usable with a <a href="#hidden-label">hidden label</a> in a narrow column.`,
   ],
@@ -1518,10 +1518,10 @@ export const whatsNew = {
     `<a href="#variants">Filled textareas</a> fade their hover background, like the border.`,
     {
       ...slots(
-        `Breaking: without a <code>label</code>, the root is a <code>div</code> instead of a <code>label</code>, and the start and end text describe the textarea instead of naming it. Give it <code>aria-label</code> or <code>aria-labelledby</code>, and target <code>.ui-textarea</code> instead of <code>label.ui-textarea</code> (<a href="#api">API</a>).`,
+        `Breaking: the start and end text describe the textarea instead of naming it, so give a textarea without a <code>label</code> <code>aria-label</code> or <code>aria-labelledby</code> (<a href="#api">API</a>).`,
       ),
-      react: `Without a <code>label</code>, the root is a <code>div</code> instead of a <code>label</code>, and the start and end text describe the textarea (<a href="#api">API</a>).`,
-      svelte: `Without a <code>label</code>, the root is a <code>div</code> instead of a <code>label</code>, and the start and end text describe the textarea (<a href="#api">API</a>).`,
+      react: `A textarea without a <code>label</code> is named by <code>aria-label</code> or <code>aria-labelledby</code> alone, and the start and end text describe it (<a href="#api">API</a>).`,
+      svelte: `A textarea without a <code>label</code> is named by <code>aria-label</code> or <code>aria-labelledby</code> alone, and the start and end text describe it (<a href="#api">API</a>).`,
     },
     `A textarea in a table cell keeps a <code>12ch</code> minimum width, so it stays usable with a <a href="#hidden-label">hidden label</a> in a narrow column.`,
   ],

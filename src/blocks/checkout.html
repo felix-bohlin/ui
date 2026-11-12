@@ -51,8 +51,8 @@
       <fieldset class="ui-fieldset">
         <legend>Contact</legend>
         <div class="ui-field-group">
-          <label class="ui-text-field">
-            <span class="ui-label">Email</span>
+          <div class="ui-text-field">
+            <label class="ui-label" for="checkout-email">Email</label>
             <span class="ui-field">
               <input
                 autocomplete="email"
@@ -64,7 +64,7 @@
                 value="astrid.lindqvist@example.com"
               />
             </span>
-          </label>
+          </div>
           <label class="ui-checkbox">
             <input id="checkout-news" name="news" type="checkbox" checked />
             <span class="ui-label">Email me about new arrivals and offers</span>
@@ -76,49 +76,59 @@
         <legend>Shipping address</legend>
         <div class="ui-field-group">
           <div class="ui-field-group ui-horizontal">
-            <label class="ui-text-field">
-              <span class="ui-label">First name</span>
+            <div class="ui-text-field">
+              <label class="ui-label" for="checkout-first-name"
+                >First name</label
+              >
               <span class="ui-field">
                 <input
                   autocomplete="given-name"
+                  id="checkout-first-name"
                   name="first-name"
                   required
                   type="text"
                   value="Astrid"
                 />
               </span>
-            </label>
-            <label class="ui-text-field">
-              <span class="ui-label">Last name</span>
+            </div>
+            <div class="ui-text-field">
+              <label class="ui-label" for="checkout-last-name">Last name</label>
               <span class="ui-field">
                 <input
                   autocomplete="family-name"
+                  id="checkout-last-name"
                   name="last-name"
                   required
                   type="text"
                   value="Lindqvist"
                 />
               </span>
-            </label>
+            </div>
           </div>
-          <label class="ui-text-field">
-            <span class="ui-label">Street address</span>
+          <div class="ui-text-field">
+            <label class="ui-label" for="checkout-address"
+              >Street address</label
+            >
             <span class="ui-field">
               <input
                 autocomplete="address-line1"
+                id="checkout-address"
                 name="address"
                 required
                 type="text"
                 value="Hornsgatan 64"
               />
             </span>
-          </label>
+          </div>
           <div class="ui-field-group ui-horizontal">
-            <label class="ui-text-field">
-              <span class="ui-label">Postal code</span>
+            <div class="ui-text-field">
+              <label class="ui-label" for="checkout-postal-code"
+                >Postal code</label
+              >
               <span class="ui-field">
                 <input
                   autocomplete="postal-code"
+                  id="checkout-postal-code"
                   inputmode="numeric"
                   name="postal-code"
                   required
@@ -126,27 +136,28 @@
                   value="118 49"
                 />
               </span>
-            </label>
-            <label class="ui-text-field">
-              <span class="ui-label">City</span>
+            </div>
+            <div class="ui-text-field">
+              <label class="ui-label" for="checkout-city">City</label>
               <span class="ui-field">
                 <input
                   autocomplete="address-level2"
+                  id="checkout-city"
                   name="city"
                   required
                   type="text"
                   value="Stockholm"
                 />
               </span>
-            </label>
+            </div>
           </div>
           <div class="ui-field-group ui-horizontal">
-            <label class="ui-select">
-              <span class="ui-label" id="checkout-country-label">Country</span>
+            <div class="ui-select">
+              <label class="ui-label" for="checkout-country">Country</label>
               <span class="ui-field">
                 <select
-                  aria-labelledby="checkout-country-label"
                   autocomplete="country-name"
+                  id="checkout-country"
                   name="country"
                 >
                   <button type="button">
@@ -160,13 +171,14 @@
                   </div>
                 </select>
               </span>
-            </label>
-            <label class="ui-text-field">
-              <span class="ui-label">Phone</span>
+            </div>
+            <div class="ui-text-field">
+              <label class="ui-label" for="checkout-phone">Phone</label>
               <span class="ui-field">
                 <input
                   aria-describedby="checkout-phone-hint"
                   autocomplete="tel"
+                  id="checkout-phone"
                   name="phone"
                   type="tel"
                   value="070 123 45 67"
@@ -175,7 +187,7 @@
               <span class="ui-end-text" id="checkout-phone-hint"
                 >For delivery updates only</span
               >
-            </label>
+            </div>
           </div>
         </div>
       </fieldset>
@@ -258,11 +270,14 @@
           <label class="ui-label" for="checkout-pay-card">Card</label>
           <div class="ui-panel">
             <div class="ui-field-group">
-              <label class="ui-text-field">
-                <span class="ui-label">Card number</span>
+              <div class="ui-text-field">
+                <label class="ui-label" for="checkout-card-number"
+                  >Card number</label
+                >
                 <span class="ui-field">
                   <input
                     autocomplete="cc-number"
+                    id="checkout-card-number"
                     inputmode="numeric"
                     name="card-number"
                     placeholder="1234 1234 1234 1234"
@@ -283,32 +298,38 @@
                     </svg>
                   </span>
                 </span>
-              </label>
+              </div>
               <div class="ui-field-group ui-horizontal">
-                <label class="ui-text-field">
-                  <span class="ui-label">Expiry date</span>
+                <div class="ui-text-field">
+                  <label class="ui-label" for="checkout-card-expiry"
+                    >Expiry date</label
+                  >
                   <span class="ui-field">
                     <input
                       autocomplete="cc-exp"
+                      id="checkout-card-expiry"
                       inputmode="numeric"
                       name="card-expiry"
                       placeholder="MM / YY"
                       type="text"
                     />
                   </span>
-                </label>
-                <label class="ui-text-field">
-                  <span class="ui-label">Security code</span>
+                </div>
+                <div class="ui-text-field">
+                  <label class="ui-label" for="checkout-card-cvc"
+                    >Security code</label
+                  >
                   <span class="ui-field">
                     <input
                       autocomplete="cc-csc"
+                      id="checkout-card-cvc"
                       inputmode="numeric"
                       name="card-cvc"
                       placeholder="CVC"
                       type="text"
                     />
                   </span>
-                </label>
+                </div>
               </div>
               <label class="ui-checkbox">
                 <input name="billing-same" type="checkbox" checked />
@@ -437,12 +458,19 @@
         <hr class="ui-divider" />
 
         <div class="ui-control-group ui-outlined ui-small" role="group">
-          <label class="ui-text-field">
-            <span class="ui-label">Discount code</span>
+          <div class="ui-text-field">
+            <label class="ui-label" for="checkout-discount"
+              >Discount code</label
+            >
             <span class="ui-field">
-              <input name="discount" type="text" value="HOSTEN10" />
+              <input
+                id="checkout-discount"
+                name="discount"
+                type="text"
+                value="HOSTEN10"
+              />
             </span>
-          </label>
+          </div>
           <button class="ui-button" type="button">Apply</button>
         </div>
 

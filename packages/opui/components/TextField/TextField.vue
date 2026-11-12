@@ -58,25 +58,17 @@ const base = computed(() => id || `text-field-${uid}`)
 
 const hasLabel = () => Boolean(label || slots.label)
 
-const Root = () =>
-  passwordToggle ? "opui-text-field" : hasLabel() ? "label" : "div"
-
-const Label = computed(() => (passwordToggle ? "label" : "span"))
+const Root = computed(() => (passwordToggle ? "opui-text-field" : "div"))
 
 const hasStartText = () => Boolean(startText || slots["start-text"])
 
 const hasEndText = () => Boolean(endText || slots["end-text"] || characterCount)
 
-const inputId = computed(() => (passwordToggle ? base.value : id))
+const inputId = () => (hasLabel() || passwordToggle ? base.value : id)
 
-const named = () => hasLabel() && !passwordToggle
+const startId = () => (slots.start ? `${base.value}-start` : undefined)
 
-const labelId = () => (named() ? `${base.value}-label` : undefined)
-
-const startId = () =>
-  named() && slots.start ? `${base.value}-start` : undefined
-
-const endId = () => (named() && slots.end ? `${base.value}-end` : undefined)
+const endId = () => (slots.end ? `${base.value}-end` : undefined)
 
 const topId = () => (slots.top ? `${base.value}-top` : undefined)
 
@@ -90,7 +82,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
 
 <template>
   <component
-    :is="Root()"
+    :is="Root"
     :class="[
       'ui-text-field',
       {
@@ -104,14 +96,12 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
     ]"
     v-bind="styleAttrs($attrs.style)"
   >
-    <component
-      :is="Label"
+    <label
       v-if="hasLabel()"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
-      :for="passwordToggle ? inputId : undefined"
-      :id="labelId()"
+      :for="inputId()"
       >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
-    /></component>
+    /></label>
     <span v-if="hasStartText()" class="ui-start-text" :id="startTextId()"
       >{{ startText }}<slot name="start-text"></slot
     ></span>
@@ -122,18 +112,16 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
           idRefs(
             startTextId(),
             topId(),
+            startId(),
+            endId(),
             bottomId(),
             endTextId(),
             attrs['aria-describedby'],
           )
         "
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
-        :aria-labelledby="
-          named()
-            ? idRefs(labelId(), startId(), endId())
-            : attrs['aria-labelledby']
-        "
-        :id="inputId"
+        :aria-labelledby="attrs['aria-labelledby']"
+        :id="inputId()"
         :inputmode="inputmode ?? (type === 'numeric' ? 'numeric' : undefined)"
         :name="name ?? field?.name"
         :pattern="pattern ?? (type === 'numeric' ? '[0-9]*' : undefined)"
@@ -151,7 +139,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
           :aria-label="passwordToggleLabel"
           aria-pressed="false"
           command="--toggle-password"
-          :commandfor="inputId"
+          :commandfor="inputId()"
           round
           ><span
             v-if="$slots['icon-unchecked']"

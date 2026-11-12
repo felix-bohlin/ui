@@ -3,22 +3,22 @@
     <legend>User profile</legend>
     <p class="ui-description" id="id-2">Please provide your basic contact details.</p>
     <div class="ui-field-group">
-      <label class="ui-text-field">
-        <span class="ui-label" id="id-3">Full name</span>
+      <div class="ui-text-field">
+        <label class="ui-label" for="id-3">Full name</label>
         <span class="ui-field">
-          <input aria-labelledby="id-3" autocomplete="name" placeholder="Ada Lovelace" required type="text">
+          <input autocomplete="name" id="id-3" placeholder="Ada Lovelace" required type="text">
         </span>
-      </label>
-      <label class="ui-text-field">
-        <span class="ui-label" id="id-4">Email address</span>
+      </div>
+      <div class="ui-text-field">
+        <label class="ui-label" for="id-4">Email address</label>
         <span class="ui-field">
-          <input aria-labelledby="id-4" autocomplete="email" placeholder="name@example.com" required type="email">
+          <input autocomplete="email" id="id-4" placeholder="name@example.com" required type="email">
         </span>
-      </label>
-      <label class="ui-select">
-        <span class="ui-label" id="id-5">Role</span>
+      </div>
+      <div class="ui-select">
+        <label class="ui-label" for="id-5">Role</label>
         <span class="ui-field">
-          <select aria-labelledby="id-5">
+          <select id="id-5">
             <button>
               <selectedcontent></selectedcontent>
             </button>
@@ -29,7 +29,7 @@
             </div>
           </select>
         </span>
-      </label>
+      </div>
     </div>
   </fieldset>
   <hr class="ui-divider">
@@ -83,12 +83,12 @@
     <legend>Additional info</legend>
     <p class="ui-description" id="id-11">Anything else we should know?</p>
     <div class="ui-field-group">
-      <label class="ui-textarea">
-        <span class="ui-label" id="id-12">Biography</span>
+      <div class="ui-textarea">
+        <label class="ui-label" for="id-12">Biography</label>
         <span class="ui-field">
-          <textarea aria-labelledby="id-12" name="biography" placeholder="Tell us about yourself..." rows="4"></textarea>
+          <textarea id="id-12" name="biography" placeholder="Tell us about yourself..." rows="4"></textarea>
         </span>
-      </label>
+      </div>
     </div>
   </fieldset>
   <hr class="ui-divider">

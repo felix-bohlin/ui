@@ -9,7 +9,7 @@ An input for single-line text data. Basic text fields with labels, field descrip
 
 ### Parts
 
-- `.ui-text-field` (root): Container element: a `<label>`, a `<div>` when there's no label, or the `<opui-text-field>` custom element with a password toggle.
+- `.ui-text-field` (root): Container element: a `<div>`, or the `<opui-text-field>` custom element with a password toggle. The label inside is a `<label for>` that names the input by itself.
 - `.ui-label` (prop `label`, slot `label`): The label for the field.
 - `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
 - `.ui-field`: The boxed input area.
@@ -30,12 +30,12 @@ An input for single-line text data. Basic text fields with labels, field descrip
 - `disabled`: `boolean`, `input[aria-disabled="true"]`, `input[disabled]`. Dims the field and blocks input. `aria-disabled="true"` looks the same, but keeps the field focusable, its text editable and its value in the form.
 - `dropZone`: `boolean`, `.ui-drop-zone`. Makes a `type="file"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker.
 - `error`: `boolean`, `input[aria-invalid="true"]`. Marks the control invalid and shows error styles.
-- `hideLabel`: `boolean`, `.ui-text-field > :is(span, label).ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
-- `id`: `string`. The id of the `<input>`. With `passwordToggle`, the label and the toggle point at it, so the component generates one when it's left out. The ids the component generates start with it: `x-label`, `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id="x"`.
+- `hideLabel`: `boolean`, `.ui-text-field > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
+- `id`: `string`. The id of the `<input>`. The `<label for>` and the password toggle point at it, so the component generates one when it's left out. The ids the component generates start with it: `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id="x"`.
 - `inputmode` (Astro, Svelte and Vue): `string`. The `inputmode` of the `<input>`. With `type="numeric"` it is `numeric`.
 - `inputMode` (React): `string`. The `inputmode` of the `<input>`, as `inputMode` like on the element. With `type="numeric"` it is `numeric`.
 - `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
-- `passwordToggle`: `boolean`. Adds a button to the end of a `type="password"` field that shows and hides the password. The root becomes `<opui-text-field>` with a `<label for>`, since a button inside a `<label>` would join the field's name, and the start and end text describe the input. The component loads `opui-css/elements/text-field.js`, which runs the button.
+- `passwordToggle`: `boolean`. Adds a button to the end of a `type="password"` field that shows and hides the password. The root becomes `<opui-text-field>`, and the button stays out of the input's description. The component loads `opui-css/elements/text-field.js`, which runs the button.
 - `passwordToggleLabel`: `string`, default `"Show password"`. The accessible name of the password toggle.
 - `pattern`: `string`. The `pattern` of the `<input>`. With `type="numeric"` it is `[0-9]*`.
 - `required`: `boolean`, `input[required]`. Adds a required mark after the label. The form won't submit while the field is empty.
@@ -91,26 +91,18 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--u
 ### Example: Variants
 
 ```html
-<label class="ui-text-field">
-  <span class="ui-label" id="text-field-variants-1-label">Outlined</span>
+<div class="ui-text-field">
+  <label class="ui-label" for="text-field-variants-1">Outlined</label>
   <span class="ui-field">
-    <input
-      placeholder="Your name"
-      aria-labelledby="text-field-variants-1-label"
-      type="text"
-    />
+    <input placeholder="Your name" id="text-field-variants-1" type="text" />
   </span>
-</label>
-<label class="ui-text-field ui-filled">
-  <span class="ui-label" id="text-field-variants-2-label">Filled</span>
+</div>
+<div class="ui-text-field ui-filled">
+  <label class="ui-label" for="text-field-variants-2">Filled</label>
   <span class="ui-field">
-    <input
-      placeholder="Your name"
-      aria-labelledby="text-field-variants-2-label"
-      type="text"
-    />
+    <input placeholder="Your name" id="text-field-variants-2" type="text" />
   </span>
-</label>
+</div>
 ```
 
 ## Astro

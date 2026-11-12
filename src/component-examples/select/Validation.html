@@ -1,8 +1,8 @@
 <div class="example-row">
-  <label class="ui-select">
-    <span class="ui-label" id="select-validation-1-label">Country</span>
+  <div class="ui-select">
+    <label class="ui-label" for="select-validation-1">Country</label>
     <span class="ui-field">
-      <select required aria-labelledby="select-validation-1-label">
+      <select required id="select-validation-1">
         <button>
           <selectedcontent></selectedcontent>
         </button>
@@ -14,11 +14,11 @@
         </div>
       </select>
     </span>
-  </label>
-  <label class="ui-select ui-filled">
-    <span class="ui-label" id="select-validation-2-label">Country</span>
+  </div>
+  <div class="ui-select ui-filled">
+    <label class="ui-label" for="select-validation-2">Country</label>
     <span class="ui-field">
-      <select required aria-labelledby="select-validation-2-label">
+      <select required id="select-validation-2">
         <button>
           <selectedcontent></selectedcontent>
         </button>
@@ -30,19 +30,17 @@
         </div>
       </select>
     </span>
-  </label>
+  </div>
 </div>
 
 <div class="example-row">
-  <label class="ui-select">
-    <span class="ui-label" id="select-validation-3-label"
-      >Shipping country</span
-    >
+  <div class="ui-select">
+    <label class="ui-label" for="select-validation-3">Shipping country</label>
     <span class="ui-field">
       <select
         aria-describedby="select-validation-3-end-text"
         aria-invalid="true"
-        aria-labelledby="select-validation-3-label"
+        id="select-validation-3"
       >
         <button>
           <selectedcontent></selectedcontent>
@@ -58,16 +56,14 @@
     <span id="select-validation-3-end-text" class="ui-end-text"
       >We don't ship to Norway yet. Pick another country.</span
     >
-  </label>
-  <label class="ui-select ui-filled">
-    <span class="ui-label" id="select-validation-4-label"
-      >Shipping country</span
-    >
+  </div>
+  <div class="ui-select ui-filled">
+    <label class="ui-label" for="select-validation-4">Shipping country</label>
     <span class="ui-field">
       <select
         aria-describedby="select-validation-4-end-text"
         aria-invalid="true"
-        aria-labelledby="select-validation-4-label"
+        id="select-validation-4"
       >
         <button>
           <selectedcontent></selectedcontent>
@@ -83,5 +79,5 @@
     <span id="select-validation-4-end-text" class="ui-end-text"
       >We don't ship to Norway yet. Pick another country.</span
     >
-  </label>
+  </div>
 </div>

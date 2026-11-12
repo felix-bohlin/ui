@@ -35,7 +35,6 @@ const {
 const SelectedContent = "selectedcontent"
 const field = fieldGroupContext.get()
 const ids = createIds(Astro.locals, "select", id)
-const labelId = ids("label")
 const startTextId =
   startText || Astro.slots.has("start-text") ? ids("start-text") : undefined
 const endTextId =
@@ -45,10 +44,12 @@ const endId = Astro.slots.has("end") ? ids("end") : undefined
 const topId = Astro.slots.has("top") ? ids("top") : undefined
 const bottomId = Astro.slots.has("bottom") ? ids("bottom") : undefined
 const describedBy = idRefs(
-  topId,
   startTextId,
-  endTextId,
+  topId,
+  startId,
+  endId,
   bottomId,
+  endTextId,
   ariaDescribedBy,
 )
 const isSelected = (item: SelectItem) =>
@@ -60,10 +61,11 @@ const isSelected = (item: SelectItem) =>
 const labelSlot = Astro.slots.has("label")
   ? trimEdges(await Astro.slots.render("label"))
   : ""
-const LabelTag = label || labelSlot ? "span" : Fragment
+const named = Boolean(label || labelSlot)
+const selectId = named ? ids() : id
 ---
 
-<label
+<div
   class:list={[
     "ui-select",
     {
@@ -76,9 +78,11 @@ const LabelTag = label || labelSlot ? "span" : Fragment
   ]}
   style={style}
 >
-  <LabelTag class={cx([hideLabel ? "ui-sr-only" : "ui-label"])} id={labelId}
+  {named && <label
+    class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
+    for={selectId}
     >{label}<Fragment set:html={labelSlot}
-  /></LabelTag>
+  /></label>}
   {(startText || Astro.slots.has("start-text")) && <span
     class="ui-start-text"
     id={startTextId}
@@ -91,12 +95,8 @@ const LabelTag = label || labelSlot ? "span" : Fragment
       {...rest}
       aria-describedby={describedBy}
       aria-invalid={error ? "true" : ariaInvalid}
-      aria-labelledby={
-        label || Astro.slots.has("label")
-          ? idRefs(labelId, startId, endId)
-          : ariaLabelledBy
-      }
-      id={id}
+      aria-labelledby={ariaLabelledBy}
+      id={selectId}
       name={name ?? field?.name}
     >
       <button>
@@ -132,4 +132,4 @@ const LabelTag = label || labelSlot ? "span" : Fragment
     {endText}
     <slot name="end-text" />
   </span>}
-</label>
+</div>

@@ -9,7 +9,7 @@ An input for multi-line text data. Basic textareas with labels, supporting text,
 
 ### Parts
 
-- `.ui-textarea` (root): Container element: a `<label>`, or a `<div>` when there's no label.
+- `.ui-textarea` (root): Container element, a `<div>`. The label inside is a `<label for>` that names the textarea by itself.
 - `.ui-label` (prop `label`, slot `label`): The label for the field.
 - `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
 - `.ui-field`: The boxed textarea area.
@@ -28,8 +28,8 @@ An input for multi-line text data. Basic textareas with labels, supporting text,
 - `characterCountLabel`: `string`, default `"Characters left: {count}"`. The announcement near the limit, with `{count}` for the characters left. Pass it translated.
 - `disabled`: `boolean`, `textarea[aria-disabled="true"]`, `textarea[disabled]`. Dims the field and blocks input. `aria-disabled="true"` looks the same, but keeps the field focusable, its text editable and its value in the form.
 - `error`: `boolean`, `textarea[aria-invalid="true"]`. Marks the control invalid and shows error styles.
-- `hideLabel`: `boolean`, `.ui-textarea > span.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
-- `id`: `string`. The id of the `<textarea>`. The ids the component generates start with it: `x-label`, `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id="x"`.
+- `hideLabel`: `boolean`, `.ui-textarea > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
+- `id`: `string`. The id of the `<textarea>`. The `<label for>` points at it, so the component generates one when it's left out and there's a label. The ids the component generates start with it: `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id="x"`.
 - `name`: `string`. The name of the `<textarea>`. Inside a `FieldGroup`, the group's `name` when omitted.
 - `required`: `boolean`, `textarea[required]`. Adds a required mark after the label. The form won't submit while the field is empty.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
@@ -87,24 +87,18 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--u
 ### Example: Variants
 
 ```html
-<label class="ui-textarea">
-  <span class="ui-label" id="textarea-variants-1-label">Outlined</span>
+<div class="ui-textarea">
+  <label class="ui-label" for="textarea-variants-1">Outlined</label>
   <span class="ui-field">
-    <textarea
-      placeholder="Write a message"
-      aria-labelledby="textarea-variants-1-label"
-    ></textarea>
+    <textarea placeholder="Write a message" id="textarea-variants-1"></textarea>
   </span>
-</label>
-<label class="ui-textarea ui-filled">
-  <span class="ui-label" id="textarea-variants-2-label">Filled</span>
+</div>
+<div class="ui-textarea ui-filled">
+  <label class="ui-label" for="textarea-variants-2">Filled</label>
   <span class="ui-field">
-    <textarea
-      placeholder="Write a message"
-      aria-labelledby="textarea-variants-2-label"
-    ></textarea>
+    <textarea placeholder="Write a message" id="textarea-variants-2"></textarea>
   </span>
-</label>
+</div>
 ```
 
 ## Astro

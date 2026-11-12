@@ -28,10 +28,15 @@
 
   <search>
     <form class="ui-field-group ui-horizontal" action="#">
-      <label class="ui-text-field">
-        <span class="ui-sr-only">Search Northwind</span>
+      <div class="ui-text-field">
+        <label class="ui-sr-only" for="error-page-q">Search Northwind</label>
         <span class="ui-field">
-          <input name="q" placeholder="Search the docs" type="search" />
+          <input
+            id="error-page-q"
+            name="q"
+            placeholder="Search the docs"
+            type="search"
+          />
           <span class="ui-start"
             ><svg
               aria-hidden="true"
@@ -46,7 +51,7 @@
               ></path></svg
           ></span>
         </span>
-      </label>
+      </div>
       <button class="ui-button ui-filled" type="submit">Search</button>
     </form>
   </search>

@@ -105,10 +105,17 @@
       class="ui-card ui-outlined"
     >
       <div class="ui-content">
-        <label class="ui-text-field empty-states-search">
-          <span class="ui-sr-only">Search documents</span>
+        <div class="ui-text-field empty-states-search">
+          <label class="ui-sr-only" for="empty-states-q"
+            >Search documents</label
+          >
           <span class="ui-field">
-            <input name="q" type="search" value="quaterly forecast" />
+            <input
+              id="empty-states-q"
+              name="q"
+              type="search"
+              value="quaterly forecast"
+            />
             <span class="ui-start"
               ><svg
                 aria-hidden="true"
@@ -123,7 +130,7 @@
                 ></path></svg
             ></span>
           </span>
-        </label>
+        </div>
         <hgroup>
           <h2 class="ui-h5" id="empty-states-no-results">
             No results for “quaterly forecast”

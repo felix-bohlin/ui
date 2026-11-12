@@ -87,12 +87,12 @@ export default {
       description:
         "Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.",
       group: "Label",
-      part: ".ui-text-field > :is(span, label)",
+      part: ".ui-text-field > label",
       prop: "hideLabel",
     },
     {
       description:
-        'The id of the `<input>`. With `passwordToggle`, the label and the toggle point at it, so the component generates one when it\'s left out. The ids the component generates start with it: `x-label`, `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id="x"`.',
+        'The id of the `<input>`. The `<label for>` and the password toggle point at it, so the component generates one when it\'s left out. The ids the component generates start with it: `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id="x"`.',
       inherited: true,
       prop: "id",
       type: "string",
@@ -123,7 +123,7 @@ export default {
     {
       default: "false",
       description:
-        'Adds a button to the end of a `type="password"` field that shows and hides the password. The root becomes `<opui-text-field>` with a `<label for>`, since a button inside a `<label>` would join the field\'s name, and the start and end text describe the input. The component loads `opui-css/elements/text-field.js`, which runs the button.',
+        'Adds a button to the end of a `type="password"` field that shows and hides the password. The root becomes `<opui-text-field>`, and the button stays out of the input\'s description. The component loads `opui-css/elements/text-field.js`, which runs the button.',
       group: "Password toggle",
       prop: "passwordToggle",
     },
@@ -254,7 +254,7 @@ export default {
   ],
   root: {
     description:
-      "Container element: a `<label>`, a `<div>` when there's no label, or the `<opui-text-field>` custom element with a password toggle.",
+      "Container element: a `<div>`, or the `<opui-text-field>` custom element with a password toggle. The label inside is a `<label for>` that names the input by itself.",
     selector: ".ui-text-field",
   },
   slots: [

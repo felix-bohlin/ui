@@ -46,15 +46,12 @@ export default function TextField({
   const uid = useId()
   const base = id || `text-field-${uid}`
   const hasLabel = Boolean(label)
-  const Root = passwordToggle ? "opui-text-field" : hasLabel ? "label" : "div"
-  const Label = passwordToggle ? "label" : "span"
+  const Root = passwordToggle ? "opui-text-field" : "div"
   const hasStartText = Boolean(startText)
   const hasEndText = Boolean(endText || characterCount)
-  const inputId = passwordToggle ? base : id
-  const named = hasLabel && !passwordToggle
-  const labelId = named ? `${base}-label` : undefined
-  const startId = named && start ? `${base}-start` : undefined
-  const endId = named && end ? `${base}-end` : undefined
+  const inputId = hasLabel || passwordToggle ? base : id
+  const startId = start ? `${base}-start` : undefined
+  const endId = end ? `${base}-end` : undefined
   const topId = top ? `${base}-top` : undefined
   const bottomId = bottom ? `${base}-bottom` : undefined
   const startTextId = hasStartText ? `${base}-start-text` : undefined
@@ -80,13 +77,12 @@ export default function TextField({
       style={style}
     >
       {hasLabel && (
-        <Label
+        <label
           className={hideLabel ? "ui-sr-only" : "ui-label"}
-          htmlFor={passwordToggle ? inputId : undefined}
-          id={labelId}
+          htmlFor={inputId}
         >
           {label}
-        </Label>
+        </label>
       )}
       {hasStartText && (
         <span className="ui-start-text" id={startTextId}>
@@ -99,14 +95,14 @@ export default function TextField({
           aria-describedby={idRefs(
             startTextId,
             topId,
+            startId,
+            endId,
             bottomId,
             endTextId,
             ariaDescribedBy,
           )}
           aria-invalid={error ? "true" : ariaInvalid}
-          aria-labelledby={
-            named ? idRefs(labelId, startId, endId) : ariaLabelledBy
-          }
+          aria-labelledby={ariaLabelledBy}
           id={inputId}
           inputMode={inputMode ?? (type === "numeric" ? "numeric" : undefined)}
           name={name ?? field?.name}

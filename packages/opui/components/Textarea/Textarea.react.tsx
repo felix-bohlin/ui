@@ -36,12 +36,11 @@ export default function Textarea({
   const uid = useId()
   const base = id || `textarea-${uid}`
   const named = Boolean(label)
-  const Root = named ? "label" : "div"
   const hasStartText = Boolean(startText)
   const hasEndText = Boolean(endText || characterCount)
-  const labelId = named ? `${base}-label` : undefined
-  const startId = named && start ? `${base}-start` : undefined
-  const endId = named && end ? `${base}-end` : undefined
+  const textareaId = named ? base : id
+  const startId = start ? `${base}-start` : undefined
+  const endId = end ? `${base}-end` : undefined
   const topId = top ? `${base}-top` : undefined
   const bottomId = bottom ? `${base}-bottom` : undefined
   const startTextId = hasStartText ? `${base}-start-text` : undefined
@@ -51,7 +50,7 @@ export default function Textarea({
   }, [])
 
   return (
-    <Root
+    <div
       className={cx([
         "ui-textarea",
         {
@@ -64,12 +63,13 @@ export default function Textarea({
       ])}
       style={style}
     >
-      {named ? (
-        <span className={hideLabel ? "ui-sr-only" : "ui-label"} id={labelId}>
+      {named && (
+        <label
+          className={hideLabel ? "ui-sr-only" : "ui-label"}
+          htmlFor={textareaId}
+        >
           {label}
-        </span>
-      ) : (
-        label
+        </label>
       )}
       {hasStartText && (
         <span className="ui-start-text" id={startTextId}>
@@ -82,15 +82,15 @@ export default function Textarea({
           aria-describedby={idRefs(
             startTextId,
             topId,
+            startId,
+            endId,
             bottomId,
             endTextId,
             ariaDescribedBy,
           )}
           aria-invalid={error ? "true" : ariaInvalid}
-          aria-labelledby={
-            named ? idRefs(labelId, startId, endId) : ariaLabelledBy
-          }
-          id={id}
+          aria-labelledby={ariaLabelledBy}
+          id={textareaId}
           name={name ?? field?.name}
         />
         {start && (
@@ -129,6 +129,6 @@ export default function Textarea({
         </span>
       )}
       {children}
-    </Root>
+    </div>
   )
 }

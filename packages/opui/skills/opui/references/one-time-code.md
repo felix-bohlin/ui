@@ -9,7 +9,7 @@ A one-time password (OTP) field: one input drawn as a box per character, with pa
 
 ### Parts
 
-- `label.ui-text-field.ui-one-time-code` (root): Container element.
+- `.ui-text-field.ui-one-time-code` (root): Container element, a `<div>`. The label inside is a `<label for>` that names the input by itself, and the end text describes it.
 - `.ui-label` (prop `label`, slot `label`): The label for the field.
 - `.ui-field`: Draws a box per character and a ring on the next one.
 - `<input>` (model): The input element.
@@ -38,8 +38,8 @@ Model: `value` (`string`), the code. Astro and React `value`, Svelte `bind:value
 ### Notes
 
 - HTML: Use one `<input>` with `autocomplete="one-time-code"`, `maxlength` and a matching `pattern`, such as `[0-9]{6}`, plus `inputmode="numeric"` for digits.
-- Astro, Svelte and Vue: Attributes that aren't props go to the `<input>`, like `autofocus` and `placeholder`, and `class` and `style` go to the root `<label>`.
-- React: Attributes that aren't props go to the `<input>`, like `autofocus` and `placeholder`, and `className` and `style` go to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.
+- Astro, Svelte and Vue: Attributes that aren't props go to the `<input>`, like `autofocus` and `placeholder`, and `class` and `style` go to the `.ui-one-time-code` root.
+- React: Attributes that aren't props go to the `<input>`, like `autofocus` and `placeholder`, and `className` and `style` go to the `.ui-one-time-code` root. Use `value` with `onChange`, or `defaultValue`.
 
 ## Component properties
 
@@ -88,21 +88,25 @@ The stylesheets read `--ui-border-width-thick`, `--ui-disabled-opacity`, `--ui-d
 ### Example: Basics
 
 ```html
-<label class="ui-text-field ui-one-time-code">
-  <span class="ui-label">Verification code</span>
+<div class="ui-text-field ui-one-time-code">
+  <label class="ui-label" for="one-time-code-basics-1">Verification code</label>
   <span class="ui-field">
     <input
       autocomplete="one-time-code"
       inputmode="numeric"
       pattern="[0-9]{6}"
       required
+      aria-describedby="one-time-code-basics-1-end-text"
+      id="one-time-code-basics-1"
       maxlength="6"
       name="code"
       type="text"
     />
   </span>
-  <span class="ui-end-text">The code expires in 10 minutes.</span>
-</label>
+  <span class="ui-end-text" id="one-time-code-basics-1-end-text"
+    >The code expires in 10 minutes.</span
+  >
+</div>
 ```
 
 ## Astro

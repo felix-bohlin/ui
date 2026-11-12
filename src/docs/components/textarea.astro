@@ -144,6 +144,13 @@ export const keywords = ["multiline", "text area"]
 
     <AutoExample name="Affix" row />
 
+    <h3 id="buttons">Buttons</h3>
+    <p>
+      A button can go in an affix, like a send button. The label alone names the
+      field, and the button is read after it, with the other affixes.
+    </p>
+    <AutoExample name="AffixButton" row />
+
     <h3 id="top-and-bottom">Top and bottom</h3>
 
     <AutoExample name="TopAndBottom" column />
@@ -199,10 +206,12 @@ export const keywords = ["multiline", "text area"]
   <Fragment slot="accessibility">
     <ul>
       <li>
-        The label and the affixes are the field's name, through
-        <code>aria-labelledby</code>. The start text, end text and the top and
-        bottom regions are its description, through <code>aria-describedby</code
-        >, so a hint or an error is read after the name.
+        The label alone is the field's name, through
+        <code>&lt;label for&gt;</code>. The affixes, the start text, end text
+        and the top and bottom regions are its description, through
+        <code>aria-describedby</code>, so a unit, a hint or an error is read
+        after the name in any language's word order, and buttons in the affixes
+        stay out of the name.
       </li>
     </ul>
     <KeyboardSupport />

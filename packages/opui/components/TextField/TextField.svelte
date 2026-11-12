@@ -57,17 +57,12 @@
   const initialValue = untrack(getValue)
   const base = $derived(id || `text-field-${uid}`)
   const hasLabel = $derived(Boolean(label))
-  const Root = $derived(
-    passwordToggle ? "opui-text-field" : hasLabel ? "label" : "div",
-  )
-  const Label = $derived(passwordToggle ? "label" : "span")
+  const Root = $derived(passwordToggle ? "opui-text-field" : "div")
   const hasStartText = $derived(Boolean(startText))
   const hasEndText = $derived(Boolean(endText || characterCount))
-  const inputId = $derived(passwordToggle ? base : id)
-  const named = $derived(hasLabel && !passwordToggle)
-  const labelId = $derived(named ? `${base}-label` : undefined)
-  const startId = $derived(named && start ? `${base}-start` : undefined)
-  const endId = $derived(named && end ? `${base}-end` : undefined)
+  const inputId = $derived(hasLabel || passwordToggle ? base : id)
+  const startId = $derived(start ? `${base}-start` : undefined)
+  const endId = $derived(end ? `${base}-end` : undefined)
   const topId = $derived(top ? `${base}-top` : undefined)
   const bottomId = $derived(bottom ? `${base}-bottom` : undefined)
   const startTextId = $derived(hasStartText ? `${base}-start-text` : undefined)
@@ -90,14 +85,9 @@
   {style}
 >
   {#if hasLabel}
-    <svelte:element
-      this={Label}
-      class={[hideLabel ? "ui-sr-only" : "ui-label"]}
-      for={passwordToggle ? inputId : undefined}
-      id={labelId}
-    >
+    <label class={[hideLabel ? "ui-sr-only" : "ui-label"]} for={inputId}>
       {@render content(label)}
-    </svelte:element>
+    </label>
   {/if}
   {#if hasStartText}
     <span class="ui-start-text" id={startTextId}>
@@ -110,12 +100,14 @@
       aria-describedby={idRefs(
         startTextId,
         topId,
+        startId,
+        endId,
         bottomId,
         endTextId,
         ariaDescribedBy,
       )}
       aria-invalid={error ? "true" : ariaInvalid}
-      aria-labelledby={named ? idRefs(labelId, startId, endId) : ariaLabelledBy}
+      aria-labelledby={ariaLabelledBy}
       id={inputId}
       inputmode={inputmode ?? (type === "numeric" ? "numeric" : undefined)}
       name={name ?? field?.name}

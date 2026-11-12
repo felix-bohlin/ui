@@ -36,7 +36,7 @@ export default function Select({
   const uid = useId()
   const field = useFieldGroupContext()
   const base = id || `select-${uid}`
-  const labelId = `${base}-label`
+  const selectId = label ? base : id
   const startTextId = startText ? `${base}-start-text` : undefined
   const endTextId = endText ? `${base}-end-text` : undefined
   const startId = start ? `${base}-start` : undefined
@@ -44,17 +44,19 @@ export default function Select({
   const topId = top ? `${base}-top` : undefined
   const bottomId = bottom ? `${base}-bottom` : undefined
   const describedBy = idRefs(
-    topId,
     startTextId,
-    endTextId,
+    topId,
+    startId,
+    endId,
     bottomId,
+    endTextId,
     rest["aria-describedby"],
   )
 
   const selected = initialValue(items, multiple)
 
   return (
-    <label
+    <div
       className={cx([
         "ui-select",
         {
@@ -68,9 +70,12 @@ export default function Select({
       style={style}
     >
       {label && (
-        <span className={hideLabel ? "ui-sr-only" : "ui-label"} id={labelId}>
+        <label
+          className={hideLabel ? "ui-sr-only" : "ui-label"}
+          htmlFor={selectId}
+        >
           {label}
-        </span>
+        </label>
       )}
       {startText && (
         <span className="ui-start-text" id={startTextId}>
@@ -82,16 +87,14 @@ export default function Select({
           {...rest}
           aria-describedby={describedBy}
           aria-invalid={error ? "true" : rest["aria-invalid"]}
-          aria-labelledby={
-            label ? idRefs(labelId, startId, endId) : rest["aria-labelledby"]
-          }
+          aria-labelledby={rest["aria-labelledby"]}
           defaultValue={
             value === undefined
               ? (defaultValue ??
                 (Array.isArray(selected) ? selected.map(String) : selected))
               : undefined
           }
-          id={id}
+          id={selectId}
           multiple={multiple}
           name={name ?? field?.name}
           value={value}
@@ -137,6 +140,6 @@ export default function Select({
           {endText}
         </span>
       )}
-    </label>
+    </div>
   )
 }

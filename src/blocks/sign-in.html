@@ -56,29 +56,31 @@
 
       <form class="ui-form" action="#">
         <div class="ui-field-group">
-          <label class="ui-text-field">
-            <span class="ui-label">Email</span>
+          <div class="ui-text-field">
+            <label class="ui-label" for="sign-in-email">Email</label>
             <span class="ui-field">
               <input
                 autocomplete="email"
+                id="sign-in-email"
                 name="email"
                 placeholder="ada@example.com"
                 required
                 type="email"
               />
             </span>
-          </label>
-          <label class="ui-text-field">
-            <span class="ui-label">Password</span>
+          </div>
+          <div class="ui-text-field">
+            <label class="ui-label" for="sign-in-password">Password</label>
             <span class="ui-field">
               <input
                 autocomplete="current-password"
+                id="sign-in-password"
                 name="password"
                 required
                 type="password"
               />
             </span>
-          </label>
+          </div>
           <div class="ui-layout-row ui-small ui-spread">
             <label class="ui-checkbox">
               <input name="remember" type="checkbox" />

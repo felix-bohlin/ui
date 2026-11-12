@@ -77,12 +77,12 @@ export default {
       description:
         "Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.",
       group: "Label",
-      part: ".ui-textarea > span",
+      part: ".ui-textarea > label",
       prop: "hideLabel",
     },
     {
       description:
-        'The id of the `<textarea>`. The ids the component generates start with it: `x-label`, `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id="x"`.',
+        "The id of the `<textarea>`. The `<label for>` points at it, so the component generates one when it's left out and there's a label. The ids the component generates start with it: `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id=\"x\"`.",
       inherited: true,
       prop: "id",
       type: "string",
@@ -194,7 +194,7 @@ export default {
   ],
   root: {
     description:
-      "Container element: a `<label>`, or a `<div>` when there's no label.",
+      "Container element, a `<div>`. The label inside is a `<label for>` that names the textarea by itself.",
     selector: ".ui-textarea",
   },
   slots: [

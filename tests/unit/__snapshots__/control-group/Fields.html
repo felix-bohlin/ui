@@ -1,20 +1,20 @@
 <div aria-label="Find an order" class="ui-control-group ui-filled ui-primary" role="group">
-  <label class="ui-text-field">
-    <span class="ui-sr-only" id="id-1">Order number or customer name</span>
+  <div class="ui-text-field">
+    <label class="ui-sr-only" for="id-1">Order number or customer name</label>
     <span class="ui-field">
-      <input aria-labelledby="id-1" placeholder="Search orders" type="search">
+      <input id="id-1" placeholder="Search orders" type="search">
     </span>
-  </label>
+  </div>
   <button class="ui-button" type="button">Search</button>
 </div>
 <fieldset class="ui-fieldset">
   <legend>Price</legend>
   <div class="ui-field-group">
     <div class="ui-control-group" role="group">
-      <label class="ui-select">
-        <span class="ui-sr-only" id="id-2">Currency</span>
+      <div class="ui-select">
+        <label class="ui-sr-only" for="id-2">Currency</label>
         <span class="ui-field">
-          <select aria-labelledby="id-2" name="currency">
+          <select id="id-2" name="currency">
             <button>
               <selectedcontent></selectedcontent>
             </button>
@@ -25,13 +25,13 @@
             </div>
           </select>
         </span>
-      </label>
-      <label class="ui-text-field">
-        <span class="ui-sr-only" id="id-3">Amount</span>
+      </div>
+      <div class="ui-text-field">
+        <label class="ui-sr-only" for="id-3">Amount</label>
         <span class="ui-field">
-          <input aria-labelledby="id-3" inputmode="decimal" name="amount" placeholder="0.00" type="text">
+          <input id="id-3" inputmode="decimal" name="amount" placeholder="0.00" type="text">
         </span>
-      </label>
+      </div>
     </div>
   </div>
 </fieldset>

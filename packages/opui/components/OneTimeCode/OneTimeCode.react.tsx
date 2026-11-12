@@ -1,17 +1,21 @@
 "use client"
 
+import { useId } from "react"
 import { defined } from "../attrs"
 import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
+import { idRefs } from "../id"
 import type { Props } from "./types.react"
 
 export default function OneTimeCode({
   alphanumeric,
+  "aria-describedby": ariaDescribedBy,
   "aria-invalid": ariaInvalid,
   autoCapitalize,
   className,
   error,
   grouped,
+  id,
   inputMode,
   length = 6,
   name,
@@ -24,9 +28,15 @@ export default function OneTimeCode({
   ...rest
 }: Props) {
   const field = useFieldGroupContext()
+  const uid = useId()
+  const named = Boolean(label)
+  const base = id || `one-time-code-${uid}`
+  const inputId = named ? base : id
+  const hasEndText = Boolean(endText)
+  const endTextId = hasEndText ? `${base}-end-text` : undefined
 
   return (
-    <label
+    <div
       className={cx([
         "ui-text-field",
         "ui-one-time-code",
@@ -36,7 +46,11 @@ export default function OneTimeCode({
       ])}
       style={style}
     >
-      {label && <span className="ui-label">{label}</span>}
+      {named && (
+        <label className="ui-label" htmlFor={inputId}>
+          {label}
+        </label>
+      )}
       <span className="ui-field">
         <input
           autoCapitalize={
@@ -50,13 +64,19 @@ export default function OneTimeCode({
           }
           spellCheck={spellCheck ?? (alphanumeric ? "false" : undefined)}
           {...defined(rest)}
+          aria-describedby={idRefs(endTextId, ariaDescribedBy)}
           aria-invalid={error ? "true" : ariaInvalid}
+          id={inputId}
           maxLength={length}
           name={name ?? field?.name}
           type="text"
         />
       </span>
-      {endText && <span className="ui-end-text">{endText}</span>}
-    </label>
+      {hasEndText && (
+        <span className="ui-end-text" id={endTextId}>
+          {endText}
+        </span>
+      )}
+    </div>
   )
 }

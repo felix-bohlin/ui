@@ -146,12 +146,12 @@ const id = (name: string) => `blog-preview-${slug}-${name}`
   </div>}
   {slug === "form-fieldset-has" && <fieldset class="ui-fieldset">
     <legend>Contact</legend>
-    <label class="ui-text-field ui-small">
-      <span class="ui-label">Email</span>
+    <div class="ui-text-field ui-small">
+      <label class="ui-label" for={id("email")}>Email</label>
       <span class="ui-field">
-        <input required type="email" value="hi@opui.dev" />
+        <input id={id("email")} required type="email" value="hi@opui.dev" />
       </span>
-    </label>
+    </div>
   </fieldset>}
   {slug === "menu-popover-anchor" && <div class="blog-preview-menu">
     <button class="ui-button ui-outlined ui-small" type="button">

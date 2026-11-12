@@ -2,17 +2,20 @@
   import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
+  import { idRefs } from "../id"
   import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
     alphanumeric,
+    "aria-describedby": ariaDescribedBy,
     "aria-invalid": ariaInvalid,
     autocapitalize,
     class: className,
     defaultValue,
     error,
     grouped,
+    id,
     inputmode,
     length = 6,
     name,
@@ -29,14 +32,20 @@
   }: Props = $props()
 
   const field = getFieldGroupContext()
+  const uid = $props.id()
   const getValue = () => value ?? defaultValue
   const setValue = (next: typeof value) => {
     value = next
   }
   const initialValue = untrack(getValue)
+  const named = $derived(Boolean(label))
+  const base = $derived(id || `one-time-code-${uid}`)
+  const inputId = $derived(named ? base : id)
+  const hasEndText = $derived(Boolean(endText))
+  const endTextId = $derived(hasEndText ? `${base}-end-text` : undefined)
 </script>
 
-<label
+<div
   class={[
     "ui-text-field",
     "ui-one-time-code",
@@ -46,10 +55,10 @@
   ]}
   {style}
 >
-  {#if label}
-    <span class="ui-label">
+  {#if named}
+    <label class="ui-label" for={inputId}>
       {@render content(label)}
-    </span>
+    </label>
   {/if}
   <span class="ui-field">
     <input
@@ -61,7 +70,9 @@
         (alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`)}
       spellcheck={spellcheck ?? (alphanumeric ? "false" : undefined)}
       {...defined(rest)}
+      aria-describedby={idRefs(endTextId, ariaDescribedBy)}
       aria-invalid={error ? "true" : ariaInvalid}
+      id={inputId}
       maxlength={length}
       name={name ?? field?.name}
       type="text"
@@ -69,9 +80,9 @@
       defaultValue={defaultValue ?? initialValue}
     />
   </span>
-  {#if endText}
-    <span class="ui-end-text">
+  {#if hasEndText}
+    <span class="ui-end-text" id={endTextId}>
       {@render content(endText)}
     </span>
   {/if}
-</label>
+</div>

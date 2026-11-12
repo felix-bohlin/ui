@@ -46,20 +46,18 @@
   const initialValue = untrack(getValue)
   const base = $derived(id || `textarea-${uid}`)
   const named = $derived(Boolean(label))
-  const Root = $derived(named ? "label" : "div")
   const hasStartText = $derived(Boolean(startText))
   const hasEndText = $derived(Boolean(endText || characterCount))
-  const labelId = $derived(named ? `${base}-label` : undefined)
-  const startId = $derived(named && start ? `${base}-start` : undefined)
-  const endId = $derived(named && end ? `${base}-end` : undefined)
+  const textareaId = $derived(named ? base : id)
+  const startId = $derived(start ? `${base}-start` : undefined)
+  const endId = $derived(end ? `${base}-end` : undefined)
   const topId = $derived(top ? `${base}-top` : undefined)
   const bottomId = $derived(bottom ? `${base}-bottom` : undefined)
   const startTextId = $derived(hasStartText ? `${base}-start-text` : undefined)
   const endTextId = $derived(hasEndText ? `${base}-end-text` : undefined)
 </script>
 
-<svelte:element
-  this={Root}
+<div
   class={[
     "ui-textarea",
     {
@@ -73,11 +71,9 @@
   {style}
 >
   {#if named}
-    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]} id={labelId}>
+    <label class={[hideLabel ? "ui-sr-only" : "ui-label"]} for={textareaId}>
       {@render content(label)}
-    </span>
-  {:else}
-    {@render content(label)}
+    </label>
   {/if}
   {#if hasStartText}
     <span class="ui-start-text" id={startTextId}>
@@ -90,13 +86,15 @@
       aria-describedby={idRefs(
         startTextId,
         topId,
+        startId,
+        endId,
         bottomId,
         endTextId,
         ariaDescribedBy,
       )}
       aria-invalid={error ? "true" : ariaInvalid}
-      aria-labelledby={named ? idRefs(labelId, startId, endId) : ariaLabelledBy}
-      {id}
+      aria-labelledby={ariaLabelledBy}
+      id={textareaId}
       name={name ?? field?.name}
       bind:value={getValue, setValue}
       defaultValue={defaultValue ?? initialValue}></textarea>
@@ -133,4 +131,4 @@
     </span>
   {/if}
   {@render children?.()}
-</svelte:element>
+</div>

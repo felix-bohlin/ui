@@ -54,14 +54,14 @@ const steps = [
 }`,
     features: ["focus-visible", "focus-within", "label"],
     html: `
-<label class="text-field">
-  <span class="label">Price</span>
+<div class="text-field">
+  <label class="label" for="price">Price</label>
   <span class="field">
-    <input />
+    <input id="price" />
   </span>
-</label>`,
+</div>`,
     notes: [
-      "<code>&lt;label&gt;</code> wraps everything: no <code>for</code> and <code>id</code> to wire",
+      "<code>&lt;label for&gt;</code> names the input with the label alone, so buttons can sit in the box without joining the name",
       "The box is drawn on a wrapper, the input itself is borderless",
       "<code>:focus-within</code> moves the focus color to the box",
       "A 1px border color change alone is too weak a focus cue, so <code>:has(:focus-visible)</code> also draws the focus ring around the box",
@@ -112,6 +112,7 @@ const steps = [
     notes: [
       "The input comes first in the markup, <code>grid-area</code> places the affixes around it",
       "<code>:has(> .prefix)</code> drops the input padding next to an affix",
+      "<code>aria-describedby</code> reads the affixes after the name, so no word order is baked into it",
     ],
     title: "Affixes",
   },
@@ -149,31 +150,37 @@ const steps = [
 
 <BuildUp id="build-text-field" steps={steps}>
   <div class="stack">
-    <label class="text-field">
-      <span class="label">Price</span>
+    <div class="text-field">
+      <label class="label" for="build-text-field-price">Price</label>
       <span class="field">
         <input
+          aria-describedby="build-text-field-price-prefix build-text-field-price-suffix"
+          id="build-text-field-price"
           inputmode="numeric"
           name="build-text-field-price"
           required
           value="12"
         />
-        <span class="prefix">€</span>
-        <span class="suffix">per month</span>
+        <span class="prefix" id="build-text-field-price-prefix">€</span>
+        <span class="suffix" id="build-text-field-price-suffix">per month</span>
       </span>
-    </label>
-    <label class="text-field">
-      <span class="label">Email</span>
+    </div>
+    <div class="text-field">
+      <label class="label" for="build-text-field-email">Email</label>
       <span class="field">
         <input
+          aria-describedby="build-text-field-email-error"
           aria-invalid="true"
+          id="build-text-field-email"
           name="build-text-field-email"
           type="email"
           value="felix@"
         />
       </span>
-      <span class="end-text">Enter a complete email address</span>
-    </label>
+      <span class="end-text" id="build-text-field-email-error"
+        >Enter a complete email address</span
+      >
+    </div>
   </div>
 </BuildUp>
 

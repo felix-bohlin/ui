@@ -3705,6 +3705,13 @@
     "url": "/svelte/guide/why-opui/"
   },
   {
+    "id": "guide-why-opui-svelte-at-a-glance",
+    "title": "At a glance",
+    "page": "Why Open Props UI?",
+    "category": "Guide",
+    "url": "/svelte/guide/why-opui/#at-a-glance"
+  },
+  {
     "id": "guide-why-opui-svelte-backstory",
     "title": "Backstory",
     "page": "Why Open Props UI?",

@@ -1873,14 +1873,16 @@ test("the data-table block selects and sorts its rows together", async ({
   for (const row of await rows.all()) await expect(row).toBeChecked()
 
   await page.getByRole("button", { name: "MRR" }).click()
-  await expect(firstCustomer).toContainText("Kwame Mensah")
+  await expect(firstCustomer).toContainText("Hakki Hälinen")
   await page.getByRole("button", { name: "MRR" }).click()
-  await expect(firstCustomer).toContainText("Astrid Nyström")
+  await expect(firstCustomer).toContainText("Ranta Runtiringen")
   await page.getByRole("button", { name: "Signed up" }).click()
-  await expect(firstCustomer).toContainText("Sofia Lund")
+  await expect(firstCustomer).toContainText("Inga Halonen")
   for (const row of await rows.all()) await expect(row).toBeChecked()
 
-  await page.getByRole("checkbox", { name: "Select Mats Berg" }).click()
+  await page
+    .getByRole("checkbox", { name: "Select Pekka Gåpåbottanen" })
+    .click()
   await expect(all).not.toBeChecked()
   await expect(all).toHaveJSProperty("indeterminate", true)
 })

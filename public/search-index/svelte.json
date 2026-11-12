@@ -3762,6 +3762,13 @@
     "url": "/svelte/guide/getting-started/#builds"
   },
   {
+    "id": "guide-getting-started-svelte-typescript",
+    "title": "TypeScript",
+    "page": "Getting started",
+    "category": "Guide",
+    "url": "/svelte/guide/getting-started/#typescript"
+  },
+  {
     "id": "guide-getting-started-svelte-usage",
     "title": "How to use",
     "page": "Getting started",

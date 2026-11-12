@@ -112,7 +112,16 @@ The compiled files are ES modules for ES2022, and Node can also `require()` them
 
 `opui-css/react`, `opui-css/svelte` and `opui-css/vue` ship `.d.ts` files, so `skipLibCheck` skips them and your `compilerOptions` only apply to your own code. They resolve with `moduleResolution: "bundler"`, `"node16"` or `"nodenext"` (not `"node10"`). The Svelte types need `skipLibCheck: true`, as the Svelte and SvelteKit templates set it: without it, `svelte-check` reports a union type that is too complex to represent.
 
-The Astro components import their `.ts` sources, which your `tsconfig.json` type-checks with your own `compilerOptions`. They are checked with `strict: true`, `verbatimModuleSyntax` and `isolatedModules`. `exactOptionalPropertyTypes` and `noUncheckedIndexedAccess` aren't checked, so they can report errors in the package, and `skipLibCheck` doesn't skip its `.ts` files.
+The `.d.ts` files work with TypeScript 6 and 7. The TypeScript version a project can use depends on the checker its framework needs:
+
+- Astro: `astro check` (`@astrojs/check` 0.9) runs on TypeScript 6, not on 7.
+- React: `tsc` on TypeScript 6 or 7.
+- Svelte: `svelte-check` 4.7 runs on TypeScript 6. For TypeScript 7, install it next to TypeScript 6 (`npm install -D typescript@6 @typescript/native@npm:typescript@7`) and run `svelte-check --tsgo`.
+- Vue: `vue-tsc` checks the `.vue` files, and vue-tsc 3.3 runs on TypeScript 6, not on 7. Vue needs the TypeScript version vue-tsc supports.
+
+The Astro components import their `.ts` sources, which your `tsconfig.json` type-checks with your own `compilerOptions`. They are checked with `strict: true`, `verbatimModuleSyntax` and `isolatedModules`. `exactOptionalPropertyTypes` and `noUncheckedIndexedAccess` aren't checked, so they can report errors in the package, and `skipLibCheck` doesn't skip its `.ts` files. They need `moduleResolution: "bundler"`, which Astro's `tsconfig.json` presets set: the sources import without file extensions, so with `"node16"` or `"nodenext"` the props aren't checked.
+
+In a script, import the CSS by a path that ends in `.css`, such as `opui-css/css/imports.css` or `opui-css/dist/opui.css`, not `opui-css` or `opui-css/themes/m3`. TypeScript 6 and later check side-effect imports (`noUncheckedSideEffectImports`), and a `*.css` module declaration, like the one in `vite/client`, only matches paths that end in `.css`.
 
 #### Ids in Astro
 

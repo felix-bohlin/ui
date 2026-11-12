@@ -245,16 +245,12 @@ const id = Astro.locals.$id("code")
     }
 
     @media (hover: hover) {
-      opacity: 0;
+      &:not(:hover, :focus-visible) {
+        opacity: 0;
 
-      .code-block:hover &,
-      .code-block:focus-within & {
-        opacity: 0.75;
-      }
-
-      &:hover,
-      &:focus-visible {
-        opacity: 1;
+        .code-block:is(:hover, :focus-within) & {
+          opacity: 0.75;
+        }
       }
     }
   }

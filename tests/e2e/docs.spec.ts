@@ -712,6 +712,19 @@ for (const [path, selector, name] of [
   })
 }
 
+test("a focused copy button in a code block is fully opaque", async ({
+  page,
+}) => {
+  await page.goto("/html/guide/customizing/")
+  const block = page.locator("#main-content .code-block").first()
+  await block.scrollIntoViewIfNeeded()
+  await block.locator(".code-copy").focus()
+  await expect(block.locator(".code-copy")).toHaveCSS("opacity", "1")
+  await page.mouse.move(0, 0)
+  await page.locator("h1").click()
+  await expect(block.locator(".code-copy")).toHaveCSS("opacity", "0")
+})
+
 test("the block preview's Tablet and Mobile widths give the block 768px and 390px", async ({
   page,
 }) => {

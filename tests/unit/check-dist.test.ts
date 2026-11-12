@@ -2,7 +2,7 @@ import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs"
 import { tmpdir } from "node:os"
 import { dirname, join } from "node:path"
 import { describe, expect, test } from "vitest"
-import { distProblems } from "../../scripts/check-dist.mjs"
+import { distProblems, NETLIFY_ORIGIN } from "../../scripts/check-dist.mjs"
 import { FRAMEWORK_IDS } from "../../src/utils/framework.js"
 
 const site = new URL("https://example.com")
@@ -17,7 +17,10 @@ const BUTTON = page(
 const TIMELINE_SHORTHAND =
   "puts a timeline in the animation shorthand, which browsers drop with the whole declaration: Lightning CSS folds an animation-timeline that follows the shorthand into it when Astro minifies, so write that rule with animation-* longhands"
 
+const DOMAIN_RULE = `${NETLIFY_ORIGIN}/* https://example.com/:splat 301!`
+
 const clean = () => ({
+  "/_redirects": `${DOMAIN_RULE}\n`,
   "/_astro/page.css":
     ".a{animation:spin 1s var(--ease,linear) infinite}.b{animation-fill-mode:both;animation-name:fill;animation-timeline:scroll(root)}.c{--animation:fill view()}",
   "/html/components/button/index.html": BUTTON,
@@ -121,6 +124,11 @@ describe("check-dist", () => {
         ),
       },
       `"animation:linear both fill --stages" ${TIMELINE_SHORTHAND} <- /html/components/button/`,
+    ],
+    [
+      "a _redirects with another rule ahead of the domain rule",
+      { "/_redirects": `/old /new 301\n${DOMAIN_RULE}\n` },
+      `/_redirects doesn't start with "${DOMAIN_RULE}": public/_redirects sends the netlify.app address to site in astro.config.mjs, path included, ahead of every other rule <- /_redirects`,
     ],
   ])("reports %s", (_, files, problem) => {
     expect(check({ ...clean(), ...files })).toEqual([problem])

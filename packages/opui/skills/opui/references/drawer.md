@@ -3,7 +3,7 @@
 Slides in from an edge of the screen. For a task that needs full attention, use a Dialog.
 
 - CSS: `opui-css/css/components/drawer.css` and `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/drawer.md), [Astro](https://open-props-ui.netlify.app/astro/components/drawer.md), [React](https://open-props-ui.netlify.app/react/components/drawer.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/drawer.md), [Vue](https://open-props-ui.netlify.app/vue/components/drawer.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/drawer.md), [Astro](https://opui.dev/astro/components/drawer.md), [React](https://opui.dev/react/components/drawer.md), [Svelte](https://opui.dev/svelte/components/drawer.md), [Vue](https://opui.dev/vue/components/drawer.md).
 
 ## Drawer
 

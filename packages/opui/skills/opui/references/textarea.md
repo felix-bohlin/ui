@@ -3,7 +3,7 @@
 An input for multi-line text data. Basic textareas with labels, supporting text, and validation states.
 
 - CSS: `opui-css/css/components/text-field.css` and `opui-css/css/components/textarea.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/textarea.md), [Astro](https://open-props-ui.netlify.app/astro/components/textarea.md), [React](https://open-props-ui.netlify.app/react/components/textarea.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/textarea.md), [Vue](https://open-props-ui.netlify.app/vue/components/textarea.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/textarea.md), [Astro](https://opui.dev/astro/components/textarea.md), [React](https://opui.dev/react/components/textarea.md), [Svelte](https://opui.dev/svelte/components/textarea.md), [Vue](https://opui.dev/vue/components/textarea.md).
 
 ## Textarea
 

@@ -3,7 +3,7 @@
 A short label or hint for a control, shown on hover, focus or a long press.
 
 - CSS: `opui-css/css/components/tooltip.css` and `opui-css/css/components/anchor.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/tooltip.md), [Astro](https://open-props-ui.netlify.app/astro/components/tooltip.md), [React](https://open-props-ui.netlify.app/react/components/tooltip.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/tooltip.md), [Vue](https://open-props-ui.netlify.app/vue/components/tooltip.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/tooltip.md), [Astro](https://opui.dev/astro/components/tooltip.md), [React](https://opui.dev/react/components/tooltip.md), [Svelte](https://opui.dev/svelte/components/tooltip.md), [Vue](https://opui.dev/vue/components/tooltip.md).
 
 ## Tooltip
 

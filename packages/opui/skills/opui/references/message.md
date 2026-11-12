@@ -3,7 +3,7 @@
 Chat bubbles that group by sender, with attachments, reactions and a typing indicator.
 
 - CSS: `opui-css/css/components/message.css` and `opui-css/css/components/avatar.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/message.md), [Astro](https://open-props-ui.netlify.app/astro/components/message.md), [React](https://open-props-ui.netlify.app/react/components/message.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/message.md), [Vue](https://open-props-ui.netlify.app/vue/components/message.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/message.md), [Astro](https://opui.dev/astro/components/message.md), [React](https://opui.dev/react/components/message.md), [Svelte](https://opui.dev/svelte/components/message.md), [Vue](https://opui.dev/vue/components/message.md).
 
 ## Messages
 

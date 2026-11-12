@@ -4,7 +4,7 @@ A theme in `theme.custom`, `--_*` properties for one component, and your own lay
 
 ## Your theme
 
-Set the [knobs, roles and component tokens](https://open-props-ui.netlify.app/html/guide/concepts.md#token-tiers) you change in the `theme.custom` layer.
+Set the [knobs, roles and component tokens](https://opui.dev/html/guide/concepts.md#token-tiers) you change in the `theme.custom` layer.
 
 ```css
 @layer theme.custom {
@@ -18,7 +18,7 @@ Set the [knobs, roles and component tokens](https://open-props-ui.netlify.app/ht
 }
 ```
 
-The [Theme builder](https://open-props-ui.netlify.app/theme-builder.md) writes one for you. Put pinned roles, like `--ui-primary`, on `:where(html, .ui-palette, .ui-contrast-more)`.
+The [Theme builder](https://opui.dev/theme-builder.md) writes one for you. Put pinned roles, like `--ui-primary`, on `:where(html, .ui-palette, .ui-contrast-more)`.
 
 ### Example themes
 
@@ -35,7 +35,7 @@ Tokens only, no component CSS. They name their fonts but don't load them. Each b
 @import "opui-css/themes/brutalist.css";
 ```
 
-The bootstrap, brutalist, govuk and m3 themes derive their primary color and their tinted surfaces, text and borders from `--ui-palette-source`, so setting it recolors them, on the page or in a [`.ui-palette`](https://open-props-ui.netlify.app/html/guide/theming.md#scopes) scope. The shadcn theme stays black, white and gray. The gray ramp keeps `--ui-gray-hue`, so set it too:
+The bootstrap, brutalist, govuk and m3 themes derive their primary color and their tinted surfaces, text and borders from `--ui-palette-source`, so setting it recolors them, on the page or in a [`.ui-palette`](https://opui.dev/html/guide/theming.md#scopes) scope. The shadcn theme stays black, white and gray. The gray ramp keeps `--ui-gray-hue`, so set it too:
 
 ```css
 :where(html) {
@@ -79,7 +79,7 @@ Prefer inputs like `--_accent` over outputs like `--_bg-color`, which freezes ev
 
 ## Unlayered or your own layer
 
-Unlayered CSS beats every [layer](https://open-props-ui.netlify.app/html/guide/concepts.md#cascade-layers). With your own layers, add one after `utils`.
+Unlayered CSS beats every [layer](https://opui.dev/html/guide/concepts.md#cascade-layers). With your own layers, add one after `utils`.
 
 ```css
 @layer openprops, theme, normalize, components.prose, components.root, components.extended, components.compat, utils, overrides;

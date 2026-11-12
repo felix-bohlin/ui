@@ -3,7 +3,7 @@
 Classes for the space between components. Put them on wrappers. Gaps follow the --ui-space-* scale.
 
 - CSS: `opui-css/css/components/layout.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/layout.md), [Astro](https://open-props-ui.netlify.app/astro/components/layout.md), [React](https://open-props-ui.netlify.app/react/components/layout.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/layout.md), [Vue](https://open-props-ui.netlify.app/vue/components/layout.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/layout.md), [Astro](https://opui.dev/astro/components/layout.md), [React](https://opui.dev/react/components/layout.md), [Svelte](https://opui.dev/svelte/components/layout.md), [Vue](https://opui.dev/vue/components/layout.md).
 
 ## Layout (CSS only)
 

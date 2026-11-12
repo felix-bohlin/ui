@@ -36,7 +36,7 @@ A class on a native element. Options are classes too.
 
 Load the `theme.css` the Theme builder exports after opui-css.
 
-[Theme builder](https://open-props-ui.netlify.app/theme-builder.md)
+[Theme builder](https://opui.dev/theme-builder.md)
 
 ### What's in the CSS
 
@@ -71,7 +71,7 @@ Everything or only the parts you use, through your bundler.
 
 One file with everything, in the right cascade layers.
 
-Use `dist/opui.no-compat.css` without the [browser fallbacks](https://open-props-ui.netlify.app/html/guide/browser-support.md#compat), or `dist/opui.baseline-<year>.css` for one Baseline year. Pin an exact version, like `@6.0.0`, for full control.
+Use `dist/opui.no-compat.css` without the [browser fallbacks](https://opui.dev/html/guide/browser-support.md#compat), or `dist/opui.baseline-<year>.css` for one Baseline year. Pin an exact version, like `@6.0.0`, for full control.
 
 ### Install manually
 
@@ -132,7 +132,7 @@ opui
 └─ tokens.json
 ```
 
-`dist/op.css` and `open-props.css` are Open Props, optional, for your own CSS. `themes/` holds the [example themes](https://open-props-ui.netlify.app/html/guide/customizing.md#example-themes) and `tokens.json` the [design tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md#tokens-json).
+`dist/op.css` and `open-props.css` are Open Props, optional, for your own CSS. `themes/` holds the [example themes](https://opui.dev/html/guide/customizing.md#example-themes) and `tokens.json` the [design tokens](https://opui.dev/html/guide/theme-tokens.md#tokens-json).
 
 ### Install via NPM
 
@@ -192,15 +192,15 @@ A few features need a script in plain HTML:
 
 | Feature | What it does | Import |
 | --- | --- | --- |
-| [Character count](https://open-props-ui.netlify.app/html/components/text-field.md#character-count) | Counts the characters left, in Text field and Textarea | `opui-css/elements/character-count.js` |
-| [Copy](https://open-props-ui.netlify.app/html/components/copy.md) | Copies text or a field's value | `opui-css/elements/copy.js` |
-| [Indeterminate checkbox](https://open-props-ui.netlify.app/html/components/checkbox.md#indeterminate) | Sets `indeterminate` from `data-indeterminate` | `opui-css/css/js/checkbox.js` |
-| [Number field](https://open-props-ui.netlify.app/html/components/number-field.md) | Steps the value with its buttons | `opui-css/elements/number-field.js` |
-| [Password toggle](https://open-props-ui.netlify.app/html/components/text-field.md#password-toggle) | Shows and hides the password | `opui-css/elements/text-field.js` |
-| [Range value](https://open-props-ui.netlify.app/html/components/range.md#value) | Writes the value to the `output`, with `data-live` | `opui-css/css/js/range.js` |
-| [Select all](https://open-props-ui.netlify.app/html/components/checkbox.md#select-all) | Checks or clears a group of checkboxes from one | `opui-css/elements/select-all.js` |
-| [Sortable table](https://open-props-ui.netlify.app/html/components/table.md#sorting) | Sorts the rows by a column | `opui-css/elements/sortable-table.js` |
-| [Toast](https://open-props-ui.netlify.app/html/components/toast.md) | Shows toasts and dismisses them | `opui-css/elements/toaster.js` |
+| [Character count](https://opui.dev/html/components/text-field.md#character-count) | Counts the characters left, in Text field and Textarea | `opui-css/elements/character-count.js` |
+| [Copy](https://opui.dev/html/components/copy.md) | Copies text or a field's value | `opui-css/elements/copy.js` |
+| [Indeterminate checkbox](https://opui.dev/html/components/checkbox.md#indeterminate) | Sets `indeterminate` from `data-indeterminate` | `opui-css/css/js/checkbox.js` |
+| [Number field](https://opui.dev/html/components/number-field.md) | Steps the value with its buttons | `opui-css/elements/number-field.js` |
+| [Password toggle](https://opui.dev/html/components/text-field.md#password-toggle) | Shows and hides the password | `opui-css/elements/text-field.js` |
+| [Range value](https://opui.dev/html/components/range.md#value) | Writes the value to the `output`, with `data-live` | `opui-css/css/js/range.js` |
+| [Select all](https://opui.dev/html/components/checkbox.md#select-all) | Checks or clears a group of checkboxes from one | `opui-css/elements/select-all.js` |
+| [Sortable table](https://opui.dev/html/components/table.md#sorting) | Sorts the rows by a column | `opui-css/elements/sortable-table.js` |
+| [Toast](https://opui.dev/html/components/toast.md) | Shows toasts and dismisses them | `opui-css/elements/toaster.js` |
 
 Without a bundler, add this import map to the `head`:
 
@@ -212,23 +212,23 @@ Without a bundler, add this import map to the `head`:
 
 ### Next steps
 
-#### [AI assistants](https://open-props-ui.netlify.app/html/llms.txt)
+#### [AI assistants](https://opui.dev/html/llms.txt)
 
 `npx opui-css skill` copies the agent skill into your project, and every page has a Markdown version.
 
-#### [Blocks](https://open-props-ui.netlify.app/blocks.md)
+#### [Blocks](https://opui.dev/blocks.md)
 
 36 pages and sections built from the components.
 
-#### [Components](https://open-props-ui.netlify.app/html/components.md)
+#### [Components](https://opui.dev/html/components.md)
 
 41 components, each with HTML examples and its API.
 
-#### [Concepts](https://open-props-ui.netlify.app/html/guide/concepts.md)
+#### [Concepts](https://opui.dev/html/guide/concepts.md)
 
 Cascade layers, token tiers, props and classes, and what needs JavaScript.
 
-#### [Theme builder](https://open-props-ui.netlify.app/theme-builder.md)
+#### [Theme builder](https://opui.dev/theme-builder.md)
 
 Colors, density, corners and fonts, exported as one CSS file.
 
@@ -328,17 +328,17 @@ Add `/// <reference types="opui-css/env.d.ts" />` to `env.d.ts` for the types.
 
 ### Next steps
 
-#### [AI assistants](https://open-props-ui.netlify.app/astro/llms.txt)
+#### [AI assistants](https://opui.dev/astro/llms.txt)
 
-#### [Blocks](https://open-props-ui.netlify.app/blocks.md)
+#### [Blocks](https://opui.dev/blocks.md)
 
-#### [Components](https://open-props-ui.netlify.app/astro/components.md)
+#### [Components](https://opui.dev/astro/components.md)
 
 41 components, each with Astro examples and its API.
 
-#### [Concepts](https://open-props-ui.netlify.app/astro/guide/concepts.md)
+#### [Concepts](https://opui.dev/astro/guide/concepts.md)
 
-#### [Theme builder](https://open-props-ui.netlify.app/theme-builder.md)
+#### [Theme builder](https://opui.dev/theme-builder.md)
 
 ## React
 
@@ -427,89 +427,89 @@ Every component renders full HTML on the server. Components with state or effect
 
 | Component | Client | Server | Server Component | Needs hydration |
 | --- | --- | --- | --- | --- |
-| [`Accordion`](https://open-props-ui.netlify.app/react/components/accordion.md) | Yes | Yes | Yes | - |
-| [`AccordionActions`](https://open-props-ui.netlify.app/react/components/accordion.md) | Yes | Yes | Yes | - |
-| [`AccordionSummary`](https://open-props-ui.netlify.app/react/components/accordion.md) | Yes | Yes | Yes | - |
-| [`Anchor`](https://open-props-ui.netlify.app/react/components/anchor.md) | Yes | Yes | No | - |
-| [`Avatar`](https://open-props-ui.netlify.app/react/components/avatar.md) | Yes | Yes | Yes | - |
-| [`AvatarGroup`](https://open-props-ui.netlify.app/react/components/avatar.md) | Yes | Yes | Yes | - |
-| [`Badge`](https://open-props-ui.netlify.app/react/components/badge.md) | Yes | Yes | Yes | - |
-| [`Button`](https://open-props-ui.netlify.app/react/components/button.md) | Yes | Yes | Yes | - |
-| [`Callout`](https://open-props-ui.netlify.app/react/components/callout.md) | Yes | Yes | No | - |
-| [`Card`](https://open-props-ui.netlify.app/react/components/card.md) | Yes | Yes | Yes | - |
-| [`CardActions`](https://open-props-ui.netlify.app/react/components/card.md) | Yes | Yes | Yes | - |
-| [`CardHeader`](https://open-props-ui.netlify.app/react/components/card.md) | Yes | Yes | Yes | - |
-| [`Carousel`](https://open-props-ui.netlify.app/react/components/carousel.md) | Yes | Yes | Yes | - |
-| [`Checkbox`](https://open-props-ui.netlify.app/react/components/checkbox.md) | Yes | No | Yes | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component loads the module once it hydrates, so the box looks unchecked until then. Import `opui-css/css/js/checkbox.js` in the page. |
-| [`CheckboxInput`](https://open-props-ui.netlify.app/react/components/checkbox.md) | Yes | No | No | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component loads the module once it hydrates, so the box looks unchecked until then. Import `opui-css/css/js/checkbox.js` in the page. |
-| [`Chip`](https://open-props-ui.netlify.app/react/components/chip.md) | Yes | Yes | Yes | - |
-| [`ControlGroup`](https://open-props-ui.netlify.app/react/components/control-group.md) | Yes | Yes | No | - |
-| [`Copy`](https://open-props-ui.netlify.app/react/components/copy.md) | Yes | Yes | No | - |
-| [`DescriptionList`](https://open-props-ui.netlify.app/react/components/description-list.md) | Yes | Yes | Yes | - |
-| [`DescriptionListItem`](https://open-props-ui.netlify.app/react/components/description-list.md) | Yes | Yes | Yes | - |
-| [`Dialog`](https://open-props-ui.netlify.app/react/components/dialog.md) | Yes | Yes | No | - |
-| [`DialogFooter`](https://open-props-ui.netlify.app/react/components/dialog.md) | Yes | Yes | Yes | - |
-| [`DialogHeader`](https://open-props-ui.netlify.app/react/components/dialog.md) | Yes | Yes | No | - |
-| [`Divider`](https://open-props-ui.netlify.app/react/components/divider.md) | Yes | Yes | Yes | - |
-| [`Drawer`](https://open-props-ui.netlify.app/react/components/drawer.md) | Yes | Yes | No | - |
-| [`DrawerFooter`](https://open-props-ui.netlify.app/react/components/drawer.md) | Yes | Yes | Yes | - |
-| [`DrawerHeader`](https://open-props-ui.netlify.app/react/components/drawer.md) | Yes | Yes | No | - |
-| [`FieldDescription`](https://open-props-ui.netlify.app/react/components/form.md) | Yes | Yes | Yes | - |
-| [`FieldGroup`](https://open-props-ui.netlify.app/react/components/form.md) | Yes | Yes | No | - |
-| [`FieldLegend`](https://open-props-ui.netlify.app/react/components/form.md) | Yes | Yes | No | - |
-| [`Fieldset`](https://open-props-ui.netlify.app/react/components/form.md) | Yes | Yes | No | - |
-| [`Form`](https://open-props-ui.netlify.app/react/components/form.md) | Yes | Yes | Yes | - |
-| [`List`](https://open-props-ui.netlify.app/react/components/list.md) | Yes | Yes | Yes | - |
-| [`ListItem`](https://open-props-ui.netlify.app/react/components/list.md) | Yes | Yes | Yes | - |
-| [`Menu`](https://open-props-ui.netlify.app/react/components/menu.md) | Yes | Yes | No | - |
-| [`Message`](https://open-props-ui.netlify.app/react/components/message.md) | Yes | Yes | Yes | - |
-| [`Messages`](https://open-props-ui.netlify.app/react/components/message.md) | Yes | Yes | Yes | - |
-| [`NumberField`](https://open-props-ui.netlify.app/react/components/number-field.md) | Yes | Yes | No | - |
-| [`OneTimeCode`](https://open-props-ui.netlify.app/react/components/one-time-code.md) | Yes | Yes | No | - |
-| [`Progress`](https://open-props-ui.netlify.app/react/components/progress.md) | Yes | Yes | Yes | - |
-| [`Radio`](https://open-props-ui.netlify.app/react/components/radio.md) | Yes | Yes | Yes | - |
-| [`RadioInput`](https://open-props-ui.netlify.app/react/components/radio.md) | Yes | Yes | No | - |
-| [`Range`](https://open-props-ui.netlify.app/react/components/range.md) | Yes | No | No | `valueSuffix` **Needs hydration** The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Import `opui-css/css/js/range.js` in the page. , `valueText` **Needs hydration** The `valueText` content is yours, so it follows the thumb when your own state changes, which takes hydration. Update the content on `input` yourself, or use `valueSuffix`. |
-| [`Rating`](https://open-props-ui.netlify.app/react/components/rating.md) | Yes | Yes | No | - |
-| [`Select`](https://open-props-ui.netlify.app/react/components/select.md) | Yes | Yes | No | - |
-| [`SelectAll`](https://open-props-ui.netlify.app/react/components/checkbox.md) | Yes | Yes | No | - |
-| [`SortableTable`](https://open-props-ui.netlify.app/react/components/table.md) | Yes | Yes | No | - |
-| [`Stat`](https://open-props-ui.netlify.app/react/components/stat.md) | Yes | Yes | Yes | - |
-| [`Stepper`](https://open-props-ui.netlify.app/react/components/stepper.md) | Yes | Yes | Yes | - |
-| [`StepperItem`](https://open-props-ui.netlify.app/react/components/stepper.md) | Yes | Yes | Yes | - |
-| [`Switch`](https://open-props-ui.netlify.app/react/components/switch.md) | Yes | Yes | Yes | - |
-| [`SwitchInput`](https://open-props-ui.netlify.app/react/components/switch.md) | Yes | Yes | No | - |
-| [`Table`](https://open-props-ui.netlify.app/react/components/table.md) | Yes | Yes | Yes | - |
-| [`TableCell`](https://open-props-ui.netlify.app/react/components/table.md) | Yes | Yes | Yes | - |
-| [`TableColumn`](https://open-props-ui.netlify.app/react/components/table.md) | Yes | Yes | Yes | - |
-| [`TableColumnGroup`](https://open-props-ui.netlify.app/react/components/table.md) | Yes | Yes | Yes | - |
-| [`TableHeaderCell`](https://open-props-ui.netlify.app/react/components/table.md) | Yes | Yes | Yes | - |
-| [`Tabs`](https://open-props-ui.netlify.app/react/components/tabs.md) | Yes | Yes | No | - |
-| [`TabsItem`](https://open-props-ui.netlify.app/react/components/tabs.md) | Yes | Yes | No | - |
-| [`TabsLabel`](https://open-props-ui.netlify.app/react/components/tabs.md) | Yes | Yes | No | - |
-| [`TabsPanel`](https://open-props-ui.netlify.app/react/components/tabs.md) | Yes | Yes | Yes | - |
-| [`Textarea`](https://open-props-ui.netlify.app/react/components/textarea.md) | Yes | Yes | No | - |
-| [`TextField`](https://open-props-ui.netlify.app/react/components/text-field.md) | Yes | Yes | No | - |
-| [`Timeline`](https://open-props-ui.netlify.app/react/components/timeline.md) | Yes | Yes | Yes | - |
-| [`TimelineItem`](https://open-props-ui.netlify.app/react/components/timeline.md) | Yes | Yes | Yes | - |
-| [`Toaster`](https://open-props-ui.netlify.app/react/components/toast.md) | Yes | Yes | No | - |
-| [`ToggleButton`](https://open-props-ui.netlify.app/react/components/toggle.md) | Yes | Yes | No | - |
-| [`ToggleGroup`](https://open-props-ui.netlify.app/react/components/toggle.md) | Yes | Yes | No | - |
-| [`Tooltip`](https://open-props-ui.netlify.app/react/components/tooltip.md) | Yes | Yes | Yes | - |
+| [`Accordion`](https://opui.dev/react/components/accordion.md) | Yes | Yes | Yes | - |
+| [`AccordionActions`](https://opui.dev/react/components/accordion.md) | Yes | Yes | Yes | - |
+| [`AccordionSummary`](https://opui.dev/react/components/accordion.md) | Yes | Yes | Yes | - |
+| [`Anchor`](https://opui.dev/react/components/anchor.md) | Yes | Yes | No | - |
+| [`Avatar`](https://opui.dev/react/components/avatar.md) | Yes | Yes | Yes | - |
+| [`AvatarGroup`](https://opui.dev/react/components/avatar.md) | Yes | Yes | Yes | - |
+| [`Badge`](https://opui.dev/react/components/badge.md) | Yes | Yes | Yes | - |
+| [`Button`](https://opui.dev/react/components/button.md) | Yes | Yes | Yes | - |
+| [`Callout`](https://opui.dev/react/components/callout.md) | Yes | Yes | No | - |
+| [`Card`](https://opui.dev/react/components/card.md) | Yes | Yes | Yes | - |
+| [`CardActions`](https://opui.dev/react/components/card.md) | Yes | Yes | Yes | - |
+| [`CardHeader`](https://opui.dev/react/components/card.md) | Yes | Yes | Yes | - |
+| [`Carousel`](https://opui.dev/react/components/carousel.md) | Yes | Yes | Yes | - |
+| [`Checkbox`](https://opui.dev/react/components/checkbox.md) | Yes | No | Yes | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component loads the module once it hydrates, so the box looks unchecked until then. Import `opui-css/css/js/checkbox.js` in the page. |
+| [`CheckboxInput`](https://opui.dev/react/components/checkbox.md) | Yes | No | No | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component loads the module once it hydrates, so the box looks unchecked until then. Import `opui-css/css/js/checkbox.js` in the page. |
+| [`Chip`](https://opui.dev/react/components/chip.md) | Yes | Yes | Yes | - |
+| [`ControlGroup`](https://opui.dev/react/components/control-group.md) | Yes | Yes | No | - |
+| [`Copy`](https://opui.dev/react/components/copy.md) | Yes | Yes | No | - |
+| [`DescriptionList`](https://opui.dev/react/components/description-list.md) | Yes | Yes | Yes | - |
+| [`DescriptionListItem`](https://opui.dev/react/components/description-list.md) | Yes | Yes | Yes | - |
+| [`Dialog`](https://opui.dev/react/components/dialog.md) | Yes | Yes | No | - |
+| [`DialogFooter`](https://opui.dev/react/components/dialog.md) | Yes | Yes | Yes | - |
+| [`DialogHeader`](https://opui.dev/react/components/dialog.md) | Yes | Yes | No | - |
+| [`Divider`](https://opui.dev/react/components/divider.md) | Yes | Yes | Yes | - |
+| [`Drawer`](https://opui.dev/react/components/drawer.md) | Yes | Yes | No | - |
+| [`DrawerFooter`](https://opui.dev/react/components/drawer.md) | Yes | Yes | Yes | - |
+| [`DrawerHeader`](https://opui.dev/react/components/drawer.md) | Yes | Yes | No | - |
+| [`FieldDescription`](https://opui.dev/react/components/form.md) | Yes | Yes | Yes | - |
+| [`FieldGroup`](https://opui.dev/react/components/form.md) | Yes | Yes | No | - |
+| [`FieldLegend`](https://opui.dev/react/components/form.md) | Yes | Yes | No | - |
+| [`Fieldset`](https://opui.dev/react/components/form.md) | Yes | Yes | No | - |
+| [`Form`](https://opui.dev/react/components/form.md) | Yes | Yes | Yes | - |
+| [`List`](https://opui.dev/react/components/list.md) | Yes | Yes | Yes | - |
+| [`ListItem`](https://opui.dev/react/components/list.md) | Yes | Yes | Yes | - |
+| [`Menu`](https://opui.dev/react/components/menu.md) | Yes | Yes | No | - |
+| [`Message`](https://opui.dev/react/components/message.md) | Yes | Yes | Yes | - |
+| [`Messages`](https://opui.dev/react/components/message.md) | Yes | Yes | Yes | - |
+| [`NumberField`](https://opui.dev/react/components/number-field.md) | Yes | Yes | No | - |
+| [`OneTimeCode`](https://opui.dev/react/components/one-time-code.md) | Yes | Yes | No | - |
+| [`Progress`](https://opui.dev/react/components/progress.md) | Yes | Yes | Yes | - |
+| [`Radio`](https://opui.dev/react/components/radio.md) | Yes | Yes | Yes | - |
+| [`RadioInput`](https://opui.dev/react/components/radio.md) | Yes | Yes | No | - |
+| [`Range`](https://opui.dev/react/components/range.md) | Yes | No | No | `valueSuffix` **Needs hydration** The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Import `opui-css/css/js/range.js` in the page. , `valueText` **Needs hydration** The `valueText` content is yours, so it follows the thumb when your own state changes, which takes hydration. Update the content on `input` yourself, or use `valueSuffix`. |
+| [`Rating`](https://opui.dev/react/components/rating.md) | Yes | Yes | No | - |
+| [`Select`](https://opui.dev/react/components/select.md) | Yes | Yes | No | - |
+| [`SelectAll`](https://opui.dev/react/components/checkbox.md) | Yes | Yes | No | - |
+| [`SortableTable`](https://opui.dev/react/components/table.md) | Yes | Yes | No | - |
+| [`Stat`](https://opui.dev/react/components/stat.md) | Yes | Yes | Yes | - |
+| [`Stepper`](https://opui.dev/react/components/stepper.md) | Yes | Yes | Yes | - |
+| [`StepperItem`](https://opui.dev/react/components/stepper.md) | Yes | Yes | Yes | - |
+| [`Switch`](https://opui.dev/react/components/switch.md) | Yes | Yes | Yes | - |
+| [`SwitchInput`](https://opui.dev/react/components/switch.md) | Yes | Yes | No | - |
+| [`Table`](https://opui.dev/react/components/table.md) | Yes | Yes | Yes | - |
+| [`TableCell`](https://opui.dev/react/components/table.md) | Yes | Yes | Yes | - |
+| [`TableColumn`](https://opui.dev/react/components/table.md) | Yes | Yes | Yes | - |
+| [`TableColumnGroup`](https://opui.dev/react/components/table.md) | Yes | Yes | Yes | - |
+| [`TableHeaderCell`](https://opui.dev/react/components/table.md) | Yes | Yes | Yes | - |
+| [`Tabs`](https://opui.dev/react/components/tabs.md) | Yes | Yes | No | - |
+| [`TabsItem`](https://opui.dev/react/components/tabs.md) | Yes | Yes | No | - |
+| [`TabsLabel`](https://opui.dev/react/components/tabs.md) | Yes | Yes | No | - |
+| [`TabsPanel`](https://opui.dev/react/components/tabs.md) | Yes | Yes | Yes | - |
+| [`Textarea`](https://opui.dev/react/components/textarea.md) | Yes | Yes | No | - |
+| [`TextField`](https://opui.dev/react/components/text-field.md) | Yes | Yes | No | - |
+| [`Timeline`](https://opui.dev/react/components/timeline.md) | Yes | Yes | Yes | - |
+| [`TimelineItem`](https://opui.dev/react/components/timeline.md) | Yes | Yes | Yes | - |
+| [`Toaster`](https://opui.dev/react/components/toast.md) | Yes | Yes | No | - |
+| [`ToggleButton`](https://opui.dev/react/components/toggle.md) | Yes | Yes | No | - |
+| [`ToggleGroup`](https://opui.dev/react/components/toggle.md) | Yes | Yes | No | - |
+| [`Tooltip`](https://opui.dev/react/components/tooltip.md) | Yes | Yes | Yes | - |
 
 ### Next steps
 
-#### [AI assistants](https://open-props-ui.netlify.app/react/llms.txt)
+#### [AI assistants](https://opui.dev/react/llms.txt)
 
-#### [Blocks](https://open-props-ui.netlify.app/blocks.md)
+#### [Blocks](https://opui.dev/blocks.md)
 
-#### [Components](https://open-props-ui.netlify.app/react/components.md)
+#### [Components](https://opui.dev/react/components.md)
 
 41 components, each with React examples and its API.
 
-#### [Concepts](https://open-props-ui.netlify.app/react/guide/concepts.md)
+#### [Concepts](https://opui.dev/react/guide/concepts.md)
 
-#### [Theme builder](https://open-props-ui.netlify.app/theme-builder.md)
+#### [Theme builder](https://opui.dev/theme-builder.md)
 
 ## Svelte
 
@@ -585,26 +585,26 @@ Slots are snippets: `children`, and camelCased names like `endText`. Form contro
 
 | Binding | Components |
 | --- | --- |
-| `bind:checked` | - [Checkbox](https://open-props-ui.netlify.app/svelte/components/checkbox.md)
-- [CheckboxInput](https://open-props-ui.netlify.app/svelte/components/checkbox.md)
-- [Switch](https://open-props-ui.netlify.app/svelte/components/switch.md)
-- [SwitchInput](https://open-props-ui.netlify.app/svelte/components/switch.md)
-- [ToggleButton](https://open-props-ui.netlify.app/svelte/components/toggle.md)                                                                                                                                                                                                                                                                                                                  |
-| `bind:group` | * [Checkbox](https://open-props-ui.netlify.app/svelte/components/checkbox.md)
-* [CheckboxInput](https://open-props-ui.netlify.app/svelte/components/checkbox.md)
-* [Radio](https://open-props-ui.netlify.app/svelte/components/radio.md)
-* [RadioInput](https://open-props-ui.netlify.app/svelte/components/radio.md)
-* [Switch](https://open-props-ui.netlify.app/svelte/components/switch.md)
-* [SwitchInput](https://open-props-ui.netlify.app/svelte/components/switch.md)                                                                                                                                                                                                                                             |
-| `bind:value` | - [NumberField](https://open-props-ui.netlify.app/svelte/components/number-field.md)
-- [OneTimeCode](https://open-props-ui.netlify.app/svelte/components/one-time-code.md)
-- [Range](https://open-props-ui.netlify.app/svelte/components/range.md)
-- [Rating](https://open-props-ui.netlify.app/svelte/components/rating.md)
-- [Select](https://open-props-ui.netlify.app/svelte/components/select.md)
-- [Tabs](https://open-props-ui.netlify.app/svelte/components/tabs.md)
-- [Textarea](https://open-props-ui.netlify.app/svelte/components/textarea.md)
-- [TextField](https://open-props-ui.netlify.app/svelte/components/text-field.md)
-- [ToggleGroup](https://open-props-ui.netlify.app/svelte/components/toggle.md) |
+| `bind:checked` | - [Checkbox](https://opui.dev/svelte/components/checkbox.md)
+- [CheckboxInput](https://opui.dev/svelte/components/checkbox.md)
+- [Switch](https://opui.dev/svelte/components/switch.md)
+- [SwitchInput](https://opui.dev/svelte/components/switch.md)
+- [ToggleButton](https://opui.dev/svelte/components/toggle.md)                                                                                                                                                                                                                                              |
+| `bind:group` | * [Checkbox](https://opui.dev/svelte/components/checkbox.md)
+* [CheckboxInput](https://opui.dev/svelte/components/checkbox.md)
+* [Radio](https://opui.dev/svelte/components/radio.md)
+* [RadioInput](https://opui.dev/svelte/components/radio.md)
+* [Switch](https://opui.dev/svelte/components/switch.md)
+* [SwitchInput](https://opui.dev/svelte/components/switch.md)                                                                                                                                                                                          |
+| `bind:value` | - [NumberField](https://opui.dev/svelte/components/number-field.md)
+- [OneTimeCode](https://opui.dev/svelte/components/one-time-code.md)
+- [Range](https://opui.dev/svelte/components/range.md)
+- [Rating](https://opui.dev/svelte/components/rating.md)
+- [Select](https://opui.dev/svelte/components/select.md)
+- [Tabs](https://opui.dev/svelte/components/tabs.md)
+- [Textarea](https://opui.dev/svelte/components/textarea.md)
+- [TextField](https://opui.dev/svelte/components/text-field.md)
+- [ToggleGroup](https://opui.dev/svelte/components/toggle.md) |
 
 ### Server rendering
 
@@ -615,89 +615,89 @@ Every component renders full HTML on the server. The props in the last column ne
 
 | Component | Client | Server | Needs hydration |
 | --- | --- | --- | --- |
-| [`Accordion`](https://open-props-ui.netlify.app/svelte/components/accordion.md) | Yes | Yes | - |
-| [`AccordionActions`](https://open-props-ui.netlify.app/svelte/components/accordion.md) | Yes | Yes | - |
-| [`AccordionSummary`](https://open-props-ui.netlify.app/svelte/components/accordion.md) | Yes | Yes | - |
-| [`Anchor`](https://open-props-ui.netlify.app/svelte/components/anchor.md) | Yes | Yes | - |
-| [`Avatar`](https://open-props-ui.netlify.app/svelte/components/avatar.md) | Yes | Yes | - |
-| [`AvatarGroup`](https://open-props-ui.netlify.app/svelte/components/avatar.md) | Yes | Yes | - |
-| [`Badge`](https://open-props-ui.netlify.app/svelte/components/badge.md) | Yes | Yes | - |
-| [`Button`](https://open-props-ui.netlify.app/svelte/components/button.md) | Yes | Yes | - |
-| [`Callout`](https://open-props-ui.netlify.app/svelte/components/callout.md) | Yes | Yes | - |
-| [`Card`](https://open-props-ui.netlify.app/svelte/components/card.md) | Yes | Yes | - |
-| [`CardActions`](https://open-props-ui.netlify.app/svelte/components/card.md) | Yes | Yes | - |
-| [`CardHeader`](https://open-props-ui.netlify.app/svelte/components/card.md) | Yes | Yes | - |
-| [`Carousel`](https://open-props-ui.netlify.app/svelte/components/carousel.md) | Yes | Yes | - |
-| [`Checkbox`](https://open-props-ui.netlify.app/svelte/components/checkbox.md) | Yes | No | `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. |
-| [`CheckboxInput`](https://open-props-ui.netlify.app/svelte/components/checkbox.md) | Yes | No | `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. |
-| [`Chip`](https://open-props-ui.netlify.app/svelte/components/chip.md) | Yes | Yes | - |
-| [`ControlGroup`](https://open-props-ui.netlify.app/svelte/components/control-group.md) | Yes | Yes | - |
-| [`Copy`](https://open-props-ui.netlify.app/svelte/components/copy.md) | Yes | Yes | - |
-| [`DescriptionList`](https://open-props-ui.netlify.app/svelte/components/description-list.md) | Yes | Yes | - |
-| [`DescriptionListItem`](https://open-props-ui.netlify.app/svelte/components/description-list.md) | Yes | Yes | - |
-| [`Dialog`](https://open-props-ui.netlify.app/svelte/components/dialog.md) | Yes | Yes | - |
-| [`DialogFooter`](https://open-props-ui.netlify.app/svelte/components/dialog.md) | Yes | Yes | - |
-| [`DialogHeader`](https://open-props-ui.netlify.app/svelte/components/dialog.md) | Yes | Yes | - |
-| [`Divider`](https://open-props-ui.netlify.app/svelte/components/divider.md) | Yes | Yes | - |
-| [`Drawer`](https://open-props-ui.netlify.app/svelte/components/drawer.md) | Yes | Yes | - |
-| [`DrawerFooter`](https://open-props-ui.netlify.app/svelte/components/drawer.md) | Yes | Yes | - |
-| [`DrawerHeader`](https://open-props-ui.netlify.app/svelte/components/drawer.md) | Yes | Yes | - |
-| [`FieldDescription`](https://open-props-ui.netlify.app/svelte/components/form.md) | Yes | Yes | - |
-| [`FieldGroup`](https://open-props-ui.netlify.app/svelte/components/form.md) | Yes | Yes | - |
-| [`FieldLegend`](https://open-props-ui.netlify.app/svelte/components/form.md) | Yes | Yes | - |
-| [`Fieldset`](https://open-props-ui.netlify.app/svelte/components/form.md) | Yes | Yes | - |
-| [`Form`](https://open-props-ui.netlify.app/svelte/components/form.md) | Yes | Yes | - |
-| [`List`](https://open-props-ui.netlify.app/svelte/components/list.md) | Yes | Yes | - |
-| [`ListItem`](https://open-props-ui.netlify.app/svelte/components/list.md) | Yes | Yes | - |
-| [`Menu`](https://open-props-ui.netlify.app/svelte/components/menu.md) | Yes | Yes | - |
-| [`Message`](https://open-props-ui.netlify.app/svelte/components/message.md) | Yes | Yes | - |
-| [`Messages`](https://open-props-ui.netlify.app/svelte/components/message.md) | Yes | Yes | - |
-| [`NumberField`](https://open-props-ui.netlify.app/svelte/components/number-field.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`OneTimeCode`](https://open-props-ui.netlify.app/svelte/components/one-time-code.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`Progress`](https://open-props-ui.netlify.app/svelte/components/progress.md) | Yes | Yes | - |
-| [`Radio`](https://open-props-ui.netlify.app/svelte/components/radio.md) | Yes | No | `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`RadioInput`](https://open-props-ui.netlify.app/svelte/components/radio.md) | Yes | No | `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`Range`](https://open-props-ui.netlify.app/svelte/components/range.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `valueSuffix` **Needs hydration** The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Import `opui-css/css/js/range.js` in the page. , `valueText` **Needs hydration** The `valueText` content is yours, so it follows the thumb when your own state changes, which takes hydration. Update the content on `input` yourself, or use `valueSuffix`. |
-| [`Rating`](https://open-props-ui.netlify.app/svelte/components/rating.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`Select`](https://open-props-ui.netlify.app/svelte/components/select.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`SelectAll`](https://open-props-ui.netlify.app/svelte/components/checkbox.md) | Yes | Yes | - |
-| [`SortableTable`](https://open-props-ui.netlify.app/svelte/components/table.md) | Yes | Yes | - |
-| [`Stat`](https://open-props-ui.netlify.app/svelte/components/stat.md) | Yes | Yes | - |
-| [`Stepper`](https://open-props-ui.netlify.app/svelte/components/stepper.md) | Yes | Yes | - |
-| [`StepperItem`](https://open-props-ui.netlify.app/svelte/components/stepper.md) | Yes | Yes | - |
-| [`Switch`](https://open-props-ui.netlify.app/svelte/components/switch.md) | Yes | No | `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`SwitchInput`](https://open-props-ui.netlify.app/svelte/components/switch.md) | Yes | No | `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`Table`](https://open-props-ui.netlify.app/svelte/components/table.md) | Yes | Yes | - |
-| [`TableCell`](https://open-props-ui.netlify.app/svelte/components/table.md) | Yes | Yes | - |
-| [`TableColumn`](https://open-props-ui.netlify.app/svelte/components/table.md) | Yes | Yes | - |
-| [`TableColumnGroup`](https://open-props-ui.netlify.app/svelte/components/table.md) | Yes | Yes | - |
-| [`TableHeaderCell`](https://open-props-ui.netlify.app/svelte/components/table.md) | Yes | Yes | - |
-| [`Tabs`](https://open-props-ui.netlify.app/svelte/components/tabs.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`TabsItem`](https://open-props-ui.netlify.app/svelte/components/tabs.md) | Yes | Yes | - |
-| [`TabsLabel`](https://open-props-ui.netlify.app/svelte/components/tabs.md) | Yes | Yes | - |
-| [`TabsPanel`](https://open-props-ui.netlify.app/svelte/components/tabs.md) | Yes | Yes | - |
-| [`Textarea`](https://open-props-ui.netlify.app/svelte/components/textarea.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`TextField`](https://open-props-ui.netlify.app/svelte/components/text-field.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`Timeline`](https://open-props-ui.netlify.app/svelte/components/timeline.md) | Yes | Yes | - |
-| [`TimelineItem`](https://open-props-ui.netlify.app/svelte/components/timeline.md) | Yes | Yes | - |
-| [`Toaster`](https://open-props-ui.netlify.app/svelte/components/toast.md) | Yes | Yes | - |
-| [`ToggleButton`](https://open-props-ui.netlify.app/svelte/components/toggle.md) | Yes | No | `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`ToggleGroup`](https://open-props-ui.netlify.app/svelte/components/toggle.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`Tooltip`](https://open-props-ui.netlify.app/svelte/components/tooltip.md) | Yes | Yes | - |
+| [`Accordion`](https://opui.dev/svelte/components/accordion.md) | Yes | Yes | - |
+| [`AccordionActions`](https://opui.dev/svelte/components/accordion.md) | Yes | Yes | - |
+| [`AccordionSummary`](https://opui.dev/svelte/components/accordion.md) | Yes | Yes | - |
+| [`Anchor`](https://opui.dev/svelte/components/anchor.md) | Yes | Yes | - |
+| [`Avatar`](https://opui.dev/svelte/components/avatar.md) | Yes | Yes | - |
+| [`AvatarGroup`](https://opui.dev/svelte/components/avatar.md) | Yes | Yes | - |
+| [`Badge`](https://opui.dev/svelte/components/badge.md) | Yes | Yes | - |
+| [`Button`](https://opui.dev/svelte/components/button.md) | Yes | Yes | - |
+| [`Callout`](https://opui.dev/svelte/components/callout.md) | Yes | Yes | - |
+| [`Card`](https://opui.dev/svelte/components/card.md) | Yes | Yes | - |
+| [`CardActions`](https://opui.dev/svelte/components/card.md) | Yes | Yes | - |
+| [`CardHeader`](https://opui.dev/svelte/components/card.md) | Yes | Yes | - |
+| [`Carousel`](https://opui.dev/svelte/components/carousel.md) | Yes | Yes | - |
+| [`Checkbox`](https://opui.dev/svelte/components/checkbox.md) | Yes | No | `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. |
+| [`CheckboxInput`](https://opui.dev/svelte/components/checkbox.md) | Yes | No | `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. |
+| [`Chip`](https://opui.dev/svelte/components/chip.md) | Yes | Yes | - |
+| [`ControlGroup`](https://opui.dev/svelte/components/control-group.md) | Yes | Yes | - |
+| [`Copy`](https://opui.dev/svelte/components/copy.md) | Yes | Yes | - |
+| [`DescriptionList`](https://opui.dev/svelte/components/description-list.md) | Yes | Yes | - |
+| [`DescriptionListItem`](https://opui.dev/svelte/components/description-list.md) | Yes | Yes | - |
+| [`Dialog`](https://opui.dev/svelte/components/dialog.md) | Yes | Yes | - |
+| [`DialogFooter`](https://opui.dev/svelte/components/dialog.md) | Yes | Yes | - |
+| [`DialogHeader`](https://opui.dev/svelte/components/dialog.md) | Yes | Yes | - |
+| [`Divider`](https://opui.dev/svelte/components/divider.md) | Yes | Yes | - |
+| [`Drawer`](https://opui.dev/svelte/components/drawer.md) | Yes | Yes | - |
+| [`DrawerFooter`](https://opui.dev/svelte/components/drawer.md) | Yes | Yes | - |
+| [`DrawerHeader`](https://opui.dev/svelte/components/drawer.md) | Yes | Yes | - |
+| [`FieldDescription`](https://opui.dev/svelte/components/form.md) | Yes | Yes | - |
+| [`FieldGroup`](https://opui.dev/svelte/components/form.md) | Yes | Yes | - |
+| [`FieldLegend`](https://opui.dev/svelte/components/form.md) | Yes | Yes | - |
+| [`Fieldset`](https://opui.dev/svelte/components/form.md) | Yes | Yes | - |
+| [`Form`](https://opui.dev/svelte/components/form.md) | Yes | Yes | - |
+| [`List`](https://opui.dev/svelte/components/list.md) | Yes | Yes | - |
+| [`ListItem`](https://opui.dev/svelte/components/list.md) | Yes | Yes | - |
+| [`Menu`](https://opui.dev/svelte/components/menu.md) | Yes | Yes | - |
+| [`Message`](https://opui.dev/svelte/components/message.md) | Yes | Yes | - |
+| [`Messages`](https://opui.dev/svelte/components/message.md) | Yes | Yes | - |
+| [`NumberField`](https://opui.dev/svelte/components/number-field.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`OneTimeCode`](https://opui.dev/svelte/components/one-time-code.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Progress`](https://opui.dev/svelte/components/progress.md) | Yes | Yes | - |
+| [`Radio`](https://opui.dev/svelte/components/radio.md) | Yes | No | `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`RadioInput`](https://opui.dev/svelte/components/radio.md) | Yes | No | `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Range`](https://opui.dev/svelte/components/range.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `valueSuffix` **Needs hydration** The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Import `opui-css/css/js/range.js` in the page. , `valueText` **Needs hydration** The `valueText` content is yours, so it follows the thumb when your own state changes, which takes hydration. Update the content on `input` yourself, or use `valueSuffix`. |
+| [`Rating`](https://opui.dev/svelte/components/rating.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Select`](https://opui.dev/svelte/components/select.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`SelectAll`](https://opui.dev/svelte/components/checkbox.md) | Yes | Yes | - |
+| [`SortableTable`](https://opui.dev/svelte/components/table.md) | Yes | Yes | - |
+| [`Stat`](https://opui.dev/svelte/components/stat.md) | Yes | Yes | - |
+| [`Stepper`](https://opui.dev/svelte/components/stepper.md) | Yes | Yes | - |
+| [`StepperItem`](https://opui.dev/svelte/components/stepper.md) | Yes | Yes | - |
+| [`Switch`](https://opui.dev/svelte/components/switch.md) | Yes | No | `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`SwitchInput`](https://opui.dev/svelte/components/switch.md) | Yes | No | `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Table`](https://opui.dev/svelte/components/table.md) | Yes | Yes | - |
+| [`TableCell`](https://opui.dev/svelte/components/table.md) | Yes | Yes | - |
+| [`TableColumn`](https://opui.dev/svelte/components/table.md) | Yes | Yes | - |
+| [`TableColumnGroup`](https://opui.dev/svelte/components/table.md) | Yes | Yes | - |
+| [`TableHeaderCell`](https://opui.dev/svelte/components/table.md) | Yes | Yes | - |
+| [`Tabs`](https://opui.dev/svelte/components/tabs.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`TabsItem`](https://opui.dev/svelte/components/tabs.md) | Yes | Yes | - |
+| [`TabsLabel`](https://opui.dev/svelte/components/tabs.md) | Yes | Yes | - |
+| [`TabsPanel`](https://opui.dev/svelte/components/tabs.md) | Yes | Yes | - |
+| [`Textarea`](https://opui.dev/svelte/components/textarea.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`TextField`](https://opui.dev/svelte/components/text-field.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Timeline`](https://opui.dev/svelte/components/timeline.md) | Yes | Yes | - |
+| [`TimelineItem`](https://opui.dev/svelte/components/timeline.md) | Yes | Yes | - |
+| [`Toaster`](https://opui.dev/svelte/components/toast.md) | Yes | Yes | - |
+| [`ToggleButton`](https://opui.dev/svelte/components/toggle.md) | Yes | No | `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`ToggleGroup`](https://opui.dev/svelte/components/toggle.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Tooltip`](https://opui.dev/svelte/components/tooltip.md) | Yes | Yes | - |
 
 ### Next steps
 
-#### [AI assistants](https://open-props-ui.netlify.app/svelte/llms.txt)
+#### [AI assistants](https://opui.dev/svelte/llms.txt)
 
-#### [Blocks](https://open-props-ui.netlify.app/blocks.md)
+#### [Blocks](https://opui.dev/blocks.md)
 
-#### [Components](https://open-props-ui.netlify.app/svelte/components.md)
+#### [Components](https://opui.dev/svelte/components.md)
 
 41 components, each with Svelte examples and its API.
 
-#### [Concepts](https://open-props-ui.netlify.app/svelte/guide/concepts.md)
+#### [Concepts](https://opui.dev/svelte/guide/concepts.md)
 
-#### [Theme builder](https://open-props-ui.netlify.app/theme-builder.md)
+#### [Theme builder](https://opui.dev/theme-builder.md)
 
 ## Vue
 
@@ -770,86 +770,86 @@ import "./styles/main.css"
 
 | Component | Client | Server | Needs hydration |
 | --- | --- | --- | --- |
-| [`Accordion`](https://open-props-ui.netlify.app/vue/components/accordion.md) | Yes | Yes | - |
-| [`AccordionActions`](https://open-props-ui.netlify.app/vue/components/accordion.md) | Yes | Yes | - |
-| [`AccordionSummary`](https://open-props-ui.netlify.app/vue/components/accordion.md) | Yes | Yes | - |
-| [`Anchor`](https://open-props-ui.netlify.app/vue/components/anchor.md) | Yes | Yes | - |
-| [`Avatar`](https://open-props-ui.netlify.app/vue/components/avatar.md) | Yes | Yes | - |
-| [`AvatarGroup`](https://open-props-ui.netlify.app/vue/components/avatar.md) | Yes | Yes | - |
-| [`Badge`](https://open-props-ui.netlify.app/vue/components/badge.md) | Yes | Yes | - |
-| [`Button`](https://open-props-ui.netlify.app/vue/components/button.md) | Yes | Yes | - |
-| [`Callout`](https://open-props-ui.netlify.app/vue/components/callout.md) | Yes | Yes | - |
-| [`Card`](https://open-props-ui.netlify.app/vue/components/card.md) | Yes | Yes | - |
-| [`CardActions`](https://open-props-ui.netlify.app/vue/components/card.md) | Yes | Yes | - |
-| [`CardHeader`](https://open-props-ui.netlify.app/vue/components/card.md) | Yes | Yes | - |
-| [`Carousel`](https://open-props-ui.netlify.app/vue/components/carousel.md) | Yes | Yes | - |
-| [`Checkbox`](https://open-props-ui.netlify.app/vue/components/checkbox.md) | Yes | No | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. , `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`CheckboxInput`](https://open-props-ui.netlify.app/vue/components/checkbox.md) | Yes | No | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. , `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`Chip`](https://open-props-ui.netlify.app/vue/components/chip.md) | Yes | Yes | - |
-| [`ControlGroup`](https://open-props-ui.netlify.app/vue/components/control-group.md) | Yes | Yes | - |
-| [`Copy`](https://open-props-ui.netlify.app/vue/components/copy.md) | Yes | Yes | - |
-| [`DescriptionList`](https://open-props-ui.netlify.app/vue/components/description-list.md) | Yes | Yes | - |
-| [`DescriptionListItem`](https://open-props-ui.netlify.app/vue/components/description-list.md) | Yes | Yes | - |
-| [`Dialog`](https://open-props-ui.netlify.app/vue/components/dialog.md) | Yes | Yes | - |
-| [`DialogFooter`](https://open-props-ui.netlify.app/vue/components/dialog.md) | Yes | Yes | - |
-| [`DialogHeader`](https://open-props-ui.netlify.app/vue/components/dialog.md) | Yes | Yes | - |
-| [`Divider`](https://open-props-ui.netlify.app/vue/components/divider.md) | Yes | Yes | - |
-| [`Drawer`](https://open-props-ui.netlify.app/vue/components/drawer.md) | Yes | Yes | - |
-| [`DrawerFooter`](https://open-props-ui.netlify.app/vue/components/drawer.md) | Yes | Yes | - |
-| [`DrawerHeader`](https://open-props-ui.netlify.app/vue/components/drawer.md) | Yes | Yes | - |
-| [`FieldDescription`](https://open-props-ui.netlify.app/vue/components/form.md) | Yes | Yes | - |
-| [`FieldGroup`](https://open-props-ui.netlify.app/vue/components/form.md) | Yes | Yes | - |
-| [`FieldLegend`](https://open-props-ui.netlify.app/vue/components/form.md) | Yes | Yes | - |
-| [`Fieldset`](https://open-props-ui.netlify.app/vue/components/form.md) | Yes | Yes | - |
-| [`Form`](https://open-props-ui.netlify.app/vue/components/form.md) | Yes | Yes | - |
-| [`List`](https://open-props-ui.netlify.app/vue/components/list.md) | Yes | Yes | - |
-| [`ListItem`](https://open-props-ui.netlify.app/vue/components/list.md) | Yes | Yes | - |
-| [`Menu`](https://open-props-ui.netlify.app/vue/components/menu.md) | Yes | Yes | - |
-| [`Message`](https://open-props-ui.netlify.app/vue/components/message.md) | Yes | Yes | - |
-| [`Messages`](https://open-props-ui.netlify.app/vue/components/message.md) | Yes | Yes | - |
-| [`NumberField`](https://open-props-ui.netlify.app/vue/components/number-field.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`OneTimeCode`](https://open-props-ui.netlify.app/vue/components/one-time-code.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`Progress`](https://open-props-ui.netlify.app/vue/components/progress.md) | Yes | Yes | - |
-| [`Radio`](https://open-props-ui.netlify.app/vue/components/radio.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`RadioInput`](https://open-props-ui.netlify.app/vue/components/radio.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`Range`](https://open-props-ui.netlify.app/vue/components/range.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `valueSuffix` **Needs hydration** The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Import `opui-css/css/js/range.js` in the page. |
-| [`Rating`](https://open-props-ui.netlify.app/vue/components/rating.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`Select`](https://open-props-ui.netlify.app/vue/components/select.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`SelectAll`](https://open-props-ui.netlify.app/vue/components/checkbox.md) | Yes | Yes | - |
-| [`SortableTable`](https://open-props-ui.netlify.app/vue/components/table.md) | Yes | Yes | - |
-| [`Stat`](https://open-props-ui.netlify.app/vue/components/stat.md) | Yes | Yes | - |
-| [`Stepper`](https://open-props-ui.netlify.app/vue/components/stepper.md) | Yes | Yes | - |
-| [`StepperItem`](https://open-props-ui.netlify.app/vue/components/stepper.md) | Yes | Yes | - |
-| [`Switch`](https://open-props-ui.netlify.app/vue/components/switch.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`SwitchInput`](https://open-props-ui.netlify.app/vue/components/switch.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`Table`](https://open-props-ui.netlify.app/vue/components/table.md) | Yes | Yes | - |
-| [`TableCell`](https://open-props-ui.netlify.app/vue/components/table.md) | Yes | Yes | - |
-| [`TableColumn`](https://open-props-ui.netlify.app/vue/components/table.md) | Yes | Yes | - |
-| [`TableColumnGroup`](https://open-props-ui.netlify.app/vue/components/table.md) | Yes | Yes | - |
-| [`TableHeaderCell`](https://open-props-ui.netlify.app/vue/components/table.md) | Yes | Yes | - |
-| [`Tabs`](https://open-props-ui.netlify.app/vue/components/tabs.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`TabsItem`](https://open-props-ui.netlify.app/vue/components/tabs.md) | Yes | Yes | - |
-| [`TabsLabel`](https://open-props-ui.netlify.app/vue/components/tabs.md) | Yes | Yes | - |
-| [`TabsPanel`](https://open-props-ui.netlify.app/vue/components/tabs.md) | Yes | Yes | - |
-| [`Textarea`](https://open-props-ui.netlify.app/vue/components/textarea.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`TextField`](https://open-props-ui.netlify.app/vue/components/text-field.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`Timeline`](https://open-props-ui.netlify.app/vue/components/timeline.md) | Yes | Yes | - |
-| [`TimelineItem`](https://open-props-ui.netlify.app/vue/components/timeline.md) | Yes | Yes | - |
-| [`Toaster`](https://open-props-ui.netlify.app/vue/components/toast.md) | Yes | Yes | - |
-| [`ToggleButton`](https://open-props-ui.netlify.app/vue/components/toggle.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`ToggleGroup`](https://open-props-ui.netlify.app/vue/components/toggle.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`Tooltip`](https://open-props-ui.netlify.app/vue/components/tooltip.md) | Yes | Yes | - |
+| [`Accordion`](https://opui.dev/vue/components/accordion.md) | Yes | Yes | - |
+| [`AccordionActions`](https://opui.dev/vue/components/accordion.md) | Yes | Yes | - |
+| [`AccordionSummary`](https://opui.dev/vue/components/accordion.md) | Yes | Yes | - |
+| [`Anchor`](https://opui.dev/vue/components/anchor.md) | Yes | Yes | - |
+| [`Avatar`](https://opui.dev/vue/components/avatar.md) | Yes | Yes | - |
+| [`AvatarGroup`](https://opui.dev/vue/components/avatar.md) | Yes | Yes | - |
+| [`Badge`](https://opui.dev/vue/components/badge.md) | Yes | Yes | - |
+| [`Button`](https://opui.dev/vue/components/button.md) | Yes | Yes | - |
+| [`Callout`](https://opui.dev/vue/components/callout.md) | Yes | Yes | - |
+| [`Card`](https://opui.dev/vue/components/card.md) | Yes | Yes | - |
+| [`CardActions`](https://opui.dev/vue/components/card.md) | Yes | Yes | - |
+| [`CardHeader`](https://opui.dev/vue/components/card.md) | Yes | Yes | - |
+| [`Carousel`](https://opui.dev/vue/components/carousel.md) | Yes | Yes | - |
+| [`Checkbox`](https://opui.dev/vue/components/checkbox.md) | Yes | No | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. , `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`CheckboxInput`](https://opui.dev/vue/components/checkbox.md) | Yes | No | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. , `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Chip`](https://opui.dev/vue/components/chip.md) | Yes | Yes | - |
+| [`ControlGroup`](https://opui.dev/vue/components/control-group.md) | Yes | Yes | - |
+| [`Copy`](https://opui.dev/vue/components/copy.md) | Yes | Yes | - |
+| [`DescriptionList`](https://opui.dev/vue/components/description-list.md) | Yes | Yes | - |
+| [`DescriptionListItem`](https://opui.dev/vue/components/description-list.md) | Yes | Yes | - |
+| [`Dialog`](https://opui.dev/vue/components/dialog.md) | Yes | Yes | - |
+| [`DialogFooter`](https://opui.dev/vue/components/dialog.md) | Yes | Yes | - |
+| [`DialogHeader`](https://opui.dev/vue/components/dialog.md) | Yes | Yes | - |
+| [`Divider`](https://opui.dev/vue/components/divider.md) | Yes | Yes | - |
+| [`Drawer`](https://opui.dev/vue/components/drawer.md) | Yes | Yes | - |
+| [`DrawerFooter`](https://opui.dev/vue/components/drawer.md) | Yes | Yes | - |
+| [`DrawerHeader`](https://opui.dev/vue/components/drawer.md) | Yes | Yes | - |
+| [`FieldDescription`](https://opui.dev/vue/components/form.md) | Yes | Yes | - |
+| [`FieldGroup`](https://opui.dev/vue/components/form.md) | Yes | Yes | - |
+| [`FieldLegend`](https://opui.dev/vue/components/form.md) | Yes | Yes | - |
+| [`Fieldset`](https://opui.dev/vue/components/form.md) | Yes | Yes | - |
+| [`Form`](https://opui.dev/vue/components/form.md) | Yes | Yes | - |
+| [`List`](https://opui.dev/vue/components/list.md) | Yes | Yes | - |
+| [`ListItem`](https://opui.dev/vue/components/list.md) | Yes | Yes | - |
+| [`Menu`](https://opui.dev/vue/components/menu.md) | Yes | Yes | - |
+| [`Message`](https://opui.dev/vue/components/message.md) | Yes | Yes | - |
+| [`Messages`](https://opui.dev/vue/components/message.md) | Yes | Yes | - |
+| [`NumberField`](https://opui.dev/vue/components/number-field.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`OneTimeCode`](https://opui.dev/vue/components/one-time-code.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Progress`](https://opui.dev/vue/components/progress.md) | Yes | Yes | - |
+| [`Radio`](https://opui.dev/vue/components/radio.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`RadioInput`](https://opui.dev/vue/components/radio.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Range`](https://opui.dev/vue/components/range.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `valueSuffix` **Needs hydration** The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Import `opui-css/css/js/range.js` in the page. |
+| [`Rating`](https://opui.dev/vue/components/rating.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Select`](https://opui.dev/vue/components/select.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`SelectAll`](https://opui.dev/vue/components/checkbox.md) | Yes | Yes | - |
+| [`SortableTable`](https://opui.dev/vue/components/table.md) | Yes | Yes | - |
+| [`Stat`](https://opui.dev/vue/components/stat.md) | Yes | Yes | - |
+| [`Stepper`](https://opui.dev/vue/components/stepper.md) | Yes | Yes | - |
+| [`StepperItem`](https://opui.dev/vue/components/stepper.md) | Yes | Yes | - |
+| [`Switch`](https://opui.dev/vue/components/switch.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`SwitchInput`](https://opui.dev/vue/components/switch.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Table`](https://opui.dev/vue/components/table.md) | Yes | Yes | - |
+| [`TableCell`](https://opui.dev/vue/components/table.md) | Yes | Yes | - |
+| [`TableColumn`](https://opui.dev/vue/components/table.md) | Yes | Yes | - |
+| [`TableColumnGroup`](https://opui.dev/vue/components/table.md) | Yes | Yes | - |
+| [`TableHeaderCell`](https://opui.dev/vue/components/table.md) | Yes | Yes | - |
+| [`Tabs`](https://opui.dev/vue/components/tabs.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`TabsItem`](https://opui.dev/vue/components/tabs.md) | Yes | Yes | - |
+| [`TabsLabel`](https://opui.dev/vue/components/tabs.md) | Yes | Yes | - |
+| [`TabsPanel`](https://opui.dev/vue/components/tabs.md) | Yes | Yes | - |
+| [`Textarea`](https://opui.dev/vue/components/textarea.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`TextField`](https://opui.dev/vue/components/text-field.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Timeline`](https://opui.dev/vue/components/timeline.md) | Yes | Yes | - |
+| [`TimelineItem`](https://opui.dev/vue/components/timeline.md) | Yes | Yes | - |
+| [`Toaster`](https://opui.dev/vue/components/toast.md) | Yes | Yes | - |
+| [`ToggleButton`](https://opui.dev/vue/components/toggle.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`ToggleGroup`](https://opui.dev/vue/components/toggle.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Tooltip`](https://opui.dev/vue/components/tooltip.md) | Yes | Yes | - |
 
 ### Next steps
 
-#### [AI assistants](https://open-props-ui.netlify.app/vue/llms.txt)
+#### [AI assistants](https://opui.dev/vue/llms.txt)
 
-#### [Blocks](https://open-props-ui.netlify.app/blocks.md)
+#### [Blocks](https://opui.dev/blocks.md)
 
-#### [Components](https://open-props-ui.netlify.app/vue/components.md)
+#### [Components](https://opui.dev/vue/components.md)
 
 41 components, each with Vue examples and its API.
 
-#### [Concepts](https://open-props-ui.netlify.app/vue/guide/concepts.md)
+#### [Concepts](https://opui.dev/vue/guide/concepts.md)
 
-#### [Theme builder](https://open-props-ui.netlify.app/theme-builder.md)
+#### [Theme builder](https://opui.dev/theme-builder.md)

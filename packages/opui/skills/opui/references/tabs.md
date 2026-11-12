@@ -3,7 +3,7 @@
 Radio inputs that switch panels. To pick an option, use a Toggle group.
 
 - CSS: `opui-css/css/components/tabs.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/tabs.md), [Astro](https://open-props-ui.netlify.app/astro/components/tabs.md), [React](https://open-props-ui.netlify.app/react/components/tabs.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/tabs.md), [Vue](https://open-props-ui.netlify.app/vue/components/tabs.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/tabs.md), [Astro](https://opui.dev/astro/components/tabs.md), [React](https://opui.dev/react/components/tabs.md), [Svelte](https://opui.dev/svelte/components/tabs.md), [Vue](https://opui.dev/vue/components/tabs.md).
 
 ## Tabs
 

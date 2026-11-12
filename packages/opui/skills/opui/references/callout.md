@@ -3,7 +3,7 @@
 A message in the flow of the page, without interrupting the task.
 
 - CSS: `opui-css/css/components/callout.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/callout.md), [Astro](https://open-props-ui.netlify.app/astro/components/callout.md), [React](https://open-props-ui.netlify.app/react/components/callout.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/callout.md), [Vue](https://open-props-ui.netlify.app/vue/components/callout.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/callout.md), [Astro](https://opui.dev/astro/components/callout.md), [React](https://opui.dev/react/components/callout.md), [Svelte](https://opui.dev/svelte/components/callout.md), [Vue](https://opui.dev/vue/components/callout.md).
 
 ## Callout
 

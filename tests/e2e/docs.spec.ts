@@ -751,9 +751,7 @@ test("the blog feed lists every post", async ({ page }) => {
     page.locator('link[rel="alternate"][type="application/rss+xml"]'),
   ).toHaveAttribute("href", "/blog/rss.xml")
   expect(feed.match(/<item>/g)?.length).toBeGreaterThan(20)
-  expect(feed).toContain(
-    "<link>https://open-props-ui.netlify.app/blog/release-6/</link>",
-  )
+  expect(feed).toContain("<link>https://opui.dev/blog/release-6/</link>")
 })
 
 for (const path of DOCS_PAGES) {

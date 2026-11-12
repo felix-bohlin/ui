@@ -66,7 +66,7 @@ Example themes ship in `opui-css/themes/` (`bootstrap.css`, a Bootstrap 5 look, 
 
 ## Figma
 
-`node_modules/opui-css/figma/themes/` has the default theme resolved for Figma: `default/<mode>.tokens.json` per mode (`light`, `dark`, `light-more-contrast`, `dark-more-contrast`) for Figma's Import mode, and `default.figma.json`, which `opui-css/figma/sync.js` turns into variables, effect styles and text styles. The example themes' files are on the docs site, at `https://open-props-ui.netlify.app/figma/<theme>.figma.json` and `https://open-props-ui.netlify.app/figma/<theme>/<mode>.tokens.json`.
+`node_modules/opui-css/figma/themes/` has the default theme resolved for Figma: `default/<mode>.tokens.json` per mode (`light`, `dark`, `light-more-contrast`, `dark-more-contrast`) for Figma's Import mode, and `default.figma.json`, which `opui-css/figma/sync.js` turns into variables, effect styles and text styles. The example themes' files are on the docs site, at `https://opui.dev/figma/<theme>.figma.json` and `https://opui.dev/figma/<theme>/<mode>.tokens.json`.
 
 - Every variable has its CSS variable as code syntax, so the Figma MCP server reads a design built with them back as `var(--ui-*)`. Use those tokens in code, not the resolved values.
 - To set up a file with the Figma MCP server's `use_figma` tool, send the contents of `sync.js`, the theme as `const THEME = {...}` and `return await opuiFigmaSync(THEME, options)`. `use_figma` takes at most 50,000 characters and has no `fetch`, and a theme is about 100,000, so send it in parts with `{ partial: true }`: the variables in chunks, then `{ ...THEME, variables: [] }` for the styles. Leave out each color's `hex`, `oklch` and `p3` (keep `p3` in a Display P3 file) to fit more in a call.
@@ -81,4 +81,4 @@ Example themes ship in `opui-css/themes/` (`bootstrap.css`, a Bootstrap 5 look, 
 4. After the first icon in a reference, repeated icon SVGs in the examples are shortened to `<svg aria-hidden="true" viewBox="..."></svg>`: put any inline SVG icon there.
 5. Set a component's inputs (like `--_accent`) on the component itself. Don't override outputs (like `--_bg-color`): states set them, so an override freezes them. For exact selectors, read `node_modules/opui-css/css/components/<component>.css`.
 
-Full docs: https://open-props-ui.netlify.app/llms.txt
+Full docs: https://opui.dev/llms.txt

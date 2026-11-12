@@ -4,11 +4,11 @@ Design system. Components. Modern HTML & CSS.
 
 ## Usage
 
-https://open-props-ui.netlify.app/html/guide/getting-started/
+https://opui.dev/html/guide/getting-started/
 
 ### AI assistants
 
-- [llms.txt](https://open-props-ui.netlify.app/llms.txt) indexes the docs. Every page also has a Markdown version, e.g. [/html/components/button.md](https://open-props-ui.netlify.app/html/components/button.md).
+- [llms.txt](https://opui.dev/llms.txt) indexes the docs. Every page also has a Markdown version, e.g. [/html/components/button.md](https://opui.dev/html/components/button.md).
 - `opui-css` ships an agent skill in `skills/opui`, and `npx opui-css skill` copies it into a project. See the [package README](packages/opui/README.md#ai-assistants).
 
 ---

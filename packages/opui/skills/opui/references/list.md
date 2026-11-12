@@ -3,7 +3,7 @@
 Rows of similar items, like contacts, files or settings, with icons, controls and links.
 
 - CSS: `opui-css/css/components/list.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/list.md), [Astro](https://open-props-ui.netlify.app/astro/components/list.md), [React](https://open-props-ui.netlify.app/react/components/list.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/list.md), [Vue](https://open-props-ui.netlify.app/vue/components/list.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/list.md), [Astro](https://opui.dev/astro/components/list.md), [React](https://opui.dev/react/components/list.md), [Svelte](https://opui.dev/svelte/components/list.md), [Vue](https://opui.dev/vue/components/list.md).
 
 ## List
 

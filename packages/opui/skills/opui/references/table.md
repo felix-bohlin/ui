@@ -3,7 +3,7 @@
 Displays tabular data. Basic tables with row and column headers, and optional captions and footers.
 
 - CSS: `opui-css/css/components/table.css` and `opui-css/css/components/sortable-table.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/table.md), [Astro](https://open-props-ui.netlify.app/astro/components/table.md), [React](https://open-props-ui.netlify.app/react/components/table.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/table.md), [Vue](https://open-props-ui.netlify.app/vue/components/table.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/table.md), [Astro](https://opui.dev/astro/components/table.md), [React](https://opui.dev/react/components/table.md), [Svelte](https://opui.dev/svelte/components/table.md), [Vue](https://opui.dev/vue/components/table.md).
 
 ## Table
 

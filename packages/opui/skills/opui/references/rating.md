@@ -3,7 +3,7 @@
 A star rating: a meter that shows a score, or radios that collect one.
 
 - CSS: `opui-css/css/components/rating.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/rating.md), [Astro](https://open-props-ui.netlify.app/astro/components/rating.md), [React](https://open-props-ui.netlify.app/react/components/rating.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/rating.md), [Vue](https://open-props-ui.netlify.app/vue/components/rating.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/rating.md), [Astro](https://opui.dev/astro/components/rating.md), [React](https://opui.dev/react/components/rating.md), [Svelte](https://opui.dev/svelte/components/rating.md), [Vue](https://opui.dev/vue/components/rating.md).
 
 ## Rating
 

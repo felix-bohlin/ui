@@ -34,6 +34,8 @@ const MARKDOWN_LINK = /\]\((\S+?)\)/g
 const NO_MARKDOWN = /^\/[^/]+\/$/
 const NOT_IN_LLMS = /^\/[^/]+\/(?:components\/)?$/
 
+export const NETLIFY_ORIGIN = "https://open-props-ui.netlify.app"
+
 const ANIMATION_SHORTHAND = /(?<![\w-])animation\s*:([^;{}]+)/g
 const VAR_CALL = /var\([^()]*(?:\([^()]*\)[^()]*)*\)/g
 const TIMELINE = /\b(?:scroll|view)\(|(?:^|[\s,])--[\w-]/
@@ -203,6 +205,20 @@ export const distProblems = ({ dist, searchIndex, site }) => {
         )
       }
     }
+  }
+
+  const domainRule = `${NETLIFY_ORIGIN}/* ${site.origin}/:splat 301!`
+  const firstRule = isFile("/_redirects")
+    ? readFileSync(join(dist, "_redirects"), "utf-8")
+        .split("\n")
+        .map((line) => line.trim().split(/\s+/).join(" "))
+        .find((line) => line && !line.startsWith("#"))
+    : undefined
+  if (firstRule !== domainRule) {
+    problem(
+      `/_redirects doesn't start with "${domainRule}": public/_redirects sends the netlify.app address to site in astro.config.mjs, path included, ahead of every other rule`,
+      "/_redirects",
+    )
   }
 
   for (const [path] of pages) {

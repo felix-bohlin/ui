@@ -348,6 +348,9 @@ test("a menu straight in a popover keeps its minimum height", async ({
   page,
 }) => {
   await openFixture(page, "html", "stress/overlays")
+  await needs(page, "calc-size()", () =>
+    CSS.supports("min-block-size: calc-size(fit-content, size)"),
+  )
   await run(page, { open: "popover-hidden" })
   await run(page, { open: "popover-hidden-menu" })
   const sizes = await page

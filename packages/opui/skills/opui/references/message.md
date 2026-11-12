@@ -80,47 +80,49 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size
 ### Example: Basics
 
 ```html
-<ol class="ui-messages" role="list" aria-label="Messages with Saga">
-  <li class="ui-message">
-    <div class="ui-avatar" aria-label="Saga Nyström" role="img">SN</div>
-    <div class="ui-content">
-      <p class="ui-header">Saga</p>
-      <p>Did you get a chance to look at the pricing proposal?</p>
-      <p class="ui-footer">
-        <time datetime="2026-10-08T14:02">14:02</time>
-      </p>
-    </div>
-  </li>
-  <li class="ui-message">
-    <div class="ui-avatar" aria-label="Saga Nyström" role="img">SN</div>
-    <div class="ui-content">
-      <p class="ui-header">Saga</p>
-      <p>No rush, Friday is fine.</p>
-      <p class="ui-footer">
-        <time datetime="2026-10-08T14:03">14:03</time>
-      </p>
-    </div>
-  </li>
-  <li class="ui-message ui-outgoing">
-    <div class="ui-content">
-      <p class="ui-header">You</p>
-      <p>Yes, looks good. I'd lead with the annual plan.</p>
-      <p class="ui-footer">
-        <time datetime="2026-10-08T14:18">14:18</time>
-      </p>
-    </div>
-  </li>
-  <li class="ui-message ui-outgoing">
-    <div class="ui-content">
-      <p class="ui-header">You</p>
-      <p>Can you add the Bergen Bikes case study too?</p>
-      <p class="ui-footer">
-        <time datetime="2026-10-08T14:19">14:19</time>
-        <span class="ui-end">Read</span>
-      </p>
-    </div>
-  </li>
-</ol>
+<div aria-label="Chat with Saga" role="log">
+  <ol class="ui-messages" role="list" aria-label="Messages with Saga">
+    <li class="ui-message">
+      <div class="ui-avatar" aria-label="Saga Nyström" role="img">SN</div>
+      <div class="ui-content">
+        <p class="ui-header">Saga</p>
+        <p>Did you get a chance to look at the pricing proposal?</p>
+        <p class="ui-footer">
+          <time datetime="2026-10-08T14:02">14:02</time>
+        </p>
+      </div>
+    </li>
+    <li class="ui-message">
+      <div class="ui-avatar" aria-label="Saga Nyström" role="img">SN</div>
+      <div class="ui-content">
+        <p class="ui-header">Saga</p>
+        <p>No rush, Friday is fine.</p>
+        <p class="ui-footer">
+          <time datetime="2026-10-08T14:03">14:03</time>
+        </p>
+      </div>
+    </li>
+    <li class="ui-message ui-outgoing">
+      <div class="ui-content">
+        <p class="ui-header">You</p>
+        <p>Yes, looks good. I'd lead with the annual plan.</p>
+        <p class="ui-footer">
+          <time datetime="2026-10-08T14:18">14:18</time>
+        </p>
+      </div>
+    </li>
+    <li class="ui-message ui-outgoing">
+      <div class="ui-content">
+        <p class="ui-header">You</p>
+        <p>Can you add the Bergen Bikes case study too?</p>
+        <p class="ui-footer">
+          <time datetime="2026-10-08T14:19">14:19</time>
+          <span class="ui-end">Read</span>
+        </p>
+      </div>
+    </li>
+  </ol>
+</div>
 ```
 
 ## Astro
@@ -136,23 +138,25 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size
 import { Avatar, Message, Messages } from "opui-css/astro"
 ---
 
-<Messages aria-label="Messages with Saga">
-  <Message author="Saga" datetime="2026-10-08T14:02" time="14:02">
-    <Avatar aria-label="Saga Nyström" role="img" slot="start">SN</Avatar>
-    <p>Did you get a chance to look at the pricing proposal?</p>
-  </Message>
-  <Message author="Saga" datetime="2026-10-08T14:03" time="14:03">
-    <Avatar aria-label="Saga Nyström" role="img" slot="start">SN</Avatar>
-    <p>No rush, Friday is fine.</p>
-  </Message>
-  <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
-    <p>Yes, looks good. I'd lead with the annual plan.</p>
-  </Message>
-  <Message author="You" datetime="2026-10-08T14:19" outgoing time="14:19">
-    <p>Can you add the Bergen Bikes case study too?</p>
-    <Fragment slot="end">Read</Fragment>
-  </Message>
-</Messages>
+<div aria-label="Chat with Saga" role="log">
+  <Messages aria-label="Messages with Saga">
+    <Message author="Saga" datetime="2026-10-08T14:02" time="14:02">
+      <Avatar aria-label="Saga Nyström" role="img" slot="start">SN</Avatar>
+      <p>Did you get a chance to look at the pricing proposal?</p>
+    </Message>
+    <Message author="Saga" datetime="2026-10-08T14:03" time="14:03">
+      <Avatar aria-label="Saga Nyström" role="img" slot="start">SN</Avatar>
+      <p>No rush, Friday is fine.</p>
+    </Message>
+    <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
+      <p>Yes, looks good. I'd lead with the annual plan.</p>
+    </Message>
+    <Message author="You" datetime="2026-10-08T14:19" outgoing time="14:19">
+      <p>Can you add the Bergen Bikes case study too?</p>
+      <Fragment slot="end">Read</Fragment>
+    </Message>
+  </Messages>
+</div>
 ```
 
 ## React
@@ -168,44 +172,46 @@ import { Avatar, Message, Messages } from "opui-css/react"
 
 export default function Basics() {
   return (
-    <Messages aria-label="Messages with Saga">
-      <Message
-        author="Saga"
-        datetime="2026-10-08T14:02"
-        start={
-          <Avatar aria-label="Saga Nyström" role="img">
-            SN
-          </Avatar>
-        }
-        time="14:02"
-      >
-        <p>Did you get a chance to look at the pricing proposal?</p>
-      </Message>
-      <Message
-        author="Saga"
-        datetime="2026-10-08T14:03"
-        start={
-          <Avatar aria-label="Saga Nyström" role="img">
-            SN
-          </Avatar>
-        }
-        time="14:03"
-      >
-        <p>No rush, Friday is fine.</p>
-      </Message>
-      <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
-        <p>Yes, looks good. I'd lead with the annual plan.</p>
-      </Message>
-      <Message
-        author="You"
-        datetime="2026-10-08T14:19"
-        end="Read"
-        outgoing
-        time="14:19"
-      >
-        <p>Can you add the Bergen Bikes case study too?</p>
-      </Message>
-    </Messages>
+    <div aria-label="Chat with Saga" role="log">
+      <Messages aria-label="Messages with Saga">
+        <Message
+          author="Saga"
+          datetime="2026-10-08T14:02"
+          start={
+            <Avatar aria-label="Saga Nyström" role="img">
+              SN
+            </Avatar>
+          }
+          time="14:02"
+        >
+          <p>Did you get a chance to look at the pricing proposal?</p>
+        </Message>
+        <Message
+          author="Saga"
+          datetime="2026-10-08T14:03"
+          start={
+            <Avatar aria-label="Saga Nyström" role="img">
+              SN
+            </Avatar>
+          }
+          time="14:03"
+        >
+          <p>No rush, Friday is fine.</p>
+        </Message>
+        <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
+          <p>Yes, looks good. I'd lead with the annual plan.</p>
+        </Message>
+        <Message
+          author="You"
+          datetime="2026-10-08T14:19"
+          end="Read"
+          outgoing
+          time="14:19"
+        >
+          <p>Can you add the Bergen Bikes case study too?</p>
+        </Message>
+      </Messages>
+    </div>
   )
 }
 ```
@@ -223,27 +229,29 @@ export default function Basics() {
   import { Avatar, Message, Messages } from "opui-css/svelte"
 </script>
 
-<Messages aria-label="Messages with Saga">
-  <Message author="Saga" datetime="2026-10-08T14:02" time="14:02">
-    {#snippet start()}
-      <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
-    {/snippet}
-    <p>Did you get a chance to look at the pricing proposal?</p>
-  </Message>
-  <Message author="Saga" datetime="2026-10-08T14:03" time="14:03">
-    {#snippet start()}
-      <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
-    {/snippet}
-    <p>No rush, Friday is fine.</p>
-  </Message>
-  <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
-    <p>Yes, looks good. I'd lead with the annual plan.</p>
-  </Message>
-  <Message author="You" datetime="2026-10-08T14:19" outgoing time="14:19">
-    <p>Can you add the Bergen Bikes case study too?</p>
-    {#snippet end()}Read{/snippet}
-  </Message>
-</Messages>
+<div aria-label="Chat with Saga" role="log">
+  <Messages aria-label="Messages with Saga">
+    <Message author="Saga" datetime="2026-10-08T14:02" time="14:02">
+      {#snippet start()}
+        <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
+      {/snippet}
+      <p>Did you get a chance to look at the pricing proposal?</p>
+    </Message>
+    <Message author="Saga" datetime="2026-10-08T14:03" time="14:03">
+      {#snippet start()}
+        <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
+      {/snippet}
+      <p>No rush, Friday is fine.</p>
+    </Message>
+    <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
+      <p>Yes, looks good. I'd lead with the annual plan.</p>
+    </Message>
+    <Message author="You" datetime="2026-10-08T14:19" outgoing time="14:19">
+      <p>Can you add the Bergen Bikes case study too?</p>
+      {#snippet end()}Read{/snippet}
+    </Message>
+  </Messages>
+</div>
 ```
 
 ## Vue
@@ -260,26 +268,28 @@ import { Avatar, Message, Messages } from "opui-css/vue"
 </script>
 
 <template>
-  <Messages aria-label="Messages with Saga">
-    <Message author="Saga" datetime="2026-10-08T14:02" time="14:02">
-      <template #start>
-        <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
-      </template>
-      <p>Did you get a chance to look at the pricing proposal?</p>
-    </Message>
-    <Message author="Saga" datetime="2026-10-08T14:03" time="14:03">
-      <template #start>
-        <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
-      </template>
-      <p>No rush, Friday is fine.</p>
-    </Message>
-    <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
-      <p>Yes, looks good. I'd lead with the annual plan.</p>
-    </Message>
-    <Message author="You" datetime="2026-10-08T14:19" outgoing time="14:19">
-      <p>Can you add the Bergen Bikes case study too?</p>
-      <template #end>Read</template>
-    </Message>
-  </Messages>
+  <div aria-label="Chat with Saga" role="log">
+    <Messages aria-label="Messages with Saga">
+      <Message author="Saga" datetime="2026-10-08T14:02" time="14:02">
+        <template #start>
+          <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
+        </template>
+        <p>Did you get a chance to look at the pricing proposal?</p>
+      </Message>
+      <Message author="Saga" datetime="2026-10-08T14:03" time="14:03">
+        <template #start>
+          <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
+        </template>
+        <p>No rush, Friday is fine.</p>
+      </Message>
+      <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
+        <p>Yes, looks good. I'd lead with the annual plan.</p>
+      </Message>
+      <Message author="You" datetime="2026-10-08T14:19" outgoing time="14:19">
+        <p>Can you add the Bergen Bikes case study too?</p>
+        <template #end>Read</template>
+      </Message>
+    </Messages>
+  </div>
 </template>
 ```

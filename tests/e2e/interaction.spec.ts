@@ -1884,6 +1884,76 @@ test("the data-table block selects and sorts its rows together", async ({
   await expect(all).not.toBeChecked()
   await expect(all).toHaveJSProperty("indeterminate", true)
 })
+
+interaction(
+  "callout",
+  "Dismissible",
+  "dismissible callout hides itself and moves focus to the next focusable element, or else the one before",
+  async ({ root }) => {
+    const callout = root.locator(".ui-callout")
+    const close = callout.getByRole("button", { name: "Dismiss" })
+    const before = root.getByRole("button", { name: "Before the callout" })
+    const after = root.getByRole("button", { name: "After the callout" })
+
+    await root.evaluate((element) => {
+      for (const [label, position] of [
+        ["Before the callout", "afterbegin"],
+        ["After the callout", "beforeend"],
+      ] as const) {
+        const button = document.createElement("button")
+        button.textContent = label
+        button.type = "button"
+        element.insertAdjacentElement(position, button)
+      }
+    })
+
+    await expect(close).toBeVisible()
+    await close.press("Enter")
+    await expect(callout).toBeHidden()
+    await expect(callout).toHaveAttribute("hidden", "")
+    await expect(after).toBeFocused()
+
+    await after.evaluate((element) => element.remove())
+    await callout.evaluate((element) => element.removeAttribute("hidden"))
+    await close.press("Enter")
+    await expect(callout).toBeHidden()
+    await expect(before).toBeFocused()
+  },
+)
+
+interaction(
+  "callout",
+  "Dismissible",
+  "dismissible callout stays when a dismiss listener calls preventDefault()",
+  async ({ page, root }) => {
+    const callout = root.locator(".ui-callout")
+    const close = callout.getByRole("button", { name: "Dismiss" })
+
+    await expect(close).toBeVisible()
+    await page.evaluate(() => {
+      const events: string[] = []
+      Object.assign(window, { dismissEvents: events })
+      document.addEventListener("dismiss", (event) => {
+        events.push(
+          `${(event.target as Element).localName} ${event.cancelable}`,
+        )
+        event.preventDefault()
+      })
+    })
+    await close.click()
+    await expect
+      .poll(() =>
+        page.evaluate(
+          () =>
+            (window as unknown as { dismissEvents: string[] }).dismissEvents,
+        ),
+      )
+      .toEqual(["opui-callout true"])
+    await expect(callout).toBeVisible()
+    await expect(callout).not.toHaveAttribute("hidden")
+  },
+)
+
 const stubClipboard = (page: Page) =>
   page.evaluate(() => {
     const copied: string[] = []

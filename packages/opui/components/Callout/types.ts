@@ -1,4 +1,6 @@
 export type Props = {
+  closeLabel?: string
+  dismissible?: boolean
   severity?: "critical" | "info" | "neutral" | "success" | "warning"
   variant?: "outlined" | "tonal"
 }

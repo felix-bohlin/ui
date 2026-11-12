@@ -1,5 +1,12 @@
 export const builtInLabels = [
   {
+    component: "Callout",
+    default: "Close",
+    html: "aria-label",
+    page: "callout",
+    prop: "closeLabel",
+  },
+  {
     component: "Carousel",
     default: "Previous",
     html: "--_button-prev-label",

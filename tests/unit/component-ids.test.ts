@@ -1,6 +1,10 @@
 import { describe, expect, test } from "vitest"
 import type { ComponentFramework } from "../../src/component-api/frameworks"
 import { render } from "./renderers"
+import CalloutAstro from "../../packages/opui/components/Callout/Callout.astro"
+import CalloutReact from "../../packages/opui/components/Callout/Callout.react"
+import CalloutSvelte from "../../packages/opui/components/Callout/Callout.svelte"
+import CalloutVue from "../../packages/opui/components/Callout/Callout.vue"
 import DialogAstro from "../../packages/opui/components/Dialog/Dialog.astro"
 import DialogReact from "../../packages/opui/components/Dialog/Dialog.react"
 import DialogSvelte from "../../packages/opui/components/Dialog/Dialog.svelte"
@@ -40,7 +44,7 @@ const renderWithIds = (
     : render[framework](component, props)
 
 const ID_ATTRIBUTES =
-  /\s(?:id|for|list|aria-labelledby|aria-describedby|aria-controls)="([^"]*)"/g
+  /\s(?:id|for|list|aria-labelledby|aria-describedby|aria-controls|commandfor)="([^"]*)"/g
 
 const idsIn = (html: string) =>
   [...html.matchAll(ID_ATTRIBUTES)].flatMap((match) =>
@@ -56,6 +60,18 @@ const CASES: {
   prefix: string
   props: Record<string, unknown>
 }[] = [
+  {
+    base: (html) => /<opui-callout[^>]*\sid="([^"]+)"/.exec(html)?.[1],
+    components: {
+      astro: CalloutAstro,
+      react: CalloutReact,
+      svelte: CalloutSvelte,
+      vue: CalloutVue,
+    },
+    name: "Callout",
+    prefix: "callout",
+    props: { dismissible: true },
+  },
   {
     base: (html) =>
       /aria-labelledby="([^"]+)-title"/.exec(html)?.[1] ?? undefined,

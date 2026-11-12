@@ -92,6 +92,7 @@ Outputs: `--_closed-translate`, `--_direction`, `--_duration` and `--_ease`.
 - `--_actions-padding-inline`: Inline padding of `.ui-actions`. Defaults to `--_padding`. The actions pass it on as `--ui-card-padding`, so a text button at either end keeps its focus ring inside the card.
 - `--_backdrop-bg-color`: Backdrop color of a dialog or drawer. Defaults to `--ui-backdrop-bg-color`.
 - `--_backdrop-blur`: Backdrop filter of a dialog or drawer. Defaults to a `--ui-backdrop-blur` blur.
+- `--_content-min-block-size`: Height a dialog's `.ui-content` keeps next to a child outside the parts, unless the content is shorter. Defaults to `min(12rem, 40dvb)`. Needs `calc-size()`.
 - `--_ease`: Easing of the card link border transition and the focus ring animation. Defaults to `--ui-ease`.
 - `--_elevated-bg-color`: Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.
 - `--_elevated-shadow`: Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.

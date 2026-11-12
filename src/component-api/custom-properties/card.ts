@@ -34,6 +34,11 @@ export default {
       "Anchor name of a dialog's, drawer's or popover's `.ui-content`, which places its scroll shadows. `--ui-dialog-content`, `--ui-drawer-content` or `--ui-popover-content`.",
     kind: "output",
   },
+  "--_content-min-block-size": {
+    description:
+      "Height a dialog's `.ui-content` keeps next to a child outside the parts, unless the content is shorter. Defaults to `min(12rem, 40dvb)`. Needs `calc-size()`.",
+    kind: "input",
+  },
   "--_duration": {
     description:
       "Duration of the card link border transition and the focus ring animation, `--ui-duration` times `--_motion`.",

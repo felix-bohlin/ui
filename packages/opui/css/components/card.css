@@ -336,6 +336,7 @@
   /* Header, content and footer of a dialog, drawer or popover */
   :where(.ui-dialog, .ui-drawer, .ui-popover) {
     --_content-anchor: --ui-dialog-content;
+    --_content-min-block-size: min(12rem, 40dvb);
     --_footer-gap: var(--ui-space-2);
     --_scroll-shadow: var(--ui-shadow-scroll);
     --_title-font-size: var(--ui-font-size-h4);
@@ -428,7 +429,7 @@
       }
     }
 
-    &:where(.ui-popover):has(
+    &:where(.ui-dialog, .ui-popover):has(
         > :not(
           .ui-content,
           .ui-divider,
@@ -445,6 +446,16 @@
       )
       > .ui-content {
       flex-shrink: 0;
+
+      @supports (min-block-size: calc-size(fit-content, size)) {
+        :where(.ui-dialog) > & {
+          flex-shrink: 1;
+          min-block-size: calc-size(
+            fit-content,
+            min(size, var(--_content-min-block-size))
+          );
+        }
+      }
     }
 
     & > .ui-footer {

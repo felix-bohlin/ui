@@ -77,7 +77,7 @@ const emptyBindings = (attributes) =>
       : [{ at, code: `styleAttrs(${styleCode})`, helper: "styleAttrs" }]
   })
 
-export const omitEmptyAttributes = (attributes) => {
+const omitEmptyAttributes = (attributes) => {
   const omitted = emptyBindings(attributes)
   if (omitted.length === 0) return { attributes, helpers: [] }
   const bound = attributes.filter((entry) => OBJECT_BINDING.test(entry))

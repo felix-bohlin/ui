@@ -157,7 +157,7 @@ export const anchorNames = (css: string) => {
   )
 }
 
-export const documentedClasses = (api: ComponentApi) => [
+const documentedClasses = (api: ComponentApi) => [
   ...new Set(
     classNames(
       [

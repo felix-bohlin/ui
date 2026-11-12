@@ -2,7 +2,7 @@ import themeSource from "@opui/css/theme.css?raw"
 import { paletteSteps } from "./palette-steps"
 import { themeTokenTiers } from "./theme-token-tiers"
 
-export type ThemeToken = {
+type ThemeToken = {
   dark?: string
   moreContrast?: string
   name: string
@@ -10,7 +10,7 @@ export type ThemeToken = {
   value: string
 }
 
-export type ThemeSection = {
+type ThemeSection = {
   note?: string
   title: string
   tokens: ThemeToken[]

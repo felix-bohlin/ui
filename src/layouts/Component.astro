@@ -49,7 +49,6 @@ import migratingGuide from "../../packages/opui/MIGRATING.md?raw"
 import { migratingAnchor } from "../utils/migrating"
 
 type Props = {
-  title?: string
   description?: string
   image?: string
   overline?: string
@@ -73,7 +72,6 @@ const {
   overline = "Components",
   showToc = true,
   slug: slugProp,
-  title,
   description,
   image,
 } = Astro.props
@@ -215,7 +213,6 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
       label: component.name,
     })),
   }))}
-  title={title}
   description={description}
   image={image}
 >

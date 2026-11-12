@@ -3,7 +3,7 @@ import { normalizeTheme, type Theme } from "./theme"
 
 export type Snapshot = { id: string; name: string; saved: number; theme: Theme }
 
-export const SNAPSHOTS_KEY = "opui-builder-snapshots"
+const SNAPSHOTS_KEY = "opui-builder-snapshots"
 
 export const MAX_SNAPSHOTS = 50
 

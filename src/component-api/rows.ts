@@ -39,7 +39,7 @@ export const modifiers = (option: ApiOption) => {
   ]
 }
 
-export const htmlDefault = (option: ApiOption) => {
+const htmlDefault = (option: ApiOption) => {
   const value = option.default?.replace(/^"(.*)"$/, "$1")
   if (value === undefined) return undefined
   if (option.values) {

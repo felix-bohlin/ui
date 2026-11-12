@@ -22,7 +22,7 @@ const apiDir = fileURLToPath(new URL("../src/component-api", import.meta.url))
 const attribute = (element, name) =>
   element.attrs?.find((attr) => attr.name === name)?.value
 
-export const HTML_FEATURES = [
+const HTML_FEATURES = [
   { id: "datalist", test: (element) => element.nodeName === "datalist" },
   {
     id: "details-name",

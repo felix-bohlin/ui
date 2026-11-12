@@ -4,7 +4,7 @@ import type { Theme } from "./theme"
 import { themeTokens } from "./theme-tokens"
 import { tokenType } from "./tokens-json"
 
-export type ResolvedTokens = Record<"dark" | "light", Record<string, string>>
+type ResolvedTokens = Record<"dark" | "light", Record<string, string>>
 
 export const resolveTokens = (root: Element): ResolvedTokens => {
   const names = themeTokens().map((token) => token.name)

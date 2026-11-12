@@ -36,7 +36,7 @@ const NUMBER = /^-?\d*\.?\d+$/
 const LENGTH = /^(-?\d*\.?\d+)(px|rem)$/
 const ALIAS = /^var\((--ui-[\w-]+)\)$/
 
-export const tokenValue = (
+const tokenValue = (
   value: string,
   type: string | undefined,
   paths: Map<string, string>,

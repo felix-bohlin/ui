@@ -654,6 +654,42 @@ test("the block preview's Tablet and Mobile widths give the block 768px and 390p
   }
 })
 
+for (const { block, trigger, width } of [
+  {
+    block: "account-settings",
+    trigger:
+      '[commandfor="account-settings-delete-dialog"][command="show-modal"]',
+    width: 1280,
+  },
+  { block: "app-shell", trigger: '[command="show-modal"]', width: 390 },
+]) {
+  test(`a modal opened in the ${block} preview at ${width}px scrolls into view, or its top when it's taller than the window`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ height: 800, width })
+    await page.goto(`/blocks/${block}/`)
+    await expect(page.locator("iframe[data-block-frame]")).toHaveAttribute(
+      "style",
+      /block-size/,
+    )
+    const frame = page.frameLocator("iframe[data-block-frame]")
+    await frame.locator(trigger).filter({ visible: true }).first().click()
+    const dialog = frame.locator("dialog:modal")
+    await expect(dialog).toBeVisible()
+    await expect
+      .poll(async () => {
+        const header = await page
+          .locator(".site-header")
+          .evaluate((element) => element.getBoundingClientRect().bottom)
+        const box = (await dialog.boundingBox())!
+        return box.height > 800 - header
+          ? Math.abs(box.y - header) <= 1
+          : box.y >= header && box.y + box.height <= 800
+      })
+      .toBe(true)
+  })
+}
+
 test("a long section heading takes the content width, passes under the header links and sticks as a one-line copy without changing its height or the scroll position", async ({
   browserName,
   page,

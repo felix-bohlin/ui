@@ -405,7 +405,7 @@ The floating content is `.ui-floating` instead of `.ui-anchor-floating`, also in
 
 ## Avatar
 
-`alt` is `label`, the name of the person or thing. With `src` it is still the `alt` of the image. Without `src`, the letters or icon are hidden from assistive technology and `label` is visually hidden text after them. Leave `label` out when the name is shown next to the avatar: the avatar is then decorative, with `alt=""` on the image.
+`alt` is `label`, the name of the person or thing. With `src` it is still the `alt` of the image. Without `src`, the letters or icon sit in a `<span aria-hidden="true">` and `label` is visually hidden text after them, so select `.ui-avatar svg` where a selector matched a direct child. Leave `label` out when the name is shown next to the avatar: the avatar is then decorative, with `alt=""` on the image.
 
 ```diff
 - <Avatar alt="Lou Headstock" src="/lou.jpg" />
@@ -417,8 +417,6 @@ The floating content is `.ui-floating` instead of `.ui-anchor-floating`, also in
 ```
 
 The content is hidden from assistive technology, so a name inside it is no longer read: move it to `label`. A link or button avatar needs `label`, `aria-label` or `aria-labelledby` (types in Astro, React and Svelte, and a warning in development).
-
-`src` no longer needs a name beside it and can be undefined, so a person without a photo falls back to the letters.
 
 A button avatar needs `as="button"`, and `disabled` only goes with it or with `href` (types).
 
@@ -545,6 +543,13 @@ In Astro and Vue the regions are parts instead of slots. The root no longer rend
 The `Slots` type in `types.ts` drops `icon` and `title`, and has `closeIcon` for the close button's icon.
 
 The root is a `<div>` instead of an `<article>`, and in Astro and Vue it no longer has `role="note"`, so screen readers read the callout as part of the content around it. Pass `role="note"` to keep the old announcement, and select `.ui-callout` where a selector or a test matched the `article`. The CSS still styles an `<article class="ui-callout">`, so HTML can stay as it is.
+
+```diff
+- <Callout>…</Callout>
++ <Callout role="note">…</Callout>
+- article.ui-callout { … }
++ .ui-callout { … }
+```
 
 ## Card
 

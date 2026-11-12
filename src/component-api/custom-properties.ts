@@ -23,7 +23,7 @@ const apis = import.meta.glob<ComponentApi>("./*/api.ts", {
 const kebab = (name: string) =>
   name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
 
-export const stylesheetPath = (stylesheet: string) =>
+const stylesheetPath = (stylesheet: string) =>
   path.resolve("packages/opui/css/components", `${stylesheet}.css`)
 
 const pageApis = (slug: string) =>

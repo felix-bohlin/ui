@@ -1,7 +1,7 @@
 ---
 import { canonicalPath } from "../utils/framework"
 
-export type SidebarLink = { href: string; isNew?: boolean; label: string }
+type SidebarLink = { href: string; isNew?: boolean; label: string }
 
 export type SidebarGroup = { label: string; links: SidebarLink[] }
 

@@ -1,7 +1,7 @@
 import type { Theme } from "./theme"
 import { shareUrl } from "./theme-share"
 
-export type GalleryEntry = {
+type GalleryEntry = {
   author: string
   description: string
   id: string

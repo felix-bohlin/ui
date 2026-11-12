@@ -12,7 +12,7 @@ export type EngineId = "chromium" | "gecko" | "webkit"
 
 export type SupportLevel = "full" | "partial" | "none"
 
-export type BrowserSupportEntry = {
+type BrowserSupportEntry = {
   browser: BrowserId
   label: string
   level: SupportLevel
@@ -21,7 +21,7 @@ export type BrowserSupportEntry = {
   unsupportedFeatures: string[]
 }
 
-export type EngineSupportEntry = {
+type EngineSupportEntry = {
   engine: EngineId
   label: string
   browsers: BrowserSupportEntry[]

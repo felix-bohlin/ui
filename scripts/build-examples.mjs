@@ -718,7 +718,7 @@ const RAW_TEXT = new Set([
   "xmp",
 ])
 
-export const markWhitespace = async (source) => {
+const markWhitespace = async (source) => {
   const { ast } = await parse(source, { position: true })
   const marks = []
   const visit = (nodes, parent, raw) => {
@@ -1657,7 +1657,7 @@ const insideClass = (element, name) =>
   !!element.parent &&
   (element.parent.classes.has(name) || insideClass(element.parent, name))
 
-export const HTML_SCRIPT_RULES = [
+const HTML_SCRIPT_RULES = [
   {
     covers: (path, tags) => [...tags.values()].includes(path),
     lines: (elements, tags) =>
@@ -1754,7 +1754,7 @@ export const htmlFromRender = async (rendered, source, file, { read } = {}) => {
   return html
 }
 
-export const EXAMPLE_ASTRO_CONFIG = { compressHTML: false, logLevel: "error" }
+const EXAMPLE_ASTRO_CONFIG = { compressHTML: false, logLevel: "error" }
 
 export const createRenderer = async () => {
   const { getViteConfig } = await import("astro/config")

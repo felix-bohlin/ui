@@ -12,7 +12,7 @@ export const THEME_KEY = "opui-theme"
 
 export const VIEW_KEYS = { contrast: "contrast", mode: "theme" } as const
 
-export const LEGACY_KEYS = [
+const LEGACY_KEYS = [
   "opui-custom-theme",
   "opui-custom-theme-dark",
   "opui-custom-theme-light",
@@ -123,9 +123,9 @@ const rule = (selector: string, entries: [string, string][], indent = "  ") =>
     .map(([name, value]) => `${indent}  ${name}: ${value};`)
     .join("\n")}\n${indent}}`
 
-export const emptyTheme = (): Theme => ({ preset: null, tokens: {} })
+const emptyTheme = (): Theme => ({ preset: null, tokens: {} })
 
-export const presetCss = (preset: string | null) =>
+const presetCss = (preset: string | null) =>
   EXAMPLE_THEMES.find((theme) => theme.name === preset)?.css ?? ""
 
 export const presetBrand = (preset: string | null) => {
@@ -172,7 +172,7 @@ export const customCss = (tokens: ThemeTokens) => {
   ].join("\n")
 }
 
-export const FONT_FAMILY_TOKENS = [...FONT_TOKENS, "--ui-font-code"]
+const FONT_FAMILY_TOKENS = [...FONT_TOKENS, "--ui-font-code"]
 
 export const themeFontIds = ({ preset, tokens }: Theme) => {
   const base = EXAMPLE_THEMES.find((theme) => theme.name === preset)?.tokens

@@ -18,7 +18,7 @@ export type FrameworkApis = Partial<
   Record<FrameworkId, AstroInstance["default"]>
 >
 
-export type ApiEntry =
+type ApiEntry =
   | FrameworkApis
   | { api: ComponentApi; id?: string; title?: string }
 
@@ -27,14 +27,12 @@ export type Apis = ApiEntry | ApiEntry[]
 type Props = {
   apis?: Apis
   cssVariablesId?: string
-  title?: string
   hideTitle?: boolean
 }
 
 const {
   apis,
   cssVariablesId = "css-variables",
-  title: titleProp,
   hideTitle = false,
 } = Astro.props
 
@@ -69,7 +67,7 @@ const { link } = Astro.locals
       const ApiComponent = pickFrameworkVariant(apis as FrameworkApis)
       return (
         ApiComponent && <section id={hideTitle ? undefined : "api"}>
-          {!hideTitle && <h2>{titleProp || "API"}</h2>}
+          {!hideTitle && <h2>API</h2>}
           <div class="api-table-container">
             <ApiComponent />
           </div>
@@ -77,7 +75,7 @@ const { link } = Astro.locals
       )
     })()
   : apiList.length > 0 && <section id={hideTitle ? undefined : "api"}>
-      {!hideTitle && <h2>{titleProp || "API"}</h2>}
+      {!hideTitle && <h2>API</h2>}
       {apiList.map((api) => {
         if (isFrameworkKeyedApi(api)) {
           const ApiComponent = pickFrameworkVariant(api)
@@ -134,8 +132,7 @@ const { link } = Astro.locals
     overflow-x: auto;
   }
 
-  .api-table-container :global(table),
-  .api-table-container :global(.api-table) {
+  .api-table-container :global(table) {
     display: table;
     margin: 0;
     min-width: 700px;

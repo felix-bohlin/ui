@@ -49,7 +49,6 @@ import migratingGuide from "../../packages/opui/MIGRATING.md?raw"
 import { migratingAnchor } from "../utils/migrating"
 
 type Props = {
-  title?: string
   description?: string
   image?: string
   overline?: string
@@ -61,6 +60,7 @@ type Props = {
   installationTabs?: Tab[]
   seeAlsoLinks?: { name: string; href: string }[]
   showToc?: boolean
+  wide?: boolean
 }
 
 const {
@@ -73,9 +73,9 @@ const {
   overline = "Components",
   showToc = true,
   slug: slugProp,
-  title,
   description,
   image,
+  wide,
 } = Astro.props
 
 const currentFramework = Astro.locals.framework
@@ -208,6 +208,7 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
 <Document
   overline={overline}
   showToc={showToc}
+  wide={wide}
   sidebarGroups={componentGroups.map((group) => ({
     label: group.label,
     links: group.components.map((component) => ({
@@ -215,7 +216,6 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
       label: component.name,
     })),
   }))}
-  title={title}
   description={description}
   image={image}
 >

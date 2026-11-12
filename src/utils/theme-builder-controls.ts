@@ -10,7 +10,7 @@ import {
 import { BALANCED_PRIMARY, MONOCHROME_PRIMARY } from "./theme-brand"
 import { WEB_FONTS, fontStack } from "./theme-fonts"
 
-export type ChoiceOption = {
+type ChoiceOption = {
   group?: string
   label: string
   tokens: ThemeTokens
@@ -19,9 +19,9 @@ export type ChoiceOption = {
 
 type Base = { hint?: string; id: string; label: string; tier: "basic" | "fine" }
 
-export type BrandControl = Base & { kind: "brand" }
+type BrandControl = Base & { kind: "brand" }
 
-export type CornersControl = Base & { kind: "corners" }
+type CornersControl = Base & { kind: "corners" }
 
 export type ColorControl = Base & {
   follow?: string[]
@@ -57,7 +57,7 @@ export type Control =
   | CornersControl
   | RangeControl
 
-export type ControlGroup = {
+type ControlGroup = {
   controls: Control[]
   description: string
   id: string

@@ -77,22 +77,6 @@ aside.sidebar {
   font-family: var(--font-bricolage-grotesque), sans-serif;
 }
 
-.anatomy {
-  --_anatomy-border-gray: 2px dotted oklch(0.6 0 0);
-  --_anatomy-border-red: 2px dotted tomato;
-
-  pointer-events: none;
-
-  .show-code-button {
-    outline: none !important;
-    pointer-events: auto;
-
-    * {
-      outline: none !important;
-    }
-  }
-}
-
 .example-container {
   :where(.ui-text-field, .ui-textarea, .ui-select):not(
       .ui-auto-fit,
@@ -156,6 +140,10 @@ aside.sidebar {
 .code-tabs {
   & > .ui-label:first-of-type {
     margin-inline-start: var(--size-2);
+  }
+
+  & > .ui-label:only-of-type {
+    display: none;
   }
 
   & > .ui-panel {

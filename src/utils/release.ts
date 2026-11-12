@@ -28,8 +28,6 @@ export const packageVersion = opui.version
 export const publishedVersion = released.version
 export const releaseVersion = packageVersion.split("-")[0]
 export const prerelease = packageVersion !== releaseVersion
-export const majorPublished =
-  numbers(packageVersion)[0] === numbers(publishedVersion)[0]
 export const unreleased = isUnreleased(
   packageVersion,
   publishedVersion,

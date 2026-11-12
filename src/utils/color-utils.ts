@@ -16,7 +16,7 @@ function toGamma(c: number): number {
 }
 
 /** Convert a 6-digit hex string (e.g. "#3b62d9") to OKLCH components. */
-export function hexToOklch(hex: string): { L: number; C: number; H: number } {
+function hexToOklch(hex: string): { L: number; C: number; H: number } {
   return srgbToOklch(
     parseInt(hex.slice(1, 3), 16) / 255,
     parseInt(hex.slice(3, 5), 16) / 255,
@@ -72,7 +72,7 @@ export function oklchToHex(L: number, C: number, H: number): string {
 
 export type Oklch = { C: number; H: number; L: number }
 
-export function oklchToLinearSrgb(
+function oklchToLinearSrgb(
   L: number,
   C: number,
   H: number,
@@ -138,7 +138,7 @@ const P3_TO_SRGB = [
   [-0.0196375508, -0.0786360494, 1.0982736002],
 ]
 
-export type RgbSpace = "p3" | "srgb"
+type RgbSpace = "p3" | "srgb"
 
 const JUST_NOTICEABLE = 0.02
 

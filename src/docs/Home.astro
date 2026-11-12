@@ -85,7 +85,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         <div class="hero-copy">
           <hgroup class="ui-hgroup">
             <p class="hero-version">
-              {releaseVersion}
+              <a href={link("/blog/release-6")}>v{releaseVersion}</a>
             </p>
 
             <h1 class="ui-h1" id="main-heading">Open Props UI</h1>
@@ -172,6 +172,12 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         </header>
 
         <ComponentShowcase />
+
+        <div class="hero-ctas">
+          <Button href={link("/components")} variant="outlined" color="primary">
+            Browse all {components.length} components
+          </Button>
+        </div>
       </section>
 
       <section class="sheet" aria-labelledby="blocks-heading">
@@ -392,7 +398,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
   html {
     --blueprint-ink: light-dark(var(--ui-color-11), var(--ui-color-5));
-    --blueprint-ink-strong: light-dark(var(--ui-color-13), var(--ui-color-2));
     --blueprint-line-major: light-dark(
       oklch(from var(--ui-color-9) l c h / 18%),
       oklch(from var(--ui-color-5) l c h / 16%)
@@ -521,6 +526,15 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
       letter-spacing: normal;
       text-transform: none;
     }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   .hero-description {
@@ -543,10 +557,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     flex-wrap: wrap;
     gap: var(--size-2);
     margin-block-start: var(--size-5);
-
-    & :global(.astro-logo) {
-      color: currentColor;
-    }
   }
 
   /* Drawing, a button with dimension lines */

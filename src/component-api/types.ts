@@ -38,7 +38,7 @@ export type ApiOption = {
   values?: Partial<Record<string, string | null>>
 } & ({ inherited: true; type: string } | { inherited?: never; type?: string })
 
-export type ApiModel = { description: string; prop: string; type: string }
+type ApiModel = { description: string; prop: string; type: string }
 
 export type CustomProperties = Record<
   string,

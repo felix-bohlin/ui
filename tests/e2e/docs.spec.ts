@@ -894,14 +894,25 @@ const tabStop = (page: Page) =>
       ["--ui-button-focus", "--ui-link-focus"].some(
         (name) => style.getPropertyValue(name).trim() === "highlight",
       ) && !transparent.test(style.backgroundColor)
+    const outlined = ({
+      outlineColor,
+      outlineStyle,
+      outlineWidth,
+    }: CSSStyleDeclaration) =>
+      outlineStyle !== "none" &&
+      parseFloat(outlineWidth) > 0 &&
+      !transparent.test(outlineColor)
+    const scrollButtonOutlined = (node: Element) =>
+      ["block-end", "block-start", "inline-end", "inline-start"].some(
+        (direction) =>
+          outlined(getComputedStyle(node, `::scroll-button(${direction})`)),
+      )
     const ring = candidates.find((node) => {
       const style = getComputedStyle(node)
-      const { outlineColor, outlineStyle, outlineWidth } = style
       return (
-        ((outlineStyle !== "none" &&
-          parseFloat(outlineWidth) > 0 &&
-          !transparent.test(outlineColor)) ||
-          highlighted(style)) &&
+        (outlined(style) ||
+          highlighted(style) ||
+          (node === element && scrollButtonOutlined(node))) &&
         visible(node)
       )
     })
@@ -925,25 +936,29 @@ const tabStop = (page: Page) =>
     }
   })
 
-for (const path of [
-  "/html/",
-  "/html/components/button/",
-  "/html/guide/getting-started/",
-]) {
-  test(`${path} shows focus on every Tab stop`, async ({ page }) => {
-    test.setTimeout(180_000)
-    await page.emulateMedia({ reducedMotion: "reduce" })
-    await page.goto(path)
-    const problems: string[] = []
-    const stops = new Set<string>()
-    for (let step = 0; step < 1000; step++) {
-      await page.keyboard.press("Tab")
-      const stop = await tabStop(page)
-      if (!stop || stops.has(stop.id)) break
-      stops.add(stop.id)
-      if (stop.problem) problems.push(stop.problem)
-    }
-    expect(stops.size, "Tab stops").toBeGreaterThan(10)
-    expect(problems).toEqual([])
-  })
-}
+test.describe(() => {
+  test.use({ deviceScaleFactor: 1 })
+
+  for (const path of [
+    "/html/",
+    "/html/components/button/",
+    "/html/guide/getting-started/",
+  ]) {
+    test(`${path} shows focus on every Tab stop`, async ({ page }) => {
+      test.setTimeout(180_000)
+      await page.emulateMedia({ reducedMotion: "reduce" })
+      await page.goto(path)
+      const problems: string[] = []
+      const stops = new Set<string>()
+      for (let step = 0; step < 1000; step++) {
+        await page.keyboard.press("Tab")
+        const stop = await tabStop(page)
+        if (!stop || stops.has(stop.id)) break
+        stops.add(stop.id)
+        if (stop.problem) problems.push(stop.problem)
+      }
+      expect(stops.size, "Tab stops").toBeGreaterThan(10)
+      expect(problems).toEqual([])
+    })
+  }
+})

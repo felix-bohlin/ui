@@ -11,7 +11,7 @@ import { fileURLToPath } from "node:url"
 import { parseArgs } from "node:util"
 
 export const MARKER = "<!-- update-snapshots -->"
-export const SCREENSHOTS = "tests/e2e/__screenshots__"
+const SCREENSHOTS = "tests/e2e/__screenshots__"
 
 const POINTER = "version https://git-lfs.github.com/spec/v1\n"
 const STATUSES = ["added", "changed", "removed"]

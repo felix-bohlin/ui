@@ -65,7 +65,14 @@ const { link } = Astro.locals
 
       <div class="ui-actions">
         <!-- Search -->
-        <Button round size="small" data-open-search title="Search (⌘K)">
+        <Button
+          aria-label="Search"
+          data-open-search
+          data-search-shortcut
+          round
+          size="small"
+          title="Search"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -81,6 +88,7 @@ const { link } = Astro.locals
 
         <!-- Theme Configurator -->
         <Button
+          aria-label="Theme"
           round
           size="small"
           commandfor="theme-configurator-drawer"

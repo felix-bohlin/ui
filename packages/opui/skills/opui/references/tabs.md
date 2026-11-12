@@ -99,7 +99,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
 - `--_panel-gap`: Space between the tab list and the panel. Defaults to `--ui-space-2`.
 - `--_radius`: Corner radius of the track. The selected tab's radius is reduced by `--_inset` and `--_track-border-width`.
-- `--_selected-bg-color`: Background of the selected tab. Defaults to `--ui-surface`, a translucent white in dark mode; the variant classes set it.
+- `--_selected-bg-color`: Background of the selected tab. Defaults to `--ui-surface`, and in dark mode to `--ui-text-strong` at `--ui-state-selected-alpha-accent`; the variant classes set it.
 - `--_selected-border-color`: Border color of the selected tab. `--ui-control-border-color`, or `--ui-field-border-color` when the theme doesn't set it, so the pill reaches 3:1 against the track; the variant classes set it to `transparent`.
 - `--_selected-shadow`: Shadow of the selected tab. Defaults to `--ui-shadow-selected`. `.ui-line` and `.ui-outlined` remove it.
 - `--_selected-text-color`: Text color of the selected tab. Defaults to `--ui-tabs-accent`, or `--ui-text-strong` when a theme leaves it unset. `.ui-filled` sets it to `--ui-on-selected-strong`.
@@ -112,7 +112,7 @@ Outputs: `--_duration`, `--_focus-ring-duration`, `--_indicator-duration` and `-
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-control-border-color`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-move`, `--ui-field-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-control`, `--ui-font-weight-medium`, `--ui-line-height-relaxed`, `--ui-motion`, `--ui-on-selected-strong`, `--ui-radius`, `--ui-selected-strong`, `--ui-shadow-selected`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-state-hover-alpha-dark`, `--ui-surface`, `--ui-surface-tonal`, `--ui-tabs-accent`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-control-border-color`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-move`, `--ui-field-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-control`, `--ui-font-weight-medium`, `--ui-line-height-relaxed`, `--ui-motion`, `--ui-on-selected-strong`, `--ui-radius`, `--ui-selected-strong`, `--ui-shadow-selected`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-tabs-accent`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

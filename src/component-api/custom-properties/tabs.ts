@@ -56,7 +56,7 @@ export default {
   },
   "--_selected-bg-color": {
     description:
-      "Background of the selected tab. Defaults to `--ui-surface`, a translucent white in dark mode; the variant classes set it.",
+      "Background of the selected tab. Defaults to `--ui-surface`, and in dark mode to `--ui-text-strong` at `--ui-state-selected-alpha-accent`; the variant classes set it.",
     kind: "input",
   },
   "--_selected-border-color": {

@@ -877,6 +877,10 @@ export const whatsNew = {
       default: `An open menu <a href="#basics">closes when the page navigates</a>, also with a client router.`,
       html: `Import <code>opui-css/elements/close-on-navigate.js</code> to <a href="#basics">close an open menu</a> when the page navigates.`,
     },
+    {
+      default: `A link item, and an item that submits or resets a form, <a href="#basics">closes the menu on click</a>.`,
+      html: `Import <code>opui-css/elements/menu.js</code> to <a href="#basics">close the menu</a> on a click on a link, or on a submit or reset button.`,
+    },
     `Mark the <a href="#current-item">current item</a> with <code>aria-current</code>, like the language in use. It gets a check at the end.`,
     {
       ...slots(

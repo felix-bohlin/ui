@@ -1,5 +1,6 @@
 <script lang="ts">
   import "../../elements/close-on-navigate.js"
+  import "../../elements/menu.js"
   import { untrack } from "svelte"
   import { getMenuContext, setMenuContext } from "./context.svelte"
   import { warnMissingId } from "../dev"
@@ -51,7 +52,12 @@
 >
   {#each items ?? [] as { borderTop, color, disabled, href, keepOpen, label, shortcut, ...itemRest }, index (index)}
     {@const Tag = href ? "a" : "button"}
-    {@const closes = !href && !keepOpen && !disabled}
+    {@const closes =
+      !href &&
+      !keepOpen &&
+      !disabled &&
+      itemRest.type !== "submit" &&
+      itemRest.type !== "reset"}
     <li
       {...classAttrs([{ "ui-border-top": borderTop }, color && `ui-${color}`])}
     >
@@ -60,6 +66,7 @@
         {...tagAttrs(Tag, disabled, href)}
         command={closes ? "hide-popover" : undefined}
         commandfor={closes ? rootId : undefined}
+        data-keep-open={keepOpen ? "" : undefined}
         {...defined(itemRest)}
       >
         <div class="ui-text">

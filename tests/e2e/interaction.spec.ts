@@ -1517,6 +1517,54 @@ interaction(
 
 interaction(
   "menu",
+  "Basics",
+  "a link item closes the menu on click, also when the link is handled in place",
+  async ({ page, root }) => {
+    await page.evaluate(() =>
+      document.addEventListener("click", (event) => {
+        if ((event.target as Element).closest("a")) event.preventDefault()
+      }),
+    )
+    await root.getByRole("button", { name: "Options" }).click()
+    const menu = root.locator("menu.ui-menu")
+    await expect(menu).toBeVisible()
+    await menu.getByRole("link", { name: "Help" }).click()
+    await expect(menu).toBeHidden()
+  },
+)
+
+interaction(
+  "menu",
+  "Basics",
+  "an item that submits a form closes the menu on click",
+  async ({ page, root }) => {
+    await root.getByRole("button", { name: "Options" }).click()
+    const menu = root.locator("menu.ui-menu")
+    await expect(menu).toBeVisible()
+    await menu.evaluate((element) => {
+      const form = document.createElement("form")
+      form.id = "menu-submit-form"
+      form.addEventListener("submit", (event) => {
+        event.preventDefault()
+        document.body.dataset.submitted = "true"
+      })
+      document.body.append(form)
+      const item = [...element.querySelectorAll("button")].find((button) =>
+        button.textContent?.includes("Duplicate"),
+      )!
+      item.removeAttribute("command")
+      item.removeAttribute("commandfor")
+      item.setAttribute("form", form.id)
+      item.type = "submit"
+    })
+    await menu.getByRole("button", { name: "Duplicate" }).click()
+    await expect(page.locator("body")).toHaveAttribute("data-submitted", "true")
+    await expect(menu).toBeHidden()
+  },
+)
+
+interaction(
+  "menu",
   "Current",
   "an item with aria-current true looks current",
   async ({ page, root }) => {

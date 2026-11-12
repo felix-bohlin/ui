@@ -161,11 +161,16 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
     <Conditional as="p">
       <Fragment slot="components">
         An open menu closes when the page navigates, also with a client router,
-        so a link item never leaves it open over the next page.
+        so a link item never leaves it open over the next page. A link item and
+        an item that submits or resets a form, with <code>type: "submit"</code>
+        and <code>form</code>, close the menu on click as well.
       </Fragment>
       <Fragment slot="html">
         Import <code>opui-css/elements/close-on-navigate.js</code> to close an
-        open menu when the page navigates, also with a client router.
+        open menu when the page navigates, also with a client router. A
+        <code>command</code> only runs on a plain button, so import
+        <code>opui-css/elements/menu.js</code> to close the menu on a click on a
+        link, or on a submit or reset button.
       </Fragment>
     </Conditional>
   </section>
@@ -263,7 +268,9 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
       >
       <Fragment slot="html"
         >Use <code>popover="manual"</code>, and
-        <code>command="hide-popover"</code> on items that close it.</Fragment
+        <code>command="hide-popover"</code> on items that close it. A link, or a
+        submit or reset button, stays open with <code>data-keep-open</code
+        >.</Fragment
       >
     </Conditional>
     <AutoExample name="Manual" centered />

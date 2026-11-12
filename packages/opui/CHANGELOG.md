@@ -702,6 +702,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Typography` linked `code` in rich text has no inline padding where its background is transparent, so the underline doesn't run past the text.
 - `Typography` `.ui-small` on a `span` or `p` sits below the component layers, so a small `Chip` rendered as a `span` keeps its own font size.
 - `Typography` resets the margins of a blockquote's first and last child only, so a nested list inside it keeps its own top margin.
+- `Typography` rich text `pre` and `.ui-code-block` wrap long lines in print (`white-space: pre-wrap`), so the end of a line wider than the page is no longer cut off. On screen they still scroll.
 - `button.css` gives file inputs outside a `TextField` readable text (`--ui-text`) and the field border tokens. The text used the inverse surface color.
 - `components/AGENTS.md`, the internal guide, no longer ships in the package.
 - `dist` source maps no longer embed the sources (`sourcesContent`) or `node_modules/.pnpm` paths. Open Props sources point to `../../open-props/`, and `opui.components.css.map` accounts for the `@layer` order line.

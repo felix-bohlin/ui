@@ -265,6 +265,11 @@
       padding-inline: var(--ui-space-4);
       white-space: pre;
 
+      @media print {
+        overflow-wrap: anywhere;
+        white-space: pre-wrap;
+      }
+
       > :is(code, samp) {
         background: none;
         border-radius: 0;

@@ -49,13 +49,14 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_clear-hover-bg-color`: Color of the hovered clear icon. Defaults to `--ui-text`.
 - `--_clear-image`: The icon of the clear radio before the input stars, as an image used as a mask.
 - `--_ease`: Easing of the fill transition. Defaults to `--ui-ease`.
-- `--_empty-bg-color`: Color of the empty stars. `--ui-track-bg-color` when the theme sets it, otherwise `--ui-border-color`. An invalid input tints it with `--ui-invalid`.
+- `--_empty-bg-color`: Color of the empty star outlines. `--ui-track-bg-color` when the theme sets it, otherwise `--ui-border-color`. An invalid input tints it with `--ui-invalid`.
 - `--_max`: Number of stars a meter is wide, for browsers without typed `attr()`. The components set it when `max` isn't `5`. Defaults to `5`.
 - `--_motion`: Motion multiplier for the fill transition.
 - `--_size`: Size of one star. Defaults to `--ui-icon-size` on a meter and `--ui-control-size-x-small` on an input, so every radio is a large enough target; `.ui-small` and `.ui-large` set the next size down and up.
-- `--_star-image`: The star mask every star is drawn with.
+- `--_star-empty-image`: The outline mask an empty star is drawn with, so empty stars differ from filled ones by shape as well as color. A meter needs typed `attr()` for it, and draws its empty stars with `--_star-image` without it.
+- `--_star-image`: The mask a filled star is drawn with.
 
-Outputs: `--_duration` and `--_fill-bg-color`.
+Outputs: `--_duration`, `--_fill-bg-color` and `--_fill-image`.
 
 ## Theme tokens
 

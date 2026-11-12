@@ -27,12 +27,13 @@ export const keywords = ["review", "score", "stars"]
   browserSupport={[
     "alt-text-generated-content",
     "attr",
+    "dir-pseudo",
     "has",
     "relative-color",
     "user-pseudos",
   ]}
   fallbacks={{
-    attr: "Without typed `attr()`, a read-only rating is as many stars wide as `--_max`, which the components set from `max`.",
+    attr: "Without typed `attr()`, a read-only rating is as many stars wide as `--_max`, which the components set from `max`, and draws its empty stars solid instead of as outlines.",
   }}
   changelogPaths={[
     { path: "packages/opui/components/Rating", type: "component" },
@@ -95,8 +96,8 @@ export const keywords = ["review", "score", "stars"]
       >
     </Conditional>
     <p>
-      Use your own icons with <code>--_star-image</code> and
-      <code>--_clear-image</code>.
+      Use your own icons with <code>--_star-image</code>,
+      <code>--_star-empty-image</code> and <code>--_clear-image</code>.
     </p>
     <AutoExample name="Input" />
   </section>
@@ -165,13 +166,17 @@ export const keywords = ["review", "score", "stars"]
 
   <Fragment slot="under-the-hood">
     <p>
-      The meter and the radios draw their stars with one SVG
-      <code>--_star-image</code> mask. <code>meter.ui-rating</code> is
+      The meter and the radios draw filled stars with the SVG
+      <code>--_star-image</code> mask and empty stars with its outline,
+      <code>--_star-empty-image</code>. <code>meter.ui-rating</code> is
       <code>attr(max type(&lt;number&gt;), var(--_max))</code> stars wide and
       masked with <code>repeat-x</code>, so the browser's own fill
       (<code>::-webkit-meter-optimum-value</code>, <code>::-moz-meter-bar</code
-      >) shows through as filled stars, down to a fraction of one. The empty
-      stars read <code>--ui-track-bg-color</code> when a theme sets it.
+      >) shows through as filled stars, down to a fraction of one. Its mask adds
+      the outlines to the solid stars up to
+      <code>attr(value type(&lt;number&gt;))</code>, and browsers without typed
+      <code>attr()</code> draw solid empty stars. The empty stars read
+      <code>--ui-track-bg-color</code> when a theme sets it.
     </p>
     <p>
       In <code>fieldset.ui-rating</code> each radio is

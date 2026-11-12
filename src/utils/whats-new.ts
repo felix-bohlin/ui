@@ -170,6 +170,7 @@ export const whatsNew = {
       `<a href="#corners"><code>corner</code></a> takes <code>"start-end"</code>, the default corner.`,
     ),
     `Breaking: <code>--_badge-inset</code> is <code>--_inset</code>, one length that the badge turns into <code>--_inset-block</code> and <code>--_inset-inline</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_size</code> is <code>--_indicator-size</code>, the height and minimum width of the indicator (<a href="#under-the-hood">Under the hood</a>).`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `The indicator border reads <a href="#api"><code>--ui-border-width-thick</code></a>.`,
     `<a href="#colors">Warning</a> badges read <code>--ui-on-warning</code>, the text color on a warning fill.`,

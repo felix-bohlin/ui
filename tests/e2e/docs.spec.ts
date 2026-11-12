@@ -893,14 +893,25 @@ const tabStop = (page: Page) =>
       ["--ui-button-focus", "--ui-link-focus"].some(
         (name) => style.getPropertyValue(name).trim() === "highlight",
       ) && !transparent.test(style.backgroundColor)
+    const outlined = ({
+      outlineColor,
+      outlineStyle,
+      outlineWidth,
+    }: CSSStyleDeclaration) =>
+      outlineStyle !== "none" &&
+      parseFloat(outlineWidth) > 0 &&
+      !transparent.test(outlineColor)
+    const scrollButtonOutlined = (node: Element) =>
+      ["block-end", "block-start", "inline-end", "inline-start"].some(
+        (direction) =>
+          outlined(getComputedStyle(node, `::scroll-button(${direction})`)),
+      )
     const ring = candidates.find((node) => {
       const style = getComputedStyle(node)
-      const { outlineColor, outlineStyle, outlineWidth } = style
       return (
-        ((outlineStyle !== "none" &&
-          parseFloat(outlineWidth) > 0 &&
-          !transparent.test(outlineColor)) ||
-          highlighted(style)) &&
+        (outlined(style) ||
+          highlighted(style) ||
+          (node === element && scrollButtonOutlined(node))) &&
         visible(node)
       )
     })

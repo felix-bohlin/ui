@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, watchEffect } from "vue"
-import { useInputAttrs } from "../vue"
+import { seedChecked, useInputAttrs } from "../vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { ToggleGroupKey } from "../ToggleGroup/context.vue"
 import { isSelected } from "../ToggleGroup/selection"
@@ -49,11 +49,12 @@ watchEffect(() =>
   ),
 )
 
-const change = (event: Event) => {
-  const input = event.currentTarget as HTMLInputElement
+const change = (input: HTMLInputElement) => {
   if (grouped.value === undefined) model.value = input.checked
   group?.change?.(input)
 }
+
+const vSeedChecked = seedChecked(change)
 </script>
 
 <template>
@@ -66,12 +67,12 @@ const change = (event: Event) => {
     v-bind="styleAttrs($attrs.style)"
   >
     <input
-      :checked="grouped ?? model ?? checked"
       :name="finalName"
       :type="finalType"
       :value="value"
       v-bind="attrs"
-      @change="change"
+      v-seed-checked="grouped ?? model ?? checked"
+      @change="change($event.currentTarget as HTMLInputElement)"
     />{{ " " }}<slot v-if="$slots.default"></slot>
     <template v-else>{{ label }}</template>
   </label>

@@ -55,6 +55,12 @@ export const keywords = [
     "overflow-clip",
     "transition-behavior",
   ]}
+  fallbacks={{
+    "display-animation":
+      "Without display animation, the content hides at once when the accordion closes.",
+    "interpolate-size":
+      "Without `interpolate-size`, the content doesn't slide: it fades in at full height and hides at once.",
+  }}
   changelogPaths={[
     {
       path: "packages/opui/components/Accordion/Accordion.astro",

@@ -1158,6 +1158,9 @@ const itemOf = (frontmatter, tree, folder) => {
   inputs[0].item = true
   return {
     checked: frontmatter.props.find(({ prop }) => prop === "checked")?.local,
+    checkedCode: inputs[0].attributes.find(
+      (item) => item.kind === "expression" && item.name === "checked",
+    ).code,
     group: read.context.folder ?? folder,
     grouped: grouped.name,
     parent: read.name,

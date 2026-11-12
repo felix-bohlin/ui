@@ -3,7 +3,7 @@
 A scrolling list with snap points, buttons and markers.
 
 - CSS: `opui-css/css/components/carousel.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/carousel.md), [Astro](https://open-props-ui.netlify.app/astro/components/carousel.md), [React](https://open-props-ui.netlify.app/react/components/carousel.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/carousel.md), [Vue](https://open-props-ui.netlify.app/vue/components/carousel.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/carousel.md), [Astro](https://opui.dev/astro/components/carousel.md), [React](https://opui.dev/react/components/carousel.md), [Svelte](https://opui.dev/svelte/components/carousel.md), [Vue](https://opui.dev/vue/components/carousel.md).
 
 ## Carousel
 

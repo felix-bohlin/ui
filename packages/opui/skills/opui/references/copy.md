@@ -3,7 +3,7 @@
 A button that copies text or a field's value to the clipboard.
 
 - CSS: `opui-css/css/components/copy.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/copy.md), [Astro](https://open-props-ui.netlify.app/astro/components/copy.md), [React](https://open-props-ui.netlify.app/react/components/copy.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/copy.md), [Vue](https://open-props-ui.netlify.app/vue/components/copy.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/copy.md), [Astro](https://opui.dev/astro/components/copy.md), [React](https://opui.dev/react/components/copy.md), [Svelte](https://opui.dev/svelte/components/copy.md), [Vue](https://opui.dev/vue/components/copy.md).
 
 ## Copy
 

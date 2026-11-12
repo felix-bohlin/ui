@@ -3,16 +3,16 @@
 </script>
 
 <List>
-  <ListItem label="Elif Rahman">
+  <ListItem label="Inga Halonen">
     {#snippet start()}
-      <Avatar aria-hidden="true">ER</Avatar>
+      <Avatar aria-hidden="true">IH</Avatar>
     {/snippet}
   </ListItem>
-  <ListItem description="Product designer" label="Lena Ek">
+  <ListItem description="Product designer" label="Lena Handén">
     {#snippet start()}
       <Avatar>
         <img
-          src="/photos/maya-lind.png"
+          src="/photos/lena-handen.png"
           alt=""
           decoding="async"
           loading="lazy"

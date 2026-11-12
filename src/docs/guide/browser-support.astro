@@ -1,10 +1,13 @@
 ---
 import Guide from "../../layouts/Guide.astro"
+import Baseline from "../../components/Baseline.astro"
+import BrowserSupportChips from "../../components/BrowserSupportChips.astro"
 import FeatureSupport from "../../components/UnderTheHood/FeatureSupport.astro"
 import {
   getCategorizedBaselineIds,
   getBaselineMappings,
 } from "../../utils/baseline"
+import { SHARED_FEATURES } from "../../utils/browser-support"
 import { componentHrefFor } from "../../utils/components"
 import { componentHasFramework } from "../../utils/framework"
 import { baselineYears } from "../../../packages/opui/scripts/features.mjs"
@@ -52,7 +55,8 @@ export const keywords = [
       <li>
         The component CSS has no code for one browser. Where a browser lacks a
         feature, the component falls back to what that browser does by default,
-        or to a fallback from the <a href="#compat">compat layer</a>.
+        or to a fallback from the <a href="#compat">compat layer</a>. Its page
+        says what changes, under Browser support.
       </li>
       <li>
         Chromium, Firefox and WebKit run the tests. Known failures are recorded
@@ -60,6 +64,19 @@ export const keywords = [
         entry is removed.
       </li>
     </ul>
+  </section>
+
+  <section id="shared-features">
+    <h2>Shared features</h2>
+    <p>
+      Every component relies on these features. Each stylesheet sits in a
+      cascade layer and nests its rules, and the palette and the theme build
+      every color with <code>oklch()</code>, <code>light-dark()</code>, relative
+      colors and <code>color-mix()</code>. Every component page counts them into
+      its browser versions.
+    </p>
+    <BrowserSupportChips ids={SHARED_FEATURES} />
+    <Baseline ids={SHARED_FEATURES} />
   </section>
 
   <section id="compat">

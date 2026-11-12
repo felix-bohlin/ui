@@ -3,10 +3,10 @@ import { Avatar, Card, CardContent, Message, Messages } from "opui-css/vue"
 </script>
 
 <template>
-  <Messages aria-label="Messages with Saga">
-    <Message author="Saga" datetime="2026-10-08T14:31" time="14:31">
+  <Messages aria-label="Messages with Sirkka">
+    <Message author="Sirkka" datetime="2026-10-08T14:31" time="14:31">
       <template #start>
-        <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
+        <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
       </template>
       <p>Here's the current draft:</p>
       <Card variant="outlined">

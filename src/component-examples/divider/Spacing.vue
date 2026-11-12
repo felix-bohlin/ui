@@ -14,7 +14,7 @@ import { Card, CardContent, Divider } from "opui-css/vue"
   </Card>
 
   <div style="--ui-divider-gap: var(--ui-space-1)">
-    Ships to Lena Ek, Stockholm
+    Ships to Lena Handén, Stockholm
     <Divider />
     Arrives in 2 to 4 days
   </div>

@@ -3,7 +3,7 @@
 A window over the page for a question or a short task, modal or not.
 
 - CSS: `opui-css/css/components/dialog.css` and `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/dialog.md), [Astro](https://open-props-ui.netlify.app/astro/components/dialog.md), [React](https://open-props-ui.netlify.app/react/components/dialog.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/dialog.md), [Vue](https://open-props-ui.netlify.app/vue/components/dialog.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/dialog.md), [Astro](https://opui.dev/astro/components/dialog.md), [React](https://opui.dev/react/components/dialog.md), [Svelte](https://opui.dev/svelte/components/dialog.md), [Vue](https://opui.dev/vue/components/dialog.md).
 
 ## Dialog
 

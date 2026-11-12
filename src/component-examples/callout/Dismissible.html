@@ -1,4 +1,8 @@
-<article class="ui-callout ui-info" id="callout-dismissible-1">
+<opui-callout
+  class="ui-callout ui-info"
+  id="callout-dismissible-1"
+  role="article"
+>
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -19,6 +23,8 @@
     class="ui-button ui-round ui-small"
     type="button"
     aria-label="Dismiss"
+    command="--dismiss"
+    commandfor="callout-dismissible-1"
   >
     <svg
       aria-hidden="true"
@@ -33,24 +39,16 @@
       ></path>
     </svg>
   </button>
-</article>
+</opui-callout>
 
 <script type="module">
-  const callout = document.getElementById("callout-dismissible-1")
-  const close = callout?.querySelector(":scope > .ui-button")
-  const show = document.createElement("button")
-  show.className = "ui-button ui-outlined"
-  show.id = "callout-dismissible-1-show"
-  show.textContent = "Show the callout again"
-  show.type = "button"
-  if (callout && close instanceof HTMLButtonElement) {
-    close.addEventListener("click", () => {
-      callout.replaceWith(show)
-      show.focus()
+  import "opui-css/elements/callout.js"
+</script>
+
+<script type="module">
+  document
+    .querySelector("#callout-dismissible-1")
+    ?.addEventListener("dismiss", (event) => {
+      if (!confirm("Hide this message?")) event.preventDefault()
     })
-    show.addEventListener("click", () => {
-      show.replaceWith(callout)
-      close.focus()
-    })
-  }
 </script>

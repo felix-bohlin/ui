@@ -21,17 +21,17 @@ export default function Normal() {
       </TableHead>
       <TableBody>
         <TableRow>
-          <TableCell>Lena Ek</TableCell>
+          <TableCell>Lena Handén</TableCell>
           <TableCell>Product designer</TableCell>
           <TableCell>Göteborg</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Tom Tanaka</TableCell>
+          <TableCell>Pekka Gåpåbottanen</TableCell>
           <TableCell>Frontend developer</TableCell>
           <TableCell>Lisbon</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Elif Rahman</TableCell>
+          <TableCell>Inga Halonen</TableCell>
           <TableCell>Support lead</TableCell>
           <TableCell>Berlin</TableCell>
         </TableRow>

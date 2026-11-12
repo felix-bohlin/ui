@@ -5,10 +5,10 @@ export default function GroupChat() {
     <Messages aria-label="Messages in #design">
       <li className="ui-divider">Today</li>
       <Message
-        author="Leila"
+        author="Lena"
         datetime="2026-10-08T09:12"
         start={
-          <Avatar aria-label="Leila Haddad" role="img">
+          <Avatar aria-label="Lena Handén" role="img">
             LH
           </Avatar>
         }
@@ -17,10 +17,10 @@ export default function GroupChat() {
         <p>The new icons are ready.</p>
       </Message>
       <Message
-        author="Leila"
+        author="Lena"
         datetime="2026-10-08T09:13"
         start={
-          <Avatar aria-label="Leila Haddad" role="img">
+          <Avatar aria-label="Lena Handén" role="img">
             LH
           </Avatar>
         }
@@ -29,12 +29,12 @@ export default function GroupChat() {
         <p>Can we review them today?</p>
       </Message>
       <Message
-        author="Omar"
+        author="Hakki"
         datetime="2026-10-08T09:15"
         newAuthor
         start={
-          <Avatar aria-label="Omar Saleh" role="img">
-            OS
+          <Avatar aria-label="Hakki Hälinen" role="img">
+            HH
           </Avatar>
         }
         time="09:15"
@@ -42,18 +42,18 @@ export default function GroupChat() {
         <p>I'm free after lunch.</p>
       </Message>
       <Message
-        author="Omar"
+        author="Hakki"
         datetime="2026-10-08T09:16"
         start={
-          <Avatar aria-label="Omar Saleh" role="img">
-            OS
+          <Avatar aria-label="Hakki Hälinen" role="img">
+            HH
           </Avatar>
         }
         time="09:16"
       >
         <p>I'll book a room.</p>
       </Message>
-      <li className="ui-divider">Omar added you</li>
+      <li className="ui-divider">Hakki added you</li>
       <Message author="You" datetime="2026-10-08T09:20" outgoing time="09:20">
         <p>See you at one.</p>
       </Message>

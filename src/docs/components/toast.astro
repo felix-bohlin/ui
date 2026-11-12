@@ -49,6 +49,10 @@ export const keywords = ["notification", "snackbar"]
     "relative-color",
     "starting-style",
   ]}
+  fallbacks={{
+    "interpolate-size":
+      "Without `interpolate-size`, a dismissed toast collapses partway at once, hiding its text, before it fades out and the others close the gap.",
+  }}
   apis={[{ title: "Toaster API", api: toastApi }]}
   changelogPaths={[
     {

@@ -117,7 +117,7 @@ Text uses `--ui-on-primary`, and sizes follow `--ui-control-size` and `--ui-cont
 ```diff
 - <Avatar aria-label="Team" isGroup>
 + <AvatarGroup aria-label="Team">
-    <Avatar alt="Jane Doe" src="/jane.jpg" />
+    <Avatar alt="Lena Handén" src="/lena.jpg" />
 - </Avatar>
 + </AvatarGroup>
 ```
@@ -228,7 +228,7 @@ In Astro and Vue the regions are parts instead of slots. The root no longer rend
 + </Callout>
 ```
 
-`types.ts` no longer exports a `Slots` type.
+The `Slots` type in `types.ts` has `closeIcon` instead of `icon` and `title`.
 
 In Astro and Vue the root no longer has `role="note"`, so screen readers announce the `<article>` it is. Pass `role="note"` to keep the old announcement.
 
@@ -402,9 +402,9 @@ The part files are renamed to `DescriptionListDescription.*`, `DescriptionListIt
 
 ```diff
 - <dt class="ui-term">Name</dt>
-- <dd class="ui-description">Ada</dd>
+- <dd class="ui-description">Hakki</dd>
 + <dt>Name</dt>
-+ <dd>Ada</dd>
++ <dd>Hakki</dd>
 ```
 
 In Astro and Vue, `bordered` is a boolean, and `dotted` makes its line dotted. The classes are unchanged.
@@ -469,6 +469,8 @@ The footer holds buttons, text or anything else. Wrap the buttons in `.ui-action
 `types.ts` no longer exports a `Slots` type.
 
 The page scroll lock behind a modal dialog moved to `core/utils.css`. If you import single files, import `utils.css` too.
+
+A dialog takes only `.ui-elevated` from `card.css`. `.ui-tonal` and `.ui-outlined`, which a 5.x dialog took through `.ui-card`, no longer change it.
 
 ## Divider
 
@@ -1244,7 +1246,7 @@ The default palette is blue (hue `222.8`) in both color schemes, and the primary
 }
 ```
 
-`theme.css` is in the `theme.base` layer, and `layers.css` adds an empty `theme.custom` layer after it for your own tokens, then `theme.severity`, where `theme.css` puts the palette source of the severity classes so a theme can't override it on the same element. Overrides in `@layer theme` keep working and now beat the defaults wherever they load. If you copied a complete `theme.css` from the v5 Theme generator, build a new one in the [Theme builder](https://open-props-ui.netlify.app/theme-builder/): it only lists the example theme you start from and the tokens you change, so it won't miss tokens added in later releases.
+`theme.css` is in the `theme.base` layer, and `layers.css` adds an empty `theme.custom` layer after it for your own tokens, then `theme.severity`, where `theme.css` puts the palette source of the severity classes so a theme can't override it on the same element. Overrides in `@layer theme` keep working and now beat the defaults wherever they load. If you copied a complete `theme.css` from the v5 Theme generator, build a new one in the [Theme builder](https://opui.dev/theme-builder/): it only lists the example theme you start from and the tokens you change, so it won't miss tokens added in later releases.
 
 `theme.css` no longer sets `--ui-button-radius` and `--ui-field-radius`, and buttons and fields follow `--ui-radius` while they're unset, also where you set it on a part of the page. If your own styles read them, add the fallback: `var(--ui-button-radius, var(--ui-radius))`. If you set `--ui-radius` and want buttons and fields to keep their corners, set them back:
 
@@ -1273,7 +1275,7 @@ Component borders read `--ui-border-width` (`Accordion`, `Callout`, `Card`, `Chi
 
 Links (`.ui-link` and rich text links) darken in light mode and lighten in dark mode on hover and focus, and their underline gets `3px` thick.
 
-Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent color, `--_text-color` for text, `--_bg-color` for the component's own background (a sub-part keeps a prefix, like `--_thumb-bg-color`), `--_duration` and `--_ease` for motion, `--_size` for a control's size (the height, and the width of a square control), `--_radius` for corners, and `--_block-size` and `--_inline-size` for one axis of a box that isn't a control. A color says what it paints (`-bg-color`, `-text-color`, `-border-color`), sizes are logical (`-block-size`, `-inline-size`) and names aren't abbreviated. Rename them where you set them. A property the component sets (an output in the Component properties table) isn't an override: the rows below name the input to set instead:
+Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent color, `--_text-color` for text, `--_bg-color` for the component's own background (a sub-part keeps a prefix, like `--_thumb-bg-color`), `--_duration` and `--_ease` for motion, `--_size` for a control's size (the height, and the width of a square control) while a part's size takes the part's name (`--_indicator-size`), `--_radius` for corners, and `--_block-size` and `--_inline-size` for one axis of a box that isn't a control. A color says what it paints (`-bg-color`, `-text-color`, `-border-color`), sizes are logical (`-block-size`, `-inline-size`) and names aren't abbreviated. Rename them where you set them. A property the component sets (an output in the Component properties table) isn't an override: the rows below name the input to set instead:
 
 | Component                   | Old                                               | New                                                                                                                                                                                                                                   |
 | --------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -1286,6 +1288,7 @@ Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent
 | Avatar                      | `--_width`                                        | `--_size`                                                                                                                                                                                                                             |
 | Badge                       | `--_badge-inset`                                  | `--_inset`, which the component turns into `--_inset-block` and `--_inset-inline`. It takes one length, so the old `inset` shorthand value doesn't carry over                                                                         |
 | Badge                       | `--_anchor-tx`, `--_anchor-ty`                    | removed as overrides, the corner classes set `--_sign-x` and `--_sign-y`                                                                                                                                                              |
+| Badge                       | `--_size`                                         | `--_indicator-size`                                                                                                                                                                                                                   |
 | Button                      | `--_color`, `--_color-contrast`, `--_color-tonal` | `--_accent`, `--_on-accent`, `--_accent-tonal`                                                                                                                                                                                        |
 | Button                      | `--_border-radius`                                | `--_radius`                                                                                                                                                                                                                           |
 | Button                      | `--_min-height`                                   | `--_size`                                                                                                                                                                                                                             |

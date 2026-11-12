@@ -30,12 +30,17 @@ export default {
   },
   "--_empty-bg-color": {
     description:
-      "Color of the empty stars. `--ui-track-bg-color` when the theme sets it, otherwise `--ui-border-color`. An invalid input tints it with `--ui-invalid`.",
+      "Color of the empty star outlines. `--ui-track-bg-color` when the theme sets it, otherwise `--ui-border-color`. An invalid input tints it with `--ui-invalid`.",
     kind: "input",
   },
   "--_fill-bg-color": {
     description:
       "Color of one input star: `--_empty-bg-color`, `--_accent` up to the checked or hovered star, and `--_clear-bg-color` on the clear icon.",
+    kind: "output",
+  },
+  "--_fill-image": {
+    description:
+      "Mask of one input star: `--_star-empty-image`, `--_star-image` up to the checked or hovered star, and `--_clear-image` on the clear icon.",
     kind: "output",
   },
   "--_max": {
@@ -52,8 +57,13 @@ export default {
       "Size of one star. Defaults to `--ui-icon-size` on a meter and `--ui-control-size-x-small` on an input, so every radio is a large enough target; `.ui-small` and `.ui-large` set the next size down and up.",
     kind: "input",
   },
+  "--_star-empty-image": {
+    description:
+      "The outline mask an empty star is drawn with, so empty stars differ from filled ones by shape as well as color. A meter needs typed `attr()` for it, and draws its empty stars with `--_star-image` without it.",
+    kind: "input",
+  },
   "--_star-image": {
-    description: "The star mask every star is drawn with.",
+    description: "The mask a filled star is drawn with.",
     kind: "input",
   },
 } satisfies CustomProperties

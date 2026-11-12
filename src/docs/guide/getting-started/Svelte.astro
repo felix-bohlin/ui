@@ -77,6 +77,12 @@ export const keywords = ["install", "npm", "setup", "ssr"]
   <section id="builds">
     <h2>Builds</h2>
     <Builds tools={["vite"]} />
+    <p>
+      The types need <code>skipLibCheck: true</code> in
+      <code>tsconfig.json</code>, as the Svelte and SvelteKit templates set it.
+      Without it, <code>svelte-check</code> reports a union type that is too
+      complex to represent.
+    </p>
   </section>
 
   <section id="usage">

@@ -3,7 +3,7 @@
 Spacing and grouping for form fields.
 
 - CSS: `opui-css/css/components/form.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/form.md), [Astro](https://open-props-ui.netlify.app/astro/components/form.md), [React](https://open-props-ui.netlify.app/react/components/form.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/form.md), [Vue](https://open-props-ui.netlify.app/vue/components/form.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/form.md), [Astro](https://opui.dev/astro/components/form.md), [React](https://opui.dev/react/components/form.md), [Svelte](https://opui.dev/svelte/components/form.md), [Vue](https://opui.dev/vue/components/form.md).
 
 ## Form
 

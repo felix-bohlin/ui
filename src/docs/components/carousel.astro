@@ -80,6 +80,15 @@ const translation = `.ui-carousel:lang(sv) {
     "scroll-snap",
     "scrollbar-width",
   ]}
+  fallbacks={{
+    if: "Without `if()`, the compat layer still turns smooth scrolling off under reduced motion and with `.ui-motion-off`.",
+    "scroll-buttons":
+      "Without scroll buttons, the carousel shows its scrollbar instead of previous and next buttons, and still scrolls and snaps.",
+    "scroll-marker-targets":
+      "Without `:target-current`, the markers don't show which item is current.",
+    "scroll-markers":
+      "Without scroll markers, the carousel has no markers to jump to an item.",
+  }}
   changelogPaths={[
     {
       path: "packages/opui/components/Carousel/Carousel.astro",

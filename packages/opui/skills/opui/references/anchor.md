@@ -3,7 +3,7 @@
 Places floating content next to an element with CSS anchor positioning.
 
 - CSS: `opui-css/css/components/anchor.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/anchor.md), [Astro](https://open-props-ui.netlify.app/astro/components/anchor.md), [React](https://open-props-ui.netlify.app/react/components/anchor.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/anchor.md), [Vue](https://open-props-ui.netlify.app/vue/components/anchor.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/anchor.md), [Astro](https://opui.dev/astro/components/anchor.md), [React](https://opui.dev/react/components/anchor.md), [Svelte](https://opui.dev/svelte/components/anchor.md), [Vue](https://opui.dev/vue/components/anchor.md).
 
 ## Anchor
 

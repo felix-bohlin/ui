@@ -6,6 +6,9 @@ declare module "svelte/elements" {
   }
 
   interface SvelteHTMLElements {
+    "opui-callout": HTMLAttributes<HTMLElement> & {
+      ondismiss?: EventHandler<Event, HTMLElement> | undefined | null
+    }
     "opui-character-count": HTMLAttributes<HTMLElement> & {
       label?: string | undefined | null
     }

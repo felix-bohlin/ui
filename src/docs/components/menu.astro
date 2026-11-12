@@ -37,6 +37,14 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
     "starting-style",
     "transition-behavior",
   ]}
+  fallbacks={{
+    "calc-size":
+      "Without `calc-size()`, a menu that doesn't fit on its side of the trigger flips to the other side, instead of shrinking to the space it has.",
+    "display-animation":
+      "Without display animation, the menu disappears at once instead of fading out.",
+    overlay:
+      "Without `overlay`, the page can cover the menu while it fades out.",
+  }}
   apis={[{ title: "Menu API", api: menuApi }]}
   changelogPaths={[
     {

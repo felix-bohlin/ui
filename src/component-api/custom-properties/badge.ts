@@ -38,6 +38,10 @@ export default {
     description: "Easing of the indicator fade. Defaults to `--ui-ease-enter`.",
     kind: "input",
   },
+  "--_indicator-size": {
+    description: "Height and minimum width of the indicator.",
+    kind: "input",
+  },
   "--_inset": {
     description:
       "Distance of the indicator from the opposite edges. `100%` places it on the corner, round avatars move it onto the circle.",
@@ -76,10 +80,6 @@ export default {
     description:
       "Vertical side of the indicator, `1` or `-1`. Set by the corner classes.",
     kind: "output",
-  },
-  "--_size": {
-    description: "Height and minimum width of the indicator.",
-    kind: "input",
   },
   "--_text-color": {
     description:

@@ -13,6 +13,10 @@ declare module "react" {
 
   namespace JSX {
     interface IntrinsicElements {
+      "opui-callout": DetailedHTMLProps<
+        HTMLAttributes<HTMLElement>,
+        HTMLElement
+      >
       "opui-character-count": DetailedHTMLProps<
         HTMLAttributes<HTMLElement>,
         HTMLElement

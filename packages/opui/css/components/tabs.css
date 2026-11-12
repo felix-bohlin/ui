@@ -12,7 +12,9 @@
     --_radius: var(--ui-radius);
     --_selected-bg-color: light-dark(
       var(--ui-surface),
-      oklch(100% 0 0 / var(--ui-state-hover-alpha-dark))
+      oklch(
+        from var(--ui-text-strong) l c h / var(--ui-state-selected-alpha-accent)
+      )
     );
     --_selected-border-color: var(
       --ui-control-border-color,

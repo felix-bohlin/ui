@@ -2,7 +2,7 @@
 
 The knobs and roles behind colors, density, spacing, corners, fonts, elevation, motion and contrast, and the classes that scope them.
 
-A theme sets [knobs and roles](https://open-props-ui.netlify.app/html/guide/concepts.md#token-tiers), and every component reads the roles:
+A theme sets [knobs and roles](https://opui.dev/html/guide/concepts.md#token-tiers), and every component reads the roles:
 
 1. Knobs
 
@@ -21,7 +21,7 @@ A theme sets [knobs and roles](https://open-props-ui.netlify.app/html/guide/conc
 
    [A link](#token-flow)
 
-Snippets go in [`@layer theme.custom`](https://open-props-ui.netlify.app/html/guide/customizing.md#your-theme). Every token is on [Theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
+Snippets go in [`@layer theme.custom`](https://opui.dev/html/guide/customizing.md#your-theme). Every token is on [Theme tokens](https://opui.dev/html/guide/theme-tokens.md).
 
 ## Palette
 
@@ -225,7 +225,7 @@ transition: transform calc(var(--ui-duration) * var(--ui-motion)) var(--ui-ease)
 
 ## Contrast
 
-More contrast tightens the knobs, and every role follows. Their values are on [Theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md#contrast).
+More contrast tightens the knobs, and every role follows. Their values are on [Theme tokens](https://opui.dev/html/guide/theme-tokens.md#contrast).
 
 A role a theme pins stays pinned in every contrast mode. Hand it back with `revert-layer`:
 

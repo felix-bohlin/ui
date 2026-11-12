@@ -2,17 +2,17 @@
   import { Avatar, Message, Messages } from "opui-css/svelte"
 </script>
 
-<Messages aria-label="Messages with Saga">
-  <Message author="Saga" datetime="2026-10-08T14:32" time="14:32">
+<Messages aria-label="Messages with Sirkka">
+  <Message author="Sirkka" datetime="2026-10-08T14:32" time="14:32">
     {#snippet start()}
-      <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
+      <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
     {/snippet}
     <p>Let me check with the team.</p>
   </Message>
   <Message typing>
     {#snippet start()}
-      <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
+      <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
     {/snippet}
-    Saga is typing…
+    Sirkka is typing…
   </Message>
 </Messages>

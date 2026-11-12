@@ -5,6 +5,7 @@ import {
   isIdentifierName,
   printer,
   sourceFileOf,
+  unsupported,
   unwrap,
 } from "./component-shared.mjs"
 
@@ -386,6 +387,23 @@ export const componentImport = ({ folder, local, name }, extension) =>
 
 export const propsImport = (propsType, file, extra = []) =>
   `import type { ${[propsType === "Props" ? "Props" : `${propsType} as Props`, ...extra].join(", ")} } from "./${file}"`
+
+export const eventRoots = (component) => {
+  const { events = [], multiRoot, rootElements } = component
+  if (events.length === 0) return []
+  if (
+    multiRoot ||
+    rootElements.length === 0 ||
+    rootElements.some((node) => node.component)
+  ) {
+    throw unsupported(
+      component.file,
+      `the event ${events[0]} on a component whose root isn't one element`,
+      "render one root element, the one that fires the event, or drop the Events type from types.ts",
+    )
+  }
+  return rootElements
+}
 
 export const isLoose = (node) =>
   isBlank(node) && node.value !== " " && !node.inline

@@ -3,7 +3,7 @@
 A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill.
 
 - CSS: `opui-css/css/components/text-field.css` and `opui-css/css/components/one-time-code.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/one-time-code.md), [Astro](https://open-props-ui.netlify.app/astro/components/one-time-code.md), [React](https://open-props-ui.netlify.app/react/components/one-time-code.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/one-time-code.md), [Vue](https://open-props-ui.netlify.app/vue/components/one-time-code.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/one-time-code.md), [Astro](https://opui.dev/astro/components/one-time-code.md), [React](https://opui.dev/react/components/one-time-code.md), [Svelte](https://opui.dev/svelte/components/one-time-code.md), [Vue](https://opui.dev/vue/components/one-time-code.md).
 
 ## OneTimeCode
 

@@ -327,6 +327,28 @@ export const frameworkProps = (
       )
       props.set(symbol.name, cleanType(type))
     })
+  const emits =
+    framework === "vue"
+      ? alias
+          .getSourceFile()
+          .statements.filter(ts.isTypeAliasDeclaration)
+          .find(
+            (statement) =>
+              statement.name.text === name.replace(/Props$/, "Emits"),
+          )
+      : undefined
+  if (emits) {
+    checker
+      .getPropertiesOfType(checker.getTypeAtLocation(emits))
+      .forEach((symbol) => {
+        const parameters = checker.typeToString(
+          checker.getTypeOfSymbolAtLocation(symbol, emits),
+          undefined,
+          ts.TypeFormatFlags.NoTruncation,
+        )
+        props.set(`@${symbol.name}`, `(${parameters.slice(1, -1)}) => void`)
+      })
+  }
   return props
 }
 

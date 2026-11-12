@@ -1,6 +1,9 @@
 import { elementNotes } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
+const sortEvent =
+  "Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are."
+
 export default {
   component: "SortableTable",
   css: ["sortable-table"],
@@ -12,6 +15,11 @@ export default {
     html: 'Wrap the table in `<opui-sortable-table class="ui-sortable-table">`, add `data-sort` to each sortable header with a `<button type="button">` around its label, and import `opui-css/elements/sortable-table.js`. A cell sorts by its `data-sort-value`, or else its text.',
   },
   options: [
+    {
+      description: sortEvent,
+      frameworks: ["vue"],
+      prop: "@sort",
+    },
     {
       attribute: "[ascending-label]",
       default: '"{column}, sorted ascending"',
@@ -29,16 +37,14 @@ export default {
       prop: "descendingLabel",
     },
     {
-      description:
-        "Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are.",
-      frameworks: ["react"],
-      prop: "onSort",
-    },
-    {
-      description:
-        "Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are.",
+      description: sortEvent,
       frameworks: ["svelte"],
       prop: "onsort",
+    },
+    {
+      description: sortEvent,
+      frameworks: ["react"],
+      prop: "onSort",
     },
   ],
   page: "table",

@@ -1,5 +1,6 @@
 ---
 import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
@@ -13,6 +14,7 @@ import {
 
 import AutoExample from "../../components/AutoExample.astro"
 import CalloutCSS from "@opui/css/components/callout.css?raw"
+import CalloutJS from "@opui/elements/callout.js?raw"
 
 import calloutApi from "../../component-api/callout/api"
 
@@ -54,7 +56,7 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
   slug="callout"
   heroAnatomy
   apis={[{ title: "Callout API", api: calloutApi }]}
-  browserSupport={["has"]}
+  browserSupport={["has", "invoker-commands"]}
   changelogPaths={[
     {
       path: "packages/opui/components/Callout/Callout.astro",
@@ -66,10 +68,12 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
       path: "packages/opui/css/components/callout.css",
       type: "css",
     },
+    { path: "packages/opui/elements/callout.js", type: "component" },
     { path: "src/component-api/callout", type: "api" },
   ]}
   installationTabs={[
     { title: "callout.css", code: CalloutCSS, lang: "css" },
+    { title: "callout.js", code: CalloutJS, lang: "js" },
     { title: "theme tokens (snippet)", code: ThemeCSS, lang: "css" },
   ]}
 >
@@ -143,7 +147,38 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
     <AutoExample name="Actions" column />
 
     <h3 id="dismissible">Dismissible</h3>
-    <p>Hide the callout on click, and move focus somewhere sensible.</p>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Use <code>dismissible</code> for a close button that hides the callout,
+        named by <code>closeLabel</code>, with its icon in the
+        <code>close-icon</code> slot. Listen for the <code>dismiss</code> event
+        in a client script.
+      </Fragment>
+      <Fragment slot="html">
+        Use <code>opui-callout</code> with a close button that has
+        <code>command="--dismiss"</code>, and import
+        <code>opui-css/elements/callout.js</code>. Listen for the
+        <code>dismiss</code> event it fires.
+      </Fragment>
+      <Fragment slot="react">
+        Use <code>dismissible</code> for a close button that hides the callout,
+        named by <code>closeLabel</code>, with its icon in the
+        <code>closeIcon</code> prop. <code>onDismiss</code> runs before it
+        hides.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use <code>dismissible</code> for a close button that hides the callout,
+        named by <code>closeLabel</code>, with its icon in the
+        <code>closeIcon</code> snippet. <code>ondismiss</code> runs before it
+        hides.
+      </Fragment>
+      <Fragment slot="vue">
+        Use <code>dismissible</code> for a close button that hides the callout,
+        named by <code>closeLabel</code>, with its icon in the
+        <code>close-icon</code> slot. <code>@dismiss</code> runs before it
+        hides.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Dismissible" column />
   </section>
 
@@ -159,7 +194,47 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
         The icon and color aren't announced: say the severity in the text, like
         "Payment failed".
       </li>
+      <li>
+        When a <a href="#dismissible">dismissible</a> callout hides with focus
+        in it, focus moves to the next focusable element after it, or else the
+        one before.
+      </li>
+      <li>
+        <Conditional>
+          <Fragment slot="astro">
+            The callout fires a cancelable <code>dismiss</code> event first.
+            Listen for it to remember the choice, and call
+            <code>preventDefault()</code> to keep the callout, for example to
+            ask first.
+          </Fragment>
+          <Fragment slot="html">
+            The callout fires a cancelable <code>dismiss</code> event first.
+            Listen for it to remember the choice, and call
+            <code>preventDefault()</code> to keep the callout, for example to
+            ask first.
+          </Fragment>
+          <Fragment slot="react">
+            <code>onDismiss</code> runs first, with the cancelable
+            <code>dismiss</code> event. Use it to remember the choice, and call
+            <code>preventDefault()</code> to keep the callout, for example to
+            ask first.
+          </Fragment>
+          <Fragment slot="svelte">
+            <code>ondismiss</code> runs first, with the cancelable
+            <code>dismiss</code> event. Use it to remember the choice, and call
+            <code>preventDefault()</code> to keep the callout, for example to
+            ask first.
+          </Fragment>
+          <Fragment slot="vue">
+            <code>@dismiss</code> runs first, with the cancelable
+            <code>dismiss</code> event. Use it to remember the choice, and call
+            <code>preventDefault()</code> to keep the callout, for example to
+            ask first.
+          </Fragment>
+        </Conditional>
+      </li>
     </ul>
+    <KeyboardSupport />
   </Fragment>
 
   <Fragment slot="anatomy">

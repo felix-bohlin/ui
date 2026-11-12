@@ -3,14 +3,19 @@ import Baseline from "./Baseline.astro"
 import BrowserSupportChips from "./BrowserSupportChips.astro"
 import DocLink from "./DocLink.astro"
 import { pageSources } from "../component-api/custom-properties"
+import { withSharedFeatures } from "../utils/browser-support"
 import { compatCss } from "../utils/compat"
 import { components } from "../utils/components"
+import { formatInline } from "../utils/format-inline"
 
 type Props = {
+  fallbacks?: Record<string, string>
   ids: string[]
 }
 
-const { ids } = Astro.props
+const { fallbacks = {}, ids } = Astro.props
+const { link } = Astro.locals
+const fallbackIds = Object.keys(fallbacks).toSorted()
 const sortedIds = [...ids].sort()
 const name = components.find(
   (component) => component.slug === Astro.locals.componentSlug,
@@ -23,23 +28,32 @@ const compat = [...new Set([slug, ...pageSources(slug)])]
 const guideHref = name
   ? `/guide/browser-support?${new URLSearchParams({ components: name })}`
   : "/guide/browser-support"
+const sharedHref = "/guide/browser-support#shared-features"
 ---
 
 <section id="browser-support">
   <h2>Browser support</h2>
+  <BrowserSupportChips ids={withSharedFeatures(sortedIds)} />
+  {fallbackIds.length > 0 && <ul>
+    {fallbackIds.map((id) => (
+      <li set:html={formatInline(fallbacks[id], link)} />
+    ))}
+  </ul>}
   {sortedIds.length > 0 ? (
     <>
-      <BrowserSupportChips ids={sortedIds} />
       <Baseline ids={sortedIds} />
       <p>
         Explore these features in the
-        <DocLink href={guideHref}>browser support guide</DocLink>.
+        <DocLink href={guideHref}>browser support guide</DocLink>. The versions
+        also count the <DocLink href={sharedHref}>shared features</DocLink>
+        every component relies on.
       </p>
     </>
   ) : (
     <p>
-      {name ?? "It"} uses only the CSS every component uses, listed in the
-      <DocLink href="/guide/browser-support">browser support guide</DocLink>.
+      {name ?? "It"} uses only the
+      <DocLink href={sharedHref}>shared features</DocLink> every component
+      relies on.
     </p>
   )}
   {compat.length > 0 && <p>

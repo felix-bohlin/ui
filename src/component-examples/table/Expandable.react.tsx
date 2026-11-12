@@ -14,19 +14,19 @@ import {
 
 const orders = [
   {
-    customer: "Lena Ek",
+    customer: "Lena Handén",
     details: "Two items, shipped to Göteborg on 3 March.",
     id: "1042",
     total: "€84.00",
   },
   {
-    customer: "Tom Tanaka",
+    customer: "Pekka Gåpåbottanen",
     details: "Three items, waiting for the last one to come in stock.",
     id: "1043",
     total: "€126.50",
   },
   {
-    customer: "Elif Rahman",
+    customer: "Inga Halonen",
     details: "One item, delivered on 5 March.",
     id: "1044",
     total: "€39.90",

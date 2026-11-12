@@ -7,6 +7,7 @@
     ascendingLabel,
     class: className,
     descendingLabel,
+    onsort,
 
     // Snippets
     children,
@@ -18,6 +19,7 @@
   ascending-label={ascendingLabel}
   class={["ui-sortable-table", className]}
   descending-label={descendingLabel}
+  {onsort}
   {...defined(rest)}
 >
   {@render children?.()}

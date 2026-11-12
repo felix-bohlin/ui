@@ -37,6 +37,16 @@ export default {
     description: "Distance of the stack from the edges of the viewport.",
     kind: "input",
   },
+  "--_inset-block": {
+    description:
+      "Distance of the stack from the top or bottom edge, `--_inset` by default. Raise it to clear a bottom navigation bar.",
+    kind: "input",
+  },
+  "--_inset-inline": {
+    description:
+      "Distance of the stack from the side edges, `--_inset` by default. The stack's width leaves it on both sides.",
+    kind: "input",
+  },
   "--_max-inline-size": {
     description: "Maximum width of a toast.",
     kind: "input",

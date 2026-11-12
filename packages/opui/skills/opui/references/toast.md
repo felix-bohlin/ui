@@ -44,6 +44,8 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_gap`: Space between stacked toasts.
 - `--_info-image`: The icon of an info toast, as an image used as a mask. Defaults to the `Callout` icon.
 - `--_inset`: Distance of the stack from the edges of the viewport.
+- `--_inset-block`: Distance of the stack from the top or bottom edge, `--_inset` by default. Raise it to clear a bottom navigation bar.
+- `--_inset-inline`: Distance of the stack from the side edges, `--_inset` by default. The stack's width leaves it on both sides.
 - `--_max-inline-size`: Maximum width of a toast.
 - `--_motion`: Motion multiplier, `0` with reduced motion.
 - `--_success-image`: The icon of a success toast, as an image used as a mask. Defaults to the `Callout` icon.

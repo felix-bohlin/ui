@@ -58,7 +58,7 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
   <Fragment slot="anatomy">
     <Anatomy zoom={2}>
       <UIAvatar
-        alt="Lou Headstock"
+        label="Lou Headstock"
         size="large"
         src="/photos/lou-headstock.png"
       />
@@ -82,11 +82,35 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
   <section id="image">
     <h2>Image</h2>
 
+    <Conditional as="p">
+      <Fragment slot="components">
+        <code>label</code> is the person's name, and the <code>alt</code> of the
+        image. Without <code>src</code> the avatar shows its content, so a
+        person without a photo falls back to their letters.
+      </Fragment>
+      <Fragment slot="html">
+        Give the image the person's name as <code>alt</code>.
+      </Fragment>
+    </Conditional>
+
     <AutoExample name="Image" row />
   </section>
 
   <section id="letter">
     <h2>Letter</h2>
+
+    <Conditional as="p">
+      <Fragment slot="components">
+        <code>label</code> names the avatar: the letters are hidden from
+        assistive technology, and the name follows them as visually hidden text.
+        Leave it out when the name is shown next to the avatar.
+      </Fragment>
+      <Fragment slot="html">
+        Hide the letters with <code>aria-hidden="true"</code> and put the name
+        after them in a <code>.ui-sr-only</code> element. Leave the name out
+        when it is shown next to the avatar.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="Letter" row />
   </section>
@@ -167,20 +191,34 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
   <Fragment slot="accessibility">
     <ul>
       <li>
-        Give images the person's name as <code>alt</code>, or
-        <code>alt=""</code> next to the name.
+        <Conditional>
+          <Fragment slot="components"
+            ><code>label</code> is the avatar's name: the <code>alt</code> of an
+            image, or visually hidden text after initials or an icon, which are
+            hidden from assistive technology.</Fragment
+          >
+          <Fragment slot="html"
+            >Give an image the name as <code>alt</code>. Hide initials and icons
+            with <code>aria-hidden="true"</code> and put the name after them in
+            a <code>.ui-sr-only</code> element.</Fragment
+          >
+        </Conditional>
       </li>
       <li>
-        Give initials and icons <code>role="img"</code> and an
-        <code>aria-label</code>, or <code>aria-hidden="true"</code> next to the
-        name.
+        <Conditional>
+          <Fragment slot="components"
+            >Next to the visible name, leave <code>label</code> out: the avatar
+            is decorative.</Fragment
+          >
+          <Fragment slot="html"
+            >Next to the visible name, leave the name out and give an image
+            <code>alt=""</code>: the avatar is decorative.</Fragment
+          >
+        </Conditional>
       </li>
       <li>
-        Link and button avatars take their name from what they show: the image's
-        <code>alt</code>, or initials in a <code>span</code> with
-        <code>role="img"</code> and an <code>aria-label</code>. An
-        <code>aria-label</code> on the link or button itself names it with words
-        that aren't on screen, which speech input can't say.
+        A link or button avatar needs a name. Initials stand in for a photo, so
+        the name is the person's, not the letters.
       </li>
     </ul>
   </Fragment>

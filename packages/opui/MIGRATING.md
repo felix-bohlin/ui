@@ -405,7 +405,20 @@ The floating content is `.ui-floating` instead of `.ui-anchor-floating`, also in
 
 ## Avatar
 
-`alt` is required when `src` is set (types). Use `alt=""` for decorative images.
+`alt` is `label`, the name of the person or thing. With `src` it is still the `alt` of the image. Without `src`, the letters or icon are hidden from assistive technology and `label` is visually hidden text after them. Leave `label` out when the name is shown next to the avatar: the avatar is then decorative, with `alt=""` on the image.
+
+```diff
+- <Avatar alt="Lou Headstock" src="/lou.jpg" />
++ <Avatar label="Lou Headstock" src="/lou.jpg" />
+- <Avatar aria-label="Lou Headstock" role="img">LH</Avatar>
++ <Avatar label="Lou Headstock">LH</Avatar>
+- <Avatar as="button"><span aria-label="Lou Headstock" role="img">LH</span></Avatar>
++ <Avatar as="button" label="Lou Headstock">LH</Avatar>
+```
+
+The content is hidden from assistive technology, so a name inside it is no longer read: move it to `label`. A link or button avatar needs `label`, `aria-label` or `aria-labelledby` (types in Astro, React and Svelte, and a warning in development).
+
+`src` no longer needs a name beside it and can be undefined, so a person without a photo falls back to the letters.
 
 A button avatar needs `as="button"`, and `disabled` only goes with it or with `href` (types).
 
@@ -418,7 +431,7 @@ Text uses `--ui-on-primary`, and sizes follow `--ui-control-size` and `--ui-cont
 ```diff
 - <Avatar aria-label="Team" isGroup>
 + <AvatarGroup aria-label="Team">
-    <Avatar alt="Lou Headstock" src="/lou.jpg" />
+    <Avatar label="Lou Headstock" src="/lou.jpg" />
 - </Avatar>
 + </AvatarGroup>
 ```

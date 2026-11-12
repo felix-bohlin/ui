@@ -1,14 +1,16 @@
 <script lang="ts">
+  import { untrack } from "svelte"
+  import { warnUnnamedControl } from "../dev"
   import { tagAttrs } from "../tag"
   import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
-    alt,
     as,
     class: className,
     disabled,
     href,
+    label,
     shape,
     size,
     src,
@@ -20,6 +22,9 @@
   }: Props = $props()
 
   const Tag = $derived(as || (href ? "a" : "div"))
+  untrack(() =>
+    warnUnnamedControl("Avatar", as === "button" || href, { ...rest, label }),
+  )
 </script>
 
 <svelte:element
@@ -35,8 +40,12 @@
   {...defined(rest)}
 >
   {#if src}
-    <img {src} alt={alt ?? ""} />
+    <img {src} alt={label ?? ""} />
   {:else}
-    {@render children?.()}
+    <span aria-hidden="true">
+      {@render children?.()}
+    </span>
+  {/if}{#if !src && label}
+    <span class="ui-sr-only">{label}</span>
   {/if}
 </svelte:element>

@@ -241,7 +241,8 @@ One concept has one prop name and one set of values in every component. `tests/u
   - The default slot is the main content, never the label. On a choice control (Checkbox, Radio, Switch, ToggleButton) the label is the main content, so there the default slot is the label and `label` is its string shorthand.
 - **Accessible names:**
   - When the visible label can be hidden, the prop is `hideLabel`, which renders `.ui-sr-only` on the label.
-  - A component with no visible text takes `aria-label` from the caller, and its types require it or `aria-labelledby` (`AvatarGroup`, `Carousel`). No other prop supplies or hides a name.
+  - A component with no visible text takes `aria-label` from the caller, and its types require it or `aria-labelledby` (`AvatarGroup`, `Carousel`). Apart from `label` and `hideLabel`, no prop supplies or hides a name.
+  - An `Avatar` stands in for a person, so its `label` is the name: the `alt` of the photo, or `.ui-sr-only` text after `aria-hidden` letters. Without `label` it is decorative. Its link and button types require `label`, `aria-label` or `aria-labelledby`.
   - A group whose role depends on a prop warns in development without a name (`warnUnnamedGroup` in `../dev`, `ToggleGroup`), and a container with a title part names itself from it through context (`Dialog`, `Drawer`, and a `Fieldset` rendered as another element).
   - The name of a control the component generates inside one of its parts is `<part>Label`, such as `closeLabel` on `DrawerHeader`.
   - A boolean that adds that control starts with the same word: `closeButton` with `closeLabel` on `Callout`, `DialogHeader` and `DrawerHeader`, `passwordToggle` with `passwordToggleLabel`, `markers` with `markerLabel`. `tests/unit/naming.test.ts` checks each part that lists both.

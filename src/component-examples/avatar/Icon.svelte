@@ -2,7 +2,7 @@
   import { Avatar } from "opui-css/svelte"
 </script>
 
-<Avatar aria-label="Developer" role="img">
+<Avatar label="Developer">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +17,7 @@
   </svg>
 </Avatar>
 
-<Avatar aria-label="Contact" role="img">
+<Avatar label="Contact">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +32,7 @@
   </svg>
 </Avatar>
 
-<Avatar aria-label="Guest" role="img">
+<Avatar label="Guest">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"

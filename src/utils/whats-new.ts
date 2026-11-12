@@ -102,8 +102,11 @@ export const whatsNew = {
     components(
       `<a href="#grouped"><code>AvatarGroup</code></a> requires <code>aria-label</code> or <code>aria-labelledby</code> in its types.`,
     ),
-    slots(
-      `Breaking: <a href="#image"><code>alt</code></a> is required when <code>src</code> is set.`,
+    components(
+      `Breaking: <a href="#letter"><code>label</code></a> replaces <code>alt</code> and names the avatar: the <code>alt</code> of the image, or visually hidden text next to the letters or icon, which assistive technology now skips. A link or button avatar needs it, or <code>aria-label</code>.`,
+    ),
+    components(
+      `<a href="#image"><code>src</code></a> can be undefined, so an avatar without a photo falls back to its letters.`,
     ),
     slots(
       `Breaking: <code>as="button"</code> renders <code>type="button"</code> by default. Pass <a href="#api"><code>type="submit"</code></a> for submit buttons.`,

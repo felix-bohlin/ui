@@ -4372,7 +4372,7 @@
     "id": "api-avatar-html",
     "title": "Avatar API",
     "description": "Reference for Avatar HTML component.",
-    "api": ".ui-avatar Container element. The avatar image. img .ui-rounded .ui-squared .ui-squircle Shape The shape of the avatar. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-outlined .ui-tonal Variants The variant to use. `filled` is the primary color, `outlined` the border color with no fill and `tonal` the primary tint. button[disabled] a[aria-disabled=\"true\"] State Disables a button avatar. A link avatar, which can't take `disabled`, drops its `href` and takes `role=\"link\"` and `aria-disabled=\"true\"` instead.",
+    "api": ".ui-avatar Container element. The avatar image. Its `alt` is `label`. img .ui-rounded .ui-squared .ui-squircle Shape The shape of the avatar. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-outlined .ui-tonal Variants The variant to use. `filled` is the primary color, `outlined` the border color with no fill and `tonal` the primary tint. button[disabled] a[aria-disabled=\"true\"] State Disables a button avatar. A link avatar, which can't take `disabled`, drops its `href` and takes `role=\"link\"` and `aria-disabled=\"true\"` instead.",
     "category": "API",
     "url": "/html/api/#avatar"
   },

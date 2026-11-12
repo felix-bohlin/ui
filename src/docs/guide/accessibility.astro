@@ -105,8 +105,14 @@ const html = Astro.locals.framework === "html"
       </li>
       <li>
         <DocLink href="/components/avatar#accessibility">Avatar</DocLink> takes
-        the person's name as <code>alt</code>, or <code>alt=""</code> when the
-        name is shown next to it.
+        the person's name as
+        <Conditional>
+          <Fragment slot="components"><code>label</code>, or no</Fragment>
+          <Fragment slot="html"
+            ><code>alt</code> or hidden text, or no</Fragment
+          >
+        </Conditional>
+        name when it is shown next to the avatar.
       </li>
       <li>
         <DocLink href="/components/carousel">Carousel</DocLink> needs a label.

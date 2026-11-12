@@ -6,19 +6,12 @@ import { Avatar, List, ListItem } from "opui-css/vue"
   <List>
     <ListItem label="Ines Hertz">
       <template #start>
-        <Avatar aria-hidden="true">IH</Avatar>
+        <Avatar>IH</Avatar>
       </template>
     </ListItem>
     <ListItem description="Fretless enthusiast" label="Lou Headstock">
       <template #start>
-        <Avatar>
-          <img
-            src="/photos/lou-headstock.png"
-            alt=""
-            decoding="async"
-            loading="lazy"
-          />
-        </Avatar>
+        <Avatar src="/photos/lou-headstock.png" />
       </template>
     </ListItem>
   </List>

@@ -5,8 +5,17 @@ export default {
   options: [
     {
       description:
-        "Alternative text for the image. Required with `src`. Use an empty string when the name is shown next to it.",
-      prop: "alt",
+        "The accessible name of a link or button avatar, instead of `label`. The Astro, React and Svelte types require one of `label`, `aria-label` and `aria-labelledby` on a link or button. In Vue it passes through as an attribute.",
+      inherited: true,
+      prop: "aria-label",
+      type: "string",
+    },
+    {
+      description:
+        "The id of the element that names a link or button avatar, instead of `label`.",
+      inherited: true,
+      prop: "aria-labelledby",
+      type: "string",
     },
     {
       default: '"div"',
@@ -22,6 +31,13 @@ export default {
     {
       description: "The link to use. Renders an `<a>`.",
       prop: "href",
+    },
+    {
+      description:
+        "The name of the person or thing: the `alt` of the image, or visually hidden text next to the letters or icon. Leave it out when the name is shown next to the avatar, which then is decorative. A link or button avatar needs it.",
+      htmlDescription:
+        'The name of the person or thing: the `alt` of the image, or a `.ui-sr-only` element after the letters or icon. Leave it out when the name is shown next to the avatar, with `alt=""` on the image. A link or button avatar needs it.',
+      prop: "label",
     },
     {
       default: '"circle"',
@@ -48,7 +64,8 @@ export default {
       },
     },
     {
-      description: "The image source. Replaces the content.",
+      description:
+        "The image source. Replaces the content. Without it, the avatar shows its content, so a missing photo falls back to the letters.",
       prop: "src",
     },
     {
@@ -75,8 +92,8 @@ export default {
   parts: [
     {
       code: "<img>",
-      description: "The avatar image.",
-      props: ["alt", "src"],
+      description: "The avatar image. Its `alt` is `label`.",
+      props: ["label", "src"],
       selector: "img",
     },
   ],
@@ -86,7 +103,8 @@ export default {
   },
   slots: [
     {
-      description: "Letters or an icon, when there's no image.",
+      description:
+        "Letters or an icon, when there's no image. They are hidden from assistive technology: `label` names the avatar.",
       name: "default",
     },
   ],

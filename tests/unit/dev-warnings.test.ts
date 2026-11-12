@@ -2,6 +2,10 @@ import { createElement } from "react"
 import { h } from "vue"
 import { afterAll, beforeEach, describe, expect, test, vi } from "vitest"
 import type { ComponentFramework } from "../../src/component-api/frameworks"
+import AvatarAstro from "../../packages/opui/components/Avatar/Avatar.astro"
+import AvatarReact from "../../packages/opui/components/Avatar/Avatar.react"
+import AvatarSvelte from "../../packages/opui/components/Avatar/Avatar.svelte"
+import AvatarVue from "../../packages/opui/components/Avatar/Avatar.vue"
 import CheckboxAstro from "../../packages/opui/components/Checkbox/Checkbox.astro"
 import CheckboxReact from "../../packages/opui/components/Checkbox/Checkbox.react"
 import CheckboxSvelte from "../../packages/opui/components/Checkbox/Checkbox.svelte"
@@ -131,6 +135,67 @@ describe("ToggleGroup", () => {
         "aria-labelledby": "heading",
       })
       expect(warnings()).toEqual([])
+    },
+  )
+})
+
+const AVATAR: Record<ComponentFramework, unknown> = {
+  astro: AvatarAstro,
+  react: AvatarReact,
+  svelte: AvatarSvelte,
+  vue: AvatarVue,
+}
+
+describe("Avatar", () => {
+  test.each(FRAMEWORKS)(
+    "%s warns when a link or button avatar has no accessible name",
+    async (framework) => {
+      await render[framework](AVATAR[framework], { as: "button" })
+      await render[framework](AVATAR[framework], { href: "/people/lena" })
+      expect(warnings()).toEqual(
+        Array(2).fill(
+          "[OPUI Avatar] Missing accessible name. A link or button Avatar needs `label`, `aria-label` or `aria-labelledby`.",
+        ),
+      )
+    },
+  )
+
+  test.each(FRAMEWORKS)(
+    "%s doesn't warn for a named link or button avatar, or for a decorative one",
+    async (framework) => {
+      await render[framework](AVATAR[framework], {
+        as: "button",
+        label: "Lena Handén",
+      })
+      await render[framework](AVATAR[framework], {
+        "aria-label": "Lena Handén",
+        href: "/people/lena",
+      })
+      await render[framework](AVATAR[framework], {})
+      expect(warnings()).toEqual([])
+    },
+  )
+
+  test.each(FRAMEWORKS)(
+    "%s names an image with label, and hides the content of an avatar without an image",
+    async (framework) => {
+      expect(
+        await render[framework](AVATAR[framework], {
+          label: "Lena Handén",
+          src: "/lena.jpg",
+        }),
+      ).toContain('alt="Lena Handén"')
+      expect(
+        await render[framework](AVATAR[framework], { src: "/lena.jpg" }),
+      ).toMatch(/ alt(="")?[ />]/)
+      const letters = await render[framework](AVATAR[framework], {
+        label: "Lena Handén",
+      })
+      expect(letters).toContain('<span aria-hidden="true">')
+      expect(letters).toContain('<span class="ui-sr-only">Lena Handén</span>')
+      expect(await render[framework](AVATAR[framework], {})).not.toContain(
+        "ui-sr-only",
+      )
     },
   )
 })

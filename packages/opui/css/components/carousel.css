@@ -65,6 +65,7 @@
     overscroll-behavior-inline: contain;
     padding-block: var(--_block-room);
     padding-inline: calc(var(--_padding-inline) + var(--_inline-room));
+    position: relative;
 
     scroll-behavior: if(style(--ui-motion: 0): auto; else: smooth);
     scroll-padding-inline: calc(var(--_padding-inline) + var(--_inline-room));

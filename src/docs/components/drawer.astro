@@ -179,6 +179,20 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
     </Conditional>
   </section>
 
+  <section id="safe-areas">
+    <h2>Safe areas</h2>
+    <p>
+      With <code>viewport-fit=cover</code> in the viewport meta tag, a phone
+      draws the page under its notch and home indicator. Each side of a drawer
+      that touches the screen edge pads its content clear of them, by the
+      <DocLink href="/guide/theme-tokens#safe-areas"
+        ><code>--ui-safe-area-inset-*</code></DocLink
+      >
+      tokens, and its background runs under them. Without
+      <code>viewport-fit=cover</code> they are <code>0px</code>.
+    </p>
+  </section>
+
   <section id="how-to-close">
     <h2>How to close a drawer</h2>
     <ClosedbyTable componentDefault="any" name="drawer" />

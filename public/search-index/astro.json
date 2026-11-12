@@ -1045,6 +1045,13 @@
     "url": "/astro/components/drawer/#close-button"
   },
   {
+    "id": "component-drawer-astro-safe-areas",
+    "title": "Safe areas",
+    "page": "Drawer",
+    "category": "Component",
+    "url": "/astro/components/drawer/#safe-areas"
+  },
+  {
     "id": "component-drawer-astro-how-to-close",
     "title": "How to close a drawer",
     "page": "Drawer",

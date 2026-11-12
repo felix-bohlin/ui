@@ -391,6 +391,14 @@ export const themeTokenDescriptions: Record<string, string> = {
     "A literal red, hue 25 at `0.53`, the lightness of palette step 9 in every palette. No severity meaning.",
   "--ui-rhythm-step":
     "Vertical rhythm unit. Rich text margins and heading line heights round to it.",
+  "--ui-safe-area-inset-block-end":
+    "The part of the bottom of the screen a home indicator covers, `env(safe-area-inset-bottom)`. A `Drawer` at the block end or on an inline side pads its content above it, and a `Toaster` at the block end sits above it. `0px` unless the viewport meta tag has `viewport-fit=cover`.",
+  "--ui-safe-area-inset-block-start":
+    "The part of the top of the screen a notch or a status bar covers, `env(safe-area-inset-top)`. A `Drawer` at the block start or on an inline side pads its content below it, and a `Toaster` at the block start sits below it. `0px` unless the viewport meta tag has `viewport-fit=cover`.",
+  "--ui-safe-area-inset-inline-end":
+    "The part of the inline end side a notch or a rounded corner covers, as on a phone held sideways: `env(safe-area-inset-right)`, and `env(safe-area-inset-left)` on a right-to-left page. A `Drawer` on that side or at the block start or end pads its content clear of it, and a `Toaster` keeps its toasts clear of it. `0px` unless the viewport meta tag has `viewport-fit=cover`.",
+  "--ui-safe-area-inset-inline-start":
+    "The part of the inline start side a notch or a rounded corner covers, as on a phone held sideways: `env(safe-area-inset-left)`, and `env(safe-area-inset-right)` on a right-to-left page. A `Drawer` on that side or at the block start or end pads its content clear of it, and a `Toaster` keeps its toasts clear of it. `0px` unless the viewport meta tag has `viewport-fit=cover`.",
   "--ui-selected":
     "Background of a selected control: a checked `ToggleButton`, the selected `ToggleGroup` item, a pressed `Chip`, a selected or current `List` item and `Select` option, and a checked `Message` reaction. When unset, `--ui-primary` on toggles, `--ui-primary` at `--ui-state-selected-alpha-accent` on list items and options, and the same mixed into `--ui-surface` on reactions. Pair it with `--ui-on-selected`.",
   "--ui-selected-strong":

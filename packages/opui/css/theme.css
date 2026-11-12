@@ -204,6 +204,12 @@
 
     /* Overlays */
     --ui-backdrop-blur: 1px;
+
+    /* Safe areas - the parts of the screen a notch, a rounded corner or a home indicator can cover. 0 unless the page has viewport-fit=cover. */
+    --ui-safe-area-inset-block-start: env(safe-area-inset-top, 0px);
+    --ui-safe-area-inset-block-end: env(safe-area-inset-bottom, 0px);
+    --ui-safe-area-inset-inline-start: env(safe-area-inset-left, 0px);
+    --ui-safe-area-inset-inline-end: env(safe-area-inset-right, 0px);
   }
 
   @media (prefers-color-scheme: dark) {
@@ -212,6 +218,12 @@
       color-scheme: var(--ui-color-scheme);
       --ui-color-scheme: dark;
     }
+  }
+
+  /* On a right-to-left page the inline start is the right edge. */
+  :where(html:dir(rtl)) {
+    --ui-safe-area-inset-inline-start: env(safe-area-inset-right, 0px);
+    --ui-safe-area-inset-inline-end: env(safe-area-inset-left, 0px);
   }
 
   /* Derived tokens. Formulas of the knobs, computed again on every scope element. */

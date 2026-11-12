@@ -1045,6 +1045,13 @@
     "url": "/vue/components/drawer/#close-button"
   },
   {
+    "id": "component-drawer-vue-safe-areas",
+    "title": "Safe areas",
+    "page": "Drawer",
+    "category": "Component",
+    "url": "/vue/components/drawer/#safe-areas"
+  },
+  {
     "id": "component-drawer-vue-how-to-close",
     "title": "How to close a drawer",
     "page": "Drawer",

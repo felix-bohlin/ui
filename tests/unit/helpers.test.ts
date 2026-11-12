@@ -174,6 +174,15 @@ describe("defined", () => {
     ).toEqual({ hidden: false, id: "", tabIndex: 0 })
   })
 
+  test("keeps symbol keys, which carry a Svelte attachment through a rest spread", () => {
+    const attachment = Symbol("attachment")
+    const attach = () => {}
+    const rest = defined({ [attachment]: attach, role: undefined })
+    expect(Object.getOwnPropertySymbols(rest)).toEqual([attachment])
+    expect(rest[attachment]).toBe(attach)
+    expect(defined({ [attachment]: undefined })).toEqual({})
+  })
+
   test("only sees attributes: a slot prop such as closeIcon={null} never travels in rest", () => {
     const { closeIcon, ...rest } = { closeIcon: null, role: null }
     expect(closeIcon).toBe(null)

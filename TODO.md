@@ -700,6 +700,34 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fix: in `HTML_SCRIPT_RULES`, also import `range.js` for a `.ui-range` whose `datalist` has an `option` with a `label`. `htmlElements` needs the class or the parent to tell it apart from an autosuggest `datalist`. Add the same hook to `HOOKS` in `tests/unit/example-scripts.test.ts`, with a sample it flags, and run `pnpm build-examples`. Give the HTML Tick marks text the import: "Link a `<datalist>` with `list`, and import `opui-css/css/js/range.js` so labeled ticks are read as `aria-valuetext`."
   - This came back after the done Range Quality item: commit 34504492 removed the Tick marks sentence that item's fix added. The docs preview hides the bug because the Value example on the same page loads `range.js`.
   - Fixed: `HTML_SCRIPT_RULES` in `scripts/build-examples.mjs` also imports `range.js` for a `datalist` `option` with a `label` inside a `.ui-range` (`htmlElements` now keeps each element's classes and parent), with cases in `tests/unit/build-examples.test.ts`, and `tests/unit/example-scripts.test.ts` has the same hook with a sample it flags next to an autosuggest datalist it doesn't. `pnpm build-examples` added the import to the HTML Tick marks and Spread examples, and the HTML Tick marks text reads: "Link a `<datalist>` with `list`, and import `opui-css/css/js/range.js` so labeled ticks are read as `aria-valuetext`."
+- [ ] (1) Docs site: every block page has two unnamed `main` landmarks, the page's own and the one inside the preview iframe, so axe reports `landmark-unique` on all 36 block pages (`src/pages/blocks/[block]/preview.astro:91`, `src/layouts/Document.astro:93`)
+  - Summary: A screen reader's landmark list on a block page shows two identical "main" entries, one of them inside the preview.
+  - Recommended: Fix. One label on the preview's main tells the two apart and keeps the preview page valid on its own.
+  - Fix: confirmed with axe on `/blocks/hero/` (only violation: `landmark-unique` on `#main-content`). Name the preview's landmark after the block: `aria-label={`${block.name} preview`}` on the preview's `main`.
+- [ ] (1) Docs: the "At a glance" section of Why Open Props UI? goes from the `h1` straight to four `h3` card titles with no `h2`, so axe reports `heading-order` on all five framework versions of the page (`src/docs/guide/why-opui.astro:32-39`)
+  - Summary: The four pillar cards at the top of the Why page skip a heading level, so a screen reader's heading list jumps from the title to level 3.
+  - Recommended: Fix with option A. A hidden `h2` keeps the cards' look and gives the section the heading its `id` already implies.
+  - Options:
+    - A (recommended): add `<h2 class="ui-sr-only">At a glance</h2>` as the first child of `<section id="at-a-glance">`.
+    - B: make the four card titles `h2`, which also lists them in the table of contents.
+- [ ] (2) Typography: the Default example's one-line code block ("The whole menu on one line, too long for the column, scrolls") scrolls sideways on the docs page but can't take focus, so axe reports `scrollable-region-focusable` on all five Typography pages (`src/component-examples/typography/Default.html:333`)
+  - Summary: In Safari, a keyboard user can't scroll the long one-line code sample in the Typography example to read its end.
+  - Recommended: Fix. The Dialog Long content scroller got the same attributes for the same reason.
+  - Fix: on `/html/components/typography/` the `pre` is 1127px wide in a 766px box with no `tabindex`. The a11y fixture page is wide enough that the line fits, so `a11y.spec.ts` doesn't see it. Give the `pre` the attributes the Dialog Long content example uses (`aria-label="Menu" role="region" tabindex="0"`), and say in the Typography prose that a code block that scrolls needs them.
+- [ ] (2) Docs site: code blocks wider than their column scroll sideways but can't take focus: the `pre` in `Code.astro` has `overflow-x: auto` and no `tabindex`. axe reports `scrollable-region-focusable` on the Concepts, Customizing and Migrating guides in all five frameworks, two blog posts, 12 HTML component pages, and in the expanded example code of 109 component pages (`src/components/Code.astro:68`, `src/components/Code.astro:108-116`)
+  - Summary: In Safari, keyboard users can't scroll a long line of code on the docs pages to read the rest of it.
+  - Recommended: Fix with option A. It only adds a tab stop to the blocks that actually scroll, the way the Dialog Long content scroller does.
+  - Fix: confirmed on `/html/guide/customizing/`: the `@layer openprops, theme, ...` block is 1066px wide in an 806px box with `tabIndex` -1. Chromium makes scroll containers focusable on its own, Safari doesn't. Pages: `/<fw>/guide/concepts/`, `/<fw>/guide/customizing/`, `/<fw>/guide/migrating/`, `/blog/callout-relative-colors/`, `/blog/spinner-aria-busy/`, and `/html/components/` card, carousel, list, menu, one-time-code, rating, select, stepper, text-field, textarea, toast, tooltip.
+  - Options:
+    - A (recommended): in `Code.astro`, watch each `pre` with a `ResizeObserver` and set `tabindex="0"`, `role="region"` and `aria-label` (the file title, or "Code") while `scrollWidth > clientWidth`, removing them when it fits.
+    - B: render every `pre` with `tabindex="0"`, `role="region"` and an `aria-label`, which adds a tab stop to every code block, scrolling or not.
+- [ ] (3) Docs site: a code group with a single tab hides its only label with `display: none` but keeps the radio, so Tab lands on an invisible radio that draws no focus ring, and axe reports `label` (hidden label). It hits the Installation code on all 41 HTML component pages, the code of every HTML example once Show code opens it (383 groups), and the HTML-only Typography Default example in the other four frameworks (`src/styles/base.css:145-147`, `src/components/InstallationFiles.astro:35-55`, `src/components/Example/Example.astro:225-253`)
+  - Summary: On the HTML component pages, pressing Tab into the Installation code (or an opened example's code) moves focus to something invisible.
+  - Recommended: Fix with option A. A single panel needs no tabs, and it removes the stray control instead of hiding it.
+  - Fix: confirmed on `/html/components/button/`: from the Installation heading's anchor, Tab focuses `input#tab-1` (`:focus-visible` true, `clip-path: inset(50%)`, its label `display: none`), and nothing on the page shows focus. On `/react/components/button/` the same Tab shows the ring on the "Command" tab.
+  - Options:
+    - A (recommended): render `Tabs` only when there are two or more panels: in `InstallationFiles.astro` when `groups.length > 1`, and in `Example.astro` when `showOutput` is true, otherwise the panel's content alone, and drop the `:only-of-type` rule from `base.css`.
+    - B: keep the markup and hide the radio with its label (`.code-tabs:has(> .ui-label:only-of-type) > .ui-input { display: none; }`).
 
 ## Bugs
 
@@ -1230,6 +1258,10 @@ Findings with a page and section in brackets come from the stress pages in `src/
     }
     ```
   - Fixed: The rule is `& :is(a, button):not([popover] *, .ui-floating *)`, so only the trigger gets `cursor: move` and `touch-action: none`: not the items of the menu popover, and not a link in an always-visible floating card. Checked in Chromium: the trigger reads `move`, a menu item `default` and a link in `.ui-floating` `pointer`. Astro still leaves the nested selector unscoped (checked with the compiler), which is what lets it reach the slotted trigger.
+- [ ] (1) Docs site: the block page's Mobile and Tablet preview widths render the block at 388px and 766px instead of 390px and 768px, because the width is set on `.block-frame`, whose 1px border sits inside it (`src/pages/blocks/[block]/index.astro:136-142`, `src/pages/blocks/[block]/index.astro:176-185`)
+  - Summary: The block preview's Mobile and Tablet widths are 2px narrower than the 390px and 768px they stand for.
+  - Recommended: Fix. One `calc()` makes the frame's content box match the labelled width.
+  - Fix: measured on `/blocks/app-shell/` and `/blocks/data-table/`. Add the border to the width the toggle sets: `calc(${input.dataset.width} + 2 * var(--ui-border-width))` when the width ends in px.
 - [ ] (2) Range: in WebKit, the fill animation (`ui-range-fill` on the `--ui-range-thumb` view timeline) keeps `/theme-builder/` rendering a new frame about every 45 ms while nothing changes: in WebKitGTK 2.52 the main thread is busy for 3.5 s of every 4 s at idle, from the two Range inputs in the preview specimen, 1,900 px below the viewport. With their animation off it is 0.4 s, and Chromium shows no idle cost. A plain page with the same Range markup and `dist/opui.css` costs 0.1 to 0.2 s per 3 s, also inside `.ui-palette`, so the repro still needs the part of the builder that makes it expensive (`packages/opui/css/components/range.css:268-289`, `packages/opui/css/components/range.css:361-362`, `src/components/ThemeBuilder/PreviewSpecimen.astro:185`)
   - Summary: In WebKit the theme builder keeps redrawing while idle because of the Range fill animation, which slows every action there.
   - Recommended: Fix with option A. The cost comes from the engine, so it belongs in an engine bug report with a repro, not a workaround.
@@ -1467,6 +1499,17 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): After hydration, read each controlled input's DOM state once in a layout effect and call the change callback when it differs from the prop, then lift the React skip in `tests/apps/apps.spec.ts`
     - B: Document it as a React limitation on the Getting started page and keep the skip
+- [ ] (3) Docs site: the framework picker on the framework-free pages (`/blocks/`, every block page, `/blog/`) always shows HTML, and picking a framework reloads the same page; after a visit to a framework page in the same tab, the choice changes nothing at all, because `preferredFramework()` reads the session's last framework before the stored choice (`src/layouts/Layout.astro:130-158`, `src/components/FrameworkPicker.astro:17`, `src/components/FrameworkPicker.astro:100-113`)
+  - Summary: On the blocks and blog pages, picking a framework seems to do nothing: the picker snaps back to HTML and links may follow another framework.
+  - Recommended: Fix. Two lines make the picker show and set the framework the page's links already follow.
+  - Fix: reproduced at 1280px and 390px. On `/blocks/account-settings/`, `/blocks/` and `/blog/`, picking Vue reloads the page, the links move to `/vue/`, and the picker shows HTML. After opening `/react/components/button/` first, picking Vue on `/blocks/` leaves the links on `/react/components/`, `data-framework="react"`, and the picker on HTML. `docs.spec.ts` only checks the picker on component and guide pages. In `relinkDocs()`, set every `.framework-picker select` to `framework`; in the picker's change handler, also write the choice to `sessionStorage` so `preferredFramework()` returns it after the reload.
+- [ ] (3) Docs site: a modal opened in a block preview opens in the middle of the full-height iframe, often outside the window: the page sizes the iframe to the block's height, so the iframe's viewport is the whole block. Account settings' Delete account dialog lands 500 to 750px above the window, Server status' dialog is cut off at the bottom, and the inbox, chat and app-shell drawers are as tall as the block (1140 to 1510px) (`src/pages/blocks/[block]/index.astro:144-158`)
+  - Summary: On a block page, opening a dialog in the preview can dim the page without showing the dialog, which sits off screen.
+  - Recommended: Fix with option A. It keeps the full-height preview and only moves the page when an overlay opens.
+  - Fix: reproduced on `/blocks/account-settings/` at 1280px (dialog top at -499px) and at 390px (-747px), on `/blocks/server-status/` (top at 593px, 231px tall in an 800px window) and with the app-shell drawer at 390px (469px down, 1318px tall). Only the backdrop shows in the window.
+  - Options:
+    - A (recommended): after `observe()`, listen for `toggle` in the iframe's document and, when a `dialog:modal` opens, scroll the page so the dialog's box is centered in the window (or its top shows, when it's taller than the window).
+    - B: cap the iframe at the window's height, so the block scrolls inside the frame and its overlays center in what the user sees, with Open in a new tab for the full page.
 
 ## Docs
 

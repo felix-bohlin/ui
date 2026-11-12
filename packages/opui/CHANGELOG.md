@@ -130,7 +130,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 
 ### Removed
 
-- `Accordion`, `Anchor`, `Card`, `Dialog`, `Drawer` and `Tooltip` no longer export a `Slots` type from `types.ts`, the `Callout` one has `closeIcon` instead of `icon` and `title`, and the Vue `Drawer` types no longer export `DrawerSlots`, `DrawerHeaderSlots` or `DrawerFooterSlots`.
+- `Accordion`, `Anchor`, `Card`, `Dialog`, `Drawer` and `Tooltip` no longer export a `Slots` type from `types.ts`, the `Callout` one has `closeIcon` instead of `icon` and `title`, and the Vue `Drawer` types no longer export `DrawerSlots` or `DrawerFooterSlots`.
 - `Accordion` no longer hides `::-webkit-details-marker` on a summary with a `.ui-marker`. Its `display: flex` removes the native marker in every current browser; only Safari before 18.2 drew it that way.
 - `Chip` hover and press ripple. Remove any `--ripple` overrides.
 - `ClassicSelect`. Use `Select`: it renders the same field, with the browser's own picker where customizable select isn't supported.

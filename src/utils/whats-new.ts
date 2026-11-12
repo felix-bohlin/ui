@@ -1694,7 +1694,6 @@ export const whatsNew = {
 export const highlighted = new Set<string>([
   "accordion",
   "button",
-  "callout",
   "card",
   "carousel",
   "control-group",

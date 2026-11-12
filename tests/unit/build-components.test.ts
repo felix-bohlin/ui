@@ -963,21 +963,28 @@ describe("the three ports of a sample", () => {
     expect(svelte).toContain(
       '    warnGroupedChecked("Sample", grouped, checked ?? defaultChecked, "Tabs"),\n',
     )
+    expect(svelte).toContain('  import { seedChecked } from "../svelte"\n')
     expect(svelte).toContain(
-      "  checked={grouped ?? checked ?? defaultChecked}\n  defaultChecked={grouped === undefined ? defaultChecked : undefined}\n",
+      "  const isChecked = () => grouped ?? checked ?? !!defaultChecked\n  const initialChecked = untrack(isChecked)\n  const change = (input: HTMLInputElement) => {\n    parent?.change?.(input)\n  }\n",
     )
     expect(svelte).toContain(
-      "  {...defined(rest)}\n  onchange={(event) => {\n    parent?.change?.(event.currentTarget)\n    onchange?.(event)\n  }}\n/>{@render children?.()}\n",
+      "  {@attach seedChecked(isChecked, change)}\n  defaultChecked={grouped === undefined\n    ? (defaultChecked ?? initialChecked)\n    : initialChecked}\n",
+    )
+    expect(svelte).not.toMatch(/\schecked=\{/)
+    expect(svelte).toContain(
+      "  {...defined(rest)}\n  onchange={(event) => {\n    change(event.currentTarget)\n    onchange?.(event)\n  }}\n/>{@render children?.()}\n",
     )
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
+    expect(vue).toContain('import { seedChecked } from "../vue"\n')
     expect(vue).toContain(
       "const { checked = undefined, value } = defineProps<Props>()",
     )
     expect(vue).toContain(
-      "const change = (event: Event) =>\n  parent?.change?.(event.currentTarget as HTMLInputElement)",
+      "const change = (input: HTMLInputElement) => {\n  parent?.change?.(input)\n}\n\nconst vSeedChecked = seedChecked(change)",
     )
+    expect(vue).not.toContain(":checked")
     expect(vue).toContain(
-      '    v-bind="defined(attrs)"\n    @change="change"\n  /><slot></slot>',
+      '    v-bind="defined(attrs)"\n    v-seed-checked="grouped ?? checked"\n    @change="change($event.currentTarget as HTMLInputElement)"\n  /><slot></slot>',
     )
   })
 
@@ -1083,7 +1090,11 @@ describe("the three ports of a sample", () => {
     expect(svelte).toContain("    checked = $bindable(),\n")
     expect(svelte).not.toContain("toggleInGroup")
     expect(svelte).toContain(
-      "    onchange={(event) => {\n      if (grouped === undefined) checked = event.currentTarget.checked\n      group?.change?.(event.currentTarget)\n      onchange?.(event)\n    }}\n",
+      "  const change = (input: HTMLInputElement) => {\n    if (grouped === undefined) checked = input.checked\n    group?.change?.(input)\n  }\n",
+    )
+    expect(svelte).toContain("    {@attach seedChecked(isChecked, change)}\n")
+    expect(svelte).toContain(
+      "    onchange={(event) => {\n      change(event.currentTarget)\n      onchange?.(event)\n    }}\n",
     )
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
     expect(vue).toContain(
@@ -1093,9 +1104,10 @@ describe("the three ports of a sample", () => {
       'warnGroupedChecked(\n    "Sample",\n    grouped.value,\n    checked ?? model.value,\n    "ToggleGroup",\n  )',
     )
     expect(vue).toContain(
-      "const change = (event: Event) => {\n  const input = event.currentTarget as HTMLInputElement\n  if (grouped.value === undefined) model.value = input.checked\n  group?.change?.(input)\n}",
+      "const change = (input: HTMLInputElement) => {\n  if (grouped.value === undefined) model.value = input.checked\n  group?.change?.(input)\n}\n\nconst vSeedChecked = seedChecked(change)",
     )
-    expect(vue).toContain(':checked="grouped ?? model ?? checked"')
+    expect(vue).not.toContain(":checked")
+    expect(vue).toContain('v-seed-checked="grouped ?? model ?? checked"')
     expect(vue).toContain(':data-off="!(model ?? checked)"')
     expect(vue).not.toContain("v-model")
   })

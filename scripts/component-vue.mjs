@@ -425,7 +425,13 @@ export const toVue = (component) => {
         ? emitOne(root, loop, inner)
         : `<template ${loop}>${emitOne(root, undefined, inner)}</template>`
     }
-    const spreads = node.attributes.filter(
+    const itemChecked = node.item
+      ? node.attributes.find(
+          (item) => item.kind === "expression" && item.name === "checked",
+        )
+      : undefined
+    const ownAttributes = node.attributes.filter((item) => item !== itemChecked)
+    const spreads = ownAttributes.filter(
       (item) =>
         item.kind === "spread" &&
         !(
@@ -435,8 +441,8 @@ export const toVue = (component) => {
           !definedRoot
         ),
     )
-    const first = node.attributes.indexOf(spreads[0])
-    const last = node.attributes.indexOf(spreads.at(-1))
+    const first = ownAttributes.indexOf(spreads[0])
+    const last = ownAttributes.indexOf(spreads.at(-1))
     const merged = (item) => {
       if (item.kind === "spread") {
         return {
@@ -474,17 +480,17 @@ export const toVue = (component) => {
     const bound =
       spreads.length > 1
         ? [
-            ...node.attributes.slice(0, first),
+            ...ownAttributes.slice(0, first),
             {
               kind: "bound",
               text: `v-bind="${objectCode(
-                node.attributes.slice(first, last + 1).map(merged),
+                ownAttributes.slice(first, last + 1).map(merged),
                 { quote: "'", shorthand: false },
               )}"`,
             },
-            ...node.attributes.slice(last + 1),
+            ...ownAttributes.slice(last + 1),
           ]
-        : node.attributes
+        : ownAttributes
     const checkedRename = node.item
       ? kind?.checkedRename?.(component.item)
       : undefined
@@ -507,7 +513,12 @@ export const toVue = (component) => {
         )
         .filter(Boolean),
       ...(node.model ? kind.attributes(model) : []),
-      ...(node.item ? ['@change="change"'] : []),
+      ...(itemChecked
+        ? [
+            `v-seed-checked="${rewriteExpression(itemChecked.code, bindScope)}"`,
+            '@change="change($event.currentTarget as HTMLInputElement)"',
+          ]
+        : []),
       ...(node.groupRadio !== undefined
         ? kind.radioAttributes(model, rewriteExpression(node.groupRadio, scope))
         : []),
@@ -603,6 +614,7 @@ export const toVue = (component) => {
   const vueHelpers = [
     ...(computedAttrs ? ["useInputAttrs"] : []),
     ...(kind?.vueHelpers?.(model) ?? []),
+    ...(item ? ["seedChecked"] : []),
   ].toSorted(byName)
   const importLines = [
     ...scriptImports(component),
@@ -691,8 +703,13 @@ export const toVue = (component) => {
     ...(item
       ? [
           `watchEffect(() =>\n  ${groupWarning(component, item, kind?.warningChecked?.(item) ?? item.checked ?? "undefined", `${item.grouped}.value`)},\n)`,
-          kind?.change?.(item) ??
-            `const change = (event: Event) =>\n  ${item.parent}?.change?.(event.currentTarget as HTMLInputElement)`,
+          `const change = (input: HTMLInputElement) => {\n${[
+            ...(kind?.change?.(item) ?? []),
+            `${item.parent}?.change?.(input)`,
+          ]
+            .map((line) => `  ${line}\n`)
+            .join("")}}`,
+          "const vSeedChecked = seedChecked(change)",
         ]
       : []),
     ...(provide

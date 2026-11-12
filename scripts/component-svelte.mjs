@@ -141,6 +141,9 @@ export const toSvelte = (component) => {
       return `${item.name}=${JSON.stringify(item.value)}`
     }
     if (item.kind === "boolean") return item.name
+    if (node.item && item.name === "checked") {
+      return `{@attach seedChecked(isChecked, change)} defaultChecked={${component.item.grouped} === undefined ? (defaultChecked ?? initialChecked) : initialChecked}`
+    }
     const keepsDefault =
       item.name === "checked" &&
       node.tag === "input" &&
@@ -148,12 +151,9 @@ export const toSvelte = (component) => {
         (entry) => entry.kind === "spread" && entry.code === rest,
       )
     const code = keepsDefault
-      ? `(${item.code}) ?? ${node.item ? "defaultChecked" : `${rest}.defaultChecked`}`
+      ? `(${item.code}) ?? ${rest}.defaultChecked`
       : item.code
-    const emitted = `${item.name}={${rewriteExpression(code, options)}}`
-    return node.item && item.name === "checked"
-      ? `${emitted} defaultChecked={${component.item.grouped} === undefined ? defaultChecked : undefined}`
-      : emitted
+    return `${item.name}={${rewriteExpression(code, options)}}`
   }
   const body = (nodes, scope, head = "") => {
     const inner = scope.preserved ? undefined : edgeTrimmed(nodes)
@@ -232,7 +232,7 @@ export const toSvelte = (component) => {
             : []),
           ...(node.item
             ? [
-                `onchange={(event) => {\n${(kind?.onchange?.(model, component.item) ?? []).map((line) => `  ${line}\n`).join("")}  ${component.item.parent}?.change?.(event.currentTarget)\n  onchange?.(event)\n}}`,
+                "onchange={(event) => {\n  change(event.currentTarget)\n  onchange?.(event)\n}}",
               ]
             : []),
         ].join(" ")
@@ -261,6 +261,7 @@ export const toSvelte = (component) => {
       : []),
     ...(usesContent ? [`import { content } from "../content.svelte"`] : []),
     ...(kind?.imports?.(component, model) ?? []),
+    ...(component.item ? [`import { seedChecked } from "../svelte"`] : []),
     ...components
       .map((entry) => componentImport(entry, ".svelte"))
       .toSorted(byName),
@@ -312,6 +313,14 @@ export const toSvelte = (component) => {
     ...(component.item
       ? [
           `untrack(() => ${groupWarning(component, component.item, `${component.item.checked ?? "undefined"} ?? defaultChecked`)})`,
+          `const isChecked = () => (${rewriteExpression(component.item.checkedCode, options)}) ?? !!defaultChecked`,
+          "const initialChecked = untrack(isChecked)",
+          `const change = (input: HTMLInputElement) => {\n${[
+            ...(kind?.change?.(model, component.item) ?? []),
+            `${component.item.parent}?.change?.(input)`,
+          ]
+            .map((line) => `  ${line}\n`)
+            .join("")}}`,
         ]
       : []),
     ...(provide

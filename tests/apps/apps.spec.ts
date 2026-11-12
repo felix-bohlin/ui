@@ -278,6 +278,8 @@ const CHANGES = [
   { example: "rating/Input", label: "1 star", to: true },
   { example: "select/Variants", label: "Role", to: "Developer" },
   { example: "switch/Basics", label: "Bluetooth", to: true },
+  { example: "tabs/Basics", label: "Settings", to: true },
+  { example: "tabs/Binding", label: "Notifications", to: true },
   { example: "text-field/InputTypes", label: "Color", to: "#ff0000" },
   { example: "text-field/InputTypes", label: "Email", to: "ada@example.com" },
   { example: "text-field/InputTypes", label: "Password", to: "secret" },
@@ -287,6 +289,10 @@ const CHANGES = [
     to: "https://example.com/",
   },
   { example: "textarea/Variants", label: "Outlined", to: "Typed early" },
+  { example: "toggle/Binding", label: "Bold", to: false },
+  { example: "toggle/Binding", label: "Italic", to: true },
+  { example: "toggle/Binding", label: "Month", to: true },
+  { example: "toggle/Interactive", label: "Cycling", to: true },
 ]
 
 type Change = (typeof CHANGES)[number]
@@ -393,6 +399,46 @@ for (const slug of changedSlugs) {
         `${app.name} keeps ${item.example} "${item.label}" and its server default when it hydrates`,
       ).toEqual({ current: item.to, initial })
     }
+    expect(unexpected(problems, app.name, slug)).toEqual([])
+  })
+}
+
+const BOUND = [
+  {
+    example: "tabs/Binding",
+    readout: ".tabs-binding-text",
+    text: "Selected: notifications",
+  },
+  {
+    example: "toggle/Binding",
+    readout: ".toggle-binding-text",
+    text: "View: month. Format: italic.",
+  },
+]
+
+for (const { example, readout, text } of BOUND) {
+  test(`${example} binds what changed before it hydrated`, async ({
+    page,
+  }, testInfo) => {
+    const app = appOf(testInfo.project.name)
+    test.skip(!app.scripts, `${app.name} renders on the client only`)
+    test.skip(
+      app.framework === "react",
+      "React keeps a choice made before hydration but calls no onValueChange for it",
+    )
+    const slug = example.split("/")[0] ?? ""
+    const problems = await watch(page)
+    const release = await holdScripts(page, app.scripts ?? "")
+    await page.goto(`/${slug}`, { waitUntil: "commit" })
+    for (const item of CHANGES.filter((entry) => entry.example === example)) {
+      await change(await controlOf(page, item), item)
+    }
+    release()
+    await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
+    await expect(
+      page.locator(`[data-example="${example}"] ${readout}`),
+      `${app.name} sets the bound value of ${example} to the choice made before it hydrated`,
+    ).toHaveText(text)
     expect(unexpected(problems, app.name, slug)).toEqual([])
   })
 }

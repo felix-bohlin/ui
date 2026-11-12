@@ -247,3 +247,45 @@ export const vSeed: ObjectDirective<Field> = {
     latest.delete(field)
   },
 }
+
+const wanted = new WeakMap<HTMLInputElement, boolean>()
+
+export const seedChecked = (
+  change: (input: HTMLInputElement) => void,
+): ObjectDirective<HTMLInputElement, boolean | undefined> => {
+  const report = (input: HTMLInputElement) => {
+    if (input.checked || input.type === "checkbox") change(input)
+  }
+  return {
+    created: (input, { value }) => {
+      wanted.set(input, !!value)
+      if (input.parentNode) hydrated.add(input)
+      if (input.parentNode && input.checked !== input.defaultChecked) {
+        report(input)
+      } else input.checked = !!value
+    },
+    mounted: (input) => {
+      if (!hydrated.has(input)) queueMicrotask(() => keepDefaults(input))
+      const { form } = input
+      if (!form) return
+      const listener = (event: Event) =>
+        setTimeout(() => {
+          if (!event.defaultPrevented && input.checked !== wanted.get(input)) {
+            report(input)
+          }
+        })
+      form.addEventListener("reset", listener)
+      resets.set(input, () => form.removeEventListener("reset", listener))
+    },
+    beforeUpdate: (input, { oldValue, value }) => {
+      wanted.set(input, !!value)
+      if (value !== oldValue) input.checked = !!value
+    },
+    beforeUnmount: (input) => {
+      resets.get(input)?.()
+      resets.delete(input)
+      wanted.delete(input)
+    },
+    getSSRProps: ({ value }) => (value ? { checked: true } : undefined),
+  }
+}

@@ -733,6 +733,30 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): render `Tabs` only when there are two or more panels: in `InstallationFiles.astro` when `groups.length > 1`, and in `Example.astro` when `showOutput` is true, otherwise the panel's content alone, and drop the `:only-of-type` rule from `base.css`.
     - B: keep the markup and hide the radio with its label (`.code-tabs:has(> .ui-label:only-of-type) > .ui-input { display: none; }`).
   - Fixed: option A. `InstallationFiles.astro` renders `Tabs` only for two or more groups (the file picker moves to `CodeFiles.astro`), `Example.astro` only with an Output panel, and the `:only-of-type` rule is gone from `base.css`; the Markdown version keeps the code of a group without tabs (5d037bdd). On `/html/components/button/`, Tab from the Installation heading focuses the copy button at 1280px and the scrolling code block at 390px, both with a visible ring, and axe reports no `label`. `docs.spec.ts` and `a11y.spec.ts` check both.
+- [ ] (1) Examples: in the brutalist theme in light mode, the error page block's "404" uses `--ui-primary` as its text color, `#5294ff` on `#dfe5f2`, 2.36:1, below 3:1 for large text, the only axe color-contrast violation in 432 block renders (36 blocks, 6 themes, 2 schemes); the element is `aria-hidden` and the default theme passes (`src/blocks/error-page.html:5-10`)
+  - Summary: The big 404 on the error page is pale blue on a pale blue page in the brutalist theme.
+  - Recommended: Fix. The block should read the text role that every theme promises at 4.5:1.
+  - Fix: `.error-page-code { color: var(--ui-primary-text); }`
+- [ ] (1) Docs site: at 1280px axe reports `landmark-unique` on `.sidebar` on every docs page with a sidebar: the navigation sidebar and the table of contents are both unnamed `aside` elements, so the page has two complementary landmarks with no name (`src/layouts/Document.astro:68-73`, `src/layouts/Document.astro:112-115`)
+  - Summary: A screen reader's landmark list on a docs page shows two unnamed complementary entries, for the sidebar and the table of contents.
+  - Recommended: Fix. The table of contents is already a named navigation landmark, so its wrapper needs none.
+  - Fix: confirmed with axe on `/html/components/button/`, `/html/components/typography/` and the Migrating and Concepts guides at 1280px (390px hides both asides). The table of contents renders `nav aria-label="On this page"` and the sidebar's `SidebarNav` a `nav` named after its first group, so make the `.page-contents` wrapper a `div` and keep the sidebar an `aside`, which also holds the framework picker.
+- [ ] (1) Docs site: the app shell block's own `<header>` is a second unnamed banner on `/blocks/app-shell/`, next to the site header, so axe reports `landmark-unique` at 1280 and 390px (`src/blocks/app-shell.html:57`, `src/pages/blocks/[block]/preview.astro:87-94`)
+  - Summary: A screen reader's landmark list on the app shell block page shows two unnamed banner entries, one of them inside the preview.
+  - Recommended: Fix. The preview already names the block's main the same way.
+  - Fix: in `preview.astro`, give a full-page block's `header` before its `main` the preview's label at render time, like the `main` (`aria-label="App shell preview"`), so the copied block stays as it is.
+- [ ] (1) Docs site: a focused copy button in a code block stays at 0.75 opacity, because `.code-block:focus-within .code-copy` outranks `.code-copy:focus-visible` (`src/components/Code.astro:234-260`)
+  - Summary: The copy button on a code block stays faded while it has keyboard focus.
+  - Recommended: Fix. A focused control should look as strong as a hovered one.
+  - Fix: give the faded states `:not(:hover, :focus-visible)`, so the full opacity of a hovered or focused button wins.
+- [ ] (2) Docs site: in the search dialog the selected result gets `--ui-selected` and `--ui-on-selected` but its `<mark>` keeps `color: var(--ui-primary-text)`; when the query matches the title the whole title is a mark. Measured: bootstrap light 2.06:1, bootstrap dark 2.40:1, brutalist dark 2.39:1, govuk light 4.27:1 (`src/components/Search.astro:945-962`, `src/components/Search.astro:969-975`)
+  - Summary: In the bootstrap and brutalist themes, the highlighted search result's title is blue on a blue row and hard to read.
+  - Recommended: Fix. The forced-colors branch of the same rule already sets the mark to inherit.
+  - Fix: `.ui-list > li > [role="option"][aria-selected="true"] mark { color: inherit; }` (it stays bold and underlined).
+- [ ] (2) Docs site, Typography: at 390px axe still reports `scrollable-region-focusable` on three `pre`s of the Typography Default example and the Code block example's `pre.ui-code-block`, on a table in the Migrating guide's Theme and tokens section and on the Token tiers `.scroll` wrapper of the Concepts guide (`src/component-examples/typography/Default.html:232`, `src/component-examples/typography/Default.html:322-331`, `src/component-examples/typography/Default.html:349-352`, `src/component-examples/typography/CodeBlock.astro:9`, `packages/opui/MIGRATING.md:1263-1331`, `src/components/TokenTiers.astro:58`, `src/utils/code-blocks.ts:10-28`)
+  - Summary: In Safari, keyboard users can't scroll some narrow code samples and tables on the docs to read the rest.
+  - Recommended: Fix. The code blocks and the Dialog Long content scroller already get the same treatment.
+  - Fix: give the example `pre`s the attributes the Dialog Long content scroller uses (`tabindex="0"`, `role="region"` and a unique `aria-label`), and extend the `ResizeObserver` in `code-blocks.ts` to rich text tables and the `.scroll` wrappers of the docs tables, loaded by `Document.astro`.
 
 ## Bugs
 
@@ -1268,6 +1292,10 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix. One `calc()` makes the frame's content box match the labelled width.
   - Fix: measured on `/blocks/app-shell/` and `/blocks/data-table/`. Add the border to the width the toggle sets: `calc(${input.dataset.width} + 2 * var(--ui-border-width))` when the width ends in px.
   - Fixed: the toggle sets `calc(<width> + 2 * var(--ui-border-width))` for a px width (55f624b6). On `/blocks/data-table/` the iframe is 768px wide on Tablet and 390px on Mobile, and `docs.spec.ts` checks it.
+- [ ] (1) Examples: printing the invoice block prints its toolbar ("All invoices", Print, PDF, "Send invoice"), and on A4 the invoice runs onto a second page with the "Pay by 7 November" callout split and the OCR reference alone on page 2 (`src/blocks/invoice.html:1-66`, `src/blocks/invoice.html:76-135`, `src/blocks/invoice.html:277-334`)
+  - Summary: The printed invoice shows the screen buttons at the top and breaks the payment details over two pages.
+  - Recommended: Fix. The invoice is the one block made to be printed.
+  - Fix: give the toolbar row a class (`invoice-toolbar`) and add `@media print { .invoice-toolbar { display: none; } .invoice-sheet :is(section, .ui-callout) { break-inside: avoid; } }` to the block's style.
 - [ ] (2) Range: in WebKit, the fill animation (`ui-range-fill` on the `--ui-range-thumb` view timeline) keeps `/theme-builder/` rendering a new frame about every 45 ms while nothing changes: in WebKitGTK 2.52 the main thread is busy for 3.5 s of every 4 s at idle, from the two Range inputs in the preview specimen, 1,900 px below the viewport. With their animation off it is 0.4 s, and Chromium shows no idle cost. A plain page with the same Range markup and `dist/opui.css` costs 0.1 to 0.2 s per 3 s, also inside `.ui-palette`, so the repro still needs the part of the builder that makes it expensive (`packages/opui/css/components/range.css:268-289`, `packages/opui/css/components/range.css:361-362`, `src/components/ThemeBuilder/PreviewSpecimen.astro:185`)
   - Summary: In WebKit the theme builder keeps redrawing while idle because of the Range fill animation, which slows every action there.
   - Recommended: Fix with option A. The cost comes from the engine, so it belongs in an engine bug report with a repro, not a workaround.
@@ -1518,6 +1546,32 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): after `observe()`, listen for `toggle` in the iframe's document and, when a `dialog:modal` opens, scroll the page so the dialog's box is centered in the window (or its top shows, when it's taller than the window).
     - B: cap the iframe at the window's height, so the block scrolls inside the frame and its overlays center in what the user sees, with Open in a new tab for the full page.
   - Fixed: option A. The block page listens for `toggle` in the preview's document and, when a `dialog:modal` opens, scrolls so the dialog is centered below the site header, or its top sits under the header when it's taller than the window, measuring again a frame later since the header shrinks as the page scrolls (b79aa16c). The Account settings and Server status dialogs open in view at 1280 and 390px, and the app shell drawer's top shows under the header. `docs.spec.ts` checks both cases.
+- [ ] (2) Card, Callout: in print a card or callout breaks across pages; the Table "In a card" example prints its rows on one page and the caption and bottom edge on the next, and the invoice's callout is cut in two (`packages/opui/css/components/card.css:2`, `packages/opui/css/components/callout.css:2`)
+  - Summary: Printed cards and callouts can start on one page and end on the next.
+  - Recommended: Fix. One declaration per component, and it costs nothing on screen.
+  - Fix: `@media print { break-inside: avoid; }` inside `:where(.ui-accordion, .ui-card, .ui-dialog)` and `:where(.ui-callout)`. A card taller than a page still breaks.
+- [ ] (2) Typography: rich text `pre` and `.ui-code-block` keep `white-space: pre` in a scroll box, so in print the end of any line wider than the page is cut off (636 of 1127px on a 718px page) (`packages/opui/css/components/typography.css:255-266`)
+  - Summary: Long lines in printed code blocks lose their end at the right edge of the paper.
+  - Recommended: Fix. Wrapping only in print keeps the screen behavior.
+  - Fix: inside the `pre` rule: `@media print { overflow-wrap: anywhere; white-space: pre-wrap; }`
+- [ ] (2) Docs site: printing a component or guide page has no print stylesheet behind it: example frames split from their content, "In a block" cards print about 500px tall around a 110px thumbnail, a collapsed CSS variables table prints only its first rows with "Show all 28 rows" over the last, docs code blocks cut long lines, the sidebar prints in landscape with its empty column on every page, and the header, footer, Previous/Next and Edit page print (`src/components/Example/Example.astro:163-175`, `src/components/BlockLink.astro:49-71`, `src/components/DocsTable.astro:57-64`, `src/components/Code.astro:108-131`, `src/layouts/Component.astro:428-430`)
+  - Summary: A printed docs page wastes space on screen-only parts and cuts some examples, tables and code lines.
+  - Recommended: Fix. One print block in the site styles covers all of it.
+  - Fix: a `@media print` block in `src/styles/base.css`: hide the header actions, the sidebar and TOC asides, the footer navigation, `[data-table-toggle]` and `.block-link-thumbnail`; show every row of a collapsed DocsTable; `break-inside: avoid` on `.example-preview` and `.block-link`; `white-space: pre-wrap; overflow-wrap: anywhere` on `.code-block code`.
+- [ ] (2) Docs site: in print the anatomy hero shows an empty outlined box where the component should be: with background graphics off Chromium paints every element with a background as solid white, and the translucent `.frame::before` and `.glow::before` highlights sit on top of the subject; another overlay covers half of the WebKit browser-support chip above the hero (`src/components/Anatomy.astro:246-266`, `src/components/Anatomy.astro:288-306`)
+  - Summary: The anatomy diagram at the top of a component page prints as an empty box.
+  - Recommended: Fix. Removing the decorative highlights in print is the change that was tested.
+  - Fix: `@media print { .glow::before, .frame::before, .marker::after { background: none; } }` in `Anatomy.astro`, then print `/html/components/table/` and confirm the WebKit chip is whole; if not, find the overlay over it.
+- [ ] (3) CSS: dark mode prints with the dark scheme's text colors: nothing in `theme.css` switches `.ui-dark`, `--ui-color-scheme` or the `prefers-color-scheme: dark` block back in print, so headings print at about 2.4:1 on paper and body text at about 4.4:1 (`packages/opui/css/theme.css:3-13`, `packages/opui/css/theme.css:209-215`)
+  - Summary: Printing a page in dark mode gives pale gray headings and text on white paper.
+  - Recommended: Fix with option A. It covers every app and block, and the docs get it for free.
+  - Options:
+    - A (recommended): force the light scheme in print in `theme.base` after the `.ui-dark` rule and the `prefers-color-scheme` block: `@media print { :where(html), .ui-light, .ui-dark { --ui-color-scheme: light; color-scheme: light; } }`
+    - B: leave the library as it is, add the rule to the docs site only, and say in the README that apps that print add it themselves.
+- [ ] (3) Badge, Button, Typography: fills that carry their own text color drop out in print, since Chromium doesn't print backgrounds by default: a Badge count prints as light gray text with no circle and a dot badge disappears, a filled Button's label prints light gray with no box, and `kbd` and `var` print nearly white (`packages/opui/css/components/badge.css:43-60`, `packages/opui/css/components/badge.css:118-123`, `packages/opui/css/components/button.css:444-447`, `packages/opui/css/components/typography.css:184-192`, `packages/opui/css/components/typography.css:796-802`)
+  - Summary: On paper, badges, filled buttons and keyboard keys lose their fill and their text goes pale or disappears.
+  - Recommended: Fix. A print-only `print-color-adjust` keeps the fill exactly where the text depends on it.
+  - Fix: `@media print { print-color-adjust: exact; }` on the Badge indicator, the filled Button and the `.ui-kbd`, `.ui-var` and rich text `kbd, var` rules; check filled chips, avatars and other solid fills too.
 
 ## Docs
 

@@ -1,6 +1,6 @@
 import { highlightAll } from "microlighter"
 
-export const renewHighlights = () => {
+const renewHighlights = () => {
   for (const highlight of CSS.highlights.values()) {
     const ranges = [...highlight]
     highlight.clear()

@@ -156,7 +156,7 @@ const tagsOf = (node, component) => {
 const isBlock = (tags) =>
   tags.length > 0 && tags.every((tag) => BLOCK_TAGS.has(tag))
 
-export const layoutOf = (component) => {
+const layoutOf = (component) => {
   const uaOuter = (node) =>
     isBlock(tagsOf(node, component)) ? "block" : "inline"
   const outer = (node) => {

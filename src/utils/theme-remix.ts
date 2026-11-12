@@ -8,14 +8,14 @@ import {
   type RangeControl,
 } from "./theme-builder-controls"
 
-export type RemixPart = {
+type RemixPart = {
   control: string
   tokens: Record<string, string | null>
 }
 
 export type Remix = { brand: string | null; parts: RemixPart[] }
 
-export type Mood = {
+type Mood = {
   choices: Record<string, string>
   corners: string
   hint: string

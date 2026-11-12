@@ -45,9 +45,9 @@ export function componentsFor(framework: FrameworkId) {
   )
 }
 
-export const FOUNDATIONS = ["layout", "typography"]
+const FOUNDATIONS = ["layout", "typography"]
 
-export const isFoundation = (slug: string) => FOUNDATIONS.includes(slug)
+const isFoundation = (slug: string) => FOUNDATIONS.includes(slug)
 
 export function componentGroupsFor(framework: FrameworkId) {
   const all = componentsFor(framework)

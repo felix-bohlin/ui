@@ -150,7 +150,7 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 - `seeAlsoLinks`: (Optional) Array of `{ name, href }` entries rendered in a "See also" section.
 - `showToc`: (Optional) Shows the table of contents. Defaults to `true`.
 - `slug`: (Required for auto examples, API tables and anatomy) The component slug, such as `text-field`. `<AutoExample>`, the auto-resolved `api.ts` and `<Anatomy>` all key off it. Defaults to the last URL segment.
-- `title`, `description`, `image`: (Optional) Page meta. The `title` slot wins over `title`, and `description` defaults to the `preamble` text.
+- `description`, `image`: (Optional) Page meta. `description` defaults to the `preamble` text.
 
 ### 4.2 Slots
 

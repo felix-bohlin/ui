@@ -35,7 +35,7 @@ export const FIGMA_MODES = [
 
 const BODY = { fontFamily: ["--ui-font-body"], tag: "p" }
 
-export const FIGMA_TEXT = [
+const FIGMA_TEXT = [
   {
     ...BODY,
     classes: "ui-p",
@@ -97,21 +97,16 @@ export type FigmaColor = {
   srgb: number[]
 }
 
-export type FigmaValue =
+type FigmaValue =
   | FigmaColor
   | number
   | string
   | { alias: string }
   | { bezier: number[] }
 
-export type FigmaVariableType =
-  | "COLOR"
-  | "EASING"
-  | "FLOAT"
-  | "STRING"
-  | "TIMING"
+type FigmaVariableType = "COLOR" | "EASING" | "FLOAT" | "STRING" | "TIMING"
 
-export type FigmaVariable = {
+type FigmaVariable = {
   codeSyntax?: string
   description: string
   fonts?: string[]
@@ -123,7 +118,7 @@ export type FigmaVariable = {
   values: Record<string, FigmaValue>
 }
 
-export type FigmaEffectLayer = {
+type FigmaEffectLayer = {
   blur: number | string
   color: string
   inset: boolean
@@ -132,13 +127,13 @@ export type FigmaEffectLayer = {
   y: number | string
 }
 
-export type FigmaEffect = {
+type FigmaEffect = {
   description: string
   layers: FigmaEffectLayer[]
   name: string
 }
 
-export type FigmaTextStyle = {
+type FigmaTextStyle = {
   description: string
   fontSize: number
   fontWeight: number
@@ -150,7 +145,7 @@ export type FigmaTextStyle = {
   variables: { fontFamily?: string; fontSize?: string; fontWeight?: string }
 }
 
-export type FigmaTheme = {
+type FigmaTheme = {
   collection: string
   effects: FigmaEffect[]
   modes: { id: string; name: string }[]
@@ -159,7 +154,7 @@ export type FigmaTheme = {
   version: number
 }
 
-export type FigmaTokenMeta = {
+type FigmaTokenMeta = {
   aliases: Record<string, string | undefined>
   cssVar: string
   description: string

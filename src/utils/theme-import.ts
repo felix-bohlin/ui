@@ -47,13 +47,6 @@ export const parsePaste = (text: string): Paste => {
   return colors.length > 0 ? { colors, kind: "colors" } : { kind: "none" }
 }
 
-export const STATUS_ORDER = [
-  "--ui-critical",
-  "--ui-info",
-  "--ui-success",
-  "--ui-warning",
-]
-
 export const imageColor = (data: Uint8ClampedArray | number[], step = 1) => {
   const buckets = new Map<
     number,

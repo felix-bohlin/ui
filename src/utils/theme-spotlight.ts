@@ -1,4 +1,4 @@
-import { CONTROLS, GROUPS } from "./theme-builder-controls"
+import { GROUPS } from "./theme-builder-controls"
 
 const BY_GROUP: Record<string, string> = {
   borders: ".ui-card, .ui-table, .ui-text-field, .ui-select, .ui-textarea",
@@ -97,5 +97,3 @@ const groupOf = new Map(
 
 export const spotlightFor = (controlId: string) =>
   BY_CONTROL[controlId] ?? BY_GROUP[groupOf.get(controlId) ?? ""] ?? ""
-
-export const SPOTLIGHT_CONTROLS = CONTROLS.map((control) => control.id)

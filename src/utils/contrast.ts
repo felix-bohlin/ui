@@ -7,13 +7,13 @@ import {
   themeTokenPromises,
 } from "./theme-token-promises"
 
-export type Scheme = "dark" | "light"
+type Scheme = "dark" | "light"
 
-export type ContrastMode = { contrast?: "more"; scheme: Scheme }
+type ContrastMode = { contrast?: "more"; scheme: Scheme }
 
 export type Rgba = [number, number, number, number]
 
-export type ContrastPair = {
+type ContrastPair = {
   against: string
   bg: string
   fg: string
@@ -211,7 +211,7 @@ export const evaluatePair = (
   }
 }
 
-export const resolveColors = (
+const resolveColors = (
   root: Element,
   sets: { colors: string[]; unset?: string[] }[],
   modes: ContrastMode[],

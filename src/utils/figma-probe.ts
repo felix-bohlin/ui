@@ -4,7 +4,7 @@ export type FigmaProbeRequest = {
   tokens: { name: string; type?: string }[]
 }
 
-export type FigmaProbeText = {
+type FigmaProbeText = {
   fontFamily: string
   fontSize: string
   fontWeight: string
@@ -13,7 +13,7 @@ export type FigmaProbeText = {
   textTransform: string
 }
 
-export type FigmaProbeMode = {
+type FigmaProbeMode = {
   relative: string[]
   text: Record<string, FigmaProbeText>
   tokens: Record<string, string>

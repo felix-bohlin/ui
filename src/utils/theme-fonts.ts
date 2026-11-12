@@ -1,12 +1,12 @@
-export type WebFont = {
+type WebFont = {
   category: "mono" | "sans" | "serif"
   family: string
   id: string
 }
 
-export const FONTSOURCE_CDN = "https://cdn.jsdelivr.net/fontsource/css"
+const FONTSOURCE_CDN = "https://cdn.jsdelivr.net/fontsource/css"
 
-export const FONT_WEIGHTS = [400, 500, 600, 700]
+const FONT_WEIGHTS = [400, 500, 600, 700]
 
 export const WEB_FONTS: WebFont[] = [
   { category: "serif", family: "Crimson Pro", id: "crimson-pro" },

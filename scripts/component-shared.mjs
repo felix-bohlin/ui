@@ -152,7 +152,7 @@ export const slotsUsedIn = (code) => {
   return names
 }
 
-export const codesIn = (nodes) =>
+const codesIn = (nodes) =>
   nodes.flatMap((node) => {
     if (node.type === "expression") return [node.code]
     if (node.type === "each") {

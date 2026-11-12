@@ -7,18 +7,10 @@ import { blockGroups, blockHref } from "../utils/blocks"
 type Props = {
   description?: string
   overline?: string
-  showToc?: boolean
-  title?: string
   wide?: boolean
 }
 
-const {
-  description,
-  overline = "Blocks",
-  showToc = false,
-  title,
-  wide,
-} = Astro.props
+const { description, overline = "Blocks", wide } = Astro.props
 
 const groups = [
   { label: "Blocks", links: [{ href: "/blocks", label: "All blocks" }] },
@@ -35,9 +27,8 @@ const groups = [
 <Document
   description={description}
   overline={overline}
-  showToc={showToc}
+  showToc={false}
   sidebarGroups={groups}
-  title={title}
   wide={wide}
 >
   <FrameworkPicker size="small" slot="sidebar" />

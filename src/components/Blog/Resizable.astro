@@ -4,10 +4,10 @@ import DragHandle from "./DragHandle.astro"
 
 type Props = {
   label: string
-  min?: number
 }
 
-const { label, min = 160 } = Astro.props
+const { label } = Astro.props
+const min = 160
 const max = 960
 ---
 

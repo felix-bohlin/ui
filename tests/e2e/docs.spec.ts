@@ -924,25 +924,29 @@ const tabStop = (page: Page) =>
     }
   })
 
-for (const path of [
-  "/html/",
-  "/html/components/button/",
-  "/html/guide/getting-started/",
-]) {
-  test(`${path} shows focus on every Tab stop`, async ({ page }) => {
-    test.setTimeout(180_000)
-    await page.emulateMedia({ reducedMotion: "reduce" })
-    await page.goto(path)
-    const problems: string[] = []
-    const stops = new Set<string>()
-    for (let step = 0; step < 1000; step++) {
-      await page.keyboard.press("Tab")
-      const stop = await tabStop(page)
-      if (!stop || stops.has(stop.id)) break
-      stops.add(stop.id)
-      if (stop.problem) problems.push(stop.problem)
-    }
-    expect(stops.size, "Tab stops").toBeGreaterThan(10)
-    expect(problems).toEqual([])
-  })
-}
+test.describe(() => {
+  test.use({ deviceScaleFactor: 1 })
+
+  for (const path of [
+    "/html/",
+    "/html/components/button/",
+    "/html/guide/getting-started/",
+  ]) {
+    test(`${path} shows focus on every Tab stop`, async ({ page }) => {
+      test.setTimeout(180_000)
+      await page.emulateMedia({ reducedMotion: "reduce" })
+      await page.goto(path)
+      const problems: string[] = []
+      const stops = new Set<string>()
+      for (let step = 0; step < 1000; step++) {
+        await page.keyboard.press("Tab")
+        const stop = await tabStop(page)
+        if (!stop || stops.has(stop.id)) break
+        stops.add(stop.id)
+        if (stop.problem) problems.push(stop.problem)
+      }
+      expect(stops.size, "Tab stops").toBeGreaterThan(10)
+      expect(problems).toEqual([])
+    })
+  }
+})

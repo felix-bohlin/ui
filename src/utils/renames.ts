@@ -1,4 +1,4 @@
-export const RENAME_KINDS = [
+const RENAME_KINDS = [
   "class",
   "custom property",
   "import",
@@ -7,9 +7,9 @@ export const RENAME_KINDS = [
   "token",
 ] as const
 
-export type RenameKind = (typeof RENAME_KINDS)[number]
+type RenameKind = (typeof RENAME_KINDS)[number]
 
-export type Rename = {
+type Rename = {
   from: string
   kind: RenameKind
   scope?: string
@@ -35,7 +35,7 @@ const NO_LONGER_TAKES = new RegExp(
   "g",
 )
 
-export const anchorOf = (heading: string) =>
+const anchorOf = (heading: string) =>
   heading
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")

@@ -392,7 +392,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
   html {
     --blueprint-ink: light-dark(var(--ui-color-11), var(--ui-color-5));
-    --blueprint-ink-strong: light-dark(var(--ui-color-13), var(--ui-color-2));
     --blueprint-line-major: light-dark(
       oklch(from var(--ui-color-9) l c h / 18%),
       oklch(from var(--ui-color-5) l c h / 16%)
@@ -552,10 +551,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     flex-wrap: wrap;
     gap: var(--size-2);
     margin-block-start: var(--size-5);
-
-    & :global(.astro-logo) {
-      color: currentColor;
-    }
   }
 
   /* Drawing, a button with dimension lines */

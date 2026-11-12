@@ -1,12 +1,3 @@
-export const resetValue = (input: HTMLInputElement) => {
-  const probe = document.createElement("input")
-  for (const name of ["type", "min", "max", "step", "value"]) {
-    const value = input.getAttribute(name)
-    if (value !== null) probe.setAttribute(name, value)
-  }
-  return probe.valueAsNumber
-}
-
 export const middleValue = ({
   max,
   min,

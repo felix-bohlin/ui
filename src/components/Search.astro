@@ -152,12 +152,30 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
     Component: 1.2,
   }
   const indexes = new Map<FrameworkId, Promise<MiniSearch<SearchItem>>>()
+  const pages = new Map<FrameworkId, SearchItem[]>()
   const frameworkCategories = new Set<string>()
   let selectedIndex = -1
   let activeFilter = "all"
   let statusTimer: ReturnType<typeof setTimeout> | undefined
   let renderRun = 0
   const optionItems = new WeakMap<Element, RecentItem>()
+
+  const categoryOrder = (category: string) =>
+    SEARCH_CATEGORIES.findIndex(({ id }) => id === category)
+
+  const platform = (
+    (navigator as Navigator & { userAgentData?: { platform: string } })
+      .userAgentData?.platform ||
+    navigator.platform ||
+    ""
+  ).toLowerCase()
+  const isMac = /mac|iphone|ipad|ipod|ios/.test(platform)
+
+  document
+    .querySelectorAll<HTMLElement>("[data-search-shortcut]")
+    .forEach((trigger) => {
+      trigger.title = `Search (${isMac ? "⌘K" : "Ctrl K"})`
+    })
 
   function getActiveFrameworkId(): FrameworkId {
     const framework = document.documentElement.dataset.framework
@@ -231,6 +249,16 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
             },
           })
           miniSearch.addAll(items)
+          pages.set(
+            framework,
+            items
+              .filter((item) => !item.page)
+              .toSorted(
+                (a, b) =>
+                  categoryOrder(a.category) - categoryOrder(b.category) ||
+                  a.title.localeCompare(b.title),
+              ),
+          )
           return miniSearch
         })
       index.catch((e) => {
@@ -303,6 +331,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
     item: RecentItem & Partial<Result>,
     id: string,
     isSelected: boolean,
+    inGroup = false,
   ) {
     const terms = item.terms ?? []
     const li = document.createElement("li")
@@ -312,7 +341,9 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
     const displayDesc = highlight(item.page ?? item.description ?? "", terms)
     const end = item.framework
       ? FRAMEWORKS.find(({ id }) => id === item.framework)?.label
-      : item.category
+      : inGroup
+        ? undefined
+        : item.category
 
     const link = document.createElement("a")
     link.id = id
@@ -384,7 +415,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
           : groupItems
       shown.forEach((item) => {
         ul.appendChild(
-          renderItem(item, `search-result-${globalIndex++}`, false),
+          renderItem(item, `search-result-${globalIndex++}`, false, !heading),
         )
       })
       if (shown.length < groupItems.length) {
@@ -435,7 +466,10 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
     resultsList!.innerHTML = ""
     selectedIndex = -1
     input.removeAttribute("aria-activedescendant")
-    input.setAttribute("aria-controls", query ? "results-list" : "recent-list")
+    input.setAttribute(
+      "aria-controls",
+      query ? "results-list" : "recent-list results-list",
+    )
     input.setAttribute("aria-expanded", "false")
 
     if (!query) {
@@ -443,6 +477,21 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       emptyState!.style.display = "none"
       announce("")
       renderRecent()
+      await loadIndex().catch(() => undefined)
+      const all = pages.get(getActiveFrameworkId())
+      if (!all || run !== renderRun) return
+      updateChipCounts(all.length, countByCategory(all))
+      const shown = all.filter(
+        (item) => activeFilter === "all" || item.category === activeFilter,
+      )
+      if (!recentList!.querySelector("[role=option]")) {
+        recentGroup!.style.display = "none"
+      }
+      renderGroups(shown as Result[], { limit: activeFilter === "all" })
+      if (selectedIndex === -1 && getActiveItems().length > 0) {
+        selectedIndex = 0
+        updateSelection()
+      }
       return
     }
 
@@ -587,7 +636,9 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
     if (input.value.trim()) {
       return resultsList!.querySelectorAll<HTMLElement>("[role=option]")
     } else {
-      return recentList!.querySelectorAll<HTMLElement>("[role=option]")
+      return document.querySelectorAll<HTMLElement>(
+        "#recent-list [role=option], #results-list [role=option]",
+      )
     }
   }
 
@@ -652,13 +703,6 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
 
   // Global shortcuts
   window.addEventListener("keydown", (e) => {
-    const platform = (
-      (navigator as Navigator & { userAgentData?: { platform: string } })
-        .userAgentData?.platform ||
-      navigator.platform ||
-      ""
-    ).toLowerCase()
-    const isMac = /mac|iphone|ipad|ipod|ios/.test(platform)
     const modifier = isMac ? e.metaKey : e.ctrlKey
 
     if (modifier && e.key === "k") {

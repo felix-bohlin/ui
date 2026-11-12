@@ -1891,7 +1891,8 @@ interaction(
   "callout",
   "Dismissible",
   "dismissible callout hides itself and moves focus to the next focusable element, or else the one before",
-  async ({ root }) => {
+  async ({ page, root }) => {
+    page.on("dialog", (dialog) => dialog.accept())
     const callout = root.locator(".ui-callout")
     const close = callout.getByRole("button", { name: "Dismiss" })
     const before = root.getByRole("button", { name: "Before the callout" })
@@ -1928,6 +1929,7 @@ interaction(
   "Dismissible",
   "dismissible callout stays when a dismiss listener calls preventDefault()",
   async ({ page, root }) => {
+    page.on("dialog", (dialog) => dialog.accept())
     const callout = root.locator(".ui-callout")
     const close = callout.getByRole("button", { name: "Dismiss" })
 
@@ -1953,6 +1955,34 @@ interaction(
       .toEqual(["opui-callout true"])
     await expect(callout).toBeVisible()
     await expect(callout).not.toHaveAttribute("hidden")
+  },
+)
+
+interaction(
+  "callout",
+  "Dismissible",
+  "dismissible callout runs the example's dismiss handler, whose preventDefault() keeps it",
+  async ({ page, root }) => {
+    const callout = root.locator(".ui-callout")
+    const close = callout.getByRole("button", { name: "Dismiss" })
+    const asked: string[] = []
+    let confirmed = false
+    page.on("dialog", async (dialog) => {
+      asked.push(`${dialog.type()}: ${dialog.message()}`)
+      await (confirmed ? dialog.accept() : dialog.dismiss())
+    })
+
+    await expect(close).toBeVisible()
+    await close.click()
+    await expect.poll(() => asked).toEqual(["confirm: Hide this message?"])
+    await expect(callout).toBeVisible()
+    await expect(callout).not.toHaveAttribute("hidden")
+
+    confirmed = true
+    await close.click()
+    await expect.poll(() => asked).toHaveLength(2)
+    await expect(callout).toBeHidden()
+    await expect(callout).toHaveAttribute("hidden", "")
   },
 )
 

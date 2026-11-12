@@ -44,3 +44,11 @@
 <script type="module">
   import "opui-css/elements/callout.js"
 </script>
+
+<script type="module">
+  document
+    .querySelector("#callout-dismissible-1")
+    ?.addEventListener("dismiss", (event) => {
+      if (!confirm("Hide this message?")) event.preventDefault()
+    })
+</script>

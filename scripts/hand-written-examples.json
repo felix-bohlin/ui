@@ -1,4 +1,7 @@
 {
+  "callout/Dismissible.react.tsx": "Its script listens for the dismiss event, which the Astro component has no prop for, so each framework passes its own onDismiss, ondismiss or @dismiss to the Callout",
+  "callout/Dismissible.svelte": "Its script listens for the dismiss event, which the Astro component has no prop for, so each framework passes its own onDismiss, ondismiss or @dismiss to the Callout",
+  "callout/Dismissible.vue": "Its script listens for the dismiss event, which the Astro component has no prop for, so each framework passes its own onDismiss, ondismiss or @dismiss to the Callout",
   "checkbox/FieldGroupBinding.react.tsx": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "checkbox/FieldGroupBinding.svelte": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "checkbox/FieldGroupBinding.vue": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",

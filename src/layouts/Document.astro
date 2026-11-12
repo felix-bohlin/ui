@@ -116,6 +116,24 @@ const { headings, html: content } = addHeadingAnchors(
   </div>
 </Default>
 
+<script>
+  const sidebar = document.querySelector<HTMLElement>("aside.sidebar")
+  const current = sidebar?.querySelector<HTMLElement>('[aria-current="page"]')
+  if (sidebar && current) {
+    const sidebarRect = sidebar.getBoundingClientRect()
+    const currentRect = current.getBoundingClientRect()
+    if (
+      currentRect.top < sidebarRect.top ||
+      currentRect.bottom > sidebarRect.bottom
+    ) {
+      sidebar.scrollTop +=
+        currentRect.top -
+        sidebarRect.top -
+        (sidebar.clientHeight - currentRect.height) / 2
+    }
+  }
+</script>
+
 <style is:global>
   @property --content-inline-size {
     inherits: true;

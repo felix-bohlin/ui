@@ -61,17 +61,32 @@ import {
 } from "opui-css/astro"
 import ShowcaseCards from "./ShowcaseCards.astro"
 import FrameworkPicker from "../FrameworkPicker.astro"
+
+type Props = {
+  label?: string
+  slugs?: string[]
+  wrap?: boolean
+}
+
+const { label = "Components", slugs, wrap } = Astro.props
+const Wrapper = wrap ? "ul" : Carousel
 ---
 
-<Carousel
-  aria-label="Components"
-  class="component-showcase component-showcase--hero showcase-grid"
+<Wrapper
+  aria-label={label}
+  class:list={[
+    "component-showcase",
+    wrap
+      ? "showcase-list ui-not-rich-text"
+      : "component-showcase--hero showcase-grid",
+  ]}
 >
   {Astro.slots.has("default") && <li class="component-showcase__intro">
     <slot />
   </li>}
 
   <ShowcaseCards
+    slugs={slugs}
     sizes={{
       accordion: "wide",
       callout: "wide",
@@ -542,6 +557,48 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       margin-block: 0 var(--size-8);
     }
 
+    .showcase-list {
+      display: grid;
+      grid-auto-flow: row dense;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      list-style: none;
+      margin-block: var(--size-4) 0;
+      padding: 0;
+
+      .showcase-card,
+      .showcase-preview {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .showcase-preview {
+        & > * {
+          max-inline-size: 100%;
+        }
+
+        & select {
+          min-inline-size: 0;
+        }
+      }
+
+      @media (width < 600px) {
+        .showcase-card {
+          padding: var(--size-3);
+        }
+
+        .showcase-item:is(.ui-wide, .ui-xl) {
+          grid-column: span 2;
+        }
+
+        .showcase-preview {
+          zoom: 0.75;
+        }
+      }
+
+      @media (width >= 600px) {
+        grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
+      }
+    }
+
     .component-showcase__intro {
       align-self: start;
       grid-column: 1 / -1;
@@ -713,13 +770,14 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       margin: 0;
     }
   </style>
-</Carousel>
+</Wrapper>
 
 <script is:inline>
   ;(function () {
     const themeSwitcher = document.getElementById("showcase-theme-switcher")
 
-    if (themeSwitcher) {
+    if (themeSwitcher && !themeSwitcher.dataset.bound) {
+      themeSwitcher.dataset.bound = "true"
       const syncTheme = () => {
         themeSwitcher.checked =
           document.documentElement.classList.contains("ui-dark")

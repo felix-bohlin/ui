@@ -61,6 +61,7 @@ type Props = {
   installationTabs?: Tab[]
   seeAlsoLinks?: { name: string; href: string }[]
   showToc?: boolean
+  wide?: boolean
 }
 
 const {
@@ -76,6 +77,7 @@ const {
   title,
   description,
   image,
+  wide,
 } = Astro.props
 
 const currentFramework = Astro.locals.framework
@@ -208,6 +210,7 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
 <Document
   overline={overline}
   showToc={showToc}
+  wide={wide}
   sidebarGroups={componentGroups.map((group) => ({
     label: group.label,
     links: group.components.map((component) => ({

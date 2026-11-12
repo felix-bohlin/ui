@@ -4,19 +4,22 @@ import ComponentCard from "./ComponentCard.astro"
 
 type Props = {
   sizes: Record<string, "wide" | "xl">
+  slugs?: string[]
 }
 
-const { sizes } = Astro.props
+const { sizes, slugs } = Astro.props
 
 const cards = await Promise.all(
-  components.map(async ({ name, slug }) => {
-    if (!Astro.slots.has(slug)) {
-      throw new Error(
-        `Add a <Fragment slot="${slug}"> preview for src/docs/components/${slug}.astro to src/components/ComponentShowcase/ComponentShowcase.astro`,
-      )
-    }
-    return { html: await Astro.slots.render(slug), name, slug }
-  }),
+  components
+    .filter(({ slug }) => !slugs || slugs.includes(slug))
+    .map(async ({ name, slug }) => {
+      if (!Astro.slots.has(slug)) {
+        throw new Error(
+          `Add a <Fragment slot="${slug}"> preview for src/docs/components/${slug}.astro to src/components/ComponentShowcase/ComponentShowcase.astro`,
+        )
+      }
+      return { html: await Astro.slots.render(slug), name, slug }
+    }),
 )
 ---
 

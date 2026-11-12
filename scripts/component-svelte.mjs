@@ -4,6 +4,7 @@ import {
   componentImport,
   contextImports,
   edgeTrimmed,
+  eventRoots,
   groupWarning,
   importedNames,
   propsImport,
@@ -15,6 +16,7 @@ import {
   withImport,
 } from "./component-emit.mjs"
 import { MODEL_KINDS } from "./component-models.mjs"
+import { eventProp } from "./component-types.mjs"
 import {
   byName,
   chosenSpreadCode,
@@ -65,9 +67,14 @@ export const toSvelte = (component) => {
     )
   }
   const bindableProps = kind ? kind.bindables(model) : []
+  const listened = eventRoots(component)
+  const handlers = (component.events ?? []).map((event) =>
+    eventProp("svelte", event),
+  )
   const plainProps = [
     ...(kind?.plainProps?.(model) ?? []),
     ...(component.item ? ["defaultChecked", "onchange"] : []),
+    ...handlers,
   ]
   const added = [...bindableProps, ...plainProps]
     .filter((prop) => !props.some((entry) => entry.prop === prop))
@@ -218,10 +225,22 @@ export const toSvelte = (component) => {
           node.groupRadio !== undefined && kind?.modelsGroupRadio
             ? node.attributes.find((item) => item.name === "checked")
             : undefined
+        const restAt = listened.includes(node)
+          ? node.attributes.findIndex(
+              (item) => item.kind === "spread" && item.code === rest,
+            )
+          : -1
+        const listeners = listened.includes(node)
+          ? handlers.map((handler) => `{${handler}}`)
+          : []
         const attributes = [
           ...node.attributes
             .filter((item) => item !== groupChecked)
-            .map((item) => attribute(node, item)),
+            .flatMap((item) => [
+              ...(item === node.attributes[restAt] ? listeners : []),
+              attribute(node, item),
+            ]),
+          ...(restAt === -1 ? listeners : []),
           ...(node.model ? modelAttributes : []),
           ...(node.groupRadio !== undefined
             ? kind.radioAttributes(

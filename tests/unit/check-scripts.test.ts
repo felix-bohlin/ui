@@ -863,6 +863,11 @@ describe("check-components", () => {
     expect(checkClient(`"use client"\n\n${plain}`)).toEqual([
       expect.stringContaining("uses no context, state"),
     ])
+    const listening =
+      'export default function A({ onDismiss, ref }) {\n  const rootRef = useListener(ref, "dismiss", onDismiss)\n  return <div ref={rootRef} />\n}\n'
+    expect(checkClient(listening)).toEqual([
+      expect.stringContaining('start it with "use client"'),
+    ])
   })
 
   test("props are declared, not taken from an index signature", () => {

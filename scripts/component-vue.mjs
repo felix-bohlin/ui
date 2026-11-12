@@ -8,6 +8,7 @@ import {
   componentImport,
   contextImports,
   edgeTrimmed,
+  eventRoots,
   groupWarning,
   indent,
   isLoose,
@@ -20,6 +21,7 @@ import {
   withImport,
 } from "./component-emit.mjs"
 import { MODEL_KINDS } from "./component-models.mjs"
+import { emitsTypeOf } from "./component-types.mjs"
 import {
   allCodes,
   byName,
@@ -244,6 +246,15 @@ export const toVue = (component) => {
   if (component.model?.refusal) throw component.model.refusal
   const { model } = component
   const kind = MODEL_KINDS[model?.kind]?.vue
+  const events = component.events ?? []
+  const listened = eventRoots(component)
+  if (events.length > 0 && used.has("emit")) {
+    throw unsupported(
+      component.file,
+      "the name `emit`, which the Vue port also declares for its events",
+      "rename the prop or const in the Astro file",
+    )
+  }
   const explicitAttrs = kind?.explicitAttrs === true
   const filteredAttrs =
     restOnRoot && attributeProps.length > 0 && !explicitAttrs
@@ -522,6 +533,9 @@ export const toVue = (component) => {
       ...(node.groupRadio !== undefined
         ? kind.radioAttributes(model, rewriteExpression(node.groupRadio, scope))
         : []),
+      ...(listened.includes(node)
+        ? events.map((event) => `@${event}="emit('${event}', $event)"`)
+        : []),
       ...((rootElements.includes(node) ||
         (multiRoot &&
           node.attributes.some(
@@ -579,6 +593,7 @@ export const toVue = (component) => {
     (component.folderSlots || slots.some((slot) => slot !== "default"))
       ? `${component.name}Slots`
       : "Slots"
+  const emitsType = emitsTypeOf(propsType)
   const provided = provide
     ? [
         ...(kind?.providedFirst?.() ?? []),
@@ -646,7 +661,10 @@ export const toVue = (component) => {
       (lines, [module, name]) => withImport(lines, module, name),
       imports,
     ),
-    propsImport(propsType, "types.vue-props", slots.length ? [slotsType] : []),
+    propsImport(propsType, "types.vue-props", [
+      ...(events.length ? [emitsType] : []),
+      ...(slots.length ? [slotsType] : []),
+    ]),
   ]
   const vueProps = generic ? "Props & { multiple?: Multiple }" : "Props"
   const modelType = generic
@@ -674,7 +692,11 @@ export const toVue = (component) => {
   }))
   const setup = [
     importLines.join("\n"),
-    slots.length ? `${propsLine}\n${slotsLine}` : propsLine,
+    [
+      propsLine,
+      ...(slots.length ? [slotsLine] : []),
+      ...(events.length ? [`const emit = defineEmits<${emitsType}>()`] : []),
+    ].join("\n"),
     ...(inheritsAttrs ? [] : ["defineOptions({\n  inheritAttrs: false,\n})"]),
     ...(computedAttrs
       ? ["const attrs = useInputAttrs()"]

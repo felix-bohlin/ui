@@ -389,6 +389,49 @@ describe("the three ports of a sample", () => {
     expect(ports["react.tsx"].match(/useEffect\(/g)).toHaveLength(1)
   })
 
+  test("an event in types.ts listens on the root: a ref callback in React, a handler prop in Svelte and an emit in Vue", async () => {
+    const { outputs } = await compileComponent(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<opui-sample class:list={["ui-sample", className]} {...rest}>\n  <slot />\n</opui-sample>\n\n<script>\n  import "../../elements/sample.js"\n</script>\n',
+      sampleFile(),
+      {
+        base: "export type Props = {}\n\nexport type Events = {\n  close: Event\n}\n",
+      },
+    )
+    const port = (extension: string) =>
+      outputs.get(sampleFile().replace(".astro", extension)) ?? ""
+    expect(port(".react.tsx")).toBe(
+      '"use client"\n\nimport { useEffect } from "react"\nimport { cx } from "../cx"\nimport { useListener } from "../react"\nimport type { Props } from "./types.react"\n\nexport default function Sample({\n  className,\n  onClose,\n  ref,\n  children,\n  ...rest\n}: Props) {\n  const rootRef = useListener(ref, "close", onClose)\n  useEffect(() => {\n    void import("../../elements/sample.js")\n  }, [])\n\n  return (\n    <opui-sample\n      className={cx(["ui-sample", className])}\n      ref={rootRef}\n      {...rest}\n    >\n      {children}\n    </opui-sample>\n  )\n}\n',
+    )
+    expect(port(".svelte")).toContain(
+      "  let {\n    class: className,\n    onclose,\n\n    // Snippets\n    children,\n    ...rest\n  }: Props = $props()\n",
+    )
+    expect(port(".svelte")).toContain(
+      '<opui-sample class={["ui-sample", className]} {onclose} {...rest}>',
+    )
+    expect(port(".vue")).toContain(
+      'import type { Props, Emits, Slots } from "./types.vue-props"\n\ndefineProps<Props>()\ndefineSlots<Slots>()\nconst emit = defineEmits<Emits>()\n',
+    )
+    expect(port(".vue")).toContain(
+      "    :class=\"['ui-sample', $props.class]\"\n    @close=\"emit('close', $event)\"\n  >",
+    )
+  })
+
+  test("an event on a component with more than one root element is refused", async () => {
+    await expect(
+      compileComponent(
+        astro(
+          '<div class:list={["ui-sample", className]} {...rest}>\n  <slot />\n</div>\n<p>After</p>',
+        ),
+        sampleFile(),
+        {
+          base: "export type Props = {}\n\nexport type Events = {\n  close: Event\n}\n",
+        },
+      ),
+    ).rejects.toThrow(
+      "the event close on a component whose root isn't one element",
+    )
+  })
+
   test("a native prop destructured under its HTML name takes its React name in React", async () => {
     const { outputs } = await compileComponent(
       '---\nimport type { Props } from "./types.astro"\n\nconst { "aria-describedby": ariaDescribedBy, class: className, inputmode, readonly, ...rest } = Astro.props\n---\n\n<input aria-describedby={ariaDescribedBy} class:list={["ui-sample", className]} inputmode={inputmode ?? "text"} readonly={readonly} {...rest} />\n',
@@ -1706,11 +1749,75 @@ describe("toTypes", () => {
     )
   })
 
+  test("an Events type adds on<Event> in React, on<event> in Svelte and an Emits type in Vue", () => {
+    const types = toTypes(
+      "Sample",
+      {
+        astro: simple,
+        base: `${base}\nexport type Events = {\n  close: CustomEvent<number>\n}\n`,
+      },
+      { Sample: ["default"] },
+    )
+    expect(types.react).toContain(
+      'export type Props = Base.Props & { onClose?: (event: Base.Events["close"]) => void } & ComponentProps<"div">',
+    )
+    expect(types.svelte).toContain(
+      'export type Props = Base.Props & { onclose?: (event: Base.Events["close"]) => void } & SvelteHTMLElements["div"]',
+    )
+    expect(types.vue).toContain(
+      'import type {\n  Events as BaseEvents,\n  Props as BaseProps,\n} from "./types"',
+    )
+    expect(types.vue).toContain(
+      'export type Props = BaseProps & Class\n\nexport type Emits = { close: [event: BaseEvents["close"]] }\n\nexport type Slots = DefaultSlots\n',
+    )
+  })
+
+  test("a custom element root leaves out its own typing of a component event", () => {
+    const { svelte } = toTypes(
+      "Sample",
+      {
+        astro: simple,
+        base: `${base}\nexport type Events = {\n  close: Event\n}\n`,
+      },
+      { Sample: ["default"] },
+      {},
+      { Sample: ["opui-sample"] },
+    )
+    expect(svelte).toContain(
+      'export type Props = Base.Props & { onclose?: (event: Base.Events["close"]) => void } & Omit<SvelteHTMLElements["opui-sample"], "onclose">',
+    )
+  })
+
   test.each([
     [
       { astro: simple, base },
       { Sample: ["default", "end-text"] },
       "the slot end-text of Sample, which types.ts has no Slots type for",
+    ],
+    [
+      {
+        astro: simple,
+        base: `${base}\nexport type Events = {\n  valueChange: Event\n}\n`,
+      },
+      { Sample: ["default"] },
+      "the event valueChange in Events",
+    ],
+    [
+      {
+        astro: simple,
+        base: `${base}\nexport type OtherEvents = {\n  close: Event\n}\n`,
+      },
+      { Sample: ["default"] },
+      "the type OtherEvents, which names no props type in types.astro.ts",
+    ],
+    [
+      {
+        astro:
+          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = HTMLAttributes<"div">\n',
+        base: `${base}\nexport type Events = {\n  close: Event\n}\n`,
+      },
+      { Sample: ["default"] },
+      "the type Props, which has Events but no Base.Props to join them to",
     ],
     [
       {

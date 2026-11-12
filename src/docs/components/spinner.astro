@@ -17,6 +17,9 @@ export const description =
   description={description}
   slug="spinner"
   browserSupport={["if"]}
+  fallbacks={{
+    if: "Without `if()`, the compat layer still draws the spinner at full strength with more contrast.",
+  }}
   apis={[{ title: "Spinner API", api: spinnerApi }]}
   changelogPaths={[
     { path: "src/docs/components/spinner.astro", type: "docs" },

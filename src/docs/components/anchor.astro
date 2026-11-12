@@ -42,6 +42,12 @@ export const keywords = [
     "popover",
     "popover-hint",
   ]}
+  fallbacks={{
+    "interest-invokers":
+      "Without interest invokers, the compat layer shows the card while its anchor is hovered or has keyboard focus, and Esc doesn't hide it.",
+    "popover-hint":
+      'Without `popover="hint"`, the card is a manual popover, which the compat layer still shows on hover and focus.',
+  }}
   changelogPaths={[
     {
       path: "packages/opui/components/Anchor/Anchor.astro",

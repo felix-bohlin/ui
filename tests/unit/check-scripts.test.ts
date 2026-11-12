@@ -6,7 +6,10 @@ import stylelint from "stylelint"
 import { describe, expect, test } from "vitest"
 import { featureIds, patterns } from "../../packages/opui/scripts/features.mjs"
 import {
+  fallbackProblems,
+  fallbacksOf,
   htmlFeatureIds,
+  lackingIds,
   pageProblems,
   unusedSharedFeatures,
   usedFeatureIds,
@@ -260,6 +263,48 @@ describe("check-browser-support", () => {
         used: new Set(["has", "popover", "starting-style"]),
       }),
     ).toEqual({ missing: ["has"], undetected: [], unused: [] })
+  })
+
+  test("reads a page's fallbacks, with quoted and bare ids", async () => {
+    expect(
+      await fallbacksOf(`---
+import Component from "../../layouts/Component.astro"
+---
+
+<Component
+  slug="a"
+  browserSupport={["overlay", "popover-hint"]}
+  fallbacks={{
+    overlay: "Without \`overlay\`, the page can cover it {at once}.",
+    "popover-hint": 'Without \`popover="hint"\`, it stays open.',
+  }}
+>
+  <p>Text</p>
+</Component>
+`),
+    ).toEqual({
+      overlay: "Without `overlay`, the page can cover it {at once}.",
+      "popover-hint": 'Without `popover="hint"`, it stays open.',
+    })
+    expect(
+      await fallbacksOf('<Component slug="a" browserSupport={["has"]} />'),
+    ).toEqual({})
+  })
+
+  test("asks for a fallback sentence for each id some browser lacks, and for no other", () => {
+    expect(lackingIds(["has", "nesting"])).toEqual([])
+    expect(
+      fallbackProblems({
+        fallbacks: { has: "Without :has()", overlay: "Without overlay" },
+        lacking: ["corner-shape", "overlay"],
+      }),
+    ).toEqual({ missing: ["corner-shape"], unneeded: ["has"] })
+    expect(
+      fallbackProblems({
+        fallbacks: { overlay: "Without overlay" },
+        lacking: ["overlay"],
+      }),
+    ).toEqual({ missing: [], unneeded: [] })
   })
 
   test("--write replaces a page's list, or adds one after its slug", () => {

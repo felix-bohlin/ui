@@ -12,6 +12,10 @@ export const keywords = ["columns", "container", "grid", "stack"]
 <Component
   slug="layout"
   browserSupport={["container-queries", "gap-decorations"]}
+  fallbacks={{
+    "gap-decorations":
+      "Without gap decorations, a divided layout keeps its gaps but draws no lines in them.",
+  }}
   changelogPaths={[
     { path: "src/docs/components/layout.astro", type: "docs" },
     { path: "src/component-examples/layout", type: "docs" },

@@ -57,6 +57,7 @@ type Props = {
   slug?: string
   apis?: Apis
   changelogPaths?: ChangelogPathEntry[]
+  fallbacks?: Record<string, string>
   heroAnatomy?: boolean
   installationTabs?: Tab[]
   seeAlsoLinks?: { name: string; href: string }[]
@@ -68,6 +69,7 @@ const {
   apis: apisProp,
   browserSupport,
   changelogPaths,
+  fallbacks,
   heroAnatomy,
   installationTabs,
   seeAlsoLinks,
@@ -292,7 +294,9 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
     <slot name="under-the-hood" />
   </section>}
 
-  {browserSupport && <BrowserSupport ids={browserSupport} />}
+  {browserSupport && (
+    <BrowserSupport fallbacks={fallbacks} ids={browserSupport} />
+  )}
 
   {!imports &&
     (installationTabs ? (

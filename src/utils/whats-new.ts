@@ -1126,7 +1126,7 @@ export const whatsNew = {
       svelte: `<a href="#preselected"><code>items</code></a> is typed as <code>SelectItem[]</code>, exported from every framework.`,
     },
     slots(
-      `Breaking: <code>ClassicSelect</code> is gone. Use <code>Select</code>, which falls back to the browser's own picker (<a href="#fallback">Fallback</a>).`,
+      `Breaking: <code>ClassicSelect</code> is gone. Use <code>Select</code>, which falls back to the browser's own picker (<a href="#browser-support">Browser support</a>).`,
     ),
     slots(
       `Breaking: <code>startText</code> replaces <code>description</code>, matching <code>endText</code> (<a href="#spread">Spread</a>).`,

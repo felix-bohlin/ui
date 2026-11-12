@@ -19,6 +19,10 @@ export const description =
   description={description}
   slug="divider"
   browserSupport={["container-style-queries", "text-box"]}
+  fallbacks={{
+    "text-box":
+      "Without `text-box`, a divider with a label keeps the label's full line height, so it takes a little more room.",
+  }}
   apis={[{ title: "Divider API", api: dividerApi }]}
   changelogPaths={[
     {

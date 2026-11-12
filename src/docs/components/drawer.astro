@@ -51,6 +51,16 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
     "starting-style",
     "transition-behavior",
   ]}
+  fallbacks={{
+    "container-scroll-state-queries":
+      "Without scroll-state queries, long content scrolls without the shadows that mark more content above or below.",
+    "dialog-closedby":
+      "Without `closedby`, a modal drawer closes with Esc whatever the value, and a click outside doesn't close it. The [polyfill](/guide/browser-support#polyfills) adds it.",
+    "display-animation":
+      "Without display animation, the drawer disappears at once instead of sliding out.",
+    overlay:
+      "Without `overlay`, the backdrop disappears as soon as the drawer starts to close, and the page can cover the drawer while it slides out.",
+  }}
   apis={[
     { title: "Drawer API", api: drawerApi },
     { title: "Drawer header API", api: drawerHeaderApi },

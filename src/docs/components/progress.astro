@@ -23,6 +23,9 @@ export const description =
   slug="progress"
   heroAnatomy
   browserSupport={["attr", "container-style-queries", "has"]}
+  fallbacks={{
+    attr: "Without typed `attr()`, a round progress shows as a bar.",
+  }}
   apis={[{ title: "Progress API", api: progressApi }]}
   changelogPaths={[
     {

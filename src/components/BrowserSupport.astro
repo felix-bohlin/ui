@@ -6,12 +6,16 @@ import { pageSources } from "../component-api/custom-properties"
 import { withSharedFeatures } from "../utils/browser-support"
 import { compatCss } from "../utils/compat"
 import { components } from "../utils/components"
+import { formatInline } from "../utils/format-inline"
 
 type Props = {
+  fallbacks?: Record<string, string>
   ids: string[]
 }
 
-const { ids } = Astro.props
+const { fallbacks = {}, ids } = Astro.props
+const { link } = Astro.locals
+const fallbackIds = Object.keys(fallbacks).toSorted()
 const sortedIds = [...ids].sort()
 const name = components.find(
   (component) => component.slug === Astro.locals.componentSlug,
@@ -30,6 +34,11 @@ const sharedHref = "/guide/browser-support#shared-features"
 <section id="browser-support">
   <h2>Browser support</h2>
   <BrowserSupportChips ids={withSharedFeatures(sortedIds)} />
+  {fallbackIds.length > 0 && <ul>
+    {fallbackIds.map((id) => (
+      <li set:html={formatInline(fallbacks[id], link)} />
+    ))}
+  </ul>}
   {sortedIds.length > 0 ? (
     <>
       <Baseline ids={sortedIds} />

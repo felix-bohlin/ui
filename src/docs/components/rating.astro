@@ -31,6 +31,9 @@ export const keywords = ["review", "score", "stars"]
     "relative-color",
     "user-pseudos",
   ]}
+  fallbacks={{
+    attr: "Without typed `attr()`, a read-only rating is as many stars wide as `--_max`, which the components set from `max`.",
+  }}
   changelogPaths={[
     { path: "packages/opui/components/Rating", type: "component" },
     { path: "src/docs/components/rating.astro", type: "docs" },

@@ -42,6 +42,14 @@ export const keywords = ["font", "heading", "prose", "text"]
     "scope",
     "text-wrap-pretty",
   ]}
+  fallbacks={{
+    attr: "Without typed `attr()`, an ordered list in rich text with a `start` indents for four-digit numbers.",
+    "box-decoration-break":
+      "Without `box-decoration-break`, a highlight that wraps keeps its padding and rounded corners only at its start and end.",
+    if: "Without `if()`, the compat layer still dims the subtitle of a heading group, and keeps it at full strength with more contrast.",
+    "text-wrap-pretty":
+      "Without `text-wrap: pretty`, the last line of a paragraph, heading or caption can hold a single word.",
+  }}
   apis={[{ title: "Typography API", api: typographyApi }]}
   changelogPaths={[
     { path: "src/docs/components/typography.astro", type: "docs" },

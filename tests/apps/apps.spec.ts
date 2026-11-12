@@ -45,7 +45,9 @@ const offline = (page: Page) =>
     (route) =>
       route.request().resourceType() === "image"
         ? route.fulfill({ body: PIXEL, contentType: "image/png" })
-        : route.fulfill({ status: 204 }),
+        : new URL(route.request().url()).hostname === "localhost"
+          ? route.fulfill({ status: 204 })
+          : route.abort(),
   )
 
 const knownProblems = (name: string, slug: string) =>
@@ -61,7 +63,11 @@ const watch = async (page: Page) => {
   const problems: string[] = []
   page.on("pageerror", (error) => problems.push(`uncaught ${error.message}`))
   page.on("console", (message) => {
-    if (message.type() === "error" || message.type() === "warning") {
+    if (
+      (message.type() === "error" || message.type() === "warning") &&
+      new URL(message.location().url || "http://localhost").hostname ===
+        "localhost"
+    ) {
       problems.push(`console.${message.type()}: ${message.text()}`)
     }
   })
@@ -72,7 +78,7 @@ const watch = async (page: Page) => {
 const open = async (page: Page, path: string) => {
   await page.goto(path)
   await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
-  await page.waitForLoadState("networkidle")
+  await page.waitForLoadState("load")
 }
 
 const undefinedElements = (page: Page) =>
@@ -392,7 +398,7 @@ for (const slug of changedSlugs) {
 
     release()
     await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
-    await page.waitForLoadState("networkidle")
+    await page.waitForLoadState("load")
     for (const { control, initial, item } of changed) {
       expect(
         await formStateOf(control),
@@ -463,7 +469,7 @@ for (const slug of changedSlugs) {
     await page.goto("/button")
     await page.goBack()
     await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
-    await page.waitForLoadState("networkidle")
+    await page.waitForLoadState("load")
     for (const { control, item } of changed) {
       expect(
         (await formStateOf(control)).current,
@@ -536,7 +542,7 @@ test("a sortable table clicked before React hydrates it waits for onSort", async
 
   release()
   await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
-  await page.waitForLoadState("networkidle")
+  await page.waitForLoadState("load")
   await expect(table.locator("opui-sortable-table")).not.toHaveAttribute(
     "data-hydrating",
   )

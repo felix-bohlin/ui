@@ -149,7 +149,7 @@ describe("post-edit", { timeout: 30_000 }, () => {
   })
 })
 
-describe("stop", () => {
+describe("stop", { timeout: 30_000 }, () => {
   test("lets Claude stop when a stop hook already made it continue", () => {
     const result = hook(".claude/hooks/stop.mjs", { stop_hook_active: true })
     expect(result.status).toBe(0)

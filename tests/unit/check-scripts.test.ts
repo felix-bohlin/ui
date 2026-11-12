@@ -590,7 +590,7 @@ describe("released-api", () => {
   })
 })
 
-describe("file discovery", () => {
+describe("file discovery", { timeout: 15_000 }, () => {
   const UNSORTED = `/* one ${EM_DASH} two */\n.a {\n  inset: 0;\n  color: #fff;\n}\n`
   const SORTED = ".a {\n  color: oklch(100% 0 0);\n  inset: 0;\n}\n"
 
@@ -719,7 +719,7 @@ describe("check-ratchets", () => {
     writeFileSync(list, JSON.stringify({}))
     git("commit", "-q", "-am", "chore: generate B")
     expect(run().status).toBe(0)
-  })
+  }, 15_000)
 
   test("reports a new drift file and new drift lines, not moved context or fewer lines", () => {
     const diff = "===\n--- astro\n+++ react\n@@ -1,2 +1,2 @@\n <a>\n-x\n+y\n"

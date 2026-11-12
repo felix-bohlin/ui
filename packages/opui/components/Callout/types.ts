@@ -12,3 +12,11 @@ export type CalloutContentProps = {}
 export type CalloutIconProps = {}
 
 export type Context = Pick<Props, "severity">
+
+export type Events = {
+  dismiss: Event
+}
+
+export type Slots<S> = {
+  closeIcon?: S
+}

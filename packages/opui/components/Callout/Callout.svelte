@@ -11,11 +11,13 @@
     closeLabel = "Close",
     dismissible,
     id,
+    ondismiss,
     severity,
     variant,
 
     // Snippets
     children,
+    closeIcon,
     ...rest
   }: Props = $props()
 
@@ -40,6 +42,7 @@
   ]}
   id={rootId}
   role={dismissible ? "article" : undefined}
+  {ondismiss}
   {...defined(rest)}
 >
   {@render children?.()}{#if dismissible}
@@ -50,15 +53,19 @@
       round
       size="small"
     >
-      <svg
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-      >
-        <path fill="currentColor" d={closePath} />
-      </svg>
+      {#if closeIcon}
+        {@render closeIcon()}
+      {:else}
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path fill="currentColor" d={closePath} />
+        </svg>
+      {/if}
     </Button>
   {/if}
 </svelte:element>

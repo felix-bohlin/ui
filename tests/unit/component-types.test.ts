@@ -7,11 +7,16 @@ import type * as AvatarVue from "../../packages/opui/components/Avatar/types.vue
 import type * as BadgeReact from "../../packages/opui/components/Badge/types.react"
 import type * as BadgeSvelte from "../../packages/opui/components/Badge/types.svelte"
 import type * as BadgeVue from "../../packages/opui/components/Badge/types.vue-props"
+import type * as CalloutReact from "../../packages/opui/components/Callout/types.react"
+import type * as CalloutSvelte from "../../packages/opui/components/Callout/types.svelte"
+import type * as CalloutVue from "../../packages/opui/components/Callout/types.vue-props"
 import type * as FieldLegendVue from "../../packages/opui/components/FieldLegend/types.vue-props"
 import type * as NumberFieldReact from "../../packages/opui/components/NumberField/types.react"
 import type * as NumberFieldVue from "../../packages/opui/components/NumberField/types.vue-props"
 import type * as RangeReact from "../../packages/opui/components/Range/types.react"
 import type * as RangeSvelte from "../../packages/opui/components/Range/types.svelte"
+import type { SortDetail } from "../../packages/opui/components/SortableTable/types"
+import type * as SortableTableSvelte from "../../packages/opui/components/SortableTable/types.svelte"
 import type * as SwitchReact from "../../packages/opui/components/Switch/types.react"
 import type * as SwitchSvelte from "../../packages/opui/components/Switch/types.svelte"
 import type * as SwitchVue from "../../packages/opui/components/Switch/types.vue-props"
@@ -176,5 +181,19 @@ test("an attribute a component with several elements reads takes each element's 
   expectTypeOf<FieldLegendVue.Props["id"]>().toEqualTypeOf<
     | IntrinsicElementAttributes["legend"]["id"]
     | IntrinsicElementAttributes["p"]["id"]
+  >()
+})
+
+test("an event is on<Event> in React, on<event> in Svelte and an emit in Vue, with the element's event object", () => {
+  expectTypeOf<CalloutReact.Props["onDismiss"]>().toEqualTypeOf<
+    ((event: Event) => void) | undefined
+  >()
+  expectTypeOf<CalloutSvelte.Props["ondismiss"]>().toEqualTypeOf<
+    ((event: Event) => void) | undefined
+  >()
+  expectTypeOf<CalloutVue.Props>().not.toHaveProperty("onDismiss")
+  expectTypeOf<CalloutVue.Emits["dismiss"]>().toEqualTypeOf<[event: Event]>()
+  expectTypeOf<SortableTableSvelte.Props["onsort"]>().toEqualTypeOf<
+    ((event: CustomEvent<SortDetail>) => void) | undefined
   >()
 })

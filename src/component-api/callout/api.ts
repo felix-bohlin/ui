@@ -4,6 +4,9 @@ import type { ComponentApi } from "../types"
 const icon =
   'For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`.'
 
+const dismissEvent =
+  "Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first."
+
 const dismissible = elementNotes(
   "callout.js",
   "With `dismissible`, the root is `<opui-callout>`, and the close button shows and works once the element runs.",
@@ -21,11 +24,16 @@ export default {
   notes: {
     astro: `${icon} ${dismissible.astro} Listen for \`dismiss\` in a client script.`,
     html: 'For a dismissible callout, use `<opui-callout class="ui-callout" role="article">` with an id, end it with a close `.ui-button` with `commandfor` naming it and `command="--dismiss"`, and import `opui-css/elements/callout.js`. Until it loads, the button is hidden.',
-    react: `${icon} ${dismissible.react} Listen for \`dismiss\` with \`addEventListener\` in a \`ref\` callback.`,
-    svelte: `${icon} ${dismissible.svelte} Listen for \`dismiss\` with \`addEventListener\` on an ancestor, since it bubbles.`,
-    vue: `${icon} ${dismissible.vue} Listen for \`dismiss\` with \`@dismiss\`.`,
+    react: `${icon} ${dismissible.react}`,
+    svelte: `${icon} ${dismissible.svelte}`,
+    vue: `${icon} ${dismissible.vue}`,
   },
   options: [
+    {
+      description: dismissEvent,
+      frameworks: ["vue"],
+      prop: "@dismiss",
+    },
     {
       default: '"Close"',
       description: "The accessible name of the close button.",
@@ -43,6 +51,16 @@ export default {
       inherited: true,
       prop: "id",
       type: "string",
+    },
+    {
+      description: dismissEvent,
+      frameworks: ["svelte"],
+      prop: "ondismiss",
+    },
+    {
+      description: dismissEvent,
+      frameworks: ["react"],
+      prop: "onDismiss",
     },
     {
       description:
@@ -81,9 +99,10 @@ export default {
     {
       code: "<button>",
       description:
-        'A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `dismissible`, the component renders it with `command="--dismiss"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined.',
+        'A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `dismissible`, the component renders it with `command="--dismiss"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`.',
       props: ["closeLabel", "dismissible"],
       selector: ".ui-callout > .ui-button",
+      slots: ["close-icon"],
     },
     {
       component: "CalloutActions",

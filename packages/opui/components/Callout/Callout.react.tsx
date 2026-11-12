@@ -3,6 +3,7 @@
 import { useEffect, useId } from "react"
 import { defined } from "../attrs"
 import { cx } from "../cx"
+import { useListener } from "../react"
 import Button from "../Button/Button.react"
 import { CalloutContext } from "./context.react"
 import { closePath } from "./icons"
@@ -13,15 +14,19 @@ export default function Callout({
   closeLabel = "Close",
   dismissible,
   id,
+  onDismiss,
+  ref,
   severity,
   variant,
   children,
+  closeIcon,
   ...rest
 }: Props) {
   const uid = useId()
   const base = id || `callout-${uid}`
   const Root = dismissible ? "opui-callout" : "article"
   const rootId = dismissible ? base : id
+  const rootRef = useListener(ref, "dismiss", onDismiss)
   useEffect(() => {
     void import("../../elements/callout.js")
   }, [])
@@ -37,6 +42,7 @@ export default function Callout({
         ])}
         id={rootId}
         role={dismissible ? "article" : undefined}
+        ref={rootRef}
         {...defined(rest as object)}
       >
         {children}
@@ -48,15 +54,19 @@ export default function Callout({
             round
             size="small"
           >
-            <svg
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-            >
-              <path fill="currentColor" d={closePath} />
-            </svg>
+            {closeIcon === undefined ? (
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+              >
+                <path fill="currentColor" d={closePath} />
+              </svg>
+            ) : (
+              closeIcon
+            )}
           </Button>
         )}
       </Root>

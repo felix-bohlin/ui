@@ -264,10 +264,11 @@ export const whatsNew = {
     },
     `<a href="#severities">Links</a> in a callout turn <code>--ui-primary-text</code> on hover and focus, the primary that keeps 4.5:1 on every surface.`,
     {
-      ...components(
-        `<a href="#dismissible"><code>dismissible</code></a> adds a close button that hides the callout, moves focus out of it and fires a cancelable <code>dismiss</code> event first.`,
-      ),
+      astro: `<a href="#dismissible"><code>dismissible</code></a> adds a close button that hides the callout, moves focus out of it and fires a cancelable <code>dismiss</code> event first. The <code>close-icon</code> slot replaces its icon.`,
       html: `<a href="#dismissible"><code>&lt;opui-callout&gt;</code></a> hides itself on <code>command="--dismiss"</code>, moves focus out of it and fires a cancelable <code>dismiss</code> event first. Import <code>opui-css/elements/callout.js</code>.`,
+      react: `<a href="#dismissible"><code>dismissible</code></a> adds a close button that hides the callout and moves focus out of it. <code>onDismiss</code> runs first and can keep it with <code>preventDefault()</code>, and <code>closeIcon</code> replaces its icon.`,
+      svelte: `<a href="#dismissible"><code>dismissible</code></a> adds a close button that hides the callout and moves focus out of it. <code>ondismiss</code> runs first and can keep it with <code>preventDefault()</code>, and the <code>closeIcon</code> snippet replaces its icon.`,
+      vue: `<a href="#dismissible"><code>dismissible</code></a> adds a close button that hides the callout and moves focus out of it. <code>@dismiss</code> runs first and can keep it with <code>preventDefault()</code>, and the <code>close-icon</code> slot replaces its icon.`,
     },
   ],
   card: [
@@ -1693,6 +1694,7 @@ export const whatsNew = {
 export const highlighted = new Set<string>([
   "accordion",
   "button",
+  "callout",
   "card",
   "carousel",
   "control-group",

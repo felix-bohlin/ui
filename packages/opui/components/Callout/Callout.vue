@@ -12,7 +12,7 @@ import Button from "../Button/Button.vue"
 import { CalloutKey } from "./context.vue"
 import { closePath } from "./icons"
 import { defined } from "../attrs"
-import type { Props, Slots } from "./types.vue-props"
+import type { Props, Emits, Slots } from "./types.vue-props"
 
 const {
   closeLabel = "Close",
@@ -22,6 +22,7 @@ const {
   variant,
 } = defineProps<Props>()
 defineSlots<Slots>()
+const emit = defineEmits<Emits>()
 
 defineOptions({
   inheritAttrs: false,
@@ -52,6 +53,7 @@ provide(CalloutKey, reactive({ severity: computed(() => severity) }))
     :id="rootId"
     :role="dismissible ? 'article' : undefined"
     v-bind="defined(attrs)"
+    @dismiss="emit('dismiss', $event)"
   >
     <slot></slot
     ><Button
@@ -61,7 +63,9 @@ provide(CalloutKey, reactive({ severity: computed(() => severity) }))
       :commandfor="rootId"
       round
       size="small"
-      ><svg
+      ><slot v-if="$slots['close-icon']" name="close-icon"></slot>
+      <svg
+        v-else
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"

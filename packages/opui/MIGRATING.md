@@ -228,7 +228,7 @@ In Astro and Vue the regions are parts instead of slots. The root no longer rend
 + </Callout>
 ```
 
-`types.ts` no longer exports a `Slots` type.
+The `Slots` type in `types.ts` has `closeIcon` instead of `icon` and `title`.
 
 In Astro and Vue the root no longer has `role="note"`, so screen readers announce the `<article>` it is. Pass `role="note"` to keep the old announcement.
 

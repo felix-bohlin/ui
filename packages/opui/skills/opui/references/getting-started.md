@@ -194,6 +194,7 @@ A few features need a script in plain HTML:
 | --- | --- | --- |
 | [Character count](https://opui.dev/html/components/text-field.md#character-count) | Counts the characters left, in Text field and Textarea | `opui-css/elements/character-count.js` |
 | [Copy](https://opui.dev/html/components/copy.md) | Copies text or a field's value | `opui-css/elements/copy.js` |
+| [Dismissible callout](https://opui.dev/html/components/callout.md#dismissible) | Hides a callout with its close button | `opui-css/elements/callout.js` |
 | [Indeterminate checkbox](https://opui.dev/html/components/checkbox.md#indeterminate) | Sets `indeterminate` from `data-indeterminate` | `opui-css/css/js/checkbox.js` |
 | [Number field](https://opui.dev/html/components/number-field.md) | Steps the value with its buttons | `opui-css/elements/number-field.js` |
 | [Password toggle](https://opui.dev/html/components/text-field.md#password-toggle) | Shows and hides the password | `opui-css/elements/text-field.js` |

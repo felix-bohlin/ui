@@ -2850,6 +2850,13 @@
     "url": "/svelte/components/textarea/#spread"
   },
   {
+    "id": "component-textarea-svelte-rows",
+    "title": "Rows",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/svelte/components/textarea/#rows"
+  },
+  {
     "id": "component-textarea-svelte-auto-fit",
     "title": "Auto-fit",
     "page": "Textarea",

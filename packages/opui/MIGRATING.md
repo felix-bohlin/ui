@@ -1336,7 +1336,7 @@ Astro and Vue no longer generate an `id`, extra attributes go to the `<textarea>
 
 Same as Text field: without `label`, Astro and Vue render a `div` root instead of a `label`, and the start and end text describe the textarea instead of naming it. Give it an `aria-label` or `aria-labelledby`, and target `.ui-textarea` instead of `label.ui-textarea`.
 
-The minimum height is three lines plus padding at every size (small was a fixed 64px). With `spread`, the fixed `30ch` minimum is gone and label and field split the container into equal columns. Textareas keep a `12ch` minimum width in table cells.
+The minimum height is three lines plus padding at every size (small was a fixed 64px), or the lines in `rows` where the browser reads typed `attr()`. With `spread`, the fixed `30ch` minimum is gone and label and field split the container into equal columns. Textareas keep a `12ch` minimum width in table cells.
 
 The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is still `.ui-filled`.
 

@@ -2850,6 +2850,13 @@
     "url": "/vue/components/textarea/#spread"
   },
   {
+    "id": "component-textarea-vue-rows",
+    "title": "Rows",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/vue/components/textarea/#rows"
+  },
+  {
     "id": "component-textarea-vue-auto-fit",
     "title": "Auto-fit",
     "page": "Textarea",

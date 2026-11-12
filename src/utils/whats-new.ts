@@ -1519,7 +1519,7 @@ export const whatsNew = {
       html: `<a href="#sizes">x-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
     },
     `<a href="#spread">Spread</a> fields line up at one width.`,
-    `The minimum height is three lines plus padding at every <a href="#sizes">size</a>.`,
+    `The minimum height is three lines plus padding at every <a href="#sizes">size</a>, or the lines in <a href="#rows"><code>rows</code></a>.`,
     {
       astro: `Breaking: extra attributes such as <code>autocomplete</code> and <code>aria-*</code> go to the textarea. <code>class</code> and <code>style</code> stay on the label (<a href="#api">API</a>).`,
       vue: `Breaking: <code>style</code> goes to the label instead of the textarea (<a href="#api">API</a>).`,

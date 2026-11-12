@@ -2623,6 +2623,44 @@ interaction(
 
 interaction(
   "textarea",
+  "Rows",
+  "textarea starts at the lines in rows and grows with its text",
+  async ({ page, root }) => {
+    await needs(
+      page,
+      "typed attr() and field-sizing",
+      () =>
+        CSS.supports(
+          "min-block-size",
+          "calc(attr(rows type(<number>), 3) * 1lh)",
+        ) && CSS.supports("field-sizing", "content"),
+    )
+    const lines = (name: string) =>
+      root.getByRole("textbox", { name }).evaluate((element) => {
+        const style = getComputedStyle(element)
+        const padding =
+          parseFloat(style.paddingBlockStart) +
+          parseFloat(style.paddingBlockEnd) +
+          parseFloat(style.borderBlockStartWidth) +
+          parseFloat(style.borderBlockEndWidth)
+        return Math.round(
+          (element.getBoundingClientRect().height - padding) /
+            parseFloat(style.lineHeight),
+        )
+      })
+
+    expect(await lines("Reply")).toBe(1)
+    expect(await lines("Review")).toBe(6)
+
+    await root
+      .getByRole("textbox", { name: "Reply" })
+      .fill("One\nTwo\nThree\nFour")
+    await expect.poll(() => lines("Reply")).toBe(4)
+  },
+)
+
+interaction(
+  "textarea",
   "Validation",
   "a labelled textarea is named by its label and described by its end text",
   async ({ root }) => {

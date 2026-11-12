@@ -2850,6 +2850,13 @@
     "url": "/html/components/textarea/#spread"
   },
   {
+    "id": "component-textarea-html-rows",
+    "title": "Rows",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/html/components/textarea/#rows"
+  },
+  {
     "id": "component-textarea-html-auto-fit",
     "title": "Auto-fit",
     "page": "Textarea",

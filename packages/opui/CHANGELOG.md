@@ -428,7 +428,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Table` centers a checkbox that is alone in a cell and shrinks the column to fit it.
 - `Table` dense cells have less block padding.
 - `Tabs` slide the selected pill, or the line of `.ui-line`, to the tab you select over `--_indicator-duration` (`--ui-duration`), where anchor positioning works: one indicator on the root follows the checked tab's `::before`, and each tab draws its part of the track on its `::after`. Elsewhere, and in forced colors, the pill stays on each tab and fades.
-- `Textarea` minimum height is three lines plus padding at every size. Small was a fixed 64px.
+- `Textarea` minimum height is three lines plus padding at every size, or the lines in `rows` where the browser reads typed `attr()`, so `rows="1"` makes a one-line field that grows. Small was a fixed 64px.
 - `TextField`, `Select` and `Textarea` with `.ui-small` set their text in `--ui-font-size-small`, like small buttons, instead of the default size. On iPhone and iPad, fields of every size set their text in `--ui-font-size-control` or 16px, whichever is larger (`css/compat/text-field.css`), since iOS Safari zooms in on a focused field with text under 16px, also when a theme sets smaller control text.
 - `TextField` file input takes `--ui-field-shadow` like other fields instead of an inset Open Props shadow, so it's flat by default.
 - `TextField`, `Textarea`, `Select` and `Range` with `spread` split their container into equal label and field columns, so spread fields line up at one width. The fixed `30ch` textarea and `25ch` range minimums are gone.

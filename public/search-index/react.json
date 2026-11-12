@@ -2850,6 +2850,13 @@
     "url": "/react/components/textarea/#spread"
   },
   {
+    "id": "component-textarea-react-rows",
+    "title": "Rows",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/react/components/textarea/#rows"
+  },
+  {
     "id": "component-textarea-react-auto-fit",
     "title": "Auto-fit",
     "page": "Textarea",

@@ -2850,6 +2850,13 @@
     "url": "/astro/components/textarea/#spread"
   },
   {
+    "id": "component-textarea-astro-rows",
+    "title": "Rows",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/astro/components/textarea/#rows"
+  },
+  {
     "id": "component-textarea-astro-auto-fit",
     "title": "Auto-fit",
     "page": "Textarea",

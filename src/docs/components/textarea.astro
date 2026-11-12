@@ -27,12 +27,16 @@ export const keywords = ["multiline", "text area"]
   slug="textarea"
   browserSupport={[
     "alt-text-generated-content",
+    "attr",
     "container-queries",
     "field-sizing",
     "has",
     "lh",
     "user-pseudos",
   ]}
+  fallbacks={{
+    attr: "Without typed `attr()`, a textarea is at least three lines tall, whatever `rows` says.",
+  }}
   heroAnatomy
   apis={[{ title: "Textarea API", api: textareaApi }]}
   changelogPaths={[
@@ -188,11 +192,23 @@ export const keywords = ["multiline", "text area"]
     <AutoExample name="Spread" column spacious />
   </section>
 
+  <section id="rows">
+    <h2>Rows</h2>
+    <p>
+      A textarea starts three lines tall and grows with its text.
+      <code>rows</code> sets the lines it starts at, so <code>rows="1"</code>
+      makes a one-line field that grows, like a reply box.
+    </p>
+
+    <AutoExample name="Rows" column />
+  </section>
+
   <section id="auto-fit">
     <h2>Auto-fit</h2>
     <p>
-      Grows from 3 to 20 lines by default.
-      <PropOrClass prop="autoFit" class=".ui-auto-fit" /> also fits the width.
+      Grows from 3 lines, or the lines in <code>rows</code>, to 20 lines by
+      default. <PropOrClass prop="autoFit" class=".ui-auto-fit" /> also fits the
+      width.
     </p>
 
     <AutoExample name="AutoFit" class="flex" />

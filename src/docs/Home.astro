@@ -85,7 +85,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         <div class="hero-copy">
           <hgroup class="ui-hgroup">
             <p class="hero-version">
-              {releaseVersion}
+              <a href={link("/blog/release-6")}>v{releaseVersion}</a>
             </p>
 
             <h1 class="ui-h1" id="main-heading">Open Props UI</h1>
@@ -520,6 +520,15 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     .ui-chip {
       letter-spacing: normal;
       text-transform: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 

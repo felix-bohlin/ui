@@ -6,7 +6,9 @@ import {
   COMPONENTS,
   STRESS_TESTS,
   axeNodes,
+  instantScrolling,
   openFixture,
+  stubExternalHosts,
 } from "./fixtures"
 
 const KNOWN_VIOLATIONS_FILE = new URL(
@@ -143,6 +145,42 @@ for (const component of TARGETS) {
     expect(
       stale,
       `examples that no longer exist; remove them from a11y-known-violations.json`,
+    ).toEqual([])
+  })
+}
+
+const DOCS_PAGE_RULES: Record<string, string[]> = {
+  "/blocks/account-settings/": ["landmark-unique"],
+  "/blocks/inbox/": ["landmark-unique"],
+  "/html/components/button/": ["label", "scrollable-region-focusable"],
+  "/html/components/typography/": ["label", "scrollable-region-focusable"],
+  "/html/guide/customizing/": ["scrollable-region-focusable"],
+  "/html/guide/migrating/": ["scrollable-region-focusable"],
+  "/html/guide/why-opui/": ["heading-order"],
+  "/react/components/typography/": ["label", "scrollable-region-focusable"],
+}
+
+for (const [path, rules] of Object.entries(DOCS_PAGE_RULES)) {
+  test(`${path} has no ${rules.join(", ")} violations with its examples' code open`, async ({
+    page,
+  }) => {
+    await instantScrolling(page)
+    await stubExternalHosts(page)
+    await page.goto(path)
+    await page
+      .locator(".show-code-button")
+      .evaluateAll((buttons) =>
+        buttons.forEach((button) => (button as HTMLElement).click()),
+      )
+    await page.evaluate(async () => {
+      await new Promise(requestAnimationFrame)
+      await new Promise(requestAnimationFrame)
+    })
+    const { violations } = await new AxeBuilder({ page })
+      .withRules(rules)
+      .analyze()
+    expect(
+      axeNodes(violations).map(({ id, target }) => `${id}: ${target}`),
     ).toEqual([])
   })
 }

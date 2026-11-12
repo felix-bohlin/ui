@@ -523,7 +523,7 @@ test("renews the highlight ranges of an Installation file when the file picker s
   page,
 }) => {
   await page.goto("/html/components/checkbox/")
-  const panel = page.locator("#installation .ui-panel").first()
+  const panel = page.locator("#installation .code-files").first()
   await expectRenewedRanges(
     panel.locator(".file").nth(1).locator("pre > code"),
     async () => {
@@ -551,6 +551,28 @@ test("renews the highlight ranges of an Installation tab when it is shown", asyn
   await expectRenewedRanges(firstFileIn(1), async () => {
     await tabs.locator(".ui-label").nth(1).click()
   })
+})
+
+test("Tab from the Installation heading of an HTML page focuses a control that shows", async ({
+  page,
+}) => {
+  await page.goto("/html/components/button/")
+  const installation = page.locator("#installation")
+  await expect(installation.locator("input[type='radio']")).toHaveCount(0)
+  await installation.locator("h2 .header-anchor").focus()
+  await page.keyboard.press("Tab")
+  const focused = installation.locator(":focus-visible")
+  await expect(focused).toHaveCSS("clip-path", "none")
+  await expect
+    .poll(() =>
+      focused.evaluate((element) =>
+        element.checkVisibility({
+          opacityProperty: true,
+          visibilityProperty: true,
+        }),
+      ),
+    )
+    .toBe(true)
 })
 
 const codeFocus = (page: Page) =>

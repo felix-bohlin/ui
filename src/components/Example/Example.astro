@@ -222,35 +222,42 @@ const outputId = `${groupName}-output`
 
   {hasCode && <div class="example-code-area">
     <template class="example-code">
-      <Tabs
-        class="source-tabs code-tabs"
-        name={groupName}
-        overflow="wrap"
-        variant="line"
-      >
-        <TabsItem id={sourceId} name={groupName} checked>
-          <TabsLabel for={sourceId} data-tab="source">
-            {codeLangLabel}
-          </TabsLabel>
-          <TabsPanel data-panel="source">
-            <div class="ui-panel">
-              <Code
-                code={codeContent}
-                lang={codeLangId === "react" ? "tsx" : codeLangId}
-              />
-            </div>
-          </TabsPanel>
-        </TabsItem>
+      {showOutput ? (
+        <Tabs
+          class="source-tabs code-tabs"
+          name={groupName}
+          overflow="wrap"
+          variant="line"
+        >
+          <TabsItem id={sourceId} name={groupName} checked>
+            <TabsLabel for={sourceId} data-tab="source">
+              {codeLangLabel}
+            </TabsLabel>
+            <TabsPanel data-panel="source">
+              <div class="ui-panel">
+                <Code
+                  code={codeContent}
+                  lang={codeLangId === "react" ? "tsx" : codeLangId}
+                />
+              </div>
+            </TabsPanel>
+          </TabsItem>
 
-        {showOutput && <TabsItem id={outputId} name={groupName}>
-          <TabsLabel for={outputId} data-tab="output"> Output </TabsLabel>
-          <TabsPanel data-panel="output">
-            <div class="ui-panel">
-              <Code code={outputContent} lang="html" />
-            </div>
-          </TabsPanel>
-        </TabsItem>}
-      </Tabs>
+          <TabsItem id={outputId} name={groupName}>
+            <TabsLabel for={outputId} data-tab="output"> Output </TabsLabel>
+            <TabsPanel data-panel="output">
+              <div class="ui-panel">
+                <Code code={outputContent} lang="html" />
+              </div>
+            </TabsPanel>
+          </TabsItem>
+        </Tabs>
+      ) : (
+        <Code
+          code={codeContent}
+          lang={codeLangId === "react" ? "tsx" : codeLangId}
+        />
+      )}
     </template>
   </div>}
 </div>
@@ -375,7 +382,7 @@ const outputId = `${groupName}-output`
 </style>
 
 <style is:global>
-  .ui-panel .code-block pre {
+  :is(.example-code-area, .ui-panel) .code-block pre {
     border-radius: 0;
   }
 </style>

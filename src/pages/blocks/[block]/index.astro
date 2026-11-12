@@ -137,7 +137,10 @@ const widths = [
       "input[data-width]",
     )) {
       input.addEventListener("change", () => {
-        frame.style.inlineSize = input.dataset.width ?? ""
+        const width = input.dataset.width ?? ""
+        frame.style.inlineSize = width.endsWith("px")
+          ? `calc(${width} + 2 * var(--ui-border-width))`
+          : width
       })
     }
 

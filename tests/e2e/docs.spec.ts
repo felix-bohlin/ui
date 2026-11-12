@@ -621,6 +621,22 @@ test("an example's code takes focus when it opens and scrolls sideways", async (
   await expect(pre).toHaveAttribute("aria-label", "Code")
 })
 
+test("the block preview's Tablet and Mobile widths give the block 768px and 390px", async ({
+  page,
+}) => {
+  await page.goto("/blocks/data-table/")
+  const iframe = page.locator("iframe[data-block-frame]")
+  for (const [label, width] of [
+    ["Tablet", 768],
+    ["Mobile", 390],
+  ] as const) {
+    await page.locator(".block-toolbar label", { hasText: label }).click()
+    await expect
+      .poll(() => iframe.evaluate((element) => element.clientWidth))
+      .toBe(width)
+  }
+})
+
 test("a long section heading takes the content width, passes under the header links and sticks as a one-line copy without changing its height or the scroll position", async ({
   browserName,
   page,

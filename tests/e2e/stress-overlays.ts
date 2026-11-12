@@ -17,7 +17,6 @@ type Step =
 
 export type Scenario = {
   axeFailingIn?: EngineBugs
-  failing?: string
   failingIn?: EngineBugs
   name: string
   skipAxe?: string

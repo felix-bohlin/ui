@@ -3,7 +3,7 @@
 Badges attach a small count or status dot to another element.
 
 - CSS: `opui-css/css/components/badge.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/badge.md), [Astro](https://open-props-ui.netlify.app/astro/components/badge.md), [React](https://open-props-ui.netlify.app/react/components/badge.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/badge.md), [Vue](https://open-props-ui.netlify.app/vue/components/badge.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/badge.md), [Astro](https://opui.dev/astro/components/badge.md), [React](https://opui.dev/react/components/badge.md), [Svelte](https://opui.dev/svelte/components/badge.md), [Vue](https://opui.dev/vue/components/badge.md).
 
 ## Badge
 
@@ -32,9 +32,9 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_border-width`: Border width of the indicator.
 - `--_dot-size`: Width and height of the indicator in `.ui-dot`.
 - `--_ease`: Easing of the indicator fade. Defaults to `--ui-ease-enter`.
+- `--_indicator-size`: Height and minimum width of the indicator.
 - `--_inset`: Distance of the indicator from the opposite edges. `100%` places it on the corner, round avatars move it onto the circle.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
-- `--_size`: Height and minimum width of the indicator.
 
 Outputs: `--_accent`, `--_bg-color`, `--_direction`, `--_duration`, `--_inset-block`, `--_inset-inline`, `--_shift-x`, `--_shift-y`, `--_sign-x`, `--_sign-y` and `--_text-color`.
 

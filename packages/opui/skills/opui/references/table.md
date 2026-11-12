@@ -3,7 +3,7 @@
 Displays tabular data. Basic tables with row and column headers, and optional captions and footers.
 
 - CSS: `opui-css/css/components/table.css` and `opui-css/css/components/sortable-table.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/table.md), [Astro](https://open-props-ui.netlify.app/astro/components/table.md), [React](https://open-props-ui.netlify.app/react/components/table.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/table.md), [Vue](https://open-props-ui.netlify.app/vue/components/table.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/table.md), [Astro](https://opui.dev/astro/components/table.md), [React](https://opui.dev/react/components/table.md), [Svelte](https://opui.dev/svelte/components/table.md), [Vue](https://opui.dev/vue/components/table.md).
 
 ## Table
 
@@ -91,9 +91,10 @@ Displays tabular data. Basic tables with row and column headers, and optional ca
 
 ### Props and modifiers
 
+- `@sort` (Vue): `(event: CustomEvent<SortDetail>) => void`. Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are.
 - `ascendingLabel`: `string`, `[ascending-label]`, default `"{column}, sorted ascending"`. What a sort in ascending order announces, with `{column}` where the header's label goes.
 - `descendingLabel`: `string`, `[descending-label]`, default `"{column}, sorted descending"`. What a sort in descending order announces, with `{column}` where the header's label goes.
-- `onsort` (Svelte): `EventHandler<CustomEvent<SortDetail>, HTMLElement>`. Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are.
+- `onsort` (Svelte): `(event: CustomEvent<SortDetail>) => void`. Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are.
 - `onSort` (React): `(event: CustomEvent<SortDetail>) => void`. Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are.
 
 ### Slots
@@ -152,17 +153,17 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
   </thead>
   <tbody>
     <tr>
-      <td>Lena Ek</td>
+      <td>Lena Handén</td>
       <td>Product designer</td>
       <td>Göteborg</td>
     </tr>
     <tr>
-      <td>Tom Tanaka</td>
+      <td>Pekka Gåpåbottanen</td>
       <td>Frontend developer</td>
       <td>Lisbon</td>
     </tr>
     <tr>
-      <td>Elif Rahman</td>
+      <td>Inga Halonen</td>
       <td>Support lead</td>
       <td>Berlin</td>
     </tr>
@@ -200,17 +201,17 @@ import {
   </TableHead>
   <TableBody>
     <TableRow>
-      <TableCell>Lena Ek</TableCell>
+      <TableCell>Lena Handén</TableCell>
       <TableCell>Product designer</TableCell>
       <TableCell>Göteborg</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Tom Tanaka</TableCell>
+      <TableCell>Pekka Gåpåbottanen</TableCell>
       <TableCell>Frontend developer</TableCell>
       <TableCell>Lisbon</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Elif Rahman</TableCell>
+      <TableCell>Inga Halonen</TableCell>
       <TableCell>Support lead</TableCell>
       <TableCell>Berlin</TableCell>
     </TableRow>
@@ -250,17 +251,17 @@ export default function Normal() {
       </TableHead>
       <TableBody>
         <TableRow>
-          <TableCell>Lena Ek</TableCell>
+          <TableCell>Lena Handén</TableCell>
           <TableCell>Product designer</TableCell>
           <TableCell>Göteborg</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Tom Tanaka</TableCell>
+          <TableCell>Pekka Gåpåbottanen</TableCell>
           <TableCell>Frontend developer</TableCell>
           <TableCell>Lisbon</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Elif Rahman</TableCell>
+          <TableCell>Inga Halonen</TableCell>
           <TableCell>Support lead</TableCell>
           <TableCell>Berlin</TableCell>
         </TableRow>
@@ -300,17 +301,17 @@ export default function Normal() {
   </TableHead>
   <TableBody>
     <TableRow>
-      <TableCell>Lena Ek</TableCell>
+      <TableCell>Lena Handén</TableCell>
       <TableCell>Product designer</TableCell>
       <TableCell>Göteborg</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Tom Tanaka</TableCell>
+      <TableCell>Pekka Gåpåbottanen</TableCell>
       <TableCell>Frontend developer</TableCell>
       <TableCell>Lisbon</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Elif Rahman</TableCell>
+      <TableCell>Inga Halonen</TableCell>
       <TableCell>Support lead</TableCell>
       <TableCell>Berlin</TableCell>
     </TableRow>
@@ -349,17 +350,17 @@ import {
     </TableHead>
     <TableBody>
       <TableRow>
-        <TableCell>Lena Ek</TableCell>
+        <TableCell>Lena Handén</TableCell>
         <TableCell>Product designer</TableCell>
         <TableCell>Göteborg</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>Tom Tanaka</TableCell>
+        <TableCell>Pekka Gåpåbottanen</TableCell>
         <TableCell>Frontend developer</TableCell>
         <TableCell>Lisbon</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>Elif Rahman</TableCell>
+        <TableCell>Inga Halonen</TableCell>
         <TableCell>Support lead</TableCell>
         <TableCell>Berlin</TableCell>
       </TableRow>

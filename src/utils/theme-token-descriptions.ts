@@ -438,11 +438,11 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-state-hover-alpha-accent":
     "Alpha of the hover state layer on primary and critical buttons (on every filled and tonal button with `--ui-button-hover: layer`), hovered `List` rows and critical `Menu` items.",
   "--ui-state-hover-alpha-dark":
-    "Alpha of the hover state layer on neutral buttons in dark mode.",
+    "Alpha of the hover state layer on neutral buttons and `ToggleButton` in dark mode.",
   "--ui-state-hover-alpha-light":
-    "Alpha of the hover state layer on neutral buttons in light mode.",
+    "Alpha of the hover state layer on neutral buttons and `ToggleButton` in light mode.",
   "--ui-state-selected-alpha-accent":
-    'Alpha of the tint behind selected `List` and `Menu` rows, `Select` options and checked `Message` reactions when `--ui-selected` is unset, behind checked `Checkbox`, `Radio` and `Switch` cards, which tint their accent, and behind the current page (`aria-current="page"`) in text, outlined and tonal buttons. `15%` with more contrast, so light text keeps 7:1 in dark mode.',
+    'Alpha of the tint behind selected `List` and `Menu` rows, `Select` options and checked `Message` reactions when `--ui-selected` is unset, behind checked `Checkbox`, `Radio` and `Switch` cards, which tint their accent, behind the current page (`aria-current="page"`) in text, outlined and tonal buttons, and of the selected `Tabs` pill in dark mode. `15%` with more contrast, so light text keeps 7:1 in dark mode.',
   "--ui-success": "Severity color for success messages.",
   "--ui-success-text":
     "Success as a text color, for success text outside an `.ui-success` scope, and `ins` and `.ui-ins` text. `--ui-success` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",

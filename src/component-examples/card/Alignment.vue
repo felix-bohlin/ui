@@ -20,7 +20,7 @@ import { Button, Card, CardActions, CardContent } from "opui-css/vue"
   </Card>
 
   <Card variant="outlined">
-    <CardContent>Team photo, added by Lena Ek.</CardContent>
+    <CardContent>Team photo, added by Lena Handén.</CardContent>
     <CardActions align="start">
       <Button aria-label="Favorite" round size="small">
         <svg

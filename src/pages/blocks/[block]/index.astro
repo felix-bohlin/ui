@@ -137,7 +137,10 @@ const widths = [
       "input[data-width]",
     )) {
       input.addEventListener("change", () => {
-        frame.style.inlineSize = input.dataset.width ?? ""
+        const width = input.dataset.width ?? ""
+        frame.style.inlineSize = width.endsWith("px")
+          ? `calc(${width} + 2 * var(--ui-border-width))`
+          : width
       })
     }
 
@@ -147,11 +150,33 @@ const widths = [
       iframe.style.blockSize = `${Math.ceil(content.getBoundingClientRect().height)}px`
     }
 
+    const showModal = (event: Event) => {
+      const dialog = event.target as HTMLElement
+      if (!dialog.matches("dialog:modal")) return
+      const place = () => {
+        const header =
+          document.querySelector(".site-header")?.getBoundingClientRect()
+            .bottom ?? 0
+        const space = innerHeight - header
+        scrollBy({
+          behavior: "instant",
+          top:
+            iframe.getBoundingClientRect().top +
+            dialog.offsetTop -
+            header -
+            Math.max(0, (space - dialog.offsetHeight) / 2),
+        })
+      }
+      place()
+      requestAnimationFrame(place)
+    }
+
     const observe = () => {
       const content = iframe.contentDocument?.querySelector(".block-preview")
       if (!content) return
       fit()
       new ResizeObserver(fit).observe(content)
+      iframe.contentDocument?.addEventListener("toggle", showModal, true)
     }
 
     if (iframe.contentDocument?.readyState === "complete") observe()

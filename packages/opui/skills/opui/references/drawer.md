@@ -3,7 +3,7 @@
 Slides in from an edge of the screen. For a task that needs full attention, use a Dialog.
 
 - CSS: `opui-css/css/components/drawer.css` and `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/drawer.md), [Astro](https://open-props-ui.netlify.app/astro/components/drawer.md), [React](https://open-props-ui.netlify.app/react/components/drawer.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/drawer.md), [Vue](https://open-props-ui.netlify.app/vue/components/drawer.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/drawer.md), [Astro](https://opui.dev/astro/components/drawer.md), [React](https://opui.dev/react/components/drawer.md), [Svelte](https://opui.dev/svelte/components/drawer.md), [Vue](https://opui.dev/vue/components/drawer.md).
 
 ## Drawer
 
@@ -246,8 +246,8 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   </div>
   <div class="ui-content" aria-label="Task details" role="region" tabindex="0">
     <p>
-      Assigned to Lena Ek, due Friday. Marco Rossi reviews the copy, and the
-      design team sends the new header images by Wednesday.
+      Assigned to Lena Handén, due Friday. Hakki Hälinen reviews the copy, and
+      the design team sends the new header images by Wednesday.
     </p>
   </div>
   <div class="ui-footer">
@@ -281,7 +281,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
     </button>
   </div>
   <div class="ui-content">
-    <p>Marco Rossi commented on Onboarding emails.</p>
+    <p>Hakki Hälinen commented on Onboarding emails.</p>
   </div>
   <div class="ui-footer">
     <button
@@ -415,8 +415,8 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
   </DrawerHeader>
   <DrawerContent aria-label="Task details" role="region" tabindex="0">
     <p>
-      Assigned to Lena Ek, due Friday. Marco Rossi reviews the copy, and the
-      design team sends the new header images by Wednesday.
+      Assigned to Lena Handén, due Friday. Hakki Hälinen reviews the copy, and
+      the design team sends the new header images by Wednesday.
     </p>
   </DrawerContent>
   <DrawerFooter>
@@ -435,7 +435,7 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
     <DrawerTitle>Notifications</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
-    <p>Marco Rossi commented on Onboarding emails.</p>
+    <p>Hakki Hälinen commented on Onboarding emails.</p>
   </DrawerContent>
   <DrawerFooter>
     <Button command="close" commandfor="drawer-basics-3" size="small"
@@ -548,8 +548,8 @@ export default function BasicsCode() {
         </DrawerHeader>
         <DrawerContent aria-label="Task details" role="region" tabIndex={0}>
           <p>
-            Assigned to Lena Ek, due Friday. Marco Rossi reviews the copy, and
-            the design team sends the new header images by Wednesday.
+            Assigned to Lena Handén, due Friday. Hakki Hälinen reviews the copy,
+            and the design team sends the new header images by Wednesday.
           </p>
         </DrawerContent>
         <DrawerFooter>
@@ -569,7 +569,7 @@ export default function BasicsCode() {
           <DrawerTitle>Notifications</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
-          <p>Marco Rossi commented on Onboarding emails.</p>
+          <p>Hakki Hälinen commented on Onboarding emails.</p>
         </DrawerContent>
         <DrawerFooter>
           <Button command="close" commandfor="drawer-basics-3" size="small">
@@ -680,8 +680,8 @@ export default function BasicsCode() {
   </DrawerHeader>
   <DrawerContent aria-label="Task details" role="region" tabindex={0}>
     <p>
-      Assigned to Lena Ek, due Friday. Marco Rossi reviews the copy, and the
-      design team sends the new header images by Wednesday.
+      Assigned to Lena Handén, due Friday. Hakki Hälinen reviews the copy, and
+      the design team sends the new header images by Wednesday.
     </p>
   </DrawerContent>
   <DrawerFooter>
@@ -699,7 +699,7 @@ export default function BasicsCode() {
     <DrawerTitle>Notifications</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
-    <p>Marco Rossi commented on Onboarding emails.</p>
+    <p>Hakki Hälinen commented on Onboarding emails.</p>
   </DrawerContent>
   <DrawerFooter>
     <Button command="close" commandfor="drawer-basics-3" size="small"
@@ -804,8 +804,8 @@ import {
     </DrawerHeader>
     <DrawerContent aria-label="Task details" role="region" tabindex="0">
       <p>
-        Assigned to Lena Ek, due Friday. Marco Rossi reviews the copy, and the
-        design team sends the new header images by Wednesday.
+        Assigned to Lena Handén, due Friday. Hakki Hälinen reviews the copy, and
+        the design team sends the new header images by Wednesday.
       </p>
     </DrawerContent>
     <DrawerFooter>
@@ -824,7 +824,7 @@ import {
       <DrawerTitle>Notifications</DrawerTitle>
     </DrawerHeader>
     <DrawerContent>
-      <p>Marco Rossi commented on Onboarding emails.</p>
+      <p>Hakki Hälinen commented on Onboarding emails.</p>
     </DrawerContent>
     <DrawerFooter>
       <Button command="close" commandfor="drawer-basics-3" size="small"

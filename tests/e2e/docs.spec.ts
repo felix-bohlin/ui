@@ -116,7 +116,7 @@ test.describe("framework picker", () => {
       await expect(visiblePicker(page)).toHaveAttribute("data-bound", "true")
       await visiblePicker(page).selectOption(framework)
       await page.waitForURL(`/${framework}/components/divider/#spacing`, {
-        waitUntil: "commit",
+        waitUntil: "domcontentloaded",
       })
       await expect(page.locator("html")).toHaveAttribute(
         "data-framework",
@@ -130,6 +130,23 @@ test.describe("framework picker", () => {
     await page.goto("/html/guide/theming/")
     await visiblePicker(page).selectOption("vue")
     await page.waitForURL("/vue/guide/theming/", { waitUntil: "commit" })
+  })
+
+  test("shows and changes the framework the links follow on a framework-free page", async ({
+    page,
+  }) => {
+    await page.goto("/react/components/button/")
+    await page.goto("/blocks/")
+    await expect(visiblePicker(page)).toHaveValue("react")
+    await expect(page.locator('a[href^="/react/components/"]')).not.toHaveCount(
+      0,
+    )
+    await expect(visiblePicker(page)).toHaveAttribute("data-bound", "true")
+    await visiblePicker(page).selectOption("vue")
+    await expect(page.locator("html")).toHaveAttribute("data-framework", "vue")
+    await expect(visiblePicker(page)).toHaveValue("vue")
+    await expect(page.locator('a[href^="/react/components/"]')).toHaveCount(0)
+    await expect(page.locator('a[href^="/vue/components/"]')).not.toHaveCount(0)
   })
 })
 
@@ -523,7 +540,7 @@ test("renews the highlight ranges of an Installation file when the file picker s
   page,
 }) => {
   await page.goto("/html/components/checkbox/")
-  const panel = page.locator("#installation .ui-panel").first()
+  const panel = page.locator("#installation .code-files").first()
   await expectRenewedRanges(
     panel.locator(".file").nth(1).locator("pre > code"),
     async () => {
@@ -552,6 +569,126 @@ test("renews the highlight ranges of an Installation tab when it is shown", asyn
     await tabs.locator(".ui-label").nth(1).click()
   })
 })
+
+test("Tab from the Installation heading of an HTML page focuses a control that shows", async ({
+  page,
+}) => {
+  await page.goto("/html/components/button/")
+  const installation = page.locator("#installation")
+  await expect(installation.locator("input[type='radio']")).toHaveCount(0)
+  await installation.locator("h2 .header-anchor").focus()
+  await page.keyboard.press("Tab")
+  const focused = installation.locator(":focus-visible")
+  await expect(focused).toHaveCSS("clip-path", "none")
+  await expect
+    .poll(() =>
+      focused.evaluate((element) =>
+        element.checkVisibility({
+          opacityProperty: true,
+          visibilityProperty: true,
+        }),
+      ),
+    )
+    .toBe(true)
+})
+
+const codeFocus = (page: Page) =>
+  page.locator(".code-block pre").evaluateAll((blocks) =>
+    blocks
+      .filter((pre) => pre.checkVisibility())
+      .map((pre) => ({
+        focusable:
+          pre.getAttribute("tabindex") === "0" &&
+          pre.getAttribute("role") === "group" &&
+          !!pre.getAttribute("aria-label"),
+        scrolls: pre.scrollWidth > pre.clientWidth,
+      })),
+  )
+
+test("a code block takes focus only while it scrolls sideways", async ({
+  page,
+}) => {
+  await page.setViewportSize({ height: 844, width: 390 })
+  await page.goto("/html/guide/customizing/")
+  const scrolling = async () => {
+    const blocks = await codeFocus(page)
+    expect(
+      blocks.filter(({ focusable, scrolls }) => focusable !== scrolls),
+    ).toEqual([])
+    return blocks.filter(({ scrolls }) => scrolls).length
+  }
+  await expect.poll(scrolling).toBeGreaterThan(1)
+  await page.setViewportSize({ height: 844, width: 1280 })
+  await expect.poll(scrolling).toBe(1)
+})
+
+test("an example's code takes focus when it opens and scrolls sideways", async ({
+  page,
+}) => {
+  await page.setViewportSize({ height: 844, width: 390 })
+  await page.goto("/html/components/button/")
+  const example = page.locator("section#variants .example-container").first()
+  await example
+    .locator(".show-code-button")
+    .evaluate((button) => (button as HTMLElement).click())
+  const pre = example.locator(".code-block pre")
+  await expect(pre).toBeVisible()
+  await expect(pre).toHaveAttribute("tabindex", "0")
+  await expect(pre).toHaveAttribute("role", "group")
+  await expect(pre).toHaveAttribute("aria-label", "Code")
+})
+
+test("the block preview's Tablet and Mobile widths give the block 768px and 390px", async ({
+  page,
+}) => {
+  await page.goto("/blocks/data-table/")
+  const iframe = page.locator("iframe[data-block-frame]")
+  for (const [label, width] of [
+    ["Tablet", 768],
+    ["Mobile", 390],
+  ] as const) {
+    await page.locator(".block-toolbar label", { hasText: label }).click()
+    await expect
+      .poll(() => iframe.evaluate((element) => element.clientWidth))
+      .toBe(width)
+  }
+})
+
+for (const { block, trigger, width } of [
+  {
+    block: "account-settings",
+    trigger:
+      '[commandfor="account-settings-delete-dialog"][command="show-modal"]',
+    width: 1280,
+  },
+  { block: "app-shell", trigger: '[command="show-modal"]', width: 390 },
+]) {
+  test(`a modal opened in the ${block} preview at ${width}px scrolls into view, or its top when it's taller than the window`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ height: 800, width })
+    await page.goto(`/blocks/${block}/`)
+    await expect(page.locator("iframe[data-block-frame]")).toHaveAttribute(
+      "style",
+      /block-size/,
+    )
+    const frame = page.frameLocator("iframe[data-block-frame]")
+    await frame.locator(trigger).filter({ visible: true }).first().click()
+    const dialog = frame.locator("dialog:modal")
+    await expect(dialog).toBeVisible()
+    await expect
+      .poll(async () => {
+        const header = await page
+          .locator(".site-header")
+          .evaluate((element) => element.getBoundingClientRect().bottom)
+        const box = (await dialog.boundingBox())!
+        return box.height > 800 - header
+          ? Math.abs(box.y - header) <= 1
+          : box.y >= header && box.y + box.height <= 800
+      })
+      .toBe(true)
+  })
+}
 
 test("a long section heading takes the content width, passes under the header links and sticks as a one-line copy without changing its height or the scroll position", async ({
   browserName,
@@ -751,9 +888,7 @@ test("the blog feed lists every post", async ({ page }) => {
     page.locator('link[rel="alternate"][type="application/rss+xml"]'),
   ).toHaveAttribute("href", "/blog/rss.xml")
   expect(feed.match(/<item>/g)?.length).toBeGreaterThan(20)
-  expect(feed).toContain(
-    "<link>https://open-props-ui.netlify.app/blog/release-6/</link>",
-  )
+  expect(feed).toContain("<link>https://opui.dev/blog/release-6/</link>")
 })
 
 for (const path of DOCS_PAGES) {

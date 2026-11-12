@@ -79,7 +79,7 @@ export default defineConfig({
   compressHTML: true,
   image: { service: passthroughImageService() },
   markdown: { syntaxHighlight: false },
-  site: "https://open-props-ui.netlify.app/",
+  site: "https://opui.dev/",
   redirects: legacyRedirects,
   integrations: [
     {

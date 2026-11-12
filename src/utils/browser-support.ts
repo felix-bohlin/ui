@@ -6,6 +6,18 @@ const featureOf = (featureId: string) => {
   return feature && "status" in feature ? feature : undefined
 }
 
+export const SHARED_FEATURES = [
+  "cascade-layers",
+  "color-mix",
+  "light-dark",
+  "nesting",
+  "oklab",
+  "relative-color",
+]
+
+export const withSharedFeatures = (ids: string[]) =>
+  [...new Set([...ids, ...SHARED_FEATURES])].toSorted()
+
 export type BrowserId = "chrome" | "edge" | "firefox" | "safari"
 
 export type EngineId = "chromium" | "gecko" | "webkit"

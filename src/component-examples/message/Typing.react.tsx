@@ -2,12 +2,12 @@ import { Avatar, Message, Messages } from "opui-css/react"
 
 export default function Typing() {
   return (
-    <Messages aria-label="Messages with Saga">
+    <Messages aria-label="Messages with Sirkka">
       <Message
-        author="Saga"
+        author="Sirkka"
         datetime="2026-10-08T14:32"
         start={
-          <Avatar aria-label="Saga Nyström" role="img">
+          <Avatar aria-label="Sirkka Nitti" role="img">
             SN
           </Avatar>
         }
@@ -17,13 +17,13 @@ export default function Typing() {
       </Message>
       <Message
         start={
-          <Avatar aria-label="Saga Nyström" role="img">
+          <Avatar aria-label="Sirkka Nitti" role="img">
             SN
           </Avatar>
         }
         typing
       >
-        Saga is typing…
+        Sirkka is typing…
       </Message>
     </Messages>
   )

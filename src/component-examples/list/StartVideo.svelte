@@ -3,7 +3,7 @@
 </script>
 
 <List>
-  <ListItem description="Uploaded by Lena Ek" label="Product tour">
+  <ListItem description="Uploaded by Lena Handén" label="Product tour">
     {#snippet start()}
       <video controls muted>
         <source
@@ -14,7 +14,10 @@
     {/snippet}
     {#snippet end()}1:30{/snippet}
   </ListItem>
-  <ListItem description="Uploaded by Tom Tanaka" label="Release highlights">
+  <ListItem
+    description="Uploaded by Pekka Gåpåbottanen"
+    label="Release highlights"
+  >
     {#snippet start()}
       <video controls muted>
         <source

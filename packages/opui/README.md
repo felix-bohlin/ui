@@ -4,7 +4,7 @@ Design system. Components. Modern HTML & CSS.
 
 HTML, [Astro](https://astro.build/), [React](https://react.dev/), [Svelte](https://svelte.dev/) and [Vue](https://vuejs.org/) components alongside framework-agnostic CSS. The theme tokens started from [Open Props](https://open-props.style/), and the components don't need it: it ships as an optional companion for your own CSS.
 
-- Docs: [open-props-ui.netlify.app](https://open-props-ui.netlify.app/)
+- Docs: [opui.dev](https://opui.dev/)
 - Source: [github.com/felix-bohlin/ui](https://github.com/felix-bohlin/ui)
 
 ## Install
@@ -110,7 +110,7 @@ The compiled files are ES modules for ES2022, and Node can also `require()` them
 
 #### TypeScript
 
-`opui-css/react`, `opui-css/svelte` and `opui-css/vue` ship `.d.ts` files, so `skipLibCheck` skips them and your `compilerOptions` only apply to your own code. They resolve with `moduleResolution: "bundler"`, `"node16"` or `"nodenext"` (not `"node10"`).
+`opui-css/react`, `opui-css/svelte` and `opui-css/vue` ship `.d.ts` files, so `skipLibCheck` skips them and your `compilerOptions` only apply to your own code. They resolve with `moduleResolution: "bundler"`, `"node16"` or `"nodenext"` (not `"node10"`). The Svelte types need `skipLibCheck: true`, as the Svelte and SvelteKit templates set it: without it, `svelte-check` reports a union type that is too complex to represent.
 
 The Astro components import their `.ts` sources, which your `tsconfig.json` type-checks with your own `compilerOptions`. They are checked with `strict: true`, `verbatimModuleSyntax` and `isolatedModules`. `exactOptionalPropertyTypes` and `noUncheckedIndexedAccess` aren't checked, so they can report errors in the package, and `skipLibCheck` doesn't skip its `.ts` files.
 
@@ -154,7 +154,7 @@ Drop a pre-bundled stylesheet into any page and use the documented class names:
 
 `dist/opui.css` is a single self-contained file (Open Props + palette + theme + normalize + every component + browser fallbacks + utils, in the correct cascade layers). `dist/opui.components.css` has only the layer order, the component styles, their browser fallbacks and the `Layout` classes. The components need `core/palette.css` and `css/theme.css` to look right and `core/normalize.css`, or a reset that makes every box `border-box`, to size right, and `core/utils.css` holds `.ui-sr-only` and the motion and contrast classes, so load those yourself when you use it. Nothing in the package reads Open Props: `theme.css` holds its own values, and Open Props is in the bundle for your own CSS.
 
-The browser fallbacks are the `components.compat` layer and the `@supports not` blocks of `theme.css`, such as the `clamp()` heading sizes for browsers without `progress()`. A feature test only applies in browsers without the feature, and an engine fix, like the iOS submenu anchor, applies in that engine until it's removed. `dist/opui.no-compat.css` is `dist/opui.css` without them, and `dist/opui.baseline-<year>.css` keeps only the ones that browsers of that Baseline year need ([Compat layer](https://open-props-ui.netlify.app/html/guide/browser-support/#compat)).
+The browser fallbacks are the `components.compat` layer and the `@supports not` blocks of `theme.css`, such as the `clamp()` heading sizes for browsers without `progress()`. A feature test only applies in browsers without the feature, and an engine fix, like the iOS submenu anchor, applies in that engine until it's removed. `dist/opui.no-compat.css` is `dist/opui.css` without them, and `dist/opui.baseline-<year>.css` keeps only the ones that browsers of that Baseline year need ([Compat layer](https://opui.dev/html/guide/browser-support/#compat)).
 
 If you do have a bundler that resolves CSS `@import`s (Vite, Astro, webpack, …), import the source instead so you only ship what you use:
 
@@ -200,7 +200,7 @@ Vite 8's lightningcss also prints warnings such as `'scroll-button' is not recog
 
 ## Upgrading
 
-Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.md) (also on the docs site: [Migrating to v6](https://open-props-ui.netlify.app/html/guide/migrating/)), with every change listed in [CHANGELOG.md](./CHANGELOG.md).
+Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.md) (also on the docs site: [Migrating to v6](https://opui.dev/html/guide/migrating/)), with every change listed in [CHANGELOG.md](./CHANGELOG.md).
 
 ## Entry points
 
@@ -265,7 +265,7 @@ npx opui-css skill
 
 It writes `.claude/skills/opui` and prints the version it copied. Pass `--dir <path>` to copy it into another agent's skills folder (`<path>/opui`), and `--force` to replace an older copy after an upgrade. Without the command: `mkdir -p .claude/skills && cp -r node_modules/opui-css/skills/opui .claude/skills/opui`.
 
-The docs are also available as [llms.txt](https://open-props-ui.netlify.app/llms.txt), and every docs page has a Markdown version, e.g. [/html/components/button.md](https://open-props-ui.netlify.app/html/components/button.md).
+The docs are also available as [llms.txt](https://opui.dev/llms.txt), and every docs page has a Markdown version, e.g. [/html/components/button.md](https://opui.dev/html/components/button.md).
 
 ## License
 

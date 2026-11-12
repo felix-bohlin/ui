@@ -24,7 +24,7 @@
     Start at a <code>1:8</code> ratio of coffee to water, taste it after 18
     hours, and only then change one thing at a time.
     <footer>
-      <cite>Maria Lindqvist, head roaster at Kaffebaren</cite>
+      <cite>Lena Handén, head roaster at Kaffebaren</cite>
     </footer>
   </blockquote>
   <p>
@@ -311,7 +311,7 @@
     <blockquote>
       <p>Make it the night before, and breakfast is already done.</p>
     </blockquote>
-    <figcaption>Maria Lindqvist, Kaffebaren</figcaption>
+    <figcaption>Lena Handén, Kaffebaren</figcaption>
   </figure>
 
   <h2>Code</h2>
@@ -330,7 +330,11 @@
   plugins: ["oat-milk", "pour-over"],
 }</code></pre>
   <p>The whole menu on one line, too long for the column, scrolls:</p>
-  <pre><code>const menu = ["cold brew", "pour-over", "oat milk latte", "matcha", "kombucha", "espresso tonic", "turmeric latte", "flat white"]</code></pre>
+  <pre
+    aria-label="Menu"
+    role="region"
+    tabindex="0"
+  ><code>const menu = ["cold brew", "pour-over", "oat milk latte", "matcha", "kombucha", "espresso tonic", "turmeric latte", "flat white"]</code></pre>
   <p>Markup inside a code block has to be escaped:</p>
   <pre><code>&lt;article class="ui-rich-text"&gt;
   &lt;h1&gt;Hello &amp;amp; welcome&lt;/h1&gt;

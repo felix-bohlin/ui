@@ -3,11 +3,11 @@ import { Avatar } from "opui-css/react"
 export default function Image() {
   return (
     <>
-      <Avatar alt="Maya Lind" src="/photos/maya-lind.png" />
+      <Avatar alt="Lena Handén" src="/photos/lena-handen.png" />
 
-      <Avatar alt="Omar Haddad" src="/photos/omar-haddad.png" />
+      <Avatar alt="Hakki Hälinen" src="/photos/hakki-halinen.png" />
 
-      <Avatar alt="Jonas Berg" src="/photos/jonas-berg.png" />
+      <Avatar alt="Pekka Gåpåbottanen" src="/photos/pekka-gapabottanen.png" />
     </>
   )
 }

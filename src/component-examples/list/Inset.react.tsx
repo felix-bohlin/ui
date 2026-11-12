@@ -4,7 +4,7 @@ export default function Inset() {
   return (
     <List>
       <ListItem
-        label="Lena Ek"
+        label="Lena Handén"
         start={
           <svg
             aria-hidden="true"
@@ -21,7 +21,7 @@ export default function Inset() {
         }
       />
       <ListItem description="Mobile" inset label="+46 70 123 45 67" />
-      <ListItem description="Work" inset label="lena.ek@example.com" />
+      <ListItem description="Work" inset label="lena.handen@example.com" />
     </List>
   )
 }

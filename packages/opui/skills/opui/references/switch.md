@@ -3,7 +3,7 @@
 A setting that applies right away. For choices submitted with a form, use a Checkbox.
 
 - CSS: `opui-css/css/components/switch.css`, `opui-css/css/components/choice.css`, `opui-css/css/components/form.css` and `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/switch.md), [Astro](https://open-props-ui.netlify.app/astro/components/switch.md), [React](https://open-props-ui.netlify.app/react/components/switch.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/switch.md), [Vue](https://open-props-ui.netlify.app/vue/components/switch.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/switch.md), [Astro](https://opui.dev/astro/components/switch.md), [React](https://opui.dev/react/components/switch.md), [Svelte](https://opui.dev/svelte/components/switch.md), [Vue](https://opui.dev/vue/components/switch.md).
 - The docs page also documents `FieldGroup`, see `form.md`.
 
 ## Switch

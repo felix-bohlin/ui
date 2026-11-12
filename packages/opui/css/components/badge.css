@@ -8,6 +8,7 @@
     --_dot-size: var(--ui-space-2);
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease-enter);
+    --_indicator-size: var(--ui-space-4);
     --_inset: 100%;
     --_inset-block: auto var(--_inset);
     --_inset-inline: var(--_inset) auto;
@@ -15,7 +16,6 @@
     --_shift-y: calc(50% * var(--_sign-y));
     --_sign-x: -1;
     --_sign-y: 1;
-    --_size: var(--ui-space-4);
     --_text-color: var(--ui-on-primary);
 
     display: inline-flex;
@@ -42,7 +42,7 @@
     /* Indicator */
     & > .ui-floating > .ui-indicator {
       background-color: var(--_bg-color);
-      block-size: var(--_size);
+      block-size: var(--_indicator-size);
       border: var(--_border-width) solid var(--_border-color);
       border-radius: var(--ui-radius-round);
       color: var(--_text-color);
@@ -51,7 +51,7 @@
       font-weight: var(--ui-font-weight-medium);
       inline-size: max-content;
       line-height: normal;
-      min-inline-size: var(--_size);
+      min-inline-size: var(--_indicator-size);
       padding-inline: var(--ui-space-1);
       place-items: center;
       text-align: center;

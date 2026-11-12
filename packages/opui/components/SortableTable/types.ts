@@ -3,6 +3,10 @@ export type Props = {
   descendingLabel?: string
 }
 
+export type Events = {
+  sort: CustomEvent<SortDetail>
+}
+
 export type SortDetail = {
   column: number
   direction: "ascending" | "descending"

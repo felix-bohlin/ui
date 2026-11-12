@@ -10,9 +10,9 @@ import { TextField } from "opui-css/vue"
     placeholder="Search people"
   >
     <datalist id="text-field-autosuggest-1-list">
-      <option value="Elif Rahman"></option>
-      <option value="Lena Ek"></option>
-      <option value="Tom Tanaka"></option>
+      <option value="Inga Halonen"></option>
+      <option value="Lena Handén"></option>
+      <option value="Pekka Gåpåbottanen"></option>
     </datalist>
   </TextField>
 
@@ -25,9 +25,9 @@ import { TextField } from "opui-css/vue"
     variant="filled"
   >
     <datalist id="text-field-autosuggest-2-list">
-      <option value="elif.rahman@example.com"></option>
-      <option value="lena.ek@example.com"></option>
-      <option value="tom.tanaka@example.com"></option>
+      <option value="inga.halonen@example.com"></option>
+      <option value="lena.handen@example.com"></option>
+      <option value="pekka.gapabottanen@example.com"></option>
     </datalist>
   </TextField>
 </template>

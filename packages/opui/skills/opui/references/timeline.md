@@ -3,7 +3,7 @@
 A list of dated events with markers and a connecting line.
 
 - CSS: `opui-css/css/components/timeline.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/timeline.md), [Astro](https://open-props-ui.netlify.app/astro/components/timeline.md), [React](https://open-props-ui.netlify.app/react/components/timeline.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/timeline.md), [Vue](https://open-props-ui.netlify.app/vue/components/timeline.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/timeline.md), [Astro](https://opui.dev/astro/components/timeline.md), [React](https://opui.dev/react/components/timeline.md), [Svelte](https://opui.dev/svelte/components/timeline.md), [Vue](https://opui.dev/vue/components/timeline.md).
 
 ## Timeline
 

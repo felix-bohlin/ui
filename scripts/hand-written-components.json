@@ -3,6 +3,6 @@
   "Select/Select.react.tsx": "the initial value taken from the selected items, which the Astro file doesn't express",
   "Select/Select.svelte": "the initial value taken from the selected items, which the Astro file doesn't express: bind:value takes one option from the page, also on a multiple select",
   "Select/Select.vue": "the initial value taken from the selected items, which the Astro file doesn't express: v-model deselects every option while its value is undefined",
-  "SortableTable/SortableTable.react.tsx": "the onSort prop, which listens to the element's sort event with a ref and an effect: React 19 attaches a custom element's onsort on a client render but not on hydration",
-  "SortableTable/types.react.ts": "the onSort prop and the opui-sortable-table element's attribute types"
+  "SortableTable/SortableTable.react.tsx": "data-hydrating, which the element reads to ignore header clicks until React has hydrated the table and attached onSort, and which the Astro file doesn't express",
+  "SortableTable/types.react.ts": "the element's attribute types without ref, since the component's own ref attaches onSort and removes data-hydrating"
 }

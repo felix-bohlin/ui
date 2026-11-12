@@ -3,7 +3,7 @@
 A star rating: a meter that shows a score, or radios that collect one.
 
 - CSS: `opui-css/css/components/rating.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/rating.md), [Astro](https://open-props-ui.netlify.app/astro/components/rating.md), [React](https://open-props-ui.netlify.app/react/components/rating.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/rating.md), [Vue](https://open-props-ui.netlify.app/vue/components/rating.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/rating.md), [Astro](https://opui.dev/astro/components/rating.md), [React](https://opui.dev/react/components/rating.md), [Svelte](https://opui.dev/svelte/components/rating.md), [Vue](https://opui.dev/vue/components/rating.md).
 
 ## Rating
 
@@ -49,13 +49,14 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_clear-hover-bg-color`: Color of the hovered clear icon. Defaults to `--ui-text`.
 - `--_clear-image`: The icon of the clear radio before the input stars, as an image used as a mask.
 - `--_ease`: Easing of the fill transition. Defaults to `--ui-ease`.
-- `--_empty-bg-color`: Color of the empty stars. `--ui-track-bg-color` when the theme sets it, otherwise `--ui-border-color`. An invalid input tints it with `--ui-invalid`.
+- `--_empty-bg-color`: Color of the empty star outlines. `--ui-track-bg-color` when the theme sets it, otherwise `--ui-border-color`. An invalid input tints it with `--ui-invalid`.
 - `--_max`: Number of stars a meter is wide, for browsers without typed `attr()`. The components set it when `max` isn't `5`. Defaults to `5`.
 - `--_motion`: Motion multiplier for the fill transition.
 - `--_size`: Size of one star. Defaults to `--ui-icon-size` on a meter and `--ui-control-size-x-small` on an input, so every radio is a large enough target; `.ui-small` and `.ui-large` set the next size down and up.
-- `--_star-image`: The star mask every star is drawn with.
+- `--_star-empty-image`: The outline mask an empty star is drawn with, so empty stars differ from filled ones by shape as well as color. A meter needs typed `attr()` for it, and draws its empty stars with `--_star-image` without it.
+- `--_star-image`: The mask a filled star is drawn with.
 
-Outputs: `--_duration` and `--_fill-bg-color`.
+Outputs: `--_duration`, `--_fill-bg-color` and `--_fill-image`.
 
 ## Theme tokens
 

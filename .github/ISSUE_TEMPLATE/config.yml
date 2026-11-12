@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Documentation
+    url: https://opui.dev/
+    about: Getting started, every component and the theming guides.
+  - name: Migrating from 5.x
+    url: https://opui.dev/html/guide/migrating/
+    about: The steps and renames for upgrading to 6.0.
+  - name: Security vulnerability
+    url: https://github.com/felix-bohlin/ui/security/advisories/new
+    about: Report it privately instead of opening an issue.

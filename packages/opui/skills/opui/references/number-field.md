@@ -3,7 +3,7 @@
 A number field with buttons that step the value down and up, for amounts like a quantity.
 
 - CSS: `opui-css/css/components/number-field.css`, `opui-css/css/components/text-field.css` and `opui-css/css/components/button.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/number-field.md), [Astro](https://open-props-ui.netlify.app/astro/components/number-field.md), [React](https://open-props-ui.netlify.app/react/components/number-field.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/number-field.md), [Vue](https://open-props-ui.netlify.app/vue/components/number-field.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/number-field.md), [Astro](https://opui.dev/astro/components/number-field.md), [React](https://opui.dev/react/components/number-field.md), [Svelte](https://opui.dev/svelte/components/number-field.md), [Vue](https://opui.dev/vue/components/number-field.md).
 
 ## NumberField
 

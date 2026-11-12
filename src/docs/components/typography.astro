@@ -42,6 +42,14 @@ export const keywords = ["font", "heading", "prose", "text"]
     "scope",
     "text-wrap-pretty",
   ]}
+  fallbacks={{
+    attr: "Without typed `attr()`, an ordered list in rich text with a `start` indents for four-digit numbers.",
+    "box-decoration-break":
+      "Without `box-decoration-break`, a highlight that wraps keeps its padding and rounded corners only at its start and end.",
+    if: "Without `if()`, the compat layer still dims the subtitle of a heading group, and keeps it at full strength with more contrast.",
+    "text-wrap-pretty":
+      "Without `text-wrap: pretty`, the last line of a paragraph, heading or caption can hold a single word.",
+  }}
   apis={[{ title: "Typography API", api: typographyApi }]}
   changelogPaths={[
     { path: "src/docs/components/typography.astro", type: "docs" },
@@ -269,6 +277,11 @@ export const keywords = ["font", "heading", "prose", "text"]
       <li>
         A <a href="#swatch"><code>.ui-swatch</code></a> has no text: a screen
         reader only gets the words next to it.
+      </li>
+      <li>
+        Give a <a href="#code-block">code block</a> that scrolls sideways
+        <code>tabindex="0"</code>, <code>role="region"</code> and a unique
+        <code>aria-label</code>, so a keyboard can scroll it.
       </li>
     </ul>
   </Fragment>

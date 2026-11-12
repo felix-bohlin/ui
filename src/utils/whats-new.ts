@@ -170,6 +170,7 @@ export const whatsNew = {
       `<a href="#corners"><code>corner</code></a> takes <code>"start-end"</code>, the default corner.`,
     ),
     `Breaking: <code>--_badge-inset</code> is <code>--_inset</code>, one length that the badge turns into <code>--_inset-block</code> and <code>--_inset-inline</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_size</code> is <code>--_indicator-size</code>, the height and minimum width of the indicator (<a href="#under-the-hood">Under the hood</a>).`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `The indicator border reads <a href="#api"><code>--ui-border-width-thick</code></a>.`,
     `<a href="#colors">Warning</a> badges read <code>--ui-on-warning</code>, the text color on a warning fill.`,
@@ -262,6 +263,13 @@ export const whatsNew = {
       html: `<a href="#actions"><code>.ui-actions</code></a> puts a row of buttons under the content, and a <a href="#dismissible">close button</a> sits at the end of the first row.`,
     },
     `<a href="#severities">Links</a> in a callout turn <code>--ui-primary-text</code> on hover and focus, the primary that keeps 4.5:1 on every surface.`,
+    {
+      astro: `<a href="#dismissible"><code>dismissible</code></a> adds a close button that hides the callout, moves focus out of it and fires a cancelable <code>dismiss</code> event first. The <code>close-icon</code> slot replaces its icon.`,
+      html: `<a href="#dismissible"><code>&lt;opui-callout&gt;</code></a> hides itself on <code>command="--dismiss"</code>, moves focus out of it and fires a cancelable <code>dismiss</code> event first. Import <code>opui-css/elements/callout.js</code>.`,
+      react: `<a href="#dismissible"><code>dismissible</code></a> adds a close button that hides the callout and moves focus out of it. <code>onDismiss</code> runs first and can keep it with <code>preventDefault()</code>, and <code>closeIcon</code> replaces its icon.`,
+      svelte: `<a href="#dismissible"><code>dismissible</code></a> adds a close button that hides the callout and moves focus out of it. <code>ondismiss</code> runs first and can keep it with <code>preventDefault()</code>, and the <code>closeIcon</code> snippet replaces its icon.`,
+      vue: `<a href="#dismissible"><code>dismissible</code></a> adds a close button that hides the callout and moves focus out of it. <code>@dismiss</code> runs first and can keep it with <code>preventDefault()</code>, and the <code>close-icon</code> slot replaces its icon.`,
+    },
   ],
   card: [
     `<a href="#density"><code>density</code></a> takes <code>spacious</code> for a card that stands alone, such as a sign-in form, and <code>dense</code> for a small stat.`,
@@ -1075,7 +1083,7 @@ export const whatsNew = {
     `An <a href="#validation">invalid</a> range reads <code>--ui-invalid</code>, like every invalid control.`,
   ],
   rating: [
-    `New: a <a href="#basics">Rating</a> draws a score as stars in a <code>&lt;meter&gt;</code>, down to a fraction, and with a <a href="#input">name</a> collects one with radios that preview on hover. The stars and the clear icon are masks that <a href="#input"><code>--_star-image</code> and <code>--_clear-image</code></a> replace.`,
+    `New: a <a href="#basics">Rating</a> draws a score as stars in a <code>&lt;meter&gt;</code>, down to a fraction, and with a <a href="#input">name</a> collects one with radios that preview on hover. Empty stars are outlines, so they differ from filled ones by shape as well as color. The stars, the empty stars and the clear icon are masks that <a href="#input"><code>--_star-image</code>, <code>--_star-empty-image</code> and <code>--_clear-image</code></a> replace.`,
   ],
   select: [
     components(
@@ -1130,7 +1138,7 @@ export const whatsNew = {
       svelte: `<a href="#preselected"><code>items</code></a> is typed as <code>SelectItem[]</code>, exported from every framework.`,
     },
     slots(
-      `Breaking: <code>ClassicSelect</code> is gone. Use <code>Select</code>, which falls back to the browser's own picker (<a href="#fallback">Fallback</a>).`,
+      `Breaking: <code>ClassicSelect</code> is gone. Use <code>Select</code>, which falls back to the browser's own picker (<a href="#browser-support">Browser support</a>).`,
     ),
     slots(
       `Breaking: <code>startText</code> replaces <code>description</code>, matching <code>endText</code> (<a href="#spread">Spread</a>).`,
@@ -1303,6 +1311,7 @@ export const whatsNew = {
       astro: `Breaking: import the parts by their flat names, such as <a href="#api"><code>TabsItem</code></a>. The <code>Tabs.Item</code> aliases are gone.`,
     },
     `Breaking: <a href="#basics">restyled</a> as a segmented control. <code>--_accent-color</code> and <code>--_bg-color</code> are gone, use a <a href="#filled">variant</a> or <code>--_selected-bg-color</code>, <code>--_selected-text-color</code>, <code>--_indicator-bg-color</code> and <code>--_track-bg-color</code>.`,
+    `In dark mode the <a href="#basics">selected pill</a> is <code>--ui-text-strong</code> at <code>--ui-state-selected-alpha-accent</code>, so it follows a theme's grays.`,
     {
       ...slots(
         `Breaking: no <code>tablist</code>, <code>tab</code> or <code>tabpanel</code> roles, so screen readers announce the <a href="#accessibility">radio group</a> they are. <code>TabsItem</code> and <code>TabsPanel</code> no longer take <code>panelId</code>, and <code>TabsPanel</code> no longer takes <code>tabId</code>.`,
@@ -1560,7 +1569,7 @@ export const whatsNew = {
     slots(
       `Breaking: <a href="#sizes"><code>size="default"</code></a> is <code>size="medium"</code> on <code>ToggleGroup</code>, like every sized component.`,
     ),
-    `A disabled <a href="#disabled">toggle</a> dims like a disabled button, and hover uses the button hover strength.`,
+    `A disabled <a href="#disabled">toggle</a> dims like a disabled button, and hover tints with <code>--ui-text-strong</code> at the button hover strength, so it follows a theme's grays.`,
     components(
       `<code>ToggleGroup</code> warns in development when it has no <a href="#accessibility"><code>aria-label</code></a> or <code>aria-labelledby</code>.`,
     ),

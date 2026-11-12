@@ -947,16 +947,16 @@ interaction(
     const input = root.getByRole("textbox", { name: "Name" })
     const text = root.locator(".text-field-binding-text")
 
-    await expect(input).toHaveValue("Ada")
-    await expect(text).toHaveText("Hello, Ada.")
-    await input.fill("Grace")
-    await expect(text).toHaveText("Hello, Grace.")
+    await expect(input).toHaveValue("Hakki")
+    await expect(text).toHaveText("Hello, Hakki.")
+    await input.fill("Pekka")
+    await expect(text).toHaveText("Hello, Pekka.")
     await input.fill("")
     await expect(text).toHaveText("Hello, stranger.")
 
     await root.getByRole("button", { name: "Reset" }).click()
-    await expect(input).toHaveValue("Ada")
-    await expect(text).toHaveText("Hello, Ada.")
+    await expect(input).toHaveValue("Hakki")
+    await expect(text).toHaveText("Hello, Hakki.")
   },
 )
 
@@ -983,7 +983,7 @@ interaction(
     await expect.poll(border).toBe(invalid)
 
     await input.focus()
-    await page.keyboard.type("Ada")
+    await page.keyboard.type("Hakki")
     await page.keyboard.press("Tab")
     await expect.poll(border).toBe(initial)
   },
@@ -1806,7 +1806,7 @@ interaction(
       await input.evaluate((element: HTMLInputElement) =>
         [...(element.list?.options ?? [])].map((option) => option.value),
       ),
-    ).toEqual(["Elif Rahman", "Lena Ek", "Tom Tanaka"])
+    ).toEqual(["Inga Halonen", "Lena Handén", "Pekka Gåpåbottanen"])
   },
 )
 
@@ -1980,17 +1980,119 @@ test("the data-table block selects and sorts its rows together", async ({
   for (const row of await rows.all()) await expect(row).toBeChecked()
 
   await page.getByRole("button", { name: "MRR" }).click()
-  await expect(firstCustomer).toContainText("Kwame Mensah")
+  await expect(firstCustomer).toContainText("Hakki Hälinen")
   await page.getByRole("button", { name: "MRR" }).click()
-  await expect(firstCustomer).toContainText("Astrid Nyström")
+  await expect(firstCustomer).toContainText("Ranta Runtiringen")
   await page.getByRole("button", { name: "Signed up" }).click()
-  await expect(firstCustomer).toContainText("Sofia Lund")
+  await expect(firstCustomer).toContainText("Inga Halonen")
   for (const row of await rows.all()) await expect(row).toBeChecked()
 
-  await page.getByRole("checkbox", { name: "Select Mats Berg" }).click()
+  await page
+    .getByRole("checkbox", { name: "Select Pekka Gåpåbottanen" })
+    .click()
   await expect(all).not.toBeChecked()
   await expect(all).toHaveJSProperty("indeterminate", true)
 })
+
+interaction(
+  "callout",
+  "Dismissible",
+  "dismissible callout hides itself and moves focus to the next focusable element, or else the one before",
+  async ({ page, root }) => {
+    page.on("dialog", (dialog) => dialog.accept())
+    const callout = root.locator(".ui-callout")
+    const close = callout.getByRole("button", { name: "Dismiss" })
+    const before = root.getByRole("button", { name: "Before the callout" })
+    const after = root.getByRole("button", { name: "After the callout" })
+
+    await root.evaluate((element) => {
+      for (const [label, position] of [
+        ["Before the callout", "afterbegin"],
+        ["After the callout", "beforeend"],
+      ] as const) {
+        const button = document.createElement("button")
+        button.textContent = label
+        button.type = "button"
+        element.insertAdjacentElement(position, button)
+      }
+    })
+
+    await expect(close).toBeVisible()
+    await close.press("Enter")
+    await expect(callout).toBeHidden()
+    await expect(callout).toHaveAttribute("hidden", "")
+    await expect(after).toBeFocused()
+
+    await after.evaluate((element) => element.remove())
+    await callout.evaluate((element) => element.removeAttribute("hidden"))
+    await close.press("Enter")
+    await expect(callout).toBeHidden()
+    await expect(before).toBeFocused()
+  },
+)
+
+interaction(
+  "callout",
+  "Dismissible",
+  "dismissible callout stays when a dismiss listener calls preventDefault()",
+  async ({ page, root }) => {
+    page.on("dialog", (dialog) => dialog.accept())
+    const callout = root.locator(".ui-callout")
+    const close = callout.getByRole("button", { name: "Dismiss" })
+
+    await expect(close).toBeVisible()
+    await page.evaluate(() => {
+      const events: string[] = []
+      Object.assign(window, { dismissEvents: events })
+      document.addEventListener("dismiss", (event) => {
+        events.push(
+          `${(event.target as Element).localName} ${event.cancelable}`,
+        )
+        event.preventDefault()
+      })
+    })
+    await close.click()
+    await expect
+      .poll(() =>
+        page.evaluate(
+          () =>
+            (window as unknown as { dismissEvents: string[] }).dismissEvents,
+        ),
+      )
+      .toEqual(["opui-callout true"])
+    await expect(callout).toBeVisible()
+    await expect(callout).not.toHaveAttribute("hidden")
+  },
+)
+
+interaction(
+  "callout",
+  "Dismissible",
+  "dismissible callout runs the example's dismiss handler, whose preventDefault() keeps it",
+  async ({ page, root }) => {
+    const callout = root.locator(".ui-callout")
+    const close = callout.getByRole("button", { name: "Dismiss" })
+    const asked: string[] = []
+    let confirmed = false
+    page.on("dialog", async (dialog) => {
+      asked.push(`${dialog.type()}: ${dialog.message()}`)
+      await (confirmed ? dialog.accept() : dialog.dismiss())
+    })
+
+    await expect(close).toBeVisible()
+    await close.click()
+    await expect.poll(() => asked).toEqual(["confirm: Hide this message?"])
+    await expect(callout).toBeVisible()
+    await expect(callout).not.toHaveAttribute("hidden")
+
+    confirmed = true
+    await close.click()
+    await expect.poll(() => asked).toHaveLength(2)
+    await expect(callout).toBeHidden()
+    await expect(callout).toHaveAttribute("hidden", "")
+  },
+)
+
 const stubClipboard = (page: Page) =>
   page.evaluate(() => {
     const copied: string[] = []

@@ -3,7 +3,7 @@ import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField label="Name" placeholder="Ada Lovelace">
+  <TextField label="Name" placeholder="Hakki Hälinen">
     <template #top>Shown on your profile</template>
   </TextField>
 

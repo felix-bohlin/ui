@@ -2,12 +2,12 @@ import { Avatar, Card, CardContent, Message, Messages } from "opui-css/react"
 
 export default function Attachments() {
   return (
-    <Messages aria-label="Messages with Saga">
+    <Messages aria-label="Messages with Sirkka">
       <Message
-        author="Saga"
+        author="Sirkka"
         datetime="2026-10-08T14:31"
         start={
-          <Avatar aria-label="Saga Nyström" role="img">
+          <Avatar aria-label="Sirkka Nitti" role="img">
             SN
           </Avatar>
         }

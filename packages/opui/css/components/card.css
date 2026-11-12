@@ -35,24 +35,24 @@
     position: relative;
 
     /* Density */
-    &.ui-dense {
+    &:where(.ui-accordion, .ui-card).ui-dense {
       --_gap: var(--ui-space-2);
       --_padding: var(--ui-space-2);
     }
 
-    &.ui-spacious {
+    &:where(.ui-accordion, .ui-card).ui-spacious {
       --_padding: var(--ui-space-5);
     }
 
     /* Variants */
-    &.ui-transparent {
+    &:where(.ui-accordion, .ui-card).ui-transparent {
       --_bg-color: transparent;
       --_border-color: transparent;
       --_border-width: 0;
       --_shadow: none;
     }
 
-    &.ui-tonal {
+    &:where(.ui-accordion, .ui-card).ui-tonal {
       --_bg-color: var(--_tonal-bg-color);
       --_border-color: var(--ui-border-color-raised, var(--_surface-bg-color));
       --_border-width: var(--ui-border-width);
@@ -70,7 +70,7 @@
       --ui-field-border-color: var(--ui-field-border-color-on-raised);
     }
 
-    &.ui-outlined {
+    &:where(.ui-accordion, .ui-card).ui-outlined {
       --_bg-color: var(--_surface-bg-color);
       --_border-color: var(--_outlined-border-color);
       --_border-width: var(--ui-border-width);

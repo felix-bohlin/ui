@@ -3,13 +3,21 @@ import { Avatar } from "opui-css/react"
 export default function Shapes() {
   return (
     <>
-      <Avatar alt="Jonas Berg" shape="rounded" src="/photos/jonas-berg.png" />
+      <Avatar
+        alt="Pekka Gåpåbottanen"
+        shape="rounded"
+        src="/photos/pekka-gapabottanen.png"
+      />
 
-      <Avatar aria-label="Sam Quist" role="img" shape="squared">
-        SQ
+      <Avatar aria-label="Ranta Runtiringen" role="img" shape="squared">
+        RR
       </Avatar>
 
-      <Avatar alt="Maya Lind" shape="squircle" src="/photos/maya-lind.png" />
+      <Avatar
+        alt="Lena Handén"
+        shape="squircle"
+        src="/photos/lena-handen.png"
+      />
     </>
   )
 }

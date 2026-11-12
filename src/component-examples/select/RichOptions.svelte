@@ -5,26 +5,26 @@
 <Select label="Assignee">
   <option value="lena">
     <span class="ui-start"
-      ><span aria-hidden="true" class="ui-avatar ui-x-small">LE</span></span
+      ><span aria-hidden="true" class="ui-avatar ui-x-small">LH</span></span
     >
     <span class="ui-text"
-      ><span>Lena Ek</span> <span>Product designer</span></span
+      ><span>Lena Handén</span> <span>Product designer</span></span
     >
   </option>
-  <option value="tom">
+  <option value="pekka">
     <span class="ui-start"
-      ><span aria-hidden="true" class="ui-avatar ui-x-small">TT</span></span
+      ><span aria-hidden="true" class="ui-avatar ui-x-small">PG</span></span
     >
     <span class="ui-text"
-      ><span>Tom Tanaka</span> <span>Frontend developer</span></span
+      ><span>Pekka Gåpåbottanen</span> <span>Frontend developer</span></span
     >
   </option>
-  <option value="elif">
+  <option value="inga">
     <span class="ui-start"
-      ><span aria-hidden="true" class="ui-avatar ui-x-small">ER</span></span
+      ><span aria-hidden="true" class="ui-avatar ui-x-small">IH</span></span
     >
     <span class="ui-text"
-      ><span>Elif Rahman</span> <span>Support lead</span></span
+      ><span>Inga Halonen</span> <span>Support lead</span></span
     >
   </option>
 </Select>

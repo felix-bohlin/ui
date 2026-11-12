@@ -32,21 +32,21 @@
       <TableRow>
         <TableCell>2.4.0</TableCell>
         <TableCell>Production</TableCell>
-        <TableCell>Ingrid Sandberg</TableCell>
+        <TableCell>Hakki Hälinen</TableCell>
         <TableCell>8 October, 09:42</TableCell>
         <TableCell numeric>4 min 12 s</TableCell>
       </TableRow>
       <TableRow>
         <TableCell>2.3.2</TableCell>
         <TableCell>Staging</TableCell>
-        <TableCell>Oskar Lind</TableCell>
+        <TableCell>Pekka Gåpåbottanen</TableCell>
         <TableCell>7 October, 16:05</TableCell>
         <TableCell numeric>3 min 48 s</TableCell>
       </TableRow>
       <TableRow>
         <TableCell>2.3.1</TableCell>
         <TableCell>Production</TableCell>
-        <TableCell>Amara Okafor</TableCell>
+        <TableCell>Sirkka Nitti</TableCell>
         <TableCell>1 October, 11:20</TableCell>
         <TableCell numeric>12 min 3 s</TableCell>
       </TableRow>

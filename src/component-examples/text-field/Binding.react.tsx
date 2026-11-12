@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Button, TextField } from "opui-css/react"
 
 export default function Binding() {
-  const [name, setName] = useState("Ada")
+  const [name, setName] = useState("Hakki")
 
   return (
     <>
@@ -17,7 +17,7 @@ export default function Binding() {
       <p className="text-field-binding-text">Hello, {name || "stranger"}.</p>
       <Button
         className="text-field-binding-reset"
-        onClick={() => setName("Ada")}
+        onClick={() => setName("Hakki")}
       >
         Reset
       </Button>

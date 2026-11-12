@@ -142,10 +142,6 @@ aside.sidebar {
     margin-inline-start: var(--size-2);
   }
 
-  & > .ui-label:only-of-type {
-    display: none;
-  }
-
   & > .ui-panel {
     margin-block-start: 0;
   }

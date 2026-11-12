@@ -2,7 +2,7 @@
   import { Avatar } from "opui-css/svelte"
 </script>
 
-<Avatar aria-label="Lena Ek" role="img" size="x-small">LE</Avatar>
-<Avatar aria-label="Tom Tanaka" role="img" size="small">TT</Avatar>
-<Avatar aria-label="Elif Rahman" role="img">ER</Avatar>
-<Avatar aria-label="Karl Lund" role="img" size="large">KL</Avatar>
+<Avatar aria-label="Lena Handén" role="img" size="x-small">LH</Avatar>
+<Avatar aria-label="Pekka Gåpåbottanen" role="img" size="small">PG</Avatar>
+<Avatar aria-label="Inga Halonen" role="img">IH</Avatar>
+<Avatar aria-label="Hakki Hälinen" role="img" size="large">HH</Avatar>

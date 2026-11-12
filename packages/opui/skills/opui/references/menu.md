@@ -3,7 +3,7 @@
 A popover list of actions or links.
 
 - CSS: `opui-css/css/components/list.css` and `opui-css/css/components/menu.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/menu.md), [Astro](https://open-props-ui.netlify.app/astro/components/menu.md), [React](https://open-props-ui.netlify.app/react/components/menu.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/menu.md), [Vue](https://open-props-ui.netlify.app/vue/components/menu.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/menu.md), [Astro](https://opui.dev/astro/components/menu.md), [React](https://opui.dev/react/components/menu.md), [Svelte](https://opui.dev/svelte/components/menu.md), [Vue](https://opui.dev/vue/components/menu.md).
 
 ## Menu
 

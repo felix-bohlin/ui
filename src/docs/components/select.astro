@@ -39,6 +39,14 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
     "transition-behavior",
     "user-pseudos",
   ]}
+  fallbacks={{
+    "customizable-select":
+      "Without customizable select, the browser's own picker opens, with the text of each option only.",
+    "display-animation":
+      "Without display animation, the picker disappears at once instead of fading out.",
+    overlay:
+      "Without `overlay`, the page can cover the picker while it fades out.",
+  }}
   heroAnatomy
   apis={[{ title: "Select API", api: selectApi }]}
   installationTabs={[
@@ -235,9 +243,6 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
     <KeyboardSupport>
       <p>Chromium's keys. Other browsers open their own picker.</p>
     </KeyboardSupport>
-
-    <h3 id="fallback">Fallback</h3>
-    <p>Without customizable select, the browser's own picker opens.</p>
   </Fragment>
 
   <SelectBuild slot="under-the-hood" />

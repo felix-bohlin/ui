@@ -3,7 +3,7 @@
 Lets you show and hide content, on its own or as a group.
 
 - CSS: `opui-css/css/components/accordion.css` and `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/accordion.md), [Astro](https://open-props-ui.netlify.app/astro/components/accordion.md), [React](https://open-props-ui.netlify.app/react/components/accordion.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/accordion.md), [Vue](https://open-props-ui.netlify.app/vue/components/accordion.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/accordion.md), [Astro](https://opui.dev/astro/components/accordion.md), [React](https://opui.dev/react/components/accordion.md), [Svelte](https://opui.dev/svelte/components/accordion.md), [Vue](https://opui.dev/vue/components/accordion.md).
 
 ## Accordion
 

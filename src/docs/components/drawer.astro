@@ -184,6 +184,10 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
         Add <code>.ui-scroll-lock</code> to keep the page from scrolling.
       </Fragment>
     </Conditional>
+    <p>
+      A drawer opened with <code>show()</code> isn't in the top layer, so give
+      it a <code>z-index</code> above the page's sticky headers.
+    </p>
 
     <AutoExample name="NonModal" row />
   </section>

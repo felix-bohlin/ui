@@ -418,7 +418,7 @@ Text uses `--ui-on-primary`, and sizes follow `--ui-control-size` and `--ui-cont
 ```diff
 - <Avatar aria-label="Team" isGroup>
 + <AvatarGroup aria-label="Team">
-    <Avatar alt="Lena Handén" src="/lena.jpg" />
+    <Avatar alt="Lou Headstock" src="/lou.jpg" />
 - </Avatar>
 + </AvatarGroup>
 ```
@@ -703,9 +703,9 @@ The part files are renamed to `DescriptionListDescription.*`, `DescriptionListIt
 
 ```diff
 - <dt class="ui-term">Name</dt>
-- <dd class="ui-description">Hakki</dd>
+- <dd class="ui-description">Holly</dd>
 + <dt>Name</dt>
-+ <dd>Hakki</dd>
++ <dd>Holly</dd>
 ```
 
 `border` sets the style of the line between a term and its description, `"solid"` or `"dotted"`, and the list draws none without it. In Astro and Vue, `bordered` is `border="solid"` and `bordered="dotted"` is `border="dotted"`.

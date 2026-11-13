@@ -3,13 +3,13 @@ import { Avatar } from "opui-css/react"
 export default function Letter() {
   return (
     <>
-      <Avatar aria-label="Lena Handén" role="img">
+      <Avatar aria-label="Lou Headstock" role="img">
         LH
       </Avatar>
-      <Avatar aria-label="Pekka Gåpåbottanen" role="img">
+      <Avatar aria-label="Percy Groove" role="img">
         PG
       </Avatar>
-      <Avatar aria-label="Inga Halonen" role="img">
+      <Avatar aria-label="Ines Hertz" role="img">
         IH
       </Avatar>
     </>

@@ -12,28 +12,28 @@ import {
 
 <template>
   <Table density="dense">
-    <TableCaption>Team members</TableCaption>
+    <TableCaption>Low End Theory members</TableCaption>
     <TableHead>
       <TableRow>
         <TableHeaderCell>Name</TableHeaderCell>
-        <TableHeaderCell>Role</TableHeaderCell>
+        <TableHeaderCell>Specialty</TableHeaderCell>
         <TableHeaderCell>Location</TableHeaderCell>
       </TableRow>
     </TableHead>
     <TableBody>
       <TableRow>
-        <TableCell>Lena Handén</TableCell>
-        <TableCell>Product designer</TableCell>
+        <TableCell>Lou Headstock</TableCell>
+        <TableCell>Flatwound collector</TableCell>
         <TableCell>Göteborg</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>Pekka Gåpåbottanen</TableCell>
-        <TableCell>Frontend developer</TableCell>
+        <TableCell>Percy Groove</TableCell>
+        <TableCell>Slap enthusiast</TableCell>
         <TableCell>Lisbon</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>Inga Halonen</TableCell>
-        <TableCell>Support lead</TableCell>
+        <TableCell>Ines Hertz</TableCell>
+        <TableCell>Low B whisperer</TableCell>
         <TableCell>Berlin</TableCell>
       </TableRow>
     </TableBody>

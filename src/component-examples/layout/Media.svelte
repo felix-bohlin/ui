@@ -5,7 +5,7 @@
 <div class="ui-layout-media">
   <Avatar aria-hidden="true">LH</Avatar>
   <div>
-    <p>Lena Handén</p>
-    <p class="ui-caption">Product designer, joined in March</p>
+    <p>Lou Headstock</p>
+    <p class="ui-caption">Fretless fan, joined in March</p>
   </div>
 </div>

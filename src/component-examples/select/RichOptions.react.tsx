@@ -3,57 +3,57 @@ import { Select } from "opui-css/react"
 export default function RichOptions() {
   return (
     <>
-      <Select label="Assignee">
-        <option value="lena">
+      <Select label="Jam buddy">
+        <option value="lou">
           <span className="ui-start">
             <span aria-hidden="true" className="ui-avatar ui-x-small">
               LH
             </span>
           </span>{" "}
           <span className="ui-text">
-            <span>Lena Handén</span> <span>Product designer</span>
+            <span>Lou Headstock</span> <span>Slap enthusiast</span>
           </span>
         </option>
-        <option value="pekka">
+        <option value="percy">
           <span className="ui-start">
             <span aria-hidden="true" className="ui-avatar ui-x-small">
               PG
             </span>
           </span>{" "}
           <span className="ui-text">
-            <span>Pekka Gåpåbottanen</span> <span>Frontend developer</span>
+            <span>Percy Groove</span> <span>5-string wizard</span>
           </span>
         </option>
-        <option value="inga">
+        <option value="ines">
           <span className="ui-start">
             <span aria-hidden="true" className="ui-avatar ui-x-small">
               IH
             </span>
           </span>{" "}
           <span className="ui-text">
-            <span>Inga Halonen</span> <span>Support lead</span>
+            <span>Ines Hertz</span> <span>Fretless dreamer</span>
           </span>
         </option>
       </Select>
 
-      <Select label="Status">
+      <Select label="Song status">
         <option value="todo">
           <span className="ui-start">
             <span aria-hidden="true" className="ui-swatch ui-neutral"></span>
           </span>
-          <span className="ui-text">To do</span>
+          <span className="ui-text">Still learning</span>
         </option>
         <option value="doing">
           <span className="ui-start">
             <span aria-hidden="true" className="ui-swatch ui-info"></span>
           </span>
-          <span className="ui-text">In progress</span>
+          <span className="ui-text">Nearly there</span>
         </option>
         <option value="done">
           <span className="ui-start">
             <span aria-hidden="true" className="ui-swatch ui-success"></span>
           </span>
-          <span className="ui-text">Done</span>
+          <span className="ui-text">Nailed it</span>
         </option>
       </Select>
 
@@ -93,7 +93,7 @@ export default function RichOptions() {
             </svg>
           </span>{" "}
           <span className="ui-text">
-            <span>Team</span> <span>Everyone in Northwind</span>
+            <span>Band</span> <span>Everyone in your band</span>
           </span>
         </option>
         <option value="public">
@@ -112,7 +112,7 @@ export default function RichOptions() {
             </svg>
           </span>{" "}
           <span className="ui-text">
-            <span>Public</span> <span>Anyone with the link</span>
+            <span>Public</span> <span>All of Bassbook</span>
           </span>
         </option>
       </Select>

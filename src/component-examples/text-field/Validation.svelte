@@ -3,10 +3,10 @@
 </script>
 
 <div class="example-row">
-  <TextField label="Full name" placeholder="Hakki Hälinen" required />
+  <TextField label="Full name" placeholder="Holly Humbucker" required />
   <TextField
     label="Email"
-    placeholder="name@example.com"
+    placeholder="name@lowend.example"
     required
     type="email"
     variant="filled"
@@ -15,16 +15,16 @@
 
 <div class="example-row">
   <TextField
-    endText="This username is taken. Try another one."
+    endText="Whoops, this username is taken. Try another one."
     error
     label="Username"
     value="ada"
   />
   <TextField
-    endText="This code has expired."
+    endText="Bummer, this code has expired."
     error
-    label="Discount code"
-    value="SPRING23"
+    label="Gear discount code"
+    value="STRINGS23"
     variant="filled"
   />
 </div>

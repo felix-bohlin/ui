@@ -4,7 +4,7 @@ import { Button, List, ListItem } from "opui-css/vue"
 
 <template>
   <List flush>
-    <ListItem label="Saved searches">
+    <ListItem label="Saved pedalboards">
       <template #end>
         <Button aria-label="Delete" round size="small">
           <svg
@@ -22,7 +22,7 @@ import { Button, List, ListItem } from "opui-css/vue"
         </Button>
       </template>
     </ListItem>
-    <ListItem description="Product designer" label="Lena Handén">
+    <ListItem description="Fretless enthusiast" label="Lou Headstock">
       <template #start>
         <svg
           aria-hidden="true"
@@ -37,7 +37,7 @@ import { Button, List, ListItem } from "opui-css/vue"
           ></path>
         </svg>
       </template>
-      <template #end>Owner</template>
+      <template #end>Admin</template>
     </ListItem>
   </List>
 </template>

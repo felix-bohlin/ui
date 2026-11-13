@@ -885,16 +885,16 @@ interaction(
     const input = root.getByRole("textbox", { name: "Name" })
     const text = root.locator(".text-field-binding-text")
 
-    await expect(input).toHaveValue("Hakki")
-    await expect(text).toHaveText("Hello, Hakki.")
-    await input.fill("Pekka")
-    await expect(text).toHaveText("Hello, Pekka.")
+    await expect(input).toHaveValue("Holly")
+    await expect(text).toHaveText("Heyyy, Holly.")
+    await input.fill("Percy")
+    await expect(text).toHaveText("Heyyy, Percy.")
     await input.fill("")
-    await expect(text).toHaveText("Hello, stranger.")
+    await expect(text).toHaveText("Heyyy, stranger.")
 
     await root.getByRole("button", { name: "Reset" }).click()
-    await expect(input).toHaveValue("Hakki")
-    await expect(text).toHaveText("Hello, Hakki.")
+    await expect(input).toHaveValue("Holly")
+    await expect(text).toHaveText("Heyyy, Holly.")
   },
 )
 
@@ -921,7 +921,7 @@ interaction(
     await expect.poll(border).toBe(invalid)
 
     await input.focus()
-    await page.keyboard.type("Hakki")
+    await page.keyboard.type("Holly")
     await page.keyboard.press("Tab")
     await expect.poll(border).toBe(initial)
   },
@@ -1777,7 +1777,7 @@ interaction(
       await input.evaluate((element: HTMLInputElement) =>
         [...(element.list?.options ?? [])].map((option) => option.value),
       ),
-    ).toEqual(["Inga Halonen", "Lena Handén", "Pekka Gåpåbottanen"])
+    ).toEqual(["Ines Hertz", "Lou Headstock", "Percy Groove"])
   },
 )
 
@@ -1941,7 +1941,7 @@ test("the data-table block selects and sorts its rows together", async ({
   page,
 }) => {
   await openFixture(page, "html", "blocks/data-table")
-  const all = page.getByRole("checkbox", { name: "Select all customers" })
+  const all = page.getByRole("checkbox", { name: "Select all members" })
   const rows = page.getByRole("checkbox", { name: /^Select (?!all)/ })
   const firstCustomer = page.locator("tbody tr").first().locator("td").nth(1)
 
@@ -1950,17 +1950,15 @@ test("the data-table block selects and sorts its rows together", async ({
   await expect(rows).toHaveCount(5)
   for (const row of await rows.all()) await expect(row).toBeChecked()
 
-  await page.getByRole("button", { name: "MRR" }).click()
-  await expect(firstCustomer).toContainText("Hakki Hälinen")
-  await page.getByRole("button", { name: "MRR" }).click()
-  await expect(firstCustomer).toContainText("Ranta Runtiringen")
-  await page.getByRole("button", { name: "Signed up" }).click()
-  await expect(firstCustomer).toContainText("Inga Halonen")
+  await page.getByRole("button", { name: "Points" }).click()
+  await expect(firstCustomer).toContainText("Holly Humbucker")
+  await page.getByRole("button", { name: "Points" }).click()
+  await expect(firstCustomer).toContainText("Rory Rootnote")
+  await page.getByRole("button", { name: "Joined" }).click()
+  await expect(firstCustomer).toContainText("Ines Hertz")
   for (const row of await rows.all()) await expect(row).toBeChecked()
 
-  await page
-    .getByRole("checkbox", { name: "Select Pekka Gåpåbottanen" })
-    .click()
+  await page.getByRole("checkbox", { name: "Select Percy Groove" }).click()
   await expect(all).not.toBeChecked()
   await expect(all).toHaveJSProperty("indeterminate", true)
 })

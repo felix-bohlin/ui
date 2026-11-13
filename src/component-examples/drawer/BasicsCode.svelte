@@ -26,9 +26,9 @@
   </DrawerHeader>
   <DrawerContent>
     <List variant="transparent">
-      <ListItem aria-current="page" href="#basics" label="Dashboard" />
-      <ListItem href="#basics" label="Projects" />
-      <ListItem href="#basics" label="Reports" />
+      <ListItem aria-current="page" href="#basics" label="My wall" />
+      <ListItem href="#basics" label="My bands" />
+      <ListItem href="#basics" label="Gear Talk" />
       <ListItem href="#basics" label="Settings" />
     </List>
   </DrawerContent>
@@ -41,7 +41,7 @@
 
 <Drawer backdrop="transparent" id="drawer-basics-2" side="inline-end">
   <DrawerHeader closeButton>
-    <DrawerTitle>Onboarding emails</DrawerTitle>
+    <DrawerTitle>Friday gig prep</DrawerTitle>
     <Button aria-label="Edit" round size="small">
       <svg
         aria-hidden="true"
@@ -57,50 +57,50 @@
       </svg>
     </Button>
   </DrawerHeader>
-  <DrawerContent aria-label="Task details" role="region" tabindex={0}>
+  <DrawerContent aria-label="Gig details" role="region" tabindex={0}>
     <p>
-      Assigned to Lena Handén, due Friday. Hakki Hälinen reviews the copy, and
-      the design team sends the new header images by Wednesday.
+      Assigned to Lou Headstock, due Friday. Holly Humbucker checks the setlist,
+      and the drummer promises (again) to bring the cymbals by Wednesday.
     </p>
     <p>
-      The welcome series sends five emails over the first two weeks. Rewrite
-      them for the new plans, and drop the one about the old desktop app.
+      The band booked this gig without telling you, so here is the totally rad
+      catch-up plan: five rehearsals over two weeks, and no more surprises.
     </p>
     <p>
-      Day 1: a welcome from the team, with one button that creates the first
-      project and a short list of what to try next.
+      Day 1: restring with fresh flatwounds, tune to drop D and play the root
+      notes of every song until your fingers say thank you.
     </p>
     <p>
-      Day 2: how to import files from another service, which formats work, and
-      what happens to comments and version history on the way in.
+      Day 2: learn the new song the guitarist wrote, which has eleven chords,
+      four key changes and one very long solo that is not yours.
     </p>
     <p>
-      Day 4: the keyboard shortcuts and the command menu, with a short video
-      that shows how to find any file without leaving the keyboard.
+      Day 4: practice the slap part in the bridge, with a short video that shows
+      how to look cool while nobody watches the bassist.
     </p>
     <p>
-      Day 7: sharing a project with people outside the team, what guests can see
-      and change, and how to take their access back.
+      Day 7: full rehearsal with the band, where somebody will ask you to turn
+      it down and somebody else will ask why you can't be heard.
     </p>
     <p>
-      Day 14: a reminder that the trial ends in three days, the price of each
-      plan, and a link to the billing page.
+      Day 14: soundcheck at the venue, where the sound engineer calls you the
+      tall guitarist and the drummer gets all the credit.
     </p>
     <p>
-      Keep each email under 150 words, with one button and no more than two
-      links. Write the subject lines last, once the body text is final.
+      Keep the pedalboard under 10 pedals, with one tuner and no more than two
+      fuzzes. Pack the spare strings last, once the cables are coiled.
     </p>
     <p>
-      Send the drafts to the support team before Thursday. They answer the
-      replies, so they need to know what each email promises.
+      Send the setlist to the merch table before Thursday. They sell the shirts,
+      so they need to know which songs have a bass solo (zero).
     </p>
     <p>
-      Test every email in light and dark mode, on a phone and in the web version
-      of the three biggest mail apps, before it goes out.
+      Test every cable and the low B on the 5-string, in the rehearsal room and
+      on the actual stage, before the doors open at eight.
     </p>
     <p>
-      Hakki Hälinen created the task on 3 March, and Lena Handén moved it to In
-      progress on 5 March.
+      Holly Humbucker created the task on 3 March, and Lou Headstock moved it to
+      Rocking on 5 March.
     </p>
   </DrawerContent>
   <DrawerFooter>
@@ -118,9 +118,9 @@
     <DrawerTitle>Notifications</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
-    <p>Hakki Hälinen commented on Onboarding emails.</p>
-    <p>Your export is ready to download.</p>
-    <p>Lena Handén invited you to the Design team.</p>
+    <p>Holly Humbucker commented on Friday gig prep.</p>
+    <p>Your setlist export is ready to download, woohoo.</p>
+    <p>Lou Headstock invited you to Ignored Bassists Anonymous.</p>
   </DrawerContent>
   <DrawerFooter>
     <Button command="close" commandfor="drawer-basics-3" size="small"
@@ -138,8 +138,8 @@
       <FieldLegend>Status</FieldLegend>
       <FieldGroup name="status" orientation="horizontal">
         <Checkbox defaultChecked value="done">Done</Checkbox>
-        <Checkbox defaultChecked value="in-progress">In progress</Checkbox>
-        <Checkbox value="open">Open</Checkbox>
+        <Checkbox defaultChecked value="in-progress">Rocking</Checkbox>
+        <Checkbox value="open">Not yet</Checkbox>
       </FieldGroup>
     </Fieldset>
   </DrawerContent>

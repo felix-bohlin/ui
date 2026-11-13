@@ -75,15 +75,15 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 
 ```html
 <div class="ui-avatar">
-  <img src="/photos/lena-handen.png" alt="Lena Handén" />
+  <img src="/photos/lou-headstock.png" alt="Lou Headstock" />
 </div>
 
 <div class="ui-avatar">
-  <img src="/photos/hakki-halinen.png" alt="Hakki Hälinen" />
+  <img src="/photos/holly-humbucker.png" alt="Holly Humbucker" />
 </div>
 
 <div class="ui-avatar">
-  <img src="/photos/pekka-gapabottanen.png" alt="Pekka Gåpåbottanen" />
+  <img src="/photos/percy-groove.png" alt="Percy Groove" />
 </div>
 ```
 
@@ -98,11 +98,11 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 import { Avatar } from "opui-css/astro"
 ---
 
-<Avatar alt="Lena Handén" src="/photos/lena-handen.png" />
+<Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
 
-<Avatar alt="Hakki Hälinen" src="/photos/hakki-halinen.png" />
+<Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
-<Avatar alt="Pekka Gåpåbottanen" src="/photos/pekka-gapabottanen.png" />
+<Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
 ```
 
 ## React
@@ -117,11 +117,11 @@ import { Avatar } from "opui-css/react"
 export default function Image() {
   return (
     <>
-      <Avatar alt="Lena Handén" src="/photos/lena-handen.png" />
+      <Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
 
-      <Avatar alt="Hakki Hälinen" src="/photos/hakki-halinen.png" />
+      <Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
-      <Avatar alt="Pekka Gåpåbottanen" src="/photos/pekka-gapabottanen.png" />
+      <Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
     </>
   )
 }
@@ -138,11 +138,11 @@ export default function Image() {
   import { Avatar } from "opui-css/svelte"
 </script>
 
-<Avatar alt="Lena Handén" src="/photos/lena-handen.png" />
+<Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
 
-<Avatar alt="Hakki Hälinen" src="/photos/hakki-halinen.png" />
+<Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
-<Avatar alt="Pekka Gåpåbottanen" src="/photos/pekka-gapabottanen.png" />
+<Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
 ```
 
 ## Vue
@@ -157,10 +157,10 @@ import { Avatar } from "opui-css/vue"
 </script>
 
 <template>
-  <Avatar alt="Lena Handén" src="/photos/lena-handen.png" />
+  <Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
 
-  <Avatar alt="Hakki Hälinen" src="/photos/hakki-halinen.png" />
+  <Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
-  <Avatar alt="Pekka Gåpåbottanen" src="/photos/pekka-gapabottanen.png" />
+  <Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
 </template>
 ```

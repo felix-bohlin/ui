@@ -12,68 +12,68 @@
 
 <div
   role="region"
-  aria-label="Invoices"
+  aria-label="Gear orders"
   tabindex="0"
   style="max-block-size: 15rem; overflow: auto; scroll-padding-block-start: 2.5rem"
 >
   <Table stickyHeader>
-    <TableCaption>Invoices</TableCaption>
+    <TableCaption>Gear orders</TableCaption>
     <TableHead>
       <TableRow>
-        <TableHeaderCell>Invoice</TableHeaderCell>
-        <TableHeaderCell>Customer</TableHeaderCell>
+        <TableHeaderCell>Order</TableHeaderCell>
+        <TableHeaderCell>Bassist</TableHeaderCell>
         <TableHeaderCell numeric>Amount</TableHeaderCell>
       </TableRow>
     </TableHead>
     <TableBody>
       <TableRow>
-        <TableCell>INV-1000</TableCell>
-        <TableCell>Hakki Hälinen</TableCell>
+        <TableCell>BB-1000</TableCell>
+        <TableCell>Holly Humbucker</TableCell>
         <TableCell numeric>€1,240.00</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>INV-1001</TableCell>
-        <TableCell>Pekka Gåpåbottanen</TableCell>
+        <TableCell>BB-1001</TableCell>
+        <TableCell>Percy Groove</TableCell>
         <TableCell numeric>€86.50</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>INV-1002</TableCell>
-        <TableCell>Ranta Runtiringen</TableCell>
+        <TableCell>BB-1002</TableCell>
+        <TableCell>Rory Rootnote</TableCell>
         <TableCell numeric>€412.90</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>INV-1003</TableCell>
-        <TableCell>Sirkka Nitti</TableCell>
+        <TableCell>BB-1003</TableCell>
+        <TableCell>Stella Nut</TableCell>
         <TableCell numeric>€2,075.00</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>INV-1004</TableCell>
-        <TableCell>Inga Halonen</TableCell>
+        <TableCell>BB-1004</TableCell>
+        <TableCell>Ines Hertz</TableCell>
         <TableCell numeric>€318.40</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>INV-1005</TableCell>
-        <TableCell>Lena Handén</TableCell>
+        <TableCell>BB-1005</TableCell>
+        <TableCell>Lou Headstock</TableCell>
         <TableCell numeric>€59.99</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>INV-1006</TableCell>
-        <TableCell>Ken Watanabe</TableCell>
+        <TableCell>BB-1006</TableCell>
+        <TableCell>Kenny Wah</TableCell>
         <TableCell numeric>€764.15</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>INV-1007</TableCell>
-        <TableCell>Frances Okoro</TableCell>
+        <TableCell>BB-1007</TableCell>
+        <TableCell>Frankie Octaver</TableCell>
         <TableCell numeric>€1,532.80</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>INV-1008</TableCell>
-        <TableCell>Dennis Moreau</TableCell>
+        <TableCell>BB-1008</TableCell>
+        <TableCell>Danny Muffler</TableCell>
         <TableCell numeric>€205.00</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>INV-1009</TableCell>
-        <TableCell>Radia Haddad</TableCell>
+        <TableCell>BB-1009</TableCell>
+        <TableCell>Ruby Headroom</TableCell>
         <TableCell numeric>€948.60</TableCell>
       </TableRow>
     </TableBody>

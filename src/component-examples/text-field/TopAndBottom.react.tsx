@@ -5,16 +5,16 @@ export default function TopAndBottom() {
     <>
       <TextField
         label="Name"
-        placeholder="Hakki Hälinen"
+        placeholder="Holly Humbucker"
         top="Shown on your profile"
       />
 
       <TextField
         bottom="Plain text, no links"
         characterCount
-        label="Tagline"
+        label="Bass motto"
         maxLength={80}
-        placeholder="A short description"
+        placeholder="Turn it up, not down"
       />
     </>
   )

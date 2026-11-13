@@ -16,30 +16,30 @@ import {
 } from "opui-css/react"
 
 const roleItems = [
-  { label: "Designer", value: "design" },
-  { label: "Developer", value: "dev" },
-  { label: "Manager", value: "manager" },
+  { label: "Bassist", value: "bass" },
+  { label: "Drummer", value: "drums" },
+  { label: "Guitarist", value: "guitar" },
 ]
 
 export default function KitchenSink() {
   return (
     <Form id="form-kitchen-sink-1">
       <Fieldset aria-describedby="form-kitchen-sink-2-description">
-        <FieldLegend>User profile</FieldLegend>
+        <FieldLegend>Your Bassbook profile</FieldLegend>
         <FieldDescription id="form-kitchen-sink-2-description">
-          Please provide your basic contact details.
+          Heyyy, tell us who you are so your fans can find you.
         </FieldDescription>
         <FieldGroup>
           <TextField
             autoComplete="name"
             label="Full name"
-            placeholder="Hakki Hälinen"
+            placeholder="Holly Humbucker"
             required
           />
           <TextField
             autoComplete="email"
             label="Email address"
-            placeholder="name@example.com"
+            placeholder="rory@lowend.example"
             required
             type="email"
           />
@@ -50,7 +50,7 @@ export default function KitchenSink() {
       <Fieldset aria-describedby="form-kitchen-sink-3-description">
         <FieldLegend>Notifications</FieldLegend>
         <FieldDescription id="form-kitchen-sink-3-description">
-          Configure how you want to receive updates.
+          Pick how we tell you about new pokes and gig invites.
         </FieldDescription>
         <FieldGroup>
           <Switch defaultChecked name="email_notifs">
@@ -61,9 +61,9 @@ export default function KitchenSink() {
       </Fieldset>
       <Divider />
       <Fieldset aria-describedby="form-kitchen-sink-4-description">
-        <FieldLegend>Theme preference</FieldLegend>
+        <FieldLegend>Profile theme</FieldLegend>
         <FieldDescription id="form-kitchen-sink-4-description">
-          Select your preferred visual style.
+          Pick the look of your awesome profile page.
         </FieldDescription>
         <FieldGroup name="theme">
           <Radio defaultChecked value="light">
@@ -75,32 +75,32 @@ export default function KitchenSink() {
       </Fieldset>
       <Divider />
       <Fieldset aria-describedby="form-kitchen-sink-5-description">
-        <FieldLegend>Experience level</FieldLegend>
+        <FieldLegend>Bass experience</FieldLegend>
         <FieldDescription id="form-kitchen-sink-5-description">
-          How many years of experience do you have?
+          How many years have you held down the low end?
         </FieldDescription>
         <FieldGroup>
           <Range
             defaultValue="5"
-            label="Professional experience"
+            label="Years of playing"
             max="20"
             min="0"
-            startText="Drag the slider to match your total tenure."
+            startText="Drag the slider, and yes, the years on guitar count less."
             step="1"
           />
         </FieldGroup>
       </Fieldset>
       <Divider />
       <Fieldset aria-describedby="form-kitchen-sink-6-description">
-        <FieldLegend>Additional info</FieldLegend>
+        <FieldLegend>About you</FieldLegend>
         <FieldDescription id="form-kitchen-sink-6-description">
-          Anything else we should know?
+          Favorite strings, dream rig, the band that ignores you?
         </FieldDescription>
         <FieldGroup>
           <Textarea
             label="Biography"
             name="biography"
-            placeholder="Tell us about yourself..."
+            placeholder="I play a fretless 5-string and nobody watches me..."
             rows={4}
           />
         </FieldGroup>
@@ -110,11 +110,11 @@ export default function KitchenSink() {
         <FieldLegend>Legal</FieldLegend>
         <FieldGroup>
           <Checkbox
-            endText="You can withdraw your consent at any time."
+            endText="You can withdraw your consent at any time, no hard feelings."
             name="terms"
             required
           >
-            I agree to the terms and conditions
+            I agree to the Bassbook terms and conditions
           </Checkbox>
         </FieldGroup>
       </Fieldset>

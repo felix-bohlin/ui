@@ -4,7 +4,9 @@ export default function Alignment() {
   return (
     <>
       <Card variant="outlined">
-        <CardContent>Invite your teammates to this workspace.</CardContent>
+        <CardContent>
+          Invite your bandmates to Bassbook (they might listen here).
+        </CardContent>
         <CardActions align="start">
           <Button>Copy link</Button>
           <Button>Send invites</Button>
@@ -13,7 +15,7 @@ export default function Alignment() {
 
       <Card variant="outlined">
         <CardContent>
-          Export your orders from the last 30 days as CSV.
+          Export your setlists from the last 30 days as CSV.
         </CardContent>
         <CardActions align="start">
           <Button variant="outlined">Cancel</Button>
@@ -22,7 +24,9 @@ export default function Alignment() {
       </Card>
 
       <Card variant="outlined">
-        <CardContent>Team photo, added by Lena Handén.</CardContent>
+        <CardContent>
+          Band photo where you're finally in focus, added by Lou Headstock.
+        </CardContent>
         <CardActions align="start">
           <Button aria-label="Favorite" round size="small">
             <svg

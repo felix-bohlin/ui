@@ -185,21 +185,21 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
       <li>
         <a href="#basics" aria-current="page">
           <div class="ui-text">
-            <p>Dashboard</p>
+            <p>My wall</p>
           </div>
         </a>
       </li>
       <li>
         <a href="#basics">
           <div class="ui-text">
-            <p>Projects</p>
+            <p>My bands</p>
           </div>
         </a>
       </li>
       <li>
         <a href="#basics">
           <div class="ui-text">
-            <p>Reports</p>
+            <p>Gear Talk</p>
           </div>
         </a>
       </li>
@@ -231,7 +231,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   id="drawer-basics-2"
 >
   <div class="ui-header">
-    <h2 id="drawer-basics-2-title">Onboarding emails</h2>
+    <h2 id="drawer-basics-2-title">Friday gig prep</h2>
     <button class="ui-button ui-round ui-small" type="button" aria-label="Edit">
       <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
@@ -245,10 +245,10 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
       <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
   </div>
-  <div class="ui-content" aria-label="Task details" role="region" tabindex="0">
+  <div class="ui-content" aria-label="Gig details" role="region" tabindex="0">
     <p>
-      Assigned to Lena Handén, due Friday. Hakki Hälinen reviews the copy, and
-      the design team sends the new header images by Wednesday.
+      Assigned to Lou Headstock, due Friday. Holly Humbucker checks the setlist,
+      and the drummer promises (again) to bring the cymbals by Wednesday.
     </p>
   </div>
   <div class="ui-footer">
@@ -282,7 +282,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
     </button>
   </div>
   <div class="ui-content">
-    <p>Hakki Hälinen commented on Onboarding emails.</p>
+    <p>Holly Humbucker commented on Friday gig prep.</p>
   </div>
   <div class="ui-footer">
     <button
@@ -324,11 +324,11 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
         </label>
         <label class="ui-checkbox">
           <input type="checkbox" name="status" checked value="in-progress" />
-          <span class="ui-label">In progress</span>
+          <span class="ui-label">Rocking</span>
         </label>
         <label class="ui-checkbox">
           <input type="checkbox" name="status" value="open" />
-          <span class="ui-label">Open</span>
+          <span class="ui-label">Not yet</span>
         </label>
       </div>
     </fieldset>
@@ -389,9 +389,9 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
   </DrawerHeader>
   <DrawerContent>
     <List variant="transparent">
-      <ListItem aria-current="page" href="#basics" label="Dashboard" />
-      <ListItem href="#basics" label="Projects" />
-      <ListItem href="#basics" label="Reports" />
+      <ListItem aria-current="page" href="#basics" label="My wall" />
+      <ListItem href="#basics" label="My bands" />
+      <ListItem href="#basics" label="Gear Talk" />
       <ListItem href="#basics" label="Settings" />
     </List>
   </DrawerContent>
@@ -404,15 +404,15 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
 
 <Drawer backdrop="transparent" id="drawer-basics-2" side="inline-end">
   <DrawerHeader closeButton>
-    <DrawerTitle>Onboarding emails</DrawerTitle>
+    <DrawerTitle>Friday gig prep</DrawerTitle>
     <Button aria-label="Edit" round size="small">
       <Fragment set:html={editIcon} />
     </Button>
   </DrawerHeader>
-  <DrawerContent aria-label="Task details" role="region" tabindex="0">
+  <DrawerContent aria-label="Gig details" role="region" tabindex="0">
     <p>
-      Assigned to Lena Handén, due Friday. Hakki Hälinen reviews the copy, and
-      the design team sends the new header images by Wednesday.
+      Assigned to Lou Headstock, due Friday. Holly Humbucker checks the setlist,
+      and the drummer promises (again) to bring the cymbals by Wednesday.
     </p>
   </DrawerContent>
   <DrawerFooter>
@@ -431,7 +431,7 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
     <DrawerTitle>Notifications</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
-    <p>Hakki Hälinen commented on Onboarding emails.</p>
+    <p>Holly Humbucker commented on Friday gig prep.</p>
   </DrawerContent>
   <DrawerFooter>
     <Button command="close" commandfor="drawer-basics-3" size="small"
@@ -449,8 +449,8 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
       <FieldLegend>Status</FieldLegend>
       <FieldGroup name="status" orientation="horizontal">
         <Checkbox checked value="done">Done</Checkbox>
-        <Checkbox checked value="in-progress">In progress</Checkbox>
-        <Checkbox value="open">Open</Checkbox>
+        <Checkbox checked value="in-progress">Rocking</Checkbox>
+        <Checkbox value="open">Not yet</Checkbox>
       </FieldGroup>
     </Fieldset>
   </DrawerContent>
@@ -517,9 +517,9 @@ export default function BasicsCode() {
         </DrawerHeader>
         <DrawerContent>
           <List variant="transparent">
-            <ListItem aria-current="page" href="#basics" label="Dashboard" />
-            <ListItem href="#basics" label="Projects" />
-            <ListItem href="#basics" label="Reports" />
+            <ListItem aria-current="page" href="#basics" label="My wall" />
+            <ListItem href="#basics" label="My bands" />
+            <ListItem href="#basics" label="Gear Talk" />
             <ListItem href="#basics" label="Settings" />
           </List>
         </DrawerContent>
@@ -532,15 +532,16 @@ export default function BasicsCode() {
 
       <Drawer backdrop="transparent" id="drawer-basics-2" side="inline-end">
         <DrawerHeader closeButton>
-          <DrawerTitle>Onboarding emails</DrawerTitle>
+          <DrawerTitle>Friday gig prep</DrawerTitle>
           <Button aria-label="Edit" round size="small">
             <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
           </Button>
         </DrawerHeader>
-        <DrawerContent aria-label="Task details" role="region" tabIndex={0}>
+        <DrawerContent aria-label="Gig details" role="region" tabIndex={0}>
           <p>
-            Assigned to Lena Handén, due Friday. Hakki Hälinen reviews the copy,
-            and the design team sends the new header images by Wednesday.
+            Assigned to Lou Headstock, due Friday. Holly Humbucker checks the
+            setlist, and the drummer promises (again) to bring the cymbals by
+            Wednesday.
           </p>
         </DrawerContent>
         <DrawerFooter>
@@ -560,7 +561,7 @@ export default function BasicsCode() {
           <DrawerTitle>Notifications</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
-          <p>Hakki Hälinen commented on Onboarding emails.</p>
+          <p>Holly Humbucker commented on Friday gig prep.</p>
         </DrawerContent>
         <DrawerFooter>
           <Button command="close" commandfor="drawer-basics-3" size="small">
@@ -581,9 +582,9 @@ export default function BasicsCode() {
                 Done
               </Checkbox>
               <Checkbox defaultChecked value="in-progress">
-                In progress
+                Rocking
               </Checkbox>
-              <Checkbox value="open">Open</Checkbox>
+              <Checkbox value="open">Not yet</Checkbox>
             </FieldGroup>
           </Fieldset>
         </DrawerContent>
@@ -644,9 +645,9 @@ export default function BasicsCode() {
   </DrawerHeader>
   <DrawerContent>
     <List variant="transparent">
-      <ListItem aria-current="page" href="#basics" label="Dashboard" />
-      <ListItem href="#basics" label="Projects" />
-      <ListItem href="#basics" label="Reports" />
+      <ListItem aria-current="page" href="#basics" label="My wall" />
+      <ListItem href="#basics" label="My bands" />
+      <ListItem href="#basics" label="Gear Talk" />
       <ListItem href="#basics" label="Settings" />
     </List>
   </DrawerContent>
@@ -659,15 +660,15 @@ export default function BasicsCode() {
 
 <Drawer backdrop="transparent" id="drawer-basics-2" side="inline-end">
   <DrawerHeader closeButton>
-    <DrawerTitle>Onboarding emails</DrawerTitle>
+    <DrawerTitle>Friday gig prep</DrawerTitle>
     <Button aria-label="Edit" round size="small">
       <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </Button>
   </DrawerHeader>
-  <DrawerContent aria-label="Task details" role="region" tabindex={0}>
+  <DrawerContent aria-label="Gig details" role="region" tabindex={0}>
     <p>
-      Assigned to Lena Handén, due Friday. Hakki Hälinen reviews the copy, and
-      the design team sends the new header images by Wednesday.
+      Assigned to Lou Headstock, due Friday. Holly Humbucker checks the setlist,
+      and the drummer promises (again) to bring the cymbals by Wednesday.
     </p>
   </DrawerContent>
   <DrawerFooter>
@@ -685,7 +686,7 @@ export default function BasicsCode() {
     <DrawerTitle>Notifications</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
-    <p>Hakki Hälinen commented on Onboarding emails.</p>
+    <p>Holly Humbucker commented on Friday gig prep.</p>
   </DrawerContent>
   <DrawerFooter>
     <Button command="close" commandfor="drawer-basics-3" size="small"
@@ -703,8 +704,8 @@ export default function BasicsCode() {
       <FieldLegend>Status</FieldLegend>
       <FieldGroup name="status" orientation="horizontal">
         <Checkbox defaultChecked value="done">Done</Checkbox>
-        <Checkbox defaultChecked value="in-progress">In progress</Checkbox>
-        <Checkbox value="open">Open</Checkbox>
+        <Checkbox defaultChecked value="in-progress">Rocking</Checkbox>
+        <Checkbox value="open">Not yet</Checkbox>
       </FieldGroup>
     </Fieldset>
   </DrawerContent>
@@ -763,9 +764,9 @@ import {
     </DrawerHeader>
     <DrawerContent>
       <List variant="transparent">
-        <ListItem aria-current="page" href="#basics" label="Dashboard" />
-        <ListItem href="#basics" label="Projects" />
-        <ListItem href="#basics" label="Reports" />
+        <ListItem aria-current="page" href="#basics" label="My wall" />
+        <ListItem href="#basics" label="My bands" />
+        <ListItem href="#basics" label="Gear Talk" />
         <ListItem href="#basics" label="Settings" />
       </List>
     </DrawerContent>
@@ -778,15 +779,16 @@ import {
 
   <Drawer backdrop="transparent" id="drawer-basics-2" side="inline-end">
     <DrawerHeader closeButton>
-      <DrawerTitle>Onboarding emails</DrawerTitle>
+      <DrawerTitle>Friday gig prep</DrawerTitle>
       <Button aria-label="Edit" round size="small">
         <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
       </Button>
     </DrawerHeader>
-    <DrawerContent aria-label="Task details" role="region" tabindex="0">
+    <DrawerContent aria-label="Gig details" role="region" tabindex="0">
       <p>
-        Assigned to Lena Handén, due Friday. Hakki Hälinen reviews the copy, and
-        the design team sends the new header images by Wednesday.
+        Assigned to Lou Headstock, due Friday. Holly Humbucker checks the
+        setlist, and the drummer promises (again) to bring the cymbals by
+        Wednesday.
       </p>
     </DrawerContent>
     <DrawerFooter>
@@ -805,7 +807,7 @@ import {
       <DrawerTitle>Notifications</DrawerTitle>
     </DrawerHeader>
     <DrawerContent>
-      <p>Hakki Hälinen commented on Onboarding emails.</p>
+      <p>Holly Humbucker commented on Friday gig prep.</p>
     </DrawerContent>
     <DrawerFooter>
       <Button command="close" commandfor="drawer-basics-3" size="small"
@@ -823,8 +825,8 @@ import {
         <FieldLegend>Status</FieldLegend>
         <FieldGroup name="status" orientation="horizontal">
           <Checkbox checked value="done">Done</Checkbox>
-          <Checkbox checked value="in-progress">In progress</Checkbox>
-          <Checkbox value="open">Open</Checkbox>
+          <Checkbox checked value="in-progress">Rocking</Checkbox>
+          <Checkbox value="open">Not yet</Checkbox>
         </FieldGroup>
       </Fieldset>
     </DrawerContent>

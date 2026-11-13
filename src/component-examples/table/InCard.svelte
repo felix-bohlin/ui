@@ -14,41 +14,41 @@
 
 <Card style="max-inline-size: 28rem" variant="outlined">
   <CardHeader>
-    <h3 class="ui-h5">Deployments</h3>
-    <p>The last three releases and where they went.</p>
+    <h3 class="ui-h5">Gigs booked without you</h3>
+    <p>The last three gigs and who forgot to tell you.</p>
   </CardHeader>
   <Table flush overflow="scroll" tabindex={0}>
-    <TableCaption>Deployments by release</TableCaption>
+    <TableCaption>Gigs by date</TableCaption>
     <TableHead>
       <TableRow>
-        <TableHeaderCell>Release</TableHeaderCell>
-        <TableHeaderCell>Environment</TableHeaderCell>
-        <TableHeaderCell>Deployed by</TableHeaderCell>
-        <TableHeaderCell>Deployed at</TableHeaderCell>
-        <TableHeaderCell numeric>Duration</TableHeaderCell>
+        <TableHeaderCell>Gig</TableHeaderCell>
+        <TableHeaderCell>Venue</TableHeaderCell>
+        <TableHeaderCell>Booked by</TableHeaderCell>
+        <TableHeaderCell>Booked at</TableHeaderCell>
+        <TableHeaderCell numeric>Bass solo</TableHeaderCell>
       </TableRow>
     </TableHead>
     <TableBody>
       <TableRow>
-        <TableCell>2.4.0</TableCell>
-        <TableCell>Production</TableCell>
-        <TableCell>Hakki Hälinen</TableCell>
+        <TableCell>Battle of the Bands</TableCell>
+        <TableCell>The Rusty Fret</TableCell>
+        <TableCell>Holly Humbucker</TableCell>
         <TableCell>8 October, 09:42</TableCell>
-        <TableCell numeric>4 min 12 s</TableCell>
+        <TableCell numeric>0 min 12 s</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>2.3.2</TableCell>
-        <TableCell>Staging</TableCell>
-        <TableCell>Pekka Gåpåbottanen</TableCell>
+        <TableCell>Pub night</TableCell>
+        <TableCell>Low Tide Pub</TableCell>
+        <TableCell>Percy Groove</TableCell>
         <TableCell>7 October, 16:05</TableCell>
-        <TableCell numeric>3 min 48 s</TableCell>
+        <TableCell numeric>0 min 8 s</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>2.3.1</TableCell>
-        <TableCell>Production</TableCell>
-        <TableCell>Sirkka Nitti</TableCell>
+        <TableCell>Cousin's wedding</TableCell>
+        <TableCell>The Big Barn</TableCell>
+        <TableCell>Stella Nut</TableCell>
         <TableCell>1 October, 11:20</TableCell>
-        <TableCell numeric>12 min 3 s</TableCell>
+        <TableCell numeric>0 min 0 s</TableCell>
       </TableRow>
     </TableBody>
   </Table>

@@ -5,10 +5,10 @@ export default function StartImage() {
     <List>
       <ListItem
         description="48 photos"
-        label="Summer in Lisbon"
+        label="Gig in a basement"
         start={
           <img
-            src="/photos/lena-handen.png"
+            src="/photos/lou-headstock.png"
             alt=""
             decoding="async"
             loading="lazy"
@@ -17,10 +17,10 @@ export default function StartImage() {
       />
       <ListItem
         description="112 photos"
-        label="Team offsite"
+        label="Pedalboard glamour shots"
         start={
           <img
-            src="/photos/lena-handen.png"
+            src="/photos/lou-headstock.png"
             alt=""
             decoding="async"
             loading="lazy"

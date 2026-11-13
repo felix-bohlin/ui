@@ -2,8 +2,8 @@
   import { Avatar } from "opui-css/svelte"
 </script>
 
-<Avatar alt="Lena Handén" src="/photos/lena-handen.png" />
+<Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
 
-<Avatar alt="Hakki Hälinen" src="/photos/hakki-halinen.png" />
+<Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
-<Avatar alt="Pekka Gåpåbottanen" src="/photos/pekka-gapabottanen.png" />
+<Avatar alt="Percy Groove" src="/photos/percy-groove.png" />

@@ -7,7 +7,7 @@ import { Avatar, Button, Card, CardContent, CardHeader } from "opui-css/vue"
     <CardHeader as="div">
       <Avatar aria-hidden="true">LH</Avatar>
       <hgroup>
-        <h3>Lena Handén</h3>
+        <h3>Lou Headstock</h3>
         <p>Posted 2 hours ago</p>
       </hgroup>
       <Button aria-label="More actions" round size="small">
@@ -26,8 +26,8 @@ import { Avatar, Button, Card, CardContent, CardHeader } from "opui-css/vue"
       </Button>
     </CardHeader>
     <CardContent>
-      The new onboarding flow is live for 10% of sign-ups. Early numbers look
-      good: more people finish the first project.
+      Played the whole gig in drop D and nobody noticed, not even the drummer.
+      Woohoo, the low end lives on in secret :)
     </CardContent>
   </Card>
 </template>

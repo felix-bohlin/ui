@@ -2,8 +2,8 @@
 import { Button, TextField } from "opui-css/astro"
 ---
 
-<TextField label="Name" name="text-field-binding" value="Hakki" />
-<p class="text-field-binding-text">Hello, Hakki.</p>
+<TextField label="Name" name="text-field-binding" value="Holly" />
+<p class="text-field-binding-text">Heyyy, Holly.</p>
 <Button class="text-field-binding-reset">Reset</Button>
 
 <script>
@@ -14,7 +14,7 @@ import { Button, TextField } from "opui-css/astro"
 
   function update() {
     if (!text || !input) return
-    text.textContent = `Hello, ${input.value || "stranger"}.`
+    text.textContent = `Heyyy, ${input.value || "stranger"}.`
   }
 
   input?.addEventListener("input", update)

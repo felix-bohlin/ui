@@ -234,13 +234,13 @@ test("the components answer input once hydrated", async ({
   await open(page, "/text-field")
   const example = page.locator('[data-example="text-field/Binding"]')
   const text = example.locator(".text-field-binding-text")
-  await example.getByRole("textbox", { name: "Name" }).fill("Pekka")
+  await example.getByRole("textbox", { name: "Name" }).fill("Percy")
   await expect(text, `${app.name} updates the bound value`).toHaveText(
-    "Hello, Pekka.",
+    "Heyyy, Percy.",
   )
   await example.getByRole("button", { name: "Reset" }).click()
   await expect(text, `${app.name} runs the click handler`).toHaveText(
-    "Hello, Hakki.",
+    "Heyyy, Holly.",
   )
   expect(unexpected(problems, app.name, "text-field")).toEqual([])
 })

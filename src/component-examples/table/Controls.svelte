@@ -12,56 +12,56 @@
   } from "opui-css/svelte"
 
   const roles = [
-    { label: "Designer", value: "designer" },
-    { label: "Developer", value: "developer" },
-    { label: "Product manager", value: "product-manager" },
-    { label: "Support", value: "support" },
+    { label: "Flatwound collector", value: "flatwound-collector" },
+    { label: "Low B whisperer", value: "low-b-whisperer" },
+    { label: "Slap enthusiast", value: "slap-enthusiast" },
+    { label: "Tone advisor", value: "tone-advisor" },
   ]
 </script>
 
 <Table density="dense">
-  <TableCaption>Team members</TableCaption>
+  <TableCaption>Low End Theory members</TableCaption>
   <TableHead>
     <TableRow>
       <TableHeaderCell>Name</TableHeaderCell>
-      <TableHeaderCell>Role</TableHeaderCell>
+      <TableHeaderCell>Specialty</TableHeaderCell>
       <TableHeaderCell>Notes</TableHeaderCell>
     </TableRow>
   </TableHead>
   <TableBody>
     <TableRow>
-      <TableCell>Lena Handén</TableCell>
+      <TableCell>Lou Headstock</TableCell>
       <TableCell>
         <Select
           hideLabel
           items={roles}
-          label="Role for Lena Handén"
-          value="designer"
+          label="Specialty for Lou Headstock"
+          value="flatwound-collector"
         />
       </TableCell>
       <TableCell>
         <TextField
           hideLabel
-          label="Notes for Lena Handén"
-          placeholder="Add a note"
+          label="Notes for Lou Headstock"
+          placeholder="Add a note about their tone"
         />
       </TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Pekka Gåpåbottanen</TableCell>
+      <TableCell>Percy Groove</TableCell>
       <TableCell>
         <Select
           hideLabel
           items={roles}
-          label="Role for Pekka Gåpåbottanen"
-          value="developer"
+          label="Specialty for Percy Groove"
+          value="slap-enthusiast"
         />
       </TableCell>
       <TableCell>
         <TextField
           hideLabel
-          label="Notes for Pekka Gåpåbottanen"
-          placeholder="Add a note"
+          label="Notes for Percy Groove"
+          placeholder="Add a note about their tone"
         />
       </TableCell>
     </TableRow>

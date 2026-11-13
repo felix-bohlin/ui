@@ -149,29 +149,29 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 ```html
 <table class="ui-table">
   <caption>
-    Team members
+    Low End Theory members
   </caption>
   <thead>
     <tr>
       <th>Name</th>
-      <th>Role</th>
+      <th>Specialty</th>
       <th>Location</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Lena Handén</td>
-      <td>Product designer</td>
+      <td>Lou Headstock</td>
+      <td>Flatwound collector</td>
       <td>Göteborg</td>
     </tr>
     <tr>
-      <td>Pekka Gåpåbottanen</td>
-      <td>Frontend developer</td>
+      <td>Percy Groove</td>
+      <td>Slap enthusiast</td>
       <td>Lisbon</td>
     </tr>
     <tr>
-      <td>Inga Halonen</td>
-      <td>Support lead</td>
+      <td>Ines Hertz</td>
+      <td>Low B whisperer</td>
       <td>Berlin</td>
     </tr>
   </tbody>
@@ -198,28 +198,28 @@ import {
 ---
 
 <Table>
-  <TableCaption>Team members</TableCaption>
+  <TableCaption>Low End Theory members</TableCaption>
   <TableHead>
     <TableRow>
       <TableHeaderCell>Name</TableHeaderCell>
-      <TableHeaderCell>Role</TableHeaderCell>
+      <TableHeaderCell>Specialty</TableHeaderCell>
       <TableHeaderCell>Location</TableHeaderCell>
     </TableRow>
   </TableHead>
   <TableBody>
     <TableRow>
-      <TableCell>Lena Handén</TableCell>
-      <TableCell>Product designer</TableCell>
+      <TableCell>Lou Headstock</TableCell>
+      <TableCell>Flatwound collector</TableCell>
       <TableCell>Göteborg</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Pekka Gåpåbottanen</TableCell>
-      <TableCell>Frontend developer</TableCell>
+      <TableCell>Percy Groove</TableCell>
+      <TableCell>Slap enthusiast</TableCell>
       <TableCell>Lisbon</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Inga Halonen</TableCell>
-      <TableCell>Support lead</TableCell>
+      <TableCell>Ines Hertz</TableCell>
+      <TableCell>Low B whisperer</TableCell>
       <TableCell>Berlin</TableCell>
     </TableRow>
   </TableBody>
@@ -248,28 +248,28 @@ import {
 export default function Normal() {
   return (
     <Table>
-      <TableCaption>Team members</TableCaption>
+      <TableCaption>Low End Theory members</TableCaption>
       <TableHead>
         <TableRow>
           <TableHeaderCell>Name</TableHeaderCell>
-          <TableHeaderCell>Role</TableHeaderCell>
+          <TableHeaderCell>Specialty</TableHeaderCell>
           <TableHeaderCell>Location</TableHeaderCell>
         </TableRow>
       </TableHead>
       <TableBody>
         <TableRow>
-          <TableCell>Lena Handén</TableCell>
-          <TableCell>Product designer</TableCell>
+          <TableCell>Lou Headstock</TableCell>
+          <TableCell>Flatwound collector</TableCell>
           <TableCell>Göteborg</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Pekka Gåpåbottanen</TableCell>
-          <TableCell>Frontend developer</TableCell>
+          <TableCell>Percy Groove</TableCell>
+          <TableCell>Slap enthusiast</TableCell>
           <TableCell>Lisbon</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Inga Halonen</TableCell>
-          <TableCell>Support lead</TableCell>
+          <TableCell>Ines Hertz</TableCell>
+          <TableCell>Low B whisperer</TableCell>
           <TableCell>Berlin</TableCell>
         </TableRow>
       </TableBody>
@@ -298,28 +298,28 @@ export default function Normal() {
 </script>
 
 <Table>
-  <TableCaption>Team members</TableCaption>
+  <TableCaption>Low End Theory members</TableCaption>
   <TableHead>
     <TableRow>
       <TableHeaderCell>Name</TableHeaderCell>
-      <TableHeaderCell>Role</TableHeaderCell>
+      <TableHeaderCell>Specialty</TableHeaderCell>
       <TableHeaderCell>Location</TableHeaderCell>
     </TableRow>
   </TableHead>
   <TableBody>
     <TableRow>
-      <TableCell>Lena Handén</TableCell>
-      <TableCell>Product designer</TableCell>
+      <TableCell>Lou Headstock</TableCell>
+      <TableCell>Flatwound collector</TableCell>
       <TableCell>Göteborg</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Pekka Gåpåbottanen</TableCell>
-      <TableCell>Frontend developer</TableCell>
+      <TableCell>Percy Groove</TableCell>
+      <TableCell>Slap enthusiast</TableCell>
       <TableCell>Lisbon</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Inga Halonen</TableCell>
-      <TableCell>Support lead</TableCell>
+      <TableCell>Ines Hertz</TableCell>
+      <TableCell>Low B whisperer</TableCell>
       <TableCell>Berlin</TableCell>
     </TableRow>
   </TableBody>
@@ -347,28 +347,28 @@ import {
 
 <template>
   <Table>
-    <TableCaption>Team members</TableCaption>
+    <TableCaption>Low End Theory members</TableCaption>
     <TableHead>
       <TableRow>
         <TableHeaderCell>Name</TableHeaderCell>
-        <TableHeaderCell>Role</TableHeaderCell>
+        <TableHeaderCell>Specialty</TableHeaderCell>
         <TableHeaderCell>Location</TableHeaderCell>
       </TableRow>
     </TableHead>
     <TableBody>
       <TableRow>
-        <TableCell>Lena Handén</TableCell>
-        <TableCell>Product designer</TableCell>
+        <TableCell>Lou Headstock</TableCell>
+        <TableCell>Flatwound collector</TableCell>
         <TableCell>Göteborg</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>Pekka Gåpåbottanen</TableCell>
-        <TableCell>Frontend developer</TableCell>
+        <TableCell>Percy Groove</TableCell>
+        <TableCell>Slap enthusiast</TableCell>
         <TableCell>Lisbon</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>Inga Halonen</TableCell>
-        <TableCell>Support lead</TableCell>
+        <TableCell>Ines Hertz</TableCell>
+        <TableCell>Low B whisperer</TableCell>
         <TableCell>Berlin</TableCell>
       </TableRow>
     </TableBody>

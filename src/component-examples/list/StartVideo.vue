@@ -4,7 +4,7 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem description="Uploaded by Lena Handén" label="Product tour">
+    <ListItem description="Uploaded by Lou Headstock" label="Slap tutorial">
       <template #start>
         <video controls muted>
           <source
@@ -16,8 +16,8 @@ import { List, ListItem } from "opui-css/vue"
       <template #end>1:30</template>
     </ListItem>
     <ListItem
-      description="Uploaded by Pekka Gåpåbottanen"
-      label="Release highlights"
+      description="Uploaded by Percy Groove"
+      label="Drop D in 45 seconds"
     >
       <template #start>
         <video controls muted>

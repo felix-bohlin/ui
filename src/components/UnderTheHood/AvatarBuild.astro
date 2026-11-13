@@ -87,7 +87,7 @@ const steps = [
 }`,
     html: `
 <div class="avatar-group" role="group" aria-label="Team">
-  <div class="avatar" role="img" aria-label="Hakki Hälinen">HH</div>
+  <div class="avatar" role="img" aria-label="Holly Humbucker">HH</div>
   …
 </div>`,
     notes: [
@@ -120,25 +120,25 @@ const knobs = [
   },
 ]
 
-const photo = "/photos/lena-handen.png"
+const photo = "/photos/lou-headstock.png"
 
 const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0 2c-2.7 0-8 1.3-8 4v2h16v-2c0-2.7-5.3-4-8-4z"/></svg>`
 ---
 
 <BuildUp id="build-avatar" knobs={knobs} steps={steps}>
   <div class="row">
-    <div class="avatar"><img alt="Lena Handén" src={photo} /></div>
+    <div class="avatar"><img alt="Lou Headstock" src={photo} /></div>
     <div class="avatar" role="img" aria-label="Felix Bohlin">FB</div>
     <div class="avatar rounded" role="img" aria-label="Guest">
       <Fragment set:html={icon} />
     </div>
-    <div class="avatar squircle" role="img" aria-label="Sirkka Nitti">SN</div>
+    <div class="avatar squircle" role="img" aria-label="Stella Nut">SN</div>
   </div>
   <div class="avatar-group" role="group" aria-label="Team">
-    <div class="avatar" role="img" aria-label="Hakki Hälinen">HH</div>
-    <div class="avatar" role="img" aria-label="Inga Halonen">IH</div>
-    <div class="avatar" role="img" aria-label="Pekka Gåpåbottanen">PG</div>
-    <div class="avatar" role="img" aria-label="Ranta Runtiringen">RR</div>
+    <div class="avatar" role="img" aria-label="Holly Humbucker">HH</div>
+    <div class="avatar" role="img" aria-label="Ines Hertz">IH</div>
+    <div class="avatar" role="img" aria-label="Percy Groove">PG</div>
+    <div class="avatar" role="img" aria-label="Rory Rootnote">RR</div>
   </div>
 </BuildUp>
 

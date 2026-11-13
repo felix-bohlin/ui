@@ -8,9 +8,9 @@ import {
 
 export default function Reactions() {
   return (
-    <MessageList aria-label="Messages with Sirkka">
+    <MessageList aria-label="Messages with Stella">
       <Message
-        author="Sirkka"
+        author="Stella"
         bottom={
           <ToggleGroup aria-label="Reactions" multiple name="reaction">
             <ToggleButton aria-label="Thumbs up, 2" defaultChecked value="+1">
@@ -25,7 +25,7 @@ export default function Reactions() {
         start={<Avatar aria-hidden="true">SN</Avatar>}
         time="16:05"
       >
-        <p>The deck is out. Thanks everyone!</p>
+        <p>My slap cover is up. Thanks for listening, everyone!</p>
       </Message>
       <Message
         author="You"
@@ -40,7 +40,7 @@ export default function Reactions() {
         outgoing
         time="16:07"
       >
-        <p>Great work, it looks sharp.</p>
+        <p>Totally rad, that low B rattled my windows.</p>
       </Message>
     </MessageList>
   )

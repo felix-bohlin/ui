@@ -4,20 +4,20 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem description="48 photos" label="Summer in Lisbon">
+    <ListItem description="48 photos" label="Gig in a basement">
       <template #start>
         <img
-          src="/photos/lena-handen.png"
+          src="/photos/lou-headstock.png"
           alt=""
           decoding="async"
           loading="lazy"
         />
       </template>
     </ListItem>
-    <ListItem description="112 photos" label="Team offsite">
+    <ListItem description="112 photos" label="Pedalboard glamour shots">
       <template #start>
         <img
-          src="/photos/lena-handen.png"
+          src="/photos/lou-headstock.png"
           alt=""
           decoding="async"
           loading="lazy"

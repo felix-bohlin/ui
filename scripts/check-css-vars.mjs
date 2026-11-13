@@ -25,6 +25,7 @@ const INPUT = /"(--_[\w-]+)":\s*\{[^}]*kind:\s*"input"/g
 const PIXEL_STEP = /^\s*\d*\.?\d+px\s*$/
 
 const BASES = {
+  "accordion.css": ["card.css"],
   "badge.css": ["avatar.css"],
   "checkbox.css": ["choice.css"],
   "control-group.css": ["button.css"],

@@ -39,12 +39,12 @@
     }
 
     /* Density */
-    &:where(.ui-accordion, .ui-card).ui-dense {
+    &:where(.ui-card).ui-dense {
       --_gap: var(--ui-space-2);
       --_padding: var(--ui-space-2);
     }
 
-    &:where(.ui-accordion, .ui-card).ui-spacious {
+    &:where(.ui-card).ui-spacious {
       --_padding: var(--ui-space-5);
     }
 

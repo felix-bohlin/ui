@@ -1,6 +1,5 @@
 @layer components.extended {
   :where(details.ui-accordion) {
-    --_motion: var(--ui-motion);
     --_actions-gap: var(--ui-space-1);
     --_actions-margin-block-start: 0;
     --_actions-padding-block-end: var(--_summary-padding-block);
@@ -10,12 +9,9 @@
     );
     --_content-padding-block: var(--ui-space-2) var(--_padding);
     --_content-padding-inline: var(--_padding-inline);
-    --_duration: calc(var(--ui-duration) * var(--_motion));
-    --_ease: var(--ui-ease);
     --_focus-ring-offset: var(--ui-focus-ring-offset);
     --_margin-inline: var(--ui-space-1);
     --_overflow: visible;
-    --_padding: var(--ui-card-padding, var(--ui-space-3));
     --_padding-inline: 0em;
     --_radius: var(--ui-radius);
     --_summary-padding-block: var(--_padding);

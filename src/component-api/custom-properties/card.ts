@@ -36,12 +36,12 @@ export default {
   },
   "--_duration": {
     description:
-      "Duration of the card link border transition and the focus ring animation, `--ui-duration` times `--_motion`.",
+      "Duration of the card link border transition, the focus ring animation and the accordion transitions, `--ui-duration` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
     description:
-      "Easing of the card link border transition and the focus ring animation. Defaults to `--ui-ease`.",
+      "Easing of the card link border transition, the focus ring animation and the accordion transitions. Defaults to `--ui-ease`.",
     kind: "input",
   },
   "--_elevated-bg-color": {
@@ -71,7 +71,7 @@ export default {
   },
   "--_motion": {
     description:
-      "Motion multiplier for the card link border transition and the focus ring animation. `0` turns them off.",
+      "Motion multiplier for the card link border transition, the focus ring animation and the accordion transitions. `0` turns them off.",
     kind: "input",
   },
   "--_orientation": {
@@ -86,7 +86,7 @@ export default {
   },
   "--_padding": {
     description:
-      "Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.",
+      "Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset. In an accordion it sets `--_padding-inline`, `--_summary-padding-block` and the block end of `--_content-padding-block`.",
     kind: "input",
   },
   "--_scroll-shadow": {

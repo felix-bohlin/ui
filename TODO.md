@@ -5169,6 +5169,10 @@ Custom elements (web components) the library could add, for behavior that HTML a
     ```
 
   - Fixed: Applied as written: `isolation: isolate` on the label, no `transform-style` on the inputs, and a ripple drawn with `scale` and `z-index: -1` without `will-change`; the `choice.css` entry is gone from `scripts/css-vars-allowlist.json`. A page with 100 checkboxes and 100 radios goes from 738 compositor layers to 4 in Chromium 153, and hovered, pressed and focused screenshots match the old rendering (only edge antialiasing differs). The CHANGELOG has a Fixed entry.
+- [ ] (1) Card: the density rules name `.ui-accordion`, but `accordion.css` declares `--_padding` again in `components.extended`, so `.ui-dense` and `.ui-spacious` never reach an accordion, and Accordion has no density option. `accordion.css` also repeats the `--_motion`, `--_duration` and `--_ease` that `card.css` declares for it, with the same values (`packages/opui/css/components/card.css:42-49`, `packages/opui/css/components/accordion.css:3`, `packages/opui/css/components/accordion.css:13-14`, `packages/opui/css/components/accordion.css:18`)
+  - Summary: Nothing a user sees: the density rules name a component they never change, and four declarations repeat.
+  - Recommended: Fix. The accordion keeps its padding and the rules say what they do.
+  - Fix: narrow the two density rules to `&:where(.ui-card).ui-dense` and `&:where(.ui-card).ui-spacious`, then remove `--_motion`, `--_duration`, `--_ease` and `--_padding` from `details.ui-accordion`, which `card.css` already declares for it.
 - [ ] (4) New components the blocks point to. Each block currently draws these with its own CSS:
   - Summary: Blocks draw charts, breadcrumbs, steppers, timelines, ratings, pagination and stat cards with their own CSS for lack of components.
   - Recommended: Fix. Breadcrumb, empty state and pagination are left, and their blocks already show the markup each needs.

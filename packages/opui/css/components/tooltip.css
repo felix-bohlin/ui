@@ -10,10 +10,6 @@
     --_shift: var(--ui-space-4);
     --_text-color: var(--ui-on-inverse);
 
-    @media print {
-      print-color-adjust: exact;
-    }
-
     & > .ui-floating {
       background-color: var(--_bg-color);
       border-radius: var(--ui-radius-small);
@@ -41,6 +37,10 @@
 
       @media (forced-colors: active) {
         border: var(--ui-border-width) solid CanvasText;
+      }
+
+      @media print {
+        print-color-adjust: exact;
       }
     }
 

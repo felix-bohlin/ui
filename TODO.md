@@ -1343,6 +1343,17 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Summary: On paper without background graphics, dividers vanish and selects lose their arrow.
   - Recommended: Fix. The same print-only print-color-adjust keeps them, as for badges and checked marks.
   - Fix: confirmed by printing `/html/components/divider/` and `/html/components/select/` to A4 in Chromium. Add `@media print { print-color-adjust: exact; }` to the Divider root and the Select chevron, then print the SortableTable and Toaster examples and add it where a mask drops out.
+- [ ] (1) Tooltip: `print-color-adjust: exact` is on the `.ui-tooltip` root and inherits, so a tonal button inside a Tooltip prints its fill even when the browser doesn't print backgrounds (`packages/opui/css/components/tooltip.css:13-15`, `packages/opui/css/components/tooltip.css:17-45`)
+  - Summary: A button wrapped in a Tooltip prints its fill, where the same button outside a Tooltip doesn't.
+  - Recommended: Fix. Only the bubble needs its fill in print.
+  - Fix: move the `@media print` block into the `& > .ui-floating` rule, next to its forced-colors block.
+    ```css
+    & > .ui-floating {
+      @media print {
+        print-color-adjust: exact;
+      }
+    }
+    ```
 - [ ] (2) Range: in WebKit, the fill animation (`ui-range-fill` on the `--ui-range-thumb` view timeline) keeps `/theme-builder/` rendering a new frame about every 45 ms while nothing changes: in WebKitGTK 2.52 the main thread is busy for 3.5 s of every 4 s at idle, from the two Range inputs in the preview specimen, 1,900 px below the viewport. With their animation off it is 0.4 s, and Chromium shows no idle cost. A plain page with the same Range markup and `dist/opui.css` costs 0.1 to 0.2 s per 3 s, also inside `.ui-palette`, so the repro still needs the part of the builder that makes it expensive (`packages/opui/css/components/range.css:268-289`, `packages/opui/css/components/range.css:361-362`, `src/components/ThemeBuilder/PreviewSpecimen.astro:185`)
   - Summary: In WebKit the theme builder keeps redrawing while idle because of the Range fill animation, which slows every action there.
   - Recommended: Fix with option A. The cost comes from the engine, so it belongs in an engine bug report with a repro, not a workaround.

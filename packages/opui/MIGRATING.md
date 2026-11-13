@@ -520,11 +520,11 @@ The title is `--ui-font-size-h4`, like the `Dialog` title, instead of `--font-si
 + .ui-drawer { --_title-font-size: 1.25rem; }
 ```
 
-The page no longer locks scrolling by default in Astro and Vue. Set `scrollLock` on drawers that should lock it. `id` is required, since the trigger's `commandfor` points at it.
+A modal drawer locks page scrolling, like a modal `Dialog`, also without `.ui-scroll-lock`, except with a transparent backdrop on screens `31.25rem` and wider. In Astro and Vue `scrollLock` is off by default, so a drawer that `show()` opens no longer locks the page: set `scrollLock` on it to keep the lock. `id` is required, since the trigger's `commandfor` points at it.
 
 ```diff
 - <Drawer>
-+ <Drawer id="filters" scrollLock>
++ <Drawer id="filters">
 ```
 
 `types.ts` no longer exports a `Slots` type, and the Vue types no longer export `DrawerSlots`, `DrawerHeaderSlots` or `DrawerFooterSlots`.

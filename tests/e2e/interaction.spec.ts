@@ -324,6 +324,51 @@ interaction(
   },
 )
 
+interaction(
+  "drawer",
+  "NonModal",
+  "a modal drawer locks the page scroll, and a non-modal one only with scrollLock",
+  async ({ page, root }) => {
+    const pageScroll = () => computed(page.locator("html"), "overflow-y")
+    const basics = page.locator('[data-example="Basics"]')
+    const menu = basics.locator("dialog#drawer-basics-1")
+
+    await basics.getByRole("button", { name: "Inline start" }).click()
+    await expect(menu).toHaveAttribute("open")
+    await expect.poll(pageScroll, "a modal drawer locks the page").toBe("clip")
+    await page.keyboard.press("Escape")
+    await expect(menu).not.toHaveAttribute("open")
+    await expect.poll(pageScroll).not.toBe("clip")
+
+    await basics.getByRole("button", { name: "Inline end" }).click()
+    const details = basics.locator("dialog#drawer-basics-2")
+    await expect(details).toHaveAttribute("open")
+    await expect
+      .poll(pageScroll, "a transparent backdrop keeps a wide page scrollable")
+      .not.toBe("clip")
+    await page.keyboard.press("Escape")
+    await expect(details).not.toHaveAttribute("open")
+
+    await menu.evaluate((dialog: HTMLDialogElement) => dialog.show())
+    await expect(menu).toHaveAttribute("open")
+    await expect
+      .poll(pageScroll, "a non-modal drawer without scrollLock leaves it")
+      .not.toBe("clip")
+    await menu.evaluate((dialog: HTMLDialogElement) => dialog.close())
+    await expect(menu).not.toHaveAttribute("open")
+
+    await root.getByRole("button", { name: "Show folders" }).click()
+    const folders = root.locator("dialog#drawer-non-modal-1")
+    await expect(folders).toHaveAttribute("open")
+    expect(await folders.evaluate((dialog) => dialog.matches(":modal"))).toBe(
+      false,
+    )
+    await expect
+      .poll(pageScroll, "scrollLock locks it behind a non-modal drawer")
+      .toBe("clip")
+  },
+)
+
 const clickBackdrop = async (page: Page, dialog: Locator) => {
   const box = (await dialog.boundingBox())!
   const { height, width } = page.viewportSize()!

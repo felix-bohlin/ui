@@ -44,7 +44,7 @@ export default {
       class: ".ui-scroll-lock",
       default: "false",
       description:
-        "Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px.",
+        "Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`.",
       group: "Scroll lock",
       prop: "scrollLock",
     },

@@ -119,7 +119,9 @@
 
   /* Scroll-lock is provided by the shared `.ui-scroll-lock` utility in core/utils.css. */
   @media (width < 31.25rem) {
-    html:has(dialog.ui-drawer.ui-scroll-lock[open].ui-backdrop-transparent) {
+    html:has(
+      dialog.ui-drawer.ui-backdrop-transparent:is(:modal, .ui-scroll-lock[open])
+    ) {
       overflow: clip;
       overscroll-behavior: contain;
     }

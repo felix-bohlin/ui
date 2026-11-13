@@ -121,8 +121,9 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
           to change it.
         </p>
         <p>
-          Use <code>backdrop="transparent"</code> and <code>scrollLock</code>
-          for the page behind it.
+          The page behind a modal drawer doesn't scroll. Use
+          <code>backdrop="transparent"</code> to keep it in view and, on screens
+          <code>31.25rem</code> and wider, scrollable.
         </p>
       </Fragment>
       <Fragment slot="html">
@@ -132,8 +133,9 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
           change it.
         </p>
         <p>
-          Use <code>.ui-backdrop-transparent</code> and
-          <code>.ui-scroll-lock</code> for the page behind it.
+          The page behind a modal drawer doesn't scroll. Use
+          <code>.ui-backdrop-transparent</code> to keep it in view and, on
+          screens <code>31.25rem</code> and wider, scrollable.
         </p>
       </Fragment>
     </Conditional>
@@ -168,6 +170,22 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
         Back and Forward, or a client router.
       </Fragment>
     </Conditional>
+  </section>
+
+  <section id="non-modal">
+    <h2>Non-modal</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Open it with <code>show()</code> from a script to keep the page usable.
+        Set <code>scrollLock</code> to keep the page from scrolling.
+      </Fragment>
+      <Fragment slot="html">
+        Open it with <code>show()</code> from a script to keep the page usable.
+        Add <code>.ui-scroll-lock</code> to keep the page from scrolling.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="NonModal" row />
   </section>
 
   <section id="close-button">

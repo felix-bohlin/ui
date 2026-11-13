@@ -31,12 +31,7 @@ export default function Basics() {
         </Button>
       </div>
 
-      <Drawer
-        closeOnNavigate
-        id="drawer-basics-1"
-        scrollLock
-        side="inline-start"
-      >
+      <Drawer closeOnNavigate id="drawer-basics-1" side="inline-start">
         <DrawerHeader closeButton>
           <DrawerTitle>Menu</DrawerTitle>
         </DrawerHeader>
@@ -55,12 +50,7 @@ export default function Basics() {
         </DrawerFooter>
       </Drawer>
 
-      <Drawer
-        backdrop="transparent"
-        id="drawer-basics-2"
-        scrollLock
-        side="inline-end"
-      >
+      <Drawer backdrop="transparent" id="drawer-basics-2" side="inline-end">
         <DrawerHeader closeButton>
           <DrawerTitle>Onboarding emails</DrawerTitle>
           <Button aria-label="Edit" round size="small">
@@ -138,7 +128,7 @@ export default function Basics() {
         </DrawerFooter>
       </Drawer>
 
-      <Drawer id="drawer-basics-3" scrollLock side="block-start">
+      <Drawer id="drawer-basics-3" side="block-start">
         <DrawerHeader closeButton>
           <DrawerTitle>Notifications</DrawerTitle>
         </DrawerHeader>
@@ -154,7 +144,7 @@ export default function Basics() {
         </DrawerFooter>
       </Drawer>
 
-      <Drawer id="drawer-basics-4" scrollLock side="block-end">
+      <Drawer id="drawer-basics-4" side="block-end">
         <DrawerHeader closeButton>
           <DrawerTitle>Filters</DrawerTitle>
         </DrawerHeader>

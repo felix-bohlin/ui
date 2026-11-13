@@ -20,7 +20,7 @@
 <Button command="show-modal" commandfor="drawer-basics-2">Inline end</Button>
 <Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
 
-<Drawer id="drawer-basics-1" scrollLock side="inline-start">
+<Drawer id="drawer-basics-1" side="inline-start">
   <DrawerHeader closeButton>
     <DrawerTitle>Menu</DrawerTitle>
   </DrawerHeader>
@@ -39,12 +39,7 @@
   </DrawerFooter>
 </Drawer>
 
-<Drawer
-  backdrop="transparent"
-  id="drawer-basics-2"
-  scrollLock
-  side="inline-end"
->
+<Drawer backdrop="transparent" id="drawer-basics-2" side="inline-end">
   <DrawerHeader closeButton>
     <DrawerTitle>Onboarding emails</DrawerTitle>
     <Button aria-label="Edit" round size="small">
@@ -118,7 +113,7 @@
   </DrawerFooter>
 </Drawer>
 
-<Drawer id="drawer-basics-3" scrollLock side="block-start">
+<Drawer id="drawer-basics-3" side="block-start">
   <DrawerHeader closeButton>
     <DrawerTitle>Notifications</DrawerTitle>
   </DrawerHeader>
@@ -134,7 +129,7 @@
   </DrawerFooter>
 </Drawer>
 
-<Drawer id="drawer-basics-4" scrollLock side="block-end">
+<Drawer id="drawer-basics-4" side="block-end">
   <DrawerHeader closeButton>
     <DrawerTitle>Filters</DrawerTitle>
   </DrawerHeader>

@@ -23,7 +23,7 @@
   Open drawer
 </Button>
 
-<Drawer id="drawer-close-behaviors-1" scrollLock {closedby}>
+<Drawer id="drawer-close-behaviors-1" {closedby}>
   <DrawerHeader closeButton>
     <DrawerTitle>How to close</DrawerTitle>
   </DrawerHeader>

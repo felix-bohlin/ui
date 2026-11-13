@@ -8,7 +8,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-accent-max-lightness":
     "The highest OKLCH lightness of the named colors except `--ui-orange`, `--ui-neutral` and `--ui-palette-accent` in light mode. `1` (no cap), and `0.42` with more contrast.",
   "--ui-anchor-position-area":
-    "The `position-area` of the floating content of an `Anchor`, a popover `Menu` or a `Tooltip`. The `positionArea` prop sets it on one instance, or set it on an element for everything inside it. When unset, each keeps its own: `self-start self-end` for `Anchor`, its `side` and `span` for `Menu` (`self-block-end span-self-inline-end`) and `self-block-start` for `Tooltip`.",
+    "The `position-area` of the floating content of an `Anchor`, a popover `Menu` or a `Tooltip`. The `positionArea` prop sets it on one instance, or set it on an element for everything inside it. When unset, each keeps its own: `self-start self-end` for `Anchor`, its `side` and `span` for `Menu` (`self-block-end span-self-inline-end`), `self-block-start` for `Tooltip` and `self-inline-start` for the `Copy` label.",
   "--ui-backdrop-bg-color":
     "Overlay color behind an open `Dialog` or `Drawer`. `--ui-text` at 50% in light mode, and half the lightness of `--ui-surface` at 50% in dark mode.",
   "--ui-backdrop-blur": "Blur radius behind an open `Dialog` or `Drawer`.",
@@ -299,7 +299,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-list-item-padding-inline":
     "Horizontal padding of `List` and `Menu` items, headings and `Select` options. When unset, `--ui-space-3`.",
   "--ui-menu-radius":
-    "Corner radius for `Menu`. When unset, menus follow `--ui-radius`.",
+    "Corner radius for `Menu` and the `Select` picker. When unset, menus follow `--ui-radius` and the picker `--ui-field-radius`, like its field.",
   "--ui-motion":
     "Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](/guide/theming#motion).",
   "--ui-neutral":

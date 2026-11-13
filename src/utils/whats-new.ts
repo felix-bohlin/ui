@@ -1163,6 +1163,7 @@ export const whatsNew = {
       `Breaking: <code>style</code> goes to the root, like <code>class</code>, instead of the <code>&lt;select&gt;</code> (<a href="#api">API</a>).`,
     ),
     `Corners follow <code>--ui-radius</code>, and <a href="#api"><code>--ui-field-radius</code></a> overrides it when a theme sets it, so one token squares or rounds every component.`,
+    `The <a href="#variants">picker</a> reads <a href="#api"><code>--ui-menu-radius</code></a> when a theme sets it, so it matches menus, and the field radius when it doesn't.`,
     `The picker shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with menus and drawers.`,
     `The field reads <a href="#api"><code>--ui-field-shadow</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
     `The <a href="#variants">filled</a> hover reads <code>--ui-surface-tonal-hover</code>, shared with clickable chips.`,

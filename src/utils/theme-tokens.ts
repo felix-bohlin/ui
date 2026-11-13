@@ -227,6 +227,7 @@ export const OVERRIDE_HOOKS = [
   "--ui-control-border-color-filled",
   "--ui-control-on-accent",
   "--ui-focus-border-color",
+  "--ui-menu-radius",
   "--ui-on-selected",
   "--ui-selected",
   "--ui-track-bg-color",
@@ -236,7 +237,7 @@ export const INSTANCE_INPUTS: ThemeToken[] = [
   {
     name: "--ui-anchor-position-area",
     optional: true,
-    value: "self-block-end",
+    value: "self-start self-end",
   },
 ]
 

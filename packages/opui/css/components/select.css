@@ -35,7 +35,10 @@
       /* Animation on-stage styles */
       background: transparent;
       border: 0;
-      border-radius: var(--ui-field-radius, var(--ui-radius));
+      border-radius: var(
+        --ui-menu-radius,
+        var(--ui-field-radius, var(--ui-radius))
+      );
       box-shadow: var(--ui-shadow-overlay);
       opacity: 1;
       padding: 0;
@@ -121,7 +124,10 @@
       --ui-field-border-color: var(--ui-field-border-color-on-raised);
       border: var(--ui-border-width) solid
         var(--ui-border-color-raised, var(--ui-border-color-on-raised));
-      border-radius: var(--ui-field-radius, var(--ui-radius));
+      border-radius: var(
+        --ui-menu-radius,
+        var(--ui-field-radius, var(--ui-radius))
+      );
 
       /* Groups */
       :is([role="group"], optgroup) {

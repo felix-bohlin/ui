@@ -109,7 +109,6 @@ const componentTokens = [
   "--ui-link-font-weight",
   "--ui-link-visited-text-color",
   "--ui-list-item-padding-inline",
-  "--ui-menu-radius",
   "--ui-rich-text-flow-gap",
   "--ui-rich-text-heading-margin-block-end",
   "--ui-rich-text-heading-margin-block-start",

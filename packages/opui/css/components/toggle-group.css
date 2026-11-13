@@ -62,6 +62,7 @@
 
       & > .ui-toggle-button {
         flex: none;
+        inline-size: max-content;
       }
     }
 

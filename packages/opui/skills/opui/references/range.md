@@ -49,9 +49,9 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### range.css
 
-- `--_accent`: Color of the thumb, its ring and the track fill. Defaults to `--ui-choice-accent`, then `--ui-control-accent`, then `--ui-primary`, and is set by the invalid state.
-- `--_ease`: Easing of the thumb ring transition and focus ring. Defaults to `--ui-ease`.
-- `--_motion`: Motion multiplier for the thumb highlight and focus ring. `0` turns them off.
+- `--_accent`: Color of the thumb, its ripple and the track fill. Defaults to `--ui-choice-accent`, then `--ui-control-accent`, then `--ui-primary`, and is set by the invalid state.
+- `--_ease`: Easing of the thumb ripple transition and focus ring. Defaults to `--ui-ease`.
+- `--_motion`: Motion multiplier for the thumb ripple and focus ring. `0` turns them off.
 - `--_thumb-border-width`: Width of the page-colored ring between the thumb and the track. Set on the `<input>`.
 - `--_thumb-size`: Width and height of the thumb. Set by the sizes, and larger on touch screens at every size but `.ui-large`.
 - `--_track-base-bg-color`: Color of the empty track at rest. `--ui-track-bg-color` when the theme sets it, otherwise the field border, and `--ui-surface` under more contrast; set by `.ui-filled` and `.ui-tonal`.

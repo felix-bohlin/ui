@@ -44,7 +44,7 @@ Shows where someone is in a flow of steps, such as a checkout.
 
 - `complete`: `boolean`, `.ui-complete`. Marks the step complete: a check in the marker and the line to the next step in the accent color.
 - `completeLabel`: `string`, default `", completed"`. Screen reader text after the label of a complete step.
-- `current`: `boolean`, `[aria-current="step"]`. Marks the current step. Without `.ui-complete` on any step, the steps before it show as complete.
+- `current`: `boolean`, `[aria-current="step"]`. Marks the current step. The steps before it show as complete, with or without `.ui-complete`.
 - `description`: `string`. A short line under the label.
 - `error`: `boolean`, `.ui-error`. Marks a step with an error: an exclamation mark in the marker and the label in the invalid color. Wins over `complete`.
 - `errorLabel`: `string`, default `", error"`. Screen reader text after the label of a step with an error.

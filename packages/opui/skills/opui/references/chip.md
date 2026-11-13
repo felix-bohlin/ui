@@ -9,7 +9,7 @@ Filters, tags and choices. For the main action, use a Button.
 
 ### Parts
 
-- `.ui-chip` (root): Container element. Can be a `<div>`, `<a>` or `<button>`.
+- `.ui-chip` (root): Container element. Can be a `<div>`, `<span>`, `<a>` or `<button>`.
 - `<svg>` (slot `start`): Optional content at the start, such as an icon.
 - `.ui-chip > .ui-text` (prop `label`, slot `label`): The label, text or rich content.
 - `<svg>` (slot `end`): Optional content at the end, such as an icon.

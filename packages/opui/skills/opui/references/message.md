@@ -83,7 +83,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size
 <div aria-label="Chat with Sirkka" role="log">
   <ol class="ui-message-list" role="list" aria-label="Messages with Sirkka">
     <li class="ui-message">
-      <div class="ui-avatar" aria-label="Sirkka Nitti" role="img">SN</div>
+      <div class="ui-avatar" aria-hidden="true">SN</div>
       <div class="ui-content">
         <p class="ui-header">Sirkka</p>
         <p>Did you get a chance to look at the pricing proposal?</p>
@@ -93,7 +93,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size
       </div>
     </li>
     <li class="ui-message">
-      <div class="ui-avatar" aria-label="Sirkka Nitti" role="img">SN</div>
+      <div class="ui-avatar" aria-hidden="true">SN</div>
       <div class="ui-content">
         <p class="ui-header">Sirkka</p>
         <p>No rush, Friday is fine.</p>
@@ -141,11 +141,11 @@ import { Avatar, Message, MessageList } from "opui-css/astro"
 <div aria-label="Chat with Sirkka" role="log">
   <MessageList aria-label="Messages with Sirkka">
     <Message author="Sirkka" datetime="2026-10-08T14:02" time="14:02">
-      <Avatar aria-label="Sirkka Nitti" role="img" slot="start">SN</Avatar>
+      <Avatar aria-hidden="true" slot="start">SN</Avatar>
       <p>Did you get a chance to look at the pricing proposal?</p>
     </Message>
     <Message author="Sirkka" datetime="2026-10-08T14:03" time="14:03">
-      <Avatar aria-label="Sirkka Nitti" role="img" slot="start">SN</Avatar>
+      <Avatar aria-hidden="true" slot="start">SN</Avatar>
       <p>No rush, Friday is fine.</p>
     </Message>
     <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
@@ -177,11 +177,7 @@ export default function Basics() {
         <Message
           author="Sirkka"
           datetime="2026-10-08T14:02"
-          start={
-            <Avatar aria-label="Sirkka Nitti" role="img">
-              SN
-            </Avatar>
-          }
+          start={<Avatar aria-hidden="true">SN</Avatar>}
           time="14:02"
         >
           <p>Did you get a chance to look at the pricing proposal?</p>
@@ -189,11 +185,7 @@ export default function Basics() {
         <Message
           author="Sirkka"
           datetime="2026-10-08T14:03"
-          start={
-            <Avatar aria-label="Sirkka Nitti" role="img">
-              SN
-            </Avatar>
-          }
+          start={<Avatar aria-hidden="true">SN</Avatar>}
           time="14:03"
         >
           <p>No rush, Friday is fine.</p>
@@ -233,13 +225,13 @@ export default function Basics() {
   <MessageList aria-label="Messages with Sirkka">
     <Message author="Sirkka" datetime="2026-10-08T14:02" time="14:02">
       {#snippet start()}
-        <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
+        <Avatar aria-hidden="true">SN</Avatar>
       {/snippet}
       <p>Did you get a chance to look at the pricing proposal?</p>
     </Message>
     <Message author="Sirkka" datetime="2026-10-08T14:03" time="14:03">
       {#snippet start()}
-        <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
+        <Avatar aria-hidden="true">SN</Avatar>
       {/snippet}
       <p>No rush, Friday is fine.</p>
     </Message>
@@ -272,13 +264,13 @@ import { Avatar, Message, MessageList } from "opui-css/vue"
     <MessageList aria-label="Messages with Sirkka">
       <Message author="Sirkka" datetime="2026-10-08T14:02" time="14:02">
         <template #start>
-          <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
+          <Avatar aria-hidden="true">SN</Avatar>
         </template>
         <p>Did you get a chance to look at the pricing proposal?</p>
       </Message>
       <Message author="Sirkka" datetime="2026-10-08T14:03" time="14:03">
         <template #start>
-          <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
+          <Avatar aria-hidden="true">SN</Avatar>
         </template>
         <p>No rush, Friday is fine.</p>
       </Message>

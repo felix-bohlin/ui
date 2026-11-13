@@ -18,7 +18,7 @@ A star rating: a meter that shows a score, or radios that collect one.
 ### Props and modifiers
 
 - `clearLabel`: `string`, default `"No rating"`. The accessible name of the radio that clears the rating. Not rendered with `required`.
-- `defaultValue` (React): `number | string`. The star checked at the start, when `value` is omitted.
+- `defaultValue` (React): `number | string`. The starting score of the meter or the star checked at the start, when `value` is omitted.
 - `disabled`: `boolean`, `fieldset[disabled]`. Disables the input.
 - `error`: `boolean`, `input[aria-invalid="true"]`. Marks the radios invalid and tints the empty stars.
 - `label`: `string`. The `<legend>` of the input, or the `aria-label` of the meter. Include the score in a meter label.

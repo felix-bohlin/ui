@@ -193,6 +193,7 @@ A few features need a script in plain HTML:
 | Feature | What it does | Import |
 | --- | --- | --- |
 | [Character count](https://opui.dev/html/components/text-field.md#character-count) | Counts the characters left, in Text field and Textarea | `opui-css/elements/character-count.js` |
+| [Close on navigate](https://opui.dev/html/components/drawer.md#navigation) | Closes open menus and `[data-close-on-navigate]` drawers when the page navigates | `opui-css/elements/close-on-navigate.js` |
 | [Copy](https://opui.dev/html/components/copy.md) | Copies text or a field's value | `opui-css/elements/copy.js` |
 | [Dismissible callout](https://opui.dev/html/components/callout.md#dismissible) | Hides a callout with its close button | `opui-css/elements/callout.js` |
 | [Indeterminate checkbox](https://opui.dev/html/components/checkbox.md#indeterminate) | Sets `indeterminate` from `data-indeterminate` | `opui-css/css/js/checkbox.js` |

@@ -21,7 +21,42 @@ export const TOUCH_ICON = {
   width: 180,
 }
 
+export const FAVICON = {
+  file: "public/favicon.ico",
+  height: 32,
+  scale: 1,
+  maxBytes: 4 * 1024,
+  source: "public/favicon.svg",
+  width: 32,
+}
+
 const PNG_SIGNATURE = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])
+const ICO_HEADER_BYTES = 22
+
+export const icoFromPng = (png) => {
+  const { height, width } = pngInfo(png)
+  const header = Buffer.alloc(ICO_HEADER_BYTES)
+  header.writeUInt16LE(1, 2)
+  header.writeUInt16LE(1, 4)
+  header[6] = width % 256
+  header[7] = height % 256
+  header.writeUInt16LE(1, 10)
+  header.writeUInt16LE(32, 12)
+  header.writeUInt32LE(png.length, 14)
+  header.writeUInt32LE(ICO_HEADER_BYTES, 18)
+  return Buffer.concat([header, png])
+}
+
+export const pngInIco = (ico) =>
+  ico.length > ICO_HEADER_BYTES &&
+  ico.readUInt16LE(0) === 0 &&
+  ico.readUInt16LE(2) === 1 &&
+  ico.readUInt16LE(4) === 1
+    ? ico.subarray(
+        ico.readUInt32LE(18),
+        ico.readUInt32LE(18) + ico.readUInt32LE(14),
+      )
+    : undefined
 
 export const pngInfo = (png) =>
   png.length >= 26 &&
@@ -50,11 +85,12 @@ export const imageProblems = (png, { file, height, maxBytes, width }) => {
   ].filter(Boolean)
 }
 
-const write = (png, image) => {
+const write = (png, image, encode = (bytes) => bytes) => {
   const problems = imageProblems(png, image)
   if (problems.length) throw new Error(problems.join("\n"))
-  writeFileSync(join(root, image.file), png)
-  console.log(`Wrote ${image.file} (${Math.ceil(png.length / 1024)} KB)`)
+  const bytes = encode(png)
+  writeFileSync(join(root, image.file), bytes)
+  console.log(`Wrote ${image.file} (${Math.ceil(bytes.length / 1024)} KB)`)
 }
 
 const shareImage = async (browser, origin) => {
@@ -71,13 +107,13 @@ const shareImage = async (browser, origin) => {
   write(await page.screenshot(), SHARE_IMAGE)
 }
 
-const touchIcon = async (browser) => {
+const icon = async (browser, image) => {
   const page = await browser.newPage({
     colorScheme: "light",
-    viewport: { height: TOUCH_ICON.height, width: TOUCH_ICON.width },
+    viewport: { height: image.height, width: image.width },
   })
   await page.setContent(
-    `<body style="display: grid; margin: 0; min-block-size: 100vh; place-items: center">${readFileSync(join(root, TOUCH_ICON.source), "utf-8")}</body>`,
+    `<body style="display: grid; margin: 0; min-block-size: 100vh; place-items: center">${readFileSync(join(root, image.source), "utf-8")}</body>`,
   )
   await page.evaluate((scale) => {
     const svg = document.querySelector("svg")
@@ -85,8 +121,8 @@ const touchIcon = async (browser) => {
     document.body.style.backgroundColor = getComputedStyle(
       svg.querySelector("rect"),
     ).fill
-  }, TOUCH_ICON.scale)
-  write(await page.screenshot(), TOUCH_ICON)
+  }, image.scale)
+  return page.screenshot()
 }
 
 const main = async () => {
@@ -99,7 +135,8 @@ const main = async () => {
   )
   try {
     await shareImage(browser, `http://localhost:${server.address.port}`)
-    await touchIcon(browser)
+    write(await icon(browser, TOUCH_ICON), TOUCH_ICON)
+    write(await icon(browser, FAVICON), FAVICON, icoFromPng)
   } finally {
     await browser.close()
     await server.stop()

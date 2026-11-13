@@ -1,7 +1,10 @@
 import { existsSync, readFileSync } from "node:fs"
 import { describe, expect, test } from "vitest"
 import {
+  FAVICON,
+  icoFromPng,
   imageProblems,
+  pngInIco,
   pngInfo,
   SHARE_IMAGE,
   TOUCH_ICON,
@@ -72,8 +75,30 @@ describe("imageProblems", () => {
   })
 })
 
+describe("icoFromPng", () => {
+  test("wraps a PNG in a one-image icon that names its size", () => {
+    const image = png({ height: 32, width: 32 })
+    const ico = icoFromPng(image)
+    expect([ico.readUInt16LE(2), ico.readUInt16LE(4), ico[6], ico[7]]).toEqual([
+      1, 1, 32, 32,
+    ])
+    expect(pngInIco(ico)).toEqual(image)
+  })
+
+  test("pngInIco returns nothing for a file that isn't an icon", () => {
+    expect(pngInIco(png())).toBeUndefined()
+    expect(pngInIco(Buffer.alloc(8))).toBeUndefined()
+  })
+})
+
 test.each([SHARE_IMAGE, TOUCH_ICON])("$file passes", (image) => {
   expect(imageProblems(readFileSync(image.file), image)).toEqual([])
+})
+
+test(`${FAVICON.file} holds a PNG that passes`, () => {
+  const image = pngInIco(readFileSync(FAVICON.file))
+  expect(image).toBeDefined()
+  expect(imageProblems(image ?? Buffer.alloc(0), FAVICON)).toEqual([])
 })
 
 test("the share image page is a noindex test page", () => {

@@ -513,7 +513,7 @@ export const whatsNew = {
       ),
       html: `Breaking: <code>.ui-button-group</code> is <a href="#fields"><code>.ui-control-group</code></a>, and <code>button-group.css</code> is <code>control-group.css</code>. It joins fields as well as buttons, and wraps onto more rows when it doesn't fit.`,
     },
-    `<a href="#fields">Fields</a>: a text field, select, number field or textarea joins the buttons. A text field takes the free space, so the group fills the line like a field.`,
+    `<a href="#fields">Fields</a>: a text field, select or number field joins the buttons, and a textarea does in a <a href="#vertical-orientation">vertical group</a>. A text field takes the free space, so the group fills the line like a field.`,
     `<a href="#labels">Labels</a> sit above their control, and the controls line up at the bottom.`,
     `Buttons and fields draw their corners from <code>--_start-start-radius</code>, <code>--_start-end-radius</code>, <code>--_end-start-radius</code> and <code>--_end-end-radius</code>, which the group sets where controls meet, and fields take <code>--_radius</code> and <code>--_shadow</code> like buttons. Controls in a group drop their shadows (<a href="#under-the-hood">Under the hood</a>).`,
     `Themes can set <a href="#api"><code>--ui-button-hover</code></a> to <code>layer</code> for state-layer hover and pressed states, or to <code>shade-all</code> to shade tonal buttons like filled ones, <code>--ui-button-padding-inline</code> with its size variants, and <code>--ui-button-accent-filled</code> with <code>--ui-button-on-accent-filled</code> for the filled color.`,
@@ -793,6 +793,9 @@ export const whatsNew = {
     `Rows with any <a href="#selected"><code>aria-current</code></a> but <code>false</code> look current, like <code>true</code> on a button, not only <code>page</code>.`,
     `<a href="#flush"><code>flush</code></a> also drops the block padding of the list, for a list in a card.`,
     `Themes can set <a href="#api"><code>--ui-list-item-padding-inline</code></a>. Descriptions read <code>--ui-text-subtle</code>, and <code>--ui-on-selected</code> on a selected row.`,
+    components(
+      `<a href="#ordered"><code>as="ol"</code></a> renders an ordered list, for a ranking or steps.`,
+    ),
     components(
       `A link <a href="#api"><code>ListItem</code></a> takes <code>disabled</code>: it drops its <code>href</code> and gets <code>role="link"</code> and <code>aria-disabled="true"</code>.`,
     ),

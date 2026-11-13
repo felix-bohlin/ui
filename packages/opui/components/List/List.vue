@@ -3,7 +3,7 @@ import { type HTMLAttributes, useAttrs } from "vue"
 import { defined } from "../attrs"
 import type { Props, Slots } from "./types.vue-props"
 
-const { bordered, dense, flush, variant } = defineProps<Props>()
+const { as: Tag = "ul", bordered, dense, flush, variant } = defineProps<Props>()
 defineSlots<Slots>()
 
 defineOptions({
@@ -14,7 +14,8 @@ const attrs = useAttrs() as HTMLAttributes
 </script>
 
 <template>
-  <ul
+  <component
+    :is="Tag"
     :class="[
       'ui-list',
       { 'ui-bordered': bordered, 'ui-dense': dense, 'ui-flush': flush },
@@ -25,5 +26,5 @@ const attrs = useAttrs() as HTMLAttributes
     v-bind="defined(attrs)"
   >
     <slot></slot>
-  </ul>
+  </component>
 </template>

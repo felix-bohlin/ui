@@ -1405,6 +1405,13 @@
     "url": "/html/components/list/#switch"
   },
   {
+    "id": "component-list-html-ordered",
+    "title": "Ordered",
+    "page": "List",
+    "category": "Component",
+    "url": "/html/components/list/#ordered"
+  },
+  {
     "id": "component-list-html-inset",
     "title": "Inset",
     "page": "List",
@@ -4432,7 +4439,7 @@
     "id": "api-control-group-html",
     "title": "Control Group API",
     "description": "Reference for Control Group HTML component.",
-    "api": ".ui-control-group Container element. A number field, select, text field or textarea. Its `.ui-field` joins the controls next to it. .ui-control-group > .ui-text-field A button or button link. .ui-control-group > .ui-button .ui-critical .ui-primary Colors Optional colors for the buttons. .ui-vertical Orientation The orientation of the element. .ui-overflow-scroll .ui-overflow-shrink Overflow What the controls do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis. Icon-only buttons keep their size. .ui-large .ui-small .ui-x-small Sizes The size of the buttons and fields. .ui-filled .ui-outlined .ui-tonal Variants The variant of the buttons.",
+    "api": ".ui-control-group Container element. A number field, select, text field or textarea (a textarea only in a vertical group). Its `.ui-field` joins the controls next to it. .ui-control-group > .ui-text-field A button or button link. .ui-control-group > .ui-button .ui-critical .ui-primary Colors Optional colors for the buttons. .ui-vertical Orientation The orientation of the element. .ui-overflow-scroll .ui-overflow-shrink Overflow What the controls do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis. Icon-only buttons keep their size. .ui-large .ui-small .ui-x-small Sizes The size of the buttons and fields. .ui-filled .ui-outlined .ui-tonal Variants The variant of the buttons.",
     "category": "API",
     "url": "/html/api/#control-group"
   },

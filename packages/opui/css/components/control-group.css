@@ -110,7 +110,7 @@
     }
 
     &:not(.ui-overflow-scroll, .ui-overflow-shrink, .ui-vertical)
-      > :where(.ui-text-field, .ui-textarea):not(.ui-auto-fit) {
+      > :where(.ui-text-field):not(.ui-auto-fit) {
       flex-basis: 0;
       min-inline-size: 10ch;
     }
@@ -143,8 +143,7 @@
       :has(
         > :is(.ui-number-field, .ui-select, .ui-text-field, .ui-textarea)
           > :is(.ui-end-text, .ui-label, .ui-start-text):not([hidden])
-      ),
-      :not(.ui-vertical):has(> .ui-textarea)
+      )
     ) {
       @media (forced-colors: none) {
         --_divider-gap: var(--ui-border-width);
@@ -174,8 +173,7 @@
             .ui-button,
             .ui-number-field,
             .ui-select,
-            .ui-text-field,
-            .ui-textarea
+            .ui-text-field
           ):not([hidden])
         ) {
         --_end-start-radius: 0;
@@ -192,8 +190,7 @@
             .ui-button,
             .ui-number-field,
             .ui-select,
-            .ui-text-field,
-            .ui-textarea
+            .ui-text-field
           ):not([hidden])
         ) {
         --_end-end-radius: 0;
@@ -319,8 +316,7 @@
           .ui-button,
           .ui-number-field,
           .ui-select,
-          .ui-text-field,
-          .ui-textarea
+          .ui-text-field
         ):not([hidden])
       ) {
       border-inline-start-color: var(--_start-border-color);

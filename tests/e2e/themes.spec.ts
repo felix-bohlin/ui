@@ -143,3 +143,30 @@ for (const [theme, tokens] of Object.entries(RECOLORED)) {
     }
   })
 }
+
+for (const theme of THEMES) {
+  test(`the ${theme} theme keeps checkbox corners small when an app raises --ui-radius`, async ({
+    page,
+  }) => {
+    await openFixture(page, "html", STRESS_TESTS[0]!, `?theme=${theme}`)
+    const box = await page.evaluate(() => {
+      document.documentElement.style.setProperty("--ui-radius", "14px")
+      const label = document.createElement("label")
+      label.className = "ui-checkbox"
+      const input = document.createElement("input")
+      input.type = "checkbox"
+      label.append(input)
+      document.body.append(label)
+      return {
+        radius: Number.parseFloat(
+          getComputedStyle(input).borderStartStartRadius,
+        ),
+        size: input.getBoundingClientRect().width,
+      }
+    })
+    expect(
+      box.radius,
+      "a checkbox with corners of half its size or more reads as a radio button",
+    ).toBeLessThan(box.size / 2)
+  })
+}

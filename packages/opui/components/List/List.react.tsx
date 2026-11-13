@@ -3,6 +3,7 @@ import { cx } from "../cx"
 import type { Props } from "./types.react"
 
 export default function List({
+  as,
   bordered,
   className,
   dense,
@@ -11,8 +12,10 @@ export default function List({
   children,
   ...rest
 }: Props) {
+  const Tag = as || "ul"
+
   return (
-    <ul
+    <Tag
       className={cx([
         "ui-list",
         { "ui-bordered": bordered, "ui-dense": dense, "ui-flush": flush },
@@ -20,9 +23,9 @@ export default function List({
         className,
       ])}
       role="list"
-      {...defined(rest)}
+      {...defined(rest as object)}
     >
       {children}
-    </ul>
+    </Tag>
   )
 }

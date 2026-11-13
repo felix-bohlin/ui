@@ -9,7 +9,7 @@
     --ui-border-color-on-filled: var(--ui-border-color);
     --ui-border-color-raised: var(--ui-border-color);
     --ui-radius: 5px;
-    --ui-radius-x-small: var(--ui-radius);
+    --ui-radius-x-small: var(--ui-radius-small);
     --ui-border-width: 2px;
     --ui-control-border-color: var(--ui-border-color);
     --ui-control-border-color-filled: var(--ui-border-color);

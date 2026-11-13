@@ -3,6 +3,7 @@
   import type { Props } from "./types.svelte"
 
   let {
+    as: Tag = "ul",
     bordered,
     class: className,
     dense,
@@ -15,7 +16,8 @@
   }: Props = $props()
 </script>
 
-<ul
+<svelte:element
+  this={Tag}
   class={[
     "ui-list",
     { "ui-bordered": bordered, "ui-dense": dense, "ui-flush": flush },
@@ -26,4 +28,4 @@
   {...defined(rest)}
 >
   {@render children?.()}
-</ul>
+</svelte:element>

@@ -4,7 +4,7 @@ import { useEffect, useId } from "react"
 import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
 import { idRefs } from "../id"
-import { middleValue } from "./value"
+import { formatValue, middleValue } from "./value"
 import type { Props } from "./types.react"
 
 export default function Range({
@@ -17,6 +17,7 @@ export default function Range({
   hideLabel,
   id,
   items,
+  lang,
   list,
   max,
   min,
@@ -45,7 +46,7 @@ export default function Range({
   const hasDatalist = !!items || datalist
   const current =
     rest.value ?? rest.defaultValue ?? middleValue({ max, min, step })
-  const readout = `${current}${valueSuffix ?? ""}`
+  const readout = `${formatValue(current, { lang, min, step })}${valueSuffix ?? ""}`
   const tick = items?.find(
     (option) =>
       typeof option === "object" && Number(option.value) === Number(current),
@@ -72,6 +73,7 @@ export default function Range({
         className,
       ])}
       htmlFor={hasValue ? inputId : undefined}
+      lang={lang}
       style={style}
     >
       {hasLabel && (

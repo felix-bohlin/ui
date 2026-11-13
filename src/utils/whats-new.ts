@@ -1086,6 +1086,12 @@ export const whatsNew = {
     {
       astro: `Breaking: extra attributes are typed as <code>&lt;input&gt;</code> attributes, where they go (<a href="#api">API</a>).`,
     },
+    {
+      ...components(
+        `The <a href="#value">value readout</a> is formatted for the range's <code>lang</code> with <code>Intl.NumberFormat</code>, so a German page shows 0,5 kg, and <code>lang</code> goes to the root.`,
+      ),
+      html: `<code>range.js</code> formats the <a href="#value">value readout</a> for the closest <code>lang</code> with <code>Intl.NumberFormat</code>, so a German page shows 0,5 kg.`,
+    },
     `The thumb, its halo and the track fill follow <code>--_accent</code> on <code>.ui-range</code> (<a href="#under-the-hood">Under the hood</a>).`,
     slots(
       `Breaking: deep type imports from <code>components/Range/types</code> are named <code>Props</code> and <code>Slots</code> (was <code>RangeProps</code> and <code>RangeSlots</code>). Import <a href="#api"><code>RangeProps</code></a> from the framework entry instead.`,

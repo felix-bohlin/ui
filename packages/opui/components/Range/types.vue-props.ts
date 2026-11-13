@@ -5,6 +5,7 @@ import type { Props as BaseProps } from "./types"
 export type Props = BaseProps &
   Class & {
     id?: IntrinsicElementAttributes["input"]["id"]
+    lang?: IntrinsicElementAttributes["input"]["lang"]
     max?: IntrinsicElementAttributes["input"]["max"]
     min?: IntrinsicElementAttributes["input"]["min"]
     name?: IntrinsicElementAttributes["input"]["name"]

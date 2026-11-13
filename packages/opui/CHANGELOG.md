@@ -411,6 +411,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Range` generates the `<datalist>` id when `items` or the `datalist` slot is used, so `list` is optional.
 - `Range` in Vue keeps its readout in step with the thumb through `opui-css/css/js/range.js`, like Astro, with `data-live` on the `<output>`. Custom readout content in `value-text` renders from the value you bind.
 - `Range` with a value readout announces each step once, with its unit: the input gets `aria-valuetext` (the value and `valueSuffix`) and the `.ui-value` output `aria-live="off"`, so screen readers no longer read the value twice. In HTML, `range.js` keeps `aria-valuetext` in sync when the output has a `data-suffix`.
+- `Range` formats the `valueSuffix` readout and its `aria-valuetext` with `Intl.NumberFormat`, with the decimals of `min` and `step` and no grouping: for the `lang` you pass on the server, and for the closest `lang` in the page through `range.js`, so a German page shows 0,5 kg instead of 0.5 kg. `lang` goes to the `<label>` instead of the `<input>`, so the readout takes it too.
 - `Range` thumb, halo and track fill follow `--_accent` on `.ui-range`.
 - `Select` picker marks the selected option with the browser's check (`::checkmark`) at the end, drawn from `--ui-icon-check`, instead of hiding it. A `.ui-icon-checked` in the option replaces it.
 - `Select` group labels take a shade of the picker's surface and `--ui-text` for their text, instead of fixed gray steps.

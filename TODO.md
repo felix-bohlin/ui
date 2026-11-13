@@ -767,10 +767,11 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Summary: Screen readers announce the installation and code tabs on the docs pages as an unnamed radio group.
   - Recommended: Fix. The Tabs page asks for a name on every group, and its own examples have one.
   - Fix: give each an `aria-label` that says what it switches ("Installation method", "Package manager", "Files", "Example code", "Preview"); give the block viewer and the five blocks the role and an `aria-label` too (subject to the Tabs role decision below).
-- [ ] (1) Message: the examples name each sender's avatar (`role="img"`, `aria-label="Sirkka Nitti"`) right before the visually hidden author line, so the last message of each run reads the sender twice, also when the `role="log"` announces it; Card and List hide such avatars with `aria-hidden="true"` (`src/component-examples/message/Basics.astro:8-13`, `src/component-examples/message/GroupChat.astro:8-21`, `packages/opui/css/components/message.css:199-206`, `src/component-examples/card/HeaderActions.astro:7`)
+- [x] (1) Message: the examples name each sender's avatar (`role="img"`, `aria-label="Sirkka Nitti"`) right before the visually hidden author line, so the last message of each run reads the sender twice, also when the `role="log"` announces it; Card and List hide such avatars with `aria-hidden="true"` (`src/component-examples/message/Basics.astro:8-13`, `src/component-examples/message/GroupChat.astro:8-21`, `packages/opui/css/components/message.css:199-206`, `src/component-examples/card/HeaderActions.astro:7`)
   - Summary: In a chat, screen readers read the sender's name twice, also when a new message is announced.
   - Recommended: Fix. Card and List already hide an avatar that repeats a visible name.
   - Fix: `<Avatar aria-hidden="true" slot="start">SN</Avatar>` in Attachments, Basics, GroupChat, Reactions, Typing and the page's anatomy, then `pnpm build-examples`.
+  - Fixed: the Message examples (Attachments, Basics, GroupChat, Reactions, Typing) and the page's anatomy give the sender's `Avatar` `aria-hidden="true"` instead of `role="img"` and `aria-label`; the generated examples and the Message markup snapshots follow (f8577c20).
 - [ ] (1) Tabs: `Tabs` renders `role="radiogroup"` but, unlike `ToggleGroup`, doesn't warn in development when it has no `aria-label` or `aria-labelledby`, and axe doesn't flag an unnamed radiogroup (`packages/opui/components/Tabs/Tabs.astro:9-23`, `packages/opui/components/ToggleGroup/ToggleGroup.astro:20`, `packages/opui/components/dev.ts:81-90`)
   - Summary: An app that leaves its tabs unnamed gets no hint, and screen readers announce an unnamed radio group.
   - Recommended: Fix. ToggleGroup already warns for the same role.
@@ -781,13 +782,14 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A: render `role="radiogroup"` only on tabs without panels; tabs with panels stay a plain set of radios, which screen readers still count as "1 of 3"; the Accessibility section and the HTML examples change to match.
     - B: keep the role, and say in the Accessibility section that panel content is read inside the group and that tabs shouldn't be nested in a panel.
-- [ ] (3) Drawer: the Non-modal example opens under the docs site header: a drawer opened with `show()` isn't in the top layer, `drawer.css` gives it no `z-index`, and `.example-preview` isolates it, so at 390 and 1280px the header covers the drawer's title and the focused Close button (`src/component-examples/drawer/NonModal.astro:13-26`, `packages/opui/css/components/drawer.css:23-37`, `src/components/Example/Example.astro:321-327`, `src/docs/components/drawer.astro:175-189`)
+- [x] (3) Drawer: the Non-modal example opens under the docs site header: a drawer opened with `show()` isn't in the top layer, `drawer.css` gives it no `z-index`, and `.example-preview` isolates it, so at 390 and 1280px the header covers the drawer's title and the focused Close button (`src/component-examples/drawer/NonModal.astro:13-26`, `packages/opui/css/components/drawer.css:23-37`, `src/components/Example/Example.astro:321-327`, `src/docs/components/drawer.astro:175-189`)
   - Summary: On the Drawer page, the open non-modal drawer hides its title and its focused Close button under the site header.
   - Recommended: Fix with option B. The z-index scale belongs to the app, so the page should say it rather than the library picking one.
   - Fix: let the example's drawer out of the preview's stacking context and above the site header (`z-index` 21 to 24 in `Header.astro`): `.example-preview:has(dialog.ui-drawer[open]:not(:modal)) { isolation: auto; & dialog.ui-drawer:not(:modal) { z-index: 25; } }`
   - Options:
     - A: also give a non-modal drawer a default `z-index` in `drawer.css` through a new optional token.
     - B (recommended): say in the Non-modal section that a drawer opened with `show()` isn't in the top layer, so it needs a `z-index` above the page's sticky headers.
+  - Fixed: option B: the Non-modal section says a drawer opened with `show()` isn't in the top layer and needs a `z-index` above the page's sticky headers, and `src/styles/base.css` drops the preview's isolation while a non-modal drawer is open and gives it `z-index: 25` (331ad80f).
 
 ## Bugs
 
@@ -1614,12 +1616,13 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix. A print-only `print-color-adjust` keeps the fill exactly where the text depends on it.
   - Fix: `@media print { print-color-adjust: exact; }` on the Badge indicator, the filled Button and the `.ui-kbd`, `.ui-var` and rich text `kbd, var` rules; check filled chips, avatars and other solid fills too.
   - Fixed: `print-color-adjust: exact` in print on the Badge indicator, the filled Button, `.ui-kbd`, `.ui-var`, rich text `kbd` and `var` and `.ui-swatch`, and, after printing each component page without backgrounds, on Avatar, Chip, Checkbox, Radio and Switch (`choice.css`), selected List items, Progress, Range, Rating, the Tabs labels and selected indicator, ToggleButton, Tooltip, Message, Stepper items and Timeline markers, whose text, icon or checked state dropped out too (0d4f2f92). A CHANGELOG Fixed entry names the 5.x components, and the Added entries of Message, Rating, Stepper and Timeline say it. Printed without backgrounds, badge counts and dots, filled buttons, letter and icon avatars, outgoing messages, checked marks, switches, progress and range fills, stars, stepper and timeline markers and the filled selected tab keep their fill.
-- [ ] (2) Menu, Drawer: `close-on-navigate.js`, which every `Menu` loads, reacts to any `navigate` event, so a same-document `history.replaceState()` or `pushState()` that only updates the query closes every open menu and every drawer with `closeOnNavigate`, and moves focus to the menu's trigger (`packages/opui/elements/close-on-navigate.js:3-18`, `packages/opui/components/Menu/Menu.astro:86-88`, `packages/opui/components/Drawer/Drawer.astro:39`)
+- [x] (2) Menu, Drawer: `close-on-navigate.js`, which every `Menu` loads, reacts to any `navigate` event, so a same-document `history.replaceState()` or `pushState()` that only updates the query closes every open menu and every drawer with `closeOnNavigate`, and moves focus to the menu's trigger (`packages/opui/elements/close-on-navigate.js:3-18`, `packages/opui/components/Menu/Menu.astro:86-88`, `packages/opui/components/Drawer/Drawer.astro:39`)
   - Summary: In an app that writes a menu choice to the address bar, the menu closes after each change and keyboard focus jumps back to its button.
   - Recommended: Fix with option A. It still closes for link items, hash links, Back and Forward and client-router page changes.
   - Options:
     - A (recommended): ignore same-document navigations that keep the path and aren't fragment navigations (`destination.sameDocument && !hashChange && new URL(destination.url).pathname === location.pathname`).
     - B: ignore only same-document navigations with `navigationType === "replace"`.
+  - Fixed: option A: `close-on-navigate.js` ignores a same-document `pushState()` or `replaceState()` that keeps the path and isn't a fragment navigation, while path changes, hash navigations and Back still close; `tests/e2e/interaction.spec.ts` checks it, and the Drawer and Menu CHANGELOG entries say so (1a3f5032).
 
 ## Docs
 
@@ -3424,88 +3427,108 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - Switch (whats-new.ts:1128): `--_transition-time` maps to `--_motion` (row 1274). The switch itself no longer transitions (CHANGELOG 415).
     - ToggleButton (whats-new.ts:1455): `--_button-bg-color` maps to `--_selected-bg-color` (row 1287).
   - Fixed: Fixed: each note now follows its MIGRATING row. Accordion `--_transition` maps to `--_motion` (or `--ui-duration`). Badge `--_anchor-tx` and `--_anchor-ty` are no longer overrides because the corner classes set `--_sign-x` and `--_sign-y`, and `--_badge-inset` is `--_inset`. Callout `--_color` and `--_icon-color` are no longer overrides. Card maps to the variant inputs, and `--_card-border-width` is no longer an override. Chip `--_color` is no longer an override. Drawer maps to `--_motion` (or `--ui-duration-slow`), and its easing follows `--ui-ease-enter` and `--ui-ease-exit`. Range maps `--_thumb-bg`, `--_thumb-highlight-color` and `--_track-fill-color` to `--_accent`, and `--_track-color` to `--_track-base-bg-color`, in one note; the separate `--_thumb-bg` note is gone, and `--_track-fill` is left to the CSS-only note. Switch maps to `--_motion` and `--_ease`, which only time the card focus ring. ToggleButton maps to `--_selected-bg-color`. ControlGroup's note had the same problem: it said the lines follow the output `--_divider-border-color`, and now names the input `--_divider-accent`.
-- [ ] (1) Changelog: the Removed Dialog entry lists `.ui-dense`, `.ui-spacious` and `.ui-transparent`, which no 5.4.3 card had, and leaves out `.ui-text`, the 5.4.3 card variant a dialog took through `.ui-card` (`packages/opui/CHANGELOG.md:140`, `packages/opui/MIGRATING.md:485`)
+- [x] (1) Changelog: the Removed Dialog entry lists `.ui-dense`, `.ui-spacious` and `.ui-transparent`, which no 5.4.3 card had, and leaves out `.ui-text`, the 5.4.3 card variant a dialog took through `.ui-card` (`packages/opui/CHANGELOG.md:140`, `packages/opui/MIGRATING.md:485`)
   - Summary: The changelog lists classes 5.4.3 never had and misses one a 5.4.3 dialog could use.
   - Recommended: Fix. The 5.4.3 `card.css` has only `.ui-text`, `.ui-tonal`, `.ui-elevated` and `.ui-outlined`.
   - Fix: "`Dialog` takes only `.ui-elevated` from `card.css`: `.ui-tonal`, `.ui-outlined` and `.ui-text`, which a 5.x dialog took through `.ui-card`, no longer change it. Set `--_padding` for a denser dialog." Add `.ui-text` to the MIGRATING line too.
-- [ ] (1) Changelog: the print Fixed entry lists pressed chips, chip dots and `.ui-swatch`, all added in 6.0 (`packages/opui/CHANGELOG.md:497`, `packages/opui/CHANGELOG.md:203`, `packages/opui/CHANGELOG.md:206`, `packages/opui/CHANGELOG.md:277`)
+  - Fixed: the Removed `Dialog` entry names `.ui-tonal`, `.ui-outlined` and `.ui-text`, and MIGRATING's Dialog section adds `.ui-text` (00067dc3).
+- [x] (1) Changelog: the print Fixed entry lists pressed chips, chip dots and `.ui-swatch`, all added in 6.0 (`packages/opui/CHANGELOG.md:497`, `packages/opui/CHANGELOG.md:203`, `packages/opui/CHANGELOG.md:206`, `packages/opui/CHANGELOG.md:277`)
   - Summary: The changelog calls the print fills of three new features a fix.
   - Recommended: Fix. Entries for things the version adds belong in their Added entry.
   - Fix: drop "pressed chips and chip dots" and "`.ui-swatch`" from the Fixed list; add "In print, `print-color-adjust: exact` keeps ..." to the Chip `severity`/`dot` entry, the Chip pressed entry and the `.ui-swatch` entry.
-- [ ] (1) Changelog: the Changed `Select` picker entry says the picker "drops the start bar of a `List`", which 6.0 adds, so a 5.4.3 picker never had it (`packages/opui/CHANGELOG.md:415`, `packages/opui/CHANGELOG.md:402`)
+  - Fixed: the print Fixed entry names tonal chips instead of pressed chips and chip dots and drops `.ui-swatch`; the Chip `severity`/`dot` entry, the Chip pressed entry and the `.ui-swatch` entry each say what `print-color-adjust: exact` keeps in print (00067dc3).
+- [x] (1) Changelog: the Changed `Select` picker entry says the picker "drops the start bar of a `List`", which 6.0 adds, so a 5.4.3 picker never had it (`packages/opui/CHANGELOG.md:415`, `packages/opui/CHANGELOG.md:402`)
   - Summary: Readers on 5.4.3 read that the picker drops a bar it never had.
   - Recommended: Fix. The List entry already says the picker gets a check instead of the bar.
   - Fix: end the first sentence at "instead of hiding it." and keep "A `.ui-icon-checked` in the option replaces it."
-- [ ] (1) Changelog: two Fixed entries still name 5.4.3 props that Breaking entries rename: `ListItem` with `type` (now `choice`), and the list's `bordered` prop on the Vue `DescriptionList` parts (now `border`) (`packages/opui/CHANGELOG.md:594`, `packages/opui/CHANGELOG.md:555`)
+  - Fixed: the Changed `Select` picker entry ends its first sentence at "instead of hiding it." (00067dc3).
+- [x] (1) Changelog: two Fixed entries still name 5.4.3 props that Breaking entries rename: `ListItem` with `type` (now `choice`), and the list's `bordered` prop on the Vue `DescriptionList` parts (now `border`) (`packages/opui/CHANGELOG.md:594`, `packages/opui/CHANGELOG.md:555`)
   - Summary: The changelog describes a ListItem fix with a prop that now means something else.
   - Recommended: Fix. It is one word per entry.
   - Fix: "`ListItem` with `choice` renders the default slot inside `.ui-text` (or before `.ui-end` when there's no text), like it does without `choice`." and "... in Vue no longer accept the list's `border` prop (`bordered` in 5.4.3)."
-- [ ] (1) Changelog: the `Stepper` entry names the `icon-complete` slot but not its React and Svelte name `iconComplete`, which the `ListItem`, `DialogHeader` and `TextField` entries give for their slots (`packages/opui/CHANGELOG.md:247`, `packages/opui/CHANGELOG.md:226`)
+  - Fixed: the Fixed `ListItem` entry reads `choice`, and the Vue `DescriptionList` parts entry reads `border` (`bordered` in 5.4.3) (00067dc3).
+- [x] (1) Changelog: the `Stepper` entry names the `icon-complete` slot but not its React and Svelte name `iconComplete`, which the `ListItem`, `DialogHeader` and `TextField` entries give for their slots (`packages/opui/CHANGELOG.md:247`, `packages/opui/CHANGELOG.md:226`)
   - Summary: React and Svelte readers aren't told the Stepper icon slot's name in their framework.
   - Recommended: Fix. It matches the neighbouring entries.
   - Fix: "an `icon-complete` slot (`iconComplete` in React and Svelte, `.ui-icon-complete`) that replaces the check".
-- [ ] (1) Changelog: the `--ui-contrast` entry lists 25 knobs that more contrast tightens and leaves out `--ui-state-selected-alpha-accent`, which `theme.css` also sets there (15%) and the release post counts in its 26 (`packages/opui/CHANGELOG.md:307`, `packages/opui/css/theme.css:640-670`, `src/docs/blog/release-6.astro:191`)
+  - Fixed: the `Stepper` entry gives `iconComplete` in React and Svelte for the `icon-complete` slot (00067dc3).
+- [x] (1) Changelog: the `--ui-contrast` entry lists 25 knobs that more contrast tightens and leaves out `--ui-state-selected-alpha-accent`, which `theme.css` also sets there (15%) and the release post counts in its 26 (`packages/opui/CHANGELOG.md:307`, `packages/opui/css/theme.css:640-670`, `src/docs/blog/release-6.astro:191`)
   - Summary: The changelog's list of more-contrast knobs is one short of what theme.css and the release post say.
   - Recommended: Fix. The token is already described as 15% with more contrast in another entry.
   - Fix: add `--ui-state-selected-alpha-accent` after `--ui-state-active-alpha-dark` in the list.
-- [ ] (1) Drawer: the React and Svelte Drawer pages have no note for `closeButton` on `DrawerHeader`: the Breaking note uses `slots()` only, and their close-icon note reads as if the button shows by default; the Dialog page has a `closeButton` note in every framework (`src/utils/whats-new.ts:697-706`, `src/utils/whats-new.ts:655-660`)
+  - Fixed: the `--ui-contrast` entry lists `--ui-state-selected-alpha-accent` after `--ui-state-active-alpha-dark`, 26 knobs (00067dc3).
+- [x] (1) Drawer: the React and Svelte Drawer pages have no note for `closeButton` on `DrawerHeader`: the Breaking note uses `slots()` only, and their close-icon note reads as if the button shows by default; the Dialog page has a `closeButton` note in every framework (`src/utils/whats-new.ts:697-706`, `src/utils/whats-new.ts:655-660`)
   - Summary: React and Svelte readers of the Drawer page don't learn that the close button needs closeButton.
   - Recommended: Fix. It is the same note the Dialog page gives every framework.
   - Fix: give the note at 697-699 `react` and `svelte` keys: "`DrawerHeader` renders a <a href="#close-button">close button</a> with `closeButton`, named by `closeLabel`."
-- [ ] (1) Callout: the Dismissible section explains how to add `closeButton` but not which callouts should get one, so nothing warns against a dismissible error or warning that still applies (`src/docs/components/callout.astro:149-182`)
+  - Fixed: the Drawer close button note in `src/utils/whats-new.ts` has `react` and `svelte` keys: `DrawerHeader` renders a close button with `closeButton`, named by `closeLabel` (00067dc3).
+- [x] (1) Callout: the Dismissible section explains how to add `closeButton` but not which callouts should get one, so nothing warns against a dismissible error or warning that still applies (`src/docs/components/callout.astro:149-182`)
   - Summary: Readers may make an error or warning dismissible, so a user can close a problem that still applies.
   - Recommended: Fix. One sentence keeps the advice the feature was designed around, an opt-in for tips and announcements.
   - Fix: "Use it for tips and announcements. Keep a warning or an error that still applies, like a failed payment, until the problem is solved."
-- [ ] (1) Button: the custom properties say `--_filled-active-bg-color`, `--_filled-hover-bg-color` and `--_outlined-active-bg-color` come "from `--_accent`", but `button.css` derives them from `--_accent-filled` (`--ui-button-accent-filled` when a theme sets it) (`src/component-api/custom-properties/button.ts:61-68`, `src/component-api/custom-properties/button.ts:96-100`, `packages/opui/css/components/button.css:32-47`, `packages/opui/css/components/button.css:56`)
+  - Fixed: the Dismissible section says to use it for tips and announcements and to keep a warning or an error that still applies until the problem is solved (331ad80f).
+- [x] (1) Button: the custom properties say `--_filled-active-bg-color`, `--_filled-hover-bg-color` and `--_outlined-active-bg-color` come "from `--_accent`", but `button.css` derives them from `--_accent-filled` (`--ui-button-accent-filled` when a theme sets it) (`src/component-api/custom-properties/button.ts:61-68`, `src/component-api/custom-properties/button.ts:96-100`, `packages/opui/css/components/button.css:32-47`, `packages/opui/css/components/button.css:56`)
   - Summary: Readers who want other hover and press shades on filled buttons are pointed at `--_accent`, which doesn't drive them.
   - Recommended: Fix. The descriptions of `--_outlined-hover-*` and `--_tonal-hover-*` next to them already name `--_accent-filled`.
   - Fix: "Pressed background of filled buttons, from `--_accent-filled`." and "Hover background of filled buttons, from `--_accent-filled`." For `--_outlined-active-bg-color`: "Pressed background of outlined and tonal buttons: `--_filled-active-bg-color`. The pressed state layer with `--ui-button-hover: layer`." Rebuild so the skill references follow.
-- [ ] (1) Chip: the root description says it can be a `<div>`, `<a>` or `<button>`, but `as` also takes `"span"` (`src/component-api/chip/api.ts:126-129`, `src/component-api/chip/api.ts:21-27`, `packages/opui/components/Chip/types.ts:8-24`)
+  - Fixed: the `--_filled-active-bg-color` and `--_filled-hover-bg-color` descriptions say `--_accent-filled`, and `--_outlined-active-bg-color` says `--_filled-active-bg-color` (083b2d7c).
+- [x] (1) Chip: the root description says it can be a `<div>`, `<a>` or `<button>`, but `as` also takes `"span"` (`src/component-api/chip/api.ts:126-129`, `src/component-api/chip/api.ts:21-27`, `packages/opui/components/Chip/types.ts:8-24`)
   - Summary: The parts table leaves out the `<span>` root that the `as` row recommends inside labels and buttons.
   - Recommended: Fix. The done item that added `as="span"` updated the `as` row but not the root.
   - Fix: "Container element. Can be a `<div>`, `<span>`, `<a>` or `<button>`.", then rebuild.
-- [ ] (1) Range: after `--_thumb-highlight-*` became `--_thumb-ripple-*`, five descriptions still call the ripple "ring" or "highlight", and "ring" also names the page-colored border of `--_thumb-border-width` (`src/component-api/custom-properties/range.ts:4-17`, `src/component-api/custom-properties/range.ts:33-42`, `src/component-api/custom-properties/range.ts:48-52`)
+  - Fixed: the Chip root description lists `<span>` (083b2d7c).
+- [x] (1) Range: after `--_thumb-highlight-*` became `--_thumb-ripple-*`, five descriptions still call the ripple "ring" or "highlight", and "ring" also names the page-colored border of `--_thumb-border-width` (`src/component-api/custom-properties/range.ts:4-17`, `src/component-api/custom-properties/range.ts:33-42`, `src/component-api/custom-properties/range.ts:48-52`)
   - Summary: The table gives the thumb ripple three names, and "ring" points at two different things.
   - Recommended: Fix. One name per part, as in `--_thumb-ripple-bg-color` and Checkbox's `--_ripple-*`.
   - Fix: "ripple" in `--_accent` ("its ripple"), `--_duration` and `--_ease` ("thumb ripple transition"), `--_motion` ("thumb ripple and focus ring") and `--_padding` ("the thumb and its ripple"), then rebuild.
-- [ ] (1) Rating: the React `defaultValue` row says it is "The star checked at the start", but on a meter it sets the score, as the React examples use it (`src/component-api/rating/api.ts:40-44`, `packages/opui/components/Rating/Rating.react.tsx:30`, `packages/opui/components/Rating/Rating.react.tsx:90`, `src/component-examples/rating/Basics.react.tsx:4`)
+  - Fixed: the `--_accent`, `--_duration`, `--_ease`, `--_motion` and `--_padding` descriptions say ripple (083b2d7c).
+- [x] (1) Rating: the React `defaultValue` row says it is "The star checked at the start", but on a meter it sets the score, as the React examples use it (`src/component-api/rating/api.ts:40-44`, `packages/opui/components/Rating/Rating.react.tsx:30`, `packages/opui/components/Rating/Rating.react.tsx:90`, `src/component-examples/rating/Basics.react.tsx:4`)
   - Summary: React readers see `defaultValue` described only for the input, while most examples pass it to a read-only meter.
   - Recommended: Fix. The `value` model row already covers both the meter and the input.
   - Fix: "The starting score of the meter or the star checked at the start, when `value` is omitted."
-- [ ] (1) Stepper: the StepperItem `current` row says "Without `.ui-complete` on any step, the steps before it show as complete", which reads as a condition, but `stepper.css` marks the steps before the current one complete either way (`src/component-api/stepper-item/api.ts:23-30`, `packages/opui/css/components/stepper.css:137-139`)
+  - Fixed: the React `defaultValue` row says "The starting score of the meter or the star checked at the start, when `value` is omitted." (083b2d7c).
+- [x] (1) Stepper: the StepperItem `current` row says "Without `.ui-complete` on any step, the steps before it show as complete", which reads as a condition, but `stepper.css` marks the steps before the current one complete either way (`src/component-api/stepper-item/api.ts:23-30`, `packages/opui/css/components/stepper.css:137-139`)
   - Summary: Readers may think adding `.ui-complete` to one step turns off the automatic complete state of the steps before the current one.
   - Recommended: Fix. The Stepper HTML note already says it without the condition.
   - Fix: "Marks the current step. The steps before it show as complete, with or without `.ui-complete`."
-- [ ] (2) Range: the Breaking scheme entry pairs `--_thumb-ripple-bg-color` with `--_thumb-highlight-color` as a rename, while MIGRATING and the Range Breaking note map `--_thumb-highlight-color` to `--_accent`, and the API lists `--_thumb-ripple-bg-color` as an output (`packages/opui/CHANGELOG.md:20`, `packages/opui/MIGRATING.md:1335`, `src/utils/whats-new.ts:1033`, `src/component-api/custom-properties/range.ts:57-61`)
+  - Fixed: the StepperItem `current` row says the steps before it show as complete, with or without `.ui-complete` (083b2d7c).
+- [x] (2) Range: the Breaking scheme entry pairs `--_thumb-ripple-bg-color` with `--_thumb-highlight-color` as a rename, while MIGRATING and the Range Breaking note map `--_thumb-highlight-color` to `--_accent`, and the API lists `--_thumb-ripple-bg-color` as an output (`packages/opui/CHANGELOG.md:20`, `packages/opui/MIGRATING.md:1335`, `src/utils/whats-new.ts:1033`, `src/component-api/custom-properties/range.ts:57-61`)
   - Summary: Someone on 5.4.3 reads in the changelog to rename the halo color, while the migration guide tells them to set the accent.
   - Recommended: Fix. The guide, the note and the API already agree.
   - Fix: keep only the size in the parenthetical: "(`--_thumb-ripple-size` on `Range`, not `--_thumb-highlight-size`)".
-- [ ] (2) Changelog: a Fixed entry says `button.css` gives file inputs outside a `TextField` readable text and the field border tokens, but `button.css` no longer styles file inputs: the Changed `normalize.css` entry moved the rule there (`packages/opui/CHANGELOG.md:713`, `packages/opui/CHANGELOG.md:463`, `packages/opui/core/normalize.css:152-162`)
+  - Fixed: the Breaking scheme entry keeps only `--_thumb-ripple-size` on `Range`, not `--_thumb-highlight-size` (00067dc3).
+- [x] (2) Changelog: a Fixed entry says `button.css` gives file inputs outside a `TextField` readable text and the field border tokens, but `button.css` no longer styles file inputs: the Changed `normalize.css` entry moved the rule there (`packages/opui/CHANGELOG.md:713`, `packages/opui/CHANGELOG.md:463`, `packages/opui/core/normalize.css:152-162`)
   - Summary: The changelog says in one section that button.css styles file inputs and in another that it no longer does.
   - Recommended: Fix with option A. One entry then describes the rule where it lives now.
   - Options:
     - A (recommended): delete the Fixed entry and fold it into the Changed one: "`normalize.css` gives a plain file input its field border, radius and shadow and `--ui-text` text, which `button.css` set before with the inverse surface color, so importing `button.css` on its own no longer restyles file inputs."
     - B: put the same text under Breaking, with a step in MIGRATING's Package and imports section.
-- [ ] (2) Drawer: MIGRATING says the Vue types no longer export `DrawerHeaderSlots`, but `types.vue-props.ts` still exports it; the Removed entry was already corrected (`packages/opui/MIGRATING.md:542`, `packages/opui/CHANGELOG.md:135`, `packages/opui/components/Drawer/types.vue-props.ts:24`)
+  - Fixed: option A: the Fixed `button.css` entry is gone and the Changed `normalize.css` entry says the plain file input gets `--ui-text` text, which `button.css` set before with the inverse surface color (00067dc3).
+- [x] (2) Drawer: MIGRATING says the Vue types no longer export `DrawerHeaderSlots`, but `types.vue-props.ts` still exports it; the Removed entry was already corrected (`packages/opui/MIGRATING.md:542`, `packages/opui/CHANGELOG.md:135`, `packages/opui/components/Drawer/types.vue-props.ts:24`)
   - Summary: Vue users read that a type they still import is gone.
   - Recommended: Fix. MIGRATING then matches the Removed entry.
   - Fix: "`types.ts` no longer exports a `Slots` type, and the Vue types no longer export `DrawerSlots` or `DrawerFooterSlots`."
-- [ ] (2) Drawer: the Breaking note about `card.css` still says only the header, content and footer rules moved; the entry and MIGRATING also name the backdrop and the closed state, without which a closed drawer stays on the page (`src/utils/whats-new.ts:694`, `packages/opui/CHANGELOG.md:67`, `packages/opui/MIGRATING.md:551`)
+  - Fixed: MIGRATING's Drawer section says the Vue types no longer export `DrawerSlots` or `DrawerFooterSlots` (00067dc3).
+- [x] (2) Drawer: the Breaking note about `card.css` still says only the header, content and footer rules moved; the entry and MIGRATING also name the backdrop and the closed state, without which a closed drawer stays on the page (`src/utils/whats-new.ts:694`, `packages/opui/CHANGELOG.md:67`, `packages/opui/MIGRATING.md:551`)
   - Summary: The Migrating callout on the Drawer page leaves out that a closed drawer stays visible without card.css.
   - Recommended: Fix. The note falls out of sync with the entry when the backdrop moved.
   - Fix: `Breaking: the header, content and footer rules, the backdrop and the closed state live in <code>card.css</code>, shared with Dialog. Import it too when you <a href="#installation">install single files</a>, or a closed drawer stays on the page.`
-- [ ] (2) List, Menu: the `icon-checked` notes use `components()`, so the React and Svelte pages name the `icon-checked` slot, while those frameworks take `iconChecked` (`src/utils/whats-new.ts:850-855`, `src/utils/whats-new.ts:875-880`, `packages/opui/components/ListItem/types.ts:32`, `packages/opui/components/Menu/types.ts:22`)
+  - Fixed: the Drawer Breaking note names the backdrop and the closed state, and says a closed drawer stays on the page without `card.css` (00067dc3).
+- [x] (2) List, Menu: the `icon-checked` notes use `components()`, so the React and Svelte pages name the `icon-checked` slot, while those frameworks take `iconChecked` (`src/utils/whats-new.ts:850-855`, `src/utils/whats-new.ts:875-880`, `packages/opui/components/ListItem/types.ts:32`, `packages/opui/components/Menu/types.ts:22`)
   - Summary: React and Svelte readers are told to use a slot name their components don't take.
   - Recommended: Fix. The TextField password toggle note already splits the same slot per framework.
   - Fix: write both notes as `...slots(...icon-checked slot...)`, plus `react` ("the `iconChecked` prop") and `svelte` ("the `iconChecked` snippet"), and keep the `html` key, like `src/utils/whats-new.ts:1454-1460`.
-- [ ] (2) Blog: the release post TL;DR counts 113 breaking entries and says the explorer holds 122 renames, while the CHANGELOG has 115 Breaking entries and the explorer renders 132 rows (`src/docs/blog/release-6.astro:43-44`, `src/docs/blog/release-6.astro:506`)
+  - Fixed: the List and Menu `icon-checked` notes use `slots()` with `react` (`iconChecked` prop) and `svelte` (`iconChecked` snippet) keys, keeping `html` (00067dc3).
+- [x] (2) Blog: the release post TL;DR counts 113 breaking entries and says the explorer holds 122 renames, while the CHANGELOG has 115 Breaking entries and the explorer renders 132 rows (`src/docs/blog/release-6.astro:43-44`, `src/docs/blog/release-6.astro:506`)
   - Summary: The release post understates the breaking entries, and the rename count in the sentence just below the explorer.
   - Recommended: Fix. Both numbers come from the files the post reads.
   - Fix: write 115, and the rename count the explorer renders after the Callout fix below (131); update the 113 note in `docs/releases/6.0.0-checklist.md` too.
-- [ ] (3) Callout: MIGRATING says the `Slots` type "has `closeIcon` instead of `icon` and `title`", which the Renames explorer on the release post reads as the prop rename `icon` to `closeIcon`; in fact `icon` is gone (a custom icon is an `svg` placed first in `Callout`) and `closeIcon` is the new close button's icon (`packages/opui/MIGRATING.md:231`, `packages/opui/CHANGELOG.md:135`, `packages/opui/components/Callout/types.ts:20-22`, `src/utils/renames.ts:28`)
+  - Fixed: the release post TL;DR says 115 breaking entries and the sentence under the explorer 131 renames, the rows `parseRenames()` reads from MIGRATING after the Callout fix; the 113 note in `docs/releases/6.0.0-checklist.md` says 115 and 131 (00067dc3).
+- [x] (3) Callout: MIGRATING says the `Slots` type "has `closeIcon` instead of `icon` and `title`", which the Renames explorer on the release post reads as the prop rename `icon` to `closeIcon`; in fact `icon` is gone (a custom icon is an `svg` placed first in `Callout`) and `closeIcon` is the new close button's icon (`packages/opui/MIGRATING.md:231`, `packages/opui/CHANGELOG.md:135`, `packages/opui/components/Callout/types.ts:20-22`, `src/utils/renames.ts:28`)
   - Summary: The rename explorer tells 5.4.3 users to move a custom callout icon into the close button's icon slot.
   - Recommended: Fix. The sentence only needs to drop "instead of".
   - Fix: in MIGRATING, "The `Slots` type in `types.ts` drops `icon` and `title`, and has `closeIcon` for the close button's icon." Same wording in the Removed entry.
+  - Fixed: MIGRATING and the Removed entry say the Callout `Slots` type drops `icon` and `title` and has `closeIcon` for the close button's icon, so the Renames explorer no longer lists `icon` to `closeIcon` (00067dc3).
 - [ ] (4) Tabs: MIGRATING's HTML diff removes `role="tablist"` and adds nothing, and so does the HTML Breaking note on the Tabs page, while the Breaking entry says to put `role="radiogroup"` on `.ui-tabs` and every HTML example has it; MIGRATING also still says every tabs is a scroll container, but tabs without panels size to their labels (`packages/opui/MIGRATING.md:911-921`, `packages/opui/MIGRATING.md:940`, `src/utils/whats-new.ts:1343`, `packages/opui/CHANGELOG.md:91-93`)
   - Summary: HTML tabs migrated by the guide have no group role, so screen readers get no named group.
   - Recommended: Fix. The entry and the examples already show the markup.

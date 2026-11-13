@@ -12,9 +12,5 @@ export type Props =
   > &
     Base.Slots<Snippet> &
     // Input attributes
-    {
-      // Add 'numeric' as valid input type
-      type?: SvelteHTMLElements["input"]["type"] | "numeric"
-    } &
     // include the rest
-    Omit<SvelteHTMLElements["input"], "size" | "type">
+    Omit<SvelteHTMLElements["input"], "size">

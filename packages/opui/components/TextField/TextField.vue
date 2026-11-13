@@ -20,12 +20,10 @@ const {
   error,
   hideLabel,
   id,
-  inputmode,
   label,
   name,
   passwordToggle,
   passwordToggleLabel = "Show password",
-  pattern,
   size,
   spread,
   startText,
@@ -134,10 +132,8 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
             : attrs['aria-labelledby']
         "
         :id="inputId"
-        :inputmode="inputmode ?? (type === 'numeric' ? 'numeric' : undefined)"
         :name="name ?? field?.name"
-        :pattern="pattern ?? (type === 'numeric' ? '[0-9]*' : undefined)"
-        :type="type === 'numeric' ? 'text' : type"
+        :type="type"
         v-seed
         v-model="model"
       />

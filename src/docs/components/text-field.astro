@@ -248,7 +248,12 @@ export const keywords = ["email", "input", "password", "search", "text box"]
       Numeric vs <code>&lt;input type="number"&gt;</code>
     </h3>
     <Conditional as="p">
-      <Fragment slot="components"> Use <code>type="numeric"</code>. </Fragment>
+      <Fragment slot="components">
+        Use <code>inputmode="numeric"</code> and <code>pattern="[0-9]*"</code>.
+      </Fragment>
+      <Fragment slot="react">
+        Use <code>inputMode="numeric"</code> and <code>pattern="[0-9]*"</code>.
+      </Fragment>
       <Fragment slot="html">
         Use <code>inputmode="numeric"</code> and <code>pattern="[0-9]*"</code>.
       </Fragment>

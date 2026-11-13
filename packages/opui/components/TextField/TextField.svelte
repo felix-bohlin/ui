@@ -22,11 +22,9 @@
     error,
     hideLabel,
     id,
-    inputmode,
     name,
     passwordToggle,
     passwordToggleLabel = "Show password",
-    pattern,
     size,
     spread,
     style,
@@ -117,10 +115,8 @@
       aria-invalid={error ? "true" : ariaInvalid}
       aria-labelledby={named ? idRefs(labelId, startId, endId) : ariaLabelledBy}
       id={inputId}
-      inputmode={inputmode ?? (type === "numeric" ? "numeric" : undefined)}
       name={name ?? field?.name}
-      pattern={pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
-      type={type === "numeric" ? "text" : type}
+      {type}
       bind:value={getValue, setValue}
       defaultValue={defaultValue ?? initialValue}
     />

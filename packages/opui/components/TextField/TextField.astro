@@ -23,12 +23,10 @@ const {
   error,
   hideLabel,
   id,
-  inputmode,
   label,
   name,
   passwordToggle,
   passwordToggleLabel = "Show password",
-  pattern,
   size,
   spread,
   startText,
@@ -98,10 +96,8 @@ const endTextId = hasEndText ? ids("end-text") : undefined
       aria-invalid={error ? "true" : ariaInvalid}
       aria-labelledby={named ? idRefs(labelId, startId, endId) : ariaLabelledBy}
       id={inputId}
-      inputmode={inputmode ?? (type === "numeric" ? "numeric" : undefined)}
       name={name ?? field?.name}
-      pattern={pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
-      type={type === "numeric" ? "text" : type}
+      type={type}
     />
     {Astro.slots.has("start") && <span class="ui-start" id={startId}>
       <slot name="start" />

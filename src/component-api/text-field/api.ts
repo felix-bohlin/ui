@@ -99,22 +99,6 @@ export default {
     },
     {
       description:
-        'The `inputmode` of the `<input>`. With `type="numeric"` it is `numeric`.',
-      frameworks: ["astro", "svelte", "vue"],
-      inherited: true,
-      prop: "inputmode",
-      type: "string",
-    },
-    {
-      description:
-        'The `inputmode` of the `<input>`, as `inputMode` like on the element. With `type="numeric"` it is `numeric`.',
-      frameworks: ["react"],
-      inherited: true,
-      prop: "inputMode",
-      type: "string",
-    },
-    {
-      description:
         "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
       inherited: true,
       prop: "name",
@@ -131,13 +115,6 @@ export default {
       default: '"Show password"',
       description: "The accessible name of the password toggle.",
       prop: "passwordToggleLabel",
-    },
-    {
-      description:
-        'The `pattern` of the `<input>`. With `type="numeric"` it is `[0-9]*`.',
-      inherited: true,
-      prop: "pattern",
-      type: "string",
     },
     {
       attribute: "[required]",
@@ -171,10 +148,10 @@ export default {
     },
     {
       default: '"text"',
-      description:
-        "The input type. `numeric` renders a text input with a numeric keyboard.",
+      description: "The input type.",
+      inherited: true,
       prop: "type",
-      type: '"numeric" | string',
+      type: "string",
     },
     {
       default: '"outlined"',

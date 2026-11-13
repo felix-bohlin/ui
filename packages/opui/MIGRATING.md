@@ -1003,6 +1003,13 @@ The slots inside the field's border are `start` and `end` instead of `prefix` an
 
 In Vue, use `<template #start>€</template>` and `<template #end>EUR</template>`.
 
+`type="numeric"` is gone. Pass `inputmode="numeric" pattern="[0-9]*"`, the two attributes it set on the text input, or use a `NumberField` for an amount you count or step.
+
+```diff
+- <TextField label="Card number" type="numeric" />
++ <TextField inputmode="numeric" label="Card number" pattern="[0-9]*" />
+```
+
 ## Textarea
 
 `Textarea` takes a `size` prop instead of `small`, like `TextField`.

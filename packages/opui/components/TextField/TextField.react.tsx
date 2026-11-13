@@ -20,11 +20,9 @@ export default function TextField({
   error,
   hideLabel,
   id,
-  inputMode,
   name,
   passwordToggle,
   passwordToggleLabel = "Show password",
-  pattern,
   size,
   spread,
   style,
@@ -108,10 +106,8 @@ export default function TextField({
             named ? idRefs(labelId, startId, endId) : ariaLabelledBy
           }
           id={inputId}
-          inputMode={inputMode ?? (type === "numeric" ? "numeric" : undefined)}
           name={name ?? field?.name}
-          pattern={pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
-          type={type === "numeric" ? "text" : type}
+          type={type}
         />
         {start && (
           <span className="ui-start" id={startId}>

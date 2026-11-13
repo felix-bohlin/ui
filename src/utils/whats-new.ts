@@ -1406,6 +1406,9 @@ export const whatsNew = {
       default: `<a href="#sizes">x-small and large</a> sizes with the <code>size</code> prop.`,
       html: `<a href="#sizes">x-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
     },
+    slots(
+      `Breaking: <code>type="numeric"</code> is gone. Pass <a href="#numeric-vs-input-type-number"><code>inputmode="numeric"</code> and <code>pattern="[0-9]*"</code></a>, or use a <code>NumberField</code> for an amount.`,
+    ),
     `<a href="#spread">Spread</a> fields line up at one width.`,
     {
       astro: `Breaking: extra attributes such as <code>autocomplete</code> and <code>aria-*</code> go to the input. <code>class</code> and <code>style</code> stay on the label (<a href="#api">API</a>).`,

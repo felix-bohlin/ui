@@ -11,9 +11,5 @@ export type Props =
   > &
     Base.Slots<ReactNode> &
     // Input attributes
-    {
-      // Add 'numeric' as valid input type
-      type?: ComponentProps<"input">["type"] | "numeric"
-    } &
     // include the rest
-    Omit<ComponentProps<"input">, "size" | "type">
+    Omit<ComponentProps<"input">, "size">

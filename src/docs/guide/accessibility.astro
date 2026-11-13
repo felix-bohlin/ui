@@ -152,6 +152,11 @@ const html = Astro.locals.framework === "html"
         </tr>)}
       </tbody>
     </table>
+    {!html && <p>
+      <DocLink href="/components/rating#localization">Rating</DocLink> picks the
+      plural form of <code>starLabel</code> for its <code>lang</code>, so pass
+      <code>lang</code> to it too.
+    </p>}
   </section>
 
   <section id="keyboard">

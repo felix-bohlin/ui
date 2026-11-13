@@ -460,7 +460,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-switch-thumb-size-x-small":
     "Diameter of the `Switch` thumb with `.ui-x-small`.",
   "--ui-switch-track-bg-color":
-    "Background of the unchecked `Switch` track when `--ui-track-bg-color` is unset.",
+    "Background of the unchecked `Switch` track, ahead of `--ui-track-bg-color`. When both are unset, `--ui-surface-tonal`, at `0.58` lightness in dark mode.",
   "--ui-switch-track-block-size": "Height of the `Switch` track.",
   "--ui-switch-track-block-size-large":
     "Height of the `Switch` track with `.ui-large`.",
@@ -499,7 +499,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-text-subtle":
     "Secondary text: placeholders, field helper text, overlines, descriptions in `List` and `Menu` items, unselected `Tabs` labels and `Table` captions. `--ui-text` unless a theme sets it.",
   "--ui-track-bg-color":
-    "The empty part of a track: the unchecked `Switch`, `Progress`, the `Range` track and the empty `Rating` stars. When unset, `Progress` and tonal ranges use `--ui-surface-tonal`, the default range its field border, the switch `--ui-switch-track-bg-color` and the stars `--ui-border-color`.",
+    "The empty part of a track: the unchecked `Switch`, `Progress`, the `Range` track and the empty `Rating` stars. When unset, `Progress` and tonal ranges use `--ui-surface-tonal`, the default range its field border, the switch `--ui-surface-tonal` (at `0.58` lightness in dark mode) and the stars `--ui-border-color`. `--ui-switch-track-bg-color` comes first on the switch.",
   "--ui-underline-offset":
     "Gap between text and its underline for `Link`, rich text links and `Stepper` links.",
   "--ui-underline-offset-small":

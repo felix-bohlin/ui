@@ -1203,7 +1203,7 @@ export const whatsNew = {
       ),
       html: `Breaking: <a href="#label-position"><code>.ui-vertical</code></a> replaces <code>.ui-stack</code>.`,
     },
-    `The unchecked thumb and track read <a href="#api"><code>--ui-switch-thumb-bg-color</code></a> and <code>--ui-switch-track-bg-color</code>.`,
+    `The unchecked thumb reads <a href="#api"><code>--ui-switch-thumb-bg-color</code></a>, and the unchecked track <code>--ui-switch-track-bg-color</code> ahead of <code>--ui-track-bg-color</code> when a theme sets them.`,
     `The unchecked track border reads <a href="#api"><code>--ui-choice-border-color</code></a> and <code>--ui-choice-border-width</code> when a theme sets them, and <code>--ui-field-border-color</code> and <code>--ui-field-border-width</code> when it doesn't, like the checkbox and radio borders.`,
     `The checked track reads <a href="#api"><code>--ui-choice-accent</code></a>, or <code>--ui-control-accent</code>, and the unchecked track <code>--ui-track-bg-color</code> when a theme sets them.`,
     `Each <a href="#api">track width</a> is twice its track height until a theme sets it.`,

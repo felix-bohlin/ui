@@ -408,7 +408,7 @@
       var(--ui-gray-11),
       var(--ui-gray-14)
     );
-    --ui-switch-track-bg-color: light-dark(var(--ui-gray-3), var(--ui-gray-8));
+    /* --ui-switch-track-bg-color: light-dark(var(--ui-gray-3), var(--ui-gray-8)); */
 
     /* Named colors (no severity meaning) - use when you literally want a green/red/etc. dot */
     --ui-blue: light-dark(

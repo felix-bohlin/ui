@@ -54,6 +54,11 @@ export const keywords = ["slider"]
   installationTabs={[{ title: "range.css", code: RangeCSS, lang: "css" }]}
 >
   <Fragment slot="title">Range</Fragment>
+  <Fragment slot="preamble">
+    A value where the rough position matters, like volume. For an exact amount,
+    like a quantity, use a
+    <DocLink href="/components/number-field">Number field</DocLink>.
+  </Fragment>
 
   <Usage slot="usage">
     <li slot="when">
@@ -66,6 +71,7 @@ export const keywords = ["slider"]
     </li>
     <li slot="when-not">
       An exact number, like a quantity or a price. Use a
+      <DocLink href="/components/number-field">Number field</DocLink>, or a
       <DocLink href="/components/text-field#numeric-vs-input-type-number"
         >Text field</DocLink
       >

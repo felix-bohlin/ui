@@ -41,6 +41,10 @@ export const keywords = ["counter", "dot", "indicator", "notification count"]
   installationTabs={[{ title: "badge.css", code: BadgeCSS, lang: "css" }]}
 >
   <Fragment slot="title">Badge</Fragment>
+  <Fragment slot="preamble">
+    A count or status on another element, like unread messages on an icon. For a
+    status in words, use a <DocLink href="/components/chip">Chip</DocLink>.
+  </Fragment>
 
   <Usage slot="usage">
     <li slot="when">A count on an icon, like unread messages.</li>

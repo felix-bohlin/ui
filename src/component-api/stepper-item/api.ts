@@ -24,7 +24,7 @@ export default {
       attribute: '[aria-current="step"]',
       default: "false",
       description:
-        "Marks the current step. Without `.ui-complete` on any step, the steps before it show as complete.",
+        "Marks the current step. The steps before it show as complete, with or without `.ui-complete`.",
       group: "Current",
       prop: "current",
     },

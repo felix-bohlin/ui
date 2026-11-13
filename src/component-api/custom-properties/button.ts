@@ -59,11 +59,12 @@ export default {
     kind: "input",
   },
   "--_filled-active-bg-color": {
-    description: "Pressed background of filled buttons, from `--_accent`.",
+    description:
+      "Pressed background of filled buttons, from `--_accent-filled`.",
     kind: "output",
   },
   "--_filled-hover-bg-color": {
-    description: "Hover background of filled buttons, from `--_accent`.",
+    description: "Hover background of filled buttons, from `--_accent-filled`.",
     kind: "output",
   },
   "--_font-size": {
@@ -95,7 +96,7 @@ export default {
   },
   "--_outlined-active-bg-color": {
     description:
-      "Pressed background of outlined and tonal buttons, from `--_accent`. The pressed state layer with `--ui-button-hover: layer`.",
+      "Pressed background of outlined and tonal buttons: `--_filled-active-bg-color`. The pressed state layer with `--ui-button-hover: layer`.",
     kind: "output",
   },
   "--_outlined-active-border-color": {

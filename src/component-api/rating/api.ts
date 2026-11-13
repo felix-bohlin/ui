@@ -38,7 +38,8 @@ export default {
       prop: "clearLabel",
     },
     {
-      description: "The star checked at the start, when `value` is omitted.",
+      description:
+        "The starting score of the meter or the star checked at the start, when `value` is omitted.",
       frameworks: ["react"],
       prop: "defaultValue",
     },

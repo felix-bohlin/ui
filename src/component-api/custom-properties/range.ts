@@ -3,17 +3,17 @@ import type { CustomProperties } from "../types"
 export default {
   "--_accent": {
     description:
-      "Color of the thumb, its ring and the track fill. Defaults to `--ui-choice-accent`, then `--ui-control-accent`, then `--ui-primary`, and is set by the invalid state.",
+      "Color of the thumb, its ripple and the track fill. Defaults to `--ui-choice-accent`, then `--ui-control-accent`, then `--ui-primary`, and is set by the invalid state.",
     kind: "input",
   },
   "--_duration": {
     description:
-      "Duration of the thumb ring transition, `--ui-duration-fast` times `--_motion`.",
+      "Duration of the thumb ripple transition, `--ui-duration-fast` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
     description:
-      "Easing of the thumb ring transition and focus ring. Defaults to `--ui-ease`.",
+      "Easing of the thumb ripple transition and focus ring. Defaults to `--ui-ease`.",
     kind: "input",
   },
   "--_focus-ring-duration": {
@@ -32,12 +32,12 @@ export default {
   },
   "--_motion": {
     description:
-      "Motion multiplier for the thumb highlight and focus ring. `0` turns them off.",
+      "Motion multiplier for the thumb ripple and focus ring. `0` turns them off.",
     kind: "input",
   },
   "--_padding": {
     description:
-      "Padding around the `input` that keeps the thumb and its highlight from clipping, computed from `--_thumb-size`.",
+      "Padding around the `input` that keeps the thumb and its ripple from clipping, computed from `--_thumb-size`.",
     kind: "output",
   },
   "--_thumb-bg-color": {

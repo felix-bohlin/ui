@@ -499,7 +499,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-text-subtle":
     "Secondary text: placeholders, field helper text, overlines, descriptions in `List` and `Menu` items, unselected `Tabs` labels and `Table` captions. `--ui-text` unless a theme sets it.",
   "--ui-track-bg-color":
-    "The empty part of a track: the unchecked `Switch`, `Progress`, the `Range` track and the empty `Rating` stars. When unset, `Progress` and tonal ranges use `--ui-surface-tonal`, the default range its field border, the switch `--ui-surface-tonal` (at `0.58` lightness in dark mode) and the stars `--ui-field-border-color`. `--ui-switch-track-bg-color` comes first on the switch.",
+    "The empty part of a track: the unchecked `Switch`, `Progress` and the `Range` track. When unset, `Progress` and tonal ranges use `--ui-surface-tonal`, the default range its field border and the switch `--ui-surface-tonal` (at `0.58` lightness in dark mode). `--ui-switch-track-bg-color` comes first on the switch.",
   "--ui-underline-offset":
     "Gap between text and its underline for `Link`, rich text links and `Stepper` links.",
   "--ui-underline-offset-small":

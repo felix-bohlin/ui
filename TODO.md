@@ -790,6 +790,15 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A: also give a non-modal drawer a default `z-index` in `drawer.css` through a new optional token.
     - B (recommended): say in the Non-modal section that a drawer opened with `show()` isn't in the top layer, so it needs a `z-index` above the page's sticky headers.
   - Fixed: option B: the Non-modal section says a drawer opened with `show()` isn't in the top layer and needs a `z-index` above the page's sticky headers, and `src/styles/base.css` drops the preview's isolation while a non-modal drawer is open and gives it `z-index: 25` (331ad80f).
+- [ ] (3) Rating: the empty star outlines read `--ui-track-bg-color` before `--ui-field-border-color`, and the brutalist and m3 themes set that token to a track fill close to the page color, so the outlines measure 1.1:1 to 1.5:1 against the page, where the default reaches 4.2:1 (`packages/opui/css/components/rating.css:8`, `packages/opui/themes/brutalist.css:89`, `packages/opui/themes/m3.css:143-146`)
+  - Summary: In the m3 and brutalist themes the empty stars of a Rating are barely visible against the page.
+  - Recommended: Fix. The field border is the role for an edge that needs 3:1 against the page.
+  - Fix: read only the field border, then drop Rating from the `--ui-track-bg-color` description, the `--_empty-bg-color` row, the docs paragraph and the Rating Added entry.
+    ```css
+    :where(.ui-rating) {
+      --_empty-bg-color: var(--ui-field-border-color);
+    }
+    ```
 
 ## Bugs
 

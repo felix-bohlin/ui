@@ -30,7 +30,7 @@ export default {
   },
   "--_empty-bg-color": {
     description:
-      "Color of the empty star outlines. `--ui-track-bg-color` when the theme sets it, otherwise `--ui-field-border-color`, which reaches 3:1 against the page. An invalid input tints it with `--ui-invalid`.",
+      "Color of the empty star outlines. Defaults to `--ui-field-border-color`, which reaches 3:1 against the page. An invalid input tints it with `--ui-invalid`.",
     kind: "input",
   },
   "--_fill-bg-color": {

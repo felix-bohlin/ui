@@ -5,7 +5,7 @@
     --_clear-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m0 18a8 8 0 0 1-6.32-12.9l11.22 11.22A7.96 7.96 0 0 1 12 20m6.32-3.1L7.1 5.68A8 8 0 0 1 18.32 16.9'/%3E%3C/svg%3E");
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease);
-    --_empty-bg-color: var(--ui-track-bg-color, var(--ui-field-border-color));
+    --_empty-bg-color: var(--ui-field-border-color);
     --_max: 5;
     --_size: var(--ui-icon-size);
     --_star-empty-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill-rule='evenodd' d='M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z'/%3E%3C/svg%3E");

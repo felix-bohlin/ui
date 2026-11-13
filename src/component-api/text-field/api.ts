@@ -3,6 +3,41 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "TextField",
+  elements: [
+    {
+      members: [
+        {
+          description:
+            "The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only.",
+          kind: "property",
+          name: "control",
+        },
+      ],
+      tag: "opui-character-count",
+    },
+    {
+      members: [
+        {
+          description:
+            "Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits.",
+          kind: "method",
+          name: "hidePassword()",
+        },
+        {
+          description: "The `<input>` inside, or `null`. Read-only.",
+          kind: "property",
+          name: "input",
+        },
+        {
+          description:
+            "Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.",
+          kind: "method",
+          name: "showPassword()",
+        },
+      ],
+      tag: "opui-text-field",
+    },
+  ],
   keyboard: [
     {
       description:

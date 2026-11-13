@@ -14,6 +14,25 @@ const closeButton = elementNotes(
 
 export default {
   component: "Callout",
+  elements: [
+    {
+      members: [
+        {
+          description:
+            "Fires on the callout before it hides. It bubbles, and `preventDefault()` keeps the callout.",
+          kind: "event",
+          name: "dismiss",
+        },
+        {
+          description:
+            "Fires `dismiss` and, unless a listener cancels it, sets `hidden` on the callout and moves focus that was inside it to the next focusable element after it, or else the one before. Returns whether the callout hid.",
+          kind: "method",
+          name: "dismiss()",
+        },
+      ],
+      tag: "opui-callout",
+    },
+  ],
   keyboard: [
     {
       description:
@@ -113,7 +132,7 @@ export default {
   ],
   root: {
     description:
-      'Container element, an `<article>`. With `closeButton`, the `<opui-callout>` custom element with `role="article"`. A button with `commandfor` and `command="--dismiss"` fires a cancelable `dismiss` event on it that bubbles, and unless a listener calls `preventDefault()`, the element sets `hidden` on itself and moves focus that was inside it to the next focusable element after it, or else the one before. `dismiss()` does the same from a script and returns whether the callout was hidden.',
+      'Container element, an `<article>`. With `closeButton`, the `<opui-callout>` custom element with `role="article"`, which a button with `commandfor` and `command="--dismiss"` dismisses.',
     selector: ".ui-callout",
   },
   slots: [

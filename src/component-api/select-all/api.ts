@@ -4,6 +4,31 @@ import type { ComponentApi } from "../types"
 export default {
   component: "SelectAll",
   css: ["select-all"],
+  elements: [
+    {
+      members: [
+        {
+          description:
+            "The controlling checkbox, the one with `data-select-all`, or `null`. Read-only.",
+          kind: "property",
+          name: "control",
+        },
+        {
+          description:
+            "The enabled checkboxes it controls, in document order. Read-only.",
+          kind: "property",
+          name: "items",
+        },
+        {
+          description:
+            "Sets the controlling checkbox's `checked` and `indeterminate` from the others. The element calls it when one changes, so call it only after setting `checked` from a script.",
+          kind: "method",
+          name: "sync()",
+        },
+      ],
+      tag: "opui-select-all",
+    },
+  ],
   notes: {
     ...elementNotes(
       "select-all.js",

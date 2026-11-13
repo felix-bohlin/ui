@@ -138,6 +138,31 @@ if (!api.source && framework !== "html") {
     </DocsTable>
   </Fragment>)}
 
+{api.elements && api.elements.length > 0 && <Fragment>
+  <SlotsHeading
+    >{api.elements.length > 1 ? "Elements" : "Element"}</SlotsHeading
+  >
+  {api.elements.map((element) => <Fragment>
+    <p
+      set:html={formatInline(
+        `\`<${element.tag}>\`, defined by \`opui-css/elements/${element.tag.replace(/^opui-/, "")}.js\`:`,
+        link,
+      )}
+    />
+    <DocsTable
+      columns={[{ label: "Member", width: "30%" }, { label: "Description" }]}
+    >
+      {element.members.map((member) => <TableRow>
+        <TableCell>
+          <code>{member.name}</code>
+          {member.kind === "event" && " event"}
+        </TableCell>
+        <TableCell set:html={formatInline(member.description, link)} />
+      </TableRow>)}
+    </DocsTable>
+  </Fragment>)}
+</Fragment>}
+
 {notes.map((note) => (
   <p set:html={formatInline(note, link)} />
 ))}

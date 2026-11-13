@@ -3,6 +3,19 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Textarea",
+  elements: [
+    {
+      members: [
+        {
+          description:
+            "The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only.",
+          kind: "property",
+          name: "control",
+        },
+      ],
+      tag: "opui-character-count",
+    },
+  ],
   css: ["text-field", "textarea"],
   keyboard: [
     {

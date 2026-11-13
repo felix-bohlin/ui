@@ -540,6 +540,12 @@ async function generateIndex() {
               ]
             : [option.prop, option.description],
         ),
+        ...(api.elements ?? []).flatMap((element) =>
+          element.members.flatMap((member) => [
+            member.name,
+            member.description,
+          ]),
+        ),
       ].filter(Boolean)
 
       apiEntries.push([

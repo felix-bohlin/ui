@@ -5173,6 +5173,10 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Summary: Nothing a user sees: the density rules name a component they never change, and four declarations repeat.
   - Recommended: Fix. The accordion keeps its padding and the rules say what they do.
   - Fix: narrow the two density rules to `&:where(.ui-card).ui-dense` and `&:where(.ui-card).ui-spacious`, then remove `--_motion`, `--_duration`, `--_ease` and `--_padding` from `details.ui-accordion`, which `card.css` already declares for it.
+- [ ] (1) Stepper: `--_complete-image` and `--_error-image` are named after a state with no part, where the naming model names an image after its part (`--_<part>-image`) and puts a state after the part, and both feed `--_marker-image` (`packages/opui/css/components/stepper.css:5-8`, `packages/opui/css/components/stepper.css:12`, `packages/opui/css/components/stepper.css:144`, `packages/opui/css/components/stepper.css:160`, `src/component-api/custom-properties/stepper.ts:9-31`, `src/docs/components/stepper.astro:228-231`)
+  - Summary: Someone customizing the Stepper finds two image properties that don't say which part they draw.
+  - Recommended: Fix. The component is new in 6.0, so the rename breaks nothing released.
+  - Fix: rename them `--_marker-complete-image` and `--_marker-error-image` in `stepper.css`, `custom-properties/stepper.ts` (including the `--_marker-image` row, keys sorted) and the Under the hood paragraph of `stepper.astro`.
 - [ ] (4) New components the blocks point to. Each block currently draws these with its own CSS:
   - Summary: Blocks draw charts, breadcrumbs, steppers, timelines, ratings, pagination and stat cards with their own CSS for lack of components.
   - Recommended: Fix. Breadcrumb, empty state and pagination are left, and their blocks already show the markup each needs.

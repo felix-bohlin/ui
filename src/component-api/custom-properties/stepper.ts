@@ -6,11 +6,6 @@ export default {
       "Fill of a complete marker, border of the current one and color of the line after a complete step. Defaults to `--ui-selected-strong`.",
     kind: "input",
   },
-  "--_complete-image": {
-    description:
-      "The check cut out of a complete marker, as an image used as a mask. Defaults to `--ui-check-image`, then a built-in check.",
-    kind: "input",
-  },
   "--_description-text-color": {
     description: "Color of the description. Defaults to `--ui-text-subtle`.",
     kind: "input",
@@ -23,11 +18,6 @@ export default {
   "--_ease": {
     description:
       "Easing of the marker and line transitions. Defaults to `--ui-ease`.",
-    kind: "input",
-  },
-  "--_error-image": {
-    description:
-      "The exclamation mark cut out of the marker of a step with an error, as an image used as a mask.",
     kind: "input",
   },
   "--_gap": {
@@ -69,9 +59,19 @@ export default {
       "Width of the marker border. Defaults to `--ui-border-width-thick`.",
     kind: "input",
   },
+  "--_marker-complete-image": {
+    description:
+      "The check cut out of a complete marker, as an image used as a mask. Defaults to `--ui-check-image`, then a built-in check.",
+    kind: "input",
+  },
+  "--_marker-error-image": {
+    description:
+      "The exclamation mark cut out of the marker of a step with an error, as an image used as a mask.",
+    kind: "input",
+  },
   "--_marker-image": {
     description:
-      "The image cut out of the marker: `--_complete-image` on a complete step and `--_error-image` on a step with an error.",
+      "The image cut out of the marker: `--_marker-complete-image` on a complete step and `--_marker-error-image` on a step with an error.",
     kind: "output",
   },
   "--_marker-size": {

@@ -2,19 +2,19 @@
   :where(.ui-stepper) {
     --_motion: var(--ui-motion);
     --_accent: var(--ui-selected-strong);
-    --_complete-image: var(
-      --ui-check-image,
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E")
-    );
     --_description-text-color: var(--ui-text-subtle);
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease);
-    --_error-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M11 5h2v9h-2zm0 12h2v2h-2z'/%3E%3C/svg%3E");
     --_gap: var(--ui-space-2);
     --_icon-size: calc(var(--_marker-size) * 0.6);
     --_line-border-color: var(--ui-border-color);
     --_line-border-width: var(--ui-border-width-thick);
     --_marker-border-width: var(--ui-border-width-thick);
+    --_marker-complete-image: var(
+      --ui-check-image,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E")
+    );
+    --_marker-error-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M11 5h2v9h-2zm0 12h2v2h-2z'/%3E%3C/svg%3E");
     --_marker-size: var(--ui-space-6);
     --_on-accent: var(--ui-on-selected-strong);
     --_orientation: auto;
@@ -141,7 +141,7 @@
       --_line-border-color: var(--_accent);
       --_marker-bg-color: var(--_accent);
       --_marker-border-color: var(--_accent);
-      --_marker-image: var(--_complete-image);
+      --_marker-image: var(--_marker-complete-image);
 
       &:not(.ui-error):has(> .ui-icon-complete)::before {
         mask: none;
@@ -157,7 +157,7 @@
       --_label-text-color: var(--ui-invalid-text);
       --_marker-bg-color: var(--ui-invalid);
       --_marker-border-color: var(--ui-invalid);
-      --_marker-image: var(--_error-image);
+      --_marker-image: var(--_marker-error-image);
     }
 
     &

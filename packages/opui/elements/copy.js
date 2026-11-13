@@ -5,6 +5,7 @@ const TIMEOUT = 1000
 
 export class CopyElement extends Base {
   #controller
+  #frame
   #interest
   #timeout
 
@@ -50,12 +51,13 @@ export class CopyElement extends Base {
   async copy(source) {
     this.#reset()
     const copied = await this.#write(this.text)
+    if (!this.isConnected) return copied
     if (!copied) this.#select()
     const message = copied
       ? (this.getAttribute("copied-label") ?? "Copied")
       : (this.getAttribute("failed-label") ?? "Copy failed")
     const status = this.#status
-    requestAnimationFrame(() => {
+    this.#frame = requestAnimationFrame(() => {
       if (status) status.textContent = message
     })
     this.#show(source, message)
@@ -72,6 +74,7 @@ export class CopyElement extends Base {
   }
 
   #reset() {
+    cancelAnimationFrame(this.#frame)
     clearTimeout(this.#timeout)
     this.#interest?.abort()
     if (this.#label?.matches(":popover-open")) this.#label.hidePopover()
@@ -98,14 +101,19 @@ export class CopyElement extends Base {
 
   async #write(text) {
     if (!navigator.clipboard?.writeText) return this.#writeWithField(text)
+    let timeout
     try {
       await Promise.race([
         navigator.clipboard.writeText(text),
-        new Promise((_, reject) => setTimeout(reject, TIMEOUT)),
+        new Promise((_, reject) => {
+          timeout = setTimeout(reject, TIMEOUT)
+        }),
       ])
       return true
     } catch {
       return this.#writeWithField(text)
+    } finally {
+      clearTimeout(timeout)
     }
   }
 

@@ -31,7 +31,8 @@
         "packages/opui/react/elements.ts",
         "packages/opui/svelte/elements.ts",
         "src/env.d.ts",
-        "tests/e2e/css-js.spec.ts"
+        "tests/e2e/css-js.spec.ts",
+        "tests/e2e/elements.spec.ts"
       ],
       "rules": {
         "typescript/consistent-type-definitions": "off"

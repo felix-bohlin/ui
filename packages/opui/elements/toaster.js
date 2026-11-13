@@ -16,6 +16,7 @@ export class ToasterElement extends Base {
   #focused = false
   #hovered = false
   #leaving = new Map()
+  #lines = new Map()
   #origin = null
   #timers = new Map()
 
@@ -53,18 +54,21 @@ export class ToasterElement extends Base {
       },
       { signal },
     )
-    const list = this.list
-    list?.addEventListener(
+    this.addEventListener(
       "keydown",
       (event) => {
         const item = event.target.closest?.("li")
-        if (event.key === "Escape" && item) this.dismiss(item)
+        if (event.key === "Escape" && item && this.list?.contains(item)) {
+          this.dismiss(item)
+        }
       },
       { signal },
     )
-    list?.addEventListener(
+    this.addEventListener(
       "focusin",
       (event) => {
+        const list = this.list
+        if (!list?.contains(event.target)) return
         if (!list.contains(event.relatedTarget)) {
           this.#origin = event.relatedTarget
         }
@@ -73,37 +77,52 @@ export class ToasterElement extends Base {
       },
       { signal },
     )
-    list?.addEventListener(
+    this.addEventListener(
       "focusout",
       (event) => {
+        const list = this.list
+        if (!list?.contains(event.target)) return
         if (list.contains(event.relatedTarget)) return
         this.#focused = false
         this.#resume()
       },
       { signal },
     )
-    list?.addEventListener(
+    this.addEventListener(
       "pointerenter",
-      () => {
+      (event) => {
+        if (event.target !== this.list) return
         this.#hovered = true
         this.#pause()
       },
-      { signal },
+      { capture: true, signal },
     )
-    list?.addEventListener(
+    this.addEventListener(
       "pointerleave",
-      () => {
+      (event) => {
+        if (event.target !== this.list) return
         this.#hovered = false
         this.#resume()
       },
-      { signal },
+      { capture: true, signal },
     )
+    const list = this.list
+    if (list?.children.length && !list.matches(":popover-open")) {
+      list.showPopover?.()
+    }
+    this.#resume()
   }
 
   disconnectedCallback() {
     this.#controller?.abort()
-    for (const timer of this.#timers.values()) clearTimeout(timer.id)
-    this.#timers.clear()
+    this.#focused = false
+    this.#hovered = false
+    this.#pause()
+    for (const [line, id] of this.#lines) {
+      clearTimeout(id)
+      line.remove()
+    }
+    this.#lines.clear()
   }
 
   show(message, { action, duration, severity } = {}) {
@@ -197,7 +216,13 @@ export class ToasterElement extends Base {
     const line = this.ownerDocument.createElement("p")
     line.textContent = message
     region.append(line)
-    setTimeout(() => line.remove(), DURATION)
+    this.#lines.set(
+      line,
+      setTimeout(() => {
+        this.#lines.delete(line)
+        line.remove()
+      }, DURATION),
+    )
   }
 
   #icon(severity) {

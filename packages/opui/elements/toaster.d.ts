@@ -17,6 +17,7 @@ export type ToastOptions = {
 }
 
 export declare class ToasterElement extends HTMLElement {
+  readonly alert: HTMLElement | null
   readonly list: HTMLOListElement | null
   readonly status: HTMLElement | null
   dismiss(item: HTMLLIElement): Promise<void>

@@ -41,6 +41,7 @@ export class NumberFieldElement extends Base {
     this.#observer = new MutationObserver(() => this.#sync())
     this.#observer.observe(this, {
       attributeFilter: ["disabled", "max", "min", "readonly", "value"],
+      childList: true,
       subtree: true,
     })
     this.#sync()

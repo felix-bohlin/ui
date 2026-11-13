@@ -1871,7 +1871,7 @@
       "codeSyntax": "var(--ui-blue)",
       "description": "A literal blue, hue 240 at `0.53`, the lightness of palette step 9 in every palette. No severity meaning.",
       "hidden": false,
-      "name": "named-colors-no-severity-meaning/ui-blue",
+      "name": "named-colors/ui-blue",
       "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"],
       "type": "COLOR",
       "values": {
@@ -1909,7 +1909,7 @@
       "codeSyntax": "var(--ui-green)",
       "description": "A literal green, hue 145 at `0.53`, the lightness of palette step 9 in every palette. No severity meaning.",
       "hidden": false,
-      "name": "named-colors-no-severity-meaning/ui-green",
+      "name": "named-colors/ui-green",
       "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"],
       "type": "COLOR",
       "values": {
@@ -1947,7 +1947,7 @@
       "codeSyntax": "var(--ui-orange)",
       "description": "A literal orange, hue 75 at `0.66`, the lightness of palette step 7 in every palette. No severity meaning.",
       "hidden": false,
-      "name": "named-colors-no-severity-meaning/ui-orange",
+      "name": "named-colors/ui-orange",
       "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"],
       "type": "COLOR",
       "values": {
@@ -1985,7 +1985,7 @@
       "codeSyntax": "var(--ui-red)",
       "description": "A literal red, hue 25 at `0.53`, the lightness of palette step 9 in every palette. No severity meaning.",
       "hidden": false,
-      "name": "named-colors-no-severity-meaning/ui-red",
+      "name": "named-colors/ui-red",
       "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"],
       "type": "COLOR",
       "values": {
@@ -2023,21 +2023,21 @@
       "codeSyntax": "var(--ui-critical)",
       "description": "Severity color for errors and destructive actions.",
       "hidden": false,
-      "name": "intent-tokens/ui-critical",
+      "name": "intent/ui-critical",
       "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"],
       "type": "COLOR",
       "values": {
         "light": {
-          "alias": "named-colors-no-severity-meaning/ui-red"
+          "alias": "named-colors/ui-red"
         },
         "dark": {
-          "alias": "named-colors-no-severity-meaning/ui-red"
+          "alias": "named-colors/ui-red"
         },
         "light-more-contrast": {
-          "alias": "named-colors-no-severity-meaning/ui-red"
+          "alias": "named-colors/ui-red"
         },
         "dark-more-contrast": {
-          "alias": "named-colors-no-severity-meaning/ui-red"
+          "alias": "named-colors/ui-red"
         }
       }
     },
@@ -2045,7 +2045,7 @@
       "codeSyntax": "var(--ui-critical-text)",
       "description": "Critical as a text color: the `.ui-critical` items of a `Menu`, a `.ui-critical` `Button` with no variant or `.ui-outlined`, and `del` and `.ui-del` text. `--ui-critical` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
       "hidden": false,
-      "name": "intent-tokens/ui-critical-text",
+      "name": "intent/ui-critical-text",
       "scopes": ["TEXT_FILL"],
       "type": "COLOR",
       "values": {
@@ -2083,21 +2083,21 @@
       "codeSyntax": "var(--ui-info)",
       "description": "Severity color for informational messages, and the dotted underline of `abbr`, `dfn`, `.ui-abbr` and `.ui-dfn`.",
       "hidden": false,
-      "name": "intent-tokens/ui-info",
+      "name": "intent/ui-info",
       "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"],
       "type": "COLOR",
       "values": {
         "light": {
-          "alias": "named-colors-no-severity-meaning/ui-blue"
+          "alias": "named-colors/ui-blue"
         },
         "dark": {
-          "alias": "named-colors-no-severity-meaning/ui-blue"
+          "alias": "named-colors/ui-blue"
         },
         "light-more-contrast": {
-          "alias": "named-colors-no-severity-meaning/ui-blue"
+          "alias": "named-colors/ui-blue"
         },
         "dark-more-contrast": {
-          "alias": "named-colors-no-severity-meaning/ui-blue"
+          "alias": "named-colors/ui-blue"
         }
       }
     },
@@ -2105,7 +2105,7 @@
       "codeSyntax": "var(--ui-info-text)",
       "description": "Info as a text color, for informational text outside an `.ui-info` scope. `--ui-info` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
       "hidden": false,
-      "name": "intent-tokens/ui-info-text",
+      "name": "intent/ui-info-text",
       "scopes": ["TEXT_FILL"],
       "type": "COLOR",
       "values": {
@@ -2143,7 +2143,7 @@
       "codeSyntax": "var(--ui-invalid)",
       "description": "Color for invalid field borders, fills and outlines. Lifted to `--ui-invalid-min-lightness` in dark mode, so invalid borders stand out from the page with more contrast.",
       "hidden": false,
-      "name": "intent-tokens/ui-invalid",
+      "name": "intent/ui-invalid",
       "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"],
       "type": "COLOR",
       "values": {
@@ -2181,7 +2181,7 @@
       "codeSyntax": "var(--ui-invalid-text)",
       "description": "Color for validation messages and invalid labels. `--ui-invalid` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, so it stays readable where `--ui-invalid` is lighter for borders.",
       "hidden": false,
-      "name": "intent-tokens/ui-invalid-text",
+      "name": "intent/ui-invalid-text",
       "scopes": ["TEXT_FILL"],
       "type": "COLOR",
       "values": {
@@ -2219,7 +2219,7 @@
       "codeSyntax": "var(--ui-neutral)",
       "description": "Severity color for neutral messages. `--ui-gray-hue` and `--ui-gray-chroma` at `0.53`, the lightness of `--ui-gray-9`, capped at `--ui-accent-max-lightness` in light mode. The `.ui-neutral` scope derives its palette from its hue and chroma.",
       "hidden": false,
-      "name": "intent-tokens/ui-neutral",
+      "name": "intent/ui-neutral",
       "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"],
       "type": "COLOR",
       "values": {
@@ -2257,7 +2257,7 @@
       "codeSyntax": "var(--ui-neutral-text)",
       "description": "Neutral as a text color, for neutral text outside an `.ui-neutral` scope. `--ui-neutral` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
       "hidden": false,
-      "name": "intent-tokens/ui-neutral-text",
+      "name": "intent/ui-neutral-text",
       "scopes": ["TEXT_FILL"],
       "type": "COLOR",
       "values": {
@@ -2295,21 +2295,21 @@
       "codeSyntax": "var(--ui-success)",
       "description": "Severity color for success messages.",
       "hidden": false,
-      "name": "intent-tokens/ui-success",
+      "name": "intent/ui-success",
       "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"],
       "type": "COLOR",
       "values": {
         "light": {
-          "alias": "named-colors-no-severity-meaning/ui-green"
+          "alias": "named-colors/ui-green"
         },
         "dark": {
-          "alias": "named-colors-no-severity-meaning/ui-green"
+          "alias": "named-colors/ui-green"
         },
         "light-more-contrast": {
-          "alias": "named-colors-no-severity-meaning/ui-green"
+          "alias": "named-colors/ui-green"
         },
         "dark-more-contrast": {
-          "alias": "named-colors-no-severity-meaning/ui-green"
+          "alias": "named-colors/ui-green"
         }
       }
     },
@@ -2317,7 +2317,7 @@
       "codeSyntax": "var(--ui-success-text)",
       "description": "Success as a text color, for success text outside an `.ui-success` scope, and `ins` and `.ui-ins` text. `--ui-success` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
       "hidden": false,
-      "name": "intent-tokens/ui-success-text",
+      "name": "intent/ui-success-text",
       "scopes": ["TEXT_FILL"],
       "type": "COLOR",
       "values": {
@@ -2355,21 +2355,21 @@
       "codeSyntax": "var(--ui-warning)",
       "description": "Severity color for warnings. Unlike the other severities it keeps its lightness with more contrast: the fill is light and takes dark `--ui-on-warning` text, and `--ui-warning-text` gets the stricter lightness limits instead.",
       "hidden": false,
-      "name": "intent-tokens/ui-warning",
+      "name": "intent/ui-warning",
       "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"],
       "type": "COLOR",
       "values": {
         "light": {
-          "alias": "named-colors-no-severity-meaning/ui-orange"
+          "alias": "named-colors/ui-orange"
         },
         "dark": {
-          "alias": "named-colors-no-severity-meaning/ui-orange"
+          "alias": "named-colors/ui-orange"
         },
         "light-more-contrast": {
-          "alias": "named-colors-no-severity-meaning/ui-orange"
+          "alias": "named-colors/ui-orange"
         },
         "dark-more-contrast": {
-          "alias": "named-colors-no-severity-meaning/ui-orange"
+          "alias": "named-colors/ui-orange"
         }
       }
     },
@@ -2377,7 +2377,7 @@
       "codeSyntax": "var(--ui-on-warning)",
       "description": "Text color on a `--ui-warning` fill: the warning `Badge`. White on a warning below 0.182 relative luminance and near-black above it, like `--ui-on-primary`.",
       "hidden": false,
-      "name": "intent-tokens/ui-on-warning",
+      "name": "intent/ui-on-warning",
       "scopes": ["SHAPE_FILL", "STROKE_COLOR", "TEXT_FILL"],
       "type": "COLOR",
       "values": {
@@ -2415,7 +2415,7 @@
       "codeSyntax": "var(--ui-warning-text)",
       "description": "Warning as a text color, for warning text outside a `.ui-warning` scope. `--ui-warning` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
       "hidden": false,
-      "name": "intent-tokens/ui-warning-text",
+      "name": "intent/ui-warning-text",
       "scopes": ["TEXT_FILL"],
       "type": "COLOR",
       "values": {
@@ -3247,7 +3247,7 @@
       "codeSyntax": "var(--ui-field-border-width)",
       "description": "Border width for fields, `Checkbox`, `Radio` and `Switch`.",
       "hidden": false,
-      "name": "field-input/ui-field-border-width",
+      "name": "field/ui-field-border-width",
       "scopes": ["STROKE_FLOAT"],
       "type": "FLOAT",
       "values": {
@@ -3261,7 +3261,7 @@
       "codeSyntax": "var(--ui-field-helper-text-color)",
       "description": "Text color for helper and end text under a field.",
       "hidden": false,
-      "name": "field-input/ui-field-helper-text-color",
+      "name": "field/ui-field-helper-text-color",
       "scopes": ["TEXT_FILL"],
       "type": "COLOR",
       "values": {
@@ -3283,7 +3283,7 @@
       "codeSyntax": "var(--ui-field-helper-font-size)",
       "description": "Font size for helper and end text under a field.",
       "hidden": false,
-      "name": "field-input/ui-field-helper-font-size",
+      "name": "field/ui-field-helper-font-size",
       "scopes": ["FONT_SIZE"],
       "type": "FLOAT",
       "values": {
@@ -3305,7 +3305,7 @@
       "codeSyntax": "var(--ui-field-helper-line-height)",
       "description": "Line height for helper and end text under a field.",
       "hidden": false,
-      "name": "field-input/ui-field-helper-line-height",
+      "name": "field/ui-field-helper-line-height",
       "scopes": [],
       "type": "FLOAT",
       "values": {
@@ -3327,7 +3327,7 @@
       "codeSyntax": "var(--ui-field-label-text-color)",
       "description": "Text color for field labels.",
       "hidden": false,
-      "name": "field-input/ui-field-label-text-color",
+      "name": "field/ui-field-label-text-color",
       "scopes": ["TEXT_FILL"],
       "type": "COLOR",
       "values": {
@@ -3349,7 +3349,7 @@
       "codeSyntax": "var(--ui-field-label-font-size)",
       "description": "Font size for field labels.",
       "hidden": false,
-      "name": "field-input/ui-field-label-font-size",
+      "name": "field/ui-field-label-font-size",
       "scopes": ["FONT_SIZE"],
       "type": "FLOAT",
       "values": {
@@ -3371,7 +3371,7 @@
       "codeSyntax": "var(--ui-field-label-font-weight)",
       "description": "Font weight for emphasized field labels and legends.",
       "hidden": false,
-      "name": "field-input/ui-field-label-font-weight",
+      "name": "field/ui-field-label-font-weight",
       "scopes": ["FONT_WEIGHT"],
       "type": "FLOAT",
       "values": {
@@ -3393,21 +3393,21 @@
       "codeSyntax": "var(--ui-field-required-text-color)",
       "description": "Color of the required asterisk.",
       "hidden": false,
-      "name": "field-input/ui-field-required-text-color",
+      "name": "field/ui-field-required-text-color",
       "scopes": ["TEXT_FILL"],
       "type": "COLOR",
       "values": {
         "light": {
-          "alias": "intent-tokens/ui-invalid-text"
+          "alias": "intent/ui-invalid-text"
         },
         "dark": {
-          "alias": "intent-tokens/ui-invalid-text"
+          "alias": "intent/ui-invalid-text"
         },
         "light-more-contrast": {
-          "alias": "intent-tokens/ui-invalid-text"
+          "alias": "intent/ui-invalid-text"
         },
         "dark-more-contrast": {
-          "alias": "intent-tokens/ui-invalid-text"
+          "alias": "intent/ui-invalid-text"
         }
       }
     },
@@ -3415,7 +3415,7 @@
       "codeSyntax": "var(--ui-field-border-color)",
       "description": "Border color of every empty control: `TextField`, `Select`, `Textarea`, the unchecked `Checkbox`, `Radio` and `Switch` unless `--ui-choice-border-color` is set, the `Range` track and the `Progress` outline. `--ui-text-strong` mixed into `--ui-surface` at `--ui-field-border-strength`, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make.",
       "hidden": false,
-      "name": "field-input/ui-field-border-color",
+      "name": "field/ui-field-border-color",
       "scopes": ["STROKE_COLOR"],
       "type": "COLOR",
       "values": {
@@ -3453,7 +3453,7 @@
       "codeSyntax": "var(--ui-field-border-color-on-filled)",
       "description": "Field border color inside filled surfaces: lists without a variant and table headers. `--ui-text-strong` mixed into `--ui-surface-filled` at `--ui-field-border-strength`.",
       "hidden": false,
-      "name": "field-input/ui-field-border-color-on-filled",
+      "name": "field/ui-field-border-color-on-filled",
       "scopes": ["SHAPE_FILL", "STROKE_COLOR", "TEXT_FILL"],
       "type": "COLOR",
       "values": {
@@ -3491,7 +3491,7 @@
       "codeSyntax": "var(--ui-field-border-color-on-raised)",
       "description": "Field border color inside raised surfaces. The same mix as `--ui-field-border-color` by default. Each raised component sets `--ui-field-border-color` to it on its root.",
       "hidden": false,
-      "name": "field-input/ui-field-border-color-on-raised",
+      "name": "field/ui-field-border-color-on-raised",
       "scopes": ["SHAPE_FILL", "STROKE_COLOR", "TEXT_FILL"],
       "type": "COLOR",
       "values": {
@@ -5312,44 +5312,6 @@
           "oklch": [0.2, 0.01, 255],
           "p3": [0.07702, 0.0871, 0.10269],
           "srgb": [0.07459, 0.0875, 0.10427]
-        }
-      }
-    },
-    {
-      "codeSyntax": "var(--ui-switch-track-bg-color)",
-      "description": "Background of the unchecked `Switch` track when `--ui-track-bg-color` is unset.",
-      "hidden": false,
-      "name": "choice-controls/ui-switch-track-bg-color",
-      "scopes": ["FRAME_FILL", "SHAPE_FILL"],
-      "type": "COLOR",
-      "values": {
-        "light": {
-          "alpha": 1,
-          "hex": "#E3E8EF",
-          "oklch": [0.93, 0.01, 255],
-          "p3": [0.89538, 0.91029, 0.93317],
-          "srgb": [0.89198, 0.91092, 0.93566]
-        },
-        "dark": {
-          "alpha": 1,
-          "hex": "#767B80",
-          "oklch": [0.58, 0.01, 255],
-          "p3": [0.4673, 0.48053, 0.50086],
-          "srgb": [0.46426, 0.48108, 0.50305]
-        },
-        "light-more-contrast": {
-          "alpha": 1,
-          "hex": "#E3E8EF",
-          "oklch": [0.93, 0.01, 255],
-          "p3": [0.89538, 0.91029, 0.93317],
-          "srgb": [0.89198, 0.91092, 0.93566]
-        },
-        "dark-more-contrast": {
-          "alpha": 1,
-          "hex": "#767B80",
-          "oklch": [0.58, 0.01, 255],
-          "p3": [0.4673, 0.48053, 0.50086],
-          "srgb": [0.46426, 0.48108, 0.50305]
         }
       }
     },

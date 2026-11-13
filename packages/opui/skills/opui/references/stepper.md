@@ -63,18 +63,18 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 - `--_accent`: Fill of a complete marker, border of the current one and color of the line after a complete step. Defaults to `--ui-selected-strong`.
 - `--_complete-image`: The check cut out of a complete marker, as an image used as a mask. Defaults to `--ui-check-image`, then a built-in check.
-- `--_connector-border-width`: Width of the line to the next step. Defaults to `--ui-border-width-thick`.
 - `--_description-text-color`: Color of the description. Defaults to `--ui-text-subtle`.
 - `--_ease`: Easing of the marker and line transitions. Defaults to `--ui-ease`.
 - `--_error-image`: The exclamation mark cut out of the marker of a step with an error, as an image used as a mask.
 - `--_gap`: Space between the steps and between a marker and its label.
 - `--_icon-size`: Size of the check, the exclamation mark and a `.ui-icon-complete`. 60% of `--_marker-size`.
+- `--_line-border-width`: Width of the line to the next step. Defaults to `--ui-border-width-thick`.
 - `--_marker-border-width`: Width of the marker border. Defaults to `--ui-border-width-thick`.
 - `--_marker-size`: Size of the marker. Defaults to `--ui-space-6`, `--ui-space-5` with `.ui-small`.
 - `--_motion`: Motion multiplier for the marker and line transitions.
 - `--_on-accent`: Color of a `.ui-icon-complete` on the `--_accent` fill. Defaults to `--ui-on-selected-strong`.
 
-Outputs: `--_connector-border-color`, `--_duration`, `--_label-text-color`, `--_marker-bg-color`, `--_marker-border-color`, `--_marker-image`, `--_marker-text-color` and `--_orientation`.
+Outputs: `--_duration`, `--_label-text-color`, `--_line-border-color`, `--_marker-bg-color`, `--_marker-border-color`, `--_marker-image`, `--_marker-text-color` and `--_orientation`.
 
 ## Theme tokens
 

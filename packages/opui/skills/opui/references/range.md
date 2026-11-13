@@ -58,7 +58,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_track-block-size`: Height of the track. Set by the sizes.
 - `--_track-radius`: Corner radius of the track.
 
-Outputs: `--_duration`, `--_focus-ring-duration`, `--_forced-fill-bg-color`, `--_forced-track-bg-color`, `--_padding`, `--_thumb-bg-color`, `--_thumb-highlight-bg-color`, `--_thumb-highlight-size`, `--_thumb-offset`, `--_track-bg-color`, `--_track-fill-bg-color` and `--_track-fill-fraction`.
+Outputs: `--_duration`, `--_focus-ring-duration`, `--_forced-fill-bg-color`, `--_forced-track-bg-color`, `--_padding`, `--_thumb-bg-color`, `--_thumb-offset`, `--_thumb-ripple-bg-color`, `--_thumb-ripple-size`, `--_track-bg-color`, `--_track-fill-bg-color` and `--_track-fill-fraction`.
 
 ## Theme tokens
 

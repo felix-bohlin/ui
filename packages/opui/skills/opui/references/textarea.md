@@ -14,9 +14,9 @@ A multi-line text input with a label, start and end text, and validation.
 - `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
 - `.ui-field`: The boxed textarea area.
 - `.ui-field > .ui-top` (slot `top`): Content above the textarea, inside the border, with a divider.
-- `.ui-field > .ui-start` (slot `start`): Content at the inline-start of the field, inside the border, centered on the first line.
+- `.ui-field > .ui-start` (slot `start`): Content at the inline-start of the field, inside the border, centered on the first line, or at its top when taller.
 - `<textarea>` (model): The textarea element.
-- `.ui-field > .ui-end` (slot `end`): Content at the inline-end of the field, inside the border, centered on the first line.
+- `.ui-field > .ui-end` (slot `end`): Content at the inline-end of the field, inside the border, centered on the first line, or at its top when taller.
 - `.ui-field > .ui-bottom` (slot `bottom`): Content below the textarea, inside the border, with a divider.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
 - `<opui-character-count>` (prop `characterCount`, prop `characterCountLabel`): The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left.
@@ -67,7 +67,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_end-end-radius`: The radius of the end-end corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the next control.
 - `--_end-start-radius`: The radius of the end-start corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
 - `--_field-padding-block`: The preferred block padding of the control. Set by the size classes.
-- `--_field-padding-inline`: The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`.
+- `--_field-padding-inline`: The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.
 - `--_file-button-padding`: The preferred gap around the `::file-selector-button` of a file field: `--ui-space-2`, or `--ui-space-1` in `.ui-small` and `.ui-x-small`.
 - `--_font-size`: The font size of the control and affixes. At least 16px on iPhone and iPad (`css/compat/text-field.css`), so iOS Safari doesn't zoom in on focus.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.

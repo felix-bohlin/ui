@@ -7,7 +7,7 @@ import {
 
 export default function Total() {
   return (
-    <DescriptionList bordered orientation="horizontal">
+    <DescriptionList border="solid" orientation="horizontal">
       <DescriptionListItem>
         <DescriptionListTerm>Subtotal</DescriptionListTerm>
         <DescriptionListDescription>€166.00</DescriptionListDescription>

@@ -888,11 +888,11 @@
     "url": "/html/components/description-list/#basics"
   },
   {
-    "id": "component-description-list-html-bordered",
-    "title": "Bordered",
+    "id": "component-description-list-html-border",
+    "title": "Border",
     "page": "Description list",
     "category": "Component",
-    "url": "/html/components/description-list/#bordered"
+    "url": "/html/components/description-list/#border"
   },
   {
     "id": "component-description-list-html-orientation",
@@ -4470,7 +4470,7 @@
     "id": "api-description-list-html",
     "title": "Description List API",
     "description": "Reference for Description List HTML component.",
-    "api": "dl.ui-description-list Container element. Groups a term with its description. dl.ui-description-list > div The term. dt The description. dd .ui-bordered Borders Adds a line between the term and the description. .ui-dotted Dotted Makes the `bordered` line dotted. .ui-horizontal Orientation The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width.",
+    "api": "dl.ui-description-list Container element. Groups a term with its description. dl.ui-description-list > div The term. dt The description. dd .ui-border-dotted .ui-border-solid Borders The style of the line between the term and the description. Without it, there's no line. .ui-horizontal Orientation The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width.",
     "category": "API",
     "url": "/html/api/#description-list"
   },

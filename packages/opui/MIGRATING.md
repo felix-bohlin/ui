@@ -407,17 +407,29 @@ The part files are renamed to `DescriptionListDescription.*`, `DescriptionListIt
 + <dd>Hakki</dd>
 ```
 
-In Astro and Vue, `bordered` is a boolean, and `dotted` makes its line dotted. The classes are unchanged.
+`border` sets the style of the line between a term and its description, `"solid"` or `"dotted"`, and the list draws none without it. In Astro and Vue, `bordered` is `border="solid"` and `bordered="dotted"` is `border="dotted"`.
+
+```diff
+- <DescriptionList bordered>
++ <DescriptionList border="solid">
+```
 
 ```diff
 - <DescriptionList bordered="dotted">
-+ <DescriptionList bordered dotted>
++ <DescriptionList border="dotted">
+```
+
+In HTML, `.ui-bordered` is `.ui-border-solid`, and `.ui-bordered.ui-dotted` is `.ui-border-dotted`. `.ui-dotted` is gone.
+
+```diff
+- <dl class="ui-description-list ui-bordered ui-dotted">
++ <dl class="ui-description-list ui-border-dotted">
 ```
 
 The items are plain `div`s without `.ui-item`.
 
 ```diff
-  <dl class="ui-description-list ui-bordered ui-dotted">
+  <dl class="ui-description-list ui-border-dotted">
 -   <div class="ui-item">
 +   <div>
 ```

@@ -888,11 +888,11 @@
     "url": "/vue/components/description-list/#basics"
   },
   {
-    "id": "component-description-list-vue-bordered",
-    "title": "Bordered",
+    "id": "component-description-list-vue-border",
+    "title": "Border",
     "page": "Description list",
     "category": "Component",
-    "url": "/vue/components/description-list/#bordered"
+    "url": "/vue/components/description-list/#border"
   },
   {
     "id": "component-description-list-vue-orientation",
@@ -4463,7 +4463,7 @@
     "id": "api-description-list-vue",
     "title": "Description List API",
     "description": "Reference for Description List Vue component.",
-    "api": "DescriptionList Container element. Groups a term with its description. The term. The description. bordered Adds a line between the term and the description. dotted Makes the `bordered` line dotted. orientation The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width.",
+    "api": "DescriptionList Container element. Groups a term with its description. The term. The description. border The style of the line between the term and the description. Without it, there's no line. orientation The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width.",
     "category": "API",
     "url": "/vue/api/#description-list"
   },

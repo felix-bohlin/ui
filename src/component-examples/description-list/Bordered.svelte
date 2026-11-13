@@ -7,7 +7,7 @@
   } from "opui-css/svelte"
 </script>
 
-<DescriptionList bordered>
+<DescriptionList border="solid">
   <DescriptionListItem>
     <DescriptionListTerm>Order number</DescriptionListTerm>
     <DescriptionListDescription>10482</DescriptionListDescription>
@@ -22,7 +22,7 @@
   </DescriptionListItem>
 </DescriptionList>
 
-<DescriptionList bordered dotted>
+<DescriptionList border="dotted">
   <DescriptionListItem>
     <DescriptionListTerm>Order number</DescriptionListTerm>
     <DescriptionListDescription>10482</DescriptionListDescription>

@@ -100,7 +100,7 @@ const openRoots = /^(details|dialog)\b|\[popover\]/
 
 const optionalModifiers = new Set([
   "as",
-  "bordered",
+  "border",
   "choice",
   "color",
   "severity",

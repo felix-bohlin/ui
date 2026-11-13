@@ -580,13 +580,16 @@ export const whatsNew = {
     },
     {
       ...slots(
-        `Breaking: <a href="#bordered">items</a> render a plain <code>div</code> without <code>.ui-item</code>.`,
+        `Breaking: <a href="#border">items</a> render a plain <code>div</code> without <code>.ui-item</code>.`,
       ),
-      html: `Breaking: <a href="#bordered">items</a> are plain <code>div</code>s without <code>.ui-item</code>.`,
+      html: `Breaking: <a href="#border">items</a> are plain <code>div</code>s without <code>.ui-item</code>.`,
     },
-    slots(
-      `Breaking: <a href="#bordered"><code>bordered</code></a> is a boolean. Replace <code>bordered="dotted"</code> with <code>bordered dotted</code>.`,
-    ),
+    {
+      ...slots(
+        `Breaking: <a href="#border"><code>border</code></a> picks the line: replace <code>bordered</code> with <code>border="solid"</code> and <code>bordered="dotted"</code> with <code>border="dotted"</code>.`,
+      ),
+      html: `Breaking: <a href="#border"><code>.ui-border-solid</code></a> replaces <code>.ui-bordered</code>, and <code>.ui-border-dotted</code> replaces <code>.ui-bordered.ui-dotted</code>.`,
+    },
     {
       ...slots(
         `Breaking: <code>DescriptionListTerm</code> and <code>DescriptionListDescription</code> no longer render <code>.ui-term</code> and <code>.ui-description</code>. Select <code>dt</code> and <code>dd</code> in your CSS (<a href="#basics">Basics</a>).`,

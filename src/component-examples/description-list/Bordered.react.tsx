@@ -8,7 +8,7 @@ import {
 export default function Bordered() {
   return (
     <>
-      <DescriptionList bordered>
+      <DescriptionList border="solid">
         <DescriptionListItem>
           <DescriptionListTerm>Order number</DescriptionListTerm>
           <DescriptionListDescription>10482</DescriptionListDescription>
@@ -23,7 +23,7 @@ export default function Bordered() {
         </DescriptionListItem>
       </DescriptionList>
 
-      <DescriptionList bordered dotted>
+      <DescriptionList border="dotted">
         <DescriptionListItem>
           <DescriptionListTerm>Order number</DescriptionListTerm>
           <DescriptionListDescription>10482</DescriptionListDescription>

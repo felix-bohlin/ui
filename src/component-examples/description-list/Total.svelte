@@ -7,7 +7,7 @@
   } from "opui-css/svelte"
 </script>
 
-<DescriptionList bordered orientation="horizontal">
+<DescriptionList border="solid" orientation="horizontal">
   <DescriptionListItem>
     <DescriptionListTerm>Subtotal</DescriptionListTerm>
     <DescriptionListDescription>€166.00</DescriptionListDescription>

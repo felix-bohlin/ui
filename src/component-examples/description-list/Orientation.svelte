@@ -7,7 +7,7 @@
   } from "opui-css/svelte"
 </script>
 
-<DescriptionList bordered style="max-inline-size: 18rem">
+<DescriptionList border="solid" style="max-inline-size: 18rem">
   <DescriptionListItem>
     <DescriptionListTerm>Plan</DescriptionListTerm>
     <DescriptionListDescription>Team</DescriptionListDescription>
@@ -23,7 +23,7 @@
 </DescriptionList>
 
 <DescriptionList
-  bordered
+  border="solid"
   orientation="horizontal"
   style="max-inline-size: 18rem"
 >

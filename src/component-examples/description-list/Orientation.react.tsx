@@ -8,7 +8,7 @@ import {
 export default function Orientation() {
   return (
     <>
-      <DescriptionList bordered style={{ maxInlineSize: "18rem" }}>
+      <DescriptionList border="solid" style={{ maxInlineSize: "18rem" }}>
         <DescriptionListItem>
           <DescriptionListTerm>Plan</DescriptionListTerm>
           <DescriptionListDescription>Team</DescriptionListDescription>
@@ -24,7 +24,7 @@ export default function Orientation() {
       </DescriptionList>
 
       <DescriptionList
-        bordered
+        border="solid"
         orientation="horizontal"
         style={{ maxInlineSize: "18rem" }}
       >

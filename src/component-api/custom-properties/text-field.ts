@@ -8,7 +8,7 @@ export default {
   },
   "--_affix-button-size": {
     description:
-      "Size of a `.ui-button` in `.ui-start` or `.ui-end`: the field's `--_size` minus its border and a `--ui-space-1` inset on each side.",
+      "Size of a `.ui-button` in `.ui-start` or `.ui-end`: the field's `--_size` minus its border and a `--ui-space-1` inset on each side, and at least `--ui-space-5`.",
     kind: "output",
   },
   "--_affix-text-color": {
@@ -74,7 +74,7 @@ export default {
   },
   "--_field-padding-inline": {
     description:
-      "The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`.",
+      "The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.",
     kind: "input",
   },
   "--_file-button-inset": {

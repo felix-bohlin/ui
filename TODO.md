@@ -3549,6 +3549,10 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix. The sentence only needs to drop "instead of".
   - Fix: in MIGRATING, "The `Slots` type in `types.ts` drops `icon` and `title`, and has `closeIcon` for the close button's icon." Same wording in the Removed entry.
   - Fixed: MIGRATING and the Removed entry say the Callout `Slots` type drops `icon` and `title` and has `closeIcon` for the close button's icon, so the Renames explorer no longer lists `icon` to `closeIcon` (00067dc3).
+- [ ] (1) Tokens: `theme.css` prints the light scheme, so neither `.ui-dark` nor the OS dark preference applies in print, but the `--ui-color-scheme` description and the `.ui-light` and `.ui-dark` item in the theming guide don't say so (`packages/opui/css/theme.css:218-226`, `src/utils/theme-token-descriptions.ts:111-112`, `src/docs/guide/theming.astro:146-153`)
+  - Summary: A reader who forces the dark scheme isn't told that the page still prints light.
+  - Recommended: Fix. One sentence in each place matches what the theme does.
+  - Fix: add "In print it is `light`, also under `.ui-dark`." to the `--ui-color-scheme` description and rebuild `tokens.json`, and add "except in print, which is always light" to the `.ui-light` and `.ui-dark` item in the theming guide.
 - [ ] (4) Tabs: MIGRATING's HTML diff removes `role="tablist"` and adds nothing, and so does the HTML Breaking note on the Tabs page, while the Breaking entry says to put `role="radiogroup"` on `.ui-tabs` and every HTML example has it; MIGRATING also still says every tabs is a scroll container, but tabs without panels size to their labels (`packages/opui/MIGRATING.md:911-921`, `packages/opui/MIGRATING.md:940`, `src/utils/whats-new.ts:1343`, `packages/opui/CHANGELOG.md:91-93`)
   - Summary: HTML tabs migrated by the guide have no group role, so screen readers get no named group.
   - Recommended: Fix. The entry and the examples already show the markup.

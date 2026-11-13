@@ -109,7 +109,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-code-block-text-color":
     "Text color of `pre.ui-code-block` and `pre` in rich text. `--ui-on-inverse` in light mode and `--ui-text-strong` in dark mode, on `--ui-code-block-bg-color`.",
   "--ui-color-scheme":
-    "The color scheme in force: `light`, or `dark` under `prefers-color-scheme: dark`. `html` reads it as its `color-scheme`, `.ui-light` and `.ui-dark` set it on a part of the page, and `Typography` reads it in a style query. Set the classes, not the token.",
+    "The color scheme in force: `light`, or `dark` under `prefers-color-scheme: dark`. In print it is `light`, also under `.ui-dark`. `html` reads it as its `color-scheme`, `.ui-light` and `.ui-dark` set it on a part of the page, and `Typography` reads it in a style query. Set the classes, not the token.",
   "--ui-contrast":
     "`more` tightens the contrast knobs (`--ui-text-strength-*`, `--ui-text-disabled-strength`, `--ui-border-strength-*`, `--ui-field-border-strength`, `--ui-code-bg-alpha-*`, `--ui-accent-max-chroma`, the `*-max-lightness` and `*-min-lightness` limits, `--ui-state-active-alpha-dark`, `--ui-state-selected-alpha-accent` and `--ui-focus-ring-width`), and every role derived from them follows. Set to `more` under `prefers-contrast: more` or by `.ui-contrast-more`. Components read it in style queries for shape changes. See [Contrast](/guide/theming#contrast).",
   "--ui-control-accent":

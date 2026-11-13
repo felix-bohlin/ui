@@ -100,11 +100,11 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 import { Avatar } from "opui-css/astro"
 ---
 
-<Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
+<Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
 
-<Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
+<Avatar label="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
-<Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
+<Avatar label="Percy Groove" src="/photos/percy-groove.png" />
 ```
 
 ## React
@@ -119,11 +119,11 @@ import { Avatar } from "opui-css/react"
 export default function Image() {
   return (
     <>
-      <Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
+      <Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
 
-      <Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
+      <Avatar label="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
-      <Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
+      <Avatar label="Percy Groove" src="/photos/percy-groove.png" />
     </>
   )
 }
@@ -140,11 +140,11 @@ export default function Image() {
   import { Avatar } from "opui-css/svelte"
 </script>
 
-<Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
+<Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
 
-<Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
+<Avatar label="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
-<Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
+<Avatar label="Percy Groove" src="/photos/percy-groove.png" />
 ```
 
 ## Vue
@@ -159,10 +159,10 @@ import { Avatar } from "opui-css/vue"
 </script>
 
 <template>
-  <Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
+  <Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
 
-  <Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
+  <Avatar label="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
-  <Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
+  <Avatar label="Percy Groove" src="/photos/percy-groove.png" />
 </template>
 ```

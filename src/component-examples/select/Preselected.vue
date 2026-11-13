@@ -5,20 +5,20 @@ import { Select } from "opui-css/vue"
 <template>
   <Select
     :items="[
-      { label: 'Designer', value: 'designer' },
-      { label: 'Developer', value: 'developer' },
-      { label: 'Manager', value: 'manager' },
+      { label: 'Backing vocals', value: 'backing-vocals' },
+      { label: 'Bass', value: 'bass' },
+      { label: 'Tambourine', value: 'tambourine' },
     ]"
     label="Role"
-    value="developer"
+    value="bass"
   />
 
   <Select
     :items="[
-      { label: 'Design', value: 'design' },
-      { label: 'Engineering', selected: true, value: 'engineering' },
-      { label: 'Sales', value: 'sales' },
+      { label: 'Brad and the Brads', value: 'brad-and-the-brads' },
+      { label: 'Low End Theory', selected: true, value: 'low-end-theory' },
+      { label: 'The Low Enders', value: 'the-low-enders' },
     ]"
-    label="Team"
+    label="Band"
   />
 </template>

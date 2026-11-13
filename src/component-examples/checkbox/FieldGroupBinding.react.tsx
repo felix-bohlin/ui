@@ -37,7 +37,7 @@ export default function FieldGroupBinding() {
             onChange={toggle}
             value="updates"
           >
-            Product updates
+            Bassbook news
           </Checkbox>
           <Checkbox
             checked={selected.includes("events")}
@@ -51,7 +51,7 @@ export default function FieldGroupBinding() {
             onChange={toggle}
             value="offers"
           >
-            Offers
+            Gear deals
           </Checkbox>
         </FieldGroup>
       </Fieldset>

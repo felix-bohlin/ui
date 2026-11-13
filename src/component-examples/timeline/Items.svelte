@@ -4,20 +4,20 @@
   const releases = [
     {
       datetime: "2026-04-02",
-      description: "The first stable release.",
+      description: "The first stable Bassbook, woohoo.",
       label: "Version 1.0",
       time: "Apr 2, 2026",
     },
     {
       datetime: "2026-06-18",
-      description: "Dark mode and keyboard shortcuts.",
+      description: "Dark mode and the poke button.",
       label: "Version 1.1",
       time: "Jun 18, 2026",
     },
     {
       current: true,
       datetime: "2026-10-01",
-      description: "A new board and saved views.",
+      description: "Bassbook Gold and saved setlists.",
       label: "Version 2.0",
       time: "Oct 1, 2026",
     },

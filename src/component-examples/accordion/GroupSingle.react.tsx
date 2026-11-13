@@ -9,7 +9,9 @@ export default function GroupSingle() {
   return (
     <Card aria-label="Plan questions" role="group" variant="outlined">
       <Accordion name="plan-questions">
-        <AccordionSummary>Can I change my plan later?</AccordionSummary>
+        <AccordionSummary>
+          Can I switch to Bassbook Gold later?
+        </AccordionSummary>
         <AccordionContent>
           <p>Yes. Upgrades apply right away, downgrades at the next renewal.</p>
         </AccordionContent>
@@ -17,7 +19,9 @@ export default function GroupSingle() {
       <Accordion name="plan-questions">
         <AccordionSummary>Do you offer refunds?</AccordionSummary>
         <AccordionContent>
-          <p>Within 14 days of purchase, for any reason.</p>
+          <p>
+            Within 14 days of purchase, for any reason (even a drummer one).
+          </p>
         </AccordionContent>
       </Accordion>
     </Card>

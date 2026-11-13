@@ -7,19 +7,19 @@
     Radio,
   } from "opui-css/svelte"
 
-  let plan = $state("starter")
+  let plan = $state("basic")
 
   function reset() {
-    plan = "starter"
+    plan = "basic"
   }
 </script>
 
 <Fieldset>
   <FieldLegend>Plan</FieldLegend>
   <FieldGroup name="radio-binding">
-    <Radio bind:group={plan} value="starter">Starter</Radio>
-    <Radio bind:group={plan} value="team">Team</Radio>
-    <Radio bind:group={plan} value="business">Business</Radio>
+    <Radio bind:group={plan} value="basic">Basic</Radio>
+    <Radio bind:group={plan} value="gold">Gold</Radio>
+    <Radio bind:group={plan} value="platinum">Platinum</Radio>
   </FieldGroup>
 </Fieldset>
 <p class="radio-binding-text">Selected: {plan}</p>

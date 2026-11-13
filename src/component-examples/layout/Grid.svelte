@@ -4,21 +4,21 @@
 
 <div class="ui-layout-grid" style="--_min-inline-size: 10rem">
   <Card variant="outlined">
-    <CardContent>Design</CardContent>
+    <CardContent>Bass</CardContent>
   </Card>
   <Card variant="outlined">
-    <CardContent>Engineering</CardContent>
+    <CardContent>Drums</CardContent>
   </Card>
   <Card variant="outlined">
-    <CardContent>Finance</CardContent>
+    <CardContent>Guitar</CardContent>
   </Card>
   <Card variant="outlined">
-    <CardContent>Marketing</CardContent>
+    <CardContent>Keys</CardContent>
   </Card>
   <Card variant="outlined">
-    <CardContent>Sales</CardContent>
+    <CardContent>Vocals</CardContent>
   </Card>
   <Card variant="outlined">
-    <CardContent>Support</CardContent>
+    <CardContent>Tambourine</CardContent>
   </Card>
 </div>

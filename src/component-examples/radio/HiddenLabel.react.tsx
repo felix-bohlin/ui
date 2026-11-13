@@ -24,11 +24,11 @@ export default function HiddenLabel() {
         <TableBody>
           <TableRow>
             <TableCell>
-              <Radio hideLabel name="radio-hidden-label" value="starter">
-                Pick Starter
+              <Radio hideLabel name="radio-hidden-label" value="basic">
+                Pick Basic
               </Radio>
             </TableCell>
-            <TableCell>Starter</TableCell>
+            <TableCell>Basic</TableCell>
             <TableCell>€0</TableCell>
           </TableRow>
           <TableRow>
@@ -37,22 +37,22 @@ export default function HiddenLabel() {
                 defaultChecked
                 hideLabel
                 name="radio-hidden-label"
-                value="team"
+                value="gold"
               >
-                Pick Team
+                Pick Gold
               </Radio>
             </TableCell>
-            <TableCell>Team</TableCell>
-            <TableCell>€12</TableCell>
+            <TableCell>Gold</TableCell>
+            <TableCell>€3</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>
-              <Radio hideLabel name="radio-hidden-label" value="business">
-                Pick Business
+              <Radio hideLabel name="radio-hidden-label" value="platinum">
+                Pick Platinum
               </Radio>
             </TableCell>
-            <TableCell>Business</TableCell>
-            <TableCell>€24</TableCell>
+            <TableCell>Platinum</TableCell>
+            <TableCell>€5</TableCell>
           </TableRow>
         </TableBody>
       </Table>
@@ -68,10 +68,10 @@ export default function HiddenLabel() {
           Home
         </Radio>{" "}
         home or{" "}
-        <Radio hideLabel name="radio-hidden-label-shipping" value="office">
-          Office
+        <Radio hideLabel name="radio-hidden-label-shipping" value="rehearsal">
+          Rehearsal space
         </Radio>{" "}
-        the office.
+        the rehearsal space.
       </p>
     </>
   )

@@ -5,7 +5,7 @@ import { Button, Divider } from "opui-css/vue"
 <template>
   <Divider>or continue with email</Divider>
 
-  <Divider align="start">Billing</Divider>
+  <Divider align="start">Bassbook Gold</Divider>
 
   <Divider align="end" color="primary">Today</Divider>
 

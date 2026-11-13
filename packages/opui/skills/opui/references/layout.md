@@ -61,13 +61,13 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-space-1`, `
 ```html
 <div class="ui-layout-column">
   <div class="ui-card ui-outlined">
-    <div class="ui-content">Review the pricing page</div>
+    <div class="ui-content">Restring the 5-string</div>
   </div>
   <div class="ui-card ui-outlined">
-    <div class="ui-content">Update the onboarding emails</div>
+    <div class="ui-content">Learn the new bassline before the drummer does</div>
   </div>
   <div class="ui-card ui-outlined">
-    <div class="ui-content">Write the release notes</div>
+    <div class="ui-content">Post the gig photos (bassist in focus)</div>
   </div>
 </div>
 ```
@@ -85,13 +85,13 @@ import { Card, CardContent } from "opui-css/astro"
 
 <div class="ui-layout-column">
   <Card variant="outlined">
-    <CardContent>Review the pricing page</CardContent>
+    <CardContent>Restring the 5-string</CardContent>
   </Card>
   <Card variant="outlined">
-    <CardContent>Update the onboarding emails</CardContent>
+    <CardContent>Learn the new bassline before the drummer does</CardContent>
   </Card>
   <Card variant="outlined">
-    <CardContent>Write the release notes</CardContent>
+    <CardContent>Post the gig photos (bassist in focus)</CardContent>
   </Card>
 </div>
 ```
@@ -109,13 +109,15 @@ export default function Column() {
   return (
     <div className="ui-layout-column">
       <Card variant="outlined">
-        <CardContent>Review the pricing page</CardContent>
+        <CardContent>Restring the 5-string</CardContent>
       </Card>
       <Card variant="outlined">
-        <CardContent>Update the onboarding emails</CardContent>
+        <CardContent>
+          Learn the new bassline before the drummer does
+        </CardContent>
       </Card>
       <Card variant="outlined">
-        <CardContent>Write the release notes</CardContent>
+        <CardContent>Post the gig photos (bassist in focus)</CardContent>
       </Card>
     </div>
   )
@@ -135,13 +137,13 @@ There is no Svelte component. Use the classes in your markup.
 
 <div class="ui-layout-column">
   <Card variant="outlined">
-    <CardContent>Review the pricing page</CardContent>
+    <CardContent>Restring the 5-string</CardContent>
   </Card>
   <Card variant="outlined">
-    <CardContent>Update the onboarding emails</CardContent>
+    <CardContent>Learn the new bassline before the drummer does</CardContent>
   </Card>
   <Card variant="outlined">
-    <CardContent>Write the release notes</CardContent>
+    <CardContent>Post the gig photos (bassist in focus)</CardContent>
   </Card>
 </div>
 ```
@@ -160,13 +162,13 @@ import { Card, CardContent } from "opui-css/vue"
 <template>
   <div class="ui-layout-column">
     <Card variant="outlined">
-      <CardContent>Review the pricing page</CardContent>
+      <CardContent>Restring the 5-string</CardContent>
     </Card>
     <Card variant="outlined">
-      <CardContent>Update the onboarding emails</CardContent>
+      <CardContent>Learn the new bassline before the drummer does</CardContent>
     </Card>
     <Card variant="outlined">
-      <CardContent>Write the release notes</CardContent>
+      <CardContent>Post the gig photos (bassist in focus)</CardContent>
     </Card>
   </div>
 </template>

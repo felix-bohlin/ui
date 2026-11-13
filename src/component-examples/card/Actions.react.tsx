@@ -4,7 +4,9 @@ export default function Actions() {
   return (
     <>
       <Card variant="outlined">
-        <CardContent>You have unsaved changes to your profile.</CardContent>
+        <CardContent>
+          You have unsaved changes to your bass rig profile.
+        </CardContent>
         <CardActions>
           <Button>Discard</Button>
           <Button>Save</Button>
@@ -13,7 +15,7 @@ export default function Actions() {
 
       <Card variant="outlined">
         <CardContent>
-          Publish this draft to share it with your team.
+          Publish this setlist to share it with your band.
         </CardContent>
         <CardActions>
           <Button variant="outlined">Cancel</Button>
@@ -22,7 +24,7 @@ export default function Actions() {
       </Card>
 
       <Card variant="outlined">
-        <CardContent>Quarterly sales report, updated today.</CardContent>
+        <CardContent>Top ten basslines of the week, updated today.</CardContent>
         <CardActions>
           <Button aria-label="Favorite" round size="small">
             <svg

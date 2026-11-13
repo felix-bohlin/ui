@@ -282,7 +282,7 @@ const CHANGES = [
   { example: "radio/Basics", label: "PayPal", to: true },
   { example: "range/Basics", label: "Volume", to: "80" },
   { example: "rating/Input", label: "1 star", to: true },
-  { example: "select/Variants", label: "Role", to: "Developer" },
+  { example: "select/Variants", label: "Role", to: "Bass" },
   { example: "switch/Basics", label: "Bluetooth", to: true },
   { example: "tabs/Basics", label: "Settings", to: true },
   { example: "tabs/Binding", label: "Notifications", to: true },

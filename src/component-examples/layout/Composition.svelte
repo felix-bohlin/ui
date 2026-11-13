@@ -5,18 +5,18 @@
 <div class="ui-layout-container" style="--_max-inline-size: 40rem">
   <div class="ui-layout-column ui-large">
     <div class="ui-layout-column ui-x-small">
-      <h3 class="ui-h4">Team</h3>
-      <p>Invite people to work on this project.</p>
+      <h3 class="ui-h4">Band</h3>
+      <p>Invite bandmates to jam on this setlist.</p>
     </div>
     <div class="ui-layout-grid" style="--_min-inline-size: 10rem">
       <Card variant="tonal">
-        <CardContent>Design</CardContent>
+        <CardContent>Drums</CardContent>
       </Card>
       <Card variant="tonal">
-        <CardContent>Engineering</CardContent>
+        <CardContent>Guitar</CardContent>
       </Card>
       <Card variant="tonal">
-        <CardContent>Support</CardContent>
+        <CardContent>Vocals</CardContent>
       </Card>
     </div>
     <div class="ui-layout-row ui-align-end">

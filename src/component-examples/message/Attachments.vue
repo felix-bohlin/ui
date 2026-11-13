@@ -6,7 +6,7 @@ import { Avatar, Card, CardContent, Message, MessageList } from "opui-css/vue"
   <MessageList aria-label="Messages with Sirkka">
     <Message author="Sirkka" datetime="2026-10-08T14:31" time="14:31">
       <template #start>
-        <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
+        <Avatar aria-hidden="true">SN</Avatar>
       </template>
       <p>Here's the current draft:</p>
       <Card variant="outlined">

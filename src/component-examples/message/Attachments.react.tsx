@@ -6,11 +6,7 @@ export default function Attachments() {
       <Message
         author="Sirkka"
         datetime="2026-10-08T14:31"
-        start={
-          <Avatar aria-label="Sirkka Nitti" role="img">
-            SN
-          </Avatar>
-        }
+        start={<Avatar aria-hidden="true">SN</Avatar>}
         time="14:31"
       >
         <p>Here's the current draft:</p>

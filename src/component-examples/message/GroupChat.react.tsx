@@ -7,11 +7,7 @@ export default function GroupChat() {
       <Message
         author="Lena"
         datetime="2026-10-08T09:12"
-        start={
-          <Avatar aria-label="Lena Handén" role="img">
-            LH
-          </Avatar>
-        }
+        start={<Avatar aria-hidden="true">LH</Avatar>}
         time="09:12"
       >
         <p>The new icons are ready.</p>
@@ -19,11 +15,7 @@ export default function GroupChat() {
       <Message
         author="Lena"
         datetime="2026-10-08T09:13"
-        start={
-          <Avatar aria-label="Lena Handén" role="img">
-            LH
-          </Avatar>
-        }
+        start={<Avatar aria-hidden="true">LH</Avatar>}
         time="09:13"
       >
         <p>Can we review them today?</p>
@@ -32,11 +24,7 @@ export default function GroupChat() {
         author="Hakki"
         datetime="2026-10-08T09:15"
         newAuthor
-        start={
-          <Avatar aria-label="Hakki Hälinen" role="img">
-            HH
-          </Avatar>
-        }
+        start={<Avatar aria-hidden="true">HH</Avatar>}
         time="09:15"
       >
         <p>I'm free after lunch.</p>
@@ -44,11 +32,7 @@ export default function GroupChat() {
       <Message
         author="Hakki"
         datetime="2026-10-08T09:16"
-        start={
-          <Avatar aria-label="Hakki Hälinen" role="img">
-            HH
-          </Avatar>
-        }
+        start={<Avatar aria-hidden="true">HH</Avatar>}
         time="09:16"
       >
         <p>I'll book a room.</p>

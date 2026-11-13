@@ -12,7 +12,7 @@ import {
   <MessageList aria-label="Messages with Sirkka">
     <Message author="Sirkka" datetime="2026-10-08T16:05" time="16:05">
       <template #start>
-        <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
+        <Avatar aria-hidden="true">SN</Avatar>
       </template>
       <p>The deck is out. Thanks everyone!</p>
       <template #bottom>

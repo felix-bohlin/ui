@@ -7,11 +7,7 @@ export default function Basics() {
         <Message
           author="Sirkka"
           datetime="2026-10-08T14:02"
-          start={
-            <Avatar aria-label="Sirkka Nitti" role="img">
-              SN
-            </Avatar>
-          }
+          start={<Avatar aria-hidden="true">SN</Avatar>}
           time="14:02"
         >
           <p>Did you get a chance to look at the pricing proposal?</p>
@@ -19,11 +15,7 @@ export default function Basics() {
         <Message
           author="Sirkka"
           datetime="2026-10-08T14:03"
-          start={
-            <Avatar aria-label="Sirkka Nitti" role="img">
-              SN
-            </Avatar>
-          }
+          start={<Avatar aria-hidden="true">SN</Avatar>}
           time="14:03"
         >
           <p>No rush, Friday is fine.</p>

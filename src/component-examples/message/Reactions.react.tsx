@@ -22,11 +22,7 @@ export default function Reactions() {
           </ToggleGroup>
         }
         datetime="2026-10-08T16:05"
-        start={
-          <Avatar aria-label="Sirkka Nitti" role="img">
-            SN
-          </Avatar>
-        }
+        start={<Avatar aria-hidden="true">SN</Avatar>}
         time="16:05"
       >
         <p>The deck is out. Thanks everyone!</p>

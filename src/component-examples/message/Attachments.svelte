@@ -11,7 +11,7 @@
 <MessageList aria-label="Messages with Sirkka">
   <Message author="Sirkka" datetime="2026-10-08T14:31" time="14:31">
     {#snippet start()}
-      <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
+      <Avatar aria-hidden="true">SN</Avatar>
     {/snippet}
     <p>Here's the current draft:</p>
     <Card variant="outlined">

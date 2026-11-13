@@ -7,13 +7,13 @@ import { Avatar, Message, MessageList } from "opui-css/vue"
     <MessageList aria-label="Messages with Sirkka">
       <Message author="Sirkka" datetime="2026-10-08T14:02" time="14:02">
         <template #start>
-          <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
+          <Avatar aria-hidden="true">SN</Avatar>
         </template>
         <p>Did you get a chance to look at the pricing proposal?</p>
       </Message>
       <Message author="Sirkka" datetime="2026-10-08T14:03" time="14:03">
         <template #start>
-          <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
+          <Avatar aria-hidden="true">SN</Avatar>
         </template>
         <p>No rush, Friday is fine.</p>
       </Message>

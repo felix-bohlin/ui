@@ -263,6 +263,11 @@ const apiList = Object.values(groups)
     flex-wrap: wrap;
     gap: var(--size-3);
     margin-block: var(--size-5);
+
+    :global(.ui-text-field) {
+      flex: 1 1 16rem;
+      max-inline-size: 24rem;
+    }
   }
 
   .api-filter-status {
@@ -276,11 +281,14 @@ const apiList = Object.values(groups)
   }
 
   .api-section {
-    contain-intrinsic-block-size: auto 40rem;
-    content-visibility: auto;
-    overflow-clip-margin: var(--size-2);
+    & > :global(section) {
+      contain-intrinsic-block-size: auto 40rem;
+      content-visibility: auto;
+      overflow-clip-margin: var(--size-2);
+    }
 
-    &:has(~ :global(.api-section:is(:target, :has(:target)))) {
+    &:has(~ :global(.api-section:is(:target, :has(:target))))
+      > :global(section) {
       content-visibility: visible;
     }
 

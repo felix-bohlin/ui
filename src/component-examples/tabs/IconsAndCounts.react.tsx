@@ -20,7 +20,7 @@ export default function IconsAndCounts() {
           Inbox
           <Chip as="span" label="12" size="x-small" />
         </TabsLabel>
-        <TabsPanel>12 unread messages from customers.</TabsPanel>
+        <TabsPanel>12 unread messages from fellow bassists.</TabsPanel>
       </TabsItem>
       <TabsItem>
         <TabsLabel>

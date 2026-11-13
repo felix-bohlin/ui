@@ -113,7 +113,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 ```html
 <details class="ui-accordion">
   <summary>
-    What is included in the free plan?
+    What is included in free Bassbook?
     <svg
       aria-hidden="true"
       class="ui-marker"
@@ -130,8 +130,8 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   </summary>
   <div class="ui-content">
     <p>
-      Three projects, 2 GB of storage and email support. Upgrade at any time to
-      add more projects and invite your team.
+      Three setlists, 2 GB of slap videos and email support. Upgrade to Bassbook
+      Gold at any time to add more setlists and invite your band.
     </p>
   </div>
 </details>
@@ -151,11 +151,11 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/astro"
 ---
 
 <Accordion>
-  <AccordionSummary>What is included in the free plan?</AccordionSummary>
+  <AccordionSummary>What is included in free Bassbook?</AccordionSummary>
   <AccordionContent>
     <p>
-      Three projects, 2 GB of storage and email support. Upgrade at any time to
-      add more projects and invite your team.
+      Three setlists, 2 GB of slap videos and email support. Upgrade to Bassbook
+      Gold at any time to add more setlists and invite your band.
     </p>
   </AccordionContent>
 </Accordion>
@@ -175,11 +175,11 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/react"
 export default function Basics() {
   return (
     <Accordion>
-      <AccordionSummary>What is included in the free plan?</AccordionSummary>
+      <AccordionSummary>What is included in free Bassbook?</AccordionSummary>
       <AccordionContent>
         <p>
-          Three projects, 2 GB of storage and email support. Upgrade at any time
-          to add more projects and invite your team.
+          Three setlists, 2 GB of slap videos and email support. Upgrade to
+          Bassbook Gold at any time to add more setlists and invite your band.
         </p>
       </AccordionContent>
     </Accordion>
@@ -205,11 +205,11 @@ export default function Basics() {
 </script>
 
 <Accordion>
-  <AccordionSummary>What is included in the free plan?</AccordionSummary>
+  <AccordionSummary>What is included in free Bassbook?</AccordionSummary>
   <AccordionContent>
     <p>
-      Three projects, 2 GB of storage and email support. Upgrade at any time to
-      add more projects and invite your team.
+      Three setlists, 2 GB of slap videos and email support. Upgrade to Bassbook
+      Gold at any time to add more setlists and invite your band.
     </p>
   </AccordionContent>
 </Accordion>
@@ -230,11 +230,11 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/vue"
 
 <template>
   <Accordion>
-    <AccordionSummary>What is included in the free plan?</AccordionSummary>
+    <AccordionSummary>What is included in free Bassbook?</AccordionSummary>
     <AccordionContent>
       <p>
-        Three projects, 2 GB of storage and email support. Upgrade at any time
-        to add more projects and invite your team.
+        Three setlists, 2 GB of slap videos and email support. Upgrade to
+        Bassbook Gold at any time to add more setlists and invite your band.
       </p>
     </AccordionContent>
   </Accordion>

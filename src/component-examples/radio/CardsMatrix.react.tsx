@@ -9,29 +9,29 @@ export default function CardsMatrix() {
           <Radio
             card
             defaultChecked
-            endText="€0 per month"
+            endText="€0 per month, forever"
             spread
-            value="starter"
+            value="basic"
           >
-            Starter
+            Basic
           </Radio>
           <Radio
             card
-            endText="€12 per person per month"
+            endText="€3 per month, shiny badge included"
             spread
-            value="team"
+            value="gold"
             variant="elevated"
           >
-            Team
+            Gold
           </Radio>
           <Radio
             card
-            endText="€24 per person per month"
+            endText="€5 per month, extra sparkly"
             spread
-            value="business"
+            value="platinum"
             variant="tonal"
           >
-            Business
+            Platinum
           </Radio>
         </FieldGroup>
       </Fieldset>
@@ -41,14 +41,14 @@ export default function CardsMatrix() {
           <Radio
             card
             defaultChecked
-            endText="Cancel at any time."
+            endText="Cancel any time, no hard feelings."
             value="monthly"
           >
             Monthly
           </Radio>
           <Radio
             card
-            endText="Two months free."
+            endText="Two months free, woohoo."
             value="yearly"
             variant="elevated"
           >
@@ -56,11 +56,11 @@ export default function CardsMatrix() {
           </Radio>
           <Radio
             card
-            endText="Pay by bank transfer."
-            value="invoice"
+            endText="Pay in coins after your next gig."
+            value="gig-money"
             variant="tonal"
           >
-            Invoice
+            Gig money
           </Radio>
         </FieldGroup>
       </Fieldset>

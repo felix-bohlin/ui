@@ -11,8 +11,8 @@ import { Checkbox } from "opui-css/vue"
   </div>
   <div class="example-row">
     <Checkbox checked error name="checkbox-validation">
-      Daily backups
-      <template #end-text>Not available on the free plan.</template>
+      Daily tab backups
+      <template #end-text>Only in Bassbook Gold, sorry.</template>
     </Checkbox>
     <Checkbox error name="checkbox-validation" orientation="vertical">
       I accept the terms

@@ -98,15 +98,15 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 <ul class="ui-list" role="list">
   <li>
     <div class="ui-text">
-      <p>Q3 report.pdf</p>
+      <p>Gig poster.pdf</p>
     </div>
   </li>
   <li>
     <div class="ui-text">
-      <p>Brand guidelines.pdf</p>
+      <p>Band logo pack.pdf</p>
       <p>
-        Logo, colors and type in print and on the web, with an example of each
-        in use.
+        Our logo in every color, with the bass drawn way bigger than the drum
+        kit, at last.
       </p>
     </div>
   </li>
@@ -133,10 +133,10 @@ import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
-  <ListItem label="Q3 report.pdf" />
+  <ListItem label="Gig poster.pdf" />
   <ListItem
-    description="Logo, colors and type in print and on the web, with an example of each in use."
-    label="Brand guidelines.pdf"
+    description="Our logo in every color, with the bass drawn way bigger than the drum kit, at last."
+    label="Band logo pack.pdf"
   />
   <ListItem label="Photos">
     <Fragment slot="end">100+</Fragment>
@@ -158,10 +158,10 @@ import { List, ListItem } from "opui-css/react"
 export default function Basics() {
   return (
     <List>
-      <ListItem label="Q3 report.pdf" />
+      <ListItem label="Gig poster.pdf" />
       <ListItem
-        description="Logo, colors and type in print and on the web, with an example of each in use."
-        label="Brand guidelines.pdf"
+        description="Our logo in every color, with the bass drawn way bigger than the drum kit, at last."
+        label="Band logo pack.pdf"
       />
       <ListItem end="100+" label="Photos" />
     </List>
@@ -183,10 +183,10 @@ export default function Basics() {
 </script>
 
 <List>
-  <ListItem label="Q3 report.pdf" />
+  <ListItem label="Gig poster.pdf" />
   <ListItem
-    description="Logo, colors and type in print and on the web, with an example of each in use."
-    label="Brand guidelines.pdf"
+    description="Our logo in every color, with the bass drawn way bigger than the drum kit, at last."
+    label="Band logo pack.pdf"
   />
   <ListItem label="Photos">
     {#snippet end()}100+{/snippet}
@@ -209,10 +209,10 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem label="Q3 report.pdf" />
+    <ListItem label="Gig poster.pdf" />
     <ListItem
-      description="Logo, colors and type in print and on the web, with an example of each in use."
-      label="Brand guidelines.pdf"
+      description="Our logo in every color, with the bass drawn way bigger than the drum kit, at last."
+      label="Band logo pack.pdf"
     />
     <ListItem label="Photos">
       <template #end>100+</template>

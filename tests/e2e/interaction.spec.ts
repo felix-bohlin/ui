@@ -104,7 +104,7 @@ interaction(
   "FieldGroupBinding",
   "checkbox group binds the checked values",
   async ({ root }) => {
-    const updates = root.getByRole("checkbox", { name: "Product updates" })
+    const updates = root.getByRole("checkbox", { name: "Bassbook news" })
     const events = root.getByRole("checkbox", { name: "Events" })
     const selection = root.getByText(/Selected:/)
 
@@ -113,10 +113,10 @@ interaction(
     await root.getByText("Events", { exact: true }).click()
     await expect(events).toBeChecked()
     await expect(selection).toHaveText("Selected: updates, events")
-    await root.getByText("Product updates", { exact: true }).click()
+    await root.getByText("Bassbook news", { exact: true }).click()
     await expect(updates).not.toBeChecked()
     await expect(selection).toHaveText("Selected: events")
-    await root.getByText("Product updates", { exact: true }).click()
+    await root.getByText("Bassbook news", { exact: true }).click()
     await expect(updates).toBeChecked()
     await expect(selection).toHaveText("Selected: updates, events")
 
@@ -426,24 +426,24 @@ interaction(
   "FieldGroupBinding",
   "radio group binds the selected value and resets",
   async ({ root }) => {
-    const starter = root.getByRole("radio", { name: "Starter" })
-    const team = root.getByRole("radio", { name: "Team" })
+    const basic = root.getByRole("radio", { name: "Basic" })
+    const gold = root.getByRole("radio", { name: "Gold" })
     const selection = root.getByText(/Selected:/)
 
-    await expect(starter).toBeChecked()
-    await root.getByText("Team", { exact: true }).click()
-    await expect(team).toBeChecked()
-    await expect(selection).toHaveText("Selected: team")
-    await root.getByText("Starter", { exact: true }).click()
-    await expect(starter).toBeChecked()
-    await expect(selection).toHaveText("Selected: starter")
-    await root.getByText("Team", { exact: true }).click()
-    await expect(team).toBeChecked()
+    await expect(basic).toBeChecked()
+    await root.getByText("Gold", { exact: true }).click()
+    await expect(gold).toBeChecked()
+    await expect(selection).toHaveText("Selected: gold")
+    await root.getByText("Basic", { exact: true }).click()
+    await expect(basic).toBeChecked()
+    await expect(selection).toHaveText("Selected: basic")
+    await root.getByText("Gold", { exact: true }).click()
+    await expect(gold).toBeChecked()
 
     await root.getByRole("button", { name: "Reset" }).click()
-    await expect(starter).toBeChecked()
-    await expect(team).not.toBeChecked()
-    await expect(selection).toHaveText("Selected: starter")
+    await expect(basic).toBeChecked()
+    await expect(gold).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: basic")
   },
 )
 
@@ -591,12 +591,12 @@ interaction(
   "select starts on its preselected option and follows a new pick",
   async ({ root }) => {
     const role = root.locator("select").nth(0)
-    const team = root.locator("select").nth(1)
+    const band = root.locator("select").nth(1)
 
-    await expect(role).toHaveValue("developer")
-    await expect(team).toHaveValue("engineering")
-    await role.selectOption("manager")
-    await expect(role).toHaveValue("manager")
+    await expect(role).toHaveValue("bass")
+    await expect(band).toHaveValue("low-end-theory")
+    await role.selectOption("tambourine")
+    await expect(role).toHaveValue("tambourine")
   },
 )
 
@@ -1068,9 +1068,9 @@ interaction(
   "Toggletip",
   "toggletip toggles on click without hover",
   async ({ root }) => {
-    const trigger = root.getByRole("button", { name: "About billing" })
+    const trigger = root.getByRole("button", { name: "About Bassbook Gold" })
     const tooltip = root.getByText(
-      "You're billed on the first day of each month.",
+      "Bassbook Gold renews on the first day of each month.",
     )
 
     await expect(tooltip).toBeHidden()

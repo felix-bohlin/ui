@@ -5,13 +5,13 @@ export default function Validation() {
     <>
       <NumberField
         id="number-field-validation-1"
-        label="Seats"
+        label="Bandmates"
         min={1}
         required
       />
       <NumberField
         defaultValue={6}
-        endText="Only 4 left in stock."
+        endText="Only 4 sets of flatwounds left, whoops."
         error
         id="number-field-validation-2"
         label="Quantity"

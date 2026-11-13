@@ -81,17 +81,17 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
   <div class="ui-content">
     <h3>Scheduled maintenance</h3>
     <p>
-      The dashboard is read-only on Sunday from 02:00 to 04:00 UTC while we
-      upgrade the database.
+      Bassbook is read-only on Sunday from 02:00 to 04:00 UTC while we restring
+      the servers.
     </p>
   </div>
 </article>
 <article class="ui-callout ui-outlined">
   <div class="ui-content">
-    <h3>Billing has moved</h3>
+    <h3>Bassbook Gold has moved</h3>
     <p>
-      Invoices and payment methods are now in the Billing tab of your workspace
-      settings.
+      Receipts and payment methods now live in the Gold tab of your profile
+      settings, right next to your gear list.
     </p>
   </div>
 </article>
@@ -114,17 +114,17 @@ import { Callout, CalloutContent } from "opui-css/astro"
   <CalloutContent>
     <h3>Scheduled maintenance</h3>
     <p>
-      The dashboard is read-only on Sunday from 02:00 to 04:00 UTC while we
-      upgrade the database.
+      Bassbook is read-only on Sunday from 02:00 to 04:00 UTC while we restring
+      the servers.
     </p>
   </CalloutContent>
 </Callout>
 <Callout variant="outlined">
   <CalloutContent>
-    <h3>Billing has moved</h3>
+    <h3>Bassbook Gold has moved</h3>
     <p>
-      Invoices and payment methods are now in the Billing tab of your workspace
-      settings.
+      Receipts and payment methods now live in the Gold tab of your profile
+      settings, right next to your gear list.
     </p>
   </CalloutContent>
 </Callout>
@@ -149,17 +149,17 @@ export default function Variants() {
         <CalloutContent>
           <h3>Scheduled maintenance</h3>
           <p>
-            The dashboard is read-only on Sunday from 02:00 to 04:00 UTC while
-            we upgrade the database.
+            Bassbook is read-only on Sunday from 02:00 to 04:00 UTC while we
+            restring the servers.
           </p>
         </CalloutContent>
       </Callout>
       <Callout variant="outlined">
         <CalloutContent>
-          <h3>Billing has moved</h3>
+          <h3>Bassbook Gold has moved</h3>
           <p>
-            Invoices and payment methods are now in the Billing tab of your
-            workspace settings.
+            Receipts and payment methods now live in the Gold tab of your
+            profile settings, right next to your gear list.
           </p>
         </CalloutContent>
       </Callout>
@@ -185,17 +185,17 @@ export default function Variants() {
   <CalloutContent>
     <h3>Scheduled maintenance</h3>
     <p>
-      The dashboard is read-only on Sunday from 02:00 to 04:00 UTC while we
-      upgrade the database.
+      Bassbook is read-only on Sunday from 02:00 to 04:00 UTC while we restring
+      the servers.
     </p>
   </CalloutContent>
 </Callout>
 <Callout variant="outlined">
   <CalloutContent>
-    <h3>Billing has moved</h3>
+    <h3>Bassbook Gold has moved</h3>
     <p>
-      Invoices and payment methods are now in the Billing tab of your workspace
-      settings.
+      Receipts and payment methods now live in the Gold tab of your profile
+      settings, right next to your gear list.
     </p>
   </CalloutContent>
 </Callout>
@@ -219,17 +219,17 @@ import { Callout, CalloutContent } from "opui-css/vue"
     <CalloutContent>
       <h3>Scheduled maintenance</h3>
       <p>
-        The dashboard is read-only on Sunday from 02:00 to 04:00 UTC while we
-        upgrade the database.
+        Bassbook is read-only on Sunday from 02:00 to 04:00 UTC while we
+        restring the servers.
       </p>
     </CalloutContent>
   </Callout>
   <Callout variant="outlined">
     <CalloutContent>
-      <h3>Billing has moved</h3>
+      <h3>Bassbook Gold has moved</h3>
       <p>
-        Invoices and payment methods are now in the Billing tab of your
-        workspace settings.
+        Receipts and payment methods now live in the Gold tab of your profile
+        settings, right next to your gear list.
       </p>
     </CalloutContent>
   </Callout>

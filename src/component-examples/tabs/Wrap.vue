@@ -22,20 +22,20 @@ import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/vue"
       <TabsPanel>Manage your notifications.</TabsPanel>
     </TabsItem>
     <TabsItem>
-      <TabsLabel>Billing</TabsLabel>
-      <TabsPanel>Plans, invoices and payment methods.</TabsPanel>
+      <TabsLabel>Bassbook Gold</TabsLabel>
+      <TabsPanel>Your plan, receipts and payment methods.</TabsPanel>
     </TabsItem>
     <TabsItem>
       <TabsLabel>Security</TabsLabel>
       <TabsPanel>Passwords, sessions and two-factor authentication.</TabsPanel>
     </TabsItem>
     <TabsItem>
-      <TabsLabel>Integrations</TabsLabel>
-      <TabsPanel>Connected apps and webhooks.</TabsPanel>
+      <TabsLabel>Gear</TabsLabel>
+      <TabsPanel>Your basses, amps and pedalboards.</TabsPanel>
     </TabsItem>
     <TabsItem>
-      <TabsLabel>Team</TabsLabel>
-      <TabsPanel>Members and roles.</TabsPanel>
+      <TabsLabel>Bands</TabsLabel>
+      <TabsPanel>Your bands and who plays what.</TabsPanel>
     </TabsItem>
     <TabsItem>
       <TabsLabel>Advanced</TabsLabel>

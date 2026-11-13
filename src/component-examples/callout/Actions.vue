@@ -12,8 +12,8 @@ import {
   <Callout severity="warning">
     <CalloutIcon />
     <CalloutContent>
-      <h3>Your trial ends in 3 days</h3>
-      <p>Choose a plan to keep your projects and their history.</p>
+      <h3>Your Bassbook Gold trial ends in 3 days</h3>
+      <p>Choose a plan to keep your setlists and all your slap videos.</p>
     </CalloutContent>
     <CalloutActions>
       <Button size="small" variant="filled">Choose a plan</Button>

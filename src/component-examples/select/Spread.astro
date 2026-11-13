@@ -25,22 +25,26 @@ import { Select } from "opui-css/astro"
 </Select>
 
 <Select required spread>
-  <Fragment slot="label">Department</Fragment>
-  <Fragment slot="start-text">Routes your request to the right team.</Fragment>
+  <Fragment slot="label">Forum</Fragment>
+  <Fragment slot="start-text"
+    >Posts your question where the right bassists hang out.</Fragment
+  >
   <option value="">-</option>
-  <option>Billing</option>
-  <option>Support</option>
+  <option>Gear Talk</option>
+  <option>Ignored Bassists Anonymous</option>
 </Select>
 
 <Select disabled spread>
   <Fragment slot="label">Plan</Fragment>
-  <Fragment slot="start-text">Managed by your organization.</Fragment>
-  <option>Business</option>
+  <Fragment slot="start-text">A gift from your band, aww.</Fragment>
+  <option>Gold</option>
 </Select>
 
 <Select error spread>
   <Fragment slot="label">Payment method</Fragment>
-  <Fragment slot="start-text">Charged on the first of each month.</Fragment>
+  <Fragment slot="start-text"
+    >Bassbook Gold renews on the first of each month.</Fragment
+  >
   <Fragment slot="end-text">This card has expired. Pick another one.</Fragment>
   <option>Visa ending in 4242</option>
   <option>Mastercard ending in 5100</option>
@@ -48,7 +52,7 @@ import { Select } from "opui-css/astro"
 
 <Select spread>
   <Fragment slot="label">Time zone</Fragment>
-  <Fragment slot="start-text">Used for reminders and due dates.</Fragment>
+  <Fragment slot="start-text">Used for gig and rehearsal reminders.</Fragment>
   <Fragment slot="start">UTC</Fragment>
   <option>-03:00</option>
   <option>+00:00</option>
@@ -58,8 +62,8 @@ import { Select } from "opui-css/astro"
 </Select>
 
 <Select spread variant="filled">
-  <Fragment slot="label">Region</Fragment>
-  <Fragment slot="start-text">Affects data residency and latency.</Fragment>
+  <Fragment slot="label">Jam region</Fragment>
+  <Fragment slot="start-text">Less lag means tighter grooves.</Fragment>
   <Fragment slot="start">
     <svg
       aria-hidden="true"
@@ -79,9 +83,9 @@ import { Select } from "opui-css/astro"
       ></path>
     </svg>
   </Fragment>
-  <Fragment slot="end-text">Cannot be changed after deploy.</Fragment>
+  <Fragment slot="end-text">Cannot be changed mid-jam.</Fragment>
   <option value="">-</option>
-  <option>ap-southeast-1</option>
-  <option>eu-north-1</option>
-  <option>us-east-1</option>
+  <option>Asia</option>
+  <option>Europe</option>
+  <option>North America</option>
 </Select>

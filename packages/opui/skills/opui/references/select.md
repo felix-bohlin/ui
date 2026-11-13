@@ -119,16 +119,16 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
       </button>
       <div class="ui-list">
         <option value="">-</option>
-        <option>Designer</option>
-        <option>Developer</option>
-        <option>Manager</option>
+        <option>Backing vocals</option>
+        <option>Bass</option>
+        <option>Tambourine</option>
       </div>
     </select>
   </span>
 </label>
 
 <label class="ui-select ui-filled">
-  <span class="ui-label" id="select-variants-2-label">Team</span>
+  <span class="ui-label" id="select-variants-2-label">Band</span>
   <span class="ui-field">
     <select aria-labelledby="select-variants-2-label">
       <button>
@@ -136,9 +136,9 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
       </button>
       <div class="ui-list">
         <option value="">-</option>
-        <option>Design</option>
-        <option>Engineering</option>
-        <option>Sales</option>
+        <option>Brad and the Brads</option>
+        <option>Low End Theory</option>
+        <option>The Low Enders</option>
       </div>
     </select>
   </span>
@@ -160,16 +160,16 @@ import { Select } from "opui-css/astro"
 
 <Select label="Role">
   <option value="">-</option>
-  <option>Designer</option>
-  <option>Developer</option>
-  <option>Manager</option>
+  <option>Backing vocals</option>
+  <option>Bass</option>
+  <option>Tambourine</option>
 </Select>
 
-<Select label="Team" variant="filled">
+<Select label="Band" variant="filled">
   <option value="">-</option>
-  <option>Design</option>
-  <option>Engineering</option>
-  <option>Sales</option>
+  <option>Brad and the Brads</option>
+  <option>Low End Theory</option>
+  <option>The Low Enders</option>
 </Select>
 ```
 
@@ -190,16 +190,16 @@ export default function Variants() {
     <>
       <Select label="Role">
         <option value="">-</option>
-        <option>Designer</option>
-        <option>Developer</option>
-        <option>Manager</option>
+        <option>Backing vocals</option>
+        <option>Bass</option>
+        <option>Tambourine</option>
       </Select>
 
-      <Select label="Team" variant="filled">
+      <Select label="Band" variant="filled">
         <option value="">-</option>
-        <option>Design</option>
-        <option>Engineering</option>
-        <option>Sales</option>
+        <option>Brad and the Brads</option>
+        <option>Low End Theory</option>
+        <option>The Low Enders</option>
       </Select>
     </>
   )
@@ -222,16 +222,16 @@ export default function Variants() {
 
 <Select label="Role">
   <option value="">-</option>
-  <option>Designer</option>
-  <option>Developer</option>
-  <option>Manager</option>
+  <option>Backing vocals</option>
+  <option>Bass</option>
+  <option>Tambourine</option>
 </Select>
 
-<Select label="Team" variant="filled">
+<Select label="Band" variant="filled">
   <option value="">-</option>
-  <option>Design</option>
-  <option>Engineering</option>
-  <option>Sales</option>
+  <option>Brad and the Brads</option>
+  <option>Low End Theory</option>
+  <option>The Low Enders</option>
 </Select>
 ```
 
@@ -252,16 +252,16 @@ import { Select } from "opui-css/vue"
 <template>
   <Select label="Role">
     <option value="">-</option>
-    <option>Designer</option>
-    <option>Developer</option>
-    <option>Manager</option>
+    <option>Backing vocals</option>
+    <option>Bass</option>
+    <option>Tambourine</option>
   </Select>
 
-  <Select label="Team" variant="filled">
+  <Select label="Band" variant="filled">
     <option value="">-</option>
-    <option>Design</option>
-    <option>Engineering</option>
-    <option>Sales</option>
+    <option>Brad and the Brads</option>
+    <option>Low End Theory</option>
+    <option>The Low Enders</option>
   </Select>
 </template>
 ```

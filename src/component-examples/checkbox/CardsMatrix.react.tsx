@@ -10,7 +10,7 @@ export default function CardsMatrix() {
   return (
     <Form>
       <Fieldset>
-        <FieldLegend>Add-ons</FieldLegend>
+        <FieldLegend>Gold add-ons</FieldLegend>
         <FieldGroup name="checkbox-cards-end" orientation="horizontal">
           <Checkbox
             card
@@ -19,7 +19,7 @@ export default function CardsMatrix() {
             spread
             value="support"
           >
-            Priority support
+            Priority bass help
           </Checkbox>
           <Checkbox
             card
@@ -28,7 +28,7 @@ export default function CardsMatrix() {
             value="storage"
             variant="elevated"
           >
-            Extra storage
+            Extra slap video storage
           </Checkbox>
           <Checkbox
             card
@@ -37,12 +37,12 @@ export default function CardsMatrix() {
             value="audit-log"
             variant="tonal"
           >
-            Audit log
+            Gig diary
           </Checkbox>
         </FieldGroup>
       </Fieldset>
       <Fieldset>
-        <FieldLegend>Email reports</FieldLegend>
+        <FieldLegend>Email updates</FieldLegend>
         <FieldGroup name="checkbox-cards-start" orientation="horizontal">
           <Checkbox
             card
@@ -50,15 +50,15 @@ export default function CardsMatrix() {
             endText="Every Monday morning."
             value="weekly"
           >
-            Weekly summary
+            Weekly jam recap
           </Checkbox>
           <Checkbox
             card
-            endText="At 80% of your plan."
+            endText="When your band books a gig."
             value="usage"
             variant="elevated"
           >
-            Usage alerts
+            Gig alerts
           </Checkbox>
           <Checkbox
             card
@@ -66,7 +66,7 @@ export default function CardsMatrix() {
             value="invoices"
             variant="tonal"
           >
-            Invoices
+            Gold receipts
           </Checkbox>
         </FieldGroup>
       </Fieldset>

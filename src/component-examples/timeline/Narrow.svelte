@@ -10,27 +10,27 @@
 
 <Card style="max-inline-size: 20rem" variant="outlined">
   <CardHeader>
-    <h3 class="ui-h5">Project plan</h3>
+    <h3 class="ui-h5">Album plan</h3>
   </CardHeader>
   <CardContent>
     <Timeline>
       <TimelineItem
         datetime="2026-09-02"
         headingLevel={4}
-        label="Design freeze"
+        label="Songs written"
         time="Sep 2"
       />
       <TimelineItem
         datetime="2026-09-16"
         headingLevel={4}
-        label="Feature complete"
+        label="Bass tracked"
         time="Sep 16"
       />
       <TimelineItem
         current="step"
         datetime="2026-10-14"
         headingLevel={4}
-        label="Beta review"
+        label="Mix review"
         time="Oct 14"
       >
         <p>Moved from October 10.</p>
@@ -38,7 +38,7 @@
       <TimelineItem
         datetime="2026-10-31"
         headingLevel={4}
-        label="Launch"
+        label="Release party"
         time="Oct 31"
       />
     </Timeline>

@@ -10,11 +10,11 @@
 <DescriptionList border="solid" style="max-inline-size: 18rem">
   <DescriptionListItem>
     <DescriptionListTerm>Plan</DescriptionListTerm>
-    <DescriptionListDescription>Team</DescriptionListDescription>
+    <DescriptionListDescription>Gold</DescriptionListDescription>
   </DescriptionListItem>
   <DescriptionListItem>
-    <DescriptionListTerm>Seats</DescriptionListTerm>
-    <DescriptionListDescription>12</DescriptionListDescription>
+    <DescriptionListTerm>Bandmates</DescriptionListTerm>
+    <DescriptionListDescription>4</DescriptionListDescription>
   </DescriptionListItem>
   <DescriptionListItem>
     <DescriptionListTerm>Renews</DescriptionListTerm>
@@ -29,11 +29,11 @@
 >
   <DescriptionListItem>
     <DescriptionListTerm>Plan</DescriptionListTerm>
-    <DescriptionListDescription>Team</DescriptionListDescription>
+    <DescriptionListDescription>Gold</DescriptionListDescription>
   </DescriptionListItem>
   <DescriptionListItem>
-    <DescriptionListTerm>Seats</DescriptionListTerm>
-    <DescriptionListDescription>12</DescriptionListDescription>
+    <DescriptionListTerm>Bandmates</DescriptionListTerm>
+    <DescriptionListDescription>4</DescriptionListDescription>
   </DescriptionListItem>
   <DescriptionListItem>
     <DescriptionListTerm>Renews</DescriptionListTerm>

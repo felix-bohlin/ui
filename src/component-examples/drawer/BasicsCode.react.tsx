@@ -29,7 +29,7 @@ export default function BasicsCode() {
         Block end
       </Button>
 
-      <Drawer id="drawer-basics-1" side="inline-start">
+      <Drawer closeOnNavigate id="drawer-basics-1" side="inline-start">
         <DrawerHeader closeButton>
           <DrawerTitle>Menu</DrawerTitle>
         </DrawerHeader>

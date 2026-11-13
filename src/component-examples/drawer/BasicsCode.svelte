@@ -20,7 +20,7 @@
 <Button command="show-modal" commandfor="drawer-basics-2">Inline end</Button>
 <Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
 
-<Drawer id="drawer-basics-1" side="inline-start">
+<Drawer closeOnNavigate id="drawer-basics-1" side="inline-start">
   <DrawerHeader closeButton>
     <DrawerTitle>Menu</DrawerTitle>
   </DrawerHeader>

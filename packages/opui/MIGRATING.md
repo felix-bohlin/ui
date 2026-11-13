@@ -1142,7 +1142,7 @@ The switch lines up with the first line of its label, keeps a light marker in da
 
 `aria-invalid="true"` on the `<input role="switch">` replaces `data-invalid` on `.ui-switch`.
 
-In Astro, `type` is no longer a typed prop. Remove it, the component sets it.
+In Astro, `type` and `role` are no longer typed props. Remove them, the component sets them.
 
 In Astro and Vue, `style` goes to the root `<label>` instead of the `<input>`, like `class`. Set `--_` properties through `style`, and style the input itself with a class or CSS.
 

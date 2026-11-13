@@ -7,6 +7,7 @@ export const title = "Rating"
 const {
   "aria-describedby": ariaDescribedBy,
   "aria-invalid": ariaInvalid,
+  "aria-label": ariaLabel,
   class: className,
   clearLabel = "No rating",
   disabled,
@@ -31,6 +32,7 @@ const invalid = error ? "true" : ariaInvalid
 
 {name ? (
   <fieldset
+    aria-label={ariaLabel}
     class:list={[
       "ui-rating",
       size && size !== "medium" && `ui-${size}`,
@@ -69,7 +71,7 @@ const invalid = error ? "true" : ariaInvalid
 ) : (
   <meter
     aria-describedby={ariaDescribedBy}
-    aria-label={label}
+    aria-label={ariaLabel ?? label}
     class:list={[
       "ui-rating",
       size && size !== "medium" && `ui-${size}`,

@@ -67,6 +67,14 @@ export default {
       values: { scroll: null, wrap: ".ui-overflow-wrap" },
     },
     {
+      default: '"radiogroup"',
+      description:
+        "The `role` of the root. A passed role replaces `radiogroup`.",
+      inherited: true,
+      prop: "role",
+      type: "string",
+    },
+    {
       default: '"tonal"',
       description:
         "The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.",

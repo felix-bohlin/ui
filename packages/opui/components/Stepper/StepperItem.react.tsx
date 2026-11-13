@@ -1,8 +1,8 @@
-import { defined } from "../attrs"
 import { cx } from "../cx"
 import type { StepperItemProps as Props } from "./types.react"
 
 export default function StepperItem({
+  "aria-current": ariaCurrent,
   className,
   complete,
   completeLabel = ", completed",
@@ -20,12 +20,12 @@ export default function StepperItem({
 
   return (
     <li
-      aria-current={current ? "step" : undefined}
+      aria-current={ariaCurrent ?? (current ? "step" : undefined)}
       className={cx([
         { "ui-complete": complete, "ui-error": error },
         className,
       ])}
-      {...defined(rest)}
+      {...rest}
     >
       {iconComplete && (
         <span aria-hidden="true" className="ui-icon-complete">

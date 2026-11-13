@@ -1,4 +1,3 @@
-import { defined } from "../attrs"
 import { cx } from "../cx"
 import { counterLabel, cssString, mergeStyle } from "../style"
 import type { Props } from "./types.react"
@@ -16,6 +15,7 @@ export default function Carousel({
   peek,
   persistentButtons,
   previousLabel,
+  role,
   stretch,
   style,
   children,
@@ -47,8 +47,8 @@ export default function Carousel({
         },
         style ?? {},
       )}
-      role="list"
-      {...defined(rest)}
+      role={role ?? "list"}
+      {...rest}
     >
       {children}
     </ul>

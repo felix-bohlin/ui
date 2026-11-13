@@ -1,24 +1,10 @@
 <script setup lang="ts">
-import {
-  computed,
-  type HTMLAttributes,
-  provide,
-  reactive,
-  useAttrs,
-  useId,
-} from "vue"
+import { computed, provide, reactive, useId } from "vue"
 import { TabsKey } from "./context.vue"
-import { defined } from "../attrs"
 import type { Props, Slots } from "./types.vue-props"
 
-const { name, orientation, overflow, variant } = defineProps<Props>()
+const { name, orientation, overflow, role, variant } = defineProps<Props>()
 defineSlots<Slots>()
-
-defineOptions({
-  inheritAttrs: false,
-})
-
-const attrs = useAttrs() as HTMLAttributes
 
 const model = defineModel<string>()
 
@@ -42,8 +28,7 @@ provide(TabsKey, reactive({ change, groupName, value: model }))
       variant && variant !== 'tonal' && `ui-${variant}`,
       $props.class,
     ]"
-    role="radiogroup"
-    v-bind="defined(attrs)"
+    :role="role ?? 'radiogroup'"
   >
     <slot></slot>
   </div>

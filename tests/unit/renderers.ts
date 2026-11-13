@@ -16,6 +16,8 @@ export type Slots = Record<string, string>
 
 export const TEXT = "Text"
 
+export const CALLER_VALUE = "Caller"
+
 const SLOT_CONTENT: Record<string, string> = {
   Table: "<tbody><tr><td>Text</td></tr></tbody>",
   TableBody: "<tr><td>Text</td></tr>",

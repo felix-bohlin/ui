@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
@@ -7,6 +6,7 @@
     class: className,
     dense,
     flush,
+    role,
     variant,
 
     // Snippets
@@ -22,8 +22,8 @@
     variant && variant !== "filled" && `ui-${variant}`,
     className,
   ]}
-  role="list"
-  {...defined(rest)}
+  role={role ?? "list"}
+  {...rest}
 >
   {@render children?.()}
 </ul>

@@ -6,7 +6,16 @@ export default {
     default:
       "Name the list with `aria-label`, such as the other person or the channel, so a screen reader knows which conversation it is.",
   },
-  options: [],
+  options: [
+    {
+      default: '"list"',
+      description:
+        "The `role` of the `<ol>`, such as `log` for a live conversation. `list` keeps Safari announcing a list.",
+      inherited: true,
+      prop: "role",
+      type: "string",
+    },
+  ],
   page: "message",
   parts: [
     {

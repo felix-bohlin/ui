@@ -9,4 +9,8 @@ export type CalloutActionsProps = Base.CalloutActionsProps &
 export type CalloutContentProps = Base.CalloutContentProps &
   HTMLAttributes<"div">
 
-export type CalloutIconProps = Base.CalloutIconProps & HTMLAttributes<"svg">
+export type CalloutIconProps = Base.CalloutIconProps &
+  Omit<
+    HTMLAttributes<"svg">,
+    "aria-hidden" | "height" | "viewBox" | "width" | "xmlns"
+  >

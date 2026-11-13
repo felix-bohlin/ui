@@ -1,6 +1,5 @@
 <script lang="ts">
   import { setTabsContext } from "./context.svelte"
-  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
@@ -8,6 +7,7 @@
     name,
     orientation,
     overflow,
+    role,
     value = $bindable(),
     variant,
 
@@ -39,8 +39,8 @@
     variant && variant !== "tonal" && `ui-${variant}`,
     className,
   ]}
-  role="radiogroup"
-  {...defined(rest)}
+  role={role ?? "radiogroup"}
+  {...rest}
 >
   {@render children?.()}
 </div>

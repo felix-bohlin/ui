@@ -16,7 +16,7 @@ export default function Rating({
   label,
   max = 5,
   name,
-  onChange,
+  onValueChange,
   required,
   size,
   starLabel = (value: number) => (value === 1 ? "1 star" : `${value} stars`),
@@ -48,7 +48,7 @@ export default function Rating({
           aria-label={clearLabel}
           checked={value !== undefined ? current === 0 : undefined}
           defaultChecked={value !== undefined ? undefined : current === 0}
-          onChange={onChange}
+          onChange={() => onValueChange?.(0)}
           name={name}
           type="radio"
           value={0}
@@ -62,7 +62,7 @@ export default function Rating({
           aria-label={starLabel(star)}
           checked={value !== undefined ? current === star : undefined}
           defaultChecked={value !== undefined ? undefined : current === star}
-          onChange={onChange}
+          onChange={() => onValueChange?.(star)}
           name={name}
           required={required}
           type="radio"

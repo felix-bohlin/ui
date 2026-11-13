@@ -126,11 +126,11 @@ export const MODEL_KINDS = {
   radioGroup: {
     react: {
       client: true,
-      entries: () => ["defaultValue", "onChange"],
-      radioAttributes: (model, checked) => [
+      entries: () => ["defaultValue", "onValueChange"],
+      radioAttributes: (model, value, checked) => [
         `checked={${model.local} !== undefined ? ${checked} : undefined}`,
         `defaultChecked={${model.local} !== undefined ? undefined : ${checked}}`,
-        "onChange={onChange}",
+        `onChange={() => onValueChange?.(${value})}`,
       ],
       rename: (model) => [[model.local, `${model.local} ?? defaultValue`]],
     },

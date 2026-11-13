@@ -18,12 +18,13 @@ A star rating: a meter that shows a score, or radios that collect one.
 ### Props and modifiers
 
 - `clearLabel`: `string`, default `"No rating"`. The accessible name of the radio that clears the rating. Not rendered with `required`.
+- `defaultValue` (React): `number | string`. The star checked at the start, when `value` is omitted.
 - `disabled`: `boolean`, `fieldset[disabled]`. Disables the input.
 - `error`: `boolean`, `input[aria-invalid="true"]`. Marks the radios invalid and tints the empty stars.
 - `label`: `string`. The `<legend>` of the input, or the `aria-label` of the meter. Include the score in a meter label.
 - `max`: `number | string`, `[max]`, `--_max`, default `5`. Number of stars.
 - `name`: `string`. Renders the input: a `<fieldset>` of radios with this name. Without it, a read-only `<meter>`.
-- `onChange` (React): `ChangeEventHandler<HTMLInputElement>`. Called when a star or the clear radio is picked.
+- `onValueChange` (React): `(value: number | string) => void`. Called with the `value` of the star when one is picked, or `0` for the clear radio.
 - `required`: `boolean`, `input[required]`. Adds a required mark after the legend, requires a star and drops the clear radio.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`). The size of the element.
 - `starLabel`: `(value: number) => string`. Returns the accessible name of each star radio. Use it to translate. Defaults to `1 star`, `2 stars` and so on.
@@ -34,7 +35,7 @@ Model: `value` (`number | string`), the score of the meter, fractions included, 
 
 - HTML: Add `.ui-rating` to a `<meter>` with `max` and `value`, or to a `<fieldset>` with a `<legend>` and one radio per star.
 - Astro: Extra attributes go to the `<fieldset>` or the `<meter>`, except `aria-describedby` and `aria-invalid`, which go to every radio.
-- React: Use `value` with `onChange`, or `defaultValue`.
+- React: Use `value` with `onValueChange`, or `defaultValue`. Without them the radios keep their own state, and `onValueChange` still reports changes.
 - Svelte: Bind the input with `bind:value`.
 - Vue: Bind the input with `v-model`.
 

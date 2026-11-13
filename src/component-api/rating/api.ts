@@ -25,7 +25,8 @@ export default {
     default:
       "Extra attributes go to the `<fieldset>` or the `<meter>`, except `aria-describedby` and `aria-invalid`, which go to every radio.",
     html: "Add `.ui-rating` to a `<meter>` with `max` and `value`, or to a `<fieldset>` with a `<legend>` and one radio per star.",
-    react: "Use `value` with `onChange`, or `defaultValue`.",
+    react:
+      "Use `value` with `onValueChange`, or `defaultValue`. Without them the radios keep their own state, and `onValueChange` still reports changes.",
     svelte: "Bind the input with `bind:value`.",
     vue: "Bind the input with `v-model`.",
   },
@@ -35,6 +36,11 @@ export default {
       description:
         "The accessible name of the radio that clears the rating. Not rendered with `required`.",
       prop: "clearLabel",
+    },
+    {
+      description: "The star checked at the start, when `value` is omitted.",
+      frameworks: ["react"],
+      prop: "defaultValue",
     },
     {
       attribute: "[disabled]",
@@ -73,10 +79,11 @@ export default {
       prop: "name",
     },
     {
-      description: "Called when a star or the clear radio is picked.",
+      description:
+        "Called with the `value` of the star when one is picked, or `0` for the clear radio.",
       frameworks: ["react"],
-      prop: "onChange",
-      type: "ChangeEventHandler<HTMLInputElement>",
+      prop: "onValueChange",
+      type: "(value: number | string) => void",
     },
     {
       attribute: "[required]",

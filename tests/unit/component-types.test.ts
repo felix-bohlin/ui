@@ -18,6 +18,9 @@ import type * as NumberFieldReact from "../../packages/opui/components/NumberFie
 import type * as NumberFieldVue from "../../packages/opui/components/NumberField/types.vue-props"
 import type * as RangeReact from "../../packages/opui/components/Range/types.react"
 import type * as RangeSvelte from "../../packages/opui/components/Range/types.svelte"
+import type * as RatingReact from "../../packages/opui/components/Rating/types.react"
+import type * as RatingSvelte from "../../packages/opui/components/Rating/types.svelte"
+import type * as RatingVue from "../../packages/opui/components/Rating/types.vue-props"
 import type { SortDetail } from "../../packages/opui/components/SortableTable/types"
 import type * as SortableTableSvelte from "../../packages/opui/components/SortableTable/types.svelte"
 import type * as SwitchReact from "../../packages/opui/components/Switch/types.react"
@@ -114,6 +117,23 @@ test("a group takes defaultValue and onValueChange in React, a bound value in Sv
   expectTypeOf<TabsVue.Props>().not.toHaveProperty("value")
   expectTypeOf<TabsVue.Props>().not.toHaveProperty("defaultValue")
   expectTypeOf<TabsVue.Props>().not.toHaveProperty("onValueChange")
+})
+
+test("a radio group takes defaultValue and onValueChange in React like a group, a bound value in Svelte and nothing in Vue", () => {
+  expectTypeOf<RatingReact.Props["value"]>().toEqualTypeOf<
+    number | string | undefined
+  >()
+  expectTypeOf<RatingReact.Props["defaultValue"]>().toEqualTypeOf<
+    number | string | undefined
+  >()
+  expectTypeOf<RatingReact.Props["onValueChange"]>().toEqualTypeOf<
+    ((value: number | string) => void) | undefined
+  >()
+  expectTypeOf<RatingSvelte.Props["value"]>().toEqualTypeOf<
+    number | string | undefined
+  >()
+  expectTypeOf<RatingVue.Props>().not.toHaveProperty("defaultValue")
+  expectTypeOf<RatingVue.Props>().not.toHaveProperty("onValueChange")
 })
 
 test("a group's array value is tied to multiple in React and Svelte", () => {

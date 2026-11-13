@@ -301,6 +301,7 @@ export const toReact = (component) => {
             entry.name === "checked"
               ? kind.radioAttributes(
                   model,
+                  rewriteExpression(node.groupRadio, options),
                   rewriteExpression(entry.code, options),
                 )
               : [attribute(node, entry)]),

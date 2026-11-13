@@ -429,15 +429,12 @@ export const toTypes = (
       ? "\n\ntype Without<T, K extends PropertyKey> = T extends unknown\n  ? Omit<T, K>\n  : never"
       : ""
   const slotsMember = { react: "ReactNode", svelte: "Snippet" }
-  const radioGrouped = Object.values(modelsByComponent).some(
-    (model) => model?.kind === "radioGroup",
-  )
   const typed = (framework) => {
     const edits = [
       replacing(
         elementImport,
         framework === "react"
-          ? `import type { ${[...(radioGrouped ? ["ChangeEventHandler"] : []), "ComponentProps", ...(slotted.length ? ["ReactNode"] : [])].join(", ")} } from "react"${withoutHelper(framework)}`
+          ? `import type { ${["ComponentProps", ...(slotted.length ? ["ReactNode"] : [])].join(", ")} } from "react"${withoutHelper(framework)}`
           : `import type { SvelteHTMLElements } from "svelte/elements"${slotted.length ? '\nimport type { Snippet } from "svelte"' : ""}${withoutHelper(framework)}`,
       ),
     ]
@@ -467,8 +464,7 @@ export const toTypes = (
       const omit = [
         ...(slots && !slots.includes("default") ? ["children"] : []),
         ...extras.map(({ prop }) => prop),
-        ...(group ? ["defaultValue"] : []),
-        ...(radioGroup ? ["onChange"] : []),
+        ...(group || radioGroup ? ["defaultValue"] : []),
         ...(tag ? events.map((event) => eventProp(framework, event)) : []),
       ]
       for (const ref of elementRefs(type)) {
@@ -549,8 +545,8 @@ export const toTypes = (
           ? ` & { ${events.map((event) => `${eventProp(framework, event)}?: (event: Base.${eventsTypeOf(name)}[${JSON.stringify(event)}]) => void`).join("; ")} }`
           : ""
         const untied =
-          group && tied.length === 0
-            ? ` & { defaultValue?: ${model.type}; onValueChange?: (value: ${model.type}) => void${declaresProperty(type, model.prop) ? "" : `; ${model.prop}?: ${model.type}`} }`
+          (group && tied.length === 0) || radioGroup
+            ? ` & { defaultValue?: ${model.type}; onValueChange?: (value: ${model.type}) => void${declaresProperty(type, model.prop) || known.includes(model.prop) ? "" : `; ${model.prop}?: ${model.type}`} }`
             : ""
         const renamed = framework === "react" ? reactRenamed(name) : []
         const omitted = omitsBase(part, name)
@@ -568,13 +564,10 @@ export const toTypes = (
         const reactNames = renamed.length
           ? ` & { ${renamed.map((key) => `${REACT_ATTRIBUTE_NAMES[key]}?: Base.${name}[${JSON.stringify(key)}]`).join("; ")} }`
           : ""
-        const radioChange = radioGroup
-          ? " & { onChange?: ChangeEventHandler<HTMLInputElement> }"
-          : ""
         edits.push(
           replacing(
             part,
-            `${wrapped}${reactNames}${withSlots}${handlers}${untied}${radioChange}`,
+            `${wrapped}${reactNames}${withSlots}${handlers}${untied}`,
           ),
         )
       })

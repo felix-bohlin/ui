@@ -671,7 +671,8 @@ describe("the three ports of a sample", () => {
     const react = port(".react.tsx")
     expect(react).toMatch(/^"use client"\n/)
     expect(react).toContain("defaultValue,")
-    expect(react).toContain("onChange,")
+    expect(react).toContain("onValueChange,")
+    expect(react).not.toContain("onChange,")
     expect(react).toContain("const current = Number(value ?? defaultValue)")
     expect(react).toContain(
       "checked={value !== undefined ? current === star : undefined}",
@@ -679,7 +680,8 @@ describe("the three ports of a sample", () => {
     expect(react).toContain(
       "defaultChecked={value !== undefined ? undefined : current === star}",
     )
-    expect(react).toContain("onChange={onChange}")
+    expect(react).toContain('onChange={() => onValueChange?.("0")}')
+    expect(react).toContain("onChange={() => onValueChange?.(star)}")
     const svelte = port(".svelte")
     expect(svelte).toContain("value = $bindable(),")
     expect(svelte).toContain('value = "0"')
@@ -1481,7 +1483,7 @@ describe("toTypes", () => {
     )
   })
 
-  test("React types a radio group's onChange for its inputs", () => {
+  test("React types a radio group's defaultValue and onValueChange like a group's", () => {
     const { react } = toTypes(
       "Sample",
       {
@@ -1501,11 +1503,9 @@ describe("toTypes", () => {
         },
       },
     )
+    expect(react).toContain('import type { ComponentProps } from "react"')
     expect(react).toContain(
-      'import type { ChangeEventHandler, ComponentProps } from "react"',
-    )
-    expect(react).toContain(
-      'Base.Props & { onChange?: ChangeEventHandler<HTMLInputElement> } & Omit<ComponentProps<"fieldset">, "children" | "onChange">',
+      'Base.Props & { defaultValue?: number | string; onValueChange?: (value: number | string) => void } & Omit<ComponentProps<"fieldset">, "children" | "defaultValue">',
     )
   })
 

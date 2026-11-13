@@ -13,6 +13,7 @@ import {
   INSTANCE_INPUTS,
   OVERRIDE_HOOKS,
   parseThemeTokens,
+  sectionKey,
   setThemeToken,
   themeTokenSections,
   themeTokens,
@@ -412,6 +413,20 @@ describe("theme tokens", () => {
       $extensions: { opui: { optional: true, tier: "hook" } },
     })
     expect(json.state["ui-selected"].$value).toBeUndefined()
+  })
+
+  test("tokens.json groups have fixed keys, not slugs of the theme.css comments", () => {
+    expect(Object.keys(tokensJson())).toEqual(
+      expect.arrayContaining([
+        "field",
+        "instance-inputs",
+        "intent",
+        "named-colors",
+      ]),
+    )
+    expect(() => sectionKey("Field and input")).toThrow(
+      'The theme.css section "Field and input" has no key',
+    )
   })
 
   test("every scope that sets --ui-palette-source re-derives the palette", () => {

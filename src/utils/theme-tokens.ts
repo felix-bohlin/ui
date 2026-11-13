@@ -25,39 +25,49 @@ const DARK_SCOPE = /\.ui-dark|prefers-color-scheme:\s*dark/
 const FALLBACK_SCOPE = /@supports not\b/
 const PRINT_SCOPE = /@media print\b/
 const THEME_SCOPE = /\bhtml\b/
-const SECTION_ORDER = [
-  "Color scheme",
-  "Palette",
-  "Palette steps",
-  "Palette roles",
-  "Named colors (no severity meaning)",
-  "Intent tokens",
-  "Primary",
-  "Text",
-  "Surfaces",
-  "Borders",
-  "Field / input",
-  "Focus ring",
-  "Typography",
-  "Code",
-  "Spacing",
-  "Controls",
-  "Control sizes",
-  "Button",
-  "Tabs",
-  "Divider",
-  "Motion",
-  "Contrast",
-  "State",
-  "Icons",
-  "Choice controls",
-  "Elevation",
-  "Overlays",
-  "Instance inputs",
+const SECTIONS = [
+  ["Color scheme", "color-scheme"],
+  ["Palette", "palette"],
+  ["Palette steps", "palette-steps"],
+  ["Palette roles", "palette-roles"],
+  ["Named colors (no severity meaning)", "named-colors"],
+  ["Intent tokens", "intent"],
+  ["Primary", "primary"],
+  ["Text", "text"],
+  ["Surfaces", "surfaces"],
+  ["Borders", "borders"],
+  ["Field / input", "field"],
+  ["Focus ring", "focus-ring"],
+  ["Typography", "typography"],
+  ["Code", "code"],
+  ["Spacing", "spacing"],
+  ["Controls", "controls"],
+  ["Control sizes", "control-sizes"],
+  ["Button", "button"],
+  ["Tabs", "tabs"],
+  ["Divider", "divider"],
+  ["Motion", "motion"],
+  ["Contrast", "contrast"],
+  ["State", "state"],
+  ["Icons", "icons"],
+  ["Choice controls", "choice-controls"],
+  ["Elevation", "elevation"],
+  ["Overlays", "overlays"],
+  ["Instance inputs", "instance-inputs"],
 ]
 const sectionOrder = (title: string) => {
-  const index = SECTION_ORDER.indexOf(title)
-  return index < 0 ? SECTION_ORDER.length : index
+  const index = SECTIONS.findIndex(([name]) => name === title)
+  return index < 0 ? SECTIONS.length : index
+}
+
+export const sectionKey = (title: string) => {
+  const key = SECTIONS.find(([name]) => name === title)?.[1]
+  if (!key) {
+    throw new Error(
+      `The theme.css section "${title}" has no key: give it one in SECTIONS in src/utils/theme-tokens.ts. The key names the group in tokens.json and the Figma variables, so it never changes once released.`,
+    )
+  }
+  return key
 }
 
 type Line =

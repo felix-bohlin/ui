@@ -1,12 +1,6 @@
 import { themeTokenDescriptions } from "./theme-token-descriptions"
 import { themeTokenPromises } from "./theme-token-promises"
-import { themeTokenSections, tokenTier } from "./theme-tokens"
-
-const slug = (title: string) =>
-  title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "")
+import { sectionKey, themeTokenSections, tokenTier } from "./theme-tokens"
 
 const TYPES: [RegExp, string][] = [
   [
@@ -57,13 +51,13 @@ export const tokensJson = () => {
     sections.flatMap((section) =>
       section.tokens.map((token) => [
         token.name,
-        `${slug(section.title)}.${token.name.replace(/^--/, "")}`,
+        `${sectionKey(section.title)}.${token.name.replace(/^--/, "")}`,
       ]),
     ),
   )
   return Object.fromEntries(
     sections.map((section) => [
-      slug(section.title),
+      sectionKey(section.title),
       Object.fromEntries(
         section.tokens.map((token) => {
           const type = tokenType(token.name)

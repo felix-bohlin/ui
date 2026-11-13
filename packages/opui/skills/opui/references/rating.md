@@ -22,12 +22,13 @@ A star rating: a meter that shows a score, or radios that collect one.
 - `disabled`: `boolean`, `fieldset[disabled]`. Disables the input.
 - `error`: `boolean`, `input[aria-invalid="true"]`. Marks the radios invalid and tints the empty stars.
 - `label`: `string`. The `<legend>` of the input, or the `aria-label` of the meter. Include the score in a meter label.
+- `lang`: `string`. The language of the `<fieldset>` or the `<meter>`, which picks the plural form of `starLabel` with `Intl.PluralRules`. Without it, the rating picks the English form.
 - `max`: `number | string`, `[max]`, `--_max`, default `5`. Number of stars.
 - `name`: `string`. Renders the input: a `<fieldset>` of radios with this name. Without it, a read-only `<meter>`.
 - `onValueChange` (React): `(value: number | string) => void`. Called with the `value` of the star when one is picked, or `0` for the clear radio.
 - `required`: `boolean`, `input[required]`. Adds a required mark after the legend, requires a star and drops the clear radio.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`). The size of the element.
-- `starLabel`: `(value: number) => string`. Returns the accessible name of each star radio. Use it to translate. Defaults to `1 star`, `2 stars` and so on.
+- `starLabel`: `{ few?: string | undefined; many?: string | undefined; one?: string | undefined; other: string; two?: string | undefined; zero?: string | undefined; }`, default `{ one: "{count} star", other: "{count} stars" }`. The accessible name of each star radio: a template per plural category of `lang` (`zero`, `one`, `two`, `few`, `many` and `other`), with `{count}` where the number goes. A category without a template takes `other`. Use it to translate.
 
 Model: `value` (`number | string`), the score of the meter, fractions included, or the checked star of the input. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
 

@@ -16,8 +16,7 @@ Terms and their values, like order details or totals.
 
 ### Props and modifiers
 
-- `bordered`: `boolean`, `.ui-bordered`. Adds a line between the term and the description.
-- `dotted`: `boolean`, `.ui-dotted`. Makes the `bordered` line dotted.
+- `border`: `"dotted"` (`.ui-border-dotted`), `"solid"` (`.ui-border-solid`). The style of the line between the term and the description. Without it, there's no line.
 - `orientation`: `"auto"` (default), `"horizontal"` (`.ui-horizontal`). The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width.
 
 ### Slots
@@ -44,8 +43,8 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### description-list.css
 
-- `--_border-style`: Style of the line between term and description. `.ui-bordered.ui-dotted` makes it dotted.
-- `--_border-width`: Width of the line between term and description. Defaults to `--ui-border-width`, and `--ui-border-width-thick` in `.ui-bordered.ui-dotted`.
+- `--_border-style`: Style of the line between term and description. `.ui-border-dotted` makes it dotted.
+- `--_border-width`: Width of the line between term and description. Defaults to `--ui-border-width`, and `--ui-border-width-thick` in `.ui-border-dotted`.
 
 ## Theme tokens
 

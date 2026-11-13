@@ -2586,6 +2586,24 @@ interaction(
 
 interaction(
   "text-field",
+  "CharacterCount",
+  "the character count announces in the language of its field",
+  async ({ page, root }) => {
+    await root
+      .locator(".ui-text-field")
+      .evaluate((field) => field.setAttribute("lang", "sv"))
+    await root
+      .locator("opui-character-count")
+      .evaluate((count) => count.setAttribute("label", "Tecken kvar: {count}"))
+    await root.locator("input").fill("opui-fan-2026")
+    const announcer = page.locator("[data-opui-announcer]")
+    await expect(announcer).toHaveText("Tecken kvar: 7")
+    await expect(announcer).toHaveAttribute("lang", "sv")
+  },
+)
+
+interaction(
+  "text-field",
   "Validation",
   "a labelled field is named by its label and described by its end text",
   async ({ root }) => {

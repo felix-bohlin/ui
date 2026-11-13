@@ -191,7 +191,7 @@
     "button-group": ["--_border-color"],
     "button": [
       "--_accent",
-      "--_accent-fill",
+      "--_accent-filled",
       "--_accent-text",
       "--_actions-shift",
       "--_default-active-bg-color",
@@ -199,7 +199,7 @@
       "--_icon-size",
       "--_motion",
       "--_on-accent",
-      "--_on-accent-fill",
+      "--_on-accent-filled",
       "--_on-accent-tonal",
       "--_outlined-active-bg-color",
       "--_radius",

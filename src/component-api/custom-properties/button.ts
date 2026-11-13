@@ -6,7 +6,7 @@ export default {
       "The accent color. Fills, borders, text, hover and active states are derived from it. Defaults to `--ui-button-accent` when a theme sets it. `.ui-primary` and `.ui-critical` set it.",
     kind: "input",
   },
-  "--_accent-fill": {
+  "--_accent-filled": {
     description:
       "Fill of filled buttons, of hovered outlined buttons unless `--ui-button-hover` is `layer`, of hovered tonal ones when it is unset, and the base of the filled hover and pressed shades. `--ui-button-accent-filled` when a theme sets it, else `--_accent`, and in `.ui-critical` `--ui-critical` kept within `--ui-accent-fill-max-lightness`, so the light text stays readable while the border keeps `--ui-critical`. `.ui-primary` resets it to `--_accent`, so the token applies to default buttons only.",
     kind: "input",
@@ -93,9 +93,9 @@ export default {
       "Text color on a fill of `--_accent`. Defaults to `--ui-button-on-accent` when a theme sets it. `.ui-primary` sets `--ui-on-primary`, `.ui-critical` `--ui-on-fill`.",
     kind: "input",
   },
-  "--_on-accent-fill": {
+  "--_on-accent-filled": {
     description:
-      "Text color on `--_accent-fill`: filled buttons, hovered outlined ones unless `--ui-button-hover` is `layer`, and hovered tonal ones when it is unset. `--ui-button-on-accent-filled` when a theme sets it, else `--_on-accent`.",
+      "Text color on `--_accent-filled`: filled buttons, hovered outlined ones unless `--ui-button-hover` is `layer`, and hovered tonal ones when it is unset. `--ui-button-on-accent-filled` when a theme sets it, else `--_on-accent`.",
     kind: "input",
   },
   "--_on-accent-tonal": {
@@ -114,22 +114,22 @@ export default {
   },
   "--_outlined-active-text-color": {
     description:
-      "Pressed text color of outlined buttons. `--_on-accent-fill`, or `--_accent-text` with `--ui-button-hover: layer`.",
+      "Pressed text color of outlined buttons. `--_on-accent-filled`, or `--_accent-text` with `--ui-button-hover: layer`.",
     kind: "output",
   },
   "--_outlined-hover-bg-color": {
     description:
-      "Hover background of outlined buttons. `--_accent-fill`, or the hover state layer with `--ui-button-hover: layer`.",
+      "Hover background of outlined buttons. `--_accent-filled`, or the hover state layer with `--ui-button-hover: layer`.",
     kind: "output",
   },
   "--_outlined-hover-border-color": {
     description:
-      "Hover border of outlined buttons. `--_accent-fill`, or `--_accent` with `--ui-button-hover: layer`.",
+      "Hover border of outlined buttons. `--_accent-filled`, or `--_accent` with `--ui-button-hover: layer`.",
     kind: "output",
   },
   "--_outlined-hover-text-color": {
     description:
-      "Hover text color of outlined buttons. `--_on-accent-fill`, or `--_accent-text` with `--ui-button-hover: layer`.",
+      "Hover text color of outlined buttons. `--_on-accent-filled`, or `--_accent-text` with `--ui-button-hover: layer`.",
     kind: "output",
   },
   "--_padding-inline": {
@@ -184,17 +184,17 @@ export default {
   },
   "--_tonal-active-text-color": {
     description:
-      "Pressed text color of tonal buttons. `--_on-accent-fill`, or `--_on-accent-tonal` with `--ui-button-hover` set to `layer` or `shade-all`.",
+      "Pressed text color of tonal buttons. `--_on-accent-filled`, or `--_on-accent-tonal` with `--ui-button-hover` set to `layer` or `shade-all`.",
     kind: "output",
   },
   "--_tonal-hover-bg-color": {
     description:
-      "Hover background of tonal buttons. `--_accent-fill`, the hover state layer over `--_accent-tonal` with `--ui-button-hover: layer`, or with `shade-all` `--ui-surface-tonal-hover`, and in `.ui-primary` and `.ui-critical` `--_accent-tonal` shaded the same way.",
+      "Hover background of tonal buttons. `--_accent-filled`, the hover state layer over `--_accent-tonal` with `--ui-button-hover: layer`, or with `shade-all` `--ui-surface-tonal-hover`, and in `.ui-primary` and `.ui-critical` `--_accent-tonal` shaded the same way.",
     kind: "output",
   },
   "--_tonal-hover-text-color": {
     description:
-      "Hover text color of tonal buttons. `--_on-accent-fill`, or `--_on-accent-tonal` with `--ui-button-hover` set to `layer` or `shade-all`.",
+      "Hover text color of tonal buttons. `--_on-accent-filled`, or `--_on-accent-tonal` with `--ui-button-hover` set to `layer` or `shade-all`.",
     kind: "output",
   },
   "--_tonal-selected-bg-color": {

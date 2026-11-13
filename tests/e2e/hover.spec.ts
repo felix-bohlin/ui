@@ -117,6 +117,6 @@ test("a tonal button fills with the accent on hover when the theme leaves --ui-b
   const { hover } = await states(page, tonal)
 
   expect(hover.background).toBe(
-    await resolveColor(tonal, "var(--_accent-fill)"),
+    await resolveColor(tonal, "var(--_accent-filled)"),
   )
 })

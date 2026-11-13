@@ -452,6 +452,17 @@ describe("the three ports of a sample", () => {
     expect(react).not.toMatch(/inputmode|readonly/)
   })
 
+  test("an object default prints on one line in every framework, however the source wraps it", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst {\n  class: className,\n  labels = {\n    one: "{count} item",\n    other: "{count} items",\n  },\n  ...rest\n} = Astro.props\n---\n\n<p class:list={["ui-sample", className]} {...rest}>{labels.other}</p>\n',
+    )
+    for (const [port, code] of Object.entries(ports)) {
+      expect(code, port).toContain(
+        'labels = { one: "{count} item", other: "{count} items" }',
+      )
+    }
+  })
+
   test("a class that is always one name skips cx in React", async () => {
     const ports = await compile(
       '---\nimport type { Props } from "./types.astro"\nimport { cx } from "../cx"\n\nconst { class: className, hideLabel, mark, ...rest } = Astro.props\n---\n\n<label class:list={["ui-sample", className]} {...rest}>\n  <span class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}>Name</span>\n  <span class={cx([`ui-${mark}`])}>Mark</span>\n  <span class={cx([hideLabel && "ui-sr-only"])}>Hint</span>\n  <span class={cx([hideLabel ? ["ui-sr-only"] : "ui-label"])}>Note</span>\n</label>\n',

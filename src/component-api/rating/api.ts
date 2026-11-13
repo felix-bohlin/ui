@@ -64,6 +64,13 @@ export default {
       prop: "label",
     },
     {
+      description:
+        "The language of the `<fieldset>` or the `<meter>`, which picks the plural form of `starLabel` with `Intl.PluralRules`. Without it, the rating picks the English form.",
+      inherited: true,
+      prop: "lang",
+      type: "string",
+    },
+    {
       attribute: "[max]",
       cssVar: "--_max",
       default: "5",
@@ -106,8 +113,9 @@ export default {
       },
     },
     {
+      default: '{ one: "{count} star", other: "{count} stars" }',
       description:
-        "Returns the accessible name of each star radio. Use it to translate. Defaults to `1 star`, `2 stars` and so on.",
+        "The accessible name of each star radio: a template per plural category of `lang` (`zero`, `one`, `two`, `few`, `many` and `other`), with `{count}` where the number goes. A category without a template takes `other`. Use it to translate.",
       prop: "starLabel",
     },
   ],

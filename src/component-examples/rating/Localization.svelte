@@ -1,8 +1,12 @@
 <script lang="ts">
   import { Rating } from "opui-css/svelte"
 
-  const starLabel = (value: number) =>
-    value === 1 ? "نجمة واحدة" : value === 2 ? "نجمتان" : `${value} نجوم`
+  const starLabel = {
+    few: "{count} نجوم",
+    one: "نجمة واحدة",
+    other: "{count} نجمة",
+    two: "نجمتان",
+  }
 </script>
 
 <div class="ui-layout-column" dir="rtl" lang="ar">
@@ -10,6 +14,7 @@
   <Rating
     clearLabel="بدون تقييم"
     label="قيّم المنتج"
+    lang="ar"
     name="rating-ar"
     {starLabel}
     value={4}

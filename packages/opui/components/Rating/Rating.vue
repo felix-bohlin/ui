@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, type HTMLAttributes, mergeProps, useAttrs } from "vue"
 import { vSeed } from "../vue"
-import { mergeStyle, styleAttrs } from "../style"
+import { mergeStyle, pluralLabel, styleAttrs } from "../style"
 import { defined } from "../attrs"
 import type { Props } from "./types.vue-props"
 
@@ -10,11 +10,12 @@ const {
   disabled,
   error,
   label,
+  lang,
   max = 5,
   name,
   required,
   size,
-  starLabel = (value: number) => (value === 1 ? "1 star" : `${value} stars`),
+  starLabel = { one: "{count} star", other: "{count} stars" },
   value,
 } = defineProps<Props>()
 
@@ -59,6 +60,7 @@ const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
       $props.class,
     ]"
     :disabled="disabled"
+    :lang="lang"
     v-bind="mergeProps(styleAttrs($attrs.style), { ...restAttrs })"
   >
     <legend>{{ label }}</legend>
@@ -77,7 +79,7 @@ const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
       :key="index"
       :aria-describedby="attrs['aria-describedby']"
       :aria-invalid="invalid"
-      :aria-label="starLabel(star)"
+      :aria-label="pluralLabel(starLabel, star, lang)"
       :name="name"
       :required="required"
       type="radio"
@@ -95,6 +97,7 @@ const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
       size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
+    :lang="lang"
     :max="max"
     :value="model ?? 0"
     v-bind="

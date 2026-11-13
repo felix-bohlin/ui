@@ -46,3 +46,21 @@ export const counterLabel = (template: string, counter: string) =>
     ])
     .filter(Boolean)
     .join(" ")
+
+const pluralRules = (lang?: string | null) => {
+  try {
+    return new Intl.PluralRules(lang || "en")
+  } catch {
+    return new Intl.PluralRules("en")
+  }
+}
+
+export const pluralLabel = (
+  templates: Partial<Record<Intl.LDMLPluralRule, string>> & { other: string },
+  count: number,
+  lang?: string | null,
+) =>
+  (templates[pluralRules(lang).select(count)] ?? templates.other).replaceAll(
+    "{count}",
+    String(count),
+  )

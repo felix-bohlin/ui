@@ -1,7 +1,7 @@
 <script lang="ts">
   import { untrack } from "svelte"
   import { seedChecked } from "../svelte"
-  import { mergeStyle } from "../style"
+  import { mergeStyle, pluralLabel } from "../style"
   import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
@@ -13,11 +13,12 @@
     disabled,
     error,
     label,
+    lang,
     max = 5,
     name,
     required,
     size,
-    starLabel = (value: number) => (value === 1 ? "1 star" : `${value} stars`),
+    starLabel = { one: "{count} star", other: "{count} stars" },
     style,
     value = $bindable(),
     ...rest
@@ -33,6 +34,7 @@
   <fieldset
     class={["ui-rating", size && size !== "medium" && `ui-${size}`, className]}
     {disabled}
+    {lang}
     {style}
     {...rest}
   >
@@ -59,7 +61,7 @@
       <input
         aria-describedby={ariaDescribedBy}
         aria-invalid={invalid}
-        aria-label={starLabel(star)}
+        aria-label={pluralLabel(starLabel, star, lang)}
         {name}
         {required}
         type="radio"
@@ -82,6 +84,7 @@
     aria-describedby={ariaDescribedBy}
     aria-label={label}
     class={["ui-rating", size && size !== "medium" && `ui-${size}`, className]}
+    {lang}
     {max}
     style={mergeStyle({ "--_max": count === 5 ? undefined : count }, style)}
     value={value ?? 0}

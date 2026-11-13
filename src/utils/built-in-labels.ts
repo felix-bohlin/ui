@@ -79,6 +79,14 @@ export const builtInLabels = [
     prop: "clearLabel",
   },
   {
+    component: "Rating",
+    default: '{ one: "{count} star", other: "{count} stars" }',
+    html: "aria-label",
+    page: "rating",
+    prop: "starLabel",
+    shown: "1 star, 2 stars",
+  },
+  {
     component: "SortableTable",
     default: "{column}, sorted ascending",
     html: "ascending-label",

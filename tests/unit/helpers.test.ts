@@ -12,6 +12,7 @@ import {
   counterLabel,
   cssString,
   mergeStyle,
+  pluralLabel,
   styleVars,
 } from "../../packages/opui/components/style"
 import { tagAttrs } from "../../packages/opui/components/tag"
@@ -73,6 +74,55 @@ describe("cssString and counterLabel", () => {
       '"Page " counter(x) " of the tour"',
     )
     expect(counterLabel("Slide", "x")).toBe('"Slide"')
+  })
+})
+
+describe("pluralLabel", () => {
+  const english = { one: "{count} star", other: "{count} stars" }
+
+  test("picks the English form without a lang", () => {
+    expect([0, 1, 2, 5].map((count) => pluralLabel(english, count))).toEqual([
+      "0 stars",
+      "1 star",
+      "2 stars",
+      "5 stars",
+    ])
+  })
+
+  test("picks the Polish one, few and many forms", () => {
+    const polish = {
+      few: "{count} gwiazdki",
+      many: "{count} gwiazdek",
+      one: "{count} gwiazdka",
+      other: "{count} gwiazdki",
+    }
+    expect(
+      [1, 2, 4, 5, 12, 22, 25].map((count) => pluralLabel(polish, count, "pl")),
+    ).toEqual([
+      "1 gwiazdka",
+      "2 gwiazdki",
+      "4 gwiazdki",
+      "5 gwiazdek",
+      "12 gwiazdek",
+      "22 gwiazdki",
+      "25 gwiazdek",
+    ])
+  })
+
+  test("takes other in Japanese, whose only category is other", () => {
+    const japanese = { one: "unused", other: "星{count}つ" }
+    expect([1, 3].map((count) => pluralLabel(japanese, count, "ja"))).toEqual([
+      "星1つ",
+      "星3つ",
+    ])
+  })
+
+  test("falls back to other for a missing category and to English for a bad lang", () => {
+    expect(pluralLabel({ other: "{count} gwiazdek" }, 2, "pl")).toBe(
+      "2 gwiazdek",
+    )
+    expect(pluralLabel(english, 1, "")).toBe("1 star")
+    expect(pluralLabel(english, 1, "not a language")).toBe("1 star")
   })
 })
 

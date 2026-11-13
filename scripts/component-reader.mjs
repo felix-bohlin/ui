@@ -4,6 +4,7 @@ import { join } from "node:path"
 import { parse } from "@astrojs/compiler"
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
+import { rewriteExpression } from "./component-emit.mjs"
 import { shapeWhitespace } from "./component-layout.mjs"
 import {
   allCodes,
@@ -283,7 +284,12 @@ const readFrontmatter = (code, file) => {
             continue
           }
           result.props.push({
-            default: element.initializer?.getText(sourceFile),
+            default:
+              element.initializer &&
+              (ts.isObjectLiteralExpression(element.initializer) ||
+                ts.isArrayLiteralExpression(element.initializer))
+                ? rewriteExpression(element.initializer.getText(sourceFile))
+                : element.initializer?.getText(sourceFile),
             local: element.name.text,
             prop: element.propertyName
               ? element.propertyName.text

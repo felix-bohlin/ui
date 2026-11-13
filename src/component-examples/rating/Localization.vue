@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { Rating } from "opui-css/vue"
 
-const starLabel = (value: number) =>
-  value === 1 ? "نجمة واحدة" : value === 2 ? "نجمتان" : `${value} نجوم`
+const starLabel = {
+  few: "{count} نجوم",
+  one: "نجمة واحدة",
+  other: "{count} نجمة",
+  two: "نجمتان",
+}
 </script>
 
 <template>
@@ -11,6 +15,7 @@ const starLabel = (value: number) =>
     <Rating
       clearLabel="بدون تقييم"
       label="قيّم المنتج"
+      lang="ar"
       name="rating-ar"
       :starLabel="starLabel"
       :value="4"

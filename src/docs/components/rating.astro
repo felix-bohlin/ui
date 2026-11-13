@@ -147,8 +147,14 @@ export const keywords = ["review", "score", "stars"]
         >Translate the <code>aria-label</code> of each radio.</Fragment
       >
       <Fragment slot="components"
-        >Translate with <code>clearLabel</code> and <code>starLabel</code
-        >.</Fragment
+        >Translate with <code>clearLabel</code> and <code>starLabel</code>.
+        <code>starLabel</code> takes a template per plural form, such as
+        <code>one</code>, <code>two</code>, <code>few</code> and
+        <code>other</code>, with <code>{"{count}"}</code> where the number goes.
+        The rating picks the form with <code>Intl.PluralRules</code> for its own
+        <code>lang</code>, and English without one, since it renders the labels
+        on the server, where it can't see the language of the page. So pass
+        <code>lang</code> to the rating too.</Fragment
       >
     </Conditional>
     <AutoExample name="Localization" />

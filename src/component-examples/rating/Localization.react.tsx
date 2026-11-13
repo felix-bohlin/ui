@@ -1,9 +1,11 @@
-"use client"
-
 import { Rating } from "opui-css/react"
 
-const starLabel = (value: number) =>
-  value === 1 ? "نجمة واحدة" : value === 2 ? "نجمتان" : `${value} نجوم`
+const starLabel = {
+  few: "{count} نجوم",
+  one: "نجمة واحدة",
+  other: "{count} نجمة",
+  two: "نجمتان",
+}
 
 export default function Localization() {
   return (
@@ -13,6 +15,7 @@ export default function Localization() {
         clearLabel="بدون تقييم"
         defaultValue={4}
         label="قيّم المنتج"
+        lang="ar"
         name="rating-ar"
         starLabel={starLabel}
       />

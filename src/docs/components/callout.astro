@@ -149,7 +149,7 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
     <h3 id="dismissible">Dismissible</h3>
     <Conditional as="p">
       <Fragment slot="astro">
-        Use <code>dismissible</code> for a close button that hides the callout,
+        Set <code>closeButton</code> for a close button that hides the callout,
         named by <code>closeLabel</code>, with its icon in the
         <code>close-icon</code> slot. Listen for the <code>dismiss</code> event
         in a client script.
@@ -161,19 +161,19 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
         <code>dismiss</code> event it fires.
       </Fragment>
       <Fragment slot="react">
-        Use <code>dismissible</code> for a close button that hides the callout,
+        Set <code>closeButton</code> for a close button that hides the callout,
         named by <code>closeLabel</code>, with its icon in the
         <code>closeIcon</code> prop. <code>onDismiss</code> runs before it
         hides.
       </Fragment>
       <Fragment slot="svelte">
-        Use <code>dismissible</code> for a close button that hides the callout,
+        Set <code>closeButton</code> for a close button that hides the callout,
         named by <code>closeLabel</code>, with its icon in the
         <code>closeIcon</code> snippet. <code>ondismiss</code> runs before it
         hides.
       </Fragment>
       <Fragment slot="vue">
-        Use <code>dismissible</code> for a close button that hides the callout,
+        Set <code>closeButton</code> for a close button that hides the callout,
         named by <code>closeLabel</code>, with its icon in the
         <code>close-icon</code> slot. <code>@dismiss</code> runs before it
         hides.

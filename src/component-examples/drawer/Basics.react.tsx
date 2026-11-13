@@ -37,7 +37,7 @@ export default function Basics() {
         scrollLock
         side="inline-start"
       >
-        <DrawerHeader>
+        <DrawerHeader closeButton>
           <DrawerTitle>Menu</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
@@ -61,7 +61,7 @@ export default function Basics() {
         scrollLock
         side="inline-end"
       >
-        <DrawerHeader>
+        <DrawerHeader closeButton>
           <DrawerTitle>Onboarding emails</DrawerTitle>
           <Button aria-label="Edit" round size="small">
             <svg
@@ -139,7 +139,7 @@ export default function Basics() {
       </Drawer>
 
       <Drawer id="drawer-basics-3" scrollLock side="block-start">
-        <DrawerHeader>
+        <DrawerHeader closeButton>
           <DrawerTitle>Notifications</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
@@ -155,7 +155,7 @@ export default function Basics() {
       </Drawer>
 
       <Drawer id="drawer-basics-4" scrollLock side="block-end">
-        <DrawerHeader>
+        <DrawerHeader closeButton>
           <DrawerTitle>Filters</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>

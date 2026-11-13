@@ -15,8 +15,8 @@ import { defined } from "../attrs"
 import type { Props, Emits, Slots } from "./types.vue-props"
 
 const {
+  closeButton,
   closeLabel = "Close",
-  dismissible,
   id,
   severity,
   variant,
@@ -34,9 +34,9 @@ const uid = useId()
 
 const base = computed(() => id || `callout-${uid}`)
 
-const Root = computed(() => (dismissible ? "opui-callout" : "article"))
+const Root = computed(() => (closeButton ? "opui-callout" : "article"))
 
-const rootId = computed(() => (dismissible ? base.value : id))
+const rootId = computed(() => (closeButton ? base.value : id))
 
 provide(CalloutKey, reactive({ severity: computed(() => severity) }))
 </script>
@@ -51,13 +51,13 @@ provide(CalloutKey, reactive({ severity: computed(() => severity) }))
       $props.class,
     ]"
     :id="rootId"
-    :role="dismissible ? 'article' : undefined"
+    :role="closeButton ? 'article' : undefined"
     v-bind="defined(attrs)"
     @dismiss="emit('dismiss', $event)"
   >
     <slot></slot
     ><Button
-      v-if="dismissible"
+      v-if="closeButton"
       :aria-label="closeLabel"
       command="--dismiss"
       :commandfor="rootId"

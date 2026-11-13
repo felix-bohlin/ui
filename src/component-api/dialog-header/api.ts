@@ -5,8 +5,15 @@ export default {
   css: ["card", "dialog"],
   options: [
     {
+      default: "false",
       description:
-        "The accessible name of the close button. Set it to add a close button at the end of the title row, which closes its `Dialog` through the dialog's `id`.",
+        "Adds a close button at the end of the title row, which closes its `Dialog` through the dialog's `id`.",
+      group: "Close button",
+      prop: "closeButton",
+    },
+    {
+      default: '"Close"',
+      description: "The accessible name of the close button.",
       prop: "closeLabel",
     },
   ],
@@ -15,8 +22,8 @@ export default {
     {
       code: "<button>",
       description:
-        "Closes the dialog. Renders a close icon by default, or the `svg` in `close-icon`.",
-      props: ["closeLabel"],
+        "Closes the dialog, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`.",
+      props: ["closeButton", "closeLabel"],
       selector: ".ui-header > .ui-button",
       slots: ["close-icon"],
     },

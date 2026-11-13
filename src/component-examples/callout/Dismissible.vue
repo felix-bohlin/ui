@@ -7,7 +7,7 @@ const askFirst = (event: Event) => {
 </script>
 
 <template>
-  <Callout closeLabel="Dismiss" dismissible severity="info" @dismiss="askFirst">
+  <Callout closeButton closeLabel="Dismiss" severity="info" @dismiss="askFirst">
     <CalloutIcon />
     <CalloutContent>
       The new editor is on for everyone. Your drafts from the old one are in

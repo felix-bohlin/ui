@@ -7,9 +7,9 @@ const icon =
 const dismissEvent =
   "Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first."
 
-const dismissible = elementNotes(
+const closeButton = elementNotes(
   "callout.js",
-  "With `dismissible`, the root is `<opui-callout>`, and the close button shows and works once the element runs.",
+  "With `closeButton`, the root is `<opui-callout>`, and the close button shows and works once the element runs.",
 )
 
 export default {
@@ -22,11 +22,11 @@ export default {
     },
   ],
   notes: {
-    astro: `${icon} ${dismissible.astro} Listen for \`dismiss\` in a client script.`,
-    html: 'For a dismissible callout, use `<opui-callout class="ui-callout" role="article">` with an id, end it with a close `.ui-button` with `commandfor` naming it and `command="--dismiss"`, and import `opui-css/elements/callout.js`. Until it loads, the button is hidden.',
-    react: `${icon} ${dismissible.react}`,
-    svelte: `${icon} ${dismissible.svelte}`,
-    vue: `${icon} ${dismissible.vue}`,
+    astro: `${icon} ${closeButton.astro} Listen for \`dismiss\` in a client script.`,
+    html: 'For a close button that hides the callout, use `<opui-callout class="ui-callout" role="article">` with an id, end it with a `.ui-button` with `commandfor` naming it and `command="--dismiss"`, and import `opui-css/elements/callout.js`. Until it loads, the button is hidden.',
+    react: `${icon} ${closeButton.react}`,
+    svelte: `${icon} ${closeButton.svelte}`,
+    vue: `${icon} ${closeButton.vue}`,
   },
   options: [
     {
@@ -35,19 +35,20 @@ export default {
       prop: "@dismiss",
     },
     {
+      default: "false",
+      description:
+        'Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>` with `role="article"`, and the component loads `opui-css/elements/callout.js`, which runs the button.',
+      group: "Close button",
+      prop: "closeButton",
+    },
+    {
       default: '"Close"',
       description: "The accessible name of the close button.",
       prop: "closeLabel",
     },
     {
       description:
-        'Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>` with `role="article"`, and the component loads `opui-css/elements/callout.js`, which runs the button.',
-      group: "Dismissible",
-      prop: "dismissible",
-    },
-    {
-      description:
-        "The id of the callout. With `dismissible`, the close button points at it with `commandfor`, so the component generates one when it's left out.",
+        "The id of the callout. With `closeButton`, the close button points at it with `commandfor`, so the component generates one when it's left out.",
       inherited: true,
       prop: "id",
       type: "string",
@@ -99,8 +100,8 @@ export default {
     {
       code: "<button>",
       description:
-        'A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `dismissible`, the component renders it with `command="--dismiss"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`.',
-      props: ["closeLabel", "dismissible"],
+        'A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command="--dismiss"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`.',
+      props: ["closeButton", "closeLabel"],
       selector: ".ui-callout > .ui-button",
       slots: ["close-icon"],
     },
@@ -112,7 +113,7 @@ export default {
   ],
   root: {
     description:
-      'Container element, an `<article>`. With `dismissible`, the `<opui-callout>` custom element with `role="article"`. A button with `commandfor` and `command="--dismiss"` fires a cancelable `dismiss` event on it that bubbles, and unless a listener calls `preventDefault()`, the element sets `hidden` on itself and moves focus that was inside it to the next focusable element after it, or else the one before. `dismiss()` does the same from a script and returns whether the callout was hidden.',
+      'Container element, an `<article>`. With `closeButton`, the `<opui-callout>` custom element with `role="article"`. A button with `commandfor` and `command="--dismiss"` fires a cancelable `dismiss` event on it that bubbles, and unless a listener calls `preventDefault()`, the element sets `hidden` on itself and moves focus that was inside it to the next focusable element after it, or else the one before. `dismiss()` does the same from a script and returns whether the callout was hidden.',
     selector: ".ui-callout",
   },
   slots: [

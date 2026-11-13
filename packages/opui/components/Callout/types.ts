@@ -1,6 +1,6 @@
 export type Props = {
+  closeButton?: boolean
   closeLabel?: string
-  dismissible?: boolean
   severity?: "critical" | "info" | "neutral" | "success" | "warning"
   variant?: "outlined" | "tonal"
 }

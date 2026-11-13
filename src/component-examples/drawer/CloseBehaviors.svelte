@@ -24,7 +24,7 @@
 </Button>
 
 <Drawer id="drawer-close-behaviors-1" scrollLock {closedby}>
-  <DrawerHeader>
+  <DrawerHeader closeButton>
     <DrawerTitle>How to close</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>

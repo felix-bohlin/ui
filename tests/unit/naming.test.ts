@@ -327,6 +327,23 @@ const problemsOf = (api: ComponentApi) => {
     }
   }
 
+  for (const part of api.parts) {
+    const labels = (part.props ?? []).filter((prop) => prop.endsWith("Label"))
+    for (const prop of part.props ?? []) {
+      const option = api.options.find((each) => each.prop === prop)
+      if (
+        option?.default === "false" &&
+        labels.length > 0 &&
+        !labels.some((label) => prop.startsWith(label.slice(0, -5)))
+      ) {
+        report(
+          option,
+          `the boolean that adds a generated control starts with the word of its ${labels.join(" or ")}`,
+        )
+      }
+    }
+  }
+
   const names = new Set(props.map((option) => option.prop))
   for (const option of props.filter(({ values }) => !values)) {
     for (const [concept, { values }] of Object.entries(vocabulary)) {
@@ -442,6 +459,23 @@ test.each([
     "a control icon without its label",
     "close-icon: the icon of a generated control sits next to its closeLabel",
     { options: [], slots: [{ description: "", name: "close-icon" }] },
+  ],
+  [
+    "a control's boolean named apart from its label",
+    "dismissible: the boolean that adds a generated control starts with the word of its closeLabel",
+    {
+      options: [
+        option({ prop: "closeLabel" }),
+        option({ default: "false", prop: "dismissible" }),
+      ],
+      parts: [
+        {
+          description: "",
+          props: ["closeLabel", "dismissible"],
+          selector: ".ui-callout > .ui-button",
+        },
+      ],
+    },
   ],
 ])("the naming model flags %s", (_, message, fields) => {
   expect(

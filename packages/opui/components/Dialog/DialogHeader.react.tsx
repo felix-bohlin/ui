@@ -9,18 +9,19 @@ import type { DialogHeaderProps as Props } from "./types.react"
 
 export default function DialogHeader({
   className,
-  closeLabel,
+  closeButton,
+  closeLabel = "Close",
   children,
   closeIcon,
   ...rest
 }: Props) {
   const dialog = useDialogContext()
-  if (closeLabel) warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
+  if (closeButton) warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
 
   return (
     <div className={cx(["ui-header", className])} {...rest}>
       {children}
-      {closeLabel && (
+      {closeButton && (
         <Button
           aria-label={closeLabel}
           command="close"

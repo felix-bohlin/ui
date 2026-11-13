@@ -7,17 +7,22 @@ import { dialogContext } from "./context.astro"
 import { closePath } from "./icons"
 import { trimEdges } from "../whitespace"
 
-const { class: className, closeLabel, ...rest } = Astro.props
+const {
+  class: className,
+  closeButton,
+  closeLabel = "Close",
+  ...rest
+} = Astro.props
 
 const dialog = dialogContext.get()
-if (closeLabel) warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
+if (closeButton) warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
 const content = Astro.slots.has("default")
   ? trimEdges(await Astro.slots.render("default"))
   : ""
 ---
 
 <div class:list={["ui-header", className]} {...rest}>
-  <Fragment set:html={content} />{closeLabel && <Button
+  <Fragment set:html={content} />{closeButton && <Button
     aria-label={closeLabel}
     command="close"
     commandfor={dialog?.id}

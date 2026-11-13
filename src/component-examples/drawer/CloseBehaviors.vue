@@ -26,7 +26,7 @@ const closedby = ref<"any" | "closerequest" | "none">("any")
   </Button>
 
   <Drawer id="drawer-close-behaviors-1" scrollLock :closedby="closedby">
-    <DrawerHeader>
+    <DrawerHeader closeButton>
       <DrawerTitle>How to close</DrawerTitle>
     </DrawerHeader>
     <DrawerContent>

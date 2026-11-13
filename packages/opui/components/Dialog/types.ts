@@ -9,6 +9,7 @@ export type DialogFooterProps = {
 }
 
 export type DialogHeaderProps = {
+  closeButton?: boolean
   closeLabel?: string
 }
 

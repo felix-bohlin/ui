@@ -21,7 +21,7 @@
 <Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
 
 <Drawer id="drawer-basics-1" scrollLock side="inline-start">
-  <DrawerHeader>
+  <DrawerHeader closeButton>
     <DrawerTitle>Menu</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
@@ -45,7 +45,7 @@
   scrollLock
   side="inline-end"
 >
-  <DrawerHeader>
+  <DrawerHeader closeButton>
     <DrawerTitle>Onboarding emails</DrawerTitle>
     <Button aria-label="Edit" round size="small">
       <svg
@@ -119,7 +119,7 @@
 </Drawer>
 
 <Drawer id="drawer-basics-3" scrollLock side="block-start">
-  <DrawerHeader>
+  <DrawerHeader closeButton>
     <DrawerTitle>Notifications</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
@@ -135,7 +135,7 @@
 </Drawer>
 
 <Drawer id="drawer-basics-4" scrollLock side="block-end">
-  <DrawerHeader>
+  <DrawerHeader closeButton>
     <DrawerTitle>Filters</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>

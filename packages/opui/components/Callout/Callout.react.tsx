@@ -11,8 +11,8 @@ import type { Props } from "./types.react"
 
 export default function Callout({
   className,
+  closeButton,
   closeLabel = "Close",
-  dismissible,
   id,
   onDismiss,
   ref,
@@ -24,8 +24,8 @@ export default function Callout({
 }: Props) {
   const uid = useId()
   const base = id || `callout-${uid}`
-  const Root = dismissible ? "opui-callout" : "article"
-  const rootId = dismissible ? base : id
+  const Root = closeButton ? "opui-callout" : "article"
+  const rootId = closeButton ? base : id
   const rootRef = useListener(ref, "dismiss", onDismiss)
   useEffect(() => {
     void import("../../elements/callout.js")
@@ -41,12 +41,12 @@ export default function Callout({
           className,
         ])}
         id={rootId}
-        role={dismissible ? "article" : undefined}
+        role={closeButton ? "article" : undefined}
         ref={rootRef}
         {...defined(rest as object)}
       >
         {children}
-        {dismissible && (
+        {closeButton && (
           <Button
             aria-label={closeLabel}
             command="--dismiss"

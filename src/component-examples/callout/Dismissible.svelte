@@ -3,8 +3,8 @@
 </script>
 
 <Callout
+  closeButton
   closeLabel="Dismiss"
-  dismissible
   ondismiss={(event) => {
     if (!confirm("Hide this message?")) event.preventDefault()
   }}

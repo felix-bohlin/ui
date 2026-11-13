@@ -174,8 +174,9 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
     <h2>Close button</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        It says "Close" unless you translate it with <code>closeLabel</code>,
-        like the other
+        Set <code>closeButton</code> on <code>DrawerHeader</code> to add it. It
+        says "Close" unless you translate it with <code>closeLabel</code>, like
+        the other
         <DocLink href="/guide/accessibility#built-in-labels"
           >built-in labels</DocLink
         >.
@@ -204,7 +205,7 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
         open
         style="block-size: auto; inline-size: 18rem; position: static"
       >
-        <UIDrawerHeader>
+        <UIDrawerHeader closeButton>
           <UIDrawerTitle>Filters</UIDrawerTitle>
         </UIDrawerHeader>
         <UIDrawerContent>

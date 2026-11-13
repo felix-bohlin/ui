@@ -36,7 +36,7 @@ export const warnMissingCloseTarget = (
 ) => {
   if (DEV && !id) {
     console.warn(
-      `[OPUI ${component}] \`closeLabel\` adds a close button that closes the ${root} through its \`id\`. Pass \`id\` on the ${root}.`,
+      `[OPUI ${component}] \`closeButton\` adds a close button that closes the ${root} through its \`id\`. Pass \`id\` on the ${root}.`,
     )
   }
 }

@@ -43,6 +43,13 @@ export const builtInLabels = [
     prop: "failedLabel",
   },
   {
+    component: "DialogHeader",
+    default: "Close",
+    html: "aria-label",
+    page: "dialog",
+    prop: "closeLabel",
+  },
+  {
     component: "DrawerHeader",
     default: "Close",
     html: "aria-label",

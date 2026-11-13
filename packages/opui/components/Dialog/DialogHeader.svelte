@@ -8,7 +8,8 @@
 
   let {
     class: className,
-    closeLabel,
+    closeButton,
+    closeLabel = "Close",
 
     // Snippets
     children,
@@ -18,12 +19,13 @@
 
   const dialog = getDialogContext()
   untrack(() => {
-    if (closeLabel) warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
+    if (closeButton)
+      warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
   })
 </script>
 
 <div class={["ui-header", className]} {...rest}>
-  {@render children?.()}{#if closeLabel}
+  {@render children?.()}{#if closeButton}
     <Button
       aria-label={closeLabel}
       command="close"

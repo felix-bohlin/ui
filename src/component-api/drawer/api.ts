@@ -65,7 +65,7 @@ export default {
     {
       component: "DrawerHeader",
       description:
-        "The header, a row for the title and anything next to it, with a close button.",
+        "The header, a row for the title and anything next to it, with an optional close button.",
       selector: ".ui-header",
     },
     {

@@ -9,6 +9,7 @@ import { trimEdges } from "../whitespace"
 
 const {
   class: className,
+  closeButton,
   closeLabel = "Close",
   commandfor,
   ...rest
@@ -16,14 +17,14 @@ const {
 
 const drawer = drawerContext.get()
 const target = commandfor ?? drawer?.id
-warnMissingTarget("DrawerHeader", target, "Drawer")
+if (closeButton) warnMissingTarget("DrawerHeader", target, "Drawer")
 const content = Astro.slots.has("default")
   ? trimEdges(await Astro.slots.render("default"))
   : ""
 ---
 
 <div class:list={["ui-header", className]} {...rest}>
-  <Fragment set:html={content} /><Button
+  <Fragment set:html={content} />{closeButton && <Button
     aria-label={closeLabel}
     command="close"
     commandfor={target}
@@ -41,5 +42,5 @@ const content = Astro.slots.has("default")
         <path fill="currentColor" d={closePath}></path>
       </svg>
     </slot>
-  </Button>
+  </Button>}
 </div>

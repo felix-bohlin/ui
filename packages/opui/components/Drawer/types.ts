@@ -14,6 +14,7 @@ export type DrawerFooterProps = {
 }
 
 export type DrawerHeaderProps = {
+  closeButton?: boolean
   closeLabel?: string
   commandfor?: string
 }

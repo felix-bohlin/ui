@@ -496,14 +496,14 @@ The primary line is a color, not a variant.
 
 The backdrop dims and blurs like `Dialog`, through `--ui-backdrop-bg-color` and `--ui-backdrop-blur`. `.ui-backdrop-transparent` still removes it. Header headings take the free space, so several header actions line up at the end.
 
-In Astro and Vue the regions are parts instead of slots. `DrawerTitle` replaces the `DrawerHeader` `heading` prop, and `aria-labelledby` points at it. A drawer is named by `DrawerTitle` or `aria-label` (5.x set no name itself). `DrawerHeader` closes its drawer with `command="close"` (Invoker Commands) instead of a click handler, so older browsers need a polyfill. A `DrawerHeader` outside a `Drawer` no longer closes the nearest `<dialog>` on its own: set `commandfor` to the dialog's id.
+In Astro and Vue the regions are parts instead of slots. `DrawerTitle` replaces the `DrawerHeader` `heading` prop, and `aria-labelledby` points at it. A drawer is named by `DrawerTitle` or `aria-label` (5.x set no name itself). `DrawerHeader` closes its drawer with `command="close"` (Invoker Commands) instead of a click handler, so older browsers need a polyfill. A `DrawerHeader` outside a `Drawer` no longer closes the nearest `<dialog>` on its own: set `commandfor` to the dialog's id. `DrawerHeader` renders its close button only with `closeButton`, like `DialogHeader`, so add `closeButton` to keep it.
 
 ```diff
   <Drawer id="filters">
 -   <DrawerHeader slot="header" heading="Filters" />
 -   <Fragment slot="content">…</Fragment>
 -   <DrawerFooter slot="footer">…</DrawerFooter>
-+   <DrawerHeader>
++   <DrawerHeader closeButton>
 +     <DrawerTitle>Filters</DrawerTitle>
 +   </DrawerHeader>
 +   <DrawerContent>…</DrawerContent>

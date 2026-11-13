@@ -5,8 +5,8 @@ import { Callout, CalloutContent, CalloutIcon } from "opui-css/react"
 export default function Dismissible() {
   return (
     <Callout
+      closeButton
       closeLabel="Dismiss"
-      dismissible
       onDismiss={(event) => {
         if (!confirm("Hide this message?")) event.preventDefault()
       }}

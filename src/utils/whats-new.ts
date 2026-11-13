@@ -264,11 +264,11 @@ export const whatsNew = {
     },
     `<a href="#severities">Links</a> in a callout turn <code>--ui-primary-text</code> on hover and focus, the primary that keeps 4.5:1 on every surface.`,
     {
-      astro: `<a href="#dismissible"><code>dismissible</code></a> adds a close button that hides the callout, moves focus out of it and fires a cancelable <code>dismiss</code> event first. The <code>close-icon</code> slot replaces its icon.`,
+      astro: `<a href="#dismissible"><code>closeButton</code></a> adds a close button that hides the callout, moves focus out of it and fires a cancelable <code>dismiss</code> event first. The <code>close-icon</code> slot replaces its icon.`,
       html: `<a href="#dismissible"><code>&lt;opui-callout&gt;</code></a> hides itself on <code>command="--dismiss"</code>, moves focus out of it and fires a cancelable <code>dismiss</code> event first. Import <code>opui-css/elements/callout.js</code>.`,
-      react: `<a href="#dismissible"><code>dismissible</code></a> adds a close button that hides the callout and moves focus out of it. <code>onDismiss</code> runs first and can keep it with <code>preventDefault()</code>, and <code>closeIcon</code> replaces its icon.`,
-      svelte: `<a href="#dismissible"><code>dismissible</code></a> adds a close button that hides the callout and moves focus out of it. <code>ondismiss</code> runs first and can keep it with <code>preventDefault()</code>, and the <code>closeIcon</code> snippet replaces its icon.`,
-      vue: `<a href="#dismissible"><code>dismissible</code></a> adds a close button that hides the callout and moves focus out of it. <code>@dismiss</code> runs first and can keep it with <code>preventDefault()</code>, and the <code>close-icon</code> slot replaces its icon.`,
+      react: `<a href="#dismissible"><code>closeButton</code></a> adds a close button that hides the callout and moves focus out of it. <code>onDismiss</code> runs first and can keep it with <code>preventDefault()</code>, and <code>closeIcon</code> replaces its icon.`,
+      svelte: `<a href="#dismissible"><code>closeButton</code></a> adds a close button that hides the callout and moves focus out of it. <code>ondismiss</code> runs first and can keep it with <code>preventDefault()</code>, and the <code>closeIcon</code> snippet replaces its icon.`,
+      vue: `<a href="#dismissible"><code>closeButton</code></a> adds a close button that hides the callout and moves focus out of it. <code>@dismiss</code> runs first and can keep it with <code>preventDefault()</code>, and the <code>close-icon</code> slot replaces its icon.`,
     },
   ],
   card: [
@@ -650,7 +650,7 @@ export const whatsNew = {
     `Styles use logical properties only, so the <a href="#basics">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
     {
       ...components(
-        `<a href="#basics"><code>closeLabel</code></a> on <code>DialogHeader</code> adds a close button at the end of the title row.`,
+        `<a href="#basics"><code>closeButton</code></a> on <code>DialogHeader</code> adds a close button at the end of the title row, named by <code>closeLabel</code>.`,
       ),
       html: `A <a href="#basics">close button</a> after the heading stays on the title row when a paragraph follows it.`,
     },
@@ -690,6 +690,9 @@ export const whatsNew = {
     `Breaking: the header, content and footer rules live in <code>card.css</code>, shared with Dialog. Import it too when you <a href="#installation">install single files</a>.`,
     `The <a href="#basics">footer</a> spaces its items and buttons by <code>--ui-space-2</code>, like Dialog.`,
     `Themes can set <a href="#api"><code>--ui-card-padding</code></a> for the header, content and footer padding.`,
+    slots(
+      `Breaking: <code>DrawerHeader</code> renders its <a href="#close-button">close button</a> only with <code>closeButton</code>, like <code>DialogHeader</code>. Add it to keep the button.`,
+    ),
     {
       ...slots(
         `The <a href="#close-button">close button</a> in <code>DrawerHeader</code> takes your own icon in the <code>close-icon</code> slot.`,

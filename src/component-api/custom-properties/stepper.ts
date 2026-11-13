@@ -11,16 +11,6 @@ export default {
       "The check cut out of a complete marker, as an image used as a mask. Defaults to `--ui-check-image`, then a built-in check.",
     kind: "input",
   },
-  "--_connector-border-color": {
-    description:
-      "Color of the line to the next step. Defaults to `--ui-border-color`, and `--_accent` after a complete step.",
-    kind: "output",
-  },
-  "--_connector-border-width": {
-    description:
-      "Width of the line to the next step. Defaults to `--ui-border-width-thick`.",
-    kind: "input",
-  },
   "--_description-text-color": {
     description: "Color of the description. Defaults to `--ui-text-subtle`.",
     kind: "input",
@@ -53,6 +43,16 @@ export default {
     description:
       "Color of the label. `--ui-text-subtle` for a step to come, `--ui-text` for the current and complete steps, `--ui-invalid-text` for a step with an error.",
     kind: "output",
+  },
+  "--_line-border-color": {
+    description:
+      "Color of the line to the next step. Defaults to `--ui-border-color`, and `--_accent` after a complete step.",
+    kind: "output",
+  },
+  "--_line-border-width": {
+    description:
+      "Width of the line to the next step. Defaults to `--ui-border-width-thick`.",
+    kind: "input",
   },
   "--_marker-bg-color": {
     description:

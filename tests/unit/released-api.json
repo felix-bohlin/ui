@@ -385,7 +385,7 @@
       "--_motion",
       "--_radius",
       "--_scroll-shadow",
-      "--_sticky-offset"
+      "--_sticky-inset"
     ],
     "tabs": [
       "--_duration",

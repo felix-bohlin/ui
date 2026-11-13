@@ -23,7 +23,7 @@ Displays tabular data. Basic tables with row and column headers, and optional ca
 - `density`: `"dense"` (`.ui-dense`), `"normal"` (default), `"spacious"` (`.ui-spacious`). The cell padding.
 - `flush`: `boolean`, `.ui-flush`. Drops the block margin, for a table that sits in a card or another padded box.
 - `overflow`: `"scroll"` (`.ui-overflow-scroll`), `"wrap"` (default). What the table does when its columns don't fit. `wrap` lets the cells wrap their text, and `scroll` keeps each cell on one line, scrolls the table sideways and lets the last column take the space left over. Give a scrolling table `tabindex="0"`, so keyboard users can scroll it.
-- `stickyHeader`: `boolean`, `.ui-sticky-header`. Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`.
+- `stickyHeader`: `boolean`, `.ui-sticky-header`. Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-inset`.
 
 ### Slots
 
@@ -118,7 +118,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_motion`: Motion multiplier for the row and header shadow transitions. `0` turns them off.
 - `--_radius`: Corner radius of the table and its corner cells. Defaults to `--ui-radius`.
 - `--_scroll-shadow`: Shadow of the stuck header in `.ui-sticky-header`. Defaults to `--ui-shadow-scroll`.
-- `--_sticky-offset`: Distance from the top of the scroll container where the header of `.ui-sticky-header` sticks.
+- `--_sticky-inset`: Distance from the top of the scroll container where the header of `.ui-sticky-header` sticks.
 
 Outputs: `--_duration` and `--_row-duration`.
 

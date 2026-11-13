@@ -1,9 +1,9 @@
 import { Stat } from "opui-css/react"
 
-export default function Divided() {
+export default function Bordered() {
   return (
     <ul
-      className="ui-layout-grid ui-divided ui-large"
+      className="ui-layout-grid ui-bordered ui-large"
       role="list"
       style={{ "--_min-inline-size": "9rem" }}
     >

@@ -23,6 +23,14 @@ export default {
       },
     },
     {
+      class: ".ui-bordered",
+      default: "false",
+      description:
+        "Draws a line in the middle of each gap of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid` and `.ui-layout-columns`, only between two children, so a wrapped row or the short last row of a grid starts and ends without one. Browsers without gap decorations leave the gap without the line.",
+      group: "Borders",
+      prop: "bordered",
+    },
+    {
       default: '"medium"',
       description:
         "The container width at which `.ui-layout-columns` goes from one column to `--_columns`: `40rem`, `56rem` or `72rem`.",
@@ -54,14 +62,6 @@ export default {
         "Centers its content, caps its width and is the container `.ui-layout-columns` measures.",
       group: "Container",
       prop: "container",
-    },
-    {
-      class: ".ui-divided",
-      default: "false",
-      description:
-        "Draws a line in the middle of each gap of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid` and `.ui-layout-columns`, only between two children, so a wrapped row or the short last row of a grid starts and ends without one. Browsers without gap decorations leave the gap without the line.",
-      group: "Divided",
-      prop: "divided",
     },
     {
       class: ".ui-layout-grid",

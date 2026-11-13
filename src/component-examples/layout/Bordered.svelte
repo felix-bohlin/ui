@@ -3,7 +3,7 @@
 </script>
 
 <ul
-  class="ui-layout-grid ui-divided ui-large"
+  class="ui-layout-grid ui-bordered ui-large"
   role="list"
   style="--_min-inline-size: 9rem"
 >

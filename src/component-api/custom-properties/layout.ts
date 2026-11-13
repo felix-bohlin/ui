@@ -13,7 +13,7 @@ export default {
   },
   "--_divider-border-color": {
     description:
-      "Color of the lines `.ui-divided` draws between the children. Defaults to `--ui-border-color`.",
+      "Color of the lines `.ui-bordered` draws between the children. Defaults to `--ui-border-color`.",
     kind: "input",
   },
   "--_gap": {

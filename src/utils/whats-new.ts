@@ -797,7 +797,7 @@ export const whatsNew = {
     `On a <code>ul</code> or <code>ol</code>, <a href="#lists">a column, a row or a grid</a> drops the list bullets and margins, and a card alone in an <code>li</code> fills its grid cell.`,
     `<a href="#columns"><code>.ui-layout-columns</code></a> is one column that becomes the <code>--_columns</code> tracks at a breakpoint, with a <a href="#sticky"><code>.ui-sticky</code></a> child that stays in view.`,
     `Three named <a href="#breakpoints">container breakpoints</a> to reflow a page at the same widths as the blocks, which <code>.ui-layout-columns</code> picks with <code>.ui-breakpoint-small</code> and <code>.ui-breakpoint-large</code>.`,
-    `<a href="#divided"><code>.ui-divided</code></a> draws a line in each gap between two children of a column, row, grid or columns, so a wrapped row gets no stray line.`,
+    `<a href="#bordered"><code>.ui-bordered</code></a> draws a line in each gap between two children of a column, row, grid or columns, like a bordered list, so a wrapped row gets no stray line.`,
   ],
   list: [
     `Rows with any <a href="#selected"><code>aria-current</code></a> but <code>false</code> look current, like <code>true</code> on a button, not only <code>page</code>.`,

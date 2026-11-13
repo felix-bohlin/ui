@@ -71,6 +71,12 @@ for (const path in apiData) {
 const { link } = Astro.locals
 const currentFramework = Astro.locals.framework
 const pages = new Set(components.map((component) => component.slug))
+const sectionOf = (apis: ApiGroup["apis"]) => {
+  const api = Array.isArray(apis) ? apis[0]?.api : undefined
+  return api
+    ? `${api.component.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()}-api`
+    : "api"
+}
 
 const apiList = Object.values(groups)
   .filter(({ folder }) => componentHasFramework(currentFramework, folder))
@@ -85,7 +91,9 @@ const apiList = Object.values(groups)
       title,
       slug,
       apis: group.apis,
-      href: pages.has(page) ? link(`/components/${page}`) : undefined,
+      href: pages.has(page)
+        ? link(`/components/${page}#${sectionOf(group.apis)}`)
+        : undefined,
     }
   })
   .sort((a, b) => a.title.localeCompare(b.title))

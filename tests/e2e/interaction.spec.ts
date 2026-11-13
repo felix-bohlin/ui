@@ -1937,6 +1937,43 @@ interaction(
   },
 )
 
+interaction(
+  "table",
+  "SortableData",
+  "a sort listener sorts the data the rows render from, and the header gets aria-sort",
+  async ({ root }) => {
+    const header = (name: string) =>
+      root.getByRole("columnheader", { name, exact: true })
+    const names = root.locator("tbody tr td:first-child")
+    const byReviews = [
+      "Pekka Gåpåbottanen",
+      "Sirkka Nitti",
+      "Inga Halonen",
+      "Ranta Runtiringen",
+      "Hakki Hälinen",
+      "Lena Handén",
+    ]
+
+    await expect(root.locator("opui-sortable-table")).not.toHaveAttribute(
+      "data-hydrating",
+    )
+    await expect(header("Name")).toHaveAttribute("aria-sort", "ascending")
+    await expect(names).toHaveText(byReviews.toSorted())
+
+    await root.getByRole("button", { name: "Reviews" }).click()
+    await expect(header("Reviews")).toHaveAttribute("aria-sort", "ascending")
+    await expect(header("Name")).not.toHaveAttribute("aria-sort")
+    await expect(names).toHaveText(byReviews)
+
+    await root.getByRole("button", { name: "Reviews" }).click()
+    await expect(header("Reviews")).toHaveAttribute("aria-sort", "descending")
+    await expect(names).toHaveText(byReviews.toReversed())
+    await expect(root.getByRole("status")).toHaveText(
+      "Reviews, sorted descending",
+    )
+  },
+)
+
 test("the data-table block selects and sorts its rows together", async ({
   page,
 }) => {

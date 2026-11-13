@@ -238,6 +238,43 @@ export const keywords = ["data table", "grid", "rows", "sort"]
     </Conditional>
     <p>Give formatted numbers and dates a <code>data-sort-value</code>.</p>
     <AutoExample name="Sortable" />
+    <Conditional as="p">
+      <Fragment slot="astro">
+        To sort rows you render from data, listen for the <code>sort</code>
+        event in a client script and call <code>preventDefault()</code>, which
+        leaves the rows where they are, then sort the data by
+        <code>event.detail.column</code> and <code>event.detail.direction</code
+        >.
+      </Fragment>
+      <Fragment slot="html">
+        To sort rows you keep as data, listen for the <code>sort</code> event
+        and call <code>preventDefault()</code>, which leaves the rows where they
+        are, then sort the data by <code>event.detail.column</code> and
+        <code>event.detail.direction</code>.
+      </Fragment>
+      <Fragment slot="react">
+        To sort rows you render from data, pass <code>onSort</code> and call
+        <code>event.preventDefault()</code>, which leaves the rows where they
+        are, then sort the state by <code>event.detail.column</code> and
+        <code>event.detail.direction</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        To sort rows you render from data, pass <code>onsort</code> and call
+        <code>event.preventDefault()</code>, which leaves the rows where they
+        are, then sort the state by <code>event.detail.column</code> and
+        <code>event.detail.direction</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        To sort rows you render from data, listen with <code>@sort</code> and
+        call <code>event.preventDefault()</code>, which leaves the rows where
+        they are, then sort the ref by <code>event.detail.column</code> and
+        <code>event.detail.direction</code>.
+      </Fragment>
+    </Conditional>
+    <p>
+      The header still gets <code>aria-sort</code>, and the order is announced.
+    </p>
+    <AutoExample name="SortableData" />
   </section>
 
   <section id="empty">

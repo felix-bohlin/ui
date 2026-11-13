@@ -1,0 +1,84 @@
+<opui-sortable-table id="table-sortable-data-1" class="ui-sortable-table">
+  <table class="ui-table">
+    <caption>
+      Code reviews this month
+    </caption>
+    <thead>
+      <tr>
+        <th data-sort aria-sort="ascending">
+          <button type="button">Name</button>
+        </th>
+        <th data-sort>
+          <button type="button">Team</button>
+        </th>
+        <th class="ui-numeric" data-sort>
+          <button type="button">Reviews</button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Hakki Hälinen</td>
+        <td>Platform</td>
+        <td class="ui-numeric">31</td>
+      </tr>
+      <tr>
+        <td>Inga Halonen</td>
+        <td>Design</td>
+        <td class="ui-numeric">18</td>
+      </tr>
+      <tr>
+        <td>Lena Handén</td>
+        <td>Platform</td>
+        <td class="ui-numeric">42</td>
+      </tr>
+      <tr>
+        <td>Pekka Gåpåbottanen</td>
+        <td>Support</td>
+        <td class="ui-numeric">7</td>
+      </tr>
+      <tr>
+        <td>Ranta Runtiringen</td>
+        <td>Design</td>
+        <td class="ui-numeric">25</td>
+      </tr>
+      <tr>
+        <td>Sirkka Nitti</td>
+        <td>Support</td>
+        <td class="ui-numeric">12</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="ui-sr-only" role="status"></span>
+</opui-sortable-table>
+
+<script type="module">
+  import "opui-css/elements/sortable-table.js"
+</script>
+
+<script type="module">
+  const table = document.querySelector("#table-sortable-data-1")
+  const body = table?.querySelector("tbody")
+  const keys = ["name", "team", "reviews"]
+  const reviewers = [...(body?.rows ?? [])].map((row) => ({
+    name: row.cells[0].textContent,
+    reviews: Number(row.cells[2].textContent),
+    row,
+    team: row.cells[1].textContent,
+  }))
+
+  table?.addEventListener("sort", (event) => {
+    if (!(event instanceof CustomEvent)) return
+    event.preventDefault()
+    const key = keys[event.detail.column]
+    const sign = event.detail.direction === "descending" ? -1 : 1
+    reviewers.sort(
+      (a, b) =>
+        sign *
+        String(a[key]).localeCompare(String(b[key]), undefined, {
+          numeric: true,
+        }),
+    )
+    body?.append(...reviewers.map(({ row }) => row))
+  })
+</script>

@@ -61,6 +61,9 @@ test("textarea affixes center on the first line at every size", async ({
   expect(
     [...new Set(affixes.map(({ affix }) => affix.split(" ")[1]))].toSorted(),
   ).toEqual(["default", "large", "small", "x-small"])
+  expect(
+    [...new Set(affixes.flatMap(({ holds }) => holds))].toSorted(),
+  ).toEqual(["#text", "button", "svg"])
   expectTextareaAffixes(affixes)
 })
 

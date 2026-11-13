@@ -45,13 +45,22 @@ export const measure = (page: Page) =>
           const padding = parseFloat(style.paddingBlockStart)
           const lineBox = parseFloat(style.lineHeight) + padding * 2
           const center = top + lineBox / 2
-          const text = document.createRange()
-          text.selectNodeContents(part)
-          const boxes = (
-            part.children.length ? [...part.children] : [text]
-          ).map((content) => content.getBoundingClientRect())
+          const nodes = [...part.childNodes].filter(
+            (node) => node instanceof Element || node.textContent!.trim(),
+          )
+          const boxes = nodes.map((node) => {
+            if (node instanceof Element) return node.getBoundingClientRect()
+            const line = document.createElement("span")
+            line.style.display = "inline-block"
+            node.replaceWith(line)
+            line.append(node)
+            const box = line.getBoundingClientRect()
+            line.replaceWith(node)
+            return box
+          })
           return {
             affix: `${example} ${size} > ${part.className}`,
+            holds: nodes.map((node) => node.nodeName.toLowerCase()),
             contents: boxes.map((box) =>
               box.height > lineBox
                 ? box.top - top

@@ -125,7 +125,7 @@ export default {
       prop: "persistentButtons",
     },
     {
-      cssVar: "--_button-prev-label",
+      cssVar: "--_button-previous-label",
       default: '"Previous"',
       description: "Accessible name of the previous button.",
       group: "Previous label",

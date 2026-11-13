@@ -58,7 +58,7 @@ export default {
       "Accessible name of the next button, a CSS string. `nextLabel` sets it.",
     kind: "input",
   },
-  "--_button-prev-label": {
+  "--_button-previous-label": {
     description:
       "Accessible name of the previous button, a CSS string. `previousLabel` sets it.",
     kind: "input",

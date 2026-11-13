@@ -9,7 +9,7 @@ export const builtInLabels = [
   {
     component: "Carousel",
     default: "Previous",
-    html: "--_button-prev-label",
+    html: "--_button-previous-label",
     page: "carousel",
     prop: "previousLabel",
   },

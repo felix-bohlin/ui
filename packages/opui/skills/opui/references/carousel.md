@@ -29,7 +29,7 @@ A scrolling list with snap points, buttons and markers.
 - `orientation`: `"horizontal"` (default), `"vertical"` (`.ui-vertical`). The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default.
 - `peek`: `boolean`, `.ui-peek`. Shows part of the neighboring items.
 - `persistentButtons`: `boolean`, `.ui-persistent-buttons`. Keeps the buttons visible at the ends. A disabled button has a muted border.
-- `previousLabel`: `string`, `--_button-prev-label`, default `"Previous"`. Accessible name of the previous button.
+- `previousLabel`: `string`, `--_button-previous-label`, default `"Previous"`. Accessible name of the previous button.
 - `stretch`: `boolean`, `.ui-stretch`. Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.
 
 ### Notes
@@ -50,7 +50,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_button-image-size`: The icon size in the scroll buttons.
 - `--_button-inset`: Space between the scroll buttons and the carousel edge.
 - `--_button-next-label`: Accessible name of the next button, a CSS string. `nextLabel` sets it.
-- `--_button-prev-label`: Accessible name of the previous button, a CSS string. `previousLabel` sets it.
+- `--_button-previous-label`: Accessible name of the previous button, a CSS string. `previousLabel` sets it.
 - `--_button-shadow`: Shadow of the scroll buttons. Defaults to `--ui-shadow-overlay`.
 - `--_button-size`: Size of the scroll buttons. Defaults to `--ui-button-size-small`.
 - `--_ease`: Easing of the transitions. Defaults to `--ui-ease`.

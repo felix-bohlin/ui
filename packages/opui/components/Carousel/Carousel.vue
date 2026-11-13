@@ -49,7 +49,8 @@ const attrs = useAttrs() as HTMLAttributes
           mergeStyle(
             {
               '--_button-next-label': nextLabel && cssString(nextLabel),
-              '--_button-prev-label': previousLabel && cssString(previousLabel),
+              '--_button-previous-label':
+                previousLabel && cssString(previousLabel),
               '--_items-per-view': itemsPerView,
               '--_marker-label':
                 markerLabel && counterLabel(markerLabel, 'ui-carousel-item'),

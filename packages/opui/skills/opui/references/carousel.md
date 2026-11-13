@@ -30,6 +30,7 @@ A scrolling list with snap points, buttons and markers.
 - `peek`: `boolean`, `.ui-peek`. Shows part of the neighboring items.
 - `persistentButtons`: `boolean`, `.ui-persistent-buttons`. Keeps the buttons visible at the ends. A disabled button has a muted border.
 - `previousLabel`: `string`, `--_button-previous-label`, default `"Previous"`. Accessible name of the previous button.
+- `role`: `string`, default `"list"`. The `role` of the `<ul>`. `list` keeps Safari announcing a list.
 - `stretch`: `boolean`, `.ui-stretch`. Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.
 
 ### Notes
@@ -59,7 +60,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_marker-bg-color`: Fill of the other markers. Defaults to `transparent`.
 - `--_marker-border-color`: Ring of the other markers. Defaults to `--ui-text`, which keeps its contrast against the page in every theme.
 - `--_marker-gap`: Space between markers.
-- `--_marker-group-margin-block-start`: Space between the items and the markers, the `margin-block-start` of `::scroll-marker-group`. In `.ui-vertical` it is the space at the inline end of the items instead.
+- `--_marker-group-offset`: Distance from the items to the markers in either orientation: the `margin-block-start` of `::scroll-marker-group`, and in `.ui-vertical` the room at the inline end of the items and the group's `inset-inline-start`.
 - `--_marker-label`: Accessible name of each marker, CSS strings with `counter(ui-carousel-item)` where the item number goes. `markerLabel` sets it.
 - `--_marker-selected-bg-color`: Fill and ring of the current marker. Defaults to `--ui-selected-strong`.
 - `--_marker-selected-padding`: Inset of the current marker's dot, smaller than the `--ui-space-2` of the other markers, so the current dot is larger. Defaults to `--ui-space-1`.

@@ -12,6 +12,10 @@ Chat bubbles that group by sender, with attachments, reactions and a typing indi
 - `ol.ui-message-list` (root): The conversation, an ordered list.
 - `li.ui-message` (`Message`): A message. Consecutive messages on the same side group into a run.
 
+### Props and modifiers
+
+- `role`: `string`, default `"list"`. The `role` of the `<ol>`, such as `log` for a live conversation. `list` keeps Safari announcing a list.
+
 ### Slots
 
 - `default`: The messages, and any other `li` between them, such as a date in `li.ui-divider`, which starts a new run.

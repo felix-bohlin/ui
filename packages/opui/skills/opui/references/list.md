@@ -17,6 +17,7 @@ Rows of similar items, like contacts, files or settings, with icons, controls an
 - `bordered`: `boolean`, `.ui-bordered`. Adds a border between list items.
 - `dense`: `boolean`, `.ui-dense`. Packs the items tighter.
 - `flush`: `boolean`, `.ui-flush`. Removes the inline padding of the items and the block padding of the list.
+- `role`: `string`, default `"list"`. The `role` of the `<ul>`, such as `listbox`. `list` keeps Safari announcing a list.
 - `variant`: `"filled"` (default), `"tonal"` (`.ui-tonal`), `"transparent"` (`.ui-transparent`). The variant to use.
 
 ### Slots

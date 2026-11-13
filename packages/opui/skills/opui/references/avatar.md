@@ -38,6 +38,7 @@ An image, initials or icon that stands for a person or an entity.
 
 - `aria-label`: `string`, `[aria-label]`. The accessible name of the group. The Astro, React and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.
 - `aria-labelledby`: `string`. The id of the element that names the group, instead of `aria-label`.
+- `role`: `string`, default `"group"`. The `role` of the root. A passed role replaces `group`.
 
 ### Slots
 

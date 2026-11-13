@@ -155,6 +155,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   closedby="any"
   class="ui-drawer"
   aria-labelledby="drawer-basics-1-title"
+  data-close-on-navigate
   id="drawer-basics-1"
 >
   <div class="ui-header">
@@ -348,6 +349,10 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
     </div>
   </div>
 </dialog>
+
+<script type="module">
+  import "opui-css/elements/close-on-navigate.js"
+</script>
 ```
 
 ## Astro
@@ -383,7 +388,7 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
 <Button command="show-modal" commandfor="drawer-basics-2">Inline end</Button>
 <Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
 
-<Drawer id="drawer-basics-1" side="inline-start">
+<Drawer closeOnNavigate id="drawer-basics-1" side="inline-start">
   <DrawerHeader closeButton>
     <DrawerTitle>Menu</DrawerTitle>
   </DrawerHeader>
@@ -511,7 +516,7 @@ export default function BasicsCode() {
         Block end
       </Button>
 
-      <Drawer id="drawer-basics-1" side="inline-start">
+      <Drawer closeOnNavigate id="drawer-basics-1" side="inline-start">
         <DrawerHeader closeButton>
           <DrawerTitle>Menu</DrawerTitle>
         </DrawerHeader>
@@ -639,7 +644,7 @@ export default function BasicsCode() {
 <Button command="show-modal" commandfor="drawer-basics-2">Inline end</Button>
 <Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
 
-<Drawer id="drawer-basics-1" side="inline-start">
+<Drawer closeOnNavigate id="drawer-basics-1" side="inline-start">
   <DrawerHeader closeButton>
     <DrawerTitle>Menu</DrawerTitle>
   </DrawerHeader>
@@ -758,7 +763,7 @@ import {
   <Button command="show-modal" commandfor="drawer-basics-2">Inline end</Button>
   <Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
 
-  <Drawer id="drawer-basics-1" side="inline-start">
+  <Drawer closeOnNavigate id="drawer-basics-1" side="inline-start">
     <DrawerHeader closeButton>
       <DrawerTitle>Menu</DrawerTitle>
     </DrawerHeader>

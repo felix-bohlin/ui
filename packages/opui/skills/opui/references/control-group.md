@@ -19,6 +19,7 @@ Buttons and fields joined into one control, like a split button or a search fiel
 - `color`: `"critical"` (`.ui-critical`), `"primary"` (`.ui-primary`). Optional colors for the buttons.
 - `orientation`: `"horizontal"` (default), `"vertical"` (`.ui-vertical`). The orientation of the element.
 - `overflow`: `"scroll"` (`.ui-overflow-scroll`), `"shrink"` (`.ui-overflow-shrink`), `"wrap"` (default). What the controls do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis. Icon-only buttons keep their size.
+- `role`: `string`, default `"group"`. The `role` of the root, such as `toolbar`. A passed role replaces `group`.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the buttons and fields.
 - `variant`: `"filled"` (`.ui-filled`), `"outlined"` (`.ui-outlined`), `"tonal"` (`.ui-tonal`), `"transparent"` (default). The variant of the buttons.
 

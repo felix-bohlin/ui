@@ -12,14 +12,14 @@ A one-time password (OTP) field: one input drawn as a box per character, with pa
 - `label.ui-text-field.ui-one-time-code` (root): Container element.
 - `.ui-label` (prop `label`, slot `label`): The label for the field.
 - `.ui-field`: Draws a box per character and a ring on the next one.
-- `<input>` (model): The input element.
+- `<input>` (model): The input element, with `autocomplete="one-time-code"`, which lets the browser fill in a code it received.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
 
 ### Props and modifiers
 
 - `alphanumeric`: `boolean`, `input[autocapitalize="characters"]`. Accepts letters and digits. Letters show uppercase and keep the case they were typed in.
-- `autocapitalize`: `string`. The `autocapitalize` of the `<input>`. With `alphanumeric` it is `characters`.
-- `autocomplete`: `string`, default `"one-time-code"`. The `autocomplete` of the `<input>`. `one-time-code` lets the browser fill in a code it received.
+- `autocapitalize` (Astro, Svelte and Vue): `string`. The `autocapitalize` of the `<input>`. With `alphanumeric` it is `characters`.
+- `autoCapitalize` (React): `string`. The `autocapitalize` of the `<input>`, as `autoCapitalize` like on the element. With `alphanumeric` it is `characters`.
 - `disabled`: `boolean`, `input[disabled]`. Dims the field and blocks input.
 - `error`: `boolean`, `input[aria-invalid="true"]`. Marks the control invalid and shows error styles.
 - `grouped`: `boolean`, `.ui-grouped`. Draws a dash between the two halves of the code. Use it with an even `length`.
@@ -31,7 +31,8 @@ A one-time password (OTP) field: one input drawn as a box per character, with pa
 - `pattern`: `string`. The `pattern` of the `<input>`. It is `[0-9]{length}`, or `[A-Za-z0-9]{length}` with `alphanumeric`.
 - `required`: `boolean`, `input[required]`. Adds a required mark after the label. The form won't submit while the code is incomplete.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
-- `spellcheck`: `boolean`. The `spellcheck` of the `<input>`. With `alphanumeric` it is `false`.
+- `spellcheck` (Astro, Svelte and Vue): `boolean`. The `spellcheck` of the `<input>`. With `alphanumeric` it is `false`.
+- `spellCheck` (React): `boolean`. The `spellcheck` of the `<input>`, as `spellCheck` like on the element. With `alphanumeric` it is `false`.
 
 Model: `value` (`string`), the code. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
 
@@ -92,10 +93,10 @@ The stylesheets read `--ui-border-width-thick`, `--ui-disabled-opacity`, `--ui-d
   <span class="ui-label">Verification code</span>
   <span class="ui-field">
     <input
-      autocomplete="one-time-code"
       inputmode="numeric"
       pattern="[0-9]{6}"
       required
+      autocomplete="one-time-code"
       maxlength="6"
       name="code"
       type="text"

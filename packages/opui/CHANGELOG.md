@@ -613,7 +613,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Range` invalid state colors the thumb and its halo too, except on a disabled range.
 - `Range` hover ring is no longer clipped at min or max.
 - `Range` with `spread`, a value and tick marks no longer draws the value over the tick labels, and the end text of a narrow spread range no longer overlaps the slider or the tick labels.
-- `Range` tick labels line up with the thumb at both ends.
+- `Range` tick labels line up with the thumb, and the first and last line up with the ends of the track and grow inward, so a long translated label stays inside the slider.
 - `Range` updates its value `<output>` after its form is reset, in every browser, and leaves it when a `reset` listener cancels the reset. In Vue the bound value follows the reset, so custom readout content does too.
 - `Range` (Astro) updates its value output after `<ClientRouter>` navigation, leaves `value-text` slot content and ranges it didn't render alone, and wires each output once.
 - `Range` thumb stays centered on the track when `--_thumb-size` or `--_track-block-size` changes, also on touch screens.

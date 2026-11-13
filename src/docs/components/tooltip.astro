@@ -20,7 +20,7 @@ import tooltipApi from "../../component-api/tooltip/api"
 import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
 
 export const description =
-  "A short label or hint for a control, shown on hover, focus or a long press."
+  "A short label or hint for a control, shown on hover and focus."
 
 export const keywords = ["hint", "hover", "title", "toggletip"]
 ---
@@ -79,8 +79,8 @@ export const keywords = ["hint", "hover", "title", "toggletip"]
   <Fragment slot="title">Tooltip</Fragment>
   <Fragment slot="preamble">
     <p>
-      A short hint on hover, focus or long press, like the name of an icon
-      button. For interactive content, use an
+      A short hint on hover and focus, like the name of an icon button. For
+      interactive content, use an
       <DocLink href="/components/anchor#hover-trigger">Anchor</DocLink> hover
       card.
     </p>

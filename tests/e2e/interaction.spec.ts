@@ -313,7 +313,7 @@ interaction(
     await root.getByRole("button", { name: "Inline start" }).click()
     const menu = root.locator("dialog#drawer-basics-1")
     await expect(menu).toHaveAttribute("open")
-    await menu.getByRole("link", { name: "Projects" }).click()
+    await menu.getByRole("link", { name: "My bands" }).click()
     await expect(menu).not.toHaveAttribute("open")
 
     await root.getByRole("button", { name: "Inline end" }).click()
@@ -2592,7 +2592,7 @@ interaction(
     const input = root.getByRole("textbox", { name: "Username", exact: true })
 
     await expect(input).toHaveAccessibleDescription(
-      "This username is taken. Try another one.",
+      "Whoops, this username is taken. Try another one.",
     )
   },
 )

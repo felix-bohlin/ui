@@ -23,7 +23,7 @@ A scrolling list with snap points, buttons and markers.
 - `aspectRatio`: `number | string`, `--_media-aspect-ratio`, default `"16 / 9"`. Aspect ratio that images, videos and iframes are cropped to.
 - `buttons`: `"inside"` (default), `"none"` (`.ui-buttons-none`), `"outside"` (`.ui-buttons-outside`). Previous and next buttons. `outside` places them beside the items, and `none` leaves them out.
 - `itemsPerView`: `number`, `--_items-per-view`, default `1`. Number of visible items.
-- `markerLabel`: `string`, `--_marker-label`, default `"Slide {count}"`. Accessible name of each marker, with `{count}` where the item number goes.
+- `markerLabel`: `string`, `--_marker-label`, default `"Slide {number}"`. Accessible name of each marker, with `{number}` where the item number goes.
 - `markers`: `boolean`, `.ui-markers`. One marker per item, after the list.
 - `nextLabel`: `string`, `--_button-next-label`, default `"Next"`. Accessible name of the next button.
 - `orientation`: `"horizontal"` (default), `"vertical"` (`.ui-vertical`). The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default.

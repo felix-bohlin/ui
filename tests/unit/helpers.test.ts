@@ -66,10 +66,10 @@ describe("cssString and counterLabel", () => {
     expect(cssString('Say "hi"\\\n')).toBe('"Say \\"hi\\"\\\\\\a "')
   })
 
-  test("counterLabel puts the counter where {count} is", () => {
-    expect(counterLabel("Slide {count}", "x")).toBe('"Slide " counter(x)')
-    expect(counterLabel("{count}. dia", "x")).toBe('counter(x) ". dia"')
-    expect(counterLabel("Page {count} of the tour", "x")).toBe(
+  test("counterLabel puts the counter where {number} is", () => {
+    expect(counterLabel("Slide {number}", "x")).toBe('"Slide " counter(x)')
+    expect(counterLabel("{number}. dia", "x")).toBe('counter(x) ". dia"')
+    expect(counterLabel("Page {number} of the tour", "x")).toBe(
       '"Page " counter(x) " of the tour"',
     )
     expect(counterLabel("Slide", "x")).toBe('"Slide"')

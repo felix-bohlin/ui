@@ -77,9 +77,9 @@ export default {
     },
     {
       cssVar: "--_marker-label",
-      default: '"Slide {count}"',
+      default: '"Slide {number}"',
       description:
-        "Accessible name of each marker, with `{count}` where the item number goes.",
+        "Accessible name of each marker, with `{number}` where the item number goes.",
       group: "Marker label",
       htmlDescription:
         'Accessible name of each marker, a CSS string with `counter(ui-carousel-item)` where the item number goes: `"Slide " counter(ui-carousel-item)` by default.',

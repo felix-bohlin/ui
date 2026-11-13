@@ -135,7 +135,11 @@ const html = Astro.locals.framework === "html"
             >
           </td>
           <td><code>{html ? label.html : label.prop}</code></td>
-          <td>{label.shown ?? label.default}</td>
+          <td>
+            {(html ? undefined : label.template) ??
+              label.shown ??
+              label.default}
+          </td>
         </tr>)}
       </tbody>
     </table>

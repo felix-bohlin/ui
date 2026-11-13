@@ -39,7 +39,7 @@ export const cssString = (text: string) =>
 
 export const counterLabel = (template: string, counter: string) =>
   template
-    .split("{count}")
+    .split("{number}")
     .flatMap((text, index) => [
       index > 0 ? `counter(${counter})` : "",
       text ? cssString(text) : "",

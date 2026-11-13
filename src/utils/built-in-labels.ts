@@ -27,6 +27,7 @@ export const builtInLabels = [
     page: "carousel",
     prop: "markerLabel",
     shown: "Slide 1, Slide 2",
+    template: "Slide {number}",
   },
   {
     component: "Copy",

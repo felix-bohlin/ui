@@ -223,6 +223,7 @@ export const whatsNew = {
       svelte: `A button takes link attributes only with <code>href</code> (<a href="#api">types</a>).`,
     },
     `Breaking: <code>--_color</code>, <code>--_color-contrast</code> and <code>--_color-tonal</code> are <code>--_accent</code>, <code>--_on-accent</code> and <code>--_accent-tonal</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_default-hover-bg-color</code> and <code>--_default-active-bg-color</code> are <a href="#component-properties"><code>--_transparent-hover-bg-color</code></a> and <code>--_transparent-active-bg-color</code>, after the <code>transparent</code> variant.`,
     `Breaking: <a href="#disabled">disabled links</a> have no <code>href</code>, so they can't be focused or followed.`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `Corners follow <code>--ui-radius</code>, and <a href="#api"><code>--ui-button-radius</code></a> overrides it when a theme sets it, so one token squares or rounds every component.`,

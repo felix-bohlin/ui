@@ -25,14 +25,6 @@
     --_bg-color: transparent;
     --_border-color: transparent;
     --_border-width: var(--ui-border-width);
-    --_default-active-bg-color: light-dark(
-      oklch(from var(--_accent) l 0.06 h / var(--ui-state-active-alpha-light)),
-      oklch(from var(--_accent) l 0.06 h / var(--ui-state-active-alpha-dark))
-    );
-    --_default-hover-bg-color: light-dark(
-      oklch(from var(--_accent) l 0.01 h / var(--ui-state-hover-alpha-light)),
-      oklch(from var(--_accent) l 0.01 h / var(--ui-state-hover-alpha-dark))
-    );
     --_duration: calc(var(--ui-duration-fast) * var(--_motion));
     --_ease: var(--ui-ease);
     --_end-end-radius: var(--_radius);
@@ -91,6 +83,14 @@
         )
         var(--ui-state-selected-alpha-accent)
     );
+    --_transparent-active-bg-color: light-dark(
+      oklch(from var(--_accent) l 0.06 h / var(--ui-state-active-alpha-light)),
+      oklch(from var(--_accent) l 0.06 h / var(--ui-state-active-alpha-dark))
+    );
+    --_transparent-hover-bg-color: light-dark(
+      oklch(from var(--_accent) l 0.01 h / var(--ui-state-hover-alpha-light)),
+      oklch(from var(--_accent) l 0.01 h / var(--ui-state-hover-alpha-dark))
+    );
 
     @container style(--ui-button-hover: layer) {
       --_filled-active-bg-color: color-mix(
@@ -103,10 +103,10 @@
         var(--_accent-filled),
         var(--_on-accent-filled) var(--ui-state-hover-alpha-accent)
       );
-      --_outlined-active-bg-color: var(--_default-active-bg-color);
+      --_outlined-active-bg-color: var(--_transparent-active-bg-color);
       --_outlined-active-border-color: var(--_accent);
       --_outlined-active-text-color: var(--_accent-text);
-      --_outlined-hover-bg-color: var(--_default-hover-bg-color);
+      --_outlined-hover-bg-color: var(--_transparent-hover-bg-color);
       --_outlined-hover-border-color: var(--_accent);
       --_outlined-hover-text-color: var(--_accent-text);
       --_tonal-active-bg-color: color-mix(
@@ -171,13 +171,13 @@
     /* Color inherited from Control Group. */
     :where(.ui-control-group.ui-critical, .ui-control-group.ui-primary) > & {
       --_accent-tonal: var(--ui-palette-tint);
-      --_default-active-bg-color: oklch(
+      --_on-accent-tonal: var(--ui-palette-on-tint);
+      --_transparent-active-bg-color: oklch(
         from var(--_accent) l c h / var(--ui-state-active-alpha-accent)
       );
-      --_default-hover-bg-color: oklch(
+      --_transparent-hover-bg-color: oklch(
         from var(--_accent) l c h / var(--ui-state-hover-alpha-accent)
       );
-      --_on-accent-tonal: var(--ui-palette-on-tint);
 
       @container style(--ui-button-hover: shade-all) {
         --_tonal-hover-bg-color: light-dark(
@@ -213,7 +213,7 @@
     &:where(:not(:disabled, [aria-disabled="true"])) {
       @media (hover: hover) {
         &:where(:not(:active):hover) {
-          --_bg-color: var(--_default-hover-bg-color);
+          --_bg-color: var(--_transparent-hover-bg-color);
         }
       }
 
@@ -223,7 +223,7 @@
           + :popover-open:not([popover="hint"])
         )
       ) {
-        --_bg-color: var(--_default-active-bg-color);
+        --_bg-color: var(--_transparent-active-bg-color);
       }
 
       &[aria-current="page"] {

@@ -39,15 +39,6 @@ export default {
     description: "The border width.",
     kind: "input",
   },
-  "--_default-active-bg-color": {
-    description:
-      "Pressed background of text buttons, from `--_accent`. As light as the hover background in dark mode with more contrast, so the text keeps 7:1.",
-    kind: "output",
-  },
-  "--_default-hover-bg-color": {
-    description: "Hover background of text buttons, from `--_accent`.",
-    kind: "output",
-  },
   "--_duration": {
     description:
       "Duration of the transitions, `--ui-duration-fast` times `--_motion`.",
@@ -200,6 +191,15 @@ export default {
   "--_tonal-selected-bg-color": {
     description:
       "Background of the current page in tonal buttons: `--_accent-tonal` with white or black at `--ui-state-selected-alpha-accent`, away from the text where the fill has room. White on fills darker than L 0.9 in light mode and on fills darker than L 0.3 in dark mode, black on the rest, so it differs from its tonal neighbors even when the fill is already as light or as dark as the page.",
+    kind: "output",
+  },
+  "--_transparent-active-bg-color": {
+    description:
+      "Pressed background of text buttons, from `--_accent`. As light as the hover background in dark mode with more contrast, so the text keeps 7:1.",
+    kind: "output",
+  },
+  "--_transparent-hover-bg-color": {
+    description: "Hover background of text buttons, from `--_accent`.",
     kind: "output",
   },
 } satisfies CustomProperties

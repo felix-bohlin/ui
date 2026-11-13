@@ -194,7 +194,6 @@
       "--_accent-filled",
       "--_accent-text",
       "--_actions-shift",
-      "--_default-active-bg-color",
       "--_filled-active-bg-color",
       "--_icon-size",
       "--_motion",
@@ -203,7 +202,8 @@
       "--_on-accent-tonal",
       "--_outlined-active-bg-color",
       "--_radius",
-      "--_shadow"
+      "--_shadow",
+      "--_transparent-active-bg-color"
     ],
     "callout": [
       "--_bg-color",

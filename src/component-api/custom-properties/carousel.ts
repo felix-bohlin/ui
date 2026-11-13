@@ -122,9 +122,9 @@ export default {
     description: "Space between markers.",
     kind: "input",
   },
-  "--_marker-group-margin-block-start": {
+  "--_marker-group-offset": {
     description:
-      "Space between the items and the markers, the `margin-block-start` of `::scroll-marker-group`. In `.ui-vertical` it is the space at the inline end of the items instead.",
+      "Distance from the items to the markers in either orientation: the `margin-block-start` of `::scroll-marker-group`, and in `.ui-vertical` the room at the inline end of the items and the group's `inset-inline-start`.",
     kind: "input",
   },
   "--_marker-label": {

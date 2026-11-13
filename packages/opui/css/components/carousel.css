@@ -40,7 +40,7 @@
     --_marker-bg-color: transparent;
     --_marker-border-color: var(--ui-text);
     --_marker-gap: 0px;
-    --_marker-group-margin-block-start: var(--ui-space-3);
+    --_marker-group-offset: var(--ui-space-3);
     --_marker-label: "Slide " counter(ui-carousel-item);
     --_marker-selected-bg-color: var(--ui-selected-strong);
     --_marker-selected-padding: var(--ui-space-1);
@@ -226,7 +226,7 @@
 
             &.ui-markers {
               margin-inline-end: calc(
-                var(--_marker-size) + var(--_marker-group-margin-block-start) -
+                var(--_marker-size) + var(--_marker-group-offset) -
                   var(--_inline-room)
               );
             }
@@ -310,7 +310,7 @@
         gap: var(--_marker-gap);
         justify-content: center;
         justify-self: stretch;
-        margin-block-start: var(--_marker-group-margin-block-start);
+        margin-block-start: var(--_marker-group-offset);
       }
 
       & > *::scroll-marker {
@@ -368,7 +368,7 @@
 
       @supports selector(::scroll-marker) {
         margin-inline-end: calc(
-          var(--_marker-size) + var(--_marker-group-margin-block-start) -
+          var(--_marker-size) + var(--_marker-group-offset) -
             var(--_inline-room)
         );
       }
@@ -377,7 +377,7 @@
         flex-direction: column;
         inset-block-start: anchor(--ui-carousel center);
         inset-inline-start: calc(
-          anchor(--ui-carousel end) + var(--_marker-group-margin-block-start) -
+          anchor(--ui-carousel end) + var(--_marker-group-offset) -
             var(--_inline-room)
         );
 

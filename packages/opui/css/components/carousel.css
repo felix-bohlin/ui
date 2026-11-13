@@ -17,7 +17,7 @@
     );
     --_button-disabled-opacity: 0;
     --_button-end-flip: 1;
-    --_button-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M8.293 4.293a1 1 0 0 0 0 1.414L14.586 12l-6.293 6.293a1 1 0 1 0 1.414 1.414l7-7a1 1 0 0 0 0-1.414l-7-7a1 1 0 0 0-1.414 0'/%3E%3C/svg%3E");
+    --_button-image: var(--ui-icon-next);
     --_button-image-size: 60%;
     --_button-inset: var(--ui-space-2);
     --_button-next-label: "Next";
@@ -135,12 +135,14 @@
       &.ui-vertical::scroll-button(block-end) {
         --_button-scale: 1;
 
-        background-blend-mode: difference;
-        background-color: var(--_button-bg-color);
-        background-image: var(--_button-image);
+        background-blend-mode: difference, difference, normal;
+        background-color: oklch(100% 0 0);
+        background-image:
+          linear-gradient(oklch(100% 0 0) 0 0),
+          linear-gradient(var(--_button-bg-color) 0 0), var(--_button-image);
         background-position: center;
         background-repeat: no-repeat;
-        background-size: var(--_button-image-size);
+        background-size: 100%, 100%, var(--_button-image-size);
         block-size: var(--_button-size);
         border: var(--ui-border-width) solid var(--_button-border-color);
         border-radius: var(--ui-radius-round);
@@ -159,6 +161,14 @@
           scale var(--_scale-duration) var(--_ease);
         translate: 0 -50%;
         z-index: 1;
+
+        @media (forced-colors: active) {
+          --_button-bg-color: Canvas;
+
+          border-color: ButtonText;
+          box-shadow: none;
+          forced-color-adjust: none;
+        }
       }
 
       &::scroll-button(inline-start) {

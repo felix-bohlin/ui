@@ -195,6 +195,10 @@
     inline-size: var(--ui-icon-size-large);
   }
 
+  :where(svg:not([fill])) {
+    fill: currentColor;
+  }
+
   :where(dt:not(:first-of-type)) {
     margin-block-start: var(--ui-space-5);
   }

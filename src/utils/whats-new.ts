@@ -880,11 +880,11 @@ export const whatsNew = {
     `Mark the <a href="#current-item">current item</a> with <code>aria-current</code>, like the language in use. It gets a check at the end.`,
     {
       ...slots(
-        `A <a href="#custom-check">custom check</a>: <code>--ui-check-image</code> for the check of your icon set, or any icon in the <code>icon-checked</code> slot.`,
+        `A <a href="#custom-check">custom check</a>: <code>--ui-icon-check</code> for the check of your icon set, or any icon in the <code>icon-checked</code> slot.`,
       ),
-      react: `A <a href="#custom-check">custom check</a>: <code>--ui-check-image</code> for the check of your icon set, or any icon in the <code>iconChecked</code> prop.`,
-      svelte: `A <a href="#custom-check">custom check</a>: <code>--ui-check-image</code> for the check of your icon set, or any icon in the <code>iconChecked</code> snippet.`,
-      html: `A <a href="#custom-check">custom check</a>: <code>--ui-check-image</code> for the check of your icon set, or any icon in <code>.ui-icon-checked</code>.`,
+      react: `A <a href="#custom-check">custom check</a>: <code>--ui-icon-check</code> for the check of your icon set, or any icon in the <code>iconChecked</code> prop.`,
+      svelte: `A <a href="#custom-check">custom check</a>: <code>--ui-icon-check</code> for the check of your icon set, or any icon in the <code>iconChecked</code> snippet.`,
+      html: `A <a href="#custom-check">custom check</a>: <code>--ui-icon-check</code> for the check of your icon set, or any icon in <code>.ui-icon-checked</code>.`,
     },
     `Themes can set <a href="#api"><code>--ui-menu-radius</code></a> for a corner radius of its own.`,
     `The edge reads <a href="#api"><code>--ui-border-color-raised</code></a> when a theme sets it, like drawers and elevated cards, and the separators keep <code>--ui-border-color-on-raised</code>.`,
@@ -1115,7 +1115,7 @@ export const whatsNew = {
     ),
   ],
   select: [
-    `The picker marks the <a href="#preselected">selected option</a> with a check at the end, which <code>--ui-check-image</code> changes.`,
+    `The picker marks the <a href="#preselected">selected option</a> with a check at the end, which <code>--ui-icon-check</code> changes.`,
     components(
       `The ids the select generates start with its <a href="#api"><code>id</code></a>: <code>x-label</code>, <code>x-start-text</code>, <code>x-end-text</code>, <code>x-start</code>, <code>x-end</code>, <code>x-top</code> and <code>x-bottom</code> for <code>id="x"</code>.`,
     ),
@@ -1326,7 +1326,7 @@ export const whatsNew = {
     `New: a <a href="#basics">Stat</a> shows one number with its label and the change behind it, in a row of <a href="#cards">cards</a> on a dashboard.`,
   ],
   stepper: [
-    `The <a href="#custom-check">check</a> reads <code>--ui-check-image</code>, shared with menus and selects.`,
+    `The <a href="#custom-check">check</a> reads <code>--ui-icon-check</code>, shared with menus and selects.`,
     `New: a <a href="#basics">Stepper</a> shows where someone is in a flow of steps, like a checkout, with <a href="#complete">complete</a> steps, steps with an <a href="#errors">error</a> and a <a href="#narrow">vertical</a> layout in narrow containers.`,
   ],
   tabs: [

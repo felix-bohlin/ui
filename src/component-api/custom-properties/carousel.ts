@@ -42,7 +42,7 @@ export default {
   },
   "--_button-image": {
     description:
-      "Icon of the scroll buttons, pointing forward. The previous button mirrors it.",
+      "Icon of the scroll buttons, pointing forward. Defaults to `--ui-icon-next`. Draw it in black, as icon sets do: the button shows it in the inverse of `--_button-bg-color`. The previous button mirrors it.",
     kind: "input",
   },
   "--_button-image-size": {

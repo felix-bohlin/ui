@@ -67,8 +67,6 @@ export const themeTokenDescriptions: Record<string, string> = {
     "`Button` and `ControlGroup` height with `.ui-x-small`.",
   "--ui-card-padding":
     "Padding of `Card`, `Dialog`, `Drawer` and `Accordion` content, headers, footers and actions, and of `Checkbox`, `Radio` and `Switch` cards. When unset, `--ui-space-3`. Card and accordion actions set it to their own inline padding, which caps how far a text button at either end pulls itself out.",
-  "--ui-check-image":
-    "The check that marks the current item of a `Menu`, the selected item of a listbox and `Select` picker, and a complete `Stepper` step, as an image used as a mask, so it takes the text color. Set it to an icon from your icon set, such as `url(check.svg)`, on `:root` or on one component. When unset, a built-in check.",
   "--ui-chip-radius":
     "Corner radius for `Chip`. When unset, chips follow `--ui-radius`.",
   "--ui-chip-size": "Default `Chip` height.",
@@ -259,6 +257,34 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-gray-hue": "Hue of the gray ramp.",
   "--ui-green":
     "A literal green, hue 145 at `0.53`, the lightness of palette step 9 in every palette. No severity meaning.",
+  "--ui-icon-check":
+    "The check that marks the current item of a `Menu`, the selected item of a listbox and `Select` picker, and a complete `Stepper` step. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-clear":
+    "The clear option of a `Rating`. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-close":
+    "The close button of a `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-critical":
+    "The icon of a critical `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-decrease":
+    "The icon for taking away from a value. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-error":
+    "The mark of a `Stepper` step with an error. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-expand":
+    "The arrow of a `Select` and of a `TextField` with a datalist. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-hide":
+    "The icon for hiding a value, such as a password. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-increase":
+    "The icon for adding to a value. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-info":
+    "The icon of an info `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-next":
+    "The `Carousel` buttons, pointing to the next item and turned for the previous one. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-rating":
+    "A filled star of a `Rating`, drawn over `--ui-icon-rating-empty`, so the two need the same outline. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-rating-empty":
+    "An empty star of a `Rating`. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-show":
+    "The icon for showing a hidden value, such as a password. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-size": "Default icon size inside components.",
   "--ui-icon-size-large":
     "Icon size inside `Avatar`, and of an `svg` without a `width` in `normalize.css`.",
@@ -266,6 +292,12 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron.",
   "--ui-icon-size-x-small":
     "Smallest icon size, for icons in x-small controls. Not read by a component yet.",
+  "--ui-icon-sort":
+    "The arrow of a sorted `SortableTable` column, turned for the other direction. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-success":
+    "The icon of a success `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-warning":
+    "The icon of a warning `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-info":
     "Severity color for informational messages, and the dotted underline of `abbr`, `dfn`, `.ui-abbr` and `.ui-dfn`.",
   "--ui-info-text":

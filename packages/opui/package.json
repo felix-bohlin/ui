@@ -61,7 +61,8 @@
     "LICENSE",
     "MIGRATING-legacy.md",
     "MIGRATING.md",
-    "README.md"
+    "README.md",
+    "THIRD-PARTY-NOTICES"
   ],
   "style": "./dist/opui.css",
   "svelte": "./dist/svelte/index.js",

@@ -21,7 +21,7 @@ const library = {
   url: "https://example.com",
 }
 
-const files = {
+const files: Record<string, string> = {
   LICENSE: "MIT License\n\nCopyright (c) 2026 Sample\n",
   "package.json": JSON.stringify({ version: "1.2.3" }),
   ...Object.fromEntries(
@@ -155,6 +155,39 @@ describe("icon-sets.json", () => {
         expect(svg, `${id} ${role}`).not.toMatch(/<svg[^>]* (width|height)=/)
       }
     }
+  })
+})
+
+describe("theme.css", () => {
+  const theme = readFileSync("packages/opui/css/theme.css", "utf8")
+  const sets = JSON.parse(readFileSync(ICON_SETS, "utf8"))
+
+  test("sets every icon token to the Fluent icon of icon-sets.json", () => {
+    const declared = Object.fromEntries(
+      [...theme.matchAll(/(--ui-icon-[a-z-]+): (url\("[^"]+"\));/g)].map(
+        ([, name, value]) => [name, value],
+      ),
+    )
+    expect(declared).toEqual(
+      Object.fromEntries(
+        ICON_ROLES.map((role) => [
+          `--ui-icon-${role}`,
+          iconUrl(sets.fluent.icons[role]),
+        ]),
+      ),
+    )
+  })
+})
+
+describe("THIRD-PARTY-NOTICES", () => {
+  const notices = readFileSync("packages/opui/THIRD-PARTY-NOTICES", "utf8")
+  const { fluent } = JSON.parse(readFileSync(ICON_SETS, "utf8"))
+
+  test("carries the licence of the icons theme.css ships", () => {
+    expect(notices).toContain(fluent.copyright)
+    expect(notices).toContain(fluent.package)
+    expect(notices).toContain(fluent.url)
+    expect(notices).toContain(`${fluent.license} License`)
   })
 })
 

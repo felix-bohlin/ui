@@ -364,26 +364,40 @@ export const keywords = [
       <div class="contrast-demo">
         <section>
           <p class="ui-caption">Default</p>
-          <label class="ui-text-field">
-            <span class="ui-label">Email</span>
+          <div class="ui-text-field">
+            <label class="ui-label" for="contrast-demo-email">Email</label>
             <span class="ui-field">
-              <input type="email" placeholder="name@example.com" />
+              <input
+                aria-describedby="contrast-demo-email-hint"
+                id="contrast-demo-email"
+                placeholder="name@example.com"
+                type="email"
+              />
             </span>
-            <span class="ui-end-text">We'll never share it.</span>
-          </label>
+            <span class="ui-end-text" id="contrast-demo-email-hint"
+              >We'll never share it.</span
+            >
+          </div>
           <button class="ui-button ui-primary ui-outlined" type="button">
             Subscribe
           </button>
         </section>
         <section class="ui-contrast-more">
           <p class="ui-caption">.ui-contrast-more</p>
-          <label class="ui-text-field">
-            <span class="ui-label">Email</span>
+          <div class="ui-text-field">
+            <label class="ui-label" for="contrast-demo-email-more">Email</label>
             <span class="ui-field">
-              <input type="email" placeholder="name@example.com" />
+              <input
+                aria-describedby="contrast-demo-email-more-hint"
+                id="contrast-demo-email-more"
+                placeholder="name@example.com"
+                type="email"
+              />
             </span>
-            <span class="ui-end-text">We'll never share it.</span>
-          </label>
+            <span class="ui-end-text" id="contrast-demo-email-more-hint"
+              >We'll never share it.</span
+            >
+          </div>
           <button class="ui-button ui-primary ui-outlined" type="button">
             Subscribe
           </button>

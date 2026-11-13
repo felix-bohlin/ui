@@ -75,37 +75,44 @@
           <legend>Personal details</legend>
           <div class="ui-field-group">
             <div class="ui-layout-grid" style="--_min-inline-size: 18rem">
-              <label class="ui-text-field">
-                <span class="ui-label">First name</span>
+              <div class="ui-text-field">
+                <label class="ui-label" for="account-settings-first-name"
+                  >First name</label
+                >
                 <span class="ui-field">
                   <input
                     autocomplete="given-name"
+                    id="account-settings-first-name"
                     name="first-name"
                     required
                     type="text"
                     value="Pekka"
                   />
                 </span>
-              </label>
-              <label class="ui-text-field">
-                <span class="ui-label">Last name</span>
+              </div>
+              <div class="ui-text-field">
+                <label class="ui-label" for="account-settings-last-name"
+                  >Last name</label
+                >
                 <span class="ui-field">
                   <input
                     autocomplete="family-name"
+                    id="account-settings-last-name"
                     name="last-name"
                     required
                     type="text"
                     value="Gåpåbottanen"
                   />
                 </span>
-              </label>
+              </div>
             </div>
-            <label class="ui-text-field">
-              <span class="ui-label">Email</span>
+            <div class="ui-text-field">
+              <label class="ui-label" for="account-settings-email">Email</label>
               <span class="ui-field">
                 <input
                   aria-describedby="account-settings-email-hint"
                   autocomplete="email"
+                  id="account-settings-email"
                   name="email"
                   required
                   type="email"
@@ -116,28 +123,43 @@
                 ><span class="ui-p ui-success">Verified</span>, used for sign-in
                 and receipts</span
               >
-            </label>
-            <label class="ui-text-field">
-              <span class="ui-label">Username</span>
+            </div>
+            <div class="ui-text-field">
+              <label class="ui-label" for="account-settings-username"
+                >Username</label
+              >
               <span class="ui-field">
                 <input
+                  aria-describedby="account-settings-username-start"
                   autocomplete="username"
+                  id="account-settings-username"
                   name="username"
                   type="text"
                   value="pekka"
                 />
-                <span class="ui-start">northwind.app/</span>
+                <span class="ui-start" id="account-settings-username-start"
+                  >northwind.app/</span
+                >
               </span>
-            </label>
-            <label class="ui-textarea">
-              <span class="ui-label">Bio</span>
-              <span class="ui-start-text">Shown on your public profile</span>
+            </div>
+            <div class="ui-textarea">
+              <label class="ui-label" for="account-settings-bio">Bio</label>
+              <span class="ui-start-text" id="account-settings-bio-hint"
+                >Shown on your public profile</span
+              >
               <span class="ui-field">
-                <textarea name="bio" rows="3">
+                <textarea
+                  aria-describedby="account-settings-bio-hint account-settings-bio-count"
+                  id="account-settings-bio"
+                  name="bio"
+                  rows="3"
+                >
 Product designer in Malmö. Into typography, sourdough and long bike rides.</textarea>
-                <span class="ui-bottom">73 / 160</span>
+                <span class="ui-bottom" id="account-settings-bio-count"
+                  >73 / 160</span
+                >
               </span>
-            </label>
+            </div>
           </div>
         </fieldset>
 
@@ -163,23 +185,29 @@ Product designer in Malmö. Into typography, sourdough and long bike rides.</tex
           <legend>Change password</legend>
           <p class="ui-description">Last changed on 12 June 2026.</p>
           <div class="ui-field-group">
-            <label class="ui-text-field">
-              <span class="ui-label">Current password</span>
+            <div class="ui-text-field">
+              <label class="ui-label" for="account-settings-current-password"
+                >Current password</label
+              >
               <span class="ui-field">
                 <input
                   autocomplete="current-password"
+                  id="account-settings-current-password"
                   name="current-password"
                   required
                   type="password"
                 />
               </span>
-            </label>
-            <label class="ui-text-field">
-              <span class="ui-label">New password</span>
+            </div>
+            <div class="ui-text-field">
+              <label class="ui-label" for="account-settings-new-password"
+                >New password</label
+              >
               <span class="ui-field">
                 <input
                   aria-describedby="account-settings-password-hint"
                   autocomplete="new-password"
+                  id="account-settings-new-password"
                   minlength="12"
                   name="new-password"
                   required
@@ -189,18 +217,21 @@ Product designer in Malmö. Into typography, sourdough and long bike rides.</tex
               <span class="ui-end-text" id="account-settings-password-hint"
                 >At least 12 characters. A passphrase works great.</span
               >
-            </label>
-            <label class="ui-text-field">
-              <span class="ui-label">Confirm new password</span>
+            </div>
+            <div class="ui-text-field">
+              <label class="ui-label" for="account-settings-confirm-password"
+                >Confirm new password</label
+              >
               <span class="ui-field">
                 <input
                   autocomplete="new-password"
+                  id="account-settings-confirm-password"
                   name="confirm-password"
                   required
                   type="password"
                 />
               </span>
-            </label>
+            </div>
           </div>
         </fieldset>
 
@@ -281,15 +312,12 @@ Product designer in Malmö. Into typography, sourdough and long bike rides.</tex
         <fieldset class="ui-fieldset">
           <legend>Region</legend>
           <div class="ui-layout-grid" style="--_min-inline-size: 18rem">
-            <label class="ui-select">
-              <span class="ui-label" id="account-settings-language-label"
-                >Language</span
+            <div class="ui-select">
+              <label class="ui-label" for="account-settings-language"
+                >Language</label
               >
               <span class="ui-field">
-                <select
-                  aria-labelledby="account-settings-language-label"
-                  name="language"
-                >
+                <select id="account-settings-language" name="language">
                   <button type="button">
                     <selectedcontent></selectedcontent>
                   </button>
@@ -302,16 +330,13 @@ Product designer in Malmö. Into typography, sourdough and long bike rides.</tex
                   </div>
                 </select>
               </span>
-            </label>
-            <label class="ui-select">
-              <span class="ui-label" id="account-settings-timezone-label"
-                >Time zone</span
+            </div>
+            <div class="ui-select">
+              <label class="ui-label" for="account-settings-timezone"
+                >Time zone</label
               >
               <span class="ui-field">
-                <select
-                  aria-labelledby="account-settings-timezone-label"
-                  name="timezone"
-                >
+                <select id="account-settings-timezone" name="timezone">
                   <button type="button">
                     <selectedcontent></selectedcontent>
                   </button>
@@ -324,7 +349,7 @@ Product designer in Malmö. Into typography, sourdough and long bike rides.</tex
                   </div>
                 </select>
               </span>
-            </label>
+            </div>
           </div>
         </fieldset>
 

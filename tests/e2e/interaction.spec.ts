@@ -2489,11 +2489,37 @@ interaction(
 interaction(
   "text-field",
   "Affix",
-  "the affixes join the name of a labelled field",
+  "the label alone names a field, and its affixes describe it",
   async ({ root }) => {
     await expect(
-      root.getByRole("textbox", { name: "Weight kg", exact: true }),
+      root.getByRole("textbox", { name: "Amount", exact: true }),
+    ).toHaveAccessibleDescription("€ EUR")
+    await expect(
+      root.getByRole("textbox", { name: "Weight", exact: true }),
+    ).toHaveAccessibleDescription("kg")
+  },
+)
+
+interaction(
+  "select",
+  "Affix",
+  "the label alone names a select, and its affix describes it",
+  async ({ root }) => {
+    await expect(
+      root.getByRole("combobox", { name: "Delivery time", exact: true }),
+    ).toHaveAccessibleDescription("days")
+  },
+)
+
+interaction(
+  "textarea",
+  "AffixButton",
+  "a button in an affix stays out of the field's name",
+  async ({ root }) => {
+    await expect(
+      root.getByRole("textbox", { name: "Message", exact: true }),
     ).toHaveCount(1)
+    await expect(root.getByRole("button", { name: "Send" })).toBeVisible()
   },
 )
 

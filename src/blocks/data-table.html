@@ -71,10 +71,15 @@
   </div>
 
   <search class="ui-field-group ui-horizontal">
-    <label class="ui-text-field">
-      <span class="ui-sr-only">Search customers</span>
+    <div class="ui-text-field">
+      <label class="ui-sr-only" for="data-table-q">Search customers</label>
       <span class="ui-field">
-        <input name="q" placeholder="Search by name or email" type="search" />
+        <input
+          id="data-table-q"
+          name="q"
+          placeholder="Search by name or email"
+          type="search"
+        />
         <span class="ui-start"
           ><svg
             aria-hidden="true"
@@ -89,11 +94,11 @@
             ></path></svg
         ></span>
       </span>
-    </label>
-    <label class="ui-select">
-      <span class="ui-sr-only" id="data-table-status-label">Status</span>
+    </div>
+    <div class="ui-select">
+      <label class="ui-sr-only" for="data-table-status">Status</label>
       <span class="ui-field">
-        <select aria-labelledby="data-table-status-label" name="status">
+        <select id="data-table-status" name="status">
           <button type="button"><selectedcontent></selectedcontent></button>
           <div class="ui-list">
             <option value="">All statuses</option>
@@ -104,11 +109,11 @@
           </div>
         </select>
       </span>
-    </label>
-    <label class="ui-select">
-      <span class="ui-sr-only" id="data-table-plan-label">Plan</span>
+    </div>
+    <div class="ui-select">
+      <label class="ui-sr-only" for="data-table-plan">Plan</label>
       <span class="ui-field">
-        <select aria-labelledby="data-table-plan-label" name="plan">
+        <select id="data-table-plan" name="plan">
           <button type="button"><selectedcontent></selectedcontent></button>
           <div class="ui-list">
             <option value="">All plans</option>
@@ -118,7 +123,7 @@
           </div>
         </select>
       </span>
-    </label>
+    </div>
   </search>
 
   <div class="ui-layout-row ui-small ui-spread data-table-bulk">

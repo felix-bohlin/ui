@@ -34,7 +34,7 @@ const {
   value,
   variant = "outlined",
 } = defineProps<Props>()
-defineSlots<Slots>()
+const slots = defineSlots<Slots>()
 const attrs = useAttrs() as SelectHTMLAttributes
 const inputAttrs = useInputAttrs()
 const modelValue = defineModel<string | number | (string | number)[]>()
@@ -58,7 +58,9 @@ const selectedAtFirst = (value: unknown) =>
 
 const uid = useId()
 const base = computed(() => id || `select-${uid}`)
-const labelId = computed(() => `${base.value}-label`)
+// A function, not a computed: slots aren't reactive.
+const named = () => Boolean(label || slots.label)
+const selectId = () => (named() ? base.value : id)
 const startTextId = computed(() => `${base.value}-start-text`)
 const endTextId = computed(() => `${base.value}-end-text`)
 const startId = computed(() => `${base.value}-start`)
@@ -69,7 +71,7 @@ const field = inject(FieldGroupKey, undefined)
 </script>
 
 <template>
-  <label
+  <div
     :class="[
       'ui-select',
       {
@@ -82,13 +84,13 @@ const field = inject(FieldGroupKey, undefined)
     ]"
     v-bind="styleAttrs($attrs.style)"
   >
-    <span
-      v-if="label || $slots.label"
+    <label
+      v-if="named()"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
-      :id="labelId"
+      :for="selectId()"
     >
       {{ label }}<TrimmedSlot :nodes="$slots.label?.()" />
-    </span>
+    </label>
 
     <span
       v-if="startText || $slots['start-text']"
@@ -105,20 +107,18 @@ const field = inject(FieldGroupKey, undefined)
         v-model="model"
         :aria-describedby="
           idRefs(
-            $slots.top && topId,
             (startText || $slots['start-text']) && startTextId,
-            (endText || $slots['end-text']) && endTextId,
+            $slots.top && topId,
+            $slots.start && startId,
+            $slots.end && endId,
             $slots.bottom && bottomId,
+            (endText || $slots['end-text']) && endTextId,
             attrs['aria-describedby'],
           )
         "
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
-        :aria-labelledby="
-          label || $slots.label
-            ? idRefs(labelId, $slots.start && startId, $slots.end && endId)
-            : attrs['aria-labelledby']
-        "
-        :id="id"
+        :aria-labelledby="attrs['aria-labelledby']"
+        :id="selectId()"
         :name="name ?? field?.name"
       >
         <button v-pre>
@@ -157,5 +157,5 @@ const field = inject(FieldGroupKey, undefined)
     >
       {{ endText }}<slot name="end-text"></slot>
     </span>
-  </label>
+  </div>
 </template>

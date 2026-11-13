@@ -43,12 +43,15 @@
 
       <form class="ui-form" action="#">
         <div class="ui-field-group">
-          <label class="ui-text-field ui-one-time-code ui-large">
-            <span class="ui-label">Verification code</span>
+          <div class="ui-text-field ui-one-time-code ui-large">
+            <label class="ui-label" for="two-factor-code"
+              >Verification code</label
+            >
             <span class="ui-field">
               <input
                 aria-describedby="two-factor-code-hint"
                 autocomplete="one-time-code"
+                id="two-factor-code"
                 inputmode="numeric"
                 maxlength="6"
                 name="code"
@@ -60,7 +63,7 @@
             <span class="ui-end-text" id="two-factor-code-hint"
               >The code expires in 10 minutes.</span
             >
-          </label>
+          </div>
           <label class="ui-checkbox">
             <input name="trust-device" type="checkbox" />
             <span class="ui-label">Trust this device for 30 days</span>

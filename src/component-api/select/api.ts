@@ -42,7 +42,7 @@ export default {
     type: "string | number | (string | number)[]",
   },
   notes: {
-    ...passThrough("select", "label", ["autocomplete", "multiple"]),
+    ...passThrough("select", ".ui-select", ["autocomplete", "multiple"]),
     html: "The `<select>` holds a `<button>` and a `.ui-list`. The button holds `<selectedcontent>`. The list holds the options. Browsers without customizable selects show a native select.",
   },
   options: [
@@ -85,12 +85,12 @@ export default {
       description:
         "Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.",
       group: "Label",
-      part: ".ui-select > span",
+      part: ".ui-select > label",
       prop: "hideLabel",
     },
     {
       description:
-        'The id of the `<select>`. The ids the component generates start with it: `x-label`, `x-start-text`, `x-end-text`, `x-start`, `x-end`, `x-top` and `x-bottom` for `id="x"`.',
+        "The id of the `<select>`. The `<label for>` points at it, so the component generates one when it's left out and there's a label. The ids the component generates start with it: `x-start-text`, `x-end-text`, `x-start`, `x-end`, `x-top` and `x-bottom` for `id=\"x\"`.",
       inherited: true,
       prop: "id",
       type: "string",
@@ -200,8 +200,9 @@ export default {
     },
   ],
   root: {
-    description: "Container element.",
-    selector: "label.ui-select",
+    description:
+      "Container element, a `<div>`. The label inside is a `<label for>` that names the select by itself.",
+    selector: ".ui-select",
   },
   slots: [
     {

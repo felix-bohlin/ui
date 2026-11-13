@@ -3,18 +3,18 @@
   role="group"
   aria-label="Find an order"
 >
-  <label class="ui-text-field">
-    <span class="ui-sr-only" id="control-group-fields-2-label"
-      >Order number or customer name</span
+  <div class="ui-text-field">
+    <label class="ui-sr-only" for="control-group-fields-2"
+      >Order number or customer name</label
     >
     <span class="ui-field">
       <input
         placeholder="Search orders"
-        aria-labelledby="control-group-fields-2-label"
+        id="control-group-fields-2"
         type="search"
       />
     </span>
-  </label>
+  </div>
   <button class="ui-button" type="button">Search</button>
 </div>
 
@@ -22,15 +22,10 @@
   <legend>Price</legend>
   <div class="ui-field-group">
     <div class="ui-control-group" role="group">
-      <label class="ui-select">
-        <span class="ui-sr-only" id="control-group-fields-3-label"
-          >Currency</span
-        >
+      <div class="ui-select">
+        <label class="ui-sr-only" for="control-group-fields-3">Currency</label>
         <span class="ui-field">
-          <select
-            aria-labelledby="control-group-fields-3-label"
-            name="currency"
-          >
+          <select id="control-group-fields-3" name="currency">
             <button>
               <selectedcontent></selectedcontent>
             </button>
@@ -41,19 +36,19 @@
             </div>
           </select>
         </span>
-      </label>
-      <label class="ui-text-field">
-        <span class="ui-sr-only" id="control-group-fields-4-label">Amount</span>
+      </div>
+      <div class="ui-text-field">
+        <label class="ui-sr-only" for="control-group-fields-4">Amount</label>
         <span class="ui-field">
           <input
             placeholder="0.00"
-            aria-labelledby="control-group-fields-4-label"
+            id="control-group-fields-4"
             inputmode="decimal"
             name="amount"
             type="text"
           />
         </span>
-      </label>
+      </div>
     </div>
   </div>
 </fieldset>

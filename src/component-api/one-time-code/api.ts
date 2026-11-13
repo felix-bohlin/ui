@@ -10,7 +10,7 @@ export default {
     type: "string",
   },
   notes: {
-    ...passThrough("input", "label", ["autofocus", "placeholder"], {
+    ...passThrough("input", ".ui-one-time-code", ["autofocus", "placeholder"], {
       react: "Use `value` with `onChange`, or `defaultValue`.",
     }),
     html: 'Use one `<input>` with `autocomplete="one-time-code"`, `maxlength` and a matching `pattern`, such as `[0-9]{6}`, plus `inputmode="numeric"` for digits.',
@@ -169,8 +169,9 @@ export default {
     },
   ],
   root: {
-    description: "Container element.",
-    selector: "label.ui-text-field.ui-one-time-code",
+    description:
+      "Container element, a `<div>`. The label inside is a `<label for>` that names the input by itself, and the end text describes it.",
+    selector: ".ui-text-field.ui-one-time-code",
   },
   source: "OneTimeCode",
 } satisfies ComponentApi

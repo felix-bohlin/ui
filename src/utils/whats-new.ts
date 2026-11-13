@@ -1082,8 +1082,12 @@ export const whatsNew = {
     `New: a <a href="#basics">Rating</a> draws a score as stars in a <code>&lt;meter&gt;</code>, down to a fraction, and with a <a href="#input">name</a> collects one with radios that preview on hover. Empty stars are outlines, so they differ from filled ones by shape as well as color. The stars, the empty stars and the clear icon are masks that <a href="#input"><code>--_star-image</code>, <code>--_star-empty-image</code> and <code>--_clear-image</code></a> replace.`,
   ],
   select: [
+    {
+      default: `Breaking: the root is a <code>&lt;div&gt;</code> with a <code>&lt;label for&gt;</code> inside. The label alone <a href="#accessibility">names the select</a>, and the affixes describe it with the start and end text, so they're read after the name.`,
+      html: `Breaking: give the root <code>&lt;div class="ui-select"&gt;</code> a <code>&lt;label class="ui-label" for&gt;</code> that <a href="#accessibility">names the select</a> alone, and describe it with the affixes and the start and end text through <code>aria-describedby</code>.`,
+    },
     components(
-      `The ids the select generates start with its <a href="#api"><code>id</code></a>: <code>x-label</code>, <code>x-start-text</code>, <code>x-end-text</code>, <code>x-start</code>, <code>x-end</code>, <code>x-top</code> and <code>x-bottom</code> for <code>id="x"</code>.`,
+      `The ids the select generates start with its <a href="#api"><code>id</code></a>: <code>x-start-text</code>, <code>x-end-text</code>, <code>x-start</code>, <code>x-end</code>, <code>x-top</code> and <code>x-bottom</code> for <code>id="x"</code>.`,
     ),
     `The <a href="#variants">picker</a> is <code>--ui-surface-elevated</code> with the raised edge, like menus, and reads <code>--ui-border-color-raised</code> when a theme sets it.`,
     `Helper text reads <a href="#api"><code>--ui-text-subtle</code></a>, options take <code>--ui-list-item-padding-inline</code>.`,
@@ -1362,8 +1366,8 @@ export const whatsNew = {
   ],
   "text-field": [
     {
-      default: `The label and the affixes <a href="#accessibility">name the field</a> through <code>aria-labelledby</code>, and the start text, end text, top and bottom describe it through <code>aria-describedby</code>, so a hint or an error is read after the name. The ids start with the <code>id</code>: <code>x-label</code>, <code>x-start-text</code>, <code>x-end-text</code> and so on for <code>id="x"</code>.`,
-      html: `Give <code>.ui-label</code> an id and <a href="#accessibility">name the field</a> with <code>aria-labelledby</code>, and describe it with the start and end text through <code>aria-describedby</code>, so a hint or an error is read after the name, not in it.`,
+      default: `Breaking: the root is a <code>&lt;div&gt;</code> with a <code>&lt;label for&gt;</code> inside, so the <a href="#affix">affixes</a> can hold buttons. The label alone <a href="#accessibility">names the field</a>, and the start text, top, affixes, bottom and end text describe it through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, in any language's word order. The ids start with the <code>id</code>: <code>x-start-text</code>, <code>x-start</code>, <code>x-end-text</code> and so on for <code>id="x"</code>.`,
+      html: `Breaking: give the root <code>&lt;div class="ui-text-field"&gt;</code> a <code>&lt;label class="ui-label" for&gt;</code> that <a href="#accessibility">names the field</a> alone, and describe it with the start text, the affixes and the end text through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, not in it.`,
     },
     `Placeholders and helper text read <a href="#api"><code>--ui-text-subtle</code></a>.`,
     `Themes can set <a href="#api"><code>--ui-field-bg-color</code></a>, <code>--ui-field-padding-inline</code> (<code>--ui-field-padding-inline-large</code> for large fields) and <code>--ui-field-placeholder-text-color</code>.`,
@@ -1441,18 +1445,19 @@ export const whatsNew = {
     },
     {
       ...slots(
-        `Breaking: without a <code>label</code>, the root is a <a href="#hidden-label"><code>div</code></a> instead of a <code>label</code>, and the start and end text describe the input instead of naming it. Give the field <code>aria-label</code> or <code>aria-labelledby</code>, and target <code>.ui-text-field</code> instead of <code>label.ui-text-field</code>.`,
+        `Breaking: the start and end text describe the input instead of naming it, so give a field without a <code>label</code> <a href="#hidden-label"><code>aria-label</code></a> or <code>aria-labelledby</code>.`,
       ),
-      react: `Without a <code>label</code>, the root is a <a href="#hidden-label"><code>div</code></a> instead of a <code>label</code>, like the HTML of a field named with <code>aria-label</code>, and the start and end text describe the input.`,
-      svelte: `Without a <code>label</code>, the root is a <a href="#hidden-label"><code>div</code></a> instead of a <code>label</code>, like the HTML of a field named with <code>aria-label</code>, and the start and end text describe the input.`,
+      react: `A field without a <code>label</code> is named by <a href="#hidden-label"><code>aria-label</code></a> or <code>aria-labelledby</code> alone, and the start and end text describe the input.`,
+      svelte: `A field without a <code>label</code> is named by <a href="#hidden-label"><code>aria-label</code></a> or <code>aria-labelledby</code> alone, and the start and end text describe the input.`,
     },
     `A field in a table cell keeps a <code>12ch</code> minimum width, so it stays usable with a <a href="#hidden-label">hidden label</a> in a narrow column.`,
   ],
   textarea: [
     {
-      default: `The label and the affixes <a href="#accessibility">name the field</a> through <code>aria-labelledby</code>, and the start text, end text, top and bottom describe it through <code>aria-describedby</code>, so a hint or an error is read after the name.`,
-      html: `Give <code>.ui-label</code> an id and <a href="#accessibility">name the field</a> with <code>aria-labelledby</code>, and describe it with the start and end text through <code>aria-describedby</code>, so a hint or an error is read after the name, not in it.`,
+      default: `Breaking: the root is a <code>&lt;div&gt;</code> with a <code>&lt;label for&gt;</code> inside, so the <a href="#affix">affixes</a> can hold buttons. The label alone <a href="#accessibility">names the field</a>, and the start text, top, affixes, bottom and end text describe it through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, in any language's word order.`,
+      html: `Breaking: give the root <code>&lt;div class="ui-textarea"&gt;</code> a <code>&lt;label class="ui-label" for&gt;</code> that <a href="#accessibility">names the field</a> alone, and describe it with the start text, the affixes and the end text through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, not in it.`,
     },
+    `A <a href="#buttons">button</a> can go in an affix, like a send button, and stays out of the field's name.`,
     `Placeholders and helper text read <a href="#api"><code>--ui-text-subtle</code></a>.`,
     `Themes can set <a href="#api"><code>--ui-field-bg-color</code></a>, <code>--ui-field-padding-inline</code> (<code>--ui-field-padding-inline-large</code> for large fields) and <code>--ui-field-placeholder-text-color</code>.`,
     components(
@@ -1513,10 +1518,10 @@ export const whatsNew = {
     `<a href="#variants">Filled textareas</a> fade their hover background, like the border.`,
     {
       ...slots(
-        `Breaking: without a <code>label</code>, the root is a <code>div</code> instead of a <code>label</code>, and the start and end text describe the textarea instead of naming it. Give it <code>aria-label</code> or <code>aria-labelledby</code>, and target <code>.ui-textarea</code> instead of <code>label.ui-textarea</code> (<a href="#api">API</a>).`,
+        `Breaking: the start and end text describe the textarea instead of naming it, so give a textarea without a <code>label</code> <code>aria-label</code> or <code>aria-labelledby</code> (<a href="#api">API</a>).`,
       ),
-      react: `Without a <code>label</code>, the root is a <code>div</code> instead of a <code>label</code>, and the start and end text describe the textarea (<a href="#api">API</a>).`,
-      svelte: `Without a <code>label</code>, the root is a <code>div</code> instead of a <code>label</code>, and the start and end text describe the textarea (<a href="#api">API</a>).`,
+      react: `A textarea without a <code>label</code> is named by <code>aria-label</code> or <code>aria-labelledby</code> alone, and the start and end text describe it (<a href="#api">API</a>).`,
+      svelte: `A textarea without a <code>label</code> is named by <code>aria-label</code> or <code>aria-labelledby</code> alone, and the start and end text describe it (<a href="#api">API</a>).`,
     },
     `A textarea in a table cell keeps a <code>12ch</code> minimum width, so it stays usable with a <a href="#hidden-label">hidden label</a> in a narrow column.`,
   ],

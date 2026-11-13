@@ -1,18 +1,21 @@
 ---
 import type { Props } from "./types.astro"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
+import { createIds, idRefs } from "../id"
 import { trimEdges } from "../whitespace"
 
 export const title = "One-Time Code"
 
 const {
   alphanumeric,
+  "aria-describedby": ariaDescribedBy,
   "aria-invalid": ariaInvalid,
   autocapitalize,
   class: className,
   endText,
   error,
   grouped,
+  id,
   inputmode,
   label,
   length = 6,
@@ -28,10 +31,14 @@ const field = fieldGroupContext.get()
 const labelSlot = Astro.slots.has("label")
   ? trimEdges(await Astro.slots.render("label"))
   : ""
-const LabelTag = label || labelSlot ? "span" : Fragment
+const named = Boolean(label || labelSlot)
+const ids = createIds(Astro.locals, "one-time-code", id)
+const inputId = named ? ids() : id
+const hasEndText = Boolean(endText || Astro.slots.has("end-text"))
+const endTextId = hasEndText ? ids("end-text") : undefined
 ---
 
-<label
+<div
   class:list={[
     "ui-text-field",
     "ui-one-time-code",
@@ -41,7 +48,9 @@ const LabelTag = label || labelSlot ? "span" : Fragment
   ]}
   style={style}
 >
-  <LabelTag class="ui-label">{label}<Fragment set:html={labelSlot} /></LabelTag>
+  {named && <label class="ui-label" for={inputId}
+    >{label}<Fragment set:html={labelSlot}
+  /></label>}
   <span class="ui-field">
     <input
       autocapitalize={
@@ -55,14 +64,16 @@ const LabelTag = label || labelSlot ? "span" : Fragment
       }
       spellcheck={spellcheck ?? (alphanumeric ? "false" : undefined)}
       {...rest}
+      aria-describedby={idRefs(endTextId, ariaDescribedBy)}
       aria-invalid={error ? "true" : ariaInvalid}
+      id={inputId}
       maxlength={length}
       name={name ?? field?.name}
       type="text"
     />
   </span>
-  {(endText || Astro.slots.has("end-text")) && <span class="ui-end-text">
+  {hasEndText && <span class="ui-end-text" id={endTextId}>
     {endText}
     <slot name="end-text" />
   </span>}
-</label>
+</div>

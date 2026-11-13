@@ -116,7 +116,7 @@ const CASES: {
     },
   },
   {
-    base: (html) => /\sid="([^"]+)-label"/.exec(html)?.[1],
+    base: (html) => /<select[^>]*\sid="([^"]+)"/.exec(html)?.[1],
     components: {
       astro: SelectAstro,
       react: SelectReact,

@@ -84,10 +84,13 @@
       <p>They'll get an email with a link that's valid for 7 days.</p>
     </hgroup>
     <form class="ui-content team-invite" action="#">
-      <label class="ui-text-field">
-        <span class="ui-label">Email addresses</span>
+      <div class="ui-text-field">
+        <label class="ui-label" for="team-members-emails"
+          >Email addresses</label
+        >
         <span class="ui-field">
           <input
+            id="team-members-emails"
             multiple
             name="emails"
             placeholder="name@company.com, another@company.com"
@@ -95,11 +98,11 @@
             type="email"
           />
         </span>
-      </label>
-      <label class="ui-select">
-        <span class="ui-label" id="team-members-role-label">Role</span>
+      </div>
+      <div class="ui-select">
+        <label class="ui-label" for="team-members-role">Role</label>
         <span class="ui-field">
-          <select aria-labelledby="team-members-role-label" name="role">
+          <select id="team-members-role" name="role">
             <button type="button">
               <selectedcontent></selectedcontent>
             </button>
@@ -111,7 +114,7 @@
             </div>
           </select>
         </span>
-      </label>
+      </div>
       <button class="ui-button ui-filled" type="submit">
         <svg
           aria-hidden="true"

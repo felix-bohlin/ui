@@ -44,17 +44,14 @@ const labelSlot = Astro.slots.has("label")
   ? trimEdges(await Astro.slots.render("label"))
   : ""
 const hasLabel = Boolean(label || labelSlot)
-const Root = passwordToggle ? "opui-text-field" : hasLabel ? "label" : "div"
-const Label = passwordToggle ? "label" : "span"
+const Root = passwordToggle ? "opui-text-field" : "div"
 const hasStartText = Boolean(startText || Astro.slots.has("start-text"))
 const hasEndText = Boolean(
   endText || Astro.slots.has("end-text") || characterCount,
 )
-const inputId = passwordToggle ? ids() : id
-const named = hasLabel && !passwordToggle
-const labelId = named ? ids("label") : undefined
-const startId = named && Astro.slots.has("start") ? ids("start") : undefined
-const endId = named && Astro.slots.has("end") ? ids("end") : undefined
+const inputId = hasLabel || passwordToggle ? ids() : id
+const startId = Astro.slots.has("start") ? ids("start") : undefined
+const endId = Astro.slots.has("end") ? ids("end") : undefined
 const topId = Astro.slots.has("top") ? ids("top") : undefined
 const bottomId = Astro.slots.has("bottom") ? ids("bottom") : undefined
 const startTextId = hasStartText ? ids("start-text") : undefined
@@ -75,12 +72,11 @@ const endTextId = hasEndText ? ids("end-text") : undefined
   ])}
   style={style}
 >
-  {hasLabel && <Label
+  {hasLabel && <label
     class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
-    for={passwordToggle ? inputId : undefined}
-    id={labelId}
+    for={inputId}
     >{label}<Fragment set:html={labelSlot}
-  /></Label>}
+  /></label>}
   {hasStartText && <span class="ui-start-text" id={startTextId}>
     {startText}
     <slot name="start-text" />
@@ -91,12 +87,14 @@ const endTextId = hasEndText ? ids("end-text") : undefined
       aria-describedby={idRefs(
         startTextId,
         topId,
+        startId,
+        endId,
         bottomId,
         endTextId,
         ariaDescribedBy,
       )}
       aria-invalid={error ? "true" : ariaInvalid}
-      aria-labelledby={named ? idRefs(labelId, startId, endId) : ariaLabelledBy}
+      aria-labelledby={ariaLabelledBy}
       id={inputId}
       inputmode={inputmode ?? (type === "numeric" ? "numeric" : undefined)}
       name={name ?? field?.name}

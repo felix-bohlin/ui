@@ -1,5 +1,7 @@
-<label class="ui-text-field ui-one-time-code">
-  <span class="ui-label">Verification code</span>
+<div class="ui-text-field ui-one-time-code">
+  <label class="ui-label" for="one-time-code-validation-1"
+    >Verification code</label
+  >
   <span class="ui-field">
     <input
       autocomplete="one-time-code"
@@ -7,11 +9,15 @@
       pattern="[0-9]{6}"
       required
       value="482193"
+      aria-describedby="one-time-code-validation-1-end-text"
       aria-invalid="true"
+      id="one-time-code-validation-1"
       maxlength="6"
       name="code"
       type="text"
     />
   </span>
-  <span class="ui-end-text">That code has expired. Request a new one.</span>
-</label>
+  <span class="ui-end-text" id="one-time-code-validation-1-end-text"
+    >That code has expired. Request a new one.</span
+  >
+</div>

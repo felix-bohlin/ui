@@ -9,7 +9,7 @@ Pick a value in a form. For actions, use a Menu.
 
 ### Parts
 
-- `label.ui-select` (root): Container element.
+- `.ui-select` (root): Container element, a `<div>`. The label inside is a `<label for>` that names the select by itself.
 - `.ui-label` (prop `label`, slot `label`): The label for the field.
 - `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
 - `.ui-field`: The boxed select area.
@@ -26,8 +26,8 @@ Pick a value in a form. For actions, use a Menu.
 - `dense`: `boolean`, `.ui-list.ui-dense`. Packs the items tighter.
 - `disabled`: `boolean`, `select[disabled]`. Dims the select and blocks input.
 - `error`: `boolean`, `select[aria-invalid="true"]`. Marks the control invalid and shows error styles.
-- `hideLabel`: `boolean`, `.ui-select > span.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
-- `id`: `string`. The id of the `<select>`. The ids the component generates start with it: `x-label`, `x-start-text`, `x-end-text`, `x-start`, `x-end`, `x-top` and `x-bottom` for `id="x"`.
+- `hideLabel`: `boolean`, `.ui-select > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
+- `id`: `string`. The id of the `<select>`. The `<label for>` points at it, so the component generates one when it's left out and there's a label. The ids the component generates start with it: `x-start-text`, `x-end-text`, `x-start`, `x-end`, `x-top` and `x-bottom` for `id="x"`.
 - `items`: `SelectItem[]`, default `[]`. The options, as `{ label, selected, value }` objects. `value` selects among them; child `<option>` elements set `selected` themselves.
 - `name`: `string`. The name of the `<select>`. Inside a `FieldGroup`, the group's `name` when omitted.
 - `required`: `boolean`, `select[required]`. Adds a required mark after the label. The form won't submit until an option with a value is selected.
@@ -44,8 +44,8 @@ Model: `value` (`string | number | (string | number)[]`), the selected value, or
 ### Notes
 
 - HTML: The `<select>` holds a `<button>` and a `.ui-list`. The button holds `<selectedcontent>`. The list holds the options. Browsers without customizable selects show a native select.
-- Astro, Svelte and Vue: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `class` and `style` go to the root `<label>`.
-- React: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `className` and `style` go to the root `<label>`.
+- Astro, Svelte and Vue: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `class` and `style` go to the `.ui-select` root.
+- React: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `className` and `style` go to the `.ui-select` root.
 
 ## Component properties
 
@@ -109,10 +109,10 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 ### Example: Variants
 
 ```html
-<label class="ui-select">
-  <span class="ui-label" id="select-variants-1-label">Role</span>
+<div class="ui-select">
+  <label class="ui-label" for="select-variants-1">Role</label>
   <span class="ui-field">
-    <select aria-labelledby="select-variants-1-label">
+    <select id="select-variants-1">
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -124,12 +124,12 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
       </div>
     </select>
   </span>
-</label>
+</div>
 
-<label class="ui-select ui-filled">
-  <span class="ui-label" id="select-variants-2-label">Team</span>
+<div class="ui-select ui-filled">
+  <label class="ui-label" for="select-variants-2">Team</label>
   <span class="ui-field">
-    <select aria-labelledby="select-variants-2-label">
+    <select id="select-variants-2">
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -141,7 +141,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
       </div>
     </select>
   </span>
-</label>
+</div>
 ```
 
 ## Astro

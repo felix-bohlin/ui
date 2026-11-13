@@ -240,6 +240,15 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
   </section>
 
   <Fragment slot="accessibility">
+    <ul>
+      <li>
+        The label alone is the field's name, through
+        <code>&lt;label for&gt;</code>. The affixes, the start text, end text
+        and the top and bottom regions are its description, through
+        <code>aria-describedby</code>, so a unit, a hint or an error is read
+        after the name in any language's word order.
+      </li>
+    </ul>
     <KeyboardSupport>
       <p>Chromium's keys. Other browsers open their own picker.</p>
     </KeyboardSupport>

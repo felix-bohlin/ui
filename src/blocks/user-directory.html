@@ -38,10 +38,11 @@
   </div>
 
   <search class="ui-layout-row ui-spread user-directory-filters">
-    <label class="ui-text-field">
-      <span class="ui-sr-only">Search people</span>
+    <div class="ui-text-field">
+      <label class="ui-sr-only" for="user-directory-q">Search people</label>
       <span class="ui-field">
         <input
+          id="user-directory-q"
           name="q"
           placeholder="Search by name, role or city"
           type="search"
@@ -60,7 +61,7 @@
             ></path></svg
         ></span>
       </span>
-    </label>
+    </div>
     <div
       aria-label="Department"
       class="ui-toggle-group ui-overflow-scroll"

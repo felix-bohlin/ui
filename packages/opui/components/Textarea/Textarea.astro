@@ -36,22 +36,20 @@ const labelSlot = Astro.slots.has("label")
   ? trimEdges(await Astro.slots.render("label"))
   : ""
 const named = Boolean(label || labelSlot)
-const LabelTag = named ? "span" : Fragment
-const Root = named ? "label" : "div"
 const hasStartText = Boolean(startText || Astro.slots.has("start-text"))
 const hasEndText = Boolean(
   endText || Astro.slots.has("end-text") || characterCount,
 )
-const labelId = named ? ids("label") : undefined
-const startId = named && Astro.slots.has("start") ? ids("start") : undefined
-const endId = named && Astro.slots.has("end") ? ids("end") : undefined
+const textareaId = named ? ids() : id
+const startId = Astro.slots.has("start") ? ids("start") : undefined
+const endId = Astro.slots.has("end") ? ids("end") : undefined
 const topId = Astro.slots.has("top") ? ids("top") : undefined
 const bottomId = Astro.slots.has("bottom") ? ids("bottom") : undefined
 const startTextId = hasStartText ? ids("start-text") : undefined
 const endTextId = hasEndText ? ids("end-text") : undefined
 ---
 
-<Root
+<div
   class={cx([
     "ui-textarea",
     {
@@ -64,9 +62,11 @@ const endTextId = hasEndText ? ids("end-text") : undefined
   ])}
   style={style}
 >
-  <LabelTag class={cx([hideLabel ? "ui-sr-only" : "ui-label"])} id={labelId}
+  {named && <label
+    class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
+    for={textareaId}
     >{label}<Fragment set:html={labelSlot}
-  /></LabelTag>
+  /></label>}
 
   {hasStartText && <span class="ui-start-text" id={startTextId}>
     {startText}
@@ -78,13 +78,15 @@ const endTextId = hasEndText ? ids("end-text") : undefined
       aria-describedby={idRefs(
         startTextId,
         topId,
+        startId,
+        endId,
         bottomId,
         endTextId,
         ariaDescribedBy,
       )}
       aria-invalid={error ? "true" : ariaInvalid}
-      aria-labelledby={named ? idRefs(labelId, startId, endId) : ariaLabelledBy}
-      id={id}
+      aria-labelledby={ariaLabelledBy}
+      id={textareaId}
       name={name ?? field?.name}
     >{value}</textarea>
     {Astro.slots.has("start") && <span class="ui-start" id={startId}>
@@ -113,7 +115,7 @@ const endTextId = hasEndText ? ids("end-text") : undefined
     )}
   </span>}
   <slot />
-</Root>
+</div>
 
 <script>
   import "../../elements/character-count.js"

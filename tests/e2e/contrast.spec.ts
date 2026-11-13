@@ -287,6 +287,12 @@ for (const component of COMPONENTS) {
       const { violations } = await new AxeBuilder({ page })
         .include("main")
         .exclude(".ui-not-rich-text a:not([class])")
+        // The start and end text of a disabled field are part of an inactive
+        // control, which WCAG exempts. axe only sees that for text inside the
+        // control's label, and they sit beside the <label for>.
+        .exclude(
+          ":is(.ui-select, .ui-text-field, .ui-textarea):has(:disabled) > :is(.ui-end-text, .ui-start-text)",
+        )
         .withRules(["color-contrast-enhanced"])
         .analyze()
       expect(

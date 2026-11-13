@@ -49,18 +49,15 @@ const base = computed(() => id || `textarea-${uid}`)
 
 const named = () => Boolean(label || slots.label)
 
-const Root = () => (named() ? "label" : "div")
-
 const hasStartText = () => Boolean(startText || slots["start-text"])
 
 const hasEndText = () => Boolean(endText || slots["end-text"] || characterCount)
 
-const labelId = () => (named() ? `${base.value}-label` : undefined)
+const textareaId = () => (named() ? base.value : id)
 
-const startId = () =>
-  named() && slots.start ? `${base.value}-start` : undefined
+const startId = () => (slots.start ? `${base.value}-start` : undefined)
 
-const endId = () => (named() && slots.end ? `${base.value}-end` : undefined)
+const endId = () => (slots.end ? `${base.value}-end` : undefined)
 
 const topId = () => (slots.top ? `${base.value}-top` : undefined)
 
@@ -73,8 +70,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
 </script>
 
 <template>
-  <component
-    :is="Root()"
+  <div
     :class="[
       'ui-textarea',
       {
@@ -87,15 +83,12 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
     ]"
     v-bind="styleAttrs($attrs.style)"
   >
-    <span
+    <label
       v-if="named()"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
-      :id="labelId()"
+      :for="textareaId()"
       >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
-    /></span>
-    <template v-else
-      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
-    /></template>
+    /></label>
     <span v-if="hasStartText()" class="ui-start-text" :id="startTextId()"
       >{{ startText }}<slot name="start-text"></slot
     ></span>
@@ -106,18 +99,16 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
           idRefs(
             startTextId(),
             topId(),
+            startId(),
+            endId(),
             bottomId(),
             endTextId(),
             attrs['aria-describedby'],
           )
         "
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
-        :aria-labelledby="
-          named()
-            ? idRefs(labelId(), startId(), endId())
-            : attrs['aria-labelledby']
-        "
-        :id="id"
+        :aria-labelledby="attrs['aria-labelledby']"
+        :id="textareaId()"
         :name="name ?? field?.name"
         v-seed
         v-model="model"
@@ -146,5 +137,5 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
       ></component
     ></span>
     <slot></slot>
-  </component>
+  </div>
 </template>

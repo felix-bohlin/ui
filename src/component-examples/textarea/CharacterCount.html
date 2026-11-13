@@ -1,10 +1,10 @@
-<label class="ui-textarea">
-  <span class="ui-label" id="textarea-character-count-1-label">Bio</span>
+<div class="ui-textarea">
+  <label class="ui-label" for="textarea-character-count-1">Bio</label>
   <span class="ui-field">
     <textarea
       maxlength="160"
       aria-describedby="textarea-character-count-1-end-text"
-      aria-labelledby="textarea-character-count-1-label"
+      id="textarea-character-count-1"
     ></textarea>
   </span>
   <span class="ui-end-text" id="textarea-character-count-1-end-text">
@@ -15,7 +15,7 @@
       label="{count} characters to go"
     ></opui-character-count>
   </span>
-</label>
+</div>
 
 <script type="module">
   import "opui-css/elements/character-count.js"

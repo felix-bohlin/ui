@@ -265,7 +265,10 @@ export const keywords = [
     <ul>
       <li><code>--ui-shadow-control</code>: controls. Off by default.</li>
       <li><code>--ui-shadow-elevated</code>: elevated cards and accordions.</li>
-      <li><code>--ui-shadow-overlay</code>: dialogs, menus and toasts.</li>
+      <li>
+        <code>--ui-shadow-overlay</code>: dialogs, drawers, menus, the select
+        picker and toasts.
+      </li>
       <li><code>--ui-shadow-scroll</code>: scrolled edges.</li>
       <li>
         <code>--ui-shadow-surface</code>: tonal and outlined surfaces. Off by
@@ -314,7 +317,7 @@ export const keywords = [
       <code>--ui-press-scale</code> to turn them on.
     </p>
     <Code
-      code={`:root {
+      code={`:where(html) {
   --ui-ease-move: linear(0, 0.066, 0.218, 0.4, 0.578, 0.731, 0.852, 0.94, 0.998,
     1.031, 1.047, 1.05, 1.046, 1.038, 1.029, 1.02, 1.012, 1.007, 1.002, 1, 1);
   --ui-press-scale: 0.97;

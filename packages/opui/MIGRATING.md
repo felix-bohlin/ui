@@ -1209,14 +1209,14 @@ Tabs look like segmented controls: the tabs sit on a rounded track and the selec
 
 `TabsItem` takes `id` and `TabsLabel` takes `for` (`htmlFor` in React) instead of `tabId`; when both are omitted the item still generates the id and hands it to its label.
 
-Tabs are a radio group without tab roles. Remove `role="tablist"`, `role="tab"`, `role="tabpanel"`, `aria-controls` and `aria-labelledby` from HTML tabs, and `panelId` (and `tabId` on the panel) from Astro and Vue. Styles that target `[role="tab"]` or `[role="tabpanel"]` need `.ui-label` and `.ui-panel`.
+Tabs are a radio group without tab roles. Remove `role="tablist"`, `role="tab"`, `role="tabpanel"`, `aria-controls` and `aria-labelledby` from HTML tabs, put `role="radiogroup"` and an `aria-label` on `.ui-tabs`, and remove `panelId` (and `tabId` on the panel) from Astro and Vue, where `Tabs` renders the role and `aria-label` names it. Styles that target `[role="tab"]` or `[role="tabpanel"]` need `.ui-label` and `.ui-panel`.
 
 ```diff
 - <div class="ui-tabs" role="tablist">
 -   <input type="radio" name="tabs" id="tab-1" class="ui-tab-input" aria-controls="panel-1" checked />
 -   <label for="tab-1" class="ui-tab-label" role="tab">Profile</label>
 -   <div id="panel-1" class="ui-tab-panel" role="tabpanel" aria-labelledby="tab-1">…</div>
-+ <div class="ui-tabs">
++ <div class="ui-tabs" role="radiogroup" aria-label="Account settings">
 +   <input type="radio" name="tabs" id="tab-1" class="ui-input" checked />
 +   <label for="tab-1" class="ui-label">Profile</label>
 +   <div class="ui-panel">…</div>
@@ -1238,7 +1238,7 @@ The parts are `.ui-input`, `.ui-label` and `.ui-panel` instead of `.ui-tab-input
 + <TabsLabel>Profile</TabsLabel>
 ```
 
-Tabs that don't fit stay on one row and scroll sideways instead of wrapping onto more rows. The tabs are a scroll container that sizes to its container, so give them a width inside flex and grid layouts that size to their content. Add `overflow="wrap"` (`.ui-overflow-wrap`) to wrap them as before.
+Tabs that don't fit stay on one row and scroll sideways instead of wrapping onto more rows. Tabs with panels are a scroll container that sizes to its container, so give them a width inside flex and grid layouts that size to their content. Tabs without panels size to their labels. Add `overflow="wrap"` (`.ui-overflow-wrap`) to wrap them as before.
 
 ```diff
 - <Tabs>

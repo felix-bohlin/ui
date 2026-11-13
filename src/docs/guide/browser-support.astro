@@ -112,7 +112,7 @@ export const keywords = [
         and <code>.ui-motion-off</code> on the carousel itself.
       </li>
       <li>
-        ControlGroup (<code>css/compat/control-group.css</code>): without
+        Control group (<code>css/compat/control-group.css</code>): without
         <code>overflow-inline</code>, a group with
         <code>.ui-overflow-scroll</code> scrolls through <code>overflow-x</code
         >. Without gap decorations, buttons overlap and the later button's start
@@ -143,12 +143,13 @@ export const keywords = [
         menu, because iOS Safari doesn't place them at their trigger item.
       </li>
       <li>
-        OneTimeCode (<code>css/compat/one-time-code.css</code>): on iOS Safari,
-        the input keeps a fixed width with room for the caret and the next empty
-        box isn't ringed, because iOS Safari hides the last typed character
-        while the input sizes itself to its content. A required field hides its
-        caret once the code is complete, since iOS draws the caret past the last
-        box, where the field's <code>overflow: clip</code> doesn't reach it.
+        One-time code (<code>css/compat/one-time-code.css</code>): on iOS
+        Safari, the input keeps a fixed width with room for the caret and the
+        next empty box isn't ringed, because iOS Safari hides the last typed
+        character while the input sizes itself to its content. A required field
+        hides its caret once the code is complete, since iOS draws the caret
+        past the last box, where the field's <code>overflow: clip</code> doesn't
+        reach it.
       </li>
       <li>
         Spinner (<code>css/compat/spinner.css</code>): without <code>if()</code
@@ -166,14 +167,14 @@ export const keywords = [
         <code>.ui-overflow-wrap</code> scroll through <code>overflow-x</code>.
       </li>
       <li>
-        TextField, Textarea, Select and NumberField
+        Text field, Textarea, Select and Number field
         (<code>css/compat/text-field.css</code>): on iPhone and iPad, fields of
         every size set their text in <code>--ui-font-size-control</code> or
         16px, whichever is larger, because iOS Safari zooms the page in on a
         focused field with text under 16px.
       </li>
       <li>
-        ToggleGroup (<code>css/compat/toggle-group.css</code>): without
+        Toggle group (<code>css/compat/toggle-group.css</code>): without
         <code>overflow-inline</code>, a group with
         <code>.ui-overflow-scroll</code> scrolls through <code>overflow-x</code
         >. Without gap decorations, each button draws the lines on its start and
@@ -243,8 +244,9 @@ export const keywords = [
         <a href="https://github.com/keithamus/invokers-polyfill"
           ><code>invokers-polyfill</code></a
         >: Invoker Commands (<code>commandfor</code> and <code>command</code>),
-        for Control Group (its Menu), Copy, Dialog, Drawer, Menu, Text Field
-        (password toggle), Toast and Tooltip.
+        for Callout (close button), Control group (its Menu), Copy, Dialog,
+        Drawer, Menu, Number field (step buttons), Text field (password toggle),
+        Toast and Tooltip (toggletip).
       </li>
     </ul>
   </section>

@@ -66,8 +66,12 @@ export const keywords = [
         component reads.
       </li>
       <li>
-        <strong>Component tokens</strong>, like <code>--ui-button-size</code>: a
-        job a few components share.
+        <strong>Hooks</strong>, like <code>--ui-control-accent</code>: optional
+        roles, unset until a theme sets them.
+      </li>
+      <li>
+        <strong>Component tokens</strong>, like <code>--ui-button-size</code>:
+        read by one component.
       </li>
       <li>
         <strong>Private properties</strong>, like <code>--_accent</code>: one
@@ -347,7 +351,7 @@ export const keywords = [
     <ul>
       <li>
         Accordion is a <code>details</code> element, Tabs are a radio group, and
-        ToggleButton and ToggleGroup are checkboxes and radios.
+        toggle buttons and toggle groups are checkboxes and radios.
       </li>
       <li>
         Dialog, Drawer and Menu open with Invoker Commands (<code>command</code>

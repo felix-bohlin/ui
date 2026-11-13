@@ -259,6 +259,7 @@ describe("theme tokens", () => {
       "--ui-button-focus",
       "--ui-button-hover",
       "--ui-button-hover-translate",
+      "--ui-check-image",
       "--ui-choice-checked",
       "--ui-color-scheme",
       "--ui-contrast",

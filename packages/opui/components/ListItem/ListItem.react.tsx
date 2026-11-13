@@ -16,6 +16,7 @@ export default function ListItem({
   children,
   description,
   end,
+  iconChecked,
   label,
   start,
   submenu,
@@ -55,6 +56,11 @@ export default function ListItem({
             children
           )}
           {end && <div className="ui-end">{end}</div>}
+          {iconChecked && (
+            <span aria-hidden="true" className="ui-icon-checked">
+              {iconChecked}
+            </span>
+          )}
         </Tag>
       ) : (
         <>
@@ -69,6 +75,11 @@ export default function ListItem({
             children
           )}
           {end && <div className="ui-end">{end}</div>}
+          {iconChecked && (
+            <span aria-hidden="true" className="ui-icon-checked">
+              {iconChecked}
+            </span>
+          )}
         </>
       )}
       {submenu}

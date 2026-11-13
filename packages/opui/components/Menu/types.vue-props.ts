@@ -1,4 +1,4 @@
-import type { IntrinsicElementAttributes } from "vue"
+import type { IntrinsicElementAttributes, Slot } from "vue"
 import type { Class, DefaultSlots } from "../vue"
 import type { MenuItem as BaseMenuItem, Props as BaseProps } from "./types"
 
@@ -12,4 +12,4 @@ export type Props = Omit<BaseProps, "items"> & {
   items?: MenuItem[]
 } & Class
 
-export type Slots = DefaultSlots
+export type Slots = { "icon-checked"?: Slot } & DefaultSlots

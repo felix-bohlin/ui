@@ -67,6 +67,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "`Button` and `ControlGroup` height with `.ui-x-small`.",
   "--ui-card-padding":
     "Padding of `Card`, `Dialog`, `Drawer` and `Accordion` content, headers, footers and actions, and of `Checkbox`, `Radio` and `Switch` cards. When unset, `--ui-space-3`. Card and accordion actions set it to their own inline padding, which caps how far a text button at either end pulls itself out.",
+  "--ui-check-image":
+    "The check that marks the current item of a `Menu`, the selected item of a listbox and `Select` picker, and a complete `Stepper` step, as an image used as a mask, so it takes the text color. Set it to an icon from your icon set, such as `url(check.svg)`, on `:root` or on one component. When unset, a built-in check.",
   "--ui-chip-radius":
     "Corner radius for `Chip`. When unset, chips follow `--ui-radius`.",
   "--ui-chip-size": "Default `Chip` height.",

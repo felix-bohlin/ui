@@ -73,7 +73,13 @@ const hasDescription = () => !!description || slots.description
       </div>
       <slot v-else></slot>
       <div v-if="$slots.end" class="ui-end">
-        <slot name="end"></slot></div
+        <slot name="end"></slot>
+      </div>
+      <span
+        v-if="$slots['icon-checked']"
+        aria-hidden="true"
+        class="ui-icon-checked"
+        ><slot name="icon-checked"></slot></span
     ></component>
     <template v-else
       ><div v-if="$slots.start" class="ui-start">
@@ -88,7 +94,13 @@ const hasDescription = () => !!description || slots.description
       </div>
       <slot v-else></slot>
       <div v-if="$slots.end" class="ui-end">
-        <slot name="end"></slot></div></template
+        <slot name="end"></slot>
+      </div>
+      <span
+        v-if="$slots['icon-checked']"
+        aria-hidden="true"
+        class="ui-icon-checked"
+        ><slot name="icon-checked"></slot></span></template
     ><TrimmedSlot :nodes="$slots.submenu?.()" />
   </li>
 </template>

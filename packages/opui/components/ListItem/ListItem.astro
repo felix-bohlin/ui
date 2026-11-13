@@ -76,6 +76,11 @@ const hasDescription = !!description || Astro.slots.has("description")
         {Astro.slots.has("end") && <div class="ui-end">
           <slot name="end" />
         </div>}
+        {Astro.slots.has("icon-checked") && <span
+          aria-hidden="true"
+          class="ui-icon-checked"
+          ><slot name="icon-checked"
+        /></span>}
       </Tag>
     ) : (
       // Without custom tag
@@ -101,7 +106,11 @@ const hasDescription = !!description || Astro.slots.has("description")
         {Astro.slots.has("end") && <div class="ui-end">
           <slot name="end" />
         </div>}
-      </>
+        {Astro.slots.has("icon-checked") && <span
+          aria-hidden="true"
+          class="ui-icon-checked"
+          ><slot name="icon-checked"
+        /></span>}</>
     )
   }<Fragment set:html={submenu} />
 </li>

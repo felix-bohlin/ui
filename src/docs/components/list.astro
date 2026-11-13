@@ -130,8 +130,22 @@ export const keywords = ["listbox", "menu list", "ul"]
     <h3 id="selected">Selected item</h3>
     <p>
       Add <code>aria-current="page"</code> to the link. Any other value but
-      <code>false</code> looks the same, like <code>true</code> on a button.
+      <code>false</code> looks the same, like <code>true</code> on a button. The
+      row gets a bar on its start edge. In a list with
+      <code>role="listbox"</code>, the selected option gets a check at the end
+      instead, like the current item of a
+      <DocLink href="/components/menu#current-item">Menu</DocLink>.
     </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The <code>icon-checked</code> slot of a <code>ListItem</code> shows your
+        own icon at the end while the row is selected or current.
+      </Fragment>
+      <Fragment slot="html">
+        A <code>.ui-icon-checked</code> at the end of the row shows your own
+        icon while the row is selected or current.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Selected" />
   </section>
 

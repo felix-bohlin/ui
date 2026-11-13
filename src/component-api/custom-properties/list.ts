@@ -6,6 +6,11 @@ export default {
       "Background of the list and its items. Defaults to `--ui-surface-filled`, `.ui-transparent` and `.ui-tonal` set it.",
     kind: "input",
   },
+  "--_check-image": {
+    description:
+      'The check on the selected item of a `.ui-menu`, a `[role="listbox"]` list or a `Select` picker, as an image used as a mask in the text color. Defaults to `--ui-check-image`, then a built-in check.',
+    kind: "input",
+  },
   "--_description-text-color": {
     description:
       "Text color of the description paragraph in an item. `--ui-text-subtle`, and `--ui-on-selected` on a selected or current row when a theme sets it.",
@@ -68,6 +73,11 @@ export default {
       "Color of the bar on the start edge of selected and current items and options, which marks them without relying on the fill. Defaults to `--ui-selected-strong`.",
     kind: "input",
   },
+  "--_selected-indicator-offset": {
+    description:
+      "Horizontal offset of `--_selected-shadow`: `--_selected-indicator-size`, negated in right-to-left text, so the bar stays on the start edge.",
+    kind: "output",
+  },
   "--_selected-indicator-size": {
     description:
       "Width of the bar on selected and current items. Defaults to `--ui-border-width-thick`.",
@@ -75,7 +85,7 @@ export default {
   },
   "--_selected-shadow": {
     description:
-      "Inset shadow that draws the bar from `--_selected-indicator-bg-color` and `--_selected-indicator-size`, on the start edge in both writing directions.",
+      'Inset shadow that draws the bar from `--_selected-indicator-bg-color` and `--_selected-indicator-offset`, on the start edge in both writing directions. `none` in a `.ui-menu`, a `[role="listbox"]` list and a `Select` picker, which mark the selected item with a check.',
     kind: "output",
   },
   "--_separator-gap": {

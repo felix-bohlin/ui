@@ -21,6 +21,7 @@
     children,
     description,
     end,
+    iconChecked,
     label,
     start,
     submenu,
@@ -76,6 +77,10 @@
         <div class="ui-end">
           {@render end()}
         </div>
+      {/if}{#if iconChecked}
+        <span aria-hidden="true" class="ui-icon-checked">
+          {@render iconChecked()}
+        </span>
       {/if}
     </svelte:element>
   {:else}
@@ -103,6 +108,10 @@
       <div class="ui-end">
         {@render end()}
       </div>
+    {/if}{#if iconChecked}
+      <span aria-hidden="true" class="ui-icon-checked">
+        {@render iconChecked()}
+      </span>
     {/if}
   {/if}{@render submenu?.()}
 </li>

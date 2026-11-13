@@ -11,6 +11,9 @@ import type * as CalloutReact from "../../packages/opui/components/Callout/types
 import type * as CalloutSvelte from "../../packages/opui/components/Callout/types.svelte"
 import type * as CalloutVue from "../../packages/opui/components/Callout/types.vue-props"
 import type * as FieldLegendVue from "../../packages/opui/components/FieldLegend/types.vue-props"
+import type * as MenuReact from "../../packages/opui/components/Menu/types.react"
+import type * as MenuSvelte from "../../packages/opui/components/Menu/types.svelte"
+import type * as MenuVue from "../../packages/opui/components/Menu/types.vue-props"
 import type * as NumberFieldReact from "../../packages/opui/components/NumberField/types.react"
 import type * as NumberFieldVue from "../../packages/opui/components/NumberField/types.vue-props"
 import type * as RangeReact from "../../packages/opui/components/Range/types.react"
@@ -144,6 +147,18 @@ test("an Omit of keyof Base.Props leaves the component's own type for a prop the
   >()
   expectTypeOf<RangeSvelte.Props["value"]>().toEqualTypeOf<
     number | string | undefined
+  >()
+})
+
+test("props built from an Omit of Base.Props still take the slots", () => {
+  expectTypeOf<MenuReact.Props["iconChecked"]>().toEqualTypeOf<
+    ReactNode | undefined
+  >()
+  expectTypeOf<MenuSvelte.Props["iconChecked"]>().toEqualTypeOf<
+    Snippet | undefined
+  >()
+  expectTypeOf<MenuVue.Slots["icon-checked"]>().toEqualTypeOf<
+    Slot | undefined
   >()
 })
 

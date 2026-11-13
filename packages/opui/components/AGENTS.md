@@ -536,7 +536,7 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 - `Chip`: the severity dot and the selected state are fills, so they get `CanvasText` and `SelectedItem`, and the dot on a pressed chip `SelectedItemText`, like its label. `aria-disabled="true"` gets `GrayText`, like `Button`.
 - `ControlGroup`: the edges between controls are real borders, but a link button's would be `LinkText`, so every button gets a `ButtonBorder` border and the edges are one color.
 - `Divider`: the line is a background, so it becomes a `CanvasText` border.
-- `List`: selected and current items are tints, so they get `SelectedItem`.
+- `List`: selected and current items are tints, so they get `SelectedItem`, and the check of a `Menu`, listbox or `Select` option is a mask in `currentColor`, so it follows their `SelectedItemText`.
 - `Message`: the bubble is a fill, so it gets a `CanvasText` border, the typing dots keep `CanvasText`, and a checked reaction is a tint, so it gets `SelectedItem`.
 - `OneTimeCode`: the boxes and the ring are masks, so they get `CanvasText`, `GrayText` when disabled and `Highlight` with focus, and the field has no border for the dashed invalid border of `TextField`, so an invalid code gets a dashed outline.
 - `Progress`: the filled track, so it gets `SelectedItem` and a `CanvasText` outline, and the ring of `.ui-round` is a gradient, so it keeps `SelectedItem` and `GrayText` with `forced-color-adjust: none`.

@@ -20,6 +20,7 @@
 
     // Snippets
     children,
+    iconChecked,
     ...rest
   }: Props = $props()
 
@@ -68,6 +69,10 @@
           <div class="ui-end">
             <kbd>{shortcut}</kbd>
           </div>
+        {/if}{#if iconChecked}
+          <span aria-hidden="true" class="ui-icon-checked">
+            {@render iconChecked()}
+          </span>
         {/if}
       </svelte:element>
     </li>

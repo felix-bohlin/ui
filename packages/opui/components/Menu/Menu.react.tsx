@@ -18,6 +18,7 @@ export default function Menu({
   popover = "auto",
   side,
   children,
+  iconChecked,
   ...rest
 }: Props) {
   const parent = useMenuContext()
@@ -81,6 +82,11 @@ export default function Menu({
                     <div className="ui-end">
                       <kbd>{shortcut}</kbd>
                     </div>
+                  )}
+                  {iconChecked && (
+                    <span aria-hidden="true" className="ui-icon-checked">
+                      {iconChecked}
+                    </span>
                   )}
                 </Tag>
               </li>

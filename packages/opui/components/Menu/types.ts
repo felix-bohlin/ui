@@ -18,6 +18,10 @@ export type Props = {
   side?: "block-end" | "block-start" | "inline-end" | "inline-start"
 }
 
+export type Slots<S> = {
+  iconChecked?: S
+}
+
 export type Context = {
   rootId?: string
 }

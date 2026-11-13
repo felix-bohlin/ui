@@ -120,6 +120,12 @@ export default {
       selector: ".ui-end",
       slots: ["end"],
     },
+    {
+      description:
+        "Your own check, shown at the end while the row is selected or current. In a `Menu` or a listbox it replaces the default check.",
+      selector: ".ui-icon-checked",
+      slots: ["icon-checked"],
+    },
   ],
   root: {
     code: "<li>",

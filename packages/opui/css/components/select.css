@@ -108,7 +108,7 @@
           }
         }
 
-        & > .ui-end {
+        & > :where(.ui-end, .ui-icon-checked) {
           display: none;
         }
       }
@@ -116,6 +116,7 @@
 
     .ui-list {
       --_bg-color: var(--ui-surface-elevated);
+      --_selected-shadow: none;
       --ui-border-color: var(--ui-border-color-on-raised);
       --ui-field-border-color: var(--ui-field-border-color-on-raised);
       border: var(--ui-border-width) solid
@@ -148,6 +149,17 @@
       option {
         /* Checkmark */
         &::checkmark {
+          background-color: currentColor;
+          block-size: var(--_start-size);
+          content: "";
+          flex-shrink: 0;
+          inline-size: var(--_start-size);
+          margin-inline-start: auto;
+          mask: var(--_check-image) center / contain no-repeat;
+          order: 1;
+        }
+
+        &:has(> .ui-icon-checked)::checkmark {
           display: none;
         }
 

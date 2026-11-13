@@ -8,7 +8,7 @@ export default {
   },
   "--_check-image": {
     description:
-      "The check cut out of a complete marker, as an image used as a mask.",
+      "The check cut out of a complete marker, as an image used as a mask. Defaults to `--ui-check-image`, then a built-in check.",
     kind: "input",
   },
   "--_connector-border-color": {

@@ -34,6 +34,7 @@ Rows of similar items, like contacts, files or settings, with icons, controls an
 - `<p>` (prop `label`, slot `label`): The label, the first paragraph.
 - `<p>` (prop `description`, slot `description`): Supporting text, the second paragraph.
 - `.ui-end` (slot `end`): Optional content at the end, such as a value or an action.
+- `.ui-icon-checked` (slot `icon-checked`): Your own check, shown at the end while the row is selected or current. In a `Menu` or a listbox it replaces the default check.
 
 ### Props and modifiers
 
@@ -66,6 +67,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 ### list.css
 
 - `--_bg-color`: Background of the list and its items. Defaults to `--ui-surface-filled`, `.ui-transparent` and `.ui-tonal` set it.
+- `--_check-image`: The check on the selected item of a `.ui-menu`, a `[role="listbox"]` list or a `Select` picker, as an image used as a mask in the text color. Defaults to `--ui-check-image`, then a built-in check.
 - `--_description-text-color`: Text color of the description paragraph in an item. `--ui-text-subtle`, and `--ui-on-selected` on a selected or current row when a theme sets it.
 - `--_divider-border-color`: Color of the lines between items in `.ui-bordered` and on `.ui-border-top`. Defaults to `--ui-border-color`, mixed with 20% `--ui-text-strong` in `.ui-tonal`.
 - `--_hover-bg-color`: Background of hovered items, from `--ui-primary`.
@@ -82,11 +84,11 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_start-size`: Maximum size of leading and trailing icons, and the indent of `.ui-inset` items. Smaller in `.ui-dense`.
 - `--_start-video-size`: Height of a video in `.ui-start`, which keeps a 16:9 ratio.
 
-Outputs: `--_font-size`, `--_icon-size`, `--_item-duration`, `--_selected-shadow` and `--_size`.
+Outputs: `--_font-size`, `--_icon-size`, `--_item-duration`, `--_selected-indicator-offset`, `--_selected-shadow` and `--_size`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-choice-size-small`, `--ui-control-size`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-duration-fast`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-field-border-color-on-filled`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-inset`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-line-height`, `--ui-list-item-padding-inline`, `--ui-menu-radius`, `--ui-motion`, `--ui-on-selected`, `--ui-palette-accent`, `--ui-palette-text`, `--ui-primary`, `--ui-radius`, `--ui-selected`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-state-hover-alpha-accent`, `--ui-state-selected-alpha-accent`, `--ui-surface-elevated`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-switch-thumb-size-small`, `--ui-switch-track-block-size-small`, `--ui-switch-track-inline-size-small`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-check-image`, `--ui-choice-size-small`, `--ui-control-size`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-duration-fast`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-field-border-color-on-filled`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-inset`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-line-height`, `--ui-list-item-padding-inline`, `--ui-menu-radius`, `--ui-motion`, `--ui-on-selected`, `--ui-palette-accent`, `--ui-palette-text`, `--ui-primary`, `--ui-radius`, `--ui-selected`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-state-hover-alpha-accent`, `--ui-state-selected-alpha-accent`, `--ui-surface-elevated`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-switch-thumb-size-small`, `--ui-switch-track-block-size-small`, `--ui-switch-track-inline-size-small`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -121,7 +123,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 
 `import { List, ListItem } from "opui-css/astro"`
 
-- `ListItem` named slots: `description`, `end`, `label`, `start` and `submenu`. Fill one with `slot="description"` on a child.
+- `ListItem` named slots: `description`, `end`, `icon-checked`, `label`, `start` and `submenu`. Fill one with `slot="description"` on a child.
 
 ### Example: Basics
 
@@ -146,7 +148,7 @@ import { List, ListItem } from "opui-css/astro"
 
 `import { List, ListItem } from "opui-css/react"`
 
-- `ListItem` slot props (`ReactNode`): `children`, `description`, `end`, `label`, `start` and `submenu`.
+- `ListItem` slot props (`ReactNode`): `children`, `description`, `end`, `iconChecked`, `label`, `start` and `submenu`.
 
 ### Example: Basics
 
@@ -171,7 +173,7 @@ export default function Basics() {
 
 `import { List, ListItem } from "opui-css/svelte"`
 
-- `ListItem` slot snippets: `children`, `description`, `end`, `label`, `start` and `submenu`.
+- `ListItem` slot snippets: `children`, `description`, `end`, `iconChecked`, `label`, `start` and `submenu`.
 
 ### Example: Basics
 
@@ -196,7 +198,7 @@ export default function Basics() {
 
 `import { List, ListItem } from "opui-css/vue"`
 
-- `ListItem` named slots: `description`, `end`, `label`, `start` and `submenu`. Fill one with `<template #description>`.
+- `ListItem` named slots: `description`, `end`, `icon-checked`, `label`, `start` and `submenu`. Fill one with `<template #description>`.
 
 ### Example: Basics
 

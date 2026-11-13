@@ -29,6 +29,7 @@ export type Props = {
 export type Slots<S> = {
   description?: string | S
   end?: S
+  iconChecked?: S
   label?: string | S
   start?: S
   submenu?: S

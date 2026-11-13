@@ -62,7 +62,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 ### stepper.css
 
 - `--_accent`: Fill of a complete marker, border of the current one and color of the line after a complete step. Defaults to `--ui-selected-strong`.
-- `--_check-image`: The check cut out of a complete marker, as an image used as a mask.
+- `--_check-image`: The check cut out of a complete marker, as an image used as a mask. Defaults to `--ui-check-image`, then a built-in check.
 - `--_connector-border-width`: Width of the line to the next step. Defaults to `--ui-border-width-thick`.
 - `--_description-text-color`: Color of the description. Defaults to `--ui-text-subtle`.
 - `--_ease`: Easing of the marker and line transitions. Defaults to `--ui-ease`.
@@ -78,7 +78,7 @@ Outputs: `--_connector-border-color`, `--_duration`, `--_label-text-color`, `--_
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width-thick`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-weight-normal`, `--ui-font-weight-semibold`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height`, `--ui-motion`, `--ui-on-selected-strong`, `--ui-radius-round`, `--ui-selected-strong`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4`, `--ui-space-5`, `--ui-space-6`, `--ui-text`, `--ui-text-subtle` and `--ui-underline-offset`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width-thick`, `--ui-check-image`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-weight-normal`, `--ui-font-weight-semibold`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height`, `--ui-motion`, `--ui-on-selected-strong`, `--ui-radius-round`, `--ui-selected-strong`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4`, `--ui-space-5`, `--ui-space-6`, `--ui-text`, `--ui-text-subtle` and `--ui-underline-offset`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

@@ -95,6 +95,12 @@ const baseRef = (node, name) =>
   node.typeName.left.getText() === "Base" &&
   node.typeName.right.text === name
 
+const omitsBase = (node, name) =>
+  isReference(node, "Omit") &&
+  node.typeArguments?.length === 2 &&
+  baseRef(node.typeArguments[0], name) &&
+  otherKeys(node.typeArguments[1]).length === 0
+
 const members = (node) =>
   ts.isIntersectionTypeNode(node)
     ? node.types
@@ -517,7 +523,10 @@ export const toTypes = (
       const collect = (node) => {
         if (ts.isIntersectionTypeNode(node)) {
           node.types.forEach((part, index) => {
-            if (baseRef(part, name) && index < node.types.length - 1) {
+            if (
+              (baseRef(part, name) || omitsBase(part, name)) &&
+              index < node.types.length - 1
+            ) {
               baseParts.push(part)
             }
           })
@@ -544,10 +553,18 @@ export const toTypes = (
             ? ` & { defaultValue?: ${model.type}; onValueChange?: (value: ${model.type}) => void${declaresProperty(type, model.prop) ? "" : `; ${model.prop}?: ${model.type}`} }`
             : ""
         const renamed = framework === "react" ? reactRenamed(name) : []
+        const omitted = omitsBase(part, name)
+          ? literalKeys(part.typeArguments[1])
+          : []
         const dropped = [...strings, ...renamed].toSorted(byName)
         const wrapped = dropped.length
-          ? `Without<Base.${name}, ${dropped.map((key) => JSON.stringify(key)).join(" | ")}>`
-          : `Base.${name}`
+          ? `Without<Base.${name}, ${[...omitted, ...dropped]
+              .toSorted(byName)
+              .map((key) => JSON.stringify(key))
+              .join(" | ")}>`
+          : omitted.length
+            ? part.getText()
+            : `Base.${name}`
         const reactNames = renamed.length
           ? ` & { ${renamed.map((key) => `${REACT_ATTRIBUTE_NAMES[key]}?: Base.${name}[${JSON.stringify(key)}]`).join("; ")} }`
           : ""

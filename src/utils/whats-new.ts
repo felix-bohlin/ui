@@ -836,7 +836,13 @@ export const whatsNew = {
       svelte: `<a href="#checkbox"><code>type</code></a> can't be combined with <code>as</code> or <code>href</code> (types).`,
     },
     `Breaking: rows no longer style <code>aria-selected="true"</code> on a link, button, label or list item, where ARIA doesn't allow it. Mark the current row with <a href="#selected"><code>aria-current="page"</code></a>.`,
-    `<a href="#selected">Selected and current rows</a> have a bar on their start edge in <code>--ui-selected-strong</code> and a stronger fill than hover, so they don't rely on a tint alone.`,
+    `<a href="#selected">Selected and current rows</a> have a bar on their start edge in <code>--ui-selected-strong</code> and a stronger fill than hover, so they don't rely on a tint alone. In a <code>role="listbox"</code> list, the selected option gets a check at the end instead.`,
+    {
+      ...components(
+        `The <a href="#selected"><code>icon-checked</code></a> slot of <code>ListItem</code> shows your own icon at the end of a selected or current row.`,
+      ),
+      html: `A <a href="#selected"><code>.ui-icon-checked</code></a> shows your own icon at the end of a selected or current row.`,
+    },
     {
       react: `<a href="#variants">Variants</a> name the default: <code>variant="filled"</code>.`,
       svelte: `<a href="#variants">Variants</a> name the default: <code>variant="filled"</code>.`,
@@ -855,7 +861,13 @@ export const whatsNew = {
       default: `An open menu <a href="#basics">closes when the page navigates</a>, also with a client router.`,
       html: `Import <code>opui-css/elements/close-on-navigate.js</code> to <a href="#basics">close an open menu</a> when the page navigates.`,
     },
-    `Mark the <a href="#current-item">current item</a> with <code>aria-current</code>, like the language in use.`,
+    `Mark the <a href="#current-item">current item</a> with <code>aria-current</code>, like the language in use. It gets a check at the end.`,
+    {
+      ...components(
+        `A <a href="#custom-check">custom check</a>: <code>--ui-check-image</code> for the check of your icon set, or any icon in the <code>icon-checked</code> slot.`,
+      ),
+      html: `A <a href="#custom-check">custom check</a>: <code>--ui-check-image</code> for the check of your icon set, or any icon in <code>.ui-icon-checked</code>.`,
+    },
     `Themes can set <a href="#api"><code>--ui-menu-radius</code></a> for a corner radius of its own.`,
     `The edge reads <a href="#api"><code>--ui-border-color-raised</code></a> when a theme sets it, like drawers and elevated cards, and the separators keep <code>--ui-border-color-on-raised</code>.`,
     `Themes can set <a href="#api"><code>--ui-list-item-padding-inline</code></a>. Descriptions read <code>--ui-text-subtle</code>.`,
@@ -1082,6 +1094,7 @@ export const whatsNew = {
     `New: a <a href="#basics">Rating</a> draws a score as stars in a <code>&lt;meter&gt;</code>, down to a fraction, and with a <a href="#input">name</a> collects one with radios that preview on hover. Empty stars are outlines, so they differ from filled ones by shape as well as color. The stars, the empty stars and the clear icon are masks that <a href="#input"><code>--_star-image</code>, <code>--_star-empty-image</code> and <code>--_clear-image</code></a> replace.`,
   ],
   select: [
+    `The picker marks the <a href="#preselected">selected option</a> with a check at the end, which <code>--ui-check-image</code> changes.`,
     components(
       `The ids the select generates start with its <a href="#api"><code>id</code></a>: <code>x-label</code>, <code>x-start-text</code>, <code>x-end-text</code>, <code>x-start</code>, <code>x-end</code>, <code>x-top</code> and <code>x-bottom</code> for <code>id="x"</code>.`,
     ),
@@ -1291,6 +1304,7 @@ export const whatsNew = {
     `New: a <a href="#basics">Stat</a> shows one number with its label and the change behind it, in a row of <a href="#cards">cards</a> on a dashboard.`,
   ],
   stepper: [
+    `The <a href="#custom-check">check</a> reads <code>--ui-check-image</code>, shared with menus and selects.`,
     `New: a <a href="#basics">Stepper</a> shows where someone is in a flow of steps, like a checkout, with <a href="#complete">complete</a> steps, steps with an <a href="#errors">error</a> and a <a href="#narrow">vertical</a> layout in narrow containers.`,
   ],
   tabs: [

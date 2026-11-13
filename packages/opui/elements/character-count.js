@@ -12,12 +12,12 @@ function announce(announcer, text) {
   })
 }
 
-function announcerOf(field) {
-  const dialog = field.closest("dialog")
-  const root = dialog ?? field.ownerDocument.body
+function announcerOf(control) {
+  const dialog = control.closest("dialog")
+  const root = dialog ?? control.ownerDocument.body
   let announcer = announcers.get(root)
   if (announcer?.isConnected) return announcer
-  announcer = field.ownerDocument.createElement("div")
+  announcer = control.ownerDocument.createElement("div")
   announcer.className = "ui-sr-only"
   announcer.dataset.opuiAnnouncer = ""
   announcer.setAttribute("aria-live", "polite")
@@ -27,12 +27,12 @@ function announcerOf(field) {
   return announcer
 }
 
-export class CharacterCount extends Base {
+export class CharacterCountElement extends Base {
   #controller
   #observer
   #timeout
 
-  get field() {
+  get control() {
     return this.closest(".ui-text-field, .ui-textarea")?.querySelector(
       "input, textarea",
     )
@@ -47,7 +47,7 @@ export class CharacterCount extends Base {
     this.ownerDocument.addEventListener(
       "input",
       (event) => {
-        if (event.target !== this.field) return
+        if (event.target !== this.control) return
         this.#update()
         this.#schedule(announcerOf(event.target))
       },
@@ -56,7 +56,8 @@ export class CharacterCount extends Base {
     this.ownerDocument.addEventListener(
       "reset",
       (event) => {
-        if (event.target === this.field?.form) setTimeout(() => this.#update())
+        if (event.target === this.control?.form)
+          setTimeout(() => this.#update())
       },
       { signal },
     )
@@ -79,17 +80,17 @@ export class CharacterCount extends Base {
   }
 
   #remaining() {
-    const field = this.field
-    if (!field || field.maxLength < 0) return
-    return Math.max(0, field.maxLength - field.value.length)
+    const control = this.control
+    if (!control || control.maxLength < 0) return
+    return Math.max(0, control.maxLength - control.value.length)
   }
 
   #schedule(announcer) {
     clearTimeout(this.#timeout)
-    const field = this.field
+    const control = this.control
     const remaining = this.#remaining()
     if (remaining === undefined) return
-    if (remaining > Math.max(10, Math.ceil(field.maxLength / 10))) return
+    if (remaining > Math.max(10, Math.ceil(control.maxLength / 10))) return
     this.#timeout = setTimeout(() => {
       if (!announcer.isConnected) return
       const label = this.getAttribute("label") ?? LABEL
@@ -98,10 +99,10 @@ export class CharacterCount extends Base {
   }
 
   #update() {
-    const field = this.field
+    const control = this.control
     const text =
-      field && field.maxLength >= 0
-        ? `${field.value.length}/${field.maxLength}`
+      control && control.maxLength >= 0
+        ? `${control.value.length}/${control.maxLength}`
         : ""
     const node = this.firstChild
     if (node instanceof Text && !node.nextSibling) node.data = text
@@ -110,5 +111,5 @@ export class CharacterCount extends Base {
 }
 
 if (globalThis.customElements && !customElements.get("opui-character-count")) {
-  customElements.define("opui-character-count", CharacterCount)
+  customElements.define("opui-character-count", CharacterCountElement)
 }

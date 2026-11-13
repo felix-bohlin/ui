@@ -11,7 +11,7 @@ const SEVERITIES = new Set([
 ])
 const SVG = "http://www.w3.org/2000/svg"
 
-export class Toaster extends Base {
+export class ToasterElement extends Base {
   #controller
   #focused = false
   #hovered = false
@@ -274,7 +274,7 @@ export function toast(message, { toaster, ...options } = {}) {
     typeof toaster === "string"
       ? document.getElementById(toaster)
       : (toaster ?? defaultToaster())
-  if (!(element instanceof Toaster)) {
+  if (!(element instanceof ToasterElement)) {
     console.warn("toast(): no <opui-toaster> on the page")
     return null
   }
@@ -287,5 +287,5 @@ for (const severity of SEVERITIES) {
 }
 
 if (globalThis.customElements && !customElements.get("opui-toaster")) {
-  customElements.define("opui-toaster", Toaster)
+  customElements.define("opui-toaster", ToasterElement)
 }

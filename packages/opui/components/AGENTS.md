@@ -35,6 +35,8 @@ Every component folder has all five files; `pnpm check-components` fails when on
 
 A custom element's attributes and events are typed on the element itself, in `react/elements.ts` and `svelte/elements.ts` (`ondismiss` on `opui-callout` in Svelte), so the component's framework types reach them through `ComponentProps<"opui-...">` or `SvelteHTMLElements["opui-..."]` and stay compiled. An event the component's root fires is also the component's own: `types.ts` lists it in `Events` (`<Root><Part>Events` for a part) with the type of its event object (`dismiss: Event`, `sort: CustomEvent<SortDetail>`), and `pnpm build-components` turns it into `onDismiss` in React, which `useListener` from `../react` attaches with a ref callback that also passes the caller's `ref` on, since React 19 attaches a custom element's `ondismiss` on a client render but not on hydration, `ondismiss` on the root element in Svelte, and in Vue an `Emits` type that `defineEmits` declares and the root re-emits (`@dismiss`). The API docs list them as `onDismiss`, `ondismiss` and `@dismiss` options, one per framework, like `onSort`, `onsort` and `@sort` on `SortableTable`.
 
+`tests/unit/elements.test.ts` checks the class each module in `elements/` exports and its tag in `HTMLElementTagNameMap`.
+
 Every Astro component must follow this exact frontmatter layout:
 
 ```astro

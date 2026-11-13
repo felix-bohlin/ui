@@ -9,7 +9,7 @@ const LABELS = {
 const keyOf = (cell) =>
   cell?.dataset.sortValue ?? cell?.textContent.trim().replace(/\s+/g, " ") ?? ""
 
-export class SortableTable extends Base {
+export class SortableTableElement extends Base {
   #controller
   #status
   #text = ""
@@ -106,5 +106,5 @@ export class SortableTable extends Base {
 }
 
 if (globalThis.customElements && !customElements.get("opui-sortable-table")) {
-  customElements.define("opui-sortable-table", SortableTable)
+  customElements.define("opui-sortable-table", SortableTableElement)
 }

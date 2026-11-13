@@ -4,7 +4,7 @@ const DISMISS = "--dismiss"
 const FOCUSABLE =
   'a[href], area[href], button, iframe, input, select, summary, textarea, [contenteditable]:not([contenteditable="false" i]), [tabindex]'
 
-export class Callout extends Base {
+export class CalloutElement extends Base {
   #controller
 
   connectedCallback() {
@@ -57,5 +57,5 @@ export class Callout extends Base {
 }
 
 if (globalThis.customElements && !customElements.get("opui-callout")) {
-  customElements.define("opui-callout", Callout)
+  customElements.define("opui-callout", CalloutElement)
 }

@@ -1,3 +1,9 @@
-export declare class CharacterCount extends HTMLElement {
-  readonly field: HTMLInputElement | HTMLTextAreaElement | null
+export declare class CharacterCountElement extends HTMLElement {
+  readonly control: HTMLInputElement | HTMLTextAreaElement | null
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "opui-character-count": CharacterCountElement
+  }
 }

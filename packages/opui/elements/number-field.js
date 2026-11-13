@@ -4,7 +4,7 @@ const COMMANDS = { "--step-down": -1, "--step-up": 1 }
 const HOLD_DELAY = 400
 const HOLD_INTERVAL = 80
 
-export class NumberField extends Base {
+export class NumberFieldElement extends Base {
   #controller
   #held = false
   #interval
@@ -53,19 +53,12 @@ export class NumberField extends Base {
     this.#release()
   }
 
-  step(direction) {
-    const input = this.input
-    if (!input || input.disabled || input.readOnly) return
-    const before = input.value
-    try {
-      if (direction > 0) input.stepUp()
-      else input.stepDown()
-    } catch {
-      return
-    }
-    if (input.value === before) return
-    input.dispatchEvent(new Event("input", { bubbles: true }))
-    input.dispatchEvent(new Event("change", { bubbles: true }))
+  stepDown() {
+    this.#step(-1)
+  }
+
+  stepUp() {
+    this.#step(1)
   }
 
   #button(command) {
@@ -74,7 +67,7 @@ export class NumberField extends Base {
 
   #click(event) {
     const direction = this.#directionOf(event.target)
-    if (direction && !this.#held) this.step(direction)
+    if (direction && !this.#held) this.#step(direction)
   }
 
   #directionOf(target) {
@@ -87,7 +80,7 @@ export class NumberField extends Base {
     const direction = this.#directionOf(event.target)
     if (!direction) return
     event.preventDefault()
-    this.step(direction)
+    this.#step(direction)
   }
 
   #hold(event) {
@@ -99,7 +92,7 @@ export class NumberField extends Base {
     this.#timeout = setTimeout(() => {
       this.#interval = setInterval(() => {
         this.#held = true
-        this.step(direction)
+        this.#step(direction)
       }, HOLD_INTERVAL)
     }, HOLD_DELAY)
   }
@@ -110,6 +103,21 @@ export class NumberField extends Base {
     setTimeout(() => {
       this.#held = false
     })
+  }
+
+  #step(direction) {
+    const input = this.input
+    if (!input || input.disabled || input.readOnly) return
+    const before = input.value
+    try {
+      if (direction > 0) input.stepUp()
+      else input.stepDown()
+    } catch {
+      return
+    }
+    if (input.value === before) return
+    input.dispatchEvent(new Event("input", { bubbles: true }))
+    input.dispatchEvent(new Event("change", { bubbles: true }))
   }
 
   #sync() {
@@ -132,5 +140,5 @@ export class NumberField extends Base {
 }
 
 if (globalThis.customElements && !customElements.get("opui-number-field")) {
-  customElements.define("opui-number-field", NumberField)
+  customElements.define("opui-number-field", NumberFieldElement)
 }

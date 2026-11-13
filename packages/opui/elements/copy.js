@@ -3,7 +3,7 @@ const Base = globalThis.HTMLElement ?? class {}
 const COPIED = 2000
 const TIMEOUT = 1000
 
-export class Copy extends Base {
+export class CopyElement extends Base {
   #controller
   #interest
   #timeout
@@ -148,5 +148,5 @@ export class Copy extends Base {
 }
 
 if (globalThis.customElements && !customElements.get("opui-copy")) {
-  customElements.define("opui-copy", Copy)
+  customElements.define("opui-copy", CopyElement)
 }

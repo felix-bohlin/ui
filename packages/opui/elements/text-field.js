@@ -2,7 +2,7 @@ const Base = globalThis.HTMLElement ?? class {}
 
 const TOGGLE = "--toggle-password"
 
-export class TextField extends Base {
+export class TextFieldElement extends Base {
   #controller
 
   get input() {
@@ -67,5 +67,5 @@ export class TextField extends Base {
 }
 
 if (globalThis.customElements && !customElements.get("opui-text-field")) {
-  customElements.define("opui-text-field", TextField)
+  customElements.define("opui-text-field", TextFieldElement)
 }

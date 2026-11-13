@@ -187,7 +187,7 @@ export default {
   ],
   root: {
     description:
-      "The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max` and keeps both disabled while the input is disabled, as the component renders them.",
+      "The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max` and keeps both disabled while the input is disabled, as the component renders them. `stepDown()` and `stepUp()` step the value from a script and fire `input` and `change`.",
     selector: "opui-number-field.ui-number-field",
   },
   source: "NumberField",

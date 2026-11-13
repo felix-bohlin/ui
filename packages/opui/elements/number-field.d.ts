@@ -1,4 +1,11 @@
-export declare class NumberField extends HTMLElement {
+export declare class NumberFieldElement extends HTMLElement {
   readonly input: HTMLInputElement | null
-  step(direction: number): void
+  stepDown(): void
+  stepUp(): void
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "opui-number-field": NumberFieldElement
+  }
 }

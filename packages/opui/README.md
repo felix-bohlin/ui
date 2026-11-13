@@ -23,6 +23,8 @@ It needs Node 26.10 or later. Peer dependencies:
 
 ## Usage
 
+Each framework has a Getting started guide: [HTML](https://opui.dev/html/guide/getting-started/), [Astro](https://opui.dev/astro/guide/getting-started/), [React](https://opui.dev/react/guide/getting-started/), [Svelte](https://opui.dev/svelte/guide/getting-started/) and [Vue](https://opui.dev/vue/guide/getting-started/).
+
 ### Astro components
 
 Import the CSS once, in the layout every page uses, and the components where you need them:
@@ -209,7 +211,7 @@ Vite 8's lightningcss also prints warnings such as `'scroll-button' is not recog
 
 ## Upgrading
 
-Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.md) (also on the docs site: [Migrating to v6](https://opui.dev/html/guide/migrating/)), with every change listed in [CHANGELOG.md](./CHANGELOG.md).
+Breaking changes and how to update your code are in [MIGRATING.md](https://github.com/felix-bohlin/ui/blob/main/packages/opui/MIGRATING.md) (also on the docs site: [Migrating to v6](https://opui.dev/html/guide/migrating/)), with every change listed in [CHANGELOG.md](https://github.com/felix-bohlin/ui/blob/main/packages/opui/CHANGELOG.md).
 
 ## Entry points
 
@@ -247,6 +249,7 @@ Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.m
 | `opui-css/components/*.vue`              | One Vue component or part: the compiled file `opui-css/vue` exports, with its types                                                                                                                                                                                                            |
 | `opui-css/components/*`                  | The Astro component sources and the type files, such as `types` and `types.astro`. The files at the top of `components/` (`cx.ts`, `dev.ts`, `group.ts`, `id.ts`, `style.ts`, `tag.ts`, `vue.ts`, `context.astro.ts` and `content.svelte`) are internal helpers that can change in any release |
 | `opui-css/env.d.ts`                      | Astro types for `Astro.locals.$id` and `interestfor` (see [Ids in Astro](#ids-in-astro))                                                                                                                                                                                                       |
+| `opui-css/figma/*`                       | The default theme's Figma variables in `figma/themes/`, and `sync.js`, the function the Figma plugin runs ([Figma](https://opui.dev/html/guide/theme-tokens/#figma))                                                                                                                           |
 | `opui-css/package.json`                  | The package manifest, for tools that read it                                                                                                                                                                                                                                                   |
 
 Importing a React component from `opui-css/components/*.react` skips the type augmentation in `opui-css/react`, which adds `command`, `commandfor` and `interestfor` to React's element types. `Menu` and `DrawerHeader` need it, so add `import type {} from "opui-css/react"` once in your app.
@@ -278,4 +281,4 @@ The docs are also available as [llms.txt](https://opui.dev/llms.txt), and every 
 
 ## License
 
-[MIT](./LICENSE) © Felix Bohlin
+[MIT](https://github.com/felix-bohlin/ui/blob/main/packages/opui/LICENSE) © Felix Bohlin

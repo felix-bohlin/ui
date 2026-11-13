@@ -4,7 +4,7 @@ Design system. Components. Modern HTML & CSS.
 
 ## Usage
 
-https://opui.dev/html/guide/getting-started/
+Install `opui-css` from npm, or link `dist/opui.css` from a CDN, and follow [Getting started](https://opui.dev/html/guide/getting-started/). The [package README](packages/opui/README.md) covers the install, the Astro, React, Svelte and Vue entry points, the example themes and the agent skill.
 
 ### AI assistants
 
@@ -22,13 +22,16 @@ The project is managed as a monorepo with two main parts:
 - **The Library (`packages/opui`)**: Contains the framework-agnostic core of the library. It is managed as a standalone workspace package named `opui-css`.
   - `astro/`: Public entry point and barrel exports for Astro-based projects.
   - `bin/`: The `opui-css` command, which copies the agent skill into a project.
-  - `components/`: UI components organized by folder. Each folder contains the Astro, React, Svelte and Vue templates (e.g., `Button.astro`, `Button.react.tsx`, `Button.svelte`, `Button.vue`) and their types.
+  - `components/`: UI components organized by folder. Each folder contains the Astro, React, Svelte and Vue templates (e.g., `Button.astro`, `Button.react.tsx`, `Button.svelte`, `Button.vue`) and their types. `pnpm build-components` compiles the React, Svelte and Vue files and their type files from the Astro file, `types.ts` and `types.astro.ts`.
   - `core/`: Normalize, palette and utility classes.
   - `css/`: Component styles, theme, layer order, entry-point imports and the HTML helper scripts in `css/js/`.
+  - `elements/`: Custom elements for the components that need a script, one module each.
+  - `figma/`: The default theme's Figma variables and `sync.js`, which the Figma plugin runs.
   - `react/`: Public entry point and barrel exports for React-based projects.
   - `scripts/`: The build that writes the pre-bundled CSS and the compiled React, Svelte and Vue entry points to `dist/`.
   - `skills/`: The agent skill shipped with the package. `skills/opui/references` is generated.
   - `svelte/`: Public entry point and barrel exports for Svelte-based projects.
+  - `themes/`: The example themes.
   - `vue/`: Public entry point and barrel exports for Vue-based projects.
 - **The Documentation Site (`src/`)**: The Astro site.
   - `src/component-api/`: API table data for each component (`api.ts`).
@@ -39,7 +42,7 @@ The project is managed as a monorepo with two main parts:
   - `src/pages/`: Routes. Most of them render a page from `src/docs/` for each framework.
   - `src/stress-tests/`: Pages that combine many components, rendered at `/tests/<name>/`.
   - `src/utils/`: Shared helpers and data, such as framework routing and What's new notes.
-- **Scripts (`scripts/`)**: Checks and generators. `pnpm check` runs the CSS order, component and custom property checks, and `pnpm build` runs the search index, browser support and agent skill scripts and writes the example theme list into `packages/opui/README.md` (`scripts/build-readme.mjs`).
+- **Scripts (`scripts/`)**: Checks and generators. `pnpm check` runs the CSS order, component and custom property checks, and `pnpm build` compiles the components and the examples, writes the search index and the example theme list in `packages/opui/README.md` (`scripts/build-readme.mjs`), builds the site and the agent skill, and checks the links in `dist`.
 - **Tests (`tests/`)**: Unit and parity tests in `tests/unit`, Playwright visual, accessibility and interaction tests in `tests/e2e`, and the packed tarball in consumer projects in `tests/package`.
 
 ### Development
@@ -91,10 +94,10 @@ One topic per pull request, so it can be reviewed, reverted and logged on its ow
 
 ### Adding New Components
 
-1. Create a folder in `packages/opui/components/[ComponentName]` with `[ComponentName].astro`, `.react.tsx`, `.svelte`, `.vue` and the six `types*.ts` files (see `packages/opui/components/AGENTS.md`).
+1. Create a folder in `packages/opui/components/[ComponentName]` with `[ComponentName].astro`, `types.ts` and `types.astro.ts`, then run `pnpm build-components`, which compiles the React, Svelte and Vue files and their type files (see `packages/opui/components/AGENTS.md`).
 2. Export the component and its `Props` type from the four barrels, `packages/opui/{astro,react,svelte,vue}/index.ts`, sorted.
 3. Add the CSS in `packages/opui/css/components/[component-name].css` and list it in `packages/opui/css/components.css`.
-4. Add the docs page `src/docs/components/[component-name].astro`, one example per framework in `src/component-examples/[component-name]/`, the API data in `src/component-api/[component-name]/api.ts` and the `--_` custom properties in `src/component-api/custom-properties/[component-name].ts` (see `src/docs/components/AGENTS.md` and `src/component-api/AGENTS.md`).
+4. Add the docs page `src/docs/components/[component-name].astro`, the `.astro` examples in `src/component-examples/[component-name]/` (`pnpm build-examples` writes the HTML, React, Svelte and Vue files), the API data in `src/component-api/[component-name]/api.ts` and the `--_` custom properties in `src/component-api/custom-properties/[component-name].ts` (see `src/docs/components/AGENTS.md` and `src/component-api/AGENTS.md`).
 5. Run `pnpm check` (it writes the new parity snapshots) and `pnpm test:e2e`, and commit the snapshots.
 6. Add the CHANGELOG entry and the What's new note (see `AGENTS.md`), a theme token description for new tokens in `src/utils/theme-token-descriptions.ts`, and the component to a stress page in `src/stress-tests/`. List it in `COMPONENT_FRAMEWORKS` (`src/utils/framework.js`) if it doesn't ship for every framework.
 7. Commit the files `pnpm build` regenerates, listed in `scripts/generated-files.json`. When they're stale on a pull request from this repository, CI commits them to the branch and runs again; on `main` and on forks it fails. New screenshots come from CI: add the `update-snapshots` label.

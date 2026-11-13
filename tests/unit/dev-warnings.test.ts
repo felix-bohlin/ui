@@ -34,6 +34,10 @@ import SwitchAstro from "../../packages/opui/components/Switch/Switch.astro"
 import SwitchReact from "../../packages/opui/components/Switch/Switch.react"
 import SwitchSvelte from "../../packages/opui/components/Switch/Switch.svelte"
 import SwitchVue from "../../packages/opui/components/Switch/Switch.vue"
+import TabsAstro from "../../packages/opui/components/Tabs/Tabs.astro"
+import TabsReact from "../../packages/opui/components/Tabs/Tabs.react"
+import TabsSvelte from "../../packages/opui/components/Tabs/Tabs.svelte"
+import TabsVue from "../../packages/opui/components/Tabs/Tabs.vue"
 import ToggleGroupAstro from "../../packages/opui/components/ToggleGroup/ToggleGroup.astro"
 import ToggleGroupReact from "../../packages/opui/components/ToggleGroup/ToggleGroup.react"
 import ToggleGroupSvelte from "../../packages/opui/components/ToggleGroup/ToggleGroup.svelte"
@@ -129,6 +133,37 @@ describe("ToggleGroup", () => {
       })
       await render[framework](TOGGLE_GROUP[framework], {
         "aria-labelledby": "heading",
+      })
+      expect(warnings()).toEqual([])
+    },
+  )
+})
+
+const TABS: Record<ComponentFramework, unknown> = {
+  astro: TabsAstro,
+  react: TabsReact,
+  svelte: TabsSvelte,
+  vue: TabsVue,
+}
+
+describe("Tabs", () => {
+  test.each(FRAMEWORKS)(
+    "%s warns when its radio group has no accessible name",
+    async (framework) => {
+      await render[framework](TABS[framework], { role: "radiogroup" })
+      expect(warnings()).toEqual([
+        "[OPUI Tabs] Missing accessible name. Name the group with `aria-label`, or with `aria-labelledby` pointing at a visible heading.",
+      ])
+    },
+  )
+
+  test.each(FRAMEWORKS)(
+    "%s doesn't warn without the role or when aria-label names it",
+    async (framework) => {
+      await render[framework](TABS[framework], {})
+      await render[framework](TABS[framework], {
+        "aria-label": "Show in the feed",
+        role: "radiogroup",
       })
       expect(warnings()).toEqual([])
     },

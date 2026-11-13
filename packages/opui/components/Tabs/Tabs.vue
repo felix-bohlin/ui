@@ -1,10 +1,20 @@
 <script setup lang="ts">
-import { computed, provide, reactive, useId } from "vue"
+import {
+  computed,
+  type HTMLAttributes,
+  provide,
+  reactive,
+  useAttrs,
+  useId,
+} from "vue"
 import { TabsKey } from "./context.vue"
+import { warnUnnamedGroup } from "../dev"
 import type { Props, Slots } from "./types.vue-props"
 
 const { name, orientation, overflow, role, variant } = defineProps<Props>()
 defineSlots<Slots>()
+
+const attrs = useAttrs() as HTMLAttributes
 
 const model = defineModel<string>()
 
@@ -15,6 +25,8 @@ const change = (input: HTMLInputElement) => {
 const uid = useId()
 
 const groupName = computed(() => name || `tabs-${uid}`)
+
+if (role === "radiogroup") warnUnnamedGroup("Tabs", attrs)
 
 provide(TabsKey, reactive({ change, groupName, value: model }))
 </script>
@@ -28,7 +40,7 @@ provide(TabsKey, reactive({ change, groupName, value: model }))
       variant && variant !== 'tonal' && `ui-${variant}`,
       $props.class,
     ]"
-    :role="role ?? 'radiogroup'"
+    :role="role"
   >
     <slot></slot>
   </div>

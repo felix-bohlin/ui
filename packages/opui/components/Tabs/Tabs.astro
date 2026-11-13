@@ -1,5 +1,6 @@
 ---
 import type { Props } from "./types.astro"
+import { warnUnnamedGroup } from "../dev"
 import { createId } from "../id"
 import { tabsContext } from "./context.astro"
 
@@ -17,6 +18,8 @@ const {
   ...rest
 } = Astro.props
 
+if (role === "radiogroup") warnUnnamedGroup("Tabs", rest)
+
 const groupName = name || idOf("tabs")
 const html = await tabsContext.provide({ groupName, value }, () =>
   Astro.slots.render("default"),
@@ -31,7 +34,7 @@ const html = await tabsContext.provide({ groupName, value }, () =>
     variant && variant !== "tonal" && `ui-${variant}`,
     className,
   ]}
-  role={role ?? "radiogroup"}
+  role={role}
   {...rest}
 >
   <Fragment set:html={html} />

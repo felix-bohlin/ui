@@ -2,7 +2,7 @@ import { Chip, Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/react"
 
 export default function IconsAndCounts() {
   return (
-    <Tabs aria-label="Mailbox" name="tabs-icons-and-counts-1" variant="line">
+    <Tabs name="tabs-icons-and-counts-1" variant="line">
       <TabsItem defaultChecked>
         <TabsLabel>
           <svg

@@ -12,7 +12,7 @@ const steps = [
   display: block;
 }`,
     html: `
-<div aria-label="Account" class="tabs" role="radiogroup">
+<div class="tabs">
   <input class="tab-input" type="radio" name="tabs" id="tab-1" checked />
   <label class="tab-label" for="tab-1">Profile</label>
   <div class="tab-panel">…</div>
@@ -218,7 +218,7 @@ const tabs = [
 ---
 
 <BuildUp id="build-tabs" knobs={knobs} steps={steps}>
-  <div aria-label="Account" class="tabs" role="radiogroup">
+  <div class="tabs">
     {tabs.map((tab, index) => (
       <>
         <input

@@ -67,9 +67,10 @@ export default {
       values: { scroll: null, wrap: ".ui-overflow-wrap" },
     },
     {
-      default: '"radiogroup"',
+      attribute: '[role="radiogroup"]',
       description:
-        "The `role` of the root. A passed role replaces `radiogroup`.",
+        "Makes tabs without panels a radio group, which `aria-label` names. Tabs with panels take no role: the root holds the panels, and a radio group holds only radios.",
+      group: "Role",
       inherited: true,
       prop: "role",
       type: "string",

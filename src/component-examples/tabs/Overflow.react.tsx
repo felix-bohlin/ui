@@ -2,7 +2,7 @@ import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/react"
 
 export default function Overflow() {
   return (
-    <Tabs aria-label="Account settings" name="overflow-tabs">
+    <Tabs name="overflow-tabs">
       <TabsItem defaultChecked>
         <TabsLabel>Profile</TabsLabel>
         <TabsPanel>Profile settings and information.</TabsPanel>

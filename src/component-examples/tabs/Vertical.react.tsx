@@ -3,11 +3,7 @@ import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/react"
 export default function Vertical() {
   return (
     <>
-      <Tabs
-        aria-label="Account settings"
-        name="vertical-tabs"
-        orientation="vertical"
-      >
+      <Tabs name="vertical-tabs" orientation="vertical">
         <TabsItem defaultChecked>
           <TabsLabel>Profile</TabsLabel>
           <TabsPanel>
@@ -40,12 +36,7 @@ export default function Vertical() {
         </TabsItem>
       </Tabs>
 
-      <Tabs
-        aria-label="Conference schedule"
-        name="vertical-line-tabs"
-        orientation="vertical"
-        variant="line"
-      >
+      <Tabs name="vertical-line-tabs" orientation="vertical" variant="line">
         <TabsItem defaultChecked>
           <TabsLabel>Monday</TabsLabel>
           <TabsPanel>

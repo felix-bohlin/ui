@@ -1330,9 +1330,7 @@ export const whatsNew = {
     `New: a <a href="#basics">Stepper</a> shows where someone is in a flow of steps, like a checkout, with <a href="#complete">complete</a> steps, steps with an <a href="#errors">error</a> and a <a href="#narrow">vertical</a> layout in narrow containers.`,
   ],
   tabs: [
-    components(
-      `<code>Tabs</code> renders <code>role="radiogroup"</code>, so <code>aria-label</code> <a href="#accessibility">names the group</a>.`,
-    ),
+    `<a href="#without-panels">Tabs without panels</a> are a radio group: give them <code>role="radiogroup"</code> and an <code>aria-label</code> that <a href="#accessibility">names the group</a>. Tabs with panels take no role.`,
     `<a href="#without-panels">Tabs without panels</a> size to their labels, also in a row next to a heading.`,
     `<a href="#api"><code>--_panel-gap</code></a> sets the space between the tab list and the panel.`,
     `Unselected labels read <a href="#api"><code>--ui-text-subtle</code></a>.`,
@@ -1346,9 +1344,9 @@ export const whatsNew = {
     `In dark mode the <a href="#basics">selected pill</a> is <code>--ui-text-strong</code> at <code>--ui-state-selected-alpha-accent</code>, so it follows a theme's grays.`,
     {
       ...slots(
-        `Breaking: no <code>tablist</code>, <code>tab</code> or <code>tabpanel</code> roles, so screen readers announce the <a href="#accessibility">radio group</a> they are. <code>TabsItem</code> and <code>TabsPanel</code> no longer take <code>panelId</code>, and <code>TabsPanel</code> no longer takes <code>tabId</code>.`,
+        `Breaking: no <code>tablist</code>, <code>tab</code> or <code>tabpanel</code> roles, so screen readers announce the <a href="#accessibility">radios</a> they are. <code>TabsItem</code> and <code>TabsPanel</code> no longer take <code>panelId</code>, and <code>TabsPanel</code> no longer takes <code>tabId</code>.`,
       ),
-      html: `Breaking: no <code>tablist</code>, <code>tab</code> or <code>tabpanel</code> roles, so screen readers announce the <a href="#accessibility">radio group</a> they are. Style <code>.ui-label</code> and <code>.ui-panel</code> instead of <code>[role="tab"]</code> and <code>[role="tabpanel"]</code>.`,
+      html: `Breaking: no <code>tablist</code>, <code>tab</code> or <code>tabpanel</code> roles, so screen readers announce the <a href="#accessibility">radios</a> they are. Tabs with panels take no role, and tabs without panels get <code>role="radiogroup"</code> and an <code>aria-label</code> on <code>.ui-tabs</code>. Style <code>.ui-label</code> and <code>.ui-panel</code> instead of <code>[role="tab"]</code> and <code>[role="tabpanel"]</code>.`,
     },
     {
       ...slots(

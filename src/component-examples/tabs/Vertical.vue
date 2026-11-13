@@ -3,11 +3,7 @@ import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/vue"
 </script>
 
 <template>
-  <Tabs
-    aria-label="Account settings"
-    name="vertical-tabs"
-    orientation="vertical"
-  >
+  <Tabs name="vertical-tabs" orientation="vertical">
     <TabsItem checked>
       <TabsLabel>Profile</TabsLabel>
       <TabsPanel>
@@ -40,12 +36,7 @@ import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/vue"
     </TabsItem>
   </Tabs>
 
-  <Tabs
-    aria-label="Conference schedule"
-    name="vertical-line-tabs"
-    orientation="vertical"
-    variant="line"
-  >
+  <Tabs name="vertical-line-tabs" orientation="vertical" variant="line">
     <TabsItem checked>
       <TabsLabel>Monday</TabsLabel>
       <TabsPanel>Workshops on layout, color and motion, from 9:00.</TabsPanel>

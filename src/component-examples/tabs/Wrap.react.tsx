@@ -2,12 +2,7 @@ import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/react"
 
 export default function Wrap() {
   return (
-    <Tabs
-      aria-label="Account settings"
-      name="wrap-tabs"
-      overflow="wrap"
-      variant="line"
-    >
+    <Tabs name="wrap-tabs" overflow="wrap" variant="line">
       <TabsItem defaultChecked>
         <TabsLabel>Profile</TabsLabel>
         <TabsPanel>Profile settings and information.</TabsPanel>

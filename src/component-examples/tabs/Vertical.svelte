@@ -2,7 +2,7 @@
   import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/svelte"
 </script>
 
-<Tabs aria-label="Account settings" name="vertical-tabs" orientation="vertical">
+<Tabs name="vertical-tabs" orientation="vertical">
   <TabsItem defaultChecked>
     <TabsLabel>Profile</TabsLabel>
     <TabsPanel>
@@ -33,12 +33,7 @@
   </TabsItem>
 </Tabs>
 
-<Tabs
-  aria-label="Conference schedule"
-  name="vertical-line-tabs"
-  orientation="vertical"
-  variant="line"
->
+<Tabs name="vertical-line-tabs" orientation="vertical" variant="line">
   <TabsItem defaultChecked>
     <TabsLabel>Monday</TabsLabel>
     <TabsPanel>Workshops on layout, color and motion, from 9:00.</TabsPanel>

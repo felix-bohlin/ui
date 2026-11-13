@@ -1,5 +1,7 @@
 <script lang="ts">
+  import { untrack } from "svelte"
   import { setTabsContext } from "./context.svelte"
+  import { warnUnnamedGroup } from "../dev"
   import type { Props } from "./types.svelte"
 
   let {
@@ -18,6 +20,9 @@
 
   const uid = $props.id()
   const groupName = $derived(name || `tabs-${uid}`)
+  untrack(() => {
+    if (role === "radiogroup") warnUnnamedGroup("Tabs", rest)
+  })
   setTabsContext({
     change(input) {
       if (value !== undefined) value = input.value
@@ -39,7 +44,7 @@
     variant && variant !== "tonal" && `ui-${variant}`,
     className,
   ]}
-  role={role ?? "radiogroup"}
+  {role}
   {...rest}
 >
   {@render children?.()}

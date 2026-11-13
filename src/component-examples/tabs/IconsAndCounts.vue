@@ -3,7 +3,7 @@ import { Chip, Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/vue"
 </script>
 
 <template>
-  <Tabs aria-label="Mailbox" name="tabs-icons-and-counts-1" variant="line">
+  <Tabs name="tabs-icons-and-counts-1" variant="line">
     <TabsItem checked>
       <TabsLabel>
         <svg

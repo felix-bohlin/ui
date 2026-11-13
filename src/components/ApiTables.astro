@@ -38,12 +38,13 @@ const rows = component ? propRows(api, component) : []
 const hydration =
   component && shipped(api, component) ? hydrationRows(api, component) : []
 const slots = component ? slotRows(api, component) : []
-const parts = component
-  ? []
-  : [api.root, ...api.parts].map((part) => ({
-      description: part.description,
-      name: partLabel(api, part, "html"),
-    }))
+const parts =
+  component && api.parts.length === 0
+    ? []
+    : [api.root, ...api.parts].map((part) => ({
+        description: part.description,
+        name: partLabel(api, part, component ?? "html", part === api.root),
+      }))
 const notes = [
   ...new Set(
     [view, framework].flatMap(

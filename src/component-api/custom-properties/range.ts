@@ -50,18 +50,18 @@ export default {
       "Width of the page-colored ring between the thumb and the track. Set on the `<input>`.",
     kind: "input",
   },
-  "--_thumb-highlight-bg-color": {
-    description:
-      "Color of the ring around the thumb, from `--_accent` at `--ui-state-active-alpha-light`, or `--ui-state-active-alpha-dark` in dark mode.",
-    kind: "output",
-  },
-  "--_thumb-highlight-size": {
-    description:
-      "Current width of the ring around the thumb. Set by the hover and active states.",
-    kind: "output",
-  },
   "--_thumb-offset": {
     description: "Vertical offset that centers the thumb on the track.",
+    kind: "output",
+  },
+  "--_thumb-ripple-bg-color": {
+    description:
+      "Color of the ripple around the thumb, from `--_accent` at `--ui-state-active-alpha-light`, or `--ui-state-active-alpha-dark` in dark mode.",
+    kind: "output",
+  },
+  "--_thumb-ripple-size": {
+    description:
+      "Current width of the ripple around the thumb. Set by the hover and active states.",
     kind: "output",
   },
   "--_thumb-size": {

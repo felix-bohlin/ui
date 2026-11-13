@@ -361,7 +361,7 @@
       "--_duration",
       "--_focus-ring-duration",
       "--_thumb-bg-color",
-      "--_thumb-highlight-bg-color",
+      "--_thumb-ripple-bg-color",
       "--_track-base-bg-color",
       "--_track-bg-color",
       "--_track-fill-bg-color"

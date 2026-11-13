@@ -803,6 +803,10 @@ Findings with a page and section in brackets come from the stress pages in `src/
     }
     ```
   - Fixed: in 1ca2dfae. `--_empty-bg-color` reads only `--ui-field-border-color`, and the `--ui-track-bg-color` description (`tokens.json` regenerated in 0c436494), the `--_empty-bg-color` row, the Under the hood paragraph and the Rating Added entry no longer name the track token; `packages/opui/components/AGENTS.md` doesn't tie Rating to it. The `input::before` of a `fieldset.ui-rating` against the `html` background in Chromium, light and dark: default 4.21:1 and 4.22:1 (unchanged), m3 4.33:1 and 5.87:1 (were 1.23:1 and 1.52:1), brutalist 16.63:1 and 1.45:1 (were 1.26:1 and 1.11:1; 1.45:1 is every field border in brutalist dark), shadcn 1.26:1 and 1.48:1 (unchanged, since shadcn sets the track token to its field border). The Rating visual baselines in m3 and brutalist need the `update-snapshots` label.
+- [ ] (1) TextField, Textarea: the character count's live region is shared per page (or per dialog) and appended to `body`, so it takes the page's language, not the field's: in a `lang="ar"` field on an English page, the count is announced from a region whose language is `en` (`packages/opui/elements/character-count.js:8-28`, `packages/opui/elements/character-count.js:99`)
+  - Summary: In a field whose language differs from the page, screen readers may read the count label with the page's voice.
+  - Recommended: Fix. It is one attribute per announcement, and the Copy, SortableTable and Toaster live regions already inherit their component's language.
+  - Fix: set the announcer's `lang` each time it speaks, from `this.closest("[lang]")?.lang ?? ""`.
 
 ## Bugs
 
@@ -1366,6 +1370,16 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): destructure `id` and `popover` and write `id={anchor?.floatingId ?? id}` and `popover={anchor?.popover ?? popover}`, with `popover` declared in `AnchorContentProps` in `types.ts`, like Menu, so the Vue type compiles.
     - B: leave `id` and `popover` out of the AnchorContent types, so no caller passes them.
+- [ ] (1) Range: tick labels are centered on their tick (`inline-size: 0`, `justify-content: center`, `white-space: nowrap`), so the first and last labels hang past the slider by half their width; at 390px a long translated end label starts before the slider or is cut off at the screen edge (`packages/opui/css/components/range.css:91-99`)
+  - Summary: Long translated labels at the ends of a slider stick out past it and can be cut off at the screen edge on phones.
+  - Recommended: Fix with option A. End labels then grow inward and stay within the slider's box at any length.
+  - Options:
+    - A (recommended): align the first label to the track start (`justify-content: start; margin-inline-start: calc(var(--_thumb-size) / -2)`) and the last to the track end (`justify-content: end; margin-inline-end: calc(var(--_thumb-size) / -2)`); check `dir="rtl"`.
+    - B: keep them centered and say in the Tick marks section to keep end labels short.
+- [ ] (1) Range: without `value`, the readout and `aria-valuetext` print the computed middle value with floating-point noise: `min="0" max="0.6" step="0.1" valueSuffix=" %"` renders "0.30000000000000004 %" in all four frameworks until `range.js` rewrites it (`packages/opui/components/Range/value.ts:15-17`, `packages/opui/components/Range/Range.astro:63-64`)
+  - Summary: Before the script runs, a decimal slider without a value shows and announces a number like 0.30000000000000004.
+  - Recommended: Fix. Rounding to the decimals of `min` and `step` gives the value the browser itself picks for the input.
+  - Fix: in `middleValue`, round to the larger number of decimals in `min` and `step` (`Number(result.toFixed(decimals))`).
 - [ ] (2) Range: in WebKit, the fill animation (`ui-range-fill` on the `--ui-range-thumb` view timeline) keeps `/theme-builder/` rendering a new frame about every 45 ms while nothing changes: in WebKitGTK 2.52 the main thread is busy for 3.5 s of every 4 s at idle, from the two Range inputs in the preview specimen, 1,900 px below the viewport. With their animation off it is 0.4 s, and Chromium shows no idle cost. A plain page with the same Range markup and `dist/opui.css` costs 0.1 to 0.2 s per 3 s, also inside `.ui-palette`, so the repro still needs the part of the builder that makes it expensive (`packages/opui/css/components/range.css:268-289`, `packages/opui/css/components/range.css:361-362`, `src/components/ThemeBuilder/PreviewSpecimen.astro:185`)
   - Summary: In WebKit the theme builder keeps redrawing while idle because of the Range fill animation, which slows every action there.
   - Recommended: Fix with option A. The cost comes from the engine, so it belongs in an engine bug report with a repro, not a workaround.
@@ -1670,6 +1684,36 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): where the caller should be able to replace the value, destructure it and fall back with `??` (as OneTimeCode does for `pattern`): `<ol class:list={["ui-message-list", className]} role={role ?? "list"} {...rest}>`; where the component's value must stay (OneTimeCode's `autocomplete`), write it after `{...rest}`; add a contract case that passes a value for every attribute an element sets before the spread and compares Astro with the other frameworks.
     - B: write every such attribute after `{...rest}`, so the component's value wins in every framework, and say so in each `api.ts` note.
   - Fixed: Option A, in f71489562, with Tabs reworked in a3355ea7b. The caller's value replaces the component's (`??`): `role` on MessageList, List, Carousel, ControlGroup, AvatarGroup and ToggleGroup, `aria-current` on TimelineItem and StepperItem, and `aria-label` on the read-only Rating, which the contract case also caught. The component's value stays and the types leave the attribute out: OneTimeCode's `autocomplete` (written after `{...rest}`), the `role` of Switch and SwitchInput (`switch.css` and the checked model match `input[role="switch"]`, like `type`), and the svg attributes of CalloutIcon. Tabs renders only a passed `role` (a3355ea7b). `tests/unit/component-contract.test.ts` renders every case again with a value for each typed attribute an element sets before `{...rest}`; it failed on 12 components before the fix. AnchorContent, which the contract test renders without its anchor, is its own item.
+- [ ] (2) Range: `valueSuffix` builds the readout and `aria-valuetext` as `${value}${suffix}`, so a German page shows and announces "0.5 kg" and "1500 €", not "0,5 kg" and "1.500 €" (`packages/opui/components/Range/Range.astro:64`, `packages/opui/components/Range/Range.astro:99-107`, `packages/opui/css/js/range.js:28-38`)
+  - Summary: On translated pages the live value uses English number formatting and can only put its unit after the number.
+  - Recommended: Fix with option A. It changes no API, and the value-text slot stays the way to word a readout freely.
+  - Options:
+    - A (recommended): format the number with `Intl.NumberFormat` (`useGrouping: false`, the step's decimals), with the `lang` passed to the component on the server, as Rating does, and `input.closest("[lang]")` in `range.js`; say in the Value section that a unit before the number needs the value-text slot.
+    - B: a `valueTemplate` prop such as `"{value} %"`.
+    - C: docs only.
+- [ ] (2) Stepper: the `auto` orientation stays a row down to a fixed `32rem`, and each step is `min-inline-size: max-content` in a wrapping flex box, so labels about twice as long wrap a 600px stepper onto two rows with a connector to nothing; the Descriptions example already does it in English at 600px (`packages/opui/css/components/stepper.css:22-25`, `packages/opui/css/components/stepper.css:47`, `packages/opui/css/components/stepper.css:193`, `src/docs/components/stepper.astro:199-205`)
+  - Summary: With longer translated labels, a medium-width stepper breaks into two rows with a connector line that leads nowhere.
+  - Recommended: Fix with option A. CSS can't tell when the row wraps, so the page that knows its labels has to pick where it stacks.
+  - Options:
+    - A (recommended): in Narrow containers, say that `auto` stacks under `32rem` whatever the labels, to set `orientation="vertical"` under the page's own breakpoint for longer labels, and correct "keeps it in a row" for `horizontal` (it wraps when the steps don't fit).
+    - B: raise the `auto` switch to `40rem`.
+- [ ] (2) Tabs: in vertical tabs, a label word wider than half the row widens the label column past `fit-content(50%)`, and the panel's long words then overflow; at 390px, "Benachrichtigungen" ends at 426px in a 390px viewport (`packages/opui/css/components/tabs.css:208-223`, `packages/opui/css/components/tabs.css:270-276`)
+  - Summary: On phones, vertical tabs with a long German or Finnish word push the panel's text off the screen.
+  - Recommended: Fix with option A. It is a few declarations, hyphenation follows the page's `lang`, and the layout stays as documented.
+  - Options:
+    - A (recommended): in `.ui-vertical`, `hyphens: auto; overflow-wrap: anywhere` on `.ui-label` and `hyphens: auto; overflow-wrap: break-word` on `.ui-panel`.
+    - B: stack the labels above the panel below a container width.
+- [ ] (2) TextField: `.ui-start` and `.ui-end` never wrap or shrink (`white-space: nowrap` in an `auto 1fr auto` grid, shared by Select and NumberField), so long affixes squeeze the input to nothing and push the field out of its container: in Long content on `/tests/forms/` the English affixes already leave the input 3px wide (`packages/opui/css/components/text-field.css:60`, `packages/opui/css/components/text-field.css:109-117`)
+  - Summary: Translated prefixes and suffixes can hide what the user types and push the field past the edge of its column.
+  - Recommended: Fix with option A. The input keeps room to type in every language, and the full affix stays in the field's accessible name.
+  - Options:
+    - A (recommended): `grid-template-columns: minmax(0, auto) minmax(min(8ch, 100%), 1fr) minmax(0, auto)` with the affix text truncated by an ellipsis (it needs a block box for `text-overflow`); check the Affix examples and the stress page.
+    - B: let affix text wrap.
+    - C: docs only.
+- [ ] (2) ToggleGroup: in `.ui-overflow-scroll`, a toggle whose label is wider than the group wraps onto two lines instead of scrolling, because `.ui-toggle-button` is `inline-size: fit-content`, so the whole row grows from 40px to 56px; the Overflow example does it in English (`packages/opui/css/components/toggle-group.css:57-66`, `packages/opui/css/components/toggle-button.css:26`)
+  - Summary: In a scrolling toggle group, one long translated label wraps and makes every toggle in the row taller than a control.
+  - Recommended: Fix. ControlGroup's scroll mode already keeps its buttons at full width on one line.
+  - Fix: `&.ui-overflow-scroll { & > .ui-toggle-button { flex: none; inline-size: max-content; } }`
 
 ## Docs
 
@@ -3601,6 +3645,25 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix. One sentence in each place matches what the theme does.
   - Fix: add "In print it is `light`, also under `.ui-dark`." to the `--ui-color-scheme` description and rebuild `tokens.json`, and add "except in print, which is always light" to the `.ui-light` and `.ui-dark` item in the theming guide.
   - Fixed: in 8d9108ab. The `--ui-color-scheme` description adds "In print it is `light`, also under `.ui-dark`." (`tokens.json` regenerated in 0c436494), and the `.ui-light` and `.ui-dark` item in the theming guide says they force a color scheme "except in print, which is always light".
+- [ ] (1) Docs: the Accessibility guide's Built-in labels table lists Rating's `starLabel` but not that the rating picks the plural form only for its own `lang`, so a Polish `starLabel` without `lang` reads "5 gwiazdki" instead of "5 gwiazdek" (`src/docs/guide/accessibility.astro:126-154`, `src/utils/built-in-labels.ts:81-88`)
+  - Summary: A team translating from the guide's table alone gets wrong Rating plural forms with no warning.
+  - Recommended: Fix. One sentence closes the gap the Rating page already covers.
+  - Fix: under the table, "Rating picks the plural form of `starLabel` for its `lang`, so pass `lang` to it too."
+- [ ] (1) Docs site: `componentName()` in `src/utils/names.js` title-cases slugs, so the API index, the release support matrix and the home page say "One Time Code", "Text Field" and "Description List" while the pages say "One-time code", "Text field" and "Description list" (`src/utils/names.js:3-8`, `src/components/ApiIndex.astro:86`, `src/components/Release/SupportMatrix.astro:124`, `src/docs/Home.astro:312`)
+  - Summary: The API index and a few lists name components differently from their own pages.
+  - Recommended: Fix with option A. One source of page names keeps every list in step.
+  - Fix: check the sidebar too.
+  - Options:
+    - A (recommended): read the name each page uses (find where the component page and sidebar get their title) instead of title-casing the slug.
+    - B: add the sentence-case rule, with "One-time code" as the hyphenated case.
+- [ ] (1) API docs: the framework API pages (`/react/api/` and the others) show no Parts table, so part components without their own `api.ts` (CardContent, DialogContent, DrawerContent, CalloutActions, DescriptionListTerm, DescriptionListDescription, TableBody, TableHead, TableRow, TableFoot, TableCaption) are named nowhere there (`src/components/ApiTables.astro:41-46`)
+  - Summary: Framework readers can't find part components such as CardContent or TableRow on their API pages.
+  - Recommended: Fix. The HTML index already lists them in each parent's Parts table.
+  - Fix: render the parent's parts (as part components) on the framework API pages, and check `check-dist`.
+- [ ] (1) Menu: the keyboard Esc row in `src/component-api/menu/api.ts` blames Chromium alone for focus going to the page after Esc in a submenu, while the open To check item says Firefox and Safari may do the same (`src/component-api/menu/api.ts:32-36`)
+  - Summary: The Menu keyboard table names one browser for a gap that may affect all three.
+  - Recommended: Fix. The row should say what's known until the To check item is answered.
+  - Fix: say the gap is confirmed in Chromium and unchecked in Firefox and Safari, linking nothing new.
 
 ## Future plans
 

@@ -41,6 +41,10 @@
     display: grid;
     position: relative;
 
+    &:where(:not(.ui-number-field)) {
+      --_min-inline-size: 8ch;
+    }
+
     /* Field - the actual input with a border around it */
     .ui-field {
       background-color: var(--_bg-color);
@@ -57,7 +61,9 @@
         "top   top   top"
         "start input end"
         "bottom bottom bottom";
-      grid-template-columns: auto 1fr auto;
+      grid-template-columns:
+        minmax(0, auto) minmax(min(var(--_min-inline-size), 100%), 1fr)
+        minmax(0, auto);
       min-block-size: var(--_size);
       position: relative;
 
@@ -121,6 +127,14 @@
         inline-size: auto;
         max-block-size: var(--ui-icon-size);
       }
+    }
+
+    .ui-field > :is(.ui-start, .ui-end):not(:has(> *)) {
+      align-self: center;
+      display: block;
+      overflow: hidden;
+      padding-block: var(--_field-padding-block-fit);
+      text-overflow: ellipsis;
     }
 
     .ui-field > :is(.ui-start, .ui-end):has(> .ui-button) {

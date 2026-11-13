@@ -669,6 +669,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `TextField` autosuggest arrow sits at the inline end in RTL. It overlapped the text.
 - `TextField` and `Select` without a label are as high as their field. The empty label row added 4px above it.
 - `TextField` start and end affixes use the field line height, so they no longer make the field taller on pages with a large line height.
+- `TextField`, `Select` and `Textarea` text affixes shrink and end in an ellipsis when the field is too narrow, so the control keeps at least `--_min-inline-size` (`8ch`). A long affix squeezed the input to nothing and pushed the field out of its container.
 - `TextField` with a `list` and `Select` no longer shorten the label by 28px.
 - `TextField` and `Textarea` with `autoFit` (`.ui-auto-fit`) shrink to their content in a block container or a field group, up to the container's width, and long helper text wraps at the field's width. They filled the container.
 - `TextField`, `Textarea` and `Select` (Vue) can be edited when given a `value` without `v-model`.

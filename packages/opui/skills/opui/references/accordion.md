@@ -69,35 +69,32 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_content-padding-block`: Block padding of `.ui-content`.
 - `--_content-padding-inline`: Inline padding of `.ui-content`. Defaults to `--_padding-inline`.
 - `--_divider-border-color`: Color of the border between items in a group. Defaults to `--ui-border-color`.
-- `--_ease`: Easing of the transitions. Defaults to `--ui-ease`.
 - `--_focus-ring-offset`: Offset of the `summary` focus ring. Inside the summary, except in `.ui-transparent`.
 - `--_group-radius`: Corner radius of the first and last item in a group. Defaults to `--ui-radius`.
 - `--_item-padding-inline`: Inline padding of the items in a group. `0` when the card is `.ui-transparent`.
 - `--_item-summary-padding-inline`: Inline padding of the item `summary` in a group. Defaults to `--_item-padding-inline`.
 - `--_margin-inline`: The inline margin. `0`, except in `.ui-transparent` outside a group.
-- `--_motion`: Motion multiplier for `--_duration`. `0` turns the transitions off.
-- `--_padding`: Padding the accordion shares with cards, from `card.css`: `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset. Sets `--_padding-inline`, `--_summary-padding-block` and the block end of `--_content-padding-block`.
 - `--_padding-inline`: Inline padding of `summary`, `.ui-content` and `.ui-actions`. `0` in `.ui-transparent`.
 - `--_radius`: The corner radius, also of the `summary` focus ring. Defaults to `--ui-radius`.
 - `--_summary-padding-block`: Block padding of `summary`.
 - `--_summary-padding-inline`: Inline padding of `summary`. Defaults to `--_padding-inline`.
 
-Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration`, `--_overflow` and `--_shadow`.
+Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_overflow` and `--_shadow`.
 
 ### card.css
 
 - `--_actions-padding-inline`: Inline padding of `.ui-actions`. Defaults to `--_padding`. The actions pass it on as `--ui-card-padding`, so a text button at either end keeps its focus ring inside the card.
 - `--_backdrop-bg-color`: Backdrop color of a dialog or drawer. Defaults to `--ui-backdrop-bg-color`.
 - `--_backdrop-blur`: Backdrop filter of a dialog or drawer. Defaults to a `--ui-backdrop-blur` blur.
-- `--_ease`: Easing of the card link border transition and the focus ring animation. Defaults to `--ui-ease`.
+- `--_ease`: Easing of the card link border transition, the focus ring animation and the accordion transitions. Defaults to `--ui-ease`.
 - `--_elevated-bg-color`: Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.
 - `--_elevated-shadow`: Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.
 - `--_footer-gap`: Gap between the items in a dialog's or drawer's `.ui-footer` and between the buttons in its `.ui-actions`. Defaults to `--ui-space-2`.
 - `--_gap`: Gap between the parts. `--ui-space-3`, or `--ui-space-2` in `.ui-dense`. The part after an image subtracts it from its padding.
 - `--_media-inline-size`: Width of the image when it sits at the start of the card, and the start margin of the parts next to it. Defaults to `40%` of the card.
-- `--_motion`: Motion multiplier for the card link border transition and the focus ring animation. `0` turns them off.
+- `--_motion`: Motion multiplier for the card link border transition, the focus ring animation and the accordion transitions. `0` turns them off.
 - `--_outlined-border-color`: Border color of `.ui-outlined`. Defaults to `--ui-border-color`.
-- `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
+- `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset. In an accordion it sets `--_padding-inline`, `--_summary-padding-block` and the block end of `--_content-padding-block`.
 - `--_scroll-shadow`: Shadow at the edges of a dialog's or drawer's `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
 - `--_surface-bg-color`: Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-surface`.
 - `--_title-font-size`: Font size of a dialog's or drawer's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.

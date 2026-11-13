@@ -54,7 +54,7 @@ A scope class re-themes an element and everything inside it:
 
 - `.ui-palette`: re-derives every token from the knobs it sets.
 - `.ui-critical` and the other severities: swap the palette for the intent color.
-- `.ui-light` and `.ui-dark`: force a color scheme. Builds that rewrite `light-dark()` only follow them on `html`, see the [README](https://github.com/felix-bohlin/ui/blob/main/packages/opui/README.md#builds-that-rewrite-light-dark).
+- `.ui-light` and `.ui-dark`: force a color scheme, except in print, which is always light. Builds that rewrite `light-dark()` only follow them on `html`, see the [README](https://github.com/felix-bohlin/ui/blob/main/packages/opui/README.md#builds-that-rewrite-light-dark).
 
 ## Surfaces
 

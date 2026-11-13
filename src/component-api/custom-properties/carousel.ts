@@ -122,6 +122,11 @@ export default {
     description: "Space between markers.",
     kind: "input",
   },
+  "--_marker-group-margin-block-start": {
+    description:
+      "Space between the items and the markers, the `margin-block-start` of `::scroll-marker-group`. In `.ui-vertical` it is the space at the inline end of the items instead.",
+    kind: "input",
+  },
   "--_marker-label": {
     description:
       "Accessible name of each marker, CSS strings with `counter(ui-carousel-item)` where the item number goes. `markerLabel` sets it.",
@@ -140,10 +145,6 @@ export default {
   "--_marker-size": {
     description:
       "Size of the markers. The dot sits inside, inset by `--ui-space-2`.",
-    kind: "input",
-  },
-  "--_markers-gap": {
-    description: "Space between the items and the markers.",
     kind: "input",
   },
   "--_media-aspect-ratio": {

@@ -183,8 +183,6 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-field-size-large": "Field height with `.ui-large`.",
   "--ui-field-size-small": "Field height with `.ui-small`.",
   "--ui-field-size-x-small": "Field height with `.ui-x-small`.",
-  "--ui-flow-gap":
-    "Space between paragraphs, lists, blockquotes, tables, `details` and `address` in `.ui-rich-text`, rounded to `--ui-rhythm-step`. Headings, code blocks, figures and `hr` take multiples of it, with more room above headings than below. When unset, `1.25em` of the rich text font size.",
   "--ui-fluid-max-inline-size":
     "Viewport inline size where `--ui-fluid-progress` reaches 1 and the fluid heading sizes their maximum, 48rem.",
   "--ui-fluid-min-inline-size":
@@ -261,10 +259,6 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-gray-hue": "Hue of the gray ramp.",
   "--ui-green":
     "A literal green, hue 145 at `0.53`, the lightness of palette step 9 in every palette. No severity meaning.",
-  "--ui-heading-margin-block-end":
-    "Space below `h1` to `h6` in `.ui-rich-text`, rounded to `--ui-rhythm-step`. `em` is the heading's own font size, so larger headings get more room, and `rem` gives every level the same space. When unset, each level takes a multiple of `--ui-flow-gap`: 1 under `h1`, 0.75 under `h2` and 0.5 under `h3` to `h6`. A heading group keeps its own spacing.",
-  "--ui-heading-margin-block-start":
-    "Space above `h1` to `h6` in `.ui-rich-text`, rounded to `--ui-rhythm-step`. It overlaps the margin of the block before, so `0px` leaves the paragraph gap. Give a length: a unitless `0` drops both margins. `em` is the heading's own font size, so larger headings get more room, and `rem` gives every level the same space. When unset, each level takes a multiple of `--ui-flow-gap`: 3 above `h1` and `h2`, 2 above `h3` and 1.5 above `h4` to `h6`. A heading group keeps its own spacing.",
   "--ui-icon-size": "Default icon size inside components.",
   "--ui-icon-size-large":
     "Icon size inside `Avatar`, and of an `svg` without a `width` in `normalize.css`.",
@@ -292,8 +286,6 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Line height of captions, `List` text, the `Stat` label and description and the `Stepper` description. Body text and prose use `--ui-line-height-relaxed`.",
   "--ui-line-height-control":
     "Line height of interface text: labels, helpers, choice labels and field hints.",
-  "--ui-line-height-prose":
-    "Line height of `.ui-rich-text`, for themes whose prose is looser than their interface text. When unset, rich text keeps the line height around it, `--ui-line-height-relaxed` on the page.",
   "--ui-line-height-relaxed":
     "Line height of the page text set on `html`, and of `Tabs` labels.",
   "--ui-line-height-tight":
@@ -395,6 +387,14 @@ export const themeTokenDescriptions: Record<string, string> = {
     "A literal red, hue 25 at `0.53`, the lightness of palette step 9 in every palette. No severity meaning.",
   "--ui-rhythm-step":
     "Vertical rhythm unit. Rich text margins and heading line heights round to it.",
+  "--ui-rich-text-flow-gap":
+    "Space between paragraphs, lists, blockquotes, tables, `details` and `address` in `.ui-rich-text`, rounded to `--ui-rhythm-step`. Headings, code blocks, figures and `hr` take multiples of it, with more room above headings than below. When unset, `1.25em` of the rich text font size.",
+  "--ui-rich-text-heading-margin-block-end":
+    "Space below `h1` to `h6` in `.ui-rich-text`, rounded to `--ui-rhythm-step`. `em` is the heading's own font size, so larger headings get more room, and `rem` gives every level the same space. When unset, each level takes a multiple of `--ui-rich-text-flow-gap`: 1 under `h1`, 0.75 under `h2` and 0.5 under `h3` to `h6`. A heading group keeps its own spacing.",
+  "--ui-rich-text-heading-margin-block-start":
+    "Space above `h1` to `h6` in `.ui-rich-text`, rounded to `--ui-rhythm-step`. It overlaps the margin of the block before, so `0px` leaves the paragraph gap. Give a length: a unitless `0` drops both margins. `em` is the heading's own font size, so larger headings get more room, and `rem` gives every level the same space. When unset, each level takes a multiple of `--ui-rich-text-flow-gap`: 3 above `h1` and `h2`, 2 above `h3` and 1.5 above `h4` to `h6`. A heading group keeps its own spacing.",
+  "--ui-rich-text-line-height":
+    "Line height of `.ui-rich-text`, for themes whose prose is looser than their interface text. When unset, rich text keeps the line height around it, `--ui-line-height-relaxed` on the page.",
   "--ui-selected":
     "Background of a selected control: a checked `ToggleButton`, the selected `ToggleGroup` item, a pressed `Chip`, a selected or current `List` item and `Select` option, and a checked `Message` reaction. When unset, `--ui-primary` on toggles, `--ui-primary` at `--ui-state-selected-alpha-accent` on list items and options, and the same mixed into `--ui-surface` on reactions. Pair it with `--ui-on-selected`.",
   "--ui-selected-strong":

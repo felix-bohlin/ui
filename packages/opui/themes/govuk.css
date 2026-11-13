@@ -40,7 +40,6 @@
     --ui-field-label-font-weight: 400;
     --ui-field-padding-inline: 0.3125rem;
     --ui-field-padding-inline-large: 0.3125rem;
-    --ui-flow-gap: clamp(0.9375rem, 0.7143rem + 1.116vi, 1.25rem);
     --ui-focus-border-color: oklch(0.153 0 0);
     --ui-focus-border-width: 4px;
     --ui-focus-ring-color: oklch(0.899 0.186 97.9);
@@ -63,8 +62,6 @@
     --ui-font-weight-semibold: 700;
     --ui-gray-chroma: 0;
     --ui-gray-hue: 0;
-    --ui-heading-margin-block-end: 0.8em;
-    --ui-heading-margin-block-start: 1.1em;
     --ui-info: oklch(0.535 0.136 249.9);
     --ui-letter-spacing-display: 0;
     --ui-letter-spacing-heading: 0;
@@ -84,6 +81,9 @@
       oklch(from var(--ui-palette-source) 0.497 0.125 calc(h - 0.1)),
       oklch(from var(--ui-palette-source) 0.765 0.069 calc(h - 5.2))
     );
+    --ui-rich-text-flow-gap: clamp(0.9375rem, 0.7143rem + 1.116vi, 1.25rem);
+    --ui-rich-text-heading-margin-block-end: 0.8em;
+    --ui-rich-text-heading-margin-block-start: 1.1em;
     --ui-shadow-elevated: none;
     --ui-shadow-overlay: none;
     --ui-shadow-selected: none;

@@ -315,8 +315,11 @@
 
   @scope (.ui-rich-text) to (.ui-not-rich-text) {
     :scope {
-      --_flow-gap: round(var(--ui-flow-gap, 1.25em), var(--ui-rhythm-step));
-      line-height: var(--ui-line-height-prose);
+      --_flow-gap: round(
+        var(--ui-rich-text-flow-gap, 1.25em),
+        var(--ui-rhythm-step)
+      );
+      line-height: var(--ui-rich-text-line-height);
       min-inline-size: 0;
       overflow-wrap: break-word;
     }
@@ -470,14 +473,14 @@
       );
       margin-block: round(
           var(
-            --ui-heading-margin-block-start,
+            --ui-rich-text-heading-margin-block-start,
             var(--_flow-gap) * var(--_flow-before)
           ),
           var(--ui-rhythm-step)
         )
         round(
           var(
-            --ui-heading-margin-block-end,
+            --ui-rich-text-heading-margin-block-end,
             var(--_flow-gap) * var(--_flow-after)
           ),
           var(--ui-rhythm-step)

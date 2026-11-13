@@ -60,7 +60,6 @@
     --ui-letter-spacing-display: -0.025em;
     --ui-letter-spacing-heading: -0.025em;
     --ui-line-height: 1.5;
-    --ui-line-height-prose: 1.75;
     --ui-line-height-relaxed: 1.5;
     --ui-link-font-weight: 500;
     --ui-list-item-padding-inline: 0.5rem;
@@ -70,6 +69,7 @@
     --ui-primary-source: light-dark(oklch(0.205 0 0), oklch(0.922 0 0));
     --ui-primary-tonal: var(--ui-surface-tonal);
     --ui-on-primary-tonal: var(--ui-text-strong);
+    --ui-rich-text-line-height: 1.75;
     --ui-selected: var(--ui-surface-tonal);
     --ui-on-selected: var(--ui-text-strong);
     --ui-shadow-control: 0 1px 2px 0 oklch(0 0 0 / 0.05);

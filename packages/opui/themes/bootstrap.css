@@ -45,7 +45,6 @@
     --ui-field-label-font-size: 1rem;
     --ui-field-label-font-weight: 400;
     --ui-field-padding-inline: 0.75rem;
-    --ui-flow-gap: 1rem;
     --ui-focus-ring-color: oklch(from var(--ui-palette-source) l c h / 0.25);
     --ui-focus-ring-offset: 0px;
     --ui-focus-ring-width: 0.25rem;
@@ -62,8 +61,6 @@
     --ui-font-weight-semibold: 700;
     --ui-gray-chroma: 0.012;
     --ui-gray-hue: 250;
-    --ui-heading-margin-block-end: 0.5rem;
-    --ui-heading-margin-block-start: 0px;
     --ui-info: oklch(0.775 0.1379 218);
     --ui-letter-spacing-display: 0;
     --ui-letter-spacing-heading: 0;
@@ -74,6 +71,9 @@
     --ui-on-inverse: light-dark(oklch(1 0 0), oklch(0.262 0.01 248));
     --ui-palette-source: oklch(0.578 0.228 260);
     --ui-primary-source: var(--ui-palette-source);
+    --ui-rich-text-flow-gap: 1rem;
+    --ui-rich-text-heading-margin-block-end: 0.5rem;
+    --ui-rich-text-heading-margin-block-start: 0px;
     --ui-selected: var(--ui-primary);
     --ui-on-selected: var(--ui-on-primary);
     --ui-shadow-overlay: none;

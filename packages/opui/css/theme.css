@@ -79,12 +79,12 @@
     --ui-line-height-control: 1.5;
     --ui-line-height: 1.6;
     --ui-line-height-relaxed: 1.75;
-    /* --ui-line-height-prose: var(--ui-line-height-relaxed); */
+    /* --ui-rich-text-line-height: var(--ui-line-height-relaxed); */
 
     --ui-rhythm-step: 0.25rem;
-    /* --ui-flow-gap: 1.25em; */
-    /* --ui-heading-margin-block-start: 1.5em; */
-    /* --ui-heading-margin-block-end: 0.5em; */
+    /* --ui-rich-text-flow-gap: 1.25em; */
+    /* --ui-rich-text-heading-margin-block-start: 1.5em; */
+    /* --ui-rich-text-heading-margin-block-end: 0.5em; */
 
     --ui-underline-offset: 2px;
     --ui-underline-offset-small: 1px;

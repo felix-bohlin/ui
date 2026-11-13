@@ -56,13 +56,13 @@
     --ui-letter-spacing-display: 0;
     --ui-letter-spacing-heading: 0;
     --ui-line-height: 1.5;
-    --ui-line-height-prose: 1.75;
     --ui-line-height-relaxed: 1.5;
     --ui-list-item-padding-inline: 0.5rem;
     --ui-on-inverse: var(--ui-on-primary);
     --ui-palette-source: oklch(0.675 0.1725 259.5);
     --ui-primary-source: var(--ui-palette-source);
     --ui-primary-text: var(--ui-text);
+    --ui-rich-text-line-height: 1.75;
     --ui-selected: var(--ui-primary);
     --ui-on-selected: var(--ui-on-primary);
     --ui-shadow-control: 4px 4px 0 0 oklch(0 0 0);

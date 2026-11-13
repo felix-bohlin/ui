@@ -125,9 +125,9 @@ const fontOptions = (token: string, fonts = FONTS) =>
 const SHADOW_TOKENS = [
   "--ui-button-hover-shadow",
   "--ui-button-hover-translate",
+  "--ui-field-shadow",
   "--ui-shadow-control",
   "--ui-shadow-elevated",
-  "--ui-shadow-field",
   "--ui-shadow-overlay",
   "--ui-shadow-scroll",
   "--ui-shadow-selected",
@@ -1185,9 +1185,9 @@ export const GROUPS: ControlGroup[] = [
             tokens: {
               "--ui-button-hover-shadow": "none",
               "--ui-button-hover-translate": "4px 4px",
+              "--ui-field-shadow": "none",
               "--ui-shadow-control": "4px 4px 0 0 oklch(0 0 0)",
               "--ui-shadow-elevated": "var(--ui-shadow-control)",
-              "--ui-shadow-field": "none",
               "--ui-shadow-overlay": "var(--ui-shadow-control)",
               "--ui-shadow-scroll": "0 2px 0 0 oklch(0 0 0)",
               "--ui-shadow-selected": "none",
@@ -1318,7 +1318,7 @@ export const GROUPS: ControlGroup[] = [
               "--ui-button-accent",
               "--ui-button-on-accent",
               "--ui-control-accent",
-              "--ui-on-control-accent",
+              "--ui-control-on-accent",
             ),
             value: "neutral",
           },
@@ -1327,14 +1327,14 @@ export const GROUPS: ControlGroup[] = [
             tokens: {
               ...revert("--ui-button-accent", "--ui-button-on-accent"),
               "--ui-control-accent": "var(--ui-primary)",
-              "--ui-on-control-accent": "var(--ui-on-primary)",
+              "--ui-control-on-accent": "var(--ui-on-primary)",
             },
             value: "brand",
           },
           {
             label: "Gray",
             tokens: {
-              ...revert("--ui-control-accent", "--ui-on-control-accent"),
+              ...revert("--ui-control-accent", "--ui-control-on-accent"),
               "--ui-button-accent":
                 "light-dark(oklch(0.525 0.017 245), oklch(0.77 0.014 248))",
               "--ui-button-on-accent": "light-dark(oklch(1 0 0), oklch(0 0 0))",

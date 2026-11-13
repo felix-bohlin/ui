@@ -154,7 +154,7 @@
     align-self: flex-start;
     border: var(--ui-field-border-width) solid var(--ui-field-border-color);
     border-radius: var(--ui-radius-small);
-    box-shadow: var(--ui-shadow-field, var(--ui-shadow-control));
+    box-shadow: var(--ui-field-shadow, var(--ui-shadow-control));
     color: var(--ui-text);
     cursor: initial;
     max-inline-size: 100%;

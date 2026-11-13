@@ -32,7 +32,7 @@
     --_font-size: var(--ui-font-size-control);
     --_helper-text-color: var(--ui-field-helper-text-color);
     --_radius: var(--ui-field-radius, var(--ui-radius));
-    --_shadow: var(--ui-shadow-field, var(--ui-shadow-control));
+    --_shadow: var(--ui-field-shadow, var(--ui-shadow-control));
     --_size: var(--ui-field-size);
     --_start-end-radius: var(--_radius);
     --_start-start-radius: var(--_radius);

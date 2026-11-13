@@ -28,7 +28,7 @@
     );
     --ui-choice-size: calc(18px * var(--ui-density));
     --ui-control-accent: var(--ui-primary);
-    --ui-on-control-accent: var(--ui-on-primary);
+    --ui-control-on-accent: var(--ui-on-primary);
     --ui-control-border-color: var(--ui-field-border-color);
     --ui-critical: light-dark(oklch(0.5 0.1783 28.71), oklch(0.834 0.068 22));
     --ui-dialog-radius: 1.75rem;

@@ -49,7 +49,7 @@
     --_icon-size: 0.7lh;
     --_on-accent: var(
       --ui-button-on-accent,
-      var(--ui-on-control-accent, var(--ui-palette-on-strong))
+      var(--ui-control-on-accent, var(--ui-palette-on-strong))
     );
     --_on-accent-filled: var(--ui-button-on-accent-filled, var(--_on-accent));
     --_on-accent-tonal: var(--_accent);

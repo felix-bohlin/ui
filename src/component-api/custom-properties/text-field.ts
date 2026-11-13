@@ -108,7 +108,7 @@ export default {
   },
   "--_shadow": {
     description:
-      "The shadow of `.ui-field`. Defaults to `--ui-shadow-field`, or `--ui-shadow-control` when the theme leaves it unset. `none` in a `ControlGroup`.",
+      "The shadow of `.ui-field`. Defaults to `--ui-field-shadow`, or `--ui-shadow-control` when the theme leaves it unset. `none` in a `ControlGroup`.",
     kind: "input",
   },
   "--_size": {

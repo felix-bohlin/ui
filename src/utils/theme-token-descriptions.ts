@@ -45,7 +45,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-button-hover-translate":
     "Moves `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal` on hover, as a `translate` value. Pair it with `--ui-button-hover-shadow` to press buttons into their shadow. `none` when unset.",
   "--ui-button-on-accent":
-    "Text color on a filled `--ui-button-accent` button. Set it with `--ui-button-accent`. When unset, `--ui-on-control-accent`, else `--ui-palette-on-strong`.",
+    "Text color on a filled `--ui-button-accent` button. Set it with `--ui-button-accent`. When unset, `--ui-control-on-accent`, else `--ui-palette-on-strong`.",
   "--ui-button-on-accent-filled":
     "Text color on a `--ui-button-accent-filled` fill. Set it with `--ui-button-accent-filled`. When unset, `--ui-button-on-accent`.",
   "--ui-button-padding-inline":
@@ -88,7 +88,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-choice-label-offset":
     "Moves `Checkbox`, `Radio` and `Switch` labels down (positive) or up (negative) against their control. Use `em` or `cap` to scale with the label font.",
   "--ui-choice-on-accent":
-    "Color of the mark on a checked `Checkbox`, `Radio` and `Switch`. Set it with `--ui-choice-accent`. When unset, `--ui-on-control-accent`, else `--ui-on-primary` in light mode and near-white in dark mode.",
+    "Color of the mark on a checked `Checkbox`, `Radio` and `Switch`. Set it with `--ui-choice-accent`. When unset, `--ui-control-on-accent`, else `--ui-on-primary` in light mode and near-white in dark mode.",
   "--ui-choice-ripple-bg-color":
     "Halo color for the `Checkbox` and `Radio` hover effect. `--ui-text` at 20%.",
   "--ui-choice-size": "Default `Checkbox` and `Radio` input size.",
@@ -118,6 +118,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Border color of controls without a fill: `Button` with `.ui-outlined`, also in an outlined `ControlGroup`, `ToggleButton`, `ToggleGroup`, `Chip` with `.ui-outlined`, the track of `Tabs` with `.ui-outlined`, and the selected `Tabs` pill. When unset, outlined buttons use their color, the selected `Tabs` pill `--ui-field-border-color` and the rest `--ui-border-color`. Themes that outline controls like fields set it to `--ui-field-border-color`.",
   "--ui-control-border-color-filled":
     "Border color of controls with a fill: `Button` with `.ui-filled` or `.ui-tonal`, also in a filled or tonal `ControlGroup`, the dividers between buttons in a `ControlGroup` that isn't outlined (unset, filled groups use `currentColor` dividers, or a shade of the accent in primary and critical ones), a checked `ToggleButton`, `Chip` without `.ui-outlined` and the `Carousel` buttons. When unset, buttons have no visible border, the carousel buttons use a shade of their fill and the rest use `--ui-border-color`. Set it with `--ui-control-border-color` to outline every control.",
+  "--ui-control-on-accent":
+    "Text and mark color on a `--ui-control-accent` fill. Set it with `--ui-control-accent`. `--ui-button-on-accent` and `--ui-choice-on-accent` override it per component.",
   "--ui-control-size":
     "Shared default height for fields and buttons so they line up.",
   "--ui-control-size-large": "Shared large height for fields and buttons.",
@@ -175,6 +177,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-field-radius":
     "Corner radius for fields. When unset, they follow `--ui-radius`, also where it's set on a part of the page.",
   "--ui-field-required-text-color": "Color of the required asterisk.",
+  "--ui-field-shadow":
+    "Shadow of `TextField`, `Textarea` and `Select` fields. When unset, they follow `--ui-shadow-control`. Set it to `none` to lift buttons but keep fields flat.",
   "--ui-field-size": "Default field height.",
   "--ui-field-size-large": "Field height with `.ui-large`.",
   "--ui-field-size-small": "Field height with `.ui-small`.",
@@ -310,8 +314,6 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Severity color for neutral messages. `--ui-gray-hue` and `--ui-gray-chroma` at `0.53`, the lightness of `--ui-gray-9`, capped at `--ui-accent-max-lightness` in light mode. The `.ui-neutral` scope derives its palette from its hue and chroma.",
   "--ui-neutral-text":
     "Neutral as a text color, for neutral text outside an `.ui-neutral` scope. `--ui-neutral` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
-  "--ui-on-control-accent":
-    "Text and mark color on a `--ui-control-accent` fill. Set it with `--ui-control-accent`. `--ui-button-on-accent` and `--ui-choice-on-accent` override it per component.",
   "--ui-on-fill":
     "Text on an intent fill: an intent color with its lightness capped so light text reads on it, within `--ui-accent-fill-max-lightness` for critical `Button`s and the critical, info, neutral and success `Badge`, and within `--ui-choice-fill-max-lightness` for the invalid choice mark and the checked one in dark mode. Near-white in both modes. The fill has no token of its own, since each intent is one. Not `--ui-palette-on-strong`, which turns dark in dark mode for the light `--ui-palette-strong`.",
   "--ui-on-focus-highlight":
@@ -403,8 +405,6 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Shadow of buttons with a variant (unless `--ui-button-shadow` is set), standalone `ToggleButton`, outlined `Chip` and fields. `none` by default, for themes that lift controls off the page.",
   "--ui-shadow-elevated":
     "Shadow of elevated `Card` and `Accordion`. Five layers of `--ui-shadow-color`, which follows the color scheme, also in `.ui-light` and `.ui-dark` parts of the page.",
-  "--ui-shadow-field":
-    "Shadow of `TextField`, `Textarea` and `Select` fields. When unset, they follow `--ui-shadow-control`. Set it to `none` to lift buttons but keep fields flat.",
   "--ui-shadow-overlay":
     "Shadow of layers that float above the page: `Dialog`, `Drawer`, `Menu`, `Select` pickers and the `Carousel` buttons. Five layers of `--ui-shadow-color`.",
   "--ui-shadow-scroll":

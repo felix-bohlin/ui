@@ -106,6 +106,7 @@
     /* --ui-field-padding-inline: var(--ui-space-2); */
     /* --ui-field-padding-inline-large: var(--ui-space-3); */
     /* --ui-field-placeholder-text-color: var(--ui-text-subtle); */
+    /* --ui-field-shadow: var(--ui-shadow-control); */
     --ui-field-border-width: 1px;
 
     /* Button */
@@ -196,7 +197,6 @@
 
     /* Elevation */
     --ui-shadow-control: none;
-    /* --ui-shadow-field: var(--ui-shadow-control); */
     --ui-shadow-surface: none;
     --ui-shadow-color: light-dark(
       oklch(0.268 0.003 265 / 1%),
@@ -329,7 +329,7 @@
     /* --ui-control-accent: var(--ui-primary); */
     /* --ui-control-border-color: var(--ui-field-border-color); */
     /* --ui-control-border-color-filled: oklch(0 0 0); */
-    /* --ui-on-control-accent: var(--ui-on-primary); */
+    /* --ui-control-on-accent: var(--ui-on-primary); */
     /* --ui-track-bg-color: var(--ui-surface-tonal); */
 
     /* Control sizes - shared scale for fields and buttons so they line up. */

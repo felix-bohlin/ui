@@ -19,7 +19,7 @@
     --_on-accent: var(
       --ui-choice-on-accent,
       var(
-        --ui-on-control-accent,
+        --ui-control-on-accent,
         light-dark(var(--ui-on-primary), var(--ui-on-fill))
       )
     );

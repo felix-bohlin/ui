@@ -24,7 +24,7 @@
     --ui-choice-size: 1rem;
     --ui-code-bg-color: var(--ui-surface-tonal);
     --ui-control-accent: var(--ui-primary);
-    --ui-on-control-accent: var(--ui-on-primary);
+    --ui-control-on-accent: var(--ui-on-primary);
     --ui-control-border-color: var(--ui-field-border-color);
     --ui-control-size-large: 2.5rem;
     --ui-control-size-small: 2rem;

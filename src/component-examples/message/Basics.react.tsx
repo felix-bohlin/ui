@@ -1,9 +1,9 @@
-import { Avatar, Message, Messages } from "opui-css/react"
+import { Avatar, Message, MessageList } from "opui-css/react"
 
 export default function Basics() {
   return (
     <div aria-label="Chat with Sirkka" role="log">
-      <Messages aria-label="Messages with Sirkka">
+      <MessageList aria-label="Messages with Sirkka">
         <Message
           author="Sirkka"
           datetime="2026-10-08T14:02"
@@ -40,7 +40,7 @@ export default function Basics() {
         >
           <p>Can you add the Bergen Bikes case study too?</p>
         </Message>
-      </Messages>
+      </MessageList>
     </div>
   )
 }

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { Avatar, Message, Messages } from "opui-css/vue"
+import { Avatar, Message, MessageList } from "opui-css/vue"
 </script>
 
 <template>
   <div aria-label="Chat with Sirkka" role="log">
-    <Messages aria-label="Messages with Sirkka">
+    <MessageList aria-label="Messages with Sirkka">
       <Message author="Sirkka" datetime="2026-10-08T14:02" time="14:02">
         <template #start>
           <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
@@ -24,6 +24,6 @@ import { Avatar, Message, Messages } from "opui-css/vue"
         <p>Can you add the Bergen Bikes case study too?</p>
         <template #end>Read</template>
       </Message>
-    </Messages>
+    </MessageList>
   </div>
 </template>

@@ -1,8 +1,14 @@
 <script lang="ts">
-  import { Avatar, Card, CardContent, Message, Messages } from "opui-css/svelte"
+  import {
+    Avatar,
+    Card,
+    CardContent,
+    Message,
+    MessageList,
+  } from "opui-css/svelte"
 </script>
 
-<Messages aria-label="Messages with Sirkka">
+<MessageList aria-label="Messages with Sirkka">
   <Message author="Sirkka" datetime="2026-10-08T14:31" time="14:31">
     {#snippet start()}
       <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
@@ -50,4 +56,4 @@
       </CardContent>
     </Card>
   </Message>
-</Messages>
+</MessageList>

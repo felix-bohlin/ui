@@ -5,7 +5,7 @@ import {
   Button,
   Copy,
   Message,
-  Messages,
+  MessageList,
   NumberField,
   OneTimeCode,
   Rating,
@@ -79,7 +79,7 @@ if (count < 1) {
     <p class="new-components-name">
       <DocLink href="/components/message">Message</DocLink>
     </p>
-    <Messages aria-label="Messages about the release">
+    <MessageList aria-label="Messages about the release">
       <Message author="You" datetime="2026-10-27T09:12" outgoing time="09:12">
         <p>Is 6.0 out yet?</p>
       </Message>
@@ -90,7 +90,7 @@ if (count < 1) {
         <Avatar aria-label="Felix" role="img" slot="start">F</Avatar>
         <p>Almost. Scroll down, it's all in here.</p>
       </Message>
-    </Messages>
+    </MessageList>
   </li>
   <li class="new-components-tile">
     <p class="new-components-name">

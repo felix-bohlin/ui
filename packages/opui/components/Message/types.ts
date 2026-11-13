@@ -7,7 +7,7 @@ export type Props = {
   typing?: boolean
 }
 
-export type MessagesProps = {}
+export type MessageListProps = {}
 
 export type Slots<S> = {
   bottom?: S

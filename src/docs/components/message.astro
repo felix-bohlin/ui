@@ -9,7 +9,7 @@ import Usage from "./partials/Usage.astro"
 import {
   Avatar as UIAvatar,
   Message as UIMessage,
-  Messages as UIMessages,
+  MessageList as UIMessageList,
   ToggleButton as UIToggleButton,
   ToggleGroup as UIToggleGroup,
 } from "opui-css/astro"
@@ -18,7 +18,7 @@ import AvatarCSS from "@opui/css/components/avatar.css?raw"
 import MessageCSS from "@opui/css/components/message.css?raw"
 
 import messageApi from "../../component-api/message/api"
-import messagesApi from "../../component-api/messages/api"
+import messageListApi from "../../component-api/message-list/api"
 
 export const description =
   "Chat bubbles that group by sender, with attachments, reactions and a typing indicator."
@@ -31,7 +31,7 @@ export const keywords = ["chat", "chat bubble", "conversation"]
   slug="message"
   heroAnatomy
   apis={[
-    { title: "Messages API", api: messagesApi },
+    { title: "Message list API", api: messageListApi },
     { title: "Message API", api: messageApi },
   ]}
   browserSupport={[
@@ -53,7 +53,7 @@ export const keywords = ["chat", "chat bubble", "conversation"]
     { path: "src/component-examples/message", type: "docs" },
     { path: "packages/opui/css/components/message.css", type: "css" },
     { path: "src/component-api/message", type: "api" },
-    { path: "src/component-api/messages", type: "api" },
+    { path: "src/component-api/message-list", type: "api" },
   ]}
   installationTabs={[
     { title: "message.css", code: MessageCSS, lang: "css" },
@@ -72,7 +72,10 @@ export const keywords = ["chat", "chat bubble", "conversation"]
 
   <Fragment slot="anatomy">
     <Anatomy>
-      <UIMessages aria-label="Messages with Sirkka" style="inline-size: 22rem">
+      <UIMessageList
+        aria-label="Messages with Sirkka"
+        style="inline-size: 22rem"
+      >
         <UIMessage author="Sirkka" datetime="2026-10-08T14:31" time="14:31">
           <UIAvatar aria-label="Sirkka Nitti" role="img" slot="start"
             >SN</UIAvatar
@@ -90,7 +93,7 @@ export const keywords = ["chat", "chat bubble", "conversation"]
             >
           </UIToggleGroup>
         </UIMessage>
-      </UIMessages>
+      </UIMessageList>
     </Anatomy>
   </Fragment>
 
@@ -123,7 +126,7 @@ export const keywords = ["chat", "chat bubble", "conversation"]
       Mark each change of sender with
       <PropOrClass prop="newAuthor" class=".ui-new-author" />. Put a date or an
       event, like someone joining, in an <code>li.ui-divider</code>. Every child
-      of <PropOrClass prop="Messages" class=".ui-messages" /> is an
+      of <PropOrClass prop="MessageList" class=".ui-message-list" /> is an
       <code>li</code>, since it's a list.
     </p>
     <AutoExample name="GroupChat" />

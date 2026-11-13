@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { Avatar, Message, Messages } from "opui-css/svelte"
+  import { Avatar, Message, MessageList } from "opui-css/svelte"
 </script>
 
 <div aria-label="Chat with Sirkka" role="log">
-  <Messages aria-label="Messages with Sirkka">
+  <MessageList aria-label="Messages with Sirkka">
     <Message author="Sirkka" datetime="2026-10-08T14:02" time="14:02">
       {#snippet start()}
         <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
@@ -23,5 +23,5 @@
       <p>Can you add the Bergen Bikes case study too?</p>
       {#snippet end()}Read{/snippet}
     </Message>
-  </Messages>
+  </MessageList>
 </div>

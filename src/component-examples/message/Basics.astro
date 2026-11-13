@@ -1,9 +1,9 @@
 ---
-import { Avatar, Message, Messages } from "opui-css/astro"
+import { Avatar, Message, MessageList } from "opui-css/astro"
 ---
 
 <div aria-label="Chat with Sirkka" role="log">
-  <Messages aria-label="Messages with Sirkka">
+  <MessageList aria-label="Messages with Sirkka">
     <Message author="Sirkka" datetime="2026-10-08T14:02" time="14:02">
       <Avatar aria-label="Sirkka Nitti" role="img" slot="start">SN</Avatar>
       <p>Did you get a chance to look at the pricing proposal?</p>
@@ -19,5 +19,5 @@ import { Avatar, Message, Messages } from "opui-css/astro"
       <p>Can you add the Bergen Bikes case study too?</p>
       <Fragment slot="end">Read</Fragment>
     </Message>
-  </Messages>
+  </MessageList>
 </div>

@@ -32,7 +32,7 @@ import {
   List,
   ListItem,
   Message,
-  Messages,
+  MessageList,
   NumberField,
   OneTimeCode,
   Progress,
@@ -365,14 +365,14 @@ const Wrapper = wrap ? "ul" : Carousel
     </Fragment>
 
     <Fragment slot="message">
-      <Messages aria-hidden="true" style="inline-size: 14rem">
+      <MessageList aria-hidden="true" style="inline-size: 14rem">
         <Message author="Sirkka">
           <p>Deck is out!</p>
         </Message>
         <Message author="You" outgoing>
           <p>Great work.</p>
         </Message>
-      </Messages>
+      </MessageList>
     </Fragment>
 
     <Fragment slot="number-field">

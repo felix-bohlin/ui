@@ -1,14 +1,14 @@
 import {
   Avatar,
   Message,
-  Messages,
+  MessageList,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/react"
 
 export default function Reactions() {
   return (
-    <Messages aria-label="Messages with Sirkka">
+    <MessageList aria-label="Messages with Sirkka">
       <Message
         author="Sirkka"
         bottom={
@@ -46,6 +46,6 @@ export default function Reactions() {
       >
         <p>Great work, it looks sharp.</p>
       </Message>
-    </Messages>
+    </MessageList>
   )
 }

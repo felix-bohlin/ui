@@ -1,8 +1,8 @@
-import { Avatar, Message, Messages } from "opui-css/react"
+import { Avatar, Message, MessageList } from "opui-css/react"
 
 export default function Typing() {
   return (
-    <Messages aria-label="Messages with Sirkka">
+    <MessageList aria-label="Messages with Sirkka">
       <Message
         author="Sirkka"
         datetime="2026-10-08T14:32"
@@ -25,6 +25,6 @@ export default function Typing() {
       >
         Sirkka is typing…
       </Message>
-    </Messages>
+    </MessageList>
   )
 }

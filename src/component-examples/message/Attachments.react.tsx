@@ -1,8 +1,8 @@
-import { Avatar, Card, CardContent, Message, Messages } from "opui-css/react"
+import { Avatar, Card, CardContent, Message, MessageList } from "opui-css/react"
 
 export default function Attachments() {
   return (
-    <Messages aria-label="Messages with Sirkka">
+    <MessageList aria-label="Messages with Sirkka">
       <Message
         author="Sirkka"
         datetime="2026-10-08T14:31"
@@ -60,6 +60,6 @@ export default function Attachments() {
           </CardContent>
         </Card>
       </Message>
-    </Messages>
+    </MessageList>
   )
 }

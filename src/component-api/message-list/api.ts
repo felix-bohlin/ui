@@ -1,7 +1,7 @@
 import type { ComponentApi } from "../types"
 
 export default {
-  component: "Messages",
+  component: "MessageList",
   notes: {
     default:
       "Name the list with `aria-label`, such as the other person or the channel, so a screen reader knows which conversation it is.",
@@ -19,7 +19,7 @@ export default {
   ],
   root: {
     description: "The conversation, an ordered list.",
-    selector: "ol.ui-messages",
+    selector: "ol.ui-message-list",
   },
   slots: [
     {

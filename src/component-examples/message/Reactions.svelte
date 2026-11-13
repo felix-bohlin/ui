@@ -2,13 +2,13 @@
   import {
     Avatar,
     Message,
-    Messages,
+    MessageList,
     ToggleButton,
     ToggleGroup,
   } from "opui-css/svelte"
 </script>
 
-<Messages aria-label="Messages with Sirkka">
+<MessageList aria-label="Messages with Sirkka">
   <Message author="Sirkka" datetime="2026-10-08T16:05" time="16:05">
     {#snippet start()}
       <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
@@ -35,4 +35,4 @@
       </ToggleGroup>
     {/snippet}
   </Message>
-</Messages>
+</MessageList>

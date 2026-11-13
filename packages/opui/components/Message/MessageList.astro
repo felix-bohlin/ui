@@ -1,0 +1,9 @@
+---
+import type { MessageListProps as Props } from "./types.astro"
+
+const { class: className, ...rest } = Astro.props
+---
+
+<ol class:list={["ui-message-list", className]} role="list" {...rest}>
+  <slot />
+</ol>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Avatar, Message, Messages } from "opui-css/vue"
+import { Avatar, Message, MessageList } from "opui-css/vue"
 </script>
 
 <template>
-  <Messages aria-label="Messages in #design">
+  <MessageList aria-label="Messages in #design">
     <li class="ui-divider">Today</li>
     <Message author="Lena" datetime="2026-10-08T09:12" time="09:12">
       <template #start>
@@ -33,5 +33,5 @@ import { Avatar, Message, Messages } from "opui-css/vue"
     <Message author="You" datetime="2026-10-08T09:20" outgoing time="09:20">
       <p>See you at one.</p>
     </Message>
-  </Messages>
+  </MessageList>
 </template>

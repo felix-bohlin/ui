@@ -1,6 +1,6 @@
 <script lang="ts">
   import { defined } from "../attrs"
-  import type { MessagesProps as Props } from "./types.svelte"
+  import type { MessageListProps as Props } from "./types.svelte"
 
   let {
     class: className,
@@ -11,6 +11,6 @@
   }: Props = $props()
 </script>
 
-<ol class={["ui-messages", className]} role="list" {...defined(rest)}>
+<ol class={["ui-message-list", className]} role="list" {...defined(rest)}>
   {@render children?.()}
 </ol>

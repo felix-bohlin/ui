@@ -2,14 +2,14 @@
 import {
   Avatar,
   Message,
-  Messages,
+  MessageList,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/vue"
 </script>
 
 <template>
-  <Messages aria-label="Messages with Sirkka">
+  <MessageList aria-label="Messages with Sirkka">
     <Message author="Sirkka" datetime="2026-10-08T16:05" time="16:05">
       <template #start>
         <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
@@ -36,5 +36,5 @@ import {
         </ToggleGroup>
       </template>
     </Message>
-  </Messages>
+  </MessageList>
 </template>

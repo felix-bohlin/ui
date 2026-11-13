@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { type HTMLAttributes, useAttrs } from "vue"
 import { defined } from "../attrs"
-import type { MessagesProps as Props, MessagesSlots } from "./types.vue-props"
+import type {
+  MessageListProps as Props,
+  MessageListSlots,
+} from "./types.vue-props"
 
 defineProps<Props>()
-defineSlots<MessagesSlots>()
+defineSlots<MessageListSlots>()
 
 defineOptions({
   inheritAttrs: false,
@@ -15,7 +18,7 @@ const attrs = useAttrs() as HTMLAttributes
 
 <template>
   <ol
-    :class="['ui-messages', $props.class]"
+    :class="['ui-message-list', $props.class]"
     role="list"
     v-bind="defined(attrs)"
   >

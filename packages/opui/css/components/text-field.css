@@ -182,7 +182,7 @@
     &.ui-textarea .ui-field {
       & > :is(.ui-start, .ui-end) {
         align-self: start;
-        padding-block: var(--_field-padding-block-fit);
+        min-block-size: calc(1lh + var(--_field-padding-block-fit) * 2);
       }
     }
 

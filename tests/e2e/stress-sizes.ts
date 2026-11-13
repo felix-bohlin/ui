@@ -32,6 +32,40 @@ export const measure = (page: Page) =>
       }
     })
     return {
+      affixes: rows.flatMap(({ controlHeight, example, row, size }) =>
+        [
+          ...row.querySelectorAll<HTMLElement>(
+            ":scope > .ui-textarea > .ui-field > :is(.ui-start, .ui-end)",
+          ),
+        ].map((part) => {
+          const field = part.parentElement!
+          const textarea = field.querySelector("textarea")!
+          const style = getComputedStyle(textarea)
+          const top = textarea.getBoundingClientRect().top
+          const padding = parseFloat(style.paddingBlockStart)
+          const lineBox = parseFloat(style.lineHeight) + padding * 2
+          const center = top + lineBox / 2
+          const text = document.createRange()
+          text.selectNodeContents(part)
+          const boxes = (
+            part.children.length ? [...part.children] : [text]
+          ).map((content) => content.getBoundingClientRect())
+          return {
+            affix: `${example} ${size} > ${part.className}`,
+            contents: boxes.map((box) =>
+              box.height > lineBox
+                ? box.top - top
+                : box.top + box.height / 2 - center,
+            ),
+            height: part.getBoundingClientRect().bottom - top,
+            maxHeight: Math.max(
+              parseFloat(controlHeight) -
+                parseFloat(getComputedStyle(field).borderBlockStartWidth) * 2,
+              ...boxes.map((box) => box.height),
+            ),
+          }
+        }),
+      ),
       chips: rows.flatMap(({ controlHeight, example, row, size }) =>
         [...row.querySelectorAll<HTMLElement>(":scope > .ui-chip")].map(
           (chip) => {
@@ -91,8 +125,22 @@ export const expectChipHeights = (chips: Measured["chips"]) => {
   ).toEqual([])
 }
 
+export const expectTextareaAffixes = (affixes: Measured["affixes"]) => {
+  expect(
+    affixes.filter(({ height, maxHeight }) => height > maxHeight + 0.5),
+    "textarea affixes should be no taller than a one-line field or what they hold",
+  ).toEqual([])
+  expect(
+    affixes.filter(({ contents }) =>
+      contents.some((offset) => Math.abs(offset) > 0.5),
+    ),
+    "textarea affixes should center on the first line, or start at its top when taller",
+  ).toEqual([])
+}
+
 export const expectSizedRows = async (page: Page) => {
-  const { chips, rows } = await measure(page)
+  const { affixes, chips, rows } = await measure(page)
   expectSharedHeights(rows)
   expectChipHeights(chips)
+  expectTextareaAffixes(affixes)
 }

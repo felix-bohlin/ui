@@ -5,6 +5,7 @@ import {
   expectChipHeights,
   expectSharedHeights,
   expectSizedRows,
+  expectTextareaAffixes,
   measure,
 } from "./stress-sizes"
 
@@ -51,6 +52,18 @@ test("chips one size step up match the control size", async ({ page }) => {
   expectChipHeights(chips)
 })
 
+test("textarea affixes center on the first line at every size", async ({
+  page,
+}) => {
+  await openFixture(page, "html", "stress/forms")
+
+  const { affixes } = await measure(page)
+  expect(
+    [...new Set(affixes.map(({ affix }) => affix.split(" ")[1]))].toSorted(),
+  ).toEqual(["default", "large", "small", "x-small"])
+  expectTextareaAffixes(affixes)
+})
+
 const DENSITIES = {
   "0.875": {
     default: "35px",
@@ -77,10 +90,11 @@ for (const [density, heights] of Object.entries(DENSITIES)) {
       density,
     )
 
-    const { rows } = await measure(page)
+    const { affixes, rows } = await measure(page)
     for (const { expected, row, size } of rows) {
       expect(expected, row).toBe(heights[size as keyof typeof heights])
     }
     expectSharedHeights(rows)
+    expectTextareaAffixes(affixes)
   })
 }

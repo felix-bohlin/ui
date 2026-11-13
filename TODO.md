@@ -790,7 +790,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A: also give a non-modal drawer a default `z-index` in `drawer.css` through a new optional token.
     - B (recommended): say in the Non-modal section that a drawer opened with `show()` isn't in the top layer, so it needs a `z-index` above the page's sticky headers.
   - Fixed: option B: the Non-modal section says a drawer opened with `show()` isn't in the top layer and needs a `z-index` above the page's sticky headers, and `src/styles/base.css` drops the preview's isolation while a non-modal drawer is open and gives it `z-index: 25` (331ad80f).
-- [ ] (3) Rating: the empty star outlines read `--ui-track-bg-color` before `--ui-field-border-color`, and the brutalist and m3 themes set that token to a track fill close to the page color, so the outlines measure 1.1:1 to 1.5:1 against the page, where the default reaches 4.2:1 (`packages/opui/css/components/rating.css:8`, `packages/opui/themes/brutalist.css:89`, `packages/opui/themes/m3.css:143-146`)
+- [x] (3) Rating: the empty star outlines read `--ui-track-bg-color` before `--ui-field-border-color`, and the brutalist and m3 themes set that token to a track fill close to the page color, so the outlines measure 1.1:1 to 1.5:1 against the page, where the default reaches 4.2:1 (`packages/opui/css/components/rating.css:8`, `packages/opui/themes/brutalist.css:89`, `packages/opui/themes/m3.css:143-146`)
   - Summary: In the m3 and brutalist themes the empty stars of a Rating are barely visible against the page.
   - Recommended: Fix. The field border is the role for an edge that needs 3:1 against the page.
   - Fix: read only the field border, then drop Rating from the `--ui-track-bg-color` description, the `--_empty-bg-color` row, the docs paragraph and the Rating Added entry.
@@ -799,6 +799,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
       --_empty-bg-color: var(--ui-field-border-color);
     }
     ```
+  - Fixed: in 1ca2dfae. `--_empty-bg-color` reads only `--ui-field-border-color`, and the `--ui-track-bg-color` description (`tokens.json` regenerated in 0c436494), the `--_empty-bg-color` row, the Under the hood paragraph and the Rating Added entry no longer name the track token; `packages/opui/components/AGENTS.md` doesn't tie Rating to it. The `input::before` of a `fieldset.ui-rating` against the `html` background in Chromium, light and dark: default 4.21:1 and 4.22:1 (unchanged), m3 4.33:1 and 5.87:1 (were 1.23:1 and 1.52:1), brutalist 16.63:1 and 1.45:1 (were 1.26:1 and 1.11:1; 1.45:1 is every field border in brutalist dark), shadcn 1.26:1 and 1.48:1 (unchanged, since shadcn sets the track token to its field border). The Rating visual baselines in m3 and brutalist need the `update-snapshots` label.
 
 ## Bugs
 
@@ -1343,7 +1344,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Summary: On paper without background graphics, dividers vanish and selects lose their arrow.
   - Recommended: Fix. The same print-only print-color-adjust keeps them, as for badges and checked marks.
   - Fix: confirmed by printing `/html/components/divider/` and `/html/components/select/` to A4 in Chromium. Add `@media print { print-color-adjust: exact; }` to the Divider root and the Select chevron, then print the SortableTable and Toaster examples and add it where a mask drops out.
-- [ ] (1) Tooltip: `print-color-adjust: exact` is on the `.ui-tooltip` root and inherits, so a tonal button inside a Tooltip prints its fill even when the browser doesn't print backgrounds (`packages/opui/css/components/tooltip.css:13-15`, `packages/opui/css/components/tooltip.css:17-45`)
+- [x] (1) Tooltip: `print-color-adjust: exact` is on the `.ui-tooltip` root and inherits, so a tonal button inside a Tooltip prints its fill even when the browser doesn't print backgrounds (`packages/opui/css/components/tooltip.css:13-15`, `packages/opui/css/components/tooltip.css:17-45`)
   - Summary: A button wrapped in a Tooltip prints its fill, where the same button outside a Tooltip doesn't.
   - Recommended: Fix. Only the bubble needs its fill in print.
   - Fix: move the `@media print` block into the `& > .ui-floating` rule, next to its forced-colors block.
@@ -1354,6 +1355,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
       }
     }
     ```
+  - Fixed: in 8e8797fc. The `@media print` block sits in the `& > .ui-floating` rule after its forced-colors block. With print media emulated in Chromium, the `.ui-tooltip` root and a tonal button inside it compute `print-color-adjust: economy` (were `exact`) and the `.ui-floating` bubble `exact`, in the default, m3, brutalist and shadcn themes, light and dark.
 - [ ] (2) Range: in WebKit, the fill animation (`ui-range-fill` on the `--ui-range-thumb` view timeline) keeps `/theme-builder/` rendering a new frame about every 45 ms while nothing changes: in WebKitGTK 2.52 the main thread is busy for 3.5 s of every 4 s at idle, from the two Range inputs in the preview specimen, 1,900 px below the viewport. With their animation off it is 0.4 s, and Chromium shows no idle cost. A plain page with the same Range markup and `dist/opui.css` costs 0.1 to 0.2 s per 3 s, also inside `.ui-palette`, so the repro still needs the part of the builder that makes it expensive (`packages/opui/css/components/range.css:268-289`, `packages/opui/css/components/range.css:361-362`, `src/components/ThemeBuilder/PreviewSpecimen.astro:185`)
   - Summary: In WebKit the theme builder keeps redrawing while idle because of the Range fill animation, which slows every action there.
   - Recommended: Fix with option A. The cost comes from the engine, so it belongs in an engine bug report with a repro, not a workaround.
@@ -3549,14 +3551,15 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix. The sentence only needs to drop "instead of".
   - Fix: in MIGRATING, "The `Slots` type in `types.ts` drops `icon` and `title`, and has `closeIcon` for the close button's icon." Same wording in the Removed entry.
   - Fixed: MIGRATING and the Removed entry say the Callout `Slots` type drops `icon` and `title` and has `closeIcon` for the close button's icon, so the Renames explorer no longer lists `icon` to `closeIcon` (00067dc3).
-- [ ] (1) Tokens: `theme.css` prints the light scheme, so neither `.ui-dark` nor the OS dark preference applies in print, but the `--ui-color-scheme` description and the `.ui-light` and `.ui-dark` item in the theming guide don't say so (`packages/opui/css/theme.css:218-226`, `src/utils/theme-token-descriptions.ts:111-112`, `src/docs/guide/theming.astro:146-153`)
-  - Summary: A reader who forces the dark scheme isn't told that the page still prints light.
-  - Recommended: Fix. One sentence in each place matches what the theme does.
-  - Fix: add "In print it is `light`, also under `.ui-dark`." to the `--ui-color-scheme` description and rebuild `tokens.json`, and add "except in print, which is always light" to the `.ui-light` and `.ui-dark` item in the theming guide.
 - [ ] (4) Tabs: MIGRATING's HTML diff removes `role="tablist"` and adds nothing, and so does the HTML Breaking note on the Tabs page, while the Breaking entry says to put `role="radiogroup"` on `.ui-tabs` and every HTML example has it; MIGRATING also still says every tabs is a scroll container, but tabs without panels size to their labels (`packages/opui/MIGRATING.md:911-921`, `packages/opui/MIGRATING.md:940`, `src/utils/whats-new.ts:1343`, `packages/opui/CHANGELOG.md:91-93`)
   - Summary: HTML tabs migrated by the guide have no group role, so screen readers get no named group.
   - Recommended: Fix. The entry and the examples already show the markup.
   - Fix: in the diff, `+ <div class="ui-tabs" role="radiogroup" aria-label="Account settings">`; add "Put `role="radiogroup"` and an `aria-label` on `.ui-tabs`" to the paragraph above it and to the `html` note; at line 940, "Tabs with panels are a scroll container ...; tabs without panels size to their labels."
+- [x] (1) Tokens: `theme.css` prints the light scheme, so neither `.ui-dark` nor the OS dark preference applies in print, but the `--ui-color-scheme` description and the `.ui-light` and `.ui-dark` item in the theming guide don't say so (`packages/opui/css/theme.css:218-226`, `src/utils/theme-token-descriptions.ts:111-112`, `src/docs/guide/theming.astro:146-153`)
+  - Summary: A reader who forces the dark scheme isn't told that the page still prints light.
+  - Recommended: Fix. One sentence in each place matches what the theme does.
+  - Fix: add "In print it is `light`, also under `.ui-dark`." to the `--ui-color-scheme` description and rebuild `tokens.json`, and add "except in print, which is always light" to the `.ui-light` and `.ui-dark` item in the theming guide.
+  - Fixed: in 8d9108ab. The `--ui-color-scheme` description adds "In print it is `light`, also under `.ui-dark`." (`tokens.json` regenerated in 0c436494), and the `.ui-light` and `.ui-dark` item in the theming guide says they force a color scheme "except in print, which is always light".
 
 ## Future plans
 
@@ -3642,11 +3645,12 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Summary: People can install the Figma plugin only from a downloaded zip, not from Figma Community.
   - Recommended: Fix. Publishing takes the Figma desktop app and the owner's account, as the plugin README describes.
   - Fix: publish it from the Figma desktop app (Plugins, Development, Manage plugins in development, Publish), put the id Figma assigns in `manifest.json`, and link the Community page from the theme tokens page.
-- [ ] (1) Select: the customizable picker hides the browser's checkmark on the selected option with `::checkmark { display: none; }`, to be revisited once the `::checkmark` API is final (`packages/opui/css/components/select.css:149-152`)
+- [x] (1) Select: the customizable picker hides the browser's checkmark on the selected option with `::checkmark { display: none; }`, to be revisited once the `::checkmark` API is final (`packages/opui/css/components/select.css:149-152`)
   - Summary: The selected option in the customizable Select picker shows no checkmark, since the browser's own is hidden.
   - Recommended: Explain further. The `::checkmark` pseudo-element is still changing, so showing it is a decision for when the spec settles.
   - Fix: once `::checkmark` is stable in the engines that ship customizable select, decide whether the selected option shows it, styled with the `--ui-*` tokens, and remove the `display: none`.
   - Moved from a `TODO` comment in `select.css`, as the 6.0 release checklist asked.
+  - Fixed: in 2c3f1421. The picker draws the check with `::checkmark`, masked with `--_check-image` at the end of the option, and hides it only when the option has its own `.ui-icon-checked` (`packages/opui/css/components/select.css:157-170`).
 - [ ] (1) CSS: the visually hidden Tabs radio repeats the declarations of `.ui-sr-only` (with `1lh` and `1ch` instead of `1px`), and so do the Toggle button inputs and the repeated Message header, since CSS has no mixins yet (`packages/opui/css/components/tabs.css:34-40`, `packages/opui/css/components/toggle-button.css:42-49`, `packages/opui/css/components/message.css:205-212`, `packages/opui/core/utils.css:21-27`)
   - Summary: Nothing a user sees: the same six declarations live in four stylesheets.
   - Recommended: Explain further. CSS mixins haven't shipped in any engine, so there is nothing to change until one does.
@@ -5169,14 +5173,16 @@ Custom elements (web components) the library could add, for behavior that HTML a
     ```
 
   - Fixed: Applied as written: `isolation: isolate` on the label, no `transform-style` on the inputs, and a ripple drawn with `scale` and `z-index: -1` without `will-change`; the `choice.css` entry is gone from `scripts/css-vars-allowlist.json`. A page with 100 checkboxes and 100 radios goes from 738 compositor layers to 4 in Chromium 153, and hovered, pressed and focused screenshots match the old rendering (only edge antialiasing differs). The CHANGELOG has a Fixed entry.
-- [ ] (1) Card: the density rules name `.ui-accordion`, but `accordion.css` declares `--_padding` again in `components.extended`, so `.ui-dense` and `.ui-spacious` never reach an accordion, and Accordion has no density option. `accordion.css` also repeats the `--_motion`, `--_duration` and `--_ease` that `card.css` declares for it, with the same values (`packages/opui/css/components/card.css:42-49`, `packages/opui/css/components/accordion.css:3`, `packages/opui/css/components/accordion.css:13-14`, `packages/opui/css/components/accordion.css:18`)
+- [x] (1) Card: the density rules name `.ui-accordion`, but `accordion.css` declares `--_padding` again in `components.extended`, so `.ui-dense` and `.ui-spacious` never reach an accordion, and Accordion has no density option. `accordion.css` also repeats the `--_motion`, `--_duration` and `--_ease` that `card.css` declares for it, with the same values (`packages/opui/css/components/card.css:42-49`, `packages/opui/css/components/accordion.css:3`, `packages/opui/css/components/accordion.css:13-14`, `packages/opui/css/components/accordion.css:18`)
   - Summary: Nothing a user sees: the density rules name a component they never change, and four declarations repeat.
   - Recommended: Fix. The accordion keeps its padding and the rules say what they do.
   - Fix: narrow the two density rules to `&:where(.ui-card).ui-dense` and `&:where(.ui-card).ui-spacious`, then remove `--_motion`, `--_duration`, `--_ease` and `--_padding` from `details.ui-accordion`, which `card.css` already declares for it.
-- [ ] (1) Stepper: `--_complete-image` and `--_error-image` are named after a state with no part, where the naming model names an image after its part (`--_<part>-image`) and puts a state after the part, and both feed `--_marker-image` (`packages/opui/css/components/stepper.css:5-8`, `packages/opui/css/components/stepper.css:12`, `packages/opui/css/components/stepper.css:144`, `packages/opui/css/components/stepper.css:160`, `src/component-api/custom-properties/stepper.ts:9-31`, `src/docs/components/stepper.astro:228-231`)
+  - Fixed: in 8bd2e53a. The density rules match `&:where(.ui-card).ui-dense` and `&:where(.ui-card).ui-spacious`, and `details.ui-accordion` no longer declares `--_motion`, `--_duration`, `--_ease` and `--_padding`. The `accordion.css` component properties drop the four rows, the `card.css` rows name the accordion, and `check-css-vars` reads `card.css` as the base of `accordion.css`. In Chromium, before and after, in the default and m3 themes (brutalist and shadcn set `--ui-card-padding` to 24px): an accordion `summary` pads 16px, also with `.ui-dense` or `.ui-spacious`, the `.ui-content` of a `.ui-card.ui-dense` 8px and of `.ui-spacious` 24px, and the accordion transitions keep their duration and easing.
+- [x] (1) Stepper: `--_complete-image` and `--_error-image` are named after a state with no part, where the naming model names an image after its part (`--_<part>-image`) and puts a state after the part, and both feed `--_marker-image` (`packages/opui/css/components/stepper.css:5-8`, `packages/opui/css/components/stepper.css:12`, `packages/opui/css/components/stepper.css:144`, `packages/opui/css/components/stepper.css:160`, `src/component-api/custom-properties/stepper.ts:9-31`, `src/docs/components/stepper.astro:228-231`)
   - Summary: Someone customizing the Stepper finds two image properties that don't say which part they draw.
   - Recommended: Fix. The component is new in 6.0, so the rename breaks nothing released.
   - Fix: rename them `--_marker-complete-image` and `--_marker-error-image` in `stepper.css`, `custom-properties/stepper.ts` (including the `--_marker-image` row, keys sorted) and the Under the hood paragraph of `stepper.astro`.
+  - Fixed: in e04bf21f. `--_marker-complete-image` and `--_marker-error-image` in `stepper.css`, `custom-properties/stepper.ts` (with the `--_marker-image` row) and the Under the hood paragraph, and the skill reference regenerated in 0c436494. No CHANGELOG entry or What's new note named the old names.
 - [ ] (4) New components the blocks point to. Each block currently draws these with its own CSS:
   - Summary: Blocks draw charts, breadcrumbs, steppers, timelines, ratings, pagination and stat cards with their own CSS for lack of components.
   - Recommended: Fix. Breadcrumb, empty state and pagination are left, and their blocks already show the markup each needs.

@@ -16,20 +16,20 @@
   View
 </Button>
 <Menu id="menu-checkable-1">
-  <ListItem type="checkbox">
+  <ListItem choice="checkbox">
     {#snippet label()}Show hidden files{/snippet}
     {#snippet end()}
       <CheckboxInput />
     {/snippet}
   </ListItem>
-  <ListItem type="checkbox">
+  <ListItem choice="checkbox">
     {#snippet label()}Show file extensions{/snippet}
     {#snippet end()}
       <CheckboxInput defaultChecked />
     {/snippet}
   </ListItem>
   <li class="ui-border-top ui-heading" id="menu-checkable-1-sort">Sort by</li>
-  <ListItem type="radio">
+  <ListItem choice="radio">
     {#snippet label()}Name{/snippet}
     {#snippet end()}
       <RadioInput
@@ -40,7 +40,7 @@
       />
     {/snippet}
   </ListItem>
-  <ListItem type="radio">
+  <ListItem choice="radio">
     {#snippet label()}Date modified{/snippet}
     {#snippet end()}
       <RadioInput
@@ -50,7 +50,7 @@
       />
     {/snippet}
   </ListItem>
-  <ListItem type="radio">
+  <ListItem choice="radio">
     {#snippet label()}Size{/snippet}
     {#snippet end()}
       <RadioInput

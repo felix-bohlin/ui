@@ -51,7 +51,7 @@ export default {
   },
   notes: {
     ...components(
-      "The checkbox `<input>` without the label, for a custom layout inside a `label.ui-checkbox`, such as the end of a `ListItem` with `type=\"checkbox\"`. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.",
+      "The checkbox `<input>` without the label, for a custom layout inside a `label.ui-checkbox`, such as the end of a `ListItem` with `choice=\"checkbox\"`. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.",
     ),
   },
   options: [

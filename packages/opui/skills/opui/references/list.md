@@ -28,7 +28,7 @@ Rows of similar items, like contacts, files or settings, with icons, controls an
 ### Parts
 
 - `<li>` (root): The list item.
-- `<a>, <button>, <label>` (prop `as`, prop `href`, prop `type`): The clickable row, rendered by `as`, `href` or `type`.
+- `<a>, <button>, <label>` (prop `as`, prop `choice`, prop `href`): The clickable row, rendered by `as`, `href` or `choice`.
 - `.ui-start` (slot `start`): Optional content at the start, such as an icon or avatar.
 - `.ui-text`: The text content.
 - `<p>` (prop `label`, slot `label`): The label, the first paragraph.
@@ -40,14 +40,14 @@ Rows of similar items, like contacts, files or settings, with icons, controls an
 
 - `as`: `"a" | "button"`. The element to render inside the `<li>`: `"a"` or `"button"`. Defaults to `"a"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type="button"`.
 - `borderTop`: `boolean`, `.ui-border-top`. Adds a border above the item.
+- `choice`: `"checkbox"` (`label.ui-checkbox`), `"radio"` (`label.ui-radio`), `"switch"` (`label.ui-switch`). Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.
 - `color`: `"critical"` (`.ui-critical`). Optional colors. `critical` marks a destructive item in a [Menu](/components/menu).
 - `disabled`: `boolean`. Disables a button item. A link item drops its `href` and gets `role="link"` and `aria-disabled="true"` instead.
-- `for` (Astro, Svelte and Vue): `string`. The `for` attribute of the `<label>` when `type` is set.
+- `for` (Astro, Svelte and Vue): `string`. The `for` attribute of the `<label>` when `choice` is set.
 - `href`: `string`. The link to use. Renders an `<a>` inside the `<li>`.
-- `htmlFor` (React): `string`. The `for` attribute of the `<label>` when `type` is set, as `htmlFor` like on the element.
+- `htmlFor` (React): `string`. The `for` attribute of the `<label>` when `choice` is set, as `htmlFor` like on the element.
 - `inset`: `boolean`, `.ui-inset`. Aligns the text with items that have start content.
 - State (HTML): `current` (`[aria-current]`), `disabled` (`[disabled]`), `disabledLink` (`[aria-disabled="true"]`). Highlights the current item, or dims a disabled one. `[disabled]` and `[aria-disabled="true"]` go on the `<a>` or `<button>` (a `<label>` row dims when its input is disabled); `[aria-current]` (any value but `false`, like `page` on a link or `true` on a button) on the `<a>`, `<button>` or `<label>`.
-- `type`: `"checkbox"` (`label.ui-checkbox`), `"radio"` (`label.ui-radio`), `"switch"` (`label.ui-switch`). Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.
 
 ### Slots
 
@@ -57,8 +57,8 @@ Rows of similar items, like contacts, files or settings, with icons, controls an
 ### Notes
 
 - HTML: To make the item interactive, wrap the content in an `<a>`, `<button>` or `<label>`.
-- Astro, Svelte and Vue: With `as` or `href`, attributes that aren't props go to the `<a>` or `<button>`, like `aria-current`, `target` or `style`. Without them, and with `type`, they go to the `<li>`. `class` always goes to the `<li>`.
-- React: With `as` or `href`, attributes that aren't props go to the `<a>` or `<button>`, like `aria-current`, `target` or `style`. Without them, and with `type`, they go to the `<li>`. `className` always goes to the `<li>`.
+- Astro, Svelte and Vue: With `as` or `href`, attributes that aren't props go to the `<a>` or `<button>`, like `aria-current`, `target` or `style`, and `type` to the `<button>`. Without them, and with `choice`, they go to the `<li>`. `class` always goes to the `<li>`.
+- React: With `as` or `href`, attributes that aren't props go to the `<a>` or `<button>`, like `aria-current`, `target` or `style`, and `type` to the `<button>`. Without them, and with `choice`, they go to the `<li>`. `className` always goes to the `<li>`.
 
 ## Component properties
 

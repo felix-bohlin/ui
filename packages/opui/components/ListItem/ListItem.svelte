@@ -9,13 +9,13 @@
   let {
     as,
     borderTop,
+    choice,
     class: className,
     color,
     disabled,
     for: htmlFor,
     href,
     inset,
-    type,
 
     // Snippets
     children,
@@ -29,7 +29,7 @@
   }: Props = $props()
 
   const hasControl = $derived(
-    type === "checkbox" || type === "radio" || type === "switch",
+    choice === "checkbox" || choice === "radio" || choice === "switch",
   )
   const Tag = $derived(hasControl ? "label" : (as ?? (href ? "a" : undefined)))
   const restOnItem = $derived(hasControl || !Tag)
@@ -48,7 +48,7 @@
   {#if Tag}
     <svelte:element
       this={Tag}
-      {...classAttrs([hasControl && `ui-${type}`])}
+      {...classAttrs([hasControl && `ui-${choice}`])}
       for={hasControl ? htmlFor : undefined}
       {...hasControl ? {} : tagAttrs(Tag, disabled, href)}
       {...defined(restOnItem ? {} : (rest as object))}

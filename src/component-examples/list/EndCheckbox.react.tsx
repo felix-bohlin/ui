@@ -4,14 +4,14 @@ export default function EndCheckbox() {
   return (
     <List>
       <ListItem
+        choice="checkbox"
         end={<CheckboxInput />}
         label="Email notifications"
-        type="checkbox"
       />
       <ListItem
+        choice="checkbox"
         end={<CheckboxInput />}
         label="Push notifications"
-        type="checkbox"
       />
     </List>
   )

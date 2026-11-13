@@ -8,21 +8,21 @@ export type Props = {
 } & (
   | {
       as?: "a"
+      choice?: never
       disabled?: boolean
       href: string
-      type?: never
     }
   | {
       as: "button"
+      choice?: never
       disabled?: boolean
       href?: never
-      type?: never
     }
   | {
       as?: never
+      choice?: "checkbox" | "radio" | "switch"
       disabled?: never
       href?: never
-      type?: "checkbox" | "radio" | "switch"
     }
 )
 

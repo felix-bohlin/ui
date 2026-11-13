@@ -836,10 +836,10 @@ export const whatsNew = {
     `A checked <a href="#radio">option</a> uses <code>--ui-state-selected-alpha-accent</code>.`,
     {
       ...slots(
-        `Breaking: <a href="#checkbox"><code>type</code></a> can't be combined with <code>as</code> or <code>href</code> (types).`,
+        `Breaking: <code>ListItem</code> <a href="#checkbox"><code>choice</code></a> replaces <code>type</code>, and it can't be combined with <code>as</code> or <code>href</code> (types).`,
       ),
-      react: `<a href="#checkbox"><code>type</code></a> can't be combined with <code>as</code> or <code>href</code> (types).`,
-      svelte: `<a href="#checkbox"><code>type</code></a> can't be combined with <code>as</code> or <code>href</code> (types).`,
+      react: `<code>ListItem</code> <a href="#checkbox"><code>choice</code></a> can't be combined with <code>as</code> or <code>href</code> (types).`,
+      svelte: `<code>ListItem</code> <a href="#checkbox"><code>choice</code></a> can't be combined with <code>as</code> or <code>href</code> (types).`,
     },
     `Breaking: rows no longer style <code>aria-selected="true"</code> on a link, button, label or list item, where ARIA doesn't allow it. Mark the current row with <a href="#selected"><code>aria-current="page"</code></a>.`,
     `<a href="#selected">Selected and current rows</a> have a bar on their start edge in <code>--ui-selected-strong</code> and a stronger fill than hover, so they don't rely on a tint alone. In a <code>role="listbox"</code> list, the selected option gets a check at the end instead.`,

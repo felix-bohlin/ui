@@ -8,6 +8,6 @@ export type Props = Without<Base.Props, "description" | "for" | "label"> & {
 } & Base.Slots<ReactNode> &
   (
     | ({ as?: never; href?: never } & ComponentProps<"li">)
-    | ({ as?: "a"; href: string } & ComponentProps<"a">)
+    | ({ as?: "a"; href: string } & Omit<ComponentProps<"a">, "type">)
     | ({ as: "button" } & ComponentProps<"button">)
   )

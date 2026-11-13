@@ -52,7 +52,7 @@ Model: `value` (`string | number | boolean`), the selected value of the group. A
 
 ### Notes
 
-- Astro, React, Svelte and Vue: The radio `<input>` without the label, for a custom layout inside a `label.ui-radio`, such as the end of a `ListItem` with `type="radio"`. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
+- Astro, React, Svelte and Vue: The radio `<input>` without the label, for a custom layout inside a `label.ui-radio`, such as the end of a `ListItem` with `choice="radio"`. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
 
 ## Component properties
 

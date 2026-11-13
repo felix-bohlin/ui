@@ -3,13 +3,13 @@
 </script>
 
 <List>
-  <ListItem type="switch">
+  <ListItem choice="switch">
     {#snippet label()}Bluetooth{/snippet}
     {#snippet end()}
       <SwitchInput />
     {/snippet}
   </ListItem>
-  <ListItem type="switch">
+  <ListItem choice="switch">
     {#snippet label()}Wi-Fi{/snippet}
     {#snippet end()}
       <SwitchInput />

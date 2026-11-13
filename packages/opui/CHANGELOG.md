@@ -78,7 +78,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `List` no longer styles `[aria-selected="true"]` on a row's `li`, `a`, `button` or `label`, where ARIA doesn't allow it. Mark the current row with `aria-current="page"`. Options (`option` and `[role="option"]`) keep the selected style.
 - `ListItem` `headline` is `label`, and the `text` slot is gone: `label` and `description` take a string or, as slots of the same name, rich content, rendered as the two paragraphs in `.ui-text`. The default slot adds more content after them.
 - `ListItem` `as` only accepts `"a"` or `"button"` (types). A static item leaves `as` out and renders its content straight in the `<li>`.
-- `ListItem` `type` can't be combined with `as` or `href` (types).
+- `ListItem` `type` is `choice` (`checkbox`, `radio` or `switch`), and it can't be combined with `as` or `href` (types). An item with `as="button"` takes the native button `type` instead.
 - `Range` `--_track-fill` is gone: the track fill is a scroll-driven animation in CSS, which fills the track in Chromium and Safari without JavaScript, also in plain HTML. Remove any code that sets it.
 - `Range` takes `items` instead of `options` for its tick marks (`RangeItem[]`). In Astro and Vue, the label goes in the `label` slot instead of the default slot, and the readout slot is `value-text` instead of `value`, the name React and Svelte use (`valueText`).
 - `Range` in Astro types its extra attributes as `<input>` attributes only, since they go to the input (types).

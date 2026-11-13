@@ -6,11 +6,11 @@ export default {
   css: ["list", "menu"],
   notes: {
     ...components(
-      "With `as` or `href`, attributes that aren't props go to the `<a>` or `<button>`, like `aria-current`, `target` or `style`. Without them, and with `type`, they go to the `<li>`. `class` always goes to the `<li>`.",
+      "With `as` or `href`, attributes that aren't props go to the `<a>` or `<button>`, like `aria-current`, `target` or `style`, and `type` to the `<button>`. Without them, and with `choice`, they go to the `<li>`. `class` always goes to the `<li>`.",
     ),
     html: "To make the item interactive, wrap the content in an `<a>`, `<button>` or `<label>`.",
     react:
-      "With `as` or `href`, attributes that aren't props go to the `<a>` or `<button>`, like `aria-current`, `target` or `style`. Without them, and with `type`, they go to the `<li>`. `className` always goes to the `<li>`.",
+      "With `as` or `href`, attributes that aren't props go to the `<a>` or `<button>`, like `aria-current`, `target` or `style`, and `type` to the `<button>`. Without them, and with `choice`, they go to the `<li>`. `className` always goes to the `<li>`.",
   },
   options: [
     {
@@ -27,6 +27,17 @@ export default {
     },
     {
       description:
+        "Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.",
+      group: "Choice",
+      prop: "choice",
+      values: {
+        checkbox: "label.ui-checkbox",
+        radio: "label.ui-radio",
+        switch: "label.ui-switch",
+      },
+    },
+    {
+      description:
         "Optional colors. `critical` marks a destructive item in a [Menu](/components/menu).",
       group: "Colors",
       prop: "color",
@@ -39,7 +50,7 @@ export default {
       prop: "disabled",
     },
     {
-      description: "The `for` attribute of the `<label>` when `type` is set.",
+      description: "The `for` attribute of the `<label>` when `choice` is set.",
       frameworks: ["astro", "svelte", "vue"],
       prop: "for",
     },
@@ -49,7 +60,7 @@ export default {
     },
     {
       description:
-        "The `for` attribute of the `<label>` when `type` is set, as `htmlFor` like on the element.",
+        "The `for` attribute of the `<label>` when `choice` is set, as `htmlFor` like on the element.",
       frameworks: ["react"],
       prop: "htmlFor",
     },
@@ -72,24 +83,13 @@ export default {
         disabledLink: '[aria-disabled="true"]',
       },
     },
-    {
-      description:
-        "Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.",
-      group: "Type",
-      prop: "type",
-      values: {
-        checkbox: "label.ui-checkbox",
-        radio: "label.ui-radio",
-        switch: "label.ui-switch",
-      },
-    },
   ],
   page: "list",
   parts: [
     {
       code: "<a>, <button>, <label>",
-      description: "The clickable row, rendered by `as`, `href` or `type`.",
-      props: ["as", "href", "type"],
+      description: "The clickable row, rendered by `as`, `href` or `choice`.",
+      props: ["as", "choice", "href"],
       selector: ".ui-list > li > :is(a, button, label)",
     },
     {

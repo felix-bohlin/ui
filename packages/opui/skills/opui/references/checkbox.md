@@ -55,7 +55,7 @@ Model: `checked` (`boolean | (string | number)[]`), the checked state, or the ch
 
 ### Notes
 
-- Astro, React, Svelte and Vue: The checkbox `<input>` without the label, for a custom layout inside a `label.ui-checkbox`, such as the end of a `ListItem` with `type="checkbox"`. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
+- Astro, React, Svelte and Vue: The checkbox `<input>` without the label, for a custom layout inside a `label.ui-checkbox`, such as the end of a `ListItem` with `choice="checkbox"`. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
 
 ## SelectAll
 

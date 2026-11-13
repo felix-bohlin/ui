@@ -12,6 +12,7 @@ export const title = "List Item"
 const {
   as,
   borderTop,
+  choice,
   class: className,
   color,
   description,
@@ -20,11 +21,11 @@ const {
   href,
   inset,
   label,
-  type,
   ...rest
 } = Astro.props
 
-const hasControl = type === "checkbox" || type === "radio" || type === "switch"
+const hasControl =
+  choice === "checkbox" || choice === "radio" || choice === "switch"
 const Tag = hasControl ? "label" : (as ?? (href ? "a" : undefined))
 const restOnItem = hasControl || !Tag
 const hasLabel = !!label || Astro.slots.has("label")
@@ -50,7 +51,7 @@ const hasDescription = !!description || Astro.slots.has("description")
     // With custom tag
     Tag ? (
       <Tag
-        class={cx([hasControl && `ui-${type}`])}
+        class={cx([hasControl && `ui-${choice}`])}
         for={hasControl ? htmlFor : undefined}
         {...(hasControl ? {} : tagAttrs(Tag, disabled, href))}
         {...defined(restOnItem ? {} : rest)}

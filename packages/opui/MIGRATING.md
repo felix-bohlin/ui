@@ -653,7 +653,12 @@ Rows are no longer styled by `aria-selected="true"` on a `li`, `a`, `button` or 
 
 `as` only accepts `"a"` or `"button"` (types). A static item leaves `as` out and renders its content straight in the `<li>`.
 
-`type` can't be combined with `as` or `href` (types).
+`type` is `choice`, and it can't be combined with `as` or `href` (types). An item with `as="button"` takes the native button `type` instead.
+
+```diff
+- <ListItem type="checkbox">
++ <ListItem choice="checkbox">
+```
 
 `headline` is `label`, and the `text` slot is gone. Use the `label` and `description` props, or the slots of the same name for rich content (the snippet is Astro; in Vue, `<template #label>`).
 

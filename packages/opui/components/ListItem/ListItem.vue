@@ -9,6 +9,7 @@ import type { Props, Slots } from "./types.vue-props"
 const {
   as,
   borderTop,
+  choice,
   color,
   description,
   disabled,
@@ -16,7 +17,6 @@ const {
   href,
   inset,
   label,
-  type,
 } = defineProps<Props>()
 const slots = defineSlots<Slots>()
 
@@ -27,7 +27,7 @@ defineOptions({
 const attrs = useAttrs() as HTMLAttributes
 
 const hasControl = computed(
-  () => type === "checkbox" || type === "radio" || type === "switch",
+  () => choice === "checkbox" || choice === "radio" || choice === "switch",
 )
 
 const Tag = computed(() =>
@@ -59,7 +59,7 @@ const hasDescription = () => !!description || slots.description
       v-bind="{
         ...(hasControl ? {} : tagAttrs(Tag, disabled, href)),
         ...defined(restOnItem ? {} : attrs),
-        ...classAttrs([hasControl && `ui-${type}`]),
+        ...classAttrs([hasControl && `ui-${choice}`]),
       }"
       ><div v-if="$slots.start" class="ui-start">
         <slot name="start"></slot>

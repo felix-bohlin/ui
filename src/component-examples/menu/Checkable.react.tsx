@@ -18,19 +18,20 @@ export default function Checkable() {
       </Button>
       <Menu id="menu-checkable-1">
         <ListItem
+          choice="checkbox"
           end={<CheckboxInput />}
           label="Show hidden files"
-          type="checkbox"
         />
         <ListItem
+          choice="checkbox"
           end={<CheckboxInput defaultChecked />}
           label="Show file extensions"
-          type="checkbox"
         />
         <li className="ui-border-top ui-heading" id="menu-checkable-1-sort">
           Sort by
         </li>
         <ListItem
+          choice="radio"
           end={
             <RadioInput
               aria-describedby="menu-checkable-1-sort"
@@ -40,9 +41,9 @@ export default function Checkable() {
             />
           }
           label="Name"
-          type="radio"
         />
         <ListItem
+          choice="radio"
           end={
             <RadioInput
               aria-describedby="menu-checkable-1-sort"
@@ -51,9 +52,9 @@ export default function Checkable() {
             />
           }
           label="Date modified"
-          type="radio"
         />
         <ListItem
+          choice="radio"
           end={
             <RadioInput
               aria-describedby="menu-checkable-1-sort"
@@ -62,7 +63,6 @@ export default function Checkable() {
             />
           }
           label="Size"
-          type="radio"
         />
       </Menu>
     </>

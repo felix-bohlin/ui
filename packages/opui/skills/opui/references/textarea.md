@@ -14,9 +14,9 @@ A multi-line text input with a label, start and end text, and validation.
 - `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
 - `.ui-field`: The boxed textarea area.
 - `.ui-field > .ui-top` (slot `top`): Content above the textarea, inside the border, with a divider.
-- `.ui-field > .ui-start` (slot `start`): Content at the inline-start of the field, inside the border.
+- `.ui-field > .ui-start` (slot `start`): Content at the inline-start of the field, inside the border, centered on the first line.
 - `<textarea>` (model): The textarea element.
-- `.ui-field > .ui-end` (slot `end`): Content at the inline-end of the field, inside the border.
+- `.ui-field > .ui-end` (slot `end`): Content at the inline-end of the field, inside the border, centered on the first line.
 - `.ui-field > .ui-bottom` (slot `bottom`): Content below the textarea, inside the border, with a divider.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
 - `<opui-character-count>` (prop `characterCount`, prop `characterCountLabel`): The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left.

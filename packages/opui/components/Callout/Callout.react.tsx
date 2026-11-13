@@ -3,7 +3,7 @@
 import { useEffect, useId } from "react"
 import { defined } from "../attrs"
 import { cx } from "../cx"
-import { useListener } from "../react"
+import { useHydrated, useListener } from "../react"
 import Button from "../Button/Button.react"
 import { CalloutContext } from "./context.react"
 import { closePath } from "./icons"
@@ -26,7 +26,7 @@ export default function Callout({
   const base = id || `callout-${uid}`
   const Root = closeButton ? "opui-callout" : "article"
   const rootId = closeButton ? base : id
-  const rootRef = useListener(ref, "dismiss", onDismiss)
+  const rootRef = useHydrated(useListener(ref, "dismiss", onDismiss))
   useEffect(() => {
     void import("../../elements/callout.js")
   }, [])
@@ -42,6 +42,7 @@ export default function Callout({
         ])}
         id={rootId}
         role={closeButton ? "article" : undefined}
+        data-hydrating={Root.includes("-") ? "" : undefined}
         ref={rootRef}
         {...defined(rest as object)}
       >

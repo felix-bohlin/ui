@@ -402,7 +402,7 @@ describe("the three ports of a sample", () => {
     expect(ports["react.tsx"].match(/useEffect\(/g)).toHaveLength(1)
   })
 
-  test("an event in types.ts listens on the root: a ref callback in React, a handler prop in Svelte and an emit in Vue", async () => {
+  test("an event in types.ts listens on the root: a ref callback in React that lifts data-hydrating from a custom element, a handler prop in Svelte and an emit in Vue", async () => {
     const { outputs } = await compileComponent(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<opui-sample class:list={["ui-sample", className]} {...rest}>\n  <slot />\n</opui-sample>\n\n<script>\n  import "../../elements/sample.js"\n</script>\n',
       sampleFile(),
@@ -413,7 +413,7 @@ describe("the three ports of a sample", () => {
     const port = (extension: string) =>
       outputs.get(sampleFile().replace(".astro", extension)) ?? ""
     expect(port(".react.tsx")).toBe(
-      '"use client"\n\nimport { useEffect } from "react"\nimport { cx } from "../cx"\nimport { useListener } from "../react"\nimport type { Props } from "./types.react"\n\nexport default function Sample({\n  className,\n  onClose,\n  ref,\n  children,\n  ...rest\n}: Props) {\n  const rootRef = useListener(ref, "close", onClose)\n  useEffect(() => {\n    void import("../../elements/sample.js")\n  }, [])\n\n  return (\n    <opui-sample\n      className={cx(["ui-sample", className])}\n      ref={rootRef}\n      {...rest}\n    >\n      {children}\n    </opui-sample>\n  )\n}\n',
+      '"use client"\n\nimport { useEffect } from "react"\nimport { cx } from "../cx"\nimport { useHydrated, useListener } from "../react"\nimport type { Props } from "./types.react"\n\nexport default function Sample({\n  className,\n  onClose,\n  ref,\n  children,\n  ...rest\n}: Props) {\n  const rootRef = useHydrated(useListener(ref, "close", onClose))\n  useEffect(() => {\n    void import("../../elements/sample.js")\n  }, [])\n\n  return (\n    <opui-sample\n      className={cx(["ui-sample", className])}\n      data-hydrating=""\n      ref={rootRef}\n      {...rest}\n    >\n      {children}\n    </opui-sample>\n  )\n}\n',
     )
     expect(port(".svelte")).toContain(
       "  let {\n    class: className,\n    onclose,\n\n    // Snippets\n    children,\n    ...rest\n  }: Props = $props()\n",
@@ -427,6 +427,31 @@ describe("the three ports of a sample", () => {
     expect(port(".vue")).toContain(
       "    :class=\"['ui-sample', $props.class]\"\n    @close=\"emit('close', $event)\"\n  >",
     )
+  })
+
+  test("an event on a root tag that can be a custom element renders data-hydrating on the custom element only in React, and none on a plain root", async () => {
+    const reactPort = async (source: string) =>
+      (
+        await compileComponent(source, sampleFile(), {
+          base: "export type Props = {\n  open?: boolean\n}\n\nexport type Events = {\n  close: Event\n}\n",
+        })
+      ).outputs.get("packages/opui/components/Sample/Sample.react.tsx") ?? ""
+    const variable = await reactPort(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, open, ...rest } = Astro.props\n\nconst Root = open ? "opui-sample" : "section"\n---\n\n<Root class:list={["ui-sample", className]} {...rest}>\n  <slot />\n</Root>\n',
+    )
+    expect(variable).toContain(
+      'const rootRef = useHydrated(useListener(ref, "close", onClose))',
+    )
+    expect(variable).toContain(
+      'data-hydrating={Root.includes("-") ? "" : undefined}\n      ref={rootRef}',
+    )
+    const plain = await reactPort(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, open, ...rest } = Astro.props\n---\n\n<section class:list={["ui-sample", { "ui-open": open }, className]} {...rest}>\n  <slot />\n</section>\n',
+    )
+    expect(plain).toContain(
+      'const rootRef = useListener(ref, "close", onClose)',
+    )
+    expect(plain).not.toMatch(/data-hydrating|useHydrated/)
   })
 
   test("an event on a component with more than one root element is refused", async () => {

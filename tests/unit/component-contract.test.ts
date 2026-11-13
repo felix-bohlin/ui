@@ -76,14 +76,26 @@ const PRELOAD = /<link rel="preload" as="image"[^>]*\/>/g
 
 const KNOWN_DIFFERENCES: Record<string, string> = {}
 
-const KNOWN_ATTRIBUTES: Record<string, { attribute: string; reason: string }> =
+const KNOWN_ATTRIBUTES: Record<
+  string,
   {
-    "SortableTable react": {
-      attribute: "data-hydrating",
-      reason:
-        "the element ignores header clicks until React has hydrated the table and attached onSort",
-    },
+    attribute: string
+    reason: string
+    when?: (props: Record<string, unknown>) => boolean
   }
+> = {
+  "Callout react": {
+    attribute: "data-hydrating",
+    reason:
+      "the element ignores the close button until React has hydrated the callout and attached onDismiss",
+    when: ({ closeButton }) => Boolean(closeButton),
+  },
+  "SortableTable react": {
+    attribute: "data-hydrating",
+    reason:
+      "the element ignores header clicks until React has hydrated the table and attached onSort",
+  },
+}
 
 const withoutAttribute = (markup: string, attribute: string) =>
   markup.replace(new RegExp(`\\s${attribute}(?:="[^"]*")?(?=[\\s>])`), "")
@@ -593,7 +605,7 @@ describe("every component renders the same in Astro, React, Svelte and Vue", () 
       const rendered = await render[framework](entry)
       if (rendered === undefined) continue
       const known = KNOWN_ATTRIBUTES[`${entry.component} ${framework}`]
-      if (known) {
+      if (known && (known.when?.(entry.props) ?? true)) {
         expect
           .soft(
             withoutAttribute(rendered, known.attribute) !== rendered,

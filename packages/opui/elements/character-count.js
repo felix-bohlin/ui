@@ -33,8 +33,10 @@ export class CharacterCountElement extends Base {
   #timeout
 
   get control() {
-    return this.closest(".ui-text-field, .ui-textarea")?.querySelector(
-      "input, textarea",
+    return (
+      this.closest(".ui-text-field, .ui-textarea")?.querySelector(
+        "input, textarea",
+      ) ?? null
     )
   }
 

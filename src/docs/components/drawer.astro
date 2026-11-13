@@ -28,10 +28,14 @@ import ClosedbyTable from "../../components/ClosedbyTable.astro"
 import Conditional from "../../components/Conditional.astro"
 import DocsTable from "../../components/DocsTable.astro"
 
+export const description =
+  "A panel that slides in from an edge of the screen, for navigation, filters or side content."
+
 export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
 ---
 
 <Component
+  description={description}
   heroAnatomy
   slug="drawer"
   browserSupport={[

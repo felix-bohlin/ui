@@ -14,10 +14,14 @@ import PropOrClass from "../../components/PropOrClass.astro"
 import chipApi from "../../component-api/chip/api"
 import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
 
+export const description =
+  "A compact label or control for filters, tags and choices."
+
 export const keywords = ["filter", "pill", "tag", "token"]
 ---
 
 <Component
+  description={description}
   slug="chip"
   heroAnatomy
   apis={[{ title: "Chip API", api: chipApi }]}

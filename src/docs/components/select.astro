@@ -16,10 +16,14 @@ import ListCSS from "@opui/css/components/list.css?raw"
 import selectApi from "../../component-api/select/api"
 import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
 
+export const description =
+  "A dropdown for picking one value from a list in a form."
+
 export const keywords = ["combobox", "dropdown", "option", "picker"]
 ---
 
 <Component
+  description={description}
   slug="select"
   browserSupport={[
     "alt-text-generated-content",

@@ -49,10 +49,14 @@ const ThemeCSS = `/* ... */
 }
 /* ... */`
 
+export const description =
+  "A message in the flow of the page, without interrupting the task."
+
 export const keywords = ["alert", "banner", "message box", "notice", "warning"]
 ---
 
 <Component
+  description={description}
   slug="callout"
   heroAnatomy
   apis={[{ title: "Callout API", api: calloutApi }]}

@@ -6,10 +6,14 @@ import Code from "../../components/Code.astro"
 import DocLink from "../../components/DocLink.astro"
 import LayoutCSS from "@opui/css/components/layout.css?raw"
 
+export const description =
+  "Classes for the space between components, in columns, rows and grids."
+
 export const keywords = ["columns", "container", "grid", "stack"]
 ---
 
 <Component
+  description={description}
   slug="layout"
   browserSupport={["container-queries", "gap-decorations"]}
   fallbacks={{

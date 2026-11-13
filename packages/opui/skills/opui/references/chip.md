@@ -1,6 +1,6 @@
 # Chip
 
-Filters, tags and choices. For the main action, use a Button.
+A compact label or control for filters, tags and choices.
 
 - CSS: `opui-css/css/components/chip.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/chip.md), [Astro](https://opui.dev/astro/components/chip.md), [React](https://opui.dev/react/components/chip.md), [Svelte](https://opui.dev/svelte/components/chip.md), [Vue](https://opui.dev/vue/components/chip.md).

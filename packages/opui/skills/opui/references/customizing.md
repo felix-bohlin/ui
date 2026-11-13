@@ -46,7 +46,7 @@ The bootstrap, brutalist, govuk and m3 themes derive their primary color and the
 
 ## Component properties
 
-Each component page lists its `--_*` properties. Button reads these:
+Each component page lists its `--_*` properties. Button reads these, among others:
 
 - `--_accent`: the accent color, which every state derives from.
 - `--_bg-color` and `--_text-color`: the current background and text color.

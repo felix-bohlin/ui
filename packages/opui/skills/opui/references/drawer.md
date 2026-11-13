@@ -1,6 +1,6 @@
 # Drawer
 
-Slides in from an edge of the screen. For a task that needs full attention, use a Dialog.
+A panel that slides in from an edge of the screen, for navigation, filters or side content.
 
 - CSS: `opui-css/css/components/drawer.css` and `opui-css/css/components/card.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/drawer.md), [Astro](https://opui.dev/astro/components/drawer.md), [React](https://opui.dev/react/components/drawer.md), [Svelte](https://opui.dev/svelte/components/drawer.md), [Vue](https://opui.dev/vue/components/drawer.md).

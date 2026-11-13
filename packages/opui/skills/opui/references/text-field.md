@@ -1,6 +1,6 @@
 # Text field
 
-An input for single-line text data. Basic text fields with labels, field descriptions, and validation states.
+A single-line text input with a label, start and end text, and validation.
 
 - CSS: `opui-css/css/components/text-field.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/text-field.md), [Astro](https://opui.dev/astro/components/text-field.md), [React](https://opui.dev/react/components/text-field.md), [Svelte](https://opui.dev/svelte/components/text-field.md), [Vue](https://opui.dev/vue/components/text-field.md).

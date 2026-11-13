@@ -1,6 +1,6 @@
 # Stat
 
-A stat shows one number with its label and the change behind it.
+A number with its label and its change, like revenue on a dashboard.
 
 - CSS: `opui-css/css/components/stat.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/stat.md), [Astro](https://opui.dev/astro/components/stat.md), [React](https://opui.dev/react/components/stat.md), [Svelte](https://opui.dev/svelte/components/stat.md), [Vue](https://opui.dev/vue/components/stat.md).

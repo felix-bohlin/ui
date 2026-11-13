@@ -1,6 +1,6 @@
 # Radio
 
-Radio buttons on the native radio input, for picking one option from a few, with sizes, cards and an invalid state.
+Radio buttons for picking one option from a few, with sizes, cards and an invalid state.
 
 - CSS: `opui-css/css/components/radio.css`, `opui-css/css/components/choice.css`, `opui-css/css/components/form.css` and `opui-css/css/components/card.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/radio.md), [Astro](https://opui.dev/astro/components/radio.md), [React](https://opui.dev/react/components/radio.md), [Svelte](https://opui.dev/svelte/components/radio.md), [Vue](https://opui.dev/vue/components/radio.md).

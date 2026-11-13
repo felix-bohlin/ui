@@ -166,7 +166,7 @@ Headings grow with the viewport. Move the window, reuse the ramp, or pin a headi
 
 - `--ui-shadow-control`: controls. Off by default.
 - `--ui-shadow-elevated`: elevated cards and accordions.
-- `--ui-shadow-overlay`: dialogs, menus and toasts.
+- `--ui-shadow-overlay`: dialogs, drawers, menus, the select picker and toasts.
 - `--ui-shadow-scroll`: scrolled edges.
 - `--ui-shadow-surface`: tonal and outlined surfaces. Off by default.
 - `--ui-shadow-selected`: the selected tab.
@@ -210,7 +210,7 @@ Use `--_motion` on one component:
 Off by default. Set `--ui-ease-move` and `--ui-press-scale` to turn them on.
 
 ```css
-:root {
+:where(html) {
   --ui-ease-move: linear(0, 0.066, 0.218, 0.4, 0.578, 0.731, 0.852, 0.94, 0.998,
     1.031, 1.047, 1.05, 1.046, 1.038, 1.029, 1.02, 1.012, 1.007, 1.002, 1, 1);
   --ui-press-scale: 0.97;

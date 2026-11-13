@@ -2,7 +2,7 @@
   {
     "id": "component-accordion-svelte",
     "title": "Accordion",
-    "description": "Lets you show and hide content, on its own or as a group.",
+    "description": "A summary that opens to show more content, on its own or in a group.",
     "keywords": "collapse details disclosure expand summary",
     "category": "Component",
     "url": "/svelte/components/accordion/"
@@ -66,7 +66,7 @@
   {
     "id": "component-anchor-svelte",
     "title": "Anchor",
-    "description": "Places floating content next to an element with CSS anchor positioning.",
+    "description": "Floating content placed next to an element with CSS anchor positioning.",
     "keywords": "anchor positioning floating popover position-anchor",
     "category": "Component",
     "url": "/svelte/components/anchor/"
@@ -102,7 +102,7 @@
   {
     "id": "component-avatar-svelte",
     "title": "Avatar",
-    "description": "Avatars show a person or entity as an image, initials or icon.",
+    "description": "An image, initials or icon that stands for a person or an entity.",
     "keywords": "initials photo profile picture user",
     "category": "Component",
     "url": "/svelte/components/avatar/"
@@ -173,7 +173,7 @@
   {
     "id": "component-badge-svelte",
     "title": "Badge",
-    "description": "Badges attach a small count or status dot to another element.",
+    "description": "A small count or status dot on the corner of another element.",
     "keywords": "counter dot indicator notification count",
     "category": "Component",
     "url": "/svelte/components/badge/"
@@ -542,7 +542,7 @@
   {
     "id": "component-checkbox-svelte",
     "title": "Checkbox",
-    "description": "Choices submitted with a form. For a setting that applies right away, use a Switch.",
+    "description": "A box people check for choices submitted with a form, alone or in a group.",
     "keywords": "check tick",
     "category": "Component",
     "url": "/svelte/components/checkbox/"
@@ -655,7 +655,7 @@
   {
     "id": "component-chip-svelte",
     "title": "Chip",
-    "description": "Filters, tags and choices. For the main action, use a Button.",
+    "description": "A compact label or control for filters, tags and choices.",
     "keywords": "filter pill tag token",
     "category": "Component",
     "url": "/svelte/components/chip/"
@@ -740,7 +740,7 @@
   {
     "id": "component-control-group-svelte",
     "title": "Control group",
-    "description": "Related buttons and fields joined into one control, like a split button, a search field with its button, or a currency and an amount.",
+    "description": "Buttons and fields joined into one control, like a split button or a search field with its button.",
     "keywords": "button group field group input group segmented control split button toolbar",
     "category": "Component",
     "url": "/svelte/components/control-group/"
@@ -875,7 +875,7 @@
   {
     "id": "component-description-list-svelte",
     "title": "Description list",
-    "description": "Terms and their values, like order details or totals.",
+    "description": "A list of terms and their values, like order details or totals.",
     "keywords": "dl key value properties",
     "category": "Component",
     "url": "/svelte/components/description-list/"
@@ -989,7 +989,7 @@
   {
     "id": "component-divider-svelte",
     "title": "Divider",
-    "description": "A line between content: an hr, or a label with a line on both sides, at the start, the middle or the end.",
+    "description": "A line between content, plain or with a label at the start, middle or end.",
     "keywords": "hr rule separator",
     "category": "Component",
     "url": "/svelte/components/divider/"
@@ -1025,7 +1025,7 @@
   {
     "id": "component-drawer-svelte",
     "title": "Drawer",
-    "description": "Slides in from an edge of the screen. For a task that needs full attention, use a Dialog.",
+    "description": "A panel that slides in from an edge of the screen, for navigation, filters or side content.",
     "keywords": "off-canvas sheet side panel sidebar",
     "category": "Component",
     "url": "/svelte/components/drawer/"
@@ -1082,7 +1082,7 @@
   {
     "id": "component-form-svelte",
     "title": "Form",
-    "description": "Spacing and grouping for form fields.",
+    "description": "Classes that space and group form fields, with fieldsets and field groups.",
     "keywords": "fieldset input group label validation",
     "category": "Component",
     "url": "/svelte/components/form/"
@@ -1174,7 +1174,7 @@
   {
     "id": "component-layout-svelte",
     "title": "Layout",
-    "description": "Classes for the space between components. Put them on wrappers. Gaps follow the --ui-space-* scale.",
+    "description": "Classes for the space between components, in columns, rows and grids.",
     "keywords": "columns container grid stack",
     "category": "Component",
     "url": "/svelte/components/layout/"
@@ -1811,7 +1811,7 @@
   {
     "id": "component-radio-svelte",
     "title": "Radio",
-    "description": "Radio buttons on the native radio input, for picking one option from a few, with sizes, cards and an invalid state.",
+    "description": "Radio buttons for picking one option from a few, with sizes, cards and an invalid state.",
     "keywords": "option radio button radio group",
     "category": "Component",
     "url": "/svelte/components/radio/"
@@ -1903,7 +1903,7 @@
   {
     "id": "component-range-svelte",
     "title": "Range",
-    "description": "Range lets users pick a number by sliding a thumb along a track.",
+    "description": "A slider for picking a number by moving a thumb along a track.",
     "keywords": "slider",
     "category": "Component",
     "url": "/svelte/components/range/"
@@ -2059,7 +2059,7 @@
   {
     "id": "component-select-svelte",
     "title": "Select",
-    "description": "Pick a value in a form. For actions, use a Menu.",
+    "description": "A dropdown for picking one value from a list in a form.",
     "keywords": "combobox dropdown option picker",
     "category": "Component",
     "url": "/svelte/components/select/"
@@ -2186,7 +2186,7 @@
   {
     "id": "component-spinner-svelte",
     "title": "Spinner",
-    "description": "A spinner on any element with aria-busy=\"true\", for content that is loading, in every size.",
+    "description": "A spinner on any element with aria-busy=\"true\", for content that is loading.",
     "keywords": "busy loader loading",
     "category": "Component",
     "url": "/svelte/components/spinner/"
@@ -2236,7 +2236,7 @@
   {
     "id": "component-stat-svelte",
     "title": "Stat",
-    "description": "A stat shows one number with its label and the change behind it.",
+    "description": "A number with its label and its change, like revenue on a dashboard.",
     "keywords": "kpi metric number",
     "category": "Component",
     "url": "/svelte/components/stat/"
@@ -2265,7 +2265,7 @@
   {
     "id": "component-stepper-svelte",
     "title": "Stepper",
-    "description": "Shows where someone is in a flow of steps, such as a checkout.",
+    "description": "A list of steps that shows where someone is in a flow, like a checkout.",
     "keywords": "progress steps wizard",
     "category": "Component",
     "url": "/svelte/components/stepper/"
@@ -2336,7 +2336,7 @@
   {
     "id": "component-switch-svelte",
     "title": "Switch",
-    "description": "A setting that applies right away. For choices submitted with a form, use a Checkbox.",
+    "description": "An on and off switch for a setting that applies right away.",
     "keywords": "on off toggle",
     "category": "Component",
     "url": "/svelte/components/switch/"
@@ -2449,7 +2449,7 @@
   {
     "id": "component-table-svelte",
     "title": "Table",
-    "description": "Displays tabular data. Basic tables with row and column headers, and optional captions and footers.",
+    "description": "A table for data people scan and compare, with sticky headers, sorting and expandable rows.",
     "keywords": "data table grid rows sort",
     "category": "Component",
     "url": "/svelte/components/table/"
@@ -2548,7 +2548,7 @@
   {
     "id": "component-tabs-svelte",
     "title": "Tabs",
-    "description": "Radio inputs that switch panels. To pick an option, use a Toggle group.",
+    "description": "Tabs that switch between panels of related content, built on radio inputs.",
     "keywords": "tab panel tablist",
     "category": "Component",
     "url": "/svelte/components/tabs/"
@@ -2626,7 +2626,7 @@
   {
     "id": "component-text-field-svelte",
     "title": "Text field",
-    "description": "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states.",
+    "description": "A single-line text input with a label, start and end text, and validation.",
     "keywords": "email input password search text box",
     "category": "Component",
     "url": "/svelte/components/text-field/"
@@ -2767,7 +2767,7 @@
   {
     "id": "component-textarea-svelte",
     "title": "Textarea",
-    "description": "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states.",
+    "description": "A multi-line text input with a label, start and end text, and validation.",
     "keywords": "multiline text area",
     "category": "Component",
     "url": "/svelte/components/textarea/"
@@ -3008,7 +3008,7 @@
   {
     "id": "component-toggle-svelte",
     "title": "Toggle",
-    "description": "Toggle buttons and toggle groups switch options on and off, alone or as a set.",
+    "description": "Buttons that switch options on and off, alone or in a group, like bold in a toolbar.",
     "keywords": "pressed toggle button",
     "category": "Component",
     "url": "/svelte/components/toggle/"
@@ -3093,7 +3093,7 @@
   {
     "id": "component-tooltip-svelte",
     "title": "Tooltip",
-    "description": "A short label or hint for a control, shown on hover, focus or a long press.",
+    "description": "A short label or hint for a control, shown on hover and focus.",
     "keywords": "hint hover title toggletip",
     "category": "Component",
     "url": "/svelte/components/tooltip/"
@@ -3256,7 +3256,7 @@
   {
     "id": "guide-accessibility-svelte",
     "title": "Accessibility",
-    "description": "A few basics to get you started. OPUI leans on native HTML, so a lot comes for free, but you still decide the names, the order and the content. Test with a keyboard and a screen reader, it always depends.",
+    "description": "A few basics to get you started. Open Props UI leans on native HTML, so a lot comes for free, but you still decide the names, the order and the content. Test with a keyboard and a screen reader.",
     "keywords": "a11y aria focus ring forced colors high contrast keyboard navigation reduced motion screen reader",
     "category": "Guide",
     "url": "/svelte/guide/accessibility/"
@@ -3529,9 +3529,16 @@
     "title": "Migrating from v5 to v6",
     "description": "The breaking changes in v6 and how to update your code, component by component.",
     "keywords": "breaking changes migrate migration upgrade v5 v6",
-    "headings": "Accordion Anchor Avatar Badge Button Callout Card Checkbox Chip Classic select Control group Description list Dialog Divider Drawer Field group and fieldset Icon button List List item Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
+    "headings": "Package and imports Theme and tokens Accordion Anchor Avatar Badge Button Callout Card Checkbox Chip Classic select Control group Description list Dialog Divider Drawer Field group and fieldset Icon button List List item Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Typography and rich text",
     "category": "Guide",
     "url": "/svelte/guide/migrating/"
+  },
+  {
+    "id": "guide-migrating-svelte-renames",
+    "title": "Renames",
+    "page": "Migrating from v5 to v6",
+    "category": "Guide",
+    "url": "/svelte/guide/migrating/#renames"
   },
   {
     "id": "guide-theme-tokens-svelte",

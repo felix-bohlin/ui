@@ -1,6 +1,6 @@
 # Tabs
 
-Radio inputs that switch panels. To pick an option, use a Toggle group.
+Tabs that switch between panels of related content, built on radio inputs.
 
 - CSS: `opui-css/css/components/tabs.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/tabs.md), [Astro](https://opui.dev/astro/components/tabs.md), [React](https://opui.dev/react/components/tabs.md), [Svelte](https://opui.dev/svelte/components/tabs.md), [Vue](https://opui.dev/vue/components/tabs.md).

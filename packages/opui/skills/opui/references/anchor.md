@@ -1,6 +1,6 @@
 # Anchor
 
-Places floating content next to an element with CSS anchor positioning.
+Floating content placed next to an element with CSS anchor positioning.
 
 - CSS: `opui-css/css/components/anchor.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/anchor.md), [Astro](https://opui.dev/astro/components/anchor.md), [React](https://opui.dev/react/components/anchor.md), [Svelte](https://opui.dev/svelte/components/anchor.md), [Vue](https://opui.dev/vue/components/anchor.md).

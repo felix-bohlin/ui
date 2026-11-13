@@ -1,6 +1,6 @@
 # Control group
 
-Related buttons and fields joined into one control, like a split button, a search field with its button, or a currency and an amount.
+Buttons and fields joined into one control, like a split button or a search field with its button.
 
 - CSS: `opui-css/css/components/control-group.css`, `opui-css/css/components/button.css` and `opui-css/css/components/text-field.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/control-group.md), [Astro](https://opui.dev/astro/components/control-group.md), [React](https://opui.dev/react/components/control-group.md), [Svelte](https://opui.dev/svelte/components/control-group.md), [Vue](https://opui.dev/vue/components/control-group.md).

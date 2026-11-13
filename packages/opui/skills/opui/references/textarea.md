@@ -1,6 +1,6 @@
 # Textarea
 
-An input for multi-line text data. Basic textareas with labels, supporting text, and validation states.
+A multi-line text input with a label, start and end text, and validation.
 
 - CSS: `opui-css/css/components/text-field.css` and `opui-css/css/components/textarea.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/textarea.md), [Astro](https://opui.dev/astro/components/textarea.md), [React](https://opui.dev/react/components/textarea.md), [Svelte](https://opui.dev/svelte/components/textarea.md), [Vue](https://opui.dev/vue/components/textarea.md).

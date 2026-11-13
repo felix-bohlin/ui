@@ -1,6 +1,6 @@
 # Divider
 
-A line between content: an hr, or a label with a line on both sides, at the start, the middle or the end.
+A line between content, plain or with a label at the start, middle or end.
 
 - CSS: `opui-css/css/components/divider.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/divider.md), [Astro](https://opui.dev/astro/components/divider.md), [React](https://opui.dev/react/components/divider.md), [Svelte](https://opui.dev/svelte/components/divider.md), [Vue](https://opui.dev/vue/components/divider.md).

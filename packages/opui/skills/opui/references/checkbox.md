@@ -1,6 +1,6 @@
 # Checkbox
 
-Choices submitted with a form. For a setting that applies right away, use a Switch.
+A box people check for choices submitted with a form, alone or in a group.
 
 - CSS: `opui-css/css/components/checkbox.css`, `opui-css/css/components/choice.css`, `opui-css/css/components/form.css`, `opui-css/css/components/card.css` and `opui-css/css/components/select-all.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/checkbox.md), [Astro](https://opui.dev/astro/components/checkbox.md), [React](https://opui.dev/react/components/checkbox.md), [Svelte](https://opui.dev/svelte/components/checkbox.md), [Vue](https://opui.dev/vue/components/checkbox.md).

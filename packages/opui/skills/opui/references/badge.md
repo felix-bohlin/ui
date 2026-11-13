@@ -1,6 +1,6 @@
 # Badge
 
-Badges attach a small count or status dot to another element.
+A small count or status dot on the corner of another element.
 
 - CSS: `opui-css/css/components/badge.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/badge.md), [Astro](https://opui.dev/astro/components/badge.md), [React](https://opui.dev/react/components/badge.md), [Svelte](https://opui.dev/svelte/components/badge.md), [Vue](https://opui.dev/vue/components/badge.md).

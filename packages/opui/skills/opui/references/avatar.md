@@ -1,6 +1,6 @@
 # Avatar
 
-Avatars show a person or entity as an image, initials or icon.
+An image, initials or icon that stands for a person or an entity.
 
 - CSS: `opui-css/css/components/avatar.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/avatar.md), [Astro](https://opui.dev/astro/components/avatar.md), [React](https://opui.dev/react/components/avatar.md), [Svelte](https://opui.dev/svelte/components/avatar.md), [Vue](https://opui.dev/vue/components/avatar.md).

@@ -1,6 +1,6 @@
 # Table
 
-Displays tabular data. Basic tables with row and column headers, and optional captions and footers.
+A table for data people scan and compare, with sticky headers, sorting and expandable rows.
 
 - CSS: `opui-css/css/components/table.css` and `opui-css/css/components/sortable-table.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/table.md), [Astro](https://opui.dev/astro/components/table.md), [React](https://opui.dev/react/components/table.md), [Svelte](https://opui.dev/svelte/components/table.md), [Vue](https://opui.dev/vue/components/table.md).

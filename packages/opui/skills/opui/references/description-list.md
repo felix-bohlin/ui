@@ -1,6 +1,6 @@
 # Description list
 
-Terms and their values, like order details or totals.
+A list of terms and their values, like order details or totals.
 
 - CSS: `opui-css/css/components/description-list.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/description-list.md), [Astro](https://opui.dev/astro/components/description-list.md), [React](https://opui.dev/react/components/description-list.md), [Svelte](https://opui.dev/svelte/components/description-list.md), [Vue](https://opui.dev/vue/components/description-list.md).

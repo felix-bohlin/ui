@@ -1,6 +1,6 @@
 # Range
 
-Range lets users pick a number by sliding a thumb along a track.
+A slider for picking a number by moving a thumb along a track.
 
 - CSS: `opui-css/css/components/range.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/range.md), [Astro](https://opui.dev/astro/components/range.md), [React](https://opui.dev/react/components/range.md), [Svelte](https://opui.dev/svelte/components/range.md), [Vue](https://opui.dev/vue/components/range.md).

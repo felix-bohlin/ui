@@ -1,6 +1,6 @@
 # Toggle
 
-Toggle buttons and toggle groups switch options on and off, alone or as a set.
+Buttons that switch options on and off, alone or in a group, like bold in a toolbar.
 
 - CSS: `opui-css/css/components/toggle-group.css` and `opui-css/css/components/toggle-button.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/toggle.md), [Astro](https://opui.dev/astro/components/toggle.md), [React](https://opui.dev/react/components/toggle.md), [Svelte](https://opui.dev/svelte/components/toggle.md), [Vue](https://opui.dev/vue/components/toggle.md).

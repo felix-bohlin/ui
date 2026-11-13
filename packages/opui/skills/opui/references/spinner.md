@@ -1,6 +1,6 @@
 # Spinner
 
-A spinner on any element with aria-busy="true", for content that is loading, in every size.
+A spinner on any element with aria-busy="true", for content that is loading.
 
 - CSS: `opui-css/css/components/spinner.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/spinner.md), [Astro](https://opui.dev/astro/components/spinner.md), [React](https://opui.dev/react/components/spinner.md), [Svelte](https://opui.dev/svelte/components/spinner.md), [Vue](https://opui.dev/vue/components/spinner.md).

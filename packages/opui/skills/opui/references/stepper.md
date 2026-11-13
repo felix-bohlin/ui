@@ -1,6 +1,6 @@
 # Stepper
 
-Shows where someone is in a flow of steps, such as a checkout.
+A list of steps that shows where someone is in a flow, like a checkout.
 
 - CSS: `opui-css/css/components/stepper.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/stepper.md), [Astro](https://opui.dev/astro/components/stepper.md), [React](https://opui.dev/react/components/stepper.md), [Svelte](https://opui.dev/svelte/components/stepper.md), [Vue](https://opui.dev/vue/components/stepper.md).

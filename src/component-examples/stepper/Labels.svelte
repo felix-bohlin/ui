@@ -11,7 +11,7 @@
 
 <Stepper
   aria-label="Kassans steg"
-  completedLabel=", klar"
+  completeLabel=", klar"
   current={2}
   errorLabel=", fel"
   {items}

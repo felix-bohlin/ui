@@ -16,10 +16,10 @@ Shows where someone is in a flow of steps, such as a checkout.
 
 - `aria-label`: `string`, `[aria-label]`. Accessible name of the stepper.
 - `complete`: `boolean`. Marks every step in `items` complete.
-- `completedLabel`: `string`, default `", completed"`. Screen reader text after the label of a complete step in `items`.
+- `completeLabel`: `string`, default `", completed"`. Screen reader text after the label of a complete step in `items`.
 - `current`: `number`. The index of the current step in `items`, from 0. The steps before it are complete.
 - `errorLabel`: `string`, default `", error"`. Screen reader text after the label of a step with an error in `items`.
-- `items`: `StepperItemProps[]`. The steps, as `{ complete, completedLabel, current, description, error, errorLabel, href, label }` objects.
+- `items`: `StepperItemProps[]`. The steps, as `{ complete, completeLabel, current, description, error, errorLabel, href, label }` objects.
 - `orientation`: `"auto"` (default), `"horizontal"` (`.ui-horizontal`), `"vertical"` (`.ui-vertical`). The orientation of the element. `auto` stacks the steps below `32rem`.
 - `size`: `"medium"` (default), `"small"` (`.ui-small`). The size of the element.
 
@@ -36,14 +36,14 @@ Shows where someone is in a flow of steps, such as a checkout.
 ### Parts
 
 - `li` (root): A step.
-- `<span class="ui-icon-checked">` (slot `icon-checked`): Replaces the check in the marker of a complete step. Hidden from screen readers.
+- `<span class="ui-icon-complete">` (slot `icon-complete`): Replaces the check in the marker of a complete step. Hidden from screen readers.
 - `<a>` (prop `href`, prop `label`, slot `label`): The label, as a link back to the step.
 - `<span class="ui-description">` (prop `description`, slot `description`): A short line under the label.
 
 ### Props and modifiers
 
 - `complete`: `boolean`, `.ui-complete`. Marks the step complete: a check in the marker and the line to the next step in the accent color.
-- `completedLabel`: `string`, default `", completed"`. Screen reader text after the label of a complete step.
+- `completeLabel`: `string`, default `", completed"`. Screen reader text after the label of a complete step.
 - `current`: `boolean`, `[aria-current="step"]`. Marks the current step. Without `.ui-complete` on any step, the steps before it show as complete.
 - `description`: `string`. A short line under the label.
 - `error`: `boolean`, `.ui-error`. Marks a step with an error: an exclamation mark in the marker and the label in the invalid color. Wins over `complete`.
@@ -62,17 +62,17 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 ### stepper.css
 
 - `--_accent`: Fill of a complete marker, border of the current one and color of the line after a complete step. Defaults to `--ui-selected-strong`.
-- `--_check-image`: The check cut out of a complete marker, as an image used as a mask. Defaults to `--ui-check-image`, then a built-in check.
+- `--_complete-image`: The check cut out of a complete marker, as an image used as a mask. Defaults to `--ui-check-image`, then a built-in check.
 - `--_connector-border-width`: Width of the line to the next step. Defaults to `--ui-border-width-thick`.
 - `--_description-text-color`: Color of the description. Defaults to `--ui-text-subtle`.
 - `--_ease`: Easing of the marker and line transitions. Defaults to `--ui-ease`.
 - `--_error-image`: The exclamation mark cut out of the marker of a step with an error, as an image used as a mask.
 - `--_gap`: Space between the steps and between a marker and its label.
-- `--_icon-size`: Size of the check, the exclamation mark and a `.ui-icon-checked`. 60% of `--_marker-size`.
+- `--_icon-size`: Size of the check, the exclamation mark and a `.ui-icon-complete`. 60% of `--_marker-size`.
 - `--_marker-border-width`: Width of the marker border. Defaults to `--ui-border-width-thick`.
 - `--_marker-size`: Size of the marker. Defaults to `--ui-space-6`, `--ui-space-5` with `.ui-small`.
 - `--_motion`: Motion multiplier for the marker and line transitions.
-- `--_on-accent`: Color of a `.ui-icon-checked` on the `--_accent` fill. Defaults to `--ui-on-selected-strong`.
+- `--_on-accent`: Color of a `.ui-icon-complete` on the `--_accent` fill. Defaults to `--ui-on-selected-strong`.
 
 Outputs: `--_connector-border-color`, `--_duration`, `--_label-text-color`, `--_marker-bg-color`, `--_marker-border-color`, `--_marker-image`, `--_marker-text-color` and `--_orientation`.
 
@@ -101,7 +101,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-width-thick`, `--ui-check
 
 `import { Stepper, StepperItem } from "opui-css/astro"`
 
-- `StepperItem` named slots: `description`, `icon-checked` and `label`. Fill one with `slot="description"` on a child.
+- `StepperItem` named slots: `description`, `icon-complete` and `label`. Fill one with `slot="description"` on a child.
 
 ### Example: Basics
 
@@ -124,7 +124,7 @@ const items = [
 
 `import { Stepper, StepperItem } from "opui-css/react"`
 
-- `StepperItem` slot props (`ReactNode`): `description`, `iconChecked` and `label`.
+- `StepperItem` slot props (`ReactNode`): `description`, `iconComplete` and `label`.
 
 ### Example: Basics
 
@@ -147,7 +147,7 @@ export default function Basics() {
 
 `import { Stepper, StepperItem } from "opui-css/svelte"`
 
-- `StepperItem` slot snippets: `description`, `iconChecked` and `label`.
+- `StepperItem` slot snippets: `description`, `iconComplete` and `label`.
 
 ### Example: Basics
 
@@ -170,7 +170,7 @@ export default function Basics() {
 
 `import { Stepper, StepperItem } from "opui-css/vue"`
 
-- `StepperItem` named slots: `description`, `icon-checked` and `label`. Fill one with `<template #description>`.
+- `StepperItem` named slots: `description`, `icon-complete` and `label`. Fill one with `<template #description>`.
 
 ### Example: Basics
 

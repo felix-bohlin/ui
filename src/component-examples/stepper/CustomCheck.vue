@@ -5,7 +5,7 @@ import { Stepper, StepperItem } from "opui-css/vue"
 <template>
   <Stepper aria-label="Checkout steps">
     <StepperItem complete href="#" label="Cart">
-      <template #icon-checked>
+      <template #icon-complete>
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +24,7 @@ import { Stepper, StepperItem } from "opui-css/vue"
       </template>
     </StepperItem>
     <StepperItem complete href="#" label="Shipping">
-      <template #icon-checked>
+      <template #icon-complete>
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"

@@ -2,7 +2,7 @@
   :where(.ui-stepper) {
     --_motion: var(--ui-motion);
     --_accent: var(--ui-selected-strong);
-    --_check-image: var(
+    --_complete-image: var(
       --ui-check-image,
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E")
     );
@@ -99,7 +99,7 @@
         text-underline-offset: var(--ui-underline-offset);
       }
 
-      & > .ui-icon-checked {
+      & > .ui-icon-complete {
         block-size: var(--_marker-size);
         color: var(--_on-accent);
         display: none;
@@ -141,13 +141,13 @@
       --_label-text-color: var(--ui-text);
       --_marker-bg-color: var(--_accent);
       --_marker-border-color: var(--_accent);
-      --_marker-image: var(--_check-image);
+      --_marker-image: var(--_complete-image);
 
-      &:not(.ui-error):has(> .ui-icon-checked)::before {
+      &:not(.ui-error):has(> .ui-icon-complete)::before {
         mask: none;
       }
 
-      &:not(.ui-error) > .ui-icon-checked {
+      &:not(.ui-error) > .ui-icon-complete {
         display: grid;
       }
     }
@@ -239,7 +239,7 @@
           forced-color-adjust: none;
         }
 
-        & > .ui-icon-checked {
+        & > .ui-icon-complete {
           color: Canvas;
           forced-color-adjust: none;
         }

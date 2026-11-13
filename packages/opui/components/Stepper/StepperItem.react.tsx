@@ -5,17 +5,17 @@ import type { StepperItemProps as Props } from "./types.react"
 export default function StepperItem({
   className,
   complete,
-  completedLabel = ", completed",
+  completeLabel = ", completed",
   current,
   error,
   errorLabel = ", error",
   href,
   description,
-  iconChecked,
+  iconComplete,
   label,
   ...rest
 }: Props) {
-  const state = error ? errorLabel : complete ? completedLabel : undefined
+  const state = error ? errorLabel : complete ? completeLabel : undefined
   const link = href && !current && (complete || error)
 
   return (
@@ -27,9 +27,9 @@ export default function StepperItem({
       ])}
       {...defined(rest)}
     >
-      {iconChecked && (
-        <span aria-hidden="true" className="ui-icon-checked">
-          {iconChecked}
+      {iconComplete && (
+        <span aria-hidden="true" className="ui-icon-complete">
+          {iconComplete}
         </span>
       )}{" "}
       {link ? (

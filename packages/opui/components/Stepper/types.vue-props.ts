@@ -13,6 +13,6 @@ export type Slots = DefaultSlots
 
 export type StepperItemSlots = {
   description?: Slot
-  "icon-checked"?: Slot
+  "icon-complete"?: Slot
   label?: Slot
 }

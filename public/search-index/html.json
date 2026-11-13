@@ -4718,7 +4718,7 @@
     "id": "api-stepper-item-html",
     "title": "Stepper Item API",
     "description": "Reference for Stepper Item HTML component.",
-    "api": "li A step. Replaces the check in the marker of a complete step. Hidden from screen readers. .ui-icon-checked The label, as a link back to the step. a A short line under the label. .ui-description .ui-complete Complete Marks the step complete: a check in the marker and the line to the next step in the accent color. [aria-current=\"step\"] Current Marks the current step. Without `.ui-complete` on any step, the steps before it show as complete. .ui-error Validation Marks a step with an error: an exclamation mark in the marker and the label in the invalid color. Wins over `complete`.",
+    "api": "li A step. Replaces the check in the marker of a complete step. Hidden from screen readers. .ui-icon-complete The label, as a link back to the step. a A short line under the label. .ui-description .ui-complete Complete Marks the step complete: a check in the marker and the line to the next step in the accent color. [aria-current=\"step\"] Current Marks the current step. Without `.ui-complete` on any step, the steps before it show as complete. .ui-error Validation Marks a step with an error: an exclamation mark in the marker and the label in the invalid color. Wins over `complete`.",
     "category": "API",
     "url": "/html/api/#stepper-item"
   },

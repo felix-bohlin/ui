@@ -96,7 +96,7 @@ export const builtInLabels = [
     default: ", completed",
     html: ".ui-sr-only",
     page: "stepper",
-    prop: "completedLabel",
+    prop: "completeLabel",
   },
   {
     component: "StepperItem",

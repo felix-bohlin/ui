@@ -5,7 +5,7 @@ import { trimEdges } from "../whitespace"
 const {
   class: className,
   complete,
-  completedLabel = ", completed",
+  completeLabel = ", completed",
   current,
   description,
   error,
@@ -15,7 +15,7 @@ const {
   ...rest
 } = Astro.props
 
-const state = error ? errorLabel : complete ? completedLabel : undefined
+const state = error ? errorLabel : complete ? completeLabel : undefined
 const link = href && !current && (complete || error)
 const labelSlot = Astro.slots.has("label")
   ? trimEdges(await Astro.slots.render("label"))
@@ -27,10 +27,10 @@ const labelSlot = Astro.slots.has("label")
   class:list={[{ "ui-complete": complete, "ui-error": error }, className]}
   {...rest}
 >
-  {Astro.slots.has("icon-checked") && <span
+  {Astro.slots.has("icon-complete") && <span
     aria-hidden="true"
-    class="ui-icon-checked"
-    ><slot name="icon-checked"
+    class="ui-icon-complete"
+    ><slot name="icon-complete"
   /></span>}
   {link ? (
     <a href={href}

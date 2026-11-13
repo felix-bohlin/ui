@@ -17,8 +17,8 @@ export default {
     {
       default: '", completed"',
       description: "Screen reader text after the label of a complete step.",
-      group: "Completed label",
-      prop: "completedLabel",
+      group: "Complete label",
+      prop: "completeLabel",
     },
     {
       attribute: '[aria-current="step"]',
@@ -63,11 +63,11 @@ export default {
   page: "stepper",
   parts: [
     {
-      code: '<span class="ui-icon-checked">',
+      code: '<span class="ui-icon-complete">',
       description:
         "Replaces the check in the marker of a complete step. Hidden from screen readers.",
-      selector: ".ui-icon-checked",
-      slots: ["icon-checked"],
+      selector: ".ui-icon-complete",
+      slots: ["icon-complete"],
     },
     {
       code: "<a>",

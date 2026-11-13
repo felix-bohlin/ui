@@ -24,8 +24,8 @@ export default {
       default: '", completed"',
       description:
         "Screen reader text after the label of a complete step in `items`.",
-      group: "Completed label",
-      prop: "completedLabel",
+      group: "Complete label",
+      prop: "completeLabel",
     },
     {
       description:
@@ -42,7 +42,7 @@ export default {
     },
     {
       description:
-        "The steps, as `{ complete, completedLabel, current, description, error, errorLabel, href, label }` objects.",
+        "The steps, as `{ complete, completeLabel, current, description, error, errorLabel, href, label }` objects.",
       group: "Items",
       prop: "items",
     },

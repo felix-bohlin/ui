@@ -80,7 +80,7 @@ export const keywords = ["progress steps", "wizard"]
           label="Account"
         >
           <svg
-            slot="icon-checked"
+            slot="icon-complete"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -137,10 +137,10 @@ export const keywords = ["progress steps", "wizard"]
     <h2>Custom check</h2>
     <Conditional as="p">
       <Fragment slot="html"
-        >Put an icon in <code>.ui-icon-checked</code>.</Fragment
+        >Put an icon in <code>.ui-icon-complete</code>.</Fragment
       >
       <Fragment slot="components"
-        >Put an icon in <code>StepperItem</code>'s <code>icon-checked</code
+        >Put an icon in <code>StepperItem</code>'s <code>icon-complete</code
         >.</Fragment
       >
     </Conditional>
@@ -176,7 +176,7 @@ export const keywords = ["progress steps", "wizard"]
     <h2>Screen reader labels</h2>
     <Conditional as="p">
       <Fragment slot="components"
-        >Translate with <code>completedLabel</code> and <code>errorLabel</code
+        >Translate with <code>completeLabel</code> and <code>errorLabel</code
         >.</Fragment
       >
       <Fragment slot="html"
@@ -225,10 +225,11 @@ export const keywords = ["progress steps", "wizard"]
     <p>
       <code>li.ui-complete</code> and
       <code>li:has(~ [aria-current="step"])</code> fill the marker with
-      <code>--_accent</code> and cut <code>--_check-image</code> out of it with
-      <code>mask-composite: exclude</code>. A <code>.ui-icon-checked</code>
-      child turns the mask off and shows instead. <code>li.ui-error</code> cuts
-      <code>--_error-image</code> out of a <code>--ui-invalid</code> fill.
+      <code>--_accent</code> and cut <code>--_complete-image</code> out of it
+      with <code>mask-composite: exclude</code>. A
+      <code>.ui-icon-complete</code> child turns the mask off and shows instead.
+      <code>li.ui-error</code> cuts <code>--_error-image</code> out of a
+      <code>--ui-invalid</code> fill.
     </p>
     <p>
       <code>.ui-horizontal</code> and <code>.ui-vertical</code> set

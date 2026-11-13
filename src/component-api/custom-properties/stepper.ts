@@ -6,7 +6,7 @@ export default {
       "Fill of a complete marker, border of the current one and color of the line after a complete step. Defaults to `--ui-selected-strong`.",
     kind: "input",
   },
-  "--_check-image": {
+  "--_complete-image": {
     description:
       "The check cut out of a complete marker, as an image used as a mask. Defaults to `--ui-check-image`, then a built-in check.",
     kind: "input",
@@ -46,7 +46,7 @@ export default {
   },
   "--_icon-size": {
     description:
-      "Size of the check, the exclamation mark and a `.ui-icon-checked`. 60% of `--_marker-size`.",
+      "Size of the check, the exclamation mark and a `.ui-icon-complete`. 60% of `--_marker-size`.",
     kind: "input",
   },
   "--_label-text-color": {
@@ -71,7 +71,7 @@ export default {
   },
   "--_marker-image": {
     description:
-      "The image cut out of the marker: `--_check-image` on a complete step and `--_error-image` on a step with an error.",
+      "The image cut out of the marker: `--_complete-image` on a complete step and `--_error-image` on a step with an error.",
     kind: "output",
   },
   "--_marker-size": {
@@ -90,7 +90,7 @@ export default {
   },
   "--_on-accent": {
     description:
-      "Color of a `.ui-icon-checked` on the `--_accent` fill. Defaults to `--ui-on-selected-strong`.",
+      "Color of a `.ui-icon-complete` on the `--_accent` fill. Defaults to `--ui-on-selected-strong`.",
     kind: "input",
   },
   "--_orientation": {

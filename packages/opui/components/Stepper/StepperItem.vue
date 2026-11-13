@@ -10,7 +10,7 @@ import type {
 
 const {
   complete,
-  completedLabel = ", completed",
+  completeLabel = ", completed",
   current,
   description,
   error,
@@ -27,7 +27,7 @@ defineOptions({
 const attrs = useAttrs() as HTMLAttributes
 
 const state = computed(() =>
-  error ? errorLabel : complete ? completedLabel : undefined,
+  error ? errorLabel : complete ? completeLabel : undefined,
 )
 
 const link = computed(() => href && !current && (complete || error))
@@ -45,10 +45,10 @@ const link = computed(() => href && !current && (complete || error))
     }"
   >
     <span
-      v-if="$slots['icon-checked']"
+      v-if="$slots['icon-complete']"
       aria-hidden="true"
-      class="ui-icon-checked"
-      ><slot name="icon-checked"></slot></span
+      class="ui-icon-complete"
+      ><slot name="icon-complete"></slot></span
     >{{ " "
     }}<a v-if="link" :href="href"
       >{{ label }}<TrimmedSlot :nodes="$slots.label?.()" /><span

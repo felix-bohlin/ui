@@ -6,7 +6,7 @@ export default function CustomCheck() {
       <StepperItem
         complete
         href="#"
-        iconChecked={
+        iconComplete={
           <svg
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +28,7 @@ export default function CustomCheck() {
       <StepperItem
         complete
         href="#"
-        iconChecked={
+        iconComplete={
           <svg
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"

@@ -228,7 +228,7 @@ In Astro and Vue the regions are parts instead of slots. The root no longer rend
 + </Callout>
 ```
 
-The `Slots` type in `types.ts` has `closeIcon` instead of `icon` and `title`.
+The `Slots` type in `types.ts` drops `icon` and `title`, and has `closeIcon` for the close button's icon.
 
 In Astro and Vue the root no longer has `role="note"`, so screen readers announce the `<article>` it is. Pass `role="note"` to keep the old announcement.
 
@@ -482,7 +482,7 @@ The footer holds buttons, text or anything else. Wrap the buttons in `.ui-action
 
 The page scroll lock behind a modal dialog moved to `core/utils.css`. If you import single files, import `utils.css` too.
 
-A dialog takes only `.ui-elevated` from `card.css`. `.ui-tonal` and `.ui-outlined`, which a 5.x dialog took through `.ui-card`, no longer change it.
+A dialog takes only `.ui-elevated` from `card.css`. `.ui-tonal`, `.ui-outlined` and `.ui-text`, which a 5.x dialog took through `.ui-card`, no longer change it.
 
 ## Divider
 
@@ -539,7 +539,7 @@ A modal drawer locks page scrolling, like a modal `Dialog`, also without `.ui-sc
 + <Drawer id="filters">
 ```
 
-`types.ts` no longer exports a `Slots` type, and the Vue types no longer export `DrawerSlots`, `DrawerHeaderSlots` or `DrawerFooterSlots`.
+`types.ts` no longer exports a `Slots` type, and the Vue types no longer export `DrawerSlots` or `DrawerFooterSlots`.
 
 In Astro and Vue, a drawer that opens from the inline start no longer renders `.ui-inline-start`. Target `.ui-drawer:not(.ui-block-end, .ui-block-start, .ui-inline-end)` in your CSS instead. In HTML the class adds nothing and can go.
 

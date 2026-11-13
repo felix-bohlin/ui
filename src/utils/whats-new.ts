@@ -691,12 +691,16 @@ export const whatsNew = {
       default: `<a href="#navigation"><code>closeOnNavigate</code></a> closes a navigation drawer when the page navigates, also with a client router.`,
       html: `<a href="#navigation"><code>data-close-on-navigate</code></a> with <code>opui-css/elements/close-on-navigate.js</code> closes a navigation drawer when the page navigates, also with a client router.`,
     },
-    `Breaking: the header, content and footer rules live in <code>card.css</code>, shared with Dialog. Import it too when you <a href="#installation">install single files</a>.`,
+    `Breaking: the header, content and footer rules, the backdrop and the closed state live in <code>card.css</code>, shared with Dialog. Import it too when you <a href="#installation">install single files</a>, or a closed drawer stays on the page.`,
     `The <a href="#basics">footer</a> spaces its items and buttons by <code>--ui-space-2</code>, like Dialog.`,
     `Themes can set <a href="#api"><code>--ui-card-padding</code></a> for the header, content and footer padding.`,
-    slots(
-      `Breaking: <code>DrawerHeader</code> renders its <a href="#close-button">close button</a> only with <code>closeButton</code>, like <code>DialogHeader</code>. Add it to keep the button.`,
-    ),
+    {
+      ...slots(
+        `Breaking: <code>DrawerHeader</code> renders its <a href="#close-button">close button</a> only with <code>closeButton</code>, like <code>DialogHeader</code>. Add it to keep the button.`,
+      ),
+      react: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>.`,
+      svelte: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>.`,
+    },
     {
       ...slots(
         `The <a href="#close-button">close button</a> in <code>DrawerHeader</code> takes your own icon in the <code>close-icon</code> slot.`,
@@ -848,9 +852,11 @@ export const whatsNew = {
     `Breaking: rows no longer style <code>aria-selected="true"</code> on a link, button, label or list item, where ARIA doesn't allow it. Mark the current row with <a href="#selected"><code>aria-current="page"</code></a>.`,
     `<a href="#selected">Selected and current rows</a> have a bar on their start edge in <code>--ui-selected-strong</code> and a stronger fill than hover, so they don't rely on a tint alone. In a <code>role="listbox"</code> list, the selected option gets a check at the end instead.`,
     {
-      ...components(
+      ...slots(
         `The <a href="#selected"><code>icon-checked</code></a> slot of <code>ListItem</code> shows your own icon at the end of a selected or current row.`,
       ),
+      react: `The <a href="#selected"><code>iconChecked</code></a> prop of <code>ListItem</code> shows your own icon at the end of a selected or current row.`,
+      svelte: `The <a href="#selected"><code>iconChecked</code></a> snippet of <code>ListItem</code> shows your own icon at the end of a selected or current row.`,
       html: `A <a href="#selected"><code>.ui-icon-checked</code></a> shows your own icon at the end of a selected or current row.`,
     },
     {
@@ -873,9 +879,11 @@ export const whatsNew = {
     },
     `Mark the <a href="#current-item">current item</a> with <code>aria-current</code>, like the language in use. It gets a check at the end.`,
     {
-      ...components(
+      ...slots(
         `A <a href="#custom-check">custom check</a>: <code>--ui-check-image</code> for the check of your icon set, or any icon in the <code>icon-checked</code> slot.`,
       ),
+      react: `A <a href="#custom-check">custom check</a>: <code>--ui-check-image</code> for the check of your icon set, or any icon in the <code>iconChecked</code> prop.`,
+      svelte: `A <a href="#custom-check">custom check</a>: <code>--ui-check-image</code> for the check of your icon set, or any icon in the <code>iconChecked</code> snippet.`,
       html: `A <a href="#custom-check">custom check</a>: <code>--ui-check-image</code> for the check of your icon set, or any icon in <code>.ui-icon-checked</code>.`,
     },
     `Themes can set <a href="#api"><code>--ui-menu-radius</code></a> for a corner radius of its own.`,

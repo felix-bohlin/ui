@@ -1,7 +1,6 @@
 import type * as Base from "./types"
-import type { HTMLAttributes } from "react"
+import type { ComponentProps } from "react"
 
-export type Props = Base.Props &
-  HTMLAttributes<HTMLElement> & {
-    onSort?: (event: Base.Events["sort"]) => void
-  }
+export type Props = Base.Props & {
+  onSort?: (event: Base.Events["sort"]) => void
+} & Omit<ComponentProps<"opui-sortable-table">, "onSort">

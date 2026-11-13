@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useCallback, useEffect } from "react"
 import { defined } from "../attrs"
 import { cx } from "../cx"
 import { useListener } from "../react"
@@ -11,18 +11,22 @@ export default function SortableTable({
   className,
   descendingLabel,
   onSort,
+  ref,
   children,
   ...rest
 }: Props) {
-  const ref = useRef<HTMLElement>(null)
-  const rootRef = useListener(ref, "sort", onSort)
+  const listenerRef = useListener(ref, "sort", onSort)
+  const rootRef = useCallback(
+    (element: HTMLElement) => {
+      const cleanup = listenerRef(element)
+      element.removeAttribute("data-hydrating")
+      return cleanup
+    },
+    [listenerRef],
+  )
 
   useEffect(() => {
     void import("../../elements/sortable-table.js")
-  }, [])
-
-  useEffect(() => {
-    ref.current?.removeAttribute("data-hydrating")
   }, [])
 
   return (

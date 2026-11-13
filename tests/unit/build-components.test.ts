@@ -379,6 +379,19 @@ describe("the three ports of a sample", () => {
     )
   })
 
+  test("Svelte re-creates a progress element whose value switches between a number and none, and React and Vue bind it", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, value, ...rest } = Astro.props\n---\n\n<div class:list={["ui-sample", className]}>\n  <progress value={value} {...rest} />\n</div>\n',
+    )
+    expect(ports.svelte).toContain(
+      '<div class={["ui-sample", className]}>\n  {#key value == null}\n    <progress {value} {...rest}></progress>\n  {/key}\n</div>\n',
+    )
+    expect(ports["react.tsx"]).toContain("<progress value={value} {...rest} />")
+    expect(ports.vue).toContain(
+      '<progress :value="value" v-bind="attrs"></progress>',
+    )
+  })
+
   test("two element scripts load in one effect in React", async () => {
     const ports = await compile(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<opui-sample class:list={["ui-sample", className]} {...rest}>\n  <slot />\n</opui-sample>\n\n<script>\n  import "../../elements/sample.js"\n  import "../../elements/other.js"\n</script>\n',

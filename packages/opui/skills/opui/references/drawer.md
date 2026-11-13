@@ -10,7 +10,7 @@ Slides in from an edge of the screen. For a task that needs full attention, use 
 ### Parts
 
 - `dialog.ui-drawer` (root): Container element.
-- `.ui-header` (`DrawerHeader`): The header, a row for the title and anything next to it, with a close button.
+- `.ui-header` (`DrawerHeader`): The header, a row for the title and anything next to it, with an optional close button.
 - `<h2>` (`DrawerTitle`): The title. Names the drawer through `aria-labelledby`.
 - `.ui-content` (`DrawerContent`): The scrollable content.
 - `.ui-footer` (`DrawerFooter`): The footer, a row at the end.
@@ -21,7 +21,7 @@ Slides in from an edge of the screen. For a task that needs full attention, use 
 - `closedby`: `"any" | "closerequest" | "none"`, `[closedby]`, default `"any"`. How the drawer can be closed. `any` also closes it on a click outside.
 - `closeOnNavigate`: `boolean`, `[data-close-on-navigate]`. Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API.
 - `id`: `string`. The id of the `<dialog>`, which the trigger's `commandfor` points at. Required.
-- `scrollLock`: `boolean`, `.ui-scroll-lock`. Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px.
+- `scrollLock`: `boolean`, `.ui-scroll-lock`. Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`.
 - `side`: `"block-end"` (`.ui-block-end`), `"block-start"` (`.ui-block-start`), `"inline-end"` (`.ui-inline-end`), `"inline-start"` (default). The side it opens from.
 
 ### Slots
@@ -38,12 +38,13 @@ Slides in from an edge of the screen. For a task that needs full attention, use 
 ### Parts
 
 - `.ui-header` (root): Container element.
-- `<button>` (prop `closeLabel`, slot `close-icon`): Closes the drawer. Renders a close icon by default, or the `svg` in `close-icon`.
+- `<button>` (prop `closeButton`, prop `closeLabel`, slot `close-icon`): Closes the drawer, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`.
 
 ### Props and modifiers
 
+- `closeButton`: `boolean`. Adds a close button at the end of the title row, which closes its `Drawer`, or the `<dialog>` that `commandfor` names.
 - `closeLabel`: `string`, default `"Close"`. The accessible name of the close button.
-- `commandfor`: `string`. The id of the drawer to close with the `close` command. Without it, the button closes its `Drawer`. Outside a `Drawer`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.
+- `commandfor`: `string`. The id of the drawer the close button closes with the `close` command. Without it, the button closes its `Drawer`. Outside a `Drawer`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.
 
 ### Slots
 
@@ -152,7 +153,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 
 <dialog
   closedby="any"
-  class="ui-drawer ui-scroll-lock"
+  class="ui-drawer"
   aria-labelledby="drawer-basics-1-title"
   id="drawer-basics-1"
 >
@@ -225,7 +226,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 
 <dialog
   closedby="any"
-  class="ui-drawer ui-backdrop-transparent ui-scroll-lock ui-inline-end"
+  class="ui-drawer ui-backdrop-transparent ui-inline-end"
   aria-labelledby="drawer-basics-2-title"
   id="drawer-basics-2"
 >
@@ -264,7 +265,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 
 <dialog
   closedby="any"
-  class="ui-drawer ui-scroll-lock ui-block-start"
+  class="ui-drawer ui-block-start"
   aria-labelledby="drawer-basics-3-title"
   id="drawer-basics-3"
 >
@@ -297,7 +298,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 
 <dialog
   closedby="any"
-  class="ui-drawer ui-scroll-lock ui-block-end"
+  class="ui-drawer ui-block-end"
   aria-labelledby="drawer-basics-4-title"
   id="drawer-basics-4"
 >
@@ -382,8 +383,8 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
 <Button command="show-modal" commandfor="drawer-basics-2">Inline end</Button>
 <Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
 
-<Drawer id="drawer-basics-1" scrollLock side="inline-start">
-  <DrawerHeader>
+<Drawer id="drawer-basics-1" side="inline-start">
+  <DrawerHeader closeButton>
     <DrawerTitle>Menu</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
@@ -401,13 +402,8 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
   </DrawerFooter>
 </Drawer>
 
-<Drawer
-  backdrop="transparent"
-  id="drawer-basics-2"
-  scrollLock
-  side="inline-end"
->
-  <DrawerHeader>
+<Drawer backdrop="transparent" id="drawer-basics-2" side="inline-end">
+  <DrawerHeader closeButton>
     <DrawerTitle>Onboarding emails</DrawerTitle>
     <Button aria-label="Edit" round size="small">
       <Fragment set:html={editIcon} />
@@ -430,8 +426,8 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
   </DrawerFooter>
 </Drawer>
 
-<Drawer id="drawer-basics-3" scrollLock side="block-start">
-  <DrawerHeader>
+<Drawer id="drawer-basics-3" side="block-start">
+  <DrawerHeader closeButton>
     <DrawerTitle>Notifications</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
@@ -444,8 +440,8 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
   </DrawerFooter>
 </Drawer>
 
-<Drawer id="drawer-basics-4" scrollLock side="block-end">
-  <DrawerHeader>
+<Drawer id="drawer-basics-4" side="block-end">
+  <DrawerHeader closeButton>
     <DrawerTitle>Filters</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
@@ -515,8 +511,8 @@ export default function BasicsCode() {
         Block end
       </Button>
 
-      <Drawer id="drawer-basics-1" scrollLock side="inline-start">
-        <DrawerHeader>
+      <Drawer id="drawer-basics-1" side="inline-start">
+        <DrawerHeader closeButton>
           <DrawerTitle>Menu</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
@@ -534,13 +530,8 @@ export default function BasicsCode() {
         </DrawerFooter>
       </Drawer>
 
-      <Drawer
-        backdrop="transparent"
-        id="drawer-basics-2"
-        scrollLock
-        side="inline-end"
-      >
-        <DrawerHeader>
+      <Drawer backdrop="transparent" id="drawer-basics-2" side="inline-end">
+        <DrawerHeader closeButton>
           <DrawerTitle>Onboarding emails</DrawerTitle>
           <Button aria-label="Edit" round size="small">
             <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
@@ -564,8 +555,8 @@ export default function BasicsCode() {
         </DrawerFooter>
       </Drawer>
 
-      <Drawer id="drawer-basics-3" scrollLock side="block-start">
-        <DrawerHeader>
+      <Drawer id="drawer-basics-3" side="block-start">
+        <DrawerHeader closeButton>
           <DrawerTitle>Notifications</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
@@ -578,8 +569,8 @@ export default function BasicsCode() {
         </DrawerFooter>
       </Drawer>
 
-      <Drawer id="drawer-basics-4" scrollLock side="block-end">
-        <DrawerHeader>
+      <Drawer id="drawer-basics-4" side="block-end">
+        <DrawerHeader closeButton>
           <DrawerTitle>Filters</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
@@ -647,8 +638,8 @@ export default function BasicsCode() {
 <Button command="show-modal" commandfor="drawer-basics-2">Inline end</Button>
 <Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
 
-<Drawer id="drawer-basics-1" scrollLock side="inline-start">
-  <DrawerHeader>
+<Drawer id="drawer-basics-1" side="inline-start">
+  <DrawerHeader closeButton>
     <DrawerTitle>Menu</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
@@ -666,13 +657,8 @@ export default function BasicsCode() {
   </DrawerFooter>
 </Drawer>
 
-<Drawer
-  backdrop="transparent"
-  id="drawer-basics-2"
-  scrollLock
-  side="inline-end"
->
-  <DrawerHeader>
+<Drawer backdrop="transparent" id="drawer-basics-2" side="inline-end">
+  <DrawerHeader closeButton>
     <DrawerTitle>Onboarding emails</DrawerTitle>
     <Button aria-label="Edit" round size="small">
       <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
@@ -694,8 +680,8 @@ export default function BasicsCode() {
   </DrawerFooter>
 </Drawer>
 
-<Drawer id="drawer-basics-3" scrollLock side="block-start">
-  <DrawerHeader>
+<Drawer id="drawer-basics-3" side="block-start">
+  <DrawerHeader closeButton>
     <DrawerTitle>Notifications</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
@@ -708,8 +694,8 @@ export default function BasicsCode() {
   </DrawerFooter>
 </Drawer>
 
-<Drawer id="drawer-basics-4" scrollLock side="block-end">
-  <DrawerHeader>
+<Drawer id="drawer-basics-4" side="block-end">
+  <DrawerHeader closeButton>
     <DrawerTitle>Filters</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
@@ -771,8 +757,8 @@ import {
   <Button command="show-modal" commandfor="drawer-basics-2">Inline end</Button>
   <Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
 
-  <Drawer id="drawer-basics-1" scrollLock side="inline-start">
-    <DrawerHeader>
+  <Drawer id="drawer-basics-1" side="inline-start">
+    <DrawerHeader closeButton>
       <DrawerTitle>Menu</DrawerTitle>
     </DrawerHeader>
     <DrawerContent>
@@ -790,13 +776,8 @@ import {
     </DrawerFooter>
   </Drawer>
 
-  <Drawer
-    backdrop="transparent"
-    id="drawer-basics-2"
-    scrollLock
-    side="inline-end"
-  >
-    <DrawerHeader>
+  <Drawer backdrop="transparent" id="drawer-basics-2" side="inline-end">
+    <DrawerHeader closeButton>
       <DrawerTitle>Onboarding emails</DrawerTitle>
       <Button aria-label="Edit" round size="small">
         <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
@@ -819,8 +800,8 @@ import {
     </DrawerFooter>
   </Drawer>
 
-  <Drawer id="drawer-basics-3" scrollLock side="block-start">
-    <DrawerHeader>
+  <Drawer id="drawer-basics-3" side="block-start">
+    <DrawerHeader closeButton>
       <DrawerTitle>Notifications</DrawerTitle>
     </DrawerHeader>
     <DrawerContent>
@@ -833,8 +814,8 @@ import {
     </DrawerFooter>
   </Drawer>
 
-  <Drawer id="drawer-basics-4" scrollLock side="block-end">
-    <DrawerHeader>
+  <Drawer id="drawer-basics-4" side="block-end">
+    <DrawerHeader closeButton>
       <DrawerTitle>Filters</DrawerTitle>
     </DrawerHeader>
     <DrawerContent>

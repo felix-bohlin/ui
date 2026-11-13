@@ -1045,6 +1045,13 @@
     "url": "/html/components/drawer/#navigation"
   },
   {
+    "id": "component-drawer-html-non-modal",
+    "title": "Non-modal",
+    "page": "Drawer",
+    "category": "Component",
+    "url": "/html/components/drawer/#non-modal"
+  },
+  {
     "id": "component-drawer-html-close-button",
     "title": "Close button",
     "page": "Drawer",
@@ -4375,7 +4382,7 @@
     "id": "api-callout-html",
     "title": "Callout API",
     "description": "Reference for Callout HTML component.",
-    "api": ".ui-callout Container element, an `<article>`. With `dismissible`, the `<opui-callout>` custom element with `role=\"article\"`. A button with `commandfor` and `command=\"--dismiss\"` fires a cancelable `dismiss` event on it that bubbles, and unless a listener calls `preventDefault()`, the element sets `hidden` on itself and moves focus that was inside it to the next focusable element after it, or else the one before. `dismiss()` does the same from a script and returns whether the callout was hidden. An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. .ui-callout > svg The content, with an optional heading first. .ui-content A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `dismissible`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. .ui-callout > .ui-button A row of buttons under the content. .ui-actions .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Severities The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders. .ui-outlined Variants The variant to use.",
+    "api": ".ui-callout Container element, an `<article>`. With `closeButton`, the `<opui-callout>` custom element with `role=\"article\"`. A button with `commandfor` and `command=\"--dismiss\"` fires a cancelable `dismiss` event on it that bubbles, and unless a listener calls `preventDefault()`, the element sets `hidden` on itself and moves focus that was inside it to the next focusable element after it, or else the one before. `dismiss()` does the same from a script and returns whether the callout was hidden. An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. .ui-callout > svg The content, with an optional heading first. .ui-content A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. .ui-callout > .ui-button A row of buttons under the content. .ui-actions .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Severities The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders. .ui-outlined Variants The variant to use.",
     "category": "API",
     "url": "/html/api/#callout"
   },
@@ -4479,7 +4486,7 @@
     "id": "api-dialog-header-html",
     "title": "Dialog Header API",
     "description": "Reference for Dialog Header HTML component.",
-    "api": ".ui-header Container element. Closes the dialog. Renders a close icon by default, or the `svg` in `close-icon`. .ui-header > .ui-button",
+    "api": ".ui-header Container element. Closes the dialog, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`. .ui-header > .ui-button",
     "category": "API",
     "url": "/html/api/#dialog-header"
   },
@@ -4511,7 +4518,7 @@
     "id": "api-drawer-header-html",
     "title": "Drawer Header API",
     "description": "Reference for Drawer Header HTML component.",
-    "api": ".ui-header Container element. Closes the drawer. Renders a close icon by default, or the `svg` in `close-icon`. .ui-header > .ui-button",
+    "api": ".ui-header Container element. Closes the drawer, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`. .ui-header > .ui-button",
     "category": "API",
     "url": "/html/api/#drawer-header"
   },
@@ -4519,7 +4526,7 @@
     "id": "api-drawer-html",
     "title": "Drawer API",
     "description": "Reference for Drawer HTML component.",
-    "api": "dialog.ui-drawer Container element. The header, a row for the title and anything next to it, with a close button. .ui-header The title. Names the drawer through `aria-labelledby`. .ui-header > h2 The scrollable content. .ui-content The footer, a row at the end. .ui-footer .ui-backdrop-transparent Backdrop The backdrop style. `transparent` keeps the page behind it fully visible. [closedby] Behavior How the drawer can be closed. `any` also closes it on a click outside. [data-close-on-navigate] Close on navigate Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API. .ui-scroll-lock Scroll lock Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. .ui-block-end .ui-block-start .ui-inline-end Position The side it opens from.",
+    "api": "dialog.ui-drawer Container element. The header, a row for the title and anything next to it, with an optional close button. .ui-header The title. Names the drawer through `aria-labelledby`. .ui-header > h2 The scrollable content. .ui-content The footer, a row at the end. .ui-footer .ui-backdrop-transparent Backdrop The backdrop style. `transparent` keeps the page behind it fully visible. [closedby] Behavior How the drawer can be closed. `any` also closes it on a click outside. [data-close-on-navigate] Close on navigate Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API. .ui-scroll-lock Scroll lock Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`. .ui-block-end .ui-block-start .ui-inline-end Position The side it opens from.",
     "category": "API",
     "url": "/html/api/#drawer"
   },

@@ -1045,6 +1045,13 @@
     "url": "/astro/components/drawer/#navigation"
   },
   {
+    "id": "component-drawer-astro-non-modal",
+    "title": "Non-modal",
+    "page": "Drawer",
+    "category": "Component",
+    "url": "/astro/components/drawer/#non-modal"
+  },
+  {
     "id": "component-drawer-astro-close-button",
     "title": "Close button",
     "page": "Drawer",
@@ -4368,7 +4375,7 @@
     "id": "api-callout-astro",
     "title": "Callout API",
     "description": "Reference for Callout Astro component.",
-    "api": "Callout Container element, an `<article>`. With `dismissible`, the `<opui-callout>` custom element with `role=\"article\"`. A button with `commandfor` and `command=\"--dismiss\"` fires a cancelable `dismiss` event on it that bubbles, and unless a listener calls `preventDefault()`, the element sets `hidden` on itself and moves focus that was inside it to the next focusable element after it, or else the one before. `dismiss()` does the same from a script and returns whether the callout was hidden. An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. The content, with an optional heading first. A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `dismissible`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. closeLabel dismissible close-icon A row of buttons under the content. closeLabel The accessible name of the close button. dismissible Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>` with `role=\"article\"`, and the component loads `opui-css/elements/callout.js`, which runs the button. id The id of the callout. With `dismissible`, the close button points at it with `commandfor`, so the component generates one when it's left out. severity The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders. variant The variant to use.",
+    "api": "Callout Container element, an `<article>`. With `closeButton`, the `<opui-callout>` custom element with `role=\"article\"`. A button with `commandfor` and `command=\"--dismiss\"` fires a cancelable `dismiss` event on it that bubbles, and unless a listener calls `preventDefault()`, the element sets `hidden` on itself and moves focus that was inside it to the next focusable element after it, or else the one before. `dismiss()` does the same from a script and returns whether the callout was hidden. An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. The content, with an optional heading first. A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon A row of buttons under the content. closeButton Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>` with `role=\"article\"`, and the component loads `opui-css/elements/callout.js`, which runs the button. closeLabel The accessible name of the close button. id The id of the callout. With `closeButton`, the close button points at it with `commandfor`, so the component generates one when it's left out. severity The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders. variant The variant to use.",
     "category": "API",
     "url": "/astro/api/#callout"
   },
@@ -4472,7 +4479,7 @@
     "id": "api-dialog-header-astro",
     "title": "Dialog Header API",
     "description": "Reference for Dialog Header Astro component.",
-    "api": "DialogHeader Container element. Closes the dialog. Renders a close icon by default, or the `svg` in `close-icon`. closeLabel close-icon closeLabel The accessible name of the close button. Set it to add a close button at the end of the title row, which closes its `Dialog` through the dialog's `id`.",
+    "api": "DialogHeader Container element. Closes the dialog, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon closeButton Adds a close button at the end of the title row, which closes its `Dialog` through the dialog's `id`. closeLabel The accessible name of the close button.",
     "category": "API",
     "url": "/astro/api/#dialog-header"
   },
@@ -4504,7 +4511,7 @@
     "id": "api-drawer-header-astro",
     "title": "Drawer Header API",
     "description": "Reference for Drawer Header Astro component.",
-    "api": "DrawerHeader Container element. Closes the drawer. Renders a close icon by default, or the `svg` in `close-icon`. closeLabel close-icon closeLabel The accessible name of the close button. commandfor The id of the drawer to close with the `close` command. Without it, the button closes its `Drawer`. Outside a `Drawer`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.",
+    "api": "DrawerHeader Container element. Closes the drawer, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon closeButton Adds a close button at the end of the title row, which closes its `Drawer`, or the `<dialog>` that `commandfor` names. closeLabel The accessible name of the close button. commandfor The id of the drawer the close button closes with the `close` command. Without it, the button closes its `Drawer`. Outside a `Drawer`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.",
     "category": "API",
     "url": "/astro/api/#drawer-header"
   },
@@ -4512,7 +4519,7 @@
     "id": "api-drawer-astro",
     "title": "Drawer API",
     "description": "Reference for Drawer Astro component.",
-    "api": "Drawer Container element. The header, a row for the title and anything next to it, with a close button. The title. Names the drawer through `aria-labelledby`. The scrollable content. The footer, a row at the end. backdrop The backdrop style. `transparent` keeps the page behind it fully visible. closedby How the drawer can be closed. `any` also closes it on a click outside. closeOnNavigate Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API. id The id of the `<dialog>`, which the trigger's `commandfor` points at. Required. scrollLock Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. side The side it opens from.",
+    "api": "Drawer Container element. The header, a row for the title and anything next to it, with an optional close button. The title. Names the drawer through `aria-labelledby`. The scrollable content. The footer, a row at the end. backdrop The backdrop style. `transparent` keeps the page behind it fully visible. closedby How the drawer can be closed. `any` also closes it on a click outside. closeOnNavigate Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API. id The id of the `<dialog>`, which the trigger's `commandfor` points at. Required. scrollLock Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`. side The side it opens from.",
     "category": "API",
     "url": "/astro/api/#drawer"
   },

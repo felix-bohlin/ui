@@ -33,11 +33,12 @@ A window over the page for a question or a short task, modal or not.
 ### Parts
 
 - `.ui-header` (root): Container element.
-- `<button>` (prop `closeLabel`, slot `close-icon`): Closes the dialog. Renders a close icon by default, or the `svg` in `close-icon`.
+- `<button>` (prop `closeButton`, prop `closeLabel`, slot `close-icon`): Closes the dialog, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`.
 
 ### Props and modifiers
 
-- `closeLabel`: `string`. The accessible name of the close button. Set it to add a close button at the end of the title row, which closes its `Dialog` through the dialog's `id`.
+- `closeButton`: `boolean`. Adds a close button at the end of the title row, which closes its `Dialog` through the dialog's `id`.
+- `closeLabel`: `string`, default `"Close"`. The accessible name of the close button.
 
 ### Slots
 
@@ -189,7 +190,7 @@ import {
 </Button>
 
 <Dialog id="dialog-basics-1">
-  <DialogHeader closeLabel="Close">
+  <DialogHeader closeButton closeLabel="Close">
     <DialogTitle>Newsletter</DialogTitle>
     <p>Sent by the product team.</p>
   </DialogHeader>
@@ -238,7 +239,7 @@ export default function Basics() {
       </Button>
 
       <Dialog id="dialog-basics-1">
-        <DialogHeader closeLabel="Close">
+        <DialogHeader closeButton closeLabel="Close">
           <DialogTitle>Newsletter</DialogTitle>
           <p>Sent by the product team.</p>
         </DialogHeader>
@@ -287,7 +288,7 @@ export default function Basics() {
 </Button>
 
 <Dialog id="dialog-basics-1">
-  <DialogHeader closeLabel="Close">
+  <DialogHeader closeButton closeLabel="Close">
     <DialogTitle>Newsletter</DialogTitle>
     <p>Sent by the product team.</p>
   </DialogHeader>
@@ -331,7 +332,7 @@ import {
   </Button>
 
   <Dialog id="dialog-basics-1">
-    <DialogHeader closeLabel="Close">
+    <DialogHeader closeButton closeLabel="Close">
       <DialogTitle>Newsletter</DialogTitle>
       <p>Sent by the product team.</p>
     </DialogHeader>

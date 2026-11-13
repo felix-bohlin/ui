@@ -9,18 +9,18 @@ A message in the flow of the page, without interrupting the task.
 
 ### Parts
 
-- `.ui-callout` (root): Container element, an `<article>`. With `dismissible`, the `<opui-callout>` custom element with `role="article"`. A button with `commandfor` and `command="--dismiss"` fires a cancelable `dismiss` event on it that bubbles, and unless a listener calls `preventDefault()`, the element sets `hidden` on itself and moves focus that was inside it to the next focusable element after it, or else the one before. `dismiss()` does the same from a script and returns whether the callout was hidden.
+- `.ui-callout` (root): Container element, an `<article>`. With `closeButton`, the `<opui-callout>` custom element with `role="article"`. A button with `commandfor` and `command="--dismiss"` fires a cancelable `dismiss` event on it that bubbles, and unless a listener calls `preventDefault()`, the element sets `hidden` on itself and moves focus that was inside it to the next focusable element after it, or else the one before. `dismiss()` does the same from a script and returns whether the callout was hidden.
 - `<svg>` (`CalloutIcon`): An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning.
 - `.ui-content` (`CalloutContent`): The content, with an optional heading first.
-- `<button>` (prop `closeLabel`, prop `dismissible`, slot `close-icon`): A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `dismissible`, the component renders it with `command="--dismiss"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`.
+- `<button>` (prop `closeButton`, prop `closeLabel`, slot `close-icon`): A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command="--dismiss"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`.
 - `.ui-actions` (`CalloutActions`): A row of buttons under the content.
 
 ### Props and modifiers
 
 - `@dismiss` (Vue): `(event: Event) => void`. Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first.
+- `closeButton`: `boolean`. Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>` with `role="article"`, and the component loads `opui-css/elements/callout.js`, which runs the button.
 - `closeLabel`: `string`, default `"Close"`. The accessible name of the close button.
-- `dismissible`: `boolean`. Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>` with `role="article"`, and the component loads `opui-css/elements/callout.js`, which runs the button.
-- `id`: `string`. The id of the callout. With `dismissible`, the close button points at it with `commandfor`, so the component generates one when it's left out.
+- `id`: `string`. The id of the callout. With `closeButton`, the close button points at it with `commandfor`, so the component generates one when it's left out.
 - `ondismiss` (Svelte): `(event: Event) => void`. Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first.
 - `onDismiss` (React): `(event: Event) => void`. Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first.
 - `severity`: `"critical"` (`.ui-critical`), `"info"` (`.ui-info`), `"neutral"` (`.ui-neutral`), `"success"` (`.ui-success`), `"warning"` (`.ui-warning`). The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders.
@@ -32,10 +32,10 @@ A message in the flow of the page, without interrupting the task.
 
 ### Notes
 
-- HTML: For a dismissible callout, use `<opui-callout class="ui-callout" role="article">` with an id, end it with a close `.ui-button` with `commandfor` naming it and `command="--dismiss"`, and import `opui-css/elements/callout.js`. Until it loads, the button is hidden.
-- Astro: For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`. The component loads `opui-css/elements/callout.js`. With `dismissible`, the root is `<opui-callout>`, and the close button shows and works once the element runs. Listen for `dismiss` in a client script.
-- React: For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`. The component loads `opui-css/elements/callout.js` once it mounts, unless the page imports it first. With `dismissible`, the root is `<opui-callout>`, and the close button shows and works once the element runs.
-- Svelte and Vue: For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`. The component imports `opui-css/elements/callout.js`, so the element runs as soon as the component's code loads. With `dismissible`, the root is `<opui-callout>`, and the close button shows and works once the element runs.
+- HTML: For a close button that hides the callout, use `<opui-callout class="ui-callout" role="article">` with an id, end it with a `.ui-button` with `commandfor` naming it and `command="--dismiss"`, and import `opui-css/elements/callout.js`. Until it loads, the button is hidden.
+- Astro: For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`. The component loads `opui-css/elements/callout.js`. With `closeButton`, the root is `<opui-callout>`, and the close button shows and works once the element runs. Listen for `dismiss` in a client script.
+- React: For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`. The component loads `opui-css/elements/callout.js` once it mounts, unless the page imports it first. With `closeButton`, the root is `<opui-callout>`, and the close button shows and works once the element runs.
+- Svelte and Vue: For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`. The component imports `opui-css/elements/callout.js`, so the element runs as soon as the component's code loads. With `closeButton`, the root is `<opui-callout>`, and the close button shows and works once the element runs.
 
 ## Component properties
 

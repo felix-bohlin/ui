@@ -9,7 +9,7 @@ Short messages that confirm an action and dismiss themselves.
 
 ### Parts
 
-- `opui-toaster.ui-toaster` (root): The `<opui-toaster>` custom element, with `display: contents`. A button with `commandfor` and `command="--toast"` shows a toast with its `data-toast` text and `data-toast-severity`, and `toast(message, { action, duration, severity })` or `toast.success(message)` does it from a script, where `action` takes a `label` and an `onClick`. `dismiss(toast)` returns a promise that resolves once the toast is gone.
+- `opui-toaster.ui-toaster` (root): The `<opui-toaster>` custom element, with `display: contents`. A button with `commandfor` and `command="--toast"` shows a toast with its `data-toast` text and `data-toast-severity`, and `toast(message, { action, duration, severity })` or `toast.success(message)` does it from a script, where `action` takes a `label` and an `onClick`.
 - `<ol popover="manual">`: The stack of toasts, a manual popover at the block end and the inline end of the viewport unless `side` and `align` move it. It opens with the first toast and closes after the last.
 - `<li>`: A toast, a `Callout` with the severity class, its icon (an empty `svg` that `--_icon-image` masks), the message in `.ui-content`, an action `Button` when it has an `action`, and a close `Button`. The element adds it, and on dismiss makes it `inert`, fades it out and closes its gap before it removes it.
 - `<div role="status">`: The polite live region that announces each toast but a critical one, visually hidden with `.ui-sr-only` and outside the popover, so it's always in the page.
@@ -23,6 +23,15 @@ Short messages that confirm an action and dismiss themselves.
 - `id`: `string`. The id the buttons point at with `commandfor`. Required.
 - `limit`: `number`, `[limit]`, default `3`. The most toasts shown at once. Past it, the oldest is dismissed, unless it holds focus.
 - `side`: `"block-end"` (default), `"block-start"` (`.ui-block-start`). The side of the viewport the toasts sit on.
+
+### Element
+
+- `<opui-toaster>`, defined by `opui-css/elements/toaster.js`:
+  - `alert`: The `<div role="alert">` that announces critical toasts, or `null`. Read-only.
+  - `dismiss(toast)`: Dismisses a toast: makes it `inert`, moves focus that was in it to the next toast, fades it out and removes it. Returns a promise that resolves once it's gone.
+  - `list`: The `<ol>` that holds the toasts, or `null`. Read-only.
+  - `show(message, options)`: Shows a toast and announces it, with the `action`, `duration` and `severity` options of `toast()`. Returns the toast's `<li>`, or `null` without a list.
+  - `status`: The `<div role="status">` that announces the other toasts, or `null`. Read-only.
 
 ### Notes
 

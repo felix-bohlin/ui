@@ -9,7 +9,7 @@ A number field with buttons that step the value down and up, for amounts like a 
 
 ### Parts
 
-- `opui-number-field.ui-number-field` (root): The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max` and keeps both disabled while the input is disabled, as the component renders them. `stepDown()` and `stepUp()` step the value from a script and fire `input` and `change`.
+- `opui-number-field.ui-number-field` (root): The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max` and keeps both disabled while the input is disabled, as the component renders them.
 - `.ui-label` (prop `label`, slot `label`): The label for the field.
 - `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
 - `.ui-field`: The boxed input area.
@@ -32,6 +32,13 @@ A number field with buttons that step the value down and up, for amounts like a 
 - `spread`: `boolean`, `.ui-spread`. Pushes the label and start text to one side and the field to the other.
 - `stretch`: `boolean`, `.ui-stretch`. Fills the available width. Without it, the field fits its value, from `--_min-inline-size` (`4ch`).
 - `variant`: `"filled"` (`.ui-filled`), `"outlined"` (default). The variant to use.
+
+### Element
+
+- `<opui-number-field>`, defined by `opui-css/elements/number-field.js`:
+  - `input`: The `<input type="number">` inside, or `null`. Read-only.
+  - `stepDown()`: Steps the value down by `step`, unless the input is disabled, read-only or at `min`, and fires `input` and `change`.
+  - `stepUp()`: Steps the value up by `step`, unless the input is disabled, read-only or at `max`, and fires `input` and `change`.
 
 Model: `value` (`number | string`), the input value. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
 

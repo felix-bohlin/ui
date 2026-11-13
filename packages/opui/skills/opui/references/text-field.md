@@ -45,6 +45,15 @@ An input for single-line text data. Basic text fields with labels, field descrip
 
 - `default`: Extra content inside the root, such as a `<datalist>`.
 
+### Elements
+
+- `<opui-character-count>`, defined by `opui-css/elements/character-count.js`:
+  - `control`: The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only.
+- `<opui-text-field>`, defined by `opui-css/elements/text-field.js`:
+  - `hidePassword()`: Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits.
+  - `input`: The `<input>` inside, or `null`. Read-only.
+  - `showPassword()`: Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.
+
 Model: `value` (`string | number`), the input value. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes

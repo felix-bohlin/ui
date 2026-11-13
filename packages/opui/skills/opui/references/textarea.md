@@ -40,6 +40,11 @@ An input for multi-line text data. Basic textareas with labels, supporting text,
 
 - `default`: Extra content inside the root.
 
+### Element
+
+- `<opui-character-count>`, defined by `opui-css/elements/character-count.js`:
+  - `control`: The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only.
+
 Model: `value` (`string`), the textarea value. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes

@@ -23,6 +23,12 @@ A button that copies text or a field's value to the clipboard.
 
 - `default`: The text or the field to copy, and the button if it sits inside.
 
+### Element
+
+- `<opui-copy>`, defined by `opui-css/elements/copy.js`:
+  - `copy(source)`: Copies `text`, shows `copied-label` or `failed-label` next to `source` and announces it, or selects the text when the clipboard is blocked. Returns a promise of whether it copied.
+  - `text`: What a copy writes: the value of the field inside, or else the text without its buttons, popovers, status and `[data-copy-ignore]` elements. Read-only.
+
 ### Notes
 
 - HTML: Wrap the text or the field in `<opui-copy class="ui-copy">` with an id, and end it with `<span class="ui-sr-only" role="status">` for the announcement and `<span class="ui-floating" popover aria-hidden="true">` for the label. Point a button at it with `commandfor` and `command="--copy"`, inside the element or right after it, and import `opui-css/elements/copy.js`. Until it loads, the button is hidden.

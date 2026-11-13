@@ -9,7 +9,7 @@ A message in the flow of the page, without interrupting the task.
 
 ### Parts
 
-- `.ui-callout` (root): Container element, an `<article>`. With `closeButton`, the `<opui-callout>` custom element with `role="article"`. A button with `commandfor` and `command="--dismiss"` fires a cancelable `dismiss` event on it that bubbles, and unless a listener calls `preventDefault()`, the element sets `hidden` on itself and moves focus that was inside it to the next focusable element after it, or else the one before. `dismiss()` does the same from a script and returns whether the callout was hidden.
+- `.ui-callout` (root): Container element, an `<article>`. With `closeButton`, the `<opui-callout>` custom element with `role="article"`, which a button with `commandfor` and `command="--dismiss"` dismisses.
 - `<svg>` (`CalloutIcon`): An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning.
 - `.ui-content` (`CalloutContent`): The content, with an optional heading first.
 - `<button>` (prop `closeButton`, prop `closeLabel`, slot `close-icon`): A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command="--dismiss"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`.
@@ -29,6 +29,12 @@ A message in the flow of the page, without interrupting the task.
 ### Slots
 
 - `default`: The callout parts, and any other content.
+
+### Element
+
+- `<opui-callout>`, defined by `opui-css/elements/callout.js`:
+  - `dismiss` event: Fires on the callout before it hides. It bubbles, and `preventDefault()` keeps the callout.
+  - `dismiss()`: Fires `dismiss` and, unless a listener cancels it, sets `hidden` on the callout and moves focus that was inside it to the next focusable element after it, or else the one before. Returns whether the callout hid.
 
 ### Notes
 

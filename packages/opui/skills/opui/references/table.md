@@ -86,7 +86,7 @@ Displays tabular data. Basic tables with row and column headers, and optional ca
 
 ### Parts
 
-- `opui-sortable-table.ui-sortable-table` (root): The `<opui-sortable-table>` custom element, `display: contents`, around the table. It fires a cancelable `sort` event, moves the body rows and announces the new order.
+- `opui-sortable-table.ui-sortable-table` (root): The `<opui-sortable-table>` custom element, `display: contents`, around the table. It moves the body rows and announces the new order in its `role="status"` child, or one it adds. While it has `data-hydrating`, which the React component renders until it hydrates, header clicks do nothing.
 - `th[data-sort] > button` (`TableHeaderCell`): The button around a sortable header's label. A press sorts by its column, ascending first, and sets `aria-sort` on the header.
 
 ### Props and modifiers
@@ -100,6 +100,13 @@ Displays tabular data. Basic tables with row and column headers, and optional ca
 ### Slots
 
 - `default`: The `Table`.
+
+### Element
+
+- `<opui-sortable-table>`, defined by `opui-css/elements/sortable-table.js`:
+  - `sort` event: Fires before the rows move, with the column index, the direction and the header in `event.detail`. It bubbles, and `preventDefault()` keeps the rows where they are.
+  - `sort(header, direction)`: Sorts by the column of `header`, in `direction` (`"ascending"` or `"descending"`), or else the other way from its `aria-sort`, ascending first. It fires `sort`, sets `aria-sort` and announces the order.
+  - `table`: The `<table>` inside, or `null`. Read-only.
 
 ### Notes
 

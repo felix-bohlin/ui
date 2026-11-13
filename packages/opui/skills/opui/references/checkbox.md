@@ -68,6 +68,13 @@ Model: `checked` (`boolean | (string | number)[]`), the checked state, or the ch
 
 - `default`: The group: the controlling checkbox and the checkboxes it controls.
 
+### Element
+
+- `<opui-select-all>`, defined by `opui-css/elements/select-all.js`:
+  - `control`: The controlling checkbox, the one with `data-select-all`, or `null`. Read-only.
+  - `items`: The enabled checkboxes it controls, in document order. Read-only.
+  - `sync()`: Sets the controlling checkbox's `checked` and `indeterminate` from the others. The element calls it when one changes, so call it only after setting `checked` from a script.
+
 ### Notes
 
 - HTML: Wrap the group in `<opui-select-all class="ui-select-all">`, add `data-select-all` to the controlling checkbox and import `opui-css/elements/select-all.js`.

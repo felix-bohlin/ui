@@ -5,11 +5,11 @@ Chat bubbles that group by sender, with attachments, reactions and a typing indi
 - CSS: `opui-css/css/components/message.css` and `opui-css/css/components/avatar.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/message.md), [Astro](https://opui.dev/astro/components/message.md), [React](https://opui.dev/react/components/message.md), [Svelte](https://opui.dev/svelte/components/message.md), [Vue](https://opui.dev/vue/components/message.md).
 
-## Messages
+## MessageList
 
 ### Parts
 
-- `ol.ui-messages` (root): The conversation, an ordered list.
+- `ol.ui-message-list` (root): The conversation, an ordered list.
 - `li.ui-message` (`Message`): A message. Consecutive messages on the same side group into a run.
 
 ### Slots
@@ -81,7 +81,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size
 
 ```html
 <div aria-label="Chat with Sirkka" role="log">
-  <ol class="ui-messages" role="list" aria-label="Messages with Sirkka">
+  <ol class="ui-message-list" role="list" aria-label="Messages with Sirkka">
     <li class="ui-message">
       <div class="ui-avatar" aria-label="Sirkka Nitti" role="img">SN</div>
       <div class="ui-content">
@@ -127,7 +127,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size
 
 ## Astro
 
-`import { Message, Messages } from "opui-css/astro"`
+`import { Message, MessageList } from "opui-css/astro"`
 
 - `Message` named slots: `bottom`, `end` and `start`. Fill one with `slot="bottom"` on a child.
 
@@ -135,11 +135,11 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size
 
 ```astro
 ---
-import { Avatar, Message, Messages } from "opui-css/astro"
+import { Avatar, Message, MessageList } from "opui-css/astro"
 ---
 
 <div aria-label="Chat with Sirkka" role="log">
-  <Messages aria-label="Messages with Sirkka">
+  <MessageList aria-label="Messages with Sirkka">
     <Message author="Sirkka" datetime="2026-10-08T14:02" time="14:02">
       <Avatar aria-label="Sirkka Nitti" role="img" slot="start">SN</Avatar>
       <p>Did you get a chance to look at the pricing proposal?</p>
@@ -155,25 +155,25 @@ import { Avatar, Message, Messages } from "opui-css/astro"
       <p>Can you add the Bergen Bikes case study too?</p>
       <Fragment slot="end">Read</Fragment>
     </Message>
-  </Messages>
+  </MessageList>
 </div>
 ```
 
 ## React
 
-`import { Message, Messages } from "opui-css/react"`
+`import { Message, MessageList } from "opui-css/react"`
 
 - `Message` slot props (`ReactNode`): `bottom`, `children`, `end` and `start`.
 
 ### Example: Basics
 
 ```tsx
-import { Avatar, Message, Messages } from "opui-css/react"
+import { Avatar, Message, MessageList } from "opui-css/react"
 
 export default function Basics() {
   return (
     <div aria-label="Chat with Sirkka" role="log">
-      <Messages aria-label="Messages with Sirkka">
+      <MessageList aria-label="Messages with Sirkka">
         <Message
           author="Sirkka"
           datetime="2026-10-08T14:02"
@@ -210,7 +210,7 @@ export default function Basics() {
         >
           <p>Can you add the Bergen Bikes case study too?</p>
         </Message>
-      </Messages>
+      </MessageList>
     </div>
   )
 }
@@ -218,7 +218,7 @@ export default function Basics() {
 
 ## Svelte
 
-`import { Message, Messages } from "opui-css/svelte"`
+`import { Message, MessageList } from "opui-css/svelte"`
 
 - `Message` slot snippets: `bottom`, `children`, `end` and `start`.
 
@@ -226,11 +226,11 @@ export default function Basics() {
 
 ```svelte
 <script lang="ts">
-  import { Avatar, Message, Messages } from "opui-css/svelte"
+  import { Avatar, Message, MessageList } from "opui-css/svelte"
 </script>
 
 <div aria-label="Chat with Sirkka" role="log">
-  <Messages aria-label="Messages with Sirkka">
+  <MessageList aria-label="Messages with Sirkka">
     <Message author="Sirkka" datetime="2026-10-08T14:02" time="14:02">
       {#snippet start()}
         <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
@@ -250,13 +250,13 @@ export default function Basics() {
       <p>Can you add the Bergen Bikes case study too?</p>
       {#snippet end()}Read{/snippet}
     </Message>
-  </Messages>
+  </MessageList>
 </div>
 ```
 
 ## Vue
 
-`import { Message, Messages } from "opui-css/vue"`
+`import { Message, MessageList } from "opui-css/vue"`
 
 - `Message` named slots: `bottom`, `end` and `start`. Fill one with `<template #bottom>`.
 
@@ -264,12 +264,12 @@ export default function Basics() {
 
 ```vue
 <script setup lang="ts">
-import { Avatar, Message, Messages } from "opui-css/vue"
+import { Avatar, Message, MessageList } from "opui-css/vue"
 </script>
 
 <template>
   <div aria-label="Chat with Sirkka" role="log">
-    <Messages aria-label="Messages with Sirkka">
+    <MessageList aria-label="Messages with Sirkka">
       <Message author="Sirkka" datetime="2026-10-08T14:02" time="14:02">
         <template #start>
           <Avatar aria-label="Sirkka Nitti" role="img">SN</Avatar>
@@ -289,7 +289,7 @@ import { Avatar, Message, Messages } from "opui-css/vue"
         <p>Can you add the Bergen Bikes case study too?</p>
         <template #end>Read</template>
       </Message>
-    </Messages>
+    </MessageList>
   </div>
 </template>
 ```

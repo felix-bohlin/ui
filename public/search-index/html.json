@@ -4603,6 +4603,14 @@
     "url": "/html/api/#menu"
   },
   {
+    "id": "api-message-list-html",
+    "title": "Message List API",
+    "description": "Reference for Message List HTML component.",
+    "api": "ol.ui-message-list The conversation, an ordered list. A message. Consecutive messages on the same side group into a run. li.ui-message",
+    "category": "API",
+    "url": "/html/api/#message-list"
+  },
+  {
     "id": "api-message-html",
     "title": "Message API",
     "description": "Reference for Message HTML component.",
@@ -4611,18 +4619,10 @@
     "url": "/html/api/#message"
   },
   {
-    "id": "api-messages-html",
-    "title": "Messages API",
-    "description": "Reference for Messages HTML component.",
-    "api": "ol.ui-messages The conversation, an ordered list. A message. Consecutive messages on the same side group into a run. li.ui-message",
-    "category": "API",
-    "url": "/html/api/#messages"
-  },
-  {
     "id": "api-number-field-html",
     "title": "Number Field API",
     "description": "Reference for Number Field HTML component.",
-    "api": "opui-number-field.ui-number-field The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max` and keeps both disabled while the input is disabled, as the component renders them. The label for the field. .ui-label Start text displayed above the field. .ui-start-text The boxed input area. .ui-field The decrease button, with `command=\"--step-down\"`. Renders a minus icon by default, or the `svg` in `decrease-icon`. Hidden until the element is defined. .ui-field > .ui-start The input element. input The increase button, with `command=\"--step-up\"`. Renders a plus icon by default, or the `svg` in `increase-icon`. Hidden until the element is defined. .ui-field > .ui-end Supporting text displayed below the field. .ui-end-text [disabled] Disabled Dims the field and blocks input and the step buttons. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. .ui-sr-only Label Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. [required] Required Adds a required mark after the label. The form won't submit while the field is empty. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Spread Pushes the label and start text to one side and the field to the other. .ui-stretch Stretch Fills the available width. Without it, the field fits its value, from `--_min-inline-size` (`4ch`). .ui-filled Variants The variant to use.",
+    "api": "opui-number-field.ui-number-field The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max` and keeps both disabled while the input is disabled, as the component renders them. `stepDown()` and `stepUp()` step the value from a script and fire `input` and `change`. The label for the field. .ui-label Start text displayed above the field. .ui-start-text The boxed input area. .ui-field The decrease button, with `command=\"--step-down\"`. Renders a minus icon by default, or the `svg` in `decrease-icon`. Hidden until the element is defined. .ui-field > .ui-start The input element. input The increase button, with `command=\"--step-up\"`. Renders a plus icon by default, or the `svg` in `increase-icon`. Hidden until the element is defined. .ui-field > .ui-end Supporting text displayed below the field. .ui-end-text [disabled] Disabled Dims the field and blocks input and the step buttons. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. .ui-sr-only Label Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. [required] Required Adds a required mark after the label. The form won't submit while the field is empty. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Spread Pushes the label and start text to one side and the field to the other. .ui-stretch Stretch Fills the available width. Without it, the field fits its value, from `--_min-inline-size` (`4ch`). .ui-filled Variants The variant to use.",
     "category": "API",
     "url": "/html/api/#number-field"
   },

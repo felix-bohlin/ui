@@ -80,7 +80,7 @@ Components documented on another component's page:
 | FieldLegend | `form.md` |
 | Fieldset | `form.md` |
 | ListItem | `list.md` |
-| Messages | `message.md` |
+| MessageList | `message.md` |
 | RadioInput | `radio.md` |
 | SelectAll | `checkbox.md` |
 | SortableTable | `table.md` |

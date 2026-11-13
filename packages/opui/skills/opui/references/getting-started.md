@@ -472,7 +472,7 @@ Every component renders full HTML on the server. Components with state or effect
 | [`ListItem`](https://opui.dev/react/components/list.md) | Yes | Yes | Yes | - |
 | [`Menu`](https://opui.dev/react/components/menu.md) | Yes | Yes | No | - |
 | [`Message`](https://opui.dev/react/components/message.md) | Yes | Yes | Yes | - |
-| [`Messages`](https://opui.dev/react/components/message.md) | Yes | Yes | Yes | - |
+| [`MessageList`](https://opui.dev/react/components/message.md) | Yes | Yes | Yes | - |
 | [`NumberField`](https://opui.dev/react/components/number-field.md) | Yes | Yes | No | - |
 | [`OneTimeCode`](https://opui.dev/react/components/one-time-code.md) | Yes | Yes | No | - |
 | [`Progress`](https://opui.dev/react/components/progress.md) | Yes | Yes | Yes | - |
@@ -668,7 +668,7 @@ Every component renders full HTML on the server. The props in the last column ne
 | [`ListItem`](https://opui.dev/svelte/components/list.md) | Yes | Yes | - |
 | [`Menu`](https://opui.dev/svelte/components/menu.md) | Yes | Yes | - |
 | [`Message`](https://opui.dev/svelte/components/message.md) | Yes | Yes | - |
-| [`Messages`](https://opui.dev/svelte/components/message.md) | Yes | Yes | - |
+| [`MessageList`](https://opui.dev/svelte/components/message.md) | Yes | Yes | - |
 | [`NumberField`](https://opui.dev/svelte/components/number-field.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`OneTimeCode`](https://opui.dev/svelte/components/one-time-code.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Progress`](https://opui.dev/svelte/components/progress.md) | Yes | Yes | - |
@@ -827,7 +827,7 @@ Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` 
 | [`ListItem`](https://opui.dev/vue/components/list.md) | Yes | Yes | - |
 | [`Menu`](https://opui.dev/vue/components/menu.md) | Yes | Yes | - |
 | [`Message`](https://opui.dev/vue/components/message.md) | Yes | Yes | - |
-| [`Messages`](https://opui.dev/vue/components/message.md) | Yes | Yes | - |
+| [`MessageList`](https://opui.dev/vue/components/message.md) | Yes | Yes | - |
 | [`NumberField`](https://opui.dev/vue/components/number-field.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`OneTimeCode`](https://opui.dev/vue/components/one-time-code.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Progress`](https://opui.dev/vue/components/progress.md) | Yes | Yes | - |

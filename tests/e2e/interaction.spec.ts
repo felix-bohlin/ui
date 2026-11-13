@@ -319,7 +319,7 @@ interaction(
     await root.getByRole("button", { name: "Inline end" }).click()
     const details = root.locator("dialog#drawer-basics-2")
     await expect(details).toHaveAttribute("open")
-    await page.evaluate(() => history.pushState({}, "", location.href))
+    await page.evaluate(() => history.pushState({}, "", "elsewhere/"))
     await expect(details).toHaveAttribute("open")
   },
 )
@@ -1476,7 +1476,40 @@ interaction(
     await root.getByRole("button", { name: "Options" }).click()
     const menu = root.locator("menu.ui-menu")
     await expect(menu).toBeVisible()
-    await page.evaluate(() => history.pushState({}, "", location.href))
+    await page.evaluate(() => history.pushState({}, "", "elsewhere/"))
+    await expect(menu).toBeHidden()
+  },
+  ["astro", "react", "svelte", "vue"],
+)
+
+interaction(
+  "menu",
+  "Basics",
+  "an open menu stays open when a script only changes the query, and closes on a hash navigation and Back",
+  async ({ page, root }) => {
+    await needs(page, "the Navigation API", () => "navigation" in window)
+    const trigger = root.getByRole("button", { name: "Options" })
+    const menu = root.locator("menu.ui-menu")
+    await trigger.click()
+    await expect(menu).toBeVisible()
+    await page.evaluate(() => history.replaceState({}, "", "?sort=asc"))
+    await page.evaluate(() => history.pushState({}, "", "?sort=desc"))
+    await expect
+      .poll(() => page.evaluate(() => location.search))
+      .toBe("?sort=desc")
+    await expect(menu).toBeVisible()
+
+    await page.evaluate(() => history.back())
+    await expect(menu).toBeHidden()
+    await expect
+      .poll(() => page.evaluate(() => location.search))
+      .toBe("?sort=asc")
+
+    await trigger.click()
+    await expect(menu).toBeVisible()
+    await page.evaluate(() => {
+      location.hash = "menu-closes"
+    })
     await expect(menu).toBeHidden()
   },
   ["astro", "react", "svelte", "vue"],

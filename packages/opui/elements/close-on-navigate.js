@@ -1,6 +1,13 @@
 const KEY = Symbol.for("opui-close-on-navigate")
 
-const close = () => {
+const keepsPage = ({ destination, hashChange, navigationType }) =>
+  destination.sameDocument &&
+  !hashChange &&
+  navigationType !== "traverse" &&
+  new URL(destination.url).pathname === location.pathname
+
+const close = (event) => {
+  if (keepsPage(event)) return
   for (const menu of document.querySelectorAll(".ui-menu:popover-open")) {
     if (menu.matches(":popover-open")) menu.hidePopover()
   }

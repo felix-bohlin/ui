@@ -1945,32 +1945,30 @@ interaction(
     const header = (name: string) =>
       root.getByRole("columnheader", { name, exact: true })
     const names = root.locator("tbody tr td:first-child")
-    const byReviews = [
-      "Pekka Gåpåbottanen",
-      "Sirkka Nitti",
-      "Inga Halonen",
-      "Ranta Runtiringen",
-      "Hakki Hälinen",
-      "Lena Handén",
+    const byGigs = [
+      "Percy Groove",
+      "Stella Nut",
+      "Ines Hertz",
+      "Rory Rootnote",
+      "Holly Humbucker",
+      "Lou Headstock",
     ]
 
     await expect(root.locator("opui-sortable-table")).not.toHaveAttribute(
       "data-hydrating",
     )
     await expect(header("Name")).toHaveAttribute("aria-sort", "ascending")
-    await expect(names).toHaveText(byReviews.toSorted())
+    await expect(names).toHaveText(byGigs.toSorted())
 
-    await root.getByRole("button", { name: "Reviews" }).click()
-    await expect(header("Reviews")).toHaveAttribute("aria-sort", "ascending")
+    await root.getByRole("button", { name: "Gigs" }).click()
+    await expect(header("Gigs")).toHaveAttribute("aria-sort", "ascending")
     await expect(header("Name")).not.toHaveAttribute("aria-sort")
-    await expect(names).toHaveText(byReviews)
+    await expect(names).toHaveText(byGigs)
 
-    await root.getByRole("button", { name: "Reviews" }).click()
-    await expect(header("Reviews")).toHaveAttribute("aria-sort", "descending")
-    await expect(names).toHaveText(byReviews.toReversed())
-    await expect(root.getByRole("status")).toHaveText(
-      "Reviews, sorted descending",
-    )
+    await root.getByRole("button", { name: "Gigs" }).click()
+    await expect(header("Gigs")).toHaveAttribute("aria-sort", "descending")
+    await expect(names).toHaveText(byGigs.toReversed())
+    await expect(root.getByRole("status")).toHaveText("Gigs, sorted descending")
   },
 )
 

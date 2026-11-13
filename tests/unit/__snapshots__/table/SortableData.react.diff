@@ -5,4 +5,4 @@
 -<opui-sortable-table class="ui-sortable-table" id="id-1">
 +<opui-sortable-table class="ui-sortable-table" data-hydrating id="id-1">
    <table class="ui-table">
-     <caption>Code reviews this month</caption>
+     <caption>Gigs this month</caption>

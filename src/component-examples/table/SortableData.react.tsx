@@ -12,16 +12,16 @@ import {
   TableRow,
 } from "opui-css/react"
 
-const keys = ["name", "team", "reviews"] as const
+const keys = ["name", "style", "gigs"] as const
 
 export default function SortableData() {
-  const [reviewers, setReviewers] = useState([
-    { name: "Hakki Hälinen", reviews: 31, team: "Platform" },
-    { name: "Inga Halonen", reviews: 18, team: "Design" },
-    { name: "Lena Handén", reviews: 42, team: "Platform" },
-    { name: "Pekka Gåpåbottanen", reviews: 7, team: "Support" },
-    { name: "Ranta Runtiringen", reviews: 25, team: "Design" },
-    { name: "Sirkka Nitti", reviews: 12, team: "Support" },
+  const [bassists, setBassists] = useState([
+    { gigs: 31, name: "Holly Humbucker", style: "Rock" },
+    { gigs: 18, name: "Ines Hertz", style: "Jazz" },
+    { gigs: 42, name: "Lou Headstock", style: "Funk" },
+    { gigs: 7, name: "Percy Groove", style: "Funk" },
+    { gigs: 25, name: "Rory Rootnote", style: "Jazz" },
+    { gigs: 12, name: "Stella Nut", style: "Rock" },
   ])
 
   return (
@@ -31,7 +31,7 @@ export default function SortableData() {
         event.preventDefault()
         const key = keys[event.detail.column]
         const sign = event.detail.direction === "descending" ? -1 : 1
-        setReviewers((current) =>
+        setBassists((current) =>
           current.toSorted(
             (a, b) =>
               sign *
@@ -43,24 +43,24 @@ export default function SortableData() {
       }}
     >
       <Table>
-        <TableCaption>Code reviews this month</TableCaption>
+        <TableCaption>Gigs this month</TableCaption>
         <TableHead>
           <TableRow>
             <TableHeaderCell aria-sort="ascending" sortable>
               Name
             </TableHeaderCell>
-            <TableHeaderCell sortable>Team</TableHeaderCell>
+            <TableHeaderCell sortable>Style</TableHeaderCell>
             <TableHeaderCell numeric sortable>
-              Reviews
+              Gigs
             </TableHeaderCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {reviewers.map(({ name, reviews, team }) => (
+          {bassists.map(({ gigs, name, style }) => (
             <TableRow key={name}>
               <TableCell>{name}</TableCell>
-              <TableCell>{team}</TableCell>
-              <TableCell numeric>{reviews}</TableCell>
+              <TableCell>{style}</TableCell>
+              <TableCell numeric>{gigs}</TableCell>
             </TableRow>
           ))}
         </TableBody>

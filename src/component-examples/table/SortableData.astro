@@ -10,31 +10,31 @@ import {
   TableRow,
 } from "opui-css/astro"
 
-const reviewers = [
-  { name: "Hakki Hälinen", reviews: 31, team: "Platform" },
-  { name: "Inga Halonen", reviews: 18, team: "Design" },
-  { name: "Lena Handén", reviews: 42, team: "Platform" },
-  { name: "Pekka Gåpåbottanen", reviews: 7, team: "Support" },
-  { name: "Ranta Runtiringen", reviews: 25, team: "Design" },
-  { name: "Sirkka Nitti", reviews: 12, team: "Support" },
+const bassists = [
+  { gigs: 31, name: "Holly Humbucker", style: "Rock" },
+  { gigs: 18, name: "Ines Hertz", style: "Jazz" },
+  { gigs: 42, name: "Lou Headstock", style: "Funk" },
+  { gigs: 7, name: "Percy Groove", style: "Funk" },
+  { gigs: 25, name: "Rory Rootnote", style: "Jazz" },
+  { gigs: 12, name: "Stella Nut", style: "Rock" },
 ]
 ---
 
 <SortableTable id="table-sortable-data-1">
   <Table>
-    <TableCaption>Code reviews this month</TableCaption>
+    <TableCaption>Gigs this month</TableCaption>
     <TableHead>
       <TableRow>
         <TableHeaderCell aria-sort="ascending" sortable>Name</TableHeaderCell>
-        <TableHeaderCell sortable>Team</TableHeaderCell>
-        <TableHeaderCell numeric sortable>Reviews</TableHeaderCell>
+        <TableHeaderCell sortable>Style</TableHeaderCell>
+        <TableHeaderCell numeric sortable>Gigs</TableHeaderCell>
       </TableRow>
     </TableHead>
     <TableBody>
-      {reviewers.map(({ name, reviews, team }) => <TableRow>
+      {bassists.map(({ gigs, name, style }) => <TableRow>
         <TableCell>{name}</TableCell>
-        <TableCell>{team}</TableCell>
-        <TableCell numeric>{reviews}</TableCell>
+        <TableCell>{style}</TableCell>
+        <TableCell numeric>{gigs}</TableCell>
       </TableRow>)}
     </TableBody>
   </Table>
@@ -43,12 +43,12 @@ const reviewers = [
 <script>
   const table = document.querySelector("#table-sortable-data-1")
   const body = table?.querySelector("tbody")
-  const keys = ["name", "team", "reviews"] as const
-  const reviewers = [...(body?.rows ?? [])].map((row) => ({
+  const keys = ["name", "style", "gigs"] as const
+  const bassists = [...(body?.rows ?? [])].map((row) => ({
+    gigs: Number(row.cells[2].textContent),
     name: row.cells[0].textContent,
-    reviews: Number(row.cells[2].textContent),
     row,
-    team: row.cells[1].textContent,
+    style: row.cells[1].textContent,
   }))
 
   table?.addEventListener("sort", (event) => {
@@ -56,13 +56,13 @@ const reviewers = [
     event.preventDefault()
     const key = keys[event.detail.column]
     const sign = event.detail.direction === "descending" ? -1 : 1
-    reviewers.sort(
+    bassists.sort(
       (a, b) =>
         sign *
         String(a[key]).localeCompare(String(b[key]), undefined, {
           numeric: true,
         }),
     )
-    body?.append(...reviewers.map(({ row }) => row))
+    body?.append(...bassists.map(({ row }) => row))
   })
 </script>

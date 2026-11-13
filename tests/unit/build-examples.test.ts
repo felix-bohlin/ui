@@ -810,6 +810,21 @@ describe("HTML", () => {
       imports('<dialog class="ui-drawer" data-close-on-navigate></dialog>'),
     ).toEqual(['import "opui-css/elements/close-on-navigate.js"'])
     expect(imports('<dialog class="ui-drawer"></dialog>')).toEqual([])
+    expect(
+      imports(
+        '<menu class="ui-menu" popover><li><a href="/help/">Help</a></li></menu>',
+      ),
+    ).toEqual(['import "opui-css/elements/menu.js"'])
+    expect(
+      imports(
+        '<menu class="ui-menu" popover><li><button form="a" type="submit">Delete</button></li></menu>',
+      ),
+    ).toEqual(['import "opui-css/elements/menu.js"'])
+    expect(
+      imports(
+        '<menu class="ui-menu" popover><li><button type="button">Edit</button></li><li><a data-keep-open href="/help/">Help</a></li></menu><ul class="ui-list"><li><a href="/help/">Help</a></li></ul>',
+      ),
+    ).toEqual([])
   })
 
   test("matches elements and attributes, not text", () => {

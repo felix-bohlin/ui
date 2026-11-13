@@ -1644,6 +1644,7 @@ const htmlElements = (markup) => {
         ),
         parent,
         tag: node.tagName,
+        type: node.attrs.find(({ name }) => name === "type")?.value,
       }
       found.push(element)
       walk(node.content?.childNodes ?? node.childNodes, element)
@@ -1700,6 +1701,21 @@ const HTML_SCRIPT_RULES = [
           tag === "dialog" && attrs.has("data-close-on-navigate"),
       )
         ? ['import "opui-css/elements/close-on-navigate.js"']
+        : [],
+  },
+  {
+    covers: (path) => path === "elements/menu.js",
+    lines: (elements) =>
+      elements.some(
+        (element) =>
+          !element.attrs.has("data-keep-open") &&
+          ((element.tag === "a" && element.attrs.has("href")) ||
+            (element.tag === "button" &&
+              ["reset", "submit"].includes(element.type))) &&
+          element.parent?.tag === "li" &&
+          !!element.parent.parent?.classes.has("ui-menu"),
+      )
+        ? ['import "opui-css/elements/menu.js"']
         : [],
   },
 ]

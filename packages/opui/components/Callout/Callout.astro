@@ -22,7 +22,7 @@ const {
 } = Astro.props
 
 const ids = createIds(Astro.locals, "callout", id)
-const Root = closeButton ? "opui-callout" : "article"
+const Root = closeButton ? "opui-callout" : "div"
 const rootId = closeButton ? ids() : id
 
 const html = await calloutContext.provide({ severity }, () =>
@@ -38,7 +38,6 @@ const html = await calloutContext.provide({ severity }, () =>
     className,
   ])}
   id={rootId}
-  role={closeButton ? "article" : undefined}
   {...defined(rest)}
 >
   <Fragment set:html={html} />{closeButton && <Button

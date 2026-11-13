@@ -105,8 +105,14 @@ const html = Astro.locals.framework === "html"
       </li>
       <li>
         <DocLink href="/components/avatar#accessibility">Avatar</DocLink> takes
-        the person's name as <code>alt</code>, or <code>alt=""</code> when the
-        name is shown next to it.
+        the person's name as
+        <Conditional>
+          <Fragment slot="components"><code>label</code>, or no</Fragment>
+          <Fragment slot="html"
+            ><code>alt</code> or hidden text, or no</Fragment
+          >
+        </Conditional>
+        name when it is shown next to the avatar.
       </li>
       <li>
         <DocLink href="/components/carousel">Carousel</DocLink> needs a label.
@@ -121,6 +127,14 @@ const html = Astro.locals.framework === "html"
         with <code>role="radiogroup"</code> and <code>aria-label</code>.
       </li>
     </ul>
+    <p>
+      <code>.ui-sr-only</code> text is <code>position: absolute</code>, so it
+      belongs to the nearest positioned box around it. Give a box that scrolls
+      or clips (<code>overflow</code>) <code>position: relative</code> when it
+      holds hidden text, or the text sits outside the box and makes the page
+      scroll. Checkbox, Radio, Switch, the fields, Message and Carousel are
+      positioned for the hidden text inside them.
+    </p>
   </section>
 
   <section id="built-in-labels">

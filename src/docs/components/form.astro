@@ -155,7 +155,9 @@ export const keywords = ["fieldset", "input group", "label", "validation"]
     <h3 id="error-summary">Error summary</h3>
     <p>
       A critical <DocLink href="/components/callout">Callout</DocLink> with
-      <code>tabindex="-1"</code>. Move focus to it after submit.
+      <code>tabindex="-1"</code>, and <code>role="group"</code> named by its
+      heading so a screen reader says what took focus. Move focus to it after
+      submit.
     </p>
     <AutoExample name="ErrorSummary" />
 

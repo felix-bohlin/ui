@@ -9,7 +9,7 @@ A message in the flow of the page, without interrupting the task.
 
 ### Parts
 
-- `.ui-callout` (root): Container element, an `<article>`. With `closeButton`, the `<opui-callout>` custom element with `role="article"`, which a button with `commandfor` and `command="--dismiss"` dismisses.
+- `.ui-callout` (root): Container element, a `<div>`. With `closeButton`, the `<opui-callout>` custom element, which a button with `commandfor` and `command="--dismiss"` dismisses.
 - `<svg>` (`CalloutIcon`): An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning.
 - `.ui-content` (`CalloutContent`): The content, with an optional heading first.
 - `<button>` (prop `closeButton`, prop `closeLabel`, slot `close-icon`): A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command="--dismiss"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`.
@@ -18,7 +18,7 @@ A message in the flow of the page, without interrupting the task.
 ### Props and modifiers
 
 - `@dismiss` (Vue): `(event: Event) => void`. Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first.
-- `closeButton`: `boolean`. Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>` with `role="article"`, and the component loads `opui-css/elements/callout.js`, which runs the button.
+- `closeButton`: `boolean`. Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>`, and the component loads `opui-css/elements/callout.js`, which runs the button.
 - `closeLabel`: `string`, default `"Close"`. The accessible name of the close button.
 - `id`: `string`. The id of the callout. With `closeButton`, the close button points at it with `commandfor`, so the component generates one when it's left out.
 - `ondismiss` (Svelte): `(event: Event) => void`. Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first.
@@ -38,7 +38,7 @@ A message in the flow of the page, without interrupting the task.
 
 ### Notes
 
-- HTML: For a close button that hides the callout, use `<opui-callout class="ui-callout" role="article">` with an id, end it with a `.ui-button` with `commandfor` naming it and `command="--dismiss"`, and import `opui-css/elements/callout.js`. Until it loads, the button is hidden.
+- HTML: For a close button that hides the callout, use `<opui-callout class="ui-callout">` with an id, end it with a `.ui-button` with `commandfor` naming it and `command="--dismiss"`, and import `opui-css/elements/callout.js`. Until it loads, the button is hidden.
 - Astro: For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`. The component loads `opui-css/elements/callout.js`. With `closeButton`, the root is `<opui-callout>`, and the close button shows and works once the element runs. Listen for `dismiss` in a client script.
 - React: For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`. The component loads `opui-css/elements/callout.js` once it mounts, unless the page imports it first. With `closeButton`, the root is `<opui-callout>`, and the close button shows and works once the element runs.
 - Svelte and Vue: For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`. The component imports `opui-css/elements/callout.js`, so the element runs as soon as the component's code loads. With `closeButton`, the root is `<opui-callout>`, and the close button shows and works once the element runs.
@@ -77,7 +77,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
 ### Example: Variants
 
 ```html
-<article class="ui-callout">
+<div class="ui-callout">
   <div class="ui-content">
     <h3>Scheduled maintenance</h3>
     <p>
@@ -85,8 +85,8 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
       upgrade the database.
     </p>
   </div>
-</article>
-<article class="ui-callout ui-outlined">
+</div>
+<div class="ui-callout ui-outlined">
   <div class="ui-content">
     <h3>Billing has moved</h3>
     <p>
@@ -94,7 +94,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
       settings.
     </p>
   </div>
-</article>
+</div>
 ```
 
 ## Astro

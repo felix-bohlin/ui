@@ -1,6 +1,8 @@
 export type Props = {
+  label?: string
   shape?: "circle" | "rounded" | "squared" | "squircle"
   size?: "x-small" | "small" | "medium" | "large"
+  src?: string
   variant?: "filled" | "outlined" | "tonal"
 } & (
   | {
@@ -18,17 +20,12 @@ export type Props = {
       disabled?: boolean
       href?: never
     }
-) &
-  (
-    | {
-        alt: string
-        src: string
-      }
-    | {
-        alt?: never
-        src?: never
-      }
-  )
+)
+
+export type Named =
+  | { label: string }
+  | { "aria-label": string }
+  | { "aria-labelledby": string }
 
 export type AvatarGroupProps =
   | { "aria-label": string }

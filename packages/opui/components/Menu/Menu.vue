@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import "../../elements/close-on-navigate.js"
+import "../../elements/menu.js"
 import { computed, inject, provide, reactive } from "vue"
 import { MenuKey } from "./context.vue"
 import { warnMissingId } from "../dev"
@@ -66,8 +67,23 @@ provide(MenuKey, reactive({ rootId }))
         :is="href ? 'a' : 'button'"
         v-bind="{
           ...tagAttrs(href ? 'a' : 'button', disabled, href),
-          command: !href && !keepOpen && !disabled ? 'hide-popover' : undefined,
-          commandfor: !href && !keepOpen && !disabled ? rootId : undefined,
+          command:
+            !href &&
+            !keepOpen &&
+            !disabled &&
+            itemRest.type !== 'submit' &&
+            itemRest.type !== 'reset'
+              ? 'hide-popover'
+              : undefined,
+          commandfor:
+            !href &&
+            !keepOpen &&
+            !disabled &&
+            itemRest.type !== 'submit' &&
+            itemRest.type !== 'reset'
+              ? rootId
+              : undefined,
+          'data-keep-open': keepOpen ? '' : undefined,
           ...defined(itemRest),
         }"
       >

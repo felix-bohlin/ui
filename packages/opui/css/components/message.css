@@ -62,6 +62,7 @@
       overflow-wrap: anywhere;
       padding-block: var(--ui-space-2);
       padding-inline: var(--ui-space-3);
+      position: relative;
 
       @supports (corner-shape: squircle) {
         corner-shape: squircle;

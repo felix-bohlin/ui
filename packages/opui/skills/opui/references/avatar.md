@@ -10,23 +10,25 @@ An image, initials or icon that stands for a person or an entity.
 ### Parts
 
 - `.ui-avatar` (root): Container element.
-- `<img>` (prop `alt`, prop `src`): The avatar image.
+- `<img>` (prop `label`, prop `src`): The avatar image. Its `alt` is `label`.
 
 ### Props and modifiers
 
-- `alt`: `string`. Alternative text for the image. Required with `src`. Use an empty string when the name is shown next to it.
+- `aria-label`: `string`. The accessible name of a link or button avatar, instead of `label`. The Astro, React and Svelte types require one of `label`, `aria-label` and `aria-labelledby` on a link or button. In Vue it passes through as an attribute.
+- `aria-labelledby`: `string`. The id of the element that names a link or button avatar, instead of `label`.
 - `as`: `"a" | "button" | "div"`, default `"div"`. The element to render. Defaults to `"a"` with `href`.
 - `disabled`: `boolean`. Disables a button avatar. A link avatar drops its `href` and gets `role="link"` and `aria-disabled="true"` instead.
 - `href`: `string`. The link to use. Renders an `<a>`.
+- `label`: `string`. The name of the person or thing: the `alt` of the image, or visually hidden text next to the letters or icon. Leave it out when the name is shown next to the avatar, which then is decorative. A link or button avatar needs it.
 - `shape`: `"circle"` (default), `"rounded"` (`.ui-rounded`), `"squared"` (`.ui-squared`), `"squircle"` (`.ui-squircle`). The shape of the avatar.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
-- `src`: `string`. The image source. Replaces the content.
+- `src`: `string`. The image source. Replaces the content. Without it, the avatar shows its content, so a missing photo falls back to the letters.
 - State (HTML): `button` (`button[disabled]`), `link` (`a[aria-disabled="true"]`). Disables a button avatar. A link avatar, which can't take `disabled`, drops its `href` and takes `role="link"` and `aria-disabled="true"` instead.
 - `variant`: `"filled"` (default), `"outlined"` (`.ui-outlined`), `"tonal"` (`.ui-tonal`). The variant to use. `filled` is the primary color, `outlined` the border color with no fill and `tonal` the primary tint.
 
 ### Slots
 
-- `default`: Letters or an icon, when there's no image.
+- `default`: Letters or an icon, when there's no image. They are hidden from assistive technology: `label` names the avatar.
 
 ## AvatarGroup
 
@@ -98,11 +100,11 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 import { Avatar } from "opui-css/astro"
 ---
 
-<Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
+<Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
 
-<Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
+<Avatar label="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
-<Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
+<Avatar label="Percy Groove" src="/photos/percy-groove.png" />
 ```
 
 ## React
@@ -117,11 +119,11 @@ import { Avatar } from "opui-css/react"
 export default function Image() {
   return (
     <>
-      <Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
+      <Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
 
-      <Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
+      <Avatar label="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
-      <Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
+      <Avatar label="Percy Groove" src="/photos/percy-groove.png" />
     </>
   )
 }
@@ -138,11 +140,11 @@ export default function Image() {
   import { Avatar } from "opui-css/svelte"
 </script>
 
-<Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
+<Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
 
-<Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
+<Avatar label="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
-<Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
+<Avatar label="Percy Groove" src="/photos/percy-groove.png" />
 ```
 
 ## Vue
@@ -157,10 +159,10 @@ import { Avatar } from "opui-css/vue"
 </script>
 
 <template>
-  <Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
+  <Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
 
-  <Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
+  <Avatar label="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
-  <Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
+  <Avatar label="Percy Groove" src="/photos/percy-groove.png" />
 </template>
 ```

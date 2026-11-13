@@ -42,7 +42,7 @@ export default {
   ],
   notes: {
     astro: `${icon} ${closeButton.astro} Listen for \`dismiss\` in a client script.`,
-    html: 'For a close button that hides the callout, use `<opui-callout class="ui-callout" role="article">` with an id, end it with a `.ui-button` with `commandfor` naming it and `command="--dismiss"`, and import `opui-css/elements/callout.js`. Until it loads, the button is hidden.',
+    html: 'For a close button that hides the callout, use `<opui-callout class="ui-callout">` with an id, end it with a `.ui-button` with `commandfor` naming it and `command="--dismiss"`, and import `opui-css/elements/callout.js`. Until it loads, the button is hidden.',
     react: `${icon} ${closeButton.react}`,
     svelte: `${icon} ${closeButton.svelte}`,
     vue: `${icon} ${closeButton.vue}`,
@@ -56,7 +56,7 @@ export default {
     {
       default: "false",
       description:
-        'Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>` with `role="article"`, and the component loads `opui-css/elements/callout.js`, which runs the button.',
+        "Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>`, and the component loads `opui-css/elements/callout.js`, which runs the button.",
       group: "Close button",
       prop: "closeButton",
     },
@@ -132,7 +132,7 @@ export default {
   ],
   root: {
     description:
-      'Container element, an `<article>`. With `closeButton`, the `<opui-callout>` custom element with `role="article"`, which a button with `commandfor` and `command="--dismiss"` dismisses.',
+      'Container element, a `<div>`. With `closeButton`, the `<opui-callout>` custom element, which a button with `commandfor` and `command="--dismiss"` dismisses.',
     selector: ".ui-callout",
   },
   slots: [

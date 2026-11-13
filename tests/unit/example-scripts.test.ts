@@ -75,6 +75,23 @@ const HOOKS = [
         ? "opui-css/elements/close-on-navigate.js"
         : undefined,
   },
+  {
+    hook: "a link or a submit or reset button as a .ui-menu item",
+    module: (element: Element) =>
+      !hasAttribute(element, "data-keep-open") &&
+      ((element.tagName === "a" && hasAttribute(element, "href")) ||
+        (element.tagName === "button" &&
+          element.attrs.some(
+            ({ name, value }) =>
+              name === "type" && ["reset", "submit"].includes(value),
+          ))) &&
+      element.parentNode?.nodeName === "li" &&
+      !!element.parentNode.parentNode &&
+      "tagName" in element.parentNode.parentNode &&
+      hasClass(element.parentNode.parentNode, "ui-menu")
+        ? "opui-css/elements/menu.js"
+        : undefined,
+  },
 ]
 
 const IMPORT = /\bimport\s+(?:[^"';]*?\sfrom\s+)?["']([^"']+)["'];?/g
@@ -179,6 +196,14 @@ describe("example scripts", () => {
       }),
     ).toEqual([
       'a/Ticks.html has a datalist option[label] in a .ui-range but doesn\'t import "opui-css/css/js/range.js"',
+    ])
+    expect(
+      problemsOf({
+        html: '<menu class="ui-menu" popover><li><a href="/help/">Help</a></li></menu>',
+        name: "a/Menu",
+      }),
+    ).toEqual([
+      'a/Menu.html has a link or a submit or reset button as a .ui-menu item but doesn\'t import "opui-css/elements/menu.js"',
     ])
     expect(
       problemsOf({

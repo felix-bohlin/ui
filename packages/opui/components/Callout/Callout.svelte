@@ -3,7 +3,6 @@
   import Button from "../Button/Button.svelte"
   import { setCalloutContext } from "./context.svelte"
   import { closePath } from "./icons"
-  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
@@ -23,7 +22,7 @@
 
   const uid = $props.id()
   const base = $derived(id || `callout-${uid}`)
-  const Root = $derived(closeButton ? "opui-callout" : "article")
+  const Root = $derived(closeButton ? "opui-callout" : "div")
   const rootId = $derived(closeButton ? base : id)
   setCalloutContext({
     get severity() {
@@ -41,9 +40,8 @@
     className,
   ]}
   id={rootId}
-  role={closeButton ? "article" : undefined}
   {ondismiss}
-  {...defined(rest)}
+  {...rest}
 >
   {@render children?.()}{#if closeButton}
     <Button

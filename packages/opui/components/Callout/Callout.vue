@@ -1,17 +1,9 @@
 <script setup lang="ts">
 import "../../elements/callout.js"
-import {
-  computed,
-  type HTMLAttributes,
-  provide,
-  reactive,
-  useAttrs,
-  useId,
-} from "vue"
+import { computed, provide, reactive, useId } from "vue"
 import Button from "../Button/Button.vue"
 import { CalloutKey } from "./context.vue"
 import { closePath } from "./icons"
-import { defined } from "../attrs"
 import type { Props, Emits, Slots } from "./types.vue-props"
 
 const {
@@ -24,17 +16,11 @@ const {
 defineSlots<Slots>()
 const emit = defineEmits<Emits>()
 
-defineOptions({
-  inheritAttrs: false,
-})
-
-const attrs = useAttrs() as HTMLAttributes
-
 const uid = useId()
 
 const base = computed(() => id || `callout-${uid}`)
 
-const Root = computed(() => (closeButton ? "opui-callout" : "article"))
+const Root = computed(() => (closeButton ? "opui-callout" : "div"))
 
 const rootId = computed(() => (closeButton ? base.value : id))
 
@@ -51,8 +37,6 @@ provide(CalloutKey, reactive({ severity: computed(() => severity) }))
       $props.class,
     ]"
     :id="rootId"
-    :role="closeButton ? 'article' : undefined"
-    v-bind="defined(attrs)"
     @dismiss="emit('dismiss', $event)"
   >
     <slot></slot

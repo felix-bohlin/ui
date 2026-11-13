@@ -102,9 +102,13 @@ export const whatsNew = {
     components(
       `<a href="#grouped"><code>AvatarGroup</code></a> requires <code>aria-label</code> or <code>aria-labelledby</code> in its types.`,
     ),
-    slots(
-      `Breaking: <a href="#image"><code>alt</code></a> is required when <code>src</code> is set.`,
-    ),
+    {
+      ...slots(
+        `Breaking: <a href="#letter"><code>label</code></a> replaces <code>alt</code> and names the avatar: the <code>alt</code> of the image, or visually hidden text next to the letters or icon, which assistive technology now skips. A link or button avatar needs it, or <code>aria-label</code>.`,
+      ),
+      react: `<a href="#letter"><code>label</code></a> names the avatar: the <code>alt</code> of the image, or visually hidden text next to the letters or icon. A link or button avatar needs it, or <code>aria-label</code>.`,
+      svelte: `<a href="#letter"><code>label</code></a> names the avatar: the <code>alt</code> of the image, or visually hidden text next to the letters or icon. A link or button avatar needs it, or <code>aria-label</code>.`,
+    },
     slots(
       `Breaking: <code>as="button"</code> renders <code>type="button"</code> by default. Pass <a href="#api"><code>type="submit"</code></a> for submit buttons.`,
     ),
@@ -240,7 +244,7 @@ export const whatsNew = {
   ],
   callout: [
     slots(
-      `Breaking: no <code>role="note"</code>, so screen readers announce the <a href="#accessibility"><code>&lt;article&gt;</code></a> it is. Add <code>role="note"</code> to keep the old announcement.`,
+      `Breaking: the root is a <a href="#accessibility"><code>&lt;div&gt;</code></a> instead of an <code>&lt;article&gt;</code>, with no <code>role="note"</code>, so screen readers read the callout as part of the content around it. Add <code>role="note"</code> to keep the old announcement, and select <code>.ui-callout</code> where a selector matched the <code>article</code>.`,
     ),
     `Breaking: <code>--_border-radius</code> is <code>--_radius</code>, <code>--_outlined-icon-color</code> and <code>--_link-hover-color</code> are <code>--_outlined-icon-text-color</code> and <code>--_link-hover-text-color</code>, and <code>--_icon-color</code> is no longer an override: the severity classes and <code>.ui-outlined</code> set <code>--_icon-text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `Severity fills, borders, icons and text read the <a href="#api"><code>--ui-palette-*</code></a> roles, so a theme restyles every severity at once.`,
@@ -877,6 +881,10 @@ export const whatsNew = {
       default: `An open menu <a href="#basics">closes when the page navigates</a>, also with a client router.`,
       html: `Import <code>opui-css/elements/close-on-navigate.js</code> to <a href="#basics">close an open menu</a> when the page navigates.`,
     },
+    {
+      default: `A link item, and an item that submits or resets a form, <a href="#basics">closes the menu on click</a>.`,
+      html: `Import <code>opui-css/elements/menu.js</code> to <a href="#basics">close the menu</a> on a click on a link, or on a submit or reset button.`,
+    },
     `Mark the <a href="#current-item">current item</a> with <code>aria-current</code>, like the language in use. It gets a check at the end.`,
     {
       ...slots(
@@ -894,7 +902,7 @@ export const whatsNew = {
     {
       html: `New component. A <a href="#basics">popover menu</a> that anchors to its trigger, with groups and submenus. No JavaScript.`,
       ...components(
-        `New component. A <a href="#basics">popover menu</a> that anchors to its trigger, with groups and submenus, built on <code>Menu</code> and <code>ListItem</code>. No JavaScript.`,
+        `New component. A <a href="#basics">popover menu</a> that anchors to its trigger, with groups and submenus, built on <code>Menu</code> and <code>ListItem</code>. It opens, anchors and closes without JavaScript.`,
       ),
     },
     {
@@ -1514,7 +1522,7 @@ export const whatsNew = {
       html: `<a href="#sizes">x-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
     },
     `<a href="#spread">Spread</a> fields line up at one width.`,
-    `The minimum height is three lines plus padding at every <a href="#sizes">size</a>.`,
+    `The minimum height is three lines plus padding at every <a href="#sizes">size</a>, or the lines in <a href="#rows"><code>rows</code></a> in browsers with typed <code>attr()</code>.`,
     {
       astro: `Breaking: extra attributes such as <code>autocomplete</code> and <code>aria-*</code> go to the textarea. <code>class</code> and <code>style</code> stay on the label (<a href="#api">API</a>).`,
       vue: `Breaking: <code>style</code> goes to the label instead of the textarea (<a href="#api">API</a>).`,

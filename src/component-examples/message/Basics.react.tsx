@@ -7,7 +7,7 @@ export default function Basics() {
         <Message
           author="Stella"
           datetime="2026-10-08T14:02"
-          start={<Avatar aria-hidden="true">SN</Avatar>}
+          start={<Avatar>SN</Avatar>}
           time="14:02"
         >
           <p>Heyyy! Did your band notice you changed strings yet?</p>
@@ -15,7 +15,7 @@ export default function Basics() {
         <Message
           author="Stella"
           datetime="2026-10-08T14:03"
-          start={<Avatar aria-hidden="true">SN</Avatar>}
+          start={<Avatar>SN</Avatar>}
           time="14:03"
         >
           <p>Flatwounds, right? So rad.</p>

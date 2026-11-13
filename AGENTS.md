@@ -12,6 +12,10 @@ Read the guide for the files you're editing:
 - An example: write the `.astro` file in `src/component-examples/<slug>/`, run `pnpm build-examples`, commit the HTML, React, Svelte and Vue files it writes.
 - A component: write the `.astro` file, `types.ts` and `types.astro.ts`, declare a bound value as the `model` in its `api.ts`, then run `pnpm build-components`, which compiles the React, Svelte and Vue files and the three framework type files from them (`scripts/build-components.mjs`). When it refuses a construct it names it: support the construct, or list the files in `scripts/hand-written-components.json` with the reason and write them by hand with `/port-component <Name>` (`.claude/skills/port-component/SKILL.md`), which loops on the component tests until the four frameworks render the same markup.
 
+## Fredahead log
+
+- [Fredahead](https://github.com/felix-bohlin/fredahead) is an app built on the 6.0 prereleases, and [its friction log](https://github.com/felix-bohlin/fredahead/blob/main/docs/opui-log.md) records the bugs and gaps it finds in this library, each checked against this source and with a suggested fix. [Issue 443](https://github.com/felix-bohlin/ui/issues/443) lists the open entries. Read a component's entries before changing it, and note in the log when a change here resolves one.
+
 ## Characters
 
 - Never write the em dash (U+2014) or the middle dot (U+00B7): `pnpm check-characters` fails on them in every tracked or new text file, and `scripts/check-commits.mjs` in commit messages and pull request titles.

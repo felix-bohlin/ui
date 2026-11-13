@@ -212,6 +212,24 @@ test("an attribute the base props require stays in React and falls through to th
   )
 })
 
+test("a link or button Avatar needs a name in React, and a plain one or a photo doesn't", () => {
+  expectTypeOf<{ label: string; src: string }>().toExtend<AvatarReact.Props>()
+  expectTypeOf<{ src: string | undefined }>().toExtend<AvatarReact.Props>()
+  expectTypeOf<{}>().toExtend<AvatarReact.Props>()
+  expectTypeOf<{
+    as: "button"
+    label: string
+  }>().toExtend<AvatarReact.Props>()
+  expectTypeOf<{
+    "aria-label": string
+    href: string
+  }>().toExtend<AvatarReact.Props>()
+  expectTypeOf<{ as: "button" }>().not.toExtend<AvatarReact.Props>()
+  expectTypeOf<{ href: string }>().not.toExtend<AvatarReact.Props>()
+  expectTypeOf<AvatarReact.Props>().not.toHaveProperty("alt")
+  expectTypeOf<AvatarVue.Props>().not.toHaveProperty("aria-label")
+})
+
 test("an attribute a component with several elements reads takes each element's type in Vue", () => {
   expectTypeOf<FieldLegendVue.Props["id"]>().toEqualTypeOf<
     | IntrinsicElementAttributes["legend"]["id"]

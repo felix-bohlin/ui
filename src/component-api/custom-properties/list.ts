@@ -21,6 +21,11 @@ export default {
       "Color of the lines between items in `.ui-bordered` and on `.ui-border-top`. Defaults to `--ui-border-color`, mixed with 20% `--ui-text-strong` in `.ui-tonal`.",
     kind: "input",
   },
+  "--_divider-gap": {
+    description:
+      "Space around the lines between items in `.ui-bordered` and on `.ui-border-top`. Smaller in `.ui-dense`.",
+    kind: "input",
+  },
   "--_font-size": {
     description:
       "Font size of a `.ui-avatar` in `.ui-start` or `.ui-end` of a `.ui-dense` list: `--ui-font-size-caption`, like `.ui-x-small`. A size class on the avatar wins.",
@@ -87,11 +92,6 @@ export default {
     description:
       'Inset shadow that draws the bar from `--_selected-indicator-bg-color` and `--_selected-indicator-offset`, on the start edge in both writing directions. `none` in a `.ui-menu`, a `[role="listbox"]` list and a `Select` picker, which mark the selected item with a check.',
     kind: "output",
-  },
-  "--_separator-gap": {
-    description:
-      "Space around the lines between items in `.ui-bordered` and on `.ui-border-top`. Smaller in `.ui-dense`.",
-    kind: "input",
   },
   "--_size": {
     description:

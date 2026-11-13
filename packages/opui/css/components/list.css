@@ -14,6 +14,7 @@ Lists meant to be used stand-alone or as part of Select elements
     );
     --_description-text-color: var(--ui-text-subtle);
     --_divider-border-color: var(--ui-border-color);
+    --_divider-gap: var(--ui-space-3);
     --_hover-bg-color: oklch(
       from var(--ui-primary) l c h / var(--ui-state-hover-alpha-accent)
     );
@@ -37,7 +38,6 @@ Lists meant to be used stand-alone or as part of Select elements
     --_selected-indicator-size: var(--ui-border-width-thick);
     --_selected-shadow: inset var(--_selected-indicator-offset) 0 0
       var(--_selected-indicator-bg-color);
-    --_separator-gap: var(--ui-space-3);
     --_start-image-size: 3.5rem;
     --_start-size: var(--ui-icon-size);
     --_start-video-size: 4rem;
@@ -104,14 +104,14 @@ Lists meant to be used stand-alone or as part of Select elements
     &
       > :where([role="group"], optgroup)
       > :where(label, legend, option).ui-border-top {
-      margin-block-start: var(--_separator-gap);
+      margin-block-start: var(--_divider-gap);
 
       &::before {
         border-block-start: var(--ui-border-width) solid
           var(--_divider-border-color);
         content: "";
         display: block;
-        inset-block: calc(var(--_separator-gap) / -2) auto;
+        inset-block: calc(var(--_divider-gap) / -2) auto;
         inset-inline: 0;
         position: absolute;
       }
@@ -119,8 +119,8 @@ Lists meant to be used stand-alone or as part of Select elements
 
     /* Dense - less gaps and spacing */
     &.ui-dense {
+      --_divider-gap: var(--ui-space-2);
       --_item-gap: var(--ui-space-2);
-      --_separator-gap: var(--ui-space-2);
       --_start-size: var(--ui-icon-size-small);
 
       & > :where(li, option),

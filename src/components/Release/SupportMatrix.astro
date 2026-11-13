@@ -4,16 +4,13 @@ import { fileURLToPath } from "node:url"
 import { gzipSync } from "node:zlib"
 import {
   Chip,
-  FieldLegend,
-  Fieldset,
+  Select,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeaderCell,
   TableRow,
-  ToggleButton,
-  ToggleGroup,
 } from "opui-css/astro"
 import { features } from "web-features"
 import {
@@ -177,24 +174,23 @@ const PATHS = { full: check, none: cross, partial: warn } satisfies Record<
 
 <div class="support-matrix ui-not-rich-text" id={id}>
   <div class="support-matrix-controls">
-    <Fieldset>
-      <FieldLegend>View</FieldLegend>
-      <ToggleGroup aria-label="View" name={`${id}-view`} size="small">
-        <ToggleButton checked value="features">Features by engine</ToggleButton>
-        <ToggleButton value="compat">What the compat layer covers</ToggleButton>
-      </ToggleGroup>
-    </Fieldset>
-    <Fieldset class="support-matrix-filter">
-      <FieldLegend>Baseline</FieldLegend>
-      <ToggleGroup aria-label="Baseline" name={`${id}-filter`} size="small">
-        {FILTERS.map((filter) => <ToggleButton
-          checked={filter.value === "all"}
-          value={filter.value}
-        >
-          {filter.label}
-        </ToggleButton>)}
-      </ToggleGroup>
-    </Fieldset>
+    <Select label="View" name={`${id}-view`} size="small">
+      <option selected value="features">Features by engine</option>
+      <option value="compat">What the compat layer covers</option>
+    </Select>
+    <Select
+      class="support-matrix-filter"
+      label="Baseline"
+      name={`${id}-filter`}
+      size="small"
+    >
+      {FILTERS.map((filter) => <option
+        selected={filter.value === "all"}
+        value={filter.value}
+      >
+        {filter.label}
+      </option>)}
+    </Select>
   </div>
 
   <div class="support-matrix-views">
@@ -398,7 +394,7 @@ const PATHS = { full: check, none: cross, partial: warn } satisfies Record<
     min-inline-size: 0;
   }
 
-  .support-matrix:has([name="support-matrix-view"][value="compat"]:checked)
+  .support-matrix:has([name="support-matrix-view"] [value="compat"]:checked)
     .support-matrix-filter {
     display: none;
   }
@@ -432,9 +428,9 @@ const PATHS = { full: check, none: cross, partial: warn } satisfies Record<
     }
   }
 
-  .support-matrix:has([name="support-matrix-view"][value="compat"]:checked)
+  .support-matrix:has([name="support-matrix-view"] [value="compat"]:checked)
     .support-matrix-view[data-view="features"],
-  .support-matrix:has([name="support-matrix-view"][value="features"]:checked)
+  .support-matrix:has([name="support-matrix-view"] [value="features"]:checked)
     .support-matrix-view[data-view="compat"] {
     display: none;
     opacity: 0;
@@ -509,15 +505,15 @@ const PATHS = { full: check, none: cross, partial: warn } satisfies Record<
     }
   }
 
-  .support-matrix:has([name="support-matrix-filter"][value="high"]:checked)
+  .support-matrix:has([name="support-matrix-filter"] [value="high"]:checked)
     [data-view="features"]
     tbody
     tr:not([data-baseline="high"]),
-  .support-matrix:has([name="support-matrix-filter"][value="low"]:checked)
+  .support-matrix:has([name="support-matrix-filter"] [value="low"]:checked)
     [data-view="features"]
     tbody
     tr:not([data-baseline="low"]),
-  .support-matrix:has([name="support-matrix-filter"][value="none"]:checked)
+  .support-matrix:has([name="support-matrix-filter"] [value="none"]:checked)
     [data-view="features"]
     tbody
     tr:not([data-baseline="none"]) {

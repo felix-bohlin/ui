@@ -239,7 +239,7 @@ export default {
     },
     {
       description:
-        'The password toggle, with `aria-pressed` and `command="--toggle-password"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is, as the component renders it and `<opui-text-field>` keeps it when a script changes the input. Hidden until `<opui-text-field>` is defined.',
+        'The password toggle, with `aria-pressed` and `command="--toggle-password"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is, and `aria-disabled` while the input is. `<opui-text-field>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-text-field>` is defined.',
       props: ["passwordToggle", "passwordToggleLabel"],
       selector: ".ui-field > .ui-end > .ui-button",
       slots: ["icon-checked", "icon-unchecked"],

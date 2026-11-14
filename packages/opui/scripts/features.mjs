@@ -145,6 +145,7 @@ export const patterns = [
   },
   { id: "popover", pattern: /:popover-open\b/ },
   { id: "progress-function", pattern: /\bprogress\(/ },
+  { id: "reading-flow", pattern: /\breading-flow:/ },
   { id: "registered-custom-properties", pattern: /@property\s+--/ },
   { id: "relative-color", pattern: /\(\s*from\s/ },
   { id: "round-mod-rem", pattern: /\b(?:mod|rem|round)\(/ },

@@ -4,6 +4,7 @@ const TOGGLE = "--toggle-password"
 
 export class TextFieldElement extends Base {
   #controller
+  #observer
 
   get input() {
     return this.querySelector("input")
@@ -25,12 +26,26 @@ export class TextFieldElement extends Base {
         { capture: true, signal },
       )
     }
+    this.#observer = new MutationObserver(() => this.#sync())
+    this.#observer.observe(this, {
+      attributeFilter: ["aria-disabled", "disabled"],
+      childList: true,
+      subtree: true,
+    })
+    for (
+      let fieldset = this.closest("fieldset");
+      fieldset;
+      fieldset = fieldset.parentElement?.closest("fieldset")
+    ) {
+      this.#observer.observe(fieldset, { attributeFilter: ["disabled"] })
+    }
     this.#sync()
     queueMicrotask(() => this.#sync())
   }
 
   disconnectedCallback() {
     this.#controller?.abort()
+    this.#observer?.disconnect()
   }
 
   hidePassword() {
@@ -51,14 +66,23 @@ export class TextFieldElement extends Base {
 
   #command(event) {
     if (event.command !== TOGGLE) return
+    if (this.input?.getAttribute("aria-disabled") === "true") return
     if (this.input?.type === "password") this.showPassword()
     else this.hidePassword()
   }
 
   #sync() {
     const button = this.#toggle()
-    if (!button || !this.input) return
-    button.setAttribute("aria-pressed", String(this.input.type === "text"))
+    const input = this.input
+    if (!button || !input) return
+    if (input.matches(":disabled")) this.hidePassword()
+    button.setAttribute("aria-pressed", String(input.type === "text"))
+    if (button.disabled !== input.disabled) button.disabled = input.disabled
+    const inert = input.getAttribute("aria-disabled") === "true"
+    if (inert !== (button.getAttribute("aria-disabled") === "true")) {
+      if (inert) button.setAttribute("aria-disabled", "true")
+      else button.removeAttribute("aria-disabled")
+    }
   }
 
   #toggle() {

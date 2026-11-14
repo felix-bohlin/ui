@@ -40,7 +40,14 @@ export class NumberFieldElement extends Base {
     )
     this.#observer = new MutationObserver(() => this.#sync())
     this.#observer.observe(this, {
-      attributeFilter: ["disabled", "max", "min", "readonly", "value"],
+      attributeFilter: [
+        "aria-disabled",
+        "disabled",
+        "max",
+        "min",
+        "readonly",
+        "value",
+      ],
       childList: true,
       subtree: true,
     })
@@ -60,6 +67,10 @@ export class NumberFieldElement extends Base {
 
   stepUp() {
     this.#step(1)
+  }
+
+  #inert(element) {
+    return element.getAttribute("aria-disabled") === "true"
   }
 
   #button(command) {
@@ -108,7 +119,7 @@ export class NumberFieldElement extends Base {
 
   #step(direction) {
     const input = this.input
-    if (!input || input.disabled || input.readOnly) return
+    if (!input || input.disabled || input.readOnly || this.#inert(input)) return
     const before = input.value
     try {
       if (direction > 0) input.stepUp()
@@ -132,10 +143,12 @@ export class NumberFieldElement extends Base {
     for (const [command, atLimit] of Object.entries(limits)) {
       const button = this.#button(command)
       if (!button) continue
-      button.toggleAttribute("disabled", input.disabled)
-      if (input.readOnly || atLimit)
-        button.setAttribute("aria-disabled", "true")
-      else button.removeAttribute("aria-disabled")
+      if (button.disabled !== input.disabled) button.disabled = input.disabled
+      const inert = input.readOnly || atLimit || this.#inert(input)
+      if (inert !== this.#inert(button)) {
+        if (inert) button.setAttribute("aria-disabled", "true")
+        else button.removeAttribute("aria-disabled")
+      }
     }
   }
 }

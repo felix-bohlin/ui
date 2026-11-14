@@ -31,8 +31,14 @@ export const keywords = ["multiline", "text area"]
     "field-sizing",
     "has",
     "lh",
+    "reading-flow",
+    "registered-custom-properties",
     "user-pseudos",
   ]}
+  fallbacks={{
+    "reading-flow":
+      "Without `reading-flow`, Tab and screen readers reach the top and start parts after the control, in the order of the markup.",
+  }}
   heroAnatomy
   apis={[{ title: "Textarea API", api: textareaApi }]}
   changelogPaths={[

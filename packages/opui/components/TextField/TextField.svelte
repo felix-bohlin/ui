@@ -17,6 +17,7 @@
     characterCountLabel,
     class: className,
     defaultValue,
+    disabled,
     dropZone,
     error,
     hideLabel,
@@ -113,6 +114,7 @@
       )}
       aria-invalid={error ? "true" : ariaInvalid}
       aria-labelledby={named ? idRefs(labelId, startId, endId) : ariaLabelledBy}
+      {disabled}
       id={inputId}
       name={name ?? field?.name}
       {type}
@@ -132,6 +134,7 @@
             aria-pressed="false"
             command="--toggle-password"
             commandfor={inputId}
+            {disabled}
             round
           >
             {#if iconUnchecked}

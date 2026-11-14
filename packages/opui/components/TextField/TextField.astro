@@ -112,6 +112,7 @@ const endTextId = hasEndText ? ids("end-text") : undefined
         aria-pressed="false"
         command="--toggle-password"
         commandfor={inputId}
+        disabled={rest.disabled}
         round
       >
         {Astro.slots.has("icon-unchecked") ? (

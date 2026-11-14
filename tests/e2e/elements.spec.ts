@@ -443,6 +443,14 @@ const ELEMENTS: Scenario[] = [
         document.querySelector("opui-text-field")!.hidePassword(),
       )
       await expect(input).toHaveAttribute("type", "password")
+      await input.evaluate((element: HTMLInputElement) => {
+        element.disabled = true
+      })
+      await expect(toggle).toBeDisabled()
+      await input.evaluate((element: HTMLInputElement) => {
+        element.disabled = false
+      })
+      await expect(toggle).toBeEnabled()
     },
   },
   {

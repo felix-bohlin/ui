@@ -4,6 +4,7 @@ const TOGGLE = "--toggle-password"
 
 export class TextFieldElement extends Base {
   #controller
+  #observer
 
   get input() {
     return this.querySelector("input")
@@ -25,12 +26,19 @@ export class TextFieldElement extends Base {
         { capture: true, signal },
       )
     }
+    this.#observer = new MutationObserver(() => this.#sync())
+    this.#observer.observe(this, {
+      attributeFilter: ["disabled"],
+      childList: true,
+      subtree: true,
+    })
     this.#sync()
     queueMicrotask(() => this.#sync())
   }
 
   disconnectedCallback() {
     this.#controller?.abort()
+    this.#observer?.disconnect()
   }
 
   hidePassword() {
@@ -57,8 +65,10 @@ export class TextFieldElement extends Base {
 
   #sync() {
     const button = this.#toggle()
-    if (!button || !this.input) return
-    button.setAttribute("aria-pressed", String(this.input.type === "text"))
+    const input = this.input
+    if (!button || !input) return
+    button.setAttribute("aria-pressed", String(input.type === "text"))
+    if (button.disabled !== input.disabled) button.disabled = input.disabled
   }
 
   #toggle() {

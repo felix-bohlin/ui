@@ -123,6 +123,7 @@ export default function TextField({
                 aria-pressed="false"
                 command="--toggle-password"
                 commandfor={inputId}
+                disabled={rest.disabled}
                 round
               >
                 {iconUnchecked ? (

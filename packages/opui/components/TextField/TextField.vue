@@ -148,6 +148,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
           aria-pressed="false"
           command="--toggle-password"
           :commandfor="inputId"
+          :disabled="attrs.disabled"
           round
           ><span
             v-if="$slots['icon-unchecked']"

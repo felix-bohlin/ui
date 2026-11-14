@@ -62,7 +62,7 @@ test("affixes center on the control's line at every size", async ({ page }) => {
   ).toEqual(["default", "large", "small", "x-small"])
   expect(
     [...new Set(affixes.flatMap(({ holds }) => holds))].toSorted(),
-  ).toEqual(["#text", "button", "svg"])
+  ).toEqual(["#text", "button", "span", "svg"])
   expectAffixes(affixes)
 })
 
@@ -101,6 +101,49 @@ test("content taller than a field's button keeps the button's inset", async ({
   expect(affixes.filter(({ inset }) => inset >= 3)).not.toEqual([])
   expectAffixes(affixes)
 })
+
+for (const root of ["ui-text-field", "ui-textarea"]) {
+  test(`Tab follows the order a ${root}'s parts are drawn in`, async ({
+    page,
+  }) => {
+    await openFixture(page, "html", "stress/forms")
+    const control =
+      root === "ui-textarea"
+        ? '<textarea id="order-control"></textarea>'
+        : '<input id="order-control" />'
+    await page.locator("main").evaluate(
+      (main, markup) => {
+        main.insertAdjacentHTML("afterbegin", markup)
+      },
+      `<button id="order-before" type="button">Before</button>
+      <div class="${root}">
+        <label class="ui-label" for="order-control">Order</label>
+        <span class="ui-field">${control}<span class="ui-start"
+            ><button aria-label="Start" class="ui-button" id="order-start" type="button">S</button></span
+          ><span class="ui-end"
+            ><button aria-label="End" class="ui-button" id="order-end" type="button">E</button></span
+          ><span class="ui-top"
+            ><button class="ui-button" id="order-top" type="button">Top</button></span
+          ><span class="ui-bottom"
+            ><button class="ui-button" id="order-bottom" type="button">Bottom</button></span
+        ></span>
+      </div>`,
+    )
+    await page.locator("#order-before").focus()
+    const order = []
+    for (let step = 0; step < 5; step++) {
+      await page.keyboard.press("Tab")
+      order.push(await page.evaluate(() => document.activeElement?.id))
+    }
+    expect(order).toEqual([
+      "order-top",
+      "order-start",
+      "order-control",
+      "order-end",
+      "order-bottom",
+    ])
+  })
+}
 
 const DENSITIES = {
   "0.875": {

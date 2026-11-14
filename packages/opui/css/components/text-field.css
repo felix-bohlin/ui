@@ -1,4 +1,4 @@
-@property --_affix-box {
+@property --_affix-block-size {
   inherits: true;
   initial-value: 0px;
   syntax: "<length>";
@@ -12,7 +12,7 @@
   :where(.ui-text-field, .ui-textarea, .ui-select, .ui-number-field) {
     --_motion: var(--ui-motion);
     --_accent: var(--ui-primary);
-    --_affix-box: calc(var(--_size) - var(--ui-field-border-width) * 2);
+    --_affix-block-size: calc(var(--_size) - var(--ui-field-border-width) * 2);
     --_affix-text-color: var(--ui-text);
     --_arrow-inset: var(--ui-space-3);
     --_arrow-padding: calc(
@@ -69,6 +69,7 @@
         minmax(0, auto);
       min-block-size: var(--_size);
       position: relative;
+      reading-flow: grid-rows;
 
       transition:
         background-color var(--_duration) var(--_ease),
@@ -114,15 +115,15 @@
       block-size: calc(1lh + var(--_field-padding-block-fit) * 2);
     }
 
-    /* Affixes - center in --_affix-box, --_affix-inset from the border */
+    /* Affixes - center in --_affix-block-size; a Button keeps --_affix-padding-block */
     .ui-field > :is(.ui-start, .ui-end) {
       --_affix-button-size: max(
         var(--ui-target-min-size),
-        var(--_affix-box) - var(--_affix-inset) * 2
+        var(--_affix-block-size) - var(--_affix-padding-block) * 2
       );
-      --_affix-inset: clamp(
+      --_affix-padding-block: clamp(
         0px,
-        (var(--_affix-box) - var(--ui-target-min-size)) / 2,
+        (var(--_affix-block-size) - var(--ui-target-min-size)) / 2,
         var(--ui-space-1)
       );
 
@@ -131,7 +132,6 @@
       display: inline-flex;
       font-size: var(--_font-size);
       line-height: var(--ui-line-height-tight);
-      padding-block: var(--_affix-inset);
       padding-inline: var(--_field-padding-inline);
       white-space: nowrap;
 
@@ -209,14 +209,18 @@
     /* The control's first line is the box when it doesn't fill the field */
     .ui-field:has(> :is(.ui-top, .ui-bottom)) > :is(.ui-start, .ui-end),
     &.ui-textarea .ui-field > :is(.ui-start, .ui-end) {
-      --_affix-box: calc(1lh + var(--_field-padding-block-fit) * 2);
+      --_affix-block-size: calc(1lh + var(--_field-padding-block-fit) * 2);
     }
 
-    /* Textarea - keep affix aligned with the first line */
+    /* Textarea - keep affix aligned with the first line, and taller content off the border */
     &.ui-textarea .ui-field {
       & > :is(.ui-start, .ui-end) {
         align-self: start;
-        min-block-size: var(--_affix-box);
+        min-block-size: var(--_affix-block-size);
+      }
+
+      & > :is(.ui-start, .ui-end):has(> *) {
+        padding-block: var(--_affix-padding-block);
       }
     }
 

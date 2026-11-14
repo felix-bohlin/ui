@@ -6,19 +6,19 @@ export default {
       "Border color of `.ui-field` when its control has focus without `:focus-visible`, such as a clicked file or color input or a Select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.",
     kind: "input",
   },
-  "--_affix-box": {
+  "--_affix-block-size": {
     description:
-      "The box `.ui-start` and `.ui-end` center their content in: the field inside its border, or the control's first line, `1lh` and its block padding, in a `Textarea` and in a field with `.ui-top` or `.ui-bottom`. A registered `<length>`, so `1lh` is the line height of the part.",
+      "The block size `.ui-start` and `.ui-end` center what they hold in: the field inside its border, or the control's first line, `1lh` and its block padding, in a `Textarea` and in a field with `.ui-top` or `.ui-bottom`. A registered `<length>`, so `1lh` is the line height of the part. Set on the root, and on `.ui-start` and `.ui-end` in a `Textarea` and in a field with `.ui-top` or `.ui-bottom`.",
     kind: "output",
   },
   "--_affix-button-size": {
     description:
-      "Size of a `.ui-button` in `.ui-start` or `.ui-end`: `--_affix-box` minus `--_affix-inset` on each side, and at least `--ui-target-min-size`.",
+      "Size of a `.ui-button` in `.ui-start` or `.ui-end`: `--_affix-block-size` minus `--_affix-padding-block` above and below, and at least `--ui-target-min-size`. Set on `.ui-start` and `.ui-end`.",
     kind: "output",
   },
-  "--_affix-inset": {
+  "--_affix-padding-block": {
     description:
-      "The space between what `.ui-start` or `.ui-end` holds and the field's border: `--ui-space-1`, or less where `--_affix-box` leaves less room around a `--ui-target-min-size` button. Content taller than the box minus the inset makes the field taller and keeps the inset. Text alone keeps the text's own padding instead.",
+      "The space between a `.ui-button` in `.ui-start` or `.ui-end` and the field's border above and below it: `--ui-space-1`, or less where `--_affix-block-size` leaves less room around a `--ui-target-min-size` button. In a `Textarea` it pads what the parts hold, so content taller than the first line starts this far below the top. Text alone keeps `--_field-padding-block-fit`. Set on `.ui-start` and `.ui-end`.",
     kind: "output",
   },
   "--_affix-text-color": {

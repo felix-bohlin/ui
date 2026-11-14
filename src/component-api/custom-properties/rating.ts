@@ -54,7 +54,7 @@ export default {
   },
   "--_size": {
     description:
-      "Size of one star. Defaults to `--ui-icon-size` on a meter and `--ui-control-size-x-small` on an input, so every radio is a large enough target; `.ui-small` and `.ui-large` set the next size down and up.",
+      "Size of one star. Defaults to `--ui-icon-size` on a meter and `--ui-control-size-x-small` on an input, and on an input at least `--ui-target-min-size`, so every radio is a large enough target at any density; `.ui-small` and `.ui-large` set the next size down and up.",
     kind: "input",
   },
   "--_star-empty-image": {

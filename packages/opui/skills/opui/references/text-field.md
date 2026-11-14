@@ -17,7 +17,7 @@ A single-line text input with a label, start and end text, and validation.
 - `.ui-field > .ui-start` (slot `start`): Content at the inline-start of the field, inside the border.
 - `<input>` (model): The input element.
 - `.ui-field > .ui-end` (slot `end`): Content at the inline-end of the field, inside the border, and the password toggle.
-- `.ui-field > .ui-end > .ui-button` (prop `passwordToggle`, prop `passwordToggleLabel`, slot `icon-checked`, slot `icon-unchecked`): The password toggle, with `aria-pressed` and `command="--toggle-password"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is, as the component renders it and `<opui-text-field>` keeps it when a script changes the input. Hidden until `<opui-text-field>` is defined.
+- `.ui-field > .ui-end > .ui-button` (prop `passwordToggle`, prop `passwordToggleLabel`, slot `icon-checked`, slot `icon-unchecked`): The password toggle, with `aria-pressed` and `command="--toggle-password"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is, and `aria-disabled` while the input is. `<opui-text-field>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-text-field>` is defined.
 - `.ui-field > .ui-bottom` (slot `bottom`): Content below the input, inside the border, with a divider.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
 - `<opui-character-count>` (prop `characterCount`, prop `characterCountLabel`): The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left.
@@ -87,7 +87,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_start-end-radius`: The radius of the start-end corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
 - `--_start-start-radius`: The radius of the start-start corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the control before it.
 
-Outputs: `--_affix-box`, `--_affix-button-size`, `--_affix-inset`, `--_affix-text-color`, `--_arrow-padding`, `--_bg-color`, `--_border-color`, `--_duration`, `--_field-padding-block-fit`, `--_file-button-inset` and `--_helper-text-color`.
+Outputs: `--_affix-block-size`, `--_affix-button-size`, `--_affix-padding-block`, `--_affix-text-color`, `--_arrow-padding`, `--_bg-color`, `--_border-color`, `--_duration`, `--_field-padding-block-fit`, `--_file-button-inset` and `--_helper-text-color`.
 
 ## Theme tokens
 

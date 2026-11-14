@@ -82,7 +82,7 @@ Use `--ui-density` to change the size of every control.
 }
 ```
 
-A `Button` in a field's start or end, and a checkbox, radio or switch whose label is hidden, stay at least `--ui-target-min-size` (24px, the minimum target size) at any density. At a compact density, an x-small field grows to fit its button.
+A `Button` in a field's start or end, a checkbox, radio or switch whose label is hidden, the stars of a rating and the markers of a carousel stay at least `--ui-target-min-size` (24px, the minimum target size) at any density. A field with less than 24px inside its border grows to fit its button, such as an x-small field at `0.875` or a small one at `0.75`.
 
 ## Spacing
 

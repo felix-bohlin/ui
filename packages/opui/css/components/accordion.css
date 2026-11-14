@@ -85,6 +85,19 @@
         text-overflow: ellipsis;
       }
 
+      svg.ui-marker:empty {
+        background-color: currentColor;
+        mask: var(--ui-icon-expand) center / contain no-repeat;
+
+        @media (forced-colors: active) {
+          forced-color-adjust: none;
+        }
+
+        @media print {
+          print-color-adjust: exact;
+        }
+      }
+
       .ui-marker {
         flex-shrink: 0;
         margin-inline-start: auto;

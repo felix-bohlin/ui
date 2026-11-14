@@ -440,14 +440,24 @@ const groupName = name || $id("tabs") // Prefer the passed value if available
 
 ### Default Icons
 
-A part renders the default icon, so users can leave it out or put their own `svg` in its place. `CalloutIcon` reads the severity from context:
+A part renders the default icon, so users can leave it out or put their own `svg` in its place. The default is an empty `svg` with its size attributes and no shapes, and the component's stylesheet paints it as a mask in `currentColor` from the `--ui-icon-*` token of its role, with a forced-colors color and `print-color-adjust: exact`. A slotted `svg` has shapes, so `:empty` leaves it alone, and a theme swaps every default by setting the tokens. `CalloutIcon` reads the severity from context:
 
 ```astro
 ---
 const callout = calloutContext.get()
+const severity = callout?.severity
 ---
 
-{callout?.severity === "info" && <svg>...</svg>}
+{severity && severity !== "neutral" && (
+  <svg aria-hidden="true" width="32" height="32" viewBox="0 0 32 32"></svg>
+)}
+```
+
+```css
+&:is(.ui-critical, .ui-info, .ui-success, .ui-warning) > svg:empty {
+  background-color: currentColor;
+  mask: var(--_icon-image) center / contain no-repeat;
+}
 ```
 
 ---
@@ -532,26 +542,29 @@ Private `--_*` properties follow the same suffixes as component tokens, so one w
 
 Windows High Contrast (`forced-colors: active`) repaints everything with system colors and drops backgrounds and shadows. A component needs a `@media (forced-colors: active)` block only where a boundary or a state is carried by color alone: a shadow-only edge, a tinted selected state, a filled track. Borders are forced to `CanvasText` by the browser and need nothing, and Chromium forces a `transparent` border color like any other. `tests/unit/forced-colors.test.ts` checks both lists against the stylesheets that contain the media query. The components with a block, and why:
 
+- `Accordion`: the default marker is a mask in `currentColor`, so it keeps the summary's forced text color with `forced-color-adjust: none`. Every variant border is real, including the elevated and tonal edge, which the browser forces to `CanvasText`.
 - `Avatar`: a letter avatar is a fill, so it gets a `CanvasText` border.
 - `Button`: the current page (`aria-current="page"`) is a tint, or a dropped fill on a filled button, so it gets `SelectedItem`, and `aria-disabled="true"` only dims the text or the fill, so it gets the `GrayText` the browser gives a native disabled button.
-- `Card`: the hovered card-link border only changes color, so it gets `Highlight`.
-- `Carousel`: the scroll markers are fills, so they get a `ButtonText` outline and `SelectedItem` for the current one.
+- `Callout`: every boundary is a real border, but the default severity and close icons are masks, so they get `CanvasText` and `ButtonText`.
+- `Card`: the hovered card-link border only changes color, so it gets `Highlight`, and the default close icon of a `Dialog` or `Drawer` header is a mask, so it gets `ButtonText`.
+- `Carousel`: the scroll markers are fills, so they get a `ButtonText` outline and `SelectedItem` for the current one, and the scroll buttons draw their icon in the inverse of their face from stacked backgrounds, so they keep it on `Canvas` with a `ButtonText` border and `forced-color-adjust: none`.
 - `Checkbox`, `Radio`, `Switch` and `Choice` (their shared root): the checked mark, the switch track and the checked `.ui-card` border are tints, so they get `SelectedItem`, `SelectedItemText` and `CanvasText`, and the invalid state is a color, so an invalid input, switch track or card gets a dashed border.
 - `Chip`: the severity dot and the selected state are fills, so they get `CanvasText` and `SelectedItem`, and the dot on a pressed chip `SelectedItemText`, like its label. `aria-disabled="true"` gets `GrayText`, like `Button`.
 - `ControlGroup`: the edges between controls are real borders, but a link button's would be `LinkText`, so every button gets a `ButtonBorder` border and the edges are one color.
 - `Divider`: the line is a background, so it becomes a `CanvasText` border.
-- `List`: selected and current items are tints, so they get `SelectedItem`, and the check of a `Menu`, listbox or `Select` option is a mask in `currentColor`, so it follows their `SelectedItemText`.
+- `List`: selected and current items are tints, so they get `SelectedItem`, and the check of a `Menu`, listbox or `Select` option is a mask, so it gets their `SelectedItemText`.
 - `Message`: the bubble is a fill, so it gets a `CanvasText` border, the typing dots keep `CanvasText`, and a checked reaction is a tint, so it gets `SelectedItem`.
+- `NumberField`: the default icons of the step buttons are masks, so they get `ButtonText`. `text-field.css` and `button.css` cover the field and the buttons.
 - `OneTimeCode`: the boxes and the ring are masks, so they get `CanvasText`, `GrayText` when disabled and `Highlight` with focus, and the field has no border for the dashed invalid border of `TextField`, so an invalid code gets a dashed outline.
 - `Progress`: the filled track, so it gets `SelectedItem` and a `CanvasText` outline, and the ring of `.ui-round` is a gradient, so it keeps `SelectedItem` and `GrayText` with `forced-color-adjust: none`.
 - `Range`: the track and its fill are backgrounds, so they get `CanvasText` and `SelectedItem`, and the invalid state is a color, so an invalid thumb gets a dashed border.
 - `Rating`: the stars are masks over backgrounds, so filled stars get `SelectedItem` on the input and `CanvasText` on the meter, empty stars `GrayText` and the clear icon `ButtonText`, and the invalid state is a color, so the stars of an invalid input get a dashed border.
-- `Select`: the picker chevron is a mask, so it gets `ButtonText`.
+- `Select`: the picker chevron is a mask, so it gets `ButtonText`, and the check of the selected option `SelectedItemText`.
 - `SortableTable`: the sort arrow is a mask, so it gets `ButtonText`.
 - `Spinner`: a `CanvasText` ring with `forced-color-adjust: none`, so its transparent segment is kept and the spin stays visible.
 - `Stepper`: complete and error markers and the line after a complete step are fills, so they get `CanvasText`, the current marker `Highlight` and the line to a later step `GrayText`.
 - `Tabs`: the selected tab is a tint, so it gets `SelectedItem` and a `CanvasText` border, and its focus ring, where it's drawn inside the fill, `SelectedItemText`.
-- `TextField`: the field border is real, but the focus outline gets `Highlight`, an invalid field, whose red border is forced away, a dashed border, and the autosuggest mask chevron `ButtonText`. `Select` and `Textarea` share the stylesheet.
+- `TextField`: the field border is real, but the focus outline gets `Highlight`, an invalid field, whose red border is forced away, a dashed border, and the autosuggest mask chevron and the default icons of the password toggle `ButtonText`. `Select` and `Textarea` share the stylesheet.
 - `Timeline`: colored and current markers are fills, so they get `CanvasText`, and the current marker and the tracked line `Highlight`.
 - `Toaster`: every toast is a `Callout`, whose boundary is a real border, and the severity and close icons are masks, so they get `CanvasText` and `ButtonText`.
 - `ToggleButton`: the checked state is a tint, so it gets `SelectedItem`.
@@ -561,13 +574,11 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 
 The components without a block, and why:
 
-- `Accordion`: every variant border is real, including the elevated and tonal edge, which the browser forces to `CanvasText`.
 - `Anchor`, `Copy`, `SelectAll`: layout only, no boundary or state of their own. The `Copy` label is a bordered surface, which the browser forces to `CanvasText`, next to its announcement.
 - `DescriptionList`, `Form`, `Layout`: the browser forces their lines and colors itself. The `DescriptionList` leaders and total line are real borders and the `Layout` `.ui-bordered` lines are column and row rules, both forced to `CanvasText`. The invalid end text of a `Form` fieldset loses its color, while the invalid controls inside keep their dashed border.
-- `Badge`, `Callout`, `Dialog`, `Drawer`, `Menu`, `Table`: every boundary is a real border, which the browser forces to `CanvasText`.
+- `Badge`, `Dialog`, `Drawer`, `Menu`, `Table`: every boundary is a real border, which the browser forces to `CanvasText`.
 - `Link`: text and underlines, forced to `LinkText` and `CanvasText`.
 - `Stat`: text only, no boundary or state.
-- `NumberField`: `number-field.css` only centers the value and hides the spin buttons; `text-field.css` and `button.css` cover the field and the buttons.
 - `Textarea`: `textarea.css` only sizes the control; `text-field.css` has the block.
 
 When a component gains a shadow-only edge or a color-only state, it gets a block and this list is updated.

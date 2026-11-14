@@ -6,7 +6,6 @@ import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { idRefs } from "../id"
-import { minusPath, plusPath } from "./icons"
 import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -104,9 +103,7 @@ const endTextId = () =>
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" :d="minusPath" />
-          </svg>
+          ></svg>
         </Button>
       </span>
       <input
@@ -139,9 +136,7 @@ const endTextId = () =>
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" :d="plusPath" />
-          </svg>
+          ></svg>
         </Button>
       </span>
     </span>

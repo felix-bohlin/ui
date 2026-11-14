@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs"
+import { globSync, readFileSync } from "node:fs"
 import { describe, expect, test } from "vitest"
 import {
   buildIconSet,
@@ -188,6 +188,33 @@ describe("THIRD-PARTY-NOTICES", () => {
     expect(notices).toContain(fluent.package)
     expect(notices).toContain(fluent.url)
     expect(notices).toContain(`${fluent.license} License`)
+  })
+})
+
+const drawnShapes = (source: string) =>
+  [...source.matchAll(/<svg\b[^>]*>([\s\S]*?)<\/svg>/g)]
+    .map(([, inner]) => inner.trim())
+    .filter((inner) => inner !== "")
+
+describe("default icons", () => {
+  test("every svg a component renders is empty, for its stylesheet to paint from an icon token", () => {
+    const files = globSync("packages/opui/components/*/*.astro").toSorted()
+    expect(files.length).toBeGreaterThan(0)
+    expect(
+      Object.fromEntries(
+        files
+          .map((file) => [file, drawnShapes(readFileSync(file, "utf8"))])
+          .filter(([, shapes]) => shapes.length > 0),
+      ),
+      "render an empty svg with its size attributes and paint it with a mask of the --ui-icon-* token in the component's stylesheet",
+    ).toEqual({})
+  })
+
+  test("the reader flags an svg with shapes", () => {
+    expect(
+      drawnShapes('<svg viewBox="0 0 1 1"><path d="M0 0" /></svg>'),
+    ).toEqual(['<path d="M0 0" />'])
+    expect(drawnShapes('<svg viewBox="0 0 1 1"></svg>')).toEqual([])
   })
 })
 

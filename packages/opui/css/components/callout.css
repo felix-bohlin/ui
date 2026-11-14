@@ -62,6 +62,22 @@
       --_text-color: var(--ui-palette-strong);
     }
 
+    &.ui-critical {
+      --_icon-image: var(--ui-icon-critical);
+    }
+
+    &.ui-info {
+      --_icon-image: var(--ui-icon-info);
+    }
+
+    &.ui-success {
+      --_icon-image: var(--ui-icon-success);
+    }
+
+    &.ui-warning {
+      --_icon-image: var(--ui-icon-warning);
+    }
+
     &.ui-outlined {
       --_bg-color: var(--_outlined-bg-color);
       --_border-color: var(--_outlined-border-color);
@@ -136,6 +152,32 @@
       & > svg {
         color: var(--_icon-text-color);
         margin-block-start: 0.15em;
+      }
+    }
+
+    &:is(.ui-critical, .ui-info, .ui-success, .ui-warning) > svg:empty {
+      background-color: currentColor;
+      mask: var(--_icon-image) center / contain no-repeat;
+
+      @media (forced-colors: active) {
+        background-color: CanvasText;
+      }
+
+      @media print {
+        print-color-adjust: exact;
+      }
+    }
+
+    & > .ui-button > svg:empty {
+      background-color: currentColor;
+      mask: var(--ui-icon-close) center / contain no-repeat;
+
+      @media (forced-colors: active) {
+        background-color: ButtonText;
+      }
+
+      @media print {
+        print-color-adjust: exact;
       }
     }
 

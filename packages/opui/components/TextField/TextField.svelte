@@ -6,7 +6,6 @@
   import Button from "../Button/Button.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { idRefs } from "../id"
-  import { hidePath, showPath } from "./icons"
   import type { Props } from "./types.svelte"
 
   let {
@@ -147,9 +146,7 @@
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
-              >
-                <path fill="currentColor" d={showPath} />
-              </svg>
+              ></svg>
             {/if}{#if iconChecked}
               <span aria-hidden="true" class="ui-icon-checked">
                 {@render iconChecked()}
@@ -162,9 +159,7 @@
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
-              >
-                <path fill="currentColor" d={hidePath} />
-              </svg>
+              ></svg>
             {/if}
           </Button>
         {/if}

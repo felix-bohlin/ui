@@ -4,7 +4,6 @@ import { cx } from "../cx"
 import Button from "../Button/Button.react"
 import { useDrawerContext } from "./context.react"
 import { warnMissingTarget } from "../dev"
-import { closePath } from "./icons"
 import type { DrawerHeaderProps as Props } from "./types.react"
 
 export default function DrawerHeader({
@@ -38,9 +37,7 @@ export default function DrawerHeader({
               width="32"
               height="32"
               viewBox="0 0 32 32"
-            >
-              <path fill="currentColor" d={closePath} />
-            </svg>
+            />
           ) : (
             closeIcon
           )}

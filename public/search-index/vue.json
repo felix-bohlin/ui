@@ -3690,6 +3690,20 @@
     "url": "/vue/guide/theming/#motion-personality"
   },
   {
+    "id": "guide-theming-vue-icons",
+    "title": "Icons",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/vue/guide/theming/#icons"
+  },
+  {
+    "id": "guide-theming-vue-icons-slots",
+    "title": "Your own icons",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/vue/guide/theming/#icons-slots"
+  },
+  {
     "id": "guide-theming-vue-contrast",
     "title": "Contrast",
     "page": "Theming",

@@ -404,6 +404,19 @@
         > :where(.ui-button:has(> svg:only-child)):first-of-type {
         margin-inline-start: auto;
       }
+
+      & > .ui-button > svg:empty {
+        background-color: currentColor;
+        mask: var(--ui-icon-close) center / contain no-repeat;
+
+        @media (forced-colors: active) {
+          background-color: ButtonText;
+        }
+
+        @media print {
+          print-color-adjust: exact;
+        }
+      }
     }
 
     & > .ui-content {

@@ -4,7 +4,6 @@ import Button from "../Button/Button.astro"
 import type { DrawerHeaderProps as Props } from "./types.astro"
 import { warnMissingTarget } from "../dev"
 import { drawerContext } from "./context.astro"
-import { closePath } from "./icons"
 import { trimEdges } from "../whitespace"
 
 const {
@@ -38,9 +37,7 @@ const content = Astro.slots.has("default")
         width="32"
         height="32"
         viewBox="0 0 32 32"
-      >
-        <path fill="currentColor" d={closePath}></path>
-      </svg>
+      ></svg>
     </slot>
   </Button>}
 </div>

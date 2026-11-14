@@ -79,7 +79,7 @@ Outputs: `--_duration`, `--_icon-image` and `--_shadow`.
 - `--_surface-bg-color`: The opaque background under the tint. Defaults to `--ui-surface`.
 - `--_title-font-size`: Font size of headings in `.ui-content`.
 
-Outputs: `--_bg-color`, `--_border-color`, `--_icon-text-color`, `--_link-duration` and `--_text-color`.
+Outputs: `--_bg-color`, `--_border-color`, `--_icon-image`, `--_icon-text-color`, `--_link-duration` and `--_text-color`.
 
 ### button.css
 

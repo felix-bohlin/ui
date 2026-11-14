@@ -4,7 +4,6 @@ import { cx } from "../cx"
 import Button from "../Button/Button.react"
 import { useDialogContext } from "./context.react"
 import { warnMissingCloseTarget } from "../dev"
-import { closePath } from "./icons"
 import type { DialogHeaderProps as Props } from "./types.react"
 
 export default function DialogHeader({
@@ -36,9 +35,7 @@ export default function DialogHeader({
               width="32"
               height="32"
               viewBox="0 0 32 32"
-            >
-              <path fill="currentColor" d={closePath} />
-            </svg>
+            />
           ) : (
             closeIcon
           )}

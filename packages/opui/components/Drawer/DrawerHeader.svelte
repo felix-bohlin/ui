@@ -3,7 +3,6 @@
   import Button from "../Button/Button.svelte"
   import { getDrawerContext } from "./context.svelte"
   import { warnMissingTarget } from "../dev"
-  import { closePath } from "./icons"
   import type { DrawerHeaderProps as Props } from "./types.svelte"
 
   let {
@@ -43,9 +42,7 @@
           width="32"
           height="32"
           viewBox="0 0 32 32"
-        >
-          <path fill="currentColor" d={closePath} />
-        </svg>
+        ></svg>
       {/if}
     </Button>
   {/if}

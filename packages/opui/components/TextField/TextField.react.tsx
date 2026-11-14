@@ -5,7 +5,6 @@ import { cx } from "../cx"
 import Button from "../Button/Button.react"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
 import { idRefs } from "../id"
-import { hidePath, showPath } from "./icons"
 import type { Props } from "./types.react"
 
 export default function TextField({
@@ -137,9 +136,7 @@ export default function TextField({
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
-                  >
-                    <path fill="currentColor" d={showPath} />
-                  </svg>
+                  />
                 )}
                 {iconChecked ? (
                   <span aria-hidden="true" className="ui-icon-checked">
@@ -153,9 +150,7 @@ export default function TextField({
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
-                  >
-                    <path fill="currentColor" d={hidePath} />
-                  </svg>
+                  />
                 )}
               </Button>
             )}

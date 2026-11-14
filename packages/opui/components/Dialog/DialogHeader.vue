@@ -4,7 +4,6 @@ import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
 import { DialogKey } from "./context.vue"
 import { warnMissingCloseTarget } from "../dev"
-import { closePath } from "./icons"
 import type {
   DialogHeaderProps as Props,
   DialogHeaderSlots,
@@ -35,8 +34,7 @@ if (closeButton) warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
         width="32"
         height="32"
         viewBox="0 0 32 32"
-      >
-        <path fill="currentColor" :d="closePath" /></svg
+      ></svg
     ></Button>
   </div>
 </template>

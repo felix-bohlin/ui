@@ -2,7 +2,6 @@
   import "../../elements/callout.js"
   import Button from "../Button/Button.svelte"
   import { setCalloutContext } from "./context.svelte"
-  import { closePath } from "./icons"
   import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
@@ -62,9 +61,7 @@
           width="32"
           height="32"
           viewBox="0 0 32 32"
-        >
-          <path fill="currentColor" d={closePath} />
-        </svg>
+        ></svg>
       {/if}
     </Button>
   {/if}

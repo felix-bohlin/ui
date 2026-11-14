@@ -3,7 +3,6 @@
   import Button from "../Button/Button.svelte"
   import { getDialogContext } from "./context.svelte"
   import { warnMissingCloseTarget } from "../dev"
-  import { closePath } from "./icons"
   import type { DialogHeaderProps as Props } from "./types.svelte"
 
   let {
@@ -42,9 +41,7 @@
           width="32"
           height="32"
           viewBox="0 0 32 32"
-        >
-          <path fill="currentColor" d={closePath} />
-        </svg>
+        ></svg>
       {/if}
     </Button>
   {/if}

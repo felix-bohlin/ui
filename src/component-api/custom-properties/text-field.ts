@@ -6,9 +6,19 @@ export default {
       "Border color of `.ui-field` when its control has focus without `:focus-visible`, such as a clicked file or color input or a Select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.",
     kind: "input",
   },
+  "--_affix-box": {
+    description:
+      "The box `.ui-start` and `.ui-end` center their content in: the field inside its border, or the control's first line, `1lh` and its block padding, in a `Textarea` and in a field with `.ui-top` or `.ui-bottom`. A registered `<length>`, so `1lh` is the line height of the part.",
+    kind: "output",
+  },
   "--_affix-button-size": {
     description:
-      "Size of a `.ui-button` in `.ui-start` or `.ui-end`: the field's `--_size` minus its border and a `--ui-space-1` inset on each side, and at least `--ui-target-min-size`.",
+      "Size of a `.ui-button` in `.ui-start` or `.ui-end`: `--_affix-box` minus `--_affix-inset` on each side, and at least `--ui-target-min-size`.",
+    kind: "output",
+  },
+  "--_affix-inset": {
+    description:
+      "The space between what `.ui-start` or `.ui-end` holds and the field's border: `--ui-space-1`, or less where `--_affix-box` leaves less room around a `--ui-target-min-size` button. Content taller than the box minus the inset makes the field taller and keeps the inset. Text alone keeps the text's own padding instead.",
     kind: "output",
   },
   "--_affix-text-color": {

@@ -170,7 +170,7 @@ export default {
     },
     {
       description:
-        "Content at the inline-start of the field, inside the border, centered on the first line, or at its top when taller.",
+        "Content at the inline-start of the field, inside the border, centered on the first line. Taller content starts `--_affix-inset` below the field's top.",
       selector: ".ui-field > .ui-start",
       slots: ["start"],
     },
@@ -182,7 +182,7 @@ export default {
     },
     {
       description:
-        "Content at the inline-end of the field, inside the border, centered on the first line, or at its top when taller.",
+        "Content at the inline-end of the field, inside the border, centered on the first line. Taller content starts `--_affix-inset` below the field's top.",
       selector: ".ui-field > .ui-end",
       slots: ["end"],
     },

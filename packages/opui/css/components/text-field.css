@@ -1,3 +1,9 @@
+@property --_affix-box {
+  inherits: true;
+  initial-value: 0px;
+  syntax: "<length>";
+}
+
 @layer components.extended {
   /*
 - Common styling for input, textarea and select
@@ -6,10 +12,7 @@
   :where(.ui-text-field, .ui-textarea, .ui-select, .ui-number-field) {
     --_motion: var(--ui-motion);
     --_accent: var(--ui-primary);
-    --_affix-button-size: max(
-      var(--ui-target-min-size),
-      var(--_size) - var(--ui-field-border-width) * 2 - var(--ui-space-1) * 2
-    );
+    --_affix-box: calc(var(--_size) - var(--ui-field-border-width) * 2);
     --_affix-text-color: var(--ui-text);
     --_arrow-inset: var(--ui-space-3);
     --_arrow-padding: calc(
@@ -111,13 +114,24 @@
       block-size: calc(1lh + var(--_field-padding-block-fit) * 2);
     }
 
-    /* Affixes */
+    /* Affixes - center in --_affix-box, --_affix-inset from the border */
     .ui-field > :is(.ui-start, .ui-end) {
+      --_affix-button-size: max(
+        var(--ui-target-min-size),
+        var(--_affix-box) - var(--_affix-inset) * 2
+      );
+      --_affix-inset: clamp(
+        0px,
+        (var(--_affix-box) - var(--ui-target-min-size)) / 2,
+        var(--ui-space-1)
+      );
+
       align-items: center;
       color: var(--_affix-text-color);
       display: inline-flex;
       font-size: var(--_font-size);
       line-height: var(--ui-line-height-tight);
+      padding-block: var(--_affix-inset);
       padding-inline: var(--_field-padding-inline);
       white-space: nowrap;
 
@@ -192,11 +206,17 @@
       padding-inline-end: 0;
     }
 
+    /* The control's first line is the box when it doesn't fill the field */
+    .ui-field:has(> :is(.ui-top, .ui-bottom)) > :is(.ui-start, .ui-end),
+    &.ui-textarea .ui-field > :is(.ui-start, .ui-end) {
+      --_affix-box: calc(1lh + var(--_field-padding-block-fit) * 2);
+    }
+
     /* Textarea - keep affix aligned with the first line */
     &.ui-textarea .ui-field {
       & > :is(.ui-start, .ui-end) {
         align-self: start;
-        min-block-size: calc(1lh + var(--_field-padding-block-fit) * 2);
+        min-block-size: var(--_affix-box);
       }
     }
 

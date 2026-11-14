@@ -2,11 +2,12 @@ import { readFileSync } from "node:fs"
 import { expect, test } from "@playwright/test"
 import { openFixture, STRESS_TESTS } from "./fixtures"
 import {
+  expectAffixes,
   expectChipHeights,
   expectSharedHeights,
   expectSizedRows,
-  expectTextareaAffixes,
   measure,
+  measureAffixes,
 } from "./stress-sizes"
 
 const SIZED = STRESS_TESTS.filter((fixture) =>
@@ -52,9 +53,7 @@ test("chips one size step up match the control size", async ({ page }) => {
   expectChipHeights(chips)
 })
 
-test("textarea affixes center on the first line at every size", async ({
-  page,
-}) => {
+test("affixes center on the control's line at every size", async ({ page }) => {
   await openFixture(page, "html", "stress/forms")
 
   const { affixes } = await measure(page)
@@ -64,7 +63,7 @@ test("textarea affixes center on the first line at every size", async ({
   expect(
     [...new Set(affixes.flatMap(({ holds }) => holds))].toSorted(),
   ).toEqual(["#text", "button", "svg"])
-  expectTextareaAffixes(affixes)
+  expectAffixes(affixes)
 })
 
 test("fields with a button keep their size at every size", async ({ page }) => {
@@ -81,6 +80,26 @@ test("fields with a button keep their size at every size", async ({ page }) => {
     ].toSorted(),
   ).toEqual(["default", "large", "small", "x-small"])
   expectSharedHeights(rows)
+})
+
+test("content taller than a field's button keeps the button's inset", async ({
+  page,
+}) => {
+  await openFixture(page, "html", "stress/forms")
+
+  const affixes = await measureAffixes(
+    page.locator("[data-tall-affixes] .ui-field > :is(.ui-start, .ui-end)"),
+  )
+  expect(
+    affixes.map(({ affix }) => affix.replace(/^TallAffixes > /, "")),
+  ).toEqual(
+    Array.from({ length: 4 }, () => [
+      "ui-text-field ui-start",
+      "ui-textarea ui-start",
+    ]).flat(),
+  )
+  expect(affixes.filter(({ inset }) => inset >= 3)).not.toEqual([])
+  expectAffixes(affixes)
 })
 
 const DENSITIES = {
@@ -114,6 +133,6 @@ for (const [density, heights] of Object.entries(DENSITIES)) {
       expect(expected, row).toBe(heights[size as keyof typeof heights])
     }
     expectSharedHeights(rows)
-    expectTextareaAffixes(affixes)
+    expectAffixes(affixes)
   })
 }

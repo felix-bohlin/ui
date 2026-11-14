@@ -2,7 +2,7 @@ import { existsSync, readdirSync, readFileSync } from "node:fs"
 import { join } from "node:path"
 import { describe, expect, test } from "vitest"
 import type { ComponentApi } from "../../src/component-api/types"
-import { componentUsages, type ComponentUsage } from "./component-usage"
+import { astroMarkup, type Tag } from "./example-markup"
 import allowlist from "./example-coverage-allowlist.json"
 
 const apis = Object.entries(
@@ -12,8 +12,10 @@ const apis = Object.entries(
   }),
 ).map(([path, api]) => ({ api, page: api.page ?? path.split("/").at(-2) }))
 
-const usagesOf = async (sources: string[]) =>
-  (await Promise.all(sources.map(componentUsages))).flat()
+const componentsOf = async (sources: string[]) =>
+  (await Promise.all(sources.map(astroMarkup))).flatMap(({ tags }) =>
+    tags.filter((tag) => tag.component),
+  )
 
 const examplesOf = (page?: string) => {
   const dir = join("src/component-examples", page ?? "")
@@ -27,10 +29,10 @@ const NAMES = ["aria-label", "aria-labelledby"]
 
 const namesOf = (prop: string) => (NAMES.includes(prop) ? NAMES : [prop])
 
-export const uncovered = (api: ComponentApi, usages: ComponentUsage[]) => {
-  const props = usages
-    .filter((usage) => usage.component === api.component)
-    .flatMap((usage) => usage.props)
+export const uncovered = (api: ComponentApi, components: Tag[]) => {
+  const props = components
+    .filter((tag) => tag.name === api.component)
+    .flatMap((tag) => tag.props)
   return (api.options ?? []).flatMap((option) => {
     if (!option.prop || option.inherited) return []
     if (option.frameworks && !option.frameworks.includes("astro")) return []
@@ -52,7 +54,7 @@ export const uncovered = (api: ComponentApi, usages: ComponentUsage[]) => {
 const found = (
   await Promise.all(
     apis.map(async ({ api, page }) =>
-      api.source ? uncovered(api, await usagesOf(examplesOf(page))) : [],
+      api.source ? uncovered(api, await componentsOf(examplesOf(page))) : [],
     ),
   )
 ).flat()
@@ -101,7 +103,7 @@ describe("example coverage", () => {
             },
           ],
         } as ComponentApi,
-        await usagesOf([
+        await componentsOf([
           '<Chip\n  size="large"\n  aria-label="Bug"\n/>',
           `<Chip description='Pick a variant for > the size="small" chip' data-size="small" />`,
           '<ChipGroup size="small" variant="outlined" />',

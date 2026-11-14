@@ -3,8 +3,9 @@ import { join } from "node:path"
 import { describe, expect, test } from "vitest"
 import { FRAMEWORK_AGNOSTIC_EXAMPLES } from "../../src/utils/framework.js"
 import allowlist from "./example-copy-allowlist.json"
+import { astroMarkup, htmlMarkup, type Markup } from "./example-markup"
 
-const TEXT_ATTRIBUTES = [
+const TEXT_PROPS = [
   "alt",
   "aria-label",
   "description",
@@ -18,26 +19,20 @@ const TEXT_ATTRIBUTES = [
   "value",
 ]
 
-export const textsOf = (source: string) => {
-  const [, front = "", body = source] =
-    source.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/) ?? []
-  const markup = body
-    .replace(/<(script|style)\b[\s\S]*?<\/\1>/g, "")
-    .replace(/<svg\b[\s\S]*?<\/svg>/g, "")
-  return [
-    ...[...markup.matchAll(/>([^<>{}]+)</g)].map(([, text]) => text),
-    ...[
-      ...markup.matchAll(
-        new RegExp(`\\s(?:${TEXT_ATTRIBUTES.join("|")})="([^"]*)"`, "g"),
+export const textsOf = ({ strings, tags, texts }: Markup) =>
+  [
+    ...texts,
+    ...tags.flatMap(({ props }) =>
+      props.flatMap(({ name, value }) =>
+        TEXT_PROPS.includes(name) && value !== undefined ? [value] : [],
       ),
-    ].map(([, text]) => text),
-    ...[...front.matchAll(/\b(?:description|label|title):\s*"([^"]*)"/g)].map(
-      ([, text]) => text,
+    ),
+    ...strings.flatMap(({ key, value }) =>
+      TEXT_PROPS.includes(key) ? [value] : [],
     ),
   ]
     .map((text) => text.replace(/\s+/g, " ").trim())
     .filter(Boolean)
-}
 
 const RULES: [string, RegExp][] = [
   [
@@ -59,9 +54,14 @@ const RULES: [string, RegExp][] = [
   ],
 ]
 
-export const problemsOf = (source: string) => [
+export const problemsOf = async (
+  source: string,
+  format: "astro" | "html" = "astro",
+) => [
   ...new Set(
-    textsOf(source).flatMap((text) =>
+    textsOf(
+      format === "html" ? htmlMarkup(source) : await astroMarkup(source),
+    ).flatMap((text) =>
       RULES.filter(([, rule]) => rule.test(text)).map(
         ([name]) => `${name}: ${text}`,
       ),
@@ -82,9 +82,17 @@ const files = [
   ...FRAMEWORK_AGNOSTIC_EXAMPLES.map((example) => `${example}.html`),
 ]
 const found: Record<string, string[]> = Object.fromEntries(
-  files
-    .map((file) => [file, problemsOf(readFileSync(join(root, file), "utf8"))])
-    .filter(([, problems]) => problems.length > 0),
+  (
+    await Promise.all(
+      files.map(async (file) => [
+        file,
+        await problemsOf(
+          readFileSync(join(root, file), "utf8"),
+          file.endsWith(".html") ? "html" : "astro",
+        ),
+      ]),
+    )
+  ).filter(([, problems]) => problems.length > 0),
 )
 
 const allowed = allowlist as Record<string, string[]>
@@ -112,9 +120,9 @@ describe("example copy", () => {
     ).toEqual([])
   })
 
-  test("reads the end and start text props", () => {
+  test("reads the end and start text props", async () => {
     expect(
-      problemsOf(
+      await problemsOf(
         '<Radio endText="Supporting text" />\n<TextField startText="Option 1" />',
       ),
     ).toEqual([
@@ -123,9 +131,9 @@ describe("example copy", () => {
     ])
   })
 
-  test("flags placeholders, filler, short exclamations and text about the example, and reads text, attributes and items", () => {
+  test("flags placeholders, filler, short exclamations and text about the example, and reads text, attributes and items", async () => {
     expect(
-      problemsOf(
+      await problemsOf(
         '---\nconst items = [{ label: "Option 1" }, { label: "Archive" }]\n---\n<Checkbox label="Checkbox 1" />\n<p>Lorem ipsum dolor sit amet</p>\n<Callout>This is a tonal callout</Callout>\n<p>Plans for any team. Click anywhere on the card.</p>\n<p>Pick me!</p>\n<p>The deck is out. Thanks for the help, everyone!</p>\n<Menu label="Options" />\n<script>if (!ok) console.log("Label")</script>',
       ),
     ).toEqual([
@@ -138,11 +146,41 @@ describe("example copy", () => {
     ])
   })
 
-  test("reads the HTML of the examples that have no Astro file", () => {
+  test("reads every way an Astro example writes copy, and no names or code inside other attributes and scripts", async () => {
+    expect(
+      await problemsOf(
+        [
+          "---",
+          "const photos = [{ alt: 'Lorem ipsum' }]",
+          'const note = "<p>This is a note</p>"',
+          "---",
+          "Option 2",
+          "<Checkbox label='Checkbox 3' />",
+          '<Radio endText={"Supporting text"} />',
+          "<p>{`Click anywhere on the card.`}</p>",
+          "<p>Thanks for the jam, {name}. See you on Friday!</p>",
+          "<Fragment set:html={note} />",
+          "<Chip description='Set label=\"Option 1\" on each chip' />",
+          '<p>{items.map((item) => <span title="Label">{item}</span>)}</p>',
+        ].join("\n"),
+      ),
+    ).toEqual([
+      "a placeholder label: Option 2",
+      "text about the example: Click anywhere on the card.",
+      "text about the example: This is a note",
+      "a placeholder label: Checkbox 3",
+      "a placeholder label: Supporting text",
+      "a placeholder label: Label",
+      "placeholder Latin: Lorem ipsum",
+    ])
+  })
+
+  test("reads the HTML of the examples that have no Astro file", async () => {
     expect(files).toEqual(expect.arrayContaining(["typography/Default.html"]))
     expect(
-      problemsOf(
+      await problemsOf(
         '<article class="ui-rich-text">\n  <h1>Fixie beard</h1>\n  <p>Kitsch tbh knausgaard tousled.</p>\n  <img alt="Lorem ipsum" src="a.jpg" />\n</article>',
+        "html",
       ),
     ).toEqual([
       "filler ipsum: Kitsch tbh knausgaard tousled.",

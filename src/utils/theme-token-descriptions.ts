@@ -510,6 +510,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Width of the `Switch` track with `.ui-x-small`. Twice `--ui-switch-track-block-size-x-small` until a theme sets it.",
   "--ui-tabs-accent":
     "Color of the selected `Tabs` label, and of the indicator with `.ui-line`. When unset, `--ui-text-strong`. Filled tabs keep `--ui-on-selected-strong`.",
+  "--ui-target-min-size":
+    "The least width and height of a control that has no text of its own: a `Button` in a field's `.ui-start` or `.ui-end`, and a `Checkbox`, `Radio` or `Switch` whose label is hidden. `24px`, the WCAG 2.5.8 minimum target size. It follows neither `--ui-density` nor `--ui-space-scale`, so a compact density or a large spacing scale keeps it. See [Density](/guide/theming#density).",
   "--ui-text":
     "Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`.",
   "--ui-text-disabled":

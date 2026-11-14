@@ -7,7 +7,7 @@
     --_motion: var(--ui-motion);
     --_accent: var(--ui-primary);
     --_affix-button-size: max(
-      var(--ui-space-5),
+      var(--ui-target-min-size),
       var(--_size) - var(--ui-field-border-width) * 2 - var(--ui-space-1) * 2
     );
     --_affix-text-color: var(--ui-text);

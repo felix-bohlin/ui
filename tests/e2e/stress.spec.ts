@@ -67,6 +67,22 @@ test("textarea affixes center on the first line at every size", async ({
   expectTextareaAffixes(affixes)
 })
 
+test("fields with a button keep their size at every size", async ({ page }) => {
+  await openFixture(page, "html", "stress/forms")
+
+  const { rows } = await measure(page)
+  expect(
+    [
+      ...new Set(
+        rows
+          .filter(({ controls }) => controls.some(({ button }) => button))
+          .map(({ size }) => size),
+      ),
+    ].toSorted(),
+  ).toEqual(["default", "large", "small", "x-small"])
+  expectSharedHeights(rows)
+})
+
 const DENSITIES = {
   "0.875": {
     default: "35px",

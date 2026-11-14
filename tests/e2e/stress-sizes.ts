@@ -93,17 +93,35 @@ export const measure = (page: Page) =>
           },
         ),
       ),
-      rows: rows.map(({ controlHeight, example, row, size }) => ({
-        controls: [...row.querySelectorAll<HTMLElement>(selector)].map(
-          (control) => ({
-            control: `${control.parentElement!.className} > ${control.className}`,
-            height: `${control.getBoundingClientRect().height}px`,
-          }),
-        ),
-        expected: controlHeight,
-        row: `${example} ${size}`,
-        size,
-      })),
+      rows: rows.map(({ controlHeight, example, row, size }) => {
+        const target = parseFloat(probe(row, "--ui-target-min-size", "default"))
+        return {
+          controls: [...row.querySelectorAll<HTMLElement>(selector)].map(
+            (control) => {
+              const field = control.matches(".ui-field")
+                ? control
+                : control.querySelector(":scope > .ui-field")
+              const button = field?.querySelector(
+                ":scope > :is(.ui-start, .ui-end) > .ui-button",
+              )
+              const border = field
+                ? parseFloat(getComputedStyle(field).borderBlockStartWidth)
+                : 0
+              return {
+                button: Boolean(button),
+                control: `${control.parentElement!.className} > ${control.className}`,
+                expected: button
+                  ? `${Math.max(parseFloat(controlHeight), target + border * 2)}px`
+                  : controlHeight,
+                height: `${control.getBoundingClientRect().height}px`,
+              }
+            },
+          ),
+          expected: controlHeight,
+          row: `${example} ${size}`,
+          size,
+        }
+      }),
     }
   }, CONTROLS)
 
@@ -114,8 +132,8 @@ export const expectSharedHeights = (rows: Measured["rows"]) => {
   for (const { controls, expected, row } of rows) {
     expect(controls.length, row).toBeGreaterThan(0)
     expect(
-      controls.filter(({ height }) => height !== expected),
-      `${row} should be ${expected}`,
+      controls.filter((control) => control.height !== control.expected),
+      `${row} should be ${expected}, or the target size and borders for a field with a button`,
     ).toEqual([])
   }
 }

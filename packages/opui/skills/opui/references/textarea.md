@@ -14,9 +14,9 @@ A multi-line text input with a label, start and end text, and validation.
 - `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
 - `.ui-field`: The boxed textarea area.
 - `.ui-field > .ui-top` (slot `top`): Content above the textarea, inside the border, with a divider.
-- `.ui-field > .ui-start` (slot `start`): Content at the inline-start of the field, inside the border, centered on the first line, or at its top when taller.
+- `.ui-field > .ui-start` (slot `start`): Content at the inline-start of the field, inside the border, centered on the first line. Taller content starts `--_affix-inset` below the field's top.
 - `<textarea>` (model): The textarea element.
-- `.ui-field > .ui-end` (slot `end`): Content at the inline-end of the field, inside the border, centered on the first line, or at its top when taller.
+- `.ui-field > .ui-end` (slot `end`): Content at the inline-end of the field, inside the border, centered on the first line. Taller content starts `--_affix-inset` below the field's top.
 - `.ui-field > .ui-bottom` (slot `bottom`): Content below the textarea, inside the border, with a divider.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
 - `<opui-character-count>` (prop `characterCount`, prop `characterCountLabel`): The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left.
@@ -78,7 +78,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_start-end-radius`: The radius of the start-end corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
 - `--_start-start-radius`: The radius of the start-start corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the control before it.
 
-Outputs: `--_affix-button-size`, `--_affix-text-color`, `--_arrow-padding`, `--_bg-color`, `--_border-color`, `--_duration`, `--_field-padding-block-fit`, `--_file-button-inset` and `--_helper-text-color`.
+Outputs: `--_affix-box`, `--_affix-button-size`, `--_affix-inset`, `--_affix-text-color`, `--_arrow-padding`, `--_bg-color`, `--_border-color`, `--_duration`, `--_field-padding-block-fit`, `--_file-button-inset` and `--_helper-text-color`.
 
 ### textarea.css
 
@@ -86,7 +86,7 @@ Outputs: `--_affix-button-size`, `--_affix-text-color`, `--_arrow-padding`, `--_
 
 ## Theme tokens
 
-The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-field-bg-color`, `--ui-field-border-color`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-padding-inline`, `--ui-field-padding-inline-large`, `--ui-field-placeholder-text-color`, `--ui-field-radius`, `--ui-field-required-text-color`, `--ui-field-shadow`, `--ui-field-size`, `--ui-field-size-large`, `--ui-field-size-small`, `--ui-field-size-x-small`, `--ui-focus-border-color`, `--ui-focus-border-width`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-body`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-icon-expand`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-shadow-control`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-surface`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-field-bg-color`, `--ui-field-border-color`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-padding-inline`, `--ui-field-padding-inline-large`, `--ui-field-placeholder-text-color`, `--ui-field-radius`, `--ui-field-required-text-color`, `--ui-field-shadow`, `--ui-field-size`, `--ui-field-size-large`, `--ui-field-size-small`, `--ui-field-size-x-small`, `--ui-focus-border-color`, `--ui-focus-border-width`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-body`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-icon-expand`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-shadow-control`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-surface`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-target-min-size`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

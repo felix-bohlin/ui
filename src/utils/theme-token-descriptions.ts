@@ -262,21 +262,21 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-icon-clear":
     "The clear option of a `Rating`. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-close":
-    "The close button of a `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+    "The close button of a `Callout`, `Dialog`, `Drawer` and `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-critical":
-    "The icon of a critical `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+    "The icon of a critical `Callout` and `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-decrease":
-    "The icon for taking away from a value. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+    "The decrease button of a `NumberField`. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-error":
     "The mark of a `Stepper` step with an error. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-expand":
-    "The arrow of a `Select` and of a `TextField` with a datalist. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+    "The `Accordion` marker, and the arrow of a `Select` and of a `TextField` with a datalist. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-hide":
-    "The icon for hiding a value, such as a password. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+    "The password toggle of a `TextField` while the password shows. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-increase":
-    "The icon for adding to a value. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+    "The increase button of a `NumberField`. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-info":
-    "The icon of an info `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+    "The icon of an info `Callout` and `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-next":
     "The `Carousel` buttons, pointing to the next item and turned for the previous one. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-rating":
@@ -284,7 +284,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-icon-rating-empty":
     "An empty star of a `Rating`. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-show":
-    "The icon for showing a hidden value, such as a password. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+    "The password toggle of a `TextField` while the password is hidden. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-size": "Default icon size inside components.",
   "--ui-icon-size-large":
     "Icon size inside `Avatar`, and of an `svg` without a `width` in `normalize.css`.",
@@ -295,9 +295,9 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-icon-sort":
     "The arrow of a sorted `SortableTable` column, turned for the other direction. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-success":
-    "The icon of a success `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+    "The icon of a success `Callout` and `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-warning":
-    "The icon of a warning `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+    "The icon of a warning `Callout` and `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-info":
     "Severity color for informational messages, and the dotted underline of `abbr`, `dfn`, `.ui-abbr` and `.ui-dfn`.",
   "--ui-info-text":

@@ -4,7 +4,6 @@ import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
 import { DrawerKey } from "./context.vue"
 import { warnMissingTarget } from "../dev"
-import { closePath } from "./icons"
 import type {
   DrawerHeaderProps as Props,
   DrawerHeaderSlots,
@@ -37,8 +36,7 @@ if (closeButton) warnMissingTarget("DrawerHeader", target.value, "Drawer")
         width="32"
         height="32"
         viewBox="0 0 32 32"
-      >
-        <path fill="currentColor" :d="closePath" /></svg
+      ></svg
     ></Button>
   </div>
 </template>

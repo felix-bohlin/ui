@@ -340,6 +340,35 @@ export const keywords = [
     />
   </section>
 
+  <section id="icons">
+    <h2>Icons</h2>
+    <p>
+      Every icon a component draws itself reads a <code>--ui-icon-*</code>
+      token, one for each role, such as <code>--ui-icon-close</code> and
+      <code>--ui-icon-expand</code>. Each is an SVG image used as a mask, so
+      only its shape counts and it takes the text color. The defaults are Fluent
+      UI System Icons, and
+      <DocLink href="/guide/theme-tokens#icons">Theme tokens</DocLink> lists
+      them all. Set them to the icons of your icon set:
+    </p>
+    <Code
+      code={`:where(html) {
+  --ui-icon-close: url("/icons/x.svg");
+  --ui-icon-expand: url("/icons/chevron-down.svg");
+}`}
+      lang="css"
+    />
+
+    <h3 id="icons-slots">Your own icons</h3>
+    <p>
+      An icon slot takes any <code>svg</code> with a <code>viewBox</code>. The
+      slot sizes it, and it takes the text color through
+      <code>currentColor</code>, which <code>normalize.css</code> sets as the
+      fill of an <code>svg</code> without one. Take them from the same set as
+      the tokens so every icon matches. Icon fonts aren't supported.
+    </p>
+  </section>
+
   <section id="contrast">
     <h2>Contrast</h2>
     <p>

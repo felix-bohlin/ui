@@ -134,13 +134,15 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
     <h2>Icon</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        <code>CalloutIcon</code> renders the severity's icon. For your own, put
-        an <code>&lt;svg aria-hidden="true"&gt;</code> before
+        <code>CalloutIcon</code> renders the severity's icon from the
+        <code>--ui-icon-*</code> tokens. For your own, put an
+        <code>&lt;svg aria-hidden="true"&gt;</code> before
         <code>CalloutContent</code>.
       </Fragment>
       <Fragment slot="html">
         Put an <code>&lt;svg aria-hidden="true"&gt;</code> before
-        <code>.ui-content</code>.
+        <code>.ui-content</code>. An empty one with a <code>viewBox</code> shows
+        the severity's icon from the <code>--ui-icon-*</code> tokens.
       </Fragment>
     </Conditional>
 

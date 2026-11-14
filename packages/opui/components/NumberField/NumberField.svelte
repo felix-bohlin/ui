@@ -5,7 +5,6 @@
   import Button from "../Button/Button.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { idRefs } from "../id"
-  import { minusPath, plusPath } from "./icons"
   import type { Props } from "./types.svelte"
 
   let {
@@ -91,9 +90,7 @@
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" d={minusPath} />
-          </svg>
+          ></svg>
         {/if}
       </Button>
     </span>
@@ -126,9 +123,7 @@
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" d={plusPath} />
-          </svg>
+          ></svg>
         {/if}
       </Button>
     </span>

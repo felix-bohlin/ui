@@ -10,7 +10,6 @@ import {
 } from "vue"
 import Button from "../Button/Button.vue"
 import { CalloutKey } from "./context.vue"
-import { closePath } from "./icons"
 import { defined } from "../attrs"
 import type { Props, Emits, Slots } from "./types.vue-props"
 
@@ -71,8 +70,7 @@ provide(CalloutKey, reactive({ severity: computed(() => severity) }))
         width="32"
         height="32"
         viewBox="0 0 32 32"
-      >
-        <path fill="currentColor" :d="closePath" /></svg
+      ></svg
     ></Button>
   </component>
 </template>

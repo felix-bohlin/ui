@@ -3690,6 +3690,20 @@
     "url": "/react/guide/theming/#motion-personality"
   },
   {
+    "id": "guide-theming-react-icons",
+    "title": "Icons",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/react/guide/theming/#icons"
+  },
+  {
+    "id": "guide-theming-react-icons-slots",
+    "title": "Your own icons",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/react/guide/theming/#icons-slots"
+  },
+  {
     "id": "guide-theming-react-contrast",
     "title": "Contrast",
     "page": "Theming",

@@ -2,6 +2,7 @@ import { existsSync, readdirSync, readFileSync } from "node:fs"
 import { join } from "node:path"
 import { describe, expect, test } from "vitest"
 import type { ComponentApi } from "../../src/component-api/types"
+import { componentUsages, type ComponentUsage } from "./component-usage"
 import allowlist from "./example-coverage-allowlist.json"
 
 const apis = Object.entries(
@@ -11,7 +12,10 @@ const apis = Object.entries(
   }),
 ).map(([path, api]) => ({ api, page: api.page ?? path.split("/").at(-2) }))
 
-const sourcesOf = (page?: string) => {
+const usagesOf = async (sources: string[]) =>
+  (await Promise.all(sources.map(componentUsages))).flat()
+
+const examplesOf = (page?: string) => {
   const dir = join("src/component-examples", page ?? "")
   if (!page || !existsSync(dir)) return []
   return readdirSync(dir)
@@ -19,40 +23,39 @@ const sourcesOf = (page?: string) => {
     .map((file) => readFileSync(join(dir, file), "utf8"))
 }
 
-const tagsOf = (component: string, sources: string[]) =>
-  sources.flatMap((source) =>
-    [...source.matchAll(new RegExp(`<${component}\\b([^>]*?)/?>`, "gs"))].map(
-      ([, attributes]) => attributes,
-    ),
-  )
+const NAMES = ["aria-label", "aria-labelledby"]
 
-const NAME = ["aria-label", "aria-labelledby"]
+const namesOf = (prop: string) => (NAMES.includes(prop) ? NAMES : [prop])
 
-const hasAttribute = (attributes: string, name: string) =>
-  (NAME.includes(name) ? NAME : [name]).some((each) =>
-    new RegExp(`(^|\\s)${each}(?=[\\s=/>]|$)`).test(attributes),
-  )
-
-export const uncovered = (api: ComponentApi, sources: string[]) => {
-  const tags = tagsOf(api.component, sources)
+export const uncovered = (api: ComponentApi, usages: ComponentUsage[]) => {
+  const props = usages
+    .filter((usage) => usage.component === api.component)
+    .flatMap((usage) => usage.props)
   return (api.options ?? []).flatMap((option) => {
     if (!option.prop || option.inherited) return []
     if (option.frameworks && !option.frameworks.includes("astro")) return []
     const name = `${api.component}.${option.prop}`
-    if (!tags.some((tag) => hasAttribute(tag, option.prop))) return [name]
+    const names = namesOf(option.prop)
+    if (!props.some((prop) => names.includes(prop.name))) return [name]
     return Object.entries(option.values ?? {})
       .filter(
         ([value, modifier]) =>
           modifier !== null &&
-          !tags.some((tag) => tag.includes(`${option.prop}="${value}"`)),
+          !props.some(
+            (prop) => prop.name === option.prop && prop.value === value,
+          ),
       )
       .map(([value]) => `${name}="${value}"`)
   })
 }
 
-const found = apis.flatMap(({ api, page }) =>
-  api.source ? uncovered(api, sourcesOf(page)) : [],
-)
+const found = (
+  await Promise.all(
+    apis.map(async ({ api, page }) =>
+      api.source ? uncovered(api, await usagesOf(examplesOf(page))) : [],
+    ),
+  )
+).flat()
 
 describe("example coverage", () => {
   test("every documented prop and value appears in an Astro example on its page", () => {
@@ -70,7 +73,7 @@ describe("example coverage", () => {
     expect(Object.keys(allowlist)).toEqual(Object.keys(allowlist).toSorted())
   })
 
-  test("flags a missing prop and a missing value, counts aria-label for aria-labelledby, and skips inherited and other-framework options", () => {
+  test("flags a missing prop and a missing value, counts aria-label for aria-labelledby, skips inherited and other-framework options, and ignores names and values inside other attributes and on other components", async () => {
     expect(
       uncovered(
         {
@@ -98,7 +101,11 @@ describe("example coverage", () => {
             },
           ],
         } as ComponentApi,
-        ['<Chip\n  size="large"\n  aria-label="Bug"\n/>'],
+        await usagesOf([
+          '<Chip\n  size="large"\n  aria-label="Bug"\n/>',
+          `<Chip description='Pick a variant for > the size="small" chip' data-size="small" />`,
+          '<ChipGroup size="small" variant="outlined" />',
+        ]),
       ),
     ).toEqual(['Chip.size="small"', "Chip.variant"])
   })

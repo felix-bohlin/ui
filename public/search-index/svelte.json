@@ -3690,6 +3690,20 @@
     "url": "/svelte/guide/theming/#motion-personality"
   },
   {
+    "id": "guide-theming-svelte-icons",
+    "title": "Icons",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming/#icons"
+  },
+  {
+    "id": "guide-theming-svelte-icons-slots",
+    "title": "Your own icons",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming/#icons-slots"
+  },
+  {
     "id": "guide-theming-svelte-contrast",
     "title": "Contrast",
     "page": "Theming",

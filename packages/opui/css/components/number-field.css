@@ -16,6 +16,32 @@
       }
     }
 
+    & > .ui-field .ui-button[command="--step-down"] > svg:empty {
+      background-color: currentColor;
+      mask: var(--ui-icon-decrease) center / contain no-repeat;
+
+      @media (forced-colors: active) {
+        background-color: ButtonText;
+      }
+
+      @media print {
+        print-color-adjust: exact;
+      }
+    }
+
+    & > .ui-field .ui-button[command="--step-up"] > svg:empty {
+      background-color: currentColor;
+      mask: var(--ui-icon-increase) center / contain no-repeat;
+
+      @media (forced-colors: active) {
+        background-color: ButtonText;
+      }
+
+      @media print {
+        print-color-adjust: exact;
+      }
+    }
+
     &:not(.ui-stretch, .ui-spread) > :where(.ui-start-text, .ui-end-text) {
       contain: inline-size;
     }

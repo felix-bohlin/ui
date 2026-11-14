@@ -3690,6 +3690,20 @@
     "url": "/html/guide/theming/#motion-personality"
   },
   {
+    "id": "guide-theming-html-icons",
+    "title": "Icons",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/html/guide/theming/#icons"
+  },
+  {
+    "id": "guide-theming-html-icons-slots",
+    "title": "Your own icons",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/html/guide/theming/#icons-slots"
+  },
+  {
     "id": "guide-theming-html-contrast",
     "title": "Contrast",
     "page": "Theming",

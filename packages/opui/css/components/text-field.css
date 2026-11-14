@@ -164,6 +164,36 @@
       display: none;
     }
 
+    .ui-field
+      .ui-button[command="--toggle-password"]
+      > svg.ui-icon-unchecked:empty {
+      background-color: currentColor;
+      mask: var(--ui-icon-show) center / contain no-repeat;
+
+      @media (forced-colors: active) {
+        background-color: ButtonText;
+      }
+
+      @media print {
+        print-color-adjust: exact;
+      }
+    }
+
+    .ui-field
+      .ui-button[command="--toggle-password"]
+      > svg.ui-icon-checked:empty {
+      background-color: currentColor;
+      mask: var(--ui-icon-hide) center / contain no-repeat;
+
+      @media (forced-colors: active) {
+        background-color: ButtonText;
+      }
+
+      @media print {
+        print-color-adjust: exact;
+      }
+    }
+
     &:not(:defined) .ui-field .ui-button[command="--toggle-password"] {
       display: none;
     }

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { markerPath } from "./icons"
 import { classAttrs } from "../cx"
 import type {
   AccordionSummaryProps as Props,
@@ -21,8 +20,6 @@ defineSlots<AccordionSummarySlots>()
       width="24"
       height="24"
       viewBox="0 0 24 24"
-    >
-      <path fill="currentColor" :d="markerPath" />
-    </svg>
+    ></svg>
   </summary>
 </template>

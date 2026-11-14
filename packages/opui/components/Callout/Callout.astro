@@ -6,7 +6,6 @@ import type { Props } from "./types.astro"
 import { defined } from "../attrs"
 import { calloutContext } from "./context.astro"
 import { cx } from "../cx"
-import { closePath } from "./icons"
 import { createIds } from "../id"
 
 export const title = "Callout"
@@ -55,9 +54,7 @@ const html = await calloutContext.provide({ severity }, () =>
         width="32"
         height="32"
         viewBox="0 0 32 32"
-      >
-        <path fill="currentColor" d={closePath} />
-      </svg>
+      ></svg>
     </slot>
   </Button>}
 </Root>

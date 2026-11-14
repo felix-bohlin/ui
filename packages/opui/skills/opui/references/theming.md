@@ -225,6 +225,21 @@ To follow it in your own CSS:
 transition: transform calc(var(--ui-duration) * var(--ui-motion)) var(--ui-ease);
 ```
 
+## Icons
+
+Every icon a component draws itself reads a `--ui-icon-*` token, one for each role, such as `--ui-icon-close` and `--ui-icon-expand`. Each is an SVG image used as a mask, so only its shape counts and it takes the text color. The defaults are Fluent UI System Icons, and [Theme tokens](https://opui.dev/html/guide/theme-tokens.md#icons) lists them all. Set them to the icons of your icon set:
+
+```css
+:where(html) {
+  --ui-icon-close: url("/icons/x.svg");
+  --ui-icon-expand: url("/icons/chevron-down.svg");
+}
+```
+
+### Your own icons
+
+An icon slot takes any `svg` with a `viewBox`. The slot sizes it, and it takes the text color through `currentColor`, which `normalize.css` sets as the fill of an `svg` without one. Take them from the same set as the tokens so every icon matches. Icon fonts aren't supported.
+
 ## Contrast
 
 More contrast tightens the knobs, and every role follows. Their values are on [Theme tokens](https://opui.dev/html/guide/theme-tokens.md#contrast).

@@ -6,7 +6,6 @@ import { cx } from "../cx"
 import { useHydrated, useListener } from "../react"
 import Button from "../Button/Button.react"
 import { CalloutContext } from "./context.react"
-import { closePath } from "./icons"
 import type { Props } from "./types.react"
 
 export default function Callout({
@@ -62,9 +61,7 @@ export default function Callout({
                 width="32"
                 height="32"
                 viewBox="0 0 32 32"
-              >
-                <path fill="currentColor" d={closePath} />
-              </svg>
+              />
             ) : (
               closeIcon
             )}

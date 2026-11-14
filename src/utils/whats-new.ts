@@ -1121,6 +1121,7 @@ export const whatsNew = {
     ),
   ],
   select: [
+    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the field, a little inside its border, and content taller than the button keeps that distance and makes the field taller.`,
     `The picker marks the <a href="#preselected">selected option</a> with a check at the end, which <code>--ui-icon-check</code> changes.`,
     components(
       `The ids the select generates start with its <a href="#api"><code>id</code></a>: <code>x-label</code>, <code>x-start-text</code>, <code>x-end-text</code>, <code>x-start</code>, <code>x-end</code>, <code>x-top</code> and <code>x-bottom</code> for <code>id="x"</code>.`,
@@ -1401,6 +1402,7 @@ export const whatsNew = {
     },
   ],
   "text-field": [
+    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the field, a little inside its border, and content taller than the button keeps that distance and makes the field taller.`,
     {
       default: `The label and the affixes <a href="#accessibility">name the field</a> through <code>aria-labelledby</code>, and the start text, end text, top and bottom describe it through <code>aria-describedby</code>, so a hint or an error is read after the name. The ids start with the <code>id</code>: <code>x-label</code>, <code>x-start-text</code>, <code>x-end-text</code> and so on for <code>id="x"</code>.`,
       html: `Give <code>.ui-label</code> an id and <a href="#accessibility">name the field</a> with <code>aria-labelledby</code>, and describe it with the start and end text through <code>aria-describedby</code>, so a hint or an error is read after the name, not in it.`,
@@ -1492,6 +1494,7 @@ export const whatsNew = {
     `A field in a table cell keeps a <code>12ch</code> minimum width, so it stays usable with a <a href="#hidden-label">hidden label</a> in a narrow column.`,
   ],
   textarea: [
+    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the first line and centers on it, and taller content starts a little below the field's top.`,
     {
       default: `The label and the affixes <a href="#accessibility">name the field</a> through <code>aria-labelledby</code>, and the start text, end text, top and bottom describe it through <code>aria-describedby</code>, so a hint or an error is read after the name.`,
       html: `Give <code>.ui-label</code> an id and <a href="#accessibility">name the field</a> with <code>aria-labelledby</code>, and describe it with the start and end text through <code>aria-describedby</code>, so a hint or an error is read after the name, not in it.`,

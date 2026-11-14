@@ -95,18 +95,14 @@ export default {
       prop: "dropZone",
     },
     {
+      attribute: "[disabled]",
       default: "false",
       description:
-        'Dims the field and blocks input. `aria-disabled="true"` looks the same, but keeps the field focusable, its text editable and its value in the form.',
+        'Dims the field and blocks input and the password toggle. `aria-disabled="true"` on the input looks the same, but keeps the field focusable, its text editable and its value in the form.',
       group: "Disabled",
-      inherited: true,
       part: "input",
       prop: "disabled",
       type: "boolean",
-      values: {
-        "aria-disabled": '[aria-disabled="true"]',
-        disabled: "[disabled]",
-      },
     },
     {
       attribute: '[aria-invalid="true"]',

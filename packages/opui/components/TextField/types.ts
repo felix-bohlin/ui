@@ -2,6 +2,7 @@ export type Props = {
   autoFit?: boolean
   characterCount?: boolean
   characterCountLabel?: string
+  disabled?: boolean
   dropZone?: boolean
   endText?: string
   error?: boolean

@@ -16,6 +16,7 @@ export default function TextField({
   characterCount,
   characterCountLabel,
   className,
+  disabled,
   dropZone,
   error,
   hideLabel,
@@ -105,6 +106,7 @@ export default function TextField({
           aria-labelledby={
             named ? idRefs(labelId, startId, endId) : ariaLabelledBy
           }
+          disabled={disabled}
           id={inputId}
           name={name ?? field?.name}
           type={type}
@@ -123,7 +125,7 @@ export default function TextField({
                 aria-pressed="false"
                 command="--toggle-password"
                 commandfor={inputId}
-                disabled={rest.disabled}
+                disabled={disabled}
                 round
               >
                 {iconUnchecked ? (

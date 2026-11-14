@@ -15,6 +15,7 @@ const {
   autoFit,
   characterCount,
   characterCountLabel,
+  disabled,
   dropZone,
   endText,
   error,
@@ -131,6 +132,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
             ? idRefs(labelId(), startId(), endId())
             : attrs['aria-labelledby']
         "
+        :disabled="disabled"
         :id="inputId"
         :name="name ?? field?.name"
         :type="type"
@@ -148,7 +150,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
           aria-pressed="false"
           command="--toggle-password"
           :commandfor="inputId"
-          :disabled="attrs.disabled"
+          :disabled="disabled"
           round
           ><span
             v-if="$slots['icon-unchecked']"

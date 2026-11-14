@@ -10,19 +10,14 @@ import {
 import { selectionOf } from "./selection"
 import { ToggleGroupKey } from "./context.vue"
 import { warnUnnamedGroup } from "../dev"
-import { defined } from "../attrs"
 import type { Props, Slots } from "./types.vue-props"
 
 type Model = Multiple extends true ? string[] : string
 
-const { multiple, name, orientation, overflow, size } = defineProps<
+const { multiple, name, orientation, overflow, role, size } = defineProps<
   Props & { multiple?: Multiple }
 >()
 defineSlots<Slots>()
-
-defineOptions({
-  inheritAttrs: false,
-})
 
 const attrs = useAttrs() as HTMLAttributes
 
@@ -56,8 +51,7 @@ provide(
       size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
-    :role="multiple ? 'group' : 'radiogroup'"
-    v-bind="defined(attrs)"
+    :role="role ?? (multiple ? 'group' : 'radiogroup')"
   >
     <slot></slot>
   </div>

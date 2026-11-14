@@ -47,7 +47,6 @@ const LabelTag = label || labelSlot ? "span" : Fragment
       autocapitalize={
         autocapitalize ?? (alphanumeric ? "characters" : undefined)
       }
-      autocomplete="one-time-code"
       inputmode={inputmode ?? (alphanumeric ? undefined : "numeric")}
       pattern={
         pattern ??
@@ -56,6 +55,7 @@ const LabelTag = label || labelSlot ? "span" : Fragment
       spellcheck={spellcheck ?? (alphanumeric ? "false" : undefined)}
       {...rest}
       aria-invalid={error ? "true" : ariaInvalid}
+      autocomplete="one-time-code"
       maxlength={length}
       name={name ?? field?.name}
       type="text"

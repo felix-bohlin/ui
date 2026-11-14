@@ -12,7 +12,7 @@ const steps = [
   display: block;
 }`,
     html: `
-<div aria-label="Account" class="tabs" role="radiogroup">
+<div class="tabs">
   <input class="tab-input" type="radio" name="tabs" id="tab-1" checked />
   <label class="tab-label" for="tab-1">Profile</label>
   <div class="tab-panel">…</div>
@@ -211,14 +211,14 @@ const knobs = [
 ]
 
 const tabs = [
-  { label: "Profile", panel: "Profile settings and information." },
-  { label: "Settings", panel: "General account settings." },
-  { label: "Billing", panel: "Plans, invoices and payment methods." },
+  { label: "Profile", panel: "Your bio, your gear and your 5-string." },
+  { label: "Settings", panel: "Pokes, privacy and who hears your slaps." },
+  { label: "Gold", panel: "Your Bassbook Gold plan and its shiny perks." },
 ]
 ---
 
 <BuildUp id="build-tabs" knobs={knobs} steps={steps}>
-  <div aria-label="Account" class="tabs" role="radiogroup">
+  <div class="tabs">
     {tabs.map((tab, index) => (
       <>
         <input

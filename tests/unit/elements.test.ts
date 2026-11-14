@@ -12,15 +12,6 @@ import type { SortableTableElement } from "../../packages/opui/elements/sortable
 import type { TextFieldElement } from "../../packages/opui/elements/text-field.js"
 import type { ToasterElement } from "../../packages/opui/elements/toaster.js"
 
-const icons = (file: string) =>
-  Object.fromEntries(
-    [
-      ...readFileSync(file, "utf8").matchAll(
-        /(\w+): \{\n\s+d: "([^"]+)",\n\s+viewBox: "([^"]+)",/g,
-      ),
-    ].map(([, name, d, viewBox]) => [name, { d, viewBox }]),
-  )
-
 const importErrors = (urls: string[]) =>
   JSON.parse(
     execFileSync(
@@ -42,35 +33,34 @@ console.log(JSON.stringify(errors))`,
     ),
   )
 
-const images = (source: string) =>
+const tokenImages = (source: string) =>
   Object.fromEntries(
-    [
-      ...source.matchAll(
-        /--_(\w+)-image: url\("data:image\/svg\+xml,%3Csvg xmlns='http:\/\/www\.w3\.org\/2000\/svg' viewBox='([^']+)'%3E%3Cpath d='([^']+)'\/%3E%3C\/svg%3E"\);/g,
-      ),
-    ].map(([, name, viewBox, d]) => [name, { d, viewBox }]),
+    [...source.matchAll(/--_(\w+)-image: var\(--ui-icon-([a-z-]+)\);/g)].map(
+      ([, name, role]) => [name, role],
+    ),
   )
 
-test("toaster.css draws the Callout severity icons and the Drawer close icon", () => {
-  const callout = icons("packages/opui/components/Callout/icons.ts")
-  const closePath = readFileSync(
-    "packages/opui/components/Drawer/icons.ts",
-    "utf8",
-  ).match(/closePath =\s*"([^"]+)"/)?.[1]
-  expect(Object.keys(callout).length).toBeGreaterThan(0)
-  expect(closePath).toBeTruthy()
+test("toaster.css draws the severity and close icons from the icon tokens", () => {
   expect(
-    images(readFileSync("packages/opui/css/components/toaster.css", "utf8")),
-  ).toEqual({ ...callout, close: { d: closePath, viewBox: "0 0 32 32" } })
+    tokenImages(
+      readFileSync("packages/opui/css/components/toaster.css", "utf8"),
+    ),
+  ).toEqual({
+    close: "close",
+    critical: "critical",
+    info: "info",
+    success: "success",
+    warning: "warning",
+  })
 })
 
-test("the image reader flags an icon that differs", () => {
-  const sample =
-    "--_info-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M1 1'/%3E%3C/svg%3E\");"
-  expect(images(sample)).toEqual({ info: { d: "M1 1", viewBox: "0 0 32 32" } })
-  expect(images(sample)).not.toEqual({
-    info: { d: "M2 2", viewBox: "0 0 32 32" },
+test("the image reader flags an icon that isn't a token", () => {
+  expect(tokenImages("--_info-image: var(--ui-icon-info);")).toEqual({
+    info: "info",
   })
+  expect(
+    tokenImages(`--_info-image: url("data:image/svg+xml,%3Csvg/%3E");`),
+  ).toEqual({})
 })
 
 test("the elements and the css/js scripts import in Node, which has no DOM", () => {

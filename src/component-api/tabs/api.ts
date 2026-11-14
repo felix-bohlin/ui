@@ -67,6 +67,15 @@ export default {
       values: { scroll: null, wrap: ".ui-overflow-wrap" },
     },
     {
+      attribute: '[role="radiogroup"]',
+      description:
+        "Makes tabs without panels a radio group, which `aria-label` names. Tabs with panels take no role: the root holds the panels, and a radio group holds only radios.",
+      group: "Role",
+      inherited: true,
+      prop: "role",
+      type: "string",
+    },
+    {
       default: '"tonal"',
       description:
         "The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.",

@@ -22,6 +22,13 @@ export default {
       prop: "aria-labelledby",
       type: "string",
     },
+    {
+      default: '"group"',
+      description: "The `role` of the root. A passed role replaces `group`.",
+      inherited: true,
+      prop: "role",
+      type: "string",
+    },
   ],
   page: "avatar",
   parts: [],

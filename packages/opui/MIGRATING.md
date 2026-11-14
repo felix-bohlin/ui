@@ -1142,7 +1142,7 @@ The switch lines up with the first line of its label, keeps a light marker in da
 
 `aria-invalid="true"` on the `<input role="switch">` replaces `data-invalid` on `.ui-switch`.
 
-In Astro, `type` is no longer a typed prop. Remove it, the component sets it.
+In Astro, `type` and `role` are no longer typed props. Remove them, the component sets them.
 
 In Astro and Vue, `style` goes to the root `<label>` instead of the `<input>`, like `class`. Set `--_` properties through `style`, and style the input itself with a class or CSS.
 
@@ -1209,17 +1209,24 @@ Tabs look like segmented controls: the tabs sit on a rounded track and the selec
 
 `TabsItem` takes `id` and `TabsLabel` takes `for` (`htmlFor` in React) instead of `tabId`; when both are omitted the item still generates the id and hands it to its label.
 
-Tabs are a radio group without tab roles. Remove `role="tablist"`, `role="tab"`, `role="tabpanel"`, `aria-controls` and `aria-labelledby` from HTML tabs, put `role="radiogroup"` and an `aria-label` on `.ui-tabs`, and remove `panelId` (and `tabId` on the panel) from Astro and Vue, where `Tabs` renders the role and `aria-label` names it. Styles that target `[role="tab"]` or `[role="tabpanel"]` need `.ui-label` and `.ui-panel`.
+Tabs are radios without tab roles. Remove `role="tablist"`, `role="tab"`, `role="tabpanel"`, `aria-controls` and `aria-labelledby` from HTML tabs, and `panelId` (and `tabId` on the panel) from Astro and Vue. Tabs with panels take no role, since the root holds the panels and a radio group holds only radios; screen readers still announce each tab as one of the set. Styles that target `[role="tab"]` or `[role="tabpanel"]` need `.ui-label` and `.ui-panel`.
 
 ```diff
 - <div class="ui-tabs" role="tablist">
 -   <input type="radio" name="tabs" id="tab-1" class="ui-tab-input" aria-controls="panel-1" checked />
 -   <label for="tab-1" class="ui-tab-label" role="tab">Profile</label>
 -   <div id="panel-1" class="ui-tab-panel" role="tabpanel" aria-labelledby="tab-1">…</div>
-+ <div class="ui-tabs" role="radiogroup" aria-label="Account settings">
++ <div class="ui-tabs">
 +   <input type="radio" name="tabs" id="tab-1" class="ui-input" checked />
 +   <label for="tab-1" class="ui-label">Profile</label>
 +   <div class="ui-panel">…</div>
+```
+
+Tabs without panels are a radio group: put `role="radiogroup"` and an `aria-label` on `.ui-tabs`, or pass them to `Tabs`.
+
+```diff
+- <div class="ui-tabs" role="tablist">
++ <div class="ui-tabs" role="radiogroup" aria-label="Show in the feed">
 ```
 
 The parts are `.ui-input`, `.ui-label` and `.ui-panel` instead of `.ui-tab-input`, `.ui-tab-label` and `.ui-tab-panel`, and `TabsTab` is `TabsLabel`.

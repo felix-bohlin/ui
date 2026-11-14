@@ -13,4 +13,7 @@ export type CalloutContentProps = Base.CalloutContentProps &
   ComponentProps<"div">
 
 export type CalloutIconProps = Base.CalloutIconProps &
-  Omit<ComponentProps<"svg">, "children">
+  Omit<
+    ComponentProps<"svg">,
+    "aria-hidden" | "children" | "height" | "viewBox" | "width" | "xmlns"
+  >

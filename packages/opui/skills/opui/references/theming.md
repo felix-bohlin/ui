@@ -6,7 +6,7 @@ A theme sets [knobs and roles](https://opui.dev/html/guide/concepts.md#token-tie
 
 1. Knobs
 
-   `--ui-palette-hue` 223 `--ui-palette-chroma` 0.5
+   `--ui-palette-hue` 223 `--ui-palette-chroma` 0.50
 
 2. Palette `--ui-color-1` to `--ui-color-16`
 

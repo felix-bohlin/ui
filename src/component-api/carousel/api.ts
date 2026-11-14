@@ -134,6 +134,14 @@ export default {
       prop: "previousLabel",
     },
     {
+      default: '"list"',
+      description:
+        "The `role` of the `<ul>`. `list` keeps Safari announcing a list.",
+      inherited: true,
+      prop: "role",
+      type: "string",
+    },
+    {
       class: ".ui-stretch",
       default: "false",
       description:

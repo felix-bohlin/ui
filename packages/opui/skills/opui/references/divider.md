@@ -40,7 +40,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-contrast`, 
 ```html
 Email me when someone mentions me in a comment.
 <hr class="ui-divider" />
-Send me a summary of my projects every Monday.
+Send me a summary of my jam sessions every Monday.
 ```
 
 ## Astro
@@ -56,7 +56,7 @@ import { Divider } from "opui-css/astro"
 
 Email me when someone mentions me in a comment.
 <Divider />
-Send me a summary of my projects every Monday.
+Send me a summary of my jam sessions every Monday.
 ```
 
 ## React
@@ -73,7 +73,7 @@ export default function Basics() {
     <>
       Email me when someone mentions me in a comment.
       <Divider />
-      Send me a summary of my projects every Monday.
+      Send me a summary of my jam sessions every Monday.
     </>
   )
 }
@@ -92,7 +92,7 @@ export default function Basics() {
 
 Email me when someone mentions me in a comment.
 <Divider />
-Send me a summary of my projects every Monday.
+Send me a summary of my jam sessions every Monday.
 ```
 
 ## Vue
@@ -109,6 +109,6 @@ import { Divider } from "opui-css/vue"
 <template>
   Email me when someone mentions me in a comment.
   <Divider />
-  Send me a summary of my projects every Monday.
+  Send me a summary of my jam sessions every Monday.
 </template>
 ```

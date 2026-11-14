@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
@@ -7,6 +6,7 @@
     color,
     orientation,
     overflow,
+    role,
     size,
     variant,
 
@@ -26,8 +26,8 @@
     variant && variant !== "transparent" && `ui-${variant}`,
     className,
   ]}
-  role="group"
-  {...defined(rest)}
+  role={role ?? "group"}
+  {...rest}
 >
   {@render children?.()}
 </div>

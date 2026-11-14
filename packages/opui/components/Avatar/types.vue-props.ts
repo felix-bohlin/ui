@@ -1,3 +1,4 @@
+import type { IntrinsicElementAttributes } from "vue"
 import type { Class, DefaultSlots } from "../vue"
 import type {
   AvatarGroupProps as BaseAvatarGroupProps,
@@ -8,7 +9,7 @@ export type AvatarGroupProps = Omit<
   BaseAvatarGroupProps,
   "aria-label" | "aria-labelledby"
 > &
-  Class
+  Class & { role?: IntrinsicElementAttributes["div"]["role"] }
 
 export type Props = BaseProps & Class & { as?: "a" | "button" | "div" }
 

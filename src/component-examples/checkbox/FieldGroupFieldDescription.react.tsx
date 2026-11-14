@@ -13,7 +13,7 @@ export default function FieldGroupFieldDescription() {
       <Fieldset aria-describedby="checkbox-field-group-field-description-1-description">
         <FieldLegend>Notifications</FieldLegend>
         <FieldDescription id="checkbox-field-group-field-description-1-description">
-          How we reach you about your orders.
+          How we tell you a bandmate finally replied.
         </FieldDescription>
         <FieldGroup
           name="checkbox-group-field-description-1"
@@ -30,9 +30,9 @@ export default function FieldGroupFieldDescription() {
           name="checkbox-group-field-description-2"
           orientation="horizontal"
         >
-          <Checkbox defaultChecked>Product updates</Checkbox>
+          <Checkbox defaultChecked>Bassbook news</Checkbox>
           <Checkbox>Events</Checkbox>
-          <Checkbox>Offers</Checkbox>
+          <Checkbox>Gear deals</Checkbox>
         </FieldGroup>
         <FieldDescription id="checkbox-field-group-field-description-2-description">
           Change these at any time in your account.

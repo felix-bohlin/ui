@@ -8,15 +8,11 @@ import {
   useId,
 } from "vue"
 import { TabsKey } from "./context.vue"
-import { defined } from "../attrs"
+import { warnUnnamedGroup } from "../dev"
 import type { Props, Slots } from "./types.vue-props"
 
-const { name, orientation, overflow, variant } = defineProps<Props>()
+const { name, orientation, overflow, role, variant } = defineProps<Props>()
 defineSlots<Slots>()
-
-defineOptions({
-  inheritAttrs: false,
-})
 
 const attrs = useAttrs() as HTMLAttributes
 
@@ -30,6 +26,8 @@ const uid = useId()
 
 const groupName = computed(() => name || `tabs-${uid}`)
 
+if (role === "radiogroup") warnUnnamedGroup("Tabs", attrs)
+
 provide(TabsKey, reactive({ change, groupName, value: model }))
 </script>
 
@@ -42,8 +40,7 @@ provide(TabsKey, reactive({ change, groupName, value: model }))
       variant && variant !== 'tonal' && `ui-${variant}`,
       $props.class,
     ]"
-    role="radiogroup"
-    v-bind="defined(attrs)"
+    :role="role"
   >
     <slot></slot>
   </div>

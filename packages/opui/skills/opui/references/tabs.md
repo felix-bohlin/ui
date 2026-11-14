@@ -21,6 +21,7 @@ Tabs that switch between panels of related content, built on radio inputs.
 - `onValueChange` (React): `(value: string) => void`. Called with the `value` of the tab when one is selected.
 - `orientation`: `"horizontal"` (default), `"vertical"` (`.ui-vertical`). The orientation of the tabs. `vertical` stacks them in a column at the inline start, with the panel beside them.
 - `overflow`: `"scroll"` (default), `"wrap"` (`.ui-overflow-wrap`). What the tabs do when they don't fit. `scroll` keeps them on one row and scrolls it sideways, and `wrap` wraps them onto more rows. Vertical tabs ignore it: long labels wrap within the column.
+- `role`: `string`, `[role="radiogroup"]`. Makes tabs without panels a radio group, which `aria-label` names. Tabs with panels take no role: the root holds the panels, and a radio group holds only radios.
 - `value` (Astro and React): `string`. The `value` of the selected tab. The item whose `value` matches is checked, and the items' own `checked` is ignored.
 - `variant`: `"filled"` (`.ui-filled`), `"line"` (`.ui-line`), `"outlined"` (`.ui-outlined`), `"tonal"` (default). The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.
 
@@ -119,7 +120,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 ### Example: Basics
 
 ```html
-<div class="ui-tabs" role="radiogroup" aria-label="Account settings">
+<div class="ui-tabs">
   <input
     checked
     class="ui-input"
@@ -149,7 +150,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
 ---
 
-<Tabs aria-label="Account settings" name="basic-tabs">
+<Tabs name="basic-tabs">
   <TabsItem checked>
     <TabsLabel>Profile</TabsLabel>
     <TabsPanel>Profile settings and information.</TabsPanel>
@@ -178,7 +179,7 @@ import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/react"
 
 export default function Basics() {
   return (
-    <Tabs aria-label="Account settings" name="basic-tabs">
+    <Tabs name="basic-tabs">
       <TabsItem defaultChecked>
         <TabsLabel>Profile</TabsLabel>
         <TabsPanel>Profile settings and information.</TabsPanel>
@@ -209,7 +210,7 @@ export default function Basics() {
   import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/svelte"
 </script>
 
-<Tabs aria-label="Account settings" name="basic-tabs">
+<Tabs name="basic-tabs">
   <TabsItem defaultChecked>
     <TabsLabel>Profile</TabsLabel>
     <TabsPanel>Profile settings and information.</TabsPanel>
@@ -239,7 +240,7 @@ import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/vue"
 </script>
 
 <template>
-  <Tabs aria-label="Account settings" name="basic-tabs">
+  <Tabs name="basic-tabs">
     <TabsItem checked>
       <TabsLabel>Profile</TabsLabel>
       <TabsPanel>Profile settings and information.</TabsPanel>

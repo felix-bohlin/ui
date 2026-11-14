@@ -1,4 +1,3 @@
-import { defined } from "../attrs"
 import { cx } from "../cx"
 import type { Props } from "./types.react"
 
@@ -7,6 +6,7 @@ export default function List({
   className,
   dense,
   flush,
+  role,
   variant,
   children,
   ...rest
@@ -19,8 +19,8 @@ export default function List({
         variant && variant !== "filled" && `ui-${variant}`,
         className,
       ])}
-      role="list"
-      {...defined(rest)}
+      role={role ?? "list"}
+      {...rest}
     >
       {children}
     </ul>

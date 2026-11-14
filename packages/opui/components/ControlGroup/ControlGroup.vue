@@ -1,16 +1,9 @@
 <script setup lang="ts">
-import { type HTMLAttributes, useAttrs } from "vue"
-import { defined } from "../attrs"
 import type { Props, Slots } from "./types.vue-props"
 
-const { color, orientation, overflow, size, variant } = defineProps<Props>()
+const { color, orientation, overflow, role, size, variant } =
+  defineProps<Props>()
 defineSlots<Slots>()
-
-defineOptions({
-  inheritAttrs: false,
-})
-
-const attrs = useAttrs() as HTMLAttributes
 </script>
 
 <template>
@@ -24,8 +17,7 @@ const attrs = useAttrs() as HTMLAttributes
       variant && variant !== 'transparent' && `ui-${variant}`,
       $props.class,
     ]"
-    role="group"
-    v-bind="defined(attrs)"
+    :role="role ?? 'group'"
   >
     <slot></slot>
   </div>

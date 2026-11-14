@@ -30,6 +30,7 @@ A scrolling list with snap points, buttons and markers.
 - `peek`: `boolean`, `.ui-peek`. Shows part of the neighboring items.
 - `persistentButtons`: `boolean`, `.ui-persistent-buttons`. Keeps the buttons visible at the ends. A disabled button has a muted border.
 - `previousLabel`: `string`, `--_button-previous-label`, default `"Previous"`. Accessible name of the previous button.
+- `role`: `string`, default `"list"`. The `role` of the `<ul>`. `list` keeps Safari announcing a list.
 - `stretch`: `boolean`, `.ui-stretch`. Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.
 
 ### Notes
@@ -46,7 +47,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_block-size`: The height of `.ui-vertical`.
 - `--_button-bg-color`: Background of the scroll buttons. Defaults to `--ui-surface-inverse`. The icon is drawn in its inverse, so keep it very dark or very light.
 - `--_button-disabled-opacity`: Opacity of disabled scroll buttons. `0` hides them, `.ui-persistent-buttons` sets `1`.
-- `--_button-image`: Icon of the scroll buttons, pointing forward. The previous button mirrors it.
+- `--_button-image`: Icon of the scroll buttons, pointing forward. Defaults to `--ui-icon-next`. Draw it in black, as icon sets do: the button shows it in the inverse of `--_button-bg-color`. The previous button mirrors it.
 - `--_button-image-size`: The icon size in the scroll buttons.
 - `--_button-inset`: Space between the scroll buttons and the carousel edge.
 - `--_button-next-label`: Accessible name of the next button, a CSS string. `nextLabel` sets it.
@@ -59,7 +60,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_marker-bg-color`: Fill of the other markers. Defaults to `transparent`.
 - `--_marker-border-color`: Ring of the other markers. Defaults to `--ui-text`, which keeps its contrast against the page in every theme.
 - `--_marker-gap`: Space between markers.
-- `--_marker-group-margin-block-start`: Space between the items and the markers, the `margin-block-start` of `::scroll-marker-group`. In `.ui-vertical` it is the space at the inline end of the items instead.
+- `--_marker-group-offset`: Distance from the items to the markers in either orientation: the `margin-block-start` of `::scroll-marker-group`, and in `.ui-vertical` the room at the inline end of the items and the group's `inset-inline-start`.
 - `--_marker-label`: Accessible name of each marker, CSS strings with `counter(ui-carousel-item)` where the item number goes. `markerLabel` sets it.
 - `--_marker-selected-bg-color`: Fill and ring of the current marker. Defaults to `--ui-selected-strong`.
 - `--_marker-selected-padding`: Inset of the current marker's dot, smaller than the `--ui-space-2` of the other markers, so the current dot is larger. Defaults to `--ui-space-1`.
@@ -76,7 +77,7 @@ Outputs: `--_block-room`, `--_button-border-color`, `--_button-disabled-border-c
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width`, `--ui-button-size-small`, `--ui-control-border-color-filled`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-motion`, `--ui-radius`, `--ui-radius-round`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-8`, `--ui-surface-inverse` and `--ui-text`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width`, `--ui-button-size-small`, `--ui-control-border-color-filled`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-icon-next`, `--ui-motion`, `--ui-radius`, `--ui-radius-round`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-8`, `--ui-surface-inverse` and `--ui-text`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

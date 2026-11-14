@@ -1,4 +1,3 @@
-import { defined } from "../attrs"
 import { cx } from "../cx"
 import type { Props } from "./types.react"
 
@@ -7,6 +6,7 @@ export default function ControlGroup({
   color,
   orientation,
   overflow,
+  role,
   size,
   variant,
   children,
@@ -23,8 +23,8 @@ export default function ControlGroup({
         variant && variant !== "transparent" && `ui-${variant}`,
         className,
       ])}
-      role="group"
-      {...defined(rest)}
+      role={role ?? "group"}
+      {...rest}
     >
       {children}
     </div>

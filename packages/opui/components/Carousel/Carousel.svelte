@@ -1,6 +1,5 @@
 <script lang="ts">
   import { counterLabel, cssString, mergeStyle } from "../style"
-  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
@@ -16,6 +15,7 @@
     peek,
     persistentButtons,
     previousLabel,
+    role,
     stretch,
     style,
 
@@ -50,8 +50,8 @@
     },
     style,
   )}
-  role="list"
-  {...defined(rest)}
+  role={role ?? "list"}
+  {...rest}
 >
   {@render children?.()}
 </ul>

@@ -68,7 +68,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_icon-size`: Size of the check, the exclamation mark and a `.ui-icon-complete`. 60% of `--_marker-size`.
 - `--_line-border-width`: Width of the line to the next step. Defaults to `--ui-border-width-thick`.
 - `--_marker-border-width`: Width of the marker border. Defaults to `--ui-border-width-thick`.
-- `--_marker-complete-image`: The check cut out of a complete marker, as an image used as a mask. Defaults to `--ui-check-image`, then a built-in check.
+- `--_marker-complete-image`: The check cut out of a complete marker, as an image used as a mask. Defaults to `--ui-icon-check`.
 - `--_marker-error-image`: The exclamation mark cut out of the marker of a step with an error, as an image used as a mask.
 - `--_marker-size`: Size of the marker. Defaults to `--ui-space-6`, `--ui-space-5` with `.ui-small`.
 - `--_motion`: Motion multiplier for the marker and line transitions.
@@ -78,7 +78,7 @@ Outputs: `--_duration`, `--_label-text-color`, `--_line-border-color`, `--_marke
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width-thick`, `--ui-check-image`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-weight-normal`, `--ui-font-weight-semibold`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height`, `--ui-motion`, `--ui-on-selected-strong`, `--ui-radius-round`, `--ui-selected-strong`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4`, `--ui-space-5`, `--ui-space-6`, `--ui-text`, `--ui-text-subtle` and `--ui-underline-offset`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width-thick`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-weight-normal`, `--ui-font-weight-semibold`, `--ui-icon-check`, `--ui-icon-error`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height`, `--ui-motion`, `--ui-on-selected-strong`, `--ui-radius-round`, `--ui-selected-strong`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4`, `--ui-space-5`, `--ui-space-6`, `--ui-text`, `--ui-text-subtle` and `--ui-underline-offset`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

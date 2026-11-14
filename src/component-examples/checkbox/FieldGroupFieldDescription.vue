@@ -17,7 +17,7 @@ import {
       <FieldLegend>Notifications</FieldLegend>
       <FieldDescription
         id="checkbox-field-group-field-description-1-description"
-        >How we reach you about your orders.</FieldDescription
+        >How we tell you a bandmate finally replied.</FieldDescription
       >
       <FieldGroup
         name="checkbox-group-field-description-1"
@@ -36,9 +36,9 @@ import {
         name="checkbox-group-field-description-2"
         orientation="horizontal"
       >
-        <Checkbox checked>Product updates</Checkbox>
+        <Checkbox checked>Bassbook news</Checkbox>
         <Checkbox>Events</Checkbox>
-        <Checkbox>Offers</Checkbox>
+        <Checkbox>Gear deals</Checkbox>
       </FieldGroup>
       <FieldDescription
         id="checkbox-field-group-field-description-2-description"

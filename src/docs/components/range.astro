@@ -133,6 +133,24 @@ export const keywords = ["slider"]
       </Fragment>
     </Conditional>
     <Conditional as="p">
+      <Fragment slot="components">
+        The readout is formatted with <code>Intl.NumberFormat</code> for the
+        range's <code>lang</code>, with the decimals of <code>min</code> and
+        <code>step</code> and no grouping, so <code>0.5</code> reads
+        <code>0,5</code> in German. Pass <code>lang</code> to the range: without
+        it, the value is English until <code>range.js</code> formats it for the
+        closest <code>lang</code> in the page. A unit before the number needs
+        your own readout.
+      </Fragment>
+      <Fragment slot="html">
+        <code>range.js</code> formats the value with
+        <code>Intl.NumberFormat</code> for the closest <code>lang</code>, with
+        the decimals of <code>min</code> and <code>step</code> and no grouping,
+        so <code>0.5</code> reads <code>0,5</code> in German. A unit before the
+        number needs your own readout.
+      </Fragment>
+    </Conditional>
+    <Conditional as="p">
       <Fragment slot="astro">
         For your own readout, use the <code>value-text</code> slot, update it on
         <code>input</code>, and set <code>aria-valuetext</code> to match.

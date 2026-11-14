@@ -31,6 +31,8 @@ import {
   unsupported,
 } from "./component-shared.mjs"
 
+const CUSTOM_TAG_LITERAL = /(["'`])[a-z][\w.]*-[\w.-]*\1/
+
 export const toReact = (component) => {
   const {
     components,
@@ -72,6 +74,27 @@ export const toReact = (component) => {
   ])
   const events = component.events ?? []
   const listened = eventRoots(component)
+  const hydrating = new Map(
+    listened.flatMap((node) => {
+      if (node.custom) return [[node, 'data-hydrating=""']]
+      const source = node.variable
+        ? [
+            ...derived.filter(({ name }) => name === node.tag),
+            ...props.filter(({ local }) => local === node.tag),
+          ]
+            .map((entry) => entry.code ?? entry.default ?? "")
+            .join(" ")
+        : ""
+      return CUSTOM_TAG_LITERAL.test(source)
+        ? [
+            [
+              node,
+              `data-hydrating={${node.tag}.includes("-") ? "" : undefined}`,
+            ],
+          ]
+        : []
+    }),
+  )
   const handlers = events.map((event) => eventProp("react", event))
   const clash = ["ref", "rootRef", ...handlers].find(
     (name) => events.length > 0 && taken.has(name),
@@ -166,11 +189,11 @@ export const toReact = (component) => {
       : []),
     ...(events.length
       ? [
-          `const rootRef = ${events.reduce(
+          `const rootRef = ${hydrating.size ? "useHydrated(" : ""}${events.reduce(
             (ref, event, index) =>
               `useListener(${ref}, ${JSON.stringify(event)}, ${handlers[index]})`,
             "ref",
-          )}`,
+          )}${hydrating.size ? ")" : ""}`,
         ]
       : []),
     ...(scripts.length
@@ -292,10 +315,14 @@ export const toReact = (component) => {
               (entry) => entry.kind === "spread" && entry.code === rest,
             )
           : -1
+        const rootRef = [
+          ...(hydrating.has(node) ? [hydrating.get(node)] : []),
+          "ref={rootRef}",
+        ]
         const attributes = [
           ...(node.keyed ? [`key={${node.keyed}}`] : []),
           ...node.attributes.flatMap((entry, index) => [
-            ...(index === restAt ? ["ref={rootRef}"] : []),
+            ...(index === restAt ? rootRef : []),
             ...(node.groupRadio !== undefined &&
             entry.kind === "expression" &&
             entry.name === "checked"
@@ -324,7 +351,7 @@ export const toReact = (component) => {
                 "suppressHydrationWarning",
               ]
             : []),
-          ...(listens && restAt === -1 ? ["ref={rootRef}"] : []),
+          ...(listens && restAt === -1 ? rootRef : []),
         ].join(" ")
         const open = `<${node.tag}${attributes ? ` ${attributes}` : ""}`
         return node.children.length === 0
@@ -353,7 +380,11 @@ export const toReact = (component) => {
     ...(reactImport ? [reactImport] : []),
     ...(usesDefined ? [`import { defined } from "../attrs"`] : []),
     ...(usesCx ? [`import { cx } from "../cx"`] : []),
-    ...(events.length ? [`import { useListener } from "../react"`] : []),
+    ...(events.length
+      ? [
+          `import { ${hydrating.size ? "useHydrated, " : ""}useListener } from "../react"`,
+        ]
+      : []),
     ...components
       .map((entry) => componentImport(entry, ".react"))
       .toSorted(byName),

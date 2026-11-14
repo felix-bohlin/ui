@@ -14,4 +14,7 @@ export type CalloutContentProps = Base.CalloutContentProps &
   SvelteHTMLElements["div"]
 
 export type CalloutIconProps = Base.CalloutIconProps &
-  Omit<SvelteHTMLElements["svg"], "children">
+  Omit<
+    SvelteHTMLElements["svg"],
+    "aria-hidden" | "children" | "height" | "viewBox" | "width" | "xmlns"
+  >

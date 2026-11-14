@@ -11,8 +11,8 @@ import { Checkbox } from "opui-css/vue"
     >Sync over Wi-Fi</Checkbox
   >
   <Checkbox name="checkbox-visible-label">
-    Send me occasional emails about new features, tips and offers. I can
-    unsubscribe at any time and have read the
+    Send me occasional emails about new features, slap tips and gear deals. I
+    can unsubscribe at any time and have read the
     <a class="ui-link" href="#visible-label">privacy policy</a>
   </Checkbox>
 </template>

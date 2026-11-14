@@ -74,7 +74,7 @@ export default {
       react:
         "Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.",
     }),
-    html: 'Add a `<datalist aria-hidden="true">` after the input for tick marks. `data-suffix` on the `.ui-value` output adds text after the value.',
+    html: 'Add a `<datalist aria-hidden="true">` after the input for tick marks. `data-suffix` on the `.ui-value` output adds text after the value, which `range.js` formats for the closest `lang`.',
   },
   options: [
     {
@@ -115,6 +115,13 @@ export default {
       description:
         "Tick marks, rendered as `<option>` elements in a `<datalist>`. Each is a value, or a `{ label, value }` object for a labeled tick. Without `valueSuffix`, the label of the tick at the value is the input's `aria-valuetext`.",
       prop: "items",
+    },
+    {
+      description:
+        "The language of the `<label>`, which formats the shown value with `Intl.NumberFormat`. Without it, the value is formatted in English until `opui-css/css/js/range.js` formats it for the closest `lang` in the page.",
+      inherited: true,
+      prop: "lang",
+      type: "string",
     },
     {
       description:
@@ -176,7 +183,7 @@ export default {
     },
     {
       description:
-        "Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`.",
+        "Text after the shown value, such as `%`. Setting it shows the current value in an `<output>` and as the input's `aria-valuetext`, formatted for `lang` with the decimals of `min` and `step` and no grouping.",
       prop: "valueSuffix",
     },
     {

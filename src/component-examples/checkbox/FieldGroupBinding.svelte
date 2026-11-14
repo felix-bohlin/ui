@@ -22,9 +22,9 @@
 <Fieldset>
   <FieldLegend>Newsletter topics</FieldLegend>
   <FieldGroup name="checkbox-binding">
-    <Checkbox bind:group={selected} value="updates">Product updates</Checkbox>
+    <Checkbox bind:group={selected} value="updates">Bassbook news</Checkbox>
     <Checkbox bind:group={selected} value="events">Events</Checkbox>
-    <Checkbox bind:group={selected} value="offers">Offers</Checkbox>
+    <Checkbox bind:group={selected} value="offers">Gear deals</Checkbox>
   </FieldGroup>
 </Fieldset>
 <p class="checkbox-binding-text">Selected: {summary}</p>

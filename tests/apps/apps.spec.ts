@@ -282,7 +282,7 @@ const CHANGES = [
   { example: "radio/Basics", label: "PayPal", to: true },
   { example: "range/Basics", label: "Volume", to: "80" },
   { example: "rating/Input", label: "1 star", to: true },
-  { example: "select/Variants", label: "Role", to: "Developer" },
+  { example: "select/Variants", label: "Role", to: "Bass" },
   { example: "switch/Basics", label: "Bluetooth", to: true },
   { example: "tabs/Basics", label: "Settings", to: true },
   { example: "tabs/Binding", label: "Notifications", to: true },
@@ -550,4 +550,65 @@ test("a sortable table clicked before React hydrates it waits for onSort", async
   await expect(header("Moons")).toHaveAttribute("aria-sort", "ascending")
   await expect(table.getByRole("status")).toHaveText("Moons, sorted ascending")
   expect(unexpected(problems, app.name, "table")).toEqual([])
+})
+
+test("a callout dismissed before React hydrates it waits for onDismiss", async ({
+  page,
+}, testInfo) => {
+  const app = appOf(testInfo.project.name)
+  test.skip(
+    app.framework !== "react" || !app.scripts || !app.ssr,
+    `${app.name} loads the element with the component`,
+  )
+  const problems = await watch(page)
+  const { promise, resolve: release } = Promise.withResolvers<void>()
+  await page.route(
+    (url) =>
+      url.hostname === "localhost" &&
+      url.pathname.startsWith(app.scripts ?? ""),
+    async (route) => {
+      if (route.request().resourceType() === "script") await promise
+      await route.continue()
+    },
+  )
+  const questions: string[] = []
+  page.on("dialog", async (dialog) => {
+    questions.push(dialog.message())
+    await (questions.length === 1 ? dialog.dismiss() : dialog.accept())
+  })
+  await page.goto("/callout", { waitUntil: "commit" })
+  const callout = page.locator(
+    '[data-example="callout/Dismissible"] opui-callout',
+  )
+  const close = callout.getByRole("button", { name: "Dismiss" })
+  await callout.waitFor()
+  await page.addScriptTag({
+    content: readFileSync(
+      path.join(import.meta.dirname, "../../packages/opui/elements/callout.js"),
+      "utf8",
+    ),
+    type: "module",
+  })
+  await expect(
+    page.locator('[data-example="callout/Dismissible"] opui-callout:defined'),
+  ).toHaveCount(1)
+  await close.click()
+  await expect(callout).toBeVisible()
+  expect(questions).toEqual([])
+  expect(
+    await page.evaluate(() => "hydrated" in document.documentElement.dataset),
+    `${app.name} hydrated before the click`,
+  ).toBe(false)
+
+  release()
+  await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
+  await page.waitForLoadState("load")
+  await expect(callout).not.toHaveAttribute("data-hydrating")
+  await close.click()
+  await expect.poll(() => questions).toEqual(["Hide this message?"])
+  await expect(callout).toBeVisible()
+  await close.click()
+  await expect.poll(() => questions).toHaveLength(2)
+  await expect(callout).toBeHidden()
+  expect(unexpected(problems, app.name, "callout")).toEqual([])
 })

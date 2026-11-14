@@ -17,7 +17,7 @@
     );
     --_button-disabled-opacity: 0;
     --_button-end-flip: 1;
-    --_button-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M8.293 4.293a1 1 0 0 0 0 1.414L14.586 12l-6.293 6.293a1 1 0 1 0 1.414 1.414l7-7a1 1 0 0 0 0-1.414l-7-7a1 1 0 0 0-1.414 0'/%3E%3C/svg%3E");
+    --_button-image: var(--ui-icon-next);
     --_button-image-size: 60%;
     --_button-inset: var(--ui-space-2);
     --_button-next-label: "Next";
@@ -40,7 +40,7 @@
     --_marker-bg-color: transparent;
     --_marker-border-color: var(--ui-text);
     --_marker-gap: 0px;
-    --_marker-group-margin-block-start: var(--ui-space-3);
+    --_marker-group-offset: var(--ui-space-3);
     --_marker-label: "Slide " counter(ui-carousel-item);
     --_marker-selected-bg-color: var(--ui-selected-strong);
     --_marker-selected-padding: var(--ui-space-1);
@@ -135,12 +135,14 @@
       &.ui-vertical::scroll-button(block-end) {
         --_button-scale: 1;
 
-        background-blend-mode: difference;
-        background-color: var(--_button-bg-color);
-        background-image: var(--_button-image);
+        background-blend-mode: difference, difference, normal;
+        background-color: oklch(100% 0 0);
+        background-image:
+          linear-gradient(oklch(100% 0 0) 0 0),
+          linear-gradient(var(--_button-bg-color) 0 0), var(--_button-image);
         background-position: center;
         background-repeat: no-repeat;
-        background-size: var(--_button-image-size);
+        background-size: 100%, 100%, var(--_button-image-size);
         block-size: var(--_button-size);
         border: var(--ui-border-width) solid var(--_button-border-color);
         border-radius: var(--ui-radius-round);
@@ -159,6 +161,14 @@
           scale var(--_scale-duration) var(--_ease);
         translate: 0 -50%;
         z-index: 1;
+
+        @media (forced-colors: active) {
+          --_button-bg-color: Canvas;
+
+          border-color: ButtonText;
+          box-shadow: none;
+          forced-color-adjust: none;
+        }
       }
 
       &::scroll-button(inline-start) {
@@ -226,7 +236,7 @@
 
             &.ui-markers {
               margin-inline-end: calc(
-                var(--_marker-size) + var(--_marker-group-margin-block-start) -
+                var(--_marker-size) + var(--_marker-group-offset) -
                   var(--_inline-room)
               );
             }
@@ -310,7 +320,7 @@
         gap: var(--_marker-gap);
         justify-content: center;
         justify-self: stretch;
-        margin-block-start: var(--_marker-group-margin-block-start);
+        margin-block-start: var(--_marker-group-offset);
       }
 
       & > *::scroll-marker {
@@ -368,7 +378,7 @@
 
       @supports selector(::scroll-marker) {
         margin-inline-end: calc(
-          var(--_marker-size) + var(--_marker-group-margin-block-start) -
+          var(--_marker-size) + var(--_marker-group-offset) -
             var(--_inline-room)
         );
       }
@@ -377,7 +387,7 @@
         flex-direction: column;
         inset-block-start: anchor(--ui-carousel center);
         inset-inline-start: calc(
-          anchor(--ui-carousel end) + var(--_marker-group-margin-block-start) -
+          anchor(--ui-carousel end) + var(--_marker-group-offset) -
             var(--_inline-room)
         );
 

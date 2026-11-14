@@ -26,3 +26,13 @@ export const useListener = <E extends Event>(
     },
     [listener, ref, type],
   )
+
+export const useHydrated = (ref: (element: HTMLElement) => () => void) =>
+  useCallback(
+    (element: HTMLElement) => {
+      const cleanup = ref(element)
+      element.removeAttribute("data-hydrating")
+      return cleanup
+    },
+    [ref],
+  )

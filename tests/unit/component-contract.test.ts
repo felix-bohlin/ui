@@ -16,10 +16,20 @@ import {
 import { tagAttrs } from "../../packages/opui/components/tag"
 import { slotProp } from "../../src/component-api/frameworks"
 import type { ComponentApi } from "../../src/component-api/types"
-import { frameworkProps, splitUnion } from "../../src/utils/component-source"
+import {
+  frameworkProps,
+  splitUnion,
+  typedAttributes,
+} from "../../src/utils/component-source"
 import { createIdGenerator } from "../../src/utils/id"
 import { normalize } from "./normalize"
-import { contentOf, reactNodes, TEXT, vueNodes } from "./renderers"
+import {
+  CALLER_VALUE,
+  contentOf,
+  reactNodes,
+  TEXT,
+  vueNodes,
+} from "./renderers"
 
 const apis = import.meta.glob<ComponentApi>(
   "../../src/component-api/*/api.ts",
@@ -66,14 +76,26 @@ const PRELOAD = /<link rel="preload" as="image"[^>]*\/>/g
 
 const KNOWN_DIFFERENCES: Record<string, string> = {}
 
-const KNOWN_ATTRIBUTES: Record<string, { attribute: string; reason: string }> =
+const KNOWN_ATTRIBUTES: Record<
+  string,
   {
-    "SortableTable react": {
-      attribute: "data-hydrating",
-      reason:
-        "the element ignores header clicks until React has hydrated the table and attached onSort",
-    },
+    attribute: string
+    reason: string
+    when?: (props: Record<string, unknown>) => boolean
   }
+> = {
+  "Callout react": {
+    attribute: "data-hydrating",
+    reason:
+      "the element ignores the close button until React has hydrated the callout and attached onDismiss",
+    when: ({ closeButton }) => Boolean(closeButton),
+  },
+  "SortableTable react": {
+    attribute: "data-hydrating",
+    reason:
+      "the element ignores header clicks until React has hydrated the table and attached onSort",
+  },
+}
 
 const withoutAttribute = (markup: string, attribute: string) =>
   markup.replace(new RegExp(`\\s${attribute}(?:="[^"]*")?(?=[\\s>])`), "")
@@ -109,6 +131,7 @@ const propName = (framework: Framework, name: string) =>
   framework === "react" ? (REACT_NAMES[name] ?? name) : name
 
 type Case = {
+  beforeSpread?: boolean
   component: string
   name: string
   plain?: Omit<Case, "plain">
@@ -142,21 +165,25 @@ const UNDEFINED_CASE = "every attribute as undefined"
 
 const ITEM_UNDEFINED_CASE = "every item attribute as undefined"
 
-const attributesAtRisk = async (path: string) => {
-  const file = new URL(path, import.meta.url).pathname
-  const component = await readComponent(readFileSync(file, "utf8"), file)
+const BEFORE_SPREAD_CASE = "a value for every attribute set before the spread"
+
+const risksOf = (
+  component: Awaited<ReturnType<typeof readComponent>>,
+  typed: Set<string>,
+) => {
   const destructured = new Set(
     component.props.map(({ prop }: { prop: string }) => prop),
   )
   const names = new Map<string, string>()
+  const beforeSpread = new Set<string>()
   const visit = (nodes: TemplateNode[] = []) => {
     for (const node of nodes) {
       const attributes = node.attributes ?? []
-      const carriesRest = attributes.some(
+      const restAt = attributes.findIndex(
         (item) => item.kind === "spread" && item.code === component.rest,
       )
-      if (carriesRest && !node.component) {
-        for (const item of attributes) {
+      if (restAt !== -1 && !node.component) {
+        for (const [index, item] of attributes.entries()) {
           const bound =
             item.kind === "spread"
               ? item.code?.includes("tagAttrs(")
@@ -178,6 +205,7 @@ const attributesAtRisk = async (path: string) => {
                       name,
                     ) ?? name)),
             )
+            if (index < restAt && typed.has(name)) beforeSpread.add(name)
           }
         }
       }
@@ -188,7 +216,19 @@ const attributesAtRisk = async (path: string) => {
     }
   }
   visit(component.tree)
-  return names
+  return { beforeSpread, names }
+}
+
+const attributesAtRisk = async (path: string) => {
+  const file = new URL(path, import.meta.url).pathname
+  const component = await readComponent(readFileSync(file, "utf8"), file)
+  return risksOf(
+    component,
+    typedAttributes(
+      { component: componentNameOf(path), source: path.split("/").at(-2) },
+      "astro",
+    ),
+  )
 }
 
 const itemAttributesAtRisk = async (path: string) => {
@@ -270,9 +310,9 @@ const ITEMS_AT_RISK = new Map(
   ),
 )
 
-const withUndefinedAttributes = (cases: Case[]) =>
+const withAttributeCases = (cases: Case[]) =>
   cases.flatMap((entry) => {
-    const names = AT_RISK.get(entry.component)
+    const { beforeSpread, names } = AT_RISK.get(entry.component) ?? {}
     const lists = [...(ITEMS_AT_RISK.get(entry.component) ?? [])].filter(
       ([list, keys]) => keys.size && Array.isArray(entry.props[list]),
     )
@@ -287,6 +327,22 @@ const withUndefinedAttributes = (cases: Case[]) =>
               props: {
                 ...Object.fromEntries(
                   [...names.keys()].map((name) => [name, undefined]),
+                ),
+                ...entry.props,
+              },
+              reactNames: Object.fromEntries(names),
+            },
+          ]
+        : []),
+      ...(names && beforeSpread?.size
+        ? [
+            {
+              ...entry,
+              beforeSpread: true,
+              name: `${entry.name}, ${BEFORE_SPREAD_CASE}`,
+              props: {
+                ...Object.fromEntries(
+                  [...beforeSpread].map((name) => [name, CALLER_VALUE]),
                 ),
                 ...entry.props,
               },
@@ -366,9 +422,7 @@ const partCasesOf = (api: ComponentApi): Case[] =>
 
 const CASES = Object.values(apis)
   .toSorted((a, b) => a.component.localeCompare(b.component, "en"))
-  .flatMap((api) =>
-    withUndefinedAttributes([...casesOf(api), ...partCasesOf(api)]),
-  )
+  .flatMap((api) => withAttributeCases([...casesOf(api), ...partCasesOf(api)]))
 
 let renderer: Awaited<ReturnType<typeof createRenderer>>
 
@@ -494,6 +548,22 @@ const render: Record<Framework, (entry: Case) => Promise<string | undefined>> =
 const emptyAttribute = (markup: string) =>
   /\s(?:class|style)=""/.exec(markup)?.[0].trim()
 
+const repeatedAttribute = (markup: string) => {
+  for (const [, attributes] of markup.matchAll(
+    /<[a-z][\w-]*((?:\s+[^\s"'=<>/]+(?:="[^"]*")?)*)\s*\/?>/g,
+  )) {
+    const names = [...attributes.matchAll(/\s([^\s"'=<>/]+)/g)].map(
+      ([, name]) => name,
+    )
+    const repeated = names.find((name, index) => names.indexOf(name) !== index)
+    if (repeated) return repeated
+  }
+  return undefined
+}
+
+const BEFORE_SPREAD_RULE =
+  "Astro prints an attribute an element writes before {...rest} and then the caller's, and the browser keeps the first, while React, Svelte and Vue render the caller's: where the caller may replace the value, destructure the attribute and fall back with ?? (role={role ?? \"list\"}); where the component's value must stay, leave the attribute out of the types, so no caller passes it, as CheckboxInput does for type"
+
 describe("every component renders the same in Astro, React, Svelte and Vue", () => {
   test("covers the components with a matrix of props and slots", () => {
     expect(
@@ -505,6 +575,16 @@ describe("every component renders the same in Astro, React, Svelte and Vue", () 
   test.each(CASES)("$component with $name", async (entry) => {
     const expected = await render.astro(entry)
     if (expected === undefined) return
+    if (entry.beforeSpread) {
+      const repeated = repeatedAttribute(expected)
+      expect
+        .soft(
+          repeated,
+          `${entry.component} with ${entry.name}: astro renders ${repeated} twice. ${BEFORE_SPREAD_RULE}`,
+        )
+        .toBeUndefined()
+      if (repeated) return
+    }
     const reference = normalize(expected)
     if (entry.plain) {
       const plain = await render.astro(entry.plain)
@@ -525,7 +605,7 @@ describe("every component renders the same in Astro, React, Svelte and Vue", () 
       const rendered = await render[framework](entry)
       if (rendered === undefined) continue
       const known = KNOWN_ATTRIBUTES[`${entry.component} ${framework}`]
-      if (known) {
+      if (known && (known.when?.(entry.props) ?? true)) {
         expect
           .soft(
             withoutAttribute(rendered, known.attribute) !== rendered,
@@ -557,7 +637,9 @@ describe("every component renders the same in Astro, React, Svelte and Vue", () 
           normalize(actual),
           entry.plain
             ? `${entry.component} with ${entry.name}: ${framework} differs from Astro. An attribute a caller passes as undefined or null never removes an attribute the component sets, in any framework: the compiler filters a rest spread that follows an attribute with defined() from attrs.ts`
-            : `${entry.component} with ${entry.name}: ${framework} differs from Astro`,
+            : entry.beforeSpread
+              ? `${entry.component} with ${entry.name}: ${framework} differs from Astro. ${BEFORE_SPREAD_RULE}`
+              : `${entry.component} with ${entry.name}: ${framework} differs from Astro`,
         )
         .toBe(reference)
     }
@@ -580,6 +662,23 @@ describe("every component renders the same in Astro, React, Svelte and Vue", () 
       '<opui-sortable-table class="ui-sortable-table">',
     )
     expect(withoutAttribute(markup, "data-sorted")).toBe(markup)
+  })
+
+  test("a sample the check must flag: an attribute written before the spread", async () => {
+    const component = await readComponent(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, role, ...rest } = Astro.props\n---\n\n<ol class:list={["ui-list", className]} aria-label="List" role={role ?? "list"} title="Title" {...rest} data-index="1">\n  <slot />\n</ol>\n',
+      "packages/opui/components/List/Sample.astro",
+    )
+    expect([
+      ...risksOf(component, new Set(["aria-label", "data-index", "role"]))
+        .beforeSpread,
+    ]).toEqual(["aria-label"])
+    expect(
+      repeatedAttribute('<ol class="ui-list" role="list" role="log">'),
+    ).toBe("role")
+    expect(
+      repeatedAttribute('<ol class="ui-list" role="log" data-role="list">'),
+    ).toBeUndefined()
   })
 
   test("a sample the check must flag: a class one framework forgets", () => {

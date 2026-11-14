@@ -353,6 +353,7 @@ async function generateIndex() {
 
   /** @type {SearchItem[]} */
   const index = []
+  const titles = new Map()
 
   // Component documentation: one entry per (component × framework). Each
   // framework variant is an independent indexable page in the new routing.
@@ -361,6 +362,7 @@ async function generateIndex() {
 
     const slug = path.basename(file, ".astro")
     const sharedPath = `/components/${slug}`
+    titles.set(slug, meta.title)
 
     for (const framework of FRAMEWORKS) {
       if (!componentHasFramework(framework.id, slug)) continue
@@ -502,7 +504,7 @@ async function generateIndex() {
     )
     const folder = path.basename(path.dirname(file))
 
-    const name = componentName(folder)
+    const name = componentName(folder, titles)
 
     for (const framework of FRAMEWORKS) {
       const html = framework.id === "html"

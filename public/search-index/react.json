@@ -4316,16 +4316,16 @@
   },
   {
     "id": "api-accordion-actions-react",
-    "title": "Accordion Actions API",
-    "description": "Reference for Accordion Actions React component.",
+    "title": "Accordion actions API",
+    "description": "Reference for Accordion actions React component.",
     "api": "AccordionActions A group of actions, such as buttons. align Alignment for the actions.",
     "category": "API",
     "url": "/react/api/#accordion-actions"
   },
   {
     "id": "api-accordion-summary-react",
-    "title": "Accordion Summary API",
-    "description": "Reference for Accordion Summary React component.",
+    "title": "Accordion summary API",
+    "description": "Reference for Accordion summary React component.",
     "api": "AccordionSummary The always visible header. The marker. Renders a chevron by default. Only `.ui-marker` animates. marker",
     "category": "API",
     "url": "/react/api/#accordion-summary"
@@ -4348,9 +4348,9 @@
   },
   {
     "id": "api-avatar-group-react",
-    "title": "Avatar Group API",
-    "description": "Reference for Avatar Group React component.",
-    "api": "AvatarGroup A group of overlapping avatars. aria-label The accessible name of the group. The Astro, React and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. aria-labelledby The id of the element that names the group, instead of `aria-label`.",
+    "title": "Avatar group API",
+    "description": "Reference for Avatar group React component.",
+    "api": "AvatarGroup A group of overlapping avatars. aria-label The accessible name of the group. The Astro, React and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. aria-labelledby The id of the element that names the group, instead of `aria-label`. role The `role` of the root. A passed role replaces `group`.",
     "category": "API",
     "url": "/react/api/#avatar-group"
   },
@@ -4382,22 +4382,22 @@
     "id": "api-callout-react",
     "title": "Callout API",
     "description": "Reference for Callout React component.",
-    "api": "Callout Container element, an `<article>`. With `closeButton`, the `<opui-callout>` custom element with `role=\"article\"`, which a button with `commandfor` and `command=\"--dismiss\"` dismisses. An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. The content, with an optional heading first. A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon A row of buttons under the content. closeButton Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>` with `role=\"article\"`, and the component loads `opui-css/elements/callout.js`, which runs the button. closeLabel The accessible name of the close button. id The id of the callout. With `closeButton`, the close button points at it with `commandfor`, so the component generates one when it's left out. onDismiss Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first. severity The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders. variant The variant to use. dismiss Fires on the callout before it hides. It bubbles, and `preventDefault()` keeps the callout. dismiss() Fires `dismiss` and, unless a listener cancels it, sets `hidden` on the callout and moves focus that was inside it to the next focusable element after it, or else the one before. Returns whether the callout hid.",
+    "api": "Callout Container element, an `<article>`. With `closeButton`, the `<opui-callout>` custom element with `role=\"article\"`, which a button with `commandfor` and `command=\"--dismiss\"` dismisses. An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. The content, with an optional heading first. A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon A row of buttons under the content. closeButton Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>` with `role=\"article\"`, and the component loads `opui-css/elements/callout.js`, which runs the button. While the root has `data-hydrating`, which the React component renders until it hydrates, the button does nothing. closeLabel The accessible name of the close button. id The id of the callout. With `closeButton`, the close button points at it with `commandfor`, so the component generates one when it's left out. onDismiss Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first. severity The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders. variant The variant to use. dismiss Fires on the callout before it hides. It bubbles, and `preventDefault()` keeps the callout. dismiss() Fires `dismiss` and, unless a listener cancels it, sets `hidden` on the callout and moves focus that was inside it to the next focusable element after it, or else the one before. Returns whether the callout hid.",
     "category": "API",
     "url": "/react/api/#callout"
   },
   {
     "id": "api-card-actions-react",
-    "title": "Card Actions API",
-    "description": "Reference for Card Actions React component.",
+    "title": "Card actions API",
+    "description": "Reference for Card actions React component.",
     "api": "CardActions A group of actions, such as buttons. align Alignment for the actions.",
     "category": "API",
     "url": "/react/api/#card-actions"
   },
   {
     "id": "api-card-header-react",
-    "title": "Card Header API",
-    "description": "Reference for Card Header React component.",
+    "title": "Card header API",
+    "description": "Reference for Card header React component.",
     "api": "CardHeader The card header. as The element to render. Use `div` for a header row with an avatar or a button next to the heading, and put the heading in an `hgroup` inside it. Use `header` for the same row in an `article` card.",
     "category": "API",
     "url": "/react/api/#card-header"
@@ -4414,14 +4414,14 @@
     "id": "api-carousel-react",
     "title": "Carousel API",
     "description": "Reference for Carousel React component.",
-    "api": "Carousel The scroller. The previous button. `::scroll-button(block-start)` when vertical. buttons previousLabel An item. default The next button. `::scroll-button(block-end)` when vertical. buttons nextLabel A marker, one per item. markerLabel markers align Where items snap. aria-label The accessible name of the carousel. The Astro, React and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. aria-labelledby The id of the element that names the carousel, instead of `aria-label`. aspectRatio Aspect ratio that images, videos and iframes are cropped to. buttons Previous and next buttons. `outside` places them beside the items, and `none` leaves them out. itemsPerView Number of visible items. markerLabel Accessible name of each marker, with `{number}` where the item number goes. markers One marker per item, after the list. nextLabel Accessible name of the next button. orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. peek Shows part of the neighboring items. persistentButtons Keeps the buttons visible at the ends. A disabled button has a muted border. previousLabel Accessible name of the previous button. stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
+    "api": "Carousel The scroller. The previous button. `::scroll-button(block-start)` when vertical. buttons previousLabel An item. default The next button. `::scroll-button(block-end)` when vertical. buttons nextLabel A marker, one per item. markerLabel markers align Where items snap. aria-label The accessible name of the carousel. The Astro, React and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. aria-labelledby The id of the element that names the carousel, instead of `aria-label`. aspectRatio Aspect ratio that images, videos and iframes are cropped to. buttons Previous and next buttons. `outside` places them beside the items, and `none` leaves them out. itemsPerView Number of visible items. markerLabel Accessible name of each marker, with `{number}` where the item number goes. markers One marker per item, after the list. nextLabel Accessible name of the next button. orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. peek Shows part of the neighboring items. persistentButtons Keeps the buttons visible at the ends. A disabled button has a muted border. previousLabel Accessible name of the previous button. role The `role` of the `<ul>`. `list` keeps Safari announcing a list. stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
     "category": "API",
     "url": "/react/api/#carousel"
   },
   {
     "id": "api-checkbox-input-react",
-    "title": "Checkbox Input API",
-    "description": "Reference for Checkbox Input React component.",
+    "title": "Checkbox input API",
+    "description": "Reference for Checkbox input React component.",
     "api": "CheckboxInput The checkbox input, without a label. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. indeterminate Shows a partially checked state. Sets the `indeterminate` property on the `<input>`.",
     "category": "API",
     "url": "/react/api/#checkbox-input"
@@ -4444,9 +4444,9 @@
   },
   {
     "id": "api-control-group-react",
-    "title": "Control Group API",
-    "description": "Reference for Control Group React component.",
-    "api": "ControlGroup Container element. A number field, select, text field or textarea. Its `.ui-field` joins the controls next to it. A button or button link. color Optional colors for the buttons. orientation The orientation of the element. overflow What the controls do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis. Icon-only buttons keep their size. size The size of the buttons and fields. variant The variant of the buttons.",
+    "title": "Control group API",
+    "description": "Reference for Control group React component.",
+    "api": "ControlGroup Container element. A number field, select, text field or textarea. Its `.ui-field` joins the controls next to it. A button or button link. color Optional colors for the buttons. orientation The orientation of the element. overflow What the controls do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis. Icon-only buttons keep their size. role The `role` of the root, such as `toolbar`. A passed role replaces `group`. size The size of the buttons and fields. variant The variant of the buttons.",
     "category": "API",
     "url": "/react/api/#control-group"
   },
@@ -4460,32 +4460,32 @@
   },
   {
     "id": "api-description-list-item-react",
-    "title": "Description List Item API",
-    "description": "Reference for Description List Item React component.",
+    "title": "Description list item API",
+    "description": "Reference for Description list item React component.",
     "api": "DescriptionListItem Groups a term with its description. total Marks the item as the total of the list: a line above it, larger bold text and the strong text color, for the last row of an order summary.",
     "category": "API",
     "url": "/react/api/#description-list-item"
   },
   {
     "id": "api-description-list-react",
-    "title": "Description List API",
-    "description": "Reference for Description List React component.",
+    "title": "Description list API",
+    "description": "Reference for Description list React component.",
     "api": "DescriptionList Container element. Groups a term with its description. The term. The description. border The style of the line between the term and the description. Without it, there's no line. orientation The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width.",
     "category": "API",
     "url": "/react/api/#description-list"
   },
   {
     "id": "api-dialog-footer-react",
-    "title": "Dialog Footer API",
-    "description": "Reference for Dialog Footer React component.",
+    "title": "Dialog footer API",
+    "description": "Reference for Dialog footer React component.",
     "api": "DialogFooter A row at the end, for buttons, text or anything else. Groups buttons. Moves to the end when other content comes first. align Alignment for the footer content.",
     "category": "API",
     "url": "/react/api/#dialog-footer"
   },
   {
     "id": "api-dialog-header-react",
-    "title": "Dialog Header API",
-    "description": "Reference for Dialog Header React component.",
+    "title": "Dialog header API",
+    "description": "Reference for Dialog header React component.",
     "api": "DialogHeader Container element. Closes the dialog, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon closeButton Adds a close button at the end of the title row, which closes its `Dialog` through the dialog's `id`. closeLabel The accessible name of the close button.",
     "category": "API",
     "url": "/react/api/#dialog-header"
@@ -4508,16 +4508,16 @@
   },
   {
     "id": "api-drawer-footer-react",
-    "title": "Drawer Footer API",
-    "description": "Reference for Drawer Footer React component.",
+    "title": "Drawer footer API",
+    "description": "Reference for Drawer footer React component.",
     "api": "DrawerFooter A row at the end, for buttons, text or anything else. Groups buttons. Moves to the end when other content comes first. align Alignment for the footer content.",
     "category": "API",
     "url": "/react/api/#drawer-footer"
   },
   {
     "id": "api-drawer-header-react",
-    "title": "Drawer Header API",
-    "description": "Reference for Drawer Header React component.",
+    "title": "Drawer header API",
+    "description": "Reference for Drawer header React component.",
     "api": "DrawerHeader Container element. Closes the drawer, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon closeButton Adds a close button at the end of the title row, which closes its `Drawer`, or the `<dialog>` that `commandfor` names. closeLabel The accessible name of the close button. commandfor The id of the drawer the close button closes with the `close` command. Without it, the button closes its `Drawer`. Outside a `Drawer`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.",
     "category": "API",
     "url": "/react/api/#drawer-header"
@@ -4532,24 +4532,24 @@
   },
   {
     "id": "api-field-description-react",
-    "title": "Field Description API",
-    "description": "Reference for Field Description React component.",
+    "title": "Field description API",
+    "description": "Reference for Field description React component.",
     "api": "FieldDescription Supporting text for a fieldset.",
     "category": "API",
     "url": "/react/api/#field-description"
   },
   {
     "id": "api-field-group-react",
-    "title": "Field Group API",
-    "description": "Reference for Field Group React component.",
+    "title": "Field group API",
+    "description": "Reference for Field group React component.",
     "api": "FieldGroup Container element. name Sets `name` on the OPUI fields inside that don't set their own. orientation The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row.",
     "category": "API",
     "url": "/react/api/#field-group"
   },
   {
     "id": "api-field-legend-react",
-    "title": "Field Legend API",
-    "description": "Reference for Field Legend React component.",
+    "title": "Field legend API",
+    "description": "Reference for Field legend React component.",
     "api": "FieldLegend The label of a fieldset. as The element to render. Adds `.ui-legend` when not `\"legend\"`. id The id of the legend. Inside a `Fieldset` rendered with `as`, the legend takes the fieldset's generated id instead, unless the fieldset has `aria-label` or `aria-labelledby`.",
     "category": "API",
     "url": "/react/api/#field-legend"
@@ -4580,8 +4580,8 @@
   },
   {
     "id": "api-list-item-react",
-    "title": "List Item API",
-    "description": "Reference for List Item React component.",
+    "title": "List item API",
+    "description": "Reference for List item React component.",
     "api": "ListItem The list item. The clickable row, rendered by `as`, `href` or `choice`. as choice href Optional content at the start, such as an icon or avatar. start The text content. The label, the first paragraph. label label Supporting text, the second paragraph. description description Optional content at the end, such as a value or an action. end Your own check, shown at the end while the row is selected or current. In a `Menu` or a listbox it replaces the default check. icon-checked as The element to render inside the `<li>`: `\"a\"` or `\"button\"`. Defaults to `\"a\"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type=\"button\"`. borderTop Adds a border above the item. choice Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`. color Optional colors. `critical` marks a destructive item in a [Menu](/components/menu). disabled Disables a button item. A link item drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"` instead. href The link to use. Renders an `<a>` inside the `<li>`. htmlFor The `for` attribute of the `<label>` when `choice` is set, as `htmlFor` like on the element. inset Aligns the text with items that have start content.",
     "category": "API",
     "url": "/react/api/#list-item"
@@ -4590,7 +4590,7 @@
     "id": "api-list-react",
     "title": "List API",
     "description": "Reference for List React component.",
-    "api": "List Container element. A list item. bordered Adds a border between list items. dense Packs the items tighter. flush Removes the inline padding of the items and the block padding of the list. variant The variant to use.",
+    "api": "List Container element. A list item. bordered Adds a border between list items. dense Packs the items tighter. flush Removes the inline padding of the items and the block padding of the list. role The `role` of the `<ul>`, such as `listbox`. `list` keeps Safari announcing a list. variant The variant to use.",
     "category": "API",
     "url": "/react/api/#list"
   },
@@ -4604,9 +4604,9 @@
   },
   {
     "id": "api-message-list-react",
-    "title": "Message List API",
-    "description": "Reference for Message List React component.",
-    "api": "MessageList The conversation, an ordered list. A message. Consecutive messages on the same side group into a run.",
+    "title": "Message list API",
+    "description": "Reference for Message list React component.",
+    "api": "MessageList The conversation, an ordered list. A message. Consecutive messages on the same side group into a run. role The `role` of the `<ol>`, such as `log` for a live conversation. `list` keeps Safari announcing a list.",
     "category": "API",
     "url": "/react/api/#message-list"
   },
@@ -4620,17 +4620,17 @@
   },
   {
     "id": "api-number-field-react",
-    "title": "Number Field API",
-    "description": "Reference for Number Field React component.",
+    "title": "Number field API",
+    "description": "Reference for Number field React component.",
     "api": "NumberField The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max` and keeps both disabled while the input is disabled, as the component renders them. The label for the field. label label Start text displayed above the field. startText start-text The boxed input area. The decrease button, with `command=\"--step-down\"`. Renders a minus icon by default, or the `svg` in `decrease-icon`. Hidden until the element is defined. decreaseLabel decrease-icon The input element. The increase button, with `command=\"--step-up\"`. Renders a plus icon by default, or the `svg` in `increase-icon`. Hidden until the element is defined. increaseLabel increase-icon Supporting text displayed below the field. endText end-text decreaseLabel The accessible name of the decrease button. disabled Dims the field and blocks input and the step buttons. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. The label and the step buttons point at it, so the component generates one when it's left out. The start and end text ids start with it: `x-start-text` and `x-end-text` for `id=\"x\"`. increaseLabel The accessible name of the increase button. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the field to the other. stretch Fills the available width. Without it, the field fits its value, from `--_min-inline-size` (`4ch`). variant The variant to use. input The `<input type=\"number\">` inside, or `null`. Read-only. stepDown() Steps the value down by `step`, unless the input is disabled, read-only or at `min`, and fires `input` and `change`. stepUp() Steps the value up by `step`, unless the input is disabled, read-only or at `max`, and fires `input` and `change`.",
     "category": "API",
     "url": "/react/api/#number-field"
   },
   {
     "id": "api-one-time-code-react",
-    "title": "One Time Code API",
-    "description": "Reference for One Time Code React component.",
-    "api": "OneTimeCode Container element. The label for the field. label label Draws a box per character and a ring on the next one. The input element. Supporting text displayed below the field. endText end-text alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. autocapitalize The `autocapitalize` of the `<input>`. With `alphanumeric` it is `characters`. autocomplete The `autocomplete` of the `<input>`. `one-time-code` lets the browser fill in a code it received. disabled Dims the field and blocks input. error Marks the control invalid and shows error styles. grouped Draws a dash between the two halves of the code. Use it with an even `length`. id The id of the `<input>`. inputMode The `inputmode` of the `<input>`, as `inputMode` like on the element. Without `alphanumeric` it is `numeric`. length The number of characters and boxes, from 4 to 8. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. pattern The `pattern` of the `<input>`. It is `[0-9]{length}`, or `[A-Za-z0-9]{length}` with `alphanumeric`. required Adds a required mark after the label. The form won't submit while the code is incomplete. size The size of the element. spellcheck The `spellcheck` of the `<input>`. With `alphanumeric` it is `false`.",
+    "title": "One-time code API",
+    "description": "Reference for One-time code React component.",
+    "api": "OneTimeCode Container element. The label for the field. label label Draws a box per character and a ring on the next one. The input element, with `autocomplete=\"one-time-code\"`, which lets the browser fill in a code it received. Supporting text displayed below the field. endText end-text alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. autoCapitalize The `autocapitalize` of the `<input>`, as `autoCapitalize` like on the element. With `alphanumeric` it is `characters`. disabled Dims the field and blocks input. error Marks the control invalid and shows error styles. grouped Draws a dash between the two halves of the code. Use it with an even `length`. id The id of the `<input>`. inputMode The `inputmode` of the `<input>`, as `inputMode` like on the element. Without `alphanumeric` it is `numeric`. length The number of characters and boxes, from 4 to 8. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. pattern The `pattern` of the `<input>`. It is `[0-9]{length}`, or `[A-Za-z0-9]{length}` with `alphanumeric`. required Adds a required mark after the label. The form won't submit while the code is incomplete. size The size of the element. spellCheck The `spellcheck` of the `<input>`, as `spellCheck` like on the element. With `alphanumeric` it is `false`.",
     "category": "API",
     "url": "/react/api/#one-time-code"
   },
@@ -4644,8 +4644,8 @@
   },
   {
     "id": "api-radio-input-react",
-    "title": "Radio Input API",
-    "description": "Reference for Radio Input React component.",
+    "title": "Radio input API",
+    "description": "Reference for Radio input React component.",
     "api": "RadioInput The radio input, without a label. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
     "category": "API",
     "url": "/react/api/#radio-input"
@@ -4662,7 +4662,7 @@
     "id": "api-range-react",
     "title": "Range API",
     "description": "Reference for Range React component.",
-    "api": "Range Container element. The label for the range. label label Shows the current value, with an optional `valueSuffix`. `opui-css/css/js/range.js` keeps it in step with the thumb, and content in the `value-text` slot replaces it. valueSuffix value-text Description text displayed above the input. startText start-text The range input. Tick marks and their labels, under the input. items list datalist Supporting text displayed below the input. endText end-text disabled Dims the slider and blocks input. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. Generated when omitted and the value is shown. The ids the component generates start with it: `x-label`, `x-start-text`, `x-end-text` and `x-list` for `id=\"x\"`. items Tick marks, rendered as `<option>` elements in a `<datalist>`. Each is a value, or a `{ label, value }` object for a labeled tick. Without `valueSuffix`, the label of the tick at the value is the input's `aria-valuetext`. list The id of the `<datalist>`. Generated when `items` or the `datalist` slot is used. max The largest value of the `<input>`. min The smallest value of the `<input>`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. size The size of the element. spread Pushes the label and start text to one side and the input to the other. step The step between values of the `<input>`. Without a `value`, the slider starts at the step nearest the middle. value The current value. valueSuffix Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`. variant The variant to use. The default `outlined` track uses `--ui-track-bg-color`, or the field border color when the theme doesn't set it.",
+    "api": "Range Container element. The label for the range. label label Shows the current value, with an optional `valueSuffix`. `opui-css/css/js/range.js` keeps it in step with the thumb, and content in the `value-text` slot replaces it. valueSuffix value-text Description text displayed above the input. startText start-text The range input. Tick marks and their labels, under the input. items list datalist Supporting text displayed below the input. endText end-text disabled Dims the slider and blocks input. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. Generated when omitted and the value is shown. The ids the component generates start with it: `x-label`, `x-start-text`, `x-end-text` and `x-list` for `id=\"x\"`. items Tick marks, rendered as `<option>` elements in a `<datalist>`. Each is a value, or a `{ label, value }` object for a labeled tick. Without `valueSuffix`, the label of the tick at the value is the input's `aria-valuetext`. lang The language of the `<label>`, which formats the shown value with `Intl.NumberFormat`. Without it, the value is formatted in English until `opui-css/css/js/range.js` formats it for the closest `lang` in the page. list The id of the `<datalist>`. Generated when `items` or the `datalist` slot is used. max The largest value of the `<input>`. min The smallest value of the `<input>`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. size The size of the element. spread Pushes the label and start text to one side and the input to the other. step The step between values of the `<input>`. Without a `value`, the slider starts at the step nearest the middle. value The current value. valueSuffix Text after the shown value, such as `%`. Setting it shows the current value in an `<output>` and as the input's `aria-valuetext`, formatted for `lang` with the decimals of `min` and `step` and no grouping. variant The variant to use. The default `outlined` track uses `--ui-track-bg-color`, or the field border color when the theme doesn't set it.",
     "category": "API",
     "url": "/react/api/#range"
   },
@@ -4676,8 +4676,8 @@
   },
   {
     "id": "api-select-all-react",
-    "title": "Select All API",
-    "description": "Reference for Select All React component.",
+    "title": "Select all API",
+    "description": "Reference for Select all React component.",
     "api": "SelectAll The `<opui-select-all>` custom element, `display: contents`, around the group, such as a `Fieldset` or a `Table`. The checkbox that checks and unchecks the other enabled checkboxes inside. It's checked when they all are, and `indeterminate` when some are. control The controlling checkbox, the one with `data-select-all`, or `null`. Read-only. items The enabled checkboxes it controls, in document order. Read-only. sync() Sets the controlling checkbox's `checked` and `indeterminate` from the others. The element calls it when one changes, so call it only after setting `checked` from a script.",
     "category": "API",
     "url": "/react/api/#select-all"
@@ -4692,8 +4692,8 @@
   },
   {
     "id": "api-sortable-table-react",
-    "title": "Sortable Table API",
-    "description": "Reference for Sortable Table React component.",
+    "title": "Sortable table API",
+    "description": "Reference for Sortable table React component.",
     "api": "SortableTable The `<opui-sortable-table>` custom element, `display: contents`, around the table. It moves the body rows and announces the new order in its `role=\"status\"` child, or one it adds. While it has `data-hydrating`, which the React component renders until it hydrates, header clicks do nothing. The button around a sortable header's label. A press sorts by its column, ascending first, and sets `aria-sort` on the header. ascendingLabel What a sort in ascending order announces, with `{column}` where the header's label goes. descendingLabel What a sort in descending order announces, with `{column}` where the header's label goes. onSort Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are. sort Fires before the rows move, with the column index, the direction and the header in `event.detail`. It bubbles, and `preventDefault()` keeps the rows where they are. sort(header, direction) Sorts by the column of `header`, in `direction` (`\"ascending\"` or `\"descending\"`), or else the other way from its `aria-sort`, ascending first. It fires `sort`, sets `aria-sort` and announces the order. table The `<table>` inside, or `null`. Read-only.",
     "category": "API",
     "url": "/react/api/#sortable-table"
@@ -4716,8 +4716,8 @@
   },
   {
     "id": "api-stepper-item-react",
-    "title": "Stepper Item API",
-    "description": "Reference for Stepper Item React component.",
+    "title": "Stepper item API",
+    "description": "Reference for Stepper item React component.",
     "api": "StepperItem A step. Replaces the check in the marker of a complete step. Hidden from screen readers. icon-complete The label, as a link back to the step. href label label A short line under the label. description description complete Marks the step complete: a check in the marker and the line to the next step in the accent color. completeLabel Screen reader text after the label of a complete step. current Marks the current step. The steps before it show as complete, with or without `.ui-complete`. description A short line under the label. error Marks a step with an error: an exclamation mark in the marker and the label in the invalid color. Wins over `complete`. errorLabel Screen reader text after the label of a step with an error. href Renders the label as a link on a complete step or a step with an error, but not on the current one. label The name of the step.",
     "category": "API",
     "url": "/react/api/#stepper-item"
@@ -4732,8 +4732,8 @@
   },
   {
     "id": "api-switch-input-react",
-    "title": "Switch Input API",
-    "description": "Reference for Switch Input React component.",
+    "title": "Switch input API",
+    "description": "Reference for Switch input React component.",
     "api": "SwitchInput The switch input, without a label. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
     "category": "API",
     "url": "/react/api/#switch-input"
@@ -4748,32 +4748,32 @@
   },
   {
     "id": "api-table-cell-react",
-    "title": "Table Cell API",
-    "description": "Reference for Table Cell React component.",
+    "title": "Table cell API",
+    "description": "Reference for Table cell React component.",
     "api": "TableCell A data cell, inside `TableRow`. numeric Aligns the cell to the end and uses tabular figures, so the digits of a column line up.",
     "category": "API",
     "url": "/react/api/#table-cell"
   },
   {
     "id": "api-table-column-group-react",
-    "title": "Table Column Group API",
-    "description": "Reference for Table Column Group React component.",
+    "title": "Table column group API",
+    "description": "Reference for Table column group React component.",
     "api": "TableColumnGroup A group of columns, before the table head.",
     "category": "API",
     "url": "/react/api/#table-column-group"
   },
   {
     "id": "api-table-column-react",
-    "title": "Table Column API",
-    "description": "Reference for Table Column React component.",
+    "title": "Table column API",
+    "description": "Reference for Table column React component.",
     "api": "TableColumn A column, inside `TableColumnGroup`. width The column width, merged into `style`.",
     "category": "API",
     "url": "/react/api/#table-column"
   },
   {
     "id": "api-table-header-cell-react",
-    "title": "Table Header Cell API",
-    "description": "Reference for Table Header Cell React component.",
+    "title": "Table header cell API",
+    "description": "Reference for Table header cell React component.",
     "api": "TableHeaderCell A header cell, inside `TableRow`. numeric Aligns the header to the end, over a column of `numeric` cells. sortable Wraps the label in a `<button>` that sorts the table by this column, inside a `SortableTable`.",
     "category": "API",
     "url": "/react/api/#table-header-cell"
@@ -4788,24 +4788,24 @@
   },
   {
     "id": "api-tabs-item-react",
-    "title": "Tabs Item API",
-    "description": "Reference for Tabs Item React component.",
+    "title": "Tabs item API",
+    "description": "Reference for Tabs item React component.",
     "api": "TabsItem The radio input for a tab, followed by the tab and the panel. checked Selects the tab. id The id of the input. Generated when omitted. name Overrides the name shared by the tab inputs. value The value of the input. The tab is selected while it matches the `value` of `Tabs`.",
     "category": "API",
     "url": "/react/api/#tabs-item"
   },
   {
     "id": "api-tabs-label-react",
-    "title": "Tabs Label API",
-    "description": "Reference for Tabs Label React component.",
+    "title": "Tabs label API",
+    "description": "Reference for Tabs label React component.",
     "api": "TabsLabel The tab. htmlFor The id of the input it labels, as `htmlFor` like on the element. Set by the item.",
     "category": "API",
     "url": "/react/api/#tabs-label"
   },
   {
     "id": "api-tabs-panel-react",
-    "title": "Tabs Panel API",
-    "description": "Reference for Tabs Panel React component.",
+    "title": "Tabs panel API",
+    "description": "Reference for Tabs panel React component.",
     "api": "TabsPanel The panel.",
     "category": "API",
     "url": "/react/api/#tabs-panel"
@@ -4814,14 +4814,14 @@
     "id": "api-tabs-react",
     "title": "Tabs API",
     "description": "Reference for Tabs React component.",
-    "api": "Tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. A tab. The panel of the selected tab. defaultValue The `value` of the tab selected at the start, when `value` is omitted. name The name shared by the tab inputs. Generated when omitted. onValueChange Called with the `value` of the tab when one is selected. orientation The orientation of the tabs. `vertical` stacks them in a column at the inline start, with the panel beside them. overflow What the tabs do when they don't fit. `scroll` keeps them on one row and scrolls it sideways, and `wrap` wraps them onto more rows. Vertical tabs ignore it: long labels wrap within the column. variant The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill. value The `value` of the selected tab. The item whose `value` matches is checked, and the items' own `checked` is ignored.",
+    "api": "Tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. A tab. The panel of the selected tab. defaultValue The `value` of the tab selected at the start, when `value` is omitted. name The name shared by the tab inputs. Generated when omitted. onValueChange Called with the `value` of the tab when one is selected. orientation The orientation of the tabs. `vertical` stacks them in a column at the inline start, with the panel beside them. overflow What the tabs do when they don't fit. `scroll` keeps them on one row and scrolls it sideways, and `wrap` wraps them onto more rows. Vertical tabs ignore it: long labels wrap within the column. role Makes tabs without panels a radio group, which `aria-label` names. Tabs with panels take no role: the root holds the panels, and a radio group holds only radios. variant The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill. value The `value` of the selected tab. The item whose `value` matches is checked, and the items' own `checked` is ignored.",
     "category": "API",
     "url": "/react/api/#tabs"
   },
   {
     "id": "api-text-field-react",
-    "title": "Text Field API",
-    "description": "Reference for Text Field React component.",
+    "title": "Text field API",
+    "description": "Reference for Text field React component.",
     "api": "TextField Container element: a `<label>`, a `<div>` when there's no label, or the `<opui-text-field>` custom element with a password toggle. The label for the field. label label Start text displayed above the field. startText start-text The boxed input area. Content above the input, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start The input element. Content at the inline-end of the field, inside the border, and the password toggle. end The password toggle, with `aria-pressed` and `command=\"--toggle-password\"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Hidden until `<opui-text-field>` is defined. passwordToggle passwordToggleLabel icon-checked icon-unchecked Content below the input, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left. characterCount characterCountLabel autoFit Lets the width follow the content, from `25ch`. characterCount Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count. characterCountLabel The announcement near the limit, with `{count}` for the characters left. Pass it translated. dropZone Makes a `type=\"file\"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker. disabled Dims the field and blocks input. `aria-disabled=\"true\"` looks the same, but keeps the field focusable, its text editable and its value in the form. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. With `passwordToggle`, the label and the toggle point at it, so the component generates one when it's left out. The ids the component generates start with it: `x-label`, `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id=\"x\"`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. passwordToggle Adds a button to the end of a `type=\"password\"` field that shows and hides the password. The root becomes `<opui-text-field>` with a `<label for>`, since a button inside a `<label>` would join the field's name, and the start and end text describe the input. The component loads `opui-css/elements/text-field.js`, which runs the button. passwordToggleLabel The accessible name of the password toggle. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the input to the other. type The input type. variant The variant to use. control The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only. hidePassword() Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits. input The `<input>` inside, or `null`. Read-only. showPassword() Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.",
     "category": "API",
     "url": "/react/api/#text-field"
@@ -4836,8 +4836,8 @@
   },
   {
     "id": "api-timeline-item-react",
-    "title": "Timeline Item API",
-    "description": "Reference for Timeline Item React component.",
+    "title": "Timeline item API",
+    "description": "Reference for Timeline item React component.",
     "api": "TimelineItem An event. The date, in its own column. datetime time Replaces the dot with an icon. It follows the item's color and the current state. marker The title of the event. headingLevel label label color Optional colors. current Marks the current item, which fills its marker with `--ui-selected-strong` and a halo. `true` renders `aria-current=\"true\"`, and `step`, `date` or `time` that value. datetime The machine-readable date of `time`. headingLevel The heading level of `label`, so the item fits the page outline. label The title of the event, rendered as a heading. time The date as shown, in the date column.",
     "category": "API",
     "url": "/react/api/#timeline-item"
@@ -4860,17 +4860,17 @@
   },
   {
     "id": "api-toggle-button-react",
-    "title": "Toggle Button API",
-    "description": "Reference for Toggle Button React component.",
+    "title": "Toggle button API",
+    "description": "Reference for Toggle button React component.",
     "api": "ToggleButton Container element. A visually hidden checkbox or radio input. checked Selects the button. disabled Dims the button and skips it with Tab and the arrow keys. `aria-disabled=\"true\"` looks the same, but keeps the button focusable and its value in the form, and doesn't stop the change, so block it with a script. id The id of the `<input>`. label The button text when there is no child content. name The name of the input. Falls back to the `ToggleGroup`'s name, then to a `FieldGroup`'s. required The form won't submit until it's checked. A `ToggleGroup` without `multiple` needs it on one button only. size The size of the element. type The input type. `radio` allows one selection in a group. A `ToggleGroup` without `multiple` makes every button a radio. value The value of the input.",
     "category": "API",
     "url": "/react/api/#toggle-button"
   },
   {
     "id": "api-toggle-group-react",
-    "title": "Toggle Group API",
-    "description": "Reference for Toggle Group React component.",
-    "api": "ToggleGroup Container element. A toggle button. defaultValue The starting selection when `value` is omitted. multiple Lets several buttons be checked, with checkbox inputs. Without it, one button is checked at a time, with radio inputs in a `[role=\"radiogroup\"]`. name The name shared by the inputs. Generated when omitted. onValueChange Called with the new selection when a button is toggled. orientation The orientation of the element. overflow What the items do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. size The size of the buttons. value The value of the checked button, or the values of the checked buttons with `multiple`. The buttons whose `value` matches are checked, and their own `checked` is ignored.",
+    "title": "Toggle group API",
+    "description": "Reference for Toggle group React component.",
+    "api": "ToggleGroup Container element. A toggle button. defaultValue The starting selection when `value` is omitted. multiple Lets several buttons be checked, with checkbox inputs. Without it, one button is checked at a time, with radio inputs in a `[role=\"radiogroup\"]`. name The name shared by the inputs. Generated when omitted. onValueChange Called with the new selection when a button is toggled. orientation The orientation of the element. overflow What the items do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. role The `role` of the root, such as `toolbar`. Without it, `radiogroup`, or `group` with `multiple`. size The size of the buttons. value The value of the checked button, or the values of the checked buttons with `multiple`. The buttons whose `value` matches are checked, and their own `checked` is ignored.",
     "category": "API",
     "url": "/react/api/#toggle-group"
   },

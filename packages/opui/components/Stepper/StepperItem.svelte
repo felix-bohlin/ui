@@ -1,10 +1,10 @@
 <script lang="ts">
   import { content } from "../content.svelte"
-  import { defined } from "../attrs"
   import { classAttrs } from "../cx"
   import type { StepperItemProps as Props } from "./types.svelte"
 
   let {
+    "aria-current": ariaCurrent,
     class: className,
     complete,
     completeLabel = ", completed",
@@ -27,9 +27,9 @@
 </script>
 
 <li
-  aria-current={current ? "step" : undefined}
+  aria-current={ariaCurrent ?? (current ? "step" : undefined)}
   {...classAttrs([{ "ui-complete": complete, "ui-error": error }, className])}
-  {...defined(rest)}
+  {...rest}
 >
   {#if iconComplete}
     <span aria-hidden="true" class="ui-icon-complete">

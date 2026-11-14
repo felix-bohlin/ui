@@ -2,7 +2,7 @@ import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/react"
 
 export default function Basics() {
   return (
-    <Tabs aria-label="Account settings" name="basic-tabs">
+    <Tabs name="basic-tabs">
       <TabsItem defaultChecked>
         <TabsLabel>Profile</TabsLabel>
         <TabsPanel>Profile settings and information.</TabsPanel>

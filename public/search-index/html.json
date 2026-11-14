@@ -4323,16 +4323,16 @@
   },
   {
     "id": "api-accordion-actions-html",
-    "title": "Accordion Actions API",
-    "description": "Reference for Accordion Actions HTML component.",
+    "title": "Accordion actions API",
+    "description": "Reference for Accordion actions HTML component.",
     "api": ".ui-actions A group of actions, such as buttons. .ui-align-start Alignment Alignment for the actions.",
     "category": "API",
     "url": "/html/api/#accordion-actions"
   },
   {
     "id": "api-accordion-summary-html",
-    "title": "Accordion Summary API",
-    "description": "Reference for Accordion Summary HTML component.",
+    "title": "Accordion summary API",
+    "description": "Reference for Accordion summary HTML component.",
     "api": "summary The always visible header. The marker. Renders a chevron by default. Only `.ui-marker` animates. .ui-marker",
     "category": "API",
     "url": "/html/api/#accordion-summary"
@@ -4355,8 +4355,8 @@
   },
   {
     "id": "api-avatar-group-html",
-    "title": "Avatar Group API",
-    "description": "Reference for Avatar Group HTML component.",
+    "title": "Avatar group API",
+    "description": "Reference for Avatar group HTML component.",
     "api": ".ui-avatar-group A group of overlapping avatars. [aria-label] Label The accessible name of the group. The Astro, React and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.",
     "category": "API",
     "url": "/html/api/#avatar-group"
@@ -4395,16 +4395,16 @@
   },
   {
     "id": "api-card-actions-html",
-    "title": "Card Actions API",
-    "description": "Reference for Card Actions HTML component.",
+    "title": "Card actions API",
+    "description": "Reference for Card actions HTML component.",
     "api": ".ui-actions A group of actions, such as buttons. .ui-align-start Alignment Alignment for the actions.",
     "category": "API",
     "url": "/html/api/#card-actions"
   },
   {
     "id": "api-card-header-html",
-    "title": "Card Header API",
-    "description": "Reference for Card Header HTML component.",
+    "title": "Card header API",
+    "description": "Reference for Card header HTML component.",
     "api": ".ui-header The card header.",
     "category": "API",
     "url": "/html/api/#card-header"
@@ -4427,8 +4427,8 @@
   },
   {
     "id": "api-checkbox-input-html",
-    "title": "Checkbox Input API",
-    "description": "Reference for Checkbox Input HTML component.",
+    "title": "Checkbox input API",
+    "description": "Reference for Checkbox input HTML component.",
     "api": "input[type=\"checkbox\"] The checkbox input, without a label. [data-indeterminate] State Shows a partially checked state. Sets the `indeterminate` property on the `<input>`.",
     "category": "API",
     "url": "/html/api/#checkbox-input"
@@ -4451,8 +4451,8 @@
   },
   {
     "id": "api-control-group-html",
-    "title": "Control Group API",
-    "description": "Reference for Control Group HTML component.",
+    "title": "Control group API",
+    "description": "Reference for Control group HTML component.",
     "api": ".ui-control-group Container element. A number field, select, text field or textarea. Its `.ui-field` joins the controls next to it. .ui-control-group > .ui-text-field A button or button link. .ui-control-group > .ui-button .ui-critical .ui-primary Colors Optional colors for the buttons. .ui-vertical Orientation The orientation of the element. .ui-overflow-scroll .ui-overflow-shrink Overflow What the controls do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis. Icon-only buttons keep their size. .ui-large .ui-small .ui-x-small Sizes The size of the buttons and fields. .ui-filled .ui-outlined .ui-tonal Variants The variant of the buttons.",
     "category": "API",
     "url": "/html/api/#control-group"
@@ -4467,32 +4467,32 @@
   },
   {
     "id": "api-description-list-item-html",
-    "title": "Description List Item API",
-    "description": "Reference for Description List Item HTML component.",
+    "title": "Description list item API",
+    "description": "Reference for Description list item HTML component.",
     "api": "dl.ui-description-list > div Groups a term with its description. .ui-total Total Marks the item as the total of the list: a line above it, larger bold text and the strong text color, for the last row of an order summary.",
     "category": "API",
     "url": "/html/api/#description-list-item"
   },
   {
     "id": "api-description-list-html",
-    "title": "Description List API",
-    "description": "Reference for Description List HTML component.",
+    "title": "Description list API",
+    "description": "Reference for Description list HTML component.",
     "api": "dl.ui-description-list Container element. Groups a term with its description. dl.ui-description-list > div The term. dt The description. dd .ui-border-dotted .ui-border-solid Borders The style of the line between the term and the description. Without it, there's no line. .ui-horizontal Orientation The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width.",
     "category": "API",
     "url": "/html/api/#description-list"
   },
   {
     "id": "api-dialog-footer-html",
-    "title": "Dialog Footer API",
-    "description": "Reference for Dialog Footer HTML component.",
+    "title": "Dialog footer API",
+    "description": "Reference for Dialog footer HTML component.",
     "api": ".ui-footer A row at the end, for buttons, text or anything else. Groups buttons. Moves to the end when other content comes first. .ui-footer > .ui-actions .ui-align-start Alignment Alignment for the footer content.",
     "category": "API",
     "url": "/html/api/#dialog-footer"
   },
   {
     "id": "api-dialog-header-html",
-    "title": "Dialog Header API",
-    "description": "Reference for Dialog Header HTML component.",
+    "title": "Dialog header API",
+    "description": "Reference for Dialog header HTML component.",
     "api": ".ui-header Container element. Closes the dialog, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`. .ui-header > .ui-button",
     "category": "API",
     "url": "/html/api/#dialog-header"
@@ -4515,16 +4515,16 @@
   },
   {
     "id": "api-drawer-footer-html",
-    "title": "Drawer Footer API",
-    "description": "Reference for Drawer Footer HTML component.",
+    "title": "Drawer footer API",
+    "description": "Reference for Drawer footer HTML component.",
     "api": ".ui-footer A row at the end, for buttons, text or anything else. Groups buttons. Moves to the end when other content comes first. .ui-footer > .ui-actions .ui-align-start Alignment Alignment for the footer content.",
     "category": "API",
     "url": "/html/api/#drawer-footer"
   },
   {
     "id": "api-drawer-header-html",
-    "title": "Drawer Header API",
-    "description": "Reference for Drawer Header HTML component.",
+    "title": "Drawer header API",
+    "description": "Reference for Drawer header HTML component.",
     "api": ".ui-header Container element. Closes the drawer, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`. .ui-header > .ui-button",
     "category": "API",
     "url": "/html/api/#drawer-header"
@@ -4539,24 +4539,24 @@
   },
   {
     "id": "api-field-description-html",
-    "title": "Field Description API",
-    "description": "Reference for Field Description HTML component.",
+    "title": "Field description API",
+    "description": "Reference for Field description HTML component.",
     "api": ".ui-description Supporting text for a fieldset.",
     "category": "API",
     "url": "/html/api/#field-description"
   },
   {
     "id": "api-field-group-html",
-    "title": "Field Group API",
-    "description": "Reference for Field Group HTML component.",
+    "title": "Field group API",
+    "description": "Reference for Field group HTML component.",
     "api": ".ui-field-group Container element. .ui-horizontal .ui-vertical Orientation The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row.",
     "category": "API",
     "url": "/html/api/#field-group"
   },
   {
     "id": "api-field-legend-html",
-    "title": "Field Legend API",
-    "description": "Reference for Field Legend HTML component.",
+    "title": "Field legend API",
+    "description": "Reference for Field legend HTML component.",
     "api": ":is(legend, .ui-legend) The label of a fieldset.",
     "category": "API",
     "url": "/html/api/#field-legend"
@@ -4587,8 +4587,8 @@
   },
   {
     "id": "api-list-item-html",
-    "title": "List Item API",
-    "description": "Reference for List Item HTML component.",
+    "title": "List item API",
+    "description": "Reference for List item HTML component.",
     "api": ".ui-list > li The list item. The clickable row, rendered by `as`, `href` or `choice`. .ui-list > li > :is(a, button, label) Optional content at the start, such as an icon or avatar. .ui-start The text content. .ui-text The label, the first paragraph. .ui-text > p:first-child Supporting text, the second paragraph. .ui-text > p + p Optional content at the end, such as a value or an action. .ui-end Your own check, shown at the end while the row is selected or current. In a `Menu` or a listbox it replaces the default check. .ui-icon-checked .ui-border-top Borders Adds a border above the item. label.ui-checkbox label.ui-radio label.ui-switch Choice Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`. .ui-critical Colors Optional colors. `critical` marks a destructive item in a [Menu](/components/menu). .ui-inset Inset Aligns the text with items that have start content. [aria-current] [disabled] [aria-disabled=\"true\"] State Highlights the current item, or dims a disabled one. `[disabled]` and `[aria-disabled=\"true\"]` go on the `<a>` or `<button>` (a `<label>` row dims when its input is disabled); `[aria-current]` (any value but `false`, like `page` on a link or `true` on a button) on the `<a>`, `<button>` or `<label>`.",
     "category": "API",
     "url": "/html/api/#list-item"
@@ -4611,8 +4611,8 @@
   },
   {
     "id": "api-message-list-html",
-    "title": "Message List API",
-    "description": "Reference for Message List HTML component.",
+    "title": "Message list API",
+    "description": "Reference for Message list HTML component.",
     "api": "ol.ui-message-list The conversation, an ordered list. A message. Consecutive messages on the same side group into a run. li.ui-message",
     "category": "API",
     "url": "/html/api/#message-list"
@@ -4627,17 +4627,17 @@
   },
   {
     "id": "api-number-field-html",
-    "title": "Number Field API",
-    "description": "Reference for Number Field HTML component.",
+    "title": "Number field API",
+    "description": "Reference for Number field HTML component.",
     "api": "opui-number-field.ui-number-field The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max` and keeps both disabled while the input is disabled, as the component renders them. The label for the field. .ui-label Start text displayed above the field. .ui-start-text The boxed input area. .ui-field The decrease button, with `command=\"--step-down\"`. Renders a minus icon by default, or the `svg` in `decrease-icon`. Hidden until the element is defined. .ui-field > .ui-start The input element. input The increase button, with `command=\"--step-up\"`. Renders a plus icon by default, or the `svg` in `increase-icon`. Hidden until the element is defined. .ui-field > .ui-end Supporting text displayed below the field. .ui-end-text [disabled] Disabled Dims the field and blocks input and the step buttons. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. .ui-sr-only Label Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. [required] Required Adds a required mark after the label. The form won't submit while the field is empty. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Spread Pushes the label and start text to one side and the field to the other. .ui-stretch Stretch Fills the available width. Without it, the field fits its value, from `--_min-inline-size` (`4ch`). .ui-filled Variants The variant to use. input The `<input type=\"number\">` inside, or `null`. Read-only. stepDown() Steps the value down by `step`, unless the input is disabled, read-only or at `min`, and fires `input` and `change`. stepUp() Steps the value up by `step`, unless the input is disabled, read-only or at `max`, and fires `input` and `change`.",
     "category": "API",
     "url": "/html/api/#number-field"
   },
   {
     "id": "api-one-time-code-html",
-    "title": "One Time Code API",
-    "description": "Reference for One Time Code HTML component.",
-    "api": "label.ui-text-field.ui-one-time-code Container element. The label for the field. .ui-label Draws a box per character and a ring on the next one. .ui-field The input element. input Supporting text displayed below the field. .ui-end-text [autocapitalize=\"characters\"] Alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. [disabled] Disabled Dims the field and blocks input. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. .ui-grouped Grouped Draws a dash between the two halves of the code. Use it with an even `length`. [maxlength] Length The number of characters and boxes, from 4 to 8. [required] Required Adds a required mark after the label. The form won't submit while the code is incomplete. .ui-large .ui-small .ui-x-small Sizes The size of the element.",
+    "title": "One-time code API",
+    "description": "Reference for One-time code HTML component.",
+    "api": "label.ui-text-field.ui-one-time-code Container element. The label for the field. .ui-label Draws a box per character and a ring on the next one. .ui-field The input element, with `autocomplete=\"one-time-code\"`, which lets the browser fill in a code it received. input Supporting text displayed below the field. .ui-end-text [autocapitalize=\"characters\"] Alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. [disabled] Disabled Dims the field and blocks input. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. .ui-grouped Grouped Draws a dash between the two halves of the code. Use it with an even `length`. [maxlength] Length The number of characters and boxes, from 4 to 8. [required] Required Adds a required mark after the label. The form won't submit while the code is incomplete. .ui-large .ui-small .ui-x-small Sizes The size of the element.",
     "category": "API",
     "url": "/html/api/#one-time-code"
   },
@@ -4651,8 +4651,8 @@
   },
   {
     "id": "api-radio-input-html",
-    "title": "Radio Input API",
-    "description": "Reference for Radio Input HTML component.",
+    "title": "Radio input API",
+    "description": "Reference for Radio input HTML component.",
     "api": "input[type=\"radio\"] The radio input, without a label.",
     "category": "API",
     "url": "/html/api/#radio-input"
@@ -4683,8 +4683,8 @@
   },
   {
     "id": "api-select-all-html",
-    "title": "Select All API",
-    "description": "Reference for Select All HTML component.",
+    "title": "Select all API",
+    "description": "Reference for Select all HTML component.",
     "api": "opui-select-all.ui-select-all The `<opui-select-all>` custom element, `display: contents`, around the group, such as a `Fieldset` or a `Table`. The checkbox that checks and unchecks the other enabled checkboxes inside. It's checked when they all are, and `indeterminate` when some are. input[data-select-all] control The controlling checkbox, the one with `data-select-all`, or `null`. Read-only. items The enabled checkboxes it controls, in document order. Read-only. sync() Sets the controlling checkbox's `checked` and `indeterminate` from the others. The element calls it when one changes, so call it only after setting `checked` from a script.",
     "category": "API",
     "url": "/html/api/#select-all"
@@ -4699,8 +4699,8 @@
   },
   {
     "id": "api-sortable-table-html",
-    "title": "Sortable Table API",
-    "description": "Reference for Sortable Table HTML component.",
+    "title": "Sortable table API",
+    "description": "Reference for Sortable table HTML component.",
     "api": "opui-sortable-table.ui-sortable-table The `<opui-sortable-table>` custom element, `display: contents`, around the table. It moves the body rows and announces the new order in its `role=\"status\"` child, or one it adds. While it has `data-hydrating`, which the React component renders until it hydrates, header clicks do nothing. The button around a sortable header's label. A press sorts by its column, ascending first, and sets `aria-sort` on the header. th[data-sort] > button [ascending-label] Ascending label What a sort in ascending order announces, with `{column}` where the header's label goes. [descending-label] Descending label What a sort in descending order announces, with `{column}` where the header's label goes. sort Fires before the rows move, with the column index, the direction and the header in `event.detail`. It bubbles, and `preventDefault()` keeps the rows where they are. sort(header, direction) Sorts by the column of `header`, in `direction` (`\"ascending\"` or `\"descending\"`), or else the other way from its `aria-sort`, ascending first. It fires `sort`, sets `aria-sort` and announces the order. table The `<table>` inside, or `null`. Read-only.",
     "category": "API",
     "url": "/html/api/#sortable-table"
@@ -4723,8 +4723,8 @@
   },
   {
     "id": "api-stepper-item-html",
-    "title": "Stepper Item API",
-    "description": "Reference for Stepper Item HTML component.",
+    "title": "Stepper item API",
+    "description": "Reference for Stepper item HTML component.",
     "api": "li A step. Replaces the check in the marker of a complete step. Hidden from screen readers. .ui-icon-complete The label, as a link back to the step. a A short line under the label. .ui-description .ui-complete Complete Marks the step complete: a check in the marker and the line to the next step in the accent color. [aria-current=\"step\"] Current Marks the current step. The steps before it show as complete, with or without `.ui-complete`. .ui-error Validation Marks a step with an error: an exclamation mark in the marker and the label in the invalid color. Wins over `complete`.",
     "category": "API",
     "url": "/html/api/#stepper-item"
@@ -4739,8 +4739,8 @@
   },
   {
     "id": "api-switch-input-html",
-    "title": "Switch Input API",
-    "description": "Reference for Switch Input HTML component.",
+    "title": "Switch input API",
+    "description": "Reference for Switch input HTML component.",
     "api": "input[role=\"switch\"] The switch input, without a label.",
     "category": "API",
     "url": "/html/api/#switch-input"
@@ -4755,32 +4755,32 @@
   },
   {
     "id": "api-table-cell-html",
-    "title": "Table Cell API",
-    "description": "Reference for Table Cell HTML component.",
+    "title": "Table cell API",
+    "description": "Reference for Table cell HTML component.",
     "api": "td A data cell, inside `TableRow`. .ui-numeric Numeric Aligns the cell to the end and uses tabular figures, so the digits of a column line up.",
     "category": "API",
     "url": "/html/api/#table-cell"
   },
   {
     "id": "api-table-column-group-html",
-    "title": "Table Column Group API",
-    "description": "Reference for Table Column Group HTML component.",
+    "title": "Table column group API",
+    "description": "Reference for Table column group HTML component.",
     "api": "colgroup A group of columns, before the table head.",
     "category": "API",
     "url": "/html/api/#table-column-group"
   },
   {
     "id": "api-table-column-html",
-    "title": "Table Column API",
-    "description": "Reference for Table Column HTML component.",
+    "title": "Table column API",
+    "description": "Reference for Table column HTML component.",
     "api": "col A column, inside `TableColumnGroup`. width Width The column width, merged into `style`.",
     "category": "API",
     "url": "/html/api/#table-column"
   },
   {
     "id": "api-table-header-cell-html",
-    "title": "Table Header Cell API",
-    "description": "Reference for Table Header Cell HTML component.",
+    "title": "Table header cell API",
+    "description": "Reference for Table header cell HTML component.",
     "api": "th A header cell, inside `TableRow`. .ui-numeric Numeric Aligns the header to the end, over a column of `numeric` cells. [data-sort] Sortable Wraps the label in a `<button>` that sorts the table by this column, inside a `SortableTable`.",
     "category": "API",
     "url": "/html/api/#table-header-cell"
@@ -4795,24 +4795,24 @@
   },
   {
     "id": "api-tabs-item-html",
-    "title": "Tabs Item API",
-    "description": "Reference for Tabs Item HTML component.",
+    "title": "Tabs item API",
+    "description": "Reference for Tabs item HTML component.",
     "api": "input.ui-input The radio input for a tab, followed by the tab and the panel. [checked] Checked Selects the tab. [id] Id The id of the input. Generated when omitted. [value] Value The value of the input. The tab is selected while it matches the `value` of `Tabs`.",
     "category": "API",
     "url": "/html/api/#tabs-item"
   },
   {
     "id": "api-tabs-label-html",
-    "title": "Tabs Label API",
-    "description": "Reference for Tabs Label HTML component.",
+    "title": "Tabs label API",
+    "description": "Reference for Tabs label HTML component.",
     "api": "label.ui-label The tab. [for] For The id of the input it labels. Set by the item.",
     "category": "API",
     "url": "/html/api/#tabs-label"
   },
   {
     "id": "api-tabs-panel-html",
-    "title": "Tabs Panel API",
-    "description": "Reference for Tabs Panel HTML component.",
+    "title": "Tabs panel API",
+    "description": "Reference for Tabs panel HTML component.",
     "api": ".ui-panel The panel.",
     "category": "API",
     "url": "/html/api/#tabs-panel"
@@ -4821,14 +4821,14 @@
     "id": "api-tabs-html",
     "title": "Tabs API",
     "description": "Reference for Tabs HTML component.",
-    "api": ".ui-tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. .ui-input:not(:checked) + .ui-label A tab. .ui-input:checked + .ui-label The panel of the selected tab. .ui-input:checked + .ui-label + .ui-panel [name] Group The name shared by the tab inputs. Generated when omitted. .ui-vertical Orientation The orientation of the tabs. `vertical` stacks them in a column at the inline start, with the panel beside them. .ui-overflow-wrap Overflow What the tabs do when they don't fit. `scroll` keeps them on one row and scrolls it sideways, and `wrap` wraps them onto more rows. Vertical tabs ignore it: long labels wrap within the column. .ui-filled .ui-line .ui-outlined Variants The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.",
+    "api": ".ui-tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. .ui-input:not(:checked) + .ui-label A tab. .ui-input:checked + .ui-label The panel of the selected tab. .ui-input:checked + .ui-label + .ui-panel [name] Group The name shared by the tab inputs. Generated when omitted. .ui-vertical Orientation The orientation of the tabs. `vertical` stacks them in a column at the inline start, with the panel beside them. .ui-overflow-wrap Overflow What the tabs do when they don't fit. `scroll` keeps them on one row and scrolls it sideways, and `wrap` wraps them onto more rows. Vertical tabs ignore it: long labels wrap within the column. [role=\"radiogroup\"] Role Makes tabs without panels a radio group, which `aria-label` names. Tabs with panels take no role: the root holds the panels, and a radio group holds only radios. .ui-filled .ui-line .ui-outlined Variants The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.",
     "category": "API",
     "url": "/html/api/#tabs"
   },
   {
     "id": "api-text-field-html",
-    "title": "Text Field API",
-    "description": "Reference for Text Field HTML component.",
+    "title": "Text field API",
+    "description": "Reference for Text field HTML component.",
     "api": ".ui-text-field Container element: a `<label>`, a `<div>` when there's no label, or the `<opui-text-field>` custom element with a password toggle. The label for the field. .ui-label Start text displayed above the field. .ui-start-text The boxed input area. .ui-field Content above the input, inside the border, with a divider. .ui-field > .ui-top Content at the inline-start of the field, inside the border. .ui-field > .ui-start The input element. input Content at the inline-end of the field, inside the border, and the password toggle. .ui-field > .ui-end The password toggle, with `aria-pressed` and `command=\"--toggle-password\"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Hidden until `<opui-text-field>` is defined. .ui-field > .ui-end > .ui-button Content below the input, inside the border, with a divider. .ui-field > .ui-bottom Supporting text displayed below the field. .ui-end-text The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left. .ui-end-text > .ui-value .ui-auto-fit Auto fit Lets the width follow the content, from `25ch`. .ui-drop-zone Drop zone Makes a `type=\"file\"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker. [aria-disabled=\"true\"] [disabled] Disabled Dims the field and blocks input. `aria-disabled=\"true\"` looks the same, but keeps the field focusable, its text editable and its value in the form. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. .ui-sr-only Label Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. [required] Required Adds a required mark after the label. The form won't submit while the field is empty. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Spread Pushes the label and start text to one side and the input to the other. .ui-filled Variants The variant to use. control The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only. hidePassword() Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits. input The `<input>` inside, or `null`. Read-only. showPassword() Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.",
     "category": "API",
     "url": "/html/api/#text-field"
@@ -4843,8 +4843,8 @@
   },
   {
     "id": "api-timeline-item-html",
-    "title": "Timeline Item API",
-    "description": "Reference for Timeline Item HTML component.",
+    "title": "Timeline item API",
+    "description": "Reference for Timeline item HTML component.",
     "api": "li An event. The date, in its own column. time Replaces the dot with an icon. It follows the item's color and the current state. .ui-marker The title of the event. h3 .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Colors Optional colors. [aria-current] Current Marks the current item, which fills its marker with `--ui-selected-strong` and a halo. `true` renders `aria-current=\"true\"`, and `step`, `date` or `time` that value. [datetime] Datetime The machine-readable date of `time`.",
     "category": "API",
     "url": "/html/api/#timeline-item"
@@ -4867,16 +4867,16 @@
   },
   {
     "id": "api-toggle-button-html",
-    "title": "Toggle Button API",
-    "description": "Reference for Toggle Button HTML component.",
+    "title": "Toggle button API",
+    "description": "Reference for Toggle button HTML component.",
     "api": "label.ui-toggle-button Container element. A visually hidden checkbox or radio input. .ui-toggle-button > input [checked] Checked Selects the button. [aria-disabled=\"true\"] [disabled] Disabled Dims the button and skips it with Tab and the arrow keys. `aria-disabled=\"true\"` looks the same, but keeps the button focusable and its value in the form, and doesn't stop the change, so block it with a script. .ui-large .ui-small .ui-x-small Sizes The size of the element. [type=\"checkbox\"] [type=\"radio\"] Type The input type. `radio` allows one selection in a group. A `ToggleGroup` without `multiple` makes every button a radio.",
     "category": "API",
     "url": "/html/api/#toggle-button"
   },
   {
     "id": "api-toggle-group-html",
-    "title": "Toggle Group API",
-    "description": "Reference for Toggle Group HTML component.",
+    "title": "Toggle group API",
+    "description": "Reference for Toggle group HTML component.",
     "api": ".ui-toggle-group Container element. A toggle button. .ui-toggle-group > .ui-toggle-button:first-child [role=\"group\"] Multiple Lets several buttons be checked, with checkbox inputs. Without it, one button is checked at a time, with radio inputs in a `[role=\"radiogroup\"]`. .ui-vertical Orientation The orientation of the element. .ui-overflow-scroll .ui-overflow-shrink Overflow What the items do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. .ui-large .ui-small .ui-x-small Sizes The size of the buttons.",
     "category": "API",
     "url": "/html/api/#toggle-group"

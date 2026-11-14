@@ -3,7 +3,7 @@
 </script>
 
 <p class="ui-h5">Feed</p>
-<Tabs aria-label="Show in the feed">
+<Tabs aria-label="Show in the feed" role="radiogroup">
   <TabsItem defaultChecked>
     <TabsLabel>All</TabsLabel>
   </TabsItem>

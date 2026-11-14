@@ -96,6 +96,18 @@
         justify-content: center;
         padding: 0;
         white-space: nowrap;
+
+        &:first-child {
+          justify-content: start;
+          margin-inline: calc(var(--_thumb-size) / -2)
+            calc(var(--_thumb-size) / 2);
+        }
+
+        &:last-child {
+          justify-content: end;
+          margin-inline: calc(var(--_thumb-size) / 2)
+            calc(var(--_thumb-size) / -2);
+        }
       }
     }
 

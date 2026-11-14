@@ -6,13 +6,13 @@ type Without<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never
 
 export type Props = Without<Base.Props, "endText"> &
   Base.Slots<Snippet> &
-  Omit<SvelteHTMLElements["input"], "checked" | "group" | "size" | "type"> & {
-    checked?: boolean
-    group?: (string | number)[]
-  }
+  Omit<
+    SvelteHTMLElements["input"],
+    "checked" | "group" | "role" | "size" | "type"
+  > & { checked?: boolean; group?: (string | number)[] }
 
 export type SwitchInputProps = Base.SwitchInputProps &
   Omit<
     SvelteHTMLElements["input"],
-    "checked" | "children" | "group" | "type"
+    "checked" | "children" | "group" | "role" | "type"
   > & { checked?: boolean; group?: (string | number)[] }

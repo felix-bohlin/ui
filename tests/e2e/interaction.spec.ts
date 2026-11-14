@@ -104,7 +104,7 @@ interaction(
   "FieldGroupBinding",
   "checkbox group binds the checked values",
   async ({ root }) => {
-    const updates = root.getByRole("checkbox", { name: "Product updates" })
+    const updates = root.getByRole("checkbox", { name: "Bassbook news" })
     const events = root.getByRole("checkbox", { name: "Events" })
     const selection = root.getByText(/Selected:/)
 
@@ -113,10 +113,10 @@ interaction(
     await root.getByText("Events", { exact: true }).click()
     await expect(events).toBeChecked()
     await expect(selection).toHaveText("Selected: updates, events")
-    await root.getByText("Product updates", { exact: true }).click()
+    await root.getByText("Bassbook news", { exact: true }).click()
     await expect(updates).not.toBeChecked()
     await expect(selection).toHaveText("Selected: events")
-    await root.getByText("Product updates", { exact: true }).click()
+    await root.getByText("Bassbook news", { exact: true }).click()
     await expect(updates).toBeChecked()
     await expect(selection).toHaveText("Selected: updates, events")
 
@@ -313,7 +313,7 @@ interaction(
     await root.getByRole("button", { name: "Inline start" }).click()
     const menu = root.locator("dialog#drawer-basics-1")
     await expect(menu).toHaveAttribute("open")
-    await menu.getByRole("link", { name: "Projects" }).click()
+    await menu.getByRole("link", { name: "My bands" }).click()
     await expect(menu).not.toHaveAttribute("open")
 
     await root.getByRole("button", { name: "Inline end" }).click()
@@ -426,24 +426,24 @@ interaction(
   "FieldGroupBinding",
   "radio group binds the selected value and resets",
   async ({ root }) => {
-    const starter = root.getByRole("radio", { name: "Starter" })
-    const team = root.getByRole("radio", { name: "Team" })
+    const basic = root.getByRole("radio", { name: "Basic" })
+    const gold = root.getByRole("radio", { name: "Gold" })
     const selection = root.getByText(/Selected:/)
 
-    await expect(starter).toBeChecked()
-    await root.getByText("Team", { exact: true }).click()
-    await expect(team).toBeChecked()
-    await expect(selection).toHaveText("Selected: team")
-    await root.getByText("Starter", { exact: true }).click()
-    await expect(starter).toBeChecked()
-    await expect(selection).toHaveText("Selected: starter")
-    await root.getByText("Team", { exact: true }).click()
-    await expect(team).toBeChecked()
+    await expect(basic).toBeChecked()
+    await root.getByText("Gold", { exact: true }).click()
+    await expect(gold).toBeChecked()
+    await expect(selection).toHaveText("Selected: gold")
+    await root.getByText("Basic", { exact: true }).click()
+    await expect(basic).toBeChecked()
+    await expect(selection).toHaveText("Selected: basic")
+    await root.getByText("Gold", { exact: true }).click()
+    await expect(gold).toBeChecked()
 
     await root.getByRole("button", { name: "Reset" }).click()
-    await expect(starter).toBeChecked()
-    await expect(team).not.toBeChecked()
-    await expect(selection).toHaveText("Selected: starter")
+    await expect(basic).toBeChecked()
+    await expect(gold).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: basic")
   },
 )
 
@@ -591,12 +591,12 @@ interaction(
   "select starts on its preselected option and follows a new pick",
   async ({ root }) => {
     const role = root.locator("select").nth(0)
-    const team = root.locator("select").nth(1)
+    const band = root.locator("select").nth(1)
 
-    await expect(role).toHaveValue("developer")
-    await expect(team).toHaveValue("engineering")
-    await role.selectOption("manager")
-    await expect(role).toHaveValue("manager")
+    await expect(role).toHaveValue("bass")
+    await expect(band).toHaveValue("low-end-theory")
+    await role.selectOption("tambourine")
+    await expect(role).toHaveValue("tambourine")
   },
 )
 
@@ -1068,9 +1068,9 @@ interaction(
   "Toggletip",
   "toggletip toggles on click without hover",
   async ({ root }) => {
-    const trigger = root.getByRole("button", { name: "About billing" })
+    const trigger = root.getByRole("button", { name: "About Bassbook Gold" })
     const tooltip = root.getByText(
-      "You're billed on the first day of each month.",
+      "Bassbook Gold renews on the first day of each month.",
     )
 
     await expect(tooltip).toBeHidden()
@@ -1937,6 +1937,41 @@ interaction(
   },
 )
 
+interaction(
+  "table",
+  "SortableData",
+  "a sort listener sorts the data the rows render from, and the header gets aria-sort",
+  async ({ root }) => {
+    const header = (name: string) =>
+      root.getByRole("columnheader", { name, exact: true })
+    const names = root.locator("tbody tr td:first-child")
+    const byGigs = [
+      "Percy Groove",
+      "Stella Nut",
+      "Ines Hertz",
+      "Rory Rootnote",
+      "Holly Humbucker",
+      "Lou Headstock",
+    ]
+
+    await expect(root.locator("opui-sortable-table")).not.toHaveAttribute(
+      "data-hydrating",
+    )
+    await expect(header("Name")).toHaveAttribute("aria-sort", "ascending")
+    await expect(names).toHaveText(byGigs.toSorted())
+
+    await root.getByRole("button", { name: "Gigs" }).click()
+    await expect(header("Gigs")).toHaveAttribute("aria-sort", "ascending")
+    await expect(header("Name")).not.toHaveAttribute("aria-sort")
+    await expect(names).toHaveText(byGigs)
+
+    await root.getByRole("button", { name: "Gigs" }).click()
+    await expect(header("Gigs")).toHaveAttribute("aria-sort", "descending")
+    await expect(names).toHaveText(byGigs.toReversed())
+    await expect(root.getByRole("status")).toHaveText("Gigs, sorted descending")
+  },
+)
+
 test("the data-table block selects and sorts its rows together", async ({
   page,
 }) => {
@@ -2551,13 +2586,31 @@ interaction(
 
 interaction(
   "text-field",
+  "CharacterCount",
+  "the character count announces in the language of its field",
+  async ({ page, root }) => {
+    await root
+      .locator(".ui-text-field")
+      .evaluate((field) => field.setAttribute("lang", "sv"))
+    await root
+      .locator("opui-character-count")
+      .evaluate((count) => count.setAttribute("label", "Tecken kvar: {count}"))
+    await root.locator("input").fill("opui-fan-2026")
+    const announcer = page.locator("[data-opui-announcer]")
+    await expect(announcer).toHaveText("Tecken kvar: 7")
+    await expect(announcer).toHaveAttribute("lang", "sv")
+  },
+)
+
+interaction(
+  "text-field",
   "Validation",
   "a labelled field is named by its label and described by its end text",
   async ({ root }) => {
     const input = root.getByRole("textbox", { name: "Username", exact: true })
 
     await expect(input).toHaveAccessibleDescription(
-      "This username is taken. Try another one.",
+      "Whoops, this username is taken. Try another one.",
     )
   },
 )

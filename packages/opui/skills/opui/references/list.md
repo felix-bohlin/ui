@@ -17,6 +17,7 @@ Rows of similar items, like contacts, files or settings, with icons, controls an
 - `bordered`: `boolean`, `.ui-bordered`. Adds a border between list items.
 - `dense`: `boolean`, `.ui-dense`. Packs the items tighter.
 - `flush`: `boolean`, `.ui-flush`. Removes the inline padding of the items and the block padding of the list.
+- `role`: `string`, default `"list"`. The `role` of the `<ul>`, such as `listbox`. `list` keeps Safari announcing a list.
 - `variant`: `"filled"` (default), `"tonal"` (`.ui-tonal`), `"transparent"` (`.ui-transparent`). The variant to use.
 
 ### Slots
@@ -67,7 +68,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 ### list.css
 
 - `--_bg-color`: Background of the list and its items. Defaults to `--ui-surface-filled`, `.ui-transparent` and `.ui-tonal` set it.
-- `--_check-image`: The check on the selected item of a `.ui-menu`, a `[role="listbox"]` list or a `Select` picker, as an image used as a mask in the text color. Defaults to `--ui-check-image`, then a built-in check.
+- `--_check-image`: The check on the selected item of a `.ui-menu`, a `[role="listbox"]` list or a `Select` picker, as an image used as a mask in the text color. Defaults to `--ui-icon-check`.
 - `--_description-text-color`: Text color of the description paragraph in an item. `--ui-text-subtle`, and `--ui-on-selected` on a selected or current row when a theme sets it.
 - `--_divider-border-color`: Color of the lines between items in `.ui-bordered` and on `.ui-border-top`. Defaults to `--ui-border-color`, mixed with 20% `--ui-text-strong` in `.ui-tonal`.
 - `--_divider-gap`: Space around the lines between items in `.ui-bordered` and on `.ui-border-top`. Smaller in `.ui-dense`.
@@ -88,7 +89,7 @@ Outputs: `--_font-size`, `--_icon-size`, `--_item-duration`, `--_selected-indica
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-check-image`, `--ui-choice-size-small`, `--ui-control-size`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-duration-fast`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-field-border-color-on-filled`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-inset`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-line-height`, `--ui-list-item-padding-inline`, `--ui-menu-radius`, `--ui-motion`, `--ui-on-selected`, `--ui-palette-accent`, `--ui-palette-text`, `--ui-primary`, `--ui-radius`, `--ui-selected`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-state-hover-alpha-accent`, `--ui-state-selected-alpha-accent`, `--ui-surface-elevated`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-switch-thumb-size-small`, `--ui-switch-track-block-size-small`, `--ui-switch-track-inline-size-small`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-choice-size-small`, `--ui-control-size`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-duration-fast`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-field-border-color-on-filled`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-inset`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-icon-check`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-line-height`, `--ui-list-item-padding-inline`, `--ui-menu-radius`, `--ui-motion`, `--ui-on-selected`, `--ui-palette-accent`, `--ui-palette-text`, `--ui-primary`, `--ui-radius`, `--ui-selected`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-state-hover-alpha-accent`, `--ui-state-selected-alpha-accent`, `--ui-surface-elevated`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-switch-thumb-size-small`, `--ui-switch-track-block-size-small`, `--ui-switch-track-inline-size-small`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -98,15 +99,15 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 <ul class="ui-list" role="list">
   <li>
     <div class="ui-text">
-      <p>Q3 report.pdf</p>
+      <p>Gig poster.pdf</p>
     </div>
   </li>
   <li>
     <div class="ui-text">
-      <p>Brand guidelines.pdf</p>
+      <p>Band logo pack.pdf</p>
       <p>
-        Logo, colors and type in print and on the web, with an example of each
-        in use.
+        Our logo in every color, with the bass drawn way bigger than the drum
+        kit, at last.
       </p>
     </div>
   </li>
@@ -133,10 +134,10 @@ import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
-  <ListItem label="Q3 report.pdf" />
+  <ListItem label="Gig poster.pdf" />
   <ListItem
-    description="Logo, colors and type in print and on the web, with an example of each in use."
-    label="Brand guidelines.pdf"
+    description="Our logo in every color, with the bass drawn way bigger than the drum kit, at last."
+    label="Band logo pack.pdf"
   />
   <ListItem label="Photos">
     <Fragment slot="end">100+</Fragment>
@@ -158,10 +159,10 @@ import { List, ListItem } from "opui-css/react"
 export default function Basics() {
   return (
     <List>
-      <ListItem label="Q3 report.pdf" />
+      <ListItem label="Gig poster.pdf" />
       <ListItem
-        description="Logo, colors and type in print and on the web, with an example of each in use."
-        label="Brand guidelines.pdf"
+        description="Our logo in every color, with the bass drawn way bigger than the drum kit, at last."
+        label="Band logo pack.pdf"
       />
       <ListItem end="100+" label="Photos" />
     </List>
@@ -183,10 +184,10 @@ export default function Basics() {
 </script>
 
 <List>
-  <ListItem label="Q3 report.pdf" />
+  <ListItem label="Gig poster.pdf" />
   <ListItem
-    description="Logo, colors and type in print and on the web, with an example of each in use."
-    label="Brand guidelines.pdf"
+    description="Our logo in every color, with the bass drawn way bigger than the drum kit, at last."
+    label="Band logo pack.pdf"
   />
   <ListItem label="Photos">
     {#snippet end()}100+{/snippet}
@@ -209,10 +210,10 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem label="Q3 report.pdf" />
+    <ListItem label="Gig poster.pdf" />
     <ListItem
-      description="Logo, colors and type in print and on the web, with an example of each in use."
-      label="Brand guidelines.pdf"
+      description="Our logo in every color, with the bass drawn way bigger than the drum kit, at last."
+      label="Band logo pack.pdf"
     />
     <ListItem label="Photos">
       <template #end>100+</template>

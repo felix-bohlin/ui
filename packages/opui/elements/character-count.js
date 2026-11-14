@@ -5,7 +5,8 @@ const LABEL = "Characters left: {count}"
 
 const announcers = new WeakMap()
 
-function announce(announcer, text) {
+function announce(announcer, text, lang) {
+  announcer.lang = lang
   announcer.textContent = ""
   requestAnimationFrame(() => {
     announcer.textContent = text
@@ -96,7 +97,11 @@ export class CharacterCountElement extends Base {
     this.#timeout = setTimeout(() => {
       if (!announcer.isConnected) return
       const label = this.getAttribute("label") ?? LABEL
-      announce(announcer, label.replace("{count}", String(this.#remaining())))
+      announce(
+        announcer,
+        label.replace("{count}", String(this.#remaining())),
+        this.closest("[lang]")?.lang ?? "",
+      )
     }, DELAY)
   }
 

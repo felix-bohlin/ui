@@ -24,6 +24,7 @@ A slider for picking a number by moving a thumb along a track.
 - `hideLabel`: `boolean`, `.ui-range > span.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
 - `id`: `string`. The id of the `<input>`. Generated when omitted and the value is shown. The ids the component generates start with it: `x-label`, `x-start-text`, `x-end-text` and `x-list` for `id="x"`.
 - `items`: `RangeItem[]`. Tick marks, rendered as `<option>` elements in a `<datalist>`. Each is a value, or a `{ label, value }` object for a labeled tick. Without `valueSuffix`, the label of the tick at the value is the input's `aria-valuetext`.
+- `lang`: `string`. The language of the `<label>`, which formats the shown value with `Intl.NumberFormat`. Without it, the value is formatted in English until `opui-css/css/js/range.js` formats it for the closest `lang` in the page.
 - `list`: `string`. The id of the `<datalist>`. Generated when `items` or the `datalist` slot is used.
 - `max`: `number | string`, default `100`. The largest value of the `<input>`.
 - `min`: `number | string`, default `0`. The smallest value of the `<input>`.
@@ -32,14 +33,14 @@ A slider for picking a number by moving a thumb along a track.
 - `spread`: `boolean`, `.ui-spread`. Pushes the label and start text to one side and the input to the other.
 - `step`: `number | string`, default `1`. The step between values of the `<input>`. Without a `value`, the slider starts at the step nearest the middle.
 - `value`: `number | string`. The current value.
-- `valueSuffix`: `string`. Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`.
+- `valueSuffix`: `string`. Text after the shown value, such as `%`. Setting it shows the current value in an `<output>` and as the input's `aria-valuetext`, formatted for `lang` with the decimals of `min` and `step` and no grouping.
 - `variant`: `"filled"` (`.ui-filled`), `"outlined"` (default), `"tonal"` (`.ui-tonal`). The variant to use. The default `outlined` track uses `--ui-track-bg-color`, or the field border color when the theme doesn't set it.
 
 Model: `value` (`number | string`), the current value. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes
 
-- HTML: Add a `<datalist aria-hidden="true">` after the input for tick marks. `data-suffix` on the `.ui-value` output adds text after the value.
+- HTML: Add a `<datalist aria-hidden="true">` after the input for tick marks. `data-suffix` on the `.ui-value` output adds text after the value, which `range.js` formats for the closest `lang`.
 - Astro, Svelte and Vue: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`.
 - React: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `className` and `style` go to the root `<label>`. Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.
 

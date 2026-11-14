@@ -3,7 +3,6 @@
   import { selectionOf } from "./selection"
   import { setToggleGroupContext } from "./context.svelte"
   import { warnUnnamedGroup } from "../dev"
-  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
@@ -12,6 +11,7 @@
     name,
     orientation,
     overflow,
+    role,
     size,
     value = $bindable(),
 
@@ -48,8 +48,8 @@
     size && size !== "medium" && `ui-${size}`,
     className,
   ]}
-  role={multiple ? "group" : "radiogroup"}
-  {...defined(rest)}
+  role={role ?? (multiple ? "group" : "radiogroup")}
+  {...rest}
 >
   {@render children?.()}
 </div>

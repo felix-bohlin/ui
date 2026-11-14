@@ -1,0 +1,126 @@
+<button class="ui-button" command="show-modal" commandfor="id-5" type="button">Block start</button>
+<button class="ui-button" command="show-modal" commandfor="id-1" type="button">Inline start</button>
+<button class="ui-button" command="show-modal" commandfor="id-3" type="button">Inline end</button>
+<button class="ui-button" command="show-modal" commandfor="id-7" type="button">Block end</button>
+<dialog aria-labelledby="id-2" class="ui-drawer" closedby="any" data-close-on-navigate id="id-1">
+  <div class="ui-header">
+    <h2 id="id-2">Menu</h2>
+    <button aria-label="Close" class="ui-button ui-round ui-small" command="close" commandfor="id-1" type="button">
+      <svg aria-hidden="true" height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg"></svg>
+    </button>
+  </div>
+  <div class="ui-content">
+    <ul class="ui-list ui-transparent" role="list">
+      <li>
+        <a aria-current="page" href="#basics">
+          <div class="ui-text">
+            <p>My wall</p>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#basics">
+          <div class="ui-text">
+            <p>My bands</p>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#basics">
+          <div class="ui-text">
+            <p>Gear Talk</p>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#basics">
+          <div class="ui-text">
+            <p>Settings</p>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="ui-align-start ui-footer">
+    <button class="ui-button ui-small" command="close" commandfor="id-1" type="button">Sign out</button>
+  </div>
+</dialog>
+<dialog aria-labelledby="id-4" class="ui-backdrop-transparent ui-drawer ui-inline-end" closedby="any" id="id-3">
+  <div class="ui-header">
+    <h2 id="id-4">Friday gig prep</h2>
+    <button aria-label="Edit" class="ui-button ui-round ui-small" type="button">
+      <svg aria-hidden="true" height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z" fill="currentColor"></path>
+      </svg>
+    </button>
+    <button aria-label="Close" class="ui-button ui-round ui-small" command="close" commandfor="id-3" type="button">
+      <svg aria-hidden="true" height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg"></svg>
+    </button>
+  </div>
+  <div aria-label="Gig details" class="ui-content" role="region" tabindex="0">
+    <p>Assigned to Lou Headstock, due Friday. Holly Humbucker checks the setlist, and the drummer promises (again) to bring the cymbals by Wednesday.</p>
+    <p>The band booked this gig without telling you, so here is the totally rad catch-up plan: five rehearsals over two weeks, and no more surprises.</p>
+    <p>Day 1: restring with fresh flatwounds, tune to drop D and play the root notes of every song until your fingers say thank you.</p>
+    <p>Day 2: learn the new song the guitarist wrote, which has eleven chords, four key changes and one very long solo that is not yours.</p>
+    <p>Day 4: practice the slap part in the bridge, with a short video that shows how to look cool while nobody watches the bassist.</p>
+    <p>Day 7: full rehearsal with the band, where somebody will ask you to turn it down and somebody else will ask why you can't be heard.</p>
+    <p>Day 14: soundcheck at the venue, where the sound engineer calls you the tall guitarist and the drummer gets all the credit.</p>
+    <p>Keep the pedalboard under 10 pedals, with one tuner and no more than two fuzzes. Pack the spare strings last, once the cables are coiled.</p>
+    <p>Send the setlist to the merch table before Thursday. They sell the shirts, so they need to know which songs have a bass solo (zero).</p>
+    <p>Test every cable and the low B on the 5-string, in the rehearsal room and on the actual stage, before the doors open at eight.</p>
+    <p>Holly Humbucker created the task on 3 March, and Lou Headstock moved it to Rocking on 5 March.</p>
+  </div>
+  <div class="ui-footer">
+    <button class="ui-button ui-filled ui-small" command="close" commandfor="id-3" type="button">Mark as done</button>
+  </div>
+</dialog>
+<dialog aria-labelledby="id-6" class="ui-block-start ui-drawer" closedby="any" id="id-5">
+  <div class="ui-header">
+    <h2 id="id-6">Notifications</h2>
+    <button aria-label="Close" class="ui-button ui-round ui-small" command="close" commandfor="id-5" type="button">
+      <svg aria-hidden="true" height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg"></svg>
+    </button>
+  </div>
+  <div class="ui-content">
+    <p>Holly Humbucker commented on Friday gig prep.</p>
+    <p>Your setlist export is ready to download, woohoo.</p>
+    <p>Lou Headstock invited you to Ignored Bassists Anonymous.</p>
+  </div>
+  <div class="ui-footer">
+    <button class="ui-button ui-small" command="close" commandfor="id-5" type="button">Mark all as read</button>
+  </div>
+</dialog>
+<dialog aria-labelledby="id-8" class="ui-block-end ui-drawer" closedby="any" id="id-7">
+  <div class="ui-header">
+    <h2 id="id-8">Filters</h2>
+    <button aria-label="Close" class="ui-button ui-round ui-small" command="close" commandfor="id-7" type="button">
+      <svg aria-hidden="true" height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg"></svg>
+    </button>
+  </div>
+  <div class="ui-content">
+    <fieldset class="ui-fieldset">
+      <legend>Status</legend>
+      <div class="ui-field-group ui-horizontal">
+        <label class="ui-checkbox">
+          <input checked name="status" type="checkbox" value="done">
+          <span class="ui-label">Done</span>
+        </label>
+        <label class="ui-checkbox">
+          <input checked name="status" type="checkbox" value="in-progress">
+          <span class="ui-label">Rocking</span>
+        </label>
+        <label class="ui-checkbox">
+          <input name="status" type="checkbox" value="open">
+          <span class="ui-label">Not yet</span>
+        </label>
+      </div>
+    </fieldset>
+  </div>
+  <div class="ui-footer">
+    <p>24 tasks</p>
+    <div class="ui-actions">
+      <button class="ui-button ui-small" type="button">Reset</button>
+      <button class="ui-button ui-filled ui-small" command="close" commandfor="id-7" type="button">Apply</button>
+    </div>
+  </div>
+</dialog>

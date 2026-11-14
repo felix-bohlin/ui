@@ -4,8 +4,8 @@ import { Range } from "opui-css/vue"
 
 <template>
   <Range
-    label="Label"
-    startText="Start helper text"
-    endText="End helper text"
+    endText="You can also zoom with your browser."
+    label="Text size"
+    startText="Applies to articles and comments."
   />
 </template>

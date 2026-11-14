@@ -1,0 +1,56 @@
+---
+import {
+  Button,
+  CheckboxInput,
+  ListItem,
+  Menu,
+  RadioInput,
+} from "opui-css/astro"
+---
+
+<Button
+  command="toggle-popover"
+  commandfor="menu-checkable-1"
+  variant="outlined"
+>
+  View
+</Button>
+<Menu id="menu-checkable-1">
+  <ListItem choice="checkbox">
+    <Fragment slot="label">Show hidden files</Fragment>
+    <CheckboxInput slot="end" />
+  </ListItem>
+  <ListItem choice="checkbox">
+    <Fragment slot="label">Show file extensions</Fragment>
+    <CheckboxInput checked slot="end" />
+  </ListItem>
+  <li class="ui-border-top ui-heading" id="menu-checkable-1-sort">Sort by</li>
+  <ListItem choice="radio">
+    <Fragment slot="label">Name</Fragment>
+    <RadioInput
+      aria-describedby="menu-checkable-1-sort"
+      checked
+      name="menu-checkable-1-sort"
+      slot="end"
+      value="name"
+    />
+  </ListItem>
+  <ListItem choice="radio">
+    <Fragment slot="label">Date modified</Fragment>
+    <RadioInput
+      aria-describedby="menu-checkable-1-sort"
+      name="menu-checkable-1-sort"
+      slot="end"
+      value="date"
+    />
+  </ListItem>
+  <ListItem choice="radio">
+    <Fragment slot="label">Size</Fragment>
+    <RadioInput
+      aria-describedby="menu-checkable-1-sort"
+      name="menu-checkable-1-sort"
+      slot="end"
+      value="size"
+    />
+  </ListItem>
+</Menu>

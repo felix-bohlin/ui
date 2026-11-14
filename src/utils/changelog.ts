@@ -10,7 +10,7 @@ export type ChangelogPathEntry = {
   type: "component" | "css" | "docs" | "api"
 }
 
-export type ChangelogEntry = {
+type ChangelogEntry = {
   hash: string
   date: string
   relativeDate: string
@@ -105,3 +105,23 @@ function resolveTypes(
     types: [...typeSet],
   }
 }
+
+export const changelogSections = (text: string, version: string) => {
+  const start = text.indexOf(`\n## ${version} `)
+  if (start === -1) return []
+  const end = text.indexOf("\n## ", start + 1)
+  const body = text.slice(start, end === -1 ? undefined : end)
+  return [...body.matchAll(/^### (\w+)\n([\s\S]*?)(?=^### |(?![\s\S]))/gm)]
+    .map(([, title, entries]) => ({
+      entries: entries.split("\n").filter((line) => line.startsWith("- ")),
+      title,
+    }))
+    .toSorted((a, b) => a.title.localeCompare(b.title, "en"))
+}
+
+export const addedComponents = (text: string, version: string) =>
+  (
+    changelogSections(text, version).find(
+      (section) => section.title === "Added",
+    )?.entries ?? []
+  ).flatMap((entry) => entry.match(/^- `(\w+)` component\b/)?.[1] ?? [])

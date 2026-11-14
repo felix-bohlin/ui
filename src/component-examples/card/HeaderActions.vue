@@ -1,0 +1,33 @@
+<script setup lang="ts">
+import { Avatar, Button, Card, CardContent, CardHeader } from "opui-css/vue"
+</script>
+
+<template>
+  <Card variant="outlined">
+    <CardHeader as="div">
+      <Avatar aria-hidden="true">LH</Avatar>
+      <hgroup>
+        <h3>Lou Headstock</h3>
+        <p>Posted 2 hours ago</p>
+      </hgroup>
+      <Button aria-label="More actions" round size="small">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+          ></path>
+        </svg>
+      </Button>
+    </CardHeader>
+    <CardContent>
+      Played the whole gig in drop D and nobody noticed, not even the drummer.
+      Woohoo, the low end lives on in secret :)
+    </CardContent>
+  </Card>
+</template>

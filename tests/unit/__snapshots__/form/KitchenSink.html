@@ -1,87 +1,92 @@
 <form class="ui-form" id="id-1">
-  <fieldset class="ui-fieldset">
-    <legend>User Profile</legend>
-    <p class="ui-field-description">Please provide your basic contact details.</p>
-    <div class="ui-field-group" role="group">
+  <fieldset aria-describedby="id-2" class="ui-fieldset">
+    <legend>Your Bassbook profile</legend>
+    <p class="ui-description" id="id-2">Heyyy, tell us who you are so your fans can find you.</p>
+    <div class="ui-field-group">
       <label class="ui-text-field">
-        <span class="ui-label">Full Name</span>
+        <span class="ui-label" id="id-3">Full name</span>
         <span class="ui-field">
-          <input placeholder="Jane Doe" required type="text">
+          <input aria-labelledby="id-3" autocomplete="name" placeholder="Holly Humbucker" required type="text">
         </span>
       </label>
       <label class="ui-text-field">
-        <span class="ui-label">Email Address</span>
+        <span class="ui-label" id="id-4">Email address</span>
         <span class="ui-field">
-          <input placeholder="jane@example.com" required type="email">
+          <input aria-labelledby="id-4" autocomplete="email" placeholder="rory@lowend.example" required type="email">
         </span>
       </label>
       <label class="ui-select">
-        <span class="ui-label" id="id-2">Role</span>
+        <span class="ui-label" id="id-5">Role</span>
         <span class="ui-field">
-          <select aria-labelledby="id-2">
-            <option value="dev">Developer</option>
-            <option value="design">Designer</option>
-            <option value="manager">Manager</option>
+          <select aria-labelledby="id-5">
+            <button>
+              <selectedcontent></selectedcontent>
+            </button>
+            <div class="ui-list">
+              <option value="bass">Bassist</option>
+              <option value="drums">Drummer</option>
+              <option value="guitar">Guitarist</option>
+            </div>
           </select>
         </span>
       </label>
     </div>
   </fieldset>
   <hr class="ui-divider">
-  <fieldset class="ui-fieldset">
+  <fieldset aria-describedby="id-6" class="ui-fieldset">
     <legend>Notifications</legend>
-    <p class="ui-field-description">Configure how you want to receive updates.</p>
-    <div class="ui-field-group" role="group">
+    <p class="ui-description" id="id-6">Pick how we tell you about new pokes and gig invites.</p>
+    <div class="ui-field-group">
       <label class="ui-switch">
         <input checked name="email_notifs" role="switch" type="checkbox">
-        <span class="ui-label">Email Notifications</span>
+        <span class="ui-label">Email notifications</span>
       </label>
       <label class="ui-switch">
         <input name="sms_notifs" role="switch" type="checkbox">
-        <span class="ui-label">SMS Notifications</span>
+        <span class="ui-label">SMS notifications</span>
       </label>
     </div>
   </fieldset>
   <hr class="ui-divider">
-  <fieldset class="ui-fieldset">
-    <legend>Theme Preference</legend>
-    <p class="ui-field-description">Select your preferred visual style.</p>
-    <div class="ui-field-group" role="group">
+  <fieldset aria-describedby="id-7" class="ui-fieldset">
+    <legend>Profile theme</legend>
+    <p class="ui-description" id="id-7">Pick the look of your awesome profile page.</p>
+    <div class="ui-field-group">
       <label class="ui-radio">
         <input checked name="theme" type="radio" value="light">
-        <span class="ui-label">Light Theme</span>
+        <span class="ui-label">Light theme</span>
       </label>
       <label class="ui-radio">
         <input name="theme" type="radio" value="dark">
-        <span class="ui-label">Dark Theme</span>
+        <span class="ui-label">Dark theme</span>
       </label>
       <label class="ui-radio">
         <input name="theme" type="radio" value="system">
-        <span class="ui-label">System Default</span>
+        <span class="ui-label">System default</span>
       </label>
     </div>
   </fieldset>
   <hr class="ui-divider">
-  <fieldset class="ui-fieldset">
-    <legend>Experience Level</legend>
-    <p class="ui-field-description">How many years of experience do you have?</p>
-    <div class="ui-field-group" role="group">
+  <fieldset aria-describedby="id-8" class="ui-fieldset">
+    <legend>Bass experience</legend>
+    <p class="ui-description" id="id-8">How many years have you held down the low end?</p>
+    <div class="ui-field-group">
       <label class="ui-range">
-        <span class="ui-label" id="id-3">Professional Experience</span>
-        <span class="ui-start-text" id="id-4">Drag the slider to match your total tenure.</span>
-        <input aria-describedby="id-4" aria-labelledby="id-3" max="20" min="0" step="1" type="range" value="5">
+        <span class="ui-label" id="id-9">Years of playing</span>
+        <span class="ui-start-text" id="id-10">Drag the slider, and yes, the years on guitar count less.</span>
+        <input aria-describedby="id-10" aria-labelledby="id-9" max="20" min="0" step="1" type="range" value="5">
       </label>
     </div>
   </fieldset>
   <hr class="ui-divider">
-  <fieldset class="ui-fieldset">
-    <legend>Additional Info</legend>
-    <p class="ui-field-description">Anything else we should know?</p>
-    <div class="ui-field-group" role="group">
+  <fieldset aria-describedby="id-11" class="ui-fieldset">
+    <legend>About you</legend>
+    <p class="ui-description" id="id-11">Favorite strings, dream rig, the band that ignores you?</p>
+    <div class="ui-field-group">
       <label class="ui-textarea">
-        <span class="ui-label">Biography</span>
+        <span class="ui-label" id="id-12">Biography</span>
         <span class="ui-field">
-          <textarea name="details" placeholder="Tell us about yourself..." rows="4"></textarea>
+          <textarea aria-labelledby="id-12" name="biography" placeholder="I play a fretless 5-string and nobody watches me..." rows="4"></textarea>
         </span>
       </label>
     </div>
@@ -89,17 +94,17 @@
   <hr class="ui-divider">
   <fieldset class="ui-fieldset">
     <legend>Legal</legend>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-checkbox">
-        <input aria-describedby="id-5" name="terms" required type="checkbox">
-        <span class="ui-label">I agree to the terms and conditions</span>
-        <span class="ui-end-text" id="id-5">Support this text</span>
+        <input name="terms" required type="checkbox">
+        <span class="ui-label">I agree to the Bassbook terms and conditions</span>
+        <span class="ui-end-text">You can withdraw your consent at any time, no hard feelings.</span>
       </label>
     </div>
   </fieldset>
   <hr class="ui-divider">
-  <div class="ui-field-group" role="group">
+  <div class="ui-field-group">
+    <button class="ui-button" type="button">Cancel</button>
     <button class="ui-button ui-filled" type="submit">Send</button>
-    <button class="ui-button">Cancel</button>
   </div>
 </form>

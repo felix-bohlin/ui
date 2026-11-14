@@ -1,25 +1,53 @@
 ---
 import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 import {
   Anchor as UIAnchor,
+  AnchorContent as UIAnchorContent,
   Button as UIButton,
   Card as UICard,
-} from "@opui/astro"
+  CardContent as UICardContent,
+} from "opui-css/astro"
 
 import AnchorCSS from "@opui/css/components/anchor.css?raw"
 
 import anchorApi from "../../component-api/anchor/api"
+import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
+
+export const description =
+  "Floating content placed next to an element with CSS anchor positioning."
+
+export const keywords = [
+  "anchor positioning",
+  "floating",
+  "popover",
+  "position-anchor",
+]
 ---
 
 <Component
+  description={description}
   slug="anchor"
   heroAnatomy
   apis={[{ title: "Anchor API", api: anchorApi }]}
-  browserSupport={["anchor-positioning", "popover-hint"]}
+  browserSupport={[
+    "anchor-positioning",
+    "interest-invokers",
+    "popover",
+    "popover-hint",
+  ]}
+  fallbacks={{
+    "interest-invokers":
+      "Without interest invokers, the compat layer shows the card while its anchor is hovered or has keyboard focus, and Esc doesn't hide it.",
+    "popover-hint":
+      'Without `popover="hint"`, the card is a manual popover, which the compat layer still shows on hover and focus.',
+  }}
   changelogPaths={[
     {
       path: "packages/opui/components/Anchor/Anchor.astro",
@@ -36,63 +64,75 @@ import anchorApi from "../../component-api/anchor/api"
   installationTabs={[{ title: "anchor.css", code: AnchorCSS, lang: "css" }]}
 >
   <Fragment slot="title">Anchor</Fragment>
-  <Fragment slot="preamble"
-    >A structural primitive to enable CSS Anchor Positioning on stuff.</Fragment
-  >
+  <Fragment slot="preamble">
+    Floating content next to an element, like a hover card or a coach mark. For
+    a short hint on a control, use a
+    <DocLink href="/components/tooltip">Tooltip</DocLink>.
+  </Fragment>
 
-  <section>
-    <h2 id="always-visible">Always Visible</h2>
-    <p>Floating content that is always shown.</p>
+  <Usage slot="usage">
+    <li slot="when">Floating content beside an element, like a coach mark.</li>
+    <li slot="when">
+      Hover cards that preview a link: a
+      <a href="#hover-trigger">hover trigger</a>.
+    </li>
+    <li slot="when">A base for your own floating component.</li>
+    <li slot="when-not">
+      A short hint: use a <DocLink href="/components/tooltip">Tooltip</DocLink>.
+    </li>
+    <li slot="when-not">
+      A list of actions: use a <DocLink href="/components/menu">Menu</DocLink>.
+    </li>
+    <li slot="when-not">
+      Content that needs an answer: use a
+      <DocLink href="/components/dialog">Dialog</DocLink>.
+    </li>
+  </Usage>
 
+  <section id="always-visible">
+    <h2>Always visible</h2>
+    <p>
+      Place it with
+      <PropOrClass prop="positionArea" class="--ui-anchor-position-area" />.
+    </p>
     <AutoExample name="AlwaysVisible" />
   </section>
 
-  <section>
-    <h2 id="hover-trigger">Hover Trigger</h2>
+  <section id="hover-trigger">
+    <h2>Hover trigger</h2>
     <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>trigger="hover"</code>, and <code>interestfor</code> on the
+        trigger.
+      </Fragment>
       <Fragment slot="html">
-        Add <code>interestfor</code> on the trigger element pointing to the
-        <code>.ui-anchor-floating</code> ID.
-      </Fragment>
-      <Fragment slot="astro">
-        Set <code>trigger="hover"</code> and an <code>id</code>, and add <code
-          >interestfor</code
-        > with that id to the trigger. The component adds <code
-          >popover="hint"</code
-        >.
-      </Fragment>
-      <Fragment slot="vue">
-        Set <code>trigger="hover"</code> and an <code>id</code>, and add <code
-          >interestfor</code
-        > with that id to the trigger. The component adds <code
-          >popover="hint"</code
-        >.
+        Use <code>popover="hint"</code>, and <code>interestfor</code> on the
+        trigger.
       </Fragment>
     </Conditional>
-    <p>
-      Add <code>interestfor</code>, <code>commandfor</code>, and <code
-        >command="toggle-popover"</code
-      > to the anchor trigger so touch devices can tap to show the floating content.
-    </p>
-
-    <AutoExample name="Hover" />
+    <AutoExample name="RepoCard" />
   </section>
 
-  <section>
-    <h2 id="used-by">Used By</h2>
-    <ul>
-      <li><DocLink href="/components/badge">Badge</DocLink></li>
-      <li><DocLink href="/components/tooltip">Tooltip</DocLink></li>
-    </ul>
+  <section id="link-preview">
+    <h2>Link preview</h2>
+    <AutoExample name="LinkPreview" />
   </section>
+
+  <Fragment slot="accessibility">
+    <KeyboardSupport />
+  </Fragment>
+
+  <AnchorBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy>
-      <UIAnchor alignment="start center">
+      <UIAnchor positionArea="start center">
         <UIButton variant="outlined">Anchor</UIButton>
-        <UICard slot="anchored" variant="tonal">
-          <div class="ui-content">Floating content</div>
-        </UICard>
+        <UIAnchorContent>
+          <UICard variant="tonal">
+            <UICardContent>Floating content</UICardContent>
+          </UICard>
+        </UIAnchorContent>
       </UIAnchor>
     </Anatomy>
   </Fragment>

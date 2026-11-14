@@ -1,0 +1,35 @@
+---
+import {
+  Button,
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  List,
+  ListItem,
+} from "opui-css/astro"
+---
+
+<Button id="drawer-non-modal-2" variant="outlined">Show folders</Button>
+
+<Drawer id="drawer-non-modal-1" scrollLock>
+  <DrawerHeader closeButton>
+    <DrawerTitle>Folders</DrawerTitle>
+  </DrawerHeader>
+  <DrawerContent>
+    <List variant="transparent">
+      <ListItem aria-current="page" href="#non-modal" label="Inbox" />
+      <ListItem href="#non-modal" label="Drafts" />
+      <ListItem href="#non-modal" label="Archive" />
+    </List>
+  </DrawerContent>
+</Drawer>
+
+<script>
+  const drawer = document.querySelector<HTMLDialogElement>(
+    "#drawer-non-modal-1",
+  )
+  document
+    .querySelector("#drawer-non-modal-2")
+    ?.addEventListener("click", () => drawer?.show())
+</script>

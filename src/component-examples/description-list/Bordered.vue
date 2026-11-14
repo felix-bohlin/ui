@@ -1,40 +1,40 @@
 <script setup lang="ts">
 import {
-  Description,
   DescriptionList,
+  DescriptionListDescription,
   DescriptionListItem,
   DescriptionListTerm,
 } from "opui-css/vue"
 </script>
 
 <template>
-  <DescriptionList bordered>
+  <DescriptionList border="solid">
     <DescriptionListItem>
-      <DescriptionListTerm>Price</DescriptionListTerm>
-      <Description>6 950 000</Description>
+      <DescriptionListTerm>Order number</DescriptionListTerm>
+      <DescriptionListDescription>10482</DescriptionListDescription>
     </DescriptionListItem>
     <DescriptionListItem>
-      <DescriptionListTerm>Size</DescriptionListTerm>
-      <Description>64 m²</Description>
+      <DescriptionListTerm>Placed on</DescriptionListTerm>
+      <DescriptionListDescription>Oct 8, 2026</DescriptionListDescription>
     </DescriptionListItem>
     <DescriptionListItem>
-      <DescriptionListTerm>Rooms</DescriptionListTerm>
-      <Description>3</Description>
+      <DescriptionListTerm>Status</DescriptionListTerm>
+      <DescriptionListDescription>Shipped</DescriptionListDescription>
     </DescriptionListItem>
   </DescriptionList>
 
-  <DescriptionList bordered="dotted">
+  <DescriptionList border="dotted">
     <DescriptionListItem>
-      <DescriptionListTerm>Price</DescriptionListTerm>
-      <Description>6 950 000</Description>
+      <DescriptionListTerm>Order number</DescriptionListTerm>
+      <DescriptionListDescription>10482</DescriptionListDescription>
     </DescriptionListItem>
     <DescriptionListItem>
-      <DescriptionListTerm>Size</DescriptionListTerm>
-      <Description>64 m²</Description>
+      <DescriptionListTerm>Placed on</DescriptionListTerm>
+      <DescriptionListDescription>Oct 8, 2026</DescriptionListDescription>
     </DescriptionListItem>
     <DescriptionListItem>
-      <DescriptionListTerm>Rooms</DescriptionListTerm>
-      <Description>3</Description>
+      <DescriptionListTerm>Status</DescriptionListTerm>
+      <DescriptionListDescription>Shipped</DescriptionListDescription>
     </DescriptionListItem>
   </DescriptionList>
 </template>

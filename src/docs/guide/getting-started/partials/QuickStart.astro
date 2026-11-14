@@ -1,0 +1,221 @@
+---
+import { Button } from "opui-css/astro"
+
+const { framework, link } = Astro.locals
+const html = framework === "html"
+
+const mapping = html
+  ? [
+      { code: ".ui-button", note: "Component" },
+      { code: ".ui-filled", note: "Variant" },
+      { code: ".ui-primary", note: "Color" },
+    ]
+  : [
+      { code: "<Button>", note: ".ui-button" },
+      { code: 'color="primary"', note: ".ui-primary" },
+      { code: 'variant="filled"', note: ".ui-filled" },
+    ]
+
+const steps = Array.from({ length: 16 }, (_, index) => index + 1)
+---
+
+<div class="quick-start" role="list">
+  <div role="listitem">
+    <h3>{html ? "Add the CSS" : "Install and import the CSS"}</h3>
+    <p>
+      {html
+        ? "One file with the theme, the reset and every component."
+        : "Needs Node 26.10 or later. Import the CSS once, where your app starts."}
+    </p>
+    <slot name="install" />
+  </div>
+  <div role="listitem">
+    <h3>{html ? "Write the classes" : "Use a component"}</h3>
+    <p>
+      {html
+        ? "A class on a native element. Options are classes too."
+        : "Each prop renders one class."}
+    </p>
+    <div class="quick-start-result">
+      <slot name="use" />
+      <figure class="ui-not-rich-text">
+        <div class="quick-start-stage">
+          <button class="ui-button ui-filled ui-primary" type="button">
+            Save
+          </button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">{html ? "Class" : "You write"}</th>
+              <th scope="col">{html ? "Sets" : "It renders"}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {mapping.map((row) => <tr>
+              <td><code>{row.code}</code></td>
+              <td>{html ? row.note : <code>{row.note}</code>}</td>
+            </tr>)}
+          </tbody>
+        </table>
+      </figure>
+    </div>
+  </div>
+  <div role="listitem">
+    <h3>Make it yours</h3>
+    <p>
+      Load the <code>theme.css</code> the Theme builder exports after opui-css.
+    </p>
+    <div class="quick-start-theme ui-not-rich-text">
+      <span class="quick-start-palette" aria-hidden="true">
+        {steps.map((step) => (
+          <span style={`background-color: var(--ui-color-${step})`} />
+        ))}
+      </span>
+      <Button color="primary" href={link("/theme-builder")} variant="tonal">
+        Theme builder
+      </Button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .quick-start {
+    --_marker: var(--size-7);
+
+    counter-reset: step;
+    display: grid;
+    gap: var(--size-7);
+    margin-block: var(--size-5) 0;
+
+    > div {
+      counter-increment: step;
+      display: grid;
+      gap: var(--size-3);
+      min-inline-size: 0;
+      padding-inline-start: calc(var(--_marker) + var(--size-4));
+      position: relative;
+
+      &::before {
+        align-items: center;
+        background-color: var(--ui-primary);
+        block-size: var(--_marker);
+        border-radius: var(--radius-round);
+        color: var(--ui-on-primary);
+        content: counter(step);
+        display: flex;
+        font-size: var(--ui-font-size-small);
+        font-weight: var(--ui-font-weight-bold);
+        inline-size: var(--_marker);
+        inset-block-start: 0;
+        inset-inline-start: 0;
+        justify-content: center;
+        position: absolute;
+      }
+
+      &:not(:last-child)::after {
+        background-color: var(--ui-border-color);
+        content: "";
+        inline-size: var(--ui-border-width-thick);
+        inset-block: calc(var(--_marker) + var(--size-2))
+          calc(-1 * var(--size-7) + var(--size-2));
+        inset-inline-start: calc(
+          var(--_marker) / 2 - var(--ui-border-width-thick) / 2
+        );
+        position: absolute;
+      }
+
+      > * {
+        margin: 0;
+      }
+    }
+
+    h3 {
+      font-size: var(--ui-font-size-h5);
+      line-height: var(--_marker);
+    }
+  }
+
+  .quick-start-result {
+    display: grid;
+    gap: var(--size-3);
+
+    > * {
+      margin: 0;
+      min-inline-size: 0;
+    }
+  }
+
+  figure {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3) var(--size-6);
+    margin: 0;
+  }
+
+  .quick-start-stage {
+    background-color: var(--ui-surface-tonal);
+    border-radius: var(--ui-radius);
+    display: grid;
+    padding: var(--size-5) var(--size-8);
+    place-items: center;
+  }
+
+  table {
+    border-collapse: collapse;
+    font-size: var(--ui-font-size-small);
+  }
+
+  th {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-caption);
+    font-weight: var(--ui-font-weight-medium);
+    letter-spacing: var(--ui-letter-spacing-caps);
+    text-align: start;
+    text-transform: uppercase;
+  }
+
+  :is(th, td) {
+    padding-block: var(--size-1);
+    padding-inline: 0 var(--size-4);
+  }
+
+  td + td {
+    color: var(--ui-text);
+
+    &::before {
+      color: var(--ui-text-subtle);
+      content: "→" / "";
+      margin-inline-end: var(--size-3);
+    }
+  }
+
+  th + th {
+    padding-inline-start: calc(1ch + var(--size-3));
+  }
+
+  code {
+    font-family: var(--ui-font-code);
+  }
+
+  .quick-start-theme {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3) var(--size-4);
+  }
+
+  .quick-start-palette {
+    border-radius: var(--ui-radius-small);
+    display: grid;
+    flex: 1 1 12rem;
+    forced-color-adjust: none;
+    grid-template-columns: repeat(16, 1fr);
+    overflow: hidden;
+
+    > span {
+      block-size: var(--size-5);
+    }
+  }
+</style>

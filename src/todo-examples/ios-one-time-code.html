@@ -1,0 +1,65 @@
+<style>
+  .todo-ios-otc-off {
+    .ui-field input {
+      field-sizing: content;
+      inline-size: auto;
+      margin-inline-end: calc(
+        (var(--_cell-size) - 1ch) / -2 - var(--_length) * var(--_cell-size)
+      );
+      padding-inline-end: calc(var(--_length) * var(--_cell-size));
+    }
+
+    .ui-field input:required:valid {
+      caret-color: var(--_accent);
+    }
+
+    &:focus-within .ui-field::after {
+      content: "";
+    }
+  }
+</style>
+<p class="todo-note">
+  For iPhone and iPad. Tap each field and type six digits, one at a time. The
+  first field has the iOS block from <code>css/compat/one-time-code.css</code>,
+  which gives the input a fixed width. The second undoes the block, so the input
+  sizes itself to its text with <code>field-sizing: content</code>, as in other
+  browsers. If every digit, the sixth too, shows in its box while the second
+  field has focus, iOS Safari handles it and the block can go. On a desktop
+  browser both fields work the same, since the block only applies on iOS.
+</p>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Today: with the iOS block</p>
+    <label class="ui-text-field ui-one-time-code">
+      <span class="ui-label">Verification code</span>
+      <span class="ui-field">
+        <input
+          autocomplete="one-time-code"
+          inputmode="numeric"
+          pattern="[0-9]{6}"
+          required
+          maxlength="6"
+          name="todo-ios-otc-on"
+          type="text"
+        />
+      </span>
+    </label>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">Without the iOS block</p>
+    <label class="ui-text-field ui-one-time-code todo-ios-otc-off">
+      <span class="ui-label">Verification code</span>
+      <span class="ui-field">
+        <input
+          autocomplete="one-time-code"
+          inputmode="numeric"
+          pattern="[0-9]{6}"
+          required
+          maxlength="6"
+          name="todo-ios-otc-off"
+          type="text"
+        />
+      </span>
+    </label>
+  </section>
+</div>

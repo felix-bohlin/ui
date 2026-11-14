@@ -3,19 +3,21 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Textarea,
   TextField,
 } from "opui-css/vue"
 </script>
 
 <template>
-  <FieldSet>
-    <FieldLegend>Pet info</FieldLegend>
-    <FieldDescription>We must know your pet's information.</FieldDescription>
-    <FieldGroup name="bio">
-      <TextField label="Name" name="name" />
-      <Textarea required label="Life story" />
+  <Fieldset aria-describedby="form-fieldset-required-1-description">
+    <FieldLegend>Delivery</FieldLegend>
+    <FieldDescription id="form-fieldset-required-1-description"
+      >Where should we send your order?</FieldDescription
+    >
+    <FieldGroup>
+      <TextField label="Recipient" name="recipient" />
+      <Textarea label="Address" name="address" required />
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </template>

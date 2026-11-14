@@ -1,25 +1,43 @@
 ---
 import Component from "../../layouts/Component.astro"
+import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
 import {
   Button as UIButton,
   Callout as UICallout,
+  CalloutContent as UICalloutContent,
   Card as UICard,
-} from "@opui/astro"
+  CardActions as UICardActions,
+  CardContent as UICardContent,
+  CardHeader as UICardHeader,
+} from "opui-css/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 import CardCSS from "@opui/css/components/card.css?raw"
 import Conditional from "../../components/Conditional.astro"
+import CardBuild from "../../components/UnderTheHood/CardBuild.astro"
 
 import cardApi from "../../component-api/card/api"
+import cardActionsApi from "../../component-api/card-actions/api"
+import cardHeaderApi from "../../component-api/card-header/api"
+
+export const description = "A surface for related content and actions."
+
+export const keywords = ["panel", "surface", "tile"]
 ---
 
 <Component
+  description={description}
   slug="card"
   heroAnatomy
-  apis={[{ title: "Card API", api: cardApi }]}
-  browserSupport={["container-style-queries"]}
+  apis={[
+    { title: "Card API", api: cardApi },
+    { title: "Card header API", api: cardHeaderApi },
+    { title: "Card actions API", api: cardActionsApi },
+  ]}
+  browserSupport={["container-queries", "container-style-queries", "has"]}
   changelogPaths={[
     {
       path: "packages/opui/components/Card/Card.astro",
@@ -37,120 +55,194 @@ import cardApi from "../../component-api/card/api"
 >
   <Fragment slot="title">Card</Fragment>
   <Fragment slot="preamble">
-    The card is extremely versatile and can be used on its own, or as a building
-    block for <DocLink class="ui-link" href="/components/accordion"
-      >accordions</DocLink
-    >, <DocLink class="ui-link" href="/components/dialog">dialogs</DocLink> and more.
+    A surface for related content and actions.
   </Fragment>
 
-  <section>
-    <h2 id="variants">Variants</h2>
+  <Usage slot="usage">
+    <li slot="when">Self-contained content, like a product or a plan.</li>
+    <li slot="when">Related content set apart, like one feature's settings.</li>
+    <li slot="when">
+      A box that links somewhere: a <a href="#clickable">clickable card</a>.
+    </li>
+    <li slot="when-not">
+      Every section of a page: use headings and the
+      <DocLink href="/components/layout">Layout</DocLink> classes.
+    </li>
+    <li slot="when-not">
+      Rows of similar items: use a
+      <DocLink href="/components/list">List</DocLink> or a
+      <DocLink href="/components/table">Table</DocLink>.
+    </li>
+    <li slot="when-not">
+      A message about the page: use a
+      <DocLink href="/components/callout">Callout</DocLink>.
+    </li>
+  </Usage>
 
+  <section id="variants">
+    <h2>Variants</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
-        Change the card variant with the <code>variant</code> prop.
+      <Fragment slot="components">
+        Plain by default. Use <code>variant</code> to change it.
       </Fragment>
       <Fragment slot="html">
-        Change the card variant with the <code>.ui-text</code>, <code
-          >.ui-outlined</code
-        >, <code>.ui-tonal</code>, and <code>.ui-elevated</code> classes.
-      </Fragment>
-      <Fragment slot="vue">
-        Change the card variant with the <code>variant</code> prop.
+        Plain by default. Use <code>.ui-elevated</code>,
+        <code>.ui-outlined</code>, <code>.ui-tonal</code> or
+        <code>.ui-transparent</code> to change it.
       </Fragment>
     </Conditional>
-
     <AutoExample name="Variants" column />
+  </section>
 
+  <section id="colors">
+    <h2>Colors</h2>
+    <p>
+      Use <PropOrClass prop='color="primary"' class=".ui-primary" /> for the
+      card that stands out.
+    </p>
+    <AutoExample name="Colors" column />
+  </section>
+
+  <section id="density">
+    <h2>Density</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Use <code>density</code> or <code>--ui-card-padding</code> to change
+        density.
+      </Fragment>
+      <Fragment slot="html">
+        Use <code>.ui-dense</code>, <code>.ui-spacious</code> or
+        <code>--ui-card-padding</code> to change it.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Density" column />
+  </section>
+
+  <section id="header">
+    <h2>Header</h2>
+    <AutoExample name="Header" column />
+
+    <h3 id="header-row">Header row</h3>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Use <code>CardHeader as="div"</code> with an <code>hgroup</code> inside.
+      </Fragment>
+      <Fragment slot="html">
+        Use a <code>div.ui-header</code> with an <code>hgroup</code> inside.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="HeaderActions" column />
+  </section>
+
+  <section id="media">
+    <h2>Media</h2>
+    <p>
+      An image as a direct child runs to the edges. Crop it with
+      <code>aspect-ratio</code>.
+    </p>
+    <AutoExample name="Media" column />
+  </section>
+
+  <section id="actions">
+    <h2>Actions</h2>
+    <AutoExample name="Actions" column />
+
+    <h3 id="actions-alignment">Alignment</h3>
+    <p>
+      Actions sit at the end. Use
+      <PropOrClass prop='align="start"' class=".ui-align-start" /> to change it.
+    </p>
+    <AutoExample name="Alignment" column />
+  </section>
+
+  <section id="orientation">
+    <h2>Orientation</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        An image first goes beside the content from <code>40rem</code>. Use
+        <code>orientation</code> to fix it.
+      </Fragment>
+      <Fragment slot="html">
+        An image first goes beside the content from <code>40rem</code>. Use
+        <code>.ui-horizontal</code> or <code>.ui-vertical</code> to fix it.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Orientation" column />
+  </section>
+
+  <section id="clickable">
+    <h2>Clickable card</h2>
+    <p>Add <code>.ui-card-link</code> to the link in the heading.</p>
+    <AutoExample name="Clickable" column />
     <div class="ui-not-rich-text">
       <UICallout>
-        <div class="ui-rich-text">
-          <p><strong>Why does a text variant exist?</strong></p>
-          It really doesn't make sense to use the text variant unless you really need
-          to. The <DocLink href="/components/accordion#accordion-group"
-            >accordion group</DocLink
-          > is a great example where Open Props UI leverages the text variant of the
-          <code>.ui-card</code> component.
-        </div>
+        <UICalloutContent>
+          <div class="ui-rich-text">
+            Only one <code>.ui-card-link</code> per card. The link covers the
+            text, so text in the card can't be selected.
+          </div>
+        </UICalloutContent>
       </UICallout>
     </div>
   </section>
 
-  <section>
-    <h2 id="header">Header</h2>
+  <section id="semantics">
+    <h2>Semantics</h2>
     <Conditional as="p">
-      <Fragment slot="astro"> Using the <code>header</code> slot. </Fragment>
-      <Fragment slot="html">
-        Using the <code>&lt;hgroup&gt;</code>.
+      <Fragment slot="components">
+        Use <code>as="article"</code> or <code>as="section"</code>.
       </Fragment>
-      <Fragment slot="vue"> Using the <code>header</code> slot. </Fragment>
+      <Fragment slot="html">
+        Use an <code>article</code> or a <code>section</code>.
+      </Fragment>
     </Conditional>
-    <AutoExample name="Header" column />
+    <AutoExample name="Semantics" column />
   </section>
 
-  <section>
-    <h2 id="actions">Actions</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Using the <code>actions</code> slot.
-      </Fragment>
-      <Fragment slot="html">
-        Using the <code>.ui-actions</code> class.
-      </Fragment>
-      <Fragment slot="vue">
-        Using the <code>actions</code> slot.
-      </Fragment>
-    </Conditional>
-    <p>
-      There are some basic styles here to get you going, but for more advanced
-      use-cases (which always happen), you might want to add your own styles.
-    </p>
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        A card is a <code>div</code> with no role, so screen readers read its
+        content in place. Make cards in a feed <code>article</code>s (see
+        <a href="#semantics">Semantics</a>).
+      </li>
+      <li>
+        A <code>section</code> card is a region only when it has a name, such as
+        <code>aria-labelledby</code> pointing at its heading.
+      </li>
+      <li>
+        In a clickable card, the link's name is the heading, so put what tells
+        the cards apart there. Buttons and links in the card stay their own tab
+        stops.
+      </li>
+    </ul>
+  </Fragment>
 
-    <AutoExample name="Actions" column />
-
-    <h3 id="actions-alignment">Alignment</h3>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Align actions to the end with the <code>actionsAlign="end"</code> prop.
-      </Fragment>
-      <Fragment slot="html">
-        Align actions to the end with the <code>.ui-align-end</code> class.
-      </Fragment>
-      <Fragment slot="vue">
-        Align actions to the end with the <code>actionsAlign="end"</code> prop.
-      </Fragment>
-    </Conditional>
-
-    <AutoExample name="Alignment" column />
-  </section>
+  <CardBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy>
-      <UICard variant="elevated">
-        <Fragment slot="header">
+      <UICard variant="elevated" style="inline-size: 20rem">
+        <img
+          alt="Green cliffs and a winding road under a cloudy sky"
+          height="450"
+          src="https://picsum.photos/id/1018/800/450"
+          width="800"
+        />
+        <UICardHeader>
           <p>Overline</p>
           <h2 class="ui-h3">Headline</h2>
           <p>Subhead</p>
-        </Fragment>
-        <Fragment slot="content">
+        </UICardHeader>
+        <UICardContent>
           Explain more about the topic shown in the headline and subhead through
           supporting text.
-        </Fragment>
-        <Fragment slot="actions">
+        </UICardContent>
+        <UICardActions>
           <UIButton>Share</UIButton>
           <UIButton>Learn more</UIButton>
-        </Fragment>
+        </UICardActions>
       </UICard>
     </Anatomy>
   </Fragment>
-
-  <div slot="installation" class="ui-not-rich-text">
-    <UICallout>
-      <div class="ui-rich-text">
-        Other components might depend on the card component. Be mindful when
-        making changes. <DocLink href="/components/accordion">Accordion</DocLink
-        >, <DocLink href="/components/dialog">Dialog</DocLink>
-      </div>
-    </UICallout>
-  </div>
 </Component>

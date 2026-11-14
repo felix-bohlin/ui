@@ -1,7 +1,10 @@
 ---
 import type { RadioInputProps as Props } from "./types.astro"
+import { fieldGroupContext } from "../FieldGroup/context.astro"
 
-const { ...props } = Astro.props
+const { name, ...rest } = Astro.props as Props
+
+const field = fieldGroupContext.get()
 ---
 
-<input type="radio" {...props} />
+<input type="radio" name={name ?? field?.name} {...rest} />

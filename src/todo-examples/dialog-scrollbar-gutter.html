@@ -1,0 +1,93 @@
+<style>
+  .todo-tall {
+    block-size: 160dvb;
+    border: var(--ui-border-width) dashed var(--ui-border-color);
+    display: grid;
+    padding: var(--size-3);
+  }
+</style>
+<p class="todo-note">
+  A page tall enough to scroll, with classic scrollbars (Windows, or Chrome with
+  "Always show scrollbars" in macOS). Open either overlay: the page locks and
+  <code>scrollbar-gutter: stable</code> keeps the scrollbar's space, so a bright
+  strip stays at the right edge under the backdrop, and the bottom drawer stops
+  that far short of the edge. With overlay scrollbars (macOS default) there is
+  nothing to see.
+</p>
+<div class="todo-row">
+  <button
+    type="button"
+    class="ui-button ui-filled"
+    commandfor="todo-gutter-dialog"
+    command="show-modal"
+  >
+    Open dialog
+  </button>
+  <button
+    type="button"
+    class="ui-button ui-outlined"
+    commandfor="todo-gutter-drawer"
+    command="show-modal"
+  >
+    Open bottom drawer
+  </button>
+</div>
+<dialog
+  class="ui-dialog"
+  id="todo-gutter-dialog"
+  aria-labelledby="todo-gutter-dialog-title"
+>
+  <div class="ui-header">
+    <h2 id="todo-gutter-dialog-title">Look at the right edge</h2>
+  </div>
+  <div class="ui-content">
+    <p>The backdrop ends where the page scrollbar was.</p>
+  </div>
+  <div class="ui-footer">
+    <button
+      type="button"
+      class="ui-button"
+      commandfor="todo-gutter-dialog"
+      command="close"
+    >
+      Close
+    </button>
+  </div>
+</dialog>
+<dialog
+  class="ui-drawer ui-block-end ui-scroll-lock"
+  id="todo-gutter-drawer"
+  aria-labelledby="todo-gutter-drawer-title"
+>
+  <div class="ui-header">
+    <h2 class="ui-h4" id="todo-gutter-drawer-title">Bottom drawer</h2>
+    <button
+      type="button"
+      class="ui-button ui-round ui-small"
+      aria-label="Close"
+      commandfor="todo-gutter-drawer"
+      command="close"
+    >
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+        />
+      </svg>
+    </button>
+  </div>
+  <div class="ui-content">
+    <p>
+      This drawer should span the full width, but stops short of the gutter.
+    </p>
+  </div>
+</dialog>
+<div class="todo-tall">
+  <p class="ui-caption">Scroll space, so the page has a scrollbar.</p>
+</div>

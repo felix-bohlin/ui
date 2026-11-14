@@ -1,34 +1,52 @@
 <label class="ui-text-field">
-  <span class="ui-label">Amount</span>
+  <span class="ui-label" id="text-field-affix-1-label">Amount</span>
   <span class="ui-field">
-    <input type="text" placeholder="0.00" />
-    <span class="ui-prefix">¢</span>
-    <span class="ui-suffix">EUR</span>
+    <input
+      placeholder="0.00"
+      aria-labelledby="text-field-affix-1-label text-field-affix-1-start text-field-affix-1-end"
+      type="text"
+    />
+    <span class="ui-start" id="text-field-affix-1-start">€</span>
+    <span class="ui-end" id="text-field-affix-1-end">EUR</span>
   </span>
 </label>
 
 <label class="ui-text-field">
-  <span class="ui-label">Website</span>
+  <span class="ui-label" id="text-field-affix-2-label">Website</span>
   <span class="ui-field">
-    <input type="text" placeholder="example.com" />
-    <span class="ui-prefix">https://</span>
+    <input
+      placeholder="example.com"
+      aria-labelledby="text-field-affix-2-label text-field-affix-2-start"
+      type="text"
+    />
+    <span class="ui-start" id="text-field-affix-2-start">https://</span>
   </span>
 </label>
 
 <label class="ui-text-field">
-  <span class="ui-label">Weight</span>
+  <span class="ui-label" id="text-field-affix-3-label">Weight</span>
   <span class="ui-field">
-    <input type="text" inputmode="numeric" pattern="[0-9]*" placeholder="0" />
-    <span class="ui-suffix">kg</span>
+    <input
+      inputmode="decimal"
+      placeholder="0"
+      aria-labelledby="text-field-affix-3-label text-field-affix-3-end"
+      type="text"
+    />
+    <span class="ui-end" id="text-field-affix-3-end">kg</span>
   </span>
 </label>
 
 <label class="ui-text-field">
-  <span class="ui-label">Search</span>
+  <span class="ui-label" id="text-field-affix-4-label">Search</span>
   <span class="ui-field">
-    <input type="text" placeholder="Search..." />
-    <span class="ui-prefix">
+    <input
+      placeholder="Search..."
+      aria-labelledby="text-field-affix-4-label text-field-affix-4-start"
+      type="text"
+    />
+    <span class="ui-start" id="text-field-affix-4-start">
       <svg
+        aria-hidden="true"
         width="16"
         height="16"
         viewBox="0 0 24 24"

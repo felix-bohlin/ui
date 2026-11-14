@@ -1,49 +1,28 @@
 <label class="ui-checkbox ui-spread">
-  <input
-    name="checkbox-spread"
-    type="checkbox"
-    aria-describedby="checkbox-spread-end-text-1"
-  />
-  <span class="ui-label">Accept Terms & Conditions</span>
-  <span class="ui-end-text" id="checkbox-spread-end-text-1"
-    >I have read and agree to the privacy policy.</span
-  >
+  <input type="checkbox" name="checkbox-spread" value="gift-wrap" />
+  <span class="ui-label">Gift wrap</span>
+  <span class="ui-end-text">Wrapped in recycled paper for €3.</span>
+</label>
+
+<label class="ui-checkbox ui-spread">
+  <input type="checkbox" name="checkbox-spread" required value="terms" />
+  <span class="ui-label">I accept the terms of sale</span>
+  <span class="ui-end-text">Required to place the order.</span>
+</label>
+
+<label class="ui-checkbox ui-spread">
+  <input type="checkbox" name="checkbox-spread" disabled value="express" />
+  <span class="ui-label">Express delivery</span>
+  <span class="ui-end-text">Not available for your address.</span>
 </label>
 
 <label class="ui-checkbox ui-spread">
   <input
-    name="checkbox-spread"
     type="checkbox"
-    required
-    aria-describedby="checkbox-spread-end-text-2"
-  />
-  <span class="ui-label">Required</span>
-  <span class="ui-end-text" id="checkbox-spread-end-text-2"
-    >You must accept this to continue.</span
-  >
-</label>
-
-<label class="ui-checkbox ui-spread">
-  <input
     name="checkbox-spread"
-    type="checkbox"
-    disabled
-    aria-describedby="checkbox-spread-end-text-3"
+    value="age"
+    aria-invalid="true"
   />
-  <span class="ui-label">Disabled</span>
-  <span class="ui-end-text" id="checkbox-spread-end-text-3"
-    >This checkbox is disabled.</span
-  >
-</label>
-
-<label class="ui-checkbox ui-spread" data-invalid>
-  <input
-    name="checkbox-spread"
-    type="checkbox"
-    aria-describedby="checkbox-spread-end-text-4"
-  />
-  <span class="ui-label">Invalid Checkbox</span>
-  <span class="ui-end-text" id="checkbox-spread-end-text-4"
-    >There is an error with this checkbox.</span
-  >
+  <span class="ui-label">I'm 18 or older</span>
+  <span class="ui-end-text">Confirm your age to buy this item.</span>
 </label>

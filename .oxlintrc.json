@@ -16,5 +16,38 @@
     "playwright-report/**",
     "test-results/**"
   ],
-  "plugins": ["oxc", "typescript", "unicorn", "vue"]
+  "overrides": [
+    {
+      "files": [
+        "packages/opui/elements/callout.d.ts",
+        "packages/opui/elements/character-count.d.ts",
+        "packages/opui/elements/copy.d.ts",
+        "packages/opui/elements/number-field.d.ts",
+        "packages/opui/elements/select-all.d.ts",
+        "packages/opui/elements/sortable-table.d.ts",
+        "packages/opui/elements/text-field.d.ts",
+        "packages/opui/elements/toaster.d.ts",
+        "packages/opui/env.d.ts",
+        "packages/opui/react/elements.ts",
+        "packages/opui/svelte/elements.ts",
+        "src/env.d.ts",
+        "tests/e2e/css-js.spec.ts",
+        "tests/e2e/elements.spec.ts"
+      ],
+      "rules": {
+        "typescript/consistent-type-definitions": "off"
+      }
+    },
+    {
+      "files": ["packages/opui/figma/sync.js"],
+      "rules": {
+        "no-unused-vars": "off"
+      }
+    }
+  ],
+  "plugins": ["oxc", "react", "typescript", "unicorn", "vue"],
+  "rules": {
+    "typescript/consistent-type-definitions": ["error", "type"],
+    "typescript/no-inferrable-types": "error"
+  }
 }

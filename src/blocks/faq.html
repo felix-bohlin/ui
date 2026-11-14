@@ -1,0 +1,347 @@
+<style>
+  .faq {
+    .faq-inner {
+      align-items: start;
+
+      @container (inline-size >= 56rem) {
+        .ui-tabs {
+          grid-column: 2;
+          grid-row: 1 / span 2;
+        }
+      }
+    }
+  }
+</style>
+
+<div class="faq ui-layout-container">
+  <div
+    class="ui-layout-columns faq-inner"
+    style="--_columns: 2fr 3fr; --_gap: var(--ui-space-6) var(--ui-space-8)"
+  >
+    <hgroup class="ui-hgroup">
+      <p>Help corner</p>
+      <h1 class="ui-h2">Frequently asked questions</h1>
+      <p>
+        Quick answers about Bassbook, Gold and keeping your riffs safe. Can't
+        find what you're looking for? We'd totally love to help!
+      </p>
+    </hgroup>
+
+    <div class="ui-tabs ui-line">
+      <input
+        type="radio"
+        name="faq-category"
+        id="faq-tab-general"
+        class="ui-input"
+        checked
+      />
+      <label for="faq-tab-general" class="ui-label">General</label>
+      <div class="ui-panel">
+        <div
+          class="ui-card ui-outlined"
+          role="group"
+          aria-label="General questions"
+        >
+          <details class="ui-accordion" name="faq-general" open>
+            <summary>
+              Is Bassbook only for bassists?
+              <svg
+                aria-hidden="true"
+                class="ui-marker"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <p>
+                Yep! Guitarists can visit, but they have to ask nicely and turn
+                it down. Drummers get a free pair of earplugs at the door, easy
+                peasy.
+              </p>
+            </div>
+          </details>
+          <details class="ui-accordion" name="faq-general">
+            <summary>
+              Can I import my old tabs?
+              <svg
+                aria-hidden="true"
+                class="ui-marker"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <p>
+                Yes. Import tabs, setlists and gig photos from Guitar Pro, your
+                old homepage or a text file. Most bassists are moved over in
+                under an hour.
+              </p>
+            </div>
+          </details>
+          <details class="ui-accordion" name="faq-general">
+            <summary>
+              Is there a mobile app?
+              <svg
+                aria-hidden="true"
+                class="ui-marker"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <p>
+                Bassbook has apps for iOS and Android with offline tabs, a
+                built-in tuner and a ping whenever someone actually notices your
+                bassline.
+              </p>
+            </div>
+          </details>
+          <details class="ui-accordion" name="faq-general">
+            <summary>
+              Do you have discounts for music schools?
+              <svg
+                aria-hidden="true"
+                class="ui-marker"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <p>
+                Music schools and garage bands with zero gigs get 50% off Gold.
+                Send us a photo of your rehearsal space and we'll add it to your
+                account.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+      <input
+        type="radio"
+        name="faq-category"
+        id="faq-tab-gold"
+        class="ui-input"
+      />
+      <label for="faq-tab-gold" class="ui-label">Gold</label>
+      <div class="ui-panel">
+        <div
+          class="ui-card ui-outlined"
+          role="group"
+          aria-label="Bassbook Gold questions"
+        >
+          <details class="ui-accordion" name="faq-gold">
+            <summary>
+              Which payment methods do you accept?
+              <svg
+                aria-hidden="true"
+                class="ui-marker"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <p>
+                We take all major cards and direct debit, plus invoices with
+                30-day terms for bands buying Gold for 10+ members.
+              </p>
+            </div>
+          </details>
+          <details class="ui-accordion" name="faq-gold">
+            <summary>
+              Can I switch between Gold and Platinum?
+              <svg
+                aria-hidden="true"
+                class="ui-marker"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <p>
+                Upgrades kick in right away, woohoo! Downgrades apply at the end
+                of your current billing period.
+              </p>
+            </div>
+          </details>
+          <details class="ui-accordion" name="faq-gold">
+            <summary>
+              What happens when I add my bandmates?
+              <svg
+                aria-hidden="true"
+                class="ui-marker"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <p>
+                New bandmates are added to your next bill, prorated to the day.
+                Fans and roadies are always free.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+      <input
+        type="radio"
+        name="faq-category"
+        id="faq-tab-privacy"
+        class="ui-input"
+      />
+      <label for="faq-tab-privacy" class="ui-label">Privacy</label>
+      <div class="ui-panel">
+        <div
+          class="ui-card ui-outlined"
+          role="group"
+          aria-label="Privacy questions"
+        >
+          <details class="ui-accordion" name="faq-privacy">
+            <summary>
+              Where are my riffs stored?
+              <svg
+                aria-hidden="true"
+                class="ui-marker"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <p>
+                Everything lives in data centers in the EU, encrypted at rest
+                and in transit. Even your drummer can't peek at your diary.
+              </p>
+            </div>
+          </details>
+          <details class="ui-accordion" name="faq-privacy">
+            <summary>
+              Can my band see my private messages?
+              <svg
+                aria-hidden="true"
+                class="ui-marker"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <p>
+                Nope! Messages are only for you and the person you're chatting
+                with. Your band can see your public profile, if they ever look
+                at it.
+              </p>
+            </div>
+          </details>
+          <details class="ui-accordion" name="faq-privacy">
+            <summary>
+              Can I delete my account?
+              <svg
+                aria-hidden="true"
+                class="ui-marker"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <p>
+                Yes, any time in your settings. We'll be totally sad, and we'll
+                delete all your data, tabs and pedalboard photos for good.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <section class="ui-card ui-outlined" aria-labelledby="faq-support-heading">
+      <hgroup>
+        <h2 class="ui-h5" id="faq-support-heading">Still have questions?</h2>
+        <p>Our support bassists usually reply within 2 hours. &lt;3</p>
+      </hgroup>
+      <div class="ui-content ui-layout-media">
+        <div class="ui-avatar" aria-hidden="true">LH</div>
+        <div>
+          <p>
+            Lou Headstock
+            <span class="ui-chip ui-dot ui-success ui-small"
+              ><span class="ui-text">Online now</span></span
+            >
+          </p>
+          <p class="ui-caption">Mon–Fri 08–18 CET</p>
+        </div>
+      </div>
+      <div class="ui-actions">
+        <a class="ui-button ui-filled" href="#faq-chat">Chat with us</a>
+        <a class="ui-button ui-outlined" href="#faq-email">Email support</a>
+      </div>
+    </section>
+  </div>
+</div>

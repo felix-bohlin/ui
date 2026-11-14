@@ -1,66 +1,118 @@
 ---
 import Guide from "../../../layouts/Guide.astro"
-import CodeGroup from "../../../components/CodeGroup.astro"
-import { Code } from "astro-expressive-code/components"
-import Theming from "./_theming.astro"
+import Code from "../../../components/Code.astro"
+import CssFiles from "./partials/CssFiles.astro"
+import InstallCommand from "./partials/InstallCommand.astro"
+import NextSteps from "./partials/NextSteps.astro"
+import PickAndChoose from "./partials/PickAndChoose.astro"
+import QuickStart from "./partials/QuickStart.astro"
+
+export const keywords = ["install", "npm", "setup", "ssr"]
 ---
 
 <Guide overline="Guide">
   <Fragment slot="title">Getting started</Fragment>
   <Fragment slot="preamble">
-    OPUI ships first-class Astro components. Install the package, import what
+    OPUI ships first-class Astro 7 components. Install the package, import what
     you need, and you're set.
   </Fragment>
 
-  <section>
-    <h2 id="installation">Install via NPM</h2>
-
-    <CodeGroup
-      tabs={[
-        {
-          title: "pnpm",
-          code: "pnpm add opui-css open-props astro -S",
-          lang: "sh",
-        },
-        {
-          title: "npm",
-          code: "npm install opui-css open-props astro -S",
-          lang: "sh",
-        },
-      ]}
-    />
-  </section>
-
-  <section>
-    <h2 id="css">Import the CSS</h2>
-    <p>
-      Astro components ship markup only - the CSS still has to be imported in
-      your app somehow. Import everything:
-    </p>
-    <Code code={`@import "opui-css/css/imports.css";`} lang="css" />
-    <p>Or pick and choose:</p>
-    <Code
-      code={`@import "opui-css/open-props.css";
-@import "opui-css/core/palette.css";
-@import "opui-css/css/theme.css";
-@import "opui-css/core/normalize.css";
-@import "opui-css/css/components.css";
-@import "opui-css/core/utils.css";`}
-      lang="css"
-    />
-  </section>
-
-  <section>
-    <h2 id="usage">How to use</h2>
-    <Code
-      code={`---
+  <section id="quick-start">
+    <h2>Quick start</h2>
+    <QuickStart>
+      <Fragment slot="install">
+        <InstallCommand packages="astro@7" />
+        <Code
+          code={`---
+// src/layouts/Layout.astro
+import "opui-css/css/imports.css"
+---`}
+          lang="astro"
+        />
+      </Fragment>
+      <Code
+        slot="use"
+        code={`---
 import { Button } from "opui-css/astro"
 ---
 
-<Button variant="filled">Click me</Button>`}
+<Button color="primary" variant="filled">Save</Button>`}
+        lang="astro"
+      />
+    </QuickStart>
+  </section>
+
+  <section id="whats-in-the-css">
+    <h2>What's in the CSS</h2>
+    <CssFiles />
+  </section>
+
+  <section id="css">
+    <h2>Import only what you use</h2>
+    <p>
+      List the files in a CSS file, and import that file in the layout instead
+      of <code>imports.css</code>:
+    </p>
+    <PickAndChoose file="src/styles/global.css" />
+    <Code
+      code={`---
+// src/layouts/Layout.astro
+import "../styles/global.css"
+---`}
       lang="astro"
     />
   </section>
 
-  <Theming />
+  <section id="typescript">
+    <h2>TypeScript</h2>
+    <p>
+      <code>astro check</code> runs on TypeScript 6, not on 7. Keep
+      <code>moduleResolution</code> set to <code>"bundler"</code>, as Astro's
+      <code>tsconfig.json</code> presets do: with <code>"nodenext"</code>, the
+      component props aren't checked.
+    </p>
+  </section>
+
+  <section id="usage">
+    <h2>How to use</h2>
+    <p>Named slots take rich content, like <code>end-text</code>.</p>
+  </section>
+
+  <section id="server-runtime">
+    <h2>Server runtime</h2>
+    <p>
+      Runs on Node, Deno and Bun. On Cloudflare, enable
+      <code>nodejs_compat</code>.
+    </p>
+
+    <h3 id="ids">Ids</h3>
+    <p>
+      Components a trigger points at need an <code>id</code>. For stable
+      generated ids, define <code>Astro.locals.$id</code>:
+    </p>
+    <Code
+      code={`// src/middleware.ts
+import { defineMiddleware } from "astro:middleware"
+
+export const onRequest = defineMiddleware((context, next) => {
+  const counts = new Map<string, number>()
+  context.locals.$id = (prefix) => {
+    const count = (counts.get(prefix) ?? 0) + 1
+    counts.set(prefix, count)
+    return \`\${prefix}-\${count}\`
+  }
+  return next()
+})`}
+      lang="ts"
+    />
+    <p>
+      Add <code>/// &lt;reference types="opui-css/env.d.ts" /&gt;</code> to
+      <code>env.d.ts</code> for the types.
+    </p>
+  </section>
+
+  <section id="next-steps">
+    <h2>Next steps</h2>
+    <NextSteps />
+  </section>
 </Guide>

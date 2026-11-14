@@ -1,0 +1,221 @@
+<style>
+  .testimonials {
+    container-type: inline-size;
+
+    .testimonials-intro h1 {
+      text-wrap: balance;
+    }
+
+    .testimonials-list {
+      column-gap: var(--ui-space-4);
+      columns: 1;
+      list-style-type: none;
+      padding: 0;
+
+      @container (inline-size >= 40rem) {
+        columns: 2;
+      }
+
+      @container (inline-size >= 56rem) {
+        columns: 3;
+      }
+
+      li {
+        break-inside: avoid;
+        padding-block-end: var(--ui-space-4);
+      }
+
+      .ui-content {
+        display: grid;
+        gap: var(--ui-space-3);
+      }
+    }
+
+    .testimonials-name {
+      font-weight: var(--ui-font-weight-medium);
+    }
+  }
+</style>
+
+<section
+  class="testimonials ui-layout-container ui-layout-column ui-large"
+  aria-labelledby="testimonials-heading"
+>
+  <div
+    class="ui-layout-container ui-layout-column ui-align-center testimonials-intro"
+    style="--_max-inline-size: 40rem; --_padding-inline: 0"
+  >
+    <hgroup class="ui-hgroup">
+      <p>Member love &lt;3</p>
+      <h1 class="ui-h2" id="testimonials-heading">
+        Bassists feel heard on Bassbook
+      </h1>
+      <p>
+        From bedroom players to the bassist in a 9-piece ska band, here's what
+        our members say.
+      </p>
+    </hgroup>
+    <p class="ui-layout-row ui-align-center">
+      <meter
+        class="ui-rating ui-small"
+        aria-hidden="true"
+        max="5"
+        value="4.9"
+      ></meter>
+      <span><strong>4.9 out of 5</strong> from 2&nbsp;300+ happy bassists</span>
+    </p>
+  </div>
+
+  <ul class="testimonials-list">
+    <li>
+      <figure class="ui-card ui-outlined">
+        <div class="ui-content">
+          <meter
+            class="ui-rating ui-small"
+            aria-label="Rated 5 out of 5"
+            max="5"
+            value="5"
+          ></meter>
+          <blockquote>
+            <p>
+              I posted my drop D riff on Bassbook and got 40 comments in an
+              hour. My own band has never commented on anything I've played.
+              Woohoo!
+            </p>
+          </blockquote>
+          <figcaption class="ui-layout-media">
+            <span class="ui-avatar" aria-hidden="true">SN</span>
+            <div>
+              <p class="testimonials-name">Stella Nut</p>
+              <p class="ui-caption">Bassist, The Low Enders</p>
+            </div>
+          </figcaption>
+        </div>
+      </figure>
+    </li>
+    <li>
+      <figure class="ui-card ui-outlined">
+        <div class="ui-content">
+          <meter
+            class="ui-rating ui-small"
+            aria-label="Rated 5 out of 5"
+            max="5"
+            value="5"
+          ></meter>
+          <blockquote>
+            <p>
+              Made my profile in five minutes. It even kept my pedalboard photos
+              in HD.
+            </p>
+          </blockquote>
+          <figcaption class="ui-layout-media">
+            <span class="ui-avatar" aria-hidden="true">HH</span>
+            <div>
+              <p class="testimonials-name">Holly Humbucker</p>
+              <p class="ui-caption">Bassist, Brad and the Brads</p>
+            </div>
+          </figcaption>
+        </div>
+      </figure>
+    </li>
+    <li>
+      <figure class="ui-card ui-outlined">
+        <div class="ui-content">
+          <meter
+            class="ui-rating ui-small"
+            aria-label="Rated 4 out of 5"
+            max="5"
+            value="4"
+          ></meter>
+          <blockquote>
+            <p>
+              The gig calendar shows when my band booked a show without me. I
+              wish it could also tell the drummer to turn it down, but it's
+              getting there.
+            </p>
+          </blockquote>
+          <figcaption class="ui-layout-media">
+            <span class="ui-avatar" aria-hidden="true">IH</span>
+            <div>
+              <p class="testimonials-name">Ines Hertz</p>
+              <p class="ui-caption">Bassist, Treble Makers</p>
+            </div>
+          </figcaption>
+        </div>
+      </figure>
+    </li>
+    <li>
+      <figure class="ui-card ui-outlined">
+        <div class="ui-content">
+          <meter
+            class="ui-rating ui-small"
+            aria-label="Rated 5 out of 5"
+            max="5"
+            value="5"
+          ></meter>
+          <blockquote>
+            <p>
+              My Ignored Bassists Anonymous group meets here every Tuesday.
+              Finally, people who know what a root note is. Totally rad!
+            </p>
+          </blockquote>
+          <figcaption class="ui-layout-media">
+            <span class="ui-avatar" aria-hidden="true">PG</span>
+            <div>
+              <p class="testimonials-name">Percy Groove</p>
+              <p class="ui-caption">Fretless player, Groove Juice</p>
+            </div>
+          </figcaption>
+        </div>
+      </figure>
+    </li>
+    <li>
+      <figure class="ui-card ui-outlined">
+        <div class="ui-content">
+          <meter
+            class="ui-rating ui-small"
+            aria-label="Rated 5 out of 5"
+            max="5"
+            value="5"
+          ></meter>
+          <blockquote>
+            <p>Honestly the only place where nobody asks me to turn it down.</p>
+          </blockquote>
+          <figcaption class="ui-layout-media">
+            <span class="ui-avatar" aria-hidden="true">LH</span>
+            <div>
+              <p class="testimonials-name">Lou Headstock</p>
+              <p class="ui-caption">Bassist, The Tall Guitarists</p>
+            </div>
+          </figcaption>
+        </div>
+      </figure>
+    </li>
+    <li>
+      <figure class="ui-card ui-outlined">
+        <div class="ui-content">
+          <meter
+            class="ui-rating ui-small"
+            aria-label="Rated 5 out of 5"
+            max="5"
+            value="5"
+          ></meter>
+          <blockquote>
+            <p>
+              Flatwounds, fretless and five strings were must-haves for me.
+              Bassbook found me three bandmates who actually like all of them.
+              *smooch*
+            </p>
+          </blockquote>
+          <figcaption class="ui-layout-media">
+            <span class="ui-avatar" aria-hidden="true">RR</span>
+            <div>
+              <p class="testimonials-name">Rory Rootnote</p>
+              <p class="ui-caption">Bassist, Fretless Fiona's Bass Barn</p>
+            </div>
+          </figcaption>
+        </div>
+      </figure>
+    </li>
+  </ul>
+</section>

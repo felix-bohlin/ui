@@ -1,41 +1,66 @@
 ---
 import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
-import { Callout as UICallout } from "@opui/astro"
+import {
+  Button as UIButton,
+  Callout as UICallout,
+  CalloutActions as UICalloutActions,
+  CalloutContent as UICalloutContent,
+  CalloutIcon as UICalloutIcon,
+} from "opui-css/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
 import CalloutCSS from "@opui/css/components/callout.css?raw"
+import CalloutJS from "@opui/elements/callout.js?raw"
 
 import calloutApi from "../../component-api/callout/api"
 
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import CalloutBuild from "../../components/UnderTheHood/CalloutBuild.astro"
 
 const ThemeCSS = `/* ... */
-.ui-critical {
-  --palette-source: oklch(0.58 0.21 var(--hue-red));
-  --palette-hue-rotate-by: 1;
+:where(.ui-critical) {
+  --ui-palette-source: oklch(from var(--ui-critical) 0.58 0.21 h);
+  --ui-palette-hue-rotate-by: 1;
 }
-.ui-info {
-  --palette-source: oklch(0.58 0.21 var(--hue-blue));
-  --palette-hue-rotate-by: 1;
+
+:where(.ui-info) {
+  --ui-palette-source: oklch(from var(--ui-info) 0.58 0.21 h);
+  --ui-palette-hue-rotate-by: 1;
 }
-.ui-success {
-  --palette-source: oklch(0.58 0.21 var(--hue-green));
-  --palette-hue-rotate-by: 1;
+
+:where(.ui-success) {
+  --ui-palette-source: oklch(from var(--ui-success) 0.58 0.21 h);
+  --ui-palette-hue-rotate-by: 1;
 }
-.ui-warning {
-  --palette-source: oklch(0.58 0.21 var(--hue-orange));
-  --palette-hue-rotate-by: 1;
+
+:where(.ui-warning) {
+  --ui-palette-source: oklch(from var(--ui-warning) 0.58 0.21 h);
+  --ui-palette-hue-rotate-by: 1;
+}
+
+:where(.ui-neutral) {
+  --ui-palette-source: oklch(from var(--ui-neutral) 0.58 c h);
+  --ui-palette-hue-rotate-by: 0;
 }
 /* ... */`
+
+export const description =
+  "A message in the flow of the page, without interrupting the task."
+
+export const keywords = ["alert", "banner", "message box", "notice", "warning"]
 ---
 
 <Component
+  description={description}
   slug="callout"
   heroAnatomy
   apis={[{ title: "Callout API", api: calloutApi }]}
-  browserSupport={["has", "light-dark", "relative-color"]}
+  browserSupport={["has", "invoker-commands"]}
   changelogPaths={[
     {
       path: "packages/opui/components/Callout/Callout.astro",
@@ -47,174 +72,208 @@ const ThemeCSS = `/* ... */
       path: "packages/opui/css/components/callout.css",
       type: "css",
     },
+    { path: "packages/opui/elements/callout.js", type: "component" },
     { path: "src/component-api/callout", type: "api" },
   ]}
   installationTabs={[
     { title: "callout.css", code: CalloutCSS, lang: "css" },
+    { title: "callout.js", code: CalloutJS, lang: "js" },
     { title: "theme tokens (snippet)", code: ThemeCSS, lang: "css" },
   ]}
 >
   <Fragment slot="title">Callout</Fragment>
   <Fragment slot="preamble">
-    Callouts call out for user attention. Should be part of the flow and used <strong
-      >without</strong
-    > interrupting the user's task.
+    A message in the flow of the page, without interrupting the task. For a
+    confirmation that goes away on its own, use a
+    <DocLink href="/components/toast">Toast</DocLink>.
   </Fragment>
 
-  <div class="ui-not-rich-text">
-    <UICallout>
-      <svg
-        slot="icon"
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-        ><path
-          fill="currentColor"
-          d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
-        ></path></svg
-      >
-      <h3>Alternatives</h3>
-      <p>You might want to check out:</p>
-      <ul>
-        <li>
-          <DocLink href="/components/dialog" class="ui-link">Dialog</DocLink>:
-          takes over completely
-        </li>
-        <li>
-          <DocLink href="/components/toast" class="ui-link">Toast</DocLink>:
-          informative but non-interruptive
-        </li>
-      </ul>
-    </UICallout>
-  </div>
+  <Usage slot="usage">
+    <li slot="when">A tip, note or warning for a page or section.</li>
+    <li slot="when">
+      Feedback that stays, like an error summary above a form.
+    </li>
+    <li slot="when-not">
+      Something that needs an answer: use a
+      <DocLink href="/components/dialog">Dialog</DocLink>.
+    </li>
+    <li slot="when-not">
+      A short status, like Paid: use a
+      <DocLink href="/components/chip">Chip</DocLink>.
+    </li>
+    <li slot="when-not">
+      A confirmation that can go away: use a
+      <DocLink href="/components/toast">Toast</DocLink>.
+    </li>
+  </Usage>
 
-  <section>
-    <h2 id="variants">Variants</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Tonal (default) and outlined variants are available via the <code
-          >variant</code
-        > prop.
-      </Fragment>
-      <Fragment slot="html">
-        Tonal (default) and <code>.ui-outlined</code> variants.
-      </Fragment>
-      <Fragment slot="vue">
-        Tonal (default) and outlined variants are available via the <code
-          >variant</code
-        > prop.
-      </Fragment>
-    </Conditional>
+  <section id="variants">
+    <h2>Variants</h2>
+    <p>
+      Tonal by default. Use
+      <PropOrClass prop='variant="outlined"' class=".ui-outlined" /> for an
+      outline.
+    </p>
 
     <AutoExample name="Variants" column />
   </section>
 
-  <section>
-    <h2 id="icon">Icon</h2>
+  <section id="severities">
+    <h2>Severities</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
-        Icons are placed in the <code>icon</code> slot. You can also modify the component
-        so you don't have to do it manually every time.
+      <Fragment slot="components">Use <code>severity</code>.</Fragment>
+      <Fragment slot="html">
+        Use a severity class, like <code>.ui-warning</code>.
       </Fragment>
-      <Fragment slot="html"> Icon must be placed before the content. </Fragment>
-      <Fragment slot="vue">
-        Icons are placed in the <code>icon</code> slot. You can also modify the component
-        so you don't have to do it manually every time.
+    </Conditional>
+
+    <AutoExample name="Severities" column />
+  </section>
+
+  <section id="icon">
+    <h2>Icon</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        <code>CalloutIcon</code> renders the severity's icon from the
+        <code>--ui-icon-*</code> tokens. For your own, put an
+        <code>&lt;svg aria-hidden="true"&gt;</code> before
+        <code>CalloutContent</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Put an <code>&lt;svg aria-hidden="true"&gt;</code> before
+        <code>.ui-content</code>. An empty one with a <code>viewBox</code> shows
+        the severity's icon from the <code>--ui-icon-*</code> tokens.
       </Fragment>
     </Conditional>
 
     <AutoExample name="Icon" column />
   </section>
 
-  <section>
-    <h2 id="severities">Severities</h2>
+  <section id="actions">
+    <h2>Actions</h2>
+    <p>Use <PropOrClass prop="CalloutActions" class=".ui-actions" />.</p>
+    <AutoExample name="Actions" column />
+
+    <h3 id="dismissible">Dismissible</h3>
     <Conditional as="p">
       <Fragment slot="astro">
-        The <code>severity</code> prop accepts <code>info</code>, <code
-          >success</code
-        >, <code>warning</code>, and <code>critical</code>, plus a non-severity
-        <code>neutral</code> tone for brand-tinted attention. The default is a plain
-        surface.
+        Set <code>closeButton</code> for a close button that hides the callout,
+        named by <code>closeLabel</code>, with its icon in the
+        <code>close-icon</code> slot. Listen for the <code>dismiss</code> event
+        in a client script.
       </Fragment>
       <Fragment slot="html">
-        Severity modifiers - <code>.ui-info</code>, <code>.ui-success</code>, <code
-          >.ui-warning</code
-        >, <code>.ui-critical</code> - plus the non-severity <code
-          >.ui-neutral</code
-        >
-        tone for brand-tinted attention. The default is a plain surface.
+        Use <code>opui-callout</code> with a close button that has
+        <code>command="--dismiss"</code>, and import
+        <code>opui-css/elements/callout.js</code>. Listen for the
+        <code>dismiss</code> event it fires.
+      </Fragment>
+      <Fragment slot="react">
+        Set <code>closeButton</code> for a close button that hides the callout,
+        named by <code>closeLabel</code>, with its icon in the
+        <code>closeIcon</code> prop. <code>onDismiss</code> runs before it
+        hides.
+      </Fragment>
+      <Fragment slot="svelte">
+        Set <code>closeButton</code> for a close button that hides the callout,
+        named by <code>closeLabel</code>, with its icon in the
+        <code>closeIcon</code> snippet. <code>ondismiss</code> runs before it
+        hides.
       </Fragment>
       <Fragment slot="vue">
-        The <code>severity</code> prop accepts <code>info</code>, <code
-          >success</code
-        >, <code>warning</code>, and <code>critical</code>, plus a non-severity
-        <code>neutral</code> tone for brand-tinted attention. The default is a plain
-        surface.
+        Set <code>closeButton</code> for a close button that hides the callout,
+        named by <code>closeLabel</code>, with its icon in the
+        <code>close-icon</code> slot. <code>@dismiss</code> runs before it
+        hides.
       </Fragment>
     </Conditional>
-
-    <div class="ui-not-rich-text">
-      <UICallout severity="info">
-        <svg
-          slot="icon"
-          xmlns="http://www.w3.org/2000/svg"
-          width="32"
-          height="32"
-          viewBox="0 0 32 32"
-          ><path
-            fill="currentColor"
-            d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
-          ></path></svg
-        >
-        <strong>Icons and accessibility</strong>
-        <p>
-          Omitting an icon is possible. However, it helps having one if you need
-          to convey a specific kind of severity in your Callout message. For
-          instance, colorblind users might be left confused if there's not
-          enough visual guidance.
-        </p>
-      </UICallout>
-    </div>
-
-    <AutoExample name="Severities" column />
+    <p>
+      Use it for tips and announcements. Keep a warning or an error that still
+      applies, like a failed payment, until the problem is solved.
+    </p>
+    <AutoExample name="Dismissible" column />
   </section>
+
+  <CalloutBuild slot="under-the-hood" />
 
   <Fragment slot="accessibility">
     <ul>
       <li>
+        A callout that appears after an action needs a
+        <code>role="status"</code> container already on the page.
+      </li>
+      <li>
+        The icon and color aren't announced: say the severity in the text, like
+        "Payment failed".
+      </li>
+      <li>
+        When a <a href="#dismissible">dismissible</a> callout hides with focus
+        in it, focus moves to the next focusable element after it, or else the
+        one before.
+      </li>
+      <li>
         <Conditional>
           <Fragment slot="astro">
-            The <code>role="note"</code> attribute is automatically added to the Callout
-            container.
+            The callout fires a cancelable <code>dismiss</code> event first.
+            Listen for it to remember the choice, and call
+            <code>preventDefault()</code> to keep the callout, for example to
+            ask first.
           </Fragment>
           <Fragment slot="html">
-            Add <code>role="note"</code> to the Callout container.
+            The callout fires a cancelable <code>dismiss</code> event first.
+            Listen for it to remember the choice, and call
+            <code>preventDefault()</code> to keep the callout, for example to
+            ask first.
+          </Fragment>
+          <Fragment slot="react">
+            <code>onDismiss</code> runs first, with the cancelable
+            <code>dismiss</code> event. Use it to remember the choice, and call
+            <code>preventDefault()</code> to keep the callout, for example to
+            ask first.
+          </Fragment>
+          <Fragment slot="svelte">
+            <code>ondismiss</code> runs first, with the cancelable
+            <code>dismiss</code> event. Use it to remember the choice, and call
+            <code>preventDefault()</code> to keep the callout, for example to
+            ask first.
           </Fragment>
           <Fragment slot="vue">
-            The <code>role="note"</code> attribute is automatically added to the Callout
-            container.
+            <code>@dismiss</code> runs first, with the cancelable
+            <code>dismiss</code> event. Use it to remember the choice, and call
+            <code>preventDefault()</code> to keep the callout, for example to
+            ask first.
           </Fragment>
         </Conditional>
       </li>
-      <li>
-        Use both color and icon to help distinguish between Callout <a
-          href="#severities">severities</a
-        >.
-      </li>
-      <li>
-        Don't interrupt the user with a Callout. In that case, use <DocLink
-          href="/components/dialog">Dialog</DocLink
-        > or <DocLink href="/components/toast">Toast</DocLink>.
-      </li>
     </ul>
+    <KeyboardSupport />
   </Fragment>
 
   <Fragment slot="anatomy">
     <Anatomy>
       <UICallout severity="info" variant="outlined">
-        <Fragment slot="title">Title</Fragment>
-        <p>Supporting text that explains the callout in more detail.</p>
+        <UICalloutIcon />
+        <UICalloutContent>
+          <h3>Title</h3>
+          <p>Supporting text that explains the callout in more detail.</p>
+        </UICalloutContent>
+        <UICalloutActions>
+          <UIButton size="small">Action</UIButton>
+        </UICalloutActions>
+        <UIButton aria-label="Dismiss" round size="small">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+            ></path>
+          </svg>
+        </UIButton>
       </UICallout>
     </Anatomy>
   </Fragment>

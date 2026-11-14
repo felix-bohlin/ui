@@ -1,55 +1,107 @@
-@layer components.root {
+@layer components.extended {
   :where(.ui-toggle-group) {
-    --_bg-color: var(--surface-default);
-    --_border-color: var(--border-color);
-    --_border-radius: var(--button-border-radius);
+    --_bg-color: var(--ui-surface);
+    --_border-color: var(--ui-control-border-color, var(--ui-border-color));
+    --_divider-border-width: 0px;
+    --_divider-gap: var(--ui-border-width);
+    --_divider-shadow: none;
+    --_radius: min(var(--ui-button-radius, var(--ui-radius)), var(--_size) / 2);
+    --_size: var(--ui-button-size);
 
     background-color: var(--_bg-color);
-    border: 1px solid var(--_border-color);
-    border-radius: var(--_border-radius);
+    border-radius: var(--_radius);
+    column-gap: var(--_divider-gap);
+    column-rule: var(--_divider-gap) solid var(--_border-color);
     display: inline-flex;
+    flex-wrap: wrap;
     inline-size: fit-content;
+    max-inline-size: 100%;
+    outline: var(--ui-border-width) solid var(--_border-color);
+    outline-offset: calc(-1 * var(--ui-border-width));
     overflow: hidden;
+    row-gap: var(--_divider-gap);
+    row-rule: var(--_divider-gap) solid var(--_border-color);
 
-    /* Sizes */
-    &.ui-small {
-      .ui-toggle-button {
-        --_size: var(--field-size-small);
-      }
+    /* Toggle button */
+    & > .ui-toggle-button {
+      --_border-color: inherit;
+      border: 0;
+      border-radius: 0;
+      box-shadow: var(--_divider-shadow);
+      flex: auto;
+      margin: 0;
+      scale: none;
     }
 
     &.ui-x-small {
-      .ui-toggle-button {
-        --_size: var(--field-size-x-small);
-      }
+      --_size: var(--ui-button-size-x-small);
     }
 
-    /* Toggle button */
-    .ui-toggle-button {
-      border: 0;
-      border-radius: 0;
-      margin: 0;
+    &.ui-small {
+      --_size: var(--ui-button-size-small);
     }
 
-    &:not(.ui-vertical) {
-      .ui-toggle-button {
-        border-inline-end: 1px solid var(--_border-color);
-
-        &:last-of-type {
-          border-inline-end: 0;
-        }
-      }
+    &.ui-large {
+      --_size: var(--ui-button-size-large);
     }
 
     &.ui-vertical {
       flex-direction: column;
 
-      .ui-toggle-button {
-        border-block-end: 1px solid var(--_border-color);
+      & > .ui-toggle-button {
+        inline-size: auto;
+      }
+    }
 
-        &:last-of-type {
-          border-block-end: 0;
+    /* Overflow */
+    &.ui-overflow-scroll {
+      flex-wrap: nowrap;
+      overflow-block: hidden;
+      overflow-inline: auto;
+      overscroll-behavior-inline: contain;
+
+      & > .ui-toggle-button {
+        flex: none;
+        inline-size: max-content;
+      }
+    }
+
+    &.ui-overflow-shrink {
+      flex-wrap: nowrap;
+
+      & > .ui-toggle-button {
+        min-inline-size: 0;
+        overflow: hidden;
+        white-space: nowrap;
+
+        &:not(:has(> svg)) {
+          align-content: center;
+          display: block;
+          text-align: center;
+          text-overflow: ellipsis;
         }
+
+        & > span {
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        &:has(> svg):not(:has(> span)) {
+          flex: none;
+          min-inline-size: var(--_size);
+        }
+      }
+    }
+
+    @media (forced-colors: active) {
+      & > .ui-toggle-button {
+        border-block-start: var(--_divider-border-width) solid CanvasText;
+        border-inline-start: var(--_divider-border-width) solid CanvasText;
+        box-shadow: none;
+        margin-block-start: calc(-1 * var(--_divider-border-width));
+        margin-inline-start: calc(-1 * var(--_divider-border-width));
+        min-block-size: calc(var(--_size) + var(--_divider-border-width));
+        min-inline-size: calc(var(--_size) + var(--_divider-border-width));
       }
     }
   }

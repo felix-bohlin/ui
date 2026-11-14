@@ -1,17 +1,17 @@
-<fieldset class="ui-fieldset">
-  <legend>Pet info</legend>
-  <p class="ui-field-description">We must know your pet's information.</p>
-  <div class="ui-field-group" role="group">
+<fieldset aria-describedby="id-1" class="ui-fieldset">
+  <legend>Delivery</legend>
+  <p class="ui-description" id="id-1">Where should we send your order?</p>
+  <div class="ui-field-group">
     <label class="ui-text-field">
-      <span class="ui-label">Name</span>
+      <span class="ui-label" id="id-2">Recipient</span>
       <span class="ui-field">
-        <input name="name" type="text">
+        <input aria-labelledby="id-2" name="recipient" type="text">
       </span>
     </label>
     <label class="ui-textarea">
-      <span class="ui-label">Life story</span>
+      <span class="ui-label" id="id-3">Address</span>
       <span class="ui-field">
-        <textarea name="bio" required></textarea>
+        <textarea aria-labelledby="id-3" name="address" required></textarea>
       </span>
     </label>
   </div>

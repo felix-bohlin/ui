@@ -2,21 +2,15 @@ import type * as Base from "./types"
 import type { SvelteHTMLElements } from "svelte/elements"
 import type { Snippet } from "svelte"
 
-type InputProps = {
-  // Add 'numeric' as valid input type
-  type?: SvelteHTMLElements["input"]["type"] | "numeric"
-} &
-  // include the rest
-  Pick<SvelteHTMLElements["input"], Exclude<Base.InputProps, "type">>
-
-type Snippets = Base.Slots<Snippet>
+type Without<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never
 
 export type Props =
-  // Unique component props, except snippets
-  Omit<Base.Props, keyof Snippets> &
-    // All html label attributes, (except prefix)
-    Omit<SvelteHTMLElements["label"], "prefix"> &
+  // Unique component props
+  Without<
+    Base.Props,
+    "bottom" | "end" | "endText" | "label" | "start" | "startText" | "top"
+  > &
+    Base.Slots<Snippet> &
     // Input attributes
-    InputProps &
-    // Snippets
-    Snippets
+    // include the rest
+    Omit<SvelteHTMLElements["input"], "size">

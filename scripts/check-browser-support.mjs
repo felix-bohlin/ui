@@ -1,74 +1,623 @@
-import { features } from "web-features"
-import { readdir, readFile } from "node:fs/promises"
+import { existsSync, realpathSync } from "node:fs"
+import { readdir, readFile, writeFile } from "node:fs/promises"
 import { join, basename } from "node:path"
-import { fileURLToPath } from "node:url"
+import { fileURLToPath, pathToFileURL } from "node:url"
+import { parse as parseAstro } from "@astrojs/compiler"
+import { parseFragment } from "parse5"
+import postcss from "postcss"
+import ts from "typescript"
+
+import { featureOf, patterns } from "../packages/opui/scripts/features.mjs"
+import {
+  computeBrowserSupport,
+  SHARED_FEATURES,
+} from "../src/utils/browser-support.ts"
 
 const componentsDir = fileURLToPath(
   new URL("../src/docs/components", import.meta.url),
 )
+const cssDir = fileURLToPath(
+  new URL("../packages/opui/css/components", import.meta.url),
+)
+const examplesDir = fileURLToPath(
+  new URL("../src/component-examples", import.meta.url),
+)
+const apiDir = fileURLToPath(new URL("../src/component-api", import.meta.url))
 
-const files = await readdir(componentsDir)
-const components = {}
+const attribute = (element, name) =>
+  element.attrs?.find((attr) => attr.name === name)?.value
 
-for (const file of files.sort()) {
-  if (!file.endsWith(".astro")) continue
-  const name = basename(file, ".astro")
-  const content = await readFile(join(componentsDir, file), "utf-8")
-  const match = content.match(/browserSupport=\{\[([\s\S]*?)\]\}/)
-  if (!match) continue
-  const ids = [...match[1].matchAll(/"([^"]+)"/g)].map((m) => m[1])
-  if (ids.length > 0) components[name] = ids
+const HTML_FEATURES = [
+  { id: "datalist", test: (element) => element.nodeName === "datalist" },
+  {
+    id: "details-name",
+    test: (element) =>
+      element.nodeName === "details" &&
+      attribute(element, "name") !== undefined,
+  },
+  {
+    id: "dialog-closedby",
+    test: (element) =>
+      element.nodeName === "dialog" &&
+      attribute(element, "closedby") !== undefined,
+  },
+  {
+    id: "interest-invokers",
+    test: (element) => attribute(element, "interestfor") !== undefined,
+  },
+  {
+    id: "invoker-commands",
+    test: (element) => attribute(element, "commandfor") !== undefined,
+  },
+  {
+    id: "popover",
+    test: (element) => attribute(element, "popover") !== undefined,
+  },
+  {
+    id: "popover-hint",
+    test: (element) => attribute(element, "popover") === "hint",
+  },
+]
+
+const DETECTED = new Set([...patterns, ...HTML_FEATURES].map(({ id }) => id))
+
+const elementsOf = (node) => [
+  ...(node.tagName ? [node] : []),
+  ...[...(node.childNodes ?? []), ...(node.content?.childNodes ?? [])].flatMap(
+    elementsOf,
+  ),
+]
+
+export const htmlFeatureIds = (sources) => {
+  const elements = sources.flatMap((source) =>
+    elementsOf(parseFragment(source)),
+  )
+  return HTML_FEATURES.filter(({ test }) => elements.some(test)).map(
+    ({ id }) => id,
+  )
 }
 
-const BROWSERS = ["chrome", "edge", "firefox", "safari"]
+/** @param {{ available: Set<string>, ids: string[], ignored?: string[], used: Set<string> }} page */
+export const pageProblems = ({ available, ids, ignored = [], used }) => ({
+  missing: [...used, ...available]
+    .filter((id) => !ids.includes(id) && !ignored.includes(id))
+    .filter((id, index, all) => all.indexOf(id) === index)
+    .toSorted(),
+  undetected: ids.filter((id) => !DETECTED.has(id)),
+  unused: ids.filter(
+    (id) => DETECTED.has(id) && !used.has(id) && !available.has(id),
+  ),
+})
 
-function getSupport(featureId, browser) {
-  const f = features[featureId]
-  if (!f) return undefined
-  const direct = f.status?.support?.[browser]
-  if (direct !== undefined) return direct
-  const byCompat = f.status?.by_compat_key
-  if (!byCompat) return undefined
-  let worst,
-    sawAny = false
-  for (const entry of Object.values(byCompat)) {
-    const v = entry.support?.[browser]
-    if (v === undefined) continue
-    sawAny = true
-    if (v === false) return false
-    if (!worst || parseInt(v) > parseInt(worst)) worst = v
+const componentOf = (node) =>
+  node.type === "component" && node.name === "Component"
+    ? node
+    : (node.children ?? []).map(componentOf).find(Boolean)
+
+export const fallbacksOf = async (source) => {
+  const { ast } = await parseAstro(source, { position: false })
+  const value = componentOf(ast)?.attributes.find(
+    ({ name }) => name === "fallbacks",
+  )?.value
+  if (!value) return {}
+  const [statement] = ts.createSourceFile(
+    "fallbacks.ts",
+    `(${value})`,
+    ts.ScriptTarget.Latest,
+  ).statements
+  return Object.fromEntries(
+    statement.expression.expression.properties.map((property) => [
+      property.name.text,
+      property.initializer.text,
+    ]),
+  )
+}
+
+export const lackingIds = (ids) =>
+  [
+    ...new Set(
+      computeBrowserSupport(ids).flatMap(
+        ({ unsupportedFeatures }) => unsupportedFeatures,
+      ),
+    ),
+  ].toSorted()
+
+/** @param {{ fallbacks: Record<string, string>, lacking: string[] }} page */
+export const fallbackProblems = ({ fallbacks, lacking }) => ({
+  missing: lacking.filter((id) => !Object.hasOwn(fallbacks, id)),
+  unneeded: Object.keys(fallbacks)
+    .filter((id) => !lacking.includes(id))
+    .toSorted(),
+})
+
+const kebab = (name) =>
+  name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
+
+const readPages = async () => {
+  const components = {}
+  for (const file of (await readdir(componentsDir)).sort()) {
+    if (!file.endsWith(".astro")) continue
+    const content = await readFile(join(componentsDir, file), "utf-8")
+    const match = content.match(/browserSupport=\{\[([\s\S]*?)\]\}/)
+    components[basename(file, ".astro")] = match
+      ? [...match[1].matchAll(/["']([^"']+)["']/g)].map((m) => m[1])
+      : []
   }
-  return sawAny ? worst : undefined
+  return components
 }
 
-const partials = []
+export const withBrowserSupport = (content, ids) => {
+  const list = `browserSupport={[${ids.map((id) => `"${id}"`).join(", ")}]}`
+  if (/browserSupport=\{\[[\s\S]*?\]\}/.test(content)) {
+    return content.replace(/browserSupport=\{\[[\s\S]*?\]\}/, list)
+  }
+  return content.replace(/(<Component\b[^>]*?\bslug="[^"]+")/, `$1\n  ${list}`)
+}
 
-for (const [comp, ids] of Object.entries(components)) {
-  for (const browser of BROWSERS) {
-    const supported = []
-    const unsupported = []
-    for (const id of ids) {
-      const v = getSupport(id, browser)
-      if (typeof v === "string" && parseInt(v)) supported.push(id)
-      else unsupported.push(id)
+const writePage = async (comp, ids) => {
+  const file = join(componentsDir, `${comp}.astro`)
+  await writeFile(file, withBrowserSupport(await readFile(file, "utf-8"), ids))
+}
+
+const readApis = async () => {
+  const pages = {}
+  for (const folder of (await readdir(apiDir)).sort()) {
+    const file = join(apiDir, folder, "api.ts")
+    if (!existsSync(file)) continue
+    const { default: api } = await import(pathToFileURL(file).href)
+    const page = (pages[api.page ?? folder] ??= {
+      classes: new Set(),
+      stylesheets: new Set(),
+    })
+    for (const [name] of JSON.stringify(api).matchAll(/\.ui-[a-z0-9-]+/g)) {
+      page.classes.add(name)
     }
-    let level
-    if (unsupported.length === 0) level = "full"
-    else if (supported.length === 0) level = "none"
-    else level = "partial"
-    if (level === "partial") {
-      partials.push({ comp, browser, supported, unsupported })
+    for (const sheet of api.css ?? (api.source ? [kebab(api.source)] : [])) {
+      page.stylesheets.add(`${sheet}.css`)
     }
+  }
+  return pages
+}
+
+const withoutComments = (source, file) => {
+  const root = postcss.parse(source, { from: file })
+  root.walkComments((comment) => {
+    comment.remove()
+  })
+  return root.toString()
+}
+
+const readCss = (files) =>
+  Promise.all(
+    files.map(async (file) =>
+      withoutComments(await readFile(file, "utf-8"), file),
+    ),
+  ).then((sources) => sources.join("\n"))
+
+const readExamples = async (name) => {
+  const dir = join(examplesDir, name)
+  const files = (await readdir(dir).catch(() => []))
+    .filter((file) => file.endsWith(".html"))
+    .sort()
+  const sources = await Promise.all(
+    files.map((file) => readFile(join(dir, file), "utf-8")),
+  )
+  return {
+    elements:
+      files.length === 0
+        ? null
+        : new Set([
+            "body",
+            "html",
+            ...sources.flatMap((source) => [
+              ...[...source.matchAll(/<([a-z][\w-]*)/gi)].map((m) =>
+                m[1].toLowerCase(),
+              ),
+              ...[...source.matchAll(/\bclass="([^"]*)"/g)].flatMap((m) =>
+                m[1].split(/\s+/).map((name) => `.${name}`),
+              ),
+            ]),
+          ]),
+    sources,
   }
 }
 
-if (partials.length === 0) {
-  console.log("No components have partial support in any browser.")
-} else {
-  console.log("Components with PARTIAL support:")
-  for (const p of partials) {
-    console.log(
-      `  ${p.comp.padEnd(20)} ${p.browser.padEnd(8)} missing: [${p.unsupported.join(", ")}]  (has: [${p.supported.join(", ")}])`,
+const IDENT = /(?:[\w-]|\\.)+/y
+
+const identEnd = (selector, start) => {
+  IDENT.lastIndex = start
+  return IDENT.test(selector) ? IDENT.lastIndex : start
+}
+
+const groupEnd = (selector, start) => {
+  let depth = 0
+  let quote = ""
+  for (let i = start; i < selector.length; i++) {
+    const char = selector[i]
+    if (char === "\\") i++
+    else if (quote) {
+      if (char !== quote) continue
+      quote = ""
+      if (depth === 0) return i + 1
+    } else if (char === '"' || char === "'") quote = char
+    else if (char === "(" || char === "[") depth++
+    else if ((char === ")" || char === "]") && --depth === 0) return i + 1
+  }
+  return selector.length
+}
+
+const splitList = (selector) => {
+  const branches = []
+  let start = 0
+  for (let i = 0; i < selector.length; i++) {
+    const char = selector[i]
+    if (char === "\\") i++
+    else if ("\"'([".includes(char)) i = groupEnd(selector, i) - 1
+    else if (char === ",") {
+      branches.push(selector.slice(start, i))
+      start = i + 1
+    }
+  }
+  return [...branches, selector.slice(start)]
+}
+
+const listMatches = (selector, parent, elements, typesOnly) =>
+  splitList(selector).some((branch) =>
+    branchMatches(branch, parent, elements, typesOnly),
+  )
+
+const branchMatches = (branch, parent, elements, typesOnly = false) => {
+  let compoundStart = true
+  for (let i = 0; i < branch.length;) {
+    const char = branch[i]
+    if (/[\s>+~]/.test(char)) {
+      compoundStart = true
+      i++
+      continue
+    }
+    const typeAllowed = compoundStart
+    compoundStart = false
+    if (char === "&") {
+      if (!parent) return false
+      i++
+    } else if (char === "[" || char === '"' || char === "'") {
+      i = groupEnd(branch, i)
+    } else if (char === ":") {
+      const colons = branch[i + 1] === ":" ? 2 : 1
+      const nameEnd = identEnd(branch, i + colons)
+      const name = branch.slice(i + colons, nameEnd).toLowerCase()
+      i = nameEnd
+      if (branch[i] === "(") {
+        const end = groupEnd(branch, i)
+        const inner = branch.slice(i + 1, end - 1)
+        i = end
+        if (
+          colons === 1 &&
+          ["has", "is", "where"].includes(name) &&
+          !listMatches(inner, parent, elements, typesOnly || name === "has")
+        ) {
+          return false
+        }
+      }
+    } else if (char === ".") {
+      const end = Math.max(identEnd(branch, i + 1), i + 2)
+      if (!typesOnly && !elements.has(branch.slice(i, end))) return false
+      i = end
+    } else if (char === "#" || char === "\\") {
+      i = Math.max(identEnd(branch, i + 1), i + 2)
+    } else if (/[\w-]/.test(char)) {
+      const end = identEnd(branch, i)
+      if (typeAllowed && !elements.has(branch.slice(i, end).toLowerCase())) {
+        return false
+      }
+      i = end
+    } else {
+      i++
+    }
+  }
+  return true
+}
+
+const ancestorRule = (node) => {
+  for (let ancestor = node.parent; ancestor; ancestor = ancestor.parent) {
+    if (ancestor.type === "rule") return ancestor
+  }
+  return null
+}
+
+const inKeyframes = (node) => {
+  for (let ancestor = node.parent; ancestor; ancestor = ancestor.parent) {
+    if (ancestor.type === "atrule" && /keyframes$/i.test(ancestor.name)) {
+      return true
+    }
+  }
+  return false
+}
+
+const scopeRoot = (node) => {
+  for (let ancestor = node.parent; ancestor; ancestor = ancestor.parent) {
+    if (ancestor.type === "atrule" && ancestor.name === "scope") {
+      const params = ancestor.params.trim()
+      return params.startsWith("(")
+        ? params.slice(1, groupEnd(params, 0) - 1)
+        : undefined
+    }
+  }
+  return undefined
+}
+
+const ruleApplies = (rule, elements) => {
+  if (inKeyframes(rule)) return true
+  const root = scopeRoot(rule)
+  if (root !== undefined && !listMatches(root, true, elements)) return false
+  const parentRule = ancestorRule(rule)
+  const parent = parentRule ? ruleApplies(parentRule, elements) : true
+  return splitList(rule.selector).some(
+    (branch) =>
+      branchMatches(branch, parent, elements) &&
+      (parent || branch.includes("&")),
+  )
+}
+
+const parsed = new Map()
+
+const parseSource = (source, file) => {
+  const atRules = []
+  const rules = []
+  const root = postcss.parse(source, { from: file })
+  root.walkAtRules((atRule) => {
+    const start = atRule.source.start.offset
+    const body = source.indexOf("{", start)
+    atRules.push({
+      atRule,
+      end: body === -1 ? atRule.source.end.offset : body,
+      start,
+    })
+  })
+  root.walkRules((rule) => {
+    rules.push(rule)
+  })
+  const tries = []
+  root.walkAtRules("position-try", (atRule) => {
+    tries.push([atRule.source.start.offset, atRule.source.end.offset])
+  })
+  return { atRules, rules, source, tries }
+}
+
+const parseCss = async (file) => {
+  if (!parsed.has(file)) {
+    parsed.set(file, parseSource(await readCss([file]), file))
+  }
+  return parsed.get(file)
+}
+
+const atRuleApplies = (atRule, elements) => {
+  const nested = []
+  atRule.walkRules((rule) => {
+    nested.push(rule)
+  })
+  if (nested.length > 0) {
+    return nested.some((rule) => ruleApplies(rule, elements))
+  }
+  const parent = ancestorRule(atRule)
+  return !parent || ruleApplies(parent, elements)
+}
+
+const usesFeature = ({ atRules, rules, source, tries }, pattern, elements) => {
+  if (!elements) return pattern.test(source)
+  return [...source.matchAll(new RegExp(pattern.source, "g"))].some(
+    ({ index }) => {
+      if (tries.some(([start, end]) => start <= index && index < end)) {
+        return false
+      }
+      const header = atRules.findLast(
+        ({ end, start }) => start <= index && index < end,
+      )
+      if (header) return atRuleApplies(header.atRule, elements)
+      const rule = rules.findLast(
+        ({ source: { end, start } }) =>
+          start.offset <= index && index < end.offset,
+      )
+      return !rule || ruleApplies(rule, elements)
+    },
+  )
+}
+
+export const usedFeatureIds = (source, elements) => {
+  const sheet = parseSource(source, "sample.css")
+  return patterns
+    .filter(({ pattern }) => usesFeature(sheet, pattern, elements))
+    .map(({ id }) => id)
+}
+
+const nests = (source) => {
+  let nested = false
+  postcss.parse(source).walk((node) => {
+    if (node.parent?.type === "rule" && node.type !== "decl") nested = true
+  })
+  return nested
+}
+
+const SHARED_DETECTORS = {
+  "cascade-layers": (source) => /@layer\b/.test(source),
+  nesting: nests,
+  oklab: (source) => /\boklch\(/.test(source),
+}
+
+export const unusedSharedFeatures = (source) =>
+  SHARED_FEATURES.filter((id) => {
+    const pattern = patterns.find((entry) => entry.id === id)?.pattern
+    const detect = SHARED_DETECTORS[id] ?? ((css) => !!pattern?.test(css))
+    return !detect(source)
+  })
+
+const sharedSheets = async () => {
+  const coreDir = fileURLToPath(
+    new URL("../packages/opui/core", import.meta.url),
+  )
+  return [
+    ...(await readdir(coreDir))
+      .filter((file) => file.endsWith(".css"))
+      .toSorted()
+      .map((file) => join(coreDir, file)),
+    ...["layers.css", "theme.css"].map((file) =>
+      fileURLToPath(new URL(`../packages/opui/css/${file}`, import.meta.url)),
+    ),
+  ]
+}
+
+const ignore = {
+  "number-field": ["popover"],
+  radio: ["alt-text-generated-content"],
+  typography: ["marker"],
+}
+const viaCore = {
+  dialog: ["overflow-clip", "scrollbar-gutter"],
+  drawer: ["overflow-clip", "scrollbar-gutter"],
+}
+
+const report = (heading, entries) => {
+  if (entries.length === 0) return
+  console.error(heading)
+  for (const entry of entries) console.error(`  ${entry}`)
+}
+
+const main = async () => {
+  const components = await readPages()
+  const apis = await readApis()
+
+  const fixes = {}
+  const missing = []
+  const undetected = []
+  const unused = []
+
+  for (const [comp, ids] of Object.entries(components)) {
+    const { elements, sources } = await readExamples(comp)
+    const { classes = [], stylesheets = [] } = apis[comp] ?? {}
+    const known = elements && new Set([...elements, ...classes])
+    const css = await Promise.all(
+      [...stylesheets].toSorted().map((file) => parseCss(join(cssDir, file))),
     )
+    const problems = pageProblems({
+      available: new Set(viaCore[comp]),
+      ids,
+      ignored: ignore[comp],
+      used: new Set([
+        ...patterns
+          .filter(({ pattern }) =>
+            css.some((sheet) => usesFeature(sheet, pattern, known)),
+          )
+          .map(({ id }) => id),
+        ...htmlFeatureIds(sources),
+      ]),
+    })
+    if (problems.missing.length + problems.unused.length > 0) {
+      fixes[comp] = [
+        ...ids.filter((id) => !problems.unused.includes(id)),
+        ...problems.missing,
+      ].toSorted()
+    }
+    missing.push(...problems.missing.map((id) => `${comp}: "${id}"`))
+    undetected.push(...problems.undetected.map((id) => `${comp}: "${id}"`))
+    unused.push(...problems.unused.map((id) => `${comp}: "${id}"`))
   }
+
+  const unsorted = Object.entries(components)
+    .filter(([, ids]) => ids.join() !== ids.toSorted().join())
+    .map(([comp, ids]) => `${comp}: ${ids.toSorted().join(", ")}`)
+
+  const unknown = Object.entries(components).flatMap(([comp, ids]) =>
+    ids.filter((id) => !featureOf(id)).map((id) => `${comp}: "${id}"`),
+  )
+
+  if (process.argv.includes("--write")) {
+    for (const [comp, ids] of Object.entries(fixes)) {
+      await writePage(comp, ids)
+      console.log(`Wrote the browserSupport of ${comp}.`)
+    }
+    return
+  }
+
+  report(
+    "browserSupport is missing ids that the page uses, in the stylesheets of its api.ts files (in rules whose selectors and @scope roots can match the elements of its HTML examples and the classes of those examples and api.ts files; inside :has() only the elements count) or in the HTML examples, Baseline widely available ones included. Run node scripts/check-browser-support.mjs --write to fix the lists:",
+    missing,
+  )
+  report(
+    "browserSupport lists ids that neither the page's stylesheets nor its HTML examples use. Run node scripts/check-browser-support.mjs --write to fix the lists:",
+    unused,
+  )
+  report(
+    "browserSupport lists ids that nothing detects: add a pattern to packages/opui/scripts/features.mjs, or an HTML detector to HTML_FEATURES in scripts/check-browser-support.mjs:",
+    undetected,
+  )
+  report("browserSupport is not sorted, expected:", unsorted)
+  report("Unknown web-features ids in browserSupport:", unknown)
+  const unusedShared = unusedSharedFeatures(await readCss(await sharedSheets()))
+  const fallbackMissing = []
+  const fallbackUnneeded = []
+  for (const [comp, ids] of Object.entries(components)) {
+    const problems = fallbackProblems({
+      fallbacks: await fallbacksOf(
+        await readFile(join(componentsDir, `${comp}.astro`), "utf-8"),
+      ),
+      lacking: lackingIds(ids),
+    })
+    fallbackMissing.push(...problems.missing.map((id) => `${comp}: "${id}"`))
+    fallbackUnneeded.push(...problems.unneeded.map((id) => `${comp}: "${id}"`))
+  }
+  report(
+    "browserSupport lists ids that some browser lacks, and the page's fallbacks has no sentence for them. Add one: say plainly what the component still does without the feature and what's missing, as its CSS, packages/opui/css/compat/ and the features data show it:",
+    fallbackMissing,
+  )
+  report(
+    "fallbacks has sentences for ids that browserSupport doesn't list or that every browser supports. Remove them:",
+    fallbackUnneeded,
+  )
+  report(
+    "SHARED_FEATURES in src/utils/browser-support.ts lists ids that packages/opui/core, css/layers.css and css/theme.css don't use, which every page counts into its browser versions. Remove them, or detect the id with a pattern in packages/opui/scripts/features.mjs or SHARED_DETECTORS in scripts/check-browser-support.mjs:",
+    unusedShared,
+  )
+
+  if (
+    missing.length +
+      undetected.length +
+      unused.length +
+      unsorted.length +
+      unknown.length +
+      unusedShared.length +
+      fallbackMissing.length +
+      fallbackUnneeded.length >
+    0
+  ) {
+    process.exit(1)
+  }
+
+  const partials = Object.entries(components).flatMap(([comp, ids]) =>
+    computeBrowserSupport(ids)
+      .filter((entry) => entry.level === "partial")
+      .map((entry) => ({
+        browser: entry.browser,
+        comp,
+        supported: entry.supportedFeatures,
+        unsupported: entry.unsupportedFeatures,
+      })),
+  )
+
+  if (partials.length === 0) {
+    console.log("No components have partial support in any browser.")
+  } else {
+    console.log("Components with PARTIAL support:")
+    for (const p of partials) {
+      console.log(
+        `  ${p.comp.padEnd(20)} ${p.browser.padEnd(8)} missing: [${p.unsupported.join(", ")}]  (has: [${p.supported.join(", ")}])`,
+      )
+    }
+  }
+}
+
+if (
+  process.argv[1] &&
+  realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)
+) {
+  await main()
 }

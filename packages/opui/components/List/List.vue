@@ -1,27 +1,19 @@
 <script setup lang="ts">
-import type { Props, Slots } from "./types.d.vue"
+import type { Props, Slots } from "./types.vue-props"
 
-const { bordered, dense, gutterless, variant } = defineProps<Props>()
+const { bordered, dense, flush, role, variant } = defineProps<Props>()
 defineSlots<Slots>()
-
-defineOptions({
-  inheritAttrs: false,
-})
 </script>
 
 <template>
   <ul
     :class="[
       'ui-list',
-      {
-        'ui-bordered': bordered,
-        'ui-dense': dense,
-        'ui-gutterless': gutterless,
-      },
-      variant && `ui-${variant}`,
+      { 'ui-bordered': bordered, 'ui-dense': dense, 'ui-flush': flush },
+      variant && variant !== 'filled' && `ui-${variant}`,
       $props.class,
     ]"
-    v-bind="$attrs"
+    :role="role ?? 'list'"
   >
     <slot></slot>
   </ul>

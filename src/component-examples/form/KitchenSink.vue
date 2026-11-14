@@ -6,125 +6,120 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
   Radio,
   Range,
   Select,
   Switch,
-  TextField,
   Textarea,
+  TextField,
 } from "opui-css/vue"
-import { ref } from "vue"
 
 const roleItems = [
-  { text: "Developer", value: "dev" },
-  { text: "Designer", value: "design" },
-  { text: "Manager", value: "manager" },
+  { label: "Bassist", value: "bass" },
+  { label: "Drummer", value: "drums" },
+  { label: "Guitarist", value: "guitar" },
 ]
-
-const emailNotifs = ref(true)
-const smsNotifs = ref(false)
-const theme = ref("light")
-const experience = ref(5)
 </script>
 
 <template>
-  <Form id="kitchen-sink-example">
-    <FieldSet>
-      <FieldLegend>User Profile</FieldLegend>
-      <FieldDescription>
-        Please provide your basic contact details.
+  <Form id="form-kitchen-sink-1">
+    <Fieldset aria-describedby="form-kitchen-sink-2-description">
+      <FieldLegend>Your Bassbook profile</FieldLegend>
+      <FieldDescription id="form-kitchen-sink-2-description">
+        Heyyy, tell us who you are so your fans can find you.
       </FieldDescription>
       <FieldGroup>
-        <TextField label="Full Name" placeholder="Jane Doe" required />
         <TextField
-          label="Email Address"
-          type="email"
-          placeholder="jane@example.com"
+          autocomplete="name"
+          label="Full name"
+          placeholder="Holly Humbucker"
           required
         />
-        <Select label="Role" :items="roleItems" />
+        <TextField
+          autocomplete="email"
+          label="Email address"
+          placeholder="rory@lowend.example"
+          required
+          type="email"
+        />
+        <Select :items="roleItems" label="Role" />
       </FieldGroup>
-    </FieldSet>
-
+    </Fieldset>
     <Divider />
-
-    <FieldSet>
+    <Fieldset aria-describedby="form-kitchen-sink-3-description">
       <FieldLegend>Notifications</FieldLegend>
-      <FieldDescription>
-        Configure how you want to receive updates.
-      </FieldDescription>
-      <FieldGroup name="notifications">
-        <Switch v-model="emailNotifs" name="email_notifs"
-          >Email Notifications</Switch
-        >
-        <Switch v-model="smsNotifs" name="sms_notifs">SMS Notifications</Switch>
-      </FieldGroup>
-    </FieldSet>
-
-    <Divider />
-
-    <FieldSet>
-      <FieldLegend>Theme Preference</FieldLegend>
-      <FieldDescription>Select your preferred visual style.</FieldDescription>
-      <FieldGroup name="theme">
-        <Radio v-model="theme" value="light">Light Theme</Radio>
-        <Radio v-model="theme" value="dark">Dark Theme</Radio>
-        <Radio v-model="theme" value="system">System Default</Radio>
-      </FieldGroup>
-    </FieldSet>
-
-    <Divider />
-
-    <FieldSet>
-      <FieldLegend>Experience Level</FieldLegend>
-      <FieldDescription>
-        How many years of experience do you have?
+      <FieldDescription id="form-kitchen-sink-3-description">
+        Pick how we tell you about new pokes and gig invites.
       </FieldDescription>
       <FieldGroup>
+        <Switch checked name="email_notifs">Email notifications</Switch>
+        <Switch name="sms_notifs">SMS notifications</Switch>
+      </FieldGroup>
+    </Fieldset>
+    <Divider />
+    <Fieldset aria-describedby="form-kitchen-sink-4-description">
+      <FieldLegend>Profile theme</FieldLegend>
+      <FieldDescription id="form-kitchen-sink-4-description"
+        >Pick the look of your awesome profile page.</FieldDescription
+      >
+      <FieldGroup name="theme">
+        <Radio checked value="light">Light theme</Radio>
+        <Radio value="dark">Dark theme</Radio>
+        <Radio value="system">System default</Radio>
+      </FieldGroup>
+    </Fieldset>
+    <Divider />
+    <Fieldset aria-describedby="form-kitchen-sink-5-description">
+      <FieldLegend>Bass experience</FieldLegend>
+      <FieldDescription id="form-kitchen-sink-5-description"
+        >How many years have you held down the low end?</FieldDescription
+      >
+      <FieldGroup>
         <Range
-          label="Professional Experience"
-          min="0"
+          label="Years of playing"
           max="20"
+          min="0"
+          startText="Drag the slider, and yes, the years on guitar count less."
           step="1"
-          v-model="experience"
-          start-text="Drag the slider to match your total tenure."
+          value="5"
         />
       </FieldGroup>
-    </FieldSet>
-
+    </Fieldset>
     <Divider />
-
-    <FieldSet>
-      <FieldLegend>Additional Info</FieldLegend>
-      <FieldDescription>Anything else we should know?</FieldDescription>
-      <FieldGroup name="details">
+    <Fieldset aria-describedby="form-kitchen-sink-6-description">
+      <FieldLegend>About you</FieldLegend>
+      <FieldDescription id="form-kitchen-sink-6-description"
+        >Favorite strings, dream rig, the band that ignores
+        you?</FieldDescription
+      >
+      <FieldGroup>
         <Textarea
           label="Biography"
-          placeholder="Tell us about yourself..."
+          name="biography"
+          placeholder="I play a fretless 5-string and nobody watches me..."
           :rows="4"
         />
       </FieldGroup>
-    </FieldSet>
-
+    </Fieldset>
     <Divider />
-
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Legal</FieldLegend>
-      <FieldGroup name="legal">
+      <FieldGroup>
         <Checkbox name="terms" required>
-          I agree to the terms and conditions
-          <template #end-text>Support this text</template>
+          I agree to the Bassbook terms and conditions
+          <template #end-text
+            >You can withdraw your consent at any time, no hard
+            feelings.</template
+          >
         </Checkbox>
       </FieldGroup>
-    </FieldSet>
-
+    </Fieldset>
     <Divider />
-
     <FieldGroup>
-      <Button variant="filled" type="submit">Send</Button>
       <Button>Cancel</Button>
+      <Button type="submit" variant="filled">Send</Button>
     </FieldGroup>
   </Form>
 </template>

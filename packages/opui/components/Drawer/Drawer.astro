@@ -1,5 +1,8 @@
 ---
 import type { Props } from "./types.astro"
+import { autoLabelledBy } from "../id"
+import { warnMissingId } from "../dev"
+import { drawerContext } from "./context.astro"
 
 export const title = "Drawer"
 
@@ -7,41 +10,39 @@ const {
   backdrop = "blurred",
   class: className,
   closedby = "any",
+  closeOnNavigate,
   id,
-  scrollLock = true,
+  scrollLock,
   side = "inline-start",
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
-const drawerId = id || $id("drawer")
+warnMissingId("Drawer", id)
+const labelledBy = autoLabelledBy(rest, `${id}-title`)
+const html = await drawerContext.provide({ id, titleId: labelledBy }, () =>
+  Astro.slots.render("default"),
+)
 ---
 
 <dialog
   closedby={closedby}
   class:list={[
     "ui-drawer",
-    side && `ui-${side}`,
     {
       "ui-backdrop-transparent": backdrop === "transparent",
       "ui-scroll-lock": scrollLock,
     },
+    side && side !== "inline-start" && `ui-${side}`,
     className,
   ]}
-  id={drawerId}
+  aria-labelledby={labelledBy}
+  data-close-on-navigate={closeOnNavigate ? "" : undefined}
+  id={id}
   {...rest}
 >
-  {Astro.slots.has("header") && <slot name="header" />}
-
-  {
-    Astro.slots.has("content") && (
-      <div class="ui-content">
-        <slot name="content" />
-      </div>
-    )
-  }
-
-  <slot />
-
-  {Astro.slots.has("footer") && <slot name="footer" />}
+  <Fragment set:html={html} />
 </dialog>
+
+<script>
+  import "../../elements/close-on-navigate.js"
+</script>

@@ -1,41 +1,44 @@
 <script setup lang="ts">
-import { Accordion } from "opui-css/vue"
+import { Accordion, AccordionContent, AccordionSummary } from "opui-css/vue"
 </script>
 
 <template>
   <Accordion>
-    <template #summary>Text</template>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-      neque ante id justo.
-    </p>
+    <AccordionSummary>Plain</AccordionSummary>
+    <AccordionContent>
+      <p>
+        Return any bass within 30 days for a full refund, no awkward questions.
+      </p>
+    </AccordionContent>
   </Accordion>
 
   <Accordion variant="elevated">
-    <template #summary>Elevated</template>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-      neque ante id justo.
-    </p>
+    <AccordionSummary>Elevated</AccordionSummary>
+    <AccordionContent>
+      <p>String orders over €50 ship free within the EU.</p>
+    </AccordionContent>
   </Accordion>
 
   <Accordion variant="outlined">
-    <template #summary>Outlined</template>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-      neque ante id justo.
-    </p>
+    <AccordionSummary>Outlined</AccordionSummary>
+    <AccordionContent>
+      <p>Pay by card, bank transfer or a jar of gig money.</p>
+    </AccordionContent>
   </Accordion>
 
   <Accordion variant="tonal">
-    <template #summary>Tonal</template>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-      neque ante id justo.
-    </p>
+    <AccordionSummary>Tonal</AccordionSummary>
+    <AccordionContent>
+      <p>Track your new flatwounds from the link in the confirmation email.</p>
+    </AccordionContent>
+  </Accordion>
+
+  <Accordion variant="transparent">
+    <AccordionSummary>Transparent</AccordionSummary>
+    <AccordionContent>
+      <p>
+        Reach our bass whisperers by chat or email on weekdays from 9 to 17.
+      </p>
+    </AccordionContent>
   </Accordion>
 </template>

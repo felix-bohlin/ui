@@ -1,0 +1,482 @@
+---
+import Guide from "../../layouts/Guide.astro"
+import Code from "../../components/Code.astro"
+import CodeGroup from "../../components/CodeGroup.astro"
+import DocLink from "../../components/DocLink.astro"
+import Example from "../../components/Example/index"
+import LayerStack from "../../components/LayerStack.astro"
+import ScriptTable from "../../components/ScriptTable.astro"
+import TokenTiers from "../../components/TokenTiers.astro"
+
+export const keywords = [
+  "architecture",
+  "cascade layers",
+  "color scheme",
+  "dark mode",
+  "light mode",
+  "naming",
+]
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Concepts</Fragment>
+  <Fragment slot="preamble">
+    The architecture: cascade layers, token tiers, scopes, props and classes,
+    naming, rich text, and where JavaScript is still needed.
+  </Fragment>
+
+  <section id="cascade-layers">
+    <h2>Cascade layers</h2>
+    <p>Every rule lives in a layer, ordered once in <code>layers.css</code>:</p>
+    <Code
+      code={`@layer openprops, theme, normalize, components.prose, components.root, components.extended, components.compat, utils;
+@layer theme.palette, theme.base, theme.custom, theme.severity;`}
+      lang="css"
+    />
+    <LayerStack />
+    <p>
+      Your theme goes in <code>theme.custom</code>, your overrides unlayered or
+      after <code>utils</code>. Import <code>layers.css</code> first when you
+      import single files. See
+      <DocLink href="/guide/customizing#your-theme">Your theme</DocLink> and
+      <DocLink href="/guide/customizing#unlayered-or-your-own-layer"
+        >Unlayered or your own layer</DocLink
+      >.
+    </p>
+  </section>
+
+  <section id="token-tiers">
+    <h2>Token tiers</h2>
+    <p>
+      Each tier reads from the ones before it. Component CSS reads roles, never
+      primitives. <DocLink href="/guide/theme-tokens">Theme tokens</DocLink>
+      names the tier of every token:
+    </p>
+    <TokenTiers />
+    <ul>
+      <li>
+        <strong>Knobs</strong>, like <code>--ui-palette-hue</code>: the inputs.
+      </li>
+      <li>
+        <strong>Primitives</strong>, like <code>--ui-color-1</code>: derived
+        from the knobs.
+      </li>
+      <li>
+        <strong>Roles</strong>, like <code>--ui-primary</code>: what every
+        component reads.
+      </li>
+      <li>
+        <strong>Hooks</strong>, like <code>--ui-control-accent</code>: optional
+        roles, unset until a theme sets them.
+      </li>
+      <li>
+        <strong>Component tokens</strong>, like <code>--ui-button-size</code>:
+        read by one component.
+      </li>
+      <li>
+        <strong>Private properties</strong>, like <code>--_accent</code>: one
+        component's
+        <DocLink href="/guide/customizing#component-properties">wiring</DocLink
+        >, set per instance.
+      </li>
+    </ul>
+  </section>
+
+  <section id="light-and-dark">
+    <h2>Light and dark</h2>
+    <p>
+      The OS setting picks the scheme. Use <code>.ui-light</code> or
+      <code>.ui-dark</code> to fix it, see
+      <DocLink href="/guide/theming#scopes">Scopes</DocLink>.
+    </p>
+    <Example>
+      <div class="concepts-schemes">
+        <div class="ui-light">
+          <button class="ui-button ui-filled ui-primary" type="button">
+            Always light
+          </button>
+        </div>
+        <div class="ui-dark">
+          <button class="ui-button ui-filled ui-primary" type="button">
+            Always dark
+          </button>
+        </div>
+      </div>
+    </Example>
+  </section>
+
+  <section id="palette-scopes">
+    <h2>Palette scopes</h2>
+    <p>
+      A severity class re-derives the 16-step palette for an element and its
+      children. See <DocLink href="/guide/theming#scopes">Theming</DocLink>.
+    </p>
+    <figure class="concepts-palettes ui-not-rich-text">
+      {[
+        "",
+        "ui-critical",
+        "ui-info",
+        "ui-neutral",
+        "ui-success",
+        "ui-warning",
+      ].map((scope) => <div class={scope || undefined}>
+        <code>{scope ? `.${scope}` : "Page"}</code>
+        <span class="swatches" aria-hidden="true">
+          {Array.from({ length: 16 }, (_, i) => (
+            <span style={`background-color: var(--ui-color-${i + 1})`} />
+          ))}
+        </span>
+      </div>)}
+      <figcaption>
+        <code>--ui-color-1</code> to <code>--ui-color-16</code> on the page and
+        in each scope, live with the current theme.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section id="props-and-classes">
+    <h2>Props and classes</h2>
+    <p>Props render the same classes, one to one:</p>
+    <CodeGroup
+      tabs={[
+        {
+          title: "HTML",
+          code: `<button class="ui-button ui-outlined ui-small ui-primary" type="button">
+  Save
+</button>`,
+          lang: "html",
+        },
+        {
+          title: "Astro",
+          code: `<Button variant="outlined" size="small" color="primary">Save</Button>`,
+          lang: "astro",
+        },
+        {
+          title: "React",
+          code: `<Button variant="outlined" size="small" color="primary">
+  Save
+</Button>`,
+          lang: "tsx",
+        },
+        {
+          title: "Svelte",
+          code: `<Button variant="outlined" size="small" color="primary">Save</Button>`,
+          lang: "svelte",
+        },
+        {
+          title: "Vue",
+          code: `<Button variant="outlined" size="small" color="primary">Save</Button>`,
+          lang: "vue",
+        },
+      ]}
+    />
+    <p>
+      Boolean props become a class of the same name. Native states stay
+      attributes, like <code>disabled</code>.
+    </p>
+  </section>
+
+  <section id="naming">
+    <h2>Naming</h2>
+    <p>One idea has one prop name and one set of values everywhere.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Idea</th>
+          <th>Prop</th>
+          <th>Values</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Paint only</td>
+          <td><code>color</code></td>
+          <td>
+            <code>critical</code>, <code>info</code>, <code>neutral</code>,
+            <code>primary</code>, <code>success</code>, <code>warning</code>
+          </td>
+        </tr>
+        <tr>
+          <td>Meaning</td>
+          <td><code>severity</code></td>
+          <td>
+            <code>critical</code>, <code>info</code>, <code>neutral</code>,
+            <code>success</code>, <code>warning</code>
+          </td>
+        </tr>
+        <tr>
+          <td>Surface</td>
+          <td><code>variant</code></td>
+          <td>
+            <code>elevated</code>, <code>filled</code>, <code>line</code>,
+            <code>outlined</code>, <code>plain</code>, <code>tonal</code>,
+            <code>transparent</code>
+          </td>
+        </tr>
+        <tr>
+          <td>Size</td>
+          <td><code>size</code></td>
+          <td>
+            <code>x-small</code>, <code>small</code>, <code>medium</code>,
+            <code>large</code>
+          </td>
+        </tr>
+        <tr>
+          <td>Density</td>
+          <td><code>dense</code> or <code>density</code></td>
+          <td>
+            <code>dense</code>, <code>normal</code>, <code>spacious</code>
+          </td>
+        </tr>
+        <tr>
+          <td>Shape</td>
+          <td><code>round</code> or <code>shape</code></td>
+          <td>
+            <code>circle</code>, <code>rounded</code>, <code>squared</code>,
+            <code>squircle</code>
+          </td>
+        </tr>
+        <tr>
+          <td>Layout axis</td>
+          <td><code>orientation</code></td>
+          <td>
+            <code>auto</code>, <code>horizontal</code>, <code>vertical</code>
+          </td>
+        </tr>
+        <tr>
+          <td>Side of a trigger or the screen</td>
+          <td><code>side</code></td>
+          <td>
+            <code>block-end</code>, <code>block-start</code>,
+            <code>inline-end</code>, <code>inline-start</code>
+          </td>
+        </tr>
+        <tr>
+          <td>Alignment on that side or in a row</td>
+          <td><code>align</code></td>
+          <td><code>start</code>, <code>center</code>, <code>end</code></td>
+        </tr>
+        <tr>
+          <td>Corner</td>
+          <td><code>corner</code></td>
+          <td>
+            <code>start-start</code>, <code>start-end</code>,
+            <code>end-start</code>, <code>end-end</code>
+          </td>
+        </tr>
+        <tr>
+          <td>Any CSS position</td>
+          <td><code>positionArea</code></td>
+          <td>any <code>position-area</code> value</td>
+        </tr>
+        <tr>
+          <td>Checked state</td>
+          <td><code>checked</code></td>
+          <td>the native attribute</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <code>color</code> only paints. <code>severity</code> also adds what the
+      meaning needs, like an icon.
+    </p>
+
+    <h3 id="variants">Variants</h3>
+    <p>
+      A variant is the resting look. <code>plain</code> and
+      <code>transparent</code> only differ on a tinted background:
+    </p>
+    <Example centered>
+      <div class="concepts-ladder">
+        {["page", "tonal"].map((surface) => <div
+          class:list={["concepts-surface", { "is-tonal": surface === "tonal" }]}
+        >
+          <span class="concepts-surface-label">
+            {surface === "tonal" ? "On a tonal surface" : "On the page"}
+          </span>
+          {["plain", "transparent", "tonal", "outlined", "elevated"].map(
+            (variant) => <div
+              class:list={["ui-card", variant !== "plain" && `ui-${variant}`]}
+            >
+              <div class="ui-content">
+                <code>{variant}</code>
+              </div>
+            </div>,
+          )}
+        </div>)}
+      </div>
+    </Example>
+    <p>
+      A default adds no class. <code>color</code> and <code>severity</code> have
+      none.
+    </p>
+
+    <h3 id="start-and-end">Start and end</h3>
+    <p><code>start</code> and <code>end</code> follow the writing direction.</p>
+
+    <h3 id="checked">Checked</h3>
+    <p>
+      <code>checked</code> sets the input's attribute. In a group with a
+      <code>value</code>, the group wins.
+    </p>
+  </section>
+
+  <section id="rich-text">
+    <h2>Rich text</h2>
+    <p>
+      <code>.ui-rich-text</code> styles classless elements inside it.
+      <code>.ui-not-rich-text</code> opts a subtree out.
+    </p>
+    <Example>
+      <article class="ui-rich-text">
+        <h3>Release notes</h3>
+        <p>Plain HTML, styled by the wrapper.</p>
+        <ul>
+          <li>No classes needed</li>
+          <li>Components keep their own styles</li>
+        </ul>
+        <div class="ui-not-rich-text">
+          <ul>
+            <li>This list is left alone</li>
+          </ul>
+        </div>
+      </article>
+    </Example>
+    <p>See <DocLink href="/components/typography">Typography</DocLink>.</p>
+  </section>
+
+  <section id="javascript">
+    <h2>JavaScript</h2>
+    <p>These work without JavaScript:</p>
+    <ul>
+      <li>
+        Accordion is a <code>details</code> element, Tabs are a radio group, and
+        toggle buttons and toggle groups are checkboxes and radios.
+      </li>
+      <li>
+        Dialog, Drawer and Menu open with Invoker Commands (<code>command</code>
+        and <code>commandfor</code> on a button) and the Popover API.
+      </li>
+      <li>
+        Tooltip and hover Anchor show with <code>interestfor</code> and CSS
+        anchor positioning.
+      </li>
+      <li>
+        Carousel buttons and markers are generated by CSS, and the Range track
+        fill is a scroll-driven animation.
+      </li>
+    </ul>
+    <p>
+      See <DocLink href="/guide/browser-support">Browser support</DocLink> for
+      fallbacks. These need a script in plain HTML. The ones in
+      <code>elements/</code> define a custom element, and the framework
+      components load those for you:
+    </p>
+    <ScriptTable />
+    <p>Import each module once per page:</p>
+    <CodeGroup
+      tabs={[
+        {
+          title: "CDN",
+          code: `<script type="module">
+  import "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/checkbox.js"
+  import "https://cdn.jsdelivr.net/npm/opui-css@6/elements/number-field.js"
+</script>`,
+          lang: "html",
+        },
+        {
+          title: "Bundler",
+          code: `<script type="module">
+  import "opui-css/css/js/checkbox.js"
+  import "opui-css/elements/number-field.js"
+</script>`,
+          lang: "html",
+        },
+      ]}
+    />
+    <p>
+      Each module in <code>elements/</code> exports its element's class, like
+      <code>NumberFieldElement</code>, and types its tag, so
+      <code>document.querySelector("opui-number-field")</code> returns a
+      <code>NumberFieldElement</code> in TypeScript.
+      <code>close-on-navigate.js</code> defines no element: importing it closes
+      open menus and <code>[data-close-on-navigate]</code> drawers when the page
+      navigates.
+    </p>
+  </section>
+</Guide>
+
+<style>
+  .concepts-palettes {
+    display: grid;
+    gap: var(--size-2);
+    margin-block: var(--size-5);
+    place-items: stretch;
+
+    > div {
+      align-items: center;
+      display: grid;
+      gap: var(--size-3);
+      grid-template-columns: 7rem 1fr;
+    }
+
+    code {
+      font-size: var(--ui-font-size-small);
+    }
+
+    figcaption {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-small);
+      margin-block-start: var(--size-1);
+      text-align: start;
+    }
+  }
+
+  .swatches {
+    border: var(--ui-border-width) solid currentColor;
+    border-radius: var(--ui-radius-small);
+    display: grid;
+    forced-color-adjust: none;
+    grid-template-columns: repeat(16, 1fr);
+    overflow: hidden;
+
+    > span {
+      block-size: var(--size-6);
+    }
+  }
+
+  .concepts-ladder {
+    display: grid;
+    gap: var(--size-3);
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .concepts-surface {
+    border-radius: var(--ui-radius);
+    display: grid;
+    grid-row: span 6;
+    grid-template-rows: subgrid;
+    padding: var(--size-3);
+
+    &.is-tonal {
+      background-color: var(--ui-surface-tonal);
+    }
+  }
+
+  .concepts-surface-label {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+  }
+
+  .concepts-schemes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+
+    > div {
+      border-radius: var(--ui-radius);
+      padding: var(--size-4);
+    }
+  }
+</style>

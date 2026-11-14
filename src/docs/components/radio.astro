@@ -1,24 +1,47 @@
 ---
+import FieldGroupNotes from "./partials/FieldGroupNotes.astro"
+import LabelAlignment from "./partials/LabelAlignment.astro"
 import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
-import { Radio as UIRadio } from "@opui/astro"
+import { Radio as UIRadio } from "opui-css/astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import RadioCSS from "@opui/css/components/radio.css?raw"
+import ChoiceCSS from "@opui/css/components/choice.css?raw"
+import CardCSS from "@opui/css/components/card.css?raw"
 import FormCSS from "@opui/css/components/form.css?raw"
 
 import fieldGroupApi from "../../component-api/field-group/api"
 import radioApi from "../../component-api/radio/api"
+import radioInputApi from "../../component-api/radio-input/api"
 
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
+
+export const keywords = ["option", "radio button", "radio group"]
+export const description =
+  "Radio buttons for picking one option from a few, with sizes, cards and an invalid state."
 ---
 
 <Component
+  description={description}
   slug="radio"
-  browserSupport={["has"]}
+  browserSupport={[
+    "container-style-queries",
+    "has",
+    "lh",
+    "light-dark",
+    "relative-color",
+    "round-mod-rem",
+    "user-pseudos",
+  ]}
   heroAnatomy
   apis={[
     { title: "Radio API", api: radioApi },
+    { title: "Radio input API", api: radioInputApi },
     { title: "Field group API", api: fieldGroupApi },
   ]}
   changelogPaths={[
@@ -36,104 +59,149 @@ import Conditional from "../../components/Conditional.astro"
       path: "packages/opui/css/components/radio.css",
       type: "css",
     },
+    { path: "src/component-api/radio", type: "api" },
+    { path: "src/component-api/radio-input", type: "api" },
     { path: "src/component-api/field-group", type: "api" },
   ]}
   installationTabs={[
     { title: "radio.css", code: RadioCSS, lang: "css" },
-    { title: "form.css", code: FormCSS, lang: "css", seeAlso: true },
+    { title: "choice.css", code: ChoiceCSS, lang: "css" },
+    { title: "form.css", code: FormCSS, lang: "css", isDependency: true },
+    { title: "card.css", code: CardCSS, lang: "css", isDependency: true },
   ]}
 >
   <Fragment slot="title">Radio</Fragment>
   <Fragment slot="preamble">
-    See also: <DocLink href="/components/form" class="ui-link"
-      >Form documentation</DocLink
-    >.
+    One choice out of a few in a form, like a shipping speed. For a view or mode
+    in a toolbar, use a
+    <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>, and
+    for panels of content, <DocLink href="/components/tabs">Tabs</DocLink>.
   </Fragment>
 
-  <Conditional as="p">
-    <Fragment slot="astro">
-      The <code>name</code> prop will get passed down to each radio button in the
-      group.
-    </Fragment>
-    <Fragment slot="html">
-      Give every <code>&lt;input type="radio"&gt;</code> in the group the same
-      <code>name</code> attribute. Browsers use that shared name to enforce mutual
-      exclusivity within the group.
-    </Fragment>
-    <Fragment slot="vue">
-      The <code>name</code> prop will get passed down to each radio button in the
-      group.
-    </Fragment>
-  </Conditional>
+  <Usage slot="usage">
+    <li slot="when">One choice out of a few, like a shipping speed.</li>
+    <li slot="when">
+      Choices with a description: <a href="#end-text">end text</a> or
+      <a href="#cards">cards</a>.
+    </li>
+    <li slot="when-not">
+      A long list: use a <DocLink href="/components/select">Select</DocLink>.
+    </li>
+    <li slot="when-not">
+      Several choices, or on and off: use a
+      <DocLink href="/components/checkbox">Checkbox</DocLink>.
+    </li>
+    <li slot="when-not">
+      A view or mode in a toolbar: use a
+      <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>.
+    </li>
+  </Usage>
 
-  <AutoExample name="FieldGroup" centered column />
-
-  <section>
-    <h2 id="direction">Direction</h2>
-
-    <AutoExample name="FieldGroupDirection" row />
-  </section>
-
-  <section>
-    <h2 id="field-description">Field description</h2>
-    <p>Can be placed above and below the fields.</p>
-
-    <AutoExample name="FieldGroupFieldDescription" column centered spacious />
-  </section>
-
-  <section>
-    <h2 id="disabled">Disabled</h2>
+  <section id="basics">
+    <h2>Basics</h2>
     <p>
-      Attach the <code>disabled</code> attribute to the <code
-        >&lt;fieldset&gt;</code
-      > element.
+      Give the radios in a group the same <code>name</code>. A checked radio
+      fills with the accent, or keeps its circle and draws only the dot when a
+      theme sets <code>--ui-choice-checked: mark</code>.
     </p>
 
-    <AutoExample name="FieldGroupDisabled" row />
+    <AutoExample name="Basics" centered column />
   </section>
 
-  <section>
-    <h2 id="required">Required</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Set <code>required</code> on at least one <code>Radio</code> in the group.
+  <section id="sizes">
+    <h2>Sizes</h2>
+    <AutoExample name="Sizes" column centered spacious />
+  </section>
+
+  <section id="visible-label">
+    <h2>Visible label</h2>
+
+    <AutoExample name="VisibleLabel" column centered />
+
+    <h3 id="hidden-label">Hidden label</h3>
+    <p>Use <PropOrClass prop="hideLabel" class=".ui-sr-only" />.</p>
+    <AutoExample name="HiddenLabel" column centered />
+
+    <h3 id="label-position">Label position</h3>
+    <p>
+      Use <PropOrClass prop='orientation="vertical"' class=".ui-vertical" /> to
+      put the label under the radio.
+    </p>
+    <AutoExample name="LabelPosition" row spacious />
+
+    <h3 id="end-text">End text</h3>
+    <p>Use <PropOrClass prop="endText" class=".ui-end-text" />.</p>
+    <AutoExample name="EndText" row spacious />
+  </section>
+
+  <section id="spread">
+    <h2>Spread</h2>
+    <p>
+      <PropOrClass prop="spread" class=".ui-spread" /> puts the radio at the
+      end.
+    </p>
+
+    <AutoExample name="Spread" column />
+  </section>
+
+  <section id="cards">
+    <h2>Cards</h2>
+    <p>
+      Use <PropOrClass prop="card" class=".ui-card" />, with
+      <PropOrClass prop="spread" class=".ui-spread" />. Cards are outlined by
+      default, and
+      <Conditional>
+        <Fragment slot="components"><code>variant</code> changes</Fragment>
+        <Fragment slot="html"
+          ><code>.ui-elevated</code> and <code>.ui-tonal</code> change</Fragment
+        >
+      </Conditional>
+      the surface.
+    </p>
+
+    <AutoExample name="CardsMatrix" column />
+  </section>
+
+  <section id="label-alignment">
+    <h2>Label alignment</h2>
+    <LabelAlignment control="radio" />
+  </section>
+
+  <section id="radio-input">
+    <h2>Radio input</h2>
+    <p>
+      <PropOrClass prop="RadioInput" class='<input type="radio">' /> without the
+      label, as in a
+      <DocLink href="/components/list#radio" class="ui-link">List</DocLink>.
+    </p>
+  </section>
+
+  <section id="field-group">
+    <h2>Field group</h2>
+    <FieldGroupNotes control="radio" />
+    <Conditional as="div">
+      <Fragment slot="svelte">
+        <p>
+          Without <code>bind:group</code>, pass <code>checked</code> and
+          <code>onchange</code>.
+        </p>
+        <AutoExample name="FieldGroupControlled" centered column />
       </Fragment>
       <Fragment slot="vue">
-        Add the <code>required</code> attribute on at least one <code
-          >Radio</code
-        >. It is forwarded to the underlying <code>&lt;input&gt;</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Attach the <code>required</code> attribute to at least one of your <code
-          >&lt;input&gt;</code
-        > elements.
+        <p>
+          Without <code>v-model</code>, pass <code>:checked</code> and
+          <code>@change</code>.
+        </p>
+        <AutoExample name="FieldGroupControlled" centered column />
       </Fragment>
     </Conditional>
-
-    <AutoExample name="FieldGroupRequired" row />
   </section>
 
-  <section>
-    <h2 id="validation">Validation</h2>
-    <Conditional>
-      <p slot="html">
-        Attach the <code>data-invalid</code> attribute to your <code
-          >&lt;fieldset class="ui-fieldset"&gt;</code
-        > element
-      </p>
-      <p slot="astro">
-        Attach the <code>data-invalid</code> attribute to your <code
-          >Fieldset</code
-        > component.
-      </p>
-      <p slot="vue">
-        Attach <code>data-invalid</code> to the <code>FieldSet</code> wrapper, or
-        use the <code>error</code> prop on individual <code>Radio</code> components.
-      </p>
-    </Conditional>
+  <Fragment slot="accessibility">
+    <KeyboardSupport />
+  </Fragment>
 
-    <AutoExample name="FieldGroupValidation" row />
-  </section>
+  <RadioBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.5}>
@@ -144,14 +212,3 @@ import Conditional from "../../components/Conditional.astro"
     </Anatomy>
   </Fragment>
 </Component>
-
-<style is:global>
-  .example-row {
-    display: flex;
-    gap: var(--size-3);
-    align-items: center;
-  }
-  .example-row.ui-spacious {
-    gap: var(--size-6);
-  }
-</style>

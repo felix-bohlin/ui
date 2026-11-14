@@ -1,0 +1,85 @@
+<style>
+  .todo-rtl-row {
+    display: flex;
+    inline-size: 100%;
+    justify-content: center;
+  }
+
+  .todo-rtl-popover {
+    background-color: var(--ui-surface-elevated);
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    inline-size: 200px;
+    inset: auto;
+    margin: 0;
+    padding: var(--ui-space-2);
+    position-area: self-block-end span-self-inline-end;
+  }
+</style>
+<p class="todo-note">
+  For desktop Firefox. Each row is a right-to-left block in this left-to-right
+  page. Press the button in each row: the readout under it gives how far the
+  popover lands below the button and how far its right edge sits from the
+  button's right edge. Chrome gives 0px and 0px for the plain popover, and 5px
+  and -3px for the Menu, which keeps a small offset from its button; WebKit
+  passes the same checks in CI. CI Firefox put the plain popover about 450px to
+  the side and the Menu about 1000px. If desktop Firefox shows the same, file
+  the report from the item; the first row is its test case, with no library CSS
+  in play beyond the page's own.
+</p>
+<p class="todo-label">The bug report's test case: a plain popover</p>
+<div class="todo-rtl-row" dir="rtl">
+  <button
+    class="ui-button ui-outlined"
+    commandfor="todo-rtl-plain"
+    command="toggle-popover"
+    type="button"
+  >
+    Open
+  </button>
+  <div class="todo-rtl-popover" id="todo-rtl-plain" popover>Item</div>
+</div>
+<output class="todo-measure" data-popover="todo-rtl-plain"
+  >Not opened yet.</output
+>
+<p class="todo-label">The library's Menu</p>
+<div class="todo-rtl-row" dir="rtl" lang="ar">
+  <button
+    class="ui-button ui-outlined"
+    commandfor="todo-rtl-menu"
+    command="toggle-popover"
+    type="button"
+  >
+    القائمة
+  </button>
+  <menu class="ui-menu" id="todo-rtl-menu" popover>
+    <li>
+      <button command="hide-popover" commandfor="todo-rtl-menu" type="button">
+        <div class="ui-text"><p>تعديل</p></div>
+      </button>
+    </li>
+    <li>
+      <button command="hide-popover" commandfor="todo-rtl-menu" type="button">
+        <div class="ui-text"><p>مشاركة</p></div>
+      </button>
+    </li>
+  </menu>
+</div>
+<output class="todo-measure" data-popover="todo-rtl-menu"
+  >Not opened yet.</output
+>
+<script>
+  for (const output of document.querySelectorAll("output[data-popover]")) {
+    const popover = document.getElementById(output.dataset.popover)
+    const trigger = document.querySelector(`[commandfor="${popover.id}"]`)
+    popover.addEventListener("toggle", (event) => {
+      if (event.newState !== "open") return
+      requestAnimationFrame(() => {
+        const box = popover.getBoundingClientRect()
+        const anchor = trigger.getBoundingClientRect()
+        const below = Math.round(box.top - anchor.bottom)
+        const edge = Math.round(box.right - anchor.right)
+        output.textContent = `${below}px below the button, right edge ${edge}px from the button's right edge`
+      })
+    })
+  }
+</script>

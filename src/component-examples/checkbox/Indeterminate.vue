@@ -1,39 +1,25 @@
 <script setup lang="ts">
-import { computed, ref } from "vue"
-import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "opui-css/vue"
-
-const items = ["Apples", "Bananas", "Cherries"]
-const checked = ref([true, false, false])
-
-const allChecked = computed(() => checked.value.every(Boolean))
-const someChecked = computed(() => checked.value.some(Boolean))
-const indeterminate = computed(() => someChecked.value && !allChecked.value)
-
-function toggleAll() {
-  const next = !allChecked.value
-  checked.value = checked.value.map(() => next)
-}
+import {
+  Checkbox,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  SelectAll,
+} from "opui-css/vue"
 </script>
 
 <template>
-  <FieldSet class="indeterminate-demo">
-    <FieldLegend>
-      <Checkbox
-        class="parent"
-        :model-value="allChecked"
-        :indeterminate="indeterminate"
-        @update:model-value="toggleAll"
-        >Select all</Checkbox
-      >
-    </FieldLegend>
-    <FieldGroup name="indeterminate-children">
-      <Checkbox
-        class="child"
-        v-for="(item, index) in items"
-        :key="item"
-        v-model="checked[index]"
-        >{{ item }}</Checkbox
-      >
-    </FieldGroup>
-  </FieldSet>
+  <SelectAll>
+    <Fieldset>
+      <FieldLegend>Notifications</FieldLegend>
+      <FieldGroup>
+        <Checkbox data-select-all="">All notifications</Checkbox>
+        <Checkbox checked name="checkbox-indeterminate" value="email"
+          >Email</Checkbox
+        >
+        <Checkbox name="checkbox-indeterminate" value="push">Push</Checkbox>
+        <Checkbox name="checkbox-indeterminate" value="sms">SMS</Checkbox>
+      </FieldGroup>
+    </Fieldset>
+  </SelectAll>
 </template>

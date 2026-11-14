@@ -1,0 +1,267 @@
+---
+import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
+import DocLink from "../../components/DocLink.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import {
+  Button as UIButton,
+  ControlGroup as UIControlGroup,
+  TextField as UITextField,
+} from "opui-css/astro"
+
+import ButtonCSS from "@opui/css/components/button.css?raw"
+import ControlGroupCSS from "@opui/css/components/control-group.css?raw"
+import TextFieldCSS from "@opui/css/components/text-field.css?raw"
+import controlGroupApi from "../../component-api/control-group/api"
+import buttonApi from "../../component-api/button/api"
+
+import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import ControlGroupBuild from "../../components/UnderTheHood/ControlGroupBuild.astro"
+
+export const keywords = [
+  "button group",
+  "field group",
+  "input group",
+  "segmented control",
+  "split button",
+  "toolbar",
+]
+export const description =
+  "Buttons and fields joined into one control, like a split button or a search field with its button."
+---
+
+<Component
+  description={description}
+  slug="control-group"
+  browserSupport={[
+    "alt-text-generated-content",
+    "color-mix",
+    "container-style-queries",
+    "customizable-select",
+    "gap-decorations",
+    "has",
+    "if",
+    "invoker-commands",
+    "lh",
+    "light-dark",
+    "logical-properties",
+    "nth-child-of",
+    "popover",
+    "relative-color",
+    "user-pseudos",
+  ]}
+  fallbacks={{
+    "customizable-select":
+      "Without customizable select, a select in the group opens the browser's own picker.",
+    "gap-decorations":
+      "Without gap decorations, the compat layer overlaps the controls and draws each line with a control's start border, so a row that wraps starts with a line.",
+    if: "Without `if()`, the compat layer draws the lines of a filled or tonal group with the controls' start borders.",
+  }}
+  heroAnatomy
+  apis={[
+    { title: "Control group API", api: controlGroupApi },
+    { title: "Button API", api: buttonApi },
+  ]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/ControlGroup/ControlGroup.astro",
+      type: "component",
+    },
+    {
+      path: "packages/opui/components/ButtonGroup/ButtonGroup.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/control-group.astro", type: "docs" },
+    { path: "src/docs/components/button-group.astro", type: "docs" },
+    { path: "src/component-examples/control-group", type: "docs" },
+    { path: "src/component-examples/button-group", type: "docs" },
+    {
+      path: "packages/opui/css/components/control-group.css",
+      type: "css",
+    },
+    {
+      path: "packages/opui/css/components/button-group.css",
+      type: "css",
+    },
+    { path: "src/component-api/control-group", type: "api" },
+    { path: "src/component-api/button-group", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "control-group.css", code: ControlGroupCSS, lang: "css" },
+    { title: "button.css", code: ButtonCSS, lang: "css", isDependency: true },
+    {
+      title: "text-field.css",
+      code: TextFieldCSS,
+      lang: "css",
+      isDependency: true,
+    },
+  ]}
+>
+  <Fragment slot="title">Control group</Fragment>
+  <Fragment slot="preamble">
+    <Conditional>
+      <Fragment slot="components">
+        Joins buttons and fields into one control. For options that stay
+        selected, use a
+        <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>.
+      </Fragment>
+      <Fragment slot="html">
+        Joins buttons and fields into one control with
+        <code>.ui-control-group</code> and <code>role="group"</code>. For
+        options that stay selected, use a
+        <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>.
+      </Fragment>
+    </Conditional>
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      Related actions, like Undo and Redo, or a
+      <a href="#split-button">split button</a>.
+    </li>
+    <li slot="when">
+      A field and its button, like a <a href="#fields">search field</a>.
+    </li>
+    <li slot="when">
+      One value from several controls, like currency and
+      <a href="#fields">amount</a>.
+    </li>
+    <li slot="when-not">
+      Options that stay selected: use a
+      <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>.
+    </li>
+    <li slot="when-not">
+      A unit like € or kg: use
+      <DocLink href="/components/text-field#affix">Text field affixes</DocLink>.
+    </li>
+    <li slot="when-not">
+      More than five actions: put the rest in a
+      <DocLink href="/components/menu">Menu</DocLink>.
+    </li>
+  </Usage>
+
+  <section id="variants">
+    <h2>Variants</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Transparent by default. Use <code>variant</code> to change it.
+      </Fragment>
+      <Fragment slot="html">
+        Transparent by default. Use <code>.ui-outlined</code>,
+        <code>.ui-tonal</code> or <code>.ui-filled</code> to change it.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Variants" column centered />
+  </section>
+
+  <section id="colors">
+    <h2>Colors</h2>
+    <AutoExample name="Colors" column centered />
+  </section>
+
+  <section id="sizes">
+    <h2>Sizes</h2>
+    <AutoExample name="Sizes" column centered />
+  </section>
+
+  <section id="icons">
+    <h2>Icons</h2>
+    <p>Wrap the label in <code>.ui-text</code>.</p>
+    <AutoExample name="WithIcons" column centered />
+  </section>
+
+  <section id="fields">
+    <h2>Fields</h2>
+    <p>
+      For one value, name the group with a
+      <PropOrClass prop="FieldLegend" class="legend" /> and hide the field
+      labels.
+    </p>
+    <AutoExample name="Fields" column />
+  </section>
+
+  <section id="labels">
+    <h2>Labels</h2>
+    <p>
+      Put help and error text after the group, linked with
+      <code>aria-describedby</code>.
+    </p>
+    <AutoExample name="Labels" column />
+  </section>
+
+  <section id="disabled">
+    <h2>Disabled</h2>
+    <AutoExample name="Disabled" column centered />
+  </section>
+
+  <section id="vertical-orientation">
+    <h2>Vertical orientation</h2>
+    <p>
+      Use <PropOrClass prop='orientation="vertical"' class=".ui-vertical" />.
+    </p>
+    <AutoExample name="Vertical" column centered />
+  </section>
+
+  <section id="overflow">
+    <h2>Overflow</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Wraps by default. Use <code>overflow</code> to scroll or shrink.
+      </Fragment>
+      <Fragment slot="html">
+        Wraps by default. Use <code>.ui-overflow-scroll</code> or
+        <code>.ui-overflow-shrink</code>.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Overflow" column />
+  </section>
+
+  <section id="split-button">
+    <h2>Split button</h2>
+    <p>
+      A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after
+      the button, with <PropOrClass prop='align="end"' class=".ui-align-end" />.
+    </p>
+    <AutoExample name="SplitButton" centered />
+  </section>
+
+  <section id="pagination">
+    <h2>Pagination</h2>
+    <p>
+      Link buttons in a <code>nav</code>, with <code>aria-current="page"</code>
+      on the current one.
+    </p>
+    <AutoExample name="Pagination" row />
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Name a group of actions with <code>aria-label</code>, or one value with
+        a visible legend.
+      </li>
+      <li>Name icon-only buttons with <code>aria-label</code>.</li>
+      <li>Every field keeps its own label, visible or hidden.</li>
+    </ul>
+    <KeyboardSupport />
+  </Fragment>
+
+  <ControlGroupBuild slot="under-the-hood" />
+
+  <Fragment slot="anatomy">
+    <Anatomy zoom={1.25}>
+      <UIControlGroup
+        aria-label="Find an order"
+        style="inline-size: 22rem"
+        variant="outlined"
+      >
+        <UITextField hideLabel label="Order number" placeholder="Order" />
+        <UIButton>Search</UIButton>
+        <UIButton>Clear</UIButton>
+      </UIControlGroup>
+    </Anatomy>
+  </Fragment>
+</Component>

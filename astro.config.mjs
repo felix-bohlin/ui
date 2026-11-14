@@ -1,5 +1,5 @@
 // @ts-check
-import { readdirSync } from "node:fs"
+import { existsSync, readdirSync, readFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import {
   defineConfig,
@@ -7,8 +7,10 @@ import {
   passthroughImageService,
 } from "astro/config"
 import sitemap from "@astrojs/sitemap"
-import expressiveCode from "astro-expressive-code"
+import react from "@astrojs/react"
+import svelte from "@astrojs/svelte"
 import vue from "@astrojs/vue"
+import llms from "./src/integrations/llms.mjs"
 
 import { DEFAULT_FRAMEWORK, FRAMEWORK_IDS } from "./src/utils/framework.js"
 
@@ -18,6 +20,7 @@ const slugsIn = (relDir) =>
     .filter((f) => f.endsWith(".astro"))
     .map((f) => f.replace(/\.astro$/, ""))
 
+const blogSlugs = slugsIn("./src/docs/blog").filter((s) => s !== "index")
 const componentSlugs = slugsIn("./src/docs/components")
 const guideSlugs = ["getting-started", ...slugsIn("./src/docs/guide")]
 
@@ -26,33 +29,99 @@ const legacyRedirects = {
   "/components": `${d}/components`,
   "/api": `${d}/api`,
   "/guide": `${d}/guide/getting-started`,
+  "/components/button-group": `${d}/components/control-group`,
+  "/components/icon-button": `${d}/components/button#icon-only`,
+  ...Object.fromEntries(
+    FRAMEWORK_IDS.map((f) => [
+      `/${f}/components/button-group`,
+      `/${f}/components/control-group`,
+    ]),
+  ),
+  ...Object.fromEntries(
+    FRAMEWORK_IDS.map((f) => [
+      `/${f}/components/icon-button`,
+      `/${f}/components/button#icon-only`,
+    ]),
+  ),
   ...Object.fromEntries(
     componentSlugs.map((s) => [`/components/${s}`, `${d}/components/${s}`]),
   ),
   ...Object.fromEntries(
     guideSlugs.map((s) => [`/guide/${s}`, `${d}/guide/${s}`]),
   ),
+  ...Object.fromEntries(
+    ["/guide", ...FRAMEWORK_IDS.map((f) => `/${f}/guide`)].map((prefix) => [
+      `${prefix}/theme-generator`,
+      "/theme-builder",
+    ]),
+  ),
+  ...Object.fromEntries(
+    ["/learn", ...FRAMEWORK_IDS.map((f) => `/${f}/blog`)].flatMap((prefix) => [
+      [prefix, "/blog"],
+      ...blogSlugs.map((s) => [`${prefix}/${s}`, `/blog/${s}`]),
+    ]),
+  ),
+}
+
+/** @type {URL | undefined} */
+let outDir
+const NOINDEX =
+  /<meta\b(?=[^>]*\bname="robots")(?=[^>]*\bcontent="[^"]*\bnoindex)[^>]*>/i
+/** @param {string} page */
+const indexable = (page) => {
+  if (!outDir) return true
+  const file = new URL(`.${new URL(page).pathname}index.html`, outDir)
+  return !existsSync(file) || !NOINDEX.test(readFileSync(file, "utf-8"))
 }
 
 // https://astro.build/config
 export default defineConfig({
+  compressHTML: true,
   image: { service: passthroughImageService() },
-  site: "https://open-props-ui.netlify.app/",
-  i18n: {
-    defaultLocale: DEFAULT_FRAMEWORK,
-    locales: FRAMEWORK_IDS,
-    routing: { prefixDefaultLocale: true },
-  },
+  markdown: { syntaxHighlight: false },
+  site: "https://opui.dev/",
   redirects: legacyRedirects,
   integrations: [
+    {
+      name: "opui-out-dir",
+      hooks: {
+        "astro:config:done": ({ config }) => {
+          outDir = config.outDir
+        },
+      },
+    },
     vue(),
-    sitemap(),
-    expressiveCode({
-      themes: ["dark-plus", "light-plus"],
-    }),
+    sitemap({ filter: indexable }),
+    svelte(),
+    react({ include: [/\.react\.tsx$/] }),
+    llms(),
   ],
   vite: {
+    build: {
+      assetsInlineLimit: (file) =>
+        /\.woff2?$|\/packages\/opui\/(css\/js|elements)\/[^/]+\.js$/.test(file)
+          ? false
+          : undefined,
+      dynamicImportVarsOptions: {
+        exclude: [/node_modules\/(?!(\.pnpm\/)?microlighter)/],
+      },
+    },
+    optimizeDeps: { exclude: ["microlighter"] },
+    resolve: {
+      alias: ["react", "svelte", "vue"].map((framework) => ({
+        find: new RegExp(`^opui-css/${framework}$`),
+        replacement: fileURLToPath(
+          new URL(`./packages/opui/${framework}/index.ts`, import.meta.url),
+        ),
+      })),
+      external: ["oxfmt"],
+    },
     plugins: [
+      {
+        name: "opui-no-react-refresh",
+        enforce: "post",
+        config: () => ({ oxc: { jsx: { refresh: false } } }),
+      },
       {
         name: "opui-package-astro-hmr",
         handleHotUpdate({ file, server }) {
@@ -61,7 +130,28 @@ export default defineConfig({
           }
         },
       },
+      {
+        name: "opui-raw-without-module-edge",
+        apply: "serve",
+        enforce: "pre",
+        load(id) {
+          const [file, query] = id.split("?")
+          if (!query?.split("&").includes("raw") || !existsSync(file)) return
+          return `export default ${JSON.stringify(readFileSync(file, "utf-8"))}`
+        },
+      },
     ],
+    server: {
+      preTransformRequests: true,
+      watch: {
+        ignored: [
+          "**/.claude/worktrees/**",
+          "**/dist-test/**",
+          "**/playwright-report/**",
+          "**/tests/e2e/__screenshots__/**",
+        ],
+      },
+    },
   },
   devToolbar: { enabled: false },
   fonts: [
@@ -72,7 +162,7 @@ export default defineConfig({
       options: {
         variants: [
           {
-            src: ["./public/BricolageGrotesque[opsz,wdth,wght].ttf"],
+            src: ["./src/fonts/BricolageGrotesque[opsz,wght].woff2"],
             style: "normal",
             weight: "300 900",
             display: "swap",

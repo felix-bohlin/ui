@@ -1,0 +1,14 @@
+---
+import type { DialogTitleProps as Props } from "./types.astro"
+import { dialogContext } from "./context.astro"
+import { warnReplacedId } from "../dev"
+
+const { class: className, id, ...rest } = Astro.props
+
+const dialog = dialogContext.get()
+warnReplacedId("DialogTitle", "Dialog", id, dialog?.titleId)
+---
+
+<h2 class:list={[className]} id={dialog?.titleId ?? id} {...rest}>
+  <slot />
+</h2>

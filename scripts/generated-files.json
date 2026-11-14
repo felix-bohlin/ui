@@ -1,0 +1,10 @@
+{
+  "files": [
+    "packages/opui/figma/themes",
+    "packages/opui/skills/opui/references",
+    "packages/opui/tokens.json",
+    "public/search-index",
+    "src/utils/icon-sets.json"
+  ],
+  "sections": ["packages/opui/README.md"]
+}

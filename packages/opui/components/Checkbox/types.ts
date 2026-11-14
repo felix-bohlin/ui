@@ -1,13 +1,17 @@
-export type CheckboxProps = {
+export type Props = {
+  card?: boolean
+  endText?: string
   error?: boolean
   hideLabel?: boolean
   indeterminate?: boolean
-  size?: "small" | "large"
+  label?: string
+  orientation?: "horizontal" | "vertical"
+  size?: "x-small" | "small" | "medium" | "large"
   spread?: boolean
-  stack?: boolean
+  variant?: "elevated" | "outlined" | "tonal"
 }
 
-export type CheckboxSlots<S> = {
+export type Slots<S> = {
   endText?: string | S
 }
 

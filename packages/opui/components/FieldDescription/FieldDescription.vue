@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { Props, Slots } from "./types.d.vue"
+import type { Props, Slots } from "./types.vue-props"
 
-const props = defineProps<Props>()
+defineProps<Props>()
 defineSlots<Slots>()
 </script>
 
 <template>
-  <p :class="['ui-field-description', props.class]" v-bind="$attrs">
+  <p :class="['ui-description', $props.class]">
     <slot></slot>
   </p>
 </template>

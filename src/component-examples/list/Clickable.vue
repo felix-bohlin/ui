@@ -4,14 +4,14 @@ import { CheckboxInput, List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem as="button" headline="Button list item" />
-    <ListItem as="a" href="#clickable-list-item" headline="Link list item" />
-    <ListItem
-      type="checkbox"
-      for="clickable-checkbox"
-      headline="Checkbox list item"
-    >
-      <template #end><CheckboxInput id="clickable-checkbox" /></template>
+    <ListItem as="button" disabled label="Empty trash" />
+    <ListItem as="button" label="New folder" />
+    <ListItem href="#clickable-list-item" label="Recent files" />
+    <ListItem disabled href="#clickable-list-item" label="Shared drives" />
+    <ListItem choice="checkbox" label="Show hidden files">
+      <template #end>
+        <CheckboxInput />
+      </template>
     </ListItem>
   </List>
 </template>

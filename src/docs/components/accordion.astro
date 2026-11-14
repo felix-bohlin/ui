@@ -1,30 +1,66 @@
 ---
 import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
-import { Accordion as UIAccordion, Button as UIButton } from "@opui/astro"
+import {
+  Accordion as UIAccordion,
+  AccordionActions as UIAccordionActions,
+  AccordionContent as UIAccordionContent,
+  AccordionSummary as UIAccordionSummary,
+  Button as UIButton,
+} from "opui-css/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
 
 import AccordionCSS from "@opui/css/components/accordion.css?raw"
 import CardCSS from "@opui/css/components/card.css?raw"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import AccordionBuild from "../../components/UnderTheHood/AccordionBuild.astro"
 
 import accordionApi from "../../component-api/accordion/api"
+import accordionActionsApi from "../../component-api/accordion-actions/api"
+import accordionSummaryApi from "../../component-api/accordion-summary/api"
+export const description =
+  "A summary that opens to show more content, on its own or in a group."
+
+export const keywords = [
+  "collapse",
+  "details",
+  "disclosure",
+  "expand",
+  "summary",
+]
 ---
 
 <Component
+  description={description}
   slug="accordion"
   heroAnatomy
-  apis={[{ title: "Accordion API", api: accordionApi }]}
+  apis={[
+    { title: "Accordion API", api: accordionApi },
+    { title: "Accordion summary API", api: accordionSummaryApi },
+    { title: "Accordion actions API", api: accordionActionsApi },
+  ]}
   browserSupport={[
-    "container-style-queries",
-    "content-visibility",
     "details-content",
     "details-name",
+    "dir-pseudo",
+    "display-animation",
     "has",
     "interpolate-size",
+    "logical-properties",
+    "overflow-clip",
     "transition-behavior",
   ]}
+  fallbacks={{
+    "display-animation":
+      "Without display animation, the content hides at once when the accordion closes.",
+    "interpolate-size":
+      "Without `interpolate-size`, the content doesn't slide: it fades in at full height and hides at once.",
+  }}
   changelogPaths={[
     {
       path: "packages/opui/components/Accordion/Accordion.astro",
@@ -50,133 +86,114 @@ import accordionApi from "../../component-api/accordion/api"
 >
   <Fragment slot="title">Accordion</Fragment>
   <Fragment slot="preamble">
-    Let's you show and hide stuff. Uses the native HTML arrow, check out how to
-    add your own <a class="ui-link" href="#custom-marker">custom marker</a>.
+    Content most readers skip, like FAQ answers, behind a summary they open. For
+    views of the same content, use
+    <DocLink href="/components/tabs">Tabs</DocLink>.
   </Fragment>
+  <Usage slot="usage">
+    <li slot="when">Content most readers skip, like FAQ answers.</li>
+    <li slot="when">Long pages readers scan by heading.</li>
+    <li slot="when">
+      One open at a time: a shared
+      <a href="#mutually-exclusive"><code>name</code></a>.
+    </li>
+    <li slot="when-not">Content everyone needs: show it on the page.</li>
+    <li slot="when-not">
+      Views of the same content: use
+      <DocLink href="/components/tabs">Tabs</DocLink>.
+    </li>
+  </Usage>
 
-  <section>
-    <h2 id="basics">Basics</h2>
-
+  <section id="basics">
+    <h2>Basics</h2>
     <AutoExample name="Basics" column />
   </section>
 
-  <section>
-    <h2 id="variants">Variants</h2>
-
+  <section id="variants">
+    <h2>Variants</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
-        Use the <code>variant</code> prop to change how it looks.
+      <Fragment slot="components">
+        Plain by default. Use <code>variant</code> to change it.
       </Fragment>
       <Fragment slot="html">
-        Add one of the variant classes (<code>.ui-card</code>, <code
-          >.ui-outlined</code
-        >, <code>.ui-elevated</code>, <code>.ui-tonal</code>) to the <code
-          >&lt;details&gt;</code
-        > element to change how it looks.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>variant</code> prop to change how it looks.
+        Plain by default. Use <code>.ui-elevated</code>,
+        <code>.ui-outlined</code>, <code>.ui-tonal</code> or
+        <code>.ui-transparent</code> to change it.
       </Fragment>
     </Conditional>
-
     <AutoExample name="Variants" column />
   </section>
 
-  <section>
-    <h2 id="accordion-group">Accordion group</h2>
-
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Group multiple accordions by wrapping them in a <code>Card</code>
-        component with <code>role="group"</code>. To theme the entire group,
-        apply the <code>variant</code> prop to the parent container.
-      </Fragment>
-      <Fragment slot="html">
-        Group multiple accordions by wrapping them in a <code>.ui-card</code> element
-        with <code>role="group"</code>. To theme the entire group, apply the
-        variant class to the parent container.
-      </Fragment>
-      <Fragment slot="vue">
-        Group multiple accordions by wrapping them in a <code>Card</code>
-        component with <code>role="group"</code>. To theme the entire group,
-        apply the <code>variant</code> prop to the parent container.
-      </Fragment>
-    </Conditional>
-
+  <section id="accordion-group">
+    <h2>Accordion group</h2>
+    <p>
+      Wrap them in a <PropOrClass prop="Card" class=".ui-card" /> with
+      <code>role="group"</code> and an <code>aria-label</code>.
+    </p>
     <AutoExample name="Group" column />
 
     <h3 id="mutually-exclusive">Mutually exclusive</h3>
-
-    <p>
-      Set the <code>name</code> prop to allow only one accordion in a group to be
-      open at a time.
-    </p>
-
+    <p>Give them the same <code>name</code>.</p>
     <AutoExample name="GroupSingle" column />
   </section>
 
-  <section>
-    <h2 id="actions">Actions</h2>
-
+  <section id="actions">
+    <h2>Actions</h2>
     <p>
-      Include interactive elements in the header by using the <code
-        >.ui-actions</code
-      > class.
+      Use <PropOrClass prop="AccordionActions" class=".ui-actions" />, with
+      <PropOrClass prop='align="start"' class=".ui-align-start" /> to line them
+      up with the content.
     </p>
-
-    <AutoExample name="Actions" />
+    <AutoExample name="Actions" column />
   </section>
 
-  <section>
-    <h2 id="custom-marker">Custom marker</h2>
-
-    <p>
-      Replace the default marker by adding an SVG inside the <code>summary</code
-      >.
-    </p>
-
+  <section id="custom-marker">
+    <h2>Custom marker</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Use <code>marker</code>, with <code>.ui-marker</code> on the icon.
+      </Fragment>
+      <Fragment slot="html"> Replace the <code>svg.ui-marker</code>. </Fragment>
+    </Conditional>
     <AutoExample name="CustomMarker" column />
   </section>
 
-  <Fragment slot="accessibility">
-    <p>
-      The <a
-        class="ui-link"
-        href="https://www.w3.org/WAI/ARIA/apg/patterns/accordion/"
-        >WAI-ARIA guidelines</a
-      > for accordions recommend:
-    </p>
+  <section id="marker-animation">
+    <h2>Marker animation</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Rotates by default. Use <code>markerAnimation</code> to change it, with
+        a marker that points to the inline end for <code>turn</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Rotates by default. Use <code>.ui-marker-animation-flip</code>, or
+        <code>.ui-marker-animation-turn</code> with a marker that points to the
+        inline end.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="MarkerAnimation" column />
+  </section>
 
-    <ul>
-      <li>
-        <code>summary</code> element
-        <ul>
-          <li>adding id and aria-controls</li>
-          <li>adding aria-expanded (if using JS)</li>
-        </ul>
-      </li>
-      <li>
-        content wrapper
-        <ul>
-          <li>adding id, role and aria-labelledby</li>
-        </ul>
-      </li>
-    </ul>
+  <Fragment slot="accessibility">
+    <KeyboardSupport />
   </Fragment>
 
   <Fragment slot="anatomy">
     <Anatomy>
       <UIAccordion open variant="outlined">
-        <Fragment slot="summary">Accordion title</Fragment>
-        <p>
-          Explain more about the topic shown in the summary through supporting
-          text.
-        </p>
-        <Fragment slot="actions">
+        <UIAccordionSummary>Accordion title</UIAccordionSummary>
+        <UIAccordionContent>
+          <p>
+            Explain more about the topic shown in the summary through supporting
+            text.
+          </p>
+        </UIAccordionContent>
+        <UIAccordionActions>
           <UIButton>Cancel</UIButton>
           <UIButton>Agree</UIButton>
-        </Fragment>
+        </UIAccordionActions>
       </UIAccordion>
     </Anatomy>
   </Fragment>
+  <AccordionBuild slot="under-the-hood" />
 </Component>

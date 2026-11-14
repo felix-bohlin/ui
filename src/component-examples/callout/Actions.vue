@@ -1,0 +1,23 @@
+<script setup lang="ts">
+import {
+  Button,
+  Callout,
+  CalloutActions,
+  CalloutContent,
+  CalloutIcon,
+} from "opui-css/vue"
+</script>
+
+<template>
+  <Callout severity="warning">
+    <CalloutIcon />
+    <CalloutContent>
+      <h3>Your Bassbook Gold trial ends in 3 days</h3>
+      <p>Choose a plan to keep your setlists and all your slap videos.</p>
+    </CalloutContent>
+    <CalloutActions>
+      <Button size="small" variant="filled">Choose a plan</Button>
+      <Button size="small">Remind me later</Button>
+    </CalloutActions>
+  </Callout>
+</template>

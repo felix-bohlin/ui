@@ -1,18 +1,31 @@
 <form class="ui-form">
   <fieldset class="ui-fieldset" disabled>
-    <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <legend>Share with friends</legend>
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-switch">
-        <input name="switch-group-disabled" role="switch" type="checkbox">
-        <span class="ui-label">Switch 1</span>
+        <input name="switch-group-disabled" role="switch" type="checkbox" value="profile">
+        <span class="ui-label">Profile</span>
       </label>
       <label class="ui-switch">
-        <input name="switch-group-disabled" role="switch" type="checkbox">
-        <span class="ui-label">Switch 2</span>
+        <input name="switch-group-disabled" role="switch" type="checkbox" value="activity">
+        <span class="ui-label">Activity</span>
       </label>
       <label class="ui-switch">
-        <input name="switch-group-disabled" role="switch" type="checkbox">
-        <span class="ui-label">Switch 3</span>
+        <input name="switch-group-disabled" role="switch" type="checkbox" value="location">
+        <span class="ui-label">Location</span>
+      </label>
+    </div>
+  </fieldset>
+  <fieldset class="ui-fieldset">
+    <legend>Sync</legend>
+    <div class="ui-field-group ui-horizontal">
+      <label class="ui-switch">
+        <input checked name="switch-group-disabled-single" role="switch" type="checkbox" value="contacts">
+        <span class="ui-label">Contacts</span>
+      </label>
+      <label class="ui-switch">
+        <input disabled name="switch-group-disabled-single" role="switch" type="checkbox" value="photos">
+        <span class="ui-label">Photos</span>
       </label>
     </div>
   </fieldset>

@@ -1,0 +1,349 @@
+<style>
+  .invoice {
+    container-type: inline-size;
+
+    .invoice-sheet {
+      padding: var(--ui-space-2);
+
+      @container (inline-size >= 40rem) {
+        padding: var(--ui-space-5);
+      }
+
+      > .ui-content {
+        gap: var(--ui-space-6);
+      }
+    }
+
+    .invoice-head {
+      align-items: start;
+    }
+
+    .invoice-brand {
+      font-weight: var(--ui-font-weight-bold);
+
+      svg {
+        block-size: 1.75rem;
+        color: var(--ui-primary);
+        inline-size: 1.75rem;
+      }
+    }
+
+    .invoice-title {
+      align-items: start;
+
+      @container (inline-size >= 40rem) {
+        align-items: end;
+        text-align: end;
+      }
+    }
+
+    .invoice-parties {
+      address {
+        font-style: normal;
+        line-height: 1.5;
+      }
+    }
+
+    .invoice-label {
+      margin-block-end: var(--ui-space-2);
+    }
+
+    .invoice-items :is(th, td) {
+      &:first-child {
+        inline-size: 100%;
+      }
+
+      &:last-child {
+        inline-size: auto;
+      }
+    }
+
+    .invoice-totals {
+      justify-self: end;
+      max-inline-size: 22rem;
+    }
+
+    .invoice-footer {
+      text-align: center;
+    }
+
+    @media print {
+      .invoice-toolbar {
+        display: none;
+      }
+
+      .invoice-sheet :is(section, .ui-callout) {
+        break-inside: avoid;
+      }
+    }
+  }
+</style>
+
+<div
+  class="invoice ui-layout-container ui-layout-column ui-large"
+  style="--_max-inline-size: 58rem"
+>
+  <div class="ui-layout-row ui-small ui-spread invoice-toolbar">
+    <a class="ui-button ui-small" href="#invoice-all"
+      ><svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+        ></path></svg
+      ><span class="ui-text">All invoices</span></a
+    >
+    <div class="ui-layout-row ui-small">
+      <button class="ui-button ui-outlined ui-small" type="button">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3m-3 11H8v-5h8zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1m-1-9H6v4h12z"
+          ></path></svg
+        ><span class="ui-text">Print</span>
+      </button>
+      <button class="ui-button ui-outlined ui-small" type="button">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M5 20h14v-2H5zM19 9h-4V3H9v6H5l7 7z"
+          ></path></svg
+        ><span class="ui-text">PDF</span>
+      </button>
+      <button class="ui-button ui-filled ui-small" type="button">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z"
+          ></path></svg
+        ><span class="ui-text">Send invoice</span>
+      </button>
+    </div>
+  </div>
+
+  <article
+    aria-labelledby="invoice-heading"
+    class="ui-card ui-outlined invoice-sheet"
+  >
+    <div class="ui-content">
+      <div class="ui-layout-row ui-spread invoice-head">
+        <div class="ui-layout-row ui-small invoice-brand">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="m11.99 18.54-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27z"
+            ></path>
+          </svg>
+          Bassbook
+        </div>
+        <div class="ui-layout-column ui-small invoice-title">
+          <hgroup>
+            <h1 class="ui-h3" id="invoice-heading">Invoice BB-2026-0418</h1>
+            <p>Issued 8 October 2026</p>
+          </hgroup>
+          <span class="ui-chip ui-dot ui-warning ui-small"
+            ><span class="ui-text">Due 7 November 2026</span></span
+          >
+        </div>
+      </div>
+
+      <div
+        class="ui-layout-grid ui-large ui-stretch invoice-parties"
+        style="--_min-inline-size: 12rem"
+      >
+        <section aria-labelledby="invoice-from">
+          <h2 class="ui-overline invoice-label" id="invoice-from">From</h2>
+          <address>
+            <strong>Bassbook HQ</strong><br />
+            4 Low End Lane<br />
+            444 44 Bassville<br />
+            VAT EX444444444401
+          </address>
+        </section>
+        <section aria-labelledby="invoice-to">
+          <h2 class="ui-overline invoice-label" id="invoice-to">Bill to</h2>
+          <address>
+            <strong>The Low Enders</strong><br />
+            Attn. Percy Groove<br />
+            Rehearsal Room B, 7 Drop D Drive<br />
+            411 36 Rumbleton
+          </address>
+        </section>
+        <section aria-labelledby="invoice-details">
+          <h2 class="ui-overline invoice-label" id="invoice-details">
+            Details
+          </h2>
+          <dl class="ui-description-list">
+            <div>
+              <dt>Your reference</dt>
+              <dd>BAND-FUND-04</dd>
+            </div>
+            <div>
+              <dt>Payment terms</dt>
+              <dd>30 days, no excuses</dd>
+            </div>
+          </dl>
+        </section>
+      </div>
+
+      <table
+        aria-label="Line items"
+        class="ui-table ui-flush ui-overflow-scroll invoice-items"
+        tabindex="0"
+      >
+        <thead>
+          <tr>
+            <th scope="col">Description</th>
+            <th class="ui-numeric" scope="col">Qty</th>
+            <th class="ui-numeric" scope="col">Unit price</th>
+            <th class="ui-numeric" scope="col">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              Bassbook Gold, yearly
+              <p class="ui-caption">4 band members, Nov 2026 to Oct 2027</p>
+            </td>
+            <td class="ui-numeric">4</td>
+            <td class="ui-numeric">€30.00</td>
+            <td class="ui-numeric">€120.00</td>
+          </tr>
+          <tr>
+            <td>
+              Bassbook Platinum, yearly
+              <p class="ui-caption">For the bassist, obviously</p>
+            </td>
+            <td class="ui-numeric">1</td>
+            <td class="ui-numeric">€50.00</td>
+            <td class="ui-numeric">€50.00</td>
+          </tr>
+          <tr>
+            <td>
+              Gig flyer boost
+              <p class="ui-caption">Pinned on the Low End Theory wall</p>
+            </td>
+            <td class="ui-numeric">2</td>
+            <td class="ui-numeric">€4.50</td>
+            <td class="ui-numeric">€9.00</td>
+          </tr>
+          <tr>
+            <td>
+              Profile glitter pack, October 2026
+              <p class="ui-caption">Extra sparkles for the band page</p>
+            </td>
+            <td class="ui-numeric">1</td>
+            <td class="ui-numeric">€1.00</td>
+            <td class="ui-numeric">€1.00</td>
+          </tr>
+        </tbody>
+      </table>
+      <dl
+        class="ui-description-list ui-horizontal ui-border-solid invoice-totals"
+      >
+        <div>
+          <dt>Subtotal</dt>
+          <dd>€180.00</dd>
+        </div>
+        <div>
+          <dt>VAT 25 %</dt>
+          <dd>€45.00</dd>
+        </div>
+        <div class="ui-total">
+          <dt>Total due</dt>
+          <dd>€225.00</dd>
+        </div>
+      </dl>
+
+      <hr class="ui-divider" />
+
+      <section
+        aria-labelledby="invoice-payment-heading"
+        class="ui-layout-columns ui-large ui-breakpoint-small"
+        style="--_columns: 3fr 2fr"
+      >
+        <div>
+          <h2 class="ui-overline invoice-label" id="invoice-payment-heading">
+            Payment details
+          </h2>
+          <dl class="ui-description-list ui-border-solid">
+            <div>
+              <dt>Bankgiro</dt>
+              <dd>4444-4444</dd>
+            </div>
+            <div>
+              <dt>IBAN</dt>
+              <dd>EX00 BASS 0000 0000 0444 4444</dd>
+            </div>
+            <div>
+              <dt>BIC</dt>
+              <dd>BASSEX44</dd>
+            </div>
+            <div>
+              <dt>OCR reference</dt>
+              <dd>4180 2026 7</dd>
+            </div>
+          </dl>
+        </div>
+        <article class="ui-callout ui-info">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m1 15h-2v-6h2zm0-8h-2V7h2z"
+            ></path>
+          </svg>
+          <div class="ui-content">
+            <h3>Pay by 7 November</h3>
+            <p>
+              Use the OCR reference so we can match your payment, easy peasy!
+              Questions? Email
+              <a class="ui-link" href="#invoice-billing"
+                >billing@bassbook.example</a
+              >.
+            </p>
+          </div>
+        </article>
+      </section>
+
+      <p class="invoice-footer ui-caption">
+        Bassbook, Org. no. 444444-4444, registered office Bassville. Thanks for
+        keeping the low end alive! &lt;3
+      </p>
+    </div>
+  </article>
+</div>

@@ -1,19 +1,36 @@
 ---
 import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
+import DocLink from "../../components/DocLink.astro"
 import Anatomy from "../../components/Anatomy.astro"
-import { Chip as UIChip } from "@opui/astro"
+import { Chip as UIChip } from "opui-css/astro"
+import BlockLink from "../../components/BlockLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import ChipCSS from "@opui/css/components/chip.css?raw"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
 import chipApi from "../../component-api/chip/api"
+import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
+
+export const description =
+  "A compact label or control for filters, tags and choices."
+
+export const keywords = ["filter", "pill", "tag", "token"]
 ---
 
 <Component
+  description={description}
   slug="chip"
   heroAnatomy
   apis={[{ title: "Chip API", api: chipApi }]}
-  browserSupport={["color-mix", "has", "light-dark", "relative-color"]}
+  browserSupport={[
+    "container-style-queries",
+    "has",
+    "light-dark",
+    "relative-color",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/Chip/Chip.astro",
@@ -31,69 +48,143 @@ import chipApi from "../../component-api/chip/api"
 >
   <Fragment slot="title">Chip</Fragment>
   <Fragment slot="preamble">
-    Chips are compact elements that represent an input, attribute, or action.
+    Filters, tags and choices. For the main action, use a
+    <DocLink href="/components/button">Button</DocLink>.
   </Fragment>
 
-  <section>
-    <h2 id="variants">Variants</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        The Chip has two variants: <code>tonal</code> (default) and <code
-          >outlined</code
-        >.
-      </Fragment>
-      <Fragment slot="html">
-        The Chip has two variants: tonal (default) and <code>.ui-outlined</code
-        >.
-      </Fragment>
-      <Fragment slot="vue">
-        The Chip has two variants: <code>tonal</code> (default) and <code
-          >outlined</code
-        >.
-      </Fragment>
-    </Conditional>
+  <Usage slot="usage">
+    <li slot="when">
+      Filters that toggle: <a href="#pressed"><code>aria-pressed</code></a>.
+    </li>
+    <li slot="when">
+      Tags, or a status with a <a href="#severities">severity</a>.
+    </li>
+    <li slot="when">
+      Small actions, like removing a tag: a <a href="#button">button chip</a>.
+    </li>
+    <li slot="when-not">
+      The main action: use a <DocLink href="/components/button">Button</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      Choices a form submits: use a
+      <DocLink href="/components/checkbox">Checkbox</DocLink> or a
+      <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>.
+    </li>
+    <li slot="when-not">
+      A count on an icon: use a <DocLink href="/components/badge">Badge</DocLink
+      >.
+    </li>
+  </Usage>
+
+  <section id="variants">
+    <h2>Variants</h2>
+    <p>
+      Tonal by default. Use
+      <PropOrClass prop='variant="outlined"' class=".ui-outlined" /> for an
+      outline.
+    </p>
     <AutoExample name="Variants" row />
   </section>
 
-  <section>
-    <h2 id="icon">Icon</h2>
-    <Conditional>
-      <p slot="astro">
-        The icon can be placed before or after the text using the
-        <code>start</code> and <code>end</code> slots.
-      </p>
-      <p slot="html">
-        The icon can be placed before or after the text. <br />
-        Make sure the text is wrapped in the <code>.ui-text</code> wrapper class.
-      </p>
-      <p slot="vue">
-        The icon can be placed before or after the text using the
-        <code>start</code> and <code>end</code> slots.
-      </p>
+  <section id="severities">
+    <h2>Severities</h2>
+    <Conditional as="p">
+      <Fragment slot="components"> Use <code>severity</code>. </Fragment>
+      <Fragment slot="html">
+        Use a severity class, like <code>.ui-success</code>.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Severities" row />
+  </section>
+
+  <section id="sizes">
+    <h2>Sizes</h2>
+    <AutoExample name="Sizes" row />
+  </section>
+
+  <section id="icon">
+    <h2>Icon</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Use <code>start</code> and <code>end</code>.
+      </Fragment>
+      <Fragment slot="html"> Wrap the text in <code>.ui-text</code>. </Fragment>
     </Conditional>
     <AutoExample name="Icon" row />
   </section>
 
-  <section>
-    <h2 id="button">Button</h2>
-    <AutoExample name="Button" column centered />
+  <section id="dot">
+    <h2>Dot</h2>
+    <p>Use <PropOrClass prop="dot" class=".ui-dot" />.</p>
+    <AutoExample name="Dot" column />
   </section>
 
-  <section>
-    <h2 id="link">Link</h2>
+  <section id="button">
+    <h2>Button</h2>
+    <p>
+      Use <PropOrClass prop='as="button"' class='<button class="ui-chip">' />. A
+      remove chip needs an <code>aria-label</code>.
+    </p>
+    <AutoExample name="Button" column centered />
+    <BlockLink slug="shopping-cart">
+      The applied discount code under the order summary is an outlined button
+      chip with a close icon, labelled "Remove code HOSTEN10".
+    </BlockLink>
+  </section>
+
+  <section id="link">
+    <h2>Link</h2>
+    <p>Use <PropOrClass prop="href" class='<a class="ui-chip">' />.</p>
     <AutoExample name="Link" row />
   </section>
 
-  <section>
-    <h2 id="sizes">Sizes</h2>
-    <AutoExample name="Sizes" row />
+  <section id="pressed">
+    <h2>Pressed</h2>
+    <p>Use <code>aria-pressed</code> on a button chip, and flip it on click.</p>
+    <AutoExample name="Pressed" column centered />
   </section>
+
+  <section id="disabled">
+    <h2>Disabled</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        A static chip can't be disabled. Use <code>.ui-disabled</code> for the
+        look.
+      </Fragment>
+      <Fragment slot="html">
+        Links: drop <code>href</code>, add <code>role="link"</code> and
+        <code>aria-disabled="true"</code>. A static chip takes
+        <code>.ui-disabled</code> for the look.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Disabled" row />
+  </section>
+
+  <section id="multiline">
+    <h2>Multiline</h2>
+    <p>
+      Labels truncate by default. Use
+      <PropOrClass prop="multiline" class=".ui-multiline" /> to wrap them.
+    </p>
+    <AutoExample name="Multiline" row />
+  </section>
+
+  <ChipBuild slot="under-the-hood" />
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>Color isn't announced: keep a status in the label.</li>
+    </ul>
+    <KeyboardSupport />
+  </Fragment>
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.5}>
       <UIChip label="Chip">
         <svg
           slot="start"
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 32 32"
         >
@@ -102,7 +193,12 @@ import chipApi from "../../component-api/chip/api"
             d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"
           ></path>
         </svg>
-        <svg slot="end" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+        <svg
+          slot="end"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 32 32"
+        >
           <path
             fill="currentColor"
             d="M6.293 6.293a1 1 0 0 1 1.414 0L16 14.586l8.293-8.293a1 1 0 1 1 1.414 1.414L17.414 16l8.293 8.293a1 1 0 0 1-1.414 1.414L16 17.414l-8.293 8.293a1 1 0 0 1-1.414-1.414L14.586 16L6.293 7.707a1 1 0 0 1 0-1.414"

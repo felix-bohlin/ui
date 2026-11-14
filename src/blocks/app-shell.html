@@ -1,0 +1,534 @@
+<style>
+  .app-shell {
+    container-type: inline-size;
+
+    .shell-header {
+      border-block-end: var(--ui-border-width) solid var(--ui-border-color);
+      padding: var(--ui-space-2) var(--ui-space-3);
+    }
+
+    .shell-menu-button {
+      @container (inline-size >= 56rem) {
+        display: none;
+      }
+    }
+
+    .shell-brand {
+      color: var(--ui-text-strong);
+      font-weight: var(--ui-font-weight-bold);
+      margin-inline-end: auto;
+      text-decoration: none;
+
+      svg {
+        color: var(--ui-primary);
+      }
+    }
+
+    .shell-search {
+      display: none;
+      inline-size: 18rem;
+
+      @container (inline-size >= 40rem) {
+        display: block;
+      }
+    }
+
+    .shell-sidebar {
+      border-inline-end: var(--ui-border-width) solid var(--ui-border-color);
+      display: none;
+      padding: var(--ui-space-2);
+
+      @container (inline-size >= 56rem) {
+        display: block;
+      }
+    }
+
+    .shell-nav-label {
+      padding: var(--ui-space-3) var(--ui-space-3) 0;
+    }
+
+    main {
+      padding: var(--ui-space-5) var(--ui-space-4);
+    }
+  }
+</style>
+
+<div class="app-shell">
+  <header class="shell-header ui-layout-row ui-small">
+    <button
+      aria-label="Open navigation"
+      class="ui-button ui-round ui-small shell-menu-button"
+      command="show-modal"
+      commandfor="app-shell-drawer"
+      type="button"
+    >
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"
+        ></path>
+      </svg>
+    </button>
+    <a class="shell-brand ui-layout-row ui-small" href="#app-shell-home">
+      <svg
+        aria-hidden="true"
+        class="ui-icon ui-large"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M12 2 3 7v10l9 5 9-5V7zm0 2.3 6.6 3.7L12 11.7 5.4 8zM5 9.7l6 3.4v6.6l-6-3.4zm8 10v-6.6l6-3.4v6.6z"
+        ></path>
+      </svg>
+      Bassbook
+    </a>
+    <div class="ui-text-field ui-small shell-search">
+      <span class="ui-field">
+        <input
+          aria-label="Search"
+          name="app-shell-search"
+          placeholder="Search bassists and bands"
+          type="search"
+        />
+        <span class="ui-start">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"
+            ></path>
+          </svg>
+        </span>
+      </span>
+    </div>
+    <button
+      aria-label="Notifications, 3 unread"
+      class="ui-button ui-round ui-small"
+      type="button"
+    >
+      <span class="ui-badge ui-dot">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2m6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4a1.5 1.5 0 0 0-3 0v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1z"
+          ></path>
+        </svg>
+        <span class="ui-floating">
+          <span class="ui-indicator"></span>
+        </span>
+      </span>
+    </button>
+    <button
+      class="ui-avatar"
+      command="toggle-popover"
+      commandfor="app-shell-account"
+      type="button"
+    >
+      <span class="ui-sr-only">Account menu for</span>
+      <span aria-label="Rory Rootnote" role="img">RR</span>
+    </button>
+    <menu class="ui-menu ui-align-end" id="app-shell-account" popover>
+      <li class="ui-heading">rory@lowend.example</li>
+      <li>
+        <a href="#app-shell-profile">
+          <div class="ui-text"><p>Profile</p></div>
+        </a>
+      </li>
+      <li>
+        <a href="#app-shell-settings">
+          <div class="ui-text"><p>Settings</p></div>
+        </a>
+      </li>
+      <li class="ui-border-top">
+        <button
+          command="hide-popover"
+          commandfor="app-shell-account"
+          type="button"
+        >
+          <div class="ui-text"><p>Sign out</p></div>
+        </button>
+      </li>
+    </menu>
+  </header>
+
+  <div class="ui-layout-columns" style="--_columns: 15rem 1fr; --_gap: 0">
+    <nav aria-label="Main" class="shell-sidebar">
+      <ul class="ui-list ui-dense ui-transparent">
+        <li>
+          <a aria-current="page" href="#app-shell-home">
+            <div class="ui-start">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"
+                ></path>
+              </svg>
+            </div>
+            <div class="ui-text"><p>Home</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#app-shell-messages">
+            <div class="ui-start">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m0 12h-4a3 3 0 0 1-6 0H5V5h14z"
+                ></path>
+              </svg>
+            </div>
+            <div class="ui-text"><p>Messages</p></div>
+            <div class="ui-end">4</div>
+          </a>
+        </li>
+        <li>
+          <a href="#app-shell-photos">
+            <div class="ui-start">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M10 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8z"
+                ></path>
+              </svg>
+            </div>
+            <div class="ui-text"><p>Photos</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#app-shell-gigs">
+            <div class="ui-start">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 16H5V10h14z"
+                ></path>
+              </svg>
+            </div>
+            <div class="ui-text"><p>Gigs</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#app-shell-leaderboard">
+            <div class="ui-start">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M5 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm2 12a1 1 0 1 1 2 0v2a1 1 0 1 1-2 0zm4-4a1 1 0 1 1 2 0v6a1 1 0 1 1-2 0zm4-4a1 1 0 1 1 2 0v10a1 1 0 1 1-2 0z"
+                ></path>
+              </svg>
+            </div>
+            <div class="ui-text"><p>Leaderboard</p></div>
+          </a>
+        </li>
+      </ul>
+      <p class="ui-overline shell-nav-label" id="app-shell-groups-label">
+        My groups
+      </p>
+      <ul
+        aria-labelledby="app-shell-groups-label"
+        class="ui-list ui-dense ui-transparent"
+      >
+        <li>
+          <a href="#app-shell-low-end-theory">
+            <div class="ui-start">
+              <span class="ui-swatch ui-info"></span>
+            </div>
+            <div class="ui-text"><p>Low End Theory</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#app-shell-ignored-bassists">
+            <div class="ui-start">
+              <span class="ui-swatch ui-warning"></span>
+            </div>
+            <div class="ui-text"><p>Ignored Bassists Anon.</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#app-shell-gear-talk">
+            <div class="ui-start">
+              <span class="ui-swatch ui-success"></span>
+            </div>
+            <div class="ui-text"><p>Gear Talk</p></div>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <main class="ui-layout-column ui-large">
+      <div class="ui-layout-row ui-spread">
+        <hgroup class="ui-hgroup">
+          <p>Wednesday, 8 October</p>
+          <h1 class="ui-h3">Heyyy, Rory! :)</h1>
+        </hgroup>
+        <button class="ui-button ui-filled ui-small" type="button">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+            ></path></svg
+          ><span class="ui-text">New post</span>
+        </button>
+      </div>
+
+      <ul class="ui-layout-grid ui-stretch" style="--_min-inline-size: 11rem">
+        <li>
+          <div class="ui-card ui-outlined">
+            <div class="ui-content">
+              <dl class="ui-stat">
+                <dt class="ui-label">Friend requests</dt>
+                <dd class="ui-value">12</dd>
+                <dd class="ui-description">3 from drummers (suspicious)</dd>
+              </dl>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-outlined">
+            <div class="ui-content">
+              <dl class="ui-stat">
+                <dt class="ui-label">Gigs this week</dt>
+                <dd class="ui-value">2</dd>
+                <dd class="ui-description">You're invited to both!</dd>
+              </dl>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-outlined">
+            <div class="ui-content">
+              <dl class="ui-stat">
+                <dt class="ui-label">Shoutouts in October</dt>
+                <dd class="ui-value">38</dd>
+                <dd class="ui-description">Up from 29 in September</dd>
+              </dl>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <div
+        class="ui-layout-columns ui-large ui-breakpoint-large"
+        style="--_columns: 3fr 2fr"
+      >
+        <section
+          aria-labelledby="app-shell-upcoming-heading"
+          class="ui-card ui-outlined"
+        >
+          <hgroup>
+            <h2 class="ui-h5" id="app-shell-upcoming-heading">To-do list</h2>
+            <p>Stuff to do before the next gig.</p>
+          </hgroup>
+          <ul class="ui-list ui-transparent">
+            <li>
+              <label class="ui-checkbox" for="app-shell-task-1">
+                <div class="ui-text">
+                  <p>Restring the 5-string with flatwounds</p>
+                  <p>Gear Talk, due today</p>
+                </div>
+                <div class="ui-end">
+                  <input id="app-shell-task-1" type="checkbox" />
+                </div>
+              </label>
+            </li>
+            <li>
+              <label class="ui-checkbox" for="app-shell-task-2">
+                <div class="ui-text">
+                  <p>Learn the slap break for the encore</p>
+                  <p>Low End Theory, due Fri 10 Oct</p>
+                </div>
+                <div class="ui-end">
+                  <input id="app-shell-task-2" type="checkbox" />
+                </div>
+              </label>
+            </li>
+            <li>
+              <label class="ui-checkbox" for="app-shell-task-3">
+                <div class="ui-text">
+                  <p>Ask if the band has a gig Saturday</p>
+                  <p>Ignored Bassists Anon., due Tue 14 Oct</p>
+                </div>
+                <div class="ui-end">
+                  <input id="app-shell-task-3" type="checkbox" />
+                </div>
+              </label>
+            </li>
+            <li>
+              <label class="ui-checkbox" for="app-shell-task-4">
+                <div class="ui-text">
+                  <p>Practice my “turn it down” face</p>
+                  <p>Low End Theory, due Thu 16 Oct</p>
+                </div>
+                <div class="ui-end">
+                  <input id="app-shell-task-4" type="checkbox" />
+                </div>
+              </label>
+            </li>
+          </ul>
+        </section>
+
+        <section
+          aria-labelledby="app-shell-activity-heading"
+          class="ui-card ui-outlined"
+        >
+          <hgroup>
+            <h2 class="ui-h5" id="app-shell-activity-heading">The Wall</h2>
+            <p>What your bass buddies did today.</p>
+          </hgroup>
+          <ul class="ui-list ui-transparent">
+            <li>
+              <div class="ui-start">
+                <div class="ui-avatar" role="img" aria-label="Percy Groove">
+                  PG
+                </div>
+              </div>
+              <div class="ui-text">
+                <p>Percy posted “Rate my pedalboard!!”</p>
+                <p>Gear Talk, 09:42</p>
+              </div>
+            </li>
+            <li>
+              <div class="ui-start">
+                <div class="ui-avatar" role="img" aria-label="Stella Nut">
+                  SN
+                </div>
+              </div>
+              <div class="ui-text">
+                <p>Stella commented on “Drop D or bust”</p>
+                <p>Low End Theory, 08:15</p>
+              </div>
+            </li>
+            <li>
+              <div class="ui-start">
+                <div class="ui-avatar" role="img" aria-label="Ines Hertz">
+                  IH
+                </div>
+              </div>
+              <div class="ui-text">
+                <p>Ines uploaded 12 gig photos</p>
+                <p>Ignored Bassists Anon., 07:58</p>
+              </div>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <dialog
+    aria-labelledby="app-shell-drawer-heading"
+    class="ui-drawer ui-scroll-lock"
+    closedby="any"
+    id="app-shell-drawer"
+  >
+    <div class="ui-header">
+      <h2 id="app-shell-drawer-heading">Bassbook</h2>
+      <button
+        aria-label="Close navigation"
+        class="ui-button ui-round ui-small"
+        command="close"
+        commandfor="app-shell-drawer"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+          ></path>
+        </svg>
+      </button>
+    </div>
+    <nav aria-label="Main" class="ui-content">
+      <ul class="ui-list ui-transparent">
+        <li>
+          <a aria-current="page" href="#app-shell-home">
+            <div class="ui-text"><p>Home</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#app-shell-messages">
+            <div class="ui-text"><p>Messages</p></div>
+            <div class="ui-end">4</div>
+          </a>
+        </li>
+        <li>
+          <a href="#app-shell-photos">
+            <div class="ui-text"><p>Photos</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#app-shell-gigs">
+            <div class="ui-text"><p>Gigs</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#app-shell-leaderboard">
+            <div class="ui-text"><p>Leaderboard</p></div>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </dialog>
+</div>

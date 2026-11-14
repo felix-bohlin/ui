@@ -1,0 +1,60 @@
+---
+import { TableCell, TableRow } from "opui-css/astro"
+import DocLink from "../../../../components/DocLink.astro"
+import DocsTable from "../../../../components/DocsTable.astro"
+import type { ComponentApi } from "../../../../component-api/types"
+import { shipped } from "../../../../utils/component-source"
+
+const apis = import.meta.glob<ComponentApi>(
+  "../../../../component-api/*/api.ts",
+  { eager: true, import: "default" },
+)
+
+const bindings = new Map<string, { component: string; page: string }[]>()
+for (const [path, api] of Object.entries(apis)) {
+  if (!api.model || !shipped(api, "svelte")) continue
+  const models = api.model.frameworks?.svelte ?? [api.model]
+  const page = api.page ?? path.split("/").at(-2)!
+  for (const { prop } of models) {
+    bindings.set(prop, [
+      ...(bindings.get(prop) ?? []),
+      { component: api.component, page },
+    ])
+  }
+}
+
+const rows = [...bindings]
+  .map(([prop, components]) => ({
+    binding: `bind:${prop}`,
+    components: components.toSorted((a, b) =>
+      a.component.localeCompare(b.component, "en"),
+    ),
+  }))
+  .toSorted((a, b) => a.binding.localeCompare(b.binding, "en"))
+---
+
+<DocsTable
+  columns={[{ label: "Binding", width: "30%" }, { label: "Components" }]}
+>
+  {rows.map((row) => <TableRow>
+    <TableCell><code>{row.binding}</code></TableCell>
+    <TableCell>
+      <ul class="components" role="list">
+        {row.components.map((item) => <li>
+          <DocLink href={`/components/${item.page}`}>{item.component}</DocLink>
+        </li>)}
+      </ul>
+    </TableCell>
+  </TableRow>)}
+</DocsTable>
+
+<style>
+  .components {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-1) var(--size-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+</style>

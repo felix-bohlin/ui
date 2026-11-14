@@ -1,0 +1,64 @@
+<form class="ui-form">
+  <article
+    class="ui-callout ui-critical"
+    id="form-error-summary-1"
+    tabindex="-1"
+  >
+    <svg
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+    ></svg>
+    <div class="ui-content ui-rich-text">
+      <h3>Fix 2 fields to create your account</h3>
+      <ul>
+        <li><a href="#form-error-summary-2">Enter your work email</a></li>
+        <li>
+          <a href="#form-error-summary-3"
+            >Choose a password with at least 12 characters</a
+          >
+        </li>
+      </ul>
+    </div>
+  </article>
+  <div class="ui-field-group">
+    <label class="ui-text-field">
+      <span class="ui-label" id="form-error-summary-2-label">Email</span>
+      <span class="ui-field">
+        <input
+          autocomplete="email"
+          aria-describedby="form-error-summary-2-end-text"
+          aria-invalid="true"
+          aria-labelledby="form-error-summary-2-label"
+          id="form-error-summary-2"
+          type="email"
+        />
+      </span>
+      <span class="ui-end-text" id="form-error-summary-2-end-text"
+        >Enter your work email.</span
+      >
+    </label>
+    <label class="ui-text-field">
+      <span class="ui-label" id="form-error-summary-3-label">Password</span>
+      <span class="ui-field">
+        <input
+          autocomplete="new-password"
+          value="hunter2"
+          aria-describedby="form-error-summary-3-end-text"
+          aria-invalid="true"
+          aria-labelledby="form-error-summary-3-label"
+          id="form-error-summary-3"
+          type="password"
+        />
+      </span>
+      <span class="ui-end-text" id="form-error-summary-3-end-text"
+        >Choose a password with at least 12 characters.</span
+      >
+    </label>
+  </div>
+  <div class="ui-field-group">
+    <button class="ui-button ui-filled" type="submit">Create account</button>
+  </div>
+</form>

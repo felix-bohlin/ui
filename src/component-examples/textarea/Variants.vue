@@ -3,6 +3,6 @@ import { Textarea } from "opui-css/vue"
 </script>
 
 <template>
-  <Textarea label="Default" placeholder="Placeholder" />
-  <Textarea label="Filled" placeholder="Placeholder" filled />
+  <Textarea label="Outlined" placeholder="Write a message" />
+  <Textarea label="Filled" placeholder="Write a message" variant="filled" />
 </template>

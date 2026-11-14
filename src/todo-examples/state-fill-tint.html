@@ -1,0 +1,191 @@
+<style>
+  .todo-scheme {
+    display: grid;
+    gap: var(--size-2);
+    inline-size: 100%;
+    padding: var(--size-3);
+  }
+
+  .todo-tinted {
+    --ui-surface: light-dark(oklch(97% 0.02 300), oklch(24% 0.04 300));
+    --ui-surface-tonal: light-dark(oklch(93% 0.03 300), oklch(30% 0.05 300));
+    --ui-text-strong: light-dark(oklch(28% 0.1 300), oklch(95% 0.05 300));
+
+    background-color: var(--ui-surface);
+  }
+
+  .todo-current .todo-hover {
+    --_bg-color: light-dark(
+      oklch(0% 0 0 / var(--ui-state-hover-alpha-light)),
+      oklch(100% 0 0 / var(--ui-state-hover-alpha-dark))
+    );
+  }
+
+  .todo-fixed .ui-tabs {
+    --_selected-bg-color: light-dark(
+      var(--ui-surface),
+      oklch(from var(--ui-text-strong) l c h / var(--ui-state-hover-alpha-dark))
+    );
+  }
+
+  .todo-fixed .todo-hover {
+    --_bg-color: light-dark(
+      oklch(
+        from var(--ui-text-strong) l c h / var(--ui-state-hover-alpha-light)
+      ),
+      oklch(from var(--ui-text-strong) l c h / var(--ui-state-hover-alpha-dark))
+    );
+  }
+</style>
+
+<p class="todo-note">
+  Tabs and a hovered toggle button (its hover fill is applied here without the
+  pointer) in light and dark mode, with the default grays and with grays a theme
+  tints toward violet, simulated by setting <code>--ui-surface</code>,
+  <code>--ui-surface-tonal</code> and <code>--ui-text-strong</code>. Today the
+  selected tab in dark mode is white at the hover alpha and the hovered toggle
+  button black or white at it, so they stay neutral when the rest of the theme
+  is tinted. The fix derives both from <code>--ui-text-strong</code>: with the
+  default grays they look almost the same, and with tinted grays they take the
+  tint.
+</p>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Today</p>
+    <div class="ui-dark todo-scheme">
+      <p class="todo-label">Dark, default grays</p>
+      <div class="ui-tabs">
+        <input
+          checked
+          class="ui-input"
+          id="todo-fill-today-dark-1"
+          name="todo-fill-today-dark"
+          type="radio"
+        />
+        <label for="todo-fill-today-dark-1" class="ui-label">Overview</label>
+        <div class="ui-panel">The selected tab is the pill.</div>
+        <input
+          class="ui-input"
+          id="todo-fill-today-dark-2"
+          name="todo-fill-today-dark"
+          type="radio"
+        />
+        <label for="todo-fill-today-dark-2" class="ui-label">Activity</label>
+        <div class="ui-panel">Second panel.</div>
+      </div>
+      <label class="ui-toggle-button todo-hover">
+        <input type="checkbox" />
+        Hovered
+      </label>
+    </div>
+    <div class="ui-dark todo-scheme todo-tinted">
+      <p class="todo-label">Dark, tinted grays</p>
+      <div class="ui-tabs">
+        <input
+          checked
+          class="ui-input"
+          id="todo-fill-today-tinted-1"
+          name="todo-fill-today-tinted"
+          type="radio"
+        />
+        <label for="todo-fill-today-tinted-1" class="ui-label">Overview</label>
+        <div class="ui-panel">The selected tab is the pill.</div>
+        <input
+          class="ui-input"
+          id="todo-fill-today-tinted-2"
+          name="todo-fill-today-tinted"
+          type="radio"
+        />
+        <label for="todo-fill-today-tinted-2" class="ui-label">Activity</label>
+        <div class="ui-panel">Second panel.</div>
+      </div>
+      <label class="ui-toggle-button todo-hover">
+        <input type="checkbox" />
+        Hovered
+      </label>
+    </div>
+    <div class="ui-light todo-scheme">
+      <p class="todo-label">Light, default grays</p>
+      <label class="ui-toggle-button todo-hover">
+        <input type="checkbox" />
+        Hovered
+      </label>
+    </div>
+    <div class="ui-light todo-scheme todo-tinted">
+      <p class="todo-label">Light, tinted grays</p>
+      <label class="ui-toggle-button todo-hover">
+        <input type="checkbox" />
+        Hovered
+      </label>
+    </div>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">Fix, from --ui-text-strong</p>
+    <div class="ui-dark todo-scheme">
+      <p class="todo-label">Dark, default grays</p>
+      <div class="ui-tabs">
+        <input
+          checked
+          class="ui-input"
+          id="todo-fill-fixed-dark-1"
+          name="todo-fill-fixed-dark"
+          type="radio"
+        />
+        <label for="todo-fill-fixed-dark-1" class="ui-label">Overview</label>
+        <div class="ui-panel">The selected tab is the pill.</div>
+        <input
+          class="ui-input"
+          id="todo-fill-fixed-dark-2"
+          name="todo-fill-fixed-dark"
+          type="radio"
+        />
+        <label for="todo-fill-fixed-dark-2" class="ui-label">Activity</label>
+        <div class="ui-panel">Second panel.</div>
+      </div>
+      <label class="ui-toggle-button todo-hover">
+        <input type="checkbox" />
+        Hovered
+      </label>
+    </div>
+    <div class="ui-dark todo-scheme todo-tinted">
+      <p class="todo-label">Dark, tinted grays</p>
+      <div class="ui-tabs">
+        <input
+          checked
+          class="ui-input"
+          id="todo-fill-fixed-tinted-1"
+          name="todo-fill-fixed-tinted"
+          type="radio"
+        />
+        <label for="todo-fill-fixed-tinted-1" class="ui-label">Overview</label>
+        <div class="ui-panel">The selected tab is the pill.</div>
+        <input
+          class="ui-input"
+          id="todo-fill-fixed-tinted-2"
+          name="todo-fill-fixed-tinted"
+          type="radio"
+        />
+        <label for="todo-fill-fixed-tinted-2" class="ui-label">Activity</label>
+        <div class="ui-panel">Second panel.</div>
+      </div>
+      <label class="ui-toggle-button todo-hover">
+        <input type="checkbox" />
+        Hovered
+      </label>
+    </div>
+    <div class="ui-light todo-scheme">
+      <p class="todo-label">Light, default grays</p>
+      <label class="ui-toggle-button todo-hover">
+        <input type="checkbox" />
+        Hovered
+      </label>
+    </div>
+    <div class="ui-light todo-scheme todo-tinted">
+      <p class="todo-label">Light, tinted grays</p>
+      <label class="ui-toggle-button todo-hover">
+        <input type="checkbox" />
+        Hovered
+      </label>
+    </div>
+  </section>
+</div>

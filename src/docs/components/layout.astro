@@ -1,0 +1,177 @@
+---
+import Component from "../../layouts/Component.astro"
+import Usage from "./partials/Usage.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Code from "../../components/Code.astro"
+import DocLink from "../../components/DocLink.astro"
+import LayoutCSS from "@opui/css/components/layout.css?raw"
+
+import layoutApi from "../../component-api/layout/api"
+
+export const description =
+  "Classes for the space between components, in columns, rows and grids."
+
+export const keywords = ["columns", "container", "grid", "stack"]
+---
+
+<Component
+  description={description}
+  slug="layout"
+  browserSupport={["container-queries", "gap-decorations"]}
+  fallbacks={{
+    "gap-decorations":
+      "Without gap decorations, a bordered layout keeps its gaps but draws no lines in them.",
+  }}
+  apis={[{ title: "Layout API", api: layoutApi }]}
+  changelogPaths={[
+    { path: "src/docs/components/layout.astro", type: "docs" },
+    { path: "src/component-examples/layout", type: "docs" },
+    {
+      path: "packages/opui/css/components/layout.css",
+      type: "css",
+    },
+    { path: "src/component-api/layout", type: "api" },
+  ]}
+  installationTabs={[{ title: "layout.css", code: LayoutCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Layout</Fragment>
+  <Fragment slot="preamble">
+    Classes for the space between components. Put them on wrappers. Gaps follow
+    the
+    <DocLink href="/guide/theming#spacing"
+      ><code>--ui-space-*</code> scale</DocLink
+    >.
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">Space between components, in a column, row or grid.</li>
+    <li slot="when">
+      Cards in as many columns as fit:
+      <a href="#grid"><code>.ui-layout-grid</code></a>. A sidebar that stacks:
+      <a href="#columns"><code>.ui-layout-columns</code></a>.
+    </li>
+    <li slot="when">
+      An avatar or icon next to text:
+      <a href="#media"><code>.ui-layout-media</code></a>.
+    </li>
+    <li slot="when-not">
+      Space inside a component: put the class on a wrapper.
+    </li>
+    <li slot="when-not">
+      Form fields: use <DocLink href="/components/form">Form</DocLink>.
+    </li>
+  </Usage>
+
+  <section id="column">
+    <h2>Column</h2>
+    <p>Use <code>.ui-layout-column</code>.</p>
+    <AutoExample name="Column" />
+
+    <h3 id="column-align">Align</h3>
+    <p>Use <code>.ui-align-center</code> or <code>.ui-align-end</code>.</p>
+    <AutoExample name="Align" />
+  </section>
+
+  <section id="row">
+    <h2>Row</h2>
+    <p>Use <code>.ui-layout-row</code>. It wraps when it runs out of room.</p>
+    <AutoExample name="Row" />
+
+    <h3 id="spread">Spread</h3>
+    <p>Use <code>.ui-spread</code> to push children to the ends.</p>
+    <AutoExample name="Spread" />
+  </section>
+
+  <section id="grid">
+    <h2>Grid</h2>
+    <p>
+      Columns are <code>16rem</code> by default. Use
+      <code>--_min-inline-size</code> to change it.
+    </p>
+    <AutoExample name="Grid" />
+
+    <h3 id="stretch">Stretch</h3>
+    <p>Use <code>.ui-stretch</code> to fill the row with fewer children.</p>
+    <AutoExample name="Stretch" />
+
+    <h3 id="max-columns">Most columns</h3>
+    <p>Use <code>--_max-columns</code> to cap the count.</p>
+    <AutoExample name="MaxColumns" />
+
+    <h3 id="lists">Lists</h3>
+    <p>Give the list <code>role="list"</code> for Safari.</p>
+    <AutoExample name="List" />
+  </section>
+
+  <section id="columns">
+    <h2>Columns</h2>
+    <p>
+      Set the tracks with <code>--_columns</code>. Splits at <code>56rem</code>,
+      or at another <a href="#breakpoints">breakpoint</a> with
+      <code>.ui-breakpoint-small</code> or <code>.ui-breakpoint-large</code>.
+    </p>
+    <AutoExample name="Columns" />
+
+    <h3 id="sticky">Sticky</h3>
+    <p>Use <code>.ui-sticky</code> on a column to keep it in view.</p>
+    <AutoExample name="Sticky" />
+  </section>
+
+  <section id="media">
+    <h2>Media</h2>
+    <p>Use <code>.ui-layout-media</code>.</p>
+    <AutoExample name="Media" />
+  </section>
+
+  <section id="gap">
+    <h2>Gap</h2>
+    <p>Use a size class like <code>.ui-small</code>, or <code>--_gap</code>.</p>
+    <AutoExample name="Gap" />
+  </section>
+
+  <section id="bordered">
+    <h2>Bordered</h2>
+    <p>
+      Use <code>.ui-bordered</code> to draw a line in each gap. A line only runs
+      between two children, so a wrapped row or a short last row gets no stray
+      one. Set its color with <code>--_divider-border-color</code>.
+    </p>
+    <AutoExample name="Bordered" />
+  </section>
+
+  <section id="container">
+    <h2>Container</h2>
+    <p>
+      <code>.ui-layout-container</code> is <code>72rem</code> wide by default.
+      Use <code>--_max-inline-size</code> to change it.
+    </p>
+    <AutoExample name="Composition" />
+  </section>
+
+  <section id="breakpoints">
+    <h2>Breakpoints</h2>
+    <p>Use the same container widths in your own queries:</p>
+    <ul>
+      <li><code>40rem</code>: two columns.</li>
+      <li><code>56rem</code>: a sidebar, or three columns.</li>
+      <li><code>72rem</code>: three panes.</li>
+    </ul>
+    <Code
+      lang="css"
+      code={`.page {\n  container-type: inline-size;\n}\n\n@container (inline-size >= 40rem) {\n  .page-columns {\n    grid-template-columns: 1fr 1fr;\n  }\n}`}
+    />
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        The layout classes only place elements, so screen readers and the Tab
+        key follow the source order. Write the markup in the order it reads.
+      </li>
+      <li>
+        Make a grid of items that belong together a list, so screen readers say
+        how many there are (see <a href="#grid">Grid</a>).
+      </li>
+    </ul>
+  </Fragment>
+</Component>

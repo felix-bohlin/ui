@@ -1,63 +1,108 @@
 ---
 import Guide from "../../../layouts/Guide.astro"
-import CodeGroup from "../../../components/CodeGroup.astro"
-import { Code } from "astro-expressive-code/components"
-import Theming from "./_theming.astro"
+import Code from "../../../components/Code.astro"
+import Builds from "./partials/Builds.astro"
+import CssFiles from "./partials/CssFiles.astro"
+import InstallCommand from "./partials/InstallCommand.astro"
+import NextSteps from "./partials/NextSteps.astro"
+import PickAndChoose from "./partials/PickAndChoose.astro"
+import QuickStart from "./partials/QuickStart.astro"
+import ServerSupport from "./partials/ServerSupport.astro"
+
+export const keywords = ["install", "npm", "nuxt", "setup", "ssr"]
 ---
 
 <Guide overline="Guide">
   <Fragment slot="title">Getting started</Fragment>
+  <Fragment slot="preamble">
+    OPUI ships first-class components for Vue 3.5.2 and later. Install the
+    package, import what you need, and you're set.
+  </Fragment>
 
-  <section>
-    <h2 id="installation">Install via NPM</h2>
-    <CodeGroup
-      tabs={[
-        {
-          title: "pnpm",
-          code: "pnpm add opui-css open-props vue -S",
-          lang: "sh",
-        },
-        {
-          title: "npm",
-          code: "npm install opui-css open-props vue -S",
-          lang: "sh",
-        },
-      ]}
-    />
-  </section>
+  <section id="quick-start">
+    <h2>Quick start</h2>
+    <QuickStart>
+      <Fragment slot="install">
+        <InstallCommand packages="vue@3" />
+        <Code
+          code={`// src/main.ts
+import { createApp } from "vue"
+import "opui-css/css/imports.css"
+import App from "./App.vue"
 
-  <section>
-    <h2 id="css">Import the CSS</h2>
-    <p>
-      Vue components ship markup only - the CSS still has to be imported in your
-      app somehow. Import everything:
-    </p>
-    <Code code={`@import "opui-css/css/imports.css";`} lang="css" />
-    <p>Or pick and choose:</p>
-    <Code
-      code={`@import "opui-css/open-props.css";
-@import "opui-css/core/palette.css";
-@import "opui-css/css/theme.css";
-@import "opui-css/core/normalize.css";
-@import "opui-css/css/components.css";
-@import "opui-css/core/utils.css";`}
-      lang="css"
-    />
-  </section>
-
-  <section>
-    <h2 id="usage">How to use</h2>
-    <Code
-      code={`<script setup lang="ts">
+createApp(App).mount("#app")`}
+          lang="ts"
+        />
+      </Fragment>
+      <Code
+        slot="use"
+        code={`<script setup lang="ts">
 import { Button } from "opui-css/vue"
 </script>
 
 <template>
-  <Button variant="filled">Click me</Button>
+  <Button color="primary" variant="filled">Save</Button>
 </template>`}
-      lang="vue"
+        lang="vue"
+      />
+    </QuickStart>
+  </section>
+
+  <section id="whats-in-the-css">
+    <h2>What's in the CSS</h2>
+    <CssFiles />
+  </section>
+
+  <section id="css">
+    <h2>Import only what you use</h2>
+    <p>
+      List the files in a CSS file, and import that file in <code>main.ts</code>
+      instead of <code>imports.css</code>:
+    </p>
+    <PickAndChoose file="src/styles/main.css">
+      <p>
+        In Nuxt, add the file to <code>css</code> in <code>nuxt.config.ts</code>
+        instead.
+      </p>
+    </PickAndChoose>
+    <Code
+      code={`// src/main.ts
+import "./styles/main.css"`}
+      lang="ts"
     />
   </section>
 
-  <Theming />
+  <section id="builds">
+    <h2>Builds</h2>
+    <Builds tools={["vite"]} />
+  </section>
+
+  <section id="typescript">
+    <h2>TypeScript</h2>
+    <p>
+      Vue needs the TypeScript version <code>vue-tsc</code> supports, since it
+      checks the <code>.vue</code> files: vue-tsc 3.3 runs on TypeScript 6, not
+      on 7. The types resolve with <code>moduleResolution</code> set to
+      <code>"bundler"</code> or <code>"nodenext"</code>.
+    </p>
+  </section>
+
+  <section id="usage">
+    <h2>How to use</h2>
+    <p>Named slots take rich content, like <code>end-text</code>.</p>
+  </section>
+
+  <section id="ssr">
+    <h2>Server rendering</h2>
+    <p>
+      Every component renders full HTML on the server. The props in the last
+      column need hydration.
+    </p>
+    <ServerSupport framework="vue" />
+  </section>
+
+  <section id="next-steps">
+    <h2>Next steps</h2>
+    <NextSteps />
+  </section>
 </Guide>

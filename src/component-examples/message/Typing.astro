@@ -1,0 +1,14 @@
+---
+import { Avatar, Message, MessageList } from "opui-css/astro"
+---
+
+<MessageList aria-label="Messages with Stella">
+  <Message author="Stella" datetime="2026-10-08T14:32" time="14:32">
+    <Avatar aria-hidden="true" slot="start">SN</Avatar>
+    <p>Let me ask if the band even noticed.</p>
+  </Message>
+  <Message typing>
+    <Avatar aria-hidden="true" slot="start">SN</Avatar>
+    Stella is typing…
+  </Message>
+</MessageList>

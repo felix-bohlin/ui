@@ -1,0 +1,13 @@
+---
+import type { AvatarGroupProps as Props } from "./types.astro"
+
+const { class: className, role, ...rest } = Astro.props
+---
+
+<div
+  class:list={["ui-avatar-group", className]}
+  role={role ?? "group"}
+  {...rest}
+>
+  <slot />
+</div>

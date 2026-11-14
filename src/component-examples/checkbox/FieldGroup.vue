@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
+import { Checkbox, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/vue"
 </script>
 
 <template>
   <Form>
-    <FieldSet>
-      <FieldLegend>Legend</FieldLegend>
+    <Fieldset>
+      <FieldLegend>Notifications</FieldLegend>
       <FieldGroup name="checkbox-group">
-        <Checkbox checked>Checkbox 1</Checkbox>
-        <Checkbox>Checkbox 2</Checkbox>
-        <Checkbox>Checkbox 3</Checkbox>
+        <Checkbox checked>Email</Checkbox>
+        <Checkbox>Push</Checkbox>
+        <Checkbox>SMS</Checkbox>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
   </Form>
 </template>

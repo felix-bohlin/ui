@@ -1,0 +1,53 @@
+<opui-number-field class="ui-number-field">
+  <label class="ui-label" for="number-field-step-1">Opacity</label>
+  <span class="ui-field">
+    <span class="ui-start">
+      <button
+        class="ui-button ui-round"
+        type="button"
+        aria-controls="number-field-step-1"
+        aria-label="Decrease"
+        command="--step-down"
+        commandfor="number-field-step-1"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        ></svg>
+      </button>
+    </span>
+    <input
+      max="1"
+      min="0"
+      step="0.1"
+      value="0.5"
+      id="number-field-step-1"
+      type="number"
+    />
+    <span class="ui-end">
+      <button
+        class="ui-button ui-round"
+        type="button"
+        aria-controls="number-field-step-1"
+        aria-label="Increase"
+        command="--step-up"
+        commandfor="number-field-step-1"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        ></svg>
+      </button>
+    </span>
+  </span>
+</opui-number-field>
+
+<script type="module">
+  import "opui-css/elements/number-field.js"
+</script>

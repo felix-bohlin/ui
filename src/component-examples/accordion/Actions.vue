@@ -1,18 +1,38 @@
 <script setup lang="ts">
-import { Accordion, Button } from "opui-css/vue"
+import {
+  Accordion,
+  AccordionActions,
+  AccordionContent,
+  AccordionSummary,
+  Button,
+} from "opui-css/vue"
 </script>
 
 <template>
   <Accordion open variant="elevated">
-    <template #summary>Accordion with actions</template>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-      neque ante id justo. Nam tempor euismod nisi ac ornare.
-    </p>
-    <template #actions>
-      <Button>Cancel</Button>
-      <Button>Agree</Button>
-    </template>
+    <AccordionSummary>Bassbook house rules</AccordionSummary>
+    <AccordionContent>
+      <p>
+        We updated the house rules on 1 March. The changes cover how long we
+        keep your slap videos and how Bassbook Gold renews.
+      </p>
+    </AccordionContent>
+    <AccordionActions>
+      <Button>Decline</Button>
+      <Button>Accept</Button>
+    </AccordionActions>
+  </Accordion>
+
+  <Accordion open variant="elevated">
+    <AccordionSummary>Invite your bandmates</AccordionSummary>
+    <AccordionContent>
+      <p>
+        Bandmates you invite can view and edit every setlist in your band room.
+      </p>
+    </AccordionContent>
+    <AccordionActions align="start">
+      <Button>Copy link</Button>
+      <Button>Send invites</Button>
+    </AccordionActions>
   </Accordion>
 </template>

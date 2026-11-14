@@ -1,0 +1,250 @@
+# Radio
+
+Radio buttons for picking one option from a few, with sizes, cards and an invalid state.
+
+- CSS: `opui-css/css/components/radio.css`, `opui-css/css/components/choice.css`, `opui-css/css/components/form.css` and `opui-css/css/components/card.css`.
+- Full docs with every example: [HTML](https://opui.dev/html/components/radio.md), [Astro](https://opui.dev/astro/components/radio.md), [React](https://opui.dev/react/components/radio.md), [Svelte](https://opui.dev/svelte/components/radio.md), [Vue](https://opui.dev/vue/components/radio.md).
+- The docs page also documents `FieldGroup`, see `form.md`.
+
+## Radio
+
+### Parts
+
+- `label.ui-radio` (root): Container element.
+- `<input>` (model): The radio input.
+- `.ui-label` (prop `label`, slot `default`): The label.
+- `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the label.
+
+### Props and modifiers
+
+- `card`: `boolean`, `.ui-card`. Renders the radio as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface.
+- `disabled`: `boolean`, `input[aria-disabled="true"]`, `input[disabled]`. Dims the radio and shows a not-allowed cursor. `aria-disabled="true"` looks the same, but keeps the radio focusable and its value in the form, and doesn't stop the change, so block it with a script.
+- `error`: `boolean`, `input[aria-invalid="true"]`. Marks the control invalid and shows error styles.
+- `hideLabel`: `boolean`, `.ui-radio > span.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`.
+- `id`: `string`. The id of the `<input>`.
+- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
+- `orientation`: `"horizontal"` (default), `"vertical"` (`.ui-vertical`). The orientation of the element. `vertical` stacks the label under the input.
+- `required`: `boolean`, `input[required]`. The form won't submit until one radio in the group is checked. The legend of the enclosing fieldset shows the required mark.
+- `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
+- `spread`: `boolean`, `.ui-spread`. Pushes the label and the input to opposite ends.
+- `value`: `string | number | boolean`. The value of the `<input>`, submitted with the form when it's checked.
+- `variant`: `"elevated"` (`.ui-elevated`), `"outlined"` (default), `"tonal"` (`.ui-tonal`). The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.
+
+Model: `value` (`string | number | boolean`), the selected value of the group. Astro and React `value`, Svelte `bind:group`, Vue `v-model`.
+
+### Notes
+
+- Astro and Vue: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or the slot.
+- React: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `className` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`. Use `checked` with `onChange` on each radio, or `defaultChecked`.
+- Svelte: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`.
+
+## RadioInput
+
+### Parts
+
+- `<input type="radio">` (root): The radio input, without a label.
+
+### Props and modifiers
+
+- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
+
+Model: `value` (`string | number | boolean`), the selected value of the group. Astro and React `value`, Svelte `bind:group`, Vue `v-model`.
+
+### Notes
+
+- Astro, React, Svelte and Vue: The radio `<input>` without the label, for a custom layout inside a `label.ui-radio`, such as the end of a `ListItem` with `choice="radio"`. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
+
+## Component properties
+
+Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
+
+### radio.css
+
+- `--_accent`: Fill and border of the checked circle. `SelectedItem` in forced colors, and `GrayText` there when disabled.
+- `--_on-accent`: Color of the dot on `--_accent`. `SelectedItemText` in forced colors.
+
+Outputs: `--_border-color` and `--_dot-radius`.
+
+### choice.css
+
+- `--_accent`: Fill and border of the checked input. `--ui-choice-accent` when the theme sets it, else `--ui-control-accent`, otherwise `--ui-primary` with its lightness capped in dark mode, and `--ui-invalid`, capped the same way, when invalid.
+- `--_ease`: Easing of the transitions. Defaults to `--ui-ease`.
+- `--_hover-bg-color`: Background of a hovered `.ui-card`. Defaults to `--ui-surface-tonal-hover`.
+- `--_motion`: Motion multiplier for the transitions. `0` turns them off.
+- `--_on-accent`: Color of the checkmark, dash and dots on `--_accent`. `--ui-choice-on-accent` when the theme sets it, else `--ui-control-on-accent`, otherwise `--ui-on-primary`, or `--ui-on-fill` in dark mode. `--ui-on-fill` when invalid.
+- `--_padding`: Padding of `.ui-card`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset, and `--ui-space-2` in `.ui-small` and `.ui-x-small`.
+- `--_ripple-size`: Size of the hover ripple of checkboxes and radios, relative to the input. Set on `input`.
+- `--_selected-bg-color`: Background of a checked `.ui-card`: `--_accent` at `--ui-state-selected-alpha-accent`, so the fill, the border and the checked input share one color, red when invalid.
+- `--_size`: Width and height of the checkbox and radio input, which the label centers on. Defaults to `--ui-choice-size`, set by the size classes. `switch.css` sets it to the track height.
+
+Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration`, `--_mark-bg-color`, `--_rest-border-width`, `--_ripple-scale` and `--_shadow`.
+
+### form.css
+
+- `--_field-min-inline-size`: Width a field in a horizontal `.ui-field-group` wraps at. Fields grow from it to share the row.
+
+### card.css
+
+- `--_actions-padding-inline`: Inline padding of `.ui-actions`. Defaults to `--_padding`. The actions pass it on as `--ui-card-padding`, so a text button at either end keeps its focus ring inside the card.
+- `--_backdrop-bg-color`: Backdrop color of a dialog or drawer. Defaults to `--ui-backdrop-bg-color`.
+- `--_backdrop-blur`: Backdrop filter of a dialog or drawer. Defaults to a `--ui-backdrop-blur` blur.
+- `--_ease`: Easing of the card link border transition, the focus ring animation and the accordion transitions. Defaults to `--ui-ease`.
+- `--_elevated-bg-color`: Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.
+- `--_elevated-shadow`: Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.
+- `--_footer-gap`: Gap between the items in a dialog's or drawer's `.ui-footer` and between the buttons in its `.ui-actions`. Defaults to `--ui-space-2`.
+- `--_gap`: Gap between the parts. `--ui-space-3`, or `--ui-space-2` in `.ui-dense`. The part after an image subtracts it from its padding.
+- `--_media-inline-size`: Width of the image when it sits at the start of the card, and the start margin of the parts next to it. Defaults to `40%` of the card.
+- `--_motion`: Motion multiplier for the card link border transition, the focus ring animation and the accordion transitions. `0` turns them off.
+- `--_outlined-border-color`: Border color of `.ui-outlined`. Defaults to `--ui-border-color`.
+- `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset. In an accordion it sets `--_padding-inline`, `--_summary-padding-block` and the block end of `--_content-padding-block`.
+- `--_scroll-shadow`: Shadow at the edges of a dialog's or drawer's `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
+- `--_surface-bg-color`: Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-surface`.
+- `--_title-font-size`: Font size of a dialog's or drawer's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.
+- `--_tonal-bg-color`: Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`.
+
+Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor`, `--_duration`, `--_orientation` and `--_shadow`.
+
+## Theme tokens
+
+The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-card-padding`, `--ui-choice-accent`, `--ui-choice-border-color`, `--ui-choice-border-width`, `--ui-choice-checked`, `--ui-choice-fill-max-lightness`, `--ui-choice-label-offset`, `--ui-choice-on-accent`, `--ui-choice-ripple-bg-color`, `--ui-choice-size`, `--ui-choice-size-large`, `--ui-choice-size-small`, `--ui-choice-size-x-small`, `--ui-control-accent`, `--ui-control-on-accent`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color`, `--ui-field-border-color-on-raised`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-required-text-color`, `--ui-focus-border-color`, `--ui-focus-border-width`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-icon-close`, `--ui-invalid`, `--ui-invalid-text`, `--ui-letter-spacing-heading`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-fill`, `--ui-on-primary`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-space-6`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-switch-thumb-size-large`, `--ui-switch-thumb-size-small`, `--ui-switch-thumb-size-x-small`, `--ui-switch-track-block-size-large`, `--ui-switch-track-block-size-small`, `--ui-switch-track-block-size-x-small`, `--ui-switch-track-inline-size-large`, `--ui-switch-track-inline-size-small`, `--ui-switch-track-inline-size-x-small`, `--ui-text`, `--ui-text-max-chroma`, `--ui-text-min-lightness` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+
+## HTML
+
+### Example: Basics
+
+```html
+<form class="ui-form">
+  <fieldset class="ui-fieldset">
+    <legend>Payment method</legend>
+    <div class="ui-field-group">
+      <label class="ui-radio">
+        <input type="radio" name="radio-group" checked value="card" />
+        <span class="ui-label">Card</span>
+      </label>
+      <label class="ui-radio">
+        <input type="radio" name="radio-group" value="paypal" />
+        <span class="ui-label">PayPal</span>
+      </label>
+      <label class="ui-radio">
+        <input type="radio" name="radio-group" value="bank-transfer" />
+        <span class="ui-label">Bank transfer</span>
+      </label>
+    </div>
+  </fieldset>
+</form>
+```
+
+## Astro
+
+`import { Radio, RadioInput } from "opui-css/astro"`
+
+- `Radio` named slots: `end-text`. Fill one with `slot="end-text"` on a child.
+
+### Example: Basics
+
+```astro
+---
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
+---
+
+<Form>
+  <Fieldset>
+    <FieldLegend>Payment method</FieldLegend>
+    <FieldGroup name="radio-group">
+      <Radio checked value="card">Card</Radio>
+      <Radio value="paypal">PayPal</Radio>
+      <Radio value="bank-transfer">Bank transfer</Radio>
+    </FieldGroup>
+  </Fieldset>
+</Form>
+```
+
+## React
+
+`import { Radio, RadioInput } from "opui-css/react"`
+
+- `Radio` slot props (`ReactNode`): `children` and `endText`.
+- Client components (`"use client"`): `RadioInput`.
+
+### Example: Basics
+
+```tsx
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <Form>
+      <Fieldset>
+        <FieldLegend>Payment method</FieldLegend>
+        <FieldGroup name="radio-group">
+          <Radio defaultChecked value="card">
+            Card
+          </Radio>
+          <Radio value="paypal">PayPal</Radio>
+          <Radio value="bank-transfer">Bank transfer</Radio>
+        </FieldGroup>
+      </Fieldset>
+    </Form>
+  )
+}
+```
+
+## Svelte
+
+`import { Radio, RadioInput } from "opui-css/svelte"`
+
+- `Radio` slot snippets: `children` and `endText`.
+- Hydration: `bind:group` on `Radio` and `RadioInput`. The bound value only updates on the client. The native control still changes and submits with its form. Without hydration: Read the value from the form instead.
+
+### Example: Basics
+
+```svelte
+<script lang="ts">
+  import {
+    FieldGroup,
+    FieldLegend,
+    Fieldset,
+    Form,
+    Radio,
+  } from "opui-css/svelte"
+</script>
+
+<Form>
+  <Fieldset>
+    <FieldLegend>Payment method</FieldLegend>
+    <FieldGroup name="radio-group">
+      <Radio defaultChecked value="card">Card</Radio>
+      <Radio value="paypal">PayPal</Radio>
+      <Radio value="bank-transfer">Bank transfer</Radio>
+    </FieldGroup>
+  </Fieldset>
+</Form>
+```
+
+## Vue
+
+`import { Radio, RadioInput } from "opui-css/vue"`
+
+- `Radio` named slots: `end-text`. Fill one with `<template #end-text>`.
+- Hydration: `v-model` on `Radio` and `RadioInput`. The bound value only updates on the client. The native control still changes and submits with its form. Without hydration: Read the value from the form instead.
+
+### Example: Basics
+
+```vue
+<script setup lang="ts">
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/vue"
+</script>
+
+<template>
+  <Form>
+    <Fieldset>
+      <FieldLegend>Payment method</FieldLegend>
+      <FieldGroup name="radio-group">
+        <Radio checked value="card">Card</Radio>
+        <Radio value="paypal">PayPal</Radio>
+        <Radio value="bank-transfer">Bank transfer</Radio>
+      </FieldGroup>
+    </Fieldset>
+  </Form>
+</template>
+```

@@ -4,14 +4,14 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem headline="Headline" />
+    <ListItem label="Lou Headstock" />
     <ListItem
-      headline="Headline"
-      description="Supporting text that truly is quite long enough to fill up multiple lines."
+      description="5-string slapper. Plays every root note with love, owns three pedalboards and still gets called the tall guitarist."
+      label="Percy Groove"
     />
-    <ListItem headline="Headline">
-      <p>Supporting text</p>
-      <p>Even more supporting text</p>
+    <ListItem label="Ines Hertz">
+      <p>Flatwound fan</p>
+      <p>Replies between sound checks</p>
     </ListItem>
   </List>
 </template>

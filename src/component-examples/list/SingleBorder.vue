@@ -4,8 +4,8 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem headline="I need borders" />
-    <ListItem headline="Help" />
-    <ListItem borderTop headline="Thanks" />
+    <ListItem label="Account" />
+    <ListItem label="Settings" />
+    <ListItem borderTop label="Sign out" />
   </List>
 </template>

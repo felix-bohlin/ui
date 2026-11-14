@@ -3,6 +3,8 @@ import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField label="Small outlined" placeholder="Placeholder" small />
-  <TextField label="Small filled" placeholder="Placeholder" small filled />
+  <TextField label="X-small" placeholder="Your name" size="x-small" />
+  <TextField label="Small" placeholder="Your name" size="small" />
+  <TextField label="Medium" placeholder="Your name" />
+  <TextField label="Large" placeholder="Your name" size="large" />
 </template>

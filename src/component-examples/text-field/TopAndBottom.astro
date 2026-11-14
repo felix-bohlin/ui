@@ -1,0 +1,16 @@
+---
+import { TextField } from "opui-css/astro"
+---
+
+<TextField label="Name" placeholder="Holly Humbucker">
+  <Fragment slot="top">Shown on your profile</Fragment>
+</TextField>
+
+<TextField
+  characterCount
+  label="Bass motto"
+  maxlength={80}
+  placeholder="Turn it up, not down"
+>
+  <Fragment slot="bottom">Plain text, no links</Fragment>
+</TextField>

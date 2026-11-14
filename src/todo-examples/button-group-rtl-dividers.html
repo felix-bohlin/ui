@@ -1,0 +1,59 @@
+<p class="todo-note">
+  The same filled, tonal and outlined groups in left-to-right and in
+  right-to-left text. In left-to-right every group shows a thin line between its
+  buttons. In right-to-left the filled and tonal groups show none: each button
+  draws its line as a <code>box-shadow</code> on its left edge, and in
+  right-to-left the button on its left is the next one in the source, which
+  paints its background over the line. The outlined group keeps its lines, since
+  its buttons have no background to cover them.
+</p>
+<div class="todo-compare">
+  <section class="todo-current" dir="ltr">
+    <p class="todo-label"><code>dir="ltr"</code></p>
+    <div class="todo-row">
+      <div role="group" class="ui-control-group ui-filled">
+        <button type="button" class="ui-button">Day</button>
+        <button type="button" class="ui-button">Week</button>
+        <button type="button" class="ui-button">Month</button>
+      </div>
+    </div>
+    <div class="todo-row">
+      <div role="group" class="ui-control-group ui-tonal">
+        <button type="button" class="ui-button">Day</button>
+        <button type="button" class="ui-button">Week</button>
+        <button type="button" class="ui-button">Month</button>
+      </div>
+    </div>
+    <div class="todo-row">
+      <div role="group" class="ui-control-group ui-outlined">
+        <button type="button" class="ui-button">Day</button>
+        <button type="button" class="ui-button">Week</button>
+        <button type="button" class="ui-button">Month</button>
+      </div>
+    </div>
+  </section>
+  <section class="todo-current" dir="rtl">
+    <p class="todo-label"><code>dir="rtl"</code></p>
+    <div class="todo-row">
+      <div role="group" class="ui-control-group ui-filled">
+        <button type="button" class="ui-button">Day</button>
+        <button type="button" class="ui-button">Week</button>
+        <button type="button" class="ui-button">Month</button>
+      </div>
+    </div>
+    <div class="todo-row">
+      <div role="group" class="ui-control-group ui-tonal">
+        <button type="button" class="ui-button">Day</button>
+        <button type="button" class="ui-button">Week</button>
+        <button type="button" class="ui-button">Month</button>
+      </div>
+    </div>
+    <div class="todo-row">
+      <div role="group" class="ui-control-group ui-outlined">
+        <button type="button" class="ui-button">Day</button>
+        <button type="button" class="ui-button">Week</button>
+        <button type="button" class="ui-button">Month</button>
+      </div>
+    </div>
+  </section>
+</div>

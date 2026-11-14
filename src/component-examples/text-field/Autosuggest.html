@@ -1,23 +1,35 @@
 <label class="ui-text-field">
-  <span class="ui-label">Users</span>
+  <span class="ui-label" id="text-field-autosuggest-1-label">Bassists</span>
   <span class="ui-field">
-    <input type="text" list="users" placeholder="Placeholder" />
+    <input
+      list="text-field-autosuggest-1-list"
+      placeholder="Search bassists"
+      aria-labelledby="text-field-autosuggest-1-label"
+      id="text-field-autosuggest-1"
+      type="text"
+    />
   </span>
-  <datalist id="users">
-    <option value="Ray Manzarek"></option>
-    <option value="Jonny Greenwood"></option>
-    <option value="Marika Hackman"></option>
+  <datalist id="text-field-autosuggest-1-list">
+    <option value="Ines Hertz"></option>
+    <option value="Lou Headstock"></option>
+    <option value="Percy Groove"></option>
   </datalist>
 </label>
 
 <label class="ui-text-field ui-filled">
-  <span class="ui-label">Emails</span>
+  <span class="ui-label" id="text-field-autosuggest-2-label">Emails</span>
   <span class="ui-field">
-    <input type="email" list="users-email" placeholder="Placeholder" />
+    <input
+      list="text-field-autosuggest-2-list"
+      placeholder="name@lowend.example"
+      aria-labelledby="text-field-autosuggest-2-label"
+      id="text-field-autosuggest-2"
+      type="email"
+    />
   </span>
-  <datalist id="users-email">
-    <option value="ray.manzarek@the.doors"></option>
-    <option value="jonny.greenwood@radio.head"></option>
-    <option value="marika@hack.man"></option>
+  <datalist id="text-field-autosuggest-2-list">
+    <option value="ines@lowend.example"></option>
+    <option value="lou@lowend.example"></option>
+    <option value="percy@lowend.example"></option>
   </datalist>
 </label>

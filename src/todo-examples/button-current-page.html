@@ -1,0 +1,355 @@
+<p class="todo-note">
+  Each row sets a theme's light mode tokens on a wrapper: shadcn, m3 and
+  Bootstrap. In each cell, page 1 is the current page
+  (<code>aria-current="page"</code>) in a text, an outlined and a tonal
+  pagination. Today the current page gets the pressed tint,
+  <code>--_default-active-bg-color</code>: the accent at a low chroma and
+  <code>--ui-state-active-alpha-light</code>, the alpha a press flashes for a
+  moment. shadcn sets it to 4% and m3 to 10%, so the current page is about as
+  light as the tonal buttons next to it, and in the tonal group it replaces
+  their tonal fill with a tint of the same lightness. Bootstrap sets 20%, which
+  darkens the background under its gray button text until the text falls under
+  4.5:1. A tints the current page with
+  <code>--ui-state-selected-alpha-accent</code> and the full accent, as the
+  current List row does, so a theme tunes the lasting state apart from the
+  press. B fills it with <code>--ui-selected-strong</code> and
+  <code>--ui-on-selected-strong</code>, the pair the filled Tabs and the
+  selected List indicator use.
+</p>
+<div class="todo-current-page" id="button-current-page">
+  <section class="todo-current-theme todo-current-shadcn">
+    <p class="todo-label">shadcn</p>
+    <div class="todo-current-cols">
+      <div class="todo-current-col todo-current-today">
+        <p class="todo-label">Today: the pressed tint</p>
+        <nav aria-label="Pages, text, shadcn, today" class="todo-current-text">
+          <a class="ui-button" href="#button-current-page" aria-current="page"
+            >1</a
+          ><a class="ui-button" href="#button-current-page">2</a
+          ><a class="ui-button" href="#button-current-page">3</a>
+        </nav>
+        <nav aria-label="Pages, outlined, shadcn, today">
+          <div role="group" class="ui-control-group ui-outlined">
+            <a class="ui-button" href="#button-current-page" aria-current="page"
+              >1</a
+            ><a class="ui-button" href="#button-current-page">2</a
+            ><a class="ui-button" href="#button-current-page">3</a>
+          </div>
+        </nav>
+        <nav aria-label="Pages, tonal, shadcn, today">
+          <div role="group" class="ui-control-group ui-tonal">
+            <a class="ui-button" href="#button-current-page" aria-current="page"
+              >1</a
+            ><a class="ui-button" href="#button-current-page">2</a
+            ><a class="ui-button" href="#button-current-page">3</a>
+          </div>
+        </nav>
+      </div>
+      <div class="todo-current-col todo-current-a">
+        <p class="todo-label">A: the selected tint</p>
+        <nav aria-label="Pages, text, shadcn, a" class="todo-current-text">
+          <a class="ui-button" href="#button-current-page" aria-current="page"
+            >1</a
+          ><a class="ui-button" href="#button-current-page">2</a
+          ><a class="ui-button" href="#button-current-page">3</a>
+        </nav>
+        <nav aria-label="Pages, outlined, shadcn, a">
+          <div role="group" class="ui-control-group ui-outlined">
+            <a class="ui-button" href="#button-current-page" aria-current="page"
+              >1</a
+            ><a class="ui-button" href="#button-current-page">2</a
+            ><a class="ui-button" href="#button-current-page">3</a>
+          </div>
+        </nav>
+        <nav aria-label="Pages, tonal, shadcn, a">
+          <div role="group" class="ui-control-group ui-tonal">
+            <a class="ui-button" href="#button-current-page" aria-current="page"
+              >1</a
+            ><a class="ui-button" href="#button-current-page">2</a
+            ><a class="ui-button" href="#button-current-page">3</a>
+          </div>
+        </nav>
+      </div>
+      <div class="todo-current-col todo-current-b">
+        <p class="todo-label">B: the strong selected fill</p>
+        <nav aria-label="Pages, text, shadcn, b" class="todo-current-text">
+          <a class="ui-button" href="#button-current-page" aria-current="page"
+            >1</a
+          ><a class="ui-button" href="#button-current-page">2</a
+          ><a class="ui-button" href="#button-current-page">3</a>
+        </nav>
+        <nav aria-label="Pages, outlined, shadcn, b">
+          <div role="group" class="ui-control-group ui-outlined">
+            <a class="ui-button" href="#button-current-page" aria-current="page"
+              >1</a
+            ><a class="ui-button" href="#button-current-page">2</a
+            ><a class="ui-button" href="#button-current-page">3</a>
+          </div>
+        </nav>
+        <nav aria-label="Pages, tonal, shadcn, b">
+          <div role="group" class="ui-control-group ui-tonal">
+            <a class="ui-button" href="#button-current-page" aria-current="page"
+              >1</a
+            ><a class="ui-button" href="#button-current-page">2</a
+            ><a class="ui-button" href="#button-current-page">3</a>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </section>
+  <section class="todo-current-theme todo-current-m3">
+    <p class="todo-label">m3</p>
+    <div class="todo-current-cols">
+      <div class="todo-current-col todo-current-today">
+        <p class="todo-label">Today: the pressed tint</p>
+        <nav aria-label="Pages, text, m3, today" class="todo-current-text">
+          <a class="ui-button" href="#button-current-page" aria-current="page"
+            >1</a
+          ><a class="ui-button" href="#button-current-page">2</a
+          ><a class="ui-button" href="#button-current-page">3</a>
+        </nav>
+        <nav aria-label="Pages, outlined, m3, today">
+          <div role="group" class="ui-control-group ui-outlined">
+            <a class="ui-button" href="#button-current-page" aria-current="page"
+              >1</a
+            ><a class="ui-button" href="#button-current-page">2</a
+            ><a class="ui-button" href="#button-current-page">3</a>
+          </div>
+        </nav>
+        <nav aria-label="Pages, tonal, m3, today">
+          <div role="group" class="ui-control-group ui-tonal">
+            <a class="ui-button" href="#button-current-page" aria-current="page"
+              >1</a
+            ><a class="ui-button" href="#button-current-page">2</a
+            ><a class="ui-button" href="#button-current-page">3</a>
+          </div>
+        </nav>
+      </div>
+      <div class="todo-current-col todo-current-a">
+        <p class="todo-label">A: the selected tint</p>
+        <nav aria-label="Pages, text, m3, a" class="todo-current-text">
+          <a class="ui-button" href="#button-current-page" aria-current="page"
+            >1</a
+          ><a class="ui-button" href="#button-current-page">2</a
+          ><a class="ui-button" href="#button-current-page">3</a>
+        </nav>
+        <nav aria-label="Pages, outlined, m3, a">
+          <div role="group" class="ui-control-group ui-outlined">
+            <a class="ui-button" href="#button-current-page" aria-current="page"
+              >1</a
+            ><a class="ui-button" href="#button-current-page">2</a
+            ><a class="ui-button" href="#button-current-page">3</a>
+          </div>
+        </nav>
+        <nav aria-label="Pages, tonal, m3, a">
+          <div role="group" class="ui-control-group ui-tonal">
+            <a class="ui-button" href="#button-current-page" aria-current="page"
+              >1</a
+            ><a class="ui-button" href="#button-current-page">2</a
+            ><a class="ui-button" href="#button-current-page">3</a>
+          </div>
+        </nav>
+      </div>
+      <div class="todo-current-col todo-current-b">
+        <p class="todo-label">B: the strong selected fill</p>
+        <nav aria-label="Pages, text, m3, b" class="todo-current-text">
+          <a class="ui-button" href="#button-current-page" aria-current="page"
+            >1</a
+          ><a class="ui-button" href="#button-current-page">2</a
+          ><a class="ui-button" href="#button-current-page">3</a>
+        </nav>
+        <nav aria-label="Pages, outlined, m3, b">
+          <div role="group" class="ui-control-group ui-outlined">
+            <a class="ui-button" href="#button-current-page" aria-current="page"
+              >1</a
+            ><a class="ui-button" href="#button-current-page">2</a
+            ><a class="ui-button" href="#button-current-page">3</a>
+          </div>
+        </nav>
+        <nav aria-label="Pages, tonal, m3, b">
+          <div role="group" class="ui-control-group ui-tonal">
+            <a class="ui-button" href="#button-current-page" aria-current="page"
+              >1</a
+            ><a class="ui-button" href="#button-current-page">2</a
+            ><a class="ui-button" href="#button-current-page">3</a>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </section>
+  <section class="todo-current-theme todo-current-bootstrap">
+    <p class="todo-label">Bootstrap</p>
+    <div class="todo-current-cols">
+      <div class="todo-current-col todo-current-today">
+        <p class="todo-label">Today: the pressed tint</p>
+        <nav
+          aria-label="Pages, text, Bootstrap, today"
+          class="todo-current-text"
+        >
+          <a class="ui-button" href="#button-current-page" aria-current="page"
+            >1</a
+          ><a class="ui-button" href="#button-current-page">2</a
+          ><a class="ui-button" href="#button-current-page">3</a>
+        </nav>
+        <nav aria-label="Pages, outlined, Bootstrap, today">
+          <div role="group" class="ui-control-group ui-outlined">
+            <a class="ui-button" href="#button-current-page" aria-current="page"
+              >1</a
+            ><a class="ui-button" href="#button-current-page">2</a
+            ><a class="ui-button" href="#button-current-page">3</a>
+          </div>
+        </nav>
+        <nav aria-label="Pages, tonal, Bootstrap, today">
+          <div role="group" class="ui-control-group ui-tonal">
+            <a class="ui-button" href="#button-current-page" aria-current="page"
+              >1</a
+            ><a class="ui-button" href="#button-current-page">2</a
+            ><a class="ui-button" href="#button-current-page">3</a>
+          </div>
+        </nav>
+      </div>
+      <div class="todo-current-col todo-current-a">
+        <p class="todo-label">A: the selected tint</p>
+        <nav aria-label="Pages, text, Bootstrap, a" class="todo-current-text">
+          <a class="ui-button" href="#button-current-page" aria-current="page"
+            >1</a
+          ><a class="ui-button" href="#button-current-page">2</a
+          ><a class="ui-button" href="#button-current-page">3</a>
+        </nav>
+        <nav aria-label="Pages, outlined, Bootstrap, a">
+          <div role="group" class="ui-control-group ui-outlined">
+            <a class="ui-button" href="#button-current-page" aria-current="page"
+              >1</a
+            ><a class="ui-button" href="#button-current-page">2</a
+            ><a class="ui-button" href="#button-current-page">3</a>
+          </div>
+        </nav>
+        <nav aria-label="Pages, tonal, Bootstrap, a">
+          <div role="group" class="ui-control-group ui-tonal">
+            <a class="ui-button" href="#button-current-page" aria-current="page"
+              >1</a
+            ><a class="ui-button" href="#button-current-page">2</a
+            ><a class="ui-button" href="#button-current-page">3</a>
+          </div>
+        </nav>
+      </div>
+      <div class="todo-current-col todo-current-b">
+        <p class="todo-label">B: the strong selected fill</p>
+        <nav aria-label="Pages, text, Bootstrap, b" class="todo-current-text">
+          <a class="ui-button" href="#button-current-page" aria-current="page"
+            >1</a
+          ><a class="ui-button" href="#button-current-page">2</a
+          ><a class="ui-button" href="#button-current-page">3</a>
+        </nav>
+        <nav aria-label="Pages, outlined, Bootstrap, b">
+          <div role="group" class="ui-control-group ui-outlined">
+            <a class="ui-button" href="#button-current-page" aria-current="page"
+              >1</a
+            ><a class="ui-button" href="#button-current-page">2</a
+            ><a class="ui-button" href="#button-current-page">3</a>
+          </div>
+        </nav>
+        <nav aria-label="Pages, tonal, Bootstrap, b">
+          <div role="group" class="ui-control-group ui-tonal">
+            <a class="ui-button" href="#button-current-page" aria-current="page"
+              >1</a
+            ><a class="ui-button" href="#button-current-page">2</a
+            ><a class="ui-button" href="#button-current-page">3</a>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </section>
+</div>
+<style>
+  .todo-current-page {
+    display: grid;
+    gap: var(--size-3);
+  }
+
+  .todo-current-theme {
+    background-color: var(--ui-surface);
+    color: var(--ui-text);
+    color-scheme: light;
+    padding: var(--size-3);
+  }
+
+  .todo-current-cols {
+    display: grid;
+    gap: var(--size-3);
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  }
+
+  .todo-current-col {
+    display: grid;
+    gap: var(--size-2);
+    justify-items: start;
+  }
+
+  .todo-current-text {
+    display: flex;
+    gap: var(--size-1);
+  }
+
+  .todo-current-shadcn {
+    --ui-button-radius: 0.5rem;
+    --ui-control-accent: oklch(0.205 0 0);
+    --ui-control-on-accent: oklch(0.985 0 0);
+    --ui-on-primary-tonal: oklch(0.145 0 0);
+    --ui-on-selected-strong: oklch(0.985 0 0);
+    --ui-palette-on-tint: oklch(0.145 0 0);
+    --ui-primary: oklch(0.205 0 0);
+    --ui-primary-tonal: oklch(0.97 0 0);
+    --ui-selected-strong: oklch(0.205 0 0);
+    --ui-state-active-alpha-light: 4%;
+    --ui-state-hover-alpha-light: 4%;
+    --ui-state-selected-alpha-accent: 8%;
+    --ui-surface: oklch(1 0 0);
+    --ui-surface-tonal: oklch(0.97 0 0);
+    --ui-text: oklch(0.269 0 0);
+  }
+
+  .todo-current-m3 {
+    --ui-button-radius: 1e5px;
+    --ui-control-accent: oklch(0.496 0.13 294);
+    --ui-control-on-accent: oklch(1 0 0);
+    --ui-on-primary-tonal: oklch(0.242 0.14 286);
+    --ui-on-selected-strong: oklch(1 0 0);
+    --ui-palette-on-tint: oklch(0.227 0.01 304);
+    --ui-primary: oklch(0.496 0.13 294);
+    --ui-primary-tonal: oklch(0.918 0.048 303);
+    --ui-selected-strong: oklch(0.496 0.13 294);
+    --ui-state-active-alpha-light: 10%;
+    --ui-state-hover-alpha-light: 8%;
+    --ui-state-selected-alpha-accent: 10%;
+    --ui-surface: oklch(0.984 0.013 322);
+    --ui-surface-tonal: oklch(0.916 0.037 303);
+    --ui-text: oklch(0.227 0.01 304);
+  }
+
+  .todo-current-bootstrap {
+    --ui-button-accent: oklch(0.525 0.017 245);
+    --ui-on-selected-strong: oklch(1 0 0);
+    --ui-palette-on-tint: oklch(0.262 0.01 248);
+    --ui-primary: oklch(0.578 0.228 260);
+    --ui-selected-strong: oklch(0.578 0.228 260);
+    --ui-state-active-alpha-light: 20%;
+    --ui-state-hover-alpha-light: 10%;
+    --ui-state-selected-alpha-accent: 25%;
+    --ui-surface: oklch(1 0 0);
+    --ui-surface-tonal: oklch(0.982 0.002 249);
+    --ui-text: oklch(0.262 0.01 248);
+  }
+
+  .todo-current-a .ui-button[aria-current="page"] {
+    --_bg-color: oklch(
+      from var(--_accent) l c h / var(--ui-state-selected-alpha-accent)
+    );
+  }
+
+  .todo-current-b .ui-button[aria-current="page"] {
+    --_bg-color: var(--ui-selected-strong);
+    --_border-color: var(--ui-selected-strong);
+    --_text-color: var(--ui-on-selected-strong);
+  }
+</style>

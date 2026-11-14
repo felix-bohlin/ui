@@ -1,0 +1,15 @@
+---
+import type { Props } from "./types.astro"
+
+export const title = "Select All"
+
+const { class: className, ...rest } = Astro.props
+---
+
+<opui-select-all class:list={["ui-select-all", className]} {...rest}>
+  <slot />
+</opui-select-all>
+
+<script>
+  import "../../elements/select-all.js"
+</script>

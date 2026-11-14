@@ -1,0 +1,84 @@
+<opui-sortable-table id="table-sortable-data-1" class="ui-sortable-table">
+  <table class="ui-table">
+    <caption>
+      Gigs this month
+    </caption>
+    <thead>
+      <tr>
+        <th data-sort aria-sort="ascending">
+          <button type="button">Name</button>
+        </th>
+        <th data-sort>
+          <button type="button">Style</button>
+        </th>
+        <th class="ui-numeric" data-sort>
+          <button type="button">Gigs</button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Holly Humbucker</td>
+        <td>Rock</td>
+        <td class="ui-numeric">31</td>
+      </tr>
+      <tr>
+        <td>Ines Hertz</td>
+        <td>Jazz</td>
+        <td class="ui-numeric">18</td>
+      </tr>
+      <tr>
+        <td>Lou Headstock</td>
+        <td>Funk</td>
+        <td class="ui-numeric">42</td>
+      </tr>
+      <tr>
+        <td>Percy Groove</td>
+        <td>Funk</td>
+        <td class="ui-numeric">7</td>
+      </tr>
+      <tr>
+        <td>Rory Rootnote</td>
+        <td>Jazz</td>
+        <td class="ui-numeric">25</td>
+      </tr>
+      <tr>
+        <td>Stella Nut</td>
+        <td>Rock</td>
+        <td class="ui-numeric">12</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="ui-sr-only" role="status"></span>
+</opui-sortable-table>
+
+<script type="module">
+  import "opui-css/elements/sortable-table.js"
+</script>
+
+<script type="module">
+  const table = document.querySelector("#table-sortable-data-1")
+  const body = table?.querySelector("tbody")
+  const keys = ["name", "style", "gigs"]
+  const bassists = [...(body?.rows ?? [])].map((row) => ({
+    gigs: Number(row.cells[2].textContent),
+    name: row.cells[0].textContent,
+    row,
+    style: row.cells[1].textContent,
+  }))
+
+  table?.addEventListener("sort", (event) => {
+    if (!(event instanceof CustomEvent)) return
+    event.preventDefault()
+    const key = keys[event.detail.column]
+    const sign = event.detail.direction === "descending" ? -1 : 1
+    bassists.sort(
+      (a, b) =>
+        sign *
+        String(a[key]).localeCompare(String(b[key]), undefined, {
+          numeric: true,
+        }),
+    )
+    body?.append(...bassists.map(({ row }) => row))
+  })
+</script>

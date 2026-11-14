@@ -1,0 +1,248 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import {
+  Stepper as UIStepper,
+  StepperItem as UIStepperItem,
+} from "opui-css/astro"
+
+import StepperCSS from "@opui/css/components/stepper.css?raw"
+
+import stepperItemApi from "../../component-api/stepper-item/api"
+import stepperApi from "../../component-api/stepper/api"
+
+export const description =
+  "A list of steps that shows where someone is in a flow, like a checkout."
+
+export const keywords = ["progress steps", "wizard"]
+---
+
+<Component
+  description={description}
+  slug="stepper"
+  heroAnatomy
+  apis={[
+    { title: "Stepper API", api: stepperApi },
+    { title: "Stepper item API", api: stepperItemApi },
+  ]}
+  browserSupport={[
+    "alt-text-generated-content",
+    "container-queries",
+    "container-style-queries",
+    "has",
+  ]}
+  changelogPaths={[
+    { path: "packages/opui/components/Stepper", type: "component" },
+    { path: "src/docs/components/stepper.astro", type: "docs" },
+    { path: "src/component-examples/stepper", type: "docs" },
+    { path: "packages/opui/css/components/stepper.css", type: "css" },
+    { path: "src/component-api/stepper", type: "api" },
+    { path: "src/component-api/stepper-item", type: "api" },
+  ]}
+  installationTabs={[{ title: "stepper.css", code: StepperCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Stepper</Fragment>
+  <Fragment slot="preamble">
+    Where someone is in a flow of steps. For dated events, use a
+    <DocLink href="/components/timeline">Timeline</DocLink>.
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">Steps done in order, like a checkout.</li>
+    <li slot="when">
+      A step that needs another look: an <a href="#errors">error</a>.
+    </li>
+    <li slot="when-not">
+      Dated events: use a <DocLink href="/components/timeline">Timeline</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      Tasks in any order: use a <DocLink href="/components/list">List</DocLink>.
+    </li>
+  </Usage>
+
+  <Fragment slot="anatomy">
+    <Anatomy api={stepperItemApi}>
+      <UIStepper
+        aria-label="Sign-up steps"
+        orientation="vertical"
+        style="inline-size: 16rem; max-inline-size: 100%"
+      >
+        <UIStepperItem
+          complete
+          description="Name and email"
+          href="#basics"
+          label="Account"
+        >
+          <svg
+            slot="icon-complete"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M18 6 7 17l-5-5"></path>
+            <path d="m22 10-7.5 7.5L13 16"></path>
+          </svg>
+        </UIStepperItem>
+        <UIStepperItem current description="Free or Pro" label="Plan" />
+      </UIStepper>
+    </Anatomy>
+  </Fragment>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Set <code>current</code> to the step's index, from 0.</Fragment
+      >
+      <Fragment slot="html"
+        >Mark the current step with <code>aria-current="step"</code> and the
+        ones before it with <code>.ui-complete</code>.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Basics" />
+  </section>
+
+  <section id="sizes">
+    <h2>Sizes</h2>
+    <p>
+      Use <PropOrClass prop='size="small"' class=".ui-small" /> for tight
+      spaces.
+    </p>
+
+    <AutoExample name="Sizes" />
+  </section>
+
+  <section id="descriptions">
+    <h2>Descriptions</h2>
+    <p>Use <PropOrClass prop="description" class=".ui-description" />.</p>
+
+    <AutoExample name="Descriptions" />
+  </section>
+
+  <section id="custom-check">
+    <h2>Custom check</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >Put an icon in <code>.ui-icon-complete</code>.</Fragment
+      >
+      <Fragment slot="components"
+        >Put an icon in <code>StepperItem</code>'s <code>icon-complete</code
+        >.</Fragment
+      >
+    </Conditional>
+    <p>
+      To change the check of every step, and of menus and selects, set
+      <code>--ui-icon-check</code> to an image, like <code>url(check.svg)</code
+      >.
+    </p>
+
+    <AutoExample name="CustomCheck" />
+  </section>
+
+  <section id="complete">
+    <h2>Complete</h2>
+    <Conditional as="p">
+      <Fragment slot="components">Set <code>complete</code>.</Fragment>
+      <Fragment slot="html"
+        >Add <code>.ui-complete</code> to every step.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Complete" />
+  </section>
+
+  <section id="errors">
+    <h2>Errors</h2>
+    <p>Use <PropOrClass prop="error" class=".ui-error" />.</p>
+
+    <AutoExample name="Errors" />
+  </section>
+
+  <section id="labels">
+    <h2>Screen reader labels</h2>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Translate with <code>completeLabel</code> and <code>errorLabel</code
+        >.</Fragment
+      >
+      <Fragment slot="html"
+        >Translate the <code>.ui-sr-only</code> text.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Labels" />
+  </section>
+
+  <section id="vertical">
+    <h2>Vertical</h2>
+    <p>
+      Use <PropOrClass prop='orientation="vertical"' class=".ui-vertical" />.
+    </p>
+
+    <AutoExample name="Vertical" />
+  </section>
+
+  <section id="narrow">
+    <h2>Narrow containers</h2>
+    <p>
+      Stacks under <code>32rem</code>, whatever the labels. For longer labels,
+      such as translated ones, set
+      <PropOrClass prop='orientation="vertical"' class=".ui-vertical" /> under a
+      breakpoint of your own.
+      <PropOrClass prop='orientation="horizontal"' class=".ui-horizontal" />
+      never stacks, and wraps the steps onto another row when they don't fit.
+    </p>
+
+    <AutoExample name="Narrow" />
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>Name the list with <code>aria-label</code>.</li>
+      <li>Hide a custom check with <code>aria-hidden="true"</code>.</li>
+    </ul>
+  </Fragment>
+
+  <Fragment slot="under-the-hood">
+    <p>
+      <code>ol.ui-stepper</code> is a flex row of equal <code>li</code> grids
+      and an inline-size container named <code>ui-stepper</code>.
+      <code>li::before</code> is the marker, printing
+      <code>counter(ui-stepper)</code> with empty alternative text, and
+      <code>li:not(:last-child)::after</code> the line to the next step.
+    </p>
+    <p>
+      <code>li.ui-complete</code> and
+      <code>li:has(~ [aria-current="step"])</code> fill the marker with
+      <code>--_accent</code> and cut <code>--_marker-complete-image</code> out
+      of it with <code>mask-composite: exclude</code>. A
+      <code>.ui-icon-complete</code> child turns the mask off and shows instead.
+      <code>li.ui-error</code> cuts <code>--_marker-error-image</code> out of a
+      <code>--ui-invalid</code> fill.
+    </p>
+    <p>
+      <code>.ui-horizontal</code> and <code>.ui-vertical</code> set
+      <code>--_orientation</code>, and
+      <code
+        >@container ui-stepper ((inline-size &lt; 32rem) and
+        style(--_orientation: auto)) or style(--_orientation: vertical)</code
+      >
+      gives every step the full row and turns the line into an absolutely
+      positioned vertical one.
+    </p>
+  </Fragment>
+</Component>

@@ -1,36 +1,12 @@
 import { createApp } from "vue"
+import { mountExamples } from "./mount-examples"
 
-const loaders = import.meta.glob("../../component-examples/**/*.vue") as Record<
-  string,
-  () => Promise<{ default: unknown }>
->
+const loaders = import.meta.glob<{
+  default: Parameters<typeof createApp>[0]
+}>("../../component-examples/*/*.vue")
 
-const registry = new Map<string, () => Promise<{ default: unknown }>>()
-for (const [path, loader] of Object.entries(loaders)) {
-  const match = path.match(/component-examples\/(.+)\.vue$/)
-  if (match) registry.set(match[1], loader)
-}
-
-async function mountAll() {
-  const targets = document.querySelectorAll<HTMLElement>(
-    "[data-vue-example]:not([data-vue-mounted])",
-  )
-
-  for (const el of targets) {
-    const id = el.getAttribute("data-vue-example")
-    if (!id) continue
-
-    const loader = registry.get(id)
-    if (!loader) continue
-
-    el.setAttribute("data-vue-mounted", "")
-    const mod = await loader()
-    el.innerHTML = ""
-    const app = createApp(mod.default as Parameters<typeof createApp>[0])
-    app.config.idPrefix = id.replace(/[^\w-]/g, "-")
-    app.mount(el)
-  }
-}
-
-mountAll()
-document.addEventListener("astro:after-swap", mountAll)
+mountExamples("vue", ".vue", loaders, (el, mod, id) => {
+  const app = createApp(mod.default)
+  app.config.idPrefix = id.replace(/[^\w-]/g, "-")
+  app.mount(el)
+})

@@ -1,0 +1,292 @@
+---
+import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import DocLink from "../../components/DocLink.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import MenuBuild from "../../components/UnderTheHood/MenuBuild.astro"
+import { ListItem as UIListItem, Menu as UIMenu } from "opui-css/astro"
+import ListCSS from "@opui/css/components/list.css?raw"
+import MenuCSS from "@opui/css/components/menu.css?raw"
+
+import menuApi from "../../component-api/menu/api"
+
+export const description = "A popover list of actions or links."
+
+export const keywords = ["actions", "context menu", "dropdown", "popover"]
+---
+
+<Component
+  description={description}
+  slug="menu"
+  heroAnatomy
+  browserSupport={[
+    "anchor-positioning",
+    "calc-size",
+    "dir-pseudo",
+    "display-animation",
+    "has",
+    "invoker-commands",
+    "logical-properties",
+    "overlay",
+    "popover",
+    "relative-color",
+    "starting-style",
+    "transition-behavior",
+  ]}
+  fallbacks={{
+    "calc-size":
+      "Without `calc-size()`, a menu that doesn't fit on its side of the trigger flips to the other side, instead of shrinking to the space it has.",
+    "display-animation":
+      "Without display animation, the menu disappears at once instead of fading out.",
+    overlay:
+      "Without `overlay`, the page can cover the menu while it fades out.",
+  }}
+  apis={[{ title: "Menu API", api: menuApi }]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Menu/Menu.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/menu.astro", type: "docs" },
+    { path: "src/component-examples/menu", type: "docs" },
+    { path: "packages/opui/css/components/menu.css", type: "css" },
+    { path: "src/component-api/menu", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "list.css", code: ListCSS, lang: "css", isDependency: true },
+    { title: "menu.css", code: MenuCSS, lang: "css" },
+  ]}
+>
+  <Fragment slot="title">Menu</Fragment>
+  <Fragment slot="preamble">
+    A popover <DocLink href="/components/list">List</DocLink> of actions and
+    links. To pick a value, use a
+    <DocLink href="/components/select">Select</DocLink>.
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy zoom={1.25}>
+      <UIMenu
+        id="menu-anatomy"
+        style="display: block; min-inline-size: 12rem; opacity: 1; position: static; scale: none"
+      >
+        <li class="ui-heading">Document</li>
+        <UIListItem as="button" label="Rename">
+          <svg
+            slot="start"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z"
+            ></path>
+          </svg>
+          <kbd slot="end">F2</kbd>
+        </UIListItem>
+        <UIListItem as="button" label="Duplicate">
+          <svg
+            slot="start"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m0 16H8V7h11z"
+            ></path>
+          </svg>
+          <kbd slot="end">Ctrl+D</kbd>
+        </UIListItem>
+        <li class="ui-border-top ui-heading">Zoom</li>
+        <UIListItem aria-current="true" as="button" label="Fit to width">
+          <svg
+            slot="icon-checked"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="m9 12 2 2 4-4"></path>
+          </svg>
+        </UIListItem>
+      </UIMenu>
+    </Anatomy>
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">Actions that don't fit as buttons, like Duplicate.</li>
+    <li slot="when">Links behind a button, like an account menu.</li>
+    <li slot="when">
+      More options next to a main action: a
+      <DocLink href="/components/control-group#split-button"
+        >split button</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      Picking a value: use a <DocLink href="/components/select">Select</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      A few actions that fit: use
+      <DocLink href="/components/button">Buttons</DocLink>.
+    </li>
+    <li slot="when-not">
+      Rich content: use an <DocLink href="/components/anchor">Anchor</DocLink>
+      or a <DocLink href="/components/dialog">Dialog</DocLink>.
+    </li>
+  </Usage>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="components">Pass <code>items</code>.</Fragment>
+      <Fragment slot="html"
+        >Open with <code>command="toggle-popover"</code>, close with
+        <code>command="hide-popover"</code>.</Fragment
+      >
+    </Conditional>
+    <AutoExample name="Basics" centered row />
+    <Conditional as="p">
+      <Fragment slot="components">
+        An open menu closes when the page navigates, also with a client router,
+        so a link item never leaves it open over the next page.
+      </Fragment>
+      <Fragment slot="html">
+        Import <code>opui-css/elements/close-on-navigate.js</code> to close an
+        open menu when the page navigates, also with a client router.
+      </Fragment>
+    </Conditional>
+  </section>
+
+  <section id="bordered">
+    <h2>Bordered</h2>
+    <p>Use <PropOrClass prop="bordered" class=".ui-bordered" />.</p>
+    <AutoExample name="Bordered" centered />
+  </section>
+
+  <section id="dense">
+    <h2>Dense</h2>
+    <p>Use <PropOrClass prop="dense" class=".ui-dense" />.</p>
+    <AutoExample name="Dense" centered />
+  </section>
+
+  <section id="custom">
+    <h2>Custom items</h2>
+    <AutoExample name="Custom" centered />
+
+    <h3 id="checkable-items">Checkable items</h3>
+    <p>
+      Put a checkbox or radio in <PropOrClass prop="end" class=".ui-end" />.
+    </p>
+    <AutoExample name="Checkable" centered />
+
+    <h3 id="current-item">Current item</h3>
+    <p>
+      Mark the current choice with <code>aria-current</code>: <code>page</code>
+      on a link to the page you're on, or <code>true</code> on a button, like
+      the language in use. It gets a check at the end, so it doesn't rely on
+      color.
+    </p>
+    <AutoExample name="Current" centered />
+
+    <h3 id="custom-check">Custom check</h3>
+    <p>
+      To use the check from your icon set, set <code>--ui-icon-check</code> to
+      its image, like <code>url(check.svg)</code>, in your theme for every menu,
+      listbox, <code>Select</code> and <code>Stepper</code>, or on one menu.
+      It's a mask, so it takes the text color.
+    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        For an icon component or any other markup, use the
+        <code>icon-checked</code> slot of the <code>Menu</code>, which every
+        item from <code>items</code> gets, or of a <code>ListItem</code>. It
+        only shows on the current item.
+      </Fragment>
+      <Fragment slot="html">
+        For an icon component or any other markup, put it in a
+        <code>.ui-icon-checked</code> at the end of every item that can be
+        current. It only shows on the current item.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="CustomCheck" centered />
+  </section>
+
+  <section id="placement">
+    <h2>Placement</h2>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Below by default. Use <code>side</code> and <code>align</code> to
+        change it.</Fragment
+      >
+      <Fragment slot="html"
+        >Below by default. Use a side class, like <code>.ui-inline-end</code>,
+        and <code>.ui-align-end</code>.</Fragment
+      >
+    </Conditional>
+    <AutoExample name="Placement" row centered />
+  </section>
+
+  <section id="submenu">
+    <h2>Submenu</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Pass a <code>Menu</code> to a <code>ListItem</code>'s
+        <code>submenu</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Put a <code>menu</code> in the <code>li</code>. Point its items'
+        <code>commandfor</code> at the root menu.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Submenu" centered />
+  </section>
+
+  <section id="manual">
+    <h2>Manual</h2>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Use <code>popover="manual"</code>, and <code>keepOpen</code> on items
+        that keep it open.</Fragment
+      >
+      <Fragment slot="html"
+        >Use <code>popover="manual"</code>, and
+        <code>command="hide-popover"</code> on items that close it.</Fragment
+      >
+    </Conditional>
+    <AutoExample name="Manual" centered />
+  </section>
+
+  <section id="context-menu">
+    <h2>Context menu</h2>
+    <p>
+      On <code>contextmenu</code>, call
+      <code>showPopover(&#123; source &#125;)</code> with an element at the
+      pointer.
+    </p>
+    <AutoExample name="ContextMenu" />
+  </section>
+
+  <Fragment slot="accessibility">
+    <h3 id="role-attributes">Role & attributes</h3>
+    <p>
+      A <code>&lt;menu&gt;</code> of buttons and links, not an ARIA
+      <code>role="menu"</code>.
+    </p>
+    <KeyboardSupport />
+  </Fragment>
+
+  <MenuBuild slot="under-the-hood" />
+</Component>

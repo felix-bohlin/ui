@@ -1,0 +1,40 @@
+<div class="example-row">
+  <button
+    class="ui-chip ui-outlined chip-pressed"
+    type="button"
+    aria-pressed="true"
+  >
+    <span class="ui-text">Open</span>
+  </button>
+  <button
+    class="ui-chip ui-outlined chip-pressed"
+    type="button"
+    aria-pressed="false"
+  >
+    <span class="ui-text">In review</span>
+  </button>
+  <button
+    class="ui-chip ui-outlined chip-pressed"
+    type="button"
+    aria-pressed="false"
+  >
+    <span class="ui-text">Closed</span>
+  </button>
+</div>
+<div class="example-row">
+  <button class="ui-chip chip-pressed" type="button" aria-pressed="true">
+    <span class="ui-text">Paid</span>
+  </button>
+  <button class="ui-chip chip-pressed" type="button" aria-pressed="false">
+    <span class="ui-text">Unpaid</span>
+  </button>
+</div>
+
+<script type="module">
+  document.querySelectorAll(".chip-pressed").forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const pressed = chip.getAttribute("aria-pressed") === "true"
+      chip.setAttribute("aria-pressed", String(!pressed))
+    })
+  })
+</script>

@@ -1,25 +1,60 @@
 ---
-import { Code } from "astro-expressive-code/components"
+import Code from "../../components/Code.astro"
 
 import Component from "../../layouts/Component.astro"
-import Example from "../../components/Example"
+import DocLink from "../../components/DocLink.astro"
+import Usage from "./partials/Usage.astro"
 import AutoExample from "../../components/AutoExample.astro"
-import BlockquoteHtml from "../../component-examples/typography/Blockquote.html?raw"
-import CodeBlockHtml from "../../component-examples/typography/CodeBlock.html?raw"
+import FluidTypeBuild from "../../components/UnderTheHood/FluidTypeBuild.astro"
+import RhythmBuild from "../../components/UnderTheHood/RhythmBuild.astro"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/astro"
 
-import ExampleDefaultHTML from "../../component-examples/typography/Default.html?raw"
-
+import LinkCSS from "@opui/css/components/link.css?raw"
 import TypographyCSS from "@opui/css/components/typography.css?raw"
+
+import typographyApi from "../../component-api/typography/api"
+
+export const description =
+  "Text styles: classes on single elements, or .ui-rich-text around content."
+
+export const keywords = ["font", "heading", "prose", "text"]
 ---
 
 <Component
+  description={description}
   slug="typography"
   browserSupport={[
+    "attr",
     "box-decoration-break",
+    "container-style-queries",
+    "exp-functions",
+    "has",
+    "if",
+    "lh",
     "light-dark",
+    "logical-properties",
+    "registered-custom-properties",
     "relative-color",
+    "round-mod-rem",
     "scope",
+    "text-wrap-pretty",
   ]}
+  fallbacks={{
+    attr: "Without typed `attr()`, an ordered list in rich text with a `start` indents for four-digit numbers.",
+    "box-decoration-break":
+      "Without `box-decoration-break`, a highlight that wraps keeps its padding and rounded corners only at its start and end.",
+    if: "Without `if()`, the compat layer still dims the subtitle of a heading group, and keeps it at full strength with more contrast.",
+    "text-wrap-pretty":
+      "Without `text-wrap: pretty`, the last line of a paragraph, heading or caption can hold a single word.",
+  }}
+  apis={[{ title: "Typography API", api: typographyApi }]}
   changelogPaths={[
     { path: "src/docs/components/typography.astro", type: "docs" },
     { path: "src/component-examples/typography", type: "docs" },
@@ -31,154 +66,233 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
   ]}
   installationTabs={[
     { title: "typography.css", code: TypographyCSS, lang: "css" },
+    { title: "link.css", code: LinkCSS, lang: "css" },
   ]}
 >
   <Fragment slot="title">Typography</Fragment>
   <Fragment slot="preamble">
-    Styles for headings, body text, and other text content. Use util classes
-    anywhere or wrap content in <code>.ui-rich-text</code>.
+    Text styles: classes on single elements, or <code>.ui-rich-text</code>
+    around content.
   </Fragment>
 
-  <section>
-    <h2 id="class-based">Class-based</h2>
-    <p>Utils that you can plop down wherever.</p>
+  <Usage slot="usage">
+    <li slot="when">
+      Text you can't add classes to, like CMS content:
+      <a href="#classless"><code>.ui-rich-text</code></a>.
+    </li>
+    <li slot="when">
+      Elements in your own markup: the <a href="#class-based">classes</a>.
+    </li>
+    <li slot="when-not">
+      Heading size: pick the level the outline needs, and a class like
+      <code>.ui-h4</code> for the size.
+    </li>
+    <li slot="when-not">
+      Spacing components: use the
+      <DocLink href="/components/layout">Layout</DocLink> classes.
+    </li>
+  </Usage>
+
+  <section id="class-based">
+    <h2>Class-based</h2>
 
     <h3 id="variants">Variants</h3>
     <AutoExample name="Variants" column />
 
     <h3 id="heading-group">Heading group</h3>
+    <p>
+      One heading, with a <code>p</code> before it for an overline and after it
+      for a subtitle.
+    </p>
     <AutoExample name="HeadingGroupClass" column />
 
     <h3 id="blockquote">Blockquote</h3>
-    <Example>
-      <Example.Preview slot="preview-html" code={BlockquoteHtml} />
-      <Example.Preview slot="preview-astro" code={BlockquoteHtml} />
-    </Example>
+    <AutoExample name="Blockquote" />
+
+    <h3 id="link">Link</h3>
+    <p>Use <code>.ui-link</code> outside <code>.ui-rich-text</code>.</p>
+    <AutoExample name="Link" />
 
     <h3 id="code-block">Code block</h3>
-    <Example column>
-      <Example.Preview slot="preview-html" code={CodeBlockHtml} />
-      <Example.Preview slot="preview-astro" code={CodeBlockHtml} />
-    </Example>
+    <AutoExample name="CodeBlock" column />
+
+    <h3 id="icon">Icon</h3>
+    <p>Use <code>.ui-icon</code> on an <code>svg</code> in your own markup.</p>
+    <AutoExample name="Icon" />
+
+    <h3 id="swatch">Swatch</h3>
+    <p>
+      Use a severity class, or <code>--_swatch-bg-color</code> for any color.
+    </p>
+    <AutoExample name="Swatch" />
+
+    <h3 id="severity">Severity</h3>
+    <p>Add a severity class, like <code>.ui-success</code>, to text.</p>
+    <AutoExample name="Severity" />
+
+    <h3 id="tabular-numbers">Tabular numbers</h3>
+    <p>Use <code>.ui-tabular-nums</code> for numbers that line up.</p>
+    <AutoExample name="TabularNumbers" />
   </section>
 
-  <section>
-    <h2 id="inline-text-elements">Inline text elements</h2>
+  <section id="inline-text-elements">
+    <h2>Inline text elements</h2>
     <div class="ui-not-rich-text">
-      <table class="ui-table">
-        <thead>
-          <tr>
-            <th>Result</th>
-            <th>Element</th>
-            <th>Class</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><abbr title="Abbreviation">Abbr.</abbr></td>
-            <td><code>&lt;abbr&gt;</code></td>
-            <td><code>.ui-abbr</code></td>
-          </tr>
-          <tr>
-            <td><dfn title="Title">Definition</dfn></td>
-            <td><code>&lt;dfn&gt;</code></td>
-            <td><code>.ui-dfn</code></td>
-          </tr>
-          <tr>
-            <td><strong>Bold</strong></td>
-            <td><code>&lt;strong&gt;</code>, <code>&lt;b&gt;</code></td>
-            <td>—</td>
-          </tr>
-          <tr>
-            <td><i>Italic</i></td>
-            <td><code>&lt;i&gt;</code>, <code>&lt;em&gt;</code></td>
-            <td>—</td>
-          </tr>
-          <tr>
-            <td><cite>Citation</cite></td>
-            <td><code>&lt;cite&gt;</code></td>
-            <td><code>.ui-cite</code></td>
-          </tr>
-          <tr>
-            <td><kbd>Ctrl + S</kbd></td>
-            <td><code>&lt;kbd&gt;</code></td>
-            <td><code>.ui-kbd</code></td>
-          </tr>
-          <tr>
-            <td><mark>Highlight</mark></td>
-            <td><code>&lt;mark&gt;</code></td>
-            <td><code>.ui-mark</code></td>
-          </tr>
-          <tr>
-            <td><s>Strikethrough</s></td>
-            <td><code>&lt;s&gt;</code></td>
-            <td><code>.ui-s</code></td>
-          </tr>
-          <tr>
-            <td><small>Small</small></td>
-            <td><code>&lt;small&gt;</code></td>
-            <td><code>.ui-small</code></td>
-          </tr>
-          <tr>
-            <td>Text <sub>Sub</sub></td>
-            <td><code>&lt;sub&gt;</code></td>
-            <td><code>.ui-sub</code></td>
-          </tr>
-          <tr>
-            <td>Text <sup>Sup</sup></td>
-            <td><code>&lt;sup&gt;</code></td>
-            <td><code>.ui-sup</code></td>
-          </tr>
-          <tr>
-            <td><u>Underline</u></td>
-            <td><code>&lt;u&gt;</code></td>
-            <td><code>.ui-u</code></td>
-          </tr>
-          <tr>
-            <td><del>Deleted</del></td>
-            <td><code>&lt;del&gt;</code></td>
-            <td><code>.ui-del</code></td>
-          </tr>
-          <tr>
-            <td><ins>Inserted</ins></td>
-            <td><code>&lt;ins&gt;</code></td>
-            <td><code>.ui-ins</code></td>
-          </tr>
-          <tr>
-            <td><var>variable</var></td>
-            <td><code>&lt;var&gt;</code></td>
-            <td><code>.ui-var</code></td>
-          </tr>
-          <tr>
-            <td><samp>sample output</samp></td>
-            <td><code>&lt;samp&gt;</code></td>
-            <td><code>.ui-samp</code></td>
-          </tr>
-        </tbody>
-      </table>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell>Result</TableHeaderCell>
+            <TableHeaderCell>Element</TableHeaderCell>
+            <TableHeaderCell>Class</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell><a class="ui-link" href="#link">Link</a></TableCell>
+            <TableCell><code>&lt;a href&gt;</code></TableCell>
+            <TableCell><code>.ui-link</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell
+              ><abbr class="ui-abbr" title="Abbreviation"
+                >Abbr.</abbr
+              ></TableCell
+            >
+            <TableCell><code>&lt;abbr&gt;</code></TableCell>
+            <TableCell><code>.ui-abbr</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><strong>Bold</strong></TableCell>
+            <TableCell
+              ><code>&lt;b&gt;</code>, <code>&lt;strong&gt;</code></TableCell
+            >
+            <TableCell>None</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><cite class="ui-cite">Citation</cite></TableCell>
+            <TableCell><code>&lt;cite&gt;</code></TableCell>
+            <TableCell><code>.ui-cite</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><del class="ui-del">Deleted</del></TableCell>
+            <TableCell><code>&lt;del&gt;</code></TableCell>
+            <TableCell><code>.ui-del</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell
+              ><dfn class="ui-dfn" title="Title">Definition</dfn></TableCell
+            >
+            <TableCell><code>&lt;dfn&gt;</code></TableCell>
+            <TableCell><code>.ui-dfn</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><i>Italic</i></TableCell>
+            <TableCell
+              ><code>&lt;em&gt;</code>, <code>&lt;i&gt;</code></TableCell
+            >
+            <TableCell>None</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><ins class="ui-ins">Inserted</ins></TableCell>
+            <TableCell><code>&lt;ins&gt;</code></TableCell>
+            <TableCell><code>.ui-ins</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><kbd class="ui-kbd">Ctrl + S</kbd></TableCell>
+            <TableCell><code>&lt;kbd&gt;</code></TableCell>
+            <TableCell><code>.ui-kbd</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><mark class="ui-mark">Highlight</mark></TableCell>
+            <TableCell><code>&lt;mark&gt;</code></TableCell>
+            <TableCell><code>.ui-mark</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><s class="ui-s">Strikethrough</s></TableCell>
+            <TableCell><code>&lt;s&gt;</code></TableCell>
+            <TableCell><code>.ui-s</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><samp class="ui-samp">sample output</samp></TableCell>
+            <TableCell><code>&lt;samp&gt;</code></TableCell>
+            <TableCell><code>.ui-samp</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><small class="ui-small">Small</small></TableCell>
+            <TableCell><code>&lt;small&gt;</code></TableCell>
+            <TableCell><code>.ui-small</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Text <sub class="ui-sub">Sub</sub></TableCell>
+            <TableCell><code>&lt;sub&gt;</code></TableCell>
+            <TableCell><code>.ui-sub</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Text <sup class="ui-sup">Sup</sup></TableCell>
+            <TableCell><code>&lt;sup&gt;</code></TableCell>
+            <TableCell><code>.ui-sup</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><u class="ui-u">Underline</u></TableCell>
+            <TableCell><code>&lt;u&gt;</code></TableCell>
+            <TableCell><code>.ui-u</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><var class="ui-var">variable</var></TableCell>
+            <TableCell><code>&lt;var&gt;</code></TableCell>
+            <TableCell><code>.ui-var</code></TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   </section>
 
-  <section>
-    <h2 id="classless">Classless</h2>
+  <section id="classless">
+    <h2>Classless</h2>
     <p>
-      Wrap your code in <code>.ui-rich-text</code> to add typographic styles to its
-      children. It's extra handy when you can't control the contents yourself, like
-      printing text from a CMS.
+      Wrap content in <code>.ui-rich-text</code>. Use
+      <code>.ui-not-rich-text</code> to opt a part out.
+    </p>
+    <p>
+      Paragraphs, lists, blockquotes and tables are spaced by
+      <code>--ui-rich-text-flow-gap</code>, <code>1.25em</code> until a theme
+      sets it, rounded to <code>--ui-rhythm-step</code>. Headings, code blocks
+      and figures take multiples of it, with more room above headings than
+      below. A theme can space headings with
+      <code>--ui-rich-text-heading-margin-block-start</code> and
+      <code>--ui-rich-text-heading-margin-block-end</code>, where
+      <code>em</code> is the heading's own font size, and loosen prose with
+      <code>--ui-rich-text-line-height</code>.
     </p>
     <Code
       lang="html"
-      code={`<article class="ui-rich-text">\n  <!-- -->\n</article>`}
+      code={`<article class="ui-rich-text">\n  <h2>Styled</h2>\n  <div class="ui-not-rich-text"><!-- not styled --></div>\n</article>`}
     />
 
     <h3 id="rich-text-showcase">Classless showcase</h3>
-    <p>
-      Let's put everything together and see how all elements look in a
-      classless, rich-text context.
-    </p>
-    <Example>
-      <Example.Preview slot="preview-html" code={ExampleDefaultHTML} />
-      <Example.Preview slot="preview-astro" code={ExampleDefaultHTML} />
-    </Example>
+    <AutoExample name="Default" />
   </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Hide a decorative <a href="#icon"><code>svg.ui-icon</code></a> with
+        <code>aria-hidden="true"</code>.
+      </li>
+      <li>
+        A <a href="#swatch"><code>.ui-swatch</code></a> has no text: a screen
+        reader only gets the words next to it.
+      </li>
+      <li>
+        Give a <a href="#code-block">code block</a> that scrolls sideways
+        <code>tabindex="0"</code>, <code>role="region"</code> and a unique
+        <code>aria-label</code>, so a keyboard can scroll it.
+      </li>
+    </ul>
+  </Fragment>
+
+  <Fragment slot="under-the-hood">
+    <RhythmBuild />
+    <FluidTypeBuild />
+  </Fragment>
 </Component>

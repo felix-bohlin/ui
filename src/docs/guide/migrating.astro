@@ -1,0 +1,102 @@
+---
+import { TableCell, TableRow } from "opui-css/astro"
+import Code from "../../components/Code.astro"
+import DocsTable from "../../components/DocsTable.astro"
+import Guide from "../../layouts/Guide.astro"
+import { compiledContent } from "../../../packages/opui/MIGRATING.md"
+import migrating from "../../../packages/opui/MIGRATING.md?raw"
+import { parseMigrating } from "../../utils/migrating"
+import { parseRenames } from "../../utils/renames"
+
+const { intro, sections, title } = parseMigrating(
+  (await compiledContent())
+    .replaceAll(
+      'href="./',
+      'href="https://github.com/felix-bohlin/ui/blob/main/packages/opui/',
+    )
+    .replaceAll('href="https://opui.dev/html/guide/migrating/#', 'href="#'),
+)
+const wrap = (section: string) =>
+  `${section.replace(/^<h2 id="([^"]*)"/, '<section id="$1"><h2')}</section>`
+const renamesAfter =
+  sections.findIndex((section) =>
+    section.startsWith('<h2 id="theme-and-tokens"'),
+  ) + 1
+const parts = [
+  [intro, ...sections.slice(0, renamesAfter).map(wrap)].join("\n"),
+  sections.slice(renamesAfter).map(wrap).join("\n"),
+]
+const { renames } = parseRenames(migrating)
+
+const CODE_BLOCK =
+  /<pre><code(?: class="language-([\w-]+)")?>([\s\S]*?)<\/code><\/pre>/
+const ENTITIES: Record<string, string> = {
+  amp: "&",
+  gt: ">",
+  lt: "<",
+  quot: '"',
+}
+const decode = (code: string) =>
+  code.replace(/&(?:#x([\da-f]+)|(\w+));/gi, (entity, hex, name) =>
+    hex ? String.fromCodePoint(parseInt(hex, 16)) : (ENTITIES[name] ?? entity),
+  )
+
+export const keywords = [
+  "breaking changes",
+  "migrate",
+  "migration",
+  "upgrade",
+  "v5",
+  "v6",
+]
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">{title}</Fragment>
+  <Fragment slot="preamble">
+    The breaking changes in v6 and how to update your code, component by
+    component.
+  </Fragment>
+
+  {parts.map((part, partIndex) => <Fragment>
+    {part
+      .split(CODE_BLOCK)
+      .map((segment, index, segments) =>
+        index % 3 === 0 ? (
+          <Fragment set:html={segment} />
+        ) : (
+          index % 3 === 2 && (
+            <Code code={decode(segment)} lang={segments[index - 1]} />
+          )
+        ),
+      )}
+    {partIndex === 0 && <section id="renames">
+      <h2>Renames</h2>
+      <p>
+        Every name v6 renames, to find and replace. Its section says what else
+        changed.
+      </p>
+      <DocsTable
+        columns={[
+          { label: "v5", width: "28%" },
+          { label: "v6", width: "28%" },
+          { label: "Kind", width: "16%" },
+          { label: "Section" },
+        ]}
+      >
+        {renames.map((rename) => <TableRow>
+          <TableCell><code>{rename.from}</code></TableCell>
+          <TableCell><code>{rename.to}</code></TableCell>
+          <TableCell>{rename.kind}</TableCell>
+          <TableCell>
+            {rename.scope && `${rename.scope}, in `}
+            {rename.sections.map((section, sectionIndex) => <Fragment>
+              {sectionIndex > 0 && ", "}
+              <a href={`#${section.anchor}`}>{section.title}</a>
+            </Fragment>)}
+          </TableCell>
+        </TableRow>)}
+      </DocsTable>
+    </section>}
+  </Fragment>)}
+</Guide>

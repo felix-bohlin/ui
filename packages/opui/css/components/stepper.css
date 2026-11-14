@@ -1,0 +1,246 @@
+@layer components.root {
+  :where(.ui-stepper) {
+    --_motion: var(--ui-motion);
+    --_accent: var(--ui-selected-strong);
+    --_description-text-color: var(--ui-text-subtle);
+    --_duration: calc(var(--ui-duration) * var(--_motion));
+    --_ease: var(--ui-ease);
+    --_gap: var(--ui-space-2);
+    --_icon-size: calc(var(--_marker-size) * 0.6);
+    --_line-border-color: var(--ui-border-color);
+    --_line-border-width: var(--ui-border-width-thick);
+    --_marker-border-width: var(--ui-border-width-thick);
+    --_marker-complete-image: var(--ui-icon-check);
+    --_marker-error-image: var(--ui-icon-error);
+    --_marker-size: var(--ui-space-6);
+    --_on-accent: var(--ui-on-selected-strong);
+    --_orientation: auto;
+
+    container: ui-stepper / inline-size;
+    counter-reset: ui-stepper;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--ui-font-size-small);
+    gap: var(--_gap);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    & > li {
+      --_label-text-color: var(--ui-text-subtle);
+      --_marker-bg-color: transparent;
+      --_marker-border-color: var(--ui-field-border-color);
+      --_marker-text-color: var(--ui-text-subtle);
+
+      align-items: start;
+      color: var(--_label-text-color);
+      column-gap: var(--_gap);
+      counter-increment: ui-stepper;
+      display: grid;
+      flex: 1 1 0;
+      grid-template-columns: auto auto 1fr;
+      line-height: var(--_marker-size);
+      margin: 0;
+      min-inline-size: max-content;
+      padding: 0;
+      position: relative;
+
+      @media print {
+        print-color-adjust: exact;
+      }
+
+      /* Marker */
+      &::before {
+        background-color: var(--_marker-bg-color);
+        block-size: var(--_marker-size);
+        border: var(--_marker-border-width) solid var(--_marker-border-color);
+        border-radius: var(--ui-radius-round);
+        color: var(--_marker-text-color);
+        content: counter(ui-stepper);
+        display: grid;
+        font-size: var(--ui-font-size-caption);
+        font-variant-numeric: tabular-nums;
+        font-weight: var(--ui-font-weight-semibold);
+        grid-area: 1 / 1;
+        inline-size: var(--_marker-size);
+        line-height: 1;
+        place-items: center;
+        transition:
+          background-color var(--_duration) var(--_ease),
+          border-color var(--_duration) var(--_ease);
+
+        @supports (content: "" / "") {
+          content: counter(ui-stepper) / "";
+        }
+      }
+
+      /* Line */
+      &:not(:last-child)::after {
+        align-self: center;
+        background-color: var(--_line-border-color);
+        block-size: var(--_line-border-width);
+        border-radius: var(--ui-radius-round);
+        content: "";
+        grid-area: 1 / 3;
+        min-inline-size: var(--ui-space-4);
+        transition: background-color var(--_duration) var(--_ease);
+      }
+
+      &:last-child {
+        flex-grow: 0;
+        grid-template-columns: auto 1fr;
+      }
+
+      & > a {
+        color: inherit;
+        text-underline-offset: var(--ui-underline-offset);
+      }
+
+      & > .ui-icon-complete {
+        block-size: var(--_marker-size);
+        color: var(--_on-accent);
+        display: none;
+        font-size: var(--_icon-size);
+        grid-area: 1 / 1;
+        inline-size: var(--_marker-size);
+        line-height: 1;
+        padding: calc((var(--_marker-size) - var(--_icon-size)) / 2);
+        place-items: center;
+
+        & > :where(img, svg) {
+          block-size: 100%;
+          inline-size: 100%;
+        }
+      }
+
+      & > .ui-description {
+        color: var(--_description-text-color);
+        font-size: var(--ui-font-size-caption);
+        font-weight: var(--ui-font-weight-normal);
+        grid-area: 2 / 2;
+        line-height: var(--ui-line-height);
+      }
+    }
+
+    /* Current step */
+    & > [aria-current="step"] {
+      --_label-text-color: var(--ui-text);
+      --_marker-border-color: var(--_accent);
+      --_marker-text-color: var(--ui-text);
+
+      font-weight: var(--ui-font-weight-semibold);
+    }
+
+    /* Completed steps */
+    & > li:has(~ [aria-current="step"]),
+    & > li.ui-complete {
+      --_label-text-color: var(--ui-text);
+      --_line-border-color: var(--_accent);
+      --_marker-bg-color: var(--_accent);
+      --_marker-border-color: var(--_accent);
+      --_marker-image: var(--_marker-complete-image);
+
+      &:not(.ui-error):has(> .ui-icon-complete)::before {
+        mask: none;
+      }
+
+      &:not(.ui-error) > .ui-icon-complete {
+        display: grid;
+      }
+    }
+
+    /* Steps with an error */
+    & > li.ui-error {
+      --_label-text-color: var(--ui-invalid-text);
+      --_marker-bg-color: var(--ui-invalid);
+      --_marker-border-color: var(--ui-invalid);
+      --_marker-image: var(--_marker-error-image);
+    }
+
+    &
+      > :is(
+        li:has(~ [aria-current="step"]),
+        li.ui-complete,
+        li.ui-error
+      )::before {
+      color: transparent;
+      mask-composite: exclude;
+      mask-image: var(--_marker-image), linear-gradient(oklch(0% 0 0) 0 0);
+      mask-position: center;
+      mask-repeat: no-repeat;
+      mask-size: var(--_icon-size), 100%;
+    }
+
+    /* Size */
+    &.ui-small {
+      --_marker-size: var(--ui-space-5);
+
+      font-size: var(--ui-font-size-caption);
+    }
+
+    /* Orientation */
+    &.ui-horizontal {
+      --_orientation: horizontal;
+    }
+
+    &.ui-vertical {
+      --_orientation: vertical;
+    }
+
+    @container ui-stepper ((inline-size < 32rem) and style(--_orientation: auto)) or style(--_orientation: vertical) {
+      & > li {
+        flex-basis: 100%;
+        grid-template-columns: auto 1fr;
+        min-inline-size: 0;
+        padding-block-end: var(--ui-space-4);
+
+        &:last-child {
+          padding-block-end: 0;
+        }
+
+        &:not(:last-child)::after {
+          align-self: stretch;
+          block-size: auto;
+          grid-area: auto;
+          inline-size: var(--_line-border-width);
+          inset-block: calc(var(--_marker-size) + var(--ui-space-1))
+            calc(var(--ui-space-1) - var(--_gap));
+          inset-inline-start: calc(
+            var(--_marker-size) / 2 - var(--_line-border-width) / 2
+          );
+          min-inline-size: 0;
+          position: absolute;
+        }
+      }
+    }
+
+    @media (forced-colors: active) {
+      & > li:not(:last-child)::after {
+        background-color: GrayText;
+      }
+
+      & > [aria-current="step"]::before {
+        border-color: Highlight;
+      }
+
+      & > li:has(~ [aria-current="step"]),
+      & > li.ui-complete,
+      & > li.ui-error {
+        &:not(:last-child)::after {
+          background-color: CanvasText;
+        }
+
+        &::before {
+          background-color: CanvasText;
+          border-color: CanvasText;
+          forced-color-adjust: none;
+        }
+
+        & > .ui-icon-complete {
+          color: Canvas;
+          forced-color-adjust: none;
+        }
+      }
+    }
+  }
+}

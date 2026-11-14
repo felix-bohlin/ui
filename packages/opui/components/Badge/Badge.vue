@@ -1,40 +1,36 @@
 <script setup lang="ts">
+import { computed } from "vue"
+import { TrimmedSlot } from "../whitespace.vue"
 import Anchor from "../Anchor/Anchor.vue"
-import type { Props, Slots } from "./types.d.vue"
+import AnchorContent from "../Anchor/AnchorContent.vue"
+import type { Props, Slots } from "./types.vue-props"
 
-const { alignment, color, dot, invisible, label } = defineProps<Props>()
+const { color, corner, dot, hideLabel, invisible, label } = defineProps<Props>()
 defineSlots<Slots>()
 
-const positionArea =
-  alignment === "start-start"
-    ? "start start"
-    : alignment === "end-start"
-      ? "end start"
-      : alignment === "end-end"
-        ? "end end"
-        : undefined
+const hidden = computed(() => dot || hideLabel)
 </script>
 
 <template>
   <Anchor
-    :alignment="positionArea"
     :class="[
       'ui-badge',
-      {
-        'ui-dot': dot,
-        'ui-invisible': invisible,
-      },
-      alignment && `ui-${alignment}`,
+      { 'ui-dot': dot, 'ui-invisible': invisible },
       color && `ui-${color}`,
+      corner && corner !== 'start-end' && `ui-${corner}`,
       $props.class,
     ]"
   >
-    <slot></slot>
-    <template #anchored>
-      <span class="ui-badge-indicator" :aria-label="label?.toString()">
-        {{ dot ? "" : label }}
-        <slot v-if="!dot" name="indicator"></slot>
+    <slot></slot>{{ " "
+    }}<AnchorContent>
+      <span class="ui-indicator">
+        <template v-if="hidden"
+          ><span v-if="!dot && $slots.indicator" aria-hidden="true"
+            ><TrimmedSlot :nodes="$slots.indicator?.()" /></span
+          ><span v-if="label" class="ui-sr-only">{{ label }}</span></template
+        >{{ hidden ? undefined : label
+        }}<TrimmedSlot v-if="!hidden" :nodes="$slots.indicator?.()" />
       </span>
-    </template>
+    </AnchorContent>
   </Anchor>
 </template>

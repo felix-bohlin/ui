@@ -1,0 +1,14 @@
+{
+  "name": "opui-app-vite-vue",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "vue": "^3.5.45"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.10",
+    "typescript": "^6.0.3",
+    "vite": "^8.3.6",
+    "vue-tsc": "^3.3.14"
+  }
+}

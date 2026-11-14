@@ -1,0 +1,175 @@
+<style>
+  .todo-ios-submenu-off {
+    .ui-menu:has(.ui-menu[popover]) {
+      anchor-name: none;
+    }
+
+    .ui-menu:not(.ui-menu .ui-menu) {
+      anchor-name: --ui-menu-root;
+      anchor-scope: --ui-menu-root;
+    }
+
+    .ui-menu .ui-menu[popover] {
+      position-anchor: auto;
+    }
+  }
+</style>
+<p class="todo-note">
+  For iPhone and iPad. Open File, then Export, in both menus. The first menu has
+  the iOS block from <code>css/compat/menu.css</code>, which anchors the submenu
+  to the whole menu, so its top lines up with New. The second undoes the block,
+  so the submenu uses Export as its anchor, as in other browsers. If the second
+  submenu opens level with Export on the device, iOS Safari places submenus
+  right and the block can go. On a desktop browser both open level with Export,
+  since the block only applies on iOS.
+</p>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Today: with the iOS block</p>
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      command="toggle-popover"
+      commandfor="todo-ios-menu-on"
+    >
+      File
+    </button>
+    <menu class="ui-menu" id="todo-ios-menu-on" popover>
+      <li>
+        <button
+          type="button"
+          command="hide-popover"
+          commandfor="todo-ios-menu-on"
+        >
+          <div class="ui-text"><p>New</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          command="hide-popover"
+          commandfor="todo-ios-menu-on"
+        >
+          <div class="ui-text"><p>Open</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          command="toggle-popover"
+          commandfor="todo-ios-submenu-on"
+        >
+          <div class="ui-text"><p>Export</p></div>
+          <div class="ui-end">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12l-6.293-6.293a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+              ></path>
+            </svg>
+          </div>
+        </button>
+        <menu class="ui-menu ui-inline-end" id="todo-ios-submenu-on" popover>
+          <li>
+            <button
+              type="button"
+              command="hide-popover"
+              commandfor="todo-ios-menu-on"
+            >
+              <div class="ui-text"><p>PDF</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              command="hide-popover"
+              commandfor="todo-ios-menu-on"
+            >
+              <div class="ui-text"><p>PNG</p></div>
+            </button>
+          </li>
+        </menu>
+      </li>
+    </menu>
+  </section>
+  <section class="todo-fixed todo-ios-submenu-off">
+    <p class="todo-label">Without the iOS block</p>
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      command="toggle-popover"
+      commandfor="todo-ios-menu-off"
+    >
+      File
+    </button>
+    <menu class="ui-menu" id="todo-ios-menu-off" popover>
+      <li>
+        <button
+          type="button"
+          command="hide-popover"
+          commandfor="todo-ios-menu-off"
+        >
+          <div class="ui-text"><p>New</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          command="hide-popover"
+          commandfor="todo-ios-menu-off"
+        >
+          <div class="ui-text"><p>Open</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          command="toggle-popover"
+          commandfor="todo-ios-submenu-off"
+        >
+          <div class="ui-text"><p>Export</p></div>
+          <div class="ui-end">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12l-6.293-6.293a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+              ></path>
+            </svg>
+          </div>
+        </button>
+        <menu class="ui-menu ui-inline-end" id="todo-ios-submenu-off" popover>
+          <li>
+            <button
+              type="button"
+              command="hide-popover"
+              commandfor="todo-ios-menu-off"
+            >
+              <div class="ui-text"><p>PDF</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              command="hide-popover"
+              commandfor="todo-ios-menu-off"
+            >
+              <div class="ui-text"><p>PNG</p></div>
+            </button>
+          </li>
+        </menu>
+      </li>
+    </menu>
+  </section>
+</div>

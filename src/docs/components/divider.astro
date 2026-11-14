@@ -1,13 +1,28 @@
 ---
 import Component from "../../layouts/Component.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import DocLink from "../../components/DocLink.astro"
+import Usage from "./partials/Usage.astro"
 import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
 import DividerCSS from "@opui/css/components/divider.css?raw"
+import DividerBuild from "../../components/UnderTheHood/DividerBuild.astro"
 
 import dividerApi from "../../component-api/divider/api"
+
+export const keywords = ["hr", "rule", "separator"]
+export const description =
+  "A line between content, plain or with a label at the start, middle or end."
 ---
 
 <Component
+  description={description}
   slug="divider"
+  browserSupport={["container-style-queries", "text-box"]}
+  fallbacks={{
+    "text-box":
+      "Without `text-box`, a divider with a label keeps the label's full line height, so it takes a little more room.",
+  }}
   apis={[{ title: "Divider API", api: dividerApi }]}
   changelogPaths={[
     {
@@ -25,15 +40,79 @@ import dividerApi from "../../component-api/divider/api"
   installationTabs={[{ title: "divider.css", code: DividerCSS, lang: "css" }]}
 >
   <Fragment slot="title">Divider</Fragment>
-  <Fragment slot="preamble"> It's just a line. </Fragment>
+  <Fragment slot="preamble">
+    A line between content, with an optional label.
+  </Fragment>
 
-  <section>
-    <h2 class="default">Default</h2>
-    <AutoExample name="Default" />
+  <Usage slot="usage">
+    <li slot="when">Separating groups, like the sections of a long form.</li>
+    <li slot="when">
+      A labeled break, like "or": <a href="#content">content</a>.
+    </li>
+    <li slot="when-not">
+      Space between items: use the
+      <DocLink href="/components/layout">Layout</DocLink> classes.
+    </li>
+    <li slot="when-not">
+      A line between every item: use
+      <PropOrClass prop="bordered" class=".ui-bordered" /> on the
+      <DocLink href="/components/list#borders">List</DocLink> or the
+      <DocLink href="/components/menu#bordered">Menu</DocLink>.
+    </li>
+  </Usage>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <AutoExample name="Basics" />
   </section>
 
-  <section>
-    <h2 id="variants">Variants</h2>
+  <section id="variants">
+    <h2>Variants</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Outlined by default. Use <code>variant</code> or
+        <code>color="primary"</code> to change it.
+      </Fragment>
+      <Fragment slot="html">
+        Outlined by default. Use <code>.ui-filled</code>, <code>.ui-tonal</code>
+        or <code>.ui-primary</code> to change it.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Variants" />
   </section>
+
+  <section id="content">
+    <h2>Content</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Centered by default. Use <code>align</code> to change it.
+      </Fragment>
+      <Fragment slot="html">
+        Use a <code>div.ui-divider</code>, not an <code>hr</code>. Use
+        <code>.ui-align-start</code> or <code>.ui-align-end</code> to move it.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Content" column />
+  </section>
+
+  <section id="spacing">
+    <h2>Spacing</h2>
+    <p>Use <code>--ui-divider-gap</code> to change the space around it.</p>
+    <AutoExample name="Spacing" column />
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        A divider without text is an <code>hr</code>, which screen readers
+        announce as a separator.
+      </li>
+      <li>
+        A divider with text is a <code>div</code>, so screen readers read only
+        the text. Write text that makes sense on its own, like a section name.
+      </li>
+    </ul>
+  </Fragment>
+
+  <DividerBuild slot="under-the-hood" />
 </Component>

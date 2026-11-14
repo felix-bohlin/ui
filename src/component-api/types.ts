@@ -1,15 +1,36 @@
 import type { ComponentFramework, Framework } from "./frameworks"
+import type { ApiKey } from "./keyboard"
+
+export type ApiKeyboard = {
+  description: string
+  keys: ApiKey[]
+}
 
 export type ApiPart = {
   anchorName?: string
   code?: string
-  component?: Partial<Record<ComponentFramework, string>>
+  component?: string
   description: string
   legacy?: { props?: string[]; slots?: string[] }
   model?: boolean
   props?: string[]
   selector: string
   slots?: string[]
+}
+
+export type ApiElement = {
+  members: {
+    description: string
+    kind: "event" | "method" | "property"
+    name: string
+  }[]
+  tag: string
+}
+
+export type ApiHydration = {
+  description: string
+  fallback?: string
+  prop: string
 }
 
 export type ApiOption = {
@@ -20,24 +41,35 @@ export type ApiOption = {
   description: string
   frameworks?: Framework[]
   group?: string
+  htmlDescription?: string
   part?: string
   prop: string
-  type?: string
   values?: Partial<Record<string, string | null>>
-}
+} & ({ inherited: true; type: string } | { inherited?: never; type?: string })
+
+type ApiModel = { description: string; prop: string; type: string }
+
+export type CustomProperties = Record<
+  string,
+  { description: string; kind: "input" | "output" }
+>
 
 export type ComponentApi = {
   component: string
-  file?: string
-  model?: { description: string; prop: string; type: string }
-  notes?: Partial<Record<Framework, string>>
+  css?: string[]
+  elements?: ApiElement[]
+  hydration?: Partial<
+    Record<Exclude<ComponentFramework, "astro"> | "default", ApiHydration[]>
+  >
+  keyboard?: ApiKeyboard[]
+  model?: ApiModel & {
+    frameworks?: Partial<Record<ComponentFramework, ApiModel[]>>
+  }
+  notes?: Partial<Record<Framework | "default", string>>
   options: ApiOption[]
   page?: string
   parts: ApiPart[]
-  root: Pick<
-    ApiPart,
-    "anchorName" | "code" | "component" | "description" | "selector"
-  >
+  root: Pick<ApiPart, "anchorName" | "code" | "description" | "selector">
   slots?: { description: string; name: string }[]
-  source: string
+  source?: string
 }

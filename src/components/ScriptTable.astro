@@ -1,0 +1,91 @@
+---
+import { TableCell, TableRow } from "opui-css/astro"
+import DocLink from "./DocLink.astro"
+import DocsTable from "./DocsTable.astro"
+import { formatInline } from "../utils/format-inline"
+
+const scripts = [
+  {
+    does: "Counts the characters left, in Text field and Textarea",
+    file: "elements/character-count.js",
+    href: "/components/text-field#character-count",
+    label: "Character count",
+  },
+  {
+    does: "Closes open menus and `[data-close-on-navigate]` drawers when the page navigates",
+    file: "elements/close-on-navigate.js",
+    href: "/components/drawer#navigation",
+    label: "Close on navigate",
+  },
+  {
+    does: "Copies text or a field's value",
+    file: "elements/copy.js",
+    href: "/components/copy",
+    label: "Copy",
+  },
+  {
+    does: "Hides a callout with its close button",
+    file: "elements/callout.js",
+    href: "/components/callout#dismissible",
+    label: "Dismissible callout",
+  },
+  {
+    does: "Sets `indeterminate` from `data-indeterminate`",
+    file: "css/js/checkbox.js",
+    href: "/components/checkbox#indeterminate",
+    label: "Indeterminate checkbox",
+  },
+  {
+    does: "Steps the value with its buttons",
+    file: "elements/number-field.js",
+    href: "/components/number-field",
+    label: "Number field",
+  },
+  {
+    does: "Shows and hides the password",
+    file: "elements/text-field.js",
+    href: "/components/text-field#password-toggle",
+    label: "Password toggle",
+  },
+  {
+    does: "Writes the value to the `output`, with `data-live`",
+    file: "css/js/range.js",
+    href: "/components/range#value",
+    label: "Range value",
+  },
+  {
+    does: "Checks or clears a group of checkboxes from one",
+    file: "elements/select-all.js",
+    href: "/components/checkbox#select-all",
+    label: "Select all",
+  },
+  {
+    does: "Sorts the rows by a column",
+    file: "elements/sortable-table.js",
+    href: "/components/table#sorting",
+    label: "Sortable table",
+  },
+  {
+    does: "Shows toasts and dismisses them",
+    file: "elements/toaster.js",
+    href: "/components/toast",
+    label: "Toast",
+  },
+]
+
+const columns = [
+  { label: "Feature", width: "26%" },
+  { label: "What it does" },
+  { label: "Import", width: "40%" },
+]
+---
+
+<DocsTable collapsible={false} columns={columns}>
+  {scripts.map((script) => <TableRow>
+    <TableCell>
+      <DocLink href={script.href}>{script.label}</DocLink>
+    </TableCell>
+    <TableCell><Fragment set:html={formatInline(script.does)} /></TableCell>
+    <TableCell><code>opui-css/{script.file}</code></TableCell>
+  </TableRow>)}
+</DocsTable>

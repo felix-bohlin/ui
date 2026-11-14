@@ -1,0 +1,169 @@
+---
+import { TableCell, TableRow } from "opui-css/astro"
+import DocLink from "../../../../components/DocLink.astro"
+import DocsTable from "../../../../components/DocsTable.astro"
+import HydrationMarker from "../../../../components/HydrationMarker.astro"
+import Checkmark from "../../../../components/icons/Checkmark.astro"
+import Dismiss from "../../../../components/icons/Dismiss.astro"
+import type { ComponentFramework } from "../../../../component-api/frameworks"
+import { hydrationRows } from "../../../../component-api/rows"
+import type { ComponentApi } from "../../../../component-api/types"
+import { shipped } from "../../../../utils/component-source"
+import { isClientComponent } from "../../../../utils/react-client-components"
+
+type Props = {
+  framework: Exclude<ComponentFramework, "astro">
+}
+
+const { framework } = Astro.props
+
+const apis = import.meta.glob<ComponentApi>(
+  "../../../../component-api/*/api.ts",
+  { eager: true, import: "default" },
+)
+
+const rows = Object.entries(apis)
+  .filter(([, api]) => shipped(api, framework))
+  .map(([path, api]) => {
+    const names = [
+      api.component,
+      ...api.parts.flatMap((part) => (part.component ? [part.component] : [])),
+    ]
+    const props = [
+      ...new Map(
+        hydrationRows(api, framework).map((row) => [row.prop, row]),
+      ).values(),
+    ]
+    return {
+      component: api.component,
+      page: api.page ?? path.split("/").at(-2)!,
+      props,
+      serverComponent: !names.some(isClientComponent),
+    }
+  })
+  .sort((a, b) => a.component.localeCompare(b.component, "en"))
+
+const react = framework === "react"
+const hydrated = rows.filter((row) => row.props.length)
+const stats = [
+  {
+    count: rows.length - hydrated.length,
+    label: `of ${rows.length} need no hydration`,
+  },
+  {
+    count: hydrated.length,
+    label: "hydrate for",
+    props: [
+      ...new Set(hydrated.flatMap((row) => row.props.map(({ prop }) => prop))),
+    ].toSorted(),
+  },
+  ...(react
+    ? [
+        {
+          count: rows.filter((row) => row.serverComponent).length,
+          label: "are Server Components",
+        },
+      ]
+    : []),
+]
+const columns = [
+  { label: "Component", width: "30%" },
+  { label: "Client", width: "14%" },
+  { label: "Server", width: "14%" },
+  ...(react ? [{ label: "Server Component", width: "14%" }] : []),
+  { label: "Needs hydration" },
+]
+---
+
+<ul class="server-key">
+  {stats.map((stat) => <li>
+    <strong>{stat.count}</strong>
+    <span>
+      {stat.label}
+      {stat.props?.map((prop, index) => <Fragment
+        >{index > 0 && ", "}<code>{prop}</code></Fragment
+      >)}
+    </span>
+  </li>)}
+</ul>
+
+<DocsTable columns={columns}>
+  {rows.map((row) => <TableRow>
+    <TableCell>
+      <DocLink href={`/components/${row.page}`}
+        ><code>{row.component}</code></DocLink
+      >
+    </TableCell>
+    {[true, !row.props.length, ...(react ? [row.serverComponent] : [])].map(
+      (supported) => <TableCell>
+        {supported ? (
+          <Checkmark
+            class="support-icon"
+            role="img"
+            aria-label="Yes"
+            aria-hidden="false"
+          />
+        ) : (
+          <Dismiss
+            class="support-icon"
+            role="img"
+            aria-label="No"
+            aria-hidden="false"
+          />
+        )}
+      </TableCell>,
+    )}
+    <TableCell>
+      {row.props.length ? (
+        <Fragment>
+          {row.props.map((hydration, index) => <Fragment
+            >{index > 0 && ", "}<code>{hydration.prop}</code
+            ><HydrationMarker hydration={hydration}
+          /></Fragment>)}
+        </Fragment>
+      ) : (
+        "-"
+      )}
+    </TableCell>
+  </TableRow>)}
+</DocsTable>
+
+<style>
+  .server-key {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+    list-style: none;
+    margin-block: var(--size-4);
+    padding: 0;
+
+    > li {
+      align-content: start;
+      border: var(--ui-border-width) solid var(--ui-border-color);
+      border-radius: var(--ui-radius);
+      display: grid;
+      flex: 1 1 10rem;
+      gap: var(--size-1);
+      margin: 0;
+      padding: var(--size-3) var(--size-4);
+    }
+
+    strong {
+      color: var(--ui-primary-text);
+      font-size: var(--ui-font-size-h3);
+      line-height: 1;
+    }
+
+    span {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-small);
+    }
+  }
+
+  :global(.support-icon) {
+    block-size: 1.25em;
+    color: var(--ui-text);
+    inline-size: 1.25em;
+    vertical-align: middle;
+  }
+</style>

@@ -1,0 +1,99 @@
+---
+import { allBlocks, blockHref, blockPreviewHref } from "../utils/blocks"
+
+type Props = { slug: string }
+
+const { slug } = Astro.props
+const { link } = Astro.locals
+const block = allBlocks.find((entry) => entry.slug === slug)
+if (!block) {
+  throw new Error(
+    `[BlockLink] no block "${slug}": use a slug from src/utils/blocks-data.ts`,
+  )
+}
+---
+
+<article class="block-link ui-card ui-outlined ui-not-rich-text">
+  <div class="block-link-thumbnail">
+    <iframe
+      inert
+      loading="lazy"
+      src={blockPreviewHref(block.slug)}
+      tabindex="-1"
+      title={`${block.name} preview`}
+    ></iframe>
+  </div>
+  <div class="block-link-text">
+    <p class="block-link-overline">In a block</p>
+    <p class="block-link-name">
+      <a class="ui-card-link" href={link(blockHref(block.slug))}
+        >{block.name}</a
+      >
+    </p>
+    <p class="block-link-description"><slot /></p>
+  </div>
+</article>
+
+<style>
+  .block-link {
+    display: grid;
+    gap: 0;
+    grid-template-columns: 11rem minmax(0, 1fr);
+    margin-block: var(--size-4);
+
+    @media (width < 36rem) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .block-link-thumbnail {
+    aspect-ratio: 16 / 10;
+    background-color: var(--ui-surface);
+    border-inline-end: var(--ui-border-width) solid var(--ui-border-color);
+    container-type: inline-size;
+    overflow: hidden;
+    pointer-events: none;
+
+    @media (width < 36rem) {
+      border-block-end: var(--ui-border-width) solid var(--ui-border-color);
+      border-inline-end: 0;
+    }
+
+    iframe {
+      block-size: 800px;
+      border: 0;
+      color-scheme: normal;
+      display: block;
+      inline-size: 1280px;
+      transform: scale(tan(atan2(100cqi, 1280px)));
+      transform-origin: 0 0;
+    }
+  }
+
+  .block-link-text {
+    align-content: center;
+    display: grid;
+    gap: var(--size-1);
+    padding: var(--size-3);
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .block-link-overline {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-caption);
+    font-weight: var(--ui-font-weight-medium);
+  }
+
+  .block-link-name {
+    color: var(--ui-text-strong);
+    font-weight: var(--ui-font-weight-semibold);
+  }
+
+  .block-link-description {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+  }
+</style>

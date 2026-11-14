@@ -1,97 +1,161 @@
 <script setup lang="ts">
-import { computed, inject, useAttrs, useId } from "vue"
-import type { Props, Slots } from "./types.d.vue"
-import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
+import { TrimmedSlot } from "../whitespace.vue"
+import {
+  computed,
+  inject,
+  type SelectHTMLAttributes,
+  useAttrs,
+  useId,
+} from "vue"
+import { useInputAttrs, vSeed } from "../vue"
+import type { Props, Slots } from "./types.vue-props"
+import { FieldGroupKey } from "../FieldGroup/context.vue"
+import { idRefs } from "../id"
+import { initialValue, sameValue } from "./selection"
+import { styleAttrs } from "../style"
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<Props>(), {
-  items: () => [],
-  variant: "outlined",
-})
+const {
+  autoFit,
+  dense,
+  endText,
+  error,
+  hideLabel,
+  id,
+  items = [],
+  label,
+  name,
+  size,
+  spread,
+  startText,
+  value,
+  variant = "outlined",
+} = defineProps<Props>()
 defineSlots<Slots>()
-const attrs = useAttrs()
+const attrs = useAttrs() as SelectHTMLAttributes
+const inputAttrs = useInputAttrs()
 const modelValue = defineModel<string | number | (string | number)[]>()
 
+const multiple = computed(
+  () => attrs.multiple !== undefined && attrs.multiple !== false,
+)
 const model = computed({
-  get: () =>
-    modelValue.value ??
-    (attrs.value as string | number | (string | number)[] | undefined),
+  get: () => modelValue.value ?? value ?? initialValue(items, multiple.value),
   set: (value) => {
     modelValue.value = value
   },
 })
 
-const labelId = useId()
-const endTextId = useId()
-const currentFieldName = inject(CurrentFieldNameKey, undefined)
+const initialSelection = model.value
+
+const selectedAtFirst = (value: unknown) =>
+  Array.isArray(initialSelection)
+    ? initialSelection.some((selected) => sameValue(selected, value))
+    : initialSelection !== undefined && sameValue(initialSelection, value)
+
+const uid = useId()
+const base = computed(() => id || `select-${uid}`)
+const labelId = computed(() => `${base.value}-label`)
+const startTextId = computed(() => `${base.value}-start-text`)
+const endTextId = computed(() => `${base.value}-end-text`)
+const startId = computed(() => `${base.value}-start`)
+const endId = computed(() => `${base.value}-end`)
+const topId = computed(() => `${base.value}-top`)
+const bottomId = computed(() => `${base.value}-bottom`)
+const field = inject(FieldGroupKey, undefined)
 </script>
 
 <template>
   <label
     :class="[
       'ui-select',
-      props.size && `ui-${props.size}`,
       {
-        'ui-filled': props.variant === 'filled',
-        'ui-spread': props.spread,
+        'ui-auto-fit': autoFit,
+        'ui-filled': variant === 'filled',
+        'ui-spread': spread,
       },
-      props.class,
+      size && size !== 'medium' && `ui-${size}`,
+      $props.class,
     ]"
-    :data-invalid="props.error ? '' : undefined"
+    v-bind="styleAttrs($attrs.style)"
   >
-    <span v-if="props.label || $slots.label" class="ui-label" :id="labelId">
-      <slot name="label">{{ props.label }}</slot>
+    <span
+      v-if="label || $slots.label"
+      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
+      :id="labelId"
+    >
+      {{ label }}<TrimmedSlot :nodes="$slots.label?.()" />
     </span>
 
-    <span v-if="props.description || $slots.description" class="ui-start-text">
-      <slot name="description">{{ props.description }}</slot>
+    <span
+      v-if="startText || $slots['start-text']"
+      class="ui-start-text"
+      :id="startTextId"
+    >
+      {{ startText }}<slot name="start-text"></slot>
     </span>
 
     <span class="ui-field">
       <select
-        :aria-labelledby="props.label || $slots.label ? labelId : undefined"
-        :id="props.id"
-        :name="currentFieldName"
-        v-bind="$attrs"
+        v-bind="inputAttrs"
+        v-seed
         v-model="model"
+        :aria-describedby="
+          idRefs(
+            $slots.top && topId,
+            (startText || $slots['start-text']) && startTextId,
+            (endText || $slots['end-text']) && endTextId,
+            $slots.bottom && bottomId,
+            attrs['aria-describedby'],
+          )
+        "
+        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+        :aria-labelledby="
+          label || $slots.label
+            ? idRefs(labelId, $slots.start && startId, $slots.end && endId)
+            : attrs['aria-labelledby']
+        "
+        :id="id"
+        :name="name ?? field?.name"
       >
         <button v-pre>
           <selectedcontent></selectedcontent>
         </button>
-        <div :class="['ui-list', { 'ui-dense': props.dense }]">
+        <div :class="['ui-list', { 'ui-dense': dense }]">
           <option
-            v-for="item in props.items"
+            v-for="item in items"
             :key="item.value"
+            :selected="selectedAtFirst(item.value) || undefined"
             :value="item.value"
           >
-            {{ item.text }}
+            {{ item.label }}
           </option>
           <slot></slot>
         </div>
       </select>
-      <span class="ui-prefix" v-if="$slots.prefix"
-        ><slot name="prefix"></slot
+      <span class="ui-start" :id="startId" v-if="$slots.start"
+        ><slot name="start"></slot
       ></span>
-      <span class="ui-suffix" v-if="$slots.suffix"
-        ><slot name="suffix"></slot
+      <span class="ui-end" :id="endId" v-if="$slots.end"
+        ><slot name="end"></slot
       ></span>
-      <span class="ui-header" v-if="$slots.header"
-        ><slot name="header"></slot
+      <span class="ui-top" :id="topId" v-if="$slots.top"
+        ><slot name="top"></slot
       ></span>
-      <span class="ui-footer" v-if="$slots.footer"
-        ><slot name="footer"></slot
+      <span class="ui-bottom" :id="bottomId" v-if="$slots.bottom"
+        ><slot name="bottom"></slot
       ></span>
     </span>
 
     <span
-      v-if="props.endText || $slots['end-text']"
+      v-if="endText || $slots['end-text']"
       :id="endTextId"
       class="ui-end-text"
     >
-      <slot name="end-text">{{ props.endText }}</slot>
+      {{ endText }}<slot name="end-text"></slot>
     </span>
   </label>
 </template>

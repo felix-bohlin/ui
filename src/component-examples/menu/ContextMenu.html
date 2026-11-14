@@ -1,0 +1,83 @@
+<div class="menu-context-target" id="menu-context-menu-1-target" tabindex="0">
+  Right-click here, or focus the box and press Shift+F10.
+  <span class="menu-context-point" id="menu-context-menu-1-point"></span>
+</div>
+<menu class="ui-menu" id="menu-context-menu-1" popover>
+  <li>
+    <button
+      type="button"
+      command="hide-popover"
+      commandfor="menu-context-menu-1"
+    >
+      <div class="ui-text">
+        <p>Cut</p>
+      </div>
+    </button>
+  </li>
+  <li>
+    <button
+      type="button"
+      command="hide-popover"
+      commandfor="menu-context-menu-1"
+    >
+      <div class="ui-text">
+        <p>Copy</p>
+      </div>
+    </button>
+  </li>
+  <li>
+    <button
+      type="button"
+      command="hide-popover"
+      commandfor="menu-context-menu-1"
+    >
+      <div class="ui-text">
+        <p>Paste</p>
+      </div>
+    </button>
+  </li>
+</menu>
+
+<style>
+  .menu-context-target {
+    align-content: center;
+    block-size: 10rem;
+    border: var(--ui-border-width) dashed var(--ui-border-color);
+    border-radius: var(--ui-radius);
+    inline-size: 100%;
+    padding: var(--ui-space-3);
+    position: relative;
+    text-align: center;
+  }
+
+  .menu-context-point {
+    position: absolute;
+  }
+</style>
+
+<script type="module">
+  const target = document.getElementById("menu-context-menu-1-target")
+  const point = document.getElementById("menu-context-menu-1-point")
+  const menu = document.getElementById("menu-context-menu-1")
+  if (target && point && menu) {
+    target.addEventListener("contextmenu", (event) => {
+      event.preventDefault()
+      const box = target.getBoundingClientRect()
+      const x = Math.min(Math.max(event.clientX - box.left, 0), box.width)
+      const y = Math.min(Math.max(event.clientY - box.top, 0), box.height)
+      point.style.left = `${x}px`
+      point.style.top = `${y}px`
+      const open = () => {
+        if (menu.matches(":popover-open")) menu.hidePopover()
+        menu.showPopover({ source: point })
+      }
+      if (event.buttons) {
+        document.addEventListener("pointerup", () => setTimeout(open), {
+          once: true,
+        })
+      } else {
+        open()
+      }
+    })
+  }
+</script>

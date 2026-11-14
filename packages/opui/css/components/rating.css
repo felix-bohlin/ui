@@ -1,0 +1,226 @@
+@layer components.root {
+  :where(.ui-rating) {
+    --_motion: var(--ui-motion);
+    --_accent: var(--ui-warning);
+    --_clear-image: var(--ui-icon-clear);
+    --_duration: calc(var(--ui-duration) * var(--_motion));
+    --_ease: var(--ui-ease);
+    --_empty-bg-color: var(--ui-field-border-color);
+    --_max: 5;
+    --_size: var(--ui-icon-size);
+    --_star-empty-image: var(--ui-icon-rating-empty);
+    --_star-image: var(--ui-icon-rating);
+
+    @media print {
+      print-color-adjust: exact;
+    }
+  }
+
+  :where(meter.ui-rating) {
+    appearance: none;
+    background: var(--_empty-bg-color);
+    block-size: var(--_size);
+    border: 0;
+    border-radius: 0;
+    inline-size: calc(var(--_max) * var(--_size));
+    mask: var(--_star-image) 0 0 / var(--_size) var(--_size) repeat-x;
+    vertical-align: middle;
+
+    &.ui-small {
+      --_size: var(--ui-icon-size-small);
+    }
+
+    &.ui-large {
+      --_size: var(--ui-icon-size-large);
+    }
+
+    &:dir(rtl) {
+      mask-position: 100% 0;
+    }
+
+    &::-webkit-meter-bar {
+      background: none;
+      block-size: var(--_size);
+      border: 0;
+      border-radius: 0;
+    }
+
+    &::-webkit-meter-optimum-value,
+    &::-webkit-meter-suboptimum-value,
+    &::-webkit-meter-even-less-good-value {
+      background: var(--_accent);
+    }
+
+    &::-moz-meter-bar {
+      background: var(--_accent);
+    }
+
+    @media (forced-colors: active) {
+      --_accent: CanvasText;
+      --_empty-bg-color: GrayText;
+
+      forced-color-adjust: none;
+    }
+  }
+
+  @supports (inline-size: calc(attr(max type(<number>), 5) * 1px)) {
+    :where(meter.ui-rating) {
+      inline-size: calc(attr(max type(<number>), var(--_max)) * var(--_size));
+      mask:
+        var(--_star-empty-image) 0 0 / var(--_size) var(--_size) repeat-x add,
+        linear-gradient(oklch(0% 0 0) 0 0) 0 0 /
+          calc(
+            attr(value type(<number>), 0) /
+              attr(max type(<number>), var(--_max)) * 100%
+          )
+          100% no-repeat intersect,
+        var(--_star-image) 0 0 / var(--_size) var(--_size) repeat-x;
+    }
+  }
+
+  :where(fieldset.ui-rating) {
+    --_clear-bg-color: var(--ui-text-subtle);
+    --_clear-hover-bg-color: var(--ui-text);
+    --_size: var(--ui-control-size-x-small);
+
+    align-items: center;
+    border: 0;
+    border-radius: 0;
+    counter-reset: ui-rating ui-rating-max;
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0;
+    margin: 0;
+    min-inline-size: 0;
+    padding: 0;
+
+    &.ui-small {
+      --_size: var(--ui-icon-size-large);
+    }
+
+    &.ui-large {
+      --_size: var(--ui-control-size-small);
+    }
+
+    & > legend {
+      color: var(--ui-field-label-text-color);
+      font-size: var(--ui-field-label-font-size);
+      font-weight: var(--ui-field-label-font-weight);
+      margin-block-end: var(--ui-space-1);
+      padding: 0;
+    }
+
+    input {
+      --_fill-bg-color: var(--_empty-bg-color);
+      --_fill-image: var(--_star-empty-image);
+
+      appearance: none;
+      block-size: var(--_size);
+      border-radius: var(--ui-radius-small);
+      counter-increment: ui-rating-max;
+      cursor: pointer;
+      inline-size: var(--_size);
+      margin: 0;
+      position: relative;
+
+      &::before {
+        background-color: var(--_fill-bg-color);
+        content: "";
+        inset: 0;
+        mask: var(--_fill-image) center / contain no-repeat;
+        position: absolute;
+        transition: background-color var(--_duration) var(--_ease);
+      }
+    }
+
+    input[value="0"] {
+      --_fill-bg-color: var(--_clear-bg-color);
+      --_fill-image: var(--_clear-image);
+
+      counter-increment: none;
+      margin-inline-end: var(--ui-space-1);
+
+      &::before {
+        mask-size: 65%;
+      }
+    }
+
+    input:not([value="0"]):is(:checked, :has(~ :checked)) {
+      --_fill-bg-color: var(--_accent);
+      --_fill-image: var(--_star-image);
+
+      counter-increment: ui-rating ui-rating-max;
+    }
+
+    @media (hover: hover) {
+      &:has(input:enabled:hover) input:not([value="0"]) {
+        --_fill-bg-color: var(--_empty-bg-color);
+        --_fill-image: var(--_star-empty-image);
+
+        &:is(:hover, :has(~ input:hover)) {
+          --_fill-bg-color: var(--_accent);
+          --_fill-image: var(--_star-image);
+        }
+      }
+
+      input[value="0"]:enabled:hover {
+        --_fill-bg-color: var(--_clear-hover-bg-color);
+      }
+    }
+
+    &::after {
+      color: var(--ui-text-subtle);
+      content: counter(ui-rating) "/" counter(ui-rating-max);
+      font-size: var(--ui-font-size-caption);
+      font-variant-numeric: tabular-nums;
+      margin-inline-start: var(--ui-space-2);
+
+      @supports (content: "" / "") {
+        content: counter(ui-rating) "/" counter(ui-rating-max) / "";
+      }
+    }
+
+    &:disabled {
+      opacity: var(--ui-disabled-opacity);
+      -webkit-user-select: none;
+      user-select: none;
+
+      input {
+        cursor: not-allowed;
+      }
+    }
+
+    &:has(:required) > legend::after {
+      color: var(--ui-field-required-text-color);
+      content: "*";
+      margin-inline-start: 0.25ex;
+
+      @supports (content: "*" / "") {
+        content: "*" / "";
+      }
+    }
+
+    &:has([aria-invalid="true"], :user-invalid) {
+      @media (forced-colors: none) {
+        --_empty-bg-color: oklch(from var(--ui-invalid) l c h / 60%);
+      }
+
+      @media (forced-colors: active) {
+        input:not([value="0"]) {
+          border: var(--ui-border-width) dashed CanvasText;
+        }
+      }
+    }
+
+    @media (forced-colors: active) {
+      --_accent: SelectedItem;
+      --_clear-bg-color: ButtonText;
+      --_clear-hover-bg-color: Highlight;
+      --_empty-bg-color: GrayText;
+
+      input::before {
+        forced-color-adjust: none;
+      }
+    }
+  }
+}

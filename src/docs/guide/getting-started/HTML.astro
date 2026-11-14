@@ -1,122 +1,234 @@
 ---
 import Guide from "../../../layouts/Guide.astro"
-import { Callout } from "@opui/astro"
-import { Code } from "astro-expressive-code/components"
-import CodeGroup from "../../../components/CodeGroup.astro"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionSummary,
+  Card,
+  CardContent,
+  CardHeader,
+} from "opui-css/astro"
+import Code from "../../../components/Code.astro"
 import DocLink from "../../../components/DocLink.astro"
-import Theming from "./_theming.astro"
+import ScriptTable from "../../../components/ScriptTable.astro"
+import CssFiles from "./partials/CssFiles.astro"
+import InstallCommand from "./partials/InstallCommand.astro"
+import NextSteps from "./partials/NextSteps.astro"
+import PickAndChoose from "./partials/PickAndChoose.astro"
+import QuickStart from "./partials/QuickStart.astro"
+
+const cdn = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css" />`
+
+const installs = [
+  {
+    href: "#cdn",
+    note: "One link with every component. No build step.",
+    title: "CDN",
+  },
+  {
+    href: "#manual-setup",
+    note: "The files in your project, yours to change. No build step.",
+    title: "Copy the files",
+  },
+  {
+    href: "#installation",
+    note: "Everything or only the parts you use, through your bundler.",
+    title: "npm",
+  },
+]
+
+export const keywords = ["cdn", "install", "npm", "setup"]
 ---
 
 <Guide overline="Guide">
   <Fragment slot="title">Getting started</Fragment>
   <Fragment slot="preamble">
-    Open Props UI is a CSS UI library exploring how next-gen HTML & CSS features
-    can change the way we create components. Designed to be used by professional
-    teams as well as tinkering hobbyists.
+    Add the CSS from the CDN, from npm or by copying the files, then write the
+    class names.
   </Fragment>
 
-  <div class="ui-not-rich-text">
-    <Callout severity="neutral">
-      <p>
-        Open Props UI is <u>just CSS</u>. You can copy any <DocLink
-          class="ui-link"
-          href="/components">component</DocLink
-        > CSS straight from the docs - no install required. The rest of this page
-        is for when you want the full setup.
-      </p>
-    </Callout>
-  </div>
+  <section id="quick-start">
+    <h2>Quick start</h2>
+    <QuickStart>
+      <Code slot="install" code={cdn} lang="html" />
+      <Code
+        slot="use"
+        code={`<button class="ui-button ui-filled ui-primary" type="button">
+  Save
+</button>`}
+        lang="html"
+      />
+    </QuickStart>
+  </section>
 
-  <section>
-    <h2 id="manual-setup">Install manually</h2>
+  <section id="whats-in-the-css">
+    <h2>What's in the CSS</h2>
+    <CssFiles />
+  </section>
+
+  <section id="install">
+    <h2>Pick an install</h2>
+    <div class="install-picker">
+      {installs.map((install) => <Card variant="outlined">
+        <CardHeader>
+          <h3>
+            <a class="ui-card-link" href={install.href}>{install.title}</a>
+          </h3>
+        </CardHeader>
+        <CardContent>
+          <p>{install.note}</p>
+        </CardContent>
+      </Card>)}
+    </div>
+  </section>
+
+  <section id="cdn">
+    <h2>Install via CDN</h2>
+    <p>One file with everything, in the right cascade layers.</p>
+    <Code code={cdn} lang="html" />
     <p>
-      The most flexible way to use OPUI. Download these files from the <a
-        class="ui-link"
-        target="_blank"
-        href="https://github.com/felix-bohlin/ui/tree/main/packages/opui"
-        ><code>packages/opui/</code> folder on GitHub</a
-      > and drop them into your project.
-    </p>
-
-    <Code
-      code={`├─ opui
-  └─ core
-     ├─ normalize.css
-     ├─ palette.css
-     └─ utils.css
-  └─ css
-     ├─ components.css
-     └─ theme.css
-  └─ open-props.css`}
-      lang="text"
-    />
-
-    <p>
-      Put it all together something like this in your main CSS. If you have your
-      files in a different folder structure you'd of course need to change the
-      paths.
-    </p>
-    <Code
-      code={`@layer openprops, theme, normalize, components.root, components.extended, utils;
-
-@import "./open-props.css";
-@import "./core/palette.css";
-@import "./css/theme.css";
-@import "./core/normalize.css";
-@import "./css/components.css";
-@import "./core/utils.css";`}
-      lang="css"
-    />
-
-    <h3 id="theme-generator"><code>theme.css</code> generator</h3>
-    <p>
-      There's a WIP visual editor for editing <code>theme.css</code> - <DocLink
-        href="/guide/theme-generator">try it out</DocLink
-      >!
+      Use <code>dist/opui.no-compat.css</code> without the
+      <DocLink href="/guide/browser-support#compat">browser fallbacks</DocLink>,
+      or <code>dist/opui.baseline-&lt;year&gt;.css</code> for one Baseline year.
+      Pin an exact version, like <code>@6.0.0</code>, for full control.
     </p>
   </section>
 
-  <Theming />
+  <section id="manual-setup">
+    <h2>Install manually</h2>
+    <p>
+      No build step needed. Download the package (<code>npm pack opui-css</code
+      >, or browse it on
+      <a
+        class="ui-link"
+        target="_blank"
+        href="https://cdn.jsdelivr.net/npm/opui-css@6/"
+        >jsDelivr</a
+      >) as <code>opui</code>, and import the files:
+    </p>
+    <Code
+      code={`@import "./opui/css/layers.css";
 
-  <section>
-    <h2 id="npm-installation">Install via NPM</h2>
-
-    <CodeGroup
-      tabs={[
-        {
-          title: "pnpm",
-          code: "pnpm add opui-css open-props -S",
-          lang: "sh",
-        },
-        {
-          title: "npm",
-          code: "npm install opui-css open-props -S",
-          lang: "sh",
-        },
-      ]}
+@import "./opui/core/palette.css";
+@import "./opui/css/theme.css";
+@import "./opui/core/normalize.css";
+@import "./opui/css/components.css";
+@import "./opui/css/compat.css";
+@import "./opui/core/utils.css";`}
+      lang="css"
     />
+    <p>
+      If your own CSS reads Open Props, import <code>./opui/dist/op.css</code>
+      right after <code>layers.css</code>.
+    </p>
+    <Accordion>
+      <AccordionSummary>The files in the package</AccordionSummary>
+      <AccordionContent>
+        <Code
+          code={`opui
+├─ core
+│  ├─ normalize.css
+│  ├─ palette.css
+│  └─ utils.css
+├─ css
+│  ├─ compat
+│  │  ├─ avatar.css
+│  │  └─ ...
+│  ├─ components
+│  │  ├─ accordion.css
+│  │  └─ ...
+│  ├─ js
+│  │  ├─ checkbox.js
+│  │  └─ range.js
+│  ├─ compat.css
+│  ├─ components.css
+│  ├─ imports.css
+│  ├─ layers.css
+│  └─ theme.css
+├─ dist
+│  ├─ op.css
+│  ├─ opui.baseline-2023.css
+│  ├─ ...
+│  ├─ opui.components.css
+│  ├─ opui.css
+│  └─ opui.no-compat.css
+├─ elements
+│  ├─ number-field.js
+│  └─ ...
+├─ themes
+│  ├─ bootstrap.css
+│  ├─ brutalist.css
+│  ├─ m3.css
+│  └─ shadcn.css
+├─ open-props.css
+└─ tokens.json`}
+          lang="text"
+        />
+        <p>
+          <code>dist/op.css</code> and <code>open-props.css</code> are Open
+          Props, optional, for your own CSS. <code>themes/</code> holds the
+          <DocLink href="/guide/customizing#example-themes"
+            >example themes</DocLink
+          >
+          and <code>tokens.json</code> the
+          <DocLink href="/guide/theme-tokens#tokens-json">design tokens</DocLink
+          >.
+        </p>
+      </AccordionContent>
+    </Accordion>
+  </section>
 
-    <h3 id="npm-usage">Usage</h3>
-    <p>Either import everything:</p>
+  <section id="installation">
+    <h2>Install via NPM</h2>
+    <p>
+      For a bundler that resolves CSS <code>@import</code>s, like Vite, on Node
+      26.10 or later.
+    </p>
+    <InstallCommand />
+
+    <h3 id="css">Import the CSS</h3>
+    <p>Either import everything in your main CSS file:</p>
     <Code code={`@import "opui-css/css/imports.css";`} lang="css" />
 
     <p>Or pick and choose the parts you want to include:</p>
-    <Code
-      code={`@import "opui-css/open-props.css";
-@import "opui-css/core/palette.css";
-@import "opui-css/css/theme.css";
-@import "opui-css/core/normalize.css";
-@import "opui-css/css/components.css";
-@import "opui-css/core/utils.css";`}
-      lang="css"
-    />
+    <PickAndChoose />
   </section>
 
-  <section>
-    <h2 id="cdn">Install via CDN</h2>
+  <section id="scripts">
+    <h2>Scripts</h2>
+    <p>A few features need a script in plain HTML:</p>
+    <ScriptTable />
+    <p>Without a bundler, add this import map to the <code>head</code>:</p>
     <Code
-      code={`<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opui-css/dist/opui.css" />`}
+      code={`<script type="importmap">
+  { "imports": { "opui-css/": "https://cdn.jsdelivr.net/npm/opui-css@6/" } }
+</script>`}
       lang="html"
     />
   </section>
+
+  <section id="next-steps">
+    <h2>Next steps</h2>
+    <NextSteps />
+  </section>
 </Guide>
+
+<style>
+  .install-picker {
+    display: grid;
+    gap: var(--size-3);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    margin-block-start: var(--size-5);
+
+    h3 {
+      font-size: var(--ui-font-size-h6);
+      margin: 0;
+    }
+
+    p {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-small);
+      margin: 0;
+    }
+  }
+</style>

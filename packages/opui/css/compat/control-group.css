@@ -1,0 +1,25 @@
+@layer components.compat {
+  @supports not (overflow-inline: auto) {
+    :where(.ui-control-group).ui-overflow-scroll {
+      overflow-x: auto;
+    }
+  }
+
+  @supports not (inline-size: if(else: 0px)) {
+    :where(.ui-control-group):is(.ui-filled, .ui-tonal) {
+      --_divider-gap: 0px;
+      --_start-border-color: var(--_divider-enabled-border-color);
+    }
+  }
+
+  @supports not (row-rule: none) {
+    :where(.ui-control-group) {
+      --_divider-gap: 0px;
+      --_start-border-color: var(--_divider-border-color);
+
+      &:is(.ui-filled, .ui-tonal) {
+        --_start-border-color: var(--_divider-enabled-border-color);
+      }
+    }
+  }
+}

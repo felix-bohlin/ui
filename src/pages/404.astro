@@ -1,0 +1,106 @@
+---
+import { Button } from "opui-css/astro"
+import Default from "../layouts/Default.astro"
+import { DEFAULT_FRAMEWORK } from "../utils/framework"
+
+const docs = `/${DEFAULT_FRAMEWORK}`
+const links = [
+  {
+    description: "Every component, with examples",
+    href: `${docs}/components/`,
+    label: "Components",
+  },
+  {
+    description: "Install, theme and customize",
+    href: `${docs}/guide/getting-started/`,
+    label: "Getting started",
+  },
+  {
+    description: "From 5.x to 6.0",
+    href: `${docs}/guide/migrating/`,
+    label: "Migrating",
+  },
+  {
+    description: "Larger pieces of UI to copy",
+    href: "/blocks/",
+    label: "Blocks",
+  },
+  {
+    description: "Make a theme of your own",
+    href: "/theme-builder/",
+    label: "Theme builder",
+  },
+  { description: "Releases and CSS techniques", href: "/blog/", label: "Blog" },
+]
+---
+
+<Default
+  description="This page doesn't exist. Search the docs or start from one of the main sections."
+  noindex
+  title="Page not found"
+>
+  <main class="not-found" id="main-content">
+    <hgroup>
+      <p class="not-found-code">404</p>
+      <h1>Page not found</h1>
+      <p>
+        This page doesn't exist, or it moved. Search the docs, or start from one
+        of these.
+      </p>
+    </hgroup>
+    <Button data-open-search variant="filled">Search the docs</Button>
+    <ul class="not-found-links">
+      {links.map((link) => <li>
+        <a class="ui-link" href={link.href}>{link.label}</a>
+        <span>{link.description}</span>
+      </li>)}
+    </ul>
+  </main>
+</Default>
+
+<style>
+  .not-found {
+    display: grid;
+    gap: var(--size-6);
+    justify-items: start;
+    margin-inline: auto;
+    max-inline-size: 40rem;
+    padding: var(--size-10) var(--size-4);
+  }
+
+  hgroup {
+    display: grid;
+    gap: var(--size-2);
+
+    & h1 {
+      margin: 0;
+    }
+
+    & p {
+      margin: 0;
+    }
+  }
+
+  .not-found-code {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-semibold);
+  }
+
+  .not-found-links {
+    display: grid;
+    gap: var(--size-3);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    & li {
+      display: grid;
+    }
+
+    & span {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-small);
+    }
+  }
+</style>

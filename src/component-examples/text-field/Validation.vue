@@ -4,25 +4,29 @@ import { TextField } from "opui-css/vue"
 
 <template>
   <div class="example-row">
-    <TextField label="I'm required" placeholder="Placeholder" required />
-    <TextField label="So am I!" placeholder="Placeholder" required filled />
+    <TextField label="Full name" placeholder="Holly Humbucker" required />
+    <TextField
+      label="Email"
+      placeholder="name@lowend.example"
+      required
+      type="email"
+      variant="filled"
+    />
   </div>
 
   <div class="example-row">
     <TextField
-      label="Label"
-      placeholder="Placeholder"
-      value="This isn't right"
-      endText="Only double-negatives are allowed."
+      endText="Whoops, this username is taken. Try another one."
       error
+      label="Username"
+      value="ada"
     />
     <TextField
-      label="Label"
-      placeholder="Placeholder"
-      value="Uh-oh"
-      endText="Only letters from the first half of the alphabet are allowed."
+      endText="Bummer, this code has expired."
       error
-      filled
+      label="Gear discount code"
+      value="STRINGS23"
+      variant="filled"
     />
   </div>
 </template>

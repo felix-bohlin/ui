@@ -1,18 +1,31 @@
 ---
 import Component from "../../layouts/Component.astro"
+import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
-import Example from "../../components/Example"
+import BlockLink from "../../components/BlockLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
-import { Progress as UIProgress } from "@opui/astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import { Progress as UIProgress } from "opui-css/astro"
 
 import ProgressCSS from "@opui/css/components/progress.css?raw"
-import Conditional from "../../components/Conditional.astro"
+import ProgressBuild from "../../components/UnderTheHood/ProgressBuild.astro"
 
 import progressApi from "../../component-api/progress/api"
+
+export const keywords = ["loading", "meter", "progress bar"]
+export const description =
+  "A progress bar on the native progress element, for a task that reports how far along it is, or one that doesn't."
 ---
 
 <Component
+  description={description}
   slug="progress"
+  heroAnatomy
+  browserSupport={["attr", "container-style-queries", "has"]}
+  fallbacks={{
+    attr: "Without typed `attr()`, a round progress shows as a bar.",
+  }}
   apis={[{ title: "Progress API", api: progressApi }]}
   changelogPaths={[
     {
@@ -31,68 +44,91 @@ import progressApi from "../../component-api/progress/api"
 >
   <Fragment slot="title">Progress</Fragment>
   <Fragment slot="preamble">
-    See also: <DocLink href="/components/spinner" class="ui-link"
-      >Spinner</DocLink
-    >.
+    How far along a task is, like an upload, or that it's still going. For a
+    short wait in a small space, use a
+    <DocLink href="/components/spinner">Spinner</DocLink>.
   </Fragment>
 
-  <section>
-    <h2 id="indeterminate">Indeterminate</h2>
+  <Fragment slot="anatomy">
+    <Anatomy zoom={1.5}>
+      <UIProgress
+        aria-label="Uploading slap video"
+        max="100"
+        style="inline-size: 14rem"
+        value="60"
+      />
+    </Anatomy>
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      A task with a known length, like an upload: a
+      <a href="#determinate">value</a>.
+    </li>
+    <li slot="when">
+      An unknown wait: <a href="#indeterminate">indeterminate</a>.
+    </li>
+    <li slot="when-not">
+      A short wait in a small space: use a
+      <DocLink href="/components/spinner">Spinner</DocLink>.
+    </li>
+    <li slot="when-not">
+      A measurement, like disk usage: use <code>&lt;meter&gt;</code>.
+    </li>
+  </Usage>
+
+  <section id="indeterminate">
+    <h2>Indeterminate</h2>
     <AutoExample name="Indeterminate" />
   </section>
 
-  <section>
-    <h2 id="determinate">Determinate</h2>
+  <section id="determinate">
+    <h2>Determinate</h2>
     <AutoExample name="Determinate" column />
+    <BlockLink slug="billing">
+      Usage against the plan's limits: a row with the label and the amount above
+      each bar, which names the progress through <code>aria-labelledby</code>.
+    </BlockLink>
   </section>
 
-  <section>
-    <h2 id="variants">Variants</h2>
-    <Conditional>
-      <p slot="astro">
-        Use the <code>variant</code> prop to swap the progress bar track surface for
-        better contrast on different backgrounds.
-      </p>
-      <p slot="html">
-        Use the modifier classes <code>.ui-filled</code>, <code
-          >.ui-default</code
-        >, or
-        <code>.ui-tonal</code> on the wrapper <code>&lt;div&gt;</code> to swap the
-        progress bar track surface for better contrast on different backgrounds.
-      </p>
-      <p slot="vue">
-        Use the <code>variant</code> prop to swap the progress bar track surface for
-        better contrast on different backgrounds.
-      </p>
-    </Conditional>
+  <section id="variants">
+    <h2>Variants</h2>
+    <p>
+      Tonal by default. Use
+      <PropOrClass prop='variant="filled"' class=".ui-filled" /> for a filled
+      track.
+    </p>
     <AutoExample name="Surfaces" column />
   </section>
 
-  <Fragment slot="accessibility">
+  <section id="inline">
+    <h2>Inline</h2>
+    <p>Set an <code>inline-size</code> to keep it short.</p>
+    <AutoExample name="Inline" />
+  </section>
+
+  <section id="round">
+    <h2>Round</h2>
     <p>
-      If the <code>&lt;progress&gt;</code> element is describing the loading progress
-      of a section of a page:
+      Use <PropOrClass prop="round" class=".ui-round" />. Resize with
+      <code>--_ring-size</code>.
     </p>
+    <AutoExample name="Round" row />
+  </section>
+
+  <ProgressBuild slot="under-the-hood" />
+
+  <Fragment slot="accessibility">
     <ul>
-      <li>use <code>aria-describedby</code> to point to the status</li>
       <li>
-        set <code>aria-busy="true"</code> on the section that is being updated, removing
-        it when loading is finished.
+        Name the bar with <code>aria-label</code> or <code>aria-labelledby</code
+        >.
+      </li>
+      <li>
+        For a loading section, set <code>aria-busy="true"</code> on it and point
+        its <code>aria-describedby</code> at the bar.
       </li>
     </ul>
-    <p>
-      Source: <a
-        href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress#accessibility"
-        class="ui-link">MDN</a
-      >
-    </p>
-    <Example>
-      <Example.Preview slot="preview-astro">
-        <div aria-busy="true" aria-describedby="progress-bar">
-          Content here is loading.
-        </div>
-        <UIProgress id="progress-bar" aria-label="Content loading…" />
-      </Example.Preview>
-    </Example>
+    <AutoExample name="AriaBusy" />
   </Fragment>
 </Component>

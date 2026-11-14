@@ -1,23 +1,24 @@
 <script setup lang="ts">
-import { onMounted } from "vue"
+import { onBeforeUnmount, onMounted, ref } from "vue"
 import { Progress } from "opui-css/vue"
 
+const value = ref(10)
+let interval: ReturnType<typeof setInterval> | undefined
+
 onMounted(() => {
-  const progress = document.querySelector<HTMLProgressElement>(
-    "#determinate-progress",
-  )
-  if (progress) {
-    setInterval(() => {
-      if (progress.value >= 100) {
-        progress.value = 10
-      } else {
-        progress.value += 10
-      }
-    }, 3000)
-  }
+  interval = setInterval(() => {
+    value.value = value.value >= 100 ? 10 : value.value + 10
+  }, 3000)
 })
+
+onBeforeUnmount(() => clearInterval(interval))
 </script>
 
 <template>
-  <Progress id="determinate-progress" max="100" value="10" />
+  <Progress
+    aria-label="Uploading"
+    id="progress-determinate-1"
+    max="100"
+    :value="value"
+  />
 </template>

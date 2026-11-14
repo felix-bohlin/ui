@@ -1,0 +1,41 @@
+import type { ComponentApi } from "../types"
+
+export default {
+  component: "MessageList",
+  notes: {
+    default:
+      "Name the list with `aria-label`, such as the other person or the channel, so a screen reader knows which conversation it is.",
+  },
+  options: [
+    {
+      default: '"list"',
+      description:
+        "The `role` of the `<ol>`, such as `log` for a live conversation. `list` keeps Safari announcing a list.",
+      inherited: true,
+      prop: "role",
+      type: "string",
+    },
+  ],
+  page: "message",
+  parts: [
+    {
+      code: "li.ui-message",
+      component: "Message",
+      description:
+        "A message. Consecutive messages on the same side group into a run.",
+      selector: "li.ui-message",
+    },
+  ],
+  root: {
+    description: "The conversation, an ordered list.",
+    selector: "ol.ui-message-list",
+  },
+  slots: [
+    {
+      description:
+        "The messages, and any other `li` between them, such as a date in `li.ui-divider`, which starts a new run.",
+      name: "default",
+    },
+  ],
+  source: "Message",
+} satisfies ComponentApi

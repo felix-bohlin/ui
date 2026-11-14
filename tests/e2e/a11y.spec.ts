@@ -1,7 +1,15 @@
 import { readFileSync, writeFileSync } from "node:fs"
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test } from "@playwright/test"
-import { COMPONENTS, FRAMEWORKS, openFixture } from "./fixtures"
+import {
+  BLOCKS,
+  COMPONENTS,
+  STRESS_TESTS,
+  axeNodes,
+  instantScrolling,
+  openFixture,
+  stubExternalHosts,
+} from "./fixtures"
 
 const KNOWN_VIOLATIONS_FILE = new URL(
   "./a11y-known-violations.json",
@@ -14,104 +22,205 @@ const readKnown = (): Record<string, string[]> =>
 
 const known = readKnown()
 const recorded: Record<string, string[]> = {}
-let scheme = ""
+const ran = new Set<string>()
 
-for (const framework of FRAMEWORKS) {
-  for (const component of COMPONENTS) {
-    test(`${framework}/${component} has no new axe violations`, async ({
-      page,
-    }, testInfo) => {
-      scheme = testInfo.project.name
-      const prefix = `${scheme}/${component}`
-      await openFixture(page, framework, component)
+const within = (key: string, prefix: string) =>
+  key === prefix || key.startsWith(`${prefix}/`)
 
-      const { violations } = await new AxeBuilder({ page })
-        .include("main")
-        .analyze()
-      const nodes = violations.flatMap((violation) =>
-        violation.nodes.map((node) => ({
-          help: violation.help,
-          id: violation.id,
-          target: node.target.join(" "),
-        })),
+if (RECORD) test.describe.configure({ mode: "serial" })
+
+const TARGETS = [...BLOCKS, ...COMPONENTS, ...STRESS_TESTS].toSorted()
+
+const OPENED: Record<string, string[]> = {
+  dialog: ["dialog-alert-dialog-1", "dialog-long-content-1"],
+  drawer: ["drawer-basics-2", "drawer-close-behaviors-1"],
+}
+
+for (const component of TARGETS) {
+  test(`html/${component} has no new axe violations`, async ({
+    page,
+  }, testInfo) => {
+    if (RECORD) {
+      expect(
+        testInfo.config.workers,
+        "recording the ledger needs --workers=1",
+      ).toBe(1)
+    }
+    const prefix = `${testInfo.project.name}/html/${component}`
+    await openFixture(page, "html", component)
+
+    const { violations } = await new AxeBuilder({ page })
+      .include(component.startsWith("blocks/") ? "body" : "main")
+      .exclude('iframe[src*="youtube"]')
+      .analyze()
+    const nodes = axeNodes(violations)
+    for (const id of OPENED[component] ?? []) {
+      const overlay = page.locator(`#${id}`)
+      await overlay.evaluate((dialog) =>
+        (dialog as HTMLDialogElement).showModal(),
       )
-      const examples = await page.evaluate(
-        (targets) =>
-          targets.map((target) => {
-            try {
-              return (
-                document
-                  .querySelector(target)
-                  ?.closest("[data-example]")
-                  ?.getAttribute("data-example") ?? ""
-              )
-            } catch {
-              return ""
-            }
-          }),
-        nodes.map((node) => node.target),
+      await page.evaluate(() =>
+        Promise.allSettled(
+          document.getAnimations().map((animation) => animation.finished),
+        ),
       )
-      const keyOf = (index: number) =>
-        examples[index] ? `${prefix}/${examples[index]}` : prefix
-      const present = new Set([
-        prefix,
-        ...(
-          await page
-            .locator("[data-example]")
-            .evaluateAll((elements) =>
-              elements.map((element) => element.getAttribute("data-example")),
+      await expect(overlay).toBeVisible()
+      const opened = await new AxeBuilder({ page }).include(`#${id}`).analyze()
+      nodes.push(...axeNodes(opened.violations))
+      await overlay.evaluate((dialog) => (dialog as HTMLDialogElement).close())
+    }
+    const examples = await page.evaluate(
+      (targets) =>
+        targets.map((target) => {
+          try {
+            return (
+              document
+                .querySelector(target)
+                ?.closest("[data-example]")
+                ?.getAttribute("data-example") ?? ""
             )
-        ).map((name) => `${prefix}/${name}`),
-      ])
+          } catch {
+            return ""
+          }
+        }),
+      nodes.map((node) => node.target),
+    )
+    const keyOf = (index: number) =>
+      examples[index] ? `${prefix}/${examples[index]}` : prefix
+    const present = new Set([
+      prefix,
+      ...(
+        await page
+          .locator("[data-example]")
+          .evaluateAll((elements) =>
+            elements.map((element) => element.getAttribute("data-example")),
+          )
+      ).map((name) => `${prefix}/${name}`),
+    ])
 
-      const found = new Map<string, Set<string>>()
-      nodes.forEach((node, index) => {
-        const key = keyOf(index)
-        if (!found.has(key)) found.set(key, new Set())
-        found.get(key)!.add(node.id)
-      })
+    const found = new Map<string, Set<string>>()
+    nodes.forEach((node, index) => {
+      const key = keyOf(index)
+      if (!found.has(key)) found.set(key, new Set())
+      found.get(key)!.add(node.id)
+    })
 
-      if (RECORD) {
-        for (const [key, rules] of found) {
-          recorded[key] = [
-            ...new Set([...(recorded[key] ?? []), ...rules]),
-          ].toSorted()
-        }
-        return
+    if (RECORD) {
+      ran.add(prefix)
+      for (const [key, rules] of found) {
+        recorded[key] = [
+          ...new Set([...(recorded[key] ?? []), ...rules]),
+        ].toSorted()
       }
+      return
+    }
 
-      const unexpected = nodes.filter(
-        (node, index) => !(known[keyOf(index)] ?? []).includes(node.id),
+    const unexpected = nodes.filter(
+      (node, index) => !(known[keyOf(index)] ?? []).includes(node.id),
+    )
+    expect(
+      unexpected.map((node) => ({
+        example: keyOf(nodes.indexOf(node)),
+        help: node.help,
+        id: node.id,
+        target: node.target,
+      })),
+    ).toEqual([])
+
+    const fixed = Object.entries(known)
+      .filter(([key]) => present.has(key))
+      .flatMap(([key, rules]) =>
+        rules
+          .filter((rule) => !found.get(key)?.has(rule))
+          .map((rule) => `${key}: ${rule}`),
       )
-      expect(
-        unexpected.map((node) => ({
-          example: keyOf(nodes.indexOf(node)),
-          help: node.help,
-          id: node.id,
-          target: node.target,
-        })),
-      ).toEqual([])
+    expect(
+      fixed,
+      `fixed violations; remove them from a11y-known-violations.json`,
+    ).toEqual([])
 
-      const fixed = Object.entries(known)
-        .filter(([key]) => present.has(key))
-        .flatMap(([key, rules]) =>
-          rules
-            .filter((rule) => !found.get(key)?.has(rule))
-            .map((rule) => `${key}: ${rule}`),
+    const stale = Object.keys(known).filter(
+      (key) => within(key, prefix) && !present.has(key),
+    )
+    expect(
+      stale,
+      `examples that no longer exist; remove them from a11y-known-violations.json`,
+    ).toEqual([])
+  })
+}
+
+const DOCS_PAGE_RULES: Record<string, string[]> = {
+  "/blocks/account-settings/": ["landmark-unique"],
+  "/blocks/app-shell/": ["landmark-unique"],
+  "/blocks/inbox/": ["landmark-unique"],
+  "/html/components/button/": [
+    "label",
+    "landmark-unique",
+    "scrollable-region-focusable",
+  ],
+  "/html/components/typography/": ["label", "scrollable-region-focusable"],
+  "/html/guide/concepts/": ["landmark-unique"],
+  "/html/guide/customizing/": ["scrollable-region-focusable"],
+  "/html/guide/migrating/": ["scrollable-region-focusable"],
+  "/html/guide/why-opui/": ["heading-order"],
+  "/react/components/typography/": ["label", "scrollable-region-focusable"],
+}
+
+const NARROW_DOCS_PAGE_RULES: Record<string, string[]> = {
+  "/blocks/app-shell/": ["landmark-unique"],
+  "/html/components/typography/": ["scrollable-region-focusable"],
+  "/html/guide/concepts/": ["scrollable-region-focusable"],
+  "/html/guide/migrating/": ["scrollable-region-focusable"],
+}
+
+for (const [width, pages] of [
+  [1280, DOCS_PAGE_RULES],
+  [390, NARROW_DOCS_PAGE_RULES],
+] as const) {
+  for (const [path, rules] of Object.entries(pages)) {
+    test(`${path} at ${width}px has no ${rules.join(", ")} violations with its examples' code open`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ height: 844, width })
+      await instantScrolling(page)
+      await stubExternalHosts(page)
+      await page.goto(path)
+      await page
+        .locator(".show-code-button")
+        .evaluateAll((buttons) =>
+          buttons.forEach((button) => (button as HTMLElement).click()),
         )
+      await page.evaluate(async () => {
+        await new Promise(requestAnimationFrame)
+        await new Promise(requestAnimationFrame)
+      })
+      const { violations } = await new AxeBuilder({ page })
+        .withRules(rules)
+        .analyze()
       expect(
-        fixed,
-        `fixed violations; remove them from a11y-known-violations.json`,
+        axeNodes(violations).map(({ id, target }) => `${id}: ${target}`),
       ).toEqual([])
     })
   }
 }
 
+test("a11y-known-violations.json only lists pages that exist", () => {
+  const scheme = test.info().project.name
+  const prefixes = TARGETS.map((target) => `${scheme}/html/${target}`)
+  expect(
+    Object.keys(known).filter(
+      (key) =>
+        key.startsWith(`${scheme}/`) &&
+        !prefixes.some((prefix) => within(key, prefix)),
+    ),
+  ).toEqual([])
+})
+
 test.afterAll(() => {
-  if (!RECORD || !scheme) return
+  if (!RECORD || ran.size === 0) return
   const merged = Object.fromEntries(
     Object.entries(readKnown()).filter(
-      ([key]) => !key.startsWith(`${scheme}/`),
+      ([key]) => ![...ran].some((prefix) => within(key, prefix)),
     ),
   )
   Object.assign(merged, recorded)

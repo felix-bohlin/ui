@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/vue"
 </script>
 
 <template>
   <Form>
-    <FieldSet>
-      <FieldLegend>These are required!</FieldLegend>
-      <FieldGroup direction="row" name="radio-group-required">
-        <Radio value="1" required>Radio 1</Radio>
-        <Radio value="2" required>Radio 2</Radio>
-        <Radio value="3" required>Radio 3</Radio>
+    <Fieldset>
+      <FieldLegend>Account type</FieldLegend>
+      <FieldGroup name="radio-group-required" orientation="horizontal">
+        <Radio required value="bassist">Bassist</Radio>
+        <Radio required value="band">Band</Radio>
+        <Radio required value="shop">Bass shop</Radio>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
   </Form>
 </template>

@@ -1,0 +1,68 @@
+---
+import {
+  SortableTable,
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/astro"
+
+const bassists = [
+  { gigs: 31, name: "Holly Humbucker", style: "Rock" },
+  { gigs: 18, name: "Ines Hertz", style: "Jazz" },
+  { gigs: 42, name: "Lou Headstock", style: "Funk" },
+  { gigs: 7, name: "Percy Groove", style: "Funk" },
+  { gigs: 25, name: "Rory Rootnote", style: "Jazz" },
+  { gigs: 12, name: "Stella Nut", style: "Rock" },
+]
+---
+
+<SortableTable id="table-sortable-data-1">
+  <Table>
+    <TableCaption>Gigs this month</TableCaption>
+    <TableHead>
+      <TableRow>
+        <TableHeaderCell aria-sort="ascending" sortable>Name</TableHeaderCell>
+        <TableHeaderCell sortable>Style</TableHeaderCell>
+        <TableHeaderCell numeric sortable>Gigs</TableHeaderCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      {bassists.map(({ gigs, name, style }) => <TableRow>
+        <TableCell>{name}</TableCell>
+        <TableCell>{style}</TableCell>
+        <TableCell numeric>{gigs}</TableCell>
+      </TableRow>)}
+    </TableBody>
+  </Table>
+</SortableTable>
+
+<script>
+  const table = document.querySelector("#table-sortable-data-1")
+  const body = table?.querySelector("tbody")
+  const keys = ["name", "style", "gigs"] as const
+  const bassists = [...(body?.rows ?? [])].map((row) => ({
+    gigs: Number(row.cells[2].textContent),
+    name: row.cells[0].textContent,
+    row,
+    style: row.cells[1].textContent,
+  }))
+
+  table?.addEventListener("sort", (event) => {
+    if (!(event instanceof CustomEvent)) return
+    event.preventDefault()
+    const key = keys[event.detail.column]
+    const sign = event.detail.direction === "descending" ? -1 : 1
+    bassists.sort(
+      (a, b) =>
+        sign *
+        String(a[key]).localeCompare(String(b[key]), undefined, {
+          numeric: true,
+        }),
+    )
+    body?.append(...bassists.map(({ row }) => row))
+  })
+</script>

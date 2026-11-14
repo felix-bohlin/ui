@@ -1,90 +1,50 @@
 <form class="ui-form">
-  <fieldset class="ui-fieldset">
-    <legend>Choose your favorite Radiohead album</legend>
-    <p class="ui-field-description">There are no wrong answers.</p>
-    <div class="ui-field-group" role="group">
+  <fieldset
+    class="ui-fieldset"
+    aria-describedby="form-field-group-1-description"
+  >
+    <legend>Plan</legend>
+    <p class="ui-description" id="form-field-group-1-description">
+      You can change your plan at any time.
+    </p>
+    <div class="ui-field-group">
       <label class="ui-radio">
-        <input type="radio" name="albums" value="ok-computer" />
-        <span class="ui-label">OK Computer</span>
+        <input type="radio" name="plan" value="starter" />
+        <span class="ui-label">Starter</span>
       </label>
       <label class="ui-radio">
-        <input type="radio" name="albums" value="kid-a" />
-        <span class="ui-label">Kid A</span>
+        <input type="radio" name="plan" value="team" />
+        <span class="ui-label">Team</span>
       </label>
       <label class="ui-radio">
-        <input type="radio" name="albums" value="in-rainbows" />
-        <span class="ui-label">In Rainbows</span>
-      </label>
-      <label class="ui-radio">
-        <input type="radio" name="albums" value="king-of-limbs" />
-        <span class="ui-label">The King of Limbs</span>
+        <input type="radio" name="plan" value="business" />
+        <span class="ui-label">Business</span>
       </label>
     </div>
   </fieldset>
-
-  <fieldset class="ui-fieldset">
-    <legend>Which side projects do you follow?</legend>
-    <p class="ui-field-description">Some are better than others.</p>
-    <div class="ui-field-group" role="group">
+  <fieldset
+    class="ui-fieldset"
+    aria-describedby="form-field-group-2-description"
+  >
+    <legend>Add-ons</legend>
+    <p class="ui-description" id="form-field-group-2-description">
+      Billed monthly with your plan.
+    </p>
+    <div class="ui-field-group">
       <label class="ui-checkbox">
-        <input
-          aria-describedby="field-group-projects-1-end-text"
-          type="checkbox"
-          name="projects"
-          value="the-smile"
-        />
-        <span class="ui-label">The Smile</span>
-        <span class="ui-end-text" id="field-group-projects-1-end-text"
-          >Thom Yorke, Jonny Greenwood, Tom Skinner</span
-        >
+        <input type="checkbox" name="add-ons" value="backups" />
+        <span class="ui-label">Backups</span>
+        <span class="ui-end-text">Daily snapshots, kept for 30 days.</span>
       </label>
       <label class="ui-checkbox">
-        <input
-          aria-describedby="field-group-projects-2-end-text"
-          type="checkbox"
-          name="projects"
-          value="atoms-for-peace"
-        />
-        <span class="ui-label">Atoms for Peace</span>
-        <span class="ui-end-text" id="field-group-projects-2-end-text"
-          >Thom Yorke, Flea, Nigel Godrich</span
-        >
+        <input type="checkbox" name="add-ons" value="encryption" />
+        <span class="ui-label">Encryption</span>
+        <span class="ui-end-text">Encrypt your files with your own keys.</span>
       </label>
       <label class="ui-checkbox">
-        <input
-          aria-describedby="field-group-projects-3-end-text"
-          type="checkbox"
-          name="projects"
-          value="eob"
-        />
-        <span class="ui-label">EOB</span>
-        <span class="ui-end-text" id="field-group-projects-3-end-text"
-          >Ed O'Brien solo</span
-        >
-      </label>
-      <label class="ui-checkbox">
-        <input
-          aria-describedby="field-group-projects-4-end-text"
-          type="checkbox"
-          name="projects"
-          value="jonny-scores"
-        />
-        <span class="ui-label">Film Scores</span>
-        <span class="ui-end-text" id="field-group-projects-4-end-text"
-          >Film compositions by Jonny Greenwood</span
-        >
-      </label>
-      <label class="ui-checkbox">
-        <input
-          aria-describedby="field-group-projects-5-end-text"
-          type="checkbox"
-          name="projects"
-          value="selway-solo"
-        />
-        <span class="ui-label">Philip Selway</span>
-        <span class="ui-end-text" id="field-group-projects-5-end-text"
-          >Philip Selway solo albums</span
-        >
+        <input type="checkbox" name="add-ons" value="single-sign-on" />
+        <span class="ui-label">Single sign-on</span>
+        <span class="ui-end-text">Sign in with your company account.</span>
       </label>
     </div>
   </fieldset>

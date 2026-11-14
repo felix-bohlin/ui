@@ -1,0 +1,68 @@
+<style>
+  .todo-spinner-card {
+    inline-size: min(100%, 20rem);
+  }
+
+  .todo-spinner-card .ui-card-link::after {
+    background-color: oklch(0.65 0.15 250 / 18%);
+    outline: 1px dashed oklch(0.55 0.15 250);
+  }
+
+  .todo-spinner-fixed [aria-busy="true"] {
+    position: static;
+  }
+</style>
+
+<p class="todo-note">
+  A link card whose header is <code>aria-busy="true"</code> while its release
+  loads. The card link stretches its <code>::after</code> over the nearest
+  positioned ancestor, tinted blue here, so the whole card is clickable. Today
+  the busy rule gives the header <code>position: relative</code>, so the link's
+  click area shrinks to the header while it loads, and grows back to the card
+  when <code>aria-busy</code> goes away. The spinner itself is an inline-block
+  <code>::before</code> in the flow and never reads the containing block: the
+  right column sets <code>position: static</code> on the busy header, which is
+  what deleting the rule does, and the spinner looks the same. The readouts give
+  the size of the click area against the card.
+</p>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Today</p>
+    <article class="todo-spinner-card ui-card ui-outlined">
+      <div aria-busy="true" class="ui-header">
+        <h3><a class="ui-card-link" href="#">felix-bohlin/ui</a></h3>
+        <p>Loading the latest release</p>
+      </div>
+      <div class="ui-content">
+        <p>CSS components for every framework.</p>
+      </div>
+    </article>
+    <output class="todo-measure" data-spinner-readout></output>
+  </section>
+  <section class="todo-fixed todo-spinner-fixed">
+    <p class="todo-label">Without the rule</p>
+    <article class="todo-spinner-card ui-card ui-outlined">
+      <div aria-busy="true" class="ui-header">
+        <h3><a class="ui-card-link" href="#">felix-bohlin/ui</a></h3>
+        <p>Loading the latest release</p>
+      </div>
+      <div class="ui-content">
+        <p>CSS components for every framework.</p>
+      </div>
+    </article>
+    <output class="todo-measure" data-spinner-readout></output>
+  </section>
+</div>
+
+<script>
+  {
+    for (const section of document.querySelectorAll(".todo-compare > *")) {
+      const card = section.querySelector(".ui-card")
+      const link = section.querySelector(".ui-card-link")
+      const area = link.offsetParent.getBoundingClientRect()
+      const box = card.getBoundingClientRect()
+      section.querySelector("[data-spinner-readout]").textContent =
+        `click area ${area.width.toFixed(0)}x${area.height.toFixed(0)}px of a ${box.width.toFixed(0)}x${box.height.toFixed(0)}px card`
+    }
+  }
+</script>

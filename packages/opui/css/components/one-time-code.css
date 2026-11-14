@@ -1,0 +1,311 @@
+@layer components.extended {
+  :where(.ui-one-time-code) {
+    --_box-border-width: var(--ui-field-border-width);
+    --_box-end: calc(var(--_cell-size) * 0.875);
+    --_box-feather: 0.5px;
+    --_box-radius: min(
+      var(--ui-field-radius, var(--ui-radius)),
+      var(--_cell-size) * 0.25 - var(--_box-feather)
+    );
+    --_box-start: calc(var(--_cell-size) * 0.125);
+    --_cell-size: min(var(--_max-cell-size), 100cqi / (var(--_length) - 0.25));
+    --_dash-bg-color: var(--ui-text-subtle);
+    --_dash-block-size: var(--ui-border-width-thick);
+    --_dash-image: none;
+    --_font-size: var(--ui-font-size-large);
+    --_length: 6;
+    --_max-cell-size: round(
+      max(var(--_size) * 1.2, var(--_font-size) * 1.6),
+      var(--ui-space-2)
+    );
+
+    contain-intrinsic-inline-size: calc(
+      (var(--_length) - 0.25) * var(--_max-cell-size)
+    );
+    container-type: inline-size;
+    inline-size: min((var(--_length) - 0.25) * var(--_max-cell-size), 100%);
+    min-inline-size: 0;
+
+    .ui-field {
+      background: none;
+      border: 0;
+      box-shadow: none;
+      cursor: text;
+      direction: ltr;
+      font-family: var(--ui-font-code);
+      font-size: var(--_font-size);
+      grid-template-columns: 0 max-content minmax(0, var(--_cell-size)) 1fr;
+      grid-template-rows: auto 1fr auto;
+      inline-size: calc(var(--_length) * var(--_cell-size));
+      justify-content: start;
+      justify-self: start;
+      margin-inline: calc(var(--_cell-size) * -0.125);
+      overflow: clip;
+
+      &::before {
+        background-color: var(--_border-color);
+        content: "";
+        grid-column: 1 / -1;
+        grid-row: 2;
+        mask:
+          linear-gradient(
+              to right,
+              transparent calc(var(--_box-start) + var(--_box-radius)),
+              oklch(0 0 0) 0 calc(var(--_box-end) - var(--_box-radius)),
+              transparent 0
+            )
+            0 0 / var(--_cell-size) var(--_box-border-width) repeat-x add,
+          linear-gradient(
+              to right,
+              transparent calc(var(--_box-start) + var(--_box-radius)),
+              oklch(0 0 0) 0 calc(var(--_box-end) - var(--_box-radius)),
+              transparent 0
+            )
+            0 100% / var(--_cell-size) var(--_box-border-width) repeat-x add,
+          linear-gradient(
+              to right,
+              transparent var(--_box-start),
+              oklch(0 0 0) 0 calc(var(--_box-start) + var(--_box-border-width)),
+              transparent 0 calc(var(--_box-end) - var(--_box-border-width)),
+              oklch(0 0 0) 0 var(--_box-end),
+              transparent 0
+            )
+            0 calc(var(--_box-radius) - 2 * var(--_box-feather)) /
+            var(--_cell-size)
+            calc(100% - 2 * var(--_box-radius) + 4 * var(--_box-feather))
+            repeat-x add,
+          linear-gradient(
+              oklch(0 0 0) var(--_box-radius),
+              transparent 0 calc(100% - var(--_box-radius)),
+              oklch(0 0 0) 0
+            )
+            0 0 / var(--_cell-size) 100% repeat-x intersect,
+          linear-gradient(
+              to right,
+              transparent var(--_box-start),
+              oklch(0 0 0) 0 calc(var(--_box-start) + var(--_box-radius)),
+              transparent 0 calc(var(--_box-end) - var(--_box-radius)),
+              oklch(0 0 0) 0 var(--_box-end),
+              transparent 0
+            )
+            0 0 / var(--_cell-size) 100% repeat-x intersect,
+          radial-gradient(
+              circle calc(var(--_box-radius) + 2 * var(--_box-feather)) at
+                calc(var(--_box-start) + var(--_box-radius)) var(--_box-radius),
+              transparent 0
+                calc(
+                  var(--_box-radius) - var(--_box-border-width) -
+                    var(--_box-feather)
+                ),
+              oklch(0 0 0)
+                calc(
+                  var(--_box-radius) - var(--_box-border-width) +
+                    var(--_box-feather)
+                )
+                calc(var(--_box-radius) - var(--_box-feather)),
+              transparent calc(var(--_box-radius) + var(--_box-feather))
+            )
+            0 0 / var(--_cell-size) 100% repeat-x add,
+          radial-gradient(
+              circle calc(var(--_box-radius) + 2 * var(--_box-feather)) at
+                calc(var(--_box-end) - var(--_box-radius)) var(--_box-radius),
+              transparent 0
+                calc(
+                  var(--_box-radius) - var(--_box-border-width) -
+                    var(--_box-feather)
+                ),
+              oklch(0 0 0)
+                calc(
+                  var(--_box-radius) - var(--_box-border-width) +
+                    var(--_box-feather)
+                )
+                calc(var(--_box-radius) - var(--_box-feather)),
+              transparent calc(var(--_box-radius) + var(--_box-feather))
+            )
+            0 0 / var(--_cell-size) 100% repeat-x add,
+          radial-gradient(
+              circle calc(var(--_box-radius) + 2 * var(--_box-feather)) at
+                calc(var(--_box-start) + var(--_box-radius))
+                calc(100% - var(--_box-radius)),
+              transparent 0
+                calc(
+                  var(--_box-radius) - var(--_box-border-width) -
+                    var(--_box-feather)
+                ),
+              oklch(0 0 0)
+                calc(
+                  var(--_box-radius) - var(--_box-border-width) +
+                    var(--_box-feather)
+                )
+                calc(var(--_box-radius) - var(--_box-feather)),
+              transparent calc(var(--_box-radius) + var(--_box-feather))
+            )
+            0 0 / var(--_cell-size) 100% repeat-x add,
+          radial-gradient(
+              circle calc(var(--_box-radius) + 2 * var(--_box-feather)) at
+                calc(var(--_box-end) - var(--_box-radius))
+                calc(100% - var(--_box-radius)),
+              transparent 0
+                calc(
+                  var(--_box-radius) - var(--_box-border-width) -
+                    var(--_box-feather)
+                ),
+              oklch(0 0 0)
+                calc(
+                  var(--_box-radius) - var(--_box-border-width) +
+                    var(--_box-feather)
+                )
+                calc(var(--_box-radius) - var(--_box-feather)),
+              transparent calc(var(--_box-radius) + var(--_box-feather))
+            )
+            0 0 / var(--_cell-size) 100% repeat-x;
+        pointer-events: none;
+        transition: background-color var(--_duration) var(--_ease);
+      }
+    }
+
+    .ui-field input {
+      background: var(--_dash-image)
+        calc(var(--_length) * var(--_cell-size) / 2 - var(--_cell-size) / 16)
+        50% / calc(var(--_cell-size) / 8) var(--_dash-block-size) no-repeat;
+      caret-color: var(--_accent);
+      font-family: var(--ui-font-code);
+      font-variant-numeric: tabular-nums;
+      inline-size: calc((var(--_length) + 1) * var(--_cell-size));
+      letter-spacing: calc(var(--_cell-size) - 1ch);
+      margin-inline-end: calc(-1 * var(--_cell-size));
+      padding-block: 0;
+      padding-inline: calc((var(--_cell-size) - 1ch) / 2) 0;
+      position: relative;
+    }
+
+    .ui-field input[autocapitalize="characters"] {
+      text-transform: uppercase;
+    }
+
+    &:has([maxlength="4"]) {
+      --_length: 4;
+    }
+
+    &:has([maxlength="5"]) {
+      --_length: 5;
+    }
+
+    &:has([maxlength="7"]) {
+      --_length: 7;
+    }
+
+    &:has([maxlength="8"]) {
+      --_length: 8;
+    }
+
+    @media (hover: hover) {
+      &:hover:not(
+          :focus-within,
+          :has([aria-invalid="true"], :user-invalid, :disabled)
+        )
+        .ui-field::before {
+        background-color: var(--ui-text-strong);
+      }
+    }
+
+    &:focus-within {
+      --_box-border-width: calc(var(--ui-field-border-width) * 2);
+    }
+
+    &:focus-within .ui-field::before {
+      background-color: var(--_accent);
+    }
+
+    .ui-field:has(> input:focus-within):has(:focus-visible) {
+      animation: none;
+      outline: 0;
+    }
+
+    @supports (field-sizing: content) {
+      .ui-field input {
+        field-sizing: content;
+        inline-size: auto;
+        margin-inline-end: calc(
+          (var(--_cell-size) - 1ch) / -2 - var(--_length) * var(--_cell-size)
+        );
+        padding-inline-end: calc(var(--_length) * var(--_cell-size));
+      }
+
+      &:focus-within .ui-field {
+        &::after {
+          background-color: oklch(from var(--_accent) l c h / 12%);
+          border: var(--_box-border-width) solid var(--_accent);
+          border-radius: var(--_box-radius);
+          content: "";
+          grid-column: 3;
+          grid-row: 2;
+          inline-size: calc(var(--_cell-size) * 0.75);
+          justify-self: unsafe end;
+          margin-inline-end: calc(var(--_cell-size) * 0.125);
+          pointer-events: none;
+        }
+      }
+    }
+
+    &.ui-grouped {
+      --_dash-image: linear-gradient(var(--_dash-bg-color) 0 0);
+    }
+
+    &.ui-x-small,
+    &.ui-small {
+      --_font-size: var(--ui-font-size-body);
+    }
+
+    &.ui-large {
+      --_font-size: var(--ui-font-size-h4);
+    }
+
+    @media (forced-colors: active) {
+      --_dash-bg-color: CanvasText;
+
+      .ui-field::before {
+        background-color: CanvasText;
+        forced-color-adjust: none;
+      }
+
+      .ui-field::after {
+        background-color: transparent;
+        forced-color-adjust: none;
+      }
+
+      .ui-field input {
+        caret-color: CanvasText;
+        color: CanvasText;
+        forced-color-adjust: none;
+      }
+
+      &:has(:disabled) .ui-field {
+        &::before {
+          background-color: GrayText;
+        }
+
+        input {
+          color: GrayText;
+        }
+      }
+
+      &:focus-within .ui-field {
+        outline: 0;
+
+        &::before {
+          background-color: Highlight;
+        }
+
+        &::after {
+          border-color: Highlight;
+        }
+      }
+
+      &:has(.ui-field > input:is([aria-invalid="true"], :user-invalid))
+        .ui-field {
+        outline: var(--ui-field-border-width) dashed CanvasText;
+      }
+    }
+  }
+}

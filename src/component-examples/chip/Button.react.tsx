@@ -1,0 +1,53 @@
+import { Chip } from "opui-css/react"
+
+export default function Button() {
+  return (
+    <>
+      <div className="example-row">
+        <Chip as="button" label="Tonal button" variant="tonal" />
+        <Chip as="button" label="Outlined button" variant="outlined" />
+      </div>
+      <div className="example-row">
+        <Chip
+          aria-label="Remove tag Design"
+          as="button"
+          end={
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M6.293 6.293a1 1 0 0 1 1.414 0L16 14.586l8.293-8.293a1 1 0 1 1 1.414 1.414L17.414 16l8.293 8.293a1 1 0 0 1-1.414 1.414L16 17.414l-8.293 8.293a1 1 0 0 1-1.414-1.414L14.586 16L6.293 7.707a1 1 0 0 1 0-1.414"
+              ></path>
+            </svg>
+          }
+          label="Design"
+          variant="tonal"
+        />
+        <Chip
+          as="button"
+          end={
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M5.366 11.116a1.25 1.25 0 0 1 1.768 0L16 19.982l8.866-8.866a1.25 1.25 0 0 1 1.768 1.768l-9.75 9.75a1.25 1.25 0 0 1-1.768 0l-9.75-9.75a1.25 1.25 0 0 1 0-1.768"
+              ></path>
+            </svg>
+          }
+          label="Sort by"
+          variant="outlined"
+        />
+      </div>
+    </>
+  )
+}

@@ -1,0 +1,6 @@
+{
+  "extends": "$app/tsconfig",
+  "compilerOptions": { "resolveJsonModule": true },
+  "include": ["src", "test", "*"],
+  "exclude": ["src/service-worker"]
+}

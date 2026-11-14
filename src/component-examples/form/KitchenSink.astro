@@ -1,119 +1,134 @@
 ---
-import { Form } from "@opui/astro"
-import { FieldSet } from "@opui/astro"
-import { FieldLegend } from "@opui/astro"
-import { FieldDescription } from "@opui/astro"
-import { FieldGroup } from "@opui/astro"
-import { TextField } from "@opui/astro"
-import { Select } from "@opui/astro"
-import { Switch } from "@opui/astro"
-import { Radio } from "@opui/astro"
-import { Textarea } from "@opui/astro"
-import { Checkbox } from "@opui/astro"
-import { Range } from "@opui/astro"
-import { Button } from "@opui/astro"
-import { Divider } from "@opui/astro"
+import {
+  Button,
+  Checkbox,
+  Divider,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form,
+  Radio,
+  Range,
+  Select,
+  Switch,
+  Textarea,
+  TextField,
+} from "opui-css/astro"
+
+const roleItems = [
+  { label: "Bassist", value: "bass" },
+  { label: "Drummer", value: "drums" },
+  { label: "Guitarist", value: "guitar" },
+]
 ---
 
-<Form id="kitchen-sink-example">
-  <FieldSet>
-    <FieldLegend>User Profile</FieldLegend>
-    <FieldDescription>
-      Please provide your basic contact details.
+<Form id="form-kitchen-sink-1">
+  <Fieldset aria-describedby="form-kitchen-sink-2-description">
+    <FieldLegend>Your Bassbook profile</FieldLegend>
+    <FieldDescription id="form-kitchen-sink-2-description">
+      Heyyy, tell us who you are so your fans can find you.
     </FieldDescription>
     <FieldGroup>
-      <TextField label="Full Name" placeholder="Jane Doe" required />
       <TextField
-        label="Email Address"
-        type="email"
-        placeholder="jane@example.com"
+        autocomplete="name"
+        label="Full name"
+        placeholder="Holly Humbucker"
         required
       />
-      <Select
-        label="Role"
-        items={[
-          { text: "Developer", value: "dev" },
-          { text: "Designer", value: "design" },
-          { text: "Manager", value: "manager" },
-        ]}
+      <TextField
+        autocomplete="email"
+        label="Email address"
+        placeholder="rory@lowend.example"
+        required
+        type="email"
       />
+      <Select items={roleItems} label="Role" />
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 
-  <FieldSet>
+  <Fieldset aria-describedby="form-kitchen-sink-3-description">
     <FieldLegend>Notifications</FieldLegend>
-    <FieldDescription>
-      Configure how you want to receive updates.
+    <FieldDescription id="form-kitchen-sink-3-description">
+      Pick how we tell you about new pokes and gig invites.
     </FieldDescription>
-    <FieldGroup name="notifications">
-      <Switch name="email_notifs" checked>Email Notifications</Switch>
-      <Switch name="sms_notifs">SMS Notifications</Switch>
+    <FieldGroup>
+      <Switch checked name="email_notifs">Email notifications</Switch>
+      <Switch name="sms_notifs">SMS notifications</Switch>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 
-  <FieldSet>
-    <FieldLegend>Theme Preference</FieldLegend>
-    <FieldDescription>Select your preferred visual style.</FieldDescription>
+  <Fieldset aria-describedby="form-kitchen-sink-4-description">
+    <FieldLegend>Profile theme</FieldLegend>
+    <FieldDescription id="form-kitchen-sink-4-description"
+      >Pick the look of your awesome profile page.</FieldDescription
+    >
     <FieldGroup name="theme">
-      <Radio value="light" checked>Light Theme</Radio>
-      <Radio value="dark">Dark Theme</Radio>
-      <Radio value="system">System Default</Radio>
+      <Radio checked value="light">Light theme</Radio>
+      <Radio value="dark">Dark theme</Radio>
+      <Radio value="system">System default</Radio>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 
-  <FieldSet>
-    <FieldLegend>Experience Level</FieldLegend>
-    <FieldDescription
-      >How many years of experience do you have?</FieldDescription
+  <Fieldset aria-describedby="form-kitchen-sink-5-description">
+    <FieldLegend>Bass experience</FieldLegend>
+    <FieldDescription id="form-kitchen-sink-5-description"
+      >How many years have you held down the low end?</FieldDescription
     >
     <FieldGroup>
       <Range
-        label="Professional Experience"
-        min="0"
+        label="Years of playing"
         max="20"
+        min="0"
+        startText="Drag the slider, and yes, the years on guitar count less."
         step="1"
         value="5"
-        startText="Drag the slider to match your total tenure."
       />
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 
-  <FieldSet>
-    <FieldLegend>Additional Info</FieldLegend>
-    <FieldDescription>Anything else we should know?</FieldDescription>
-    <FieldGroup name="details">
+  <Fieldset aria-describedby="form-kitchen-sink-6-description">
+    <FieldLegend>About you</FieldLegend>
+    <FieldDescription id="form-kitchen-sink-6-description"
+      >Favorite strings, dream rig, the band that ignores you?</FieldDescription
+    >
+    <FieldGroup>
       <Textarea
         label="Biography"
-        placeholder="Tell us about yourself..."
+        name="biography"
+        placeholder="I play a fretless 5-string and nobody watches me..."
         rows={4}
       />
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legal</FieldLegend>
-    <FieldGroup name="legal">
+    <FieldGroup>
       <Checkbox name="terms" required>
-        I agree to the terms and conditions
-        <Fragment slot="end-text">Support this text</Fragment>
+        I agree to the Bassbook terms and conditions
+        <Fragment slot="end-text"
+          >You can withdraw your consent at any time, no hard
+          feelings.</Fragment
+        >
       </Checkbox>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 
   <FieldGroup>
-    <Button variant="filled" type="submit">Send</Button>
     <Button>Cancel</Button>
+    <Button type="submit" variant="filled">Send</Button>
   </FieldGroup>
 </Form>

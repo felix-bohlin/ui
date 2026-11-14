@@ -4,13 +4,19 @@ import { Chip } from "opui-css/vue"
 
 <template>
   <div class="example-row">
-    <Chip as="button" variant="tonal" label="Tonal button" />
-    <Chip as="button" variant="outlined" label="Outlined button" />
+    <Chip as="button" label="Tonal button" variant="tonal" />
+    <Chip as="button" label="Outlined button" variant="outlined" />
   </div>
   <div class="example-row">
-    <Chip as="button" variant="tonal">
-      <template #start
-        ><svg
+    <Chip
+      aria-label="Remove tag Design"
+      as="button"
+      label="Design"
+      variant="tonal"
+    >
+      <template #end>
+        <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -18,15 +24,15 @@ import { Chip } from "opui-css/vue"
         >
           <path
             fill="currentColor"
-            d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"
-          ></path></svg
-      ></template>
-      <span class="ui-text">Open now</span>
+            d="M6.293 6.293a1 1 0 0 1 1.414 0L16 14.586l8.293-8.293a1 1 0 1 1 1.414 1.414L17.414 16l8.293 8.293a1 1 0 0 1-1.414 1.414L16 17.414l-8.293 8.293a1 1 0 0 1-1.414-1.414L14.586 16L6.293 7.707a1 1 0 0 1 0-1.414"
+          ></path>
+        </svg>
+      </template>
     </Chip>
-    <Chip as="button" variant="outlined">
-      <span class="ui-text">Sort by</span>
-      <template #end
-        ><svg
+    <Chip as="button" label="Sort by" variant="outlined">
+      <template #end>
+        <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -35,8 +41,9 @@ import { Chip } from "opui-css/vue"
           <path
             fill="currentColor"
             d="M5.366 11.116a1.25 1.25 0 0 1 1.768 0L16 19.982l8.866-8.866a1.25 1.25 0 0 1 1.768 1.768l-9.75 9.75a1.25 1.25 0 0 1-1.768 0l-9.75-9.75a1.25 1.25 0 0 1 0-1.768"
-          ></path></svg
-      ></template>
+          ></path>
+        </svg>
+      </template>
     </Chip>
   </div>
 </template>

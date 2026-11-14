@@ -1,24 +1,24 @@
 ---
 import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
-import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
-import { Callout, List as UIList, ListItem, Switch } from "@opui/astro"
+import { List as UIList, ListItem, Switch } from "opui-css/astro"
 
 import ListCSS from "@opui/css/components/list.css?raw"
-import ExampleDefaultHTML from "../../component-examples/list/Default.html?raw"
-
-import ListDense from "../../component-examples/ListDense.astro"
-import ListDenseVue from "../../component-examples/ListDense.vue"
-import ListDenseVueRaw from "../../component-examples/ListDense.vue?raw"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
 import listApi from "../../component-api/list/api"
 import listItemApi from "../../component-api/list-item/api"
+import ListBuild from "../../components/UnderTheHood/ListBuild.astro"
 
 export const description =
-  "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it."
+  "Rows of similar items, like contacts, files or settings, with icons, controls and links."
+
+export const keywords = ["listbox", "menu list", "ul"]
 ---
 
 <Component
@@ -29,7 +29,13 @@ export const description =
     { title: "List API", api: listApi },
     { title: "List item API", api: listItemApi },
   ]}
-  browserSupport={["has", "light-dark", "relative-color"]}
+  browserSupport={[
+    "color-mix",
+    "dir-pseudo",
+    "has",
+    "overflow-clip",
+    "relative-color",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/List/List.astro",
@@ -50,170 +56,125 @@ export const description =
   installationTabs={[{ title: "list.css", code: ListCSS, lang: "css" }]}
 >
   <Fragment slot="title">List</Fragment>
+  <Fragment slot="preamble">
+    Rows of similar items, like contacts, files or settings. For data in
+    columns, use a <DocLink href="/components/table">Table</DocLink>.
+  </Fragment>
 
-  <AutoExample name="Default" />
+  <Usage slot="usage">
+    <li slot="when">Rows of similar items, like contacts or files.</li>
+    <li slot="when">
+      Navigation, with <a href="#selected"><code>aria-current="page"</code></a>.
+    </li>
+    <li slot="when">
+      Settings with a <a href="#checkbox">checkbox</a>,
+      <a href="#radio">radio</a> or <a href="#switch">switch</a> per row.
+    </li>
+    <li slot="when-not">
+      Data in columns: use a <DocLink href="/components/table">Table</DocLink>.
+    </li>
+    <li slot="when-not">
+      Actions from a button: use a
+      <DocLink href="/components/menu">Menu</DocLink>.
+    </li>
+    <li slot="when-not">
+      Picking a value: use a <DocLink href="/components/select">Select</DocLink
+      >.
+    </li>
+  </Usage>
 
-  <section>
-    <h2 id="configurations">Configurations</h2>
-    <p>A List item is split up in three parts:</p>
-    <Conditional>
-      <ul slot="astro">
-        <li>
-          <a href="#text" class="ui-link"><code>text</code> slot</a>: main
-          content
-        </li>
-        <li>
-          <a href="#start-items" class="ui-link"><code>start</code> slot</a> (optional):
-          items before the main content
-        </li>
-        <li>
-          <a href="#end-items" class="ui-link"><code>end</code> slot</a> (optional):
-          items after the main content
-        </li>
-      </ul>
-      <ul slot="html">
-        <li>
-          <a href="#text" class="ui-link"><code>.ui-text</code></a>: main
-          content
-        </li>
-        <li>
-          <a href="#start-items" class="ui-link"><code>.ui-start</code></a> (optional):
-          items before the main content
-        </li>
-        <li>
-          <a href="#end-items" class="ui-link"><code>.ui-end</code></a> (optional):
-          items after the main content
-        </li>
-      </ul>
-      <ul slot="vue">
-        <li>
-          <a href="#text" class="ui-link"><code>text</code> slot</a>: main
-          content
-        </li>
-        <li>
-          <a href="#start-items" class="ui-link"><code>start</code> slot</a> (optional):
-          items before the main content
-        </li>
-        <li>
-          <a href="#end-items" class="ui-link"><code>end</code> slot</a> (optional):
-          items after the main content
-        </li>
-      </ul>
-    </Conditional>
-
-    <div class="ui-not-rich-text">
-      <Callout>
-        <Fragment slot="title">With great power...</Fragment>
-        <p>
-          The List component is <em>extremely</em> flexible and versatile. Be careful
-          if you start creating new configurations on your own. Maybe an existing
-          one can solve your problem, but in another way?
-        </p>
-      </Callout>
-    </div>
+  <section id="basics">
+    <h2>Basics</h2>
+    <AutoExample name="Basics" />
   </section>
 
-  <section>
-    <h2 id="variants">Variants</h2>
-    <Conditional>
-      <p slot="astro">
-        Change background color with the <code>variant</code> prop.
-      </p>
-      <p slot="html">
-        Use
-        <code>.ui-default</code>, <code>.ui-tonal</code>, and <code
-          >.ui-transparent</code
-        > to change the background color.
-      </p>
-      <p slot="vue">
-        Change background color with the <code>variant</code> prop.
-      </p>
+  <section id="configurations">
+    <h2>Configurations</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        An item has <a href="#text"><code>label</code></a>,
+        <a href="#start-items"><code>start</code></a> and
+        <a href="#end-items"><code>end</code></a>.
+      </Fragment>
+      <Fragment slot="html">
+        An item has <a href="#text"><code>.ui-text</code></a>,
+        <a href="#start-items"><code>.ui-start</code></a> and
+        <a href="#end-items"><code>.ui-end</code></a>.
+      </Fragment>
     </Conditional>
-
-    <Callout class="ui-not-rich-text">
-      <Fragment slot="title">Filled as default?!</Fragment>
-      <p>
-        Yeah it's a bit weird, but normally you would use a list in a
-        popover/select scenario that needs to contrast against the background.
-        If nothing else, just change it yourself.
-      </p>
-    </Callout>
-
-    <AutoExample name="Variants" />
   </section>
 
-  <section>
-    <h2 id="clickable-list-item">Clickable list item</h2>
-    <p>
-      Wrap the elements of your List item with a <code>a</code>, <code
-        >button</code
-      >
-      or <code>label</code> depending on use-case.
-    </p>
+  <section id="variants">
+    <h2>Variants</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Filled by default. Use <code>variant</code> to change it.
+      </Fragment>
+      <Fragment slot="html">
+        Filled by default. Use <code>.ui-tonal</code> or
+        <code>.ui-transparent</code> to change it.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Variants" column />
+  </section>
 
+  <section id="clickable-list-item">
+    <h2>Clickable list item</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Use <code>as="button"</code> or <code>href</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Wrap the item's content in an <code>a</code>, <code>button</code> or
+        <code>label</code>.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Clickable" />
 
     <h3 id="selected">Selected item</h3>
-    <Conditional>
-      <p slot="html">
-        Add <code>aria-selected="true"</code> to the <code>li</code>.
-      </p>
-      <p slot="astro">
-        Add <code>aria-selected="true"</code> to the <code>ListItem</code>.
-      </p>
-      <p slot="vue">
-        Add <code>aria-selected="true"</code> to the <code>ListItem</code>.
-      </p>
+    <p>
+      Add <code>aria-current="page"</code> to the link. Any other value but
+      <code>false</code> looks the same, like <code>true</code> on a button. The
+      row gets a bar on its start edge. In a list with
+      <code>role="listbox"</code>, the selected option gets a check at the end
+      instead, like the current item of a
+      <DocLink href="/components/menu#current-item">Menu</DocLink>.
+    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The <code>icon-checked</code> slot of a <code>ListItem</code> shows your
+        own icon at the end while the row is selected or current.
+      </Fragment>
+      <Fragment slot="html">
+        A <code>.ui-icon-checked</code> at the end of the row shows your own
+        icon while the row is selected or current.
+      </Fragment>
     </Conditional>
     <AutoExample name="Selected" />
   </section>
 
-  <section>
-    <h2 id="text">Text</h2>
+  <section id="text">
+    <h2>Text</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
-        Main text lives in the <code>text</code> slot, or pass <code
-          >headline</code
-        >
-        and <code>description</code> props directly on <code>ListItem</code>.
+      <Fragment slot="components">
+        Use <code>label</code> and <code>description</code>.
       </Fragment>
       <Fragment slot="html">
-        Main text lives in <code>div.ui-text</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Main text lives in the <code>text</code> slot, or pass <code
-          >headline</code
-        >
-        and <code>description</code> props directly on <code>ListItem</code>.
+        The first <code>p</code> in <code>.ui-text</code> is the label, the
+        second the description.
       </Fragment>
     </Conditional>
-
     <AutoExample name="Text" />
   </section>
 
-  <section>
-    <h2 id="start-items">Start items</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Authored via the <code>start</code> slot on <code>ListItem</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Found in <code>div.ui-start</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Authored via the <code>start</code> slot on <code>ListItem</code>.
-      </Fragment>
-    </Conditional>
+  <section id="start-items">
+    <h2>Start items</h2>
+    <p>Use <PropOrClass prop="start" class=".ui-start" />.</p>
 
     <h3 id="icon">Icon</h3>
     <AutoExample name="StartIcon" />
 
     <h3 id="avatar">Avatar</h3>
-    <p>
-      Read more: <DocLink href="/components/avatar" class="ui-link"
-        >Avatar</DocLink
-      >
-    </p>
     <AutoExample name="StartAvatar" />
 
     <h3 id="image">Image</h3>
@@ -223,19 +184,9 @@ export const description =
     <AutoExample name="StartVideo" />
   </section>
 
-  <section>
-    <h2 id="end-items">End items</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Authored via the <code>end</code> slot on <code>ListItem</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Found in <code>div.ui-end</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Authored via the <code>end</code> slot on <code>ListItem</code>.
-      </Fragment>
-    </Conditional>
+  <section id="end-items">
+    <h2>End items</h2>
+    <p>Use <PropOrClass prop="end" class=".ui-end" />.</p>
 
     <h3 id="end-text">Text</h3>
     <AutoExample name="EndText" />
@@ -244,156 +195,98 @@ export const description =
     <AutoExample name="EndKeyboard" />
 
     <h3 id="checkbox">Checkbox</h3>
-    <p>
-      Wrap the List item content with a <code
-        >&lt;label class="ui-checkbox" for="INPUTID"&gt;</code
-      >
-      to make the entire surface clickable.
-    </p>
-    <p>
-      Read more: <DocLink href="/components/checkbox" class="ui-link"
-        >Checkbox</DocLink
-      >
-    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>choice="checkbox"</code> with a <code>CheckboxInput</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Wrap the content in <code>&lt;label class="ui-checkbox"&gt;</code>.
+      </Fragment>
+    </Conditional>
     <AutoExample name="EndCheckbox" />
 
     <h3 id="radio">Radio</h3>
-    <p>
-      Wrap the List item content with a <code
-        >&lt;label class="ui-radio" for="INPUTID"&gt;</code
-      >
-      to make the entire surface clickable.
-    </p>
-    <p>
-      Radio group: Add a common name to each <code>&lt;input&gt;</code> for radio
-      group behavior.
-    </p>
-    <p>
-      Read more: <DocLink href="/components/radio" class="ui-link"
-        >Radio</DocLink
-      >
-    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>choice="radio"</code> with a <code>RadioInput</code>, and name
+        the group with a <code>Fieldset</code> and a <code>FieldLegend</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Wrap the content in <code>&lt;label class="ui-radio"&gt;</code>, and
+        name the group with a <code>&lt;fieldset&gt;</code> and a
+        <code>&lt;legend&gt;</code>.
+      </Fragment>
+    </Conditional>
     <AutoExample name="EndRadio" />
 
     <h3 id="switch">Switch</h3>
-    <p>
-      Read more: <DocLink href="/components/switch" class="ui-link"
-        >Switch</DocLink
-      >
-    </p>
     <AutoExample name="EndSwitch" />
   </section>
 
-  <section>
-    <h2 id="inset">Inset</h2>
-    <p>Enables a list item without a start icon to align with items that do.</p>
+  <section id="inset">
+    <h2>Inset</h2>
+    <p>
+      Use <PropOrClass prop="inset" class=".ui-inset" /> to align with items
+      that have start content.
+    </p>
     <AutoExample name="Inset" />
   </section>
 
-  <section>
-    <h2 id="gutterless">Gutterless</h2>
+  <section id="flush">
+    <h2>Flush</h2>
     <p>
-      Apply the <code>.ui-gutterless</code> class on the <code>ul.ui-list</code> element
-      to remove the inline padding on the list items.
+      Use <PropOrClass prop="flush" class=".ui-flush" /> for a list in a card.
     </p>
-    <AutoExample name="Gutterless" />
+    <AutoExample name="Flush" />
   </section>
 
-  <section>
-    <h2 id="borders">Borders</h2>
-    <h3 id="on-every-item">On every item</h3>
-    <p>
-      Apply the <code>.ui-bordered</code> class on the <code>ul.ui-list</code> element
-      to give all list items a border.
-    </p>
+  <section id="borders">
+    <h2>Borders</h2>
+
+    <h3 id="on-every-item">Between items</h3>
+    <p>Use <PropOrClass prop="bordered" class=".ui-bordered" />.</p>
     <AutoExample name="Bordered" />
 
     <h3 id="on-one-item">On one item</h3>
-    <p>
-      Apply the <code>.ui-border-top</code> class on a <code>li</code> item to give
-      it an upper border.
-    </p>
+    <p>Use <PropOrClass prop="borderTop" class=".ui-border-top" />.</p>
     <AutoExample name="SingleBorder" />
   </section>
 
-  <section>
-    <h2 id="dense">Dense</h2>
-    <Conditional>
-      <p slot="html">
-        Just add the <code>.ui-dense</code> class to the <code>ul.ui-list</code
-        >!
-      </p>
-      <p slot="astro">
-        Just add the <code>dense</code> prop to the <code>List</code>!
-      </p>
-      <p slot="vue">
-        Just add the <code>dense</code> prop to the <code>List</code>!
-      </p>
-    </Conditional>
-    <Example>
-      <Conditional slot="controls">
-        <Switch
-          slot="html"
-          id="list-dense-toggle-html"
-          class="list-dense-toggle"
-          small
-          checked
-        >
-          <code>.ui-dense</code>
-        </Switch>
-        <Switch
-          slot="astro"
-          id="list-dense-toggle-astro"
-          class="list-dense-toggle"
-          small
-          checked
-        >
-          <code>dense</code>
-        </Switch>
-        <Switch
-          slot="vue"
-          id="list-dense-toggle-vue"
-          class="list-dense-toggle"
-          small
-          checked
-        >
-          <code>dense</code>
-        </Switch>
-      </Conditional>
-
-      <Example.Preview slot="preview-astro">
-        <ListDense />
-      </Example.Preview>
-      <Example.Preview slot="preview-vue" code={ListDenseVue} />
-      <Example.Preview slot="preview-html">
-        <div
-          set:html={ExampleDefaultHTML.replace(
-            /class="ui-list"/,
-            'class="ui-list ui-dense list-dense-target"',
-          ).replace(/-all-/g, "-dense-")}
-        />
-      </Example.Preview>
-      <Example.Code
-        slot="code-html"
-        code={`<ul class="ui-list ui-dense">
-  <!--  -->
-</ul>`}
-      />
-      <Example.Code
-        slot="code-astro"
-        code={`<List dense>
-  <!--  -->
-</List>`}
-      />
-      <Example.Code slot="code-vue" code={ListDenseVueRaw} />
-    </Example>
+  <section id="dense">
+    <h2>Dense</h2>
+    <p>Use <PropOrClass prop="dense" class=".ui-dense" />.</p>
+    <AutoExample name="Dense">
+      <Switch
+        slot="controls"
+        checked
+        data-toggle-class="ui-dense"
+        data-toggle-target=".ui-list"
+        size="small"
+      >
+        <PropOrClass prop="dense" class=".ui-dense" />
+      </Switch>
+    </AutoExample>
   </section>
+
+  <ListBuild slot="under-the-hood" />
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>Keep <code>role="list"</code> for Safari.</li>
+    </ul>
+    <KeyboardSupport />
+  </Fragment>
 
   <Fragment slot="anatomy">
     <Anatomy api={listItemApi} zoom={1.25}>
       <UIList style="inline-size: 18rem">
-        <ListItem headline="Headline" description="Supporting text">
+        <ListItem
+          label="Lou Headstock"
+          description="Flatwound collector"
+          href="#clickable-list-item"
+        >
           <svg
+            aria-hidden="true"
             slot="start"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
@@ -405,56 +298,44 @@ export const description =
               d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
             ></path>
           </svg>
-          <div slot="end">100+</div>
+          <div slot="end">Owner</div>
+        </ListItem>
+        <ListItem
+          aria-current="true"
+          label="Ozzy Thump"
+          description="Slap enthusiast"
+          href="#selected"
+        >
+          <svg
+            aria-hidden="true"
+            slot="start"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
+            ></path>
+          </svg>
+          <svg
+            slot="icon-checked"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="m9 12 2 2 4-4"></path>
+          </svg>
         </ListItem>
       </UIList>
     </Anatomy>
   </Fragment>
 </Component>
-
-<script>
-  function setupListDenseControls() {
-    document
-      .querySelectorAll<HTMLElement>(".example-container")
-      .forEach((container) => {
-        if (!container.querySelector(".list-dense-target")) return
-        if (container.dataset.listDenseSetup) return
-        container.dataset.listDenseSetup = "true"
-
-        const sync = (checked: boolean) => {
-          container.querySelectorAll(".list-dense-target").forEach((list) => {
-            list.classList.toggle("ui-dense", checked)
-          })
-          container
-            .querySelectorAll<HTMLInputElement>(".list-dense-toggle input")
-            .forEach((input) => {
-              if (input.checked !== checked) {
-                input.checked = checked
-              }
-            })
-        }
-
-        container.addEventListener("change", (event) => {
-          const input = event.target
-          if (!(input instanceof HTMLInputElement)) return
-          if (!input.closest(".list-dense-toggle")) return
-          sync(input.checked)
-        })
-
-        const initial = container.querySelector<HTMLInputElement>(
-          ".list-dense-toggle input",
-        )
-        if (initial) sync(initial.checked)
-      })
-  }
-
-  setupListDenseControls()
-  document.addEventListener("astro:after-swap", setupListDenseControls)
-</script>
-
-<style is:global>
-  .tab-panel ul {
-    margin: 0 auto;
-    max-inline-size: 40ch;
-  }
-</style>

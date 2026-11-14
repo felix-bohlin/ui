@@ -1,0 +1,17 @@
+<script lang="ts">
+  import { Timeline, TimelineItem } from "opui-css/svelte"
+</script>
+
+<Timeline>
+  <TimelineItem datetime="2026-09-02" label="Songs written" time="Sep 2" />
+  <TimelineItem datetime="2026-09-16" label="Bass tracked" time="Sep 16" />
+  <TimelineItem
+    current="step"
+    datetime="2026-10-14"
+    label="Mix review"
+    time="Oct 14"
+  >
+    <p>Moved from October 10.</p>
+  </TimelineItem>
+  <TimelineItem datetime="2026-10-31" label="Release party" time="Oct 31" />
+</Timeline>

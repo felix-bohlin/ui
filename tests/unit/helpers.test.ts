@@ -1,0 +1,255 @@
+import { describe, expect, test } from "vitest"
+import { defined } from "../../packages/opui/components/attrs"
+import { cx } from "../../packages/opui/components/cx"
+import { toggleInGroup } from "../../packages/opui/components/group"
+import {
+  autoLabelledBy,
+  createId,
+  createIds,
+  idRefs,
+} from "../../packages/opui/components/id"
+import {
+  counterLabel,
+  cssString,
+  mergeStyle,
+  pluralLabel,
+  styleVars,
+} from "../../packages/opui/components/style"
+import { tagAttrs } from "../../packages/opui/components/tag"
+import { exampleIdBase } from "../../src/utils/id"
+
+describe("cx", () => {
+  test("joins strings, arrays and truthy object keys", () => {
+    expect(
+      cx([
+        "ui-button",
+        ["ui-small", false],
+        { "ui-filled": true, "ui-round": 0 },
+      ]),
+    ).toBe("ui-button ui-small ui-filled")
+  })
+
+  test("returns undefined instead of an empty class", () => {
+    expect(cx([false, null, undefined, "", { "ui-filled": false }])).toBe(
+      undefined,
+    )
+  })
+})
+
+describe("styleVars and mergeStyle", () => {
+  test("styleVars drops undefined and empty values, keeps 0", () => {
+    expect(
+      styleVars({ "--_a": undefined, "--_b": "", "--_c": 0, "--_d": "1rem" }),
+    ).toBe("--_c: 0; --_d: 1rem;")
+  })
+
+  test("mergeStyle appends a string style after the vars", () => {
+    expect(mergeStyle({ "--_a": 1 }, "color: red")).toBe("--_a: 1; color: red")
+    expect(mergeStyle({ "--_a": undefined }, "color: red")).toBe("color: red")
+  })
+
+  test("mergeStyle spreads an object style over the vars", () => {
+    expect(mergeStyle({ "--_a": 1 }, { "--_a": 2, color: "red" })).toEqual({
+      "--_a": 2,
+      color: "red",
+    })
+  })
+
+  test("mergeStyle returns undefined when there is nothing to set", () => {
+    expect(mergeStyle({ "--_a": undefined })).toBe(undefined)
+    expect(mergeStyle({}, null)).toBe(undefined)
+  })
+})
+
+describe("cssString and counterLabel", () => {
+  test("cssString quotes text and escapes quotes, backslashes and line breaks", () => {
+    expect(cssString("Nästa")).toBe('"Nästa"')
+    expect(cssString('Say "hi"\\\n')).toBe('"Say \\"hi\\"\\\\\\a "')
+  })
+
+  test("counterLabel puts the counter where {number} is", () => {
+    expect(counterLabel("Slide {number}", "x")).toBe('"Slide " counter(x)')
+    expect(counterLabel("{number}. dia", "x")).toBe('counter(x) ". dia"')
+    expect(counterLabel("Page {number} of the tour", "x")).toBe(
+      '"Page " counter(x) " of the tour"',
+    )
+    expect(counterLabel("Slide", "x")).toBe('"Slide"')
+  })
+})
+
+describe("pluralLabel", () => {
+  const english = { one: "{count} star", other: "{count} stars" }
+
+  test("picks the English form without a lang", () => {
+    expect([0, 1, 2, 5].map((count) => pluralLabel(english, count))).toEqual([
+      "0 stars",
+      "1 star",
+      "2 stars",
+      "5 stars",
+    ])
+  })
+
+  test("picks the Polish one, few and many forms", () => {
+    const polish = {
+      few: "{count} gwiazdki",
+      many: "{count} gwiazdek",
+      one: "{count} gwiazdka",
+      other: "{count} gwiazdki",
+    }
+    expect(
+      [1, 2, 4, 5, 12, 22, 25].map((count) => pluralLabel(polish, count, "pl")),
+    ).toEqual([
+      "1 gwiazdka",
+      "2 gwiazdki",
+      "4 gwiazdki",
+      "5 gwiazdek",
+      "12 gwiazdek",
+      "22 gwiazdki",
+      "25 gwiazdek",
+    ])
+  })
+
+  test("takes other in Japanese, whose only category is other", () => {
+    const japanese = { one: "unused", other: "星{count}つ" }
+    expect([1, 3].map((count) => pluralLabel(japanese, count, "ja"))).toEqual([
+      "星1つ",
+      "星3つ",
+    ])
+  })
+
+  test("falls back to other for a missing category and to English for a bad lang", () => {
+    expect(pluralLabel({ other: "{count} gwiazdek" }, 2, "pl")).toBe(
+      "2 gwiazdek",
+    )
+    expect(pluralLabel(english, 1, "")).toBe("1 star")
+    expect(pluralLabel(english, 1, "not a language")).toBe("1 star")
+  })
+})
+
+describe("tagAttrs", () => {
+  test("a button gets type and disabled, no href or aria-disabled", () => {
+    expect(tagAttrs("button", true, "/x")).toEqual({
+      "aria-disabled": undefined,
+      disabled: true,
+      href: undefined,
+      type: "button",
+    })
+  })
+
+  test("a disabled link loses its href and gets aria-disabled and the link role", () => {
+    expect(tagAttrs("a", true, "/x")).toEqual({
+      "aria-disabled": "true",
+      disabled: undefined,
+      href: undefined,
+      role: "link",
+      type: undefined,
+    })
+    expect(tagAttrs("a", false, "/x")).toMatchObject({
+      "aria-disabled": undefined,
+      href: "/x",
+    })
+    expect(tagAttrs("a", false, "/x")).not.toHaveProperty("role")
+  })
+
+  test("other tags get none of them", () => {
+    expect(tagAttrs("span", true, "/x")).toEqual({
+      "aria-disabled": undefined,
+      disabled: undefined,
+      href: undefined,
+      type: undefined,
+    })
+  })
+})
+
+describe("defined", () => {
+  test("drops the attributes a caller passes as undefined or null, so a spread doesn't remove an attribute set before it", () => {
+    expect(
+      defined({
+        "aria-labelledby": undefined,
+        hidden: false,
+        id: "",
+        role: null,
+        tabIndex: 0,
+      }),
+    ).toEqual({ hidden: false, id: "", tabIndex: 0 })
+  })
+
+  test("only sees attributes: a slot prop such as closeIcon={null} never travels in rest", () => {
+    const { closeIcon, ...rest } = { closeIcon: null, role: null }
+    expect(closeIcon).toBe(null)
+    expect(defined(rest)).toEqual({})
+  })
+})
+
+describe("ids", () => {
+  test("autoLabelledBy only labels a root that has no name of its own", () => {
+    expect(autoLabelledBy({}, "title")).toBe("title")
+    expect(autoLabelledBy({ "aria-label": "Name" }, "title")).toBe(undefined)
+    expect(autoLabelledBy({ "aria-labelledby": "other" }, "title")).toBe(
+      undefined,
+    )
+  })
+
+  test("idRefs joins the ids that are set", () => {
+    expect(idRefs("a", undefined, false, null, "b")).toBe("a b")
+    expect(idRefs(undefined, "")).toBe(undefined)
+  })
+
+  test("createIds asks for one base per instance, only when a part needs it", () => {
+    const calls: string[] = []
+    const locals = {
+      $id: (prefix: string) => {
+        calls.push(prefix)
+        return `${prefix}-${calls.length}`
+      },
+    }
+    const ids = createIds(locals, "select")
+    expect(calls).toEqual([])
+    expect([ids("label"), ids("end-text"), ids()]).toEqual([
+      "select-1-label",
+      "select-1-end-text",
+      "select-1",
+    ])
+    expect(createIds(locals, "select", "x")("label")).toBe("x-label")
+    expect(calls).toEqual(["select"])
+  })
+
+  test("createIds takes an empty id as no id, so two of them don't share part ids", () => {
+    let count = 0
+    const locals = { $id: (prefix: string) => `${prefix}-${++count}` }
+    expect(createIds(locals, "select", "")("label")).toBe("select-1-label")
+    expect(createIds(locals, "select", "")("label")).toBe("select-2-label")
+  })
+
+  test("createId uses the page's generator or a random suffix", () => {
+    expect(createId({ $id: (prefix) => `${prefix}-1` })("field")).toBe(
+      "field-1",
+    )
+    const id = createId({})
+    expect(id("field")).toMatch(/^field-[0-9a-f]{8}$/)
+    expect(id("field")).not.toBe(id("field"))
+  })
+})
+
+describe("example ids", () => {
+  test("exampleIdBase is the slug and the kebab-case name without Code", () => {
+    expect(exampleIdBase("select/Spread")).toBe("select-spread")
+    expect(exampleIdBase("button/IconAndLabelCode")).toBe(
+      "button-icon-and-label",
+    )
+  })
+})
+
+describe("toggleInGroup", () => {
+  test("adds a value when on and removes it when off", () => {
+    expect(toggleInGroup(["a"], "b", true)).toEqual(["a", "b"])
+    expect(toggleInGroup(["a", "b"], "a", false)).toEqual(["b"])
+    expect(toggleInGroup(["a"], "b", false)).toEqual(["a"])
+  })
+
+  test("doesn't change the group it gets", () => {
+    const group = ["a"]
+    toggleInGroup(group, "b", true)
+    expect(group).toEqual(["a"])
+  })
+})

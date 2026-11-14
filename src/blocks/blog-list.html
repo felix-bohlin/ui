@@ -1,0 +1,364 @@
+<style>
+  .blog-list {
+    container-type: inline-size;
+
+    .blog-header .ui-hgroup {
+      flex: 1 1 24rem;
+    }
+
+    .blog-cover {
+      align-self: stretch;
+      aspect-ratio: 2 / 1;
+      background-image: linear-gradient(
+        135deg,
+        oklch(from var(--ui-primary) l c calc(h + var(--hue, 0))),
+        oklch(from var(--ui-primary) l c calc(h + var(--hue, 0) + 60))
+      );
+    }
+
+    .blog-featured {
+      .blog-featured-body {
+        padding: var(--ui-space-5);
+      }
+
+      h2 {
+        text-wrap: balance;
+      }
+    }
+
+    .blog-meta {
+      margin-block-start: auto;
+    }
+
+    .blog-more {
+      align-self: center;
+    }
+  }
+</style>
+
+<div
+  class="blog-list ui-layout-container ui-layout-column ui-large"
+  style="--_max-inline-size: 76rem"
+>
+  <div class="ui-layout-row ui-spread blog-header">
+    <hgroup class="ui-hgroup">
+      <p>Bassbook diaries</p>
+      <h1 class="ui-h2">Dear diary, they turned me down again</h1>
+      <p>
+        Gear deep dives, Bassbook news and totally true diaries from members.
+      </p>
+    </hgroup>
+    <nav aria-label="Categories">
+      <ul class="ui-layout-row ui-small">
+        <li>
+          <a class="ui-chip" href="#blog-list-all" aria-current="page"
+            ><span class="ui-text">All posts</span></a
+          >
+        </li>
+        <li>
+          <a class="ui-chip ui-outlined" href="#blog-list-gear"
+            ><span class="ui-text">Gear Talk</span></a
+          >
+        </li>
+        <li>
+          <a class="ui-chip ui-outlined" href="#blog-list-news"
+            ><span class="ui-text">Bassbook news</span></a
+          >
+        </li>
+        <li>
+          <a class="ui-chip ui-outlined" href="#blog-list-tips"
+            ><span class="ui-text">Tabs & tips</span></a
+          >
+        </li>
+        <li>
+          <a class="ui-chip ui-outlined" href="#blog-list-diaries"
+            ><span class="ui-text">Member diaries</span></a
+          >
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <article
+    class="ui-card ui-outlined ui-layout-columns blog-featured"
+    style="--_columns: 1.3fr 1fr; --_gap: 0"
+  >
+    <div
+      class="blog-cover"
+      style="--hue: 0"
+      role="img"
+      aria-label="Cover image for Bassbook 6.0: a diary that hears every low note"
+    ></div>
+    <div class="ui-layout-column blog-featured-body">
+      <hgroup class="ui-hgroup">
+        <p>Featured</p>
+        <h2 class="ui-h3">
+          <a class="ui-card-link" href="#blog-list-bassbook-6"
+            >Bassbook 6.0: a diary that hears every low note</a
+          >
+        </h2>
+        <p>
+          Mood icons, a smarter gig planner and a profile page that's three
+          times louder. Here's what's new and how we built it.
+        </p>
+      </hgroup>
+      <ul class="ui-layout-row ui-x-small" aria-label="Tags">
+        <li class="ui-chip ui-small">
+          <span class="ui-text">Bassbook news</span>
+        </li>
+        <li class="ui-chip ui-small">
+          <span class="ui-text">Release</span>
+        </li>
+      </ul>
+      <div class="ui-layout-media">
+        <span class="ui-avatar" aria-hidden="true">LH</span>
+        <div>
+          <p>Lou Headstock, Head of Low End</p>
+          <p class="ui-caption">
+            <time datetime="2026-10-01">Oct 1, 2026</time>, 12 min read
+          </p>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <section class="ui-layout-column" aria-labelledby="blog-list-latest-heading">
+    <h2 class="ui-h4" id="blog-list-latest-heading">Latest posts</h2>
+    <ul class="ui-layout-grid ui-large" style="--_min-inline-size: 20rem">
+      <li>
+        <article class="ui-card ui-outlined">
+          <div
+            class="blog-cover"
+            style="--hue: 40"
+            role="img"
+            aria-label="Cover image for Inside my new pedalboard"
+          ></div>
+          <hgroup>
+            <h3 class="ui-h5">
+              <a class="ui-card-link" href="#blog-list-pedalboard"
+                >Inside my new pedalboard</a
+              >
+            </h3>
+            <p>
+              How I fit 14 pedals on one board and cut my setup time from 40
+              minutes to 4.
+            </p>
+          </hgroup>
+          <div class="ui-content blog-meta">
+            <ul class="ui-layout-row ui-x-small" aria-label="Tags">
+              <li class="ui-chip ui-small">
+                <span class="ui-text">Gear Talk</span>
+              </li>
+              <li class="ui-chip ui-small">
+                <span class="ui-text">Pedals</span>
+              </li>
+            </ul>
+            <div class="ui-layout-media">
+              <span class="ui-avatar" aria-hidden="true">HH</span>
+              <div>
+                <p>Holly Humbucker</p>
+                <p class="ui-caption">
+                  <time datetime="2026-09-30">Sep 30, 2026</time>, 9 min read
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </li>
+      <li>
+        <article class="ui-card ui-outlined">
+          <div
+            class="blog-cover"
+            style="--hue: 200"
+            role="img"
+            aria-label="Cover image for Jamming with guitarists on Bassbook"
+          ></div>
+          <hgroup>
+            <h3 class="ui-h5">
+              <a class="ui-card-link" href="#blog-list-jamming"
+                >Jamming with guitarists on Bassbook</a
+              >
+            </h3>
+            <p>
+              Band invites, shared setlists and a few habits that keep
+              guitarists calm(ish).
+            </p>
+          </hgroup>
+          <div class="ui-content blog-meta">
+            <ul class="ui-layout-row ui-x-small" aria-label="Tags">
+              <li class="ui-chip ui-small">
+                <span class="ui-text">Guides</span>
+              </li>
+              <li class="ui-chip ui-small">
+                <span class="ui-text">Jamming</span>
+              </li>
+            </ul>
+            <div class="ui-layout-media">
+              <span class="ui-avatar" aria-hidden="true">IH</span>
+              <div>
+                <p>Ines Hertz</p>
+                <p class="ui-caption">
+                  <time datetime="2026-09-22">Sep 22, 2026</time>, 5 min read
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </li>
+      <li>
+        <article class="ui-card ui-outlined">
+          <div
+            class="blog-cover"
+            style="--hue: 320"
+            role="img"
+            aria-label="Cover image for How The Low Enders gig weekly with 4 bassists"
+          ></div>
+          <hgroup>
+            <h3 class="ui-h5">
+              <a class="ui-card-link" href="#blog-list-low-enders"
+                >How The Low Enders gig weekly with 4 bassists</a
+              >
+            </h3>
+            <p>
+              Sol Lowend on going from one gig a year to a gig every single
+              Friday.
+            </p>
+          </hgroup>
+          <div class="ui-content blog-meta">
+            <ul class="ui-layout-row ui-x-small" aria-label="Tags">
+              <li class="ui-chip ui-small">
+                <span class="ui-text">Member diaries</span>
+              </li>
+            </ul>
+            <div class="ui-layout-media">
+              <span class="ui-avatar" aria-hidden="true">SN</span>
+              <div>
+                <p>Stella Nut</p>
+                <p class="ui-caption">
+                  <time datetime="2026-09-15">Sep 15, 2026</time>, 7 min read
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </li>
+      <li>
+        <article class="ui-card ui-outlined">
+          <div
+            class="blog-cover"
+            style="--hue: 100"
+            role="img"
+            aria-label="Cover image for Root notes are a conversation, not a rule"
+          ></div>
+          <hgroup>
+            <h3 class="ui-h5">
+              <a class="ui-card-link" href="#blog-list-root-notes"
+                >Root notes are a conversation, not a rule</a
+              >
+            </h3>
+            <p>
+              Why playing the root should start the fun instead of ending it.
+            </p>
+          </hgroup>
+          <div class="ui-content blog-meta">
+            <ul class="ui-layout-row ui-x-small" aria-label="Tags">
+              <li class="ui-chip ui-small">
+                <span class="ui-text">Member diaries</span>
+              </li>
+            </ul>
+            <div class="ui-layout-media">
+              <span class="ui-avatar" aria-hidden="true">PG</span>
+              <div>
+                <p>Percy Groove</p>
+                <p class="ui-caption">
+                  <time datetime="2026-09-08">Sep 8, 2026</time>, 6 min read
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </li>
+      <li>
+        <article class="ui-card ui-outlined">
+          <div
+            class="blog-cover"
+            style="--hue: 260"
+            role="img"
+            aria-label="Cover image for Slapping in drop D after bedtime"
+          ></div>
+          <hgroup>
+            <h3 class="ui-h5">
+              <a class="ui-card-link" href="#blog-list-drop-d"
+                >Slapping in drop D after bedtime</a
+              >
+            </h3>
+            <p>
+              Ghost notes, soft thumbs and the headphones that kept my
+              neighbours asleep.
+            </p>
+          </hgroup>
+          <div class="ui-content blog-meta">
+            <ul class="ui-layout-row ui-x-small" aria-label="Tags">
+              <li class="ui-chip ui-small">
+                <span class="ui-text">Tabs & tips</span>
+              </li>
+              <li class="ui-chip ui-small">
+                <span class="ui-text">Technique</span>
+              </li>
+            </ul>
+            <div class="ui-layout-media">
+              <span class="ui-avatar" aria-hidden="true">RR</span>
+              <div>
+                <p>Rory Rootnote</p>
+                <p class="ui-caption">
+                  <time datetime="2026-08-29">Aug 29, 2026</time>, 8 min read
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </li>
+      <li>
+        <article class="ui-card ui-outlined">
+          <div
+            class="blog-cover"
+            style="--hue: 160"
+            role="img"
+            aria-label="Cover image for My new-drummer onboarding checklist"
+          ></div>
+          <hgroup>
+            <h3 class="ui-h5">
+              <a class="ui-card-link" href="#blog-list-onboarding"
+                >My new-drummer onboarding checklist</a
+              >
+            </h3>
+            <p>
+              The 30-day plan every new drummer in my band gets, from earplugs
+              to first gig.
+            </p>
+          </hgroup>
+          <div class="ui-content blog-meta">
+            <ul class="ui-layout-row ui-x-small" aria-label="Tags">
+              <li class="ui-chip ui-small">
+                <span class="ui-text">Dear diary</span>
+              </li>
+            </ul>
+            <div class="ui-layout-media">
+              <span class="ui-avatar" aria-hidden="true">AB</span>
+              <div>
+                <p>Ada Bridge</p>
+                <p class="ui-caption">
+                  <time datetime="2026-08-18">Aug 18, 2026</time>, 4 min read
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </li>
+    </ul>
+  </section>
+
+  <a class="ui-button ui-outlined blog-more" href="#blog-list-page-2"
+    >Load more posts</a
+  >
+</div>

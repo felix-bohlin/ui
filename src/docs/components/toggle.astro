@@ -1,27 +1,48 @@
 ---
 import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
+import DocLink from "../../components/DocLink.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import {
   ToggleButton as UIToggleButton,
   ToggleGroup as UIToggleGroup,
-} from "@opui/astro"
+} from "opui-css/astro"
 import AutoExample from "../../components/AutoExample.astro"
 import ToggleGroupCSS from "@opui/css/components/toggle-group.css?raw"
 import ToggleButtonCSS from "@opui/css/components/toggle-button.css?raw"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
 import toggleButtonApi from "../../component-api/toggle-button/api"
 import toggleGroupApi from "../../component-api/toggle-group/api"
+import ToggleBuild from "../../components/UnderTheHood/ToggleBuild.astro"
+export const description =
+  "Buttons that switch options on and off, alone or in a group, like bold in a toolbar."
+
+export const keywords = ["pressed", "toggle button"]
 ---
 
 <Component
+  description={description}
   slug="toggle"
   heroAnatomy
   apis={[
     { title: "Toggle group API", api: toggleGroupApi },
     { title: "Toggle button API", api: toggleButtonApi },
   ]}
-  browserSupport={["color-mix", "light-dark", "relative-color"]}
+  browserSupport={[
+    "gap-decorations",
+    "has",
+    "lh",
+    "light-dark",
+    "logical-properties",
+    "relative-color",
+  ]}
+  fallbacks={{
+    "gap-decorations":
+      "Without gap decorations, the compat layer draws the lines in a group with shadows on each button's start and top edges.",
+  }}
   changelogPaths={[
     {
       path: "packages/opui/components/ToggleButton/ToggleButton.astro",
@@ -41,7 +62,8 @@ import toggleGroupApi from "../../component-api/toggle-group/api"
       path: "packages/opui/css/components/toggle-group.css",
       type: "css",
     },
-    { path: "src/component-api/toggle", type: "api" },
+    { path: "src/component-api/toggle-button", type: "api" },
+    { path: "src/component-api/toggle-group", type: "api" },
   ]}
   installationTabs={[
     {
@@ -57,106 +79,144 @@ import toggleGroupApi from "../../component-api/toggle-group/api"
   ]}
 >
   <Fragment slot="title">Toggle</Fragment>
-  <Fragment slot="preamble"
-    >Buttons (disguised as input checkbox/radio) that can be toggled on and off.
+  <Fragment slot="preamble">
+    Buttons that toggle on and off, for toolbar options and views. For panels of
+    content, use <DocLink href="/components/tabs">Tabs</DocLink>, and for a
+    choice in a form, a <DocLink href="/components/radio">Radio</DocLink>.
   </Fragment>
 
-  <section>
-    <h2 id="toggle-button">Toggle button</h2>
+  <Usage slot="usage">
+    <li slot="when">
+      Toolbar options, like bold: a <a href="#multi-select">multi-select</a>
+      group.
+    </li>
+    <li slot="when">
+      One view out of a few, like day or week: a
+      <a href="#single-select">single-select</a> group.
+    </li>
+    <li slot="when-not">
+      A setting that applies right away: use a
+      <DocLink href="/components/switch">Switch</DocLink>.
+    </li>
+    <li slot="when-not">
+      Panels of content: use <DocLink href="/components/tabs">Tabs</DocLink>.
+    </li>
+    <li slot="when-not">
+      Actions only: use a
+      <DocLink href="/components/control-group">Control group</DocLink>.
+    </li>
+  </Usage>
+
+  <section id="toggle-button">
+    <h2>Toggle button</h2>
     <AutoExample name="Standalone" centered />
   </section>
 
-  <section>
-    <h2 id="toggle-group">Toggle group</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Group toggle buttons by wrapping them in a <code>ToggleGroup</code> component.
-      </Fragment>
-      <Fragment slot="html">
-        Group toggle buttons by wrapping them in a <code
-          >&lt;div role="radiogroup" class="ui-toggle-group"&gt;</code
-        > (or <code>role="group"</code> when multi-select).
-      </Fragment>
-      <Fragment slot="vue">
-        Group toggle buttons by wrapping them in a <code>ToggleGroup</code> component.
-      </Fragment>
-    </Conditional>
+  <section id="sizes">
+    <h2>Sizes</h2>
+    <p>Set the size on a button, or on the group for all of them.</p>
+
+    <AutoExample name="Sizes" centered column />
+  </section>
+
+  <section id="toggle-group">
+    <h2>Toggle group</h2>
 
     <h3 id="multi-select">Multi-select</h3>
-    <Conditional>
-      <p slot="html">
-        Use <code>type="checkbox"</code> for multi-select groups.
-      </p>
-      <p slot="astro">
-        Use <code>selection="multiple"</code> for multi-select groups.
-      </p>
-      <p slot="vue">
-        Use <code>selection="multiple"</code> for multi-select groups.
-      </p>
-    </Conditional>
+    <p>Use <PropOrClass prop="multiple" class='type="checkbox"' />.</p>
 
     <AutoExample name="MultiSelect" centered />
 
     <h3 id="single-select">Single-select</h3>
-    <Conditional>
-      <p slot="html">Use <code>type="radio"</code> for single-select groups.</p>
-      <p slot="astro">
-        Use <code>selection="single"</code> for single-select groups.
-      </p>
-      <p slot="vue">
-        Use <code>selection="single"</code> for single-select groups.
-      </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The default without <code>multiple</code>.
+      </Fragment>
+      <Fragment slot="html">Use <code>type="radio"</code>.</Fragment>
     </Conditional>
 
     <AutoExample name="Alignment" centered />
 
+    <h3 id="binding">Binding</h3>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set <code>value</code> on the group. After that, read the inputs.
+      </Fragment>
+      <Fragment slot="html">
+        Read the checked inputs, or submit them with a form.
+      </Fragment>
+      <Fragment slot="react">
+        Use <code>value</code> and <code>onValueChange</code> on the group.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use <code>bind:value</code> on the group.
+      </Fragment>
+      <Fragment slot="vue">Use <code>v-model</code> on the group.</Fragment>
+    </Conditional>
+
+    <AutoExample name="Binding" centered column />
+
     <h3 id="text-icon">Text + icon</h3>
+    <p>Icon-only buttons need an <code>aria-label</code>.</p>
 
     <AutoExample name="Interactive" centered />
 
     <h3 id="vertical-orientation">Vertical orientation</h3>
-    <Conditional>
-      <p slot="astro">
-        Change the layout of the group with the <code
-          >orientation="vertical"</code
-        > prop.
-      </p>
-      <p slot="html">
-        Change the layout of the group with the <code>.ui-vertical</code> class.
-      </p>
-      <p slot="vue">
-        Change the layout of the group with the <code
-          >orientation="vertical"</code
-        > prop.
-      </p>
-    </Conditional>
+    <p>
+      Use <PropOrClass prop='orientation="vertical"' class=".ui-vertical" />.
+    </p>
     <AutoExample name="Vertical" centered />
 
-    <h3 id="sizes">Sizes</h3>
-    <p>
-      Choose between three sizes: default, <code>.ui-x-small</code> and <code
-        >.ui-small</code
-      >.
-    </p>
-
-    <AutoExample name="Sizes" centered row />
+    <h3 id="overflow">Overflow</h3>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Wraps by default. Use <code>overflow</code> to scroll or shrink.
+      </Fragment>
+      <Fragment slot="html">
+        Wraps by default. Use <code>.ui-overflow-scroll</code> or
+        <code>.ui-overflow-shrink</code>.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Overflow" />
   </section>
+
+  <section id="disabled">
+    <h2>Disabled</h2>
+    <p>
+      <code>aria-disabled="true"</code> keeps it focusable. Block the change in
+      a script.
+    </p>
+    <AutoExample name="Disabled" centered />
+  </section>
+
+  <ToggleBuild slot="under-the-hood" />
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        <Conditional>
+          <Fragment slot="components"
+            ><code>ToggleGroup</code> renders <code>role="radiogroup"</code>, or
+            <code>role="group"</code> with <code>multiple</code>.</Fragment
+          >
+          <Fragment slot="html"
+            >Give a single-select group <code>role="radiogroup"</code> and a
+            multi-select one <code>role="group"</code>.</Fragment
+          >
+        </Conditional>
+        Name it with <code>aria-label</code>.
+      </li>
+    </ul>
+    <KeyboardSupport api={toggleGroupApi} />
+  </Fragment>
 
   <Fragment slot="anatomy">
     <Anatomy api={toggleGroupApi} zoom={1.25}>
-      <UIToggleGroup name="toggle-anatomy" selection="single">
-        <UIToggleButton pressed type="radio">Day</UIToggleButton>
+      <UIToggleGroup aria-label="Calendar view" name="toggle-anatomy">
+        <UIToggleButton checked type="radio">Day</UIToggleButton>
         <UIToggleButton type="radio">Week</UIToggleButton>
         <UIToggleButton type="radio">Month</UIToggleButton>
       </UIToggleGroup>
     </Anatomy>
   </Fragment>
 </Component>
-
-<style is:global>
-  .ui-toggle-group
-    .ui-toggle-button:has(input:checked).has-text
-    svg:nth-of-type(2) {
-    display: none;
-  }
-</style>

@@ -1,0 +1,172 @@
+---
+import Guide from "../../layouts/Guide.astro"
+import Code from "../../components/Code.astro"
+import DocLink from "../../components/DocLink.astro"
+import Example from "../../components/Example/index"
+import { exampleThemeNotes } from "../../utils/example-theme-notes"
+import { EXAMPLE_THEMES } from "../../utils/example-themes"
+
+export const keywords = [
+  "css variables",
+  "custom properties",
+  "override",
+  "restyle",
+]
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Customizing</Fragment>
+  <Fragment slot="preamble">
+    A theme in <code>theme.custom</code>, <code>--_*</code> properties for one
+    component, and your own layer for the rest.
+  </Fragment>
+
+  <section id="your-theme">
+    <h2>Your theme</h2>
+    <p>
+      Set the
+      <DocLink href="/guide/concepts#token-tiers"
+        >knobs, roles and component tokens</DocLink
+      >
+      you change in the <code>theme.custom</code> layer.
+    </p>
+    <Code
+      code={`@layer theme.custom {
+  :where(html) {
+    --ui-density: 0.9;
+    --ui-font-body: "Inter", system-ui, sans-serif;
+    --ui-font-heading: "Fraunces", serif;
+    --ui-palette-chroma: 0.35;
+    --ui-palette-hue: 265;
+  }
+}`}
+      lang="css"
+    />
+    <p>
+      The <DocLink href="/theme-builder">Theme builder</DocLink> writes one for
+      you. Put pinned roles, like <code>--ui-primary</code>, on
+      <code>:where(html, .ui-palette, .ui-contrast-more)</code>.
+    </p>
+    <h3 id="example-themes">Example themes</h3>
+    <p>
+      Tokens only, no component CSS. They name their fonts but don't load them.
+      Each borrows the look of a design system it isn't affiliated with.
+    </p>
+    <ul>
+      {EXAMPLE_THEMES.map(({ name }) => {
+        const { description, original } = exampleThemeNotes(name)
+        return <li>
+          <code>{name}</code>: {original}.{" "}
+          <Fragment set:html={description} />
+        </li>
+      })}
+    </ul>
+    <Code
+      code={`@import "opui-css/css/imports.css";
+@import "opui-css/themes/brutalist.css";`}
+      lang="css"
+    />
+    <p>
+      The bootstrap, brutalist, govuk and m3 themes derive their primary color
+      and their tinted surfaces, text and borders from
+      <code>--ui-palette-source</code>, so setting it recolors them, on the page
+      or in a
+      <DocLink href="/guide/theming#scopes"><code>.ui-palette</code></DocLink>
+      scope. The shadcn theme stays black, white and gray. The gray ramp keeps
+      <code>--ui-gray-hue</code>, so set it too:
+    </p>
+    <Code
+      code={`:where(html) {
+  --ui-palette-source: oklch(0.65 0.15 30);
+  --ui-gray-hue: 30;
+}`}
+      lang="css"
+    />
+  </section>
+
+  <section id="component-properties">
+    <h2>Component properties</h2>
+    <p>
+      Each component page lists its <code>--_*</code> properties. Button reads
+      these, among others:
+    </p>
+    <ul>
+      <li>
+        <code>--_accent</code>: the accent color, which every state derives
+        from.
+      </li>
+      <li>
+        <code>--_bg-color</code> and <code>--_text-color</code>: the current
+        background and text color.
+      </li>
+      <li>
+        <code>--_duration</code> and <code>--_ease</code>: the transition
+        duration and easing.
+      </li>
+      <li>
+        <code>--_icon-size</code>: the size of a direct child <code>svg</code>.
+      </li>
+      <li><code>--_size</code>: the control size.</li>
+      <li><code>--_motion</code>: the motion multiplier.</li>
+      <li><code>--_padding-inline</code>: the inline padding.</li>
+    </ul>
+    <p>Set them on the component, not on a parent:</p>
+    <Code
+      code={`/* Does nothing: every .ui-button declares its own --_icon-size */
+.toolbar {
+  --_icon-size: 1.25em;
+}
+
+/* Works */
+.toolbar .ui-button {
+  --_icon-size: 1.25em;
+}
+
+/* Theme tokens inherit, so a parent is fine */
+.toolbar {
+  --ui-button-radius: var(--ui-radius-round);
+}`}
+      lang="css"
+    />
+    <Example centered>
+      <button
+        class="ui-button ui-filled"
+        style="--_accent: var(--ui-green)"
+        type="button"
+      >
+        Green filled
+      </button>
+      <button
+        class="ui-button ui-outlined"
+        style="--_accent: var(--ui-green)"
+        type="button"
+      >
+        Green outlined
+      </button>
+    </Example>
+    <p>
+      Prefer inputs like <code>--_accent</code> over outputs like
+      <code>--_bg-color</code>, which freezes every state.
+    </p>
+  </section>
+
+  <section id="unlayered-or-your-own-layer">
+    <h2>Unlayered or your own layer</h2>
+    <p>
+      Unlayered CSS beats every
+      <DocLink href="/guide/concepts#cascade-layers">layer</DocLink>. With your
+      own layers, add one after <code>utils</code>.
+    </p>
+    <Code
+      code={`@layer openprops, theme, normalize, components.prose, components.root, components.extended, components.compat, utils, overrides;
+@layer theme.palette, theme.base, theme.custom, theme.severity;
+
+@layer overrides {
+  .ui-badge {
+    --_indicator-size: var(--ui-space-5);
+  }
+}`}
+      lang="css"
+    />
+  </section>
+</Guide>

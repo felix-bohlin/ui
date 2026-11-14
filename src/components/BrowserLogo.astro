@@ -1,0 +1,17 @@
+---
+import type { BrowserId } from "../utils/browser-support"
+
+type Props = {
+  browser: BrowserId
+}
+
+const { browser } = Astro.props
+---
+
+<img
+  alt=""
+  class="browser-logo"
+  height="16"
+  src={`/browsers/${browser}.svg`}
+  width="16"
+/>

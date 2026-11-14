@@ -66,6 +66,16 @@ const themes = Object.fromEntries(
         document.documentElement.dataset.theme = theme
       }
     </script>
+    <script>
+      import sets from "../../utils/icon-sets.json"
+      import { applyIconSwitch, iconSwitchOf } from "../../utils/icon-switch"
+
+      const icons = new URLSearchParams(location.search).get("icons")
+      if (icons && Object.hasOwn(sets, icons)) {
+        applyIconSwitch(iconSwitchOf(sets[icons as keyof typeof sets]))
+        document.documentElement.dataset.icons = icons
+      }
+    </script>
   </body>
 </html>
 

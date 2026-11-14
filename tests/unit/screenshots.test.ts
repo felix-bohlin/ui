@@ -1,7 +1,11 @@
 import { readdirSync, readFileSync } from "node:fs"
 import { expect, test } from "vitest"
 import { exampleSources, parseExamplePath } from "../../src/utils/examples"
-import { BLOCK_WIDTHS, THEMED_BLOCKS } from "../e2e/screenshot-targets"
+import {
+  BLOCK_WIDTHS,
+  ICON_SCREENSHOT_LIBRARIES,
+  THEMED_BLOCKS,
+} from "../e2e/screenshot-targets"
 
 const files = (path: string, extension: string) =>
   readdirSync(new URL(path, import.meta.url))
@@ -44,7 +48,17 @@ const themes = files("../../packages/opui/themes/", ".css").flatMap((theme) =>
   ),
 )
 
-const expected = new Set([...components, ...stress, ...blocks, ...themes])
+const icons = ICON_SCREENSHOT_LIBRARIES.flatMap((library) =>
+  stress.map((name) => `icons-${library}-${name}`),
+)
+
+const expected = new Set([
+  ...components,
+  ...stress,
+  ...blocks,
+  ...themes,
+  ...icons,
+])
 
 for (const scheme of ["dark", "light"]) {
   test(`every ${scheme} baseline belongs to an example`, () => {

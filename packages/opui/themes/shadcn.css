@@ -97,6 +97,7 @@
     --ui-switch-thumb-size: 1rem;
     --ui-switch-track-block-size: 1.15rem;
     --ui-switch-track-inline-size: 2rem;
+    --ui-target-min-size: 0px;
     --ui-text: light-dark(oklch(0.269 0 0), oklch(0.922 0 0));
     --ui-text-subtle: light-dark(oklch(0.52 0 0), oklch(0.708 0 0));
     --ui-text-strong: light-dark(oklch(0.145 0 0), oklch(0.985 0 0));

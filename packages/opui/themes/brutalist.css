@@ -84,6 +84,7 @@
       oklch(from var(--ui-palette-source) 0.34 0.04 calc(h + 10.5))
     );
     --ui-switch-thumb-bg-color: var(--ui-text);
+    --ui-target-min-size: 0px;
     --ui-text: light-dark(oklch(0 0 0), oklch(0.925 0 0));
     --ui-text-strong: var(--ui-text);
     --ui-track-bg-color: var(--ui-surface-elevated);

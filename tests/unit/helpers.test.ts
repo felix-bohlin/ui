@@ -65,6 +65,7 @@ describe("cssString and counterLabel", () => {
   test("cssString quotes text and escapes quotes, backslashes and line breaks", () => {
     expect(cssString("Nästa")).toBe('"Nästa"')
     expect(cssString('Say "hi"\\\n')).toBe('"Say \\"hi\\"\\\\\\a "')
+    expect(cssString("a\r\nb\rc\fd")).toBe('"a\\a b\\a c\\c d"')
   })
 
   test("counterLabel puts the counter where {number} is", () => {

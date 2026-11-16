@@ -35,7 +35,10 @@ export function mergeStyle(vars: Vars, style?: object | string | null) {
 export const styleAttrs = <S>(style: S) => (style ? { style } : {})
 
 export const cssString = (text: string) =>
-  `"${text.replace(/["\\]/g, "\\$&").replace(/\n/g, "\\a ")}"`
+  `"${text
+    .replace(/["\\]/g, "\\$&")
+    .replace(/\r\n|[\n\r]/g, "\\a ")
+    .replace(/\f/g, "\\c ")}"`
 
 export const counterLabel = (template: string, counter: string) =>
   template

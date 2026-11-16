@@ -78,6 +78,14 @@ export const warnReplacedId = (
   }
 }
 
+export const warnUnnamed = (component: string, named: unknown) => {
+  if (DEV && !named) {
+    console.warn(
+      `[OPUI ${component}] Missing accessible name. Provide a default slot, and set \`hideLabel\` to hide it visually.`,
+    )
+  }
+}
+
 export const warnUnnamedGroup = (
   component: string,
   props: { "aria-label"?: unknown; "aria-labelledby"?: unknown },
@@ -85,14 +93,6 @@ export const warnUnnamedGroup = (
   if (DEV && !props["aria-label"] && !props["aria-labelledby"]) {
     console.warn(
       `[OPUI ${component}] Missing accessible name. Name the group with \`aria-label\`, or with \`aria-labelledby\` pointing at a visible heading.`,
-    )
-  }
-}
-
-export const warnUnnamed = (component: string, named: unknown) => {
-  if (DEV && !named) {
-    console.warn(
-      `[OPUI ${component}] Missing accessible name. Provide a default slot, and set \`hideLabel\` to hide it visually.`,
     )
   }
 }

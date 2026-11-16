@@ -131,7 +131,9 @@ export const MODEL_KINDS = {
         `checked={${model.local} !== undefined ? ${checked} : undefined}`,
         `defaultChecked={${model.local} !== undefined ? undefined : ${checked}}`,
         `onChange={() => onValueChange?.(${value})}`,
+        `ref={seedChecked(() => onValueChange?.(${value}))}`,
       ],
+      reactHelpers: () => ["seedChecked"],
       rename: (model) => [[model.local, `${model.local} ?? defaultValue`]],
     },
     svelte: {

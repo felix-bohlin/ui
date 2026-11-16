@@ -1,11 +1,14 @@
-<label class="ui-text-field ui-one-time-code">
-  <span class="ui-label">Verification code</span>
+<label class="ui-one-time-code">
+  <span class="ui-label" id="one-time-code-disabled-1-label"
+    >Verification code</span
+  >
   <span class="ui-field">
     <input
       inputmode="numeric"
       pattern="[0-9]{6}"
       disabled
       value="905"
+      aria-labelledby="one-time-code-disabled-1-label"
       autocomplete="one-time-code"
       maxlength="6"
       name="code"

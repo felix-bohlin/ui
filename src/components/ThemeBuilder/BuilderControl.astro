@@ -192,6 +192,14 @@ const name = control.kind === "brand" ? "Brand color" : control.label
         }
         value={option.value}
       >
+        {control.icons && option.preview && <span
+          aria-hidden="true"
+          class="builder-icon-preview"
+        >
+          {option.preview.map((image) => (
+            <span style={`mask-image: ${image}`} />
+          ))}
+        </span>}
         {option.label}
       </option>)
       return group ? <optgroup label={group}>{options}</optgroup> : options
@@ -288,6 +296,26 @@ const name = control.kind === "brand" ? "Brand color" : control.label
   }
 
   .builder-control-hint,
+  .builder-icon-preview {
+    display: inline-flex;
+    gap: var(--ui-space-1);
+    margin-inline-end: var(--ui-space-2);
+    vertical-align: middle;
+
+    & > span {
+      background-color: currentColor;
+      block-size: var(--ui-icon-size-small);
+      inline-size: var(--ui-icon-size-small);
+      mask-position: center;
+      mask-repeat: no-repeat;
+      mask-size: contain;
+
+      @media (forced-colors: active) {
+        forced-color-adjust: none;
+      }
+    }
+  }
+
   .builder-control-value {
     color: var(--ui-text-subtle);
     font-size: var(--ui-font-size-caption);

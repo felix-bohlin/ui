@@ -167,7 +167,7 @@ export const keywords = [
         <code>.ui-overflow-wrap</code> scroll through <code>overflow-x</code>.
       </li>
       <li>
-        Text field, Textarea, Select and Number field
+        Number field, One-time code, Select, Text field and Textarea
         (<code>css/compat/text-field.css</code>): on iPhone and iPad, fields of
         every size set their text in <code>--ui-font-size-control</code> or
         16px, whichever is larger, because iOS Safari zooms the page in on a
@@ -196,6 +196,14 @@ export const keywords = [
         heading group subtitle reads more contrast through a style query.
       </li>
     </ul>
+    <p>
+      <code>theme.css</code> and <code>normalize.css</code> have no file in the
+      layer, so each keeps its fallback next to the rule: the
+      <code>clamp()</code> heading sizes without <code>progress()</code>, and
+      smooth page scrolling, which follows <code>prefers-reduced-motion</code>
+      and the motion classes without <code>if()</code>. The files below leave
+      them out like the layer's.
+    </p>
     <h3 id="support-level">Support level</h3>
     <p>Pick the file that matches the browsers you support:</p>
     <ul>

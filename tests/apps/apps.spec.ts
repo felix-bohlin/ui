@@ -428,10 +428,6 @@ for (const { example, readout, text } of BOUND) {
   }, testInfo) => {
     const app = appOf(testInfo.project.name)
     test.skip(!app.scripts, `${app.name} renders on the client only`)
-    test.skip(
-      app.framework === "react",
-      "React keeps a choice made before hydration but calls no onValueChange for it",
-    )
     const slug = example.split("/")[0] ?? ""
     const problems = await watch(page)
     const release = await holdScripts(page, app.scripts ?? "")

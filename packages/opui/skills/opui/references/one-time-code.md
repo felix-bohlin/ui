@@ -9,7 +9,7 @@ A one-time password (OTP) field: one input drawn as a box per character, with pa
 
 ### Parts
 
-- `label.ui-text-field.ui-one-time-code` (root): Container element.
+- `label.ui-one-time-code` (root): Container element.
 - `.ui-label` (prop `label`, slot `label`): The label for the field.
 - `.ui-field`: Draws a box per character and a ring on the next one.
 - `<input>` (model): The input element, with `autocomplete="one-time-code"`, which lets the browser fill in a code it received.
@@ -90,20 +90,26 @@ The stylesheets read `--ui-border-width-thick`, `--ui-disabled-opacity`, `--ui-d
 ### Example: Basics
 
 ```html
-<label class="ui-text-field ui-one-time-code">
-  <span class="ui-label">Verification code</span>
+<label class="ui-one-time-code">
+  <span class="ui-label" id="one-time-code-basics-1-label"
+    >Verification code</span
+  >
   <span class="ui-field">
     <input
       inputmode="numeric"
       pattern="[0-9]{6}"
       required
+      aria-describedby="one-time-code-basics-1-end-text"
+      aria-labelledby="one-time-code-basics-1-label"
       autocomplete="one-time-code"
       maxlength="6"
       name="code"
       type="text"
     />
   </span>
-  <span class="ui-end-text">The code expires in 10 minutes.</span>
+  <span class="ui-end-text" id="one-time-code-basics-1-end-text"
+    >The code expires in 10 minutes.</span
+  >
 </label>
 ```
 

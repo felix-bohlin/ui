@@ -1681,6 +1681,22 @@ interaction(
 interaction(
   "one-time-code",
   "Basics",
+  "a one-time code is named by its label and described by its end text",
+  async ({ root }) => {
+    const input = root.getByRole("textbox", {
+      exact: true,
+      name: "Verification code",
+    })
+
+    await expect(input).toHaveAccessibleDescription(
+      "The code expires in 10 minutes.",
+    )
+  },
+)
+
+interaction(
+  "one-time-code",
+  "Basics",
   "a required one-time code only looks invalid once the user leaves it incomplete",
   async ({ page, root }) => {
     const input = root.getByRole("textbox", { name: "Verification code" })
@@ -1836,6 +1852,33 @@ interaction(
     await page.waitForTimeout(300)
     await expect(input).toHaveValue(String(held))
   },
+)
+
+interaction(
+  "table",
+  "Sortable",
+  "a sortable header under spanning headers sorts by its own column",
+  async ({ root }) => {
+    await root.locator("table").evaluate((table: HTMLTableElement) => {
+      const [head] = table.tHead?.rows ?? []
+      head?.insertAdjacentHTML(
+        "beforebegin",
+        '<tr><th rowspan="2">Row</th><th colspan="3">Planets</th></tr>',
+      )
+      for (const [index, row] of [
+        ...(table.tBodies[0]?.rows ?? []),
+      ].entries()) {
+        row.insertAdjacentHTML("afterbegin", `<td>${index + 1}</td>`)
+      }
+    })
+    const planet = root.locator("tbody tr").first().locator("td").nth(1)
+
+    await root.getByRole("button", { name: "Moons" }).click()
+    await expect(planet).toHaveText("Mercury")
+    await root.getByRole("button", { name: "Moons" }).click()
+    await expect(planet).toHaveText("Saturn")
+  },
+  ["html"],
 )
 
 interaction(
@@ -2541,6 +2584,41 @@ interaction(
 )
 
 interaction(
+  "toast",
+  "Basics",
+  "a toast with an infinite duration stays, and a duration of 0 dismisses it at once",
+  async ({ page, root }) => {
+    const toaster = root.locator("opui-toaster")
+    const toasts = toaster.locator("li")
+    const show = (message: string, options?: object) =>
+      toaster.evaluate(
+        (
+          element: HTMLElement & {
+            show: (message: string, options?: object) => void
+          },
+          [text, given],
+        ) => element.show(text, given),
+        [message, options] as const,
+      )
+
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    await toaster.evaluate((element) =>
+      element.setAttribute("duration", "Infinity"),
+    )
+    await show("Stays until it's closed")
+    await page.waitForTimeout(700)
+    await expect(toasts).toHaveCount(1)
+    await toasts.getByRole("button").click()
+    await expect(toasts).toHaveCount(0, { timeout: 2000 })
+
+    await toaster.evaluate((element) => element.setAttribute("duration", "0"))
+    await show("Gone at once")
+    await expect(toasts).toHaveCount(0, { timeout: 2000 })
+  },
+  ["html"],
+)
+
+interaction(
   "text-field",
   "PasswordToggle",
   "password toggle shows and hides the password",
@@ -2592,6 +2670,24 @@ interaction(
     await root
       .locator(".ui-text-field")
       .evaluate((field) => field.setAttribute("lang", "sv"))
+    await root
+      .locator("opui-character-count")
+      .evaluate((count) => count.setAttribute("label", "Tecken kvar: {count}"))
+    await root.locator("input").fill("opui-fan-2026")
+    const announcer = page.locator("[data-opui-announcer]")
+    await expect(announcer).toHaveText("Tecken kvar: 7")
+    await expect(announcer).toHaveAttribute("lang", "sv")
+  },
+)
+
+interaction(
+  "text-field",
+  "CharacterCount",
+  "the character count announces in the language set on its input",
+  async ({ page, root }) => {
+    await root
+      .locator("input")
+      .evaluate((input) => input.setAttribute("lang", "sv"))
     await root
       .locator("opui-character-count")
       .evaluate((count) => count.setAttribute("label", "Tecken kvar: {count}"))

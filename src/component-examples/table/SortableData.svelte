@@ -27,6 +27,7 @@
   onsort={(event) => {
     event.preventDefault()
     const key = keys[event.detail.column]
+    if (!key) return
     const sign = event.detail.direction === "descending" ? -1 : 1
     bassists = bassists.toSorted(
       (a, b) =>

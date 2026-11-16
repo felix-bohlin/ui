@@ -1,16 +1,11 @@
 @layer components.extended {
   :where(.ui-toaster) {
     --_motion: var(--ui-motion);
-    --_close-image: var(--ui-icon-close);
-    --_critical-image: var(--ui-icon-critical);
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease-enter);
     --_gap: var(--ui-space-2);
-    --_info-image: var(--ui-icon-info);
     --_inset: var(--ui-space-4);
     --_max-inline-size: 24rem;
-    --_success-image: var(--ui-icon-success);
-    --_warning-image: var(--ui-icon-warning);
 
     display: contents;
 
@@ -47,7 +42,6 @@
       }
 
       & > .ui-callout {
-        --_icon-image: none;
         --_shadow: var(--ui-shadow-overlay);
 
         align-items: center;
@@ -59,37 +53,11 @@
           opacity var(--_duration) var(--_ease),
           translate var(--_duration) var(--ui-ease-move, var(--_ease));
 
-        &.ui-critical {
-          --_icon-image: var(--_critical-image);
-        }
-
-        &.ui-info {
-          --_icon-image: var(--_info-image);
-        }
-
-        &.ui-success {
-          --_icon-image: var(--_success-image);
-        }
-
-        &.ui-warning {
-          --_icon-image: var(--_warning-image);
-        }
-
         &:has(> svg) {
           grid-template-columns: auto 1fr auto;
 
           & > svg {
-            background-color: currentColor;
             margin-block-start: 0;
-            mask: var(--_icon-image) center / contain no-repeat;
-
-            @media (forced-colors: active) {
-              background-color: CanvasText;
-            }
-
-            @media print {
-              print-color-adjust: exact;
-            }
           }
         }
 
@@ -135,19 +103,6 @@
 
         & > .ui-button {
           margin-block: calc(var(--ui-space-1) * -1);
-
-          & > svg {
-            background-color: currentColor;
-            mask: var(--_close-image) center / contain no-repeat;
-
-            @media (forced-colors: active) {
-              background-color: ButtonText;
-            }
-
-            @media print {
-              print-color-adjust: exact;
-            }
-          }
         }
       }
     }

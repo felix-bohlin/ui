@@ -33,34 +33,27 @@ console.log(JSON.stringify(errors))`,
     ),
   )
 
-const tokenImages = (source: string) =>
-  Object.fromEntries(
-    [...source.matchAll(/--_(\w+)-image: var\(--ui-icon-([a-z-]+)\);/g)].map(
-      ([, name, role]) => [name, role],
-    ),
-  )
+const iconTokens = (source: string) =>
+  [...source.matchAll(/(?:-image|mask): var\(--ui-icon-([a-z-]+)\)/g)]
+    .map(([, role]) => role)
+    .toSorted()
 
-test("toaster.css draws the severity and close icons from the icon tokens", () => {
+test("callout.css draws the icons of a toast from the icon tokens, and toaster.css draws none of its own", () => {
   expect(
-    tokenImages(
-      readFileSync("packages/opui/css/components/toaster.css", "utf8"),
+    iconTokens(
+      readFileSync("packages/opui/css/components/callout.css", "utf8"),
     ),
-  ).toEqual({
-    close: "close",
-    critical: "critical",
-    info: "info",
-    success: "success",
-    warning: "warning",
-  })
+  ).toEqual(["close", "critical", "info", "success", "warning"])
+  expect(
+    readFileSync("packages/opui/css/components/toaster.css", "utf8"),
+  ).not.toMatch(/\bmask\b|-image\b/)
 })
 
-test("the image reader flags an icon that isn't a token", () => {
-  expect(tokenImages("--_info-image: var(--ui-icon-info);")).toEqual({
-    info: "info",
-  })
+test("the icon reader flags an icon that isn't a token", () => {
+  expect(iconTokens("mask: var(--ui-icon-info) center;")).toEqual(["info"])
   expect(
-    tokenImages(`--_info-image: url("data:image/svg+xml,%3Csvg/%3E");`),
-  ).toEqual({})
+    iconTokens(`mask: url("data:image/svg+xml,%3Csvg/%3E") center;`),
+  ).toEqual([])
 })
 
 test("the elements and the css/js scripts import in Node, which has no DOM", () => {
@@ -273,6 +266,83 @@ test("the documentation check flags a member, an event, an attribute and an expo
   ])
   expect(documentationProblems("a.js", script, types, [])).toEqual([
     "no api.ts lists <opui-a> from a.js in elements",
+  ])
+})
+
+const typedAttributes = (types: string, tag: string) => {
+  const from = types.indexOf(`"${tag}":`)
+  if (from === -1) return undefined
+  const rest = types.slice(from + tag.length + 3)
+  const next = rest.search(/\n\s*"opui-[\w-]+":/)
+  return [
+    ...rest
+      .slice(0, next === -1 ? undefined : next)
+      .matchAll(/(?:"([\w-]+)"|\b(\w+))\?:/g),
+  ].map(([, quoted, bare]) => quoted ?? bare ?? "")
+}
+
+const attributeTypeProblems = (
+  script: string,
+  frameworks: Record<string, string>,
+) => {
+  const { attributes, tag } = publicApi(script, "")
+  if (!tag) return []
+  const own = [...new Set(attributes)].filter(
+    (name) => !/^(?:aria|data)-/.test(name),
+  )
+  return Object.entries(frameworks).flatMap(([file, types]) => {
+    const typed = typedAttributes(types, tag)
+    if (!typed) return [`${file} doesn't type <${tag}>`]
+    return own
+      .filter(
+        (name) =>
+          !typed.some((key) =>
+            new RegExp(`^${name.replace(/\$\{[^}]*\}/g, "[\\w-]+")}$`).test(
+              key,
+            ),
+          ),
+      )
+      .map(
+        (name) =>
+          `${file} doesn't type the ${name} attribute that <${tag}> reads`,
+      )
+  })
+}
+
+test("react/elements.ts and svelte/elements.ts type every attribute an element reads", () => {
+  const scripts = globSync("packages/opui/elements/*.js").toSorted()
+  const frameworks = {
+    "react/elements.ts": readFileSync(
+      "packages/opui/react/elements.ts",
+      "utf8",
+    ),
+    "svelte/elements.ts": readFileSync(
+      "packages/opui/svelte/elements.ts",
+      "utf8",
+    ),
+  }
+  expect(
+    scripts.flatMap((file) =>
+      attributeTypeProblems(readFileSync(file, "utf8"), frameworks),
+    ),
+    "type the attribute on the element's tag in both files, so a component's props reach it in React and Svelte",
+  ).toEqual([])
+})
+
+test("the attribute type check flags an attribute one framework leaves out, and a tag it doesn't type", () => {
+  const script =
+    'this.getAttribute("close-label")\nthis.getAttribute(`${side}-label`)\nthis.hasAttribute("data-busy")\ncustomElements.define("opui-a", AElement)\n'
+  expect(
+    attributeTypeProblems(script, {
+      "react/elements.ts":
+        '"opui-a": Props & { "start-label"?: string }\n"opui-b": Props & { "close-label"?: string }',
+      "svelte/elements.ts":
+        '"opui-a": Props & {\n  "close-label"?: string\n  "end-label"?: string\n}',
+      "vue/elements.ts": '"opui-b": Props',
+    }),
+  ).toEqual([
+    "react/elements.ts doesn't type the close-label attribute that <opui-a> reads",
+    "vue/elements.ts doesn't type <opui-a>",
   ])
 })
 

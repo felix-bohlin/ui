@@ -26,6 +26,7 @@ const bassists = ref([
 const sort = (event: CustomEvent<SortDetail>) => {
   event.preventDefault()
   const key = keys[event.detail.column]
+  if (!key) return
   const sign = event.detail.direction === "descending" ? -1 : 1
   bassists.value = bassists.value.toSorted(
     (a, b) =>

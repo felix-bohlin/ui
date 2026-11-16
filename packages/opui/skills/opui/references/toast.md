@@ -19,7 +19,7 @@ Short messages that confirm an action and dismiss themselves.
 
 - `align`: `"center"` (`.ui-align-center`), `"end"` (default), `"start"` (`.ui-align-start`). Where the toasts sit along their side of the viewport.
 - `closeLabel`: `string`, `[close-label]`, default `"Close"`. The accessible name of the close button of each toast.
-- `duration`: `number`, `[duration]`, default `5000`. How long a toast stays, in milliseconds, while the pointer and focus are elsewhere. A toast with an action stays twice as long.
+- `duration`: `number`, `[duration]`, default `5000`. How long a toast stays, in milliseconds, while the pointer and focus are elsewhere. A toast with an action stays twice as long, and `Infinity` keeps a toast until it's closed.
 - `id`: `string`. The id the buttons point at with `commandfor`. Required.
 - `limit`: `number`, `[limit]`, default `3`. The most toasts shown at once. Past it, the oldest is dismissed, unless it holds focus.
 - `side`: `"block-end"` (default), `"block-start"` (`.ui-block-start`). The side of the viewport the toasts sit on.
@@ -47,18 +47,13 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### toaster.css
 
-- `--_close-image`: The icon of the close button, as an image used as a mask. Defaults to the Drawer's close icon.
-- `--_critical-image`: The icon of a critical toast, as an image used as a mask. Defaults to the `Callout` icon.
 - `--_ease`: Easing of a toast fading and sliding in.
 - `--_gap`: Space between stacked toasts.
-- `--_info-image`: The icon of an info toast, as an image used as a mask. Defaults to the `Callout` icon.
 - `--_inset`: Distance of the stack from the edges of the viewport.
 - `--_max-inline-size`: Maximum width of a toast.
 - `--_motion`: Motion multiplier, `0` with reduced motion.
-- `--_success-image`: The icon of a success toast, as an image used as a mask. Defaults to the `Callout` icon.
-- `--_warning-image`: The icon of a warning toast, as an image used as a mask. Defaults to the `Callout` icon.
 
-Outputs: `--_duration`, `--_icon-image` and `--_shadow`.
+Outputs: `--_duration` and `--_shadow`.
 
 ### callout.css
 

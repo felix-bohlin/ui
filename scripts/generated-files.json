@@ -4,6 +4,7 @@
     "packages/opui/skills/opui/references",
     "packages/opui/tokens.json",
     "public/search-index",
+    "src/utils/icon-samples.json",
     "src/utils/icon-sets.json"
   ],
   "sections": ["packages/opui/README.md"]

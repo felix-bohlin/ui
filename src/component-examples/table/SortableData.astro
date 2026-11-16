@@ -55,6 +55,7 @@ const bassists = [
     if (!(event instanceof CustomEvent)) return
     event.preventDefault()
     const key = keys[event.detail.column]
+    if (!key) return
     const sign = event.detail.direction === "descending" ? -1 : 1
     bassists.sort(
       (a, b) =>

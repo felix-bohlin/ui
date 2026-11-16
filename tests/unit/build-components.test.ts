@@ -731,6 +731,8 @@ describe("the three ports of a sample", () => {
     )
     expect(react).toContain('onChange={() => onValueChange?.("0")}')
     expect(react).toContain("onChange={() => onValueChange?.(star)}")
+    expect(react).toContain('import { seedChecked } from "../react"\n')
+    expect(react).toContain("ref={seedChecked(() => onValueChange?.(star))}")
     const svelte = port(".svelte")
     expect(svelte).toContain("value = $bindable(),")
     expect(svelte).toContain('value = "0"')
@@ -1051,7 +1053,11 @@ describe("the three ports of a sample", () => {
       '  warnGroupedChecked("Sample", grouped, checked ?? defaultChecked, "Tabs")\n',
     )
     expect(react).toContain(
-      '    <>\n      <input\n        checked={grouped ?? checked}\n        defaultChecked={grouped === undefined ? defaultChecked : undefined}\n        className={cx(["ui-sample", className])}\n        type="radio"\n        value={value}\n        {...defined(rest)}\n        onChange={(event) => {\n          parent?.change?.(event.currentTarget)\n          onChange?.(event)\n        }}\n      />\n      {children}\n    </>\n',
+      '    <>\n      <input\n        checked={grouped ?? checked}\n        defaultChecked={grouped === undefined ? defaultChecked : undefined}\n        className={cx(["ui-sample", className])}\n        type="radio"\n        value={value}\n        {...defined(rest)}\n        ref={inputRef}\n        onChange={(event) => {\n          parent?.change?.(event.currentTarget)\n          onChange?.(event)\n        }}\n      />\n      {children}\n    </>\n',
+    )
+    expect(react).toContain('import { useSeedChecked } from "../react"\n')
+    expect(react).toContain(
+      "  const inputRef = useSeedChecked(ref, (input) => parent?.change?.(input))\n",
     )
     const svelte = outputs.get(sampleFile().replace(".astro", ".svelte"))
     expect(svelte).toContain(

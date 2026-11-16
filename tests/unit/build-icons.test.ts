@@ -1,16 +1,23 @@
 import { globSync, readFileSync } from "node:fs"
+import { basename } from "node:path"
+import { parseHtml } from "../../scripts/html-tokens.mjs"
 import { describe, expect, test } from "vitest"
 import {
   buildIconSet,
   cleanSvg,
   copyrightOf,
+  ICON_SAMPLES,
   ICON_SETS,
+  rawSvg,
+  splitSamples,
 } from "../../scripts/build-icons.mjs"
 import {
   ICON_LIBRARIES,
   ICON_ROLES,
   iconUrl,
+  SAMPLE_ICONS,
 } from "../../src/utils/icon-libraries"
+import { iconTokensOf } from "../../src/utils/theme-icons"
 
 const library = {
   frameworks: {},
@@ -18,6 +25,9 @@ const library = {
   license: "MIT",
   name: "Sample",
   package: "sample-icons",
+  samples: Object.fromEntries(
+    SAMPLE_ICONS.map((name) => [name, `samples/${name}.svg`]),
+  ),
   url: "https://example.com",
 }
 
@@ -28,6 +38,12 @@ const files: Record<string, string> = {
     ICON_ROLES.map((role) => [
       `${role}.svg`,
       `<svg width="24" viewBox="0 0 24 24"><path d="M0 0h24"/></svg>`,
+    ]),
+  ),
+  ...Object.fromEntries(
+    SAMPLE_ICONS.map((name) => [
+      `samples/${name}.svg`,
+      `<svg width="24" class="icon" viewBox="0 0 24 24">\n  <path d="M0 0h24" />\n</svg>`,
     ]),
   ),
 }
@@ -62,6 +78,18 @@ describe("cleanSvg", () => {
     )
   })
 
+  test("sets the root attributes a library entry overrides", () => {
+    expect(
+      cleanSvg(
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M0 0"/></svg>',
+        "star.svg",
+        { fill: "currentColor" },
+      ),
+    ).toBe(
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor"><path d="M0 0"/></svg>',
+    )
+  })
+
   test("refuses an SVG without a viewBox", () => {
     expect(() =>
       cleanSvg('<svg width="24"><path d="M0 0"/></svg>', "x.svg"),
@@ -75,9 +103,40 @@ describe("cleanSvg", () => {
   })
 })
 
+describe("rawSvg", () => {
+  test("keeps every root attribute and drops comments and line breaks", () => {
+    expect(
+      rawSvg(`<!-- @license sample -->
+<svg
+  width="24"
+  class="icon"
+  viewBox="0 0 24 24"
+>
+  <path d="M5 12l5 5" />
+</svg>`),
+    ).toBe(
+      '<svg width="24" class="icon" viewBox="0 0 24 24"><path d="M5 12l5 5"/></svg>',
+    )
+  })
+
+  test("refuses an SVG without a viewBox", () => {
+    expect(() => rawSvg('<svg width="24"></svg>', "x.svg")).toThrow(
+      "x.svg has no viewBox",
+    )
+  })
+})
+
 describe("copyrightOf", () => {
   test("finds the copyright line of a licence", () => {
     expect(copyrightOf(files.LICENSE)).toBe("Copyright (c) 2026 Sample")
+  })
+
+  test("skips licence prose and the Apache template line", () => {
+    expect(
+      copyrightOf(
+        "copyright notice that is included in or attached to the work\n   Copyright [yyyy] [name of copyright owner]\n",
+      ),
+    ).toBeUndefined()
   })
 
   test("finds none without a licence", () => {
@@ -89,6 +148,10 @@ describe("buildIconSet", () => {
   test("reads every role, the version and the copyright", () => {
     const set = buildIconSet("sample", library, readerOf(files))
     expect(Object.keys(set.icons)).toEqual([...ICON_ROLES])
+    expect(Object.keys(set.samples)).toEqual([...SAMPLE_ICONS])
+    expect(set.samples.add).toBe(
+      '<svg width="24" class="icon" viewBox="0 0 24 24"><path d="M0 0h24"/></svg>',
+    )
     expect(set.version).toBe("1.2.3")
     expect(set.copyright).toBe("Copyright (c) 2026 Sample")
   })
@@ -98,6 +161,32 @@ describe("buildIconSet", () => {
     expect(() => buildIconSet("sample", library, readerOf(rest))).toThrow(
       "sample: the warning icon, warning.svg, is not in sample-icons",
     )
+  })
+
+  test("reads a role with its attribute overrides", () => {
+    const set = buildIconSet(
+      "sample",
+      {
+        ...library,
+        icons: {
+          ...library.icons,
+          rating: { attributes: { fill: "currentColor" }, file: "rating.svg" },
+        },
+      },
+      readerOf(files),
+    )
+    expect(set.icons.rating).toContain('fill="currentColor"')
+  })
+
+  test("names the samples a library leaves out", () => {
+    const { mail: _, ...samples } = library.samples
+    expect(() =>
+      buildIconSet(
+        "sample",
+        { ...library, samples: samples as typeof library.samples },
+        readerOf(files),
+      ),
+    ).toThrow("sample: no icon for mail")
   })
 
   test("names the roles a library leaves out", () => {
@@ -136,6 +225,17 @@ describe("buildIconSet", () => {
   })
 })
 
+describe("splitSamples", () => {
+  test("moves the samples of each library into a file of their own", () => {
+    expect(
+      splitSamples({ a: { name: "A", samples: { mail: "<svg/>" } } }),
+    ).toEqual({
+      samples: { a: { mail: "<svg/>" } },
+      sets: { a: { name: "A" } },
+    })
+  })
+})
+
 describe("icon-sets.json", () => {
   const sets = JSON.parse(readFileSync(ICON_SETS, "utf8"))
 
@@ -153,6 +253,34 @@ describe("icon-sets.json", () => {
           /^<svg xmlns="http:\/\/www\.w3\.org\/2000\/svg" viewBox="[-\d. ]+"[^>]*>.*<\/svg>$/,
         )
         expect(svg, `${id} ${role}`).not.toMatch(/<svg[^>]* (width|height)=/)
+      }
+    }
+  })
+
+  test("holds no samples, which icon-samples.json holds", () => {
+    for (const set of Object.values(sets)) {
+      expect(set).not.toHaveProperty("samples")
+    }
+  })
+})
+
+describe("icon-samples.json", () => {
+  const samples = JSON.parse(readFileSync(ICON_SAMPLES, "utf8"))
+
+  test("has the libraries of icon-sets.json", () => {
+    expect(Object.keys(samples)).toEqual(
+      Object.keys(JSON.parse(readFileSync(ICON_SETS, "utf8"))),
+    )
+  })
+
+  test("holds every sample icon of every library as an svg with a viewBox", () => {
+    for (const [id, set] of Object.entries(samples) as [
+      string,
+      Record<string, string>,
+    ][]) {
+      expect(Object.keys(set), id).toEqual([...SAMPLE_ICONS])
+      for (const [name, svg] of Object.entries(set)) {
+        expect(svg, `${id} ${name}`).toMatch(/^<svg [^>]*viewBox="[-\d. ]+"/)
       }
     }
   })
@@ -179,15 +307,60 @@ describe("theme.css", () => {
   })
 })
 
+const PRESET_ICONS: Record<string, string> = {
+  m3: "material-symbols",
+  shadcn: "lucide",
+}
+
+const iconTokensIn = (css: string) =>
+  Object.fromEntries(
+    [...css.matchAll(/(--ui-icon-[a-z-]+): (url\("[^"]+"\));/g)].map(
+      ([, name, value]) => [name, value],
+    ),
+  )
+
+describe("example themes", () => {
+  test("set the 17 icon tokens of their library, or none", () => {
+    for (const file of globSync("packages/opui/themes/*.css").toSorted()) {
+      const theme = basename(file, ".css")
+      const library = PRESET_ICONS[theme]
+      expect(
+        iconTokensIn(readFileSync(file, "utf8")),
+        `${theme}: copy the icon tokens from iconTokensOf("${library ?? "<library>"}")`,
+      ).toEqual(library ? iconTokensOf(library) : {})
+    }
+  })
+
+  test("the reader finds the icon tokens and not the icon sizes", () => {
+    expect(
+      iconTokensIn(
+        '--ui-icon-size: 1.25rem; --ui-icon-close: url("data:image/svg+xml,x");',
+      ),
+    ).toEqual({ "--ui-icon-close": 'url("data:image/svg+xml,x")' })
+  })
+})
+
 describe("THIRD-PARTY-NOTICES", () => {
   const notices = readFileSync("packages/opui/THIRD-PARTY-NOTICES", "utf8")
-  const { fluent } = JSON.parse(readFileSync(ICON_SETS, "utf8"))
+  const sets = JSON.parse(readFileSync(ICON_SETS, "utf8"))
+  const LICENSE_NAMES: Record<string, string> = {
+    "Apache-2.0": "Apache License, Version 2.0",
+    ISC: "ISC License",
+    MIT: "MIT License",
+  }
 
-  test("carries the licence of the icons theme.css ships", () => {
-    expect(notices).toContain(fluent.copyright)
-    expect(notices).toContain(fluent.package)
-    expect(notices).toContain(fluent.url)
-    expect(notices).toContain(`${fluent.license} License`)
+  test("carries the licence of every icon set theme.css and the example themes ship", () => {
+    for (const id of ["fluent", ...Object.values(PRESET_ICONS)]) {
+      const set = sets[id]
+      for (const text of [
+        set.copyright,
+        set.package,
+        set.url,
+        LICENSE_NAMES[set.license],
+      ]) {
+        expect(notices, id).toContain(text)
+      }
+    }
   })
 })
 
@@ -215,6 +388,59 @@ describe("default icons", () => {
       drawnShapes('<svg viewBox="0 0 1 1"><path d="M0 0" /></svg>'),
     ).toEqual(['<path d="M0 0" />'])
     expect(drawnShapes('<svg viewBox="0 0 1 1"></svg>')).toEqual([])
+  })
+})
+
+type HtmlNode = {
+  attrs: { name: string; value: string }[]
+  children: HtmlNode[]
+  tag: string
+  type: string
+}
+
+const unnamedIcons = (source: string) => {
+  const found: string[] = []
+  const walk = (nodes: HtmlNode[]) => {
+    for (const node of nodes) {
+      if (node.type !== "element") continue
+      if (node.tag !== "svg") {
+        walk(node.children)
+        continue
+      }
+      const attributes = Object.fromEntries(
+        node.attrs.map(({ name, value }) => [name, value]),
+      )
+      if (attributes.role === "img") continue
+      const name = attributes["data-icon"]
+      if (!name || !(SAMPLE_ICONS as readonly string[]).includes(name)) {
+        found.push(name ?? "(no data-icon)")
+      }
+    }
+  }
+  walk(parseHtml(source))
+  return found
+}
+
+describe("stress pages", () => {
+  test("every icon names its sample in data-icon, so ?icons= can swap it", () => {
+    const pages = globSync("src/stress-tests/*.html").toSorted()
+    expect(pages.length).toBeGreaterThan(0)
+    expect(
+      Object.fromEntries(
+        pages
+          .map((page) => [page, unnamedIcons(readFileSync(page, "utf8"))])
+          .filter(([, names]) => names.length > 0),
+      ),
+      'give each icon svg a data-icon from SAMPLE_ICONS (src/utils/icon-libraries.ts), or role="img" when it is an image',
+    ).toEqual({})
+  })
+
+  test("the reader flags an icon without a known name", () => {
+    expect(
+      unnamedIcons(
+        '<p><svg viewBox="0 0 1 1"></svg><svg data-icon="spinner"></svg><svg data-icon="mail"></svg><svg role="img"></svg></p>',
+      ),
+    ).toEqual(["(no data-icon)", "spinner"])
   })
 })
 

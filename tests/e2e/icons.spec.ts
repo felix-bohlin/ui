@@ -7,14 +7,14 @@ import { HOSTILE_ICONS } from "./hostile-icons"
 import { ICON_SCREENSHOT_LIBRARIES } from "./screenshot-targets"
 import { expectSizedRows } from "./stress-sizes"
 
-const sets: Record<string, { samples: Record<string, string> }> = JSON.parse(
+const samples: Record<string, Record<string, string>> = JSON.parse(
   readFileSync(
-    new URL("../../src/utils/icon-sets.json", import.meta.url),
+    new URL("../../src/utils/icon-samples.json", import.meta.url),
     "utf-8",
   ),
 )
 
-const LIBRARIES = Object.keys(sets).toSorted()
+const LIBRARIES = Object.keys(samples).toSorted()
 
 const known: Record<string, string[]> = JSON.parse(
   readFileSync(
@@ -64,7 +64,7 @@ for (const library of LIBRARIES) {
         await page.evaluate(() => document.documentElement.dataset.icons),
       ).toBe(library)
       const viewBoxes = Object.fromEntries(
-        Object.entries(sets[library]!.samples).map(([name, svg]) => [
+        Object.entries(samples[library]!).map(([name, svg]) => [
           name,
           svg.match(/viewBox="([^"]+)"/)?.[1],
         ]),

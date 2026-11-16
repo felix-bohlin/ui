@@ -5,11 +5,11 @@ export type IconSwitch = {
   tokens: Record<string, string>
 }
 
-export const iconSwitchOf = (set: {
-  icons: Record<string, string>
-  samples: Record<string, string>
-}) => ({
-  samples: set.samples,
+export const iconSwitchOf = (
+  set: { icons: Record<string, string> },
+  samples: Record<string, string>,
+) => ({
+  samples,
   tokens: Object.fromEntries(
     ICON_ROLES.map((role) => [`--ui-icon-${role}`, iconUrl(set.icons[role]!)]),
   ),

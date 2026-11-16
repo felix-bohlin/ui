@@ -10,6 +10,7 @@ import { formatCode } from "./format.mjs"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 export const ICON_SETS = `${root}src/utils/icon-sets.json`
+export const ICON_SAMPLES = `${root}src/utils/icon-samples.json`
 
 const ROOT_ATTRIBUTES = new Set([
   "clip-rule",
@@ -142,6 +143,7 @@ export const buildIconSet = (id, library, readPackageFile) => {
     license: library.license,
     name: library.name,
     package: library.package,
+    ...(library.packageNote && { packageNote: library.packageNote }),
     samples,
     url: library.url,
     version: manifest.version,
@@ -166,15 +168,34 @@ export const buildIconSets = (readerFor = packageReader) =>
       ]),
   )
 
+export const splitSamples = (built) => ({
+  samples: Object.fromEntries(
+    Object.entries(built).map(([id, set]) => [id, set.samples]),
+  ),
+  sets: Object.fromEntries(
+    Object.entries(built).map(([id, set]) => [
+      id,
+      Object.fromEntries(
+        Object.entries(set).filter(([key]) => key !== "samples"),
+      ),
+    ]),
+  ),
+})
+
 if (
   process.argv[1] &&
   realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)
 ) {
-  const sets = buildIconSets()
-  writeFileSync(
-    ICON_SETS,
-    await formatCode(`${JSON.stringify(sets, null, 2)}\n`, ICON_SETS),
-  )
+  const { samples, sets } = splitSamples(buildIconSets())
+  for (const [file, data] of [
+    [ICON_SAMPLES, samples],
+    [ICON_SETS, sets],
+  ]) {
+    writeFileSync(
+      file,
+      await formatCode(`${JSON.stringify(data, null, 2)}\n`, file),
+    )
+  }
   console.log(
     `Wrote ${Object.keys(sets).length} icon libraries to ${ICON_SETS}`,
   )

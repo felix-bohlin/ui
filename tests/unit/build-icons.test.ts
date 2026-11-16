@@ -1,12 +1,15 @@
 import { globSync, readFileSync } from "node:fs"
+import { basename } from "node:path"
 import { parseHtml } from "../../scripts/html-tokens.mjs"
 import { describe, expect, test } from "vitest"
 import {
   buildIconSet,
   cleanSvg,
   copyrightOf,
+  ICON_SAMPLES,
   ICON_SETS,
   rawSvg,
+  splitSamples,
 } from "../../scripts/build-icons.mjs"
 import {
   ICON_LIBRARIES,
@@ -14,6 +17,7 @@ import {
   iconUrl,
   SAMPLE_ICONS,
 } from "../../src/utils/icon-libraries"
+import { iconTokensOf } from "../../src/utils/theme-icons"
 
 const library = {
   frameworks: {},
@@ -221,6 +225,17 @@ describe("buildIconSet", () => {
   })
 })
 
+describe("splitSamples", () => {
+  test("moves the samples of each library into a file of their own", () => {
+    expect(
+      splitSamples({ a: { name: "A", samples: { mail: "<svg/>" } } }),
+    ).toEqual({
+      samples: { a: { mail: "<svg/>" } },
+      sets: { a: { name: "A" } },
+    })
+  })
+})
+
 describe("icon-sets.json", () => {
   const sets = JSON.parse(readFileSync(ICON_SETS, "utf8"))
 
@@ -242,13 +257,29 @@ describe("icon-sets.json", () => {
     }
   })
 
+  test("holds no samples, which icon-samples.json holds", () => {
+    for (const set of Object.values(sets)) {
+      expect(set).not.toHaveProperty("samples")
+    }
+  })
+})
+
+describe("icon-samples.json", () => {
+  const samples = JSON.parse(readFileSync(ICON_SAMPLES, "utf8"))
+
+  test("has the libraries of icon-sets.json", () => {
+    expect(Object.keys(samples)).toEqual(
+      Object.keys(JSON.parse(readFileSync(ICON_SETS, "utf8"))),
+    )
+  })
+
   test("holds every sample icon of every library as an svg with a viewBox", () => {
-    for (const [id, set] of Object.entries(sets) as [
+    for (const [id, set] of Object.entries(samples) as [
       string,
-      { samples: Record<string, string> },
+      Record<string, string>,
     ][]) {
-      expect(Object.keys(set.samples), id).toEqual([...SAMPLE_ICONS])
-      for (const [name, svg] of Object.entries(set.samples)) {
+      expect(Object.keys(set), id).toEqual([...SAMPLE_ICONS])
+      for (const [name, svg] of Object.entries(set)) {
         expect(svg, `${id} ${name}`).toMatch(/^<svg [^>]*viewBox="[-\d. ]+"/)
       }
     }
@@ -276,15 +307,60 @@ describe("theme.css", () => {
   })
 })
 
+const PRESET_ICONS: Record<string, string> = {
+  m3: "material-symbols",
+  shadcn: "lucide",
+}
+
+const iconTokensIn = (css: string) =>
+  Object.fromEntries(
+    [...css.matchAll(/(--ui-icon-[a-z-]+): (url\("[^"]+"\));/g)].map(
+      ([, name, value]) => [name, value],
+    ),
+  )
+
+describe("example themes", () => {
+  test("set the 17 icon tokens of their library, or none", () => {
+    for (const file of globSync("packages/opui/themes/*.css").toSorted()) {
+      const theme = basename(file, ".css")
+      const library = PRESET_ICONS[theme]
+      expect(
+        iconTokensIn(readFileSync(file, "utf8")),
+        `${theme}: copy the icon tokens from iconTokensOf("${library ?? "<library>"}")`,
+      ).toEqual(library ? iconTokensOf(library) : {})
+    }
+  })
+
+  test("the reader finds the icon tokens and not the icon sizes", () => {
+    expect(
+      iconTokensIn(
+        '--ui-icon-size: 1.25rem; --ui-icon-close: url("data:image/svg+xml,x");',
+      ),
+    ).toEqual({ "--ui-icon-close": 'url("data:image/svg+xml,x")' })
+  })
+})
+
 describe("THIRD-PARTY-NOTICES", () => {
   const notices = readFileSync("packages/opui/THIRD-PARTY-NOTICES", "utf8")
-  const { fluent } = JSON.parse(readFileSync(ICON_SETS, "utf8"))
+  const sets = JSON.parse(readFileSync(ICON_SETS, "utf8"))
+  const LICENSE_NAMES: Record<string, string> = {
+    "Apache-2.0": "Apache License, Version 2.0",
+    ISC: "ISC License",
+    MIT: "MIT License",
+  }
 
-  test("carries the licence of the icons theme.css ships", () => {
-    expect(notices).toContain(fluent.copyright)
-    expect(notices).toContain(fluent.package)
-    expect(notices).toContain(fluent.url)
-    expect(notices).toContain(`${fluent.license} License`)
+  test("carries the licence of every icon set theme.css and the example themes ship", () => {
+    for (const id of ["fluent", ...Object.values(PRESET_ICONS)]) {
+      const set = sets[id]
+      for (const text of [
+        set.copyright,
+        set.package,
+        set.url,
+        LICENSE_NAMES[set.license],
+      ]) {
+        expect(notices, id).toContain(text)
+      }
+    }
   })
 })
 

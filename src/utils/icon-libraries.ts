@@ -57,6 +57,7 @@ export type IconLibrary = {
   license: string
   name: string
   package: string
+  packageNote?: string
   samples: Record<SampleIcon, string>
   url: string
 }
@@ -193,6 +194,7 @@ export const ICON_LIBRARIES = {
     license: "Apache-2.0",
     name: "Material Symbols",
     package: "@material-symbols/svg-400",
+    packageNote: "a community copy of Google's files",
     samples: {
       add: "outlined/add.svg",
       "align-center": "outlined/format_align_center.svg",

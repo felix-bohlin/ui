@@ -10,6 +10,7 @@ const {
   alphanumeric,
   "aria-describedby": ariaDescribedBy,
   "aria-invalid": ariaInvalid,
+  "aria-labelledby": ariaLabelledBy,
   autocapitalize,
   class: className,
   endText,
@@ -31,16 +32,15 @@ const field = fieldGroupContext.get()
 const labelSlot = Astro.slots.has("label")
   ? trimEdges(await Astro.slots.render("label"))
   : ""
-const named = Boolean(label || labelSlot)
-const ids = createIds(Astro.locals, "one-time-code", id)
-const inputId = named ? ids() : id
+const hasLabel = Boolean(label || labelSlot)
 const hasEndText = Boolean(endText || Astro.slots.has("end-text"))
+const ids = createIds(Astro.locals, "one-time-code", id)
+const inputId = hasLabel ? ids() : id
 const endTextId = hasEndText ? ids("end-text") : undefined
 ---
 
 <div
   class:list={[
-    "ui-text-field",
     "ui-one-time-code",
     { "ui-grouped": grouped },
     size && size !== "medium" && `ui-${size}`,
@@ -48,7 +48,7 @@ const endTextId = hasEndText ? ids("end-text") : undefined
   ]}
   style={style}
 >
-  {named && <label class="ui-label" for={inputId}
+  {hasLabel && <label class="ui-label" for={inputId}
     >{label}<Fragment set:html={labelSlot}
   /></label>}
   <span class="ui-field">
@@ -56,7 +56,6 @@ const endTextId = hasEndText ? ids("end-text") : undefined
       autocapitalize={
         autocapitalize ?? (alphanumeric ? "characters" : undefined)
       }
-      autocomplete="one-time-code"
       inputmode={inputmode ?? (alphanumeric ? undefined : "numeric")}
       pattern={
         pattern ??
@@ -66,6 +65,8 @@ const endTextId = hasEndText ? ids("end-text") : undefined
       {...rest}
       aria-describedby={idRefs(endTextId, ariaDescribedBy)}
       aria-invalid={error ? "true" : ariaInvalid}
+      aria-labelledby={ariaLabelledBy}
+      autocomplete="one-time-code"
       id={inputId}
       maxlength={length}
       name={name ?? field?.name}

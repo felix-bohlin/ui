@@ -7,9 +7,9 @@ import { Checkbox, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/vue"
     <Fieldset disabled>
       <FieldLegend>Newsletter topics</FieldLegend>
       <FieldGroup name="checkbox-group-disabled" orientation="horizontal">
-        <Checkbox checked>Product updates</Checkbox>
+        <Checkbox checked>Bassbook news</Checkbox>
         <Checkbox>Events</Checkbox>
-        <Checkbox>Offers</Checkbox>
+        <Checkbox>Gear deals</Checkbox>
       </FieldGroup>
     </Fieldset>
   </Form>

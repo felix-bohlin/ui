@@ -1,4 +1,4 @@
-import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs"
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs"
 import { tmpdir } from "node:os"
 import { dirname, join } from "node:path"
 import { describe, expect, test } from "vitest"
@@ -43,9 +43,11 @@ const check = (
     mkdirSync(dirname(join(dist, path)), { recursive: true })
     writeFileSync(join(dist, path), text)
   }
-  return distProblems({ dist, searchIndex, site }).problems.map(
+  const problems = distProblems({ dist, searchIndex, site }).problems.map(
     ([message, sources]) => `${message} <- ${sources.join(", ")}`,
   )
+  rmSync(dist, { force: true, recursive: true })
+  return problems
 }
 
 describe("check-dist", () => {

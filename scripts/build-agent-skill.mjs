@@ -368,6 +368,20 @@ function apiSection(api, frameworkIds) {
       ),
     )
   }
+  if (api.elements?.length) {
+    lines.push(
+      "",
+      api.elements.length > 1 ? "### Elements" : "### Element",
+      "",
+      ...api.elements.flatMap((element) => [
+        `- ${code(`<${element.tag}>`)}, defined by ${code(`opui-css/elements/${element.tag.replace(/^opui-/, "")}.js`)}:`,
+        ...element.members.map(
+          (member) =>
+            `  - ${code(member.name)}${member.kind === "event" ? " event" : ""}: ${sentenceEnd(member.description)}`,
+        ),
+      ]),
+    )
+  }
   const model = modelLine(api, frameworkIds)
   if (model.length > 0) lines.push("", ...model)
   if (api.notes) {

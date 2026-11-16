@@ -17,7 +17,7 @@ import textareaApi from "../../component-api/textarea/api"
 import TextareaBuild from "../../components/UnderTheHood/TextareaBuild.astro"
 
 export const description =
-  "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states."
+  "A multi-line text input with a label, start and end text, and validation."
 
 export const keywords = ["multiline", "text area"]
 ---
@@ -31,8 +31,14 @@ export const keywords = ["multiline", "text area"]
     "field-sizing",
     "has",
     "lh",
+    "reading-flow",
+    "registered-custom-properties",
     "user-pseudos",
   ]}
+  fallbacks={{
+    "reading-flow":
+      "Without `reading-flow`, Tab and screen readers reach the top and start parts after the control, in the order of the markup.",
+  }}
   heroAnatomy
   apis={[{ title: "Textarea API", api: textareaApi }]}
   changelogPaths={[
@@ -64,6 +70,10 @@ export const keywords = ["multiline", "text area"]
   ]}
 >
   <Fragment slot="title">Textarea</Fragment>
+  <Fragment slot="preamble">
+    Text over several lines, like a comment. For a single line, use a
+    <DocLink href="/components/text-field">Text field</DocLink>.
+  </Fragment>
 
   <Usage slot="usage">
     <li slot="when">Text over several lines, like a comment.</li>

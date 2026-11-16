@@ -1,6 +1,6 @@
 # Avatar
 
-Avatars show a person or entity as an image, initials or icon.
+An image, initials or icon that stands for a person or an entity.
 
 - CSS: `opui-css/css/components/avatar.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/avatar.md), [Astro](https://opui.dev/astro/components/avatar.md), [React](https://opui.dev/react/components/avatar.md), [Svelte](https://opui.dev/svelte/components/avatar.md), [Vue](https://opui.dev/vue/components/avatar.md).
@@ -38,6 +38,7 @@ Avatars show a person or entity as an image, initials or icon.
 
 - `aria-label`: `string`, `[aria-label]`. The accessible name of the group. The Astro, React and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.
 - `aria-labelledby`: `string`. The id of the element that names the group, instead of `aria-label`.
+- `role`: `string`, default `"group"`. The `role` of the root. A passed role replaces `group`.
 
 ### Slots
 
@@ -75,15 +76,15 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 
 ```html
 <div class="ui-avatar">
-  <img src="/photos/lena-handen.png" alt="Lena Handén" />
+  <img src="/photos/lou-headstock.png" alt="Lou Headstock" />
 </div>
 
 <div class="ui-avatar">
-  <img src="/photos/hakki-halinen.png" alt="Hakki Hälinen" />
+  <img src="/photos/holly-humbucker.png" alt="Holly Humbucker" />
 </div>
 
 <div class="ui-avatar">
-  <img src="/photos/pekka-gapabottanen.png" alt="Pekka Gåpåbottanen" />
+  <img src="/photos/percy-groove.png" alt="Percy Groove" />
 </div>
 ```
 
@@ -98,11 +99,11 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 import { Avatar } from "opui-css/astro"
 ---
 
-<Avatar alt="Lena Handén" src="/photos/lena-handen.png" />
+<Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
 
-<Avatar alt="Hakki Hälinen" src="/photos/hakki-halinen.png" />
+<Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
-<Avatar alt="Pekka Gåpåbottanen" src="/photos/pekka-gapabottanen.png" />
+<Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
 ```
 
 ## React
@@ -117,11 +118,11 @@ import { Avatar } from "opui-css/react"
 export default function Image() {
   return (
     <>
-      <Avatar alt="Lena Handén" src="/photos/lena-handen.png" />
+      <Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
 
-      <Avatar alt="Hakki Hälinen" src="/photos/hakki-halinen.png" />
+      <Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
-      <Avatar alt="Pekka Gåpåbottanen" src="/photos/pekka-gapabottanen.png" />
+      <Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
     </>
   )
 }
@@ -138,11 +139,11 @@ export default function Image() {
   import { Avatar } from "opui-css/svelte"
 </script>
 
-<Avatar alt="Lena Handén" src="/photos/lena-handen.png" />
+<Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
 
-<Avatar alt="Hakki Hälinen" src="/photos/hakki-halinen.png" />
+<Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
-<Avatar alt="Pekka Gåpåbottanen" src="/photos/pekka-gapabottanen.png" />
+<Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
 ```
 
 ## Vue
@@ -157,10 +158,10 @@ import { Avatar } from "opui-css/vue"
 </script>
 
 <template>
-  <Avatar alt="Lena Handén" src="/photos/lena-handen.png" />
+  <Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
 
-  <Avatar alt="Hakki Hälinen" src="/photos/hakki-halinen.png" />
+  <Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
-  <Avatar alt="Pekka Gåpåbottanen" src="/photos/pekka-gapabottanen.png" />
+  <Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
 </template>
 ```

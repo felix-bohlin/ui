@@ -11,57 +11,57 @@ import {
 } from "opui-css/react"
 
 const roles = [
-  { label: "Designer", value: "designer" },
-  { label: "Developer", value: "developer" },
-  { label: "Product manager", value: "product-manager" },
-  { label: "Support", value: "support" },
+  { label: "Flatwound collector", value: "flatwound-collector" },
+  { label: "Low B whisperer", value: "low-b-whisperer" },
+  { label: "Slap enthusiast", value: "slap-enthusiast" },
+  { label: "Tone advisor", value: "tone-advisor" },
 ]
 
 export default function Controls() {
   return (
     <Table density="dense">
-      <TableCaption>Team members</TableCaption>
+      <TableCaption>Low End Theory members</TableCaption>
       <TableHead>
         <TableRow>
           <TableHeaderCell>Name</TableHeaderCell>
-          <TableHeaderCell>Role</TableHeaderCell>
+          <TableHeaderCell>Specialty</TableHeaderCell>
           <TableHeaderCell>Notes</TableHeaderCell>
         </TableRow>
       </TableHead>
       <TableBody>
         <TableRow>
-          <TableCell>Lena Handén</TableCell>
+          <TableCell>Lou Headstock</TableCell>
           <TableCell>
             <Select
-              defaultValue="designer"
+              defaultValue="flatwound-collector"
               hideLabel
               items={roles}
-              label="Role for Lena Handén"
+              label="Specialty for Lou Headstock"
             />
           </TableCell>
           <TableCell>
             <TextField
               hideLabel
-              label="Notes for Lena Handén"
-              placeholder="Add a note"
+              label="Notes for Lou Headstock"
+              placeholder="Add a note about their tone"
             />
           </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Pekka Gåpåbottanen</TableCell>
+          <TableCell>Percy Groove</TableCell>
           <TableCell>
             <Select
-              defaultValue="developer"
+              defaultValue="slap-enthusiast"
               hideLabel
               items={roles}
-              label="Role for Pekka Gåpåbottanen"
+              label="Specialty for Percy Groove"
             />
           </TableCell>
           <TableCell>
             <TextField
               hideLabel
-              label="Notes for Pekka Gåpåbottanen"
-              placeholder="Add a note"
+              label="Notes for Percy Groove"
+              placeholder="Add a note about their tone"
             />
           </TableCell>
         </TableRow>

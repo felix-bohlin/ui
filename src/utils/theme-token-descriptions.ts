@@ -8,7 +8,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-accent-max-lightness":
     "The highest OKLCH lightness of the named colors except `--ui-orange`, `--ui-neutral` and `--ui-palette-accent` in light mode. `1` (no cap), and `0.42` with more contrast.",
   "--ui-anchor-position-area":
-    "The `position-area` of the floating content of an `Anchor`, a popover `Menu` or a `Tooltip`. The `positionArea` prop sets it on one instance, or set it on an element for everything inside it. When unset, each keeps its own: `self-start self-end` for `Anchor`, its `side` and `span` for `Menu` (`self-block-end span-self-inline-end`) and `self-block-start` for `Tooltip`.",
+    "The `position-area` of the floating content of an `Anchor`, a popover `Menu` or a `Tooltip`. The `positionArea` prop sets it on one instance, or set it on an element for everything inside it. When unset, each keeps its own: `self-start self-end` for `Anchor`, its `side` and `span` for `Menu` (`self-block-end span-self-inline-end`), `self-block-start` for `Tooltip` and `self-inline-start` for the `Copy` label.",
   "--ui-backdrop-bg-color":
     "Overlay color behind an open `Dialog` or `Drawer`. `--ui-text` at 50% in light mode, and half the lightness of `--ui-surface` at 50% in dark mode.",
   "--ui-backdrop-blur": "Blur radius behind an open `Dialog` or `Drawer`.",
@@ -45,7 +45,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-button-hover-translate":
     "Moves `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal` on hover, as a `translate` value. Pair it with `--ui-button-hover-shadow` to press buttons into their shadow. `none` when unset.",
   "--ui-button-on-accent":
-    "Text color on a filled `--ui-button-accent` button. Set it with `--ui-button-accent`. When unset, `--ui-on-control-accent`, else `--ui-palette-on-strong`.",
+    "Text color on a filled `--ui-button-accent` button. Set it with `--ui-button-accent`. When unset, `--ui-control-on-accent`, else `--ui-palette-on-strong`.",
   "--ui-button-on-accent-filled":
     "Text color on a `--ui-button-accent-filled` fill. Set it with `--ui-button-accent-filled`. When unset, `--ui-button-on-accent`.",
   "--ui-button-padding-inline":
@@ -86,7 +86,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-choice-label-offset":
     "Moves `Checkbox`, `Radio` and `Switch` labels down (positive) or up (negative) against their control. Use `em` or `cap` to scale with the label font.",
   "--ui-choice-on-accent":
-    "Color of the mark on a checked `Checkbox`, `Radio` and `Switch`. Set it with `--ui-choice-accent`. When unset, `--ui-on-control-accent`, else `--ui-on-primary` in light mode and near-white in dark mode.",
+    "Color of the mark on a checked `Checkbox`, `Radio` and `Switch`. Set it with `--ui-choice-accent`. When unset, `--ui-control-on-accent`, else `--ui-on-primary` in light mode and near-white in dark mode.",
   "--ui-choice-ripple-bg-color":
     "Halo color for the `Checkbox` and `Radio` hover effect. `--ui-text` at 20%.",
   "--ui-choice-size": "Default `Checkbox` and `Radio` input size.",
@@ -107,7 +107,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-code-block-text-color":
     "Text color of `pre.ui-code-block` and `pre` in rich text. `--ui-on-inverse` in light mode and `--ui-text-strong` in dark mode, on `--ui-code-block-bg-color`.",
   "--ui-color-scheme":
-    "The color scheme in force: `light`, or `dark` under `prefers-color-scheme: dark`. `html` reads it as its `color-scheme`, `.ui-light` and `.ui-dark` set it on a part of the page, and `Typography` reads it in a style query. Set the classes, not the token.",
+    "The color scheme in force: `light`, or `dark` under `prefers-color-scheme: dark`. In print it is `light`, also under `.ui-dark`. `html` reads it as its `color-scheme`, `.ui-light` and `.ui-dark` set it on a part of the page, and `Typography` reads it in a style query. Set the classes, not the token.",
   "--ui-contrast":
     "`more` tightens the contrast knobs (`--ui-text-strength-*`, `--ui-text-disabled-strength`, `--ui-border-strength-*`, `--ui-field-border-strength`, `--ui-code-bg-alpha-*`, `--ui-accent-max-chroma`, the `*-max-lightness` and `*-min-lightness` limits, `--ui-state-active-alpha-dark`, `--ui-state-selected-alpha-accent` and `--ui-focus-ring-width`), and every role derived from them follows. Set to `more` under `prefers-contrast: more` or by `.ui-contrast-more`. Components read it in style queries for shape changes. See [Contrast](/guide/theming#contrast).",
   "--ui-control-accent":
@@ -116,6 +116,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Border color of controls without a fill: `Button` with `.ui-outlined`, also in an outlined `ControlGroup`, `ToggleButton`, `ToggleGroup`, `Chip` with `.ui-outlined`, the track of `Tabs` with `.ui-outlined`, and the selected `Tabs` pill. When unset, outlined buttons use their color, the selected `Tabs` pill `--ui-field-border-color` and the rest `--ui-border-color`. Themes that outline controls like fields set it to `--ui-field-border-color`.",
   "--ui-control-border-color-filled":
     "Border color of controls with a fill: `Button` with `.ui-filled` or `.ui-tonal`, also in a filled or tonal `ControlGroup`, the dividers between buttons in a `ControlGroup` that isn't outlined (unset, filled groups use `currentColor` dividers, or a shade of the accent in primary and critical ones), a checked `ToggleButton`, `Chip` without `.ui-outlined` and the `Carousel` buttons. When unset, buttons have no visible border, the carousel buttons use a shade of their fill and the rest use `--ui-border-color`. Set it with `--ui-control-border-color` to outline every control.",
+  "--ui-control-on-accent":
+    "Text and mark color on a `--ui-control-accent` fill. Set it with `--ui-control-accent`. `--ui-button-on-accent` and `--ui-choice-on-accent` override it per component.",
   "--ui-control-size":
     "Shared default height for fields and buttons so they line up.",
   "--ui-control-size-large": "Shared large height for fields and buttons.",
@@ -173,12 +175,12 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-field-radius":
     "Corner radius for fields. When unset, they follow `--ui-radius`, also where it's set on a part of the page.",
   "--ui-field-required-text-color": "Color of the required asterisk.",
+  "--ui-field-shadow":
+    "Shadow of `TextField`, `Textarea` and `Select` fields. When unset, they follow `--ui-shadow-control`. Set it to `none` to lift buttons but keep fields flat.",
   "--ui-field-size": "Default field height.",
   "--ui-field-size-large": "Field height with `.ui-large`.",
   "--ui-field-size-small": "Field height with `.ui-small`.",
   "--ui-field-size-x-small": "Field height with `.ui-x-small`.",
-  "--ui-flow-gap":
-    "Space between paragraphs, lists, blockquotes, tables, `details` and `address` in `.ui-rich-text`, rounded to `--ui-rhythm-step`. Headings, code blocks, figures and `hr` take multiples of it, with more room above headings than below. When unset, `1.25em` of the rich text font size.",
   "--ui-fluid-max-inline-size":
     "Viewport inline size where `--ui-fluid-progress` reaches 1 and the fluid heading sizes their maximum, 48rem.",
   "--ui-fluid-min-inline-size":
@@ -255,10 +257,34 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-gray-hue": "Hue of the gray ramp.",
   "--ui-green":
     "A literal green, hue 145 at `0.53`, the lightness of palette step 9 in every palette. No severity meaning.",
-  "--ui-heading-margin-block-end":
-    "Space below `h1` to `h6` in `.ui-rich-text`, rounded to `--ui-rhythm-step`. `em` is the heading's own font size, so larger headings get more room, and `rem` gives every level the same space. When unset, each level takes a multiple of `--ui-flow-gap`: 1 under `h1`, 0.75 under `h2` and 0.5 under `h3` to `h6`. A heading group keeps its own spacing.",
-  "--ui-heading-margin-block-start":
-    "Space above `h1` to `h6` in `.ui-rich-text`, rounded to `--ui-rhythm-step`. It overlaps the margin of the block before, so `0px` leaves the paragraph gap. Give a length: a unitless `0` drops both margins. `em` is the heading's own font size, so larger headings get more room, and `rem` gives every level the same space. When unset, each level takes a multiple of `--ui-flow-gap`: 3 above `h1` and `h2`, 2 above `h3` and 1.5 above `h4` to `h6`. A heading group keeps its own spacing.",
+  "--ui-icon-check":
+    "The check that marks the current item of a `Menu`, the selected item of a listbox and `Select` picker, and a complete `Stepper` step. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-clear":
+    "The clear option of a `Rating`. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-close":
+    "The close button of a `Callout`, `Dialog`, `Drawer` and `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-critical":
+    "The icon of a critical `Callout` and `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-decrease":
+    "The decrease button of a `NumberField`. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-error":
+    "The mark of a `Stepper` step with an error. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-expand":
+    "The `Accordion` marker, and the arrow of a `Select` and of a `TextField` with a datalist. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-hide":
+    "The password toggle of a `TextField` while the password shows. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-increase":
+    "The increase button of a `NumberField`. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-info":
+    "The icon of an info `Callout` and `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-next":
+    "The `Carousel` buttons, pointing to the next item and turned for the previous one. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-rating":
+    "A filled star of a `Rating`, drawn over `--ui-icon-rating-empty`, so the two need the same outline. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-rating-empty":
+    "An empty star of a `Rating`. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-show":
+    "The password toggle of a `TextField` while the password is hidden. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-size": "Default icon size inside components.",
   "--ui-icon-size-large":
     "Icon size inside `Avatar`, and of an `svg` without a `width` in `normalize.css`.",
@@ -266,6 +292,12 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron.",
   "--ui-icon-size-x-small":
     "Smallest icon size, for icons in x-small controls. Not read by a component yet.",
+  "--ui-icon-sort":
+    "The arrow of a sorted `SortableTable` column, turned for the other direction. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-success":
+    "The icon of a success `Callout` and `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-warning":
+    "The icon of a warning `Callout` and `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-info":
     "Severity color for informational messages, and the dotted underline of `abbr`, `dfn`, `.ui-abbr` and `.ui-dfn`.",
   "--ui-info-text":
@@ -286,8 +318,6 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Line height of captions, `List` text, the `Stat` label and description and the `Stepper` description. Body text and prose use `--ui-line-height-relaxed`.",
   "--ui-line-height-control":
     "Line height of interface text: labels, helpers, choice labels and field hints.",
-  "--ui-line-height-prose":
-    "Line height of `.ui-rich-text`, for themes whose prose is looser than their interface text. When unset, rich text keeps the line height around it, `--ui-line-height-relaxed` on the page.",
   "--ui-line-height-relaxed":
     "Line height of the page text set on `html`, and of `Tabs` labels.",
   "--ui-line-height-tight":
@@ -301,15 +331,13 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-list-item-padding-inline":
     "Horizontal padding of `List` and `Menu` items, headings and `Select` options. When unset, `--ui-space-3`.",
   "--ui-menu-radius":
-    "Corner radius for `Menu`. When unset, menus follow `--ui-radius`.",
+    "Corner radius for `Menu` and the `Select` picker. When unset, menus follow `--ui-radius` and the picker `--ui-field-radius`, like its field.",
   "--ui-motion":
     "Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](/guide/theming#motion).",
   "--ui-neutral":
     "Severity color for neutral messages. `--ui-gray-hue` and `--ui-gray-chroma` at `0.53`, the lightness of `--ui-gray-9`, capped at `--ui-accent-max-lightness` in light mode. The `.ui-neutral` scope derives its palette from its hue and chroma.",
   "--ui-neutral-text":
     "Neutral as a text color, for neutral text outside an `.ui-neutral` scope. `--ui-neutral` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
-  "--ui-on-control-accent":
-    "Text and mark color on a `--ui-control-accent` fill. Set it with `--ui-control-accent`. `--ui-button-on-accent` and `--ui-choice-on-accent` override it per component.",
   "--ui-on-fill":
     "Text on an intent fill: an intent color with its lightness capped so light text reads on it, within `--ui-accent-fill-max-lightness` for critical `Button`s and the critical, info, neutral and success `Badge`, and within `--ui-choice-fill-max-lightness` for the invalid choice mark and the checked one in dark mode. Near-white in both modes. The fill has no token of its own, since each intent is one. Not `--ui-palette-on-strong`, which turns dark in dark mode for the light `--ui-palette-strong`.",
   "--ui-on-focus-highlight":
@@ -391,6 +419,14 @@ export const themeTokenDescriptions: Record<string, string> = {
     "A literal red, hue 25 at `0.53`, the lightness of palette step 9 in every palette. No severity meaning.",
   "--ui-rhythm-step":
     "Vertical rhythm unit. Rich text margins and heading line heights round to it.",
+  "--ui-rich-text-flow-gap":
+    "Space between paragraphs, lists, blockquotes, tables, `details` and `address` in `.ui-rich-text`, rounded to `--ui-rhythm-step`. Headings, code blocks, figures and `hr` take multiples of it, with more room above headings than below. When unset, `1.25em` of the rich text font size.",
+  "--ui-rich-text-heading-margin-block-end":
+    "Space below `h1` to `h6` in `.ui-rich-text`, rounded to `--ui-rhythm-step`. `em` is the heading's own font size, so larger headings get more room, and `rem` gives every level the same space. When unset, each level takes a multiple of `--ui-rich-text-flow-gap`: 1 under `h1`, 0.75 under `h2` and 0.5 under `h3` to `h6`. A heading group keeps its own spacing.",
+  "--ui-rich-text-heading-margin-block-start":
+    "Space above `h1` to `h6` in `.ui-rich-text`, rounded to `--ui-rhythm-step`. It overlaps the margin of the block before, so `0px` leaves the paragraph gap. Give a length: a unitless `0` drops both margins. `em` is the heading's own font size, so larger headings get more room, and `rem` gives every level the same space. When unset, each level takes a multiple of `--ui-rich-text-flow-gap`: 3 above `h1` and `h2`, 2 above `h3` and 1.5 above `h4` to `h6`. A heading group keeps its own spacing.",
+  "--ui-rich-text-line-height":
+    "Line height of `.ui-rich-text`, for themes whose prose is looser than their interface text. When unset, rich text keeps the line height around it, `--ui-line-height-relaxed` on the page.",
   "--ui-selected":
     "Background of a selected control: a checked `ToggleButton`, the selected `ToggleGroup` item, a pressed `Chip`, a selected or current `List` item and `Select` option, and a checked `Message` reaction. When unset, `--ui-primary` on toggles, `--ui-primary` at `--ui-state-selected-alpha-accent` on list items and options, and the same mixed into `--ui-surface` on reactions. Pair it with `--ui-on-selected`.",
   "--ui-selected-strong":
@@ -401,8 +437,6 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Shadow of buttons with a variant (unless `--ui-button-shadow` is set), standalone `ToggleButton`, outlined `Chip` and fields. `none` by default, for themes that lift controls off the page.",
   "--ui-shadow-elevated":
     "Shadow of elevated `Card` and `Accordion`. Five layers of `--ui-shadow-color`, which follows the color scheme, also in `.ui-light` and `.ui-dark` parts of the page.",
-  "--ui-shadow-field":
-    "Shadow of `TextField`, `Textarea` and `Select` fields. When unset, they follow `--ui-shadow-control`. Set it to `none` to lift buttons but keep fields flat.",
   "--ui-shadow-overlay":
     "Shadow of layers that float above the page: `Dialog`, `Drawer`, `Menu`, `Select` pickers and the `Carousel` buttons. Five layers of `--ui-shadow-color`.",
   "--ui-shadow-scroll":
@@ -458,7 +492,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-switch-thumb-size-x-small":
     "Diameter of the `Switch` thumb with `.ui-x-small`.",
   "--ui-switch-track-bg-color":
-    "Background of the unchecked `Switch` track when `--ui-track-bg-color` is unset.",
+    "Background of the unchecked `Switch` track, ahead of `--ui-track-bg-color`. When both are unset, `--ui-surface-tonal`, at `0.58` lightness in dark mode.",
   "--ui-switch-track-block-size": "Height of the `Switch` track.",
   "--ui-switch-track-block-size-large":
     "Height of the `Switch` track with `.ui-large`.",
@@ -476,6 +510,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Width of the `Switch` track with `.ui-x-small`. Twice `--ui-switch-track-block-size-x-small` until a theme sets it.",
   "--ui-tabs-accent":
     "Color of the selected `Tabs` label, and of the indicator with `.ui-line`. When unset, `--ui-text-strong`. Filled tabs keep `--ui-on-selected-strong`.",
+  "--ui-target-min-size":
+    "The least width and height of a control that has no text of its own: a `Button` in a field's `.ui-start` or `.ui-end`, a `Checkbox`, `Radio` or `Switch` whose label is hidden, the `Carousel` markers and the stars of an input `Rating`. `24px`, the WCAG 2.5.8 minimum target size. It follows neither `--ui-density` nor `--ui-space-scale`, so a compact density or a small spacing scale doesn't shrink it. A theme that copies a design system with smaller targets sets it lower, as `bootstrap.css`, `shadcn.css` and `brutalist.css` set `0px`. See [Density](/guide/theming#density).",
   "--ui-text":
     "Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`.",
   "--ui-text-disabled":
@@ -497,7 +533,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-text-subtle":
     "Secondary text: placeholders, field helper text, overlines, descriptions in `List` and `Menu` items, unselected `Tabs` labels and `Table` captions. `--ui-text` unless a theme sets it.",
   "--ui-track-bg-color":
-    "The empty part of a track: the unchecked `Switch`, `Progress`, the `Range` track and the empty `Rating` stars. When unset, `Progress` and tonal ranges use `--ui-surface-tonal`, the default range its field border, the switch `--ui-switch-track-bg-color` and the stars `--ui-border-color`.",
+    "The empty part of a track: the unchecked `Switch`, `Progress` and the `Range` track. When unset, `Progress` and tonal ranges use `--ui-surface-tonal`, the default range its field border and the switch `--ui-surface-tonal` (at `0.58` lightness in dark mode). `--ui-switch-track-bg-color` comes first on the switch.",
   "--ui-underline-offset":
     "Gap between text and its underline for `Link`, rich text links and `Stepper` links.",
   "--ui-underline-offset-small":

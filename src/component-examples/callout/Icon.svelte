@@ -16,6 +16,6 @@
     ></path>
   </svg>
   <CalloutContent>
-    Exports run overnight and arrive by email the next morning.
+    Setlist exports run overnight and arrive by email the next morning.
   </CalloutContent>
 </Callout>

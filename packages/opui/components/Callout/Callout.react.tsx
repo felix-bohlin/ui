@@ -3,16 +3,15 @@
 import { useEffect, useId } from "react"
 import { defined } from "../attrs"
 import { cx } from "../cx"
-import { useListener } from "../react"
+import { useHydrated, useListener } from "../react"
 import Button from "../Button/Button.react"
 import { CalloutContext } from "./context.react"
-import { closePath } from "./icons"
 import type { Props } from "./types.react"
 
 export default function Callout({
   className,
+  closeButton,
   closeLabel = "Close",
-  dismissible,
   id,
   onDismiss,
   ref,
@@ -24,9 +23,9 @@ export default function Callout({
 }: Props) {
   const uid = useId()
   const base = id || `callout-${uid}`
-  const Root = dismissible ? "opui-callout" : "article"
-  const rootId = dismissible ? base : id
-  const rootRef = useListener(ref, "dismiss", onDismiss)
+  const Root = closeButton ? "opui-callout" : "article"
+  const rootId = closeButton ? base : id
+  const rootRef = useHydrated(useListener(ref, "dismiss", onDismiss))
   useEffect(() => {
     void import("../../elements/callout.js")
   }, [])
@@ -41,12 +40,13 @@ export default function Callout({
           className,
         ])}
         id={rootId}
-        role={dismissible ? "article" : undefined}
+        role={closeButton ? "article" : undefined}
+        data-hydrating={Root.includes("-") ? "" : undefined}
         ref={rootRef}
         {...defined(rest as object)}
       >
         {children}
-        {dismissible && (
+        {closeButton && (
           <Button
             aria-label={closeLabel}
             command="--dismiss"
@@ -61,9 +61,7 @@ export default function Callout({
                 width="32"
                 height="32"
                 viewBox="0 0 32 32"
-              >
-                <path fill="currentColor" d={closePath} />
-              </svg>
+              />
             ) : (
               closeIcon
             )}

@@ -3,6 +3,41 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "TextField",
+  elements: [
+    {
+      members: [
+        {
+          description:
+            "The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only.",
+          kind: "property",
+          name: "control",
+        },
+      ],
+      tag: "opui-character-count",
+    },
+    {
+      members: [
+        {
+          description:
+            "Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits.",
+          kind: "method",
+          name: "hidePassword()",
+        },
+        {
+          description: "The `<input>` inside, or `null`. Read-only.",
+          kind: "property",
+          name: "input",
+        },
+        {
+          description:
+            "Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.",
+          kind: "method",
+          name: "showPassword()",
+        },
+      ],
+      tag: "opui-text-field",
+    },
+  ],
   keyboard: [
     {
       description:
@@ -60,18 +95,14 @@ export default {
       prop: "dropZone",
     },
     {
+      attribute: "[disabled]",
       default: "false",
       description:
-        'Dims the field and blocks input. `aria-disabled="true"` looks the same, but keeps the field focusable, its text editable and its value in the form.',
+        'Dims the field and blocks input and the password toggle. `aria-disabled="true"` on the input looks the same, but keeps the field focusable, its text editable and its value in the form.',
       group: "Disabled",
-      inherited: true,
       part: "input",
       prop: "disabled",
       type: "boolean",
-      values: {
-        "aria-disabled": '[aria-disabled="true"]',
-        disabled: "[disabled]",
-      },
     },
     {
       attribute: '[aria-invalid="true"]',
@@ -99,22 +130,6 @@ export default {
     },
     {
       description:
-        'The `inputmode` of the `<input>`. With `type="numeric"` it is `numeric`.',
-      frameworks: ["astro", "svelte", "vue"],
-      inherited: true,
-      prop: "inputmode",
-      type: "string",
-    },
-    {
-      description:
-        'The `inputmode` of the `<input>`, as `inputMode` like on the element. With `type="numeric"` it is `numeric`.',
-      frameworks: ["react"],
-      inherited: true,
-      prop: "inputMode",
-      type: "string",
-    },
-    {
-      description:
         "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
       inherited: true,
       prop: "name",
@@ -131,13 +146,6 @@ export default {
       default: '"Show password"',
       description: "The accessible name of the password toggle.",
       prop: "passwordToggleLabel",
-    },
-    {
-      description:
-        'The `pattern` of the `<input>`. With `type="numeric"` it is `[0-9]*`.',
-      inherited: true,
-      prop: "pattern",
-      type: "string",
     },
     {
       attribute: "[required]",
@@ -171,10 +179,10 @@ export default {
     },
     {
       default: '"text"',
-      description:
-        "The input type. `numeric` renders a text input with a numeric keyboard.",
+      description: "The input type.",
+      inherited: true,
       prop: "type",
-      type: '"numeric" | string',
+      type: "string",
     },
     {
       default: '"outlined"',
@@ -227,7 +235,7 @@ export default {
     },
     {
       description:
-        'The password toggle, with `aria-pressed` and `command="--toggle-password"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Hidden until `<opui-text-field>` is defined.',
+        'The password toggle, with `aria-pressed` and `command="--toggle-password"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is, and `aria-disabled` while the input is. `<opui-text-field>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-text-field>` is defined.',
       props: ["passwordToggle", "passwordToggleLabel"],
       selector: ".ui-field > .ui-end > .ui-button",
       slots: ["icon-checked", "icon-unchecked"],

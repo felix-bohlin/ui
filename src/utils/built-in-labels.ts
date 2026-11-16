@@ -9,7 +9,7 @@ export const builtInLabels = [
   {
     component: "Carousel",
     default: "Previous",
-    html: "--_button-prev-label",
+    html: "--_button-previous-label",
     page: "carousel",
     prop: "previousLabel",
   },
@@ -27,6 +27,7 @@ export const builtInLabels = [
     page: "carousel",
     prop: "markerLabel",
     shown: "Slide 1, Slide 2",
+    template: "Slide {number}",
   },
   {
     component: "Copy",
@@ -41,6 +42,13 @@ export const builtInLabels = [
     html: "failed-label",
     page: "copy",
     prop: "failedLabel",
+  },
+  {
+    component: "DialogHeader",
+    default: "Close",
+    html: "aria-label",
+    page: "dialog",
+    prop: "closeLabel",
   },
   {
     component: "DrawerHeader",
@@ -71,6 +79,14 @@ export const builtInLabels = [
     prop: "clearLabel",
   },
   {
+    component: "Rating",
+    default: '{ one: "{count} star", other: "{count} stars" }',
+    html: "aria-label",
+    page: "rating",
+    prop: "starLabel",
+    shown: "1 star, 2 stars",
+  },
+  {
     component: "SortableTable",
     default: "{column}, sorted ascending",
     html: "ascending-label",
@@ -89,7 +105,7 @@ export const builtInLabels = [
     default: ", completed",
     html: ".ui-sr-only",
     page: "stepper",
-    prop: "completedLabel",
+    prop: "completeLabel",
   },
   {
     component: "StepperItem",

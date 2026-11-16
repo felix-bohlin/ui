@@ -58,6 +58,14 @@ export default {
       },
     },
     {
+      default: '"group"',
+      description:
+        "The `role` of the root, such as `toolbar`. A passed role replaces `group`.",
+      inherited: true,
+      prop: "role",
+      type: "string",
+    },
+    {
       default: '"medium"',
       description: "The size of the buttons and fields.",
       group: "Sizes",

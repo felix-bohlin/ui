@@ -186,7 +186,7 @@ export const whatsNew = {
     `Themes can set <a href="#api"><code>--ui-button-accent-filled</code></a> and <code>--ui-button-on-accent-filled</code> to give filled buttons a color of their own.`,
     `Themes can set <a href="#api"><code>--ui-button-focus: highlight</code></a> to fill a focused button with the focus color instead of drawing the ring, like GOV.UK.`,
     `Breaking: <code>--_border-radius</code> is <code>--_radius</code> and <code>--_min-height</code> is <code>--_size</code> (<a href="#under-the-hood">Under the hood</a>).`,
-    `The <a href="#file-upload">file input</a> takes <code>--ui-shadow-field</code> and <code>--ui-radius-small</code> like other fields.`,
+    `The <a href="#file-upload">file input</a> takes <code>--ui-field-shadow</code> and <code>--ui-radius-small</code> like other fields.`,
     `Primary tonal buttons read <a href="#api"><code>--ui-primary-tonal</code></a> and <code>--ui-on-primary-tonal</code> when a theme sets them.`,
     {
       default: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>round</code> makes them round.`,
@@ -223,10 +223,11 @@ export const whatsNew = {
       svelte: `A button takes link attributes only with <code>href</code> (<a href="#api">types</a>).`,
     },
     `Breaking: <code>--_color</code>, <code>--_color-contrast</code> and <code>--_color-tonal</code> are <code>--_accent</code>, <code>--_on-accent</code> and <code>--_accent-tonal</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_default-hover-bg-color</code> and <code>--_default-active-bg-color</code> are <a href="#component-properties"><code>--_transparent-hover-bg-color</code></a> and <code>--_transparent-active-bg-color</code>, after the <code>transparent</code> variant.`,
     `Breaking: <a href="#disabled">disabled links</a> have no <code>href</code>, so they can't be focused or followed.`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `Corners follow <code>--ui-radius</code>, and <a href="#api"><code>--ui-button-radius</code></a> overrides it when a theme sets it, so one token squares or rounds every component.`,
-    `Themes set the color of <a href="#colors">default buttons</a> with <a href="#api"><code>--ui-button-accent</code></a> and <code>--ui-button-on-accent</code>, or of every control at once with <code>--ui-control-accent</code> and <code>--ui-on-control-accent</code>, the border with <code>--ui-control-border-color</code> (outlined) and <code>--ui-control-border-color-filled</code> (filled and tonal), the font weight with <code>--ui-button-font-weight</code>, the shadow with <code>--ui-shadow-control</code>, the hover shadow and offset with <code>--ui-button-hover-shadow</code> and <code>--ui-button-hover-translate</code>, and the font size with <code>--ui-font-size-control</code>. In dark mode the text stays at least as light as <code>--ui-text-min-lightness</code>, like the intent text roles.`,
+    `Themes set the color of <a href="#colors">default buttons</a> with <a href="#api"><code>--ui-button-accent</code></a> and <code>--ui-button-on-accent</code>, or of every control at once with <code>--ui-control-accent</code> and <code>--ui-control-on-accent</code>, the border with <code>--ui-control-border-color</code> (outlined) and <code>--ui-control-border-color-filled</code> (filled and tonal), the font weight with <code>--ui-button-font-weight</code>, the shadow with <code>--ui-shadow-control</code>, the hover shadow and offset with <code>--ui-button-hover-shadow</code> and <code>--ui-button-hover-translate</code>, and the font size with <code>--ui-font-size-control</code>. In dark mode the text stays at least as light as <code>--ui-text-min-lightness</code>, like the intent text roles.`,
     `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code>, the same readable primary as links, and critical ones <code>--ui-critical-text</code>.`,
     `<a href="#colors">Critical</a> fills and their hover and pressed shades stay within <code>--ui-accent-fill-max-lightness</code>, and the border keeps <code>--ui-critical</code>.`,
     components(
@@ -264,11 +265,11 @@ export const whatsNew = {
     },
     `<a href="#severities">Links</a> in a callout turn <code>--ui-primary-text</code> on hover and focus, the primary that keeps 4.5:1 on every surface.`,
     {
-      astro: `<a href="#dismissible"><code>dismissible</code></a> adds a close button that hides the callout, moves focus out of it and fires a cancelable <code>dismiss</code> event first. The <code>close-icon</code> slot replaces its icon.`,
+      astro: `<a href="#dismissible"><code>closeButton</code></a> adds a close button that hides the callout, moves focus out of it and fires a cancelable <code>dismiss</code> event first. The <code>close-icon</code> slot replaces its icon.`,
       html: `<a href="#dismissible"><code>&lt;opui-callout&gt;</code></a> hides itself on <code>command="--dismiss"</code>, moves focus out of it and fires a cancelable <code>dismiss</code> event first. Import <code>opui-css/elements/callout.js</code>.`,
-      react: `<a href="#dismissible"><code>dismissible</code></a> adds a close button that hides the callout and moves focus out of it. <code>onDismiss</code> runs first and can keep it with <code>preventDefault()</code>, and <code>closeIcon</code> replaces its icon.`,
-      svelte: `<a href="#dismissible"><code>dismissible</code></a> adds a close button that hides the callout and moves focus out of it. <code>ondismiss</code> runs first and can keep it with <code>preventDefault()</code>, and the <code>closeIcon</code> snippet replaces its icon.`,
-      vue: `<a href="#dismissible"><code>dismissible</code></a> adds a close button that hides the callout and moves focus out of it. <code>@dismiss</code> runs first and can keep it with <code>preventDefault()</code>, and the <code>close-icon</code> slot replaces its icon.`,
+      react: `<a href="#dismissible"><code>closeButton</code></a> adds a close button that hides the callout and moves focus out of it. <code>onDismiss</code> runs first and can keep it with <code>preventDefault()</code>, and <code>closeIcon</code> replaces its icon.`,
+      svelte: `<a href="#dismissible"><code>closeButton</code></a> adds a close button that hides the callout and moves focus out of it. <code>ondismiss</code> runs first and can keep it with <code>preventDefault()</code>, and the <code>closeIcon</code> snippet replaces its icon.`,
+      vue: `<a href="#dismissible"><code>closeButton</code></a> adds a close button that hides the callout and moves focus out of it. <code>@dismiss</code> runs first and can keep it with <code>preventDefault()</code>, and the <code>close-icon</code> slot replaces its icon.`,
     },
   ],
   card: [
@@ -357,7 +358,7 @@ export const whatsNew = {
     `New component. A <a href="#basics">scroll snap carousel</a> with buttons and markers generated by CSS.`,
     {
       ...components(
-        `<a href="#labels">Labels</a>: <code>previousLabel</code>, <code>nextLabel</code> and <code>markerLabel</code> translate the names of the buttons and markers, with <code>{count}</code> where the item number goes.`,
+        `<a href="#labels">Labels</a>: <code>previousLabel</code>, <code>nextLabel</code> and <code>markerLabel</code> translate the names of the buttons and markers, with <code>{number}</code> where the item number goes.`,
       ),
       html: `<a href="#labels">Labels</a>: <code>--_marker-label</code> holds the whole marker name, with <code>counter(ui-carousel-item)</code> where the item number goes, so a translation can put it first.`,
     },
@@ -397,7 +398,7 @@ export const whatsNew = {
       html: `<code>checkbox.js</code> keeps <code>indeterminate</code> in step when <code>data-indeterminate</code> changes or a checkbox is added, without a call (<a href="#indeterminate">Indeterminate</a>).`,
     },
     `The unchecked border reads <a href="#api"><code>--ui-choice-border-color</code></a> and <code>--ui-choice-border-width</code> when a theme sets them, and <code>--ui-field-border-color</code>, which reaches 3:1 against the page by default, and <code>--ui-field-border-width</code> when it doesn't.`,
-    `The checked fill and mark read <a href="#api"><code>--ui-choice-accent</code></a> and <code>--ui-choice-on-accent</code>, or <code>--ui-control-accent</code> and <code>--ui-on-control-accent</code>, when a theme sets them.`,
+    `The checked fill and mark read <a href="#api"><code>--ui-choice-accent</code></a> and <code>--ui-choice-on-accent</code>, or <code>--ui-control-accent</code> and <code>--ui-control-on-accent</code>, when a theme sets them.`,
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers that line on the control.`,
     `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code>, <code>--thumb-scale</code> is <code>--_ripple-scale</code> and <code>--_input-size</code> is <code>--_size</code>. <code>--isLTR</code> and <code>--isRTL</code> are gone, the halo centers itself (<a href="#under-the-hood">Under the hood</a>).`,
     `Without a <a href="#hidden-label">visible label</a>, checkboxes center in table cells and lines of text, and stay a 24px click target at every size.`,
@@ -579,13 +580,16 @@ export const whatsNew = {
     },
     {
       ...slots(
-        `Breaking: <a href="#bordered">items</a> render a plain <code>div</code> without <code>.ui-item</code>.`,
+        `Breaking: <a href="#border">items</a> render a plain <code>div</code> without <code>.ui-item</code>.`,
       ),
-      html: `Breaking: <a href="#bordered">items</a> are plain <code>div</code>s without <code>.ui-item</code>.`,
+      html: `Breaking: <a href="#border">items</a> are plain <code>div</code>s without <code>.ui-item</code>.`,
     },
-    slots(
-      `Breaking: <a href="#bordered"><code>bordered</code></a> is a boolean. Replace <code>bordered="dotted"</code> with <code>bordered dotted</code>.`,
-    ),
+    {
+      ...slots(
+        `Breaking: <a href="#border"><code>border</code></a> picks the line: replace <code>bordered</code> with <code>border="solid"</code> and <code>bordered="dotted"</code> with <code>border="dotted"</code>.`,
+      ),
+      html: `Breaking: <a href="#border"><code>.ui-border-solid</code></a> replaces <code>.ui-bordered</code>, and <code>.ui-border-dotted</code> replaces <code>.ui-bordered.ui-dotted</code>.`,
+    },
     {
       ...slots(
         `Breaking: <code>DescriptionListTerm</code> and <code>DescriptionListDescription</code> no longer render <code>.ui-term</code> and <code>.ui-description</code>. Select <code>dt</code> and <code>dd</code> in your CSS (<a href="#basics">Basics</a>).`,
@@ -650,7 +654,7 @@ export const whatsNew = {
     `Styles use logical properties only, so the <a href="#basics">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
     {
       ...components(
-        `<a href="#basics"><code>closeLabel</code></a> on <code>DialogHeader</code> adds a close button at the end of the title row.`,
+        `<a href="#basics"><code>closeButton</code></a> on <code>DialogHeader</code> adds a close button at the end of the title row, named by <code>closeLabel</code>.`,
       ),
       html: `A <a href="#basics">close button</a> after the heading stays on the title row when a paragraph follows it.`,
     },
@@ -687,9 +691,16 @@ export const whatsNew = {
       default: `<a href="#navigation"><code>closeOnNavigate</code></a> closes a navigation drawer when the page navigates, also with a client router.`,
       html: `<a href="#navigation"><code>data-close-on-navigate</code></a> with <code>opui-css/elements/close-on-navigate.js</code> closes a navigation drawer when the page navigates, also with a client router.`,
     },
-    `Breaking: the header, content and footer rules live in <code>card.css</code>, shared with Dialog. Import it too when you <a href="#installation">install single files</a>.`,
+    `Breaking: the header, content and footer rules, the backdrop and the closed state live in <code>card.css</code>, shared with Dialog. Import it too when you <a href="#installation">install single files</a>, or a closed drawer stays on the page.`,
     `The <a href="#basics">footer</a> spaces its items and buttons by <code>--ui-space-2</code>, like Dialog.`,
     `Themes can set <a href="#api"><code>--ui-card-padding</code></a> for the header, content and footer padding.`,
+    {
+      ...slots(
+        `Breaking: <code>DrawerHeader</code> renders its <a href="#close-button">close button</a> only with <code>closeButton</code>, like <code>DialogHeader</code>. Add it to keep the button.`,
+      ),
+      react: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>.`,
+      svelte: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>.`,
+    },
     {
       ...slots(
         `The <a href="#close-button">close button</a> in <code>DrawerHeader</code> takes your own icon in the <code>close-icon</code> slot.`,
@@ -718,9 +729,12 @@ export const whatsNew = {
       svelte: `The <a href="#basics">title</a> is <code>--ui-font-size-h4</code>, like the <code>Dialog</code> title, and <code>--_title-font-size</code> changes it.`,
     },
     `<a href="#basics">Content</a> is a stack with <code>--ui-space-3</code> between its children, like <code>Dialog</code> content, so paragraphs don't touch. Content with inline children keeps the normal flow, and a focusable content draws its focus ring inside the drawer.`,
-    slots(
-      `Breaking: the page no longer <a href="#basics">locks scrolling</a> by default. Set <code>scrollLock</code>, and pass the <code>id</code> the trigger points at.`,
-    ),
+    {
+      ...slots(
+        `Breaking: a modal drawer <a href="#basics">locks page scrolling</a> like a modal dialog, but a <a href="#non-modal">non-modal</a> one no longer does by default. Set <code>scrollLock</code> on it, and pass the <code>id</code> the trigger points at.`,
+      ),
+      html: `Breaking: a modal drawer <a href="#basics">locks page scrolling</a> like a modal dialog, also without <code>.ui-scroll-lock</code>, which a <a href="#non-modal">non-modal</a> one still needs.`,
+    },
     {
       default: `Named by <a href="#accessibility"><code>DrawerTitle</code></a> through <code>aria-labelledby</code>.`,
       html: `Name it with <a href="#accessibility"><code>aria-labelledby</code></a> pointing at the header heading.`,
@@ -787,7 +801,7 @@ export const whatsNew = {
     `On a <code>ul</code> or <code>ol</code>, <a href="#lists">a column, a row or a grid</a> drops the list bullets and margins, and a card alone in an <code>li</code> fills its grid cell.`,
     `<a href="#columns"><code>.ui-layout-columns</code></a> is one column that becomes the <code>--_columns</code> tracks at a breakpoint, with a <a href="#sticky"><code>.ui-sticky</code></a> child that stays in view.`,
     `Three named <a href="#breakpoints">container breakpoints</a> to reflow a page at the same widths as the blocks, which <code>.ui-layout-columns</code> picks with <code>.ui-breakpoint-small</code> and <code>.ui-breakpoint-large</code>.`,
-    `<a href="#divided"><code>.ui-divided</code></a> draws a line in each gap between two children of a column, row, grid or columns, so a wrapped row gets no stray line.`,
+    `<a href="#bordered"><code>.ui-bordered</code></a> draws a line in each gap between two children of a column, row, grid or columns, like a bordered list, so a wrapped row gets no stray line.`,
   ],
   list: [
     `Rows with any <a href="#selected"><code>aria-current</code></a> but <code>false</code> look current, like <code>true</code> on a button, not only <code>page</code>.`,
@@ -830,13 +844,21 @@ export const whatsNew = {
     `A checked <a href="#radio">option</a> uses <code>--ui-state-selected-alpha-accent</code>.`,
     {
       ...slots(
-        `Breaking: <a href="#checkbox"><code>type</code></a> can't be combined with <code>as</code> or <code>href</code> (types).`,
+        `Breaking: <code>ListItem</code> <a href="#checkbox"><code>choice</code></a> replaces <code>type</code>, and it can't be combined with <code>as</code> or <code>href</code> (types).`,
       ),
-      react: `<a href="#checkbox"><code>type</code></a> can't be combined with <code>as</code> or <code>href</code> (types).`,
-      svelte: `<a href="#checkbox"><code>type</code></a> can't be combined with <code>as</code> or <code>href</code> (types).`,
+      react: `<code>ListItem</code> <a href="#checkbox"><code>choice</code></a> can't be combined with <code>as</code> or <code>href</code> (types).`,
+      svelte: `<code>ListItem</code> <a href="#checkbox"><code>choice</code></a> can't be combined with <code>as</code> or <code>href</code> (types).`,
     },
     `Breaking: rows no longer style <code>aria-selected="true"</code> on a link, button, label or list item, where ARIA doesn't allow it. Mark the current row with <a href="#selected"><code>aria-current="page"</code></a>.`,
-    `<a href="#selected">Selected and current rows</a> have a bar on their start edge in <code>--ui-selected-strong</code> and a stronger fill than hover, so they don't rely on a tint alone.`,
+    `<a href="#selected">Selected and current rows</a> have a bar on their start edge in <code>--ui-selected-strong</code> and a stronger fill than hover, so they don't rely on a tint alone. In a <code>role="listbox"</code> list, the selected option gets a check at the end instead.`,
+    {
+      ...slots(
+        `The <a href="#selected"><code>icon-checked</code></a> slot of <code>ListItem</code> shows your own icon at the end of a selected or current row.`,
+      ),
+      react: `The <a href="#selected"><code>iconChecked</code></a> prop of <code>ListItem</code> shows your own icon at the end of a selected or current row.`,
+      svelte: `The <a href="#selected"><code>iconChecked</code></a> snippet of <code>ListItem</code> shows your own icon at the end of a selected or current row.`,
+      html: `A <a href="#selected"><code>.ui-icon-checked</code></a> shows your own icon at the end of a selected or current row.`,
+    },
     {
       react: `<a href="#variants">Variants</a> name the default: <code>variant="filled"</code>.`,
       svelte: `<a href="#variants">Variants</a> name the default: <code>variant="filled"</code>.`,
@@ -855,7 +877,15 @@ export const whatsNew = {
       default: `An open menu <a href="#basics">closes when the page navigates</a>, also with a client router.`,
       html: `Import <code>opui-css/elements/close-on-navigate.js</code> to <a href="#basics">close an open menu</a> when the page navigates.`,
     },
-    `Mark the <a href="#current-item">current item</a> with <code>aria-current</code>, like the language in use.`,
+    `Mark the <a href="#current-item">current item</a> with <code>aria-current</code>, like the language in use. It gets a check at the end.`,
+    {
+      ...slots(
+        `A <a href="#custom-check">custom check</a>: <code>--ui-icon-check</code> for the check of your icon set, or any icon in the <code>icon-checked</code> slot.`,
+      ),
+      react: `A <a href="#custom-check">custom check</a>: <code>--ui-icon-check</code> for the check of your icon set, or any icon in the <code>iconChecked</code> prop.`,
+      svelte: `A <a href="#custom-check">custom check</a>: <code>--ui-icon-check</code> for the check of your icon set, or any icon in the <code>iconChecked</code> snippet.`,
+      html: `A <a href="#custom-check">custom check</a>: <code>--ui-icon-check</code> for the check of your icon set, or any icon in <code>.ui-icon-checked</code>.`,
+    },
     `Themes can set <a href="#api"><code>--ui-menu-radius</code></a> for a corner radius of its own.`,
     `The edge reads <a href="#api"><code>--ui-border-color-raised</code></a> when a theme sets it, like drawers and elevated cards, and the separators keep <code>--ui-border-color-on-raised</code>.`,
     `Themes can set <a href="#api"><code>--ui-list-item-padding-inline</code></a>. Descriptions read <code>--ui-text-subtle</code>.`,
@@ -951,7 +981,7 @@ export const whatsNew = {
       html: `Breaking: <a href="#label-position"><code>.ui-vertical</code></a> replaces <code>.ui-stack</code>.`,
     },
     `The unchecked ring reads <a href="#api"><code>--ui-choice-border-color</code></a> and <code>--ui-choice-border-width</code> when a theme sets them, and <code>--ui-field-border-color</code>, which reaches 3:1 against the page by default, and <code>--ui-field-border-width</code> when it doesn't.`,
-    `The checked fill and dot read <a href="#api"><code>--ui-choice-accent</code></a> and <code>--ui-choice-on-accent</code>, or <code>--ui-control-accent</code> and <code>--ui-on-control-accent</code>, when a theme sets them.`,
+    `The checked fill and dot read <a href="#api"><code>--ui-choice-accent</code></a> and <code>--ui-choice-on-accent</code>, or <code>--ui-control-accent</code> and <code>--ui-control-on-accent</code>, when a theme sets them.`,
     `<a href="#sizes">Radios</a> are 20px, the same <code>--ui-choice-size</code> as Checkbox.`,
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers that line on the control.`,
     `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code>, <code>--thumb-scale</code> is <code>--_ripple-scale</code> and <code>--_input-size</code> is <code>--_size</code>. <code>--isLTR</code> and <code>--isRTL</code> are gone, the halo centers itself (<a href="#under-the-hood">Under the hood</a>).`,
@@ -1008,7 +1038,7 @@ export const whatsNew = {
     components(
       `<a href="#api"><code>hideLabel</code></a> hides the label visually and keeps it as the accessible name.`,
     ),
-    `Breaking: <code>--_thumb-bg</code>, <code>--_thumb-highlight-color</code> and <code>--_track-fill-color</code> are <code>--_accent</code>, which the thumb, its halo and the fill are derived from, <code>--_track-color</code> is <code>--_track-base-bg-color</code> and <code>--_track-height</code> is <code>--_track-block-size</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_thumb-bg</code>, <code>--_thumb-highlight-color</code> and <code>--_track-fill-color</code> are <code>--_accent</code>, which the thumb, its halo and the fill are derived from, <code>--_track-color</code> is <code>--_track-base-bg-color</code>, <code>--_track-height</code> is <code>--_track-block-size</code> and <code>--_thumb-highlight-size</code> is <a href="#component-properties"><code>--_thumb-ripple-size</code></a>, like the <code>--_ripple-size</code> of a checkbox (<a href="#under-the-hood">Under the hood</a>).`,
     slots(
       `Breaking: <a href="#tick-marks"><code>items</code></a> replaces <code>options</code>, the label goes in the <code>label</code> slot, and the readout slot is <a href="#value"><code>value-text</code></a>.`,
     ),
@@ -1056,6 +1086,12 @@ export const whatsNew = {
     {
       astro: `Breaking: extra attributes are typed as <code>&lt;input&gt;</code> attributes, where they go (<a href="#api">API</a>).`,
     },
+    {
+      ...components(
+        `The <a href="#value">value readout</a> is formatted for the range's <code>lang</code> with <code>Intl.NumberFormat</code>, so a German page shows 0,5 kg, and <code>lang</code> goes to the root.`,
+      ),
+      html: `<code>range.js</code> formats the <a href="#value">value readout</a> for the closest <code>lang</code> with <code>Intl.NumberFormat</code>, so a German page shows 0,5 kg.`,
+    },
     `The thumb, its halo and the track fill follow <code>--_accent</code> on <code>.ui-range</code> (<a href="#under-the-hood">Under the hood</a>).`,
     slots(
       `Breaking: deep type imports from <code>components/Range/types</code> are named <code>Props</code> and <code>Slots</code> (was <code>RangeProps</code> and <code>RangeSlots</code>). Import <a href="#api"><code>RangeProps</code></a> from the framework entry instead.`,
@@ -1079,13 +1115,18 @@ export const whatsNew = {
     `An <a href="#validation">invalid</a> range reads <code>--ui-invalid</code>, like every invalid control.`,
   ],
   rating: [
-    `New: a <a href="#basics">Rating</a> draws a score as stars in a <code>&lt;meter&gt;</code>, down to a fraction, and with a <a href="#input">name</a> collects one with radios that preview on hover. Empty stars are outlines, so they differ from filled ones by shape as well as color. The stars, the empty stars and the clear icon are masks that <a href="#input"><code>--_star-image</code>, <code>--_star-empty-image</code> and <code>--_clear-image</code></a> replace.`,
+    `New: a <a href="#basics">Rating</a> draws a score as stars in a <code>&lt;meter&gt;</code>, down to a fraction, and with a <a href="#input">name</a> collects one with radios that preview on hover. Empty stars are outlines in the field border color, which reaches 3:1 against the page, so they differ from filled ones by shape as well as color. The stars, the empty stars and the clear icon are masks that <a href="#input"><code>--_star-image</code>, <code>--_star-empty-image</code> and <code>--_clear-image</code></a> replace.`,
+    components(
+      `<a href="#localization"><code>starLabel</code></a> takes a template per plural form, with <code>{count}</code> where the number goes, and the rating picks the form for its <code>lang</code> with <code>Intl.PluralRules</code>.`,
+    ),
   ],
   select: [
     {
       default: `Breaking: the root is a <code>&lt;div&gt;</code> with a <code>&lt;label for&gt;</code> inside. The label alone <a href="#accessibility">names the select</a>, and the affixes describe it with the start and end text, so they're read after the name.`,
       html: `Breaking: give the root <code>&lt;div class="ui-select"&gt;</code> a <code>&lt;label class="ui-label" for&gt;</code> that <a href="#accessibility">names the select</a> alone, and describe it with the affixes and the start and end text through <code>aria-describedby</code>.`,
     },
+    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the field, a little inside its border, and Tab reaches the start, top, end and bottom in the order they're drawn, where the browser supports <code>reading-flow</code>.`,
+    `The picker marks the <a href="#preselected">selected option</a> with a check at the end, which <code>--ui-icon-check</code> changes.`,
     components(
       `The ids the select generates start with its <a href="#api"><code>id</code></a>: <code>x-start-text</code>, <code>x-end-text</code>, <code>x-start</code>, <code>x-end</code>, <code>x-top</code> and <code>x-bottom</code> for <code>id="x"</code>.`,
     ),
@@ -1147,8 +1188,9 @@ export const whatsNew = {
       `Breaking: <code>style</code> goes to the root, like <code>class</code>, instead of the <code>&lt;select&gt;</code> (<a href="#api">API</a>).`,
     ),
     `Corners follow <code>--ui-radius</code>, and <a href="#api"><code>--ui-field-radius</code></a> overrides it when a theme sets it, so one token squares or rounds every component.`,
+    `The <a href="#variants">picker</a> reads <a href="#api"><code>--ui-menu-radius</code></a> when a theme sets it, so it matches menus, and the field radius when it doesn't.`,
     `The picker shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with menus and drawers.`,
-    `The field reads <a href="#api"><code>--ui-shadow-field</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
+    `The field reads <a href="#api"><code>--ui-field-shadow</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
     `The <a href="#variants">filled</a> hover reads <code>--ui-surface-tonal-hover</code>, shared with clickable chips.`,
     components(
       `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
@@ -1187,7 +1229,7 @@ export const whatsNew = {
       ),
       html: `Breaking: <a href="#label-position"><code>.ui-vertical</code></a> replaces <code>.ui-stack</code>.`,
     },
-    `The unchecked thumb and track read <a href="#api"><code>--ui-switch-thumb-bg-color</code></a> and <code>--ui-switch-track-bg-color</code>.`,
+    `The unchecked thumb reads <a href="#api"><code>--ui-switch-thumb-bg-color</code></a>, and the unchecked track <code>--ui-switch-track-bg-color</code> ahead of <code>--ui-track-bg-color</code> when a theme sets them.`,
     `The unchecked track border reads <a href="#api"><code>--ui-choice-border-color</code></a> and <code>--ui-choice-border-width</code> when a theme sets them, and <code>--ui-field-border-color</code> and <code>--ui-field-border-width</code> when it doesn't, like the checkbox and radio borders.`,
     `The checked track reads <a href="#api"><code>--ui-choice-accent</code></a>, or <code>--ui-control-accent</code>, and the unchecked track <code>--ui-track-bg-color</code> when a theme sets them.`,
     `Each <a href="#api">track width</a> is twice its track height until a theme sets it.`,
@@ -1295,12 +1337,11 @@ export const whatsNew = {
     `New: a <a href="#basics">Stat</a> shows one number with its label and the change behind it, in a row of <a href="#cards">cards</a> on a dashboard.`,
   ],
   stepper: [
+    `The <a href="#custom-check">check</a> reads <code>--ui-icon-check</code>, shared with menus and selects.`,
     `New: a <a href="#basics">Stepper</a> shows where someone is in a flow of steps, like a checkout, with <a href="#complete">complete</a> steps, steps with an <a href="#errors">error</a> and a <a href="#narrow">vertical</a> layout in narrow containers.`,
   ],
   tabs: [
-    components(
-      `<code>Tabs</code> renders <code>role="radiogroup"</code>, so <code>aria-label</code> <a href="#accessibility">names the group</a>.`,
-    ),
+    `<a href="#without-panels">Tabs without panels</a> are a radio group: give them <code>role="radiogroup"</code> and an <code>aria-label</code> that <a href="#accessibility">names the group</a>. Tabs with panels take no role.`,
     `<a href="#without-panels">Tabs without panels</a> size to their labels, also in a row next to a heading.`,
     `<a href="#api"><code>--_panel-gap</code></a> sets the space between the tab list and the panel.`,
     `Unselected labels read <a href="#api"><code>--ui-text-subtle</code></a>.`,
@@ -1314,9 +1355,9 @@ export const whatsNew = {
     `In dark mode the <a href="#basics">selected pill</a> is <code>--ui-text-strong</code> at <code>--ui-state-selected-alpha-accent</code>, so it follows a theme's grays.`,
     {
       ...slots(
-        `Breaking: no <code>tablist</code>, <code>tab</code> or <code>tabpanel</code> roles, so screen readers announce the <a href="#accessibility">radio group</a> they are. <code>TabsItem</code> and <code>TabsPanel</code> no longer take <code>panelId</code>, and <code>TabsPanel</code> no longer takes <code>tabId</code>.`,
+        `Breaking: no <code>tablist</code>, <code>tab</code> or <code>tabpanel</code> roles, so screen readers announce the <a href="#accessibility">radios</a> they are. <code>TabsItem</code> and <code>TabsPanel</code> no longer take <code>panelId</code>, and <code>TabsPanel</code> no longer takes <code>tabId</code>.`,
       ),
-      html: `Breaking: no <code>tablist</code>, <code>tab</code> or <code>tabpanel</code> roles, so screen readers announce the <a href="#accessibility">radio group</a> they are. Style <code>.ui-label</code> and <code>.ui-panel</code> instead of <code>[role="tab"]</code> and <code>[role="tabpanel"]</code>.`,
+      html: `Breaking: no <code>tablist</code>, <code>tab</code> or <code>tabpanel</code> roles, so screen readers announce the <a href="#accessibility">radios</a> they are. Tabs with panels take no role, and tabs without panels get <code>role="radiogroup"</code> and an <code>aria-label</code> on <code>.ui-tabs</code>. Style <code>.ui-label</code> and <code>.ui-panel</code> instead of <code>[role="tab"]</code> and <code>[role="tabpanel"]</code>.`,
     },
     {
       ...slots(
@@ -1365,6 +1406,7 @@ export const whatsNew = {
     },
   ],
   "text-field": [
+    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the field, a little inside its border, and Tab reaches the start, top, end and bottom in the order they're drawn, where the browser supports <code>reading-flow</code>.`,
     {
       default: `Breaking: the root is a <code>&lt;div&gt;</code> with a <code>&lt;label for&gt;</code> inside, so the <a href="#affix">affixes</a> can hold buttons. The label alone <a href="#accessibility">names the field</a>, and the start text, top, affixes, bottom and end text describe it through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, in any language's word order. The ids start with the <code>id</code>: <code>x-start-text</code>, <code>x-start</code>, <code>x-end-text</code> and so on for <code>id="x"</code>.`,
       html: `Breaking: give the root <code>&lt;div class="ui-text-field"&gt;</code> a <code>&lt;label class="ui-label" for&gt;</code> that <a href="#accessibility">names the field</a> alone, and describe it with the start text, the affixes and the end text through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, not in it.`,
@@ -1390,6 +1432,9 @@ export const whatsNew = {
       default: `<a href="#sizes">x-small and large</a> sizes with the <code>size</code> prop.`,
       html: `<a href="#sizes">x-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
     },
+    slots(
+      `Breaking: <code>type="numeric"</code> is gone. Pass <a href="#numeric-vs-input-type-number"><code>inputmode="numeric"</code> and <code>pattern="[0-9]*"</code></a>, or use a <code>NumberField</code> for an amount.`,
+    ),
     `<a href="#spread">Spread</a> fields line up at one width.`,
     {
       astro: `Breaking: extra attributes such as <code>autocomplete</code> and <code>aria-*</code> go to the input. <code>class</code> and <code>style</code> stay on the label (<a href="#api">API</a>).`,
@@ -1415,7 +1460,7 @@ export const whatsNew = {
     `Breaking: the <a href="#autosuggest">autosuggest</a> and other input styles are in <code>text-field.css</code>, and <code>text-input.css</code> is gone. Remove its import.`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `Corners follow <code>--ui-radius</code>, and <a href="#api"><code>--ui-field-radius</code></a> overrides it when a theme sets it, so one token squares or rounds every component.`,
-    `The field reads <a href="#api"><code>--ui-shadow-field</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
+    `The field reads <a href="#api"><code>--ui-field-shadow</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
     `With more contrast, <a href="#validation">invalid</a> fields keep the lighter <code>--ui-invalid</code> of dark mode, which every invalid control now shares.`,
     `The <a href="#variants">filled</a> hover reads <code>--ui-surface-tonal-hover</code>, shared with clickable chips.`,
     components(
@@ -1453,6 +1498,7 @@ export const whatsNew = {
     `A field in a table cell keeps a <code>12ch</code> minimum width, so it stays usable with a <a href="#hidden-label">hidden label</a> in a narrow column.`,
   ],
   textarea: [
+    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the first line and centers on it, taller content starts a little below the field's top, and Tab reaches the parts in the order they're drawn, where the browser supports <code>reading-flow</code>.`,
     {
       default: `Breaking: the root is a <code>&lt;div&gt;</code> with a <code>&lt;label for&gt;</code> inside, so the <a href="#affix">affixes</a> can hold buttons. The label alone <a href="#accessibility">names the field</a>, and the start text, top, affixes, bottom and end text describe it through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, in any language's word order.`,
       html: `Breaking: give the root <code>&lt;div class="ui-textarea"&gt;</code> a <code>&lt;label class="ui-label" for&gt;</code> that <a href="#accessibility">names the field</a> alone, and describe it with the start text, the affixes and the end text through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, not in it.`,
@@ -1503,7 +1549,7 @@ export const whatsNew = {
     ),
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `Corners follow <code>--ui-radius</code>, and <a href="#api"><code>--ui-field-radius</code></a> overrides it when a theme sets it, so one token squares or rounds every component.`,
-    `The field reads <a href="#api"><code>--ui-shadow-field</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
+    `The field reads <a href="#api"><code>--ui-field-shadow</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
     `The <a href="#variants">filled</a> hover reads <code>--ui-surface-tonal-hover</code>, shared with clickable chips.`,
     components(
       `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
@@ -1536,7 +1582,7 @@ export const whatsNew = {
     `Themes can make toasts spring in with <a href="#api"><code>--ui-ease-move</code></a>.`,
     `A modal dialog <a href="#in-a-dialog">gets a toaster of its own</a>, and a toaster outside the open dialog warns in the console.`,
     `At most three toasts show at once, and <a href="#limit"><code>limit</code></a> changes it. Past it, the oldest is dismissed.`,
-    `The severity and close <a href="#icons">icons</a> are masks, so <code>--_critical-image</code>, <code>--_info-image</code>, <code>--_success-image</code>, <code>--_warning-image</code> and <code>--_close-image</code> swap them for your own.`,
+    `The severity and close <a href="#icons">icons</a> are the Callout's masks, so the <code>--ui-icon-*</code> tokens swap them for your own, on one toaster or in the theme.`,
     `A critical toast is announced through an <a href="#accessibility">assertive region</a>, so it interrupts other speech.`,
     {
       ...slots(
@@ -1659,7 +1705,7 @@ export const whatsNew = {
     `Breaking: <a href="#inline-text-elements"><code>del</code>, <code>ins</code>, <code>abbr</code> and <code>dfn</code></a> and their classes are no longer severity scopes, so content inside them keeps the page palette.`,
     `<a href="#inline-text-elements">Inline <code>code</code>, <code>kbd</code>, <code>mark</code> and <code>var</code></a> are rounded with <code>--ui-radius-small</code>, and the <a href="#blockquote">blockquote</a> bar and table rules follow <code>--ui-border-width-thick</code>.`,
     `<a href="#variants">Text sizes</a> follow the type roles <code>--ui-font-size-caption</code>, <code>--ui-font-size-small</code>, <code>--ui-font-size-body</code> and <code>--ui-font-size-large</code> on the <code>--ui-font-size-100</code> to <code>900</code> scale, with <code>--ui-line-height-*</code> and <code>--ui-letter-spacing-*</code> roles for the rest, so a theme reshapes the type in a few lines.`,
-    `<a href="#classless">Rich text</a> spacing comes from one flow space, with more room above headings than below. Themes set it with <code>--ui-flow-gap</code>, space headings with <code>--ui-heading-margin-block-start</code> and <code>--ui-heading-margin-block-end</code>, and loosen prose with <code>--ui-line-height-prose</code>.`,
+    `<a href="#classless">Rich text</a> spacing comes from one flow space, with more room above headings than below. Themes set it with <code>--ui-rich-text-flow-gap</code>, space headings with <code>--ui-rich-text-heading-margin-block-start</code> and <code>--ui-rich-text-heading-margin-block-end</code>, and loosen prose with <code>--ui-rich-text-line-height</code>.`,
     `Breaking: <a href="#variants">heading sizes</a> changed. Sizes and line heights snap to <code>--ui-rhythm-step</code>, <code>h1</code> to <code>h4</code> grow together over one viewport window (<code>--ui-fluid-min-inline-size</code> to <code>--ui-fluid-max-inline-size</code>, with <code>progress()</code>), and the heading scale no longer inverts on narrow screens.`,
     `Breaking: <a href="#classless">rich text</a> only styles headings without a class, like lists. Add a <code>.ui-h1</code>–<code>.ui-h6</code> class to a heading that has another class.`,
     `<a href="#rich-text-showcase">Rich text</a> styles tables, which scroll sideways in narrow columns, <code>hr</code> and task lists.`,

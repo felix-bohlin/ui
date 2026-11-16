@@ -1,8 +1,13 @@
 // @ts-check
-/** @param {string} slug */
-export function componentName(slug) {
-  return slug
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ")
+/**
+ * @param {string} slug
+ * @param {Map<string, string>} titles
+ */
+export function componentName(slug, titles) {
+  const words = slug.replaceAll("-", " ")
+  return titles.get(slug) ?? words.charAt(0).toUpperCase() + words.slice(1)
 }
+
+/** @param {string} source */
+export const pageTitle = (source) =>
+  source.match(/<Fragment\s+slot="title"\s*>(.*?)<\/Fragment\s*>/s)?.[1].trim()

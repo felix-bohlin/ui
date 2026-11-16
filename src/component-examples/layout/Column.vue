@@ -5,13 +5,13 @@ import { Card, CardContent } from "opui-css/vue"
 <template>
   <div class="ui-layout-column">
     <Card variant="outlined">
-      <CardContent>Review the pricing page</CardContent>
+      <CardContent>Restring the 5-string</CardContent>
     </Card>
     <Card variant="outlined">
-      <CardContent>Update the onboarding emails</CardContent>
+      <CardContent>Learn the new bassline before the drummer does</CardContent>
     </Card>
     <Card variant="outlined">
-      <CardContent>Write the release notes</CardContent>
+      <CardContent>Post the gig photos (bassist in focus)</CardContent>
     </Card>
   </div>
 </template>

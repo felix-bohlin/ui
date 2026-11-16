@@ -867,7 +867,7 @@
       }
     }
   },
-  "named-colors-no-severity-meaning": {
+  "named-colors": {
     "ui-blue": {
       "$description": "A literal blue, hue 240 at `0.53`, the lightness of palette step 9 in every palette. No severity meaning.",
       "$extensions": {
@@ -953,7 +953,7 @@
       }
     }
   },
-  "intent-tokens": {
+  "intent": {
     "ui-critical": {
       "$description": "Severity color for errors and destructive actions.",
       "$extensions": {
@@ -965,7 +965,7 @@
         }
       },
       "$type": "color",
-      "$value": "{named-colors-no-severity-meaning.ui-red}"
+      "$value": "{named-colors.ui-red}"
     },
     "ui-critical-text": {
       "$description": "Critical as a text color: the `.ui-critical` items of a `Menu`, a `.ui-critical` `Button` with no variant or `.ui-outlined`, and `del` and `.ui-del` text. `--ui-critical` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
@@ -999,7 +999,7 @@
         }
       },
       "$type": "color",
-      "$value": "{named-colors-no-severity-meaning.ui-blue}"
+      "$value": "{named-colors.ui-blue}"
     },
     "ui-info-text": {
       "$description": "Info as a text color, for informational text outside an `.ui-info` scope. `--ui-info` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
@@ -1117,7 +1117,7 @@
         }
       },
       "$type": "color",
-      "$value": "{named-colors-no-severity-meaning.ui-green}"
+      "$value": "{named-colors.ui-green}"
     },
     "ui-success-text": {
       "$description": "Success as a text color, for success text outside an `.ui-success` scope, and `ins` and `.ui-ins` text. `--ui-success` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
@@ -1151,7 +1151,7 @@
         }
       },
       "$type": "color",
-      "$value": "{named-colors-no-severity-meaning.ui-orange}"
+      "$value": "{named-colors.ui-orange}"
     },
     "ui-on-warning": {
       "$description": "Text color on a `--ui-warning` fill: the warning `Badge`. White on a warning below 0.182 relative luminance and near-black above it, like `--ui-on-primary`.",
@@ -1683,7 +1683,7 @@
       }
     }
   },
-  "field-input": {
+  "field": {
     "ui-field-border-width": {
       "$description": "Border width for fields, `Checkbox`, `Radio` and `Switch`.",
       "$extensions": {
@@ -1786,7 +1786,7 @@
         }
       },
       "$type": "color",
-      "$value": "{intent-tokens.ui-invalid-text}"
+      "$value": "{intent.ui-invalid-text}"
     },
     "ui-field-border-color": {
       "$description": "Border color of every empty control: `TextField`, `Select`, `Textarea`, the unchecked `Checkbox`, `Radio` and `Switch` unless `--ui-choice-border-color` is set, the `Range` track and the `Progress` outline. `--ui-text-strong` mixed into `--ui-surface` at `--ui-field-border-strength`, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make.",
@@ -3189,27 +3189,6 @@
         "colorSpace": "srgb",
         "components": [0.07459, 0.0875, 0.10427],
         "hex": "#13161B"
-      }
-    },
-    "ui-switch-track-bg-color": {
-      "$description": "Background of the unchecked `Switch` track when `--ui-track-bg-color` is unset.",
-      "$extensions": {
-        "com.figma": {
-          "codeSyntax": {
-            "WEB": "var(--ui-switch-track-bg-color)"
-          },
-          "scopes": ["FRAME_FILL", "SHAPE_FILL"]
-        },
-        "opui": {
-          "oklch": [0.58, 0.01, 255]
-        }
-      },
-      "$type": "color",
-      "$value": {
-        "alpha": 1,
-        "colorSpace": "srgb",
-        "components": [0.46426, 0.48108, 0.50305],
-        "hex": "#767B80"
       }
     }
   },

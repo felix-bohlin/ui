@@ -191,19 +191,19 @@
     "button-group": ["--_border-color"],
     "button": [
       "--_accent",
-      "--_accent-fill",
+      "--_accent-filled",
       "--_accent-text",
       "--_actions-shift",
-      "--_default-active-bg-color",
       "--_filled-active-bg-color",
       "--_icon-size",
       "--_motion",
       "--_on-accent",
-      "--_on-accent-fill",
+      "--_on-accent-filled",
       "--_on-accent-tonal",
       "--_outlined-active-bg-color",
       "--_radius",
-      "--_shadow"
+      "--_shadow",
+      "--_transparent-active-bg-color"
     ],
     "callout": [
       "--_bg-color",
@@ -239,7 +239,7 @@
       "--_button-image-size",
       "--_button-inset",
       "--_button-next-label",
-      "--_button-prev-label",
+      "--_button-previous-label",
       "--_button-scale",
       "--_button-size",
       "--_button-start-flip",
@@ -361,7 +361,7 @@
       "--_duration",
       "--_focus-ring-duration",
       "--_thumb-bg-color",
-      "--_thumb-highlight-bg-color",
+      "--_thumb-ripple-bg-color",
       "--_track-base-bg-color",
       "--_track-bg-color",
       "--_track-fill-bg-color"
@@ -385,7 +385,7 @@
       "--_motion",
       "--_radius",
       "--_scroll-shadow",
-      "--_sticky-offset"
+      "--_sticky-inset"
     ],
     "tabs": [
       "--_duration",

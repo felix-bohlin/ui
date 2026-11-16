@@ -30,10 +30,14 @@ import ValidationNotes from "./partials/ValidationNotes.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
 
+export const description =
+  "An on and off switch for a setting that applies right away."
+
 export const keywords = ["on off", "toggle"]
 ---
 
 <Component
+  description={description}
   slug="switch"
   browserSupport={[
     "alt-text-generated-content",

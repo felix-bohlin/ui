@@ -8,6 +8,7 @@ import {
   axeNodes,
   instantScrolling,
   openFixture,
+  settle,
   stubExternalHosts,
 } from "./fixtures"
 
@@ -59,11 +60,7 @@ for (const component of TARGETS) {
       await overlay.evaluate((dialog) =>
         (dialog as HTMLDialogElement).showModal(),
       )
-      await page.evaluate(() =>
-        Promise.allSettled(
-          document.getAnimations().map((animation) => animation.finished),
-        ),
-      )
+      await settle(overlay)
       await expect(overlay).toBeVisible()
       const opened = await new AxeBuilder({ page }).include(`#${id}`).analyze()
       nodes.push(...axeNodes(opened.violations))
@@ -205,14 +202,14 @@ for (const [width, pages] of [
 }
 
 test("a11y-known-violations.json only lists pages that exist", () => {
-  const scheme = test.info().project.name
-  const prefixes = TARGETS.map((target) => `${scheme}/html/${target}`)
+  const prefixes = ["dark", "light"].flatMap((scheme) =>
+    TARGETS.map((target) => `${scheme}/html/${target}`),
+  )
   expect(
     Object.keys(known).filter(
-      (key) =>
-        key.startsWith(`${scheme}/`) &&
-        !prefixes.some((prefix) => within(key, prefix)),
+      (key) => !prefixes.some((prefix) => within(key, prefix)),
     ),
+    "keys start with dark/ or light/, the projects that run this spec, and a page that exists",
   ).toEqual([])
 })
 

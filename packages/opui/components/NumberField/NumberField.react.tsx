@@ -5,7 +5,6 @@ import { cx } from "../cx"
 import Button from "../Button/Button.react"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
 import { idRefs } from "../id"
-import { minusPath, plusPath } from "./icons"
 import type { Props } from "./types.react"
 
 export default function NumberField({
@@ -85,9 +84,7 @@ export default function NumberField({
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
-              >
-                <path fill="currentColor" d={minusPath} />
-              </svg>
+              />
             ) : (
               decreaseIcon
             )}
@@ -118,9 +115,7 @@ export default function NumberField({
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
-              >
-                <path fill="currentColor" d={plusPath} />
-              </svg>
+              />
             ) : (
               increaseIcon
             )}

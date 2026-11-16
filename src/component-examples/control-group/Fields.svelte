@@ -11,11 +11,11 @@
   } from "opui-css/svelte"
 </script>
 
-<ControlGroup aria-label="Find an order" color="primary" variant="filled">
+<ControlGroup aria-label="Find a bassist" color="primary" variant="filled">
   <TextField
     hideLabel
-    label="Order number or customer name"
-    placeholder="Search orders"
+    label="Bassist name or handle"
+    placeholder="Search bassists"
     type="search"
   />
   <Button>Search</Button>

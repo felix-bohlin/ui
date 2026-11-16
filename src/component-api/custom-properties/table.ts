@@ -31,7 +31,7 @@ export default {
       "Shadow of the stuck header in `.ui-sticky-header`. Defaults to `--ui-shadow-scroll`.",
     kind: "input",
   },
-  "--_sticky-offset": {
+  "--_sticky-inset": {
     description:
       "Distance from the top of the scroll container where the header of `.ui-sticky-header` sticks.",
     kind: "input",

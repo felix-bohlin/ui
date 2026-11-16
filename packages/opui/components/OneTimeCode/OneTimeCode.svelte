@@ -3,13 +3,13 @@
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { idRefs } from "../id"
-  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
     alphanumeric,
     "aria-describedby": ariaDescribedBy,
     "aria-invalid": ariaInvalid,
+    "aria-labelledby": ariaLabelledBy,
     autocapitalize,
     class: className,
     defaultValue,
@@ -38,16 +38,15 @@
     value = next
   }
   const initialValue = untrack(getValue)
-  const named = $derived(Boolean(label))
-  const base = $derived(id || `one-time-code-${uid}`)
-  const inputId = $derived(named ? base : id)
+  const hasLabel = $derived(Boolean(label))
   const hasEndText = $derived(Boolean(endText))
+  const base = $derived(id || `one-time-code-${uid}`)
+  const inputId = $derived(hasLabel ? base : id)
   const endTextId = $derived(hasEndText ? `${base}-end-text` : undefined)
 </script>
 
 <div
   class={[
-    "ui-text-field",
     "ui-one-time-code",
     { "ui-grouped": grouped },
     size && size !== "medium" && `ui-${size}`,
@@ -55,7 +54,7 @@
   ]}
   {style}
 >
-  {#if named}
+  {#if hasLabel}
     <label class="ui-label" for={inputId}>
       {@render content(label)}
     </label>
@@ -64,14 +63,15 @@
     <input
       autocapitalize={autocapitalize ??
         (alphanumeric ? "characters" : undefined)}
-      autocomplete="one-time-code"
       inputmode={inputmode ?? (alphanumeric ? undefined : "numeric")}
       pattern={pattern ??
         (alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`)}
       spellcheck={spellcheck ?? (alphanumeric ? "false" : undefined)}
-      {...defined(rest)}
+      {...rest}
       aria-describedby={idRefs(endTextId, ariaDescribedBy)}
       aria-invalid={error ? "true" : ariaInvalid}
+      aria-labelledby={ariaLabelledBy}
+      autocomplete="one-time-code"
       id={inputId}
       maxlength={length}
       name={name ?? field?.name}

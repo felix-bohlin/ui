@@ -5,7 +5,6 @@ import { cx } from "../cx"
 import Button from "../Button/Button.react"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
 import { idRefs } from "../id"
-import { hidePath, showPath } from "./icons"
 import type { Props } from "./types.react"
 
 export default function TextField({
@@ -16,15 +15,14 @@ export default function TextField({
   characterCount,
   characterCountLabel,
   className,
+  disabled,
   dropZone,
   error,
   hideLabel,
   id,
-  inputMode,
   name,
   passwordToggle,
   passwordToggleLabel = "Show password",
-  pattern,
   size,
   spread,
   style,
@@ -103,11 +101,10 @@ export default function TextField({
           )}
           aria-invalid={error ? "true" : ariaInvalid}
           aria-labelledby={ariaLabelledBy}
+          disabled={disabled}
           id={inputId}
-          inputMode={inputMode ?? (type === "numeric" ? "numeric" : undefined)}
           name={name ?? field?.name}
-          pattern={pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
-          type={type === "numeric" ? "text" : type}
+          type={type}
         />
         {start && (
           <span className="ui-start" id={startId}>
@@ -123,6 +120,7 @@ export default function TextField({
                 aria-pressed="false"
                 command="--toggle-password"
                 commandfor={inputId}
+                disabled={disabled}
                 round
               >
                 {iconUnchecked ? (
@@ -137,9 +135,7 @@ export default function TextField({
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
-                  >
-                    <path fill="currentColor" d={showPath} />
-                  </svg>
+                  />
                 )}
                 {iconChecked ? (
                   <span aria-hidden="true" className="ui-icon-checked">
@@ -153,9 +149,7 @@ export default function TextField({
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
-                  >
-                    <path fill="currentColor" d={hidePath} />
-                  </svg>
+                  />
                 )}
               </Button>
             )}

@@ -2,7 +2,7 @@ const Base = globalThis.HTMLElement ?? class {}
 
 const CHECKBOX = 'input[type="checkbox"]'
 
-export class SelectAll extends Base {
+export class SelectAllElement extends Base {
   #applying = false
   #controller
   #observer
@@ -73,5 +73,5 @@ export class SelectAll extends Base {
 }
 
 if (globalThis.customElements && !customElements.get("opui-select-all")) {
-  customElements.define("opui-select-all", SelectAll)
+  customElements.define("opui-select-all", SelectAllElement)
 }

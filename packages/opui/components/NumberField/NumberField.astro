@@ -5,7 +5,6 @@ import { trimEdges } from "../whitespace"
 import type { Props } from "./types.astro"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
 import { createIds, idRefs } from "../id"
-import { minusPath, plusPath } from "./icons"
 import { cx } from "../cx"
 
 export const title = "Number Field"
@@ -85,9 +84,7 @@ const LabelTag = label || labelSlot ? "label" : Fragment
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" d={minusPath}></path>
-          </svg>
+          ></svg>
         </slot>
       </Button>
     </span>
@@ -116,9 +113,7 @@ const LabelTag = label || labelSlot ? "label" : Fragment
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" d={plusPath}></path>
-          </svg>
+          ></svg>
         </slot>
       </Button>
     </span>

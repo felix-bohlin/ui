@@ -4,8 +4,8 @@ export default function Disabled() {
   return (
     <>
       <Select disabled label="Plan">
-        <option>Team</option>
-        <option>Business</option>
+        <option>Gold</option>
+        <option>Platinum</option>
       </Select>
 
       <Select disabled label="Billing cycle" variant="filled">

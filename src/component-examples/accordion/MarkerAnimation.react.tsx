@@ -6,14 +6,17 @@ export default function MarkerAnimation() {
       <Accordion markerAnimation="flip" variant="outlined">
         <AccordionSummary>Flip</AccordionSummary>
         <AccordionContent>
-          <p>Return any item within 30 days for a full refund.</p>
+          <p>
+            Return any bass within 30 days for a full refund, no awkward
+            questions.
+          </p>
         </AccordionContent>
       </Accordion>
 
       <Accordion markerAnimation="rotate" variant="outlined">
         <AccordionSummary>Rotate</AccordionSummary>
         <AccordionContent>
-          <p>Orders over €50 ship free within the EU.</p>
+          <p>String orders over €50 ship free within the EU.</p>
         </AccordionContent>
       </Accordion>
 
@@ -38,7 +41,7 @@ export default function MarkerAnimation() {
           Turn
         </AccordionSummary>
         <AccordionContent>
-          <p>Pay by card, bank transfer or invoice.</p>
+          <p>Pay by card, bank transfer or a jar of gig money.</p>
         </AccordionContent>
       </Accordion>
     </>

@@ -5,19 +5,19 @@
 <ul role="list" class="ui-layout-grid" style="--_min-inline-size: 10rem">
   <li>
     <Card variant="outlined">
-      <CardContent>Design</CardContent>
+      <CardContent>Bass</CardContent>
     </Card>
   </li>
   <li>
     <Card variant="outlined">
       <CardContent>
-        Engineering: builds and runs the app and the API
+        Drums: keeps the beat and somehow gets all the credit
       </CardContent>
     </Card>
   </li>
   <li>
     <Card variant="outlined">
-      <CardContent>Support</CardContent>
+      <CardContent>Vocals</CardContent>
     </Card>
   </li>
 </ul>

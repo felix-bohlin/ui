@@ -4,7 +4,6 @@ import { useInputAttrs, vSeed } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { idRefs } from "../id"
-import { defined } from "../attrs"
 import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -45,13 +44,13 @@ const field = inject(FieldGroupKey, undefined)
 
 const uid = useId()
 
-const named = () => Boolean(label || slots.label)
+const hasLabel = () => Boolean(label || slots.label)
+
+const hasEndText = () => Boolean(endText || slots["end-text"])
 
 const base = computed(() => id || `one-time-code-${uid}`)
 
-const inputId = () => (named() ? base.value : id)
-
-const hasEndText = () => Boolean(endText || slots["end-text"])
+const inputId = () => (hasLabel() ? base.value : id)
 
 const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
 </script>
@@ -59,7 +58,6 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
 <template>
   <div
     :class="[
-      'ui-text-field',
       'ui-one-time-code',
       { 'ui-grouped': grouped },
       size && size !== 'medium' && `ui-${size}`,
@@ -67,7 +65,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
     ]"
     v-bind="styleAttrs($attrs.style)"
   >
-    <label v-if="named()" class="ui-label" :for="inputId()"
+    <label v-if="hasLabel()" class="ui-label" :for="inputId()"
       >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
     /></label>
     <span class="ui-field">
@@ -75,16 +73,17 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
         :autocapitalize="
           autocapitalize ?? (alphanumeric ? 'characters' : undefined)
         "
-        autocomplete="one-time-code"
         :inputmode="inputmode ?? (alphanumeric ? undefined : 'numeric')"
         :pattern="
           pattern ??
           (alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`)
         "
         :spellcheck="spellcheck ?? (alphanumeric ? 'false' : undefined)"
-        v-bind="defined(attrs)"
+        v-bind="attrs"
         :aria-describedby="idRefs(endTextId(), attrs['aria-describedby'])"
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+        :aria-labelledby="attrs['aria-labelledby']"
+        autocomplete="one-time-code"
         :id="inputId()"
         :maxlength="length"
         :name="name ?? field?.name"

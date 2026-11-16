@@ -7,7 +7,7 @@ export type Paste =
   | { kind: "css"; theme: Theme }
   | { kind: "none" }
 
-const DECLARATION = /(--ui-[a-z\d-]+)\s*:\s*([^;{}]+);/g
+const DECLARATION = /(--ui-[a-z\d-]+)\s*:\s*([^;{}]+)(?:;|(?=\})|$)/g
 
 const COLOR =
   /#(?:[\da-f]{3,4}|[\da-f]{6}|[\da-f]{8})\b|\b(?:rgba?|hsla?|hwb|lab|lch|oklab|oklch|color)\((?:[^()]|\([^()]*\))*\)/gi

@@ -2,9 +2,9 @@ import { Stepper } from "opui-css/react"
 
 const items = [
   { description: "Name and email", label: "Account" },
-  { description: "Free or Pro", label: "Plan" },
-  { description: "Card or invoice", label: "Payment" },
-  { description: "Start building", label: "Done" },
+  { description: "Basic or Gold", label: "Plan" },
+  { description: "Card or gig money", label: "Payment" },
+  { description: "Start jamming", label: "Done" },
 ]
 
 export default function Descriptions() {

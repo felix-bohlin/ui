@@ -21,7 +21,13 @@ declare module "react" {
         HTMLAttributes<HTMLElement>,
         HTMLElement
       > & { label?: string | undefined }
-      "opui-copy": DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
+      "opui-copy": DetailedHTMLProps<
+        HTMLAttributes<HTMLElement>,
+        HTMLElement
+      > & {
+        "copied-label"?: string | undefined
+        "failed-label"?: string | undefined
+      }
       "opui-number-field": DetailedHTMLProps<
         HTMLAttributes<HTMLElement>,
         HTMLElement
@@ -33,7 +39,10 @@ declare module "react" {
       "opui-sortable-table": DetailedHTMLProps<
         HTMLAttributes<HTMLElement>,
         HTMLElement
-      >
+      > & {
+        "ascending-label"?: string | undefined
+        "descending-label"?: string | undefined
+      }
       "opui-text-field": DetailedHTMLProps<
         HTMLAttributes<HTMLElement>,
         HTMLElement
@@ -41,7 +50,11 @@ declare module "react" {
       "opui-toaster": DetailedHTMLProps<
         HTMLAttributes<HTMLElement>,
         HTMLElement
-      > & { duration?: number | undefined; limit?: number | undefined }
+      > & {
+        "close-label"?: string | undefined
+        duration?: number | undefined
+        limit?: number | undefined
+      }
     }
   }
 }

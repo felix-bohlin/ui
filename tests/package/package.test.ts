@@ -251,6 +251,7 @@ test("the tarball ships the package and nothing else", () => {
   for (const file of [
     "LICENSE",
     "README.md",
+    "THIRD-PARTY-NOTICES",
     "astro/index.ts",
     "bin/opui-css.mjs",
     "components/Button/Button.astro",

@@ -5,8 +5,7 @@ import ComponentAPI, { type FrameworkApis } from "./ComponentAPI.astro"
 import type { AstroInstance } from "astro"
 import type { ComponentApi } from "../component-api/types"
 import { TextField } from "opui-css/astro"
-import { components } from "../utils/components"
-import { componentName } from "../utils/names"
+import { componentName, components } from "../utils/components"
 import {
   componentHasFramework,
   FRAMEWORKS,
@@ -71,6 +70,12 @@ for (const path in apiData) {
 const { link } = Astro.locals
 const currentFramework = Astro.locals.framework
 const pages = new Set(components.map((component) => component.slug))
+const sectionOf = (apis: ApiGroup["apis"]) => {
+  const api = Array.isArray(apis) ? apis[0]?.api : undefined
+  return api
+    ? `${api.component.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()}-api`
+    : "api"
+}
 
 const apiList = Object.values(groups)
   .filter(({ folder }) => componentHasFramework(currentFramework, folder))
@@ -85,7 +90,9 @@ const apiList = Object.values(groups)
       title,
       slug,
       apis: group.apis,
-      href: pages.has(page) ? link(`/components/${page}`) : undefined,
+      href: pages.has(page)
+        ? link(`/components/${page}#${sectionOf(group.apis)}`)
+        : undefined,
     }
   })
   .sort((a, b) => a.title.localeCompare(b.title))
@@ -263,6 +270,11 @@ const apiList = Object.values(groups)
     flex-wrap: wrap;
     gap: var(--size-3);
     margin-block: var(--size-5);
+
+    :global(.ui-text-field) {
+      flex: 1 1 16rem;
+      max-inline-size: 24rem;
+    }
   }
 
   .api-filter-status {
@@ -276,11 +288,14 @@ const apiList = Object.values(groups)
   }
 
   .api-section {
-    contain-intrinsic-block-size: auto 40rem;
-    content-visibility: auto;
-    overflow-clip-margin: var(--size-2);
+    & > :global(section) {
+      contain-intrinsic-block-size: auto 40rem;
+      content-visibility: auto;
+      overflow-clip-margin: var(--size-2);
+    }
 
-    &:has(~ :global(.api-section:is(:target, :has(:target)))) {
+    &:has(~ :global(.api-section:is(:target, :has(:target))))
+      > :global(section) {
       content-visibility: visible;
     }
 

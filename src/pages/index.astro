@@ -4,6 +4,7 @@ import "@opui/open-props.css"
 import "/src/styles/base.css"
 import { Font } from "astro:assets"
 import { Progress } from "opui-css/astro"
+import SiteIcons from "../components/SiteIcons.astro"
 import {
   DEFAULT_FRAMEWORK,
   FRAMEWORK_IDS,
@@ -19,7 +20,7 @@ const fallback = `/${DEFAULT_FRAMEWORK}/`
     <Font cssVariable="--font-bricolage-grotesque" preload />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <SiteIcons />
     <link rel="canonical" href={fallback} />
     <meta name="robots" content="noindex" />
     <meta http-equiv="refresh" content={`0; url=${fallback}`} />

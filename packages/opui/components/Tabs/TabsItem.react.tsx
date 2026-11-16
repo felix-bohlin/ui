@@ -3,6 +3,7 @@
 import { useId } from "react"
 import { defined } from "../attrs"
 import { cx } from "../cx"
+import { useSeedChecked } from "../react"
 import { TabsContext, useTabsContext } from "./context.react"
 import { isSelected } from "../ToggleGroup/selection"
 import { warnGroupedChecked } from "../dev"
@@ -15,6 +16,7 @@ export default function TabsItem({
   id,
   name,
   onChange,
+  ref,
   value,
   children,
   ...rest
@@ -25,6 +27,7 @@ export default function TabsItem({
   const tabId = id || `tab-${uid}`
   const grouped = isSelected(parent?.value, value)
   warnGroupedChecked("TabsItem", grouped, checked ?? defaultChecked, "Tabs")
+  const inputRef = useSeedChecked(ref, (input) => parent?.change?.(input))
 
   return (
     <TabsContext value={{ groupName, tabId }}>
@@ -37,6 +40,7 @@ export default function TabsItem({
         type="radio"
         value={value}
         {...defined(rest)}
+        ref={inputRef}
         onChange={(event) => {
           parent?.change?.(event.currentTarget)
           onChange?.(event)

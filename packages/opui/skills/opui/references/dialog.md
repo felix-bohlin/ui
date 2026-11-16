@@ -33,11 +33,12 @@ A window over the page for a question or a short task, modal or not.
 ### Parts
 
 - `.ui-header` (root): Container element.
-- `<button>` (prop `closeLabel`, slot `close-icon`): Closes the dialog. Renders a close icon by default, or the `svg` in `close-icon`.
+- `<button>` (prop `closeButton`, prop `closeLabel`, slot `close-icon`): Closes the dialog, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`.
 
 ### Props and modifiers
 
-- `closeLabel`: `string`. The accessible name of the close button. Set it to add a close button at the end of the title row, which closes its `Dialog` through the dialog's `id`.
+- `closeButton`: `boolean`. Adds a close button at the end of the title row, which closes its `Dialog` through the dialog's `id`.
+- `closeLabel`: `string`, default `"Close"`. The accessible name of the close button.
 
 ### Slots
 
@@ -75,15 +76,15 @@ Outputs: `--_duration` and `--_ease`.
 - `--_actions-padding-inline`: Inline padding of `.ui-actions`. Defaults to `--_padding`. The actions pass it on as `--ui-card-padding`, so a text button at either end keeps its focus ring inside the card.
 - `--_backdrop-bg-color`: Backdrop color of a dialog or drawer. Defaults to `--ui-backdrop-bg-color`.
 - `--_backdrop-blur`: Backdrop filter of a dialog or drawer. Defaults to a `--ui-backdrop-blur` blur.
-- `--_ease`: Easing of the card link border transition and the focus ring animation. Defaults to `--ui-ease`.
+- `--_ease`: Easing of the card link border transition, the focus ring animation and the accordion transitions. Defaults to `--ui-ease`.
 - `--_elevated-bg-color`: Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.
 - `--_elevated-shadow`: Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.
 - `--_footer-gap`: Gap between the items in a dialog's or drawer's `.ui-footer` and between the buttons in its `.ui-actions`. Defaults to `--ui-space-2`.
 - `--_gap`: Gap between the parts. `--ui-space-3`, or `--ui-space-2` in `.ui-dense`. The part after an image subtracts it from its padding.
 - `--_media-inline-size`: Width of the image when it sits at the start of the card, and the start margin of the parts next to it. Defaults to `40%` of the card.
-- `--_motion`: Motion multiplier for the card link border transition and the focus ring animation. `0` turns them off.
+- `--_motion`: Motion multiplier for the card link border transition, the focus ring animation and the accordion transitions. `0` turns them off.
 - `--_outlined-border-color`: Border color of `.ui-outlined`. Defaults to `--ui-border-color`.
-- `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
+- `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset. In an accordion it sets `--_padding-inline`, `--_summary-padding-block` and the block end of `--_content-padding-block`.
 - `--_scroll-shadow`: Shadow at the edges of a dialog's or drawer's `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
 - `--_surface-bg-color`: Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-surface`.
 - `--_title-font-size`: Font size of a dialog's or drawer's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.
@@ -93,7 +94,7 @@ Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor
 
 ## Theme tokens
 
-The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-card-padding`, `--ui-dialog-radius`, `--ui-duration`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-card-padding`, `--ui-dialog-radius`, `--ui-duration`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-icon-close`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -130,12 +131,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
         width="32"
         height="32"
         viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
-        ></path>
-      </svg>
+      ></svg>
     </button>
   </div>
   <div class="ui-content">
@@ -189,7 +185,7 @@ import {
 </Button>
 
 <Dialog id="dialog-basics-1">
-  <DialogHeader closeLabel="Close">
+  <DialogHeader closeButton closeLabel="Close">
     <DialogTitle>Newsletter</DialogTitle>
     <p>Sent by the product team.</p>
   </DialogHeader>
@@ -238,7 +234,7 @@ export default function Basics() {
       </Button>
 
       <Dialog id="dialog-basics-1">
-        <DialogHeader closeLabel="Close">
+        <DialogHeader closeButton closeLabel="Close">
           <DialogTitle>Newsletter</DialogTitle>
           <p>Sent by the product team.</p>
         </DialogHeader>
@@ -287,7 +283,7 @@ export default function Basics() {
 </Button>
 
 <Dialog id="dialog-basics-1">
-  <DialogHeader closeLabel="Close">
+  <DialogHeader closeButton closeLabel="Close">
     <DialogTitle>Newsletter</DialogTitle>
     <p>Sent by the product team.</p>
   </DialogHeader>
@@ -331,7 +327,7 @@ import {
   </Button>
 
   <Dialog id="dialog-basics-1">
-    <DialogHeader closeLabel="Close">
+    <DialogHeader closeButton closeLabel="Close">
       <DialogTitle>Newsletter</DialogTitle>
       <p>Sent by the product team.</p>
     </DialogHeader>

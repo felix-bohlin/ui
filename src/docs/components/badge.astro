@@ -14,7 +14,7 @@ import BadgeCSS from "@opui/css/components/badge.css?raw"
 import badgeApi from "../../component-api/badge/api"
 import BadgeBuild from "../../components/UnderTheHood/BadgeBuild.astro"
 export const description =
-  "Badges attach a small count or status dot to another element."
+  "A small count or status dot on the corner of another element."
 
 export const keywords = ["counter", "dot", "indicator", "notification count"]
 ---
@@ -41,6 +41,10 @@ export const keywords = ["counter", "dot", "indicator", "notification count"]
   installationTabs={[{ title: "badge.css", code: BadgeCSS, lang: "css" }]}
 >
   <Fragment slot="title">Badge</Fragment>
+  <Fragment slot="preamble">
+    A count or status on another element, like unread messages on an icon. For a
+    status in words, use a <DocLink href="/components/chip">Chip</DocLink>.
+  </Fragment>
 
   <Usage slot="usage">
     <li slot="when">A count on an icon, like unread messages.</li>

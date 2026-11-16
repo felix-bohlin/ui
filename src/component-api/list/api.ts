@@ -55,6 +55,14 @@ export default {
       prop: "flush",
     },
     {
+      default: '"list"',
+      description:
+        "The `role` of the `<ul>`, such as `listbox`. `list` keeps Safari announcing a list.",
+      inherited: true,
+      prop: "role",
+      type: "string",
+    },
+    {
       default: '"filled"',
       description: "The variant to use.",
       group: "Variants",

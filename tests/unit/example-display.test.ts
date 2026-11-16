@@ -122,6 +122,14 @@ describe("cssRules", () => {
     ])
   })
 
+  test("reads generated content under a selector list the formatter wraps", () => {
+    expect(
+      cssRules(
+        ':where(\n  .a,\n  .b\n) {\n  & > .c::after { content: "*" }\n}',
+      ).map(({ pseudo, text }) => [pseudo, text.replace(/\s+/g, " ")]),
+    ).toEqual([["after", ":is(:where( .a, .b )) > .c ::after"]])
+  })
+
   test.each([
     ["@media (width > 1px) { .a { display: flex } }", "@media"],
     ["@layer nope { .a { display: flex } }", "the layer nope"],

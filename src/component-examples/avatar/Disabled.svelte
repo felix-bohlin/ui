@@ -3,12 +3,12 @@
 </script>
 
 <Avatar as="button"
-  ><span aria-label="Hakki Hälinen" role="img">HH</span></Avatar
+  ><span aria-label="Holly Humbucker" role="img">HH</span></Avatar
 >
 <Avatar as="button" disabled
-  ><span aria-label="Inga Halonen" role="img">IH</span></Avatar
+  ><span aria-label="Ines Hertz" role="img">IH</span></Avatar
 >
-<Avatar href="#"><span aria-label="Lena Handén" role="img">LH</span></Avatar>
+<Avatar href="#"><span aria-label="Lou Headstock" role="img">LH</span></Avatar>
 <Avatar disabled href="#"
-  ><span aria-label="Pekka Gåpåbottanen" role="img">PG</span></Avatar
+  ><span aria-label="Percy Groove" role="img">PG</span></Avatar
 >

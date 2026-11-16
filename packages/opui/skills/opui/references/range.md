@@ -1,6 +1,6 @@
 # Range
 
-Range lets users pick a number by sliding a thumb along a track.
+A slider for picking a number by moving a thumb along a track.
 
 - CSS: `opui-css/css/components/range.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/range.md), [Astro](https://opui.dev/astro/components/range.md), [React](https://opui.dev/react/components/range.md), [Svelte](https://opui.dev/svelte/components/range.md), [Vue](https://opui.dev/vue/components/range.md).
@@ -24,6 +24,7 @@ Range lets users pick a number by sliding a thumb along a track.
 - `hideLabel`: `boolean`, `.ui-range > span.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
 - `id`: `string`. The id of the `<input>`. Generated when omitted and the value is shown. The ids the component generates start with it: `x-label`, `x-start-text`, `x-end-text` and `x-list` for `id="x"`.
 - `items`: `RangeItem[]`. Tick marks, rendered as `<option>` elements in a `<datalist>`. Each is a value, or a `{ label, value }` object for a labeled tick. Without `valueSuffix`, the label of the tick at the value is the input's `aria-valuetext`.
+- `lang`: `string`. The language of the `<label>`, which formats the shown value with `Intl.NumberFormat`. Without it, the value is formatted in English until `opui-css/css/js/range.js` formats it for the closest `lang` in the page.
 - `list`: `string`. The id of the `<datalist>`. Generated when `items` or the `datalist` slot is used.
 - `max`: `number | string`, default `100`. The largest value of the `<input>`.
 - `min`: `number | string`, default `0`. The smallest value of the `<input>`.
@@ -32,14 +33,14 @@ Range lets users pick a number by sliding a thumb along a track.
 - `spread`: `boolean`, `.ui-spread`. Pushes the label and start text to one side and the input to the other.
 - `step`: `number | string`, default `1`. The step between values of the `<input>`. Without a `value`, the slider starts at the step nearest the middle.
 - `value`: `number | string`. The current value.
-- `valueSuffix`: `string`. Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`.
+- `valueSuffix`: `string`. Text after the shown value, such as `%`. Setting it shows the current value in an `<output>` and as the input's `aria-valuetext`, formatted for `lang` with the decimals of `min` and `step` and no grouping.
 - `variant`: `"filled"` (`.ui-filled`), `"outlined"` (default), `"tonal"` (`.ui-tonal`). The variant to use. The default `outlined` track uses `--ui-track-bg-color`, or the field border color when the theme doesn't set it.
 
 Model: `value` (`number | string`), the current value. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes
 
-- HTML: Add a `<datalist aria-hidden="true">` after the input for tick marks. `data-suffix` on the `.ui-value` output adds text after the value.
+- HTML: Add a `<datalist aria-hidden="true">` after the input for tick marks. `data-suffix` on the `.ui-value` output adds text after the value, which `range.js` formats for the closest `lang`.
 - Astro, Svelte and Vue: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`.
 - React: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `className` and `style` go to the root `<label>`. Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.
 
@@ -49,16 +50,16 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### range.css
 
-- `--_accent`: Color of the thumb, its ring and the track fill. Defaults to `--ui-choice-accent`, then `--ui-control-accent`, then `--ui-primary`, and is set by the invalid state.
-- `--_ease`: Easing of the thumb ring transition and focus ring. Defaults to `--ui-ease`.
-- `--_motion`: Motion multiplier for the thumb highlight and focus ring. `0` turns them off.
+- `--_accent`: Color of the thumb, its ripple and the track fill. Defaults to `--ui-choice-accent`, then `--ui-control-accent`, then `--ui-primary`, and is set by the invalid state.
+- `--_ease`: Easing of the thumb ripple transition and focus ring. Defaults to `--ui-ease`.
+- `--_motion`: Motion multiplier for the thumb ripple and focus ring. `0` turns them off.
 - `--_thumb-border-width`: Width of the page-colored ring between the thumb and the track. Set on the `<input>`.
 - `--_thumb-size`: Width and height of the thumb. Set by the sizes, and larger on touch screens at every size but `.ui-large`.
 - `--_track-base-bg-color`: Color of the empty track at rest. `--ui-track-bg-color` when the theme sets it, otherwise the field border, and `--ui-surface` under more contrast; set by `.ui-filled` and `.ui-tonal`.
 - `--_track-block-size`: Height of the track. Set by the sizes.
 - `--_track-radius`: Corner radius of the track.
 
-Outputs: `--_duration`, `--_focus-ring-duration`, `--_forced-fill-bg-color`, `--_forced-track-bg-color`, `--_padding`, `--_thumb-bg-color`, `--_thumb-highlight-bg-color`, `--_thumb-highlight-size`, `--_thumb-offset`, `--_track-bg-color`, `--_track-fill-bg-color` and `--_track-fill-fraction`.
+Outputs: `--_duration`, `--_focus-ring-duration`, `--_forced-fill-bg-color`, `--_forced-track-bg-color`, `--_padding`, `--_thumb-bg-color`, `--_thumb-offset`, `--_thumb-ripple-bg-color`, `--_thumb-ripple-size`, `--_track-bg-color`, `--_track-fill-bg-color` and `--_track-fill-fraction`.
 
 ## Theme tokens
 

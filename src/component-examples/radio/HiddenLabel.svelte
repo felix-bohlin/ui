@@ -21,30 +21,30 @@
   <TableBody>
     <TableRow>
       <TableCell>
-        <Radio hideLabel name="radio-hidden-label" value="starter"
-          >Pick Starter</Radio
+        <Radio hideLabel name="radio-hidden-label" value="basic"
+          >Pick Basic</Radio
         >
       </TableCell>
-      <TableCell>Starter</TableCell>
+      <TableCell>Basic</TableCell>
       <TableCell>€0</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <Radio defaultChecked hideLabel name="radio-hidden-label" value="team"
-          >Pick Team</Radio
+        <Radio defaultChecked hideLabel name="radio-hidden-label" value="gold"
+          >Pick Gold</Radio
         >
       </TableCell>
-      <TableCell>Team</TableCell>
-      <TableCell>€12</TableCell>
+      <TableCell>Gold</TableCell>
+      <TableCell>€3</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <Radio hideLabel name="radio-hidden-label" value="business"
-          >Pick Business</Radio
+        <Radio hideLabel name="radio-hidden-label" value="platinum"
+          >Pick Platinum</Radio
         >
       </TableCell>
-      <TableCell>Business</TableCell>
-      <TableCell>€24</TableCell>
+      <TableCell>Platinum</TableCell>
+      <TableCell>€5</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -55,7 +55,9 @@
     hideLabel
     name="radio-hidden-label-shipping"
     value="home">Home</Radio
-  > home or <Radio hideLabel name="radio-hidden-label-shipping" value="office"
-    >Office</Radio
-  > the office.
+  > home or <Radio
+    hideLabel
+    name="radio-hidden-label-shipping"
+    value="rehearsal">Rehearsal space</Radio
+  > the rehearsal space.
 </p>

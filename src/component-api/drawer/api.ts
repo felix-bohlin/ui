@@ -44,7 +44,7 @@ export default {
       class: ".ui-scroll-lock",
       default: "false",
       description:
-        "Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px.",
+        "Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`.",
       group: "Scroll lock",
       prop: "scrollLock",
     },
@@ -65,7 +65,7 @@ export default {
     {
       component: "DrawerHeader",
       description:
-        "The header, a row for the title and anything next to it, with a close button.",
+        "The header, a row for the title and anything next to it, with an optional close button.",
       selector: ".ui-header",
     },
     {

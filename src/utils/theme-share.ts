@@ -1,4 +1,5 @@
 import { isSafeToken, normalizeTheme, type Theme } from "./theme"
+import { ICON_TOKENS, iconLibraryOf, iconTokensOf } from "./theme-icons"
 
 export const SHARE_PARAM = "theme"
 
@@ -21,8 +22,25 @@ const fromBase64Url = (value: string) => {
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === "object" && value !== null && !Array.isArray(value)
 
-export const encodeTheme = ({ preset, tokens }: Theme) =>
-  toBase64Url(JSON.stringify(normalizeTheme({ preset, tokens })))
+export const encodeTheme = ({ preset, tokens }: Theme) => {
+  const theme = normalizeTheme({ preset, tokens })
+  const icons = iconLibraryOf(theme.tokens)
+  return toBase64Url(
+    JSON.stringify(
+      icons
+        ? {
+            icons,
+            preset: theme.preset,
+            tokens: Object.fromEntries(
+              Object.entries(theme.tokens).filter(
+                ([name]) => !ICON_TOKENS.includes(name),
+              ),
+            ),
+          }
+        : theme,
+    ),
+  )
+}
 
 export const decodeTheme = (value: string | null | undefined) => {
   if (!value || value.length > MAX_LENGTH || !/^[\w-]+$/.test(value)) {
@@ -43,7 +61,12 @@ export const decodeTheme = (value: string | null | undefined) => {
     ) {
       return null
     }
-    return normalizeTheme(parsed)
+    const icons =
+      typeof parsed.icons === "string" ? iconTokensOf(parsed.icons) : null
+    return normalizeTheme({
+      ...parsed,
+      tokens: { ...parsed.tokens, ...icons },
+    })
   } catch {
     return null
   }

@@ -6,15 +6,14 @@ import type { Props } from "./types.astro"
 import { defined } from "../attrs"
 import { calloutContext } from "./context.astro"
 import { cx } from "../cx"
-import { closePath } from "./icons"
 import { createIds } from "../id"
 
 export const title = "Callout"
 
 const {
   class: className,
+  closeButton,
   closeLabel = "Close",
-  dismissible,
   id,
   severity,
   variant,
@@ -22,8 +21,8 @@ const {
 } = Astro.props
 
 const ids = createIds(Astro.locals, "callout", id)
-const Root = dismissible ? "opui-callout" : "article"
-const rootId = dismissible ? ids() : id
+const Root = closeButton ? "opui-callout" : "article"
+const rootId = closeButton ? ids() : id
 
 const html = await calloutContext.provide({ severity }, () =>
   Astro.slots.render("default"),
@@ -38,10 +37,10 @@ const html = await calloutContext.provide({ severity }, () =>
     className,
   ])}
   id={rootId}
-  role={dismissible ? "article" : undefined}
+  role={closeButton ? "article" : undefined}
   {...defined(rest)}
 >
-  <Fragment set:html={html} />{dismissible && <Button
+  <Fragment set:html={html} />{closeButton && <Button
     aria-label={closeLabel}
     command="--dismiss"
     commandfor={rootId}
@@ -55,9 +54,7 @@ const html = await calloutContext.provide({ severity }, () =>
         width="32"
         height="32"
         viewBox="0 0 32 32"
-      >
-        <path fill="currentColor" d={closePath} />
-      </svg>
+      ></svg>
     </slot>
   </Button>}
 </Root>

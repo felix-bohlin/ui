@@ -24,7 +24,7 @@ const setup = `@import "opui-css/css/imports.css";
   scrollLock
   side="inline-end"
 >
-  <DrawerHeader>
+  <DrawerHeader closeButton>
     <DrawerTitle>Export</DrawerTitle>
   </DrawerHeader>
   <DrawerContent class="builder-export">
@@ -83,6 +83,7 @@ const setup = `@import "opui-css/css/imports.css";
   import { highlightCode } from "../../utils/syntax-highlight"
   import { exportCss, themeFontIds, themeStore } from "../../utils/theme"
   import { WEB_FONTS, firstFamily } from "../../utils/theme-fonts"
+  import { iconExport } from "../../utils/theme-icons"
   import { resolveTokens, tokensExport } from "../../utils/tokens-export"
 
   const section = document.querySelector<HTMLElement>(".builder-export")
@@ -155,7 +156,7 @@ const setup = `@import "opui-css/css/imports.css";
     const render = () => {
       frame = 0
       const theme = themeStore.get()
-      css = exportCss(theme)
+      css = exportCss(theme, iconExport(theme.tokens))
       code.textContent = css
       highlightCode()
       const lines = css.trimEnd().split("\n").length

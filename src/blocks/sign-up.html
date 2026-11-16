@@ -41,8 +41,8 @@
   >
     <div class="ui-card ui-outlined ui-spacious">
       <hgroup>
-        <h1 class="ui-h4">Create your Northwind account</h1>
-        <p>Free for 14 days. No credit card needed.</p>
+        <h1 class="ui-h4">Join Bassbook!</h1>
+        <p>Finally, a place where people actually listen to the bassist.</p>
       </hgroup>
       <div class="ui-content">
         <form class="ui-form" action="#">
@@ -54,7 +54,7 @@
                   <input
                     autocomplete="given-name"
                     name="first-name"
-                    placeholder="Ranta"
+                    placeholder="Rory"
                     required
                     type="text"
                   />
@@ -66,7 +66,7 @@
                   <input
                     autocomplete="family-name"
                     name="last-name"
-                    placeholder="Runtiringen"
+                    placeholder="Rootnote"
                     required
                     type="text"
                   />
@@ -74,12 +74,12 @@
               </label>
             </div>
             <label class="ui-text-field">
-              <span class="ui-label">Work email</span>
+              <span class="ui-label">Email</span>
               <span class="ui-field">
                 <input
                   autocomplete="email"
                   name="email"
-                  placeholder="ranta.runtiringen@company.com"
+                  placeholder="rory@lowend.example"
                   required
                   type="email"
                 />
@@ -96,7 +96,7 @@
                   name="password"
                   required
                   type="password"
-                  value="correct-horse-42"
+                  value="four-strings-4ever"
                 />
                 <span class="ui-end">
                   <button
@@ -137,7 +137,8 @@
                 </span>
               </span>
               <span class="ui-end-text" id="sign-up-password-hint"
-                >At least 12 characters, with a number or a symbol.</span
+                >At least 12 characters, with a number or a symbol. Go
+                wild!</span
               >
             </opui-text-field>
             <div class="ui-layout-column ui-x-small">
@@ -160,61 +161,65 @@
           </div>
 
           <fieldset class="ui-fieldset">
-            <legend>Plan</legend>
-            <p class="ui-description">You can switch plans at any time.</p>
+            <legend>Membership</legend>
+            <p class="ui-description">
+              Switch whenever you like, no hard feelings!
+            </p>
             <ul class="ui-list ui-bordered ui-transparent sign-up-plans">
               <li>
-                <label class="ui-radio" for="sign-up-plan-starter">
+                <label class="ui-radio" for="sign-up-plan-basic">
                   <div class="ui-text">
-                    <p>Starter</p>
-                    <p>Up to 3 projects for one person.</p>
+                    <p>Basic</p>
+                    <p>A profile, a wall and all the sympathy you need.</p>
                   </div>
                   <div class="ui-end">
                     <span class="ui-tabular-nums sign-up-price">€0</span>
                     <input
-                      id="sign-up-plan-starter"
+                      id="sign-up-plan-basic"
                       name="sign-up-plan"
                       type="radio"
-                      value="starter"
+                      value="basic"
                     />
                   </div>
                 </label>
               </li>
               <li>
-                <label class="ui-radio" for="sign-up-plan-team">
+                <label class="ui-radio" for="sign-up-plan-gold">
                   <div class="ui-text">
-                    <p>Team</p>
-                    <p>Unlimited projects and shared workspaces.</p>
+                    <p>Gold</p>
+                    <p>A shiny gold name and unlimited photos of your gear.</p>
                   </div>
                   <div class="ui-end">
                     <span class="ui-tabular-nums sign-up-price"
-                      >€12 / user</span
+                      >€3 / month</span
                     >
                     <input
                       checked
-                      id="sign-up-plan-team"
+                      id="sign-up-plan-gold"
                       name="sign-up-plan"
                       type="radio"
-                      value="team"
+                      value="gold"
                     />
                   </div>
                 </label>
               </li>
               <li>
-                <label class="ui-radio" for="sign-up-plan-business">
+                <label class="ui-radio" for="sign-up-plan-platinum">
                   <div class="ui-text">
-                    <p>Business</p>
-                    <p>SSO, audit logs and priority support.</p>
+                    <p>Platinum</p>
+                    <p>
+                      Everything in Gold, and your posts are always 10% louder.
+                    </p>
                   </div>
                   <div class="ui-end">
                     <span class="ui-tabular-nums sign-up-price"
-                      >€29 / user</span
+                      >€5 / month</span
                     >
                     <input
-                      id="sign-up-plan-business"
+                      id="sign-up-plan-platinum"
                       name="sign-up-plan"
                       type="radio"
-                      value="business"
+                      value="platinum"
                     />
                   </div>
                 </label>
@@ -236,29 +241,30 @@
             <label class="ui-checkbox">
               <input name="updates" type="checkbox" />
               <span class="ui-label"
-                >Send me product updates, about once a month.</span
+                >Send me the Bassbook newsletter, about once a month. It has
+                tabs!</span
               >
             </label>
             <button class="ui-button ui-filled sign-up-submit" type="submit">
-              Create account
+              Sign me up!
             </button>
           </div>
         </form>
 
         <p class="sign-up-footer">
-          Already have an account?
-          <a class="ui-link" href="#sign-up-sign-in">Sign in</a>
+          Already a member?
+          <a class="ui-link" href="#sign-up-sign-in">Log in</a>
         </p>
       </div>
     </div>
 
     <aside
-      aria-label="Why Northwind"
+      aria-label="Why Bassbook"
       class="ui-layout-column ui-large sign-up-aside"
     >
       <hgroup class="ui-hgroup">
-        <p class="ui-overline">Why teams switch</p>
-        <h2 class="ui-h3">Plan, ship and report in one place</h2>
+        <p class="ui-overline">Why bassists join</p>
+        <h2 class="ui-h3">The only crowd that watches your fingers</h2>
       </hgroup>
       <ul class="ui-list ui-transparent ui-flush">
         <li>
@@ -278,7 +284,7 @@
           </div>
           <div class="ui-text">
             <p>Set up in minutes</p>
-            <p>Import from Jira, Linear or a CSV file.</p>
+            <p>Bring your gear list, your tabs and your grudges.</p>
           </div>
         </li>
         <li>
@@ -297,8 +303,8 @@
             </svg>
           </div>
           <div class="ui-text">
-            <p>Your data stays in the EU</p>
-            <p>Hosted in Stockholm and Frankfurt.</p>
+            <p>People actually listen</p>
+            <p>Every post gets read, even the ones about tone.</p>
           </div>
         </li>
         <li>
@@ -318,14 +324,15 @@
           </div>
           <div class="ui-text">
             <p>Cancel any time</p>
-            <p>Export everything with one click.</p>
+            <p>Take all your stuff with you in one click.</p>
           </div>
         </li>
       </ul>
       <blockquote class="ui-blockquote">
-        “We moved 40 people over in an afternoon. Nobody has asked to go back.”
+        “My band still won't let me pick the songs, but here 300 people liked my
+        pedalboard!”
         <footer>
-          Pekka Gåpåbottanen, <cite>Head of Product at Lindqvist &amp; Co</cite>
+          Percy Groove, <cite>bassist in Brad and the Brads</cite>
         </footer>
       </blockquote>
     </aside>

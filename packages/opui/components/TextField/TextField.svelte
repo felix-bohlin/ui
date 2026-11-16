@@ -6,7 +6,6 @@
   import Button from "../Button/Button.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { idRefs } from "../id"
-  import { hidePath, showPath } from "./icons"
   import type { Props } from "./types.svelte"
 
   let {
@@ -18,15 +17,14 @@
     characterCountLabel,
     class: className,
     defaultValue,
+    disabled,
     dropZone,
     error,
     hideLabel,
     id,
-    inputmode,
     name,
     passwordToggle,
     passwordToggleLabel = "Show password",
-    pattern,
     size,
     spread,
     style,
@@ -116,11 +114,10 @@
       )}
       aria-invalid={error ? "true" : ariaInvalid}
       aria-labelledby={named ? idRefs(labelId, startId, endId) : ariaLabelledBy}
+      {disabled}
       id={inputId}
-      inputmode={inputmode ?? (type === "numeric" ? "numeric" : undefined)}
       name={name ?? field?.name}
-      pattern={pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
-      type={type === "numeric" ? "text" : type}
+      {type}
       bind:value={getValue, setValue}
       defaultValue={defaultValue ?? initialValue}
     />
@@ -137,6 +134,7 @@
             aria-pressed="false"
             command="--toggle-password"
             commandfor={inputId}
+            {disabled}
             round
           >
             {#if iconUnchecked}
@@ -151,9 +149,7 @@
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
-              >
-                <path fill="currentColor" d={showPath} />
-              </svg>
+              ></svg>
             {/if}{#if iconChecked}
               <span aria-hidden="true" class="ui-icon-checked">
                 {@render iconChecked()}
@@ -166,9 +162,7 @@
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
-              >
-                <path fill="currentColor" d={hidePath} />
-              </svg>
+              ></svg>
             {/if}
           </Button>
         {/if}

@@ -14,7 +14,7 @@
   "Range.list": "Set from the `datalist` slot, which the Tick marks examples show.",
   "SortableTable.ascendingLabel": "Names a control the component renders, for translation; it changes no markup a reader compares.",
   "SortableTable.descendingLabel": "Names a control the component renders, for translation; it changes no markup a reader compares.",
-  "StepperItem.completedLabel": "Names a control the component renders, for translation; it changes no markup a reader compares.",
+  "StepperItem.completeLabel": "Names a control the component renders, for translation; it changes no markup a reader compares.",
   "StepperItem.errorLabel": "Names a control the component renders, for translation; it changes no markup a reader compares.",
   "TabsItem.name": "Generated from the Tabs group; a TabsItem outside a Tabs is not a documented use.",
   "TextField.characterCountLabel": "Names a control the component renders, for translation; it changes no markup a reader compares.",

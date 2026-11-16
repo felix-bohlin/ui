@@ -6,16 +6,23 @@ import Code from "../../components/Code.astro"
 import DocLink from "../../components/DocLink.astro"
 import LayoutCSS from "@opui/css/components/layout.css?raw"
 
+import layoutApi from "../../component-api/layout/api"
+
+export const description =
+  "Classes for the space between components, in columns, rows and grids."
+
 export const keywords = ["columns", "container", "grid", "stack"]
 ---
 
 <Component
+  description={description}
   slug="layout"
   browserSupport={["container-queries", "gap-decorations"]}
   fallbacks={{
     "gap-decorations":
-      "Without gap decorations, a divided layout keeps its gaps but draws no lines in them.",
+      "Without gap decorations, a bordered layout keeps its gaps but draws no lines in them.",
   }}
+  apis={[{ title: "Layout API", api: layoutApi }]}
   changelogPaths={[
     { path: "src/docs/components/layout.astro", type: "docs" },
     { path: "src/component-examples/layout", type: "docs" },
@@ -122,14 +129,14 @@ export const keywords = ["columns", "container", "grid", "stack"]
     <AutoExample name="Gap" />
   </section>
 
-  <section id="divided">
-    <h2>Divided</h2>
+  <section id="bordered">
+    <h2>Bordered</h2>
     <p>
-      Use <code>.ui-divided</code> to draw a line in each gap. A line only runs
+      Use <code>.ui-bordered</code> to draw a line in each gap. A line only runs
       between two children, so a wrapped row or a short last row gets no stray
       one. Set its color with <code>--_divider-border-color</code>.
     </p>
-    <AutoExample name="Divided" />
+    <AutoExample name="Bordered" />
   </section>
 
   <section id="container">

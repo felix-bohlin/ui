@@ -2,7 +2,7 @@ import { Chip, Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/react"
 
 export default function IconsAndCounts() {
   return (
-    <Tabs aria-label="Mailbox" name="tabs-icons-and-counts-1" variant="line">
+    <Tabs name="tabs-icons-and-counts-1" variant="line">
       <TabsItem defaultChecked>
         <TabsLabel>
           <svg
@@ -20,7 +20,7 @@ export default function IconsAndCounts() {
           Inbox
           <Chip as="span" label="12" size="x-small" />
         </TabsLabel>
-        <TabsPanel>12 unread messages from customers.</TabsPanel>
+        <TabsPanel>12 unread messages from fellow bassists.</TabsPanel>
       </TabsItem>
       <TabsItem>
         <TabsLabel>

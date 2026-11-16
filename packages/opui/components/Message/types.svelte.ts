@@ -4,4 +4,4 @@ import type { Snippet } from "svelte"
 
 export type Props = Base.Props & Base.Slots<Snippet> & SvelteHTMLElements["li"]
 
-export type MessagesProps = Base.MessagesProps & SvelteHTMLElements["ol"]
+export type MessageListProps = Base.MessageListProps & SvelteHTMLElements["ol"]

@@ -8,6 +8,7 @@ import {
   instantScrolling,
   resolveColor,
   stubExternalHosts,
+  supports,
 } from "./fixtures"
 
 const pages = (directory: string, prefix = "/html") =>
@@ -810,7 +811,11 @@ test("a long section heading takes the content width, passes under the header li
   expect(width).toBe(paragraphWidth)
   expect(width).toBeGreaterThan(copyMaxWidth)
 
-  if (await page.evaluate(() => CSS.supports("anchor-name", "--a"))) {
+  if (
+    await supports(page, "anchor positioning", () =>
+      CSS.supports("anchor-name", "--a"),
+    )
+  ) {
     await page.evaluate(async (y) => {
       scrollTo(0, y)
       await new Promise(requestAnimationFrame)
@@ -903,7 +908,9 @@ test("a long section heading takes the content width, passes under the header li
   }
 
   if (
-    await page.evaluate(() => CSS.supports("container-type", "scroll-state"))
+    await supports(page, "scroll-state container queries", () =>
+      CSS.supports("container-type", "scroll-state"),
+    )
   ) {
     await expect(heading.locator("> span")).toHaveCSS("opacity", "0")
     await expect(heading.locator("> .header-anchor")).toHaveCSS("opacity", "0")

@@ -3,6 +3,7 @@ import "@opui/css/imports.css"
 import "@opui/open-props.css"
 import "/src/styles/base.css"
 import Footer from "../components/Footer.astro"
+import SiteIcons from "../components/SiteIcons.astro"
 import { Font } from "astro:assets"
 import {
   DEFAULT_FRAMEWORK,
@@ -63,7 +64,7 @@ const markdownUrl = hasMarkdown
     <Font cssVariable="--font-bricolage-grotesque" preload />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <SiteIcons />
     {!noindex && <link rel="canonical" href={canonicalURL} />}
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link

@@ -32,7 +32,7 @@ export default defineConfig({
     {
       name: "firefox",
       retries: 1,
-      testIgnore: /\/(a11y|themes|visual)\.spec\.ts$/,
+      testIgnore: /\/(a11y|icons|themes|visual)\.spec\.ts$/,
       use: {
         ...devices["Desktop Firefox"],
         actionTimeout: 10_000,
@@ -42,7 +42,7 @@ export default defineConfig({
     {
       name: "webkit",
       retries: 1,
-      testIgnore: /\/(a11y|themes|visual)\.spec\.ts$/,
+      testIgnore: /\/(a11y|icons|themes|visual)\.spec\.ts$/,
       use: {
         ...devices["Desktop Safari"],
         actionTimeout: 10_000,

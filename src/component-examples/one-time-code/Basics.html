@@ -1,15 +1,21 @@
-<label class="ui-text-field ui-one-time-code">
-  <span class="ui-label">Verification code</span>
+<label class="ui-one-time-code">
+  <span class="ui-label" id="one-time-code-basics-1-label"
+    >Verification code</span
+  >
   <span class="ui-field">
     <input
-      autocomplete="one-time-code"
       inputmode="numeric"
       pattern="[0-9]{6}"
       required
+      aria-describedby="one-time-code-basics-1-end-text"
+      aria-labelledby="one-time-code-basics-1-label"
+      autocomplete="one-time-code"
       maxlength="6"
       name="code"
       type="text"
     />
   </span>
-  <span class="ui-end-text">The code expires in 10 minutes.</span>
+  <span class="ui-end-text" id="one-time-code-basics-1-end-text"
+    >The code expires in 10 minutes.</span
+  >
 </label>

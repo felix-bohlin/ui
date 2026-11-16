@@ -4,10 +4,10 @@ export default function Validation() {
   return (
     <>
       <div className="example-row">
-        <TextField label="Full name" placeholder="Hakki Hälinen" required />
+        <TextField label="Full name" placeholder="Holly Humbucker" required />
         <TextField
           label="Email"
-          placeholder="name@example.com"
+          placeholder="name@lowend.example"
           required
           type="email"
           variant="filled"
@@ -17,15 +17,15 @@ export default function Validation() {
       <div className="example-row">
         <TextField
           defaultValue="ada"
-          endText="This username is taken. Try another one."
+          endText="Whoops, this username is taken. Try another one."
           error
           label="Username"
         />
         <TextField
-          defaultValue="SPRING23"
-          endText="This code has expired."
+          defaultValue="STRINGS23"
+          endText="Bummer, this code has expired."
           error
-          label="Discount code"
+          label="Gear discount code"
           variant="filled"
         />
       </div>

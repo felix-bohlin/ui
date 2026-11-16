@@ -1,6 +1,6 @@
 {
   "name": "opui-css",
-  "version": "6.0.0-rc.3",
+  "version": "6.0.0-rc.4",
   "description": "Design system. Components. Modern HTML & CSS. HTML, Astro, React, Svelte and Vue. The tokens started from Open Props, and the components don't need it.",
   "type": "module",
   "license": "MIT",
@@ -61,7 +61,8 @@
     "LICENSE",
     "MIGRATING-legacy.md",
     "MIGRATING.md",
-    "README.md"
+    "README.md",
+    "THIRD-PARTY-NOTICES"
   ],
   "style": "./dist/opui.css",
   "svelte": "./dist/svelte/index.js",

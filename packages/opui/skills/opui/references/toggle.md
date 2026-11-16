@@ -1,6 +1,6 @@
 # Toggle
 
-Toggle buttons and toggle groups switch options on and off, alone or as a set.
+Buttons that switch options on and off, alone or in a group, like bold in a toolbar.
 
 - CSS: `opui-css/css/components/toggle-group.css` and `opui-css/css/components/toggle-button.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/toggle.md), [Astro](https://opui.dev/astro/components/toggle.md), [React](https://opui.dev/react/components/toggle.md), [Svelte](https://opui.dev/svelte/components/toggle.md), [Vue](https://opui.dev/vue/components/toggle.md).
@@ -20,6 +20,7 @@ Toggle buttons and toggle groups switch options on and off, alone or as a set.
 - `onValueChange` (React): `(value: string | string[]) => void`. Called with the new selection when a button is toggled.
 - `orientation`: `"horizontal"` (default), `"vertical"` (`.ui-vertical`). The orientation of the element.
 - `overflow`: `"scroll"` (`.ui-overflow-scroll`), `"shrink"` (`.ui-overflow-shrink`), `"wrap"` (default). What the items do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size.
+- `role`: `string`. The `role` of the root, such as `toolbar`. Without it, `radiogroup`, or `group` with `multiple`.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the buttons.
 - `value` (Astro and React): `string | string[]`. The value of the checked button, or the values of the checked buttons with `multiple`. The buttons whose `value` matches are checked, and their own `checked` is ignored.
 

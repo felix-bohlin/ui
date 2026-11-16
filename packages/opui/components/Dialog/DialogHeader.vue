@@ -4,24 +4,23 @@ import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
 import { DialogKey } from "./context.vue"
 import { warnMissingCloseTarget } from "../dev"
-import { closePath } from "./icons"
 import type {
   DialogHeaderProps as Props,
   DialogHeaderSlots,
 } from "./types.vue-props"
 
-const { closeLabel } = defineProps<Props>()
+const { closeButton, closeLabel = "Close" } = defineProps<Props>()
 defineSlots<DialogHeaderSlots>()
 
 const dialog = inject(DialogKey, undefined)
 
-if (closeLabel) warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
+if (closeButton) warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
 </script>
 
 <template>
   <div :class="['ui-header', $props.class]">
     <TrimmedSlot :nodes="$slots.default?.()" /><Button
-      v-if="closeLabel"
+      v-if="closeButton"
       :aria-label="closeLabel"
       command="close"
       :commandfor="dialog?.id"
@@ -35,8 +34,7 @@ if (closeLabel) warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
         width="32"
         height="32"
         viewBox="0 0 32 32"
-      >
-        <path fill="currentColor" :d="closePath" /></svg
+      ></svg
     ></Button>
   </div>
 </template>

@@ -5,7 +5,6 @@ import { trimEdges } from "../whitespace"
 import type { Props } from "./types.astro"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
 import { createIds, idRefs } from "../id"
-import { hidePath, showPath } from "./icons"
 import { cx } from "../cx"
 
 export const title = "Text Field"
@@ -18,17 +17,16 @@ const {
   characterCount,
   characterCountLabel,
   class: className,
+  disabled,
   dropZone,
   endText,
   error,
   hideLabel,
   id,
-  inputmode,
   label,
   name,
   passwordToggle,
   passwordToggleLabel = "Show password",
-  pattern,
   size,
   spread,
   startText,
@@ -97,11 +95,10 @@ const endTextId = hasEndText ? ids("end-text") : undefined
       )}
       aria-invalid={error ? "true" : ariaInvalid}
       aria-labelledby={named ? idRefs(labelId, startId, endId) : ariaLabelledBy}
+      disabled={disabled}
       id={inputId}
-      inputmode={inputmode ?? (type === "numeric" ? "numeric" : undefined)}
       name={name ?? field?.name}
-      pattern={pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
-      type={type === "numeric" ? "text" : type}
+      type={type}
     />
     {Astro.slots.has("start") && <span class="ui-start" id={startId}>
       <slot name="start" />
@@ -116,6 +113,7 @@ const endTextId = hasEndText ? ids("end-text") : undefined
         aria-pressed="false"
         command="--toggle-password"
         commandfor={inputId}
+        disabled={disabled}
         round
       >
         {Astro.slots.has("icon-unchecked") ? (
@@ -130,9 +128,7 @@ const endTextId = hasEndText ? ids("end-text") : undefined
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" d={showPath} />
-          </svg>
+          ></svg>
         )}
         {Astro.slots.has("icon-checked") ? (
           <span aria-hidden="true" class="ui-icon-checked">
@@ -146,9 +142,7 @@ const endTextId = hasEndText ? ids("end-text") : undefined
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" d={hidePath} />
-          </svg>
+          ></svg>
         )}
       </Button>}
     </span>}

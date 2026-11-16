@@ -20,7 +20,7 @@ export default function DialogExample() {
       </Button>
 
       <Dialog id="toast-dialog-1">
-        <DialogHeader closeLabel="Close">
+        <DialogHeader closeButton>
           <DialogTitle>Profile</DialogTitle>
         </DialogHeader>
         <DialogContent>

@@ -9,7 +9,35 @@ const LABELS = {
 const keyOf = (cell) =>
   cell?.dataset.sortValue ?? cell?.textContent.trim().replace(/\s+/g, " ") ?? ""
 
-export class SortableTable extends Base {
+const columnOf = (header) => {
+  const rows = [...(header.parentElement?.parentElement?.rows ?? [])]
+  const taken = rows.map(() => new Set())
+  for (const [index, row] of rows.entries()) {
+    let column = 0
+    for (const cell of row.cells) {
+      while (taken[index].has(column)) column++
+      if (cell === header) return column
+      for (const below of taken.slice(
+        index,
+        index + (cell.rowSpan || rows.length),
+      )) {
+        for (let span = 0; span < cell.colSpan; span++) below.add(column + span)
+      }
+      column += cell.colSpan
+    }
+  }
+  return header.cellIndex
+}
+
+const cellAt = (row, column) => {
+  let start = 0
+  for (const cell of row.cells) {
+    if (column < start + cell.colSpan) return cell
+    start += cell.colSpan
+  }
+}
+
+export class SortableTableElement extends Base {
   #controller
   #status
   #text = ""
@@ -44,7 +72,7 @@ export class SortableTable extends Base {
       (header.getAttribute("aria-sort") === "ascending"
         ? "descending"
         : "ascending")
-    const column = header.cellIndex
+    const column = columnOf(header)
     const event = new CustomEvent("sort", {
       bubbles: true,
       cancelable: true,
@@ -96,7 +124,7 @@ export class SortableTable extends Base {
     for (const body of table.tBodies) {
       const rows = [...body.rows]
       rows
-        .map((row, index) => ({ index, key: keyOf(row.cells[column]), row }))
+        .map((row, index) => ({ index, key: keyOf(cellAt(row, column)), row }))
         .sort(
           (a, b) => sign * collator.compare(a.key, b.key) || a.index - b.index,
         )
@@ -106,5 +134,5 @@ export class SortableTable extends Base {
 }
 
 if (globalThis.customElements && !customElements.get("opui-sortable-table")) {
-  customElements.define("opui-sortable-table", SortableTable)
+  customElements.define("opui-sortable-table", SortableTableElement)
 }

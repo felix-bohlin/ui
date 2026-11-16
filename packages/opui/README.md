@@ -23,6 +23,8 @@ It needs Node 26.10 or later. Peer dependencies:
 
 ## Usage
 
+Each framework has a Getting started guide: [HTML](https://opui.dev/html/guide/getting-started/), [Astro](https://opui.dev/astro/guide/getting-started/), [React](https://opui.dev/react/guide/getting-started/), [Svelte](https://opui.dev/svelte/guide/getting-started/) and [Vue](https://opui.dev/vue/guide/getting-started/).
+
 ### Astro components
 
 Import the CSS once, in the layout every page uses, and the components where you need them:
@@ -60,7 +62,7 @@ export default function App() {
 }
 ```
 
-Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are props: `children`, and camelCased names such as `endText`. Form controls take the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` props. Components that need context, state or effects (Anchor, Callout, Copy, Dialog, Drawer, FieldGroup, FieldLegend, Fieldset, Menu, NumberField, OneTimeCode, Range, Rating, Select, SelectAll, SortableTable, Tabs, TextField, Textarea, Toaster, ToggleButton and ToggleGroup, and the CheckboxInput, RadioInput and SwitchInput parts) are marked `"use client"`; the rest also render as React Server Components.
+Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are props: `children`, and camelCased names such as `endText`. Form controls take the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` props, and Rating, Tabs and ToggleGroup report a choice with `onValueChange(value)`. Components that need context, state or effects (Anchor, Callout, Copy, Dialog, Drawer, FieldGroup, FieldLegend, Fieldset, Menu, NumberField, OneTimeCode, Range, Rating, Select, SelectAll, SortableTable, Tabs, TextField, Textarea, Toaster, ToggleButton and ToggleGroup, and the CheckboxInput, RadioInput and SwitchInput parts) are marked `"use client"`; the rest also render as React Server Components.
 
 ### Svelte components
 
@@ -163,7 +165,7 @@ Drop a pre-bundled stylesheet into any page and use the documented class names:
 
 `dist/opui.css` is a single self-contained file (Open Props + palette + theme + normalize + every component + browser fallbacks + utils, in the correct cascade layers). `dist/opui.components.css` has only the layer order, the component styles, their browser fallbacks and the `Layout` classes. The components need `core/palette.css` and `css/theme.css` to look right and `core/normalize.css`, or a reset that makes every box `border-box`, to size right, and `core/utils.css` holds `.ui-sr-only` and the motion and contrast classes, so load those yourself when you use it. Nothing in the package reads Open Props: `theme.css` holds its own values, and Open Props is in the bundle for your own CSS.
 
-The browser fallbacks are the `components.compat` layer and the `@supports not` blocks of `theme.css`, such as the `clamp()` heading sizes for browsers without `progress()`. A feature test only applies in browsers without the feature, and an engine fix, like the iOS submenu anchor, applies in that engine until it's removed. `dist/opui.no-compat.css` is `dist/opui.css` without them, and `dist/opui.baseline-<year>.css` keeps only the ones that browsers of that Baseline year need ([Compat layer](https://opui.dev/html/guide/browser-support/#compat)).
+The browser fallbacks are the `components.compat` layer and the `@supports not` blocks of `theme.css` and `core/normalize.css`: the `clamp()` heading sizes for browsers without `progress()`, and smooth page scrolling that follows `prefers-reduced-motion` for browsers without `if()`. A feature test only applies in browsers without the feature, and an engine fix, like the iOS submenu anchor, applies in that engine until it's removed. `dist/opui.no-compat.css` is `dist/opui.css` without them, and `dist/opui.baseline-<year>.css` keeps only the ones that browsers of that Baseline year need ([Compat layer](https://opui.dev/html/guide/browser-support/#compat)).
 
 If you do have a bundler that resolves CSS `@import`s (Vite, Astro, webpack, …), import the source instead so you only ship what you use:
 
@@ -209,7 +211,7 @@ Vite 8's lightningcss also prints warnings such as `'scroll-button' is not recog
 
 ## Upgrading
 
-Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.md) (also on the docs site: [Migrating to v6](https://opui.dev/html/guide/migrating/)), with every change listed in [CHANGELOG.md](./CHANGELOG.md).
+Breaking changes and how to update your code are in [MIGRATING.md](https://github.com/felix-bohlin/ui/blob/main/packages/opui/MIGRATING.md) (also on the docs site: [Migrating to v6](https://opui.dev/html/guide/migrating/)), with every change listed in [CHANGELOG.md](https://github.com/felix-bohlin/ui/blob/main/packages/opui/CHANGELOG.md).
 
 ## Entry points
 
@@ -235,7 +237,7 @@ Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.m
 | `opui-css/core/utils.css`                | Utility classes                                                                                                                                                                                                                                                                                |
 | `opui-css/css/js/checkbox.js`            | `activateIndeterminate()`, `initCheckbox()` and `syncIndeterminate()` for indeterminate checkboxes without a framework                                                                                                                                                                         |
 | `opui-css/css/js/range.js`               | Keeps every `.ui-range` `<output data-live>` in sync with its slider without a framework, once imported                                                                                                                                                                                        |
-| `opui-css/elements/*.js`                 | Custom elements, one module per component that needs one, like `number-field.js`                                                                                                                                                                                                               |
+| `opui-css/elements/*.js`                 | Custom elements, one module per component that needs one, like `number-field.js`, which exports `NumberFieldElement`. `close-on-navigate.js` defines no element: importing it closes open menus and `[data-close-on-navigate]` drawers when the page navigates                                 |
 | `opui-css/themes/*`                      | Example themes (`bootstrap`, `brutalist`, `govuk`, `m3`, `shadcn`), with or without `.css`                                                                                                                                                                                                     |
 | `opui-css/tokens.json`                   | Every theme token in the W3C design tokens format                                                                                                                                                                                                                                              |
 | `opui-css/astro`                         | All Astro components                                                                                                                                                                                                                                                                           |
@@ -247,6 +249,7 @@ Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.m
 | `opui-css/components/*.vue`              | One Vue component or part: the compiled file `opui-css/vue` exports, with its types                                                                                                                                                                                                            |
 | `opui-css/components/*`                  | The Astro component sources and the type files, such as `types` and `types.astro`. The files at the top of `components/` (`cx.ts`, `dev.ts`, `group.ts`, `id.ts`, `style.ts`, `tag.ts`, `vue.ts`, `context.astro.ts` and `content.svelte`) are internal helpers that can change in any release |
 | `opui-css/env.d.ts`                      | Astro types for `Astro.locals.$id` and `interestfor` (see [Ids in Astro](#ids-in-astro))                                                                                                                                                                                                       |
+| `opui-css/figma/*`                       | The default theme's Figma variables in `figma/themes/`, and `sync.js`, the function the Figma plugin runs ([Figma](https://opui.dev/html/guide/theme-tokens/#figma))                                                                                                                           |
 | `opui-css/package.json`                  | The package manifest, for tools that read it                                                                                                                                                                                                                                                   |
 
 Importing a React component from `opui-css/components/*.react` skips the type augmentation in `opui-css/react`, which adds `command`, `commandfor` and `interestfor` to React's element types. `Menu` and `DrawerHeader` need it, so add `import type {} from "opui-css/react"` once in your app.
@@ -278,4 +281,4 @@ The docs are also available as [llms.txt](https://opui.dev/llms.txt), and every 
 
 ## License
 
-[MIT](./LICENSE) © Felix Bohlin
+[MIT](https://github.com/felix-bohlin/ui/blob/main/packages/opui/LICENSE) © Felix Bohlin

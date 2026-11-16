@@ -35,14 +35,35 @@ export function mergeStyle(vars: Vars, style?: object | string | null) {
 export const styleAttrs = <S>(style: S) => (style ? { style } : {})
 
 export const cssString = (text: string) =>
-  `"${text.replace(/["\\]/g, "\\$&").replace(/\n/g, "\\a ")}"`
+  `"${text
+    .replace(/["\\]/g, "\\$&")
+    .replace(/\r\n|[\n\r]/g, "\\a ")
+    .replace(/\f/g, "\\c ")}"`
 
 export const counterLabel = (template: string, counter: string) =>
   template
-    .split("{count}")
+    .split("{number}")
     .flatMap((text, index) => [
       index > 0 ? `counter(${counter})` : "",
       text ? cssString(text) : "",
     ])
     .filter(Boolean)
     .join(" ")
+
+const pluralRules = (lang?: string | null) => {
+  try {
+    return new Intl.PluralRules(lang || "en")
+  } catch {
+    return new Intl.PluralRules("en")
+  }
+}
+
+export const pluralLabel = (
+  templates: Partial<Record<Intl.LDMLPluralRule, string>> & { other: string },
+  count: number,
+  lang?: string | null,
+) =>
+  (templates[pluralRules(lang).select(count)] ?? templates.other).replaceAll(
+    "{count}",
+    String(count),
+  )

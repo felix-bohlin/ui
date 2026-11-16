@@ -124,7 +124,8 @@ export default {
     },
   ],
   root: {
-    description: "Container element. Can be a `<div>`, `<a>` or `<button>`.",
+    description:
+      "Container element. Can be a `<div>`, `<span>`, `<a>` or `<button>`.",
     selector: ".ui-chip",
   },
   source: "Chip",

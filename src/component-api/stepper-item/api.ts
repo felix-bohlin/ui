@@ -17,14 +17,14 @@ export default {
     {
       default: '", completed"',
       description: "Screen reader text after the label of a complete step.",
-      group: "Completed label",
-      prop: "completedLabel",
+      group: "Complete label",
+      prop: "completeLabel",
     },
     {
       attribute: '[aria-current="step"]',
       default: "false",
       description:
-        "Marks the current step. Without `.ui-complete` on any step, the steps before it show as complete.",
+        "Marks the current step. The steps before it show as complete, with or without `.ui-complete`.",
       group: "Current",
       prop: "current",
     },
@@ -63,11 +63,11 @@ export default {
   page: "stepper",
   parts: [
     {
-      code: '<span class="ui-icon-checked">',
+      code: '<span class="ui-icon-complete">',
       description:
         "Replaces the check in the marker of a complete step. Hidden from screen readers.",
-      selector: ".ui-icon-checked",
-      slots: ["icon-checked"],
+      selector: ".ui-icon-complete",
+      slots: ["icon-complete"],
     },
     {
       code: "<a>",

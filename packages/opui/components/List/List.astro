@@ -12,6 +12,7 @@ const {
   class: className,
   dense,
   flush,
+  role,
   variant,
   ...rest
 } = Astro.props
@@ -28,7 +29,7 @@ const {
     variant && variant !== "filled" && `ui-${variant}`,
     className,
   ])}
-  role="list"
+  role={role ?? "list"}
   {...defined(rest)}
 >
   <slot />

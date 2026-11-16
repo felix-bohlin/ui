@@ -54,7 +54,7 @@ Never override a component's outputs (`--_bg-color`, `--_text-color`, `--_border
 @layer theme.custom {
   :where(html) {
     --ui-radius: 4px;
-    --ui-font-body: "Inter", var(--font-sans);
+    --ui-font-body: "Inter", system-ui, sans-serif;
     --ui-palette-hue: 265;
   }
 }

@@ -1,35 +1,27 @@
-import { Avatar, Message, Messages } from "opui-css/react"
+import { Avatar, Message, MessageList } from "opui-css/react"
 
 export default function Basics() {
   return (
-    <div aria-label="Chat with Sirkka" role="log">
-      <Messages aria-label="Messages with Sirkka">
+    <div aria-label="Chat with Stella" role="log">
+      <MessageList aria-label="Messages with Stella">
         <Message
-          author="Sirkka"
+          author="Stella"
           datetime="2026-10-08T14:02"
-          start={
-            <Avatar aria-label="Sirkka Nitti" role="img">
-              SN
-            </Avatar>
-          }
+          start={<Avatar aria-hidden="true">SN</Avatar>}
           time="14:02"
         >
-          <p>Did you get a chance to look at the pricing proposal?</p>
+          <p>Heyyy! Did your band notice you changed strings yet?</p>
         </Message>
         <Message
-          author="Sirkka"
+          author="Stella"
           datetime="2026-10-08T14:03"
-          start={
-            <Avatar aria-label="Sirkka Nitti" role="img">
-              SN
-            </Avatar>
-          }
+          start={<Avatar aria-hidden="true">SN</Avatar>}
           time="14:03"
         >
-          <p>No rush, Friday is fine.</p>
+          <p>Flatwounds, right? So rad.</p>
         </Message>
         <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
-          <p>Yes, looks good. I'd lead with the annual plan.</p>
+          <p>Nope, not even the drummer. Bummer, but WE know.</p>
         </Message>
         <Message
           author="You"
@@ -38,9 +30,9 @@ export default function Basics() {
           outgoing
           time="14:19"
         >
-          <p>Can you add the Bergen Bikes case study too?</p>
+          <p>Can you send me the tab for your slap break?</p>
         </Message>
-      </Messages>
+      </MessageList>
     </div>
   )
 }

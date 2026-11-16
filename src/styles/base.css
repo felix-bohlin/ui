@@ -94,6 +94,14 @@ aside.sidebar {
   }
 }
 
+.example-preview:has(dialog.ui-drawer[open]:not(:modal)) {
+  isolation: auto;
+
+  & dialog.ui-drawer:not(:modal) {
+    z-index: 25;
+  }
+}
+
 /* Setup */
 @property --site-header-end-inline-size {
   inherits: false;

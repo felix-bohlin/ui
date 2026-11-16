@@ -46,7 +46,7 @@ export { default as List } from "../components/List/List.vue"
 export { default as ListItem } from "../components/ListItem/ListItem.vue"
 export { default as Menu } from "../components/Menu/Menu.vue"
 export { default as Message } from "../components/Message/Message.vue"
-export { default as Messages } from "../components/Message/Messages.vue"
+export { default as MessageList } from "../components/Message/MessageList.vue"
 export { default as NumberField } from "../components/NumberField/NumberField.vue"
 export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.vue"
 export { default as Progress } from "../components/Progress/Progress.vue"
@@ -156,8 +156,8 @@ export type {
   Props as MenuProps,
 } from "../components/Menu/types.vue-props"
 export type {
+  MessageListProps,
   Props as MessageProps,
-  MessagesProps,
 } from "../components/Message/types.vue-props"
 export type { Props as NumberFieldProps } from "../components/NumberField/types.vue-props"
 export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.vue-props"

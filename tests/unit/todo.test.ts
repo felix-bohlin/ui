@@ -801,12 +801,15 @@ describe("TODO.md", () => {
       ),
   ])
 
+  const unnamed = ({ component }: Item) =>
+    !component?.split(", ").every((name) => names.has(name))
+
   const unknownPrefix = (text: string) =>
     parsed(text)
       .items.filter(
-        ({ component, text }) =>
-          !component?.split(", ").every((name) => names.has(name)) &&
-          !allowlist.prefixes.some((prefix) => text.startsWith(prefix)),
+        (item) =>
+          unnamed(item) &&
+          !allowlist.prefixes.some((prefix) => item.text.startsWith(prefix)),
       )
       .map(headline)
 
@@ -1079,10 +1082,17 @@ describe("TODO.md", () => {
       [
         ...allowlist.citations.filter(
           (citation) =>
-            !items.some(({ text }) => text.includes(`\`${citation}\``)),
+            !items.some(({ text }) =>
+              citationProblems(text).some((problem) =>
+                problem.startsWith(`${citation} `),
+              ),
+            ),
         ),
         ...allowlist.prefixes.filter(
-          (prefix) => !items.some(({ text }) => text.startsWith(prefix)),
+          (prefix) =>
+            !items.some(
+              (item) => unnamed(item) && item.text.startsWith(prefix),
+            ),
         ),
       ],
       "fixed, remove from tests/unit/todo-allowlist.json",

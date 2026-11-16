@@ -7,7 +7,6 @@ import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { idRefs } from "../id"
-import { hidePath, showPath } from "./icons"
 import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -15,17 +14,16 @@ const {
   autoFit,
   characterCount,
   characterCountLabel,
+  disabled,
   dropZone,
   endText,
   error,
   hideLabel,
   id,
-  inputmode,
   label,
   name,
   passwordToggle,
   passwordToggleLabel = "Show password",
-  pattern,
   size,
   spread,
   startText,
@@ -133,11 +131,10 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
             ? idRefs(labelId(), startId(), endId())
             : attrs['aria-labelledby']
         "
+        :disabled="disabled"
         :id="inputId"
-        :inputmode="inputmode ?? (type === 'numeric' ? 'numeric' : undefined)"
         :name="name ?? field?.name"
-        :pattern="pattern ?? (type === 'numeric' ? '[0-9]*' : undefined)"
-        :type="type === 'numeric' ? 'text' : type"
+        :type="type"
         v-seed
         v-model="model"
       />
@@ -152,6 +149,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
           aria-pressed="false"
           command="--toggle-password"
           :commandfor="inputId"
+          :disabled="disabled"
           round
           ><span
             v-if="$slots['icon-unchecked']"
@@ -167,8 +165,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" :d="showPath" /></svg
+          ></svg
           ><span
             v-if="$slots['icon-checked']"
             aria-hidden="true"
@@ -183,8 +180,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" :d="hidePath" /></svg
+          ></svg
         ></Button>
       </span>
       <span v-if="$slots.top" class="ui-top" :id="topId()">

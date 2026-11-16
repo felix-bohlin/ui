@@ -37,7 +37,7 @@
 >
   <hgroup class="ui-hgroup">
     <h1 class="ui-h3">Account settings</h1>
-    <p>Manage your profile, sign-in and how Northwind looks for you.</p>
+    <p>Tweak your profile, your password and how Bassbook looks for you.</p>
   </hgroup>
 
   <div class="ui-tabs ui-line" style="--_panel-gap: var(--ui-space-5)">
@@ -55,7 +55,7 @@
           <legend>Photo</legend>
           <div class="ui-layout-row acct-photo">
             <div
-              aria-label="Pekka Gåpåbottanen"
+              aria-label="Percy Groove"
               class="ui-avatar ui-rounded"
               role="img"
             >
@@ -63,11 +63,13 @@
             </div>
             <div class="ui-layout-row ui-small">
               <button class="ui-button ui-outlined ui-small" type="button">
-                Upload new photo
+                Upload new pic
               </button>
               <button class="ui-button ui-small" type="button">Remove</button>
             </div>
-            <p class="ui-caption">JPG or PNG, at least 256 × 256 px.</p>
+            <p class="ui-caption">
+              JPG or PNG, at least 256 × 256 px. Bass in frame encouraged!
+            </p>
           </div>
         </fieldset>
 
@@ -83,7 +85,7 @@
                     name="first-name"
                     required
                     type="text"
-                    value="Pekka"
+                    value="Percy"
                   />
                 </span>
               </label>
@@ -95,7 +97,7 @@
                     name="last-name"
                     required
                     type="text"
-                    value="Gåpåbottanen"
+                    value="Groove"
                   />
                 </span>
               </label>
@@ -109,12 +111,12 @@
                   name="email"
                   required
                   type="email"
-                  value="pekka.gapabottanen@northwind.example"
+                  value="percy@lowend.example"
                 />
               </span>
               <span class="ui-end-text" id="account-settings-email-hint"
                 ><span class="ui-p ui-success">Verified</span>, used for sign-in
-                and receipts</span
+                and wall scribble alerts</span
               >
             </label>
             <label class="ui-text-field">
@@ -124,18 +126,20 @@
                   autocomplete="username"
                   name="username"
                   type="text"
-                  value="pekka"
+                  value="percygroove"
                 />
-                <span class="ui-start">northwind.app/</span>
+                <span class="ui-start">bassbook.example/</span>
               </span>
             </label>
             <label class="ui-textarea">
               <span class="ui-label">Bio</span>
-              <span class="ui-start-text">Shown on your public profile</span>
+              <span class="ui-start-text"
+                >Shown on your profile for the whole world to admire</span
+              >
               <span class="ui-field">
                 <textarea name="bio" rows="3">
-Product designer in Malmö. Into typography, sourdough and long bike rides.</textarea>
-                <span class="ui-bottom">73 / 160</span>
+Fretless bassist in a garage band. Into flatwounds, drop D and very long root notes.</textarea>
+                <span class="ui-bottom">84 / 160</span>
               </span>
             </label>
           </div>
@@ -144,7 +148,7 @@ Product designer in Malmö. Into typography, sourdough and long bike rides.</tex
         <div class="ui-field-group acct-actions">
           <button class="ui-button" type="reset">Cancel</button>
           <button class="ui-button ui-filled" type="submit">
-            Save profile
+            Save my profile
           </button>
         </div>
       </form>
@@ -161,7 +165,9 @@ Product designer in Malmö. Into typography, sourdough and long bike rides.</tex
       <form class="ui-form" action="#">
         <fieldset class="ui-fieldset">
           <legend>Change password</legend>
-          <p class="ui-description">Last changed on 12 June 2026.</p>
+          <p class="ui-description">
+            Last changed on 12 June 2026. Wow, so fresh!
+          </p>
           <div class="ui-field-group">
             <label class="ui-text-field">
               <span class="ui-label">Current password</span>
@@ -187,7 +193,7 @@ Product designer in Malmö. Into typography, sourdough and long bike rides.</tex
                 />
               </span>
               <span class="ui-end-text" id="account-settings-password-hint"
-                >At least 12 characters. A passphrase works great.</span
+                >At least 12 characters. "slap-that-low-B" works great.</span
               >
             </label>
             <label class="ui-text-field">
@@ -217,7 +223,7 @@ Product designer in Malmö. Into typography, sourdough and long bike rides.</tex
               />
               <span class="ui-label">Two-factor authentication</span>
               <span class="ui-end-text" id="account-settings-2fa-hint"
-                >Ask for a code from your authenticator app.</span
+                >Ask for a code so nobody sneaks onto your wall.</span
               >
             </label>
             <label class="ui-switch ui-spread">
@@ -230,7 +236,7 @@ Product designer in Malmö. Into typography, sourdough and long bike rides.</tex
               />
               <span class="ui-label">Sign-in alerts</span>
               <span class="ui-end-text" id="account-settings-alerts-hint"
-                >Email me when a new device signs in.</span
+                >Email me when a new computer signs in.</span
               >
             </label>
           </div>
@@ -349,7 +355,7 @@ Product designer in Malmö. Into typography, sourdough and long bike rides.</tex
 
         <div class="ui-field-group acct-actions">
           <button class="ui-button ui-filled" type="submit">
-            Save preferences
+            Save my prefs
           </button>
         </div>
       </form>
@@ -365,8 +371,8 @@ Product designer in Malmö. Into typography, sourdough and long bike rides.</tex
     </hgroup>
     <div class="ui-content ui-layout-row ui-spread">
       <p>
-        Deleting your account removes your profile, projects and invoices for
-        good. Export your data first if you need it.
+        Deleting your account removes your profile, wall and bass photos for
+        good. Save your favourite pics first! We'll miss you :(
       </p>
       <button
         class="ui-button ui-outlined ui-critical"
@@ -391,8 +397,8 @@ Product designer in Malmö. Into typography, sourdough and long bike rides.</tex
     </div>
     <div class="ui-content">
       <p id="account-settings-delete-description">
-        This deletes pekka.gapabottanen@northwind.example and everything in it.
-        You can't undo this.
+        This deletes percy@lowend.example, your wall and every photo of your
+        gear. You can't undo this.
       </p>
     </div>
     <div class="ui-footer">

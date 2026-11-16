@@ -58,9 +58,8 @@ const selectedAtFirst = (value: unknown) =>
 
 const uid = useId()
 const base = computed(() => id || `select-${uid}`)
-// A function, not a computed: slots aren't reactive.
-const named = () => Boolean(label || slots.label)
-const selectId = () => (named() ? base.value : id)
+const hasLabel = () => Boolean(label || slots.label)
+const selectId = () => (hasLabel() ? base.value : id)
 const startTextId = computed(() => `${base.value}-start-text`)
 const endTextId = computed(() => `${base.value}-end-text`)
 const startId = computed(() => `${base.value}-start`)
@@ -85,7 +84,7 @@ const field = inject(FieldGroupKey, undefined)
     v-bind="styleAttrs($attrs.style)"
   >
     <label
-      v-if="named()"
+      v-if="hasLabel()"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
       :for="selectId()"
     >

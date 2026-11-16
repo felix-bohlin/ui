@@ -35,10 +35,10 @@ export default function Textarea({
   const field = useFieldGroupContext()
   const uid = useId()
   const base = id || `textarea-${uid}`
-  const named = Boolean(label)
+  const hasLabel = Boolean(label)
   const hasStartText = Boolean(startText)
   const hasEndText = Boolean(endText || characterCount)
-  const textareaId = named ? base : id
+  const textareaId = hasLabel ? base : id
   const startId = start ? `${base}-start` : undefined
   const endId = end ? `${base}-end` : undefined
   const topId = top ? `${base}-top` : undefined
@@ -63,7 +63,7 @@ export default function Textarea({
       ])}
       style={style}
     >
-      {named && (
+      {hasLabel && (
         <label
           className={hideLabel ? "ui-sr-only" : "ui-label"}
           htmlFor={textareaId}

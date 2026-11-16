@@ -45,10 +45,10 @@
   }
   const initialValue = untrack(getValue)
   const base = $derived(id || `textarea-${uid}`)
-  const named = $derived(Boolean(label))
+  const hasLabel = $derived(Boolean(label))
   const hasStartText = $derived(Boolean(startText))
   const hasEndText = $derived(Boolean(endText || characterCount))
-  const textareaId = $derived(named ? base : id)
+  const textareaId = $derived(hasLabel ? base : id)
   const startId = $derived(start ? `${base}-start` : undefined)
   const endId = $derived(end ? `${base}-end` : undefined)
   const topId = $derived(top ? `${base}-top` : undefined)
@@ -70,7 +70,7 @@
   ]}
   {style}
 >
-  {#if named}
+  {#if hasLabel}
     <label class={[hideLabel ? "ui-sr-only" : "ui-label"]} for={textareaId}>
       {@render content(label)}
     </label>

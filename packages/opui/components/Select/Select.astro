@@ -61,8 +61,8 @@ const isSelected = (item: SelectItem) =>
 const labelSlot = Astro.slots.has("label")
   ? trimEdges(await Astro.slots.render("label"))
   : ""
-const named = Boolean(label || labelSlot)
-const selectId = named ? ids() : id
+const hasLabel = Boolean(label || labelSlot)
+const selectId = hasLabel ? ids() : id
 ---
 
 <div
@@ -78,7 +78,7 @@ const selectId = named ? ids() : id
   ]}
   style={style}
 >
-  {named && <label
+  {hasLabel && <label
     class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
     for={selectId}
     >{label}<Fragment set:html={labelSlot}

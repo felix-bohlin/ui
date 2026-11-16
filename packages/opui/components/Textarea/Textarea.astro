@@ -35,12 +35,12 @@ const ids = createIds(Astro.locals, "textarea", id)
 const labelSlot = Astro.slots.has("label")
   ? trimEdges(await Astro.slots.render("label"))
   : ""
-const named = Boolean(label || labelSlot)
+const hasLabel = Boolean(label || labelSlot)
 const hasStartText = Boolean(startText || Astro.slots.has("start-text"))
 const hasEndText = Boolean(
   endText || Astro.slots.has("end-text") || characterCount,
 )
-const textareaId = named ? ids() : id
+const textareaId = hasLabel ? ids() : id
 const startId = Astro.slots.has("start") ? ids("start") : undefined
 const endId = Astro.slots.has("end") ? ids("end") : undefined
 const topId = Astro.slots.has("top") ? ids("top") : undefined
@@ -62,7 +62,7 @@ const endTextId = hasEndText ? ids("end-text") : undefined
   ])}
   style={style}
 >
-  {named && <label
+  {hasLabel && <label
     class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
     for={textareaId}
     >{label}<Fragment set:html={labelSlot}

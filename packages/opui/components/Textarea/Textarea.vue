@@ -47,13 +47,13 @@ const uid = useId()
 
 const base = computed(() => id || `textarea-${uid}`)
 
-const named = () => Boolean(label || slots.label)
+const hasLabel = () => Boolean(label || slots.label)
 
 const hasStartText = () => Boolean(startText || slots["start-text"])
 
 const hasEndText = () => Boolean(endText || slots["end-text"] || characterCount)
 
-const textareaId = () => (named() ? base.value : id)
+const textareaId = () => (hasLabel() ? base.value : id)
 
 const startId = () => (slots.start ? `${base.value}-start` : undefined)
 
@@ -84,7 +84,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
     v-bind="styleAttrs($attrs.style)"
   >
     <label
-      v-if="named()"
+      v-if="hasLabel()"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
       :for="textareaId()"
       >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"

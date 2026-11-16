@@ -43,11 +43,14 @@
 
       <form class="ui-form" action="#">
         <div class="ui-field-group">
-          <label class="ui-text-field ui-one-time-code ui-large">
-            <span class="ui-label">Verification code</span>
+          <label class="ui-one-time-code ui-large">
+            <span class="ui-label" id="two-factor-code-label"
+              >Verification code</span
+            >
             <span class="ui-field">
               <input
                 aria-describedby="two-factor-code-hint"
+                aria-labelledby="two-factor-code-label"
                 autocomplete="one-time-code"
                 inputmode="numeric"
                 maxlength="6"

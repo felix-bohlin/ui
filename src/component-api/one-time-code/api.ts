@@ -181,7 +181,7 @@ export default {
   ],
   root: {
     description: "Container element.",
-    selector: "label.ui-text-field.ui-one-time-code",
+    selector: "label.ui-one-time-code",
   },
   source: "OneTimeCode",
 } satisfies ComponentApi

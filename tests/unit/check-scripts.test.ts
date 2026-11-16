@@ -137,6 +137,7 @@ describe("check-browser-support", () => {
     overlay: ".a { transition: opacity 1s, overlay 1s allow-discrete; }",
     popover: ".a:popover-open { opacity: 1; }",
     "progress-function": ".a { --p: progress(100vi, 20rem, 80rem); }",
+    "reading-flow": ".a { display: grid; reading-flow: grid-rows; }",
     "registered-custom-properties":
       '@property --a { inherits: false; initial-value: 0; syntax: "<number>"; }',
     "relative-color": ".a { color: oklch(from red l c h); }",

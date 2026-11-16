@@ -17,6 +17,7 @@ const {
   characterCount,
   characterCountLabel,
   class: className,
+  disabled,
   dropZone,
   endText,
   error,
@@ -94,6 +95,7 @@ const endTextId = hasEndText ? ids("end-text") : undefined
       )}
       aria-invalid={error ? "true" : ariaInvalid}
       aria-labelledby={named ? idRefs(labelId, startId, endId) : ariaLabelledBy}
+      disabled={disabled}
       id={inputId}
       name={name ?? field?.name}
       type={type}
@@ -111,6 +113,7 @@ const endTextId = hasEndText ? ids("end-text") : undefined
         aria-pressed="false"
         command="--toggle-password"
         commandfor={inputId}
+        disabled={disabled}
         round
       >
         {Astro.slots.has("icon-unchecked") ? (

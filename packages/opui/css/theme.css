@@ -100,6 +100,10 @@
     /* Control sizes - shared scale for fields and buttons so they line up. */
     --ui-density: 1;
 
+    /* Target size - the least size of a control with no text of its own, the
+    WCAG 2.5.8 minimum. It follows neither density nor spacing. */
+    --ui-target-min-size: 24px;
+
     /* Field / input */
     /* --ui-field-radius: var(--ui-radius); */
     /* --ui-field-bg-color: var(--ui-surface); */

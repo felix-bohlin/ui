@@ -144,7 +144,7 @@ export default {
   },
   "--_marker-size": {
     description:
-      "Size of the markers. The dot sits inside, inset by `--ui-space-2`.",
+      "Size of the markers: `--ui-space-5`, and at least `--ui-target-min-size`, so they stay pointer targets in a theme with a smaller spacing scale. The dot sits inside, inset by `--ui-space-2`.",
     kind: "input",
   },
   "--_media-aspect-ratio": {

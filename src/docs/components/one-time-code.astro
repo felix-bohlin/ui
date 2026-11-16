@@ -52,10 +52,16 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
     "has",
     "lh",
     "overflow-clip",
+    "reading-flow",
+    "registered-custom-properties",
     "relative-color",
     "round-mod-rem",
     "user-pseudos",
   ]}
+  fallbacks={{
+    "reading-flow":
+      "Without `reading-flow` nothing changes: a one-time code has no parts before its input.",
+  }}
   changelogPaths={[
     {
       path: "packages/opui/components/OneTimeCode/OneTimeCode.astro",

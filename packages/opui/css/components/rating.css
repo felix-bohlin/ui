@@ -81,7 +81,7 @@
   :where(fieldset.ui-rating) {
     --_clear-bg-color: var(--ui-text-subtle);
     --_clear-hover-bg-color: var(--ui-text);
-    --_size: var(--ui-control-size-x-small);
+    --_size: max(var(--ui-target-min-size), var(--ui-control-size-x-small));
 
     align-items: center;
     border: 0;
@@ -95,7 +95,7 @@
     padding: 0;
 
     &.ui-small {
-      --_size: var(--ui-icon-size-large);
+      --_size: max(var(--ui-target-min-size), var(--ui-icon-size-large));
     }
 
     &.ui-large {

@@ -6,9 +6,19 @@ export default {
       "Border color of `.ui-field` when its control has focus without `:focus-visible`, such as a clicked file or color input or a Select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.",
     kind: "input",
   },
+  "--_affix-block-size": {
+    description:
+      "The block size `.ui-start` and `.ui-end` center what they hold in: the field inside its border, or the control's first line, `1lh` and its block padding, in a `Textarea` and in a field with `.ui-top` or `.ui-bottom`. A registered `<length>`, so `1lh` is the line height of the part. Set on the root, and on `.ui-start` and `.ui-end` in a `Textarea` and in a field with `.ui-top` or `.ui-bottom`.",
+    kind: "output",
+  },
   "--_affix-button-size": {
     description:
-      "Size of a `.ui-button` in `.ui-start` or `.ui-end`: the field's `--_size` minus its border and a `--ui-space-1` inset on each side.",
+      "Size of a `.ui-button` in `.ui-start` or `.ui-end`: `--_affix-block-size` minus `--_affix-padding-block` above and below, and at least `--ui-target-min-size`. Set on `.ui-start` and `.ui-end`.",
+    kind: "output",
+  },
+  "--_affix-padding-block": {
+    description:
+      "The space between a `.ui-button` in `.ui-start` or `.ui-end` and the field's border above and below it: `--ui-space-1`, or less where `--_affix-block-size` leaves less room around a `--ui-target-min-size` button. In a `Textarea` it pads what the parts hold, so content taller than the first line starts this far below the top. Text alone keeps `--_field-padding-block-fit`. Set on `.ui-start` and `.ui-end`.",
     kind: "output",
   },
   "--_affix-text-color": {
@@ -74,7 +84,7 @@ export default {
   },
   "--_field-padding-inline": {
     description:
-      "The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`.",
+      "The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.",
     kind: "input",
   },
   "--_file-button-inset": {

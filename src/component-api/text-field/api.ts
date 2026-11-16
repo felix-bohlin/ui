@@ -95,18 +95,14 @@ export default {
       prop: "dropZone",
     },
     {
+      attribute: "[disabled]",
       default: "false",
       description:
-        'Dims the field and blocks input. `aria-disabled="true"` looks the same, but keeps the field focusable, its text editable and its value in the form.',
+        'Dims the field and blocks input and the password toggle. `aria-disabled="true"` on the input looks the same, but keeps the field focusable, its text editable and its value in the form.',
       group: "Disabled",
-      inherited: true,
       part: "input",
       prop: "disabled",
       type: "boolean",
-      values: {
-        "aria-disabled": '[aria-disabled="true"]',
-        disabled: "[disabled]",
-      },
     },
     {
       attribute: '[aria-invalid="true"]',
@@ -239,7 +235,7 @@ export default {
     },
     {
       description:
-        'The password toggle, with `aria-pressed` and `command="--toggle-password"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Hidden until `<opui-text-field>` is defined.',
+        'The password toggle, with `aria-pressed` and `command="--toggle-password"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is, and `aria-disabled` while the input is. `<opui-text-field>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-text-field>` is defined.',
       props: ["passwordToggle", "passwordToggleLabel"],
       selector: ".ui-field > .ui-end > .ui-button",
       slots: ["icon-checked", "icon-unchecked"],

@@ -42,8 +42,8 @@
 
     &:not(:has(.ui-label, .ui-text)) {
       align-items: center;
-      min-block-size: var(--ui-space-5);
-      min-inline-size: var(--ui-space-5);
+      min-block-size: var(--ui-target-min-size);
+      min-inline-size: var(--ui-target-min-size);
       place-content: center;
       vertical-align: middle;
     }

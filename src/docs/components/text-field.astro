@@ -39,8 +39,14 @@ export const keywords = ["email", "input", "password", "search", "text box"]
     "has",
     "invoker-commands",
     "lh",
+    "reading-flow",
+    "registered-custom-properties",
     "user-pseudos",
   ]}
+  fallbacks={{
+    "reading-flow":
+      "Without `reading-flow`, Tab and screen readers reach the top and start parts after the control, in the order of the markup.",
+  }}
   apis={[{ title: "Text field API", api: textFieldApi }]}
   changelogPaths={[
     {

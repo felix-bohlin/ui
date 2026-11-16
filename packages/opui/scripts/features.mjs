@@ -14,9 +14,11 @@ const compatLayers = (root, callback) =>
     if (rule.params === COMPAT_LAYER && rule.nodes) callback(rule)
   })
 
-export const themeFallbacks = (root, callback) =>
+export const coreFallbacks = (root, callback) =>
   root.walkAtRules("layer", (layer) => {
-    if (!/^theme(?:\.|$)/.test(layer.params) || !layer.nodes) return
+    if (!/^(?:normalize|theme)(?:\.|$)/.test(layer.params) || !layer.nodes) {
+      return
+    }
     layer.walkAtRules("supports", (rule) => {
       if (/^not\s/.test(rule.params)) callback(rule)
     })
@@ -33,7 +35,7 @@ export const baselineYear = (year) => ({
       })
       if (layer.nodes.every((node) => node.type === "comment")) layer.remove()
     })
-    themeFallbacks(root, (rule) => {
+    coreFallbacks(root, (rule) => {
       if (!keepsFallback(rule.params, year)) rule.remove()
     })
   },
@@ -183,6 +185,6 @@ export const withoutCompat = () => ({
   postcssPlugin: "opui-without-compat",
   OnceExit(root) {
     compatLayers(root, (layer) => layer.remove())
-    themeFallbacks(root, (rule) => rule.remove())
+    coreFallbacks(root, (rule) => rule.remove())
   },
 })

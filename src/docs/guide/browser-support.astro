@@ -196,6 +196,14 @@ export const keywords = [
         heading group subtitle reads more contrast through a style query.
       </li>
     </ul>
+    <p>
+      <code>theme.css</code> and <code>normalize.css</code> have no file in the
+      layer, so each keeps its fallback next to the rule: the
+      <code>clamp()</code> heading sizes without <code>progress()</code>, and
+      smooth page scrolling, which follows <code>prefers-reduced-motion</code>
+      and the motion classes without <code>if()</code>. The files below leave
+      them out like the layer's.
+    </p>
     <h3 id="support-level">Support level</h3>
     <p>Pick the file that matches the browsers you support:</p>
     <ul>

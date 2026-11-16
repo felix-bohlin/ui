@@ -153,7 +153,8 @@ export const toReact = (component) => {
   const extraEntries = [
     ...(kind?.entries?.() ?? []),
     ...(item ? ["defaultChecked", "onChange"] : []),
-    ...(events.length ? [...handlers, "ref"] : []),
+    ...(events.length ? handlers : []),
+    ...(events.length || item ? ["ref"] : []),
   ]
     .filter((key) => !entries.some((entry) => entry.key === key))
     .map((key) => ({ key, text: key }))
@@ -185,6 +186,11 @@ export const toReact = (component) => {
             item,
             `${item.checked ?? "undefined"} ?? defaultChecked`,
           ),
+        ]
+      : []),
+    ...(item
+      ? [
+          `const inputRef = useSeedChecked(ref, (input) => ${item.parent}?.change?.(input))`,
         ]
       : []),
     ...(events.length
@@ -342,6 +348,7 @@ export const toReact = (component) => {
           ]),
           ...(node.item
             ? [
+                "ref={inputRef}",
                 `onChange={(event) => {\n  ${item.parent}?.change?.(event.currentTarget)\n  onChange?.(event)\n}}`,
               ]
             : []),
@@ -380,9 +387,13 @@ export const toReact = (component) => {
     ...(reactImport ? [reactImport] : []),
     ...(usesDefined ? [`import { defined } from "../attrs"`] : []),
     ...(usesCx ? [`import { cx } from "../cx"`] : []),
-    ...(events.length
+    ...(events.length || item
       ? [
-          `import { ${hydrating.size ? "useHydrated, " : ""}useListener } from "../react"`,
+          `import { ${[
+            ...(hydrating.size ? ["useHydrated"] : []),
+            ...(events.length ? ["useListener"] : []),
+            ...(item ? ["useSeedChecked"] : []),
+          ].join(", ")} } from "../react"`,
         ]
       : []),
     ...components

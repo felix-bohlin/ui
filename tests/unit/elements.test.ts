@@ -269,6 +269,83 @@ test("the documentation check flags a member, an event, an attribute and an expo
   ])
 })
 
+const typedAttributes = (types: string, tag: string) => {
+  const from = types.indexOf(`"${tag}":`)
+  if (from === -1) return undefined
+  const rest = types.slice(from + tag.length + 3)
+  const next = rest.search(/\n\s*"opui-[\w-]+":/)
+  return [
+    ...rest
+      .slice(0, next === -1 ? undefined : next)
+      .matchAll(/(?:"([\w-]+)"|\b(\w+))\?:/g),
+  ].map(([, quoted, bare]) => quoted ?? bare ?? "")
+}
+
+const attributeTypeProblems = (
+  script: string,
+  frameworks: Record<string, string>,
+) => {
+  const { attributes, tag } = publicApi(script, "")
+  if (!tag) return []
+  const own = [...new Set(attributes)].filter(
+    (name) => !/^(?:aria|data)-/.test(name),
+  )
+  return Object.entries(frameworks).flatMap(([file, types]) => {
+    const typed = typedAttributes(types, tag)
+    if (!typed) return [`${file} doesn't type <${tag}>`]
+    return own
+      .filter(
+        (name) =>
+          !typed.some((key) =>
+            new RegExp(`^${name.replace(/\$\{[^}]*\}/g, "[\\w-]+")}$`).test(
+              key,
+            ),
+          ),
+      )
+      .map(
+        (name) =>
+          `${file} doesn't type the ${name} attribute that <${tag}> reads`,
+      )
+  })
+}
+
+test("react/elements.ts and svelte/elements.ts type every attribute an element reads", () => {
+  const scripts = globSync("packages/opui/elements/*.js").toSorted()
+  const frameworks = {
+    "react/elements.ts": readFileSync(
+      "packages/opui/react/elements.ts",
+      "utf8",
+    ),
+    "svelte/elements.ts": readFileSync(
+      "packages/opui/svelte/elements.ts",
+      "utf8",
+    ),
+  }
+  expect(
+    scripts.flatMap((file) =>
+      attributeTypeProblems(readFileSync(file, "utf8"), frameworks),
+    ),
+    "type the attribute on the element's tag in both files, so a component's props reach it in React and Svelte",
+  ).toEqual([])
+})
+
+test("the attribute type check flags an attribute one framework leaves out, and a tag it doesn't type", () => {
+  const script =
+    'this.getAttribute("close-label")\nthis.getAttribute(`${side}-label`)\nthis.hasAttribute("data-busy")\ncustomElements.define("opui-a", AElement)\n'
+  expect(
+    attributeTypeProblems(script, {
+      "react/elements.ts":
+        '"opui-a": Props & { "start-label"?: string }\n"opui-b": Props & { "close-label"?: string }',
+      "svelte/elements.ts":
+        '"opui-a": Props & {\n  "close-label"?: string\n  "end-label"?: string\n}',
+      "vue/elements.ts": '"opui-b": Props',
+    }),
+  ).toEqual([
+    "react/elements.ts doesn't type the close-label attribute that <opui-a> reads",
+    "vue/elements.ts doesn't type <opui-a>",
+  ])
+})
+
 test("querySelector returns the element class of an opui tag", () => {
   const query = (root: ParentNode) => ({
     callout: root.querySelector("opui-callout"),

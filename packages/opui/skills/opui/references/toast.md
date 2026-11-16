@@ -47,18 +47,13 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### toaster.css
 
-- `--_close-image`: The icon of the close button, as an image used as a mask. Defaults to the Drawer's close icon.
-- `--_critical-image`: The icon of a critical toast, as an image used as a mask. Defaults to the `Callout` icon.
 - `--_ease`: Easing of a toast fading and sliding in.
 - `--_gap`: Space between stacked toasts.
-- `--_info-image`: The icon of an info toast, as an image used as a mask. Defaults to the `Callout` icon.
 - `--_inset`: Distance of the stack from the edges of the viewport.
 - `--_max-inline-size`: Maximum width of a toast.
 - `--_motion`: Motion multiplier, `0` with reduced motion.
-- `--_success-image`: The icon of a success toast, as an image used as a mask. Defaults to the `Callout` icon.
-- `--_warning-image`: The icon of a warning toast, as an image used as a mask. Defaults to the `Callout` icon.
 
-Outputs: `--_duration`, `--_icon-image` and `--_shadow`.
+Outputs: `--_duration` and `--_shadow`.
 
 ### callout.css
 

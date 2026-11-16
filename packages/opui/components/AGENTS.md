@@ -440,23 +440,20 @@ const groupName = name || $id("tabs") // Prefer the passed value if available
 
 ### Default Icons
 
-A part renders the default icon, so users can leave it out or put their own `svg` in its place. The default is an empty `svg` with its size attributes and no shapes, and the component's stylesheet paints it as a mask in `currentColor` from the `--ui-icon-*` token of its role, with a forced-colors color and `print-color-adjust: exact`. A slotted `svg` has shapes, so `:empty` leaves it alone, and a theme swaps every default by setting the tokens. `CalloutIcon` reads the severity from context:
-
-```astro
----
-const callout = calloutContext.get()
-const severity = callout?.severity
----
-
-{severity && severity !== "neutral" && (
-  <svg aria-hidden="true" width="32" height="32" viewBox="0 0 32 32"></svg>
-)}
-```
+A part renders the default icon, so users can leave it out or put their own `svg` in its place, and a theme swaps every default by setting the `--ui-icon-*` tokens. `tests/unit/build-icons.test.ts` fails on a component that renders an `svg` with shapes, and says what to render instead. The stylesheet paints only an `:empty` `svg`, so a slotted one keeps its shapes, in `currentColor`, with a system color in forced colors and `print-color-adjust: exact`, since a mask is a background. A component whose markup is another component's leaves the painting to that stylesheet: a toast is a `Callout`, so `toaster.css` draws no icon.
 
 ```css
 &:is(.ui-critical, .ui-info, .ui-success, .ui-warning) > svg:empty {
   background-color: currentColor;
   mask: var(--_icon-image) center / contain no-repeat;
+
+  @media (forced-colors: active) {
+    background-color: CanvasText;
+  }
+
+  @media print {
+    print-color-adjust: exact;
+  }
 }
 ```
 
@@ -573,10 +570,10 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 
 The components without a block, and why:
 
-- `Toaster`: every toast is a `Callout`, and `callout.css` has the block for its border and its severity and close icons.
 - `Anchor`, `Copy`, `SelectAll`: layout only, no boundary or state of their own. The `Copy` label is a bordered surface, which the browser forces to `CanvasText`, next to its announcement.
 - `DescriptionList`, `Form`, `Layout`: the browser forces their lines and colors itself. The `DescriptionList` leaders and total line are real borders and the `Layout` `.ui-bordered` lines are column and row rules, both forced to `CanvasText`. The invalid end text of a `Form` fieldset loses its color, while the invalid controls inside keep their dashed border.
 - `Badge`, `Dialog`, `Drawer`, `Menu`, `Table`: every boundary is a real border, which the browser forces to `CanvasText`.
+- `Toaster`: every toast is a `Callout`, and `callout.css` has the block for its border and its severity and close icons.
 - `Link`: text and underlines, forced to `LinkText` and `CanvasText`.
 - `Stat`: text only, no boundary or state.
 - `Textarea`: `textarea.css` only sizes the control; `text-field.css` has the block.

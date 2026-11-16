@@ -2,6 +2,7 @@ const Base = globalThis.HTMLElement ?? class {}
 
 const DURATION = 5000
 const LIMIT = 3
+const MAX_TIMEOUT = 2 ** 31 - 1
 const SEVERITIES = new Set([
   "critical",
   "info",
@@ -154,7 +155,8 @@ export class ToasterElement extends Base {
     if (!list.matches(":popover-open")) list.showPopover?.()
     this.#limit(list)
     this.#announce(message, severity)
-    const base = Number(this.getAttribute("duration")) || DURATION
+    const set = Number(this.getAttribute("duration") || NaN)
+    const base = Number.isNaN(set) ? DURATION : set
     const time = duration ?? (action?.label ? base * 2 : base)
     this.#timers.set(item, { id: undefined, remaining: time, start: 0 })
     if (!this.#focused && !this.#hovered) this.#start(item)
@@ -275,11 +277,11 @@ export class ToasterElement extends Base {
 
   #start(item) {
     const timer = this.#timers.get(item)
-    if (!timer || timer.id !== undefined) return
+    if (!timer || timer.id !== undefined || timer.remaining === Infinity) return
     timer.start = performance.now()
     timer.id = setTimeout(
       () => this.dismiss(item),
-      Math.max(0, timer.remaining),
+      Math.min(MAX_TIMEOUT, Math.max(0, timer.remaining)),
     )
   }
 }

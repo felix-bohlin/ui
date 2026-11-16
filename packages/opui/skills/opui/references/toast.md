@@ -19,7 +19,7 @@ Short messages that confirm an action and dismiss themselves.
 
 - `align`: `"center"` (`.ui-align-center`), `"end"` (default), `"start"` (`.ui-align-start`). Where the toasts sit along their side of the viewport.
 - `closeLabel`: `string`, `[close-label]`, default `"Close"`. The accessible name of the close button of each toast.
-- `duration`: `number`, `[duration]`, default `5000`. How long a toast stays, in milliseconds, while the pointer and focus are elsewhere. A toast with an action stays twice as long.
+- `duration`: `number`, `[duration]`, default `5000`. How long a toast stays, in milliseconds, while the pointer and focus are elsewhere. A toast with an action stays twice as long, and `Infinity` keeps a toast until it's closed.
 - `id`: `string`. The id the buttons point at with `commandfor`. Required.
 - `limit`: `number`, `[limit]`, default `3`. The most toasts shown at once. Past it, the oldest is dismissed, unless it holds focus.
 - `side`: `"block-end"` (default), `"block-start"` (`.ui-block-start`). The side of the viewport the toasts sit on.

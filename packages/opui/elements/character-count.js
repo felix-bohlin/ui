@@ -100,7 +100,7 @@ export class CharacterCountElement extends Base {
       announce(
         announcer,
         label.replace("{count}", String(this.#remaining())),
-        this.closest("[lang]")?.lang ?? "",
+        (this.control?.closest("[lang]") ?? this.closest("[lang]"))?.lang ?? "",
       )
     }, DELAY)
   }

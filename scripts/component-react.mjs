@@ -380,6 +380,12 @@ export const toReact = (component) => {
     ...(uid ? ["useId"] : []),
     ...(kind?.reactValues?.() ?? []),
   ]
+  const reactHelpers = [
+    ...(kind?.reactHelpers?.() ?? []),
+    ...(hydrating.size ? ["useHydrated"] : []),
+    ...(events.length ? ["useListener"] : []),
+    ...(item ? ["useSeedChecked"] : []),
+  ].toSorted(byName)
   const reactImport = reactValues.length
     ? `import { ${reactValues.join(", ")} } from "react"`
     : undefined
@@ -387,14 +393,8 @@ export const toReact = (component) => {
     ...(reactImport ? [reactImport] : []),
     ...(usesDefined ? [`import { defined } from "../attrs"`] : []),
     ...(usesCx ? [`import { cx } from "../cx"`] : []),
-    ...(events.length || item
-      ? [
-          `import { ${[
-            ...(hydrating.size ? ["useHydrated"] : []),
-            ...(events.length ? ["useListener"] : []),
-            ...(item ? ["useSeedChecked"] : []),
-          ].join(", ")} } from "../react"`,
-        ]
+    ...(reactHelpers.length
+      ? [`import { ${reactHelpers.join(", ")} } from "../react"`]
       : []),
     ...components
       .map((entry) => componentImport(entry, ".react"))

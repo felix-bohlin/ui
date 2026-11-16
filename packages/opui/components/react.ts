@@ -8,6 +8,14 @@ const assign = <T extends HTMLElement>(
   if (ref) ref.current = element
 }
 
+const attach = <T extends HTMLElement>(ref: Ref<T> | undefined, element: T) => {
+  const cleanup = assign(ref, element)
+  return () => {
+    if (typeof cleanup === "function") cleanup()
+    else assign(ref, null)
+  }
+}
+
 export const useListener = <E extends Event>(
   ref: Ref<HTMLElement> | undefined,
   type: string,
@@ -15,13 +23,12 @@ export const useListener = <E extends Event>(
 ) =>
   useCallback(
     (element: HTMLElement) => {
-      const cleanup = assign(ref, element)
+      const detach = attach(ref, element)
       const handle = listener as EventListener | undefined
       if (handle) element.addEventListener(type, handle)
       return () => {
         if (handle) element.removeEventListener(type, handle)
-        if (typeof cleanup === "function") cleanup()
-        else assign(ref, null)
+        detach()
       }
     },
     [listener, ref, type],
@@ -37,27 +44,31 @@ export const useHydrated = (ref: (element: HTMLElement) => () => void) =>
     [ref],
   )
 
+const seeded = new WeakSet<HTMLInputElement>()
+
+export const seedChecked =
+  (report: (input: HTMLInputElement) => void) =>
+  (input: HTMLInputElement | null) => {
+    if (!input || seeded.has(input)) return
+    seeded.add(input)
+    if (
+      input.checked !== input.defaultChecked &&
+      (input.checked || input.type === "checkbox")
+    ) {
+      report(input)
+    }
+  }
+
 export const useSeedChecked = (
   ref: Ref<HTMLInputElement> | undefined,
-  change: (input: HTMLInputElement) => void,
+  report: (input: HTMLInputElement) => void,
 ) => {
-  const seed = useRef<typeof change | undefined>(change)
+  const first = useRef(report)
   return useCallback(
     (input: HTMLInputElement) => {
-      const cleanup = assign(ref, input)
-      const report = seed.current
-      seed.current = undefined
-      if (
-        report &&
-        input.checked !== input.defaultChecked &&
-        (input.checked || input.type === "checkbox")
-      ) {
-        report(input)
-      }
-      return () => {
-        if (typeof cleanup === "function") cleanup()
-        else assign(ref, null)
-      }
+      const detach = attach(ref, input)
+      seedChecked(first.current)(input)
+      return detach
     },
     [ref],
   )

@@ -731,6 +731,8 @@ describe("the three ports of a sample", () => {
     )
     expect(react).toContain('onChange={() => onValueChange?.("0")}')
     expect(react).toContain("onChange={() => onValueChange?.(star)}")
+    expect(react).toContain('import { seedChecked } from "../react"\n')
+    expect(react).toContain("ref={seedChecked(() => onValueChange?.(star))}")
     const svelte = port(".svelte")
     expect(svelte).toContain("value = $bindable(),")
     expect(svelte).toContain('value = "0"')

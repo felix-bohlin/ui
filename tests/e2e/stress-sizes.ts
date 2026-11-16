@@ -35,8 +35,17 @@ const affix = (part: HTMLElement, name: string) => {
   const nodes = [...part.childNodes].filter(
     (node) => node instanceof Element || node.textContent!.trim(),
   )
+  const partStyle = getComputedStyle(part)
+  const textOnly = nodes.every((node) => !(node instanceof Element))
   const boxes = nodes.map((node) => {
     if (node instanceof Element) return node.getBoundingClientRect()
+    if (textOnly) {
+      const top =
+        part.getBoundingClientRect().top +
+        parseFloat(partStyle.paddingBlockStart)
+      const height = parseFloat(partStyle.lineHeight)
+      return { bottom: top + height, height, top }
+    }
     const line = document.createElement("span")
     line.style.display = "inline-block"
     node.replaceWith(line)

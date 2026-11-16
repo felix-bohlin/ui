@@ -1,9 +1,9 @@
 "use client"
 
 import { useId, useState } from "react"
-import { defined } from "../attrs"
 import { cx } from "../cx"
 import { TabsContext } from "./context.react"
+import { warnUnnamedGroup } from "../dev"
 import type { Props } from "./types.react"
 
 export default function Tabs({
@@ -13,6 +13,7 @@ export default function Tabs({
   onValueChange,
   orientation,
   overflow,
+  role,
   value,
   variant,
   children,
@@ -26,6 +27,7 @@ export default function Tabs({
     onValueChange?.(next)
   }
   const groupName = name || `tabs-${uid}`
+  if (role === "radiogroup") warnUnnamedGroup("Tabs", rest)
 
   return (
     <TabsContext value={{ change, groupName, value: value ?? inner }}>
@@ -37,8 +39,8 @@ export default function Tabs({
           variant && variant !== "tonal" && `ui-${variant}`,
           className,
         ])}
-        role="radiogroup"
-        {...defined(rest)}
+        role={role}
+        {...rest}
       >
         {children}
       </div>

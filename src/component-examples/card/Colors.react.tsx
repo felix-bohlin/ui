@@ -17,12 +17,12 @@ export default function Colors() {
       <li>
         <Card variant="outlined">
           <CardHeader>
-            <h3>Starter</h3>
-            <p>For one person</p>
+            <h3>Basic</h3>
+            <p>For one lonely bassist</p>
           </CardHeader>
           <CardContent>€0 per month</CardContent>
           <CardActions>
-            <Button>Choose Starter</Button>
+            <Button>Choose Basic</Button>
           </CardActions>
         </Card>
       </li>
@@ -30,26 +30,26 @@ export default function Colors() {
         <Card color="primary" variant="outlined">
           <CardHeader as="div">
             <hgroup>
-              <h3>Team</h3>
-              <p>Up to 20 people</p>
+              <h3>Gold</h3>
+              <p>Up to 20 bandmates</p>
             </hgroup>
             <Chip label="Popular" size="small" />
           </CardHeader>
-          <CardContent>€12 per person per month</CardContent>
+          <CardContent>€12 per bandmate per month</CardContent>
           <CardActions>
-            <Button variant="filled">Choose Team</Button>
+            <Button variant="filled">Choose Gold</Button>
           </CardActions>
         </Card>
       </li>
       <li>
         <Card variant="outlined">
           <CardHeader>
-            <h3>Business</h3>
-            <p>For larger teams</p>
+            <h3>Platinum</h3>
+            <p>For big bands and brass sections</p>
           </CardHeader>
-          <CardContent>€24 per person per month</CardContent>
+          <CardContent>€24 per bandmate per month</CardContent>
           <CardActions>
-            <Button>Choose Business</Button>
+            <Button>Choose Platinum</Button>
           </CardActions>
         </Card>
       </li>

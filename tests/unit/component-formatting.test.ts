@@ -58,7 +58,7 @@ beforeAll(async () => {
   )) as typeof import("svelte/server")
 }, 60_000)
 
-afterAll(() => renderer.close())
+afterAll(() => renderer?.close())
 
 const render = {
   astro: (file: string, source: string, slots: string[], name: string) =>

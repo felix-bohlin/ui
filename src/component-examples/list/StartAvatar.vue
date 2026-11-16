@@ -4,16 +4,16 @@ import { Avatar, List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem label="Inga Halonen">
+    <ListItem label="Ines Hertz">
       <template #start>
         <Avatar aria-hidden="true">IH</Avatar>
       </template>
     </ListItem>
-    <ListItem description="Product designer" label="Lena Handén">
+    <ListItem description="Fretless enthusiast" label="Lou Headstock">
       <template #start>
         <Avatar>
           <img
-            src="/photos/lena-handen.png"
+            src="/photos/lou-headstock.png"
             alt=""
             decoding="async"
             loading="lazy"

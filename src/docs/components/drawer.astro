@@ -28,10 +28,14 @@ import ClosedbyTable from "../../components/ClosedbyTable.astro"
 import Conditional from "../../components/Conditional.astro"
 import DocsTable from "../../components/DocsTable.astro"
 
+export const description =
+  "A panel that slides in from an edge of the screen, for navigation, filters or side content."
+
 export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
 ---
 
 <Component
+  description={description}
   heroAnatomy
   slug="drawer"
   browserSupport={[
@@ -86,8 +90,9 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
 >
   <Fragment slot="title">Drawer</Fragment>
   <Fragment slot="preamble">
-    Slides in from an edge of the screen. For a task that needs full attention,
-    use a <DocLink href="/components/dialog">Dialog</DocLink>.
+    Navigation, filters or side content that slides in from an edge of the
+    screen. For a task that needs full attention, use a
+    <DocLink href="/components/dialog">Dialog</DocLink>.
   </Fragment>
 
   <Usage slot="usage">
@@ -121,8 +126,9 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
           to change it.
         </p>
         <p>
-          Use <code>backdrop="transparent"</code> and <code>scrollLock</code>
-          for the page behind it.
+          The page behind a modal drawer doesn't scroll. Use
+          <code>backdrop="transparent"</code> to keep it in view and, on screens
+          <code>31.25rem</code> and wider, scrollable.
         </p>
       </Fragment>
       <Fragment slot="html">
@@ -132,8 +138,9 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
           change it.
         </p>
         <p>
-          Use <code>.ui-backdrop-transparent</code> and
-          <code>.ui-scroll-lock</code> for the page behind it.
+          The page behind a modal drawer doesn't scroll. Use
+          <code>.ui-backdrop-transparent</code> to keep it in view and, on
+          screens <code>31.25rem</code> and wider, scrollable.
         </p>
       </Fragment>
     </Conditional>
@@ -170,12 +177,33 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
     </Conditional>
   </section>
 
+  <section id="non-modal">
+    <h2>Non-modal</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Open it with <code>show()</code> from a script to keep the page usable.
+        Set <code>scrollLock</code> to keep the page from scrolling.
+      </Fragment>
+      <Fragment slot="html">
+        Open it with <code>show()</code> from a script to keep the page usable.
+        Add <code>.ui-scroll-lock</code> to keep the page from scrolling.
+      </Fragment>
+    </Conditional>
+    <p>
+      A drawer opened with <code>show()</code> isn't in the top layer, so give
+      it a <code>z-index</code> above the page's sticky headers.
+    </p>
+
+    <AutoExample name="NonModal" row />
+  </section>
+
   <section id="close-button">
     <h2>Close button</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        It says "Close" unless you translate it with <code>closeLabel</code>,
-        like the other
+        Set <code>closeButton</code> on <code>DrawerHeader</code> to add it. It
+        says "Close" unless you translate it with <code>closeLabel</code>, like
+        the other
         <DocLink href="/guide/accessibility#built-in-labels"
           >built-in labels</DocLink
         >.
@@ -218,7 +246,7 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
         open
         style="block-size: auto; inline-size: 18rem; position: static"
       >
-        <UIDrawerHeader>
+        <UIDrawerHeader closeButton>
           <UIDrawerTitle>Filters</UIDrawerTitle>
         </UIDrawerHeader>
         <UIDrawerContent>

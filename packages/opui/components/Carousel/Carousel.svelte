@@ -1,6 +1,5 @@
 <script lang="ts">
   import { counterLabel, cssString, mergeStyle } from "../style"
-  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
@@ -16,6 +15,7 @@
     peek,
     persistentButtons,
     previousLabel,
+    role,
     stretch,
     style,
 
@@ -42,7 +42,7 @@
   style={mergeStyle(
     {
       "--_button-next-label": nextLabel && cssString(nextLabel),
-      "--_button-prev-label": previousLabel && cssString(previousLabel),
+      "--_button-previous-label": previousLabel && cssString(previousLabel),
       "--_items-per-view": itemsPerView,
       "--_marker-label":
         markerLabel && counterLabel(markerLabel, "ui-carousel-item"),
@@ -50,8 +50,8 @@
     },
     style,
   )}
-  role="list"
-  {...defined(rest)}
+  role={role ?? "list"}
+  {...rest}
 >
   {@render children?.()}
 </ul>

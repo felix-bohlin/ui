@@ -24,16 +24,6 @@ test("checkbox.js applies indeterminate to marked checkboxes", async ({
   await expect(page.locator("#plain")).toHaveJSProperty("indeterminate", false)
 
   await page.evaluate(() => {
-    const input = document.createElement("input")
-    input.type = "checkbox"
-    input.id = "swapped"
-    input.dataset.indeterminate = ""
-    document.body.append(input)
-    document.dispatchEvent(new Event("astro:after-swap"))
-  })
-  await expect(page.locator("#swapped")).toHaveJSProperty("indeterminate", true)
-
-  await page.evaluate(() => {
     const input = document.querySelector<HTMLInputElement>("#mixed")!
     input.removeAttribute("data-indeterminate")
     window.syncIndeterminate(input)

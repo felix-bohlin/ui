@@ -2,14 +2,14 @@
   <span class="ui-label" id="text-field-binding-1-label">Name</span>
   <span class="ui-field">
     <input
-      value="Hakki"
+      value="Holly"
       aria-labelledby="text-field-binding-1-label"
       name="text-field-binding"
       type="text"
     />
   </span>
 </label>
-<p class="text-field-binding-text">Hello, Hakki.</p>
+<p class="text-field-binding-text">Heyyy, Holly.</p>
 <button class="ui-button text-field-binding-reset" type="button">Reset</button>
 
 <script type="module">
@@ -18,7 +18,7 @@
 
   function update() {
     if (!text || !input) return
-    text.textContent = `Hello, ${input.value || "stranger"}.`
+    text.textContent = `Heyyy, ${input.value || "stranger"}.`
   }
 
   input?.addEventListener("input", update)

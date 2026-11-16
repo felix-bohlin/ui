@@ -1,10 +1,11 @@
 import type * as Base from "./types"
-import type { ChangeEventHandler, ComponentProps } from "react"
+import type { ComponentProps } from "react"
 
 export type Props = Base.Props & {
-  onChange?: ChangeEventHandler<HTMLInputElement>
+  defaultValue?: number | string
+  onValueChange?: (value: number | string) => void
 } & Omit<
-    Omit<ComponentProps<"fieldset">, "children" | "onChange"> &
-      Omit<ComponentProps<"meter">, "children" | "onChange">,
+    Omit<ComponentProps<"fieldset">, "children" | "defaultValue"> &
+      Omit<ComponentProps<"meter">, "children" | "defaultValue">,
     keyof Base.Props
   >

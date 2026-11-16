@@ -1,35 +1,35 @@
-import { defined } from "../attrs"
 import { cx } from "../cx"
 import type { StepperItemProps as Props } from "./types.react"
 
 export default function StepperItem({
+  "aria-current": ariaCurrent,
   className,
   complete,
-  completedLabel = ", completed",
+  completeLabel = ", completed",
   current,
   error,
   errorLabel = ", error",
   href,
   description,
-  iconChecked,
+  iconComplete,
   label,
   ...rest
 }: Props) {
-  const state = error ? errorLabel : complete ? completedLabel : undefined
+  const state = error ? errorLabel : complete ? completeLabel : undefined
   const link = href && !current && (complete || error)
 
   return (
     <li
-      aria-current={current ? "step" : undefined}
+      aria-current={ariaCurrent ?? (current ? "step" : undefined)}
       className={cx([
         { "ui-complete": complete, "ui-error": error },
         className,
       ])}
-      {...defined(rest)}
+      {...rest}
     >
-      {iconChecked && (
-        <span aria-hidden="true" className="ui-icon-checked">
-          {iconChecked}
+      {iconComplete && (
+        <span aria-hidden="true" className="ui-icon-complete">
+          {iconComplete}
         </span>
       )}{" "}
       {link ? (

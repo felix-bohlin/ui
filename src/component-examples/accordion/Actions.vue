@@ -10,11 +10,11 @@ import {
 
 <template>
   <Accordion open variant="elevated">
-    <AccordionSummary>Terms of service</AccordionSummary>
+    <AccordionSummary>Bassbook house rules</AccordionSummary>
     <AccordionContent>
       <p>
-        We updated our terms on 1 March. The changes cover how long we keep your
-        files and how annual plans renew.
+        We updated the house rules on 1 March. The changes cover how long we
+        keep your slap videos and how Bassbook Gold renews.
       </p>
     </AccordionContent>
     <AccordionActions>
@@ -24,10 +24,10 @@ import {
   </Accordion>
 
   <Accordion open variant="elevated">
-    <AccordionSummary>Invite your team</AccordionSummary>
+    <AccordionSummary>Invite your bandmates</AccordionSummary>
     <AccordionContent>
       <p>
-        Teammates you invite can view and edit every project in this workspace.
+        Bandmates you invite can view and edit every setlist in your band room.
       </p>
     </AccordionContent>
     <AccordionActions align="start">

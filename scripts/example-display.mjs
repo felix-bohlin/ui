@@ -118,7 +118,7 @@ const balanced = (text, open) => {
 
 const PSEUDO_ELEMENT = /::|:(after|before|first-letter|first-line|marker)\b/
 
-const GENERATED = /^(.*?)::?(after|before)$/
+const GENERATED = /^(.*?)::?(after|before)$/s
 
 const PROPERTIES = ["content", "display", "position", "white-space"]
 

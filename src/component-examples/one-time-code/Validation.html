@@ -1,17 +1,23 @@
-<label class="ui-text-field ui-one-time-code">
-  <span class="ui-label">Verification code</span>
+<label class="ui-one-time-code">
+  <span class="ui-label" id="one-time-code-validation-1-label"
+    >Verification code</span
+  >
   <span class="ui-field">
     <input
-      autocomplete="one-time-code"
       inputmode="numeric"
       pattern="[0-9]{6}"
       required
       value="482193"
+      aria-describedby="one-time-code-validation-1-end-text"
       aria-invalid="true"
+      aria-labelledby="one-time-code-validation-1-label"
+      autocomplete="one-time-code"
       maxlength="6"
       name="code"
       type="text"
     />
   </span>
-  <span class="ui-end-text">That code has expired. Request a new one.</span>
+  <span class="ui-end-text" id="one-time-code-validation-1-end-text"
+    >That code has expired. Request a new one.</span
+  >
 </label>

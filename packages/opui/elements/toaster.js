@@ -2,6 +2,7 @@ const Base = globalThis.HTMLElement ?? class {}
 
 const DURATION = 5000
 const LIMIT = 3
+const MAX_TIMEOUT = 2 ** 31 - 1
 const SEVERITIES = new Set([
   "critical",
   "info",
@@ -11,11 +12,12 @@ const SEVERITIES = new Set([
 ])
 const SVG = "http://www.w3.org/2000/svg"
 
-export class Toaster extends Base {
+export class ToasterElement extends Base {
   #controller
   #focused = false
   #hovered = false
   #leaving = new Map()
+  #lines = new Map()
   #origin = null
   #timers = new Map()
 
@@ -53,18 +55,21 @@ export class Toaster extends Base {
       },
       { signal },
     )
-    const list = this.list
-    list?.addEventListener(
+    this.addEventListener(
       "keydown",
       (event) => {
         const item = event.target.closest?.("li")
-        if (event.key === "Escape" && item) this.dismiss(item)
+        if (event.key === "Escape" && item && this.list?.contains(item)) {
+          this.dismiss(item)
+        }
       },
       { signal },
     )
-    list?.addEventListener(
+    this.addEventListener(
       "focusin",
       (event) => {
+        const list = this.list
+        if (!list?.contains(event.target)) return
         if (!list.contains(event.relatedTarget)) {
           this.#origin = event.relatedTarget
         }
@@ -73,37 +78,52 @@ export class Toaster extends Base {
       },
       { signal },
     )
-    list?.addEventListener(
+    this.addEventListener(
       "focusout",
       (event) => {
+        const list = this.list
+        if (!list?.contains(event.target)) return
         if (list.contains(event.relatedTarget)) return
         this.#focused = false
         this.#resume()
       },
       { signal },
     )
-    list?.addEventListener(
+    this.addEventListener(
       "pointerenter",
-      () => {
+      (event) => {
+        if (event.target !== this.list) return
         this.#hovered = true
         this.#pause()
       },
-      { signal },
+      { capture: true, signal },
     )
-    list?.addEventListener(
+    this.addEventListener(
       "pointerleave",
-      () => {
+      (event) => {
+        if (event.target !== this.list) return
         this.#hovered = false
         this.#resume()
       },
-      { signal },
+      { capture: true, signal },
     )
+    const list = this.list
+    if (list?.children.length && !list.matches(":popover-open")) {
+      list.showPopover?.()
+    }
+    this.#resume()
   }
 
   disconnectedCallback() {
     this.#controller?.abort()
-    for (const timer of this.#timers.values()) clearTimeout(timer.id)
-    this.#timers.clear()
+    this.#focused = false
+    this.#hovered = false
+    this.#pause()
+    for (const [line, id] of this.#lines) {
+      clearTimeout(id)
+      line.remove()
+    }
+    this.#lines.clear()
   }
 
   show(message, { action, duration, severity } = {}) {
@@ -135,7 +155,8 @@ export class Toaster extends Base {
     if (!list.matches(":popover-open")) list.showPopover?.()
     this.#limit(list)
     this.#announce(message, severity)
-    const base = Number(this.getAttribute("duration")) || DURATION
+    const set = this.getAttribute("duration")?.trim()
+    const base = set && !Number.isNaN(Number(set)) ? Number(set) : DURATION
     const time = duration ?? (action?.label ? base * 2 : base)
     this.#timers.set(item, { id: undefined, remaining: time, start: 0 })
     if (!this.#focused && !this.#hovered) this.#start(item)
@@ -197,7 +218,13 @@ export class Toaster extends Base {
     const line = this.ownerDocument.createElement("p")
     line.textContent = message
     region.append(line)
-    setTimeout(() => line.remove(), DURATION)
+    this.#lines.set(
+      line,
+      setTimeout(() => {
+        this.#lines.delete(line)
+        line.remove()
+      }, DURATION),
+    )
   }
 
   #icon(severity) {
@@ -250,11 +277,11 @@ export class Toaster extends Base {
 
   #start(item) {
     const timer = this.#timers.get(item)
-    if (!timer || timer.id !== undefined) return
+    if (!timer || timer.id !== undefined || timer.remaining === Infinity) return
     timer.start = performance.now()
     timer.id = setTimeout(
       () => this.dismiss(item),
-      Math.max(0, timer.remaining),
+      Math.min(MAX_TIMEOUT, Math.max(0, timer.remaining)),
     )
   }
 }
@@ -274,7 +301,7 @@ export function toast(message, { toaster, ...options } = {}) {
     typeof toaster === "string"
       ? document.getElementById(toaster)
       : (toaster ?? defaultToaster())
-  if (!(element instanceof Toaster)) {
+  if (!(element instanceof ToasterElement)) {
     console.warn("toast(): no <opui-toaster> on the page")
     return null
   }
@@ -287,5 +314,5 @@ for (const severity of SEVERITIES) {
 }
 
 if (globalThis.customElements && !customElements.get("opui-toaster")) {
-  customElements.define("opui-toaster", Toaster)
+  customElements.define("opui-toaster", ToasterElement)
 }

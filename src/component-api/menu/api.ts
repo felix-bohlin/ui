@@ -31,7 +31,7 @@ export default {
     },
     {
       description:
-        'Closes the menu and returns focus to the trigger. In a submenu, it closes only the submenu, and Chromium moves focus to the page instead of the submenu\'s item. A menu with `popover="manual"` stays open.',
+        'Closes the menu and returns focus to the trigger. In a submenu, it closes only the submenu, and focus moves to the page instead of the submenu\'s item. That is confirmed in Chromium and not yet checked in Firefox and Safari. A menu with `popover="manual"` stays open.',
       keys: ["Esc"],
     },
   ],
@@ -155,6 +155,13 @@ export default {
       description:
         "Optional content at the end, such as a shortcut in a `<kbd>` (`shortcut` on an item).",
       selector: ".ui-menu > li > :is(a, button) > .ui-end",
+    },
+    {
+      code: ".ui-icon-checked",
+      description:
+        "Your own check on the current item, which replaces the default check. The `icon-checked` slot puts it on every item from `items`.",
+      selector: ".ui-menu > li > :is(a, button) > .ui-icon-checked",
+      slots: ["icon-checked"],
     },
   ],
   root: {

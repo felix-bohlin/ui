@@ -12,17 +12,17 @@
   <Fieldset>
     <FieldLegend>Plan</FieldLegend>
     <FieldGroup name="radio-cards-end" orientation="horizontal">
-      <Radio card defaultChecked spread value="starter">
-        Starter
-        {#snippet endText()}€0 per month{/snippet}
+      <Radio card defaultChecked spread value="basic">
+        Basic
+        {#snippet endText()}€0 per month, forever{/snippet}
       </Radio>
-      <Radio card spread value="team" variant="elevated">
-        Team
-        {#snippet endText()}€12 per person per month{/snippet}
+      <Radio card spread value="gold" variant="elevated">
+        Gold
+        {#snippet endText()}€3 per month, shiny badge included{/snippet}
       </Radio>
-      <Radio card spread value="business" variant="tonal">
-        Business
-        {#snippet endText()}€24 per person per month{/snippet}
+      <Radio card spread value="platinum" variant="tonal">
+        Platinum
+        {#snippet endText()}€5 per month, extra sparkly{/snippet}
       </Radio>
     </FieldGroup>
   </Fieldset>
@@ -31,15 +31,15 @@
     <FieldGroup name="radio-cards-start" orientation="horizontal">
       <Radio card defaultChecked value="monthly">
         Monthly
-        {#snippet endText()}Cancel at any time.{/snippet}
+        {#snippet endText()}Cancel any time, no hard feelings.{/snippet}
       </Radio>
       <Radio card value="yearly" variant="elevated">
         Yearly
-        {#snippet endText()}Two months free.{/snippet}
+        {#snippet endText()}Two months free, woohoo.{/snippet}
       </Radio>
-      <Radio card value="invoice" variant="tonal">
-        Invoice
-        {#snippet endText()}Pay by bank transfer.{/snippet}
+      <Radio card value="gig-money" variant="tonal">
+        Gig money
+        {#snippet endText()}Pay in coins after your next gig.{/snippet}
       </Radio>
     </FieldGroup>
   </Fieldset>

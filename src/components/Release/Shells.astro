@@ -1,16 +1,11 @@
 ---
-import { ToggleButton, ToggleGroup } from "opui-css/astro"
+import { Select } from "opui-css/astro"
 import {
   examplePath,
   exampleModules,
   exampleSources,
 } from "../../utils/examples"
 import { FRAMEWORKS, type FrameworkId } from "../../utils/framework"
-import AstroLogo from "../AstroLogo.astro"
-import Html5Logo from "../Html5Logo.astro"
-import ReactLogo from "../ReactLogo.astro"
-import SvelteLogo from "../SvelteLogo.astro"
-import VueLogo from "../VueLogo.astro"
 
 const id = "shells"
 const slug = "card"
@@ -81,14 +76,6 @@ const serverComponents = reactFiles.filter(
 
 const format = (value: number) => value.toLocaleString("en")
 
-const logos = {
-  astro: AstroLogo,
-  html: Html5Logo,
-  react: ReactLogo,
-  svelte: SvelteLogo,
-  vue: VueLogo,
-}
-
 const parts: Record<string, string> = {
   Button: "button",
   Card: "card",
@@ -154,7 +141,6 @@ const renders = FRAMEWORKS.map(({ id: framework, label }) => ({
     framework === "html"
       ? undefined
       : exampleModules[examplePath(slug, name, framework)]?.default,
-  Logo: logos[framework],
   framework,
   html: framework === "html" ? source("html") : undefined,
   label: displayLabel(framework, label),
@@ -163,8 +149,8 @@ const renders = FRAMEWORKS.map(({ id: framework, label }) => ({
 
 const activeSourceCss = FRAMEWORKS.map(
   ({ id: framework }) =>
-    `#${id}:is([data-framework="${framework}"], :not([data-framework]):has([name="${groupName}"][value="${framework}"]:checked)) .shells-source[data-framework="${framework}"] { display: block; view-transition-name: ${id}-code; }
-#${id}:is([data-framework="${framework}"], :not([data-framework]):has([name="${groupName}"][value="${framework}"]:checked)) .shells-source[data-framework="${framework}"] .shells-part { view-transition-name: var(--shells-part); }`,
+    `#${id}:is([data-framework="${framework}"], :not([data-framework]):has([name="${groupName}"] [value="${framework}"]:checked)) .shells-source[data-framework="${framework}"] { display: block; view-transition-name: ${id}-code; }
+#${id}:is([data-framework="${framework}"], :not([data-framework]):has([name="${groupName}"] [value="${framework}"]:checked)) .shells-source[data-framework="${framework}"] .shells-part { view-transition-name: var(--shells-part); }`,
 ).join("\n")
 ---
 
@@ -194,22 +180,20 @@ const activeSourceCss = FRAMEWORKS.map(
     </p>
   </figure>
   <div class="shells-morph">
-    <ToggleGroup
-      aria-label="Framework"
+    <Select
       class="shells-toggle"
+      hideLabel
+      label="Framework"
       name={groupName}
       size="small"
     >
-      {renders.map(({ Logo, framework, label }) => <ToggleButton
-        checked={framework === reference}
+      {renders.map(({ framework, label }) => <option
+        selected={framework === reference}
         value={framework}
       >
-        <span aria-hidden="true" class="shells-logo">
-          <Logo />
-        </span>
         {label}
-      </ToggleButton>)}
-    </ToggleGroup>
+      </option>)}
+    </Select>
     <div class="shells-code">
       {renders.map(({ framework, marked }) => (
         <pre
@@ -337,21 +321,6 @@ const activeSourceCss = FRAMEWORKS.map(
     display: grid;
     gap: var(--ui-space-3);
     min-inline-size: 0;
-  }
-
-  .shells-toggle {
-    & .ui-toggle-button {
-      flex: 1 1 auto;
-    }
-  }
-
-  .shells-logo {
-    display: inline-flex;
-
-    & svg {
-      block-size: 1.1em;
-      inline-size: 1.1em;
-    }
   }
 
   .shells-code {
@@ -801,19 +770,15 @@ const activeSourceCss = FRAMEWORKS.map(
   }
 
   const initMorph = (root: HTMLElement) => {
-    const checked = root.querySelector<HTMLInputElement>(
-      ".shells-toggle input:checked",
+    const select = root.querySelector<HTMLSelectElement>(
+      ".shells-toggle select",
     )
-    const groupName = checked?.name
-    root.dataset.framework = checked?.value ?? "astro"
+    root.dataset.framework = select?.value ?? "astro"
     let running = 0
     root.addEventListener("change", (event) => {
-      const input = event.target
-      if (!(input instanceof HTMLInputElement) || input.name !== groupName) {
-        return
-      }
+      if (!select || event.target !== select) return
       const swap = () => {
-        root.dataset.framework = input.value
+        root.dataset.framework = select.value
       }
       if (typeof document.startViewTransition !== "function") {
         swap()

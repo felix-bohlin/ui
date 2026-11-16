@@ -1,22 +1,24 @@
 ---
 import type { Props } from "./types.astro"
-import { mergeStyle } from "../style"
+import { mergeStyle, pluralLabel } from "../style"
 
 export const title = "Rating"
 
 const {
   "aria-describedby": ariaDescribedBy,
   "aria-invalid": ariaInvalid,
+  "aria-label": ariaLabel,
   class: className,
   clearLabel = "No rating",
   disabled,
   error,
   label,
+  lang,
   max = 5,
   name,
   required,
   size,
-  starLabel = (value: number) => (value === 1 ? "1 star" : `${value} stars`),
+  starLabel = { one: "{count} star", other: "{count} stars" },
   style,
   value,
   ...rest
@@ -30,12 +32,14 @@ const invalid = error ? "true" : ariaInvalid
 
 {name ? (
   <fieldset
+    aria-label={ariaLabel}
     class:list={[
       "ui-rating",
       size && size !== "medium" && `ui-${size}`,
       className,
     ]}
     disabled={disabled}
+    lang={lang}
     style={style}
     {...rest}
   >
@@ -55,7 +59,7 @@ const invalid = error ? "true" : ariaInvalid
       <input
         aria-describedby={ariaDescribedBy}
         aria-invalid={invalid}
-        aria-label={starLabel(star)}
+        aria-label={pluralLabel(starLabel, star, lang)}
         checked={current === star}
         name={name}
         required={required}
@@ -67,12 +71,13 @@ const invalid = error ? "true" : ariaInvalid
 ) : (
   <meter
     aria-describedby={ariaDescribedBy}
-    aria-label={label}
+    aria-label={ariaLabel ?? label}
     class:list={[
       "ui-rating",
       size && size !== "medium" && `ui-${size}`,
       className,
     ]}
+    lang={lang}
     max={max}
     style={mergeStyle({ "--_max": count === 5 ? undefined : count }, style)}
     value={value ?? 0}

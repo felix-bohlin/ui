@@ -7,9 +7,9 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/vue"
     <Fieldset>
       <FieldLegend>Account type</FieldLegend>
       <FieldGroup name="radio-group-required" orientation="horizontal">
-        <Radio required value="personal">Personal</Radio>
-        <Radio required value="business">Business</Radio>
-        <Radio required value="nonprofit">Nonprofit</Radio>
+        <Radio required value="bassist">Bassist</Radio>
+        <Radio required value="band">Band</Radio>
+        <Radio required value="shop">Bass shop</Radio>
       </FieldGroup>
     </Fieldset>
   </Form>

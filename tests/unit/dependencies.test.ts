@@ -23,25 +23,30 @@ const manifests = execFileSync(
   .split("\n")
   .filter(Boolean)
 
-const catalog = Object.fromEntries(
+const catalogOf = (yaml: string) =>
   [
-    ...(
-      readFileSync("pnpm-workspace.yaml", "utf8").match(
-        /^catalog:\n((?:[ \t]+.*\n?)+)/m,
-      )?.[1] ?? ""
-    ).matchAll(/^[ \t]+"?([^":\s]+)"?:[ \t]*(\S+)/gm),
-  ].map(([, name, version]) => [name, version]),
-)
+    ...[...yaml.matchAll(/^catalogs?:\n((?:[ \t]+.*\n?)+)/gm)]
+      .map(([, block]) => block)
+      .join("\n")
+      .matchAll(/^[ \t]+["']?([^"':\s]+)["']?:[ \t]*["']?([^"'\s#]+)/gm),
+  ].map(([, name, version]) => ({ [name]: version }))
+
+const catalog = catalogOf(readFileSync("pnpm-workspace.yaml", "utf8"))
 
 test("the check flags an exact version", () => {
   expect(
     pinned("package.json", { a: "1.2.3", b: "^1.2.3", c: "catalog:" }),
   ).toEqual(["package.json: a 1.2.3"])
+  expect(
+    catalogOf(
+      "catalog:\n  a: \"1.2.3\"\n  b: ^1.2.3\n  c: '1.2.3'\n\ncatalogs:\n  legacy:\n    a: 1.2.3\n",
+    ).flatMap((versions) => pinned("catalog", versions)),
+  ).toEqual(["catalog: a 1.2.3", "catalog: c 1.2.3", "catalog: a 1.2.3"])
 })
 
 test("no dependency is pinned to an exact version", () => {
   expect(manifests.length).toBeGreaterThan(0)
-  expect(Object.keys(catalog).length).toBeGreaterThan(0)
+  expect(catalog.length).toBeGreaterThan(0)
   expect(
     [
       ...manifests.flatMap((manifest) => {
@@ -53,7 +58,9 @@ test("no dependency is pinned to an exact version", () => {
           "peerDependencies",
         ].flatMap((field) => pinned(manifest, pkg[field] ?? {}))
       }),
-      ...pinned("pnpm-workspace.yaml catalog", catalog),
+      ...catalog.flatMap((versions) =>
+        pinned("pnpm-workspace.yaml catalog", versions),
+      ),
     ],
     `use a ^ range, so the dependency takes minor and patch updates. Only ${PINNED.join(", ")} is pinned, to the version of the CI container (tests/unit/playwright.test.ts)`,
   ).toEqual([])

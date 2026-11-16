@@ -1,23 +1,25 @@
-<label class="ui-text-field ui-one-time-code">
-  <span class="ui-label">PIN</span>
+<label class="ui-one-time-code">
+  <span class="ui-label" id="one-time-code-length-1-label">PIN</span>
   <span class="ui-field">
     <input
-      autocomplete="one-time-code"
       inputmode="numeric"
       pattern="[0-9]{4}"
+      aria-labelledby="one-time-code-length-1-label"
+      autocomplete="one-time-code"
       maxlength="4"
       name="pin"
       type="text"
     />
   </span>
 </label>
-<label class="ui-text-field ui-one-time-code ui-grouped">
-  <span class="ui-label">Backup code</span>
+<label class="ui-one-time-code ui-grouped">
+  <span class="ui-label" id="one-time-code-length-2-label">Backup code</span>
   <span class="ui-field">
     <input
-      autocomplete="one-time-code"
       inputmode="numeric"
       pattern="[0-9]{8}"
+      aria-labelledby="one-time-code-length-2-label"
+      autocomplete="one-time-code"
       maxlength="8"
       name="backup-code"
       type="text"

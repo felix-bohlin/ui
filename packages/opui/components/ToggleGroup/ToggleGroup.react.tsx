@@ -1,7 +1,6 @@
 "use client"
 
 import { useId, useState } from "react"
-import { defined } from "../attrs"
 import { cx } from "../cx"
 import { ToggleGroupContext } from "./context.react"
 import { selectionOf } from "./selection"
@@ -16,6 +15,7 @@ export default function ToggleGroup({
   onValueChange,
   orientation,
   overflow,
+  role,
   size,
   value,
   children,
@@ -44,8 +44,8 @@ export default function ToggleGroup({
           size && size !== "medium" && `ui-${size}`,
           className,
         ])}
-        role={multiple ? "group" : "radiogroup"}
-        {...defined(rest)}
+        role={role ?? (multiple ? "group" : "radiogroup")}
+        {...rest}
       >
         {children}
       </div>

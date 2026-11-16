@@ -70,7 +70,7 @@ const CASES: {
     },
     name: "Callout",
     prefix: "callout",
-    props: { dismissible: true },
+    props: { closeButton: true },
   },
   {
     base: (html) =>

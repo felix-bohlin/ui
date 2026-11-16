@@ -5,8 +5,8 @@ import { Callout, CalloutContent, CalloutIcon } from "opui-css/react"
 export default function Dismissible() {
   return (
     <Callout
+      closeButton
       closeLabel="Dismiss"
-      dismissible
       onDismiss={(event) => {
         if (!confirm("Hide this message?")) event.preventDefault()
       }}
@@ -14,8 +14,8 @@ export default function Dismissible() {
     >
       <CalloutIcon />
       <CalloutContent>
-        The new editor is on for everyone. Your drafts from the old one are in
-        Settings.
+        The new tab editor is on for everyone. Your drafts from the old one are
+        in Settings.
       </CalloutContent>
     </Callout>
   )

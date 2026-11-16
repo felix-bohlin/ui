@@ -8,6 +8,6 @@ export type Props = Without<Base.Props, "description" | "label"> &
   Base.Slots<Snippet> &
   (
     | ({ as?: never; href?: never } & SvelteHTMLElements["li"])
-    | ({ as?: "a"; href: string } & SvelteHTMLElements["a"])
+    | ({ as?: "a"; href: string } & Omit<SvelteHTMLElements["a"], "type">)
     | ({ as: "button" } & SvelteHTMLElements["button"])
   )

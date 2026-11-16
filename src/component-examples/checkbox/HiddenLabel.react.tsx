@@ -18,7 +18,7 @@ export default function HiddenLabel() {
             <TableRow>
               <TableHeaderCell>
                 <Checkbox data-select-all="" hideLabel>
-                  Select all files
+                  Select all tabs
                 </Checkbox>
               </TableHeaderCell>
               <TableHeaderCell>File</TableHeaderCell>
@@ -34,28 +34,28 @@ export default function HiddenLabel() {
                   name="checkbox-hidden-label"
                   value="invoice"
                 >
-                  Select Invoice.pdf
+                  Select Setlist.pdf
                 </Checkbox>
               </TableCell>
-              <TableCell>Invoice.pdf</TableCell>
+              <TableCell>Setlist.pdf</TableCell>
               <TableCell>120 kB</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
                 <Checkbox hideLabel name="checkbox-hidden-label" value="logo">
-                  Select Logo.svg
+                  Select Band-logo.svg
                 </Checkbox>
               </TableCell>
-              <TableCell>Logo.svg</TableCell>
+              <TableCell>Band-logo.svg</TableCell>
               <TableCell>8 kB</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
                 <Checkbox hideLabel name="checkbox-hidden-label" value="notes">
-                  Select Notes.md
+                  Select Slap-tabs.md
                 </Checkbox>
               </TableCell>
-              <TableCell>Notes.md</TableCell>
+              <TableCell>Slap-tabs.md</TableCell>
               <TableCell>2 kB</TableCell>
             </TableRow>
           </TableBody>

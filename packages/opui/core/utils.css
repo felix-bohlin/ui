@@ -46,7 +46,7 @@ Add `.ui-scroll-lock` to any element that uses the [open] attribute (native <dia
 */
   html:has(
     .ui-dialog:modal,
-    .ui-scroll-lock[open]:not(.ui-backdrop-transparent)
+    :is(.ui-drawer:modal, .ui-scroll-lock[open]):not(.ui-backdrop-transparent)
   ) {
     overflow: clip;
     overscroll-behavior: contain;

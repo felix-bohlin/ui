@@ -4,13 +4,13 @@ import { CheckboxInput, List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem type="checkbox">
+    <ListItem choice="checkbox">
       <template #label>Email notifications</template>
       <template #end>
         <CheckboxInput />
       </template>
     </ListItem>
-    <ListItem type="checkbox">
+    <ListItem choice="checkbox">
       <template #label>Push notifications</template>
       <template #end>
         <CheckboxInput />

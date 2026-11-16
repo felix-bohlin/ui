@@ -117,8 +117,9 @@ export const keywords = ["lightbox", "modal", "overlay", "popup"]
     <h3 id="modal">Modal</h3>
     <Conditional as="p">
       <Fragment slot="components">
-        Set <code>closeLabel</code> on <code>DialogHeader</code> for a close
-        button.
+        Set <code>closeButton</code> on <code>DialogHeader</code> for a close
+        button. It says "Close" unless you translate it with
+        <code>closeLabel</code>.
       </Fragment>
       <Fragment slot="html">
         Point <code>aria-labelledby</code> at the heading.

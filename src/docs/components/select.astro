@@ -16,10 +16,14 @@ import ListCSS from "@opui/css/components/list.css?raw"
 import selectApi from "../../component-api/select/api"
 import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
 
+export const description =
+  "A dropdown for picking one value from a list in a form."
+
 export const keywords = ["combobox", "dropdown", "option", "picker"]
 ---
 
 <Component
+  description={description}
   slug="select"
   browserSupport={[
     "alt-text-generated-content",
@@ -34,6 +38,8 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
     "open-pseudo",
     "overflow-clip",
     "overlay",
+    "reading-flow",
+    "registered-custom-properties",
     "relative-color",
     "starting-style",
     "transition-behavior",
@@ -46,6 +52,8 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
       "Without display animation, the picker disappears at once instead of fading out.",
     overlay:
       "Without `overlay`, the page can cover the picker while it fades out.",
+    "reading-flow":
+      "Without `reading-flow`, Tab and screen readers reach the top and start parts after the control, in the order of the markup.",
   }}
   heroAnatomy
   apis={[{ title: "Select API", api: selectApi }]}
@@ -143,7 +151,8 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
     <h2>Affix</h2>
     <p>
       Use <PropOrClass prop="start" class=".ui-start" /> and
-      <PropOrClass prop="end" class=".ui-end" />.
+      <PropOrClass prop="end" class=".ui-end" />. A text affix too long for the
+      field ends in an ellipsis, so the select keeps at least <code>8ch</code>.
     </p>
     <AutoExample name="Affix" row spacious />
   </section>
@@ -172,6 +181,11 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
         Add <code>selected</code> to the <code>option</code>.
       </Fragment>
     </Conditional>
+    <p>
+      The picker marks the selected option with a check at the end.
+      <code>--ui-icon-check</code> changes it, and a
+      <code>.ui-icon-checked</code> in the option replaces it.
+    </p>
     <AutoExample name="Preselected" row spacious />
   </section>
 

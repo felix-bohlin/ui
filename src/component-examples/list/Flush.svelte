@@ -3,7 +3,7 @@
 </script>
 
 <List flush>
-  <ListItem label="Saved searches">
+  <ListItem label="Saved pedalboards">
     {#snippet end()}
       <Button aria-label="Delete" round size="small">
         <svg
@@ -21,7 +21,7 @@
       </Button>
     {/snippet}
   </ListItem>
-  <ListItem description="Product designer" label="Lena Handén">
+  <ListItem description="Fretless enthusiast" label="Lou Headstock">
     {#snippet start()}
       <svg
         aria-hidden="true"
@@ -36,6 +36,6 @@
         ></path>
       </svg>
     {/snippet}
-    {#snippet end()}Owner{/snippet}
+    {#snippet end()}Admin{/snippet}
   </ListItem>
 </List>

@@ -8,7 +8,7 @@ import {
 </script>
 
 <template>
-  <DescriptionList bordered>
+  <DescriptionList border="solid">
     <DescriptionListItem>
       <DescriptionListTerm>Order number</DescriptionListTerm>
       <DescriptionListDescription>10482</DescriptionListDescription>
@@ -23,7 +23,7 @@ import {
     </DescriptionListItem>
   </DescriptionList>
 
-  <DescriptionList bordered dotted>
+  <DescriptionList border="dotted">
     <DescriptionListItem>
       <DescriptionListTerm>Order number</DescriptionListTerm>
       <DescriptionListDescription>10482</DescriptionListDescription>

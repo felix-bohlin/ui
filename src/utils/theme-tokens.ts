@@ -25,41 +25,52 @@ const DARK_SCOPE = /\.ui-dark|prefers-color-scheme:\s*dark/
 const FALLBACK_SCOPE = /@supports not\b/
 // The right-to-left swap of a token, not another value of it.
 const RTL_SCOPE = /:dir\(rtl\)/
+const PRINT_SCOPE = /@media print\b/
 const THEME_SCOPE = /\bhtml\b/
-const SECTION_ORDER = [
-  "Color scheme",
-  "Palette",
-  "Palette steps",
-  "Palette roles",
-  "Named colors (no severity meaning)",
-  "Intent tokens",
-  "Primary",
-  "Text",
-  "Surfaces",
-  "Borders",
-  "Field / input",
-  "Focus ring",
-  "Typography",
-  "Code",
-  "Spacing",
-  "Controls",
-  "Control sizes",
-  "Button",
-  "Tabs",
-  "Divider",
-  "Motion",
-  "Contrast",
-  "State",
-  "Icons",
-  "Choice controls",
-  "Elevation",
-  "Overlays",
-  "Safe areas",
-  "Instance inputs",
+const SECTIONS = [
+  ["Color scheme", "color-scheme"],
+  ["Palette", "palette"],
+  ["Palette steps", "palette-steps"],
+  ["Palette roles", "palette-roles"],
+  ["Named colors (no severity meaning)", "named-colors"],
+  ["Intent tokens", "intent"],
+  ["Primary", "primary"],
+  ["Text", "text"],
+  ["Surfaces", "surfaces"],
+  ["Borders", "borders"],
+  ["Field / input", "field"],
+  ["Focus ring", "focus-ring"],
+  ["Typography", "typography"],
+  ["Code", "code"],
+  ["Spacing", "spacing"],
+  ["Controls", "controls"],
+  ["Control sizes", "control-sizes"],
+  ["Button", "button"],
+  ["Tabs", "tabs"],
+  ["Divider", "divider"],
+  ["Motion", "motion"],
+  ["Contrast", "contrast"],
+  ["State", "state"],
+  ["Icons", "icons"],
+  ["Choice controls", "choice-controls"],
+  ["Elevation", "elevation"],
+  ["Overlays", "overlays"],
+  ["Safe areas", "safe-areas"],
+  ["Instance inputs", "instance-inputs"],
 ]
 const sectionOrder = (title: string) => {
-  const index = SECTION_ORDER.indexOf(title)
-  return index < 0 ? SECTION_ORDER.length : index
+  const index = SECTIONS.findIndex(([name]) => name === title)
+  return index < 0 ? SECTIONS.length : index
+}
+
+export const sectionKey = (title: string) => {
+  const key = SECTIONS.find(([name]) => name === title)?.[1]
+  if (!key) {
+    throw new Error(
+      `The theme.css section "${title}" has no key: give it one in SECTIONS in src/utils/theme-tokens.ts. The key names the group in tokens.json and the Figma variables, so it never changes once released.`,
+    )
+  }
+  return key
 }
 
 type Line =
@@ -129,7 +140,10 @@ function* walk(lines: string[]): Generator<[number, Line]> {
     if (
       !declaration ||
       scopes.some(
-        (scope) => FALLBACK_SCOPE.test(scope) || RTL_SCOPE.test(scope),
+        (scope) =>
+          FALLBACK_SCOPE.test(scope) ||
+          PRINT_SCOPE.test(scope) ||
+          RTL_SCOPE.test(scope),
       ) ||
       !(contrast || scopes.some((scope) => THEME_SCOPE.test(scope)))
     ) {
@@ -217,8 +231,9 @@ export const OVERRIDE_HOOKS = [
   "--ui-control-accent",
   "--ui-control-border-color",
   "--ui-control-border-color-filled",
+  "--ui-control-on-accent",
   "--ui-focus-border-color",
-  "--ui-on-control-accent",
+  "--ui-menu-radius",
   "--ui-on-selected",
   "--ui-selected",
   "--ui-track-bg-color",
@@ -228,7 +243,7 @@ export const INSTANCE_INPUTS: ThemeToken[] = [
   {
     name: "--ui-anchor-position-area",
     optional: true,
-    value: "self-block-end",
+    value: "self-start self-end",
   },
 ]
 

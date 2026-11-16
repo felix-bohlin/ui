@@ -19,7 +19,7 @@ import descriptionListItemApi from "../../component-api/description-list-item/ap
 import DescriptionListBuild from "../../components/UnderTheHood/DescriptionListBuild.astro"
 
 export const description =
-  "Terms and their values, like order details or totals."
+  "A list of terms and their values, like order details or totals."
 
 export const keywords = ["dl", "key value", "properties"]
 ---
@@ -55,6 +55,10 @@ export const keywords = ["dl", "key value", "properties"]
   ]}
 >
   <Fragment slot="title">Description list</Fragment>
+  <Fragment slot="preamble">
+    Labels with their values, like order details. For one key number, use a
+    <DocLink href="/components/stat">Stat</DocLink>.
+  </Fragment>
 
   <Usage slot="usage">
     <li slot="when">Labels with values, like order details.</li>
@@ -77,11 +81,11 @@ export const keywords = ["dl", "key value", "properties"]
     <AutoExample name="Basics" />
   </section>
 
-  <section id="bordered">
-    <h2>Bordered</h2>
+  <section id="border">
+    <h2>Border</h2>
     <p>
-      Use <PropOrClass prop="bordered" class=".ui-bordered" />, and
-      <PropOrClass prop="dotted" class=".ui-dotted" /> for dots.
+      Use <PropOrClass prop='border="solid"' class=".ui-border-solid" />, or
+      <PropOrClass prop='border="dotted"' class=".ui-border-dotted" /> for dots.
     </p>
     <AutoExample name="Bordered" column spacious />
   </section>

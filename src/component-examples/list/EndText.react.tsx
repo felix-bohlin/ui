@@ -3,16 +3,16 @@ import { List, ListItem } from "opui-css/react"
 export default function EndText() {
   return (
     <List>
-      <ListItem end="2.4 MB" label="Q3 report.pdf" />
+      <ListItem end="2.4 MB" label="Slap lesson 3.pdf" />
       <ListItem
-        description="Uploaded by Lena Handén"
+        description="Uploaded by Lou Headstock"
         end="860 kB"
-        label="Team photo.jpg"
+        label="Band photo.jpg"
       />
       <ListItem
-        description="Logo, colors and type in print and on the web, with an example of each in use."
+        description="Every root note of the setlist, with a tiny drawing of where the drummer should look when it changes."
         end="12 MB"
-        label="Brand guidelines.pdf"
+        label="Bass charts.pdf"
       />
     </List>
   )

@@ -14,13 +14,13 @@ import {
     <FieldLegend>Theme</FieldLegend>
     <FieldGroup>
       <List>
-        <ListItem type="radio">
+        <ListItem choice="radio">
           <template #label>Dark mode</template>
           <template #end>
             <RadioInput name="theme" value="dark" />
           </template>
         </ListItem>
-        <ListItem type="radio">
+        <ListItem choice="radio">
           <template #label>Light mode</template>
           <template #end>
             <RadioInput name="theme" value="light" />

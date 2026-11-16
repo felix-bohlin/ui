@@ -1,5 +1,5 @@
 import { componentHasFramework, hrefFor, type FrameworkId } from "./framework"
-import { componentName } from "./names"
+import { componentName as nameOf, pageTitle } from "./names"
 
 const docSources = import.meta.glob<string>("../docs/components/*.astro", {
   eager: true,
@@ -8,11 +8,17 @@ const docSources = import.meta.glob<string>("../docs/components/*.astro", {
 })
 
 const slugs = new Set<string>()
+const titles = new Map<string, string>()
 
-for (const path of Object.keys(docSources)) {
+for (const [path, source] of Object.entries(docSources)) {
   const slug = path.split("/").pop()?.replace(".astro", "") || ""
-  if (slug) slugs.add(slug)
+  if (!slug) continue
+  slugs.add(slug)
+  const title = pageTitle(source)
+  if (title) titles.set(slug, title)
 }
+
+export const componentName = (slug: string) => nameOf(slug, titles)
 
 export const components = Array.from(slugs)
   .map((slug) => ({

@@ -104,7 +104,7 @@ interaction(
   "FieldGroupBinding",
   "checkbox group binds the checked values",
   async ({ root }) => {
-    const updates = root.getByRole("checkbox", { name: "Product updates" })
+    const updates = root.getByRole("checkbox", { name: "Bassbook news" })
     const events = root.getByRole("checkbox", { name: "Events" })
     const selection = root.getByText(/Selected:/)
 
@@ -113,10 +113,10 @@ interaction(
     await root.getByText("Events", { exact: true }).click()
     await expect(events).toBeChecked()
     await expect(selection).toHaveText("Selected: updates, events")
-    await root.getByText("Product updates", { exact: true }).click()
+    await root.getByText("Bassbook news", { exact: true }).click()
     await expect(updates).not.toBeChecked()
     await expect(selection).toHaveText("Selected: events")
-    await root.getByText("Product updates", { exact: true }).click()
+    await root.getByText("Bassbook news", { exact: true }).click()
     await expect(updates).toBeChecked()
     await expect(selection).toHaveText("Selected: updates, events")
 
@@ -313,14 +313,59 @@ interaction(
     await root.getByRole("button", { name: "Inline start" }).click()
     const menu = root.locator("dialog#drawer-basics-1")
     await expect(menu).toHaveAttribute("open")
-    await menu.getByRole("link", { name: "Projects" }).click()
+    await menu.getByRole("link", { name: "My bands" }).click()
     await expect(menu).not.toHaveAttribute("open")
 
     await root.getByRole("button", { name: "Inline end" }).click()
     const details = root.locator("dialog#drawer-basics-2")
     await expect(details).toHaveAttribute("open")
-    await page.evaluate(() => history.pushState({}, "", location.href))
+    await page.evaluate(() => history.pushState({}, "", "elsewhere/"))
     await expect(details).toHaveAttribute("open")
+  },
+)
+
+interaction(
+  "drawer",
+  "NonModal",
+  "a modal drawer locks the page scroll, and a non-modal one only with scrollLock",
+  async ({ page, root }) => {
+    const pageScroll = () => computed(page.locator("html"), "overflow-y")
+    const basics = page.locator('[data-example="Basics"]')
+    const menu = basics.locator("dialog#drawer-basics-1")
+
+    await basics.getByRole("button", { name: "Inline start" }).click()
+    await expect(menu).toHaveAttribute("open")
+    await expect.poll(pageScroll, "a modal drawer locks the page").toBe("clip")
+    await page.keyboard.press("Escape")
+    await expect(menu).not.toHaveAttribute("open")
+    await expect.poll(pageScroll).not.toBe("clip")
+
+    await basics.getByRole("button", { name: "Inline end" }).click()
+    const details = basics.locator("dialog#drawer-basics-2")
+    await expect(details).toHaveAttribute("open")
+    await expect
+      .poll(pageScroll, "a transparent backdrop keeps a wide page scrollable")
+      .not.toBe("clip")
+    await page.keyboard.press("Escape")
+    await expect(details).not.toHaveAttribute("open")
+
+    await menu.evaluate((dialog: HTMLDialogElement) => dialog.show())
+    await expect(menu).toHaveAttribute("open")
+    await expect
+      .poll(pageScroll, "a non-modal drawer without scrollLock leaves it")
+      .not.toBe("clip")
+    await menu.evaluate((dialog: HTMLDialogElement) => dialog.close())
+    await expect(menu).not.toHaveAttribute("open")
+
+    await root.getByRole("button", { name: "Show folders" }).click()
+    const folders = root.locator("dialog#drawer-non-modal-1")
+    await expect(folders).toHaveAttribute("open")
+    expect(await folders.evaluate((dialog) => dialog.matches(":modal"))).toBe(
+      false,
+    )
+    await expect
+      .poll(pageScroll, "scrollLock locks it behind a non-modal drawer")
+      .toBe("clip")
   },
 )
 
@@ -488,24 +533,24 @@ interaction(
   "FieldGroupBinding",
   "radio group binds the selected value and resets",
   async ({ root }) => {
-    const starter = root.getByRole("radio", { name: "Starter" })
-    const team = root.getByRole("radio", { name: "Team" })
+    const basic = root.getByRole("radio", { name: "Basic" })
+    const gold = root.getByRole("radio", { name: "Gold" })
     const selection = root.getByText(/Selected:/)
 
-    await expect(starter).toBeChecked()
-    await root.getByText("Team", { exact: true }).click()
-    await expect(team).toBeChecked()
-    await expect(selection).toHaveText("Selected: team")
-    await root.getByText("Starter", { exact: true }).click()
-    await expect(starter).toBeChecked()
-    await expect(selection).toHaveText("Selected: starter")
-    await root.getByText("Team", { exact: true }).click()
-    await expect(team).toBeChecked()
+    await expect(basic).toBeChecked()
+    await root.getByText("Gold", { exact: true }).click()
+    await expect(gold).toBeChecked()
+    await expect(selection).toHaveText("Selected: gold")
+    await root.getByText("Basic", { exact: true }).click()
+    await expect(basic).toBeChecked()
+    await expect(selection).toHaveText("Selected: basic")
+    await root.getByText("Gold", { exact: true }).click()
+    await expect(gold).toBeChecked()
 
     await root.getByRole("button", { name: "Reset" }).click()
-    await expect(starter).toBeChecked()
-    await expect(team).not.toBeChecked()
-    await expect(selection).toHaveText("Selected: starter")
+    await expect(basic).toBeChecked()
+    await expect(gold).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: basic")
   },
 )
 
@@ -653,12 +698,12 @@ interaction(
   "select starts on its preselected option and follows a new pick",
   async ({ root }) => {
     const role = root.locator("select").nth(0)
-    const team = root.locator("select").nth(1)
+    const band = root.locator("select").nth(1)
 
-    await expect(role).toHaveValue("developer")
-    await expect(team).toHaveValue("engineering")
-    await role.selectOption("manager")
-    await expect(role).toHaveValue("manager")
+    await expect(role).toHaveValue("bass")
+    await expect(band).toHaveValue("low-end-theory")
+    await role.selectOption("tambourine")
+    await expect(role).toHaveValue("tambourine")
   },
 )
 
@@ -947,16 +992,16 @@ interaction(
     const input = root.getByRole("textbox", { name: "Name" })
     const text = root.locator(".text-field-binding-text")
 
-    await expect(input).toHaveValue("Hakki")
-    await expect(text).toHaveText("Hello, Hakki.")
-    await input.fill("Pekka")
-    await expect(text).toHaveText("Hello, Pekka.")
+    await expect(input).toHaveValue("Holly")
+    await expect(text).toHaveText("Heyyy, Holly.")
+    await input.fill("Percy")
+    await expect(text).toHaveText("Heyyy, Percy.")
     await input.fill("")
-    await expect(text).toHaveText("Hello, stranger.")
+    await expect(text).toHaveText("Heyyy, stranger.")
 
     await root.getByRole("button", { name: "Reset" }).click()
-    await expect(input).toHaveValue("Hakki")
-    await expect(text).toHaveText("Hello, Hakki.")
+    await expect(input).toHaveValue("Holly")
+    await expect(text).toHaveText("Heyyy, Holly.")
   },
 )
 
@@ -983,7 +1028,7 @@ interaction(
     await expect.poll(border).toBe(invalid)
 
     await input.focus()
-    await page.keyboard.type("Hakki")
+    await page.keyboard.type("Holly")
     await page.keyboard.press("Tab")
     await expect.poll(border).toBe(initial)
   },
@@ -1130,9 +1175,9 @@ interaction(
   "Toggletip",
   "toggletip toggles on click without hover",
   async ({ root }) => {
-    const trigger = root.getByRole("button", { name: "About billing" })
+    const trigger = root.getByRole("button", { name: "About Bassbook Gold" })
     const tooltip = root.getByText(
-      "You're billed on the first day of each month.",
+      "Bassbook Gold renews on the first day of each month.",
     )
 
     await expect(tooltip).toBeHidden()
@@ -1538,7 +1583,40 @@ interaction(
     await root.getByRole("button", { name: "Options" }).click()
     const menu = root.locator("menu.ui-menu")
     await expect(menu).toBeVisible()
-    await page.evaluate(() => history.pushState({}, "", location.href))
+    await page.evaluate(() => history.pushState({}, "", "elsewhere/"))
+    await expect(menu).toBeHidden()
+  },
+  ["astro", "react", "svelte", "vue"],
+)
+
+interaction(
+  "menu",
+  "Basics",
+  "an open menu stays open when a script only changes the query, and closes on a hash navigation and Back",
+  async ({ page, root }) => {
+    await needs(page, "the Navigation API", () => "navigation" in window)
+    const trigger = root.getByRole("button", { name: "Options" })
+    const menu = root.locator("menu.ui-menu")
+    await trigger.click()
+    await expect(menu).toBeVisible()
+    await page.evaluate(() => history.replaceState({}, "", "?sort=asc"))
+    await page.evaluate(() => history.pushState({}, "", "?sort=desc"))
+    await expect
+      .poll(() => page.evaluate(() => location.search))
+      .toBe("?sort=desc")
+    await expect(menu).toBeVisible()
+
+    await page.evaluate(() => history.back())
+    await expect(menu).toBeHidden()
+    await expect
+      .poll(() => page.evaluate(() => location.search))
+      .toBe("?sort=asc")
+
+    await trigger.click()
+    await expect(menu).toBeVisible()
+    await page.evaluate(() => {
+      location.hash = "menu-closes"
+    })
     await expect(menu).toBeHidden()
   },
   ["astro", "react", "svelte", "vue"],
@@ -1710,6 +1788,22 @@ interaction(
 interaction(
   "one-time-code",
   "Basics",
+  "a one-time code is named by its label and described by its end text",
+  async ({ root }) => {
+    const input = root.getByRole("textbox", {
+      exact: true,
+      name: "Verification code",
+    })
+
+    await expect(input).toHaveAccessibleDescription(
+      "The code expires in 10 minutes.",
+    )
+  },
+)
+
+interaction(
+  "one-time-code",
+  "Basics",
   "a required one-time code only looks invalid once the user leaves it incomplete",
   async ({ page, root }) => {
     const input = root.getByRole("textbox", { name: "Verification code" })
@@ -1806,7 +1900,7 @@ interaction(
       await input.evaluate((element: HTMLInputElement) =>
         [...(element.list?.options ?? [])].map((option) => option.value),
       ),
-    ).toEqual(["Inga Halonen", "Lena Handén", "Pekka Gåpåbottanen"])
+    ).toEqual(["Ines Hertz", "Lou Headstock", "Percy Groove"])
   },
 )
 
@@ -1865,6 +1959,33 @@ interaction(
     await page.waitForTimeout(300)
     await expect(input).toHaveValue(String(held))
   },
+)
+
+interaction(
+  "table",
+  "Sortable",
+  "a sortable header under spanning headers sorts by its own column",
+  async ({ root }) => {
+    await root.locator("table").evaluate((table: HTMLTableElement) => {
+      const [head] = table.tHead?.rows ?? []
+      head?.insertAdjacentHTML(
+        "beforebegin",
+        '<tr><th rowspan="2">Row</th><th colspan="3">Planets</th></tr>',
+      )
+      for (const [index, row] of [
+        ...(table.tBodies[0]?.rows ?? []),
+      ].entries()) {
+        row.insertAdjacentHTML("afterbegin", `<td>${index + 1}</td>`)
+      }
+    })
+    const planet = root.locator("tbody tr").first().locator("td").nth(1)
+
+    await root.getByRole("button", { name: "Moons" }).click()
+    await expect(planet).toHaveText("Mercury")
+    await root.getByRole("button", { name: "Moons" }).click()
+    await expect(planet).toHaveText("Saturn")
+  },
+  ["html"],
 )
 
 interaction(
@@ -1966,11 +2087,46 @@ interaction(
   },
 )
 
+interaction(
+  "table",
+  "SortableData",
+  "a sort listener sorts the data the rows render from, and the header gets aria-sort",
+  async ({ root }) => {
+    const header = (name: string) =>
+      root.getByRole("columnheader", { name, exact: true })
+    const names = root.locator("tbody tr td:first-child")
+    const byGigs = [
+      "Percy Groove",
+      "Stella Nut",
+      "Ines Hertz",
+      "Rory Rootnote",
+      "Holly Humbucker",
+      "Lou Headstock",
+    ]
+
+    await expect(root.locator("opui-sortable-table")).not.toHaveAttribute(
+      "data-hydrating",
+    )
+    await expect(header("Name")).toHaveAttribute("aria-sort", "ascending")
+    await expect(names).toHaveText(byGigs.toSorted())
+
+    await root.getByRole("button", { name: "Gigs" }).click()
+    await expect(header("Gigs")).toHaveAttribute("aria-sort", "ascending")
+    await expect(header("Name")).not.toHaveAttribute("aria-sort")
+    await expect(names).toHaveText(byGigs)
+
+    await root.getByRole("button", { name: "Gigs" }).click()
+    await expect(header("Gigs")).toHaveAttribute("aria-sort", "descending")
+    await expect(names).toHaveText(byGigs.toReversed())
+    await expect(root.getByRole("status")).toHaveText("Gigs, sorted descending")
+  },
+)
+
 test("the data-table block selects and sorts its rows together", async ({
   page,
 }) => {
   await openFixture(page, "html", "blocks/data-table")
-  const all = page.getByRole("checkbox", { name: "Select all customers" })
+  const all = page.getByRole("checkbox", { name: "Select all members" })
   const rows = page.getByRole("checkbox", { name: /^Select (?!all)/ })
   const firstCustomer = page.locator("tbody tr").first().locator("td").nth(1)
 
@@ -1979,17 +2135,15 @@ test("the data-table block selects and sorts its rows together", async ({
   await expect(rows).toHaveCount(5)
   for (const row of await rows.all()) await expect(row).toBeChecked()
 
-  await page.getByRole("button", { name: "MRR" }).click()
-  await expect(firstCustomer).toContainText("Hakki Hälinen")
-  await page.getByRole("button", { name: "MRR" }).click()
-  await expect(firstCustomer).toContainText("Ranta Runtiringen")
-  await page.getByRole("button", { name: "Signed up" }).click()
-  await expect(firstCustomer).toContainText("Inga Halonen")
+  await page.getByRole("button", { name: "Points" }).click()
+  await expect(firstCustomer).toContainText("Holly Humbucker")
+  await page.getByRole("button", { name: "Points" }).click()
+  await expect(firstCustomer).toContainText("Rory Rootnote")
+  await page.getByRole("button", { name: "Joined" }).click()
+  await expect(firstCustomer).toContainText("Ines Hertz")
   for (const row of await rows.all()) await expect(row).toBeChecked()
 
-  await page
-    .getByRole("checkbox", { name: "Select Pekka Gåpåbottanen" })
-    .click()
+  await page.getByRole("checkbox", { name: "Select Percy Groove" }).click()
   await expect(all).not.toBeChecked()
   await expect(all).toHaveJSProperty("indeterminate", true)
 })
@@ -2537,6 +2691,41 @@ interaction(
 )
 
 interaction(
+  "toast",
+  "Basics",
+  "a toast with an infinite duration stays, and a duration of 0 dismisses it at once",
+  async ({ page, root }) => {
+    const toaster = root.locator("opui-toaster")
+    const toasts = toaster.locator("li")
+    const show = (message: string, options?: object) =>
+      toaster.evaluate(
+        (
+          element: HTMLElement & {
+            show: (message: string, options?: object) => void
+          },
+          [text, given],
+        ) => element.show(text, given),
+        [message, options] as const,
+      )
+
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    await toaster.evaluate((element) =>
+      element.setAttribute("duration", "Infinity"),
+    )
+    await show("Stays until it's closed")
+    await page.waitForTimeout(700)
+    await expect(toasts).toHaveCount(1)
+    await toasts.getByRole("button").click()
+    await expect(toasts).toHaveCount(0, { timeout: 2000 })
+
+    await toaster.evaluate((element) => element.setAttribute("duration", "0"))
+    await show("Gone at once")
+    await expect(toasts).toHaveCount(0, { timeout: 2000 })
+  },
+  ["html"],
+)
+
+interaction(
   "text-field",
   "PasswordToggle",
   "password toggle shows and hides the password",
@@ -2582,13 +2771,49 @@ interaction(
 
 interaction(
   "text-field",
+  "CharacterCount",
+  "the character count announces in the language of its field",
+  async ({ page, root }) => {
+    await root
+      .locator(".ui-text-field")
+      .evaluate((field) => field.setAttribute("lang", "sv"))
+    await root
+      .locator("opui-character-count")
+      .evaluate((count) => count.setAttribute("label", "Tecken kvar: {count}"))
+    await root.locator("input").fill("opui-fan-2026")
+    const announcer = page.locator("[data-opui-announcer]")
+    await expect(announcer).toHaveText("Tecken kvar: 7")
+    await expect(announcer).toHaveAttribute("lang", "sv")
+  },
+)
+
+interaction(
+  "text-field",
+  "CharacterCount",
+  "the character count announces in the language set on its input",
+  async ({ page, root }) => {
+    await root
+      .locator("input")
+      .evaluate((input) => input.setAttribute("lang", "sv"))
+    await root
+      .locator("opui-character-count")
+      .evaluate((count) => count.setAttribute("label", "Tecken kvar: {count}"))
+    await root.locator("input").fill("opui-fan-2026")
+    const announcer = page.locator("[data-opui-announcer]")
+    await expect(announcer).toHaveText("Tecken kvar: 7")
+    await expect(announcer).toHaveAttribute("lang", "sv")
+  },
+)
+
+interaction(
+  "text-field",
   "Validation",
   "a labelled field is named by its label and described by its end text",
   async ({ root }) => {
     const input = root.getByRole("textbox", { name: "Username", exact: true })
 
     await expect(input).toHaveAccessibleDescription(
-      "This username is taken. Try another one.",
+      "Whoops, this username is taken. Try another one.",
     )
   },
 )

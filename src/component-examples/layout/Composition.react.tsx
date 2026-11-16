@@ -8,21 +8,21 @@ export default function Composition() {
     >
       <div className="ui-layout-column ui-large">
         <div className="ui-layout-column ui-x-small">
-          <h3 className="ui-h4">Team</h3>
-          <p>Invite people to work on this project.</p>
+          <h3 className="ui-h4">Band</h3>
+          <p>Invite bandmates to jam on this setlist.</p>
         </div>
         <div
           className="ui-layout-grid"
           style={{ "--_min-inline-size": "10rem" }}
         >
           <Card variant="tonal">
-            <CardContent>Design</CardContent>
+            <CardContent>Drums</CardContent>
           </Card>
           <Card variant="tonal">
-            <CardContent>Engineering</CardContent>
+            <CardContent>Guitar</CardContent>
           </Card>
           <Card variant="tonal">
-            <CardContent>Support</CardContent>
+            <CardContent>Vocals</CardContent>
           </Card>
         </div>
         <div className="ui-layout-row ui-align-end">

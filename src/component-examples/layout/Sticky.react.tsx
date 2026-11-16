@@ -19,26 +19,27 @@ export default function Sticky() {
           <div className="ui-layout-column">
             <Card variant="outlined">
               <CardContent>
-                Billing: your plan, payment method and past invoices. A change
-                to the plan applies from the next billing date.
+                Bassbook Gold: your plan, payment method and past receipts. A
+                change to the plan applies from the next renewal date.
               </CardContent>
             </Card>
             <Card variant="outlined">
               <CardContent>
-                Data export: a ZIP file of your projects, tasks and comments,
+                Data export: a ZIP file of your setlists, tabs and comments,
                 with one CSV file per table, sent to your email address.
               </CardContent>
             </Card>
             <Card variant="outlined">
               <CardContent>
-                Notifications: which updates reach you by email, push or SMS,
-                and whether they arrive at once or in one daily digest.
+                Notifications: which pokes and gig alerts reach you by email,
+                push or SMS, and whether they arrive at once or in one daily
+                digest.
               </CardContent>
             </Card>
             <Card variant="outlined">
               <CardContent>
                 Profile: your name, photo and the email address people see when
-                you share a project with them or mention them in a comment.
+                you share a setlist with them or mention them in a comment.
               </CardContent>
             </Card>
             <Card variant="outlined">

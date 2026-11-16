@@ -3,20 +3,20 @@
 </script>
 
 <List>
-  <ListItem description="48 photos" label="Summer in Lisbon">
+  <ListItem description="48 photos" label="Gig in a basement">
     {#snippet start()}
       <img
-        src="/photos/lena-handen.png"
+        src="/photos/lou-headstock.png"
         alt=""
         decoding="async"
         loading="lazy"
       />
     {/snippet}
   </ListItem>
-  <ListItem description="112 photos" label="Team offsite">
+  <ListItem description="112 photos" label="Pedalboard glamour shots">
     {#snippet start()}
       <img
-        src="/photos/lena-handen.png"
+        src="/photos/lou-headstock.png"
         alt=""
         decoding="async"
         loading="lazy"

@@ -4,15 +4,15 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem label="Q3 report.pdf">
+    <ListItem label="Slap lesson 3.pdf">
       <template #end>2.4 MB</template>
     </ListItem>
-    <ListItem description="Uploaded by Lena Handén" label="Team photo.jpg">
+    <ListItem description="Uploaded by Lou Headstock" label="Band photo.jpg">
       <template #end>860 kB</template>
     </ListItem>
     <ListItem
-      description="Logo, colors and type in print and on the web, with an example of each in use."
-      label="Brand guidelines.pdf"
+      description="Every root note of the setlist, with a tiny drawing of where the drummer should look when it changes."
+      label="Bass charts.pdf"
     >
       <template #end>12 MB</template>
     </ListItem>

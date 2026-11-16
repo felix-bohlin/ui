@@ -42,6 +42,20 @@ describe("parsePaste", () => {
     })
   })
 
+  test("reads a last declaration that has no semicolon", () => {
+    expect(parsePaste(":root{--ui-radius:1rem;--ui-space-scale:1.1}")).toEqual({
+      kind: "css",
+      theme: {
+        preset: null,
+        tokens: { "--ui-radius": "1rem", "--ui-space-scale": "1.1" },
+      },
+    })
+    expect(parsePaste("--ui-radius: 0")).toEqual({
+      kind: "css",
+      theme: { preset: null, tokens: { "--ui-radius": "0" } },
+    })
+  })
+
   test("recognizes an export built on a preset", () => {
     const paste = parsePaste(
       exportCss({ preset: "m3", tokens: { "--ui-radius": "0" } }),

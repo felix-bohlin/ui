@@ -119,6 +119,22 @@ describe("normalizeTheme", () => {
       "--ui-radius": "1rem",
     })
   })
+
+  test("keeps an SVG data URI on an icon token and nothing else that loads a URL", () => {
+    const icon = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M0 0'/%3E%3C/svg%3E")`
+    expect(
+      normalizeTheme({
+        preset: null,
+        tokens: {
+          "--ui-icon-check": icon,
+          "--ui-icon-close": 'url("https://example.com/x.svg")',
+          "--ui-icon-info": `url("data:image/svg+xml,%3Csvg%3E"); } body { color: red`,
+          "--ui-icon-warning": `url("data:image/svg+xml,a"b")`,
+          "--ui-surface": icon,
+        },
+      }).tokens,
+    ).toEqual({ "--ui-icon-check": icon })
+  })
 })
 
 describe("migrateLegacy", () => {

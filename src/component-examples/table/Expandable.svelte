@@ -12,20 +12,21 @@
 
   const orders = [
     {
-      customer: "Lena Handén",
-      details: "Two items, shipped to Göteborg on 3 March.",
+      customer: "Lou Headstock",
+      details: "Flatwounds and a comfy strap, shipped to Göteborg on 3 March.",
       id: "1042",
       total: "€84.00",
     },
     {
-      customer: "Pekka Gåpåbottanen",
-      details: "Three items, waiting for the last one to come in stock.",
+      customer: "Percy Groove",
+      details:
+        "Three items, waiting for the low B string to come back in stock.",
       id: "1043",
       total: "€126.50",
     },
     {
-      customer: "Inga Halonen",
-      details: "One item, delivered on 5 March.",
+      customer: "Ines Hertz",
+      details: "One fuzz pedal, delivered to Berlin on 5 March.",
       id: "1044",
       total: "€39.90",
     },
@@ -41,12 +42,12 @@
 </script>
 
 <Table id="table-expandable-1">
-  <TableCaption>Orders</TableCaption>
+  <TableCaption>Gear orders</TableCaption>
   <TableHead>
     <TableRow>
       <TableHeaderCell><span class="ui-sr-only">Details</span></TableHeaderCell>
       <TableHeaderCell>Order</TableHeaderCell>
-      <TableHeaderCell>Customer</TableHeaderCell>
+      <TableHeaderCell>Bassist</TableHeaderCell>
       <TableHeaderCell numeric>Total</TableHeaderCell>
     </TableRow>
   </TableHead>

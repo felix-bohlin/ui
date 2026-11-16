@@ -4,7 +4,7 @@
 
 <List>
   <ListItem label="Account" />
-  <ListItem label="Billing" />
+  <ListItem label="Bassbook Gold" />
 </List>
 
 <List variant="tonal">

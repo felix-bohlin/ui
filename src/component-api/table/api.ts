@@ -56,7 +56,7 @@ export default {
       class: ".ui-sticky-header",
       default: "false",
       description:
-        "Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`.",
+        "Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-inset`.",
       group: "Sticky header",
       prop: "stickyHeader",
     },

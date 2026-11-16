@@ -34,9 +34,9 @@
 >
   <div class="ui-layout-row ui-spread">
     <hgroup class="ui-hgroup">
-      <p>Billing</p>
-      <h1 class="ui-h3">Customers</h1>
-      <p>128 accounts, 94 of them on a paid plan.</p>
+      <p>Admin corner</p>
+      <h1 class="ui-h3">Members</h1>
+      <p>128 bassists, 94 of them on a paid plan. Woohoo!</p>
     </hgroup>
     <div class="ui-layout-row ui-small">
       <button class="ui-button ui-outlined" type="button">
@@ -65,14 +65,14 @@
             fill="currentColor"
             d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
           ></path></svg
-        ><span class="ui-text">Add customer</span>
+        ><span class="ui-text">Add member</span>
       </button>
     </div>
   </div>
 
   <search class="ui-field-group ui-horizontal">
     <label class="ui-text-field">
-      <span class="ui-sr-only">Search customers</span>
+      <span class="ui-sr-only">Search members</span>
       <span class="ui-field">
         <input name="q" placeholder="Search by name or email" type="search" />
         <span class="ui-start"
@@ -98,7 +98,7 @@
           <div class="ui-list">
             <option value="">All statuses</option>
             <option value="active">Active</option>
-            <option value="churned">Churned</option>
+            <option value="on-break">On a break</option>
             <option value="past-due">Past due</option>
             <option value="trial">Trial</option>
           </div>
@@ -112,9 +112,9 @@
           <button type="button"><selectedcontent></selectedcontent></button>
           <div class="ui-list">
             <option value="">All plans</option>
-            <option value="business">Business</option>
-            <option value="starter">Starter</option>
-            <option value="team">Team</option>
+            <option value="platinum">Platinum</option>
+            <option value="silver">Silver</option>
+            <option value="gold">Gold</option>
           </div>
         </select>
       </span>
@@ -122,9 +122,9 @@
   </search>
 
   <div class="ui-layout-row ui-small ui-spread data-table-bulk">
-    <p>2 customers selected</p>
+    <p>2 members selected</p>
     <div class="ui-layout-row ui-x-small">
-      <button class="ui-button ui-small" type="button">Send invoice</button>
+      <button class="ui-button ui-small" type="button">Send a poke</button>
       <button class="ui-button ui-small" type="button">Export</button>
       <button class="ui-button ui-small ui-critical" type="button">
         Delete
@@ -136,7 +136,7 @@
     <opui-sortable-table class="ui-sortable-table">
       <table class="ui-table ui-flush ui-overflow-scroll" tabindex="0">
         <caption class="ui-sr-only">
-          Customers
+          Members
         </caption>
         <thead>
           <tr>
@@ -147,19 +147,19 @@
                   name="data-table-all"
                   type="checkbox"
                 />
-                <span class="ui-sr-only">Select all customers</span>
+                <span class="ui-sr-only">Select all members</span>
               </label>
             </th>
             <th aria-sort="ascending" data-sort scope="col">
-              <button type="button">Customer</button>
+              <button type="button">Member</button>
             </th>
             <th data-sort scope="col"><button type="button">Plan</button></th>
             <th data-sort scope="col"><button type="button">Status</button></th>
             <th class="ui-numeric" data-sort scope="col">
-              <button type="button">MRR</button>
+              <button type="button">Points</button>
             </th>
             <th data-sort scope="col">
-              <button type="button">Signed up</button>
+              <button type="button">Joined</button>
             </th>
             <th class="data-table-actions" scope="col">
               <span class="ui-sr-only">Actions</span>
@@ -173,35 +173,35 @@
                 <input
                   name="data-table-row"
                   type="checkbox"
-                  value="hakki"
+                  value="holly"
                   checked
                 />
-                <span class="ui-sr-only">Select Hakki Hälinen</span>
+                <span class="ui-sr-only">Select Holly Humbucker</span>
               </label>
             </td>
-            <td data-sort-value="Hakki Hälinen">
+            <td data-sort-value="Holly Humbucker">
               <div class="ui-layout-media ui-small">
                 <span class="ui-avatar" aria-hidden="true">HH</span>
                 <div>
-                  <p class="data-table-person">Hakki Hälinen</p>
-                  <p class="ui-caption">hakki.halinen@lumenhq.com</p>
+                  <p class="data-table-person">Holly Humbucker</p>
+                  <p class="ui-caption">holly@humbucker.example</p>
                 </div>
               </div>
             </td>
-            <td>Team</td>
+            <td>Gold</td>
             <td>
               <span class="ui-chip ui-dot ui-info ui-small"
                 ><span class="ui-text">Trial</span></span
               >
             </td>
-            <td class="ui-numeric" data-sort-value="0">€0</td>
+            <td class="ui-numeric" data-sort-value="120">120</td>
             <td data-sort-value="2026-09-28">28 Sep 2026</td>
             <td class="data-table-actions">
               <button
-                aria-label="Actions for Hakki Hälinen"
+                aria-label="Actions for Holly Humbucker"
                 class="ui-button ui-round ui-small"
                 command="toggle-popover"
-                commandfor="data-table-menu-hakki"
+                commandfor="data-table-menu-holly"
                 type="button"
               >
                 <svg
@@ -219,18 +219,18 @@
               </button>
               <menu
                 class="ui-menu ui-align-end"
-                id="data-table-menu-hakki"
+                id="data-table-menu-holly"
                 popover
               >
                 <li>
-                  <a href="#data-table-hakki"
-                    ><div class="ui-text"><p>View customer</p></div></a
+                  <a href="#data-table-holly"
+                    ><div class="ui-text"><p>View profile</p></div></a
                   >
                 </li>
                 <li>
                   <button
                     command="hide-popover"
-                    commandfor="data-table-menu-hakki"
+                    commandfor="data-table-menu-holly"
                     type="button"
                   >
                     <div class="ui-text"><p>Change plan</p></div>
@@ -239,7 +239,7 @@
                 <li class="ui-border-top ui-critical">
                   <button
                     command="hide-popover"
-                    commandfor="data-table-menu-hakki"
+                    commandfor="data-table-menu-holly"
                     type="button"
                   >
                     <div class="ui-text"><p>Delete</p></div>
@@ -251,33 +251,33 @@
           <tr>
             <td>
               <label class="ui-checkbox">
-                <input name="data-table-row" type="checkbox" value="inga" />
-                <span class="ui-sr-only">Select Inga Halonen</span>
+                <input name="data-table-row" type="checkbox" value="ines" />
+                <span class="ui-sr-only">Select Ines Hertz</span>
               </label>
             </td>
-            <td data-sort-value="Inga Halonen">
+            <td data-sort-value="Ines Hertz">
               <div class="ui-layout-media ui-small">
                 <span class="ui-avatar" aria-hidden="true">IH</span>
                 <div>
-                  <p class="data-table-person">Inga Halonen</p>
-                  <p class="ui-caption">inga.halonen@kvarn.dk</p>
+                  <p class="data-table-person">Ines Hertz</p>
+                  <p class="ui-caption">ines@hertz.example</p>
                 </div>
               </div>
             </td>
-            <td>Team</td>
+            <td>Gold</td>
             <td>
               <span class="ui-chip ui-dot ui-neutral ui-small"
-                ><span class="ui-text">Churned</span></span
+                ><span class="ui-text">On a break</span></span
               >
             </td>
-            <td class="ui-numeric" data-sort-value="0">€0</td>
+            <td class="ui-numeric" data-sort-value="1840">1 840</td>
             <td data-sort-value="2025-11-22">22 Nov 2025</td>
             <td class="data-table-actions">
               <button
-                aria-label="Actions for Inga Halonen"
+                aria-label="Actions for Ines Hertz"
                 class="ui-button ui-round ui-small"
                 command="toggle-popover"
-                commandfor="data-table-menu-inga"
+                commandfor="data-table-menu-ines"
                 type="button"
               >
                 <svg
@@ -295,18 +295,18 @@
               </button>
               <menu
                 class="ui-menu ui-align-end"
-                id="data-table-menu-inga"
+                id="data-table-menu-ines"
                 popover
               >
                 <li>
-                  <a href="#data-table-inga"
-                    ><div class="ui-text"><p>View customer</p></div></a
+                  <a href="#data-table-ines"
+                    ><div class="ui-text"><p>View profile</p></div></a
                   >
                 </li>
                 <li>
                   <button
                     command="hide-popover"
-                    commandfor="data-table-menu-inga"
+                    commandfor="data-table-menu-ines"
                     type="button"
                   >
                     <div class="ui-text"><p>Change plan</p></div>
@@ -315,7 +315,7 @@
                 <li class="ui-border-top ui-critical">
                   <button
                     command="hide-popover"
-                    commandfor="data-table-menu-inga"
+                    commandfor="data-table-menu-ines"
                     type="button"
                   >
                     <div class="ui-text"><p>Delete</p></div>
@@ -330,35 +330,35 @@
                 <input
                   name="data-table-row"
                   type="checkbox"
-                  value="lena"
+                  value="lou"
                   checked
                 />
-                <span class="ui-sr-only">Select Lena Handén</span>
+                <span class="ui-sr-only">Select Lou Headstock</span>
               </label>
             </td>
-            <td data-sort-value="Lena Handén">
+            <td data-sort-value="Lou Headstock">
               <div class="ui-layout-media ui-small">
                 <span class="ui-avatar" aria-hidden="true">LH</span>
                 <div>
-                  <p class="data-table-person">Lena Handén</p>
-                  <p class="ui-caption">lena.handen@pinecrest.io</p>
+                  <p class="data-table-person">Lou Headstock</p>
+                  <p class="ui-caption">lou@headstock.example</p>
                 </div>
               </div>
             </td>
-            <td>Team</td>
+            <td>Gold</td>
             <td>
               <span class="ui-chip ui-dot ui-success ui-small"
                 ><span class="ui-text">Active</span></span
               >
             </td>
-            <td class="ui-numeric" data-sort-value="480">€480</td>
+            <td class="ui-numeric" data-sort-value="4800">4 800</td>
             <td data-sort-value="2026-03-03">3 Mar 2026</td>
             <td class="data-table-actions">
               <button
-                aria-label="Actions for Lena Handén"
+                aria-label="Actions for Lou Headstock"
                 class="ui-button ui-round ui-small"
                 command="toggle-popover"
-                commandfor="data-table-menu-lena"
+                commandfor="data-table-menu-lou"
                 type="button"
               >
                 <svg
@@ -376,18 +376,18 @@
               </button>
               <menu
                 class="ui-menu ui-align-end"
-                id="data-table-menu-lena"
+                id="data-table-menu-lou"
                 popover
               >
                 <li>
-                  <a href="#data-table-lena"
-                    ><div class="ui-text"><p>View customer</p></div></a
+                  <a href="#data-table-lou"
+                    ><div class="ui-text"><p>View profile</p></div></a
                   >
                 </li>
                 <li>
                   <button
                     command="hide-popover"
-                    commandfor="data-table-menu-lena"
+                    commandfor="data-table-menu-lou"
                     type="button"
                   >
                     <div class="ui-text"><p>Change plan</p></div>
@@ -396,7 +396,7 @@
                 <li class="ui-border-top ui-critical">
                   <button
                     command="hide-popover"
-                    commandfor="data-table-menu-lena"
+                    commandfor="data-table-menu-lou"
                     type="button"
                   >
                     <div class="ui-text"><p>Delete</p></div>
@@ -408,33 +408,33 @@
           <tr>
             <td>
               <label class="ui-checkbox">
-                <input name="data-table-row" type="checkbox" value="pekka" />
-                <span class="ui-sr-only">Select Pekka Gåpåbottanen</span>
+                <input name="data-table-row" type="checkbox" value="percy" />
+                <span class="ui-sr-only">Select Percy Groove</span>
               </label>
             </td>
-            <td data-sort-value="Pekka Gåpåbottanen">
+            <td data-sort-value="Percy Groove">
               <div class="ui-layout-media ui-small">
                 <span class="ui-avatar" aria-hidden="true">PG</span>
                 <div>
-                  <p class="data-table-person">Pekka Gåpåbottanen</p>
-                  <p class="ui-caption">pekka.gapabottanen@nordvik.no</p>
+                  <p class="data-table-person">Percy Groove</p>
+                  <p class="ui-caption">percy@groove.example</p>
                 </div>
               </div>
             </td>
-            <td>Starter</td>
+            <td>Silver</td>
             <td>
               <span class="ui-chip ui-dot ui-warning ui-small"
                 ><span class="ui-text">Past due</span></span
               >
             </td>
-            <td class="ui-numeric" data-sort-value="49">€49</td>
+            <td class="ui-numeric" data-sort-value="490">490</td>
             <td data-sort-value="2026-05-19">19 May 2026</td>
             <td class="data-table-actions">
               <button
-                aria-label="Actions for Pekka Gåpåbottanen"
+                aria-label="Actions for Percy Groove"
                 class="ui-button ui-round ui-small"
                 command="toggle-popover"
-                commandfor="data-table-menu-pekka"
+                commandfor="data-table-menu-percy"
                 type="button"
               >
                 <svg
@@ -452,18 +452,18 @@
               </button>
               <menu
                 class="ui-menu ui-align-end"
-                id="data-table-menu-pekka"
+                id="data-table-menu-percy"
                 popover
               >
                 <li>
-                  <a href="#data-table-pekka"
-                    ><div class="ui-text"><p>View customer</p></div></a
+                  <a href="#data-table-percy"
+                    ><div class="ui-text"><p>View profile</p></div></a
                   >
                 </li>
                 <li>
                   <button
                     command="hide-popover"
-                    commandfor="data-table-menu-pekka"
+                    commandfor="data-table-menu-percy"
                     type="button"
                   >
                     <div class="ui-text"><p>Change plan</p></div>
@@ -472,7 +472,7 @@
                 <li class="ui-border-top ui-critical">
                   <button
                     command="hide-popover"
-                    commandfor="data-table-menu-pekka"
+                    commandfor="data-table-menu-percy"
                     type="button"
                   >
                     <div class="ui-text"><p>Delete</p></div>
@@ -484,33 +484,33 @@
           <tr>
             <td>
               <label class="ui-checkbox">
-                <input name="data-table-row" type="checkbox" value="ranta" />
-                <span class="ui-sr-only">Select Ranta Runtiringen</span>
+                <input name="data-table-row" type="checkbox" value="rory" />
+                <span class="ui-sr-only">Select Rory Rootnote</span>
               </label>
             </td>
-            <td data-sort-value="Ranta Runtiringen">
+            <td data-sort-value="Rory Rootnote">
               <div class="ui-layout-media ui-small">
                 <span class="ui-avatar" aria-hidden="true">RR</span>
                 <div>
-                  <p class="data-table-person">Ranta Runtiringen</p>
-                  <p class="ui-caption">ranta.runtiringen@fjordlab.se</p>
+                  <p class="data-table-person">Rory Rootnote</p>
+                  <p class="ui-caption">rory@lowend.example</p>
                 </div>
               </div>
             </td>
-            <td>Business</td>
+            <td>Platinum</td>
             <td>
               <span class="ui-chip ui-dot ui-success ui-small"
                 ><span class="ui-text">Active</span></span
               >
             </td>
-            <td class="ui-numeric" data-sort-value="2320">€2 320</td>
+            <td class="ui-numeric" data-sort-value="9120">9 120</td>
             <td data-sort-value="2026-01-12">12 Jan 2026</td>
             <td class="data-table-actions">
               <button
-                aria-label="Actions for Ranta Runtiringen"
+                aria-label="Actions for Rory Rootnote"
                 class="ui-button ui-round ui-small"
                 command="toggle-popover"
-                commandfor="data-table-menu-ranta"
+                commandfor="data-table-menu-rory"
                 type="button"
               >
                 <svg
@@ -528,18 +528,18 @@
               </button>
               <menu
                 class="ui-menu ui-align-end"
-                id="data-table-menu-ranta"
+                id="data-table-menu-rory"
                 popover
               >
                 <li>
-                  <a href="#data-table-ranta"
-                    ><div class="ui-text"><p>View customer</p></div></a
+                  <a href="#data-table-rory"
+                    ><div class="ui-text"><p>View profile</p></div></a
                   >
                 </li>
                 <li>
                   <button
                     command="hide-popover"
-                    commandfor="data-table-menu-ranta"
+                    commandfor="data-table-menu-rory"
                     type="button"
                   >
                     <div class="ui-text"><p>Change plan</p></div>
@@ -548,7 +548,7 @@
                 <li class="ui-border-top ui-critical">
                   <button
                     command="hide-popover"
-                    commandfor="data-table-menu-ranta"
+                    commandfor="data-table-menu-rory"
                     type="button"
                   >
                     <div class="ui-text"><p>Delete</p></div>
@@ -563,7 +563,7 @@
   </opui-select-all>
 
   <div class="ui-layout-row ui-spread">
-    <p>Showing 1–5 of 128 customers</p>
+    <p>Showing 1–5 of 128 members</p>
     <nav aria-label="Pagination">
       <div class="ui-control-group ui-outlined ui-small" role="group">
         <a

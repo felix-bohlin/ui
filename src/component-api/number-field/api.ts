@@ -7,6 +7,31 @@ const imported =
 export default {
   component: "NumberField",
   css: ["button", "number-field", "text-field"],
+  elements: [
+    {
+      members: [
+        {
+          description:
+            'The `<input type="number">` inside, or `null`. Read-only.',
+          kind: "property",
+          name: "input",
+        },
+        {
+          description:
+            "Steps the value down by `step`, unless the input is disabled, read-only or at `min`, and fires `input` and `change`.",
+          kind: "method",
+          name: "stepDown()",
+        },
+        {
+          description:
+            "Steps the value up by `step`, unless the input is disabled, read-only or at `max`, and fires `input` and `change`.",
+          kind: "method",
+          name: "stepUp()",
+        },
+      ],
+      tag: "opui-number-field",
+    },
+  ],
   keyboard: [
     {
       description:
@@ -187,7 +212,7 @@ export default {
   ],
   root: {
     description:
-      "The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max` and keeps both disabled while the input is disabled, as the component renders them.",
+      "The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max`, and keeps both disabled while the input is disabled and `aria-disabled` while the input is, also when a script changes the input.",
     selector: "opui-number-field.ui-number-field",
   },
   source: "NumberField",

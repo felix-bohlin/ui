@@ -4,19 +4,19 @@ export default function Shapes() {
   return (
     <>
       <Avatar
-        alt="Pekka Gåpåbottanen"
+        alt="Percy Groove"
         shape="rounded"
-        src="/photos/pekka-gapabottanen.png"
+        src="/photos/percy-groove.png"
       />
 
-      <Avatar aria-label="Ranta Runtiringen" role="img" shape="squared">
+      <Avatar aria-label="Rory Rootnote" role="img" shape="squared">
         RR
       </Avatar>
 
       <Avatar
-        alt="Lena Handén"
+        alt="Lou Headstock"
         shape="squircle"
-        src="/photos/lena-handen.png"
+        src="/photos/lou-headstock.png"
       />
     </>
   )

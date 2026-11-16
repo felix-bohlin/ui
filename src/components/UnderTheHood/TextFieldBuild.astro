@@ -105,9 +105,9 @@ const steps = [
     features: ["grid", "has"],
     html: `
 <span class="field">
-  <input />
-  <span class="prefix">€</span>
-  <span class="suffix">per month</span>
+  <input aria-describedby="price-prefix price-suffix" id="price" />
+  <span class="prefix" id="price-prefix">€</span>
+  <span class="suffix" id="price-suffix">per month</span>
 </span>`,
     notes: [
       "The input comes first in the markup, <code>grid-area</code> places the affixes around it",

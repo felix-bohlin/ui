@@ -49,7 +49,7 @@ Model: `value` (`string`), the textarea value. Astro and React `value`, Svelte `
 
 ### Notes
 
-- HTML: For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. With a label, give `.ui-label` an id and point `aria-labelledby` on the field at it, then at `.ui-start` and `.ui-end`, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-bottom` and `.ui-end-text`, so a hint or an error is read as the description, not in the name.
+- HTML: For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. With a label, put a `<label class="ui-label" for>` inside the root that points at the field's `id`, so the label alone names it, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name.
 - Astro, Svelte and Vue: Attributes that aren't props go to the `<textarea>`, like `maxlength` and `placeholder`, and `class` and `style` go to the `.ui-textarea` root.
 - React: Attributes that aren't props go to the `<textarea>`, like `maxlength` and `placeholder`, and `className` and `style` go to the `.ui-textarea` root. Use `value` with `onChange`, or `defaultValue`.
 

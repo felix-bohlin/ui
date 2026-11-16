@@ -336,10 +336,14 @@ Check that a named slot exists before rendering its wrapper. `tests/unit/compone
 
 ### Label Wrapping
 
-Most inputs should be wrapped in a `<label>` to provide a larger hit area and built-in accessibility.
+Checkbox, Radio and Switch wrap their control in a `<label>` root, which makes the whole row the hit area and names the control.
+
+### Field Labels
+
+TextField, Textarea, Select, NumberField and OneTimeCode render a `<div>` root with a `<label class="ui-label" for>` inside, and give the control a generated `id` when it has a label. The label alone names the control, so a button can go in `.ui-start` or `.ui-end` without sitting inside a `<label>` or joining the name.
 
 ```astro
-<label
+<div
   class:list={[
     "ui-text-field",
     size && size !== "medium" && `ui-${size}`,
@@ -347,17 +351,22 @@ Most inputs should be wrapped in a `<label>` to provide a larger hit area and bu
   ]}
   style={style}
 >
-  <span class="ui-label">{label}</span>
+  {hasLabel && <label class="ui-label" for={inputId}>{label}</label>}
   <span class="ui-field">
-    <input {...rest} aria-invalid={error ? "true" : ariaInvalid} />
+    <input
+      {...rest}
+      aria-describedby={idRefs(endTextId, ariaDescribedBy)}
+      aria-invalid={error ? "true" : ariaInvalid}
+      id={inputId}
+    />
   </span>
-  {endText && <span class="ui-end-text">{endText}</span>}
-</label>
+  {endText && <span class="ui-end-text" id={endTextId}>{endText}</span>}
+</div>
 ```
 
 ### End Text & ARIA
 
-When providing `endText`, give it a part id (see [Unique IDs](#unique-ids)) and link it to the input via `aria-describedby`, merged with the user's own `aria-describedby` by `idRefs` from `../id`. Checkbox, Radio and Switch are the exception while their `<label>` root wraps the control: the label names it and already includes the end text, so they don't link it. A OneTimeCode, Select, TextField or Textarea with a label names the control with `aria-labelledby` (the label, then the `start` and `end` affixes), so its start text, end text, top and bottom stay out of the name and describe it instead. A TextField with `passwordToggle` names it with `<label for>` and describes it the same way.
+When providing `endText`, give it a part id (see [Unique IDs](#unique-ids)) and link it to the input via `aria-describedby`, merged with the user's own `aria-describedby` by `idRefs` from `../id`. Checkbox, Radio and Switch are the exception while their `<label>` root wraps the control: the label names it and already includes the end text, so they don't link it. A NumberField, OneTimeCode, Select, TextField or Textarea names the control with its `<label for>` alone and describes it with its start text, `top`, `start` and `end` affixes, `bottom` and end text, in that order, so a unit, a hint or an error is read after the name in any word order. A passed `aria-labelledby` goes through unchanged.
 
 ```astro
 ---

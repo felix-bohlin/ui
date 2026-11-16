@@ -1090,7 +1090,7 @@ Astro and Vue generate an `id` for the select only when the label points at it. 
 
 In Astro and Vue, `style` goes to the root instead of the `<select>`, like `class`. Set `--_` properties through `style`, and style the select itself with a class or CSS.
 
-Same as Text field: the root is a `<div>` with a `<label for>` inside, instead of a `<label>`, the label alone names the select, and the start and end text, the affixes and the `top` and `bottom` parts describe it. Target `.ui-select` instead of `label.ui-select`, and in HTML give the select an `id` for the label's `for`.
+Same as Text field: the root is a `<div>` with a `<label for>` inside, instead of a `<label>`, the label alone names the select, and the start and end text, the affixes and the `top` and `bottom` parts describe it. A click on those parts no longer opens the select. Target `.ui-select` instead of `label.ui-select`, and in HTML give the select an `id` for the label's `for`.
 
 With `spread`, label and field split the container into equal columns. Selects keep a `12ch` minimum width in table cells, and the arrow is a chevron instead of a triangle.
 
@@ -1274,7 +1274,7 @@ Astro and Vue generate an input `id` only when the label or the password toggle 
 
 In Astro, extra attributes go to the `<input>` instead of the root. `class` and `style` stay on the root. In Vue, `style` now goes to the root instead of the input. Check selectors and tests that look for attributes on the root.
 
-The root is a `<div>` with a `<label for>` inside, instead of a `<label>` around the whole field, so the field can hold buttons. The label alone names the input. The start and end text, the `start` and `end` affixes and the `top` and `bottom` parts describe it through `aria-describedby`, read after the name, where the affixes used to join the name. Target `.ui-text-field` instead of `label.ui-text-field` in your CSS, and give a field without `label` an `aria-label` or `aria-labelledby`. In HTML, the input needs an `id` for the label's `for`, and an affix or a hint an `id` for `aria-describedby`.
+The root is a `<div>` with a `<label for>` inside, instead of a `<label>` around the whole field, so the field can hold buttons. The label alone names the input. The start and end text, the `start` and `end` affixes and the `top` and `bottom` parts describe it through `aria-describedby`, read after the name, where the affixes used to join the name. A click on the start or end text, an affix or the `top` or `bottom` part no longer focuses the input, since only the label is a `<label>`. Target `.ui-text-field` instead of `label.ui-text-field` in your CSS, and give a field without `label` an `aria-label` or `aria-labelledby`. In HTML, the input needs an `id` for the label's `for`, and an affix or a hint an `id` for `aria-describedby`.
 
 ```diff
 - <label class="ui-text-field">
@@ -1358,7 +1358,7 @@ In Vue, use `<template #start>€</template>` and `<template #end>EUR</template>
 
 Astro and Vue generate an `id` only when the label points at it, extra attributes go to the `<textarea>` in Astro (`class` and `style` stay on the root), and in Vue `style` goes to the root. `description` is `startText` (the `start-text` slot), like Text field. `supportingText` (the `supporting-text` slot) is gone. Use `endText`.
 
-Same as Text field: the root is a `<div>` with a `<label for>` inside, the label alone names the textarea, and the start and end text, the affixes and the `top` and `bottom` parts describe it. Give a textarea without `label` an `aria-label` or `aria-labelledby`, target `.ui-textarea` instead of `label.ui-textarea`, and in HTML give the textarea an `id` for the label's `for`.
+Same as Text field: the root is a `<div>` with a `<label for>` inside, the label alone names the textarea, and the start and end text, the affixes and the `top` and `bottom` parts describe it. A click on those parts no longer focuses the textarea. Give a textarea without `label` an `aria-label` or `aria-labelledby`, target `.ui-textarea` instead of `label.ui-textarea`, and in HTML give the textarea an `id` for the label's `for`.
 
 The minimum height is three lines plus padding at every size (small was a fixed 64px). With `spread`, the fixed `30ch` minimum is gone and label and field split the container into equal columns. Textareas keep a `12ch` minimum width in table cells.
 

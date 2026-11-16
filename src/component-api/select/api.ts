@@ -200,9 +200,8 @@ export default {
     },
   ],
   root: {
-    description:
-      "Container element, a `<div>`. The label inside is a `<label for>` that names the select by itself.",
-    selector: ".ui-select",
+    description: "Container element.",
+    selector: "div.ui-select",
   },
   slots: [
     {

@@ -33,34 +33,27 @@ console.log(JSON.stringify(errors))`,
     ),
   )
 
-const tokenImages = (source: string) =>
-  Object.fromEntries(
-    [...source.matchAll(/--_(\w+)-image: var\(--ui-icon-([a-z-]+)\);/g)].map(
-      ([, name, role]) => [name, role],
-    ),
-  )
+const iconTokens = (source: string) =>
+  [...source.matchAll(/(?:-image|mask): var\(--ui-icon-([a-z-]+)\)/g)]
+    .map(([, role]) => role)
+    .toSorted()
 
-test("toaster.css draws the severity and close icons from the icon tokens", () => {
+test("callout.css draws the icons of a toast from the icon tokens, and toaster.css draws none of its own", () => {
   expect(
-    tokenImages(
-      readFileSync("packages/opui/css/components/toaster.css", "utf8"),
+    iconTokens(
+      readFileSync("packages/opui/css/components/callout.css", "utf8"),
     ),
-  ).toEqual({
-    close: "close",
-    critical: "critical",
-    info: "info",
-    success: "success",
-    warning: "warning",
-  })
+  ).toEqual(["close", "critical", "info", "success", "warning"])
+  expect(
+    readFileSync("packages/opui/css/components/toaster.css", "utf8"),
+  ).not.toMatch(/\bmask\b|-image\b/)
 })
 
-test("the image reader flags an icon that isn't a token", () => {
-  expect(tokenImages("--_info-image: var(--ui-icon-info);")).toEqual({
-    info: "info",
-  })
+test("the icon reader flags an icon that isn't a token", () => {
+  expect(iconTokens("mask: var(--ui-icon-info) center;")).toEqual(["info"])
   expect(
-    tokenImages(`--_info-image: url("data:image/svg+xml,%3Csvg/%3E");`),
-  ).toEqual({})
+    iconTokens(`mask: url("data:image/svg+xml,%3Csvg/%3E") center;`),
+  ).toEqual([])
 })
 
 test("the elements and the css/js scripts import in Node, which has no DOM", () => {

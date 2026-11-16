@@ -566,7 +566,6 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 - `Tabs`: the selected tab is a tint, so it gets `SelectedItem` and a `CanvasText` border, and its focus ring, where it's drawn inside the fill, `SelectedItemText`.
 - `TextField`: the field border is real, but the focus outline gets `Highlight`, an invalid field, whose red border is forced away, a dashed border, and the autosuggest mask chevron and the default icons of the password toggle `ButtonText`. `Select` and `Textarea` share the stylesheet.
 - `Timeline`: colored and current markers are fills, so they get `CanvasText`, and the current marker and the tracked line `Highlight`.
-- `Toaster`: every toast is a `Callout`, whose boundary is a real border, and the severity and close icons are masks, so they get `CanvasText` and `ButtonText`.
 - `ToggleButton`: the checked state is a tint, so it gets `SelectedItem`.
 - `ToggleGroup`: the dividers are column and row rules, which the browser forces to `CanvasText`, but browsers without gap decorations draw them as shadows, which forced colors drops, so the block gives each button `CanvasText` borders, which `css/compat/toggle-group.css` sets to a border width there.
 - `Tooltip`: the surface and the arrow are fills, so they get a `CanvasText` border and arrow.
@@ -574,6 +573,7 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 
 The components without a block, and why:
 
+- `Toaster`: every toast is a `Callout`, and `callout.css` has the block for its border and its severity and close icons.
 - `Anchor`, `Copy`, `SelectAll`: layout only, no boundary or state of their own. The `Copy` label is a bordered surface, which the browser forces to `CanvasText`, next to its announcement.
 - `DescriptionList`, `Form`, `Layout`: the browser forces their lines and colors itself. The `DescriptionList` leaders and total line are real borders and the `Layout` `.ui-bordered` lines are column and row rules, both forced to `CanvasText`. The invalid end text of a `Form` fieldset loses its color, while the invalid controls inside keep their dashed border.
 - `Badge`, `Dialog`, `Drawer`, `Menu`, `Table`: every boundary is a real border, which the browser forces to `CanvasText`.

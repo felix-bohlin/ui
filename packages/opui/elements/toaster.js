@@ -155,8 +155,8 @@ export class ToasterElement extends Base {
     if (!list.matches(":popover-open")) list.showPopover?.()
     this.#limit(list)
     this.#announce(message, severity)
-    const set = Number(this.getAttribute("duration") || NaN)
-    const base = Number.isNaN(set) ? DURATION : set
+    const set = this.getAttribute("duration")?.trim()
+    const base = set && !Number.isNaN(Number(set)) ? Number(set) : DURATION
     const time = duration ?? (action?.label ? base * 2 : base)
     this.#timers.set(item, { id: undefined, remaining: time, start: 0 })
     if (!this.#focused && !this.#hovered) this.#start(item)

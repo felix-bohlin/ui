@@ -2,15 +2,9 @@ name: CI
 
 on:
   pull_request:
-    types: [opened, ready_for_review, reopened, synchronize]
   push:
     branches: [main]
   workflow_dispatch:
-    inputs:
-      draft:
-        description: Run it as for a draft pull request, without the app and e2e tests
-        default: false
-        type: boolean
 
 concurrency:
   group: ci-${{ github.event.pull_request && github.event.pull_request.head.repo.full_name != github.repository && format('fork-{0}', github.event.pull_request.number) || github.head_ref || github.ref_name }}
@@ -18,7 +12,6 @@ concurrency:
 
 jobs:
   apps:
-    if: ${{ !(github.event.pull_request.draft || github.event.inputs.draft == 'true') }}
     permissions:
       contents: read
     uses: ./.github/workflows/apps.yml
@@ -67,12 +60,11 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "chore: regenerate the files in scripts/generated-files.json"
           git push origin "HEAD:refs/heads/$BRANCH"
-          gh workflow run ci.yml --ref "$BRANCH" -f draft="$DRAFT"
+          gh workflow run ci.yml --ref "$BRANCH"
           echo "::notice::Pushed the regenerated files to $BRANCH as $(git rev-parse --short HEAD), CI runs again there"
           git checkout --force --detach "$merge"
         env:
           BRANCH: ${{ github.head_ref }}
-          DRAFT: ${{ github.event.pull_request.draft }}
           GH_REPO: ${{ github.repository }}
           GH_TOKEN: ${{ github.token }}
           SHA: ${{ github.event.pull_request.head.sha }}
@@ -135,7 +127,7 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
   e2e:
-    if: ${{ always() && !(github.event.pull_request.draft || github.event.inputs.draft == 'true') }}
+    if: always()
     needs: e2e-chromium
     runs-on: ubuntu-latest
     steps:
@@ -145,7 +137,6 @@ jobs:
 
   e2e-chromium:
     name: e2e (${{ matrix.project }} ${{ matrix.shard }})
-    if: ${{ !(github.event.pull_request.draft || github.event.inputs.draft == 'true') }}
     needs: check
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/playwright:v1.63.0-noble
@@ -222,7 +213,7 @@ jobs:
   e2e-engines:
     name: e2e engines
     if: github.ref == 'refs/heads/main' || contains(github.event.pull_request.labels.*.name, 'e2e-engines')
-    needs: e2e-chromium
+    needs: check
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/playwright:v1.63.0-noble
     env:

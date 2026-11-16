@@ -145,6 +145,27 @@ for (const root of ["ui-text-field", "ui-textarea"]) {
   })
 }
 
+test("a field in a linked card takes a click anywhere in it", async ({
+  page,
+}) => {
+  await openFixture(page, "html", "stress/layout")
+
+  const root = page.locator("#stress-layout-card-links .ui-text-field")
+  await root.scrollIntoViewIfNeeded()
+  const hits = await root.evaluate((field) =>
+    [".ui-end", ".ui-end-text"].map((part) => {
+      const box = field.querySelector(part)!.getBoundingClientRect()
+      return field.contains(
+        document.elementFromPoint(
+          box.left + box.width / 2,
+          box.top + box.height / 2,
+        ),
+      )
+    }),
+  )
+  expect(hits, "the affix and the end text").toEqual([true, true])
+})
+
 const DENSITIES = {
   "0.875": {
     default: "35px",

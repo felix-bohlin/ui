@@ -64,7 +64,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_marker-label`: Accessible name of each marker, CSS strings with `counter(ui-carousel-item)` where the item number goes. `markerLabel` sets it.
 - `--_marker-selected-bg-color`: Fill and ring of the current marker. Defaults to `--ui-selected-strong`.
 - `--_marker-selected-padding`: Inset of the current marker's dot, smaller than the `--ui-space-2` of the other markers, so the current dot is larger. Defaults to `--ui-space-1`.
-- `--_marker-size`: Size of the markers. The dot sits inside, inset by `--ui-space-2`.
+- `--_marker-size`: Size of the markers: `--ui-space-5`, and at least `--ui-target-min-size`, so they stay pointer targets in a theme with a smaller spacing scale. The dot sits inside, inset by `--ui-space-2`.
 - `--_media-aspect-ratio`: Aspect ratio of `img`, `video` and `iframe` in items.
 - `--_media-radius`: Corner radius of `img`, `video` and `iframe` in items. Defaults to `--ui-radius`.
 - `--_motion`: Motion multiplier for the button and marker transitions. `0` turns them off.
@@ -77,7 +77,7 @@ Outputs: `--_block-room`, `--_button-border-color`, `--_button-disabled-border-c
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width`, `--ui-button-size-small`, `--ui-control-border-color-filled`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-icon-next`, `--ui-motion`, `--ui-radius`, `--ui-radius-round`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-8`, `--ui-surface-inverse` and `--ui-text`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width`, `--ui-button-size-small`, `--ui-control-border-color-filled`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-icon-next`, `--ui-motion`, `--ui-radius`, `--ui-radius-round`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-8`, `--ui-surface-inverse`, `--ui-target-min-size` and `--ui-text`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

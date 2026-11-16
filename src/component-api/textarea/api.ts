@@ -170,7 +170,7 @@ export default {
     },
     {
       description:
-        "Content at the inline-start of the field, inside the border.",
+        "Content at the inline-start of the field, inside the border, centered on the first line. Taller content starts `--_affix-padding-block` below the field's top, or below `.ui-top`.",
       selector: ".ui-field > .ui-start",
       slots: ["start"],
     },
@@ -181,7 +181,8 @@ export default {
       selector: "textarea",
     },
     {
-      description: "Content at the inline-end of the field, inside the border.",
+      description:
+        "Content at the inline-end of the field, inside the border, centered on the first line. Taller content starts `--_affix-padding-block` below the field's top, or below `.ui-top`.",
       selector: ".ui-field > .ui-end",
       slots: ["end"],
     },

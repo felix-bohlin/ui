@@ -43,6 +43,7 @@ const knobs = [
   "--ui-state-hover-alpha-dark",
   "--ui-state-hover-alpha-light",
   "--ui-state-selected-alpha-accent",
+  "--ui-target-min-size",
   "--ui-text-disabled-strength",
   "--ui-text-max-chroma",
   "--ui-text-max-lightness",

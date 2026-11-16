@@ -44,7 +44,7 @@
     --_marker-label: "Slide " counter(ui-carousel-item);
     --_marker-selected-bg-color: var(--ui-selected-strong);
     --_marker-selected-padding: var(--ui-space-1);
-    --_marker-size: var(--ui-space-5);
+    --_marker-size: max(var(--ui-target-min-size), var(--ui-space-5));
     --_media-aspect-ratio: 16 / 9;
     --_media-radius: var(--ui-radius);
     --_padding-block: 0px;

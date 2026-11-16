@@ -100,6 +100,7 @@
     --ui-switch-track-bg-color: light-dark(oklch(1 0 0), oklch(0.262 0.01 248));
     --ui-switch-track-block-size: 1rem;
     --ui-switch-track-inline-size: 2rem;
+    --ui-target-min-size: 0px;
     --ui-text: light-dark(oklch(0.262 0.01 248), oklch(0.91 0.007 248));
     --ui-text-strong: light-dark(oklch(0.262 0.01 248), oklch(1 0 0));
     --ui-text-subtle: light-dark(

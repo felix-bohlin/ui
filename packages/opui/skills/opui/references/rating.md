@@ -54,7 +54,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_empty-bg-color`: Color of the empty star outlines. Defaults to `--ui-field-border-color`, which reaches 3:1 against the page. An invalid input tints it with `--ui-invalid`.
 - `--_max`: Number of stars a meter is wide, for browsers without typed `attr()`. The components set it when `max` isn't `5`. Defaults to `5`.
 - `--_motion`: Motion multiplier for the fill transition.
-- `--_size`: Size of one star. Defaults to `--ui-icon-size` on a meter and `--ui-control-size-x-small` on an input, so every radio is a large enough target; `.ui-small` and `.ui-large` set the next size down and up.
+- `--_size`: Size of one star. Defaults to `--ui-icon-size` on a meter and `--ui-control-size-x-small` on an input, and on an input at least `--ui-target-min-size`, so every radio is a large enough target at any density; `.ui-small` and `.ui-large` set the next size down and up.
 - `--_star-empty-image`: The outline mask an empty star is drawn with, so empty stars differ from filled ones by shape as well as color. A meter needs typed `attr()` for it, and draws its empty stars with `--_star-image` without it.
 - `--_star-image`: The mask a filled star is drawn with.
 
@@ -62,7 +62,7 @@ Outputs: `--_duration`, `--_fill-bg-color` and `--_fill-image`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-required-text-color`, `--ui-font-size-caption`, `--ui-icon-clear`, `--ui-icon-rating`, `--ui-icon-rating-empty`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-motion`, `--ui-radius-small`, `--ui-space-1`, `--ui-space-2`, `--ui-text`, `--ui-text-subtle` and `--ui-warning`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-required-text-color`, `--ui-font-size-caption`, `--ui-icon-clear`, `--ui-icon-rating`, `--ui-icon-rating-empty`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-motion`, `--ui-radius-small`, `--ui-space-1`, `--ui-space-2`, `--ui-target-min-size`, `--ui-text`, `--ui-text-subtle` and `--ui-warning`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

@@ -5,6 +5,7 @@ import { createRawSnippet, type Component as SvelteComponent } from "svelte"
 import { render as renderSvelte } from "svelte/server"
 import { createSSRApp, h, type Component as VueComponent } from "vue"
 import { renderToString as renderVue } from "vue/server-renderer"
+import { REACT_ATTRIBUTE_NAMES } from "../../scripts/component-shared.mjs"
 import { parseHtml } from "../../scripts/html-tokens.mjs"
 import { slotProp } from "../../src/component-api/frameworks"
 
@@ -37,6 +38,41 @@ const attributesOf = (node: Node & { type: "element" }) =>
     ]),
   )
 
+const REACT_BOOLEANS = new Set([
+  "checked",
+  "disabled",
+  "hidden",
+  "inert",
+  "multiple",
+  "open",
+  "required",
+  "selected",
+])
+
+const styleObject = (style: string) =>
+  Object.fromEntries(
+    style
+      .split(";")
+      .map((declaration) => declaration.split(":"))
+      .filter(([name, ...value]) => name.trim() && value.length)
+      .map(([name, ...value]) => [
+        name.trim().startsWith("--")
+          ? name.trim()
+          : name
+              .trim()
+              .replace(/-([a-z])/g, (_, letter) => letter.toUpperCase()),
+        value.join(":").trim(),
+      ]),
+  )
+
+const reactAttributes = (node: Node & { type: "element" }) =>
+  Object.fromEntries(
+    Object.entries(attributesOf(node)).map(([name, value]) => [
+      REACT_ATTRIBUTE_NAMES[name as keyof typeof REACT_ATTRIBUTE_NAMES] ?? name,
+      name === "style" ? styleObject(value) : REACT_BOOLEANS.has(name) || value,
+    ]),
+  )
+
 const reactTree = (nodes: Node[]): ReactNode[] =>
   nodes.flatMap((node, index) =>
     node.type === "text"
@@ -45,7 +81,7 @@ const reactTree = (nodes: Node[]): ReactNode[] =>
         ? [
             createElement(
               node.tag,
-              { ...attributesOf(node), key: index },
+              { ...reactAttributes(node), key: index },
               ...reactTree(node.children),
             ),
           ]

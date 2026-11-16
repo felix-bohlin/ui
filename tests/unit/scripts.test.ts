@@ -12,7 +12,7 @@ const filesIn = (dir: string, keep: (file: string) => boolean) =>
     : []
 
 const SCRIPTS = [
-  ...filesIn(".claude/hooks", (file) => file.endsWith(".mjs")),
+  ...filesIn(".claude/hooks", (file) => /\.(?:mjs|sh)$/.test(file)),
   ...execFileSync("git", ["ls-files", ".githooks"], { encoding: "utf8" })
     .split("\n")
     .filter(Boolean),

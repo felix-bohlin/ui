@@ -1,9 +1,15 @@
 import { execFileSync, spawnSync } from "node:child_process"
-import { mkdirSync, mkdtempSync, readdirSync, writeFileSync } from "node:fs"
+import {
+  mkdirSync,
+  mkdtempSync,
+  readdirSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs"
 import { tmpdir } from "node:os"
 import { dirname, join } from "node:path"
 import stylelint from "stylelint"
-import { describe, expect, test } from "vitest"
+import { describe, expect, onTestFinished, test } from "vitest"
 import { featureIds, patterns } from "../../packages/opui/scripts/features.mjs"
 import {
   fallbackProblems,
@@ -596,6 +602,7 @@ describe("file discovery", { timeout: 15_000 }, () => {
 
   const repo = (files: Record<string, string>) => {
     const root = mkdtempSync(join(tmpdir(), "opui-scan-"))
+    onTestFinished(() => rmSync(root, { force: true, recursive: true }))
     execFileSync("git", ["init", "-q"], { cwd: root })
     for (const [file, text] of Object.entries({
       ".gitignore": "ignored/\n",
@@ -662,6 +669,7 @@ describe("check-ratchets", () => {
 
   test("the hand-written examples list grows only with the intended trailer", () => {
     const dir = mkdtempSync(join(tmpdir(), "opui-ratchets-"))
+    onTestFinished(() => rmSync(dir, { force: true, recursive: true }))
     const git = (...args: string[]) =>
       execFileSync(
         "git",

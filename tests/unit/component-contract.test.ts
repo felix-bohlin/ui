@@ -27,6 +27,7 @@ import {
   CALLER_VALUE,
   contentOf,
   reactNodes,
+  render as renderers,
   TEXT,
   vueNodes,
 } from "./renderers"
@@ -430,7 +431,7 @@ beforeAll(async () => {
   renderer = await createRenderer()
 }, 60_000)
 
-afterAll(() => renderer.close())
+afterAll(() => renderer?.close())
 
 const fixtureOf = (component: string, slots: string[]) => {
   const path = astroPaths.find((candidate) =>
@@ -570,6 +571,18 @@ describe("every component renders the same in Astro, React, Svelte and Vue", () 
       new Set(CASES.map(({ component }) => component)).size,
     ).toBeGreaterThan(60)
     expect(CASES.length).toBeGreaterThan(300)
+    expect(
+      Object.values(apis)
+        .filter(
+          (api) =>
+            api.source &&
+            !astroPaths.some((path) =>
+              path.endsWith(`/${api.component}.astro`),
+            ),
+        )
+        .map(({ component }) => component),
+      "an api.ts with a source documents a component: name it after packages/opui/components/<Component>/<Component>.astro",
+    ).toEqual([])
   })
 
   test.each(CASES)("$component with $name", async (entry) => {
@@ -603,6 +616,12 @@ describe("every component renders the same in Astro, React, Svelte and Vue", () 
       .toBeUndefined()
     for (const framework of FRAMEWORKS.filter((id) => id !== "astro")) {
       const rendered = await render[framework](entry)
+      expect
+        .soft(
+          rendered,
+          `${entry.component} renders in Astro but has no ${framework} file`,
+        )
+        .toBeDefined()
       if (rendered === undefined) continue
       const known = KNOWN_ATTRIBUTES[`${entry.component} ${framework}`]
       if (known && (known.when?.(entry.props) ?? true)) {
@@ -679,6 +698,16 @@ describe("every component renders the same in Astro, React, Svelte and Vue", () 
     expect(
       repeatedAttribute('<ol class="ui-list" role="log" data-role="list">'),
     ).toBeUndefined()
+  })
+
+  test("React and Vue slot content renders the same attributes", async () => {
+    const slots = {
+      default:
+        '<input class="ui-a" disabled style="color: red; --ui-b: 1px"><label for="x">Text</label>',
+    }
+    expect(normalize(await renderers.react("div", {}, slots))).toBe(
+      normalize(await renderers.vue("div", {}, slots)),
+    )
   })
 
   test("a sample the check must flag: a class one framework forgets", () => {

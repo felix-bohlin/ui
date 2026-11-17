@@ -1,5 +1,6 @@
 ---
 import Component from "../../layouts/Component.astro"
+import DefaultIcon from "./partials/DefaultIcon.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
@@ -141,8 +142,9 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
       </Fragment>
       <Fragment slot="html">
         Put an <code>&lt;svg aria-hidden="true"&gt;</code> before
-        <code>.ui-content</code>. An empty one with a <code>viewBox</code> shows
-        the severity's icon from the <code>--ui-icon-*</code> tokens.
+        <code>.ui-content</code>. An empty one with a <code>viewBox</code> and
+        nothing between its tags shows the severity's icon from the
+        <code>--ui-icon-*</code> tokens.
       </Fragment>
     </Conditional>
 
@@ -187,6 +189,7 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
         hides.
       </Fragment>
     </Conditional>
+    <DefaultIcon tokens={["--ui-icon-close"]} />
     <p>
       Use it for tips and announcements. Keep a warning or an error that still
       applies, like a failed payment, until the problem is solved.

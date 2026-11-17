@@ -1,5 +1,6 @@
 ---
 import Component from "../../layouts/Component.astro"
+import DefaultIcon from "./partials/DefaultIcon.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
 import DocLink from "../../components/DocLink.astro"
@@ -226,6 +227,7 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
         Point its <code>commandfor</code> at the drawer's <code>id</code>.
       </Fragment>
     </Conditional>
+    <DefaultIcon slots={["close-icon"]} tokens={["--ui-icon-close"]} />
 
     <AutoExample name="CloseButton" row />
   </section>

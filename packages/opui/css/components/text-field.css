@@ -274,10 +274,12 @@
     }
 
     /* File */
+    &:where(:has(input[type="file"])) :where(.ui-label, input) {
+      cursor: pointer;
+    }
+
     &:has(input[type="file"]) {
       --_file-button-padding: var(--ui-space-2);
-
-      cursor: pointer;
 
       input {
         --_file-button-inset: max(
@@ -292,7 +294,6 @@
         block-size: calc(var(--_size) - var(--ui-field-border-width) * 2);
         box-shadow: none;
         color: var(--ui-text-strong);
-        cursor: inherit;
         max-inline-size: 100%;
         padding: 0;
         transition: font-size var(--_duration) var(--_ease);

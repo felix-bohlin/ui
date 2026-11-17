@@ -1,5 +1,5 @@
-<label class="ui-textarea ui-spread">
-  <span class="ui-label" id="textarea-spread-1-label">Message</span>
+<div class="ui-textarea ui-spread">
+  <label class="ui-label" for="textarea-spread-1">Message</label>
   <span class="ui-start-text" id="textarea-spread-1-start-text"
     >Keep it under 100 characters.</span
   >
@@ -7,13 +7,13 @@
     <textarea
       placeholder="Hi, I have a question about my order."
       aria-describedby="textarea-spread-1-start-text"
-      aria-labelledby="textarea-spread-1-label"
+      id="textarea-spread-1"
     ></textarea>
   </span>
-</label>
+</div>
 
-<label class="ui-textarea ui-filled ui-spread">
-  <span class="ui-label" id="textarea-spread-2-label">Notes</span>
+<div class="ui-textarea ui-filled ui-spread">
+  <label class="ui-label" for="textarea-spread-2">Notes</label>
   <span class="ui-start-text" id="textarea-spread-2-start-text"
     >Add any additional notes or comments</span
   >
@@ -21,16 +21,16 @@
     <textarea
       placeholder="Additional notes..."
       aria-describedby="textarea-spread-2-start-text textarea-spread-2-end-text"
-      aria-labelledby="textarea-spread-2-label"
+      id="textarea-spread-2"
     ></textarea>
   </span>
   <span class="ui-end-text" id="textarea-spread-2-end-text"
     >Only your team sees these.</span
   >
-</label>
+</div>
 
-<label class="ui-textarea ui-spread">
-  <span class="ui-label" id="textarea-spread-3-label">Reason for return</span>
+<div class="ui-textarea ui-spread">
+  <label class="ui-label" for="textarea-spread-3">Reason for return</label>
   <span class="ui-start-text" id="textarea-spread-3-start-text"
     >Helps us improve our products</span
   >
@@ -38,13 +38,13 @@
     <textarea
       required
       aria-describedby="textarea-spread-3-start-text"
-      aria-labelledby="textarea-spread-3-label"
+      id="textarea-spread-3"
     ></textarea>
   </span>
-</label>
+</div>
 
-<label class="ui-textarea ui-spread">
-  <span class="ui-label" id="textarea-spread-4-label">Order notes</span>
+<div class="ui-textarea ui-spread">
+  <label class="ui-label" for="textarea-spread-4">Order notes</label>
   <span class="ui-start-text" id="textarea-spread-4-start-text"
     >Orders can't change once they ship</span
   >
@@ -52,13 +52,13 @@
     <textarea
       disabled
       aria-describedby="textarea-spread-4-start-text"
-      aria-labelledby="textarea-spread-4-label"
+      id="textarea-spread-4"
     ></textarea>
   </span>
-</label>
+</div>
 
-<label class="ui-textarea ui-spread">
-  <span class="ui-label" id="textarea-spread-5-label">Review</span>
+<div class="ui-textarea ui-spread">
+  <label class="ui-label" for="textarea-spread-5">Review</label>
   <span class="ui-start-text" id="textarea-spread-5-start-text"
     >Shown with your rating</span
   >
@@ -66,17 +66,17 @@
     <textarea
       aria-describedby="textarea-spread-5-start-text textarea-spread-5-end-text"
       aria-invalid="true"
-      aria-labelledby="textarea-spread-5-label"
+      id="textarea-spread-5"
     >
 Great</textarea>
   </span>
   <span class="ui-end-text" id="textarea-spread-5-end-text"
     >Write at least 20 characters.</span
   >
-</label>
+</div>
 
-<label class="ui-textarea ui-spread">
-  <span class="ui-label" id="textarea-spread-6-label">Bio</span>
+<div class="ui-textarea ui-spread">
+  <label class="ui-label" for="textarea-spread-6">Bio</label>
   <span class="ui-start-text" id="textarea-spread-6-start-text"
     >Shown on your public profile</span
   >
@@ -84,8 +84,8 @@ Great</textarea>
     <textarea
       maxlength="280"
       placeholder="Tell us about yourself..."
-      aria-describedby="textarea-spread-6-start-text textarea-spread-6-end-text"
-      aria-labelledby="textarea-spread-6-label textarea-spread-6-start"
+      aria-describedby="textarea-spread-6-start-text textarea-spread-6-start textarea-spread-6-end-text"
+      id="textarea-spread-6"
     ></textarea>
     <span class="ui-start" id="textarea-spread-6-start">
       <svg
@@ -114,10 +114,10 @@ Great</textarea>
       class="ui-value"
     ></opui-character-count>
   </span>
-</label>
+</div>
 
-<label class="ui-textarea ui-filled ui-spread">
-  <span class="ui-label" id="textarea-spread-7-label">Release notes</span>
+<div class="ui-textarea ui-filled ui-spread">
+  <label class="ui-label" for="textarea-spread-7">Release notes</label>
   <span class="ui-start-text" id="textarea-spread-7-start-text"
     >Shown on the changelog page</span
   >
@@ -125,7 +125,7 @@ Great</textarea>
     <textarea
       placeholder="Markdown supported..."
       aria-describedby="textarea-spread-7-start-text textarea-spread-7-top textarea-spread-7-bottom textarea-spread-7-end-text"
-      aria-labelledby="textarea-spread-7-label"
+      id="textarea-spread-7"
     ></textarea>
     <span class="ui-top" id="textarea-spread-7-top">v1.4.0</span>
     <span class="ui-bottom" id="textarea-spread-7-bottom"
@@ -135,7 +135,7 @@ Great</textarea>
   <span class="ui-end-text" id="textarea-spread-7-end-text"
     >Drafts save automatically.</span
   >
-</label>
+</div>
 
 <script type="module">
   import "opui-css/elements/character-count.js"

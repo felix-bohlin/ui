@@ -43,12 +43,12 @@ const steps = [
 }`,
     features: ["focus-visible", "textarea"],
     html: `
-<label class="textarea">
-  <span class="label">Notes</span>
+<div class="textarea">
+  <label class="label" for="notes">Notes</label>
   <span class="field">
-    <textarea rows="2">…</textarea>
+    <textarea id="notes" rows="2">…</textarea>
   </span>
-</label>`,
+</div>`,
     notes: [
       "Same wrapper and field box as the text field",
       "<code>rows</code> fixes the height, the content scrolls",
@@ -130,18 +130,26 @@ const notes = [
 
 <BuildUp id="build-textarea" knobs={knobs} steps={steps}>
   <div class="stack">
-    <label class="textarea">
-      <span class="label">Notes</span>
+    <div class="textarea">
+      <label class="label" for="build-textarea-notes">Notes</label>
       <span class="field">
-        <textarea name="build-textarea-notes" rows="2">{notes}</textarea>
+        <textarea
+          id="build-textarea-notes"
+          name="build-textarea-notes"
+          rows="2"
+        >{notes}</textarea>
       </span>
-    </label>
-    <label class="textarea auto-fit">
-      <span class="label">Title</span>
+    </div>
+    <div class="textarea auto-fit">
+      <label class="label" for="build-textarea-title">Title</label>
       <span class="field">
-        <textarea name="build-textarea-title" rows="2">Short</textarea>
+        <textarea
+          id="build-textarea-title"
+          name="build-textarea-title"
+          rows="2"
+        >Short</textarea>
       </span>
-    </label>
+    </div>
   </div>
 </BuildUp>
 

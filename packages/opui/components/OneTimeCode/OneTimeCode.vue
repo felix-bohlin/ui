@@ -50,13 +50,13 @@ const hasEndText = () => Boolean(endText || slots["end-text"])
 
 const base = computed(() => id || `one-time-code-${uid}`)
 
-const labelId = () => (hasLabel() ? `${base.value}-label` : undefined)
+const inputId = () => (hasLabel() ? base.value : id)
 
 const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
 </script>
 
 <template>
-  <label
+  <div
     :class="[
       'ui-one-time-code',
       { 'ui-grouped': grouped },
@@ -65,9 +65,9 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
     ]"
     v-bind="styleAttrs($attrs.style)"
   >
-    <span v-if="hasLabel()" class="ui-label" :id="labelId()"
+    <label v-if="hasLabel()" class="ui-label" :for="inputId()"
       >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
-    /></span>
+    /></label>
     <span class="ui-field">
       <input
         :autocapitalize="
@@ -82,9 +82,9 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
         v-bind="attrs"
         :aria-describedby="idRefs(endTextId(), attrs['aria-describedby'])"
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
-        :aria-labelledby="hasLabel() ? labelId() : attrs['aria-labelledby']"
+        :aria-labelledby="attrs['aria-labelledby']"
         autocomplete="one-time-code"
-        :id="id"
+        :id="inputId()"
         :maxlength="length"
         :name="name ?? field?.name"
         type="text"
@@ -95,5 +95,5 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
     <span v-if="hasEndText()" class="ui-end-text" :id="endTextId()"
       >{{ endText }}<slot name="end-text"></slot
     ></span>
-  </label>
+  </div>
 </template>

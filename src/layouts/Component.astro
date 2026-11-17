@@ -165,7 +165,12 @@ const migratingHref = link(
 )
 const COLLAPSED = 5
 
-const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
+const changelog = currentSlug
+  ? getComponentChangelog([
+      ...catalog.filesOf(currentSlug),
+      ...(changelogPaths ?? []),
+    ])
+  : []
 
 const imports =
   currentSlug && currentFramework !== "html"

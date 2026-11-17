@@ -40,9 +40,48 @@ export const catalogOf = (
       .find((slug) => slugs.includes(slug))
   }
 
+  const filesOf = (page: string) => {
+    const own = apisOf(page)
+    const owners = [page, ...sourcesOf(page).map(kebab)]
+    const files = (
+      type: "api" | "component" | "css" | "docs",
+      list: string[],
+    ) => unique(list).map((path) => ({ path, type }))
+    return [
+      ...files(
+        "api",
+        own.map(({ folder }) => `src/component-api/${folder}`),
+      ),
+      ...files("component", [
+        ...sourcesOf(page).map(
+          (source) => `packages/opui/components/${source}`,
+        ),
+        ...own.flatMap(({ api }) =>
+          (api.elements ?? []).map(
+            ({ tag }) =>
+              `packages/opui/elements/${tag.replace(/^opui-/, "")}.js`,
+          ),
+        ),
+      ]),
+      ...files(
+        "css",
+        pageStylesheets(page)
+          .filter((stylesheet) => owners.includes(stylesheet))
+          .map(
+            (stylesheet) => `packages/opui/css/components/${stylesheet}.css`,
+          ),
+      ),
+      ...files("docs", [
+        `src/component-examples/${page}`,
+        `src/docs/components/${page}.astro`,
+      ]),
+    ]
+  }
+
   return {
     apis,
     apisOf,
+    filesOf,
     pageOfComponent,
     sourcesOf,
     stylesheetsOf: pageStylesheets,

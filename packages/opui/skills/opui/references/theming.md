@@ -248,7 +248,7 @@ Each file names the set's version, licence and SVG package in a comment, and `TH
 
 ### Your own icons
 
-An icon slot takes any `svg` with a `viewBox`. The slot sizes it, and it takes the text color through `currentColor`, which `normalize.css` sets as the fill of an `svg` without one. Take them from the same set as the tokens so every icon matches. Shapes inside an SVG `mask` inherit that fill too, so give them a `fill` of their own. Icon fonts aren't supported.
+An icon slot takes any `svg` with a `viewBox`. The slot sizes it, and it takes the text color through `currentColor`, which `normalize.css` sets as the fill of an `svg` without one. Take them from the same set as the tokens so every icon matches. Icon fonts aren't supported.
 
 ## Contrast
 

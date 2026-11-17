@@ -32,5 +32,7 @@ export const iconExport = (tokens: Record<string, string>) => {
 
 export const iconCredit = (id: string) => {
   const set = sets[id]
-  return set ? iconCreditOf(set) : ""
+  return set
+    ? `${iconCreditOf(set)}\nStylesheet: opui-css/icons/${id}.css sets the same tokens.`
+    : ""
 }

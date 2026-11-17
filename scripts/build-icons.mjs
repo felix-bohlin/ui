@@ -191,6 +191,26 @@ export const splitSamples = (built) => ({
   ),
 })
 
+export const ICON_TOKEN_FILES = {
+  "packages/opui/css/theme.css": "fluent",
+  "packages/opui/themes/m3.css": "material-symbols",
+  "packages/opui/themes/shadcn.css": "lucide",
+}
+
+export const syncIconTokens = (css, set, file) =>
+  ICON_ROLES.reduce((text, role) => {
+    const declaration = new RegExp(`(--ui-icon-${role}: )url\\("[^"]*"\\);`)
+    if (!declaration.test(text)) {
+      throw new Error(
+        `${file} has no --ui-icon-${role} declaration; scripts/build-icons.mjs writes the ${set.name} icon there`,
+      )
+    }
+    return text.replace(
+      declaration,
+      (_, start) => `${start}${iconUrl(set.icons[role])};`,
+    )
+  }, css)
+
 const LAYERS = readFileSync(
   `${root}packages/opui/css/layers.css`,
   "utf8",
@@ -232,6 +252,11 @@ if (
   mkdirSync(ICON_STYLESHEETS, { recursive: true })
   for (const [id, set] of Object.entries(sets)) {
     writeFileSync(`${ICON_STYLESHEETS}/${id}.css`, iconStylesheet(set))
+  }
+  for (const [file, id] of Object.entries(ICON_TOKEN_FILES)) {
+    const css = readFileSync(`${root}${file}`, "utf8")
+    const synced = syncIconTokens(css, sets[id], file)
+    if (synced !== css) writeFileSync(`${root}${file}`, synced)
   }
   console.log(
     `Wrote ${Object.keys(sets).length} icon libraries to ${ICON_SETS} and ${ICON_STYLESHEETS}`,

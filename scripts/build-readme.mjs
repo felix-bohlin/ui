@@ -8,9 +8,14 @@ import { formatCode } from "./format.mjs"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const README = `${root}packages/opui/README.md`
+const ICONS = `${root}packages/opui/icons`
 const THEMES = `${root}packages/opui/themes`
 
 const themes = readdirSync(THEMES)
+  .filter((file) => file.endsWith(".css"))
+  .map((file) => file.replace(/\.css$/, ""))
+  .toSorted()
+const icons = readdirSync(ICONS)
   .filter((file) => file.endsWith(".css"))
   .map((file) => file.replace(/\.css$/, ""))
   .toSorted()
@@ -36,6 +41,10 @@ const SECTIONS = [
     `Example themes ship in \`themes/\`: ${and(
       themes.map((name) => `\`${name}\` (${exampleThemeNotes(name).original})`),
     )}.`,
+  ],
+  [
+    /Icon sets for the `--ui-icon-\*` tokens \(`[^\n]*?`\), with or without `\.css`/,
+    `Icon sets for the \`--ui-icon-*\` tokens (${icons.map((name) => `\`${name}\``).join(", ")}), with or without \`.css\``,
   ],
 ]
 

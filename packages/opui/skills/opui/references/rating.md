@@ -36,8 +36,7 @@ Model: `value` (`number | string`), the score of the meter, fractions included, 
 
 - HTML: Add `.ui-rating` to a `<meter>` with `max` and `value`, or to a `<fieldset>` with a `<legend>` and one radio per star.
 - Astro: Extra attributes go to the `<fieldset>` or the `<meter>`, except `aria-describedby` and `aria-invalid`, which go to every radio.
-- React: Use `value` with `onValueChange`, or `defaultValue`. Without them the radios keep their own state, and `onValueChange` still reports changes.
-- Solid: `value` checks a star and follows it when it changes, and `onChange` reports the star that is picked.
+- React and Solid: Use `value` with `onValueChange`, or `defaultValue`. Without them the radios keep their own state, and `onValueChange` still reports changes.
 - Svelte: Bind the input with `bind:value`.
 - Vue: Bind the input with `v-model`.
 

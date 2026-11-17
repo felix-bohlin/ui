@@ -5,7 +5,7 @@ import { createRawSnippet, type Component as SvelteComponent } from "svelte"
 import { render as renderSvelte } from "svelte/server"
 import { createSSRApp, h, type Component as VueComponent } from "vue"
 import { renderToString as renderVue } from "vue/server-renderer"
-import { REACT_ATTRIBUTE_NAMES } from "../../scripts/component-shared.mjs"
+import { REACT_ATTRIBUTE_NAMES } from "../../scripts/example-react-props.mjs"
 import { parseHtml } from "../../scripts/html-tokens.mjs"
 import { slotProp } from "../../src/component-api/frameworks"
 

@@ -10,6 +10,7 @@ import {
   decodeText,
   decodeTextarea,
   jsxAttribute,
+  markupAttribute,
   jsxText,
   markupText,
   templateLiteral,
@@ -232,6 +233,34 @@ describe("attributeText", () => {
 
   test("encodes the quote it is given, not the other one", () => {
     expect(attributeText('it\'s "x"', "'")).toBe('it&#39;s "x"')
+  })
+})
+
+describe("markupAttribute", () => {
+  test("picks the quote the value leaves free and encodes the other", () => {
+    expect(markupAttribute("title", "plain", false)).toBe('title="plain"')
+    expect(markupAttribute("title", 'say "hi"', false)).toBe(
+      "title='say \"hi\"'",
+    )
+    expect(markupAttribute("title", `it's "x"`, false)).toBe(
+      'title="it\'s &quot;x&quot;"',
+    )
+  })
+
+  test("writes a value Svelte would read as an expression as a string expression", () => {
+    expect(markupAttribute("title", "{x}", true)).toBe('title={"{x}"}')
+    expect(markupAttribute("title", 'say "hi"', true)).toBe(
+      'title={"say \\"hi\\""}',
+    )
+    expect(markupAttribute("title", "{x}", false)).toBe('title="{x}"')
+  })
+
+  test("writes a line break so that indenting the tag can't change the value", () => {
+    expect(markupAttribute("title", "a\nb", true)).toBe(
+      String.raw`title={"a\nb"}`,
+    )
+    expect(markupAttribute("title", "a\nb", false)).toBe('title="a&#10;b"')
+    expect(jsxAttribute("title", "a\nb")).toBe(String.raw`title={"a\nb"}`)
   })
 })
 

@@ -55,7 +55,7 @@ export const openStageOf = (notes: TodoNote[]) => {
 export const linkText = (text: string) =>
   text.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
 
-const reviewPages = ["/checklist/", "/checks/", "/todo/"]
+const reviewPages = ["/dev/checklist/", "/dev/checks/", "/dev/todo/"]
 
 export const pageLinksOf = (texts: string[]) => {
   const links = texts.flatMap((text) =>

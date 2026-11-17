@@ -1,8 +1,9 @@
 import { slotProp } from "../src/component-api/frameworks.ts"
 import {
+  reactAttributeName,
+  reactBareAttribute,
   reactKinds,
   reactPropsOf,
-  resolveReactProp,
 } from "./example-react-props.mjs"
 import {
   componentImport,
@@ -19,6 +20,7 @@ import {
   withImport,
 } from "./component-emit.mjs"
 import { MODEL_KINDS } from "./component-models.mjs"
+import { jsxAttribute } from "./example-encoders.mjs"
 import { eventProp } from "./component-types.mjs"
 import {
   byName,
@@ -27,7 +29,6 @@ import {
   filtersSpread,
   isBlank,
   isIdentifierName,
-  REACT_ATTRIBUTE_NAMES,
   unsupported,
 } from "./component-shared.mjs"
 
@@ -60,14 +61,10 @@ export const toReact = (component) => {
   )
   const tagProps = props.filter(({ local }) => variableTags.includes(local))
   const reactPropOf = (entry) =>
-    REACT_ATTRIBUTE_NAMES[entry.prop] ??
-    (component.element && !component.baseProps?.includes(entry.prop)
-      ? resolveReactProp(
-          reactPropsOf(component.element, false) ?? new Map(),
-          entry.prop,
-        )
-      : undefined) ??
-    entry.prop
+    reactAttributeName(
+      component.baseProps?.includes(entry.prop) ? undefined : component.element,
+      entry.prop,
+    )
   const taken = new Set([
     ...component.props.map(({ local }) => local),
     ...derived.map(({ name }) => name),
@@ -238,23 +235,17 @@ export const toReact = (component) => {
     }
     const name = node.component
       ? item.name
-      : (REACT_ATTRIBUTE_NAMES[item.name] ??
-        (node.variable || node.custom
-          ? item.name
-          : (resolveReactProp(
-              reactPropsOf(node.tag, false) ?? new Map(),
-              item.name,
-            ) ?? item.name)))
-    if (item.kind === "static") return `${name}=${JSON.stringify(item.value)}`
+      : reactAttributeName(
+          node.variable || node.custom ? undefined : node.tag,
+          item.name,
+        )
+    if (item.kind === "static") return jsxAttribute(name, item.value)
     if (item.kind === "boolean") {
       const kinds =
         node.component || node.variable || node.custom
           ? new Set()
           : reactKinds(reactPropsOf(node.tag, false) ?? new Map(), name)
-      return kinds.has("string") &&
-        !["any", "boolean", "other"].some((kind) => kinds.has(kind))
-        ? `${name}=""`
-        : name
+      return reactBareAttribute(name, kinds) ?? name
     }
     return `${name}={${rewriteExpression(item.code, options)}}`
   }

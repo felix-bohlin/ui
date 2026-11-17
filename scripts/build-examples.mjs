@@ -14,6 +14,7 @@ import {
   decodeText,
   decodeTextarea,
   jsxAttribute,
+  markupAttribute,
   jsxText,
   markupText,
   templateLiteral,
@@ -34,6 +35,7 @@ import {
   ID_PLACEHOLDER,
 } from "./example-ids.mjs"
 import {
+  reactBareAttribute,
   reactKinds,
   reactPropsOf,
   resolveReactProp,
@@ -942,12 +944,7 @@ const markupAttributes = (node, expression, braces) =>
         }
       }
       if (item.kind !== "string") return expression(item)
-      const quoted = item.value.includes('"') && !item.value.includes("'")
-      if (braces && (/[{}]/.test(item.value) || quoted)) {
-        return expression({ ...item, value: JSON.stringify(item.value) })
-      }
-      const quote = quoted ? "'" : '"'
-      return `${item.name}=${quote}${attributeText(item.value, quote)}${quote}`
+      return markupAttribute(item.name, item.value, braces)
     })
     .join(" ")
 
@@ -1266,8 +1263,8 @@ const reactPropCode = (name, item, kinds, where, context) => {
       "React",
     )
   if (item.kind === "boolean") {
-    if (has("boolean", "any", "other")) return name
-    if (has("string")) return `${name}=""`
+    const bare = reactBareAttribute(name, kinds)
+    if (bare) return bare
     throw fail("an attribute without a value")
   }
   if (item.kind === "string") {

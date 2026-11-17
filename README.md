@@ -40,7 +40,7 @@ The project is managed as a monorepo with two main parts:
   - `src/docs/`: Page content for the blog, components and guide sections.
   - `src/integrations/`: Build integrations, such as the Markdown export and `llms.txt`.
   - `src/pages/`: Routes. Most of them render a page from `src/docs/` for each framework.
-  - `src/stress-tests/`: Pages that combine many components, rendered at `/tests/<name>/`.
+  - `src/stress-tests/`: Pages that combine many components, rendered at `/dev/tests/<name>/`.
   - `src/utils/`: Shared helpers and data, such as framework routing and What's new notes.
 - **Scripts (`scripts/`)**: Checks and generators. `pnpm check` runs the CSS order, component and custom property checks, and `pnpm build` compiles the components and the examples, writes the search index and the example theme list in `packages/opui/README.md` (`scripts/build-readme.mjs`), builds the site and the agent skill, and checks the links in `dist`.
 - **Tests (`tests/`)**: Unit and parity tests in `tests/unit`, Playwright visual, accessibility and interaction tests in `tests/e2e`, and the packed tarball in consumer projects in `tests/package`.
@@ -51,13 +51,13 @@ The first ten minutes:
 
 1. Install Node 26.10 (`.nvmrc`, so `nvm use` picks it), pnpm 12 (`corepack enable`) and Git LFS (`brew install git-lfs` or `apt install git-lfs`, then `git lfs install`). `pnpm install` refuses an older Node (`engineStrict` in `pnpm-workspace.yaml`), and Claude Code cloud sessions fetch the `.nvmrc` version in `.claude/hooks/session-start.sh`.
 2. `pnpm install`. It also sets `.githooks` as the hooks directory.
-3. `pnpm dev` serves the docs at http://localhost:4321/, with the stress test pages at `/tests/`.
+3. `pnpm dev` serves the docs at http://localhost:4321/, with the dev pages (TODO, the release checklists, the stress tests and the share image) listed at `/dev/`.
 4. `pnpm check:fast` before a commit, `pnpm check` before a pull request.
 5. `pnpm exec playwright install chromium`, then `pnpm test:e2e --project=light --project=dark` when a change affects rendering or behavior.
 
 Run `pnpm check` before you commit. `pnpm check:fast` skips the build and runs the other checks side by side. The `pre-commit` hook in `.githooks` runs the character, color and declaration order checks, oxfmt, oxlint and Stylelint on the staged files, as they are in the working tree, and the `TODO.md` and guide tests when those are staged (`scripts/check-staged.mjs`); `git commit --no-verify` skips it.
 
-Only the fixture pages at `/<framework>/test/<component>` need `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`). `pnpm check` sets it, so it builds and checks them as CI does. The stress test pages at `/tests/` also render in `pnpm dev`.
+Only the fixture pages at `/<framework>/test/<component>` need `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`). `pnpm check` sets it, so it builds and checks them as CI does. The other dev pages under `/dev/` also render in `pnpm dev`, and their old paths (`/todo/`, `/checks/`, `/checklist/`, `/tests/<name>/` and `/share-image/`) redirect there with the query kept.
 
 `pnpm test:e2e` needs Playwright's Chromium, Firefox and WebKit. Install them once with `pnpm exec playwright install chromium firefox webkit`, or set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to use another Chromium. With Chromium only, pass `--project=light --project=dark`. CI runs the `mcr.microsoft.com/playwright` image. Visual baselines are only generated in CI: add the `update-snapshots` label to the PR for new or changed screenshots. The run lists the images it added, changed and removed in a comment on the PR (one comment, updated by each run): open them before merging. Until then, a new component's visual test fails locally. The baselines are in Git LFS, so the visual tests need `git lfs pull` first (see [Visual baselines in Git LFS](#visual-baselines-in-git-lfs)). A failed e2e job uploads `playwright-report-<project>-<shard>` with the traces and, for a visual test, the expected, actual and diff images: download and unpack it, then `pnpm exec playwright show-report playwright-report` opens it.
 

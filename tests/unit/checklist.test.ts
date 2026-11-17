@@ -136,11 +136,11 @@ describe("pageLinksOf", () => {
     expect(
       pageLinksOf([
         "[Radio](/html/components/radio/#sizes): dots are centered",
-        "Also the [layout stress page](/tests/layout/) and [Radio](/html/components/radio/#sizes).",
+        "Also the [layout stress page](/dev/tests/layout/) and [Radio](/html/components/radio/#sizes).",
       ]),
     ).toEqual([
       { href: "/html/components/radio/#sizes", label: "Radio" },
-      { href: "/tests/layout/", label: "layout stress page" },
+      { href: "/dev/tests/layout/", label: "layout stress page" },
     ])
   })
 
@@ -148,7 +148,7 @@ describe("pageLinksOf", () => {
     expect(
       pageLinksOf([
         "See [RELEASING.md](https://github.com/felix-bohlin/ui/blob/main/RELEASING.md), [the CDN](//cdn.example/x.css) and `[code](/html/)`.",
-        "Do them on [/checks](/checks/), then [/todo](/todo/) and [/checklist](/checklist/).",
+        "Do them on [/dev/checks](/dev/checks/), then [/dev/todo](/dev/todo/) and [/dev/checklist](/dev/checklist/).",
       ]),
     ).toEqual([])
   })

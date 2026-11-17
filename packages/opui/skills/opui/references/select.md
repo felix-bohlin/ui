@@ -43,7 +43,7 @@ Model: `value` (`string | number | (string | number)[]`), the selected value, or
 
 ### Notes
 
-- HTML: The `<select>` holds an `inert` `<button>` and a `.ui-list`. The button holds `<selectedcontent>`, and `inert` leaves clicks, focus and the name to the select. The list holds the options. Browsers without customizable selects show a native select.
+- HTML: The `<select>` holds an `inert` `<button>` and a `.ui-list`. The button holds `<selectedcontent>`, and `inert` leaves clicks, focus and the name to the select. The list holds the options. Browsers without customizable selects show a native select. Put `.ui-top` and `.ui-start` before the `<select>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they're drawn.
 - Astro, Svelte and Vue: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `class` and `style` go to the `.ui-select` root.
 - React: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `className` and `style` go to the `.ui-select` root.
 

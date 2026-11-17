@@ -127,6 +127,7 @@ Slots are props: the default slot is `children`, named slots are camelCased `Rea
 - **REST Support**: Native attributes come from `HTMLAttributes` in `types.astro.ts` and the other framework type files, never from `types.ts`. `pnpm check-components` checks the `...rest` spread and fails on an index signature such as `[key: string]: any`.
 - **Undefined attributes**: an attribute a caller passes as `undefined` or `null` never removes an attribute the component sets, in any framework. `tests/unit/component-contract.test.ts` renders every case again with them and says how to keep the attribute.
 - **Attributes before the spread**: a value a caller passes for an attribute an element sets before `{...rest}` renders the same in every framework. `tests/unit/component-contract.test.ts` renders every case again with one for each typed attribute and says how to settle which value wins.
+- **Attributes from the root**: the contract test renders a part without its root, so it can't see an attribute the root hands down through context. When another element points at it, the part destructures the attribute, renders the root's value over its own (`id={dialog?.titleId ?? id}`) and warns in development when it gets a different one (`warnReplacedId` on `DialogTitle`, `warnReplacedAnchorAttributes` on `AnchorContent`). `tests/unit/dev-warnings.test.ts` renders each part inside its root.
 
 ---
 

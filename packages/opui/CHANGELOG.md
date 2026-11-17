@@ -24,7 +24,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Anchor` with `trigger="hover"` and `Tooltip` no longer wrap their trigger in a `<span interestfor>`. Add `interestfor` with the anchor's `id` to the trigger element. `trigger` only takes `"hover"`: leave it out instead of `trigger="always"`.
 - `Anchor`, `Badge` and `Tooltip` floating content is `.ui-floating` instead of `.ui-anchor-floating`.
 - `Anchor` and `Tooltip` `alignment` is `positionArea`, named after the CSS `position-area` value it takes, and `.ui-with-arrow` on a tooltip is `.ui-arrow`, like the `arrow` prop.
-- `Anchor` in Astro and Vue takes `AnchorContent` instead of the `anchored` slot. Without it, no floating element renders.
+- `Anchor` in Astro and Vue takes `AnchorContent` instead of the `anchored` slot. Without it, no floating element renders. With `trigger="hover"`, `AnchorContent` takes the anchor's `id` and `popover="hint"` over its own in every framework and warns in development when it gets others, and in an anchor that always shows it, it keeps its own.
 - `Anchor` requires `id` with `trigger="hover"` and no longer generates one. Pass the same `id` to `interestfor` on the trigger.
 - `Avatar` requires `alt` when `src` is set (types). `alt=""` is still allowed for decorative images.
 - `Avatar` `variant` is `shape` (`"circle"`, `"rounded"`, `"squared"`, `"squircle"`), with `circle` as the default. The classes are unchanged.

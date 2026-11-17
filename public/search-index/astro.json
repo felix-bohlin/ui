@@ -4363,7 +4363,7 @@
     "id": "api-anchor-astro",
     "title": "Anchor API",
     "description": "Reference for Anchor Astro component.",
-    "api": "Anchor Container element. Scopes the anchor to its content. The content the floating content is anchored to. The floating content. id The id of the root. With `trigger=\"hover\"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. Required with `trigger=\"hover\"`. positionArea Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. trigger Shows the floating content on hover and focus with `popover=\"hint\"`. Without it, the content always shows.",
+    "api": "Anchor Container element. Scopes the anchor to its content. The content the floating content is anchored to. The floating content. With `trigger=\"hover\"`, it takes the anchor's `id` and `popover=\"hint\"` over its own, so the trigger's `interestfor` always reaches it. In an anchor that always shows it, its own `id` and `popover` stay. id The id of the root. With `trigger=\"hover\"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. Required with `trigger=\"hover\"`. positionArea Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. trigger Shows the floating content on hover and focus with `popover=\"hint\"`. Without it, the content always shows.",
     "category": "API",
     "url": "/astro/api/#anchor"
   },

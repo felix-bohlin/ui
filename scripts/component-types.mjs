@@ -2,12 +2,14 @@ import { existsSync, readFileSync } from "node:fs"
 import { dirname, join } from "node:path"
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
-import { reactPropsOf, resolveReactProp } from "./example-react-props.mjs"
+import {
+  REACT_ATTRIBUTE_NAMES,
+  reactAttributeName,
+} from "./example-react-props.mjs"
 import {
   byName,
   containsKind,
   propKey,
-  REACT_ATTRIBUTE_NAMES,
   root,
   sourceFileOf,
   unsupported,
@@ -132,12 +134,7 @@ const replacing = (node, text) => ({
 const appending = (node, text) => ({ end: node.end, start: node.end, text })
 
 const frameworkKey = (framework, element, key) =>
-  framework === "react"
-    ? (resolveReactProp(
-        reactPropsOf(JSON.parse(element), false) ?? new Map(),
-        key,
-      ) ?? key)
-    : key
+  framework === "react" ? reactAttributeName(JSON.parse(element), key) : key
 
 const omitted = (framework, element, keys, others = []) =>
   keys.length || others.length

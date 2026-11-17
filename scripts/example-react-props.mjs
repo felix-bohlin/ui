@@ -11,7 +11,7 @@ export type Intrinsic = JSX.IntrinsicElements
 export type Components = typeof ui
 `
 
-const ALIASES = { class: "className", for: "htmlFor" }
+export const REACT_ATTRIBUTE_NAMES = { class: "className", for: "htmlFor" }
 
 const compilerOptions = () =>
   ts.parseJsonConfigFileContent(
@@ -152,7 +152,9 @@ export const reactPropsOf = (tag, component) => {
 
 export const resolveReactProp = (props, name) => {
   if (props.has(name)) return name
-  if (ALIASES[name] && props.has(ALIASES[name])) return ALIASES[name]
+  if (REACT_ATTRIBUTE_NAMES[name] && props.has(REACT_ATTRIBUTE_NAMES[name])) {
+    return REACT_ATTRIBUTE_NAMES[name]
+  }
   if (name.startsWith("data-")) return name
   const normalized = (text) => text.toLowerCase().replace(/[-:]/g, "")
   const matches = [...props.keys()].filter(
@@ -164,3 +166,17 @@ export const resolveReactProp = (props, name) => {
 export const reactKinds = (props, name) =>
   props.get(name) ??
   (name.startsWith("data-") ? new Set(["string"]) : new Set())
+
+export const reactAttributeName = (tag, name) =>
+  REACT_ATTRIBUTE_NAMES[name] ??
+  (tag
+    ? resolveReactProp(reactPropsOf(tag, false) ?? new Map(), name)
+    : undefined) ??
+  name
+
+export const reactBareAttribute = (name, kinds) =>
+  ["any", "boolean", "other"].some((kind) => kinds.has(kind))
+    ? name
+    : kinds.has("string")
+      ? `${name}=""`
+      : undefined

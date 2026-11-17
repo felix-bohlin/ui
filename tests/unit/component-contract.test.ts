@@ -8,11 +8,7 @@ import { afterAll, beforeAll, describe, expect, test } from "vitest"
 import { readFileSync } from "node:fs"
 import { createRenderer } from "../../scripts/build-examples.mjs"
 import { readComponent } from "../../scripts/component-reader.mjs"
-import { REACT_ATTRIBUTE_NAMES } from "../../scripts/component-shared.mjs"
-import {
-  reactPropsOf,
-  resolveReactProp,
-} from "../../scripts/example-react-props.mjs"
+import { reactAttributeName } from "../../scripts/example-react-props.mjs"
 import { tagAttrs } from "../../packages/opui/components/tag"
 import { slotProp } from "../../src/component-api/frameworks"
 import type { ComponentApi } from "../../src/component-api/types"
@@ -196,15 +192,10 @@ const risksOf = (
           for (const name of bound.filter((name) => !destructured.has(name))) {
             names.set(
               name,
-              REACT_ATTRIBUTE_NAMES[
-                name as keyof typeof REACT_ATTRIBUTE_NAMES
-              ] ??
-                (node.variable || node.custom
-                  ? name
-                  : (resolveReactProp(
-                      reactPropsOf(node.tag, false) ?? new Map(),
-                      name,
-                    ) ?? name)),
+              reactAttributeName(
+                node.variable || node.custom ? undefined : node.tag,
+                name,
+              ),
             )
             if (index < restAt && typed.has(name)) beforeSpread.add(name)
           }

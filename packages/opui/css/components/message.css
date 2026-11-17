@@ -11,6 +11,24 @@
     & > :where(.ui-divider) {
       margin-block: var(--ui-space-2);
     }
+
+    /* A chat between two people: the chat's title names the other person,
+       so no message repeats a name or an avatar. The name stays for screen
+       readers. */
+    &.ui-direct > .ui-message {
+      & > .ui-avatar {
+        display: none;
+      }
+
+      & > .ui-content > .ui-header {
+        block-size: 1lh;
+        clip-path: inset(50%);
+        inline-size: 1ch;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+      }
+    }
   }
 
   :where(.ui-message) {

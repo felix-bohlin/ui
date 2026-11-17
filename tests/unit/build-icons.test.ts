@@ -560,6 +560,31 @@ describe("examples", () => {
   })
 })
 
+const BRAND_LOGOS = {
+  "src/blocks/sign-in.html": ["(no data-icon)", "(no data-icon)"],
+}
+
+describe("blocks", () => {
+  test("every icon with shapes names its sample in data-icon, so the preview can draw it from the theme's icon set", () => {
+    const blocks = globSync("src/blocks/*.html").toSorted()
+    expect(blocks.length).toBeGreaterThan(0)
+    expect(
+      Object.fromEntries(
+        blocks
+          .map((block) => [
+            block,
+            unnamedIcons(
+              readFileSync(block, "utf8").replace(/<(?=\d)/g, "&lt;"),
+              true,
+            ),
+          ])
+          .filter(([, names]) => names.length > 0),
+      ),
+      'give each icon svg a data-icon from SAMPLE_ICONS (src/utils/icon-libraries.ts), or role="img" when it is an image; a brand logo no icon set draws goes in BRAND_LOGOS',
+    ).toEqual(BRAND_LOGOS)
+  })
+})
+
 describe("iconUrl", () => {
   test("encodes the characters a CSS url can't hold", () => {
     expect(

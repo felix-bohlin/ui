@@ -93,3 +93,25 @@ for (const framework of FRAMEWORKS) {
       .toBe(0)
   })
 }
+
+test("a block preview draws its icons from the stored theme's icon set", async ({
+  page,
+}) => {
+  await page.goto("/blocks/inbox/preview/")
+  const fluent = await icons(page)
+  expect(fluent.length).toBeGreaterThan(0)
+
+  await setPreset(page, "shadcn")
+  await expect
+    .poll(() => page.locator("svg[data-icon]:not(.lucide)").count(), {
+      message: "shadcn shows Lucide icons",
+    })
+    .toBe(0)
+
+  await setPreset(page, null)
+  await expect
+    .poll(() => icons(page), {
+      message: "the default theme shows the icons as written",
+    })
+    .toEqual(fluent)
+})

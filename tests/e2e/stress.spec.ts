@@ -103,7 +103,7 @@ test("content taller than a field's button keeps the button's inset", async ({
 })
 
 for (const root of ["ui-text-field", "ui-textarea"]) {
-  test(`Tab follows the order a ${root}'s parts are drawn in`, async ({
+  test(`Tab reaches a ${root}'s parts in the order they're drawn in with reading-flow, else in markup order`, async ({
     page,
   }) => {
     await openFixture(page, "html", "stress/forms")
@@ -135,13 +135,26 @@ for (const root of ["ui-text-field", "ui-textarea"]) {
       await page.keyboard.press("Tab")
       order.push(await page.evaluate(() => document.activeElement?.id))
     }
-    expect(order).toEqual([
-      "order-top",
-      "order-start",
-      "order-control",
-      "order-end",
-      "order-bottom",
-    ])
+    const drawn = await page.evaluate(() =>
+      CSS.supports("reading-flow", "grid-rows"),
+    )
+    expect(order).toEqual(
+      drawn
+        ? [
+            "order-top",
+            "order-start",
+            "order-control",
+            "order-end",
+            "order-bottom",
+          ]
+        : [
+            "order-control",
+            "order-start",
+            "order-end",
+            "order-top",
+            "order-bottom",
+          ],
+    )
   })
 }
 

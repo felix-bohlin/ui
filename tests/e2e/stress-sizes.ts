@@ -17,10 +17,12 @@ const affix = (part: HTMLElement, name: string) => {
     ":scope > :is(input, textarea)",
   )!
   const style = getComputedStyle(control)
-  const top = control.getBoundingClientRect().top
-  const lineBox =
-    parseFloat(style.lineHeight) + parseFloat(style.paddingBlockStart) * 2
-  const center = top + lineBox / 2
+  const controlBox = control.getBoundingClientRect()
+  const textarea = control.localName === "textarea"
+  const lineBox = textarea
+    ? parseFloat(style.lineHeight) + parseFloat(style.paddingBlockStart) * 2
+    : controlBox.height
+  const center = controlBox.top + lineBox / 2
   const border = parseFloat(getComputedStyle(field).borderBlockStartWidth)
   const fieldBox = field.getBoundingClientRect()
   const inner = { bottom: fieldBox.bottom - border, top: fieldBox.top + border }
@@ -31,7 +33,6 @@ const affix = (part: HTMLElement, name: string) => {
   field.parentElement!.append(probe)
   const size = probe.getBoundingClientRect().height
   probe.remove()
-  const textarea = control.localName === "textarea"
   const nodes = [...part.childNodes].filter(
     (node) => node instanceof Element || node.textContent!.trim(),
   )

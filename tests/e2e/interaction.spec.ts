@@ -517,6 +517,41 @@ test("html toaster measures its insets from the safe area", async ({
   expect(moved.left).toBe((left - right) / 2)
 })
 
+test("html spinner leaves out a busy region that shows skeleton placeholders", async ({
+  page,
+}) => {
+  await openFixture(page, "html", "spinner")
+  const spins = await page.evaluate(() => {
+    const host = document.createElement("div")
+    host.innerHTML = `
+      <ul id="placeholders" aria-busy="true">
+        <li><span class="ui-skeleton" aria-hidden="true"></span></li>
+        <li><button aria-busy="true" class="ui-button" id="button">Load more</button></li>
+      </ul>
+      <div id="media" aria-busy="true">
+        <a class="ui-skeleton" href="#photo"><img alt="Photo" height="40" width="40" /></a>
+      </div>
+      <section id="plain" aria-busy="true"><p>Loading</p></section>`
+    document.body.append(host)
+    return Object.fromEntries(
+      ["placeholders", "button", "media", "plain"].map((id) => [
+        id,
+        getComputedStyle(document.getElementById(id)!, "::before").content !==
+          "none",
+      ]),
+    )
+  })
+  expect(spins).toEqual({
+    // The skeleton placeholders show the wait instead.
+    placeholders: false,
+    // A busy button in that region keeps its own spinner.
+    button: true,
+    // A skeleton around media isn't a placeholder, so the region still spins.
+    media: true,
+    plain: true,
+  })
+})
+
 for (const component of ["dialog", "drawer"]) {
   interaction(
     component,

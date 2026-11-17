@@ -425,6 +425,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Spinner` shows on busy buttons and links that have `aria-describedby`. Other elements with `aria-describedby` still opt out, for the progress bar pattern.
 - `Spinner` styles have no specificity (`:where()`), so a page's own `::before` rules override them, like other component roots.
 - `Spinner` ring is at least `--ui-border-width-thick` and grows with its size (`0.1875em`, `3px` at `16px`).
+- `Spinner` leaves out a busy region that holds an empty `.ui-skeleton` placeholder, so the placeholders show the wait alone. A busy button in that region keeps its spinner. The rule is its own, so a browser without `:has()` only shows the spinner beside the placeholders.
 - `Switch` unchecked track border is `--ui-field-border-color`, like the checkbox and radio borders, instead of the dot color.
 - `Switch`, `Tooltip`, `Textarea`, `Table`, `List`, `Tabs`, `Spinner`, `Dialog`, `Drawer` and the typography styles use logical properties only (`min-inline-size`, `inset-inline-start`, `padding-block`/`padding-inline`, `resize: block` …), so they follow the writing mode, and the `DescriptionList`, `Range`, `Select` and `TextField` container queries read `inline-size`. Horizontal left-to-right rendering is unchanged.
 - `Switch` marks an invalid switch like an invalid `Checkbox` or `Radio`: its track border is `--ui-invalid`, and a checked track turns red with a `--ui-on-fill` thumb, instead of a ring around the track that pushed the focus ring out and looked like a focus ring in forced colors.

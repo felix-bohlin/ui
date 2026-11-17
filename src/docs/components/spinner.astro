@@ -16,7 +16,7 @@ export const description =
 <Component
   description={description}
   slug="spinner"
-  browserSupport={["if"]}
+  browserSupport={["has", "if"]}
   fallbacks={{
     if: "Without `if()`, the compat layer still draws the spinner at full strength with more contrast.",
   }}
@@ -83,6 +83,14 @@ export const description =
       That's the pattern for a busy section that a
       <DocLink href="/components/progress#accessibility">progress bar</DocLink>
       describes. Buttons and links always get one.
+    </p>
+
+    <h3 id="skeleton-placeholders">In a region that shows skeletons</h3>
+    <p>
+      A busy region that holds an empty <code>.ui-skeleton</code> placeholder
+      shows the placeholders instead. A busy button in it keeps its spinner, and
+      a <code>.ui-skeleton</code> around media, like a photo that's still
+      loading, isn't a placeholder, so its region still spins.
     </p>
 
     <h3 id="doesnt-make-sense">On elements that can't show one</h3>

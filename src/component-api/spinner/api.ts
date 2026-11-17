@@ -5,7 +5,7 @@ export default {
   css: ["spinner"],
   notes: {
     default:
-      'Set `aria-busy="true"` on an element to show a spinner. `<html>`, `<input>`, `<progress>`, `<select>` and `<textarea>` never show one, and neither do elements with `aria-describedby`, except buttons and links.',
+      'Set `aria-busy="true"` on an element to show a spinner. `<html>`, `<input>`, `<progress>`, `<select>` and `<textarea>` never show one, and neither do elements with `aria-describedby`, except buttons and links, or a region that holds an empty `.ui-skeleton` placeholder.',
   },
   options: [
     {

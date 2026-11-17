@@ -2248,6 +2248,13 @@
     "url": "/react/components/spinner/#blocked-by-another-use-case"
   },
   {
+    "id": "component-spinner-react-skeleton-placeholders",
+    "title": "In a region that shows skeletons",
+    "page": "Spinner",
+    "category": "Component",
+    "url": "/react/components/spinner/#skeleton-placeholders"
+  },
+  {
     "id": "component-spinner-react-doesnt-make-sense",
     "title": "On elements that can't show one",
     "page": "Spinner",

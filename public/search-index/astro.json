@@ -2248,6 +2248,13 @@
     "url": "/astro/components/spinner/#blocked-by-another-use-case"
   },
   {
+    "id": "component-spinner-astro-skeleton-placeholders",
+    "title": "In a region that shows skeletons",
+    "page": "Spinner",
+    "category": "Component",
+    "url": "/astro/components/spinner/#skeleton-placeholders"
+  },
+  {
     "id": "component-spinner-astro-doesnt-make-sense",
     "title": "On elements that can't show one",
     "page": "Spinner",

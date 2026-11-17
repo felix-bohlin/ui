@@ -41,6 +41,12 @@
     }
   }
 
+  /* A region that holds skeleton placeholders shows those instead. A rule of
+  its own, so an engine without :has() only loses this, not every spinner. */
+  :where([aria-busy="true"]:has(.ui-skeleton:empty))::before {
+    content: none;
+  }
+
   @keyframes ui-spin {
     to {
       transform: rotate(1turn);

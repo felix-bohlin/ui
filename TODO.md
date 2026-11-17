@@ -3881,6 +3881,31 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Still open: `opui-css/vue` and the deep `opui-css/components/*.vue` imports now resolve to compiled JavaScript, so an app that uses the package no longer compiles the Select template and prints neither warning in `vite dev` or `nuxi dev`. Only this repo's own dev server, which compiles the sources, still warns, so the comment on vuejs/core#13608 is still the fix. `scripts/build-frameworks.mjs` (`KNOWN_VUE_WARNINGS`) lets the package build pass on these two warnings and fails on any other.
   - Explained: Nothing to change in the repo: the fix is upstream. This batch's Select changes moved the cited markup: the `<button>`, `<selectedcontent>` and `.ui-list` lines are now `packages/opui/components/Select/Select.vue:123-126`.
   - Explained: Re-checked on 2026-11-17: Vue 3.5.45 is still the latest release. vuejs/core#13608 was closed as not planned on 2026-09-18 and reopened the same day, and #13720 and #13616 are still open, #13720 waiting on review changes with an offer from 2026-11-01 to take it over. The comment is still to post. The cited markup is now `packages/opui/components/Select/Select.vue:129-132`.
+  - Explained: The comment, to post on vuejs/core#13608 with a thumbs up on vuejs/core#13720. Code is indented four spaces here, which GitHub renders as a code block; the item's example on the `/dev/todo` page has the same text with fenced code and a Copy button.
+    ```text
+    Still seeing this in 3.5.45. A component library that ships a customizable select (`appearance: base-select`) gets two warnings in every `vite dev` and `nuxi dev` session, also on pages that never render the Select, because the compiler checks the component's template when it compiles it:
+
+        [Vue warn]: <button> cannot be child of <select>, according to HTML specifications. This can cause hydration errors or potentially disrupt future functionality.
+        [Vue warn]: <div> cannot be child of <select>, according to HTML specifications. This can cause hydration errors or potentially disrupt future functionality.
+
+    Minimal template:
+
+        <template>
+          <select>
+            <button>
+              <selectedcontent></selectedcontent>
+            </button>
+            <div class="list">
+              <option value="a">A</option>
+              <option value="b">B</option>
+            </div>
+          </select>
+        </template>
+
+    The HTML spec now allows this content model (https://html.spec.whatwg.org/multipage/form-elements.html#the-select-element: an optional leading `button`, then `option`, `optgroup`, `hr` and `div`, plus script-supporting elements), and the relaxed HTML parser that ships with the customizable select keeps the `button` and the `div` inside the `select`, so there is no hydration mismatch in the browsers that render it. Production builds don't warn.
+
+    #13720 updates `onlyValidChildren.select` to that content model and would remove both warnings here. It has waited on review changes since July 2025 (`div` is also allowed in `optgroup` and `option`), and there is an offer on it to take it over. #13616 drops the `select` rules instead. Could one of the two land in a 3.5 patch?
+    ```
 - [x] (1) Table: `.ui-sticky-header` together with `.ui-overflow-scroll` never sticks to the page: `.ui-overflow-scroll` makes the table itself the scroll container, so the sticky `thead` is held by the table's own scrollport, which doesn't scroll in the block axis, while the page says to put the table in a scroll box or let it stick to the page (`packages/opui/css/components/table.css:152-156`, `packages/opui/css/components/table.css:167-175`, `src/docs/components/table.astro:240-254`)
   - Summary: A wide table that scrolls sideways loses its sticky header as soon as the page scrolls.
   - Recommended: Fix with option A. The sticky header example already wraps the table in a scroll box, so the pattern exists.
@@ -3926,6 +3951,87 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Explained: On the `/todo` page, as this item's example (`OPUI_TEST_PAGES=1 pnpm dev`, then Example under this item). It has the Astro bug report field by field, each with a Copy button: the title, Astro Info, Describe the Bug, What's the expected result?, and the page and component files for the StackBlitz, with where to open the issue (github.com/withastro/astro, New issue, Bug report) and how to build the StackBlitz from astro.new/minimal. Before, the draft only lived in a session's report. The Vue comment for the Select item is on the page the same way, as that item's `vue-select-comment` example. Both were checked again against the latest releases, Astro 7.4.5 and Vue 3.5.45. Example: astro-raw-issue
   - Explained: Still open on the latest release. Astro 7.4.9 is out (the repo has 7.4.5) and moved `ensureModulesLoaded` into `@astrojs/vite-plugin-astro` 0.1.0 (`dist/internal/vite-plugin-css/collect.js`), which still descends into `?raw` modules, while `collectCSSWithOrder` next to it returns at `?raw`. The draft's one-line fix goes in that file now. When the repo updates, the repro in `tests/unit/tooling-bugs.test.ts` has to read that file instead of `astro/dist/vite-plugin-css/index.js`, which no longer has the function, or it stops testing anything.
   - Explained: Re-checked on 2026-11-17: Astro 7.4.12 is the latest release (the repo has 7.4.5), with `@astrojs/vite-plugin-astro` 0.1.3, whose `ensureModulesLoaded` (`dist/internal/vite-plugin-css/collect.js`) still descends into `?raw` modules. A search of Astro's issues for `ensureModulesLoaded raw` finds nothing, so the draft is still to post. A correction to the note above: after the update the repro in `tests/unit/tooling-bugs.test.ts` fails on its `importedModules` check, since `astro/dist/vite-plugin-css/index.js` only imports the function, so it can't pass silently, but it has to read the new file.
+  - Explained: The bug report, to paste field by field into the Bug report form at github.com/withastro/astro (New issue). For Link to Minimal Reproducible Example, start a StackBlitz from astro.new/minimal with the two repro files, the component three times as `A.astro`, `B.astro` and `C.astro`, and any CSS file for its import. Code inside a field is indented four spaces here, which GitHub renders as a code block; the item's example on the `/dev/todo` page has the same text with fenced code and Copy buttons.
+    ```text
+    Title:
+
+    Dev: first request compiles every module behind `?raw` imports (`ensureModulesLoaded` follows the edge `collectCSSWithOrder` skips)
+
+    Astro Info:
+
+    Astro                    v7.4.5
+    Node                     v26.10.0
+    System                   Linux (x64)
+    Package Manager          pnpm
+    Output                   static
+    Adapter                  none
+    Integrations             @astrojs/react
+                             @astrojs/sitemap
+                             @astrojs/svelte
+                             @astrojs/vue
+
+    Also read against 7.4.12, the latest release, where the function lives in `@astrojs/vite-plugin-astro` 0.1.3 (`dist/internal/vite-plugin-css/collect.js`): it still descends into `?raw` modules.
+
+    Describe the Bug:
+
+    On the first request after `astro dev` starts, the CSS collector (`astro/dist/vite-plugin-css/index.js`, and since 7.4.9 `dist/internal/vite-plugin-css/collect.js` in `@astrojs/vite-plugin-astro`) calls `ensureModulesLoaded(env, mod)` on the page module. It walks `mod.importedModules` recursively and `fetchModule()`s every module it reaches that has no `transformResult` yet, dynamic imports included.
+
+    Vite adds a module graph edge from `file.ext?raw` to `file.ext`, so `ensureModulesLoaded` follows a `?raw` import into the file itself, compiles it as a module, and then everything that file imports. `collectCSSWithOrder`, in the same file, already stops at `?raw`:
+
+        } else if (id.endsWith("?raw")) {
+          return;
+        }
+
+    `ensureModulesLoaded` has no such check, so a page that globs source files as text (a docs site showing component source, for example) compiles all of them as modules on its first request. On our docs site that is about 3,000 modules and 9 seconds for the first component page; the edge alone costs 2.8s on a page that only imports examples as `?raw` (11.5s without a workaround, 8.7s with it).
+
+    The page, `src/pages/index.astro`:
+
+        ---
+        const sources = import.meta.glob("../components/*.astro", {
+          eager: true,
+          import: "default",
+          query: "?raw",
+        })
+        ---
+
+        <pre>{Object.keys(sources).join("\n")}</pre>
+
+    Steps to reproduce:
+
+    1. `src/components/A.astro`, `B.astro` and `C.astro`: any components (each can import something heavy to make the cost visible).
+    2. `src/pages/index.astro` globs them as text (above).
+    3. `astro dev`, open `/` and watch the server log (`DEBUG=vite:transform`): A, B and C are transformed as modules, although the page only uses their text.
+
+    Workaround: a `serve`-only Vite plugin with `enforce: "pre"` that loads `?raw` ids itself (`export default ${JSON.stringify(readFileSync(file, "utf-8"))}`), so Vite adds no edge to the file.
+
+    What's the expected result?:
+
+    `ensureModulesLoaded` skips `?raw` modules like `collectCSSWithOrder` does, so nothing behind a `?raw` import is compiled. A one-line fix in its loop:
+
+        if (rawRE.test(imp.id)) continue;
+
+    (or `imp.id.endsWith("?raw")`, matching `collectCSSWithOrder`). With it, the repro compiles nothing behind the glob, and a page with 300 `?raw` examples goes from 2.0s to 0.6s on its first request.
+
+    Repro: src/pages/index.astro:
+
+    ---
+    const sources = import.meta.glob("../components/*.astro", {
+      eager: true,
+      import: "default",
+      query: "?raw",
+    })
+    ---
+
+    <pre>{Object.keys(sources).join("\n")}</pre>
+
+    Repro: src/components/A.astro (and B, C):
+
+    ---
+    import "../styles/heavy.css"
+    ---
+
+    <p>A component whose source the page shows as text.</p>
+    ```
 - [x] (2) CSS: in a build that rewrites `light-dark()` for older browsers (the defaults of Vite 8 and Next 16), `.ui-light` or `.ui-dark` on an element inside the page and the `--ui-color-scheme` knob don't switch the colors. The color tokens are declared on `html`, where the rewritten `var(--lightningcss-light, …) var(--lightningcss-dark, …)` resolves to the page's scheme, and a part of the page inherits that result, while `light-dark()` itself resolves where the color is used. The classes on `html` and the OS setting work, and the README gives the build settings that keep `light-dark()` (`packages/opui/css/theme.css:3-13`, `packages/opui/css/theme.css:207`)
   - Summary: In some bundler builds, a light or dark section inside the page keeps the page's colors unless the build keeps light-dark().
   - Recommended: Fix with option B. Option A changes the scope selector every theme uses, in native builds too, to work around a lowered build the README already shows how to avoid.

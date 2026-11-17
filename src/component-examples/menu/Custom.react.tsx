@@ -11,6 +11,7 @@ export default function Custom() {
         size="small"
       >
         <svg
+          data-icon="more-vertical"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -31,6 +32,7 @@ export default function Custom() {
           label="Rename"
           start={
             <svg
+              data-icon="edit"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -50,6 +52,7 @@ export default function Custom() {
           label="Copy"
           start={
             <svg
+              data-icon="copy"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -66,6 +69,7 @@ export default function Custom() {
           label="Open in new tab"
           start={
             <svg
+              data-icon="open"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -87,6 +91,7 @@ export default function Custom() {
           label="Delete"
           start={
             <svg
+              data-icon="delete"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"

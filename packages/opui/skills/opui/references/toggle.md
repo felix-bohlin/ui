@@ -109,6 +109,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-radi
 <label class="ui-toggle-button">
   <input name="standalone-demo-2" type="checkbox" />
   <svg
+    data-icon="critical"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -141,7 +142,7 @@ import { ToggleButton } from "opui-css/astro"
 
 <ToggleButton label="Show grid" name="standalone-demo-1" />
 <ToggleButton name="standalone-demo-2">
-  <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
+  <svg data-icon="critical" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
   Show warnings
 </ToggleButton>
 ```
@@ -162,7 +163,7 @@ export default function Standalone() {
     <>
       <ToggleButton label="Show grid" name="standalone-demo-1" />
       <ToggleButton name="standalone-demo-2">
-        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></svg>
+        <svg data-icon="critical" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></svg>
         Show warnings
       </ToggleButton>
     </>
@@ -185,7 +186,7 @@ export default function Standalone() {
 
 <ToggleButton label="Show grid" name="standalone-demo-1" />
 <ToggleButton name="standalone-demo-2">
-  <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
+  <svg data-icon="critical" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
   Show warnings
 </ToggleButton>
 ```
@@ -206,7 +207,7 @@ import { ToggleButton } from "opui-css/vue"
 <template>
   <ToggleButton label="Show grid" name="standalone-demo-1" />
   <ToggleButton name="standalone-demo-2">
-    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
+    <svg data-icon="critical" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
     Show warnings
   </ToggleButton>
 </template>

@@ -20,6 +20,7 @@ import { Button, ListItem, Menu } from "opui-css/vue"
   >
     <template #icon-checked>
       <svg
+        data-icon="check-circle"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -53,6 +54,7 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     >
       <template #icon-checked>
         <svg
+          data-icon="check-circle"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -76,6 +78,7 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     >
       <template #icon-checked>
         <svg
+          data-icon="check-circle"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"

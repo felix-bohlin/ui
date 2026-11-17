@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs"
 import { existsSync } from "node:fs"
 import { describe, expect, test } from "vitest"
+import { themeIconLibrary } from "../../src/utils/example-icons"
 import sets from "../../src/utils/icon-sets.json"
 import { customCss } from "../../src/utils/theme"
 import {
@@ -42,6 +43,36 @@ describe("iconLibraryOf", () => {
         "--ui-icon-close": iconTokensOf("tabler")!["--ui-icon-close"]!,
       }),
     ).toBeNull()
+  })
+})
+
+describe("themeIconLibrary", () => {
+  test.each([
+    [null, "fluent"],
+    ["bootstrap", "fluent"],
+    ["brutalist", "lucide"],
+    ["govuk", "fluent"],
+    ["m3", "material-symbols"],
+    ["shadcn", "lucide"],
+  ])("names the icon set the %s theme sets", (preset, library) => {
+    expect(themeIconLibrary({ preset, tokens: {} })).toBe(library)
+  })
+
+  test("names the icon set picked on top of a theme", () => {
+    expect(
+      themeIconLibrary({ preset: "shadcn", tokens: iconTokensOf("tabler")! }),
+    ).toBe("tabler")
+  })
+
+  test("names Fluent when the icons match no set", () => {
+    expect(
+      themeIconLibrary({
+        preset: "shadcn",
+        tokens: {
+          "--ui-icon-close": iconTokensOf("tabler")!["--ui-icon-close"]!,
+        },
+      }),
+    ).toBe("fluent")
   })
 })
 

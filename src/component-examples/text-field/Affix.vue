@@ -19,6 +19,7 @@ import { TextField } from "opui-css/vue"
   <TextField label="Search" placeholder="Search...">
     <template #start>
       <svg
+        data-icon="search"
         aria-hidden="true"
         width="16"
         height="16"

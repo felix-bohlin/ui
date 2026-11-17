@@ -13,6 +13,7 @@ export default function Attachments() {
         <Card variant="outlined">
           <CardContent className="ui-layout-media ui-small">
             <svg
+              data-icon="document"
               aria-hidden="true"
               className="ui-icon"
               xmlns="http://www.w3.org/2000/svg"
@@ -37,6 +38,7 @@ export default function Attachments() {
         <Card variant="outlined">
           <CardContent className="ui-layout-media ui-small">
             <svg
+              data-icon="document"
               aria-hidden="true"
               className="ui-icon"
               xmlns="http://www.w3.org/2000/svg"

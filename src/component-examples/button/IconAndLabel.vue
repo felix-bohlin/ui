@@ -7,6 +7,7 @@ import { Button } from "opui-css/vue"
     <Button>
       <span class="ui-text">Text</span>
       <svg
+        data-icon="add"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -22,6 +23,7 @@ import { Button } from "opui-css/vue"
     <Button variant="outlined">
       <span class="ui-text">Outlined</span>
       <svg
+        data-icon="add"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -37,6 +39,7 @@ import { Button } from "opui-css/vue"
     <Button variant="tonal">
       <span class="ui-text">Tonal</span>
       <svg
+        data-icon="add"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -52,6 +55,7 @@ import { Button } from "opui-css/vue"
     <Button variant="filled">
       <span class="ui-text">Filled</span>
       <svg
+        data-icon="add"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -69,6 +73,7 @@ import { Button } from "opui-css/vue"
   <div class="example-row">
     <Button>
       <svg
+        data-icon="add"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -84,6 +89,7 @@ import { Button } from "opui-css/vue"
     </Button>
     <Button variant="outlined">
       <svg
+        data-icon="add"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -99,6 +105,7 @@ import { Button } from "opui-css/vue"
     </Button>
     <Button variant="tonal">
       <svg
+        data-icon="add"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -114,6 +121,7 @@ import { Button } from "opui-css/vue"
     </Button>
     <Button variant="filled">
       <svg
+        data-icon="add"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"

@@ -14,6 +14,7 @@ export default function Affix() {
         placeholder="Search..."
         start={
           <svg
+            data-icon="search"
             aria-hidden="true"
             width="16"
             height="16"

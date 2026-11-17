@@ -1,6 +1,7 @@
 <template>
   <p class="ui-layout-row ui-small">
     <svg
+      data-icon="check-circle"
       aria-hidden="true"
       class="ui-icon"
       xmlns="http://www.w3.org/2000/svg"
@@ -15,6 +16,7 @@
   </p>
   <p class="ui-layout-row ui-small">
     <svg
+      data-icon="check-circle"
       aria-hidden="true"
       class="ui-icon ui-small"
       xmlns="http://www.w3.org/2000/svg"
@@ -29,6 +31,7 @@
   </p>
   <p class="ui-layout-row ui-small">
     <svg
+      data-icon="check-circle"
       aria-hidden="true"
       class="ui-icon ui-large"
       xmlns="http://www.w3.org/2000/svg"

@@ -7,6 +7,7 @@
     {#snippet end()}
       <Button aria-label="Delete" round size="small">
         <svg
+          data-icon="delete"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -24,6 +25,7 @@
   <ListItem description="Fretless enthusiast" label="Lou Headstock">
     {#snippet start()}
       <svg
+        data-icon="person"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"

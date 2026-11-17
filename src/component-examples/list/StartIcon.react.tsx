@@ -7,6 +7,7 @@ export default function StartIcon() {
         label="Lou Headstock"
         start={
           <svg
+            data-icon="person"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
@@ -25,6 +26,7 @@ export default function StartIcon() {
         label="Percy Groove"
         start={
           <svg
+            data-icon="person"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"

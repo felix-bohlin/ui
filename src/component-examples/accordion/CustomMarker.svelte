@@ -11,6 +11,7 @@
     How do I get started?
     {#snippet marker()}
       <svg
+        data-icon="hand"
         aria-hidden="true"
         class="ui-marker"
         xmlns="http://www.w3.org/2000/svg"

@@ -5,6 +5,7 @@ import { Badge } from "opui-css/vue"
 <template>
   <Badge hideLabel label="5 unread messages">
     <svg
+      data-icon="mail"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -21,6 +22,7 @@ import { Badge } from "opui-css/vue"
 
   <Badge dot label="New messages">
     <svg
+      data-icon="mail"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"

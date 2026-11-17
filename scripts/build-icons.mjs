@@ -193,6 +193,7 @@ export const splitSamples = (built) => ({
 
 export const ICON_TOKEN_FILES = {
   "packages/opui/css/theme.css": "fluent",
+  "packages/opui/themes/brutalist.css": "lucide",
   "packages/opui/themes/m3.css": "material-symbols",
   "packages/opui/themes/shadcn.css": "lucide",
 }

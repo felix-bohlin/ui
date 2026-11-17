@@ -1430,7 +1430,7 @@ export const whatsNew = {
     {
       astro: `<code>value</code> on <code>Tabs</code> selects the item whose <code>value</code> matches (<a href="#binding">Binding</a>).`,
       react: `<code>Tabs</code> take <code>value</code>, <code>defaultValue</code> and <code>onValueChange</code> to control the selected tab (<a href="#binding">Binding</a>).`,
-      solid: `<code>Tabs</code> take <code>value</code> and <code>onValueChange</code> to control the selected tab (<a href="#binding">Binding</a>).`,
+      solid: `<code>Tabs</code> take <code>value</code>, <code>defaultValue</code> and <code>onValueChange</code> to control the selected tab (<a href="#binding">Binding</a>).`,
       svelte: `Bind the selected tab with <code>bind:value</code> on <code>Tabs</code> (<a href="#binding">Binding</a>).`,
       vue: `Bind the selected tab with <code>v-model</code> on <code>Tabs</code> (<a href="#binding">Binding</a>).`,
     },
@@ -1664,7 +1664,7 @@ export const whatsNew = {
     {
       astro: `<code>value</code> on <code>ToggleGroup</code> checks the buttons whose <code>value</code> matches (<a href="#binding">Binding</a>).`,
       react: `<code>ToggleGroup</code> takes <code>value</code>, <code>defaultValue</code> and <code>onValueChange</code> to control the selection (<a href="#binding">Binding</a>).`,
-      solid: `<code>ToggleGroup</code> takes <code>value</code> and <code>onValueChange</code> to control the selection (<a href="#binding">Binding</a>).`,
+      solid: `<code>ToggleGroup</code> takes <code>value</code>, <code>defaultValue</code> and <code>onValueChange</code> to control the selection (<a href="#binding">Binding</a>).`,
       svelte: `Bind the selection with <code>bind:value</code> on <code>ToggleGroup</code> (<a href="#binding">Binding</a>).`,
       vue: `Bind the selection with <code>v-model</code> on <code>ToggleGroup</code> (<a href="#binding">Binding</a>).`,
     },

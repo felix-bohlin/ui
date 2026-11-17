@@ -4046,14 +4046,17 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Summary: Solid form controls reset to their starting state through a typed workaround until Solid renders the defaults on the server.
   - Recommended: Fix. Plain defaultValue and defaultChecked are what Solid's types ask for, once its server render stops printing them.
   - Fix: check each Solid RC: when `<input {...rest} defaultValue={value} />` renders only `value="..."` and `<input {...rest} defaultChecked />` only `checked` on the server, emit `defaultValue={untrack(() => props.value)}` and `defaultChecked={untrack(() => props.checked)}` from the solid value, checked and radio models and delete `defaultValueProp` and `defaultCheckedProp`.
+  - Still open: checked against solid-js 2.0.0. A `defaultValue` or `defaultChecked` written before a spread, or inside one, now renders as `value` or `checked` on the server; after a spread it still prints a literal attribute. The models write the default before the rest spread, `defaultValueProp` and `prop:defaultValue` are gone, and `tests/unit/tooling-bugs.test.ts` holds the repro, which fails once Solid fixes the order.
 - [ ] (2) Package: Solid 2 hydrates one root per page: once the first `hydrate()` finishes it sets `_$HY.done`, and every later `hydrate()` renders from scratch over the server markup instead of claiming it. The fixture page therefore hydrates only the example `?hydrate=` names, and an app with several Solid islands on a page only hydrates the first (`src/components/Example/mount-solid-examples.ts:9-12`)
   - Summary: A page with several Solid roots hydrates only the first and renders the others again on the client.
   - Recommended: Fix. Solid may lift the limit before 2.0, and the test should cover every example per page once it does.
   - Fix: check each Solid RC: when a second `hydrate()` on a page claims its server markup, hydrate every example on `?hydrate` and check them all in one page load in `tests/e2e/hydration.spec.ts`.
-- [ ] (3) Package: the app tests check Solid only in the Vite starter, which renders on the client: every SolidStart release up to 2.2.1, the release candidates too, requires solid-js 1.9, so no Solid app renders the examples on the server and hydrates them as one page (`tests/apps/apps.ts:74-83`, `tests/apps/vite-solid/src/main.tsx:1-5`)
+  - Still open: checked against solid-js 2.0.0: `hydrate()` still renders from scratch once `_$HY.done` is set. `tests/unit/tooling-bugs.test.ts` holds the repro.
+- [x] (3) Package: the app tests check Solid only in the Vite starter, which renders on the client: every SolidStart release up to 2.2.1, the release candidates too, requires solid-js 1.9, so no Solid app renders the examples on the server and hydrates them as one page (`tests/apps/apps.ts:74-83`, `tests/apps/vite-solid/src/main.tsx:1-5`)
   - Summary: The Solid app test renders the examples only in the browser, since SolidStart doesn't support Solid 2 yet.
   - Recommended: Fix. Add it next to Next.js, Nuxt and SvelteKit once a SolidStart release supports Solid 2.
   - Fix: when a SolidStart release takes solid-js 2 as a peer, add a solid-start app to tests/apps (a route per component that renders its examples, like tests/apps/sveltekit) with ssr: true in tests/apps/apps.ts, and name it in the app test lines of AGENTS.md and README.md.
+  - Fixed: `tests/apps/solid-start` renders every example on the server and hydrates it, built on the `start` and `ssr` options of `@solidjs/vite-plugin`, the server layer Solid 2 ships. SolidStart 2.2.3 still requires solid-js 1.9.
 
 ## Questions
 
@@ -5444,6 +5447,14 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Recommended: Fix. `useListener` already passes a caller's ref on, as Callout shows.
   - Fix: take `ref` through `ComponentProps<"opui-sortable-table">`, as Toaster does, pass it to `useListener`, remove `data-hydrating` from the element the ref callback receives, and update the ledger reason for `types.react.ts`.
   - Fixed: Already in 93538658 ("pass a SortableTable ref on"): the React types take `ref` through `ComponentProps<"opui-sortable-table">`, the component passes it to `useListener` and takes `data-hydrating` off the element its ref callback receives, and the `types.react.ts` ledger entry is gone. Since 9cac3d61d the compiler writes the whole port.
+- [ ] (3) Package: the server-rendered Solid app test runs on the `start` option of `@solidjs/vite-plugin`, not on SolidStart, since SolidStart 2.2.3 requires solid-js 1.9 (`tests/apps/apps.ts`, `tests/apps/solid-start/vite.config.ts`)
+  - Summary: The Solid app test uses the Vite plugin's server layer until SolidStart supports Solid 2.
+  - Recommended: Fix. Add a SolidStart app next to it once a release takes solid-js 2, so the meta-framework people scaffold is covered like Next.js, Nuxt and SvelteKit.
+  - Fix: when a `@solidjs/start` release takes solid-js 2 as a peer, add a SolidStart app to `tests/apps/apps.ts` with `ssr: true`, and name it in the app test lines of `AGENTS.md` and `README.md`.
+- [ ] (3) Docs site: the icon libraries list no Solid package: `lucide-solid` 1.74 and `@tabler/icons-solidjs` 3.52 require solid-js 1, and Fluent, Material Symbols and Phosphor ship none (`src/utils/icon-libraries.ts`)
+  - Summary: The icon pages name React, Svelte and Vue icon packages but none for Solid, since none supports Solid 2 yet.
+  - Recommended: Fix. List each library's Solid package once it accepts solid-js 2.
+  - Fix: when `lucide-solid` or `@tabler/icons-solidjs` takes solid-js 2 as a peer, add `solid` to the `frameworks` of its library and to `FRAMEWORK_NAMES` in `src/utils/icon-libraries.ts`, and run `node scripts/build-icons.mjs`.
 - [ ] (4) New components the blocks point to. Each block currently draws these with its own CSS:
   - Summary: Blocks draw charts, breadcrumbs, steppers, timelines, ratings, pagination and stat cards with their own CSS for lack of components.
   - Recommended: Fix. Breadcrumb, empty state and pagination are left, and their blocks already show the markup each needs.

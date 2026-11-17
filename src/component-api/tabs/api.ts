@@ -26,7 +26,7 @@ export default {
     react:
       "Use `value` with `onValueChange`, or `defaultValue`. Without them the items keep their own state, and `onValueChange` still reports changes.",
     solid:
-      "`value` sets the selected item and follows it when it changes, and `onValueChange` reports the new one. Without `value` the items keep their own state.",
+      "Use `value` with `onValueChange`, or `defaultValue`. Without them the items keep their own state, and `onValueChange` still reports changes.",
     svelte:
       "Bind `value` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state.",
     vue: "Bind `v-model` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state.",

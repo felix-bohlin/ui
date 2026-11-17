@@ -1,5 +1,11 @@
 import { getRequestEvent, isServer } from "@solidjs/web"
-import { onSettled, type Component } from "solid-js"
+import {
+  createMemo,
+  createSignal,
+  For,
+  onSettled,
+  type Component,
+} from "solid-js"
 import slugs from "./examples/slugs.json"
 import "./index.css"
 
@@ -19,26 +25,42 @@ const pathname = () =>
     : location.pathname
 
 export default function App() {
-  const component = pathname().slice(1)
-  const examples = all.filter(({ slug }) => slug === component)
+  const [path, setPath] = createSignal(pathname())
+  const examples = createMemo(() =>
+    all.filter(({ slug }) => slug === path().slice(1)),
+  )
+  const navigate = (
+    event: MouseEvent & { currentTarget: HTMLAnchorElement },
+  ) => {
+    event.preventDefault()
+    history.pushState(null, "", event.currentTarget.href)
+    setPath(location.pathname)
+  }
 
   onSettled(() => {
     document.documentElement.dataset.hydrated = ""
+    const follow = () => setPath(location.pathname)
+    addEventListener("popstate", follow)
+    return () => removeEventListener("popstate", follow)
   })
 
   return (
     <>
       <nav>
         {slugs.map((slug) => (
-          <a href={`/${slug}`}>{slug}</a>
+          <a href={`/${slug}`} onClick={navigate}>
+            {slug}
+          </a>
         ))}
       </nav>
       <main>
-        {examples.map(({ Component, name }) => (
-          <div data-example={`${component}/${name}`}>
-            <Component />
-          </div>
-        ))}
+        <For each={examples()}>
+          {(example) => (
+            <div data-example={`${example.slug}/${example.name}`}>
+              <example.Component />
+            </div>
+          )}
+        </For>
       </main>
     </>
   )

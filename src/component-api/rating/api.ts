@@ -28,7 +28,7 @@ export default {
     react:
       "Use `value` with `onValueChange`, or `defaultValue`. Without them the radios keep their own state, and `onValueChange` still reports changes.",
     solid:
-      "`value` checks a star and follows it when it changes, and `onChange` reports the star that is picked.",
+      "Use `value` with `onValueChange`, or `defaultValue`. Without them the radios keep their own state, and `onValueChange` still reports changes.",
     svelte: "Bind the input with `bind:value`.",
     vue: "Bind the input with `v-model`.",
   },

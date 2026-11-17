@@ -5,6 +5,7 @@ export default function Indicator() {
     <>
       <Badge hideLabel indicator="99+" label="More than 99 unread messages">
         <svg
+          data-icon="mail"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -20,6 +21,7 @@ export default function Indicator() {
 
       <Badge hideLabel indicator="1.2K" label="About 1,200 unread messages">
         <svg
+          data-icon="mail"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"

@@ -12,6 +12,7 @@ export default function AffixButton() {
           variant="filled"
         >
           <svg
+            data-icon="send"
             aria-hidden="true"
             width="24"
             height="24"

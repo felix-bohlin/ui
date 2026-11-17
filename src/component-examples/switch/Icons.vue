@@ -7,6 +7,7 @@ import { Switch } from "opui-css/vue"
     Dark theme
     <template #icon-checked>
       <svg
+        data-icon="moon"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -20,6 +21,7 @@ import { Switch } from "opui-css/vue"
     </template>
     <template #icon-unchecked>
       <svg
+        data-icon="sun"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -37,6 +39,7 @@ import { Switch } from "opui-css/vue"
     Dark theme
     <template #icon-checked>
       <svg
+        data-icon="moon"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -50,6 +53,7 @@ import { Switch } from "opui-css/vue"
     </template>
     <template #icon-unchecked>
       <svg
+        data-icon="sun"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"

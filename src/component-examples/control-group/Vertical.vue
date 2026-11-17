@@ -7,6 +7,7 @@ import { Button, ControlGroup, Textarea } from "opui-css/vue"
     <ControlGroup aria-label="Text size" orientation="vertical">
       <Button aria-label="Increase">
         <svg
+          data-icon="add"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -24,6 +25,7 @@ import { Button, ControlGroup, Textarea } from "opui-css/vue"
       </Button>
       <Button aria-label="Decrease">
         <svg
+          data-icon="remove"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -46,6 +48,7 @@ import { Button, ControlGroup, Textarea } from "opui-css/vue"
     >
       <Button aria-label="Increase">
         <svg
+          data-icon="add"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -63,6 +66,7 @@ import { Button, ControlGroup, Textarea } from "opui-css/vue"
       </Button>
       <Button aria-label="Decrease">
         <svg
+          data-icon="remove"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -81,6 +85,7 @@ import { Button, ControlGroup, Textarea } from "opui-css/vue"
     <ControlGroup aria-label="Text size" orientation="vertical" variant="tonal">
       <Button aria-label="Increase">
         <svg
+          data-icon="add"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -98,6 +103,7 @@ import { Button, ControlGroup, Textarea } from "opui-css/vue"
       </Button>
       <Button aria-label="Decrease">
         <svg
+          data-icon="remove"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -120,6 +126,7 @@ import { Button, ControlGroup, Textarea } from "opui-css/vue"
     >
       <Button aria-label="Increase">
         <svg
+          data-icon="add"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -137,6 +144,7 @@ import { Button, ControlGroup, Textarea } from "opui-css/vue"
       </Button>
       <Button aria-label="Decrease">
         <svg
+          data-icon="remove"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"

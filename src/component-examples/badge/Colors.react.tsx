@@ -5,6 +5,7 @@ export default function Colors() {
     <>
       <Badge color="critical" hideLabel indicator="5" label="5 unread messages">
         <svg
+          data-icon="mail"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -19,6 +20,7 @@ export default function Colors() {
       </Badge>
       <Badge color="info" hideLabel indicator="5" label="5 unread messages">
         <svg
+          data-icon="mail"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -33,6 +35,7 @@ export default function Colors() {
       </Badge>
       <Badge color="neutral" hideLabel indicator="5" label="5 unread messages">
         <svg
+          data-icon="mail"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -47,6 +50,7 @@ export default function Colors() {
       </Badge>
       <Badge color="success" hideLabel indicator="5" label="5 unread messages">
         <svg
+          data-icon="mail"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -61,6 +65,7 @@ export default function Colors() {
       </Badge>
       <Badge color="warning" hideLabel indicator="5" label="5 unread messages">
         <svg
+          data-icon="mail"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"

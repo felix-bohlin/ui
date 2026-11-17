@@ -3,6 +3,7 @@ export default function Icon() {
     <>
       <p className="ui-layout-row ui-small">
         <svg
+          data-icon="check-circle"
           aria-hidden="true"
           className="ui-icon"
           xmlns="http://www.w3.org/2000/svg"
@@ -17,6 +18,7 @@ export default function Icon() {
       </p>
       <p className="ui-layout-row ui-small">
         <svg
+          data-icon="check-circle"
           aria-hidden="true"
           className="ui-icon ui-small"
           xmlns="http://www.w3.org/2000/svg"
@@ -31,6 +33,7 @@ export default function Icon() {
       </p>
       <p className="ui-layout-row ui-small">
         <svg
+          data-icon="check-circle"
           aria-hidden="true"
           className="ui-icon ui-large"
           xmlns="http://www.w3.org/2000/svg"

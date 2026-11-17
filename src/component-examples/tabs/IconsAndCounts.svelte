@@ -6,6 +6,7 @@
   <TabsItem defaultChecked>
     <TabsLabel>
       <svg
+        data-icon="inbox"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="20"
@@ -25,6 +26,7 @@
   <TabsItem>
     <TabsLabel>
       <svg
+        data-icon="send"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="20"
@@ -40,6 +42,7 @@
   <TabsItem>
     <TabsLabel>
       <svg
+        data-icon="edit"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="20"

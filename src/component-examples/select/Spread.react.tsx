@@ -77,6 +77,7 @@ export default function Spread() {
         spread
         start={
           <svg
+            data-icon="globe"
             aria-hidden="true"
             width="16"
             height="16"

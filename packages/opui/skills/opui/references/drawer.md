@@ -232,7 +232,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   <div class="ui-header">
     <h2 id="drawer-basics-2-title">Friday gig prep</h2>
     <button class="ui-button ui-round ui-small" type="button" aria-label="Edit">
-      <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+      <svg data-icon="edit" aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
     <button
       class="ui-button ui-round ui-small"
@@ -379,7 +379,7 @@ import {
   ListItem,
 } from "opui-css/astro"
 
-const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
+const editIcon = `<svg data-icon="edit" aria-hidden="true" viewBox="0 0 32 32"></svg>`
 ---
 
 <Button command="show-modal" commandfor="drawer-basics-3">Block start</Button>
@@ -538,7 +538,7 @@ export default function BasicsCode() {
         <DrawerHeader closeButton>
           <DrawerTitle>Friday gig prep</DrawerTitle>
           <Button aria-label="Edit" round size="small">
-            <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+            <svg data-icon="edit" aria-hidden="true" viewBox="0 0 32 32"></svg>
           </Button>
         </DrawerHeader>
         <DrawerContent aria-label="Gig details" role="region" tabIndex={0}>
@@ -666,7 +666,7 @@ export default function BasicsCode() {
   <DrawerHeader closeButton>
     <DrawerTitle>Friday gig prep</DrawerTitle>
     <Button aria-label="Edit" round size="small">
-      <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+      <svg data-icon="edit" aria-hidden="true" viewBox="0 0 32 32"></svg>
     </Button>
   </DrawerHeader>
   <DrawerContent aria-label="Gig details" role="region" tabindex={0}>
@@ -785,7 +785,7 @@ import {
     <DrawerHeader closeButton>
       <DrawerTitle>Friday gig prep</DrawerTitle>
       <Button aria-label="Edit" round size="small">
-        <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+        <svg data-icon="edit" aria-hidden="true" viewBox="0 0 32 32"></svg>
       </Button>
     </DrawerHeader>
     <DrawerContent aria-label="Gig details" role="region" tabindex="0">

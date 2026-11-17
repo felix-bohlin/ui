@@ -36,6 +36,7 @@
   {#snippet startText()}Shown on your public profile{/snippet}
   {#snippet start()}
     <svg
+      data-icon="edit"
       aria-hidden="true"
       width="16"
       height="16"

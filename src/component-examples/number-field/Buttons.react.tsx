@@ -6,6 +6,7 @@ export default function Buttons() {
       <NumberField
         decreaseIcon={
           <svg
+            data-icon="chevron-down"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -23,6 +24,7 @@ export default function Buttons() {
         id="number-field-buttons-1"
         increaseIcon={
           <svg
+            data-icon="chevron-up"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"

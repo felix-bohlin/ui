@@ -4,6 +4,7 @@
 
 <Badge color="critical" hideLabel label="5 unread messages">
   <svg
+    data-icon="mail"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -19,6 +20,7 @@
 </Badge>
 <Badge color="info" hideLabel label="5 unread messages">
   <svg
+    data-icon="mail"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -34,6 +36,7 @@
 </Badge>
 <Badge color="neutral" hideLabel label="5 unread messages">
   <svg
+    data-icon="mail"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -49,6 +52,7 @@
 </Badge>
 <Badge color="success" hideLabel label="5 unread messages">
   <svg
+    data-icon="mail"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -64,6 +68,7 @@
 </Badge>
 <Badge color="warning" hideLabel label="5 unread messages">
   <svg
+    data-icon="mail"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"

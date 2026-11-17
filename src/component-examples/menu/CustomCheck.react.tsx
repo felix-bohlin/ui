@@ -13,6 +13,7 @@ export default function CustomCheck() {
       <Menu
         iconChecked={
           <svg
+            data-icon="check-circle"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -50,6 +51,7 @@ export default function CustomCheck() {
           commandfor="menu-custom-check-2"
           iconChecked={
             <svg
+              data-icon="check-circle"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -72,6 +74,7 @@ export default function CustomCheck() {
           commandfor="menu-custom-check-2"
           iconChecked={
             <svg
+              data-icon="check-circle"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"

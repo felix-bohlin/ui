@@ -24,6 +24,7 @@ export default function MarkerAnimation() {
         <AccordionSummary
           marker={
             <svg
+              data-icon="chevron-right"
               aria-hidden="true"
               className="ui-marker"
               xmlns="http://www.w3.org/2000/svg"

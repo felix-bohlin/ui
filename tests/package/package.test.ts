@@ -29,6 +29,7 @@ const FIXTURES: {
   build: Command
   check: Command
   framework: string
+  server?: string
 }[] = [
   {
     build: { args: ["build"], package: "astro" },
@@ -39,6 +40,12 @@ const FIXTURES: {
     build: { args: ["build"], package: "vite" },
     check: { args: ["--noEmit", "-p", "."], bin: "tsc", package: "typescript" },
     framework: "react",
+  },
+  {
+    build: { args: ["build"], package: "vite" },
+    check: { args: ["--noEmit", "-p", "."], bin: "tsc", package: "typescript" },
+    framework: "solid",
+    server: "src/entry-server.tsx",
   },
   {
     build: { args: ["build"], package: "vite" },
@@ -218,6 +225,7 @@ const cssIn = (dist: string) =>
 
 const DEEP_IMPORTS = {
   react: ["Dialog/Dialog.react", "Dialog/DialogTitle.react"],
+  solid: ["Dialog/Dialog.solid", "Dialog/DialogTitle.solid"],
   svelte: ["Dialog/Dialog.svelte", "Dialog/DialogTitle.svelte"],
   vue: ["Dialog/Dialog.vue", "Dialog/DialogTitle.vue"],
 }
@@ -256,6 +264,7 @@ test("the tarball ships the package and nothing else", () => {
     "bin/opui-css.mjs",
     "components/Button/Button.astro",
     "components/Button/Button.react.tsx",
+    "components/Button/Button.solid.tsx",
     "components/Button/Button.svelte",
     "components/Button/Button.vue",
     "core/normalize.css",
@@ -285,6 +294,7 @@ test("the tarball ships the package and nothing else", () => {
     "react/index.ts",
     "skills/opui/SKILL.md",
     "skills/opui/references/index.md",
+    "solid/index.ts",
     "svelte/index.ts",
     "themes/m3.css",
     "tokens.json",
@@ -681,119 +691,145 @@ describe("the opui-css command", () => {
   })
 })
 
-describe.each(FIXTURES)("$framework fixture", ({ build, check, framework }) => {
-  let dir: string
+describe.each(FIXTURES)(
+  "$framework fixture",
+  ({ build, check, framework, server }) => {
+    let dir: string
 
-  beforeAll(() => {
-    const fixture = path.join(fixturesDir, framework)
-    dir = path.join(work, framework)
-    cpSync(fixture, dir, {
-      filter: (source) =>
-        ![".astro", "dist", "node_modules"].includes(path.basename(source)),
-      recursive: true,
+    beforeAll(() => {
+      const fixture = path.join(fixturesDir, framework)
+      dir = path.join(work, framework)
+      cpSync(fixture, dir, {
+        filter: (source) =>
+          ![".astro", "dist", "node_modules"].includes(path.basename(source)),
+        recursive: true,
+      })
+      linkModules(
+        path.join(fixture, "node_modules"),
+        path.join(dir, "node_modules"),
+      )
+      const target = path.join(dir, "node_modules/opui-css")
+      mkdirSync(target)
+      run("tar", ["-xzf", tarball, "--strip-components=1", "-C", target], dir)
     })
-    linkModules(
-      path.join(fixture, "node_modules"),
-      path.join(dir, "node_modules"),
-    )
-    const target = path.join(dir, "node_modules/opui-css")
-    mkdirSync(target)
-    run("tar", ["-xzf", tarball, "--strip-components=1", "-C", target], dir)
-  })
 
-  test("type checks against the installed package", () => {
-    run("node", [bin(dir, check), ...check.args], dir)
-  })
+    test("type checks against the installed package", () => {
+      run("node", [bin(dir, check), ...check.args], dir)
+    })
 
-  test("builds with the installed package", () => {
-    run("node", [bin(dir, build), ...build.args], dir)
-    const dist = path.join(dir, "dist")
-    const html = readFileSync(path.join(dist, "index.html"), "utf8")
-    expect(html).toMatch(
-      framework === "astro" ? /class="ui-button/ : /<script type="module"/,
-    )
-    const css = cssIn(dist)
-    expect(css).toContain("@layer openprops")
-    expect(css).toContain(".ui-button")
-    expect(lightDarkProblems(css)).toEqual([])
-  })
-
-  test.runIf(framework === "react")(
-    "the README's vite.config setting keeps light-dark(), which the default build rewrites",
-    () => {
-      const { vite } = lightDarkSettings(
-        readFileSync(path.join(unpacked, "README.md"), "utf8"),
+    test("builds with the installed package", () => {
+      run("node", [bin(dir, build), ...build.args], dir)
+      const dist = path.join(dir, "dist")
+      const html = readFileSync(path.join(dist, "index.html"), "utf8")
+      expect(html).toMatch(
+        framework === "astro" ? /class="ui-button/ : /<script type="module"/,
       )
-      writeFileSync(path.join(dir, "vite-build.mjs"), VITE_BUILD)
-      const built = (outDir: string, settings: object) => {
-        run("node", ["vite-build.mjs", outDir, JSON.stringify(settings)], dir)
-        return cssIn(path.join(dir, outDir))
-      }
-      expect(
-        built("dist-default", {}),
-        "Vite's default build keeps light-dark() now: remove the vite.config block from the README's Builds that rewrite light-dark() section",
-      ).not.toContain("light-dark(")
-      const css = built("dist-readme", vite)
-      expect(
-        css,
-        "the vite.config block in the README's Builds that rewrite light-dark() section no longer keeps light-dark()",
-      ).toContain("light-dark(")
+      const css = cssIn(dist)
+      expect(css).toContain("@layer openprops")
+      expect(css).toContain(".ui-button")
       expect(lightDarkProblems(css)).toEqual([])
-    },
-  )
+    })
 
-  test.runIf(framework in SERVER_RENDER)(
-    "renders on the server in Node, without a bundler",
-    () => {
-      writeFileSync(
-        path.join(dir, "server-render.mjs"),
-        SERVER_RENDER[framework as keyof typeof SERVER_RENDER],
-      )
-      const output = run("node", ["server-render.mjs"], dir).replaceAll(
-        /<!--[[\]]-->/g,
-        "",
-      )
-      expect(output).toMatch(
-        /^<button class="ui-button ui-primary ui-filled" type="submit">Save<\/button>$/m,
-      )
-      expect(output).toMatch(/^[1-9]\d* components$/m)
-      expect(output).toMatch(
-        /^deep imports share the entry point's modules: true$/m,
-      )
-    },
-  )
+    test.runIf(framework === "react")(
+      "the README's vite.config setting keeps light-dark(), which the default build rewrites",
+      () => {
+        const { vite } = lightDarkSettings(
+          readFileSync(path.join(unpacked, "README.md"), "utf8"),
+        )
+        writeFileSync(path.join(dir, "vite-build.mjs"), VITE_BUILD)
+        const built = (outDir: string, settings: object) => {
+          run("node", ["vite-build.mjs", outDir, JSON.stringify(settings)], dir)
+          return cssIn(path.join(dir, outDir))
+        }
+        expect(
+          built("dist-default", {}),
+          "Vite's default build keeps light-dark() now: remove the vite.config block from the README's Builds that rewrite light-dark() section",
+        ).not.toContain("light-dark(")
+        const css = built("dist-readme", vite)
+        expect(
+          css,
+          "the vite.config block in the README's Builds that rewrite light-dark() section no longer keeps light-dark()",
+        ).toContain("light-dark(")
+        expect(lightDarkProblems(css)).toEqual([])
+      },
+    )
 
-  test.runIf(framework in DEEP_IMPORTS)(
-    "Vite resolves the entry point and deep imports into dist, on the client and the server",
-    () => {
-      writeFileSync(path.join(dir, "vite-resolve.mjs"), VITE_RESOLVE)
-      const ids = [
-        `opui-css/${framework}`,
-        ...DEEP_IMPORTS[framework as keyof typeof DEEP_IMPORTS].map(
-          (file) => `opui-css/components/${file}`,
-        ),
-      ]
-      const lines = run("node", ["vite-resolve.mjs", JSON.stringify(ids)], dir)
-        .trim()
-        .split("\n")
-      expect(lines).toHaveLength(ids.length * 2)
-      expect(
-        lines.filter((line) => !/ dist\/\S+\.(js|svelte)$/.test(line)),
-        "these resolve outside dist, so a deep import and the entry point would load two copies",
-      ).toEqual([])
-    },
-  )
+    test.runIf(framework in SERVER_RENDER)(
+      "renders on the server in Node, without a bundler",
+      () => {
+        writeFileSync(
+          path.join(dir, "server-render.mjs"),
+          SERVER_RENDER[framework as keyof typeof SERVER_RENDER],
+        )
+        const output = run("node", ["server-render.mjs"], dir).replaceAll(
+          /<!--[[\]]-->/g,
+          "",
+        )
+        expect(output).toMatch(
+          /^<button class="ui-button ui-primary ui-filled" type="submit">Save<\/button>$/m,
+        )
+        expect(output).toMatch(/^[1-9]\d* components$/m)
+        expect(output).toMatch(
+          /^deep imports share the entry point's modules: true$/m,
+        )
+      },
+    )
 
-  test.runIf(framework === "svelte")(
-    "the dev server pre-bundles the package and serves it",
-    () => {
-      writeFileSync(path.join(dir, "dev-check.mjs"), DEV_CHECK)
-      expect(run("node", ["dev-check.mjs"], dir)).toMatch(
-        /^[1-9]\d* pre-bundled dependencies served$/m,
+    test.runIf(framework in DEEP_IMPORTS)(
+      "Vite resolves the entry point and deep imports into dist, on the client and the server",
+      () => {
+        writeFileSync(path.join(dir, "vite-resolve.mjs"), VITE_RESOLVE)
+        const ids = [
+          `opui-css/${framework}`,
+          ...DEEP_IMPORTS[framework as keyof typeof DEEP_IMPORTS].map(
+            (file) => `opui-css/components/${file}`,
+          ),
+        ]
+        const lines = run(
+          "node",
+          ["vite-resolve.mjs", JSON.stringify(ids)],
+          dir,
+        )
+          .trim()
+          .split("\n")
+        expect(lines).toHaveLength(ids.length * 2)
+        expect(
+          lines.filter((line) => !/ dist\/\S+\.(jsx?|svelte)$/.test(line)),
+          "these resolve outside dist, so a deep import and the entry point would load two copies",
+        ).toEqual([])
+      },
+    )
+
+    test.runIf(server)("renders hydratable markup on the server", () => {
+      run(
+        "node",
+        [bin(dir, build), "build", "--ssr", server!, "--outDir", "dist-server"],
+        dir,
       )
-    },
-  )
-})
+      const html = run(
+        "node",
+        [
+          "--input-type=module",
+          "--eval",
+          'const { render } = await import("./dist-server/entry-server.js"); process.stdout.write(render())',
+        ],
+        dir,
+      )
+      expect(html).toContain('class="ui-button')
+      expect(html).toMatch(/<button _hk=\S+/)
+    })
+
+    test.runIf(framework === "svelte")(
+      "the dev server pre-bundles the package and serves it",
+      () => {
+        writeFileSync(path.join(dir, "dev-check.mjs"), DEV_CHECK)
+        expect(run("node", ["dev-check.mjs"], dir)).toMatch(
+          /^[1-9]\d* pre-bundled dependencies served$/m,
+        )
+      },
+    )
+  },
+)
 
 test("a build that lowers light-dark() needs its variables on html", () => {
   const token = "--x:var(--lightningcss-light,a)var(--lightningcss-dark,b)"

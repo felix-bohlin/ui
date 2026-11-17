@@ -1080,6 +1080,13 @@
     "url": "/html/components/drawer/#how-to-close"
   },
   {
+    "id": "component-drawer-html-swipe-to-close",
+    "title": "Swipe to close",
+    "page": "Drawer",
+    "category": "Component",
+    "url": "/html/components/drawer/#swipe-to-close"
+  },
+  {
     "id": "component-drawer-html-role-attributes",
     "title": "Role & attributes",
     "page": "Drawer",
@@ -4582,7 +4589,7 @@
     "id": "api-drawer-html",
     "title": "Drawer API",
     "description": "Reference for Drawer HTML component.",
-    "api": "dialog.ui-drawer Container element. The header, a row for the title and anything next to it, with an optional close button. .ui-header The title. Names the drawer through `aria-labelledby`. .ui-header > h2 The scrollable content. .ui-content The footer, a row at the end. .ui-footer .ui-backdrop-transparent Backdrop The backdrop style. `transparent` keeps the page behind it fully visible. [closedby] Behavior How the drawer can be closed. `any` also closes it on a click outside. [data-close-on-navigate] Close on navigate Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API. .ui-scroll-lock Scroll lock Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`. .ui-block-end .ui-block-start .ui-inline-end Position The side it opens from.",
+    "api": "dialog.ui-drawer Container element. The header, a row for the title and anything next to it, with an optional close button. .ui-header The title. Names the drawer through `aria-labelledby`. .ui-header > h2 The scrollable content. .ui-content The footer, a row at the end. .ui-footer .ui-backdrop-transparent Backdrop The backdrop style. `transparent` keeps the page behind it fully visible. [closedby] Behavior How the drawer can be closed. `any` also closes it on a click outside. Swiping a drawer at the block start or end toward its edge is a close request too, so `none` turns it off. [data-close-on-navigate] Close on navigate Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API. .ui-scroll-lock Scroll lock Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`. .ui-block-end .ui-block-start .ui-inline-end Position The side it opens from.",
     "category": "API",
     "url": "/html/api/#drawer"
   },

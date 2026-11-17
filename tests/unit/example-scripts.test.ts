@@ -75,6 +75,19 @@ const HOOKS = [
         ? "opui-css/elements/close-on-navigate.js"
         : undefined,
   },
+  {
+    hook: 'a dialog.ui-drawer at the block start or end without closedby="none"',
+    module: (element: Element) =>
+      element.tagName === "dialog" &&
+      hasClass(element, "ui-drawer") &&
+      (hasClass(element, "ui-block-start") ||
+        hasClass(element, "ui-block-end")) &&
+      element.attrs
+        .find((attr) => attr.name === "closedby")
+        ?.value.toLowerCase() !== "none"
+        ? "opui-css/elements/drawer-swipe.js"
+        : undefined,
+  },
 ]
 
 const IMPORT = /\bimport\s+(?:[^"';]*?\sfrom\s+)?["']([^"']+)["'];?/g

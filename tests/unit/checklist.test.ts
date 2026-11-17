@@ -35,6 +35,18 @@ describe("outcomeOf", () => {
       { label: "Update", text: "tag b66be4df", tone: "progress" },
     ],
     ["rc.1: fails", { label: "rc.1", text: "fails", tone: "release" }],
+    [
+      "Explained: the page says so",
+      { label: "Explained", text: "the page says so", tone: "progress" },
+    ],
+    [
+      "Fixed with option A: the token",
+      { label: "Fixed with option A", text: "the token", tone: "done" },
+    ],
+    [
+      "Removed: no longer true",
+      { label: "Removed", text: "no longer true", tone: "skipped" },
+    ],
   ])("reads %s", (text, expected) => {
     expect(outcomeOf(text)).toEqual(expected)
   })
@@ -44,6 +56,8 @@ describe("outcomeOf", () => {
     "Updated the README",
     "Limitations: Vue warns",
     "Five target the branch",
+    "Still open in Firefox: the tooltip",
+    "Replaces: the prose in the guide",
   ])("leaves %s alone", (text) => {
     expect(outcomeOf(text)).toBeUndefined()
   })

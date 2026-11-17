@@ -1,60 +1,66 @@
 ---
-import { parseChecklist } from "../../utils/checklist"
+import ProgressCell from "./ProgressCell.astro"
 import { plainText } from "../../utils/todo"
 
 type Props = {
   class?: string
-  source: string
+  complete: string[]
+  label: string
+  sections: {
+    id: string
+    items: { key: string; stage: string; text: string }[]
+    title: string
+  }[]
 }
 
-const { class: className, source } = Astro.props
+const { class: className, complete, label, sections } = Astro.props
 
-const { sections } = parseChecklist(source)
 const items = sections.flatMap((section) => section.items)
 const doneIn = (list: typeof items) =>
-  list.filter((item) => item.stage === "done").length
+  list.filter((item) => complete.includes(item.stage)).length
 const done = doneIn(items)
 const ratio = items.length ? done / items.length : 0
 ---
 
 <nav
   aria-label="Sections"
-  class:list={["checks-map", className]}
-  data-checks-map
+  class:list={["progress-map", className]}
+  data-progress-complete={complete.join(" ")}
+  data-progress-label={label}
+  data-progress-map
   style={`--ratio: ${ratio}`}
 >
-  <div class="checks-map-total">
-    <span aria-hidden="true" class="checks-ring">
+  <div class="progress-map-total">
+    <span aria-hidden="true" class="progress-ring">
       <span data-map-percent>{`${Math.round(ratio * 100)}%`}</span>
     </span>
     <p>
       <strong data-map-done>{done}</strong>
-      {` of ${items.length} done`}
+      {` of ${items.length} ${label}`}
     </p>
   </div>
-  <ol class="checks-map-sections">
+  <ol class="progress-map-sections">
     {sections.map((section) => <li>
       <a
-        class="checks-map-section"
-        data-map-section={section.id}
+        class="progress-map-section"
         data-map-complete={
           doneIn(section.items) === section.items.length ? "" : undefined
         }
+        data-map-section={section.id}
         href={`#${section.id}`}
       >
-        <span class="checks-map-title">{section.title}</span>
-        <span aria-hidden="true" class="checks-map-count" data-map-count
+        <span class="progress-map-title">{section.title}</span>
+        <span aria-hidden="true" class="progress-map-count" data-map-count
           >{`${doneIn(section.items)}/${section.items.length}`}</span
         >
         <span class="ui-sr-only" data-map-count-text
-          >{`, ${doneIn(section.items)} of ${section.items.length} done`}</span
+          >{`, ${doneIn(section.items)} of ${section.items.length} ${label}`}</span
         >
-        <span aria-hidden="true" class="checks-map-cells">
+        <span aria-hidden="true" class="progress-map-cells">
           {section.items.map((item) => (
-            <span
-              class="checks-cell"
+            <ProgressCell
               data-map-key={item.key}
-              data-stage={item.stage}
+              stage={item.stage}
               title={plainText(item.text)}
             />
           ))}
@@ -71,7 +77,7 @@ const ratio = items.length ? done / items.length : 0
     syntax: "<number>";
   }
 
-  .checks-map {
+  .progress-map {
     --_track: oklch(from var(--ui-text-strong) l c h / 12%);
 
     display: grid;
@@ -83,7 +89,7 @@ const ratio = items.length ? done / items.length : 0
     }
   }
 
-  .checks-map-total {
+  .progress-map-total {
     align-items: center;
     display: flex;
     gap: var(--size-3);
@@ -101,7 +107,7 @@ const ratio = items.length ? done / items.length : 0
     }
   }
 
-  .checks-ring {
+  .progress-ring {
     aspect-ratio: 1;
     background: conic-gradient(
       var(--ui-success) calc(var(--ratio) * 1turn),
@@ -128,7 +134,7 @@ const ratio = items.length ? done / items.length : 0
     }
   }
 
-  .checks-map-sections {
+  .progress-map-sections {
     display: grid;
     gap: var(--size-1);
     list-style: none;
@@ -136,7 +142,7 @@ const ratio = items.length ? done / items.length : 0
     padding: 0;
   }
 
-  .checks-map-section {
+  .progress-map-section {
     border-radius: var(--ui-radius);
     color: var(--ui-text);
     column-gap: var(--size-2);
@@ -159,12 +165,12 @@ const ratio = items.length ? done / items.length : 0
     }
 
     &[aria-current] {
-      background-color: var(--ui-primary-tonal);
-      color: var(--ui-on-primary-tonal);
+      background-color: oklch(from var(--ui-primary) l c h / 14%);
+      color: var(--ui-text-strong);
     }
   }
 
-  .checks-map-title {
+  .progress-map-title {
     font-weight: var(--ui-font-weight-medium);
     min-inline-size: 0;
     overflow: hidden;
@@ -177,70 +183,16 @@ const ratio = items.length ? done / items.length : 0
     }
   }
 
-  .checks-map-count {
+  .progress-map-count {
     font-size: var(--ui-font-size-caption);
     font-variant-numeric: tabular-nums;
   }
 
-  .checks-map-cells {
+  .progress-map-cells {
+    cursor: pointer;
     display: flex;
     flex-wrap: wrap;
     gap: 3px;
     grid-column: 1 / -1;
-  }
-
-  .checks-cell {
-    --_fill: transparent;
-
-    aspect-ratio: 1;
-    background: var(--_fill);
-    border-radius: 2px;
-    box-shadow: inset 0 0 0 1px
-      var(--_edge, oklch(from var(--ui-text) l c h / 45%));
-    cursor: pointer;
-    inline-size: 10px;
-
-    @media (prefers-reduced-motion: no-preference) {
-      transition: background var(--ui-duration) var(--ui-ease);
-    }
-
-    &[data-stage="doing"] {
-      --_edge: var(--ui-info);
-      --_fill: linear-gradient(
-        to top,
-        var(--ui-info) 50%,
-        oklch(from var(--ui-info) l c h / 25%) 50%
-      );
-    }
-
-    &[data-stage="done"] {
-      --_edge: var(--ui-success);
-      --_fill: var(--ui-success);
-    }
-
-    &[data-stage="skipped"] {
-      --_fill: repeating-linear-gradient(
-        -45deg,
-        oklch(from var(--ui-text) l c h / 45%) 0 1px,
-        transparent 1px 3px
-      );
-    }
-
-    &[data-changed] {
-      outline: 2px solid var(--ui-primary);
-      outline-offset: 1px;
-    }
-
-    &[data-pop] {
-      @media (prefers-reduced-motion: no-preference) {
-        animation: checks-pop var(--ui-duration-slow) var(--ui-ease-enter);
-      }
-    }
-  }
-
-  @keyframes checks-pop {
-    50% {
-      scale: 1.8;
-    }
   }
 </style>

@@ -1,0 +1,78 @@
+---
+import type { HTMLAttributes } from "astro/types"
+
+type Props = HTMLAttributes<"span"> & {
+  stage: string
+}
+
+const { class: className, stage, ...rest } = Astro.props
+---
+
+<span
+  class:list={["progress-cell", className]}
+  data-stage={stage}
+  {...rest}
+></span>
+
+<style>
+  .progress-cell {
+    --_edge: oklch(from var(--ui-text) l c h / 45%);
+    --_fill: transparent;
+
+    aspect-ratio: 1;
+    background: var(--_fill);
+    border-radius: 2px;
+    box-shadow: inset 0 0 0 1px var(--_edge);
+    display: inline-block;
+    flex: none;
+    inline-size: 10px;
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: background var(--ui-duration) var(--ui-ease);
+    }
+
+    &:is([data-stage="doing"], [data-stage="waiting"]) {
+      --_edge: var(--ui-info);
+      --_fill: linear-gradient(
+        to top,
+        var(--ui-info) 50%,
+        oklch(from var(--ui-info) l c h / 25%) 50%
+      );
+    }
+
+    &:is([data-stage="answered"], [data-stage="done"]) {
+      --_edge: var(--ui-success);
+      --_fill: var(--ui-success);
+    }
+
+    &[data-stage="follow-up"] {
+      --_edge: var(--ui-warning);
+      --_fill: var(--ui-warning);
+    }
+
+    &[data-stage="skipped"] {
+      --_fill: repeating-linear-gradient(
+        -45deg,
+        oklch(from var(--ui-text) l c h / 45%) 0 1px,
+        transparent 1px 3px
+      );
+    }
+
+    &[data-changed] {
+      outline: 2px solid var(--ui-primary);
+      outline-offset: 1px;
+    }
+
+    &[data-pop] {
+      @media (prefers-reduced-motion: no-preference) {
+        animation: progress-pop var(--ui-duration-slow) var(--ui-ease-enter);
+      }
+    }
+  }
+
+  @keyframes progress-pop {
+    50% {
+      scale: 1.8;
+    }
+  }
+</style>

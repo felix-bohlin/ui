@@ -12,11 +12,13 @@ import {
   ToggleButton,
   ToggleGroup,
 } from "opui-css/astro"
+import ProgressCell from "../Review/ProgressCell.astro"
+import ProgressMap from "../Review/ProgressMap.astro"
+import "../Review/review.css"
 import CommentField from "../Todo/CommentField.astro"
 import CopyFallback from "../Todo/CopyFallback.astro"
 import InlineText from "../Todo/InlineText.astro"
-import ChecklistMap from "./ChecklistMap.astro"
-import ChecklistNotes from "./ChecklistNotes.astro"
+import TodoNotes from "../Todo/TodoNotes.astro"
 import { parseChecklist, stages } from "../../utils/checklist"
 import { plainText, replyOf } from "../../utils/todo"
 
@@ -38,20 +40,25 @@ const doneIn = (list: typeof items) =>
 ---
 
 <div
-  class="checks"
+  class="checks review"
   data-checklist-file={file}
   data-checklist-storage={storageKey}
 >
-  <ChecklistMap class="checks-map-inline" source={source} />
+  <ProgressMap
+    class="review-map-inline"
+    complete={["done"]}
+    label="done"
+    sections={sections}
+  />
 
-  {intro.map((paragraph) => <p class="checks-intro">
+  {intro.map((paragraph) => <p class="review-intro">
     <InlineText links text={paragraph} />
   </p>)}
 
-  <div class="checks-toolbar ui-not-rich-text">
+  <div class="review-toolbar ui-not-rich-text">
     <TextField
       autocomplete="off"
-      class="checks-search"
+      class="review-search"
       hideLabel
       id="checks-search"
       label="Filter items"
@@ -61,7 +68,7 @@ const doneIn = (list: typeof items) =>
     />
     <ToggleGroup
       aria-label="Show items"
-      class="checks-stages"
+      class="review-stages"
       multiple
       name="checks-stage"
       overflow="scroll"
@@ -72,34 +79,30 @@ const doneIn = (list: typeof items) =>
         data-stage-filter={stage.value}
         value={stage.value}
       >
-        <span
+        <ProgressCell
           aria-hidden="true"
-          class="checks-swatch"
-          data-stage={stage.value}
-        ></span>
+          class="review-swatch"
+          stage={stage.value}
+        />
         {stage.label}
-        <span class="checks-stage-count" data-stage-count={stage.value}
+        <span class="review-stage-count" data-stage-count={stage.value}
           >{countOf(stage.value)}</span
         >
       </ToggleButton>)}
     </ToggleGroup>
-    <Button
-      class="checks-expand"
-      id="checks-expand"
-      size="small"
-      variant="transparent"
+    <Button id="checks-expand" size="small" variant="transparent"
       >Expand all</Button
     >
   </div>
 
-  <p class="checks-shortcuts">
+  <p class="review-shortcuts">
     <kbd>j</kbd>
     <kbd>k</kbd> next and previous, <kbd>x</kbd> check, <kbd>e</kbd> open,
     <kbd>c</kbd> comment, <kbd>1</kbd> to <kbd>{replies.length}</kbd> quick
     replies, <kbd>/</kbd> filter.
   </p>
 
-  <div class="checks-empty ui-not-rich-text" id="checks-empty" hidden>
+  <div class="review-empty ui-not-rich-text" id="checks-empty" hidden>
     <p>Nothing matches the filter.</p>
     <Button id="checks-show-all" size="small" variant="outlined"
       >Show all</Button
@@ -107,15 +110,15 @@ const doneIn = (list: typeof items) =>
   </div>
 
   {sections.map((section) => <section
-    class="checks-section"
+    class="review-section"
     data-check-section={section.title}
     id={section.id}
   >
     <h2>{section.title}</h2>
-    <div class="checks-section-meta ui-not-rich-text">
+    <div class="review-section-meta ui-not-rich-text">
       <span
         aria-hidden="true"
-        class="checks-meter"
+        class="review-meter"
         data-section-meter
         style={`--ratio: ${doneIn(section.items) / section.items.length}`}
       ></span>
@@ -123,9 +126,9 @@ const doneIn = (list: typeof items) =>
         {`${doneIn(section.items)} of ${section.items.length} done`}
       </p>
     </div>
-    <ol class="checks-list ui-not-rich-text">
+    <ol class="review-list ui-not-rich-text">
       {section.items.map((item) => <li
-        class="checks-item"
+        class="checks-item review-item"
         data-check-done={item.status === "x" ? "" : undefined}
         data-check-key={item.key}
         data-check-line={item.line}
@@ -134,33 +137,33 @@ const doneIn = (list: typeof items) =>
         data-stage={item.stage}
         id={`check-${item.key}`}
       >
-        <div class="checks-row">
-          <Checkbox class="checks-done" hideLabel
+        <div class="review-row">
+          <Checkbox class="checks-done review-control" hideLabel
             >{plainText(item.text)}</Checkbox
           >
-          <div class="checks-heading">
+          <div class="review-heading">
             <button
               aria-controls={`check-${item.key}-body`}
               aria-expanded="false"
-              class="checks-toggle"
+              class="checks-toggle review-toggle"
               type="button"
             >
               <InlineText text={item.text} />
             </button>
-            <p class="checks-preview" data-preview>
+            <p class="review-preview">
               {item.preview.label && <span
-                class="checks-preview-label"
+                class="review-preview-label"
                 data-tone={item.preview.tone}
                 >{item.preview.label}</span
               >}
               <InlineText text={item.preview.text} />
             </p>
-            <p class="checks-preview checks-preview-comment">
-              <span class="checks-preview-label" data-tone="you">You</span>
+            <p class="review-preview review-preview-answer">
+              <span class="review-preview-label" data-tone="you">You</span>
               <span data-comment-preview></span>
             </p>
           </div>
-          <div class="checks-tags">
+          <div class="review-tags">
             {item.openStage === "doing" && (
               <Chip
                 class="checks-stage-tag"
@@ -188,7 +191,7 @@ const doneIn = (list: typeof items) =>
             />
             <svg
               aria-hidden="true"
-              class="checks-chevron"
+              class="review-chevron"
               height="20"
               viewBox="0 0 24 24"
               width="20"
@@ -202,16 +205,21 @@ const doneIn = (list: typeof items) =>
           </div>
         </div>
         <div
-          class="checks-body"
+          class="review-body"
           hidden="until-found"
           id={`check-${item.key}-body`}
         >
-          <div class="checks-body-content">
-            <ChecklistNotes notes={item.notes} />
-            <div class="checks-reply">
-              <div aria-label="Quick replies" class="checks-quick" role="group">
+          <div class="review-body-content">
+            <TodoNotes notes={item.notes} />
+            <div class="review-reply">
+              <div
+                aria-label="Quick replies"
+                class="review-buttons"
+                role="group"
+              >
                 {replies.map((reply) => <Button
                   aria-pressed="false"
+                  class="review-pressable"
                   data-quick-reply={reply}
                   size="x-small"
                   variant="outlined"
@@ -280,15 +288,15 @@ const doneIn = (list: typeof items) =>
     </li>
   </template>
 
-  <div class="checks-dock ui-not-rich-text">
-    <p class="checks-pending" id="checks-progress">
+  <div class="review-dock ui-not-rich-text">
+    <p class="review-pending" id="checks-progress">
       <strong data-pending-count>No changes yet</strong>
       <span data-pending-detail
         >Check, reply or add items, then copy them for an agent.</span
       >
     </p>
-    <p class="checks-status" id="checks-status" role="status"></p>
-    <div class="checks-dock-actions">
+    <p class="review-status" id="checks-status" role="status"></p>
+    <div class="review-dock-actions">
       <Button
         command="show-modal"
         commandfor="checks-review"
@@ -303,12 +311,12 @@ const doneIn = (list: typeof items) =>
     </div>
   </div>
 
-  <Drawer class="checks-review" id="checks-review" side="inline-end">
+  <Drawer id="checks-review" side="inline-end">
     <DrawerHeader>
       <DrawerTitle>Review changes</DrawerTitle>
     </DrawerHeader>
     <DrawerContent>
-      <div class="checks-review-content">
+      <div class="review-drawer-content">
         <p>
           Paste this to an agent, which writes it into <code>{file}</code>.
           Until then, everything is saved in this browser.
@@ -317,13 +325,13 @@ const doneIn = (list: typeof items) =>
           Only what I changed, added or commented on
         </Checkbox>
         <pre
-          class="checks-review-text ui-code-block"
+          class="review-copy-text ui-code-block"
           id="checks-review-text"
         ></pre>
-        <p class="checks-status" id="checks-review-status" role="status"></p>
-        <div class="checks-start-over">
+        <p class="review-status" id="checks-review-status" role="status"></p>
+        <div class="review-start-over">
           <p>Start over</p>
-          <div class="checks-buttons">
+          <div class="review-buttons">
             <Button id="checks-clear-comments" size="small" variant="outlined"
               >Clear comments</Button
             >
@@ -351,6 +359,15 @@ const doneIn = (list: typeof items) =>
 </div>
 
 <script>
+  import {
+    disclosure,
+    highlightMatches,
+    isTyping,
+    plural,
+    progressMaps,
+    shortcutsOff,
+    statusLines,
+  } from "../Review/review"
   import { copyOrSelect, trackComments } from "../Todo/comments"
   import { readStored as read, writeStored as write } from "../../utils/storage"
   import { slugify } from "../../utils/todo"
@@ -368,7 +385,6 @@ const doneIn = (list: typeof items) =>
   const sections = [
     ...root.querySelectorAll<HTMLElement>("[data-check-section]"),
   ]
-  const maps = [...document.querySelectorAll<HTMLElement>("[data-checks-map]")]
   const keyOf = (item: HTMLElement) => item.dataset.checkKey!
   const lineOf = (item: HTMLElement) => item.dataset.checkLine!
   const titleOf = (section: HTMLElement) => section.dataset.checkSection!
@@ -377,29 +393,26 @@ const doneIn = (list: typeof items) =>
   const doneInFile = (item: HTMLElement) => "checkDone" in item.dataset
   const doneOf = (item: HTMLElement) =>
     item.querySelector<HTMLInputElement>(".checks-done input")!
-  const toggleOf = (item: HTMLElement) =>
-    item.querySelector<HTMLButtonElement>(".checks-toggle")!
-  const bodyOf = (item: HTMLElement) =>
-    item.querySelector<HTMLElement>(".checks-body")!
   const fieldOf = (item: HTMLElement) => item.querySelector("textarea")!
   const changed = (item: HTMLElement) =>
     doneOf(item).checked !== doneInFile(item)
   const stageOf = (item: HTMLElement) =>
     doneOf(item).checked ? "done" : item.dataset.openStage!
-  const isOpen = (item: HTMLElement) =>
-    toggleOf(item).getAttribute("aria-expanded") === "true"
 
   const review = root.querySelector<HTMLDialogElement>("#checks-review")!
-  const statuses = [
-    root.querySelector<HTMLElement>("#checks-status")!,
-    root.querySelector<HTMLElement>("#checks-review-status")!,
-  ]
+  const status = statusLines(
+    [
+      root.querySelector<HTMLElement>("#checks-status")!,
+      root.querySelector<HTMLElement>("#checks-review-status")!,
+    ],
+    () => (review.open ? 1 : 0),
+  )
   const copyFallback = root.querySelector<HTMLDialogElement>(
     "[data-copy-fallback]",
   )!
   const search = root.querySelector<HTMLInputElement>("#checks-search")!
   const stageInputs = [
-    ...root.querySelectorAll<HTMLInputElement>(".checks-stages input"),
+    ...root.querySelectorAll<HTMLInputElement>(".review-stages input"),
   ]
   const expandAll = root.querySelector<HTMLButtonElement>("#checks-expand")!
   const empty = root.querySelector<HTMLElement>("#checks-empty")!
@@ -415,30 +428,41 @@ const doneIn = (list: typeof items) =>
   const notSaved =
     "Changes can't be saved in this browser. Copy them before leaving the page."
 
-  let statusTimer = 0
-  const clearStatus = () => {
-    clearTimeout(statusTimer)
-    for (const status of statuses) status.textContent = ""
-  }
-  const setStatus = (message: string) => {
-    clearStatus()
-    statuses[review.open ? 1 : 0].textContent = message
-    statusTimer = window.setTimeout(clearStatus, 6000)
-  }
-
-  const plural = (count: number, word: string) =>
-    `${count} ${word}${count === 1 ? "" : "s"}`
-
   const added = read<Record<string, string[]>>(addedKey, {})
   const commentOf = (item: HTMLElement) => fieldOf(item).value.trim()
 
+  const visibleItems = () => items.filter((item) => !item.hidden)
+  const updateExpandAll = () => {
+    const visible = visibleItems()
+    expandAll.textContent =
+      visible.length && visible.every((item) => panels.get(item)!.isOpen())
+        ? "Collapse all"
+        : "Expand all"
+  }
+  const panels = new Map(
+    items.map((item) => [item, disclosure(item, () => updateExpandAll())]),
+  )
+  const toggleOf = (item: HTMLElement) => panels.get(item)!.toggle
+  const setOpen = (item: HTMLElement, open: boolean) =>
+    panels.get(item)!.setOpen(open)
+
+  const maps = progressMaps((key) => {
+    const item = items.find((item) => keyOf(item) === key)
+    if (!item) return
+    if (item.hidden) showAll()
+    setOpen(item, true)
+    item.scrollIntoView({ block: "start" })
+    lastItem = item
+    toggleOf(item).focus({ preventScroll: true })
+  })
+
   const render = () => {
     for (const item of items) {
-      const stage = stageOf(item)
       const comment = commentOf(item)
-      item.dataset.stage = stage
+      item.dataset.stage = stageOf(item)
       item.toggleAttribute("data-changed", changed(item))
-      item.toggleAttribute("data-commented", Boolean(comment))
+      item.toggleAttribute("data-answered", Boolean(comment))
+      item.toggleAttribute("data-marked", changed(item) || Boolean(comment))
       item.querySelector("[data-comment-preview]")!.textContent = comment
       for (const button of item.querySelectorAll<HTMLElement>(
         "[data-quick-reply]",
@@ -448,30 +472,15 @@ const doneIn = (list: typeof items) =>
           String(button.dataset.quickReply === comment),
         )
       }
-      for (const cell of document.querySelectorAll<HTMLElement>(
-        `[data-map-key="${keyOf(item)}"]`,
-      )) {
-        if (cell.dataset.stage !== stage) {
-          cell.toggleAttribute("data-pop", true)
-          cell.addEventListener(
-            "animationend",
-            () => cell.removeAttribute("data-pop"),
-            { once: true },
-          )
-        }
-        cell.dataset.stage = stage
-        cell.toggleAttribute("data-changed", changed(item) || Boolean(comment))
-      }
     }
 
-    const done = items.filter((item) => doneOf(item).checked).length
-    const ratio = items.length ? done / items.length : 0
-    for (const map of maps) {
-      map.style.setProperty("--ratio", String(ratio))
-      map.querySelector("[data-map-percent]")!.textContent =
-        `${Math.round(ratio * 100)}%`
-      map.querySelector("[data-map-done]")!.textContent = String(done)
-    }
+    maps.update(
+      items.map((item) => ({
+        changed: changed(item) || Boolean(commentOf(item)),
+        key: keyOf(item),
+        stage: stageOf(item),
+      })),
+    )
 
     for (const section of sections) {
       const list = itemsOf(section)
@@ -481,15 +490,6 @@ const doneIn = (list: typeof items) =>
         .style.setProperty("--ratio", String(sectionDone / list.length))
       section.querySelector("[data-section-progress]")!.textContent =
         `${sectionDone} of ${list.length} done`
-      for (const link of document.querySelectorAll<HTMLElement>(
-        `[data-map-section="${section.id}"]`,
-      )) {
-        link.toggleAttribute("data-map-complete", sectionDone === list.length)
-        link.querySelector("[data-map-count]")!.textContent =
-          `${sectionDone}/${list.length}`
-        link.querySelector("[data-map-count-text]")!.textContent =
-          `, ${sectionDone} of ${list.length} done`
-      }
     }
 
     for (const input of stageInputs) {
@@ -520,7 +520,7 @@ const doneIn = (list: typeof items) =>
     const overrides = Object.fromEntries(
       items.filter(changed).map((item) => [keyOf(item), doneOf(item).checked]),
     )
-    if (!write(doneKey, overrides)) setStatus(notSaved)
+    if (!write(doneKey, overrides)) status.set(notSaved)
     render()
   }
 
@@ -547,7 +547,7 @@ const doneIn = (list: typeof items) =>
   const comments = trackComments({
     items,
     keyOf,
-    onError: () => setStatus(notSaved),
+    onError: () => status.set(notSaved),
     storageKey: commentsKey,
   })
 
@@ -555,37 +555,10 @@ const doneIn = (list: typeof items) =>
     fieldOf(item).addEventListener("input", render)
   }
 
-  const setOpen = (item: HTMLElement, open: boolean) => {
-    toggleOf(item).setAttribute("aria-expanded", String(open))
-    item.toggleAttribute("data-open", open)
-    if (open) bodyOf(item).removeAttribute("hidden")
-    else bodyOf(item).setAttribute("hidden", "until-found")
-  }
-
-  const visibleItems = () => items.filter((item) => !item.hidden)
-
-  const updateExpandAll = () => {
-    const visible = visibleItems()
-    expandAll.textContent =
-      visible.length && visible.every(isOpen) ? "Collapse all" : "Expand all"
-  }
-
-  for (const item of items) {
-    toggleOf(item).addEventListener("click", () => {
-      setOpen(item, !isOpen(item))
-      updateExpandAll()
-    })
-    bodyOf(item).addEventListener("beforematch", () => {
-      setOpen(item, true)
-      updateExpandAll()
-    })
-  }
-
   expandAll.addEventListener("click", () => {
     const visible = visibleItems()
-    const open = !visible.every(isOpen)
+    const open = !visible.every((item) => panels.get(item)!.isOpen())
     for (const item of visible) setOpen(item, open)
-    updateExpandAll()
   })
 
   const quickReply = (item: HTMLElement, reply: string) => {
@@ -602,7 +575,7 @@ const doneIn = (list: typeof items) =>
         : `${current}\n${reply}`
     field.dispatchEvent(new Event("input", { bubbles: true }))
     comments.saveAll()
-    setStatus(
+    status.set(
       `${field.value ? "Replied to" : "Removed the reply to"} ${toggleOf(item).textContent!.trim()}.`,
     )
   }
@@ -621,8 +594,8 @@ const doneIn = (list: typeof items) =>
     items.map((item) => [
       item,
       [
-        item.querySelector(".checks-toggle")!.textContent,
-        item.querySelector(".checks-notes")?.textContent ?? "",
+        toggleOf(item).textContent,
+        item.querySelector(".todo-notes")?.textContent ?? "",
       ]
         .join(" ")
         .toLowerCase(),
@@ -633,36 +606,6 @@ const doneIn = (list: typeof items) =>
     new Set(
       stageInputs.filter((input) => input.checked).map((input) => input.value),
     )
-
-  const highlight = (query: string) => {
-    if (!("highlights" in CSS)) return
-    if (!query) {
-      CSS.highlights.delete("checks-match")
-      return
-    }
-    const ranges: Range[] = []
-    for (const item of visibleItems()) {
-      for (const part of item.querySelectorAll(
-        ".checks-toggle, .checks-notes",
-      )) {
-        const walker = document.createTreeWalker(part, NodeFilter.SHOW_TEXT)
-        for (let node = walker.nextNode(); node; node = walker.nextNode()) {
-          const text = node.textContent!.toLowerCase()
-          for (
-            let index = text.indexOf(query);
-            index >= 0;
-            index = text.indexOf(query, index + query.length)
-          ) {
-            const range = new Range()
-            range.setStart(node, index)
-            range.setEnd(node, index + query.length)
-            ranges.push(range)
-          }
-        }
-      }
-    }
-    CSS.highlights.set("checks-match", new Highlight(...ranges))
-  }
 
   const applyFilter = () => {
     const query = search.value.trim().toLowerCase()
@@ -678,7 +621,12 @@ const doneIn = (list: typeof items) =>
         !everything && itemsOf(section).every((item) => item.hidden)
     }
     empty.hidden = sections.some((section) => !section.hidden)
-    highlight(query)
+    highlightMatches(
+      visibleItems().flatMap((item) => [
+        ...item.querySelectorAll(".review-toggle, .todo-notes"),
+      ]),
+      query,
+    )
     updateExpandAll()
   }
 
@@ -719,7 +667,7 @@ const doneIn = (list: typeof items) =>
   }
 
   const saveAdded = () => {
-    if (!write(addedKey, added)) setStatus(notSaved)
+    if (!write(addedKey, added)) status.set(notSaved)
     render()
   }
 
@@ -738,7 +686,7 @@ const doneIn = (list: typeof items) =>
           if (!texts.length) delete added[titleOf(section)]
           saveAdded()
           renderAdded(section)
-          setStatus(`Removed ${text}.`)
+          status.set(`Removed ${text}.`)
         })
         return row
       }),
@@ -778,7 +726,7 @@ const doneIn = (list: typeof items) =>
       saveAdded()
       renderAdded(section)
       field.value = ""
-      setStatus(`Added ${text} to ${titleOf(section)}.`)
+      status.set(`Added ${text} to ${titleOf(section)}.`)
     })
   }
   saveAdded()
@@ -819,7 +767,7 @@ const doneIn = (list: typeof items) =>
   }
 
   const updateReview = () => {
-    clearStatus()
+    status.clear()
     comments.saveAll()
     const { count, text } = buildText()
     reviewText.textContent =
@@ -837,10 +785,10 @@ const doneIn = (list: typeof items) =>
     comments.saveAll()
     const { count, text } = buildText()
     if (onlyChanged.checked && !count) {
-      setStatus("Nothing changed, added or commented on yet.")
+      status.set("Nothing changed, added or commented on yet.")
       return
     }
-    setStatus(
+    status.set(
       (await copyOrSelect(text, copyFallback))
         ? `Copied ${plural(count, "change")}. Paste them to an agent.`
         : "This browser blocked copying.",
@@ -857,7 +805,7 @@ const doneIn = (list: typeof items) =>
       comments.clear()
       render()
       updateReview()
-      setStatus("Comments cleared.")
+      status.set("Comments cleared.")
     })
 
   root.querySelector("#checks-clear-new")!.addEventListener("click", () => {
@@ -866,7 +814,7 @@ const doneIn = (list: typeof items) =>
     saveAdded()
     sections.forEach(renderAdded)
     updateReview()
-    setStatus("New items cleared.")
+    status.set("New items cleared.")
   })
 
   root.querySelector("#checks-reset")!.addEventListener("click", () => {
@@ -874,7 +822,7 @@ const doneIn = (list: typeof items) =>
     for (const item of items) doneOf(item).checked = doneInFile(item)
     saveDone()
     updateReview()
-    setStatus("Checks reset to the file.")
+    status.set("Checks reset to the file.")
   })
 
   let lastItem: HTMLElement | undefined
@@ -901,32 +849,10 @@ const doneIn = (list: typeof items) =>
     )
   }
 
-  for (const map of maps) {
-    map.addEventListener("click", (event) => {
-      const cell = (event.target as HTMLElement).closest<HTMLElement>(
-        "[data-map-key]",
-      )
-      const item = items.find((item) => keyOf(item) === cell?.dataset.mapKey)
-      if (!item) return
-      event.preventDefault()
-      if (item.hidden) showAll()
-      setOpen(item, true)
-      item.scrollIntoView({ block: "start" })
-      lastItem = item
-      toggleOf(item).focus({ preventScroll: true })
-    })
-  }
-
   document.addEventListener("keydown", (event) => {
+    if (shortcutsOff(event)) return
     const target = event.target as HTMLElement
-    if (
-      event.metaKey ||
-      event.ctrlKey ||
-      event.altKey ||
-      document.querySelector("dialog[open]")
-    )
-      return
-    if (target.closest("input:not([type=checkbox]), textarea, select")) {
+    if (isTyping(target)) {
       if (event.key === "Escape") {
         const item = target.closest<HTMLElement>(".checks-item")
         if (item) toggleOf(item).focus({ preventScroll: true })
@@ -944,10 +870,9 @@ const doneIn = (list: typeof items) =>
     else if (event.key === "k") step(-1)
     else if (event.key === "/") search.focus()
     else if (event.key === "x" && item) doneOf(item).click()
-    else if (event.key === "e" && item) {
-      setOpen(item, !isOpen(item))
-      updateExpandAll()
-    } else if (event.key === "c" && item) {
+    else if (event.key === "e" && item)
+      setOpen(item, !panels.get(item)!.isOpen())
+    else if (event.key === "c" && item) {
       setOpen(item, true)
       fieldOf(item).focus()
     } else if (reply && item) {
@@ -957,406 +882,27 @@ const doneIn = (list: typeof items) =>
     event.preventDefault()
   })
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue
-        for (const link of document.querySelectorAll("[data-map-section]")) {
-          if (link.getAttribute("data-map-section") === entry.target.id)
-            link.setAttribute("aria-current", "location")
-          else link.removeAttribute("aria-current")
-        }
-      }
-    },
-    { rootMargin: "-20% 0px -70% 0px" },
-  )
-  for (const section of sections) observer.observe(section)
-
   render()
   applyFilter()
 </script>
 
 <style>
-  @property --ratio {
-    inherits: true;
-    initial-value: 0;
-    syntax: "<number>";
-  }
-
-  .checks {
-    --checks-sticky-top: calc(var(--size-10) + var(--site-gap));
-
-    display: grid;
-    gap: var(--size-4);
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .checks-intro {
-    color: var(--ui-text);
-    font-size: var(--ui-font-size-small);
-    margin: 0;
-  }
-
-  .checks > :global(.checks-map-inline) {
-    background-color: var(--ui-surface-filled);
-    border-radius: var(--ui-radius-large);
-    padding: var(--size-4);
-
-    @media (width >= 900px) {
-      display: none;
-    }
-  }
-
-  .checks-toolbar {
-    align-items: center;
-    backdrop-filter: blur(8px);
-    background-color: oklch(from var(--ui-surface-elevated) l c h / 85%);
-    border: var(--ui-border-width) solid var(--ui-border-color);
-    border-radius: var(--ui-radius-large);
-    box-shadow: var(--shadow-2);
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--size-2) var(--size-3);
-    padding: var(--size-2);
-    z-index: 21;
-
-    @media (width >= 900px) {
-      inset-block-start: var(--checks-sticky-top);
-      position: sticky;
-    }
-
-    & :global(.checks-search) {
-      flex: 1 1 8rem;
-    }
-
-    & :global(.checks-stages) {
-      flex: 0 1 auto;
-      min-inline-size: 0;
-    }
-  }
-
-  .checks-swatch {
-    aspect-ratio: 1;
-    border-radius: 2px;
-    box-shadow: inset 0 0 0 1px oklch(from var(--ui-text) l c h / 45%);
-    inline-size: 10px;
-    outline: 2px solid var(--ui-surface);
-
-    &[data-stage="doing"] {
-      background: linear-gradient(
-        to top,
-        var(--ui-info) 50%,
-        oklch(from var(--ui-info) l c h / 25%) 50%
-      );
-      box-shadow: inset 0 0 0 1px var(--ui-info);
-    }
-
-    &[data-stage="done"] {
-      background-color: var(--ui-success);
-      box-shadow: none;
-    }
-
-    &[data-stage="skipped"] {
-      background: repeating-linear-gradient(
-        -45deg,
-        oklch(from var(--ui-text) l c h / 45%) 0 1px,
-        transparent 1px 3px
-      );
-    }
-  }
-
-  .checks-stage-count {
-    color: var(--ui-text);
-    font-size: var(--ui-font-size-caption);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .checks-shortcuts {
-    color: var(--ui-text);
-    display: none;
-    font-size: var(--ui-font-size-caption);
-    margin: 0;
-
-    @media (pointer: fine) {
-      display: block;
-    }
-  }
-
-  .checks-empty {
-    align-items: center;
-    border: var(--ui-border-width) dashed var(--ui-border-color);
-    border-radius: var(--ui-radius-large);
-    display: grid;
-    gap: var(--size-3);
-    justify-items: center;
-    padding: var(--size-8) var(--size-4);
-
-    &[hidden] {
-      display: none;
-    }
-
-    p {
-      margin: 0;
-    }
-  }
-
-  .checks-section {
-    display: grid;
-    gap: var(--size-2);
-    margin-block-start: var(--size-6);
-    scroll-margin-block-start: calc(var(--checks-sticky-top) + var(--size-10));
-
-    &[hidden] {
-      display: none;
-    }
-
-    & > :global(h2) {
-      margin: 0;
-    }
-  }
-
-  .checks-section-meta {
-    align-items: center;
-    color: var(--ui-text);
-    display: flex;
-    font-size: var(--ui-font-size-small);
-    gap: var(--size-3);
-
-    p {
-      font-variant-numeric: tabular-nums;
-      margin: 0;
-    }
-  }
-
-  .checks-meter {
-    background: linear-gradient(
-      to right,
-      var(--ui-success) calc(var(--ratio) * 100%),
-      oklch(from var(--ui-text-strong) l c h / 12%) 0
-    );
-    block-size: var(--size-1);
-    border-radius: var(--ui-radius-round);
-    flex: 0 1 var(--size-12);
-
-    @media (prefers-reduced-motion: no-preference) {
-      transition: --ratio var(--ui-duration-slow) var(--ui-ease);
-    }
-  }
-
-  .checks-list {
-    border: var(--ui-border-width) solid var(--ui-border-color);
-    border-radius: var(--ui-radius-large);
-    list-style: none;
-    margin: var(--size-2) 0 0;
-    overflow: clip;
-    padding: 0;
-  }
-
   .checks-item {
-    background-color: var(--ui-surface);
-    position: relative;
-    scroll-margin-block: calc(var(--checks-sticky-top) + var(--size-11))
-      var(--size-12);
-
-    &[hidden] {
-      display: none;
-    }
-
-    & + & {
-      border-block-start: var(--ui-border-width) solid var(--ui-border-color);
-    }
-
-    &::before {
-      background-color: var(--ui-primary);
-      content: "";
-      inline-size: var(--size-1);
-      inset-block: 0;
-      inset-inline-start: 0;
-      opacity: 0;
-      position: absolute;
-
-      @media (prefers-reduced-motion: no-preference) {
-        transition: opacity var(--ui-duration) var(--ui-ease);
-      }
-    }
-
-    &[data-changed]::before,
-    &[data-commented]::before {
-      opacity: 1;
-    }
-
-    &[data-open] {
-      background-color: var(--ui-surface-elevated);
-    }
-  }
-
-  .checks-row {
-    align-items: start;
-    column-gap: var(--size-3);
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    padding: var(--size-3) var(--size-3) var(--size-3) var(--size-4);
-    position: relative;
-
-    &:hover {
-      background-color: oklch(from var(--ui-text-strong) l c h / 4%);
-    }
-
-    &:has(.checks-toggle:focus-visible) {
-      outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
-        var(--ui-focus-ring-color);
-      outline-offset: calc(var(--ui-focus-ring-width) * -1);
-    }
-
-    & :global(.checks-done) {
-      margin-block-start: 1px;
-      position: relative;
-      z-index: 1;
-    }
-  }
-
-  .checks-heading {
-    display: grid;
-    gap: var(--size-1);
-    min-inline-size: 0;
-  }
-
-  .checks-toggle {
-    all: unset;
-    color: var(--ui-text-strong);
-    cursor: pointer;
-    font-weight: var(--ui-font-weight-medium);
-    line-height: var(--ui-line-height-tight);
-    text-wrap: pretty;
-
-    &::after {
-      content: "";
-      inset: 0;
-      position: absolute;
-    }
-
-    [data-stage="done"] & {
+    &[data-stage="done"] .review-toggle {
       color: var(--ui-text);
       font-weight: var(--ui-font-weight-normal);
     }
-  }
-
-  .checks-preview {
-    color: var(--ui-text);
-    font-size: var(--ui-font-size-small);
-    margin: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-    [data-open] & {
-      display: none;
-    }
-  }
-
-  .checks-preview-comment {
-    color: var(--ui-text-strong);
-    display: none;
-
-    [data-commented]:not([data-open]) & {
-      display: block;
-    }
-  }
-
-  [data-commented] [data-preview] {
-    display: none;
-  }
-
-  .checks-preview-label {
-    --_tone: var(--ui-text-strong);
-
-    color: var(--_tone);
-    font-weight: var(--ui-font-weight-semibold);
-    margin-inline-end: var(--size-1);
-
-    &::after {
-      content: ":";
-    }
-
-    &[data-tone="done"] {
-      --_tone: var(--ui-success-text);
-    }
-
-    &[data-tone="open"] {
-      --_tone: var(--ui-warning-text);
-    }
-
-    &[data-tone="progress"] {
-      --_tone: var(--ui-info-text);
-    }
-
-    &[data-tone="you"] {
-      --_tone: var(--ui-primary-text);
-    }
-  }
-
-  .checks-tags {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--size-2);
-    justify-content: end;
 
     & :global(.checks-changed) {
       display: none;
     }
 
-    [data-changed] & :global(.checks-changed) {
+    &[data-changed] :global(.checks-changed) {
       display: inline-flex;
     }
 
-    [data-stage="done"] & :global(.checks-stage-tag) {
+    &[data-stage="done"] :global(.checks-stage-tag) {
       display: none;
-    }
-  }
-
-  .checks-chevron {
-    color: var(--ui-text);
-    flex: none;
-
-    @media (prefers-reduced-motion: no-preference) {
-      transition: rotate var(--ui-duration) var(--ui-ease);
-    }
-
-    [data-open] & {
-      rotate: 180deg;
-    }
-  }
-
-  .checks-body-content {
-    display: grid;
-    gap: var(--size-4);
-    padding: 0 var(--size-4) var(--size-4)
-      calc(var(--size-4) + var(--ui-choice-size) + var(--size-3));
-  }
-
-  .checks-reply {
-    display: grid;
-    gap: var(--size-2);
-
-    & :global(.comment-field) {
-      inline-size: 100%;
-    }
-
-    & :global(.comment-saved:empty) {
-      display: inline-block;
-    }
-  }
-
-  .checks-quick {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--size-2);
-
-    & :global(.ui-button[aria-pressed="true"]) {
-      background-color: var(--ui-primary);
-      border-color: var(--ui-primary);
-      color: var(--ui-on-primary);
     }
   }
 
@@ -1410,113 +956,5 @@ const doneIn = (list: typeof items) =>
     & :global(.checks-add-field) {
       flex: 1;
     }
-  }
-
-  .checks-dock {
-    align-items: center;
-    backdrop-filter: blur(8px);
-    background-color: oklch(from var(--ui-surface-elevated) l c h / 90%);
-    border: var(--ui-border-width) solid var(--ui-border-color);
-    border-radius: var(--ui-radius-round);
-    box-shadow: var(--shadow-4);
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--size-2) var(--size-4);
-    inset-block-end: var(--size-4);
-    justify-content: space-between;
-    margin-block-start: var(--size-8);
-    padding: var(--size-2) var(--size-2) var(--size-2) var(--size-5);
-    position: sticky;
-    z-index: 21;
-
-    [data-pending] & {
-      border-color: var(--ui-primary);
-    }
-
-    @media (width < 600px) {
-      border-radius: var(--ui-radius-large);
-      padding-inline-start: var(--size-3);
-
-      [data-pending-detail] {
-        display: none;
-      }
-    }
-  }
-
-  .checks-pending {
-    display: grid;
-    flex: 1 1 20ch;
-    font-size: var(--ui-font-size-small);
-    line-height: var(--ui-line-height-tight);
-    margin: 0;
-    min-inline-size: 0;
-
-    strong {
-      color: var(--ui-text-strong);
-    }
-
-    span {
-      color: var(--ui-text);
-    }
-
-    .checks-dock:has(.checks-status:not(:empty)) & {
-      display: none;
-    }
-  }
-
-  .checks-status {
-    color: var(--ui-text-strong);
-    font-size: var(--ui-font-size-small);
-    margin: 0;
-
-    &:empty {
-      display: none;
-    }
-  }
-
-  .checks-dock-actions {
-    display: flex;
-    gap: var(--size-2);
-    margin-inline-start: auto;
-  }
-
-  .checks-review-content {
-    display: grid;
-    gap: var(--size-4);
-
-    p {
-      margin: 0;
-    }
-  }
-
-  .checks-review-text {
-    font-size: var(--ui-font-size-caption);
-    margin: 0;
-    max-block-size: 50dvb;
-    overflow: auto;
-    white-space: pre-wrap;
-  }
-
-  .checks-start-over {
-    border-block-start: var(--ui-border-width) solid var(--ui-border-color);
-    display: grid;
-    gap: var(--size-2);
-    padding-block-start: var(--size-4);
-
-    p {
-      color: var(--ui-text-strong);
-      font-weight: var(--ui-font-weight-semibold);
-    }
-  }
-
-  .checks-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--size-2);
-  }
-
-  :global(::highlight(checks-match)) {
-    background-color: oklch(from var(--ui-warning) l c h / 45%);
-    color: var(--ui-text-strong);
   }
 </style>

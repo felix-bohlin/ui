@@ -10,7 +10,9 @@ export const stages = [
 const tones = new Map([
   ["Done", "done"],
   ["Drafts", "progress"],
+  ["Explained", "progress"],
   ["Fixed", "done"],
+  ["Removed", "skipped"],
   ["Skipped", "skipped"],
   ["Started", "progress"],
   ["Still open", "open"],
@@ -18,7 +20,7 @@ const tones = new Map([
 ])
 
 const outcomePattern =
-  /^(Done|Drafts|Fixed|Skipped|Started|Still open|Update|rc\.\d+)((?: already| in [0-9a-f]{7,40})?)(?:: |\.$)(.*)$/s
+  /^(Done|Drafts|Explained|Fixed|Removed|Skipped|Started|Still open|Update|rc\.\d+)((?: already| in [0-9a-f]{7,40}| with option [A-Z0-9]+)?)(?:: |\.$)(.*)$/s
 
 export const outcomeOf = (text: string) => {
   const match = text.match(outcomePattern)

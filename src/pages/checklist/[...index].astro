@@ -1,7 +1,8 @@
 ---
 import Checklist from "../../components/Checklist/Checklist.astro"
-import ChecklistMap from "../../components/Checklist/ChecklistMap.astro"
+import ProgressMap from "../../components/Review/ProgressMap.astro"
 import Document from "../../layouts/Document.astro"
+import { parseChecklist } from "../../utils/checklist"
 import { testPagesEnabled } from "../../utils/test-pages"
 import source from "../../../docs/releases/6.0.0-checklist.md?raw"
 
@@ -9,6 +10,8 @@ export function getStaticPaths() {
   if (!testPagesEnabled()) return []
   return [{ params: { index: undefined } }]
 }
+
+const { sections } = parseChecklist(source)
 ---
 
 <Document
@@ -23,7 +26,13 @@ export function getStaticPaths() {
     add what's missing, then copy your changes for an agent, which writes them
     into the file.
   </p>
-  <ChecklistMap class="checks-map-sidebar" slot="sidebar" source={source} />
+  <ProgressMap
+    class="checks-map-sidebar"
+    complete={["done"]}
+    label="done"
+    sections={sections}
+    slot="sidebar"
+  />
 
   <Checklist
     file="docs/releases/6.0.0-checklist.md"

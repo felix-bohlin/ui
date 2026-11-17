@@ -104,11 +104,15 @@ const isBalanced = (value: string) => {
 
 const TOKEN_NAME = /^--ui-[a-z\d-]+$/
 
+const ICON_TOKEN = /^--ui-icon-[a-z-]+$/
+
+const ICON_IMAGE = /^url\("data:image\/svg\+xml,[^"\\{};<>\p{Cc}]*"\)$/u
+
 export const isSafeToken = (name: string, value: string) =>
   TOKEN_NAME.test(name) &&
   value.trim() !== "" &&
-  !UNSAFE_VALUE.test(value) &&
-  isBalanced(value)
+  ((ICON_TOKEN.test(name) && ICON_IMAGE.test(value.trim())) ||
+    (!UNSAFE_VALUE.test(value) && isBalanced(value)))
 
 const EVENT_NAME = "theme:change"
 
@@ -140,15 +144,37 @@ export const presetBrand = (preset: string | null) => {
   return primary && !primary.includes("var(") ? primary : source
 }
 
-export const customCss = (tokens: ThemeTokens) => {
-  const entries = Object.entries(sortTokens(tokens))
-  if (entries.length === 0) return ""
+export type IconBlock = { comment: string; tokens: string[] }
+
+const commentLines = (comment: string, indent: string) =>
+  [
+    `${indent}/*`,
+    ...comment.split("\n").map((line) => `${indent} * ${line}`),
+    `${indent} */`,
+  ].join("\n")
+
+export const customCss = (tokens: ThemeTokens, icons?: IconBlock | null) => {
+  const all = Object.entries(sortTokens(tokens))
+  if (all.length === 0) return ""
+  const iconEntries = icons
+    ? all.filter(([name]) => icons.tokens.includes(name))
+    : []
+  const entries = all.filter((entry) => !iconEntries.includes(entry))
   const handback = entries
     .filter(([name]) => HANDBACK.includes(name))
     .map(([name]): [string, string] => [name, "revert-layer"])
   return [
     "@layer theme.custom {",
-    rule(":where(html, .ui-palette, .ui-contrast-more)", entries),
+    ...(entries.length > 0
+      ? [rule(":where(html, .ui-palette, .ui-contrast-more)", entries)]
+      : []),
+    ...(icons && iconEntries.length > 0
+      ? [
+          ...(entries.length > 0 ? [""] : []),
+          commentLines(icons.comment, "  "),
+          rule(":where(html, .ui-palette, .ui-contrast-more)", iconEntries),
+        ]
+      : []),
     ...(handback.length > 0
       ? [
           "",
@@ -180,10 +206,10 @@ export const themeFontIds = ({ preset, tokens }: Theme) => {
   ).filter((id) => !BUNDLED_FONTS.includes(id))
 }
 
-export const exportCss = (theme: Theme) => {
+export const exportCss = (theme: Theme, icons?: IconBlock | null) => {
   const { preset, tokens } = theme
   const base = presetCss(preset)
-  const custom = customCss(tokens)
+  const custom = customCss(tokens, icons)
   const imports = fontImports(themeFontIds(theme))
   const fonts = imports ? `${imports}\n\n` : ""
   if (!base && !custom) return PLACEHOLDER_CSS

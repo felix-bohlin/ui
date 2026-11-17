@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro"
 import { posts } from "../../utils/blog"
+import { blog } from "../../utils/blog-posts"
 
 const escape = (text: string) =>
   text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
@@ -23,9 +24,9 @@ export const GET: APIRoute = ({ site }) => {
     `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Open Props UI blog</title>
+    <title>${escape(blog.title)}</title>
     <link>${url("/blog/")}</link>
-    <description>How the components are made, one technique at a time.</description>
+    <description>${escape(blog.description)}</description>
     <language>en</language>
     <atom:link href="${url("/blog/rss.xml")}" rel="self" type="application/rss+xml" />
 ${items.join("\n")}

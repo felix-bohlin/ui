@@ -77,6 +77,16 @@ import "./styles/main.css"`}
     <Builds tools={["vite"]} />
   </section>
 
+  <section id="typescript">
+    <h2>TypeScript</h2>
+    <p>
+      Vue needs the TypeScript version <code>vue-tsc</code> supports, since it
+      checks the <code>.vue</code> files: vue-tsc 3.3 runs on TypeScript 6, not
+      on 7. The types resolve with <code>moduleResolution</code> set to
+      <code>"bundler"</code> or <code>"nodenext"</code>.
+    </p>
+  </section>
+
   <section id="usage">
     <h2>How to use</h2>
     <p>Named slots take rich content, like <code>end-text</code>.</p>

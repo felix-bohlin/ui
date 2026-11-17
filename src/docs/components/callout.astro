@@ -1,5 +1,6 @@
 ---
 import Component from "../../layouts/Component.astro"
+import DefaultIcon from "./partials/DefaultIcon.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
@@ -49,10 +50,14 @@ const ThemeCSS = `/* ... */
 }
 /* ... */`
 
+export const description =
+  "A message in the flow of the page, without interrupting the task."
+
 export const keywords = ["alert", "banner", "message box", "notice", "warning"]
 ---
 
 <Component
+  description={description}
   slug="callout"
   heroAnatomy
   apis={[{ title: "Callout API", api: calloutApi }]}
@@ -79,7 +84,9 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
 >
   <Fragment slot="title">Callout</Fragment>
   <Fragment slot="preamble">
-    A message in the flow of the page, without interrupting the task.
+    A message in the flow of the page, without interrupting the task. For a
+    confirmation that goes away on its own, use a
+    <DocLink href="/components/toast">Toast</DocLink>.
   </Fragment>
 
   <Usage slot="usage">
@@ -128,13 +135,16 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
     <h2>Icon</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        <code>CalloutIcon</code> renders the severity's icon. For your own, put
-        an <code>&lt;svg aria-hidden="true"&gt;</code> before
+        <code>CalloutIcon</code> renders the severity's icon from the
+        <code>--ui-icon-*</code> tokens. For your own, put an
+        <code>&lt;svg aria-hidden="true"&gt;</code> before
         <code>CalloutContent</code>.
       </Fragment>
       <Fragment slot="html">
         Put an <code>&lt;svg aria-hidden="true"&gt;</code> before
-        <code>.ui-content</code>.
+        <code>.ui-content</code>. An empty one with a <code>viewBox</code> and
+        nothing between its tags shows the severity's icon from the
+        <code>--ui-icon-*</code> tokens.
       </Fragment>
     </Conditional>
 
@@ -149,7 +159,7 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
     <h3 id="dismissible">Dismissible</h3>
     <Conditional as="p">
       <Fragment slot="astro">
-        Use <code>dismissible</code> for a close button that hides the callout,
+        Set <code>closeButton</code> for a close button that hides the callout,
         named by <code>closeLabel</code>, with its icon in the
         <code>close-icon</code> slot. Listen for the <code>dismiss</code> event
         in a client script.
@@ -161,24 +171,29 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
         <code>dismiss</code> event it fires.
       </Fragment>
       <Fragment slot="react">
-        Use <code>dismissible</code> for a close button that hides the callout,
+        Set <code>closeButton</code> for a close button that hides the callout,
         named by <code>closeLabel</code>, with its icon in the
         <code>closeIcon</code> prop. <code>onDismiss</code> runs before it
         hides.
       </Fragment>
       <Fragment slot="svelte">
-        Use <code>dismissible</code> for a close button that hides the callout,
+        Set <code>closeButton</code> for a close button that hides the callout,
         named by <code>closeLabel</code>, with its icon in the
         <code>closeIcon</code> snippet. <code>ondismiss</code> runs before it
         hides.
       </Fragment>
       <Fragment slot="vue">
-        Use <code>dismissible</code> for a close button that hides the callout,
+        Set <code>closeButton</code> for a close button that hides the callout,
         named by <code>closeLabel</code>, with its icon in the
         <code>close-icon</code> slot. <code>@dismiss</code> runs before it
         hides.
       </Fragment>
     </Conditional>
+    <DefaultIcon tokens={["--ui-icon-close"]} />
+    <p>
+      Use it for tips and announcements. Keep a warning or an error that still
+      applies, like a failed payment, until the problem is solved.
+    </p>
     <AutoExample name="Dismissible" column />
   </section>
 

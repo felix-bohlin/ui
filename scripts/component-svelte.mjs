@@ -257,6 +257,16 @@ export const toSvelte = (component) => {
         ].join(" ")
         const tag = node.variable ? "svelte:element" : node.tag
         const open = `<${tag}${node.variable ? ` this={${node.tag}}` : ""}${attributes ? ` ${attributes}` : ""}`
+        const progress =
+          node.tag === "progress"
+            ? node.attributes.find(
+                (item) => item.kind === "expression" && item.name === "value",
+              )
+            : undefined
+        const keyed = (element) =>
+          progress
+            ? `{#key ${rewriteExpression(progress.code, options)} == null}\n${element}\n{/key}`
+            : element
         if (
           node.children.length === 0 &&
           (node.component ||
@@ -264,12 +274,14 @@ export const toSvelte = (component) => {
             node.foreign ||
             VOID_ELEMENTS.has(node.tag))
         ) {
-          return `${open} />`
+          return keyed(`${open} />`)
         }
-        return `${open}>${body(node.children, {
-          ...scope,
-          preserved: scope.preserved || PRESERVED_TAGS.has(node.tag),
-        })}</${tag}>`
+        return keyed(
+          `${open}>${body(node.children, {
+            ...scope,
+            preserved: scope.preserved || PRESERVED_TAGS.has(node.tag),
+          })}</${tag}>`,
+        )
       })
       .join("")
   const markup = emit(tree, { guards: new Set(), preserved: false })

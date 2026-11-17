@@ -24,7 +24,7 @@
     Start at a <code>1:8</code> ratio of coffee to water, taste it after 18
     hours, and only then change one thing at a time.
     <footer>
-      <cite>Lena Handén, head roaster at Kaffebaren</cite>
+      <cite>Lou Headstock, head roaster at Kaffebaren</cite>
     </footer>
   </blockquote>
   <p>
@@ -229,7 +229,11 @@
     </li>
     <li>
       <strong>Measure by weight.</strong>
-      <pre><code>const brew = await steep({ hours: 18 })</code></pre>
+      <pre
+        aria-label="Steep call"
+        role="region"
+        tabindex="0"
+      ><code>const brew = await steep({ hours: 18 })</code></pre>
     </li>
     <li>
       <strong>Don't rush it.</strong>
@@ -311,7 +315,7 @@
     <blockquote>
       <p>Make it the night before, and breakfast is already done.</p>
     </blockquote>
-    <figcaption>Lena Handén, Kaffebaren</figcaption>
+    <figcaption>Lou Headstock, Kaffebaren</figcaption>
   </figure>
 
   <h2>Code</h2>
@@ -319,7 +323,11 @@
     The brewing app reads its settings from <code>brew.config.js</code>. Set
     <var>steepHours</var> to taste:
   </p>
-  <pre><code>module.exports = {
+  <pre
+    aria-label="brew.config.js"
+    role="region"
+    tabindex="0"
+  ><code>module.exports = {
   grind: "coarse",
   origin: "single-origin",
   roast: {
@@ -346,7 +354,7 @@
   <pre><samp>$ brew --version
 cold-brew 1.0.0</samp></pre>
   <p>Preformatted text without any code at all:</p>
-  <pre>
+  <pre aria-label="Haiku" role="region" tabindex="0">
   Coarse grounds, cold water,
       a full day in the dark fridge,
           then a quiet glass.</pre>

@@ -6,17 +6,17 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
   <Fieldset>
     <FieldLegend>Plan</FieldLegend>
     <FieldGroup name="radio-cards-end" orientation="horizontal">
-      <Radio card checked spread value="starter">
-        Starter
-        <Fragment slot="end-text">€0 per month</Fragment>
+      <Radio card checked spread value="basic">
+        Basic
+        <Fragment slot="end-text">€0 per month, forever</Fragment>
       </Radio>
-      <Radio card spread value="team" variant="elevated">
-        Team
-        <Fragment slot="end-text">€12 per person per month</Fragment>
+      <Radio card spread value="gold" variant="elevated">
+        Gold
+        <Fragment slot="end-text">€3 per month, shiny badge included</Fragment>
       </Radio>
-      <Radio card spread value="business" variant="tonal">
-        Business
-        <Fragment slot="end-text">€24 per person per month</Fragment>
+      <Radio card spread value="platinum" variant="tonal">
+        Platinum
+        <Fragment slot="end-text">€5 per month, extra sparkly</Fragment>
       </Radio>
     </FieldGroup>
   </Fieldset>
@@ -25,15 +25,15 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
     <FieldGroup name="radio-cards-start" orientation="horizontal">
       <Radio card checked value="monthly">
         Monthly
-        <Fragment slot="end-text">Cancel at any time.</Fragment>
+        <Fragment slot="end-text">Cancel any time, no hard feelings.</Fragment>
       </Radio>
       <Radio card value="yearly" variant="elevated">
         Yearly
-        <Fragment slot="end-text">Two months free.</Fragment>
+        <Fragment slot="end-text">Two months free, woohoo.</Fragment>
       </Radio>
-      <Radio card value="invoice" variant="tonal">
-        Invoice
-        <Fragment slot="end-text">Pay by bank transfer.</Fragment>
+      <Radio card value="gig-money" variant="tonal">
+        Gig money
+        <Fragment slot="end-text">Pay in coins after your next gig.</Fragment>
       </Radio>
     </FieldGroup>
   </Fieldset>

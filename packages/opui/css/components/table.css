@@ -173,11 +173,11 @@
 
     &.ui-sticky-header {
       --_scroll-shadow: var(--ui-shadow-scroll);
-      --_sticky-offset: 0;
+      --_sticky-inset: 0;
 
       & > thead {
         container-type: scroll-state;
-        inset-block-start: var(--_sticky-offset);
+        inset-block-start: var(--_sticky-inset);
         position: sticky;
         z-index: 1;
 

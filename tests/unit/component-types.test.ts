@@ -11,10 +11,16 @@ import type * as CalloutReact from "../../packages/opui/components/Callout/types
 import type * as CalloutSvelte from "../../packages/opui/components/Callout/types.svelte"
 import type * as CalloutVue from "../../packages/opui/components/Callout/types.vue-props"
 import type * as FieldLegendVue from "../../packages/opui/components/FieldLegend/types.vue-props"
+import type * as MenuReact from "../../packages/opui/components/Menu/types.react"
+import type * as MenuSvelte from "../../packages/opui/components/Menu/types.svelte"
+import type * as MenuVue from "../../packages/opui/components/Menu/types.vue-props"
 import type * as NumberFieldReact from "../../packages/opui/components/NumberField/types.react"
 import type * as NumberFieldVue from "../../packages/opui/components/NumberField/types.vue-props"
 import type * as RangeReact from "../../packages/opui/components/Range/types.react"
 import type * as RangeSvelte from "../../packages/opui/components/Range/types.svelte"
+import type * as RatingReact from "../../packages/opui/components/Rating/types.react"
+import type * as RatingSvelte from "../../packages/opui/components/Rating/types.svelte"
+import type * as RatingVue from "../../packages/opui/components/Rating/types.vue-props"
 import type { SortDetail } from "../../packages/opui/components/SortableTable/types"
 import type * as SortableTableSvelte from "../../packages/opui/components/SortableTable/types.svelte"
 import type * as SwitchReact from "../../packages/opui/components/Switch/types.react"
@@ -113,6 +119,23 @@ test("a group takes defaultValue and onValueChange in React, a bound value in Sv
   expectTypeOf<TabsVue.Props>().not.toHaveProperty("onValueChange")
 })
 
+test("a radio group takes defaultValue and onValueChange in React like a group, a bound value in Svelte and nothing in Vue", () => {
+  expectTypeOf<RatingReact.Props["value"]>().toEqualTypeOf<
+    number | string | undefined
+  >()
+  expectTypeOf<RatingReact.Props["defaultValue"]>().toEqualTypeOf<
+    number | string | undefined
+  >()
+  expectTypeOf<RatingReact.Props["onValueChange"]>().toEqualTypeOf<
+    ((value: number | string) => void) | undefined
+  >()
+  expectTypeOf<RatingSvelte.Props["value"]>().toEqualTypeOf<
+    number | string | undefined
+  >()
+  expectTypeOf<RatingVue.Props>().not.toHaveProperty("defaultValue")
+  expectTypeOf<RatingVue.Props>().not.toHaveProperty("onValueChange")
+})
+
 test("a group's array value is tied to multiple in React and Svelte", () => {
   expectTypeOf<Single<ToggleGroupReact.Props>["value"]>().toEqualTypeOf<
     string | undefined
@@ -144,6 +167,18 @@ test("an Omit of keyof Base.Props leaves the component's own type for a prop the
   >()
   expectTypeOf<RangeSvelte.Props["value"]>().toEqualTypeOf<
     number | string | undefined
+  >()
+})
+
+test("props built from an Omit of Base.Props still take the slots", () => {
+  expectTypeOf<MenuReact.Props["iconChecked"]>().toEqualTypeOf<
+    ReactNode | undefined
+  >()
+  expectTypeOf<MenuSvelte.Props["iconChecked"]>().toEqualTypeOf<
+    Snippet | undefined
+  >()
+  expectTypeOf<MenuVue.Slots["icon-checked"]>().toEqualTypeOf<
+    Slot | undefined
   >()
 })
 

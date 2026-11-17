@@ -1,28 +1,80 @@
-import { useCallback, type Ref } from "react"
+import { useCallback, useInsertionEffect, useRef, type Ref } from "react"
 
-const assign = (
-  ref: Ref<HTMLElement> | undefined,
-  element: HTMLElement | null,
+const assign = <T extends HTMLElement>(
+  ref: Ref<T> | undefined,
+  element: T | null,
 ) => {
   if (typeof ref === "function") return ref(element)
   if (ref) ref.current = element
+}
+
+const attach = <T extends HTMLElement>(ref: Ref<T> | undefined, element: T) => {
+  const cleanup = assign(ref, element)
+  return () => {
+    if (typeof cleanup === "function") cleanup()
+    else assign(ref, null)
+  }
 }
 
 export const useListener = <E extends Event>(
   ref: Ref<HTMLElement> | undefined,
   type: string,
   listener: ((event: E) => void) | undefined,
-) =>
-  useCallback(
+) => {
+  const latest = useRef(listener)
+  useInsertionEffect(() => {
+    latest.current = listener
+  })
+  return useCallback(
     (element: HTMLElement) => {
-      const cleanup = assign(ref, element)
-      const handle = listener as EventListener | undefined
-      if (handle) element.addEventListener(type, handle)
+      const detach = attach(ref, element)
+      const handle = (event: Event) => latest.current?.(event as E)
+      element.addEventListener(type, handle)
       return () => {
-        if (handle) element.removeEventListener(type, handle)
-        if (typeof cleanup === "function") cleanup()
-        else assign(ref, null)
+        element.removeEventListener(type, handle)
+        detach()
       }
     },
-    [listener, ref, type],
+    [ref, type],
   )
+}
+
+export const useHydrated = (ref: (element: HTMLElement) => () => void) =>
+  useCallback(
+    (element: HTMLElement) => {
+      const cleanup = ref(element)
+      element.removeAttribute("data-hydrating")
+      return cleanup
+    },
+    [ref],
+  )
+
+const seeded = new WeakSet<HTMLInputElement>()
+
+export const seedChecked =
+  (report: (input: HTMLInputElement) => void) =>
+  (input: HTMLInputElement | null) => {
+    if (!input || seeded.has(input)) return
+    seeded.add(input)
+    if (
+      input.checked !== input.defaultChecked &&
+      (input.checked || input.type === "checkbox")
+    ) {
+      report(input)
+    }
+  }
+
+export const useSeedChecked = (
+  ref: Ref<HTMLInputElement> | undefined,
+  report: (input: HTMLInputElement) => void,
+) => {
+  const first = useRef(report)
+  return useCallback(
+    (input: HTMLInputElement) => {
+      const detach = attach(ref, input)
+      seedChecked(first.current)(input)
+      return detach
+    },
+    [ref],
+  )
+}

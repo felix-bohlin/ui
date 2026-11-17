@@ -179,6 +179,12 @@ export const keywords = [
       <li>
         Unset tokens have no <code>$value</code>, only an <code>example</code>.
       </li>
+      <li>
+        Each group has a fixed key, such as <code>intent</code> or
+        <code>field</code>, which starts every alias path, like
+        <code>{"{typography.ui-font-size-100}"}</code>, and every Figma variable
+        name.
+      </li>
     </ul>
   </section>
 
@@ -320,7 +326,14 @@ export const keywords = [
               style={`background-color: var(${token.name})`}
             />
           )}
-          {token.optional ? (
+          {token.value.startsWith("url(") ? (
+            <span
+              class="token-icon"
+              role="img"
+              aria-label={token.name.replace("--ui-icon-", "")}
+              style={`mask-image: var(${token.name})`}
+            />
+          ) : token.optional ? (
             <Fragment> Unset. For example <code>{token.value}</code> </Fragment>
           ) : (
             <code>{token.value}</code>
@@ -403,6 +416,20 @@ export const keywords = [
 
   .promise {
     margin-inline-end: var(--size-1);
+  }
+
+  .token-icon {
+    background-color: currentColor;
+    block-size: var(--ui-icon-size-large);
+    display: block;
+    inline-size: var(--ui-icon-size-large);
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+
+    @media (forced-colors: active) {
+      background-color: CanvasText;
+    }
   }
 
   .token-swatch {

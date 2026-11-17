@@ -173,6 +173,18 @@ const imports =
       }
     : undefined
 
+const frameworkLabel = FRAMEWORKS.find(
+  (framework) => framework.id === currentFramework,
+)?.label
+const pageDescription =
+  description && imports && isComponentPage
+    ? `${description} ${
+        imports.names.length === 0
+          ? `Works the same in ${frameworkLabel}.`
+          : `${frameworkLabel} ${imports.names.length === 1 ? "component" : "components"} from ${imports.package}.`
+      }`
+    : description
+
 const sourceTabs =
   imports && currentFramework !== "html"
     ? componentSources(currentFramework, imports.names)
@@ -219,7 +231,7 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
       label: component.name,
     })),
   }))}
-  description={description}
+  description={pageDescription}
   image={image}
 >
   <FrameworkPicker size="small" slot="sidebar" />

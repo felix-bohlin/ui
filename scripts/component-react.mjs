@@ -31,6 +31,8 @@ import {
   unsupported,
 } from "./component-shared.mjs"
 
+const CUSTOM_TAG_LITERAL = /(["'`])[a-z][\w.]*-[\w.-]*\1/
+
 export const toReact = (component) => {
   const {
     components,
@@ -72,6 +74,27 @@ export const toReact = (component) => {
   ])
   const events = component.events ?? []
   const listened = eventRoots(component)
+  const hydrating = new Map(
+    listened.flatMap((node) => {
+      if (node.custom) return [[node, 'data-hydrating=""']]
+      const source = node.variable
+        ? [
+            ...derived.filter(({ name }) => name === node.tag),
+            ...props.filter(({ local }) => local === node.tag),
+          ]
+            .map((entry) => entry.code ?? entry.default ?? "")
+            .join(" ")
+        : ""
+      return CUSTOM_TAG_LITERAL.test(source)
+        ? [
+            [
+              node,
+              `data-hydrating={${node.tag}.includes("-") ? "" : undefined}`,
+            ],
+          ]
+        : []
+    }),
+  )
   const handlers = events.map((event) => eventProp("react", event))
   const clash = ["ref", "rootRef", ...handlers].find(
     (name) => events.length > 0 && taken.has(name),
@@ -130,7 +153,8 @@ export const toReact = (component) => {
   const extraEntries = [
     ...(kind?.entries?.() ?? []),
     ...(item ? ["defaultChecked", "onChange"] : []),
-    ...(events.length ? [...handlers, "ref"] : []),
+    ...(events.length ? handlers : []),
+    ...(events.length || item ? ["ref"] : []),
   ]
     .filter((key) => !entries.some((entry) => entry.key === key))
     .map((key) => ({ key, text: key }))
@@ -164,13 +188,18 @@ export const toReact = (component) => {
           ),
         ]
       : []),
+    ...(item
+      ? [
+          `const inputRef = useSeedChecked(ref, (input) => ${item.parent}?.change?.(input))`,
+        ]
+      : []),
     ...(events.length
       ? [
-          `const rootRef = ${events.reduce(
+          `const rootRef = ${hydrating.size ? "useHydrated(" : ""}${events.reduce(
             (ref, event, index) =>
               `useListener(${ref}, ${JSON.stringify(event)}, ${handlers[index]})`,
             "ref",
-          )}`,
+          )}${hydrating.size ? ")" : ""}`,
         ]
       : []),
     ...(scripts.length
@@ -292,15 +321,20 @@ export const toReact = (component) => {
               (entry) => entry.kind === "spread" && entry.code === rest,
             )
           : -1
+        const rootRef = [
+          ...(hydrating.has(node) ? [hydrating.get(node)] : []),
+          "ref={rootRef}",
+        ]
         const attributes = [
           ...(node.keyed ? [`key={${node.keyed}}`] : []),
           ...node.attributes.flatMap((entry, index) => [
-            ...(index === restAt ? ["ref={rootRef}"] : []),
+            ...(index === restAt ? rootRef : []),
             ...(node.groupRadio !== undefined &&
             entry.kind === "expression" &&
             entry.name === "checked"
               ? kind.radioAttributes(
                   model,
+                  rewriteExpression(node.groupRadio, options),
                   rewriteExpression(entry.code, options),
                 )
               : [attribute(node, entry)]),
@@ -314,6 +348,7 @@ export const toReact = (component) => {
           ]),
           ...(node.item
             ? [
+                "ref={inputRef}",
                 `onChange={(event) => {\n  ${item.parent}?.change?.(event.currentTarget)\n  onChange?.(event)\n}}`,
               ]
             : []),
@@ -323,7 +358,7 @@ export const toReact = (component) => {
                 "suppressHydrationWarning",
               ]
             : []),
-          ...(listens && restAt === -1 ? ["ref={rootRef}"] : []),
+          ...(listens && restAt === -1 ? rootRef : []),
         ].join(" ")
         const open = `<${node.tag}${attributes ? ` ${attributes}` : ""}`
         return node.children.length === 0
@@ -345,6 +380,12 @@ export const toReact = (component) => {
     ...(uid ? ["useId"] : []),
     ...(kind?.reactValues?.() ?? []),
   ]
+  const reactHelpers = [
+    ...(kind?.reactHelpers?.() ?? []),
+    ...(hydrating.size ? ["useHydrated"] : []),
+    ...(events.length ? ["useListener"] : []),
+    ...(item ? ["useSeedChecked"] : []),
+  ].toSorted(byName)
   const reactImport = reactValues.length
     ? `import { ${reactValues.join(", ")} } from "react"`
     : undefined
@@ -352,7 +393,9 @@ export const toReact = (component) => {
     ...(reactImport ? [reactImport] : []),
     ...(usesDefined ? [`import { defined } from "../attrs"`] : []),
     ...(usesCx ? [`import { cx } from "../cx"`] : []),
-    ...(events.length ? [`import { useListener } from "../react"`] : []),
+    ...(reactHelpers.length
+      ? [`import { ${reactHelpers.join(", ")} } from "../react"`]
+      : []),
     ...components
       .map((entry) => componentImport(entry, ".react"))
       .toSorted(byName),

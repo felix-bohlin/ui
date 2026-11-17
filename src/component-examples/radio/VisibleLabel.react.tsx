@@ -10,8 +10,8 @@ export default function VisibleLabel() {
         Weekly digest
       </Radio>
       <Radio name="radio-visible-label" value="updates">
-        Product updates only, a few times a year when we release new features.
-        You can unsubscribe at any time, as described in our{" "}
+        Bassbook news only, a few times a year when we add something totally
+        rad. You can unsubscribe at any time, as described in our{" "}
         <a className="ui-link" href="#visible-label">
           privacy policy
         </a>

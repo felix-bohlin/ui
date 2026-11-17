@@ -32,7 +32,7 @@ import {
   List,
   ListItem,
   Message,
-  Messages,
+  MessageList,
   NumberField,
   OneTimeCode,
   Progress,
@@ -96,6 +96,7 @@ const Wrapper = wrap ? "ul" : Carousel
             form: "wide",
             list: "wide",
             range: "wide",
+            stepper: "wide",
             table: "wide",
             tabs: "wide",
           }
@@ -141,7 +142,7 @@ const Wrapper = wrap ? "ul" : Carousel
 
     <Fragment slot="avatar">
       <AvatarGroup aria-hidden="true" aria-label="Team">
-        <Avatar src="/photos/lena-handen.png" alt="Avatar" />
+        <Avatar src="/photos/lou-headstock.png" alt="Avatar" />
         <Avatar>OP</Avatar>
         <Avatar>
           <svg
@@ -253,7 +254,7 @@ const Wrapper = wrap ? "ul" : Carousel
     </Fragment>
 
     <Fragment slot="description-list">
-      <DescriptionList aria-hidden="true" bordered dotted>
+      <DescriptionList aria-hidden="true" border="dotted">
         <DescriptionListItem>
           <DescriptionListTerm>Name</DescriptionListTerm>
           <DescriptionListDescription>Open Props UI</DescriptionListDescription>
@@ -364,14 +365,14 @@ const Wrapper = wrap ? "ul" : Carousel
     </Fragment>
 
     <Fragment slot="message">
-      <Messages aria-hidden="true" style="inline-size: 14rem">
-        <Message author="Sirkka">
-          <p>Deck is out!</p>
+      <MessageList aria-hidden="true" style="inline-size: 14rem">
+        <Message author="Stella">
+          <p>Flatwounds are on!</p>
         </Message>
         <Message author="You" outgoing>
-          <p>Great work.</p>
+          <p>Totally rad.</p>
         </Message>
-      </Messages>
+      </MessageList>
     </Fragment>
 
     <Fragment slot="number-field">
@@ -578,7 +579,7 @@ const Wrapper = wrap ? "ul" : Carousel
     .showcase-list {
       display: grid;
       grid-auto-flow: row dense;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(min(14rem, 100%), 1fr));
       list-style: none;
       margin-block: var(--size-4) 0;
       padding: 0;
@@ -596,24 +597,6 @@ const Wrapper = wrap ? "ul" : Carousel
         & select {
           min-inline-size: 0;
         }
-      }
-
-      @media (width < 600px) {
-        .showcase-card {
-          padding: var(--size-3);
-        }
-
-        .showcase-item:is(.ui-wide, .ui-xl) {
-          grid-column: span 2;
-        }
-
-        .showcase-preview {
-          zoom: 0.75;
-        }
-      }
-
-      @media (width >= 600px) {
-        grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
       }
     }
 

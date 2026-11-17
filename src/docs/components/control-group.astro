@@ -30,7 +30,7 @@ export const keywords = [
   "toolbar",
 ]
 export const description =
-  "Related buttons and fields joined into one control, like a split button, a search field with its button, or a currency and an amount."
+  "Buttons and fields joined into one control, like a split button or a search field with its button."
 ---
 
 <Component
@@ -50,6 +50,8 @@ export const description =
     "logical-properties",
     "nth-child-of",
     "popover",
+    "reading-flow",
+    "registered-custom-properties",
     "relative-color",
     "user-pseudos",
   ]}
@@ -59,6 +61,8 @@ export const description =
     "gap-decorations":
       "Without gap decorations, the compat layer overlaps the controls and draws each line with a control's start border, so a row that wraps starts with a line.",
     if: "Without `if()`, the compat layer draws the lines of a filled or tonal group with the controls' start borders.",
+    "reading-flow":
+      "Without `reading-flow`, Tab and screen readers reach a field's top and start parts after its control, in the order of the markup.",
   }}
   heroAnatomy
   apis={[
@@ -203,6 +207,12 @@ export const description =
       Use <PropOrClass prop='orientation="vertical"' class=".ui-vertical" />.
     </p>
     <AutoExample name="Vertical" column centered />
+    <p>
+      A textarea joins a vertical group only. Beside the buttons, a field that
+      grows past one line would leave a corner square with nothing next to it,
+      so put buttons for a multi-line field next to it instead, as in the
+      <DocLink href="/blocks/chat">Chat block</DocLink>.
+    </p>
   </section>
 
   <section id="overflow">

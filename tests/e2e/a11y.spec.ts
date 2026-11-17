@@ -8,6 +8,7 @@ import {
   axeNodes,
   instantScrolling,
   openFixture,
+  settle,
   stubExternalHosts,
 } from "./fixtures"
 
@@ -59,11 +60,7 @@ for (const component of TARGETS) {
       await overlay.evaluate((dialog) =>
         (dialog as HTMLDialogElement).showModal(),
       )
-      await page.evaluate(() =>
-        Promise.allSettled(
-          document.getAnimations().map((animation) => animation.finished),
-        ),
-      )
+      await settle(overlay)
       await expect(overlay).toBeVisible()
       const opened = await new AxeBuilder({ page }).include(`#${id}`).analyze()
       nodes.push(...axeNodes(opened.violations))
@@ -151,49 +148,68 @@ for (const component of TARGETS) {
 
 const DOCS_PAGE_RULES: Record<string, string[]> = {
   "/blocks/account-settings/": ["landmark-unique"],
+  "/blocks/app-shell/": ["landmark-unique"],
   "/blocks/inbox/": ["landmark-unique"],
-  "/html/components/button/": ["label", "scrollable-region-focusable"],
+  "/html/components/button/": [
+    "label",
+    "landmark-unique",
+    "scrollable-region-focusable",
+  ],
   "/html/components/typography/": ["label", "scrollable-region-focusable"],
+  "/html/guide/concepts/": ["landmark-unique"],
   "/html/guide/customizing/": ["scrollable-region-focusable"],
   "/html/guide/migrating/": ["scrollable-region-focusable"],
   "/html/guide/why-opui/": ["heading-order"],
   "/react/components/typography/": ["label", "scrollable-region-focusable"],
 }
 
-for (const [path, rules] of Object.entries(DOCS_PAGE_RULES)) {
-  test(`${path} has no ${rules.join(", ")} violations with its examples' code open`, async ({
-    page,
-  }) => {
-    await instantScrolling(page)
-    await stubExternalHosts(page)
-    await page.goto(path)
-    await page
-      .locator(".show-code-button")
-      .evaluateAll((buttons) =>
-        buttons.forEach((button) => (button as HTMLElement).click()),
-      )
-    await page.evaluate(async () => {
-      await new Promise(requestAnimationFrame)
-      await new Promise(requestAnimationFrame)
+const NARROW_DOCS_PAGE_RULES: Record<string, string[]> = {
+  "/blocks/app-shell/": ["landmark-unique"],
+  "/html/components/typography/": ["scrollable-region-focusable"],
+  "/html/guide/concepts/": ["scrollable-region-focusable"],
+  "/html/guide/migrating/": ["scrollable-region-focusable"],
+}
+
+for (const [width, pages] of [
+  [1280, DOCS_PAGE_RULES],
+  [390, NARROW_DOCS_PAGE_RULES],
+] as const) {
+  for (const [path, rules] of Object.entries(pages)) {
+    test(`${path} at ${width}px has no ${rules.join(", ")} violations with its examples' code open`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ height: 844, width })
+      await instantScrolling(page)
+      await stubExternalHosts(page)
+      await page.goto(path)
+      await page
+        .locator(".show-code-button")
+        .evaluateAll((buttons) =>
+          buttons.forEach((button) => (button as HTMLElement).click()),
+        )
+      await page.evaluate(async () => {
+        await new Promise(requestAnimationFrame)
+        await new Promise(requestAnimationFrame)
+      })
+      const { violations } = await new AxeBuilder({ page })
+        .withRules(rules)
+        .analyze()
+      expect(
+        axeNodes(violations).map(({ id, target }) => `${id}: ${target}`),
+      ).toEqual([])
     })
-    const { violations } = await new AxeBuilder({ page })
-      .withRules(rules)
-      .analyze()
-    expect(
-      axeNodes(violations).map(({ id, target }) => `${id}: ${target}`),
-    ).toEqual([])
-  })
+  }
 }
 
 test("a11y-known-violations.json only lists pages that exist", () => {
-  const scheme = test.info().project.name
-  const prefixes = TARGETS.map((target) => `${scheme}/html/${target}`)
+  const prefixes = ["dark", "light"].flatMap((scheme) =>
+    TARGETS.map((target) => `${scheme}/html/${target}`),
+  )
   expect(
     Object.keys(known).filter(
-      (key) =>
-        key.startsWith(`${scheme}/`) &&
-        !prefixes.some((prefix) => within(key, prefix)),
+      (key) => !prefixes.some((prefix) => within(key, prefix)),
     ),
+    "keys start with dark/ or light/, the projects that run this spec, and a page that exists",
   ).toEqual([])
 })
 

@@ -103,6 +103,24 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
           </svg>
           <kbd slot="end">Ctrl+D</kbd>
         </UIListItem>
+        <li class="ui-border-top ui-heading">Zoom</li>
+        <UIListItem aria-current="true" as="button" label="Fit to width">
+          <svg
+            slot="icon-checked"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="m9 12 2 2 4-4"></path>
+          </svg>
+        </UIListItem>
       </UIMenu>
     </Anatomy>
   </Fragment>
@@ -178,9 +196,32 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
     <p>
       Mark the current choice with <code>aria-current</code>: <code>page</code>
       on a link to the page you're on, or <code>true</code> on a button, like
-      the language in use.
+      the language in use. It gets a check at the end, so it doesn't rely on
+      color.
     </p>
     <AutoExample name="Current" centered />
+
+    <h3 id="custom-check">Custom check</h3>
+    <p>
+      To use the check from your icon set, set <code>--ui-icon-check</code> to
+      its image, like <code>url(check.svg)</code>, in your theme for every menu,
+      listbox, <code>Select</code> and <code>Stepper</code>, or on one menu.
+      It's a mask, so it takes the text color.
+    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        For an icon component or any other markup, use the
+        <code>icon-checked</code> slot of the <code>Menu</code>, which every
+        item from <code>items</code> gets, or of a <code>ListItem</code>. It
+        only shows on the current item.
+      </Fragment>
+      <Fragment slot="html">
+        For an icon component or any other markup, put it in a
+        <code>.ui-icon-checked</code> at the end of every item that can be
+        current. It only shows on the current item.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="CustomCheck" centered />
   </section>
 
   <section id="placement">

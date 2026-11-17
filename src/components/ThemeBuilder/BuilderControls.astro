@@ -590,16 +590,18 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
           const tokens = controlTokens(control)
           text = option
             ? ""
-            : tokens.length === 1
-              ? `${owner} value, ${tidy(valueOf(tokens[0]) ?? "not set")}`
-              : `${owner} values: ${tokens
-                  .filter((token) => valueOf(token) !== undefined)
-                  .map((token) => `${token}: ${tidy(valueOf(token)!)}`)
-                  .join("; ")}`
+            : control.icons
+              ? `${owner} icons`
+              : tokens.length === 1
+                ? `${owner} value, ${tidy(valueOf(tokens[0]) ?? "not set")}`
+                : `${owner} values: ${tokens
+                    .filter((token) => valueOf(token) !== undefined)
+                    .map((token) => `${token}: ${tidy(valueOf(token)!)}`)
+                    .join("; ")}`
           if (control.display === "select") {
             element.querySelector<HTMLOptionElement>(
               "option[value=custom]",
-            )!.textContent = `${owner} value`
+            )!.textContent = control.icons ? `${owner} icons` : `${owner} value`
           }
         } else if (control.kind === "range") {
           const raw = valueOf(control.token)

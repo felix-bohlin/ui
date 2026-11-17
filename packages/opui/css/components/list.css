@@ -8,8 +8,10 @@ Lists meant to be used stand-alone or as part of Select elements
 */
   :where(.ui-list, .ui-menu) {
     --_bg-color: var(--ui-surface-filled);
+    --_check-image: var(--ui-icon-check);
     --_description-text-color: var(--ui-text-subtle);
     --_divider-border-color: var(--ui-border-color);
+    --_divider-gap: var(--ui-space-3);
     --_hover-bg-color: oklch(
       from var(--ui-primary) l c h / var(--ui-state-hover-alpha-accent)
     );
@@ -29,10 +31,10 @@ Lists meant to be used stand-alone or as part of Select elements
     );
 
     --_selected-indicator-bg-color: var(--ui-selected-strong);
+    --_selected-indicator-offset: var(--_selected-indicator-size);
     --_selected-indicator-size: var(--ui-border-width-thick);
-    --_selected-shadow: inset var(--_selected-indicator-size) 0 0
+    --_selected-shadow: inset var(--_selected-indicator-offset) 0 0
       var(--_selected-indicator-bg-color);
-    --_separator-gap: var(--ui-space-3);
     --_start-image-size: 3.5rem;
     --_start-size: var(--ui-icon-size);
     --_start-video-size: 4rem;
@@ -63,8 +65,11 @@ Lists meant to be used stand-alone or as part of Select elements
     }
 
     &:dir(rtl) {
-      --_selected-shadow: inset calc(-1 * var(--_selected-indicator-size)) 0 0
-        var(--_selected-indicator-bg-color);
+      --_selected-indicator-offset: calc(-1 * var(--_selected-indicator-size));
+    }
+
+    &[role="listbox"] {
+      --_selected-shadow: none;
     }
 
     @media (pointer: coarse) {
@@ -96,14 +101,14 @@ Lists meant to be used stand-alone or as part of Select elements
     &
       > :where([role="group"], optgroup)
       > :where(label, legend, option).ui-border-top {
-      margin-block-start: var(--_separator-gap);
+      margin-block-start: var(--_divider-gap);
 
       &::before {
         border-block-start: var(--ui-border-width) solid
           var(--_divider-border-color);
         content: "";
         display: block;
-        inset-block: calc(var(--_separator-gap) / -2) auto;
+        inset-block: calc(var(--_divider-gap) / -2) auto;
         inset-inline: 0;
         position: absolute;
       }
@@ -111,8 +116,8 @@ Lists meant to be used stand-alone or as part of Select elements
 
     /* Dense - less gaps and spacing */
     &.ui-dense {
+      --_divider-gap: var(--ui-space-2);
       --_item-gap: var(--ui-space-2);
-      --_separator-gap: var(--ui-space-2);
       --_start-size: var(--ui-icon-size-small);
 
       & > :where(li, option),
@@ -204,6 +209,10 @@ Lists meant to be used stand-alone or as part of Select elements
           background-color: var(--_selected-bg-color);
           box-shadow: var(--_selected-shadow);
           color: var(--ui-on-selected, currentColor);
+
+          @media print {
+            print-color-adjust: exact;
+          }
         }
       }
 
@@ -233,6 +242,10 @@ Lists meant to be used stand-alone or as part of Select elements
           background-color: var(--_selected-bg-color);
           box-shadow: var(--_selected-shadow);
           color: var(--ui-on-selected, currentColor);
+
+          @media print {
+            print-color-adjust: exact;
+          }
         }
       }
 
@@ -276,6 +289,10 @@ Lists meant to be used stand-alone or as part of Select elements
           background-color: var(--_selected-bg-color);
           box-shadow: var(--_selected-shadow);
           color: var(--ui-on-selected, currentColor);
+
+          @media print {
+            print-color-adjust: exact;
+          }
         }
       }
 
@@ -400,6 +417,32 @@ Lists meant to be used stand-alone or as part of Select elements
         }
       }
 
+      & > .ui-icon-checked,
+      & > :where(a, button, label) > .ui-icon-checked {
+        display: none;
+        flex-shrink: 0;
+        margin-inline-start: auto;
+        place-items: center;
+
+        & > svg {
+          block-size: var(--_start-size);
+          inline-size: var(--_start-size);
+        }
+      }
+
+      &:where([role="option"])[aria-selected="true"] > .ui-icon-checked,
+      &:where([role="option"])[aria-selected="true"]
+        > :where(a, button, label)
+        > .ui-icon-checked,
+      &:where(option):is([aria-selected="true"], :checked) > .ui-icon-checked,
+      &
+        > :where(a, button, label)[aria-current]:where(
+          :not([aria-current="false"])
+        )
+        > .ui-icon-checked {
+        display: grid;
+      }
+
       /* Inset */
       &.ui-inset {
         & > .ui-text,
@@ -426,6 +469,32 @@ Lists meant to be used stand-alone or as part of Select elements
           background-color: SelectedItem;
           color: SelectedItemText;
           forced-color-adjust: none;
+        }
+      }
+    }
+
+    &:where(.ui-menu, [role="listbox"]) > li {
+      &:where([role="option"])[aria-selected="true"]:not(
+          :has(> a, > button, > label)
+        ),
+      &:where([role="option"])[aria-selected="true"] > :where(a, button),
+      & > :where(a, button)[aria-current]:where(:not([aria-current="false"])) {
+        &:not(:has(> .ui-icon-checked))::after {
+          background-color: currentColor;
+          block-size: var(--_start-size);
+          content: "";
+          flex-shrink: 0;
+          inline-size: var(--_start-size);
+          margin-inline-start: auto;
+          mask: var(--_check-image) center / contain no-repeat;
+
+          @media (forced-colors: active) {
+            background-color: SelectedItemText;
+          }
+
+          @media print {
+            print-color-adjust: exact;
+          }
         }
       }
     }

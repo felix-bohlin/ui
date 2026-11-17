@@ -23,6 +23,11 @@ export default {
     description: "Gap between a direct child `svg` and `.ui-content`.",
     kind: "input",
   },
+  "--_icon-image": {
+    description:
+      "The severity icon painted into an empty direct child `svg`, like the one `CalloutIcon` renders. Set by the severity classes to `--ui-icon-critical`, `--ui-icon-info`, `--ui-icon-success` or `--ui-icon-warning`.",
+    kind: "output",
+  },
   "--_icon-size": {
     description: "Width of the icon column when there's a direct child `svg`.",
     kind: "input",

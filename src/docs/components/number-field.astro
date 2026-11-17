@@ -1,6 +1,7 @@
 ---
 import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
+import DefaultIcon from "./partials/DefaultIcon.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
@@ -37,9 +38,15 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
     "invoker-commands",
     "lh",
     "light-dark",
+    "reading-flow",
+    "registered-custom-properties",
     "relative-color",
     "user-pseudos",
   ]}
+  fallbacks={{
+    "reading-flow":
+      "Without `reading-flow` nothing changes: the step buttons already come before and after the input in the markup.",
+  }}
   apis={[{ title: "Number field API", api: numberFieldApi }]}
   changelogPaths={[
     {
@@ -71,7 +78,8 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
   <Fragment slot="preamble">
     <p>
       A <DocLink href="/components/text-field">Text field</DocLink> with buttons
-      that step the value.
+      that step the value, for a small amount like a quantity. For a wide scale,
+      use a <DocLink href="/components/range">Range</DocLink>.
     </p>
   </Fragment>
 
@@ -175,6 +183,10 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
         Translate their <code>aria-label</code>.
       </Fragment>
     </Conditional>
+    <DefaultIcon
+      slots={["decrease-icon", "increase-icon"]}
+      tokens={["--ui-icon-decrease", "--ui-icon-increase"]}
+    />
     <AutoExample name="Buttons" />
   </section>
 

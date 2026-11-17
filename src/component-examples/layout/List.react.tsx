@@ -9,19 +9,19 @@ export default function List() {
     >
       <li>
         <Card variant="outlined">
-          <CardContent>Design</CardContent>
+          <CardContent>Bass</CardContent>
         </Card>
       </li>
       <li>
         <Card variant="outlined">
           <CardContent>
-            Engineering: builds and runs the app and the API
+            Drums: keeps the beat and somehow gets all the credit
           </CardContent>
         </Card>
       </li>
       <li>
         <Card variant="outlined">
-          <CardContent>Support</CardContent>
+          <CardContent>Vocals</CardContent>
         </Card>
       </li>
     </ul>

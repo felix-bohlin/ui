@@ -9,7 +9,7 @@
     --ui-border-color-on-filled: var(--ui-border-color);
     --ui-border-color-raised: var(--ui-border-color);
     --ui-radius: 5px;
-    --ui-radius-x-small: var(--ui-radius);
+    --ui-radius-x-small: var(--ui-radius-small);
     --ui-border-width: 2px;
     --ui-control-border-color: var(--ui-border-color);
     --ui-control-border-color-filled: var(--ui-border-color);
@@ -56,17 +56,17 @@
     --ui-letter-spacing-display: 0;
     --ui-letter-spacing-heading: 0;
     --ui-line-height: 1.5;
-    --ui-line-height-prose: 1.75;
     --ui-line-height-relaxed: 1.5;
     --ui-list-item-padding-inline: 0.5rem;
     --ui-on-inverse: var(--ui-on-primary);
     --ui-palette-source: oklch(0.675 0.1725 259.5);
     --ui-primary-source: var(--ui-palette-source);
     --ui-primary-text: var(--ui-text);
+    --ui-rich-text-line-height: 1.75;
     --ui-selected: var(--ui-primary);
     --ui-on-selected: var(--ui-on-primary);
     --ui-shadow-control: 4px 4px 0 0 oklch(0 0 0);
-    --ui-shadow-field: none;
+    --ui-field-shadow: none;
     --ui-shadow-overlay: var(--ui-shadow-control);
     --ui-shadow-elevated: var(--ui-shadow-control);
     --ui-shadow-scroll: 0 2px 0 0 oklch(0 0 0);
@@ -84,6 +84,7 @@
       oklch(from var(--ui-palette-source) 0.34 0.04 calc(h + 10.5))
     );
     --ui-switch-thumb-bg-color: var(--ui-text);
+    --ui-target-min-size: 0px;
     --ui-text: light-dark(oklch(0 0 0), oklch(0.925 0 0));
     --ui-text-strong: var(--ui-text);
     --ui-track-bg-color: var(--ui-surface-elevated);

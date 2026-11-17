@@ -34,13 +34,17 @@
     padding-inline: 0;
     position: relative;
 
+    @media print {
+      break-inside: avoid;
+    }
+
     /* Density */
-    &:where(.ui-accordion, .ui-card).ui-dense {
+    &:where(.ui-card).ui-dense {
       --_gap: var(--ui-space-2);
       --_padding: var(--ui-space-2);
     }
 
-    &:where(.ui-accordion, .ui-card).ui-spacious {
+    &:where(.ui-card).ui-spacious {
       --_padding: var(--ui-space-5);
     }
 
@@ -250,6 +254,11 @@
     :is(.ui-accordion, .ui-card, .ui-dialog):has(.ui-card-link)
       :is(
         .ui-control-group,
+        .ui-number-field,
+        .ui-one-time-code,
+        .ui-select,
+        .ui-text-field,
+        .ui-textarea,
         a[href],
         button,
         input,
@@ -399,6 +408,19 @@
       &:not(:has(> :where(h1, h2, h3, h4, h5, h6)))
         > :where(.ui-button:has(> svg:only-child)):first-of-type {
         margin-inline-start: auto;
+      }
+
+      & > .ui-button > svg:empty {
+        background-color: currentColor;
+        mask: var(--ui-icon-close) center / contain no-repeat;
+
+        @media (forced-colors: active) {
+          background-color: ButtonText;
+        }
+
+        @media print {
+          print-color-adjust: exact;
+        }
       }
     }
 

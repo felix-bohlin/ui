@@ -251,6 +251,7 @@ test("the tarball ships the package and nothing else", () => {
   for (const file of [
     "LICENSE",
     "README.md",
+    "THIRD-PARTY-NOTICES",
     "astro/index.ts",
     "bin/opui-css.mjs",
     "components/Button/Button.astro",
@@ -278,6 +279,7 @@ test("the tarball ships the package and nothing else", () => {
     "elements/text-field.js",
     "elements/toaster.js",
     "env.d.ts",
+    "icons/lucide.css",
     "open-props.css",
     "package.json",
     "react/index.ts",
@@ -369,6 +371,69 @@ test("every compiled component file has a deep import, with its types", () => {
         .map(([name, resolved]) => `${name} resolves to ${resolved}`)
     }),
     "a deep import that misses dist loads a second copy of the component next to the one the entry point loads",
+  ).toEqual([])
+})
+
+test("every entry point's types and the declarations they import resolve with bundler, node16 and nodenext", () => {
+  const consumer = path.join(work, "entry-types")
+  mkdirSync(path.join(consumer, "node_modules"), { recursive: true })
+  writeFileSync(path.join(consumer, "package.json"), '{ "type": "module" }')
+  symlinkSync(unpacked, path.join(consumer, "node_modules/opui-css"))
+  const index = path.join(consumer, "index.ts")
+  const entries = [
+    "opui-css/package.json",
+    "opui-css/react",
+    "opui-css/svelte",
+    "opui-css/tokens.json",
+    "opui-css/vue",
+    ...files
+      .filter((file) => /^(css\/js|elements)\/[^/]+\.js$/.test(file))
+      .map((file) => `opui-css/${file}`),
+  ]
+  expect(entries).toContain("opui-css/elements/toaster.js")
+  expect(entries).toContain("opui-css/css/js/range.js")
+  expect(
+    (["Bundler", "Node16", "NodeNext"] as const).flatMap((resolution) => {
+      const options = {
+        module: ts.ModuleKind[resolution === "Bundler" ? "ESNext" : resolution],
+        moduleResolution: ts.ModuleResolutionKind[resolution],
+        resolveJsonModule: true,
+      }
+      const seen = new Set<string>()
+      const unresolved: string[] = []
+      const queue = entries.map((entry) => [entry, index] as const)
+      for (const [specifier, from] of queue) {
+        const resolved = ts.resolveModuleName(
+          specifier,
+          from,
+          options,
+          ts.sys,
+          undefined,
+          undefined,
+          ts.ModuleKind.ESNext,
+        ).resolvedModule?.resolvedFileName
+        if (!resolved) {
+          const importer =
+            from === index
+              ? "the consumer"
+              : path.relative(realpathSync(unpacked), realpathSync(from))
+          unresolved.push(`${resolution}: ${specifier} from ${importer}`)
+          continue
+        }
+        if (seen.has(resolved) || !resolved.endsWith(".d.ts")) continue
+        seen.add(resolved)
+        for (const { fileName } of ts.preProcessFile(
+          readFileSync(resolved, "utf8"),
+          true,
+          true,
+        ).importedFiles) {
+          if (fileName.startsWith(".")) queue.push([fileName, resolved])
+        }
+      }
+      expect(seen.size).toBeGreaterThan(entries.length)
+      return unresolved
+    }),
+    "an import TypeScript can't resolve makes the types it brings in any, and skipLibCheck hides the error",
   ).toEqual([])
 })
 

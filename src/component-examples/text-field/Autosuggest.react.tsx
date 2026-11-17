@@ -5,14 +5,14 @@ export default function Autosuggest() {
     <>
       <TextField
         id="text-field-autosuggest-1"
-        label="Users"
+        label="Bassists"
         list="text-field-autosuggest-1-list"
-        placeholder="Search people"
+        placeholder="Search bassists"
       >
         <datalist id="text-field-autosuggest-1-list">
-          <option value="Inga Halonen"></option>
-          <option value="Lena Handén"></option>
-          <option value="Pekka Gåpåbottanen"></option>
+          <option value="Ines Hertz"></option>
+          <option value="Lou Headstock"></option>
+          <option value="Percy Groove"></option>
         </datalist>
       </TextField>
 
@@ -20,14 +20,14 @@ export default function Autosuggest() {
         id="text-field-autosuggest-2"
         label="Emails"
         list="text-field-autosuggest-2-list"
-        placeholder="name@example.com"
+        placeholder="name@lowend.example"
         type="email"
         variant="filled"
       >
         <datalist id="text-field-autosuggest-2-list">
-          <option value="inga.halonen@example.com"></option>
-          <option value="lena.handen@example.com"></option>
-          <option value="pekka.gapabottanen@example.com"></option>
+          <option value="ines@lowend.example"></option>
+          <option value="lou@lowend.example"></option>
+          <option value="percy@lowend.example"></option>
         </datalist>
       </TextField>
     </>

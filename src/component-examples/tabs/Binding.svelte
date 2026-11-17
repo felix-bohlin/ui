@@ -8,12 +8,7 @@
   }
 </script>
 
-<Tabs
-  aria-label="Account settings"
-  bind:value={tab}
-  name="tabs-binding"
-  role="radiogroup"
->
+<Tabs bind:value={tab} name="tabs-binding">
   <TabsItem id="tabs-binding-1" value="profile">
     <TabsLabel>Profile</TabsLabel>
     <TabsPanel>Profile settings and information.</TabsPanel>

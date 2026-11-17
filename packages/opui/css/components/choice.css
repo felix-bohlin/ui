@@ -19,7 +19,7 @@
     --_on-accent: var(
       --ui-choice-on-accent,
       var(
-        --ui-on-control-accent,
+        --ui-control-on-accent,
         light-dark(var(--ui-on-primary), var(--ui-on-fill))
       )
     );
@@ -36,10 +36,14 @@
     -webkit-user-select: none;
     user-select: none;
 
+    @media print {
+      print-color-adjust: exact;
+    }
+
     &:not(:has(.ui-label, .ui-text)) {
       align-items: center;
-      min-block-size: var(--ui-space-5);
-      min-inline-size: var(--ui-space-5);
+      min-block-size: var(--ui-target-min-size);
+      min-inline-size: var(--ui-target-min-size);
       place-content: center;
       vertical-align: middle;
     }

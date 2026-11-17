@@ -3,13 +3,13 @@
 </script>
 
 <List>
-  <ListItem label="Lena Handén" />
+  <ListItem label="Lou Headstock" />
   <ListItem
-    description="Frontend developer. Builds the checkout and the account pages, and reviews most of the CSS changes."
-    label="Pekka Gåpåbottanen"
+    description="5-string slapper. Plays every root note with love, owns three pedalboards and still gets called the tall guitarist."
+    label="Percy Groove"
   />
-  <ListItem label="Inga Halonen">
-    <p>Support lead</p>
-    <p>Replies within a day</p>
+  <ListItem label="Ines Hertz">
+    <p>Flatwound fan</p>
+    <p>Replies between sound checks</p>
   </ListItem>
 </List>

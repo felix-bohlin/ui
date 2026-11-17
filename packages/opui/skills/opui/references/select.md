@@ -1,6 +1,6 @@
 # Select
 
-Pick a value in a form. For actions, use a Menu.
+A dropdown for picking one value from a list in a form.
 
 - CSS: `opui-css/css/components/text-field.css`, `opui-css/css/components/select.css` and `opui-css/css/components/list.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/select.md), [Astro](https://opui.dev/astro/components/select.md), [React](https://opui.dev/react/components/select.md), [Svelte](https://opui.dev/svelte/components/select.md), [Vue](https://opui.dev/vue/components/select.md).
@@ -9,7 +9,7 @@ Pick a value in a form. For actions, use a Menu.
 
 ### Parts
 
-- `label.ui-select` (root): Container element.
+- `div.ui-select` (root): Container element.
 - `.ui-label` (prop `label`, slot `label`): The label for the field.
 - `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
 - `.ui-field`: The boxed select area.
@@ -26,8 +26,8 @@ Pick a value in a form. For actions, use a Menu.
 - `dense`: `boolean`, `.ui-list.ui-dense`. Packs the items tighter.
 - `disabled`: `boolean`, `select[disabled]`. Dims the select and blocks input.
 - `error`: `boolean`, `select[aria-invalid="true"]`. Marks the control invalid and shows error styles.
-- `hideLabel`: `boolean`, `.ui-select > span.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
-- `id`: `string`. The id of the `<select>`. The ids the component generates start with it: `x-label`, `x-start-text`, `x-end-text`, `x-start`, `x-end`, `x-top` and `x-bottom` for `id="x"`.
+- `hideLabel`: `boolean`, `.ui-select > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
+- `id`: `string`. The id of the `<select>`. The `<label for>` points at it, so the component generates one when it's left out and there's a label. The ids the component generates start with it: `x-start-text`, `x-end-text`, `x-start`, `x-end`, `x-top` and `x-bottom` for `id="x"`.
 - `items`: `SelectItem[]`, default `[]`. The options, as `{ label, selected, value }` objects. `value` selects among them; child `<option>` elements set `selected` themselves.
 - `name`: `string`. The name of the `<select>`. Inside a `FieldGroup`, the group's `name` when omitted.
 - `required`: `boolean`, `select[required]`. Adds a required mark after the label. The form won't submit until an option with a value is selected.
@@ -43,9 +43,9 @@ Model: `value` (`string | number | (string | number)[]`), the selected value, or
 
 ### Notes
 
-- HTML: The `<select>` holds a `<button>` and a `.ui-list`. The button holds `<selectedcontent>`. The list holds the options. Browsers without customizable selects show a native select.
-- Astro, Svelte and Vue: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `class` and `style` go to the root `<label>`.
-- React: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `className` and `style` go to the root `<label>`.
+- HTML: The `<select>` holds an `inert` `<button>` and a `.ui-list`. The button holds `<selectedcontent>`, and `inert` leaves clicks, focus and the name to the select. The list holds the options. Browsers without customizable selects show a native select.
+- Astro, Svelte and Vue: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `class` and `style` go to the `.ui-select` root.
+- React: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `className` and `style` go to the `.ui-select` root.
 
 ## Component properties
 
@@ -61,29 +61,32 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_end-end-radius`: The radius of the end-end corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the next control.
 - `--_end-start-radius`: The radius of the end-start corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
 - `--_field-padding-block`: The preferred block padding of the control. Set by the size classes.
-- `--_field-padding-inline`: The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`.
+- `--_field-padding-inline`: The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.
 - `--_file-button-padding`: The preferred gap around the `::file-selector-button` of a file field: `--ui-space-2`, or `--ui-space-1` in `.ui-small` and `.ui-x-small`.
 - `--_font-size`: The font size of the control and affixes. At least 16px on iPhone and iPad (`css/compat/text-field.css`), so iOS Safari doesn't zoom in on focus.
+- `--_min-inline-size`: The least width of the control next to `.ui-start` and `.ui-end`, which shrink and end in an ellipsis to keep it, or the whole field when it is narrower. Defaults to `8ch`; a `NumberField` sets its own.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
 - `--_radius`: The corner radius of `.ui-field` and a file input's button. Defaults to `--ui-field-radius`, or `--ui-radius` when the theme doesn't set it.
-- `--_shadow`: The shadow of `.ui-field`. Defaults to `--ui-shadow-field`, or `--ui-shadow-control` when the theme leaves it unset. `none` in a `ControlGroup`.
+- `--_shadow`: The shadow of `.ui-field`. Defaults to `--ui-field-shadow`, or `--ui-shadow-control` when the theme leaves it unset. `none` in a `ControlGroup`.
 - `--_size`: The height of `.ui-field`, a minimum so a textarea can grow, and the width and height of a color field. Defaults to `--ui-field-size`, set by the size classes.
 - `--_start-end-radius`: The radius of the start-end corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
 - `--_start-start-radius`: The radius of the start-start corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the control before it.
 
-Outputs: `--_affix-button-size`, `--_affix-text-color`, `--_arrow-padding`, `--_bg-color`, `--_border-color`, `--_duration`, `--_field-padding-block-fit`, `--_file-button-inset` and `--_helper-text-color`.
+Outputs: `--_affix-block-size`, `--_affix-button-size`, `--_affix-padding-block`, `--_affix-text-color`, `--_arrow-padding`, `--_bg-color`, `--_border-color`, `--_duration`, `--_field-padding-block-fit`, `--_file-button-inset` and `--_helper-text-color`.
 
 ### select.css
 
 - `--_bg-color`: Background of the picker's `.ui-list`. Set it on the `.ui-list`; on the root it is the field background. Defaults to `--ui-surface-elevated`, like `Menu`.
 
-Outputs: `--_ease-move`.
+Outputs: `--_ease-move` and `--_selected-shadow`.
 
 ### list.css
 
 - `--_bg-color`: Background of the list and its items. Defaults to `--ui-surface-filled`, `.ui-transparent` and `.ui-tonal` set it.
+- `--_check-image`: The check on the selected item of a `.ui-menu`, a `[role="listbox"]` list or a `Select` picker, as an image used as a mask in the text color. Defaults to `--ui-icon-check`.
 - `--_description-text-color`: Text color of the description paragraph in an item. `--ui-text-subtle`, and `--ui-on-selected` on a selected or current row when a theme sets it.
 - `--_divider-border-color`: Color of the lines between items in `.ui-bordered` and on `.ui-border-top`. Defaults to `--ui-border-color`, mixed with 20% `--ui-text-strong` in `.ui-tonal`.
+- `--_divider-gap`: Space around the lines between items in `.ui-bordered` and on `.ui-border-top`. Smaller in `.ui-dense`.
 - `--_hover-bg-color`: Background of hovered items, from `--ui-primary`.
 - `--_item-ease`: Easing of the row transitions. Defaults to `--ui-ease`.
 - `--_item-gap`: Gap between the content of an item. Smaller in `.ui-dense`.
@@ -93,55 +96,54 @@ Outputs: `--_ease-move`.
 - `--_selected-bg-color`: Background of selected and current items and options. `--ui-selected` when the theme sets it, otherwise `--ui-primary` at `--ui-state-selected-alpha-accent`, stronger than `--_hover-bg-color`. With more contrast it is `--_hover-bg-color`, so the text keeps 7:1, and the bar marks the row.
 - `--_selected-indicator-bg-color`: Color of the bar on the start edge of selected and current items and options, which marks them without relying on the fill. Defaults to `--ui-selected-strong`.
 - `--_selected-indicator-size`: Width of the bar on selected and current items. Defaults to `--ui-border-width-thick`.
-- `--_separator-gap`: Space around the lines between items in `.ui-bordered` and on `.ui-border-top`. Smaller in `.ui-dense`.
 - `--_start-image-size`: Width of a square image in `.ui-start`.
 - `--_start-size`: Maximum size of leading and trailing icons, and the indent of `.ui-inset` items. Smaller in `.ui-dense`.
 - `--_start-video-size`: Height of a video in `.ui-start`, which keeps a 16:9 ratio.
 
-Outputs: `--_font-size`, `--_icon-size`, `--_item-duration`, `--_selected-shadow` and `--_size`.
+Outputs: `--_font-size`, `--_icon-size`, `--_item-duration`, `--_selected-indicator-offset`, `--_selected-shadow` and `--_size`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-choice-size-small`, `--ui-control-size`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-move`, `--ui-field-bg-color`, `--ui-field-border-color`, `--ui-field-border-color-on-filled`, `--ui-field-border-color-on-raised`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-padding-inline`, `--ui-field-padding-inline-large`, `--ui-field-placeholder-text-color`, `--ui-field-radius`, `--ui-field-required-text-color`, `--ui-field-size`, `--ui-field-size-large`, `--ui-field-size-small`, `--ui-field-size-x-small`, `--ui-focus-border-color`, `--ui-focus-border-width`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-body`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-medium`, `--ui-font-weight-normal`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-list-item-padding-inline`, `--ui-motion`, `--ui-on-selected`, `--ui-primary`, `--ui-radius`, `--ui-selected`, `--ui-selected-strong`, `--ui-shadow-control`, `--ui-shadow-field`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-state-hover-alpha-accent`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-switch-thumb-size-small`, `--ui-switch-track-block-size-small`, `--ui-switch-track-inline-size-small`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-choice-size-small`, `--ui-control-size`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-move`, `--ui-field-bg-color`, `--ui-field-border-color`, `--ui-field-border-color-on-filled`, `--ui-field-border-color-on-raised`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-padding-inline`, `--ui-field-padding-inline-large`, `--ui-field-placeholder-text-color`, `--ui-field-radius`, `--ui-field-required-text-color`, `--ui-field-shadow`, `--ui-field-size`, `--ui-field-size-large`, `--ui-field-size-small`, `--ui-field-size-x-small`, `--ui-focus-border-color`, `--ui-focus-border-width`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-body`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-medium`, `--ui-font-weight-normal`, `--ui-icon-check`, `--ui-icon-expand`, `--ui-icon-hide`, `--ui-icon-show`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-list-item-padding-inline`, `--ui-menu-radius`, `--ui-motion`, `--ui-on-selected`, `--ui-primary`, `--ui-radius`, `--ui-selected`, `--ui-selected-strong`, `--ui-shadow-control`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-state-hover-alpha-accent`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-switch-thumb-size-small`, `--ui-switch-track-block-size-small`, `--ui-switch-track-inline-size-small`, `--ui-target-min-size`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
 ### Example: Variants
 
 ```html
-<label class="ui-select">
-  <span class="ui-label" id="select-variants-1-label">Role</span>
+<div class="ui-select">
+  <label class="ui-label" for="select-variants-1">Role</label>
   <span class="ui-field">
-    <select aria-labelledby="select-variants-1-label">
-      <button>
+    <select id="select-variants-1">
+      <button inert>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
         <option value="">-</option>
-        <option>Designer</option>
-        <option>Developer</option>
-        <option>Manager</option>
+        <option>Backing vocals</option>
+        <option>Bass</option>
+        <option>Tambourine</option>
       </div>
     </select>
   </span>
-</label>
+</div>
 
-<label class="ui-select ui-filled">
-  <span class="ui-label" id="select-variants-2-label">Team</span>
+<div class="ui-select ui-filled">
+  <label class="ui-label" for="select-variants-2">Band</label>
   <span class="ui-field">
-    <select aria-labelledby="select-variants-2-label">
-      <button>
+    <select id="select-variants-2">
+      <button inert>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
         <option value="">-</option>
-        <option>Design</option>
-        <option>Engineering</option>
-        <option>Sales</option>
+        <option>Brad and the Brads</option>
+        <option>Low End Theory</option>
+        <option>The Low Enders</option>
       </div>
     </select>
   </span>
-</label>
+</div>
 ```
 
 ## Astro
@@ -159,16 +161,16 @@ import { Select } from "opui-css/astro"
 
 <Select label="Role">
   <option value="">-</option>
-  <option>Designer</option>
-  <option>Developer</option>
-  <option>Manager</option>
+  <option>Backing vocals</option>
+  <option>Bass</option>
+  <option>Tambourine</option>
 </Select>
 
-<Select label="Team" variant="filled">
+<Select label="Band" variant="filled">
   <option value="">-</option>
-  <option>Design</option>
-  <option>Engineering</option>
-  <option>Sales</option>
+  <option>Brad and the Brads</option>
+  <option>Low End Theory</option>
+  <option>The Low Enders</option>
 </Select>
 ```
 
@@ -189,16 +191,16 @@ export default function Variants() {
     <>
       <Select label="Role">
         <option value="">-</option>
-        <option>Designer</option>
-        <option>Developer</option>
-        <option>Manager</option>
+        <option>Backing vocals</option>
+        <option>Bass</option>
+        <option>Tambourine</option>
       </Select>
 
-      <Select label="Team" variant="filled">
+      <Select label="Band" variant="filled">
         <option value="">-</option>
-        <option>Design</option>
-        <option>Engineering</option>
-        <option>Sales</option>
+        <option>Brad and the Brads</option>
+        <option>Low End Theory</option>
+        <option>The Low Enders</option>
       </Select>
     </>
   )
@@ -221,16 +223,16 @@ export default function Variants() {
 
 <Select label="Role">
   <option value="">-</option>
-  <option>Designer</option>
-  <option>Developer</option>
-  <option>Manager</option>
+  <option>Backing vocals</option>
+  <option>Bass</option>
+  <option>Tambourine</option>
 </Select>
 
-<Select label="Team" variant="filled">
+<Select label="Band" variant="filled">
   <option value="">-</option>
-  <option>Design</option>
-  <option>Engineering</option>
-  <option>Sales</option>
+  <option>Brad and the Brads</option>
+  <option>Low End Theory</option>
+  <option>The Low Enders</option>
 </Select>
 ```
 
@@ -251,16 +253,16 @@ import { Select } from "opui-css/vue"
 <template>
   <Select label="Role">
     <option value="">-</option>
-    <option>Designer</option>
-    <option>Developer</option>
-    <option>Manager</option>
+    <option>Backing vocals</option>
+    <option>Bass</option>
+    <option>Tambourine</option>
   </Select>
 
-  <Select label="Team" variant="filled">
+  <Select label="Band" variant="filled">
     <option value="">-</option>
-    <option>Design</option>
-    <option>Engineering</option>
-    <option>Sales</option>
+    <option>Brad and the Brads</option>
+    <option>Low End Theory</option>
+    <option>The Low Enders</option>
   </Select>
 </template>
 ```

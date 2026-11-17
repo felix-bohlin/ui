@@ -79,6 +79,13 @@ export default {
       },
     },
     {
+      description:
+        "The `role` of the root, such as `toolbar`. Without it, `radiogroup`, or `group` with `multiple`.",
+      inherited: true,
+      prop: "role",
+      type: "string",
+    },
+    {
       default: '"medium"',
       description: "The size of the buttons.",
       group: "Sizes",

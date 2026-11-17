@@ -9,7 +9,7 @@ Short messages that confirm an action and dismiss themselves.
 
 ### Parts
 
-- `opui-toaster.ui-toaster` (root): The `<opui-toaster>` custom element, with `display: contents`. A button with `commandfor` and `command="--toast"` shows a toast with its `data-toast` text and `data-toast-severity`, and `toast(message, { action, duration, severity })` or `toast.success(message)` does it from a script, where `action` takes a `label` and an `onClick`. `dismiss(toast)` returns a promise that resolves once the toast is gone.
+- `opui-toaster.ui-toaster` (root): The `<opui-toaster>` custom element, with `display: contents`. A button with `commandfor` and `command="--toast"` shows a toast with its `data-toast` text and `data-toast-severity`, and `toast(message, { action, duration, severity })` or `toast.success(message)` does it from a script, where `action` takes a `label` and an `onClick`, and `toaster` takes the id or the element of the toaster to show it in.
 - `<ol popover="manual">`: The stack of toasts, a manual popover at the block end and the inline end of the viewport unless `side` and `align` move it. It opens with the first toast and closes after the last.
 - `<li>`: A toast, a `Callout` with the severity class, its icon (an empty `svg` that `--_icon-image` masks), the message in `.ui-content`, an action `Button` when it has an `action`, and a close `Button`. The element adds it, and on dismiss makes it `inert`, fades it out and closes its gap before it removes it.
 - `<div role="status">`: The polite live region that announces each toast but a critical one, visually hidden with `.ui-sr-only` and outside the popover, so it's always in the page.
@@ -19,10 +19,19 @@ Short messages that confirm an action and dismiss themselves.
 
 - `align`: `"center"` (`.ui-align-center`), `"end"` (default), `"start"` (`.ui-align-start`). Where the toasts sit along their side of the viewport.
 - `closeLabel`: `string`, `[close-label]`, default `"Close"`. The accessible name of the close button of each toast.
-- `duration`: `number`, `[duration]`, default `5000`. How long a toast stays, in milliseconds, while the pointer and focus are elsewhere. A toast with an action stays twice as long.
+- `duration`: `number`, `[duration]`, default `5000`. How long a toast stays, in milliseconds, while the pointer and focus are elsewhere. A toast with an action stays twice as long, and `Infinity` keeps a toast until it's closed.
 - `id`: `string`. The id the buttons point at with `commandfor`. Required.
 - `limit`: `number`, `[limit]`, default `3`. The most toasts shown at once. Past it, the oldest is dismissed, unless it holds focus.
 - `side`: `"block-end"` (default), `"block-start"` (`.ui-block-start`). The side of the viewport the toasts sit on.
+
+### Element
+
+- `<opui-toaster>`, defined by `opui-css/elements/toaster.js`:
+  - `alert`: The `<div role="alert">` that announces critical toasts, or `null`. Read-only.
+  - `dismiss(toast)`: Dismisses a toast: makes it `inert`, moves focus that was in it to the next toast, fades it out and removes it. Returns a promise that resolves once it's gone.
+  - `list`: The `<ol>` that holds the toasts, or `null`. Read-only.
+  - `show(message, options)`: Shows a toast and announces it, with the `action`, `duration` and `severity` options of `toast()`. Returns the toast's `<li>`, or `null` without a list.
+  - `status`: The `<div role="status">` that announces the other toasts, or `null`. Read-only.
 
 ### Notes
 
@@ -38,18 +47,15 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### toaster.css
 
-- `--_close-image`: The icon of the close button, as an image used as a mask. Defaults to the Drawer's close icon.
-- `--_critical-image`: The icon of a critical toast, as an image used as a mask. Defaults to the `Callout` icon.
 - `--_ease`: Easing of a toast fading and sliding in.
 - `--_gap`: Space between stacked toasts.
-- `--_info-image`: The icon of an info toast, as an image used as a mask. Defaults to the `Callout` icon.
 - `--_inset`: Distance of the stack from the edges of the viewport.
+- `--_inset-block`: Distance of the stack from the top or bottom edge, `--_inset` by default. Raise it to clear a bottom navigation bar.
+- `--_inset-inline`: Distance of the stack from the side edges, `--_inset` by default. The stack's width leaves it on both sides.
 - `--_max-inline-size`: Maximum width of a toast.
 - `--_motion`: Motion multiplier, `0` with reduced motion.
-- `--_success-image`: The icon of a success toast, as an image used as a mask. Defaults to the `Callout` icon.
-- `--_warning-image`: The icon of a warning toast, as an image used as a mask. Defaults to the `Callout` icon.
 
-Outputs: `--_duration`, `--_icon-image` and `--_shadow`.
+Outputs: `--_duration` and `--_shadow`.
 
 ### callout.css
 
@@ -70,12 +76,12 @@ Outputs: `--_duration`, `--_icon-image` and `--_shadow`.
 - `--_surface-bg-color`: The opaque background under the tint. Defaults to `--ui-surface`.
 - `--_title-font-size`: Font size of headings in `.ui-content`.
 
-Outputs: `--_bg-color`, `--_border-color`, `--_icon-text-color`, `--_link-duration` and `--_text-color`.
+Outputs: `--_bg-color`, `--_border-color`, `--_icon-image`, `--_icon-text-color`, `--_link-duration` and `--_text-color`.
 
 ### button.css
 
 - `--_accent`: The accent color. Fills, borders, text, hover and active states are derived from it. Defaults to `--ui-button-accent` when a theme sets it. `.ui-primary` and `.ui-critical` set it.
-- `--_accent-fill`: Fill of filled buttons, of hovered outlined buttons unless `--ui-button-hover` is `layer`, of hovered tonal ones when it is unset, and the base of the filled hover and pressed shades. `--ui-button-accent-filled` when a theme sets it, else `--_accent`, and in `.ui-critical` `--ui-critical` kept within `--ui-accent-fill-max-lightness`, so the light text stays readable while the border keeps `--ui-critical`. `.ui-primary` resets it to `--_accent`, so the token applies to default buttons only.
+- `--_accent-filled`: Fill of filled buttons, of hovered outlined buttons unless `--ui-button-hover` is `layer`, of hovered tonal ones when it is unset, and the base of the filled hover and pressed shades. `--ui-button-accent-filled` when a theme sets it, else `--_accent`, and in `.ui-critical` `--ui-critical` kept within `--ui-accent-fill-max-lightness`, so the light text stays readable while the border keeps `--ui-critical`. `.ui-primary` resets it to `--_accent`, so the token applies to default buttons only.
 - `--_accent-tonal`: Background of `.ui-tonal`. `--ui-surface-tonal`, a palette tint in `.ui-critical`, and `--ui-primary-tonal` or the tint in `.ui-primary`.
 - `--_border-width`: The border width.
 - `--_ease`: Easing of the transitions. Defaults to `--ui-ease`.
@@ -85,7 +91,7 @@ Outputs: `--_bg-color`, `--_border-color`, `--_icon-text-color`, `--_link-durati
 - `--_icon-size`: The size of a direct child `svg`. Icon-only buttons scale it with `--_size`.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
 - `--_on-accent`: Text color on a fill of `--_accent`. Defaults to `--ui-button-on-accent` when a theme sets it. `.ui-primary` sets `--ui-on-primary`, `.ui-critical` `--ui-on-fill`.
-- `--_on-accent-fill`: Text color on `--_accent-fill`: filled buttons, hovered outlined ones unless `--ui-button-hover` is `layer`, and hovered tonal ones when it is unset. `--ui-button-on-accent-filled` when a theme sets it, else `--_on-accent`.
+- `--_on-accent-filled`: Text color on `--_accent-filled`: filled buttons, hovered outlined ones unless `--ui-button-hover` is `layer`, and hovered tonal ones when it is unset. `--ui-button-on-accent-filled` when a theme sets it, else `--_on-accent`.
 - `--_on-accent-tonal`: Text color of `.ui-tonal`.
 - `--_padding-inline`: The inline padding. Set by the size classes from `--ui-button-padding-inline` and its size variants.
 - `--_radius`: The corner radius. Defaults to `--ui-button-radius`, or `--ui-radius` when the theme doesn't set it. `.ui-round` makes it round.
@@ -93,11 +99,11 @@ Outputs: `--_bg-color`, `--_border-color`, `--_icon-text-color`, `--_link-durati
 - `--_start-end-radius`: The radius of the start-end corner. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the button joins another control.
 - `--_start-start-radius`: The radius of the start-start corner. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the button joins the control before it.
 
-Outputs: `--_accent-text`, `--_actions-shift`, `--_bg-color`, `--_border-color`, `--_default-active-bg-color`, `--_default-hover-bg-color`, `--_duration`, `--_filled-active-bg-color`, `--_filled-hover-bg-color`, `--_outlined-active-bg-color`, `--_outlined-active-border-color`, `--_outlined-active-text-color`, `--_outlined-hover-bg-color`, `--_outlined-hover-border-color`, `--_outlined-hover-text-color`, `--_selected-bg-color`, `--_selected-text-color`, `--_shadow`, `--_text-color`, `--_tonal-active-bg-color`, `--_tonal-active-text-color`, `--_tonal-hover-bg-color`, `--_tonal-hover-text-color` and `--_tonal-selected-bg-color`.
+Outputs: `--_accent-text`, `--_actions-shift`, `--_bg-color`, `--_border-color`, `--_duration`, `--_filled-active-bg-color`, `--_filled-hover-bg-color`, `--_outlined-active-bg-color`, `--_outlined-active-border-color`, `--_outlined-active-text-color`, `--_outlined-hover-bg-color`, `--_outlined-hover-border-color`, `--_outlined-hover-text-color`, `--_selected-bg-color`, `--_selected-text-color`, `--_shadow`, `--_text-color`, `--_tonal-active-bg-color`, `--_tonal-active-text-color`, `--_tonal-hover-bg-color`, `--_tonal-hover-text-color`, `--_tonal-selected-bg-color`, `--_transparent-active-bg-color` and `--_transparent-hover-bg-color`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-button-accent`, `--ui-button-accent-filled`, `--ui-button-focus`, `--ui-button-font-weight`, `--ui-button-hover`, `--ui-button-hover-shadow`, `--ui-button-hover-translate`, `--ui-button-on-accent`, `--ui-button-on-accent-filled`, `--ui-button-padding-inline`, `--ui-button-padding-inline-large`, `--ui-button-padding-inline-small`, `--ui-button-padding-inline-x-small`, `--ui-button-radius`, `--ui-button-shadow`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-card-padding`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-critical`, `--ui-critical-text`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-highlight`, `--ui-focus-ring-offset`, `--ui-focus-ring-width`, `--ui-font-code`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-font-weight-semibold`, `--ui-icon-size`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-control-accent`, `--ui-on-fill`, `--ui-on-focus-highlight`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-accent`, `--ui-palette-border`, `--ui-palette-on-strong`, `--ui-palette-on-tint`, `--ui-palette-strong`, `--ui-palette-tint`, `--ui-palette-tint-subtle`, `--ui-press-scale`, `--ui-primary`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-shadow-control`, `--ui-shadow-overlay`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-state-active-alpha-accent`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-state-hover-alpha-accent`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-text-disabled`, `--ui-text-max-chroma`, `--ui-text-min-lightness` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-button-accent`, `--ui-button-accent-filled`, `--ui-button-focus`, `--ui-button-font-weight`, `--ui-button-hover`, `--ui-button-hover-shadow`, `--ui-button-hover-translate`, `--ui-button-on-accent`, `--ui-button-on-accent-filled`, `--ui-button-padding-inline`, `--ui-button-padding-inline-large`, `--ui-button-padding-inline-small`, `--ui-button-padding-inline-x-small`, `--ui-button-radius`, `--ui-button-shadow`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-card-padding`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-control-on-accent`, `--ui-critical`, `--ui-critical-text`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-highlight`, `--ui-focus-ring-offset`, `--ui-focus-ring-width`, `--ui-font-code`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-font-weight-semibold`, `--ui-icon-close`, `--ui-icon-critical`, `--ui-icon-info`, `--ui-icon-size`, `--ui-icon-success`, `--ui-icon-warning`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-fill`, `--ui-on-focus-highlight`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-accent`, `--ui-palette-border`, `--ui-palette-on-strong`, `--ui-palette-on-tint`, `--ui-palette-strong`, `--ui-palette-tint`, `--ui-palette-tint-subtle`, `--ui-press-scale`, `--ui-primary`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-shadow-control`, `--ui-shadow-overlay`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-state-active-alpha-accent`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-state-hover-alpha-accent`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-text-disabled`, `--ui-text-max-chroma`, `--ui-text-min-lightness` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

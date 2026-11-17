@@ -1,9 +1,9 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect } from "react"
 import { defined } from "../attrs"
 import { cx } from "../cx"
-import { useListener } from "../react"
+import { useHydrated, useListener } from "../react"
 import type { Props } from "./types.react"
 
 export default function SortableTable({
@@ -11,30 +11,25 @@ export default function SortableTable({
   className,
   descendingLabel,
   onSort,
+  ref,
   children,
   ...rest
 }: Props) {
-  const ref = useRef<HTMLElement>(null)
-  const rootRef = useListener(ref, "sort", onSort)
-
+  const rootRef = useHydrated(useListener(ref, "sort", onSort))
   useEffect(() => {
     void import("../../elements/sortable-table.js")
-  }, [])
-
-  useEffect(() => {
-    ref.current?.removeAttribute("data-hydrating")
   }, [])
 
   return (
     <opui-sortable-table
       ascending-label={ascendingLabel}
       className={cx(["ui-sortable-table", className])}
-      data-hydrating=""
       descending-label={descendingLabel}
+      data-hydrating=""
       ref={rootRef}
       {...defined(rest)}
     >
-      {children}
+      {children}{" "}
       <span
         className="ui-sr-only"
         role="status"

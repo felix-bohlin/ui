@@ -1,6 +1,7 @@
 ---
 import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
+import DefaultIcon from "./partials/DefaultIcon.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
@@ -22,7 +23,7 @@ import textFieldApi from "../../component-api/text-field/api"
 import TextFieldBuild from "../../components/UnderTheHood/TextFieldBuild.astro"
 
 export const description =
-  "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states."
+  "A single-line text input with a label, start and end text, and validation."
 
 export const keywords = ["email", "input", "password", "search", "text box"]
 ---
@@ -39,8 +40,14 @@ export const keywords = ["email", "input", "password", "search", "text box"]
     "has",
     "invoker-commands",
     "lh",
+    "reading-flow",
+    "registered-custom-properties",
     "user-pseudos",
   ]}
+  fallbacks={{
+    "reading-flow":
+      "Without `reading-flow`, Tab and screen readers reach the top and start parts after the control, in the order of the markup.",
+  }}
   apis={[{ title: "Text field API", api: textFieldApi }]}
   changelogPaths={[
     {
@@ -60,6 +67,10 @@ export const keywords = ["email", "input", "password", "search", "text box"]
   ]}
 >
   <Fragment slot="title">Text field</Fragment>
+  <Fragment slot="preamble">
+    Short free text, like a name or a search. For several lines, use a
+    <DocLink href="/components/textarea">Textarea</DocLink>.
+  </Fragment>
 
   <Usage slot="usage">
     <li slot="when">Short free text, like a name or a search.</li>
@@ -157,6 +168,10 @@ export const keywords = ["email", "input", "password", "search", "text box"]
         Import <code>opui-css/elements/text-field.js</code>.
       </Fragment>
     </Conditional>
+    <DefaultIcon
+      slots={["icon-unchecked", "icon-checked"]}
+      tokens={["--ui-icon-show", "--ui-icon-hide"]}
+    />
     <AutoExample name="PasswordToggle" row />
   </section>
 
@@ -172,6 +187,11 @@ export const keywords = ["email", "input", "password", "search", "text box"]
         and <code>.ui-bottom</code>.
       </Fragment>
     </Conditional>
+    <p>
+      A text affix too long for the field ends in an ellipsis, so the input
+      keeps at least <code>--_min-inline-size</code> (<code>8ch</code>). The
+      full text stays in the field's accessible name.
+    </p>
 
     <AutoExample name="Affix" column />
 
@@ -248,7 +268,12 @@ export const keywords = ["email", "input", "password", "search", "text box"]
       Numeric vs <code>&lt;input type="number"&gt;</code>
     </h3>
     <Conditional as="p">
-      <Fragment slot="components"> Use <code>type="numeric"</code>. </Fragment>
+      <Fragment slot="components">
+        Use <code>inputmode="numeric"</code> and <code>pattern="[0-9]*"</code>.
+      </Fragment>
+      <Fragment slot="react">
+        Use <code>inputMode="numeric"</code> and <code>pattern="[0-9]*"</code>.
+      </Fragment>
       <Fragment slot="html">
         Use <code>inputmode="numeric"</code> and <code>pattern="[0-9]*"</code>.
       </Fragment>
@@ -325,10 +350,12 @@ export const keywords = ["email", "input", "password", "search", "text box"]
   <Fragment slot="accessibility">
     <ul>
       <li>
-        The label and the affixes are the field's name, through
-        <code>aria-labelledby</code>. The start text, end text and the top and
-        bottom regions are its description, through <code>aria-describedby</code
-        >, so a hint or an error is read after the name.
+        The label alone is the field's name, through
+        <code>&lt;label for&gt;</code>. The affixes, the start text, end text
+        and the top and bottom regions are its description, through
+        <code>aria-describedby</code>, so a unit, a hint or an error is read
+        after the name in any language's word order, and buttons in the affixes
+        stay out of the name.
       </li>
     </ul>
     <KeyboardSupport />

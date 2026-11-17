@@ -94,6 +94,7 @@ describe("rewriteSpecifiers", () => {
     for (const file of [
       "dist/components/cx.js",
       "dist/components/Toaster/Toaster.svelte",
+      "dist/components/Toaster/Toaster.svelte.d.ts",
       "dist/components/Toaster/Toaster.vue.js",
       "dist/components/Toaster/types.d.ts",
       "elements/toaster.js",
@@ -124,6 +125,25 @@ describe("rewriteSpecifiers", () => {
         'import type { Props } from "./types.js"',
         'export { default } from "./Toaster.vue.js"',
         'import Toaster from "./Toaster.svelte"',
+      ].join("\n"),
+    )
+  })
+
+  test("points a declaration file at the declaration of a .svelte file, which nodenext only finds by its .js name", () => {
+    expect(
+      rewriteSpecifiers(
+        [
+          'export { default as Toaster } from "../components/Toaster/Toaster.svelte"',
+          'export type { Props } from "../components/Toaster/types"',
+        ].join("\n"),
+        path.join(dist, "svelte/index.d.ts"),
+        root,
+        dist,
+      ),
+    ).toBe(
+      [
+        'export { default as Toaster } from "../components/Toaster/Toaster.svelte.js"',
+        'export type { Props } from "../components/Toaster/types.js"',
       ].join("\n"),
     )
   })

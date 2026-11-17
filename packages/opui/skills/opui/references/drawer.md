@@ -1,6 +1,6 @@
 # Drawer
 
-Slides in from an edge of the screen. For a task that needs full attention, use a Dialog.
+A panel that slides in from an edge of the screen, for navigation, filters or side content.
 
 - CSS: `opui-css/css/components/drawer.css` and `opui-css/css/components/card.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/drawer.md), [Astro](https://opui.dev/astro/components/drawer.md), [React](https://opui.dev/react/components/drawer.md), [Svelte](https://opui.dev/svelte/components/drawer.md), [Vue](https://opui.dev/vue/components/drawer.md).
@@ -10,7 +10,7 @@ Slides in from an edge of the screen. For a task that needs full attention, use 
 ### Parts
 
 - `dialog.ui-drawer` (root): Container element.
-- `.ui-header` (`DrawerHeader`): The header, a row for the title and anything next to it, with a close button.
+- `.ui-header` (`DrawerHeader`): The header, a row for the title and anything next to it, with an optional close button.
 - `<h2>` (`DrawerTitle`): The title. Names the drawer through `aria-labelledby`.
 - `.ui-content` (`DrawerContent`): The scrollable content.
 - `.ui-footer` (`DrawerFooter`): The footer, a row at the end.
@@ -21,7 +21,7 @@ Slides in from an edge of the screen. For a task that needs full attention, use 
 - `closedby`: `"any" | "closerequest" | "none"`, `[closedby]`, default `"any"`. How the drawer can be closed. `any` also closes it on a click outside.
 - `closeOnNavigate`: `boolean`, `[data-close-on-navigate]`. Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API.
 - `id`: `string`. The id of the `<dialog>`, which the trigger's `commandfor` points at. Required.
-- `scrollLock`: `boolean`, `.ui-scroll-lock`. Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px.
+- `scrollLock`: `boolean`, `.ui-scroll-lock`. Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`.
 - `side`: `"block-end"` (`.ui-block-end`), `"block-start"` (`.ui-block-start`), `"inline-end"` (`.ui-inline-end`), `"inline-start"` (default). The side it opens from.
 
 ### Slots
@@ -38,12 +38,13 @@ Slides in from an edge of the screen. For a task that needs full attention, use 
 ### Parts
 
 - `.ui-header` (root): Container element.
-- `<button>` (prop `closeLabel`, slot `close-icon`): Closes the drawer. Renders a close icon by default, or the `svg` in `close-icon`.
+- `<button>` (prop `closeButton`, prop `closeLabel`, slot `close-icon`): Closes the drawer, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`.
 
 ### Props and modifiers
 
+- `closeButton`: `boolean`. Adds a close button at the end of the title row, which closes its `Drawer`, or the `<dialog>` that `commandfor` names.
 - `closeLabel`: `string`, default `"Close"`. The accessible name of the close button.
-- `commandfor`: `string`. The id of the drawer to close with the `close` command. Without it, the button closes its `Drawer`. Outside a `Drawer`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.
+- `commandfor`: `string`. The id of the drawer the close button closes with the `close` command. Without it, the button closes its `Drawer`. Outside a `Drawer`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.
 
 ### Slots
 
@@ -92,15 +93,15 @@ Outputs: `--_closed-translate`, `--_direction`, `--_duration` and `--_ease`.
 - `--_actions-padding-inline`: Inline padding of `.ui-actions`. Defaults to `--_padding`. The actions pass it on as `--ui-card-padding`, so a text button at either end keeps its focus ring inside the card.
 - `--_backdrop-bg-color`: Backdrop color of a dialog or drawer. Defaults to `--ui-backdrop-bg-color`.
 - `--_backdrop-blur`: Backdrop filter of a dialog or drawer. Defaults to a `--ui-backdrop-blur` blur.
-- `--_ease`: Easing of the card link border transition and the focus ring animation. Defaults to `--ui-ease`.
+- `--_ease`: Easing of the card link border transition, the focus ring animation and the accordion transitions. Defaults to `--ui-ease`.
 - `--_elevated-bg-color`: Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.
 - `--_elevated-shadow`: Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.
 - `--_footer-gap`: Gap between the items in a dialog's or drawer's `.ui-footer` and between the buttons in its `.ui-actions`. Defaults to `--ui-space-2`.
 - `--_gap`: Gap between the parts. `--ui-space-3`, or `--ui-space-2` in `.ui-dense`. The part after an image subtracts it from its padding.
 - `--_media-inline-size`: Width of the image when it sits at the start of the card, and the start margin of the parts next to it. Defaults to `40%` of the card.
-- `--_motion`: Motion multiplier for the card link border transition and the focus ring animation. `0` turns them off.
+- `--_motion`: Motion multiplier for the card link border transition, the focus ring animation and the accordion transitions. `0` turns them off.
 - `--_outlined-border-color`: Border color of `.ui-outlined`. Defaults to `--ui-border-color`.
-- `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
+- `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset. In an accordion it sets `--_padding-inline`, `--_summary-padding-block` and the block end of `--_content-padding-block`.
 - `--_scroll-shadow`: Shadow at the edges of a dialog's or drawer's `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
 - `--_surface-bg-color`: Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-surface`.
 - `--_title-font-size`: Font size of a dialog's or drawer's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.
@@ -110,7 +111,7 @@ Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor
 
 ## Theme tokens
 
-The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-card-padding`, `--ui-duration`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-card-padding`, `--ui-duration`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-icon-close`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -152,8 +153,9 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 
 <dialog
   closedby="any"
-  class="ui-drawer ui-scroll-lock"
+  class="ui-drawer"
   aria-labelledby="drawer-basics-1-title"
+  data-close-on-navigate
   id="drawer-basics-1"
 >
   <div class="ui-header">
@@ -171,12 +173,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
         width="32"
         height="32"
         viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
-        ></path>
-      </svg>
+      ></svg>
     </button>
   </div>
   <div class="ui-content">
@@ -184,21 +181,21 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
       <li>
         <a href="#basics" aria-current="page">
           <div class="ui-text">
-            <p>Dashboard</p>
+            <p>My wall</p>
           </div>
         </a>
       </li>
       <li>
         <a href="#basics">
           <div class="ui-text">
-            <p>Projects</p>
+            <p>My bands</p>
           </div>
         </a>
       </li>
       <li>
         <a href="#basics">
           <div class="ui-text">
-            <p>Reports</p>
+            <p>Gear Talk</p>
           </div>
         </a>
       </li>
@@ -225,12 +222,12 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 
 <dialog
   closedby="any"
-  class="ui-drawer ui-backdrop-transparent ui-scroll-lock ui-inline-end"
+  class="ui-drawer ui-backdrop-transparent ui-inline-end"
   aria-labelledby="drawer-basics-2-title"
   id="drawer-basics-2"
 >
   <div class="ui-header">
-    <h2 id="drawer-basics-2-title">Onboarding emails</h2>
+    <h2 id="drawer-basics-2-title">Friday gig prep</h2>
     <button class="ui-button ui-round ui-small" type="button" aria-label="Edit">
       <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
@@ -244,10 +241,10 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
       <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
   </div>
-  <div class="ui-content" aria-label="Task details" role="region" tabindex="0">
+  <div class="ui-content" aria-label="Gig details" role="region" tabindex="0">
     <p>
-      Assigned to Lena Handén, due Friday. Hakki Hälinen reviews the copy, and
-      the design team sends the new header images by Wednesday.
+      Assigned to Lou Headstock, due Friday. Holly Humbucker checks the setlist,
+      and the drummer promises (again) to bring the cymbals by Wednesday.
     </p>
   </div>
   <div class="ui-footer">
@@ -264,7 +261,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 
 <dialog
   closedby="any"
-  class="ui-drawer ui-scroll-lock ui-block-start"
+  class="ui-drawer ui-block-start"
   aria-labelledby="drawer-basics-3-title"
   id="drawer-basics-3"
 >
@@ -281,7 +278,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
     </button>
   </div>
   <div class="ui-content">
-    <p>Hakki Hälinen commented on Onboarding emails.</p>
+    <p>Holly Humbucker commented on Friday gig prep.</p>
   </div>
   <div class="ui-footer">
     <button
@@ -297,7 +294,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 
 <dialog
   closedby="any"
-  class="ui-drawer ui-scroll-lock ui-block-end"
+  class="ui-drawer ui-block-end"
   aria-labelledby="drawer-basics-4-title"
   id="drawer-basics-4"
 >
@@ -323,11 +320,11 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
         </label>
         <label class="ui-checkbox">
           <input type="checkbox" name="status" checked value="in-progress" />
-          <span class="ui-label">In progress</span>
+          <span class="ui-label">Rocking</span>
         </label>
         <label class="ui-checkbox">
           <input type="checkbox" name="status" value="open" />
-          <span class="ui-label">Open</span>
+          <span class="ui-label">Not yet</span>
         </label>
       </div>
     </fieldset>
@@ -347,6 +344,10 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
     </div>
   </div>
 </dialog>
+
+<script type="module">
+  import "opui-css/elements/close-on-navigate.js"
+</script>
 ```
 
 ## Astro
@@ -382,15 +383,15 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
 <Button command="show-modal" commandfor="drawer-basics-2">Inline end</Button>
 <Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
 
-<Drawer id="drawer-basics-1" scrollLock side="inline-start">
-  <DrawerHeader>
+<Drawer closeOnNavigate id="drawer-basics-1" side="inline-start">
+  <DrawerHeader closeButton>
     <DrawerTitle>Menu</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
     <List variant="transparent">
-      <ListItem aria-current="page" href="#basics" label="Dashboard" />
-      <ListItem href="#basics" label="Projects" />
-      <ListItem href="#basics" label="Reports" />
+      <ListItem aria-current="page" href="#basics" label="My wall" />
+      <ListItem href="#basics" label="My bands" />
+      <ListItem href="#basics" label="Gear Talk" />
       <ListItem href="#basics" label="Settings" />
     </List>
   </DrawerContent>
@@ -401,22 +402,17 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
   </DrawerFooter>
 </Drawer>
 
-<Drawer
-  backdrop="transparent"
-  id="drawer-basics-2"
-  scrollLock
-  side="inline-end"
->
-  <DrawerHeader>
-    <DrawerTitle>Onboarding emails</DrawerTitle>
+<Drawer backdrop="transparent" id="drawer-basics-2" side="inline-end">
+  <DrawerHeader closeButton>
+    <DrawerTitle>Friday gig prep</DrawerTitle>
     <Button aria-label="Edit" round size="small">
       <Fragment set:html={editIcon} />
     </Button>
   </DrawerHeader>
-  <DrawerContent aria-label="Task details" role="region" tabindex="0">
+  <DrawerContent aria-label="Gig details" role="region" tabindex="0">
     <p>
-      Assigned to Lena Handén, due Friday. Hakki Hälinen reviews the copy, and
-      the design team sends the new header images by Wednesday.
+      Assigned to Lou Headstock, due Friday. Holly Humbucker checks the setlist,
+      and the drummer promises (again) to bring the cymbals by Wednesday.
     </p>
   </DrawerContent>
   <DrawerFooter>
@@ -430,12 +426,12 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
   </DrawerFooter>
 </Drawer>
 
-<Drawer id="drawer-basics-3" scrollLock side="block-start">
-  <DrawerHeader>
+<Drawer id="drawer-basics-3" side="block-start">
+  <DrawerHeader closeButton>
     <DrawerTitle>Notifications</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
-    <p>Hakki Hälinen commented on Onboarding emails.</p>
+    <p>Holly Humbucker commented on Friday gig prep.</p>
   </DrawerContent>
   <DrawerFooter>
     <Button command="close" commandfor="drawer-basics-3" size="small"
@@ -444,8 +440,8 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
   </DrawerFooter>
 </Drawer>
 
-<Drawer id="drawer-basics-4" scrollLock side="block-end">
-  <DrawerHeader>
+<Drawer id="drawer-basics-4" side="block-end">
+  <DrawerHeader closeButton>
     <DrawerTitle>Filters</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
@@ -453,8 +449,8 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
       <FieldLegend>Status</FieldLegend>
       <FieldGroup name="status" orientation="horizontal">
         <Checkbox checked value="done">Done</Checkbox>
-        <Checkbox checked value="in-progress">In progress</Checkbox>
-        <Checkbox value="open">Open</Checkbox>
+        <Checkbox checked value="in-progress">Rocking</Checkbox>
+        <Checkbox value="open">Not yet</Checkbox>
       </FieldGroup>
     </Fieldset>
   </DrawerContent>
@@ -515,15 +511,15 @@ export default function BasicsCode() {
         Block end
       </Button>
 
-      <Drawer id="drawer-basics-1" scrollLock side="inline-start">
-        <DrawerHeader>
+      <Drawer closeOnNavigate id="drawer-basics-1" side="inline-start">
+        <DrawerHeader closeButton>
           <DrawerTitle>Menu</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
           <List variant="transparent">
-            <ListItem aria-current="page" href="#basics" label="Dashboard" />
-            <ListItem href="#basics" label="Projects" />
-            <ListItem href="#basics" label="Reports" />
+            <ListItem aria-current="page" href="#basics" label="My wall" />
+            <ListItem href="#basics" label="My bands" />
+            <ListItem href="#basics" label="Gear Talk" />
             <ListItem href="#basics" label="Settings" />
           </List>
         </DrawerContent>
@@ -534,22 +530,18 @@ export default function BasicsCode() {
         </DrawerFooter>
       </Drawer>
 
-      <Drawer
-        backdrop="transparent"
-        id="drawer-basics-2"
-        scrollLock
-        side="inline-end"
-      >
-        <DrawerHeader>
-          <DrawerTitle>Onboarding emails</DrawerTitle>
+      <Drawer backdrop="transparent" id="drawer-basics-2" side="inline-end">
+        <DrawerHeader closeButton>
+          <DrawerTitle>Friday gig prep</DrawerTitle>
           <Button aria-label="Edit" round size="small">
             <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
           </Button>
         </DrawerHeader>
-        <DrawerContent aria-label="Task details" role="region" tabIndex={0}>
+        <DrawerContent aria-label="Gig details" role="region" tabIndex={0}>
           <p>
-            Assigned to Lena Handén, due Friday. Hakki Hälinen reviews the copy,
-            and the design team sends the new header images by Wednesday.
+            Assigned to Lou Headstock, due Friday. Holly Humbucker checks the
+            setlist, and the drummer promises (again) to bring the cymbals by
+            Wednesday.
           </p>
         </DrawerContent>
         <DrawerFooter>
@@ -564,12 +556,12 @@ export default function BasicsCode() {
         </DrawerFooter>
       </Drawer>
 
-      <Drawer id="drawer-basics-3" scrollLock side="block-start">
-        <DrawerHeader>
+      <Drawer id="drawer-basics-3" side="block-start">
+        <DrawerHeader closeButton>
           <DrawerTitle>Notifications</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
-          <p>Hakki Hälinen commented on Onboarding emails.</p>
+          <p>Holly Humbucker commented on Friday gig prep.</p>
         </DrawerContent>
         <DrawerFooter>
           <Button command="close" commandfor="drawer-basics-3" size="small">
@@ -578,8 +570,8 @@ export default function BasicsCode() {
         </DrawerFooter>
       </Drawer>
 
-      <Drawer id="drawer-basics-4" scrollLock side="block-end">
-        <DrawerHeader>
+      <Drawer id="drawer-basics-4" side="block-end">
+        <DrawerHeader closeButton>
           <DrawerTitle>Filters</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
@@ -590,9 +582,9 @@ export default function BasicsCode() {
                 Done
               </Checkbox>
               <Checkbox defaultChecked value="in-progress">
-                In progress
+                Rocking
               </Checkbox>
-              <Checkbox value="open">Open</Checkbox>
+              <Checkbox value="open">Not yet</Checkbox>
             </FieldGroup>
           </Fieldset>
         </DrawerContent>
@@ -647,15 +639,15 @@ export default function BasicsCode() {
 <Button command="show-modal" commandfor="drawer-basics-2">Inline end</Button>
 <Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
 
-<Drawer id="drawer-basics-1" scrollLock side="inline-start">
-  <DrawerHeader>
+<Drawer closeOnNavigate id="drawer-basics-1" side="inline-start">
+  <DrawerHeader closeButton>
     <DrawerTitle>Menu</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
     <List variant="transparent">
-      <ListItem aria-current="page" href="#basics" label="Dashboard" />
-      <ListItem href="#basics" label="Projects" />
-      <ListItem href="#basics" label="Reports" />
+      <ListItem aria-current="page" href="#basics" label="My wall" />
+      <ListItem href="#basics" label="My bands" />
+      <ListItem href="#basics" label="Gear Talk" />
       <ListItem href="#basics" label="Settings" />
     </List>
   </DrawerContent>
@@ -666,22 +658,17 @@ export default function BasicsCode() {
   </DrawerFooter>
 </Drawer>
 
-<Drawer
-  backdrop="transparent"
-  id="drawer-basics-2"
-  scrollLock
-  side="inline-end"
->
-  <DrawerHeader>
-    <DrawerTitle>Onboarding emails</DrawerTitle>
+<Drawer backdrop="transparent" id="drawer-basics-2" side="inline-end">
+  <DrawerHeader closeButton>
+    <DrawerTitle>Friday gig prep</DrawerTitle>
     <Button aria-label="Edit" round size="small">
       <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </Button>
   </DrawerHeader>
-  <DrawerContent aria-label="Task details" role="region" tabindex={0}>
+  <DrawerContent aria-label="Gig details" role="region" tabindex={0}>
     <p>
-      Assigned to Lena Handén, due Friday. Hakki Hälinen reviews the copy, and
-      the design team sends the new header images by Wednesday.
+      Assigned to Lou Headstock, due Friday. Holly Humbucker checks the setlist,
+      and the drummer promises (again) to bring the cymbals by Wednesday.
     </p>
   </DrawerContent>
   <DrawerFooter>
@@ -694,12 +681,12 @@ export default function BasicsCode() {
   </DrawerFooter>
 </Drawer>
 
-<Drawer id="drawer-basics-3" scrollLock side="block-start">
-  <DrawerHeader>
+<Drawer id="drawer-basics-3" side="block-start">
+  <DrawerHeader closeButton>
     <DrawerTitle>Notifications</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
-    <p>Hakki Hälinen commented on Onboarding emails.</p>
+    <p>Holly Humbucker commented on Friday gig prep.</p>
   </DrawerContent>
   <DrawerFooter>
     <Button command="close" commandfor="drawer-basics-3" size="small"
@@ -708,8 +695,8 @@ export default function BasicsCode() {
   </DrawerFooter>
 </Drawer>
 
-<Drawer id="drawer-basics-4" scrollLock side="block-end">
-  <DrawerHeader>
+<Drawer id="drawer-basics-4" side="block-end">
+  <DrawerHeader closeButton>
     <DrawerTitle>Filters</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
@@ -717,8 +704,8 @@ export default function BasicsCode() {
       <FieldLegend>Status</FieldLegend>
       <FieldGroup name="status" orientation="horizontal">
         <Checkbox defaultChecked value="done">Done</Checkbox>
-        <Checkbox defaultChecked value="in-progress">In progress</Checkbox>
-        <Checkbox value="open">Open</Checkbox>
+        <Checkbox defaultChecked value="in-progress">Rocking</Checkbox>
+        <Checkbox value="open">Not yet</Checkbox>
       </FieldGroup>
     </Fieldset>
   </DrawerContent>
@@ -771,15 +758,15 @@ import {
   <Button command="show-modal" commandfor="drawer-basics-2">Inline end</Button>
   <Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
 
-  <Drawer id="drawer-basics-1" scrollLock side="inline-start">
-    <DrawerHeader>
+  <Drawer closeOnNavigate id="drawer-basics-1" side="inline-start">
+    <DrawerHeader closeButton>
       <DrawerTitle>Menu</DrawerTitle>
     </DrawerHeader>
     <DrawerContent>
       <List variant="transparent">
-        <ListItem aria-current="page" href="#basics" label="Dashboard" />
-        <ListItem href="#basics" label="Projects" />
-        <ListItem href="#basics" label="Reports" />
+        <ListItem aria-current="page" href="#basics" label="My wall" />
+        <ListItem href="#basics" label="My bands" />
+        <ListItem href="#basics" label="Gear Talk" />
         <ListItem href="#basics" label="Settings" />
       </List>
     </DrawerContent>
@@ -790,22 +777,18 @@ import {
     </DrawerFooter>
   </Drawer>
 
-  <Drawer
-    backdrop="transparent"
-    id="drawer-basics-2"
-    scrollLock
-    side="inline-end"
-  >
-    <DrawerHeader>
-      <DrawerTitle>Onboarding emails</DrawerTitle>
+  <Drawer backdrop="transparent" id="drawer-basics-2" side="inline-end">
+    <DrawerHeader closeButton>
+      <DrawerTitle>Friday gig prep</DrawerTitle>
       <Button aria-label="Edit" round size="small">
         <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
       </Button>
     </DrawerHeader>
-    <DrawerContent aria-label="Task details" role="region" tabindex="0">
+    <DrawerContent aria-label="Gig details" role="region" tabindex="0">
       <p>
-        Assigned to Lena Handén, due Friday. Hakki Hälinen reviews the copy, and
-        the design team sends the new header images by Wednesday.
+        Assigned to Lou Headstock, due Friday. Holly Humbucker checks the
+        setlist, and the drummer promises (again) to bring the cymbals by
+        Wednesday.
       </p>
     </DrawerContent>
     <DrawerFooter>
@@ -819,12 +802,12 @@ import {
     </DrawerFooter>
   </Drawer>
 
-  <Drawer id="drawer-basics-3" scrollLock side="block-start">
-    <DrawerHeader>
+  <Drawer id="drawer-basics-3" side="block-start">
+    <DrawerHeader closeButton>
       <DrawerTitle>Notifications</DrawerTitle>
     </DrawerHeader>
     <DrawerContent>
-      <p>Hakki Hälinen commented on Onboarding emails.</p>
+      <p>Holly Humbucker commented on Friday gig prep.</p>
     </DrawerContent>
     <DrawerFooter>
       <Button command="close" commandfor="drawer-basics-3" size="small"
@@ -833,8 +816,8 @@ import {
     </DrawerFooter>
   </Drawer>
 
-  <Drawer id="drawer-basics-4" scrollLock side="block-end">
-    <DrawerHeader>
+  <Drawer id="drawer-basics-4" side="block-end">
+    <DrawerHeader closeButton>
       <DrawerTitle>Filters</DrawerTitle>
     </DrawerHeader>
     <DrawerContent>
@@ -842,8 +825,8 @@ import {
         <FieldLegend>Status</FieldLegend>
         <FieldGroup name="status" orientation="horizontal">
           <Checkbox checked value="done">Done</Checkbox>
-          <Checkbox checked value="in-progress">In progress</Checkbox>
-          <Checkbox value="open">Open</Checkbox>
+          <Checkbox checked value="in-progress">Rocking</Checkbox>
+          <Checkbox value="open">Not yet</Checkbox>
         </FieldGroup>
       </Fieldset>
     </DrawerContent>

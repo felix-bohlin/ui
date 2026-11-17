@@ -9,6 +9,7 @@
     "dist-test",
     "node_modules",
     "packages/opui/figma/themes",
+    "packages/opui/icons",
     "packages/opui/skills/opui/references",
     "packages/opui/tokens.json",
     "playwright-report",
@@ -16,6 +17,8 @@
     "pnpm-workspace.yaml",
     "public/search-index",
     "src/figma",
+    "src/utils/icon-samples.json",
+    "src/utils/icon-sets.json",
     "test-results",
     "tests/e2e/a11y-known-violations.json",
     "tests/unit/__snapshots__"

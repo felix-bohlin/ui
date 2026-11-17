@@ -7,14 +7,14 @@
   } from "opui-css/svelte"
 </script>
 
-<DescriptionList bordered style="max-inline-size: 18rem">
+<DescriptionList border="solid" style="max-inline-size: 18rem">
   <DescriptionListItem>
     <DescriptionListTerm>Plan</DescriptionListTerm>
-    <DescriptionListDescription>Team</DescriptionListDescription>
+    <DescriptionListDescription>Gold</DescriptionListDescription>
   </DescriptionListItem>
   <DescriptionListItem>
-    <DescriptionListTerm>Seats</DescriptionListTerm>
-    <DescriptionListDescription>12</DescriptionListDescription>
+    <DescriptionListTerm>Bandmates</DescriptionListTerm>
+    <DescriptionListDescription>4</DescriptionListDescription>
   </DescriptionListItem>
   <DescriptionListItem>
     <DescriptionListTerm>Renews</DescriptionListTerm>
@@ -23,17 +23,17 @@
 </DescriptionList>
 
 <DescriptionList
-  bordered
+  border="solid"
   orientation="horizontal"
   style="max-inline-size: 18rem"
 >
   <DescriptionListItem>
     <DescriptionListTerm>Plan</DescriptionListTerm>
-    <DescriptionListDescription>Team</DescriptionListDescription>
+    <DescriptionListDescription>Gold</DescriptionListDescription>
   </DescriptionListItem>
   <DescriptionListItem>
-    <DescriptionListTerm>Seats</DescriptionListTerm>
-    <DescriptionListDescription>12</DescriptionListDescription>
+    <DescriptionListTerm>Bandmates</DescriptionListTerm>
+    <DescriptionListDescription>4</DescriptionListDescription>
   </DescriptionListItem>
   <DescriptionListItem>
     <DescriptionListTerm>Renews</DescriptionListTerm>

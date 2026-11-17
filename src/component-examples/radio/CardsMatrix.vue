@@ -7,17 +7,17 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/vue"
     <Fieldset>
       <FieldLegend>Plan</FieldLegend>
       <FieldGroup name="radio-cards-end" orientation="horizontal">
-        <Radio card checked spread value="starter">
-          Starter
-          <template #end-text>€0 per month</template>
+        <Radio card checked spread value="basic">
+          Basic
+          <template #end-text>€0 per month, forever</template>
         </Radio>
-        <Radio card spread value="team" variant="elevated">
-          Team
-          <template #end-text>€12 per person per month</template>
+        <Radio card spread value="gold" variant="elevated">
+          Gold
+          <template #end-text>€3 per month, shiny badge included</template>
         </Radio>
-        <Radio card spread value="business" variant="tonal">
-          Business
-          <template #end-text>€24 per person per month</template>
+        <Radio card spread value="platinum" variant="tonal">
+          Platinum
+          <template #end-text>€5 per month, extra sparkly</template>
         </Radio>
       </FieldGroup>
     </Fieldset>
@@ -26,15 +26,15 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/vue"
       <FieldGroup name="radio-cards-start" orientation="horizontal">
         <Radio card checked value="monthly">
           Monthly
-          <template #end-text>Cancel at any time.</template>
+          <template #end-text>Cancel any time, no hard feelings.</template>
         </Radio>
         <Radio card value="yearly" variant="elevated">
           Yearly
-          <template #end-text>Two months free.</template>
+          <template #end-text>Two months free, woohoo.</template>
         </Radio>
-        <Radio card value="invoice" variant="tonal">
-          Invoice
-          <template #end-text>Pay by bank transfer.</template>
+        <Radio card value="gig-money" variant="tonal">
+          Gig money
+          <template #end-text>Pay in coins after your next gig.</template>
         </Radio>
       </FieldGroup>
     </Fieldset>

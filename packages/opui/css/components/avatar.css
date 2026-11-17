@@ -24,6 +24,10 @@
     text-align: center;
     text-decoration: none;
 
+    @media print {
+      print-color-adjust: exact;
+    }
+
     &:has(img) {
       background-color: transparent;
     }

@@ -25,10 +25,14 @@ import ValidationNotes from "./partials/ValidationNotes.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 
+export const description =
+  "A box people check for choices submitted with a form, alone or in a group."
+
 export const keywords = ["check", "tick"]
 ---
 
 <Component
+  description={description}
   slug="checkbox"
   heroAnatomy
   browserSupport={[

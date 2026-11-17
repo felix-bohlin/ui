@@ -1,6 +1,7 @@
 ---
 import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
+import DefaultIcon from "./partials/DefaultIcon.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
@@ -24,7 +25,7 @@ import accordionApi from "../../component-api/accordion/api"
 import accordionActionsApi from "../../component-api/accordion-actions/api"
 import accordionSummaryApi from "../../component-api/accordion-summary/api"
 export const description =
-  "Lets you show and hide content, on its own or as a group."
+  "A summary that opens to show more content, on its own or in a group."
 
 export const keywords = [
   "collapse",
@@ -85,6 +86,11 @@ export const keywords = [
   ]}
 >
   <Fragment slot="title">Accordion</Fragment>
+  <Fragment slot="preamble">
+    Content most readers skip, like FAQ answers, behind a summary they open. For
+    views of the same content, use
+    <DocLink href="/components/tabs">Tabs</DocLink>.
+  </Fragment>
   <Usage slot="usage">
     <li slot="when">Content most readers skip, like FAQ answers.</li>
     <li slot="when">Long pages readers scan by heading.</li>
@@ -150,6 +156,7 @@ export const keywords = [
       </Fragment>
       <Fragment slot="html"> Replace the <code>svg.ui-marker</code>. </Fragment>
     </Conditional>
+    <DefaultIcon tokens={["--ui-icon-expand"]} />
     <AutoExample name="CustomMarker" column />
   </section>
 

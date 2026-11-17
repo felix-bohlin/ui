@@ -17,8 +17,14 @@
     --_thumb-outline-width: 0;
     --_thumb-size: round(var(--ui-switch-thumb-size), 1px);
     --_track-bg-color: var(
-      --ui-track-bg-color,
-      var(--ui-switch-track-bg-color)
+      --ui-switch-track-bg-color,
+      var(
+        --ui-track-bg-color,
+        light-dark(
+          var(--ui-surface-tonal),
+          oklch(from var(--ui-surface-tonal) 0.58 c h)
+        )
+      )
     );
     --_track-block-size: round(var(--ui-switch-track-block-size), 1px);
     --_track-border-color: var(

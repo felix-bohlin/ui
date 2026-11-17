@@ -1425,6 +1425,19 @@ const nextButtonPoint = (carousel: Locator) =>
 
 interaction(
   "carousel",
+  "WholePhotos",
+  "--_media-fit: contain shows portrait and landscape photos whole",
+  async ({ root }) => {
+    const images = root.locator("img")
+    await expect(images).toHaveCount(4)
+    for (const image of await images.all()) {
+      expect(await computed(image, "object-fit")).toBe("contain")
+    }
+  },
+)
+
+interaction(
+  "carousel",
   "Basics",
   "the next button scrolls the carousel",
   async ({ page, root }) => {

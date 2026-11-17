@@ -1,40 +1,40 @@
 <script setup lang="ts">
-import { Radio, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/vue"
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/vue"
 </script>
 
 <template>
   <Form>
     <Fieldset>
-      <FieldLegend>Input at the end</FieldLegend>
+      <FieldLegend>Plan</FieldLegend>
       <FieldGroup name="radio-cards-end" orientation="horizontal">
-        <Radio card checked spread value="outlined">
-          Outlined
-          <template #end-text>The default surface.</template>
+        <Radio card checked spread value="basic">
+          Basic
+          <template #end-text>€0 per month, forever</template>
         </Radio>
-        <Radio card spread value="tonal" variant="tonal">
-          Tonal
-          <template #end-text>A tinted surface.</template>
+        <Radio card spread value="gold" variant="elevated">
+          Gold
+          <template #end-text>€3 per month, shiny badge included</template>
         </Radio>
-        <Radio card spread value="elevated" variant="elevated">
-          Elevated
-          <template #end-text>A raised surface.</template>
+        <Radio card spread value="platinum" variant="tonal">
+          Platinum
+          <template #end-text>€5 per month, extra sparkly</template>
         </Radio>
       </FieldGroup>
     </Fieldset>
     <Fieldset>
-      <FieldLegend>Input at the start</FieldLegend>
+      <FieldLegend>Billing</FieldLegend>
       <FieldGroup name="radio-cards-start" orientation="horizontal">
-        <Radio card checked value="outlined">
-          Outlined
-          <template #end-text>The default surface.</template>
+        <Radio card checked value="monthly">
+          Monthly
+          <template #end-text>Cancel any time, no hard feelings.</template>
         </Radio>
-        <Radio card value="tonal" variant="tonal">
-          Tonal
-          <template #end-text>A tinted surface.</template>
+        <Radio card value="yearly" variant="elevated">
+          Yearly
+          <template #end-text>Two months free, woohoo.</template>
         </Radio>
-        <Radio card value="elevated" variant="elevated">
-          Elevated
-          <template #end-text>A raised surface.</template>
+        <Radio card value="gig-money" variant="tonal">
+          Gig money
+          <template #end-text>Pay in coins after your next gig.</template>
         </Radio>
       </FieldGroup>
     </Fieldset>

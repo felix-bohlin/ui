@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { Avatar, Card, CardContent, Message, Messages } from "opui-css/vue"
+import { Avatar, Card, CardContent, Message, MessageList } from "opui-css/vue"
 </script>
 
 <template>
-  <Messages aria-label="Messages with Saga">
-    <Message author="Saga" datetime="2026-10-08T14:31" time="14:31">
+  <MessageList aria-label="Messages with Stella">
+    <Message author="Stella" datetime="2026-10-08T14:31" time="14:31">
       <template #start>
-        <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
+        <Avatar aria-hidden="true">SN</Avatar>
       </template>
-      <p>Here's the current draft:</p>
+      <p>Totally! Here's my slap break:</p>
       <Card variant="outlined">
         <CardContent class="ui-layout-media ui-small">
           <svg
@@ -23,14 +23,14 @@ import { Avatar, Card, CardContent, Message, Messages } from "opui-css/vue"
             ></path>
           </svg>
           <div>
-            <a class="ui-link" href="#attachments">Pricing-proposal.pdf</a>
+            <a class="ui-link" href="#attachments">Slap-break-of-doom.pdf</a>
             <p class="ui-caption">PDF, 2.4 MB</p>
           </div>
         </CardContent>
       </Card>
     </Message>
     <Message author="You" datetime="2026-10-08T14:40" outgoing time="14:40">
-      <p>Thanks! Here's the signed contract.</p>
+      <p>Woohoo, thanks! Here's the encore setlist.</p>
       <Card variant="outlined">
         <CardContent class="ui-layout-media ui-small">
           <svg
@@ -45,11 +45,11 @@ import { Avatar, Card, CardContent, Message, Messages } from "opui-css/vue"
             ></path>
           </svg>
           <div>
-            <a class="ui-link" href="#attachments">Contract-signed.pdf</a>
+            <a class="ui-link" href="#attachments">Encore-setlist.pdf</a>
             <p class="ui-caption">PDF, 860 kB</p>
           </div>
         </CardContent>
       </Card>
     </Message>
-  </Messages>
+  </MessageList>
 </template>

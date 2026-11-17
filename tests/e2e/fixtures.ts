@@ -94,7 +94,8 @@ export const instantScrolling = (page: Page) =>
 
 export const stubExternalHosts = (page: Page) =>
   page.route(
-    (url) => url.hostname !== "localhost",
+    (url) =>
+      url.hostname !== "localhost" || url.pathname.startsWith("/photos/"),
     (route) =>
       route.request().resourceType() === "image"
         ? route.fulfill({ body: PIXEL, contentType: "image/png" })
@@ -176,7 +177,7 @@ export const openFixture = async (
   })
 }
 
-export const needs = async (
+export const supports = async (
   page: Page,
   feature: string,
   supported: () => boolean,
@@ -184,9 +185,16 @@ export const needs = async (
   const has = await page.evaluate(supported)
   if (page.context().browser()?.browserType().name() === "chromium") {
     expect(has, `Chromium has ${feature}`).toBe(true)
-  } else {
-    test.skip(!has, `needs ${feature}`)
   }
+  return has
+}
+
+export const needs = async (
+  page: Page,
+  feature: string,
+  supported: () => boolean,
+) => {
+  test.skip(!(await supports(page, feature, supported)), `needs ${feature}`)
 }
 
 export const settle = (locator: Locator) =>

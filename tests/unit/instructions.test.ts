@@ -41,16 +41,19 @@ const EXTENSION =
 const exists = (path: string) =>
   files.has(path) || dirs.has(path.replace(/\/$/, ""))
 
-const escape = (text: string) => text.replace(/[.+?^$()|\\]/g, "\\$&")
+const escape = (text: string) => text.replace(/[.+?^$()|[\]{}\\]/g, "\\$&")
 
 const pattern = (path: string) => {
   let source = ""
   for (let index = 0; index < path.length; index++) {
     const char = path[index]
-    if (char === "<" || char === "[") {
+    if (
+      (char === "<" || char === "[") &&
+      path.includes(char === "<" ? ">" : "]", index)
+    ) {
       index = path.indexOf(char === "<" ? ">" : "]", index)
       source += "[^/]+"
-    } else if (char === "{") {
+    } else if (char === "{" && path.includes("}", index)) {
       const end = path.indexOf("}", index)
       const inner = path.slice(index + 1, end)
       source += inner.includes(",")
@@ -186,6 +189,7 @@ test("the checker flags names, links and citations that don't resolve", () => {
         "Run `scripts/nope.mjs` and read [the guide](nope.md).",
         "See `AGENTS.md:99999`, src/nope/file.ts and [Testing](AGENTS.md#no-such-heading).",
         "These exist: `TODO.md`, `scripts/todo.mjs`, [Testing](AGENTS.md#testing).",
+        "Unclosed: `scripts/<nope.mjs`, `src/[nope.ts` and `src/{nope.ts`.",
       ].join("\n"),
     ),
   ).toEqual([
@@ -196,6 +200,9 @@ test("the checker flags names, links and citations that don't resolve", () => {
       /^AGENTS\.md:2 cites AGENTS\.md:99999, but AGENTS\.md has \d+ lines$/,
     ),
     "AGENTS.md:2 names src/nope/file.ts, which matches no file",
+    "AGENTS.md:4 names `scripts/<nope.mjs`, which matches no file",
+    "AGENTS.md:4 names `src/[nope.ts`, which matches no file",
+    "AGENTS.md:4 names `src/{nope.ts`, which matches no file",
   ])
 })
 

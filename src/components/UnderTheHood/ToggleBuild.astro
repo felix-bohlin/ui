@@ -85,19 +85,19 @@ const steps = [
 .toggle-group {
   background-color: var(--ui-surface);
   border-radius: var(--ui-button-radius, var(--ui-radius));
+  column-rule: 1px solid var(--ui-border-color);
   display: inline-flex;
   flex-wrap: wrap;
+  gap: 1px;
   outline: 1px solid var(--ui-border-color);
   outline-offset: -1px;
   overflow: hidden;
+  row-rule: 1px solid var(--ui-border-color);
 }
 
 .toggle-group .toggle {
   border: 0;
   border-radius: 0;
-  box-shadow:
-    -1px 0 0 0 var(--ui-border-color),
-    0 -1px 0 0 var(--ui-border-color);
   flex: auto;
 }`,
     html: `
@@ -108,10 +108,12 @@ const steps = [
   </label>
   …
 </div>`,
+    features: ["gap-decorations"],
     notes: [
       "Radios with a shared <code>name</code>: single select, no JavaScript",
       "Checkboxes for multi-select, with <code>role=&quot;group&quot;</code>",
-      "Each toggle draws a divider on its left and top edge, the group clips the outer ones",
+      "The toggles sit one pixel apart, and <code>column-rule</code> and <code>row-rule</code> draw the lines in those gaps, only between toggles, so a wrapped row starts without one",
+      "The group clips the toggles at its rounded corners",
     ],
     title: "Group",
   },

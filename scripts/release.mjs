@@ -10,7 +10,7 @@ const PACKAGE = "packages/opui/package.json"
 
 const escape = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
 
-export const unreleasedHeading = (version) => `## ${version} - Unreleased`
+const unreleasedHeading = (version) => `## ${version} - Unreleased`
 
 export const nextVersion = (current, level, changelog) => {
   const [base, pre] = current.split("-")

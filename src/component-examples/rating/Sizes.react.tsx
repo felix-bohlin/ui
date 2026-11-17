@@ -10,7 +10,7 @@ export default function Sizes() {
       </div>
       <div className="example-column">
         <Rating defaultValue={4} label="Small" name="size-small" size="small" />
-        <Rating defaultValue={4} label="Default" name="size-default" />
+        <Rating defaultValue={4} label="Medium" name="size-medium" />
         <Rating defaultValue={4} label="Large" name="size-large" size="large" />
       </div>
     </>

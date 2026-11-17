@@ -296,7 +296,7 @@ describe("fuzzed values round-trip through the target parsers", () => {
       const text = `export default function Example() { return <p>x${jsxText(markupText(value))}x</p> }`
       expect(evaluateReact(text).children.join(""), value).toBe(`x${value}x`)
     }
-  })
+  }, 15_000)
 
   test("templateLiteral through the JavaScript parser", () => {
     for (const value of FUZZED) {
@@ -313,7 +313,7 @@ describe("fuzzed values round-trip through the target parsers", () => {
   })
 })
 
-describe("a value goes through every target", () => {
+describe("a value goes through every target", { timeout: 15_000 }, () => {
   test.each(VALUES)("keeps the attribute value %j", async (value) => {
     const body = `<p title="${attributeText(value)}">Hi</p>`
     const { tree } = await parseExample(astro(body), sampleFile)

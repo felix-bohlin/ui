@@ -85,7 +85,7 @@ describe("component api checks", () => {
 
   test("report stylesheet classes that no api.ts names", () => {
     expect(checkClasses([])).toContain(
-      'carousel.css: class ".ui-motion-off" is in no api.ts; document it as an option, a part or in a note',
+      'carousel.css: class ".ui-markers" is in no api.ts; document it as an option, a part or in a note',
     )
   })
 
@@ -135,5 +135,37 @@ describe("component api checks", () => {
         "interestfor",
       ),
     ).toBe(false)
+  })
+
+  test("read a component's events as onDismiss in React, ondismiss in Svelte and @dismiss in Vue, from its own Emits type", () => {
+    const callout = { component: "Callout", source: "Callout" }
+    expect(frameworkProps(callout, "react").get("onDismiss")).toBe(
+      "(event: Event) => void",
+    )
+    expect(frameworkProps(callout, "svelte").get("ondismiss")).toBe(
+      "(event: Event) => void",
+    )
+    expect(frameworkProps(callout, "vue").get("@dismiss")).toBe(
+      "(event: Event) => void",
+    )
+    expect(
+      frameworkProps({ component: "CalloutActions", source: "Callout" }, "vue")
+        .size,
+    ).toBe(0)
+    expect(
+      checkApi({
+        component: "CalloutActions",
+        options: [
+          {
+            description: "Called.",
+            frameworks: ["vue"],
+            prop: "@dismiss",
+          },
+        ],
+        parts: [],
+        root: { description: "Root.", selector: ".ui-actions" },
+        source: "Callout",
+      }),
+    ).toContain('CalloutActions (vue): prop "@dismiss" does not exist')
   })
 })

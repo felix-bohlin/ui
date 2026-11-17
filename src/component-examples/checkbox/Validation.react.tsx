@@ -14,11 +14,11 @@ export default function Validation() {
       <div className="example-row">
         <Checkbox
           defaultChecked
-          endText="Not available on the free plan."
+          endText="Only in Bassbook Gold, sorry."
           error
           name="checkbox-validation"
         >
-          Daily backups
+          Daily tab backups
         </Checkbox>
         <Checkbox
           endText="Accept the terms to continue."

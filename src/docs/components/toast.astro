@@ -3,6 +3,7 @@ import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
@@ -14,6 +15,17 @@ import ToasterJS from "@opui/elements/toaster.js?raw"
 
 import toastApi from "../../component-api/toast/api"
 
+const anatomyApi = {
+  ...toastApi,
+  root: {
+    ...toastApi.root,
+    code: toastApi.root.selector,
+    description:
+      "The `<opui-toaster>` custom element, with `display: contents`. It adds each toast to the stack.",
+    selector: ".ui-toaster",
+  },
+}
+
 export const description =
   "Short messages that confirm an action and dismiss themselves."
 
@@ -23,6 +35,7 @@ export const keywords = ["notification", "snackbar"]
 <Component
   description={description}
   slug="toast"
+  heroAnatomy
   browserSupport={[
     "color-mix",
     "container-style-queries",
@@ -34,9 +47,12 @@ export const keywords = ["notification", "snackbar"]
     "overflow-clip",
     "popover",
     "relative-color",
-    "scope",
     "starting-style",
   ]}
+  fallbacks={{
+    "interpolate-size":
+      "Without `interpolate-size`, a dismissed toast collapses partway at once, hiding its text, before it fades out and the others close the gap.",
+  }}
   apis={[{ title: "Toaster API", api: toastApi }]}
   changelogPaths={[
     {
@@ -64,9 +80,74 @@ export const keywords = ["notification", "snackbar"]
   <Fragment slot="title">Toast</Fragment>
   <Fragment slot="preamble">
     <p>
-      Short messages that confirm an action and dismiss themselves. Each is a
-      <DocLink href="/components/callout">Callout</DocLink>.
+      Short messages that confirm an action and dismiss themselves. For a
+      message that stays on the page, use a
+      <DocLink href="/components/callout">Callout</DocLink> on its own.
     </p>
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy api={anatomyApi}>
+      <div class="ui-toaster" style="display: block; inline-size: 22rem">
+        <ol
+          popover="manual"
+          style="
+            display: flex;
+            flex-direction: column;
+            inline-size: auto;
+            position: static;
+          "
+        >
+          <li class="ui-callout ui-success">
+            <svg aria-hidden="true" width="32" height="32"></svg>
+            <div class="ui-content"><p>Changes saved</p></div>
+            <button
+              class="ui-button ui-round ui-small"
+              type="button"
+              aria-label="Close"
+            >
+              <svg aria-hidden="true" width="32" height="32"></svg>
+            </button>
+          </li>
+          <li class="ui-callout ui-critical">
+            <svg aria-hidden="true" width="32" height="32"></svg>
+            <div class="ui-content"><p>Upload failed</p></div>
+            <button class="ui-button ui-small" type="button">Retry</button>
+            <button
+              class="ui-button ui-round ui-small"
+              type="button"
+              aria-label="Close"
+            >
+              <svg aria-hidden="true" width="32" height="32"></svg>
+            </button>
+          </li>
+        </ol>
+        <div
+          class="ui-sr-only"
+          role="status"
+          style="
+            block-size: auto;
+            clip-path: none;
+            inline-size: auto;
+            position: static;
+          "
+        >
+          <p>Changes saved</p>
+        </div>
+        <div
+          class="ui-sr-only"
+          role="alert"
+          style="
+            block-size: auto;
+            clip-path: none;
+            inline-size: auto;
+            position: static;
+          "
+        >
+          <p>Upload failed</p>
+        </div>
+      </div>
+    </Anatomy>
   </Fragment>
 
   <Usage slot="usage">
@@ -112,9 +193,11 @@ export const keywords = ["notification", "snackbar"]
   <section id="icons">
     <h2>Icons</h2>
     <p>
-      Set <code>--_info-image</code> and the other icon properties on the
-      toaster. Translate the close button with
-      <PropOrClass prop="closeLabel" class="close-label" />.
+      A toast is a <DocLink href="/components/callout">Callout</DocLink>, so its
+      severity and close icons come from the <code>--ui-icon-*</code> tokens.
+      Set <code>--ui-icon-info</code> and the others on the toaster to swap them
+      for its toasts, or in the theme for every component. Translate the close
+      button with <PropOrClass prop="closeLabel" class="close-label" />.
     </p>
   </section>
 
@@ -149,19 +232,57 @@ export const keywords = ["notification", "snackbar"]
         it.
       </Fragment>
     </Conditional>
+    <p>
+      The insets are measured from the
+      <DocLink href="/guide/theme-tokens#safe-areas">safe area</DocLink>, so
+      with <code>viewport-fit=cover</code> toasts stay clear of a phone's notch
+      and home indicator.
+    </p>
     <AutoExample name="Position" column />
   </section>
 
   <section id="duration">
     <h2>Duration</h2>
-    <p>5 seconds by default. Use <code>duration</code> to change it.</p>
+    <p>
+      5 seconds by default, 10 with an action. Use <code>duration</code> to
+      change it, and <code>Infinity</code> to keep a toast until it's closed.
+    </p>
     <AutoExample name="Duration" row />
+  </section>
+
+  <section id="limit">
+    <h2>Limit</h2>
+    <p>
+      Three toasts at a time by default. Past
+      <PropOrClass prop="limit" class="limit" />, the oldest is dismissed, so a
+      burst of toasts never covers the page. With <code>1</code>, each toast
+      replaces the last.
+    </p>
+    <AutoExample name="Limit" row />
+  </section>
+
+  <section id="in-a-dialog">
+    <h2>In a dialog</h2>
+    <p>
+      A modal <DocLink href="/components/dialog">Dialog</DocLink> or
+      <DocLink href="/components/drawer">Drawer</DocLink> makes the rest of the
+      page inert, toasts included. Give it a toaster of its own:
+      <code>toast()</code> uses the one inside the open dialog, and a toaster
+      outside it warns in the console.
+    </p>
+    <AutoExample name="Dialog" centered />
   </section>
 
   <Fragment slot="accessibility">
     <ul>
       <li>
         Put the toaster near the content it confirms, or at the end of the page.
+      </li>
+      <li>
+        Give a modal <DocLink href="/components/dialog">Dialog</DocLink> or
+        <DocLink href="/components/drawer">Drawer</DocLink> that shows toasts a
+        <a href="#in-a-dialog">toaster of its own</a>, since the page behind it
+        is inert. <code>toast()</code> uses it while the dialog is open.
       </li>
     </ul>
     <KeyboardSupport />

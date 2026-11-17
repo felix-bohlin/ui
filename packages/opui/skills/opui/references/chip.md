@@ -1,30 +1,30 @@
 # Chip
 
-Filters, tags and choices. For the main action, use a Button.
+A compact label or control for filters, tags and choices.
 
 - CSS: `opui-css/css/components/chip.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/chip.md), [Astro](https://open-props-ui.netlify.app/astro/components/chip.md), [React](https://open-props-ui.netlify.app/react/components/chip.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/chip.md), [Vue](https://open-props-ui.netlify.app/vue/components/chip.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/chip.md), [Astro](https://opui.dev/astro/components/chip.md), [React](https://opui.dev/react/components/chip.md), [Svelte](https://opui.dev/svelte/components/chip.md), [Vue](https://opui.dev/vue/components/chip.md).
 
 ## Chip
 
 ### Parts
 
-- `.ui-chip` (root): Container element. Can be a `<div>`, `<a>` or `<button>`.
+- `.ui-chip` (root): Container element. Can be a `<div>`, `<span>`, `<a>` or `<button>`.
 - `<svg>` (slot `start`): Optional content at the start, such as an icon.
 - `.ui-chip > .ui-text` (prop `label`, slot `label`): The label, text or rich content.
 - `<svg>` (slot `end`): Optional content at the end, such as an icon.
 
 ### Props and modifiers
 
-- `as`: `"a" | "button" | "div"`, default `"div"`. The element to render. Defaults to `"a"` with `href`.
+- `as`: `"a" | "button" | "div" | "span"`, default `"div"`. The element to render. Defaults to `"a"` with `href`. Use `"span"` inside a `<label>` or `<button>`, like a count in a tab.
 - `disabled`: `boolean`. Disables a button chip. A link chip drops its `href` and gets `role="link"` and `aria-disabled="true"` instead.
 - `dot`: `boolean`, `.ui-dot`. Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it.
 - `href`: `string`. The link to use. Renders an `<a>`.
 - `multiline`: `boolean`, `.ui-multiline`. Lets the label wrap to multiple lines.
 - Pressed (HTML): `[aria-pressed="true"]`. Fills a pressed button chip with `--ui-selected`, or `--ui-primary`, for a filter or a choice.
-- `severity`: `"critical"` (`.ui-critical`), `"info"` (`.ui-info`), `"neutral"` (`.ui-neutral`), `"success"` (`.ui-success`), `"warning"` (`.ui-warning`). The severity of a status chip. It tints the chip, and colors and shapes its dot.
+- `severity`: `"critical"` (`.ui-critical`), `"info"` (`.ui-info`), `"neutral"` (`.ui-neutral`), `"success"` (`.ui-success`), `"warning"` (`.ui-warning`). The severity of a status chip. It tints a tonal chip, and colors and shapes its dot, the only mark on an outlined one.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
-- State (HTML): `button` (`button[disabled]`), `link` (`a[aria-disabled="true"]`), `static` (`.ui-disabled`). Disables a button chip. A link chip, which can't take `disabled`, drops its `href` and takes `aria-disabled="true"` instead. A static chip can't be disabled; `.ui-disabled` gives it an inactive look without announcing a state.
+- State (HTML): `button` (`button[disabled]`), `link` (`a[aria-disabled="true"]`), `static` (`.ui-disabled`). Disables a button chip. A link chip, which can't take `disabled`, drops its `href` and takes `role="link"` and `aria-disabled="true"` instead. A static chip can't be disabled; `.ui-disabled` gives it an inactive look without announcing a state.
 - `variant`: `"outlined"` (`.ui-outlined`), `"tonal"` (default). The variant to use.
 
 ## Component properties

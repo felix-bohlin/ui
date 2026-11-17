@@ -2,6 +2,10 @@ import { createElement } from "react"
 import { h } from "vue"
 import { afterAll, beforeEach, describe, expect, test, vi } from "vitest"
 import type { ComponentFramework } from "../../src/component-api/frameworks"
+import AnchorReact from "../../packages/opui/components/Anchor/Anchor.react"
+import AnchorVue from "../../packages/opui/components/Anchor/Anchor.vue"
+import AnchorContentReact from "../../packages/opui/components/Anchor/AnchorContent.react"
+import AnchorContentVue from "../../packages/opui/components/Anchor/AnchorContent.vue"
 import CheckboxAstro from "../../packages/opui/components/Checkbox/Checkbox.astro"
 import CheckboxReact from "../../packages/opui/components/Checkbox/Checkbox.react"
 import CheckboxSvelte from "../../packages/opui/components/Checkbox/Checkbox.svelte"
@@ -16,6 +20,10 @@ import DialogTitleReact from "../../packages/opui/components/Dialog/DialogTitle.
 import DialogTitleVue from "../../packages/opui/components/Dialog/DialogTitle.vue"
 import DrawerReact from "../../packages/opui/components/Drawer/Drawer.react"
 import DrawerVue from "../../packages/opui/components/Drawer/Drawer.vue"
+import DrawerHeaderAstro from "../../packages/opui/components/Drawer/DrawerHeader.astro"
+import DrawerHeaderReact from "../../packages/opui/components/Drawer/DrawerHeader.react"
+import DrawerHeaderSvelte from "../../packages/opui/components/Drawer/DrawerHeader.svelte"
+import DrawerHeaderVue from "../../packages/opui/components/Drawer/DrawerHeader.vue"
 import DrawerTitleReact from "../../packages/opui/components/Drawer/DrawerTitle.react"
 import DrawerTitleVue from "../../packages/opui/components/Drawer/DrawerTitle.vue"
 import FieldLegendReact from "../../packages/opui/components/FieldLegend/FieldLegend.react"
@@ -30,10 +38,16 @@ import SwitchAstro from "../../packages/opui/components/Switch/Switch.astro"
 import SwitchReact from "../../packages/opui/components/Switch/Switch.react"
 import SwitchSvelte from "../../packages/opui/components/Switch/Switch.svelte"
 import SwitchVue from "../../packages/opui/components/Switch/Switch.vue"
+import TabsAstro from "../../packages/opui/components/Tabs/Tabs.astro"
+import TabsReact from "../../packages/opui/components/Tabs/Tabs.react"
+import TabsSvelte from "../../packages/opui/components/Tabs/Tabs.svelte"
+import TabsVue from "../../packages/opui/components/Tabs/Tabs.vue"
 import ToggleGroupAstro from "../../packages/opui/components/ToggleGroup/ToggleGroup.astro"
 import ToggleGroupReact from "../../packages/opui/components/ToggleGroup/ToggleGroup.react"
 import ToggleGroupSvelte from "../../packages/opui/components/ToggleGroup/ToggleGroup.svelte"
 import ToggleGroupVue from "../../packages/opui/components/ToggleGroup/ToggleGroup.vue"
+import AnchorContentAttributesAstro from "./fixtures/AnchorContentAttributes.astro"
+import AnchorContentAttributesSvelte from "./fixtures/AnchorContentAttributes.svelte"
 import ReplacedIdsAstro from "./fixtures/ReplacedIds.astro"
 import ReplacedIdsSvelte from "./fixtures/ReplacedIds.svelte"
 import { render } from "./renderers"
@@ -131,6 +145,37 @@ describe("ToggleGroup", () => {
   )
 })
 
+const TABS: Record<ComponentFramework, unknown> = {
+  astro: TabsAstro,
+  react: TabsReact,
+  svelte: TabsSvelte,
+  vue: TabsVue,
+}
+
+describe("Tabs", () => {
+  test.each(FRAMEWORKS)(
+    "%s warns when its radio group has no accessible name",
+    async (framework) => {
+      await render[framework](TABS[framework], { role: "radiogroup" })
+      expect(warnings()).toEqual([
+        "[OPUI Tabs] Missing accessible name. Name the group with `aria-label`, or with `aria-labelledby` pointing at a visible heading.",
+      ])
+    },
+  )
+
+  test.each(FRAMEWORKS)(
+    "%s doesn't warn without the role or when aria-label names it",
+    async (framework) => {
+      await render[framework](TABS[framework], {})
+      await render[framework](TABS[framework], {
+        "aria-label": "Show in the feed",
+        role: "radiogroup",
+      })
+      expect(warnings()).toEqual([])
+    },
+  )
+})
+
 const replacedIds: Record<
   ComponentFramework,
   (labelledby?: string) => Promise<string>
@@ -208,6 +253,88 @@ describe("DialogTitle, DrawerTitle and FieldLegend ids", () => {
   )
 })
 
+const anchorContentAttributes: Record<
+  ComponentFramework,
+  (hover: boolean) => Promise<string>
+> = {
+  astro: (hover) => render.astro(AnchorContentAttributesAstro, { hover }),
+  react: (hover) =>
+    render.react(() =>
+      hover
+        ? createElement(
+            AnchorReact,
+            { id: "card", trigger: "hover" },
+            createElement("a", { href: "/repo", interestfor: "card" }, "Repo"),
+            createElement(
+              AnchorContentReact,
+              { id: "own", popover: "manual" },
+              "Card",
+            ),
+          )
+        : createElement(
+            AnchorReact,
+            null,
+            createElement("button", { popoverTarget: "own" }, "Repo"),
+            createElement(
+              AnchorContentReact,
+              { id: "own", popover: "manual" },
+              "Card",
+            ),
+          ),
+    ),
+  svelte: (hover) => render.svelte(AnchorContentAttributesSvelte, { hover }),
+  vue: (hover) =>
+    render.vue({
+      render: () =>
+        hover
+          ? h(AnchorVue, { id: "card", trigger: "hover" }, () => [
+              h("a", { href: "/repo", interestfor: "card" }, "Repo"),
+              h(
+                AnchorContentVue,
+                { id: "own", popover: "manual" },
+                () => "Card",
+              ),
+            ])
+          : h(AnchorVue, null, () => [
+              h("button", { popovertarget: "own" }, "Repo"),
+              h(
+                AnchorContentVue,
+                { id: "own", popover: "manual" },
+                () => "Card",
+              ),
+            ]),
+    }),
+}
+
+const floatingAttributes = (html: string) =>
+  [...html.matchAll(/<span class="ui-floating"([^>]*)>/g)].map(
+    ([, attributes]) => attributes.trim(),
+  )
+
+describe("AnchorContent id and popover", () => {
+  test.each(FRAMEWORKS)(
+    "%s keeps the hover anchor's and warns",
+    async (framework) => {
+      expect(
+        floatingAttributes(await anchorContentAttributes[framework](true)),
+      ).toEqual(['id="card" popover="hint"'])
+      expect(warnings()).toEqual([
+        '[OPUI AnchorContent] `id` and `popover` are replaced by the anchor\'s, since `trigger="hover"` shows the content through `interestfor` on the trigger. Pass `id` on the Anchor.',
+      ])
+    },
+  )
+
+  test.each(FRAMEWORKS)(
+    "%s keeps its own without a warning when the anchor always shows it",
+    async (framework) => {
+      expect(
+        floatingAttributes(await anchorContentAttributes[framework](false)),
+      ).toEqual(['id="own" popover="manual"'])
+      expect(warnings()).toEqual([])
+    },
+  )
+})
+
 const DIALOG_HEADER: Record<ComponentFramework, unknown> = {
   astro: DialogHeaderAstro,
   react: DialogHeaderReact,
@@ -220,11 +347,23 @@ describe("DialogHeader", () => {
     "%s warns when its close button has no dialog id to close",
     async (framework) => {
       await render[framework](DIALOG_HEADER[framework], {
-        closeLabel: "Close",
+        closeButton: true,
       })
       expect(warnings()).toEqual([
-        "[OPUI DialogHeader] `closeLabel` adds a close button that closes the Dialog through its `id`. Pass `id` on the Dialog.",
+        "[OPUI DialogHeader] `closeButton` adds a close button that closes a dialog through its `id`. Pass `id` on the Dialog, or outside a Dialog set `commandfor` to the id of the dialog to close.",
       ])
+    },
+  )
+
+  test.each(FRAMEWORKS)(
+    "%s doesn't warn when commandfor names the dialog, and points the close button at it",
+    async (framework) => {
+      const html = await render[framework](DIALOG_HEADER[framework], {
+        closeButton: true,
+        commandfor: "shortcuts",
+      })
+      expect(warnings()).toEqual([])
+      expect(html).toContain('commandfor="shortcuts"')
     },
   )
 
@@ -232,6 +371,45 @@ describe("DialogHeader", () => {
     "%s doesn't warn without a close button",
     async (framework) => {
       await render[framework](DIALOG_HEADER[framework], {})
+      expect(warnings()).toEqual([])
+    },
+  )
+})
+
+const DRAWER_HEADER: Record<ComponentFramework, unknown> = {
+  astro: DrawerHeaderAstro,
+  react: DrawerHeaderReact,
+  svelte: DrawerHeaderSvelte,
+  vue: DrawerHeaderVue,
+}
+
+describe("DrawerHeader", () => {
+  test.each(FRAMEWORKS)(
+    "%s warns when its close button has no dialog to close",
+    async (framework) => {
+      await render[framework](DRAWER_HEADER[framework], { closeButton: true })
+      expect(warnings()).toEqual([
+        "[OPUI DrawerHeader] `closeButton` adds a close button that closes a dialog through its `id`. Pass `id` on the Drawer, or outside a Drawer set `commandfor` to the id of the dialog to close.",
+      ])
+    },
+  )
+
+  test.each(FRAMEWORKS)(
+    "%s doesn't warn when commandfor names the dialog, and points the close button at it",
+    async (framework) => {
+      const html = await render[framework](DRAWER_HEADER[framework], {
+        closeButton: true,
+        commandfor: "folders",
+      })
+      expect(warnings()).toEqual([])
+      expect(html).toContain('commandfor="folders"')
+    },
+  )
+
+  test.each(FRAMEWORKS)(
+    "%s doesn't warn without a close button",
+    async (framework) => {
+      await render[framework](DRAWER_HEADER[framework], {})
       expect(warnings()).toEqual([])
     },
   )

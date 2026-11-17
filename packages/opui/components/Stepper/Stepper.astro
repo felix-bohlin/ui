@@ -7,7 +7,7 @@ export const title = "Stepper"
 const {
   class: className,
   complete,
-  completedLabel,
+  completeLabel,
   current,
   errorLabel,
   items,
@@ -28,7 +28,7 @@ const {
 >
   {items?.map((item, index) => (
     <StepperItem
-      completedLabel={completedLabel}
+      completeLabel={completeLabel}
       errorLabel={errorLabel}
       {...item}
       complete={

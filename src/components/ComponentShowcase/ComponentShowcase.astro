@@ -9,7 +9,6 @@ import {
   AvatarGroup,
   Badge,
   Button,
-  ButtonGroup,
   Callout,
   CalloutContent,
   Card,
@@ -19,6 +18,7 @@ import {
   Carousel,
   Checkbox,
   Chip,
+  ControlGroup,
   DescriptionList,
   DescriptionListDescription,
   DescriptionListItem,
@@ -32,7 +32,7 @@ import {
   List,
   ListItem,
   Message,
-  Messages,
+  MessageList,
   NumberField,
   OneTimeCode,
   Progress,
@@ -61,29 +61,47 @@ import {
 } from "opui-css/astro"
 import ShowcaseCards from "./ShowcaseCards.astro"
 import FrameworkPicker from "../FrameworkPicker.astro"
+
+type Props = {
+  label?: string
+  slugs?: string[]
+  wrap?: boolean
+}
+
+const { label = "Components", slugs, wrap } = Astro.props
+const Wrapper = wrap ? "ul" : Carousel
 ---
 
-<Carousel
-  aria-label="Components"
-  class="component-showcase component-showcase--hero showcase-grid"
+<Wrapper
+  aria-label={label}
+  class:list={[
+    "component-showcase",
+    wrap ? "showcase-list ui-not-rich-text" : "component-showcase--hero",
+  ]}
 >
   {Astro.slots.has("default") && <li class="component-showcase__intro">
     <slot />
   </li>}
 
   <ShowcaseCards
-    sizes={{
-      accordion: "wide",
-      callout: "wide",
-      card: "xl",
-      carousel: "wide",
-      dialog: "wide",
-      form: "wide",
-      list: "wide",
-      range: "wide",
-      table: "wide",
-      tabs: "wide",
-    }}
+    slugs={slugs}
+    sizes={
+      wrap
+        ? {
+            accordion: "wide",
+            callout: "wide",
+            card: "xl",
+            carousel: "wide",
+            dialog: "wide",
+            form: "wide",
+            list: "wide",
+            range: "wide",
+            stepper: "wide",
+            table: "wide",
+            tabs: "wide",
+          }
+        : {}
+    }
   >
     <Fragment slot="accordion">
       <Accordion aria-hidden="true" inert variant="outlined">
@@ -124,10 +142,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
     <Fragment slot="avatar">
       <AvatarGroup aria-hidden="true" aria-label="Team">
-        <Avatar
-          src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?q=80&w=1827&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          alt="Avatar"
-        />
+        <Avatar src="/photos/lou-headstock.png" alt="Avatar" />
         <Avatar>OP</Avatar>
         <Avatar>
           <svg
@@ -151,13 +166,6 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
     <Fragment slot="button">
       <Button aria-hidden="true" inert variant="filled">Get started</Button>
-    </Fragment>
-
-    <Fragment slot="button-group">
-      <ButtonGroup aria-hidden="true" inert variant="outlined" size="small">
-        <Button>Day</Button>
-        <Button>Week</Button>
-      </ButtonGroup>
     </Fragment>
 
     <Fragment slot="callout">
@@ -209,6 +217,13 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       </div>
     </Fragment>
 
+    <Fragment slot="control-group">
+      <ControlGroup aria-hidden="true" inert size="small" variant="outlined">
+        <TextField hideLabel label="Order number" placeholder="Order" />
+        <Button>Search</Button>
+      </ControlGroup>
+    </Fragment>
+
     <Fragment slot="copy">
       <div
         aria-hidden="true"
@@ -239,7 +254,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     </Fragment>
 
     <Fragment slot="description-list">
-      <DescriptionList aria-hidden="true" bordered dotted>
+      <DescriptionList aria-hidden="true" border="dotted">
         <DescriptionListItem>
           <DescriptionListTerm>Name</DescriptionListTerm>
           <DescriptionListDescription>Open Props UI</DescriptionListDescription>
@@ -350,14 +365,14 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     </Fragment>
 
     <Fragment slot="message">
-      <Messages aria-hidden="true" style="inline-size: 14rem">
-        <Message author="Saga">
-          <p>Deck is out!</p>
+      <MessageList aria-hidden="true" style="inline-size: 14rem">
+        <Message author="Stella">
+          <p>Flatwounds are on!</p>
         </Message>
         <Message author="You" outgoing>
-          <p>Great work.</p>
+          <p>Totally rad.</p>
         </Message>
-      </Messages>
+      </MessageList>
     </Fragment>
 
     <Fragment slot="number-field">
@@ -535,14 +550,54 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       gap: var(--size-3);
       grid-auto-rows: minmax(180px, auto);
       margin-block: var(--size-8);
-
-      @media (width >= 900px) {
-        grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
-      }
     }
 
     .component-showcase--hero {
+      --_items-per-view: 1.15;
+
       margin-block: 0 var(--size-8);
+
+      @media (width < 900px) {
+        margin-inline: calc(var(--site-page-gutters) / -2);
+        padding-inline: calc(var(--site-page-gutters) / 2);
+        scroll-padding-inline: calc(var(--site-page-gutters) / 2);
+      }
+
+      @media (width >= 600px) {
+        --_items-per-view: 2.15;
+      }
+
+      @media (width >= 900px) {
+        --_items-per-view: 3.15;
+      }
+
+      @media (width >= 1140px) {
+        --_items-per-view: 4.15;
+      }
+    }
+
+    .showcase-list {
+      display: grid;
+      grid-auto-flow: row dense;
+      grid-template-columns: repeat(auto-fill, minmax(min(14rem, 100%), 1fr));
+      list-style: none;
+      margin-block: var(--size-4) 0;
+      padding: 0;
+
+      .showcase-card,
+      .showcase-preview {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .showcase-preview {
+        & > * {
+          max-inline-size: 100%;
+        }
+
+        & select {
+          min-inline-size: 0;
+        }
+      }
     }
 
     .component-showcase__intro {
@@ -716,13 +771,14 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       margin: 0;
     }
   </style>
-</Carousel>
+</Wrapper>
 
 <script is:inline>
   ;(function () {
     const themeSwitcher = document.getElementById("showcase-theme-switcher")
 
-    if (themeSwitcher) {
+    if (themeSwitcher && !themeSwitcher.dataset.bound) {
+      themeSwitcher.dataset.bound = "true"
       const syncTheme = () => {
         themeSwitcher.checked =
           document.documentElement.classList.contains("ui-dark")

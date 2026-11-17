@@ -1,3 +1,8 @@
+export const blog = {
+  description: "How the components are made, one technique at a time.",
+  title: "Open Props UI blog",
+}
+
 export const posts = [
   {
     category: "release",
@@ -298,8 +303,8 @@ export const posts = [
     category: "under-the-hood",
     component: "tabs",
     date: "2026-10-02",
-    description: "Radio inputs, order and :nth-child(of S) for CSS-only tabs.",
-    features: ["nth-child-of"],
+    description: "Radio inputs, a grid and :nth-child(of S) for CSS-only tabs.",
+    features: ["nth-child-of", "sibling-count"],
     now: "One radio group, and `:checked + label + panel` shows the right panel.",
     slug: "tabs-radio-buttons",
     technique: ":nth-child(of S)",

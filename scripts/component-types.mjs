@@ -95,6 +95,12 @@ const baseRef = (node, name) =>
   node.typeName.left.getText() === "Base" &&
   node.typeName.right.text === name
 
+const omitsBase = (node, name) =>
+  isReference(node, "Omit") &&
+  node.typeArguments?.length === 2 &&
+  baseRef(node.typeArguments[0], name) &&
+  otherKeys(node.typeArguments[1]).length === 0
+
 const members = (node) =>
   ts.isIntersectionTypeNode(node)
     ? node.types
@@ -239,6 +245,57 @@ const slotMembers = (node, parameter) =>
         ]
       : []
 
+export const eventProp = (framework, event) =>
+  framework === "react"
+    ? `on${event[0].toUpperCase()}${event.slice(1)}`
+    : `on${event}`
+
+export const eventsTypeOf = (name) =>
+  name === "Props" ? "Events" : name.replace(/Props$/, "Events")
+
+export const emitsTypeOf = (name) =>
+  name === "Props" ? "Emits" : name.replace(/Props$/, "Emits")
+
+const eventNames = (alias, file) => {
+  if (!ts.isTypeLiteralNode(alias.type)) {
+    throw unsupported(
+      file,
+      `the type ${alias.name.text}, which isn't an object type`,
+      "list each event the root element fires with the type of its event object: `{ dismiss: Event }`",
+    )
+  }
+  return alias.type.members.map((member) => {
+    const name = member.name?.getText() ?? ""
+    if (
+      !ts.isPropertySignature(member) ||
+      !member.type ||
+      member.questionToken ||
+      !/^[a-z]+$/.test(name)
+    ) {
+      throw unsupported(
+        file,
+        `the event ${name || member.getText()} in ${alias.name.text}`,
+        "name each event the root element fires in lowercase letters, with the type of its event object: `dismiss: Event`",
+      )
+    }
+    return name
+  })
+}
+
+export const eventsOf = (base, name, folder) => {
+  if (!base) return []
+  const alias = sourceFileOf(base, "types.ts")
+    .statements.filter(ts.isTypeAliasDeclaration)
+    .find(
+      (statement) =>
+        statement.name.text ===
+        eventsTypeOf(name === folder ? "Props" : `${name}Props`),
+    )
+  return alias
+    ? eventNames(alias, `packages/opui/components/${folder}/types.ts`)
+    : []
+}
+
 export const toTypes = (
   folder,
   { astro, base },
@@ -283,6 +340,25 @@ export const toTypes = (
     }
   }
   const propsAliases = aliases.filter(({ name }) => name.endsWith("Props"))
+  const baseFileName = `packages/opui/components/${folder}/types.ts`
+  const eventTypes = new Map(
+    baseAliases
+      .filter(({ name }) => name.text.endsWith("Events"))
+      .map((alias) => [alias.name.text, alias]),
+  )
+  for (const eventsName of eventTypes.keys()) {
+    if (!propsAliases.some(({ name }) => eventsTypeOf(name) === eventsName)) {
+      throw unsupported(
+        baseFileName,
+        `the type ${eventsName}, which names no props type in types.astro.ts`,
+        "name it after the props it belongs to: Events for Props, <Root><Part>Events for <Root><Part>Props",
+      )
+    }
+  }
+  const eventsFor = (name) =>
+    eventTypes.has(eventsTypeOf(name))
+      ? eventNames(eventTypes.get(eventsTypeOf(name)), baseFileName)
+      : []
   const slotted = propsAliases.filter(({ name }) =>
     slotTypes.has(slotsTypeOf(name)),
   )
@@ -353,15 +429,12 @@ export const toTypes = (
       ? "\n\ntype Without<T, K extends PropertyKey> = T extends unknown\n  ? Omit<T, K>\n  : never"
       : ""
   const slotsMember = { react: "ReactNode", svelte: "Snippet" }
-  const radioGrouped = Object.values(modelsByComponent).some(
-    (model) => model?.kind === "radioGroup",
-  )
   const typed = (framework) => {
     const edits = [
       replacing(
         elementImport,
         framework === "react"
-          ? `import type { ${[...(radioGrouped ? ["ChangeEventHandler"] : []), "ComponentProps", ...(slotted.length ? ["ReactNode"] : [])].join(", ")} } from "react"${withoutHelper(framework)}`
+          ? `import type { ${["ComponentProps", ...(slotted.length ? ["ReactNode"] : [])].join(", ")} } from "react"${withoutHelper(framework)}`
           : `import type { SvelteHTMLElements } from "svelte/elements"${slotted.length ? '\nimport type { Snippet } from "svelte"' : ""}${withoutHelper(framework)}`,
       ),
     ]
@@ -387,11 +460,12 @@ export const toTypes = (
           : []
       const group = framework === "react" && model?.kind === "group"
       const radioGroup = framework === "react" && model?.kind === "radioGroup"
+      const events = isProps ? eventsFor(name) : []
       const omit = [
         ...(slots && !slots.includes("default") ? ["children"] : []),
         ...extras.map(({ prop }) => prop),
-        ...(group ? ["defaultValue"] : []),
-        ...(radioGroup ? ["onChange"] : []),
+        ...(group || radioGroup ? ["defaultValue"] : []),
+        ...(tag ? events.map((event) => eventProp(framework, event)) : []),
       ]
       for (const ref of elementRefs(type)) {
         edits.push(
@@ -445,7 +519,10 @@ export const toTypes = (
       const collect = (node) => {
         if (ts.isIntersectionTypeNode(node)) {
           node.types.forEach((part, index) => {
-            if (baseRef(part, name) && index < node.types.length - 1) {
+            if (
+              (baseRef(part, name) || omitsBase(part, name)) &&
+              index < node.types.length - 1
+            ) {
               baseParts.push(part)
             }
           })
@@ -453,29 +530,44 @@ export const toTypes = (
         ts.forEachChild(node, collect)
       }
       collect(type)
+      if (events.length > 0 && baseParts.length === 0) {
+        throw unsupported(
+          file,
+          `the type ${name}, which has ${eventsTypeOf(name)} but no Base.${name} to join them to`,
+          `start it with Base.${name} &`,
+        )
+      }
       baseParts.forEach((part) => {
         const withSlots = slotTypes.has(slotsTypeOf(name))
           ? ` & Base.${slotsTypeOf(name)}<${slotsMember[framework]}>`
           : ""
+        const handlers = events.length
+          ? ` & { ${events.map((event) => `${eventProp(framework, event)}?: (event: Base.${eventsTypeOf(name)}[${JSON.stringify(event)}]) => void`).join("; ")} }`
+          : ""
         const untied =
-          group && tied.length === 0
-            ? ` & { defaultValue?: ${model.type}; onValueChange?: (value: ${model.type}) => void${declaresProperty(type, model.prop) ? "" : `; ${model.prop}?: ${model.type}`} }`
+          (group && tied.length === 0) || radioGroup
+            ? ` & { defaultValue?: ${model.type}; onValueChange?: (value: ${model.type}) => void${declaresProperty(type, model.prop) || known.includes(model.prop) ? "" : `; ${model.prop}?: ${model.type}`} }`
             : ""
         const renamed = framework === "react" ? reactRenamed(name) : []
+        const omitted = omitsBase(part, name)
+          ? literalKeys(part.typeArguments[1])
+          : []
         const dropped = [...strings, ...renamed].toSorted(byName)
         const wrapped = dropped.length
-          ? `Without<Base.${name}, ${dropped.map((key) => JSON.stringify(key)).join(" | ")}>`
-          : `Base.${name}`
+          ? `Without<Base.${name}, ${[...omitted, ...dropped]
+              .toSorted(byName)
+              .map((key) => JSON.stringify(key))
+              .join(" | ")}>`
+          : omitted.length
+            ? part.getText()
+            : `Base.${name}`
         const reactNames = renamed.length
           ? ` & { ${renamed.map((key) => `${REACT_ATTRIBUTE_NAMES[key]}?: Base.${name}[${JSON.stringify(key)}]`).join("; ")} }`
-          : ""
-        const radioChange = radioGroup
-          ? " & { onChange?: ChangeEventHandler<HTMLInputElement> }"
           : ""
         edits.push(
           replacing(
             part,
-            `${wrapped}${reactNames}${withSlots}${untied}${radioChange}`,
+            `${wrapped}${reactNames}${withSlots}${handlers}${untied}`,
           ),
         )
       })
@@ -539,7 +631,19 @@ export const toTypes = (
       : ""
     return `export type ${slotsName} = ${[literal, ...(hasDefault ? ["DefaultSlots"] : [])].filter(Boolean).join(" & ")}`
   })
-  const imported = based
+  const emitting = propsAliases
+    .map(({ name }) => name)
+    .filter((name) => eventsFor(name).length > 0)
+  const vueEmits = emitting.map(
+    (name) =>
+      `export type ${emitsTypeOf(name)} = { ${eventsFor(name)
+        .map(
+          (event) =>
+            `${event}: [event: Base${eventsTypeOf(name)}[${JSON.stringify(event)}]]`,
+        )
+        .join("; ")} }`,
+  )
+  const imported = [...based, ...emitting.map(eventsTypeOf)]
     .map((name) => `${name} as Base${name}`)
     .toSorted(byName)
   const vueText = (node) => {
@@ -727,7 +831,11 @@ export const toTypes = (
     : []
   const vueBody = [
     ...vueAliases,
-    ...(slotTypes.has("Slots") ? [] : ["export type Slots = DefaultSlots"]),
+    ...vueEmits,
+    ...(slotTypes.has("Slots") ||
+    !(slotsByComponent[folder] ?? ["default"]).includes("default")
+      ? []
+      : ["export type Slots = DefaultSlots"]),
     ...[...vueSlotTypes, ...defaultOnlySlotTypes].toSorted(byName),
   ]
   const vue = [

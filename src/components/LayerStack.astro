@@ -1,5 +1,17 @@
 ---
-const layers = [
+type Item = {
+  name: string
+  note?: string
+  sublayers?: Item[]
+  tag?: string
+  yours?: boolean
+}
+
+type Props = {
+  items?: Item[]
+}
+
+const layers: Item[] = [
   { name: "openprops", note: "Open Props, optional" },
   {
     name: "theme",
@@ -23,17 +35,20 @@ const layers = [
   { name: "utils", note: "Utility classes" },
   { name: "Unlayered", note: "Your overrides", yours: true },
 ]
+
+const { items = layers } = Astro.props
 ---
 
 <figure class="layer-stack ui-not-rich-text">
   <ol>
-    {layers.map((layer) => <li data-yours={layer.yours ? "" : undefined}>
+    {items.map((layer) => <li data-yours={layer.yours ? "" : undefined}>
       {layer.name === "Unlayered" ? (
         <span class="name">{layer.name}</span>
       ) : (
         <code class="name">{layer.name}</code>
       )}
       {layer.note && <span class="note">{layer.note}</span>}
+      {layer.tag && <span class="tag">{layer.tag}</span>}
       {layer.sublayers && <ol>
         {layer.sublayers.map((sublayer) => <li
           data-yours={sublayer.yours ? "" : undefined}
@@ -44,7 +59,9 @@ const layers = [
       </ol>}
     </li>)}
   </ol>
-  <figcaption>Each layer beats the ones above it.</figcaption>
+  <figcaption>
+    <slot name="caption">Each layer beats the ones above it.</slot>
+  </figcaption>
 </figure>
 
 <style>
@@ -57,11 +74,13 @@ const layers = [
   }
 
   ol {
+    column-gap: var(--size-3);
     display: grid;
-    gap: var(--size-2);
+    grid-template-columns: max-content minmax(0, 1fr) auto;
     list-style: none;
     margin: 0;
     padding: 0;
+    row-gap: var(--size-2);
   }
 
   .layer-stack > ol {
@@ -93,9 +112,9 @@ const layers = [
     background-color: var(--ui-surface-tonal);
     border: var(--ui-border-width) solid transparent;
     border-radius: var(--ui-radius-small);
-    column-gap: var(--size-3);
     display: grid;
-    grid-template-columns: minmax(9rem, auto) 1fr;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
     padding: var(--size-2) var(--size-3);
     row-gap: var(--size-2);
   }
@@ -106,6 +125,7 @@ const layers = [
 
   li > ol {
     grid-column: 1 / -1;
+    grid-template-columns: subgrid;
   }
 
   [data-yours] {
@@ -124,6 +144,15 @@ const layers = [
     font-size: var(--ui-font-size-small);
   }
 
+  .tag {
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--radius-round);
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-caption);
+    justify-self: start;
+    padding-inline: var(--size-2);
+  }
+
   figcaption {
     color: var(--ui-text);
     font-size: var(--ui-font-size-small);
@@ -131,8 +160,8 @@ const layers = [
   }
 
   @container (width < 24rem) {
-    li {
-      grid-template-columns: 1fr;
+    .layer-stack > ol {
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 </style>

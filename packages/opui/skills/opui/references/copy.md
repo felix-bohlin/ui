@@ -3,15 +3,15 @@
 A button that copies text or a field's value to the clipboard.
 
 - CSS: `opui-css/css/components/copy.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/copy.md), [Astro](https://open-props-ui.netlify.app/astro/components/copy.md), [React](https://open-props-ui.netlify.app/react/components/copy.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/copy.md), [Vue](https://open-props-ui.netlify.app/vue/components/copy.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/copy.md), [Astro](https://opui.dev/astro/components/copy.md), [React](https://opui.dev/react/components/copy.md), [Svelte](https://opui.dev/svelte/components/copy.md), [Vue](https://opui.dev/vue/components/copy.md).
 
 ## Copy
 
 ### Parts
 
 - `opui-copy.ui-copy` (root): The `<opui-copy>` custom element around the text or field to copy, with `display: contents`.
-- `<span role="status">`: The live region that announces the copy, visually hidden with `.ui-sr-only`.
 - `<span popover>` (prop `copiedLabel`, prop `failedLabel`): The label next to the button that shows `copiedLabel` or `failedLabel`.
+- `<span role="status">`: The live region that announces the copy, visually hidden with `.ui-sr-only`.
 
 ### Props and modifiers
 
@@ -22,6 +22,12 @@ A button that copies text or a field's value to the clipboard.
 ### Slots
 
 - `default`: The text or the field to copy, and the button if it sits inside.
+
+### Element
+
+- `<opui-copy>`, defined by `opui-css/elements/copy.js`:
+  - `copy(source)`: Copies `text`, shows `copied-label` or `failed-label` next to `source` and announces it, or selects the text when the clipboard is blocked. Returns a promise of whether it copied.
+  - `text`: What a copy writes: the value of the field inside, or else the text without its buttons, popovers, status and `[data-copy-ignore]` elements. Read-only.
 
 ### Notes
 
@@ -37,11 +43,10 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 ### copy.css
 
 - `--_bg-color`: Background of the label. Defaults to `--ui-surface-elevated`.
-- `--_ease`: Easing of the reveal and the fade. Defaults to `--ui-ease-enter`.
 - `--_motion`: Motion multiplier for the reveal and the fade. `0` turns them off.
 - `--_offset`: The gap between the label and the button.
 
-Outputs: `--_accent`, `--_border-color`, `--_duration`, `--_font-size`, `--_hidden-clip-path`, `--_radius`, `--_shown-clip-path` and `--_text-color`.
+Outputs: `--_accent`, `--_border-color`, `--_duration`, `--_ease`, `--_font-size`, `--_hidden-clip-path`, `--_radius`, `--_shown-clip-path` and `--_text-color`.
 
 ## Theme tokens
 
@@ -53,12 +58,17 @@ The stylesheets read `--ui-border-width`, `--ui-button-accent`, `--ui-button-fon
 
 ```html
 <opui-copy id="copy-basics-1" class="ui-copy">
-  <label class="ui-text-field">
-    <span class="ui-sr-only">Invite link</span>
+  <div class="ui-text-field">
+    <label class="ui-sr-only" for="copy-basics-2">Invite link</label>
     <span class="ui-field">
-      <input readonly value="https://example.com/invite/8f3k2" type="text" />
+      <input
+        readonly
+        value="https://example.com/invite/8f3k2"
+        id="copy-basics-2"
+        type="text"
+      />
     </span>
-  </label>
+  </div>
   <span class="ui-sr-only" role="status"></span>
   <span aria-hidden="true" class="ui-floating" popover></span>
 </opui-copy>

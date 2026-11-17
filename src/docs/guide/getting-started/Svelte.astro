@@ -1,33 +1,32 @@
 ---
 import Guide from "../../../layouts/Guide.astro"
 import Code from "../../../components/Code.astro"
+import Bindings from "./partials/Bindings.astro"
+import Builds from "./partials/Builds.astro"
+import CssFiles from "./partials/CssFiles.astro"
 import InstallCommand from "./partials/InstallCommand.astro"
 import NextSteps from "./partials/NextSteps.astro"
 import PickAndChoose from "./partials/PickAndChoose.astro"
+import QuickStart from "./partials/QuickStart.astro"
 import ServerSupport from "./partials/ServerSupport.astro"
+
+export const keywords = ["install", "npm", "setup", "ssr"]
 ---
 
 <Guide overline="Guide">
   <Fragment slot="title">Getting started</Fragment>
   <Fragment slot="preamble">
-    OPUI ships first-class Svelte 5 components. Install the package, import what
-    you need, and you're set.
+    OPUI ships first-class components for Svelte 5.57 and later. Install the
+    package, import what you need, and you're set.
   </Fragment>
 
-  <section id="installation">
-    <h2>Install via NPM</h2>
-    <InstallCommand packages="svelte@5" />
-  </section>
-
-  <section id="css">
-    <h2>Import the CSS</h2>
-    <p>
-      Svelte components ship markup only - the CSS still has to be imported
-      once, in your root layout or the entry file that mounts your app. Import
-      everything:
-    </p>
-    <Code
-      code={`<!-- src/routes/+layout.svelte -->
+  <section id="quick-start">
+    <h2>Quick start</h2>
+    <QuickStart>
+      <Fragment slot="install">
+        <InstallCommand packages="svelte@5" />
+        <Code
+          code={`<!-- src/routes/+layout.svelte -->
 <script lang="ts">
   import "opui-css/css/imports.css"
 
@@ -35,11 +34,31 @@ import ServerSupport from "./partials/ServerSupport.astro"
 </script>
 
 {@render children()}`}
-      lang="svelte"
-    />
+          lang="svelte"
+        />
+      </Fragment>
+      <Code
+        slot="use"
+        code={`<script lang="ts">
+  import { Button } from "opui-css/svelte"
+</script>
+
+<Button color="primary" variant="filled">Save</Button>`}
+        lang="svelte"
+      />
+    </QuickStart>
+  </section>
+
+  <section id="whats-in-the-css">
+    <h2>What's in the CSS</h2>
+    <CssFiles />
+  </section>
+
+  <section id="css">
+    <h2>Import only what you use</h2>
     <p>
-      Or pick and choose in a CSS file, and import that file in your layout
-      instead:
+      List the files in a CSS file, and import that file in your layout instead
+      of <code>imports.css</code>:
     </p>
     <PickAndChoose file="src/styles/main.css" />
     <Code
@@ -55,40 +74,51 @@ import ServerSupport from "./partials/ServerSupport.astro"
     />
   </section>
 
-  <section id="usage">
-    <h2>How to use</h2>
-    <Code
-      code={`<script lang="ts">
-  import { Button } from "opui-css/svelte"
-</script>
+  <section id="builds">
+    <h2>Builds</h2>
+    <Builds tools={["vite"]} />
+  </section>
 
-<Button variant="filled">Click me</Button>`}
-      lang="svelte"
+  <section id="typescript">
+    <h2>TypeScript</h2>
+    <p>
+      The types resolve with <code>moduleResolution</code> set to
+      <code>"bundler"</code> or <code>"nodenext"</code>.
+      <code>svelte-check</code> 4.7 runs on TypeScript 6. For TypeScript 7,
+      install it next to TypeScript 6 and run <code>svelte-check --tsgo</code>:
+    </p>
+    <Code
+      code="npm install -D typescript@6 @typescript/native@npm:typescript@7"
+      lang="sh"
     />
     <p>
-      Containers take parts, such as <code>CardHeader</code> and
-      <code>DialogFooter</code>. Other slots are snippets: the default slot is
-      <code>children</code> and named slots are camelCased, such as
-      <code>endText</code>. <code>TextField</code>, <code>Textarea</code>,
-      <code>Select</code>, <code>Range</code>, <code>NumberField</code>,
-      <code>OneTimeCode</code>, <code>Rating</code>, <code>Tabs</code> and
-      <code>ToggleGroup</code> support <code>bind:value</code>.
-      <code>Checkbox</code> and <code>Switch</code> support
-      <code>bind:checked</code> and <code>bind:group</code>,
-      <code>ToggleButton</code> supports <code>bind:checked</code>, and
-      <code>Radio</code> supports <code>bind:group</code>.
+      The types need <code>skipLibCheck: true</code> in
+      <code>tsconfig.json</code>, as the Svelte and SvelteKit templates set it.
+      Without it, <code>svelte-check</code> reports a union type that is too
+      complex to represent.
     </p>
-    <NextSteps />
+  </section>
+
+  <section id="usage">
+    <h2>How to use</h2>
+    <p>
+      Slots are snippets: <code>children</code>, and camelCased names like
+      <code>endText</code>. Form controls bind their value:
+    </p>
+    <Bindings />
   </section>
 
   <section id="ssr">
     <h2>Server rendering</h2>
     <p>
-      Every component renders complete HTML on the server, and the native
-      controls work and submit with their form. The props in the last column
-      need hydration (<code>client:load</code> in Astro) or client-side
-      rendering.
+      Every component renders full HTML on the server. The props in the last
+      column need hydration.
     </p>
     <ServerSupport framework="svelte" />
+  </section>
+
+  <section id="next-steps">
+    <h2>Next steps</h2>
+    <NextSteps />
   </section>
 </Guide>

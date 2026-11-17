@@ -2,7 +2,13 @@
   import { Switch } from "opui-css/svelte"
 </script>
 
-<Switch endText="Supporting text" name="switch-end-text">Default</Switch>
-<Switch endText="Supporting text" name="switch-end-text" orientation="vertical">
-  Stack
+<Switch endText="A summary every morning." name="switch-end-text">
+  Daily digest
+</Switch>
+<Switch
+  endText="Only when someone mentions you."
+  name="switch-end-text"
+  orientation="vertical"
+>
+  Mentions
 </Switch>

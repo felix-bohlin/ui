@@ -56,7 +56,7 @@ export const keywords = ["gallery", "scroll snap", "slider", "slideshow"]
 
 const translation = `.ui-carousel:lang(sv) {
   --_button-next-label: "Nästa";
-  --_button-prev-label: "Föregående";
+  --_button-previous-label: "Föregående";
   --_marker-label: "Bild " counter(ui-carousel-item);
 }`
 ---
@@ -67,9 +67,10 @@ const translation = `.ui-carousel:lang(sv) {
   heroAnatomy
   apis={[{ title: "Carousel API", api: carouselApi }]}
   browserSupport={[
+    "alt-text-generated-content",
     "anchor-positioning",
-    "container-style-queries",
     "dir-pseudo",
+    "if",
     "light-dark",
     "logical-properties",
     "relative-color",
@@ -79,6 +80,15 @@ const translation = `.ui-carousel:lang(sv) {
     "scroll-snap",
     "scrollbar-width",
   ]}
+  fallbacks={{
+    if: "Without `if()`, the compat layer still turns smooth scrolling off under reduced motion and with `.ui-motion-off`.",
+    "scroll-buttons":
+      "Without scroll buttons, the carousel shows its scrollbar instead of previous and next buttons, and still scrolls and snaps.",
+    "scroll-marker-targets":
+      "Without `:target-current`, the markers don't show which item is current.",
+    "scroll-markers":
+      "Without scroll markers, the carousel has no markers to jump to an item.",
+  }}
   changelogPaths={[
     {
       path: "packages/opui/components/Carousel/Carousel.astro",
@@ -92,6 +102,11 @@ const translation = `.ui-carousel:lang(sv) {
   installationTabs={[{ title: "carousel.css", code: CarouselCSS, lang: "css" }]}
 >
   <Fragment slot="title">Carousel</Fragment>
+  <Fragment slot="preamble">
+    Items people browse in a small space, like photos or products. For items to
+    compare, use a <DocLink href="/components/layout#grid">layout grid</DocLink
+    >.
+  </Fragment>
 
   <Fragment slot="anatomy">
     <Anatomy>
@@ -203,7 +218,8 @@ const translation = `.ui-carousel:lang(sv) {
   <section id="buttons-outside">
     <h2>Buttons outside</h2>
     <p>
-      Use <PropOrClass prop='buttons="outside"' class=".ui-buttons-outside" />.
+      Use <PropOrClass prop='buttons="outside"' class=".ui-buttons-outside" />
+      for items with text, which the inside buttons cover at their edges.
     </p>
 
     <AutoExample name="ButtonsOutside" />
@@ -221,7 +237,11 @@ const translation = `.ui-carousel:lang(sv) {
 
   <section id="custom-buttons">
     <h2>Custom buttons</h2>
-    <p>Set <code>--_button-image</code> to a white SVG that points right.</p>
+    <p>
+      Set <code>--ui-icon-next</code> in your theme to change the icon of every
+      carousel, or <code>--_button-image</code> for one. Use an SVG that points
+      right, drawn in black like the icons of an icon set.
+    </p>
 
     <AutoExample name="CustomButtons" />
   </section>
@@ -231,7 +251,8 @@ const translation = `.ui-carousel:lang(sv) {
     <Conditional as="p">
       <Fragment slot="components">
         Translate with <code>previousLabel</code>, <code>nextLabel</code> and
-        <code>markerLabel</code>, or for a whole language in CSS:
+        <code>markerLabel</code>, with <code>{"{number}"}</code> where the item
+        number goes, or for a whole language in CSS:
       </Fragment>
       <Fragment slot="html">
         Translate with the label properties and <code>:lang()</code>:
@@ -356,6 +377,7 @@ const translation = `.ui-carousel:lang(sv) {
         Name the carousel with <code>aria-label</code> or
         <code>aria-labelledby</code>.
       </li>
+      <li>Keep <code>role="list"</code> for Safari.</li>
     </ul>
     <KeyboardSupport>
       <p>Chromium's keys. Other browsers may differ.</p>
@@ -381,11 +403,11 @@ const translation = `.ui-carousel:lang(sv) {
   const htmlSnippet = (state: State, label: string) => {
     const classes = [
       "ui-carousel",
-      state.persistentButtons && "ui-persistent-buttons",
+      state.markers && "ui-markers",
       state.peek && "ui-peek",
+      state.persistentButtons && "ui-persistent-buttons",
       state.stretch && "ui-stretch",
       state.orientation && "ui-vertical",
-      state.markers && "ui-markers",
       state.align && "ui-align-center",
       state.buttons !== "inside" && `ui-buttons-${state.buttons}`,
     ].filter(Boolean)
@@ -414,12 +436,12 @@ const translation = `.ui-carousel:lang(sv) {
       `aria-label="${label}"`,
       state.aspectRatio !== "16 / 9" && `aspectRatio="${state.aspectRatio}"`,
       state.buttons !== "inside" && `buttons="${state.buttons}"`,
+      state.itemsPerView > 1 &&
+        expression("itemsPerView", String(state.itemsPerView)),
       state.markers && "markers",
       state.orientation && `orientation="vertical"`,
       state.peek && "peek",
       state.persistentButtons && "persistentButtons",
-      state.itemsPerView > 1 &&
-        expression("itemsPerView", String(state.itemsPerView)),
       state.stretch && "stretch",
       state.orientation &&
         (framework === "react"

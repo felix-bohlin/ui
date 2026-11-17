@@ -8,9 +8,9 @@ const componentCssDir = join(root, "packages/opui/css/components")
 const coreCssDir = join(root, "packages/opui/core")
 const layersFile = join(root, "packages/opui/css/layers.css")
 
-export const CORE_CSS = ["normalize.css", "utils.css"]
+const CORE_CSS = ["normalize.css", "utils.css"]
 
-export const EXAMPLE_LAYOUT_CSS = join(root, "src/styles/example-layout.css")
+const EXAMPLE_LAYOUT_CSS = join(root, "src/styles/example-layout.css")
 
 export const UA_CSS = `
 area, base, datalist, head, link, meta, noembed, noframes, param, rp, script, style, template, title { display: none }
@@ -118,7 +118,7 @@ const balanced = (text, open) => {
 
 const PSEUDO_ELEMENT = /::|:(after|before|first-letter|first-line|marker)\b/
 
-const GENERATED = /^(.*?)::?(after|before)$/
+const GENERATED = /^(.*?)::?(after|before)$/s
 
 const PROPERTIES = ["content", "display", "position", "white-space"]
 
@@ -526,6 +526,8 @@ export const cssRules = (css, { layered = true, rank } = {}) => {
           if (!node.nodes) continue
           const name = layer ? `${layer}.${node.params}` : node.params
           visit(node, parents, name)
+        } else if (node.name === "media" && /^print$/i.test(node.params)) {
+          continue
         } else if (node.name === "supports") {
           node.walkDecls((decl) => {
             if (decl.prop === "display" || decl.prop === "white-space") {

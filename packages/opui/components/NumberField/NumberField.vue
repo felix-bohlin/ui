@@ -6,11 +6,12 @@ import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { idRefs } from "../id"
-import { minusPath, plusPath } from "./icons"
+import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
   decreaseLabel = "Decrease",
+  disabled,
   endText,
   error,
   hideLabel,
@@ -46,7 +47,7 @@ const field = inject(FieldGroupKey, undefined)
 
 const uid = useId()
 
-const base = computed(() => id ?? `number-field-${uid}`)
+const base = computed(() => id || `number-field-${uid}`)
 
 const inputId = computed(() => base.value)
 
@@ -70,7 +71,7 @@ const endTextId = () =>
       size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
-    :style="$attrs.style"
+    v-bind="styleAttrs($attrs.style)"
   >
     <label
       v-if="label || $slots.label"
@@ -91,6 +92,7 @@ const endTextId = () =>
           :aria-label="decreaseLabel"
           command="--step-down"
           :commandfor="inputId"
+          :disabled="disabled"
           round
         >
           <slot v-if="$slots['decrease-icon']" name="decrease-icon"></slot>
@@ -101,9 +103,7 @@ const endTextId = () =>
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" :d="minusPath" />
-          </svg>
+          ></svg>
         </Button>
       </span>
       <input
@@ -112,6 +112,7 @@ const endTextId = () =>
           idRefs(startTextId(), endTextId(), attrs['aria-describedby'])
         "
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+        :disabled="disabled"
         :id="inputId"
         :name="name ?? field?.name"
         type="number"
@@ -124,6 +125,7 @@ const endTextId = () =>
           :aria-label="increaseLabel"
           command="--step-up"
           :commandfor="inputId"
+          :disabled="disabled"
           round
         >
           <slot v-if="$slots['increase-icon']" name="increase-icon"></slot>
@@ -134,9 +136,7 @@ const endTextId = () =>
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" :d="plusPath" />
-          </svg>
+          ></svg>
         </Button>
       </span>
     </span>

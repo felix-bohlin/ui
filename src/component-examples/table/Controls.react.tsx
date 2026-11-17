@@ -10,58 +10,58 @@ import {
   TextField,
 } from "opui-css/react"
 
-const instruments = [
-  { label: "Bass", value: "bass" },
-  { label: "Drums", value: "drums" },
-  { label: "Guitar", value: "guitar" },
-  { label: "Vocals", value: "vocals" },
+const roles = [
+  { label: "Flatwound collector", value: "flatwound-collector" },
+  { label: "Low B whisperer", value: "low-b-whisperer" },
+  { label: "Slap enthusiast", value: "slap-enthusiast" },
+  { label: "Tone advisor", value: "tone-advisor" },
 ]
 
 export default function Controls() {
   return (
     <Table density="dense">
-      <TableCaption>Band Members</TableCaption>
+      <TableCaption>Low End Theory members</TableCaption>
       <TableHead>
         <TableRow>
           <TableHeaderCell>Name</TableHeaderCell>
-          <TableHeaderCell>Instrument</TableHeaderCell>
+          <TableHeaderCell>Specialty</TableHeaderCell>
           <TableHeaderCell>Notes</TableHeaderCell>
         </TableRow>
       </TableHead>
       <TableBody>
         <TableRow>
-          <TableCell>Jonathan Davis</TableCell>
+          <TableCell>Lou Headstock</TableCell>
           <TableCell>
             <Select
-              defaultValue="vocals"
+              defaultValue="flatwound-collector"
               hideLabel
-              items={instruments}
-              label="Instrument for Jonathan Davis"
+              items={roles}
+              label="Specialty for Lou Headstock"
             />
           </TableCell>
           <TableCell>
             <TextField
               hideLabel
-              label="Notes for Jonathan Davis"
-              placeholder="Add a note"
+              label="Notes for Lou Headstock"
+              placeholder="Add a note about their tone"
             />
           </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Ed O'Brien</TableCell>
+          <TableCell>Percy Groove</TableCell>
           <TableCell>
             <Select
-              defaultValue="guitar"
+              defaultValue="slap-enthusiast"
               hideLabel
-              items={instruments}
-              label="Instrument for Ed O'Brien"
+              items={roles}
+              label="Specialty for Percy Groove"
             />
           </TableCell>
           <TableCell>
             <TextField
               hideLabel
-              label="Notes for Ed O'Brien"
-              placeholder="Add a note"
+              label="Notes for Percy Groove"
+              placeholder="Add a note about their tone"
             />
           </TableCell>
         </TableRow>

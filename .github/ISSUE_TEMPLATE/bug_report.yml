@@ -1,0 +1,56 @@
+name: Bug report
+description: Something in a component, theme or the docs doesn't work as documented.
+labels: [bug]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The `opui-css` version from your lockfile or `npm ls opui-css`.
+      placeholder: 6.0.0
+    validations:
+      required: true
+  - type: dropdown
+    id: framework
+    attributes:
+      label: Framework
+      options:
+        - Astro
+        - HTML and CSS only
+        - React
+        - Svelte
+        - Vue
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and operating system
+      placeholder: Safari 26.1 on macOS 26
+    validations:
+      required: true
+  - type: input
+    id: theme
+    attributes:
+      label: Theme
+      description: The default theme, one of the example themes, or your own.
+      placeholder: default
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happens
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: A link to a StackBlitz, CodePen or repository, or the smallest markup that shows it.
+    validations:
+      required: true

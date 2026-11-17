@@ -31,10 +31,14 @@ import tabsLabelApi from "../../component-api/tabs-label/api"
 import tabsPanelApi from "../../component-api/tabs-panel/api"
 import tabsApi from "../../component-api/tabs/api"
 
+export const description =
+  "Tabs that switch between panels of related content, built on radio inputs."
+
 export const keywords = ["tab panel", "tablist"]
 ---
 
 <Component
+  description={description}
   slug="tabs"
   heroAnatomy
   apis={[
@@ -46,11 +50,12 @@ export const keywords = ["tab panel", "tablist"]
   browserSupport={[
     "anchor-positioning",
     "container-queries",
+    "has",
     "lh",
     "light-dark",
     "logical-properties",
     "nth-child-of",
-    "scrollbar-width",
+    "relative-color",
     "sibling-count",
   ]}
   installationTabs={[{ title: "tabs.css", code: TabsCSS, lang: "css" }]}
@@ -72,11 +77,7 @@ export const keywords = ["tab panel", "tablist"]
 
   <Fragment slot="anatomy">
     <Anatomy>
-      <UITabs
-        aria-label="Account settings"
-        name="tabs-anatomy"
-        role="radiogroup"
-      >
+      <UITabs name="tabs-anatomy" style="inline-size: 18rem">
         <UITabsItem>
           <UITabsLabel>Profile</UITabsLabel>
           <UITabsPanel>Profile settings and information.</UITabsPanel>
@@ -89,8 +90,9 @@ export const keywords = ["tab panel", "tablist"]
     </Anatomy>
   </Fragment>
   <Fragment slot="preamble">
-    Radio inputs that switch panels. To pick an option, use a
-    <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>.
+    Panels of related content, switched with radio inputs. To pick an option,
+    use a <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink
+    >, or a <DocLink href="/components/radio">Radio</DocLink> in a form.
   </Fragment>
 
   <Usage slot="usage">
@@ -117,8 +119,8 @@ export const keywords = ["tab panel", "tablist"]
     <AutoExample name="Basics" />
 
     <BlockLink slug="app-shell">
-      The sidebar is a list of links, and the current page's link has
-      <code>aria-current="page"</code>.
+      For navigation between pages, the sidebar is a list of links, and the
+      current page's link has <code>aria-current="page"</code>.
     </BlockLink>
   </section>
 
@@ -148,11 +150,37 @@ export const keywords = ["tab panel", "tablist"]
   <section id="overflow">
     <h2>Overflow</h2>
     <p>
-      Wraps by default. Use
-      <PropOrClass prop='overflow="scroll"' class=".ui-overflow-scroll" /> to
-      scroll.
+      Scrolls by default. Tabs with panels take the width of their container, so
+      inside flex and grid layouts that size to their content, give them a
+      width.
     </p>
     <AutoExample name="Overflow" />
+    <p>
+      Use <PropOrClass prop='overflow="wrap"' class=".ui-overflow-wrap" /> to
+      wrap. It suits <a href="#line">line tabs</a>, since the track breaks where
+      a row ends.
+    </p>
+    <AutoExample name="Wrap" />
+  </section>
+
+  <section id="vertical">
+    <h2>Vertical</h2>
+    <p>
+      Use <PropOrClass prop='orientation="vertical"' class=".ui-vertical" /> for
+      tabs in a column.
+    </p>
+    <AutoExample name="Vertical" />
+  </section>
+
+  <section id="without-panels">
+    <h2>Without panels</h2>
+    <p>
+      Leave out the panels when changing the tab changes the page, like a filter
+      that loads another list. The tabs size to their labels, also in a row next
+      to a heading. They are a radio group: give them
+      <code>role="radiogroup"</code> and an <code>aria-label</code>.
+    </p>
+    <AutoExample name="WithoutPanels" row />
   </section>
 
   <section id="binding">
@@ -180,11 +208,23 @@ export const keywords = ["tab panel", "tablist"]
   </section>
 
   <Fragment slot="accessibility">
-    <p>
-      Tabs are a radio group, not ARIA tabs. Name it with
-      <code>role="radiogroup"</code> and <code>aria-label</code> on
-      <PropOrClass prop="Tabs" class=".ui-tabs" />.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Tabs are radios, not ARIA tabs, so screen readers announce each tab as
+        one of the set, such as "1 of 3". Tabs with panels take no role: the
+        root holds the panels, and a radio group holds only radios. Make
+        <a href="#without-panels">tabs without panels</a> a radio group with
+        <code>role="radiogroup"</code> and name it with <code>aria-label</code>.
+        <code>Tabs</code> warns in development when that group has no name.
+      </Fragment>
+      <Fragment slot="html">
+        Tabs are radios, not ARIA tabs, so screen readers announce each tab as
+        one of the set, such as "1 of 3". Tabs with panels take no role: the
+        root holds the panels, and a radio group holds only radios. Put
+        <code>role="radiogroup"</code> and an <code>aria-label</code> on
+        <a href="#without-panels">tabs without panels</a>.
+      </Fragment>
+    </Conditional>
 
     <Table>
       <TableColumnGroup>

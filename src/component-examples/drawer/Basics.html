@@ -35,12 +35,13 @@
 
 <dialog
   closedby="any"
-  class="ui-drawer ui-scroll-lock"
-  aria-labelledby="drawer-basics-1-heading"
+  class="ui-drawer"
+  aria-labelledby="drawer-basics-1-title"
+  data-close-on-navigate
   id="drawer-basics-1"
 >
   <div class="ui-header">
-    <h2 id="drawer-basics-1-heading">Menu</h2>
+    <h2 id="drawer-basics-1-title">Menu</h2>
     <button
       class="ui-button ui-round ui-small"
       type="button"
@@ -54,12 +55,7 @@
         width="32"
         height="32"
         viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
-        ></path>
-      </svg>
+      ></svg>
     </button>
   </div>
   <div class="ui-content">
@@ -67,21 +63,21 @@
       <li>
         <a href="#basics" aria-current="page">
           <div class="ui-text">
-            <p>Dashboard</p>
+            <p>My wall</p>
           </div>
         </a>
       </li>
       <li>
         <a href="#basics">
           <div class="ui-text">
-            <p>Projects</p>
+            <p>My bands</p>
           </div>
         </a>
       </li>
       <li>
         <a href="#basics">
           <div class="ui-text">
-            <p>Reports</p>
+            <p>Gear Talk</p>
           </div>
         </a>
       </li>
@@ -108,12 +104,12 @@
 
 <dialog
   closedby="any"
-  class="ui-drawer ui-backdrop-transparent ui-scroll-lock ui-inline-end"
-  aria-labelledby="drawer-basics-2-heading"
+  class="ui-drawer ui-backdrop-transparent ui-inline-end"
+  aria-labelledby="drawer-basics-2-title"
   id="drawer-basics-2"
 >
   <div class="ui-header">
-    <h2 id="drawer-basics-2-heading">Onboarding emails</h2>
+    <h2 id="drawer-basics-2-title">Friday gig prep</h2>
     <button class="ui-button ui-round ui-small" type="button" aria-label="Edit">
       <svg
         aria-hidden="true"
@@ -141,58 +137,53 @@
         width="32"
         height="32"
         viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
-        ></path>
-      </svg>
+      ></svg>
     </button>
   </div>
-  <div class="ui-content" aria-label="Task details" role="region" tabindex="0">
+  <div class="ui-content" aria-label="Gig details" role="region" tabindex="0">
     <p>
-      Assigned to Lena Ek, due Friday. Marco Rossi reviews the copy, and the
-      design team sends the new header images by Wednesday.
+      Assigned to Lou Headstock, due Friday. Holly Humbucker checks the setlist,
+      and the drummer promises (again) to bring the cymbals by Wednesday.
     </p>
     <p>
-      The welcome series sends five emails over the first two weeks. Rewrite
-      them for the new plans, and drop the one about the old desktop app.
+      The band booked this gig without telling you, so here is the totally rad
+      catch-up plan: five rehearsals over two weeks, and no more surprises.
     </p>
     <p>
-      Day 1: a welcome from the team, with one button that creates the first
-      project and a short list of what to try next.
+      Day 1: restring with fresh flatwounds, tune to drop D and play the root
+      notes of every song until your fingers say thank you.
     </p>
     <p>
-      Day 2: how to import files from another service, which formats work, and
-      what happens to comments and version history on the way in.
+      Day 2: learn the new song the guitarist wrote, which has eleven chords,
+      four key changes and one very long solo that is not yours.
     </p>
     <p>
-      Day 4: the keyboard shortcuts and the command menu, with a short video
-      that shows how to find any file without leaving the keyboard.
+      Day 4: practice the slap part in the bridge, with a short video that shows
+      how to look cool while nobody watches the bassist.
     </p>
     <p>
-      Day 7: sharing a project with people outside the team, what guests can see
-      and change, and how to take their access back.
+      Day 7: full rehearsal with the band, where somebody will ask you to turn
+      it down and somebody else will ask why you can't be heard.
     </p>
     <p>
-      Day 14: a reminder that the trial ends in three days, the price of each
-      plan, and a link to the billing page.
+      Day 14: soundcheck at the venue, where the sound engineer calls you the
+      tall guitarist and the drummer gets all the credit.
     </p>
     <p>
-      Keep each email under 150 words, with one button and no more than two
-      links. Write the subject lines last, once the body text is final.
+      Keep the pedalboard under 10 pedals, with one tuner and no more than two
+      fuzzes. Pack the spare strings last, once the cables are coiled.
     </p>
     <p>
-      Send the drafts to the support team before Thursday. They answer the
-      replies, so they need to know what each email promises.
+      Send the setlist to the merch table before Thursday. They sell the shirts,
+      so they need to know which songs have a bass solo (zero).
     </p>
     <p>
-      Test every email in light and dark mode, on a phone and in the web version
-      of the three biggest mail apps, before it goes out.
+      Test every cable and the low B on the 5-string, in the rehearsal room and
+      on the actual stage, before the doors open at eight.
     </p>
     <p>
-      Marco Rossi created the task on 3 March, and Lena Ek moved it to In
-      progress on 5 March.
+      Holly Humbucker created the task on 3 March, and Lou Headstock moved it to
+      Rocking on 5 March.
     </p>
   </div>
   <div class="ui-footer">
@@ -209,12 +200,12 @@
 
 <dialog
   closedby="any"
-  class="ui-drawer ui-scroll-lock ui-block-start"
-  aria-labelledby="drawer-basics-3-heading"
+  class="ui-drawer ui-block-start"
+  aria-labelledby="drawer-basics-3-title"
   id="drawer-basics-3"
 >
   <div class="ui-header">
-    <h2 id="drawer-basics-3-heading">Notifications</h2>
+    <h2 id="drawer-basics-3-title">Notifications</h2>
     <button
       class="ui-button ui-round ui-small"
       type="button"
@@ -228,18 +219,13 @@
         width="32"
         height="32"
         viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
-        ></path>
-      </svg>
+      ></svg>
     </button>
   </div>
   <div class="ui-content">
-    <p>Marco Rossi commented on Onboarding emails.</p>
-    <p>Your export is ready to download.</p>
-    <p>Lena Ek invited you to the Design team.</p>
+    <p>Holly Humbucker commented on Friday gig prep.</p>
+    <p>Your setlist export is ready to download, woohoo.</p>
+    <p>Lou Headstock invited you to Ignored Bassists Anonymous.</p>
   </div>
   <div class="ui-footer">
     <button
@@ -255,12 +241,12 @@
 
 <dialog
   closedby="any"
-  class="ui-drawer ui-scroll-lock ui-block-end"
-  aria-labelledby="drawer-basics-4-heading"
+  class="ui-drawer ui-block-end"
+  aria-labelledby="drawer-basics-4-title"
   id="drawer-basics-4"
 >
   <div class="ui-header">
-    <h2 id="drawer-basics-4-heading">Filters</h2>
+    <h2 id="drawer-basics-4-title">Filters</h2>
     <button
       class="ui-button ui-round ui-small"
       type="button"
@@ -274,12 +260,7 @@
         width="32"
         height="32"
         viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
-        ></path>
-      </svg>
+      ></svg>
     </button>
   </div>
   <div class="ui-content">
@@ -292,11 +273,11 @@
         </label>
         <label class="ui-checkbox">
           <input type="checkbox" name="status" checked value="in-progress" />
-          <span class="ui-label">In progress</span>
+          <span class="ui-label">Rocking</span>
         </label>
         <label class="ui-checkbox">
           <input type="checkbox" name="status" value="open" />
-          <span class="ui-label">Open</span>
+          <span class="ui-label">Not yet</span>
         </label>
       </div>
     </fieldset>
@@ -316,3 +297,7 @@
     </div>
   </div>
 </dialog>
+
+<script type="module">
+  import "opui-css/elements/close-on-navigate.js"
+</script>

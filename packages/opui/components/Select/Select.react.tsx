@@ -35,24 +35,28 @@ export default function Select({
 }: Props) {
   const uid = useId()
   const field = useFieldGroupContext()
-  const base = id ?? `select-${uid}`
-  const labelId = `${base}-label`
+  const base = id || `select-${uid}`
+  const selectId = label ? base : id
   const startTextId = startText ? `${base}-start-text` : undefined
   const endTextId = endText ? `${base}-end-text` : undefined
+  const startId = start ? `${base}-start` : undefined
+  const endId = end ? `${base}-end` : undefined
   const topId = top ? `${base}-top` : undefined
   const bottomId = bottom ? `${base}-bottom` : undefined
   const describedBy = idRefs(
-    topId,
     startTextId,
-    endTextId,
+    topId,
+    startId,
+    endId,
     bottomId,
+    endTextId,
     rest["aria-describedby"],
   )
 
   const selected = initialValue(items, multiple)
 
   return (
-    <label
+    <div
       className={cx([
         "ui-select",
         {
@@ -66,9 +70,12 @@ export default function Select({
       style={style}
     >
       {label && (
-        <span className={hideLabel ? "ui-sr-only" : "ui-label"} id={labelId}>
+        <label
+          className={hideLabel ? "ui-sr-only" : "ui-label"}
+          htmlFor={selectId}
+        >
           {label}
-        </span>
+        </label>
       )}
       {startText && (
         <span className="ui-start-text" id={startTextId}>
@@ -80,19 +87,19 @@ export default function Select({
           {...rest}
           aria-describedby={describedBy}
           aria-invalid={error ? "true" : rest["aria-invalid"]}
-          aria-labelledby={label ? labelId : rest["aria-labelledby"]}
+          aria-labelledby={rest["aria-labelledby"]}
           defaultValue={
             value === undefined
               ? (defaultValue ??
                 (Array.isArray(selected) ? selected.map(String) : selected))
               : undefined
           }
-          id={id}
+          id={selectId}
           multiple={multiple}
           name={name ?? field?.name}
           value={value}
         >
-          <button>
+          <button inert>
             {createElement("selectedcontent", {
               dangerouslySetInnerHTML: { __html: "" },
               suppressHydrationWarning: true,
@@ -107,8 +114,16 @@ export default function Select({
             {children}
           </div>
         </select>
-        {start && <span className="ui-start">{start}</span>}
-        {end && <span className="ui-end">{end}</span>}
+        {start && (
+          <span className="ui-start" id={startId}>
+            {start}
+          </span>
+        )}
+        {end && (
+          <span className="ui-end" id={endId}>
+            {end}
+          </span>
+        )}
         {top && (
           <span className="ui-top" id={topId}>
             {top}
@@ -125,6 +140,6 @@ export default function Select({
           {endText}
         </span>
       )}
-    </label>
+    </div>
   )
 }

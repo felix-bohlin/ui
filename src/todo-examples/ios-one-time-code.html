@@ -13,14 +13,8 @@
       caret-color: var(--_accent);
     }
 
-    &:focus-within .ui-field {
-      &::before {
-        mask-image: var(--_box-image);
-      }
-
-      &::after {
-        content: "";
-      }
+    &:focus-within .ui-field::after {
+      content: "";
     }
   }
 </style>
@@ -36,7 +30,7 @@
 <div class="todo-compare">
   <section class="todo-current">
     <p class="todo-label">Today: with the iOS block</p>
-    <label class="ui-text-field ui-one-time-code">
+    <label class="ui-one-time-code">
       <span class="ui-label">Verification code</span>
       <span class="ui-field">
         <input
@@ -53,7 +47,7 @@
   </section>
   <section class="todo-fixed">
     <p class="todo-label">Without the iOS block</p>
-    <label class="ui-text-field ui-one-time-code todo-ios-otc-off">
+    <label class="ui-one-time-code todo-ios-otc-off">
       <span class="ui-label">Verification code</span>
       <span class="ui-field">
         <input

@@ -10,22 +10,30 @@
 </script>
 
 <Form>
-  <Fieldset>
+  <Fieldset
+    aria-describedby="radio-field-group-field-description-1-description"
+  >
     <FieldLegend>Contact method</FieldLegend>
-    <FieldDescription>We only contact you about your order.</FieldDescription>
+    <FieldDescription id="radio-field-group-field-description-1-description"
+      >We only contact you about your order.</FieldDescription
+    >
     <FieldGroup name="radio-group-field-description-1" orientation="horizontal">
       <Radio defaultChecked value="email">Email</Radio>
       <Radio value="phone">Phone</Radio>
       <Radio value="sms">SMS</Radio>
     </FieldGroup>
   </Fieldset>
-  <Fieldset>
+  <Fieldset
+    aria-describedby="radio-field-group-field-description-2-description"
+  >
     <FieldLegend>Theme</FieldLegend>
     <FieldGroup name="radio-group-field-description-2" orientation="horizontal">
       <Radio defaultChecked value="system">System</Radio>
       <Radio value="light">Light</Radio>
       <Radio value="dark">Dark</Radio>
     </FieldGroup>
-    <FieldDescription>System follows your device setting.</FieldDescription>
+    <FieldDescription id="radio-field-group-field-description-2-description"
+      >System follows your device setting.</FieldDescription
+    >
   </Fieldset>
 </Form>

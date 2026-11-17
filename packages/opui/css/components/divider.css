@@ -2,8 +2,9 @@
   :where(.ui-divider) {
     --_divider-border-color: var(--ui-border-color);
 
-    background-color: var(--_divider-border-color);
-    block-size: var(--ui-border-width);
+    block-size: 0;
+    border-block-start: var(--ui-border-width) solid
+      var(--_divider-border-color);
     margin-block: var(--ui-divider-gap);
 
     /* Border color */
@@ -28,8 +29,8 @@
 
     &:not(:empty) {
       align-items: center;
-      background-color: transparent;
       block-size: auto;
+      border-block-start: 0;
       color: var(--ui-text);
       display: flex;
       font-size: var(--ui-font-size-caption);
@@ -38,8 +39,9 @@
 
       &::before,
       &::after {
-        background-color: var(--_divider-border-color);
-        block-size: var(--ui-border-width);
+        block-size: 0;
+        border-block-start: var(--ui-border-width) solid
+          var(--_divider-border-color);
         content: "";
         flex: 1;
         min-inline-size: var(--ui-space-4);
@@ -49,21 +51,6 @@
     &.ui-align-start::before,
     &.ui-align-end::after {
       display: none;
-    }
-
-    @media (forced-colors: active) {
-      block-size: 0;
-      border-block-start: var(--ui-border-width) solid CanvasText;
-
-      &:not(:empty) {
-        border-block-start: 0;
-
-        &::before,
-        &::after {
-          block-size: 0;
-          border-block-start: var(--ui-border-width) solid CanvasText;
-        }
-      }
     }
   }
 

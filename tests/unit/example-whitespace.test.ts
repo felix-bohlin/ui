@@ -19,7 +19,7 @@ beforeAll(async () => {
 }, 60_000)
 
 afterAll(async () => {
-  await renderer.close()
+  await renderer?.close()
   rmSync(samples, { force: true, recursive: true })
 })
 

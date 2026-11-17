@@ -43,7 +43,7 @@ const steps = [
 .table tbody > tr:hover > :is(th, td) {
   background-color: oklch(from var(--ui-surface-filled) l c h / 75%);
 }`,
-    features: ["logical-properties", "relative-color"],
+    features: ["relative-color"],
     notes: [
       "Each cell draws only its end sides, so lines never double up",
       "The last column and the last row drop theirs",
@@ -69,7 +69,6 @@ const steps = [
 .table > :last-child tr:last-child > :last-child {
   border-end-end-radius: var(--radius);
 }`,
-    features: ["logical-properties"],
     notes: [
       "The four corner cells take the same radius as the table",
       "<code>border-start-start-radius</code> follows the writing direction",

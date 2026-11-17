@@ -6,9 +6,19 @@ export default {
       "Border color of `.ui-field` when its control has focus without `:focus-visible`, such as a clicked file or color input or a Select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.",
     kind: "input",
   },
+  "--_affix-block-size": {
+    description:
+      "The block size `.ui-start` and `.ui-end` center what they hold in: the field inside its border, or the control's first line, `1lh` and its block padding, in a `Textarea` and in a field with `.ui-top` or `.ui-bottom`. A registered `<length>`, so `1lh` is the line height of the part. Set on the root, and on `.ui-start` and `.ui-end` in a `Textarea` and in a field with `.ui-top` or `.ui-bottom`.",
+    kind: "output",
+  },
   "--_affix-button-size": {
     description:
-      "Size of a `.ui-button` in `.ui-start` or `.ui-end`: the field's `--_size` minus its border and a `--ui-space-1` inset on each side.",
+      "Size of a `.ui-button` in `.ui-start` or `.ui-end`: `--_affix-block-size` minus `--_affix-padding-block` above and below, and at least `--ui-target-min-size`. Set on `.ui-start` and `.ui-end`.",
+    kind: "output",
+  },
+  "--_affix-padding-block": {
+    description:
+      "The space between a `.ui-button` in `.ui-start` or `.ui-end` and the field's border above and below it: `--ui-space-1`, or less where `--_affix-block-size` leaves less room around a `--ui-target-min-size` button. In a `Textarea` it pads what the parts hold, so content taller than the first line starts this far below the top. Text alone keeps `--_field-padding-block-fit`. Set on `.ui-start` and `.ui-end`.",
     kind: "output",
   },
   "--_affix-text-color": {
@@ -52,6 +62,16 @@ export default {
     description: "Easing of the transitions. Defaults to `--ui-ease`.",
     kind: "input",
   },
+  "--_end-end-radius": {
+    description:
+      "The radius of the end-end corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the next control.",
+    kind: "input",
+  },
+  "--_end-start-radius": {
+    description:
+      "The radius of the end-start corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.",
+    kind: "input",
+  },
   "--_field-padding-block": {
     description:
       "The preferred block padding of the control. Set by the size classes.",
@@ -64,16 +84,22 @@ export default {
   },
   "--_field-padding-inline": {
     description:
-      "The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`.",
+      "The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.",
     kind: "input",
   },
   "--_file-button-inset": {
     description:
-      "Gap around the `::file-selector-button` of a file field: `--ui-space-2`, or `--ui-space-1` in `.ui-small` and `.ui-x-small`, shrunk so the button keeps one line of its text inside the field. Set on `input`.",
+      "Gap around the `::file-selector-button` of a file field: `--_file-button-padding`, shrunk so the button keeps one line of its text inside the field. Set on `input`.",
     kind: "output",
   },
+  "--_file-button-padding": {
+    description:
+      "The preferred gap around the `::file-selector-button` of a file field: `--ui-space-2`, or `--ui-space-1` in `.ui-small` and `.ui-x-small`.",
+    kind: "input",
+  },
   "--_font-size": {
-    description: "The font size of the control and affixes.",
+    description:
+      "The font size of the control and affixes. At least 16px on iPhone and iPad (`css/compat/text-field.css`), so iOS Safari doesn't zoom in on focus.",
     kind: "input",
   },
   "--_helper-text-color": {
@@ -81,13 +107,38 @@ export default {
       "The current color of `.ui-start-text` and `.ui-end-text`. Defaults to `--ui-field-helper-text-color`, set by the invalid state.",
     kind: "output",
   },
+  "--_min-inline-size": {
+    description:
+      "The least width of the control next to `.ui-start` and `.ui-end`, which shrink and end in an ellipsis to keep it, or the whole field when it is narrower. Defaults to `8ch`; a `NumberField` sets its own.",
+    kind: "input",
+  },
   "--_motion": {
     description: "Motion multiplier for the transitions. `0` turns them off.",
+    kind: "input",
+  },
+  "--_radius": {
+    description:
+      "The corner radius of `.ui-field` and a file input's button. Defaults to `--ui-field-radius`, or `--ui-radius` when the theme doesn't set it.",
+    kind: "input",
+  },
+  "--_shadow": {
+    description:
+      "The shadow of `.ui-field`. Defaults to `--ui-field-shadow`, or `--ui-shadow-control` when the theme leaves it unset. `none` in a `ControlGroup`.",
     kind: "input",
   },
   "--_size": {
     description:
       "The height of `.ui-field`, a minimum so a textarea can grow, and the width and height of a color field. Defaults to `--ui-field-size`, set by the size classes.",
+    kind: "input",
+  },
+  "--_start-end-radius": {
+    description:
+      "The radius of the start-end corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.",
+    kind: "input",
+  },
+  "--_start-start-radius": {
+    description:
+      "The radius of the start-start corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the control before it.",
     kind: "input",
   },
 } satisfies CustomProperties

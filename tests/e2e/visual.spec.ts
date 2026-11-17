@@ -5,6 +5,9 @@ import { BLOCK_WIDTHS } from "./screenshot-targets"
 for (const component of FIXTURES) {
   test(`${component} looks the same`, async ({ page }) => {
     test.setTimeout(180_000)
+    if (component.startsWith("stress/")) {
+      await page.setViewportSize({ height: 4000, width: 1280 })
+    }
     await openFixture(page, "html", component)
     await page.screenshot({ fullPage: true })
 

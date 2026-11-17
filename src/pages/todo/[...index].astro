@@ -6,19 +6,30 @@ import {
   Button,
   Checkbox,
   Chip,
+  Drawer,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
   FieldGroup,
   FieldLegend,
   Fieldset,
   Radio,
   Select,
+  TextField,
   ToggleButton,
+  ToggleGroup,
 } from "opui-css/astro"
 import { createHash } from "node:crypto"
+import ProgressCell from "../../components/Review/ProgressCell.astro"
+import ProgressMap from "../../components/Review/ProgressMap.astro"
+import "../../components/Review/review.css"
 import CommentField from "../../components/Todo/CommentField.astro"
 import CopyFallback from "../../components/Todo/CopyFallback.astro"
 import InlineText from "../../components/Todo/InlineText.astro"
 import TodoNotes from "../../components/Todo/TodoNotes.astro"
 import Document from "../../layouts/Document.astro"
+import { linkText, previewOf } from "../../utils/checklist"
 import {
   actionValues,
   fixOptions,
@@ -79,7 +90,7 @@ const examplesFor = (text: string) => {
   ]
 }
 
-const chipSeverity = (severity = 0) =>
+const severityTone = (severity = 0) =>
   severity >= 7
     ? "critical"
     : severity >= 4
@@ -88,33 +99,70 @@ const chipSeverity = (severity = 0) =>
         ? "info"
         : "neutral"
 
+const stages = [
+  { label: "To answer", value: "open" },
+  { label: "Follow-up", value: "follow-up" },
+  { label: "Answered", value: "answered" },
+  { label: "Waiting", value: "waiting" },
+].filter((stage) => !showDone || stage.value !== "follow-up")
+
 const todoSections = sections.map((section) => ({
-  ...section,
+  id: slugify(section.title),
   items: section.items
-    .map((item) => ({
-      ...item,
-      ...fixOptions(item.notes),
-      ...replyOf(item.notes),
-      examples: examplesFor(item.text),
-      version: createHash("sha1")
-        .update(JSON.stringify([item.line, item.notes]))
-        .digest("hex")
-        .slice(0, 12),
-    }))
+    .map((item) => {
+      const { reply, state } = replyOf(item.notes)
+      const stage =
+        state === "waiting"
+          ? "waiting"
+          : state === "follow-up" && !showDone
+            ? "follow-up"
+            : "open"
+      const lastReply = item.notes.findLastIndex(
+        (note) => note.kind === "comment",
+      )
+      const preview =
+        stage === "waiting"
+          ? { label: "Your answer", text: reply.join(": "), tone: "you" }
+          : stage === "follow-up"
+            ? previewOf(item.notes.slice(lastReply + 1))
+            : item.recommended
+              ? {
+                  label: "Recommended",
+                  text: linkText(
+                    `${item.recommended.action}${item.recommended.reason ? `. ${item.recommended.reason}` : ""}`,
+                  ),
+                  tone: undefined,
+                }
+              : previewOf(item.notes)
+      return {
+        ...item,
+        ...fixOptions(item.notes),
+        examples: examplesFor(item.text),
+        preview,
+        reply,
+        stage,
+        state,
+        version: createHash("sha1")
+          .update(JSON.stringify([item.line, item.notes]))
+          .digest("hex")
+          .slice(0, 12),
+      }
+    })
     .toSorted((a, b) => (b.severity ?? 0) - (a.severity ?? 0)),
+  title: section.title,
 }))
 
+const items = todoSections.flatMap((section) => section.items)
+const countOf = (stage: string) =>
+  items.filter((item) => item.stage === stage).length
+const answeredIn = (list: typeof items) =>
+  list.filter((item) => item.stage === "waiting").length
+
 const components = [
-  ...new Set(
-    sections.flatMap((section) =>
-      section.items.map((item) => item.component ?? "Other"),
-    ),
-  ),
+  ...new Set(items.map((item) => item.component ?? "Other")),
 ].toSorted((a, b) => a.localeCompare(b))
 
 const actions = ["None", ...actionValues]
-
-const count = itemCount(sections)
 ---
 
 <Document
@@ -123,270 +171,466 @@ const count = itemCount(sections)
       ? "Check the fixed todos in TODO.md against their examples."
       : "Comment on the todos in TODO.md and copy them with your comments."
   }
-  showToc
+  showToc={false}
+  wide
 >
   <Fragment slot="title">{showDone ? "Done" : "TODO"}</Fragment>
   <p slot="preamble">
     {showDone ? (
-      <a class="ui-link" href="/todo/">{`Open (${itemCount(open)})`}</a>
+      <>
+        Check the fixed items in <code>TODO.md</code> against their examples and
+        answer the ones that need more work.{" "}
+        <a class="ui-link" href="/todo/">{`Open (${itemCount(open)})`}</a>
+      </>
     ) : (
-      <a class="ui-link" href="/todo/done/">{`Done (${itemCount(done)})`}</a>
+      <>
+        Answer the open items in <code>TODO.md</code>: accept a recommendation,
+        pick an action or comment, then copy your answers for an agent, which
+        works through them with <code>/todo-answers</code>.{" "}
+        <a class="ui-link" href="/todo/done/">{`Done (${itemCount(done)})`}</a>
+      </>
     )}
   </p>
+  <ProgressMap
+    class="todo-map-sidebar"
+    complete={["answered", "waiting"]}
+    label="answered"
+    sections={todoSections}
+    slot="sidebar"
+  />
 
-  <form class="todo-filters ui-not-rich-text" id="todo-filters">
-    <Select
-      id="todo-filter-section"
-      items={[
-        { label: "All sections", value: "" },
-        ...sections.map((section) => ({
-          label: section.title,
-          value: slugify(section.title),
-        })),
-      ]}
-      label="Section"
-      size="small"
+  <div class="todo review">
+    <ProgressMap
+      class="review-map-inline"
+      complete={["answered", "waiting"]}
+      label="answered"
+      sections={todoSections}
     />
-    <Select
-      id="todo-filter-severity"
-      items={[
-        { label: "All severities", value: "" },
-        { label: "1", value: "1" },
-        { label: "2", value: "2" },
-        { label: "3", value: "3" },
-        { label: "4 and up", value: "4" },
-      ]}
-      label="Severity"
-      size="small"
-    />
-    <Select
-      id="todo-filter-component"
-      items={[
-        { label: "All components", value: "" },
-        ...components.map((component) => ({
-          label: component,
-          value: slugify(component),
-        })),
-      ]}
-      label="Component"
-      size="small"
-    />
-    <ToggleButton id="todo-filter-unanswered" size="small">
-      Unanswered only
-    </ToggleButton>
-  </form>
-  <p class="todo-shortcuts">
-    <kbd>j</kbd>
-    <kbd>k</kbd> next and previous todo, <kbd>n</kbd> next unanswered,
-    <kbd>a</kbd> accept, <kbd>1</kbd> to <kbd>5</kbd> actions, <kbd>c</kbd>
-    comment, <kbd>e</kbd> details.
-  </p>
 
-  {todoSections.map((section) => <section
-    data-todo-section={section.title}
-    data-todo-section-slug={slugify(section.title)}
-    id={slugify(section.title)}
-  >
-    <h2>{section.title}</h2>
-    <ol class="todo-list ui-not-rich-text">
-      {section.items.map((item, index) => <li
-        class="todo-item"
-        data-todo-component={slugify(item.component ?? "Other")}
-        data-todo-key={item.key}
-        data-todo-line={item.line}
-        data-todo-recommended={item.recommended?.action}
-        data-todo-reply={JSON.stringify(item.reply)}
-        data-todo-severity={item.severity}
-        data-todo-state={item.state}
-        data-todo-version={item.version}
+    <div class="review-toolbar ui-not-rich-text" id="todo-filters">
+      <TextField
+        autocomplete="off"
+        class="review-search"
+        hideLabel
+        id="todo-search"
+        label="Filter todos"
+        placeholder="Filter todos"
+        size="small"
+        type="search"
+      />
+      <ToggleGroup
+        aria-label="Show todos"
+        class="review-stages"
+        multiple
+        name="todo-stage"
+        overflow="scroll"
+        size="small"
+        value={stages.map((stage) => stage.value)}
       >
-        <button class="todo-summary" type="button">
-          <span class="todo-summary-text">
-            <InlineText text={item.summary ?? item.text} />
-          </span>
-          <span class="todo-summary-answer" />
-        </button>
-        <div class="todo-head" tabindex="-1">
-          {item.severity && (
-            <Chip
-              class="todo-severity"
-              dot
-              label={`Severity ${item.severity}`}
-              severity={chipSeverity(item.severity)}
-              size="small"
-              variant="tonal"
-            />
-          )}
-          {!showDone && item.state === "follow-up" && (
-            <Chip
-              class="todo-follow-up"
-              label="Follow-up"
-              severity="info"
-              size="small"
-              variant="outlined"
-            />
-          )}
-          {item.component && <strong class="todo-component"
-            >{item.component}</strong
-          >}
-          <span class="todo-headline">
-            <InlineText text={item.summary ?? item.headline} />
-          </span>
-        </div>
-        {item.summary ? (
-          <Accordion
-            class="todo-details"
-            open={!showDone && item.state === "follow-up"}
-            variant="outlined"
-          >
-            <AccordionSummary>Details</AccordionSummary>
-            <AccordionContent>
-              <p class="todo-text">
-                <InlineText text={item.headline} />
-              </p>
-              <TodoNotes notes={item.notes} />
-              {item.files.length > 0 && <ul class="todo-files">
-                {item.files.map((file) => <li>
-                  <code>{file}</code>
-                </li>)}
-              </ul>}
-            </AccordionContent>
-          </Accordion>
-        ) : (
-          <TodoNotes notes={item.notes} />
-        )}
-        {item.examples.length > 0 && <Accordion
-          class="todo-examples"
-          variant="outlined"
+        {stages.map((stage) => <ToggleButton
+          data-stage-filter={stage.value}
+          value={stage.value}
         >
-          <AccordionSummary>
-            {item.examples.length === 1
-              ? "Example"
-              : `Examples (${item.examples.length})`}
-          </AccordionSummary>
-          <AccordionContent>
-            {item.examples.map((example) => <figure class="todo-example">
-              <figcaption>
-                <code>{example.label}</code>
-                <a
-                  class="ui-link"
-                  href={example.src}
-                  rel="noopener"
-                  target="_blank"
-                >
-                  Open in a new tab
-                </a>
-              </figcaption>
-              <iframe
-                data-scheme={example.scheme}
-                data-src={example.src}
-                title={`${example.label} example`}
-              />
-            </figure>)}
-          </AccordionContent>
-        </Accordion>}
-        {item.recommended && <p class="todo-recommended">
-          <span>
-            Recommended:{" "}
-            <strong>
-              {`${item.recommended.action}${item.recommended.reason ? "." : ""}`}
-            </strong>
-            {item.recommended.reason && (
-              <InlineText text={item.recommended.reason} />
-            )}
-          </span>
-          <Button
-            class="todo-accept"
-            data-accept
-            size="small"
-            variant="outlined"
+          <ProgressCell
+            aria-hidden="true"
+            class="review-swatch"
+            stage={stage.value}
+          />
+          {stage.label}
+          <span class="review-stage-count" data-stage-count={stage.value}
+            >{countOf(stage.value)}</span
           >
-            Accept
-          </Button>
-        </p>}
-        <CommentField text={item.text} />
-        <Fieldset class="todo-actions-field">
-          <FieldLegend class="ui-sr-only">
-            {`Actions for: ${plainText(item.text)}`}
-          </FieldLegend>
-          <FieldGroup
-            class="todo-action-row"
-            orientation="horizontal"
-            name={`todo-action-${slugify(section.title)}-${index}`}
-          >
-            {actions
-              .filter((action) => !item.options.length || action !== "Fix")
-              .map((action) => <ToggleButton
-                class="todo-action"
-                checked={action === "None"}
-                size="small"
-                type="radio"
-                value={action}
-              >
-                {action}
-                {item.recommended?.action === action && <span class="todo-mark"
-                  >Recommended</span
-                >}
-              </ToggleButton>)}
-          </FieldGroup>
-          {item.options.length > 0 && <Fieldset class="todo-fix-options">
-            <FieldLegend>{item.legend}</FieldLegend>
-            <FieldGroup name={`todo-action-${slugify(section.title)}-${index}`}>
-              {item.options.map((option) => <div
-                class:list={[
-                  "todo-fix-option",
-                  {
-                    "is-recommended":
-                      item.recommended?.action ===
-                      `Fix with option ${option.id}`,
-                  },
-                ]}
-              >
-                <Radio
-                  card
-                  class="todo-action"
-                  size="small"
-                  spread
-                  value={`Fix with option ${option.id}`}
-                >
-                  {option.note
-                    ? `Option ${option.id} (${option.note})`
-                    : `Option ${option.id}`}
-                  {item.recommended?.action ===
-                    `Fix with option ${option.id}` && <span class="todo-mark"
-                    >Recommended</span
-                  >}
-                  <Fragment slot="end-text">
-                    <InlineText text={option.text} />
-                  </Fragment>
-                </Radio>
-                <TodoNotes notes={option.notes} />
-              </div>)}
-            </FieldGroup>
-          </Fieldset>}
-        </Fieldset>
-      </li>)}
-    </ol>
-  </section>)}
+        </ToggleButton>)}
+      </ToggleGroup>
+      <div class="todo-selects">
+        <Select
+          autoFit
+          hideLabel
+          id="todo-filter-section"
+          items={[
+            { label: "All sections", value: "" },
+            ...todoSections.map((section) => ({
+              label: section.title,
+              value: section.id,
+            })),
+          ]}
+          label="Section"
+          size="small"
+        />
+        <Select
+          autoFit
+          hideLabel
+          id="todo-filter-severity"
+          items={[
+            { label: "All severities", value: "" },
+            { label: "Severity 1", value: "1" },
+            { label: "Severity 2", value: "2" },
+            { label: "Severity 3", value: "3" },
+            { label: "Severity 4 and up", value: "4" },
+          ]}
+          label="Severity"
+          size="small"
+        />
+        <Select
+          autoFit
+          hideLabel
+          id="todo-filter-component"
+          items={[
+            { label: "All components", value: "" },
+            ...components.map((component) => ({
+              label: component,
+              value: slugify(component),
+            })),
+          ]}
+          label="Component"
+          size="small"
+        />
+      </div>
+      <Button id="todo-expand" size="small" variant="transparent"
+        >Expand all</Button
+      >
+    </div>
 
-  <h2 id="copy">Copy</h2>
-
-  <section class="todo-copy ui-not-rich-text">
-    <Checkbox checked id="todo-only-commented">Only answered todos</Checkbox>
-    <Button id="todo-clear" variant="outlined">Clear all</Button>
-    <CopyFallback label="Todos and comments" />
-  </section>
-
-  <div class="todo-dock ui-not-rich-text">
-    <p class="todo-count" id="todo-count">
-      {`0/${count}`}<span class="todo-count-label"> answered</span>
+    <p class="review-shortcuts">
+      <kbd>j</kbd>
+      <kbd>k</kbd> next and previous, <kbd>n</kbd> next unanswered, <kbd>a</kbd>
+      accept, <kbd>1</kbd> to <kbd>5</kbd> actions, <kbd>c</kbd> comment,
+      <kbd>e</kbd> open, <kbd>/</kbd> filter.
     </p>
-    <p class="todo-status" id="todo-status" role="status"></p>
-    <ToggleButton id="todo-hide-answered" size="small"
-      >Hide answered</ToggleButton
+
+    <div class="review-empty ui-not-rich-text" id="todo-empty" hidden>
+      <p>Nothing matches the filter.</p>
+      <Button id="todo-show-all" size="small" variant="outlined"
+        >Show all</Button
+      >
+    </div>
+
+    {todoSections.map((section) => <section
+      class="review-section"
+      data-todo-section={section.title}
+      data-todo-section-slug={section.id}
+      id={section.id}
     >
-    <Button id="todo-next" size="small" variant="outlined">Next</Button>
-    <Button id="todo-copy" size="small" variant="filled">Copy</Button>
+      <h2>{section.title}</h2>
+      <div class="review-section-meta ui-not-rich-text">
+        <span
+          aria-hidden="true"
+          class="review-meter"
+          data-section-meter
+          style={`--ratio: ${answeredIn(section.items) / section.items.length}`}
+        ></span>
+        <p data-section-progress>
+          {`${answeredIn(section.items)} of ${section.items.length} answered`}
+        </p>
+      </div>
+      <ol class="review-list ui-not-rich-text">
+        {section.items.map((item, index) => <li
+          class="todo-item review-item"
+          data-open-stage={item.stage}
+          data-stage={item.stage}
+          data-todo-component={slugify(item.component ?? "Other")}
+          data-todo-key={item.key}
+          data-todo-line={item.line}
+          data-todo-recommended={item.recommended?.action}
+          data-todo-reply={JSON.stringify(item.reply)}
+          data-todo-severity={item.severity}
+          data-todo-state={item.state}
+          data-todo-version={item.version}
+          id={`todo-${item.key}`}
+        >
+          <div class="review-row">
+            <span
+              class="todo-severity"
+              data-tone={item.severity && severityTone(item.severity)}
+            >
+              {item.severity && <span aria-hidden="true">{item.severity}</span>}
+            </span>
+            <div class="review-heading">
+              <button
+                aria-controls={`todo-${item.key}-body`}
+                aria-expanded="false"
+                class="todo-toggle review-toggle"
+                id={`todo-${item.key}-toggle`}
+                type="button"
+              >
+                {item.component && <span class="todo-component"
+                  >{item.component}</span
+                >}
+                <InlineText text={item.summary ?? item.headline} />
+                {item.severity && <span class="ui-sr-only"
+                  >{`, severity ${item.severity}`}</span
+                >}
+              </button>
+              <p class="review-preview">
+                {item.preview.label && <span
+                  class="review-preview-label"
+                  data-tone={item.preview.tone}
+                  >{item.preview.label}</span
+                >}
+                <InlineText text={item.preview.text} />
+              </p>
+              <p class="review-preview review-preview-answer">
+                <span class="review-preview-label" data-tone="you">You</span>
+                <span data-answer-preview></span>
+              </p>
+            </div>
+            <div class="review-tags">
+              {item.stage === "follow-up" && (
+                <Chip
+                  class="todo-stage-tag"
+                  dot
+                  label="Follow-up"
+                  severity="warning"
+                  size="x-small"
+                  variant="tonal"
+                />
+              )}
+              {item.stage === "waiting" && (
+                <Chip
+                  class="todo-stage-tag"
+                  label="Waiting"
+                  severity="info"
+                  size="x-small"
+                  variant="tonal"
+                />
+              )}
+              {item.recommended && <Button
+                aria-describedby={`todo-${item.key}-toggle`}
+                aria-pressed="false"
+                class="todo-accept review-control review-pressable"
+                data-accept
+                size="x-small"
+                variant="outlined"
+                >Accept</Button
+              >}
+              <svg
+                aria-hidden="true"
+                class="review-chevron"
+                height="20"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6.22 8.97a.75.75 0 0 1 1.06 0L12 13.69l4.72-4.72a.75.75 0 1 1 1.06 1.06l-5.25 5.25a.75.75 0 0 1-1.06 0L6.22 10.03a.75.75 0 0 1 0-1.06"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </div>
+          </div>
+          <div
+            class="review-body"
+            hidden="until-found"
+            id={`todo-${item.key}-body`}
+          >
+            <div class="review-body-content">
+              {item.summary ? (
+                <Accordion
+                  class="todo-details"
+                  open={item.stage === "follow-up"}
+                  variant="outlined"
+                >
+                  <AccordionSummary>Details</AccordionSummary>
+                  <AccordionContent>
+                    <p class="todo-text">
+                      <InlineText text={item.headline} />
+                    </p>
+                    <TodoNotes notes={item.notes} />
+                    {item.files.length > 0 && <ul class="todo-files">
+                      {item.files.map((file) => <li>
+                        <code>{file}</code>
+                      </li>)}
+                    </ul>}
+                  </AccordionContent>
+                </Accordion>
+              ) : (
+                <TodoNotes notes={item.notes} />
+              )}
+              {item.examples.length > 0 && <Accordion
+                class="todo-examples"
+                variant="outlined"
+              >
+                <AccordionSummary>
+                  {item.examples.length === 1
+                    ? "Example"
+                    : `Examples (${item.examples.length})`}
+                </AccordionSummary>
+                <AccordionContent>
+                  {item.examples.map((example) => <figure class="todo-example">
+                    <figcaption>
+                      <code>{example.label}</code>
+                      <a
+                        class="ui-link"
+                        href={example.src}
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        Open in a new tab
+                      </a>
+                    </figcaption>
+                    <iframe
+                      data-scheme={example.scheme}
+                      data-src={example.src}
+                      title={`${example.label} example`}
+                    />
+                  </figure>)}
+                </AccordionContent>
+              </Accordion>}
+              {item.recommended && <p class="todo-recommended">
+                <span class="review-preview-label">Recommended</span>
+                <strong>
+                  {`${item.recommended.action}${item.recommended.reason ? "." : ""}`}
+                </strong>
+                {item.recommended.reason && (
+                  <>
+                    {" "}
+                    <InlineText text={item.recommended.reason} />
+                  </>
+                )}
+              </p>}
+              <Fieldset class="todo-actions-field">
+                <FieldLegend class="ui-sr-only">
+                  {`Actions for: ${plainText(item.text)}`}
+                </FieldLegend>
+                <FieldGroup
+                  class="todo-action-row"
+                  name={`todo-action-${section.id}-${index}`}
+                  orientation="horizontal"
+                >
+                  {actions
+                    .filter(
+                      (action) => !item.options.length || action !== "Fix",
+                    )
+                    .map((action) => <ToggleButton
+                      checked={action === "None"}
+                      class="todo-action"
+                      size="small"
+                      type="radio"
+                      value={action}
+                    >
+                      {action}
+                      {item.recommended?.action === action && <span
+                        class="todo-mark"
+                        >Recommended</span
+                      >}
+                    </ToggleButton>)}
+                </FieldGroup>
+                {item.options.length > 0 && <Fieldset class="todo-fix-options">
+                  <FieldLegend>{item.legend}</FieldLegend>
+                  <FieldGroup name={`todo-action-${section.id}-${index}`}>
+                    {item.options.map((option) => <div
+                      class:list={[
+                        "todo-fix-option",
+                        {
+                          "is-recommended":
+                            item.recommended?.action ===
+                            `Fix with option ${option.id}`,
+                        },
+                      ]}
+                    >
+                      <Radio
+                        card
+                        class="todo-action"
+                        size="small"
+                        spread
+                        value={`Fix with option ${option.id}`}
+                      >
+                        {option.note
+                          ? `Option ${option.id} (${option.note})`
+                          : `Option ${option.id}`}
+                        {item.recommended?.action ===
+                          `Fix with option ${option.id}` && <span
+                          class="todo-mark"
+                          >Recommended</span
+                        >}
+                        <Fragment slot="end-text">
+                          <InlineText text={option.text} />
+                        </Fragment>
+                      </Radio>
+                      <TodoNotes notes={option.notes} />
+                    </div>)}
+                  </FieldGroup>
+                </Fieldset>}
+              </Fieldset>
+              <div class="review-reply">
+                <CommentField text={item.text} />
+              </div>
+            </div>
+          </div>
+        </li>)}
+      </ol>
+    </section>)}
+
+    <div class="review-dock ui-not-rich-text">
+      <p class="review-pending" id="todo-count">
+        <strong data-pending-count>No answers yet</strong>
+        <span data-pending-detail
+          >Accept, pick an action or comment, then copy them for an agent.</span
+        >
+      </p>
+      <p class="review-status" id="todo-status" role="status"></p>
+      <div class="review-dock-actions">
+        <Button
+          aria-label="Next unanswered"
+          id="todo-next"
+          size="small"
+          variant="transparent"
+          >Next<span class="review-wide-only"> unanswered</span></Button
+        >
+        <Button
+          command="show-modal"
+          commandfor="todo-review"
+          id="todo-review-open"
+          size="small"
+          variant="outlined"
+          >Review</Button
+        >
+        <Button id="todo-copy" size="small" variant="filled"
+          >Copy for an agent</Button
+        >
+      </div>
+    </div>
+
+    <Drawer id="todo-review" side="inline-end">
+      <DrawerHeader>
+        <DrawerTitle>Review answers</DrawerTitle>
+      </DrawerHeader>
+      <DrawerContent>
+        <div class="review-drawer-content">
+          <p>
+            Paste this to an agent, which applies it to <code>TODO.md</code>
+            with <code>/todo-answers</code>. Until then, answers are saved in
+            this browser.
+          </p>
+          <Checkbox checked id="todo-only-commented"
+            >Only answered todos</Checkbox
+          >
+          <pre
+            class="review-copy-text ui-code-block"
+            id="todo-review-text"
+          ></pre>
+          <p class="review-status" id="todo-review-status" role="status"></p>
+          <div class="review-start-over">
+            <p>Start over</p>
+            <div class="review-buttons">
+              <Button
+                color="critical"
+                id="todo-clear"
+                size="small"
+                variant="outlined"
+                >Clear all answers</Button
+              >
+            </div>
+          </div>
+        </div>
+      </DrawerContent>
+      <DrawerFooter>
+        <Button command="close" commandfor="todo-review">Close</Button>
+        <Button id="todo-copy-review" variant="filled">Copy</Button>
+      </DrawerFooter>
+    </Drawer>
+
+    <CopyFallback label="Todos and comments" />
   </div>
   <script
     is:inline
@@ -400,6 +644,15 @@ const count = itemCount(sections)
   /></Document>
 
 <script>
+  import {
+    disclosure,
+    highlightMatches,
+    isTyping,
+    plural,
+    progressMaps,
+    shortcutsOff,
+    statusLines,
+  } from "../../components/Review/review"
   import { copyOrSelect, trackComments } from "../../components/Todo/comments"
   import { readStored, writeStored } from "../../utils/storage"
   import { carryOver } from "../../utils/todo"
@@ -412,10 +665,16 @@ const count = itemCount(sections)
   const writeActions = (actions: Record<string, string>) =>
     writeStored(actionsKey, actions)
 
-  const items = [...document.querySelectorAll<HTMLElement>(".todo-item")]
+  const root = document.querySelector<HTMLElement>(".todo")!
+  const items = [...root.querySelectorAll<HTMLElement>(".todo-item")]
+  const sections = [
+    ...root.querySelectorAll<HTMLElement>("[data-todo-section]"),
+  ]
   const keyOf = (item: HTMLElement) => item.dataset.todoKey!
   const replyOf = (item: HTMLElement): string[] =>
     JSON.parse(item.dataset.todoReply!)
+  const itemsOf = (section: HTMLElement) =>
+    items.filter((item) => section.contains(item))
 
   const readVersions = () => readStored<Record<string, string>>(versionsKey, {})
 
@@ -461,8 +720,7 @@ const count = itemCount(sections)
   }
 
   dropRecorded()
-  const headOf = (item: HTMLElement) =>
-    item.querySelector<HTMLElement>(".todo-head")!
+
   const actionsOf = (item: HTMLElement) => [
     ...item.querySelectorAll<HTMLInputElement>(".todo-action input"),
   ]
@@ -470,20 +728,29 @@ const count = itemCount(sections)
     const value = actionsOf(item).find((input) => input.checked)?.value
     return value === "None" ? undefined : value
   }
-  const status = document.querySelector("#todo-status")!
-  const onlyCommented = document.querySelector<HTMLInputElement>(
+  const review = root.querySelector<HTMLDialogElement>("#todo-review")!
+  const status = statusLines(
+    [
+      root.querySelector<HTMLElement>("#todo-status")!,
+      root.querySelector<HTMLElement>("#todo-review-status")!,
+    ],
+    () => (review.open ? 1 : 0),
+  )
+  const onlyCommented = root.querySelector<HTMLInputElement>(
     "#todo-only-commented",
   )!
-
-  let statusTimer = 0
-  const setStatus = (text: string) => {
-    clearTimeout(statusTimer)
-    status.textContent = text
-    statusTimer = window.setTimeout(() => (status.textContent = ""), 5000)
-  }
+  const reviewText = root.querySelector<HTMLElement>("#todo-review-text")!
+  const search = root.querySelector<HTMLInputElement>("#todo-search")!
+  const stageInputs = [
+    ...root.querySelectorAll<HTMLInputElement>(".review-stages input"),
+  ]
+  const expandAll = root.querySelector<HTMLButtonElement>("#todo-expand")!
+  const empty = root.querySelector<HTMLElement>("#todo-empty")!
+  const pendingCount = root.querySelector("[data-pending-count]")!
+  const pendingDetail = root.querySelector("[data-pending-detail]")!
 
   const notSaved = () =>
-    setStatus(
+    status.set(
       "Comments can't be saved in this browser. Copy them before leaving the page.",
     )
 
@@ -511,26 +778,124 @@ const count = itemCount(sections)
     writeStored(versionsKey, versions)
   }
 
+  const localAnswer = (item: HTMLElement) =>
+    [checkedAction(item), comments.commentOf(item)].filter(Boolean).join(": ")
+
   const answerOf = (item: HTMLElement) =>
-    [checkedAction(item), comments.commentOf(item)]
-      .filter(Boolean)
-      .join(": ") ||
+    localAnswer(item) ||
     (item.dataset.todoState === "waiting" ? replyOf(item).join(": ") : "")
 
-  const filters = {
-    component: document.querySelector<HTMLSelectElement>(
-      "#todo-filter-component",
-    )!,
-    section: document.querySelector<HTMLSelectElement>("#todo-filter-section")!,
-    severity: document.querySelector<HTMLSelectElement>(
-      "#todo-filter-severity",
-    )!,
-    unanswered: document.querySelector<HTMLInputElement>(
-      "#todo-filter-unanswered",
-    )!,
+  const stageOf = (item: HTMLElement) =>
+    localAnswer(item) ? "answered" : item.dataset.openStage!
+
+  const visibleItems = () => items.filter((item) => !item.hidden)
+  const updateExpandAll = () => {
+    const visible = visibleItems()
+    expandAll.textContent =
+      visible.length && visible.every((item) => panels.get(item)!.isOpen())
+        ? "Collapse all"
+        : "Expand all"
+  }
+  const panels = new Map(
+    items.map((item) => [item, disclosure(item, () => updateExpandAll())]),
+  )
+  const toggleOf = (item: HTMLElement) => panels.get(item)!.toggle
+  const setOpen = (item: HTMLElement, open: boolean) =>
+    panels.get(item)!.setOpen(open)
+
+  const maps = progressMaps((key) => {
+    const item = items.find((item) => keyOf(item) === key)
+    if (!item) return
+    if (item.hidden) showAll()
+    setOpen(item, true)
+    item.scrollIntoView({ block: "start" })
+    lastItem = item
+    toggleOf(item).focus({ preventScroll: true })
+  })
+
+  const render = () => {
+    for (const item of items) {
+      const answer = localAnswer(item)
+      item.dataset.stage = stageOf(item)
+      item.toggleAttribute("data-answered", Boolean(answer))
+      item.toggleAttribute("data-marked", Boolean(answer))
+      item.querySelector("[data-answer-preview]")!.textContent = answer
+      item
+        .querySelector("[data-accept]")
+        ?.setAttribute(
+          "aria-pressed",
+          String(checkedAction(item) === item.dataset.todoRecommended),
+        )
+    }
+
+    maps.update(
+      items.map((item) => ({
+        changed: Boolean(localAnswer(item)),
+        key: keyOf(item),
+        stage: stageOf(item),
+      })),
+    )
+
+    for (const section of sections) {
+      const list = itemsOf(section)
+      const answered = list.filter((item) =>
+        ["answered", "waiting"].includes(stageOf(item)),
+      ).length
+      section
+        .querySelector<HTMLElement>("[data-section-meter]")!
+        .style.setProperty("--ratio", String(answered / list.length))
+      section.querySelector("[data-section-progress]")!.textContent =
+        `${answered} of ${list.length} answered`
+    }
+
+    for (const input of stageInputs) {
+      root.querySelector(`[data-stage-count="${input.value}"]`)!.textContent =
+        String(items.filter((item) => stageOf(item) === input.value).length)
+    }
+
+    const answered = items.filter(localAnswer)
+    const withAction = answered.filter(checkedAction).length
+    const withComment = answered.filter(comments.commentOf).length
+    root.toggleAttribute("data-pending", answered.length > 0)
+    pendingCount.textContent = answered.length
+      ? `${plural(answered.length, "answer")} not in TODO.md yet`
+      : "No answers yet"
+    pendingDetail.textContent = answered.length
+      ? [
+          withAction && plural(withAction, "action"),
+          withComment && plural(withComment, "comment"),
+        ]
+          .filter(Boolean)
+          .join(", ")
+      : "Accept, pick an action or comment, then copy them for an agent."
   }
 
-  const matchesFilters = (item: HTMLElement) => {
+  const filters = {
+    component: root.querySelector<HTMLSelectElement>("#todo-filter-component")!,
+    section: root.querySelector<HTMLSelectElement>("#todo-filter-section")!,
+    severity: root.querySelector<HTMLSelectElement>("#todo-filter-severity")!,
+  }
+
+  const shownStages = () =>
+    new Set(
+      stageInputs.filter((input) => input.checked).map((input) => input.value),
+    )
+
+  const searchTexts = new Map(
+    items.map((item) => [
+      item,
+      [
+        toggleOf(item).textContent,
+        ...[...item.querySelectorAll(".todo-text, .todo-notes")].map(
+          (part) => part.textContent,
+        ),
+      ]
+        .join(" ")
+        .toLowerCase(),
+    ]),
+  )
+
+  const matchesFilters = (item: HTMLElement, query: string) => {
     const section = item.closest<HTMLElement>("[data-todo-section-slug]")!
     const severity = Number(item.dataset.todoSeverity ?? 0)
     const wanted = Number(filters.severity.value)
@@ -541,51 +906,36 @@ const count = itemCount(sections)
         (wanted >= 4 ? severity >= 4 : severity === wanted)) &&
       (!filters.component.value ||
         item.dataset.todoComponent === filters.component.value) &&
-      (!filters.unanswered.checked || !answerOf(item))
+      shownStages().has(stageOf(item)) &&
+      (!query || searchTexts.get(item)!.includes(query))
     )
   }
 
-  const visibleItems = () => items.filter((item) => !item.hidden)
-
-  const answerCount = document.querySelector("#todo-count")!
-  const countAnswered = () => {
-    const visible = visibleItems()
-    const answered = visible.filter(answerOf).length
-    const hidden = items.length - visible.length
-    const label = document.createElement("span")
-    label.className = "todo-count-label"
-    label.textContent = " answered"
-    answerCount.replaceChildren(`${answered}/${visible.length}`, label)
-    if (hidden) {
-      const link = document.createElement("a")
-      link.className = "ui-link"
-      link.href = "#todo-filters"
-      link.textContent = `${hidden} hidden`
-      answerCount.append(", ", link)
-    }
-  }
-
   const applyFilters = () => {
-    for (const item of items) item.hidden = !matchesFilters(item)
-    for (const section of document.querySelectorAll<HTMLElement>(
-      "[data-todo-section]",
-    ))
-      section.hidden = !section.querySelector(".todo-item:not([hidden])")
-    countAnswered()
+    const query = search.value.trim().toLowerCase()
+    for (const item of items) item.hidden = !matchesFilters(item, query)
+    for (const section of sections)
+      section.hidden = itemsOf(section).every((item) => item.hidden)
+    empty.hidden = sections.some((section) => !section.hidden)
+    highlightMatches(
+      visibleItems().flatMap((item) => [
+        ...item.querySelectorAll(".review-toggle, .todo-text, .todo-notes"),
+      ]),
+      query,
+    )
+    updateExpandAll()
   }
 
   const syncFiltersToUrl = () => {
     const params = new URLSearchParams(location.search)
+    params.delete("unanswered")
     for (const [name, control] of Object.entries(filters)) {
-      const value =
-        control instanceof HTMLInputElement
-          ? control.checked
-            ? "1"
-            : ""
-          : control.value
-      if (value) params.set(name, value)
+      if (control.value) params.set(name, control.value)
       else params.delete(name)
     }
+    const shown = shownStages()
+    if (shown.size === stageInputs.length) params.delete("status")
+    else params.set("status", [...shown].join(","))
     const query = params.toString()
     history.replaceState(
       null,
@@ -598,50 +948,45 @@ const count = itemCount(sections)
     const params = new URLSearchParams(location.search)
     for (const [name, control] of Object.entries(filters)) {
       const value = params.get(name) ?? ""
-      if (control instanceof HTMLInputElement) control.checked = value === "1"
-      else if ([...control.options].some((option) => option.value === value))
+      if ([...control.options].some((option) => option.value === value))
         control.value = value
     }
+    const shown = params.has("status")
+      ? params.get("status")!.split(",")
+      : params.get("unanswered") === "1"
+        ? ["open", "follow-up"]
+        : stageInputs.map((input) => input.value)
+    for (const input of stageInputs) input.checked = shown.includes(input.value)
   }
 
-  for (const control of Object.values(filters))
+  const showAll = () => {
+    search.value = ""
+    for (const control of Object.values(filters)) control.value = ""
+    for (const input of stageInputs) input.checked = true
+    syncFiltersToUrl()
+    applyFilters()
+  }
+
+  for (const control of [...Object.values(filters), ...stageInputs])
     control.addEventListener("change", () => {
       syncFiltersToUrl()
       applyFilters()
     })
+  search.addEventListener("input", applyFilters)
+  root
+    .querySelector("#todo-show-all")!
+    .addEventListener("click", () => showAll())
 
-  const hideKey = "opui-todo-hide-answered"
-  const hideAnswered = document.querySelector<HTMLInputElement>(
-    "#todo-hide-answered",
-  )!
-  const collapseAnswered = () => {
-    for (const item of items) {
-      const answer = hideAnswered.checked ? answerOf(item) : ""
-      item.classList.toggle("is-collapsed", Boolean(answer))
-      item.querySelector(".todo-summary-answer")!.textContent = answer
-    }
-  }
-
-  hideAnswered.checked = readStored(hideKey, false)
-  hideAnswered.addEventListener("change", () => {
-    writeStored(hideKey, hideAnswered.checked)
-    collapseAnswered()
+  expandAll.addEventListener("click", () => {
+    const visible = visibleItems()
+    const open = !visible.every((item) => panels.get(item)!.isOpen())
+    for (const item of visible) setOpen(item, open)
   })
-
-  const expand = (item: HTMLElement) => {
-    item.classList.remove("is-collapsed")
-    headOf(item).focus({ preventScroll: true })
-  }
-
-  for (const item of items)
-    item
-      .querySelector(".todo-summary")!
-      .addEventListener("click", () => expand(item))
 
   for (const item of items)
     item.querySelector("textarea")!.addEventListener("input", () => {
       saveVersion(item)
-      countAnswered()
+      render()
     })
 
   const savedActions = readActions()
@@ -651,19 +996,28 @@ const count = itemCount(sections)
       input.addEventListener("change", () => {
         saveActions(item)
         saveVersion(item)
-        countAnswered()
+        render()
       })
     }
   }
 
-  const accept = (item: HTMLElement) => {
-    const recommended = item.dataset.todoRecommended
-    const input = actionsOf(item).find((input) => input.value === recommended)
+  const pick = (item: HTMLElement, value: string) => {
+    const input = actionsOf(item).find((input) => input.value === value)
     if (!input) return
     input.checked = true
     input.dispatchEvent(new Event("change", { bubbles: true }))
-    collapseAnswered()
-    setStatus(`Accepted: ${recommended}`)
+  }
+
+  const accept = (item: HTMLElement) => {
+    const recommended = item.dataset.todoRecommended
+    if (!recommended) return
+    if (checkedAction(item) === recommended) {
+      pick(item, "None")
+      status.set(`Took back: ${recommended}`)
+      return
+    }
+    pick(item, recommended)
+    status.set(`Accepted: ${recommended}`)
   }
 
   for (const item of items)
@@ -672,102 +1026,97 @@ const count = itemCount(sections)
       ?.addEventListener("click", () => accept(item))
 
   let lastItem: HTMLElement | undefined
+  let openedByNext: HTMLElement | undefined
 
   const currentItem = () =>
     document.activeElement?.closest<HTMLElement>(".todo-item") ??
     (lastItem && !lastItem.hidden ? lastItem : undefined)
 
-  const goTo = (item: HTMLElement | undefined) => {
-    if (!item) {
-      setStatus("No unanswered todos.")
-      return
-    }
+  const goTo = (item: HTMLElement, block: ScrollLogicalPosition) => {
     lastItem = item
-    item.classList.remove("is-collapsed")
-    item.scrollIntoView({ block: "start" })
-    headOf(item).focus({ preventScroll: true })
+    item.scrollIntoView({ block })
+    toggleOf(item).focus({ preventScroll: true })
   }
 
   const nextUnanswered = () => {
     const candidates = visibleItems().filter((item) => !answerOf(item))
     const current = currentItem()
     const top = current ? current.getBoundingClientRect().top : 0
-    goTo(
+    const next =
       candidates.find(
         (item) => item !== current && item.getBoundingClientRect().top > top,
-      ) ?? candidates.find((item) => item !== current),
-    )
+      ) ?? candidates.find((item) => item !== current)
+    if (!next) {
+      status.set("No unanswered todos.")
+      return
+    }
+    if (openedByNext && openedByNext !== next) setOpen(openedByNext, false)
+    if (!panels.get(next)!.isOpen()) {
+      setOpen(next, true)
+      openedByNext = next
+    }
+    goTo(next, "start")
   }
 
   const step = (direction: 1 | -1) => {
     const visible = visibleItems()
     const current = currentItem()
     const index = current ? visible.indexOf(current) : -1
-    goTo(
+    const item =
       visible[
         index < 0 ? (direction > 0 ? 0 : visible.length - 1) : index + direction
-      ],
-    )
+      ]
+    if (item) goTo(item, "nearest")
   }
 
-  document.querySelector("#todo-next")!.addEventListener("click", () => {
-    nextUnanswered()
-  })
+  root
+    .querySelector("#todo-next")!
+    .addEventListener("click", () => nextUnanswered())
 
   document.addEventListener("keydown", (event) => {
+    if (shortcutsOff(event)) return
     const target = event.target as HTMLElement
-    if (
-      event.metaKey ||
-      event.ctrlKey ||
-      event.altKey ||
-      document.querySelector("dialog[open]")
-    )
-      return
-    const inField = target.closest("input, textarea, select, [contenteditable]")
-    if (inField) {
-      if (event.key === "Escape" && target.matches("textarea")) {
-        const item = currentItem()
-        if (item) headOf(item).focus({ preventScroll: true })
+    if (isTyping(target)) {
+      if (event.key === "Escape") {
+        const item = target.closest<HTMLElement>(".todo-item")
+        if (item) toggleOf(item).focus({ preventScroll: true })
+        else if (target === search) search.blur()
       }
       return
     }
     const item = currentItem()
-    const pill = /^[1-5]$/.test(event.key) ? Number(event.key) : 0
+    const action = /^[1-5]$/.test(event.key)
+      ? item?.querySelectorAll<HTMLInputElement>(
+          ".todo-action-row .todo-action input",
+        )[Number(event.key) - 1]
+      : undefined
     if (event.key === "j") step(1)
     else if (event.key === "k") step(-1)
     else if (event.key === "n") nextUnanswered()
+    else if (event.key === "/") search.focus()
     else if (event.key === "a" && item) accept(item)
+    else if (event.key === "e" && item)
+      setOpen(item, !panels.get(item)!.isOpen())
     else if (event.key === "c" && item) {
+      setOpen(item, true)
       item.querySelector("textarea")!.focus()
-      event.preventDefault()
-    } else if (event.key === "e" && item) {
-      const details = item.querySelector<HTMLDetailsElement>(".todo-details")
-      if (details) details.open = !details.open
-    } else if (pill && item) {
-      const input = item.querySelectorAll<HTMLInputElement>(
-        ".todo-action-row .todo-action input",
-      )[pill - 1]
-      if (!input) return
-      input.checked = true
-      input.dispatchEvent(new Event("change", { bubbles: true }))
+    } else if (action && item) {
+      setOpen(item, true)
+      pick(item, action.value)
     } else return
     event.preventDefault()
   })
 
   readFiltersFromUrl()
+  render()
   applyFilters()
-  collapseAnswered()
 
   const buildText = () => {
     const blocks: string[] = []
     let commented = 0
 
-    for (const section of document.querySelectorAll<HTMLElement>(
-      "[data-todo-section]",
-    )) {
-      const lines = [
-        ...section.querySelectorAll<HTMLElement>(".todo-item"),
-      ].flatMap((item) => {
+    for (const section of sections) {
+      const lines = itemsOf(section).flatMap((item) => {
         const comment = comments.commentOf(item)
         const checked = checkedAction(item)
         if (!comment && !checked && onlyCommented.checked) return []
@@ -790,22 +1139,35 @@ const count = itemCount(sections)
     }
   }
 
-  const copyFallback = document.querySelector<HTMLDialogElement>(
+  const updateReview = () => {
+    status.clear()
+    comments.saveAll()
+    const { commented, text } = buildText()
+    reviewText.textContent =
+      onlyCommented.checked && !commented ? "No answers yet." : text
+  }
+
+  root
+    .querySelector("#todo-review-open")!
+    .addEventListener("click", updateReview)
+  onlyCommented.addEventListener("change", updateReview)
+
+  const copyFallback = root.querySelector<HTMLDialogElement>(
     "[data-copy-fallback]",
   )!
 
   const syncScheme = (frame: HTMLIFrameElement) => {
-    const root = frame.contentDocument?.documentElement
-    if (!root || frame.dataset.scheme) return
+    const page = frame.contentDocument?.documentElement
+    if (!page || frame.dataset.scheme) return
     for (const scheme of ["dark", "light"])
-      root.classList.toggle(
+      page.classList.toggle(
         `ui-${scheme}`,
         document.documentElement.classList.contains(`ui-${scheme}`),
       )
   }
 
   const frames = [
-    ...document.querySelectorAll<HTMLIFrameElement>(".todo-example iframe"),
+    ...root.querySelectorAll<HTMLIFrameElement>(".todo-example iframe"),
   ]
 
   for (const frame of frames) {
@@ -819,7 +1181,7 @@ const count = itemCount(sections)
     })
   }
 
-  for (const details of document.querySelectorAll<HTMLDetailsElement>(
+  for (const details of root.querySelectorAll<HTMLDetailsElement>(
     ".todo-examples",
   )) {
     details.addEventListener("toggle", () => {
@@ -836,20 +1198,24 @@ const count = itemCount(sections)
     { attributeFilter: ["class"] },
   )
 
-  document.querySelector("#todo-copy")!.addEventListener("click", async () => {
+  const copy = async () => {
+    comments.saveAll()
     const { commented, text } = buildText()
     if (onlyCommented.checked && !commented) {
-      setStatus("No answers yet.")
+      status.set("No answers yet.")
       return
     }
-    if (await copyOrSelect(text, copyFallback)) {
-      setStatus(`Copied ${commented} ${commented === 1 ? "todo" : "todos"}.`)
-      return
-    }
-    setStatus("This browser blocked copying.")
-  })
+    status.set(
+      (await copyOrSelect(text, copyFallback))
+        ? `Copied ${plural(commented, "todo")}. Paste them to an agent.`
+        : "This browser blocked copying.",
+    )
+  }
 
-  document.querySelector("#todo-clear")!.addEventListener("click", () => {
+  root.querySelector("#todo-copy")!.addEventListener("click", copy)
+  root.querySelector("#todo-copy-review")!.addEventListener("click", copy)
+
+  root.querySelector("#todo-clear")!.addEventListener("click", () => {
     if (!confirm("Clear all comments and actions?")) return
     comments.clear()
     for (const item of items)
@@ -857,71 +1223,69 @@ const count = itemCount(sections)
         input.checked = input.value === "None"
     writeActions({})
     writeStored(versionsKey, {})
+    render()
     applyFilters()
-    collapseAnswered()
-    setStatus("Comments and actions cleared.")
+    updateReview()
+    status.set("Comments and actions cleared.")
   })
 </script>
 
 <style>
-  .todo-filters {
-    align-items: end;
-    display: grid;
-    gap: var(--size-3);
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-    margin-block-end: var(--size-3);
-  }
-
-  .todo-shortcuts {
-    color: var(--ui-text);
-    display: none;
-    font-size: var(--ui-font-size-small);
-    margin: 0 0 var(--size-4);
-
-    @media (pointer: fine) {
-      display: block;
-    }
-  }
-
-  .todo-list {
-    display: grid;
-    gap: var(--size-4);
-    list-style: none;
-    margin: 0 0 var(--size-6);
-    padding: 0;
-  }
-
-  .todo-item,
-  :global(section[data-todo-section]) {
-    &[hidden] {
-      display: none;
-    }
-  }
-
-  .todo-item {
-    border-block-end: var(--ui-border-width) solid var(--ui-border-color);
-    display: grid;
-    gap: var(--size-2);
-    padding-block-end: var(--size-4);
-  }
-
-  .todo-head {
-    align-items: center;
-    border-radius: var(--ui-radius);
+  .todo-selects {
     display: flex;
     flex-wrap: wrap;
     gap: var(--size-2);
-    scroll-margin-block-start: calc(var(--size-10) + var(--size-3));
+  }
 
-    &:focus-visible {
-      outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
-        var(--ui-focus-ring-color);
-      outline-offset: var(--ui-focus-ring-offset);
+  .todo-item {
+    --review-lead: var(--size-7);
+  }
+
+  .todo-severity {
+    --_tone: var(--ui-neutral);
+
+    align-items: center;
+    aspect-ratio: 1;
+    border-radius: var(--ui-radius);
+    display: flex;
+    font-size: var(--ui-font-size-small);
+    font-variant-numeric: tabular-nums;
+    font-weight: var(--ui-font-weight-bold);
+    inline-size: var(--size-7);
+    justify-content: center;
+
+    &[data-tone] {
+      background-color: oklch(from var(--_tone) l c h / 18%);
+      box-shadow: inset 0 0 0 var(--ui-border-width)
+        oklch(from var(--_tone) l c h / 60%);
+      color: var(--ui-text-strong);
+    }
+
+    &[data-tone="critical"] {
+      --_tone: var(--ui-critical);
+    }
+
+    &[data-tone="info"] {
+      --_tone: var(--ui-info);
+    }
+
+    &[data-tone="warning"] {
+      --_tone: var(--ui-warning);
     }
   }
 
-  .todo-headline {
-    flex-basis: 100%;
+  .todo-component {
+    color: var(--ui-text);
+    display: block;
+    font-size: var(--ui-font-size-caption);
+    font-weight: var(--ui-font-weight-semibold);
+    letter-spacing: var(--ui-letter-spacing-caps);
+    margin-block-end: var(--size-1);
+    text-transform: uppercase;
+  }
+
+  .todo-item[data-stage="answered"] :global(.todo-stage-tag) {
+    display: none;
   }
 
   .todo-text {
@@ -937,13 +1301,11 @@ const count = itemCount(sections)
   }
 
   .todo-recommended {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
+    background-color: oklch(from var(--ui-primary) l c h / 8%);
+    border-radius: var(--ui-radius);
     font-size: var(--ui-font-size-small);
-    gap: var(--size-2) var(--size-3);
-    justify-content: space-between;
     margin: 0;
+    padding: var(--size-2) var(--size-3);
   }
 
   .todo-mark {
@@ -987,16 +1349,6 @@ const count = itemCount(sections)
     gap: var(--size-2);
   }
 
-  :global(
-    .todo-item:has(
-      input:checked:not([value="None"]),
-      textarea:not(:placeholder-shown)
-    )
-  ) {
-    border-inline-start: var(--ui-border-width-thick) solid var(--ui-primary);
-    padding-inline-start: var(--size-3);
-  }
-
   .todo-fix-option {
     display: grid;
     gap: var(--size-2);
@@ -1008,92 +1360,5 @@ const count = itemCount(sections)
     :global(.todo-notes) {
       padding-inline: var(--size-3);
     }
-  }
-
-  .todo-copy {
-    display: grid;
-    gap: var(--size-3);
-    justify-items: start;
-    margin-block-end: var(--size-4);
-  }
-
-  .todo-dock {
-    align-items: center;
-    background-color: var(--ui-surface-elevated);
-    border-block-start: var(--ui-border-width) solid var(--ui-border-color);
-    bottom: 0;
-    box-shadow: var(--ui-shadow-elevated);
-    display: flex;
-    gap: var(--size-2);
-    margin-inline: calc(-1 * var(--size-3));
-    padding: var(--size-2) var(--size-3);
-    padding-block-end: max(var(--size-2), env(safe-area-inset-bottom));
-    position: sticky;
-    white-space: nowrap;
-    z-index: 1;
-  }
-
-  .todo-count,
-  .todo-status {
-    color: var(--ui-text);
-    flex: 1;
-    font-size: var(--ui-font-size-small);
-    font-variant-numeric: tabular-nums;
-    margin: 0;
-    min-inline-size: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .todo-count:has(+ .todo-status:not(:empty)),
-  .todo-status:empty {
-    display: none;
-  }
-
-  @media (width < 30rem) {
-    .todo-dock {
-      gap: var(--size-1);
-      padding-inline: var(--size-2);
-    }
-
-    :global(.todo-count-label) {
-      display: none;
-    }
-  }
-
-  .todo-summary {
-    display: none;
-  }
-
-  .todo-item.is-collapsed {
-    > :global(*) {
-      display: none;
-    }
-
-    > .todo-summary {
-      appearance: none;
-      background: none;
-      border: 0;
-      color: inherit;
-      cursor: pointer;
-      display: grid;
-      font: inherit;
-      gap: var(--size-1);
-      inline-size: 100%;
-      padding: 0;
-      text-align: start;
-    }
-  }
-
-  .todo-summary-text,
-  .todo-summary-answer {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .todo-summary-answer {
-    color: var(--ui-text);
-    font-size: var(--ui-font-size-small);
   }
 </style>

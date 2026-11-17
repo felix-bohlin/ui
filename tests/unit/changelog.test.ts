@@ -113,7 +113,11 @@ const apis = import.meta.glob<ComponentApi>(
   },
 )
 const slugs = components.map(({ slug }) => slug)
-const PAGES: Record<string, string> = { FieldSet: "form", Link: "typography" }
+const PAGES: Record<string, string> = {
+  ButtonGroup: "control-group",
+  FieldSet: "form",
+  Link: "typography",
+}
 const pageOf = (component: string) => {
   const [file, api] =
     Object.entries(apis).find(([, entry]) => entry.component === component) ??

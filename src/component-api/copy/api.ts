@@ -4,6 +4,25 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Copy",
   css: ["copy"],
+  elements: [
+    {
+      members: [
+        {
+          description:
+            "Copies `text`, shows `copied-label` or `failed-label` next to `source` and announces it, or selects the text when the clipboard is blocked. Returns a promise of whether it copied.",
+          kind: "method",
+          name: "copy(source)",
+        },
+        {
+          description:
+            "What a copy writes: the value of the field inside, or else the text without its buttons, popovers, status and `[data-copy-ignore]` elements. Read-only.",
+          kind: "property",
+          name: "text",
+        },
+      ],
+      tag: "opui-copy",
+    },
+  ],
   keyboard: [
     {
       description:
@@ -42,17 +61,17 @@ export default {
   ],
   parts: [
     {
-      code: '<span role="status">',
-      description:
-        "The live region that announces the copy, visually hidden with `.ui-sr-only`.",
-      selector: '[role="status"]',
-    },
-    {
       code: "<span popover>",
       description:
         "The label next to the button that shows `copiedLabel` or `failedLabel`.",
       props: ["copiedLabel", "failedLabel"],
       selector: ".ui-floating",
+    },
+    {
+      code: '<span role="status">',
+      description:
+        "The live region that announces the copy, visually hidden with `.ui-sr-only`.",
+      selector: '[role="status"]',
     },
   ],
   root: {

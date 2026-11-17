@@ -1,7 +1,25 @@
 ---
 import Guide from "../../layouts/Guide.astro"
-import { Callout, CalloutContent } from "opui-css/astro"
+import {
+  Callout,
+  CalloutContent,
+  Card,
+  CardContent,
+  CardHeader,
+} from "opui-css/astro"
+import AstroLogo from "../../components/AstroLogo.astro"
 import DocLink from "../../components/DocLink.astro"
+import Html5Logo from "../../components/Html5Logo.astro"
+import ReactLogo from "../../components/ReactLogo.astro"
+import SvelteLogo from "../../components/SvelteLogo.astro"
+import VueLogo from "../../components/VueLogo.astro"
+
+const elements = ["button", "details", "dialog", "input"]
+const installs = ["npm i opui-css", "<link>", "button.css"]
+const logos = [Html5Logo, AstroLogo, ReactLogo, SvelteLogo, VueLogo]
+const steps = Array.from({ length: 16 }, (_, index) => index + 1)
+
+export const keywords = ["about", "backstory", "philosophy"]
 ---
 
 <Guide overline="Guide">
@@ -11,14 +29,77 @@ import DocLink from "../../components/DocLink.astro"
     you can read, copy and own.
   </Fragment>
 
-  <section id="own-your-code">
-    <h2>Own your code</h2>
-    <p>
-      You can <strong>copy and paste the components</strong> into your repo
-      instead of installing a package. It's the best way to have a complete
-      understanding and ownership over your code. Every component is a CSS file
-      you can read, change and keep, and its page lists the files it depends on.
-    </p>
+  <section id="at-a-glance">
+    <h2 class="ui-sr-only">At a glance</h2>
+    <div class="pillars">
+      <Card variant="outlined">
+        <div class="pillar-art ui-not-rich-text" aria-hidden="true">
+          {elements.map((element) => <code>&lt;{element}&gt;</code>)}
+        </div>
+        <CardHeader>
+          <h3>Native HTML</h3>
+        </CardHeader>
+        <CardContent>
+          <p>
+            A component is a class on the element the platform already has, with
+            its behavior and accessibility built in.
+          </p>
+        </CardContent>
+      </Card>
+      <Card variant="outlined">
+        <div class="pillar-art ui-not-rich-text" aria-hidden="true">
+          {installs.map((install, index) => <Fragment>
+            {index > 0 && <span class="pillar-or">or</span>}
+            <code>{install}</code>
+          </Fragment>)}
+        </div>
+        <CardHeader>
+          <h3>You're in charge</h3>
+        </CardHeader>
+        <CardContent>
+          <p>
+            Install it from npm, link it from a CDN or copy the files into your
+            repo. Take all of it or only what you use. See
+            <DocLink href="/guide/getting-started">Getting started</DocLink>.
+          </p>
+        </CardContent>
+      </Card>
+      <Card variant="outlined">
+        <div class="pillar-art ui-not-rich-text" aria-hidden="true">
+          {logos.map((Logo) => (
+            <Logo size={24} />
+          ))}
+        </div>
+        <CardHeader>
+          <h3>Works with your stack</h3>
+        </CardHeader>
+        <CardContent>
+          <p>
+            It's CSS on plain HTML, so anything that renders HTML can use it.
+            Astro, React, Svelte and Vue also get typed components.
+          </p>
+        </CardContent>
+      </Card>
+      <Card variant="outlined">
+        <div class="pillar-art ui-not-rich-text" aria-hidden="true">
+          <span class="pillar-palette">
+            {steps.map((step) => (
+              <span style={`background-color: var(--ui-color-${step})`} />
+            ))}
+          </span>
+        </div>
+        <CardHeader>
+          <h3>Make it yours</h3>
+        </CardHeader>
+        <CardContent>
+          <p>
+            Every component follows your colors, density, corners and fonts, so
+            it looks like your product, not like a library. Try the
+            <DocLink href="/theme-builder">Theme builder</DocLink>.
+          </p>
+        </CardContent>
+      </Card>
+    </div>
   </section>
 
   <section id="backstory">
@@ -35,7 +116,7 @@ import DocLink from "../../components/DocLink.astro"
       understandable reasons many developers haven't been keeping up, but our
       toolbox has been updated so much now that
       <strong>we need examples</strong> of how to use it. Making small demos on
-      Codepen or looking at examples on MDN wouldn't cut it - there needed to be
+      CodePen or looking at examples on MDN wouldn't cut it - there needed to be
       some weight behind it. I needed to convince myself as much as anyone else
       that these newly landed features are capable of real world usage.
     </p>
@@ -84,8 +165,9 @@ import DocLink from "../../components/DocLink.astro"
           Yes and no. Components use a new feature as soon as a browser ships
           it, whichever browser that is. Browsers without it fall back to what
           they do by default, or to a fallback from the
-          <DocLink href="/guide/browser-support#compat">compat layer</DocLink>,
-          which is included unless you leave it out. If your users' browsers
+          <DocLink class="ui-link" href="/guide/browser-support#compat"
+            >compat layer</DocLink
+          >, which is included unless you leave it out. If your users' browsers
           have the features, or those fallbacks are good enough, it's ready. The
           point is to let the spec and the components mature alongside each
           other.
@@ -95,3 +177,58 @@ import DocLink from "../../components/DocLink.astro"
     </Callout>
   </div>
 </Guide>
+
+<style>
+  .pillars {
+    display: grid;
+    gap: var(--size-3);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    margin-block-start: var(--size-5);
+
+    h3 {
+      font-size: var(--ui-font-size-h6);
+      margin: 0;
+    }
+
+    p {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-small);
+      margin: 0;
+    }
+  }
+
+  .pillar-art {
+    align-items: center;
+    background-color: var(--ui-surface-tonal);
+    border-radius: var(--ui-radius-small);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+    justify-content: center;
+    min-block-size: var(--size-10);
+    padding: var(--size-3);
+
+    code {
+      font-family: var(--ui-font-code);
+      font-size: var(--ui-font-size-small);
+    }
+  }
+
+  .pillar-or {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+  }
+
+  .pillar-palette {
+    border-radius: var(--ui-radius-small);
+    display: grid;
+    flex: 1;
+    forced-color-adjust: none;
+    grid-template-columns: repeat(16, 1fr);
+    overflow: hidden;
+
+    > span {
+      block-size: var(--size-5);
+    }
+  }
+</style>

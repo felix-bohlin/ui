@@ -1,9 +1,9 @@
 # Form
 
-Spacing and grouping for form fields.
+Classes that space and group form fields, with fieldsets and field groups.
 
 - CSS: `opui-css/css/components/form.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/form.md), [Astro](https://open-props-ui.netlify.app/astro/components/form.md), [React](https://open-props-ui.netlify.app/react/components/form.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/form.md), [Vue](https://open-props-ui.netlify.app/vue/components/form.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/form.md), [Astro](https://opui.dev/astro/components/form.md), [React](https://opui.dev/react/components/form.md), [Svelte](https://opui.dev/svelte/components/form.md), [Vue](https://opui.dev/vue/components/form.md).
 
 ## Form
 
@@ -100,22 +100,24 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-field-helper-font-size`, `--
 
 ```html
 <form class="ui-form">
-  <fieldset class="ui-fieldset">
+  <fieldset class="ui-fieldset" aria-describedby="form-basics-1-description">
     <legend>Contact</legend>
-    <p class="ui-description">How can we reach you?</p>
+    <p class="ui-description" id="form-basics-1-description">
+      How can we reach you?
+    </p>
     <div class="ui-field-group">
-      <label class="ui-text-field">
-        <span class="ui-label">Name</span>
+      <div class="ui-text-field">
+        <label class="ui-label" for="form-basics-2">Name</label>
         <span class="ui-field">
-          <input autocomplete="name" type="text" />
+          <input autocomplete="name" id="form-basics-2" type="text" />
         </span>
-      </label>
-      <label class="ui-text-field">
-        <span class="ui-label">Email</span>
+      </div>
+      <div class="ui-text-field">
+        <label class="ui-label" for="form-basics-3">Email</label>
         <span class="ui-field">
-          <input autocomplete="email" type="email" />
+          <input autocomplete="email" id="form-basics-3" type="email" />
         </span>
-      </label>
+      </div>
     </div>
   </fieldset>
   <div class="ui-field-group">
@@ -144,9 +146,11 @@ import {
 ---
 
 <Form>
-  <Fieldset>
+  <Fieldset aria-describedby="form-basics-1-description">
     <FieldLegend>Contact</FieldLegend>
-    <FieldDescription>How can we reach you?</FieldDescription>
+    <FieldDescription id="form-basics-1-description"
+      >How can we reach you?</FieldDescription
+    >
     <FieldGroup>
       <TextField autocomplete="name" label="Name" />
       <TextField autocomplete="email" label="Email" type="email" />
@@ -180,9 +184,11 @@ import {
 export default function Basics() {
   return (
     <Form>
-      <Fieldset>
+      <Fieldset aria-describedby="form-basics-1-description">
         <FieldLegend>Contact</FieldLegend>
-        <FieldDescription>How can we reach you?</FieldDescription>
+        <FieldDescription id="form-basics-1-description">
+          How can we reach you?
+        </FieldDescription>
         <FieldGroup>
           <TextField autoComplete="name" label="Name" />
           <TextField autoComplete="email" label="Email" type="email" />
@@ -218,9 +224,11 @@ export default function Basics() {
 </script>
 
 <Form>
-  <Fieldset>
+  <Fieldset aria-describedby="form-basics-1-description">
     <FieldLegend>Contact</FieldLegend>
-    <FieldDescription>How can we reach you?</FieldDescription>
+    <FieldDescription id="form-basics-1-description"
+      >How can we reach you?</FieldDescription
+    >
     <FieldGroup>
       <TextField autocomplete="name" label="Name" />
       <TextField autocomplete="email" label="Email" type="email" />
@@ -253,9 +261,11 @@ import {
 
 <template>
   <Form>
-    <Fieldset>
+    <Fieldset aria-describedby="form-basics-1-description">
       <FieldLegend>Contact</FieldLegend>
-      <FieldDescription>How can we reach you?</FieldDescription>
+      <FieldDescription id="form-basics-1-description"
+        >How can we reach you?</FieldDescription
+      >
       <FieldGroup>
         <TextField autocomplete="name" label="Name" />
         <TextField autocomplete="email" label="Email" type="email" />

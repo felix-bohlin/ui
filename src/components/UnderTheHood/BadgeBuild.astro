@@ -45,11 +45,11 @@ const steps = [
   position: absolute;
   translate: -50% 50%;
 }`,
-    features: ["individual-transforms", "logical-properties"],
+    features: ["individual-transforms"],
     notes: [
       "Insets of <code>100%</code> park the indicator just outside the top end corner",
       "<code>translate</code> pulls its center back onto the corner",
-      "Built on Anchor, but plain insets: works without <code>position-area</code>",
+      "Plain insets instead of anchor positioning: works without <code>position-area</code>",
     ],
     title: "Corner",
   },

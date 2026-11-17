@@ -23,13 +23,20 @@ const apis = import.meta.glob<ComponentApi>("./*/api.ts", {
 const kebab = (name: string) =>
   name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
 
-export const stylesheetPath = (stylesheet: string) =>
+const stylesheetPath = (stylesheet: string) =>
   path.resolve("packages/opui/css/components", `${stylesheet}.css`)
 
-export const pageStylesheets = (slug: string) => {
-  const declared = Object.entries(apis)
+const pageApis = (slug: string) =>
+  Object.entries(apis)
     .filter(([file, api]) => (api.page ?? file.split("/")[1]) === slug)
-    .flatMap(([, api]) => api.css ?? (api.source ? [kebab(api.source)] : []))
+    .map(([, api]) => api)
+
+export const pageSources = (slug: string) =>
+  pageApis(slug).flatMap((api) => (api.source ? [kebab(api.source)] : []))
+
+export const pageStylesheets = (slug: string) => {
+  const declared = pageApis(slug)
+    .flatMap((api) => api.css ?? (api.source ? [kebab(api.source)] : []))
     .filter((stylesheet) => existsSync(stylesheetPath(stylesheet)))
   if (declared.length > 0) return [...new Set(declared)].toSorted()
   return existsSync(stylesheetPath(slug)) ? [slug] : []

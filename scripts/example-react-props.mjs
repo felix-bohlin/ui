@@ -33,7 +33,7 @@ const compilerOptions = () =>
     root,
   ).options
 
-export const createProgram = (files = new Map()) => {
+const createProgram = (files = new Map()) => {
   const options = compilerOptions()
   const sources = new Map([[virtualFile, virtualSource], ...files])
   const host = ts.createCompilerHost(options)

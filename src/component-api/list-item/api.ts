@@ -1,10 +1,16 @@
+import { components } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
   component: "ListItem",
   css: ["list", "menu"],
   notes: {
+    ...components(
+      "With `as` or `href`, attributes that aren't props go to the `<a>` or `<button>`, like `aria-current`, `target` or `style`, and `type` to the `<button>`. Without them, and with `choice`, they go to the `<li>`. `class` always goes to the `<li>`.",
+    ),
     html: "To make the item interactive, wrap the content in an `<a>`, `<button>` or `<label>`.",
+    react:
+      "With `as` or `href`, attributes that aren't props go to the `<a>` or `<button>`, like `aria-current`, `target` or `style`, and `type` to the `<button>`. Without them, and with `choice`, they go to the `<li>`. `className` always goes to the `<li>`.",
   },
   options: [
     {
@@ -21,6 +27,17 @@ export default {
     },
     {
       description:
+        "Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.",
+      group: "Choice",
+      prop: "choice",
+      values: {
+        checkbox: "label.ui-checkbox",
+        radio: "label.ui-radio",
+        switch: "label.ui-switch",
+      },
+    },
+    {
+      description:
         "Optional colors. `critical` marks a destructive item in a [Menu](/components/menu).",
       group: "Colors",
       prop: "color",
@@ -33,7 +50,7 @@ export default {
       prop: "disabled",
     },
     {
-      description: "The `for` attribute of the `<label>` when `type` is set.",
+      description: "The `for` attribute of the `<label>` when `choice` is set.",
       frameworks: ["astro", "svelte", "vue"],
       prop: "for",
     },
@@ -43,7 +60,7 @@ export default {
     },
     {
       description:
-        "The `for` attribute of the `<label>` when `type` is set, as `htmlFor` like on the element.",
+        "The `for` attribute of the `<label>` when `choice` is set, as `htmlFor` like on the element.",
       frameworks: ["react"],
       prop: "htmlFor",
     },
@@ -56,25 +73,14 @@ export default {
     },
     {
       description:
-        'Highlights the current item, or dims a disabled one. `[disabled]` and `[aria-disabled="true"]` go on the `<a>` or `<button>` (a `<label>` row dims when its input is disabled); `[aria-current="page"]` on the `<a>`, `<button>` or `<label>`.',
+        'Highlights the current item, or dims a disabled one. `[disabled]` and `[aria-disabled="true"]` go on the `<a>` or `<button>` (a `<label>` row dims when its input is disabled); `[aria-current]` (any value but `false`, like `page` on a link or `true` on a button) on the `<a>`, `<button>` or `<label>`.',
       frameworks: ["html"],
       group: "State",
       prop: "state",
       values: {
-        current: '[aria-current="page"]',
+        current: "[aria-current]",
         disabled: "[disabled]",
         disabledLink: '[aria-disabled="true"]',
-      },
-    },
-    {
-      description:
-        "Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.",
-      group: "Type",
-      prop: "type",
-      values: {
-        checkbox: "label.ui-checkbox",
-        radio: "label.ui-radio",
-        switch: "label.ui-switch",
       },
     },
   ],
@@ -82,8 +88,8 @@ export default {
   parts: [
     {
       code: "<a>, <button>, <label>",
-      description: "The clickable row, rendered by `as`, `href` or `type`.",
-      props: ["as", "href", "type"],
+      description: "The clickable row, rendered by `as`, `href` or `choice`.",
+      props: ["as", "choice", "href"],
       selector: ".ui-list > li > :is(a, button, label)",
     },
     {
@@ -113,6 +119,12 @@ export default {
       description: "Optional content at the end, such as a value or an action.",
       selector: ".ui-end",
       slots: ["end"],
+    },
+    {
+      description:
+        "Your own check, shown at the end while the row is selected or current. In a `Menu` or a listbox it replaces the default check.",
+      selector: ".ui-icon-checked",
+      slots: ["icon-checked"],
     },
   ],
   root: {

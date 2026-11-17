@@ -3,8 +3,13 @@ import { openFixture } from "./fixtures"
 
 const APPLIES: Record<string, string[]> = {
   chromium: [],
-  firefox: ["not (corner-shape: squircle)", "not selector(: interest-source)"],
-  webkit: ["not selector(: interest-source)"],
+  firefox: [
+    "not (corner-shape: squircle)",
+    "not (inline-size: if(else: 0px))",
+    "not (row-rule: none)",
+    "not selector(: interest-source)",
+  ],
+  webkit: ["not (row-rule: none)", "not selector(: interest-source)"],
 }
 
 test.beforeEach(async ({ page }) => {

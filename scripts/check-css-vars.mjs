@@ -25,14 +25,15 @@ const INPUT = /"(--_[\w-]+)":\s*\{[^}]*kind:\s*"input"/g
 const PIXEL_STEP = /^\s*\d*\.?\d+px\s*$/
 
 const BASES = {
+  "accordion.css": ["card.css"],
   "badge.css": ["avatar.css"],
-  "button-group.css": ["button.css"],
   "checkbox.css": ["choice.css"],
+  "control-group.css": ["button.css"],
   "dialog.css": ["card.css"],
   "number-field.css": ["text-field.css"],
   "one-time-code.css": ["text-field.css"],
   "radio.css": ["choice.css"],
-  "select.css": ["text-field.css"],
+  "select.css": ["list.css", "text-field.css"],
   "textarea.css": ["text-field.css"],
   "toggle-group.css": ["toggle-button.css"],
 }

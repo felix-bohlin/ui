@@ -32,7 +32,7 @@ const A11Y_LEDGER = "tests/e2e/a11y-known-violations.json"
 const HAND_WRITTEN = "scripts/hand-written-examples.json"
 const HAND_WRITTEN_COMPONENTS = "scripts/hand-written-components.json"
 const DRIFT_DIR = "tests/unit/__snapshots__"
-export const TRAILER = "Ledger-Change"
+const TRAILER = "Ledger-Change"
 
 export const entries = (value, path = []) =>
   typeof value === "string"

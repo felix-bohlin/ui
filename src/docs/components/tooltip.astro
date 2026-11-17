@@ -2,10 +2,16 @@
 import Component from "../../layouts/Component.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
+import {
+  Button as UIButton,
+  Tooltip as UITooltip,
+  TooltipContent as UITooltipContent,
+} from "opui-css/astro"
 
 import AnchorCSS from "@opui/css/components/anchor.css?raw"
 import TooltipCSS from "@opui/css/components/tooltip.css?raw"
@@ -14,7 +20,7 @@ import tooltipApi from "../../component-api/tooltip/api"
 import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
 
 export const description =
-  "A short label or hint for a control, shown on hover, focus or a long press."
+  "A short label or hint for a control, shown on hover and focus."
 
 export const keywords = ["hint", "hover", "title", "toggletip"]
 ---
@@ -22,6 +28,7 @@ export const keywords = ["hint", "hover", "title", "toggletip"]
 <Component
   description={description}
   slug="tooltip"
+  heroAnatomy
   apis={[{ title: "Tooltip API", api: tooltipApi }]}
   browserSupport={[
     "anchor-positioning",
@@ -37,6 +44,20 @@ export const keywords = ["hint", "hover", "title", "toggletip"]
     "text-wrap-pretty",
     "transition-behavior",
   ]}
+  fallbacks={{
+    "calc-size":
+      "Without `calc-size()`, a long tooltip near the edge of the window can wrap into a narrow column.",
+    "display-animation":
+      "Without display animation, the tooltip disappears at once instead of fading out.",
+    "interest-invokers":
+      "Without interest invokers, the compat layer shows the tooltip while its trigger is hovered or has keyboard focus, and Esc doesn't hide it. Content later on the page can cover it.",
+    overlay:
+      "Without `overlay`, the page can cover a tooltip while it fades out.",
+    "popover-hint":
+      'Without `popover="hint"`, a toggletip is a manual popover, so Esc and a click outside leave it open.',
+    "text-wrap-pretty":
+      "Without `text-wrap: pretty`, the last line of a tooltip can hold a single word.",
+  }}
   changelogPaths={[
     {
       path: "packages/opui/components/Tooltip/Tooltip.astro",
@@ -58,8 +79,10 @@ export const keywords = ["hint", "hover", "title", "toggletip"]
   <Fragment slot="title">Tooltip</Fragment>
   <Fragment slot="preamble">
     <p>
-      A short hint on hover, focus or long press, positioned with
-      <DocLink href="/components/anchor">Anchor</DocLink>.
+      A short hint on hover and focus, like the name of an icon button. For
+      interactive content, use an
+      <DocLink href="/components/anchor#hover-trigger">Anchor</DocLink> hover
+      card.
     </p>
     <Conditional as="p">
       <Fragment slot="components">
@@ -73,8 +96,27 @@ export const keywords = ["hint", "hover", "title", "toggletip"]
     </Conditional>
   </Fragment>
 
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UITooltip arrow id="tooltip-anatomy" style="margin: 3rem 3rem 0">
+        <UIButton
+          aria-describedby="tooltip-anatomy"
+          interestfor="tooltip-anatomy"
+          variant="outlined"
+          >Save</UIButton
+        >
+        <UITooltipContent
+          style="display: block; opacity: 1; position: absolute; position-anchor: --anchor"
+          >Save your changes</UITooltipContent
+        >
+      </UITooltip>
+    </Anatomy>
+  </Fragment>
+
   <Usage slot="usage">
-    <li slot="when">A visible label for an icon-only button.</li>
+    <li slot="when">
+      A visible label for an <a href="#icon-button">icon-only button</a>.
+    </li>
     <li slot="when">A hint or a keyboard shortcut.</li>
     <li slot="when-not">
       Information needed to finish a task: put it on the page, or in a
@@ -92,6 +134,14 @@ export const keywords = ["hint", "hover", "title", "toggletip"]
     <h3 id="text-only">Text</h3>
 
     <AutoExample name="Basics" centered />
+
+    <h3 id="icon-button">Icon button</h3>
+    <p>
+      Name the button with an <code>aria-label</code> that matches the tooltip
+      text.
+    </p>
+
+    <AutoExample name="IconButton" centered />
 
     <h3 id="rich-content">Rich content</h3>
 
@@ -127,7 +177,13 @@ export const keywords = ["hint", "hover", "title", "toggletip"]
   <Fragment slot="accessibility">
     <ul>
       <li>
-        Point the trigger at the tooltip with <code>aria-describedby</code>.
+        Point a trigger with visible text at the tooltip with
+        <code>aria-describedby</code>.
+      </li>
+      <li>
+        Give an <a href="#icon-button">icon-only trigger</a> an
+        <code>aria-label</code> with the tooltip text and no
+        <code>aria-describedby</code>, so its name isn't read twice.
       </li>
       <li>Put what the user must know in the trigger's own name.</li>
     </ul>

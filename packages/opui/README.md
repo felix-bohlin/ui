@@ -4,7 +4,7 @@ Design system. Components. Modern HTML & CSS.
 
 HTML, [Astro](https://astro.build/), [React](https://react.dev/), [Svelte](https://svelte.dev/) and [Vue](https://vuejs.org/) components alongside framework-agnostic CSS. The theme tokens started from [Open Props](https://open-props.style/), and the components don't need it: it ships as an optional companion for your own CSS.
 
-- Docs: [open-props-ui.netlify.app](https://open-props-ui.netlify.app/)
+- Docs: [opui.dev](https://opui.dev/)
 - Source: [github.com/felix-bohlin/ui](https://github.com/felix-bohlin/ui)
 
 ## Install
@@ -13,15 +13,17 @@ HTML, [Astro](https://astro.build/), [React](https://react.dev/), [Svelte](https
 pnpm add opui-css
 ```
 
-Peer dependencies:
+It needs Node 26.10 or later. Peer dependencies:
 
 - `astro` `^7` (only required if you use the Astro components)
 - `open-props` `^1.7.23` (only required if you import `opui-css/open-props.css`, the Open Props source)
 - `react` and `react-dom` `^19` (only required if you use the React components)
 - `svelte` `^5.57` (only required if you use the Svelte components)
-- `vue` `^3.5` (only required if you use the Vue components)
+- `vue` `^3.5.2` (only required if you use the Vue components)
 
 ## Usage
+
+Each framework has a Getting started guide: [HTML](https://opui.dev/html/guide/getting-started/), [Astro](https://opui.dev/astro/guide/getting-started/), [React](https://opui.dev/react/guide/getting-started/), [Svelte](https://opui.dev/svelte/guide/getting-started/) and [Vue](https://opui.dev/vue/guide/getting-started/).
 
 ### Astro components
 
@@ -60,7 +62,7 @@ export default function App() {
 }
 ```
 
-Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are props: `children`, and camelCased names such as `endText`. Form controls take the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` props. Components that need context, state or effects (Anchor, Callout, Copy, Dialog, Drawer, FieldGroup, FieldLegend, Fieldset, Menu, NumberField, OneTimeCode, Range, Rating, Select, SelectAll, SortableTable, Tabs, TextField, Textarea, Toaster, ToggleButton and ToggleGroup, and the CheckboxInput, RadioInput and SwitchInput parts) are marked `"use client"`; the rest also render as React Server Components.
+Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are props: `children`, and camelCased names such as `endText`. Form controls take the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` props, and Rating, Tabs and ToggleGroup report a choice with `onValueChange(value)`. Components that need context, state or effects (Anchor, Callout, Copy, Dialog, Drawer, FieldGroup, FieldLegend, Fieldset, Menu, NumberField, OneTimeCode, Range, Rating, Select, SelectAll, SortableTable, Tabs, TextField, Textarea, Toaster, ToggleButton and ToggleGroup, and the CheckboxInput, RadioInput and SwitchInput parts) are marked `"use client"`; the rest also render as React Server Components.
 
 ### Svelte components
 
@@ -102,7 +104,7 @@ import { Button, Card } from "opui-css/vue"
 
 `opui-css/react` and `opui-css/vue` export compiled JavaScript with `.d.ts` types, so they load in any bundler and in Node without extra configuration, on the server too, Next.js and Nuxt included. `opui-css/svelte` exports the `.svelte` files with their `.d.ts` types, which `@sveltejs/vite-plugin-svelte` compiles through the package's `svelte` export condition, in SvelteKit and in Vite alike. `opui-css/astro` exports the `.astro` sources, which Astro compiles.
 
-The compiled files are ES modules for ES2022, and Node 22 and later can also `require()` them. A test runner that loads `node_modules` as CommonJS, such as Jest in its default setup, has to transform `opui-css` (Jest: leave it out of `transformIgnorePatterns`). Source maps and declaration maps point at the sources the package ships in `components/`, so stack traces and Go to Definition open the `.tsx`, `.vue` or `.svelte` file. The Vue components are compiled in production mode, so Vue doesn't warn at runtime when a prop has the wrong type; your type checker does.
+The compiled files are ES modules for ES2022, and Node can also `require()` them. A test runner that loads `node_modules` as CommonJS, such as Jest in its default setup, has to transform `opui-css` (Jest: leave it out of `transformIgnorePatterns`). Source maps and declaration maps point at the sources the package ships in `components/`, so stack traces and Go to Definition open the `.tsx`, `.vue` or `.svelte` file. The Vue components are compiled in production mode, so Vue doesn't warn at runtime when a prop has the wrong type; your type checker does.
 
 #### One component at a time
 
@@ -110,9 +112,18 @@ The compiled files are ES modules for ES2022, and Node 22 and later can also `re
 
 #### TypeScript
 
-`opui-css/react`, `opui-css/svelte` and `opui-css/vue` ship `.d.ts` files, so `skipLibCheck` skips them and your `compilerOptions` only apply to your own code. They resolve with `moduleResolution: "bundler"`, `"node16"` or `"nodenext"` (not `"node10"`).
+`opui-css/react`, `opui-css/svelte` and `opui-css/vue` ship `.d.ts` files, so `skipLibCheck` skips them and your `compilerOptions` only apply to your own code. They resolve with `moduleResolution: "bundler"`, `"node16"` or `"nodenext"` (not `"node10"`). The Svelte types need `skipLibCheck: true`, as the Svelte and SvelteKit templates set it: without it, `svelte-check` reports a union type that is too complex to represent.
 
-The Astro components import their `.ts` sources, which your `tsconfig.json` type-checks with your own `compilerOptions`. They are checked with `strict: true`, `verbatimModuleSyntax` and `isolatedModules`. `exactOptionalPropertyTypes` and `noUncheckedIndexedAccess` aren't checked, so they can report errors in the package, and `skipLibCheck` doesn't skip its `.ts` files.
+The `.d.ts` files work with TypeScript 6 and 7. The TypeScript version a project can use depends on the checker its framework needs:
+
+- Astro: `astro check` (`@astrojs/check` 0.9) runs on TypeScript 6, not on 7.
+- React: `tsc` on TypeScript 6 or 7.
+- Svelte: `svelte-check` 4.7 runs on TypeScript 6. For TypeScript 7, install it next to TypeScript 6 (`npm install -D typescript@6 @typescript/native@npm:typescript@7`) and run `svelte-check --tsgo`.
+- Vue: `vue-tsc` checks the `.vue` files, and vue-tsc 3.3 runs on TypeScript 6, not on 7. Vue needs the TypeScript version vue-tsc supports.
+
+The Astro components import their `.ts` sources, which your `tsconfig.json` type-checks with your own `compilerOptions`. They are checked with `strict: true`, `verbatimModuleSyntax` and `isolatedModules`. `exactOptionalPropertyTypes` and `noUncheckedIndexedAccess` aren't checked, so they can report errors in the package, and `skipLibCheck` doesn't skip its `.ts` files. They need `moduleResolution: "bundler"`, which Astro's `tsconfig.json` presets set: the sources import without file extensions, so with `"node16"` or `"nodenext"` the props aren't checked.
+
+In a script, import the CSS by a path that ends in `.css`, such as `opui-css/css/imports.css` or `opui-css/dist/opui.css`, not `opui-css` or `opui-css/themes/m3`. TypeScript 6 and later check side-effect imports (`noUncheckedSideEffectImports`), and a `*.css` module declaration, like the one in `vite/client`, only matches paths that end in `.css`.
 
 #### Ids in Astro
 
@@ -154,7 +165,7 @@ Drop a pre-bundled stylesheet into any page and use the documented class names:
 
 `dist/opui.css` is a single self-contained file (Open Props + palette + theme + normalize + every component + browser fallbacks + utils, in the correct cascade layers). `dist/opui.components.css` has only the layer order, the component styles, their browser fallbacks and the `Layout` classes. The components need `core/palette.css` and `css/theme.css` to look right and `core/normalize.css`, or a reset that makes every box `border-box`, to size right, and `core/utils.css` holds `.ui-sr-only` and the motion and contrast classes, so load those yourself when you use it. Nothing in the package reads Open Props: `theme.css` holds its own values, and Open Props is in the bundle for your own CSS.
 
-The browser fallbacks are the `components.compat` layer. A feature test only applies in browsers without the feature, and an engine fix, like the iOS submenu anchor, applies in that engine until it's removed. `dist/opui.no-compat.css` is `dist/opui.css` without them, and `dist/opui.baseline-<year>.css` keeps only the ones that browsers of that Baseline year need ([Compat layer](https://open-props-ui.netlify.app/html/guide/browser-support/#compat)).
+The browser fallbacks are the `components.compat` layer and the `@supports not` blocks of `theme.css` and `core/normalize.css`: the `clamp()` heading sizes for browsers without `progress()`, and smooth page scrolling that follows `prefers-reduced-motion` for browsers without `if()`. A feature test only applies in browsers without the feature, and an engine fix, like the iOS submenu anchor, applies in that engine until it's removed. `dist/opui.no-compat.css` is `dist/opui.css` without them, and `dist/opui.baseline-<year>.css` keeps only the ones that browsers of that Baseline year need ([Compat layer](https://opui.dev/html/guide/browser-support/#compat)).
 
 If you do have a bundler that resolves CSS `@import`s (Vite, Astro, webpack, …), import the source instead so you only ship what you use:
 
@@ -200,7 +211,7 @@ Vite 8's lightningcss also prints warnings such as `'scroll-button' is not recog
 
 ## Upgrading
 
-Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.md) (also on the docs site: [Migrating to v6](https://open-props-ui.netlify.app/html/guide/migrating/)), with every change listed in [CHANGELOG.md](./CHANGELOG.md).
+Breaking changes and how to update your code are in [MIGRATING.md](https://github.com/felix-bohlin/ui/blob/main/packages/opui/MIGRATING.md) (also on the docs site: [Migrating to v6](https://opui.dev/html/guide/migrating/)), with every change listed in [CHANGELOG.md](https://github.com/felix-bohlin/ui/blob/main/packages/opui/CHANGELOG.md).
 
 ## Entry points
 
@@ -226,7 +237,8 @@ Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.m
 | `opui-css/core/utils.css`                | Utility classes                                                                                                                                                                                                                                                                                |
 | `opui-css/css/js/checkbox.js`            | `activateIndeterminate()`, `initCheckbox()` and `syncIndeterminate()` for indeterminate checkboxes without a framework                                                                                                                                                                         |
 | `opui-css/css/js/range.js`               | Keeps every `.ui-range` `<output data-live>` in sync with its slider without a framework, once imported                                                                                                                                                                                        |
-| `opui-css/elements/*.js`                 | Custom elements, one module per component that needs one, like `number-field.js`                                                                                                                                                                                                               |
+| `opui-css/elements/*.js`                 | Custom elements, one module per component that needs one, like `number-field.js`, which exports `NumberFieldElement`. `close-on-navigate.js` defines no element: importing it closes open menus and `[data-close-on-navigate]` drawers when the page navigates                                 |
+| `opui-css/icons/*`                       | Icon sets for the `--ui-icon-*` tokens (`fluent`, `lucide`, `material-symbols`, `phosphor`, `tabler`), with or without `.css`                                                                                                                                                                  |
 | `opui-css/themes/*`                      | Example themes (`bootstrap`, `brutalist`, `govuk`, `m3`, `shadcn`), with or without `.css`                                                                                                                                                                                                     |
 | `opui-css/tokens.json`                   | Every theme token in the W3C design tokens format                                                                                                                                                                                                                                              |
 | `opui-css/astro`                         | All Astro components                                                                                                                                                                                                                                                                           |
@@ -238,13 +250,14 @@ Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.m
 | `opui-css/components/*.vue`              | One Vue component or part: the compiled file `opui-css/vue` exports, with its types                                                                                                                                                                                                            |
 | `opui-css/components/*`                  | The Astro component sources and the type files, such as `types` and `types.astro`. The files at the top of `components/` (`cx.ts`, `dev.ts`, `group.ts`, `id.ts`, `style.ts`, `tag.ts`, `vue.ts`, `context.astro.ts` and `content.svelte`) are internal helpers that can change in any release |
 | `opui-css/env.d.ts`                      | Astro types for `Astro.locals.$id` and `interestfor` (see [Ids in Astro](#ids-in-astro))                                                                                                                                                                                                       |
+| `opui-css/figma/*`                       | The default theme's Figma variables in `figma/themes/`, and `sync.js`, the function the Figma plugin runs ([Figma](https://opui.dev/html/guide/theme-tokens/#figma))                                                                                                                           |
 | `opui-css/package.json`                  | The package manifest, for tools that read it                                                                                                                                                                                                                                                   |
 
 Importing a React component from `opui-css/components/*.react` skips the type augmentation in `opui-css/react`, which adds `command`, `commandfor` and `interestfor` to React's element types. `Menu` and `DrawerHeader` need it, so add `import type {} from "opui-css/react"` once in your app.
 
 ## Themes
 
-Put your own tokens in `@layer theme.custom`, which beats the defaults and loses to everything else. Example themes ship in `themes/`: `bootstrap` (Bootstrap 5), `brutalist` (neobrutalism), `govuk` (GOV.UK Design System), `m3` (Material 3) and `shadcn` (shadcn/ui). They name their fonts (DM Sans, Roboto and Geist) but don't load them.
+Put your own tokens in `@layer theme.custom`, which beats the defaults and loses to everything else. Example themes ship in `themes/`: `bootstrap` (Bootstrap 5), `brutalist` (neobrutalism), `govuk` (GOV.UK Design System), `m3` (Material 3) and `shadcn` (shadcn/ui). They borrow those looks and aren't affiliated with the projects behind them. They name their fonts (DM Sans, Roboto and Geist) but don't load them.
 
 ```css
 @import "opui-css/css/imports.css";
@@ -265,8 +278,8 @@ npx opui-css skill
 
 It writes `.claude/skills/opui` and prints the version it copied. Pass `--dir <path>` to copy it into another agent's skills folder (`<path>/opui`), and `--force` to replace an older copy after an upgrade. Without the command: `mkdir -p .claude/skills && cp -r node_modules/opui-css/skills/opui .claude/skills/opui`.
 
-The docs are also available as [llms.txt](https://open-props-ui.netlify.app/llms.txt), and every docs page has a Markdown version, e.g. [/html/components/button.md](https://open-props-ui.netlify.app/html/components/button.md).
+The docs are also available as [llms.txt](https://opui.dev/llms.txt), and every docs page has a Markdown version, e.g. [/html/components/button.md](https://opui.dev/html/components/button.md).
 
 ## License
 
-[MIT](./LICENSE) © Felix Bohlin
+[MIT](https://github.com/felix-bohlin/ui/blob/main/packages/opui/LICENSE) © Felix Bohlin

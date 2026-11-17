@@ -6,7 +6,7 @@ import {
   vModelSelect,
   vModelText,
 } from "vue"
-import { vSeed } from "../../packages/opui/components/vue"
+import { seedChecked, vSeed } from "../../packages/opui/components/vue"
 
 type Listener = (event: { defaultPrevented: boolean }) => void
 
@@ -83,8 +83,11 @@ const inputOf = (
 const selectOf = (values: string[], form: Form) => {
   const options = values.map((value) => {
     const base = attributed()
-    return {
+    const option = {
       ...base,
+      disabled: false,
+      matches: (selector: string): boolean =>
+        selector === ":disabled" && option.disabled,
       selected: false,
       value,
       get defaultSelected() {
@@ -95,6 +98,7 @@ const selectOf = (values: string[], form: Form) => {
         else base.attributes.delete("selected")
       },
     }
+    return option
   })
   const select = {
     ...attributed(),
@@ -109,6 +113,7 @@ const selectOf = (values: string[], form: Form) => {
         option.selected = index === Math.max(initial, 0)
       }
     },
+    size: 0,
     type: "select-one",
     get selectedIndex() {
       return options.findIndex((option) => option.selected)
@@ -361,6 +366,35 @@ describe("vSeed while hydrating", () => {
     expect(assigned).toEqual([["ham"]])
   })
 
+  test("a box without a value joins an array by the value the browser submits", async () => {
+    const field = inputOf("checkbox", { server: "on" })
+    field.parentNode = {}
+    field.checked = true
+    const assigned: unknown[] = []
+    hook("created", field, vnodeOf(vModelCheckbox, ["ham"], assigned))
+    expect(assigned).toEqual([["ham", "on"]])
+  })
+
+  test("a select the browser opened on its first enabled or last selected option isn't edited", async () => {
+    const placeholder = selectOf(["", "a", "b"], formOf())
+    placeholder.parentNode = {}
+    placeholder.options[0]!.disabled = true
+    placeholder.options[1]!.selected = true
+    const repeated = selectOf(["a", "b", "c"], formOf())
+    repeated.parentNode = {}
+    repeated.options[0]!.defaultSelected = true
+    repeated.options[2]!.defaultSelected = true
+    repeated.options[2]!.selected = true
+    const assigned: unknown[] = []
+    await mount(placeholder, vnodeOf(vModelSelect, "z", assigned), () => {})
+    await mount(repeated, vnodeOf(vModelSelect, "z", assigned), () => {})
+    expect(assigned).toEqual([])
+    placeholder.options[1]!.selected = false
+    placeholder.options[2]!.selected = true
+    await mount(placeholder, vnodeOf(vModelSelect, "z", assigned), () => {})
+    expect(assigned).toEqual(["b"])
+  })
+
   test("a box unchecked before hydration seeds the model", async () => {
     const field = inputOf("checkbox")
     field.defaultChecked = true
@@ -368,5 +402,159 @@ describe("vSeed while hydrating", () => {
     const assigned: unknown[] = []
     await mount(field, vnodeOf(vModelCheckbox, true, assigned), () => {})
     expect(assigned).toEqual([false])
+  })
+})
+
+type Input = ReturnType<typeof inputOf>
+
+const checkedItem = () => {
+  const reported: string[] = []
+  const directive = seedChecked((input) => {
+    reported.push(input.value)
+  })
+  const call = (
+    name: "beforeUnmount" | "beforeUpdate" | "created" | "mounted",
+    field: Input,
+    value?: boolean,
+    oldValue?: boolean,
+  ) =>
+    (directive[name] as (...args: unknown[]) => void)(
+      field,
+      { oldValue, value },
+      {},
+    )
+  return { call, directive, reported }
+}
+
+const served = (
+  type: string,
+  value: string,
+  state: { checked: boolean; defaultChecked: boolean },
+  form?: Form,
+) => {
+  const field = inputOf(type, { form, name: "group", server: value })
+  field.parentNode = {}
+  field.defaultChecked = state.defaultChecked
+  field.checked = state.checked
+  return field
+}
+
+describe("seedChecked while hydrating", () => {
+  test("a radio picked before hydration reports itself and keeps the server's default", () => {
+    const { call, reported } = checkedItem()
+    const profile = served("radio", "profile", {
+      checked: false,
+      defaultChecked: true,
+    })
+    const settings = served("radio", "settings", {
+      checked: true,
+      defaultChecked: false,
+    })
+    call("created", profile, true)
+    call("created", settings, false)
+    expect(reported).toEqual(["settings"])
+    expect(
+      [profile, settings].map((field) => [field.checked, field.defaultChecked]),
+    ).toEqual([
+      [false, true],
+      [true, false],
+    ])
+  })
+
+  test("a box ticked or unticked before hydration reports itself, and an untouched one takes the state", () => {
+    const { call, reported } = checkedItem()
+    const ticked = served("checkbox", "bold", {
+      checked: true,
+      defaultChecked: false,
+    })
+    const unticked = served("checkbox", "italic", {
+      checked: false,
+      defaultChecked: true,
+    })
+    const untouched = served("checkbox", "underline", {
+      checked: false,
+      defaultChecked: false,
+    })
+    call("created", ticked, false)
+    call("created", unticked, true)
+    call("created", untouched, true)
+    expect(reported).toEqual(["bold", "italic"])
+    expect([ticked, unticked, untouched].map((field) => field.checked)).toEqual(
+      [true, false, true],
+    )
+  })
+})
+
+describe("seedChecked after hydration", () => {
+  test("a client render sets the state, makes it the default and follows a changed value", async () => {
+    const { call } = checkedItem()
+    const field = inputOf("checkbox")
+    call("created", field, true)
+    call("mounted", field, true)
+    expect(field.checked).toBe(true)
+    await Promise.resolve()
+    expect(field.defaultChecked).toBe(true)
+    field.checked = false
+    call("beforeUpdate", field, true, true)
+    expect(field.checked).toBe(false)
+    call("beforeUpdate", field, false, true)
+    call("beforeUpdate", field, true, false)
+    expect(field.checked).toBe(true)
+  })
+
+  test("a form reset reports the box and the radio whose state went back", () => {
+    const form = formOf()
+    const { call, reported } = checkedItem()
+    const box = served(
+      "checkbox",
+      "bold",
+      { checked: true, defaultChecked: true },
+      form,
+    )
+    const day = served(
+      "radio",
+      "day",
+      { checked: false, defaultChecked: false },
+      form,
+    )
+    const week = served(
+      "radio",
+      "week",
+      { checked: true, defaultChecked: true },
+      form,
+    )
+    for (const [field, value] of [
+      [box, true],
+      [day, false],
+      [week, true],
+    ] as const) {
+      call("created", field, value)
+      call("mounted", field, value)
+    }
+    box.checked = false
+    day.checked = true
+    week.checked = false
+    call("beforeUpdate", box, false, true)
+    call("beforeUpdate", day, true, false)
+    call("beforeUpdate", week, false, true)
+    reset(form, true)
+    expect(reported).toEqual([])
+    reset(form)
+    expect(reported).toEqual(["bold", "week"])
+    call("beforeUpdate", box, true, false)
+    call("beforeUpdate", day, false, true)
+    call("beforeUpdate", week, true, false)
+    call("beforeUnmount", box)
+    box.checked = false
+    reset(form)
+    expect(reported).toEqual(["bold", "week"])
+  })
+
+  test("the server renders checked only for a checked state", () => {
+    const { directive } = checkedItem()
+    const props = (value: boolean) =>
+      directive.getSSRProps?.({ value } as never, {} as never)
+    expect(props(true)).toEqual({ checked: true })
+    expect(props(false)).toBeUndefined()
   })
 })

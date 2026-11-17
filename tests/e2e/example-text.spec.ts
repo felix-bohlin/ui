@@ -7,6 +7,7 @@ import {
 import { COMPONENTS, FRAMEWORKS, openFixture, type Framework } from "./fixtures"
 
 const ENGINE_FAILURES: Record<string, EngineBugs> = {
+  avatar: { webkit: WEBKIT_INNER_TEXT_HIDDEN_NODES },
   message: { webkit: WEBKIT_INNER_TEXT_HIDDEN_NODES },
   stepper: { webkit: WEBKIT_INNER_TEXT_HIDDEN_NODES },
   tooltip: { webkit: WEBKIT_INNER_TEXT_HIDDEN_NODES },
@@ -35,6 +36,17 @@ const texts = async (page: Page, framework: Framework, component: string) => {
       if (!popover.matches(":popover-open")) popover.showPopover()
     }
   })
+  await page.waitForFunction(() =>
+    [
+      ...document.querySelectorAll<HTMLDetailsElement>(
+        "[data-example] details[open]",
+      ),
+    ].every(
+      (details) =>
+        getComputedStyle(details, "::details-content").contentVisibility !==
+        "hidden",
+    ),
+  )
   const examples = page.locator("[data-example]")
   const result = new Map<string, { aria: string; text: string }>()
   for (const example of await examples.all()) {

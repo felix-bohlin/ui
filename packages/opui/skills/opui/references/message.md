@@ -3,18 +3,22 @@
 Chat bubbles that group by sender, with attachments, reactions and a typing indicator.
 
 - CSS: `opui-css/css/components/message.css` and `opui-css/css/components/avatar.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/message.md), [Astro](https://open-props-ui.netlify.app/astro/components/message.md), [React](https://open-props-ui.netlify.app/react/components/message.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/message.md), [Vue](https://open-props-ui.netlify.app/vue/components/message.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/message.md), [Astro](https://opui.dev/astro/components/message.md), [React](https://opui.dev/react/components/message.md), [Svelte](https://opui.dev/svelte/components/message.md), [Vue](https://opui.dev/vue/components/message.md).
 
-## Messages
+## MessageList
 
 ### Parts
 
-- `ol.ui-messages` (root): The conversation, an ordered list.
+- `ol.ui-message-list` (root): The conversation, an ordered list.
 - `li.ui-message` (`Message`): A message. Consecutive messages on the same side group into a run.
+
+### Props and modifiers
+
+- `role`: `string`, default `"list"`. The `role` of the `<ol>`, such as `log` for a live conversation. `list` keeps Safari announcing a list.
 
 ### Slots
 
-- `default`: The messages, and any other `li` between them, such as a date `Divider`, which starts a new run.
+- `default`: The messages, and any other `li` between them, such as a date in `li.ui-divider`, which starts a new run.
 
 ### Notes
 
@@ -55,7 +59,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_text-color`: Text color in the bubble. Defaults to `--ui-text-strong`, and `--ui-on-primary` with `.ui-outgoing`.
 - `--_tight-radius`: Radius of the corners inside a run. Defaults to `--ui-radius-small`.
 
-Outputs: `--_block-end-radius`, `--_block-start-radius`, `--_dot-image`, `--_font-size`, `--_selected-bg-color` and `--_size`.
+Outputs: `--_block-end-radius`, `--_block-start-radius`, `--_border-color`, `--_divider-gap`, `--_dot-image`, `--_font-size`, `--_selected-bg-color` and `--_size`.
 
 ### avatar.css
 
@@ -73,59 +77,61 @@ Outputs: `--_block-end-radius`, `--_block-start-radius`, `--_dot-image`, `--_fon
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size-x-small`, `--ui-contrast`, `--ui-control-size-small`, `--ui-font-size-caption`, `--ui-font-weight-semibold`, `--ui-motion`, `--ui-on-primary`, `--ui-on-selected`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-selected`, `--ui-selected-strong`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-7`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size-x-small`, `--ui-contrast`, `--ui-control-size-small`, `--ui-focus-border-color`, `--ui-font-size-caption`, `--ui-font-weight-semibold`, `--ui-motion`, `--ui-on-primary`, `--ui-on-selected`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-selected`, `--ui-selected-strong`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-7`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
 ### Example: Basics
 
 ```html
-<ol class="ui-messages" role="list" aria-label="Messages with Saga">
-  <li class="ui-message">
-    <div class="ui-avatar" aria-label="Saga Nyström" role="img">SN</div>
-    <div class="ui-content">
-      <p class="ui-header">Saga</p>
-      <p>Did you get a chance to look at the pricing proposal?</p>
-      <p class="ui-footer">
-        <time datetime="2026-10-08T14:02">14:02</time>
-      </p>
-    </div>
-  </li>
-  <li class="ui-message">
-    <div class="ui-avatar" aria-label="Saga Nyström" role="img">SN</div>
-    <div class="ui-content">
-      <p class="ui-header">Saga</p>
-      <p>No rush, Friday is fine.</p>
-      <p class="ui-footer">
-        <time datetime="2026-10-08T14:03">14:03</time>
-      </p>
-    </div>
-  </li>
-  <li class="ui-message ui-outgoing">
-    <div class="ui-content">
-      <p class="ui-header">You</p>
-      <p>Yes, looks good. I'd lead with the annual plan.</p>
-      <p class="ui-footer">
-        <time datetime="2026-10-08T14:18">14:18</time>
-      </p>
-    </div>
-  </li>
-  <li class="ui-message ui-outgoing">
-    <div class="ui-content">
-      <p class="ui-header">You</p>
-      <p>Can you add the Bergen Bikes case study too?</p>
-      <p class="ui-footer">
-        <time datetime="2026-10-08T14:19">14:19</time>
-        <span class="ui-end">Read</span>
-      </p>
-    </div>
-  </li>
-</ol>
+<div aria-label="Chat with Stella" role="log">
+  <ol class="ui-message-list" role="list" aria-label="Messages with Stella">
+    <li class="ui-message">
+      <div class="ui-avatar" aria-hidden="true">SN</div>
+      <div class="ui-content">
+        <p class="ui-header">Stella</p>
+        <p>Heyyy! Did your band notice you changed strings yet?</p>
+        <p class="ui-footer">
+          <time datetime="2026-10-08T14:02">14:02</time>
+        </p>
+      </div>
+    </li>
+    <li class="ui-message">
+      <div class="ui-avatar" aria-hidden="true">SN</div>
+      <div class="ui-content">
+        <p class="ui-header">Stella</p>
+        <p>Flatwounds, right? So rad.</p>
+        <p class="ui-footer">
+          <time datetime="2026-10-08T14:03">14:03</time>
+        </p>
+      </div>
+    </li>
+    <li class="ui-message ui-outgoing">
+      <div class="ui-content">
+        <p class="ui-header">You</p>
+        <p>Nope, not even the drummer. Bummer, but WE know.</p>
+        <p class="ui-footer">
+          <time datetime="2026-10-08T14:18">14:18</time>
+        </p>
+      </div>
+    </li>
+    <li class="ui-message ui-outgoing">
+      <div class="ui-content">
+        <p class="ui-header">You</p>
+        <p>Can you send me the tab for your slap break?</p>
+        <p class="ui-footer">
+          <time datetime="2026-10-08T14:19">14:19</time>
+          <span class="ui-end">Read</span>
+        </p>
+      </div>
+    </li>
+  </ol>
+</div>
 ```
 
 ## Astro
 
-`import { Message, Messages } from "opui-css/astro"`
+`import { Message, MessageList } from "opui-css/astro"`
 
 - `Message` named slots: `bottom`, `end` and `start`. Fill one with `slot="bottom"` on a child.
 
@@ -133,86 +139,82 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size
 
 ```astro
 ---
-import { Avatar, Message, Messages } from "opui-css/astro"
+import { Avatar, Message, MessageList } from "opui-css/astro"
 ---
 
-<Messages aria-label="Messages with Saga">
-  <Message author="Saga" datetime="2026-10-08T14:02" time="14:02">
-    <Avatar aria-label="Saga Nyström" role="img" slot="start">SN</Avatar>
-    <p>Did you get a chance to look at the pricing proposal?</p>
-  </Message>
-  <Message author="Saga" datetime="2026-10-08T14:03" time="14:03">
-    <Avatar aria-label="Saga Nyström" role="img" slot="start">SN</Avatar>
-    <p>No rush, Friday is fine.</p>
-  </Message>
-  <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
-    <p>Yes, looks good. I'd lead with the annual plan.</p>
-  </Message>
-  <Message author="You" datetime="2026-10-08T14:19" outgoing time="14:19">
-    <p>Can you add the Bergen Bikes case study too?</p>
-    <Fragment slot="end">Read</Fragment>
-  </Message>
-</Messages>
+<div aria-label="Chat with Stella" role="log">
+  <MessageList aria-label="Messages with Stella">
+    <Message author="Stella" datetime="2026-10-08T14:02" time="14:02">
+      <Avatar aria-hidden="true" slot="start">SN</Avatar>
+      <p>Heyyy! Did your band notice you changed strings yet?</p>
+    </Message>
+    <Message author="Stella" datetime="2026-10-08T14:03" time="14:03">
+      <Avatar aria-hidden="true" slot="start">SN</Avatar>
+      <p>Flatwounds, right? So rad.</p>
+    </Message>
+    <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
+      <p>Nope, not even the drummer. Bummer, but WE know.</p>
+    </Message>
+    <Message author="You" datetime="2026-10-08T14:19" outgoing time="14:19">
+      <p>Can you send me the tab for your slap break?</p>
+      <Fragment slot="end">Read</Fragment>
+    </Message>
+  </MessageList>
+</div>
 ```
 
 ## React
 
-`import { Message, Messages } from "opui-css/react"`
+`import { Message, MessageList } from "opui-css/react"`
 
 - `Message` slot props (`ReactNode`): `bottom`, `children`, `end` and `start`.
 
 ### Example: Basics
 
 ```tsx
-import { Avatar, Message, Messages } from "opui-css/react"
+import { Avatar, Message, MessageList } from "opui-css/react"
 
 export default function Basics() {
   return (
-    <Messages aria-label="Messages with Saga">
-      <Message
-        author="Saga"
-        datetime="2026-10-08T14:02"
-        start={
-          <Avatar aria-label="Saga Nyström" role="img">
-            SN
-          </Avatar>
-        }
-        time="14:02"
-      >
-        <p>Did you get a chance to look at the pricing proposal?</p>
-      </Message>
-      <Message
-        author="Saga"
-        datetime="2026-10-08T14:03"
-        start={
-          <Avatar aria-label="Saga Nyström" role="img">
-            SN
-          </Avatar>
-        }
-        time="14:03"
-      >
-        <p>No rush, Friday is fine.</p>
-      </Message>
-      <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
-        <p>Yes, looks good. I'd lead with the annual plan.</p>
-      </Message>
-      <Message
-        author="You"
-        datetime="2026-10-08T14:19"
-        end="Read"
-        outgoing
-        time="14:19"
-      >
-        <p>Can you add the Bergen Bikes case study too?</p>
-      </Message>
-    </Messages>
+    <div aria-label="Chat with Stella" role="log">
+      <MessageList aria-label="Messages with Stella">
+        <Message
+          author="Stella"
+          datetime="2026-10-08T14:02"
+          start={<Avatar aria-hidden="true">SN</Avatar>}
+          time="14:02"
+        >
+          <p>Heyyy! Did your band notice you changed strings yet?</p>
+        </Message>
+        <Message
+          author="Stella"
+          datetime="2026-10-08T14:03"
+          start={<Avatar aria-hidden="true">SN</Avatar>}
+          time="14:03"
+        >
+          <p>Flatwounds, right? So rad.</p>
+        </Message>
+        <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
+          <p>Nope, not even the drummer. Bummer, but WE know.</p>
+        </Message>
+        <Message
+          author="You"
+          datetime="2026-10-08T14:19"
+          end="Read"
+          outgoing
+          time="14:19"
+        >
+          <p>Can you send me the tab for your slap break?</p>
+        </Message>
+      </MessageList>
+    </div>
   )
 }
 ```
 
 ## Svelte
 
-`import { Message, Messages } from "opui-css/svelte"`
+`import { Message, MessageList } from "opui-css/svelte"`
 
 - `Message` slot snippets: `bottom`, `children`, `end` and `start`.
 
@@ -220,35 +222,37 @@ export default function Basics() {
 
 ```svelte
 <script lang="ts">
-  import { Avatar, Message, Messages } from "opui-css/svelte"
+  import { Avatar, Message, MessageList } from "opui-css/svelte"
 </script>
 
-<Messages aria-label="Messages with Saga">
-  <Message author="Saga" datetime="2026-10-08T14:02" time="14:02">
-    {#snippet start()}
-      <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
-    {/snippet}
-    <p>Did you get a chance to look at the pricing proposal?</p>
-  </Message>
-  <Message author="Saga" datetime="2026-10-08T14:03" time="14:03">
-    {#snippet start()}
-      <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
-    {/snippet}
-    <p>No rush, Friday is fine.</p>
-  </Message>
-  <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
-    <p>Yes, looks good. I'd lead with the annual plan.</p>
-  </Message>
-  <Message author="You" datetime="2026-10-08T14:19" outgoing time="14:19">
-    <p>Can you add the Bergen Bikes case study too?</p>
-    {#snippet end()}Read{/snippet}
-  </Message>
-</Messages>
+<div aria-label="Chat with Stella" role="log">
+  <MessageList aria-label="Messages with Stella">
+    <Message author="Stella" datetime="2026-10-08T14:02" time="14:02">
+      {#snippet start()}
+        <Avatar aria-hidden="true">SN</Avatar>
+      {/snippet}
+      <p>Heyyy! Did your band notice you changed strings yet?</p>
+    </Message>
+    <Message author="Stella" datetime="2026-10-08T14:03" time="14:03">
+      {#snippet start()}
+        <Avatar aria-hidden="true">SN</Avatar>
+      {/snippet}
+      <p>Flatwounds, right? So rad.</p>
+    </Message>
+    <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
+      <p>Nope, not even the drummer. Bummer, but WE know.</p>
+    </Message>
+    <Message author="You" datetime="2026-10-08T14:19" outgoing time="14:19">
+      <p>Can you send me the tab for your slap break?</p>
+      {#snippet end()}Read{/snippet}
+    </Message>
+  </MessageList>
+</div>
 ```
 
 ## Vue
 
-`import { Message, Messages } from "opui-css/vue"`
+`import { Message, MessageList } from "opui-css/vue"`
 
 - `Message` named slots: `bottom`, `end` and `start`. Fill one with `<template #bottom>`.
 
@@ -256,30 +260,32 @@ export default function Basics() {
 
 ```vue
 <script setup lang="ts">
-import { Avatar, Message, Messages } from "opui-css/vue"
+import { Avatar, Message, MessageList } from "opui-css/vue"
 </script>
 
 <template>
-  <Messages aria-label="Messages with Saga">
-    <Message author="Saga" datetime="2026-10-08T14:02" time="14:02">
-      <template #start>
-        <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
-      </template>
-      <p>Did you get a chance to look at the pricing proposal?</p>
-    </Message>
-    <Message author="Saga" datetime="2026-10-08T14:03" time="14:03">
-      <template #start>
-        <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
-      </template>
-      <p>No rush, Friday is fine.</p>
-    </Message>
-    <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
-      <p>Yes, looks good. I'd lead with the annual plan.</p>
-    </Message>
-    <Message author="You" datetime="2026-10-08T14:19" outgoing time="14:19">
-      <p>Can you add the Bergen Bikes case study too?</p>
-      <template #end>Read</template>
-    </Message>
-  </Messages>
+  <div aria-label="Chat with Stella" role="log">
+    <MessageList aria-label="Messages with Stella">
+      <Message author="Stella" datetime="2026-10-08T14:02" time="14:02">
+        <template #start>
+          <Avatar aria-hidden="true">SN</Avatar>
+        </template>
+        <p>Heyyy! Did your band notice you changed strings yet?</p>
+      </Message>
+      <Message author="Stella" datetime="2026-10-08T14:03" time="14:03">
+        <template #start>
+          <Avatar aria-hidden="true">SN</Avatar>
+        </template>
+        <p>Flatwounds, right? So rad.</p>
+      </Message>
+      <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
+        <p>Nope, not even the drummer. Bummer, but WE know.</p>
+      </Message>
+      <Message author="You" datetime="2026-10-08T14:19" outgoing time="14:19">
+        <p>Can you send me the tab for your slap break?</p>
+        <template #end>Read</template>
+      </Message>
+    </MessageList>
+  </div>
 </template>
 ```

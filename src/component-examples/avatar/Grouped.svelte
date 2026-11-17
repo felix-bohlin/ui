@@ -2,18 +2,20 @@
   import { Avatar, AvatarGroup, Badge } from "opui-css/svelte"
 </script>
 
-<AvatarGroup aria-label="Team">
-  <Avatar aria-label="Anna Berg" role="img">AB</Avatar>
-  <Avatar aria-label="Carl Dahl" role="img">CD</Avatar>
-  <Avatar as="button"><span aria-label="Eva Falk" role="img">EF</span></Avatar>
-  <Avatar as="button"
-    ><span aria-label="Gustav Holm" role="img">GH</span></Avatar
+<AvatarGroup aria-label="Band">
+  <Avatar aria-label="Ada Bridge" role="img">AB</Avatar>
+  <Avatar aria-label="Holly Humbucker" role="img">HH</Avatar>
+  <Avatar as="button"><span aria-label="Ines Hertz" role="img">IH</span></Avatar
   >
-  <Avatar href="#"><span aria-label="Ida Jansson" role="img">IJ</span></Avatar>
-  <Avatar href="#"><span aria-label="Karl Lund" role="img">KL</span></Avatar>
+  <Avatar as="button"
+    ><span aria-label="Lou Headstock" role="img">LH</span></Avatar
+  >
+  <Avatar href="#"><span aria-label="Percy Groove" role="img">PG</span></Avatar>
+  <Avatar href="#"><span aria-label="Rory Rootnote" role="img">RR</span></Avatar
+  >
   <Badge dot label="Online">
     <Avatar href="#"
-      ><span aria-label="Maja Nilsson" role="img">MN</span></Avatar
+      ><span aria-label="Stella Nut, online" role="img">SN</span></Avatar
     >
   </Badge>
 </AvatarGroup>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import "../../elements/close-on-navigate.js"
   import { untrack } from "svelte"
   import { setDrawerContext } from "./context.svelte"
   import { autoLabelledBy } from "../id"
@@ -10,6 +11,7 @@
     backdrop = "blurred",
     class: className,
     closedby = "any",
+    closeOnNavigate,
     id,
     scrollLock,
     side = "inline-start",
@@ -19,7 +21,7 @@
     ...rest
   }: Props = $props()
 
-  const labelledBy = $derived(autoLabelledBy(rest, `${id}-heading`))
+  const labelledBy = $derived(autoLabelledBy(rest, `${id}-title`))
   untrack(() => warnMissingId("Drawer", id))
   setDrawerContext({
     get id() {
@@ -43,6 +45,7 @@
     className,
   ]}
   aria-labelledby={labelledBy}
+  data-close-on-navigate={closeOnNavigate ? "" : undefined}
   {id}
   {...defined(rest)}
 >

@@ -12,7 +12,7 @@ import { TextField } from "opui-css/vue"
     <template #start>https://</template>
   </TextField>
 
-  <TextField label="Weight" placeholder="0" type="numeric">
+  <TextField inputmode="decimal" label="Weight" placeholder="0">
     <template #end>kg</template>
   </TextField>
 

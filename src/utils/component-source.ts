@@ -157,7 +157,7 @@ export const anchorNames = (css: string) => {
   )
 }
 
-export const documentedClasses = (api: ComponentApi) => [
+const documentedClasses = (api: ComponentApi) => [
   ...new Set(
     classNames(
       [
@@ -293,25 +293,44 @@ const declaredByPackage = (
   )
 }
 
+const propsAlias = (target: Target, framework: ComponentFramework) => {
+  if (!target.source) return undefined
+  const filePath = path.join(root, target.source, frameworks[framework].types)
+  const name =
+    target.component === target.source ? "Props" : `${target.component}Props`
+  return program()
+    .getSourceFile(filePath)
+    ?.statements.filter(ts.isTypeAliasDeclaration)
+    .find((statement) => statement.name.text === name)
+}
+
+const propertiesOf = (alias: ts.TypeAliasDeclaration) => {
+  const checker = program().getTypeChecker()
+  const type = checker.getTypeAtLocation(alias)
+  return [type, ...(type.isUnion() ? type.types : [])].flatMap((member) =>
+    checker.getPropertiesOfType(member),
+  )
+}
+
+export const typedAttributes = (
+  target: Target,
+  framework: ComponentFramework,
+) => {
+  const alias = propsAlias(target, framework)
+  return new Set(alias ? propertiesOf(alias).map(({ name }) => name) : [])
+}
+
 export const frameworkProps = (
   target: Target,
   framework: ComponentFramework,
 ) => {
   const props = new Map<string, string>()
-  if (!target.source) return props
-  const filePath = path.join(root, target.source, frameworks[framework].types)
-  const name =
-    target.component === target.source ? "Props" : `${target.component}Props`
-  const alias = program()
-    .getSourceFile(filePath)
-    ?.statements.filter(ts.isTypeAliasDeclaration)
-    .find((statement) => statement.name.text === name)
+  const alias = propsAlias(target, framework)
   if (!alias) return props
+  const name = alias.name.text
 
   const checker = program().getTypeChecker()
-  const type = checker.getTypeAtLocation(alias)
-  ;[type, ...(type.isUnion() ? type.types : [])]
-    .flatMap((member) => checker.getPropertiesOfType(member))
+  propertiesOf(alias)
     .filter((symbol) =>
       symbol.declarations?.some((declaration) =>
         declaredByPackage(declaration, framework),
@@ -327,6 +346,28 @@ export const frameworkProps = (
       )
       props.set(symbol.name, cleanType(type))
     })
+  const emits =
+    framework === "vue"
+      ? alias
+          .getSourceFile()
+          .statements.filter(ts.isTypeAliasDeclaration)
+          .find(
+            (statement) =>
+              statement.name.text === name.replace(/Props$/, "Emits"),
+          )
+      : undefined
+  if (emits) {
+    checker
+      .getPropertiesOfType(checker.getTypeAtLocation(emits))
+      .forEach((symbol) => {
+        const parameters = checker.typeToString(
+          checker.getTypeOfSymbolAtLocation(symbol, emits),
+          undefined,
+          ts.TypeFormatFlags.NoTruncation,
+        )
+        props.set(`@${symbol.name}`, `(${parameters.slice(1, -1)}) => void`)
+      })
+  }
   return props
 }
 

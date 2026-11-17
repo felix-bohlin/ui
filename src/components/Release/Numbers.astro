@@ -143,9 +143,11 @@ const tiles = [
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
       .numbers-count {
-        animation: numbers-count linear both;
+        animation-fill-mode: both;
+        animation-name: numbers-count;
         animation-range: entry;
         animation-timeline: --numbers;
+        animation-timing-function: linear;
       }
     }
   }

@@ -1,4 +1,17 @@
 @layer components.compat {
+  @supports not (inline-size: if(else: 0px)) {
+    @scope (.ui-hgroup, .ui-overline, .ui-rich-text) to (.ui-not-rich-text) {
+      :where(:scope.ui-hgroup) > p:not(:first-of-type:first-child),
+      hgroup > p:not(:first-of-type:first-child) {
+        color: oklch(from currentColor l c h / 75%);
+
+        @container style(--ui-contrast: more) {
+          color: inherit;
+        }
+      }
+    }
+  }
+
   @supports not (overflow-inline: auto) {
     @scope (pre.ui-code-block, .ui-rich-text) to (.ui-not-rich-text) {
       :where(:scope.ui-code-block),

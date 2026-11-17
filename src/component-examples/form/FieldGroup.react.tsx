@@ -11,43 +11,40 @@ import {
 export default function FieldGroupExample() {
   return (
     <Form>
-      <Fieldset>
-        <FieldLegend>Choose your favorite Radiohead album</FieldLegend>
-        <FieldDescription>There are no wrong answers.</FieldDescription>
-        <FieldGroup name="albums">
-          <Radio value="ok-computer">OK Computer</Radio>
-          <Radio value="kid-a">Kid A</Radio>
-          <Radio value="in-rainbows">In Rainbows</Radio>
-          <Radio value="king-of-limbs">The King of Limbs</Radio>
+      <Fieldset aria-describedby="form-field-group-1-description">
+        <FieldLegend>Plan</FieldLegend>
+        <FieldDescription id="form-field-group-1-description">
+          You can change your plan at any time.
+        </FieldDescription>
+        <FieldGroup name="plan">
+          <Radio value="starter">Starter</Radio>
+          <Radio value="team">Team</Radio>
+          <Radio value="business">Business</Radio>
         </FieldGroup>
       </Fieldset>
-      <Fieldset>
-        <FieldLegend>Which side projects do you follow?</FieldLegend>
-        <FieldDescription>Some are better than others.</FieldDescription>
-        <FieldGroup name="projects">
+      <Fieldset aria-describedby="form-field-group-2-description">
+        <FieldLegend>Add-ons</FieldLegend>
+        <FieldDescription id="form-field-group-2-description">
+          Billed monthly with your plan.
+        </FieldDescription>
+        <FieldGroup name="add-ons">
           <Checkbox
-            endText="Thom Yorke, Flea, Nigel Godrich"
-            value="atoms-for-peace"
+            endText="Daily snapshots, kept for 30 days."
+            value="backups"
           >
-            Atoms for Peace
-          </Checkbox>
-          <Checkbox endText="Ed O'Brien solo" value="eob">
-            EOB
-          </Checkbox>
-          <Checkbox
-            endText="Film compositions by Jonny Greenwood"
-            value="jonny-scores"
-          >
-            Film Scores
-          </Checkbox>
-          <Checkbox endText="Philip Selway solo albums" value="selway-solo">
-            Philip Selway
+            Backups
           </Checkbox>
           <Checkbox
-            endText="Thom Yorke, Jonny Greenwood, Tom Skinner"
-            value="the-smile"
+            endText="Encrypt your files with your own keys."
+            value="encryption"
           >
-            The Smile
+            Encryption
+          </Checkbox>
+          <Checkbox
+            endText="Sign in with your company account."
+            value="single-sign-on"
+          >
+            Single sign-on
           </Checkbox>
         </FieldGroup>
       </Fieldset>

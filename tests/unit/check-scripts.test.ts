@@ -1,13 +1,24 @@
 import { execFileSync, spawnSync } from "node:child_process"
-import { mkdirSync, mkdtempSync, readdirSync, writeFileSync } from "node:fs"
+import {
+  mkdirSync,
+  mkdtempSync,
+  readdirSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs"
 import { tmpdir } from "node:os"
 import { dirname, join } from "node:path"
 import stylelint from "stylelint"
-import { describe, expect, test } from "vitest"
+import { describe, expect, onTestFinished, test } from "vitest"
 import { featureIds, patterns } from "../../packages/opui/scripts/features.mjs"
 import {
+  fallbackProblems,
+  fallbacksOf,
   htmlFeatureIds,
+  lackingIds,
   pageProblems,
+  unusedSharedFeatures,
+  usedFeatureIds,
   withBrowserSupport,
 } from "../../scripts/check-browser-support.mjs"
 import { findProblems } from "../../scripts/check-characters.mjs"
@@ -61,6 +72,7 @@ import { localBaselines } from "../../scripts/check-screenshot-authors.mjs"
 import { releasedApi } from "../../scripts/released-api.mjs"
 import { sortSource } from "../../scripts/sort-css.mjs"
 import logicalShorthands from "../../scripts/stylelint-logical-shorthands.mjs"
+import { SHARED_FEATURES } from "../../src/utils/browser-support"
 
 const EM_DASH = String.fromCodePoint(0x2014)
 const MIDDLE_DOT = String.fromCodePoint(0x00b7)
@@ -97,6 +109,7 @@ describe("sort-css", () => {
 
 describe("check-browser-support", () => {
   const samples: Record<string, string> = {
+    "alt-text-generated-content": '.a::after { content: "*" / ""; }',
     "anchor-positioning": ".a { anchor-name: --a; }",
     attr: '.a { content: attr(data-label type(<string>), ""); }',
     "backdrop-filter": "::backdrop { backdrop-filter: blur(4px); }",
@@ -115,7 +128,9 @@ describe("check-browser-support", () => {
     "display-animation": ".a { transition: display 1s allow-discrete; }",
     "exp-functions": ".a { font-size: calc(1rem * pow(1.2, 2)); }",
     "field-sizing": "textarea { field-sizing: content; }",
+    "gap-decorations": ".a { row-rule: 1px solid; }",
     has: ".a:has(> svg) { gap: 0; }",
+    if: ".a { --b: if(style(--c): 0px; else: 1px); }",
     "interest-invokers": ".a { interest-delay: 0.5s; }",
     "interpolate-size": ":root { interpolate-size: allow-keywords; }",
     lh: ".a { block-size: 0.5lh; }",
@@ -128,6 +143,7 @@ describe("check-browser-support", () => {
     overlay: ".a { transition: opacity 1s, overlay 1s allow-discrete; }",
     popover: ".a:popover-open { opacity: 1; }",
     "progress-function": ".a { --p: progress(100vi, 20rem, 80rem); }",
+    "reading-flow": ".a { display: grid; reading-flow: grid-rows; }",
     "registered-custom-properties":
       '@property --a { inherits: false; initial-value: 0; syntax: "<number>"; }',
     "relative-color": ".a { color: oklch(from red l c h); }",
@@ -159,6 +175,26 @@ describe("check-browser-support", () => {
     ).toEqual([])
   })
 
+  test("finds each shared feature in a sheet, and reports the ones it doesn't use", () => {
+    const shared: Record<string, string> = {
+      "cascade-layers": "@layer a { .a { gap: 0; } }",
+      "color-mix": ".a { color: color-mix(in oklch, red, blue); }",
+      "light-dark": ".a { color: light-dark(white, black); }",
+      nesting: ".a { @media (width > 30em) { gap: 0; } }",
+      oklab: ".a { color: oklch(50% 0.1 200); }",
+      "relative-color": ".a { color: oklch(from red l c h); }",
+    }
+    expect(Object.keys(shared)).toEqual(SHARED_FEATURES)
+    expect(
+      Object.entries(shared).filter(([id, css]) =>
+        unusedSharedFeatures(css).includes(id),
+      ),
+    ).toEqual([])
+    expect(
+      unusedSharedFeatures("@media (width > 30em) { .a { color: red; } }"),
+    ).toEqual(SHARED_FEATURES)
+  })
+
   test("the patterns skip near misses", () => {
     expect(
       featureIds(
@@ -166,6 +202,7 @@ describe("check-browser-support", () => {
       ),
     ).toEqual([])
     expect(featureIds(".a { overflow-clip-margin: 4px; }")).toEqual([])
+    expect(featureIds(".a::before { content: attr(data-label); }")).toEqual([])
   })
 
   test("anchor positioning is found in every property, function and at-rule of its compat keys", () => {
@@ -180,6 +217,15 @@ describe("check-browser-support", () => {
         "@position-try --a { inset: auto; }",
       ].filter((css) => !featureIds(css).includes("anchor-positioning")),
     ).toEqual([])
+  })
+
+  test("a rule inside @scope applies only when its root can match the examples", () => {
+    const css =
+      "@scope (.ui-rich-text) to (.ui-not-rich-text) { .ui-callout { border: 0; } }"
+    expect(usedFeatureIds(css, new Set([".ui-callout"]))).toEqual([])
+    expect(
+      usedFeatureIds(css, new Set([".ui-callout", ".ui-rich-text"])),
+    ).toEqual(["scope"])
   })
 
   test("reads the HTML features from the attributes and elements of the examples", () => {
@@ -224,6 +270,48 @@ describe("check-browser-support", () => {
         used: new Set(["has", "popover", "starting-style"]),
       }),
     ).toEqual({ missing: ["has"], undetected: [], unused: [] })
+  })
+
+  test("reads a page's fallbacks, with quoted and bare ids", async () => {
+    expect(
+      await fallbacksOf(`---
+import Component from "../../layouts/Component.astro"
+---
+
+<Component
+  slug="a"
+  browserSupport={["overlay", "popover-hint"]}
+  fallbacks={{
+    overlay: "Without \`overlay\`, the page can cover it {at once}.",
+    "popover-hint": 'Without \`popover="hint"\`, it stays open.',
+  }}
+>
+  <p>Text</p>
+</Component>
+`),
+    ).toEqual({
+      overlay: "Without `overlay`, the page can cover it {at once}.",
+      "popover-hint": 'Without `popover="hint"`, it stays open.',
+    })
+    expect(
+      await fallbacksOf('<Component slug="a" browserSupport={["has"]} />'),
+    ).toEqual({})
+  })
+
+  test("asks for a fallback sentence for each id some browser lacks, and for no other", () => {
+    expect(lackingIds(["has", "nesting"])).toEqual([])
+    expect(
+      fallbackProblems({
+        fallbacks: { has: "Without :has()", overlay: "Without overlay" },
+        lacking: ["corner-shape", "overlay"],
+      }),
+    ).toEqual({ missing: ["corner-shape"], unneeded: ["has"] })
+    expect(
+      fallbackProblems({
+        fallbacks: { overlay: "Without overlay" },
+        lacking: ["overlay"],
+      }),
+    ).toEqual({ missing: [], unneeded: [] })
   })
 
   test("--write replaces a page's list, or adds one after its slug", () => {
@@ -509,12 +597,13 @@ describe("released-api", () => {
   })
 })
 
-describe("file discovery", () => {
+describe("file discovery", { timeout: 15_000 }, () => {
   const UNSORTED = `/* one ${EM_DASH} two */\n.a {\n  inset: 0;\n  color: #fff;\n}\n`
   const SORTED = ".a {\n  color: oklch(100% 0 0);\n  inset: 0;\n}\n"
 
   const repo = (files: Record<string, string>) => {
     const root = mkdtempSync(join(tmpdir(), "opui-scan-"))
+    onTestFinished(() => rmSync(root, { force: true, recursive: true }))
     execFileSync("git", ["init", "-q"], { cwd: root })
     for (const [file, text] of Object.entries({
       ".gitignore": "ignored/\n",
@@ -581,6 +670,7 @@ describe("check-ratchets", () => {
 
   test("the hand-written examples list grows only with the intended trailer", () => {
     const dir = mkdtempSync(join(tmpdir(), "opui-ratchets-"))
+    onTestFinished(() => rmSync(dir, { force: true, recursive: true }))
     const git = (...args: string[]) =>
       execFileSync(
         "git",
@@ -638,7 +728,7 @@ describe("check-ratchets", () => {
     writeFileSync(list, JSON.stringify({}))
     git("commit", "-q", "-am", "chore: generate B")
     expect(run().status).toBe(0)
-  })
+  }, 15_000)
 
   test("reports a new drift file and new drift lines, not moved context or fewer lines", () => {
     const diff = "===\n--- astro\n+++ react\n@@ -1,2 +1,2 @@\n <a>\n-x\n+y\n"
@@ -781,6 +871,11 @@ describe("check-components", () => {
     ])
     expect(checkClient(`"use client"\n\n${plain}`)).toEqual([
       expect.stringContaining("uses no context, state"),
+    ])
+    const listening =
+      'export default function A({ onDismiss, ref }) {\n  const rootRef = useListener(ref, "dismiss", onDismiss)\n  return <div ref={rootRef} />\n}\n'
+    expect(checkClient(listening)).toEqual([
+      expect.stringContaining('start it with "use client"'),
     ])
   })
 

@@ -11,9 +11,11 @@ import {
 export default function Basics() {
   return (
     <Form>
-      <Fieldset>
+      <Fieldset aria-describedby="form-basics-1-description">
         <FieldLegend>Contact</FieldLegend>
-        <FieldDescription>How can we reach you?</FieldDescription>
+        <FieldDescription id="form-basics-1-description">
+          How can we reach you?
+        </FieldDescription>
         <FieldGroup>
           <TextField autoComplete="name" label="Name" />
           <TextField autoComplete="email" label="Email" type="email" />

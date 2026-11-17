@@ -5,7 +5,6 @@
   import Button from "../Button/Button.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { idRefs } from "../id"
-  import { minusPath, plusPath } from "./icons"
   import type { Props } from "./types.svelte"
 
   let {
@@ -14,6 +13,7 @@
     class: className,
     decreaseLabel = "Decrease",
     defaultValue,
+    disabled,
     error,
     hideLabel,
     id,
@@ -42,7 +42,7 @@
     value = next
   }
   const initialValue = untrack(getValue)
-  const base = $derived(id ?? `number-field-${uid}`)
+  const base = $derived(id || `number-field-${uid}`)
   const inputId = $derived(base)
   const startTextId = $derived(startText ? `${base}-start-text` : undefined)
   const endTextId = $derived(endText ? `${base}-end-text` : undefined)
@@ -78,6 +78,7 @@
         aria-label={decreaseLabel}
         command="--step-down"
         commandfor={inputId}
+        {disabled}
         round
       >
         {#if decreaseIcon}
@@ -89,9 +90,7 @@
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" d={minusPath} />
-          </svg>
+          ></svg>
         {/if}
       </Button>
     </span>
@@ -99,6 +98,7 @@
       {...rest}
       aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
       aria-invalid={error ? "true" : ariaInvalid}
+      {disabled}
       id={inputId}
       name={name ?? field?.name}
       type="number"
@@ -111,6 +111,7 @@
         aria-label={increaseLabel}
         command="--step-up"
         commandfor={inputId}
+        {disabled}
         round
       >
         {#if increaseIcon}
@@ -122,9 +123,7 @@
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" d={plusPath} />
-          </svg>
+          ></svg>
         {/if}
       </Button>
     </span>

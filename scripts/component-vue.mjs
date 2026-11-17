@@ -8,6 +8,7 @@ import {
   componentImport,
   contextImports,
   edgeTrimmed,
+  eventRoots,
   groupWarning,
   indent,
   isLoose,
@@ -20,6 +21,7 @@ import {
   withImport,
 } from "./component-emit.mjs"
 import { MODEL_KINDS } from "./component-models.mjs"
+import { emitsTypeOf } from "./component-types.mjs"
 import {
   allCodes,
   byName,
@@ -60,33 +62,64 @@ const withoutUnused = (lines, markup, declarations) => {
     : lines
 }
 const CLASS_BINDING = /^:class="(.*)"$/s
+const STYLE_BINDING = /^:style="(.*)"$/s
 const OBJECT_BINDING = /^v-bind="(.*)"$/s
 
-export const omitEmptyClass = (attributes) => {
-  const at = attributes.findIndex((entry) => CLASS_BINDING.test(entry))
-  if (at === -1) return { attributes, omitted: false }
-  const code = CLASS_BINDING.exec(attributes[at])[1]
-  if (!classMayBeEmpty(code)) return { attributes, omitted: false }
-  const classAttrs = `classAttrs(${code})`
+const emptyBindings = (attributes) =>
+  attributes.flatMap((entry, at) => {
+    const classCode = CLASS_BINDING.exec(entry)?.[1]
+    if (classCode !== undefined) {
+      return classMayBeEmpty(classCode)
+        ? [{ at, code: `classAttrs(${classCode})`, helper: "classAttrs" }]
+        : []
+    }
+    const styleCode = STYLE_BINDING.exec(entry)?.[1]
+    return styleCode === undefined
+      ? []
+      : [{ at, code: `styleAttrs(${styleCode})`, helper: "styleAttrs" }]
+  })
+
+const omitEmptyAttributes = (attributes) => {
+  const omitted = emptyBindings(attributes)
+  if (omitted.length === 0) return { attributes, helpers: [] }
   const bound = attributes.filter((entry) => OBJECT_BINDING.test(entry))
   if (bound.length > 1) {
     throw new Error(
-      `a class list that can be empty next to ${bound.length} v-bind objects`,
+      `a class list or style that can be empty next to ${bound.length} v-bind objects`,
     )
   }
+  const codes = omitted.map(({ code }) => code)
+  const helpers = omitted.map(({ helper }) => helper)
   const spread = bound.length ? OBJECT_BINDING.exec(bound[0])[1].trim() : ""
   const entries = /^\{[\s\S]*\}$/.test(spread)
     ? spread.slice(1, -1).trim().replace(/,$/, "")
     : `...${spread}`
-  const object = bound.length
-    ? `v-bind="{ ${entries}, ...${classAttrs} }"`
-    : `v-bind="${classAttrs}"`
-  const place = bound.length ? attributes.indexOf(bound[0]) : at
+  const place = bound.length ? attributes.indexOf(bound[0]) : omitted[0].at
+  const merged = [
+    ...omitted,
+    {
+      at: place,
+      code: /^\{[\s\S]*\}$/.test(spread) ? spread : `{ ...${spread} }`,
+    },
+  ]
+    .toSorted((a, b) => a.at - b.at)
+    .map(({ code }) => code)
+  const object = !bound.length
+    ? codes.length === 1
+      ? `v-bind="${codes[0]}"`
+      : `v-bind="{ ${codes.map((code) => `...${code}`).join(", ")} }"`
+    : helpers.includes("styleAttrs")
+      ? `v-bind="mergeProps(${merged.join(", ")})"`
+      : `v-bind="{ ${entries}, ${codes.map((code) => `...${code}`).join(", ")} }"`
+  const dropped = new Set(omitted.map(({ at }) => at))
   return {
     attributes: attributes
       .map((entry, index) => (index === place ? object : entry))
-      .filter((_, index) => index === place || index !== at),
-    omitted: true,
+      .filter((_, index) => index === place || !dropped.has(index)),
+    helpers: [
+      ...helpers,
+      ...(bound.length && helpers.includes("styleAttrs") ? ["mergeProps"] : []),
+    ],
   }
 }
 
@@ -213,6 +246,15 @@ export const toVue = (component) => {
   if (component.model?.refusal) throw component.model.refusal
   const { model } = component
   const kind = MODEL_KINDS[model?.kind]?.vue
+  const events = component.events ?? []
+  const listened = eventRoots(component)
+  if (events.length > 0 && used.has("emit")) {
+    throw unsupported(
+      component.file,
+      "the name `emit`, which the Vue port also declares for its events",
+      "rename the prop or const in the Astro file",
+    )
+  }
   const explicitAttrs = kind?.explicitAttrs === true
   const filteredAttrs =
     restOnRoot && attributeProps.length > 0 && !explicitAttrs
@@ -287,10 +329,15 @@ export const toVue = (component) => {
       trimmedSlots.some(({ local }) => identifiersIn(code).has(local)),
   )
   let usesTrimmedSlot = false
-  let usesClassAttrs = false
+  const attributeHelpers = new Set()
   let usesDefined = false
   const filteredSpread = (node, item, code) => {
     if (!filtersRest(node, item, component)) return code
+    usesDefined = true
+    return `defined(${code})`
+  }
+  const definedSpread = (item, code) => {
+    if (item.defined !== true) return code
     usesDefined = true
     return `defined(${code})`
   }
@@ -317,7 +364,7 @@ export const toVue = (component) => {
           ...bound,
         ].join(" ")
       }
-      return `v-bind="${rewriteExpression(item.code, scope)}"`
+      return `v-bind="${definedSpread(item, rewriteExpression(item.code, scope))}"`
     }
     if (item.kind === "static") {
       return `${item.name}=${JSON.stringify(item.value)}`
@@ -389,7 +436,13 @@ export const toVue = (component) => {
         ? emitOne(root, loop, inner)
         : `<template ${loop}>${emitOne(root, undefined, inner)}</template>`
     }
-    const spreads = node.attributes.filter(
+    const itemChecked = node.item
+      ? node.attributes.find(
+          (item) => item.kind === "expression" && item.name === "checked",
+        )
+      : undefined
+    const ownAttributes = node.attributes.filter((item) => item !== itemChecked)
+    const spreads = ownAttributes.filter(
       (item) =>
         item.kind === "spread" &&
         !(
@@ -399,8 +452,8 @@ export const toVue = (component) => {
           !definedRoot
         ),
     )
-    const first = node.attributes.indexOf(spreads[0])
-    const last = node.attributes.indexOf(spreads.at(-1))
+    const first = ownAttributes.indexOf(spreads[0])
+    const last = ownAttributes.indexOf(spreads.at(-1))
     const merged = (item) => {
       if (item.kind === "spread") {
         return {
@@ -417,7 +470,7 @@ export const toVue = (component) => {
                         rewriteExpression(item.condition, scope),
                       ),
                 )
-              : rewriteExpression(item.code, scope),
+              : definedSpread(item, rewriteExpression(item.code, scope)),
         }
       }
       if (item.kind === "static") {
@@ -438,17 +491,17 @@ export const toVue = (component) => {
     const bound =
       spreads.length > 1
         ? [
-            ...node.attributes.slice(0, first),
+            ...ownAttributes.slice(0, first),
             {
               kind: "bound",
               text: `v-bind="${objectCode(
-                node.attributes.slice(first, last + 1).map(merged),
+                ownAttributes.slice(first, last + 1).map(merged),
                 { quote: "'", shorthand: false },
               )}"`,
             },
-            ...node.attributes.slice(last + 1),
+            ...ownAttributes.slice(last + 1),
           ]
-        : node.attributes
+        : ownAttributes
     const checkedRename = node.item
       ? kind?.checkedRename?.(component.item)
       : undefined
@@ -471,9 +524,17 @@ export const toVue = (component) => {
         )
         .filter(Boolean),
       ...(node.model ? kind.attributes(model) : []),
-      ...(node.item ? ['@change="change"'] : []),
+      ...(itemChecked
+        ? [
+            `v-seed-checked="${rewriteExpression(itemChecked.code, bindScope)}"`,
+            '@change="change($event.currentTarget as HTMLInputElement)"',
+          ]
+        : []),
       ...(node.groupRadio !== undefined
         ? kind.radioAttributes(model, rewriteExpression(node.groupRadio, scope))
+        : []),
+      ...(listened.includes(node)
+        ? events.map((event) => `@${event}="emit('${event}', $event)"`)
         : []),
       ...((rootElements.includes(node) ||
         (multiRoot &&
@@ -484,9 +545,9 @@ export const toVue = (component) => {
         ? [':class="$props.class"']
         : []),
     ].flatMap((entry) => entry.match(ATTRIBUTE) ?? [])
-    const classed = omitEmptyClass(listed)
-    if (classed.omitted) usesClassAttrs = true
-    const attributes = classed.attributes.join(" ")
+    const omitted = omitEmptyAttributes(listed)
+    for (const helper of omitted.helpers) attributeHelpers.add(helper)
+    const attributes = omitted.attributes.join(" ")
     const tag = node.variable || node.custom ? "component" : node.tag
     const is = node.variable
       ? ` :is="${scope.rename.get(node.tag) ?? node.tag}"`
@@ -532,6 +593,7 @@ export const toVue = (component) => {
     (component.folderSlots || slots.some((slot) => slot !== "default"))
       ? `${component.name}Slots`
       : "Slots"
+  const emitsType = emitsTypeOf(propsType)
   const provided = provide
     ? [
         ...(kind?.providedFirst?.() ?? []),
@@ -560,12 +622,14 @@ export const toVue = (component) => {
       : allAttrs || definedRoot || (restUsed && !attrsOnInner)
         ? ["type HTMLAttributes", "useAttrs"]
         : []),
+    ...(attributeHelpers.has("mergeProps") ? ["mergeProps"] : []),
     ...(item ? ["watchEffect"] : []),
     ...(uid ? ["useId"] : []),
   ].toSorted((a, b) => byName(a.replace(/^type /, ""), b.replace(/^type /, "")))
   const vueHelpers = [
     ...(computedAttrs ? ["useInputAttrs"] : []),
     ...(kind?.vueHelpers?.(model) ?? []),
+    ...(item ? ["seedChecked"] : []),
   ].toSorted(byName)
   const importLines = [
     ...scriptImports(component),
@@ -589,12 +653,18 @@ export const toVue = (component) => {
     ...[
       ...(usesDefined ? [["../attrs", "defined"]] : []),
       ...(item ? [["../dev", "warnGroupedChecked"]] : []),
-      ...(usesClassAttrs ? [["../cx", "classAttrs"]] : []),
+      ...(attributeHelpers.has("classAttrs") ? [["../cx", "classAttrs"]] : []),
+      ...(attributeHelpers.has("styleAttrs")
+        ? [["../style", "styleAttrs"]]
+        : []),
     ].reduce(
       (lines, [module, name]) => withImport(lines, module, name),
       imports,
     ),
-    propsImport(propsType, "types.vue-props", slots.length ? [slotsType] : []),
+    propsImport(propsType, "types.vue-props", [
+      ...(events.length ? [emitsType] : []),
+      ...(slots.length ? [slotsType] : []),
+    ]),
   ]
   const vueProps = generic ? "Props & { multiple?: Multiple }" : "Props"
   const modelType = generic
@@ -622,7 +692,11 @@ export const toVue = (component) => {
   }))
   const setup = [
     importLines.join("\n"),
-    slots.length ? `${propsLine}\n${slotsLine}` : propsLine,
+    [
+      propsLine,
+      ...(slots.length ? [slotsLine] : []),
+      ...(events.length ? [`const emit = defineEmits<${emitsType}>()`] : []),
+    ].join("\n"),
     ...(inheritsAttrs ? [] : ["defineOptions({\n  inheritAttrs: false,\n})"]),
     ...(computedAttrs
       ? ["const attrs = useInputAttrs()"]
@@ -651,8 +725,13 @@ export const toVue = (component) => {
     ...(item
       ? [
           `watchEffect(() =>\n  ${groupWarning(component, item, kind?.warningChecked?.(item) ?? item.checked ?? "undefined", `${item.grouped}.value`)},\n)`,
-          kind?.change?.(item) ??
-            `const change = (event: Event) =>\n  ${item.parent}?.change?.(event.currentTarget as HTMLInputElement)`,
+          `const change = (input: HTMLInputElement) => {\n${[
+            ...(kind?.change?.(item) ?? []),
+            `${item.parent}?.change?.(input)`,
+          ]
+            .map((line) => `  ${line}\n`)
+            .join("")}}`,
+          "const vSeedChecked = seedChecked(change)",
         ]
       : []),
     ...(provide

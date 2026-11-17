@@ -46,9 +46,9 @@ import Validation from "../../component-examples/text-field/Validation.astro"
       lang="css"
       code={`.text-field {
   --accent: var(--ui-primary);
-  --affix: var(--ui-text);
-  --border: var(--ui-field-border-color);
-  --helper: var(--ui-field-helper-text-color);
+  --affix-text-color: var(--ui-text);
+  --border-color: var(--ui-field-border-color);
+  --helper-text-color: var(--ui-field-helper-text-color);
 }
 
 .text-field:focus-within .field {
@@ -57,9 +57,9 @@ import Validation from "../../component-examples/text-field/Validation.astro"
 
 .text-field:has([aria-invalid="true"], :user-invalid) {
   --accent: var(--ui-invalid);
-  --affix: var(--ui-invalid-text);
-  --border: var(--ui-invalid);
-  --helper: var(--ui-invalid-text);
+  --affix-text-color: var(--ui-invalid-text);
+  --border-color: var(--ui-invalid);
+  --helper-text-color: var(--ui-invalid-text);
 }`}
     />
   </section>

@@ -1,45 +1,45 @@
 <script lang="ts">
   import {
-    Switch,
     FieldGroup,
     FieldLegend,
     Fieldset,
     Form,
+    Switch,
   } from "opui-css/svelte"
 </script>
 
 <Form>
   <Fieldset>
-    <FieldLegend>Input at the end</FieldLegend>
+    <FieldLegend>Notifications</FieldLegend>
     <FieldGroup name="switch-cards-end" orientation="horizontal">
-      <Switch card defaultChecked spread value="outlined">
-        Outlined
-        {#snippet endText()}The default surface.{/snippet}
+      <Switch card defaultChecked spread value="email">
+        Email
+        {#snippet endText()}A summary every morning.{/snippet}
       </Switch>
-      <Switch card spread value="tonal" variant="tonal">
-        Tonal
-        {#snippet endText()}A tinted surface.{/snippet}
+      <Switch card spread value="push" variant="elevated">
+        Push
+        {#snippet endText()}On this device only.{/snippet}
       </Switch>
-      <Switch card spread value="elevated" variant="elevated">
-        Elevated
-        {#snippet endText()}A raised surface.{/snippet}
+      <Switch card spread value="sms" variant="tonal">
+        SMS
+        {#snippet endText()}For security alerts only.{/snippet}
       </Switch>
     </FieldGroup>
   </Fieldset>
   <Fieldset>
-    <FieldLegend>Input at the start</FieldLegend>
+    <FieldLegend>Privacy</FieldLegend>
     <FieldGroup name="switch-cards-start" orientation="horizontal">
-      <Switch card defaultChecked value="outlined">
-        Outlined
-        {#snippet endText()}The default surface.{/snippet}
+      <Switch card defaultChecked value="status">
+        Online status
+        {#snippet endText()}Others see when you're active.{/snippet}
       </Switch>
-      <Switch card value="tonal" variant="tonal">
-        Tonal
-        {#snippet endText()}A tinted surface.{/snippet}
+      <Switch card value="receipts" variant="elevated">
+        Read receipts
+        {#snippet endText()}Others see when you've read a message.{/snippet}
       </Switch>
-      <Switch card value="elevated" variant="elevated">
-        Elevated
-        {#snippet endText()}A raised surface.{/snippet}
+      <Switch card value="search" variant="tonal">
+        Profile search
+        {#snippet endText()}People can find you by email.{/snippet}
       </Switch>
     </FieldGroup>
   </Fieldset>

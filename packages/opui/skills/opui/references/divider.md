@@ -1,9 +1,9 @@
 # Divider
 
-It's just a line.
+A line between content, plain or with a label at the start, middle or end.
 
 - CSS: `opui-css/css/components/divider.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/divider.md), [Astro](https://open-props-ui.netlify.app/astro/components/divider.md), [React](https://open-props-ui.netlify.app/react/components/divider.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/divider.md), [Vue](https://open-props-ui.netlify.app/vue/components/divider.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/divider.md), [Astro](https://opui.dev/astro/components/divider.md), [React](https://opui.dev/react/components/divider.md), [Svelte](https://opui.dev/svelte/components/divider.md), [Vue](https://opui.dev/vue/components/divider.md).
 
 ## Divider
 
@@ -38,9 +38,9 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-contrast`, 
 ### Example: Basics
 
 ```html
-This text is placed over
+Email me when someone mentions me in a comment.
 <hr class="ui-divider" />
-This text is placed under
+Send me a summary of my jam sessions every Monday.
 ```
 
 ## Astro
@@ -54,9 +54,9 @@ This text is placed under
 import { Divider } from "opui-css/astro"
 ---
 
-This text is placed over
+Email me when someone mentions me in a comment.
 <Divider />
-This text is placed under
+Send me a summary of my jam sessions every Monday.
 ```
 
 ## React
@@ -71,9 +71,9 @@ import { Divider } from "opui-css/react"
 export default function Basics() {
   return (
     <>
-      This text is placed over
+      Email me when someone mentions me in a comment.
       <Divider />
-      This text is placed under
+      Send me a summary of my jam sessions every Monday.
     </>
   )
 }
@@ -90,9 +90,9 @@ export default function Basics() {
   import { Divider } from "opui-css/svelte"
 </script>
 
-This text is placed over
+Email me when someone mentions me in a comment.
 <Divider />
-This text is placed under
+Send me a summary of my jam sessions every Monday.
 ```
 
 ## Vue
@@ -107,8 +107,8 @@ import { Divider } from "opui-css/vue"
 </script>
 
 <template>
-  This text is placed over
+  Email me when someone mentions me in a comment.
   <Divider />
-  This text is placed under
+  Send me a summary of my jam sessions every Monday.
 </template>
 ```

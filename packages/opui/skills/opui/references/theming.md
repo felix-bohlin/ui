@@ -2,11 +2,11 @@
 
 The knobs and roles behind colors, density, spacing, corners, fonts, elevation, motion and contrast, and the classes that scope them.
 
-A theme sets [knobs and roles](https://open-props-ui.netlify.app/html/guide/concepts.md#token-tiers), and every component reads the roles:
+A theme sets [knobs and roles](https://opui.dev/html/guide/concepts.md#token-tiers), and every component reads the roles:
 
 1. Knobs
 
-   `--ui-palette-hue` 223 `--ui-palette-chroma` 0.5
+   `--ui-palette-hue` 223 `--ui-palette-chroma` 0.50
 
 2. Palette `--ui-color-1` to `--ui-color-16`
 
@@ -21,7 +21,7 @@ A theme sets [knobs and roles](https://open-props-ui.netlify.app/html/guide/conc
 
    [A link](#token-flow)
 
-Snippets go in [`@layer theme.custom`](https://open-props-ui.netlify.app/html/guide/customizing.md#your-theme). Every token is on [Theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
+Snippets go in [`@layer theme.custom`](https://opui.dev/html/guide/customizing.md#your-theme). Every token is on [Theme tokens](https://opui.dev/html/guide/theme-tokens.md).
 
 ## Palette
 
@@ -54,7 +54,7 @@ A scope class re-themes an element and everything inside it:
 
 - `.ui-palette`: re-derives every token from the knobs it sets.
 - `.ui-critical` and the other severities: swap the palette for the intent color.
-- `.ui-light` and `.ui-dark`: force a color scheme. Builds that rewrite `light-dark()` only follow them on `html`, see the [README](https://github.com/felix-bohlin/ui/blob/main/packages/opui/README.md#builds-that-rewrite-light-dark).
+- `.ui-light` and `.ui-dark`: force a color scheme, except in print, which is always light. Builds that rewrite `light-dark()` only follow them on `html`, see the [README](https://github.com/felix-bohlin/ui/blob/main/packages/opui/README.md#builds-that-rewrite-light-dark).
 
 ## Surfaces
 
@@ -81,6 +81,8 @@ Use `--ui-density` to change the size of every control.
   --ui-density: 0.875;
 }
 ```
+
+A `Button` in a field's start or end, a checkbox, radio or switch whose label is hidden, the stars of a rating and the markers of a carousel stay at least `--ui-target-min-size` (24px, the minimum target size) at any density. A field with less than 24px inside its border grows to fit its button, such as an x-small field at `0.875` or a small one at `0.75`.
 
 ## Spacing
 
@@ -166,7 +168,7 @@ Headings grow with the viewport. Move the window, reuse the ramp, or pin a headi
 
 - `--ui-shadow-control`: controls. Off by default.
 - `--ui-shadow-elevated`: elevated cards and accordions.
-- `--ui-shadow-overlay`: dialogs, menus and toasts.
+- `--ui-shadow-overlay`: dialogs, drawers, menus, the select picker and toasts.
 - `--ui-shadow-scroll`: scrolled edges.
 - `--ui-shadow-surface`: tonal and outlined surfaces. Off by default.
 - `--ui-shadow-selected`: the selected tab.
@@ -210,7 +212,7 @@ Use `--_motion` on one component:
 Off by default. Set `--ui-ease-move` and `--ui-press-scale` to turn them on.
 
 ```css
-:root {
+:where(html) {
   --ui-ease-move: linear(0, 0.066, 0.218, 0.4, 0.578, 0.731, 0.852, 0.94, 0.998,
     1.031, 1.047, 1.05, 1.046, 1.038, 1.029, 1.02, 1.012, 1.007, 1.002, 1, 1);
   --ui-press-scale: 0.97;
@@ -223,9 +225,36 @@ To follow it in your own CSS:
 transition: transform calc(var(--ui-duration) * var(--ui-motion)) var(--ui-ease);
 ```
 
+## Icons
+
+Every icon a component draws itself reads a `--ui-icon-*` token, one for each role, such as `--ui-icon-close` and `--ui-icon-expand`. Each is an SVG image used as a mask, so only its shape counts and it takes the text color. The defaults are Fluent UI System Icons, and [Theme tokens](https://opui.dev/html/guide/theme-tokens.md#icons) lists them all. Set them to the icons of your icon set:
+
+```css
+:where(html) {
+  --ui-icon-close: url("/icons/x.svg");
+  --ui-icon-expand: url("/icons/chevron-down.svg");
+}
+```
+
+### Icon sets
+
+The package has a stylesheet for each of five icon sets that sets every icon token: `fluent`, `lucide`, `material-symbols`, `phosphor` and `tabler`. Import one to draw every component icon from that set:
+
+```css
+@import "opui-css/icons/lucide.css";
+```
+
+Each file names the set's version, licence and SVG package in a comment, and `THIRD-PARTY-NOTICES` in the package holds the licences.
+
+### Your own icons
+
+An icon slot takes any `svg` with a `viewBox`. The slot sizes it, and it takes the text color through `currentColor`, which `normalize.css` sets as the fill of an `svg` without one. Take them from the same set as the tokens so every icon matches. Icon fonts aren't supported.
+
+In HTML, some icons are an `svg` you write: the Accordion marker, the Callout severity icon, the close buttons of a Callout, Dialog and Drawer, the Number field buttons and the password toggle. Left empty, with a `viewBox` and nothing between its tags, not even a line break, it shows the token's icon. With shapes inside it shows those. The components render the empty `svg` themselves, and their icon slots replace it.
+
 ## Contrast
 
-More contrast tightens the knobs, and every role follows. Their values are on [Theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md#contrast).
+More contrast tightens the knobs, and every role follows. Their values are on [Theme tokens](https://opui.dev/html/guide/theme-tokens.md#contrast).
 
 A role a theme pins stays pinned in every contrast mode. Hand it back with `revert-layer`:
 

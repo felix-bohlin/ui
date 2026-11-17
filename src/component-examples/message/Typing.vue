@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { Avatar, Message, Messages } from "opui-css/vue"
+import { Avatar, Message, MessageList } from "opui-css/vue"
 </script>
 
 <template>
-  <Messages aria-label="Messages with Saga">
-    <Message author="Saga" datetime="2026-10-08T14:32" time="14:32">
+  <MessageList aria-label="Messages with Stella">
+    <Message author="Stella" datetime="2026-10-08T14:32" time="14:32">
       <template #start>
-        <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
+        <Avatar aria-hidden="true">SN</Avatar>
       </template>
-      <p>Let me check with the team.</p>
+      <p>Let me ask if the band even noticed.</p>
     </Message>
     <Message typing>
       <template #start>
-        <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
+        <Avatar aria-hidden="true">SN</Avatar>
       </template>
-      Saga is typing…
+      Stella is typing…
     </Message>
-  </Messages>
+  </MessageList>
 </template>

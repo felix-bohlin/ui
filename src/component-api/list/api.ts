@@ -19,11 +19,19 @@ export default {
     },
     {
       description:
-        "On a radio item, moves focus to the previous or next radio item with the same `name` and checks it, wrapping around at the ends. Left and Right follow the reading direction.",
+        "On a radio item, moves focus to the previous or next radio item with the same `name` and checks it, wrapping around at the ends (Safari stops at the first and the last). Left and Right follow the reading direction in Chromium and Firefox; Safari always takes Left as the previous item.",
       keys: ["Up Arrow", "Down Arrow", "Left Arrow", "Right Arrow"],
     },
   ],
   options: [
+    {
+      default: '"ul"',
+      description:
+        "The element to render. Use `ol` when the order is the content, like a ranking or steps.",
+      htmlDescription:
+        "The list classes work on an `ol` too: use one when the order is the content, like a ranking or steps.",
+      prop: "as",
+    },
     {
       class: ".ui-bordered",
       default: "false",
@@ -47,9 +55,16 @@ export default {
       prop: "flush",
     },
     {
-      default: '"filled"',
+      default: '"list"',
       description:
-        "The variant to use. The default `filled` list uses the filled surface.",
+        "The `role` of the `<ul>`, such as `listbox`. `list` keeps Safari announcing a list.",
+      inherited: true,
+      prop: "role",
+      type: "string",
+    },
+    {
+      default: '"filled"',
+      description: "The variant to use.",
       group: "Variants",
       prop: "variant",
       values: {

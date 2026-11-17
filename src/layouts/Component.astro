@@ -41,6 +41,7 @@ import {
   getComponentChangelog,
   type ChangelogPathEntry,
 } from "../utils/changelog"
+import { withSharedFeatures } from "../utils/browser-support"
 import { FRAMEWORKS, isHydratedFramework } from "../utils/framework"
 import { posts } from "../utils/blog-posts"
 import { whatsNewFor } from "../utils/whats-new"
@@ -49,7 +50,6 @@ import migratingGuide from "../../packages/opui/MIGRATING.md?raw"
 import { migratingAnchor } from "../utils/migrating"
 
 type Props = {
-  title?: string
   description?: string
   image?: string
   overline?: string
@@ -57,25 +57,28 @@ type Props = {
   slug?: string
   apis?: Apis
   changelogPaths?: ChangelogPathEntry[]
+  fallbacks?: Record<string, string>
   heroAnatomy?: boolean
   installationTabs?: Tab[]
   seeAlsoLinks?: { name: string; href: string }[]
   showToc?: boolean
+  wide?: boolean
 }
 
 const {
   apis: apisProp,
   browserSupport,
   changelogPaths,
+  fallbacks,
   heroAnatomy,
   installationTabs,
   seeAlsoLinks,
   overline = "Components",
   showToc = true,
   slug: slugProp,
-  title,
   description,
   image,
+  wide,
 } = Astro.props
 
 const currentFramework = Astro.locals.framework
@@ -143,6 +146,8 @@ const editUrl = `${githubRepo}/edit/main/src/docs/components/${currentSlug}.astr
 
 const notes = currentSlug ? whatsNewFor(currentFramework, currentSlug) : []
 const isBreaking = (note: string) => note.startsWith("Breaking:")
+const withLinkClass = (note: string) =>
+  note.replaceAll("<a href=", '<a class="ui-link" href=')
 const whatsNew = notes.filter((note) => !isBreaking(note))
 const migrating = notes
   .filter(isBreaking)
@@ -167,6 +172,18 @@ const imports =
         package: packageFor(currentFramework),
       }
     : undefined
+
+const frameworkLabel = FRAMEWORKS.find(
+  (framework) => framework.id === currentFramework,
+)?.label
+const pageDescription =
+  description && imports && isComponentPage
+    ? `${description} ${
+        imports.names.length === 0
+          ? `Works the same in ${frameworkLabel}.`
+          : `${frameworkLabel} ${imports.names.length === 1 ? "component" : "components"} from ${imports.package}.`
+      }`
+    : description
 
 const sourceTabs =
   imports && currentFramework !== "html"
@@ -206,6 +223,7 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
 <Document
   overline={overline}
   showToc={showToc}
+  wide={wide}
   sidebarGroups={componentGroups.map((group) => ({
     label: group.label,
     links: group.components.map((component) => ({
@@ -213,8 +231,7 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
       label: component.name,
     })),
   }))}
-  title={title}
-  description={description}
+  description={pageDescription}
   image={image}
 >
   <FrameworkPicker size="small" slot="sidebar" />
@@ -225,7 +242,7 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
   <slot name="preamble" slot="preamble" />
 
   {(browserSupport || hydrationApis.length > 0) && <BrowserSupportChips
-    ids={browserSupport ?? []}
+    ids={browserSupport ? withSharedFeatures(browserSupport) : []}
   >
     {hydrationApis.length > 0 && (
       <HydrationChip apis={hydrationApis} framework={hydrationFramework!} />
@@ -289,7 +306,9 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
     <slot name="under-the-hood" />
   </section>}
 
-  {browserSupport && <BrowserSupport ids={browserSupport} />}
+  {browserSupport && (
+    <BrowserSupport fallbacks={fallbacks} ids={browserSupport} />
+  )}
 
   {!imports &&
     (installationTabs ? (
@@ -349,7 +368,7 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
         <h3>What's new</h3>
         <ul>
           {whatsNew.map((note) => (
-            <li set:html={note} />
+            <li set:html={withLinkClass(note)} />
           ))}
         </ul>
       </CalloutContent>
@@ -366,11 +385,14 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
           {migrating.map((note, index) => (
             <li
               class={index >= COLLAPSED ? "changelog-extra" : undefined}
-              set:html={note}
+              set:html={withLinkClass(note)}
             />
           ))}
         </ul>
-        <p><a href={migratingHref}>The migration guide</a> has the steps.</p>
+        <p>
+          <a class="ui-link" href={migratingHref}>The migration guide</a> has
+          the steps.
+        </p>
         {migrating.length > COLLAPSED && <div class="ui-not-rich-text">
           <Button
             class="changelog-toggle"

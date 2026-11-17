@@ -30,7 +30,7 @@ export const clientParts = client
   .map(name)
   .toSorted()
 
-export const joinNames = (names: string[]) =>
+const joinNames = (names: string[]) =>
   names.length < 2
     ? names.join("")
     : `${names.slice(0, -1).join(", ")} and ${names.at(-1)}`

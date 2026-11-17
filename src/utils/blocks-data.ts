@@ -9,7 +9,7 @@ export const blockCategories = [
   { id: "settings", label: "Settings" },
 ] as const
 
-export type BlockCategory = (typeof blockCategories)[number]["id"]
+type BlockCategory = (typeof blockCategories)[number]["id"]
 
 export type Block = {
   category: BlockCategory

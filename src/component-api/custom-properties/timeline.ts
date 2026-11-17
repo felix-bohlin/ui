@@ -11,7 +11,7 @@ export default {
       "Space on each side of the marker column. Defaults to `--ui-space-3`, `--ui-space-2` with `.ui-small`.",
     kind: "input",
   },
-  "--_icon-size": {
+  "--_icon-marker-size": {
     description:
       "Size of a `.ui-marker` with an icon. Defaults to `--ui-space-5`, `--ui-space-4` with `.ui-small`.",
     kind: "input",
@@ -38,7 +38,7 @@ export default {
   },
   "--_marker-size": {
     description:
-      "Size of the item's marker: `--_dot-size`, or `--_icon-size` with a `.ui-marker`.",
+      "Size of the item's marker: `--_dot-size`, or `--_icon-marker-size` with a `.ui-marker`.",
     kind: "output",
   },
   "--_next-marker-size": {

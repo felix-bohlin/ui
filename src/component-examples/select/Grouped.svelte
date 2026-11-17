@@ -2,15 +2,15 @@
   import { Select } from "opui-css/svelte"
 </script>
 
-<Select label="Car">
+<Select id="select-grouped-1" label="Car">
   <option value="">Select car</option>
-  <div role="group">
-    <label class="ui-text">French cars</label>
+  <div aria-labelledby="select-grouped-1-french" role="group">
+    <label class="ui-text" id="select-grouped-1-french">French cars</label>
     <option>Citroën</option>
     <option>Renault</option>
   </div>
-  <div role="group">
-    <label class="ui-text">Swedish cars</label>
+  <div aria-labelledby="select-grouped-1-swedish" role="group">
+    <label class="ui-text" id="select-grouped-1-swedish">Swedish cars</label>
     <option>Saab</option>
     <option>Volvo</option>
   </div>

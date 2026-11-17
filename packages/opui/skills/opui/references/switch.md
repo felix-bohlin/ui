@@ -1,9 +1,9 @@
 # Switch
 
-A setting that applies right away. For choices submitted with a form, use a Checkbox.
+An on and off switch for a setting that applies right away.
 
 - CSS: `opui-css/css/components/switch.css`, `opui-css/css/components/choice.css`, `opui-css/css/components/form.css` and `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/switch.md), [Astro](https://open-props-ui.netlify.app/astro/components/switch.md), [React](https://open-props-ui.netlify.app/react/components/switch.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/switch.md), [Vue](https://open-props-ui.netlify.app/vue/components/switch.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/switch.md), [Astro](https://opui.dev/astro/components/switch.md), [React](https://opui.dev/react/components/switch.md), [Svelte](https://opui.dev/svelte/components/switch.md), [Vue](https://opui.dev/vue/components/switch.md).
 - The docs page also documents `FieldGroup`, see `form.md`.
 
 ## Switch
@@ -24,7 +24,7 @@ A setting that applies right away. For choices submitted with a form, use a Chec
 - `error`: `boolean`, `input[aria-invalid="true"]`. Marks the control invalid and shows error styles.
 - `hideLabel`: `boolean`, `.ui-switch > span.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`.
 - `id`: `string`. The id of the `<input>`.
-- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.
+- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
 - `orientation`: `"horizontal"` (default), `"vertical"` (`.ui-vertical`). The orientation of the element. `vertical` stacks the label under the switch.
 - `required`: `boolean`, `input[required]`. Adds a required mark after the label. The form won't submit until it's on.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
@@ -67,7 +67,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_on-accent`: Color of the checked thumb on `--_accent`. `SelectedItemText` in forced colors.
 - `--_thumb-bg-color`: Color of the unchecked thumb. Defaults to `--ui-switch-thumb-bg-color`. The checked thumb uses `--_on-accent`.
 - `--_thumb-size`: Width and height of the thumb. Defaults to `--ui-switch-thumb-size`, set by the size classes.
-- `--_track-bg-color`: Background of the unchecked track. `--ui-track-bg-color` when the theme sets it, otherwise `--ui-switch-track-bg-color`.
+- `--_track-bg-color`: Background of the unchecked track. `--ui-switch-track-bg-color` when the theme sets it, else `--ui-track-bg-color`, otherwise `--ui-surface-tonal`, at `0.58` lightness in dark mode.
 - `--_track-block-size`: Height of the track. Defaults to `--ui-switch-track-block-size`, set by the size classes.
 - `--_track-border-color`: Border of the track. Defaults to `--ui-choice-border-color`, or `--ui-field-border-color` when the theme leaves it unset, like the checkbox and radio borders, and `--_accent` when checked. A focused switch draws `--ui-focus-border-color` instead when the theme sets it.
 - `--_track-inline-size`: Width of the track. Defaults to `--ui-switch-track-inline-size`, set by the size classes.
@@ -80,13 +80,13 @@ Outputs: `--_icon-size`, `--_size`, `--_thumb-inset` and `--_thumb-outline-width
 - `--_ease`: Easing of the transitions. Defaults to `--ui-ease`.
 - `--_hover-bg-color`: Background of a hovered `.ui-card`. Defaults to `--ui-surface-tonal-hover`.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
-- `--_on-accent`: Color of the checkmark, dash and dots on `--_accent`. `--ui-choice-on-accent` when the theme sets it, else `--ui-on-control-accent`, otherwise `--ui-on-primary`, or `--ui-on-fill` in dark mode. `--ui-on-fill` when invalid.
+- `--_on-accent`: Color of the checkmark, dash and dots on `--_accent`. `--ui-choice-on-accent` when the theme sets it, else `--ui-control-on-accent`, otherwise `--ui-on-primary`, or `--ui-on-fill` in dark mode. `--ui-on-fill` when invalid.
 - `--_padding`: Padding of `.ui-card`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset, and `--ui-space-2` in `.ui-small` and `.ui-x-small`.
 - `--_ripple-size`: Size of the hover ripple of checkboxes and radios, relative to the input. Set on `input`.
 - `--_selected-bg-color`: Background of a checked `.ui-card`: `--_accent` at `--ui-state-selected-alpha-accent`, so the fill, the border and the checked input share one color, red when invalid.
 - `--_size`: Width and height of the checkbox and radio input, which the label centers on. Defaults to `--ui-choice-size`, set by the size classes. `switch.css` sets it to the track height.
 
-Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration`, `--_ripple-scale` and `--_shadow`.
+Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration`, `--_mark-bg-color`, `--_rest-border-width`, `--_ripple-scale` and `--_shadow`.
 
 ### form.css
 
@@ -94,15 +94,18 @@ Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration`, `--
 
 ### card.css
 
-- `--_ease`: Easing of the card link border transition and the focus ring animation. Defaults to `--ui-ease`.
+- `--_actions-padding-inline`: Inline padding of `.ui-actions`. Defaults to `--_padding`. The actions pass it on as `--ui-card-padding`, so a text button at either end keeps its focus ring inside the card.
+- `--_backdrop-bg-color`: Backdrop color of a dialog or drawer. Defaults to `--ui-backdrop-bg-color`.
+- `--_backdrop-blur`: Backdrop filter of a dialog or drawer. Defaults to a `--ui-backdrop-blur` blur.
+- `--_ease`: Easing of the card link border transition, the focus ring animation and the accordion transitions. Defaults to `--ui-ease`.
 - `--_elevated-bg-color`: Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.
 - `--_elevated-shadow`: Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.
 - `--_footer-gap`: Gap between the items in a dialog's or drawer's `.ui-footer` and between the buttons in its `.ui-actions`. Defaults to `--ui-space-2`.
 - `--_gap`: Gap between the parts. `--ui-space-3`, or `--ui-space-2` in `.ui-dense`. The part after an image subtracts it from its padding.
 - `--_media-inline-size`: Width of the image when it sits at the start of the card, and the start margin of the parts next to it. Defaults to `40%` of the card.
-- `--_motion`: Motion multiplier for the card link border transition and the focus ring animation. `0` turns them off.
+- `--_motion`: Motion multiplier for the card link border transition, the focus ring animation and the accordion transitions. `0` turns them off.
 - `--_outlined-border-color`: Border color of `.ui-outlined`. Defaults to `--ui-border-color`.
-- `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
+- `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset. In an accordion it sets `--_padding-inline`, `--_summary-padding-block` and the block end of `--_content-padding-block`.
 - `--_scroll-shadow`: Shadow at the edges of a dialog's or drawer's `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
 - `--_surface-bg-color`: Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-surface`.
 - `--_title-font-size`: Font size of a dialog's or drawer's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.
@@ -112,7 +115,7 @@ Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-card-padding`, `--ui-choice-accent`, `--ui-choice-border-color`, `--ui-choice-border-width`, `--ui-choice-fill-max-lightness`, `--ui-choice-label-offset`, `--ui-choice-on-accent`, `--ui-choice-ripple-bg-color`, `--ui-choice-size`, `--ui-choice-size-large`, `--ui-choice-size-small`, `--ui-choice-size-x-small`, `--ui-control-accent`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color`, `--ui-field-border-color-on-raised`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-required-text-color`, `--ui-focus-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-invalid`, `--ui-invalid-text`, `--ui-letter-spacing-heading`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-control-accent`, `--ui-on-fill`, `--ui-on-primary`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-space-6`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-switch-thumb-bg-color`, `--ui-switch-thumb-size`, `--ui-switch-thumb-size-large`, `--ui-switch-thumb-size-small`, `--ui-switch-thumb-size-x-small`, `--ui-switch-track-bg-color`, `--ui-switch-track-block-size`, `--ui-switch-track-block-size-large`, `--ui-switch-track-block-size-small`, `--ui-switch-track-block-size-x-small`, `--ui-switch-track-inline-size`, `--ui-switch-track-inline-size-large`, `--ui-switch-track-inline-size-small`, `--ui-switch-track-inline-size-x-small`, `--ui-text`, `--ui-text-strong` and `--ui-track-bg-color`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-card-padding`, `--ui-choice-accent`, `--ui-choice-border-color`, `--ui-choice-border-width`, `--ui-choice-fill-max-lightness`, `--ui-choice-label-offset`, `--ui-choice-on-accent`, `--ui-choice-ripple-bg-color`, `--ui-choice-size`, `--ui-choice-size-large`, `--ui-choice-size-small`, `--ui-choice-size-x-small`, `--ui-control-accent`, `--ui-control-on-accent`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color`, `--ui-field-border-color-on-raised`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-required-text-color`, `--ui-focus-border-color`, `--ui-focus-border-width`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-icon-close`, `--ui-invalid`, `--ui-invalid-text`, `--ui-letter-spacing-heading`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-fill`, `--ui-on-primary`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-space-6`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-switch-thumb-bg-color`, `--ui-switch-thumb-size`, `--ui-switch-thumb-size-large`, `--ui-switch-thumb-size-small`, `--ui-switch-thumb-size-x-small`, `--ui-switch-track-bg-color`, `--ui-switch-track-block-size`, `--ui-switch-track-block-size-large`, `--ui-switch-track-block-size-small`, `--ui-switch-track-block-size-x-small`, `--ui-switch-track-inline-size`, `--ui-switch-track-inline-size-large`, `--ui-switch-track-inline-size-small`, `--ui-switch-track-inline-size-x-small`, `--ui-target-min-size`, `--ui-text`, `--ui-text-max-chroma`, `--ui-text-min-lightness`, `--ui-text-strong` and `--ui-track-bg-color`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

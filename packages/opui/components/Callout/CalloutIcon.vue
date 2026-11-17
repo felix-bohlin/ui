@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, type HTMLAttributes, inject, useAttrs } from "vue"
 import { CalloutKey } from "./context.vue"
-import { iconFor } from "./icons"
 import { defined } from "../attrs"
 import { classAttrs } from "../cx"
 import type { CalloutIconProps as Props } from "./types.vue-props"
@@ -16,19 +15,17 @@ const attrs = useAttrs() as HTMLAttributes
 
 const callout = inject(CalloutKey, undefined)
 
-const icon = computed(() => iconFor(callout?.severity))
+const severity = computed(() => callout?.severity)
 </script>
 
 <template>
   <svg
-    v-if="icon"
+    v-if="severity && severity !== 'neutral'"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
-    :viewBox="icon.viewBox"
+    viewBox="0 0 32 32"
     v-bind="{ ...defined(attrs), ...classAttrs([$props.class]) }"
-  >
-    <path fill="currentColor" :d="icon.d" />
-  </svg>
+  ></svg>
 </template>

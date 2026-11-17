@@ -57,13 +57,14 @@ export const MODEL_KINDS = {
   checkedItem: {
     svelte: {
       bindables: bindableProps,
-      onchange: (model, item) => [
-        `if (${item.grouped} === undefined) ${model.prop} = event.currentTarget.checked`,
+      change: (model, item) => [
+        `if (${item.grouped} === undefined) ${model.prop} = input.checked`,
       ],
     },
     vue: {
-      change: (item) =>
-        `const change = (event: Event) => {\n  const input = event.currentTarget as HTMLInputElement\n  if (${item.grouped}.value === undefined) model.value = input.checked\n  ${item.parent}?.change?.(input)\n}`,
+      change: (item) => [
+        `if (${item.grouped}.value === undefined) model.value = input.checked`,
+      ],
       checkedRename: (item) =>
         item.checked ? [item.checked, `model ?? ${item.checked}`] : undefined,
       setup: (model) => [
@@ -125,12 +126,14 @@ export const MODEL_KINDS = {
   radioGroup: {
     react: {
       client: true,
-      entries: () => ["defaultValue", "onChange"],
-      radioAttributes: (model, checked) => [
+      entries: () => ["defaultValue", "onValueChange"],
+      radioAttributes: (model, value, checked) => [
         `checked={${model.local} !== undefined ? ${checked} : undefined}`,
         `defaultChecked={${model.local} !== undefined ? undefined : ${checked}}`,
-        "onChange={onChange}",
+        `onChange={() => onValueChange?.(${value})}`,
+        `ref={seedChecked(() => onValueChange?.(${value}))}`,
       ],
+      reactHelpers: () => ["seedChecked"],
       rename: (model) => [[model.local, `${model.local} ?? defaultValue`]],
     },
     svelte: {

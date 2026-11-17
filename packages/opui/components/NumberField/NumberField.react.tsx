@@ -5,7 +5,6 @@ import { cx } from "../cx"
 import Button from "../Button/Button.react"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
 import { idRefs } from "../id"
-import { minusPath, plusPath } from "./icons"
 import type { Props } from "./types.react"
 
 export default function NumberField({
@@ -13,6 +12,7 @@ export default function NumberField({
   "aria-invalid": ariaInvalid,
   className,
   decreaseLabel = "Decrease",
+  disabled,
   error,
   hideLabel,
   id,
@@ -32,7 +32,7 @@ export default function NumberField({
 }: Props) {
   const field = useFieldGroupContext()
   const uid = useId()
-  const base = id ?? `number-field-${uid}`
+  const base = id || `number-field-${uid}`
   const inputId = base
   const startTextId = startText ? `${base}-start-text` : undefined
   const endTextId = endText ? `${base}-end-text` : undefined
@@ -74,6 +74,7 @@ export default function NumberField({
             aria-label={decreaseLabel}
             command="--step-down"
             commandfor={inputId}
+            disabled={disabled}
             round
           >
             {decreaseIcon === undefined ? (
@@ -83,9 +84,7 @@ export default function NumberField({
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
-              >
-                <path fill="currentColor" d={minusPath} />
-              </svg>
+              />
             ) : (
               decreaseIcon
             )}
@@ -95,6 +94,7 @@ export default function NumberField({
           {...rest}
           aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
           aria-invalid={error ? "true" : ariaInvalid}
+          disabled={disabled}
           id={inputId}
           name={name ?? field?.name}
           type="number"
@@ -105,6 +105,7 @@ export default function NumberField({
             aria-label={increaseLabel}
             command="--step-up"
             commandfor={inputId}
+            disabled={disabled}
             round
           >
             {increaseIcon === undefined ? (
@@ -114,9 +115,7 @@ export default function NumberField({
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
-              >
-                <path fill="currentColor" d={plusPath} />
-              </svg>
+              />
             ) : (
               increaseIcon
             )}

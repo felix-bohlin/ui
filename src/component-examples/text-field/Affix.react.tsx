@@ -7,7 +7,7 @@ export default function Affix() {
 
       <TextField label="Website" placeholder="example.com" start="https://" />
 
-      <TextField end="kg" label="Weight" placeholder="0" type="numeric" />
+      <TextField end="kg" inputMode="decimal" label="Weight" placeholder="0" />
 
       <TextField
         label="Search"

@@ -1,6 +1,7 @@
 ---
 import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
+import DefaultIcon from "./partials/DefaultIcon.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
@@ -28,6 +29,7 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
   heroAnatomy
   slug="number-field"
   browserSupport={[
+    "alt-text-generated-content",
     "color-mix",
     "container-queries",
     "container-style-queries",
@@ -36,10 +38,15 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
     "invoker-commands",
     "lh",
     "light-dark",
-    "popover",
+    "reading-flow",
+    "registered-custom-properties",
     "relative-color",
     "user-pseudos",
   ]}
+  fallbacks={{
+    "reading-flow":
+      "Without `reading-flow` nothing changes: the step buttons already come before and after the input in the markup.",
+  }}
   apis={[{ title: "Number field API", api: numberFieldApi }]}
   changelogPaths={[
     {
@@ -71,7 +78,8 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
   <Fragment slot="preamble">
     <p>
       A <DocLink href="/components/text-field">Text field</DocLink> with buttons
-      that step the value.
+      that step the value, for a small amount like a quantity. For a wide scale,
+      use a <DocLink href="/components/range">Range</DocLink>.
     </p>
   </Fragment>
 
@@ -110,7 +118,7 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
     <h2>Basics</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Set <code>min</code>, <code>max</code> and <code>step</code>.
+        Set <code>min</code> and <code>max</code>.
       </Fragment>
       <Fragment slot="html">
         Import <code>opui-css/elements/number-field.js</code>.
@@ -145,6 +153,7 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
 
   <section id="step">
     <h2>Step</h2>
+    <p>Use <code>step</code> for decimals.</p>
     <AutoExample name="Step" />
   </section>
 
@@ -174,6 +183,11 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
         Translate their <code>aria-label</code>.
       </Fragment>
     </Conditional>
+    <DefaultIcon
+      slots={["decrease-icon", "increase-icon"]}
+      tokens={["--ui-icon-decrease", "--ui-icon-increase"]}
+    />
+    <AutoExample name="Buttons" />
   </section>
 
   <section id="disabled">
@@ -197,6 +211,12 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
   </section>
 
   <Fragment slot="accessibility">
+    <ul>
+      <li>
+        A step button changes the value without moving focus, so screen readers
+        don't announce it. The arrow keys on the input do.
+      </li>
+    </ul>
     <KeyboardSupport />
   </Fragment>
 </Component>

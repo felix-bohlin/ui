@@ -9,6 +9,7 @@ import {
   useId,
   watchEffect,
 } from "vue"
+import { seedChecked } from "../vue"
 import { TabsKey } from "./context.vue"
 import { isSelected } from "../ToggleGroup/selection"
 import { warnGroupedChecked } from "../dev"
@@ -38,21 +39,24 @@ watchEffect(() =>
   warnGroupedChecked("TabsItem", grouped.value, checked, "Tabs"),
 )
 
-const change = (event: Event) =>
-  parent?.change?.(event.currentTarget as HTMLInputElement)
+const change = (input: HTMLInputElement) => {
+  parent?.change?.(input)
+}
+
+const vSeedChecked = seedChecked(change)
 
 provide(TabsKey, reactive({ groupName, tabId }))
 </script>
 
 <template>
   <input
-    :checked="grouped ?? checked"
     :class="['ui-input', $props.class]"
     :id="tabId"
     :name="groupName"
     type="radio"
     :value="value"
     v-bind="defined(attrs)"
-    @change="change"
+    v-seed-checked="grouped ?? checked"
+    @change="change($event.currentTarget as HTMLInputElement)"
   /><slot></slot>
 </template>

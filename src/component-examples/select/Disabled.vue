@@ -4,8 +4,8 @@ import { Select } from "opui-css/vue"
 
 <template>
   <Select disabled label="Plan">
-    <option>Business</option>
-    <option>Enterprise</option>
+    <option>Gold</option>
+    <option>Platinum</option>
   </Select>
 
   <Select disabled label="Billing cycle" variant="filled">

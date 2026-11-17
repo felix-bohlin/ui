@@ -1,9 +1,9 @@
 # Description list
 
-Description lists are used to display a list of terms and their descriptions.
+A list of terms and their values, like order details or totals.
 
 - CSS: `opui-css/css/components/description-list.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/description-list.md), [Astro](https://open-props-ui.netlify.app/astro/components/description-list.md), [React](https://open-props-ui.netlify.app/react/components/description-list.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/description-list.md), [Vue](https://open-props-ui.netlify.app/vue/components/description-list.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/description-list.md), [Astro](https://opui.dev/astro/components/description-list.md), [React](https://opui.dev/react/components/description-list.md), [Svelte](https://opui.dev/svelte/components/description-list.md), [Vue](https://opui.dev/vue/components/description-list.md).
 
 ## DescriptionList
 
@@ -16,8 +16,7 @@ Description lists are used to display a list of terms and their descriptions.
 
 ### Props and modifiers
 
-- `bordered`: `boolean`, `.ui-bordered`. Adds a line between the term and the description.
-- `dotted`: `boolean`, `.ui-dotted`. Makes the `bordered` line dotted.
+- `border`: `"dotted"` (`.ui-border-dotted`), `"solid"` (`.ui-border-solid`). The style of the line between the term and the description. Without it, there's no line.
 - `orientation`: `"auto"` (default), `"horizontal"` (`.ui-horizontal`). The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width.
 
 ### Slots
@@ -44,8 +43,8 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### description-list.css
 
-- `--_border-style`: Style of the line between term and description. `.ui-bordered.ui-dotted` makes it dotted.
-- `--_border-width`: Width of the line between term and description. `.ui-bordered.ui-dotted` sets it to `2px`.
+- `--_border-style`: Style of the line between term and description. `.ui-border-dotted` makes it dotted.
+- `--_border-width`: Width of the line between term and description. Defaults to `--ui-border-width`, and `--ui-border-width-thick` in `.ui-border-dotted`.
 
 ## Theme tokens
 
@@ -58,16 +57,16 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 ```html
 <dl class="ui-description-list">
   <div>
-    <dt>Price</dt>
-    <dd>6 950 000</dd>
+    <dt>Order number</dt>
+    <dd>10482</dd>
   </div>
   <div>
-    <dt>Size</dt>
-    <dd>64 m²</dd>
+    <dt>Placed on</dt>
+    <dd>Oct 8, 2026</dd>
   </div>
   <div>
-    <dt>Rooms</dt>
-    <dd>3</dd>
+    <dt>Status</dt>
+    <dd>Shipped</dd>
   </div>
 </dl>
 ```
@@ -90,16 +89,16 @@ import {
 
 <DescriptionList>
   <DescriptionListItem>
-    <DescriptionListTerm>Price</DescriptionListTerm>
-    <DescriptionListDescription>6 950 000</DescriptionListDescription>
+    <DescriptionListTerm>Order number</DescriptionListTerm>
+    <DescriptionListDescription>10482</DescriptionListDescription>
   </DescriptionListItem>
   <DescriptionListItem>
-    <DescriptionListTerm>Size</DescriptionListTerm>
-    <DescriptionListDescription>64 m²</DescriptionListDescription>
+    <DescriptionListTerm>Placed on</DescriptionListTerm>
+    <DescriptionListDescription>Oct 8, 2026</DescriptionListDescription>
   </DescriptionListItem>
   <DescriptionListItem>
-    <DescriptionListTerm>Rooms</DescriptionListTerm>
-    <DescriptionListDescription>3</DescriptionListDescription>
+    <DescriptionListTerm>Status</DescriptionListTerm>
+    <DescriptionListDescription>Shipped</DescriptionListDescription>
   </DescriptionListItem>
 </DescriptionList>
 ```
@@ -122,16 +121,16 @@ export default function Basics() {
   return (
     <DescriptionList>
       <DescriptionListItem>
-        <DescriptionListTerm>Price</DescriptionListTerm>
-        <DescriptionListDescription>6 950 000</DescriptionListDescription>
+        <DescriptionListTerm>Order number</DescriptionListTerm>
+        <DescriptionListDescription>10482</DescriptionListDescription>
       </DescriptionListItem>
       <DescriptionListItem>
-        <DescriptionListTerm>Size</DescriptionListTerm>
-        <DescriptionListDescription>64 m²</DescriptionListDescription>
+        <DescriptionListTerm>Placed on</DescriptionListTerm>
+        <DescriptionListDescription>Oct 8, 2026</DescriptionListDescription>
       </DescriptionListItem>
       <DescriptionListItem>
-        <DescriptionListTerm>Rooms</DescriptionListTerm>
-        <DescriptionListDescription>3</DescriptionListDescription>
+        <DescriptionListTerm>Status</DescriptionListTerm>
+        <DescriptionListDescription>Shipped</DescriptionListDescription>
       </DescriptionListItem>
     </DescriptionList>
   )
@@ -156,16 +155,16 @@ export default function Basics() {
 
 <DescriptionList>
   <DescriptionListItem>
-    <DescriptionListTerm>Price</DescriptionListTerm>
-    <DescriptionListDescription>6 950 000</DescriptionListDescription>
+    <DescriptionListTerm>Order number</DescriptionListTerm>
+    <DescriptionListDescription>10482</DescriptionListDescription>
   </DescriptionListItem>
   <DescriptionListItem>
-    <DescriptionListTerm>Size</DescriptionListTerm>
-    <DescriptionListDescription>64 m²</DescriptionListDescription>
+    <DescriptionListTerm>Placed on</DescriptionListTerm>
+    <DescriptionListDescription>Oct 8, 2026</DescriptionListDescription>
   </DescriptionListItem>
   <DescriptionListItem>
-    <DescriptionListTerm>Rooms</DescriptionListTerm>
-    <DescriptionListDescription>3</DescriptionListDescription>
+    <DescriptionListTerm>Status</DescriptionListTerm>
+    <DescriptionListDescription>Shipped</DescriptionListDescription>
   </DescriptionListItem>
 </DescriptionList>
 ```
@@ -189,16 +188,16 @@ import {
 <template>
   <DescriptionList>
     <DescriptionListItem>
-      <DescriptionListTerm>Price</DescriptionListTerm>
-      <DescriptionListDescription>6 950 000</DescriptionListDescription>
+      <DescriptionListTerm>Order number</DescriptionListTerm>
+      <DescriptionListDescription>10482</DescriptionListDescription>
     </DescriptionListItem>
     <DescriptionListItem>
-      <DescriptionListTerm>Size</DescriptionListTerm>
-      <DescriptionListDescription>64 m²</DescriptionListDescription>
+      <DescriptionListTerm>Placed on</DescriptionListTerm>
+      <DescriptionListDescription>Oct 8, 2026</DescriptionListDescription>
     </DescriptionListItem>
     <DescriptionListItem>
-      <DescriptionListTerm>Rooms</DescriptionListTerm>
-      <DescriptionListDescription>3</DescriptionListDescription>
+      <DescriptionListTerm>Status</DescriptionListTerm>
+      <DescriptionListDescription>Shipped</DescriptionListDescription>
     </DescriptionListItem>
   </DescriptionList>
 </template>

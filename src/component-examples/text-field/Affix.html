@@ -1,33 +1,54 @@
-<label class="ui-text-field">
-  <span class="ui-label">Amount</span>
+<div class="ui-text-field">
+  <label class="ui-label" for="text-field-affix-1">Amount</label>
   <span class="ui-field">
-    <input placeholder="0.00" type="text" />
-    <span class="ui-start">€</span>
-    <span class="ui-end">EUR</span>
+    <input
+      placeholder="0.00"
+      aria-describedby="text-field-affix-1-start text-field-affix-1-end"
+      id="text-field-affix-1"
+      type="text"
+    />
+    <span class="ui-start" id="text-field-affix-1-start">€</span>
+    <span class="ui-end" id="text-field-affix-1-end">EUR</span>
   </span>
-</label>
+</div>
 
-<label class="ui-text-field">
-  <span class="ui-label">Website</span>
+<div class="ui-text-field">
+  <label class="ui-label" for="text-field-affix-2">Website</label>
   <span class="ui-field">
-    <input placeholder="example.com" type="text" />
-    <span class="ui-start">https://</span>
+    <input
+      placeholder="example.com"
+      aria-describedby="text-field-affix-2-start"
+      id="text-field-affix-2"
+      type="text"
+    />
+    <span class="ui-start" id="text-field-affix-2-start">https://</span>
   </span>
-</label>
+</div>
 
-<label class="ui-text-field">
-  <span class="ui-label">Weight</span>
+<div class="ui-text-field">
+  <label class="ui-label" for="text-field-affix-3">Weight</label>
   <span class="ui-field">
-    <input placeholder="0" inputmode="numeric" pattern="[0-9]*" type="text" />
-    <span class="ui-end">kg</span>
+    <input
+      inputmode="decimal"
+      placeholder="0"
+      aria-describedby="text-field-affix-3-end"
+      id="text-field-affix-3"
+      type="text"
+    />
+    <span class="ui-end" id="text-field-affix-3-end">kg</span>
   </span>
-</label>
+</div>
 
-<label class="ui-text-field">
-  <span class="ui-label">Search</span>
+<div class="ui-text-field">
+  <label class="ui-label" for="text-field-affix-4">Search</label>
   <span class="ui-field">
-    <input placeholder="Search..." type="text" />
-    <span class="ui-start">
+    <input
+      placeholder="Search..."
+      aria-describedby="text-field-affix-4-start"
+      id="text-field-affix-4"
+      type="text"
+    />
+    <span class="ui-start" id="text-field-affix-4-start">
       <svg
         aria-hidden="true"
         width="16"
@@ -44,4 +65,4 @@
       </svg>
     </span>
   </span>
-</label>
+</div>

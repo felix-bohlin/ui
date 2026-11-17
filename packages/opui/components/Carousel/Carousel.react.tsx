@@ -15,6 +15,7 @@ export default function Carousel({
   peek,
   persistentButtons,
   previousLabel,
+  role,
   stretch,
   style,
   children,
@@ -25,11 +26,11 @@ export default function Carousel({
       className={cx([
         "ui-carousel",
         {
-          "ui-persistent-buttons": persistentButtons,
+          "ui-markers": markers,
           "ui-peek": peek,
+          "ui-persistent-buttons": persistentButtons,
           "ui-stretch": stretch,
           "ui-vertical": orientation === "vertical",
-          "ui-markers": markers,
         },
         align && align !== "start" && `ui-align-${align}`,
         buttons && buttons !== "inside" && `ui-buttons-${buttons}`,
@@ -38,7 +39,7 @@ export default function Carousel({
       style={mergeStyle(
         {
           "--_button-next-label": nextLabel && cssString(nextLabel),
-          "--_button-prev-label": previousLabel && cssString(previousLabel),
+          "--_button-previous-label": previousLabel && cssString(previousLabel),
           "--_items-per-view": itemsPerView,
           "--_marker-label":
             markerLabel && counterLabel(markerLabel, "ui-carousel-item"),
@@ -46,6 +47,7 @@ export default function Carousel({
         },
         style ?? {},
       )}
+      role={role ?? "list"}
       {...rest}
     >
       {children}

@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test"
 import type { Locator, Page } from "@playwright/test"
-import { openFixture, resolveColor, settle } from "./fixtures"
+import { needs, openFixture, resolveColor, settle } from "./fixtures"
 
 const focusByKeyboard = async (page: Page, locator: Locator) => {
   await page.keyboard.press("Tab")
@@ -221,9 +221,10 @@ test("forced colors draw the ring on a link and a button that highlight", async 
 }) => {
   await openProbe(page, "?theme=govuk")
   await page.emulateMedia({ forcedColors: "active" })
-  test.skip(
-    !(await page.evaluate(() => matchMedia("(forced-colors: active)").matches)),
-    "this engine doesn't emulate forced colors",
+  await needs(
+    page,
+    "forced colors emulation",
+    () => matchMedia("(forced-colors: active)").matches,
   )
   for (const id of ["wrapped", "filled"]) {
     const element = page.locator(`#${id}`)

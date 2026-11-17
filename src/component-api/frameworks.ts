@@ -84,7 +84,7 @@ export const passThrough = (
     (Object.keys(frameworks) as ComponentFramework[]).map((framework) => [
       framework,
       [
-        `Attributes that aren't props go to the \`<${element}>\`, like ${listOf(examples)}, and \`${framework === "react" ? "className" : "class"}\` and \`style\` go to the root \`<${root}>\`.`,
+        `Attributes that aren't props go to the \`<${element}>\`, like ${listOf(examples)}, and \`${framework === "react" ? "className" : "class"}\` and \`style\` go to ${root.startsWith(".") ? `the \`${root}\` root` : `the root \`<${root}>\``}.`,
         more[framework] ?? more.default,
       ]
         .filter(Boolean)

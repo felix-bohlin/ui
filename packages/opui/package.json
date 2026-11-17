@@ -1,11 +1,11 @@
 {
   "name": "opui-css",
-  "version": "6.0.0-rc.1",
+  "version": "6.0.0-rc.4",
   "description": "Design system. Components. Modern HTML & CSS. HTML, Astro, React, Svelte and Vue. The tokens started from Open Props, and the components don't need it.",
   "type": "module",
   "license": "MIT",
   "author": "Felix Bohlin",
-  "homepage": "https://open-props-ui.netlify.app/",
+  "homepage": "https://opui.dev/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/felix-bohlin/ui.git",
@@ -49,6 +49,8 @@
     "dist",
     "elements",
     "env.d.ts",
+    "figma",
+    "icons",
     "open-props.css",
     "react",
     "skills",
@@ -60,7 +62,8 @@
     "LICENSE",
     "MIGRATING-legacy.md",
     "MIGRATING.md",
-    "README.md"
+    "README.md",
+    "THIRD-PARTY-NOTICES"
   ],
   "style": "./dist/opui.css",
   "svelte": "./dist/svelte/index.js",
@@ -115,6 +118,9 @@
     "./dist/*": "./dist/*",
     "./elements/*": "./elements/*",
     "./env.d.ts": "./env.d.ts",
+    "./figma/*": "./figma/*",
+    "./icons/*.css": "./icons/*.css",
+    "./icons/*": "./icons/*.css",
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -142,7 +148,7 @@
     "react": "^19",
     "react-dom": "^19",
     "svelte": "^5.57",
-    "vue": "^3.5"
+    "vue": "^3.5.2"
   },
   "peerDependenciesMeta": {
     "astro": {
@@ -168,6 +174,6 @@
     "access": "public"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=26.10.0"
   }
 }

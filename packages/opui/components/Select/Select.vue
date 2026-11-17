@@ -11,7 +11,8 @@ import { useInputAttrs, vSeed } from "../vue"
 import type { Props, Slots } from "./types.vue-props"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { idRefs } from "../id"
-import { initialValue } from "./selection"
+import { initialValue, sameValue } from "./selection"
+import { styleAttrs } from "../style"
 
 defineOptions({
   inheritAttrs: false,
@@ -33,7 +34,7 @@ const {
   value,
   variant = "outlined",
 } = defineProps<Props>()
-defineSlots<Slots>()
+const slots = defineSlots<Slots>()
 const attrs = useAttrs() as SelectHTMLAttributes
 const inputAttrs = useInputAttrs()
 const modelValue = defineModel<string | number | (string | number)[]>()
@@ -52,21 +53,24 @@ const initialSelection = model.value
 
 const selectedAtFirst = (value: unknown) =>
   Array.isArray(initialSelection)
-    ? initialSelection.includes(value as string | number)
-    : initialSelection === value
+    ? initialSelection.some((selected) => sameValue(selected, value))
+    : initialSelection !== undefined && sameValue(initialSelection, value)
 
 const uid = useId()
-const base = computed(() => id ?? `select-${uid}`)
-const labelId = computed(() => `${base.value}-label`)
+const base = computed(() => id || `select-${uid}`)
+const hasLabel = () => Boolean(label || slots.label)
+const selectId = () => (hasLabel() ? base.value : id)
 const startTextId = computed(() => `${base.value}-start-text`)
 const endTextId = computed(() => `${base.value}-end-text`)
+const startId = computed(() => `${base.value}-start`)
+const endId = computed(() => `${base.value}-end`)
 const topId = computed(() => `${base.value}-top`)
 const bottomId = computed(() => `${base.value}-bottom`)
 const field = inject(FieldGroupKey, undefined)
 </script>
 
 <template>
-  <label
+  <div
     :class="[
       'ui-select',
       {
@@ -77,15 +81,15 @@ const field = inject(FieldGroupKey, undefined)
       size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
-    :style="$attrs.style"
+    v-bind="styleAttrs($attrs.style)"
   >
-    <span
-      v-if="label || $slots.label"
+    <label
+      v-if="hasLabel()"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
-      :id="labelId"
+      :for="selectId()"
     >
       {{ label }}<TrimmedSlot :nodes="$slots.label?.()" />
-    </span>
+    </label>
 
     <span
       v-if="startText || $slots['start-text']"
@@ -102,21 +106,21 @@ const field = inject(FieldGroupKey, undefined)
         v-model="model"
         :aria-describedby="
           idRefs(
-            $slots.top && topId,
             (startText || $slots['start-text']) && startTextId,
-            (endText || $slots['end-text']) && endTextId,
+            $slots.top && topId,
+            $slots.start && startId,
+            $slots.end && endId,
             $slots.bottom && bottomId,
+            (endText || $slots['end-text']) && endTextId,
             attrs['aria-describedby'],
           )
         "
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
-        :aria-labelledby="
-          label || $slots.label ? labelId : attrs['aria-labelledby']
-        "
-        :id="id"
+        :aria-labelledby="attrs['aria-labelledby']"
+        :id="selectId()"
         :name="name ?? field?.name"
       >
-        <button v-pre>
+        <button inert v-pre>
           <selectedcontent></selectedcontent>
         </button>
         <div :class="['ui-list', { 'ui-dense': dense }]">
@@ -131,10 +135,12 @@ const field = inject(FieldGroupKey, undefined)
           <slot></slot>
         </div>
       </select>
-      <span class="ui-start" v-if="$slots.start"
+      <span class="ui-start" :id="startId" v-if="$slots.start"
         ><slot name="start"></slot
       ></span>
-      <span class="ui-end" v-if="$slots.end"><slot name="end"></slot></span>
+      <span class="ui-end" :id="endId" v-if="$slots.end"
+        ><slot name="end"></slot
+      ></span>
       <span class="ui-top" :id="topId" v-if="$slots.top"
         ><slot name="top"></slot
       ></span>
@@ -150,5 +156,5 @@ const field = inject(FieldGroupKey, undefined)
     >
       {{ endText }}<slot name="end-text"></slot>
     </span>
-  </label>
+  </div>
 </template>

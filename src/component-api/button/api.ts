@@ -53,7 +53,7 @@ export default {
     },
     {
       description:
-        'Keeps the pressed background on a transparent (text) button link for the current page in navigation, or dims a disabled one. A link button, which can\'t take `disabled`, drops its `href` and takes `role="link"` and `aria-disabled="true"` instead.',
+        'Marks the link to the current page in navigation with the selected tint and strong text (a filled button drops its fill), or dims a disabled one. A link button, which can\'t take `disabled`, drops its `href` and takes `role="link"` and `aria-disabled="true"` instead.',
       frameworks: ["html"],
       group: "State",
       prop: "state",
@@ -85,6 +85,14 @@ export default {
         small: ".ui-small",
         "x-small": ".ui-x-small",
       },
+    },
+    {
+      default: '"button"',
+      description:
+        'The button type. Use `"submit"` to submit a form, which a native `<button>` does by default.',
+      inherited: true,
+      prop: "type",
+      type: '"button" | "reset" | "submit"',
     },
     {
       default: '"transparent"',

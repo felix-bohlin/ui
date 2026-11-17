@@ -67,11 +67,10 @@
     /* Body paragraphs after the heading */
     :where(:scope.ui-hgroup) > p:not(:first-of-type:first-child),
     hgroup > p:not(:first-of-type:first-child) {
-      color: oklch(from currentColor l c h / 75%);
-
-      @container style(--ui-contrast: more) {
-        color: inherit;
-      }
+      color: if(
+        style(--ui-contrast: more): inherit;
+          else: oklch(from currentColor l c h / 75%)
+      );
 
       font-size: var(--ui-font-size-large);
       line-height: round(
@@ -152,6 +151,10 @@
       background-color: CanvasText;
       forced-color-adjust: none;
     }
+
+    @media print {
+      print-color-adjust: exact;
+    }
   }
 
   /* Inline text elements - class utilities */
@@ -190,6 +193,10 @@
     overflow-wrap: anywhere;
     padding-block: calc(0.1ex + var(--ui-border-width));
     padding-inline: calc(0.3ex + var(--ui-border-width));
+
+    @media print {
+      print-color-adjust: exact;
+    }
   }
 
   :where(.ui-mark) {
@@ -264,8 +271,12 @@
       overflow-inline: auto;
       padding-block: var(--ui-space-3);
       padding-inline: var(--ui-space-4);
-      scrollbar-width: thin;
       white-space: pre;
+
+      @media print {
+        overflow-wrap: anywhere;
+        white-space: pre-wrap;
+      }
 
       > :is(code, samp) {
         background: none;
@@ -304,8 +315,11 @@
 
   @scope (.ui-rich-text) to (.ui-not-rich-text) {
     :scope {
-      --_flow-gap: round(var(--ui-flow-gap, 1.25em), var(--ui-rhythm-step));
-      line-height: var(--ui-line-height-prose);
+      --_flow-gap: round(
+        var(--ui-rich-text-flow-gap, 1.25em),
+        var(--ui-rhythm-step)
+      );
+      line-height: var(--ui-rich-text-line-height);
       min-inline-size: 0;
       overflow-wrap: break-word;
     }
@@ -459,14 +473,14 @@
       );
       margin-block: round(
           var(
-            --ui-heading-margin-block-start,
+            --ui-rich-text-heading-margin-block-start,
             var(--_flow-gap) * var(--_flow-before)
           ),
           var(--ui-rhythm-step)
         )
         round(
           var(
-            --ui-heading-margin-block-end,
+            --ui-rich-text-heading-margin-block-end,
             var(--_flow-gap) * var(--_flow-after)
           ),
           var(--ui-rhythm-step)
@@ -801,6 +815,10 @@
       color: var(--ui-on-inverse);
       padding-block: calc(0.1ex + var(--ui-border-width));
       padding-inline: calc(0.3ex + var(--ui-border-width));
+
+      @media print {
+        print-color-adjust: exact;
+      }
     }
 
     :not(pre) > code,

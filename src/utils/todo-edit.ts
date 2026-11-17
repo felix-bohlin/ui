@@ -1,6 +1,6 @@
 import { actionValues, fixOptions, parseTodo, replyOf } from "./todo.ts"
 
-export const SECTIONS = [
+const SECTIONS = [
   "Accessibility",
   "Bugs",
   "Docs",
@@ -194,7 +194,7 @@ const OUTCOMES = {
 
 type Option = { id: string; recommended?: boolean; text: string }
 
-export type Outcome = {
+type Outcome = {
   line: string
   note: string
   options?: Option[]
@@ -274,7 +274,7 @@ const triageProblems = ({
   ]
 }
 
-export type Triage = { line: string; recommended?: string; summary?: string }
+type Triage = { line: string; recommended?: string; summary?: string }
 
 export const triageItems = (source: string, triages: Triage[]) => {
   const lines = source.split("\n")
@@ -311,7 +311,7 @@ export const triageItems = (source: string, triages: Triage[]) => {
   return { report, source: lines.join("\n") }
 }
 
-export type Finding = {
+type Finding = {
   component: string
   files?: string[]
   fix?: string

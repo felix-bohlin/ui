@@ -11,7 +11,7 @@ export const createIds = (
 ) => {
   let base = id
   return (part?: string) => {
-    base ??= createId(locals)(prefix)
+    base ||= createId(locals)(prefix)
     return part ? `${base}-${part}` : base
   }
 }

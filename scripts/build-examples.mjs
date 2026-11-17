@@ -718,7 +718,7 @@ const RAW_TEXT = new Set([
   "xmp",
 ])
 
-export const markWhitespace = async (source) => {
+const markWhitespace = async (source) => {
   const { ast } = await parse(source, { position: true })
   const marks = []
   const visit = (nodes, parent, raw) => {
@@ -1633,21 +1633,31 @@ export const elementTags = () => {
 
 const htmlElements = (markup) => {
   const found = []
-  const walk = (nodes) => {
+  const walk = (nodes, parent) => {
     for (const node of nodes) {
       if (!node.tagName) continue
-      found.push({
+      const element = {
         attrs: new Set(node.attrs.map(({ name }) => name)),
+        classes: new Set(
+          node.attrs.find(({ name }) => name === "class")?.value.split(/\s+/) ??
+            [],
+        ),
+        parent,
         tag: node.tagName,
-      })
-      walk(node.content?.childNodes ?? node.childNodes)
+      }
+      found.push(element)
+      walk(node.content?.childNodes ?? node.childNodes, element)
     }
   }
   walk(parseFragment(markup).childNodes)
   return found
 }
 
-export const HTML_SCRIPT_RULES = [
+const insideClass = (element, name) =>
+  !!element.parent &&
+  (element.parent.classes.has(name) || insideClass(element.parent, name))
+
+const HTML_SCRIPT_RULES = [
   {
     covers: (path, tags) => [...tags.values()].includes(path),
     lines: (elements, tags) =>
@@ -1665,20 +1675,31 @@ export const HTML_SCRIPT_RULES = [
     covers: (path) => path === "css/js/checkbox.js",
     lines: (elements) =>
       elements.some(({ attrs }) => attrs.has("data-indeterminate"))
-        ? [
-            'import { activateIndeterminate } from "opui-css/css/js/checkbox.js"',
-            "",
-            "activateIndeterminate()",
-          ]
+        ? ['import "opui-css/css/js/checkbox.js"']
         : [],
   },
   {
     covers: (path) => path === "css/js/range.js",
     lines: (elements) =>
       elements.some(
-        ({ attrs, tag }) => tag === "output" && attrs.has("data-live"),
+        (element) =>
+          (element.tag === "output" && element.attrs.has("data-live")) ||
+          (element.tag === "option" &&
+            element.attrs.has("label") &&
+            element.parent?.tag === "datalist" &&
+            insideClass(element, "ui-range")),
       )
         ? ['import "opui-css/css/js/range.js"']
+        : [],
+  },
+  {
+    covers: (path) => path === "elements/close-on-navigate.js",
+    lines: (elements) =>
+      elements.some(
+        ({ attrs, tag }) =>
+          tag === "dialog" && attrs.has("data-close-on-navigate"),
+      )
+        ? ['import "opui-css/elements/close-on-navigate.js"']
         : [],
   },
 ]
@@ -1736,7 +1757,7 @@ export const htmlFromRender = async (rendered, source, file, { read } = {}) => {
   return html
 }
 
-export const EXAMPLE_ASTRO_CONFIG = { compressHTML: false, logLevel: "error" }
+const EXAMPLE_ASTRO_CONFIG = { compressHTML: false, logLevel: "error" }
 
 export const createRenderer = async () => {
   const { getViteConfig } = await import("astro/config")

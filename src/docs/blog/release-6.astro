@@ -40,14 +40,15 @@ const newComponents = addedComponents(
           themes to prove it, blocks, the Theme builder and a lot more docs.
         </li>
         <li>
-          Why a major: 105 breaking entries, the first major since 5.0, 31 of
+          Why a major: 115 breaking entries, the first major since 5.0, 31 of
           them plain renames.
         </li>
         <li>
           What stayed: CSS first, HTML as a first-class target, feature first.
         </li>
         <li>
-          Where to go next: <DocLink href="/guide/migrating">Migrating</DocLink>
+          Where to go next:
+          <DocLink class="ui-link" href="/guide/migrating">Migrating</DocLink>
           for the mechanics, this post for the reasons.
         </li>
       </ul>
@@ -502,7 +503,7 @@ const newComponents = addedComponents(
         replaces it).
       </li>
       <li>
-        The explorer above holds the 119 renames the migration guide documents
+        The explorer above holds the 131 renames the migration guide documents
         as pairs; structural changes (slots to parts) are in the guide only.
       </li>
     </ul>
@@ -656,9 +657,11 @@ const newComponents = addedComponents(
     @media (prefers-reduced-motion: no-preference) {
       section > h2,
       section > :global(:not(h2)) {
-        animation: release-reveal linear backwards;
+        animation-fill-mode: backwards;
+        animation-name: release-reveal;
         animation-range: entry 0% entry 30%;
         animation-timeline: view();
+        animation-timing-function: linear;
       }
     }
   }

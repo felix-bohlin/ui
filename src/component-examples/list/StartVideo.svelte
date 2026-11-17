@@ -3,7 +3,7 @@
 </script>
 
 <List>
-  <ListItem description="Supporting text" label="Headline">
+  <ListItem description="Uploaded by Lou Headstock" label="Slap tutorial">
     {#snippet start()}
       <video controls muted>
         <source
@@ -12,9 +12,9 @@
         />
       </video>
     {/snippet}
-    {#snippet end()}13:37{/snippet}
+    {#snippet end()}1:30{/snippet}
   </ListItem>
-  <ListItem description="Supporting text" label="Headline">
+  <ListItem description="Uploaded by Percy Groove" label="Drop D in 45 seconds">
     {#snippet start()}
       <video controls muted>
         <source
@@ -23,6 +23,6 @@
         />
       </video>
     {/snippet}
-    {#snippet end()}90s{/snippet}
+    {#snippet end()}0:45{/snippet}
   </ListItem>
 </List>

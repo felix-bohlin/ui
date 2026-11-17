@@ -1,4 +1,18 @@
 @layer components.compat {
+  @supports not (inline-size: if(else: 0px)) {
+    :where(.ui-carousel) {
+      scroll-behavior: smooth;
+
+      @container style(--ui-motion: 0) {
+        scroll-behavior: auto;
+      }
+
+      &.ui-motion-off {
+        scroll-behavior: auto;
+      }
+    }
+  }
+
   @supports not (overflow-inline: auto) {
     :where(.ui-carousel) {
       overflow-x: auto;

@@ -9,7 +9,7 @@ import Usage from "./partials/Usage.astro"
 import {
   Avatar as UIAvatar,
   Message as UIMessage,
-  Messages as UIMessages,
+  MessageList as UIMessageList,
   ToggleButton as UIToggleButton,
   ToggleGroup as UIToggleGroup,
 } from "opui-css/astro"
@@ -18,7 +18,7 @@ import AvatarCSS from "@opui/css/components/avatar.css?raw"
 import MessageCSS from "@opui/css/components/message.css?raw"
 
 import messageApi from "../../component-api/message/api"
-import messagesApi from "../../component-api/messages/api"
+import messageListApi from "../../component-api/message-list/api"
 
 export const description =
   "Chat bubbles that group by sender, with attachments, reactions and a typing indicator."
@@ -31,7 +31,7 @@ export const keywords = ["chat", "chat bubble", "conversation"]
   slug="message"
   heroAnatomy
   apis={[
-    { title: "Messages API", api: messagesApi },
+    { title: "Message list API", api: messageListApi },
     { title: "Message API", api: messageApi },
   ]}
   browserSupport={[
@@ -39,16 +39,21 @@ export const keywords = ["chat", "chat bubble", "conversation"]
     "container-queries",
     "container-style-queries",
     "corner-shape",
+    "dir-pseudo",
     "has",
     "lh",
   ]}
+  fallbacks={{
+    "corner-shape":
+      "Without `corner-shape`, the bubbles keep plain rounded corners.",
+  }}
   changelogPaths={[
     { path: "packages/opui/components/Message", type: "component" },
     { path: "src/docs/components/message.astro", type: "docs" },
     { path: "src/component-examples/message", type: "docs" },
     { path: "packages/opui/css/components/message.css", type: "css" },
     { path: "src/component-api/message", type: "api" },
-    { path: "src/component-api/messages", type: "api" },
+    { path: "src/component-api/message-list", type: "api" },
   ]}
   installationTabs={[
     { title: "message.css", code: MessageCSS, lang: "css" },
@@ -67,12 +72,13 @@ export const keywords = ["chat", "chat bubble", "conversation"]
 
   <Fragment slot="anatomy">
     <Anatomy>
-      <UIMessages aria-label="Messages with Saga" style="inline-size: 22rem">
-        <UIMessage author="Saga" datetime="2026-10-08T14:31" time="14:31">
-          <UIAvatar aria-label="Saga Nyström" role="img" slot="start"
-            >SN</UIAvatar
-          >
-          <p>Here's the current draft.</p>
+      <UIMessageList
+        aria-label="Messages with Stella"
+        style="inline-size: 22rem"
+      >
+        <UIMessage author="Stella" datetime="2026-10-08T14:31" time="14:31">
+          <UIAvatar aria-hidden="true" slot="start">SN</UIAvatar>
+          <p>Here's my totally rad new bass line.</p>
           <Fragment slot="end">Read</Fragment>
           <UIToggleGroup
             aria-label="Reactions"
@@ -85,7 +91,7 @@ export const keywords = ["chat", "chat bubble", "conversation"]
             >
           </UIToggleGroup>
         </UIMessage>
-      </UIMessages>
+      </UIMessageList>
     </Anatomy>
   </Fragment>
 
@@ -116,7 +122,10 @@ export const keywords = ["chat", "chat bubble", "conversation"]
     <h2>Group chat</h2>
     <p>
       Mark each change of sender with
-      <PropOrClass prop="newAuthor" class=".ui-new-author" />.
+      <PropOrClass prop="newAuthor" class=".ui-new-author" />. Put a date or an
+      event, like someone joining, in an <code>li.ui-divider</code>. Every child
+      of <PropOrClass prop="MessageList" class=".ui-message-list" /> is an
+      <code>li</code>, since it's a list.
     </p>
     <AutoExample name="GroupChat" />
   </section>
@@ -157,7 +166,17 @@ export const keywords = ["chat", "chat bubble", "conversation"]
         Name the list with <code>aria-label</code>. Keep
         <code>role="list"</code> for Safari.
       </li>
+      <li>
+        Keep every child an <code>li</code>: a <code>div</code> or
+        <code>p</code> in the list breaks it for screen readers, without a sign
+        on screen.
+      </li>
       <li>Put the time in a <code>&lt;time datetime&gt;</code>.</li>
+      <li>
+        Wrap the list of a live conversation in
+        <code>&lt;div role="log" aria-label="…"&gt;</code> so screen readers
+        announce new messages. The list keeps its items and count.
+      </li>
     </ul>
   </Fragment>
 

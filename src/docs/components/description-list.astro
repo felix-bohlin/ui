@@ -19,7 +19,7 @@ import descriptionListItemApi from "../../component-api/description-list-item/ap
 import DescriptionListBuild from "../../components/UnderTheHood/DescriptionListBuild.astro"
 
 export const description =
-  "Description lists are used to display a list of terms and their descriptions."
+  "A list of terms and their values, like order details or totals."
 
 export const keywords = ["dl", "key value", "properties"]
 ---
@@ -55,6 +55,10 @@ export const keywords = ["dl", "key value", "properties"]
   ]}
 >
   <Fragment slot="title">Description list</Fragment>
+  <Fragment slot="preamble">
+    Labels with their values, like order details. For one key number, use a
+    <DocLink href="/components/stat">Stat</DocLink>.
+  </Fragment>
 
   <Usage slot="usage">
     <li slot="when">Labels with values, like order details.</li>
@@ -77,11 +81,11 @@ export const keywords = ["dl", "key value", "properties"]
     <AutoExample name="Basics" />
   </section>
 
-  <section id="bordered">
-    <h2>Bordered</h2>
+  <section id="border">
+    <h2>Border</h2>
     <p>
-      Use <PropOrClass prop="bordered" class=".ui-bordered" />, and
-      <PropOrClass prop="dotted" class=".ui-dotted" /> for dots.
+      Use <PropOrClass prop='border="solid"' class=".ui-border-solid" />, or
+      <PropOrClass prop='border="dotted"' class=".ui-border-dotted" /> for dots.
     </p>
     <AutoExample name="Bordered" column spacious />
   </section>
@@ -93,7 +97,7 @@ export const keywords = ["dl", "key value", "properties"]
       <PropOrClass prop='orientation="horizontal"' class=".ui-horizontal" /> to
       keep a row.
     </p>
-    <AutoExample name="Orientation" />
+    <AutoExample name="Orientation" column spacious />
   </section>
 
   <section id="total">
@@ -102,14 +106,28 @@ export const keywords = ["dl", "key value", "properties"]
     <AutoExample name="Total" />
   </section>
 
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Screen readers read each <code>dt</code> as a term and each
+        <code>dd</code> as its definition. The <code>div</code> around a pair
+        adds nothing to what they announce.
+      </li>
+      <li>
+        The leader lines of a bordered list aren't read, so a term and its value
+        have to make sense one after the other.
+      </li>
+    </ul>
+  </Fragment>
+
   <DescriptionListBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>
       <UIDescriptionList style="inline-size: 16rem">
         <UIDescriptionListItem>
-          <UIDescriptionListTerm>Price</UIDescriptionListTerm>
-          <UIDescriptionListDescription>6 950 000</UIDescriptionListDescription>
+          <UIDescriptionListTerm>Order number</UIDescriptionListTerm>
+          <UIDescriptionListDescription>10482</UIDescriptionListDescription>
         </UIDescriptionListItem>
       </UIDescriptionList>
     </Anatomy>

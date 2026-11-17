@@ -11,7 +11,7 @@ export default function Labels() {
   return (
     <Stepper
       aria-label="Kassans steg"
-      completedLabel=", klar"
+      completeLabel=", klar"
       current={2}
       errorLabel=", fel"
       items={items}

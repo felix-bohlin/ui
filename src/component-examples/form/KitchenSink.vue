@@ -17,30 +17,30 @@ import {
 } from "opui-css/vue"
 
 const roleItems = [
-  { label: "Designer", value: "design" },
-  { label: "Developer", value: "dev" },
-  { label: "Manager", value: "manager" },
+  { label: "Bassist", value: "bass" },
+  { label: "Drummer", value: "drums" },
+  { label: "Guitarist", value: "guitar" },
 ]
 </script>
 
 <template>
   <Form id="form-kitchen-sink-1">
-    <Fieldset>
-      <FieldLegend>User profile</FieldLegend>
-      <FieldDescription>
-        Please provide your basic contact details.
+    <Fieldset aria-describedby="form-kitchen-sink-2-description">
+      <FieldLegend>Your Bassbook profile</FieldLegend>
+      <FieldDescription id="form-kitchen-sink-2-description">
+        Heyyy, tell us who you are so your fans can find you.
       </FieldDescription>
       <FieldGroup>
         <TextField
           autocomplete="name"
           label="Full name"
-          placeholder="Jane Doe"
+          placeholder="Holly Humbucker"
           required
         />
         <TextField
           autocomplete="email"
           label="Email address"
-          placeholder="jane@example.com"
+          placeholder="rory@lowend.example"
           required
           type="email"
         />
@@ -48,10 +48,10 @@ const roleItems = [
       </FieldGroup>
     </Fieldset>
     <Divider />
-    <Fieldset>
+    <Fieldset aria-describedby="form-kitchen-sink-3-description">
       <FieldLegend>Notifications</FieldLegend>
-      <FieldDescription>
-        Configure how you want to receive updates.
+      <FieldDescription id="form-kitchen-sink-3-description">
+        Pick how we tell you about new pokes and gig invites.
       </FieldDescription>
       <FieldGroup>
         <Switch checked name="email_notifs">Email notifications</Switch>
@@ -59,9 +59,11 @@ const roleItems = [
       </FieldGroup>
     </Fieldset>
     <Divider />
-    <Fieldset>
-      <FieldLegend>Theme preference</FieldLegend>
-      <FieldDescription>Select your preferred visual style.</FieldDescription>
+    <Fieldset aria-describedby="form-kitchen-sink-4-description">
+      <FieldLegend>Profile theme</FieldLegend>
+      <FieldDescription id="form-kitchen-sink-4-description"
+        >Pick the look of your awesome profile page.</FieldDescription
+      >
       <FieldGroup name="theme">
         <Radio checked value="light">Light theme</Radio>
         <Radio value="dark">Dark theme</Radio>
@@ -69,31 +71,34 @@ const roleItems = [
       </FieldGroup>
     </Fieldset>
     <Divider />
-    <Fieldset>
-      <FieldLegend>Experience level</FieldLegend>
-      <FieldDescription
-        >How many years of experience do you have?</FieldDescription
+    <Fieldset aria-describedby="form-kitchen-sink-5-description">
+      <FieldLegend>Bass experience</FieldLegend>
+      <FieldDescription id="form-kitchen-sink-5-description"
+        >How many years have you held down the low end?</FieldDescription
       >
       <FieldGroup>
         <Range
-          label="Professional experience"
+          label="Years of playing"
           max="20"
           min="0"
-          startText="Drag the slider to match your total tenure."
+          startText="Drag the slider, and yes, the years on guitar count less."
           step="1"
           value="5"
         />
       </FieldGroup>
     </Fieldset>
     <Divider />
-    <Fieldset>
-      <FieldLegend>Additional info</FieldLegend>
-      <FieldDescription>Anything else we should know?</FieldDescription>
+    <Fieldset aria-describedby="form-kitchen-sink-6-description">
+      <FieldLegend>About you</FieldLegend>
+      <FieldDescription id="form-kitchen-sink-6-description"
+        >Favorite strings, dream rig, the band that ignores
+        you?</FieldDescription
+      >
       <FieldGroup>
         <Textarea
           label="Biography"
           name="biography"
-          placeholder="Tell us about yourself..."
+          placeholder="I play a fretless 5-string and nobody watches me..."
           :rows="4"
         />
       </FieldGroup>
@@ -103,17 +108,18 @@ const roleItems = [
       <FieldLegend>Legal</FieldLegend>
       <FieldGroup>
         <Checkbox name="terms" required>
-          I agree to the terms and conditions
+          I agree to the Bassbook terms and conditions
           <template #end-text
-            >You can withdraw your consent at any time.</template
+            >You can withdraw your consent at any time, no hard
+            feelings.</template
           >
         </Checkbox>
       </FieldGroup>
     </Fieldset>
     <Divider />
     <FieldGroup>
-      <Button type="submit" variant="filled">Send</Button>
       <Button>Cancel</Button>
+      <Button type="submit" variant="filled">Send</Button>
     </FieldGroup>
   </Form>
 </template>

@@ -13,6 +13,7 @@ import {
   INSTANCE_INPUTS,
   OVERRIDE_HOOKS,
   parseThemeTokens,
+  sectionKey,
   setThemeToken,
   themeTokenSections,
   themeTokens,
@@ -112,6 +113,7 @@ describe("theme tokens", () => {
       "Choice controls",
       "Elevation",
       "Overlays",
+      "Safe areas",
     ])
   })
 
@@ -158,6 +160,30 @@ describe("theme tokens", () => {
     expect(find("--ui-radius")).toBeDefined()
   })
 
+  test("the parser skips print-only values", () => {
+    const parsed = parseThemeTokens(`@layer theme.base {
+  :where(html) {
+    /* Color scheme */
+    --x-scheme: light;
+  }
+
+  :where(html.ui-dark) {
+    --x-scheme: dark;
+  }
+
+  @media print {
+    :where(html),
+    .ui-dark {
+      --x-scheme: print;
+    }
+  }
+}
+`)
+    expect(parsed.flatMap(({ tokens }) => tokens)).toEqual([
+      { dark: "dark", name: "--x-scheme", value: "light" },
+    ])
+  })
+
   test("the parser reads light, dark, more-contrast and optional values", () => {
     const parsed = parseThemeTokens(`@layer theme.base {
   :where(html) {
@@ -185,6 +211,10 @@ describe("theme tokens", () => {
 
   .ui-card {
     --x-card: 1;
+  }
+
+  :where(html:dir(rtl)) {
+    --x-motion: -1;
   }
 
   @container style(--ui-contrast: more) {
@@ -239,6 +269,23 @@ describe("theme tokens", () => {
       "--ui-color-scheme",
       "--ui-contrast",
       "--ui-ease-move",
+      "--ui-icon-check",
+      "--ui-icon-clear",
+      "--ui-icon-close",
+      "--ui-icon-critical",
+      "--ui-icon-decrease",
+      "--ui-icon-expand",
+      "--ui-icon-hide",
+      "--ui-icon-increase",
+      "--ui-icon-info",
+      "--ui-icon-invalid",
+      "--ui-icon-next",
+      "--ui-icon-rating",
+      "--ui-icon-rating-empty",
+      "--ui-icon-show",
+      "--ui-icon-sort",
+      "--ui-icon-success",
+      "--ui-icon-warning",
       "--ui-link-focus",
     ])
   })
@@ -387,6 +434,20 @@ describe("theme tokens", () => {
       $extensions: { opui: { optional: true, tier: "hook" } },
     })
     expect(json.state["ui-selected"].$value).toBeUndefined()
+  })
+
+  test("tokens.json groups have fixed keys, not slugs of the theme.css comments", () => {
+    expect(Object.keys(tokensJson())).toEqual(
+      expect.arrayContaining([
+        "field",
+        "instance-inputs",
+        "intent",
+        "named-colors",
+      ]),
+    )
+    expect(() => sectionKey("Field and input")).toThrow(
+      'The theme.css section "Field and input" has no key',
+    )
   })
 
   test("every scope that sets --ui-palette-source re-derives the palette", () => {

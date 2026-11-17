@@ -16,7 +16,7 @@ import listItemApi from "../../component-api/list-item/api"
 import ListBuild from "../../components/UnderTheHood/ListBuild.astro"
 
 export const description =
-  "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it."
+  "Rows of similar items, like contacts, files or settings, with icons, controls and links."
 
 export const keywords = ["listbox", "menu list", "ul"]
 ---
@@ -56,6 +56,10 @@ export const keywords = ["listbox", "menu list", "ul"]
   installationTabs={[{ title: "list.css", code: ListCSS, lang: "css" }]}
 >
   <Fragment slot="title">List</Fragment>
+  <Fragment slot="preamble">
+    Rows of similar items, like contacts, files or settings. For data in
+    columns, use a <DocLink href="/components/table">Table</DocLink>.
+  </Fragment>
 
   <Usage slot="usage">
     <li slot="when">Rows of similar items, like contacts or files.</li>
@@ -128,7 +132,24 @@ export const keywords = ["listbox", "menu list", "ul"]
     <AutoExample name="Clickable" />
 
     <h3 id="selected">Selected item</h3>
-    <p>Add <code>aria-current="page"</code> to the link.</p>
+    <p>
+      Add <code>aria-current="page"</code> to the link. Any other value but
+      <code>false</code> looks the same, like <code>true</code> on a button. The
+      row gets a bar on its start edge. In a list with
+      <code>role="listbox"</code>, the selected option gets a check at the end
+      instead, like the current item of a
+      <DocLink href="/components/menu#current-item">Menu</DocLink>.
+    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The <code>icon-checked</code> slot of a <code>ListItem</code> shows your
+        own icon at the end while the row is selected or current.
+      </Fragment>
+      <Fragment slot="html">
+        A <code>.ui-icon-checked</code> at the end of the row shows your own
+        icon while the row is selected or current.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Selected" />
   </section>
 
@@ -176,7 +197,7 @@ export const keywords = ["listbox", "menu list", "ul"]
     <h3 id="checkbox">Checkbox</h3>
     <Conditional as="p">
       <Fragment slot="components">
-        Set <code>type="checkbox"</code> with a <code>CheckboxInput</code>.
+        Set <code>choice="checkbox"</code> with a <code>CheckboxInput</code>.
       </Fragment>
       <Fragment slot="html">
         Wrap the content in <code>&lt;label class="ui-checkbox"&gt;</code>.
@@ -187,16 +208,28 @@ export const keywords = ["listbox", "menu list", "ul"]
     <h3 id="radio">Radio</h3>
     <Conditional as="p">
       <Fragment slot="components">
-        Set <code>type="radio"</code> with a <code>RadioInput</code>.
+        Set <code>choice="radio"</code> with a <code>RadioInput</code>, and name
+        the group with a <code>Fieldset</code> and a <code>FieldLegend</code>.
       </Fragment>
       <Fragment slot="html">
-        Wrap the content in <code>&lt;label class="ui-radio"&gt;</code>.
+        Wrap the content in <code>&lt;label class="ui-radio"&gt;</code>, and
+        name the group with a <code>&lt;fieldset&gt;</code> and a
+        <code>&lt;legend&gt;</code>.
       </Fragment>
     </Conditional>
     <AutoExample name="EndRadio" />
 
     <h3 id="switch">Switch</h3>
     <AutoExample name="EndSwitch" />
+  </section>
+
+  <section id="ordered">
+    <h2>Ordered</h2>
+    <p>
+      When the order is the content, like a ranking or steps, render an
+      <PropOrClass prop='as="ol"' class="ol" /> so it's announced as one.
+    </p>
+    <AutoExample name="Ordered" column />
   </section>
 
   <section id="inset">
@@ -257,8 +290,8 @@ export const keywords = ["listbox", "menu list", "ul"]
     <Anatomy api={listItemApi} zoom={1.25}>
       <UIList style="inline-size: 18rem">
         <ListItem
-          label="Headline"
-          description="Supporting text"
+          label="Lou Headstock"
+          description="Flatwound collector"
           href="#clickable-list-item"
         >
           <svg
@@ -274,16 +307,44 @@ export const keywords = ["listbox", "menu list", "ul"]
               d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
             ></path>
           </svg>
-          <div slot="end">100+</div>
+          <div slot="end">Owner</div>
+        </ListItem>
+        <ListItem
+          aria-current="true"
+          label="Ozzy Thump"
+          description="Slap enthusiast"
+          href="#selected"
+        >
+          <svg
+            aria-hidden="true"
+            slot="start"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
+            ></path>
+          </svg>
+          <svg
+            slot="icon-checked"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="m9 12 2 2 4-4"></path>
+          </svg>
         </ListItem>
       </UIList>
     </Anatomy>
   </Fragment>
 </Component>
-
-<style is:global>
-  .tab-panel ul {
-    margin: 0 auto;
-    max-inline-size: 40ch;
-  }
-</style>

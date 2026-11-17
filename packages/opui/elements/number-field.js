@@ -4,7 +4,7 @@ const COMMANDS = { "--step-down": -1, "--step-up": 1 }
 const HOLD_DELAY = 400
 const HOLD_INTERVAL = 80
 
-export class NumberField extends Base {
+export class NumberFieldElement extends Base {
   #controller
   #held = false
   #interval
@@ -40,7 +40,15 @@ export class NumberField extends Base {
     )
     this.#observer = new MutationObserver(() => this.#sync())
     this.#observer.observe(this, {
-      attributeFilter: ["disabled", "max", "min", "readonly", "value"],
+      attributeFilter: [
+        "aria-disabled",
+        "disabled",
+        "max",
+        "min",
+        "readonly",
+        "value",
+      ],
+      childList: true,
       subtree: true,
     })
     this.#sync()
@@ -53,19 +61,16 @@ export class NumberField extends Base {
     this.#release()
   }
 
-  step(direction) {
-    const input = this.input
-    if (!input || input.disabled || input.readOnly) return
-    const before = input.value
-    try {
-      if (direction > 0) input.stepUp()
-      else input.stepDown()
-    } catch {
-      return
-    }
-    if (input.value === before) return
-    input.dispatchEvent(new Event("input", { bubbles: true }))
-    input.dispatchEvent(new Event("change", { bubbles: true }))
+  stepDown() {
+    this.#step(-1)
+  }
+
+  stepUp() {
+    this.#step(1)
+  }
+
+  #inert(element) {
+    return element.getAttribute("aria-disabled") === "true"
   }
 
   #button(command) {
@@ -74,7 +79,7 @@ export class NumberField extends Base {
 
   #click(event) {
     const direction = this.#directionOf(event.target)
-    if (direction && !this.#held) this.step(direction)
+    if (direction && !this.#held) this.#step(direction)
   }
 
   #directionOf(target) {
@@ -87,7 +92,7 @@ export class NumberField extends Base {
     const direction = this.#directionOf(event.target)
     if (!direction) return
     event.preventDefault()
-    this.step(direction)
+    this.#step(direction)
   }
 
   #hold(event) {
@@ -99,7 +104,7 @@ export class NumberField extends Base {
     this.#timeout = setTimeout(() => {
       this.#interval = setInterval(() => {
         this.#held = true
-        this.step(direction)
+        this.#step(direction)
       }, HOLD_INTERVAL)
     }, HOLD_DELAY)
   }
@@ -112,11 +117,25 @@ export class NumberField extends Base {
     })
   }
 
+  #step(direction) {
+    const input = this.input
+    if (!input || input.disabled || input.readOnly || this.#inert(input)) return
+    const before = input.value
+    try {
+      if (direction > 0) input.stepUp()
+      else input.stepDown()
+    } catch {
+      return
+    }
+    if (input.value === before) return
+    input.dispatchEvent(new Event("input", { bubbles: true }))
+    input.dispatchEvent(new Event("change", { bubbles: true }))
+  }
+
   #sync() {
     const input = this.input
     if (!input) return
     const value = input.valueAsNumber
-    const locked = input.disabled || input.readOnly
     const limits = {
       "--step-down": input.min !== "" && value <= Number(input.min),
       "--step-up": input.max !== "" && value >= Number(input.max),
@@ -124,12 +143,16 @@ export class NumberField extends Base {
     for (const [command, atLimit] of Object.entries(limits)) {
       const button = this.#button(command)
       if (!button) continue
-      if (locked || atLimit) button.setAttribute("aria-disabled", "true")
-      else button.removeAttribute("aria-disabled")
+      if (button.disabled !== input.disabled) button.disabled = input.disabled
+      const inert = input.readOnly || atLimit || this.#inert(input)
+      if (inert !== this.#inert(button)) {
+        if (inert) button.setAttribute("aria-disabled", "true")
+        else button.removeAttribute("aria-disabled")
+      }
     }
   }
 }
 
 if (globalThis.customElements && !customElements.get("opui-number-field")) {
-  customElements.define("opui-number-field", NumberField)
+  customElements.define("opui-number-field", NumberFieldElement)
 }

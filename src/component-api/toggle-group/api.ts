@@ -16,7 +16,7 @@ export default {
     },
     {
       description:
-        "In a single-select group, moves focus to the previous or next button and checks it, wrapping around at the ends (Safari stops at the first and the last). Left and Right follow the reading direction. A multi-select group ignores them.",
+        "In a single-select group, moves focus to the previous or next button and checks it, wrapping around at the ends (Safari stops at the first and the last). Left and Right follow the reading direction in Chromium and Firefox; Safari always takes Left as the previous button. A multi-select group ignores them.",
       keys: ["Up Arrow", "Down Arrow", "Left Arrow", "Right Arrow"],
     },
   ],
@@ -77,6 +77,13 @@ export default {
         shrink: ".ui-overflow-shrink",
         wrap: null,
       },
+    },
+    {
+      description:
+        "The `role` of the root, such as `toolbar`. Without it, `radiogroup`, or `group` with `multiple`.",
+      inherited: true,
+      prop: "role",
+      type: "string",
     },
     {
       default: '"medium"',

@@ -9,6 +9,7 @@ import type { Props, Slots } from "./types.vue-props"
 const {
   as,
   borderTop,
+  choice,
   color,
   description,
   disabled,
@@ -16,7 +17,6 @@ const {
   href,
   inset,
   label,
-  type,
 } = defineProps<Props>()
 const slots = defineSlots<Slots>()
 
@@ -27,7 +27,7 @@ defineOptions({
 const attrs = useAttrs() as HTMLAttributes
 
 const hasControl = computed(
-  () => type === "checkbox" || type === "radio" || type === "switch",
+  () => choice === "checkbox" || choice === "radio" || choice === "switch",
 )
 
 const Tag = computed(() =>
@@ -59,7 +59,7 @@ const hasDescription = () => !!description || slots.description
       v-bind="{
         ...(hasControl ? {} : tagAttrs(Tag, disabled, href)),
         ...defined(restOnItem ? {} : attrs),
-        ...classAttrs([hasControl && `ui-${type}`]),
+        ...classAttrs([hasControl && `ui-${choice}`]),
       }"
       ><div v-if="$slots.start" class="ui-start">
         <slot name="start"></slot>
@@ -73,7 +73,13 @@ const hasDescription = () => !!description || slots.description
       </div>
       <slot v-else></slot>
       <div v-if="$slots.end" class="ui-end">
-        <slot name="end"></slot></div
+        <slot name="end"></slot>
+      </div>
+      <span
+        v-if="$slots['icon-checked']"
+        aria-hidden="true"
+        class="ui-icon-checked"
+        ><slot name="icon-checked"></slot></span
     ></component>
     <template v-else
       ><div v-if="$slots.start" class="ui-start">
@@ -88,7 +94,13 @@ const hasDescription = () => !!description || slots.description
       </div>
       <slot v-else></slot>
       <div v-if="$slots.end" class="ui-end">
-        <slot name="end"></slot></div></template
+        <slot name="end"></slot>
+      </div>
+      <span
+        v-if="$slots['icon-checked']"
+        aria-hidden="true"
+        class="ui-icon-checked"
+        ><slot name="icon-checked"></slot></span></template
     ><TrimmedSlot :nodes="$slots.submenu?.()" />
   </li>
 </template>

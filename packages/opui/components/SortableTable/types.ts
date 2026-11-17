@@ -1,10 +1,12 @@
+import type { SortDetail } from "../../elements/sortable-table.js"
+
 export type Props = {
   ascendingLabel?: string
   descendingLabel?: string
 }
 
-export type SortDetail = {
-  column: number
-  direction: "ascending" | "descending"
-  header: HTMLTableCellElement
+export type Events = {
+  sort: CustomEvent<SortDetail>
 }
+
+export type { SortDetail }

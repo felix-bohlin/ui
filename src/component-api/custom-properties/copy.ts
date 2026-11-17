@@ -23,8 +23,8 @@ export default {
   },
   "--_ease": {
     description:
-      "Easing of the reveal and the fade. Defaults to `--ui-ease-enter`.",
-    kind: "input",
+      "Easing of the reveal and the fade. `--ui-ease-enter` while opening and `--ui-ease-exit` while closing.",
+    kind: "output",
   },
   "--_font-size": {
     description:

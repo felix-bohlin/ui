@@ -1,6 +1,10 @@
 import { describe, expect, test } from "vitest"
 import type { ComponentFramework } from "../../src/component-api/frameworks"
 import { render } from "./renderers"
+import CalloutAstro from "../../packages/opui/components/Callout/Callout.astro"
+import CalloutReact from "../../packages/opui/components/Callout/Callout.react"
+import CalloutSvelte from "../../packages/opui/components/Callout/Callout.svelte"
+import CalloutVue from "../../packages/opui/components/Callout/Callout.vue"
 import DialogAstro from "../../packages/opui/components/Dialog/Dialog.astro"
 import DialogReact from "../../packages/opui/components/Dialog/Dialog.react"
 import DialogSvelte from "../../packages/opui/components/Dialog/Dialog.svelte"
@@ -9,6 +13,10 @@ import NumberFieldAstro from "../../packages/opui/components/NumberField/NumberF
 import NumberFieldReact from "../../packages/opui/components/NumberField/NumberField.react"
 import NumberFieldSvelte from "../../packages/opui/components/NumberField/NumberField.svelte"
 import NumberFieldVue from "../../packages/opui/components/NumberField/NumberField.vue"
+import OneTimeCodeAstro from "../../packages/opui/components/OneTimeCode/OneTimeCode.astro"
+import OneTimeCodeReact from "../../packages/opui/components/OneTimeCode/OneTimeCode.react"
+import OneTimeCodeSvelte from "../../packages/opui/components/OneTimeCode/OneTimeCode.svelte"
+import OneTimeCodeVue from "../../packages/opui/components/OneTimeCode/OneTimeCode.vue"
 import RangeAstro from "../../packages/opui/components/Range/Range.astro"
 import RangeReact from "../../packages/opui/components/Range/Range.react"
 import RangeSvelte from "../../packages/opui/components/Range/Range.svelte"
@@ -21,6 +29,10 @@ import TextFieldAstro from "../../packages/opui/components/TextField/TextField.a
 import TextFieldReact from "../../packages/opui/components/TextField/TextField.react"
 import TextFieldSvelte from "../../packages/opui/components/TextField/TextField.svelte"
 import TextFieldVue from "../../packages/opui/components/TextField/TextField.vue"
+import TextareaAstro from "../../packages/opui/components/Textarea/Textarea.astro"
+import TextareaReact from "../../packages/opui/components/Textarea/Textarea.react"
+import TextareaSvelte from "../../packages/opui/components/Textarea/Textarea.svelte"
+import TextareaVue from "../../packages/opui/components/Textarea/Textarea.vue"
 
 type Components = Record<ComponentFramework, unknown>
 
@@ -40,7 +52,7 @@ const renderWithIds = (
     : render[framework](component, props)
 
 const ID_ATTRIBUTES =
-  /\s(?:id|for|list|aria-labelledby|aria-describedby|aria-controls)="([^"]*)"/g
+  /\s(?:id|for|list|aria-labelledby|aria-describedby|aria-controls|commandfor)="([^"]*)"/g
 
 const idsIn = (html: string) =>
   [...html.matchAll(ID_ATTRIBUTES)].flatMap((match) =>
@@ -56,6 +68,18 @@ const CASES: {
   prefix: string
   props: Record<string, unknown>
 }[] = [
+  {
+    base: (html) => /<opui-callout[^>]*\sid="([^"]+)"/.exec(html)?.[1],
+    components: {
+      astro: CalloutAstro,
+      react: CalloutReact,
+      svelte: CalloutSvelte,
+      vue: CalloutVue,
+    },
+    name: "Callout",
+    prefix: "callout",
+    props: { closeButton: true },
+  },
   {
     base: (html) =>
       /aria-labelledby="([^"]+)-title"/.exec(html)?.[1] ?? undefined,
@@ -84,6 +108,18 @@ const CASES: {
   {
     base: inputId,
     components: {
+      astro: OneTimeCodeAstro,
+      react: OneTimeCodeReact,
+      svelte: OneTimeCodeSvelte,
+      vue: OneTimeCodeVue,
+    },
+    name: "OneTimeCode",
+    prefix: "one-time-code",
+    props: { endText: "E", label: "L" },
+  },
+  {
+    base: inputId,
+    components: {
       astro: RangeAstro,
       react: RangeReact,
       svelte: RangeSvelte,
@@ -100,7 +136,7 @@ const CASES: {
     },
   },
   {
-    base: (html) => /\sid="([^"]+)-label"/.exec(html)?.[1],
+    base: (html) => /<select[^>]*\sid="([^"]+)"/.exec(html)?.[1],
     components: {
       astro: SelectAstro,
       react: SelectReact,
@@ -127,6 +163,18 @@ const CASES: {
     name: "TextField",
     prefix: "text-field",
     props: { endText: "E", label: "L", passwordToggle: true, startText: "S" },
+  },
+  {
+    base: (html) => /<textarea[^>]*\sid="([^"]+)"/.exec(html)?.[1],
+    components: {
+      astro: TextareaAstro,
+      react: TextareaReact,
+      svelte: TextareaSvelte,
+      vue: TextareaVue,
+    },
+    name: "Textarea",
+    prefix: "textarea",
+    props: { endText: "E", label: "L", startText: "S" },
   },
 ]
 

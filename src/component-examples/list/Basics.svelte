@@ -3,12 +3,12 @@
 </script>
 
 <List>
-  <ListItem label="Headline" />
+  <ListItem label="Gig poster.pdf" />
   <ListItem
-    description="Supporting text that truly is quite long enough to fill up multiple lines."
-    label="Headline"
+    description="Our logo in every color, with the bass drawn way bigger than the drum kit, at last."
+    label="Band logo pack.pdf"
   />
-  <ListItem label="Trailing supporting text">
+  <ListItem label="Photos">
     {#snippet end()}100+{/snippet}
   </ListItem>
 </List>

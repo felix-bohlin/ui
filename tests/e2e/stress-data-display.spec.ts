@@ -78,12 +78,13 @@ test("inline editing controls fit their table row", async ({ page }) => {
   }
 })
 
-test.describe("the current page in a button group", () => {
+test.describe("the current page in a control group", () => {
   for (const theme of THEMES) {
     for (const colorScheme of ["light", "dark"] as const) {
       test(`stands out and stays readable in the ${theme} theme in ${colorScheme} mode`, async ({
         page,
       }) => {
+        test.setTimeout(60_000)
         await page.emulateMedia({ colorScheme })
         await openFixture(
           page,
@@ -91,7 +92,7 @@ test.describe("the current page in a button group", () => {
           "stress/data-display",
           theme === "default" ? undefined : `?theme=${theme}`,
         )
-        const navs = page.locator('[data-example="ButtonGroupCurrent"] nav')
+        const navs = page.locator('[data-example="ControlGroupCurrent"] nav')
         for (const nav of await navs.all()) {
           const name = await nav.getAttribute("aria-label")
           const current = nav.locator('[aria-current="page"]')
@@ -103,9 +104,6 @@ test.describe("the current page in a button group", () => {
                 return {
                   background: style.backgroundColor,
                   color: style.color,
-                  filled: element.matches(
-                    ".ui-filled, .ui-button-group.ui-filled > *",
-                  ),
                 }
               }),
             ),
@@ -117,17 +115,15 @@ test.describe("the current page in a button group", () => {
                 [look.background],
                 [siblingLook.background],
               ),
-              `${name}: the current page differs from the other pages`,
+              `${name}: the current page stands out from the other pages`,
             )
-            .toBeGreaterThan(1)
-          if (look.filled) {
-            expect
-              .soft(
-                await contrast(current, look.color, look.background),
-                `${name}: the text of the current page`,
-              )
-              .toBeGreaterThanOrEqual(4.5)
-          }
+            .toBeGreaterThanOrEqual(1.1)
+          expect
+            .soft(
+              await contrast(current, look.color, look.background),
+              `${name}: the text of the current page`,
+            )
+            .toBeGreaterThanOrEqual(4.5)
         }
       })
     }

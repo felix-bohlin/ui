@@ -4,7 +4,7 @@ import { createTwoFilesPatch } from "diff"
 import { createElement, type ComponentType } from "react"
 import type { Component as SvelteComponent } from "svelte"
 import type { Component as VueComponent } from "vue"
-import { describe, expect, test, vi } from "vitest"
+import { beforeAll, describe, expect, test, vi } from "vitest"
 import { readExample } from "../../scripts/build-examples.mjs"
 import { parseHtml, serialize } from "../../scripts/html-tokens.mjs"
 import {
@@ -231,6 +231,16 @@ const exposedSvgs = (
     }
     return exposedSvgs(node.children, inner)
   })
+
+beforeAll(
+  () =>
+    Promise.allSettled(
+      FRAMEWORKS.filter((framework) => cases[0]?.loaders[framework]).map(
+        (framework) => markup(cases[0], framework),
+      ),
+    ),
+  15_000,
+)
 
 describe.each(cases)("$key", (example) => {
   const frameworks = FRAMEWORKS.filter(

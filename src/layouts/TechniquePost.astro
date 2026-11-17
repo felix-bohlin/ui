@@ -54,7 +54,7 @@ const topic =
   {series && <nav aria-label="Series" class="blog-series ui-not-rich-text">
     <p>
       Part {series.part} of {series.total} in{" "}
-      <a href={link(`/blog#${series.id}`)}>{series.label}</a>
+      <a class="ui-link" href={link(`/blog#${series.id}`)}>{series.label}</a>
     </p>
     <ul>
       {series.previous && <li>

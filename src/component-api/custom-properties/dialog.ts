@@ -1,15 +1,6 @@
 import type { CustomProperties } from "../types"
 
 export default {
-  "--_backdrop-bg-color": {
-    description: "The backdrop color. Defaults to `--ui-backdrop-bg-color`.",
-    kind: "input",
-  },
-  "--_backdrop-blur": {
-    description:
-      "The backdrop filter. Defaults to a `--ui-backdrop-blur` blur.",
-    kind: "input",
-  },
   "--_duration": {
     description:
       "Duration of the open and close transitions and scroll shadows, `--ui-duration-slow` times `--_motion`.",

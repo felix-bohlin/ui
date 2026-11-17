@@ -10,19 +10,11 @@ import {
   run,
 } from "./stress-overlays"
 
-for (const {
-  failing,
-  failingIn,
-  name,
-  steps,
-  stillOpen = [],
-  top,
-} of SCENARIOS) {
+for (const { failingIn, name, steps, stillOpen = [], top } of SCENARIOS) {
   test(`${name} is on top and inside the viewport`, async ({
     browserName,
     page,
   }) => {
-    test.fail(!!failing, failing)
     failsIn(browserName, failingIn)
     test.skip(
       browserName !== "chromium" && steps.some((step) => "container" in step),

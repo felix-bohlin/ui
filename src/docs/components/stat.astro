@@ -13,12 +13,13 @@ import StatCSS from "@opui/css/components/stat.css?raw"
 
 import statApi from "../../component-api/stat/api"
 export const description =
-  "A stat shows one number with its label and the change behind it."
+  "A number with its label and its change, like revenue on a dashboard."
 
 export const keywords = ["kpi", "metric", "number"]
 ---
 
 <Component
+  browserSupport={[]}
   description={description}
   slug="stat"
   heroAnatomy
@@ -46,8 +47,8 @@ export const keywords = ["kpi", "metric", "number"]
 
   <Fragment slot="anatomy">
     <Anatomy>
-      <UIStat label="Visitors" style="inline-size: 14rem">
-        48 210
+      <UIStat label="Profile visitors" style="inline-size: 14rem">
+        48,210
         <Fragment slot="description">
           <span class="ui-caption ui-success">+12.4%</span> from last week
         </Fragment>
@@ -101,4 +102,17 @@ export const keywords = ["kpi", "metric", "number"]
       and the color only adds to it.
     </BlockLink>
   </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Screen readers read the label as a term, and the value and the
+        description as its definitions.
+      </li>
+      <li>
+        The color of a change isn't read, so keep its sign or a word in the
+        text, like <code>+12.4%</code>.
+      </li>
+    </ul>
+  </Fragment>
 </Component>

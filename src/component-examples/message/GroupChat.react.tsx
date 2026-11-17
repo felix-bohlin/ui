@@ -1,60 +1,46 @@
-import { Avatar, Message, Messages } from "opui-css/react"
+import { Avatar, Message, MessageList } from "opui-css/react"
 
 export default function GroupChat() {
   return (
-    <Messages aria-label="Messages in #design">
+    <MessageList aria-label="Messages in Low End Theory">
+      <li className="ui-divider">Today</li>
       <Message
-        author="Leila"
+        author="Lou"
         datetime="2026-10-08T09:12"
-        start={
-          <Avatar aria-label="Leila Haddad" role="img">
-            LH
-          </Avatar>
-        }
+        start={<Avatar aria-hidden="true">LH</Avatar>}
         time="09:12"
       >
-        <p>The new icons are ready.</p>
+        <p>My new pedalboard is ready.</p>
       </Message>
       <Message
-        author="Leila"
+        author="Lou"
         datetime="2026-10-08T09:13"
-        start={
-          <Avatar aria-label="Leila Haddad" role="img">
-            LH
-          </Avatar>
-        }
+        start={<Avatar aria-hidden="true">LH</Avatar>}
         time="09:13"
       >
-        <p>Can we review them today?</p>
+        <p>Can we jam with it today?</p>
       </Message>
       <Message
-        author="Omar"
+        author="Holly"
         datetime="2026-10-08T09:15"
         newAuthor
-        start={
-          <Avatar aria-label="Omar Saleh" role="img">
-            OS
-          </Avatar>
-        }
+        start={<Avatar aria-hidden="true">HH</Avatar>}
         time="09:15"
       >
-        <p>I'm free after lunch.</p>
+        <p>I'm free after lunch :)</p>
       </Message>
       <Message
-        author="Omar"
+        author="Holly"
         datetime="2026-10-08T09:16"
-        start={
-          <Avatar aria-label="Omar Saleh" role="img">
-            OS
-          </Avatar>
-        }
+        start={<Avatar aria-hidden="true">HH</Avatar>}
         time="09:16"
       >
-        <p>I'll book a room.</p>
+        <p>I'll book the rehearsal room.</p>
       </Message>
+      <li className="ui-divider">Holly added you</li>
       <Message author="You" datetime="2026-10-08T09:20" outgoing time="09:20">
-        <p>See you at one.</p>
+        <p>See you at one, bring snacks.</p>
       </Message>
-    </Messages>
+    </MessageList>
   )
 }

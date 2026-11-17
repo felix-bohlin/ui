@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import type { CalloutActionsProps as Props, Slots } from "./types.vue-props"
+import type {
+  CalloutActionsProps as Props,
+  CalloutActionsSlots,
+} from "./types.vue-props"
 
 defineProps<Props>()
-defineSlots<Slots>()
+defineSlots<CalloutActionsSlots>()
 </script>
 
 <template>

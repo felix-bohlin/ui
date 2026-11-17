@@ -3,18 +3,19 @@
 </script>
 
 <div class="example-row">
-  <Switch name="switch-validation" required>Default</Switch>
-  <Switch name="switch-validation" orientation="vertical" required>Stack</Switch
+  <Switch name="switch-validation" required>Two-step login</Switch>
+  <Switch name="switch-validation" orientation="vertical" required
+    >Usage reports</Switch
   >
 </div>
 
 <div class="example-row">
   <Switch defaultChecked error name="switch-validation">
-    Default
-    {#snippet endText()}Supporting text{/snippet}
+    Public profile
+    {#snippet endText()}Your organization keeps profiles private. Turn it off.{/snippet}
   </Switch>
   <Switch error name="switch-validation" orientation="vertical">
-    Stack
-    {#snippet endText()}Supporting text{/snippet}
+    Cloud backup
+    {#snippet endText()}Sync needs cloud backup. Turn it on to continue.{/snippet}
   </Switch>
 </div>

@@ -3,6 +3,19 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Textarea",
+  elements: [
+    {
+      members: [
+        {
+          description:
+            "The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only.",
+          kind: "property",
+          name: "control",
+        },
+      ],
+      tag: "opui-character-count",
+    },
+  ],
   css: ["text-field", "textarea"],
   keyboard: [
     {
@@ -21,9 +34,12 @@ export default {
     prop: "value",
     type: "string",
   },
-  notes: passThrough("textarea", "label", ["maxlength", "placeholder"], {
-    react: "Use `value` with `onChange`, or `defaultValue`.",
-  }),
+  notes: {
+    ...passThrough("textarea", ".ui-textarea", ["maxlength", "placeholder"], {
+      react: "Use `value` with `onChange`, or `defaultValue`.",
+    }),
+    html: 'For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. With a label, put a `<label class="ui-label" for>` inside the root that points at the field\'s `id`, so the label alone names it, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name.',
+  },
   options: [
     {
       class: ".ui-auto-fit",
@@ -38,16 +54,12 @@ export default {
       description:
         "Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count.",
       group: "Character count",
-      htmlDescription:
-        'Add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, and import `opui-css/elements/character-count.js`.',
       prop: "characterCount",
     },
     {
       default: '"Characters left: {count}"',
       description:
         "The announcement near the limit, with `{count}` for the characters left. Pass it translated.",
-      htmlDescription:
-        "Set the announcement as the `label` attribute of `<opui-character-count>`, with `{count}` for the characters left.",
       prop: "characterCountLabel",
     },
     {
@@ -78,18 +90,19 @@ export default {
       description:
         "Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.",
       group: "Label",
-      part: ".ui-textarea > span",
+      part: ".ui-textarea > label",
       prop: "hideLabel",
     },
     {
-      description: "The id of the `<textarea>`.",
+      description:
+        "The id of the `<textarea>`. The `<label for>` points at it, so the component generates one when it's left out and there's a label. The ids the component generates start with it: `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id=\"x\"`.",
       inherited: true,
       prop: "id",
       type: "string",
     },
     {
       description:
-        "The name of the `<textarea>`. Inside a `FieldGroup`, the group's `name` applies.",
+        "The name of the `<textarea>`. Inside a `FieldGroup`, the group's `name` when omitted.",
       inherited: true,
       prop: "name",
       type: "string",
@@ -157,7 +170,7 @@ export default {
     },
     {
       description:
-        "Content at the inline-start of the field, inside the border.",
+        "Content at the inline-start of the field, inside the border, centered on the first line. Taller content starts `--_affix-padding-block` below the field's top, or below `.ui-top`.",
       selector: ".ui-field > .ui-start",
       slots: ["start"],
     },
@@ -168,7 +181,8 @@ export default {
       selector: "textarea",
     },
     {
-      description: "Content at the inline-end of the field, inside the border.",
+      description:
+        "Content at the inline-end of the field, inside the border, centered on the first line. Taller content starts `--_affix-padding-block` below the field's top, or below `.ui-top`.",
       selector: ".ui-field > .ui-end",
       slots: ["end"],
     },
@@ -187,14 +201,15 @@ export default {
     {
       code: "<opui-character-count>",
       description:
-        "The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left.",
+        "The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left.",
       props: ["characterCount", "characterCountLabel"],
       selector: ".ui-end-text > .ui-value",
     },
   ],
   root: {
-    description: "Container element.",
-    selector: "label.ui-textarea",
+    description:
+      "Container element, a `<div>`. The label inside is a `<label for>` that names the textarea by itself.",
+    selector: ".ui-textarea",
   },
   slots: [
     {

@@ -23,10 +23,13 @@ import cardApi from "../../component-api/card/api"
 import cardActionsApi from "../../component-api/card-actions/api"
 import cardHeaderApi from "../../component-api/card-header/api"
 
+export const description = "A surface for related content and actions."
+
 export const keywords = ["panel", "surface", "tile"]
 ---
 
 <Component
+  description={description}
   slug="card"
   heroAnatomy
   apis={[
@@ -102,10 +105,16 @@ export const keywords = ["panel", "surface", "tile"]
 
   <section id="density">
     <h2>Density</h2>
-    <p>
-      Use <PropOrClass prop="density" class=".ui-spacious" /> or
-      <code>--ui-card-padding</code> to change density.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Use <code>density</code> or <code>--ui-card-padding</code> to change
+        density.
+      </Fragment>
+      <Fragment slot="html">
+        Use <code>.ui-dense</code>, <code>.ui-spacious</code> or
+        <code>--ui-card-padding</code> to change it.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Density" column />
   </section>
 
@@ -148,10 +157,16 @@ export const keywords = ["panel", "surface", "tile"]
 
   <section id="orientation">
     <h2>Orientation</h2>
-    <p>
-      An image first goes beside the content from <code>40rem</code>. Use
-      <PropOrClass prop="orientation" class=".ui-vertical" /> to fix it.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        An image first goes beside the content from <code>40rem</code>. Use
+        <code>orientation</code> to fix it.
+      </Fragment>
+      <Fragment slot="html">
+        An image first goes beside the content from <code>40rem</code>. Use
+        <code>.ui-horizontal</code> or <code>.ui-vertical</code> to fix it.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Orientation" column />
   </section>
 
@@ -183,6 +198,25 @@ export const keywords = ["panel", "surface", "tile"]
     </Conditional>
     <AutoExample name="Semantics" column />
   </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        A card is a <code>div</code> with no role, so screen readers read its
+        content in place. Make cards in a feed <code>article</code>s (see
+        <a href="#semantics">Semantics</a>).
+      </li>
+      <li>
+        A <code>section</code> card is a region only when it has a name, such as
+        <code>aria-labelledby</code> pointing at its heading.
+      </li>
+      <li>
+        In a clickable card, the link's name is the heading, so put what tells
+        the cards apart there. Buttons and links in the card stay their own tab
+        stops.
+      </li>
+    </ul>
+  </Fragment>
 
   <CardBuild slot="under-the-hood" />
 

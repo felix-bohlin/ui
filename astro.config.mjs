@@ -29,7 +29,14 @@ const legacyRedirects = {
   "/components": `${d}/components`,
   "/api": `${d}/api`,
   "/guide": `${d}/guide/getting-started`,
+  "/components/button-group": `${d}/components/control-group`,
   "/components/icon-button": `${d}/components/button#icon-only`,
+  ...Object.fromEntries(
+    FRAMEWORK_IDS.map((f) => [
+      `/${f}/components/button-group`,
+      `/${f}/components/control-group`,
+    ]),
+  ),
   ...Object.fromEntries(
     FRAMEWORK_IDS.map((f) => [
       `/${f}/components/icon-button`,
@@ -72,7 +79,7 @@ export default defineConfig({
   compressHTML: true,
   image: { service: passthroughImageService() },
   markdown: { syntaxHighlight: false },
-  site: "https://open-props-ui.netlify.app/",
+  site: "https://opui.dev/",
   redirects: legacyRedirects,
   integrations: [
     {
@@ -91,6 +98,10 @@ export default defineConfig({
   ],
   vite: {
     build: {
+      assetsInlineLimit: (file) =>
+        /\.woff2?$|\/packages\/opui\/(css\/js|elements)\/[^/]+\.js$/.test(file)
+          ? false
+          : undefined,
       dynamicImportVarsOptions: {
         exclude: [/node_modules\/(?!(\.pnpm\/)?microlighter)/],
       },
@@ -151,7 +162,7 @@ export default defineConfig({
       options: {
         variants: [
           {
-            src: ["./public/BricolageGrotesque[opsz,wdth,wght].ttf"],
+            src: ["./src/fonts/BricolageGrotesque[opsz,wght].woff2"],
             style: "normal",
             weight: "300 900",
             display: "swap",

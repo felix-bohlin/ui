@@ -2,7 +2,7 @@
 import { computed, provide, reactive } from "vue"
 import { AnchorKey } from "./context.vue"
 import { warnMissingId } from "../dev"
-import { mergeStyle } from "../style"
+import { mergeStyle, styleAttrs } from "../style"
 import { extendsAnchor } from "./root"
 import { classAttrs } from "../cx"
 import type { Props, Slots } from "./types.vue-props"
@@ -34,11 +34,16 @@ provide(
 
 <template>
   <span
-    v-bind="
-      classAttrs([!extendsAnchor($props.class) && 'ui-anchor', $props.class])
-    "
+    v-bind="{
+      ...classAttrs([
+        !extendsAnchor($props.class) && 'ui-anchor',
+        $props.class,
+      ]),
+      ...styleAttrs(
+        mergeStyle({ '--ui-anchor-position-area': positionArea }, {}),
+      ),
+    }"
     :id="isHover ? undefined : idProp"
-    :style="mergeStyle({ '--ui-anchor-position-area': positionArea }, {})"
   >
     <slot></slot>
   </span>

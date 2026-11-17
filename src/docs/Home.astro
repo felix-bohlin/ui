@@ -18,11 +18,10 @@ import ThemeQuickControls from "../components/ThemeQuickControls.astro"
 import VueLogo from "../components/VueLogo.astro"
 import Default from "../layouts/Default.astro"
 import { allBlocks, blockPreviewHref } from "../utils/blocks"
-import { components } from "../utils/components"
+import { componentName, components } from "../utils/components"
 import { formatInline } from "../utils/format-inline"
 import { FRAMEWORKS, hrefFor, type FrameworkId } from "../utils/framework"
 import { posts } from "../utils/blog-posts"
-import { componentName } from "../utils/names"
 import { releaseVersion } from "../utils/release"
 import { themeTokens, tokenTier } from "../utils/theme-tokens"
 
@@ -85,7 +84,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         <div class="hero-copy">
           <hgroup class="ui-hgroup">
             <p class="hero-version">
-              {releaseVersion}
+              <a href={link("/blog/release-6")}>v{releaseVersion}</a>
             </p>
 
             <h1 class="ui-h1" id="main-heading">Open Props UI</h1>
@@ -172,6 +171,12 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         </header>
 
         <ComponentShowcase />
+
+        <div class="hero-ctas">
+          <Button href={link("/components")} variant="outlined" color="primary">
+            Browse all {components.length} components
+          </Button>
+        </div>
       </section>
 
       <section class="sheet" aria-labelledby="blocks-heading">
@@ -392,7 +397,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
   html {
     --blueprint-ink: light-dark(var(--ui-color-11), var(--ui-color-5));
-    --blueprint-ink-strong: light-dark(var(--ui-color-13), var(--ui-color-2));
     --blueprint-line-major: light-dark(
       oklch(from var(--ui-color-9) l c h / 18%),
       oklch(from var(--ui-color-5) l c h / 16%)
@@ -507,7 +511,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     @media (width >= 900px) {
       align-items: center;
       gap: var(--size-10);
-      grid-template-columns: minmax(0, 7fr) minmax(0, 6fr);
+      grid-template-columns: minmax(24rem, 1fr) minmax(0, 38rem);
     }
   }
 
@@ -520,6 +524,15 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     .ui-chip {
       letter-spacing: normal;
       text-transform: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
@@ -543,15 +556,13 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     flex-wrap: wrap;
     gap: var(--size-2);
     margin-block-start: var(--size-5);
-
-    & :global(.astro-logo) {
-      color: currentColor;
-    }
   }
 
   /* Drawing, a button with dimension lines */
   .drawing {
+    container: drawing / inline-size;
     display: grid;
+    font-size: var(--ui-font-size-caption);
     gap: var(--size-4);
     justify-items: stretch;
     margin: 0;
@@ -559,7 +570,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
   .drawing-stage {
     align-items: center;
-    container-type: inline-size;
     display: flex;
     justify-content: center;
     min-block-size: 22rem;
@@ -729,7 +739,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     inset-inline-start: calc(anchor(right) + 1rem);
   }
 
-  @container (width < 30rem) {
+  @container drawing (width < 50em) {
     .drawing-stage {
       flex-direction: column;
       gap: var(--size-7);

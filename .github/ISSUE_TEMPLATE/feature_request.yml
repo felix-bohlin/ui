@@ -1,0 +1,20 @@
+name: Feature request
+description: A component, prop, token or docs page you're missing.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What you're trying to do
+      description: The interface you're building and where opui falls short today.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would help
+      description: The markup, prop or token you have in mind, if any.
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What you do instead now

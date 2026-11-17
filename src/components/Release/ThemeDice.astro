@@ -32,12 +32,12 @@ const { link } = Astro.locals
   <div class="theme-dice-stage ui-palette">
     <Card class="theme-dice-card" variant="elevated">
       <CardHeader>
-        <h3>Invite a teammate</h3>
-        <p>They get an email with a link that works for seven days.</p>
+        <h3>Invite a bandmate</h3>
+        <p>They get a totally rad link that works for seven days.</p>
       </CardHeader>
       <CardContent>
         <div class="theme-dice-meta">
-          <Chip label="Pro plan" size="small" variant="tonal" />
+          <Chip label="Bassbook Gold" size="small" variant="tonal" />
           <Badge hideLabel label="3 pending invites">
             <svg
               aria-hidden="true"
@@ -57,13 +57,13 @@ const { link } = Astro.locals
         <TextField
           label="Email"
           name="theme-dice-email"
-          placeholder="name@example.com"
+          placeholder="bassist@lowend.example"
           type="email"
         />
         <Select label="Role" name="theme-dice-role">
-          <option>Editor</option>
-          <option>Owner</option>
-          <option>Viewer</option>
+          <option>Admin</option>
+          <option>Fan</option>
+          <option>Member</option>
         </Select>
         <Checkbox label="Send me a copy" name="theme-dice-copy" />
       </CardContent>

@@ -23,7 +23,7 @@ const attrs = useAttrs() as HTMLAttributes
 
 const uid = useId()
 
-const titleId = computed(() => `${attrs.id ?? `dialog-${uid}`}-title`)
+const titleId = computed(() => `${attrs.id || `dialog-${uid}`}-title`)
 
 const labelledBy = computed(() => autoLabelledBy(attrs, titleId.value))
 

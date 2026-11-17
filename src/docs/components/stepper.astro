@@ -17,7 +17,7 @@ import stepperItemApi from "../../component-api/stepper-item/api"
 import stepperApi from "../../component-api/stepper/api"
 
 export const description =
-  "Shows where someone is in a flow of steps, such as a checkout."
+  "A list of steps that shows where someone is in a flow, like a checkout."
 
 export const keywords = ["progress steps", "wizard"]
 ---
@@ -30,7 +30,12 @@ export const keywords = ["progress steps", "wizard"]
     { title: "Stepper API", api: stepperApi },
     { title: "Stepper item API", api: stepperItemApi },
   ]}
-  browserSupport={["container-queries", "container-style-queries", "has"]}
+  browserSupport={[
+    "alt-text-generated-content",
+    "container-queries",
+    "container-style-queries",
+    "has",
+  ]}
   changelogPaths={[
     { path: "packages/opui/components/Stepper", type: "component" },
     { path: "src/docs/components/stepper.astro", type: "docs" },
@@ -75,7 +80,7 @@ export const keywords = ["progress steps", "wizard"]
           label="Account"
         >
           <svg
-            slot="icon-checked"
+            slot="icon-complete"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -113,6 +118,10 @@ export const keywords = ["progress steps", "wizard"]
 
   <section id="sizes">
     <h2>Sizes</h2>
+    <p>
+      Use <PropOrClass prop='size="small"' class=".ui-small" /> for tight
+      spaces.
+    </p>
 
     <AutoExample name="Sizes" />
   </section>
@@ -128,13 +137,18 @@ export const keywords = ["progress steps", "wizard"]
     <h2>Custom check</h2>
     <Conditional as="p">
       <Fragment slot="html"
-        >Put an icon in <code>.ui-icon-checked</code>.</Fragment
+        >Put an icon in <code>.ui-icon-complete</code>.</Fragment
       >
       <Fragment slot="components"
-        >Put an icon in <code>StepperItem</code>'s <code>icon-checked</code
+        >Put an icon in <code>StepperItem</code>'s <code>icon-complete</code
         >.</Fragment
       >
     </Conditional>
+    <p>
+      To change the check of every step, and of menus and selects, set
+      <code>--ui-icon-check</code> to an image, like <code>url(check.svg)</code
+      >.
+    </p>
 
     <AutoExample name="CustomCheck" />
   </section>
@@ -162,7 +176,7 @@ export const keywords = ["progress steps", "wizard"]
     <h2>Screen reader labels</h2>
     <Conditional as="p">
       <Fragment slot="components"
-        >Translate with <code>completedLabel</code> and <code>errorLabel</code
+        >Translate with <code>completeLabel</code> and <code>errorLabel</code
         >.</Fragment
       >
       <Fragment slot="html"
@@ -185,9 +199,12 @@ export const keywords = ["progress steps", "wizard"]
   <section id="narrow">
     <h2>Narrow containers</h2>
     <p>
-      Stacks under <code>32rem</code>.
+      Stacks under <code>32rem</code>, whatever the labels. For longer labels,
+      such as translated ones, set
+      <PropOrClass prop='orientation="vertical"' class=".ui-vertical" /> under a
+      breakpoint of your own.
       <PropOrClass prop='orientation="horizontal"' class=".ui-horizontal" />
-      keeps it in a row.
+      never stacks, and wraps the steps onto another row when they don't fit.
     </p>
 
     <AutoExample name="Narrow" />
@@ -211,10 +228,11 @@ export const keywords = ["progress steps", "wizard"]
     <p>
       <code>li.ui-complete</code> and
       <code>li:has(~ [aria-current="step"])</code> fill the marker with
-      <code>--_accent</code> and cut <code>--_check-image</code> out of it with
-      <code>mask-composite: exclude</code>. A <code>.ui-icon-checked</code>
-      child turns the mask off and shows instead. <code>li.ui-error</code> cuts
-      <code>--_error-image</code> out of a <code>--ui-invalid</code> fill.
+      <code>--_accent</code> and cut <code>--_marker-complete-image</code> out
+      of it with <code>mask-composite: exclude</code>. A
+      <code>.ui-icon-complete</code> child turns the mask off and shows instead.
+      <code>li.ui-error</code> cuts <code>--_marker-error-image</code> out of a
+      <code>--ui-invalid</code> fill.
     </p>
     <p>
       <code>.ui-horizontal</code> and <code>.ui-vertical</code> set

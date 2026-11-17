@@ -6,6 +6,7 @@ import ToggleButtonSvelte from "../../packages/opui/components/ToggleButton/Togg
 import ToggleButtonVue from "../../packages/opui/components/ToggleButton/ToggleButton.vue"
 import ToggleGroupReact from "../../packages/opui/components/ToggleGroup/ToggleGroup.react"
 import ToggleGroupVue from "../../packages/opui/components/ToggleGroup/ToggleGroup.vue"
+import GroupedDefaultCheckedSvelte from "./fixtures/GroupedDefaultChecked.svelte"
 import GroupedToggleSvelte from "./fixtures/GroupedToggle.svelte"
 import { render } from "./renderers"
 
@@ -81,6 +82,18 @@ describe("ToggleButton checked", () => {
       ),
       "one warning per framework",
     ).toHaveLength(3)
+    warn.mockRestore()
+  })
+
+  test("a group's value wins over a tab's or button's defaultChecked in Svelte, with a warning", async () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {})
+    expect(
+      checkedInputs(await render.svelte(GroupedDefaultCheckedSvelte)),
+    ).toEqual(["profile", "left"])
+    expect(warn.mock.calls.map(([message]) => String(message))).toEqual([
+      expect.stringContaining("`checked` is ignored inside a Tabs"),
+      expect.stringContaining("`checked` is ignored inside a ToggleGroup"),
+    ])
     warn.mockRestore()
   })
 })

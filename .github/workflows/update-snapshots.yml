@@ -11,6 +11,27 @@ permissions:
   pull-requests: write
 
 jobs:
+  cancel-ci:
+    if: github.event_name == 'workflow_dispatch' || (github.event.label.name == 'update-snapshots' && github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-latest
+    outputs:
+      cancelled: ${{ steps.cancel.outputs.cancelled }}
+    steps:
+      - name: Cancel the CI runs on the branch
+        id: cancel
+        run: |
+          ids=$(gh run list --workflow ci.yml --branch "$BRANCH" --limit 20 --json databaseId,status --jq '.[] | select(.status != "completed") | .databaseId')
+          for id in $ids; do
+            if gh run cancel "$id"; then
+              echo "cancelled=true" >> "$GITHUB_OUTPUT"
+              echo "::notice::Cancelled CI run $id on $BRANCH, CI runs again once the baselines are updated"
+            fi
+          done
+        env:
+          BRANCH: ${{ github.head_ref || github.ref_name }}
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+
   update:
     if: github.event_name == 'workflow_dispatch' || (github.event.label.name == 'update-snapshots' && github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-latest
@@ -22,7 +43,16 @@ jobs:
       comment: ${{ steps.report.outputs.comment }}
       pushed: ${{ steps.commit.outputs.pushed }}
     steps:
-      - run: apt-get update && apt-get install --yes --no-install-recommends git-lfs
+      - run: |
+          for attempt in 1 2 3; do
+            if apt-get -o Acquire::Retries=5 update && apt-get -o Acquire::Retries=5 install --yes --no-install-recommends git-lfs; then
+              break
+            fi
+            if [ "$attempt" = 3 ]; then
+              exit 1
+            fi
+            sleep 20
+          done
       - uses: actions/checkout@v7
         with:
           ref: ${{ github.head_ref || github.ref_name }}
@@ -36,7 +66,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: node scripts/baseline-changes.mjs record "$RUNNER_TEMP/before.json"
-      - run: rm -rf tests/e2e/__screenshots__ && pnpm test:e2e:update tests/e2e/visual.spec.ts tests/e2e/themes.spec.ts
+      - run: rm -rf tests/e2e/__screenshots__ && pnpm test:e2e:update $(grep -l toHaveScreenshot tests/e2e/*.spec.ts)
         env:
           HOME: /root
       - name: Commit updated snapshots
@@ -119,8 +149,8 @@ jobs:
           PR: ${{ github.event.pull_request.number }}
 
   run-ci:
-    needs: update
-    if: needs.update.outputs.pushed == 'true'
+    needs: [cancel-ci, update]
+    if: always() && (needs.update.outputs.pushed == 'true' || needs.cancel-ci.outputs.cancelled == 'true')
     runs-on: ubuntu-latest
     steps:
       - run: gh workflow run ci.yml --ref "$BRANCH"

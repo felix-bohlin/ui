@@ -4,17 +4,17 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem label="Headline">
-      <template #end>30kB</template>
+    <ListItem label="Slap lesson 3.pdf">
+      <template #end>2.4 MB</template>
     </ListItem>
-    <ListItem description="Supporting text" label="Headline">
-      <template #end>99%</template>
+    <ListItem description="Uploaded by Lou Headstock" label="Band photo.jpg">
+      <template #end>860 kB</template>
     </ListItem>
     <ListItem
-      description="Supporting text that truly is quite long enough to fill up multiple lines."
-      label="Headline"
+      description="Every root note of the setlist, with a tiny drawing of where the drummer should look when it changes."
+      label="Bass charts.pdf"
     >
-      <template #end>100+</template>
+      <template #end>12 MB</template>
     </ListItem>
   </List>
 </template>

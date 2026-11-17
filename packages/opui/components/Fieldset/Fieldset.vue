@@ -28,7 +28,7 @@ const isFieldset = computed(() => Tag === "fieldset")
 const legendId = computed(() =>
   isFieldset.value
     ? undefined
-    : autoLabelledBy(attrs, `${attrs.id ?? `fieldset-${uid}`}-legend`),
+    : autoLabelledBy(attrs, `${attrs.id || `fieldset-${uid}`}-legend`),
 )
 
 provide(FieldsetKey, reactive({ legendId }))

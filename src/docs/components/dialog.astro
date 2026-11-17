@@ -1,5 +1,6 @@
 ---
 import Component from "../../layouts/Component.astro"
+import DefaultIcon from "./partials/DefaultIcon.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
 import DocLink from "../../components/DocLink.astro"
@@ -30,7 +31,7 @@ import dialogHeaderApi from "../../component-api/dialog-header/api"
 import DialogBuild from "../../components/UnderTheHood/DialogBuild.astro"
 
 export const description =
-  "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use."
+  "A window over the page for a question or a short task, modal or not."
 
 export const keywords = ["lightbox", "modal", "overlay", "popup"]
 ---
@@ -60,6 +61,16 @@ export const keywords = ["lightbox", "modal", "overlay", "popup"]
     "starting-style",
     "transition-behavior",
   ]}
+  fallbacks={{
+    "container-scroll-state-queries":
+      "Without scroll-state queries, long content scrolls without the shadows that mark more content above or below.",
+    "dialog-closedby":
+      "Without `closedby`, a modal dialog closes with Esc whatever the value, and a click outside doesn't close it. The [polyfill](/guide/browser-support#polyfills) adds it.",
+    "display-animation":
+      "Without display animation, the dialog disappears at once instead of fading out.",
+    overlay:
+      "Without `overlay`, the backdrop disappears as soon as the dialog starts to close, and the page can cover the dialog while it fades out.",
+  }}
   changelogPaths={[
     {
       path: "packages/opui/components/Dialog/Dialog.astro",
@@ -106,10 +117,6 @@ export const keywords = ["lightbox", "modal", "overlay", "popup"]
 
     <h3 id="modal">Modal</h3>
     <Conditional as="p">
-      <Fragment slot="components">
-        Set <code>closeLabel</code> on <code>DialogHeader</code> for a close
-        button.
-      </Fragment>
       <Fragment slot="html">
         Point <code>aria-labelledby</code> at the heading.
       </Fragment>
@@ -166,6 +173,40 @@ export const keywords = ["lightbox", "modal", "overlay", "popup"]
     </p>
 
     <AutoExample name="LongContent" row />
+  </section>
+
+  <section id="close-button">
+    <h2>Close button</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>closeButton</code> on <code>DialogHeader</code> to add it. It
+        says "Close" unless you translate it with <code>closeLabel</code>, like
+        the other
+        <DocLink href="/guide/accessibility#built-in-labels"
+          >built-in labels</DocLink
+        >.
+      </Fragment>
+      <Fragment slot="html">
+        Translate its <code>aria-label</code>, like the other
+        <DocLink href="/guide/accessibility#built-in-labels"
+          >built-in labels</DocLink
+        >.
+      </Fragment>
+    </Conditional>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The button closes the <code>Dialog</code> it is in. A header outside a
+        <code>Dialog</code>, in a <code>&lt;dialog&gt;</code> of your own or in
+        an island on an Astro page, can't find the dialog to close: set
+        <code>commandfor</code> to its <code>id</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Point its <code>commandfor</code> at the dialog's <code>id</code>.
+      </Fragment>
+    </Conditional>
+    <DefaultIcon slots={["close-icon"]} tokens={["--ui-icon-close"]} />
+
+    <AutoExample name="CloseButton" row />
   </section>
 
   <section id="how-to-close">
@@ -236,8 +277,6 @@ export const keywords = ["lightbox", "modal", "overlay", "popup"]
       </TableRow>
     </DocsTable>
 
-    <KeyboardSupport />
-
     <p>
       Source:
       <a
@@ -252,5 +291,7 @@ export const keywords = ["lightbox", "modal", "overlay", "popup"]
       >
       wraps focus with a script. A native modal dialog doesn't need one.
     </p>
+
+    <KeyboardSupport />
   </Fragment>
 </Component>

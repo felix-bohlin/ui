@@ -32,6 +32,10 @@
     padding: var(--_padding);
     position: relative;
 
+    @media print {
+      break-inside: avoid;
+    }
+
     &:not(
       .ui-critical,
       .ui-info,
@@ -56,6 +60,22 @@
       --_outlined-icon-text-color: var(--ui-palette-accent);
       --_outlined-text-color: var(--ui-palette-strong);
       --_text-color: var(--ui-palette-strong);
+    }
+
+    &.ui-critical {
+      --_icon-image: var(--ui-icon-critical);
+    }
+
+    &.ui-info {
+      --_icon-image: var(--ui-icon-info);
+    }
+
+    &.ui-success {
+      --_icon-image: var(--ui-icon-success);
+    }
+
+    &.ui-warning {
+      --_icon-image: var(--ui-icon-warning);
     }
 
     &.ui-outlined {
@@ -103,7 +123,7 @@
     * Can't make sure contrast will be acceptable (yet) so we use the current text color instead.
     */
     &:not(.ui-outlined) {
-      a[href] {
+      a[href]:where(:not([class*="ui-"]), .ui-link) {
         color: inherit;
 
         &:where(:not([class*="ui-"])) {
@@ -135,6 +155,32 @@
       }
     }
 
+    &:is(.ui-critical, .ui-info, .ui-success, .ui-warning) > svg:empty {
+      background-color: currentColor;
+      mask: var(--_icon-image) center / contain no-repeat;
+
+      @media (forced-colors: active) {
+        background-color: CanvasText;
+      }
+
+      @media print {
+        print-color-adjust: exact;
+      }
+    }
+
+    & > .ui-button > svg:empty {
+      background-color: currentColor;
+      mask: var(--ui-icon-close) center / contain no-repeat;
+
+      @media (forced-colors: active) {
+        background-color: ButtonText;
+      }
+
+      @media print {
+        print-color-adjust: exact;
+      }
+    }
+
     /* Actions and close button */
     &:where(:not(.ui-toaster *)):has(> .ui-actions, > .ui-button) {
       align-content: start;
@@ -160,6 +206,10 @@
         margin-block: calc(-1 * var(--ui-space-1));
         margin-inline-start: var(--ui-space-2);
       }
+    }
+
+    &:not(:defined) > .ui-button[command="--dismiss"] {
+      display: none;
     }
 
     & > .ui-actions {

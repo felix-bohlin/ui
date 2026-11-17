@@ -8,9 +8,9 @@ export default function Clickable() {
       <ListItem href="#clickable-list-item" label="Recent files" />
       <ListItem disabled href="#clickable-list-item" label="Shared drives" />
       <ListItem
+        choice="checkbox"
         end={<CheckboxInput />}
         label="Show hidden files"
-        type="checkbox"
       />
     </List>
   )

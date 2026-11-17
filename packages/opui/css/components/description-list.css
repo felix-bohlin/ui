@@ -9,7 +9,7 @@
     margin: 0;
     padding: 0;
 
-    &.ui-bordered.ui-dotted {
+    &.ui-border-dotted {
       --_border-style: dotted;
       --_border-width: var(--ui-border-width-thick);
     }
@@ -46,18 +46,18 @@
 
       &.ui-total {
         border-block-start: var(--ui-border-width) solid var(--ui-border-color);
+        color: var(--ui-text-strong);
         font-size: var(--ui-font-size-large);
         font-weight: var(--ui-font-weight-bold);
         padding-block-start: var(--ui-space-3);
 
-        dd,
-        dt {
-          color: var(--ui-text-strong);
+        dd {
+          color: inherit;
         }
       }
     }
 
-    &.ui-bordered > div {
+    &:is(.ui-border-dotted, .ui-border-solid) > div {
       grid-template-columns: auto 1fr auto;
 
       dt {

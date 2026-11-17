@@ -52,8 +52,11 @@ const couldMatch = (compound, tag, classes) => {
   const type = compound.find((simple) => simple.type === "type")
   if (type && type.name !== tag) return false
   const named = compound.filter((simple) => simple.type === "class")
-  if (named.length > 0) {
-    return named.some((simple) => classes.includes(simple.name))
+  if (
+    named.length > 0 &&
+    !named.some((simple) => classes.includes(simple.name))
+  ) {
+    return false
   }
   const nested = compound.filter(
     (simple) =>
@@ -153,7 +156,7 @@ const tagsOf = (node, component) => {
 const isBlock = (tags) =>
   tags.length > 0 && tags.every((tag) => BLOCK_TAGS.has(tag))
 
-export const layoutOf = (component) => {
+const layoutOf = (component) => {
   const uaOuter = (node) =>
     isBlock(tagsOf(node, component)) ? "block" : "inline"
   const outer = (node) => {

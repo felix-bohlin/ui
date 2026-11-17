@@ -51,12 +51,29 @@ export default {
       type: "(value: string) => void",
     },
     {
-      default: '"wrap"',
+      default: '"horizontal"',
       description:
-        'What the tabs do when they don\'t fit. `"wrap"` wraps them onto more rows, and `"scroll"` keeps them on one row and scrolls it sideways.',
+        "The orientation of the tabs. `vertical` stacks them in a column at the inline start, with the panel beside them.",
+      group: "Orientation",
+      prop: "orientation",
+      values: { horizontal: null, vertical: ".ui-vertical" },
+    },
+    {
+      default: '"scroll"',
+      description:
+        "What the tabs do when they don't fit. `scroll` keeps them on one row and scrolls it sideways, and `wrap` wraps them onto more rows. Vertical tabs ignore it: long labels wrap within the column.",
       group: "Overflow",
       prop: "overflow",
-      values: { scroll: ".ui-overflow-scroll", wrap: null },
+      values: { scroll: null, wrap: ".ui-overflow-wrap" },
+    },
+    {
+      attribute: '[role="radiogroup"]',
+      description:
+        "Makes tabs without panels a radio group, which `aria-label` names. Tabs with panels take no role: the root holds the panels, and a radio group holds only radios.",
+      group: "Role",
+      inherited: true,
+      prop: "role",
+      type: "string",
     },
     {
       default: '"tonal"',

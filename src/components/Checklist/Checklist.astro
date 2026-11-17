@@ -1,5 +1,8 @@
 ---
 import {
+  Accordion,
+  AccordionContent,
+  AccordionSummary,
   Button,
   Checkbox,
   Chip,
@@ -24,12 +27,19 @@ import { plainText, replyOf } from "../../utils/todo"
 
 type Props = {
   file: string
+  previews?: boolean
   replies: string[]
   source: string
   storageKey: string
 }
 
-const { file, replies, source, storageKey } = Astro.props
+const { file, previews, replies, source, storageKey } = Astro.props
+
+const widths = [
+  { label: "Full", value: "full" },
+  { label: "Tablet", value: "tablet" },
+  { label: "Phone", value: "phone" },
+]
 
 const { intro, sections } = parseChecklist(source)
 const items = sections.flatMap((section) => section.items)
@@ -99,7 +109,7 @@ const doneIn = (list: typeof items) =>
     <kbd>j</kbd>
     <kbd>k</kbd> next and previous, <kbd>x</kbd> check, <kbd>e</kbd> open,
     <kbd>c</kbd> comment, <kbd>1</kbd> to <kbd>{replies.length}</kbd> quick
-    replies, <kbd>/</kbd> filter.
+    replies,{previews && <><kbd>p</kbd> preview,</>} <kbd>/</kbd> filter.
   </p>
 
   <div class="review-empty ui-not-rich-text" id="checks-empty" hidden>
@@ -211,6 +221,56 @@ const doneIn = (list: typeof items) =>
         >
           <div class="review-body-content">
             <TodoNotes notes={item.notes} />
+            {previews && item.pages.length > 0 && <Accordion
+              class="checks-preview"
+              variant="outlined"
+            >
+              <AccordionSummary>
+                {item.pages.length === 1
+                  ? `Preview: ${item.pages[0].label}`
+                  : `Preview (${item.pages.length} pages)`}
+              </AccordionSummary>
+              <AccordionContent>
+                <div class="checks-preview-bar">
+                  {item.pages.length > 1 && <ToggleGroup
+                    aria-label="Page"
+                    class="checks-preview-pages"
+                    name={`check-${item.key}-page`}
+                    overflow="scroll"
+                    size="x-small"
+                    value={item.pages[0].href}
+                  >
+                    {item.pages.map((page) => <ToggleButton value={page.href}
+                      >{page.label}</ToggleButton
+                    >)}
+                  </ToggleGroup>}
+                  <ToggleGroup
+                    aria-label="Preview width"
+                    class="checks-preview-widths"
+                    name={`check-${item.key}-width`}
+                    size="x-small"
+                    value="full"
+                  >
+                    {widths.map((width) => <ToggleButton value={width.value}
+                      >{width.label}</ToggleButton
+                    >)}
+                  </ToggleGroup>
+                  <a
+                    class="ui-link checks-preview-open"
+                    href={item.pages[0].href}
+                    rel="noopener"
+                    target="_blank"
+                    >Open in a new tab</a
+                  >
+                </div>
+                <div class="checks-preview-stage" data-width="full">
+                  <iframe
+                    data-src={item.pages[0].href}
+                    title={`${item.pages[0].label} preview`}
+                  ></iframe>
+                </div>
+              </AccordionContent>
+            </Accordion>}
             <div class="review-reply">
               <div
                 aria-label="Quick replies"
@@ -878,15 +938,94 @@ const doneIn = (list: typeof items) =>
     } else if (reply && item) {
       setOpen(item, true)
       quickReply(item, reply.dataset.quickReply!)
+    } else if (event.key === "p" && item?.querySelector(".checks-preview")) {
+      setOpen(item, true)
+      const preview = item.querySelector<HTMLDetailsElement>(".checks-preview")!
+      preview.open = !preview.open
     } else return
     event.preventDefault()
   })
+
+  for (const preview of root.querySelectorAll<HTMLDetailsElement>(
+    ".checks-preview",
+  )) {
+    const frame = preview.querySelector("iframe")!
+    const link = preview.querySelector<HTMLAnchorElement>(
+      ".checks-preview-open",
+    )!
+    const stage = preview.querySelector<HTMLElement>(".checks-preview-stage")!
+    preview.addEventListener("toggle", () => {
+      if (preview.open && !frame.getAttribute("src"))
+        frame.src = frame.dataset.src!
+    })
+    for (const input of preview.querySelectorAll<HTMLInputElement>(
+      ".checks-preview-pages input",
+    )) {
+      input.addEventListener("change", () => {
+        frame.dataset.src = input.value
+        frame.src = input.value
+        frame.title = `${input.closest("label")!.textContent!.trim()} preview`
+        link.href = input.value
+      })
+    }
+    for (const input of preview.querySelectorAll<HTMLInputElement>(
+      ".checks-preview-widths input",
+    )) {
+      input.addEventListener("change", () => {
+        stage.dataset.width = input.value
+      })
+    }
+  }
 
   render()
   applyFilter()
 </script>
 
 <style>
+  .checks-preview-bar {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2) var(--size-3);
+    margin-block-end: var(--size-3);
+  }
+
+  .checks-preview-open {
+    font-size: var(--ui-font-size-small);
+    margin-inline-start: auto;
+  }
+
+  .checks-preview-stage {
+    background: repeating-linear-gradient(
+      -45deg,
+      oklch(from var(--ui-text) l c h / 6%) 0 6px,
+      transparent 6px 12px
+    );
+    border-radius: var(--ui-radius);
+    display: grid;
+    justify-items: center;
+
+    iframe {
+      background-color: var(--ui-surface);
+      block-size: min(75dvb, 760px);
+      border: var(--ui-border-width) solid var(--ui-border-color);
+      border-radius: var(--ui-radius);
+      inline-size: 100%;
+
+      @media (prefers-reduced-motion: no-preference) {
+        transition: inline-size var(--ui-duration) var(--ui-ease);
+      }
+    }
+
+    &[data-width="phone"] iframe {
+      inline-size: min(100%, 390px);
+    }
+
+    &[data-width="tablet"] iframe {
+      inline-size: min(100%, 768px);
+    }
+  }
+
   .checks-item {
     &[data-stage="done"] .review-toggle {
       color: var(--ui-text);

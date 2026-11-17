@@ -9,6 +9,7 @@ import {
   FRAMEWORKS,
 } from "../src/utils/framework.js"
 import { barrelExports } from "../src/utils/package-source.js"
+import { loadCatalog } from "./catalog.mjs"
 
 const ROOT = fileURLToPath(new URL("..", import.meta.url))
 const DIST = path.resolve(ROOT, "dist")
@@ -58,6 +59,7 @@ registerHooks({
 const { default: config } = await import("../astro.config.mjs")
 const { parseHtml } = await import("../src/integrations/html-to-markdown.mjs")
 const { hrefRewriter, pageFrom } = await import("../src/integrations/llms.mjs")
+const { kebab, stylesheetsOf } = await import("../src/component-api/catalog.ts")
 const { cssVarRows, hydrationRows } =
   await import("../src/component-api/rows.ts")
 const { frameworks, slotProp } =
@@ -76,8 +78,6 @@ const LANGUAGES = {
 }
 const GUIDES = skillGuides.filter((slug) => slug !== "getting-started")
 
-const kebab = (name) =>
-  name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
 const sentence = (name) => {
   const words = kebab(name).replace(/-/g, " ")
   return words.charAt(0).toUpperCase() + words.slice(1)
@@ -90,17 +90,6 @@ const onPart = (option, modifier) =>
   modifier && option.part ? `${option.part}${modifier}` : modifier
 const markdownUrl = (framework, slug) =>
   new URL(`/${framework}/components/${slug}.md`, config.site).href
-
-async function readApis() {
-  const apis = []
-  for (const entry of fs.readdirSync(COMPONENT_API, { withFileTypes: true })) {
-    const file = path.join(COMPONENT_API, entry.name, "api.ts")
-    if (!entry.isDirectory() || !fs.existsSync(file)) continue
-    const { default: api } = await import(pathToFileURL(file).href)
-    apis.push({ api, folder: entry.name, page: api.page ?? entry.name })
-  }
-  return apis
-}
 
 async function readCustomProperties(stylesheet) {
   const file = path.join(COMPONENT_API, "custom-properties", `${stylesheet}.ts`)
@@ -620,13 +609,9 @@ async function componentReference(component, apis, docs) {
   const stylesheets =
     docs.stylesheets.length > 0
       ? docs.stylesheets
-      : [
-          ...new Set(
-            own.flatMap(
-              ({ api }) => api.css ?? (api.source ? [kebab(api.source)] : []),
-            ),
-          ),
-        ].filter((name) => fs.existsSync(path.join(STYLESHEETS, `${name}.css`)))
+      : [...new Set(own.flatMap(({ api }) => stylesheetsOf(api)))].filter(
+          (name) => fs.existsSync(path.join(STYLESHEETS, `${name}.css`)),
+        )
   const tokens = cssVarRows(...ordered.map(({ api }) => api)).map((row) =>
     code(row.name),
   )
@@ -750,7 +735,7 @@ async function buildSkill() {
   fs.rmSync(REFERENCES, { force: true, recursive: true })
   fs.mkdirSync(REFERENCES, { recursive: true })
 
-  const apis = await readApis()
+  const { apis } = await loadCatalog()
   const components = readComponents(llmsTxt)
 
   for (const component of components) {

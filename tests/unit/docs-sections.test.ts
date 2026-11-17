@@ -1,6 +1,6 @@
 import { readdirSync, readFileSync } from "node:fs"
 import { describe, expect, test } from "vitest"
-import type { ComponentApi } from "../../src/component-api/types"
+import { catalog } from "../../src/component-api/catalog.glob"
 
 const pages = readdirSync("src/docs/components")
   .filter((file) => file.endsWith(".astro"))
@@ -10,12 +10,7 @@ const pages = readdirSync("src/docs/components")
   }))
   .toSorted((a, b) => a.slug.localeCompare(b.slug))
 
-const apis = Object.entries(
-  import.meta.glob<ComponentApi>("../../src/component-api/*/api.ts", {
-    eager: true,
-    import: "default",
-  }),
-).map(([file, api]) => ({ api, page: api.page ?? file.split("/").at(-2) }))
+const { apis } = catalog
 
 const items = (source: string, slot: string) =>
   source.match(new RegExp(`<li\\s+slot="${slot}"`, "g"))?.length ?? 0

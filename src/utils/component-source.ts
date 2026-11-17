@@ -7,6 +7,7 @@ import {
   type ComponentFramework,
   type Framework,
 } from "../component-api/frameworks"
+import { stylesheetsOf } from "../component-api/catalog"
 import { KEYS, type ApiKey } from "../component-api/keyboard"
 import type { ApiOption, ComponentApi } from "../component-api/types"
 import { isHydratedFramework } from "./framework"
@@ -122,13 +123,8 @@ const cleanType = (text: string) => {
 
 type Target = Pick<ComponentApi, "component" | "source">
 
-const kebab = (name: string) =>
-  name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
-
 export const stylesheets = (api: Pick<ComponentApi, "css" | "source">) =>
-  (api.css ?? (api.source ? [kebab(api.source)] : [])).map((file) =>
-    path.join(stylesheetRoot, `${file}.css`),
-  )
+  stylesheetsOf(api).map((file) => path.join(stylesheetRoot, `${file}.css`))
 
 const readCss = (file: string) =>
   fs.existsSync(file) ? stripComments(fs.readFileSync(file, "utf8")) : ""

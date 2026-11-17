@@ -2,19 +2,13 @@
 import { TableCell, TableRow } from "opui-css/astro"
 import DocLink from "../../../../components/DocLink.astro"
 import DocsTable from "../../../../components/DocsTable.astro"
-import type { ComponentApi } from "../../../../component-api/types"
+import { catalog } from "../../../../component-api/catalog.glob"
 import { shipped } from "../../../../utils/component-source"
 
-const apis = import.meta.glob<ComponentApi>(
-  "../../../../component-api/*/api.ts",
-  { eager: true, import: "default" },
-)
-
 const bindings = new Map<string, { component: string; page: string }[]>()
-for (const [path, api] of Object.entries(apis)) {
+for (const { api, page } of catalog.apis) {
   if (!api.model || !shipped(api, "svelte")) continue
   const models = api.model.frameworks?.svelte ?? [api.model]
-  const page = api.page ?? path.split("/").at(-2)!
   for (const { prop } of models) {
     bindings.set(prop, [
       ...(bindings.get(prop) ?? []),

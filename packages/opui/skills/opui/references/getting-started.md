@@ -569,6 +569,8 @@ The components ship as `.jsx` files with their types, which `@solidjs/vite-plugi
 
 ### TypeScript
 
+The types work with `moduleResolution` set to `"bundler"`, and `jsxImportSource` set to `"@solidjs/web"`.
+
 ### How to use
 
 ### Server rendering

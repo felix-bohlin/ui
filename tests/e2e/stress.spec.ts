@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs"
 import { expect, test } from "@playwright/test"
-import { openFixture, STRESS_TESTS } from "./fixtures"
+import { needs, openFixture, STRESS_TESTS } from "./fixtures"
 import {
   expectAffixes,
   expectChipHeights,
@@ -107,6 +107,9 @@ for (const root of ["ui-text-field", "ui-textarea"]) {
     page,
   }) => {
     await openFixture(page, "html", "stress/forms")
+    await needs(page, "reading-flow", () =>
+      CSS.supports("reading-flow", "grid-rows"),
+    )
     const control =
       root === "ui-textarea"
         ? '<textarea id="order-control"></textarea>'

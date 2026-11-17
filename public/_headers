@@ -4,6 +4,10 @@
 /*.txt
   Content-Type: text/plain; charset=utf-8
 
+/.well-known/site.standard.publication
+  Access-Control-Allow-Origin: *
+  Content-Type: text/plain; charset=utf-8
+
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 

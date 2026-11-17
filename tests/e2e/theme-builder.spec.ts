@@ -3,7 +3,7 @@ import AxeBuilder from "@axe-core/playwright"
 import { expect, test, type Locator, type Page } from "@playwright/test"
 import { strFromU8, unzipSync } from "fflate"
 import { iconTokensOf } from "../../src/utils/theme-icons"
-import { axeNodes, settle } from "./fixtures"
+import { axeNodes, settle, supports } from "./fixtures"
 
 const PRESETS =
   readdirSync(new URL("../../packages/opui/themes/", import.meta.url)).filter(
@@ -300,10 +300,13 @@ test("on a phone the preview opens as a sheet", async ({ page }) => {
 test("has no axe violations, with the drawers open too", async ({ page }) => {
   test.setTimeout(90_000)
   await open(page)
+  const customizableSelect = await supports(page, "customizable select", () =>
+    CSS.supports("appearance", "base-select"),
+  )
   const check = async (label: string) => {
-    const { violations } = await new AxeBuilder({ page })
-      .exclude("iframe")
-      .analyze()
+    const builder = new AxeBuilder({ page }).exclude("iframe")
+    if (!customizableSelect) builder.exclude("select > button")
+    const { violations } = await builder.analyze()
     expect(axeNodes(violations), label).toEqual([])
   }
   await check("start")

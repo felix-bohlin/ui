@@ -8,7 +8,7 @@ export const SHARE_IMAGE = {
   file: "public/share-img.png",
   height: 630,
   maxBytes: 300 * 1024,
-  route: "/share-image/",
+  route: "/dev/share-image/",
   width: 1200,
 }
 

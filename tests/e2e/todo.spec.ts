@@ -9,7 +9,7 @@ test.describe("todo page", () => {
         document.documentElement.dataset.copied = text
       }
     })
-    await page.goto("/todo/")
+    await page.goto("/dev/todo/")
   })
 
   test("filters by section and status and keeps them in the URL", async ({

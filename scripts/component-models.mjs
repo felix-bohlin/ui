@@ -41,6 +41,7 @@ export const MODEL_KINDS = {
         "const setChecked = (isChecked: boolean) => {\n  if (group) group = toggleInGroup(group, value, isChecked)\n  else checked = isChecked\n}",
         "const initialChecked = untrack(getChecked)",
       ],
+      typedBindables: true,
       untrack: () => true,
     },
     vue: {
@@ -60,6 +61,7 @@ export const MODEL_KINDS = {
       change: (model, item) => [
         `if (${item.grouped} === undefined) ${model.prop} = input.checked`,
       ],
+      typedBindables: true,
     },
     vue: {
       change: (item) => [
@@ -78,6 +80,7 @@ export const MODEL_KINDS = {
     svelte: {
       attributes: (model) => model.bindables.map(({ prop }) => `bind:${prop}`),
       bindables: bindableProps,
+      typedBindables: true,
     },
     vue: {
       attributes: () => ['v-model="modelValue"'],
@@ -101,6 +104,7 @@ export const MODEL_KINDS = {
         ),
       ],
       reactValues: () => ["useState"],
+      tiedCallbacks: true,
     },
     svelte: {
       bindables: bindableProps,
@@ -108,6 +112,7 @@ export const MODEL_KINDS = {
         `change(input) {\nif (${model.prop} !== undefined) ${model.prop} = ${model.read}\n},`,
       ],
       imports: selectionImports,
+      typedBindables: true,
     },
     vue: {
       computed: true,
@@ -145,6 +150,7 @@ export const MODEL_KINDS = {
         `{@attach seedChecked(\n  () => ${checked},\n  () => {\n    ${model.local} = ${value}\n  },\n)}`,
         `onchange={() => {\n  ${model.local} = ${value}\n}}`,
       ],
+      typedBindables: true,
       untrack: () => true,
     },
     vue: {
@@ -179,6 +185,7 @@ export const MODEL_KINDS = {
         "const check = () => {\n  group = value ?? true\n}",
       ],
       imports: () => [`import { seedChecked } from "../svelte"`],
+      typedBindables: true,
       untrack: () => true,
     },
     vue: {

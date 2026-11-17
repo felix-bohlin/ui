@@ -355,7 +355,11 @@
       "--ui-shadow-scroll": "oklch(0 0 0 / 0.075) 0px 2px 4px 0px",
       "--ui-shadow-selected": "none",
       "--ui-backdrop-blur": "0px",
-      "--ui-backdrop-bg-color": "oklch(0.262 0.01 248 / 0.5)"
+      "--ui-backdrop-bg-color": "oklch(0.262 0.01 248 / 0.5)",
+      "--ui-safe-area-inset-block-start": "0px",
+      "--ui-safe-area-inset-block-end": "0px",
+      "--ui-safe-area-inset-inline-start": "0px",
+      "--ui-safe-area-inset-inline-end": "0px"
     }
   },
   "dark": {
@@ -714,7 +718,11 @@
       "--ui-shadow-scroll": "oklch(0 0 0 / 0.075) 0px 2px 4px 0px",
       "--ui-shadow-selected": "none",
       "--ui-backdrop-blur": "0px",
-      "--ui-backdrop-bg-color": "oklch(0.131 0.01 248 / 0.5)"
+      "--ui-backdrop-bg-color": "oklch(0.131 0.01 248 / 0.5)",
+      "--ui-safe-area-inset-block-start": "0px",
+      "--ui-safe-area-inset-block-end": "0px",
+      "--ui-safe-area-inset-inline-start": "0px",
+      "--ui-safe-area-inset-inline-end": "0px"
     }
   },
   "light-more-contrast": {
@@ -1073,7 +1081,11 @@
       "--ui-shadow-scroll": "oklch(0 0 0 / 0.075) 0px 2px 4px 0px",
       "--ui-shadow-selected": "none",
       "--ui-backdrop-blur": "0px",
-      "--ui-backdrop-bg-color": "oklch(0.262 0.01 248 / 0.5)"
+      "--ui-backdrop-bg-color": "oklch(0.262 0.01 248 / 0.5)",
+      "--ui-safe-area-inset-block-start": "0px",
+      "--ui-safe-area-inset-block-end": "0px",
+      "--ui-safe-area-inset-inline-start": "0px",
+      "--ui-safe-area-inset-inline-end": "0px"
     }
   },
   "dark-more-contrast": {
@@ -1432,7 +1444,11 @@
       "--ui-shadow-scroll": "oklch(0 0 0 / 0.075) 0px 2px 4px 0px",
       "--ui-shadow-selected": "none",
       "--ui-backdrop-blur": "0px",
-      "--ui-backdrop-bg-color": "oklch(0.131 0.01 248 / 0.5)"
+      "--ui-backdrop-bg-color": "oklch(0.131 0.01 248 / 0.5)",
+      "--ui-safe-area-inset-block-start": "0px",
+      "--ui-safe-area-inset-block-end": "0px",
+      "--ui-safe-area-inset-inline-start": "0px",
+      "--ui-safe-area-inset-inline-end": "0px"
     }
   }
 }

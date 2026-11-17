@@ -23,6 +23,8 @@ const CONTRAST_SCOPE =
   /prefers-contrast:\s*more|:where\(\.ui-contrast-more\)|--ui-contrast:\s*more/
 const DARK_SCOPE = /\.ui-dark|prefers-color-scheme:\s*dark/
 const FALLBACK_SCOPE = /@supports not\b/
+// The right-to-left swap of a token, not another value of it.
+const RTL_SCOPE = /:dir\(rtl\)/
 const PRINT_SCOPE = /@media print\b/
 const THEME_SCOPE = /\bhtml\b/
 const SECTIONS = [
@@ -53,6 +55,7 @@ const SECTIONS = [
   ["Choice controls", "choice-controls"],
   ["Elevation", "elevation"],
   ["Overlays", "overlays"],
+  ["Safe areas", "safe-areas"],
   ["Instance inputs", "instance-inputs"],
 ]
 const sectionOrder = (title: string) => {
@@ -137,7 +140,10 @@ function* walk(lines: string[]): Generator<[number, Line]> {
     if (
       !declaration ||
       scopes.some(
-        (scope) => FALLBACK_SCOPE.test(scope) || PRINT_SCOPE.test(scope),
+        (scope) =>
+          FALLBACK_SCOPE.test(scope) ||
+          PRINT_SCOPE.test(scope) ||
+          RTL_SCOPE.test(scope),
       ) ||
       !(contrast || scopes.some((scope) => THEME_SCOPE.test(scope)))
     ) {

@@ -427,6 +427,14 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Space above `h1` to `h6` in `.ui-rich-text`, rounded to `--ui-rhythm-step`. It overlaps the margin of the block before, so `0px` leaves the paragraph gap. Give a length: a unitless `0` drops both margins. `em` is the heading's own font size, so larger headings get more room, and `rem` gives every level the same space. When unset, each level takes a multiple of `--ui-rich-text-flow-gap`: 3 above `h1` and `h2`, 2 above `h3` and 1.5 above `h4` to `h6`. A heading group keeps its own spacing.",
   "--ui-rich-text-line-height":
     "Line height of `.ui-rich-text`, for themes whose prose is looser than their interface text. When unset, rich text keeps the line height around it, `--ui-line-height-relaxed` on the page.",
+  "--ui-safe-area-inset-block-end":
+    "The part of the bottom of the screen a home indicator covers, `env(safe-area-inset-bottom)`. A `Drawer` at the block end or on an inline side pads its content above it, and a `Toaster` at the block end sits above it. `0px` unless the viewport meta tag has `viewport-fit=cover`.",
+  "--ui-safe-area-inset-block-start":
+    "The part of the top of the screen a notch or a status bar covers, `env(safe-area-inset-top)`. A `Drawer` at the block start or on an inline side pads its content below it, and a `Toaster` at the block start sits below it. `0px` unless the viewport meta tag has `viewport-fit=cover`.",
+  "--ui-safe-area-inset-inline-end":
+    "The part of the inline end side a notch or a rounded corner covers, as on a phone held sideways: `env(safe-area-inset-right)`, and `env(safe-area-inset-left)` on a right-to-left page. A `Drawer` on that side or at the block start or end pads its content clear of it, and a `Toaster` keeps its toasts clear of it. `0px` unless the viewport meta tag has `viewport-fit=cover`.",
+  "--ui-safe-area-inset-inline-start":
+    "The part of the inline start side a notch or a rounded corner covers, as on a phone held sideways: `env(safe-area-inset-left)`, and `env(safe-area-inset-right)` on a right-to-left page. A `Drawer` on that side or at the block start or end pads its content clear of it, and a `Toaster` keeps its toasts clear of it. `0px` unless the viewport meta tag has `viewport-fit=cover`.",
   "--ui-selected":
     "Background of a selected control: a checked `ToggleButton`, the selected `ToggleGroup` item, a pressed `Chip`, a selected or current `List` item and `Select` option, and a checked `Message` reaction. When unset, `--ui-primary` on toggles, `--ui-primary` at `--ui-state-selected-alpha-accent` on list items and options, and the same mixed into `--ui-surface` on reactions. Pair it with `--ui-on-selected`.",
   "--ui-selected-strong":

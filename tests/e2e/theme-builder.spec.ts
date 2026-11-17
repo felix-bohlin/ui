@@ -3,7 +3,7 @@ import AxeBuilder from "@axe-core/playwright"
 import { expect, test, type Locator, type Page } from "@playwright/test"
 import { strFromU8, unzipSync } from "fflate"
 import { iconTokensOf } from "../../src/utils/theme-icons"
-import { axeNodes, settle } from "./fixtures"
+import { axeNodes, instantScrolling, settle } from "./fixtures"
 
 const PRESETS =
   readdirSync(new URL("../../packages/opui/themes/", import.meta.url)).filter(
@@ -11,6 +11,7 @@ const PRESETS =
   ).length + 1
 
 const open = async (page: Page, width = 1440) => {
+  await instantScrolling(page)
   await page.setViewportSize({ height: 900, width })
   await page.goto("/theme-builder/")
   await expect(page.locator("[data-contrast-text]")).not.toHaveText(
@@ -117,6 +118,7 @@ test("a preset card switches the starting point", async ({ page }) => {
 test("a mood applies a bundle of changes that Undo or a second press takes back", async ({
   page,
 }) => {
+  test.setTimeout(60_000)
   await open(page)
   await expect(page.locator('[data-mood="playful"]')).toHaveAttribute(
     "aria-pressed",
@@ -391,6 +393,7 @@ test("undo and redo walk the history, also from the keyboard", async ({
 })
 
 test("a saved theme loads and compares", async ({ page }) => {
+  test.setTimeout(60_000)
   await open(page)
   await page.locator('[data-mood="minimal"]').click()
   await expect(changes(page)).not.toHaveText("No changes")

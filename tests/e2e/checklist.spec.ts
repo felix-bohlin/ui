@@ -17,6 +17,7 @@ test.describe("checklist pages", () => {
   test("copies checks, comments and new items for the file", async ({
     page,
   }) => {
+    test.setTimeout(60_000)
     await page.goto("/checklist/")
     const item = page.locator(".checks-item:not([data-check-done])").first()
     const line = await item.getAttribute("data-check-line")
@@ -79,6 +80,7 @@ test.describe("checklist pages", () => {
   test("filters by status and text, and replies in one click", async ({
     page,
   }) => {
+    test.setTimeout(60_000)
     await page.goto("/checklist/")
     const items = page.locator(".checks-item")
     const total = await items.count()

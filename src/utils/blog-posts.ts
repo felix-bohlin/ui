@@ -1,3 +1,8 @@
+export const blog = {
+  description: "How the components are made, one technique at a time.",
+  title: "Open Props UI blog",
+}
+
 export const posts = [
   {
     category: "release",

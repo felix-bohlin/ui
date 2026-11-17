@@ -46,7 +46,7 @@
   const uid = $props.id()
   const field = getFieldGroupContext()
   const base = $derived(id || `select-${uid}`)
-  const labelId = $derived(`${base}-label`)
+  const selectId = $derived(label ? base : id)
   const startTextId = $derived(startText ? `${base}-start-text` : undefined)
   const endTextId = $derived(endText ? `${base}-end-text` : undefined)
   const startId = $derived(start ? `${base}-start` : undefined)
@@ -54,7 +54,15 @@
   const topId = $derived(top ? `${base}-top` : undefined)
   const bottomId = $derived(bottom ? `${base}-bottom` : undefined)
   const describedBy = $derived(
-    idRefs(topId, startTextId, endTextId, bottomId, rest["aria-describedby"]),
+    idRefs(
+      startTextId,
+      topId,
+      startId,
+      endId,
+      bottomId,
+      endTextId,
+      rest["aria-describedby"],
+    ),
   )
 
   const isSelected = (item: SelectItem) =>
@@ -65,7 +73,7 @@
         : sameValue(item.value, value)
 </script>
 
-<label
+<div
   class={[
     "ui-select",
     {
@@ -79,9 +87,9 @@
   {style}
 >
   {#if label}
-    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]} id={labelId}>
+    <label class={[hideLabel ? "ui-sr-only" : "ui-label"]} for={selectId}>
       {@render content(label)}
-    </span>
+    </label>
   {/if}
   {#if startText}
     <span class="ui-start-text" id={startTextId}>
@@ -93,11 +101,9 @@
       {...rest}
       aria-describedby={describedBy}
       aria-invalid={error ? "true" : rest["aria-invalid"]}
-      aria-labelledby={label
-        ? idRefs(labelId, startId, endId)
-        : rest["aria-labelledby"]}
+      aria-labelledby={rest["aria-labelledby"]}
       bind:value
-      {id}
+      id={selectId}
       name={name ?? field?.name}
     >
       <button>
@@ -130,4 +136,4 @@
       {@render content(endText)}
     </span>
   {/if}
-</label>
+</div>

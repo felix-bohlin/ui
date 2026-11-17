@@ -1,7 +1,8 @@
 Third-party notices
 
-The default icon tokens in css/theme.css (--ui-icon-*) are icons from Fluent UI
-System Icons (https://github.com/microsoft/fluentui-system-icons), published as
+The default icon tokens in css/theme.css and the icon tokens in icons/fluent.css
+(--ui-icon-*) are icons from Fluent UI System Icons
+(https://github.com/microsoft/fluentui-system-icons), published as
 @fluentui/svg-icons, under the MIT License:
 
 MIT License
@@ -28,8 +29,9 @@ SOFTWARE.
 
 ---
 
-The icon tokens in themes/shadcn.css (--ui-icon-*) are icons from Lucide
-(https://lucide.dev), published as lucide-static, under the ISC License, with
+The icon tokens in themes/shadcn.css and icons/lucide.css (--ui-icon-*) are
+icons from Lucide (https://lucide.dev), published as lucide-static, under the
+ISC License, with
 the icons Lucide derives from Feather under the MIT License:
 
 ISC License
@@ -78,8 +80,9 @@ SOFTWARE.
 
 ---
 
-The icon tokens in themes/m3.css (--ui-icon-*) are icons from Material Symbols
-by Google (https://github.com/google/material-design-icons), published as
+The icon tokens in themes/m3.css and icons/material-symbols.css (--ui-icon-*)
+are icons from Material Symbols by Google
+(https://github.com/google/material-design-icons), published as
 @material-symbols/svg-400, under the Apache License, Version 2.0.
 Copyright Google LLC.
 
@@ -259,3 +262,57 @@ Copyright Google LLC.
       of your accepting any such warranty or additional liability.
 
    END OF TERMS AND CONDITIONS
+
+---
+
+The icon tokens in icons/phosphor.css (--ui-icon-*) are icons from Phosphor Icons
+(https://phosphoricons.com), published as @phosphor-icons/core, under the MIT License:
+
+MIT License
+
+Copyright (c) 2023 Phosphor Icons
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+The icon tokens in icons/tabler.css (--ui-icon-*) are icons from Tabler Icons
+(https://tabler.io/icons), published as @tabler/icons, under the MIT License:
+
+MIT License
+
+Copyright (c) 2020-2026 Paweł Kuna
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

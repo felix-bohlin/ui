@@ -65,6 +65,24 @@ export const warnMissingTarget = (
   }
 }
 
+export const warnReplacedAnchorAttributes = (
+  id: unknown,
+  popover: unknown,
+  anchorId: unknown,
+  anchorPopover: unknown,
+) => {
+  if (
+    DEV &&
+    anchorPopover != null &&
+    ((id != null && anchorId != null && id !== anchorId) ||
+      (popover != null && popover !== anchorPopover))
+  ) {
+    console.warn(
+      '[OPUI AnchorContent] `id` and `popover` are replaced by the anchor\'s, since `trigger="hover"` shows the content through `interestfor` on the trigger. Pass `id` on the Anchor.',
+    )
+  }
+}
+
 export const warnReplacedId = (
   component: string,
   root: string,

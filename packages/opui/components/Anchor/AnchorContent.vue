@@ -1,27 +1,22 @@
 <script setup lang="ts">
-import { type HTMLAttributes, inject, useAttrs } from "vue"
+import { inject } from "vue"
 import { AnchorKey } from "./context.vue"
-import { defined } from "../attrs"
+import { warnReplacedAnchorAttributes } from "../dev"
 import type { AnchorContentProps as Props, Slots } from "./types.vue-props"
 
-defineProps<Props>()
+const { id, popover } = defineProps<Props>()
 defineSlots<Slots>()
 
-defineOptions({
-  inheritAttrs: false,
-})
-
-const attrs = useAttrs() as HTMLAttributes
-
 const anchor = inject(AnchorKey, undefined)
+
+warnReplacedAnchorAttributes(id, popover, anchor?.floatingId, anchor?.popover)
 </script>
 
 <template>
   <span
     :class="['ui-floating', $props.class]"
-    :id="anchor?.floatingId"
-    :popover="anchor?.popover"
-    v-bind="defined(attrs)"
+    :id="anchor?.floatingId ?? id"
+    :popover="anchor?.popover ?? popover"
   >
     <slot></slot>
   </span>

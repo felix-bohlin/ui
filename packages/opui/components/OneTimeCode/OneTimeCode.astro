@@ -35,11 +35,11 @@ const labelSlot = Astro.slots.has("label")
 const hasLabel = Boolean(label || labelSlot)
 const hasEndText = Boolean(endText || Astro.slots.has("end-text"))
 const ids = createIds(Astro.locals, "one-time-code", id)
-const labelId = hasLabel ? ids("label") : undefined
+const inputId = hasLabel ? ids() : id
 const endTextId = hasEndText ? ids("end-text") : undefined
 ---
 
-<label
+<div
   class:list={[
     "ui-one-time-code",
     { "ui-grouped": grouped },
@@ -48,9 +48,9 @@ const endTextId = hasEndText ? ids("end-text") : undefined
   ]}
   style={style}
 >
-  {hasLabel && <span class="ui-label" id={labelId}
+  {hasLabel && <label class="ui-label" for={inputId}
     >{label}<Fragment set:html={labelSlot}
-  /></span>}
+  /></label>}
   <span class="ui-field">
     <input
       autocapitalize={
@@ -65,9 +65,9 @@ const endTextId = hasEndText ? ids("end-text") : undefined
       {...rest}
       aria-describedby={idRefs(endTextId, ariaDescribedBy)}
       aria-invalid={error ? "true" : ariaInvalid}
-      aria-labelledby={hasLabel ? labelId : ariaLabelledBy}
+      aria-labelledby={ariaLabelledBy}
       autocomplete="one-time-code"
-      id={id}
+      id={inputId}
       maxlength={length}
       name={name ?? field?.name}
       type="text"
@@ -77,4 +77,4 @@ const endTextId = hasEndText ? ids("end-text") : undefined
     {endText}
     <slot name="end-text" />
   </span>}
-</label>
+</div>

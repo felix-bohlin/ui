@@ -2545,12 +2545,37 @@
   <h2>Card links</h2>
   <p>
     Cards made clickable with <code>.ui-card-link</code> that also hold buttons,
-    chips, a switch, a nested card link and description lists. The nested
-    controls sit above the link overlay so they stay clickable, and an inline
-    description list stays side by side in a 16rem column where the default one
-    stacks.
+    chips, a switch, a field, a nested card link and description lists. The
+    nested controls sit above the link overlay so they stay clickable, a field
+    with its affix and end text included, and an inline description list stays
+    side by side in a 16rem column where the default one stacks.
   </p>
   <div class="stress-grid">
+    <div class="ui-card ui-outlined">
+      <hgroup>
+        <h3>
+          <a class="ui-card-link" href="#stress-layout-card-links">Reorder</a>
+        </h3>
+      </hgroup>
+      <div class="ui-content">
+        <div class="ui-text-field">
+          <label class="ui-label" for="stress-card-link-quantity"
+            >Quantity</label
+          ><span class="ui-field"
+            ><input
+              aria-describedby="stress-card-link-quantity-end stress-card-link-quantity-end-text"
+              id="stress-card-link-quantity"
+              type="text"
+              value="2"
+            /><span class="ui-end" id="stress-card-link-quantity-end"
+              >pcs</span
+            ></span
+          ><span class="ui-end-text" id="stress-card-link-quantity-end-text"
+            >Ships in 2 days</span
+          >
+        </div>
+      </div>
+    </div>
     <div class="ui-card ui-outlined">
       <hgroup>
         <p>Guide</p>

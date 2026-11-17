@@ -9,7 +9,7 @@ A one-time password (OTP) field: one input drawn as a box per character, with pa
 
 ### Parts
 
-- `label.ui-one-time-code` (root): Container element.
+- `div.ui-one-time-code` (root): Container element.
 - `.ui-label` (prop `label`, slot `label`): The label for the field.
 - `.ui-field`: Draws a box per character and a ring on the next one.
 - `<input>` (model): The input element, with `autocomplete="one-time-code"`, which lets the browser fill in a code it received.
@@ -23,7 +23,7 @@ A one-time password (OTP) field: one input drawn as a box per character, with pa
 - `disabled`: `boolean`, `input[disabled]`. Dims the field and blocks input.
 - `error`: `boolean`, `input[aria-invalid="true"]`. Marks the control invalid and shows error styles.
 - `grouped`: `boolean`, `.ui-grouped`. Draws a dash between the two halves of the code. Use it with an even `length`.
-- `id`: `string`. The id of the `<input>`.
+- `id`: `string`. The id of the `<input>`. With a label, the `<label for>` points at it, so the component generates one when it's left out. The end text's id, `x-end-text`, starts with it.
 - `inputmode` (Astro, Svelte and Vue): `string`. The `inputmode` of the `<input>`. Without `alphanumeric` it is `numeric`.
 - `inputMode` (React): `string`. The `inputmode` of the `<input>`, as `inputMode` like on the element. Without `alphanumeric` it is `numeric`.
 - `length`: `4 | 5 | 6 | 7 | 8`, `input[maxlength]`, default `6`. The number of characters and boxes, from 4 to 8.
@@ -39,8 +39,8 @@ Model: `value` (`string`), the code. Astro and React `value`, Svelte `bind:value
 ### Notes
 
 - HTML: Use one `<input>` with `autocomplete="one-time-code"`, `maxlength` and a matching `pattern`, such as `[0-9]{6}`, plus `inputmode="numeric"` for digits.
-- Astro, Svelte and Vue: Attributes that aren't props go to the `<input>`, like `autofocus` and `placeholder`, and `class` and `style` go to the root `<label>`.
-- React: Attributes that aren't props go to the `<input>`, like `autofocus` and `placeholder`, and `className` and `style` go to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.
+- Astro, Svelte and Vue: Attributes that aren't props go to the `<input>`, like `autofocus` and `placeholder`, and `class` and `style` go to the `.ui-one-time-code` root.
+- React: Attributes that aren't props go to the `<input>`, like `autofocus` and `placeholder`, and `className` and `style` go to the `.ui-one-time-code` root. Use `value` with `onChange`, or `defaultValue`.
 
 ## Component properties
 
@@ -90,18 +90,16 @@ The stylesheets read `--ui-border-width-thick`, `--ui-disabled-opacity`, `--ui-d
 ### Example: Basics
 
 ```html
-<label class="ui-one-time-code">
-  <span class="ui-label" id="one-time-code-basics-1-label"
-    >Verification code</span
-  >
+<div class="ui-one-time-code">
+  <label class="ui-label" for="one-time-code-basics-1">Verification code</label>
   <span class="ui-field">
     <input
       inputmode="numeric"
       pattern="[0-9]{6}"
       required
       aria-describedby="one-time-code-basics-1-end-text"
-      aria-labelledby="one-time-code-basics-1-label"
       autocomplete="one-time-code"
+      id="one-time-code-basics-1"
       maxlength="6"
       name="code"
       type="text"
@@ -110,7 +108,7 @@ The stylesheets read `--ui-border-width-thick`, `--ui-disabled-opacity`, `--ui-d
   <span class="ui-end-text" id="one-time-code-basics-1-end-text"
     >The code expires in 10 minutes.</span
   >
-</label>
+</div>
 ```
 
 ## Astro

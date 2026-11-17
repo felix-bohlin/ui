@@ -201,6 +201,8 @@ jobs:
         env:
           E2E_PREBUILT: "1"
           HOME: /root
+      - if: ${{ !cancelled() }}
+        run: node scripts/e2e-summary.mjs test-results/report.json --title "e2e (${{ matrix.project }} ${{ matrix.shard }})" | tee -a "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v7
         if: failure()
         with:
@@ -238,6 +240,8 @@ jobs:
         env:
           E2E_PREBUILT: "1"
           HOME: /root
+      - if: ${{ !cancelled() }}
+        run: node scripts/e2e-summary.mjs test-results/report.json --title "e2e engines (${{ matrix.project }})" | tee -a "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v7
         if: failure()
         with:

@@ -279,6 +279,7 @@ test("the tarball ships the package and nothing else", () => {
     "elements/text-field.js",
     "elements/toaster.js",
     "env.d.ts",
+    "icons/lucide.css",
     "open-props.css",
     "package.json",
     "react/index.ts",

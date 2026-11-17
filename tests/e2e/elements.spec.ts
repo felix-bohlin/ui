@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs"
 import { expect, test } from "@playwright/test"
 import type { Page } from "@playwright/test"
+import { instantScrolling } from "./fixtures"
 
 const ORIGIN = "https://opui.test"
 
@@ -96,6 +97,7 @@ const open = async (page: Page, file: string, markup: string, order: Order) => {
           },
     ),
   )
+  await instantScrolling(page)
   await page.goto(`${ORIGIN}/`)
   if (order === "after") {
     await page.addScriptTag({ type: "module", url: `${ORIGIN}/${file}` })

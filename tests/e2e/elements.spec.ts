@@ -85,12 +85,13 @@ const open = async (page: Page, file: string, markup: string, order: Order) => {
     order === "before"
       ? `<script>{${source(file).replaceAll(/^export /gm, "")}}</script>`
       : ""
+  await page.addInitScript(TRACKER)
   await page.route(`${ORIGIN}/**`, (route) =>
     route.fulfill(
       route.request().url().endsWith(".js")
         ? { body: source(file), contentType: "text/javascript" }
         : {
-            body: `<!doctype html><html lang="en"><head><script>${TRACKER}</script>${script}</head><body>${markup}</body></html>`,
+            body: `<!doctype html><html lang="en"><head>${script}</head><body>${markup}</body></html>`,
             contentType: "text/html",
           },
     ),

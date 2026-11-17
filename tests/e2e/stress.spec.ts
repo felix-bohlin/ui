@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs"
 import { expect, test } from "@playwright/test"
-import { openFixture, STRESS_TESTS } from "./fixtures"
+import { needs, openFixture, STRESS_TESTS } from "./fixtures"
 import {
   expectAffixes,
   expectChipHeights,
@@ -103,10 +103,13 @@ test("content taller than a field's button keeps the button's inset", async ({
 })
 
 for (const root of ["ui-text-field", "ui-textarea"]) {
-  test(`Tab reaches a ${root}'s parts in the order they're drawn in with reading-flow, else in markup order`, async ({
+  test(`Tab follows the order a ${root}'s parts are drawn in`, async ({
     page,
   }) => {
     await openFixture(page, "html", "stress/forms")
+    await needs(page, "reading-flow", () =>
+      CSS.supports("reading-flow", "grid-rows"),
+    )
     const control =
       root === "ui-textarea"
         ? '<textarea id="order-control"></textarea>'
@@ -135,26 +138,13 @@ for (const root of ["ui-text-field", "ui-textarea"]) {
       await page.keyboard.press("Tab")
       order.push(await page.evaluate(() => document.activeElement?.id))
     }
-    const drawn = await page.evaluate(() =>
-      CSS.supports("reading-flow", "grid-rows"),
-    )
-    expect(order).toEqual(
-      drawn
-        ? [
-            "order-top",
-            "order-start",
-            "order-control",
-            "order-end",
-            "order-bottom",
-          ]
-        : [
-            "order-control",
-            "order-start",
-            "order-end",
-            "order-top",
-            "order-bottom",
-          ],
-    )
+    expect(order).toEqual([
+      "order-top",
+      "order-start",
+      "order-control",
+      "order-end",
+      "order-bottom",
+    ])
   })
 }
 

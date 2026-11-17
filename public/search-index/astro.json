@@ -3697,6 +3697,13 @@
     "url": "/astro/guide/theming/#icons"
   },
   {
+    "id": "guide-theming-astro-icons-sets",
+    "title": "Icon sets",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/astro/guide/theming/#icons-sets"
+  },
+  {
     "id": "guide-theming-astro-icons-slots",
     "title": "Your own icons",
     "page": "Theming",

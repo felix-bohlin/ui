@@ -1897,6 +1897,28 @@ interaction(
 )
 
 interaction(
+  "message",
+  "Direct",
+  "a direct chat shows no names or avatars, and keeps each name for screen readers",
+  async ({ root }) => {
+    for (const avatar of await root.locator(".ui-message > .ui-avatar").all()) {
+      await expect(avatar).toBeHidden()
+    }
+    const headers = root.locator(".ui-message > .ui-content > .ui-header")
+    await expect(headers).toHaveText(["Stella", "Stella", "You", "Stella"])
+    for (const header of await headers.all()) {
+      expect(await computed(header, "clip-path")).toBe("inset(50%)")
+      expect(await computed(header, "display")).not.toBe("none")
+      expect(
+        await header.evaluate((element) =>
+          element.closest('[aria-hidden="true"]'),
+        ),
+      ).toBeNull()
+    }
+  },
+)
+
+interaction(
   "table",
   "StickyHeader",
   "the sticky header stays while the body scrolls",

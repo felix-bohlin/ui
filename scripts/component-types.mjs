@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from "node:fs"
 import { dirname, join } from "node:path"
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
+import { MODEL_KINDS } from "./component-models.mjs"
 import {
   REACT_ATTRIBUTE_NAMES,
   reactAttributeName,
@@ -446,8 +447,9 @@ export const toTypes = (
       const tag = isProps ? customRoot(name) : undefined
       const baseAlias = baseAliases.find((entry) => entry.name.text === name)
       const known = baseAlias ? typeKeys(baseAlias.type, baseAliases) : []
+      const kind = MODEL_KINDS[model?.kind]
       const extras =
-        framework === "svelte" && model && model.kind !== "value"
+        framework === "svelte" && kind?.svelte?.typedBindables
           ? model.bindables
               .filter(
                 ({ prop }) =>
@@ -455,13 +457,12 @@ export const toTypes = (
               )
               .toSorted((a, b) => byName(a.prop, b.prop))
           : []
-      const group = framework === "react" && model?.kind === "group"
-      const radioGroup = framework === "react" && model?.kind === "radioGroup"
+      const callbacks = framework === "react" && !!kind?.react?.entries
       const events = isProps ? eventsFor(name) : []
       const omit = [
         ...(slots && !slots.includes("default") ? ["children"] : []),
         ...extras.map(({ prop }) => prop),
-        ...(group || radioGroup ? ["defaultValue"] : []),
+        ...(callbacks ? ["defaultValue"] : []),
         ...(tag ? events.map((event) => eventProp(framework, event)) : []),
       ]
       for (const ref of elementRefs(type)) {
@@ -478,7 +479,7 @@ export const toTypes = (
         )
       }
       const tied = []
-      if (group) {
+      if (callbacks && kind.react.tiedCallbacks) {
         const visit = (node) => {
           if (ts.isTypeLiteralNode(node)) {
             const member = node.members.find(
@@ -542,7 +543,7 @@ export const toTypes = (
           ? ` & { ${events.map((event) => `${eventProp(framework, event)}?: (event: Base.${eventsTypeOf(name)}[${JSON.stringify(event)}]) => void`).join("; ")} }`
           : ""
         const untied =
-          (group && tied.length === 0) || radioGroup
+          callbacks && tied.length === 0
             ? ` & { defaultValue?: ${model.type}; onValueChange?: (value: ${model.type}) => void${declaresProperty(type, model.prop) || known.includes(model.prop) ? "" : `; ${model.prop}?: ${model.type}`} }`
             : ""
         const renamed = framework === "react" ? reactRenamed(name) : []
@@ -675,11 +676,12 @@ export const toTypes = (
   }
   const vueMembers = (alias) => {
     const model = modelsByComponent[componentOf(alias.name)]
+    const undeclared = MODEL_KINDS[model?.kind]?.vue?.undeclared
     const modelOnly = (node) =>
-      model?.kind === "group" &&
+      !!undeclared &&
       ts.isTypeLiteralNode(node) &&
       node.members.length > 0 &&
-      node.members.every((member) => member.name.getText() === model.prop)
+      node.members.every((member) => undeclared(model, member.name.getText()))
     const kept = []
     let hasClass = false
     for (const part of members(alias.node.type)) {
@@ -754,7 +756,7 @@ export const toTypes = (
           prop !== "as" &&
           !known.includes(prop) &&
           !declaresProperty(node.type, prop) &&
-          !(modelled?.kind === "group" && prop === modelled.prop),
+          !MODEL_KINDS[modelled?.kind]?.vue?.undeclared?.(modelled, prop),
       )
       .toSorted(byName)
     const elements = elementsOf(node.type)

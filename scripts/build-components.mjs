@@ -3,6 +3,7 @@ import { readdir, readFile, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { parseArgs } from "node:util"
+import { MODEL_KINDS } from "./component-models.mjs"
 import { toReact } from "./component-react.mjs"
 import { apiOf, loadApis, readComponent } from "./component-reader.mjs"
 import { root, unsupported } from "./component-shared.mjs"
@@ -175,9 +176,9 @@ export const generate = async ({
                 prop !== "class" && prop !== "style" && !prop.includes("-"),
             )
             .map(({ prop }) => prop),
-          ...(component.model?.kind === "value" && !component.model.local
-            ? [component.model.prop]
-            : []),
+          ...(MODEL_KINDS[component.model?.kind]?.vue?.declared?.(
+            component.model,
+          ) ?? []),
         ]
         rootsByComponent[component.name] = component.restOnRoot
           ? [

@@ -112,7 +112,7 @@ const ALL_APPS: App[] = [
     port: 4407,
     publicDir: "public",
     ssr: false,
-    start: "pnpm exec vite --port 4407 --strictPort",
+    start: "pnpm exec vite --force --port 4407 --strictPort",
   },
   {
     build: ["vite", "build"],

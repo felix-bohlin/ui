@@ -82,6 +82,7 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 
 - `docs/releases/6.0.0.md` holds the manual checks before the release and renders at `/checks`, and `docs/releases/6.0.0-checklist.md` the polish and launch work and renders at `/checklist`, both with the test pages. Items are `- [ ] Headline` with indented notes, and the pages save checks and comments under the headline (`tests/unit/release.test.ts` checks the headlines).
 - Text copied from either page starts with "<file> with my comments". Set each pasted item's box in the file as pasted, add its `> ` lines under the item, do what they ask and note the outcome below them, like the `rc.1:` notes in `docs/releases/6.0.0.md`. An item with the note `New item` goes into its section with the notes it needs.
+- Start each outcome note with `Done:`, `Fixed:`, `Started:`, `Update:`, `Still open:`, `Drafts:`, `Skipped.` or `rc.<n>:`. The pages show an open item whose last outcome note is `Skipped.` as Skipped and one with any other as In progress (`src/utils/checklist.ts`).
 
 ## Testing
 

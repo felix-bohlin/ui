@@ -1,5 +1,6 @@
 ---
 import Checklist from "../../components/Checklist/Checklist.astro"
+import ChecklistMap from "../../components/Checklist/ChecklistMap.astro"
 import Document from "../../layouts/Document.astro"
 import { testPagesEnabled } from "../../utils/test-pages"
 import source from "../../../docs/releases/6.0.0-checklist.md?raw"
@@ -12,20 +13,21 @@ export function getStaticPaths() {
 
 <Document
   description="What to polish before releasing 6.0: scope, library, components, docs, site, package and launch. Check items off, comment and add new ones."
-  showToc
+  showToc={false}
+  wide
 >
   <Fragment slot="title">Checklist</Fragment>
   <p slot="preamble">
-    The 6.0 release checklist in <code>docs/releases/6.0.0-checklist.md</code>.
-    Check items off, comment on the ones that need work and add what's missing
-    at the end of a section, then copy at the bottom of the page and paste it to
-    an agent, which writes it into the file. Until then, checks, comments and
-    new items are saved in this browser. The manual browser and screen reader
-    checks are on <a class="ui-link" href="/checks/">checks</a>.
+    The 6.0 polish and launch work in
+    <code>docs/releases/6.0.0-checklist.md</code>. Check items off, reply and
+    add what's missing, then copy your changes for an agent, which writes them
+    into the file.
   </p>
+  <ChecklistMap class="checks-map-sidebar" slot="sidebar" source={source} />
 
   <Checklist
     file="docs/releases/6.0.0-checklist.md"
+    replies={["Do it", "Start working on this", "After the release", "Skip"]}
     source={source}
     storageKey="opui-checklist"
   />

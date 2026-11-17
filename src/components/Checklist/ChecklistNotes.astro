@@ -1,0 +1,139 @@
+---
+import InlineText from "../Todo/InlineText.astro"
+import { outcomeOf } from "../../utils/checklist"
+import type { TodoNote } from "../../utils/todo"
+
+type Props = {
+  notes: TodoNote[]
+}
+
+const { notes } = Astro.props
+
+const replyAt = (index: number) => {
+  const lines: string[] = []
+  for (const note of notes.slice(index)) {
+    if (note.kind !== "comment") break
+    lines.push(note.text)
+  }
+  return lines
+}
+---
+
+{notes.length > 0 && <div class="checks-notes">
+  {notes.map((note, index) => {
+    if (note.kind === "code") {
+      return (
+        <pre
+          class="checks-note ui-code-block"
+          set:text={note.code}
+          style={`--level: ${note.level}`}
+        />
+      )
+    }
+    if (note.kind === "comment") {
+      if (notes[index - 1]?.kind === "comment") return null
+      return <figure class="checks-note checks-reply-note">
+        <figcaption>You</figcaption>
+        {replyAt(index).map((line) => <p>
+          <InlineText links text={line} />
+        </p>)}
+      </figure>
+    }
+    const outcome = note.level ? undefined : outcomeOf(note.text)
+    if (outcome) {
+      return <p class="checks-note checks-outcome" data-tone={outcome.tone}>
+        <span class="checks-outcome-label">{outcome.label}</span>
+        {outcome.text && <span>
+          <InlineText links text={outcome.text} />
+        </span>}
+      </p>
+    }
+    return <p
+      class:list={["checks-note", { "checks-sub-note": note.level > 0 }]}
+      style={`--level: ${note.level}`}
+    >
+      <InlineText links text={note.text} />
+    </p>
+  })}
+</div>}
+
+<style>
+  .checks-notes {
+    display: grid;
+    gap: var(--size-3);
+    line-height: var(--ui-line-height-relaxed);
+  }
+
+  .checks-note {
+    margin: 0;
+    margin-inline-start: calc(var(--level, 0) * var(--size-4));
+    min-inline-size: 0;
+  }
+
+  .checks-sub-note {
+    padding-inline-start: var(--size-3);
+    position: relative;
+
+    &::before {
+      color: var(--ui-text-subtle);
+      content: "-";
+      inset-inline-start: 0;
+      position: absolute;
+    }
+  }
+
+  .checks-reply-note {
+    background-color: var(--ui-primary-tonal);
+    border-radius: var(--ui-radius-large);
+    border-start-start-radius: var(--ui-radius-x-small);
+    color: var(--ui-on-primary-tonal);
+    display: grid;
+    gap: var(--size-1);
+    justify-self: start;
+    max-inline-size: 60ch;
+    padding: var(--size-2) var(--size-3);
+
+    figcaption {
+      font-size: var(--ui-font-size-caption);
+      font-weight: var(--ui-font-weight-semibold);
+      letter-spacing: var(--ui-letter-spacing-caps);
+      text-transform: uppercase;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .checks-outcome {
+    --_tone: var(--ui-neutral);
+
+    border-inline-start: var(--ui-border-width-thick) solid var(--_tone);
+    padding-inline-start: var(--size-3);
+
+    &[data-tone="done"] {
+      --_tone: var(--ui-success);
+    }
+
+    &[data-tone="open"] {
+      --_tone: var(--ui-warning);
+    }
+
+    &[data-tone="progress"] {
+      --_tone: var(--ui-info);
+    }
+
+    &[data-tone="release"] {
+      --_tone: var(--ui-primary);
+    }
+  }
+
+  .checks-outcome-label {
+    color: var(--ui-text-strong);
+    font-weight: var(--ui-font-weight-semibold);
+
+    &:not(:last-child)::after {
+      content: ": ";
+    }
+  }
+</style>

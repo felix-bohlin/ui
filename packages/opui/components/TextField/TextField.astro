@@ -80,6 +80,12 @@ const endTextId = hasEndText ? ids("end-text") : undefined
     <slot name="start-text" />
   </span>}
   <span class="ui-field">
+    {Astro.slots.has("top") && <span class="ui-top" id={topId}>
+      <slot name="top" />
+    </span>}
+    {Astro.slots.has("start") && <span class="ui-start" id={startId}>
+      <slot name="start" />
+    </span>}
     <input
       {...rest}
       aria-describedby={idRefs(
@@ -98,9 +104,6 @@ const endTextId = hasEndText ? ids("end-text") : undefined
       name={name ?? field?.name}
       type={type}
     />
-    {Astro.slots.has("start") && <span class="ui-start" id={startId}>
-      <slot name="start" />
-    </span>}
     {(Astro.slots.has("end") || passwordToggle) && <span
       class="ui-end"
       id={endId}
@@ -143,9 +146,6 @@ const endTextId = hasEndText ? ids("end-text") : undefined
           ></svg>
         )}
       </Button>}
-    </span>}
-    {Astro.slots.has("top") && <span class="ui-top" id={topId}>
-      <slot name="top" />
     </span>}
     {Astro.slots.has("bottom") && <span class="ui-bottom" id={bottomId}>
       <slot name="bottom" />

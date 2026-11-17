@@ -88,6 +88,16 @@ export default function TextField({
         </span>
       )}
       <span className="ui-field">
+        {top && (
+          <span className="ui-top" id={topId}>
+            {top}
+          </span>
+        )}
+        {start && (
+          <span className="ui-start" id={startId}>
+            {start}
+          </span>
+        )}
         <input
           {...rest}
           aria-describedby={idRefs(
@@ -106,11 +116,6 @@ export default function TextField({
           name={name ?? field?.name}
           type={type}
         />
-        {start && (
-          <span className="ui-start" id={startId}>
-            {start}
-          </span>
-        )}
         {(end || passwordToggle) && (
           <span className="ui-end" id={endId}>
             {end}
@@ -153,11 +158,6 @@ export default function TextField({
                 )}
               </Button>
             )}
-          </span>
-        )}
-        {top && (
-          <span className="ui-top" id={topId}>
-            {top}
           </span>
         )}
         {bottom && (

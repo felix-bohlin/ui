@@ -81,6 +81,16 @@
     </span>
   {/if}
   <span class="ui-field">
+    {#if top}
+      <span class="ui-top" id={topId}>
+        {@render content(top)}
+      </span>
+    {/if}
+    {#if start}
+      <span class="ui-start" id={startId}>
+        {@render content(start)}
+      </span>
+    {/if}
     <textarea
       {...rest}
       aria-describedby={idRefs(
@@ -98,19 +108,9 @@
       name={name ?? field?.name}
       bind:value={getValue, setValue}
       defaultValue={defaultValue ?? initialValue}></textarea>
-    {#if start}
-      <span class="ui-start" id={startId}>
-        {@render content(start)}
-      </span>
-    {/if}
     {#if end}
       <span class="ui-end" id={endId}>
         {@render content(end)}
-      </span>
-    {/if}
-    {#if top}
-      <span class="ui-top" id={topId}>
-        {@render content(top)}
       </span>
     {/if}
     {#if bottom}

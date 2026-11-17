@@ -97,6 +97,12 @@
     </span>
   {/if}
   <span class="ui-field">
+    {#if top}
+      <span class="ui-top" id={topId}>{@render content(top)}</span>
+    {/if}
+    {#if start}
+      <span class="ui-start" id={startId}>{@render content(start)}</span>
+    {/if}
     <select
       {...rest}
       aria-describedby={describedBy}
@@ -118,14 +124,8 @@
         {@render children?.()}
       </div>
     </select>
-    {#if start}
-      <span class="ui-start" id={startId}>{@render content(start)}</span>
-    {/if}
     {#if end}
       <span class="ui-end" id={endId}>{@render content(end)}</span>
-    {/if}
-    {#if top}
-      <span class="ui-top" id={topId}>{@render content(top)}</span>
     {/if}
     {#if bottom}
       <span class="ui-bottom" id={bottomId}>{@render content(bottom)}</span>

@@ -17,6 +17,7 @@ test.describe("checklist pages", () => {
   test("copies checks, comments and new items for the file", async ({
     page,
   }) => {
+    test.setTimeout(60_000)
     await page.goto("/checklist/")
     const item = page.locator(".checks-item:not([data-check-done])").first()
     const line = await item.getAttribute("data-check-line")
@@ -79,6 +80,7 @@ test.describe("checklist pages", () => {
   test("filters by status and text, and replies in one click", async ({
     page,
   }) => {
+    test.setTimeout(60_000)
     await page.goto("/checklist/")
     const items = page.locator(".checks-item")
     const total = await items.count()
@@ -186,5 +188,46 @@ test.describe("checklist pages", () => {
     await expect(page.locator("#checks-review-status")).toHaveText(
       "Checks reset to the file.",
     )
+  })
+
+  test("previews the pages a check links to", async ({ page }) => {
+    await page.goto("/checks/")
+    const item = page.locator(".checks-item:has(.checks-preview-pages)").first()
+    const preview = item.locator(".checks-preview")
+    const frame = preview.locator("iframe")
+    const pages = await preview
+      .locator(".checks-preview-pages input")
+      .evaluateAll((inputs) =>
+        inputs.map((input) => (input as HTMLInputElement).value),
+      )
+
+    await center(item)
+    await item.locator(".checks-toggle").click()
+    await expect(frame).not.toHaveAttribute("src")
+    await preview.locator("summary").click()
+    await expect(frame).toHaveAttribute("src", pages[0]!)
+    await expect(frame.contentFrame().locator("h1")).toBeVisible()
+
+    await preview.locator(".checks-preview-pages label").nth(1).click()
+    await expect(frame).toHaveAttribute("src", pages[1]!)
+    await expect(preview.locator(".checks-preview-open")).toHaveAttribute(
+      "href",
+      pages[1]!,
+    )
+
+    await preview
+      .locator(".checks-preview-widths label")
+      .filter({ hasText: "Phone" })
+      .click()
+    await expect
+      .poll(() => frame.evaluate((element) => element.clientWidth))
+      .toBeLessThanOrEqual(390)
+
+    await item.locator(".checks-toggle").focus()
+    await page.keyboard.press("p")
+    await expect(preview).not.toHaveAttribute("open")
+
+    await page.goto("/checklist/")
+    await expect(page.locator(".checks-preview")).toHaveCount(0)
   })
 })

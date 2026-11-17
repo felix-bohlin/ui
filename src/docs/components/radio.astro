@@ -175,6 +175,15 @@ export const description =
         </p>
         <AutoExample name="FieldGroupControlled" centered column />
       </Fragment>
+      <Fragment slot="solid">
+        <p>
+          A radio follows <code>checked</code>. Keep the selected value in your
+          own state, and pass each <code>Radio</code> a <code>checked</code> and
+          an <code>onChange</code> that stores its <code>value</code>. Setting
+          the state updates the radios.
+        </p>
+        <AutoExample name="FieldGroupControlled" centered column />
+      </Fragment>
       <Fragment slot="vue">
         <p>
           Without <code>v-model</code>, pass <code>:checked</code> and

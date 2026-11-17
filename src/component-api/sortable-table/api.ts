@@ -67,7 +67,7 @@ export default {
     },
     {
       description: sortEvent,
-      frameworks: ["react"],
+      frameworks: ["react", "solid"],
       prop: "onSort",
     },
   ],

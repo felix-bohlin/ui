@@ -27,6 +27,8 @@ export default {
     html: "Add `.ui-rating` to a `<meter>` with `max` and `value`, or to a `<fieldset>` with a `<legend>` and one radio per star.",
     react:
       "Use `value` with `onValueChange`, or `defaultValue`. Without them the radios keep their own state, and `onValueChange` still reports changes.",
+    solid:
+      "`value` checks a star and follows it when it changes, and `onChange` reports the star that is picked.",
     svelte: "Bind the input with `bind:value`.",
     vue: "Bind the input with `v-model`.",
   },
@@ -40,7 +42,7 @@ export default {
     {
       description:
         "The starting score of the meter or the star checked at the start, when `value` is omitted.",
-      frameworks: ["react"],
+      frameworks: ["react", "solid"],
       prop: "defaultValue",
     },
     {
@@ -89,7 +91,7 @@ export default {
     {
       description:
         "Called with the `value` of the star when one is picked, or `0` for the clear radio.",
-      frameworks: ["react"],
+      frameworks: ["react", "solid"],
       prop: "onValueChange",
       type: "(value: number | string) => void",
     },

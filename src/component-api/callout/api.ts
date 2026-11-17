@@ -79,12 +79,12 @@ export default {
     },
     {
       description: dismissEvent,
-      frameworks: ["react"],
+      frameworks: ["react", "solid"],
       prop: "onDismiss",
     },
     {
       description:
-        "The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders.",
+        "The severity. Sets the color, and in Astro, React, Solid, Svelte and Vue the icon `CalloutIcon` renders.",
       group: "Severities",
       prop: "severity",
       values: {
@@ -108,7 +108,7 @@ export default {
       code: "<svg>",
       component: "CalloutIcon",
       description:
-        "An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning.",
+        "An optional icon before the content. In Astro, React, Solid, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning.",
       selector: ".ui-callout > svg",
     },
     {

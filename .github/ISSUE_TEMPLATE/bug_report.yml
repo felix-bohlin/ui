@@ -18,6 +18,7 @@ body:
         - Astro
         - HTML and CSS only
         - React
+        - Solid
         - Svelte
         - Vue
     validations:

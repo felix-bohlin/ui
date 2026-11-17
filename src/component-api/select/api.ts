@@ -54,6 +54,12 @@ export default {
       prop: "autoFit",
     },
     {
+      description:
+        "The value selected at the start, or the values with `multiple`, when `value` is omitted.",
+      frameworks: ["solid"],
+      prop: "defaultValue",
+    },
+    {
       class: ".ui-dense",
       default: "false",
       description: "Packs the items tighter.",

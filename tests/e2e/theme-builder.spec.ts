@@ -527,7 +527,7 @@ test("the Icons setting swaps the icon set, links it by name and credits it in t
   page,
 }) => {
   await open(page)
-  await room(page, "density").click()
+  await room(page, "typography").click()
   const select = page.locator('[data-control="icons"] select')
   await expect(select).toHaveValue("fluent")
   await select.selectOption("lucide")

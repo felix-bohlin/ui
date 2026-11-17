@@ -1,7 +1,0 @@
-@layer components.compat {
-  @supports not (appearance: base-select) {
-    :where(.ui-select select) > button {
-      display: none;
-    }
-  }
-}

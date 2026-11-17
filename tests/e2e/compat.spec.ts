@@ -4,7 +4,6 @@ import { openFixture } from "./fixtures"
 const APPLIES: Record<string, string[]> = {
   chromium: [],
   firefox: [
-    "not (appearance: base-select)",
     "not (corner-shape: squircle)",
     "not (inline-size: if(else: 0px))",
     "not (row-rule: none)",
@@ -64,26 +63,4 @@ test("a squircle avatar is a rounded square without corner-shape", async ({
     }
   })
   expect(squircle === circle).toBe(supported)
-})
-
-test("a select hides its button only without customizable select", async ({
-  page,
-}) => {
-  const { display, supported } = await page.evaluate(() => {
-    const root = document.createElement("div")
-    root.className = "ui-select"
-    const select = document.createElement("select")
-    const button = document.createElement("button")
-    button.append(document.createElement("selectedcontent"))
-    const option = document.createElement("option")
-    option.textContent = "Fretless"
-    select.append(button, option)
-    root.append(select)
-    document.body.append(root)
-    return {
-      display: getComputedStyle(button).display,
-      supported: CSS.supports("appearance", "base-select"),
-    }
-  })
-  expect(display === "none").toBe(!supported)
 })

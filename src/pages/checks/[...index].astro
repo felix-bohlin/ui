@@ -1,5 +1,6 @@
 ---
 import Checklist from "../../components/Checklist/Checklist.astro"
+import ChecklistMap from "../../components/Checklist/ChecklistMap.astro"
 import Document from "../../layouts/Document.astro"
 import { testPagesEnabled } from "../../utils/test-pages"
 import source from "../../../docs/releases/6.0.0.md?raw"
@@ -12,20 +13,21 @@ export function getStaticPaths() {
 
 <Document
   description="Manual checks before a release. Check them off and comment on the ones that need a fix."
-  showToc
+  showToc={false}
+  wide
 >
   <Fragment slot="title">Checks</Fragment>
   <p slot="preamble">
     The manual checks in <code>docs/releases/6.0.0.md</code>. Check them off as
-    you go and comment on anything that needs a fix, then copy at the bottom of
-    the page and paste it to an agent, which writes it into the file. Until
-    then, checks, comments and new items are saved in this browser. The polish
-    and launch work is on the <a class="ui-link" href="/checklist/">checklist</a
-    >.
+    you go and reply on anything that needs a fix, then copy your changes for an
+    agent, which writes them into the file. The polish and launch work is on the
+    <a class="ui-link" href="/checklist/">checklist</a>.
   </p>
+  <ChecklistMap class="checks-map-sidebar" slot="sidebar" source={source} />
 
   <Checklist
     file="docs/releases/6.0.0.md"
+    replies={["Fix it", "Explain further", "Skip"]}
     source={source}
     storageKey="opui-checks"
   />

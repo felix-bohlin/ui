@@ -22,15 +22,7 @@ Read the guide for the files you're editing:
 
 ## Sorting
 
-Always sort and order items in ascending order (ASC) whenever possible. This applies to:
-
-- Lists
-- Query results
-- Arrays
-- Data displays
-- Any other sortable content
-
-Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default sorting preference.
+Sort lists, arrays, query results and data displays in ascending order (lowest to highest, A-Ö, oldest to newest), unless their order carries meaning, such as a visual order, a reading order or a fixed key order.
 
 ## Comments
 
@@ -39,7 +31,7 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 
 ## Typescript
 
-- ALWAYS prefer inference over explicit types.
+- Prefer inference over explicit types.
 - `pnpm lint` fails on `interface` and on annotations a literal already implies. Files that need declaration merging are listed in the `overrides` of `.oxlintrc.json`.
 
 ## Dependencies
@@ -48,7 +40,7 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 
 ## Commit messages
 
-- ONLY explain what, NOT why.
+- Say what changed, not why.
 - `scripts/check-commits.mjs` checks the prefix (`chore`, `docs`, `feat`, `fix`, `refactor` or `revert`), a subject of at most 100 characters and the forbidden characters. It runs as the `commit-msg` hook that `pnpm install` sets up, and on pull requests with their title.
 
 ## Changelog and What's new
@@ -57,7 +49,7 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 - Entries describe the change since the last release. When you rework something already added or changed in the unreleased version, update that entry instead of adding a `Changed` or `Fixed` one.
 - `tests/unit/changelog.test.ts` checks how entries start and are sorted, the headings and sections, that no `Changed` or `Fixed` entry starts with a component the version adds, that the component an `Added`, `Breaking` or `Changed` entry starts with has a docs page with a What's new note of that kind, that the component a `Breaking` entry starts with has a section in `packages/opui/MIGRATING.md`, and that classes and theme tokens added since the last release are named in an entry.
 - `tests/unit/migrating.test.ts` fails on a table row in `packages/opui/MIGRATING.md` that the Renames table on the release page can't read.
-- For `Added`, `Breaking` and `Changed` entries, add or update a short note for the component page in `src/utils/whats-new.ts`. It renders the What's new callout on the page (a note that starts with `Breaking:` goes in the Migrating from 5.x callout instead). The sidebar's New badge is off until the next minor or patch release: `src/layouts/Component.astro` doesn't pass `isNew` to `SidebarNav.astro`, and bringing it back is `isNew: isWhatsNewHighlighted(currentFramework, component.slug)` on each sidebar link there. The components page lists a highlighted page under New components when the version adds the component and its slug is in `added` too, and under Updated components otherwise.
+- For `Added`, `Breaking` and `Changed` entries, add or update a short note for the component page in `src/utils/whats-new.ts`. It renders the What's new callout on the page (a note that starts with `Breaking:` goes in the Migrating from 5.x callout instead). The sidebar's New badge is off for now; Bring the New badges back with 6.1 in `docs/releases/6.0.0-checklist.md` turns it back on. The components page lists a highlighted page under New components when the version adds the component and its slug is in `added` too, and under Updated components otherwise.
 - Use `html`, `astro`, `react`, `svelte` and `vue` keys when the notes differ per framework (classes vs props). A framework without a note gets no callout or badge.
 - Link each note to the section on the page that documents the change (`<a href="#line">`). `tests/unit/whats-new.test.ts` fails on a note without a link and on a key that is no page, `pnpm check-dist` on a link to a missing id, and the type check on a `highlighted` slug with no notes.
 - Keep the notes in sync when a change is reworked, and only remove notes when asked.
@@ -83,11 +75,12 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 
 - `docs/releases/6.0.0.md` holds the manual checks before the release and renders at `/checks`, and `docs/releases/6.0.0-checklist.md` the polish and launch work and renders at `/checklist`, both with the test pages. Items are `- [ ] Headline` with indented notes, and the pages save checks and comments under the headline (`tests/unit/release.test.ts` checks the headlines).
 - Text copied from either page starts with "<file> with my comments". Set each pasted item's box in the file as pasted, add its `> ` lines under the item, do what they ask and note the outcome below them, like the `rc.1:` notes in `docs/releases/6.0.0.md`. An item with the note `New item` goes into its section with the notes it needs.
+- Start each outcome note with `Done:`, `Fixed:`, `Started:`, `Update:`, `Still open:`, `Drafts:`, `Skipped.` or `rc.<n>:`. The pages show an open item whose last outcome note is `Skipped.` as Skipped and one with any other as In progress (`src/utils/checklist.ts`).
 
 ## Testing
 
 - A rule that a script or test enforces is written once, in the check's error message, and the guide keeps one line naming the check. Rules that need judgment stay in prose. `TODO.md` items with a `Replaces:` note name the prose a new check would shrink.
-- ALWAYS run `pnpm check` before finishing a change. It runs formatting, linting, CSS declaration order, `browserSupport` lists, component checks, custom property references, forbidden characters, color syntax, type checks, unit tests and the build, which ends by checking the links, anchors, ids, sitemap, Markdown versions, `llms.txt` entries, the domain redirect in `_redirects` and the Standard Site records the blog links in `dist` (`pnpm check-dist`). `pnpm check:fast` runs everything except the build while iterating.
+- Run `pnpm check` before finishing a change. It runs formatting, linting, CSS declaration order, `browserSupport` lists, component checks, custom property references, forbidden characters, color syntax, type checks, unit tests and the build, which ends by checking the links, anchors, ids, sitemap, Markdown versions, `llms.txt` entries, the domain redirect in `_redirects` and the Standard Site records the blog links in `dist` (`pnpm check-dist`). `pnpm check:fast` runs everything except the build while iterating.
 - `pnpm test:failed` reruns only the unit tests that failed in the last run. Don't use Vitest's `--sinceLastRun` or `--changed`: they only follow imports, and most unit tests read the files they check from disk, so an edit to a CSS file or a guide reruns nothing.
 - Claude Code hooks in `.claude/settings.json` run `scripts/check-file.mjs` (forbidden characters, colors, declaration order) on each file an agent edits, plus the `TODO.md` and guide tests when it edits those files, and before a session stops also oxfmt, oxlint, Stylelint, the `TODO.md` and guide tests and `scripts/check-ratchets.mjs` on the files it changed since the upstream branch. After editing through the shell, run `node scripts/check-file.mjs <files>`. The `pre-commit` git hook runs the same checks, oxfmt, oxlint and Stylelint on the staged files (`scripts/check-staged.mjs`).
 - Component CSS (`packages/opui/css/components/`, `packages/opui/css/compat/`, `packages/opui/core/normalize.css`) reads `--ui-*` roles and its own `--_*` properties: `pnpm check-css-vars` fails on any other read unless `scripts/css-vars-allowlist.json` lists it, and the `history` CI job fails when an allowlist gains an entry (`scripts/check-ratchets.mjs`).

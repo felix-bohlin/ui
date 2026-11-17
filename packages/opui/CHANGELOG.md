@@ -633,7 +633,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Range` in Astro merges a passed `aria-labelledby`, and `Select` passes it on, instead of rendering the attribute twice.
 - `Select` with `spread` centers its arrow on the field.
 - `Select` keeps its arrow and its space at the inline end in RTL. The arrow covered the text.
-- `Select` keeps its padding and the height of the other fields in browsers that keep the `<button>` inside the `<select>` but have no customizable select, like Firefox, and wherever React, Svelte or Vue render it in the browser. The button turned the padding off there. `css/compat/select.css` also hides the button there, since those browsers leave it empty and draw their own select, so it was an unnamed button in the page.
+- `Select` keeps its padding and the height of the other fields in browsers that keep the `<button>` inside the `<select>` but have no customizable select, like Firefox, and wherever React, Svelte or Vue render it in the browser. The button turned the padding off there.
 - `Select`, `Textarea` and `TextField` draw the focus ring around the field, like `Button`, only when the control itself has focus, not a link in the top or bottom slot. The border keeps its color while the ring shows.
 - `Select` only opts selects inside `.ui-select` into `appearance: base-select`.
 - `Select` and `TextField` show the select and autosuggest chevrons in forced colors mode.

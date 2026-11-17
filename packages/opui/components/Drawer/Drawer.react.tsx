@@ -23,6 +23,7 @@ export default function Drawer({
   warnMissingId("Drawer", id)
   useEffect(() => {
     void import("../../elements/close-on-navigate.js")
+    void import("../../elements/drawer-swipe.js")
   }, [])
 
   return (

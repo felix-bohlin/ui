@@ -18,7 +18,7 @@ A panel that slides in from an edge of the screen, for navigation, filters or si
 ### Props and modifiers
 
 - `backdrop`: `"blurred"` (default), `"transparent"` (`.ui-backdrop-transparent`). The backdrop style. `transparent` keeps the page behind it fully visible.
-- `closedby`: `"any" | "closerequest" | "none"`, `[closedby]`, default `"any"`. How the drawer can be closed. `any` also closes it on a click outside.
+- `closedby`: `"any" | "closerequest" | "none"`, `[closedby]`, default `"any"`. How the drawer can be closed. `any` also closes it on a click outside. Swiping a drawer at the block start or end toward its edge is a close request too, so `none` turns it off.
 - `closeOnNavigate`: `boolean`, `[data-close-on-navigate]`. Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API.
 - `id`: `string`. The id of the `<dialog>`, which the trigger's `commandfor` points at. Required.
 - `scrollLock`: `boolean`, `.ui-scroll-lock`. Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`.
@@ -30,7 +30,7 @@ A panel that slides in from an edge of the screen, for navigation, filters or si
 
 ### Notes
 
-- HTML: Add `autofocus` to the element that gets focus on open. It can be the root or an element inside. For `[data-close-on-navigate]`, import `opui-css/elements/close-on-navigate.js`.
+- HTML: Add `autofocus` to the element that gets focus on open. It can be the root or an element inside. For `[data-close-on-navigate]`, import `opui-css/elements/close-on-navigate.js`. For swiping a `.ui-block-start` or `.ui-block-end` drawer closed, import `opui-css/elements/drawer-swipe.js`.
 - Astro, React, Svelte and Vue: Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer, with the id `x-title` for `id="x"`. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`.
 
 ## DrawerHeader
@@ -80,10 +80,13 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_content-padding`: Padding of `.ui-content`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
 - `--_edge-border-color`: Color of the inner edge border. `--ui-border-color-raised` when a theme sets it, otherwise `--_border-color`.
 - `--_footer-padding`: Padding of `.ui-footer`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
+- `--_handle-border-color`: Color of the grab handle a drawer at the block start or end shows on a touch screen. `--ui-border-color` on the drawer's surface.
 - `--_header-padding`: Padding of `.ui-header`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
 - `--_inline-size`: Width of drawers that open from the inline start or end.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
 - `--_shadow`: The shadow. Defaults to `--ui-shadow-overlay`.
+- `--_swipe-offset`: How far a swipe has moved the open drawer toward its edge. `opui-css/elements/drawer-swipe.js` sets it on the drawer while a finger drags it. `0px` otherwise.
+- `--_swipe-progress`: The share of its size a swipe has moved the drawer, from `0` to `1`. `opui-css/elements/drawer-swipe.js` sets it while a finger drags the drawer, and the backdrop fades by it. `0` otherwise.
 - `--_text-color`: The text color. Defaults to `--ui-text-strong`.
 
 Outputs: `--_closed-translate`, `--_direction`, `--_duration` and `--_ease`.
@@ -111,7 +114,7 @@ Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor
 
 ## Theme tokens
 
-The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-card-padding`, `--ui-duration`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-icon-close`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-rhythm-step`, `--ui-safe-area-inset-block-end`, `--ui-safe-area-inset-block-start`, `--ui-safe-area-inset-inline-end`, `--ui-safe-area-inset-inline-start`, `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-card-padding`, `--ui-duration`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-icon-close`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-rhythm-step`, `--ui-safe-area-inset-block-end`, `--ui-safe-area-inset-block-start`, `--ui-safe-area-inset-inline-end`, `--ui-safe-area-inset-inline-start`, `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-6`, `--ui-space-7`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -347,6 +350,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 
 <script type="module">
   import "opui-css/elements/close-on-navigate.js"
+  import "opui-css/elements/drawer-swipe.js"
 </script>
 ```
 

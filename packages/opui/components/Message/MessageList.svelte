@@ -3,6 +3,7 @@
 
   let {
     class: className,
+    direct,
     role,
 
     // Snippets
@@ -11,6 +12,10 @@
   }: Props = $props()
 </script>
 
-<ol class={["ui-message-list", className]} role={role ?? "list"} {...rest}>
+<ol
+  class={["ui-message-list", { "ui-direct": direct }, className]}
+  role={role ?? "list"}
+  {...rest}
+>
   {@render children?.()}
 </ol>

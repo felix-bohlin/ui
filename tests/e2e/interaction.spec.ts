@@ -517,6 +517,113 @@ test("html toaster measures its insets from the safe area", async ({
   expect(moved.left).toBe((left - right) / 2)
 })
 
+test.describe("drawer swipe", () => {
+  test.use({ hasTouch: true })
+
+  // A finger on `target` that moves `by` a share of the drawer's height,
+  // in `steps` moves `pause` milliseconds apart, then lifts.
+  const swipe = async (
+    page: Page,
+    cdp: CDPSession,
+    target: Locator,
+    drawer: Locator,
+    by: number,
+    pause = 16,
+    steps = 8,
+  ) => {
+    const box = (await target.boundingBox())!
+    const { height } = (await drawer.boundingBox())!
+    const x = box.x + box.width / 2
+    const y = box.y + Math.min(box.height / 2, 12)
+    const point = (dy: number) => ({ touchPoints: [{ x, y: y + dy }] })
+    await cdp.send("Input.dispatchTouchEvent", {
+      type: "touchStart",
+      ...point(0),
+    })
+    for (let step = 1; step <= steps; step++) {
+      await page.waitForTimeout(pause)
+      await cdp.send("Input.dispatchTouchEvent", {
+        type: "touchMove",
+        ...point((height * by * step) / steps),
+      })
+    }
+    await cdp.send("Input.dispatchTouchEvent", {
+      type: "touchEnd",
+      touchPoints: [],
+    })
+  }
+
+  test("html drawer at the block start or end closes with a swipe of its header", async ({
+    browserName,
+    page,
+  }) => {
+    test.skip(browserName !== "chromium", "touch input goes through CDP")
+    const cdp = await page.context().newCDPSession(page)
+    await openFixture(page, "html", "drawer")
+    const root = page.locator('[data-example="Basics"]')
+    const drawer = root.locator("dialog[open]")
+    const open = async (name: string) => {
+      await root.getByRole("button", { exact: true, name }).click()
+      await settle(drawer)
+      return (await drawer.boundingBox())!.y
+    }
+    const settledAt = async (top: number) => {
+      await expect.poll(async () => (await drawer.boundingBox())?.y).toBe(top)
+      expect(
+        await drawer.evaluate((element) =>
+          (element as HTMLElement).style.getPropertyValue("--_swipe-offset"),
+        ),
+      ).toBe("")
+    }
+
+    // A short, slow drag settles back.
+    const top = await open("Block end")
+    await swipe(page, cdp, drawer.locator(".ui-header"), drawer, 0.1, 60)
+    await settledAt(top)
+
+    // The content scrolls and never moves the drawer.
+    await swipe(page, cdp, drawer.locator(".ui-content"), drawer, 0.6, 60)
+    await settledAt(top)
+
+    // Past a quarter, it closes.
+    await swipe(page, cdp, drawer.locator(".ui-header"), drawer, 0.6, 60)
+    await expect(drawer).toHaveCount(0)
+
+    // So does a short flick (two moves, since each one takes CDP a while).
+    await open("Block end")
+    await swipe(page, cdp, drawer.locator(".ui-header"), drawer, 0.15, 0, 2)
+    await expect(drawer).toHaveCount(0)
+
+    // A drawer at the block start closes toward the top.
+    const above = await open("Block start")
+    await swipe(page, cdp, drawer.locator(".ui-header"), drawer, 0.1, 60)
+    await settledAt(above)
+    await swipe(page, cdp, drawer.locator(".ui-header"), drawer, -0.6, 60)
+    await expect(drawer).toHaveCount(0)
+
+    // It's a close request: a cancel listener keeps the drawer open.
+    await open("Block end")
+    await drawer.evaluate((element) =>
+      element.addEventListener("cancel", (event) => event.preventDefault(), {
+        once: true,
+      }),
+    )
+    await swipe(page, cdp, drawer.locator(".ui-header"), drawer, 0.6, 60)
+    await settledAt(top)
+    await page.keyboard.press("Escape")
+    await expect(drawer).toHaveCount(0)
+
+    // closedby="none" turns it off.
+    const blockEnd = root.locator("dialog.ui-block-end")
+    await blockEnd.evaluate((element) =>
+      element.setAttribute("closedby", "none"),
+    )
+    await open("Block end")
+    await swipe(page, cdp, drawer.locator(".ui-header"), drawer, 0.6, 60)
+    await settledAt(top)
+  })
+})
+
 for (const component of ["dialog", "drawer"]) {
   interaction(
     component,
@@ -1906,6 +2013,28 @@ interaction(
     expect(await computed(pill, "outline-color")).toBe(
       await resolveColor(root, "var(--ui-focus-ring-color)"),
     )
+  },
+)
+
+interaction(
+  "message",
+  "Direct",
+  "a direct chat shows no names or avatars, and keeps each name for screen readers",
+  async ({ root }) => {
+    for (const avatar of await root.locator(".ui-message > .ui-avatar").all()) {
+      await expect(avatar).toBeHidden()
+    }
+    const headers = root.locator(".ui-message > .ui-content > .ui-header")
+    await expect(headers).toHaveText(["Stella", "Stella", "You", "Stella"])
+    for (const header of await headers.all()) {
+      expect(await computed(header, "clip-path")).toBe("inset(50%)")
+      expect(await computed(header, "display")).not.toBe("none")
+      expect(
+        await header.evaluate((element) =>
+          element.closest('[aria-hidden="true"]'),
+        ),
+      ).toBeNull()
+    }
   },
 )
 

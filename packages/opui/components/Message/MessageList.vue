@@ -4,12 +4,15 @@ import type {
   MessageListSlots,
 } from "./types.vue-props"
 
-const { role } = defineProps<Props>()
+const { direct, role } = defineProps<Props>()
 defineSlots<MessageListSlots>()
 </script>
 
 <template>
-  <ol :class="['ui-message-list', $props.class]" :role="role ?? 'list'">
+  <ol
+    :class="['ui-message-list', { 'ui-direct': direct }, $props.class]"
+    :role="role ?? 'list'"
+  >
     <slot></slot>
   </ol>
 </template>

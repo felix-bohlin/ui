@@ -91,6 +91,12 @@ const selectId = hasLabel ? ids() : id
     <slot name="start-text" />
   </span>}
   <span class="ui-field">
+    {Astro.slots.has("top") && <span class="ui-top" id={topId}>
+      <slot name="top" />
+    </span>}
+    {Astro.slots.has("start") && <span class="ui-start" id={startId}>
+      <slot name="start" />
+    </span>}
     <select
       {...rest}
       aria-describedby={describedBy}
@@ -112,14 +118,8 @@ const selectId = hasLabel ? ids() : id
         <slot />
       </div>
     </select>
-    {Astro.slots.has("start") && <span class="ui-start" id={startId}>
-      <slot name="start" />
-    </span>}
     {Astro.slots.has("end") && <span class="ui-end" id={endId}>
       <slot name="end" />
-    </span>}
-    {Astro.slots.has("top") && <span class="ui-top" id={topId}>
-      <slot name="top" />
     </span>}
     {Astro.slots.has("bottom") && <span class="ui-bottom" id={bottomId}>
       <slot name="bottom" />

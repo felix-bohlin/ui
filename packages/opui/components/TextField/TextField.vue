@@ -104,6 +104,12 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
       >{{ startText }}<slot name="start-text"></slot
     ></span>
     <span class="ui-field">
+      <span v-if="$slots.top" class="ui-top" :id="topId()">
+        <slot name="top"></slot>
+      </span>
+      <span v-if="$slots.start" class="ui-start" :id="startId()">
+        <slot name="start"></slot>
+      </span>
       <input
         v-bind="attrs"
         :aria-describedby="
@@ -126,9 +132,6 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
         v-seed
         v-model="model"
       />
-      <span v-if="$slots.start" class="ui-start" :id="startId()">
-        <slot name="start"></slot>
-      </span>
       <span v-if="$slots.end || passwordToggle" class="ui-end" :id="endId()">
         <slot name="end"></slot
         ><Button
@@ -170,9 +173,6 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
             viewBox="0 0 24 24"
           ></svg
         ></Button>
-      </span>
-      <span v-if="$slots.top" class="ui-top" :id="topId()">
-        <slot name="top"></slot>
       </span>
       <span v-if="$slots.bottom" class="ui-bottom" :id="bottomId()">
         <slot name="bottom"></slot>

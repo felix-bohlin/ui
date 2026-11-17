@@ -45,16 +45,16 @@
             >We'll never share it.</span
           ></label
         >
-        <label class="ui-select"
-          ><span class="ui-label" id="contrast-default-plan-label">Plan</span
+        <div class="ui-select">
+          <label class="ui-label" for="contrast-default-plan">Plan</label
           ><span class="ui-field"
-            ><select aria-labelledby="contrast-default-plan-label">
+            ><select id="contrast-default-plan">
               <option>Free</option>
               <option>Gold</option>
               <option>Platinum</option>
             </select></span
-          ></label
-        >
+          >
+        </div>
         <div class="stress-actions-end">
           <button class="ui-button ui-primary ui-filled" type="button">
             Save
@@ -293,16 +293,16 @@
             ><input type="email" placeholder="name@example.com" /></span
           ><span class="ui-end-text">We'll never share it.</span></label
         >
-        <label class="ui-select"
-          ><span class="ui-label" id="contrast-more-plan-label">Plan</span
+        <div class="ui-select">
+          <label class="ui-label" for="contrast-more-plan">Plan</label
           ><span class="ui-field"
-            ><select aria-labelledby="contrast-more-plan-label">
+            ><select id="contrast-more-plan">
               <option>Free</option>
               <option>Gold</option>
               <option>Platinum</option>
             </select></span
-          ></label
-        >
+          >
+        </div>
         <div class="stress-actions-end">
           <button class="ui-button ui-primary ui-filled" type="button">
             Save
@@ -549,17 +549,18 @@
           ><input type="text" placeholder="Placeholder" /></span></label
       ><label class="ui-text-field ui-filled ui-x-small"
         ><span class="ui-label">Filled</span
+        ><span class="ui-field"><input type="text" value="Value" /></span
+      ></label>
+      <div class="ui-select ui-x-small">
+        <label class="ui-label" for="contrast-size-x-small">Status</label
         ><span class="ui-field"
-          ><input type="text" value="Value" /></span></label
-      ><label class="ui-select ui-x-small"
-        ><span class="ui-label" id="contrast-size-x-small-label">Status</span
-        ><span class="ui-field"
-          ><select aria-labelledby="contrast-size-x-small-label">
+          ><select id="contrast-size-x-small">
             <option>Draft</option>
             <option>Published</option>
           </select></span
-        ></label
-      ><button class="ui-button ui-x-small ui-filled" type="button">Save</button
+        >
+      </div>
+      <button class="ui-button ui-x-small ui-filled" type="button">Save</button
       ><button class="ui-button ui-x-small ui-outlined" type="button">
         <svg
           data-icon="add"
@@ -628,17 +629,18 @@
           ><input type="text" placeholder="Placeholder" /></span></label
       ><label class="ui-text-field ui-filled ui-small"
         ><span class="ui-label">Filled</span
+        ><span class="ui-field"><input type="text" value="Value" /></span
+      ></label>
+      <div class="ui-select ui-small">
+        <label class="ui-label" for="contrast-size-small">Status</label
         ><span class="ui-field"
-          ><input type="text" value="Value" /></span></label
-      ><label class="ui-select ui-small"
-        ><span class="ui-label" id="contrast-size-small-label">Status</span
-        ><span class="ui-field"
-          ><select aria-labelledby="contrast-size-small-label">
+          ><select id="contrast-size-small">
             <option>Draft</option>
             <option>Published</option>
           </select></span
-        ></label
-      ><button class="ui-button ui-small ui-filled" type="button">Save</button
+        >
+      </div>
+      <button class="ui-button ui-small ui-filled" type="button">Save</button
       ><button class="ui-button ui-small ui-outlined" type="button">
         <svg
           data-icon="add"
@@ -703,17 +705,18 @@
           ><input type="text" placeholder="Placeholder" /></span></label
       ><label class="ui-text-field ui-filled"
         ><span class="ui-label">Filled</span
+        ><span class="ui-field"><input type="text" value="Value" /></span
+      ></label>
+      <div class="ui-select">
+        <label class="ui-label" for="contrast-size-default">Status</label
         ><span class="ui-field"
-          ><input type="text" value="Value" /></span></label
-      ><label class="ui-select"
-        ><span class="ui-label" id="contrast-size-default-label">Status</span
-        ><span class="ui-field"
-          ><select aria-labelledby="contrast-size-default-label">
+          ><select id="contrast-size-default">
             <option>Draft</option>
             <option>Published</option>
           </select></span
-        ></label
-      ><button class="ui-button ui-filled" type="button">Save</button
+        >
+      </div>
+      <button class="ui-button ui-filled" type="button">Save</button
       ><button class="ui-button ui-outlined" type="button">
         <svg
           data-icon="add"
@@ -774,17 +777,18 @@
           ><input type="text" placeholder="Placeholder" /></span></label
       ><label class="ui-text-field ui-filled ui-large"
         ><span class="ui-label">Filled</span
+        ><span class="ui-field"><input type="text" value="Value" /></span
+      ></label>
+      <div class="ui-select ui-large">
+        <label class="ui-label" for="contrast-size-large">Status</label
         ><span class="ui-field"
-          ><input type="text" value="Value" /></span></label
-      ><label class="ui-select ui-large"
-        ><span class="ui-label" id="contrast-size-large-label">Status</span
-        ><span class="ui-field"
-          ><select aria-labelledby="contrast-size-large-label">
+          ><select id="contrast-size-large">
             <option>Draft</option>
             <option>Published</option>
           </select></span
-        ></label
-      ><button class="ui-button ui-large ui-filled" type="button">Save</button
+        >
+      </div>
+      <button class="ui-button ui-large ui-filled" type="button">Save</button
       ><button class="ui-button ui-large ui-outlined" type="button">
         <svg
           data-icon="add"
@@ -901,12 +905,12 @@
       ><span class="ui-field"
         ><input type="text" value="Read only value" disabled /></span
     ></label>
-    <label class="ui-select"
-      ><span class="ui-label" id="contrast-invalid-select-label"
-        >Invalid select</span
+    <div class="ui-select">
+      <label class="ui-label" for="contrast-invalid-select"
+        >Invalid select</label
       ><span class="ui-field"
         ><select
-          aria-labelledby="contrast-invalid-select-label"
+          id="contrast-invalid-select"
           aria-invalid="true"
           aria-describedby="contrast-invalid-select-help"
         >
@@ -914,8 +918,8 @@
         </select></span
       ><span class="ui-end-text" id="contrast-invalid-select-help"
         >Pick another option.</span
-      ></label
-    >
+      >
+    </div>
     <label class="ui-textarea"
       ><span class="ui-label">Notes</span
       ><span class="ui-field">

@@ -62,8 +62,7 @@ export const STRESS_TESTS = readdirSync(
   .toSorted()
 
 export const BLOCKS = readdirSync(new URL("../../src/blocks/", import.meta.url))
-  .filter((file) => file.endsWith(".html"))
-  .map((file) => `blocks/${file.replace(/\.html$/, "")}`)
+  .map((folder) => `blocks/${folder}`)
   .toSorted()
 
 export const FIXTURES = [...COMPONENTS, ...STRESS_TESTS].toSorted()

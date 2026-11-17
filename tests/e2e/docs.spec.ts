@@ -737,6 +737,25 @@ test("a focused copy button in a code block is fully opaque", async ({
   await expect(block.locator(".code-copy")).toHaveCSS("opacity", "0")
 })
 
+test("a block page shows the code of the visitor's framework", async ({
+  page,
+}) => {
+  await page.goto("/blocks/sign-in/")
+  const tabs = page.locator(".block-viewer > .ui-tabs > .ui-label")
+  await expect(tabs.filter({ visible: true })).toHaveText([
+    "Preview",
+    "HTML",
+    "CSS",
+  ])
+  await page.evaluate(() => localStorage.setItem("opui-framework", "react"))
+  await page.reload()
+  await expect(tabs.filter({ visible: true })).toHaveText(["Preview", "React"])
+  await tabs.filter({ hasText: "React" }).click()
+  await expect(
+    page.locator(".block-viewer .ui-panel").filter({ visible: true }),
+  ).toContainText('from "opui-css/react"')
+})
+
 test("the block preview's Tablet and Mobile widths give the block 768px and 390px", async ({
   page,
 }) => {

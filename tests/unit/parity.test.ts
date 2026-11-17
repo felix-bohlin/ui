@@ -19,24 +19,31 @@ import { render } from "./renderers"
 
 const RECORD = !!process.env.PARITY_RECORD
 
-const astroModules = import.meta.glob<AstroInstance>(
+const astroModules = import.meta.glob<AstroInstance>([
+  "../../src/blocks/**/*.astro",
   "../../src/component-examples/**/*.astro",
-)
-const reactModules = import.meta.glob<{ default: ComponentType }>(
+])
+const reactModules = import.meta.glob<{ default: ComponentType }>([
+  "../../src/blocks/**/*.react.tsx",
   "../../src/component-examples/**/*.react.tsx",
-)
-const svelteModules = import.meta.glob<{ default: SvelteComponent }>(
+])
+const svelteModules = import.meta.glob<{ default: SvelteComponent }>([
+  "../../src/blocks/**/*.svelte",
   "../../src/component-examples/**/*.svelte",
-)
-const vueModules = import.meta.glob<{ default: VueComponent }>(
+])
+const vueModules = import.meta.glob<{ default: VueComponent }>([
+  "../../src/blocks/**/*.vue",
   "../../src/component-examples/**/*.vue",
-)
+])
 const exampleSources = import.meta.glob<string>(
-  "../../src/component-examples/**/*.{astro,html,react.tsx,svelte,vue}",
+  [
+    "../../src/blocks/**/*.{astro,html,react.tsx,svelte,vue}",
+    "../../src/component-examples/**/*.{astro,html,react.tsx,svelte,vue}",
+  ],
   { eager: true, import: "default", query: "?raw" },
 )
 const htmlSources = import.meta.glob<string>(
-  "../../src/component-examples/**/*.html",
+  ["../../src/blocks/**/*.html", "../../src/component-examples/**/*.html"],
   { import: "default", query: "?raw" },
 )
 
@@ -71,10 +78,20 @@ type Example = {
   loaders: { [F in Framework]?: () => Promise<Loaded[F]> }
 }
 
+const BLOCKS = "blocks/"
+
 const keyOf = (path: string) =>
   path
+    .replace("../../src/blocks/", BLOCKS)
     .replace("../../src/component-examples/", "")
     .replace(/(\.react)?\.[a-z]+$/, "")
+
+const sourceOf = (key: string, extension: string) =>
+  exampleSources[
+    key.startsWith(BLOCKS)
+      ? `../../src/${key}.${extension}`
+      : `../../src/component-examples/${key}.${extension}`
+  ]
 
 const examples = new Map<string, Example>()
 const register = <F extends Framework>(
@@ -161,8 +178,7 @@ const rendered = (example: Example, framework: Framework) => {
 const styles = new Map<string, Promise<string[]>>()
 const exampleCss = (example: Example) => {
   if (!styles.has(example.key)) {
-    const source =
-      exampleSources[`../../src/component-examples/${example.key}.astro`]
+    const source = sourceOf(example.key, "astro")
     styles.set(
       example.key,
       source
@@ -196,13 +212,12 @@ const markup = (
 }
 
 const idPattern = (key: string) =>
-  new RegExp(`^${exampleIdBase(key)}-\\d+(-[a-z]+)*$`)
+  key.startsWith(BLOCKS)
+    ? new RegExp(`^${key.split("/")[1]}(-[a-z0-9]+)+$`)
+    : new RegExp(`^${exampleIdBase(key)}-\\d+(-[a-z]+)*$`)
 
 const authoredIds = async (example: Example, framework: Framework) => {
-  const source =
-    exampleSources[
-      `../../src/component-examples/${example.key}.${exampleExtension(framework)}`
-    ]
+  const source = sourceOf(example.key, exampleExtension(framework))
   return idsOf(await rendered(example, framework)).filter((id) =>
     source.includes(`"${id}"`),
   )
@@ -247,11 +262,14 @@ describe.each(cases)("$key", (example) => {
     (framework) => example.loaders[framework],
   )
 
-  test(`${frameworks[0]} matches snapshot`, async () => {
-    await expect(await markup(example, frameworks[0])).toMatchFileSnapshot(
-      `__snapshots__/${example.key}.html`,
-    )
-  })
+  test.skipIf(example.key.startsWith(BLOCKS))(
+    `${frameworks[0]} matches snapshot`,
+    async () => {
+      await expect(await markup(example, frameworks[0])).toMatchFileSnapshot(
+        `__snapshots__/${example.key}.html`,
+      )
+    },
+  )
 
   test.each(frameworks.filter((framework) => framework !== "html"))(
     "%s only adds ui- prefixed classes",
@@ -282,7 +300,7 @@ describe.each(cases)("$key", (example) => {
   })
 
   test.each(frameworks)(
-    "%s ids follow <slug>-<example>-<n> and match html",
+    "%s ids follow <slug>-<example>-<n>, or <slug>-<name> in a block, and match html",
     async (framework) => {
       const pattern = idPattern(example.key)
       const ids = await authoredIds(example, framework)

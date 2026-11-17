@@ -1,0 +1,593 @@
+<script setup lang="ts">
+import {
+  Avatar,
+  AvatarGroup,
+  Button,
+  Card,
+  CardContent,
+  Chip,
+  ToggleButton,
+  ToggleGroup,
+} from "opui-css/vue"
+</script>
+
+<template>
+  <div
+    class="kanban-board ui-layout-container ui-layout-column ui-large"
+    style="--_max-inline-size: none"
+  >
+    <div class="ui-layout-row ui-spread">
+      <hgroup class="ui-hgroup">
+        <p>Gig countdown, 6–17 October</p>
+        <h1 class="ui-h3">Gig at The Rusty Amp</h1>
+      </hgroup>
+      <div class="ui-layout-row ui-small">
+        <AvatarGroup aria-label="Band members">
+          <Avatar aria-label="Holly Humbucker" role="img">HH</Avatar>
+          <Avatar aria-label="Ines Hertz" role="img">IH</Avatar>
+          <Avatar aria-label="Percy Groove" role="img">PG</Avatar>
+          <Avatar aria-label="Rory Rootnote" role="img">RR</Avatar>
+        </AvatarGroup>
+        <Button size="small" type="button" variant="outlined"> Share </Button>
+        <ToggleGroup aria-label="Show tasks" name="kanban-filter" size="small">
+          <ToggleButton checked label="All tasks" value="all" />
+          <ToggleButton label="Assigned to me" value="mine" />
+        </ToggleGroup>
+        <Button size="small" type="button" variant="filled">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+            ></path></svg
+          ><span class="ui-text">New task</span>
+        </Button>
+      </div>
+    </div>
+    <div class="kanban-columns">
+      <section
+        aria-labelledby="kanban-board-todo-heading"
+        class="ui-layout-column ui-small kanban-column"
+      >
+        <div class="ui-layout-row ui-small kanban-column-header">
+          <span class="ui-swatch ui-neutral"></span>
+          <h2 class="ui-h6" id="kanban-board-todo-heading">To do</h2>
+          <span class="ui-caption ui-tabular-nums">3</span>
+          <Button
+            aria-label="Add task to To do"
+            round
+            size="x-small"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+              ></path>
+            </svg>
+          </Button>
+        </div>
+        <ol class="ui-layout-column ui-small">
+          <li>
+            <Card as="article" variant="outlined">
+              <CardContent>
+                <div class="ui-layout-row ui-x-small">
+                  <Chip
+                    as="span"
+                    label="Setlist"
+                    size="x-small"
+                    variant="outlined"
+                  >
+                    <template #start>
+                      <span class="ui-swatch ui-info"></span>
+                    </template>
+                  </Chip>
+                </div>
+                <h3 class="ui-h6">
+                  <a class="ui-card-link" href="#kanban-task-112"
+                    >Pick a setlist (with ONE bass solo)</a
+                  >
+                </h3>
+                <div class="ui-layout-row ui-caption kanban-meta">
+                  <span class="ui-layout-row ui-x-small">
+                    <svg
+                      aria-hidden="true"
+                      class="ui-icon ui-small"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 16H5V10h14z"
+                      ></path>
+                    </svg>
+                    <span class="ui-sr-only">Due</span>
+                    <time datetime="2026-10-14">14 Oct</time>
+                  </span>
+                  <Avatar aria-label="Holly Humbucker" role="img">HH</Avatar>
+                </div>
+              </CardContent>
+            </Card>
+          </li>
+          <li>
+            <Card as="article" variant="outlined">
+              <CardContent>
+                <div class="ui-layout-row ui-x-small">
+                  <Chip
+                    as="span"
+                    label="Gear"
+                    size="x-small"
+                    variant="outlined"
+                  >
+                    <template #start>
+                      <span class="ui-swatch ui-success"></span>
+                    </template>
+                  </Chip>
+                  <Chip
+                    as="span"
+                    label="Venue"
+                    size="x-small"
+                    variant="outlined"
+                  >
+                    <template #start>
+                      <span class="ui-swatch ui-warning"></span>
+                    </template>
+                  </Chip>
+                </div>
+                <h3 class="ui-h6">
+                  <a class="ui-card-link" href="#kanban-task-118"
+                    >Ask if the venue has a bass amp</a
+                  >
+                </h3>
+                <div class="ui-layout-row ui-caption kanban-meta">
+                  <span class="ui-layout-row ui-x-small">
+                    <svg
+                      aria-hidden="true"
+                      class="ui-icon ui-small"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 16H5V10h14z"
+                      ></path>
+                    </svg>
+                    <span class="ui-sr-only">Due</span>
+                    <time datetime="2026-10-16">16 Oct</time>
+                  </span>
+                  <Avatar aria-label="Ines Hertz" role="img">IH</Avatar>
+                </div>
+              </CardContent>
+            </Card>
+          </li>
+          <li>
+            <Card as="article" variant="outlined">
+              <CardContent>
+                <div class="ui-layout-row ui-x-small">
+                  <Chip
+                    as="span"
+                    label="Promo"
+                    size="x-small"
+                    variant="outlined"
+                  >
+                    <template #start>
+                      <span class="ui-swatch ui-critical"></span>
+                    </template>
+                  </Chip>
+                </div>
+                <h3 class="ui-h6">
+                  <a class="ui-card-link" href="#kanban-task-121"
+                    >Get the bassist's name on the poster</a
+                  >
+                </h3>
+                <div class="ui-layout-row ui-caption kanban-meta">
+                  <span class="ui-layout-row ui-x-small">
+                    <svg
+                      aria-hidden="true"
+                      class="ui-icon ui-small"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 16H5V10h14z"
+                      ></path>
+                    </svg>
+                    <span class="ui-sr-only">Due</span>
+                    <time datetime="2026-10-17">17 Oct</time>
+                  </span>
+                </div>
+              </CardContent>
+            </Card>
+          </li>
+        </ol>
+        <Button size="small" type="button">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+            ></path></svg
+          ><span class="ui-text">Add a task</span>
+        </Button>
+      </section>
+      <section
+        aria-labelledby="kanban-board-progress-heading"
+        class="ui-layout-column ui-small kanban-column"
+      >
+        <div class="ui-layout-row ui-small kanban-column-header">
+          <span class="ui-swatch ui-info"></span>
+          <h2 class="ui-h6" id="kanban-board-progress-heading">In progress</h2>
+          <span class="ui-caption ui-tabular-nums">2</span>
+          <Button
+            aria-label="Add task to In progress"
+            round
+            size="x-small"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+              ></path>
+            </svg>
+          </Button>
+        </div>
+        <ol class="ui-layout-column ui-small">
+          <li>
+            <Card as="article" variant="outlined">
+              <CardContent>
+                <div class="ui-layout-row ui-x-small">
+                  <Chip
+                    as="span"
+                    label="Gear"
+                    size="x-small"
+                    variant="outlined"
+                  >
+                    <template #start>
+                      <span class="ui-swatch ui-success"></span>
+                    </template>
+                  </Chip>
+                  <Chip
+                    as="span"
+                    label="Rehearsal"
+                    size="x-small"
+                    variant="outlined"
+                  >
+                    <template #start>
+                      <span
+                        class="ui-swatch"
+                        style="--_swatch-bg-color: var(--ui-primary)"
+                      ></span>
+                    </template>
+                  </Chip>
+                </div>
+                <h3 class="ui-h6">
+                  <a class="ui-card-link" href="#kanban-task-104"
+                    >Learn the new song in drop D</a
+                  >
+                </h3>
+                <div class="ui-layout-row ui-caption kanban-meta">
+                  <span class="ui-layout-row ui-x-small ui-p ui-critical">
+                    <svg
+                      aria-hidden="true"
+                      class="ui-icon ui-small"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 16H5V10h14z"
+                      ></path>
+                    </svg>
+                    <span class="ui-sr-only">Overdue, was due</span>
+                    <time datetime="2026-10-07">7 Oct</time>
+                  </span>
+                  <span class="ui-layout-row ui-x-small">
+                    <svg
+                      aria-hidden="true"
+                      class="ui-icon ui-small"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2"
+                      ></path>
+                    </svg>
+                    5 <span class="ui-sr-only">comments</span>
+                  </span>
+                  <AvatarGroup aria-label="Assignees">
+                    <Avatar aria-label="Percy Groove" role="img">PG</Avatar>
+                    <Avatar aria-label="Rory Rootnote" role="img">RR</Avatar>
+                  </AvatarGroup>
+                </div>
+              </CardContent>
+            </Card>
+          </li>
+          <li>
+            <Card as="article" variant="outlined">
+              <CardContent>
+                <div class="ui-layout-row ui-x-small">
+                  <Chip
+                    as="span"
+                    label="Setlist"
+                    size="x-small"
+                    variant="outlined"
+                  >
+                    <template #start>
+                      <span class="ui-swatch ui-info"></span>
+                    </template>
+                  </Chip>
+                </div>
+                <h3 class="ui-h6">
+                  <a class="ui-card-link" href="#kanban-task-109"
+                    >Learn all 42 songs on the setlist</a
+                  >
+                </h3>
+                <div class="ui-layout-row ui-caption kanban-meta">
+                  <span class="ui-layout-row ui-x-small">
+                    <svg
+                      aria-hidden="true"
+                      class="ui-icon ui-small"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m-9 14-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"
+                      ></path>
+                    </svg>
+                    <span class="ui-sr-only">Subtasks done:</span>
+                    18/42
+                  </span>
+                  <Avatar aria-label="Holly Humbucker" role="img">HH</Avatar>
+                </div>
+              </CardContent>
+            </Card>
+          </li>
+        </ol>
+      </section>
+      <section
+        aria-labelledby="kanban-board-review-heading"
+        class="ui-layout-column ui-small kanban-column"
+      >
+        <div class="ui-layout-row ui-small kanban-column-header">
+          <span class="ui-swatch ui-warning"></span>
+          <h2 class="ui-h6" id="kanban-board-review-heading">In review</h2>
+          <span class="ui-caption ui-tabular-nums">1</span>
+          <Button
+            aria-label="Add task to In review"
+            round
+            size="x-small"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+              ></path>
+            </svg>
+          </Button>
+        </div>
+        <ol class="ui-layout-column ui-small">
+          <li>
+            <Card as="article" variant="outlined">
+              <CardContent>
+                <div class="ui-layout-row ui-x-small">
+                  <Chip
+                    as="span"
+                    label="Gear"
+                    size="x-small"
+                    variant="outlined"
+                  >
+                    <template #start>
+                      <span class="ui-swatch ui-success"></span>
+                    </template>
+                  </Chip>
+                </div>
+                <h3 class="ui-h6">
+                  <a class="ui-card-link" href="#kanban-task-097"
+                    >Rebuild the pedalboard (again)</a
+                  >
+                </h3>
+                <div class="ui-layout-row ui-caption kanban-meta">
+                  <span class="ui-layout-row ui-x-small">
+                    <svg
+                      aria-hidden="true"
+                      class="ui-icon ui-small"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 16H5V10h14z"
+                      ></path>
+                    </svg>
+                    <span class="ui-sr-only">Due</span>
+                    <time datetime="2026-10-09">9 Oct</time>
+                  </span>
+                  <span class="ui-layout-row ui-x-small">
+                    <svg
+                      aria-hidden="true"
+                      class="ui-icon ui-small"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2"
+                      ></path>
+                    </svg>
+                    12 <span class="ui-sr-only">comments</span>
+                  </span>
+                  <Avatar aria-label="Rory Rootnote" role="img">RR</Avatar>
+                </div>
+              </CardContent>
+            </Card>
+          </li>
+        </ol>
+      </section>
+      <section
+        aria-labelledby="kanban-board-done-heading"
+        class="ui-layout-column ui-small kanban-column"
+      >
+        <div class="ui-layout-row ui-small kanban-column-header">
+          <span class="ui-swatch ui-success"></span>
+          <h2 class="ui-h6" id="kanban-board-done-heading">Done</h2>
+          <span class="ui-caption ui-tabular-nums">2</span>
+        </div>
+        <ol class="ui-layout-column ui-small">
+          <li>
+            <Card as="article" class="kanban-done" variant="outlined">
+              <CardContent>
+                <div class="ui-layout-row ui-x-small">
+                  <Chip
+                    as="span"
+                    label="Rehearsal"
+                    size="x-small"
+                    variant="outlined"
+                  >
+                    <template #start>
+                      <span
+                        class="ui-swatch"
+                        style="--_swatch-bg-color: var(--ui-primary)"
+                      ></span>
+                    </template>
+                  </Chip>
+                </div>
+                <h3 class="ui-h6">
+                  <a class="ui-card-link" href="#kanban-task-088"
+                    >Book the rehearsal room</a
+                  >
+                </h3>
+                <div class="ui-layout-row ui-caption kanban-meta">
+                  <span
+                    >Completed <time datetime="2026-10-06">6 Oct</time></span
+                  >
+                  <Avatar aria-label="Percy Groove" role="img">PG</Avatar>
+                </div>
+              </CardContent>
+            </Card>
+          </li>
+          <li>
+            <Card as="article" class="kanban-done" variant="outlined">
+              <CardContent>
+                <div class="ui-layout-row ui-x-small">
+                  <Chip
+                    as="span"
+                    label="Roadie"
+                    size="x-small"
+                    variant="outlined"
+                  >
+                    <template #start>
+                      <span class="ui-swatch ui-neutral"></span>
+                    </template>
+                  </Chip>
+                </div>
+                <h3 class="ui-h6">
+                  <a class="ui-card-link" href="#kanban-task-091"
+                    >Fit 5 amps in one tiny van</a
+                  >
+                </h3>
+                <div class="ui-layout-row ui-caption kanban-meta">
+                  <span
+                    >Completed <time datetime="2026-10-03">3 Oct</time></span
+                  >
+                  <Avatar aria-label="Ines Hertz" role="img">IH</Avatar>
+                </div>
+              </CardContent>
+            </Card>
+          </li>
+        </ol>
+      </section>
+    </div>
+  </div>
+</template>
+
+<style>
+.kanban-board {
+  .kanban-columns {
+    display: grid;
+    gap: var(--ui-space-3);
+    grid-auto-columns: minmax(17rem, 1fr);
+    grid-auto-flow: column;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    padding-block-end: var(--ui-space-2);
+    scroll-snap-type: inline mandatory;
+  }
+
+  .kanban-column {
+    background-color: var(--ui-surface-tonal);
+    border-radius: var(--ui-radius);
+    padding: var(--ui-space-2);
+    scroll-snap-align: start;
+  }
+
+  .kanban-column-header {
+    padding: var(--ui-space-1) var(--ui-space-1) var(--ui-space-1)
+      var(--ui-space-2);
+
+    .ui-button {
+      margin-inline-start: auto;
+    }
+  }
+
+  .kanban-meta {
+    .ui-avatar-group,
+    & > .ui-avatar {
+      margin-inline-start: auto;
+    }
+  }
+
+  .kanban-done h3 {
+    color: var(--ui-text);
+    text-decoration: line-through;
+  }
+}
+</style>

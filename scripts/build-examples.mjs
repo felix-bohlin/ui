@@ -33,6 +33,7 @@ import {
   createExampleIdPlaceholders,
   exampleKeyOf,
   ID_PLACEHOLDER,
+  idBaseOf,
 } from "./example-ids.mjs"
 import {
   reactKinds,
@@ -41,9 +42,11 @@ import {
 } from "./example-react-props.mjs"
 import {
   byAttributeName,
+  EXAMPLES_DIR,
   generatedTargets,
   handWrittenProblems,
   readHandWritten,
+  SOURCE_DIRS,
   staleProblems,
   TARGETS,
 } from "./example-targets.mjs"
@@ -51,7 +54,6 @@ import { formatStably } from "./format.mjs"
 import { parseHtml, VOID_ELEMENTS } from "./html-tokens.mjs"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
-const examplesDir = join(root, "src/component-examples")
 const componentsDir = join(root, "packages/opui/components")
 
 export const REACT_FIXED_VALUE_TYPES = [
@@ -1083,6 +1085,18 @@ const mixedSvgText = (nodes) =>
         mixedSvgText(node.children)),
   )
 
+const VUE_UNKNOWN_TAGS = new Set(["search"])
+
+const vueUnknownTag = (nodes) => {
+  for (const node of nodes) {
+    if (node.type !== "element") continue
+    if (VUE_UNKNOWN_TAGS.has(node.name)) return node.name
+    const inner = vueUnknownTag(node.children)
+    if (inner) return inner
+  }
+  return undefined
+}
+
 const toSvelte = (example) => {
   const emit = markupTarget("svelte", example.roles)
   const snippets = [...example.markup.values()]
@@ -1532,6 +1546,15 @@ export const convertExample = async (
   if (framework === "svelte") {
     return formatStably(toSvelte(example), target)
   }
+  const unknown = vueUnknownTag(example.tree)
+  if (unknown) {
+    throw unsupported(
+      file,
+      `<${unknown}>`,
+      framework,
+      `Vue takes it for a component it can't resolve and renders nothing: use an element Vue knows, such as <form role="search">`,
+    )
+  }
   return formatStably(toVue(example), target)
 }
 
@@ -1719,7 +1742,7 @@ const stripTypes = (code) => {
 export const htmlFromRender = async (rendered, source, file, { read } = {}) => {
   const example = read ?? (await readExample(source, file))
   const { markup, nodes } = cleanRender(
-    assignExampleIds(rendered, exampleKeyOf(file)),
+    assignExampleIds(rendered, exampleKeyOf(file), idBaseOf(file)),
     { css: example.styles, file },
   )
   const imported = new Set(
@@ -1780,7 +1803,8 @@ export const createRenderer = async () => {
         enforce: "pre",
         name: "opui-example-blank-lines",
         transform: (code, id) =>
-          id.startsWith(examplesDir) && id.endsWith(".astro")
+          SOURCE_DIRS.some((dir) => id.startsWith(join(root, dir, "/"))) &&
+          id.endsWith(".astro")
             ? markWhitespace(code).then(markTopLevelBlankLines)
             : undefined,
       },
@@ -1810,29 +1834,38 @@ export const createRenderer = async () => {
     loadSource: (file, source) => server.ssrLoadModule(addSource(file, source)),
     renderSource: (file, source, options) =>
       renderModule(addSource(file, source), options),
-    render: async (key, source) => {
+    render: async (file, source) => {
       if (source.includes(ID_PLACEHOLDER)) {
         throw new Error(
-          `src/component-examples/${key}.astro contains ${ID_PLACEHOLDER}, which the generator uses for ids from Astro.locals.$id`,
+          `${file} contains ${ID_PLACEHOLDER}, which the generator uses for ids from Astro.locals.$id`,
         )
       }
-      return renderModule(`/src/component-examples/${key}.astro`)
+      return renderModule(`/${file}`)
     },
   }
 }
 
 const exampleKeys = async (only) => {
-  const slugs = (await readdir(examplesDir)).toSorted()
-  const unknown = only.filter((slug) => !slugs.includes(slug))
+  const folders = []
+  for (const dir of SOURCE_DIRS) {
+    for (const slug of (await readdir(join(root, dir))).toSorted()) {
+      folders.push({ dir, slug })
+    }
+  }
+  const unknown = only.filter(
+    (slug) => !folders.some((folder) => folder.slug === slug),
+  )
   if (unknown.length > 0) {
     throw new Error(`--only names no examples folder: ${unknown.join(", ")}`)
   }
   const keys = []
-  for (const slug of slugs.filter(
-    (slug) => only.length === 0 || only.includes(slug),
+  for (const { dir, slug } of folders.filter(
+    ({ slug }) => only.length === 0 || only.includes(slug),
   )) {
-    for (const file of (await readdir(join(examplesDir, slug))).toSorted()) {
-      if (file.endsWith(".astro")) keys.push(`${slug}/${file.slice(0, -6)}`)
+    for (const file of (await readdir(join(root, dir, slug))).toSorted()) {
+      if (file.endsWith(".astro")) {
+        keys.push({ dir, key: `${slug}/${file.slice(0, -6)}` })
+      }
     }
   }
   return keys
@@ -1863,16 +1896,19 @@ export const generate = async ({
     existsSync(join(root, file)),
   )
   try {
-    for (const key of keys) {
-      const astroFile = `src/component-examples/${key}.astro`
+    for (const { dir, key } of keys) {
+      const astroFile = `${dir}/${key}.astro`
       const source = await readFile(join(root, astroFile), "utf8")
-      const targets = generatedTargets(key, handWritten)
+      const targets = generatedTargets(
+        key,
+        dir === EXAMPLES_DIR ? handWritten : {},
+      )
       let read
       let rendered
       let roles
       try {
         if (targets.length > 0) {
-          rendered = await renderer.render(key, source)
+          rendered = await renderer.render(astroFile, source)
           read = await readExample(source, astroFile)
           roles = whitespaceRoles(rendered, read.styles)
         }
@@ -1881,7 +1917,7 @@ export const generate = async ({
         continue
       }
       for (const framework of targets) {
-        const target = `src/component-examples/${key}${TARGETS[framework]}`
+        const target = `${dir}/${key}${TARGETS[framework]}`
         try {
           if (framework === "html") {
             outputs.set(

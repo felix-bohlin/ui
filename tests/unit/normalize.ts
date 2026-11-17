@@ -1,6 +1,10 @@
 import { renderedText } from "../../scripts/example-display.mjs"
 import { declarations, mergeText } from "../../scripts/example-html.mjs"
-import { parseHtml, VOID_ELEMENTS } from "../../scripts/html-tokens.mjs"
+import {
+  BOOLEAN_ATTRIBUTES,
+  parseHtml,
+  VOID_ELEMENTS,
+} from "../../scripts/html-tokens.mjs"
 
 type Node = ReturnType<typeof parseHtml>[number]
 
@@ -72,6 +76,7 @@ const normalizeAttribute = (
   if (name === "class") {
     return value.split(ASCII_WHITESPACE).filter(Boolean).toSorted().join(" ")
   }
+  if (BOOLEAN_ATTRIBUTES.has(name) && value === "true") return ""
   if (name === "id") return ids.get(value) ?? value
   if (name === "name") return ids.get(`name:${value}`) ?? value
   if (ID_REFERENCE_ATTRIBUTES.has(name)) {

@@ -227,8 +227,7 @@ async function devPages(framework, origin, rewriteHref) {
       .map((slug) => `/blog/${slug}/`),
     ...fs
       .readdirSync(new URL("../blocks/", import.meta.url))
-      .filter((file) => file.endsWith(".html"))
-      .map((file) => `/blocks/${file.replace(/\.html$/, "")}/`)
+      .map((folder) => `/blocks/${folder}/`)
       .toSorted(),
     "/theme-builder/",
   ]

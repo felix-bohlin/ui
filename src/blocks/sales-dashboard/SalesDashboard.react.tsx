@@ -1,0 +1,556 @@
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Chip,
+  Progress,
+  Select,
+  Stat,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/react"
+
+export default function SalesDashboard() {
+  return (
+    <>
+      <div
+        className="sales-dashboard ui-layout-container ui-layout-column ui-large"
+        style={{ "--_max-inline-size": "80rem" }}
+      >
+        <div className="ui-layout-row ui-spread">
+          <hgroup className="ui-hgroup">
+            <p>Bassbook Shop, updated 8 October, 14:05</p>
+            <h1 className="ui-h3">Merch sales</h1>
+          </hgroup>
+          <div className="ui-layout-row ui-small sales-actions">
+            <Select
+              defaultValue="Year to date"
+              id="sales-dashboard-sales-dashboard-period"
+              label="Period"
+              name="sales-dashboard-period"
+              size="small"
+            >
+              <option>Year to date</option>
+              <option>Last 90 days</option>
+              <option>Last 12 months</option>
+            </Select>
+            <Button size="small" type="button" variant="outlined">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1M5 19a1 1 0 1 0 0 2h14a1 1 0 1 0 0-2z"
+                ></path>
+              </svg>
+              <span className="ui-text">Export</span>
+            </Button>
+          </div>
+        </div>
+        <ul
+          className="ui-layout-grid ui-stretch"
+          style={{ "--_min-inline-size": "13rem" }}
+        >
+          <li>
+            <Card variant="outlined">
+              <CardContent>
+                <Stat
+                  description={
+                    <>
+                      <span className="ui-caption ui-success">+14.2%</span> from
+                      last year
+                    </>
+                  }
+                  label="Revenue"
+                >
+                  880 830 kr
+                </Stat>
+              </CardContent>
+            </Card>
+          </li>
+          <li>
+            <Card variant="outlined">
+              <CardContent>
+                <Stat
+                  description={
+                    <>
+                      <span className="ui-caption ui-success">+6.8%</span> from
+                      last year
+                    </>
+                  }
+                  label="Orders"
+                >
+                  2 482
+                </Stat>
+              </CardContent>
+            </Card>
+          </li>
+          <li>
+            <Card variant="outlined">
+              <CardContent>
+                <Stat
+                  description={
+                    <>
+                      <span className="ui-caption ui-critical">−1.9%</span> from
+                      last year
+                    </>
+                  }
+                  label="Average order value"
+                >
+                  355 kr
+                </Stat>
+              </CardContent>
+            </Card>
+          </li>
+          <li>
+            <Card variant="outlined">
+              <CardContent>
+                <Stat
+                  description={
+                    <>
+                      <span className="ui-caption ui-success">+0.3 pp</span>{" "}
+                      from last year
+                    </>
+                  }
+                  label="Conversion rate"
+                >
+                  3.4%
+                </Stat>
+              </CardContent>
+            </Card>
+          </li>
+        </ul>
+        <div
+          className="ui-layout-columns ui-large"
+          style={{ "--_columns": "2fr 1fr" }}
+        >
+          <Card
+            aria-labelledby="sales-dashboard-revenue-heading"
+            as="section"
+            className="sales-chart-card"
+            variant="outlined"
+          >
+            <hgroup>
+              <h2 className="ui-h5" id="sales-dashboard-revenue-heading">
+                Monthly merch money
+              </h2>
+              <p>Against our totally rad goal of 100 000 kr a month.</p>
+            </hgroup>
+            <CardContent>
+              <ul aria-hidden="true" className="ui-layout-row ui-caption">
+                <li className="ui-layout-row ui-x-small">
+                  <span className="ui-swatch sales-revenue"></span>Revenue
+                </li>
+                <li className="ui-layout-row ui-x-small">
+                  <span className="sales-target-line"></span>Target
+                </li>
+              </ul>
+              <ol className="sales-chart" style={{ "--target": "77%" }}>
+                <li>
+                  <span
+                    className="sales-bar"
+                    style={{ "--value": "58%" }}
+                  ></span>
+                  <span className="sales-month ui-caption">
+                    <span aria-hidden="true">Jan</span>
+                    <span className="ui-sr-only">January: 75 200 kr</span>
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className="sales-bar"
+                    style={{ "--value": "55%" }}
+                  ></span>
+                  <span className="sales-month ui-caption">
+                    <span aria-hidden="true">Feb</span>
+                    <span className="ui-sr-only">February: 71 540 kr</span>
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className="sales-bar"
+                    style={{ "--value": "66%" }}
+                  ></span>
+                  <span className="sales-month ui-caption">
+                    <span aria-hidden="true">Mar</span>
+                    <span className="ui-sr-only">March: 86 190 kr</span>
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className="sales-bar"
+                    style={{ "--value": "71%" }}
+                  ></span>
+                  <span className="sales-month ui-caption">
+                    <span aria-hidden="true">Apr</span>
+                    <span className="ui-sr-only">April: 92 430 kr</span>
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className="sales-bar"
+                    style={{ "--value": "80%" }}
+                  ></span>
+                  <span className="sales-month ui-caption">
+                    <span aria-hidden="true">May</span>
+                    <span className="ui-sr-only">May: 104 180 kr</span>
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className="sales-bar"
+                    style={{ "--value": "74%" }}
+                  ></span>
+                  <span className="sales-month ui-caption">
+                    <span aria-hidden="true">Jun</span>
+                    <span className="ui-sr-only">June: 96 320 kr</span>
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className="sales-bar"
+                    style={{ "--value": "62%" }}
+                  ></span>
+                  <span className="sales-month ui-caption">
+                    <span aria-hidden="true">Jul</span>
+                    <span className="ui-sr-only">July: 80 650 kr</span>
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className="sales-bar"
+                    style={{ "--value": "84%" }}
+                  ></span>
+                  <span className="sales-month ui-caption">
+                    <span aria-hidden="true">Aug</span>
+                    <span className="ui-sr-only">August: 109 270 kr</span>
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className="sales-bar"
+                    style={{ "--value": "93%" }}
+                  ></span>
+                  <span className="sales-month ui-caption">
+                    <span aria-hidden="true">Sep</span>
+                    <span className="ui-sr-only">September: 120 840 kr</span>
+                  </span>
+                </li>
+                <li className="sales-current">
+                  <span
+                    className="sales-bar"
+                    style={{ "--value": "34%" }}
+                  ></span>
+                  <span className="sales-month ui-caption">
+                    <span aria-hidden="true">Oct</span>
+                    <span className="ui-sr-only">
+                      October so far: 44 210 kr
+                    </span>
+                  </span>
+                </li>
+              </ol>
+            </CardContent>
+          </Card>
+          <Card
+            aria-labelledby="sales-dashboard-targets-heading"
+            as="section"
+            variant="outlined"
+          >
+            <hgroup>
+              <h2 className="ui-h5" id="sales-dashboard-targets-heading">
+                October targets
+              </h2>
+              <p>Month to date, by where the merch flew off to.</p>
+            </hgroup>
+            <CardContent>
+              <ul className="ui-layout-column">
+                <li className="ui-layout-column ui-x-small">
+                  <div
+                    className="ui-layout-row ui-small ui-tabular-nums sales-target"
+                    id="sales-dashboard-target-shop"
+                  >
+                    <span>Online shop</span>
+                    <span className="ui-caption">24.8k of 52k kr</span>
+                  </div>
+                  <Progress
+                    aria-labelledby="sales-dashboard-target-shop"
+                    max={520}
+                    value={248}
+                  />
+                </li>
+                <li className="ui-layout-column ui-x-small">
+                  <div
+                    className="ui-layout-row ui-small ui-tabular-nums sales-target"
+                    id="sales-dashboard-target-gigs"
+                  >
+                    <span>Merch table at gigs</span>
+                    <span className="ui-caption">11.2k of 33k kr</span>
+                  </div>
+                  <Progress
+                    aria-labelledby="sales-dashboard-target-gigs"
+                    max={330}
+                    value={112}
+                  />
+                </li>
+                <li className="ui-layout-column ui-x-small">
+                  <div
+                    className="ui-layout-row ui-small ui-tabular-nums sales-target"
+                    id="sales-dashboard-target-bass-shops"
+                  >
+                    <span>Bass shops</span>
+                    <span className="ui-caption">6.4k of 10k kr</span>
+                  </div>
+                  <Progress
+                    aria-labelledby="sales-dashboard-target-bass-shops"
+                    max={100}
+                    value={64}
+                  />
+                </li>
+                <li className="ui-layout-column ui-x-small">
+                  <div
+                    className="ui-layout-row ui-small ui-tabular-nums sales-target"
+                    id="sales-dashboard-target-bundles"
+                  >
+                    <span>Band bundles</span>
+                    <span className="ui-caption">1.8k of 5k kr</span>
+                  </div>
+                  <Progress
+                    aria-labelledby="sales-dashboard-target-bundles"
+                    max={50}
+                    value={18}
+                  />
+                </li>
+              </ul>
+            </CardContent>
+            <CardActions>
+              <Button href="#sales-dashboard-targets" size="small">
+                Edit targets
+              </Button>
+            </CardActions>
+          </Card>
+        </div>
+        <Card
+          aria-labelledby="sales-dashboard-orders-heading"
+          as="section"
+          variant="outlined"
+        >
+          <hgroup>
+            <h2 className="ui-h5" id="sales-dashboard-orders-heading">
+              Latest orders
+            </h2>
+          </hgroup>
+          <CardContent>
+            <Table
+              aria-labelledby="sales-dashboard-orders-heading"
+              density="dense"
+              flush
+              overflow="scroll"
+              tabIndex={0}
+            >
+              <TableHead>
+                <TableRow>
+                  <TableHeaderCell scope="col">Order</TableHeaderCell>
+                  <TableHeaderCell scope="col">Customer</TableHeaderCell>
+                  <TableHeaderCell scope="col">Date</TableHeaderCell>
+                  <TableHeaderCell scope="col">Status</TableHeaderCell>
+                  <TableHeaderCell numeric scope="col">
+                    Total
+                  </TableHeaderCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell>
+                    <a className="ui-link" href="#sales-dashboard-order-2482">
+                      #2482
+                    </a>
+                  </TableCell>
+                  <TableCell>Lou Headstock</TableCell>
+                  <TableCell>8 Oct, 13:58</TableCell>
+                  <TableCell>
+                    <Chip
+                      as="span"
+                      dot
+                      label="Being packed"
+                      severity="info"
+                      size="small"
+                      variant="outlined"
+                    />
+                  </TableCell>
+                  <TableCell numeric>1 249 kr</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <a className="ui-link" href="#sales-dashboard-order-2481">
+                      #2481
+                    </a>
+                  </TableCell>
+                  <TableCell>Fretless Fiona's Bass Barn</TableCell>
+                  <TableCell>8 Oct, 13:41</TableCell>
+                  <TableCell>
+                    <Chip
+                      as="span"
+                      dot
+                      label="Paid"
+                      severity="success"
+                      size="small"
+                      variant="outlined"
+                    />
+                  </TableCell>
+                  <TableCell numeric>12 880 kr</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <a className="ui-link" href="#sales-dashboard-order-2480">
+                      #2480
+                    </a>
+                  </TableCell>
+                  <TableCell>Holly Humbucker</TableCell>
+                  <TableCell>8 Oct, 13:12</TableCell>
+                  <TableCell>
+                    <Chip
+                      as="span"
+                      dot
+                      label="Paid"
+                      severity="success"
+                      size="small"
+                      variant="outlined"
+                    />
+                  </TableCell>
+                  <TableCell numeric>389 kr</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <a className="ui-link" href="#sales-dashboard-order-2479">
+                      #2479
+                    </a>
+                  </TableCell>
+                  <TableCell>Ines Hertz</TableCell>
+                  <TableCell>8 Oct, 12:47</TableCell>
+                  <TableCell>
+                    <Chip
+                      as="span"
+                      dot
+                      label="Awaiting payment"
+                      severity="warning"
+                      size="small"
+                      variant="outlined"
+                    />
+                  </TableCell>
+                  <TableCell numeric>2 095 kr</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <a className="ui-link" href="#sales-dashboard-order-2478">
+                      #2478
+                    </a>
+                  </TableCell>
+                  <TableCell>Percy Groove</TableCell>
+                  <TableCell>8 Oct, 12:30</TableCell>
+                  <TableCell>
+                    <Chip
+                      as="span"
+                      dot
+                      label="Refunded"
+                      severity="critical"
+                      size="small"
+                      variant="outlined"
+                    />
+                  </TableCell>
+                  <TableCell numeric>−649 kr</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </CardContent>
+          <CardActions>
+            <Button href="#sales-dashboard-orders" size="small">
+              View all orders
+            </Button>
+          </CardActions>
+        </Card>
+      </div>
+      <style>{`
+        .sales-dashboard {
+          container-type: inline-size;
+
+          .sales-actions {
+            align-items: end;
+          }
+
+          .sales-revenue {
+            --_swatch-bg-color: var(--ui-primary);
+          }
+
+          .sales-target-line {
+            border-block-start: var(--ui-border-width-thick) dashed var(--ui-text);
+            inline-size: var(--ui-space-3);
+          }
+
+          .sales-chart-card .ui-content {
+            padding-block-end: var(--ui-space-6);
+          }
+
+          .sales-chart {
+            align-items: end;
+            block-size: 12rem;
+            border-block-end: var(--ui-border-width) solid var(--ui-border-color);
+            display: grid;
+            gap: var(--ui-space-1);
+            grid-auto-columns: minmax(0, 1fr);
+            grid-auto-flow: column;
+            list-style-type: none;
+            padding: 0;
+            position: relative;
+
+            &::before {
+              border-block-start: var(--ui-border-width-thick) dashed var(--ui-text);
+              content: "";
+              inset-block-end: var(--target);
+              inset-inline: 0;
+              position: absolute;
+            }
+
+            li {
+              align-items: center;
+              block-size: 100%;
+              display: grid;
+              grid-template-rows: 1fr auto;
+              justify-items: center;
+              row-gap: var(--ui-space-1);
+            }
+
+            .sales-bar {
+              align-self: end;
+              background-color: var(--ui-primary);
+              block-size: var(--value);
+              border-start-end-radius: var(--ui-radius-small);
+              border-start-start-radius: var(--ui-radius-small);
+              inline-size: min(100%, 2.5rem);
+            }
+
+            .sales-current .sales-bar {
+              opacity: 0.5;
+            }
+
+            .sales-month {
+              translate: 0 calc(100% + var(--ui-space-1));
+            }
+          }
+
+          .sales-target span:last-child {
+            margin-inline-start: auto;
+          }
+        }
+      `}</style>
+    </>
+  )
+}

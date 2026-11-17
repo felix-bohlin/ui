@@ -565,6 +565,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Dialog` and `Drawer` only style their own direct parts, so a Callout, Card or TextField inside them keeps its own padding and alignment.
 - `Dialog` and `Drawer` open without a focus ring around them. Safari focuses the `dialog` itself when nothing inside it is in the Tab order, and `normalize.css` drew its focus ring there. The ring stays on the controls inside, and the rule no longer needs `!important`.
 - `Dialog` sets `pointer-events: auto` when open, instead of the SVG-only value `all`.
+- `Divider` draws its line as a border, like a native `hr`, so it prints when the browser leaves out background graphics, and forced colors mode draws it in `CanvasText` without a rule of its own.
 - `Drawer` is hidden (`display: none`) when closed, so it is no longer keyboard focusable.
 - `Drawer` `--_block-size` sets the height of a top or bottom drawer up to the full viewport, instead of stopping at 80%. Its default, `min(80dvb, 650px)`, keeps that cap.
 - `Drawer` with `.ui-backdrop-transparent` (`backdrop="transparent"`) no longer dims the page behind it. It only removed the blur before.

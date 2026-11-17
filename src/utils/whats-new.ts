@@ -711,6 +711,7 @@ export const whatsNew = {
     `The edge reads <a href="#api"><code>--ui-border-color-raised</code></a> when a theme sets it, like menus and elevated cards, and <code>--_edge-border-color</code> sets it alone.`,
     `Opens over <a href="#api"><code>--ui-duration-slow</code></a> with <code>--ui-ease-enter</code> and closes with <code>--ui-ease-exit</code>.`,
     `With <code>viewport-fit=cover</code>, each side on a screen edge pads its content clear of a phone's notch and home indicator (<a href="#safe-areas">Safe areas</a>).`,
+    `On a touch screen, a drawer at the block start or end <a href="#swipe-to-close">closes with a swipe</a> of its grab handle or header toward the edge.`,
     slots(
       `Breaking: <a href="#basics"><code>DrawerTitle</code> and <code>DrawerContent</code></a> replace the <code>heading</code> prop and the slots. <code>DrawerTitle</code> names the drawer; without it, pass <code>aria-label</code>. The <code>DrawerHeader</code> close button uses <code>command="close"</code>; outside a <code>Drawer</code>, set its <code>commandfor</code>.`,
     ),
@@ -926,6 +927,7 @@ export const whatsNew = {
   ],
   message: [
     `New: a <a href="#basics">Message</a> is a chat bubble that groups into runs, with <a href="#attachments">attachments</a>, <a href="#reactions">reactions</a> and a <a href="#typing">typing indicator</a>.`,
+    `A chat between two people can leave out every name and avatar with <a href="#direct"><code>direct</code></a>.`,
   ],
   "number-field": [
     components(
@@ -1129,7 +1131,7 @@ export const whatsNew = {
       default: `Breaking: the root is a <code>&lt;div&gt;</code> with a <code>&lt;label for&gt;</code> inside. The label alone <a href="#accessibility">names the select</a>, and the affixes describe it with the start and end text, so they're read after the name. A click on them no longer opens the select.`,
       html: `Breaking: give the root <code>&lt;div class="ui-select"&gt;</code> a <code>&lt;label class="ui-label" for&gt;</code> that <a href="#accessibility">names the select</a> alone, and describe it with the affixes and the start and end text through <code>aria-describedby</code>. Mark the select's <code>&lt;button&gt;</code> <code>inert</code>, so the select alone takes clicks, focus and the name.`,
     },
-    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the field, a little inside its border, and Tab reaches the start, top, end and bottom in the order they're drawn, where the browser supports <code>reading-flow</code>.`,
+    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the field, a little inside its border, and Tab reaches the top, start, end and bottom in the order they're drawn, in every browser.`,
     `The picker marks the <a href="#preselected">selected option</a> with a check at the end, which <code>--ui-icon-check</code> changes.`,
     components(
       `The ids the select generates start with its <a href="#api"><code>id</code></a>: <code>x-start-text</code>, <code>x-end-text</code>, <code>x-start</code>, <code>x-end</code>, <code>x-top</code> and <code>x-bottom</code> for <code>id="x"</code>.`,
@@ -1410,7 +1412,7 @@ export const whatsNew = {
     },
   ],
   "text-field": [
-    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the field, a little inside its border, and Tab reaches the start, top, end and bottom in the order they're drawn, where the browser supports <code>reading-flow</code>.`,
+    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the field, a little inside its border, and Tab reaches the top, start, end and bottom in the order they're drawn, in every browser.`,
     {
       default: `Breaking: the root is a <code>&lt;div&gt;</code> with a <code>&lt;label for&gt;</code> inside, so the <a href="#affix">affixes</a> can hold buttons. The label alone <a href="#accessibility">names the field</a>, and the start text, top, affixes, bottom and end text describe it through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, in any language's word order. A click on them no longer focuses the field. The ids start with the <code>id</code>: <code>x-start-text</code>, <code>x-start</code>, <code>x-end-text</code> and so on for <code>id="x"</code>.`,
       html: `Breaking: give the root <code>&lt;div class="ui-text-field"&gt;</code> a <code>&lt;label class="ui-label" for&gt;</code> that <a href="#accessibility">names the field</a> alone, and describe it with the start text, the affixes and the end text through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, not in it.`,
@@ -1502,7 +1504,7 @@ export const whatsNew = {
     `A field in a table cell keeps a <code>12ch</code> minimum width, so it stays usable with a <a href="#hidden-label">hidden label</a> in a narrow column.`,
   ],
   textarea: [
-    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the first line and centers on it, taller content starts a little below the field's top, and Tab reaches the parts in the order they're drawn, where the browser supports <code>reading-flow</code>.`,
+    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the first line and centers on it, taller content starts a little below the field's top, and Tab reaches the parts in the order they're drawn, in every browser.`,
     {
       default: `Breaking: the root is a <code>&lt;div&gt;</code> with a <code>&lt;label for&gt;</code> inside, so the <a href="#affix">affixes</a> can hold buttons. The label alone <a href="#accessibility">names the field</a>, and the start text, top, affixes, bottom and end text describe it through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, in any language's word order. A click on them no longer focuses the field.`,
       html: `Breaking: give the root <code>&lt;div class="ui-textarea"&gt;</code> a <code>&lt;label class="ui-label" for&gt;</code> that <a href="#accessibility">names the field</a> alone, and describe it with the start text, the affixes and the end text through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, not in it.`,

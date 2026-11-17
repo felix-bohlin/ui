@@ -5,7 +5,7 @@ import { useInputAttrs, vSeed } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
-import { idRefs } from "../id"
+import { fieldDescribedBy } from "../id"
 import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -109,7 +109,10 @@ const endTextId = () =>
       <input
         v-bind="attrs"
         :aria-describedby="
-          idRefs(startTextId(), endTextId(), attrs['aria-describedby'])
+          fieldDescribedBy(
+            { endText: endTextId(), startText: startTextId() },
+            attrs['aria-describedby'],
+          )
         "
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
         :disabled="disabled"

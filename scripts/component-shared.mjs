@@ -42,8 +42,6 @@ export const elementsIn = (nodes) =>
     return []
   })
 
-export const REACT_ATTRIBUTE_NAMES = { class: "className", for: "htmlFor" }
-
 export const spreads = (node, code) =>
   node.attributes.some(
     (item) =>

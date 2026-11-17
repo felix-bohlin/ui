@@ -341,7 +341,7 @@ Checkbox, Radio and Switch wrap their control in a `<label>` root, which makes t
 
 ### Field Labels
 
-TextField, Textarea, Select, NumberField and OneTimeCode render a `<div>` root with a `<label class="ui-label" for>` inside, and give the control a generated `id` when it has a label. The label alone names the control, so a button can go in `.ui-start` or `.ui-end` without sitting inside a `<label>` or joining the name.
+TextField, Textarea, Select, NumberField and OneTimeCode render a `<div>` root with a `<label class="ui-label" for>` inside, and give the control a generated `id` when it has a label. The label alone names the control, so a button can go in `.ui-start` or `.ui-end` without sitting inside a `<label>` or joining the name. Inside `.ui-field` the parts come in the order they're drawn, `.ui-top`, `.ui-start`, the control, `.ui-end` and `.ui-bottom`, so Tab and screen readers reach them in that order without `reading-flow`.
 
 ```astro
 <div
@@ -356,7 +356,10 @@ TextField, Textarea, Select, NumberField and OneTimeCode render a `<div>` root w
   <span class="ui-field">
     <input
       {...rest}
-      aria-describedby={idRefs(endTextId, ariaDescribedBy)}
+      aria-describedby={fieldDescribedBy(
+        { endText: endTextId },
+        ariaDescribedBy,
+      )}
       aria-invalid={error ? "true" : ariaInvalid}
       id={inputId}
     />
@@ -367,7 +370,7 @@ TextField, Textarea, Select, NumberField and OneTimeCode render a `<div>` root w
 
 ### End Text & ARIA
 
-When providing `endText`, give it a part id (see [Unique IDs](#unique-ids)) and link it to the input via `aria-describedby`, merged with the user's own `aria-describedby` by `idRefs` from `../id`. Checkbox, Radio and Switch are the exception while their `<label>` root wraps the control: the label names it and already includes the end text, so they don't link it. A NumberField, OneTimeCode, Select, TextField or Textarea names the control with its `<label for>` alone and describes it with its start text, `top`, `start` and `end` affixes, `bottom` and end text, in that order, so a unit, a hint or an error is read after the name in any word order. A passed `aria-labelledby` goes through unchanged.
+When providing `endText`, give it a part id (see [Unique IDs](#unique-ids)) and link it to the input via `aria-describedby`, merged with the user's own `aria-describedby` by `idRefs` from `../id`. Checkbox, Radio and Switch are the exception while their `<label>` root wraps the control: the label names it and already includes the end text, so they don't link it. A NumberField, OneTimeCode, Select, TextField or Textarea names the control with its `<label for>` alone and describes it with its start text, `top`, `start` and `end` affixes, `bottom` and end text, in that order, so a unit, a hint or an error is read after the name in any word order. `fieldDescribedBy` from `../id` takes those part ids by name and lists them in that order, then the user's own `aria-describedby`, so every field builds the description the same way. A passed `aria-labelledby` goes through unchanged.
 
 ```astro
 ---
@@ -381,7 +384,10 @@ const ids = createIds(Astro.locals, "number-field", id)
 const endTextId = endText ? ids("end-text") : undefined
 ---
 
-<input {...rest} aria-describedby={idRefs(endTextId, ariaDescribedBy)} />
+<input
+  {...rest}
+  aria-describedby={fieldDescribedBy({ endText: endTextId }, ariaDescribedBy)}
+/>
 {endText && <span id={endTextId}>{endText}</span>}
 ```
 

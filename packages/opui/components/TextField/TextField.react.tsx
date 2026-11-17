@@ -4,7 +4,7 @@ import { useEffect, useId } from "react"
 import { cx } from "../cx"
 import Button from "../Button/Button.react"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
-import { idRefs } from "../id"
+import { fieldDescribedBy } from "../id"
 import type { Props } from "./types.react"
 
 export default function TextField({
@@ -88,15 +88,27 @@ export default function TextField({
         </span>
       )}
       <span className="ui-field">
+        {top && (
+          <span className="ui-top" id={topId}>
+            {top}
+          </span>
+        )}
+        {start && (
+          <span className="ui-start" id={startId}>
+            {start}
+          </span>
+        )}
         <input
           {...rest}
-          aria-describedby={idRefs(
-            startTextId,
-            topId,
-            startId,
-            endId,
-            bottomId,
-            endTextId,
+          aria-describedby={fieldDescribedBy(
+            {
+              bottom: bottomId,
+              end: endId,
+              endText: endTextId,
+              start: startId,
+              startText: startTextId,
+              top: topId,
+            },
             ariaDescribedBy,
           )}
           aria-invalid={error ? "true" : ariaInvalid}
@@ -106,11 +118,6 @@ export default function TextField({
           name={name ?? field?.name}
           type={type}
         />
-        {start && (
-          <span className="ui-start" id={startId}>
-            {start}
-          </span>
-        )}
         {(end || passwordToggle) && (
           <span className="ui-end" id={endId}>
             {end}
@@ -153,11 +160,6 @@ export default function TextField({
                 )}
               </Button>
             )}
-          </span>
-        )}
-        {top && (
-          <span className="ui-top" id={topId}>
-            {top}
           </span>
         )}
         {bottom && (

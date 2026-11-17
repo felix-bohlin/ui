@@ -38,7 +38,7 @@ export default {
     ...passThrough("textarea", ".ui-textarea", ["maxlength", "placeholder"], {
       react: "Use `value` with `onChange`, or `defaultValue`.",
     }),
-    html: 'For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. With a label, put a `<label class="ui-label" for>` inside the root that points at the field\'s `id`, so the label alone names it, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name.',
+    html: 'For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. With a label, put a `<label class="ui-label" for>` inside the root that points at the field\'s `id`, so the label alone names it, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Put `.ui-top` and `.ui-start` before the `<textarea>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they\'re drawn.',
   },
   options: [
     {

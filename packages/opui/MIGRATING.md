@@ -1274,7 +1274,7 @@ Astro and Vue generate an input `id` only when the label or the password toggle 
 
 In Astro, extra attributes go to the `<input>` instead of the root. `class` and `style` stay on the root. In Vue, `style` now goes to the root instead of the input. Check selectors and tests that look for attributes on the root.
 
-The root is a `<div>` with a `<label for>` inside, instead of a `<label>` around the whole field, so the field can hold buttons. The label alone names the input. The start and end text, the `start` and `end` affixes and the `top` and `bottom` parts describe it through `aria-describedby`, read after the name, where the affixes used to join the name. A click on the start or end text, an affix or the `top` or `bottom` part no longer focuses the input, since only the label is a `<label>`. Target `.ui-text-field` instead of `label.ui-text-field` in your CSS, and give a field without `label` an `aria-label` or `aria-labelledby`. In HTML, the input needs an `id` for the label's `for`, and an affix or a hint an `id` for `aria-describedby`.
+The root is a `<div>` with a `<label for>` inside, instead of a `<label>` around the whole field, so the field can hold buttons. The label alone names the input. The start and end text, the `start` and `end` affixes and the `top` and `bottom` parts describe it through `aria-describedby`, read after the name, where the affixes used to join the name. A click on the start or end text, an affix or the `top` or `bottom` part no longer focuses the input, since only the label is a `<label>`. Target `.ui-text-field` instead of `label.ui-text-field` in your CSS, and give a field without `label` an `aria-label` or `aria-labelledby`. In HTML, the input needs an `id` for the label's `for`, and an affix or a hint an `id` for `aria-describedby`. Put `.ui-top` and `.ui-start` before the input, in the order they're drawn, so Tab reaches them there in every browser.
 
 ```diff
 - <label class="ui-text-field">
@@ -1284,8 +1284,8 @@ The root is a `<div>` with a `<label for>` inside, instead of a `<label>` around
     <span class="ui-field">
 -     <input />
 -     <span class="ui-start">€</span>
-+     <input aria-describedby="price-start" id="price" />
 +     <span class="ui-start" id="price-start">€</span>
++     <input aria-describedby="price-start" id="price" />
     </span>
 - </label>
 + </div>

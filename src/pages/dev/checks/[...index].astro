@@ -1,10 +1,10 @@
 ---
-import Checklist from "../../components/Checklist/Checklist.astro"
-import ProgressMap from "../../components/Review/ProgressMap.astro"
-import Document from "../../layouts/Document.astro"
-import { parseChecklist } from "../../utils/checklist"
-import { testPagesEnabled } from "../../utils/test-pages"
-import source from "../../../docs/releases/6.0.0.md?raw"
+import Checklist from "../../../components/Checklist/Checklist.astro"
+import ProgressMap from "../../../components/Review/ProgressMap.astro"
+import Document from "../../../layouts/Document.astro"
+import { parseChecklist } from "../../../utils/checklist"
+import { testPagesEnabled } from "../../../utils/test-pages"
+import source from "../../../../docs/releases/6.0.0.md?raw"
 
 export function getStaticPaths() {
   if (!testPagesEnabled()) return []
@@ -24,7 +24,7 @@ const { sections } = parseChecklist(source)
     The manual checks in <code>docs/releases/6.0.0.md</code>. Check them off as
     you go and reply on anything that needs a fix, then copy your changes for an
     agent, which writes them into the file. The polish and launch work is on the
-    <a class="ui-link" href="/checklist/">checklist</a>.
+    <a class="ui-link" href="/dev/checklist/">checklist</a>.
   </p>
   <ProgressMap
     class="checks-map-sidebar"

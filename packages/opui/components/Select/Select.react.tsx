@@ -3,7 +3,7 @@
 import { createElement, useId } from "react"
 import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
-import { idRefs } from "../id"
+import { fieldDescribedBy } from "../id"
 import { initialValue } from "./selection"
 import type { Props } from "./types.react"
 
@@ -43,13 +43,15 @@ export default function Select({
   const endId = end ? `${base}-end` : undefined
   const topId = top ? `${base}-top` : undefined
   const bottomId = bottom ? `${base}-bottom` : undefined
-  const describedBy = idRefs(
-    startTextId,
-    topId,
-    startId,
-    endId,
-    bottomId,
-    endTextId,
+  const describedBy = fieldDescribedBy(
+    {
+      bottom: bottomId,
+      end: endId,
+      endText: endTextId,
+      start: startId,
+      startText: startTextId,
+      top: topId,
+    },
     rest["aria-describedby"],
   )
 
@@ -83,6 +85,16 @@ export default function Select({
         </span>
       )}
       <span className="ui-field">
+        {top && (
+          <span className="ui-top" id={topId}>
+            {top}
+          </span>
+        )}
+        {start && (
+          <span className="ui-start" id={startId}>
+            {start}
+          </span>
+        )}
         <select
           {...rest}
           aria-describedby={describedBy}
@@ -114,19 +126,9 @@ export default function Select({
             {children}
           </div>
         </select>
-        {start && (
-          <span className="ui-start" id={startId}>
-            {start}
-          </span>
-        )}
         {end && (
           <span className="ui-end" id={endId}>
             {end}
-          </span>
-        )}
-        {top && (
-          <span className="ui-top" id={topId}>
-            {top}
           </span>
         )}
         {bottom && (

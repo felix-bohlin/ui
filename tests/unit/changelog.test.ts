@@ -123,7 +123,7 @@ const unpaged = (noted: Section[], page: Page) =>
 const unnoted = (
   { entries, title }: Section,
   page: Page,
-  notes: (slug: string) => string[],
+  notes: (slug: string) => { breaking: boolean }[],
 ) => {
   const breaking = title === "Breaking"
   return entries.flatMap((entry) =>
@@ -131,7 +131,7 @@ const unnoted = (
       .filter(
         (component) =>
           !notes(page(component) ?? "").some(
-            (note) => note.startsWith("Breaking:") === breaking,
+            (note) => note.breaking === breaking,
           ),
       )
       .map(
@@ -161,7 +161,7 @@ test.each(noted)(
   (section) => {
     expect(
       unnoted(section, pageOf, notesOf),
-      `add a ${section.title === "Breaking" ? "Breaking: " : ""}note for these pages to src/utils/whats-new.ts`,
+      `give a ${section.title.toLowerCase()} record in changes/ a note for these pages`,
     ).toEqual([])
   },
 )
@@ -292,11 +292,13 @@ describe("the changelog rules flag their samples", () => {
     expect(unpaged([breaking], page)).toEqual(["Nope"])
     expect(
       unnoted(breaking, page, (slug) =>
-        slug === "tabs" ? ["Breaking: gone."] : [],
+        slug === "tabs" ? [{ breaking: true }] : [],
       ),
     ).toEqual(["Nope (undefined): - `Tabs` and `Nope` drop `x`."])
     expect(
-      unnoted(breaking, page, (slug) => (slug === "tabs" ? ["Added x."] : [])),
+      unnoted(breaking, page, (slug) =>
+        slug === "tabs" ? [{ breaking: false }] : [],
+      ),
     ).toContain("Tabs (tabs): - `Tabs` and `Nope` drop `x`.")
     expect(unmigrated([breaking], page, "## Tabs\n")).toEqual([
       "Nope (undefined)",

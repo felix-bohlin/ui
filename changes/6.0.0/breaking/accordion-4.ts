@@ -1,0 +1,63 @@
+import { type Change } from "../../../src/utils/changes.ts"
+
+export default {
+  entry:
+    "`Accordion`, `Anchor`, `Avatar`, `Badge`, `Button`, `Callout`, `Card`, `Checkbox`, `Chip`, `ControlGroup`, `Drawer`, `List`, `Progress`, `Radio`, `Range`, `Select`, `Switch`, `Table`, `TextField`, `Textarea`, `ToggleButton`, `ToggleGroup` and `Tooltip` private custom properties follow one scheme: `--_accent`, `--_text-color`, `--_bg-color`, `--_duration`/`--_ease`, `--_size` and `--_radius`. A color says what it paints (`-bg-color`, `-text-color`, `-border-color`), `--_size` is the one name for a control's size (`--_min-height`, `--_height` and `--_input-size` are gone) and a part's size takes the part's name (`--_indicator-size` on `Badge`), other sizes are logical (`--_track-block-size`, not `--_track-height`), names aren't abbreviated (`--_shift-x`, not `--_anchor-tx`), a variant's states take the variant's name (`--_transparent-hover-bg-color` and `--_transparent-active-bg-color` on `Button`, not `--_default-hover-bg-color` and `--_default-active-bg-color`), and the halo around a thumb is a ripple, like `--_ripple-size` on `Checkbox` (`--_thumb-ripple-size` on `Range`, not `--_thumb-highlight-size`). MIGRATING lists every rename.",
+  migrating: [
+    "accordion",
+    "anchor",
+    "avatar",
+    "badge",
+    "button",
+    "callout",
+    "card",
+    "checkbox",
+    "chip",
+    "control-group",
+    "drawer",
+    "list",
+    "progress",
+    "radio",
+    "range",
+    "select",
+    "switch",
+    "table",
+    "text-field",
+    "textarea",
+    "toggle-button-and-toggle-group",
+    "tooltip",
+  ],
+  notes: {
+    accordion: [
+      `<code>--_border-radius</code> is <code>--_radius</code> (<a href="#under-the-hood">Under the hood</a>).`,
+      `<code>--_transition</code> is <code>--_motion</code> (or <code>--ui-duration</code> in a theme), which <code>--_duration</code> is derived from, <code>--_svg-transition</code> is gone, the chevron and the open and close transition use <code>--_duration</code> and <code>--_ease</code>, and the group's <code>--_gutter-color</code> is <code>--_divider-border-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    ],
+    anchor: `<code>--_anchor-tx</code> and <code>--_anchor-ty</code> are <code>--_shift-x</code> and <code>--_shift-y</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    avatar: `<code>--_color</code> is <code>--_text-color</code> and <code>--_width</code> is <code>--_size</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    badge: [
+      `<code>--_anchor-tx</code> and <code>--_anchor-ty</code> are no longer overrides: the corner classes set <code>--_sign-x</code> and <code>--_sign-y</code> (<a href="#under-the-hood">Under the hood</a>).`,
+      `<code>--_size</code> is <code>--_indicator-size</code>, the height and minimum width of the indicator (<a href="#under-the-hood">Under the hood</a>).`,
+    ],
+    button: [
+      `<code>--_border-radius</code> is <code>--_radius</code> and <code>--_min-height</code> is <code>--_size</code> (<a href="#under-the-hood">Under the hood</a>).`,
+      `<code>--_color</code>, <code>--_color-contrast</code> and <code>--_color-tonal</code> are <code>--_accent</code>, <code>--_on-accent</code> and <code>--_accent-tonal</code> (<a href="#under-the-hood">Under the hood</a>).`,
+      `<code>--_default-hover-bg-color</code> and <code>--_default-active-bg-color</code> are <a href="#component-properties"><code>--_transparent-hover-bg-color</code></a> and <code>--_transparent-active-bg-color</code>, after the <code>transparent</code> variant.`,
+    ],
+    callout: `<code>--_border-radius</code> is <code>--_radius</code>, <code>--_outlined-icon-color</code> and <code>--_link-hover-color</code> are <code>--_outlined-icon-text-color</code> and <code>--_link-hover-text-color</code>, and <code>--_icon-color</code> is no longer an override: the severity classes and <code>.ui-outlined</code> set <code>--_icon-text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    chip: `<code>--_color</code> is no longer an override: the variant, color and disabled classes set <code>--_text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    "control-group": `<code>--_border-radius</code>, <code>--_divider-color</code> and <code>--_min-height</code> are gone. Set <code>--_radius</code> on the buttons and fields and <code>--_size</code> on the buttons, and the lines between buttons follow <code>--_divider-accent</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    drawer: `<code>--_color</code> is <code>--_text-color</code>, <code>--_transition-duration</code> is <code>--_motion</code> (or <code>--ui-duration-slow</code> in a theme), which <code>--_duration</code> is derived from, and <code>--_transition-timing</code> is no longer an override: the easing follows <code>--ui-ease-enter</code> and <code>--ui-ease-exit</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    progress: `<code>--_accent-color</code> is <code>--_accent</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    range: `<code>--_thumb-bg</code>, <code>--_thumb-highlight-color</code> and <code>--_track-fill-color</code> are <code>--_accent</code>, which the thumb, its halo and the fill are derived from, <code>--_track-color</code> is <code>--_track-base-bg-color</code>, <code>--_track-height</code> is <code>--_track-block-size</code> and <code>--_thumb-highlight-size</code> is <a href="#component-properties"><code>--_thumb-ripple-size</code></a>, like the <code>--_ripple-size</code> of a checkbox (<a href="#under-the-hood">Under the hood</a>).`,
+    select: `<code>--_accent-color</code> is <code>--_accent</code>, <code>--_height</code> is <code>--_size</code>, and <code>--_label-color</code> and <code>--_end-text-color</code> are gone: set <code>--ui-text</code> or <code>--ui-field-helper-text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    switch: [
+      `<code>--_track-height</code> and <code>--_track-width</code> are <code>--_track-block-size</code> and <code>--_track-inline-size</code>, <code>--_accent-contrast</code> is <code>--_on-accent</code>, and the <code>--_dot-*</code> properties are <code>--_thumb-*</code> (<a href="#under-the-hood">Under the hood</a>).`,
+      `<code>--_accent-color</code> is <code>--_accent</code>, and <code>--_transition-time</code> and <code>--_transition-tf</code> are <code>--_motion</code> and <code>--_ease</code>, which only time the card focus ring now that the switch turns on and off at once (<a href="#under-the-hood">Under the hood</a>).`,
+    ],
+    table: `<code>--_table-border-radius</code> is <code>--_radius</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    "text-field": `<code>--_accent-color</code> is <code>--_accent</code>, <code>--_height</code> is <code>--_size</code>, and <code>--_label-color</code> and <code>--_end-text-color</code> are gone: set <code>--ui-text</code> or <code>--ui-field-helper-text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    textarea: `<code>--_accent-color</code> is <code>--_accent</code>, <code>--_height</code> is <code>--_size</code>, and <code>--_label-color</code> and <code>--_end-text-color</code> are gone: set <code>--ui-text</code> or <code>--ui-field-helper-text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    toggle: `<code>--_border-radius</code> is <code>--_radius</code> on <code>ToggleGroup</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    tooltip: `<code>--_tooltip-bg</code> and <code>--_tooltip-color</code> are <code>--_bg-color</code> and <code>--_text-color</code>, and <code>--_tooltip-offset</code> is <code>--_offset</code> (<a href="#under-the-hood">Under the hood</a>).`,
+  },
+} satisfies Change

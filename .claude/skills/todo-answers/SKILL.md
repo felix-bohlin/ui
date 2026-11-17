@@ -27,7 +27,7 @@ The text starts with `TODO.md with my comments`. It comes in the arguments or in
    - `Explain further and provide an example`: the outcome is `explained`, with a note that ends in `Example: <name>`. Create `src/todo-examples/<name>.html`, registered in `todoExamples` in `src/utils/todo-examples.ts` with a `match` that only that headline starts with (`tests/unit/todo-examples.test.ts` checks it).
    - Anything you can't finish: the outcome is `still-open`, with what is left. When a choice is left, also give its `options` (`[{ "id", "text", "recommended" }]`) and the `recommended` action that picks one.
 3. Record the outcomes: write them as JSON, `[{ "line", "outcome", "note", "options", "recommended" }]`, and run `node scripts/todo.mjs resolve <file>`. It marks `fixed` and `removed` items done, adds each note and options list under the answer, and replaces the item's `Recommended:` note.
-4. Log package changes in `packages/opui/CHANGELOG.md` and `src/utils/whats-new.ts` as `AGENTS.md` says.
+4. Log package changes as records in `changes/` as `AGENTS.md` says.
 5. Run `pnpm exec oxfmt TODO.md` and `pnpm check`, then commit the code and `TODO.md` together, one commit per batch.
 
 ## Report

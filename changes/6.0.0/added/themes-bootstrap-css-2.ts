@@ -1,0 +1,6 @@
+import { type Change } from "../../../src/utils/changes.ts"
+
+export default {
+  entry:
+    "`themes/bootstrap.css` is a Bootstrap 5 look: `oklch(0.91 0.007 248)` field borders, gray secondary default buttons (`oklch(0.525 0.017 245)`, darker than Bootstrap's `oklch(0.558 0.016 245)` so their text reads on the tonal surface and on the tint behind a `kbd` shortcut, and `oklch(0.77 0.014 248)` in dark mode), filled and tonal buttons that shade their own color on hover (`--ui-button-hover: shade-all`), the danger, warning, info and neutral colors and the subtle alert palettes on the severity scopes, white 32px switches, regular weight links, 16px checks with 4px corners and no ripple that keep their 16px size without a visible label (`--ui-target-min-size: 0px`, as in the original, which sets no minimum target size), `0.75rem` button and field padding, `0.875rem` helper text, 16px paragraph spacing with 8px under headings and only the paragraph gap above them, solid blue selected items, black tooltips, 1.5 line height, no heading letter spacing, no backdrop blur and no shadow on dropdowns, modals and drawers. The contrast test lists its field border as a known exception.",
+} satisfies Change

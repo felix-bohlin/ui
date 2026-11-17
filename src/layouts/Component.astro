@@ -147,17 +147,14 @@ const githubRepo = "https://github.com/felix-bohlin/ui"
 const editUrl = `${githubRepo}/edit/main/src/docs/components/${currentSlug}.astro`
 
 const notes = currentSlug ? whatsNewFor(currentFramework, currentSlug) : []
-const isBreaking = (note: string) => note.startsWith("Breaking:")
 const withLinkClass = (note: string) =>
   note.replaceAll("<a href=", '<a class="ui-link" href=')
-const whatsNew = notes.filter((note) => !isBreaking(note))
+const whatsNew = notes
+  .filter(({ breaking }) => !breaking)
+  .map(({ text }) => text)
 const migrating = notes
-  .filter(isBreaking)
-  .map((note) =>
-    note
-      .replace(/^Breaking:\s*/, "")
-      .replace(/^[a-z]/, (letter) => letter.toUpperCase()),
-  )
+  .filter(({ breaking }) => breaking)
+  .map(({ text }) => text.replace(/^[a-z]/, (letter) => letter.toUpperCase()))
 const migratingSection =
   currentSlug && migratingAnchor(migratingGuide, currentSlug)
 const migratingHref = link(

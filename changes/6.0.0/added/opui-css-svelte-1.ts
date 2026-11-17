@@ -1,0 +1,6 @@
+import { type Change } from "../../../src/utils/changes.ts"
+
+export default {
+  entry:
+    '`opui-css/svelte` exports Svelte 5 components for every Astro and Vue component. Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are snippets (`children`, and camelCased names such as `endText`), `TextField`, `Textarea`, `Select`, `Range` and `ToggleGroup` support `bind:value`, `Checkbox` and `Switch` support `bind:checked` and `bind:group`, `ToggleButton` supports `bind:checked`, and `Radio` supports `bind:group`. Form controls go back to the value and checked state they started with when their form is reset, and a bound value follows. A `defaultValue` or `defaultChecked` you pass is that starting state, rendered on the server. A `Radio`, `TabsItem` or `ToggleButton` keeps a choice made before the page hydrated, and the bound value of the `Radio`, `Tabs`, `ToggleButton` or `ToggleGroup` takes it. It ships the `.svelte` files with `.d.ts` types and declaration maps, which resolve with `moduleResolution` `"bundler"`, `"node16"` and `"nodenext"`, and its `.ts` modules compiled to JavaScript, so `skipLibCheck` skips its types. `opui-css/components/<Name>/<Part>.svelte` imports one component or part from the same files, so it shares context with the entry point. `svelte` `^5.57` is an optional peer dependency.',
+} satisfies Change

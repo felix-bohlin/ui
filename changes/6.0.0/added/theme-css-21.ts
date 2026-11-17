@@ -1,0 +1,6 @@
+import { type Change } from "../../../src/utils/changes.ts"
+
+export default {
+  entry:
+    "`theme.css` has elevation tokens: `--ui-shadow-elevated` for elevated `Card` and `Accordion`, one shadow in both schemes whose layers take `--ui-shadow-color`, and `--ui-shadow-overlay` for `Dialog`, `Drawer`, `Menu`, the `Select` picker and the `Carousel` buttons, which is `--ui-shadow-elevated` unless a theme sets it, so a theme that sets only the elevated shadow changes both. `--ui-shadow-control` is the shadow of buttons with a variant, a standalone `ToggleButton`, an outlined `Chip` and fields, the file input included (the optional `--ui-field-shadow` overrides it for fields), and `--ui-shadow-surface` the shadow of tonal and outlined `Card` and `Accordion` and of `Callout`, both `none` by default. `--ui-shadow-selected` is the shadow of the selected tab, and `--ui-shadow-scroll` the scroll shadow of `Dialog` and `Drawer` content and of a sticky `Table` header. The elevated, overlay, scroll and selected shadows have the shapes of Open Props `--shadow-3`, `--shadow-3`, `--shadow-4` and `--shadow-1`, written into `theme.css`, and every layer adds its own opacity to `--ui-shadow-color` with relative color, so they darken in dark mode, also in a nested `.ui-dark`.",
+} satisfies Change

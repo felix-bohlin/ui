@@ -9,6 +9,7 @@
     "src/utils/icon-sets.json"
   ],
   "sections": [
+    "packages/opui/CHANGELOG.md",
     "packages/opui/README.md",
     "packages/opui/css/theme.css",
     "packages/opui/themes/m3.css",

@@ -1,16 +1,17 @@
 import { expect, test } from "vitest"
+import { noteText } from "../../src/utils/changes"
 import { components } from "../../src/utils/components"
 import { FRAMEWORK_IDS } from "../../src/utils/framework"
 import {
   added,
   highlighted,
-  notesFor,
-  whatsNew,
+  notesByPage,
   whatsNewFor,
 } from "../../src/utils/whats-new"
 
 const slugs = new Set(components.map(({ slug }) => slug))
-type Notes = Record<string, Parameters<typeof notesFor>[0]>
+type Notes = ReturnType<typeof notesByPage>
+const whatsNew = notesByPage()
 
 const unknownKeys = (notes: Notes, pages: Set<string>) =>
   Object.keys(notes).filter((slug) => !pages.has(slug))
@@ -24,7 +25,9 @@ const unmarked = (pages: Iterable<string>, marked: Set<string>) =>
 const unlinked = (notes: Notes) =>
   Object.entries(notes).flatMap(([slug, entries]) => [
     ...new Set(
-      FRAMEWORK_IDS.flatMap((framework) => notesFor(entries, framework))
+      FRAMEWORK_IDS.flatMap((framework) =>
+        entries.flatMap((note) => noteText(note, framework) ?? []),
+      )
         .filter((note) => !note.includes('href="#'))
         .map((note) => `${slug}: ${note.slice(0, 80)}`),
     ),
@@ -33,7 +36,7 @@ const unlinked = (notes: Notes) =>
 test("What's new notes are keyed by a component page", () => {
   expect(
     unknownKeys(whatsNew, slugs),
-    "key the notes by the slug of src/docs/components/<slug>.astro",
+    "key the notes of a record in changes/ by the slug of src/docs/components/<slug>.astro",
   ).toEqual([])
 })
 

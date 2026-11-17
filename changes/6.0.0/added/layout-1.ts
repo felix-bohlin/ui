@@ -1,0 +1,18 @@
+import { type Change } from "../../../src/utils/changes.ts"
+
+export default {
+  entry:
+    "`Layout` classes for the space between components: `.ui-layout-column` (a column, with `.ui-align-center` and `.ui-align-end` to line its children and their text up), `.ui-layout-row` (a row that wraps, with `.ui-align-center` and `.ui-align-end` to push its children along it and `.ui-spread` to push them to the two ends), `.ui-layout-grid` (columns that fill the width without breakpoints, with `.ui-stretch` to stretch them over the row when fewer children than fit, and `--_max-columns` to cap the count), `.ui-layout-columns` (one column that becomes the `--_columns` tracks, such as `3fr 2fr` or `15rem 1fr`, once the nearest container is `56rem` wide, or `40rem` with `.ui-breakpoint-small` and `72rem` with `.ui-breakpoint-large`, where a `.ui-sticky` child stays in view at `--_sticky-inset` while the other column scrolls), `.ui-layout-media` (a fixed-size start, such as an avatar, next to text that fills the rest and wraps instead of widening the row) and `.ui-layout-container` (a centered, capped width, and the container `.ui-layout-columns` measures). On a `ul` or `ol`, the column, the row and the grid drop the bullets and list margins, and a `.ui-card` alone in an `li` of a grid fills its cell. Gaps come from the `--ui-space-*` scale, with `.ui-x-small`, `.ui-small` and `.ui-large`, and `.ui-bordered`, like on a `List`, draws a line in each gap of a column, row, grid or columns with `column-rule` and `row-rule`, only between two children, so a wrapped row or the short last row of a grid gets no stray line (`--_divider-border-color`, `--ui-border-color` by default). Browsers without gap decorations leave the gap without the line. CSS only, in `css/components/layout.css`, in the `utils` layer.",
+  notes: {
+    layout: [
+      `New: <a href="#column"><code>.ui-layout-column</code></a>, <a href="#row"><code>.ui-layout-row</code></a>, <a href="#grid"><code>.ui-layout-grid</code></a> and <a href="#container"><code>.ui-layout-container</code></a> lay out the space between components.`,
+      `<a href="#spread"><code>.ui-spread</code></a> pushes the children of a row to its two ends, for a page header, and <a href="#column-align"><code>.ui-align-center</code> and <code>.ui-align-end</code></a> line up a row or a column.`,
+      `<a href="#stretch"><code>.ui-stretch</code></a> stretches the columns of a grid over the row when fewer children than fit, and <a href="#max-columns"><code>--_max-columns</code></a> caps the count.`,
+      `<a href="#media"><code>.ui-layout-media</code></a> puts an avatar or an icon next to text that fills the rest and wraps instead of widening the row.`,
+      `On a <code>ul</code> or <code>ol</code>, <a href="#lists">a column, a row or a grid</a> drops the list bullets and margins, and a card alone in an <code>li</code> fills its grid cell.`,
+      `<a href="#columns"><code>.ui-layout-columns</code></a> is one column that becomes the <code>--_columns</code> tracks at a breakpoint, with a <a href="#sticky"><code>.ui-sticky</code></a> child that stays in view.`,
+      `Three named <a href="#breakpoints">container breakpoints</a> to reflow a page at the same widths as the blocks, which <code>.ui-layout-columns</code> picks with <code>.ui-breakpoint-small</code> and <code>.ui-breakpoint-large</code>.`,
+      `<a href="#bordered"><code>.ui-bordered</code></a> draws a line in each gap between two children of a column, row, grid or columns, like a bordered list, so a wrapped row gets no stray line.`,
+    ],
+  },
+} satisfies Change

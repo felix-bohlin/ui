@@ -1,0 +1,6 @@
+import { type Change } from "../../../src/utils/changes.ts"
+
+export default {
+  entry:
+    "`themes/bootstrap.css` (a Bootstrap 5 look), `themes/brutalist.css` (a neobrutalism look), `themes/govuk.css` (a GOV.UK Design System look), `themes/m3.css` (a Material 3 look) and `themes/shadcn.css` (a shadcn/ui look) are example themes in the `theme.custom` layer, made only of tokens and with every color in OKLCH. They name their fonts but don't load them, and they copy their originals' contrast at normal contrast, also where it falls short of WCAG. They start with the layer order, so they work wherever they load. Import one, or copy it as a starting point. They set every token on `:where(html, .ui-palette, .ui-contrast-more)`, the selector the library derives on, so `.ui-palette` and `.ui-contrast-more` subtrees keep the theme. With more contrast, they hand their borders, field borders, focus ring and subtle text back to the library with `revert-layer` (brutalist draws its borders in `--ui-text`), so every theme meets the contrast promises. The bootstrap, brutalist, govuk and m3 themes derive their primary color and their tinted surfaces, text and borders from `--ui-palette-source`, so setting it recolors them, also in a `.ui-palette` scope. The gray ramp keeps `--ui-gray-hue`.",
+} satisfies Change

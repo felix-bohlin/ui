@@ -1,16 +1,12 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs"
 import { join } from "node:path"
 import { describe, expect, test } from "vitest"
+import { catalog } from "../../src/component-api/catalog.glob"
 import type { ComponentApi } from "../../src/component-api/types"
 import { astroMarkup, type Tag } from "./example-markup"
 import allowlist from "./example-coverage-allowlist.json"
 
-const apis = Object.entries(
-  import.meta.glob<ComponentApi>("../../src/component-api/*/api.ts", {
-    eager: true,
-    import: "default",
-  }),
-).map(([path, api]) => ({ api, page: api.page ?? path.split("/").at(-2) }))
+const { apis } = catalog
 
 const componentsOf = async (sources: string[]) =>
   (await Promise.all(sources.map(astroMarkup))).flatMap(({ tags }) =>

@@ -5,9 +5,9 @@ import DocsTable from "../../../../components/DocsTable.astro"
 import HydrationMarker from "../../../../components/HydrationMarker.astro"
 import Checkmark from "../../../../components/icons/Checkmark.astro"
 import Dismiss from "../../../../components/icons/Dismiss.astro"
+import { catalog } from "../../../../component-api/catalog.glob"
 import type { ComponentFramework } from "../../../../component-api/frameworks"
 import { hydrationRows } from "../../../../component-api/rows"
-import type { ComponentApi } from "../../../../component-api/types"
 import { shipped } from "../../../../utils/component-source"
 import { isClientComponent } from "../../../../utils/react-client-components"
 
@@ -17,14 +17,9 @@ type Props = {
 
 const { framework } = Astro.props
 
-const apis = import.meta.glob<ComponentApi>(
-  "../../../../component-api/*/api.ts",
-  { eager: true, import: "default" },
-)
-
-const rows = Object.entries(apis)
-  .filter(([, api]) => shipped(api, framework))
-  .map(([path, api]) => {
+const rows = catalog.apis
+  .filter(({ api }) => shipped(api, framework))
+  .map(({ api, page }) => {
     const names = [
       api.component,
       ...api.parts.flatMap((part) => (part.component ? [part.component] : [])),
@@ -36,7 +31,7 @@ const rows = Object.entries(apis)
     ]
     return {
       component: api.component,
-      page: api.page ?? path.split("/").at(-2)!,
+      page,
       props,
       serverComponent: !names.some(isClientComponent),
     }

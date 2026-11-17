@@ -12,6 +12,7 @@ import {
   PACKAGE_FRAMEWORK_IDS,
 } from "../src/utils/framework.js"
 import { BARREL_TYPES, barrelExports } from "../src/utils/package-source.js"
+import { loadCatalog } from "./catalog.mjs"
 import { byAttributeName } from "./example-targets.mjs"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
@@ -695,23 +696,6 @@ export const checkTypeNames = (file, source, parts) => {
     )
 }
 
-const objectOf = (node) => {
-  while (
-    node &&
-    (ts.isSatisfiesExpression(node) ||
-      ts.isAsExpression(node) ||
-      ts.isParenthesizedExpression(node))
-  ) {
-    node = node.expression
-  }
-  return node && ts.isObjectLiteralExpression(node) ? node : undefined
-}
-
-const property = (object, name) =>
-  object?.properties.find(
-    (node) => ts.isPropertyAssignment(node) && keyName(node.name) === name,
-  )?.initializer
-
 const SERVER_HOOKS = ["useCallback", "useDebugValue", "useId", "useMemo"]
 
 const isFunction = (node) =>
@@ -883,29 +867,23 @@ const pageExamples = async (file, slug, seen = new Set()) => {
 }
 
 const readModels = async () => {
-  const apiDir = join(root, "src/component-api")
-  const models = new Map()
-  for (const slug of (await readdir(apiDir)).toSorted()) {
-    const path = join(apiDir, slug, "api.ts")
-    const source = await readFile(path, "utf-8").catch(() => null)
-    if (!source) continue
-    const api = objectOf(
-      parse(path, source).statements.find(ts.isExportAssignment)?.expression,
-    )
-    const model = objectOf(property(api, "model"))
-    const props = (framework) =>
-      property(
-        objectOf(property(model, "frameworks")),
-        framework,
-      )?.elements.map((entry) => property(objectOf(entry), "prop").text) ??
-      (model ? [property(model, "prop").text] : [])
-    models.set(property(api, "component")?.text, {
-      api: relative(root, path),
-      svelte: props("svelte"),
-      vue: props("vue"),
-    })
-  }
-  return models
+  const { apis } = await loadCatalog()
+  return new Map(
+    apis.map(({ api, folder }) => {
+      const props = (framework) =>
+        (
+          api.model?.frameworks?.[framework] ?? (api.model ? [api.model] : [])
+        ).map(({ prop }) => prop)
+      return [
+        api.component,
+        {
+          api: `src/component-api/${folder}/api.ts`,
+          svelte: props("svelte"),
+          vue: props("vue"),
+        },
+      ]
+    }),
+  )
 }
 
 const main = async () => {

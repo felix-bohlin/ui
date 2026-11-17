@@ -1,4 +1,4 @@
-import type { ComponentApi } from "../component-api/types"
+import { catalog } from "../component-api/catalog.glob"
 import { exampleSources, parseExamplePath } from "./examples"
 import { PACKAGE_FRAMEWORK_IDS, type PackageFrameworkId } from "./framework"
 
@@ -6,11 +6,6 @@ const indexes = import.meta.glob<string>("../../packages/opui/*/index.ts", {
   eager: true,
   import: "default",
   query: "?raw",
-})
-
-const apiData = import.meta.glob<ComponentApi>("../component-api/*/api.ts", {
-  eager: true,
-  import: "default",
 })
 
 const pascalCase = (slug: string) =>
@@ -34,15 +29,7 @@ const exportedFolders = (framework: PackageFrameworkId) => {
 }
 
 const pageFolders = (slug: string) =>
-  new Set([
-    pascalCase(slug),
-    ...Object.entries(apiData)
-      .filter(
-        ([file, api]) =>
-          (api.page ?? file.match(/component-api\/([^/]+)\//)?.[1]) === slug,
-      )
-      .flatMap(([, api]) => api.source ?? []),
-  ])
+  new Set([pascalCase(slug), ...catalog.sourcesOf(slug)])
 
 const importPattern = new RegExp(
   `import\\s*\\{([^}]*)\\}\\s*from\\s*"opui-css\\/(?:${PACKAGE_FRAMEWORK_IDS.join("|")})"`,

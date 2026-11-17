@@ -1,7 +1,6 @@
 import { readFileSync } from "node:fs"
 import { describe, expect, test } from "vitest"
-import type { ComponentApi } from "../../src/component-api/types"
-import { components } from "../../src/utils/components"
+import { catalog } from "../../src/component-api/catalog.glob"
 import { FRAMEWORK_IDS } from "../../src/utils/framework"
 import { migratingAnchor } from "../../src/utils/migrating"
 import { classNamesIn } from "../../src/utils/package-source"
@@ -105,33 +104,7 @@ test("the unreleased sections come in order", () => {
   ).toEqual([])
 })
 
-const apis = import.meta.glob<ComponentApi>(
-  "../../src/component-api/*/api.ts",
-  {
-    eager: true,
-    import: "default",
-  },
-)
-const slugs = components.map(({ slug }) => slug)
-const PAGES: Record<string, string> = {
-  ButtonGroup: "control-group",
-  FieldSet: "form",
-  Link: "typography",
-}
-const pageOf = (component: string) => {
-  const [file, api] =
-    Object.entries(apis).find(([, entry]) => entry.component === component) ??
-    []
-  if (api) return api.page ?? file?.split("/").at(-2)
-  if (PAGES[component]) return PAGES[component]
-  const words = component
-    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
-    .toLowerCase()
-    .split("-")
-  return words
-    .map((_, index) => words.slice(0, words.length - index).join("-"))
-    .find((slug) => slugs.includes(slug))
-}
+const pageOf = catalog.pageOfComponent
 const subjects = (entry: string) =>
   [
     ...(entry.match(/^- ((?:`[A-Z]\w*`(?:,? and |, )?)+)/)?.[1] ?? "").matchAll(
@@ -184,7 +157,7 @@ const unmigrated = (all: Section[], page: Page, migrating: string) =>
 test("every component an entry starts with has a docs page", () => {
   expect(
     unpaged(noted, pageOf),
-    "map it to its page in PAGES in tests/unit/changelog.test.ts",
+    "map it to its page in COMPONENT_PAGES in src/component-api/catalog.ts",
   ).toEqual([])
 })
 

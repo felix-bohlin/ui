@@ -105,12 +105,12 @@ const steps = [
     features: ["grid", "has"],
     html: `
 <span class="field">
-  <input aria-describedby="price-prefix price-suffix" id="price" />
   <span class="prefix" id="price-prefix">€</span>
+  <input aria-describedby="price-prefix price-suffix" id="price" />
   <span class="suffix" id="price-suffix">per month</span>
 </span>`,
     notes: [
-      "The input comes first in the markup, <code>grid-area</code> places the affixes around it",
+      "The markup follows the order the parts are drawn in, so Tab reaches a button in an affix where it sits, and <code>grid-area</code> places each part",
       "<code>:has(> .prefix)</code> drops the input padding next to an affix",
       "<code>aria-describedby</code> reads the affixes after the name, so no word order is baked into it",
     ],
@@ -153,6 +153,7 @@ const steps = [
     <div class="text-field">
       <label class="label" for="build-text-field-price">Price</label>
       <span class="field">
+        <span class="prefix" id="build-text-field-price-prefix">€</span>
         <input
           aria-describedby="build-text-field-price-prefix build-text-field-price-suffix"
           id="build-text-field-price"
@@ -161,7 +162,6 @@ const steps = [
           required
           value="12"
         />
-        <span class="prefix" id="build-text-field-price-prefix">€</span>
         <span class="suffix" id="build-text-field-price-suffix">per month</span>
       </span>
     </div>

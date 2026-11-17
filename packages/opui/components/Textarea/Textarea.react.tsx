@@ -77,6 +77,16 @@ export default function Textarea({
         </span>
       )}
       <span className="ui-field">
+        {top && (
+          <span className="ui-top" id={topId}>
+            {top}
+          </span>
+        )}
+        {start && (
+          <span className="ui-start" id={startId}>
+            {start}
+          </span>
+        )}
         <textarea
           {...rest}
           aria-describedby={idRefs(
@@ -93,19 +103,9 @@ export default function Textarea({
           id={textareaId}
           name={name ?? field?.name}
         />
-        {start && (
-          <span className="ui-start" id={startId}>
-            {start}
-          </span>
-        )}
         {end && (
           <span className="ui-end" id={endId}>
             {end}
-          </span>
-        )}
-        {top && (
-          <span className="ui-top" id={topId}>
-            {top}
           </span>
         )}
         {bottom && (

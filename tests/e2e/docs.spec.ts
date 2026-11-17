@@ -353,7 +353,7 @@ test.describe("search", () => {
     page,
   }) => {
     await page.locator("[data-open-search]").filter({ visible: true }).click()
-    await page.locator("#search-input").fill("skeleton")
+    await page.locator("#search-input").fill("breadcrumb")
     await expect(page.locator("#search-empty")).toHaveText(
       "No results in HTML. See what's planned",
     )

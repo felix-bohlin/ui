@@ -7,7 +7,8 @@ import type {
   TabsPanelProps as BaseTabsPanelProps,
 } from "./types"
 
-export type Props = BaseProps & Class
+export type Props = BaseProps &
+  Class & { role?: IntrinsicElementAttributes["div"]["role"] }
 
 export type TabsItemProps = BaseTabsItemProps &
   Class & {

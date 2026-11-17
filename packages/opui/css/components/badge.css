@@ -58,6 +58,10 @@
       transition:
         opacity var(--_duration) var(--_ease),
         visibility var(--_duration) var(--_ease);
+
+      @media print {
+        print-color-adjust: exact;
+      }
     }
 
     /* Colors */

@@ -2,6 +2,7 @@ import { readdirSync, readFileSync } from "node:fs"
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test, type Locator, type Page } from "@playwright/test"
 import { strFromU8, unzipSync } from "fflate"
+import { iconTokensOf } from "../../src/utils/theme-icons"
 import { axeNodes, settle } from "./fixtures"
 
 const PRESETS =
@@ -520,4 +521,40 @@ test("a web font loads on the site and the export imports it", async ({
     page.locator("[data-json-download]").click(),
   ])
   expect(download.suggestedFilename()).toBe("tokens.json")
+})
+
+test("the Icons setting swaps the icon set, links it by name and credits it in the export", async ({
+  page,
+}) => {
+  await open(page)
+  await room(page, "density").click()
+  const select = page.locator('[data-control="icons"] select')
+  await expect(select).toHaveValue("fluent")
+  await select.selectOption("lucide")
+  await expect(select).toHaveValue("lucide")
+  await expect(changes(page)).toHaveText("1 change")
+  await expect
+    .poll(() =>
+      page.evaluate(() =>
+        getComputedStyle(document.documentElement)
+          .getPropertyValue("--ui-icon-close")
+          .trim(),
+      ),
+    )
+    .toBe(iconTokensOf("lucide")!["--ui-icon-close"])
+  await page.getByRole("button", { name: "Export CSS" }).click()
+  await expect(page.locator("#builder-export [data-css]")).toContainText(
+    "Icons: Lucide",
+  )
+  await expect(page.locator("#builder-export [data-css]")).toContainText(
+    "Components: lucide-react (React), @lucide/svelte (Svelte), @lucide/vue (Vue).",
+  )
+
+  const link = Buffer.from(
+    JSON.stringify({ icons: "tabler", preset: null, tokens: {} }),
+  ).toString("base64url")
+  await page.goto(`/theme-builder/?theme=${link}`)
+  await page.locator("[data-share-use]").click()
+  await room(page, "density").click()
+  await expect(select).toHaveValue("tabler")
 })

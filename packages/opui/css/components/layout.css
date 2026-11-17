@@ -166,7 +166,7 @@
     .ui-layout-row,
     .ui-layout-grid,
     .ui-layout-columns
-  ).ui-divided {
+  ).ui-bordered {
     --_divider-border-color: var(--ui-border-color);
 
     column-rule: var(--ui-border-width) solid var(--_divider-border-color);

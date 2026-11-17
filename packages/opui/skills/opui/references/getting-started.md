@@ -193,6 +193,7 @@ A few features need a script in plain HTML:
 | Feature | What it does | Import |
 | --- | --- | --- |
 | [Character count](https://opui.dev/html/components/text-field.md#character-count) | Counts the characters left, in Text field and Textarea | `opui-css/elements/character-count.js` |
+| [Close on navigate](https://opui.dev/html/components/drawer.md#navigation) | Closes open menus and `[data-close-on-navigate]` drawers when the page navigates | `opui-css/elements/close-on-navigate.js` |
 | [Copy](https://opui.dev/html/components/copy.md) | Copies text or a field's value | `opui-css/elements/copy.js` |
 | [Dismissible callout](https://opui.dev/html/components/callout.md#dismissible) | Hides a callout with its close button | `opui-css/elements/callout.js` |
 | [Indeterminate checkbox](https://opui.dev/html/components/checkbox.md#indeterminate) | Sets `indeterminate` from `data-indeterminate` | `opui-css/css/js/checkbox.js` |
@@ -298,6 +299,10 @@ Same code as in the HTML section.
 import "../styles/global.css"
 ---
 ```
+
+### TypeScript
+
+`astro check` runs on TypeScript 6, not on 7. Keep `moduleResolution` set to `"bundler"`, as Astro's `tsconfig.json` presets do: with `"nodenext"`, the component props aren't checked.
 
 ### How to use
 
@@ -414,6 +419,10 @@ build: {
 
 Vite also prints warnings like `'scroll-button' is not recognized as a valid pseudo-element` for the Carousel, even without one on the page. They're harmless: the rules stay in the output.
 
+### TypeScript
+
+The types work with TypeScript 6 and 7, with `moduleResolution` set to `"bundler"` or `"nodenext"`.
+
 ### How to use
 
 Slots are props: `children`, and camelCased names like `endText`.
@@ -421,6 +430,8 @@ Slots are props: `children`, and camelCased names like `endText`.
 ### Server rendering
 
 Every component renders full HTML on the server. Components with state or effects are marked `"use client"`, the rest are Server Components. The props in the last column need hydration.
+
+A choice the user makes before the page hydrates stays on screen. `Rating`, `Tabs` and `ToggleGroup` pass it to `onValueChange` as they hydrate. `Checkbox`, `Radio` and `Switch` pass `checked` and `onChange` to the native input, so they work like a plain React input: React doesn't call `onChange` for that choice, and a controlled `checked` misses it. A form that reads its values on submit gets it.
 
 - **66** of 69 need no hydration
 - **3** hydrate for `indeterminate`, `valueSuffix`, `valueText`
@@ -464,7 +475,7 @@ Every component renders full HTML on the server. Components with state or effect
 | [`ListItem`](https://opui.dev/react/components/list.md) | Yes | Yes | Yes | - |
 | [`Menu`](https://opui.dev/react/components/menu.md) | Yes | Yes | No | - |
 | [`Message`](https://opui.dev/react/components/message.md) | Yes | Yes | Yes | - |
-| [`Messages`](https://opui.dev/react/components/message.md) | Yes | Yes | Yes | - |
+| [`MessageList`](https://opui.dev/react/components/message.md) | Yes | Yes | Yes | - |
 | [`NumberField`](https://opui.dev/react/components/number-field.md) | Yes | Yes | No | - |
 | [`OneTimeCode`](https://opui.dev/react/components/one-time-code.md) | Yes | Yes | No | - |
 | [`Progress`](https://opui.dev/react/components/progress.md) | Yes | Yes | Yes | - |
@@ -578,6 +589,14 @@ Same code as in the HTML section.
 
 ### Builds
 
+### TypeScript
+
+The types resolve with `moduleResolution` set to `"bundler"` or `"nodenext"`. `svelte-check` 4.7 runs on TypeScript 6. For TypeScript 7, install it next to TypeScript 6 and run `svelte-check --tsgo`:
+
+```sh
+npm install -D typescript@6 @typescript/native@npm:typescript@7
+```
+
 The types need `skipLibCheck: true` in `tsconfig.json`, as the Svelte and SvelteKit templates set it. Without it, `svelte-check` reports a union type that is too complex to represent.
 
 ### How to use
@@ -652,7 +671,7 @@ Every component renders full HTML on the server. The props in the last column ne
 | [`ListItem`](https://opui.dev/svelte/components/list.md) | Yes | Yes | - |
 | [`Menu`](https://opui.dev/svelte/components/menu.md) | Yes | Yes | - |
 | [`Message`](https://opui.dev/svelte/components/message.md) | Yes | Yes | - |
-| [`Messages`](https://opui.dev/svelte/components/message.md) | Yes | Yes | - |
+| [`MessageList`](https://opui.dev/svelte/components/message.md) | Yes | Yes | - |
 | [`NumberField`](https://opui.dev/svelte/components/number-field.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`OneTimeCode`](https://opui.dev/svelte/components/one-time-code.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Progress`](https://opui.dev/svelte/components/progress.md) | Yes | Yes | - |
@@ -762,6 +781,10 @@ import "./styles/main.css"
 
 ### Builds
 
+### TypeScript
+
+Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` files: vue-tsc 3.3 runs on TypeScript 6, not on 7. The types resolve with `moduleResolution` set to `"bundler"` or `"nodenext"`.
+
 ### How to use
 
 ### Server rendering
@@ -807,7 +830,7 @@ import "./styles/main.css"
 | [`ListItem`](https://opui.dev/vue/components/list.md) | Yes | Yes | - |
 | [`Menu`](https://opui.dev/vue/components/menu.md) | Yes | Yes | - |
 | [`Message`](https://opui.dev/vue/components/message.md) | Yes | Yes | - |
-| [`Messages`](https://opui.dev/vue/components/message.md) | Yes | Yes | - |
+| [`MessageList`](https://opui.dev/vue/components/message.md) | Yes | Yes | - |
 | [`NumberField`](https://opui.dev/vue/components/number-field.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`OneTimeCode`](https://opui.dev/vue/components/one-time-code.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Progress`](https://opui.dev/vue/components/progress.md) | Yes | Yes | - |

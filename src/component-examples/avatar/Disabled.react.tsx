@@ -4,22 +4,22 @@ export default function Disabled() {
   return (
     <>
       <Avatar as="button">
-        <span aria-label="Hakki Hälinen" role="img">
+        <span aria-label="Holly Humbucker" role="img">
           HH
         </span>
       </Avatar>
       <Avatar as="button" disabled>
-        <span aria-label="Inga Halonen" role="img">
+        <span aria-label="Ines Hertz" role="img">
           IH
         </span>
       </Avatar>
       <Avatar href="#">
-        <span aria-label="Lena Handén" role="img">
+        <span aria-label="Lou Headstock" role="img">
           LH
         </span>
       </Avatar>
       <Avatar disabled href="#">
-        <span aria-label="Pekka Gåpåbottanen" role="img">
+        <span aria-label="Percy Groove" role="img">
           PG
         </span>
       </Avatar>

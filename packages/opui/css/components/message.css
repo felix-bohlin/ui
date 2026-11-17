@@ -1,5 +1,5 @@
 @layer components.extended {
-  :where(.ui-messages) {
+  :where(.ui-message-list) {
     container-type: inline-size;
     display: flex;
     flex-direction: column;
@@ -30,6 +30,10 @@
     grid-template-areas: "start content" ". bottom";
     grid-template-columns: auto minmax(0, auto);
     max-inline-size: var(--_max-inline-size);
+
+    @media print {
+      print-color-adjust: exact;
+    }
 
     @supports (corner-shape: squircle) {
       --_radius: calc(var(--ui-radius) * 1.75);

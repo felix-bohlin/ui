@@ -1,6 +1,6 @@
 export type StepperItemProps = {
   complete?: boolean
-  completedLabel?: string
+  completeLabel?: string
   current?: boolean
   description?: string
   error?: boolean
@@ -11,7 +11,7 @@ export type StepperItemProps = {
 
 export type Props = {
   complete?: boolean
-  completedLabel?: string
+  completeLabel?: string
   current?: number
   errorLabel?: string
   items?: StepperItemProps[]
@@ -21,6 +21,6 @@ export type Props = {
 
 export type StepperItemSlots<S> = {
   description?: string | S
-  iconChecked?: S
+  iconComplete?: S
   label?: string | S
 }

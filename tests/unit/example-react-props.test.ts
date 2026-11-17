@@ -21,13 +21,22 @@ const astro = (body: string, imports = "") =>
 const react = (body: string, imports = "") =>
   convertExample(astro(body, imports), "react", sampleFile)
 
-const outputs = new Map<string, string>()
+const samples: (() => Promise<string>)[] = []
 
-const sample = async (body: string, imports = "") => {
-  const code = await react(body, imports)
-  outputs.set(`Sample${outputs.size}.tsx`, code)
-  return code
+const sample = (body: string, imports = "") => {
+  let code: Promise<string> | undefined
+  const convert = () => (code ??= react(body, imports))
+  samples.push(convert)
+  return convert
 }
+
+const sampleRows = (
+  rows: [body: string, imports: string, expected: string][],
+) =>
+  rows.map(
+    ([body, imports, expected]) =>
+      [body, sample(body, imports), expected] as const,
+  )
 
 describe("the React prop table", () => {
   test.each([
@@ -74,31 +83,33 @@ describe("the React prop table", () => {
 })
 
 describe("attribute names and value forms in React", () => {
-  test.each([
-    ["<form novalidate></form>", "", "<form noValidate>"],
-    ["<table><tr><td colspan='2'>x</td></tr></table>", "", "colSpan={2}"],
-    ["<div tabindex='0'>x</div>", "", "tabIndex={0}"],
-    ["<div popover>x</div>", "", 'popover=""'],
-    ["<div popover='manual'>x</div>", "", 'popover="manual"'],
-    ["<div hidden>x</div>", "", "<div hidden>"],
-    ["<svg stroke-width='2'></svg>", "", 'strokeWidth="2"'],
-    ["<label for='a'>x</label>", "", 'htmlFor="a"'],
-    [
-      "<p aria-hidden='true' data-x='1'>x</p>",
-      "",
-      'aria-hidden="true" data-x="1"',
-    ],
-    ["<input maxlength='20' />", "", "maxLength={20}"],
-    ["<input readonly value='x' />", "", 'readOnly value="x"'],
-    ["<Table tabindex='0'></Table>", "Table", "<Table tabIndex={0}"],
-    [
-      "<Carousel aria-label='Photos' itemsPerView='2'></Carousel>",
-      "Carousel",
-      "itemsPerView={2}",
-    ],
-    ["<img alt='' src='/a.png' />", "", 'alt="" src="/a.png"'],
-  ])("%s", async (body, imports, expected) => {
-    expect(await sample(body, imports)).toContain(expected)
+  test.each(
+    sampleRows([
+      ["<form novalidate></form>", "", "<form noValidate>"],
+      ["<table><tr><td colspan='2'>x</td></tr></table>", "", "colSpan={2}"],
+      ["<div tabindex='0'>x</div>", "", "tabIndex={0}"],
+      ["<div popover>x</div>", "", 'popover=""'],
+      ["<div popover='manual'>x</div>", "", 'popover="manual"'],
+      ["<div hidden>x</div>", "", "<div hidden>"],
+      ["<svg stroke-width='2'></svg>", "", 'strokeWidth="2"'],
+      ["<label for='a'>x</label>", "", 'htmlFor="a"'],
+      [
+        "<p aria-hidden='true' data-x='1'>x</p>",
+        "",
+        'aria-hidden="true" data-x="1"',
+      ],
+      ["<input maxlength='20' />", "", "maxLength={20}"],
+      ["<input readonly value='x' />", "", 'readOnly value="x"'],
+      ["<Table tabindex='0'></Table>", "Table", "<Table tabIndex={0}"],
+      [
+        "<Carousel aria-label='Photos' itemsPerView='2'></Carousel>",
+        "Carousel",
+        "itemsPerView={2}",
+      ],
+      ["<img alt='' src='/a.png' />", "", 'alt="" src="/a.png"'],
+    ]),
+  )("%s", async (_, code, expected) => {
+    expect(await code()).toContain(expected)
   })
 
   test.each([
@@ -194,17 +205,19 @@ describe("the order of props", () => {
 })
 
 describe("form state in React", () => {
-  test.each([
-    ['<input type="checkbox" value="a" />', 'value="a"'],
-    ['<input type="radio" value="a" />', 'value="a"'],
-    ['<input type="submit" value="Go" />', 'value="Go"'],
-    ['<input type="text" value="a" />', 'defaultValue="a"'],
-    ['<input value="a" />', 'defaultValue="a"'],
-    ['<input type="number" value="1" />', 'defaultValue="1"'],
-    ['<input readonly value="a" />', 'readOnly value="a"'],
-    ["<input checked type='checkbox' />", "defaultChecked"],
-  ])("%s", async (body, expected) => {
-    expect(await sample(body)).toContain(expected)
+  test.each(
+    sampleRows([
+      ['<input type="checkbox" value="a" />', "", 'value="a"'],
+      ['<input type="radio" value="a" />', "", 'value="a"'],
+      ['<input type="submit" value="Go" />', "", 'value="Go"'],
+      ['<input type="text" value="a" />', "", 'defaultValue="a"'],
+      ['<input value="a" />', "", 'defaultValue="a"'],
+      ['<input type="number" value="1" />', "", 'defaultValue="1"'],
+      ['<input readonly value="a" />', "", 'readOnly value="a"'],
+      ["<input checked type='checkbox' />", "", "defaultChecked"],
+    ]),
+  )("%s", async (_, code, expected) => {
+    expect(await code()).toContain(expected)
   })
 
   test("rejects an input with a dynamic type", async () => {
@@ -250,22 +263,24 @@ describe("form state in React", () => {
     expect(accepted.toSorted()).toEqual([...REACT_FIXED_VALUE_TYPES].toSorted())
   })
 
+  const optgroup = sample(
+    "<Select><optgroup label='g'><option>a</option><option selected value='b'>B</option></optgroup></Select>",
+    "Select",
+  )
+
   test("lifts the selected option to defaultValue, through optgroup", async () => {
-    const code = await sample(
-      "<Select><optgroup label='g'><option>a</option><option selected value='b'>B</option></optgroup></Select>",
-      "Select",
-    )
+    const code = await optgroup()
     expect(code).toContain('<Select defaultValue="b">')
     expect(code).not.toContain("selected")
   })
 
+  const optionText = sample(
+    "<Select><option selected>\n  Tom   &amp;\n  Jerry\n</option></Select>",
+    "Select",
+  )
+
   test("takes the option value by the HTML rule from its text", async () => {
-    expect(
-      await sample(
-        "<Select><option selected>\n  Tom   &amp;\n  Jerry\n</option></Select>",
-        "Select",
-      ),
-    ).toContain('defaultValue="Tom & Jerry"')
+    expect(await optionText()).toContain('defaultValue="Tom & Jerry"')
     expect(
       await react(
         "<Select><option selected>&nbsp;a</option></Select>",
@@ -274,19 +289,21 @@ describe("form state in React", () => {
     ).toContain('defaultValue=" a"')
   })
 
+  const multiple = sample(
+    "<Select multiple><option selected>a</option><option>b</option><option selected value='c'>C</option></Select>",
+    "Select",
+  )
+
   test("writes several selected options of a multiple select as an array", async () => {
-    expect(
-      await sample(
-        "<Select multiple><option selected>a</option><option>b</option><option selected value='c'>C</option></Select>",
-        "Select",
-      ),
-    ).toContain('defaultValue={["a", "c"]}')
+    expect(await multiple()).toContain('defaultValue={["a", "c"]}')
   })
 
+  const nativeSelect = sample(
+    "<select><option selected value='x'>X</option></select>",
+  )
+
   test("a native select works the same", async () => {
-    expect(
-      await sample("<select><option selected value='x'>X</option></select>"),
-    ).toContain('<select defaultValue="x">')
+    expect(await nativeSelect()).toContain('<select defaultValue="x">')
   })
 
   test.each([
@@ -304,16 +321,18 @@ describe("form state in React", () => {
     await expect(react(body, "Select")).rejects.toThrow(reason)
   })
 
+  const textarea = sample("<textarea>Hello</textarea>")
+  const textareaLines = sample("<textarea>\nline 1\nline 2</textarea>")
+  const textareaEntities = sample(
+    "<textarea>&lt;p&gt;a &amp; <b>b</b></textarea>",
+  )
+
   test("turns textarea text into defaultValue", async () => {
-    expect(await sample("<textarea>Hello</textarea>")).toContain(
+    expect(await textarea()).toContain(
       '<textarea defaultValue="Hello"></textarea>',
     )
-    expect(await sample("<textarea>\nline 1\nline 2</textarea>")).toContain(
-      'defaultValue={"line 1\\nline 2"}',
-    )
-    expect(
-      await sample("<textarea>&lt;p&gt;a &amp; <b>b</b></textarea>"),
-    ).toContain('defaultValue="<p>a & <b>b</b>"')
+    expect(await textareaLines()).toContain('defaultValue={"line 1\\nline 2"}')
+    expect(await textareaEntities()).toContain('defaultValue="<p>a & <b>b</b>"')
     await expect(react("<textarea>{text}</textarea>")).rejects.toThrow(
       "a <textarea> with markup",
     )
@@ -322,6 +341,14 @@ describe("form state in React", () => {
 
 describe("the generated React type-checks", () => {
   test("every sample above has no type errors", async () => {
+    const outputs = new Map(
+      await Promise.all(
+        samples.map(
+          async (convert, index) =>
+            [`Sample${index}.tsx`, await convert()] as const,
+        ),
+      ),
+    )
     expect(outputs.size).toBeGreaterThan(20)
     const result = typeDiagnostics(outputs)
     expect(

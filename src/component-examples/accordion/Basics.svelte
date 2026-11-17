@@ -7,11 +7,11 @@
 </script>
 
 <Accordion>
-  <AccordionSummary>What is included in the free plan?</AccordionSummary>
+  <AccordionSummary>What is included in free Bassbook?</AccordionSummary>
   <AccordionContent>
     <p>
-      Three projects, 2 GB of storage and email support. Upgrade at any time to
-      add more projects and invite your team.
+      Three setlists, 2 GB of slap videos and email support. Upgrade to Bassbook
+      Gold at any time to add more setlists and invite your band.
     </p>
   </AccordionContent>
 </Accordion>

@@ -1,14 +1,15 @@
-import type { Slot } from "vue"
+import type { IntrinsicElementAttributes, Slot } from "vue"
 import type { Class, DefaultSlots } from "../vue"
 import type {
-  MessagesProps as BaseMessagesProps,
+  MessageListProps as BaseMessageListProps,
   Props as BaseProps,
 } from "./types"
 
-export type MessagesProps = BaseMessagesProps & Class
+export type MessageListProps = BaseMessageListProps &
+  Class & { role?: IntrinsicElementAttributes["ol"]["role"] }
 
 export type Props = BaseProps & Class
 
-export type MessagesSlots = DefaultSlots
+export type MessageListSlots = DefaultSlots
 
 export type Slots = { bottom?: Slot; end?: Slot; start?: Slot } & DefaultSlots

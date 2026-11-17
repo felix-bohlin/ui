@@ -6,23 +6,24 @@ import type { Props } from "./types.react"
 export default function ListItem({
   as,
   borderTop,
+  choice,
   className,
   color,
   disabled,
   href,
   htmlFor,
   inset,
-  type,
   children,
   description,
   end,
+  iconChecked,
   label,
   start,
   submenu,
   ...rest
 }: Props) {
   const hasControl =
-    type === "checkbox" || type === "radio" || type === "switch"
+    choice === "checkbox" || choice === "radio" || choice === "switch"
   const Tag = hasControl ? "label" : (as ?? (href ? "a" : undefined))
   const restOnItem = hasControl || !Tag
   const hasLabel = !!label
@@ -39,7 +40,7 @@ export default function ListItem({
     >
       {Tag ? (
         <Tag
-          className={cx([hasControl && `ui-${type}`])}
+          className={cx([hasControl && `ui-${choice}`])}
           htmlFor={hasControl ? htmlFor : undefined}
           {...(hasControl ? {} : tagAttrs(Tag, disabled, href))}
           {...defined(restOnItem ? {} : (rest as object))}
@@ -55,6 +56,11 @@ export default function ListItem({
             children
           )}
           {end && <div className="ui-end">{end}</div>}
+          {iconChecked && (
+            <span aria-hidden="true" className="ui-icon-checked">
+              {iconChecked}
+            </span>
+          )}
         </Tag>
       ) : (
         <>
@@ -69,6 +75,11 @@ export default function ListItem({
             children
           )}
           {end && <div className="ui-end">{end}</div>}
+          {iconChecked && (
+            <span aria-hidden="true" className="ui-icon-checked">
+              {iconChecked}
+            </span>
+          )}
         </>
       )}
       {submenu}

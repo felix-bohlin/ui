@@ -379,6 +379,19 @@ describe("the three ports of a sample", () => {
     )
   })
 
+  test("Svelte re-creates a progress element whose value switches between a number and none, and React and Vue bind it", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, value, ...rest } = Astro.props\n---\n\n<div class:list={["ui-sample", className]}>\n  <progress value={value} {...rest} />\n</div>\n',
+    )
+    expect(ports.svelte).toContain(
+      '<div class={["ui-sample", className]}>\n  {#key value == null}\n    <progress {value} {...rest}></progress>\n  {/key}\n</div>\n',
+    )
+    expect(ports["react.tsx"]).toContain("<progress value={value} {...rest} />")
+    expect(ports.vue).toContain(
+      '<progress :value="value" v-bind="attrs"></progress>',
+    )
+  })
+
   test("two element scripts load in one effect in React", async () => {
     const ports = await compile(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<opui-sample class:list={["ui-sample", className]} {...rest}>\n  <slot />\n</opui-sample>\n\n<script>\n  import "../../elements/sample.js"\n  import "../../elements/other.js"\n</script>\n',
@@ -389,7 +402,7 @@ describe("the three ports of a sample", () => {
     expect(ports["react.tsx"].match(/useEffect\(/g)).toHaveLength(1)
   })
 
-  test("an event in types.ts listens on the root: a ref callback in React, a handler prop in Svelte and an emit in Vue", async () => {
+  test("an event in types.ts listens on the root: a ref callback in React that lifts data-hydrating from a custom element, a handler prop in Svelte and an emit in Vue", async () => {
     const { outputs } = await compileComponent(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<opui-sample class:list={["ui-sample", className]} {...rest}>\n  <slot />\n</opui-sample>\n\n<script>\n  import "../../elements/sample.js"\n</script>\n',
       sampleFile(),
@@ -400,7 +413,7 @@ describe("the three ports of a sample", () => {
     const port = (extension: string) =>
       outputs.get(sampleFile().replace(".astro", extension)) ?? ""
     expect(port(".react.tsx")).toBe(
-      '"use client"\n\nimport { useEffect } from "react"\nimport { cx } from "../cx"\nimport { useListener } from "../react"\nimport type { Props } from "./types.react"\n\nexport default function Sample({\n  className,\n  onClose,\n  ref,\n  children,\n  ...rest\n}: Props) {\n  const rootRef = useListener(ref, "close", onClose)\n  useEffect(() => {\n    void import("../../elements/sample.js")\n  }, [])\n\n  return (\n    <opui-sample\n      className={cx(["ui-sample", className])}\n      ref={rootRef}\n      {...rest}\n    >\n      {children}\n    </opui-sample>\n  )\n}\n',
+      '"use client"\n\nimport { useEffect } from "react"\nimport { cx } from "../cx"\nimport { useHydrated, useListener } from "../react"\nimport type { Props } from "./types.react"\n\nexport default function Sample({\n  className,\n  onClose,\n  ref,\n  children,\n  ...rest\n}: Props) {\n  const rootRef = useHydrated(useListener(ref, "close", onClose))\n  useEffect(() => {\n    void import("../../elements/sample.js")\n  }, [])\n\n  return (\n    <opui-sample\n      className={cx(["ui-sample", className])}\n      data-hydrating=""\n      ref={rootRef}\n      {...rest}\n    >\n      {children}\n    </opui-sample>\n  )\n}\n',
     )
     expect(port(".svelte")).toContain(
       "  let {\n    class: className,\n    onclose,\n\n    // Snippets\n    children,\n    ...rest\n  }: Props = $props()\n",
@@ -414,6 +427,31 @@ describe("the three ports of a sample", () => {
     expect(port(".vue")).toContain(
       "    :class=\"['ui-sample', $props.class]\"\n    @close=\"emit('close', $event)\"\n  >",
     )
+  })
+
+  test("an event on a root tag that can be a custom element renders data-hydrating on the custom element only in React, and none on a plain root", async () => {
+    const reactPort = async (source: string) =>
+      (
+        await compileComponent(source, sampleFile(), {
+          base: "export type Props = {\n  open?: boolean\n}\n\nexport type Events = {\n  close: Event\n}\n",
+        })
+      ).outputs.get("packages/opui/components/Sample/Sample.react.tsx") ?? ""
+    const variable = await reactPort(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, open, ...rest } = Astro.props\n\nconst Root = open ? "opui-sample" : "section"\n---\n\n<Root class:list={["ui-sample", className]} {...rest}>\n  <slot />\n</Root>\n',
+    )
+    expect(variable).toContain(
+      'const rootRef = useHydrated(useListener(ref, "close", onClose))',
+    )
+    expect(variable).toContain(
+      'data-hydrating={Root.includes("-") ? "" : undefined}\n      ref={rootRef}',
+    )
+    const plain = await reactPort(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, open, ...rest } = Astro.props\n---\n\n<section class:list={["ui-sample", { "ui-open": open }, className]} {...rest}>\n  <slot />\n</section>\n',
+    )
+    expect(plain).toContain(
+      'const rootRef = useListener(ref, "close", onClose)',
+    )
+    expect(plain).not.toMatch(/data-hydrating|useHydrated/)
   })
 
   test("an event on a component with more than one root element is refused", async () => {
@@ -450,6 +488,17 @@ describe("the three ports of a sample", () => {
     expect(react).toContain('inputMode={inputMode ?? "text"}')
     expect(react).toContain("readOnly={readOnly}")
     expect(react).not.toMatch(/inputmode|readonly/)
+  })
+
+  test("an object default prints on one line in every framework, however the source wraps it", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst {\n  class: className,\n  labels = {\n    one: "{count} item",\n    other: "{count} items",\n  },\n  ...rest\n} = Astro.props\n---\n\n<p class:list={["ui-sample", className]} {...rest}>{labels.other}</p>\n',
+    )
+    for (const [port, code] of Object.entries(ports)) {
+      expect(code, port).toContain(
+        'labels = { one: "{count} item", other: "{count} items" }',
+      )
+    }
   })
 
   test("a class that is always one name skips cx in React", async () => {
@@ -671,7 +720,8 @@ describe("the three ports of a sample", () => {
     const react = port(".react.tsx")
     expect(react).toMatch(/^"use client"\n/)
     expect(react).toContain("defaultValue,")
-    expect(react).toContain("onChange,")
+    expect(react).toContain("onValueChange,")
+    expect(react).not.toContain("onChange,")
     expect(react).toContain("const current = Number(value ?? defaultValue)")
     expect(react).toContain(
       "checked={value !== undefined ? current === star : undefined}",
@@ -679,7 +729,10 @@ describe("the three ports of a sample", () => {
     expect(react).toContain(
       "defaultChecked={value !== undefined ? undefined : current === star}",
     )
-    expect(react).toContain("onChange={onChange}")
+    expect(react).toContain('onChange={() => onValueChange?.("0")}')
+    expect(react).toContain("onChange={() => onValueChange?.(star)}")
+    expect(react).toContain('import { seedChecked } from "../react"\n')
+    expect(react).toContain("ref={seedChecked(() => onValueChange?.(star))}")
     const svelte = port(".svelte")
     expect(svelte).toContain("value = $bindable(),")
     expect(svelte).toContain('value = "0"')
@@ -1000,7 +1053,11 @@ describe("the three ports of a sample", () => {
       '  warnGroupedChecked("Sample", grouped, checked ?? defaultChecked, "Tabs")\n',
     )
     expect(react).toContain(
-      '    <>\n      <input\n        checked={grouped ?? checked}\n        defaultChecked={grouped === undefined ? defaultChecked : undefined}\n        className={cx(["ui-sample", className])}\n        type="radio"\n        value={value}\n        {...defined(rest)}\n        onChange={(event) => {\n          parent?.change?.(event.currentTarget)\n          onChange?.(event)\n        }}\n      />\n      {children}\n    </>\n',
+      '    <>\n      <input\n        checked={grouped ?? checked}\n        defaultChecked={grouped === undefined ? defaultChecked : undefined}\n        className={cx(["ui-sample", className])}\n        type="radio"\n        value={value}\n        {...defined(rest)}\n        ref={inputRef}\n        onChange={(event) => {\n          parent?.change?.(event.currentTarget)\n          onChange?.(event)\n        }}\n      />\n      {children}\n    </>\n',
+    )
+    expect(react).toContain('import { useSeedChecked } from "../react"\n')
+    expect(react).toContain(
+      "  const inputRef = useSeedChecked(ref, (input) => parent?.change?.(input))\n",
     )
     const svelte = outputs.get(sampleFile().replace(".astro", ".svelte"))
     expect(svelte).toContain(
@@ -1481,7 +1538,7 @@ describe("toTypes", () => {
     )
   })
 
-  test("React types a radio group's onChange for its inputs", () => {
+  test("React types a radio group's defaultValue and onValueChange like a group's", () => {
     const { react } = toTypes(
       "Sample",
       {
@@ -1501,11 +1558,9 @@ describe("toTypes", () => {
         },
       },
     )
+    expect(react).toContain('import type { ComponentProps } from "react"')
     expect(react).toContain(
-      'import type { ChangeEventHandler, ComponentProps } from "react"',
-    )
-    expect(react).toContain(
-      'Base.Props & { onChange?: ChangeEventHandler<HTMLInputElement> } & Omit<ComponentProps<"fieldset">, "children" | "onChange">',
+      'Base.Props & { defaultValue?: number | string; onValueChange?: (value: number | string) => void } & Omit<ComponentProps<"fieldset">, "children" | "defaultValue">',
     )
   })
 

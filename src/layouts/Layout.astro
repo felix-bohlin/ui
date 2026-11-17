@@ -3,6 +3,7 @@ import "@opui/css/imports.css"
 import "@opui/open-props.css"
 import "/src/styles/base.css"
 import Footer from "../components/Footer.astro"
+import SiteIcons from "../components/SiteIcons.astro"
 import { Font } from "astro:assets"
 import {
   DEFAULT_FRAMEWORK,
@@ -12,6 +13,7 @@ import {
 } from "../utils/framework"
 import { importMap } from "../utils/import-map"
 import { markdownPath } from "../utils/markdown.js"
+import { documentFor, publication } from "../utils/standard-site"
 
 type Props = {
   title?: string
@@ -52,6 +54,7 @@ const siteTitle = pageTitle
 const description = rawDescription?.replace(/\s+/g, " ").trim()
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 const imageUrl = new URL(image || "/share-img.png", Astro.site)
+const standardSiteDocument = documentFor(pathname)
 const markdownUrl = hasMarkdown
   ? new URL(markdownPath(pathname), Astro.site)
   : null
@@ -63,7 +66,7 @@ const markdownUrl = hasMarkdown
     <Font cssVariable="--font-bricolage-grotesque" preload />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <SiteIcons />
     {!noindex && <link rel="canonical" href={canonicalURL} />}
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link
@@ -74,6 +77,10 @@ const markdownUrl = hasMarkdown
     />
     {markdownUrl && (
       <link rel="alternate" type="text/markdown" href={markdownUrl} />
+    )}
+    {publication && <link rel="site.standard.publication" href={publication} />}
+    {standardSiteDocument && (
+      <link rel="site.standard.document" href={standardSiteDocument} />
     )}
     <title>{siteTitle}</title>
     {noindex && <meta name="robots" content="noindex" />}

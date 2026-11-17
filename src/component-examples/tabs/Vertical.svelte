@@ -2,7 +2,7 @@
   import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/svelte"
 </script>
 
-<Tabs aria-label="Account settings" name="vertical-tabs" orientation="vertical">
+<Tabs name="vertical-tabs" orientation="vertical">
   <TabsItem defaultChecked>
     <TabsLabel>Profile</TabsLabel>
     <TabsPanel>
@@ -28,27 +28,24 @@
     <TabsLabel>Connected apps</TabsLabel>
     <TabsPanel>
       <h3>Connected apps</h3>
-      <p>The calendar and storage services that can read your account.</p>
+      <p>The gig calendar and tuner apps that can read your account.</p>
     </TabsPanel>
   </TabsItem>
 </Tabs>
 
-<Tabs
-  aria-label="Conference schedule"
-  name="vertical-line-tabs"
-  orientation="vertical"
-  variant="line"
->
+<Tabs name="vertical-line-tabs" orientation="vertical" variant="line">
   <TabsItem defaultChecked>
     <TabsLabel>Monday</TabsLabel>
-    <TabsPanel>Workshops on layout, color and motion, from 9:00.</TabsPanel>
+    <TabsPanel>Slap workshops and root note drills, from 9:00.</TabsPanel>
   </TabsItem>
   <TabsItem>
     <TabsLabel>Tuesday</TabsLabel>
-    <TabsPanel>Talks in both halls, and the speaker dinner at 19:00.</TabsPanel>
+    <TabsPanel
+      >Jams in both rehearsal rooms, and pizza night at 19:00.</TabsPanel
+    >
   </TabsItem>
   <TabsItem>
     <TabsLabel>Wednesday</TabsLabel>
-    <TabsPanel>Lightning talks until noon, then the closing panel.</TabsPanel>
+    <TabsPanel>Lightning solos until noon, then the big closing jam.</TabsPanel>
   </TabsItem>
 </Tabs>

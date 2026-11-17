@@ -5,11 +5,11 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/vue"
 <template>
   <Form>
     <Fieldset disabled>
-      <FieldLegend>Billing cycle</FieldLegend>
+      <FieldLegend>Band practice</FieldLegend>
       <FieldGroup name="radio-group-disabled" orientation="horizontal">
-        <Radio checked value="monthly">Monthly</Radio>
-        <Radio value="quarterly">Quarterly</Radio>
-        <Radio value="yearly">Yearly</Radio>
+        <Radio checked value="weekly">Weekly</Radio>
+        <Radio value="monthly">Monthly</Radio>
+        <Radio value="drummer">When the drummer shows up</Radio>
       </FieldGroup>
     </Fieldset>
     <Fieldset>

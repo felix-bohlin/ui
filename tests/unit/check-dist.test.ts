@@ -1,4 +1,4 @@
-import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs"
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs"
 import { tmpdir } from "node:os"
 import { dirname, join } from "node:path"
 import { describe, expect, test } from "vitest"
@@ -36,6 +36,7 @@ const clean = () => ({
 const check = (
   files: Record<string, string | undefined>,
   searchIndex = [{ url: "/html/components/button/" }],
+  standardSite?: { documents: Record<string, string>; publication?: string },
 ) => {
   const dist = mkdtempSync(join(tmpdir(), "opui-dist-"))
   for (const [path, text] of Object.entries(files)) {
@@ -43,9 +44,14 @@ const check = (
     mkdirSync(dirname(join(dist, path)), { recursive: true })
     writeFileSync(join(dist, path), text)
   }
-  return distProblems({ dist, searchIndex, site }).problems.map(
-    ([message, sources]) => `${message} <- ${sources.join(", ")}`,
-  )
+  const problems = distProblems({
+    dist,
+    searchIndex,
+    site,
+    standardSite,
+  }).problems.map(([message, sources]) => `${message} <- ${sources.join(", ")}`)
+  rmSync(dist, { force: true, recursive: true })
+  return problems
 }
 
 describe("check-dist", () => {
@@ -164,5 +170,54 @@ describe("check-dist", () => {
         ),
       }),
     ).toEqual([])
+  })
+
+  describe("Standard Site", () => {
+    const publication =
+      "at://did:plc:abc/site.standard.publication/3aaaaaaaaaaaa"
+    const document = "at://did:plc:abc/site.standard.document/3aaaaaaaaaaab"
+    const records = { documents: { post: document }, publication }
+    const LINKS = `<link rel="site.standard.publication" href="${publication}"><link rel="site.standard.document" href="${document}">`
+    const WELL_KNOWN = "/.well-known/site.standard.publication"
+    const SERVES = `src/pages/.well-known/[record].ts serves the publication in src/utils/standard-site.json <- ${WELL_KNOWN}`
+    const post = (head: string) => ({
+      "/blog/post.md": "# Post\n",
+      "/blog/post/index.html": page("", head),
+    })
+
+    test("reports nothing when the records are served and linked", () => {
+      expect(
+        check(
+          { ...clean(), ...post(LINKS), [WELL_KNOWN]: publication },
+          undefined,
+          records,
+        ),
+      ).toEqual([])
+    })
+
+    test.each([
+      [
+        "a post without its links",
+        { ...post(""), [WELL_KNOWN]: publication },
+        records,
+        '/blog/post/ doesn\'t link its Standard Site records: Layout.astro adds <link rel="site.standard.publication"> and <link rel="site.standard.document"> from src/utils/standard-site.json <- /blog/post/',
+      ],
+      [
+        "a missing well-known file",
+        post(LINKS),
+        records,
+        `${WELL_KNOWN} serves nothing instead of "${publication}": ${SERVES}`,
+      ],
+      [
+        "a well-known file without a publication",
+        { [WELL_KNOWN]: publication },
+        undefined,
+        `${WELL_KNOWN} serves "${publication}" instead of nothing: ${SERVES}`,
+      ],
+    ])("reports %s", (_, files, standardSite, problem) => {
+      expect(check({ ...clean(), ...files }, undefined, standardSite)).toEqual([
+        problem,
+      ])
+    })
   })
 })

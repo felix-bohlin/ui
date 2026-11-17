@@ -4,23 +4,29 @@ import Button from "../Button/Button.astro"
 import type { DialogHeaderProps as Props } from "./types.astro"
 import { warnMissingCloseTarget } from "../dev"
 import { dialogContext } from "./context.astro"
-import { closePath } from "./icons"
 import { trimEdges } from "../whitespace"
 
-const { class: className, closeLabel, ...rest } = Astro.props
+const {
+  class: className,
+  closeButton,
+  closeLabel = "Close",
+  commandfor,
+  ...rest
+} = Astro.props
 
 const dialog = dialogContext.get()
-if (closeLabel) warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
+const target = commandfor ?? dialog?.id
+if (closeButton) warnMissingCloseTarget("DialogHeader", target, "Dialog")
 const content = Astro.slots.has("default")
   ? trimEdges(await Astro.slots.render("default"))
   : ""
 ---
 
 <div class:list={["ui-header", className]} {...rest}>
-  <Fragment set:html={content} />{closeLabel && <Button
+  <Fragment set:html={content} />{closeButton && <Button
     aria-label={closeLabel}
     command="close"
-    commandfor={dialog?.id}
+    commandfor={target}
     round
     size="small"
   >
@@ -31,9 +37,7 @@ const content = Astro.slots.has("default")
         width="32"
         height="32"
         viewBox="0 0 32 32"
-      >
-        <path fill="currentColor" d={closePath} />
-      </svg>
+      ></svg>
     </slot>
   </Button>}
 </div>

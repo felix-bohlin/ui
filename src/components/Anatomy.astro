@@ -487,4 +487,17 @@ const tour = [
       animation: none;
     }
   }
+
+  @media print {
+    .glow::before,
+    .frame::before,
+    .marker::after {
+      background: none;
+    }
+
+    .stage::before,
+    .stage::after {
+      display: none;
+    }
+  }
 </style>

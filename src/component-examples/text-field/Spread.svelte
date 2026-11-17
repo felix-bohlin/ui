@@ -2,56 +2,61 @@
   import { TextField } from "opui-css/svelte"
 </script>
 
-<TextField placeholder="Hakki Hälinen" spread>
+<TextField placeholder="Holly Humbucker" spread>
   {#snippet label()}Name{/snippet}
-  {#snippet startText()}Provide your full name for identification{/snippet}
+  {#snippet startText()}Your full name, as the drummer never says it{/snippet}
 </TextField>
 
-<TextField placeholder="name@example.com" spread type="email" variant="filled">
+<TextField
+  placeholder="name@lowend.example"
+  spread
+  type="email"
+  variant="filled"
+>
   {#snippet label()}Email{/snippet}
-  {#snippet startText()}We'll use this to contact you{/snippet}
-  {#snippet endText()}Use a work address.{/snippet}
+  {#snippet startText()}We'll send your gig invites here{/snippet}
+  {#snippet endText()}Use one the band checks.{/snippet}
 </TextField>
 
-<TextField label="Company" required spread>
-  {#snippet startText()}Shown on your invoices{/snippet}
+<TextField label="Band" required spread>
+  {#snippet startText()}Shown on your gig flyers{/snippet}
 </TextField>
 
-<TextField disabled label="Account ID" spread value="ACC-20931">
-  {#snippet startText()}Assigned when you signed up{/snippet}
+<TextField disabled label="Member ID" spread value="BASS-20931">
+  {#snippet startText()}Assigned when you joined Bassbook{/snippet}
 </TextField>
 
 <TextField error label="Display name" spread value="A">
-  {#snippet startText()}Shown next to your comments{/snippet}
+  {#snippet startText()}Shown next to your wall posts{/snippet}
   {#snippet endText()}Enter at least two characters.{/snippet}
 </TextField>
 
 <TextField label="Amount" placeholder="0.00" spread>
-  {#snippet startText()}Daily spending limit{/snippet}
+  {#snippet startText()}Daily gear spending limit{/snippet}
   {#snippet start()}€{/snippet}
   {#snippet end()}EUR{/snippet}
 </TextField>
 
 <TextField label="Website" placeholder="example.com" spread variant="filled">
-  {#snippet startText()}Your public profile URL{/snippet}
+  {#snippet startText()}Your band homepage, totally rad{/snippet}
   {#snippet start()}https://{/snippet}
   {#snippet endText()}Include the domain, like example.com.{/snippet}
 </TextField>
 
-<TextField label="Project name" placeholder="my-project" spread>
-  {#snippet startText()}Used to generate the project URL{/snippet}
-  {#snippet top()}acme.dev/{/snippet}
+<TextField label="Band page" placeholder="my-band" spread>
+  {#snippet startText()}Used to make your band page URL{/snippet}
+  {#snippet top()}bassbook.example/{/snippet}
   {#snippet bottom()}Lowercase letters and dashes only{/snippet}
 </TextField>
 
 <TextField
-  label="API key"
-  placeholder="Paste your key"
+  label="Secret riff"
+  placeholder="Paste your riff"
   spread
   type="password"
   variant="filled"
 >
-  {#snippet startText()}Stored encrypted at rest{/snippet}
+  {#snippet startText()}Locked away from guitarists{/snippet}
   {#snippet start()}
     <svg
       aria-hidden="true"
@@ -69,6 +74,6 @@
     </svg>
   {/snippet}
   {#snippet top()}Secret{/snippet}
-  {#snippet bottom()}Rotates every 90 days{/snippet}
-  {#snippet endText()}Treat it like a password.{/snippet}
+  {#snippet bottom()}Changes every 90 days{/snippet}
+  {#snippet endText()}Never show it to the drummer.{/snippet}
 </TextField>

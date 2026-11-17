@@ -3,6 +3,43 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Toaster",
   css: ["button", "callout", "toaster"],
+  elements: [
+    {
+      members: [
+        {
+          description:
+            'The `<div role="alert">` that announces critical toasts, or `null`. Read-only.',
+          kind: "property",
+          name: "alert",
+        },
+        {
+          description:
+            "Dismisses a toast: makes it `inert`, moves focus that was in it to the next toast, fades it out and removes it. Returns a promise that resolves once it's gone.",
+          kind: "method",
+          name: "dismiss(toast)",
+        },
+        {
+          description:
+            "The `<ol>` that holds the toasts, or `null`. Read-only.",
+          kind: "property",
+          name: "list",
+        },
+        {
+          description:
+            "Shows a toast and announces it, with the `action`, `duration` and `severity` options of `toast()`. Returns the toast's `<li>`, or `null` without a list.",
+          kind: "method",
+          name: "show(message, options)",
+        },
+        {
+          description:
+            'The `<div role="status">` that announces the other toasts, or `null`. Read-only.',
+          kind: "property",
+          name: "status",
+        },
+      ],
+      tag: "opui-toaster",
+    },
+  ],
   keyboard: [
     {
       description:
@@ -53,7 +90,7 @@ export default {
       attribute: "[duration]",
       default: "5000",
       description:
-        "How long a toast stays, in milliseconds, while the pointer and focus are elsewhere. A toast with an action stays twice as long.",
+        "How long a toast stays, in milliseconds, while the pointer and focus are elsewhere. A toast with an action stays twice as long, and `Infinity` keeps a toast until it's closed.",
       group: "Duration",
       prop: "duration",
     },
@@ -105,7 +142,7 @@ export default {
   ],
   root: {
     description:
-      'The `<opui-toaster>` custom element, with `display: contents`. A button with `commandfor` and `command="--toast"` shows a toast with its `data-toast` text and `data-toast-severity`, and `toast(message, { action, duration, severity })` or `toast.success(message)` does it from a script, where `action` takes a `label` and an `onClick`. `dismiss(toast)` returns a promise that resolves once the toast is gone.',
+      'The `<opui-toaster>` custom element, with `display: contents`. A button with `commandfor` and `command="--toast"` shows a toast with its `data-toast` text and `data-toast-severity`, and `toast(message, { action, duration, severity })` or `toast.success(message)` does it from a script, where `action` takes a `label` and an `onClick`, and `toaster` takes the id or the element of the toaster to show it in.',
     selector: "opui-toaster.ui-toaster",
   },
   source: "Toaster",

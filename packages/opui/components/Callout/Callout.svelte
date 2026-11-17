@@ -2,14 +2,13 @@
   import "../../elements/callout.js"
   import Button from "../Button/Button.svelte"
   import { setCalloutContext } from "./context.svelte"
-  import { closePath } from "./icons"
   import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
     class: className,
+    closeButton,
     closeLabel = "Close",
-    dismissible,
     id,
     ondismiss,
     severity,
@@ -23,8 +22,8 @@
 
   const uid = $props.id()
   const base = $derived(id || `callout-${uid}`)
-  const Root = $derived(dismissible ? "opui-callout" : "article")
-  const rootId = $derived(dismissible ? base : id)
+  const Root = $derived(closeButton ? "opui-callout" : "article")
+  const rootId = $derived(closeButton ? base : id)
   setCalloutContext({
     get severity() {
       return severity
@@ -41,11 +40,11 @@
     className,
   ]}
   id={rootId}
-  role={dismissible ? "article" : undefined}
+  role={closeButton ? "article" : undefined}
   {ondismiss}
   {...defined(rest)}
 >
-  {@render children?.()}{#if dismissible}
+  {@render children?.()}{#if closeButton}
     <Button
       aria-label={closeLabel}
       command="--dismiss"
@@ -62,9 +61,7 @@
           width="32"
           height="32"
           viewBox="0 0 32 32"
-        >
-          <path fill="currentColor" d={closePath} />
-        </svg>
+        ></svg>
       {/if}
     </Button>
   {/if}

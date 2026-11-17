@@ -77,6 +77,12 @@ provide(MenuKey, reactive({ rootId }))
         <div v-if="shortcut" class="ui-end">
           <kbd>{{ shortcut }}</kbd>
         </div>
+        <span
+          v-if="$slots['icon-checked']"
+          aria-hidden="true"
+          class="ui-icon-checked"
+          ><slot name="icon-checked"></slot
+        ></span>
       </component>
     </li>
     <slot></slot>

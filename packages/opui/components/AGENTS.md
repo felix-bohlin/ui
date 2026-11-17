@@ -2,7 +2,7 @@
 
 This guide defines the standards for implementing reusable UI components in this package. Every component ships an Astro, a React, a Svelte and a Vue version side by side (`packages/opui/components/<Name>/<Name>.astro`, `<Name>.react.tsx`, `<Name>.svelte` and `<Name>.vue`), based on the documentation specs at `src/docs/components/`. All should render the same markup as the HTML examples, which `pnpm build-examples` renders from the Astro ones and the parity snapshots in `tests/unit/__snapshots__/` record, and `tests/unit/component-contract.test.ts` compares the four frameworks over every prop value and slot. A framework can add some markup of its own because of how it works (recorded as `.diff` drift next to the parity snapshots), but in general the output is the same. Use it as a reference for maintaining consistency and accessibility across the library.
 
-**CRITICAL INSTRUCTION**: Always use components from this package (imported via `opui-css/astro`, `opui-css/react`, `opui-css/svelte` and `opui-css/vue`) and their corresponding CSS from `packages/opui/css/components/` whenever possible. Avoid writing custom CSS if an existing component or utility can achieve the desired result.
+Build on this package's components (imported via `opui-css/astro`, `opui-css/react`, `opui-css/svelte` and `opui-css/vue`) and their CSS in `packages/opui/css/components/`, and write custom CSS only where no existing component or utility does the job.
 
 ## 0. Implementation Checklist
 
@@ -15,7 +15,7 @@ When implementing or updating a component, ensure:
 - [ ] **Rest Props**: `...rest` goes onto the root element, or the input of a form control. `pnpm check-components` checks that Astro, React and Svelte capture and spread it, and that Vue binds the attributes it doesn't inherit.
 - [ ] **Class Management**: The class list of section 3 in each framework; `pnpm check-components` checks the `ui-` prefix and that every framework keeps Astro's order.
 - [ ] **ID Stability**: Used `createId(Astro.locals)` in Astro, `useId()` in React, `$props.id()` in Svelte and `useId()` in Vue for any internal element linking.
-- [ ] **Accessibility**: ARIA labels, roles, and relationships are correctly handled.
+- [ ] **Accessibility**: Names, roles and relationships follow the Accessible names rules in section 3 and the ids in section 6.
 - [ ] **Parts or Slots**: Containers expose parts (section 4); form controls and small components use props and named slots.
 - [ ] **Exports**: The component and its `Props` type are exported from `packages/opui/astro/index.ts`, `packages/opui/react/index.ts`, `packages/opui/svelte/index.ts` and `packages/opui/vue/index.ts`, sorted, the root's as `Props as <Root>Props` and each part's under its own name (`Props as CardProps`, `CardActionsProps`). `pnpm check-components` checks that the barrels are sorted and export the same components and types, with each `Props` type from the framework's own types file and a `<Name>Props` for every component.
 
@@ -33,7 +33,9 @@ Every component uses layered type files:
 
 Every component folder has all five files; `pnpm check-components` fails when one is missing.
 
-A custom element's attributes and events are typed on the element itself, in `react/elements.ts` and `svelte/elements.ts` (`ondismiss` on `opui-callout` in Svelte), so the component's framework types reach them through `ComponentProps<"opui-...">` or `SvelteHTMLElements["opui-..."]` and stay compiled. An event the component's root fires is also the component's own: `types.ts` lists it in `Events` (`<Root><Part>Events` for a part) with the type of its event object (`dismiss: Event`, `sort: CustomEvent<SortDetail>`), and `pnpm build-components` turns it into `onDismiss` in React, which `useListener` from `../react` attaches with a ref callback that also passes the caller's `ref` on, since React 19 attaches a custom element's `ondismiss` on a client render but not on hydration, `ondismiss` on the root element in Svelte, and in Vue an `Emits` type that `defineEmits` declares and the root re-emits (`@dismiss`). The API docs list them as `onDismiss`, `ondismiss` and `@dismiss` options, one per framework, like `onSort`, `onsort` and `@sort` on `SortableTable`.
+A custom element's attributes and events are typed on the element itself, in `react/elements.ts` and `svelte/elements.ts` (`ondismiss` on `opui-callout` in Svelte), so the component's framework types reach them through `ComponentProps<"opui-...">` or `SvelteHTMLElements["opui-..."]` and stay compiled. An event the component's root fires is also the component's own: `types.ts` lists it in `Events` (`<Root><Part>Events` for a part) with the type of its event object (`dismiss: Event`, `sort: CustomEvent<SortDetail>`), and `pnpm build-components` turns it into `onDismiss` in React, which `useListener` from `../react` attaches with a ref callback that also passes the caller's `ref` on, since React 19 attaches a custom element's `ondismiss` on a client render but not on hydration (a custom element root also renders `data-hydrating`, which `useHydrated` takes off once the listener is attached, and the element ignores presses while it's there, so none happens without `onDismiss`), `ondismiss` on the root element in Svelte, and in Vue an `Emits` type that `defineEmits` declares and the root re-emits (`@dismiss`). The API docs list them as `onDismiss`, `ondismiss` and `@dismiss` options, one per framework, like `onSort`, `onsort` and `@sort` on `SortableTable`.
+
+`tests/unit/elements.test.ts` checks the class each module in `elements/` exports, its tag in `HTMLElementTagNameMap`, that `react/elements.ts` and `svelte/elements.ts` type every attribute it reads, and that the `elements` of an `api.ts` document its members. `tests/e2e/elements.spec.ts` loads each module before and after its markup, removes the element and adds it back.
 
 Every Astro component must follow this exact frontmatter layout:
 
@@ -118,12 +120,14 @@ export default function MyComponent({
 }
 ```
 
-Slots are props: the default slot is `children`, named slots are camelCased `ReactNode` props (`end-text` becomes `endText`), like Svelte snippets. There is no two-way binding: form controls pass the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` through, and a component that shows the current value (Range) renders it from those props and leaves the readout to its element script (`range.js`), which writes the value into the text node React rendered while the user drags. ToggleGroup has no native value, so it takes `value`, `defaultValue` and `onValueChange` and passes the selection to its buttons through context. Vue's `provide`/`inject` maps to a React context in each component's `context.react.ts`. Components that use context, state, effects or their own event handlers start with `"use client"`; the others stay server components, so they also render in React Server Components. `pnpm check-components` checks both ways. In the Astro file, `set:html=""` on an empty element marks content the browser or a custom element writes (the character count, Copy's status, the toasts): the compiler gives it `dangerouslySetInnerHTML={{ __html: "" }}` and `suppressHydrationWarning` in React, so hydration leaves it alone.
+Slots are props: the default slot is `children`, named slots are camelCased `ReactNode` props (`end-text` becomes `endText`), like Svelte snippets. There is no two-way binding: form controls pass the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` through, and a component that shows the current value (Range) renders it from those props and leaves the readout to its element script (`range.js`), which writes the value into the text node React rendered while the user drags. ToggleGroup has no native value, so it takes `value`, `defaultValue` and `onValueChange` and passes the selection to its buttons through context, and Rating, whose radios check themselves against its `value`, takes the same three. React attaches its handlers after hydration and replays no change, so an input whose owner holds the value reports a choice made before the page hydrated once, as it attaches, through `seedChecked` from `../react`: a checkbox's change both ways and a radio's only when it was checked, like the Svelte attachment. Rating's radios take it as their `ref` and call `onValueChange`, and the input of a group item (`TabsItem`, `ToggleButton`) takes it through `useSeedChecked`, which also passes the caller's `ref` on, and calls the group's `change` (`tests/unit/react-seed.test.ts`, and `pnpm test:apps` for the hydration in Next.js). A control with only the native `onChange` (Checkbox, Radio, Switch) stays React's own: it keeps the choice and calls nothing. Vue's `provide`/`inject` maps to a React context in each component's `context.react.ts`. Components that use context, state, effects or their own event handlers start with `"use client"`; the others stay server components, so they also render in React Server Components. `pnpm check-components` checks both ways. In the Astro file, `set:html=""` on an empty element marks content the browser or a custom element writes (the character count, Copy's status, the toasts): the compiler gives it `dangerouslySetInnerHTML={{ __html: "" }}` and `suppressHydrationWarning` in React, so hydration leaves it alone.
 
 ### Key Rules:
 
 - **REST Support**: Native attributes come from `HTMLAttributes` in `types.astro.ts` and the other framework type files, never from `types.ts`. `pnpm check-components` checks the `...rest` spread and fails on an index signature such as `[key: string]: any`.
 - **Undefined attributes**: an attribute a caller passes as `undefined` or `null` never removes an attribute the component sets, in any framework. `tests/unit/component-contract.test.ts` renders every case again with them and says how to keep the attribute.
+- **Attributes before the spread**: a value a caller passes for an attribute an element sets before `{...rest}` renders the same in every framework. `tests/unit/component-contract.test.ts` renders every case again with one for each typed attribute and says how to settle which value wins.
+- **Attributes from the root**: the contract test renders a part without its root, so it can't see an attribute the root hands down through context. When another element points at it, the part destructures the attribute, renders the root's value over its own (`id={dialog?.titleId ?? id}`) and warns in development when it gets a different one (`warnReplacedId` on `DialogTitle`, `warnReplacedAnchorAttributes` on `AnchorContent`). `tests/unit/dev-warnings.test.ts` renders each part inside its root.
 
 ---
 
@@ -220,7 +224,7 @@ One concept has one prop name and one set of values in every component. `tests/u
   - `line` is an indicator with no track.
 - **Every enum names its default:**
   - The default adds no class. It maps to `null` in `api.ts`, where it shows as the default.
-  - The exceptions are `as` and `type`; `bordered`, `color` and `severity`, where leaving the prop out means none; `trigger`, where leaving it out means always shown; and free strings.
+  - The exceptions are `as` and `type`; `border`, `choice`, `color` and `severity`, where leaving the prop out means none; `trigger`, where leaving it out means always shown; and free strings.
 - **One class shape per kind of value:**
   - A value of `variant`, `size`, `color`, `severity`, `side`, `orientation`, `density`, `shape` or `corner` renders `.ui-<value>` (`.ui-filled`, `.ui-block-start`).
   - A value of `align`, `overflow` or a component's own enum renders `.ui-<prop>-<value>`, so the class says which prop it belongs to (`.ui-align-end`, `.ui-overflow-scroll`, `.ui-backdrop-transparent`, `.ui-marker-animation-flip`).
@@ -242,6 +246,7 @@ One concept has one prop name and one set of values in every component. `tests/u
   - A component with no visible text takes `aria-label` from the caller, and its types require it or `aria-labelledby` (`AvatarGroup`, `Carousel`). No other prop supplies or hides a name.
   - A group whose role depends on a prop warns in development without a name (`warnUnnamedGroup` in `../dev`, `ToggleGroup`), and a container with a title part names itself from it through context (`Dialog`, `Drawer`, and a `Fieldset` rendered as another element).
   - The name of a control the component generates inside one of its parts is `<part>Label`, such as `closeLabel` on `DrawerHeader`.
+  - A boolean that adds that control starts with the same word: `closeButton` with `closeLabel` on `Callout`, `DialogHeader` and `DrawerHeader`, `passwordToggle` with `passwordToggleLabel`, `markers` with `markerLabel`. `tests/unit/naming.test.ts` checks each part that lists both.
   - The icon of that control is the `<part>-icon` slot, such as `close-icon` on `DrawerHeader`, and replaces the default `svg`. `tests/unit/naming.test.ts` checks that it sits next to its `<part>Label`.
   - A component never joins a number and words into one name, since their order depends on the language. The caller passes the whole translated string (`<Badge hideLabel label="5 unread messages">`).
 - **Native names:**
@@ -332,10 +337,14 @@ Check that a named slot exists before rendering its wrapper. `tests/unit/compone
 
 ### Label Wrapping
 
-Most inputs should be wrapped in a `<label>` to provide a larger hit area and built-in accessibility.
+Checkbox, Radio and Switch wrap their control in a `<label>` root, which makes the whole row the hit area and names the control.
+
+### Field Labels
+
+TextField, Textarea, Select, NumberField and OneTimeCode render a `<div>` root with a `<label class="ui-label" for>` inside, and give the control a generated `id` when it has a label. The label alone names the control, so a button can go in `.ui-start` or `.ui-end` without sitting inside a `<label>` or joining the name.
 
 ```astro
-<label
+<div
   class:list={[
     "ui-text-field",
     size && size !== "medium" && `ui-${size}`,
@@ -343,17 +352,22 @@ Most inputs should be wrapped in a `<label>` to provide a larger hit area and bu
   ]}
   style={style}
 >
-  <span class="ui-label">{label}</span>
+  {hasLabel && <label class="ui-label" for={inputId}>{label}</label>}
   <span class="ui-field">
-    <input {...rest} aria-invalid={error ? "true" : ariaInvalid} />
+    <input
+      {...rest}
+      aria-describedby={idRefs(endTextId, ariaDescribedBy)}
+      aria-invalid={error ? "true" : ariaInvalid}
+      id={inputId}
+    />
   </span>
-  {endText && <span class="ui-end-text">{endText}</span>}
-</label>
+  {endText && <span class="ui-end-text" id={endTextId}>{endText}</span>}
+</div>
 ```
 
 ### End Text & ARIA
 
-When providing `endText`, give it a part id (see [Unique IDs](#unique-ids)) and link it to the input via `aria-describedby`, merged with the user's own `aria-describedby` by `idRefs` from `../id`. Checkbox, Radio and Switch are the exception while their `<label>` root wraps the control: the label names it and already includes the end text, so they don't link it. A Select, TextField or Textarea with a label names the control with `aria-labelledby` (the label, then the `start` and `end` affixes), so its start text, end text, top and bottom stay out of the name and describe it instead. A TextField with `passwordToggle` names it with `<label for>` and describes it the same way.
+When providing `endText`, give it a part id (see [Unique IDs](#unique-ids)) and link it to the input via `aria-describedby`, merged with the user's own `aria-describedby` by `idRefs` from `../id`. Checkbox, Radio and Switch are the exception while their `<label>` root wraps the control: the label names it and already includes the end text, so they don't link it. A NumberField, OneTimeCode, Select, TextField or Textarea names the control with its `<label for>` alone and describes it with its start text, `top`, `start` and `end` affixes, `bottom` and end text, in that order, so a unit, a hint or an error is read after the name in any word order. A passed `aria-labelledby` goes through unchanged.
 
 ```astro
 ---
@@ -436,14 +450,21 @@ const groupName = name || $id("tabs") // Prefer the passed value if available
 
 ### Default Icons
 
-A part renders the default icon, so users can leave it out or put their own `svg` in its place. `CalloutIcon` reads the severity from context:
+A part renders the default icon, so users can leave it out or put their own `svg` in its place, and a theme swaps every default by setting the `--ui-icon-*` tokens. `tests/unit/build-icons.test.ts` fails on a component that renders an `svg` with shapes, and says what to render instead. The stylesheet paints only an `:empty` `svg`, so a slotted one keeps its shapes, in `currentColor`, with a system color in forced colors and `print-color-adjust: exact`, since a mask is a background. A component whose markup is another component's leaves the painting to that stylesheet: a toast is a `Callout`, so `toaster.css` draws no icon.
 
-```astro
----
-const callout = calloutContext.get()
----
+```css
+&:is(.ui-critical, .ui-info, .ui-success, .ui-warning) > svg:empty {
+  background-color: currentColor;
+  mask: var(--_icon-image) center / contain no-repeat;
 
-{callout?.severity === "info" && <svg>...</svg>}
+  @media (forced-colors: active) {
+    background-color: CanvasText;
+  }
+
+  @media print {
+    print-color-adjust: exact;
+  }
+}
 ```
 
 ---
@@ -488,7 +509,7 @@ Every theme token is one of three kinds, and `tests/unit/theme-tokens.test.ts` c
 
 - A declared token has a value in `theme.css` and is read without a fallback. Knobs and derived roles are declared.
 - An optional token is a commented-out line in `theme.css` with its example value, read with a fallback, and every read site uses the same fallback (`--ui-button-radius` falls back to `--ui-radius` everywhere). Most component tokens are optional, so a theme that doesn't set them costs nothing.
-- A hook is an optional role that several components read, each with a default of its own, so one theme value unifies them: `--ui-selected`, `--ui-on-selected`, `--ui-control-accent`, `--ui-on-control-accent`, `--ui-choice-accent`, `--ui-track-bg-color`, `--ui-control-border-color`, `--ui-control-border-color-filled` and `--ui-border-color-raised`. `--ui-control-accent` and `--ui-on-control-accent` are the accent every control shares: `Button` and `ControlGroup` read them before `--ui-palette-strong`, `Choice` and `Range` before `--ui-primary`, and each component's own `--ui-button-accent` or `--ui-choice-accent` still comes first. The list is `OVERRIDE_HOOKS` in `src/utils/theme-tokens.ts`, and a token joins it only when its read sites need different defaults; a second read of an optional token with a new fallback is a hook or a bug, never a third kind.
+- A hook is an optional role that several components read, each with a default of its own, so one theme value unifies them: `--ui-selected`, `--ui-on-selected`, `--ui-control-accent`, `--ui-control-on-accent`, `--ui-choice-accent`, `--ui-track-bg-color`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-border-color-raised` and `--ui-menu-radius`. `--ui-control-accent` and `--ui-control-on-accent` are the accent every control shares: `Button` and `ControlGroup` read them before `--ui-palette-strong`, `Choice` and `Range` before `--ui-primary`, and each component's own `--ui-button-accent` or `--ui-choice-accent` still comes first. The list is `OVERRIDE_HOOKS` in `src/utils/theme-tokens.ts`, and a token joins it only when its read sites need different defaults; a second read of an optional token with a new fallback is a hook or a bug, never a third kind.
 
 A new token is declared when one default serves every reader, optional when a component has a sensible default of its own and a theme rarely needs it, and a hook only when the job already spans components. Prefer a formula of an existing token over a new one, and a `-filled`, `-on-raised` or size suffix over a second family. Every token also has a tier, `knob`, `primitive`, `role`, `hook`, `component` or `input`, declared in `src/utils/theme-token-tiers.ts` (hooks come from `OVERRIDE_HOOKS`, inputs from `INSTANCE_INPUTS`, the palette steps of `core/palette.css` are primitives, and a token not listed is a role), shown on the Theme tokens page and exported in `tokens.json`. A knob is an input a theme turns (`--ui-palette-hue`, `--ui-density`, the limits and strengths the contrast rules tighten), a primitive is derived from the knobs and read by no component (`--ui-font-size-100` to `900`), a role is what components read, a component token is read by one component, and an input is a `--ui-*` property a component reads but no theme sets, such as `--ui-anchor-position-area`, listed in `INSTANCE_INPUTS` in `src/utils/theme-tokens.ts`.
 
@@ -505,7 +526,7 @@ A new token follows the naming model, so each word means one thing:
 - The default of a family is the bare name, and modifiers add a suffix: `--ui-text`, `--ui-text-strong`, `--ui-text-subtle`; `--ui-surface`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-surface-inverse`; `--ui-line-height` and `--ui-line-height-control`.
 - `control` is anything a user operates (buttons, chips, toggles, tabs, fields), and `field` is the subset that holds a value. A `--ui-field-*` token exists only where fields differ from other controls, and the size tokens of each are aliases of `--ui-control-size*`.
 - A token that names a color by its role carries no suffix (`--ui-primary`, `--ui-selected`, `--ui-button-accent`). A token that names a property of a part ends in what it paints.
-- Component tokens start with the component and end like the `--_*` properties: `-bg-color`, `-text-color`, `-border-color`, `-size`, `-radius`, `-gap`, `-shadow` or `-padding` (`--ui-code-block-bg-color`, `--ui-choice-ripple-bg-color`, `--ui-button-padding-inline`), or a value named by the CSS property it sets or by its type: `-font-size`, `-font-weight`, `-line-height`, `-position-area`, `-blur`, `-offset`, `-translate`, or a keyword like `-hover` (`--ui-field-label-font-weight`, `--ui-backdrop-blur`, `--ui-button-hover`). A role name carries no suffix (`-accent`, `-on-accent`), a knob ends in `-strength` or `-lightness`, and a size suffix (`-small`, `-large`) or context (`-filled`, `-on-raised`) comes after. A color is never a bare `-color`. `-size` is the one word for an extent, and `-width` only names a border or outline thickness. Sizes are logical (`-inline-size`, `-block-size`). `tests/unit/css-properties.test.ts` enforces the list.
+- Component tokens start with the component and end like the `--_*` properties: `-bg-color`, `-text-color`, `-border-color`, `-size`, `-radius`, `-gap`, `-shadow` or `-padding` (`--ui-code-block-bg-color`, `--ui-choice-ripple-bg-color`, `--ui-button-padding-inline`), or a value named by the CSS property it sets or by its type: `-font-size`, `-font-weight`, `-line-height`, `-margin-block-start`, `-position-area`, `-blur`, `-offset`, `-translate`, or a keyword like `-hover`, `-focus` or `-checked` (`--ui-field-label-font-weight`, `--ui-rich-text-heading-margin-block-start`, `--ui-backdrop-blur`, `--ui-button-hover`). The rich text tokens start with `rich-text`, after `.ui-rich-text`. A role name carries no suffix (`-accent`, `-on-accent`), a knob ends in `-strength` or `-lightness`, and a size suffix (`-small`, `-large`) or context (`-filled`, `-on-raised`) comes after. A color is never a bare `-color`. `-size` is the one word for an extent, and `-width` only names a border or outline thickness. Sizes are logical (`-inline-size`, `-block-size`). `tests/unit/css-properties.test.ts` enforces the list.
 
 ### Naming custom properties
 
@@ -520,7 +541,7 @@ Private `--_*` properties follow the same suffixes as component tokens, so one w
 - No abbreviations: `--_shift-x` and `--_direction`, never `--_tx` or `--_dir`.
 - A value that is neither a length nor a color is named by its type: `--_<part>-image`, `--_<part>-label`, `--_<part>-fraction`.
 - Role names carry no suffix, like the role tokens: `--_accent`, `--_on-accent`.
-- A line that stands in for a border keeps the border name even when a background draws it: the `Divider` line is `--_divider-border-color`, like the dividers in `Accordion`, `List` and `Menu`.
+- A line that stands in for a border keeps the border name even when a background draws it: the `Stepper` line, a background for its round caps, is `--_line-border-color`, like the `Timeline` line, and the `Divider` line is `--_divider-border-color`, like the dividers in `Accordion`, `List` and `Menu`.
 
 `tests/unit/css-properties.test.ts` fails, with no allowlist, on the names these rules ban (`-border-radius`, `-height` and `-width` except a border or outline width, `-space`, `-tx`, `-ty`, `-dir`, `--_input-size` and a bare `-color`) in every `--_*` property and component token, and on a component token that doesn't end in one of the suffixes above.
 
@@ -528,28 +549,29 @@ Private `--_*` properties follow the same suffixes as component tokens, so one w
 
 Windows High Contrast (`forced-colors: active`) repaints everything with system colors and drops backgrounds and shadows. A component needs a `@media (forced-colors: active)` block only where a boundary or a state is carried by color alone: a shadow-only edge, a tinted selected state, a filled track. Borders are forced to `CanvasText` by the browser and need nothing, and Chromium forces a `transparent` border color like any other. `tests/unit/forced-colors.test.ts` checks both lists against the stylesheets that contain the media query. The components with a block, and why:
 
+- `Accordion`: the default marker is a mask in `currentColor`, so it keeps the summary's forced text color with `forced-color-adjust: none`. Every variant border is real, including the elevated and tonal edge, which the browser forces to `CanvasText`.
 - `Avatar`: a letter avatar is a fill, so it gets a `CanvasText` border.
 - `Button`: the current page (`aria-current="page"`) is a tint, or a dropped fill on a filled button, so it gets `SelectedItem`, and `aria-disabled="true"` only dims the text or the fill, so it gets the `GrayText` the browser gives a native disabled button.
-- `Card`: the hovered card-link border only changes color, so it gets `Highlight`.
-- `Carousel`: the scroll markers are fills, so they get a `ButtonText` outline and `SelectedItem` for the current one.
+- `Callout`: every boundary is a real border, but the default severity and close icons are masks, so they get `CanvasText` and `ButtonText`.
+- `Card`: the hovered card-link border only changes color, so it gets `Highlight`, and the default close icon of a `Dialog` or `Drawer` header is a mask, so it gets `ButtonText`.
+- `Carousel`: the scroll markers are fills, so they get a `ButtonText` outline and `SelectedItem` for the current one, and the scroll buttons draw their icon in the inverse of their face from stacked backgrounds, so they keep it on `Canvas` with a `ButtonText` border and `forced-color-adjust: none`.
 - `Checkbox`, `Radio`, `Switch` and `Choice` (their shared root): the checked mark, the switch track and the checked `.ui-card` border are tints, so they get `SelectedItem`, `SelectedItemText` and `CanvasText`, and the invalid state is a color, so an invalid input, switch track or card gets a dashed border.
 - `Chip`: the severity dot and the selected state are fills, so they get `CanvasText` and `SelectedItem`, and the dot on a pressed chip `SelectedItemText`, like its label. `aria-disabled="true"` gets `GrayText`, like `Button`.
 - `ControlGroup`: the edges between controls are real borders, but a link button's would be `LinkText`, so every button gets a `ButtonBorder` border and the edges are one color.
-- `Divider`: the line is a background, so it becomes a `CanvasText` border.
-- `List`: selected and current items are tints, so they get `SelectedItem`.
+- `List`: selected and current items are tints, so they get `SelectedItem`, and the check of a `Menu`, listbox or `Select` option is a mask, so it gets their `SelectedItemText`.
 - `Message`: the bubble is a fill, so it gets a `CanvasText` border, the typing dots keep `CanvasText`, and a checked reaction is a tint, so it gets `SelectedItem`.
+- `NumberField`: the default icons of the step buttons are masks, so they get `ButtonText`. `text-field.css` and `button.css` cover the field and the buttons.
 - `OneTimeCode`: the boxes and the ring are masks, so they get `CanvasText`, `GrayText` when disabled and `Highlight` with focus, and the field has no border for the dashed invalid border of `TextField`, so an invalid code gets a dashed outline.
 - `Progress`: the filled track, so it gets `SelectedItem` and a `CanvasText` outline, and the ring of `.ui-round` is a gradient, so it keeps `SelectedItem` and `GrayText` with `forced-color-adjust: none`.
 - `Range`: the track and its fill are backgrounds, so they get `CanvasText` and `SelectedItem`, and the invalid state is a color, so an invalid thumb gets a dashed border.
 - `Rating`: the stars are masks over backgrounds, so filled stars get `SelectedItem` on the input and `CanvasText` on the meter, empty stars `GrayText` and the clear icon `ButtonText`, and the invalid state is a color, so the stars of an invalid input get a dashed border.
-- `Select`: the picker chevron is a mask, so it gets `ButtonText`.
+- `Select`: the picker chevron is a mask, so it gets `ButtonText`, and the check of the selected option `SelectedItemText`.
 - `SortableTable`: the sort arrow is a mask, so it gets `ButtonText`.
 - `Spinner`: a `CanvasText` ring with `forced-color-adjust: none`, so its transparent segment is kept and the spin stays visible.
 - `Stepper`: complete and error markers and the line after a complete step are fills, so they get `CanvasText`, the current marker `Highlight` and the line to a later step `GrayText`.
 - `Tabs`: the selected tab is a tint, so it gets `SelectedItem` and a `CanvasText` border, and its focus ring, where it's drawn inside the fill, `SelectedItemText`.
-- `TextField`: the field border is real, but the focus outline gets `Highlight`, an invalid field, whose red border is forced away, a dashed border, and the autosuggest mask chevron `ButtonText`. `Select` and `Textarea` share the stylesheet.
+- `TextField`: the field border is real, but the focus outline gets `Highlight`, an invalid field, whose red border is forced away, a dashed border, and the autosuggest mask chevron and the default icons of the password toggle `ButtonText`. `Select` and `Textarea` share the stylesheet.
 - `Timeline`: colored and current markers are fills, so they get `CanvasText`, and the current marker and the tracked line `Highlight`.
-- `Toaster`: every toast is a `Callout`, whose boundary is a real border, and the severity and close icons are masks, so they get `CanvasText` and `ButtonText`.
 - `ToggleButton`: the checked state is a tint, so it gets `SelectedItem`.
 - `ToggleGroup`: the dividers are column and row rules, which the browser forces to `CanvasText`, but browsers without gap decorations draw them as shadows, which forced colors drops, so the block gives each button `CanvasText` borders, which `css/compat/toggle-group.css` sets to a border width there.
 - `Tooltip`: the surface and the arrow are fills, so they get a `CanvasText` border and arrow.
@@ -557,13 +579,12 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 
 The components without a block, and why:
 
-- `Accordion`: every variant border is real, including the elevated and tonal edge, which the browser forces to `CanvasText`.
 - `Anchor`, `Copy`, `SelectAll`: layout only, no boundary or state of their own. The `Copy` label is a bordered surface, which the browser forces to `CanvasText`, next to its announcement.
-- `DescriptionList`, `Form`, `Layout`: the browser forces their lines and colors itself. The `DescriptionList` leaders and total line are real borders and the `Layout` `.ui-divided` lines are column and row rules, both forced to `CanvasText`. The invalid end text of a `Form` fieldset loses its color, while the invalid controls inside keep their dashed border.
-- `Badge`, `Callout`, `Dialog`, `Drawer`, `Menu`, `Table`: every boundary is a real border, which the browser forces to `CanvasText`.
+- `DescriptionList`, `Divider`, `Form`, `Layout`: the browser forces their lines and colors itself. The `DescriptionList` leaders and total line and the `Divider` line are real borders and the `Layout` `.ui-bordered` lines are column and row rules, all forced to `CanvasText`. The invalid end text of a `Form` fieldset loses its color, while the invalid controls inside keep their dashed border.
+- `Badge`, `Dialog`, `Drawer`, `Menu`, `Table`: every boundary is a real border, which the browser forces to `CanvasText`.
+- `Toaster`: every toast is a `Callout`, and `callout.css` has the block for its border and its severity and close icons.
 - `Link`: text and underlines, forced to `LinkText` and `CanvasText`.
 - `Stat`: text only, no boundary or state.
-- `NumberField`: `number-field.css` only centers the value and hides the spin buttons; `text-field.css` and `button.css` cover the field and the buttons.
 - `Textarea`: `textarea.css` only sizes the control; `text-field.css` has the block.
 
 When a component gains a shadow-only edge or a color-only state, it gets a block and this list is updated.
@@ -576,7 +597,7 @@ When a component gains a shadow-only edge or a color-only state, it gets a block
 
 `if()` reads a switch token (`--ui-contrast`, `--ui-motion`) on the element itself, so it also sees a value the element sets, which `@container style()` can't:
 
-- One declaration of a standard property that swaps on the switch is an `if(style(…): …; else: …)` value: `scroll-behavior` on `html` and the `Carousel`, the `Spinner` opacity. A browser without `if()` drops the declaration, so the compat layer holds the style query it replaced, behind `@supports not (inline-size: if(else: 0px))`.
+- One declaration of a standard property that swaps on the switch is an `if(style(…): …; else: …)` value: `scroll-behavior` on `html` and the `Carousel`, the `Spinner` opacity. A browser without `if()` drops the declaration, so the compat layer holds the style query it replaced, behind `@supports not (inline-size: if(else: 0px))`. `html` has no container to query and `normalize.css` no compat file, so its fallback sits next to the declaration and follows `prefers-reduced-motion` and the motion classes.
 - Several declarations, a nested rule or a query that also reads a size stay a `@container style()` block.
 - A custom property takes `if()` only where the value has to follow a token set on the element itself, like the `ControlGroup` dividers. A browser without `if()` can't drop it: it is invalid wherever it is read, so it needs its compat rule too. A swap that a `@container style()` block can do stays one.
 

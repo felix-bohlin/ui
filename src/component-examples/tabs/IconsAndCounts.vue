@@ -3,7 +3,7 @@ import { Chip, Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/vue"
 </script>
 
 <template>
-  <Tabs aria-label="Mailbox" name="tabs-icons-and-counts-1" variant="line">
+  <Tabs name="tabs-icons-and-counts-1" variant="line">
     <TabsItem checked>
       <TabsLabel>
         <svg
@@ -21,7 +21,7 @@ import { Chip, Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/vue"
         Inbox
         <Chip as="span" label="12" size="x-small" />
       </TabsLabel>
-      <TabsPanel>12 unread messages from customers.</TabsPanel>
+      <TabsPanel>12 unread messages from fellow bassists.</TabsPanel>
     </TabsItem>
     <TabsItem>
       <TabsLabel>

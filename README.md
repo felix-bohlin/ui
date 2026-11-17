@@ -4,7 +4,7 @@ Design system. Components. Modern HTML & CSS.
 
 ## Usage
 
-https://opui.dev/html/guide/getting-started/
+Install `opui-css` from npm, or link `dist/opui.css` from a CDN, and follow [Getting started](https://opui.dev/html/guide/getting-started/). The [package README](packages/opui/README.md) covers the install, the Astro, React, Svelte and Vue entry points, the example themes and the agent skill.
 
 ### AI assistants
 
@@ -22,13 +22,16 @@ The project is managed as a monorepo with two main parts:
 - **The Library (`packages/opui`)**: Contains the framework-agnostic core of the library. It is managed as a standalone workspace package named `opui-css`.
   - `astro/`: Public entry point and barrel exports for Astro-based projects.
   - `bin/`: The `opui-css` command, which copies the agent skill into a project.
-  - `components/`: UI components organized by folder. Each folder contains the Astro, React, Svelte and Vue templates (e.g., `Button.astro`, `Button.react.tsx`, `Button.svelte`, `Button.vue`) and their types.
+  - `components/`: UI components organized by folder. Each folder contains the Astro, React, Svelte and Vue templates (e.g., `Button.astro`, `Button.react.tsx`, `Button.svelte`, `Button.vue`) and their types. `pnpm build-components` compiles the React, Svelte and Vue files and their type files from the Astro file, `types.ts` and `types.astro.ts`.
   - `core/`: Normalize, palette and utility classes.
   - `css/`: Component styles, theme, layer order, entry-point imports and the HTML helper scripts in `css/js/`.
+  - `elements/`: Custom elements for the components that need a script, one module each.
+  - `figma/`: The default theme's Figma variables and `sync.js`, which the Figma plugin runs.
   - `react/`: Public entry point and barrel exports for React-based projects.
   - `scripts/`: The build that writes the pre-bundled CSS and the compiled React, Svelte and Vue entry points to `dist/`.
   - `skills/`: The agent skill shipped with the package. `skills/opui/references` is generated.
   - `svelte/`: Public entry point and barrel exports for Svelte-based projects.
+  - `themes/`: The example themes.
   - `vue/`: Public entry point and barrel exports for Vue-based projects.
 - **The Documentation Site (`src/`)**: The Astro site.
   - `src/component-api/`: API table data for each component (`api.ts`).
@@ -39,7 +42,7 @@ The project is managed as a monorepo with two main parts:
   - `src/pages/`: Routes. Most of them render a page from `src/docs/` for each framework.
   - `src/stress-tests/`: Pages that combine many components, rendered at `/tests/<name>/`.
   - `src/utils/`: Shared helpers and data, such as framework routing and What's new notes.
-- **Scripts (`scripts/`)**: Checks and generators. `pnpm check` runs the CSS order, component and custom property checks, and `pnpm build` runs the search index, browser support and agent skill scripts and writes the example theme list into `packages/opui/README.md` (`scripts/build-readme.mjs`).
+- **Scripts (`scripts/`)**: Checks and generators. `pnpm check` runs the CSS order, component and custom property checks, and `pnpm build` compiles the components and the examples, writes the search index and the example theme list in `packages/opui/README.md` (`scripts/build-readme.mjs`), builds the site and the agent skill, and checks the links in `dist`.
 - **Tests (`tests/`)**: Unit and parity tests in `tests/unit`, Playwright visual, accessibility and interaction tests in `tests/e2e`, and the packed tarball in consumer projects in `tests/package`.
 
 ### Development
@@ -64,7 +67,7 @@ Record intended parity drift with `pnpm test:record-drift` and known accessibili
 
 `pnpm test:apps` checks the package in real apps: Next.js, Nuxt and SvelteKit, and the Vite starters for React, Svelte and Vue. `tests/apps` is its own pnpm workspace with its own lockfile, so the root install never downloads the frameworks. `tests/apps/prepare.ts` packs `packages/opui` with `pnpm pack` (or fetches a published version with `OPUI_VERSION=<version>`), installs the apps, unpacks the tarball into each app's `node_modules/opui-css`, copies every React, Svelte or Vue example from `src/component-examples` into it with one route per component, then type-checks and builds each app. It builds Next.js and Nuxt once more with the settings in the package README's Builds that rewrite `light-dark()` section, and `tests/apps/apps.spec.ts` fails when those settings stop keeping `light-dark()` or the default build stops rewriting it. `tests/apps/apps.spec.ts` then opens every route in Chromium and fails when the server HTML misses an example, the page logs an error or warning (hydration mismatches included), an `opui-*` element stays undefined, the CSS doesn't load, a bound example stops answering input or a client-side navigation breaks. Scenarios also change form controls while the app's scripts are held back and expect hydration to keep them, load every `opui-css/elements/*.js` before React hydrates (`/elements-first/<component>` in Next.js), come back to a page the browser restores, reset a form after hydration, and run React's StrictMode on the Vite dev server (`vite-react-dev`). A message the apps can't avoid yet goes in `KNOWN_PROBLEMS` in `tests/apps/apps.ts` with its `TODO.md` item, and the test fails once it stops appearing. `OPUI_APPS=nuxt,next` limits a run to some apps. `tests/unit/app-coverage.test.ts` (in `pnpm check`) fails when no example imports a component, so the apps render every component. CI runs the app tests in the `apps` job on pull requests and pushes to `main` that change `packages/opui`, the examples or `tests/apps`, and the Publish workflow runs them before it publishes a version and again against the version on npm afterwards.
 
-CI builds the docs site once, with `OPUI_TEST_PAGES=1`, in the `check` job. The e2e jobs download that `dist` into `dist-test` and serve it with `E2E_PREBUILT=1`, and pull request previews deploy it. The Chromium projects (`light` in two shards, `dark`) run on every push, and `e2e` sums them up. The `firefox` and `webkit` projects run on `main` and on pull requests with the `e2e-engines` label (label before the push, or run the `CI` workflow on the branch from the Actions tab), since they catch engine bugs rather than regressions in the change, and they get one retry. On `main`, the `check` job also builds the site without the test pages (the `dist-production` artifact), and the `deploy` job deploys that build to production once `apps`, `check` and `e2e` have passed.
+CI builds the docs site once, with `OPUI_TEST_PAGES=1`, in the `check` job. The e2e jobs download that `dist` into `dist-test` and serve it with `E2E_PREBUILT=1`, and pull request previews deploy it. The Chromium projects (`light` in two shards, `dark`) run on every push, and `e2e` sums them up. The `firefox` and `webkit` projects run on `main` and on pull requests with the `e2e-engines` label (label before the push, or run the `CI` workflow on the branch from the Actions tab), since they catch engine bugs rather than regressions in the change, and they get one retry. A new push, or a commit CI pushes, cancels the run still going on the same branch. On `main`, the `check` job also builds the site without the test pages (the `dist-production` artifact), and the `deploy` job deploys that build to production once `apps`, `check` and `e2e` have passed.
 
 ### Pull requests
 
@@ -80,7 +83,7 @@ One topic per pull request, so it can be reviewed, reverted and logged on its ow
 
 - Install Git LFS once to push, and to see or compare the baselines: `brew install git-lfs` or `apt install git-lfs`, then `git lfs install`. Clones and pulls then download the baselines they check out, and `git lfs pull` downloads them in a clone made before. `.githooks`, the hooks directory `pnpm install` sets, holds the hooks `git lfs install` writes: `pre-push` uploads the LFS objects of the commits you push, and stops the push when git-lfs is missing. Without Git LFS, or with `GIT_LFS_SKIP_SMUDGE=1`, the files stay pointers: only the visual tests (`visual.spec.ts`, `themes.spec.ts`) read the images, so every other check still works. `git lfs pull --include "tests/e2e/__screenshots__/light/button-*"` downloads a few. Claude Code cloud sessions set `GIT_LFS_SKIP_SMUDGE=1` in `.claude/hooks/session-start.sh`.
 - In CI, the `e2e` shards install git-lfs in the Playwright container, restore `.git/lfs/objects` from the Actions cache (keyed on the object ids of the checked-out baselines, or the newest cache when they changed), `git lfs pull` the missing ones and save the cache before the tests run, so a run only spends LFS bandwidth on new images. No other job downloads them: `check`, `history`, `deploy` (the Netlify deploy of the `dist` that `check` builds) and the release workflows work with the pointers.
-- `update-snapshots` installs git-lfs too, deletes and re-records every baseline and commits them as pointers. `git lfs fsck --pointers` fails the run before the push if one is a plain PNG, and the push uploads the new objects with `GITHUB_TOKEN`. LFS storage and bandwidth count against the repository owner's GitHub quota.
+- `update-snapshots` cancels the CI runs on the branch, since their visual tests compare against the baselines it replaces, and runs CI again when it's done. It installs git-lfs too, deletes every baseline, re-records them with each spec that calls `toHaveScreenshot` and commits them as pointers. `git lfs fsck --pointers` fails the run before the push if one is a plain PNG, and the push uploads the new objects with `GITHUB_TOKEN`. LFS storage and bandwidth count against the repository owner's GitHub quota.
 - `scripts/baseline-changes.mjs` records the sha256 of every baseline before and after the run (a pointer's object id is the sha256 of its image, so plain PNGs and pointers compare alike). The commit subject counts the added, changed and removed images, and the run summary and the PR comment list them per project, linked to the bot commit (removed ones to the commit before it). The comment stops at 60000 characters and links the summary for the rest. A PR from a fork gets a read-only token, so the run fails with a note instead: push the branch to this repository first.
 - The first `update-snapshots` run after `.gitattributes` gained the rule converts the baselines that are still plain PNGs in git, so its commit changes every file. Until then, git-lfs warns that they "should have been pointers", and `git status` can list some as modified. Leave them out of commits (`git commit -a` would convert them, and the `screenshots` job fails on baselines the bot didn't commit). `git -c filter.lfs.required=false -c filter.lfs.process= -c filter.lfs.clean= -c filter.lfs.smudge= update-index -q --really-refresh` clears the list.
 - The PNGs committed before the move stay in the history. Only rewriting the history with `git lfs migrate` would drop them.
@@ -91,10 +94,10 @@ One topic per pull request, so it can be reviewed, reverted and logged on its ow
 
 ### Adding New Components
 
-1. Create a folder in `packages/opui/components/[ComponentName]` with `[ComponentName].astro`, `.react.tsx`, `.svelte`, `.vue` and the six `types*.ts` files (see `packages/opui/components/AGENTS.md`).
+1. Create a folder in `packages/opui/components/[ComponentName]` with `[ComponentName].astro`, `types.ts` and `types.astro.ts`, then run `pnpm build-components`, which compiles the React, Svelte and Vue files and their type files (see `packages/opui/components/AGENTS.md`).
 2. Export the component and its `Props` type from the four barrels, `packages/opui/{astro,react,svelte,vue}/index.ts`, sorted.
 3. Add the CSS in `packages/opui/css/components/[component-name].css` and list it in `packages/opui/css/components.css`.
-4. Add the docs page `src/docs/components/[component-name].astro`, one example per framework in `src/component-examples/[component-name]/`, the API data in `src/component-api/[component-name]/api.ts` and the `--_` custom properties in `src/component-api/custom-properties/[component-name].ts` (see `src/docs/components/AGENTS.md` and `src/component-api/AGENTS.md`).
+4. Add the docs page `src/docs/components/[component-name].astro`, the `.astro` examples in `src/component-examples/[component-name]/` (`pnpm build-examples` writes the HTML, React, Svelte and Vue files), the API data in `src/component-api/[component-name]/api.ts` and the `--_` custom properties in `src/component-api/custom-properties/[component-name].ts` (see `src/docs/components/AGENTS.md` and `src/component-api/AGENTS.md`).
 5. Run `pnpm check` (it writes the new parity snapshots) and `pnpm test:e2e`, and commit the snapshots.
 6. Add the CHANGELOG entry and the What's new note (see `AGENTS.md`), a theme token description for new tokens in `src/utils/theme-token-descriptions.ts`, and the component to a stress page in `src/stress-tests/`. List it in `COMPONENT_FRAMEWORKS` (`src/utils/framework.js`) if it doesn't ship for every framework.
 7. Commit the files `pnpm build` regenerates, listed in `scripts/generated-files.json`. When they're stale on a pull request from this repository, CI commits them to the branch and runs again; on `main` and on forks it fails. New screenshots come from CI: add the `update-snapshots` label.

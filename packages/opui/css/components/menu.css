@@ -22,6 +22,7 @@
     --_offset: var(--ui-space-1);
     --_position-area: var(--_side) var(--_span);
     --_radius: var(--ui-menu-radius, var(--ui-radius));
+    --_selected-shadow: none;
     --_shadow: var(--ui-shadow-overlay);
     --_side: self-block-end;
     --_span: span-self-inline-end;

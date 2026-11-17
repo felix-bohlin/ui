@@ -14,14 +14,14 @@ export default function EndRadio() {
       <FieldGroup>
         <List>
           <ListItem
+            choice="radio"
             end={<RadioInput name="theme" value="dark" />}
             label="Dark mode"
-            type="radio"
           />
           <ListItem
+            choice="radio"
             end={<RadioInput name="theme" value="light" />}
             label="Light mode"
-            type="radio"
           />
         </List>
       </FieldGroup>

@@ -25,6 +25,14 @@ export default {
   ],
   options: [
     {
+      default: '"ul"',
+      description:
+        "The element to render. Use `ol` when the order is the content, like a ranking or steps.",
+      htmlDescription:
+        "The list classes work on an `ol` too: use one when the order is the content, like a ranking or steps.",
+      prop: "as",
+    },
+    {
       class: ".ui-bordered",
       default: "false",
       description: "Adds a border between list items.",
@@ -45,6 +53,14 @@ export default {
         "Removes the inline padding of the items and the block padding of the list.",
       group: "Flush",
       prop: "flush",
+    },
+    {
+      default: '"list"',
+      description:
+        "The `role` of the `<ul>`, such as `listbox`. `list` keeps Safari announcing a list.",
+      inherited: true,
+      prop: "role",
+      type: "string",
     },
     {
       default: '"filled"',

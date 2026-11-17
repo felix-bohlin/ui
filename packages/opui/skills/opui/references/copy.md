@@ -23,6 +23,12 @@ A button that copies text or a field's value to the clipboard.
 
 - `default`: The text or the field to copy, and the button if it sits inside.
 
+### Element
+
+- `<opui-copy>`, defined by `opui-css/elements/copy.js`:
+  - `copy(source)`: Copies `text`, shows `copied-label` or `failed-label` next to `source` and announces it, or selects the text when the clipboard is blocked. Returns a promise of whether it copied.
+  - `text`: What a copy writes: the value of the field inside, or else the text without its buttons, popovers, status and `[data-copy-ignore]` elements. Read-only.
+
 ### Notes
 
 - HTML: Wrap the text or the field in `<opui-copy class="ui-copy">` with an id, and end it with `<span class="ui-sr-only" role="status">` for the announcement and `<span class="ui-floating" popover aria-hidden="true">` for the label. Point a button at it with `commandfor` and `command="--copy"`, inside the element or right after it, and import `opui-css/elements/copy.js`. Until it loads, the button is hidden.
@@ -52,17 +58,17 @@ The stylesheets read `--ui-border-width`, `--ui-button-accent`, `--ui-button-fon
 
 ```html
 <opui-copy id="copy-basics-1" class="ui-copy">
-  <label class="ui-text-field">
-    <span class="ui-sr-only" id="copy-basics-2-label">Invite link</span>
+  <div class="ui-text-field">
+    <label class="ui-sr-only" for="copy-basics-2">Invite link</label>
     <span class="ui-field">
       <input
         readonly
         value="https://example.com/invite/8f3k2"
-        aria-labelledby="copy-basics-2-label"
+        id="copy-basics-2"
         type="text"
       />
     </span>
-  </label>
+  </div>
   <span class="ui-sr-only" role="status"></span>
   <span aria-hidden="true" class="ui-floating" popover></span>
 </opui-copy>

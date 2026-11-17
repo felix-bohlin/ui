@@ -5,7 +5,7 @@
       --ui-button-accent,
       var(--ui-control-accent, var(--ui-palette-strong))
     );
-    --_accent-fill: var(--ui-button-accent-filled, var(--_accent));
+    --_accent-filled: var(--ui-button-accent-filled, var(--_accent));
     --_accent-text: light-dark(
       var(--_accent),
       oklch(
@@ -25,14 +25,6 @@
     --_bg-color: transparent;
     --_border-color: transparent;
     --_border-width: var(--ui-border-width);
-    --_default-active-bg-color: light-dark(
-      oklch(from var(--_accent) l 0.06 h / var(--ui-state-active-alpha-light)),
-      oklch(from var(--_accent) l 0.06 h / var(--ui-state-active-alpha-dark))
-    );
-    --_default-hover-bg-color: light-dark(
-      oklch(from var(--_accent) l 0.01 h / var(--ui-state-hover-alpha-light)),
-      oklch(from var(--_accent) l 0.01 h / var(--ui-state-hover-alpha-dark))
-    );
     --_duration: calc(var(--ui-duration-fast) * var(--_motion));
     --_ease: var(--ui-ease);
     --_end-end-radius: var(--_radius);
@@ -40,33 +32,33 @@
     /* Lightens accents darker than L 0.3, darkens the rest */
     --_filled-active-bg-color: light-dark(
       oklch(
-        from var(--_accent-fill)
+        from var(--_accent-filled)
           calc(l + 0.075 + 0.225 * clamp(-1, (0.3 - l) * 1000, 1)) c h
       ),
-      oklch(from var(--_accent-fill) calc(l - 0.15) c h)
+      oklch(from var(--_accent-filled) calc(l - 0.15) c h)
     );
     /* Lightens accents darker than L 0.3, darkens the rest */
     --_filled-hover-bg-color: light-dark(
       oklch(
-        from var(--_accent-fill)
+        from var(--_accent-filled)
           calc(l + 0.05 + 0.15 * clamp(-1, (0.3 - l) * 1000, 1)) c h
       ),
-      oklch(from var(--_accent-fill) calc(l - 0.1) c h)
+      oklch(from var(--_accent-filled) calc(l - 0.1) c h)
     );
     --_font-size: var(--ui-font-size-control);
     --_icon-size: 0.7lh;
     --_on-accent: var(
       --ui-button-on-accent,
-      var(--ui-on-control-accent, var(--ui-palette-on-strong))
+      var(--ui-control-on-accent, var(--ui-palette-on-strong))
     );
-    --_on-accent-fill: var(--ui-button-on-accent-filled, var(--_on-accent));
+    --_on-accent-filled: var(--ui-button-on-accent-filled, var(--_on-accent));
     --_on-accent-tonal: var(--_accent);
     --_outlined-active-bg-color: var(--_filled-active-bg-color);
     --_outlined-active-border-color: var(--_outlined-active-bg-color);
-    --_outlined-active-text-color: var(--_on-accent-fill);
-    --_outlined-hover-bg-color: var(--_accent-fill);
-    --_outlined-hover-border-color: var(--_accent-fill);
-    --_outlined-hover-text-color: var(--_on-accent-fill);
+    --_outlined-active-text-color: var(--_on-accent-filled);
+    --_outlined-hover-bg-color: var(--_accent-filled);
+    --_outlined-hover-border-color: var(--_accent-filled);
+    --_outlined-hover-text-color: var(--_on-accent-filled);
     --_padding-inline: var(--ui-button-padding-inline, 1.5ex);
     --_radius: var(--ui-button-radius, var(--ui-radius));
     --_selected-bg-color: oklch(
@@ -79,9 +71,9 @@
     --_start-start-radius: var(--_radius);
     --_text-color: var(--_accent-text);
     --_tonal-active-bg-color: var(--_outlined-active-bg-color);
-    --_tonal-active-text-color: var(--_on-accent-fill);
-    --_tonal-hover-bg-color: var(--_accent-fill);
-    --_tonal-hover-text-color: var(--_on-accent-fill);
+    --_tonal-active-text-color: var(--_on-accent-filled);
+    --_tonal-hover-bg-color: var(--_accent-filled);
+    --_tonal-hover-text-color: var(--_on-accent-filled);
     --_tonal-selected-bg-color: color-mix(
       in srgb,
       var(--_accent-tonal),
@@ -91,22 +83,30 @@
         )
         var(--ui-state-selected-alpha-accent)
     );
+    --_transparent-active-bg-color: light-dark(
+      oklch(from var(--_accent) l 0.06 h / var(--ui-state-active-alpha-light)),
+      oklch(from var(--_accent) l 0.06 h / var(--ui-state-active-alpha-dark))
+    );
+    --_transparent-hover-bg-color: light-dark(
+      oklch(from var(--_accent) l 0.01 h / var(--ui-state-hover-alpha-light)),
+      oklch(from var(--_accent) l 0.01 h / var(--ui-state-hover-alpha-dark))
+    );
 
     @container style(--ui-button-hover: layer) {
       --_filled-active-bg-color: color-mix(
         in oklch,
-        var(--_accent-fill),
-        var(--_on-accent-fill) var(--ui-state-active-alpha-accent)
+        var(--_accent-filled),
+        var(--_on-accent-filled) var(--ui-state-active-alpha-accent)
       );
       --_filled-hover-bg-color: color-mix(
         in oklch,
-        var(--_accent-fill),
-        var(--_on-accent-fill) var(--ui-state-hover-alpha-accent)
+        var(--_accent-filled),
+        var(--_on-accent-filled) var(--ui-state-hover-alpha-accent)
       );
-      --_outlined-active-bg-color: var(--_default-active-bg-color);
+      --_outlined-active-bg-color: var(--_transparent-active-bg-color);
       --_outlined-active-border-color: var(--_accent);
       --_outlined-active-text-color: var(--_accent-text);
-      --_outlined-hover-bg-color: var(--_default-hover-bg-color);
+      --_outlined-hover-bg-color: var(--_transparent-hover-bg-color);
       --_outlined-hover-border-color: var(--_accent);
       --_outlined-hover-text-color: var(--_accent-text);
       --_tonal-active-bg-color: color-mix(
@@ -171,13 +171,13 @@
     /* Color inherited from Control Group. */
     :where(.ui-control-group.ui-critical, .ui-control-group.ui-primary) > & {
       --_accent-tonal: var(--ui-palette-tint);
-      --_default-active-bg-color: oklch(
+      --_on-accent-tonal: var(--ui-palette-on-tint);
+      --_transparent-active-bg-color: oklch(
         from var(--_accent) l c h / var(--ui-state-active-alpha-accent)
       );
-      --_default-hover-bg-color: oklch(
+      --_transparent-hover-bg-color: oklch(
         from var(--_accent) l c h / var(--ui-state-hover-alpha-accent)
       );
-      --_on-accent-tonal: var(--ui-palette-on-tint);
 
       @container style(--ui-button-hover: shade-all) {
         --_tonal-hover-bg-color: light-dark(
@@ -190,22 +190,22 @@
     &.ui-critical,
     :where(.ui-control-group.ui-critical) > & {
       --_accent: var(--ui-critical);
-      --_accent-fill: oklch(
+      --_accent-filled: oklch(
         from var(--ui-critical) min(l, var(--ui-accent-fill-max-lightness)) c h
       );
       --_accent-text: var(--ui-critical-text);
       --_on-accent: var(--ui-on-fill);
-      --_on-accent-fill: var(--_on-accent);
+      --_on-accent-filled: var(--_on-accent);
     }
 
     &.ui-primary,
     :where(.ui-control-group.ui-primary) > & {
       --_accent: var(--ui-primary);
-      --_accent-fill: var(--_accent);
+      --_accent-filled: var(--_accent);
       --_accent-text: var(--ui-primary-text);
       --_accent-tonal: var(--ui-primary-tonal, var(--ui-palette-tint));
       --_on-accent: var(--ui-on-primary);
-      --_on-accent-fill: var(--_on-accent);
+      --_on-accent-filled: var(--_on-accent);
       --_on-accent-tonal: var(--ui-on-primary-tonal, var(--ui-palette-on-tint));
     }
 
@@ -213,7 +213,7 @@
     &:where(:not(:disabled, [aria-disabled="true"])) {
       @media (hover: hover) {
         &:where(:not(:active):hover) {
-          --_bg-color: var(--_default-hover-bg-color);
+          --_bg-color: var(--_transparent-hover-bg-color);
         }
       }
 
@@ -223,7 +223,7 @@
           + :popover-open:not([popover="hint"])
         )
       ) {
-        --_bg-color: var(--_default-active-bg-color);
+        --_bg-color: var(--_transparent-active-bg-color);
       }
 
       &[aria-current="page"] {
@@ -443,8 +443,12 @@
 
     &.ui-filled,
     :where(.ui-control-group.ui-filled) > & {
-      --_bg-color: var(--_accent-fill);
-      --_text-color: var(--_on-accent-fill);
+      --_bg-color: var(--_accent-filled);
+      --_text-color: var(--_on-accent-filled);
+
+      @media print {
+        print-color-adjust: exact;
+      }
 
       &:where(:not(:disabled, [aria-disabled="true"])) {
         @media (hover: hover) {

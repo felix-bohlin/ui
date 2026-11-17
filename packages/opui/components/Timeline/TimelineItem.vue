@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, type HTMLAttributes, useAttrs } from "vue"
-import { defined } from "../attrs"
 import { classAttrs } from "../cx"
 import type {
   TimelineItemProps as Props,
@@ -23,6 +22,12 @@ defineOptions({
 
 const attrs = useAttrs() as HTMLAttributes
 
+const restAttrs = computed(() =>
+  Object.fromEntries(
+    Object.entries(attrs).filter(([key]) => key !== "aria-current"),
+  ),
+)
+
 const Heading = computed(
   () => `h${headingLevel}` as "h2" | "h3" | "h4" | "h5" | "h6",
 )
@@ -30,9 +35,12 @@ const Heading = computed(
 
 <template>
   <li
-    :aria-current="current === true ? 'true' : current || undefined"
+    :aria-current="
+      attrs['aria-current'] ??
+      (current === true ? 'true' : current || undefined)
+    "
     v-bind="{
-      ...defined(attrs),
+      ...restAttrs,
       ...classAttrs([color && `ui-${color}`, $props.class]),
     }"
   >

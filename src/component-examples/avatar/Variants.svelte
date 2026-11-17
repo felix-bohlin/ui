@@ -2,6 +2,6 @@
   import { Avatar } from "opui-css/svelte"
 </script>
 
-<Avatar aria-label="Lena Handén" role="img">LH</Avatar>
-<Avatar aria-label="Inga Halonen" role="img" variant="outlined">IH</Avatar>
-<Avatar aria-label="Pekka Gåpåbottanen" role="img" variant="tonal">PG</Avatar>
+<Avatar aria-label="Lou Headstock" role="img">LH</Avatar>
+<Avatar aria-label="Ines Hertz" role="img" variant="outlined">IH</Avatar>
+<Avatar aria-label="Percy Groove" role="img" variant="tonal">PG</Avatar>

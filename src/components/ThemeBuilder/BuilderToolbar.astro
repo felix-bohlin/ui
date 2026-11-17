@@ -182,7 +182,7 @@ import {
   import { themeStore, type Theme } from "../../utils/theme"
   import { changeCount } from "../../utils/theme-builder-controls"
   import { createHistory } from "../../utils/theme-history"
-  import { toast, type Toaster } from "opui-css/elements/toaster.js"
+  import { toast, type ToasterElement } from "opui-css/elements/toaster.js"
   import { SHARE_PARAM, decodeTheme, shareUrl } from "../../utils/theme-share"
 
   type Say = { focus?: HTMLElement; message: string }
@@ -200,7 +200,7 @@ import {
     )!
     const presetName = toolbar.querySelector<HTMLElement>("[data-preset-name]")!
     const changes = toolbar.querySelector<HTMLElement>("[data-change-count]")!
-    const toaster = document.querySelector<Toaster>("#builder-toaster")!
+    const toaster = document.querySelector<ToasterElement>("#builder-toaster")!
     const undoHistory = toolbar.querySelector<HTMLButtonElement>(
       "[data-undo-history]",
     )!

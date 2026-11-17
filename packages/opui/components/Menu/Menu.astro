@@ -71,6 +71,11 @@ const html = await menuContext.provide({ rootId }, () =>
           {shortcut && <div class="ui-end">
             <kbd>{shortcut}</kbd>
           </div>}
+          {Astro.slots.has("icon-checked") && <span
+            aria-hidden="true"
+            class="ui-icon-checked"
+            ><slot name="icon-checked"
+          /></span>}
         </Tag>
       </li>
     },

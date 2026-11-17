@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: ci-${{ github.ref }}
+  group: ci-${{ github.event.pull_request && github.event.pull_request.head.repo.full_name != github.repository && format('fork-{0}', github.event.pull_request.number) || github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 jobs:
@@ -201,6 +201,8 @@ jobs:
         env:
           E2E_PREBUILT: "1"
           HOME: /root
+      - if: ${{ !cancelled() }}
+        run: node scripts/e2e-summary.mjs test-results/report.json --title "e2e (${{ matrix.project }} ${{ matrix.shard }})" | tee -a "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v7
         if: failure()
         with:
@@ -238,6 +240,8 @@ jobs:
         env:
           E2E_PREBUILT: "1"
           HOME: /root
+      - if: ${{ !cancelled() }}
+        run: node scripts/e2e-summary.mjs test-results/report.json --title "e2e engines (${{ matrix.project }})" | tee -a "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v7
         if: failure()
         with:

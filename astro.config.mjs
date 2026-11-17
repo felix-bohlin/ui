@@ -98,6 +98,10 @@ export default defineConfig({
   ],
   vite: {
     build: {
+      assetsInlineLimit: (file) =>
+        /\.woff2?$|\/packages\/opui\/(css\/js|elements)\/[^/]+\.js$/.test(file)
+          ? false
+          : undefined,
       dynamicImportVarsOptions: {
         exclude: [/node_modules\/(?!(\.pnpm\/)?microlighter)/],
       },
@@ -158,7 +162,7 @@ export default defineConfig({
       options: {
         variants: [
           {
-            src: ["./src/fonts/BricolageGrotesque[opsz,wdth,wght].woff2"],
+            src: ["./src/fonts/BricolageGrotesque[opsz,wght].woff2"],
             style: "normal",
             weight: "300 900",
             display: "swap",

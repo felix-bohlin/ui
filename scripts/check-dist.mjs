@@ -45,7 +45,12 @@ const timelineShorthands = (css) =>
     .filter(([, value]) => TIMELINE.test(value.replace(VAR_CALL, "")))
     .map(([declaration]) => declaration.trim())
 
-export const distProblems = ({ dist, searchIndex, site }) => {
+export const distProblems = ({
+  dist,
+  searchIndex,
+  site,
+  standardSite = { documents: {} },
+}) => {
   const files = walk(dist).toSorted()
   const urlPath = (file) =>
     `/${relative(dist, file).split(sep).join("/")}`.replace(
@@ -57,6 +62,7 @@ export const distProblems = ({ dist, searchIndex, site }) => {
   for (const file of files.filter((file) => file.endsWith(".html"))) {
     const ids = []
     const links = []
+    const standardSite = {}
     const styles = []
     let noindex = false
     let redirect
@@ -75,6 +81,12 @@ export const distProblems = ({ dist, searchIndex, site }) => {
         attr(node, "rel")?.split(/\s+/).includes("alternate")
       ) {
         links.push({ href: attr(node, "href"), inExample })
+      }
+      if (
+        node.tagName === "link" &&
+        attr(node, "rel")?.startsWith("site.standard.")
+      ) {
+        standardSite[attr(node, "rel")] = attr(node, "href")
       }
       if (
         node.tagName === "meta" &&
@@ -100,6 +112,7 @@ export const distProblems = ({ dist, searchIndex, site }) => {
       links,
       noindex,
       redirect,
+      standardSite,
       styles,
       all: ids,
     })
@@ -266,6 +279,31 @@ export const distProblems = ({ dist, searchIndex, site }) => {
     }
   }
 
+  const wellKnown = "/.well-known/site.standard.publication"
+  const served = isFile(wellKnown)
+    ? readFileSync(join(dist, wellKnown), "utf-8")
+    : undefined
+  if (served !== standardSite.publication) {
+    problem(
+      `${wellKnown} serves ${served === undefined ? "nothing" : `"${served}"`} instead of ${standardSite.publication === undefined ? "nothing" : `"${standardSite.publication}"`}: src/pages/.well-known/[record].ts serves the publication in src/utils/standard-site.json`,
+      wellKnown,
+    )
+  }
+  for (const [slug, uri] of Object.entries(standardSite.documents)) {
+    const path = `/blog/${slug}/`
+    const links = pages.get(path)?.standardSite
+    if (
+      links &&
+      (links["site.standard.document"] !== uri ||
+        links["site.standard.publication"] !== standardSite.publication)
+    ) {
+      problem(
+        `${path} doesn't link its Standard Site records: Layout.astro adds <link rel="site.standard.publication"> and <link rel="site.standard.document"> from src/utils/standard-site.json`,
+        path,
+      )
+    }
+  }
+
   return {
     pages: pages.size,
     problems: [...problems]
@@ -287,6 +325,9 @@ const main = () => {
       readFileSync(join(root, "astro.config.mjs"), "utf-8").match(
         /\bsite:\s*"([^"]+)"/,
       )[1],
+    ),
+    standardSite: JSON.parse(
+      readFileSync(join(root, "src/utils/standard-site.json"), "utf-8"),
     ),
   })
   if (problems.length > 0) {

@@ -23,10 +23,13 @@ import cardApi from "../../component-api/card/api"
 import cardActionsApi from "../../component-api/card-actions/api"
 import cardHeaderApi from "../../component-api/card-header/api"
 
+export const description = "A surface for related content and actions."
+
 export const keywords = ["panel", "surface", "tile"]
 ---
 
 <Component
+  description={description}
   slug="card"
   heroAnatomy
   apis={[

@@ -1,9 +1,15 @@
 import { execFileSync, spawnSync } from "node:child_process"
-import { mkdirSync, mkdtempSync, readdirSync, writeFileSync } from "node:fs"
+import {
+  mkdirSync,
+  mkdtempSync,
+  readdirSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs"
 import { tmpdir } from "node:os"
 import { dirname, join } from "node:path"
 import stylelint from "stylelint"
-import { describe, expect, test } from "vitest"
+import { describe, expect, onTestFinished, test } from "vitest"
 import { featureIds, patterns } from "../../packages/opui/scripts/features.mjs"
 import {
   fallbackProblems,
@@ -137,6 +143,7 @@ describe("check-browser-support", () => {
     overlay: ".a { transition: opacity 1s, overlay 1s allow-discrete; }",
     popover: ".a:popover-open { opacity: 1; }",
     "progress-function": ".a { --p: progress(100vi, 20rem, 80rem); }",
+    "reading-flow": ".a { display: grid; reading-flow: grid-rows; }",
     "registered-custom-properties":
       '@property --a { inherits: false; initial-value: 0; syntax: "<number>"; }',
     "relative-color": ".a { color: oklch(from red l c h); }",
@@ -596,6 +603,7 @@ describe("file discovery", { timeout: 15_000 }, () => {
 
   const repo = (files: Record<string, string>) => {
     const root = mkdtempSync(join(tmpdir(), "opui-scan-"))
+    onTestFinished(() => rmSync(root, { force: true, recursive: true }))
     execFileSync("git", ["init", "-q"], { cwd: root })
     for (const [file, text] of Object.entries({
       ".gitignore": "ignored/\n",
@@ -662,6 +670,7 @@ describe("check-ratchets", () => {
 
   test("the hand-written examples list grows only with the intended trailer", () => {
     const dir = mkdtempSync(join(tmpdir(), "opui-ratchets-"))
+    onTestFinished(() => rmSync(dir, { force: true, recursive: true }))
     const git = (...args: string[]) =>
       execFileSync(
         "git",

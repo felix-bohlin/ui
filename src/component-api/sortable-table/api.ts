@@ -7,6 +7,30 @@ const sortEvent =
 export default {
   component: "SortableTable",
   css: ["sortable-table"],
+  elements: [
+    {
+      members: [
+        {
+          description:
+            "Fires before the rows move, with the column index, the direction and the header in `event.detail`. It bubbles, and `preventDefault()` keeps the rows where they are.",
+          kind: "event",
+          name: "sort",
+        },
+        {
+          description:
+            'Sorts by the column of `header`, in `direction` (`"ascending"` or `"descending"`), or else the other way from its `aria-sort`, ascending first. It fires `sort`, sets `aria-sort` and announces the order.',
+          kind: "method",
+          name: "sort(header, direction)",
+        },
+        {
+          description: "The `<table>` inside, or `null`. Read-only.",
+          kind: "property",
+          name: "table",
+        },
+      ],
+      tag: "opui-sortable-table",
+    },
+  ],
   notes: {
     ...elementNotes(
       "sortable-table.js",
@@ -59,7 +83,7 @@ export default {
   ],
   root: {
     description:
-      "The `<opui-sortable-table>` custom element, `display: contents`, around the table. It fires a cancelable `sort` event, moves the body rows and announces the new order.",
+      'The `<opui-sortable-table>` custom element, `display: contents`, around the table. It moves the body rows and announces the new order in its `role="status"` child, or one it adds. While it has `data-hydrating`, which the React component renders until it hydrates, header clicks do nothing.',
     selector: "opui-sortable-table.ui-sortable-table",
   },
   slots: [

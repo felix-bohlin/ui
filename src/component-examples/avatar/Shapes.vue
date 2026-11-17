@@ -3,13 +3,13 @@ import { Avatar } from "opui-css/vue"
 </script>
 
 <template>
+  <Avatar alt="Percy Groove" shape="rounded" src="/photos/percy-groove.png" />
+
+  <Avatar aria-label="Rory Rootnote" role="img" shape="squared">RR</Avatar>
+
   <Avatar
-    alt="Pekka Gåpåbottanen"
-    shape="rounded"
-    src="/photos/pekka-gapabottanen.png"
+    alt="Lou Headstock"
+    shape="squircle"
+    src="/photos/lou-headstock.png"
   />
-
-  <Avatar aria-label="Ranta Runtiringen" role="img" shape="squared">RR</Avatar>
-
-  <Avatar alt="Lena Handén" shape="squircle" src="/photos/lena-handen.png" />
 </template>

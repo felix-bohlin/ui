@@ -43,7 +43,7 @@ export default {
   },
   "--_track-bg-color": {
     description:
-      "Background of the unchecked track. `--ui-track-bg-color` when the theme sets it, otherwise `--ui-switch-track-bg-color`.",
+      "Background of the unchecked track. `--ui-switch-track-bg-color` when the theme sets it, else `--ui-track-bg-color`, otherwise `--ui-surface-tonal`, at `0.58` lightness in dark mode.",
     kind: "input",
   },
   "--_track-block-size": {

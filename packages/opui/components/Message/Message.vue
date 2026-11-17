@@ -29,9 +29,7 @@ defineSlots<Slots>()
       <slot></slot>
       <p v-if="time || $slots.end" class="ui-footer">
         <time v-if="time" :datetime="datetime">{{ time }}</time
-        ><span v-if="$slots.end" class="ui-end">
-          <slot name="end"></slot>
-        </span>
+        ><span v-if="$slots.end" class="ui-end"><slot name="end"></slot></span>
       </p>
     </div>
     <div v-if="$slots.bottom" class="ui-bottom">

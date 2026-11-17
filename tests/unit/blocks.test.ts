@@ -5,16 +5,14 @@ const slugsOf = (classLists: string[][]) =>
   blocksUsing(classLists).map(({ slug }) => slug)
 
 test("a block uses a component when one element has every class of its root selector", () => {
-  const textFields = blocksUsing([["ui-text-field"]])
-  const oneTimeCodes = slugsOf([["ui-text-field", "ui-one-time-code"]])
+  const buttons = slugsOf([["ui-button"]])
+  const primaryButtons = slugsOf([["ui-button", "ui-primary"]])
 
-  expect(oneTimeCodes.length).toBeGreaterThan(0)
-  expect(oneTimeCodes.length).toBeLessThan(textFields.length)
-  expect(oneTimeCodes).toEqual(
-    textFields
-      .filter((block) => block.source.includes("ui-one-time-code"))
-      .map(({ slug }) => slug),
-  )
+  expect(primaryButtons.length).toBeGreaterThan(0)
+  expect(primaryButtons.length).toBeLessThan(buttons.length)
+  expect(buttons).toEqual(expect.arrayContaining(primaryButtons))
+  expect(slugsOf([["ui-one-time-code"]]).length).toBeGreaterThan(0)
+  expect(slugsOf([["ui-button", "ui-one-time-code"]])).toEqual([])
 })
 
 test("a block uses a component when it matches any of its root selectors", () => {

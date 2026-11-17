@@ -20,6 +20,10 @@
       @media (forced-colors: active) {
         background-color: ButtonText;
       }
+
+      @media print {
+        print-color-adjust: exact;
+      }
     }
 
     &:open {
@@ -35,7 +39,10 @@
       /* Animation on-stage styles */
       background: transparent;
       border: 0;
-      border-radius: var(--ui-field-radius, var(--ui-radius));
+      border-radius: var(
+        --ui-menu-radius,
+        var(--ui-field-radius, var(--ui-radius))
+      );
       box-shadow: var(--ui-shadow-overlay);
       opacity: 1;
       padding: 0;
@@ -108,7 +115,7 @@
           }
         }
 
-        & > .ui-end {
+        & > :where(.ui-end, .ui-icon-checked) {
           display: none;
         }
       }
@@ -116,11 +123,15 @@
 
     .ui-list {
       --_bg-color: var(--ui-surface-elevated);
+      --_selected-shadow: none;
       --ui-border-color: var(--ui-border-color-on-raised);
       --ui-field-border-color: var(--ui-field-border-color-on-raised);
       border: var(--ui-border-width) solid
         var(--ui-border-color-raised, var(--ui-border-color-on-raised));
-      border-radius: var(--ui-field-radius, var(--ui-radius));
+      border-radius: var(
+        --ui-menu-radius,
+        var(--ui-field-radius, var(--ui-radius))
+      );
 
       /* Groups */
       :is([role="group"], optgroup) {
@@ -148,6 +159,25 @@
       option {
         /* Checkmark */
         &::checkmark {
+          background-color: currentColor;
+          block-size: var(--_start-size);
+          content: "";
+          flex-shrink: 0;
+          inline-size: var(--_start-size);
+          margin-inline-start: auto;
+          mask: var(--_check-image) center / contain no-repeat;
+          order: 1;
+
+          @media (forced-colors: active) {
+            background-color: SelectedItemText;
+          }
+
+          @media print {
+            print-color-adjust: exact;
+          }
+        }
+
+        &:has(> .ui-icon-checked)::checkmark {
           display: none;
         }
 

@@ -8,6 +8,7 @@ const {
   color,
   orientation,
   overflow,
+  role,
   size,
   variant,
   ...rest
@@ -26,7 +27,7 @@ const {
     variant && variant !== "transparent" && `ui-${variant}`,
     className,
   ]}
-  role="group"
+  role={role ?? "group"}
   {...rest}
 >
   <slot />

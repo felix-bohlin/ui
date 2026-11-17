@@ -1,12 +1,13 @@
 <script lang="ts">
-  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
+    as: Tag = "ul",
     bordered,
     class: className,
     dense,
     flush,
+    role,
     variant,
 
     // Snippets
@@ -15,15 +16,16 @@
   }: Props = $props()
 </script>
 
-<ul
+<svelte:element
+  this={Tag}
   class={[
     "ui-list",
     { "ui-bordered": bordered, "ui-dense": dense, "ui-flush": flush },
     variant && variant !== "filled" && `ui-${variant}`,
     className,
   ]}
-  role="list"
-  {...defined(rest)}
+  role={role ?? "list"}
+  {...rest}
 >
   {@render children?.()}
-</ul>
+</svelte:element>

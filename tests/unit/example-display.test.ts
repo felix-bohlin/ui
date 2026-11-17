@@ -122,12 +122,28 @@ describe("cssRules", () => {
     ])
   })
 
+  test("reads generated content under a selector list the formatter wraps", () => {
+    expect(
+      cssRules(
+        ':where(\n  .a,\n  .b\n) {\n  & > .c::after { content: "*" }\n}',
+      ).map(({ pseudo, text }) => [pseudo, text.replace(/\s+/g, " ")]),
+    ).toEqual([["after", ":is(:where( .a, .b )) > .c ::after"]])
+  })
+
   test.each([
     ["@media (width > 1px) { .a { display: flex } }", "@media"],
     ["@layer nope { .a { display: flex } }", "the layer nope"],
     ["@supports (display: grid) { .a { display: grid } }", "@supports"],
   ])("rejects %s", (css, reason) => {
     expect(() => cssRules(css)).toThrow(reason)
+  })
+
+  test("skips @media print, which never applies on screen", () => {
+    expect(
+      cssRules(
+        "pre { white-space: pre; @media print { white-space: pre-wrap } } @media print { .a { display: none } }",
+      ).map(({ display, text, whiteSpace }) => ({ display, text, whiteSpace })),
+    ).toEqual([{ display: undefined, text: "pre", whiteSpace: "pre" }])
   })
 
   test("follows content inside @supports, which reads the same either way", () => {

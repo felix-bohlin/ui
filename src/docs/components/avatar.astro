@@ -15,7 +15,7 @@ import avatarApi from "../../component-api/avatar/api"
 import avatarGroupApi from "../../component-api/avatar-group/api"
 import AvatarBuild from "../../components/UnderTheHood/AvatarBuild.astro"
 export const description =
-  "Avatars show a person or entity as an image, initials or icon."
+  "An image, initials or icon that stands for a person or an entity."
 
 export const keywords = ["initials", "photo", "profile picture", "user"]
 ---
@@ -49,10 +49,19 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
   installationTabs={[{ title: "avatar.css", code: AvatarCSS, lang: "css" }]}
 >
   <Fragment slot="title">Avatar</Fragment>
+  <Fragment slot="preamble">
+    Who did something, like a comment's author, as an image, initials or an
+    icon. For a count or status, add a
+    <DocLink href="/components/badge">Badge</DocLink>.
+  </Fragment>
 
   <Fragment slot="anatomy">
     <Anatomy zoom={2}>
-      <UIAvatar alt="Lena Handén" size="large" src="/photos/lena-handen.png" />
+      <UIAvatar
+        alt="Lou Headstock"
+        size="large"
+        src="/photos/lou-headstock.png"
+      />
     </Anatomy>
   </Fragment>
 

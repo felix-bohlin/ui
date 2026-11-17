@@ -529,7 +529,7 @@ Seen in Playwright's WebKit 26.6 (Playwright 1.63.0). Confirm in a Safari releas
 
 ### Comment on vuejs/core#13608: the customizable select markup warnings
 
-From: the `vue-select-comment` example in `src/todo-examples/vue-select-comment.html` (the `/todo` page), the Select item under Limitations in `TODO.md` ("Select: in `vite dev` and `nuxi dev`, the Vue compiler warns"), `packages/opui/components/Select/Select.vue:123-126` and `KNOWN_VUE_WARNINGS` in `packages/opui/scripts/build-frameworks.mjs`.
+From: the `vue-select-comment` example in `src/todo-examples/vue-select-comment.html` (the `/dev/todo` page), the Select item under Limitations in `TODO.md` ("Select: in `vite dev` and `nuxi dev`, the Vue compiler warns"), `packages/opui/components/Select/Select.vue:123-126` and `KNOWN_VUE_WARNINGS` in `packages/opui/scripts/build-frameworks.mjs`.
 
 Where: a comment on [vuejs/core#13608](https://github.com/vuejs/core/issues/13608), not a new issue, with a thumbs up on [vuejs/core#13720](https://github.com/vuejs/core/pull/13720), the open pull request that widens `onlyValidChildren.select`.
 
@@ -537,7 +537,7 @@ Search first: open #13608 and #13720 to check they're still open and nobody has 
 
 Checked against: Vue 3.5.45, installed in `node_modules` and the latest release on npm. Its `@vue/compiler-dom` still allows only `optgroup`, `option` and `hr` in `select`, and only its development build runs the check, so builds with `NODE_ENV=production` don't warn.
 
-Changed from the `/todo` draft, after the latest note on the Select item: the package's Vue entry points now resolve to compiled JavaScript, so apps that install it no longer compile the Select template or see the warnings. Only this repo's own dev server, which compiles the `.vue` sources, still warns. The first paragraph says so now, and a second one names who still gets the warnings.
+Changed from the `/dev/todo` draft, after the latest note on the Select item: the package's Vue entry points now resolve to compiled JavaScript, so apps that install it no longer compile the Select template or see the warnings. Only this repo's own dev server, which compiles the `.vue` sources, still warns. The first paragraph says so now, and a second one names who still gets the warnings.
 
 Comment:
 
@@ -578,7 +578,7 @@ Once a Vue release widens the rule: update `vue`, remove `KNOWN_VUE_WARNINGS` fr
 
 ### New issue: the dev CSS collector compiles the files behind `?raw` imports
 
-From: the `astro-raw-issue` example in `src/todo-examples/astro-raw-issue.html` (the `/todo` page), the Tooling item under Limitations in `TODO.md` ("Tooling: on the first request after `astro dev` starts, Astro's CSS collector"), the `opui-raw-without-module-edge` plugin in `astro.config.mjs:130-138` and its check in `tests/unit/tooling-bugs.test.ts:39-55`.
+From: the `astro-raw-issue` example in `src/todo-examples/astro-raw-issue.html` (the `/dev/todo` page), the Tooling item under Limitations in `TODO.md` ("Tooling: on the first request after `astro dev` starts, Astro's CSS collector"), the `opui-raw-without-module-edge` plugin in `astro.config.mjs:130-138` and its check in `tests/unit/tooling-bugs.test.ts:39-55`.
 
 Where: a new issue at [github.com/withastro/astro/issues/new/choose](https://github.com/withastro/astro/issues/new/choose), with the Bug report form. Paste each block below into the field it names.
 

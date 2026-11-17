@@ -5,7 +5,7 @@ import {
   stressPages,
   stressSlug,
   testPagesEnabled,
-} from "../../utils/test-pages"
+} from "../../../utils/test-pages"
 
 export function getStaticPaths() {
   if (!testPagesEnabled()) return []
@@ -28,7 +28,7 @@ const pages = Object.keys(stressPages).map(stressSlug).toSorted()
       <h1>Stress tests</h1>
       <ul>
         {pages.map((name) => <li>
-          <a href={`/tests/${name}/`}>{name}</a>
+          <a href={`/dev/tests/${name}/`}>{name}</a>
         </li>)}
       </ul>
     </main>

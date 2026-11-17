@@ -35,6 +35,7 @@ import {
   ID_PLACEHOLDER,
 } from "./example-ids.mjs"
 import {
+  reactBareAttribute,
   reactKinds,
   reactPropsOf,
   resolveReactProp,
@@ -1262,8 +1263,8 @@ const reactPropCode = (name, item, kinds, where, context) => {
       "React",
     )
   if (item.kind === "boolean") {
-    if (has("boolean", "any", "other")) return name
-    if (has("string")) return `${name}=""`
+    const bare = reactBareAttribute(name, kinds)
+    if (bare) return bare
     throw fail("an attribute without a value")
   }
   if (item.kind === "string") {

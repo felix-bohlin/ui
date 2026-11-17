@@ -1,10 +1,10 @@
 ---
-import Checklist from "../../components/Checklist/Checklist.astro"
-import ProgressMap from "../../components/Review/ProgressMap.astro"
-import Document from "../../layouts/Document.astro"
-import { parseChecklist } from "../../utils/checklist"
-import { testPagesEnabled } from "../../utils/test-pages"
-import source from "../../../docs/releases/6.0.0-checklist.md?raw"
+import Checklist from "../../../components/Checklist/Checklist.astro"
+import ProgressMap from "../../../components/Review/ProgressMap.astro"
+import Document from "../../../layouts/Document.astro"
+import { parseChecklist } from "../../../utils/checklist"
+import { testPagesEnabled } from "../../../utils/test-pages"
+import source from "../../../../docs/releases/6.0.0-checklist.md?raw"
 
 export function getStaticPaths() {
   if (!testPagesEnabled()) return []
@@ -36,6 +36,7 @@ const { sections } = parseChecklist(source)
 
   <Checklist
     file="docs/releases/6.0.0-checklist.md"
+    previews
     replies={["Do it", "Start working on this", "After the release", "Skip"]}
     source={source}
     storageKey="opui-checklist"

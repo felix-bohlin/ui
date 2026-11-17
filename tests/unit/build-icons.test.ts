@@ -8,6 +8,8 @@ import {
   copyrightOf,
   ICON_SAMPLES,
   ICON_SETS,
+  ICON_STYLESHEETS,
+  iconStylesheet,
   rawSvg,
   splitSamples,
 } from "../../scripts/build-icons.mjs"
@@ -340,6 +342,41 @@ describe("example themes", () => {
   })
 })
 
+describe("icon stylesheets", () => {
+  const sets = JSON.parse(readFileSync(ICON_SETS, "utf8"))
+  const files = globSync(`${ICON_STYLESHEETS}/*.css`)
+
+  test("the package has one for every library of icon-sets.json and no other", () => {
+    expect(files.map((file) => basename(file, ".css")).toSorted()).toEqual(
+      Object.keys(sets),
+    )
+  })
+
+  test.each(Object.keys(sets))(
+    "%s.css is what build-icons.mjs writes from icon-sets.json",
+    (id) => {
+      expect(readFileSync(`${ICON_STYLESHEETS}/${id}.css`, "utf8")).toBe(
+        iconStylesheet(sets[id]),
+      )
+    },
+  )
+
+  test("sets the 17 icon tokens in the theme.custom layer, after the layer order and the library's credit", () => {
+    const css = iconStylesheet(sets.lucide)
+    expect(css.startsWith(`/*\n * Icons: Lucide ${sets.lucide.version}`)).toBe(
+      true,
+    )
+    expect(css).toContain(
+      `${readFileSync("packages/opui/css/layers.css", "utf8").trim()}\n\n@layer theme.custom {\n  :where(html, .ui-palette, .ui-contrast-more) {`,
+    )
+    expect(
+      [...css.matchAll(/^\s+(--ui-icon-[a-z-]+): (.+);$/gm)].map(
+        ([, name, value]) => [name, value],
+      ),
+    ).toEqual(Object.entries(iconTokensOf("lucide")!))
+  })
+})
+
 describe("THIRD-PARTY-NOTICES", () => {
   const notices = readFileSync("packages/opui/THIRD-PARTY-NOTICES", "utf8")
   const sets = JSON.parse(readFileSync(ICON_SETS, "utf8"))
@@ -349,8 +386,8 @@ describe("THIRD-PARTY-NOTICES", () => {
     MIT: "MIT License",
   }
 
-  test("carries the licence of every icon set theme.css and the example themes ship", () => {
-    for (const id of ["fluent", ...Object.values(PRESET_ICONS)]) {
+  test("carries the licence of every icon set the package ships", () => {
+    for (const id of Object.keys(sets)) {
       const set = sets[id]
       for (const text of [
         set.copyright,

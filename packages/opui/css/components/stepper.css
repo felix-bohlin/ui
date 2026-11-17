@@ -11,7 +11,7 @@
     --_line-border-width: var(--ui-border-width-thick);
     --_marker-border-width: var(--ui-border-width-thick);
     --_marker-complete-image: var(--ui-icon-check);
-    --_marker-error-image: var(--ui-icon-error);
+    --_marker-error-image: var(--ui-icon-invalid);
     --_marker-size: var(--ui-space-6);
     --_on-accent: var(--ui-on-selected-strong);
     --_orientation: auto;

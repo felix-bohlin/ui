@@ -9,6 +9,7 @@
     class: className,
     closeButton,
     closeLabel = "Close",
+    commandfor,
 
     // Snippets
     children,
@@ -17,9 +18,9 @@
   }: Props = $props()
 
   const dialog = getDialogContext()
+  const target = $derived(commandfor ?? dialog?.id)
   untrack(() => {
-    if (closeButton)
-      warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
+    if (closeButton) warnMissingCloseTarget("DialogHeader", target, "Dialog")
   })
 </script>
 
@@ -28,7 +29,7 @@
     <Button
       aria-label={closeLabel}
       command="close"
-      commandfor={dialog?.id}
+      commandfor={target}
       round
       size="small"
     >

@@ -10,12 +10,14 @@ export default function DialogHeader({
   className,
   closeButton,
   closeLabel = "Close",
+  commandfor,
   children,
   closeIcon,
   ...rest
 }: Props) {
   const dialog = useDialogContext()
-  if (closeButton) warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
+  const target = commandfor ?? dialog?.id
+  if (closeButton) warnMissingCloseTarget("DialogHeader", target, "Dialog")
 
   return (
     <div className={cx(["ui-header", className])} {...rest}>
@@ -24,7 +26,7 @@ export default function DialogHeader({
         <Button
           aria-label={closeLabel}
           command="close"
-          commandfor={dialog?.id}
+          commandfor={target}
           round
           size="small"
         >

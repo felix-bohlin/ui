@@ -3,7 +3,7 @@ import { computed, inject } from "vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
 import { DrawerKey } from "./context.vue"
-import { warnMissingTarget } from "../dev"
+import { warnMissingCloseTarget } from "../dev"
 import type {
   DrawerHeaderProps as Props,
   DrawerHeaderSlots,
@@ -16,7 +16,7 @@ const drawer = inject(DrawerKey, undefined)
 
 const target = computed(() => commandfor ?? drawer?.id)
 
-if (closeButton) warnMissingTarget("DrawerHeader", target.value, "Drawer")
+if (closeButton) warnMissingCloseTarget("DrawerHeader", target.value, "Drawer")
 </script>
 
 <template>

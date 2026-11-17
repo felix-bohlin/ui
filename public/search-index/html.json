@@ -966,6 +966,13 @@
     "url": "/html/components/dialog/#long-content"
   },
   {
+    "id": "component-dialog-html-close-button",
+    "title": "Close button",
+    "page": "Dialog",
+    "category": "Component",
+    "url": "/html/components/dialog/#close-button"
+  },
+  {
     "id": "component-dialog-html-how-to-close",
     "title": "How to close a dialog",
     "page": "Dialog",

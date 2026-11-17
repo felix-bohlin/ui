@@ -31,12 +31,12 @@ export const warnGroupedChecked = (
 
 export const warnMissingCloseTarget = (
   component: string,
-  id: unknown,
+  target: unknown,
   root: string,
 ) => {
-  if (DEV && !id) {
+  if (DEV && !target) {
     console.warn(
-      `[OPUI ${component}] \`closeButton\` adds a close button that closes the ${root} through its \`id\`. Pass \`id\` on the ${root}.`,
+      `[OPUI ${component}] \`closeButton\` adds a close button that closes a dialog through its \`id\`. Pass \`id\` on the ${root}, or outside a ${root} set \`commandfor\` to the id of the dialog to close.`,
     )
   }
 }
@@ -49,18 +49,6 @@ export const warnMissingId = (
   if (DEV && !id) {
     console.warn(
       `[OPUI ${component}] Missing \`id\`. Pass one and point the trigger at it with \`${attribute}\`.`,
-    )
-  }
-}
-
-export const warnMissingTarget = (
-  component: string,
-  target: unknown,
-  container: string,
-) => {
-  if (DEV && !target) {
-    console.warn(
-      `[OPUI ${component}] Missing \`commandfor\`. Outside a ${container}, set it to the id of the dialog to close.`,
     )
   }
 }

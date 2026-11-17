@@ -1,6 +1,7 @@
 ---
 import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
+import DefaultIcon from "./partials/DefaultIcon.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
@@ -167,6 +168,10 @@ export const keywords = ["email", "input", "password", "search", "text box"]
         Import <code>opui-css/elements/text-field.js</code>.
       </Fragment>
     </Conditional>
+    <DefaultIcon
+      slots={["icon-unchecked", "icon-checked"]}
+      tokens={["--ui-icon-show", "--ui-icon-hide"]}
+    />
     <AutoExample name="PasswordToggle" row />
   </section>
 

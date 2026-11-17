@@ -350,8 +350,20 @@ describe("DialogHeader", () => {
         closeButton: true,
       })
       expect(warnings()).toEqual([
-        "[OPUI DialogHeader] `closeButton` adds a close button that closes the Dialog through its `id`. Pass `id` on the Dialog.",
+        "[OPUI DialogHeader] `closeButton` adds a close button that closes a dialog through its `id`. Pass `id` on the Dialog, or outside a Dialog set `commandfor` to the id of the dialog to close.",
       ])
+    },
+  )
+
+  test.each(FRAMEWORKS)(
+    "%s doesn't warn when commandfor names the dialog, and points the close button at it",
+    async (framework) => {
+      const html = await render[framework](DIALOG_HEADER[framework], {
+        closeButton: true,
+        commandfor: "shortcuts",
+      })
+      expect(warnings()).toEqual([])
+      expect(html).toContain('commandfor="shortcuts"')
     },
   )
 
@@ -377,8 +389,20 @@ describe("DrawerHeader", () => {
     async (framework) => {
       await render[framework](DRAWER_HEADER[framework], { closeButton: true })
       expect(warnings()).toEqual([
-        "[OPUI DrawerHeader] Missing `commandfor`. Outside a Drawer, set it to the id of the dialog to close.",
+        "[OPUI DrawerHeader] `closeButton` adds a close button that closes a dialog through its `id`. Pass `id` on the Drawer, or outside a Drawer set `commandfor` to the id of the dialog to close.",
       ])
+    },
+  )
+
+  test.each(FRAMEWORKS)(
+    "%s doesn't warn when commandfor names the dialog, and points the close button at it",
+    async (framework) => {
+      const html = await render[framework](DRAWER_HEADER[framework], {
+        closeButton: true,
+        commandfor: "folders",
+      })
+      expect(warnings()).toEqual([])
+      expect(html).toContain('commandfor="folders"')
     },
   )
 

@@ -287,6 +287,22 @@ interaction(
 )
 
 interaction(
+  "dialog",
+  "CloseButton",
+  "a header outside its dialog closes the dialog that commandfor names and returns focus",
+  async ({ root }) => {
+    const trigger = root.getByRole("button", { name: "Show release notes" })
+    const dialog = root.locator("dialog")
+
+    await trigger.click()
+    await expect(dialog).toBeVisible()
+    await dialog.getByRole("button", { name: "Close" }).click()
+    await expect(dialog).toBeHidden()
+    await expect(trigger).toBeFocused()
+  },
+)
+
+interaction(
   "drawer",
   "Basics",
   "drawer opens and closes with Escape",
@@ -321,6 +337,22 @@ interaction(
     await expect(details).toHaveAttribute("open")
     await page.evaluate(() => history.pushState({}, "", "elsewhere/"))
     await expect(details).toHaveAttribute("open")
+  },
+)
+
+interaction(
+  "drawer",
+  "CloseButton",
+  "a header outside its drawer closes the dialog that commandfor names and returns focus",
+  async ({ root }) => {
+    const trigger = root.getByRole("button", { name: "Show filters" })
+    const dialog = root.locator("dialog")
+
+    await trigger.click()
+    await expect(dialog).toBeVisible()
+    await dialog.getByRole("button", { name: "Close" }).click()
+    await expect(dialog).toBeHidden()
+    await expect(trigger).toBeFocused()
   },
 )
 

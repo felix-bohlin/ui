@@ -9,9 +9,11 @@ import {
   ICON_SAMPLES,
   ICON_SETS,
   ICON_STYLESHEETS,
+  ICON_TOKEN_FILES,
   iconStylesheet,
   rawSvg,
   splitSamples,
+  syncIconTokens,
 } from "../../scripts/build-icons.mjs"
 import {
   ICON_LIBRARIES,
@@ -298,7 +300,10 @@ describe("theme.css", () => {
         ([, name, value]) => [name, value],
       ),
     )
-    expect(declared).toEqual(
+    expect(
+      declared,
+      "run pnpm build-icons, which writes the Fluent icons into theme.css",
+    ).toEqual(
       Object.fromEntries(
         ICON_ROLES.map((role) => [
           `--ui-icon-${role}`,
@@ -309,10 +314,11 @@ describe("theme.css", () => {
   })
 })
 
-const PRESET_ICONS: Record<string, string> = {
-  m3: "material-symbols",
-  shadcn: "lucide",
-}
+const PRESET_ICONS: Record<string, string> = Object.fromEntries(
+  Object.entries(ICON_TOKEN_FILES)
+    .filter(([file]) => file.startsWith("packages/opui/themes/"))
+    .map(([file, library]) => [basename(file, ".css"), library]),
+)
 
 const iconTokensIn = (css: string) =>
   Object.fromEntries(
@@ -328,7 +334,9 @@ describe("example themes", () => {
       const library = PRESET_ICONS[theme]
       expect(
         iconTokensIn(readFileSync(file, "utf8")),
-        `${theme}: copy the icon tokens from iconTokensOf("${library ?? "<library>"}")`,
+        library
+          ? `${theme}: run pnpm build-icons, which writes the ${library} icons into the theme`
+          : `${theme}: remove the icon tokens, or name the theme's library in ICON_TOKEN_FILES (scripts/build-icons.mjs)`,
       ).toEqual(library ? iconTokensOf(library) : {})
     }
   })
@@ -340,6 +348,44 @@ describe("example themes", () => {
       ),
     ).toEqual({ "--ui-icon-close": 'url("data:image/svg+xml,x")' })
   })
+})
+
+describe("syncIconTokens", () => {
+  const sets = JSON.parse(readFileSync(ICON_SETS, "utf8"))
+  const stale = ICON_ROLES.map(
+    (role) => `  --ui-icon-${role}: url("data:image/svg+xml,stale");`,
+  ).join("\n")
+
+  test("writes a library's icon into every icon token and leaves the rest alone", () => {
+    const css = `:where(html) {\n  --ui-icon-size: 1.25rem;\n${stale}\n}\n`
+    const synced = syncIconTokens(css, sets.lucide, "theme.css")
+    expect(iconTokensIn(synced)).toEqual(iconTokensOf("lucide"))
+    expect(synced).toContain("--ui-icon-size: 1.25rem;")
+    expect(syncIconTokens(synced, sets.lucide, "theme.css")).toBe(synced)
+  })
+
+  test("names the file and the token it can't find", () => {
+    expect(() =>
+      syncIconTokens(
+        stale.replace(/^.*--ui-icon-close:.*\n/m, ""),
+        sets.lucide,
+        "themes/sample.css",
+      ),
+    ).toThrow(
+      "themes/sample.css has no --ui-icon-close declaration; scripts/build-icons.mjs writes the Lucide icon there",
+    )
+  })
+
+  test.each(Object.entries(ICON_TOKEN_FILES))(
+    "%s holds the %s icons build-icons.mjs writes",
+    (file, library) => {
+      const css = readFileSync(file, "utf8")
+      expect(
+        syncIconTokens(css, sets[library], file),
+        "run pnpm build-icons",
+      ).toBe(css)
+    },
+  )
 })
 
 describe("icon stylesheets", () => {

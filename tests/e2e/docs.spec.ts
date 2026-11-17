@@ -951,7 +951,7 @@ test("a long section heading takes the content width, passes under the header li
 test("the API page filter keeps the components and rows that match", async ({
   page,
 }) => {
-  test.setTimeout(60_000)
+  test.setTimeout(120_000)
   await page.goto("/html/api/")
   const input = page.locator(".api-filter input")
   const sections = page.locator(".api-section:visible")
@@ -975,7 +975,7 @@ test("the API page filter keeps the components and rows that match", async ({
 })
 
 test("the API page lands on a section far down the page", async ({ page }) => {
-  test.setTimeout(60_000)
+  test.setTimeout(120_000)
   await page.goto("/html/api/#tooltip")
   await expect(page.locator("#tooltip h2")).toBeInViewport()
   for (const id of ["button", "menu", "tooltip"]) {

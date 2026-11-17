@@ -99,7 +99,7 @@ export default function Select({
           name={name ?? field?.name}
           value={value}
         >
-          <button>
+          <button inert>
             {createElement("selectedcontent", {
               dangerouslySetInnerHTML: { __html: "" },
               suppressHydrationWarning: true,

@@ -43,7 +43,7 @@ Model: `value` (`string | number | (string | number)[]`), the selected value, or
 
 ### Notes
 
-- HTML: The `<select>` holds a `<button>` and a `.ui-list`. The button holds `<selectedcontent>`. The list holds the options. Browsers without customizable selects show a native select.
+- HTML: The `<select>` holds an `inert` `<button>` and a `.ui-list`. The button holds `<selectedcontent>`, and `inert` leaves clicks, focus and the name to the select. The list holds the options. Browsers without customizable selects show a native select.
 - Astro, Svelte and Vue: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `class` and `style` go to the `.ui-select` root.
 - React: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `className` and `style` go to the `.ui-select` root.
 
@@ -115,7 +115,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
   <label class="ui-label" for="select-variants-1">Role</label>
   <span class="ui-field">
     <select id="select-variants-1">
-      <button>
+      <button inert>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
@@ -132,7 +132,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
   <label class="ui-label" for="select-variants-2">Band</label>
   <span class="ui-field">
     <select id="select-variants-2">
-      <button>
+      <button inert>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">

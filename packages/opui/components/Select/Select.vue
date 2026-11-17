@@ -120,7 +120,7 @@ const field = inject(FieldGroupKey, undefined)
         :id="selectId()"
         :name="name ?? field?.name"
       >
-        <button v-pre>
+        <button inert v-pre>
           <selectedcontent></selectedcontent>
         </button>
         <div :class="['ui-list', { 'ui-dense': dense }]">

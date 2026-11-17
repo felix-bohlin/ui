@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs"
+import { existsSync } from "node:fs"
 import { describe, expect, test } from "vitest"
 import sets from "../../src/utils/icon-sets.json"
 import { customCss } from "../../src/utils/theme"
@@ -47,14 +48,21 @@ describe("iconLibraryOf", () => {
 describe("iconCredit", () => {
   test("names the library, its licence, SVG package and official components", () => {
     expect(iconCredit("lucide")).toBe(
-      `Icons: Lucide ${sets.lucide.version} (ISC), ${sets.lucide.copyright}, https://lucide.dev\nSVG files: lucide-static. Components: lucide-react (React), @lucide/svelte (Svelte), @lucide/vue (Vue).`,
+      `Icons: Lucide ${sets.lucide.version} (ISC), ${sets.lucide.copyright}, https://lucide.dev\nSVG files: lucide-static. Components: lucide-react (React), @lucide/svelte (Svelte), @lucide/vue (Vue).\nStylesheet: opui-css/icons/lucide.css sets the same tokens.`,
     )
   })
 
   test("says what the package is when it isn't the library's own, and lists no components it doesn't have", () => {
     expect(iconCredit("material-symbols")).toBe(
-      `Icons: Material Symbols ${sets["material-symbols"].version} (Apache-2.0), Copyright Google LLC, https://github.com/google/material-design-icons\nSVG files: @material-symbols/svg-400, a community copy of Google's files.`,
+      `Icons: Material Symbols ${sets["material-symbols"].version} (Apache-2.0), Copyright Google LLC, https://github.com/google/material-design-icons\nSVG files: @material-symbols/svg-400, a community copy of Google's files.\nStylesheet: opui-css/icons/material-symbols.css sets the same tokens.`,
     )
+  })
+})
+
+describe("the stylesheet a credit names", () => {
+  test.each(Object.keys(sets))("exists for %s", (id) => {
+    const [, path] = /Stylesheet: opui-css\/(\S+) /.exec(iconCredit(id))!
+    expect(existsSync(`packages/opui/${path}`), path).toBe(true)
   })
 })
 

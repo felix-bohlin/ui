@@ -43,7 +43,7 @@ export default {
   },
   notes: {
     ...passThrough("select", ".ui-select", ["autocomplete", "multiple"]),
-    html: "The `<select>` holds a `<button>` and a `.ui-list`. The button holds `<selectedcontent>`. The list holds the options. Browsers without customizable selects show a native select.",
+    html: "The `<select>` holds an `inert` `<button>` and a `.ui-list`. The button holds `<selectedcontent>`, and `inert` leaves clicks, focus and the name to the select. The list holds the options. Browsers without customizable selects show a native select.",
   },
   options: [
     {

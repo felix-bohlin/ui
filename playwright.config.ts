@@ -50,7 +50,13 @@ export default defineConfig({
       },
     },
   ],
-  reporter: process.env.CI ? [["github"], ["html", { open: "never" }]] : "list",
+  reporter: process.env.CI
+    ? [
+        ["github"],
+        ["html", { open: "never" }],
+        ["json", { outputFile: "test-results/report.json" }],
+      ]
+    : "list",
   retries: 0,
   snapshotPathTemplate: "{testDir}/__screenshots__/{projectName}/{arg}{ext}",
   testDir: "tests/e2e",

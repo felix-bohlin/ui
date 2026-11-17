@@ -379,9 +379,16 @@ export const keywords = [
       slot sizes it, and it takes the text color through
       <code>currentColor</code>, which <code>normalize.css</code> sets as the
       fill of an <code>svg</code> without one. Take them from the same set as
-      the tokens so every icon matches. Shapes inside an SVG <code>mask</code>
-      inherit that fill too, so give them a <code>fill</code> of their own. Icon
-      fonts aren't supported.
+      the tokens so every icon matches. Icon fonts aren't supported.
+    </p>
+    <p>
+      In HTML, some icons are an <code>svg</code> you write: the Accordion
+      marker, the Callout severity icon, the close buttons of a Callout, Dialog
+      and Drawer, the Number field buttons and the password toggle. Left empty,
+      with a <code>viewBox</code> and nothing between its tags, not even a line
+      break, it shows the token's icon. With shapes inside it shows those. The
+      components render the empty <code>svg</code> themselves, and their icon
+      slots replace it.
     </p>
   </section>
 

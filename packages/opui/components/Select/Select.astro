@@ -3,7 +3,7 @@ import type { SelectItem } from "./types"
 import { trimEdges } from "../whitespace"
 import type { Props } from "./types.astro"
 import { cx } from "../cx"
-import { createIds, idRefs } from "../id"
+import { createIds, fieldDescribedBy } from "../id"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
 import { sameValue } from "./selection"
 
@@ -43,13 +43,15 @@ const startId = Astro.slots.has("start") ? ids("start") : undefined
 const endId = Astro.slots.has("end") ? ids("end") : undefined
 const topId = Astro.slots.has("top") ? ids("top") : undefined
 const bottomId = Astro.slots.has("bottom") ? ids("bottom") : undefined
-const describedBy = idRefs(
-  startTextId,
-  topId,
-  startId,
-  endId,
-  bottomId,
-  endTextId,
+const describedBy = fieldDescribedBy(
+  {
+    bottom: bottomId,
+    end: endId,
+    endText: endTextId,
+    start: startId,
+    startText: startTextId,
+    top: topId,
+  },
   ariaDescribedBy,
 )
 const isSelected = (item: SelectItem) =>

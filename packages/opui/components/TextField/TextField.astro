@@ -4,7 +4,7 @@ import { trimEdges } from "../whitespace"
 
 import type { Props } from "./types.astro"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
-import { createIds, idRefs } from "../id"
+import { createIds, fieldDescribedBy } from "../id"
 import { cx } from "../cx"
 
 export const title = "Text Field"
@@ -88,13 +88,15 @@ const endTextId = hasEndText ? ids("end-text") : undefined
     </span>}
     <input
       {...rest}
-      aria-describedby={idRefs(
-        startTextId,
-        topId,
-        startId,
-        endId,
-        bottomId,
-        endTextId,
+      aria-describedby={fieldDescribedBy(
+        {
+          bottom: bottomId,
+          end: endId,
+          endText: endTextId,
+          start: startId,
+          startText: startTextId,
+          top: topId,
+        },
         ariaDescribedBy,
       )}
       aria-invalid={error ? "true" : ariaInvalid}

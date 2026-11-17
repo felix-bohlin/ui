@@ -4,7 +4,7 @@
   import { content } from "../content.svelte"
   import Button from "../Button/Button.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
-  import { idRefs } from "../id"
+  import { fieldDescribedBy } from "../id"
   import type { Props } from "./types.svelte"
 
   let {
@@ -96,7 +96,10 @@
     </span>
     <input
       {...rest}
-      aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
+      aria-describedby={fieldDescribedBy(
+        { endText: endTextId, startText: startTextId },
+        ariaDescribedBy,
+      )}
       aria-invalid={error ? "true" : ariaInvalid}
       {disabled}
       id={inputId}

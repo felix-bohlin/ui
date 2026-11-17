@@ -2,7 +2,7 @@
 
 Guides: `getting-started.md` (setup, with a section per framework), `theming.md` (colors, scopes, density, spacing, corners, fonts, elevation, motion and contrast) and `customizing.md` (the `theme.custom` layer and component properties).
 
-Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, props, classes, slots and notes they share, the component properties and theme tokens, then a section per framework with its import line, slots, hydration and an example.
+Each component reference covers HTML, Astro, React, Solid, Svelte and Vue: the parts, props, classes, slots and notes they share, the component properties and theme tokens, then a section per framework with its import line, slots, hydration and an example.
 
 | Component | File | Description |
 | --- | --- | --- |

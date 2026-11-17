@@ -3,7 +3,7 @@
 A progress bar on the native progress element, for a task that reports how far along it is, or one that doesn't.
 
 - CSS: `opui-css/css/components/progress.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/progress.md), [Astro](https://opui.dev/astro/components/progress.md), [React](https://opui.dev/react/components/progress.md), [Svelte](https://opui.dev/svelte/components/progress.md), [Vue](https://opui.dev/vue/components/progress.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/progress.md), [Astro](https://opui.dev/astro/components/progress.md), [React](https://opui.dev/react/components/progress.md), [Solid](https://opui.dev/solid/components/progress.md), [Svelte](https://opui.dev/svelte/components/progress.md), [Vue](https://opui.dev/vue/components/progress.md).
 
 ## Progress
 
@@ -25,7 +25,7 @@ A progress bar on the native progress element, for a task that reports how far a
 
 ### Notes
 
-- Astro, Svelte and Vue: Attributes that aren't props go to the `<progress>`, like `aria-describedby`, `aria-label` and `id`, and `class` and `style` go to the root `<div>`.
+- Astro, Solid, Svelte and Vue: Attributes that aren't props go to the `<progress>`, like `aria-describedby`, `aria-label` and `id`, and `class` and `style` go to the root `<div>`.
 - React: Attributes that aren't props go to the `<progress>`, like `aria-describedby`, `aria-label` and `id`, and `className` and `style` go to the root `<div>`.
 
 ## Component properties
@@ -80,6 +80,21 @@ import { Progress } from "opui-css/astro"
 
 ```tsx
 import { Progress } from "opui-css/react"
+
+export default function Indeterminate() {
+  return <Progress aria-label="Loading" />
+}
+```
+
+## Solid
+
+`import { Progress } from "opui-css/solid"`
+
+### Example: Indeterminate
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Progress } from "opui-css/solid"
 
 export default function Indeterminate() {
   return <Progress aria-label="Loading" />

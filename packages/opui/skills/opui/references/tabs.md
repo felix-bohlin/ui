@@ -3,7 +3,7 @@
 Tabs that switch between panels of related content, built on radio inputs.
 
 - CSS: `opui-css/css/components/tabs.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/tabs.md), [Astro](https://opui.dev/astro/components/tabs.md), [React](https://opui.dev/react/components/tabs.md), [Svelte](https://opui.dev/svelte/components/tabs.md), [Vue](https://opui.dev/vue/components/tabs.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/tabs.md), [Astro](https://opui.dev/astro/components/tabs.md), [React](https://opui.dev/react/components/tabs.md), [Solid](https://opui.dev/solid/components/tabs.md), [Svelte](https://opui.dev/svelte/components/tabs.md), [Vue](https://opui.dev/vue/components/tabs.md).
 
 ## Tabs
 
@@ -16,26 +16,27 @@ Tabs that switch between panels of related content, built on radio inputs.
 
 ### Props and modifiers
 
-- `defaultValue` (React): `string`. The `value` of the tab selected at the start, when `value` is omitted.
+- `defaultValue` (React and Solid): `string`. The `value` of the tab selected at the start, when `value` is omitted.
 - `name`: `string`, `.ui-input[name]`. The name shared by the tab inputs. Generated when omitted.
-- `onValueChange` (React): `(value: string) => void`. Called with the `value` of the tab when one is selected.
+- `onValueChange` (React and Solid): `(value: string) => void`. Called with the `value` of the tab when one is selected.
 - `orientation`: `"horizontal"` (default), `"vertical"` (`.ui-vertical`). The orientation of the tabs. `vertical` stacks them in a column at the inline start, with the panel beside them.
 - `overflow`: `"scroll"` (default), `"wrap"` (`.ui-overflow-wrap`). What the tabs do when they don't fit. `scroll` keeps them on one row and scrolls it sideways, and `wrap` wraps them onto more rows. Vertical tabs ignore it: long labels wrap within the column.
 - `role`: `string`, `[role="radiogroup"]`. Makes tabs without panels a radio group, which `aria-label` names. Tabs with panels take no role: the root holds the panels, and a radio group holds only radios.
-- `value` (Astro and React): `string`. The `value` of the selected tab. The item whose `value` matches is checked, and the items' own `checked` is ignored.
+- `value` (Astro, React and Solid): `string`. The `value` of the selected tab. The item whose `value` matches is checked, and the items' own `checked` is ignored.
 - `variant`: `"filled"` (`.ui-filled`), `"line"` (`.ui-line`), `"outlined"` (`.ui-outlined`), `"tonal"` (default). The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.
 
 ### Slots
 
 - `default`: The tab items.
 
-Model: `value` (`string`), the `value` of the selected tab. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
+Model: `value` (`string`), the `value` of the selected tab. Astro, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes
 
 - HTML: Each tab is three elements, in this order: `input.ui-input[type="radio"]`, `label.ui-label` and `.ui-panel`.
 - Astro: `value` selects the item whose `value` matches on the server. After that the selection lives in the inputs: read it from the form, or listen for `change` in a script.
 - React: Use `value` with `onValueChange`, or `defaultValue`. Without them the items keep their own state, and `onValueChange` still reports changes.
+- Solid: `value` sets the selected item and follows it when it changes, and `onValueChange` reports the new one. Without `value` the items keep their own state.
 - Svelte: Bind `value` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state.
 - Vue: Bind `v-model` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state.
 
@@ -59,6 +60,7 @@ Model: `value` (`string`), the `value` of the selected tab. Astro and React `val
 ### Notes
 
 - React: `defaultChecked` selects the starting tab. A tab that loses its check to another one fires no `onChange` of its own, so to control the tabs, give each item a `value` and set `value` with `onValueChange` on `Tabs`. The `Tabs` value then wins and an item's own `checked` and `defaultChecked` are ignored.
+- Solid: `checked` selects the starting tab. A tab that loses its check to another one fires no `change` of its own, so to control the tabs, give each item a `value` and set `value` with `onValueChange` on `Tabs`. The `Tabs` value then wins and an item's own `checked` is ignored.
 - Svelte: `checked` selects the starting tab. A tab that loses its check to another one fires no `change` of its own, so to control the tabs, give each item a `value` and bind `value` on `Tabs`. The `Tabs` value then wins and an item's own `checked` is ignored.
 - Vue: `checked` selects the starting tab. A tab that loses its check to another one fires no `change` of its own, so to control the tabs, give each item a `value` and bind `v-model` on `Tabs`. The `Tabs` value then wins and an item's own `checked` is ignored.
 
@@ -70,7 +72,7 @@ Model: `value` (`string`), the `value` of the selected tab. Astro and React `val
 
 ### Props and modifiers
 
-- `for` (Astro, HTML, Svelte and Vue): `string`, `[for]`. The id of the input it labels. Set by the item.
+- `for` (Astro, HTML, Solid, Svelte and Vue): `string`, `[for]`. The id of the input it labels. Set by the item.
 - `htmlFor` (React): `string`. The id of the input it labels, as `htmlFor` like on the element. Set by the item.
 
 ### Slots
@@ -176,6 +178,36 @@ import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
 
 ```tsx
 import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <Tabs name="basic-tabs">
+      <TabsItem defaultChecked>
+        <TabsLabel>Profile</TabsLabel>
+        <TabsPanel>Profile settings and information.</TabsPanel>
+      </TabsItem>
+      <TabsItem>
+        <TabsLabel>Settings</TabsLabel>
+        <TabsPanel>General account settings.</TabsPanel>
+      </TabsItem>
+      <TabsItem>
+        <TabsLabel>Notifications</TabsLabel>
+        <TabsPanel>Manage your notifications.</TabsPanel>
+      </TabsItem>
+    </Tabs>
+  )
+}
+```
+
+## Solid
+
+`import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/solid"`
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/solid"
 
 export default function Basics() {
   return (

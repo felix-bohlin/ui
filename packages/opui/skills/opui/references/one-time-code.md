@@ -3,7 +3,7 @@
 A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill.
 
 - CSS: `opui-css/css/components/text-field.css` and `opui-css/css/components/one-time-code.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/one-time-code.md), [Astro](https://opui.dev/astro/components/one-time-code.md), [React](https://opui.dev/react/components/one-time-code.md), [Svelte](https://opui.dev/svelte/components/one-time-code.md), [Vue](https://opui.dev/vue/components/one-time-code.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/one-time-code.md), [Astro](https://opui.dev/astro/components/one-time-code.md), [React](https://opui.dev/react/components/one-time-code.md), [Solid](https://opui.dev/solid/components/one-time-code.md), [Svelte](https://opui.dev/svelte/components/one-time-code.md), [Vue](https://opui.dev/vue/components/one-time-code.md).
 
 ## OneTimeCode
 
@@ -34,13 +34,14 @@ A one-time password (OTP) field: one input drawn as a box per character, with pa
 - `spellcheck` (Astro, Svelte and Vue): `boolean`. The `spellcheck` of the `<input>`. With `alphanumeric` it is `false`.
 - `spellCheck` (React): `boolean`. The `spellcheck` of the `<input>`, as `spellCheck` like on the element. With `alphanumeric` it is `false`.
 
-Model: `value` (`string`), the code. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
+Model: `value` (`string`), the code. Astro, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes
 
 - HTML: Use one `<input>` with `autocomplete="one-time-code"`, `maxlength` and a matching `pattern`, such as `[0-9]{6}`, plus `inputmode="numeric"` for digits.
 - Astro, Svelte and Vue: Attributes that aren't props go to the `<input>`, like `autofocus` and `placeholder`, and `class` and `style` go to the `.ui-one-time-code` root.
 - React: Attributes that aren't props go to the `<input>`, like `autofocus` and `placeholder`, and `className` and `style` go to the `.ui-one-time-code` root. Use `value` with `onChange`, or `defaultValue`.
+- Solid: Attributes that aren't props go to the `<input>`, like `autofocus` and `placeholder`, and `class` and `style` go to the `.ui-one-time-code` root. `value` sets the value and follows it when it changes. Follow typing with `onInput`.
 
 ## Component properties
 
@@ -143,6 +144,30 @@ import { OneTimeCode } from "opui-css/astro"
 
 ```tsx
 import { OneTimeCode } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <OneTimeCode
+      endText="The code expires in 10 minutes."
+      label="Verification code"
+      name="code"
+      required
+    />
+  )
+}
+```
+
+## Solid
+
+`import { OneTimeCode } from "opui-css/solid"`
+
+- `OneTimeCode` slot props (`JSX.Element`): `endText` and `label`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { OneTimeCode } from "opui-css/solid"
 
 export default function Basics() {
   return (

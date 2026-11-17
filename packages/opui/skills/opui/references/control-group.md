@@ -3,7 +3,7 @@
 Buttons and fields joined into one control, like a split button or a search field with its button.
 
 - CSS: `opui-css/css/components/control-group.css`, `opui-css/css/components/button.css` and `opui-css/css/components/text-field.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/control-group.md), [Astro](https://opui.dev/astro/components/control-group.md), [React](https://opui.dev/react/components/control-group.md), [Svelte](https://opui.dev/svelte/components/control-group.md), [Vue](https://opui.dev/vue/components/control-group.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/control-group.md), [Astro](https://opui.dev/astro/components/control-group.md), [React](https://opui.dev/react/components/control-group.md), [Solid](https://opui.dev/solid/components/control-group.md), [Svelte](https://opui.dev/svelte/components/control-group.md), [Vue](https://opui.dev/vue/components/control-group.md).
 - The docs page also documents `Button`, see `button.md`.
 
 ## ControlGroup
@@ -170,6 +170,47 @@ import { Button, ControlGroup } from "opui-css/astro"
 
 ```tsx
 import { Button, ControlGroup } from "opui-css/react"
+
+export default function Variants() {
+  return (
+    <>
+      <ControlGroup aria-label="Edit history">
+        <Button>Undo</Button>
+        <Button>Redo</Button>
+        <Button href="#">History</Button>
+      </ControlGroup>
+
+      <ControlGroup aria-label="Edit history" variant="outlined">
+        <Button>Undo</Button>
+        <Button>Redo</Button>
+        <Button href="#">History</Button>
+      </ControlGroup>
+
+      <ControlGroup aria-label="Edit history" variant="tonal">
+        <Button>Undo</Button>
+        <Button>Redo</Button>
+        <Button href="#">History</Button>
+      </ControlGroup>
+
+      <ControlGroup aria-label="Edit history" variant="filled">
+        <Button>Undo</Button>
+        <Button>Redo</Button>
+        <Button href="#">History</Button>
+      </ControlGroup>
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Button, ControlGroup, TextField } from "opui-css/solid"`
+
+### Example: Variants
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Button, ControlGroup } from "opui-css/solid"
 
 export default function Variants() {
   return (

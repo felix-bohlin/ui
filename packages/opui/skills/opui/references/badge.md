@@ -3,7 +3,7 @@
 A small count or status dot on the corner of another element.
 
 - CSS: `opui-css/css/components/badge.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/badge.md), [Astro](https://opui.dev/astro/components/badge.md), [React](https://opui.dev/react/components/badge.md), [Svelte](https://opui.dev/svelte/components/badge.md), [Vue](https://opui.dev/vue/components/badge.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/badge.md), [Astro](https://opui.dev/astro/components/badge.md), [React](https://opui.dev/react/components/badge.md), [Solid](https://opui.dev/solid/components/badge.md), [Svelte](https://opui.dev/svelte/components/badge.md), [Vue](https://opui.dev/vue/components/badge.md).
 
 ## Badge
 
@@ -112,6 +112,33 @@ import { Badge } from "opui-css/astro"
 
 ```tsx
 import { Badge } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <>
+      <Badge hideLabel indicator="5" label="5 unread messages">
+        <svg data-icon="mail" aria-hidden="true" viewBox="0 0 32 32"></svg>
+      </Badge>
+
+      <Badge dot label="New messages">
+        <svg data-icon="mail" aria-hidden="true" viewBox="0 0 32 32"></svg>
+      </Badge>
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Badge } from "opui-css/solid"`
+
+- `Badge` slot props (`JSX.Element`): `children` and `indicator`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Badge } from "opui-css/solid"
 
 export default function Basics() {
   return (

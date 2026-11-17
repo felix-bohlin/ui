@@ -3,7 +3,7 @@
 A list of dated events with markers and a connecting line.
 
 - CSS: `opui-css/css/components/timeline.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/timeline.md), [Astro](https://opui.dev/astro/components/timeline.md), [React](https://opui.dev/react/components/timeline.md), [Svelte](https://opui.dev/svelte/components/timeline.md), [Vue](https://opui.dev/vue/components/timeline.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/timeline.md), [Astro](https://opui.dev/astro/components/timeline.md), [React](https://opui.dev/react/components/timeline.md), [Solid](https://opui.dev/solid/components/timeline.md), [Svelte](https://opui.dev/svelte/components/timeline.md), [Vue](https://opui.dev/vue/components/timeline.md).
 
 ## Timeline
 
@@ -131,6 +131,49 @@ import { Timeline, TimelineItem } from "opui-css/astro"
 
 ```tsx
 import { Timeline, TimelineItem } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <Timeline>
+      <TimelineItem
+        datetime="2026-08-04"
+        label="Whoops fixes"
+        time="Aug 4, 2026"
+      >
+        <p>Faster search and fewer double pokes from your drummer.</p>
+      </TimelineItem>
+      <TimelineItem
+        datetime="2026-09-12"
+        label="Saved setlists"
+        time="Sep 12, 2026"
+      >
+        <p>Save your setlists with cute names and share them with the band.</p>
+      </TimelineItem>
+      <TimelineItem
+        datetime="2026-10-01"
+        label="Gig planner and a faster wall"
+        time="Oct 1, 2026"
+      >
+        <p>
+          Reminders for every gig, and a wall that loads three times faster.
+        </p>
+      </TimelineItem>
+    </Timeline>
+  )
+}
+```
+
+## Solid
+
+`import { Timeline, TimelineItem } from "opui-css/solid"`
+
+- `TimelineItem` slot props (`JSX.Element`): `children`, `label` and `marker`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Timeline, TimelineItem } from "opui-css/solid"
 
 export default function Basics() {
   return (

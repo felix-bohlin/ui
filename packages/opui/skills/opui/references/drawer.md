@@ -3,7 +3,7 @@
 A panel that slides in from an edge of the screen, for navigation, filters or side content.
 
 - CSS: `opui-css/css/components/drawer.css` and `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/drawer.md), [Astro](https://opui.dev/astro/components/drawer.md), [React](https://opui.dev/react/components/drawer.md), [Svelte](https://opui.dev/svelte/components/drawer.md), [Vue](https://opui.dev/vue/components/drawer.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/drawer.md), [Astro](https://opui.dev/astro/components/drawer.md), [React](https://opui.dev/react/components/drawer.md), [Solid](https://opui.dev/solid/components/drawer.md), [Svelte](https://opui.dev/svelte/components/drawer.md), [Vue](https://opui.dev/vue/components/drawer.md).
 
 ## Drawer
 
@@ -31,7 +31,7 @@ A panel that slides in from an edge of the screen, for navigation, filters or si
 ### Notes
 
 - HTML: Add `autofocus` to the element that gets focus on open. It can be the root or an element inside. For `[data-close-on-navigate]`, import `opui-css/elements/close-on-navigate.js`. For swiping a `.ui-block-start` or `.ui-block-end` drawer closed, import `opui-css/elements/drawer-swipe.js`.
-- Astro, React, Svelte and Vue: Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer, with the id `x-title` for `id="x"`. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`.
+- Astro, React, Solid, Svelte and Vue: Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer, with the id `x-title` for `id="x"`. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`.
 
 ## DrawerHeader
 
@@ -595,6 +595,144 @@ export default function BasicsCode() {
         <DrawerFooter>
           <p>24 tasks</p>
           <div className="ui-actions">
+            <Button size="small">Reset</Button>
+            <Button
+              command="close"
+              commandfor="drawer-basics-4"
+              size="small"
+              variant="filled"
+            >
+              Apply
+            </Button>
+          </div>
+        </DrawerFooter>
+      </Drawer>
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from "opui-css/solid"`
+
+- `DrawerHeader` slot props (`JSX.Element`): `children` and `closeIcon`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import {
+  Button,
+  Checkbox,
+  Drawer,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  List,
+  ListItem,
+} from "opui-css/solid"
+
+export default function BasicsCode() {
+  return (
+    <>
+      <Button command="show-modal" commandfor="drawer-basics-3">
+        Block start
+      </Button>
+      <Button command="show-modal" commandfor="drawer-basics-1">
+        Inline start
+      </Button>
+      <Button command="show-modal" commandfor="drawer-basics-2">
+        Inline end
+      </Button>
+      <Button command="show-modal" commandfor="drawer-basics-4">
+        Block end
+      </Button>
+
+      <Drawer closeOnNavigate id="drawer-basics-1" side="inline-start">
+        <DrawerHeader closeButton>
+          <DrawerTitle>Menu</DrawerTitle>
+        </DrawerHeader>
+        <DrawerContent>
+          <List variant="transparent">
+            <ListItem aria-current="page" href="#basics" label="My wall" />
+            <ListItem href="#basics" label="My bands" />
+            <ListItem href="#basics" label="Gear Talk" />
+            <ListItem href="#basics" label="Settings" />
+          </List>
+        </DrawerContent>
+        <DrawerFooter align="start">
+          <Button command="close" commandfor="drawer-basics-1" size="small">
+            Sign out
+          </Button>
+        </DrawerFooter>
+      </Drawer>
+
+      <Drawer backdrop="transparent" id="drawer-basics-2" side="inline-end">
+        <DrawerHeader closeButton>
+          <DrawerTitle>Friday gig prep</DrawerTitle>
+          <Button aria-label="Edit" round size="small">
+            <svg data-icon="edit" aria-hidden="true" viewBox="0 0 32 32"></svg>
+          </Button>
+        </DrawerHeader>
+        <DrawerContent aria-label="Gig details" role="region" tabindex="0">
+          <p>
+            Assigned to Lou Headstock, due Friday. Holly Humbucker checks the
+            setlist, and the drummer promises (again) to bring the cymbals by
+            Wednesday.
+          </p>
+        </DrawerContent>
+        <DrawerFooter>
+          <Button
+            command="close"
+            commandfor="drawer-basics-2"
+            size="small"
+            variant="filled"
+          >
+            Mark as done
+          </Button>
+        </DrawerFooter>
+      </Drawer>
+
+      <Drawer id="drawer-basics-3" side="block-start">
+        <DrawerHeader closeButton>
+          <DrawerTitle>Notifications</DrawerTitle>
+        </DrawerHeader>
+        <DrawerContent>
+          <p>Holly Humbucker commented on Friday gig prep.</p>
+        </DrawerContent>
+        <DrawerFooter>
+          <Button command="close" commandfor="drawer-basics-3" size="small">
+            Mark all as read
+          </Button>
+        </DrawerFooter>
+      </Drawer>
+
+      <Drawer id="drawer-basics-4" side="block-end">
+        <DrawerHeader closeButton>
+          <DrawerTitle>Filters</DrawerTitle>
+        </DrawerHeader>
+        <DrawerContent>
+          <Fieldset>
+            <FieldLegend>Status</FieldLegend>
+            <FieldGroup name="status" orientation="horizontal">
+              <Checkbox defaultChecked value="done">
+                Done
+              </Checkbox>
+              <Checkbox defaultChecked value="in-progress">
+                Rocking
+              </Checkbox>
+              <Checkbox value="open">Not yet</Checkbox>
+            </FieldGroup>
+          </Fieldset>
+        </DrawerContent>
+        <DrawerFooter>
+          <p>24 tasks</p>
+          <div class="ui-actions">
             <Button size="small">Reset</Button>
             <Button
               command="close"

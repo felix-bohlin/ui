@@ -1,23 +1,23 @@
-<label class="ui-textarea">
-  <span class="ui-label" id="textarea-top-and-bottom-1-label">Code</span>
+<div class="ui-textarea">
+  <label class="ui-label" for="textarea-top-and-bottom-1">Code</label>
   <span class="ui-field">
     <textarea
       placeholder="console.log('Hello, world!')"
       aria-describedby="textarea-top-and-bottom-1-top"
-      aria-labelledby="textarea-top-and-bottom-1-label"
+      id="textarea-top-and-bottom-1"
     ></textarea>
     <span class="ui-top" id="textarea-top-and-bottom-1-top">script.js</span>
   </span>
-</label>
+</div>
 
-<label class="ui-textarea">
-  <span class="ui-label" id="textarea-top-and-bottom-2-label">Comment</span>
+<div class="ui-textarea">
+  <label class="ui-label" for="textarea-top-and-bottom-2">Comment</label>
   <span class="ui-field">
     <textarea
       maxlength="280"
       placeholder="Write a comment..."
       aria-describedby="textarea-top-and-bottom-2-bottom textarea-top-and-bottom-2-end-text"
-      aria-labelledby="textarea-top-and-bottom-2-label"
+      id="textarea-top-and-bottom-2"
     ></textarea>
     <span class="ui-bottom" id="textarea-top-and-bottom-2-bottom"
       >Markdown supported</span
@@ -29,7 +29,7 @@
       class="ui-value"
     ></opui-character-count>
   </span>
-</label>
+</div>
 
 <script type="module">
   import "opui-css/elements/character-count.js"

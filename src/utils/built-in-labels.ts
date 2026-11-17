@@ -8,10 +8,12 @@ export const builtInLabels = [
   },
   {
     component: "Carousel",
-    default: "Previous",
-    html: "--_button-previous-label",
+    default: "Slide ",
+    html: "--_marker-label",
     page: "carousel",
-    prop: "previousLabel",
+    prop: "markerLabel",
+    shown: "Slide 1, Slide 2",
+    template: "Slide {number}",
   },
   {
     component: "Carousel",
@@ -22,12 +24,10 @@ export const builtInLabels = [
   },
   {
     component: "Carousel",
-    default: "Slide ",
-    html: "--_marker-label",
+    default: "Previous",
+    html: "--_button-previous-label",
     page: "carousel",
-    prop: "markerLabel",
-    shown: "Slide 1, Slide 2",
-    template: "Slide {number}",
+    prop: "previousLabel",
   },
   {
     component: "Copy",

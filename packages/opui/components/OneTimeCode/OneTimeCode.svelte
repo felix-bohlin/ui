@@ -41,11 +41,11 @@
   const hasLabel = $derived(Boolean(label))
   const hasEndText = $derived(Boolean(endText))
   const base = $derived(id || `one-time-code-${uid}`)
-  const labelId = $derived(hasLabel ? `${base}-label` : undefined)
+  const inputId = $derived(hasLabel ? base : id)
   const endTextId = $derived(hasEndText ? `${base}-end-text` : undefined)
 </script>
 
-<label
+<div
   class={[
     "ui-one-time-code",
     { "ui-grouped": grouped },
@@ -55,9 +55,9 @@
   {style}
 >
   {#if hasLabel}
-    <span class="ui-label" id={labelId}>
+    <label class="ui-label" for={inputId}>
       {@render content(label)}
-    </span>
+    </label>
   {/if}
   <span class="ui-field">
     <input
@@ -70,9 +70,9 @@
       {...rest}
       aria-describedby={idRefs(endTextId, ariaDescribedBy)}
       aria-invalid={error ? "true" : ariaInvalid}
-      aria-labelledby={hasLabel ? labelId : ariaLabelledBy}
+      aria-labelledby={ariaLabelledBy}
       autocomplete="one-time-code"
-      {id}
+      id={inputId}
       maxlength={length}
       name={name ?? field?.name}
       type="text"
@@ -85,4 +85,4 @@
       {@render content(endText)}
     </span>
   {/if}
-</label>
+</div>

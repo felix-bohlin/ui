@@ -254,6 +254,11 @@
     :is(.ui-accordion, .ui-card, .ui-dialog):has(.ui-card-link)
       :is(
         .ui-control-group,
+        .ui-number-field,
+        .ui-one-time-code,
+        .ui-select,
+        .ui-text-field,
+        .ui-textarea,
         a[href],
         button,
         input,

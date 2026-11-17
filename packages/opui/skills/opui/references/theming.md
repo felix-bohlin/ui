@@ -236,9 +236,19 @@ Every icon a component draws itself reads a `--ui-icon-*` token, one for each ro
 }
 ```
 
+### Icon sets
+
+The package has a stylesheet for each of five icon sets that sets every icon token: `fluent`, `lucide`, `material-symbols`, `phosphor` and `tabler`. Import one to draw every component icon from that set:
+
+```css
+@import "opui-css/icons/lucide.css";
+```
+
+Each file names the set's version, licence and SVG package in a comment, and `THIRD-PARTY-NOTICES` in the package holds the licences.
+
 ### Your own icons
 
-An icon slot takes any `svg` with a `viewBox`. The slot sizes it, and it takes the text color through `currentColor`, which `normalize.css` sets as the fill of an `svg` without one. Take them from the same set as the tokens so every icon matches. Icon fonts aren't supported.
+An icon slot takes any `svg` with a `viewBox`. The slot sizes it, and it takes the text color through `currentColor`, which `normalize.css` sets as the fill of an `svg` without one. Take them from the same set as the tokens so every icon matches. Shapes inside an SVG `mask` inherit that fill too, so give them a `fill` of their own. Icon fonts aren't supported.
 
 ## Contrast
 

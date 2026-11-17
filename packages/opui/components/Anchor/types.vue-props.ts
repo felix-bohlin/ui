@@ -5,7 +5,8 @@ import type {
   Props as BaseProps,
 } from "./types"
 
-export type AnchorContentProps = BaseAnchorContentProps & Class
+export type AnchorContentProps = BaseAnchorContentProps &
+  Class & { id?: IntrinsicElementAttributes["span"]["id"] }
 
 export type Props = BaseProps &
   Class & { id?: IntrinsicElementAttributes["span"]["id"] }

@@ -1,4 +1,4 @@
-import { ICON_ROLES, iconUrl } from "./icon-libraries"
+import { ICON_ROLES, iconCreditOf, iconUrl } from "./icon-libraries"
 import ICON_SETS from "./icon-sets.json" with { type: "json" }
 
 type IconSet = (typeof ICON_SETS)[keyof typeof ICON_SETS] & {
@@ -6,8 +6,6 @@ type IconSet = (typeof ICON_SETS)[keyof typeof ICON_SETS] & {
 }
 
 export const ICON_TOKENS = ICON_ROLES.map((role) => `--ui-icon-${role}`)
-
-const FRAMEWORK_NAMES = { react: "React", svelte: "Svelte", vue: "Vue" }
 
 const sets: Record<string, IconSet> = ICON_SETS
 
@@ -34,15 +32,5 @@ export const iconExport = (tokens: Record<string, string>) => {
 
 export const iconCredit = (id: string) => {
   const set = sets[id]
-  if (!set) return ""
-  const components = Object.entries(set.frameworks)
-    .map(
-      ([framework, name]) =>
-        `${name} (${FRAMEWORK_NAMES[framework as keyof typeof FRAMEWORK_NAMES]})`,
-    )
-    .join(", ")
-  return [
-    `Icons: ${set.name} ${set.version} (${set.license}), ${set.copyright}, ${set.url}`,
-    `SVG files: ${set.package}${set.packageNote ? `, ${set.packageNote}` : ""}.${components ? ` Components: ${components}.` : ""}`,
-  ].join("\n")
+  return set ? iconCreditOf(set) : ""
 }

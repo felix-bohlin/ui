@@ -1,9 +1,17 @@
-import { existsSync, readFileSync, realpathSync, writeFileSync } from "node:fs"
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  realpathSync,
+  writeFileSync,
+} from "node:fs"
 import { join } from "node:path"
 import { fileURLToPath } from "node:url"
 import {
   ICON_LIBRARIES,
   ICON_ROLES,
+  iconCreditOf,
+  iconUrl,
   SAMPLE_ICONS,
 } from "../src/utils/icon-libraries.ts"
 import { formatCode } from "./format.mjs"
@@ -11,6 +19,7 @@ import { formatCode } from "./format.mjs"
 const root = fileURLToPath(new URL("..", import.meta.url))
 export const ICON_SETS = `${root}src/utils/icon-sets.json`
 export const ICON_SAMPLES = `${root}src/utils/icon-samples.json`
+export const ICON_STYLESHEETS = `${root}packages/opui/icons`
 
 const ROOT_ATTRIBUTES = new Set([
   "clip-rule",
@@ -182,6 +191,30 @@ export const splitSamples = (built) => ({
   ),
 })
 
+const LAYERS = readFileSync(
+  `${root}packages/opui/css/layers.css`,
+  "utf8",
+).trim()
+
+export const iconStylesheet = (set) =>
+  [
+    "/*",
+    ...iconCreditOf(set)
+      .split("\n")
+      .map((line) => ` * ${line}`),
+    " */",
+    LAYERS,
+    "",
+    "@layer theme.custom {",
+    "  :where(html, .ui-palette, .ui-contrast-more) {",
+    ...ICON_ROLES.map(
+      (role) => `    --ui-icon-${role}: ${iconUrl(set.icons[role])};`,
+    ),
+    "  }",
+    "}",
+    "",
+  ].join("\n")
+
 if (
   process.argv[1] &&
   realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)
@@ -196,7 +229,11 @@ if (
       await formatCode(`${JSON.stringify(data, null, 2)}\n`, file),
     )
   }
+  mkdirSync(ICON_STYLESHEETS, { recursive: true })
+  for (const [id, set] of Object.entries(sets)) {
+    writeFileSync(`${ICON_STYLESHEETS}/${id}.css`, iconStylesheet(set))
+  }
   console.log(
-    `Wrote ${Object.keys(sets).length} icon libraries to ${ICON_SETS}`,
+    `Wrote ${Object.keys(sets).length} icon libraries to ${ICON_SETS} and ${ICON_STYLESHEETS}`,
   )
 }

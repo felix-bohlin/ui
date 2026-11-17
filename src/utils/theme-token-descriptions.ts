@@ -267,8 +267,6 @@ export const themeTokenDescriptions: Record<string, string> = {
     "The icon of a critical `Callout` and `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-decrease":
     "The decrease button of a `NumberField`. An SVG image used as a mask, so only its shape counts and it takes the text color.",
-  "--ui-icon-error":
-    "The mark of a `Stepper` step with an error. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-expand":
     "The `Accordion` marker, and the arrow of a `Select` and of a `TextField` with a datalist. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-hide":
@@ -277,6 +275,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "The increase button of a `NumberField`. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-info":
     "The icon of an info `Callout` and `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-invalid":
+    "The mark of a `Stepper` step with an error. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-next":
     "The `Carousel` buttons, pointing to the next item and turned for the previous one. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-rating":

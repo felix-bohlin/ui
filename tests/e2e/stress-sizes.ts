@@ -17,9 +17,11 @@ const affix = (part: HTMLElement, name: string) => {
     ":scope > :is(input, textarea)",
   )!
   const style = getComputedStyle(control)
-  const top = control.getBoundingClientRect().top
+  const { height: controlHeight, top } = control.getBoundingClientRect()
   const lineBox =
-    parseFloat(style.lineHeight) + parseFloat(style.paddingBlockStart) * 2
+    control.localName === "input"
+      ? controlHeight
+      : parseFloat(style.lineHeight) + parseFloat(style.paddingBlockStart) * 2
   const center = top + lineBox / 2
   const border = parseFloat(getComputedStyle(field).borderBlockStartWidth)
   const fieldBox = field.getBoundingClientRect()

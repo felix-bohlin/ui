@@ -127,6 +127,7 @@ Slots are props: the default slot is `children`, named slots are camelCased `Rea
 - **REST Support**: Native attributes come from `HTMLAttributes` in `types.astro.ts` and the other framework type files, never from `types.ts`. `pnpm check-components` checks the `...rest` spread and fails on an index signature such as `[key: string]: any`.
 - **Undefined attributes**: an attribute a caller passes as `undefined` or `null` never removes an attribute the component sets, in any framework. `tests/unit/component-contract.test.ts` renders every case again with them and says how to keep the attribute.
 - **Attributes before the spread**: a value a caller passes for an attribute an element sets before `{...rest}` renders the same in every framework. `tests/unit/component-contract.test.ts` renders every case again with one for each typed attribute and says how to settle which value wins.
+- **Attributes from the root**: the contract test renders a part without its root, so it can't see an attribute the root hands down through context. When another element points at it, the part destructures the attribute, renders the root's value over its own (`id={dialog?.titleId ?? id}`) and warns in development when it gets a different one (`warnReplacedId` on `DialogTitle`, `warnReplacedAnchorAttributes` on `AnchorContent`). `tests/unit/dev-warnings.test.ts` renders each part inside its root.
 
 ---
 
@@ -336,10 +337,14 @@ Check that a named slot exists before rendering its wrapper. `tests/unit/compone
 
 ### Label Wrapping
 
-Most inputs should be wrapped in a `<label>` to provide a larger hit area and built-in accessibility.
+Checkbox, Radio and Switch wrap their control in a `<label>` root, which makes the whole row the hit area and names the control.
+
+### Field Labels
+
+TextField, Textarea, Select, NumberField and OneTimeCode render a `<div>` root with a `<label class="ui-label" for>` inside, and give the control a generated `id` when it has a label. The label alone names the control, so a button can go in `.ui-start` or `.ui-end` without sitting inside a `<label>` or joining the name.
 
 ```astro
-<label
+<div
   class:list={[
     "ui-text-field",
     size && size !== "medium" && `ui-${size}`,
@@ -347,17 +352,22 @@ Most inputs should be wrapped in a `<label>` to provide a larger hit area and bu
   ]}
   style={style}
 >
-  <span class="ui-label">{label}</span>
+  {hasLabel && <label class="ui-label" for={inputId}>{label}</label>}
   <span class="ui-field">
-    <input {...rest} aria-invalid={error ? "true" : ariaInvalid} />
+    <input
+      {...rest}
+      aria-describedby={idRefs(endTextId, ariaDescribedBy)}
+      aria-invalid={error ? "true" : ariaInvalid}
+      id={inputId}
+    />
   </span>
-  {endText && <span class="ui-end-text">{endText}</span>}
-</label>
+  {endText && <span class="ui-end-text" id={endTextId}>{endText}</span>}
+</div>
 ```
 
 ### End Text & ARIA
 
-When providing `endText`, give it a part id (see [Unique IDs](#unique-ids)) and link it to the input via `aria-describedby`, merged with the user's own `aria-describedby` by `idRefs` from `../id`. Checkbox, Radio and Switch are the exception while their `<label>` root wraps the control: the label names it and already includes the end text, so they don't link it. A OneTimeCode, Select, TextField or Textarea with a label names the control with `aria-labelledby` (the label, then the `start` and `end` affixes), so its start text, end text, top and bottom stay out of the name and describe it instead. A TextField with `passwordToggle` names it with `<label for>` and describes it the same way.
+When providing `endText`, give it a part id (see [Unique IDs](#unique-ids)) and link it to the input via `aria-describedby`, merged with the user's own `aria-describedby` by `idRefs` from `../id`. Checkbox, Radio and Switch are the exception while their `<label>` root wraps the control: the label names it and already includes the end text, so they don't link it. A NumberField, OneTimeCode, Select, TextField or Textarea names the control with its `<label for>` alone and describes it with its start text, `top`, `start` and `end` affixes, `bottom` and end text, in that order, so a unit, a hint or an error is read after the name in any word order. A passed `aria-labelledby` goes through unchanged.
 
 ```astro
 ---
@@ -531,7 +541,7 @@ Private `--_*` properties follow the same suffixes as component tokens, so one w
 - No abbreviations: `--_shift-x` and `--_direction`, never `--_tx` or `--_dir`.
 - A value that is neither a length nor a color is named by its type: `--_<part>-image`, `--_<part>-label`, `--_<part>-fraction`.
 - Role names carry no suffix, like the role tokens: `--_accent`, `--_on-accent`.
-- A line that stands in for a border keeps the border name even when a background draws it: the `Divider` line is `--_divider-border-color`, like the dividers in `Accordion`, `List` and `Menu`.
+- A line that stands in for a border keeps the border name even when a background draws it: the `Stepper` line, a background for its round caps, is `--_line-border-color`, like the `Timeline` line, and the `Divider` line is `--_divider-border-color`, like the dividers in `Accordion`, `List` and `Menu`.
 
 `tests/unit/css-properties.test.ts` fails, with no allowlist, on the names these rules ban (`-border-radius`, `-height` and `-width` except a border or outline width, `-space`, `-tx`, `-ty`, `-dir`, `--_input-size` and a bare `-color`) in every `--_*` property and component token, and on a component token that doesn't end in one of the suffixes above.
 
@@ -548,7 +558,6 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 - `Checkbox`, `Radio`, `Switch` and `Choice` (their shared root): the checked mark, the switch track and the checked `.ui-card` border are tints, so they get `SelectedItem`, `SelectedItemText` and `CanvasText`, and the invalid state is a color, so an invalid input, switch track or card gets a dashed border.
 - `Chip`: the severity dot and the selected state are fills, so they get `CanvasText` and `SelectedItem`, and the dot on a pressed chip `SelectedItemText`, like its label. `aria-disabled="true"` gets `GrayText`, like `Button`.
 - `ControlGroup`: the edges between controls are real borders, but a link button's would be `LinkText`, so every button gets a `ButtonBorder` border and the edges are one color.
-- `Divider`: the line is a background, so it becomes a `CanvasText` border.
 - `List`: selected and current items are tints, so they get `SelectedItem`, and the check of a `Menu`, listbox or `Select` option is a mask, so it gets their `SelectedItemText`.
 - `Message`: the bubble is a fill, so it gets a `CanvasText` border, the typing dots keep `CanvasText`, and a checked reaction is a tint, so it gets `SelectedItem`.
 - `NumberField`: the default icons of the step buttons are masks, so they get `ButtonText`. `text-field.css` and `button.css` cover the field and the buttons.
@@ -571,7 +580,7 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 The components without a block, and why:
 
 - `Anchor`, `Copy`, `SelectAll`: layout only, no boundary or state of their own. The `Copy` label is a bordered surface, which the browser forces to `CanvasText`, next to its announcement.
-- `DescriptionList`, `Form`, `Layout`: the browser forces their lines and colors itself. The `DescriptionList` leaders and total line are real borders and the `Layout` `.ui-bordered` lines are column and row rules, both forced to `CanvasText`. The invalid end text of a `Form` fieldset loses its color, while the invalid controls inside keep their dashed border.
+- `DescriptionList`, `Divider`, `Form`, `Layout`: the browser forces their lines and colors itself. The `DescriptionList` leaders and total line and the `Divider` line are real borders and the `Layout` `.ui-bordered` lines are column and row rules, all forced to `CanvasText`. The invalid end text of a `Form` fieldset loses its color, while the invalid controls inside keep their dashed border.
 - `Badge`, `Dialog`, `Drawer`, `Menu`, `Table`: every boundary is a real border, which the browser forces to `CanvasText`.
 - `Toaster`: every toast is a `Callout`, and `callout.css` has the block for its border and its severity and close icons.
 - `Link`: text and underlines, forced to `LinkText` and `CanvasText`.

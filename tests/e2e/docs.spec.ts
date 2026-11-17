@@ -143,7 +143,9 @@ test.describe("framework picker", () => {
       0,
     )
     await expect(visiblePicker(page)).toHaveAttribute("data-bound", "true")
+    const reloaded = page.waitForEvent("load")
     await visiblePicker(page).selectOption("vue")
+    await reloaded
     await expect(page.locator("html")).toHaveAttribute("data-framework", "vue")
     await expect(visiblePicker(page)).toHaveValue("vue")
     await expect(page.locator('a[href^="/react/components/"]')).toHaveCount(0)
@@ -581,6 +583,9 @@ test("Tab from the Installation heading of an HTML page focuses a control that s
   await page.keyboard.press("Tab")
   const focused = installation.locator(":focus-visible")
   await expect(focused).toHaveCSS("clip-path", "none")
+  await focused.evaluate((element) => {
+    for (const animation of element.getAnimations()) animation.finish()
+  })
   await expect
     .poll(() =>
       focused.evaluate((element) =>
@@ -618,9 +623,13 @@ test("a code block takes focus only while it scrolls sideways", async ({
     ).toEqual([])
     return blocks.filter(({ scrolls }) => scrolls).length
   }
-  await expect.poll(scrolling).toBeGreaterThan(1)
+  await expect(async () => expect(await scrolling()).toBeGreaterThan(1)).toPass(
+    { timeout: 5_000 },
+  )
   await page.setViewportSize({ height: 844, width: 1280 })
-  await expect.poll(scrolling).toBe(1)
+  await expect(async () => expect(await scrolling()).toBe(1)).toPass({
+    timeout: 5_000,
+  })
 })
 
 test("an example's code takes focus when it opens and scrolls sideways", async ({
@@ -696,7 +705,9 @@ for (const [path, selector, name, width] of [
       ).toEqual([])
       return all.filter(({ scrolls }) => scrolls)
     }
-    await expect.poll(async () => (await scrolling()).length).toBeGreaterThan(0)
+    await expect(async () =>
+      expect((await scrolling()).length).toBeGreaterThan(0),
+    ).toPass({ timeout: 5_000 })
     expect(await scrolling()).toContainEqual(
       expect.objectContaining(
         name ? { label: name, role: "group" } : { label: null, role: null },

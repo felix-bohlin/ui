@@ -38,7 +38,7 @@ export default {
     ...passThrough("textarea", ".ui-textarea", ["maxlength", "placeholder"], {
       react: "Use `value` with `onChange`, or `defaultValue`.",
     }),
-    html: 'For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. With a label, give `.ui-label` an id and point `aria-labelledby` on the field at it, then at `.ui-start` and `.ui-end`, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-bottom` and `.ui-end-text`, so a hint or an error is read as the description, not in the name.',
+    html: 'For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. With a label, put a `<label class="ui-label" for>` inside the root that points at the field\'s `id`, so the label alone names it, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name.',
   },
   options: [
     {
@@ -90,12 +90,12 @@ export default {
       description:
         "Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.",
       group: "Label",
-      part: ".ui-textarea > span",
+      part: ".ui-textarea > label",
       prop: "hideLabel",
     },
     {
       description:
-        'The id of the `<textarea>`. The ids the component generates start with it: `x-label`, `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id="x"`.',
+        "The id of the `<textarea>`. The `<label for>` points at it, so the component generates one when it's left out and there's a label. The ids the component generates start with it: `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id=\"x\"`.",
       inherited: true,
       prop: "id",
       type: "string",
@@ -208,7 +208,7 @@ export default {
   ],
   root: {
     description:
-      "Container element: a `<label>`, or a `<div>` when there's no label.",
+      "Container element, a `<div>`. The label inside is a `<label for>` that names the textarea by itself.",
     selector: ".ui-textarea",
   },
   slots: [

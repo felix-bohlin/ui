@@ -5,6 +5,8 @@
     --_ease: var(--ui-ease-enter);
     --_gap: var(--ui-space-2);
     --_inset: var(--ui-space-4);
+    --_inset-block: var(--_inset);
+    --_inset-inline: var(--_inset);
     --_max-inline-size: 24rem;
 
     display: contents;
@@ -13,10 +15,13 @@
       background-color: transparent;
       border: 0;
       gap: var(--_gap);
-      inline-size: min(var(--_max-inline-size), 100dvi - var(--_inset) * 2);
+      inline-size: min(
+        var(--_max-inline-size),
+        100dvi - var(--_inset-inline) * 2
+      );
       inset: auto;
-      inset-block-end: var(--_inset);
-      inset-inline-end: var(--_inset);
+      inset-block-end: var(--_inset-block);
+      inset-inline-end: var(--_inset-inline);
       list-style: none;
       margin: 0;
       overflow: visible;
@@ -29,11 +34,11 @@
       }
 
       .ui-block-start > & {
-        inset-block: var(--_inset) auto;
+        inset-block: var(--_inset-block) auto;
       }
 
       .ui-align-start > & {
-        inset-inline: var(--_inset) auto;
+        inset-inline: var(--_inset-inline) auto;
       }
 
       .ui-align-center > & {

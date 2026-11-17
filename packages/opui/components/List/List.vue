@@ -1,12 +1,20 @@
 <script setup lang="ts">
 import type { Props, Slots } from "./types.vue-props"
 
-const { bordered, dense, flush, role, variant } = defineProps<Props>()
+const {
+  as: Tag = "ul",
+  bordered,
+  dense,
+  flush,
+  role,
+  variant,
+} = defineProps<Props>()
 defineSlots<Slots>()
 </script>
 
 <template>
-  <ul
+  <component
+    :is="Tag"
     :class="[
       'ui-list',
       { 'ui-bordered': bordered, 'ui-dense': dense, 'ui-flush': flush },
@@ -16,5 +24,5 @@ defineSlots<Slots>()
     :role="role ?? 'list'"
   >
     <slot></slot>
-  </ul>
+  </component>
 </template>

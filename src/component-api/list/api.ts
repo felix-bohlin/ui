@@ -25,6 +25,14 @@ export default {
   ],
   options: [
     {
+      default: '"ul"',
+      description:
+        "The element to render. Use `ol` when the order is the content, like a ranking or steps.",
+      htmlDescription:
+        "The list classes work on an `ol` too: use one when the order is the content, like a ranking or steps.",
+      prop: "as",
+    },
+    {
       class: ".ui-bordered",
       default: "false",
       description: "Adds a border between list items.",

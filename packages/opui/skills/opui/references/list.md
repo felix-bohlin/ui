@@ -14,6 +14,7 @@ Rows of similar items, like contacts, files or settings, with icons, controls an
 
 ### Props and modifiers
 
+- `as`: `"ol" | "ul"`, default `"ul"`. The element to render. Use `ol` when the order is the content, like a ranking or steps.
 - `bordered`: `boolean`, `.ui-bordered`. Adds a border between list items.
 - `dense`: `boolean`, `.ui-dense`. Packs the items tighter.
 - `flush`: `boolean`, `.ui-flush`. Removes the inline padding of the items and the block padding of the list.

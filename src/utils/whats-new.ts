@@ -327,7 +327,7 @@ export const legacyNotes: Record<string, Note[]> = {
     `With labeled <a href="#tick-marks">tick marks</a>, the input names its value with the label of the tick at it, through <code>aria-valuetext</code>, so a screen reader says Medium rather than 1.`,
   ],
   select: [
-    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the field, a little inside its border, and Tab reaches the start, top, end and bottom in the order they're drawn, where the browser supports <code>reading-flow</code>.`,
+    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the field, a little inside its border, and Tab reaches the top, start, end and bottom in the order they're drawn, in every browser.`,
     components(
       `The ids the select generates start with its <a href="#api"><code>id</code></a>: <code>x-start-text</code>, <code>x-end-text</code>, <code>x-start</code>, <code>x-end</code>, <code>x-top</code> and <code>x-bottom</code> for <code>id="x"</code>.`,
     ),
@@ -414,7 +414,7 @@ export const legacyNotes: Record<string, Note[]> = {
     `Themes can make the selected pill and line spring to the next tab with <a href="#api"><code>--ui-ease-move</code></a>.`,
   ],
   "text-field": [
-    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the field, a little inside its border, and Tab reaches the start, top, end and bottom in the order they're drawn, where the browser supports <code>reading-flow</code>.`,
+    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the field, a little inside its border, and Tab reaches the top, start, end and bottom in the order they're drawn, in every browser.`,
     `Placeholders and helper text read <a href="#api"><code>--ui-text-subtle</code></a>.`,
     `Themes can set <a href="#api"><code>--ui-field-bg-color</code></a>, <code>--ui-field-padding-inline</code> (<code>--ui-field-padding-inline-large</code> for large fields) and <code>--ui-field-placeholder-text-color</code>.`,
     `<a href="#sizes">Small and x-small fields</a> set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons. On iPhone and iPad every field keeps at least 16px, so iOS Safari doesn't zoom in on focus.`,
@@ -439,7 +439,7 @@ export const legacyNotes: Record<string, Note[]> = {
     },
   ],
   textarea: [
-    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the first line and centers on it, taller content starts a little below the field's top, and Tab reaches the parts in the order they're drawn, where the browser supports <code>reading-flow</code>.`,
+    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the first line and centers on it, taller content starts a little below the field's top, and Tab reaches the parts in the order they're drawn, in every browser.`,
     `A <a href="#buttons">button</a> can go in an affix, like a send button, and stays out of the field's name.`,
     `Placeholders and helper text read <a href="#api"><code>--ui-text-subtle</code></a>.`,
     `Themes can set <a href="#api"><code>--ui-field-bg-color</code></a>, <code>--ui-field-padding-inline</code> (<code>--ui-field-padding-inline-large</code> for large fields) and <code>--ui-field-placeholder-text-color</code>.`,

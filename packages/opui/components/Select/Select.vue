@@ -100,6 +100,12 @@ const field = inject(FieldGroupKey, undefined)
     </span>
 
     <span class="ui-field">
+      <span class="ui-top" :id="topId" v-if="$slots.top"
+        ><slot name="top"></slot
+      ></span>
+      <span class="ui-start" :id="startId" v-if="$slots.start"
+        ><slot name="start"></slot
+      ></span>
       <select
         v-bind="inputAttrs"
         v-seed
@@ -135,14 +141,8 @@ const field = inject(FieldGroupKey, undefined)
           <slot></slot>
         </div>
       </select>
-      <span class="ui-start" :id="startId" v-if="$slots.start"
-        ><slot name="start"></slot
-      ></span>
       <span class="ui-end" :id="endId" v-if="$slots.end"
         ><slot name="end"></slot
-      ></span>
-      <span class="ui-top" :id="topId" v-if="$slots.top"
-        ><slot name="top"></slot
       ></span>
       <span class="ui-bottom" :id="bottomId" v-if="$slots.bottom"
         ><slot name="bottom"></slot

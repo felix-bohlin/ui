@@ -83,10 +83,11 @@
   <span class="ui-end-text" id="id-11">This card has expired. Pick another one.</span>
 </div>
 <div class="ui-select ui-spread">
-  <label class="ui-label" for="id-13">Time zone</label>
+  <label class="ui-label" for="id-14">Time zone</label>
   <span class="ui-start-text" id="id-12">Used for gig and rehearsal reminders.</span>
   <span class="ui-field">
-    <select aria-describedby="id-12 id-14" id="id-13">
+    <span class="ui-start" id="id-13">UTC</span>
+    <select aria-describedby="id-12 id-13" id="id-14">
       <button inert>
         <selectedcontent></selectedcontent>
       </button>
@@ -98,14 +99,20 @@
         <option>+09:00</option>
       </div>
     </select>
-    <span class="ui-start" id="id-14">UTC</span>
   </span>
 </div>
 <div class="ui-filled ui-select ui-spread">
-  <label class="ui-label" for="id-16">Jam region</label>
+  <label class="ui-label" for="id-17">Jam region</label>
   <span class="ui-start-text" id="id-15">Less lag means tighter grooves.</span>
   <span class="ui-field">
-    <select aria-describedby="id-15 id-17 id-18" id="id-16">
+    <span class="ui-start" id="id-16">
+      <svg aria-hidden="true" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16">
+        <circle cx="12" cy="12" r="10"></circle>
+        <path d="M2 12h20"></path>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+      </svg>
+    </span>
+    <select aria-describedby="id-15 id-16 id-18" id="id-17">
       <button inert>
         <selectedcontent></selectedcontent>
       </button>
@@ -116,13 +123,6 @@
         <option>North America</option>
       </div>
     </select>
-    <span class="ui-start" id="id-17">
-      <svg aria-hidden="true" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16">
-        <circle cx="12" cy="12" r="10"></circle>
-        <path d="M2 12h20"></path>
-        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-      </svg>
-    </span>
   </span>
   <span class="ui-end-text" id="id-18">Cannot be changed mid-jam.</span>
 </div>

@@ -2,6 +2,10 @@ import { createElement } from "react"
 import { h } from "vue"
 import { afterAll, beforeEach, describe, expect, test, vi } from "vitest"
 import type { ComponentFramework } from "../../src/component-api/frameworks"
+import AnchorReact from "../../packages/opui/components/Anchor/Anchor.react"
+import AnchorVue from "../../packages/opui/components/Anchor/Anchor.vue"
+import AnchorContentReact from "../../packages/opui/components/Anchor/AnchorContent.react"
+import AnchorContentVue from "../../packages/opui/components/Anchor/AnchorContent.vue"
 import CheckboxAstro from "../../packages/opui/components/Checkbox/Checkbox.astro"
 import CheckboxReact from "../../packages/opui/components/Checkbox/Checkbox.react"
 import CheckboxSvelte from "../../packages/opui/components/Checkbox/Checkbox.svelte"
@@ -42,6 +46,8 @@ import ToggleGroupAstro from "../../packages/opui/components/ToggleGroup/ToggleG
 import ToggleGroupReact from "../../packages/opui/components/ToggleGroup/ToggleGroup.react"
 import ToggleGroupSvelte from "../../packages/opui/components/ToggleGroup/ToggleGroup.svelte"
 import ToggleGroupVue from "../../packages/opui/components/ToggleGroup/ToggleGroup.vue"
+import AnchorContentAttributesAstro from "./fixtures/AnchorContentAttributes.astro"
+import AnchorContentAttributesSvelte from "./fixtures/AnchorContentAttributes.svelte"
 import ReplacedIdsAstro from "./fixtures/ReplacedIds.astro"
 import ReplacedIdsSvelte from "./fixtures/ReplacedIds.svelte"
 import { render } from "./renderers"
@@ -242,6 +248,88 @@ describe("DialogTitle, DrawerTitle and FieldLegend ids", () => {
       expect(html).toContain('id="own-dialog-title"')
       expect(html).toContain('id="own-title"')
       expect(html).toContain('id="own-legend"')
+      expect(warnings()).toEqual([])
+    },
+  )
+})
+
+const anchorContentAttributes: Record<
+  ComponentFramework,
+  (hover: boolean) => Promise<string>
+> = {
+  astro: (hover) => render.astro(AnchorContentAttributesAstro, { hover }),
+  react: (hover) =>
+    render.react(() =>
+      hover
+        ? createElement(
+            AnchorReact,
+            { id: "card", trigger: "hover" },
+            createElement("a", { href: "/repo", interestfor: "card" }, "Repo"),
+            createElement(
+              AnchorContentReact,
+              { id: "own", popover: "manual" },
+              "Card",
+            ),
+          )
+        : createElement(
+            AnchorReact,
+            null,
+            createElement("button", { popoverTarget: "own" }, "Repo"),
+            createElement(
+              AnchorContentReact,
+              { id: "own", popover: "manual" },
+              "Card",
+            ),
+          ),
+    ),
+  svelte: (hover) => render.svelte(AnchorContentAttributesSvelte, { hover }),
+  vue: (hover) =>
+    render.vue({
+      render: () =>
+        hover
+          ? h(AnchorVue, { id: "card", trigger: "hover" }, () => [
+              h("a", { href: "/repo", interestfor: "card" }, "Repo"),
+              h(
+                AnchorContentVue,
+                { id: "own", popover: "manual" },
+                () => "Card",
+              ),
+            ])
+          : h(AnchorVue, null, () => [
+              h("button", { popovertarget: "own" }, "Repo"),
+              h(
+                AnchorContentVue,
+                { id: "own", popover: "manual" },
+                () => "Card",
+              ),
+            ]),
+    }),
+}
+
+const floatingAttributes = (html: string) =>
+  [...html.matchAll(/<span class="ui-floating"([^>]*)>/g)].map(
+    ([, attributes]) => attributes.trim(),
+  )
+
+describe("AnchorContent id and popover", () => {
+  test.each(FRAMEWORKS)(
+    "%s keeps the hover anchor's and warns",
+    async (framework) => {
+      expect(
+        floatingAttributes(await anchorContentAttributes[framework](true)),
+      ).toEqual(['id="card" popover="hint"'])
+      expect(warnings()).toEqual([
+        '[OPUI AnchorContent] `id` and `popover` are replaced by the anchor\'s, since `trigger="hover"` shows the content through `interestfor` on the trigger. Pass `id` on the Anchor.',
+      ])
+    },
+  )
+
+  test.each(FRAMEWORKS)(
+    "%s keeps its own without a warning when the anchor always shows it",
+    async (framework) => {
+      expect(
+        floatingAttributes(await anchorContentAttributes[framework](false)),
+      ).toEqual(['id="own" popover="manual"'])
       expect(warnings()).toEqual([])
     },
   )

@@ -101,9 +101,7 @@ if (typeof document !== "undefined") {
       for (const node of record.addedNodes) {
         if (!(node instanceof Element)) continue
         if (isRange(node)) update(node)
-        for (const input of node.querySelectorAll(
-          '.ui-range input[type="range"]',
-        )) {
+        for (const input of node.querySelectorAll('input[type="range"]')) {
           update(input)
         }
       }

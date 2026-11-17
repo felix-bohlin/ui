@@ -31,6 +31,7 @@
     "preview": "astro preview",
     "sort-css": "node scripts/sort-css.mjs",
     "sort-css:check": "node scripts/sort-css.mjs --check",
+    "standard-site": "node scripts/standard-site.mjs",
     "test": "vitest run",
     "test:apps": "node tests/apps/prepare.ts && playwright test -c tests/apps",
     "test:e2e": "playwright test",

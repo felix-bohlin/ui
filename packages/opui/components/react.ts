@@ -1,4 +1,4 @@
-import { useCallback, useRef, type Ref } from "react"
+import { useCallback, useInsertionEffect, useRef, type Ref } from "react"
 
 const assign = <T extends HTMLElement>(
   ref: Ref<T> | undefined,
@@ -20,19 +20,24 @@ export const useListener = <E extends Event>(
   ref: Ref<HTMLElement> | undefined,
   type: string,
   listener: ((event: E) => void) | undefined,
-) =>
-  useCallback(
+) => {
+  const latest = useRef(listener)
+  useInsertionEffect(() => {
+    latest.current = listener
+  })
+  return useCallback(
     (element: HTMLElement) => {
       const detach = attach(ref, element)
-      const handle = listener as EventListener | undefined
-      if (handle) element.addEventListener(type, handle)
+      const handle = (event: Event) => latest.current?.(event as E)
+      element.addEventListener(type, handle)
       return () => {
-        if (handle) element.removeEventListener(type, handle)
+        element.removeEventListener(type, handle)
         detach()
       }
     },
-    [listener, ref, type],
+    [ref, type],
   )
+}
 
 export const useHydrated = (ref: (element: HTMLElement) => () => void) =>
   useCallback(

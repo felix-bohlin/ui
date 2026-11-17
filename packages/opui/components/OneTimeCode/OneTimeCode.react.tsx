@@ -32,11 +32,11 @@ export default function OneTimeCode({
   const hasLabel = Boolean(label)
   const hasEndText = Boolean(endText)
   const base = id || `one-time-code-${uid}`
-  const labelId = hasLabel ? `${base}-label` : undefined
+  const inputId = hasLabel ? base : id
   const endTextId = hasEndText ? `${base}-end-text` : undefined
 
   return (
-    <label
+    <div
       className={cx([
         "ui-one-time-code",
         { "ui-grouped": grouped },
@@ -46,9 +46,9 @@ export default function OneTimeCode({
       style={style}
     >
       {hasLabel && (
-        <span className="ui-label" id={labelId}>
+        <label className="ui-label" htmlFor={inputId}>
           {label}
-        </span>
+        </label>
       )}
       <span className="ui-field">
         <input
@@ -64,9 +64,9 @@ export default function OneTimeCode({
           {...rest}
           aria-describedby={idRefs(endTextId, ariaDescribedBy)}
           aria-invalid={error ? "true" : ariaInvalid}
-          aria-labelledby={hasLabel ? labelId : ariaLabelledBy}
+          aria-labelledby={ariaLabelledBy}
           autoComplete="one-time-code"
-          id={id}
+          id={inputId}
           maxLength={length}
           name={name ?? field?.name}
           type="text"
@@ -77,6 +77,6 @@ export default function OneTimeCode({
           {endText}
         </span>
       )}
-    </label>
+    </div>
   )
 }

@@ -1,16 +1,18 @@
 ---
 import type { AnchorContentProps as Props } from "./types.astro"
 import { anchorContext } from "./context.astro"
+import { warnReplacedAnchorAttributes } from "../dev"
 
-const { class: className, ...rest } = Astro.props
+const { class: className, id, popover, ...rest } = Astro.props
 
 const anchor = anchorContext.get()
+warnReplacedAnchorAttributes(id, popover, anchor?.floatingId, anchor?.popover)
 ---
 
 <span
   class:list={["ui-floating", className]}
-  id={anchor?.floatingId}
-  popover={anchor?.popover}
+  id={anchor?.floatingId ?? id}
+  popover={anchor?.popover ?? popover}
   {...rest}
 >
   <slot />

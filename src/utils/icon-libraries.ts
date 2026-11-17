@@ -4,11 +4,11 @@ export const ICON_ROLES = [
   "close",
   "critical",
   "decrease",
-  "error",
   "expand",
   "hide",
   "increase",
   "info",
+  "invalid",
   "next",
   "rating",
   "rating-empty",
@@ -72,11 +72,11 @@ export const ICON_LIBRARIES = {
       close: "icons/dismiss_32_regular.svg",
       critical: "icons/error_circle_48_regular.svg",
       decrease: "icons/subtract_24_filled.svg",
-      error: "icons/important_16_filled.svg",
       expand: "icons/chevron_down_24_filled.svg",
       hide: "icons/eye_off_32_filled.svg",
       increase: "icons/add_24_filled.svg",
       info: "icons/info_32_regular.svg",
+      invalid: "icons/important_16_filled.svg",
       next: "icons/chevron_right_24_filled.svg",
       rating: "icons/star_20_filled.svg",
       "rating-empty": "icons/star_20_regular.svg",
@@ -125,11 +125,11 @@ export const ICON_LIBRARIES = {
       close: "icons/x.svg",
       critical: "icons/circle-alert.svg",
       decrease: "icons/minus.svg",
-      error: "icons/exclamation-mark.svg",
       expand: "icons/chevron-down.svg",
       hide: "icons/eye-off.svg",
       increase: "icons/plus.svg",
       info: "icons/info.svg",
+      invalid: "icons/exclamation-mark.svg",
       next: "icons/chevron-right.svg",
       rating: {
         attributes: { fill: "currentColor" },
@@ -178,11 +178,11 @@ export const ICON_LIBRARIES = {
       close: "outlined/close.svg",
       critical: "outlined/error.svg",
       decrease: "outlined/remove.svg",
-      error: "outlined/priority_high.svg",
       expand: "outlined/keyboard_arrow_down.svg",
       hide: "outlined/visibility_off.svg",
       increase: "outlined/add.svg",
       info: "outlined/info.svg",
+      invalid: "outlined/priority_high.svg",
       next: "outlined/chevron_right.svg",
       rating: "outlined/star-fill.svg",
       "rating-empty": "outlined/star.svg",
@@ -228,11 +228,11 @@ export const ICON_LIBRARIES = {
       close: "assets/regular/x.svg",
       critical: "assets/regular/warning-circle.svg",
       decrease: "assets/regular/minus.svg",
-      error: "assets/regular/exclamation-mark.svg",
       expand: "assets/regular/caret-down.svg",
       hide: "assets/regular/eye-slash.svg",
       increase: "assets/regular/plus.svg",
       info: "assets/regular/info.svg",
+      invalid: "assets/regular/exclamation-mark.svg",
       next: "assets/regular/caret-right.svg",
       rating: "assets/fill/star-fill.svg",
       "rating-empty": "assets/regular/star.svg",
@@ -281,11 +281,11 @@ export const ICON_LIBRARIES = {
       close: "icons/outline/x.svg",
       critical: "icons/outline/alert-circle.svg",
       decrease: "icons/outline/minus.svg",
-      error: "icons/outline/exclamation-mark.svg",
       expand: "icons/outline/chevron-down.svg",
       hide: "icons/outline/eye-off.svg",
       increase: "icons/outline/plus.svg",
       info: "icons/outline/info-circle.svg",
+      invalid: "icons/outline/exclamation-mark.svg",
       next: "icons/outline/chevron-right.svg",
       rating: "icons/filled/star.svg",
       "rating-empty": "icons/outline/star.svg",
@@ -325,6 +325,26 @@ export const ICON_LIBRARIES = {
 } satisfies Record<string, IconLibrary>
 
 export type IconLibraryId = keyof typeof ICON_LIBRARIES
+
+const FRAMEWORK_NAMES = { react: "React", svelte: "Svelte", vue: "Vue" }
+
+export type IconCredits = Pick<
+  IconLibrary,
+  "frameworks" | "license" | "name" | "package" | "packageNote" | "url"
+> & { copyright: string; version: string }
+
+export const iconCreditOf = (set: IconCredits) => {
+  const components = Object.entries(set.frameworks)
+    .map(
+      ([framework, name]) =>
+        `${name} (${FRAMEWORK_NAMES[framework as keyof typeof FRAMEWORK_NAMES]})`,
+    )
+    .join(", ")
+  return [
+    `Icons: ${set.name} ${set.version} (${set.license}), ${set.copyright}, ${set.url}`,
+    `SVG files: ${set.package}${set.packageNote ? `, ${set.packageNote}` : ""}.${components ? ` Components: ${components}.` : ""}`,
+  ].join("\n")
+}
 
 export const iconUrl = (svg: string) =>
   `url("data:image/svg+xml,${svg

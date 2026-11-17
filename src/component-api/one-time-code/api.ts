@@ -10,7 +10,7 @@ export default {
     type: "string",
   },
   notes: {
-    ...passThrough("input", "label", ["autofocus", "placeholder"], {
+    ...passThrough("input", ".ui-one-time-code", ["autofocus", "placeholder"], {
       react: "Use `value` with `onChange`, or `defaultValue`.",
     }),
     html: 'Use one `<input>` with `autocomplete="one-time-code"`, `maxlength` and a matching `pattern`, such as `[0-9]{6}`, plus `inputmode="numeric"` for digits.',
@@ -70,7 +70,8 @@ export default {
       prop: "grouped",
     },
     {
-      description: "The id of the `<input>`.",
+      description:
+        "The id of the `<input>`. With a label, the `<label for>` points at it, so the component generates one when it's left out. The end text's id, `x-end-text`, starts with it.",
       inherited: true,
       prop: "id",
       type: "string",
@@ -181,7 +182,7 @@ export default {
   ],
   root: {
     description: "Container element.",
-    selector: "label.ui-one-time-code",
+    selector: "div.ui-one-time-code",
   },
   source: "OneTimeCode",
 } satisfies ComponentApi

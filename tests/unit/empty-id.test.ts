@@ -7,9 +7,11 @@ const modules = import.meta.glob<{ default: unknown } | unknown>(
     "../../packages/opui/components/Dialog/Dialog.*",
     "../../packages/opui/components/Fieldset/Fieldset.*",
     "../../packages/opui/components/NumberField/NumberField.*",
+    "../../packages/opui/components/OneTimeCode/OneTimeCode.*",
     "../../packages/opui/components/Range/Range.*",
     "../../packages/opui/components/Select/Select.*",
     "../../packages/opui/components/TextField/TextField.*",
+    "../../packages/opui/components/Textarea/Textarea.*",
   ],
   { eager: true },
 )
@@ -34,12 +36,14 @@ const CASES: [string, Record<string, unknown>][] = [
   ["Dialog", {}],
   ["Fieldset", { as: "div" }],
   ["NumberField", { endText: "Hint", label: "Count", startText: "From" }],
+  ["OneTimeCode", { endText: "Hint", label: "Code" }],
   ["Range", { endText: "Hint", label: "Volume", valueSuffix: "%" }],
   [
     "Select",
     { endText: "Hint", items: [{ label: "A", value: "a" }], label: "Pick" },
   ],
   ["TextField", { endText: "Hint", label: "Name", startText: "From" }],
+  ["Textarea", { endText: "Hint", label: "Note", startText: "From" }],
 ]
 
 const ID_ATTRIBUTES =

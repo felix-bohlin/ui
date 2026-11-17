@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: ci-${{ github.ref }}
+  group: ci-${{ github.event.pull_request && github.event.pull_request.head.repo.full_name != github.repository && format('fork-{0}', github.event.pull_request.number) || github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 jobs:

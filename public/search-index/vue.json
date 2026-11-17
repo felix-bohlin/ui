@@ -3704,6 +3704,13 @@
     "url": "/vue/guide/theming/#icons"
   },
   {
+    "id": "guide-theming-vue-icons-sets",
+    "title": "Icon sets",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/vue/guide/theming/#icons-sets"
+  },
+  {
     "id": "guide-theming-vue-icons-slots",
     "title": "Your own icons",
     "page": "Theming",

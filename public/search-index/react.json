@@ -3704,6 +3704,13 @@
     "url": "/react/guide/theming/#icons"
   },
   {
+    "id": "guide-theming-react-icons-sets",
+    "title": "Icon sets",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/react/guide/theming/#icons-sets"
+  },
+  {
     "id": "guide-theming-react-icons-slots",
     "title": "Your own icons",
     "page": "Theming",

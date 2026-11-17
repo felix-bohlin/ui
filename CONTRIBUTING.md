@@ -14,6 +14,16 @@ Follow [Development](README.md#development) in the README: Node from `.nvmrc`, p
 - Run `pnpm check` before you open a pull request, and `pnpm test:e2e --project=light --project=dark` when the change affects rendering or behavior.
 - Visual baselines are generated in CI only. Don't commit screenshots: the `update-snapshots` label regenerates them on the pull request.
 
+## Blog posts on Standard Site
+
+The blog is a [Standard Site](https://standard.site/) publication: each post in `src/utils/blog-posts.ts` has a `site.standard.document` record on the project's AT Protocol account, and `src/utils/standard-site.json` holds the record URIs that the pages link. After a post is added, changed or removed, a maintainer with the account's app password runs:
+
+```bash
+ATPROTO_IDENTIFIER=<handle> ATPROTO_APP_PASSWORD=<app password> pnpm standard-site
+```
+
+It creates, updates and deletes the records to match the posts, then writes `src/utils/standard-site.json`: commit it and deploy. `pnpm standard-site --dry-run` lists the changes without signing in.
+
 ## Commit messages
 
 Start with `chore`, `docs`, `feat`, `fix`, `refactor` or `revert`, say what changed, and keep the subject to 100 characters. The `commit-msg` hook that `pnpm install` sets up checks it.

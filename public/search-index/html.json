@@ -3704,6 +3704,13 @@
     "url": "/html/guide/theming/#icons"
   },
   {
+    "id": "guide-theming-html-icons-sets",
+    "title": "Icon sets",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/html/guide/theming/#icons-sets"
+  },
+  {
     "id": "guide-theming-html-icons-slots",
     "title": "Your own icons",
     "page": "Theming",

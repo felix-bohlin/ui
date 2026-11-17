@@ -3704,6 +3704,13 @@
     "url": "/svelte/guide/theming/#icons"
   },
   {
+    "id": "guide-theming-svelte-icons-sets",
+    "title": "Icon sets",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming/#icons-sets"
+  },
+  {
     "id": "guide-theming-svelte-icons-slots",
     "title": "Your own icons",
     "page": "Theming",

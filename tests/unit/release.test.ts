@@ -3,7 +3,6 @@ import { describe, expect, test } from "vitest"
 import opui from "../../packages/opui/package.json"
 import released from "./released-api.json"
 import {
-  dated,
   isUnreleased,
   newer,
   packageVersion,
@@ -34,21 +33,6 @@ describe("newer", () => {
     ["6.0.0-rc.1", "6.0.0", false],
   ])("%s is newer than %s: %s", (version, than, expected) => {
     expect(newer(version, than)).toBe(expected)
-  })
-})
-
-describe("dated", () => {
-  test("finds a dated heading", () => {
-    expect(dated("5.4.3", changelog)).toBe(true)
-  })
-
-  test("skips an unreleased heading", () => {
-    expect(dated("6.0.0", changelog)).toBe(false)
-  })
-
-  test("matches the whole version", () => {
-    expect(dated("5.4", changelog)).toBe(false)
-    expect(dated("5x4x3", changelog)).toBe(false)
   })
 })
 

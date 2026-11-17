@@ -21,6 +21,7 @@ import {
   withImport,
 } from "./component-emit.mjs"
 import { MODEL_KINDS } from "./component-models.mjs"
+import { markupAttribute } from "./example-encoders.mjs"
 import { emitsTypeOf } from "./component-types.mjs"
 import {
   allCodes,
@@ -367,7 +368,7 @@ export const toVue = (component) => {
       return `v-bind="${definedSpread(item, rewriteExpression(item.code, scope))}"`
     }
     if (item.kind === "static") {
-      return `${item.name}=${JSON.stringify(item.value)}`
+      return markupAttribute(item.name, item.value, false, '"')
     }
     if (item.kind === "boolean") return item.name
     if (

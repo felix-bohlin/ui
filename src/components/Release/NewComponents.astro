@@ -17,7 +17,7 @@ import {
   Toaster,
 } from "opui-css/astro"
 import DocLink from "../DocLink.astro"
-import { addedComponents } from "../../utils/changelog"
+import { addedComponents, releaseDate } from "../../utils/changelog-file"
 import { releaseVersion } from "../../utils/release"
 
 const id = "new-components-demo"
@@ -27,12 +27,7 @@ const changelog = readFileSync("packages/opui/CHANGELOG.md", "utf8")
 const count = addedComponents(changelog, releaseVersion).length
 
 const dateOf = (version: string) => {
-  const date = changelog.match(
-    new RegExp(
-      `^## ${version.replaceAll(".", "\\.")} - (\\d{4}-\\d{2}-\\d{2})$`,
-      "m",
-    ),
-  )?.[1]
+  const date = releaseDate(changelog, version)
   if (!date) {
     throw new Error(
       `NewComponents.astro: expected a dated ${version} in the changelog`,

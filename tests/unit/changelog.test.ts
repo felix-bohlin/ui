@@ -1,6 +1,11 @@
 import { readFileSync } from "node:fs"
 import { describe, expect, test } from "vitest"
 import { catalog } from "../../src/component-api/catalog.glob"
+import {
+  changelogSections,
+  changesSince,
+  releaseHeadings,
+} from "../../src/utils/changelog-file"
 import { FRAMEWORK_IDS } from "../../src/utils/framework"
 import { migratingAnchor } from "../../src/utils/migrating"
 import { classNamesIn } from "../../src/utils/package-source"
@@ -10,17 +15,7 @@ import releasedApi from "./released-api.json"
 import releasedTokens from "./released-tokens.json"
 
 const changelog = readFileSync("packages/opui/CHANGELOG.md", "utf8")
-const sectionsOf = (text: string) => {
-  const start = text.indexOf("\n## ")
-  const end = text.indexOf("\n## ", start + 1)
-  const unreleased = text.slice(start, end === -1 ? undefined : end)
-  return [
-    ...unreleased.matchAll(/^### (\w+)\n([\s\S]*?)(?=^### |(?![\s\S]))/gm),
-  ].map(([, title, body]) => ({
-    entries: body.split("\n").filter((line) => line.startsWith("- ")),
-    title,
-  }))
-}
+const sectionsOf = (text: string) => changelogSections(text)
 const sections = sectionsOf(changelog)
 
 const name = (entry: string) => entry.match(/^- `([^`]+)`/)?.[1]
@@ -63,7 +58,7 @@ test("the unreleased version has sections", () => {
   )
 })
 
-const headings = [...changelog.matchAll(/^## (.+)$/gm)].map(([, text]) => text)
+const headings = releaseHeadings(changelog)
 const HEADING = /^(\d+)\.(\d+)\.(\d+)(?: - (?:\d{4}-\d{2}-\d{2}|Unreleased))?$/
 
 test("every release heading is a version with a date or Unreleased", () => {
@@ -202,8 +197,7 @@ test("Breaking entries have a MIGRATING.md section for each component they start
   ).toEqual([])
 })
 
-const sinceRelease = (version: string) =>
-  changelog.slice(0, changelog.indexOf(`\n## ${version} `))
+const sinceRelease = (version: string) => changesSince(changelog, version)
 
 const namedIn = (text: string) => {
   const names = new Set(

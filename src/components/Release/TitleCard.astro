@@ -1,11 +1,12 @@
 ---
 import { readFileSync } from "node:fs"
+import { releaseDate } from "../../utils/changelog-file"
 
 const id = "title-card"
 
 const changelog = readFileSync("packages/opui/CHANGELOG.md", "utf8")
 
-const date = changelog.match(/^## 1\.0\.0 - (\d{4}-\d{2}-\d{2})$/m)?.[1]
+const date = releaseDate(changelog, "1.0.0")
 
 if (!date) {
   throw new Error("TitleCard.astro: expected a dated 1.0.0 in the changelog")

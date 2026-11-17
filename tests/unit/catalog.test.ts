@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs"
 import { expect, test } from "vitest"
 import { loadCatalog } from "../../scripts/catalog.mjs"
 import {
@@ -54,6 +55,48 @@ test("a component name maps to the page of its api, its listed page or the page 
   expect(sample.pageOfComponent("ButtonGroup")).toBe("control-group")
   expect(sample.pageOfComponent("TableColumn")).toBe("table")
   expect(sample.pageOfComponent("Nope")).toBe(undefined)
+})
+
+test("a page owns its docs, examples, api folders, components, elements and own stylesheets", () => {
+  const files = catalogOf(
+    [
+      [
+        "tabs",
+        api({
+          component: "Tabs",
+          css: ["tabs", "list"],
+          elements: [{ members: [], tag: "opui-tabs" }],
+          source: "Tabs",
+        }),
+      ],
+      [
+        "tabs-item",
+        api({ component: "TabsItem", page: "tabs", source: "Tabs" }),
+      ],
+    ],
+    ["tabs"],
+  ).filesOf("tabs")
+  expect(files).toEqual([
+    { path: "src/component-api/tabs", type: "api" },
+    { path: "src/component-api/tabs-item", type: "api" },
+    { path: "packages/opui/components/Tabs", type: "component" },
+    { path: "packages/opui/elements/tabs.js", type: "component" },
+    { path: "packages/opui/css/components/tabs.css", type: "css" },
+    { path: "src/component-examples/tabs", type: "docs" },
+    { path: "src/docs/components/tabs.astro", type: "docs" },
+  ])
+})
+
+test("every file a docs page owns exists", () => {
+  const pages = [...new Set(catalog.apis.map(({ page }) => page))]
+  expect(
+    pages.flatMap((page) =>
+      catalog
+        .filesOf(page)
+        .filter(({ path }) => !existsSync(path))
+        .map(({ path }) => `${page}: ${path}`),
+    ),
+  ).toEqual([])
 })
 
 const pagesOf = (apis: typeof catalog.apis) =>

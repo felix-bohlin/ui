@@ -120,7 +120,7 @@ The `--_` custom properties a stylesheet declares are documented per stylesheet,
 
 `tests/unit/custom-properties.test.ts` fails when the keys aren't sorted, when a stylesheet declares a `--_` property that isn't documented, documents one it doesn't declare, or isn't shown on any page. The Component layout renders the table for the page's stylesheets: `pageStylesheets` in [custom-properties.ts](custom-properties.ts) collects the `css` of every `api.ts` whose page is the slug, so a stylesheet shows up on a page as soon as an `api.ts` lists it.
 
-[catalog.ts](catalog.ts) answers what follows from `page`, `source` and `css`: the page of an `api.ts`, the apis, source folders and stylesheets of a page, and the page of a component name. The site and the tests read it through `catalog.glob.ts`, the Node scripts through `loadCatalog()` in `scripts/catalog.mjs`. Ask it instead of writing the `page` or `css` fallback again.
+[catalog.ts](catalog.ts) answers what follows from `page`, `source` and `css`: the page of an `api.ts`, the apis, source folders and stylesheets of a page, the page of a component name, and the files a page owns. The site and the tests read it through `catalog.glob.ts`, the Node scripts through `loadCatalog()` in `scripts/catalog.mjs`. Ask it instead of writing the `page` or `css` fallback again.
 
 Prop names and types are read from each framework's types file (from every member of a union), Astro and Vue slots from the component source, and Svelte snippets and React slot props from `types.svelte.ts` and `types.react.ts`, so they are never written by hand. React and Svelte get a `children` row when `api.ts` documents a `default` slot and the types don't declare `children`. Framework syntax lives in [frameworks.ts](frameworks.ts).
 

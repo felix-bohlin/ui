@@ -14,6 +14,7 @@ import {
   decodeText,
   decodeTextarea,
   jsxAttribute,
+  markupAttribute,
   jsxText,
   markupText,
   templateLiteral,
@@ -942,12 +943,7 @@ const markupAttributes = (node, expression, braces) =>
         }
       }
       if (item.kind !== "string") return expression(item)
-      const quoted = item.value.includes('"') && !item.value.includes("'")
-      if (braces && (/[{}]/.test(item.value) || quoted)) {
-        return expression({ ...item, value: JSON.stringify(item.value) })
-      }
-      const quote = quoted ? "'" : '"'
-      return `${item.name}=${quote}${attributeText(item.value, quote)}${quote}`
+      return markupAttribute(item.name, item.value, braces)
     })
     .join(" ")
 

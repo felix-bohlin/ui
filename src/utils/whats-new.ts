@@ -927,6 +927,7 @@ export const whatsNew = {
   ],
   message: [
     `New: a <a href="#basics">Message</a> is a chat bubble that groups into runs, with <a href="#attachments">attachments</a>, <a href="#reactions">reactions</a> and a <a href="#typing">typing indicator</a>.`,
+    `A chat between two people can leave out every name and avatar with <a href="#direct"><code>direct</code></a>.`,
   ],
   "number-field": [
     components(

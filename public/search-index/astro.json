@@ -1610,6 +1610,13 @@
     "url": "/astro/components/message/#group-chat"
   },
   {
+    "id": "component-message-astro-direct",
+    "title": "Direct",
+    "page": "Message",
+    "category": "Component",
+    "url": "/astro/components/message/#direct"
+  },
+  {
     "id": "component-message-astro-attachments",
     "title": "Attachments",
     "page": "Message",
@@ -4662,7 +4669,7 @@
     "id": "api-message-list-astro",
     "title": "Message list API",
     "description": "Reference for Message list Astro component.",
-    "api": "MessageList The conversation, an ordered list. A message. Consecutive messages on the same side group into a run. role The `role` of the `<ol>`, such as `log` for a live conversation. `list` keeps Safari announcing a list.",
+    "api": "MessageList The conversation, an ordered list. A message. Consecutive messages on the same side group into a run. direct A chat between two people: no message shows its author's name or avatar, since the chat's own title names the other person. Screen readers still hear the name. role The `role` of the `<ol>`, such as `log` for a live conversation. `list` keeps Safari announcing a list.",
     "category": "API",
     "url": "/astro/api/#message-list"
   },

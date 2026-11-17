@@ -63,6 +63,35 @@ describe("the three ports of a sample", () => {
     )
   })
 
+  test("a static value with quotes, a backslash, braces or a line break reads the same in each port", async () => {
+    const title = async (attribute: string) => {
+      const ports = await compile(
+        astro(
+          `<button class:list={["ui-sample", className]} type="button" ${attribute} {...rest} />`,
+        ),
+      )
+      return Object.values(ports).map(
+        (code) => code.match(/title=(\{[^\n]*\}|"[^"]*"|'[^']*')/)?.[1],
+      )
+    }
+    expect(await title('title="say &quot;hi&quot;"')).toEqual([
+      "'say \"hi\"'",
+      "{'say \"hi\"'}",
+      "'say \"hi\"'",
+    ])
+    expect(await title(String.raw`title="a\b"`)).toEqual([
+      String.raw`"a\b"`,
+      String.raw`"a\b"`,
+      String.raw`"a\b"`,
+    ])
+    expect(await title('title="{x}"')).toEqual(['"{x}"', '{"{x}"}', '"{x}"'])
+    expect(await title('title="a&#10;b"')).toEqual([
+      String.raw`{"a\nb"}`,
+      String.raw`{"a\nb"}`,
+      '"a&#10;b"',
+    ])
+  })
+
   test("casts rest on an element that isn't the one the types extend", async () => {
     const { outputs } = await compileComponent(
       astro(

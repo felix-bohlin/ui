@@ -19,6 +19,7 @@ import {
   withImport,
 } from "./component-emit.mjs"
 import { MODEL_KINDS } from "./component-models.mjs"
+import { jsxAttribute } from "./example-encoders.mjs"
 import { eventProp } from "./component-types.mjs"
 import {
   byName,
@@ -245,7 +246,7 @@ export const toReact = (component) => {
               reactPropsOf(node.tag, false) ?? new Map(),
               item.name,
             ) ?? item.name)))
-    if (item.kind === "static") return `${name}=${JSON.stringify(item.value)}`
+    if (item.kind === "static") return jsxAttribute(name, item.value)
     if (item.kind === "boolean") {
       const kinds =
         node.component || node.variable || node.custom

@@ -215,6 +215,19 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
         >.
       </Fragment>
     </Conditional>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The button closes the <code>Drawer</code> it is in. A header outside a
+        <code>Drawer</code>, in a <code>&lt;dialog&gt;</code> of your own or in
+        an island on an Astro page, can't find the drawer to close: set
+        <code>commandfor</code> to its <code>id</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Point its <code>commandfor</code> at the drawer's <code>id</code>.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="CloseButton" row />
   </section>
 
   <section id="how-to-close">

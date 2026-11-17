@@ -10,11 +10,13 @@ const {
   class: className,
   closeButton,
   closeLabel = "Close",
+  commandfor,
   ...rest
 } = Astro.props
 
 const dialog = dialogContext.get()
-if (closeButton) warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
+const target = commandfor ?? dialog?.id
+if (closeButton) warnMissingCloseTarget("DialogHeader", target, "Dialog")
 const content = Astro.slots.has("default")
   ? trimEdges(await Astro.slots.render("default"))
   : ""
@@ -24,7 +26,7 @@ const content = Astro.slots.has("default")
   <Fragment set:html={content} />{closeButton && <Button
     aria-label={closeLabel}
     command="close"
-    commandfor={dialog?.id}
+    commandfor={target}
     round
     size="small"
   >

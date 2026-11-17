@@ -2,7 +2,7 @@
   import { untrack } from "svelte"
   import Button from "../Button/Button.svelte"
   import { getDrawerContext } from "./context.svelte"
-  import { warnMissingTarget } from "../dev"
+  import { warnMissingCloseTarget } from "../dev"
   import type { DrawerHeaderProps as Props } from "./types.svelte"
 
   let {
@@ -20,7 +20,7 @@
   const drawer = getDrawerContext()
   const target = $derived(commandfor ?? drawer?.id)
   untrack(() => {
-    if (closeButton) warnMissingTarget("DrawerHeader", target, "Drawer")
+    if (closeButton) warnMissingCloseTarget("DrawerHeader", target, "Drawer")
   })
 </script>
 

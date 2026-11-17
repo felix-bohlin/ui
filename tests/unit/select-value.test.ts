@@ -1,6 +1,7 @@
 import { describe, expect, test } from "vitest"
 import SelectAstro from "../../packages/opui/components/Select/Select.astro"
 import SelectReact from "../../packages/opui/components/Select/Select.react"
+import SelectSolid from "../../packages/opui/components/Select/Select.solid"
 import SelectSvelte from "../../packages/opui/components/Select/Select.svelte"
 import SelectVue from "../../packages/opui/components/Select/Select.vue"
 import { render } from "./renderers"
@@ -8,6 +9,7 @@ import { render } from "./renderers"
 const COMPONENTS = {
   astro: SelectAstro,
   react: SelectReact,
+  solid: SelectSolid,
   svelte: SelectSvelte,
   vue: SelectVue,
 }

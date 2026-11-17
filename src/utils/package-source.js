@@ -6,6 +6,7 @@ import postcss from "postcss"
 export const BARREL_TYPES = {
   astro: "types.astro",
   react: "types.react",
+  solid: "types.solid",
   svelte: "types.svelte",
   vue: "types.vue-props",
 }

@@ -31,9 +31,10 @@ const ID_REFERENCE_ATTRIBUTES = new Set([
 const ASCII_WHITESPACE = /[\t\n\f\r ]+/
 
 const GENERATED_NAME =
-  /^(v-[\w-]+|[a-z][a-z-]*-\d+|([a-z][a-z-]*-)?(_R_\w+_|s\d+))$/
+  /^(v-[\w-]+|[a-z][a-z-]*-\d+|([a-z][a-z-]*-)?(_R_\w+_|s\d+|solid-[\dA-Za-z]+))$/
 
-const GENERATED_REFERENCE = /(^|-)(\d+|_R_\w+_|s\d+|v-\d+)(-|$)/
+const GENERATED_REFERENCE =
+  /(^|-)(\d+|_R_\w+_|s\d+|v-\d+|solid-[\dA-Za-z]+)(-|$)/
 
 const attribute = (node: Node, name: string) =>
   node.attrs.find((attr: { name: string }) => attr.name === name)?.value as

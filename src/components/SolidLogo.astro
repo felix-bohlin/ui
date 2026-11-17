@@ -1,0 +1,96 @@
+---
+type Props = {
+  size?: number
+  class?: string
+}
+
+const { size = 20, class: className } = Astro.props
+
+const id = Astro.locals.$id("solid-logo")
+---
+
+<svg
+  width={size}
+  height={size}
+  class={className}
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 166 155.3"
+>
+  <defs>
+    <linearGradient
+      id={`${id}-a`}
+      gradientUnits="userSpaceOnUse"
+      x1="27.5"
+      y1="3"
+      x2="152"
+      y2="63.5"
+    >
+      <stop offset=".1" stop-color="oklch(0.743 0.092 242.1)"></stop>
+      <stop offset=".3" stop-color="oklch(0.948 0.028 229.2)"></stop>
+      <stop offset="1" stop-color="oklch(0.743 0.092 242.1)"></stop>
+    </linearGradient>
+    <linearGradient
+      id={`${id}-b`}
+      gradientUnits="userSpaceOnUse"
+      x1="95.8"
+      y1="32.6"
+      x2="74"
+      y2="105.2"
+    >
+      <stop offset="0" stop-color="oklch(0.743 0.092 242.1)"></stop>
+      <stop offset=".5" stop-color="oklch(0.565 0.12 255.8)"></stop>
+      <stop offset="1" stop-color="oklch(0.366 0.108 263.3)"></stop>
+    </linearGradient>
+    <linearGradient
+      id={`${id}-c`}
+      gradientUnits="userSpaceOnUse"
+      x1="18.4"
+      y1="64.2"
+      x2="144.3"
+      y2="149.8"
+    >
+      <stop offset="0" stop-color="oklch(0.481 0.135 262)"></stop>
+      <stop offset=".5" stop-color="oklch(0.622 0.112 251.9)"></stop>
+      <stop offset="1" stop-color="oklch(0.481 0.135 262)"></stop>
+    </linearGradient>
+    <linearGradient
+      id={`${id}-d`}
+      gradientUnits="userSpaceOnUse"
+      x1="75.2"
+      y1="74.5"
+      x2="24.4"
+      y2="260.8"
+    >
+      <stop offset="0" stop-color="oklch(0.565 0.12 255.8)"></stop>
+      <stop offset=".5" stop-color="oklch(0.336 0.103 263.7)"></stop>
+      <stop offset="1" stop-color="oklch(0.336 0.103 263.7)"></stop>
+    </linearGradient>
+  </defs>
+  <path
+    d="M163 35S110-4 69 5l-3 1c-6 2-11 5-14 9l-2 3-15 26 26 5c11 7 25 10 38 7l46 9 18-30z"
+    fill={`url(#${id}-a)`}
+  ></path>
+  <path
+    d="M163 35S110-4 69 5l-3 1c-6 2-11 5-14 9l-2 3-15 26 26 5c11 7 25 10 38 7l46 9 18-30z"
+    opacity=".3"
+    fill={`url(#${id}-b)`}
+  ></path>
+  <path
+    d="m52 35-4 1c-17 5-22 21-13 35 10 13 31 20 48 15l62-21S92 26 52 35z"
+    fill="oklch(0.622 0.112 251.9)"
+  ></path>
+  <path
+    d="m52 35-4 1c-17 5-22 21-13 35 10 13 31 20 48 15l62-21S92 26 52 35z"
+    opacity=".3"
+    fill={`url(#${id}-c)`}
+  ></path>
+  <path
+    d="M134 80a45 45 0 0 0-48-15L24 85 4 120l112 19 20-36c4-7 3-15-2-23z"
+    fill={`url(#${id}-c)`}
+  ></path>
+  <path
+    d="M134 80a45 45 0 0 0-48-15L24 85 4 120l112 19 20-36c4-7 3-15-2-23z"
+    opacity=".3"
+    fill={`url(#${id}-d)`}
+  ></path>
+</svg>

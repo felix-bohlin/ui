@@ -1,4 +1,5 @@
 import { experimental_AstroContainer as AstroContainer } from "astro/container"
+import { ssr } from "@solidjs/web"
 import { createElement, type ComponentType, type ReactNode } from "react"
 import { renderToString as renderReact } from "react-dom/server"
 import { createRawSnippet, type Component as SvelteComponent } from "svelte"
@@ -8,12 +9,15 @@ import { renderToString as renderVue } from "vue/server-renderer"
 import { REACT_ATTRIBUTE_NAMES } from "../../scripts/example-react-props.mjs"
 import { parseHtml } from "../../scripts/html-tokens.mjs"
 import { slotProp } from "../../src/component-api/frameworks"
+import { renderSolid as renderSolidRoot } from "../../src/components/Example/render-solid"
 
 type Node = ReturnType<typeof parseHtml>[number]
 
 type Props = Record<string, unknown>
 
 export type Slots = Record<string, string>
+
+export type SolidComponent<P = Props> = (props: P) => unknown
 
 export const TEXT = "Text"
 
@@ -108,6 +112,11 @@ const slotProps = (slots: Slots, value: (html: string) => unknown) =>
 
 let container: AstroContainer | undefined
 
+export const renderSolid = <P extends Props>(
+  Component: SolidComponent<P>,
+  props = {} as P,
+) => renderSolidRoot(Component as never, "solid-", props)
+
 export const render = {
   astro: async (
     component: unknown,
@@ -130,6 +139,11 @@ export const render = {
         ...slotProps(slots, reactNodes),
       }),
     ),
+  solid: async (component: unknown, props: Props = {}, slots: Slots = {}) =>
+    renderSolid(component as SolidComponent, {
+      ...props,
+      ...slotProps(slots, (html) => ssr(html)),
+    }),
   svelte: async (component: unknown, props: Props = {}, slots: Slots = {}) =>
     renderSvelte(component as SvelteComponent<Props>, {
       props: {

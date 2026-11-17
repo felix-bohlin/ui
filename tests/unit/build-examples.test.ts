@@ -28,7 +28,7 @@ import type { ComponentApi } from "../../src/component-api/types"
 const EXAMPLES = "../../src/component-examples/"
 
 const sources = import.meta.glob<string>(
-  "../../src/component-examples/**/*.{astro,html,react.tsx,svelte,vue}",
+  "../../src/component-examples/**/*.{astro,html,react.tsx,solid.tsx,svelte,vue}",
   { eager: true, import: "default", query: "?raw" },
 )
 const apis = import.meta.glob<ComponentApi>(
@@ -75,7 +75,7 @@ const convert = async (source: string, framework: string, name?: string) =>
   convertExample(await formatted(source, name), framework, sampleFile(name))
 
 beforeAll(async () => {
-  for (const framework of ["react", "svelte", "vue"]) {
+  for (const framework of ["react", "solid", "svelte", "vue"]) {
     await convert(
       astro('<Button type="button">Hi</Button>', "Button"),
       framework,
@@ -234,6 +234,65 @@ describe("React", () => {
     expect(code).toContain(
       '<>\n      <p className="note">Hi</p>\n      <style>{`\n        .note {\n          color: red;\n        }\n      `}</style>\n    </>',
     )
+  })
+})
+
+describe("Solid", () => {
+  test("keeps the HTML attribute names and turns static state into defaults, like React", async () => {
+    const code = await convert(
+      astro(
+        '<TextField autocomplete="off" class="field" value="Ada" />\n<label for="name" tabindex="0">Name</label>\n<Radio name="pick" value="b" checked />\n<input type="checkbox" checked />',
+        "Radio, TextField",
+      ),
+      "solid",
+    )
+    expect(code).toMatch(
+      /^\/\*\* @jsxImportSource @solidjs\/web \*\/\nimport \{ Radio, TextField \} from "opui-css\/solid"\n/,
+    )
+    expect(code).toContain(
+      '<TextField autocomplete="off" class="field" defaultValue="Ada" />',
+    )
+    expect(code).toContain('<label for="name" tabindex="0">')
+    expect(code).toContain('<Radio defaultChecked name="pick" value="b" />')
+    expect(code).toContain('<input type="checkbox" defaultChecked />')
+  })
+
+  test("keeps value on a read-only field, and a selected option on the option", async () => {
+    expect(
+      await convert(
+        astro('<TextField readonly value="x" />', "TextField"),
+        "solid",
+      ),
+    ).toContain('<TextField readonly value="x" />')
+    const code = await convert(
+      astro(
+        '<Select label="Pick">\n  <option>a</option>\n  <option selected value="b">B</option>\n</Select>',
+        "Select",
+      ),
+      "solid",
+    )
+    expect(code).toContain('<Select label="Pick">')
+    expect(code).toContain('<option selected value="b">')
+  })
+
+  test("a map callback takes no key, and no parameter when its element doesn't read it", async () => {
+    const list = (params: string, item: string) =>
+      convert(
+        astro(
+          `<ul>\n  {items.map((${params}) => <li>${item}</li>)}\n</ul>`,
+          "",
+          'const items = [{ label: "a" }, { label: "b" }]\n',
+        ),
+        "solid",
+      )
+    expect(await list("item", "Row")).toContain("{items.map(() => (")
+    expect(await list("item", "{item.label}")).toContain(
+      "{items.map((item) => (",
+    )
+    expect(await list("{ label }", "{label}")).toContain(
+      "{items.map(({ label }) => (",
+    )
+    expect(await list("item", "{item.label}")).not.toContain("key=")
   })
 })
 
@@ -541,7 +600,7 @@ describe("reading the frontmatter", () => {
       "",
       '// The title\nconst title: string = "Hi" // trailing\nconst sizes = ["a", "b"] as const\n',
     )
-    for (const framework of ["react", "svelte", "vue"]) {
+    for (const framework of ["react", "solid", "svelte", "vue"]) {
       const code = await convert(source, framework)
       expect(code, framework).toContain("// The title")
       expect(code, framework).toContain(
@@ -557,7 +616,7 @@ describe("reading the frontmatter", () => {
       "Rating",
       "const starLabel = (value: number) => `${value} stars`\n",
     )
-    for (const framework of ["react", "svelte", "vue"]) {
+    for (const framework of ["react", "solid", "svelte", "vue"]) {
       expect(await convert(source, framework), framework).toContain(
         "const starLabel = (value: number) => `${value} stars`",
       )
@@ -749,7 +808,7 @@ describe("the source layout", () => {
     const lines = astro(
       `<div style="\n    ${declarations.replaceAll("; ", ";\n    ")};\n  "></div>`,
     )
-    for (const framework of ["react", "svelte", "vue"]) {
+    for (const framework of ["react", "solid", "svelte", "vue"]) {
       expect(await convert(lines, framework)).toBe(
         await convert(oneLine, framework),
       )
@@ -1037,7 +1096,7 @@ describe("an example's structure", () => {
   ])("rejects a script with %s in every target", async (_, script, reason) => {
     const source = astro(`<p>Hi</p>\n${script}`)
     await expect(readExample(source, sampleFile())).rejects.toThrow(reason)
-    for (const framework of ["react", "svelte", "vue"]) {
+    for (const framework of ["react", "solid", "svelte", "vue"]) {
       await expect(
         convertExample(source, framework, sampleFile()),
       ).rejects.toThrow(reason)
@@ -1058,7 +1117,7 @@ describe("an example's structure", () => {
     const source = astro(`<p>Hi</p>\n${style}`)
     const reason = "a <style> that isn't exactly <style is:global>"
     await expect(readExample(source, sampleFile())).rejects.toThrow(reason)
-    for (const framework of ["react", "svelte", "vue"]) {
+    for (const framework of ["react", "solid", "svelte", "vue"]) {
       await expect(
         convertExample(source, framework, sampleFile()),
       ).rejects.toThrow(reason)

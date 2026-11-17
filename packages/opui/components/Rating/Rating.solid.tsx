@@ -1,0 +1,112 @@
+/** @jsxImportSource @solidjs/web */
+import { omit } from "solid-js"
+import { mergeStyle, pluralLabel } from "../style"
+import { checkedProps, seedChecked } from "../solid"
+import type { Props } from "./types.solid"
+
+export default function Rating(props: Props) {
+  const rest = omit(
+    props,
+    "aria-describedby",
+    "aria-invalid",
+    "aria-label",
+    "class",
+    "clearLabel",
+    "defaultValue",
+    "disabled",
+    "error",
+    "label",
+    "lang",
+    "max",
+    "name",
+    "onValueChange",
+    "required",
+    "size",
+    "starLabel",
+    "style",
+    "value",
+  )
+  const clearLabel = () =>
+    props.clearLabel === undefined ? "No rating" : props.clearLabel
+  const max = () => (props.max === undefined ? 5 : props.max)
+  const starLabel = () =>
+    props.starLabel === undefined
+      ? { one: "{count} star", other: "{count} stars" }
+      : props.starLabel
+  const count = () => Number(max())
+  const stars = () => Array.from({ length: count() }, (_, index) => index + 1)
+  const current = () => Number(props.value ?? props.defaultValue)
+  const invalid = () => (props.error ? "true" : props["aria-invalid"])
+
+  return (
+    <>
+      {props.name ? (
+        <fieldset
+          aria-label={props["aria-label"]}
+          class={[
+            "ui-rating",
+            props.size && props.size !== "medium" && `ui-${props.size}`,
+            props.class,
+          ]}
+          disabled={props.disabled}
+          lang={props.lang}
+          style={props.style}
+          {...rest}
+        >
+          <legend>{props.label}</legend>
+          {!props.required && (
+            <input
+              aria-describedby={props["aria-describedby"]}
+              aria-invalid={invalid()}
+              aria-label={clearLabel()}
+              {...checkedProps(
+                props.value === undefined ? undefined : current() === 0,
+                current() === 0,
+              )}
+              onChange={() => props.onValueChange?.(0)}
+              ref={seedChecked(() => props.onValueChange?.(0))}
+              name={props.name}
+              type="radio"
+              value={0}
+            />
+          )}
+          {stars().map((star) => (
+            <input
+              aria-describedby={props["aria-describedby"]}
+              aria-invalid={invalid()}
+              aria-label={pluralLabel(starLabel(), star, props.lang)}
+              {...checkedProps(
+                props.value === undefined ? undefined : current() === star,
+                current() === star,
+              )}
+              onChange={() => props.onValueChange?.(star)}
+              ref={seedChecked(() => props.onValueChange?.(star))}
+              name={props.name}
+              required={props.required}
+              type="radio"
+              value={star}
+            />
+          ))}
+        </fieldset>
+      ) : (
+        <meter
+          aria-describedby={props["aria-describedby"]}
+          aria-label={props["aria-label"] ?? props.label}
+          class={[
+            "ui-rating",
+            props.size && props.size !== "medium" && `ui-${props.size}`,
+            props.class,
+          ]}
+          lang={props.lang}
+          max={max()}
+          style={mergeStyle(
+            { "--_max": count() === 5 ? undefined : count() },
+            props.style,
+          )}
+          value={props.value ?? props.defaultValue ?? 0}
+          {...rest}
+        />
+      )}
+    </>
+  )
+}

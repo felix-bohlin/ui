@@ -83,6 +83,7 @@ const packageFiles = Object.fromEntries(
 const sourceExtension = {
   astro: "",
   react: ".tsx",
+  solid: ".tsx",
   svelte: "",
   vue: "",
 } satisfies Record<PackageFrameworkId, string>

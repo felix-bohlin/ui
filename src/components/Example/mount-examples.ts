@@ -3,6 +3,7 @@ export function mountExamples<Module>(
   extension: string,
   loaders: Record<string, () => Promise<Module>>,
   mount: (el: HTMLElement, mod: Module, id: string) => void,
+  keepsMarkup: (el: HTMLElement) => boolean = () => false,
 ) {
   const pending = new WeakSet<HTMLElement>()
 
@@ -15,7 +16,8 @@ export function mountExamples<Module>(
 
     pending.add(el)
     const mod = await loader()
-    el.innerHTML = ""
+    if (!keepsMarkup(el)) el.innerHTML = ""
+    el.dispatchEvent(new Event("example-mount", { bubbles: true }))
     mount(el, mod, id)
     el.setAttribute(`data-${framework}-mounted`, "")
   }

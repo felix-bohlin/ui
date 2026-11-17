@@ -8,6 +8,7 @@ import { parse, transform } from "@astrojs/compiler"
 import { parseFragment } from "parse5"
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
+import { SOLID_PRAGMA } from "./component-shared.mjs"
 import { splitTopLevel } from "./example-display.mjs"
 import {
   attributeText,
@@ -35,6 +36,7 @@ import {
   ID_PLACEHOLDER,
 } from "./example-ids.mjs"
 import {
+  propsOf,
   reactBareAttribute,
   reactKinds,
   reactPropsOf,
@@ -1132,7 +1134,7 @@ const styleObject = (css, file) =>
     })
     .join(", ")} }}`
 
-const reactExpression = (nodes, context, extra = "") => {
+const jsxExpression = (nodes, context, extra = "") => {
   const inlined = nodes.flatMap((node) =>
     node.type === "html" && !context.markup.get(node.name).shared
       ? context.markup.get(node.name).tree
@@ -1142,8 +1144,8 @@ const reactExpression = (nodes, context, extra = "") => {
     (node) => !(node.type === "text" && !node.value.trim()),
   )
   return significant.length === 1 && significant[0].type === "element" && !extra
-    ? reactNodes(significant, context)
-    : `<>${reactNodes(inlined, context)}${extra}</>`
+    ? jsxNodes(significant, context)
+    : `<>${jsxNodes(inlined, context)}${extra}</>`
 }
 
 const ASCII_WHITESPACE = /[\t\n\f\r ]+/g
@@ -1179,6 +1181,23 @@ const stringProp = (name, value) =>
   value.includes("\n")
     ? `${name}={${JSON.stringify(value)}}`
     : jsxAttribute(name, value)
+
+const valueIsState = (node, context) => {
+  const attribute = (name) => node.attributes.find((item) => item.name === name)
+  if (attribute("readonly")) return false
+  if (node.component) return REACT_DEFAULT_VALUE.includes(node.name)
+  if (node.name === "textarea") return true
+  if (node.name !== "input") return false
+  const type = attribute("type")
+  if (type && type.kind !== "string") {
+    throw unsupported(
+      context.file,
+      "an <input> with a dynamic type",
+      context.dialect.framework,
+    )
+  }
+  return !REACT_FIXED_VALUE_TYPES.includes(type?.value)
+}
 
 const reactFormState = (node, table, context) => {
   const attribute = (name) => node.attributes.find((item) => item.name === name)
@@ -1234,33 +1253,18 @@ const reactFormState = (node, table, context) => {
     }
     state.children = []
   }
-  if (!attribute("readonly")) {
-    if (node.component) {
-      state.valueIsState = REACT_DEFAULT_VALUE.includes(node.name)
-    } else if (node.name === "textarea") {
-      state.valueIsState = true
-    } else if (node.name === "input") {
-      const type = attribute("type")
-      if (type && type.kind !== "string") {
-        throw unsupported(
-          context.file,
-          "an <input> with a dynamic type",
-          "React",
-        )
-      }
-      state.valueIsState = !REACT_FIXED_VALUE_TYPES.includes(type?.value)
-    }
-  }
+  state.valueIsState = valueIsState(node, context)
   return state
 }
 
-const reactPropCode = (name, item, kinds, where, context) => {
+const jsxPropCode = (name, item, kinds, where, context) => {
+  const { framework, styleObjects, stringCode } = context.dialect
   const has = (...names) => names.some((kind) => kinds.has(kind))
   const fail = (what) =>
     unsupported(
       context.file,
-      `${what} for the prop ${name} of ${where}, which React types as ${[...kinds].join(" or ") || "nothing"}`,
-      "React",
+      `${what} for the prop ${name} of ${where}, which ${framework} types as ${[...kinds].join(" or ") || "nothing"}`,
+      framework,
     )
   if (item.kind === "boolean") {
     const bare = reactBareAttribute(name, kinds)
@@ -1268,10 +1272,10 @@ const reactPropCode = (name, item, kinds, where, context) => {
     throw fail("an attribute without a value")
   }
   if (item.kind === "string") {
-    if (name === "style") {
+    if (name === "style" && styleObjects) {
       return `${name}=${styleObject(item.value, context.file)}`
     }
-    if (has("string", "any", "other")) return jsxAttribute(name, item.value)
+    if (has("string", "any", "other")) return stringCode(name, item.value)
     if (has("number") && /^-?\d+(\.\d+)?$/.test(item.value)) {
       return `${name}={${item.value}}`
     }
@@ -1280,33 +1284,30 @@ const reactPropCode = (name, item, kinds, where, context) => {
   return `${name}={${item.value}}`
 }
 
-const reactProps = (node, context) => {
+const jsxProps = (node, context) => {
+  const { dialect } = context
+  const { framework } = dialect
   const where = `<${node.name}>`
-  const table = reactPropsOf(node.name, node.component)
+  const table = dialect.propsOf(node.name, node.component)
   if (!table) {
     throw unsupported(
       context.file,
-      `${where}, which React's types don't have`,
-      "React",
+      `${where}, which ${framework}'s types don't have`,
+      framework,
     )
   }
-  const state = reactFormState(node, table, context)
+  const state = dialect.formState(node, table, context)
   const props = node.attributes.map((item) => {
-    const name =
-      item.name === "checked" && table.has("defaultChecked")
-        ? "defaultChecked"
-        : item.name === "value" && state.valueIsState
-          ? "defaultValue"
-          : resolveReactProp(table, item.name)
+    const name = dialect.propName(item, table, state)
     if (!name) {
       throw unsupported(
         context.file,
-        `the attribute ${item.name} on ${where}, which React's types for it don't have`,
-        "React",
+        `the attribute ${item.name} on ${where}, which ${framework}'s types for it don't have`,
+        framework,
       )
     }
     return {
-      code: reactPropCode(name, item, reactKinds(table, name), where, context),
+      code: jsxPropCode(name, item, reactKinds(table, name), where, context),
       name,
     }
   })
@@ -1317,8 +1318,8 @@ const reactProps = (node, context) => {
       if (!table.has(name)) {
         throw unsupported(
           context.file,
-          `the slot ${child.slot} of ${where}, which has no ${name} prop in React`,
-          "React",
+          `the slot ${child.slot} of ${where}, which has no ${name} prop in ${framework}`,
+          framework,
         )
       }
       const content =
@@ -1333,7 +1334,7 @@ const reactProps = (node, context) => {
           .trim()
         return { code: jsxAttribute(name, decodeText(text)), name }
       }
-      return { code: `${name}={${reactExpression(content, context)}}`, name }
+      return { code: `${name}={${jsxExpression(content, context)}}`, name }
     })
   const all = [...props, ...state.extra, ...slots]
   return {
@@ -1384,7 +1385,7 @@ const joinRuns = (parts) =>
     return joined
   }, [])
 
-const reactChildren = (nodes) => {
+const jsxChildren = (nodes) => {
   const merged = []
   for (const node of nodes) {
     const previous = merged.at(-1)
@@ -1401,8 +1402,9 @@ const reactChildren = (nodes) => {
   return merged
 }
 
-const reactNodes = (nodes, context) => {
-  const children = reactChildren(
+const jsxNodes = (nodes, context) => {
+  const { dialect } = context
+  const children = jsxChildren(
     nodes
       .filter((node) => !node.slot)
       .map((node) =>
@@ -1430,52 +1432,130 @@ const reactNodes = (nodes, context) => {
       }
       if (node.type === "comment") {
         if (node.value.includes("*/")) {
-          throw unsupported(context.file, "a comment that contains */", "React")
+          throw unsupported(
+            context.file,
+            "a comment that contains */",
+            dialect.framework,
+          )
         }
         return `{/*${node.value}*/}`
       }
       if (node.type === "expression") return `{${node.code}}`
       if (node.type === "html") {
         const item = context.markup.get(node.name)
-        return item.shared ? `{${node.name}}` : reactNodes(item.tree, context)
+        return item.shared
+          ? `{${dialect.sharedRead(node.name)}}`
+          : jsxNodes(item.tree, context)
       }
       if (node.type === "map") {
-        return `{${node.array}.map((${node.params}) => (${reactElement(node.child, context, node.key)}))}`
+        const child = jsxElement(
+          node.child,
+          context,
+          dialect.keyed ? node.key : undefined,
+        )
+        return `{${node.array}.map((${dialect.keyed ? node.params : readParam(node.params, child)}) => (${child}))}`
       }
       if (node.type === "fragment") {
-        throw unsupported(context.file, "a slot outside a component", "React")
+        throw unsupported(
+          context.file,
+          "a slot outside a component",
+          dialect.framework,
+        )
       }
-      return reactElement(node, context)
+      return jsxElement(node, context)
     })
     .join("")
 }
 
-const reactElement = (node, context, key) => {
-  const { children, code } = reactProps(node, context)
+const jsxElement = (node, context, key) => {
+  const { children, code } = jsxProps(node, context)
   const attributes = key ? `key={${key}}${code ? ` ${code}` : ""}` : code
-  const content = reactNodes(children, context)
+  const content = jsxNodes(children, context)
   if (VOID_ELEMENTS.has(node.name) || (!content.trim() && node.component)) {
     return `${openTag(node.name, attributes)} />`
   }
   return `${openTag(node.name, attributes)}>${content}</${node.name}>`
 }
 
-const toReact = (example, name, file = `${name}.astro`) => {
-  const context = { file, markup: example.markup, roles: example.roles }
+const readParam = (param, code) =>
+  /^[A-Za-z_$][\w$]*$/.test(param) &&
+  !new RegExp(`(?<![\\w$.])${param.replaceAll("$", "\\$")}(?![\\w$])`).test(
+    code,
+  )
+    ? ""
+    : param
+
+const JSX_DIALECTS = {
+  react: {
+    formState: reactFormState,
+    framework: "React",
+    keyed: true,
+    pragma: "",
+    preamble: (example) =>
+      example.consts.some(({ fn }) => fn) ||
+      passesFunction(example.tree) ||
+      passesFunction([...example.markup.values()].map(({ tree }) => tree))
+        ? ['"use client"']
+        : [],
+    propName: (item, table, state) =>
+      item.name === "checked" && table.has("defaultChecked")
+        ? "defaultChecked"
+        : item.name === "value" && state.valueIsState
+          ? "defaultValue"
+          : resolveReactProp(table, item.name),
+    propsOf: reactPropsOf,
+    sharedMarkup: (code) => `(${code})`,
+    sharedRead: (name) => name,
+    stringCode: jsxAttribute,
+    styleObjects: true,
+  },
+  solid: {
+    formState: (node, _, context) => ({
+      children: node.children,
+      extra: [],
+      valueIsState: valueIsState(node, context),
+    }),
+    framework: "Solid",
+    keyed: false,
+    pragma: `${SOLID_PRAGMA}\n`,
+    preamble: () => [],
+    propName: (item, table, state) =>
+      item.name === "checked" && table.has("defaultChecked")
+        ? "defaultChecked"
+        : item.name === "value" &&
+            state.valueIsState &&
+            table.has("defaultValue")
+          ? "defaultValue"
+          : table.has(item.name) || item.name.startsWith("data-")
+            ? item.name
+            : undefined,
+    propsOf: (tag, component) => propsOf("solid", tag, component),
+    sharedMarkup: (code) => `() => (${code})`,
+    sharedRead: (name) => `${name}()`,
+    stringCode: stringProp,
+    styleObjects: false,
+  },
+}
+
+const toJsx = (framework, example, name, file = `${name}.astro`) => {
+  const dialect = JSX_DIALECTS[framework]
+  const context = {
+    dialect,
+    file,
+    markup: example.markup,
+    roles: example.roles,
+  }
   const components = usedComponents(example)
   const functionName = components.includes(name) ? `${name}Example` : name
   const shared = [...example.markup.values()]
     .filter((item) => item.shared)
     .map(
-      (item) => `const ${item.name} = (${reactExpression(item.tree, context)})`,
+      (item) =>
+        `const ${item.name} = ${dialect.sharedMarkup(jsxExpression(item.tree, context))}`,
     )
-  const client =
-    example.consts.some(({ fn }) => fn) ||
-    passesFunction(example.tree) ||
-    passesFunction([...example.markup.values()].map(({ tree }) => tree))
   const header = [
-    ...(client ? ['"use client"'] : []),
-    importLine(example, "react"),
+    ...dialect.preamble(example),
+    importLine(example, framework),
     ...declarations(example),
     ...shared,
   ]
@@ -1485,11 +1565,11 @@ const toReact = (example, name, file = `${name}.astro`) => {
     (css) =>
       `\n<style>{\`\n${indent(templateLiteral(css), 8)}\n      \`}</style>`,
   )
-  const body = reactExpression(example.tree, context, styles.join(""))
-  return `${header ? `${header}\n\n` : ""}export default function ${functionName}() {\n  return (${body})\n}\n`
+  const body = jsxExpression(example.tree, context, styles.join(""))
+  return `${dialect.pragma}${header ? `${header}\n\n` : ""}export default function ${functionName}() {\n  return (${body})\n}\n`
 }
 
-const reactStyleIndent = (code) =>
+const jsxStyleIndent = (code) =>
   code.replace(
     /^( *)<style>\{`\n([\s\S]*?)\n *`\}<\/style>/gm,
     (_, spaces, css) =>
@@ -1513,16 +1593,16 @@ export const convertExample = async (
       file,
       "a client <script>",
       framework,
-      "write the React, Svelte and Vue files by hand and list them in scripts/hand-written-examples.json",
+      "write the React, Solid, Svelte and Vue files by hand and list them in scripts/hand-written-examples.json",
     )
   }
   const target = file.replace(/\.astro$/, TARGETS[framework])
-  if (framework === "react") {
-    return reactStyleIndent(
-      await formatStably(toReact(example, name, file), target),
+  if (framework in JSX_DIALECTS) {
+    return jsxStyleIndent(
+      await formatStably(toJsx(framework, example, name, file), target),
     )
   }
-  if (framework !== "react" && mixedSvgText(example.tree)) {
+  if (mixedSvgText(example.tree)) {
     throw unsupported(
       file,
       "text next to an element inside an SVG <text>",
@@ -1533,7 +1613,8 @@ export const convertExample = async (
   if (framework === "svelte") {
     return formatStably(toSvelte(example), target)
   }
-  return formatStably(toVue(example), target)
+  if (framework === "vue") return formatStably(toVue(example), target)
+  throw unsupported(file, `the framework ${framework}`, framework)
 }
 
 export const runtimeImports = (code, file) => {

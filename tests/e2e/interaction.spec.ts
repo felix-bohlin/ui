@@ -2611,6 +2611,7 @@ interaction(
     await toasts.getByRole("button").click()
     await expect(toasts).toHaveCount(0, { timeout: 2000 })
 
+    await page.mouse.move(0, 0)
     await toaster.evaluate((element) => element.setAttribute("duration", "0"))
     await show("Gone at once")
     await expect(toasts).toHaveCount(0, { timeout: 2000 })

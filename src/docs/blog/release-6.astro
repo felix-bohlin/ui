@@ -21,11 +21,18 @@ import ButtonBuild from "../../components/UnderTheHood/ButtonBuild.astro"
 import { allBlocks, blockGroups } from "../../utils/blocks"
 import { addedComponents } from "../../utils/changelog-file"
 import { releaseVersion } from "../../utils/release"
+import { parseTodo } from "../../utils/todo"
 
 const newComponents = addedComponents(
   readFileSync("packages/opui/CHANGELOG.md", "utf8"),
   releaseVersion,
 )
+
+const todo = parseTodo(readFileSync("TODO.md", "utf8"))
+const itemCount = (sections: typeof todo.done) =>
+  sections.reduce((total, section) => total + section.items.length, 0)
+const doneTodos = itemCount(todo.done)
+const openTodos = itemCount(todo.sections)
 ---
 
 <TechniquePost slug="release-6">
@@ -604,6 +611,81 @@ const newComponents = addedComponents(
         micro-managing and directing every detail carefully.
       </li>
     </ul>
+  </section>
+
+  <section id="working-with-ai">
+    <h2>Working with AI</h2>
+    <p>
+      So how do you actually run a release this size with agents? Not in the
+      chat, it turns out. A chat is fine for one task, but 6.0 was hundreds of
+      them, and every new session starts out knowing nothing about the last one.
+      What I needed was somewhere for the issues to live that both the agents
+      and I could read, and a quick way for me to answer them.
+    </p>
+    <p>
+      The somewhere is a plain Markdown file, <code>TODO.md</code>. Everything
+      goes in there. Most of it comes from audits: nine review agents, one each
+      for accessibility, the API docs, the blog, browser support, the changelog,
+      the CSS, the examples, framework idioms and framework parity. They only
+      report, they never edit. Each finding gets a severity from 1 to 10, the
+      files and lines it is about, a one-sentence summary and a recommended
+      action.
+    </p>
+    <p>
+      Reading a file like that by hand gets old fast, so the docs site grew a
+      few dev pages that only exist in the dev build. They are built with OPUI,
+      so I get to use my own library every day too.
+    </p>
+    <ul>
+      <li>
+        <code>/todo</code> renders <code>TODO.md</code>. Each item shows its
+        summary as the headline and the recommendation with an Accept button.
+        When there is more than one way to fix it the options are a radio group,
+        and there is a comment field when I want something else entirely.
+      </li>
+      <li>
+        <code>/todo/done</code> lists the closed items, for when a fix turned
+        out not quite right and I want to comment on it.
+      </li>
+      <li>
+        <code>/checks</code> holds the manual checks before the release, the
+        things no test can see: real fonts, screen readers, touch.
+      </li>
+      <li>
+        <code>/checklist</code> holds the polish and launch work, and shows what
+        is done, in progress or skipped.
+      </li>
+    </ul>
+    <p>The loop goes like this:</p>
+    <ol>
+      <li>An audit or I add items to the file.</li>
+      <li>
+        I go through the page: accept, pick an option or write a comment. The
+        answers are saved in the browser.
+      </li>
+      <li>One button copies all of my answers as text for an agent.</li>
+      <li>
+        The agent writes each answer under its item, does what it asks and notes
+        the outcome below it: fixed, removed, explained or still open.
+      </li>
+      <li>
+        An item with a note after my answer comes back on the page as a
+        follow-up, and around we go.
+      </li>
+    </ol>
+    <p>
+      What I like about it is where the decisions end up. The agent does the
+      digging and comes with a proposal, and I say yes, no or "not like that" in
+      a few seconds per item. The planning lives in the file and not in my head
+      or in a chat that is gone tomorrow, so any session can pick up where the
+      last one stopped. And since the page has to be able to read the file, a
+      unit test checks its format like everything else.
+    </p>
+    <p>
+      As I write this, {doneTodos} items are closed and {openTodos} are still
+      open. I would not have kept track of a tenth of that in an issue tracker
+      on a hobby project.
+    </p>
   </section>
 
   <section id="where-it-landed">

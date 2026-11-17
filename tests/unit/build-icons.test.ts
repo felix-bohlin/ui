@@ -298,7 +298,10 @@ describe("theme.css", () => {
         ([, name, value]) => [name, value],
       ),
     )
-    expect(declared).toEqual(
+    expect(
+      declared,
+      "copy the 17 icon tokens from packages/opui/icons/fluent.css into theme.css",
+    ).toEqual(
       Object.fromEntries(
         ICON_ROLES.map((role) => [
           `--ui-icon-${role}`,
@@ -328,7 +331,9 @@ describe("example themes", () => {
       const library = PRESET_ICONS[theme]
       expect(
         iconTokensIn(readFileSync(file, "utf8")),
-        `${theme}: copy the icon tokens from iconTokensOf("${library ?? "<library>"}")`,
+        library
+          ? `${theme}: copy the 17 icon tokens from packages/opui/icons/${library}.css`
+          : `${theme}: remove the icon tokens, or name the theme's library in PRESET_ICONS`,
       ).toEqual(library ? iconTokensOf(library) : {})
     }
   })

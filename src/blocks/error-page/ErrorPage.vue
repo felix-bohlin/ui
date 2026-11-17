@@ -31,6 +31,7 @@ import { Button, FieldGroup, List, ListItem, TextField } from "opui-css/vue"
         >
           <template #start>
             <svg
+              data-icon="search"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -62,6 +63,7 @@ import { Button, FieldGroup, List, ListItem, TextField } from "opui-css/vue"
         >
           <template #start>
             <svg
+              data-icon="document"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -77,6 +79,7 @@ import { Button, FieldGroup, List, ListItem, TextField } from "opui-css/vue"
 
           <template #end>
             <svg
+              data-icon="chevron-right"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -97,6 +100,7 @@ import { Button, FieldGroup, List, ListItem, TextField } from "opui-css/vue"
         >
           <template #start>
             <svg
+              data-icon="star"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -112,6 +116,7 @@ import { Button, FieldGroup, List, ListItem, TextField } from "opui-css/vue"
 
           <template #end>
             <svg
+              data-icon="chevron-right"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -132,6 +137,7 @@ import { Button, FieldGroup, List, ListItem, TextField } from "opui-css/vue"
         >
           <template #start>
             <svg
+              data-icon="check-circle"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -147,6 +153,7 @@ import { Button, FieldGroup, List, ListItem, TextField } from "opui-css/vue"
 
           <template #end>
             <svg
+              data-icon="chevron-right"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -167,6 +174,7 @@ import { Button, FieldGroup, List, ListItem, TextField } from "opui-css/vue"
         >
           <template #start>
             <svg
+              data-icon="help"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -182,6 +190,7 @@ import { Button, FieldGroup, List, ListItem, TextField } from "opui-css/vue"
 
           <template #end>
             <svg
+              data-icon="chevron-right"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -200,6 +209,7 @@ import { Button, FieldGroup, List, ListItem, TextField } from "opui-css/vue"
     <div class="ui-layout-row ui-small ui-align-center">
       <Button href="#error-page-back" variant="outlined"
         ><svg
+          data-icon="arrow-left"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -214,6 +224,7 @@ import { Button, FieldGroup, List, ListItem, TextField } from "opui-css/vue"
       >
       <Button href="#error-page-home" variant="tonal"
         ><svg
+          data-icon="home"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"

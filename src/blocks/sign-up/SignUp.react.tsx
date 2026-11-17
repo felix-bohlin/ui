@@ -210,6 +210,7 @@ export default function SignUp() {
                 label="Set up in minutes"
                 start={
                   <svg
+                    data-icon="check-circle"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -228,6 +229,7 @@ export default function SignUp() {
                 label="People actually listen"
                 start={
                   <svg
+                    data-icon="check-circle"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -246,6 +248,7 @@ export default function SignUp() {
                 label="Cancel any time"
                 start={
                   <svg
+                    data-icon="check-circle"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"

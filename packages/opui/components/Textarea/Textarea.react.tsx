@@ -3,7 +3,7 @@
 import { useEffect, useId } from "react"
 import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
-import { idRefs } from "../id"
+import { fieldDescribedBy } from "../id"
 import type { Props } from "./types.react"
 
 export default function Textarea({
@@ -77,15 +77,27 @@ export default function Textarea({
         </span>
       )}
       <span className="ui-field">
+        {top && (
+          <span className="ui-top" id={topId}>
+            {top}
+          </span>
+        )}
+        {start && (
+          <span className="ui-start" id={startId}>
+            {start}
+          </span>
+        )}
         <textarea
           {...rest}
-          aria-describedby={idRefs(
-            startTextId,
-            topId,
-            startId,
-            endId,
-            bottomId,
-            endTextId,
+          aria-describedby={fieldDescribedBy(
+            {
+              bottom: bottomId,
+              end: endId,
+              endText: endTextId,
+              start: startId,
+              startText: startTextId,
+              top: topId,
+            },
             ariaDescribedBy,
           )}
           aria-invalid={error ? "true" : ariaInvalid}
@@ -93,19 +105,9 @@ export default function Textarea({
           id={textareaId}
           name={name ?? field?.name}
         />
-        {start && (
-          <span className="ui-start" id={startId}>
-            {start}
-          </span>
-        )}
         {end && (
           <span className="ui-end" id={endId}>
             {end}
-          </span>
-        )}
-        {top && (
-          <span className="ui-top" id={topId}>
-            {top}
           </span>
         )}
         {bottom && (

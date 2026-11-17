@@ -2,7 +2,7 @@
   import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
-  import { idRefs } from "../id"
+  import { fieldDescribedBy } from "../id"
   import type { Props } from "./types.svelte"
 
   let {
@@ -68,7 +68,10 @@
         (alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`)}
       spellcheck={spellcheck ?? (alphanumeric ? "false" : undefined)}
       {...rest}
-      aria-describedby={idRefs(endTextId, ariaDescribedBy)}
+      aria-describedby={fieldDescribedBy(
+        { endText: endTextId },
+        ariaDescribedBy,
+      )}
       aria-invalid={error ? "true" : ariaInvalid}
       aria-labelledby={ariaLabelledBy}
       autocomplete="one-time-code"

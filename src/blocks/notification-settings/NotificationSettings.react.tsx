@@ -55,6 +55,7 @@ export default function NotificationSettings() {
                   <TableHeaderCell scope="col">Notification</TableHeaderCell>
                   <TableHeaderCell className="notif-channel" scope="col">
                     <svg
+                      data-icon="mail"
                       aria-hidden="true"
                       className="ui-icon"
                       xmlns="http://www.w3.org/2000/svg"
@@ -71,6 +72,7 @@ export default function NotificationSettings() {
                   </TableHeaderCell>
                   <TableHeaderCell className="notif-channel" scope="col">
                     <svg
+                      data-icon="smartphone"
                       aria-hidden="true"
                       className="ui-icon"
                       xmlns="http://www.w3.org/2000/svg"
@@ -87,6 +89,7 @@ export default function NotificationSettings() {
                   </TableHeaderCell>
                   <TableHeaderCell className="notif-channel" scope="col">
                     <svg
+                      data-icon="sms"
                       aria-hidden="true"
                       className="ui-icon"
                       xmlns="http://www.w3.org/2000/svg"

@@ -6,6 +6,7 @@
   <StepperItem complete href="#" label="Cart">
     {#snippet iconComplete()}
       <svg
+        data-icon="check-all"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -25,6 +26,7 @@
   <StepperItem complete href="#" label="Shipping">
     {#snippet iconComplete()}
       <svg
+        data-icon="check-all"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"

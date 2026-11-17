@@ -4,6 +4,7 @@
 
 <Badge hideLabel label="More than 99 unread messages">
   <svg
+    data-icon="mail"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -20,6 +21,7 @@
 
 <Badge hideLabel label="About 1,200 unread messages">
   <svg
+    data-icon="mail"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"

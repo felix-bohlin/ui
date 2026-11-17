@@ -22,6 +22,7 @@
     <nav aria-label="Folders" class="inbox-folders">
       <Button type="button" variant="filled"
         ><svg
+          data-icon="edit"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -38,6 +39,7 @@
         <ListItem aria-current="page" href="#inbox-folder-inbox" label="Inbox">
           {#snippet start()}
             <svg
+              data-icon="inbox"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -56,6 +58,7 @@
         <ListItem href="#inbox-folder-starred" label="Starred">
           {#snippet start()}
             <svg
+              data-icon="star"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -72,6 +75,7 @@
         <ListItem href="#inbox-folder-sent" label="Sent">
           {#snippet start()}
             <svg
+              data-icon="send"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -88,6 +92,7 @@
         <ListItem href="#inbox-folder-drafts" label="Drafts">
           {#snippet start()}
             <svg
+              data-icon="document"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -106,6 +111,7 @@
         <ListItem href="#inbox-folder-archive" label="Archive">
           {#snippet start()}
             <svg
+              data-icon="archive"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -122,6 +128,7 @@
         <ListItem href="#inbox-folder-trash" label="Trash">
           {#snippet start()}
             <svg
+              data-icon="delete"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -170,6 +177,7 @@
               size="small"
               type="button"
               ><svg
+                data-icon="menu"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -283,6 +291,7 @@
           >
             <Button aria-label="Archive" round size="small" type="button"
               ><svg
+                data-icon="archive"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -297,6 +306,7 @@
             >
             <Button aria-label="Delete" round size="small" type="button"
               ><svg
+                data-icon="delete"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -316,6 +326,7 @@
               size="small"
               type="button"
               ><svg
+                data-icon="star"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -332,6 +343,7 @@
           <div class="ui-layout-row ui-x-small">
             <Button size="small" type="button" variant="outlined"
               ><svg
+                data-icon="reply"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -346,6 +358,7 @@
             >
             <Button size="small" type="button" variant="outlined"
               ><span class="ui-text">Forward</span><svg
+                data-icon="forward"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -413,6 +426,7 @@
           >
             {#snippet start()}
               <svg
+                data-icon="attach"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -433,6 +447,7 @@
           >
             {#snippet start()}
               <svg
+                data-icon="attach"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

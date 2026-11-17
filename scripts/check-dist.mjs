@@ -25,7 +25,7 @@ const attr = (node, name) =>
   node.attrs?.find((attribute) => attribute.name === name)?.value
 
 const PLACEHOLDER_FRAGMENTS =
-  /^\/(?:blocks\/[^/]+\/preview|[^/]+\/test\/[^/]+|tests\/[^/]+)\/$/
+  /^\/(?:blocks\/[^/]+\/preview|[^/]+\/test\/[^/]+|dev\/tests\/[^/]+)\/$/
 
 const COMPONENT_PAGE = /^\/[^/]+\/components\/[^/]+\/$/
 

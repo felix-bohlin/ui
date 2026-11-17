@@ -41,6 +41,7 @@ export default function Chat() {
                   type="button"
                 >
                   <svg
+                    data-icon="edit"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -62,6 +63,7 @@ export default function Chat() {
                 size="small"
                 start={
                   <svg
+                    data-icon="search"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -152,6 +154,7 @@ export default function Chat() {
                 type="button"
               >
                 <svg
+                  data-icon="arrow-left"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -187,6 +190,7 @@ export default function Chat() {
                   type="button"
                 >
                   <svg
+                    data-icon="phone"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -208,6 +212,7 @@ export default function Chat() {
                   type="button"
                 >
                   <svg
+                    data-icon="more-vertical"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -238,6 +243,7 @@ export default function Chat() {
             <MessageList
               aria-label="Messages with Stella Nut"
               className="chat-message-list"
+              direct
             >
               <li className="ui-divider">Today</li>
               <Message
@@ -289,6 +295,7 @@ export default function Chat() {
                 <Card variant="outlined">
                   <CardContent className="ui-layout-media ui-small">
                     <svg
+                      data-icon="document"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -337,6 +344,7 @@ export default function Chat() {
                 <FieldGroup className="chat-composer" orientation="horizontal">
                   <Button aria-label="Attach a file" round type="button">
                     <svg
+                      data-icon="attach"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -362,6 +370,7 @@ export default function Chat() {
                     variant="filled"
                   >
                     <svg
+                      data-icon="send"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"

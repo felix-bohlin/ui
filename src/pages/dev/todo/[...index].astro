@@ -21,15 +21,15 @@ import {
   ToggleGroup,
 } from "opui-css/astro"
 import { createHash } from "node:crypto"
-import ProgressCell from "../../components/Review/ProgressCell.astro"
-import ProgressMap from "../../components/Review/ProgressMap.astro"
-import "../../components/Review/review.css"
-import CommentField from "../../components/Todo/CommentField.astro"
-import CopyFallback from "../../components/Todo/CopyFallback.astro"
-import InlineText from "../../components/Todo/InlineText.astro"
-import TodoNotes from "../../components/Todo/TodoNotes.astro"
-import Document from "../../layouts/Document.astro"
-import { linkText, previewOf } from "../../utils/checklist"
+import ProgressCell from "../../../components/Review/ProgressCell.astro"
+import ProgressMap from "../../../components/Review/ProgressMap.astro"
+import "../../../components/Review/review.css"
+import CommentField from "../../../components/Todo/CommentField.astro"
+import CopyFallback from "../../../components/Todo/CopyFallback.astro"
+import InlineText from "../../../components/Todo/InlineText.astro"
+import TodoNotes from "../../../components/Todo/TodoNotes.astro"
+import Document from "../../../layouts/Document.astro"
+import { linkText, previewOf } from "../../../utils/checklist"
 import {
   actionValues,
   fixOptions,
@@ -38,14 +38,14 @@ import {
   replyOf,
   slugify,
   stressRefs,
-} from "../../utils/todo"
+} from "../../../utils/todo"
 import {
   stressPages,
   stressSlug,
   testPagesEnabled,
-} from "../../utils/test-pages"
-import { todoExamplesFor } from "../../utils/todo-examples"
-import source from "../../../TODO.md?raw"
+} from "../../../utils/test-pages"
+import { todoExamplesFor } from "../../../utils/todo-examples"
+import source from "../../../../TODO.md?raw"
 
 export function getStaticPaths() {
   if (!testPagesEnabled()) return []
@@ -80,12 +80,12 @@ const examplesFor = (text: string) => {
       .map(({ example, page }) => ({
         label: `${page} ${example}`,
         scheme,
-        src: `/tests/${page}/?example=${example}${query && `&${query}`}`,
+        src: `/dev/tests/${page}/?example=${example}${query && `&${query}`}`,
       })),
     ...todoExamplesFor(text).map((name) => ({
       label: name,
       scheme,
-      src: `/todo/example/${name}/${query && `?${query}`}`,
+      src: `/dev/todo/example/${name}/${query && `?${query}`}`,
     })),
   ]
 }
@@ -180,14 +180,16 @@ const actions = ["None", ...actionValues]
       <>
         Check the fixed items in <code>TODO.md</code> against their examples and
         answer the ones that need more work.{" "}
-        <a class="ui-link" href="/todo/">{`Open (${itemCount(open)})`}</a>
+        <a class="ui-link" href="/dev/todo/">{`Open (${itemCount(open)})`}</a>
       </>
     ) : (
       <>
         Answer the open items in <code>TODO.md</code>: accept a recommendation,
         pick an action or comment, then copy your answers for an agent, which
         works through them with <code>/todo-answers</code>.{" "}
-        <a class="ui-link" href="/todo/done/">{`Done (${itemCount(done)})`}</a>
+        <a class="ui-link" href="/dev/todo/done/"
+          >{`Done (${itemCount(done)})`}</a
+        >
       </>
     )}
   </p>
@@ -652,10 +654,13 @@ const actions = ["None", ...actionValues]
     progressMaps,
     shortcutsOff,
     statusLines,
-  } from "../../components/Review/review"
-  import { copyOrSelect, trackComments } from "../../components/Todo/comments"
-  import { readStored, writeStored } from "../../utils/storage"
-  import { carryOver } from "../../utils/todo"
+  } from "../../../components/Review/review"
+  import {
+    copyOrSelect,
+    trackComments,
+  } from "../../../components/Todo/comments"
+  import { readStored, writeStored } from "../../../utils/storage"
+  import { carryOver } from "../../../utils/todo"
 
   const storageKey = "opui-todo-comments"
   const actionsKey = "opui-todo-actions"

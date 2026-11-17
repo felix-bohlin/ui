@@ -23,6 +23,7 @@ import {
       <nav aria-label="Folders" class="inbox-folders">
         <Button type="button" variant="filled"
           ><svg
+            data-icon="edit"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -43,6 +44,7 @@ import {
           >
             <template #start>
               <svg
+                data-icon="inbox"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -61,6 +63,7 @@ import {
           <ListItem href="#inbox-folder-starred" label="Starred">
             <template #start>
               <svg
+                data-icon="star"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -77,6 +80,7 @@ import {
           <ListItem href="#inbox-folder-sent" label="Sent">
             <template #start>
               <svg
+                data-icon="send"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -93,6 +97,7 @@ import {
           <ListItem href="#inbox-folder-drafts" label="Drafts">
             <template #start>
               <svg
+                data-icon="document"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -111,6 +116,7 @@ import {
           <ListItem href="#inbox-folder-archive" label="Archive">
             <template #start>
               <svg
+                data-icon="archive"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -127,6 +133,7 @@ import {
           <ListItem href="#inbox-folder-trash" label="Trash">
             <template #start>
               <svg
+                data-icon="delete"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -179,6 +186,7 @@ import {
                 size="small"
                 type="button"
                 ><svg
+                  data-icon="menu"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -301,6 +309,7 @@ import {
             >
               <Button aria-label="Archive" round size="small" type="button"
                 ><svg
+                  data-icon="archive"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -314,6 +323,7 @@ import {
               ></Button>
               <Button aria-label="Delete" round size="small" type="button"
                 ><svg
+                  data-icon="delete"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -332,6 +342,7 @@ import {
                 size="small"
                 type="button"
                 ><svg
+                  data-icon="star"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -347,6 +358,7 @@ import {
             <div class="ui-layout-row ui-x-small">
               <Button size="small" type="button" variant="outlined"
                 ><svg
+                  data-icon="reply"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -362,6 +374,7 @@ import {
               <Button size="small" type="button" variant="outlined"
                 ><span class="ui-text">Forward</span
                 ><svg
+                  data-icon="forward"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -430,6 +443,7 @@ import {
             >
               <template #start>
                 <svg
+                  data-icon="attach"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -450,6 +464,7 @@ import {
             >
               <template #start>
                 <svg
+                  data-icon="attach"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"

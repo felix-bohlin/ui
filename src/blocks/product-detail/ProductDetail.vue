@@ -142,6 +142,7 @@ import {
             />
             <Button class="pd-add" type="submit" variant="filled">
               <svg
+                data-icon="shopping-bag"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -162,6 +163,7 @@ import {
                 variant="outlined"
               >
                 <svg
+                  data-icon="heart"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -182,6 +184,7 @@ import {
           <ListItem label="Free delivery on orders over €75">
             <template #start>
               <svg
+                data-icon="truck"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -198,6 +201,7 @@ import {
           <ListItem label="Free returns within 60 days">
             <template #start>
               <svg
+                data-icon="undo"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -214,6 +218,7 @@ import {
           <ListItem label="Two-year warranty, free repairs for life">
             <template #start>
               <svg
+                data-icon="shield"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

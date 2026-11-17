@@ -8,6 +8,7 @@ export default function Affix() {
         placeholder="Add a note..."
         start={
           <svg
+            data-icon="edit"
             aria-hidden="true"
             width="16"
             height="16"

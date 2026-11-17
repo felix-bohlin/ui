@@ -35,6 +35,7 @@ import {
         </ToggleGroup>
         <Button size="small" type="button" variant="filled">
           <svg
+            data-icon="add"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -65,6 +66,7 @@ import {
             type="button"
           >
             <svg
+              data-icon="add"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -102,6 +104,7 @@ import {
                 <div class="ui-layout-row ui-caption kanban-meta">
                   <span class="ui-layout-row ui-x-small">
                     <svg
+                      data-icon="calendar"
                       aria-hidden="true"
                       class="ui-icon ui-small"
                       xmlns="http://www.w3.org/2000/svg"
@@ -155,6 +158,7 @@ import {
                 <div class="ui-layout-row ui-caption kanban-meta">
                   <span class="ui-layout-row ui-x-small">
                     <svg
+                      data-icon="calendar"
                       aria-hidden="true"
                       class="ui-icon ui-small"
                       xmlns="http://www.w3.org/2000/svg"
@@ -198,6 +202,7 @@ import {
                 <div class="ui-layout-row ui-caption kanban-meta">
                   <span class="ui-layout-row ui-x-small">
                     <svg
+                      data-icon="calendar"
                       aria-hidden="true"
                       class="ui-icon ui-small"
                       xmlns="http://www.w3.org/2000/svg"
@@ -220,6 +225,7 @@ import {
         </ol>
         <Button size="small" type="button">
           <svg
+            data-icon="add"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -248,6 +254,7 @@ import {
             type="button"
           >
             <svg
+              data-icon="add"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -298,6 +305,7 @@ import {
                 <div class="ui-layout-row ui-caption kanban-meta">
                   <span class="ui-layout-row ui-x-small ui-p ui-critical">
                     <svg
+                      data-icon="calendar"
                       aria-hidden="true"
                       class="ui-icon ui-small"
                       xmlns="http://www.w3.org/2000/svg"
@@ -315,6 +323,7 @@ import {
                   </span>
                   <span class="ui-layout-row ui-x-small">
                     <svg
+                      data-icon="comment"
                       aria-hidden="true"
                       class="ui-icon ui-small"
                       xmlns="http://www.w3.org/2000/svg"
@@ -360,6 +369,7 @@ import {
                 <div class="ui-layout-row ui-caption kanban-meta">
                   <span class="ui-layout-row ui-x-small">
                     <svg
+                      data-icon="check-square"
                       aria-hidden="true"
                       class="ui-icon ui-small"
                       xmlns="http://www.w3.org/2000/svg"
@@ -397,6 +407,7 @@ import {
             type="button"
           >
             <svg
+              data-icon="add"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -434,6 +445,7 @@ import {
                 <div class="ui-layout-row ui-caption kanban-meta">
                   <span class="ui-layout-row ui-x-small">
                     <svg
+                      data-icon="calendar"
                       aria-hidden="true"
                       class="ui-icon ui-small"
                       xmlns="http://www.w3.org/2000/svg"
@@ -451,6 +463,7 @@ import {
                   </span>
                   <span class="ui-layout-row ui-x-small">
                     <svg
+                      data-icon="comment"
                       aria-hidden="true"
                       class="ui-icon ui-small"
                       xmlns="http://www.w3.org/2000/svg"

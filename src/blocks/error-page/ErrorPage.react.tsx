@@ -31,6 +31,7 @@ export default function ErrorPage() {
               placeholder="Search bassists and bands"
               start={
                 <svg
+                  data-icon="search"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -62,6 +63,7 @@ export default function ErrorPage() {
               description="Easy peasy guides to every Bassbook feature."
               end={
                 <svg
+                  data-icon="chevron-right"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -78,6 +80,7 @@ export default function ErrorPage() {
               label="Help center"
               start={
                 <svg
+                  data-icon="document"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -95,6 +98,7 @@ export default function ErrorPage() {
               description="The Megaphone shoutbox, out 1 October 2026."
               end={
                 <svg
+                  data-icon="chevron-right"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -111,6 +115,7 @@ export default function ErrorPage() {
               label="What's new"
               start={
                 <svg
+                  data-icon="star"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -128,6 +133,7 @@ export default function ErrorPage() {
               description="All amps on and humming."
               end={
                 <svg
+                  data-icon="chevron-right"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -144,6 +150,7 @@ export default function ErrorPage() {
               label="Server status"
               start={
                 <svg
+                  data-icon="check-circle"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -161,6 +168,7 @@ export default function ErrorPage() {
               description="A real human answers, usually within the hour."
               end={
                 <svg
+                  data-icon="chevron-right"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -177,6 +185,7 @@ export default function ErrorPage() {
               label="Ask a roadie"
               start={
                 <svg
+                  data-icon="help"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -195,6 +204,7 @@ export default function ErrorPage() {
         <div className="ui-layout-row ui-small ui-align-center">
           <Button href="#error-page-back" variant="outlined">
             <svg
+              data-icon="arrow-left"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -210,6 +220,7 @@ export default function ErrorPage() {
           </Button>
           <Button href="#error-page-home" variant="tonal">
             <svg
+              data-icon="home"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"

@@ -7,6 +7,7 @@ export default function Flush() {
         end={
           <Button aria-label="Delete" round size="small">
             <svg
+              data-icon="delete"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="32"
@@ -28,6 +29,7 @@ export default function Flush() {
         label="Lou Headstock"
         start={
           <svg
+            data-icon="person"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"

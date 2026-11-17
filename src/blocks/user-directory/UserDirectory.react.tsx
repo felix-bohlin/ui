@@ -26,6 +26,7 @@ export default function UserDirectory() {
           </hgroup>
           <Button type="button" variant="filled">
             <svg
+              data-icon="person-add"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -52,6 +53,7 @@ export default function UserDirectory() {
             placeholder="Search by name, gear or city"
             start={
               <svg
+                data-icon="search"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -117,6 +119,7 @@ export default function UserDirectory() {
                   size="small"
                 >
                   <svg
+                    data-icon="phone"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -176,6 +179,7 @@ export default function UserDirectory() {
                   size="small"
                 >
                   <svg
+                    data-icon="phone"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -235,6 +239,7 @@ export default function UserDirectory() {
                   size="small"
                 >
                   <svg
+                    data-icon="phone"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -294,6 +299,7 @@ export default function UserDirectory() {
                   size="small"
                 >
                   <svg
+                    data-icon="phone"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -342,6 +348,7 @@ export default function UserDirectory() {
                   size="small"
                 >
                   <svg
+                    data-icon="phone"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -401,6 +408,7 @@ export default function UserDirectory() {
                   size="small"
                 >
                   <svg
+                    data-icon="phone"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -449,6 +457,7 @@ export default function UserDirectory() {
                   size="small"
                 >
                   <svg
+                    data-icon="phone"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -497,6 +506,7 @@ export default function UserDirectory() {
                   size="small"
                 >
                   <svg
+                    data-icon="phone"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"

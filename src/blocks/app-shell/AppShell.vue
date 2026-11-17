@@ -31,6 +31,7 @@ import {
         type="button"
       >
         <svg
+          data-icon="menu"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -45,6 +46,7 @@ import {
       </Button>
       <a class="shell-brand ui-layout-row ui-small" href="#app-shell-home">
         <svg
+          data-icon="box"
           aria-hidden="true"
           class="ui-icon ui-large"
           xmlns="http://www.w3.org/2000/svg"
@@ -70,6 +72,7 @@ import {
       >
         <template #start>
           <svg
+            data-icon="search"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -91,6 +94,7 @@ import {
       >
         <Badge dot label="Unread"
           ><svg
+            data-icon="bell"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -132,6 +136,7 @@ import {
           <ListItem aria-current="page" href="#app-shell-home" label="Home">
             <template #start>
               <svg
+                data-icon="home"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -148,6 +153,7 @@ import {
           <ListItem href="#app-shell-messages" label="Messages">
             <template #start>
               <svg
+                data-icon="inbox"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -166,6 +172,7 @@ import {
           <ListItem href="#app-shell-photos" label="Photos">
             <template #start>
               <svg
+                data-icon="folder"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -182,6 +189,7 @@ import {
           <ListItem href="#app-shell-gigs" label="Gigs">
             <template #start>
               <svg
+                data-icon="calendar"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -198,6 +206,7 @@ import {
           <ListItem href="#app-shell-leaderboard" label="Leaderboard">
             <template #start>
               <svg
+                data-icon="chart"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -248,6 +257,7 @@ import {
           </hgroup>
           <Button size="small" type="button" variant="filled">
             <svg
+              data-icon="add"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"

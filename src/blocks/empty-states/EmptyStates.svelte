@@ -30,6 +30,7 @@
       <CardContent>
         <Avatar aria-hidden="true" shape="squircle"
           ><svg
+            data-icon="folder"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -51,6 +52,7 @@
         <div class="ui-layout-row ui-small ui-align-center">
           <Button type="button" variant="filled">
             <svg
+              data-icon="add"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -63,6 +65,7 @@
           </Button>
           <Button type="button" variant="outlined">
             <svg
+              data-icon="cloud-upload"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -100,6 +103,7 @@
         >
           {#snippet start()}
             <svg
+              data-icon="search"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -139,6 +143,7 @@
       <CardContent>
         <Avatar aria-hidden="true" shape="squircle"
           ><svg
+            data-icon="check-all"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -173,6 +178,7 @@
       <CardContent>
         <Avatar aria-hidden="true" shape="squircle"
           ><svg
+            data-icon="lock"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"

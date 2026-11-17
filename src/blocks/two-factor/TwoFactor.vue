@@ -21,6 +21,7 @@ import {
         <div class="ui-layout-column ui-align-center">
           <Avatar shape="squircle"
             ><svg
+              data-icon="smartphone"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -62,6 +63,7 @@ import {
           Didn't get a code?
           <Button size="small" type="button">
             <svg
+              data-icon="refresh"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -84,6 +86,7 @@ import {
           >
             <template #start>
               <svg
+                data-icon="shield-check"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -99,6 +102,7 @@ import {
 
             <template #end>
               <svg
+                data-icon="chevron-right"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -119,6 +123,7 @@ import {
           >
             <template #start>
               <svg
+                data-icon="key"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -134,6 +139,7 @@ import {
 
             <template #end>
               <svg
+                data-icon="chevron-right"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

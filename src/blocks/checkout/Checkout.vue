@@ -221,6 +221,7 @@ import {
                   >
                     <template #start>
                       <svg
+                        data-icon="credit-card"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"
@@ -291,6 +292,7 @@ import {
           </Button>
           <p class="ui-layout-row ui-x-small ui-align-center ui-caption">
             <svg
+              data-icon="lock"
               aria-hidden="true"
               class="ui-icon ui-small"
               xmlns="http://www.w3.org/2000/svg"
@@ -403,6 +405,7 @@ import {
           </DescriptionList>
           <Callout severity="info">
             <svg
+              data-icon="truck"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"

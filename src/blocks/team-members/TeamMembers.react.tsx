@@ -68,6 +68,7 @@ export default function TeamMembers() {
               />
               <Button type="submit" variant="filled">
                 <svg
+                  data-icon="send"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -122,6 +123,7 @@ export default function TeamMembers() {
                           type="button"
                         >
                           <svg
+                            data-icon="more-vertical"
                             aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -179,6 +181,7 @@ export default function TeamMembers() {
                           type="button"
                         >
                           <svg
+                            data-icon="more-vertical"
                             aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -241,6 +244,7 @@ export default function TeamMembers() {
                           type="button"
                         >
                           <svg
+                            data-icon="more-vertical"
                             aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -303,6 +307,7 @@ export default function TeamMembers() {
                           type="button"
                         >
                           <svg
+                            data-icon="more-vertical"
                             aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -365,6 +370,7 @@ export default function TeamMembers() {
                           type="button"
                         >
                           <svg
+                            data-icon="more-vertical"
                             aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -427,6 +433,7 @@ export default function TeamMembers() {
                           type="button"
                         >
                           <svg
+                            data-icon="more-vertical"
                             aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -486,6 +493,7 @@ export default function TeamMembers() {
                     label="tambourine.tam@lowenders.example"
                     start={
                       <svg
+                        data-icon="mail"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -515,6 +523,7 @@ export default function TeamMembers() {
                     label="keytar.kit@lowenders.example"
                     start={
                       <svg
+                        data-icon="mail"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"

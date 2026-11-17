@@ -35,6 +35,7 @@ export default function DataTable() {
           <div className="ui-layout-row ui-small">
             <Button type="button" variant="outlined">
               <svg
+                data-icon="download"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -50,6 +51,7 @@ export default function DataTable() {
             </Button>
             <Button type="button" variant="filled">
               <svg
+                data-icon="add"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -74,6 +76,7 @@ export default function DataTable() {
             placeholder="Search by name or email"
             start={
               <svg
+                data-icon="search"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -208,6 +211,7 @@ export default function DataTable() {
                       type="button"
                     >
                       <svg
+                        data-icon="more-vertical"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -275,6 +279,7 @@ export default function DataTable() {
                       type="button"
                     >
                       <svg
+                        data-icon="more-vertical"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -341,6 +346,7 @@ export default function DataTable() {
                       type="button"
                     >
                       <svg
+                        data-icon="more-vertical"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -408,6 +414,7 @@ export default function DataTable() {
                       type="button"
                     >
                       <svg
+                        data-icon="more-vertical"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -475,6 +482,7 @@ export default function DataTable() {
                       type="button"
                     >
                       <svg
+                        data-icon="more-vertical"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -512,6 +520,7 @@ export default function DataTable() {
                 href="#data-table-page-1"
               >
                 <svg
+                  data-icon="chevron-left"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -532,6 +541,7 @@ export default function DataTable() {
               <Button href="#data-table-page-22">22</Button>
               <Button aria-label="Next page" href="#data-table-page-2">
                 <svg
+                  data-icon="chevron-right"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"

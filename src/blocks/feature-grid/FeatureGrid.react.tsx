@@ -26,6 +26,7 @@ export default function FeatureGrid() {
               <CardContent>
                 <span className="feature-icon">
                   <svg
+                    data-icon="bolt"
                     aria-hidden="true"
                     className="ui-icon ui-large"
                     xmlns="http://www.w3.org/2000/svg"
@@ -52,6 +53,7 @@ export default function FeatureGrid() {
               <CardContent>
                 <span className="feature-icon">
                   <svg
+                    data-icon="shield-check"
                     aria-hidden="true"
                     className="ui-icon ui-large"
                     xmlns="http://www.w3.org/2000/svg"
@@ -78,6 +80,7 @@ export default function FeatureGrid() {
               <CardContent>
                 <span className="feature-icon">
                   <svg
+                    data-icon="chart"
                     aria-hidden="true"
                     className="ui-icon ui-large"
                     xmlns="http://www.w3.org/2000/svg"
@@ -107,6 +110,7 @@ export default function FeatureGrid() {
               <CardContent>
                 <span className="feature-icon">
                   <svg
+                    data-icon="people"
                     aria-hidden="true"
                     className="ui-icon ui-large"
                     xmlns="http://www.w3.org/2000/svg"
@@ -133,6 +137,7 @@ export default function FeatureGrid() {
               <CardContent>
                 <span className="feature-icon">
                   <svg
+                    data-icon="plug"
                     aria-hidden="true"
                     className="ui-icon ui-large"
                     xmlns="http://www.w3.org/2000/svg"
@@ -159,6 +164,7 @@ export default function FeatureGrid() {
               <CardContent>
                 <span className="feature-icon">
                   <svg
+                    data-icon="globe"
                     aria-hidden="true"
                     className="ui-icon ui-large"
                     xmlns="http://www.w3.org/2000/svg"
@@ -188,6 +194,7 @@ export default function FeatureGrid() {
           <Button href="#feature-grid-features">
             <span className="ui-text">See all the rad stuff</span>
             <svg
+              data-icon="arrow-right"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"

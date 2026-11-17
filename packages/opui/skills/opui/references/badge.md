@@ -49,6 +49,7 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width-thick`
 ```html
 <span class="ui-badge">
   <svg
+    data-icon="mail"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -69,7 +70,7 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width-thick`
 </span>
 
 <span class="ui-badge ui-dot">
-  <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+  <svg data-icon="mail" aria-hidden="true" viewBox="0 0 32 32"></svg>
   <span class="ui-floating">
     <span class="ui-indicator">
       <span class="ui-sr-only">New messages</span>
@@ -92,12 +93,12 @@ import { Badge } from "opui-css/astro"
 ---
 
 <Badge hideLabel label="5 unread messages">
-  <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+  <svg data-icon="mail" aria-hidden="true" viewBox="0 0 32 32"></svg>
   <Fragment slot="indicator">5</Fragment>
 </Badge>
 
 <Badge dot label="New messages">
-  <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+  <svg data-icon="mail" aria-hidden="true" viewBox="0 0 32 32"></svg>
 </Badge>
 ```
 
@@ -116,11 +117,11 @@ export default function Basics() {
   return (
     <>
       <Badge hideLabel indicator="5" label="5 unread messages">
-        <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+        <svg data-icon="mail" aria-hidden="true" viewBox="0 0 32 32"></svg>
       </Badge>
 
       <Badge dot label="New messages">
-        <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+        <svg data-icon="mail" aria-hidden="true" viewBox="0 0 32 32"></svg>
       </Badge>
     </>
   )
@@ -141,12 +142,12 @@ export default function Basics() {
 </script>
 
 <Badge hideLabel label="5 unread messages">
-  <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+  <svg data-icon="mail" aria-hidden="true" viewBox="0 0 32 32"></svg>
   {#snippet indicator()}5{/snippet}
 </Badge>
 
 <Badge dot label="New messages">
-  <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+  <svg data-icon="mail" aria-hidden="true" viewBox="0 0 32 32"></svg>
 </Badge>
 ```
 
@@ -165,12 +166,12 @@ import { Badge } from "opui-css/vue"
 
 <template>
   <Badge hideLabel label="5 unread messages">
-    <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+    <svg data-icon="mail" aria-hidden="true" viewBox="0 0 32 32"></svg>
     <template #indicator>5</template>
   </Badge>
 
   <Badge dot label="New messages">
-    <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+    <svg data-icon="mail" aria-hidden="true" viewBox="0 0 32 32"></svg>
   </Badge>
 </template>
 ```

@@ -27,6 +27,7 @@
         <div class="ui-layout-row ui-x-small">
           <Button size="small" type="button">
             <svg
+              data-icon="check-all"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -47,6 +48,7 @@
               round
               size="small"
               ><svg
+                data-icon="settings"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -259,6 +261,7 @@
               class="ui-layout-column ui-small ui-align-center notifications-empty"
             >
               <svg
+                data-icon="inbox"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

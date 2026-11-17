@@ -41,6 +41,7 @@ export default function SalesDashboard() {
             </Select>
             <Button size="small" type="button" variant="outlined">
               <svg
+                data-icon="download"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

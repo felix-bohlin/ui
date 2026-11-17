@@ -167,6 +167,7 @@ export default function ProductDetail() {
                 />
                 <Button className="pd-add" type="submit" variant="filled">
                   <svg
+                    data-icon="shopping-bag"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -188,6 +189,7 @@ export default function ProductDetail() {
                     variant="outlined"
                   >
                     <svg
+                      data-icon="heart"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -209,6 +211,7 @@ export default function ProductDetail() {
                 label="Free delivery on orders over €75"
                 start={
                   <svg
+                    data-icon="truck"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -226,6 +229,7 @@ export default function ProductDetail() {
                 label="Free returns within 60 days"
                 start={
                   <svg
+                    data-icon="undo"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -243,6 +247,7 @@ export default function ProductDetail() {
                 label="Two-year warranty, free repairs for life"
                 start={
                   <svg
+                    data-icon="shield"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"

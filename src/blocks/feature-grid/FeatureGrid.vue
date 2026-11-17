@@ -26,6 +26,7 @@ import { Button, Card, CardContent, Chip } from "opui-css/vue"
           <CardContent>
             <span class="feature-icon">
               <svg
+                data-icon="bolt"
                 aria-hidden="true"
                 class="ui-icon ui-large"
                 xmlns="http://www.w3.org/2000/svg"
@@ -52,6 +53,7 @@ import { Button, Card, CardContent, Chip } from "opui-css/vue"
           <CardContent>
             <span class="feature-icon">
               <svg
+                data-icon="shield-check"
                 aria-hidden="true"
                 class="ui-icon ui-large"
                 xmlns="http://www.w3.org/2000/svg"
@@ -78,6 +80,7 @@ import { Button, Card, CardContent, Chip } from "opui-css/vue"
           <CardContent>
             <span class="feature-icon">
               <svg
+                data-icon="chart"
                 aria-hidden="true"
                 class="ui-icon ui-large"
                 xmlns="http://www.w3.org/2000/svg"
@@ -107,6 +110,7 @@ import { Button, Card, CardContent, Chip } from "opui-css/vue"
           <CardContent>
             <span class="feature-icon">
               <svg
+                data-icon="people"
                 aria-hidden="true"
                 class="ui-icon ui-large"
                 xmlns="http://www.w3.org/2000/svg"
@@ -133,6 +137,7 @@ import { Button, Card, CardContent, Chip } from "opui-css/vue"
           <CardContent>
             <span class="feature-icon">
               <svg
+                data-icon="plug"
                 aria-hidden="true"
                 class="ui-icon ui-large"
                 xmlns="http://www.w3.org/2000/svg"
@@ -159,6 +164,7 @@ import { Button, Card, CardContent, Chip } from "opui-css/vue"
           <CardContent>
             <span class="feature-icon">
               <svg
+                data-icon="globe"
                 aria-hidden="true"
                 class="ui-icon ui-large"
                 xmlns="http://www.w3.org/2000/svg"
@@ -188,6 +194,7 @@ import { Button, Card, CardContent, Chip } from "opui-css/vue"
       <Button href="#feature-grid-features">
         <span class="ui-text">See all the rad stuff</span>
         <svg
+          data-icon="arrow-right"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"

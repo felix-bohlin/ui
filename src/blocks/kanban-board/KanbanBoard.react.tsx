@@ -49,6 +49,7 @@ export default function KanbanBoard() {
             </ToggleGroup>
             <Button size="small" type="button" variant="filled">
               <svg
+                data-icon="add"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -82,6 +83,7 @@ export default function KanbanBoard() {
                 type="button"
               >
                 <svg
+                  data-icon="add"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -116,6 +118,7 @@ export default function KanbanBoard() {
                     <div className="ui-layout-row ui-caption kanban-meta">
                       <span className="ui-layout-row ui-x-small">
                         <svg
+                          data-icon="calendar"
                           aria-hidden="true"
                           className="ui-icon ui-small"
                           xmlns="http://www.w3.org/2000/svg"
@@ -165,6 +168,7 @@ export default function KanbanBoard() {
                     <div className="ui-layout-row ui-caption kanban-meta">
                       <span className="ui-layout-row ui-x-small">
                         <svg
+                          data-icon="calendar"
                           aria-hidden="true"
                           className="ui-icon ui-small"
                           xmlns="http://www.w3.org/2000/svg"
@@ -207,6 +211,7 @@ export default function KanbanBoard() {
                     <div className="ui-layout-row ui-caption kanban-meta">
                       <span className="ui-layout-row ui-x-small">
                         <svg
+                          data-icon="calendar"
                           aria-hidden="true"
                           className="ui-icon ui-small"
                           xmlns="http://www.w3.org/2000/svg"
@@ -229,6 +234,7 @@ export default function KanbanBoard() {
             </ol>
             <Button size="small" type="button">
               <svg
+                data-icon="add"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -260,6 +266,7 @@ export default function KanbanBoard() {
                 type="button"
               >
                 <svg
+                  data-icon="add"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -308,6 +315,7 @@ export default function KanbanBoard() {
                     <div className="ui-layout-row ui-caption kanban-meta">
                       <span className="ui-layout-row ui-x-small ui-p ui-critical">
                         <svg
+                          data-icon="calendar"
                           aria-hidden="true"
                           className="ui-icon ui-small"
                           xmlns="http://www.w3.org/2000/svg"
@@ -325,6 +333,7 @@ export default function KanbanBoard() {
                       </span>
                       <span className="ui-layout-row ui-x-small">
                         <svg
+                          data-icon="comment"
                           aria-hidden="true"
                           className="ui-icon ui-small"
                           xmlns="http://www.w3.org/2000/svg"
@@ -371,6 +380,7 @@ export default function KanbanBoard() {
                     <div className="ui-layout-row ui-caption kanban-meta">
                       <span className="ui-layout-row ui-x-small">
                         <svg
+                          data-icon="check-square"
                           aria-hidden="true"
                           className="ui-icon ui-small"
                           xmlns="http://www.w3.org/2000/svg"
@@ -412,6 +422,7 @@ export default function KanbanBoard() {
                 type="button"
               >
                 <svg
+                  data-icon="add"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -446,6 +457,7 @@ export default function KanbanBoard() {
                     <div className="ui-layout-row ui-caption kanban-meta">
                       <span className="ui-layout-row ui-x-small">
                         <svg
+                          data-icon="calendar"
                           aria-hidden="true"
                           className="ui-icon ui-small"
                           xmlns="http://www.w3.org/2000/svg"
@@ -463,6 +475,7 @@ export default function KanbanBoard() {
                       </span>
                       <span className="ui-layout-row ui-x-small">
                         <svg
+                          data-icon="comment"
                           aria-hidden="true"
                           className="ui-icon ui-small"
                           xmlns="http://www.w3.org/2000/svg"

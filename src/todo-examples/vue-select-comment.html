@@ -48,7 +48,8 @@
   >, the open pull request that widens <code>onlyValidChildren.select</code>.
   Related: vuejs/core#13778 and vuejs/core#13158 ask for customizable select
   support, vuejs/core#13616 is another open fix, and vuejs/core#14975 closed
-  without a merge. Checked against Vue 3.5.45, the latest release.
+  without a merge. Checked against Vue 3.5.45, the latest release, on
+  2026-11-17.
 </p>
 <section class="todo-draft">
   <div class="todo-draft-head">
@@ -88,7 +89,7 @@ Minimal template:
 
 The HTML spec now allows this content model (https://html.spec.whatwg.org/multipage/form-elements.html#the-select-element: an optional leading `button`, then `option`, `optgroup`, `hr` and `div`, plus script-supporting elements), and the relaxed HTML parser that ships with the customizable select keeps the `button` and the `div` inside the `select`, so there is no hydration mismatch in the browsers that render it. Production builds don't warn.
 
-#13720 updates `onlyValidChildren.select` to that content model; it would remove both warnings here. Is anything blocking it?</pre>
+#13720 updates `onlyValidChildren.select` to that content model and would remove both warnings here. It has waited on review changes since July 2025 (`div` is also allowed in `optgroup` and `option`), and there is an offer on it to take it over. #13616 drops the `select` rules instead. Could one of the two land in a 3.5 patch?</pre>
 </section>
 <script>
   for (const button of document.querySelectorAll("[data-copy]")) {

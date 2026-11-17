@@ -23,6 +23,7 @@ export default function Inbox() {
           <nav aria-label="Folders" className="inbox-folders">
             <Button type="button" variant="filled">
               <svg
+                data-icon="edit"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -44,6 +45,7 @@ export default function Inbox() {
                 label="Inbox"
                 start={
                   <svg
+                    data-icon="inbox"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -62,6 +64,7 @@ export default function Inbox() {
                 label="Starred"
                 start={
                   <svg
+                    data-icon="star"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -80,6 +83,7 @@ export default function Inbox() {
                 label="Sent"
                 start={
                   <svg
+                    data-icon="send"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -99,6 +103,7 @@ export default function Inbox() {
                 label="Drafts"
                 start={
                   <svg
+                    data-icon="document"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -117,6 +122,7 @@ export default function Inbox() {
                 label="Archive"
                 start={
                   <svg
+                    data-icon="archive"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -135,6 +141,7 @@ export default function Inbox() {
                 label="Trash"
                 start={
                   <svg
+                    data-icon="delete"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -194,6 +201,7 @@ export default function Inbox() {
                     type="button"
                   >
                     <svg
+                      data-icon="menu"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -347,6 +355,7 @@ export default function Inbox() {
                 >
                   <Button aria-label="Archive" round size="small" type="button">
                     <svg
+                      data-icon="archive"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -361,6 +370,7 @@ export default function Inbox() {
                   </Button>
                   <Button aria-label="Delete" round size="small" type="button">
                     <svg
+                      data-icon="delete"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -381,6 +391,7 @@ export default function Inbox() {
                     type="button"
                   >
                     <svg
+                      data-icon="star"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -397,6 +408,7 @@ export default function Inbox() {
                 <div className="ui-layout-row ui-x-small">
                   <Button size="small" type="button" variant="outlined">
                     <svg
+                      data-icon="reply"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -413,6 +425,7 @@ export default function Inbox() {
                   <Button size="small" type="button" variant="outlined">
                     <span className="ui-text">Forward</span>
                     <svg
+                      data-icon="forward"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -487,6 +500,7 @@ export default function Inbox() {
                   label="Setlist-final-final.pdf, 1.2 MB"
                   start={
                     <svg
+                      data-icon="attach"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -506,6 +520,7 @@ export default function Inbox() {
                   label="Bass-tabs-v3.pdf, 340 KB"
                   start={
                     <svg
+                      data-icon="attach"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"

@@ -7,6 +7,7 @@ import { List, ListItem } from "opui-css/vue"
     <ListItem label="Lou Headstock">
       <template #start>
         <svg
+          data-icon="person"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"

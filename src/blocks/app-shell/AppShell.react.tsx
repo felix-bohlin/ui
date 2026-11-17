@@ -31,6 +31,7 @@ export default function AppShell() {
             type="button"
           >
             <svg
+              data-icon="menu"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -48,6 +49,7 @@ export default function AppShell() {
             href="#app-shell-home"
           >
             <svg
+              data-icon="box"
               aria-hidden="true"
               className="ui-icon ui-large"
               xmlns="http://www.w3.org/2000/svg"
@@ -71,6 +73,7 @@ export default function AppShell() {
             size="small"
             start={
               <svg
+                data-icon="search"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -93,6 +96,7 @@ export default function AppShell() {
           >
             <Badge dot label="Unread">
               <svg
+                data-icon="bell"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -143,6 +147,7 @@ export default function AppShell() {
                 label="Home"
                 start={
                   <svg
+                    data-icon="home"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -162,6 +167,7 @@ export default function AppShell() {
                 label="Messages"
                 start={
                   <svg
+                    data-icon="inbox"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -180,6 +186,7 @@ export default function AppShell() {
                 label="Photos"
                 start={
                   <svg
+                    data-icon="folder"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -198,6 +205,7 @@ export default function AppShell() {
                 label="Gigs"
                 start={
                   <svg
+                    data-icon="calendar"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -216,6 +224,7 @@ export default function AppShell() {
                 label="Leaderboard"
                 start={
                   <svg
+                    data-icon="chart"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -266,6 +275,7 @@ export default function AppShell() {
               </hgroup>
               <Button size="small" type="button" variant="filled">
                 <svg
+                  data-icon="add"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"

@@ -26,6 +26,7 @@ export default function Sizes() {
         <Button size="x-small" variant="outlined">
           <span className="ui-text">X-small</span>
           <svg
+            data-icon="add"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -41,6 +42,7 @@ export default function Sizes() {
         <Button size="small" variant="outlined">
           <span className="ui-text">Small</span>
           <svg
+            data-icon="add"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -56,6 +58,7 @@ export default function Sizes() {
         <Button variant="outlined">
           <span className="ui-text">Medium</span>
           <svg
+            data-icon="add"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -71,6 +74,7 @@ export default function Sizes() {
         <Button size="large" variant="outlined">
           <span className="ui-text">Large</span>
           <svg
+            data-icon="add"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"

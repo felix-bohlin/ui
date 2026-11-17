@@ -36,6 +36,7 @@ import {
   idBaseOf,
 } from "./example-ids.mjs"
 import {
+  reactBareAttribute,
   reactKinds,
   reactPropsOf,
   resolveReactProp,
@@ -1276,8 +1277,8 @@ const reactPropCode = (name, item, kinds, where, context) => {
       "React",
     )
   if (item.kind === "boolean") {
-    if (has("boolean", "any", "other")) return name
-    if (has("string")) return `${name}=""`
+    const bare = reactBareAttribute(name, kinds)
+    if (bare) return bare
     throw fail("an attribute without a value")
   }
   if (item.kind === "string") {
@@ -1663,6 +1664,7 @@ const htmlElements = (markup) => {
         ),
         parent,
         tag: node.tagName,
+        values: new Map(node.attrs.map(({ name, value }) => [name, value])),
       }
       found.push(element)
       walk(node.content?.childNodes ?? node.childNodes, element)
@@ -1719,6 +1721,18 @@ const HTML_SCRIPT_RULES = [
           tag === "dialog" && attrs.has("data-close-on-navigate"),
       )
         ? ['import "opui-css/elements/close-on-navigate.js"']
+        : [],
+  },
+  {
+    covers: (path) => path === "elements/drawer-swipe.js",
+    lines: (elements) =>
+      elements.some(
+        ({ classes, tag, values }) =>
+          tag === "dialog" &&
+          (classes.has("ui-block-start") || classes.has("ui-block-end")) &&
+          values.get("closedby")?.toLowerCase() !== "none",
+      )
+        ? ['import "opui-css/elements/drawer-swipe.js"']
         : [],
   },
 ]

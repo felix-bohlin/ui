@@ -25,6 +25,7 @@
     </hgroup>
     <Button type="button" variant="filled">
       <svg
+        data-icon="person-add"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -49,6 +50,7 @@
     >
       {#snippet start()}
         <svg
+          data-icon="search"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -106,6 +108,7 @@
             round
             size="small"
             ><svg
+              data-icon="phone"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -158,6 +161,7 @@
             round
             size="small"
             ><svg
+              data-icon="phone"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -209,6 +213,7 @@
             round
             size="small"
             ><svg
+              data-icon="phone"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -262,6 +267,7 @@
             round
             size="small"
             ><svg
+              data-icon="phone"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -306,6 +312,7 @@
             round
             size="small"
             ><svg
+              data-icon="phone"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -357,6 +364,7 @@
             round
             size="small"
             ><svg
+              data-icon="phone"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -402,6 +410,7 @@
             round
             size="small"
             ><svg
+              data-icon="phone"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -445,6 +454,7 @@
             round
             size="small"
             ><svg
+              data-icon="phone"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"

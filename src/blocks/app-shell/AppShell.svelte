@@ -30,6 +30,7 @@
       type="button"
     >
       <svg
+        data-icon="menu"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -42,6 +43,7 @@
     </Button>
     <a class="shell-brand ui-layout-row ui-small" href="#app-shell-home">
       <svg
+        data-icon="box"
         aria-hidden="true"
         class="ui-icon ui-large"
         xmlns="http://www.w3.org/2000/svg"
@@ -67,6 +69,7 @@
     >
       {#snippet start()}
         <svg
+          data-icon="search"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -88,6 +91,7 @@
     >
       <Badge dot label="Unread"
         ><svg
+          data-icon="bell"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -130,6 +134,7 @@
         <ListItem aria-current="page" href="#app-shell-home" label="Home">
           {#snippet start()}
             <svg
+              data-icon="home"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -144,6 +149,7 @@
         <ListItem href="#app-shell-messages" label="Messages">
           {#snippet start()}
             <svg
+              data-icon="inbox"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -162,6 +168,7 @@
         <ListItem href="#app-shell-photos" label="Photos">
           {#snippet start()}
             <svg
+              data-icon="folder"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -178,6 +185,7 @@
         <ListItem href="#app-shell-gigs" label="Gigs">
           {#snippet start()}
             <svg
+              data-icon="calendar"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -194,6 +202,7 @@
         <ListItem href="#app-shell-leaderboard" label="Leaderboard">
           {#snippet start()}
             <svg
+              data-icon="chart"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -244,6 +253,7 @@
         </hgroup>
         <Button size="small" type="button" variant="filled">
           <svg
+            data-icon="add"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"

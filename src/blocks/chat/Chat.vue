@@ -28,6 +28,7 @@ import {
             <h2 class="ui-h5" id="chat-conversations-heading">Messages</h2>
             <Button aria-label="New message" round size="small" type="button"
               ><svg
+                data-icon="edit"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -50,6 +51,7 @@ import {
           >
             <template #start>
               <svg
+                data-icon="search"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -137,6 +139,7 @@ import {
             size="small"
             type="button"
             ><svg
+              data-icon="arrow-left"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -164,6 +167,7 @@ import {
           <div class="ui-layout-row ui-x-small">
             <Button aria-label="Start call" round size="small" type="button"
               ><svg
+                data-icon="phone"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -183,6 +187,7 @@ import {
               size="small"
               type="button"
               ><svg
+                data-icon="more-vertical"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -212,6 +217,7 @@ import {
         <MessageList
           aria-label="Messages with Stella Nut"
           class="chat-message-list"
+          direct
         >
           <li class="ui-divider">Today</li>
           <Message author="Stella" datetime="2026-10-08T14:02" time="14:02">
@@ -251,6 +257,7 @@ import {
             <Card variant="outlined">
               <CardContent class="ui-layout-media ui-small">
                 <svg
+                  data-icon="document"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -289,6 +296,7 @@ import {
             <FieldGroup class="chat-composer" orientation="horizontal">
               <Button aria-label="Attach a file" round type="button"
                 ><svg
+                  data-icon="attach"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -312,6 +320,7 @@ import {
                 type="submit"
                 variant="filled"
                 ><svg
+                  data-icon="send"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"

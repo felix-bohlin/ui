@@ -1,5 +1,6 @@
 <script lang="ts">
   import "../../elements/close-on-navigate.js"
+  import "../../elements/drawer-swipe.js"
   import { untrack } from "svelte"
   import { setDrawerContext } from "./context.svelte"
   import { autoLabelledBy } from "../id"

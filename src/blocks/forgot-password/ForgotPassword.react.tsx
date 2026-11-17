@@ -31,6 +31,7 @@ export default function ForgotPassword() {
             <CardContent>
               <Avatar className="forgot-password-icon" shape="squircle">
                 <svg
+                  data-icon="key"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -79,6 +80,7 @@ export default function ForgotPassword() {
                   href="#forgot-password-sign-in"
                 >
                   <svg
+                    data-icon="arrow-left"
                     aria-hidden="true"
                     className="ui-icon ui-small"
                     xmlns="http://www.w3.org/2000/svg"
@@ -105,6 +107,7 @@ export default function ForgotPassword() {
             <CardContent>
               <Avatar className="forgot-password-icon" shape="squircle">
                 <svg
+                  data-icon="mail"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"

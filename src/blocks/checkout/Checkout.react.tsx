@@ -235,6 +235,7 @@ export default function Checkout() {
                         placeholder="1234 1234 1234 1234"
                         start={
                           <svg
+                            data-icon="credit-card"
                             aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -306,6 +307,7 @@ export default function Checkout() {
               </Button>
               <p className="ui-layout-row ui-x-small ui-align-center ui-caption">
                 <svg
+                  data-icon="lock"
                   aria-hidden="true"
                   className="ui-icon ui-small"
                   xmlns="http://www.w3.org/2000/svg"
@@ -431,6 +433,7 @@ export default function Checkout() {
               </DescriptionList>
               <Callout severity="info">
                 <svg
+                  data-icon="truck"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"

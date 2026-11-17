@@ -54,6 +54,7 @@
             <TableHeaderCell scope="col">Notification</TableHeaderCell>
             <TableHeaderCell class="notif-channel" scope="col">
               <svg
+                data-icon="mail"
                 aria-hidden="true"
                 class="ui-icon"
                 xmlns="http://www.w3.org/2000/svg"
@@ -70,6 +71,7 @@
             </TableHeaderCell>
             <TableHeaderCell class="notif-channel" scope="col">
               <svg
+                data-icon="smartphone"
                 aria-hidden="true"
                 class="ui-icon"
                 xmlns="http://www.w3.org/2000/svg"
@@ -86,6 +88,7 @@
             </TableHeaderCell>
             <TableHeaderCell class="notif-channel" scope="col">
               <svg
+                data-icon="sms"
                 aria-hidden="true"
                 class="ui-icon"
                 xmlns="http://www.w3.org/2000/svg"

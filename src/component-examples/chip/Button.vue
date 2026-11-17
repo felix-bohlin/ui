@@ -16,6 +16,7 @@ import { Chip } from "opui-css/vue"
     >
       <template #end>
         <svg
+          data-icon="close"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -32,6 +33,7 @@ import { Chip } from "opui-css/vue"
     <Chip as="button" label="Sort by" variant="outlined">
       <template #end>
         <svg
+          data-icon="chevron-down"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"

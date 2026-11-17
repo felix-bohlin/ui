@@ -117,7 +117,7 @@ export const openFixture = async (
     (component.startsWith("blocks/")
       ? `/${component}/preview/`
       : component.startsWith("stress/")
-        ? `/tests/${component.slice("stress/".length)}/`
+        ? `/dev/tests/${component.slice("stress/".length)}/`
         : `/${framework}/test/${component}/`) + search,
   )
   if (!component.startsWith("blocks/")) {

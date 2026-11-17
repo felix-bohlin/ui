@@ -28,6 +28,7 @@
   <div class="ui-layout-row ui-small ui-spread invoice-toolbar">
     <Button href="#invoice-all" size="small"
       ><svg
+        data-icon="chevron-left"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -43,6 +44,7 @@
     <div class="ui-layout-row ui-small">
       <Button size="small" type="button" variant="outlined">
         <svg
+          data-icon="print"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -57,6 +59,7 @@
       </Button>
       <Button size="small" type="button" variant="outlined">
         <svg
+          data-icon="download"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -69,6 +72,7 @@
       </Button>
       <Button size="small" type="button" variant="filled">
         <svg
+          data-icon="send"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -91,6 +95,7 @@
       <div class="ui-layout-row ui-spread invoice-head">
         <div class="ui-layout-row ui-small invoice-brand">
           <svg
+            data-icon="layers"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"

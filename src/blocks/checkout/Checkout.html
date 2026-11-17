@@ -246,17 +246,9 @@
                   >Card number</label
                 >
                 <span class="ui-field">
-                  <input
-                    autocomplete="cc-number"
-                    inputmode="numeric"
-                    placeholder="1234 1234 1234 1234"
-                    aria-describedby="checkout-card-number-start"
-                    id="checkout-card-number"
-                    name="card-number"
-                    type="text"
-                  />
                   <span class="ui-start" id="checkout-card-number-start">
                     <svg
+                      data-icon="credit-card"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -269,6 +261,15 @@
                       ></path>
                     </svg>
                   </span>
+                  <input
+                    autocomplete="cc-number"
+                    inputmode="numeric"
+                    placeholder="1234 1234 1234 1234"
+                    aria-describedby="checkout-card-number-start"
+                    id="checkout-card-number"
+                    name="card-number"
+                    type="text"
+                  />
                 </span>
               </div>
               <div class="ui-field-group ui-horizontal">
@@ -350,6 +351,7 @@
         </button>
         <p class="ui-layout-row ui-x-small ui-align-center ui-caption">
           <svg
+            data-icon="lock"
             aria-hidden="true"
             class="ui-icon ui-small"
             xmlns="http://www.w3.org/2000/svg"
@@ -469,6 +471,7 @@
         </dl>
         <article class="ui-callout ui-info">
           <svg
+            data-icon="truck"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"

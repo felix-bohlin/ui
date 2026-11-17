@@ -56,6 +56,7 @@ export default function ProjectOverview() {
             >
               <span className="ui-text">Actions</span>
               <svg
+                data-icon="chevron-down"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -165,6 +166,7 @@ export default function ProjectOverview() {
                     label="Find a venue with enough outlets"
                     marker={
                       <svg
+                        data-icon="check-circle"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -187,6 +189,7 @@ export default function ProjectOverview() {
                     label="Book a sound tech who loves bass"
                     marker={
                       <svg
+                        data-icon="check-circle"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -209,6 +212,7 @@ export default function ProjectOverview() {
                     label="Name tags and goodie bags"
                     marker={
                       <svg
+                        data-icon="check-circle"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -235,6 +239,7 @@ export default function ProjectOverview() {
                     }
                     marker={
                       <svg
+                        data-icon="circle-half"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -263,6 +268,7 @@ export default function ProjectOverview() {
                     label="Bass Day, woohoo!"
                     marker={
                       <svg
+                        data-icon="circle"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"

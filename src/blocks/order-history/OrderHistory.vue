@@ -40,6 +40,7 @@ import {
       >
         <template #start>
           <svg
+            data-icon="search"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -162,6 +163,7 @@ import {
               type="button"
             >
               <svg
+                data-icon="more-vertical"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -257,6 +259,7 @@ import {
           <CardActions class="orders-actions">
             <Button size="small" type="button" variant="tonal"
               ><svg
+                data-icon="refresh"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -282,6 +285,7 @@ import {
               type="button"
             >
               <svg
+                data-icon="more-vertical"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -371,6 +375,7 @@ import {
           <CardActions class="orders-actions">
             <Button size="small" type="button" variant="tonal"
               ><svg
+                data-icon="refresh"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

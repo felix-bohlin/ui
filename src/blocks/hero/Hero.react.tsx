@@ -26,6 +26,7 @@ export default function Hero() {
             <Chip
               end={
                 <svg
+                  data-icon="chevron-right"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -56,6 +57,7 @@ export default function Hero() {
               </Button>
               <Button href="#hero-demo" size="large" variant="outlined">
                 <svg
+                  data-icon="play"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"

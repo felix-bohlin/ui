@@ -1080,6 +1080,13 @@
     "url": "/astro/components/drawer/#how-to-close"
   },
   {
+    "id": "component-drawer-astro-swipe-to-close",
+    "title": "Swipe to close",
+    "page": "Drawer",
+    "category": "Component",
+    "url": "/astro/components/drawer/#swipe-to-close"
+  },
+  {
     "id": "component-drawer-astro-role-attributes",
     "title": "Role & attributes",
     "page": "Drawer",
@@ -1601,6 +1608,13 @@
     "page": "Message",
     "category": "Component",
     "url": "/astro/components/message/#group-chat"
+  },
+  {
+    "id": "component-message-astro-direct",
+    "title": "Direct",
+    "page": "Message",
+    "category": "Component",
+    "url": "/astro/components/message/#direct"
   },
   {
     "id": "component-message-astro-attachments",
@@ -3983,7 +3997,7 @@
     "id": "blog-release-6",
     "title": "opui 6.0",
     "description": "What changed in 6.0 and why, with live demos.",
-    "headings": "It's a proper design system now Five example themes Token tiers Contrast as a guarantee Loads of new components So much cool stuff in the docs Blocks! Theme builder The CSS is the component One Astro file, four frameworks Slots become parts, props get one naming model The platform did the work Browser support, honestly The new \"by hand\" Where it landed Migrating",
+    "headings": "It's a proper design system now Five example themes Token tiers Contrast as a guarantee Loads of new components So much cool stuff in the docs Blocks! Theme builder The CSS is the component One Astro file, four frameworks Slots become parts, props get one naming model The platform did the work Browser support, honestly The new \"by hand\" Working with AI Where it landed Migrating",
     "category": "Blog",
     "url": "/blog/release-6/"
   },
@@ -4575,7 +4589,7 @@
     "id": "api-drawer-astro",
     "title": "Drawer API",
     "description": "Reference for Drawer Astro component.",
-    "api": "Drawer Container element. The header, a row for the title and anything next to it, with an optional close button. The title. Names the drawer through `aria-labelledby`. The scrollable content. The footer, a row at the end. backdrop The backdrop style. `transparent` keeps the page behind it fully visible. closedby How the drawer can be closed. `any` also closes it on a click outside. closeOnNavigate Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API. id The id of the `<dialog>`, which the trigger's `commandfor` points at. Required. scrollLock Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`. side The side it opens from.",
+    "api": "Drawer Container element. The header, a row for the title and anything next to it, with an optional close button. The title. Names the drawer through `aria-labelledby`. The scrollable content. The footer, a row at the end. backdrop The backdrop style. `transparent` keeps the page behind it fully visible. closedby How the drawer can be closed. `any` also closes it on a click outside. Swiping a drawer at the block start or end toward its edge is a close request too, so `none` turns it off. closeOnNavigate Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API. id The id of the `<dialog>`, which the trigger's `commandfor` points at. Required. scrollLock Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`. side The side it opens from.",
     "category": "API",
     "url": "/astro/api/#drawer"
   },
@@ -4655,7 +4669,7 @@
     "id": "api-message-list-astro",
     "title": "Message list API",
     "description": "Reference for Message list Astro component.",
-    "api": "MessageList The conversation, an ordered list. A message. Consecutive messages on the same side group into a run. role The `role` of the `<ol>`, such as `log` for a live conversation. `list` keeps Safari announcing a list.",
+    "api": "MessageList The conversation, an ordered list. A message. Consecutive messages on the same side group into a run. direct A chat between two people: no message shows its author's name or avatar, since the chat's own title names the other person. Screen readers still hear the name. role The `role` of the `<ol>`, such as `log` for a live conversation. `list` keeps Safari announcing a list.",
     "category": "API",
     "url": "/astro/api/#message-list"
   },

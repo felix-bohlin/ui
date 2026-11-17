@@ -24,6 +24,7 @@ export default function TwoFactor() {
             <div className="ui-layout-column ui-align-center">
               <Avatar shape="squircle">
                 <svg
+                  data-icon="smartphone"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -70,6 +71,7 @@ export default function TwoFactor() {
               Didn't get a code?
               <Button size="small" type="button">
                 <svg
+                  data-icon="refresh"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -90,6 +92,7 @@ export default function TwoFactor() {
                 description="Use a code from the authenticator app on your phone."
                 end={
                   <svg
+                    data-icon="chevron-right"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -106,6 +109,7 @@ export default function TwoFactor() {
                 label="Authenticator app"
                 start={
                   <svg
+                    data-icon="shield-check"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -123,6 +127,7 @@ export default function TwoFactor() {
                 description="One of the codes you scribbled down at setup."
                 end={
                   <svg
+                    data-icon="chevron-right"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -139,6 +144,7 @@ export default function TwoFactor() {
                 label="Recovery code"
                 start={
                   <svg
+                    data-icon="key"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"

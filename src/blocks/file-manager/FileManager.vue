@@ -38,6 +38,7 @@ import {
       <div class="ui-layout-row ui-small">
         <Button size="small" type="button" variant="outlined">
           <svg
+            data-icon="folder-add"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -52,6 +53,7 @@ import {
         </Button>
         <Button size="small" type="button" variant="filled">
           <svg
+            data-icon="upload"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -121,6 +123,7 @@ import {
             <Card variant="outlined">
               <hgroup>
                 <svg
+                  data-icon="folder"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="32"
@@ -146,6 +149,7 @@ import {
             <Card variant="outlined">
               <hgroup>
                 <svg
+                  data-icon="folder"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="32"
@@ -171,6 +175,7 @@ import {
             <Card variant="outlined">
               <hgroup>
                 <svg
+                  data-icon="folder"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="32"
@@ -194,6 +199,7 @@ import {
             <Card variant="outlined">
               <hgroup>
                 <svg
+                  data-icon="folder"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="32"
@@ -248,6 +254,7 @@ import {
                 <Button size="small" type="button">
                   <span class="ui-text">Name</span>
                   <svg
+                    data-icon="arrow-up"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -290,6 +297,7 @@ import {
                   style="--file: var(--ui-critical)"
                 >
                   <svg
+                    data-icon="document"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -317,6 +325,7 @@ import {
                   type="button"
                 >
                   <svg
+                    data-icon="more-horizontal"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -345,6 +354,7 @@ import {
                   style="--file: var(--ui-success)"
                 >
                   <svg
+                    data-icon="chart"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -372,6 +382,7 @@ import {
                   type="button"
                 >
                   <svg
+                    data-icon="more-horizontal"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -400,6 +411,7 @@ import {
                   style="--file: var(--ui-info)"
                 >
                   <svg
+                    data-icon="image"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -427,6 +439,7 @@ import {
                   type="button"
                 >
                   <svg
+                    data-icon="more-horizontal"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -455,6 +468,7 @@ import {
                   style="--file: var(--ui-warning)"
                 >
                   <svg
+                    data-icon="video"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -482,6 +496,7 @@ import {
                   type="button"
                 >
                   <svg
+                    data-icon="more-horizontal"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -510,6 +525,7 @@ import {
                   style="--file: var(--ui-info)"
                 >
                   <svg
+                    data-icon="document"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -537,6 +553,7 @@ import {
                   type="button"
                 >
                   <svg
+                    data-icon="more-horizontal"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"

@@ -31,6 +31,7 @@ import {
         <CardContent>
           <Avatar class="forgot-password-icon" shape="squircle">
             <svg
+              data-icon="key"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -77,6 +78,7 @@ import {
               class="ui-link forgot-password-back"
               href="#forgot-password-sign-in"
               ><svg
+                data-icon="arrow-left"
                 aria-hidden="true"
                 class="ui-icon ui-small"
                 xmlns="http://www.w3.org/2000/svg"
@@ -102,6 +104,7 @@ import {
         <CardContent>
           <Avatar class="forgot-password-icon" shape="squircle">
             <svg
+              data-icon="mail"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"

@@ -65,6 +65,7 @@
         />
         <Button type="submit" variant="filled"
           ><svg
+            data-icon="send"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -120,6 +121,7 @@
                   type="button"
                 >
                   <svg
+                    data-icon="more-vertical"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -166,6 +168,7 @@
                   type="button"
                 >
                   <svg
+                    data-icon="more-vertical"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -225,6 +228,7 @@
                   type="button"
                 >
                   <svg
+                    data-icon="more-vertical"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -284,6 +288,7 @@
                   type="button"
                 >
                   <svg
+                    data-icon="more-vertical"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -338,6 +343,7 @@
                   type="button"
                 >
                   <svg
+                    data-icon="more-vertical"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -397,6 +403,7 @@
                   type="button"
                 >
                   <svg
+                    data-icon="more-vertical"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -440,6 +447,7 @@
             >
               {#snippet start()}
                 <svg
+                  data-icon="mail"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -466,6 +474,7 @@
             >
               {#snippet start()}
                 <svg
+                  data-icon="mail"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"

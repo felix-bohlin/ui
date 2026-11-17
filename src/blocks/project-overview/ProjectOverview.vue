@@ -54,6 +54,7 @@ import {
         >
           <span class="ui-text">Actions</span>
           <svg
+            data-icon="chevron-down"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -154,6 +155,7 @@ import {
               >
                 <template #marker>
                   <svg
+                    data-icon="check-circle"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -176,6 +178,7 @@ import {
               >
                 <template #marker>
                   <svg
+                    data-icon="check-circle"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -198,6 +201,7 @@ import {
               >
                 <template #marker>
                   <svg
+                    data-icon="check-circle"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -215,6 +219,7 @@ import {
               <TimelineItem current="step" datetime="2026-10-14" time="14 Oct">
                 <template #marker>
                   <svg
+                    data-icon="circle-half"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -245,6 +250,7 @@ import {
               >
                 <template #marker>
                   <svg
+                    data-icon="circle"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"

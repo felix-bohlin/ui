@@ -39,6 +39,7 @@
     >
       {#snippet start()}
         <svg
+          data-icon="search"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -158,6 +159,7 @@
             type="button"
           >
             <svg
+              data-icon="more-vertical"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -253,6 +255,7 @@
         <CardActions class="orders-actions">
           <Button size="small" type="button" variant="tonal"
             ><svg
+              data-icon="refresh"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -278,6 +281,7 @@
             type="button"
           >
             <svg
+              data-icon="more-vertical"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -366,6 +370,7 @@
         <CardActions class="orders-actions">
           <Button size="small" type="button" variant="tonal"
             ><svg
+              data-icon="refresh"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"

@@ -46,6 +46,7 @@ export default function FileManager() {
           <div className="ui-layout-row ui-small">
             <Button size="small" type="button" variant="outlined">
               <svg
+                data-icon="folder-add"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -61,6 +62,7 @@ export default function FileManager() {
             </Button>
             <Button size="small" type="button" variant="filled">
               <svg
+                data-icon="upload"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -144,6 +146,7 @@ export default function FileManager() {
                 <Card variant="outlined">
                   <hgroup>
                     <svg
+                      data-icon="folder"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="32"
@@ -169,6 +172,7 @@ export default function FileManager() {
                 <Card variant="outlined">
                   <hgroup>
                     <svg
+                      data-icon="folder"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="32"
@@ -197,6 +201,7 @@ export default function FileManager() {
                 <Card variant="outlined">
                   <hgroup>
                     <svg
+                      data-icon="folder"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="32"
@@ -222,6 +227,7 @@ export default function FileManager() {
                 <Card variant="outlined">
                   <hgroup>
                     <svg
+                      data-icon="folder"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="32"
@@ -281,6 +287,7 @@ export default function FileManager() {
                     <Button size="small" type="button">
                       <span className="ui-text">Name</span>
                       <svg
+                        data-icon="arrow-up"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -327,6 +334,7 @@ export default function FileManager() {
                       style={{ "--file": "var(--ui-critical)" }}
                     >
                       <svg
+                        data-icon="document"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -354,6 +362,7 @@ export default function FileManager() {
                       type="button"
                     >
                       <svg
+                        data-icon="more-horizontal"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -382,6 +391,7 @@ export default function FileManager() {
                       style={{ "--file": "var(--ui-success)" }}
                     >
                       <svg
+                        data-icon="chart"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -409,6 +419,7 @@ export default function FileManager() {
                       type="button"
                     >
                       <svg
+                        data-icon="more-horizontal"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -437,6 +448,7 @@ export default function FileManager() {
                       style={{ "--file": "var(--ui-info)" }}
                     >
                       <svg
+                        data-icon="image"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -464,6 +476,7 @@ export default function FileManager() {
                       type="button"
                     >
                       <svg
+                        data-icon="more-horizontal"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -492,6 +505,7 @@ export default function FileManager() {
                       style={{ "--file": "var(--ui-warning)" }}
                     >
                       <svg
+                        data-icon="video"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -519,6 +533,7 @@ export default function FileManager() {
                       type="button"
                     >
                       <svg
+                        data-icon="more-horizontal"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -547,6 +562,7 @@ export default function FileManager() {
                       style={{ "--file": "var(--ui-info)" }}
                     >
                       <svg
+                        data-icon="document"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -574,6 +590,7 @@ export default function FileManager() {
                       type="button"
                     >
                       <svg
+                        data-icon="more-horizontal"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"

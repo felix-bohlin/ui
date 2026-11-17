@@ -207,6 +207,7 @@ export default function ShoppingCart() {
                   as="button"
                   end={
                     <svg
+                      data-icon="close"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"

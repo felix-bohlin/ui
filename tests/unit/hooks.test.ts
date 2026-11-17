@@ -9,7 +9,7 @@ import {
 } from "node:fs"
 import { tmpdir } from "node:os"
 import { join, resolve } from "node:path"
-import { afterAll, describe, expect, test } from "vitest"
+import { afterAll, beforeEach, describe, expect, test } from "vitest"
 import { binOf, run, styledGlobs, suites } from "../../.claude/hooks/checks.mjs"
 import { checkFiles, report } from "../../scripts/check-staged.mjs"
 
@@ -339,6 +339,11 @@ describe("pre-commit", () => {
       cwd: dir,
       encoding: "utf-8",
     })
+
+  beforeEach(() => {
+    git("read-tree", "--empty")
+    git("clean", "-fdq")
+  })
 
   test("passes with nothing staged", () => {
     expect(run().status).toBe(0)

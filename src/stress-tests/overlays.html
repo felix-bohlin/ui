@@ -661,10 +661,15 @@
     </div>
     <div class="ui-content">
       <div class="stress-stack">
-        <label class="ui-text-field"
-          ><span class="ui-label">Name</span
-          ><span class="ui-field"><input type="text" value="My filter" /></span
-        ></label>
+        <div class="ui-text-field">
+          <label class="ui-label" for="stress-overlays-text-field-1">Name</label
+          ><span class="ui-field"
+            ><input
+              type="text"
+              value="My filter"
+              id="stress-overlays-text-field-1"
+          /></span>
+        </div>
         <div class="ui-select">
           <label class="ui-label" for="stress-overlays-drawer-dialog-scope"
             >Visible to</label
@@ -866,10 +871,13 @@
         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
         officia deserunt mollit anim id est laborum.
       </p>
-      <label class="ui-text-field"
-        ><span class="ui-label">Comment</span
-        ><span class="ui-field"><input type="text" /></span
-      ></label>
+      <div class="ui-text-field">
+        <label class="ui-label" for="stress-overlays-text-field-2"
+          >Comment</label
+        ><span class="ui-field"
+          ><input type="text" id="stress-overlays-text-field-2"
+        /></span>
+      </div>
     </div>
     <div class="ui-footer">
       <button
@@ -2673,33 +2681,60 @@
     </div>
     <div class="ui-content">
       <form class="ui-form stress-stack" method="dialog">
-        <label class="ui-text-field"
-          ><span class="ui-label">First name</span
+        <div class="ui-text-field">
+          <label class="ui-label" for="stress-overlays-text-field-3"
+            >First name</label
           ><span class="ui-field"
-            ><input type="text" value="Holly" /></span></label
-        ><label class="ui-text-field"
-          ><span class="ui-label">Last name</span
+            ><input type="text" value="Holly" id="stress-overlays-text-field-3"
+          /></span>
+        </div>
+        <div class="ui-text-field">
+          <label class="ui-label" for="stress-overlays-text-field-4"
+            >Last name</label
           ><span class="ui-field"
-            ><input type="text" value="Humbucker" /></span></label
-        ><label class="ui-text-field"
-          ><span class="ui-label">Email</span
+            ><input
+              type="text"
+              value="Humbucker"
+              id="stress-overlays-text-field-4"
+          /></span>
+        </div>
+        <div class="ui-text-field">
+          <label class="ui-label" for="stress-overlays-text-field-5"
+            >Email</label
           ><span class="ui-field"
             ><input
               type="email"
-              value="holly.humbucker@lowend.example" /></span></label
-        ><label class="ui-text-field"
-          ><span class="ui-label">Phone</span
-          ><span class="ui-field"><input type="tel" /></span></label
-        ><label class="ui-text-field"
-          ><span class="ui-label">Street</span
-          ><span class="ui-field"><input type="text" /></span></label
-        ><label class="ui-text-field"
-          ><span class="ui-label">Postal code</span
-          ><span class="ui-field"><input type="text" /></span></label
-        ><label class="ui-text-field"
-          ><span class="ui-label">City</span
-          ><span class="ui-field"><input type="text" /></span
-        ></label>
+              value="holly.humbucker@lowend.example"
+              id="stress-overlays-text-field-5"
+          /></span>
+        </div>
+        <div class="ui-text-field">
+          <label class="ui-label" for="stress-overlays-text-field-6"
+            >Phone</label
+          ><span class="ui-field"
+            ><input type="tel" id="stress-overlays-text-field-6"
+          /></span>
+        </div>
+        <div class="ui-text-field">
+          <label class="ui-label" for="stress-overlays-text-field-7"
+            >Street</label
+          ><span class="ui-field"
+            ><input type="text" id="stress-overlays-text-field-7"
+          /></span>
+        </div>
+        <div class="ui-text-field">
+          <label class="ui-label" for="stress-overlays-text-field-8"
+            >Postal code</label
+          ><span class="ui-field"
+            ><input type="text" id="stress-overlays-text-field-8"
+          /></span>
+        </div>
+        <div class="ui-text-field">
+          <label class="ui-label" for="stress-overlays-text-field-9">City</label
+          ><span class="ui-field"
+            ><input type="text" id="stress-overlays-text-field-9"
+          /></span>
+        </div>
         <div class="ui-select">
           <label class="ui-label" for="stress-overlays-long-country"
             >Country</label
@@ -2764,17 +2799,23 @@
             </select></span
           >
         </div>
-        <label class="ui-text-field"
-          ><span class="ui-label">Birthday</span
+        <div class="ui-text-field">
+          <label class="ui-label" for="stress-overlays-text-field-10"
+            >Birthday</label
           ><span class="ui-field"
-            ><input type="date" value="1815-12-10" /></span></label
-        ><label class="ui-textarea"
-          ><span class="ui-label">Notes</span
+            ><input
+              type="date"
+              value="1815-12-10"
+              id="stress-overlays-text-field-10"
+          /></span>
+        </div>
+        <div class="ui-textarea">
+          <label class="ui-label" for="stress-overlays-textarea-1">Notes</label
           ><span class="ui-field">
-            <textarea>
+            <textarea id="stress-overlays-textarea-1">
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>
-          </span></label
-        >
+          </span>
+        </div>
         <fieldset class="ui-fieldset">
           <legend>Notifications</legend>
           <div class="ui-field-group">
@@ -2901,10 +2942,15 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
       <h2 id="stress-overlays-launch-dialog-heading">Rename band</h2>
     </div>
     <div class="ui-content">
-      <label class="ui-text-field"
-        ><span class="ui-label">Name</span
-        ><span class="ui-field"><input type="text" value="Stress test" /></span
-      ></label>
+      <div class="ui-text-field">
+        <label class="ui-label" for="stress-overlays-text-field-11">Name</label
+        ><span class="ui-field"
+          ><input
+            type="text"
+            value="Stress test"
+            id="stress-overlays-text-field-11"
+        /></span>
+      </div>
     </div>
     <div class="ui-footer">
       <button

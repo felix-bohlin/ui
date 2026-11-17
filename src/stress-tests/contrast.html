@@ -34,17 +34,18 @@
     <div class="stress-stack">
       <h3>Default</h3>
       <div class="stress-stack">
-        <label class="ui-text-field"
-          ><span class="ui-label">Email</span
+        <div class="ui-text-field">
+          <label class="ui-label" for="contrast-text-field-1">Email</label
           ><span class="ui-field"
             ><input
               type="email"
               placeholder="name@example.com"
-              aria-describedby="contrast-default-email-help" /></span
+              aria-describedby="contrast-default-email-help"
+              id="contrast-text-field-1" /></span
           ><span class="ui-end-text" id="contrast-default-email-help"
             >We'll never share it.</span
-          ></label
-        >
+          >
+        </div>
         <div class="ui-select">
           <label class="ui-label" for="contrast-default-plan">Plan</label
           ><span class="ui-field"
@@ -287,12 +288,18 @@
     <div class="ui-contrast-more stress-stack">
       <h3>.ui-contrast-more</h3>
       <div class="stress-stack">
-        <label class="ui-text-field"
-          ><span class="ui-label">Email</span
+        <div class="ui-text-field">
+          <label class="ui-label" for="contrast-text-field-2">Email</label
           ><span class="ui-field"
-            ><input type="email" placeholder="name@example.com" /></span
-          ><span class="ui-end-text">We'll never share it.</span></label
-        >
+            ><input
+              type="email"
+              placeholder="name@example.com"
+              aria-describedby="contrast-text-field-2-end-text"
+              id="contrast-text-field-2" /></span
+          ><span class="ui-end-text" id="contrast-text-field-2-end-text"
+            >We'll never share it.</span
+          >
+        </div>
         <div class="ui-select">
           <label class="ui-label" for="contrast-more-plan">Plan</label
           ><span class="ui-field"
@@ -542,15 +549,22 @@
   </p>
   <div class="ui-contrast-more stress-stack">
     <div class="stress-row" data-size="x-small">
-      <span class="stress-tag">x-small</span
-      ><label class="ui-text-field ui-x-small"
-        ><span class="ui-label">Name</span
+      <span class="stress-tag">x-small</span>
+      <div class="ui-text-field ui-x-small">
+        <label class="ui-label" for="contrast-text-field-3">Name</label
         ><span class="ui-field"
-          ><input type="text" placeholder="Placeholder" /></span></label
-      ><label class="ui-text-field ui-filled ui-x-small"
-        ><span class="ui-label">Filled</span
-        ><span class="ui-field"><input type="text" value="Value" /></span
-      ></label>
+          ><input
+            type="text"
+            placeholder="Placeholder"
+            id="contrast-text-field-3"
+        /></span>
+      </div>
+      <div class="ui-text-field ui-filled ui-x-small">
+        <label class="ui-label" for="contrast-text-field-4">Filled</label
+        ><span class="ui-field"
+          ><input type="text" value="Value" id="contrast-text-field-4"
+        /></span>
+      </div>
       <div class="ui-select ui-x-small">
         <label class="ui-label" for="contrast-size-x-small">Status</label
         ><span class="ui-field"
@@ -622,15 +636,22 @@
       </div>
     </div>
     <div class="stress-row" data-size="small">
-      <span class="stress-tag">Small</span
-      ><label class="ui-text-field ui-small"
-        ><span class="ui-label">Name</span
+      <span class="stress-tag">Small</span>
+      <div class="ui-text-field ui-small">
+        <label class="ui-label" for="contrast-text-field-5">Name</label
         ><span class="ui-field"
-          ><input type="text" placeholder="Placeholder" /></span></label
-      ><label class="ui-text-field ui-filled ui-small"
-        ><span class="ui-label">Filled</span
-        ><span class="ui-field"><input type="text" value="Value" /></span
-      ></label>
+          ><input
+            type="text"
+            placeholder="Placeholder"
+            id="contrast-text-field-5"
+        /></span>
+      </div>
+      <div class="ui-text-field ui-filled ui-small">
+        <label class="ui-label" for="contrast-text-field-6">Filled</label
+        ><span class="ui-field"
+          ><input type="text" value="Value" id="contrast-text-field-6"
+        /></span>
+      </div>
       <div class="ui-select ui-small">
         <label class="ui-label" for="contrast-size-small">Status</label
         ><span class="ui-field"
@@ -698,15 +719,22 @@
       </div>
     </div>
     <div class="stress-row" data-size="default">
-      <span class="stress-tag">Default</span
-      ><label class="ui-text-field"
-        ><span class="ui-label">Name</span
+      <span class="stress-tag">Default</span>
+      <div class="ui-text-field">
+        <label class="ui-label" for="contrast-text-field-7">Name</label
         ><span class="ui-field"
-          ><input type="text" placeholder="Placeholder" /></span></label
-      ><label class="ui-text-field ui-filled"
-        ><span class="ui-label">Filled</span
-        ><span class="ui-field"><input type="text" value="Value" /></span
-      ></label>
+          ><input
+            type="text"
+            placeholder="Placeholder"
+            id="contrast-text-field-7"
+        /></span>
+      </div>
+      <div class="ui-text-field ui-filled">
+        <label class="ui-label" for="contrast-text-field-8">Filled</label
+        ><span class="ui-field"
+          ><input type="text" value="Value" id="contrast-text-field-8"
+        /></span>
+      </div>
       <div class="ui-select">
         <label class="ui-label" for="contrast-size-default">Status</label
         ><span class="ui-field"
@@ -770,15 +798,22 @@
       </div>
     </div>
     <div class="stress-row" data-size="large">
-      <span class="stress-tag">Large</span
-      ><label class="ui-text-field ui-large"
-        ><span class="ui-label">Name</span
+      <span class="stress-tag">Large</span>
+      <div class="ui-text-field ui-large">
+        <label class="ui-label" for="contrast-text-field-9">Name</label
         ><span class="ui-field"
-          ><input type="text" placeholder="Placeholder" /></span></label
-      ><label class="ui-text-field ui-filled ui-large"
-        ><span class="ui-label">Filled</span
-        ><span class="ui-field"><input type="text" value="Value" /></span
-      ></label>
+          ><input
+            type="text"
+            placeholder="Placeholder"
+            id="contrast-text-field-9"
+        /></span>
+      </div>
+      <div class="ui-text-field ui-filled ui-large">
+        <label class="ui-label" for="contrast-text-field-10">Filled</label
+        ><span class="ui-field"
+          ><input type="text" value="Value" id="contrast-text-field-10"
+        /></span>
+      </div>
       <div class="ui-select ui-large">
         <label class="ui-label" for="contrast-size-large">Status</label
         ><span class="ui-field"
@@ -855,56 +890,74 @@
     text 7:1.
   </p>
   <div class="ui-contrast-more stress-grid">
-    <label class="ui-text-field"
-      ><span class="ui-label">Placeholder</span
+    <div class="ui-text-field">
+      <label class="ui-label" for="contrast-text-field-11">Placeholder</label
       ><span class="ui-field"
-        ><input type="text" placeholder="Placeholder" /></span
-    ></label>
-    <label class="ui-text-field"
-      ><span class="ui-label">Value</span
+        ><input
+          type="text"
+          placeholder="Placeholder"
+          id="contrast-text-field-11"
+      /></span>
+    </div>
+    <div class="ui-text-field">
+      <label class="ui-label" for="contrast-text-field-12">Value</label
       ><span class="ui-field"
-        ><input type="text" value="Holly Humbucker" /></span
-    ></label>
-    <label class="ui-text-field ui-filled"
-      ><span class="ui-label">Filled</span
+        ><input type="text" value="Holly Humbucker" id="contrast-text-field-12"
+      /></span>
+    </div>
+    <div class="ui-text-field ui-filled">
+      <label class="ui-label" for="contrast-text-field-13">Filled</label
       ><span class="ui-field"
-        ><input type="text" value="Holly Humbucker" /></span
-    ></label>
-    <label class="ui-text-field"
-      ><span class="ui-label">Affixes</span
+        ><input type="text" value="Holly Humbucker" id="contrast-text-field-13"
+      /></span>
+    </div>
+    <div class="ui-text-field">
+      <label class="ui-label" for="contrast-text-field-14">Affixes</label
       ><span class="ui-field"
-        ><input type="text" value="0.00" /><span class="ui-start">€</span
-        ><span class="ui-end">EUR</span></span
-      ></label
-    >
-    <label class="ui-text-field"
-      ><span class="ui-label">Required</span
+        ><input
+          type="text"
+          value="0.00"
+          aria-describedby="contrast-text-field-14-start contrast-text-field-14-end"
+          id="contrast-text-field-14"
+        /><span class="ui-start" id="contrast-text-field-14-start">€</span
+        ><span class="ui-end" id="contrast-text-field-14-end">EUR</span></span
+      >
+    </div>
+    <div class="ui-text-field">
+      <label class="ui-label" for="contrast-text-field-15">Required</label
       ><span class="ui-field"
         ><input
           type="text"
           required
-          aria-describedby="contrast-required-help" /></span
+          aria-describedby="contrast-required-help"
+          id="contrast-text-field-15" /></span
       ><span class="ui-end-text" id="contrast-required-help"
         >Supporting text below the field.</span
-      ></label
-    >
-    <label class="ui-text-field"
-      ><span class="ui-label">Invalid</span
+      >
+    </div>
+    <div class="ui-text-field">
+      <label class="ui-label" for="contrast-text-field-16">Invalid</label
       ><span class="ui-field"
         ><input
           type="text"
           value="Not an email"
           aria-invalid="true"
-          aria-describedby="contrast-invalid-help" /></span
+          aria-describedby="contrast-invalid-help"
+          id="contrast-text-field-16" /></span
       ><span class="ui-end-text" id="contrast-invalid-help"
         >Enter a valid email address.</span
-      ></label
-    >
-    <label class="ui-text-field"
-      ><span class="ui-label">Disabled</span
+      >
+    </div>
+    <div class="ui-text-field">
+      <label class="ui-label" for="contrast-text-field-17">Disabled</label
       ><span class="ui-field"
-        ><input type="text" value="Read only value" disabled /></span
-    ></label>
+        ><input
+          type="text"
+          value="Read only value"
+          disabled
+          id="contrast-text-field-17"
+      /></span>
+    </div>
     <div class="ui-select">
       <label class="ui-label" for="contrast-invalid-select"
         >Invalid select</label
@@ -920,17 +973,18 @@
         >Pick another option.</span
       >
     </div>
-    <label class="ui-textarea"
-      ><span class="ui-label">Notes</span
+    <div class="ui-textarea">
+      <label class="ui-label" for="contrast-textarea-1">Notes</label
       ><span class="ui-field">
         <textarea
           placeholder="Add a note…"
           aria-describedby="contrast-notes-help"
+          id="contrast-textarea-1"
         ></textarea></span
       ><span class="ui-end-text" id="contrast-notes-help"
         >Markdown supported.</span
-      ></label
-    >
+      >
+    </div>
     <label class="ui-range"
       ><span class="ui-label" id="contrast-range-label">Volume</span
       ><span class="ui-start-text" id="contrast-range-help">Drag to adjust</span
@@ -1606,17 +1660,18 @@
       <div class="ui-card ui-outlined">
         <div class="ui-content stress-stack">
           <p class="ui-overline">Outlined</p>
-          <label class="ui-text-field"
-            ><span class="ui-label">Field</span
+          <div class="ui-text-field">
+            <label class="ui-label" for="contrast-text-field-18">Field</label
             ><span class="ui-field"
               ><input
                 type="text"
                 placeholder="Placeholder"
-                aria-describedby="contrast-card-outlined-help" /></span
+                aria-describedby="contrast-card-outlined-help"
+                id="contrast-text-field-18" /></span
             ><span class="ui-end-text" id="contrast-card-outlined-help"
               >Helper text on a outlined card.</span
-            ></label
-          >
+            >
+          </div>
           <hr class="ui-divider" />
           <p>Muted text and <a class="ui-link" href="#">a link</a>.</p>
           <div class="stress-actions-end">
@@ -1630,17 +1685,18 @@
       <div class="ui-card ui-tonal">
         <div class="ui-content stress-stack">
           <p class="ui-overline">Tonal</p>
-          <label class="ui-text-field"
-            ><span class="ui-label">Field</span
+          <div class="ui-text-field">
+            <label class="ui-label" for="contrast-text-field-19">Field</label
             ><span class="ui-field"
               ><input
                 type="text"
                 placeholder="Placeholder"
-                aria-describedby="contrast-card-tonal-help" /></span
+                aria-describedby="contrast-card-tonal-help"
+                id="contrast-text-field-19" /></span
             ><span class="ui-end-text" id="contrast-card-tonal-help"
               >Helper text on a tonal card.</span
-            ></label
-          >
+            >
+          </div>
           <hr class="ui-divider" />
           <p>Muted text and <a class="ui-link" href="#">a link</a>.</p>
           <div class="stress-actions-end">
@@ -1654,17 +1710,18 @@
       <div class="ui-card ui-elevated">
         <div class="ui-content stress-stack">
           <p class="ui-overline">Elevated</p>
-          <label class="ui-text-field"
-            ><span class="ui-label">Field</span
+          <div class="ui-text-field">
+            <label class="ui-label" for="contrast-text-field-20">Field</label
             ><span class="ui-field"
               ><input
                 type="text"
                 placeholder="Placeholder"
-                aria-describedby="contrast-card-elevated-help" /></span
+                aria-describedby="contrast-card-elevated-help"
+                id="contrast-text-field-20" /></span
             ><span class="ui-end-text" id="contrast-card-elevated-help"
               >Helper text on a elevated card.</span
-            ></label
-          >
+            >
+          </div>
           <hr class="ui-divider" />
           <p>Muted text and <a class="ui-link" href="#">a link</a>.</p>
           <div class="stress-actions-end">
@@ -1776,11 +1833,15 @@
       aria-label="Palette scope"
     >
       <p class="ui-caption">.ui-palette inside .ui-contrast-more</p>
-      <label class="ui-text-field"
-        ><span class="ui-label">Field</span
+      <div class="ui-text-field">
+        <label class="ui-label" for="contrast-text-field-21">Field</label
         ><span class="ui-field"
-          ><input type="text" placeholder="Placeholder" /></span
-      ></label>
+          ><input
+            type="text"
+            placeholder="Placeholder"
+            id="contrast-text-field-21"
+        /></span>
+      </div>
       <div class="stress-actions-end">
         <button class="ui-button ui-primary ui-outlined" type="button">
           Outlined</button
@@ -1821,11 +1882,15 @@
     </section>
     <section class="ui-dark stress-contrast-scope" aria-label="Dark scope">
       <p class="ui-caption">.ui-dark inside .ui-contrast-more</p>
-      <label class="ui-text-field"
-        ><span class="ui-label">Field</span
+      <div class="ui-text-field">
+        <label class="ui-label" for="contrast-text-field-22">Field</label
         ><span class="ui-field"
-          ><input type="text" placeholder="Placeholder" /></span
-      ></label>
+          ><input
+            type="text"
+            placeholder="Placeholder"
+            id="contrast-text-field-22"
+        /></span>
+      </div>
       <div class="stress-actions-end">
         <button class="ui-button ui-critical ui-outlined" type="button">
           Outlined</button
@@ -1868,11 +1933,15 @@
   <div class="ui-dark stress-contrast-scope">
     <div class="ui-contrast-more stress-stack">
       <p class="ui-caption">.ui-contrast-more inside .ui-dark</p>
-      <label class="ui-text-field"
-        ><span class="ui-label">Field</span
+      <div class="ui-text-field">
+        <label class="ui-label" for="contrast-text-field-23">Field</label
         ><span class="ui-field"
-          ><input type="text" placeholder="Placeholder" /></span
-      ></label>
+          ><input
+            type="text"
+            placeholder="Placeholder"
+            id="contrast-text-field-23"
+        /></span>
+      </div>
       <div class="stress-actions-end">
         <button class="ui-button ui-primary ui-outlined" type="button">
           Outlined</button

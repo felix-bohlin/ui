@@ -1,7 +1,7 @@
 <script lang="ts">
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
-  import { idRefs } from "../id"
+  import { fieldDescribedBy } from "../id"
   import { initialValue, sameValue } from "./selection"
   import type { SelectItem } from "./types"
   import type { Props } from "./types.svelte"
@@ -54,13 +54,15 @@
   const topId = $derived(top ? `${base}-top` : undefined)
   const bottomId = $derived(bottom ? `${base}-bottom` : undefined)
   const describedBy = $derived(
-    idRefs(
-      startTextId,
-      topId,
-      startId,
-      endId,
-      bottomId,
-      endTextId,
+    fieldDescribedBy(
+      {
+        bottom: bottomId,
+        end: endId,
+        endText: endTextId,
+        start: startId,
+        startText: startTextId,
+        top: topId,
+      },
       rest["aria-describedby"],
     ),
   )

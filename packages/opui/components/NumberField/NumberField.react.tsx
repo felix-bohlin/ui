@@ -4,7 +4,7 @@ import { useEffect, useId } from "react"
 import { cx } from "../cx"
 import Button from "../Button/Button.react"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
-import { idRefs } from "../id"
+import { fieldDescribedBy } from "../id"
 import type { Props } from "./types.react"
 
 export default function NumberField({
@@ -92,7 +92,10 @@ export default function NumberField({
         </span>
         <input
           {...rest}
-          aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
+          aria-describedby={fieldDescribedBy(
+            { endText: endTextId, startText: startTextId },
+            ariaDescribedBy,
+          )}
           aria-invalid={error ? "true" : ariaInvalid}
           disabled={disabled}
           id={inputId}

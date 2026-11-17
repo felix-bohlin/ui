@@ -4,7 +4,7 @@ import { computed, inject, useId } from "vue"
 import { useInputAttrs, vSeed } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
-import { idRefs } from "../id"
+import { fieldDescribedBy } from "../id"
 import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -102,13 +102,15 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
       <textarea
         v-bind="attrs"
         :aria-describedby="
-          idRefs(
-            startTextId(),
-            topId(),
-            startId(),
-            endId(),
-            bottomId(),
-            endTextId(),
+          fieldDescribedBy(
+            {
+              bottom: bottomId(),
+              end: endId(),
+              endText: endTextId(),
+              start: startId(),
+              startText: startTextId(),
+              top: topId(),
+            },
             attrs['aria-describedby'],
           )
         "

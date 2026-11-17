@@ -3,7 +3,7 @@
 import { useId } from "react"
 import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
-import { idRefs } from "../id"
+import { fieldDescribedBy } from "../id"
 import type { Props } from "./types.react"
 
 export default function OneTimeCode({
@@ -62,7 +62,10 @@ export default function OneTimeCode({
           }
           spellCheck={spellCheck ?? (alphanumeric ? "false" : undefined)}
           {...rest}
-          aria-describedby={idRefs(endTextId, ariaDescribedBy)}
+          aria-describedby={fieldDescribedBy(
+            { endText: endTextId },
+            ariaDescribedBy,
+          )}
           aria-invalid={error ? "true" : ariaInvalid}
           aria-labelledby={ariaLabelledBy}
           autoComplete="one-time-code"

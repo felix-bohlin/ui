@@ -14,6 +14,7 @@ Chat bubbles that group by sender, with attachments, reactions and a typing indi
 
 ### Props and modifiers
 
+- `direct`: `boolean`, `.ui-direct`. A chat between two people: no message shows its author's name or avatar, since the chat's own title names the other person. Screen readers still hear the name.
 - `role`: `string`, default `"list"`. The `role` of the `<ol>`, such as `log` for a live conversation. `list` keeps Safari announcing a list.
 
 ### Slots

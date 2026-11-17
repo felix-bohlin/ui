@@ -1080,6 +1080,13 @@
     "url": "/svelte/components/drawer/#how-to-close"
   },
   {
+    "id": "component-drawer-svelte-swipe-to-close",
+    "title": "Swipe to close",
+    "page": "Drawer",
+    "category": "Component",
+    "url": "/svelte/components/drawer/#swipe-to-close"
+  },
+  {
     "id": "component-drawer-svelte-role-attributes",
     "title": "Role & attributes",
     "page": "Drawer",
@@ -1601,6 +1608,13 @@
     "page": "Message",
     "category": "Component",
     "url": "/svelte/components/message/#group-chat"
+  },
+  {
+    "id": "component-message-svelte-direct",
+    "title": "Direct",
+    "page": "Message",
+    "category": "Component",
+    "url": "/svelte/components/message/#direct"
   },
   {
     "id": "component-message-svelte-attachments",
@@ -4575,7 +4589,7 @@
     "id": "api-drawer-svelte",
     "title": "Drawer API",
     "description": "Reference for Drawer Svelte component.",
-    "api": "Drawer Container element. The header, a row for the title and anything next to it, with an optional close button. The title. Names the drawer through `aria-labelledby`. The scrollable content. The footer, a row at the end. backdrop The backdrop style. `transparent` keeps the page behind it fully visible. closedby How the drawer can be closed. `any` also closes it on a click outside. closeOnNavigate Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API. id The id of the `<dialog>`, which the trigger's `commandfor` points at. Required. scrollLock Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`. side The side it opens from.",
+    "api": "Drawer Container element. The header, a row for the title and anything next to it, with an optional close button. The title. Names the drawer through `aria-labelledby`. The scrollable content. The footer, a row at the end. backdrop The backdrop style. `transparent` keeps the page behind it fully visible. closedby How the drawer can be closed. `any` also closes it on a click outside. Swiping a drawer at the block start or end toward its edge is a close request too, so `none` turns it off. closeOnNavigate Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API. id The id of the `<dialog>`, which the trigger's `commandfor` points at. Required. scrollLock Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`. side The side it opens from.",
     "category": "API",
     "url": "/svelte/api/#drawer"
   },
@@ -4655,7 +4669,7 @@
     "id": "api-message-list-svelte",
     "title": "Message list API",
     "description": "Reference for Message list Svelte component.",
-    "api": "MessageList The conversation, an ordered list. A message. Consecutive messages on the same side group into a run. role The `role` of the `<ol>`, such as `log` for a live conversation. `list` keeps Safari announcing a list.",
+    "api": "MessageList The conversation, an ordered list. A message. Consecutive messages on the same side group into a run. direct A chat between two people: no message shows its author's name or avatar, since the chat's own title names the other person. Screen readers still hear the name. role The `role` of the `<ol>`, such as `log` for a live conversation. `list` keeps Safari announcing a list.",
     "category": "API",
     "url": "/svelte/api/#message-list"
   },

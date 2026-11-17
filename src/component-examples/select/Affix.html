@@ -1,6 +1,7 @@
 <div class="ui-select">
   <label class="ui-label" for="select-affix-1">Currency</label>
   <span class="ui-field">
+    <span class="ui-start" id="select-affix-1-start">¤</span>
     <select aria-describedby="select-affix-1-start" id="select-affix-1">
       <button inert>
         <selectedcontent></selectedcontent>
@@ -12,24 +13,12 @@
         <option>USD</option>
       </div>
     </select>
-    <span class="ui-start" id="select-affix-1-start">¤</span>
   </span>
 </div>
 
 <div class="ui-select">
   <label class="ui-label" for="select-affix-2">Country</label>
   <span class="ui-field">
-    <select aria-describedby="select-affix-2-start" id="select-affix-2">
-      <button inert>
-        <selectedcontent></selectedcontent>
-      </button>
-      <div class="ui-list">
-        <option value="">-</option>
-        <option>Denmark</option>
-        <option>Norway</option>
-        <option>Sweden</option>
-      </div>
-    </select>
     <span class="ui-start" id="select-affix-2-start">
       <svg
         data-icon="globe"
@@ -50,6 +39,17 @@
         ></path>
       </svg>
     </span>
+    <select aria-describedby="select-affix-2-start" id="select-affix-2">
+      <button inert>
+        <selectedcontent></selectedcontent>
+      </button>
+      <div class="ui-list">
+        <option value="">-</option>
+        <option>Denmark</option>
+        <option>Norway</option>
+        <option>Sweden</option>
+      </div>
+    </select>
   </span>
 </div>
 

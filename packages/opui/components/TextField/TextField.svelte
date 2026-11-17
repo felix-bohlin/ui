@@ -93,6 +93,16 @@
     </span>
   {/if}
   <span class="ui-field">
+    {#if top}
+      <span class="ui-top" id={topId}>
+        {@render content(top)}
+      </span>
+    {/if}
+    {#if start}
+      <span class="ui-start" id={startId}>
+        {@render content(start)}
+      </span>
+    {/if}
     <input
       {...rest}
       aria-describedby={idRefs(
@@ -113,11 +123,6 @@
       bind:value={getValue, setValue}
       defaultValue={defaultValue ?? initialValue}
     />
-    {#if start}
-      <span class="ui-start" id={startId}>
-        {@render content(start)}
-      </span>
-    {/if}
     {#if end || passwordToggle}
       <span class="ui-end" id={endId}>
         {@render content(end)}{#if passwordToggle}
@@ -158,11 +163,6 @@
             {/if}
           </Button>
         {/if}
-      </span>
-    {/if}
-    {#if top}
-      <span class="ui-top" id={topId}>
-        {@render content(top)}
       </span>
     {/if}
     {#if bottom}

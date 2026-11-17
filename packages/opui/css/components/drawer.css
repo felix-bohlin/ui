@@ -12,9 +12,12 @@
     --_ease: var(--ui-ease-exit);
     --_edge-border-color: var(--ui-border-color-raised, var(--_border-color));
     --_footer-padding: var(--ui-card-padding, var(--ui-space-3));
+    --_handle-border-color: var(--ui-border-color);
     --_header-padding: var(--ui-card-padding, var(--ui-space-3));
     --_inline-size: min(375px, 100vi);
     --_shadow: var(--ui-shadow-overlay);
+    --_swipe-offset: 0px;
+    --_swipe-progress: 0;
     --_text-color: var(--ui-text-strong);
     --ui-border-color: var(--ui-border-color-on-raised);
     --ui-divider-gap: var(--ui-space-3);
@@ -115,10 +118,46 @@
       padding-block-end: var(--ui-safe-area-inset-block-end);
     }
 
+    /* Swiping a drawer at the block start or end toward its edge closes it,
+       from its grab handle or header (elements/drawer-swipe.js). Vertical
+       pans stay with the script there; the content scrolls on its own. */
+    &:is(.ui-block-start, .ui-block-end):not([closedby="none" i]) {
+      touch-action: pan-x pinch-zoom;
+
+      /* The handle is a border, so forced colors keep it. */
+      @media (any-pointer: coarse) {
+        &.ui-block-end::before,
+        &.ui-block-start::after {
+          align-self: center;
+          block-size: 0;
+          border-block-start: var(--ui-space-1) solid
+            var(--_handle-border-color);
+          border-radius: var(--ui-radius-round);
+          content: "";
+          flex: none;
+          inline-size: var(--ui-space-7);
+          margin-block: var(--ui-space-2);
+        }
+
+        &.ui-block-end::before {
+          margin-block-end: 0;
+        }
+
+        &.ui-block-start::after {
+          margin-block-start: 0;
+        }
+      }
+    }
+
     &[open] {
       --_ease: var(--ui-ease-enter);
 
-      translate: 0 0;
+      translate: 0 var(--_swipe-offset);
+
+      /* The backdrop fades as the drawer is swiped away. */
+      &::backdrop {
+        opacity: calc(1 - var(--_swipe-progress));
+      }
 
       @starting-style {
         translate: var(--_closed-translate);

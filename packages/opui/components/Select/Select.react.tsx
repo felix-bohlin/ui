@@ -83,6 +83,16 @@ export default function Select({
         </span>
       )}
       <span className="ui-field">
+        {top && (
+          <span className="ui-top" id={topId}>
+            {top}
+          </span>
+        )}
+        {start && (
+          <span className="ui-start" id={startId}>
+            {start}
+          </span>
+        )}
         <select
           {...rest}
           aria-describedby={describedBy}
@@ -114,19 +124,9 @@ export default function Select({
             {children}
           </div>
         </select>
-        {start && (
-          <span className="ui-start" id={startId}>
-            {start}
-          </span>
-        )}
         {end && (
           <span className="ui-end" id={endId}>
             {end}
-          </span>
-        )}
-        {top && (
-          <span className="ui-top" id={topId}>
-            {top}
           </span>
         )}
         {bottom && (

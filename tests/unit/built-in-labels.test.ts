@@ -101,3 +101,10 @@ test("every entry in the Built-in labels list is a default label the package has
     "remove these from src/utils/built-in-labels.ts, or fix their default",
   ).toEqual([])
 })
+
+test("the list is sorted by component, then prop", () => {
+  const keys = builtInLabels.map(
+    ({ component, prop }) => `${component} ${prop}`,
+  )
+  expect(keys).toEqual(keys.toSorted())
+})

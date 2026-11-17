@@ -1610,6 +1610,13 @@
     "url": "/html/components/message/#group-chat"
   },
   {
+    "id": "component-message-html-direct",
+    "title": "Direct",
+    "page": "Message",
+    "category": "Component",
+    "url": "/html/components/message/#direct"
+  },
+  {
     "id": "component-message-html-attachments",
     "title": "Attachments",
     "page": "Message",
@@ -4669,7 +4676,7 @@
     "id": "api-message-list-html",
     "title": "Message list API",
     "description": "Reference for Message list HTML component.",
-    "api": "ol.ui-message-list The conversation, an ordered list. A message. Consecutive messages on the same side group into a run. li.ui-message",
+    "api": "ol.ui-message-list The conversation, an ordered list. A message. Consecutive messages on the same side group into a run. li.ui-message .ui-direct Direct A chat between two people: no message shows its author's name or avatar, since the chat's own title names the other person. Screen readers still hear the name.",
     "category": "API",
     "url": "/html/api/#message-list"
   },

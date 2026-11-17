@@ -8,6 +8,14 @@ export default {
   },
   options: [
     {
+      class: ".ui-direct",
+      default: "false",
+      description:
+        "A chat between two people: no message shows its author's name or avatar, since the chat's own title names the other person. Screen readers still hear the name.",
+      group: "Direct",
+      prop: "direct",
+    },
+    {
       default: '"list"',
       description:
         "The `role` of the `<ol>`, such as `log` for a live conversation. `list` keeps Safari announcing a list.",

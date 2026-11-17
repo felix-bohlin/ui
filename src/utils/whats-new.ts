@@ -1123,7 +1123,7 @@ export const whatsNew = {
   select: [
     {
       default: `Breaking: the root is a <code>&lt;div&gt;</code> with a <code>&lt;label for&gt;</code> inside. The label alone <a href="#accessibility">names the select</a>, and the affixes describe it with the start and end text, so they're read after the name. A click on them no longer opens the select.`,
-      html: `Breaking: give the root <code>&lt;div class="ui-select"&gt;</code> a <code>&lt;label class="ui-label" for&gt;</code> that <a href="#accessibility">names the select</a> alone, and describe it with the affixes and the start and end text through <code>aria-describedby</code>.`,
+      html: `Breaking: give the root <code>&lt;div class="ui-select"&gt;</code> a <code>&lt;label class="ui-label" for&gt;</code> that <a href="#accessibility">names the select</a> alone, and describe it with the affixes and the start and end text through <code>aria-describedby</code>. Mark the select's <code>&lt;button&gt;</code> <code>inert</code>, so the select alone takes clicks, focus and the name.`,
     },
     `A <code>Button</code> in the <a href="#affix">start or end</a> fits the field, a little inside its border, and Tab reaches the start, top, end and bottom in the order they're drawn, where the browser supports <code>reading-flow</code>.`,
     `The picker marks the <a href="#preselected">selected option</a> with a check at the end, which <code>--ui-icon-check</code> changes.`,

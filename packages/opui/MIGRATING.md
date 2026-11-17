@@ -1090,7 +1090,7 @@ Astro and Vue generate an `id` for the select only when the label points at it. 
 
 In Astro and Vue, `style` goes to the root instead of the `<select>`, like `class`. Set `--_` properties through `style`, and style the select itself with a class or CSS.
 
-Same as Text field: the root is a `<div>` with a `<label for>` inside, instead of a `<label>`, the label alone names the select, and the start and end text, the affixes and the `top` and `bottom` parts describe it. A click on those parts no longer opens the select. Target `.ui-select` instead of `label.ui-select`, and in HTML give the select an `id` for the label's `for`.
+Same as Text field: the root is a `<div>` with a `<label for>` inside, instead of a `<label>`, the label alone names the select, and the start and end text, the affixes and the `top` and `bottom` parts describe it. A click on those parts no longer opens the select. Target `.ui-select` instead of `label.ui-select`, and in HTML give the select an `id` for the label's `for` and mark its `<button>` `inert`, so the select alone takes clicks, focus and the name.
 
 With `spread`, label and field split the container into equal columns. Selects keep a `12ch` minimum width in table cells, and the arrow is a chevron instead of a triangle.
 

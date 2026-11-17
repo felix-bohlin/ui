@@ -35,7 +35,7 @@ selectedcontent {
 <div class="field">
   <label for="fruit">Fruit</label>
   <select class="select" id="fruit">
-    <button>
+    <button inert>
       <selectedcontent></selectedcontent>
     </button>
     <div class="list">
@@ -47,7 +47,7 @@ selectedcontent {
     notes: [
       "<code>appearance: base-select</code> on the select and its picker opts in to the stylable version",
       "Only a select with a <code>&lt;button&gt;</code> opts in, a plain one stays native",
-      "The <code>&lt;button&gt;</code> is the trigger, <code>&lt;selectedcontent&gt;</code> mirrors the chosen option",
+      "The <code>&lt;button&gt;</code> shows the chosen option, which <code>&lt;selectedcontent&gt;</code> mirrors, and <code>inert</code> leaves clicks, focus and the name to the select",
       "Browsers without support ignore the button and render a native select",
     ],
     title: "Base select",
@@ -175,7 +175,7 @@ const fruits = ["Apple", "Banana", "Cherry", "Mango", "Pear"]
   <div class="field">
     <label for="build-select-fruit">Fruit</label>
     <select class="select" id="build-select-fruit" name="build-select-fruit">
-      <button>
+      <button inert>
         <selectedcontent></selectedcontent>
       </button>
       <div class="list">

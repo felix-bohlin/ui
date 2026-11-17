@@ -99,7 +99,7 @@ const selectId = hasLabel ? ids() : id
       id={selectId}
       name={name ?? field?.name}
     >
-      <button>
+      <button inert>
         <SelectedContent />
       </button>
       <div class:list={["ui-list", { "ui-dense": dense }]}>

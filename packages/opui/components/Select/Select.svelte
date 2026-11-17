@@ -106,7 +106,7 @@
       id={selectId}
       name={name ?? field?.name}
     >
-      <button>
+      <button inert>
         <selectedcontent></selectedcontent>
       </button>
       <div class={["ui-list", { "ui-dense": dense }]}>

@@ -31,6 +31,7 @@ const sources = import.meta.glob<string>(
   "../../src/component-examples/**/*.{astro,html,react.tsx,solid.tsx,svelte,vue}",
   { eager: true, import: "default", query: "?raw" },
 )
+const blocks = import.meta.glob("../../src/blocks/*/*.astro")
 const apis = import.meta.glob<ComponentApi>(
   "../../src/component-api/*/api.ts",
   { eager: true, import: "default" },
@@ -983,11 +984,18 @@ describe("generated examples", () => {
   })
 
   test("every example has its generated files", () => {
-    const expected = keys.flatMap((key) =>
-      generatedTargets(key, handWritten).map(
-        (framework) => `src/component-examples/${key}${TARGETS[framework]}`,
+    const expected = [
+      ...Object.keys(blocks).flatMap((path) =>
+        Object.values(TARGETS).map((extension) =>
+          path.replace("../../", "").replace(/\.astro$/, extension),
+        ),
       ),
-    )
+      ...keys.flatMap((key) =>
+        generatedTargets(key, handWritten).map(
+          (framework) => `src/component-examples/${key}${TARGETS[framework]}`,
+        ),
+      ),
+    ]
     expect([...all.outputs.keys()].toSorted()).toEqual(expected.toSorted())
   })
 
@@ -1297,6 +1305,23 @@ describe("stale files", () => {
       astroSourceOf("src/component-examples/button/Sizes.astro", read),
     ).toBe(undefined)
     expect(astroSourceOf("README.md", read)).toBe(undefined)
+  })
+
+  test("a block's generated file maps to its Astro file", () => {
+    const read = (file: string) =>
+      file === "src/blocks/sign-in/SignIn.astro" ? "" : undefined
+    expect(astroSourceOf("src/blocks/sign-in/SignIn.react.tsx", read)).toBe(
+      "src/blocks/sign-in/SignIn.astro",
+    )
+    expect(astroSourceOf("src/blocks/gone/Gone.html", read)).toBe(undefined)
+    expect(
+      staleProblems(
+        new Map([["src/blocks/sign-in/SignIn.vue", "new"]]),
+        () => "old",
+      ),
+    ).toEqual([
+      "src/blocks/sign-in/SignIn.vue is stale: edit src/blocks/sign-in/SignIn.astro and run pnpm build-examples",
+    ])
   })
 })
 

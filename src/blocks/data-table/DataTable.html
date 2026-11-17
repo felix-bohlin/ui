@@ -1,0 +1,664 @@
+<div
+  class="data-table ui-layout-container ui-layout-column ui-large"
+  style="--_max-inline-size: 80rem"
+>
+  <div class="ui-layout-row ui-spread">
+    <hgroup class="ui-hgroup">
+      <p>Admin corner</p>
+      <h1 class="ui-h3">Members</h1>
+      <p>128 bassists, 94 of them on a paid plan. Woohoo!</p>
+    </hgroup>
+    <div class="ui-layout-row ui-small">
+      <button class="ui-button ui-outlined" type="button">
+        <svg
+          data-icon="download"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M5 20h14v-2H5zM19 9h-4V3H9v6H5l7 7z"
+          ></path>
+        </svg>
+        <span class="ui-text">Export</span>
+      </button>
+      <button class="ui-button ui-filled" type="button">
+        <svg
+          data-icon="add"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+          ></path>
+        </svg>
+        <span class="ui-text">Add member</span>
+      </button>
+    </div>
+  </div>
+  <div class="ui-field-group ui-horizontal" role="search">
+    <div class="ui-text-field">
+      <label class="ui-sr-only" for="data-table-q">Search members</label>
+      <span class="ui-field">
+        <span class="ui-start" id="data-table-q-start">
+          <svg
+            data-icon="search"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"
+            ></path>
+          </svg>
+        </span>
+        <input
+          placeholder="Search by name or email"
+          aria-describedby="data-table-q-start"
+          id="data-table-q"
+          name="q"
+          type="search"
+        />
+      </span>
+    </div>
+    <div class="ui-select">
+      <label class="ui-sr-only" for="data-table-status">Status</label>
+      <span class="ui-field">
+        <select id="data-table-status" name="status">
+          <button inert>
+            <selectedcontent></selectedcontent>
+          </button>
+          <div class="ui-list">
+            <option value="">All statuses</option>
+            <option value="active">Active</option>
+            <option value="on-break">On a break</option>
+            <option value="past-due">Past due</option>
+            <option value="trial">Trial</option>
+          </div>
+        </select>
+      </span>
+    </div>
+    <div class="ui-select">
+      <label class="ui-sr-only" for="data-table-plan">Plan</label>
+      <span class="ui-field">
+        <select id="data-table-plan" name="plan">
+          <button inert>
+            <selectedcontent></selectedcontent>
+          </button>
+          <div class="ui-list">
+            <option value="">All plans</option>
+            <option value="platinum">Platinum</option>
+            <option value="silver">Silver</option>
+            <option value="gold">Gold</option>
+          </div>
+        </select>
+      </span>
+    </div>
+  </div>
+  <div class="ui-layout-row ui-small ui-spread data-table-bulk">
+    <p>2 members selected</p>
+    <div class="ui-layout-row ui-x-small">
+      <button class="ui-button ui-small" type="button">Send a poke</button>
+      <button class="ui-button ui-small" type="button">Export</button>
+      <button class="ui-button ui-critical ui-small" type="button">
+        Delete
+      </button>
+    </div>
+  </div>
+  <opui-select-all class="ui-select-all">
+    <opui-sortable-table class="ui-sortable-table">
+      <table class="ui-table ui-flush ui-overflow-scroll" tabindex="0">
+        <caption class="ui-sr-only">
+          Members
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">
+              <label class="ui-checkbox">
+                <input type="checkbox" name="data-table-all" data-select-all />
+                <span class="ui-sr-only">Select all members</span>
+              </label>
+            </th>
+            <th data-sort aria-sort="ascending" scope="col">
+              <button type="button">Member</button>
+            </th>
+            <th data-sort scope="col">
+              <button type="button">Plan</button>
+            </th>
+            <th data-sort scope="col">
+              <button type="button">Status</button>
+            </th>
+            <th class="ui-numeric" data-sort scope="col">
+              <button type="button">Points</button>
+            </th>
+            <th data-sort scope="col">
+              <button type="button">Joined</button>
+            </th>
+            <th class="data-table-actions" scope="col">
+              <span class="ui-sr-only">Actions</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <label class="ui-checkbox">
+                <input
+                  type="checkbox"
+                  name="data-table-row"
+                  checked
+                  value="holly"
+                />
+                <span class="ui-sr-only">Select Holly Humbucker</span>
+              </label>
+            </td>
+            <td data-sort-value="Holly Humbucker">
+              <div class="ui-layout-media ui-small">
+                <div class="ui-avatar" aria-hidden="true">HH</div>
+                <div>
+                  <p class="data-table-person">Holly Humbucker</p>
+                  <p class="ui-caption">holly@humbucker.example</p>
+                </div>
+              </div>
+            </td>
+            <td>Gold</td>
+            <td>
+              <span class="ui-chip ui-dot ui-info ui-small">
+                <span class="ui-text">Trial</span>
+              </span>
+            </td>
+            <td class="ui-numeric" data-sort-value="120">120</td>
+            <td data-sort-value="2026-09-28">28 Sep 2026</td>
+            <td class="data-table-actions">
+              <button
+                class="ui-button ui-round ui-small"
+                type="button"
+                aria-label="Actions for Holly Humbucker"
+                command="toggle-popover"
+                commandfor="data-table-menu-holly"
+              >
+                <svg
+                  data-icon="more-vertical"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                  ></path>
+                </svg>
+              </button>
+              <menu
+                class="ui-menu ui-align-end"
+                id="data-table-menu-holly"
+                popover
+              >
+                <li>
+                  <a href="#data-table-holly">
+                    <div class="ui-text">
+                      <p>View profile</p>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    command="hide-popover"
+                    commandfor="data-table-menu-holly"
+                  >
+                    <div class="ui-text">
+                      <p>Change plan</p>
+                    </div>
+                  </button>
+                </li>
+                <li class="ui-border-top ui-critical">
+                  <button
+                    type="button"
+                    command="hide-popover"
+                    commandfor="data-table-menu-holly"
+                  >
+                    <div class="ui-text">
+                      <p>Delete</p>
+                    </div>
+                  </button>
+                </li>
+              </menu>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="ui-checkbox">
+                <input type="checkbox" name="data-table-row" value="ines" />
+                <span class="ui-sr-only">Select Ines Hertz</span>
+              </label>
+            </td>
+            <td data-sort-value="Ines Hertz">
+              <div class="ui-layout-media ui-small">
+                <div class="ui-avatar" aria-hidden="true">IH</div>
+                <div>
+                  <p class="data-table-person">Ines Hertz</p>
+                  <p class="ui-caption">ines@hertz.example</p>
+                </div>
+              </div>
+            </td>
+            <td>Gold</td>
+            <td>
+              <span class="ui-chip ui-dot ui-neutral ui-small">
+                <span class="ui-text">On a break</span>
+              </span>
+            </td>
+            <td class="ui-numeric" data-sort-value="1840">1 840</td>
+            <td data-sort-value="2025-11-22">22 Nov 2025</td>
+            <td class="data-table-actions">
+              <button
+                class="ui-button ui-round ui-small"
+                type="button"
+                aria-label="Actions for Ines Hertz"
+                command="toggle-popover"
+                commandfor="data-table-menu-ines"
+              >
+                <svg
+                  data-icon="more-vertical"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                  ></path>
+                </svg>
+              </button>
+              <menu
+                class="ui-menu ui-align-end"
+                id="data-table-menu-ines"
+                popover
+              >
+                <li>
+                  <a href="#data-table-ines">
+                    <div class="ui-text">
+                      <p>View profile</p>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    command="hide-popover"
+                    commandfor="data-table-menu-ines"
+                  >
+                    <div class="ui-text">
+                      <p>Change plan</p>
+                    </div>
+                  </button>
+                </li>
+                <li class="ui-border-top ui-critical">
+                  <button
+                    type="button"
+                    command="hide-popover"
+                    commandfor="data-table-menu-ines"
+                  >
+                    <div class="ui-text">
+                      <p>Delete</p>
+                    </div>
+                  </button>
+                </li>
+              </menu>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="ui-checkbox">
+                <input
+                  type="checkbox"
+                  name="data-table-row"
+                  checked
+                  value="lou"
+                />
+                <span class="ui-sr-only">Select Lou Headstock</span>
+              </label>
+            </td>
+            <td data-sort-value="Lou Headstock">
+              <div class="ui-layout-media ui-small">
+                <div class="ui-avatar" aria-hidden="true">LH</div>
+                <div>
+                  <p class="data-table-person">Lou Headstock</p>
+                  <p class="ui-caption">lou@headstock.example</p>
+                </div>
+              </div>
+            </td>
+            <td>Gold</td>
+            <td>
+              <span class="ui-chip ui-dot ui-success ui-small">
+                <span class="ui-text">Active</span>
+              </span>
+            </td>
+            <td class="ui-numeric" data-sort-value="4800">4 800</td>
+            <td data-sort-value="2026-03-03">3 Mar 2026</td>
+            <td class="data-table-actions">
+              <button
+                class="ui-button ui-round ui-small"
+                type="button"
+                aria-label="Actions for Lou Headstock"
+                command="toggle-popover"
+                commandfor="data-table-menu-lou"
+              >
+                <svg
+                  data-icon="more-vertical"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                  ></path>
+                </svg>
+              </button>
+              <menu
+                class="ui-menu ui-align-end"
+                id="data-table-menu-lou"
+                popover
+              >
+                <li>
+                  <a href="#data-table-lou">
+                    <div class="ui-text">
+                      <p>View profile</p>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    command="hide-popover"
+                    commandfor="data-table-menu-lou"
+                  >
+                    <div class="ui-text">
+                      <p>Change plan</p>
+                    </div>
+                  </button>
+                </li>
+                <li class="ui-border-top ui-critical">
+                  <button
+                    type="button"
+                    command="hide-popover"
+                    commandfor="data-table-menu-lou"
+                  >
+                    <div class="ui-text">
+                      <p>Delete</p>
+                    </div>
+                  </button>
+                </li>
+              </menu>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="ui-checkbox">
+                <input type="checkbox" name="data-table-row" value="percy" />
+                <span class="ui-sr-only">Select Percy Groove</span>
+              </label>
+            </td>
+            <td data-sort-value="Percy Groove">
+              <div class="ui-layout-media ui-small">
+                <div class="ui-avatar" aria-hidden="true">PG</div>
+                <div>
+                  <p class="data-table-person">Percy Groove</p>
+                  <p class="ui-caption">percy@groove.example</p>
+                </div>
+              </div>
+            </td>
+            <td>Silver</td>
+            <td>
+              <span class="ui-chip ui-dot ui-warning ui-small">
+                <span class="ui-text">Past due</span>
+              </span>
+            </td>
+            <td class="ui-numeric" data-sort-value="490">490</td>
+            <td data-sort-value="2026-05-19">19 May 2026</td>
+            <td class="data-table-actions">
+              <button
+                class="ui-button ui-round ui-small"
+                type="button"
+                aria-label="Actions for Percy Groove"
+                command="toggle-popover"
+                commandfor="data-table-menu-percy"
+              >
+                <svg
+                  data-icon="more-vertical"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                  ></path>
+                </svg>
+              </button>
+              <menu
+                class="ui-menu ui-align-end"
+                id="data-table-menu-percy"
+                popover
+              >
+                <li>
+                  <a href="#data-table-percy">
+                    <div class="ui-text">
+                      <p>View profile</p>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    command="hide-popover"
+                    commandfor="data-table-menu-percy"
+                  >
+                    <div class="ui-text">
+                      <p>Change plan</p>
+                    </div>
+                  </button>
+                </li>
+                <li class="ui-border-top ui-critical">
+                  <button
+                    type="button"
+                    command="hide-popover"
+                    commandfor="data-table-menu-percy"
+                  >
+                    <div class="ui-text">
+                      <p>Delete</p>
+                    </div>
+                  </button>
+                </li>
+              </menu>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="ui-checkbox">
+                <input type="checkbox" name="data-table-row" value="rory" />
+                <span class="ui-sr-only">Select Rory Rootnote</span>
+              </label>
+            </td>
+            <td data-sort-value="Rory Rootnote">
+              <div class="ui-layout-media ui-small">
+                <div class="ui-avatar" aria-hidden="true">RR</div>
+                <div>
+                  <p class="data-table-person">Rory Rootnote</p>
+                  <p class="ui-caption">rory@lowend.example</p>
+                </div>
+              </div>
+            </td>
+            <td>Platinum</td>
+            <td>
+              <span class="ui-chip ui-dot ui-success ui-small">
+                <span class="ui-text">Active</span>
+              </span>
+            </td>
+            <td class="ui-numeric" data-sort-value="9120">9 120</td>
+            <td data-sort-value="2026-01-12">12 Jan 2026</td>
+            <td class="data-table-actions">
+              <button
+                class="ui-button ui-round ui-small"
+                type="button"
+                aria-label="Actions for Rory Rootnote"
+                command="toggle-popover"
+                commandfor="data-table-menu-rory"
+              >
+                <svg
+                  data-icon="more-vertical"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                  ></path>
+                </svg>
+              </button>
+              <menu
+                class="ui-menu ui-align-end"
+                id="data-table-menu-rory"
+                popover
+              >
+                <li>
+                  <a href="#data-table-rory">
+                    <div class="ui-text">
+                      <p>View profile</p>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    command="hide-popover"
+                    commandfor="data-table-menu-rory"
+                  >
+                    <div class="ui-text">
+                      <p>Change plan</p>
+                    </div>
+                  </button>
+                </li>
+                <li class="ui-border-top ui-critical">
+                  <button
+                    type="button"
+                    command="hide-popover"
+                    commandfor="data-table-menu-rory"
+                  >
+                    <div class="ui-text">
+                      <p>Delete</p>
+                    </div>
+                  </button>
+                </li>
+              </menu>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <span class="ui-sr-only" role="status"></span>
+    </opui-sortable-table>
+  </opui-select-all>
+  <div class="ui-layout-row ui-spread">
+    <p>Showing 1–5 of 128 members</p>
+    <nav aria-label="Pagination">
+      <div class="ui-control-group ui-small ui-outlined" role="group">
+        <a
+          class="ui-button"
+          aria-disabled="true"
+          role="link"
+          aria-label="Previous page"
+        >
+          <svg
+            data-icon="chevron-left"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+            ></path>
+          </svg>
+        </a>
+        <a class="ui-button" href="#data-table-page-1" aria-current="page">1</a>
+        <a class="ui-button" href="#data-table-page-2">2</a>
+        <a class="ui-button" href="#data-table-page-3">3</a>
+        <a class="ui-button" href="#data-table-page-22">22</a>
+        <a class="ui-button" href="#data-table-page-2" aria-label="Next page">
+          <svg
+            data-icon="chevron-right"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+            ></path>
+          </svg>
+        </a>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<style>
+  .data-table {
+    .data-table-bulk {
+      border: var(--ui-border-width) solid var(--ui-border-color);
+      border-radius: var(--ui-radius);
+      padding: var(--ui-space-2) var(--ui-space-3);
+
+      p {
+        font-weight: var(--ui-font-weight-semibold);
+      }
+    }
+
+    &:not(:has(tbody :checked)) .data-table-bulk {
+      display: none;
+    }
+
+    tbody tr:has(:checked) > * {
+      background-color: oklch(from var(--ui-primary) l c h / 8%);
+    }
+
+    .data-table-person {
+      font-weight: var(--ui-font-weight-medium);
+    }
+
+    .data-table-actions {
+      text-align: end;
+    }
+  }
+</style>
+
+<script type="module">
+  import "opui-css/elements/select-all.js"
+  import "opui-css/elements/sortable-table.js"
+</script>

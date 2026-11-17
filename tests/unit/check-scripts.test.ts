@@ -499,6 +499,15 @@ describe("check-colors", () => {
       [],
     )
     expect(colorProblems("notes.txt", "#fff")).toEqual([])
+    expect(
+      colorProblems(
+        "src/component-examples/button/Colors.react.tsx",
+        "<a>#2482</a>",
+      ),
+    ).toEqual([])
+    expect(
+      colorProblems("src/component-examples/button/Gone.react.tsx", "#2482"),
+    ).toEqual(["src/component-examples/button/Gone.react.tsx:1: #2482"])
     expect(colorProblems("docs/notes.md", "PR `#418`")).toEqual([
       "docs/notes.md:1: #418",
     ])

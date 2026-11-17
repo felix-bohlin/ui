@@ -1,6 +1,6 @@
 # The example and component generators
 
-`pnpm build-examples` (`scripts/build-examples.mjs`) renders every `.astro` example in `src/component-examples/` and writes its HTML, React, Solid, Svelte and Vue files. It refuses what it can't convert: every unsupported construct throws an error that names the file and the construct, and nothing is guessed. The output is checked against the Astro render, never against the generator itself.
+`pnpm build-examples` (`scripts/build-examples.mjs`) renders every `.astro` example in `src/component-examples/` and every block in `src/blocks/` and writes its HTML, React, Solid, Svelte and Vue files. It refuses what it can't convert: every unsupported construct throws an error that names the file and the construct, and nothing is guessed. The output is checked against the Astro render, never against the generator itself.
 
 ## Modules
 

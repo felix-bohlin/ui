@@ -260,7 +260,9 @@ const classTokens = (lists) =>
       [
         ...items
           .join(" ")
-          .matchAll(/ui-\$\{(?:props\.)?(\w+)|ui-[\w-]+|\bclassName\b/g),
+          .matchAll(
+            /ui-\$\{(?:props\.|\w+\(\)\.)?(\w+)|ui-[\w-]+|\bclassName\b/g,
+          ),
       ]
         .map(([token, name]) => (name ? `ui-\${${name}}` : token))
         .join(" "),

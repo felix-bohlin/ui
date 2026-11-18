@@ -135,15 +135,20 @@ export default function Select(props: Props) {
             <selectedcontent />
           </button>
           <div class={["ui-list", { "ui-dense": props.dense }]}>
-            <For each={items()}>
-              {(item) => (
-                <option
-                  selected={isSelected(item) || undefined}
-                  value={item.value}
-                >
-                  {item.label}
-                </option>
-              )}
+            <For each={items()} keyed={(item) => item.value}>
+              {(item) => {
+                const initialItemSelected = untrack(
+                  () => isSelected(item()) || undefined,
+                )
+                return (
+                  <option
+                    defaultSelected={initialItemSelected}
+                    value={item().value}
+                  >
+                    {item().label}
+                  </option>
+                )
+              }}
             </For>
             {props.children}
           </div>

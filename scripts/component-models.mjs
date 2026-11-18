@@ -129,7 +129,7 @@ export const MODEL_KINDS = {
     solid: {
       body: (model, rewrite) => [
         "const [inner, setInner] = createSignal(untrack(() => props.defaultValue))",
-        `const change = (input: HTMLInputElement) => {\n  const next = ${rewrite(model.read)}\n  if (inner() !== undefined) setInner(next)\n  props.onValueChange?.(next${arrayRead(model) ? " as never" : ""})\n}`,
+        `const change = (input: HTMLInputElement) => {\n  const next = ${rewrite(model.read)}\n  if (inner() !== undefined) setInner(next)\n  props.onValueChange?.(next${arrayRead(model) ? " as never" : ""})\n  restoreChecked(input, () => props.${model.prop})\n}`,
       ],
       entries: () => ["defaultValue", "onValueChange"],
       imports: selectionImports,
@@ -142,6 +142,7 @@ export const MODEL_KINDS = {
             : entry,
         ),
       ],
+      solidHelpers: () => ["restoreChecked"],
       solidValues: () => ["createSignal", "untrack"],
       tiedCallbacks: true,
     },
@@ -184,13 +185,13 @@ export const MODEL_KINDS = {
       entries: () => ["defaultValue", "onValueChange"],
       radioAttributes: (model, value, checked, initial) => [
         `{...checkedProps(props.${model.prop} === undefined ? undefined : ${checked}, ${initial})}`,
-        `onChange={() => props.onValueChange?.(${value})}`,
-        `ref={seedChecked(() => props.onValueChange?.(${value}))}`,
+        `onChange={(event) => {\n  props.onValueChange?.(${value})\n  restoreChecked(event.currentTarget, () => props.${model.prop})\n}}`,
+        `ref={seedChecked((input) => {\n  props.onValueChange?.(${value})\n  restoreChecked(input, () => props.${model.prop})\n})}`,
       ],
       rename: (model) => [
         [model.local, `props.${model.prop} ?? props.defaultValue`],
       ],
-      solidHelpers: () => ["checkedProps", "seedChecked"],
+      solidHelpers: () => ["checkedProps", "restoreChecked", "seedChecked"],
     },
     svelte: {
       bindables: (model) => [model.prop],

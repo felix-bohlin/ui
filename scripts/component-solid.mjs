@@ -27,6 +27,7 @@ import {
   filtersSpread,
   identifierCounts,
   identifiersIn,
+  isBlank,
   isIdentifierName,
   slotsUsedIn,
   sourceFileOf,
@@ -62,6 +63,34 @@ const parameterNames = (text) => {
     arrow.parameters.forEach((parameter) => collect(parameter.name))
   }
   return names
+}
+
+const itemBinding = (text) => {
+  const [statement] = sourceFileOf(`(${text}) => 0`, "item.ts").statements
+  const arrow =
+    statement && ts.isExpressionStatement(statement)
+      ? statement.expression
+      : undefined
+  const name =
+    arrow && ts.isArrowFunction(arrow) ? arrow.parameters[0]?.name : undefined
+  if (!name) return undefined
+  if (ts.isIdentifier(name)) return { fields: [], name: name.text }
+  if (!ts.isObjectBindingPattern(name)) return undefined
+  const fields = []
+  let rest
+  for (const element of name.elements) {
+    const key = element.propertyName ?? element.name
+    if (
+      element.initializer ||
+      !ts.isIdentifier(element.name) ||
+      !ts.isIdentifier(key)
+    ) {
+      return undefined
+    }
+    if (element.dotDotDotToken) rest = element.name.text
+    else fields.push({ key: key.text, local: element.name.text })
+  }
+  return { fields, rest }
 }
 
 const isCondition = (code) => {
@@ -316,6 +345,7 @@ export const toSolid = (component) => {
   ]
   let usesChildren = false
   let usesFor = false
+  let usesOmit = false
   let usesShow = false
   let usesCx = false
   let usesDefined = false
@@ -392,19 +422,25 @@ export const toSolid = (component) => {
       : []),
   ]
   const hoistedNames = new Set()
-  const declare = (scope, bases, code, line) => {
-    const known = scope.hoisted.find((entry) => entry.code === code)
-    if (known) return known.name
+  const freeName = (scope, bases, used = []) => {
     const names = scope.names ?? hoistedNames
     const free = (name) =>
       !isReserved(name) &&
       !taken.has(name) &&
       !names.has(name) &&
+      !used.includes(name) &&
       !scope.shadowed?.includes(name)
     let name = bases.find(free)
     for (let count = 2; !name; count += 1) {
       if (free(`${bases[0]}${count}`)) name = `${bases[0]}${count}`
     }
+    return name
+  }
+  const declare = (scope, bases, code, line) => {
+    const known = scope.hoisted.find((entry) => entry.code === code)
+    if (known) return known.name
+    const name = freeName(scope, bases)
+    const names = scope.names ?? hoistedNames
     names.add(name)
     scope.hoisted.push({ code, line: line(name), name })
     return name
@@ -415,21 +451,23 @@ export const toSolid = (component) => {
       [
         shortName(entry.name),
         `${node.tag[0].toLowerCase()}${node.tag.slice(1)}${capitalize(shortName(entry.name))}`,
+        ...(scope.loop ? [`item${capitalize(shortName(entry.name))}`] : []),
       ],
       code,
       (name) => `const ${name} = () => ${code}`,
     )
   let usesInitial = false
-  const initialChecked = (code, scope) => {
+  const initialState = (state, code, scope) => {
     usesInitial = true
     const initial = `untrack(() => ${code})`
     return declare(
       scope,
-      ["initialChecked"],
+      [`initial${scope.loop ? "Item" : ""}${capitalize(state)}`],
       initial,
       (name) => `const ${name} = ${initial}`,
     )
   }
+  const initialChecked = (code, scope) => initialState("checked", code, scope)
   const attribute = (node, entry, scope) => {
     if (entry.kind === "class") {
       const only = onlyClass(entry.code)
@@ -467,6 +505,9 @@ export const toSolid = (component) => {
     if (entry.kind === "static") return jsxAttribute(entry.name, entry.value)
     if (entry.kind === "boolean") return entry.name
     const code = rewrite(entry.code, scope)
+    if (node.tag === "option" && entry.name === "selected") {
+      return `defaultSelected={${initialState("selected", code, scope)}}`
+    }
     if (
       (node.component || node.variable) &&
       isCondition(code) &&
@@ -511,16 +552,71 @@ export const toSolid = (component) => {
     const fallback = node.alternate
       ? ` fallback={${branch(node.alternate, scope)}}`
       : ""
-    return `<Show when={${rewrite(node.test, scope)}}${fallback}>{(${accessor}) => (${branch(node.consequent, scope)})}</Show>`
+    const shown = freeName(scope, [`shown${capitalize(accessor)}`])
+    const inner = {
+      ...scope,
+      rename: new Map([...scope.rename, [name, `${shown}()`]]),
+      shadowed: [...(scope.shadowed ?? []), shown],
+    }
+    return `<Show when={${rewrite(node.test, scope)}}${fallback}>{(${shown}) => (${branch(node.consequent, inner)})}</Show>`
   }
   const each = (node, scope) => {
-    const shadowed = [
+    const declared = [
       ...parameterNames(node.item),
       ...parameterNames(node.index),
       ...node.consts.map(({ name }) => name),
     ]
+    const [root, ...others] = node.children.filter((child) => !isBlank(child))
+    const binding = itemBinding(node.item)
+    const optionValue =
+      others.length === 0 &&
+      root?.type === "element" &&
+      root.tag === "option" &&
+      binding?.name
+        ? root.attributes.find(
+            (entry) =>
+              entry.kind === "expression" &&
+              entry.name === "value" &&
+              [...identifiersIn(entry.code)].every(
+                (name) => name === binding.name,
+              ),
+          )?.code
+        : undefined
+    const keyed =
+      others.length === 0 && root?.type === "if"
+        ? undefined
+        : optionValue
+          ? `(${binding.name}) => ${optionValue.trim()}`
+          : "false"
+    if (keyed && !binding) {
+      throw unsupported(
+        component.file,
+        `the loop item \`${node.item}\`, which Solid reads through an accessor`,
+        "take the item as one name, or as an object pattern of plain names",
+      )
+    }
+    const row = keyed
+      ? (binding.name ?? freeName(scope, ["item", "entry", "row"], declared))
+      : undefined
+    const shadowed = [...declared, ...(row ? [row] : [])]
     const inner = new Map(scope.rename)
     shadowed.forEach((name) => inner.delete(name))
+    if (row) {
+      inner.set(binding.name ?? row, `${row}()`)
+      binding.fields.forEach(({ key, local }) =>
+        inner.set(local, `${row}().${key}`),
+      )
+      if (binding.rest) {
+        usesOmit = true
+        inner.set(binding.rest, `${binding.rest}()`)
+      }
+    }
+    const rowConsts =
+      row && binding.rest
+        ? [
+            `const ${binding.rest} = () => omit(${[`${row}()`, ...binding.fields.map(({ key }) => JSON.stringify(key))].join(", ")})`,
+          ]
+        : []
     const loopTags = new Set(
       elementsIn(node.children)
         .filter((element) => element.variable)
@@ -531,7 +627,9 @@ export const toSolid = (component) => {
       ...node.consts.map(({ code }) => code),
       ...codesOf(node.children),
     ].some((code) => identifiersIn(code).has(node.index))
-    if (usesIndex) inner.set(node.index, `${node.index}()`)
+    if (usesIndex && keyed !== "false") {
+      inner.set(node.index, `${node.index}()`)
+    }
     const slotReads = [
       ...slotsIn(node.children),
       ...[...node.consts.map(({ code }) => code), ...codesOf(node.children)]
@@ -550,7 +648,7 @@ export const toSolid = (component) => {
       ]),
       loop: true,
       loopTags: new Map(scope.loopTags),
-      names: new Set(scope.names),
+      names: new Set(scope.names ?? hoistedNames),
       rename: inner,
       shadowed: [...(scope.shadowed ?? []), ...shadowed],
     }
@@ -571,10 +669,15 @@ export const toSolid = (component) => {
     })
     return {
       get consts() {
-        return [...consts, ...eachScope.hoisted.map(({ line }) => line)]
+        return [
+          ...rowConsts,
+          ...consts,
+          ...eachScope.hoisted.map(({ line }) => line),
+        ]
       },
+      keyed,
       list: rewrite(node.list, scope),
-      parameters: `${node.item}${usesIndex ? `, ${node.index}` : ""}`,
+      parameters: `${row ?? node.item}${usesIndex ? `, ${node.index}` : ""}`,
       scope: eachScope,
     }
   }
@@ -624,9 +727,9 @@ export const toSolid = (component) => {
       }
       return staticTags.get(node.tag) ?? node.tag
     },
-    loop: ({ list, parameters, returned }) => {
+    loop: ({ keyed, list, parameters, returned }) => {
       usesFor = true
-      return `<For each={${list}}>{(${parameters}) => ${returned}}</For>`
+      return `<For each={${list}}${keyed ? ` keyed={${keyed}}` : ""}>{(${parameters}) => ${returned}}</For>`
     },
     narrow,
     rewrite,
@@ -735,7 +838,7 @@ export const toSolid = (component) => {
     ...(usesShow ? ["Show"] : []),
     ...(resolvedSlots.length || usesChildren ? ["children"] : []),
     ...(kind?.solidValues?.(model) ?? []),
-    ...(rest ? ["omit"] : []),
+    ...(rest || usesOmit ? ["omit"] : []),
     ...(uid ? ["createUniqueId"] : []),
     ...(warnings.length > 0 || item || usesInitial ? ["untrack"] : []),
   ].toSorted(byName)

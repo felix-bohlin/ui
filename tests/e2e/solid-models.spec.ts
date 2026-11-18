@@ -44,3 +44,57 @@ test("a Solid control follows its value when it changes, and a reset returns to 
   await expect(name).toHaveValue("Ada")
   await expect(page.getByLabel("City")).toHaveValue("Lund")
 })
+
+test("a Solid group with a value puts the selection back when the change isn't stored", async ({
+  page,
+}) => {
+  const errors = pageErrors(page)
+  await page.getByText("Billing", { exact: true }).click()
+  await expect(page.getByRole("radio", { name: "Profile" })).toBeChecked()
+  await expect(page.getByRole("radio", { name: "Billing" })).not.toBeChecked()
+
+  await page.getByText("Rows", { exact: true }).click()
+  await expect(page.getByRole("radio", { name: "Grid" })).toBeChecked()
+  await expect(page.getByRole("radio", { name: "Rows" })).not.toBeChecked()
+
+  await page.getByText("Italic", { exact: true }).click()
+  await page.getByText("Bold", { exact: true }).click()
+  await expect(page.getByRole("checkbox", { name: "Bold" })).toBeChecked()
+  await expect(page.getByRole("checkbox", { name: "Italic" })).not.toBeChecked()
+
+  await page.getByRole("radio", { name: "4 stars" }).click({ force: true })
+  await expect(page.getByRole("radio", { name: "2 stars" })).toBeChecked()
+
+  await page.getByText("Right", { exact: true }).click()
+  await expect(page.getByRole("radio", { name: "Right" })).toBeChecked()
+  await page.getByText("Roomy", { exact: true }).click()
+  await expect(page.getByRole("radio", { name: "Roomy" })).toBeChecked()
+  expect(errors).toEqual([])
+})
+
+test("a Solid list keeps its rows when its items are replaced by new objects", async ({
+  page,
+}) => {
+  const errors = pageErrors(page)
+  await page.evaluate(() =>
+    document.getElementById("solid-models-menu")!.showPopover(),
+  )
+  const refresh = page.getByRole("button", { name: "Refresh", exact: true })
+  await refresh.click()
+  await expect(page.getByRole("button", { name: "Round 1" })).toBeVisible()
+  await expect(refresh).toBeFocused()
+
+  const fruit = page.getByLabel("Fruit")
+  await fruit.selectOption("cherry")
+  await page.getByRole("button", { name: "Refresh fruits" }).click()
+  await expect(fruit.locator("option").first()).toHaveText("apple 1")
+  await expect(fruit).toHaveValue("cherry")
+
+  const account = page.getByRole("link", { name: "Account 0" })
+  await account.focus()
+  await page.evaluate(() => document.dispatchEvent(new Event("refresh-steps")))
+  const updated = page.getByRole("link", { name: "Account 1" })
+  await expect(updated).toBeVisible()
+  await expect(updated).toBeFocused()
+  expect(errors).toEqual([])
+})

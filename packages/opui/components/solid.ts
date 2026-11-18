@@ -31,6 +31,27 @@ export const checkedProps = <C, D>(checked: C | undefined, initial?: D) =>
     ? { defaultChecked: initial }
     : { checked, defaultChecked: initial }
 
+export const restoreChecked = (input: HTMLInputElement, read: () => unknown) =>
+  queueMicrotask(() => {
+    const selected = read()
+    if (selected === undefined) return
+    const values = [selected].flat().map(String)
+    const inputs = input.form
+      ? [...input.form.elements]
+      : [...(input.getRootNode() as ParentNode).querySelectorAll("input")]
+    for (const item of input.name ? inputs : [input]) {
+      if (
+        item instanceof HTMLInputElement &&
+        item.form === input.form &&
+        item.name === input.name &&
+        item.type === input.type
+      ) {
+        const checked = values.includes(item.value)
+        if (item.checked !== checked) item.checked = checked
+      }
+    }
+  })
+
 export const seedChecked =
   (report: (input: HTMLInputElement) => void) => (input: HTMLInputElement) => {
     if (

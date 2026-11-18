@@ -686,7 +686,7 @@ describe("the ports of a sample", () => {
       '<script setup lang="ts">\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { items } = defineProps<Props>()\ndefineSlots<Slots>()\n</script>\n\n<template>\n  <ul :class="[\'ui-sample\', $props.class]">\n    <li v-for="({ href, label, ...itemRest }, index) in items" :key="index">\n      <component :is="href ? \'a\' : \'span\'" :href="href" v-bind="itemRest">{{\n        label\n      }}</component>\n    </li>\n    <slot></slot>\n  </ul>\n</template>\n',
     )
     expect(ports["solid.tsx"]).toContain(
-      '      <For each={props.items}>\n        {({ href, label, ...itemRest }) => {\n          const tag = href ? "a" : "span"\n          return (\n            <li>\n              <Dynamic component={tag} href={href} {...itemRest}>\n',
+      '      <For each={props.items} keyed={false}>\n        {(item) => {\n          const itemRest = () => omit(item(), "href", "label")\n          const tag = () => (item().href ? "a" : "span")\n          return (\n            <li>\n              <Dynamic component={tag()} href={item().href} {...itemRest()}>\n                {item().label}\n',
     )
   })
 
@@ -760,7 +760,7 @@ describe("the ports of a sample", () => {
       '<li v-for="(item, step) in items" :key="step" :value="step + 1">',
     )
     expect(ports["solid.tsx"]).toContain(
-      "<For each={items}>\n        {(item, step) => <li value={step() + 1}>{item}</li>}\n      </For>",
+      "<For each={items} keyed={false}>\n        {(item, step) => <li value={step + 1}>{item()}</li>}\n      </For>",
     )
   })
 
@@ -826,11 +826,11 @@ describe("the ports of a sample", () => {
       '---\nimport type { Props } from "./types.astro"\nimport Button from "../Button/Button.astro"\n\nconst buttonTitle = "Close"\nconst { class: className, items, label, ...rest } = Astro.props\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Button title={label ? "Labelled" : rest.title}>Close</Button>\n  {items.map((item) => <Button title={item && label}>{item}</Button>)}\n  <p title={label ? buttonTitle : undefined} />\n</div>\n',
     )
     expect(ports["solid.tsx"]).toBe(
-      '/** @jsxImportSource @solidjs/web */\nimport { For, omit } from "solid-js"\nimport Button from "../Button/Button.solid"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "items", "label")\n  const buttonTitle = "Close"\n  const title = () => (props.label ? "Labelled" : rest.title)\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      <Button title={title()}>Close</Button>{" "}\n      <For each={props.items}>\n        {(item) => {\n          const title = () => item && props.label\n          return <Button title={title()}>{item}</Button>\n        }}\n      </For>\n      <p title={props.label ? buttonTitle : undefined} />\n    </div>\n  )\n}\n',
+      '/** @jsxImportSource @solidjs/web */\nimport { For, omit } from "solid-js"\nimport Button from "../Button/Button.solid"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "items", "label")\n  const buttonTitle = "Close"\n  const title = () => (props.label ? "Labelled" : rest.title)\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      <Button title={title()}>Close</Button>{" "}\n      <For each={props.items} keyed={false}>\n        {(item) => {\n          const itemTitle = () => item() && props.label\n          return <Button title={itemTitle()}>{item()}</Button>\n        }}\n      </For>\n      <p title={props.label ? buttonTitle : undefined} />\n    </div>\n  )\n}\n',
     )
   })
 
-  test("Solid lists with For, reads the index as an accessor and builds a slot once per item, since a node has one parent", async () => {
+  test("Solid lists with For, reads the index as a number and builds a slot once per item, since a node has one parent", async () => {
     const ports = await compile(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<ul class:list={["ui-sample", className]} {...rest}>\n  {items.map((item, index) => (\n    <li value={index + 1}>\n      {item}\n      {Astro.slots.has("icon") && <span class="ui-icon"><slot name="icon" /></span>}\n      <slot name="end" />\n    </li>\n  ))}\n</ul>\n',
     )
@@ -841,8 +841,37 @@ describe("the ports of a sample", () => {
       '  const rest = omit(props, "class", "items", "end", "icon")\n\n  return (\n',
     )
     expect(ports["solid.tsx"]).toContain(
-      '      <For each={props.items}>\n        {(item, index) => {\n          const resolvedIcon = children(() => props.icon)\n          return (\n            <li value={index() + 1}>\n              {item}\n              {resolvedIcon() && <span class="ui-icon">{resolvedIcon()}</span>}\n              {props.end}\n            </li>\n          )\n        }}\n      </For>\n',
+      '      <For each={props.items} keyed={false}>\n        {(item, index) => {\n          const resolvedIcon = children(() => props.icon)\n          return (\n            <li value={index + 1}>\n              {item()}\n              {resolvedIcon() && <span class="ui-icon">{resolvedIcon()}</span>}\n              {props.end}\n            </li>\n          )\n        }}\n      </For>\n',
     )
+  })
+
+  test("Solid keys a list by index, options by their value and a condition between two rows by the item, and reads an item through an accessor", async () => {
+    const options = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<select class:list={["ui-sample", className]} {...rest}>\n  {items.map((item) => <option selected={item.selected || undefined} value={item.value}>{item.label}</option>)}\n</select>\n',
+    )
+    expect(options["solid.tsx"]).toContain(
+      "      <For each={props.items} keyed={(item) => item.value}>\n        {(item) => {\n          const initialItemSelected = untrack(\n            () => item().selected || undefined,\n          )\n          return (\n            <option defaultSelected={initialItemSelected} value={item().value}>\n              {item().label}\n            </option>\n          )\n        }}\n      </For>\n",
+    )
+    const rows = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<ol class:list={["ui-sample", className]} {...rest}>\n  {items.map(({ description, ...item }) => <li {...item}>{description}</li>)}\n</ol>\n',
+    )
+    expect(rows["solid.tsx"]).toContain(
+      '      <For each={props.items} keyed={false}>\n        {(entry) => {\n          const item = () => omit(entry(), "description")\n          return <li {...item()}>{entry().description}</li>\n        }}\n      </For>\n',
+    )
+    const branches = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<datalist class:list={[className]} {...rest}>\n  {items?.map((option) =>\n    typeof option === "object" ? (\n      <option value={option.value} label={option.label} />\n    ) : (\n      <option value={option} />\n    ),\n  )}\n</datalist>\n',
+    )
+    expect(branches["solid.tsx"]).toContain(
+      '      <For each={props.items}>\n        {(option) =>\n          typeof option === "object" ? (\n',
+    )
+    const refused = await compileComponent(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<ol class:list={["ui-sample", className]} {...rest}>\n  {items.map(({ label = "x" }) => <li>{label}</li>)}\n</ol>\n',
+      sampleFile(),
+    )
+    expect(
+      refused.refused.get(sampleFile().replace(".astro", ".solid.tsx"))
+        ?.message,
+    ).toContain("which Solid reads through an accessor")
   })
 
   test("Solid resolves the slots of a component that provides a context under the provider, and writes a getter inline when nothing else reads its accessor", async () => {
@@ -859,7 +888,7 @@ describe("the ports of a sample", () => {
       '---\nimport type { Props } from "./types.astro"\nimport { tagAttrs } from "../tag"\n\nconst { class: className, href, label, ...rest } = Astro.props\n\nconst caption = label?.trim()\nconst Tag = href ? "a" : undefined\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  {caption && <span class="ui-caption">{caption}</span>}\n  {Tag ? <Tag {...tagAttrs(Tag, false, href)}><slot /></Tag> : <slot />}\n</div>\n',
     )
     expect(ports["solid.tsx"]).toBe(
-      '/** @jsxImportSource @solidjs/web */\nimport { dynamic } from "@solidjs/web"\nimport { children, omit, Show } from "solid-js"\nimport { tagAttrs } from "../tag"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "href", "label", "children")\n  const resolvedChildren = children(() => props.children)\n  const caption = () => props.label?.trim()\n  const tag = () => (props.href ? "a" : undefined)\n  const Tag = dynamic(tag)\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      {caption() && <span class="ui-caption">{caption()}</span>}{" "}\n      <Show when={tag()} fallback={resolvedChildren()}>\n        {(tag) => (\n          <Tag {...tagAttrs(tag(), false, props.href)}>\n            {resolvedChildren()}\n          </Tag>\n        )}\n      </Show>\n    </div>\n  )\n}\n',
+      '/** @jsxImportSource @solidjs/web */\nimport { dynamic } from "@solidjs/web"\nimport { children, omit, Show } from "solid-js"\nimport { tagAttrs } from "../tag"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "href", "label", "children")\n  const resolvedChildren = children(() => props.children)\n  const caption = () => props.label?.trim()\n  const tag = () => (props.href ? "a" : undefined)\n  const Tag = dynamic(tag)\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      {caption() && <span class="ui-caption">{caption()}</span>}{" "}\n      <Show when={tag()} fallback={resolvedChildren()}>\n        {(shownTag) => (\n          <Tag {...tagAttrs(shownTag(), false, props.href)}>\n            {resolvedChildren()}\n          </Tag>\n        )}\n      </Show>\n    </div>\n  )\n}\n',
     )
   })
 
@@ -877,7 +906,7 @@ describe("the ports of a sample", () => {
       '---\nimport type { Props } from "./types.astro"\nimport Button from "../Button/Button.astro"\nimport { hasName, warnUnnamed } from "../dev"\n\nconst { class: className, items, label, ...rest } = Astro.props\n\nconst title = "Close"\nwarnUnnamed("Sample", hasName({ ...rest, label }, Astro.slots.has("default")))\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Button aria-invalid={label ? "true" : rest["aria-invalid"]} title={label ? title : undefined}>Close</Button>\n  {items.map((item) => {\n    const closes = !item\n    return <Button command={closes ? "hide-popover" : undefined} title={closes ? label : undefined}>{item}</Button>\n  })}\n  <slot />\n</div>\n',
     )
     expect(ports["solid.tsx"]).toBe(
-      '/** @jsxImportSource @solidjs/web */\nimport { children, For, omit, untrack } from "solid-js"\nimport Button from "../Button/Button.solid"\nimport { hasName, warnUnnamed } from "../dev"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "items", "label", "children")\n  const resolvedChildren = children(() => props.children)\n  const title = "Close"\n  untrack(() => {\n    warnUnnamed("Sample", hasName(props, resolvedChildren()))\n  })\n  const invalid = () => (props.label ? "true" : rest["aria-invalid"])\n  const buttonTitle = () => (props.label ? title : undefined)\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      <Button aria-invalid={invalid()} title={buttonTitle()}>\n        Close\n      </Button>{" "}\n      <For each={props.items}>\n        {(item) => {\n          const closes = !item\n          const buttonTitle = () => (closes ? props.label : undefined)\n          return (\n            <Button\n              command={closes ? "hide-popover" : undefined}\n              title={buttonTitle()}\n            >\n              {item}\n            </Button>\n          )\n        }}\n      </For>{" "}\n      {resolvedChildren()}\n    </div>\n  )\n}\n',
+      '/** @jsxImportSource @solidjs/web */\nimport { children, For, omit, untrack } from "solid-js"\nimport Button from "../Button/Button.solid"\nimport { hasName, warnUnnamed } from "../dev"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "items", "label", "children")\n  const resolvedChildren = children(() => props.children)\n  const title = "Close"\n  untrack(() => {\n    warnUnnamed("Sample", hasName(props, resolvedChildren()))\n  })\n  const invalid = () => (props.label ? "true" : rest["aria-invalid"])\n  const buttonTitle = () => (props.label ? title : undefined)\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      <Button aria-invalid={invalid()} title={buttonTitle()}>\n        Close\n      </Button>{" "}\n      <For each={props.items} keyed={false}>\n        {(item) => {\n          const closes = () => !item()\n          const command = () => (closes() ? "hide-popover" : undefined)\n          const itemTitle = () => (closes() ? props.label : undefined)\n          return (\n            <Button command={command()} title={itemTitle()}>\n              {item()}\n            </Button>\n          )\n        }}\n      </For>{" "}\n      {resolvedChildren()}\n    </div>\n  )\n}\n',
     )
   })
 
@@ -944,18 +973,25 @@ describe("the ports of a sample", () => {
       "const current = () => Number(props.value ?? props.defaultValue)",
     )
     expect(solid).toContain(
-      "const initialChecked = untrack(() => current() === star)",
+      "const initialChecked = untrack(() => current() === 0)",
     )
     expect(solid).toContain(
-      "props.value === undefined ? undefined : current() === star,\n                initialChecked,\n",
-    )
-    expect(solid).toContain('onChange={() => props.onValueChange?.("0")}')
-    expect(solid).toContain("onChange={() => props.onValueChange?.(star)}")
-    expect(solid).toContain(
-      'import { checkedProps, seedChecked } from "../solid"\n',
+      "const initialItemChecked = untrack(() => current() === star())",
     )
     expect(solid).toContain(
-      "ref={seedChecked(() => props.onValueChange?.(star))}",
+      "props.value === undefined ? undefined : current() === star(),\n                initialItemChecked,\n",
+    )
+    expect(solid).toContain(
+      'onChange={(event) => {\n          props.onValueChange?.("0")\n          restoreChecked(event.currentTarget, () => props.value)\n        }}',
+    )
+    expect(solid).toContain(
+      "onChange={(event) => {\n                props.onValueChange?.(star())\n                restoreChecked(event.currentTarget, () => props.value)\n              }}",
+    )
+    expect(solid).toContain(
+      'import { checkedProps, restoreChecked, seedChecked } from "../solid"\n',
+    )
+    expect(solid).toContain(
+      "ref={seedChecked((input) => {\n                props.onValueChange?.(star())\n                restoreChecked(input, () => props.value)\n              })}",
     )
   })
 
@@ -1274,8 +1310,9 @@ describe("the ports of a sample", () => {
     )
     const solid = outputs.get(sampleFile().replace(".astro", ".solid.tsx"))
     expect(solid).toContain(
-      "  const [inner, setInner] = createSignal(untrack(() => props.defaultValue))\n  const change = (input: HTMLInputElement) => {\n    const next = input.value\n    if (inner() !== undefined) setInner(next)\n    props.onValueChange?.(next)\n  }\n",
+      "  const [inner, setInner] = createSignal(untrack(() => props.defaultValue))\n  const change = (input: HTMLInputElement) => {\n    const next = input.value\n    if (inner() !== undefined) setInner(next)\n    props.onValueChange?.(next)\n    restoreChecked(input, () => props.value)\n  }\n",
     )
+    expect(solid).toContain('import { restoreChecked } from "../solid"\n')
     expect(solid).toContain(
       "        get value() {\n          return props.value ?? inner()\n        },\n",
     )

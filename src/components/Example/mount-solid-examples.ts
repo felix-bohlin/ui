@@ -6,10 +6,10 @@ const loaders = import.meta.glob<{ default: Component }>(
   "../../component-examples/*/*.solid.tsx",
 )
 
-const hydrated = new URLSearchParams(location.search).get("hydrate")
+const hydrates = new URLSearchParams(location.search).has("hydrate")
 
 const renderIdOf = (el: HTMLElement) =>
-  el.dataset.solidExample === hydrated ? el.dataset.solidRenderId : undefined
+  hydrates ? el.dataset.solidRenderId : undefined
 
 mountExamples(
   "solid",

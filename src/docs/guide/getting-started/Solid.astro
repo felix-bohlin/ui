@@ -109,7 +109,10 @@ export default defineConfig({
     <p>
       A page with more than one root gives each its own <code>renderId</code> in
       <code>renderToString</code> and <code>hydrate</code>, so the ids the
-      components generate differ between the roots.
+      components generate differ between the roots. Roots hydrated in the same
+      task each claim their server markup. A root hydrated in a later task
+      renders again over its markup, so load the code of every root first and
+      call <code>hydrate</code> for all of them in one loop.
     </p>
     <p>The props in the last column need hydration.</p>
     <p>

@@ -171,24 +171,6 @@ describe("tooling bugs the generator and the components work around", () => {
     ).not.toBe(keyAfter(1))
   })
 
-  test("Solid hydrates one root per page: once the first hydrate() is done, the next renders over the server markup", () => {
-    const source = readFileSync(
-      new URL("../../node_modules/@solidjs/web/dist/web.js", import.meta.url),
-      "utf-8",
-    )
-    const hydrate = source.slice(
-      source.indexOf("function hydrate("),
-      source.indexOf("function ", source.indexOf("function hydrate(") + 1),
-    )
-    expect(hydrate).toContain("globalThis._$HY")
-    expect(
-      hydrate,
-      fixed(
-        "src/components/Example/mount-solid-examples.ts, which hydrates only the example ?hydrate= names and renders the others, and tests/e2e/hydration.spec.ts, which loads the page once per example",
-      ),
-    ).toMatch(/if \(\w+\.done\) return render\(/)
-  })
-
   test("parse5 drops the button and div inside a select", () => {
     const [select] = parseFragment(
       "<select><button><selectedcontent></selectedcontent></button><div><option>a</option></div></select>",

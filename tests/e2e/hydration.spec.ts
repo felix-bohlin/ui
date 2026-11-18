@@ -126,7 +126,7 @@ for (const framework of HYDRATED) {
       })
     })
     await captureOnMount(page, framework)
-    await openFixture(page, framework, "button", `?hydrate=${id}`)
+    await openFixture(page, framework, "button", "?hydrate")
     const { problems } = await hydrationProblems(page, framework, id)
     expect(problems).toEqual([
       expect.stringMatching(/^created <\w+>.* instead of claiming/),
@@ -137,7 +137,6 @@ for (const framework of HYDRATED) {
     test(`${framework}/${component} hydrates each example without replacing or changing its server markup`, async ({
       page,
     }) => {
-      test.setTimeout(120_000)
       await captureOnMount(page, framework)
       const response = await page.request.get(
         `/${framework}/test/${component}/`,
@@ -150,11 +149,13 @@ for (const framework of HYDRATED) {
       ].map(([, id]) => id)
       expect(ids.length, "examples").toBeGreaterThan(0)
 
-      for (const id of ids) {
-        const errors = pageErrors(page)
-        await openFixture(page, framework, component, `?hydrate=${id}`)
-        expect(errors, `${id} page errors`).toEqual([])
+      const errors = pageErrors(page)
+      await openFixture(page, framework, component, "?hydrate")
+      expect(errors, "page errors").toEqual([])
+      const server = await exampleSnapshots(page, framework, html)
+      const hydrated = await exampleSnapshots(page, framework)
 
+      for (const id of ids) {
         const { keyed, problems } = await hydrationProblems(page, framework, id)
         expect(
           keyed,
@@ -162,16 +163,12 @@ for (const framework of HYDRATED) {
         ).toBeGreaterThan(0)
         expect.soft(problems, `${id} server elements`).toEqual([])
 
-        const server = (await exampleSnapshots(page, framework, html)).find(
-          ({ example }) => example === id,
-        )!
-        const hydrated = (await exampleSnapshots(page, framework)).find(
-          ({ example }) => example === id,
-        )!
+        const before = server.find(({ example }) => example === id)!
+        const after = hydrated.find(({ example }) => example === id)!
         expect
-          .soft(normalize(hydrated.markup), `${id} markup`)
-          .toBe(normalize(server.markup))
-        expect.soft(hydrated.state, `${id} form state`).toEqual(server.state)
+          .soft(normalize(after.markup), `${id} markup`)
+          .toBe(normalize(before.markup))
+        expect.soft(after.state, `${id} form state`).toEqual(before.state)
       }
     })
   }

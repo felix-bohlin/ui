@@ -39,9 +39,7 @@ const interaction = (
     throw new Error(`no ${component}/${name} example in any framework`)
   }
   for (const framework of available) {
-    const modes = HYDRATED.includes(framework)
-      ? ["", `?hydrate=${component}/${name}`]
-      : [""]
+    const modes = HYDRATED.includes(framework) ? ["", "?hydrate"] : [""]
     for (const search of modes) {
       test(`${framework}${search ? " hydrated" : ""} ${title}`, async ({
         page,

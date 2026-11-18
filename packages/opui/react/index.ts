@@ -48,6 +48,7 @@ export { default as ListItem } from "../components/ListItem/ListItem.react"
 export { default as Menu } from "../components/Menu/Menu.react"
 export { default as Message } from "../components/Message/Message.react"
 export { default as MessageList } from "../components/Message/MessageList.react"
+export { default as Meter } from "../components/Meter/Meter.react"
 export { default as NumberField } from "../components/NumberField/NumberField.react"
 export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.react"
 export { default as Progress } from "../components/Progress/Progress.react"
@@ -160,6 +161,7 @@ export type {
   MessageListProps,
   Props as MessageProps,
 } from "../components/Message/types.react"
+export type { Props as MeterProps } from "../components/Meter/types.react"
 export type { Props as NumberFieldProps } from "../components/NumberField/types.react"
 export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.react"
 export type { Props as ProgressProps } from "../components/Progress/types.react"

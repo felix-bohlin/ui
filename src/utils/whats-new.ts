@@ -953,6 +953,9 @@ export const whatsNew = {
     `New: a <a href="#basics">Message</a> is a chat bubble that groups into runs, with <a href="#attachments">attachments</a>, <a href="#reactions">reactions</a> and a <a href="#typing">typing indicator</a>.`,
     `A chat between two people can leave out every name and avatar with <a href="#direct"><code>direct</code></a>.`,
   ],
+  meter: [
+    `New: a <a href="#basics">Meter</a> draws the native <code>&lt;meter&gt;</code> like a Progress bar, for a value in a known range. <a href="#ranges"><code>low</code>, <code>high</code> and <code>optimum</code></a> color the fill, and a meter as tall as its row is a <a href="#poll">poll</a> bar.`,
+  ],
   "number-field": [
     components(
       `The start and end text ids start with the <a href="#api"><code>id</code></a>: <code>x-start-text</code> and <code>x-end-text</code> for <code>id="x"</code>.`,
@@ -995,6 +998,7 @@ export const whatsNew = {
     },
     `The bar reads <a href="#api"><code>--ui-selected-strong</code></a>, like the done part of a Stepper and a tracked Timeline, so one theme value recolors all three.`,
     `<a href="#component-properties"><code>--_loop-duration</code></a> sets the length of the <a href="#indeterminate">indeterminate</a> loop.`,
+    `<a href="#component-properties"><code>--_block-size</code></a> sets the height of the track.`,
   ],
   radio: [
     `<a href="#cards">Cards</a> take <code>--ui-card-padding</code>.`,
@@ -1796,6 +1800,7 @@ export const highlighted = new Set<string>([
   "layout",
   "menu",
   "message",
+  "meter",
   "number-field",
   "one-time-code",
   "rating",
@@ -1813,6 +1818,7 @@ export const added = new Set<string>([
   "layout",
   "menu",
   "message",
+  "meter",
   "number-field",
   "one-time-code",
   "rating",

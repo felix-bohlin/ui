@@ -4241,6 +4241,14 @@
     "url": "/blocks/kanban-board/"
   },
   {
+    "id": "block-lightbox",
+    "title": "Lightbox",
+    "description": "A post's photos in a dark full-screen viewer: swipe sideways between them, and down to close.",
+    "headings": "Application",
+    "category": "Blocks",
+    "url": "/blocks/lightbox/"
+  },
+  {
     "id": "block-newsletter",
     "title": "Newsletter",
     "description": "A newsletter sign-up with an email field, topic choices and a privacy note.",

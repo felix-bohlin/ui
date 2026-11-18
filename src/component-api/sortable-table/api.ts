@@ -9,9 +9,6 @@ const sortEvent =
 
 const element = elementNotes("sortable-table.js", sortNote)
 
-const early = (event: string) =>
-  `Don't load \`opui-css/elements/sortable-table.js\` ahead of the components: a press before they hydrate then sorts the rows without \`${event}\``
-
 export default {
   component: "SortableTable",
   css: ["sortable-table"],
@@ -42,9 +39,6 @@ export default {
   notes: {
     ...element,
     html: 'Wrap the table in `<opui-sortable-table class="ui-sortable-table">`, add `data-sort` to each sortable header with a `<button type="button">` around its label, and import `opui-css/elements/sortable-table.js`. A cell sorts by its `data-sort-value`, or else its text.',
-    solid: `${element.solid} ${early("onSort")}.`,
-    svelte: `${element.svelte} ${early("onsort")}, and hydration then throws on the moved rows.`,
-    vue: `${element.vue} ${early("@sort")}, and hydration then puts the rows back in the order the server rendered, under a header that still says sorted.`,
   },
   options: [
     {
@@ -91,7 +85,7 @@ export default {
   ],
   root: {
     description:
-      'The `<opui-sortable-table>` custom element, `display: contents`, around the table. It moves the body rows and announces the new order in its `role="status"` child, or one it adds. While it has `data-hydrating`, which the React component renders until it hydrates, header clicks do nothing.',
+      'The `<opui-sortable-table>` custom element, `display: contents`, around the table. It moves the body rows and announces the new order in its `role="status"` child, or one it adds. While it has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, header clicks do nothing.',
     selector: "opui-sortable-table.ui-sortable-table",
   },
   slots: [

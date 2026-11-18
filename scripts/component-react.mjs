@@ -10,6 +10,7 @@ import {
   contextImports,
   eventRoots,
   groupWarning,
+  hydratingRoots,
   indent,
   objectCode,
   propsImport,
@@ -31,8 +32,6 @@ import {
   isIdentifierName,
   unsupported,
 } from "./component-shared.mjs"
-
-const CUSTOM_TAG_LITERAL = /(["'`])[a-z][\w.]*-[\w.-]*\1/
 
 export const toReact = (component) => {
   const {
@@ -72,25 +71,12 @@ export const toReact = (component) => {
   const events = component.events ?? []
   const listened = eventRoots(component)
   const hydrating = new Map(
-    listened.flatMap((node) => {
-      if (node.custom) return [[node, 'data-hydrating=""']]
-      const source = node.variable
-        ? [
-            ...derived.filter(({ name }) => name === node.tag),
-            ...props.filter(({ local }) => local === node.tag),
-          ]
-            .map((entry) => entry.code ?? entry.default ?? "")
-            .join(" ")
-        : ""
-      return CUSTOM_TAG_LITERAL.test(source)
-        ? [
-            [
-              node,
-              `data-hydrating={${node.tag}.includes("-") ? "" : undefined}`,
-            ],
-          ]
-        : []
-    }),
+    [...hydratingRoots(component, listened)].map(([node, tag]) => [
+      node,
+      tag
+        ? `data-hydrating={${tag}.includes("-") ? "" : undefined}`
+        : 'data-hydrating=""',
+    ]),
   )
   const handlers = events.map((event) => eventProp("react", event))
   const clash = ["ref", "rootRef", ...handlers].find(

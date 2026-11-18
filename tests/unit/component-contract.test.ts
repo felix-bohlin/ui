@@ -92,16 +92,16 @@ const KNOWN_ATTRIBUTES: Record<
     when?: (props: Record<string, unknown>) => boolean
   }
 > = {
-  "Callout react": {
+  Callout: {
     attribute: "data-hydrating",
     reason:
-      "the element ignores the close button until React has hydrated the callout and attached onDismiss",
+      "the element ignores the close button until the framework has hydrated the callout and attached its dismiss handler",
     when: ({ closeButton }) => Boolean(closeButton),
   },
-  "SortableTable react": {
+  SortableTable: {
     attribute: "data-hydrating",
     reason:
-      "the element ignores header clicks until React has hydrated the table and attached onSort",
+      "the element ignores header clicks until the framework has hydrated the table and attached its sort handler",
   },
 }
 
@@ -647,7 +647,7 @@ describe("every component renders the same in Astro, React, Solid, Svelte and Vu
         )
         .toBeDefined()
       if (rendered === undefined) continue
-      const known = KNOWN_ATTRIBUTES[`${entry.component} ${framework}`]
+      const known = KNOWN_ATTRIBUTES[entry.component]
       if (known && (known.when?.(entry.props) ?? true)) {
         expect
           .soft(

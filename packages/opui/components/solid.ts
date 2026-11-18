@@ -41,6 +41,12 @@ export const control = <V>(
   }
 }
 
+export const hydrating = (custom = true) =>
+  (isServer && custom ? { "data-hydrating": "" } : {}) as object
+
+export const hydrated = (element: Element) =>
+  element.removeAttribute("data-hydrating")
+
 export const callHandler = <E extends Event>(handler: unknown, event: E) => {
   if (typeof handler === "function") handler(event)
   else if (Array.isArray(handler) && typeof handler[0] === "function")

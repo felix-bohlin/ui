@@ -12,9 +12,6 @@ const closeButton = elementNotes(
   "With `closeButton`, the root is `<opui-callout>`, and the close button shows and works once the element runs.",
 )
 
-const early = (event: string) =>
-  `Don't load \`opui-css/elements/callout.js\` ahead of the components: a press before they hydrate then hides the callout without \`${event}\`.`
-
 export default {
   component: "Callout",
   elements: [
@@ -47,9 +44,9 @@ export default {
     astro: `${icon} ${closeButton.astro} Listen for \`dismiss\` in a client script.`,
     html: 'For a close button that hides the callout, use `<opui-callout class="ui-callout" role="article">` with an id, end it with a `.ui-button` with `commandfor` naming it and `command="--dismiss"`, and import `opui-css/elements/callout.js`. Until it loads, the button is hidden.',
     react: `${icon} ${closeButton.react}`,
-    solid: `${icon} ${closeButton.solid} ${early("onDismiss")}`,
-    svelte: `${icon} ${closeButton.svelte} ${early("ondismiss")}`,
-    vue: `${icon} ${closeButton.vue} ${early("@dismiss")}`,
+    solid: `${icon} ${closeButton.solid}`,
+    svelte: `${icon} ${closeButton.svelte}`,
+    vue: `${icon} ${closeButton.vue}`,
   },
   options: [
     {
@@ -60,7 +57,7 @@ export default {
     {
       default: "false",
       description:
-        'Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>` with `role="article"`, and the component loads `opui-css/elements/callout.js`, which runs the button. While the root has `data-hydrating`, which the React component renders until it hydrates, the button does nothing.',
+        'Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>` with `role="article"`, and the component loads `opui-css/elements/callout.js`, which runs the button. While the root has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, the button does nothing.',
       group: "Close button",
       prop: "closeButton",
     },

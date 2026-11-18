@@ -3,8 +3,8 @@ import { slotProp } from "../src/component-api/frameworks.ts"
 import {
   componentImport,
   contextImports,
-  eventRoots,
   groupWarning,
+  hydratingRoots,
   propsImport,
   rewriteExpression,
   rewriteStatement,
@@ -218,7 +218,7 @@ export const toSolid = (component) => {
     warnings,
   } = component
   if (model?.refusal) throw model.refusal
-  eventRoots(component)
+  const hydrating = hydratingRoots(component)
   const kind = MODEL_KINDS[model?.kind]?.solid
   if (model?.kind && !kind) {
     throw unsupported(
@@ -362,6 +362,7 @@ export const toSolid = (component) => {
       ...(kind?.omits?.(model) ?? []),
       ...(kind?.ownDefault?.(model) ? ["defaultValue"] : []),
       ...(item ? ["defaultChecked", "onChange", "ref"] : []),
+      ...(hydrating.size ? ["ref"] : []),
     ]
       .filter((key, index, keys) => keys.indexOf(key) === index)
       .toSorted(byName),
@@ -706,10 +707,16 @@ export const toSolid = (component) => {
           `${rewrite(checked.code, scope)} ?? props.defaultChecked`,
           scope,
         )
+      const guard = hydrating.has(node)
+        ? [
+            `{...hydrating(${hydrating.get(node) ? `${rewrite(hydrating.get(node), scope)}.includes("-")` : ""})}`,
+            "ref={[props.ref, hydrated]}",
+          ]
+        : []
       return [
         ...(loopTag ? [`component={${loopTag}}`] : []),
         ...node.attributes.flatMap((entry, index) => [
-          ...(index === restAt ? modelAttributes : []),
+          ...(index === restAt ? [...modelAttributes, ...guard] : []),
           ...(node.groupRadio !== undefined && checks(entry)
             ? kind.radioAttributes(
                 model,
@@ -725,7 +732,7 @@ export const toSolid = (component) => {
               ? [`{...${itemControl}.server}`]
               : [attribute(node, entry, scope)]),
         ]),
-        ...(restAt === -1 ? modelAttributes : []),
+        ...(restAt === -1 ? [...modelAttributes, ...guard] : []),
         ...(node.item
           ? [
               `ref={[\n  props.ref,\n  ${itemControl ? `${itemControl}.ref,\n  ` : ""}seedChecked((input) => ${item.parent}?.change?.(input)),\n]}`,
@@ -862,6 +869,7 @@ export const toSolid = (component) => {
     ...(kind?.solidHelpers?.(model) ?? []),
     ...(usesControl ? ["control"] : []),
     ...(item ? ["callHandler", "seedChecked"] : []),
+    ...(hydrating.size ? ["hydrated", "hydrating"] : []),
   ].toSorted(byName)
   const webValues = [
     ...(tagProps.length > 0 || tagConsts.length > 0 ? ["dynamic"] : []),

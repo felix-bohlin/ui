@@ -8,6 +8,7 @@ import {
   useAttrs,
   useId,
 } from "vue"
+import { vHydrated } from "../vue"
 import Button from "../Button/Button.vue"
 import { CalloutKey } from "./context.vue"
 import { defined } from "../attrs"
@@ -53,6 +54,8 @@ provide(CalloutKey, reactive({ severity: computed(() => severity) }))
     :role="closeButton ? 'article' : undefined"
     v-bind="defined(attrs)"
     @dismiss="emit('dismiss', $event)"
+    :data-hydrating="Root.includes('-') ? '' : undefined"
+    v-hydrated
   >
     <slot></slot
     ><Button

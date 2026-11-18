@@ -86,7 +86,7 @@ A table for data people scan and compare, with sticky headers, sorting and expan
 
 ### Parts
 
-- `opui-sortable-table.ui-sortable-table` (root): The `<opui-sortable-table>` custom element, `display: contents`, around the table. It moves the body rows and announces the new order in its `role="status"` child, or one it adds. While it has `data-hydrating`, which the React component renders until it hydrates, header clicks do nothing.
+- `opui-sortable-table.ui-sortable-table` (root): The `<opui-sortable-table>` custom element, `display: contents`, around the table. It moves the body rows and announces the new order in its `role="status"` child, or one it adds. While it has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, header clicks do nothing.
 - `th[data-sort] > button` (`TableHeaderCell`): The button around a sortable header's label. A press sorts by its column, ascending first, and sets `aria-sort` on the header.
 
 ### Props and modifiers
@@ -113,9 +113,7 @@ A table for data people scan and compare, with sticky headers, sorting and expan
 - HTML: Wrap the table in `<opui-sortable-table class="ui-sortable-table">`, add `data-sort` to each sortable header with a `<button type="button">` around its label, and import `opui-css/elements/sortable-table.js`. A cell sorts by its `data-sort-value`, or else its text.
 - Astro: The component loads `opui-css/elements/sortable-table.js`. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead.
 - React: The component loads `opui-css/elements/sortable-table.js` once it mounts, unless the page imports it first. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead.
-- Solid: The component imports `opui-css/elements/sortable-table.js`, so the element runs as soon as the component's code loads. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead. Don't load `opui-css/elements/sortable-table.js` ahead of the components: a press before they hydrate then sorts the rows without `onSort`.
-- Svelte: The component imports `opui-css/elements/sortable-table.js`, so the element runs as soon as the component's code loads. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead. Don't load `opui-css/elements/sortable-table.js` ahead of the components: a press before they hydrate then sorts the rows without `onsort`, and hydration then throws on the moved rows.
-- Vue: The component imports `opui-css/elements/sortable-table.js`, so the element runs as soon as the component's code loads. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead. Don't load `opui-css/elements/sortable-table.js` ahead of the components: a press before they hydrate then sorts the rows without `@sort`, and hydration then puts the rows back in the order the server rendered, under a header that still says sorted.
+- Solid, Svelte and Vue: The component imports `opui-css/elements/sortable-table.js`, so the element runs as soon as the component's code loads. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead.
 
 ## Component properties
 

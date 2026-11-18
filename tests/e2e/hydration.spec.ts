@@ -46,6 +46,33 @@ const LATE: Partial<Record<Framework, Late[]>> = {
         "useHydrated takes it off once the listeners are attached, so the element stops ignoring clicks",
     },
   ],
+  solid: [
+    {
+      attribute: "data-hydrating",
+      examples: ["callout/Dismissible", "table/Sortable", "table/SortableData"],
+      on: "opui-callout, opui-sortable-table",
+      reason:
+        "hydrated, in the root's ref, takes it off as the spread attaches the listeners, so the element stops ignoring clicks",
+    },
+  ],
+  svelte: [
+    {
+      attribute: "data-hydrating",
+      examples: ["callout/Dismissible", "table/Sortable", "table/SortableData"],
+      on: "opui-callout, opui-sortable-table",
+      reason:
+        "the hydrated attachment takes it off once the component has mounted, so the element stops ignoring clicks",
+    },
+  ],
+  vue: [
+    {
+      attribute: "data-hydrating",
+      examples: ["callout/Dismissible", "table/Sortable", "table/SortableData"],
+      on: "opui-callout, opui-sortable-table",
+      reason:
+        "v-hydrated takes it off once the root has mounted, so the element stops ignoring clicks",
+    },
+  ],
 }
 
 const PROBES: Partial<Record<Framework, Record<string, string>>> = {

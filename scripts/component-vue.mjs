@@ -10,6 +10,7 @@ import {
   edgeTrimmed,
   eventRoots,
   groupWarning,
+  hydratingRoots,
   indent,
   isLoose,
   objectCode,
@@ -249,6 +250,7 @@ export const toVue = (component) => {
   const kind = MODEL_KINDS[model?.kind]?.vue
   const events = component.events ?? []
   const listened = eventRoots(component)
+  const hydrating = hydratingRoots(component, listened)
   if (events.length > 0 && used.has("emit")) {
     throw unsupported(
       component.file,
@@ -537,6 +539,14 @@ export const toVue = (component) => {
       ...(listened.includes(node)
         ? events.map((event) => `@${event}="emit('${event}', $event)"`)
         : []),
+      ...(hydrating.has(node)
+        ? [
+            hydrating.get(node)
+              ? `:data-hydrating="${scope.rename.get(hydrating.get(node)) ?? hydrating.get(node)}.includes('-') ? '' : undefined"`
+              : 'data-hydrating=""',
+            "v-hydrated",
+          ]
+        : []),
       ...((rootElements.includes(node) ||
         (multiRoot &&
           node.attributes.some(
@@ -631,6 +641,7 @@ export const toVue = (component) => {
     ...(computedAttrs ? ["useInputAttrs"] : []),
     ...(kind?.vueHelpers?.(model) ?? []),
     ...(item ? ["seedChecked"] : []),
+    ...(hydrating.size ? ["vHydrated"] : []),
   ].toSorted(byName)
   const importLines = [
     ...scriptImports(component),

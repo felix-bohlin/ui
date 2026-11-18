@@ -6,6 +6,7 @@ import {
   edgeTrimmed,
   eventRoots,
   groupWarning,
+  hydratingRoots,
   importedNames,
   propsImport,
   rewriteExpression,
@@ -72,6 +73,7 @@ export const toSvelte = (component) => {
   const handlers = (component.events ?? []).map((event) =>
     eventProp("svelte", event),
   )
+  const hydrating = hydratingRoots(component, listened)
   const plainProps = [
     ...(kind?.plainProps?.(model) ?? []),
     ...(component.item ? ["defaultChecked", "onchange"] : []),
@@ -232,7 +234,17 @@ export const toSvelte = (component) => {
             )
           : -1
         const listeners = listened.includes(node)
-          ? handlers.map((handler) => `{${handler}}`)
+          ? [
+              ...handlers.map((handler) => `{${handler}}`),
+              ...(hydrating.has(node)
+                ? [
+                    hydrating.get(node)
+                      ? `data-hydrating={${rewriteExpression(hydrating.get(node), options)}.includes("-") ? "" : undefined}`
+                      : 'data-hydrating=""',
+                    "{@attach hydrated}",
+                  ]
+                : []),
+            ]
           : []
         const attributes = [
           ...node.attributes
@@ -294,6 +306,7 @@ export const toSvelte = (component) => {
     ...(usesContent ? [`import { content } from "../content.svelte"`] : []),
     ...(kind?.imports?.(component, model) ?? []),
     ...(component.item ? [`import { seedChecked } from "../svelte"`] : []),
+    ...(hydrating.size ? [`import { hydrated } from "../svelte"`] : []),
     ...components
       .map((entry) => componentImport(entry, ".svelte"))
       .toSorted(byName),

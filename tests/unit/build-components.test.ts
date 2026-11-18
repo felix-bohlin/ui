@@ -475,7 +475,7 @@ describe("the ports of a sample", () => {
     expect(ports["react.tsx"].match(/useEffect\(/g)).toHaveLength(1)
   })
 
-  test("an event in types.ts listens on the root: a ref callback in React that lifts data-hydrating from a custom element, a handler prop in Svelte, an emit in Vue and the on<Event> prop the rest spread carries in Solid", async () => {
+  test("an event in types.ts listens on the root: a ref callback in React, a handler prop in Svelte, an emit in Vue and the on<Event> prop the rest spread carries in Solid, and each lifts data-hydrating from a custom element", async () => {
     const { outputs } = await compileComponent(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<opui-sample class:list={["ui-sample", className]} {...rest}>\n  <slot />\n</opui-sample>\n\n<script>\n  import "../../elements/sample.js"\n</script>\n',
       sampleFile(),
@@ -492,46 +492,68 @@ describe("the ports of a sample", () => {
       "  let {\n    class: className,\n    onclose,\n\n    // Snippets\n    children,\n    ...rest\n  }: Props = $props()\n",
     )
     expect(port(".svelte")).toContain(
-      '<opui-sample class={["ui-sample", className]} {onclose} {...rest}>',
+      '  import { hydrated } from "../svelte"\n',
+    )
+    expect(port(".svelte")).toContain(
+      '<opui-sample\n  class={["ui-sample", className]}\n  {onclose}\n  data-hydrating=""\n  {@attach hydrated}\n  {...rest}\n>',
     )
     expect(port(".vue")).toContain(
       'import type { Props, Emits, Slots } from "./types.vue-props"\n\ndefineProps<Props>()\ndefineSlots<Slots>()\nconst emit = defineEmits<Emits>()\n',
     )
+    expect(port(".vue")).toContain('import { vHydrated } from "../vue"\n')
     expect(port(".vue")).toContain(
-      "    :class=\"['ui-sample', $props.class]\"\n    @close=\"emit('close', $event)\"\n  >",
+      '    :class="[\'ui-sample\', $props.class]"\n    @close="emit(\'close\', $event)"\n    data-hydrating=""\n    v-hydrated\n  >',
     )
     expect(port(".solid.tsx")).toContain(
-      '  const rest = omit(props, "class", "children")\n',
+      'import { hydrated, hydrating } from "../solid"\n',
     )
     expect(port(".solid.tsx")).toContain(
-      '<opui-sample class={["ui-sample", props.class]} {...rest}>',
+      '  const rest = omit(props, "class", "ref", "children")\n',
+    )
+    expect(port(".solid.tsx")).toContain(
+      '    <opui-sample\n      class={["ui-sample", props.class]}\n      {...hydrating()}\n      ref={[props.ref, hydrated]}\n      {...rest}\n    >',
     )
     expect(port(".solid.tsx")).not.toMatch(/data-hydrating|onClose/)
   })
 
-  test("an event on a root tag that can be a custom element renders data-hydrating on the custom element only in React, and none on a plain root", async () => {
-    const reactPort = async (source: string) =>
-      (
-        await compileComponent(source, sampleFile(), {
-          base: "export type Props = {\n  open?: boolean\n}\n\nexport type Events = {\n  close: Event\n}\n",
-        })
-      ).outputs.get("packages/opui/components/Sample/Sample.react.tsx") ?? ""
-    const variable = await reactPort(
+  test("an event on a root tag that can be a custom element renders data-hydrating on the custom element only, and none on a plain root", async () => {
+    const portsOf = async (source: string) => {
+      const { outputs } = await compileComponent(source, sampleFile(), {
+        base: "export type Props = {\n  open?: boolean\n}\n\nexport type Events = {\n  close: Event\n}\n",
+      })
+      return (extension: string) =>
+        outputs.get(sampleFile().replace(".astro", extension)) ?? ""
+    }
+    const variablePort = await portsOf(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, open, ...rest } = Astro.props\n\nconst Root = open ? "opui-sample" : "section"\n---\n\n<Root class:list={["ui-sample", className]} {...rest}>\n  <slot />\n</Root>\n',
     )
+    const variable = variablePort(".react.tsx")
     expect(variable).toContain(
       'const rootRef = useHydrated(useListener(ref, "close", onClose))',
     )
     expect(variable).toContain(
       'data-hydrating={Root.includes("-") ? "" : undefined}\n      ref={rootRef}',
     )
-    const plain = await reactPort(
+    expect(variablePort(".solid.tsx")).toContain(
+      '      {...hydrating(root().includes("-"))}\n      ref={[props.ref, hydrated]}\n',
+    )
+    expect(variablePort(".svelte")).toContain(
+      '  data-hydrating={Root.includes("-") ? "" : undefined}\n  {@attach hydrated}\n',
+    )
+    expect(variablePort(".vue")).toContain(
+      "    :data-hydrating=\"Root.includes('-') ? '' : undefined\"\n    v-hydrated\n",
+    )
+    const plainPort = await portsOf(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, open, ...rest } = Astro.props\n---\n\n<section class:list={["ui-sample", { "ui-open": open }, className]} {...rest}>\n  <slot />\n</section>\n',
     )
+    const plain = plainPort(".react.tsx")
     expect(plain).toContain(
       'const rootRef = useListener(ref, "close", onClose)',
     )
     expect(plain).not.toMatch(/data-hydrating|useHydrated/)
+    for (const extension of [".solid.tsx", ".svelte", ".vue"]) {
+      expect(plainPort(extension)).not.toMatch(/hydrat/i)
+    }
   })
 
   test("an event on a component with more than one root element is refused", async () => {

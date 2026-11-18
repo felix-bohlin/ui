@@ -40,7 +40,10 @@ import {
         ><span class="ui-text">Invite a bassist</span>
       </Button>
     </div>
-    <div class="ui-layout-row ui-spread user-directory-filters" role="search">
+    <component
+      is="search"
+      class="ui-layout-row ui-spread user-directory-filters"
+    >
       <TextField
         hideLabel
         id="user-directory-q"
@@ -76,7 +79,7 @@ import {
         <ToggleButton value="fretless">Fretless</ToggleButton>
         <ToggleButton value="upright">Upright</ToggleButton>
       </ToggleGroup>
-    </div>
+    </component>
     <ul
       class="ui-layout-grid user-directory-list"
       style="--_min-inline-size: 17rem"

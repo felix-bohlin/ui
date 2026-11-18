@@ -30,7 +30,7 @@ Each module owns one invariant, and one test enforces it.
 
 ## Workarounds
 
-Every workaround for a bug in `@astrojs/compiler`, Astro, parse5 or oxfmt has a repro in `tests/unit/tooling-bugs.test.ts` that fails when a dependency update fixes the bug; the failure names the workaround to remove. The components stay independent of how oxfmt wraps their source: `tests/unit/component-formatting.test.ts` renders each one from its source formatted at printWidth 40 and 200.
+Every workaround for a bug in `@astrojs/compiler`, Astro, parse5, oxfmt or Vue has a repro in `tests/unit/tooling-bugs.test.ts` that fails when a dependency update fixes the bug; the failure names the workaround to remove. The components stay independent of how oxfmt wraps their source: `tests/unit/component-formatting.test.ts` renders each one from its source formatted at printWidth 40 and 200.
 
 ## Adding support for a construct
 

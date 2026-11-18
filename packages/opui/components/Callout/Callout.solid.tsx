@@ -5,6 +5,7 @@ import "../../elements/callout.js"
 import { defined } from "../attrs"
 import Button from "../Button/Button.solid"
 import { CalloutContext } from "./context.solid"
+import { hydrated, hydrating } from "../solid"
 import type { Props } from "./types.solid"
 
 export default function Callout(props: Props) {
@@ -14,6 +15,7 @@ export default function Callout(props: Props) {
     "closeButton",
     "closeLabel",
     "id",
+    "ref",
     "severity",
     "variant",
     "children",
@@ -39,6 +41,8 @@ export default function Callout(props: Props) {
         ]}
         id={rootId()}
         role={role()}
+        {...hydrating(root().includes("-"))}
+        ref={[props.ref, hydrated]}
         {...defined(rest as object)}
       >
         {props.children}

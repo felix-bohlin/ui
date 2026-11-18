@@ -1,5 +1,6 @@
 <script lang="ts">
   import "../../elements/callout.js"
+  import { hydrated } from "../svelte"
   import Button from "../Button/Button.svelte"
   import { setCalloutContext } from "./context.svelte"
   import { defined } from "../attrs"
@@ -42,6 +43,8 @@
   id={rootId}
   role={closeButton ? "article" : undefined}
   {ondismiss}
+  data-hydrating={Root.includes("-") ? "" : undefined}
+  {@attach hydrated}
   {...defined(rest)}
 >
   {@render children?.()}{#if closeButton}

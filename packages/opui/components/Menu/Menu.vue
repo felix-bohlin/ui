@@ -23,6 +23,15 @@ const parent = inject(MenuKey, undefined)
 
 const rootId = computed(() => parent?.rootId ?? id)
 
+const rows = computed(() =>
+  items?.map((item) => {
+    const { disabled, href, keepOpen } = item
+    const Tag = href ? "a" : "button"
+    const closes = !href && !keepOpen && !disabled
+    return { closes, item, Tag }
+  }),
+)
+
 warnMissingId("Menu", id)
 
 provide(MenuKey, reactive({ rootId }))
@@ -46,28 +55,32 @@ provide(MenuKey, reactive({ rootId }))
     <li
       v-for="(
         {
-          borderTop,
-          color,
-          disabled,
-          href,
-          keepOpen,
-          label,
-          shortcut,
-          ...itemRest
+          closes,
+          item: {
+            borderTop,
+            color,
+            disabled,
+            href,
+            keepOpen,
+            label,
+            shortcut,
+            ...itemRest
+          },
+          Tag,
         },
         index
-      ) in items"
+      ) in rows"
       :key="index"
       v-bind="
         classAttrs([{ 'ui-border-top': borderTop }, color && `ui-${color}`])
       "
     >
       <component
-        :is="href ? 'a' : 'button'"
+        :is="Tag"
         v-bind="{
-          ...tagAttrs(href ? 'a' : 'button', disabled, href),
-          command: !href && !keepOpen && !disabled ? 'hide-popover' : undefined,
-          commandfor: !href && !keepOpen && !disabled ? rootId : undefined,
+          ...tagAttrs(Tag, disabled, href),
+          command: closes ? 'hide-popover' : undefined,
+          commandfor: closes ? rootId : undefined,
           ...defined(itemRest),
         }"
       >

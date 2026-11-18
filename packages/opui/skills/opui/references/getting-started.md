@@ -569,13 +569,26 @@ The components ship as `.jsx` files with their types, which `@solidjs/vite-plugi
 
 ### TypeScript
 
-The types work with `moduleResolution` set to `"bundler"`, and `jsxImportSource` set to `"@solidjs/web"`.
+The types work with TypeScript 6 and 7, with `moduleResolution` set to `"bundler"` and `jsxImportSource` set to `"@solidjs/web"`.
 
 ### How to use
 
 ### Server rendering
 
-Every component renders full HTML on the server and hydrates. The props in the last column need hydration.
+Every component renders full HTML on the server and hydrates. Solid 2 renders on the server with the `start` and `ssr` options of `@solidjs/vite-plugin`, which need no setting for the package:
+
+```ts
+import solid from "@solidjs/vite-plugin"
+import { defineConfig } from "vite"
+
+export default defineConfig({
+  plugins: [solid({ ssr: true, start: true })],
+})
+```
+
+A page with more than one root gives each its own `renderId` in `renderToString` and `hydrate`, so the ids the components generate differ between the roots. Roots hydrated in the same task each claim their server markup. A root hydrated in a later task renders again over its markup, so load the code of every root first and call `hydrate` for all of them in one loop.
+
+The props in the last column need hydration.
 
 A choice the user makes before the page hydrates stays on screen. `Rating`, `Tabs` and `ToggleGroup` pass it to `onValueChange` as they hydrate.
 

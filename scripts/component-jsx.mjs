@@ -88,10 +88,13 @@ export const jsxEmitter = ({
             ? `{\n${row.consts.join("\n")}\nreturn (\n${body}\n)\n}`
             : `(\n${body}\n)`
           return loop({
+            keyed: row.keyed,
             list: row.list,
             optional: node.optional,
             parameters: row.parameters,
-            returned,
+            returned: row.narrows
+              ? `{\nconst ${row.narrows} = () => ${returned}\nreturn <>{${row.narrows}()}</>\n}`
+              : returned,
           })
         }
         const code = attributes(node, scope).join(" ")

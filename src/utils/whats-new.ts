@@ -353,6 +353,7 @@ export const whatsNew = {
     },
   ],
   carousel: [
+    `<a href="#whole-photos"><code>--_media-fit: contain</code></a> shows photos whole instead of cropping them to the aspect ratio.`,
     components(
       `<code>Carousel</code> requires <a href="#accessibility"><code>aria-label</code></a> or <code>aria-labelledby</code> in its types.`,
     ),

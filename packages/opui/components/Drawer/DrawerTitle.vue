@@ -14,7 +14,7 @@ warnReplacedId("DrawerTitle", "Drawer", id, drawer?.titleId)
 </script>
 
 <template>
-  <h2 v-bind="classAttrs([$props.class])" :id="drawer?.titleId ?? id">
+  <h2 v-bind="classAttrs($props.class)" :id="drawer?.titleId ?? id">
     <slot></slot>
   </h2>
 </template>

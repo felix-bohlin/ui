@@ -5,8 +5,8 @@ const arrayRead = (model) => model.read.startsWith("selectionOf")
 
 const bindableProps = (model) => model.bindables.map(({ prop }) => prop)
 
-const optionalModel = (model) =>
-  `const modelValue = defineModel<${model.type} | undefined>({\n  default: undefined,\n})`
+const optionalModel = (model, name = "modelValue") =>
+  `const ${name} = defineModel<${model.type} | undefined>({\n  default: undefined,\n})`
 
 const selectionImports = (component, model) =>
   arrayRead(model)
@@ -27,16 +27,15 @@ const numeric = (model) =>
 
 const solidChecked = {
   attributes: () => [
-    "defaultChecked={initialChecked}",
-    "ref={[props.ref, checkedRef]}",
+    "{...checkedControl.server}",
+    "ref={[props.ref, checkedControl.ref]}",
   ],
   body: () => [
-    "const initialChecked = untrack(() => props.checked)",
-    'const checkedRef = bound("checked", () => props.checked)',
+    'const checkedControl = control(\n  "checked",\n  () => props.checked,\n  untrack(() => props.checked),\n)',
   ],
   omits: () => ["checked", "ref"],
-  locals: () => ["checkedRef", "initialChecked"],
-  solidHelpers: () => ["bound"],
+  locals: () => ["checkedControl"],
+  solidHelpers: () => ["control"],
   solidValues: () => ["untrack"],
 }
 
@@ -103,8 +102,8 @@ export const MODEL_KINDS = {
       typedBindables: true,
     },
     vue: {
-      attributes: () => ['v-model="modelValue"'],
-      setup: (model) => [optionalModel(model)],
+      attributes: () => ['v-model="model"'],
+      setup: (model) => [optionalModel(model, "model")],
     },
   },
   group: {
@@ -129,7 +128,7 @@ export const MODEL_KINDS = {
     solid: {
       body: (model, rewrite) => [
         "const [inner, setInner] = createSignal(untrack(() => props.defaultValue))",
-        `const change = (input: HTMLInputElement) => {\n  const next = ${rewrite(model.read)}\n  if (inner() !== undefined) setInner(next)\n  props.onValueChange?.(next${arrayRead(model) ? " as never" : ""})\n}`,
+        `const change = (input: HTMLInputElement) => {\n  const next = ${rewrite(model.read)}\n  if (inner() !== undefined) setInner(next)\n  props.onValueChange?.(next${arrayRead(model) ? " as never" : ""})\n  restoreChecked(input, () => props.${model.prop})\n}`,
       ],
       entries: () => ["defaultValue", "onValueChange"],
       imports: selectionImports,
@@ -142,6 +141,7 @@ export const MODEL_KINDS = {
             : entry,
         ),
       ],
+      solidHelpers: () => ["restoreChecked"],
       solidValues: () => ["createSignal", "untrack"],
       tiedCallbacks: true,
     },
@@ -182,15 +182,17 @@ export const MODEL_KINDS = {
     },
     solid: {
       entries: () => ["defaultValue", "onValueChange"],
-      radioAttributes: (model, value, checked, initial) => [
-        `{...checkedProps(props.${model.prop} === undefined ? undefined : ${checked}, ${initial})}`,
-        `onChange={() => props.onValueChange?.(${value})}`,
-        `ref={seedChecked(() => props.onValueChange?.(${value}))}`,
+      radioAttributes: (model, value, control) => [
+        `{...${control}.server}`,
+        `onChange={(event) => {\n  props.onValueChange?.(${value})\n  restoreChecked(event.currentTarget, () => props.${model.prop})\n}}`,
+        `ref={[\n  ${control}.ref,\n  seedChecked((input) => {\n    props.onValueChange?.(${value})\n    restoreChecked(input, () => props.${model.prop})\n  }),\n]}`,
       ],
+      radioChecked: (model, checked) =>
+        `props.${model.prop} === undefined ? undefined : ${checked}`,
       rename: (model) => [
         [model.local, `props.${model.prop} ?? props.defaultValue`],
       ],
-      solidHelpers: () => ["checkedProps", "seedChecked"],
+      solidHelpers: () => ["control", "restoreChecked", "seedChecked"],
     },
     svelte: {
       bindables: (model) => [model.prop],
@@ -267,14 +269,11 @@ export const MODEL_KINDS = {
     },
     solid: {
       attributes: (model) => [
-        resettable(model)
-          ? `default${capitalize(model.prop)}={initial${capitalize(model.prop)}}`
-          : `{...serverValue(initial${capitalize(model.prop)})}`,
-        `ref={[props.ref, ${model.prop}Ref]}`,
+        `{...${model.prop}Control.server}`,
+        `ref={[props.ref, ${model.prop}Control.ref]}`,
       ],
       body: (model, _, read) => [
-        `const initial${capitalize(model.prop)} = untrack(() => props.${model.prop}${ownsDefault(model) ? ` ?? props.default${capitalize(model.prop)}` : ""})`,
-        `const ${model.prop}Ref = bound(${JSON.stringify(model.prop)}, () => props.${model.prop}${resettable(model) ? "" : `, initial${capitalize(model.prop)}`})`,
+        `const ${model.prop}Control = control(\n  ${JSON.stringify(model.prop)},\n  () => props.${model.prop},\n  untrack(() => props.${model.prop}${ownsDefault(model) ? ` ?? props.default${capitalize(model.prop)}` : ""}),\n)`,
         ...(read
           ? [
               `const ${model.local} = () => props.${model.prop} ?? props.default${capitalize(model.prop)}`,
@@ -282,17 +281,11 @@ export const MODEL_KINDS = {
           : []),
       ],
       omits: (model) => [model.prop, "ref"],
-      locals: (model) => [
-        `initial${capitalize(model.prop)}`,
-        `${model.prop}Ref`,
-      ],
+      locals: (model) => [`${model.prop}Control`],
       ownDefault: ownsDefault,
       rename: (model) =>
         model.local ? [[model.local, `${model.local}()`]] : [],
-      solidHelpers: (model) => [
-        "bound",
-        ...(resettable(model) ? [] : ["serverValue"]),
-      ],
+      solidHelpers: () => ["control"],
       solidValues: () => ["untrack"],
     },
     svelte: {

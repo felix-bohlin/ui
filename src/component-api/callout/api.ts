@@ -57,7 +57,7 @@ export default {
     {
       default: "false",
       description:
-        'Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>` with `role="article"`, and the component loads `opui-css/elements/callout.js`, which runs the button. While the root has `data-hydrating`, which the React component renders until it hydrates, the button does nothing.',
+        'Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>` with `role="article"`, and the component loads `opui-css/elements/callout.js`, which runs the button. While the root has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, the button does nothing.',
       group: "Close button",
       prop: "closeButton",
     },

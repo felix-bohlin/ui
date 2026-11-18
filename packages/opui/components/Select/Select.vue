@@ -85,7 +85,7 @@ const field = inject(FieldGroupKey, undefined)
   >
     <label
       v-if="hasLabel()"
-      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
+      :class="hideLabel ? 'ui-sr-only' : 'ui-label'"
       :for="selectId()"
     >
       {{ label }}<TrimmedSlot :nodes="$slots.label?.()" />

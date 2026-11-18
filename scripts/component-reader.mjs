@@ -711,7 +711,7 @@ const expressionNode = (node, context) => {
             branch.filter((child) => !isBlank(child)),
           )
         : undefined
-    const keyed =
+    const rows =
       roots.length === 1 && root.type === "element"
         ? [root]
         : branchRoots?.every(
@@ -719,20 +719,39 @@ const expressionNode = (node, context) => {
             )
           ? branchRoots.map(([element]) => element)
           : undefined
-    if (!keyed) {
+    if (!rows) {
       throw describe(
         "map callback doesn't return one element or a condition between two",
       )
     }
-    for (const element of keyed) element.keyed = index
+    const item = ts.isIdentifier(parameter.name)
+      ? parameter.name.text
+      : undefined
+    const optionValue =
+      !branchRoots && root.tag === "option" && item
+        ? root.attributes.find((entry) => {
+            if (entry.kind !== "expression" || entry.name !== "value") {
+              return false
+            }
+            const names = [...identifiersIn(entry.code)]
+            return names.length > 0 && names.every((name) => name === item)
+          })?.code
+        : undefined
+    const key = branchRoots
+      ? undefined
+      : optionValue
+        ? { by: "item", code: optionValue.trim() }
+        : { by: "index", code: index }
     return [
       {
         children,
         consts,
-        index,
+        index: indexParameter || key?.by !== "item" ? index : undefined,
         item: parameter.getText(sourceFile),
+        key,
         list: expression.expression.expression.getText(sourceFile),
         optional: !!expression.expression.questionDotToken,
+        rows,
         type: "each",
       },
     ]

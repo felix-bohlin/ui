@@ -1,13 +1,7 @@
 <script setup lang="ts">
 import "../../elements/callout.js"
-import {
-  computed,
-  type HTMLAttributes,
-  provide,
-  reactive,
-  useAttrs,
-  useId,
-} from "vue"
+import { computed, provide, reactive, useAttrs, useId } from "vue"
+import { vHydrated } from "../vue"
 import Button from "../Button/Button.vue"
 import { CalloutKey } from "./context.vue"
 import { defined } from "../attrs"
@@ -27,7 +21,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs() as HTMLAttributes
+const attrs = useAttrs()
 
 const uid = useId()
 
@@ -53,6 +47,8 @@ provide(CalloutKey, reactive({ severity: computed(() => severity) }))
     :role="closeButton ? 'article' : undefined"
     v-bind="defined(attrs)"
     @dismiss="emit('dismiss', $event)"
+    :data-hydrating="Root.includes('-') ? '' : undefined"
+    v-hydrated
   >
     <slot></slot
     ><Button

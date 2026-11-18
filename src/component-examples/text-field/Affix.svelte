@@ -18,6 +18,7 @@
 <TextField label="Search" placeholder="Search...">
   {#snippet start()}
     <svg
+      data-icon="search"
       aria-hidden="true"
       width="16"
       height="16"

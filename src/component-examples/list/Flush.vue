@@ -8,6 +8,7 @@ import { Button, List, ListItem } from "opui-css/vue"
       <template #end>
         <Button aria-label="Delete" round size="small">
           <svg
+            data-icon="delete"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
@@ -25,6 +26,7 @@ import { Button, List, ListItem } from "opui-css/vue"
     <ListItem description="Fretless enthusiast" label="Lou Headstock">
       <template #start>
         <svg
+          data-icon="person"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"

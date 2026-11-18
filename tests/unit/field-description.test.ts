@@ -10,11 +10,13 @@ type Element = DefaultTreeAdapterMap["element"]
 type Node = DefaultTreeAdapterMap["childNode"] | Element
 
 const components = import.meta.glob<unknown>(
-  "../../packages/opui/components/*/*.{astro,react.tsx,svelte,vue}",
+  "../../packages/opui/components/*/*.{astro,react.tsx,solid.tsx,svelte,vue}",
   { import: "default" },
 )
 
 const PARTS = { bottom: "B", end: "N", start: "T", top: "P" }
+
+const DRAWN = ["top", "start", "control", "end", "bottom"]
 
 const NAMING = {
   "aria-describedby": "outside",
@@ -111,6 +113,23 @@ describe.each(cases)("$name", ({ describedBy, name, props, slots }) => {
         "outside",
       ])
       expect(describedBy.filter((id) => !byId(id))).toEqual([])
+    },
+  )
+
+  test.each(FRAMEWORKS)(
+    "%s: the field's parts come in the order they're drawn",
+    async (framework) => {
+      const { all } = await renderField(name, framework, props, slots)
+      const field = all.find((el) => attribute(el, "class") === "ui-field")!
+      const parts = field.childNodes
+        .filter((node): node is Element => "tagName" in node)
+        .map((el) =>
+          ["input", "select", "textarea"].includes(el.tagName)
+            ? "control"
+            : attribute(el, "class")!.replace("ui-", ""),
+        )
+      expect(parts).toEqual(DRAWN.filter((part) => parts.includes(part)))
+      expect(parts).toContain("control")
     },
   )
 })

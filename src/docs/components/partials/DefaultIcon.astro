@@ -9,11 +9,13 @@ type Props = {
 const { slots = [], tokens } = Astro.props
 
 const framework = Astro.locals.framework
-const camel = framework === "react" || framework === "svelte"
+const camel =
+  framework === "react" || framework === "solid" || framework === "svelte"
 const kind = {
   astro: "slot",
   html: "",
   react: "prop",
+  solid: "prop",
   svelte: "snippet",
   vue: "slot",
 }[framework]

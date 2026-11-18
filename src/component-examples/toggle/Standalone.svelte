@@ -5,6 +5,7 @@
 <ToggleButton label="Show grid" name="standalone-demo-1" />
 <ToggleButton name="standalone-demo-2">
   <svg
+    data-icon="critical"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="24"

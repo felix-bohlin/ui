@@ -3,6 +3,8 @@ import ts from "typescript"
 
 export const root = fileURLToPath(new URL("..", import.meta.url))
 
+export const SOLID_PRAGMA = "/** @jsxImportSource @solidjs/web */"
+
 export const unsupported = (file, what, hint) =>
   new Error(
     `${file} uses ${what}, which scripts/build-components.mjs can't compile: ${hint ?? "support the construct in scripts/build-components.mjs, or list the file in scripts/hand-written-components.json with the reason"}`,
@@ -41,8 +43,6 @@ export const elementsIn = (nodes) =>
     if (node.type === "slot") return elementsIn(node.fallback)
     return []
   })
-
-export const REACT_ATTRIBUTE_NAMES = { class: "className", for: "htmlFor" }
 
 export const spreads = (node, code) =>
   node.attributes.some(
@@ -83,10 +83,10 @@ export const chosenSpreadCode = (item, spread, condition) =>
 
 const identifierCache = new Map()
 
-export const identifiersIn = (code) => {
+export const identifierCounts = (code) => {
   const cached = identifierCache.get(code)
   if (cached) return cached
-  const names = new Set()
+  const counts = new Map()
   const visit = (node) => {
     if (
       ts.isIdentifier(node) &&
@@ -95,14 +95,16 @@ export const identifiersIn = (code) => {
       ) &&
       !(ts.isPropertyAssignment(node.parent) && node.parent.name === node)
     ) {
-      names.add(node.text)
+      counts.set(node.text, (counts.get(node.text) ?? 0) + 1)
     }
     ts.forEachChild(node, visit)
   }
   visit(sourceFileOf(`(${code})`, "expression.ts"))
-  identifierCache.set(code, names)
-  return names
+  identifierCache.set(code, counts)
+  return counts
 }
+
+export const identifiersIn = (code) => new Set(identifierCounts(code).keys())
 
 const typeNodeOf = (type) =>
   sourceFileOf(`type T = ${type}`, "type.ts").statements[0].type
@@ -152,7 +154,7 @@ export const slotsUsedIn = (code) => {
   return names
 }
 
-const codesIn = (nodes) =>
+export const codesIn = (nodes) =>
   nodes.flatMap((node) => {
     if (node.type === "expression") return [node.code]
     if (node.type === "each") {

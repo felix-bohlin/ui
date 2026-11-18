@@ -64,6 +64,11 @@ export default {
       "Padding of `.ui-footer`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.",
     kind: "input",
   },
+  "--_handle-border-color": {
+    description:
+      "Color of the grab handle a drawer at the block start or end shows on a touch screen. `--ui-border-color` on the drawer's surface.",
+    kind: "input",
+  },
   "--_header-padding": {
     description:
       "Padding of `.ui-header`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.",
@@ -79,6 +84,16 @@ export default {
   },
   "--_shadow": {
     description: "The shadow. Defaults to `--ui-shadow-overlay`.",
+    kind: "input",
+  },
+  "--_swipe-offset": {
+    description:
+      "How far a swipe has moved the open drawer toward its edge. `opui-css/elements/drawer-swipe.js` sets it on the drawer while a finger drags it. `0px` otherwise.",
+    kind: "input",
+  },
+  "--_swipe-progress": {
+    description:
+      "The share of its size a swipe has moved the drawer, from `0` to `1`. `opui-css/elements/drawer-swipe.js` sets it while a finger drags the drawer, and the backdrop fades by it. `0` otherwise.",
     kind: "input",
   },
   "--_text-color": {

@@ -120,6 +120,7 @@
     >Used for gig and rehearsal reminders.</span
   >
   <span class="ui-field">
+    <span class="ui-start" id="select-spread-6-start">UTC</span>
     <select
       aria-describedby="select-spread-6-start-text select-spread-6-start"
       id="select-spread-6"
@@ -135,7 +136,6 @@
         <option>+09:00</option>
       </div>
     </select>
-    <span class="ui-start" id="select-spread-6-start">UTC</span>
   </span>
 </div>
 
@@ -145,22 +145,9 @@
     >Less lag means tighter grooves.</span
   >
   <span class="ui-field">
-    <select
-      aria-describedby="select-spread-7-start-text select-spread-7-start select-spread-7-end-text"
-      id="select-spread-7"
-    >
-      <button inert>
-        <selectedcontent></selectedcontent>
-      </button>
-      <div class="ui-list">
-        <option value="">-</option>
-        <option>Asia</option>
-        <option>Europe</option>
-        <option>North America</option>
-      </div>
-    </select>
     <span class="ui-start" id="select-spread-7-start">
       <svg
+        data-icon="globe"
         aria-hidden="true"
         width="16"
         height="16"
@@ -178,6 +165,20 @@
         ></path>
       </svg>
     </span>
+    <select
+      aria-describedby="select-spread-7-start-text select-spread-7-start select-spread-7-end-text"
+      id="select-spread-7"
+    >
+      <button inert>
+        <selectedcontent></selectedcontent>
+      </button>
+      <div class="ui-list">
+        <option value="">-</option>
+        <option>Asia</option>
+        <option>Europe</option>
+        <option>North America</option>
+      </div>
+    </select>
   </span>
   <span id="select-spread-7-end-text" class="ui-end-text"
     >Cannot be changed mid-jam.</span

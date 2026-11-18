@@ -6,6 +6,8 @@ import {
   exampleSources,
 } from "../../utils/examples"
 import { FRAMEWORKS, type FrameworkId } from "../../utils/framework"
+import { SOLID_PRAGMA } from "../../../scripts/component-shared.mjs"
+import { renderSolid } from "../Example/render-solid"
 
 const id = "shells"
 const slug = "card"
@@ -33,6 +35,10 @@ const reactSources = import.meta.glob<string>(
   "../../../packages/opui/components/**/*.react.tsx",
   { eager: true, import: "default", query: "?raw" },
 )
+const solidSources = import.meta.glob<string>(
+  "../../../packages/opui/components/**/*.solid.tsx",
+  { eager: true, import: "default", query: "?raw" },
+)
 const svelteSources = import.meta.glob<string>(
   "../../../packages/opui/components/**/*.svelte",
   { eager: true, import: "default", query: "?raw" },
@@ -53,6 +59,7 @@ const layers = [
   { core: true, label: "Custom elements", sources: elementSources },
   { core: true, label: "Init helpers", sources: jsSources },
   { core: false, label: "React components", sources: reactSources },
+  { core: false, label: "Solid components", sources: solidSources },
   { core: false, label: "Svelte components", sources: svelteSources },
   { core: false, label: "Vue components", sources: vueSources },
 ]
@@ -130,7 +137,7 @@ const source = (framework: FrameworkId) => {
   if (!code) {
     throw new Error(`Shells.astro: ${slug}/${name} has no ${framework} file`)
   }
-  return code.trimEnd()
+  return code.replace(`${SOLID_PRAGMA}\n`, "").trimEnd()
 }
 
 const displayLabel = (framework: FrameworkId, label: string) =>
@@ -138,11 +145,20 @@ const displayLabel = (framework: FrameworkId, label: string) =>
 
 const renders = FRAMEWORKS.map(({ id: framework, label }) => ({
   Component:
-    framework === "html"
+    framework === "html" || framework === "solid"
       ? undefined
       : exampleModules[examplePath(slug, name, framework)]?.default,
   framework,
-  html: framework === "html" ? source("html") : undefined,
+  html:
+    framework === "html"
+      ? source("html")
+      : framework === "solid"
+        ? renderSolid(
+            exampleModules[examplePath(slug, name, framework)]
+              ?.default as never,
+            `${id}-`,
+          )
+        : undefined,
   label: displayLabel(framework, label),
   marked: markParts(source(framework)),
 }))

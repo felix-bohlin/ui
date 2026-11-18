@@ -309,11 +309,15 @@ const attributeTypeProblems = (
   })
 }
 
-test("react/elements.ts and svelte/elements.ts type every attribute an element reads", () => {
+test("react/elements.ts, solid/elements.ts and svelte/elements.ts type every attribute an element reads", () => {
   const scripts = globSync("packages/opui/elements/*.js").toSorted()
   const frameworks = {
     "react/elements.ts": readFileSync(
       "packages/opui/react/elements.ts",
+      "utf8",
+    ),
+    "solid/elements.ts": readFileSync(
+      "packages/opui/solid/elements.ts",
       "utf8",
     ),
     "svelte/elements.ts": readFileSync(
@@ -325,7 +329,7 @@ test("react/elements.ts and svelte/elements.ts type every attribute an element r
     scripts.flatMap((file) =>
       attributeTypeProblems(readFileSync(file, "utf8"), frameworks),
     ),
-    "type the attribute on the element's tag in both files, so a component's props reach it in React and Svelte",
+    "type the attribute on the element's tag in every file, so a component's props reach it in React, Solid and Svelte",
   ).toEqual([])
 })
 

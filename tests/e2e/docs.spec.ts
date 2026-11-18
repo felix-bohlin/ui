@@ -1,7 +1,7 @@
 import { readdirSync } from "node:fs"
 import { expect, test } from "@playwright/test"
 import type { Locator, Page } from "@playwright/test"
-import { FRAMEWORK_IDS } from "../../src/utils/framework"
+import { FRAMEWORK_IDS, PACKAGE_FRAMEWORK_IDS } from "../../src/utils/framework"
 import { FIREFOX_STICKY_ANCHOR_SCROLL, failsIn } from "./engine-bugs"
 import {
   computed,
@@ -299,7 +299,7 @@ test.describe("search", () => {
     const options = page.locator("#results-list [role=option]")
     await expect(options.first()).toHaveAttribute(
       "href",
-      /^\/(astro|react|svelte|vue)\/api\/#carousel$/,
+      new RegExp(`^/(${PACKAGE_FRAMEWORK_IDS.join("|")})/api/#carousel$`),
     )
     await expect(page.locator("#search-status")).toHaveText(
       `No results in HTML, ${await options.count()} in other frameworks`,
@@ -735,6 +735,25 @@ test("a focused copy button in a code block is fully opaque", async ({
   await page.mouse.move(0, 0)
   await page.locator("h1").click()
   await expect(block.locator(".code-copy")).toHaveCSS("opacity", "0")
+})
+
+test("a block page shows the code of the visitor's framework", async ({
+  page,
+}) => {
+  await page.goto("/blocks/sign-in/")
+  const tabs = page.locator(".block-viewer > .ui-tabs > .ui-label")
+  await expect(tabs.filter({ visible: true })).toHaveText([
+    "Preview",
+    "HTML",
+    "CSS",
+  ])
+  await page.evaluate(() => localStorage.setItem("opui-framework", "react"))
+  await page.reload()
+  await expect(tabs.filter({ visible: true })).toHaveText(["Preview", "React"])
+  await tabs.filter({ hasText: "React" }).click()
+  await expect(
+    page.locator(".block-viewer .ui-panel").filter({ visible: true }),
+  ).toContainText('from "opui-css/react"')
 })
 
 test("the block preview's Tablet and Mobile widths give the block 768px and 390px", async ({

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import "../../elements/close-on-navigate.js"
+import "../../elements/drawer-swipe.js"
 import { computed, type HTMLAttributes, provide, reactive, useAttrs } from "vue"
 import { DrawerKey } from "./context.vue"
 import { autoLabelledBy } from "../id"

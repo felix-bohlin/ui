@@ -6,6 +6,7 @@ import { Textarea } from "opui-css/vue"
   <Textarea label="Notes" placeholder="Add a note...">
     <template #start>
       <svg
+        data-icon="edit"
         aria-hidden="true"
         width="16"
         height="16"

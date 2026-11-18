@@ -4,19 +4,13 @@ import type { CustomProperties } from "../../src/component-api/types"
 import { frameworkProps } from "../../src/utils/component-source"
 import { PACKAGE_FRAMEWORK_IDS } from "../../src/utils/framework"
 import { classNamesIn } from "../../src/utils/package-source"
+import { changesSince, sectionsIn } from "../../src/utils/changelog-file"
 import released from "./released-api.json"
 
 const changelog = readFileSync("packages/opui/CHANGELOG.md", "utf8")
-const unreleased = changelog.slice(
-  0,
-  changelog.indexOf(`\n## ${released.version} `),
-)
-const breaking = [
-  ...unreleased.matchAll(
-    /^### (Breaking|Removed)\n([\s\S]*?)(?=^### |^## |(?![\s\S]))/gm,
-  ),
-]
-  .map((match) => match[2])
+const breaking = sectionsIn(changesSince(changelog, released.version))
+  .filter(({ title }) => title === "Breaking" || title === "Removed")
+  .map(({ body }) => body)
   .join("\n")
 const entries = breaking.split("\n").filter((line) => line.startsWith("- "))
 const native = /^(aria-[a-z]+|command|commandfor|id|interestfor|name|open)$/

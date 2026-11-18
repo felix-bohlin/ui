@@ -1,6 +1,6 @@
 # Getting started
 
-Every framework needs the CSS. The HTML section covers the CDN file, the npm imports and the files to copy. The Astro, React, Svelte and Vue sections add their install, CSS import and component import steps.
+Every framework needs the CSS. The HTML section covers the CDN file, the npm imports and the files to copy. The Astro, React, Solid, Svelte and Vue sections add their install, CSS import and component import steps.
 
 ## HTML
 
@@ -520,6 +520,164 @@ A choice the user makes before the page hydrates stays on screen. `Rating`, `Tab
 41 components, each with React examples and its API.
 
 #### [Concepts](https://opui.dev/react/guide/concepts.md)
+
+#### [Theme builder](https://opui.dev/theme-builder.md)
+
+## Solid
+
+OPUI ships first-class Solid 2 components. Install the package, import what you need, and you're set.
+
+### Quick start
+
+#### Install and import the CSS
+
+```sh
+pnpm add opui-css solid-js@2 @solidjs/web@2
+```
+
+```sh
+npm install opui-css solid-js@2 @solidjs/web@2
+```
+
+```sh
+yarn add opui-css solid-js@2 @solidjs/web@2
+```
+
+```sh
+bun add opui-css solid-js@2 @solidjs/web@2
+```
+
+#### Use a component
+
+```tsx
+import { Button } from "opui-css/solid"
+
+export default function App() {
+  return <Button color="primary" variant="filled">Save</Button>
+}
+```
+
+#### Make it yours
+
+### What's in the CSS
+
+### Import only what you use
+
+### Builds
+
+The components ship as `.jsx` files with their types, which `@solidjs/vite-plugin` compiles with your Solid through the package's `solid` export condition, for server rendering too.
+
+### TypeScript
+
+The types work with TypeScript 6 and 7, with `moduleResolution` set to `"bundler"` and `jsxImportSource` set to `"@solidjs/web"`.
+
+### How to use
+
+### Server rendering
+
+Every component renders full HTML on the server and hydrates. Solid 2 renders on the server with the `start` and `ssr` options of `@solidjs/vite-plugin`, which need no setting for the package:
+
+```ts
+import solid from "@solidjs/vite-plugin"
+import { defineConfig } from "vite"
+
+export default defineConfig({
+  plugins: [solid({ ssr: true, start: true })],
+})
+```
+
+A page with more than one root gives each its own `renderId` in `renderToString` and `hydrate`, so the ids the components generate differ between the roots. Roots hydrated in the same task each claim their server markup. A root hydrated in a later task renders again over its markup, so load the code of every root first and call `hydrate` for all of them in one loop.
+
+The props in the last column need hydration.
+
+A choice the user makes before the page hydrates stays on screen. `Rating`, `Tabs` and `ToggleGroup` pass it to `onValueChange` as they hydrate.
+
+- **66** of 69 need no hydration
+- **3** hydrate for `indeterminate`, `valueSuffix`, `valueText`
+
+| Component | Client | Server | Needs hydration |
+| --- | --- | --- | --- |
+| [`Accordion`](https://opui.dev/solid/components/accordion.md) | Yes | Yes | - |
+| [`AccordionActions`](https://opui.dev/solid/components/accordion.md) | Yes | Yes | - |
+| [`AccordionSummary`](https://opui.dev/solid/components/accordion.md) | Yes | Yes | - |
+| [`Anchor`](https://opui.dev/solid/components/anchor.md) | Yes | Yes | - |
+| [`Avatar`](https://opui.dev/solid/components/avatar.md) | Yes | Yes | - |
+| [`AvatarGroup`](https://opui.dev/solid/components/avatar.md) | Yes | Yes | - |
+| [`Badge`](https://opui.dev/solid/components/badge.md) | Yes | Yes | - |
+| [`Button`](https://opui.dev/solid/components/button.md) | Yes | Yes | - |
+| [`Callout`](https://opui.dev/solid/components/callout.md) | Yes | Yes | - |
+| [`Card`](https://opui.dev/solid/components/card.md) | Yes | Yes | - |
+| [`CardActions`](https://opui.dev/solid/components/card.md) | Yes | Yes | - |
+| [`CardHeader`](https://opui.dev/solid/components/card.md) | Yes | Yes | - |
+| [`Carousel`](https://opui.dev/solid/components/carousel.md) | Yes | Yes | - |
+| [`Checkbox`](https://opui.dev/solid/components/checkbox.md) | Yes | No | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. |
+| [`CheckboxInput`](https://opui.dev/solid/components/checkbox.md) | Yes | No | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. |
+| [`Chip`](https://opui.dev/solid/components/chip.md) | Yes | Yes | - |
+| [`ControlGroup`](https://opui.dev/solid/components/control-group.md) | Yes | Yes | - |
+| [`Copy`](https://opui.dev/solid/components/copy.md) | Yes | Yes | - |
+| [`DescriptionList`](https://opui.dev/solid/components/description-list.md) | Yes | Yes | - |
+| [`DescriptionListItem`](https://opui.dev/solid/components/description-list.md) | Yes | Yes | - |
+| [`Dialog`](https://opui.dev/solid/components/dialog.md) | Yes | Yes | - |
+| [`DialogFooter`](https://opui.dev/solid/components/dialog.md) | Yes | Yes | - |
+| [`DialogHeader`](https://opui.dev/solid/components/dialog.md) | Yes | Yes | - |
+| [`Divider`](https://opui.dev/solid/components/divider.md) | Yes | Yes | - |
+| [`Drawer`](https://opui.dev/solid/components/drawer.md) | Yes | Yes | - |
+| [`DrawerFooter`](https://opui.dev/solid/components/drawer.md) | Yes | Yes | - |
+| [`DrawerHeader`](https://opui.dev/solid/components/drawer.md) | Yes | Yes | - |
+| [`FieldDescription`](https://opui.dev/solid/components/form.md) | Yes | Yes | - |
+| [`FieldGroup`](https://opui.dev/solid/components/form.md) | Yes | Yes | - |
+| [`FieldLegend`](https://opui.dev/solid/components/form.md) | Yes | Yes | - |
+| [`Fieldset`](https://opui.dev/solid/components/form.md) | Yes | Yes | - |
+| [`Form`](https://opui.dev/solid/components/form.md) | Yes | Yes | - |
+| [`List`](https://opui.dev/solid/components/list.md) | Yes | Yes | - |
+| [`ListItem`](https://opui.dev/solid/components/list.md) | Yes | Yes | - |
+| [`Menu`](https://opui.dev/solid/components/menu.md) | Yes | Yes | - |
+| [`Message`](https://opui.dev/solid/components/message.md) | Yes | Yes | - |
+| [`MessageList`](https://opui.dev/solid/components/message.md) | Yes | Yes | - |
+| [`NumberField`](https://opui.dev/solid/components/number-field.md) | Yes | Yes | - |
+| [`OneTimeCode`](https://opui.dev/solid/components/one-time-code.md) | Yes | Yes | - |
+| [`Progress`](https://opui.dev/solid/components/progress.md) | Yes | Yes | - |
+| [`Radio`](https://opui.dev/solid/components/radio.md) | Yes | Yes | - |
+| [`RadioInput`](https://opui.dev/solid/components/radio.md) | Yes | Yes | - |
+| [`Range`](https://opui.dev/solid/components/range.md) | Yes | No | `valueSuffix` **Needs hydration** The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Import `opui-css/css/js/range.js` in the page. , `valueText` **Needs hydration** The `valueText` content is yours, so it follows the thumb when your own state changes, which takes hydration. Update the content on `input` yourself, or use `valueSuffix`. |
+| [`Rating`](https://opui.dev/solid/components/rating.md) | Yes | Yes | - |
+| [`Select`](https://opui.dev/solid/components/select.md) | Yes | Yes | - |
+| [`SelectAll`](https://opui.dev/solid/components/checkbox.md) | Yes | Yes | - |
+| [`SortableTable`](https://opui.dev/solid/components/table.md) | Yes | Yes | - |
+| [`Stat`](https://opui.dev/solid/components/stat.md) | Yes | Yes | - |
+| [`Stepper`](https://opui.dev/solid/components/stepper.md) | Yes | Yes | - |
+| [`StepperItem`](https://opui.dev/solid/components/stepper.md) | Yes | Yes | - |
+| [`Switch`](https://opui.dev/solid/components/switch.md) | Yes | Yes | - |
+| [`SwitchInput`](https://opui.dev/solid/components/switch.md) | Yes | Yes | - |
+| [`Table`](https://opui.dev/solid/components/table.md) | Yes | Yes | - |
+| [`TableCell`](https://opui.dev/solid/components/table.md) | Yes | Yes | - |
+| [`TableColumn`](https://opui.dev/solid/components/table.md) | Yes | Yes | - |
+| [`TableColumnGroup`](https://opui.dev/solid/components/table.md) | Yes | Yes | - |
+| [`TableHeaderCell`](https://opui.dev/solid/components/table.md) | Yes | Yes | - |
+| [`Tabs`](https://opui.dev/solid/components/tabs.md) | Yes | Yes | - |
+| [`TabsItem`](https://opui.dev/solid/components/tabs.md) | Yes | Yes | - |
+| [`TabsLabel`](https://opui.dev/solid/components/tabs.md) | Yes | Yes | - |
+| [`TabsPanel`](https://opui.dev/solid/components/tabs.md) | Yes | Yes | - |
+| [`Textarea`](https://opui.dev/solid/components/textarea.md) | Yes | Yes | - |
+| [`TextField`](https://opui.dev/solid/components/text-field.md) | Yes | Yes | - |
+| [`Timeline`](https://opui.dev/solid/components/timeline.md) | Yes | Yes | - |
+| [`TimelineItem`](https://opui.dev/solid/components/timeline.md) | Yes | Yes | - |
+| [`Toaster`](https://opui.dev/solid/components/toast.md) | Yes | Yes | - |
+| [`ToggleButton`](https://opui.dev/solid/components/toggle.md) | Yes | Yes | - |
+| [`ToggleGroup`](https://opui.dev/solid/components/toggle.md) | Yes | Yes | - |
+| [`Tooltip`](https://opui.dev/solid/components/tooltip.md) | Yes | Yes | - |
+
+### Next steps
+
+#### [AI assistants](https://opui.dev/solid/llms.txt)
+
+#### [Blocks](https://opui.dev/blocks.md)
+
+#### [Components](https://opui.dev/solid/components.md)
+
+41 components, each with Solid examples and its API.
+
+#### [Concepts](https://opui.dev/solid/guide/concepts.md)
 
 #### [Theme builder](https://opui.dev/theme-builder.md)
 

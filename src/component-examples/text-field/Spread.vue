@@ -62,6 +62,7 @@ import { TextField } from "opui-css/vue"
     <template #start-text>Locked away from guitarists</template>
     <template #start>
       <svg
+        data-icon="lock"
         aria-hidden="true"
         width="16"
         height="16"

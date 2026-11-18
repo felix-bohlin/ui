@@ -61,6 +61,7 @@ export default function RichOptions() {
         <option value="private">
           <span className="ui-start">
             <svg
+              data-icon="lock"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -80,6 +81,7 @@ export default function RichOptions() {
         <option value="team">
           <span className="ui-start">
             <svg
+              data-icon="people"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -99,6 +101,7 @@ export default function RichOptions() {
         <option value="public">
           <span className="ui-start">
             <svg
+              data-icon="globe"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"

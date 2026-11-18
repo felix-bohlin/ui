@@ -6,6 +6,7 @@
 <Chip href="#" label="Outlined link" variant="outlined">
   {#snippet end()}
     <svg
+      data-icon="open"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"

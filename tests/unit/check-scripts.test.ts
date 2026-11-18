@@ -37,6 +37,7 @@ import {
   checkProvide,
   checkReactExample,
   checkRest,
+  checkSolidProps,
   checkSortedKeys,
   checkTypeNames,
   checkTypesImport,
@@ -498,6 +499,15 @@ describe("check-colors", () => {
       [],
     )
     expect(colorProblems("notes.txt", "#fff")).toEqual([])
+    expect(
+      colorProblems(
+        "src/component-examples/button/Colors.react.tsx",
+        "<a>#2482</a>",
+      ),
+    ).toEqual([])
+    expect(
+      colorProblems("src/component-examples/button/Gone.react.tsx", "#2482"),
+    ).toEqual(["src/component-examples/button/Gone.react.tsx:1: #2482"])
     expect(colorProblems("docs/notes.md", "PR `#418`")).toEqual([
       "docs/notes.md:1: #418",
     ])
@@ -975,6 +985,173 @@ describe("check-components", () => {
       ),
     ).toEqual([
       'does not type its props with Props from "./types.react": annotate the props parameter with it',
+    ])
+  })
+
+  test("a Solid port reads props as props.x and omits them in order", () => {
+    const solid = (body: string) =>
+      `/** @jsxImportSource @solidjs/web */\nimport { omit } from "solid-js"\n\nexport default function Badge(props: Props) {\n${body}\n}\n`
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class", "size", "children", "end")\n  return <span {...rest} />',
+        ),
+        ["end"],
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "size", "class")\n  return <span {...rest} />',
+        ),
+      ),
+    ).toEqual([expect.stringContaining("expected class, size")])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "children", "class")\n  return <span {...rest} />',
+        ),
+      ),
+    ).toEqual([expect.stringContaining("expected class, children")])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid('  const rest = omit(props, "class")\n  return <span />'),
+      ),
+    ).toEqual([expect.stringContaining("never spreads it")])
+    expect(
+      checkSolidProps("Badge.solid.tsx", solid("  return <span />"), [], true),
+    ).toEqual([expect.stringContaining("does not take the rest with omit")])
+    expect(
+      checkSolidProps("Badge.solid.tsx", solid("  return <span />"), [], false),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class", "children")\n  return props.children && <span {...rest}>{props.children}</span>',
+        ),
+      ),
+    ).toEqual([expect.stringContaining("reads props.children 2 times")])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class", "items", "end")\n  const resolvedEnd = children(() => props.end)\n  return (\n    <ul {...rest}>\n      <For each={props.items}>\n        {(item) => <li>{item}{resolvedEnd() && <i>{props.end}</i>}</li>}\n      </For>\n    </ul>\n  )',
+        ),
+        ["end"],
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class", "items")\n  return <ul {...rest}>{props.items.map((item) => <li>{item}</li>)}</ul>',
+        ),
+      ),
+    ).toEqual([expect.stringContaining("builds JSX with .map()")])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class", "items")\n  const labels = props.items.map((item) => item.label)\n  return <ul {...rest}><For each={labels}>{(label) => <li>{label}</li>}</For></ul>',
+        ),
+      ),
+    ).toEqual([])
+    for (const condition of [
+      'title={props.label ? "Labelled" : rest.title}',
+      "title={props.label && rest.title}",
+      "title={(rest.title || props.label)}",
+      "aria-label={label() ?? rest.title}",
+    ]) {
+      expect(
+        checkSolidProps(
+          "Badge.solid.tsx",
+          solid(
+            `  const rest = omit(props, "label")\n  return <span {...rest}><Button ${condition} /></span>`,
+          ),
+        ),
+      ).toEqual([
+        expect.stringContaining(
+          `passes the condition ${condition} to <Button>`,
+        ),
+      ])
+    }
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "label")\n  const title = () => (props.label ? "Labelled" : rest.title)\n  const fallback = "Close"\n  return (\n    <span title={props.label ? "Labelled" : rest.title} {...rest}>\n      <Button aria-label={fallback || "Close"} disabled={!(props.label && rest.title)} title={title()} />\n    </span>\n  )',
+        ),
+      ),
+    ).toEqual([])
+    for (const tag of [
+      'const Tag = dynamic("selectedcontent")',
+      'const Tag = dynamic(() => "selectedcontent")',
+      'const tag = () => "selectedcontent"\n  const Tag = dynamic(tag)',
+    ]) {
+      expect(
+        checkSolidProps(
+          "Badge.solid.tsx",
+          solid(
+            `  const rest = omit(props, "class")\n  ${tag}\n  return <Tag {...rest} />`,
+          ),
+        ),
+      ).toEqual([
+        expect.stringContaining("calls dynamic() on a string literal"),
+      ])
+    }
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "as", "class")\n  const tag = () => props.as || "span"\n  const Tag = dynamic(tag)\n  return <Tag {...rest} />',
+        ),
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class", "children")\n  const resolvedChildren = children(() => props.children)\n  return resolvedChildren() && <span {...rest}>{resolvedChildren()}</span>',
+        ),
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class")\n  return <span {...(rest as object)} />',
+        ),
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class")\n  return <span {...(props.size ? (rest as object) : {})} />',
+        ),
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const all = mergeProps({ size: "medium" }, props)\n  return <span />',
+        ),
+      ),
+    ).toEqual([expect.stringContaining("calls mergeProps()")])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        "export default function Badge({ size }: Props) {\n  return <span />\n}\n",
+      ),
+    ).toEqual([
+      expect.stringContaining("does not start with"),
+      expect.stringContaining("destructures its props"),
     ])
   })
 

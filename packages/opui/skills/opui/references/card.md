@@ -3,7 +3,7 @@
 A surface for related content and actions.
 
 - CSS: `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/card.md), [Astro](https://opui.dev/astro/components/card.md), [React](https://opui.dev/react/components/card.md), [Svelte](https://opui.dev/svelte/components/card.md), [Vue](https://opui.dev/vue/components/card.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/card.md), [Astro](https://opui.dev/astro/components/card.md), [React](https://opui.dev/react/components/card.md), [Solid](https://opui.dev/solid/components/card.md), [Svelte](https://opui.dev/svelte/components/card.md), [Vue](https://opui.dev/vue/components/card.md).
 
 ## Card
 
@@ -154,6 +154,43 @@ import { Card, CardContent } from "opui-css/astro"
 
 ```tsx
 import { Card, CardContent } from "opui-css/react"
+
+export default function Variants() {
+  return (
+    <>
+      <Card>
+        <CardContent>Plain</CardContent>
+      </Card>
+
+      <Card variant="elevated">
+        <CardContent>Elevated</CardContent>
+      </Card>
+
+      <Card variant="outlined">
+        <CardContent>Outlined</CardContent>
+      </Card>
+
+      <Card variant="tonal">
+        <CardContent>Tonal</CardContent>
+      </Card>
+
+      <Card variant="transparent">
+        <CardContent>Transparent</CardContent>
+      </Card>
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Card, CardActions, CardContent, CardHeader } from "opui-css/solid"`
+
+### Example: Variants
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Card, CardContent } from "opui-css/solid"
 
 export default function Variants() {
   return (

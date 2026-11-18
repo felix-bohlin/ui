@@ -10,7 +10,7 @@ import {
 import { useInputAttrs, vSeed } from "../vue"
 import type { Props, Slots } from "./types.vue-props"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
-import { idRefs } from "../id"
+import { fieldDescribedBy } from "../id"
 import { initialValue, sameValue } from "./selection"
 import { styleAttrs } from "../style"
 
@@ -100,18 +100,26 @@ const field = inject(FieldGroupKey, undefined)
     </span>
 
     <span class="ui-field">
+      <span class="ui-top" :id="topId" v-if="$slots.top"
+        ><slot name="top"></slot
+      ></span>
+      <span class="ui-start" :id="startId" v-if="$slots.start"
+        ><slot name="start"></slot
+      ></span>
       <select
         v-bind="inputAttrs"
         v-seed
         v-model="model"
         :aria-describedby="
-          idRefs(
-            (startText || $slots['start-text']) && startTextId,
-            $slots.top && topId,
-            $slots.start && startId,
-            $slots.end && endId,
-            $slots.bottom && bottomId,
-            (endText || $slots['end-text']) && endTextId,
+          fieldDescribedBy(
+            {
+              bottom: $slots.bottom && bottomId,
+              end: $slots.end && endId,
+              endText: (endText || $slots['end-text']) && endTextId,
+              start: $slots.start && startId,
+              startText: (startText || $slots['start-text']) && startTextId,
+              top: $slots.top && topId,
+            },
             attrs['aria-describedby'],
           )
         "
@@ -135,14 +143,8 @@ const field = inject(FieldGroupKey, undefined)
           <slot></slot>
         </div>
       </select>
-      <span class="ui-start" :id="startId" v-if="$slots.start"
-        ><slot name="start"></slot
-      ></span>
       <span class="ui-end" :id="endId" v-if="$slots.end"
         ><slot name="end"></slot
-      ></span>
-      <span class="ui-top" :id="topId" v-if="$slots.top"
-        ><slot name="top"></slot
       ></span>
       <span class="ui-bottom" :id="bottomId" v-if="$slots.bottom"
         ><slot name="bottom"></slot

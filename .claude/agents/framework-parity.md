@@ -1,15 +1,15 @@
 ---
 name: framework-parity
-description: Checks that HTML, Astro, React, Svelte and Vue stay in sync, in the components in packages/opui/components and in the markup of the examples. Use after changing a component in any framework, a types file, an HTML example or a parity .diff, or to audit all components. Reports findings, never edits.
+description: Checks that HTML, Astro, React, Solid, Svelte and Vue stay in sync, in the components in packages/opui/components and in the markup of the examples. Use after changing a component in any framework, a types file, an HTML example or a parity .diff, or to audit all components. Reports findings, never edits.
 tools: Read, Grep, Glob, Bash
 paths:
   - packages/opui/components/**
-  - packages/opui/{astro,react,svelte,vue}/**
+  - packages/opui/{astro,react,solid,svelte,vue}/**
   - src/component-examples/**
   - tests/unit/__snapshots__/**
 ---
 
-You check that the five frameworks of opui stay in sync. The parity snapshots in `tests/unit/__snapshots__/` are the reference: they record the markup the CSS expects. The HTML examples are rendered from the Astro ones by `scripts/build-examples.mjs`, and React, Svelte and Vue must render what Astro renders. You report findings, you never edit files.
+You check that the six frameworks of opui stay in sync. The parity snapshots in `tests/unit/__snapshots__/` are the reference: they record the markup the CSS expects. The HTML examples are rendered from the Astro ones by `scripts/build-examples.mjs`, and React, Svelte and Vue must render what Astro renders. You report findings, you never edit files.
 
 ## Read first
 
@@ -30,7 +30,7 @@ The components you are given, or the ones touched by `git diff --name-only` agai
 
 - **Markup.** The HTML example and the components render the same elements, classes, attributes and ARIA. Read the components, not only the test result: the examples don't exercise every prop.
 - **Drift.** A `.diff` file in `tests/unit/__snapshots__/` records markup a framework adds because of how it works. Report drift that is a real difference the component could fix. `scripts/check-ratchets.mjs` checks that new drift is marked intended.
-- **Script examples.** The hand-written React, Svelte and Vue versions of an example with a client `<script>` do what the script does: `parity.test.ts` compares the markup but drops `script` and `style`. `tests/unit/example-scripts.test.ts` checks that an HTML example imports the modules its markup needs.
+- **Script examples.** The hand-written React, Solid, Svelte and Vue versions of an example with a client `<script>` do what the script does: `parity.test.ts` compares the markup but drops `script` and `style`. `tests/unit/example-scripts.test.ts` checks that an HTML example imports the modules its markup needs.
 - **Types.** A prop has the same type in `types.ts`, `types.astro.ts`, `types.react.ts`, `types.svelte.ts` and `types.vue-props.ts` (`checkApi` checks that each framework has it).
 - **Implementation.** Rest props land on the root element, or the input of a form control (the check only sees that they are spread). Ids use `createId(Astro.locals)`, React's `useId()`, `$props.id()` and Vue's `useId()`, only for elements the component links itself, and a component's parts share one base (`createIds` in Astro, `` id ?? `${prefix}-${uid}` `` elsewhere). Native states use attributes, not classes (Stylelint checks the CSS side).
 - **Defaults and behavior.** Default prop values, conditional rendering of slots and wrappers, and event handling match between frameworks.

@@ -89,16 +89,6 @@ const translation = `.ui-carousel:lang(sv) {
     "scroll-markers":
       "Without scroll markers, the carousel has no markers to jump to an item.",
   }}
-  changelogPaths={[
-    {
-      path: "packages/opui/components/Carousel/Carousel.astro",
-      type: "component",
-    },
-    { path: "src/docs/components/carousel.astro", type: "docs" },
-    { path: "src/component-examples/carousel", type: "docs" },
-    { path: "packages/opui/css/components/carousel.css", type: "css" },
-    { path: "src/component-api/carousel", type: "api" },
-  ]}
   installationTabs={[{ title: "carousel.css", code: CarouselCSS, lang: "css" }]}
 >
   <Fragment slot="title">Carousel</Fragment>
@@ -199,6 +189,15 @@ const translation = `.ui-carousel:lang(sv) {
     </p>
 
     <AutoExample name="Images" />
+
+    <h3 id="whole-photos">Whole photos</h3>
+    <p>
+      Media fills its aspect ratio and is cropped. With
+      <code>--_media-fit: contain</code> it's shown whole, so portrait and
+      landscape photos side by side keep their edges, like in a photo viewer.
+    </p>
+
+    <AutoExample name="WholePhotos" />
 
     <h3 id="gallery">Gallery</h3>
 

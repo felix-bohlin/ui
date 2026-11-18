@@ -59,19 +59,6 @@ export const keywords = ["tab panel", "tablist"]
     "sibling-count",
   ]}
   installationTabs={[{ title: "tabs.css", code: TabsCSS, lang: "css" }]}
-  changelogPaths={[
-    {
-      path: "packages/opui/components/Tabs",
-      type: "component",
-    },
-    { path: "src/docs/components/tabs.astro", type: "docs" },
-    { path: "src/component-examples/tabs", type: "docs" },
-    {
-      path: "packages/opui/css/components/tabs.css",
-      type: "css",
-    },
-    { path: "src/component-api/tabs", type: "api" },
-  ]}
 >
   <Fragment slot="title">Tabs</Fragment>
 
@@ -194,6 +181,10 @@ export const keywords = ["tab panel", "tablist"]
         Read the checked input, or submit it with a form.
       </Fragment>
       <Fragment slot="react">
+        Use <code>value</code> and <code>onValueChange</code> on
+        <code>Tabs</code>.
+      </Fragment>
+      <Fragment slot="solid">
         Use <code>value</code> and <code>onValueChange</code> on
         <code>Tabs</code>.
       </Fragment>

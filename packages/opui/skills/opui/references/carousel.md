@@ -3,7 +3,7 @@
 A scrolling list with snap points, buttons and markers.
 
 - CSS: `opui-css/css/components/carousel.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/carousel.md), [Astro](https://opui.dev/astro/components/carousel.md), [React](https://opui.dev/react/components/carousel.md), [Svelte](https://opui.dev/svelte/components/carousel.md), [Vue](https://opui.dev/vue/components/carousel.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/carousel.md), [Astro](https://opui.dev/astro/components/carousel.md), [React](https://opui.dev/react/components/carousel.md), [Solid](https://opui.dev/solid/components/carousel.md), [Svelte](https://opui.dev/svelte/components/carousel.md), [Vue](https://opui.dev/vue/components/carousel.md).
 
 ## Carousel
 
@@ -18,7 +18,7 @@ A scrolling list with snap points, buttons and markers.
 ### Props and modifiers
 
 - `align`: `"center"` (`.ui-align-center`), `"start"` (default). Where items snap.
-- `aria-label`: `string`, `[aria-label]`. The accessible name of the carousel. The Astro, React and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.
+- `aria-label`: `string`, `[aria-label]`. The accessible name of the carousel. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.
 - `aria-labelledby`: `string`. The id of the element that names the carousel, instead of `aria-label`.
 - `aspectRatio`: `number | string`, `--_media-aspect-ratio`, default `"16 / 9"`. Aspect ratio that images, videos and iframes are cropped to.
 - `buttons`: `"inside"` (default), `"none"` (`.ui-buttons-none`), `"outside"` (`.ui-buttons-outside`). Previous and next buttons. `outside` places them beside the items, and `none` leaves them out.
@@ -36,7 +36,7 @@ A scrolling list with snap points, buttons and markers.
 ### Notes
 
 - HTML: The root is a `<ul>` with an `aria-label`. CSS adds the buttons, and `.ui-markers` the markers. Smooth scrolling follows `--ui-motion`: `.ui-motion-off` on the carousel or a parent turns it off.
-- Astro, React, Svelte and Vue: Smooth scrolling follows `--ui-motion`: `.ui-motion-off` on the carousel or a parent turns it off.
+- Astro, React, Solid, Svelte and Vue: Smooth scrolling follows `--ui-motion`: `.ui-motion-off` on the carousel or a parent turns it off.
 
 ## Component properties
 
@@ -66,6 +66,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_marker-selected-padding`: Inset of the current marker's dot, smaller than the `--ui-space-2` of the other markers, so the current dot is larger. Defaults to `--ui-space-1`.
 - `--_marker-size`: Size of the markers: `--ui-space-5`, and at least `--ui-target-min-size`, so they stay pointer targets in a theme with a smaller spacing scale. The dot sits inside, inset by `--ui-space-2`.
 - `--_media-aspect-ratio`: Aspect ratio of `img`, `video` and `iframe` in items.
+- `--_media-fit`: How `img`, `video` and `iframe` in items fill their aspect ratio: `cover` crops them, `contain` shows them whole, like photos of mixed orientation in a viewer.
 - `--_media-radius`: Corner radius of `img`, `video` and `iframe` in items. Defaults to `--ui-radius`.
 - `--_motion`: Motion multiplier for the button and marker transitions. `0` turns them off.
 - `--_padding-block`: Block padding of `.ui-vertical`, showing the neighboring items. Set by `.ui-peek`.
@@ -191,6 +192,43 @@ export default function Basics() {
     <Carousel aria-label="Destinations" buttons="outside" markers>
       {places.map(({ description, title }) => (
         <li key={title}>
+          <Card variant="tonal">
+            <CardHeader>
+              <p>Destination</p>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </CardHeader>
+          </Card>
+        </li>
+      ))}
+    </Carousel>
+  )
+}
+```
+
+## Solid
+
+`import { Carousel } from "opui-css/solid"`
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Card, CardHeader, Carousel } from "opui-css/solid"
+
+const places = [
+  { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
+  { description: "Ceviche by the Pacific.", title: "Lima" },
+  { description: "Tiles, trams and custard tarts.", title: "Lisbon" },
+  { description: "Fjords, saunas and modern architecture.", title: "Oslo" },
+  { description: "Medina markets and Mediterranean light.", title: "Tunis" },
+]
+
+export default function Basics() {
+  return (
+    <Carousel aria-label="Destinations" buttons="outside" markers>
+      {places.map(({ description, title }) => (
+        <li>
           <Card variant="tonal">
             <CardHeader>
               <p>Destination</p>

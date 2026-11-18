@@ -129,11 +129,13 @@ export const hrefRewriter = (frameworkId, site) => (href) => {
     : pathname
   const isDoc =
     !path.extname(localized) &&
+    !/\/preview\/?$|^\/dev\/(?:share-image|tests|todo\/example)\/|^\/[^/]+\/test\//.test(
+      localized,
+    ) &&
     (FRAMEWORKS.some(
       (f) => localized === `/${f.id}` || localized.startsWith(`/${f.id}/`),
     ) ||
-      (isFrameworkFree(localized) &&
-        !/\/preview\/?$|^\/todo\/example\//.test(localized)))
+      isFrameworkFree(localized))
   const target = isDoc ? markdownPath(localized) : localized
   return `${new URL(target, site)}${hash ? `#${hash}` : ""}`
 }
@@ -227,8 +229,7 @@ async function devPages(framework, origin, rewriteHref) {
       .map((slug) => `/blog/${slug}/`),
     ...fs
       .readdirSync(new URL("../blocks/", import.meta.url))
-      .filter((file) => file.endsWith(".html"))
-      .map((file) => `/blocks/${file.replace(/\.html$/, "")}/`)
+      .map((folder) => `/blocks/${folder}/`)
       .toSorted(),
     "/theme-builder/",
   ]

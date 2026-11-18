@@ -40,6 +40,14 @@ describe("normalize", () => {
     ["<!--[-->a<!--]-->", "a"],
     ['<p class="b  a">x</p>', '<p class="a b">x</p>'],
     ["<ul>\n  <li>a</li>\n</ul>", "<ul><li>a</li></ul>"],
+    [
+      '<input name="toggle-group-solid-0a" type="radio">',
+      '<input name="toggle-group-s1" type="radio">',
+    ],
+    [
+      '<input name="group-solid-0B" type="radio">',
+      '<input name="group-_R_1_" type="radio">',
+    ],
   ])("%s and %s stay equal", (a, b) => {
     expect(normalize(inBlock(a))).toBe(normalize(inBlock(b)))
   })

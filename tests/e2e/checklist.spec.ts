@@ -18,7 +18,7 @@ test.describe("checklist pages", () => {
     page,
   }) => {
     test.setTimeout(60_000)
-    await page.goto("/checklist/")
+    await page.goto("/dev/checklist/")
     const item = page.locator(".checks-item:not([data-check-done])").first()
     const line = await item.getAttribute("data-check-line")
     const key = await item.getAttribute("data-check-key")
@@ -81,7 +81,7 @@ test.describe("checklist pages", () => {
     page,
   }) => {
     test.setTimeout(60_000)
-    await page.goto("/checklist/")
+    await page.goto("/dev/checklist/")
     const items = page.locator(".checks-item")
     const total = await items.count()
 
@@ -124,7 +124,7 @@ test.describe("checklist pages", () => {
   })
 
   test("works through the items with the keyboard", async ({ page }) => {
-    await page.goto("/checks/")
+    await page.goto("/dev/checks/")
     const first = page.locator(".checks-item:visible").first()
     const second = page.locator(".checks-item:visible").nth(1)
 
@@ -164,7 +164,7 @@ test.describe("checklist pages", () => {
   test("starts from the file and keeps checks saved as a list", async ({
     page,
   }) => {
-    await page.goto("/checks/")
+    await page.goto("/dev/checks/")
     const done = page.locator(".checks-item[data-check-done]")
     test.skip((await done.count()) === 0, "no check is done in the file")
     const open = page.locator(".checks-item:not([data-check-done])").first()
@@ -187,6 +187,61 @@ test.describe("checklist pages", () => {
     await expect(open.locator(".checks-done input")).not.toBeChecked()
     await expect(page.locator("#checks-review-status")).toHaveText(
       "Checks reset to the file.",
+    )
+  })
+
+  test("previews the pages a check or checklist item links to", async ({
+    page,
+  }) => {
+    test.setTimeout(60_000)
+    await page.goto("/dev/checks/")
+    const item = page.locator(".checks-item:has(.checks-preview-pages)").first()
+    const preview = item.locator(".checks-preview")
+    const frame = preview.locator("iframe")
+    const pages = await preview
+      .locator(".checks-preview-pages input")
+      .evaluateAll((inputs) =>
+        inputs.map((input) => (input as HTMLInputElement).value),
+      )
+
+    await center(item)
+    await item.locator(".checks-toggle").click()
+    await expect(frame).not.toHaveAttribute("src")
+    await preview.locator("summary").click()
+    await expect(frame).toHaveAttribute("src", pages[0]!)
+    await expect(frame.contentFrame().locator("h1")).toBeVisible({
+      timeout: 20_000,
+    })
+
+    await preview.locator(".checks-preview-pages label").nth(1).click()
+    await expect(frame).toHaveAttribute("src", pages[1]!)
+    await expect(preview.locator(".checks-preview-open")).toHaveAttribute(
+      "href",
+      pages[1]!,
+    )
+
+    await preview
+      .locator(".checks-preview-widths label")
+      .filter({ hasText: "Phone" })
+      .click()
+    await expect
+      .poll(() => frame.evaluate((element) => element.clientWidth))
+      .toBeLessThanOrEqual(390)
+
+    await item.locator(".checks-toggle").focus()
+    await page.keyboard.press("p")
+    await expect(preview).not.toHaveAttribute("open")
+
+    await page.goto("/dev/checklist/")
+    await expect(page.locator(".checks-preview").first()).toBeAttached()
+    expect(
+      await page
+        .locator(".checks-preview iframe")
+        .evaluateAll((frames) =>
+          frames.map((frame) => (frame as HTMLIFrameElement).dataset.src),
+        ),
+    ).not.toContainEqual(
+      expect.stringMatching(/^\/dev\/(checklist|checks|todo)\//),
     )
   })
 })

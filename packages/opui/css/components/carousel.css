@@ -46,6 +46,7 @@
     --_marker-selected-padding: var(--ui-space-1);
     --_marker-size: max(var(--ui-target-min-size), var(--ui-space-5));
     --_media-aspect-ratio: 16 / 9;
+    --_media-fit: cover;
     --_media-radius: var(--ui-radius);
     --_padding-block: 0px;
     --_padding-inline: 0px;
@@ -83,7 +84,7 @@
       block-size: auto;
       border-radius: var(--_media-radius);
       inline-size: 100%;
-      object-fit: cover;
+      object-fit: var(--_media-fit);
     }
 
     /* Alignment */

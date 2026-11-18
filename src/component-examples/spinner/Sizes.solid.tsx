@@ -1,0 +1,18 @@
+/** @jsxImportSource @solidjs/web */
+export default function Sizes() {
+  return (
+    <>
+      <span aria-busy="true">Span</span>
+      <a href="#sizes" aria-busy="true" class="ui-link">
+        Link
+      </a>
+      <p aria-busy="true">Paragraph</p>
+      <p class="ui-h3" aria-busy="true">
+        Heading 3
+      </p>
+      <p class="ui-h2" aria-busy="true">
+        Heading 2
+      </p>
+    </>
+  )
+}

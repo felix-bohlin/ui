@@ -38,19 +38,6 @@ export const keywords = ["slider"]
     "scroll-driven-animations",
     "user-pseudos",
   ]}
-  changelogPaths={[
-    {
-      path: "packages/opui/components/Range/Range.astro",
-      type: "component",
-    },
-    { path: "src/docs/components/range.astro", type: "docs" },
-    { path: "src/component-examples/range", type: "docs" },
-    {
-      path: "packages/opui/css/components/range.css",
-      type: "css",
-    },
-    { path: "src/component-api/range", type: "api" },
-  ]}
   installationTabs={[{ title: "range.css", code: RangeCSS, lang: "css" }]}
 >
   <Fragment slot="title">Range</Fragment>
@@ -163,6 +150,11 @@ export const keywords = ["slider"]
       <Fragment slot="react">
         For your own readout, render <code>valueText</code> from your state and
         set <code>aria-valuetext</code> to match.
+      </Fragment>
+      <Fragment slot="solid">
+        For your own readout, render <code>valueText</code> from your state,
+        kept with <code>onInput</code>, and set <code>aria-valuetext</code> to
+        match.
       </Fragment>
       <Fragment slot="svelte">
         For your own readout, render the <code>valueText</code> snippet from the

@@ -62,20 +62,6 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
   heroAnatomy
   apis={[{ title: "Callout API", api: calloutApi }]}
   browserSupport={["has", "invoker-commands"]}
-  changelogPaths={[
-    {
-      path: "packages/opui/components/Callout/Callout.astro",
-      type: "component",
-    },
-    { path: "src/docs/components/callout.astro", type: "docs" },
-    { path: "src/component-examples/callout", type: "docs" },
-    {
-      path: "packages/opui/css/components/callout.css",
-      type: "css",
-    },
-    { path: "packages/opui/elements/callout.js", type: "component" },
-    { path: "src/component-api/callout", type: "api" },
-  ]}
   installationTabs={[
     { title: "callout.css", code: CalloutCSS, lang: "css" },
     { title: "callout.js", code: CalloutJS, lang: "js" },
@@ -176,6 +162,12 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
         <code>closeIcon</code> prop. <code>onDismiss</code> runs before it
         hides.
       </Fragment>
+      <Fragment slot="solid">
+        Set <code>closeButton</code> for a close button that hides the callout,
+        named by <code>closeLabel</code>, with its icon in the
+        <code>closeIcon</code> prop. <code>onDismiss</code> runs before it
+        hides.
+      </Fragment>
       <Fragment slot="svelte">
         Set <code>closeButton</code> for a close button that hides the callout,
         named by <code>closeLabel</code>, with its icon in the
@@ -229,6 +221,12 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
             ask first.
           </Fragment>
           <Fragment slot="react">
+            <code>onDismiss</code> runs first, with the cancelable
+            <code>dismiss</code> event. Use it to remember the choice, and call
+            <code>preventDefault()</code> to keep the callout, for example to
+            ask first.
+          </Fragment>
+          <Fragment slot="solid">
             <code>onDismiss</code> runs first, with the cancelable
             <code>dismiss</code> event. Use it to remember the choice, and call
             <code>preventDefault()</code> to keep the callout, for example to

@@ -37,26 +37,12 @@ export const keywords = ["multiline", "text area"]
   ]}
   fallbacks={{
     "reading-flow":
-      "Without `reading-flow`, Tab and screen readers reach the top and start parts after the control, in the order of the markup.",
+      "Without `reading-flow`, Tab and screen readers follow the markup, which puts the top and start parts before the control, as they're drawn. Hand-written HTML needs that order too.",
   }}
   heroAnatomy
   apis={[{ title: "Textarea API", api: textareaApi }]}
   changelogPaths={[
-    {
-      path: "packages/opui/components/Textarea/Textarea.astro",
-      type: "component",
-    },
-    { path: "src/docs/components/textarea.astro", type: "docs" },
-    { path: "src/component-examples/textarea", type: "docs" },
-    {
-      path: "packages/opui/css/components/textarea.css",
-      type: "css",
-    },
-    {
-      path: "packages/opui/css/components/text-field.css",
-      type: "css",
-    },
-    { path: "src/component-api/textarea", type: "api" },
+    { path: "packages/opui/css/components/text-field.css", type: "css" },
     { path: "src/component-api/text-field", type: "api" },
   ]}
   installationTabs={[
@@ -177,6 +163,9 @@ export const keywords = ["multiline", "text area"]
       >
       <Fragment slot="react">
         Use <code>value</code> and <code>onChange</code>.
+      </Fragment>
+      <Fragment slot="solid">
+        Use <code>value</code> and <code>onInput</code>.
       </Fragment>
       <Fragment slot="svelte">Use <code>bind:value</code>.</Fragment>
       <Fragment slot="vue">Use <code>v-model</code>.</Fragment>

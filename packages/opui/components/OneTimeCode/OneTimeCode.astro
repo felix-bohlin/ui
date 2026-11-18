@@ -1,7 +1,7 @@
 ---
 import type { Props } from "./types.astro"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
-import { createIds, idRefs } from "../id"
+import { createIds, fieldDescribedBy } from "../id"
 import { trimEdges } from "../whitespace"
 
 export const title = "One-Time Code"
@@ -63,7 +63,10 @@ const endTextId = hasEndText ? ids("end-text") : undefined
       }
       spellcheck={spellcheck ?? (alphanumeric ? "false" : undefined)}
       {...rest}
-      aria-describedby={idRefs(endTextId, ariaDescribedBy)}
+      aria-describedby={fieldDescribedBy(
+        { endText: endTextId },
+        ariaDescribedBy,
+      )}
       aria-invalid={error ? "true" : ariaInvalid}
       aria-labelledby={ariaLabelledBy}
       autocomplete="one-time-code"

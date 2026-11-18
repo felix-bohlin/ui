@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test"
 import type { CDPSession, Locator, Page } from "@playwright/test"
+import { PACKAGE_FRAMEWORK_IDS } from "../../src/utils/framework"
 import {
   failsIn,
   WEBKIT_ARROW_FOCUS_SCROLL,
@@ -11,6 +12,7 @@ import {
   computed,
   FRAMEWORKS,
   hasExample,
+  HYDRATED,
   needs,
   openFixture,
   resolveColor,
@@ -38,12 +40,17 @@ const interaction = (
     throw new Error(`no ${component}/${name} example in any framework`)
   }
   for (const framework of available) {
-    test(`${framework} ${title}`, async ({ page }) => {
-      await openFixture(page, framework, component)
-      const root = page.locator(`[data-example="${name}"]`)
-      await expect(root, `${framework} ${component}/${name}`).toHaveCount(1)
-      await run({ framework, page, root })
-    })
+    const modes = HYDRATED.includes(framework) ? ["", "?hydrate"] : [""]
+    for (const search of modes) {
+      test(`${framework}${search ? " hydrated" : ""} ${title}`, async ({
+        page,
+      }) => {
+        await openFixture(page, framework, component, search)
+        const root = page.locator(`[data-example="${name}"]`)
+        await expect(root, `${framework} ${component}/${name}`).toHaveCount(1)
+        await run({ framework, page, root })
+      })
+    }
   }
 }
 
@@ -549,6 +556,117 @@ test("html spinner leaves out a busy region that shows skeleton placeholders", a
     // A skeleton around media isn't a placeholder, so the region still spins.
     media: true,
     plain: true,
+  })
+})
+
+test.describe("drawer swipe", () => {
+  test.use({ hasTouch: true })
+
+  // A finger on `target` that moves `by` a share of the drawer's height,
+  // in `steps` moves `pause` milliseconds apart, then lifts. Each touch
+  // carries its time, so the speed the script measures is the one asked
+  // for, however long CDP takes to deliver the touches.
+  const swipe = async (
+    page: Page,
+    cdp: CDPSession,
+    target: Locator,
+    drawer: Locator,
+    by: number,
+    pause = 16,
+    steps = 8,
+  ) => {
+    const box = (await target.boundingBox())!
+    const { height } = (await drawer.boundingBox())!
+    const x = box.x + box.width / 2
+    const y = box.y + Math.min(box.height / 2, 12)
+    const start = Date.now() / 1000
+    const touch = (
+      type: "touchEnd" | "touchMove" | "touchStart",
+      step: number,
+      touchPoints: { x: number; y: number }[],
+    ) =>
+      cdp.send("Input.dispatchTouchEvent", {
+        timestamp: start + (pause * step) / 1000,
+        touchPoints,
+        type,
+      })
+    const at = (step: number) => [{ x, y: y + (height * by * step) / steps }]
+    await touch("touchStart", 0, at(0))
+    for (let step = 1; step <= steps; step++) {
+      await page.waitForTimeout(pause)
+      await touch("touchMove", step, at(step))
+    }
+    await touch("touchEnd", steps, [])
+  }
+
+  test("html drawer at the block start or end closes with a swipe of its header", async ({
+    browserName,
+    page,
+  }) => {
+    test.skip(browserName !== "chromium", "touch input goes through CDP")
+    const cdp = await page.context().newCDPSession(page)
+    await openFixture(page, "html", "drawer")
+    const root = page.locator('[data-example="Basics"]')
+    const drawer = root.locator("dialog[open]")
+    const open = async (name: string) => {
+      await root.getByRole("button", { exact: true, name }).click()
+      await settle(drawer)
+      return (await drawer.boundingBox())!.y
+    }
+    const settledAt = async (top: number) => {
+      await expect.poll(async () => (await drawer.boundingBox())?.y).toBe(top)
+      expect(
+        await drawer.evaluate((element) =>
+          (element as HTMLElement).style.getPropertyValue("--_swipe-offset"),
+        ),
+      ).toBe("")
+    }
+
+    // A short, slow drag settles back.
+    const top = await open("Block end")
+    await swipe(page, cdp, drawer.locator(".ui-header"), drawer, 0.1, 60)
+    await settledAt(top)
+
+    // The content scrolls and never moves the drawer.
+    await swipe(page, cdp, drawer.locator(".ui-content"), drawer, 0.6, 60)
+    await settledAt(top)
+
+    // Past a quarter, it closes.
+    await swipe(page, cdp, drawer.locator(".ui-header"), drawer, 0.6, 60)
+    await expect(drawer).toHaveCount(0)
+
+    // So does a short flick.
+    await open("Block end")
+    await swipe(page, cdp, drawer.locator(".ui-header"), drawer, 0.15, 16, 2)
+    await expect(drawer).toHaveCount(0)
+
+    // A drawer at the block start closes toward the top.
+    const above = await open("Block start")
+    await swipe(page, cdp, drawer.locator(".ui-header"), drawer, 0.1, 60)
+    await settledAt(above)
+    await swipe(page, cdp, drawer.locator(".ui-header"), drawer, -0.6, 60)
+    await expect(drawer).toHaveCount(0)
+
+    // It's a close request: a cancel listener keeps the drawer open.
+    await open("Block end")
+    await drawer.evaluate((element) =>
+      element.addEventListener("cancel", (event) => event.preventDefault(), {
+        once: true,
+      }),
+    )
+    await swipe(page, cdp, drawer.locator(".ui-header"), drawer, 0.6, 60)
+    await settledAt(top)
+    await page.keyboard.press("Escape")
+    await expect(drawer).toHaveCount(0)
+
+    // closedby="none" turns it off.
+    const blockEnd = root.locator("dialog.ui-block-end")
+    await blockEnd.evaluate((element) =>
+      element.setAttribute("closedby", "none"),
+    )
+    await open("Block end")
+    await swipe(page, cdp, drawer.locator(".ui-header"), drawer, 0.6, 60)
+    await settledAt(top)
   })
 })
 
@@ -1460,6 +1578,19 @@ const nextButtonPoint = (carousel: Locator) =>
 
 interaction(
   "carousel",
+  "WholePhotos",
+  "--_media-fit: contain shows portrait and landscape photos whole",
+  async ({ root }) => {
+    const images = root.locator("img")
+    await expect(images).toHaveCount(4)
+    for (const image of await images.all()) {
+      expect(await computed(image, "object-fit")).toBe("contain")
+    }
+  },
+)
+
+interaction(
+  "carousel",
   "Basics",
   "the next button scrolls the carousel",
   async ({ page, root }) => {
@@ -1653,7 +1784,7 @@ interaction(
     await page.evaluate(() => history.pushState({}, "", "elsewhere/"))
     await expect(menu).toBeHidden()
   },
-  ["astro", "react", "svelte", "vue"],
+  PACKAGE_FRAMEWORK_IDS,
 )
 
 interaction(
@@ -1686,7 +1817,7 @@ interaction(
     })
     await expect(menu).toBeHidden()
   },
-  ["astro", "react", "svelte", "vue"],
+  PACKAGE_FRAMEWORK_IDS,
 )
 
 interaction(
@@ -1928,6 +2059,28 @@ interaction(
     expect(await computed(pill, "outline-color")).toBe(
       await resolveColor(root, "var(--ui-focus-ring-color)"),
     )
+  },
+)
+
+interaction(
+  "message",
+  "Direct",
+  "a direct chat shows no names or avatars, and keeps each name for screen readers",
+  async ({ root }) => {
+    for (const avatar of await root.locator(".ui-message > .ui-avatar").all()) {
+      await expect(avatar).toBeHidden()
+    }
+    const headers = root.locator(".ui-message > .ui-content > .ui-header")
+    await expect(headers).toHaveText(["Stella", "Stella", "You", "Stella"])
+    for (const header of await headers.all()) {
+      expect(await computed(header, "clip-path")).toBe("inset(50%)")
+      expect(await computed(header, "display")).not.toBe("none")
+      expect(
+        await header.evaluate((element) =>
+          element.closest('[aria-hidden="true"]'),
+        ),
+      ).toBeNull()
+    }
   },
 )
 

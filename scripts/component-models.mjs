@@ -25,8 +25,25 @@ const numeric = (model) =>
       ["number", "range"].includes(item.value),
   )
 
+const solidChecked = {
+  attributes: () => [
+    "{...checkedControl.server}",
+    "ref={[props.ref, checkedControl.ref]}",
+  ],
+  body: () => [
+    'const checkedControl = control(\n  "checked",\n  () => props.checked,\n  untrack(() => props.checked),\n)',
+  ],
+  omits: () => ["checked", "ref"],
+  locals: () => ["checkedControl"],
+  solidHelpers: () => ["control"],
+  solidValues: () => ["untrack"],
+}
+
+const ownsDefault = (model) => model.element?.tag === "select"
+
 export const MODEL_KINDS = {
   checked: {
+    solid: solidChecked,
     svelte: {
       attributes: () => [
         "bind:checked={getChecked, setChecked}",
@@ -41,6 +58,7 @@ export const MODEL_KINDS = {
         "const setChecked = (isChecked: boolean) => {\n  if (group) group = toggleInGroup(group, value, isChecked)\n  else checked = isChecked\n}",
         "const initialChecked = untrack(getChecked)",
       ],
+      typedBindables: true,
       untrack: () => true,
     },
     vue: {
@@ -55,11 +73,13 @@ export const MODEL_KINDS = {
     },
   },
   checkedItem: {
+    solid: {},
     svelte: {
       bindables: bindableProps,
       change: (model, item) => [
         `if (${item.grouped} === undefined) ${model.prop} = input.checked`,
       ],
+      typedBindables: true,
     },
     vue: {
       change: (item) => [
@@ -75,9 +95,11 @@ export const MODEL_KINDS = {
     },
   },
   forward: {
+    solid: {},
     svelte: {
       attributes: (model) => model.bindables.map(({ prop }) => `bind:${prop}`),
       bindables: bindableProps,
+      typedBindables: true,
     },
     vue: {
       attributes: () => ['v-model="modelValue"'],
@@ -101,6 +123,27 @@ export const MODEL_KINDS = {
         ),
       ],
       reactValues: () => ["useState"],
+      tiedCallbacks: true,
+    },
+    solid: {
+      body: (model, rewrite) => [
+        "const [inner, setInner] = createSignal(untrack(() => props.defaultValue))",
+        `const change = (input: HTMLInputElement) => {\n  const next = ${rewrite(model.read)}\n  if (inner() !== undefined) setInner(next)\n  props.onValueChange?.(next${arrayRead(model) ? " as never" : ""})\n  restoreChecked(input, () => props.${model.prop})\n}`,
+      ],
+      entries: () => ["defaultValue", "onValueChange"],
+      imports: selectionImports,
+      locals: () => ["change", "inner", "setInner"],
+      provided: (model, provide) => [
+        { code: "change", key: "change" },
+        ...provide.value.map((entry) =>
+          entry.key === model.prop
+            ? { code: `props.${model.prop} ?? inner()`, key: entry.key }
+            : entry,
+        ),
+      ],
+      solidHelpers: () => ["restoreChecked"],
+      solidValues: () => ["createSignal", "untrack"],
+      tiedCallbacks: true,
     },
     svelte: {
       bindables: bindableProps,
@@ -108,6 +151,7 @@ export const MODEL_KINDS = {
         `change(input) {\nif (${model.prop} !== undefined) ${model.prop} = ${model.read}\n},`,
       ],
       imports: selectionImports,
+      typedBindables: true,
     },
     vue: {
       computed: true,
@@ -136,6 +180,20 @@ export const MODEL_KINDS = {
       reactHelpers: () => ["seedChecked"],
       rename: (model) => [[model.local, `${model.local} ?? defaultValue`]],
     },
+    solid: {
+      entries: () => ["defaultValue", "onValueChange"],
+      radioAttributes: (model, value, control) => [
+        `{...${control}.server}`,
+        `onChange={(event) => {\n  props.onValueChange?.(${value})\n  restoreChecked(event.currentTarget, () => props.${model.prop})\n}}`,
+        `ref={[\n  ${control}.ref,\n  seedChecked((input) => {\n    props.onValueChange?.(${value})\n    restoreChecked(input, () => props.${model.prop})\n  }),\n]}`,
+      ],
+      radioChecked: (model, checked) =>
+        `props.${model.prop} === undefined ? undefined : ${checked}`,
+      rename: (model) => [
+        [model.local, `props.${model.prop} ?? props.defaultValue`],
+      ],
+      solidHelpers: () => ["control", "restoreChecked", "seedChecked"],
+    },
     svelte: {
       bindables: (model) => [model.prop],
       imports: () => [`import { seedChecked } from "../svelte"`],
@@ -145,6 +203,7 @@ export const MODEL_KINDS = {
         `{@attach seedChecked(\n  () => ${checked},\n  () => {\n    ${model.local} = ${value}\n  },\n)}`,
         `onchange={() => {\n  ${model.local} = ${value}\n}}`,
       ],
+      typedBindables: true,
       untrack: () => true,
     },
     vue: {
@@ -163,6 +222,7 @@ export const MODEL_KINDS = {
     },
   },
   radio: {
+    solid: solidChecked,
     svelte: {
       attributes: () => [
         "{@attach seedChecked(isChecked, check)}",
@@ -179,6 +239,7 @@ export const MODEL_KINDS = {
         "const check = () => {\n  group = value ?? true\n}",
       ],
       imports: () => [`import { seedChecked } from "../svelte"`],
+      typedBindables: true,
       untrack: () => true,
     },
     vue: {
@@ -205,6 +266,27 @@ export const MODEL_KINDS = {
               ],
             ]
           : [],
+    },
+    solid: {
+      attributes: (model) => [
+        `{...${model.prop}Control.server}`,
+        `ref={[props.ref, ${model.prop}Control.ref]}`,
+      ],
+      body: (model, _, read) => [
+        `const ${model.prop}Control = control(\n  ${JSON.stringify(model.prop)},\n  () => props.${model.prop},\n  untrack(() => props.${model.prop}${ownsDefault(model) ? ` ?? props.default${capitalize(model.prop)}` : ""}),\n)`,
+        ...(read
+          ? [
+              `const ${model.local} = () => props.${model.prop} ?? props.default${capitalize(model.prop)}`,
+            ]
+          : []),
+      ],
+      omits: (model) => [model.prop, "ref"],
+      locals: (model) => [`${model.prop}Control`],
+      ownDefault: ownsDefault,
+      rename: (model) =>
+        model.local ? [[model.local, `${model.local}()`]] : [],
+      solidHelpers: () => ["control"],
+      solidValues: () => ["untrack"],
     },
     svelte: {
       attributes: (model) =>

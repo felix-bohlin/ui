@@ -59,6 +59,7 @@
   {#snippet startText()}Locked away from guitarists{/snippet}
   {#snippet start()}
     <svg
+      data-icon="lock"
       aria-hidden="true"
       width="16"
       height="16"

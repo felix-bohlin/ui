@@ -5,6 +5,7 @@
 <Chip label="Tonal" variant="tonal">
   {#snippet start()}
     <svg
+      data-icon="train"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -21,6 +22,7 @@
 <Chip label="Outlined" variant="outlined">
   {#snippet end()}
     <svg
+      data-icon="train"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"

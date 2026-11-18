@@ -77,6 +77,7 @@ const withoutAstroParts = (nodes, file) =>
 
 const attributeOf = ({ name, raw, value }) => {
   const written = /^[^\s=]+/.exec(raw)[0]
+  if (BOOLEAN_ATTRIBUTES.has(name) && value === "true") return written
   if (raw.includes("=")) return `${written}="${attributeText(value)}"`
   return BOOLEAN_ATTRIBUTES.has(name) || /^(aria|data)-/.test(name)
     ? written
@@ -258,7 +259,7 @@ export const meaningOf = (nodes, css = []) => {
         const attrs = node.attrs
           .map(
             ({ name, value }) =>
-              `${name}=${JSON.stringify(name === "style" ? declarations(value) : value)}`,
+              `${name}=${JSON.stringify(name === "style" ? declarations(value) : BOOLEAN_ATTRIBUTES.has(name) && value === "true" ? "" : value)}`,
           )
           .toSorted()
         tokens.push(`<${[node.tag, ...attrs].join(" ")}>`)

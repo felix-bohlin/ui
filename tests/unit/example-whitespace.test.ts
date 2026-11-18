@@ -5,6 +5,10 @@ import {
   createRenderer,
 } from "../../scripts/build-examples.mjs"
 import { whitespaceRoles } from "../../scripts/example-html.mjs"
+import {
+  EXAMPLE_EXTENSIONS,
+  HYDRATED_FRAMEWORK_IDS,
+} from "../../src/utils/framework"
 import { normalize } from "./normalize"
 import { render } from "./renderers"
 
@@ -23,15 +27,11 @@ afterAll(async () => {
   rmSync(samples, { force: true, recursive: true })
 })
 
-const EXTENSIONS = {
-  react: "react.tsx",
-  svelte: "svelte",
-  vue: "vue",
-}
+const EXTENSIONS = EXAMPLE_EXTENSIONS
 
-type Target = keyof typeof EXTENSIONS
+const TARGETS = HYDRATED_FRAMEWORK_IDS
 
-const TARGETS = Object.keys(EXTENSIONS) as Target[]
+type Target = (typeof TARGETS)[number]
 
 const renderSample = async (framework: Target, path: URL) =>
   render[framework](
@@ -84,7 +84,7 @@ const SAMPLES: [string, string, string][] = [
   ],
 ]
 
-describe("the whitespace of the generated React, Svelte and Vue", () => {
+describe("the whitespace of the generated React, Solid, Svelte and Vue", () => {
   test.each(SAMPLES)(
     "%s renders like Astro",
     async (_, body, imports) => {
@@ -96,7 +96,7 @@ describe("the whitespace of the generated React, Svelte and Vue", () => {
     60_000,
   )
 
-  test("H<tspan>2</tspan>O renders like Astro in React, and Svelte and Vue reject it", async () => {
+  test("H<tspan>2</tspan>O renders like Astro in React and Solid, and Svelte and Vue reject it", async () => {
     const source =
       '---\n---\n\n<svg aria-hidden="true"><text>H<tspan>2</tspan>O</text></svg>\n'
     const file = "src/component-examples/sample/Tspan.astro"
@@ -107,7 +107,7 @@ describe("the whitespace of the generated React, Svelte and Vue", () => {
         convertExample(source, framework, file, { roles }),
       ).rejects.toThrow("text next to an element inside an SVG <text>")
     }
-    for (const framework of ["react"] as const) {
+    for (const framework of ["react", "solid"] as const) {
       const path = new URL(`Tspan.${EXTENSIONS[framework]}`, samples)
       writeFileSync(
         path,
@@ -143,6 +143,7 @@ describe("the whitespace of the generated React, Svelte and Vue", () => {
     async (_, body, imports) => {
       const { astro, outputs, renders } = await convert(body, imports)
       expect(outputs.react).not.toContain('{" "}')
+      expect(outputs.solid).not.toContain('{" "}')
       expect(outputs.svelte).not.toContain('{" "}')
       expect(outputs.vue).not.toContain('{{ " " }}')
       for (const framework of TARGETS) {

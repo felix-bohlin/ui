@@ -2,6 +2,7 @@ import { Button, ControlGroup } from "opui-css/react"
 
 const checkIcon = (
   <svg
+    data-icon="check"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -17,6 +18,7 @@ const checkIcon = (
 
 const helpIcon = (
   <svg
+    data-icon="help"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -32,6 +34,7 @@ const helpIcon = (
 
 const closeIcon = (
   <svg
+    data-icon="close"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"

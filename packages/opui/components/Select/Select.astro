@@ -3,7 +3,7 @@ import type { SelectItem } from "./types"
 import { trimEdges } from "../whitespace"
 import type { Props } from "./types.astro"
 import { cx } from "../cx"
-import { createIds, idRefs } from "../id"
+import { createIds, fieldDescribedBy } from "../id"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
 import { sameValue } from "./selection"
 
@@ -43,13 +43,15 @@ const startId = Astro.slots.has("start") ? ids("start") : undefined
 const endId = Astro.slots.has("end") ? ids("end") : undefined
 const topId = Astro.slots.has("top") ? ids("top") : undefined
 const bottomId = Astro.slots.has("bottom") ? ids("bottom") : undefined
-const describedBy = idRefs(
-  startTextId,
-  topId,
-  startId,
-  endId,
-  bottomId,
-  endTextId,
+const describedBy = fieldDescribedBy(
+  {
+    bottom: bottomId,
+    end: endId,
+    endText: endTextId,
+    start: startId,
+    startText: startTextId,
+    top: topId,
+  },
   ariaDescribedBy,
 )
 const isSelected = (item: SelectItem) =>
@@ -91,6 +93,12 @@ const selectId = hasLabel ? ids() : id
     <slot name="start-text" />
   </span>}
   <span class="ui-field">
+    {Astro.slots.has("top") && <span class="ui-top" id={topId}>
+      <slot name="top" />
+    </span>}
+    {Astro.slots.has("start") && <span class="ui-start" id={startId}>
+      <slot name="start" />
+    </span>}
     <select
       {...rest}
       aria-describedby={describedBy}
@@ -112,14 +120,8 @@ const selectId = hasLabel ? ids() : id
         <slot />
       </div>
     </select>
-    {Astro.slots.has("start") && <span class="ui-start" id={startId}>
-      <slot name="start" />
-    </span>}
     {Astro.slots.has("end") && <span class="ui-end" id={endId}>
       <slot name="end" />
-    </span>}
-    {Astro.slots.has("top") && <span class="ui-top" id={topId}>
-      <slot name="top" />
     </span>}
     {Astro.slots.has("bottom") && <span class="ui-bottom" id={bottomId}>
       <slot name="bottom" />

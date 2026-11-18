@@ -2,7 +2,7 @@
 import type { Props } from "./types.astro"
 import { trimEdges } from "../whitespace"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
-import { createIds, idRefs } from "../id"
+import { createIds, fieldDescribedBy } from "../id"
 import { cx } from "../cx"
 
 export const title = "Textarea"
@@ -73,15 +73,23 @@ const endTextId = hasEndText ? ids("end-text") : undefined
     <slot name="start-text" />
   </span>}
   <span class="ui-field">
+    {Astro.slots.has("top") && <span class="ui-top" id={topId}>
+      <slot name="top" />
+    </span>}
+    {Astro.slots.has("start") && <span class="ui-start" id={startId}>
+      <slot name="start" />
+    </span>}
     <textarea
       {...rest}
-      aria-describedby={idRefs(
-        startTextId,
-        topId,
-        startId,
-        endId,
-        bottomId,
-        endTextId,
+      aria-describedby={fieldDescribedBy(
+        {
+          bottom: bottomId,
+          end: endId,
+          endText: endTextId,
+          start: startId,
+          startText: startTextId,
+          top: topId,
+        },
         ariaDescribedBy,
       )}
       aria-invalid={error ? "true" : ariaInvalid}
@@ -89,14 +97,8 @@ const endTextId = hasEndText ? ids("end-text") : undefined
       id={textareaId}
       name={name ?? field?.name}
     >{value}</textarea>
-    {Astro.slots.has("start") && <span class="ui-start" id={startId}>
-      <slot name="start" />
-    </span>}
     {Astro.slots.has("end") && <span class="ui-end" id={endId}>
       <slot name="end" />
-    </span>}
-    {Astro.slots.has("top") && <span class="ui-top" id={topId}>
-      <slot name="top" />
     </span>}
     {Astro.slots.has("bottom") && <span class="ui-bottom" id={bottomId}>
       <slot name="bottom" />

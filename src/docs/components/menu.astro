@@ -46,16 +46,6 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
       "Without `overlay`, the page can cover the menu while it fades out.",
   }}
   apis={[{ title: "Menu API", api: menuApi }]}
-  changelogPaths={[
-    {
-      path: "packages/opui/components/Menu/Menu.astro",
-      type: "component",
-    },
-    { path: "src/docs/components/menu.astro", type: "docs" },
-    { path: "src/component-examples/menu", type: "docs" },
-    { path: "packages/opui/css/components/menu.css", type: "css" },
-    { path: "src/component-api/menu", type: "api" },
-  ]}
   installationTabs={[
     { title: "list.css", code: ListCSS, lang: "css", isDependency: true },
     { title: "menu.css", code: MenuCSS, lang: "css" },
@@ -219,6 +209,24 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
         For an icon component or any other markup, put it in a
         <code>.ui-icon-checked</code> at the end of every item that can be
         current. It only shows on the current item.
+      </Fragment>
+      <Fragment slot="react">
+        For an icon component or any other markup, use the
+        <code>iconChecked</code> prop of the <code>Menu</code>, which every item
+        from <code>items</code> gets, or of a <code>ListItem</code>. It only
+        shows on the current item.
+      </Fragment>
+      <Fragment slot="solid">
+        For an icon component or any other markup, use the
+        <code>iconChecked</code> prop of the <code>Menu</code>, which every item
+        from <code>items</code> gets, or of a <code>ListItem</code>. It only
+        shows on the current item.
+      </Fragment>
+      <Fragment slot="svelte">
+        For an icon component or any other markup, use the
+        <code>iconChecked</code> snippet of the <code>Menu</code>, which every
+        item from <code>items</code> gets, or of a <code>ListItem</code>. It
+        only shows on the current item.
       </Fragment>
     </Conditional>
     <AutoExample name="CustomCheck" centered />

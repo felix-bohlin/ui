@@ -1,8 +1,7 @@
 import { readFileSync } from "node:fs"
 import { expect, test } from "vitest"
+import { HYDRATED_FRAMEWORK_IDS } from "../../src/utils/framework"
 import { examplesOf, exampleSource } from "../apps/apps.ts"
-
-const FRAMEWORKS = ["react", "svelte", "vue"] as const
 
 const exported = (barrel: string) =>
   [...barrel.matchAll(/export \{ default as (\w+) \}/g)].map(([, name]) => name)
@@ -39,7 +38,7 @@ test("the check flags a component that no example imports", () => {
   ).toEqual(["Card"])
 })
 
-test.each(FRAMEWORKS)(
+test.each(HYDRATED_FRAMEWORK_IDS)(
   "every %s component renders in an example the app tests load",
   (framework) => {
     const sources = [...examplesOf(framework)].flatMap(([slug, files]) =>

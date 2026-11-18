@@ -1,8 +1,13 @@
+type Bound = number | string | false | null
+
 type Bounds = {
-  max?: number | string | null
-  min?: number | string | null
-  step?: number | string | null
+  max?: Bound
+  min?: Bound
+  step?: Bound
 }
+
+const numberOr = (value: Bound | undefined, fallback: number) =>
+  value === false || value == null ? fallback : Number(value)
 
 const decimalsOf = (value: number) => {
   const [digits, exponent = "0"] = String(value).split("e")
@@ -12,12 +17,12 @@ const decimalsOf = (value: number) => {
 export const valueDecimals = ({ min, step }: Bounds) =>
   step === "any"
     ? undefined
-    : Math.max(decimalsOf(Number(min ?? 0)), decimalsOf(Number(step ?? 1)))
+    : Math.max(decimalsOf(numberOr(min, 0)), decimalsOf(numberOr(step, 1)))
 
 export const middleValue = ({ max, min, step }: Bounds) => {
-  const minValue = Number(min ?? 0)
-  const maxValue = Math.max(minValue, Number(max ?? 100))
-  const stepValue = step === "any" ? 0 : Number(step ?? 1)
+  const minValue = numberOr(min, 0)
+  const maxValue = Math.max(minValue, numberOr(max, 100))
+  const stepValue = step === "any" ? 0 : numberOr(step, 1)
   const middle = minValue + (maxValue - minValue) / 2
   if (!stepValue) return middle
   const stepped =
@@ -36,7 +41,7 @@ const numberFormat = (lang: string, options: Intl.NumberFormatOptions) => {
 
 export const formatValue = (
   value: unknown,
-  { lang, min, step }: Bounds & { lang?: string | null },
+  { lang, min, step }: Bounds & { lang?: string | false | null },
 ) => {
   const digits = valueDecimals({ min, step })
   return numberFormat(lang || "en", {

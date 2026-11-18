@@ -5,6 +5,7 @@ type Note = string | Partial<Record<FrameworkId | "default", string>>
 const components = (note: string) => ({
   astro: note,
   react: note,
+  solid: note,
   svelte: note,
   vue: note,
 })
@@ -57,6 +58,8 @@ export const whatsNew = {
     `<a href="#variants">Tonal and outlined</a> accordions read <a href="#api"><code>--ui-shadow-surface</code></a>, <code>none</code> unless a theme sets it, and tonal and elevated accordions <code>--ui-border-color-raised</code>.`,
     {
       react: `<a href="#variants">Variants</a> name the default: <code>variant="plain"</code>.`,
+
+      solid: `<a href="#variants">Variants</a> name the default: <code>variant="plain"</code>.`,
       svelte: `<a href="#variants">Variants</a> name the default: <code>variant="plain"</code>.`,
     },
     `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
@@ -121,6 +124,7 @@ export const whatsNew = {
         `Breaking: a button avatar needs <code>as="button"</code>, and <code>disabled</code> goes only with it or with <code>href</code> (<a href="#api">types</a>).`,
       ),
       react: `A button avatar needs <code>as="button"</code>, and <code>disabled</code> goes only with it or with <code>href</code> (<a href="#api">types</a>).`,
+      solid: `A button avatar needs <code>as="button"</code>, and <code>disabled</code> goes only with it or with <code>href</code> (<a href="#api">types</a>).`,
       svelte: `A button avatar needs <code>as="button"</code>, and <code>disabled</code> goes only with it or with <code>href</code> (<a href="#api">types</a>).`,
     },
     {
@@ -128,6 +132,7 @@ export const whatsNew = {
         `Breaking: <a href="#grouped"><code>AvatarGroup</code></a> groups avatars and replaces the <code>isGroup</code> prop.`,
       ),
       react: `<a href="#grouped"><code>AvatarGroup</code></a> groups avatars.`,
+      solid: `<a href="#grouped"><code>AvatarGroup</code></a> groups avatars.`,
       svelte: `<a href="#grouped"><code>AvatarGroup</code></a> groups avatars.`,
     },
     `Rounded avatars never get rounder than <a href="#api"><code>--ui-radius</code></a>, so <code>0</code> squares them.`,
@@ -213,6 +218,8 @@ export const whatsNew = {
     ),
     {
       react: `<a href="#icon-only">Icon-only</a> buttons need <code>aria-label</code> or <code>aria-labelledby</code> when there are no <code>children</code> (types only).`,
+
+      solid: `<a href="#icon-only">Icon-only</a> buttons need <code>aria-label</code> or <code>aria-labelledby</code> when there are no <code>children</code> (types only).`,
       svelte: `<a href="#icon-only">Icon-only</a> buttons need <code>aria-label</code> or <code>aria-labelledby</code> when there are no <code>children</code> (types only).`,
     },
     {
@@ -220,6 +227,7 @@ export const whatsNew = {
         `Breaking: a button takes link attributes only with <code>href</code> (<a href="#api">types</a>).`,
       ),
       react: `A button takes link attributes only with <code>href</code> (<a href="#api">types</a>).`,
+      solid: `A button takes link attributes only with <code>href</code> (<a href="#api">types</a>).`,
       svelte: `A button takes link attributes only with <code>href</code> (<a href="#api">types</a>).`,
     },
     `Breaking: <code>--_color</code>, <code>--_color-contrast</code> and <code>--_color-tonal</code> are <code>--_accent</code>, <code>--_on-accent</code> and <code>--_accent-tonal</code> (<a href="#under-the-hood">Under the hood</a>).`,
@@ -268,6 +276,7 @@ export const whatsNew = {
       astro: `<a href="#dismissible"><code>closeButton</code></a> adds a close button that hides the callout, moves focus out of it and fires a cancelable <code>dismiss</code> event first. The <code>close-icon</code> slot replaces its icon.`,
       html: `<a href="#dismissible"><code>&lt;opui-callout&gt;</code></a> hides itself on <code>command="--dismiss"</code>, moves focus out of it and fires a cancelable <code>dismiss</code> event first. Import <code>opui-css/elements/callout.js</code>.`,
       react: `<a href="#dismissible"><code>closeButton</code></a> adds a close button that hides the callout and moves focus out of it. <code>onDismiss</code> runs first and can keep it with <code>preventDefault()</code>, and <code>closeIcon</code> replaces its icon.`,
+      solid: `<a href="#dismissible"><code>closeButton</code></a> adds a close button that hides the callout and moves focus out of it. <code>onDismiss</code> runs first and can keep it with <code>preventDefault()</code>, and <code>closeIcon</code> replaces its icon.`,
       svelte: `<a href="#dismissible"><code>closeButton</code></a> adds a close button that hides the callout and moves focus out of it. <code>ondismiss</code> runs first and can keep it with <code>preventDefault()</code>, and the <code>closeIcon</code> snippet replaces its icon.`,
       vue: `<a href="#dismissible"><code>closeButton</code></a> adds a close button that hides the callout and moves focus out of it. <code>@dismiss</code> runs first and can keep it with <code>preventDefault()</code>, and the <code>close-icon</code> slot replaces its icon.`,
     },
@@ -299,6 +308,7 @@ export const whatsNew = {
       ),
       html: `Breaking: <a href="#actions-alignment">actions</a> sit at the end by default. Add <code>.ui-align-start</code> to line them up with the content.`,
       react: `<a href="#actions-alignment">Actions</a> sit at the end by default, and <code>align="start"</code> lines them up with the content.`,
+      solid: `<a href="#actions-alignment">Actions</a> sit at the end by default, and <code>align="start"</code> lines them up with the content.`,
       svelte: `<a href="#actions-alignment">Actions</a> sit at the end by default, and <code>align="start"</code> lines them up with the content.`,
     },
     `Breaking: <code>--_bg-surface</code>, <code>--_bg-tonal</code> and <code>--_bg-elevated</code> are <code>--_surface-bg-color</code>, <code>--_tonal-bg-color</code> and <code>--_elevated-bg-color</code>, which also replace <code>--_card-bg-color</code> in each variant. <code>--_card-border-color</code> and the outlined <code>--_border-color</code> are <code>--_outlined-border-color</code>, <code>--_card-shadow</code> and <code>--_shadow-elevated</code> are <code>--_elevated-shadow</code>, and <code>--_card-border-width</code> is no longer an override, the variants set the border width (<a href="#under-the-hood">Under the hood</a>).`,
@@ -343,6 +353,7 @@ export const whatsNew = {
     },
   ],
   carousel: [
+    `<a href="#whole-photos"><code>--_media-fit: contain</code></a> shows photos whole instead of cropping them to the aspect ratio.`,
     components(
       `<code>Carousel</code> requires <a href="#accessibility"><code>aria-label</code></a> or <code>aria-labelledby</code> in its types.`,
     ),
@@ -416,6 +427,7 @@ export const whatsNew = {
     {
       astro: `A checkbox without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       react: `A checkbox without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
+      solid: `A checkbox without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       svelte: `A checkbox without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       vue: `A checkbox without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
     },
@@ -489,6 +501,7 @@ export const whatsNew = {
         `Breaking: a button chip needs <code>as="button"</code>, and a link chip needs <code>href</code> (<a href="#api">types</a>).`,
       ),
       react: `A button chip needs <code>as="button"</code>, and a link chip needs <code>href</code> (<a href="#api">types</a>).`,
+      solid: `A button chip needs <code>as="button"</code>, and a link chip needs <code>href</code> (<a href="#api">types</a>).`,
       svelte: `A button chip needs <code>as="button"</code>, and a link chip needs <code>href</code> (<a href="#api">types</a>).`,
     },
     `Breaking: <a href="#disabled">disabled link chips</a> have no <code>href</code>, so they can't be focused or followed.`,
@@ -610,6 +623,7 @@ export const whatsNew = {
     {
       html: `Breaking: the <a href="#basics">header</a> is a <code>div.ui-header</code> row instead of an <code>hgroup</code>, like the <code>Drawer</code> header, and <code>.ui-footer</code> replaces <code>.ui-actions</code>. Point <code>aria-labelledby</code> at the title heading.`,
       react: `<a href="#basics"><code>DialogHeader</code>, <code>DialogTitle</code>, <code>DialogContent</code> and <code>DialogFooter</code></a> build the dialog, like the <code>Drawer</code> parts, and <code>DialogTitle</code> names it.`,
+      solid: `<a href="#basics"><code>DialogHeader</code>, <code>DialogTitle</code>, <code>DialogContent</code> and <code>DialogFooter</code></a> build the dialog, like the <code>Drawer</code> parts, and <code>DialogTitle</code> names it.`,
       svelte: `<a href="#basics"><code>DialogHeader</code>, <code>DialogTitle</code>, <code>DialogContent</code> and <code>DialogFooter</code></a> build the dialog, like the <code>Drawer</code> parts, and <code>DialogTitle</code> names it.`,
     },
     {
@@ -699,6 +713,7 @@ export const whatsNew = {
         `Breaking: <code>DrawerHeader</code> renders its <a href="#close-button">close button</a> only with <code>closeButton</code>, like <code>DialogHeader</code>. Add it to keep the button.`,
       ),
       react: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>.`,
+      solid: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>.`,
       svelte: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>.`,
     },
     {
@@ -706,11 +721,13 @@ export const whatsNew = {
         `The <a href="#close-button">close button</a> in <code>DrawerHeader</code> takes your own icon in the <code>close-icon</code> slot.`,
       ),
       react: `The <a href="#close-button">close button</a> in <code>DrawerHeader</code> takes your own icon in the <code>closeIcon</code> prop.`,
+      solid: `The <a href="#close-button">close button</a> in <code>DrawerHeader</code> takes your own icon in the <code>closeIcon</code> prop.`,
       svelte: `The <a href="#close-button">close button</a> in <code>DrawerHeader</code> takes your own icon in the <code>closeIcon</code> snippet.`,
     },
     `The edge reads <a href="#api"><code>--ui-border-color-raised</code></a> when a theme sets it, like menus and elevated cards, and <code>--_edge-border-color</code> sets it alone.`,
     `Opens over <a href="#api"><code>--ui-duration-slow</code></a> with <code>--ui-ease-enter</code> and closes with <code>--ui-ease-exit</code>.`,
     `With <code>viewport-fit=cover</code>, each side on a screen edge pads its content clear of a phone's notch and home indicator (<a href="#safe-areas">Safe areas</a>).`,
+    `On a touch screen, a drawer at the block start or end <a href="#swipe-to-close">closes with a swipe</a> of its grab handle or header toward the edge.`,
     slots(
       `Breaking: <a href="#basics"><code>DrawerTitle</code> and <code>DrawerContent</code></a> replace the <code>heading</code> prop and the slots. <code>DrawerTitle</code> names the drawer; without it, pass <code>aria-label</code>. The <code>DrawerHeader</code> close button uses <code>command="close"</code>; outside a <code>Drawer</code>, set its <code>commandfor</code>.`,
     ),
@@ -721,12 +738,14 @@ export const whatsNew = {
       ),
       html: `Breaking: the <a href="#basics"><code>.ui-footer</code></a> content sits at the end on every side, also in an <code>.ui-inline-end</code> drawer, and <code>.ui-align-start</code> moves it to the start.`,
       react: `<a href="#api"><code>DrawerFooter</code></a> takes <code>align</code>, and its content sits at the end on every side.`,
+      solid: `<a href="#api"><code>DrawerFooter</code></a> takes <code>align</code>, and its content sits at the end on every side.`,
       svelte: `<a href="#api"><code>DrawerFooter</code></a> takes <code>align</code>, and its content sits at the end on every side.`,
     },
     `<code>.ui-actions</code> groups the buttons in the <a href="#basics">footer</a>, and moves them to the end when other content comes first.`,
     {
       default: `Breaking: the <a href="#basics">title</a> is <code>--ui-font-size-h4</code>, like the <code>Dialog</code> title, instead of <code>--font-size-3</code>, and <code>--_header-font-size</code> is <code>--_title-font-size</code>.`,
       react: `The <a href="#basics">title</a> is <code>--ui-font-size-h4</code>, like the <code>Dialog</code> title, and <code>--_title-font-size</code> changes it.`,
+      solid: `The <a href="#basics">title</a> is <code>--ui-font-size-h4</code>, like the <code>Dialog</code> title, and <code>--_title-font-size</code> changes it.`,
       svelte: `The <a href="#basics">title</a> is <code>--ui-font-size-h4</code>, like the <code>Dialog</code> title, and <code>--_title-font-size</code> changes it.`,
     },
     `<a href="#basics">Content</a> is a stack with <code>--ui-space-3</code> between its children, like <code>Dialog</code> content, so paragraphs don't touch. Content with inline children keeps the normal flow, and a focusable content draws its focus ring inside the drawer.`,
@@ -851,6 +870,7 @@ export const whatsNew = {
         `Breaking: <code>ListItem</code> <a href="#checkbox"><code>choice</code></a> replaces <code>type</code>, and it can't be combined with <code>as</code> or <code>href</code> (types).`,
       ),
       react: `<code>ListItem</code> <a href="#checkbox"><code>choice</code></a> can't be combined with <code>as</code> or <code>href</code> (types).`,
+      solid: `<code>ListItem</code> <a href="#checkbox"><code>choice</code></a> can't be combined with <code>as</code> or <code>href</code> (types).`,
       svelte: `<code>ListItem</code> <a href="#checkbox"><code>choice</code></a> can't be combined with <code>as</code> or <code>href</code> (types).`,
     },
     `Breaking: rows no longer style <code>aria-selected="true"</code> on a link, button, label or list item, where ARIA doesn't allow it. Mark the current row with <a href="#selected"><code>aria-current="page"</code></a>.`,
@@ -860,11 +880,14 @@ export const whatsNew = {
         `The <a href="#selected"><code>icon-checked</code></a> slot of <code>ListItem</code> shows your own icon at the end of a selected or current row.`,
       ),
       react: `The <a href="#selected"><code>iconChecked</code></a> prop of <code>ListItem</code> shows your own icon at the end of a selected or current row.`,
+      solid: `The <a href="#selected"><code>iconChecked</code></a> prop of <code>ListItem</code> shows your own icon at the end of a selected or current row.`,
       svelte: `The <a href="#selected"><code>iconChecked</code></a> snippet of <code>ListItem</code> shows your own icon at the end of a selected or current row.`,
       html: `A <a href="#selected"><code>.ui-icon-checked</code></a> shows your own icon at the end of a selected or current row.`,
     },
     {
       react: `<a href="#variants">Variants</a> name the default: <code>variant="filled"</code>.`,
+
+      solid: `<a href="#variants">Variants</a> name the default: <code>variant="filled"</code>.`,
       svelte: `<a href="#variants">Variants</a> name the default: <code>variant="filled"</code>.`,
     },
     `Lists are <a href="#variants">rounded</a> with <code>--_radius</code> (<code>--ui-radius</code>) and clip their rows to the corners, except as a direct child of a card.`,
@@ -887,6 +910,7 @@ export const whatsNew = {
         `A <a href="#custom-check">custom check</a>: <code>--ui-icon-check</code> for the check of your icon set, or any icon in the <code>icon-checked</code> slot.`,
       ),
       react: `A <a href="#custom-check">custom check</a>: <code>--ui-icon-check</code> for the check of your icon set, or any icon in the <code>iconChecked</code> prop.`,
+      solid: `A <a href="#custom-check">custom check</a>: <code>--ui-icon-check</code> for the check of your icon set, or any icon in the <code>iconChecked</code> prop.`,
       svelte: `A <a href="#custom-check">custom check</a>: <code>--ui-icon-check</code> for the check of your icon set, or any icon in the <code>iconChecked</code> snippet.`,
       html: `A <a href="#custom-check">custom check</a>: <code>--ui-icon-check</code> for the check of your icon set, or any icon in <code>.ui-icon-checked</code>.`,
     },
@@ -906,6 +930,7 @@ export const whatsNew = {
         `<a href="#submenu">Submenus</a> with the <code>submenu</code> slot on <code>ListItem</code>.`,
       ),
       react: `<a href="#submenu">Submenus</a> with the <code>submenu</code> prop on <code>ListItem</code>.`,
+      solid: `<a href="#submenu">Submenus</a> with the <code>submenu</code> prop on <code>ListItem</code>.`,
       svelte: `<a href="#submenu">Submenus</a> with the <code>submenu</code> snippet on <code>ListItem</code>.`,
     },
     `Menus shrink to the space on their side and flip when it's less than <code>12rem</code> (<a href="#placement">Placement</a>).`,
@@ -926,6 +951,7 @@ export const whatsNew = {
   ],
   message: [
     `New: a <a href="#basics">Message</a> is a chat bubble that groups into runs, with <a href="#attachments">attachments</a>, <a href="#reactions">reactions</a> and a <a href="#typing">typing indicator</a>.`,
+    `A chat between two people can leave out every name and avatar with <a href="#direct"><code>direct</code></a>.`,
   ],
   "number-field": [
     components(
@@ -960,6 +986,7 @@ export const whatsNew = {
       ),
       html: `The default <a href="#variants">tonal</a> track needs no <code>.ui-tonal</code>.`,
       react: `<a href="#variants">Variants</a> name the default: <code>variant="tonal"</code>.`,
+      solid: `<a href="#variants">Variants</a> name the default: <code>variant="tonal"</code>.`,
       svelte: `<a href="#variants">Variants</a> name the default: <code>variant="tonal"</code>.`,
     },
     {
@@ -1008,6 +1035,7 @@ export const whatsNew = {
     {
       astro: `A radio without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       react: `A radio without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
+      solid: `A radio without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       svelte: `A radio without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       vue: `A radio without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
     },
@@ -1081,6 +1109,8 @@ export const whatsNew = {
     ),
     {
       react: `The <a href="#value">value readout</a> follows the thumb through <code>range.js</code>, like in Astro, and <code>valueText</code> content renders from the value you keep.`,
+
+      solid: `The <a href="#value">value readout</a> follows the thumb through <code>range.js</code>, like in Astro, and <code>valueText</code> content renders from the value you keep.`,
       svelte: `The <a href="#value">value readout</a> follows the thumb through <code>range.js</code>, like in Astro, and the <code>valueText</code> snippet renders from the value you bind.`,
       vue: `The <a href="#value">value readout</a> follows the thumb through <code>range.js</code>, like in Astro, and the <code>value-text</code> slot renders from the value you bind.`,
     },
@@ -1110,6 +1140,8 @@ export const whatsNew = {
     },
     {
       react: `<a href="#variants">Variants</a> name the default: <code>variant="outlined"</code>.`,
+
+      solid: `<a href="#variants">Variants</a> name the default: <code>variant="outlined"</code>.`,
       svelte: `<a href="#variants">Variants</a> name the default: <code>variant="outlined"</code>.`,
     },
     `The <a href="#basics">thumb</a> and its ring only show hover styles on devices that can hover, so they no longer stick after a tap.`,
@@ -1129,7 +1161,7 @@ export const whatsNew = {
       default: `Breaking: the root is a <code>&lt;div&gt;</code> with a <code>&lt;label for&gt;</code> inside. The label alone <a href="#accessibility">names the select</a>, and the affixes describe it with the start and end text, so they're read after the name. A click on them no longer opens the select.`,
       html: `Breaking: give the root <code>&lt;div class="ui-select"&gt;</code> a <code>&lt;label class="ui-label" for&gt;</code> that <a href="#accessibility">names the select</a> alone, and describe it with the affixes and the start and end text through <code>aria-describedby</code>. Mark the select's <code>&lt;button&gt;</code> <code>inert</code>, so the select alone takes clicks, focus and the name.`,
     },
-    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the field, a little inside its border, and Tab reaches the start, top, end and bottom in the order they're drawn, where the browser supports <code>reading-flow</code>.`,
+    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the field, a little inside its border, and Tab reaches the top, start, end and bottom in the order they're drawn, in every browser.`,
     `The picker marks the <a href="#preselected">selected option</a> with a check at the end, which <code>--ui-icon-check</code> changes.`,
     components(
       `The ids the select generates start with its <a href="#api"><code>id</code></a>: <code>x-start-text</code>, <code>x-end-text</code>, <code>x-start</code>, <code>x-end</code>, <code>x-top</code> and <code>x-bottom</code> for <code>id="x"</code>.`,
@@ -1180,6 +1212,7 @@ export const whatsNew = {
         `Breaking: <a href="#preselected"><code>items</code></a> takes <code>SelectItem[]</code>, exported under that name.`,
       ),
       react: `<a href="#preselected"><code>items</code></a> is typed as <code>SelectItem[]</code>, exported from every framework.`,
+      solid: `<a href="#preselected"><code>items</code></a> is typed as <code>SelectItem[]</code>, exported from every framework.`,
       svelte: `<a href="#preselected"><code>items</code></a> is typed as <code>SelectItem[]</code>, exported from every framework.`,
     },
     slots(
@@ -1257,6 +1290,7 @@ export const whatsNew = {
     `Breaking: <code>choice.css</code> holds the layout, label, end text, sizes and disabled styles shared with Checkbox and Radio. Import it with them when you <a href="#installation">install single files</a>, or use <code>components.css</code>.`,
     {
       react: `A switch without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
+      solid: `A switch without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       svelte: `A switch without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       vue: `A switch without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
     },
@@ -1398,6 +1432,7 @@ export const whatsNew = {
     {
       astro: `<code>value</code> on <code>Tabs</code> selects the item whose <code>value</code> matches (<a href="#binding">Binding</a>).`,
       react: `<code>Tabs</code> take <code>value</code>, <code>defaultValue</code> and <code>onValueChange</code> to control the selected tab (<a href="#binding">Binding</a>).`,
+      solid: `<code>Tabs</code> take <code>value</code>, <code>defaultValue</code> and <code>onValueChange</code> to control the selected tab (<a href="#binding">Binding</a>).`,
       svelte: `Bind the selected tab with <code>bind:value</code> on <code>Tabs</code> (<a href="#binding">Binding</a>).`,
       vue: `Bind the selected tab with <code>v-model</code> on <code>Tabs</code> (<a href="#binding">Binding</a>).`,
     },
@@ -1411,7 +1446,7 @@ export const whatsNew = {
     },
   ],
   "text-field": [
-    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the field, a little inside its border, and Tab reaches the start, top, end and bottom in the order they're drawn, where the browser supports <code>reading-flow</code>.`,
+    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the field, a little inside its border, and Tab reaches the top, start, end and bottom in the order they're drawn, in every browser.`,
     {
       default: `Breaking: the root is a <code>&lt;div&gt;</code> with a <code>&lt;label for&gt;</code> inside, so the <a href="#affix">affixes</a> can hold buttons. The label alone <a href="#accessibility">names the field</a>, and the start text, top, affixes, bottom and end text describe it through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, in any language's word order. A click on them no longer focuses the field. The ids start with the <code>id</code>: <code>x-start-text</code>, <code>x-start</code>, <code>x-end-text</code> and so on for <code>id="x"</code>.`,
       html: `Breaking: give the root <code>&lt;div class="ui-text-field"&gt;</code> a <code>&lt;label class="ui-label" for&gt;</code> that <a href="#accessibility">names the field</a> alone, and describe it with the start text, the affixes and the end text through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, not in it.`,
@@ -1479,6 +1514,7 @@ export const whatsNew = {
         `<a href="#password-toggle"><code>passwordToggle</code></a> adds a button that shows and hides the password, run by the <code>&lt;opui-text-field&gt;</code> custom element, which the component loads. Its icons take the <code>icon-unchecked</code> and <code>icon-checked</code> slots.`,
       ),
       react: `<a href="#password-toggle"><code>passwordToggle</code></a> adds a button that shows and hides the password, run by the <code>&lt;opui-text-field&gt;</code> custom element, which the component loads. Its icons take the <code>iconUnchecked</code> and <code>iconChecked</code> props.`,
+      solid: `<a href="#password-toggle"><code>passwordToggle</code></a> adds a button that shows and hides the password, run by the <code>&lt;opui-text-field&gt;</code> custom element, which the component loads. Its icons take the <code>iconUnchecked</code> and <code>iconChecked</code> props.`,
       svelte: `<a href="#password-toggle"><code>passwordToggle</code></a> adds a button that shows and hides the password, run by the <code>&lt;opui-text-field&gt;</code> custom element, which the component loads. Its icons take the <code>iconUnchecked</code> and <code>iconChecked</code> snippets.`,
       html: `<a href="#password-toggle">Password toggle</a>: <code>&lt;opui-text-field&gt;</code> with a <code>&lt;label for&gt;</code> and a <code>command="--toggle-password"</code> button shows and hides the password. Import <code>opui-css/elements/text-field.js</code>.`,
     },
@@ -1498,12 +1534,13 @@ export const whatsNew = {
         `Breaking: the start and end text describe the input instead of naming it, so give a field without a <code>label</code> <a href="#hidden-label"><code>aria-label</code></a> or <code>aria-labelledby</code>.`,
       ),
       react: `A field without a <code>label</code> is named by <a href="#hidden-label"><code>aria-label</code></a> or <code>aria-labelledby</code> alone, and the start and end text describe the input.`,
+      solid: `A field without a <code>label</code> is named by <a href="#hidden-label"><code>aria-label</code></a> or <code>aria-labelledby</code> alone, and the start and end text describe the input.`,
       svelte: `A field without a <code>label</code> is named by <a href="#hidden-label"><code>aria-label</code></a> or <code>aria-labelledby</code> alone, and the start and end text describe the input.`,
     },
     `A field in a table cell keeps a <code>12ch</code> minimum width, so it stays usable with a <a href="#hidden-label">hidden label</a> in a narrow column.`,
   ],
   textarea: [
-    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the first line and centers on it, taller content starts a little below the field's top, and Tab reaches the parts in the order they're drawn, where the browser supports <code>reading-flow</code>.`,
+    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the first line and centers on it, taller content starts a little below the field's top, and Tab reaches the parts in the order they're drawn, in every browser.`,
     {
       default: `Breaking: the root is a <code>&lt;div&gt;</code> with a <code>&lt;label for&gt;</code> inside, so the <a href="#affix">affixes</a> can hold buttons. The label alone <a href="#accessibility">names the field</a>, and the start text, top, affixes, bottom and end text describe it through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, in any language's word order. A click on them no longer focuses the field.`,
       html: `Breaking: give the root <code>&lt;div class="ui-textarea"&gt;</code> a <code>&lt;label class="ui-label" for&gt;</code> that <a href="#accessibility">names the field</a> alone, and describe it with the start text, the affixes and the end text through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, not in it.`,
@@ -1572,6 +1609,7 @@ export const whatsNew = {
         `Breaking: the start and end text describe the textarea instead of naming it, so give a textarea without a <code>label</code> <code>aria-label</code> or <code>aria-labelledby</code> (<a href="#api">API</a>).`,
       ),
       react: `A textarea without a <code>label</code> is named by <code>aria-label</code> or <code>aria-labelledby</code> alone, and the start and end text describe it (<a href="#api">API</a>).`,
+      solid: `A textarea without a <code>label</code> is named by <code>aria-label</code> or <code>aria-labelledby</code> alone, and the start and end text describe it (<a href="#api">API</a>).`,
       svelte: `A textarea without a <code>label</code> is named by <code>aria-label</code> or <code>aria-labelledby</code> alone, and the start and end text describe it (<a href="#api">API</a>).`,
     },
     `A textarea in a table cell keeps a <code>12ch</code> minimum width, so it stays usable with a <a href="#hidden-label">hidden label</a> in a narrow column.`,
@@ -1628,6 +1666,7 @@ export const whatsNew = {
     {
       astro: `<code>value</code> on <code>ToggleGroup</code> checks the buttons whose <code>value</code> matches (<a href="#binding">Binding</a>).`,
       react: `<code>ToggleGroup</code> takes <code>value</code>, <code>defaultValue</code> and <code>onValueChange</code> to control the selection (<a href="#binding">Binding</a>).`,
+      solid: `<code>ToggleGroup</code> takes <code>value</code>, <code>defaultValue</code> and <code>onValueChange</code> to control the selection (<a href="#binding">Binding</a>).`,
       svelte: `Bind the selection with <code>bind:value</code> on <code>ToggleGroup</code> (<a href="#binding">Binding</a>).`,
       vue: `Bind the selection with <code>v-model</code> on <code>ToggleGroup</code> (<a href="#binding">Binding</a>).`,
     },

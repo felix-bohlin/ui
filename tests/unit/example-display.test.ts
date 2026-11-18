@@ -138,6 +138,23 @@ describe("cssRules", () => {
     expect(() => cssRules(css)).toThrow(reason)
   })
 
+  test("applies a conditional rule only when its condition is on, with the declarations nested in it", () => {
+    const css =
+      ".a { display: none; @container (inline-size >= 40rem) { display: block; .b { display: flex } } }"
+    const read = (conditions: Map<string, boolean>) =>
+      cssRules(css, { conditions }).map(({ display, text }) => [text, display])
+    const off = new Map<string, boolean>()
+    expect(read(off)).toEqual([[".a", "none"]])
+    expect([...off]).toEqual([["@container (inline-size >= 40rem)", false]])
+    expect(
+      read(new Map([["@container (inline-size >= 40rem)", true]])),
+    ).toEqual([
+      [".a", "none"],
+      [":is(.a)", "block"],
+      [":is(.a) .b", "flex"],
+    ])
+  })
+
   test("skips @media print, which never applies on screen", () => {
     expect(
       cssRules(
@@ -255,6 +272,36 @@ describe("boxesOf", () => {
 })
 
 describe("renderedText", () => {
+  test("keeps one answer when a conditional rule changes no whitespace", () => {
+    expect(
+      texts('<div class="row">\n  <b class="a">a</b>\n  <b>b</b>\n</div>', [
+        ".row { display: flex } .a { display: none; @container (inline-size >= 40rem) { display: block } }",
+      ]),
+    ).toEqual(["", "a", "", "b", ""])
+  })
+
+  test("rejects a conditional rule that changes which whitespace renders", () => {
+    expect(() =>
+      texts('<p>a <b class="a">b</b> c</p>', [
+        ".a { @container (inline-size >= 40rem) { display: block } }",
+      ]),
+    ).toThrow(
+      'the whitespace of " c" renders as "c" when @container (inline-size >= 40rem) applies and as " c" when not',
+    )
+  })
+
+  test("rejects more conditions than it evaluates", () => {
+    expect(() =>
+      texts("<p>a</p>", [
+        Array.from(
+          { length: 7 },
+          (_, index) =>
+            `@container (inline-size >= ${index}rem) { p { display: flex } }`,
+        ).join(" "),
+      ]),
+    ).toThrow("7 conditional rules set content, display or white-space")
+  })
+
   test.each([
     ["<p><kbd>A</kbd> <kbd>B</kbd></p>", ["A", " ", "B"]],
     ["<p>Read<em> more</em></p>", ["Read", " more"]],

@@ -67,6 +67,7 @@ import { Select } from "opui-css/vue"
     <template #start-text>Less lag means tighter grooves.</template>
     <template #start>
       <svg
+        data-icon="globe"
         aria-hidden="true"
         width="16"
         height="16"

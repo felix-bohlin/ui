@@ -1,17 +1,19 @@
-import { existsSync, realpathSync } from "node:fs"
+import { realpathSync } from "node:fs"
 import { readdir, readFile, writeFile } from "node:fs/promises"
 import { join, basename } from "node:path"
-import { fileURLToPath, pathToFileURL } from "node:url"
+import { fileURLToPath } from "node:url"
 import { parse as parseAstro } from "@astrojs/compiler"
 import { parseFragment } from "parse5"
 import postcss from "postcss"
 import ts from "typescript"
 
 import { featureOf, patterns } from "../packages/opui/scripts/features.mjs"
+import { stylesheetsOf } from "../src/component-api/catalog.ts"
 import {
   computeBrowserSupport,
   SHARED_FEATURES,
 } from "../src/utils/browser-support.ts"
+import { loadCatalog } from "./catalog.mjs"
 
 const componentsDir = fileURLToPath(
   new URL("../src/docs/components", import.meta.url),
@@ -22,7 +24,6 @@ const cssDir = fileURLToPath(
 const examplesDir = fileURLToPath(
   new URL("../src/component-examples", import.meta.url),
 )
-const apiDir = fileURLToPath(new URL("../src/component-api", import.meta.url))
 
 const attribute = (element, name) =>
   element.attrs?.find((attr) => attr.name === name)?.value
@@ -130,9 +131,6 @@ export const fallbackProblems = ({ fallbacks, lacking }) => ({
     .toSorted(),
 })
 
-const kebab = (name) =>
-  name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
-
 const readPages = async () => {
   const components = {}
   for (const file of (await readdir(componentsDir)).sort()) {
@@ -160,20 +158,18 @@ const writePage = async (comp, ids) => {
 }
 
 const readApis = async () => {
+  const { apis } = await loadCatalog()
   const pages = {}
-  for (const folder of (await readdir(apiDir)).sort()) {
-    const file = join(apiDir, folder, "api.ts")
-    if (!existsSync(file)) continue
-    const { default: api } = await import(pathToFileURL(file).href)
-    const page = (pages[api.page ?? folder] ??= {
+  for (const { api, page } of apis) {
+    const entry = (pages[page] ??= {
       classes: new Set(),
       stylesheets: new Set(),
     })
     for (const [name] of JSON.stringify(api).matchAll(/\.ui-[a-z0-9-]+/g)) {
-      page.classes.add(name)
+      entry.classes.add(name)
     }
-    for (const sheet of api.css ?? (api.source ? [kebab(api.source)] : [])) {
-      page.stylesheets.add(`${sheet}.css`)
+    for (const sheet of stylesheetsOf(api)) {
+      entry.stylesheets.add(`${sheet}.css`)
     }
   }
   return pages

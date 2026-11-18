@@ -46,22 +46,9 @@ export const keywords = ["email", "input", "password", "search", "text box"]
   ]}
   fallbacks={{
     "reading-flow":
-      "Without `reading-flow`, Tab and screen readers reach the top and start parts after the control, in the order of the markup.",
+      "Without `reading-flow`, Tab and screen readers follow the markup, which puts the top and start parts before the control, as they're drawn. Hand-written HTML needs that order too.",
   }}
   apis={[{ title: "Text field API", api: textFieldApi }]}
-  changelogPaths={[
-    {
-      path: "packages/opui/components/TextField/TextField.astro",
-      type: "component",
-    },
-    { path: "src/docs/components/text-field.astro", type: "docs" },
-    { path: "src/component-examples/text-field", type: "docs" },
-    {
-      path: "packages/opui/css/components/text-field.css",
-      type: "css",
-    },
-    { path: "src/component-api/text-field", type: "api" },
-  ]}
   installationTabs={[
     { title: "text-field.css", code: TextFieldCSS, lang: "css" },
   ]}
@@ -211,6 +198,9 @@ export const keywords = ["email", "input", "password", "search", "text box"]
       </Fragment>
       <Fragment slot="react">
         Use <code>value</code> and <code>onChange</code>.
+      </Fragment>
+      <Fragment slot="solid">
+        Use <code>value</code> and <code>onInput</code>.
       </Fragment>
       <Fragment slot="svelte">Use <code>bind:value</code>.</Fragment>
       <Fragment slot="vue">Use <code>v-model</code>.</Fragment>

@@ -1,4 +1,10 @@
-import { parseTodo, slugify, type TodoNote } from "./todo"
+import {
+  parseTodo,
+  slugify,
+  splitInlineCode,
+  splitLinks,
+  type TodoNote,
+} from "./todo"
 
 export const stages = [
   { label: "To do", value: "todo" },
@@ -49,6 +55,28 @@ export const openStageOf = (notes: TodoNote[]) => {
 export const linkText = (text: string) =>
   text.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
 
+const reviewPages = ["/dev/checklist/", "/dev/checks/", "/dev/todo/"]
+
+export const pageLinksOf = (texts: string[]) => {
+  const links = texts.flatMap((text) =>
+    splitInlineCode(text).flatMap((part) =>
+      part.code
+        ? []
+        : splitLinks(part.value).flatMap(({ href, value }) =>
+            href?.startsWith("/") &&
+            !href.startsWith("//") &&
+            !reviewPages.some((page) => href.startsWith(page))
+              ? [{ href, label: value }]
+              : [],
+          ),
+    ),
+  )
+  return links.filter(
+    (link, index) =>
+      links.findIndex((other) => other.href === link.href) === index,
+  )
+}
+
 export const previewOf = (notes: TodoNote[]) => {
   const last = outcomesOf(notes).at(-1)
   if (last) return { ...last, text: linkText(last.text) }
@@ -78,6 +106,10 @@ export const parseChecklist = (source: string) => {
         ...item,
         key: slugify(item.text),
         openStage,
+        pages: pageLinksOf([
+          item.text,
+          ...item.notes.flatMap((note) => ("text" in note ? [note.text] : [])),
+        ]),
         preview: previewOf(item.notes),
         stage: item.status === "x" ? "done" : openStage,
       }

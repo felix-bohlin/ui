@@ -16,6 +16,7 @@
   >
     {#snippet end()}
       <svg
+        data-icon="chevron-right"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"

@@ -4,7 +4,7 @@ import { trimEdges } from "../whitespace"
 
 import type { Props } from "./types.astro"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
-import { createIds, idRefs } from "../id"
+import { createIds, fieldDescribedBy } from "../id"
 import { cx } from "../cx"
 
 export const title = "Number Field"
@@ -90,7 +90,10 @@ const LabelTag = label || labelSlot ? "label" : Fragment
     </span>
     <input
       {...rest}
-      aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
+      aria-describedby={fieldDescribedBy(
+        { endText: endTextId, startText: startTextId },
+        ariaDescribedBy,
+      )}
       aria-invalid={error ? "true" : ariaInvalid}
       disabled={disabled}
       id={inputId}

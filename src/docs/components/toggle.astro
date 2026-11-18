@@ -43,28 +43,6 @@ export const keywords = ["pressed", "toggle button"]
     "gap-decorations":
       "Without gap decorations, the compat layer draws the lines in a group with shadows on each button's start and top edges.",
   }}
-  changelogPaths={[
-    {
-      path: "packages/opui/components/ToggleButton/ToggleButton.astro",
-      type: "component",
-    },
-    {
-      path: "packages/opui/components/ToggleGroup/ToggleGroup.astro",
-      type: "component",
-    },
-    { path: "src/docs/components/toggle.astro", type: "docs" },
-    { path: "src/component-examples/toggle", type: "docs" },
-    {
-      path: "packages/opui/css/components/toggle-button.css",
-      type: "css",
-    },
-    {
-      path: "packages/opui/css/components/toggle-group.css",
-      type: "css",
-    },
-    { path: "src/component-api/toggle-button", type: "api" },
-    { path: "src/component-api/toggle-group", type: "api" },
-  ]}
   installationTabs={[
     {
       title: "toggle-group.css",
@@ -147,6 +125,11 @@ export const keywords = ["pressed", "toggle button"]
       </Fragment>
       <Fragment slot="react">
         Use <code>value</code> and <code>onValueChange</code> on the group.
+      </Fragment>
+      <Fragment slot="solid">
+        Use <code>value</code> and <code>onValueChange</code> on the group. A
+        standalone <code>ToggleButton</code> takes <code>checked</code> and
+        <code>onChange</code>.
       </Fragment>
       <Fragment slot="svelte">
         Use <code>bind:value</code> on the group.

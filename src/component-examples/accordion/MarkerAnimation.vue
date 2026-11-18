@@ -24,6 +24,7 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/vue"
       Turn
       <template #marker>
         <svg
+          data-icon="chevron-right"
           aria-hidden="true"
           class="ui-marker"
           xmlns="http://www.w3.org/2000/svg"

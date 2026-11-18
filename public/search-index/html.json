@@ -470,6 +470,13 @@
     "url": "/html/components/carousel/#images"
   },
   {
+    "id": "component-carousel-html-whole-photos",
+    "title": "Whole photos",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/html/components/carousel/#whole-photos"
+  },
+  {
     "id": "component-carousel-html-gallery",
     "title": "Gallery",
     "page": "Carousel",
@@ -1080,6 +1087,13 @@
     "url": "/html/components/drawer/#how-to-close"
   },
   {
+    "id": "component-drawer-html-swipe-to-close",
+    "title": "Swipe to close",
+    "page": "Drawer",
+    "category": "Component",
+    "url": "/html/components/drawer/#swipe-to-close"
+  },
+  {
     "id": "component-drawer-html-role-attributes",
     "title": "Role & attributes",
     "page": "Drawer",
@@ -1601,6 +1615,13 @@
     "page": "Message",
     "category": "Component",
     "url": "/html/components/message/#group-chat"
+  },
+  {
+    "id": "component-message-html-direct",
+    "title": "Direct",
+    "page": "Message",
+    "category": "Component",
+    "url": "/html/components/message/#direct"
   },
   {
     "id": "component-message-html-attachments",
@@ -3997,7 +4018,7 @@
     "id": "blog-release-6",
     "title": "opui 6.0",
     "description": "What changed in 6.0 and why, with live demos.",
-    "headings": "It's a proper design system now Five example themes Token tiers Contrast as a guarantee Loads of new components So much cool stuff in the docs Blocks! Theme builder The CSS is the component One Astro file, four frameworks Slots become parts, props get one naming model The platform did the work Browser support, honestly The new \"by hand\" Where it landed Migrating",
+    "headings": "It's a proper design system now Five example themes Token tiers Contrast as a guarantee Loads of new components So much cool stuff in the docs Blocks! Theme builder The CSS is the component One Astro file, four frameworks Slots become parts, props get one naming model The platform did the work Browser support, honestly The new \"by hand\" Working with AI Where it landed Migrating",
     "category": "Blog",
     "url": "/blog/release-6/"
   },
@@ -4397,7 +4418,7 @@
     "id": "api-accordion-html",
     "title": "Accordion API",
     "description": "Reference for Accordion HTML component.",
-    "api": "details.ui-accordion Container element. The always visible header. summary The marker. In Astro, React, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates. summary .ui-marker The collapsible content. .ui-content A group of actions, such as buttons. .ui-actions [name] Group Groups accordions so only one of them can be open at a time. .ui-marker-animation-flip .ui-marker-animation-turn Marker animation How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` turns it a quarter turn, for a marker that points to the inline end and then points down when open. The default chevron points down, so `turn` needs a custom marker. [open] State Whether the accordion is open. .ui-elevated .ui-outlined .ui-tonal .ui-transparent Variants The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface or border, and no inline padding.",
+    "api": "details.ui-accordion Container element. The always visible header. summary The marker. In Astro, React, Solid, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates. summary .ui-marker The collapsible content. .ui-content A group of actions, such as buttons. .ui-actions [name] Group Groups accordions so only one of them can be open at a time. .ui-marker-animation-flip .ui-marker-animation-turn Marker animation How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` turns it a quarter turn, for a marker that points to the inline end and then points down when open. The default chevron points down, so `turn` needs a custom marker. [open] State Whether the accordion is open. .ui-elevated .ui-outlined .ui-tonal .ui-transparent Variants The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface or border, and no inline padding.",
     "category": "API",
     "url": "/html/api/#accordion"
   },
@@ -4413,7 +4434,7 @@
     "id": "api-avatar-group-html",
     "title": "Avatar group API",
     "description": "Reference for Avatar group HTML component.",
-    "api": ".ui-avatar-group A group of overlapping avatars. [aria-label] Label The accessible name of the group. The Astro, React and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.",
+    "api": ".ui-avatar-group A group of overlapping avatars. [aria-label] Label The accessible name of the group. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.",
     "category": "API",
     "url": "/html/api/#avatar-group"
   },
@@ -4445,7 +4466,7 @@
     "id": "api-callout-html",
     "title": "Callout API",
     "description": "Reference for Callout HTML component.",
-    "api": ".ui-callout Container element, an `<article>`. With `closeButton`, the `<opui-callout>` custom element with `role=\"article\"`, which a button with `commandfor` and `command=\"--dismiss\"` dismisses. An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. .ui-callout > svg The content, with an optional heading first. .ui-content A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. .ui-callout > .ui-button A row of buttons under the content. .ui-actions .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Severities The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders. .ui-outlined Variants The variant to use. dismiss Fires on the callout before it hides. It bubbles, and `preventDefault()` keeps the callout. dismiss() Fires `dismiss` and, unless a listener cancels it, sets `hidden` on the callout and moves focus that was inside it to the next focusable element after it, or else the one before. Returns whether the callout hid.",
+    "api": ".ui-callout Container element, an `<article>`. With `closeButton`, the `<opui-callout>` custom element with `role=\"article\"`, which a button with `commandfor` and `command=\"--dismiss\"` dismisses. An optional icon before the content. In Astro, React, Solid, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. .ui-callout > svg The content, with an optional heading first. .ui-content A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. .ui-callout > .ui-button A row of buttons under the content. .ui-actions .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Severities The severity. Sets the color, and in Astro, React, Solid, Svelte and Vue the icon `CalloutIcon` renders. .ui-outlined Variants The variant to use. dismiss Fires on the callout before it hides. It bubbles, and `preventDefault()` keeps the callout. dismiss() Fires `dismiss` and, unless a listener cancels it, sets `hidden` on the callout and moves focus that was inside it to the next focusable element after it, or else the one before. Returns whether the callout hid.",
     "category": "API",
     "url": "/html/api/#callout"
   },
@@ -4477,7 +4498,7 @@
     "id": "api-carousel-html",
     "title": "Carousel API",
     "description": "Reference for Carousel HTML component.",
-    "api": "ul.ui-carousel The scroller. The previous button. `::scroll-button(block-start)` when vertical. .ui-carousel::scroll-button(inline-start) An item. .ui-carousel > :first-child The next button. `::scroll-button(block-end)` when vertical. .ui-carousel::scroll-button(inline-end) A marker, one per item. .ui-carousel > :first-child::scroll-marker .ui-align-center Alignment Where items snap. [aria-label] Label The accessible name of the carousel. The Astro, React and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. --_media-aspect-ratio Aspect ratio Aspect ratio that images, videos and iframes are cropped to. .ui-buttons-none .ui-buttons-outside Buttons Previous and next buttons. `outside` places them beside the items, and `none` leaves them out. --_items-per-view Items per view Number of visible items. --_marker-label Marker label Accessible name of each marker, with `{number}` where the item number goes. .ui-markers Markers One marker per item, after the list. --_button-next-label Next label Accessible name of the next button. .ui-vertical Orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. .ui-peek Peek Shows part of the neighboring items. .ui-persistent-buttons Persistent buttons Keeps the buttons visible at the ends. A disabled button has a muted border. --_button-previous-label Previous label Accessible name of the previous button. .ui-stretch Stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
+    "api": "ul.ui-carousel The scroller. The previous button. `::scroll-button(block-start)` when vertical. .ui-carousel::scroll-button(inline-start) An item. .ui-carousel > :first-child The next button. `::scroll-button(block-end)` when vertical. .ui-carousel::scroll-button(inline-end) A marker, one per item. .ui-carousel > :first-child::scroll-marker .ui-align-center Alignment Where items snap. [aria-label] Label The accessible name of the carousel. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. --_media-aspect-ratio Aspect ratio Aspect ratio that images, videos and iframes are cropped to. .ui-buttons-none .ui-buttons-outside Buttons Previous and next buttons. `outside` places them beside the items, and `none` leaves them out. --_items-per-view Items per view Number of visible items. --_marker-label Marker label Accessible name of each marker, with `{number}` where the item number goes. .ui-markers Markers One marker per item, after the list. --_button-next-label Next label Accessible name of the next button. .ui-vertical Orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. .ui-peek Peek Shows part of the neighboring items. .ui-persistent-buttons Persistent buttons Keeps the buttons visible at the ends. A disabled button has a muted border. --_button-previous-label Previous label Accessible name of the previous button. .ui-stretch Stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
     "category": "API",
     "url": "/html/api/#carousel"
   },
@@ -4589,7 +4610,7 @@
     "id": "api-drawer-html",
     "title": "Drawer API",
     "description": "Reference for Drawer HTML component.",
-    "api": "dialog.ui-drawer Container element. The header, a row for the title and anything next to it, with an optional close button. .ui-header The title. Names the drawer through `aria-labelledby`. .ui-header > h2 The scrollable content. .ui-content The footer, a row at the end. .ui-footer .ui-backdrop-transparent Backdrop The backdrop style. `transparent` keeps the page behind it fully visible. [closedby] Behavior How the drawer can be closed. `any` also closes it on a click outside. [data-close-on-navigate] Close on navigate Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API. .ui-scroll-lock Scroll lock Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`. .ui-block-end .ui-block-start .ui-inline-end Position The side it opens from.",
+    "api": "dialog.ui-drawer Container element. The header, a row for the title and anything next to it, with an optional close button. .ui-header The title. Names the drawer through `aria-labelledby`. .ui-header > h2 The scrollable content. .ui-content The footer, a row at the end. .ui-footer .ui-backdrop-transparent Backdrop The backdrop style. `transparent` keeps the page behind it fully visible. [closedby] Behavior How the drawer can be closed. `any` also closes it on a click outside. Swiping a drawer at the block start or end toward its edge is a close request too, so `none` turns it off. [data-close-on-navigate] Close on navigate Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API. .ui-scroll-lock Scroll lock Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`. .ui-block-end .ui-block-start .ui-inline-end Position The side it opens from.",
     "category": "API",
     "url": "/html/api/#drawer"
   },
@@ -4669,7 +4690,7 @@
     "id": "api-message-list-html",
     "title": "Message list API",
     "description": "Reference for Message list HTML component.",
-    "api": "ol.ui-message-list The conversation, an ordered list. A message. Consecutive messages on the same side group into a run. li.ui-message",
+    "api": "ol.ui-message-list The conversation, an ordered list. A message. Consecutive messages on the same side group into a run. li.ui-message .ui-direct Direct A chat between two people: no message shows its author's name or avatar, since the chat's own title names the other person. Screen readers still hear the name.",
     "category": "API",
     "url": "/html/api/#message-list"
   },

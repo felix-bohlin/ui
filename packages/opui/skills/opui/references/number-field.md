@@ -3,7 +3,7 @@
 A number field with buttons that step the value down and up, for amounts like a quantity.
 
 - CSS: `opui-css/css/components/number-field.css`, `opui-css/css/components/text-field.css` and `opui-css/css/components/button.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/number-field.md), [Astro](https://opui.dev/astro/components/number-field.md), [React](https://opui.dev/react/components/number-field.md), [Svelte](https://opui.dev/svelte/components/number-field.md), [Vue](https://opui.dev/vue/components/number-field.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/number-field.md), [Astro](https://opui.dev/astro/components/number-field.md), [React](https://opui.dev/react/components/number-field.md), [Solid](https://opui.dev/solid/components/number-field.md), [Svelte](https://opui.dev/svelte/components/number-field.md), [Vue](https://opui.dev/vue/components/number-field.md).
 
 ## NumberField
 
@@ -40,13 +40,14 @@ A number field with buttons that step the value down and up, for amounts like a 
   - `stepDown()`: Steps the value down by `step`, unless the input is disabled, read-only or at `min`, and fires `input` and `change`.
   - `stepUp()`: Steps the value up by `step`, unless the input is disabled, read-only or at `max`, and fires `input` and `change`.
 
-Model: `value` (`number | string`), the input value. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
+Model: `value` (`number | string`), the input value. Astro, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes
 
 - HTML: Put the decrease and increase buttons in `.ui-start` and `.ui-end`, with `commandfor` and `aria-controls` naming the input and `command="--step-down"` or `command="--step-up"`, give the `<label>` a `for`, and import `opui-css/elements/number-field.js`. Without it, the buttons are hidden and the input keeps the browser's own spin buttons.
 - Astro: Attributes that aren't props go to the `<input>`, like `max`, `min`, `placeholder` and `step`, and `class` and `style` go to the root `<opui-number-field>`. The component loads `opui-css/elements/number-field.js`, which steps the value when a button is pressed or held.
 - React: Attributes that aren't props go to the `<input>`, like `max`, `min`, `placeholder` and `step`, and `className` and `style` go to the root `<opui-number-field>`. Use `value` with `onChange`, or `defaultValue`. The step buttons work once the component mounts and loads `opui-css/elements/number-field.js`, or as soon as the page imports it.
+- Solid: Attributes that aren't props go to the `<input>`, like `max`, `min`, `placeholder` and `step`, and `class` and `style` go to the root `<opui-number-field>`. The step buttons work as soon as the component's code loads, which imports `opui-css/elements/number-field.js`. `value` sets the value and follows it when it changes, and leaves the field as it is once it is `undefined`. Follow typing with `onInput`.
 - Svelte and Vue: Attributes that aren't props go to the `<input>`, like `max`, `min`, `placeholder` and `step`, and `class` and `style` go to the root `<opui-number-field>`. The step buttons work as soon as the component's code loads, which imports `opui-css/elements/number-field.js`.
 
 ## Component properties
@@ -193,6 +194,31 @@ import { NumberField } from "opui-css/astro"
 
 ```tsx
 import { NumberField } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <NumberField
+      defaultValue={1}
+      id="number-field-basics-1"
+      label="Quantity"
+      max={10}
+      min={1}
+    />
+  )
+}
+```
+
+## Solid
+
+`import { NumberField } from "opui-css/solid"`
+
+- `NumberField` slot props (`JSX.Element`): `decreaseIcon`, `endText`, `increaseIcon`, `label` and `startText`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { NumberField } from "opui-css/solid"
 
 export default function Basics() {
   return (

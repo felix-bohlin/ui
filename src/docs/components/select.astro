@@ -53,7 +53,7 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
     overlay:
       "Without `overlay`, the page can cover the picker while it fades out.",
     "reading-flow":
-      "Without `reading-flow`, Tab and screen readers reach the top and start parts after the control, in the order of the markup.",
+      "Without `reading-flow`, Tab and screen readers follow the markup, which puts the top and start parts before the control, as they're drawn. Hand-written HTML needs that order too.",
   }}
   heroAnatomy
   apis={[{ title: "Select API", api: selectApi }]}
@@ -66,19 +66,6 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
     },
     { title: "select.css", code: SelectCSS, lang: "css" },
     { title: "list.css", code: ListCSS, lang: "css", isDependency: true },
-  ]}
-  changelogPaths={[
-    {
-      path: "packages/opui/components/Select/Select.astro",
-      type: "component",
-    },
-    { path: "src/docs/components/select.astro", type: "docs" },
-    { path: "src/component-examples/select", type: "docs" },
-    {
-      path: "packages/opui/css/components/select.css",
-      type: "css",
-    },
-    { path: "src/component-api/select", type: "api" },
   ]}
   seeAlsoLinks={[
     {
@@ -177,6 +164,10 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
         Set <code>defaultValue</code>, or <code>selected: true</code> on an
         item.
       </Fragment>
+      <Fragment slot="solid">
+        Set <code>defaultValue</code>, or <code>selected: true</code> on an
+        item.
+      </Fragment>
       <Fragment slot="html">
         Add <code>selected</code> to the <code>option</code>.
       </Fragment>
@@ -197,6 +188,9 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
       </Fragment>
       <Fragment slot="html">Read the <code>select</code> in a script.</Fragment>
       <Fragment slot="react">
+        Use <code>value</code> and <code>onChange</code>.
+      </Fragment>
+      <Fragment slot="solid">
         Use <code>value</code> and <code>onChange</code>.
       </Fragment>
       <Fragment slot="svelte">Use <code>bind:value</code>.</Fragment>

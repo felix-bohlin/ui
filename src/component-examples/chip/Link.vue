@@ -7,6 +7,7 @@ import { Chip } from "opui-css/vue"
   <Chip href="#" label="Outlined link" variant="outlined">
     <template #end>
       <svg
+        data-icon="open"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"

@@ -5,6 +5,8 @@ import { convertToTSX } from "@astrojs/compiler"
 import { experimental_AstroContainer as AstroContainer } from "astro/container"
 import { parseFragment } from "parse5"
 import { describe, expect, test } from "vitest"
+import { compileTemplate } from "vue/compiler-sfc"
+import BooleanSpread from "./fixtures/BooleanSpread.astro"
 import EmptyUnknown from "./fixtures/EmptyUnknown.astro"
 import UndefinedSpread from "./fixtures/UndefinedSpread.astro"
 
@@ -34,6 +36,30 @@ describe("tooling bugs the generator and the components work around", () => {
         "the defined(rest) spreads in the Avatar, Button, Chip, Copy, Fieldset, ListItem, SortableTable and Toaster Astro files",
       ),
     ).toEqual([false, false])
+  })
+
+  test('Astro writes multiple="true" for a true boolean attribute it doesn\'t list', async () => {
+    const container = await AstroContainer.create()
+    expect(
+      await container.renderToString(BooleanSpread),
+      fixed(
+        'attributeOf in scripts/example-html.mjs and normalizeAttribute in tests/unit/normalize.ts, which read a boolean attribute with the value "true" as the bare attribute',
+      ),
+    ).toContain('multiple="true"')
+  })
+
+  test("Vue takes <search> for a component it can't resolve", () => {
+    const { code } = compileTemplate({
+      filename: "Search.vue",
+      id: "search",
+      source: "<search><form></form></search>",
+    })
+    expect(
+      code,
+      fixed(
+        'VUE_UNKNOWN_TAGS in scripts/build-examples.mjs, which writes <search> as <component is="search"> in Vue',
+      ),
+    ).toContain("resolveComponent")
   })
 
   test("Astro's dev CSS collector compiles the files behind ?raw imports", () => {

@@ -3,6 +3,7 @@ import {
   linkText,
   openStageOf,
   outcomeOf,
+  pageLinksOf,
   parseChecklist,
   previewOf,
 } from "../../src/utils/checklist"
@@ -130,6 +131,29 @@ test("linkText keeps the text of each link", () => {
   ).toBe("See Theming and RELEASING.md.")
 })
 
+describe("pageLinksOf", () => {
+  test("finds each docs page an item links once, in reading order", () => {
+    expect(
+      pageLinksOf([
+        "[Radio](/html/components/radio/#sizes): dots are centered",
+        "Also the [layout stress page](/dev/tests/layout/) and [Radio](/html/components/radio/#sizes).",
+      ]),
+    ).toEqual([
+      { href: "/html/components/radio/#sizes", label: "Radio" },
+      { href: "/dev/tests/layout/", label: "layout stress page" },
+    ])
+  })
+
+  test("leaves out other sites, code and the review pages", () => {
+    expect(
+      pageLinksOf([
+        "See [RELEASING.md](https://github.com/felix-bohlin/ui/blob/main/RELEASING.md), [the CDN](//cdn.example/x.css) and `[code](/html/)`.",
+        "Do them on [/dev/checks](/dev/checks/), then [/dev/todo](/dev/todo/) and [/dev/checklist](/dev/checklist/).",
+      ]),
+    ).toEqual([])
+  })
+})
+
 test("parseChecklist keys items by headline and marks checked ones done", () => {
   const { intro, sections } = parseChecklist(
     [
@@ -139,7 +163,7 @@ test("parseChecklist keys items by headline and marks checked ones done", () => 
       "",
       "- [x] Pick the day",
       "- [ ] Write the post",
-      "  - Started: a draft.",
+      "  - Started: a draft for [the blog](/blog/).",
       "- [ ] Announce it",
     ].join("\n"),
   )
@@ -150,9 +174,10 @@ test("parseChecklist keys items by headline and marks checked ones done", () => 
   expect(
     sections.map((section) => ({
       id: section.id,
-      items: section.items.map(({ key, openStage, stage }) => ({
+      items: section.items.map(({ key, openStage, pages, stage }) => ({
         key,
         openStage,
+        pages,
         stage,
       })),
     })),
@@ -160,9 +185,14 @@ test("parseChecklist keys items by headline and marks checked ones done", () => 
     {
       id: "launch",
       items: [
-        { key: "pick-the-day", openStage: "todo", stage: "done" },
-        { key: "write-the-post", openStage: "doing", stage: "doing" },
-        { key: "announce-it", openStage: "todo", stage: "todo" },
+        { key: "pick-the-day", openStage: "todo", pages: [], stage: "done" },
+        {
+          key: "write-the-post",
+          openStage: "doing",
+          pages: [{ href: "/blog/", label: "the blog" }],
+          stage: "doing",
+        },
+        { key: "announce-it", openStage: "todo", pages: [], stage: "todo" },
       ],
     },
   ])

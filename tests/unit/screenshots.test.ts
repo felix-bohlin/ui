@@ -38,9 +38,9 @@ const stress = files("../../src/stress-tests/", ".html").flatMap((page) =>
   ].map(([, name]) => `stress-${page}-${name}`),
 )
 
-const blocks = files("../../src/blocks/", ".html").flatMap((block) =>
-  BLOCK_WIDTHS.map((width) => `blocks-${block}-${width}`),
-)
+const blocks = readdirSync(new URL("../../src/blocks/", import.meta.url))
+  .toSorted()
+  .flatMap((block) => BLOCK_WIDTHS.map((width) => `blocks-${block}-${width}`))
 
 const themes = files("../../packages/opui/themes/", ".css").flatMap((theme) =>
   [...THEMED_BLOCKS.map((block) => block.replace("/", "-")), ...stress].map(

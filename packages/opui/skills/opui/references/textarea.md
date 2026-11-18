@@ -3,7 +3,7 @@
 A multi-line text input with a label, start and end text, and validation.
 
 - CSS: `opui-css/css/components/text-field.css` and `opui-css/css/components/textarea.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/textarea.md), [Astro](https://opui.dev/astro/components/textarea.md), [React](https://opui.dev/react/components/textarea.md), [Svelte](https://opui.dev/svelte/components/textarea.md), [Vue](https://opui.dev/vue/components/textarea.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/textarea.md), [Astro](https://opui.dev/astro/components/textarea.md), [React](https://opui.dev/react/components/textarea.md), [Solid](https://opui.dev/solid/components/textarea.md), [Svelte](https://opui.dev/svelte/components/textarea.md), [Vue](https://opui.dev/vue/components/textarea.md).
 
 ## Textarea
 
@@ -45,13 +45,14 @@ A multi-line text input with a label, start and end text, and validation.
 - `<opui-character-count>`, defined by `opui-css/elements/character-count.js`:
   - `control`: The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only.
 
-Model: `value` (`string`), the textarea value. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
+Model: `value` (`string`), the textarea value. Astro, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes
 
-- HTML: For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. With a label, put a `<label class="ui-label" for>` inside the root that points at the field's `id`, so the label alone names it, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name.
+- HTML: For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. With a label, put a `<label class="ui-label" for>` inside the root that points at the field's `id`, so the label alone names it, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Put `.ui-top` and `.ui-start` before the `<textarea>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they're drawn.
 - Astro, Svelte and Vue: Attributes that aren't props go to the `<textarea>`, like `maxlength` and `placeholder`, and `class` and `style` go to the `.ui-textarea` root.
 - React: Attributes that aren't props go to the `<textarea>`, like `maxlength` and `placeholder`, and `className` and `style` go to the `.ui-textarea` root. Use `value` with `onChange`, or `defaultValue`.
+- Solid: `value` sets the value and follows it when it changes. Follow typing with `onInput`.
 
 ## Component properties
 
@@ -135,6 +136,28 @@ import { Textarea } from "opui-css/astro"
 
 ```tsx
 import { Textarea } from "opui-css/react"
+
+export default function Variants() {
+  return (
+    <>
+      <Textarea label="Outlined" placeholder="Write a message" />
+      <Textarea label="Filled" placeholder="Write a message" variant="filled" />
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Textarea } from "opui-css/solid"`
+
+- `Textarea` slot props (`JSX.Element`): `bottom`, `children`, `end`, `endText`, `label`, `start`, `startText` and `top`.
+
+### Example: Variants
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Textarea } from "opui-css/solid"
 
 export default function Variants() {
   return (

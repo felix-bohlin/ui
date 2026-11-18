@@ -16,6 +16,7 @@ import {
   withImport,
 } from "./component-emit.mjs"
 import { MODEL_KINDS } from "./component-models.mjs"
+import { markupAttribute } from "./example-encoders.mjs"
 import { eventProp } from "./component-types.mjs"
 import {
   byName,
@@ -145,7 +146,7 @@ export const toSvelte = (component) => {
       return `{...${spread}}`
     }
     if (item.kind === "static") {
-      return `${item.name}=${JSON.stringify(item.value)}`
+      return markupAttribute(item.name, item.value, true)
     }
     if (item.kind === "boolean") return item.name
     if (node.item && item.name === "checked") {

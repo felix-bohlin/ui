@@ -62,7 +62,7 @@ export const description =
       "Without gap decorations, the compat layer overlaps the controls and draws each line with a control's start border, so a row that wraps starts with a line.",
     if: "Without `if()`, the compat layer draws the lines of a filled or tonal group with the controls' start borders.",
     "reading-flow":
-      "Without `reading-flow`, Tab and screen readers reach a field's top and start parts after its control, in the order of the markup.",
+      "Without `reading-flow`, Tab and screen readers follow a field's markup, which puts its top and start parts before its control, as they're drawn.",
   }}
   heroAnatomy
   apis={[
@@ -71,26 +71,12 @@ export const description =
   ]}
   changelogPaths={[
     {
-      path: "packages/opui/components/ControlGroup/ControlGroup.astro",
-      type: "component",
-    },
-    {
       path: "packages/opui/components/ButtonGroup/ButtonGroup.astro",
       type: "component",
     },
-    { path: "src/docs/components/control-group.astro", type: "docs" },
     { path: "src/docs/components/button-group.astro", type: "docs" },
-    { path: "src/component-examples/control-group", type: "docs" },
     { path: "src/component-examples/button-group", type: "docs" },
-    {
-      path: "packages/opui/css/components/control-group.css",
-      type: "css",
-    },
-    {
-      path: "packages/opui/css/components/button-group.css",
-      type: "css",
-    },
-    { path: "src/component-api/control-group", type: "api" },
+    { path: "packages/opui/css/components/button-group.css", type: "css" },
     { path: "src/component-api/button-group", type: "api" },
   ]}
   installationTabs={[

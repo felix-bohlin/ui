@@ -79,7 +79,12 @@ The Vue type files are `types.vue-props.ts` instead of `types.d.vue.ts`, since T
 
 `opui-css/open-props` (`dist/op.css`) no longer includes Open Props' palette (`--palette-*` and `--color-1` to `--color-16`). If you load `op.css` on its own and read those properties, import `opui-css/core/palette.css` with `opui-css/css/theme.css`, which sets the palette knobs, and read the `--ui-` names (`--ui-palette-*` and `--ui-color-1` to `--ui-color-16`).
 
-The `types.solid.ts` files are gone. There are no Solid components; write your own prop types if you used them.
+The `types.solid.ts` files type the Solid 2 components in `opui-css/solid` instead of Solid 1 attributes, so they need `solid-js` and `@solidjs/web` 2. Import the props from the barrel:
+
+```diff
+- import type { Props } from "opui-css/components/Button/types.solid"
++ import type { ButtonProps } from "opui-css/solid"
+```
 
 ## Theme and tokens
 
@@ -1274,7 +1279,7 @@ Astro and Vue generate an input `id` only when the label or the password toggle 
 
 In Astro, extra attributes go to the `<input>` instead of the root. `class` and `style` stay on the root. In Vue, `style` now goes to the root instead of the input. Check selectors and tests that look for attributes on the root.
 
-The root is a `<div>` with a `<label for>` inside, instead of a `<label>` around the whole field, so the field can hold buttons. The label alone names the input. The start and end text, the `start` and `end` affixes and the `top` and `bottom` parts describe it through `aria-describedby`, read after the name, where the affixes used to join the name. A click on the start or end text, an affix or the `top` or `bottom` part no longer focuses the input, since only the label is a `<label>`. Target `.ui-text-field` instead of `label.ui-text-field` in your CSS, and give a field without `label` an `aria-label` or `aria-labelledby`. In HTML, the input needs an `id` for the label's `for`, and an affix or a hint an `id` for `aria-describedby`.
+The root is a `<div>` with a `<label for>` inside, instead of a `<label>` around the whole field, so the field can hold buttons. The label alone names the input. The start and end text, the `start` and `end` affixes and the `top` and `bottom` parts describe it through `aria-describedby`, read after the name, where the affixes used to join the name. A click on the start or end text, an affix or the `top` or `bottom` part no longer focuses the input, since only the label is a `<label>`. Target `.ui-text-field` instead of `label.ui-text-field` in your CSS, and give a field without `label` an `aria-label` or `aria-labelledby`. In HTML, the input needs an `id` for the label's `for`, and an affix or a hint an `id` for `aria-describedby`. Put `.ui-top` and `.ui-start` before the input, in the order they're drawn, so Tab reaches them there in every browser.
 
 ```diff
 - <label class="ui-text-field">
@@ -1284,8 +1289,8 @@ The root is a `<div>` with a `<label for>` inside, instead of a `<label>` around
     <span class="ui-field">
 -     <input />
 -     <span class="ui-start">€</span>
-+     <input aria-describedby="price-start" id="price" />
 +     <span class="ui-start" id="price-start">€</span>
++     <input aria-describedby="price-start" id="price" />
     </span>
 - </label>
 + </div>

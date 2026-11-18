@@ -481,7 +481,7 @@ type HtmlNode = {
   type: string
 }
 
-const unnamedIcons = (source: string) => {
+const unnamedIcons = (source: string, drawnOnly = false) => {
   const found: string[] = []
   const walk = (nodes: HtmlNode[]) => {
     for (const node of nodes) {
@@ -494,6 +494,12 @@ const unnamedIcons = (source: string) => {
         node.attrs.map(({ name, value }) => [name, value]),
       )
       if (attributes.role === "img") continue
+      if (
+        drawnOnly &&
+        !node.children.some((child) => child.type === "element")
+      ) {
+        continue
+      }
       const name = attributes["data-icon"]
       if (!name || !(SAMPLE_ICONS as readonly string[]).includes(name)) {
         found.push(name ?? "(no data-icon)")
@@ -524,6 +530,58 @@ describe("stress pages", () => {
         '<p><svg viewBox="0 0 1 1"></svg><svg data-icon="spinner"></svg><svg data-icon="mail"></svg><svg role="img"></svg></p>',
       ),
     ).toEqual(["(no data-icon)", "spinner"])
+  })
+})
+
+describe("examples", () => {
+  test("every icon with shapes names its sample in data-icon, so the docs can draw it from the theme's icon set", () => {
+    const examples = globSync("src/component-examples/*/*.html").toSorted()
+    expect(examples.length).toBeGreaterThan(0)
+    expect(
+      Object.fromEntries(
+        examples
+          .map((example) => [
+            example,
+            unnamedIcons(readFileSync(example, "utf8"), true),
+          ])
+          .filter(([, names]) => names.length > 0),
+      ),
+      'give each icon svg in the .astro example a data-icon from SAMPLE_ICONS (src/utils/icon-libraries.ts), or role="img" when it is an image, then run pnpm build-examples',
+    ).toEqual({})
+  })
+
+  test("the reader flags a drawn icon without a known name and skips an empty svg", () => {
+    expect(
+      unnamedIcons(
+        '<p><svg aria-hidden="true"></svg><svg><path d="M0 0" /></svg><svg data-icon="spinner"><path d="M0 0" /></svg><svg data-icon="mail"><path d="M0 0" /></svg></p>',
+        true,
+      ),
+    ).toEqual(["(no data-icon)", "spinner"])
+  })
+})
+
+const BRAND_LOGOS = {
+  "src/blocks/sign-in/SignIn.html": ["(no data-icon)", "(no data-icon)"],
+}
+
+describe("blocks", () => {
+  test("every icon with shapes names its sample in data-icon, so the preview can draw it from the theme's icon set", () => {
+    const blocks = globSync("src/blocks/*/*.html").toSorted()
+    expect(blocks.length).toBeGreaterThan(0)
+    expect(
+      Object.fromEntries(
+        blocks
+          .map((block) => [
+            block,
+            unnamedIcons(
+              readFileSync(block, "utf8").replace(/<(?=\d)/g, "&lt;"),
+              true,
+            ),
+          ])
+          .filter(([, names]) => names.length > 0),
+      ),
+      'give each icon svg in the .astro block a data-icon from SAMPLE_ICONS (src/utils/icon-libraries.ts), or role="img" when it is an image, then run pnpm build-examples; a brand logo no icon set draws goes in BRAND_LOGOS',
+    ).toEqual(BRAND_LOGOS)
   })
 })
 

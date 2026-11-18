@@ -1,5 +1,6 @@
 import { createElement, type ComponentType } from "react"
 import { createRoot } from "react-dom/client"
+import { flushSync } from "react-dom"
 import { mountExamples } from "./mount-examples"
 
 const loaders = import.meta.glob<{ default: ComponentType }>(
@@ -7,7 +8,8 @@ const loaders = import.meta.glob<{ default: ComponentType }>(
 )
 
 mountExamples("react", ".react.tsx", loaders, (el, mod, id) => {
-  createRoot(el, {
+  const root = createRoot(el, {
     identifierPrefix: `${id.replace(/[^\w-]/g, "-")}-`,
-  }).render(createElement(mod.default))
+  })
+  flushSync(() => root.render(createElement(mod.default)))
 })

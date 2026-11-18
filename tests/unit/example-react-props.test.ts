@@ -7,6 +7,8 @@ import {
 } from "../../scripts/build-examples.mjs"
 import { checkAttributeOrder } from "../../scripts/check-components.mjs"
 import {
+  reactAttributeName,
+  reactBareAttribute,
   reactKinds,
   reactPropsOf,
   resolveReactProp,
@@ -368,5 +370,29 @@ describe("the generated React type-checks", () => {
     expect(result.get("Bad.tsx")![0]).toContain(
       "not assignable to type 'number'",
     )
+  })
+})
+
+describe("the React form of an attribute", () => {
+  test("an attribute takes the name React's types give it on that element", () => {
+    expect(reactAttributeName("label", "for")).toBe("htmlFor")
+    expect(reactAttributeName("td", "colspan")).toBe("colSpan")
+    expect(reactAttributeName("div", "data-state")).toBe("data-state")
+    expect(reactAttributeName("div", "nope")).toBe("nope")
+  })
+
+  test("without an element only class and for are renamed", () => {
+    expect(reactAttributeName(undefined, "class")).toBe("className")
+    expect(reactAttributeName(undefined, "colspan")).toBe("colspan")
+  })
+
+  test("an attribute without a value is bare for a boolean and empty for a string", () => {
+    expect(reactBareAttribute("disabled", new Set(["boolean"]))).toBe(
+      "disabled",
+    )
+    expect(reactBareAttribute("download", new Set(["any"]))).toBe("download")
+    expect(reactBareAttribute("title", new Set(["string"]))).toBe('title=""')
+    expect(reactBareAttribute("cols", new Set(["number"]))).toBe(undefined)
+    expect(reactBareAttribute("nope", new Set())).toBe(undefined)
   })
 })

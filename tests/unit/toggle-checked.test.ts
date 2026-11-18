@@ -1,14 +1,17 @@
+import { createComponent } from "solid-js"
 import { createElement } from "react"
 import { h } from "vue"
 import { describe, expect, test, vi } from "vitest"
 import ToggleButtonReact from "../../packages/opui/components/ToggleButton/ToggleButton.react"
+import ToggleButtonSolid from "../../packages/opui/components/ToggleButton/ToggleButton.solid"
 import ToggleButtonSvelte from "../../packages/opui/components/ToggleButton/ToggleButton.svelte"
 import ToggleButtonVue from "../../packages/opui/components/ToggleButton/ToggleButton.vue"
 import ToggleGroupReact from "../../packages/opui/components/ToggleGroup/ToggleGroup.react"
+import ToggleGroupSolid from "../../packages/opui/components/ToggleGroup/ToggleGroup.solid"
 import ToggleGroupVue from "../../packages/opui/components/ToggleGroup/ToggleGroup.vue"
 import GroupedDefaultCheckedSvelte from "./fixtures/GroupedDefaultChecked.svelte"
 import GroupedToggleSvelte from "./fixtures/GroupedToggle.svelte"
-import { render } from "./renderers"
+import { render, renderSolid, type SolidComponent } from "./renderers"
 
 const checkedInputs = (html: string) =>
   [...html.matchAll(/<input[^>]*>/g)]
@@ -18,6 +21,7 @@ const checkedInputs = (html: string) =>
 describe("ToggleButton checked", () => {
   test.each([
     ["react", ToggleButtonReact, { defaultChecked: true }],
+    ["solid", ToggleButtonSolid, { checked: true }],
     ["svelte", ToggleButtonSvelte, { checked: true }],
     ["vue", ToggleButtonVue, { checked: true }],
   ] as const)(
@@ -58,6 +62,26 @@ describe("ToggleButton checked", () => {
         }),
       ),
     ).toEqual(["left"])
+    expect(
+      checkedInputs(
+        renderSolid(ToggleGroupSolid as SolidComponent, {
+          get children() {
+            return [
+              createComponent(ToggleButtonSolid, {
+                label: "left",
+                value: "left",
+              }),
+              createComponent(ToggleButtonSolid, {
+                checked: true,
+                label: "right",
+                value: "right",
+              }),
+            ]
+          },
+          value: "left",
+        }),
+      ),
+    ).toEqual(["left"])
     expect(checkedInputs(await render.svelte(GroupedToggleSvelte))).toEqual([
       "left",
     ])
@@ -81,7 +105,7 @@ describe("ToggleButton checked", () => {
         String(message).includes("`checked` is ignored inside a ToggleGroup"),
       ),
       "one warning per framework",
-    ).toHaveLength(3)
+    ).toHaveLength(4)
     warn.mockRestore()
   })
 

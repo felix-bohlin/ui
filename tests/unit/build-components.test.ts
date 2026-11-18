@@ -873,7 +873,7 @@ describe("the ports of a sample", () => {
     )
   })
 
-  test("a list is keyed by index and options by their value in every framework, and Solid keys a condition between two rows by the item and reads an item through an accessor", async () => {
+  test("a list is keyed by index and options by their value in every framework, and Solid reads an item through an accessor, once per row for a condition between two rows", async () => {
     const options = await compile(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<select class:list={["ui-sample", className]} {...rest}>\n  {items.map((item) => <option selected={item.selected || undefined} value={item.value}>{item.label}</option>)}\n</select>\n',
     )
@@ -897,7 +897,7 @@ describe("the ports of a sample", () => {
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<datalist class:list={[className]} {...rest}>\n  {items?.map((option) =>\n    typeof option === "object" ? (\n      <option value={option.value} label={option.label} />\n    ) : (\n      <option value={option} />\n    ),\n  )}\n</datalist>\n',
     )
     expect(branches["solid.tsx"]).toContain(
-      '      <For each={props.items}>\n        {(option) =>\n          typeof option === "object" ? (\n',
+      '      <For each={props.items} keyed={false}>\n        {(item) => {\n          const row = () => {\n            const option = item()\n            return typeof option === "object" ? (\n',
     )
     const refused = await compileComponent(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<ol class:list={["ui-sample", className]} {...rest}>\n  {items.map(({ label = "x" }) => <li>{label}</li>)}\n</ol>\n',

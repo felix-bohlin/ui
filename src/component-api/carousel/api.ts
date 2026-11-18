@@ -79,7 +79,7 @@ export default {
       cssVar: "--_marker-label",
       default: '"Slide {number}"',
       description:
-        "Accessible name of each marker, with `{number}` where the item number goes.",
+        "Accessible name of each marker, with `{number}` where the item number goes. The Astro, React, Solid and Svelte types take it only with `markers`.",
       group: "Marker label",
       htmlDescription:
         'Accessible name of each marker, a CSS string with `counter(ui-carousel-item)` where the item number goes: `"Slide " counter(ui-carousel-item)` by default.',

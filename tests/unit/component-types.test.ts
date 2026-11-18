@@ -11,10 +11,25 @@ import type * as AvatarVue from "../../packages/opui/components/Avatar/types.vue
 import type * as BadgeReact from "../../packages/opui/components/Badge/types.react"
 import type * as BadgeSvelte from "../../packages/opui/components/Badge/types.svelte"
 import type * as BadgeVue from "../../packages/opui/components/Badge/types.vue-props"
+import type * as CalloutAstro from "../../packages/opui/components/Callout/types.astro"
 import type * as CalloutReact from "../../packages/opui/components/Callout/types.react"
 import type * as CalloutSolid from "../../packages/opui/components/Callout/types.solid"
 import type * as CalloutSvelte from "../../packages/opui/components/Callout/types.svelte"
 import type * as CalloutVue from "../../packages/opui/components/Callout/types.vue-props"
+import type * as CarouselAstro from "../../packages/opui/components/Carousel/types.astro"
+import type * as CarouselReact from "../../packages/opui/components/Carousel/types.react"
+import type * as CarouselSolid from "../../packages/opui/components/Carousel/types.solid"
+import type * as CarouselSvelte from "../../packages/opui/components/Carousel/types.svelte"
+import type * as DialogAstro from "../../packages/opui/components/Dialog/types.astro"
+import type * as DialogReact from "../../packages/opui/components/Dialog/types.react"
+import type * as DialogSolid from "../../packages/opui/components/Dialog/types.solid"
+import type * as DialogSvelte from "../../packages/opui/components/Dialog/types.svelte"
+import type * as DialogVue from "../../packages/opui/components/Dialog/types.vue-props"
+import type * as DrawerAstro from "../../packages/opui/components/Drawer/types.astro"
+import type * as DrawerReact from "../../packages/opui/components/Drawer/types.react"
+import type * as DrawerSolid from "../../packages/opui/components/Drawer/types.solid"
+import type * as DrawerSvelte from "../../packages/opui/components/Drawer/types.svelte"
+import type * as DrawerVue from "../../packages/opui/components/Drawer/types.vue-props"
 import type * as FieldLegendVue from "../../packages/opui/components/FieldLegend/types.vue-props"
 import type * as MenuReact from "../../packages/opui/components/Menu/types.react"
 import type * as MenuSvelte from "../../packages/opui/components/Menu/types.svelte"
@@ -41,7 +56,11 @@ import type * as TabsVue from "../../packages/opui/components/Tabs/types.vue-pro
 import type * as TextareaReact from "../../packages/opui/components/Textarea/types.react"
 import type * as TextareaSvelte from "../../packages/opui/components/Textarea/types.svelte"
 import type * as TextareaVue from "../../packages/opui/components/Textarea/types.vue-props"
+import type * as TextFieldAstro from "../../packages/opui/components/TextField/types.astro"
+import type * as TextFieldReact from "../../packages/opui/components/TextField/types.react"
 import type * as TextFieldSolid from "../../packages/opui/components/TextField/types.solid"
+import type * as TextFieldSvelte from "../../packages/opui/components/TextField/types.svelte"
+import type * as TextFieldVue from "../../packages/opui/components/TextField/types.vue-props"
 import type * as ToggleButtonVue from "../../packages/opui/components/ToggleButton/types.vue-props"
 import type * as ToggleGroupReact from "../../packages/opui/components/ToggleGroup/types.react"
 import type * as ToggleGroupSolid from "../../packages/opui/components/ToggleGroup/types.solid"
@@ -290,5 +309,186 @@ test("Solid gives a select its own defaultValue, an item the input's props, and 
   >()
   expectTypeOf<SortableTableSolid.Props["onSort"]>().toEqualTypeOf<
     ((event: CustomEvent<SortDetail>) => void) | undefined
+  >()
+})
+
+type CloseButton<Header> = Header extends { closeButton: boolean }
+  ? Header
+  : never
+
+test("the label, target and icon of a generated control need the boolean that adds it, whatever its value", () => {
+  type EveryDrawerHeader = DrawerAstro.DrawerHeaderProps &
+    DrawerReact.DrawerHeaderProps &
+    DrawerSolid.DrawerHeaderProps &
+    DrawerSvelte.DrawerHeaderProps &
+    DrawerVue.DrawerHeaderProps
+  type AnyDrawerHeader =
+    | DrawerAstro.DrawerHeaderProps
+    | DrawerReact.DrawerHeaderProps
+    | DrawerSolid.DrawerHeaderProps
+    | DrawerSvelte.DrawerHeaderProps
+    | DrawerVue.DrawerHeaderProps
+  type EveryDialogHeader = DialogAstro.DialogHeaderProps &
+    DialogReact.DialogHeaderProps &
+    DialogSolid.DialogHeaderProps &
+    DialogSvelte.DialogHeaderProps &
+    DialogVue.DialogHeaderProps
+  type AnyDialogHeader =
+    | DialogAstro.DialogHeaderProps
+    | DialogReact.DialogHeaderProps
+    | DialogSolid.DialogHeaderProps
+    | DialogSvelte.DialogHeaderProps
+    | DialogVue.DialogHeaderProps
+  type EveryCallout = CalloutAstro.Props &
+    CalloutReact.Props &
+    CalloutSolid.Props &
+    CalloutSvelte.Props &
+    CalloutVue.Props
+  type AnyCallout =
+    | CalloutAstro.Props
+    | CalloutReact.Props
+    | CalloutSolid.Props
+    | CalloutSvelte.Props
+    | CalloutVue.Props
+  type EveryTextField = TextFieldAstro.Props &
+    TextFieldReact.Props &
+    TextFieldSolid.Props &
+    TextFieldSvelte.Props &
+    TextFieldVue.Props
+  type AnyTextField =
+    | TextFieldAstro.Props
+    | TextFieldReact.Props
+    | TextFieldSolid.Props
+    | TextFieldSvelte.Props
+    | TextFieldVue.Props
+  type EveryCarousel = CarouselAstro.Props &
+    CarouselReact.Props &
+    CarouselSolid.Props &
+    CarouselSvelte.Props
+  type AnyCarousel =
+    | CarouselAstro.Props
+    | CarouselReact.Props
+    | CarouselSolid.Props
+    | CarouselSvelte.Props
+
+  expectTypeOf<{ closeLabel: string }>().not.toExtend<AnyDrawerHeader>()
+  expectTypeOf<{ commandfor: string }>().not.toExtend<AnyDrawerHeader>()
+  expectTypeOf<{
+    closeButton: true
+    closeLabel: string
+    commandfor: string
+  }>().toExtend<EveryDrawerHeader>()
+  expectTypeOf<{
+    closeButton: boolean
+    closeLabel: string
+    commandfor: string
+  }>().toExtend<EveryDrawerHeader>()
+  expectTypeOf<{ closeButton: boolean }>().toExtend<EveryDrawerHeader>()
+  expectTypeOf<{}>().toExtend<EveryDrawerHeader>()
+
+  expectTypeOf<{ closeLabel: string }>().not.toExtend<AnyDialogHeader>()
+  expectTypeOf<{ commandfor: string }>().not.toExtend<AnyDialogHeader>()
+  expectTypeOf<{
+    closeButton: true
+    closeLabel: string
+    commandfor: string
+  }>().toExtend<EveryDialogHeader>()
+  expectTypeOf<{
+    closeButton: boolean
+    closeLabel: string
+    commandfor: string
+  }>().toExtend<EveryDialogHeader>()
+  expectTypeOf<{ closeButton: boolean }>().toExtend<EveryDialogHeader>()
+  expectTypeOf<{}>().toExtend<EveryDialogHeader>()
+
+  expectTypeOf<{ closeLabel: string }>().not.toExtend<AnyCallout>()
+  expectTypeOf<{
+    closeButton: true
+    closeLabel: string
+  }>().toExtend<EveryCallout>()
+  expectTypeOf<{
+    closeButton: boolean
+    closeLabel: string
+  }>().toExtend<EveryCallout>()
+  expectTypeOf<{ closeButton: boolean }>().toExtend<EveryCallout>()
+  expectTypeOf<{}>().toExtend<EveryCallout>()
+
+  expectTypeOf<{ passwordToggleLabel: string }>().not.toExtend<AnyTextField>()
+  expectTypeOf<{
+    passwordToggle: true
+    passwordToggleLabel: string
+  }>().toExtend<EveryTextField>()
+  expectTypeOf<{
+    passwordToggle: boolean
+    passwordToggleLabel: string
+  }>().toExtend<EveryTextField>()
+  expectTypeOf<{ passwordToggle: boolean }>().toExtend<EveryTextField>()
+  expectTypeOf<{}>().toExtend<EveryTextField>()
+
+  expectTypeOf<{
+    "aria-label": string
+    markerLabel: string
+  }>().not.toExtend<AnyCarousel>()
+  expectTypeOf<{
+    "aria-label": string
+    markerLabel: string
+    markers: true
+  }>().toExtend<EveryCarousel>()
+  expectTypeOf<{
+    "aria-label": string
+    markerLabel: string
+    markers: boolean
+  }>().toExtend<EveryCarousel>()
+  expectTypeOf<{
+    "aria-label": string
+    markers: boolean
+  }>().toExtend<EveryCarousel>()
+  expectTypeOf<{ "aria-label": string }>().toExtend<EveryCarousel>()
+})
+
+test("a close icon needs closeButton where the icon is a prop, and stays a slot in Vue", () => {
+  expectTypeOf<{
+    closeIcon: ReactNode
+  }>().not.toExtend<DrawerReact.DrawerHeaderProps>()
+  expectTypeOf<{
+    closeIcon: ReactNode
+  }>().not.toExtend<DialogReact.DialogHeaderProps>()
+  expectTypeOf<{ closeIcon: ReactNode }>().not.toExtend<CalloutReact.Props>()
+  expectTypeOf<{
+    closeIcon: SolidJSX.Element
+  }>().not.toExtend<DrawerSolid.DrawerHeaderProps>()
+  expectTypeOf<{
+    closeIcon: SolidJSX.Element
+  }>().not.toExtend<DialogSolid.DialogHeaderProps>()
+  expectTypeOf<{
+    closeIcon: SolidJSX.Element
+  }>().not.toExtend<CalloutSolid.Props>()
+  expectTypeOf<{
+    closeIcon: Snippet
+  }>().not.toExtend<DrawerSvelte.DrawerHeaderProps>()
+  expectTypeOf<{
+    closeIcon: Snippet
+  }>().not.toExtend<DialogSvelte.DialogHeaderProps>()
+  expectTypeOf<{ closeIcon: Snippet }>().not.toExtend<CalloutSvelte.Props>()
+  expectTypeOf<
+    CloseButton<DrawerReact.DrawerHeaderProps>["closeIcon"]
+  >().toEqualTypeOf<ReactNode>()
+  expectTypeOf<
+    CloseButton<DialogSolid.DialogHeaderProps>["closeIcon"]
+  >().toEqualTypeOf<SolidJSX.Element | undefined>()
+  expectTypeOf<CloseButton<CalloutSvelte.Props>["closeIcon"]>().toEqualTypeOf<
+    Snippet | undefined
+  >()
+  expectTypeOf<{
+    closeButton: boolean
+    closeIcon: ReactNode
+  }>().toExtend<DrawerReact.DrawerHeaderProps>()
+  expectTypeOf<{
+    closeButton: boolean
+    closeIcon: Snippet
+  }>().toExtend<CalloutSvelte.Props>()
+  expectTypeOf<DrawerVue.DrawerHeaderProps>().not.toHaveProperty("closeIcon")
+  expectTypeOf<DrawerVue.DrawerHeaderSlots["close-icon"]>().toEqualTypeOf<
+    Slot | undefined
   >()
 })

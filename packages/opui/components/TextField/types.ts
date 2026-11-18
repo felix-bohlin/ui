@@ -8,13 +8,20 @@ export type Props = {
   error?: boolean
   hideLabel?: boolean
   label?: string
-  passwordToggle?: boolean
-  passwordToggleLabel?: string
   size?: "x-small" | "small" | "medium" | "large"
   spread?: boolean
   startText?: string
   variant?: "outlined" | "filled"
-}
+} & (
+  | {
+      passwordToggle: boolean
+      passwordToggleLabel?: string
+    }
+  | {
+      passwordToggle?: never
+      passwordToggleLabel?: never
+    }
+)
 
 export type Slots<S> = {
   bottom?: string | S

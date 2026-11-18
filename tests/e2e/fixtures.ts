@@ -10,6 +10,7 @@ import {
 import {
   exampleExtension,
   FRAMEWORK_IDS,
+  HYDRATED_FRAMEWORK_IDS,
   type FrameworkId,
 } from "../../src/utils/framework"
 
@@ -197,7 +198,7 @@ export const pageErrors = (page: Page) => {
   return errors
 }
 
-export const HYDRATED: readonly Framework[] = ["solid"]
+export const HYDRATED: readonly Framework[] = HYDRATED_FRAMEWORK_IDS
 
 export const exampleSnapshots = (
   page: Page,

@@ -67,12 +67,14 @@
     ),
   )
 
+  const first = untrack(() => value)
+
   const isSelected = (item: SelectItem) =>
-    value === undefined
+    first === undefined
       ? item.selected
-      : Array.isArray(value)
-        ? value.some((selected) => sameValue(selected, item.value))
-        : sameValue(item.value, value)
+      : Array.isArray(first)
+        ? first.some((selected) => sameValue(selected, item.value))
+        : sameValue(item.value, first)
 </script>
 
 <div

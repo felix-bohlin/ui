@@ -1,9 +1,15 @@
+export const hydratable = (el: HTMLElement) =>
+  "hydratable" in el.dataset &&
+  new URLSearchParams(location.search).has("hydrate")
+
+export const idPrefixOf = (id: string) => id.replace(/[^\w-]/g, "-")
+
 export async function mountExamples<Module>(
   framework: string,
   extension: string,
   loaders: Record<string, () => Promise<Module>>,
   mount: (el: HTMLElement, mod: Module, id: string) => void,
-  keepsMarkup: (el: HTMLElement) => boolean = () => false,
+  keepsMarkup: (el: HTMLElement) => boolean = hydratable,
 ) {
   const targets = [
     ...document.querySelectorAll<HTMLElement>(

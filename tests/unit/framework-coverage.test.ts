@@ -47,6 +47,9 @@ const repo = () => ({
         existsSync(path.join(root, "packages/opui", folder, "index.ts")),
       )
       .map((folder) => `packages/opui/${folder}/index.ts`),
+    ...readdirSync(path.join(root, "src/components/Example")).map(
+      (file) => `src/components/Example/${file}`,
+    ),
     ...readdirSync(path.join(root, "src/docs/guide/getting-started")).map(
       (file) => `src/docs/guide/getting-started/${file}`,
     ),
@@ -139,6 +142,14 @@ const problemsOf = (
             facts.built.includes(id),
             `FRAMEWORKS in packages/opui/scripts/build-frameworks.mjs has no ${id}: build its files into dist`,
           ),
+          ...file(
+            `src/components/Example/mount-${id}-examples.ts`,
+            `mount the ${label} examples on the docs and fixture pages, and hydrate them with ?hydrate`,
+          ),
+          ...file(
+            `src/components/Example/render-${id}.ts`,
+            `render the ${label} examples on the fixture page with the framework's own server renderer, so tests/e2e/hydration.spec.ts hydrates them`,
+          ),
           ...missing(
             facts.apps.includes(id),
             `tests/apps/apps.ts has no app with framework "${id}": add one, so pnpm test:apps builds the package into a ${label} app`,
@@ -187,6 +198,8 @@ test("the check flags a framework that is listed but wired up nowhere", () => {
     "PORTS",
     "EMITTERS",
     "FRAMEWORKS",
+    "src/components/Example/mount-lit-examples.ts",
+    "src/components/Example/render-lit.ts",
     "tests/apps/apps.ts",
   ])
 })

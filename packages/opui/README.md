@@ -87,7 +87,7 @@ export default function App() {
 }
 ```
 
-Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are props: `children`, and camelCased names such as `endText`. Form controls take the native `value` or `checked`, which set the state and follow it when it changes, and report changes with `onInput` and `onChange`. `Tabs` and `ToggleGroup` take `value` and `onValueChange`.
+Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are props: `children`, and camelCased names such as `endText`. Form controls take the native `value` or `checked`, which set the state and follow it when it changes, and report changes with `onInput` and `onChange`. `Select` takes `defaultValue` too, and `Rating`, `Tabs` and `ToggleGroup` take `value`, `defaultValue` and `onValueChange`.
 
 ### Svelte components
 
@@ -129,20 +129,21 @@ import { Button, Card } from "opui-css/vue"
 
 `opui-css/react` and `opui-css/vue` export compiled JavaScript with `.d.ts` types, so they load in any bundler and in Node without extra configuration, on the server too, Next.js and Nuxt included. `opui-css/svelte` exports the `.svelte` files with their `.d.ts` types, which `@sveltejs/vite-plugin-svelte` compiles through the package's `svelte` export condition, in SvelteKit and in Vite alike. `opui-css/solid` exports `.jsx` files with their `.d.ts` types, which `@solidjs/vite-plugin` compiles through the package's `solid` export condition, on the server too. `opui-css/astro` exports the `.astro` sources, which Astro compiles.
 
-The compiled files are ES modules for ES2022, and Node can also `require()` them. A test runner that loads `node_modules` as CommonJS, such as Jest in its default setup, has to transform `opui-css` (Jest: leave it out of `transformIgnorePatterns`). Source maps and declaration maps point at the sources the package ships in `components/`, so stack traces and Go to Definition open the `.tsx`, `.vue` or `.svelte` file. The Vue components are compiled in production mode, so Vue doesn't warn at runtime when a prop has the wrong type; your type checker does.
+The compiled React, Svelte and Vue files are ES modules for ES2022, and Node can also `require()` them. A test runner that loads `node_modules` as CommonJS, such as Jest in its default setup, has to transform `opui-css` (Jest: leave it out of `transformIgnorePatterns`). Source maps and declaration maps point at the sources the package ships in `components/`, so stack traces and Go to Definition open the `.tsx`, `.vue` or `.svelte` file. The Vue components are compiled in production mode, so Vue doesn't warn at runtime when a prop has the wrong type; your type checker does.
 
 #### One component at a time
 
-`opui-css/components/Dialog/DialogTitle.react`, `opui-css/components/Dialog/DialogTitle.svelte` and `opui-css/components/Dialog/DialogTitle.vue` import one component or part. They resolve to the same compiled files and types as `opui-css/react`, `opui-css/svelte` and `opui-css/vue`, so a part imported on its own and its container imported from the entry point share one module and one context. Everything else in `opui-css/components/*`, the `.astro` files and the type files such as `types` and `types.astro`, is the source.
+`opui-css/components/Dialog/DialogTitle.react`, `opui-css/components/Dialog/DialogTitle.solid`, `opui-css/components/Dialog/DialogTitle.svelte` and `opui-css/components/Dialog/DialogTitle.vue` import one component or part. They resolve to the same files and types as `opui-css/react`, `opui-css/solid`, `opui-css/svelte` and `opui-css/vue`, so a part imported on its own and its container imported from the entry point share one module and one context. Everything else in `opui-css/components/*`, the `.astro` files and the type files such as `types` and `types.astro`, is the source.
 
 #### TypeScript
 
-`opui-css/react`, `opui-css/svelte` and `opui-css/vue` ship `.d.ts` files, so `skipLibCheck` skips them and your `compilerOptions` only apply to your own code. They resolve with `moduleResolution: "bundler"`, `"node16"` or `"nodenext"` (not `"node10"`). The Svelte types need `skipLibCheck: true`, as the Svelte and SvelteKit templates set it: without it, `svelte-check` reports a union type that is too complex to represent.
+`opui-css/react`, `opui-css/solid`, `opui-css/svelte` and `opui-css/vue` ship `.d.ts` files, so `skipLibCheck` skips them and your `compilerOptions` only apply to your own code. They resolve with `moduleResolution: "bundler"`, `"node16"` or `"nodenext"` (not `"node10"`). The Svelte types need `skipLibCheck: true`, as the Svelte and SvelteKit templates set it: without it, `svelte-check` reports a union type that is too complex to represent.
 
 The `.d.ts` files work with TypeScript 6 and 7. The TypeScript version a project can use depends on the checker its framework needs:
 
 - Astro: `astro check` (`@astrojs/check` 0.9) runs on TypeScript 6, not on 7.
 - React: `tsc` on TypeScript 6 or 7.
+- Solid: `tsc` on TypeScript 6, with `jsxImportSource: "@solidjs/web"`.
 - Svelte: `svelte-check` 4.7 runs on TypeScript 6. For TypeScript 7, install it next to TypeScript 6 (`npm install -D typescript@6 @typescript/native@npm:typescript@7`) and run `svelte-check --tsgo`.
 - Vue: `vue-tsc` checks the `.vue` files, and vue-tsc 3.3 runs on TypeScript 6, not on 7. Vue needs the TypeScript version vue-tsc supports.
 
@@ -272,7 +273,7 @@ Breaking changes and how to update your code are in [MIGRATING.md](https://githu
 | `opui-css/svelte`                        | All Svelte components, with their types                                                                                                                                                                                                                                                                    |
 | `opui-css/vue`                           | All Vue components, compiled, with their types                                                                                                                                                                                                                                                             |
 | `opui-css/components/*.react`            | One React component or part, such as `opui-css/components/Dialog/DialogTitle.react`: the compiled file `opui-css/react` exports, with its types                                                                                                                                                            |
-| `opui-css/components/*.solid`            | One Solid component or part: the file `opui-css/solid` exports, with its types                                                                                                                                                                                                                             |
+| `opui-css/components/*.solid`            | One Solid component or part: the file `opui-css/solid` exports, with its types. The `context.solid` and `types.solid` modules next to them are internal                                                                                                                                                    |
 | `opui-css/components/*.svelte`           | One Svelte component or part: the file `opui-css/svelte` exports, with its types                                                                                                                                                                                                                           |
 | `opui-css/components/*.vue`              | One Vue component or part: the compiled file `opui-css/vue` exports, with its types                                                                                                                                                                                                                        |
 | `opui-css/components/*`                  | The Astro component sources and the type files, such as `types` and `types.astro`. The files at the top of `components/` (`cx.ts`, `dev.ts`, `group.ts`, `id.ts`, `solid.ts`, `style.ts`, `tag.ts`, `vue.ts`, `context.astro.ts` and `content.svelte`) are internal helpers that can change in any release |
@@ -280,7 +281,7 @@ Breaking changes and how to update your code are in [MIGRATING.md](https://githu
 | `opui-css/figma/*`                       | The default theme's Figma variables in `figma/themes/`, and `sync.js`, the function the Figma plugin runs ([Figma](https://opui.dev/html/guide/theme-tokens/#figma))                                                                                                                                       |
 | `opui-css/package.json`                  | The package manifest, for tools that read it                                                                                                                                                                                                                                                               |
 
-Importing a React component from `opui-css/components/*.react` skips the type augmentation in `opui-css/react`, which adds `command`, `commandfor` and `interestfor` to React's element types. `Menu` and `DrawerHeader` need it, so add `import type {} from "opui-css/react"` once in your app. A Solid component imported from `opui-css/components/*` likewise skips the augmentation in `opui-css/solid`, which types `interestfor` and the `opui-*` elements, so add `import type {} from "opui-css/solid"`.
+Importing a React component from `opui-css/components/*.react` skips the type augmentation in `opui-css/react`, which adds `command`, `commandfor` and `interestfor` to React's element types. `Menu` and `DrawerHeader` need it, so add `import type {} from "opui-css/react"` once in your app. A Solid component imported from `opui-css/components/*.solid` likewise skips the augmentation in `opui-css/solid`, which types `interestfor` and the `opui-*` elements, so add `import type {} from "opui-css/solid"`.
 
 ## Themes
 

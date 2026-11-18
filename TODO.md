@@ -5612,6 +5612,9 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Options:
     - A (recommended): Wait for `lucide-solid` and `@tabler/icons-solidjs` to accept solid-js 2, then add their `solid:` entries.
     - B: List `solid-icons` (its `tb` set) as the Solid package for Tabler once it is past the release age window, with a `packageNote` that it is a third-party wrapper.
+  > Fix with option A
+  > Wait
+  - Still open: waiting for `lucide-solid` and `@tabler/icons-solidjs` to take solid-js 2 as a peer. Then add their `solid:` entries in `src/utils/icon-libraries.ts` and run `node scripts/build-icons.mjs`.
 - [ ] (4) New components the blocks point to. Each block currently draws these with its own CSS:
   - Summary: Blocks draw charts, breadcrumbs, steppers, timelines, ratings, pagination and stat cards with their own CSS for lack of components.
   - Recommended: Fix. Breadcrumb, empty state and pagination are left, and their blocks already show the markup each needs.

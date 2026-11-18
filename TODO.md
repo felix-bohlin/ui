@@ -1739,6 +1739,14 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): keep the markup and say in the Solid notes of Callout and SortableTable not to load the element script ahead of the components.
     - B: give the Solid ports the `data-hydrating` gate React has, and accept three Solid parity `.diff` files like React's (`callout/Dismissible`, `table/Sortable`, `table/SortableData`).
   - Fixed: with option A. The Solid notes of Callout and SortableTable say not to load the element script ahead of the components (`src/component-api/callout/api.ts`, `src/component-api/sortable-table/api.ts`), and the markup stays the same as Astro's.
+- [ ] (3) Table: a sort before hydration breaks a server-rendered Svelte or Vue SortableTable when the page loads `elements/sortable-table.js` itself ahead of the components: Svelte's hydration throws on the moved rows and the route content is gone, and Vue puts the rows back under a header that still says sorted (`packages/opui/components/SortableTable/SortableTable.svelte`, `packages/opui/components/SortableTable/SortableTable.vue`, `packages/opui/elements/sortable-table.js`, `tests/apps/apps.spec.ts`)
+  - Summary: Sorting a server-rendered Svelte or Vue table before it hydrates breaks the page, if the element script loaded ahead of the components.
+  - Recommended: Fix with option B. A page that crashes is more than a documented limit, and the guard already exists for React.
+  - Fix: confirmed in `tests/apps` on SvelteKit and Nuxt with the React scenario of `tests/apps/apps.spec.ts` and the element script defined first. The API notes say not to load the script first.
+  - Options:
+    - A: keep the notes only.
+    - B (recommended): give the Svelte, Vue and Solid SortableTable and Callout the `data-hydrating` guard React has, cleared once the component hydrates, and accept the parity `.diff` files for it as React's are.
+    - C: have `sortable-table.js` and `callout.js` hold input on a server-rendered root until its framework marks it ready, with no markup difference: the element checks a marker the components set in their mount hook.
 
 ## Docs
 

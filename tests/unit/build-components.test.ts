@@ -150,7 +150,12 @@ describe("the ports of a sample", () => {
     expect(ports["react.tsx"]).toContain(
       'export default function Sample({ as, className, children, ...rest }: Props) {\n  const Tag = as || "fieldset"',
     )
-    expect(ports["react.tsx"]).toContain("{...defined(rest as object)}")
+    expect(ports["react.tsx"]).toContain(
+      'import type { HTMLAttributes } from "react"\n',
+    )
+    expect(ports["react.tsx"]).toContain(
+      "{...defined(rest as HTMLAttributes<HTMLElement>)}",
+    )
     expect(ports.svelte).toContain('as: Tag = "fieldset",')
     expect(ports.svelte).toContain(
       '<svelte:element\n  this={Tag}\n  class={["ui-sample", className]}\n  role={Tag === "fieldset" ? undefined : "group"}\n  {...defined(rest)}\n>',
@@ -174,7 +179,7 @@ describe("the ports of a sample", () => {
       `---\nimport type { Props } from "./types.astro"\n\nconst { class: className, label, wide, ...rest } = Astro.props\nconst Label = wide ? "div" : "span"\n---\n\n<Label class:list={["ui-sample", className]} {...rest}>{label}</Label>\n`,
     )
     expect(ports["react.tsx"]).toContain(
-      'const Label = wide ? "div" : "span"\n\n  return (\n    <Label className={cx(["ui-sample", className])} {...(rest as object)}>',
+      'const Label = wide ? "div" : "span"\n\n  return (\n    <Label\n      className={cx(["ui-sample", className])}\n      {...(rest as HTMLAttributes<HTMLElement>)}\n    >',
     )
   })
 
@@ -188,7 +193,7 @@ describe("the ports of a sample", () => {
       "{...(onItem ? (rest as object) : {})}",
     )
     expect(ports["react.tsx"]).toContain(
-      "{...(onItem ? {} : (rest as object))}",
+      "{...(onItem ? {} : (rest as HTMLAttributes<HTMLElement>))}",
     )
     expect(ports.svelte).toContain(
       '{...onItem ? (rest as SvelteHTMLElements["li"]) : {}}',
@@ -270,7 +275,7 @@ describe("the ports of a sample", () => {
       '---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\nimport { fieldGroupContext } from "../FieldGroup/context.astro"\n\nconst { class: className, name, ...rest } = Astro.props\n\nconst field = fieldGroupContext.get()\nconst html = await sampleContext.provide(\n  { name: name || field?.name, open: true },\n  () => Astro.slots.render("default"),\n)\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Fragment set:html={html} />\n</div>\n',
     )
     expect(ports["react.tsx"]).toBe(
-      '"use client"\n\nimport { cx } from "../cx"\nimport { SampleContext } from "./context.react"\nimport { useFieldGroupContext } from "../FieldGroup/context.react"\nimport type { Props } from "./types.react"\n\nexport default function Sample({ className, name, children, ...rest }: Props) {\n  const field = useFieldGroupContext()\n\n  return (\n    <SampleContext value={{ name: name || field?.name, open: true }}>\n      <div className={cx(["ui-sample", className])} {...rest}>\n        {children}\n      </div>\n    </SampleContext>\n  )\n}\n',
+      '"use client"\n\nimport { useMemo } from "react"\nimport { cx } from "../cx"\nimport { SampleContext } from "./context.react"\nimport { useFieldGroupContext } from "../FieldGroup/context.react"\nimport type { Props } from "./types.react"\nimport type { Context } from "./types"\n\nexport default function Sample({ className, name, children, ...rest }: Props) {\n  const field = useFieldGroupContext()\n  const context = useMemo<Context>(\n    () => ({ name: name || field?.name, open: true }),\n    [field?.name, name],\n  )\n\n  return (\n    <SampleContext value={context}>\n      <div className={cx(["ui-sample", className])} {...rest}>\n        {children}\n      </div>\n    </SampleContext>\n  )\n}\n',
     )
     expect(ports.svelte).toBe(
       '<script lang="ts">\n  import { setSampleContext } from "./context.svelte"\n  import { getFieldGroupContext } from "../FieldGroup/context.svelte"\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n    name,\n\n    // Snippets\n    children,\n    ...rest\n  }: Props = $props()\n\n  const field = getFieldGroupContext()\n  setSampleContext({\n    get name() {\n      return name || field?.name\n    },\n    get open() {\n      return true\n    },\n  })\n</script>\n\n<div class={["ui-sample", className]} {...rest}>\n  {@render children?.()}\n</div>\n',
@@ -1346,11 +1351,9 @@ describe("the ports of a sample", () => {
     )
     const react = outputs.get(sampleFile().replace(".astro", ".react.tsx"))
     expect(react).toContain(
-      "export default function Sample({\n  className,\n  defaultValue,\n  name,\n  onValueChange,\n  value,\n  children,\n  ...rest\n}: Props) {\n  const [inner, setInner] = useState(defaultValue)\n  const change = (input: HTMLInputElement) => {\n    const next = input.value\n    if (inner !== undefined) setInner(next)\n    onValueChange?.(next)\n  }\n",
+      "export default function Sample({\n  className,\n  defaultValue,\n  name,\n  onValueChange,\n  value,\n  children,\n  ...rest\n}: Props) {\n  const [inner, setInner] = useState(defaultValue)\n  const change = useCallback(\n    (input: HTMLInputElement) => {\n      const next = input.value\n      setInner((current) => (current === undefined ? current : next))\n      onValueChange?.(next)\n    },\n    [onValueChange],\n  )\n  const context = useMemo<Context>(\n    () => ({ change, name, value: value ?? inner }),\n    [change, inner, name, value],\n  )\n",
     )
-    expect(react).toContain(
-      "<SampleContext value={{ change, name, value: value ?? inner }}>",
-    )
+    expect(react).toContain("<SampleContext value={context}>")
     expect(outputs.get(sampleFile().replace(".astro", ".svelte"))).toContain(
       "  setSampleContext({\n    change(input) {\n      if (value !== undefined) value = input.value\n    },\n    get name() {\n      return name\n    },\n    get value() {\n      return value\n    },\n  })\n",
     )
@@ -1511,7 +1514,10 @@ describe("the ports of a sample", () => {
       "const model = defineModel<Model>()\n\nconst change = (input: HTMLInputElement) => {\n  if (model.value !== undefined)\n    model.value = selectionOf(input, multiple) as Model\n}",
     )
     expect(outputs.get(sampleFile().replace(".astro", ".react.tsx"))).toContain(
-      "    const next = selectionOf(input, multiple)\n    if (inner !== undefined) setInner(next)\n    onValueChange?.(next as never)\n",
+      "      const next = selectionOf(input, multiple)\n      setInner((current) => (current === undefined ? current : next))\n      if (multiple) onValueChange?.(checkedValues(input))\n      else onValueChange?.(input.value)\n    },\n    [multiple, onValueChange],\n",
+    )
+    expect(outputs.get(sampleFile().replace(".astro", ".solid.tsx"))).toContain(
+      "    if (props.multiple) props.onValueChange?.(checkedValues(input))\n    else props.onValueChange?.(input.value)\n",
     )
   })
 

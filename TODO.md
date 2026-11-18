@@ -5447,6 +5447,10 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Recommended: Fix. `useListener` already passes a caller's ref on, as Callout shows.
   - Fix: take `ref` through `ComponentProps<"opui-sortable-table">`, as Toaster does, pass it to `useListener`, remove `data-hydrating` from the element the ref callback receives, and update the ledger reason for `types.react.ts`.
   - Fixed: Already in 93538658 ("pass a SortableTable ref on"): the React types take `ref` through `ComponentProps<"opui-sortable-table">`, the component passes it to `useListener` and takes `data-hydrating` off the element its ref callback receives, and the `types.react.ts` ledger entry is gone. Since 9cac3d61d the compiler writes the whole port.
+- [ ] (1) Package: two compiled Solid files shadow a name: the `<Show>` parameter `tag` in ListItem shadows its accessor, and Rating's per-item `initialChecked` shadows the one in the component body (`packages/opui/components/ListItem/ListItem.solid.tsx`, `packages/opui/components/Rating/Rating.solid.tsx`, `scripts/component-solid.mjs`)
+  - Summary: Two compiled Solid files reuse a name in an inner scope, with no effect on behavior.
+  - Recommended: Fix. A distinct name in the inner scope reads better in the files the docs show.
+  - Fix: in `scripts/component-solid.mjs`, name the narrowed `<Show>` parameter and a per-item initial value apart from a body-level name they would shadow.
 - [ ] (3) Package: the server-rendered Solid app test runs on the `start` option of `@solidjs/vite-plugin`, not on SolidStart, since SolidStart 2.2.3 requires solid-js 1.9 (`tests/apps/apps.ts`, `tests/apps/solid-start/vite.config.ts`)
   - Summary: The Solid app test uses the Vite plugin's server layer until SolidStart supports Solid 2.
   - Recommended: Fix. Add a SolidStart app next to it once a release takes solid-js 2, so the meta-framework people scaffold is covered like Next.js, Nuxt and SvelteKit.
@@ -5813,3 +5817,10 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - B: keep it open until WebKit ships the fix.
   - Still open: re-checked: the expected failure is `WEBKIT_TOP_LAYER_ANCHOR` now, renamed from `WEBKIT_SCROLLED_ANCHOR`, still in `tests/e2e/engine-bugs.ts` with its repro in `engines.spec.ts`, so the notes above hold under the new name.
   - Removed: Option A: WebKit has the bug on file (bug 301023), and `WEBKIT_TOP_LAYER_ANCHOR` in `tests/e2e/engine-bugs.ts` with its repro in `tests/e2e/engines.spec.ts:62` fails with "expected to fail but passed" once WebKit ships the fix. Nothing is left to check or report.
+- [ ] (2) Tabs: with `value` set and an `onValueChange` that keeps the old value, the Solid group may leave the clicked item checked, since `checkedProps` writes `checked` only when the accessor changes, while React puts a controlled input back (`packages/opui/components/Tabs/TabsItem.solid.tsx`, `packages/opui/components/ToggleButton/ToggleButton.solid.tsx`, `src/component-api/tabs/api.ts`, `src/component-api/toggle-group/api.ts`)
+  - Summary: A Solid handler that refuses a tab or toggle change may leave the clicked item shown while the state holds the old one, unlike React.
+  - Recommended: Fix with option A. It matches how Solid treats native inputs.
+  - Fix: confirm first on `/solid/components/tabs/` (Binding) with an `onValueChange` that doesn't call the setter.
+  - Options:
+    - A (recommended): add to the Solid notes of Tabs and ToggleGroup that `value` follows the prop when it changes and a refused choice has to be written back.
+    - B: have `change` write `checked` back on the inputs when `props.value` is set and unchanged after `onValueChange`.

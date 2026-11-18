@@ -42,6 +42,7 @@ export default function ListItem(props: Props) {
   const restOnItem = () => hasControl() || !tag()
   const hasLabel = () => !!resolvedLabel()
   const hasDescription = () => !!resolvedDescription()
+  const tagFor = () => (hasControl() ? props.for : undefined)
 
   return (
     <li
@@ -78,7 +79,7 @@ export default function ListItem(props: Props) {
         {(tag) => (
           <Tag
             class={cx([hasControl() && `ui-${props.choice}`])}
-            for={hasControl() ? props.for : undefined}
+            for={tagFor()}
             {...(hasControl()
               ? {}
               : tagAttrs(tag(), props.disabled, props.href))}

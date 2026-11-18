@@ -168,8 +168,8 @@ export const MODEL_KINDS = {
     },
     solid: {
       entries: () => ["defaultValue", "onValueChange"],
-      radioAttributes: (model, value, checked) => [
-        `{...checkedProps(props.${model.prop} === undefined ? undefined : ${checked}, ${checked})}`,
+      radioAttributes: (model, value, checked, initial) => [
+        `{...checkedProps(props.${model.prop} === undefined ? undefined : ${checked}, ${initial})}`,
         `onChange={() => props.onValueChange?.(${value})}`,
         `ref={seedChecked(() => props.onValueChange?.(${value}))}`,
       ],

@@ -60,6 +60,29 @@ const parameterNames = (text) => {
   return names
 }
 
+const isCondition = (code) => {
+  const [statement] = sourceFileOf(`(${code})`, "condition.ts").statements
+  let expression =
+    statement && ts.isExpressionStatement(statement)
+      ? statement.expression
+      : undefined
+  while (
+    expression &&
+    (ts.isParenthesizedExpression(expression) ||
+      ts.isAsExpression(expression) ||
+      ts.isNonNullExpression(expression))
+  ) {
+    expression = expression.expression
+  }
+  return (
+    !!expression &&
+    (ts.isConditionalExpression(expression) ||
+      (ts.isBinaryExpression(expression) &&
+        expression.operatorToken.kind ===
+          ts.SyntaxKind.AmpersandAmpersandToken))
+  )
+}
+
 export const toSolid = (component) => {
   const {
     components,
@@ -140,6 +163,7 @@ export const toSolid = (component) => {
     ...(kind?.rename?.(model) ?? []),
   ])
   const options = {
+    hoisted: [],
     ids: component.ids,
     rename,
     slotHas: (name) => propAccess(slotProp(name)),
@@ -249,6 +273,41 @@ export const toSolid = (component) => {
         ]
       : []),
   ]
+  const hoistedNames = new Set()
+  const declare = (scope, base, code, line) => {
+    const known = scope.hoisted.find((entry) => entry.code === code)
+    if (known) return known.name
+    const free = (name) =>
+      !taken.has(name) &&
+      !hoistedNames.has(name) &&
+      !scope.shadowed?.includes(name)
+    let name = base
+    for (let count = 2; !free(name); count += 1) name = `${base}${count}`
+    hoistedNames.add(name)
+    scope.hoisted.push({ code, line: line(name), name })
+    return name
+  }
+  const hoist = (node, entry, code, scope) =>
+    declare(
+      scope,
+      `${node.tag[0].toLowerCase()}${node.tag.slice(1)}${entry.name
+        .split(/[^A-Za-z0-9]+/)
+        .map(capitalize)
+        .join("")}`,
+      code,
+      (name) => `const ${name} = () => ${code}`,
+    )
+  let usesInitial = false
+  const initialChecked = (code, scope) => {
+    usesInitial = true
+    const initial = `untrack(() => ${code})`
+    return declare(
+      scope,
+      "initialChecked",
+      initial,
+      (name) => `const ${name} = ${initial}`,
+    )
+  }
   const attribute = (node, entry, scope) => {
     if (entry.kind === "class") {
       const code = rewrite(entry.code, scope)
@@ -283,7 +342,11 @@ export const toSolid = (component) => {
     }
     if (entry.kind === "static") return jsxAttribute(entry.name, entry.value)
     if (entry.kind === "boolean") return entry.name
-    return `${entry.name}={${rewrite(entry.code, scope)}}`
+    const code = rewrite(entry.code, scope)
+    if ((node.component || node.variable) && isCondition(code)) {
+      return `${entry.name}={${hoist(node, entry, code, scope)}()}`
+    }
+    return `${entry.name}={${code}}`
   }
   const narrow = (node, scope, branch) => {
     const name = node.test.trim()
@@ -314,7 +377,7 @@ export const toSolid = (component) => {
     node.consts
       .filter(({ name }) => loopTags.has(name))
       .forEach(({ name }) => inner.set(name, loopTag(name)))
-    const eachScope = { ...scope, rename: inner }
+    const eachScope = { ...scope, hoisted: [], rename: inner, shadowed }
     const consts = node.consts.flatMap(({ code, name }) => {
       if (!loopTags.has(name)) {
         return [`const ${name} = ${rewrite(code, eachScope)}`]
@@ -330,7 +393,9 @@ export const toSolid = (component) => {
       ...codesOf(node.children),
     ].some((code) => identifiersIn(code).has(node.index))
     return {
-      consts,
+      get consts() {
+        return [...consts, ...eachScope.hoisted.map(({ line }) => line)]
+      },
       list: rewrite(node.list, scope),
       parameters: `${node.item}${usesIndex ? `, ${node.index}` : ""}`,
       scope: eachScope,
@@ -354,10 +419,11 @@ export const toSolid = (component) => {
                 model,
                 rewrite(node.groupRadio, scope),
                 rewrite(entry.code, scope),
+                initialChecked(rewrite(entry.code, scope), scope),
               )
             : node.item && checks(entry)
               ? [
-                  `{...checkedProps(${rewrite(entry.code, scope)}, props.defaultChecked)}`,
+                  `{...checkedProps(${rewrite(entry.code, scope)}, ${initialChecked(`${rewrite(entry.code, scope)} ?? props.defaultChecked`, scope)})}`,
                 ]
               : [attribute(node, entry, scope)]),
         ]),
@@ -378,6 +444,7 @@ export const toSolid = (component) => {
   })
   const [rootNode] = tree
   const rendered = render(tree, options)
+  body.push(...options.hoisted.map(({ line }) => line))
   const providedValue =
     kind?.provided && provide ? kind.provided(model, provide) : provide?.value
   const getters = (entries) =>
@@ -424,7 +491,7 @@ export const toSolid = (component) => {
     ...(kind?.solidValues?.(model) ?? []),
     ...(rest ? ["omit"] : []),
     ...(uid ? ["createUniqueId"] : []),
-    ...(warnings.length > 0 || item ? ["untrack"] : []),
+    ...(warnings.length > 0 || item || usesInitial ? ["untrack"] : []),
   ].toSorted(byName)
   const solidHelpers = [
     ...(kind?.solidHelpers?.(model) ?? []),

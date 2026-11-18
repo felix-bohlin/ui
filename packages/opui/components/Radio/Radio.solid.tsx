@@ -29,6 +29,8 @@ export default function Radio(props: Props) {
       hasName({ ...rest, label: props.label }, resolvedChildren()),
     )
   })
+  const radioInputAriaInvalid = () =>
+    props.error ? "true" : props["aria-invalid"]
 
   return (
     <label
@@ -47,10 +49,7 @@ export default function Radio(props: Props) {
       ]}
       style={props.style}
     >
-      <RadioInput
-        {...rest}
-        aria-invalid={props.error ? "true" : props["aria-invalid"]}
-      />
+      <RadioInput {...rest} aria-invalid={radioInputAriaInvalid()} />
       {(props.label || resolvedChildren()) && (
         <span class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}>
           {props.label}

@@ -29,6 +29,8 @@ export default function Checkbox(props: Props) {
       hasName({ ...rest, label: props.label }, resolvedChildren()),
     )
   })
+  const checkboxInputAriaInvalid = () =>
+    props.error ? "true" : props["aria-invalid"]
 
   return (
     <label
@@ -47,10 +49,7 @@ export default function Checkbox(props: Props) {
       ]}
       style={props.style}
     >
-      <CheckboxInput
-        {...rest}
-        aria-invalid={props.error ? "true" : props["aria-invalid"]}
-      />
+      <CheckboxInput {...rest} aria-invalid={checkboxInputAriaInvalid()} />
       {(props.label || resolvedChildren()) && (
         <span class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}>
           {props.label}

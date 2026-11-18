@@ -162,10 +162,10 @@ describe("the ports of a sample", () => {
       '<component\n    :is="Tag"\n    :class="[\'ui-sample\', $props.class]"\n    :role="Tag === \'fieldset\' ? undefined : \'group\'"\n    v-bind="defined(attrs)"\n  >',
     )
     expect(ports["solid.tsx"]).toContain(
-      '  const rest = omit(props, "as", "class", "children")\n  const tag = () => props.as || "fieldset"\n  const Tag = dynamic(tag)\n',
+      '  const rest = omit(props, "as", "class", "children")\n  const tag = () => props.as || "fieldset"\n  const Tag = dynamic(tag)\n  const tagRole = () => (tag() === "fieldset" ? undefined : "group")\n',
     )
     expect(ports["solid.tsx"]).toContain(
-      'role={tag() === "fieldset" ? undefined : "group"}\n      {...defined(rest as object)}',
+      "role={tagRole()}\n      {...defined(rest as object)}",
     )
   })
 
@@ -821,6 +821,15 @@ describe("the ports of a sample", () => {
     ).toContain("uses the name firstValue")
   })
 
+  test("Solid reads a condition in a component's prop through an accessor, since each read of the compiled prop takes a hydration id", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport Button from "../Button/Button.astro"\n\nconst buttonTitle = "Close"\nconst { class: className, items, label, ...rest } = Astro.props\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Button title={label ? "Labelled" : rest.title}>Close</Button>\n  {items.map((item) => <Button title={item && label}>{item}</Button>)}\n  <p title={label ? buttonTitle : undefined} />\n</div>\n',
+    )
+    expect(ports["solid.tsx"]).toBe(
+      '/** @jsxImportSource @solidjs/web */\nimport { omit } from "solid-js"\nimport Button from "../Button/Button.solid"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "items", "label")\n  const buttonTitle = "Close"\n  const buttonTitle2 = () => (props.label ? "Labelled" : rest.title)\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      <Button title={buttonTitle2()}>Close</Button>{" "}\n      {props.items.map((item) => {\n        const buttonTitle3 = () => item && props.label\n        return <Button title={buttonTitle3()}>{item}</Button>\n      })}\n      <p title={props.label ? buttonTitle : undefined} />\n    </div>\n  )\n}\n',
+    )
+  })
+
   test("accepts a helper import from another component folder", async () => {
     await expect(
       readComponent(
@@ -884,7 +893,10 @@ describe("the ports of a sample", () => {
       "const current = () => Number(props.value ?? props.defaultValue)",
     )
     expect(solid).toContain(
-      "{...checkedProps(\n            props.value === undefined ? undefined : current() === star,\n            current() === star,\n          )}",
+      "const initialChecked2 = untrack(() => current() === star)",
+    )
+    expect(solid).toContain(
+      "props.value === undefined ? undefined : current() === star,\n              initialChecked2,\n",
     )
     expect(solid).toContain('onChange={() => props.onValueChange?.("0")}')
     expect(solid).toContain("onChange={() => props.onValueChange?.(star)}")
@@ -1273,7 +1285,10 @@ describe("the ports of a sample", () => {
       'import { callHandler, checkedProps, seedChecked } from "../solid"\n',
     )
     expect(solid).toContain(
-      '        {...checkedProps(grouped() ?? props.checked, props.defaultChecked)}\n        class={["ui-sample", props.class]}\n        type="radio"\n        value={props.value}\n        {...defined(rest)}\n        ref={[props.ref, seedChecked((input) => parent?.change?.(input))]}\n',
+      "  const initialChecked = untrack(\n    () => grouped() ?? props.checked ?? props.defaultChecked,\n  )\n",
+    )
+    expect(solid).toContain(
+      '        {...checkedProps(grouped() ?? props.checked, initialChecked)}\n        class={["ui-sample", props.class]}\n        type="radio"\n        value={props.value}\n        {...defined(rest)}\n        ref={[props.ref, seedChecked((input) => parent?.change?.(input))]}\n',
     )
     expect(solid).toContain(
       "        onChange={(event) => {\n          parent?.change?.(event.currentTarget)\n          callHandler(props.onChange, event)\n        }}\n",
@@ -1404,7 +1419,7 @@ describe("the ports of a sample", () => {
     expect(vue).not.toContain("v-model")
     const solid = outputs.get(sampleFile().replace(".astro", ".solid.tsx"))
     expect(solid).toContain(
-      "{...checkedProps(grouped() ?? props.checked, props.defaultChecked)}",
+      "{...checkedProps(grouped() ?? props.checked, initialChecked)}",
     )
     expect(solid).toContain("data-off={!props.checked}")
     expect(solid).toContain(

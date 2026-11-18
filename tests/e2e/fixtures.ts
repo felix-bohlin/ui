@@ -112,6 +112,9 @@ export const openFixture = async (
   page.on("request", (request) => inflight.add(request))
   page.on("requestfailed", (request) => inflight.delete(request))
   page.on("requestfinished", (request) => inflight.delete(request))
+  page.on("framenavigated", (frame) => {
+    if (frame === page.mainFrame()) inflight.clear()
+  })
   await stubExternalHosts(page)
   await page.goto(
     (component.startsWith("blocks/")

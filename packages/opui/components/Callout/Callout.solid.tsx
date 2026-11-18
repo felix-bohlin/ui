@@ -27,6 +27,7 @@ export default function Callout(props: Props) {
   const root = () => (props.closeButton ? "opui-callout" : "article")
   const Root = dynamic(root)
   const rootId = () => (props.closeButton ? base() : props.id)
+  const rootRole = () => (props.closeButton ? "article" : undefined)
 
   return (
     <CalloutContext
@@ -44,7 +45,7 @@ export default function Callout(props: Props) {
           props.class,
         ]}
         id={rootId()}
-        role={props.closeButton ? "article" : undefined}
+        role={rootRole()}
         {...defined(rest as object)}
       >
         {props.children}

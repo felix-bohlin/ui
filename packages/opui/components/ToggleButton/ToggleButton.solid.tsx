@@ -38,6 +38,9 @@ export default function ToggleButton(props: Props) {
       "ToggleGroup",
     ),
   )
+  const initialChecked = untrack(
+    () => grouped() ?? props.checked ?? props.defaultChecked,
+  )
 
   return (
     <label
@@ -49,7 +52,7 @@ export default function ToggleButton(props: Props) {
       style={props.style}
     >
       <input
-        {...checkedProps(grouped() ?? props.checked, props.defaultChecked)}
+        {...checkedProps(grouped() ?? props.checked, initialChecked)}
         name={finalName()}
         type={finalType()}
         value={props.value}

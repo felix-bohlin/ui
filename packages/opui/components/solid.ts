@@ -4,10 +4,10 @@ export const callHandler = <E extends Event>(handler: unknown, event: E) => {
     handler[0](handler[1], event)
 }
 
-export const checkedProps = <C, D>(checked: C | undefined, fallback?: D) =>
+export const checkedProps = <C, D>(checked: C | undefined, initial?: D) =>
   checked === undefined
-    ? { defaultChecked: fallback }
-    : { checked, defaultChecked: checked }
+    ? { defaultChecked: initial }
+    : { checked, defaultChecked: initial }
 
 export const seedChecked =
   (report: (input: HTMLInputElement) => void) => (input: HTMLInputElement) => {
@@ -15,6 +15,6 @@ export const seedChecked =
       input.checked !== input.defaultChecked &&
       (input.checked || input.type === "checkbox")
     ) {
-      report(input)
+      queueMicrotask(() => report(input))
     }
   }

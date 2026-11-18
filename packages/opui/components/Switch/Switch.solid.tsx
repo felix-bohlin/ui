@@ -33,6 +33,8 @@ export default function Switch(props: Props) {
       hasName({ ...rest, label: props.label }, resolvedChildren()),
     )
   })
+  const switchInputAriaInvalid = () =>
+    props.error ? "true" : props["aria-invalid"]
 
   return (
     <label
@@ -61,10 +63,7 @@ export default function Switch(props: Props) {
           {resolvedIconChecked()}
         </span>
       )}{" "}
-      <SwitchInput
-        {...rest}
-        aria-invalid={props.error ? "true" : props["aria-invalid"]}
-      />
+      <SwitchInput {...rest} aria-invalid={switchInputAriaInvalid()} />
       {(props.label || resolvedChildren()) && (
         <span class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}>
           {props.label}

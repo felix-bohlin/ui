@@ -68,6 +68,8 @@ export default function Menu(props: Props) {
             const tag = href ? "a" : "button"
             const Tag = dynamic(() => tag)
             const closes = !href && !keepOpen && !disabled
+            const tagCommand = () => (closes ? "hide-popover" : undefined)
+            const tagCommandfor = () => (closes ? rootId() : undefined)
             return (
               <li
                 class={cx([
@@ -77,8 +79,8 @@ export default function Menu(props: Props) {
               >
                 <Tag
                   {...tagAttrs(tag, disabled, href)}
-                  command={closes ? "hide-popover" : undefined}
-                  commandfor={closes ? rootId() : undefined}
+                  command={tagCommand()}
+                  commandfor={tagCommandfor()}
                   {...defined(itemRest)}
                 >
                   <div class="ui-text">

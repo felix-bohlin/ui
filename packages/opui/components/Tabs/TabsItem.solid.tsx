@@ -33,6 +33,9 @@ export default function TabsItem(props: Props) {
       "Tabs",
     ),
   )
+  const initialChecked = untrack(
+    () => grouped() ?? props.checked ?? props.defaultChecked,
+  )
 
   return (
     <TabsContext
@@ -46,7 +49,7 @@ export default function TabsItem(props: Props) {
       }}
     >
       <input
-        {...checkedProps(grouped() ?? props.checked, props.defaultChecked)}
+        {...checkedProps(grouped() ?? props.checked, initialChecked)}
         class={["ui-input", props.class]}
         id={tabId()}
         name={groupName()}

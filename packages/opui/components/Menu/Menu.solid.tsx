@@ -1,6 +1,6 @@
 /** @jsxImportSource @solidjs/web */
-import { dynamic } from "@solidjs/web"
-import { children, omit, untrack } from "solid-js"
+import { Dynamic } from "@solidjs/web"
+import { children, For, omit, untrack } from "solid-js"
 import "../../elements/close-on-navigate.js"
 import { defined } from "../attrs"
 import { MenuContext, useMenuContext } from "./context.solid"
@@ -23,7 +23,6 @@ export default function Menu(props: Props) {
     "children",
     "iconChecked",
   )
-  const resolvedIconChecked = children(() => props.iconChecked)
   const parent = useMenuContext()
   const popover = () => (props.popover === undefined ? "auto" : props.popover)
   const rootId = () => parent?.rootId ?? props.id
@@ -54,41 +53,45 @@ export default function Menu(props: Props) {
         popover={popover() === "auto" ? "" : popover()}
         {...rest}
       >
-        {props.items?.map(
-          ({
-            borderTop,
-            color,
-            disabled,
-            href,
-            keepOpen,
-            label,
-            shortcut,
-            ...itemRest
-          }) => {
-            const tag = href ? "a" : "button"
-            const Tag = dynamic(() => tag)
-            const closes = !href && !keepOpen && !disabled
-            const tagCommand = () => (closes ? "hide-popover" : undefined)
-            const tagCommandfor = () => (closes ? rootId() : undefined)
+        <For each={props.items} keyed={false}>
+          {(item) => {
+            const itemRest = () =>
+              omit(
+                item(),
+                "borderTop",
+                "color",
+                "disabled",
+                "href",
+                "keepOpen",
+                "label",
+                "shortcut",
+              )
+            const tag = () => (item().href ? "a" : "button")
+            const closes = () =>
+              !item().href && !item().keepOpen && !item().disabled
+            const command = () => (closes() ? "hide-popover" : undefined)
+            const commandfor = () => (closes() ? rootId() : undefined)
+            const resolvedIconChecked = children(() => props.iconChecked)
             return (
               <li
                 class={cx([
-                  { "ui-border-top": borderTop },
-                  color && `ui-${color}`,
+                  { "ui-border-top": item().borderTop },
+                  item().color && `ui-${item().color}`,
                 ])}
               >
-                <Tag
-                  {...tagAttrs(tag, disabled, href)}
-                  command={tagCommand()}
-                  commandfor={tagCommandfor()}
-                  {...defined(itemRest)}
+                <Dynamic
+                  component={tag()}
+                  {...tagAttrs(tag(), item().disabled, item().href)}
+                  command={command()}
+                  commandfor={commandfor()}
+                  {...defined(itemRest())}
                 >
                   <div class="ui-text">
-                    <p>{label}</p>
+                    <p>{item().label}</p>
                   </div>
-                  {shortcut && (
+                  {item().shortcut && (
                     <div class="ui-end">
-                      <kbd>{shortcut}</kbd>
+                      <kbd>{item().shortcut}</kbd>
                     </div>
                   )}
                   {resolvedIconChecked() && (
@@ -96,11 +99,11 @@ export default function Menu(props: Props) {
                       {resolvedIconChecked()}
                     </span>
                   )}
-                </Tag>
+                </Dynamic>
               </li>
             )
-          },
-        )}
+          }}
+        </For>
         {props.children}
       </menu>
     </MenuContext>

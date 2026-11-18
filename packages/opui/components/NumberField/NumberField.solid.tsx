@@ -4,6 +4,7 @@ import "../../elements/number-field.js"
 import Button from "../Button/Button.solid"
 import { useFieldGroupContext } from "../FieldGroup/context.solid"
 import { fieldDescribedBy } from "../id"
+import { bound } from "../solid"
 import type { Props } from "./types.solid"
 
 export default function NumberField(props: Props) {
@@ -19,10 +20,12 @@ export default function NumberField(props: Props) {
     "id",
     "increaseLabel",
     "name",
+    "ref",
     "size",
     "spread",
     "stretch",
     "style",
+    "value",
     "variant",
     "decreaseIcon",
     "endText",
@@ -37,6 +40,8 @@ export default function NumberField(props: Props) {
   const resolvedStartText = children(() => props.startText)
   const field = useFieldGroupContext()
   const uid = createUniqueId()
+  const initialValue = untrack(() => props.value)
+  const valueRef = bound("value", () => props.value)
   const decreaseLabel = () =>
     props.decreaseLabel === undefined ? "Decrease" : props.decreaseLabel
   const increaseLabel = () =>
@@ -63,7 +68,7 @@ export default function NumberField(props: Props) {
     >
       {resolvedLabel() && (
         <label
-          class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}
+          class={props.hideLabel ? "ui-sr-only" : "ui-label"}
           for={inputId()}
         >
           {resolvedLabel()}
@@ -98,7 +103,8 @@ export default function NumberField(props: Props) {
           </Button>
         </span>
         <input
-          defaultValue={untrack(() => props.value)}
+          defaultValue={initialValue}
+          ref={[props.ref, valueRef]}
           {...rest}
           aria-describedby={fieldDescribedBy(
             { endText: endTextId(), startText: startTextId() },

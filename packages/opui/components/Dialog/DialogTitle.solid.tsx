@@ -2,7 +2,6 @@
 import { omit, untrack } from "solid-js"
 import { useDialogContext } from "./context.solid"
 import { warnReplacedId } from "../dev"
-import { cx } from "../cx"
 import type { DialogTitleProps as Props } from "./types.solid"
 
 export default function DialogTitle(props: Props) {
@@ -13,7 +12,7 @@ export default function DialogTitle(props: Props) {
   })
 
   return (
-    <h2 class={cx([props.class])} id={dialog?.titleId ?? props.id} {...rest}>
+    <h2 class={props.class} id={dialog?.titleId ?? props.id} {...rest}>
       {props.children}
     </h2>
   )

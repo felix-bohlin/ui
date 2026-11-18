@@ -24,13 +24,9 @@ export default function Radio(props: Props) {
   const resolvedChildren = children(() => props.children)
   const resolvedEndText = children(() => props.endText)
   untrack(() => {
-    warnUnnamed(
-      "Radio",
-      hasName({ ...rest, label: props.label }, resolvedChildren()),
-    )
+    warnUnnamed("Radio", hasName(props, resolvedChildren()))
   })
-  const radioInputAriaInvalid = () =>
-    props.error ? "true" : props["aria-invalid"]
+  const invalid = () => (props.error ? "true" : props["aria-invalid"])
 
   return (
     <label
@@ -49,9 +45,9 @@ export default function Radio(props: Props) {
       ]}
       style={props.style}
     >
-      <RadioInput {...rest} aria-invalid={radioInputAriaInvalid()} />
+      <RadioInput {...rest} aria-invalid={invalid()} />
       {(props.label || resolvedChildren()) && (
-        <span class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}>
+        <span class={props.hideLabel ? "ui-sr-only" : "ui-label"}>
           {props.label}
           {resolvedChildren()}
         </span>

@@ -3,6 +3,7 @@ import { children, createUniqueId, omit, untrack } from "solid-js"
 import "../../elements/character-count.js"
 import { useFieldGroupContext } from "../FieldGroup/context.solid"
 import { fieldDescribedBy } from "../id"
+import { bound } from "../solid"
 import type { Props } from "./types.solid"
 
 export default function Textarea(props: Props) {
@@ -19,9 +20,11 @@ export default function Textarea(props: Props) {
     "hideLabel",
     "id",
     "name",
+    "ref",
     "size",
     "spread",
     "style",
+    "value",
     "variant",
     "children",
     "bottom",
@@ -41,6 +44,8 @@ export default function Textarea(props: Props) {
   const resolvedTop = children(() => props.top)
   const field = useFieldGroupContext()
   const uid = createUniqueId()
+  const initialValue = untrack(() => props.value)
+  const valueRef = bound("value", () => props.value)
   const base = () => props.id || `textarea-${uid}`
   const hasLabel = () => Boolean(resolvedLabel())
   const hasStartText = () => Boolean(resolvedStartText())
@@ -70,7 +75,7 @@ export default function Textarea(props: Props) {
     >
       {hasLabel() && (
         <label
-          class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}
+          class={props.hideLabel ? "ui-sr-only" : "ui-label"}
           for={textareaId()}
         >
           {resolvedLabel()}
@@ -93,7 +98,8 @@ export default function Textarea(props: Props) {
           </span>
         )}
         <textarea
-          defaultValue={untrack(() => props.value)}
+          defaultValue={initialValue}
+          ref={[props.ref, valueRef]}
           {...rest}
           aria-describedby={fieldDescribedBy(
             {

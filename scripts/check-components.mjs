@@ -69,7 +69,11 @@ export const checkClassPrefix = (lists, label) =>
 const CLASS_LISTS = [
   [".astro", /class:list=\{\[|\bclass=\{cx\(\[/g, "class:list"],
   [".react.tsx", /\bcx\(\[|\bclassName=\{(?!cx\()/g, "cx"],
-  [".solid.tsx", /\bclass=\{\[|\bclass=\{cx\(\[/g, "class"],
+  [
+    ".solid.tsx",
+    /\bclass=\{\[|\bclass=\{cx\(\[|\bclass=\{(?!\[|cx\()/g,
+    "class",
+  ],
   [".svelte", /\bclass=\{\[|\{\.\.\.classAttrs\(\[/g, "class"],
   [".vue", /:class="\[|\bclassAttrs\(\[/g, ":class"],
 ]
@@ -256,7 +260,9 @@ const classTokens = (lists) =>
       [
         ...items
           .join(" ")
-          .matchAll(/ui-\$\{(?:props\.)?(\w+)|ui-[\w-]+|\bclassName\b/g),
+          .matchAll(
+            /ui-\$\{(?:props\.|\w+\(\)\.)?(\w+)|ui-[\w-]+|\bclassName\b/g,
+          ),
       ]
         .map(([token, name]) => (name ? `ui-\${${name}}` : token))
         .join(" "),
@@ -416,6 +422,23 @@ const nodesIn = (node, test) => {
   }
   visit(node)
   return found
+}
+
+const isJsx = (node) =>
+  ts.isJsxElement(node) ||
+  ts.isJsxSelfClosingElement(node) ||
+  ts.isJsxFragment(node)
+
+const inList = (node) => {
+  for (let parent = node.parent; parent; parent = parent.parent) {
+    if (
+      ts.isJsxElement(parent) &&
+      ["For", "Repeat"].includes(parent.openingElement.tagName.getText())
+    ) {
+      return true
+    }
+  }
+  return false
 }
 
 const callsTo = (script, name) =>
@@ -650,15 +673,54 @@ export const checkSolidProps = (
       )
     }
     for (const slot of slots) {
-      const reads =
-        source.match(new RegExp(`(?<![\\w$.])props\\.${slot}(?![\\w$])`, "g"))
-          ?.length ?? 0
+      const reads = nodesIn(
+        script,
+        (node) =>
+          ts.isPropertyAccessExpression(node) &&
+          node.getText() === `props.${slot}` &&
+          !inList(node),
+      ).length
       if (reads > 1) {
         problems.push(
-          `reads props.${slot} ${reads} times: each read builds the slot's DOM again, so resolve it once with children(() => props.${slot})`,
+          `reads props.${slot} ${reads} times outside a <For>: each read builds the slot's DOM again, so resolve it once with children(() => props.${slot}), and read the prop itself only where a list renders it once per item`,
         )
       }
     }
+  }
+  const mapped = nodesIn(
+    script,
+    (node) =>
+      ts.isCallExpression(node) &&
+      ts.isPropertyAccessExpression(node.expression) &&
+      node.expression.name.text === "map" &&
+      node.arguments.some(
+        (argument) =>
+          (ts.isArrowFunction(argument) || ts.isFunctionExpression(argument)) &&
+          nodesIn(argument, isJsx).length > 0,
+      ),
+  )
+  if (mapped.length > 0) {
+    problems.push(
+      "builds JSX with .map(): Solid runs the whole callback again when the list changes and builds every row anew, so list with <For each={list}> or <Repeat count={count}>",
+    )
+  }
+  const literalTag = (node) =>
+    !!node &&
+    (ts.isStringLiteralLike(node) ||
+      (ts.isArrowFunction(node) && ts.isStringLiteralLike(node.body)) ||
+      (ts.isIdentifier(node) &&
+        nodesIn(
+          script,
+          (declaration) =>
+            ts.isVariableDeclaration(declaration) &&
+            declaration.name.getText() === node.text &&
+            !!declaration.initializer &&
+            literalTag(declaration.initializer),
+        ).length > 0))
+  if (callsTo(script, "dynamic").some((tag) => literalTag(tag.arguments[0]))) {
+    problems.push(
+      "calls dynamic() on a string literal: a tag that is always one string is the element itself (<selectedcontent />), and dynamic() is for a tag that reads a prop",
+    )
   }
   return problems
 }

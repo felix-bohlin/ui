@@ -2,6 +2,7 @@
 import { children, createUniqueId, omit, untrack } from "solid-js"
 import { useFieldGroupContext } from "../FieldGroup/context.solid"
 import { fieldDescribedBy } from "../id"
+import { bound } from "../solid"
 import type { Props } from "./types.solid"
 
 export default function OneTimeCode(props: Props) {
@@ -20,9 +21,11 @@ export default function OneTimeCode(props: Props) {
     "length",
     "name",
     "pattern",
+    "ref",
     "size",
     "spellcheck",
     "style",
+    "value",
     "endText",
     "label",
   )
@@ -30,6 +33,8 @@ export default function OneTimeCode(props: Props) {
   const resolvedLabel = children(() => props.label)
   const field = useFieldGroupContext()
   const uid = createUniqueId()
+  const initialValue = untrack(() => props.value)
+  const valueRef = bound("value", () => props.value)
   const length = () => (props.length === undefined ? 6 : props.length)
   const hasLabel = () => Boolean(resolvedLabel())
   const hasEndText = () => Boolean(resolvedEndText())
@@ -70,7 +75,8 @@ export default function OneTimeCode(props: Props) {
           spellcheck={
             props.spellcheck ?? (props.alphanumeric ? "false" : undefined)
           }
-          defaultValue={untrack(() => props.value)}
+          defaultValue={initialValue}
+          ref={[props.ref, valueRef]}
           {...rest}
           aria-describedby={fieldDescribedBy(
             { endText: endTextId() },

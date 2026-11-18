@@ -19,7 +19,6 @@ export default function Callout(props: Props) {
     "children",
     "closeIcon",
   )
-  const resolvedCloseIcon = children(() => props.closeIcon)
   const uid = createUniqueId()
   const closeLabel = () =>
     props.closeLabel === undefined ? "Close" : props.closeLabel
@@ -27,16 +26,10 @@ export default function Callout(props: Props) {
   const root = () => (props.closeButton ? "opui-callout" : "article")
   const Root = dynamic(root)
   const rootId = () => (props.closeButton ? base() : props.id)
-  const rootRole = () => (props.closeButton ? "article" : undefined)
-
-  return (
-    <CalloutContext
-      value={{
-        get severity() {
-          return props.severity
-        },
-      }}
-    >
+  const role = () => (props.closeButton ? "article" : undefined)
+  const content = () => {
+    const resolvedCloseIcon = children(() => props.closeIcon)
+    return (
       <Root
         class={[
           "ui-callout",
@@ -45,7 +38,7 @@ export default function Callout(props: Props) {
           props.class,
         ]}
         id={rootId()}
-        role={rootRole()}
+        role={role()}
         {...defined(rest as object)}
       >
         {props.children}
@@ -71,6 +64,18 @@ export default function Callout(props: Props) {
           </Button>
         )}
       </Root>
+    )
+  }
+
+  return (
+    <CalloutContext
+      value={{
+        get severity() {
+          return props.severity
+        },
+      }}
+    >
+      {content()}
     </CalloutContext>
   )
 }

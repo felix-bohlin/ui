@@ -4,6 +4,7 @@ import {
   createRenderEffect,
   flatten,
   merge,
+  omit,
   untrack,
 } from "solid-js"
 
@@ -85,3 +86,6 @@ export const dynamic =
       spread(node, props)
       return node
     })
+
+export const Dynamic = (props: Record<string, unknown>) =>
+  dynamic(() => props.component)(omit(props, "component"))

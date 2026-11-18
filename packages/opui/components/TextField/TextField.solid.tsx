@@ -6,6 +6,7 @@ import "../../elements/text-field.js"
 import Button from "../Button/Button.solid"
 import { useFieldGroupContext } from "../FieldGroup/context.solid"
 import { fieldDescribedBy } from "../id"
+import { bound } from "../solid"
 import type { Props } from "./types.solid"
 
 export default function TextField(props: Props) {
@@ -26,10 +27,12 @@ export default function TextField(props: Props) {
     "name",
     "passwordToggle",
     "passwordToggleLabel",
+    "ref",
     "size",
     "spread",
     "style",
     "type",
+    "value",
     "variant",
     "children",
     "bottom",
@@ -53,6 +56,8 @@ export default function TextField(props: Props) {
   const resolvedTop = children(() => props.top)
   const field = useFieldGroupContext()
   const uid = createUniqueId()
+  const initialValue = untrack(() => props.value)
+  const valueRef = bound("value", () => props.value)
   const passwordToggleLabel = () =>
     props.passwordToggleLabel === undefined
       ? "Show password"
@@ -90,7 +95,7 @@ export default function TextField(props: Props) {
     >
       {hasLabel() && (
         <label
-          class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}
+          class={props.hideLabel ? "ui-sr-only" : "ui-label"}
           for={inputId()}
         >
           {resolvedLabel()}
@@ -113,7 +118,8 @@ export default function TextField(props: Props) {
           </span>
         )}
         <input
-          defaultValue={untrack(() => props.value)}
+          defaultValue={initialValue}
+          ref={[props.ref, valueRef]}
           {...rest}
           aria-describedby={fieldDescribedBy(
             {

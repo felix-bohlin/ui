@@ -1727,6 +1727,13 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix. ControlGroup's scroll mode already keeps its buttons at full width on one line.
   - Fix: `&.ui-overflow-scroll { & > .ui-toggle-button { flex: none; inline-size: max-content; } }`
   - Fixed: Fixed in 907d1a484: `inline-size: max-content` on the toggles of `.ui-overflow-scroll`. Checked in Chromium at 390px and 1280px, also with `dir="rtl"`, on the Overflow example with a long German first label: the scrolling row stays 40px high and scrolls, where the old rule made it 84px. The ToggleGroup `overflow` Added entry says so.
+- [ ] (2) Callout: a Solid Callout or SortableTable acts on a press before hydration when the page loads `elements/callout.js` or `elements/sortable-table.js` itself ahead of the Solid bundle: the callout hides without `onDismiss` and the table sorts without `onSort`, where the React ports wait behind `data-hydrating` (`packages/opui/components/Callout/Callout.solid.tsx`, `packages/opui/components/SortableTable/SortableTable.solid.tsx`, `tests/apps/apps.spec.ts`)
+  - Summary: In Solid, a callout dismissed or a table sorted just before hydration skips the app's handler if the element script loaded early.
+  - Recommended: Fix with option A. It only bites when the element script loads before the components, which the Solid components don't do on their own.
+  - Fix: confirmed on `tests/apps/solid-start` with the React scenarios of `tests/apps/apps.spec.ts` and the element script defined first.
+  - Options:
+    - A (recommended): keep the markup and say in the Solid notes of Callout and SortableTable not to load the element script ahead of the components.
+    - B: give the Solid ports the `data-hydrating` gate React has, and accept three Solid parity `.diff` files like React's (`callout/Dismissible`, `table/Sortable`, `table/SortableData`).
 
 ## Docs
 
@@ -5447,10 +5454,20 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Recommended: Fix. `useListener` already passes a caller's ref on, as Callout shows.
   - Fix: take `ref` through `ComponentProps<"opui-sortable-table">`, as Toaster does, pass it to `useListener`, remove `data-hydrating` from the element the ref callback receives, and update the ledger reason for `types.react.ts`.
   - Fixed: Already in 93538658 ("pass a SortableTable ref on"): the React types take `ref` through `ComponentProps<"opui-sortable-table">`, the component passes it to `useListener` and takes `data-hydrating` off the element its ref callback receives, and the `types.react.ts` ledger entry is gone. Since 9cac3d61d the compiler writes the whole port.
-- [ ] (3) Package: the server-rendered Solid app test runs on the `start` option of `@solidjs/vite-plugin`, not on SolidStart, since SolidStart 2.2.3 requires solid-js 1.9 (`tests/apps/apps.ts`, `tests/apps/solid-start/vite.config.ts`)
+- [x] (1) Package: two compiled Solid files shadow a name: the `<Show>` parameter `tag` in ListItem shadows its accessor, and Rating's per-item `initialChecked` shadows the one in the component body (`packages/opui/components/ListItem/ListItem.solid.tsx`, `packages/opui/components/Rating/Rating.solid.tsx`, `scripts/component-solid.mjs`)
+  - Summary: Two compiled Solid files reuse a name in an inner scope, with no effect on behavior.
+  - Recommended: Fix. A distinct name in the inner scope reads better in the files the docs show.
+  - Fix: in `scripts/component-solid.mjs`, name the narrowed `<Show>` parameter and a per-item initial value apart from a body-level name they would shadow.
+  - Fixed: the narrowed parameter is `shownTag` and the per-item value `initialItemChecked`, and a loop scope sees the names the body hoists.
+- [x] (3) Package: the server-rendered Solid app test runs on the `start` option of `@solidjs/vite-plugin`, not on SolidStart, since SolidStart 2.2.3 requires solid-js 1.9 (`tests/apps/apps.ts`, `tests/apps/solid-start/vite.config.ts`)
   - Summary: The Solid app test uses the Vite plugin's server layer until SolidStart supports Solid 2.
   - Recommended: Fix. Add a SolidStart app next to it once a release takes solid-js 2, so the meta-framework people scaffold is covered like Next.js, Nuxt and SvelteKit.
   - Fix: when a `@solidjs/start` release takes solid-js 2 as a peer, add a SolidStart app to `tests/apps/apps.ts` with `ssr: true`, and name it in the app test lines of `AGENTS.md` and `README.md`.
+  - Removed: Solid 2 needs no SolidStart: start mode of `@solidjs/vite-plugin` is its own application layer ("in place of SolidStart" in the plugin's README), and `tests/apps/solid-start` already renders every example on the server with it. The Solid Getting started page and the README name the `start` and `ssr` options.
+- [ ] (1) Range: the Solid Range loops its `options` with the default identity key of `<For>`, while Menu, Rating, Stepper and Timeline key by index and Select by value (`packages/opui/components/Range/Range.solid.tsx`, `scripts/component-solid.mjs`)
+  - Summary: The Solid Range rebuilds its tick marks when `options` is replaced with new objects, with no effect on the slider itself.
+  - Recommended: Fix. One key rule for every loop reads better, and the ticks hold no state today.
+  - Fix: in `scripts/component-solid.mjs`, narrow a loop item that is a union through its accessor so the Range loop can take `keyed={false}` too.
 - [ ] (3) Docs site: the icon libraries list no Solid package: `lucide-solid` 1.74 and `@tabler/icons-solidjs` 3.52 require solid-js 1, and Fluent, Material Symbols and Phosphor ship none (`src/utils/icon-libraries.ts`)
   - Summary: The icon pages name React, Svelte and Vue icon packages but none for Solid, since none supports Solid 2 yet.
   - Recommended: Fix. List each library's Solid package once it accepts solid-js 2.
@@ -5813,3 +5830,11 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - B: keep it open until WebKit ships the fix.
   - Still open: re-checked: the expected failure is `WEBKIT_TOP_LAYER_ANCHOR` now, renamed from `WEBKIT_SCROLLED_ANCHOR`, still in `tests/e2e/engine-bugs.ts` with its repro in `engines.spec.ts`, so the notes above hold under the new name.
   - Removed: Option A: WebKit has the bug on file (bug 301023), and `WEBKIT_TOP_LAYER_ANCHOR` in `tests/e2e/engine-bugs.ts` with its repro in `tests/e2e/engines.spec.ts:62` fails with "expected to fail but passed" once WebKit ships the fix. Nothing is left to check or report.
+- [x] (2) Tabs: with `value` set and an `onValueChange` that keeps the old value, the Solid group may leave the clicked item checked, since `checkedProps` writes `checked` only when the accessor changes, while React puts a controlled input back (`packages/opui/components/Tabs/TabsItem.solid.tsx`, `packages/opui/components/ToggleButton/ToggleButton.solid.tsx`, `src/component-api/tabs/api.ts`, `src/component-api/toggle-group/api.ts`)
+  - Summary: A Solid handler that refuses a tab or toggle change may leave the clicked item shown while the state holds the old one, unlike React.
+  - Recommended: Fix with option A. It matches how Solid treats native inputs.
+  - Fix: confirm first on `/solid/components/tabs/` (Binding) with an `onValueChange` that doesn't call the setter.
+  - Options:
+    - A (recommended): add to the Solid notes of Tabs and ToggleGroup that `value` follows the prop when it changes and a refused choice has to be written back.
+    - B: have `change` write `checked` back on the inputs when `props.value` is set and unchanged after `onValueChange`.
+  - Fixed: confirmed in Chromium, on Rating too. `restoreChecked` in `packages/opui/components/solid.ts` puts the inputs back after `onValueChange` when `value` is set and unchanged, as React does, and `tests/e2e/solid-models.spec.ts` covers it.

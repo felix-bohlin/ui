@@ -1,9 +1,10 @@
 /** @jsxImportSource @solidjs/web */
-import { children, createUniqueId, omit, untrack } from "solid-js"
+import { children, createUniqueId, For, omit, untrack } from "solid-js"
 import "../../css/js/range.js"
 import { useFieldGroupContext } from "../FieldGroup/context.solid"
 import { idRefs } from "../id"
 import { formatValue, middleValue } from "./value"
+import { bound } from "../solid"
 import type { Props } from "./types.solid"
 
 export default function Range(props: Props) {
@@ -23,10 +24,12 @@ export default function Range(props: Props) {
     "max",
     "min",
     "name",
+    "ref",
     "size",
     "spread",
     "step",
     "style",
+    "value",
     "valueSuffix",
     "variant",
     "datalist",
@@ -42,11 +45,9 @@ export default function Range(props: Props) {
   const resolvedValueText = children(() => props.valueText)
   const field = useFieldGroupContext()
   const uid = createUniqueId()
-  const model = {
-    get value() {
-      return props.value ?? props.defaultValue
-    },
-  }
+  const initialValue = untrack(() => props.value)
+  const valueRef = bound("value", () => props.value)
+  const value = () => props.value ?? props.defaultValue
   const base = () => props.id || `range-${uid}`
   const hasLabel = () => !!resolvedLabel()
   const hasStartText = () => !!resolvedStartText()
@@ -55,8 +56,7 @@ export default function Range(props: Props) {
   const hasValue = () => props.valueSuffix !== undefined || hasValueText()
   const hasDatalist = () => !!props.items || resolvedDatalist()
   const current = () =>
-    model.value ??
-    middleValue({ max: props.max, min: props.min, step: props.step })
+    value() ?? middleValue({ max: props.max, min: props.min, step: props.step })
   const readout = () =>
     `${formatValue(current(), { lang: props.lang, min: props.min, step: props.step })}${props.valueSuffix ?? ""}`
   const tick = () =>
@@ -96,7 +96,7 @@ export default function Range(props: Props) {
     >
       {hasLabel() && (
         <span
-          class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}
+          class={props.hideLabel ? "ui-sr-only" : "ui-label"}
           id={labelId()}
         >
           {resolvedLabel()}
@@ -119,7 +119,8 @@ export default function Range(props: Props) {
         </span>
       )}
       <input
-        defaultValue={untrack(() => props.value)}
+        defaultValue={initialValue}
+        ref={[props.ref, valueRef]}
         {...rest}
         aria-describedby={describedBy()}
         aria-invalid={props.error ? "true" : props["aria-invalid"]}
@@ -138,13 +139,15 @@ export default function Range(props: Props) {
       />
       {hasDatalist() && (
         <datalist aria-hidden="true" id={listId()}>
-          {props.items?.map((option) =>
-            typeof option === "object" ? (
-              <option value={option.value} label={option.label} />
-            ) : (
-              <option value={option} />
-            ),
-          )}
+          <For each={props.items}>
+            {(option) =>
+              typeof option === "object" ? (
+                <option value={option.value} label={option.label} />
+              ) : (
+                <option value={option} />
+              )
+            }
+          </For>
           {resolvedDatalist()}
         </datalist>
       )}

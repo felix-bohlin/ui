@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { omit } from "solid-js"
+import { For, omit } from "solid-js"
 import StepperItem from "./StepperItem.solid"
 import type { Props } from "./types.solid"
 
@@ -29,19 +29,21 @@ export default function Stepper(props: Props) {
       ]}
       {...rest}
     >
-      {props.items?.map((item, index) => (
-        <StepperItem
-          completeLabel={props.completeLabel}
-          errorLabel={props.errorLabel}
-          {...item}
-          complete={
-            item.complete ||
-            props.complete ||
-            (props.current !== undefined && index < props.current)
-          }
-          current={item.current || index === props.current}
-        />
-      ))}{" "}
+      <For each={props.items} keyed={false}>
+        {(item, index) => (
+          <StepperItem
+            completeLabel={props.completeLabel}
+            errorLabel={props.errorLabel}
+            {...item()}
+            complete={
+              item().complete ||
+              props.complete ||
+              (props.current !== undefined && index < props.current)
+            }
+            current={item().current || index === props.current}
+          />
+        )}
+      </For>{" "}
       {props.children}
     </ol>
   )

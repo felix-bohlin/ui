@@ -2,6 +2,7 @@
 import { createSignal, createUniqueId, omit, untrack } from "solid-js"
 import { TabsContext } from "./context.solid"
 import { warnUnnamedGroup } from "../dev"
+import { restoreChecked } from "../solid"
 import type { Props } from "./types.solid"
 
 export default function Tabs(props: Props) {
@@ -24,8 +25,8 @@ export default function Tabs(props: Props) {
     const next = input.value
     if (inner() !== undefined) setInner(next)
     props.onValueChange?.(next)
+    restoreChecked(input, () => props.value)
   }
-  const groupName = () => props.name || `tabs-${uid}`
   untrack(() => {
     if (props.role === "radiogroup") warnUnnamedGroup("Tabs", rest)
   })
@@ -35,7 +36,7 @@ export default function Tabs(props: Props) {
       value={{
         change,
         get groupName() {
-          return groupName()
+          return props.name || `tabs-${uid}`
         },
         get value() {
           return props.value ?? inner()

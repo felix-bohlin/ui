@@ -27,10 +27,15 @@ import {
   filtersSpread,
   identifierCounts,
   identifiersIn,
+  isBlank,
   isIdentifierName,
+  slotsUsedIn,
   sourceFileOf,
   unsupported,
+  unwrap,
 } from "./component-shared.mjs"
+
+const PER_ITEM = "\u0000"
 
 const propAccess = (prop) =>
   isIdentifierName(prop) ? `props.${prop}` : `props[${JSON.stringify(prop)}]`
@@ -60,6 +65,34 @@ const parameterNames = (text) => {
   return names
 }
 
+const itemBinding = (text) => {
+  const [statement] = sourceFileOf(`(${text}) => 0`, "item.ts").statements
+  const arrow =
+    statement && ts.isExpressionStatement(statement)
+      ? statement.expression
+      : undefined
+  const name =
+    arrow && ts.isArrowFunction(arrow) ? arrow.parameters[0]?.name : undefined
+  if (!name) return undefined
+  if (ts.isIdentifier(name)) return { fields: [], name: name.text }
+  if (!ts.isObjectBindingPattern(name)) return undefined
+  const fields = []
+  let rest
+  for (const element of name.elements) {
+    const key = element.propertyName ?? element.name
+    if (
+      element.initializer ||
+      !ts.isIdentifier(element.name) ||
+      !ts.isIdentifier(key)
+    ) {
+      return undefined
+    }
+    if (element.dotDotDotToken) rest = element.name.text
+    else fields.push({ key: key.text, local: element.name.text })
+  }
+  return { fields, rest }
+}
+
 const isCondition = (code) => {
   const [statement] = sourceFileOf(`(${code})`, "condition.ts").statements
   let expression =
@@ -81,6 +114,81 @@ const isCondition = (code) => {
         expression.operatorToken.kind ===
           ts.SyntaxKind.AmpersandAmpersandToken))
   )
+}
+
+const expressionOf = (code) => {
+  const [statement] = sourceFileOf(`(${code})`, "expression.ts").statements
+  return statement && ts.isExpressionStatement(statement)
+    ? unwrap(statement.expression)
+    : undefined
+}
+
+const passesAsArgument = (code, name) => {
+  const visit = (node) =>
+    (ts.isCallExpression(node) &&
+      node.arguments.some(
+        (argument) => ts.isIdentifier(argument) && argument.text === name,
+      )) ||
+    !!ts.forEachChild(node, visit)
+  return visit(sourceFileOf(`(${code})`, "argument.ts"))
+}
+
+const arrowOf = (code) => {
+  const arrow = expressionOf(code)
+  if (!arrow || !ts.isArrowFunction(arrow) || ts.isBlock(arrow.body)) {
+    return undefined
+  }
+  const text = arrow.getSourceFile().text
+  return {
+    body: arrow.body.getText(),
+    head: text.slice(arrow.getStart(), arrow.equalsGreaterThanToken.end),
+  }
+}
+
+const slotsIn = (nodes) =>
+  nodes.flatMap((node) => {
+    if (node.type === "slot") {
+      return [slotProp(node.name), ...slotsIn(node.fallback)]
+    }
+    if (node.type === "if") {
+      return [...slotsIn(node.consequent), ...slotsIn(node.alternate ?? [])]
+    }
+    return node.children ? slotsIn(node.children) : []
+  })
+
+const isReserved = (name) =>
+  ts.identifierToKeywordKind(ts.factory.createIdentifier(name)) !== undefined
+
+const staticTag = (code) => /^"([a-z][a-z0-9-]*)"$/.exec(code.trim())?.[1]
+
+const shortName = (attribute) =>
+  attribute
+    .replace(/^(aria|data)-/, "")
+    .split(/[^A-Za-z0-9]+/)
+    .filter(Boolean)
+    .map((part, index) => (index ? capitalize(part) : part))
+    .join("")
+
+const SPREAD_OF_PROPS =
+  /\{\s*\.\.\.rest,(\s*([A-Za-z_$][\w$]*): props\.\2,?)+\s*\}/g
+
+const onlyClass = (code) => {
+  const [statement] = sourceFileOf(`(${code})`, "class.ts").statements
+  const list =
+    statement && ts.isExpressionStatement(statement)
+      ? unwrap(statement.expression)
+      : undefined
+  if (!list || !ts.isArrayLiteralExpression(list)) return undefined
+  const [entry] = list.elements
+  if (list.elements.length !== 1) return undefined
+  const value = unwrap(entry)
+  return ts.isObjectLiteralExpression(value) ||
+    ts.isArrayLiteralExpression(value) ||
+    ts.isSpreadElement(value) ||
+    (ts.isBinaryExpression(value) &&
+      value.operatorToken.kind === ts.SyntaxKind.AmpersandAmpersandToken)
+    ? undefined
+    : entry.getText()
 }
 
 export const toSolid = (component) => {
@@ -114,12 +222,20 @@ export const toSolid = (component) => {
       "add a solid entry to MODEL_KINDS in scripts/component-models.mjs",
     )
   }
-  const inRest = kind?.inRest ? model.local : undefined
   const props = component.props.filter(
     ({ local }) => !stringSlots.includes(local),
   )
   const tagProps = props.filter(({ local }) => variableTags.includes(local))
-  const tagConsts = derived.filter(({ name }) => variableTags.includes(name))
+  const staticTags = new Map(
+    derived
+      .filter(
+        ({ code, name }) => variableTags.includes(name) && staticTag(code),
+      )
+      .map(({ code, name }) => [name, staticTag(code)]),
+  )
+  const tagConsts = derived.filter(
+    ({ name }) => variableTags.includes(name) && !staticTags.has(name),
+  )
   const lowered = tagNamer(component)
   const defaulted = props.filter(
     (entry) => entry.default !== undefined && !tagProps.includes(entry),
@@ -182,11 +298,11 @@ export const toSolid = (component) => {
       "rename the prop or const in the Astro file",
     )
   }
-  const accessorCode = (name, code) => {
+  const narrowed = (name, code) => {
     const once = [...identifierCounts(code)]
       .filter(([read, count]) => count > 1 && rename.get(read)?.endsWith("()"))
-      .map(([read]) => [read, `${read}Value`])
-    if (once.length === 0) return `const ${name} = () => ${rewrite(code)}`
+      .map(([read]) => [read, read === "value" ? "current" : `${read}Value`])
+    if (once.length === 0) return { locals: [], value: rewrite(code) }
     const clash = once.find(
       ([, local]) => taken.has(local) || identifiersIn(code).has(local),
     )
@@ -198,24 +314,47 @@ export const toSolid = (component) => {
       )
     }
     const scope = { ...options, rename: new Map([...rename, ...once]) }
-    return `const ${name} = () => {\n${once.map(([read, local]) => `const ${local} = ${rename.get(read)}`).join("\n")}\nreturn ${rewrite(code, scope)}\n}`
+    return {
+      locals: once.map(
+        ([read, local]) => `const ${local} = ${rename.get(read)}`,
+      ),
+      value: rewrite(code, scope),
+    }
   }
+  const functionBody = ({ locals, value }) =>
+    locals.length ? `{\n${locals.join("\n")}\nreturn ${value}\n}` : value
+  const accessorCode = (name, code) =>
+    `const ${name} = () => ${functionBody(narrowed(name, code))}`
+  const functionCode = (name, code) => {
+    const arrow = arrowOf(code)
+    const parts = arrow && narrowed(name, arrow.body)
+    return parts?.locals.length
+      ? `const ${name} = ${arrow.head} ${functionBody(parts)}`
+      : `const ${name} = ${rewrite(code)}`
+  }
+  const reactiveIn = (code, scope) =>
+    code.includes("Astro.slots") ||
+    [...identifiersIn(code)].some(
+      (name) => name === rest || (scope.rename.get(name) ?? name) !== name,
+    )
   const codesOf = (nodes) => [
     ...codesIn(nodes),
     ...elementsIn(nodes).flatMap((element) =>
       element.attributes.map((entry) => entry.code ?? ""),
     ),
   ]
-  const uses = (nodes, name) =>
-    codesOf(nodes).some((code) => identifiersIn(code).has(name))
+  let usesChildren = false
+  let usesFor = false
+  let usesOmit = false
   let usesShow = false
   let usesCx = false
   let usesDefined = false
-  let usesLoopDynamic = false
+  let usesDynamicComponent = false
   const omitted = [
     ...[
-      ...props.filter(({ local }) => local !== inRest).map(({ prop }) => prop),
+      ...props.map(({ prop }) => prop),
       ...(kind?.entries?.() ?? []),
+      ...(kind?.omits?.(model) ?? []),
       ...(kind?.ownDefault?.(model) ? ["defaultValue"] : []),
       ...(item ? ["defaultChecked", "onChange", "ref"] : []),
     ]
@@ -249,18 +388,27 @@ export const toSolid = (component) => {
       `const ${lowered(local)} = () => ${fallback ? `${propAccess(prop)} || ${fallback}` : propAccess(prop)}`,
       `const ${local} = dynamic(${lowered(local)})`,
     ]),
-    ...derived.flatMap(({ code, name }) =>
-      variableTags.includes(name)
-        ? [
-            `const ${lowered(name)} = () => ${rewrite(code)}`,
-            `const ${name} = dynamic(${lowered(name)})`,
-          ]
-        : accessors.has(name)
-          ? [accessorCode(name, code)]
-          : [`const ${name} = ${rewrite(code)}`],
+    ...derived.flatMap(({ code, fn, name }) =>
+      staticTags.has(name)
+        ? allCodes(component).some((other) => identifiersIn(other).has(name))
+          ? [`const ${name} = ${code}`]
+          : []
+        : variableTags.includes(name)
+          ? [
+              `const ${lowered(name)} = () => ${rewrite(code)}`,
+              `const ${name} = dynamic(${lowered(name)})`,
+            ]
+          : accessors.has(name)
+            ? [accessorCode(name, code)]
+            : [
+                fn
+                  ? functionCode(name, code)
+                  : `const ${name} = ${rewrite(code)}`,
+              ],
     ),
     ...warnings.map(
-      (code) => `untrack(() => {\n${rewriteStatement(code, options)}\n})`,
+      (code) =>
+        `untrack(() => {\n${rewriteStatement(code, options).replace(SPREAD_OF_PROPS, "props")}\n})`,
     ),
     ...(item
       ? [
@@ -274,42 +422,56 @@ export const toSolid = (component) => {
       : []),
   ]
   const hoistedNames = new Set()
-  const declare = (scope, base, code, line) => {
+  const freeName = (scope, bases, used = []) => {
+    const names = scope.names ?? hoistedNames
+    const free = (name) =>
+      !isReserved(name) &&
+      !taken.has(name) &&
+      !names.has(name) &&
+      !used.includes(name) &&
+      !scope.shadowed?.includes(name)
+    let name = bases.find(free)
+    for (let count = 2; !name; count += 1) {
+      if (free(`${bases[0]}${count}`)) name = `${bases[0]}${count}`
+    }
+    return name
+  }
+  const declare = (scope, bases, code, line) => {
     const known = scope.hoisted.find((entry) => entry.code === code)
     if (known) return known.name
-    const free = (name) =>
-      !taken.has(name) &&
-      !hoistedNames.has(name) &&
-      !scope.shadowed?.includes(name)
-    let name = base
-    for (let count = 2; !free(name); count += 1) name = `${base}${count}`
-    hoistedNames.add(name)
+    const name = freeName(scope, bases)
+    const names = scope.names ?? hoistedNames
+    names.add(name)
     scope.hoisted.push({ code, line: line(name), name })
     return name
   }
   const hoist = (node, entry, code, scope) =>
     declare(
       scope,
-      `${node.tag[0].toLowerCase()}${node.tag.slice(1)}${entry.name
-        .split(/[^A-Za-z0-9]+/)
-        .map(capitalize)
-        .join("")}`,
+      [
+        shortName(entry.name),
+        `${node.tag[0].toLowerCase()}${node.tag.slice(1)}${capitalize(shortName(entry.name))}`,
+        ...(scope.loop ? [`item${capitalize(shortName(entry.name))}`] : []),
+      ],
       code,
       (name) => `const ${name} = () => ${code}`,
     )
   let usesInitial = false
-  const initialChecked = (code, scope) => {
+  const initialState = (state, code, scope) => {
     usesInitial = true
     const initial = `untrack(() => ${code})`
     return declare(
       scope,
-      "initialChecked",
+      [`initial${scope.loop ? "Item" : ""}${capitalize(state)}`],
       initial,
       (name) => `const ${name} = ${initial}`,
     )
   }
+  const initialChecked = (code, scope) => initialState("checked", code, scope)
   const attribute = (node, entry, scope) => {
     if (entry.kind === "class") {
+      const only = onlyClass(entry.code)
+      if (only !== undefined) return `class={${rewrite(only, scope)}}`
       const code = rewrite(entry.code, scope)
       if (!classMayBeEmpty(entry.code)) return `class={${code}}`
       usesCx = true
@@ -343,61 +505,179 @@ export const toSolid = (component) => {
     if (entry.kind === "static") return jsxAttribute(entry.name, entry.value)
     if (entry.kind === "boolean") return entry.name
     const code = rewrite(entry.code, scope)
-    if ((node.component || node.variable) && isCondition(code)) {
+    if (node.tag === "option" && entry.name === "selected") {
+      return `defaultSelected={${initialState("selected", code, scope)}}`
+    }
+    if (
+      (node.component || node.variable) &&
+      isCondition(code) &&
+      reactiveIn(entry.code, scope)
+    ) {
       return `${entry.name}={${hoist(node, entry, code, scope)}()}`
     }
     return `${entry.name}={${code}}`
+  }
+  const slotRead = (name, scope, rendered) => {
+    if (scope?.itemSlots?.has(name)) {
+      usesChildren = true
+      const read = `${PER_ITEM}${propAccess(name)}`
+      return `${declare(
+        scope,
+        [`resolved${capitalize(name)}`],
+        read,
+        (resolved) => `const ${resolved} = children(() => ${read})`,
+      )}()`
+    }
+    return rendered && scope?.loop
+      ? `${PER_ITEM}${propAccess(name)}`
+      : propAccess(name)
   }
   const narrow = (node, scope, branch) => {
     const name = node.test.trim()
     const accessor = /^([A-Za-z_$][\w$]*)\(\)$/.exec(
       scope.rename.get(name) ?? "",
     )?.[1]
-    if (!accessor || !uses(node.consequent, name)) return undefined
+    if (
+      !accessor ||
+      !(
+        elementsIn(node.consequent).some(
+          (element) => element.variable && element.tag === name,
+        ) ||
+        codesOf(node.consequent).some((code) => passesAsArgument(code, name))
+      )
+    ) {
+      return undefined
+    }
     usesShow = true
     const fallback = node.alternate
       ? ` fallback={${branch(node.alternate, scope)}}`
       : ""
-    return `<Show when={${rewrite(node.test, scope)}}${fallback}>{(${accessor}) => (${branch(node.consequent, scope)})}</Show>`
+    const shown = freeName(scope, [`shown${capitalize(accessor)}`])
+    const inner = {
+      ...scope,
+      rename: new Map([...scope.rename, [name, `${shown}()`]]),
+      shadowed: [...(scope.shadowed ?? []), shown],
+    }
+    return `<Show when={${rewrite(node.test, scope)}}${fallback}>{(${shown}) => (${branch(node.consequent, inner)})}</Show>`
   }
   const each = (node, scope) => {
-    const shadowed = [
+    const declared = [
       ...parameterNames(node.item),
       ...parameterNames(node.index),
       ...node.consts.map(({ name }) => name),
     ]
+    const [root, ...others] = node.children.filter((child) => !isBlank(child))
+    const binding = itemBinding(node.item)
+    const optionValue =
+      others.length === 0 &&
+      root?.type === "element" &&
+      root.tag === "option" &&
+      binding?.name
+        ? root.attributes.find(
+            (entry) =>
+              entry.kind === "expression" &&
+              entry.name === "value" &&
+              [...identifiersIn(entry.code)].every(
+                (name) => name === binding.name,
+              ),
+          )?.code
+        : undefined
+    const keyed =
+      others.length === 0 && root?.type === "if"
+        ? undefined
+        : optionValue
+          ? `(${binding.name}) => ${optionValue.trim()}`
+          : "false"
+    if (keyed && !binding) {
+      throw unsupported(
+        component.file,
+        `the loop item \`${node.item}\`, which Solid reads through an accessor`,
+        "take the item as one name, or as an object pattern of plain names",
+      )
+    }
+    const row = keyed
+      ? (binding.name ?? freeName(scope, ["item", "entry", "row"], declared))
+      : undefined
+    const shadowed = [...declared, ...(row ? [row] : [])]
     const inner = new Map(scope.rename)
     shadowed.forEach((name) => inner.delete(name))
+    if (row) {
+      inner.set(binding.name ?? row, `${row}()`)
+      binding.fields.forEach(({ key, local }) =>
+        inner.set(local, `${row}().${key}`),
+      )
+      if (binding.rest) {
+        usesOmit = true
+        inner.set(binding.rest, `${binding.rest}()`)
+      }
+    }
+    const rowConsts =
+      row && binding.rest
+        ? [
+            `const ${binding.rest} = () => omit(${[`${row}()`, ...binding.fields.map(({ key }) => JSON.stringify(key))].join(", ")})`,
+          ]
+        : []
     const loopTags = new Set(
       elementsIn(node.children)
         .filter((element) => element.variable)
         .map((element) => element.tag),
     )
     const loopTag = tagNamer(component, shadowed)
-    node.consts
-      .filter(({ name }) => loopTags.has(name))
-      .forEach(({ name }) => inner.set(name, loopTag(name)))
-    const eachScope = { ...scope, hoisted: [], rename: inner, shadowed }
-    const consts = node.consts.flatMap(({ code, name }) => {
-      if (!loopTags.has(name)) {
-        return [`const ${name} = ${rewrite(code, eachScope)}`]
-      }
-      usesLoopDynamic = true
-      return [
-        `const ${loopTag(name)} = ${rewrite(code, eachScope)}`,
-        `const ${name} = dynamic(() => ${loopTag(name)})`,
-      ]
-    })
     const usesIndex = [
       ...node.consts.map(({ code }) => code),
       ...codesOf(node.children),
     ].some((code) => identifiersIn(code).has(node.index))
+    if (usesIndex && keyed !== "false") {
+      inner.set(node.index, `${node.index}()`)
+    }
+    const slotReads = [
+      ...slotsIn(node.children),
+      ...[...node.consts.map(({ code }) => code), ...codesOf(node.children)]
+        .flatMap(slotsUsedIn)
+        .map(slotProp),
+    ]
+    const eachScope = {
+      ...scope,
+      hoisted: [],
+      itemSlots: new Set([
+        ...(scope.itemSlots ?? []),
+        ...slotReads.filter(
+          (name, index) =>
+            !stringSlots.includes(name) && slotReads.indexOf(name) !== index,
+        ),
+      ]),
+      loop: true,
+      loopTags: new Map(scope.loopTags),
+      names: new Set(scope.names ?? hoistedNames),
+      rename: inner,
+      shadowed: [...(scope.shadowed ?? []), ...shadowed],
+    }
+    eachScope.slotHas = (name) => slotRead(slotProp(name), eachScope)
+    const consts = node.consts.map(({ code, name }) => {
+      const local = loopTags.has(name) ? loopTag(name) : name
+      const value = rewrite(code, eachScope)
+      if (reactiveIn(code, eachScope)) {
+        inner.set(name, `${local}()`)
+        if (loopTags.has(name)) eachScope.loopTags.set(name, `${local}()`)
+        return `const ${local} = () => ${value}`
+      }
+      if (loopTags.has(name)) {
+        inner.set(name, local)
+        eachScope.loopTags.set(name, local)
+      }
+      return `const ${local} = ${value}`
+    })
     return {
       get consts() {
-        return [...consts, ...eachScope.hoisted.map(({ line }) => line)]
+        return [
+          ...rowConsts,
+          ...consts,
+          ...eachScope.hoisted.map(({ line }) => line),
+        ]
       },
+      keyed,
       list: rewrite(node.list, scope),
-      parameters: `${node.item}${usesIndex ? `, ${node.index}` : ""}`,
+      parameters: `${row ?? node.item}${usesIndex ? `, ${node.index}` : ""}`,
       scope: eachScope,
     }
   }
@@ -411,7 +691,9 @@ export const toSolid = (component) => {
         : []
       const checks = (entry) =>
         entry.kind === "expression" && entry.name === "checked"
+      const loopTag = node.variable && scope.loopTags?.get(node.tag)
       return [
+        ...(loopTag ? [`component={${loopTag}}`] : []),
         ...node.attributes.flatMap((entry, index) => [
           ...(index === restAt ? modelAttributes : []),
           ...(node.groupRadio !== undefined && checks(entry)
@@ -437,9 +719,21 @@ export const toSolid = (component) => {
       ]
     },
     each,
+    tag: (node, scope) => {
+      if (!node.variable) return node.tag
+      if (scope.loopTags?.has(node.tag)) {
+        usesDynamicComponent = true
+        return "Dynamic"
+      }
+      return staticTags.get(node.tag) ?? node.tag
+    },
+    loop: ({ keyed, list, parameters, returned }) => {
+      usesFor = true
+      return `<For each={${list}}${keyed ? ` keyed={${keyed}}` : ""}>{(${parameters}) => ${returned}}</For>`
+    },
     narrow,
     rewrite,
-    slotCode: propAccess,
+    slotCode: slotRead,
     stringSlots,
   })
   const [rootNode] = tree
@@ -447,49 +741,104 @@ export const toSolid = (component) => {
   body.push(...options.hoisted.map(({ line }) => line))
   const providedValue =
     kind?.provided && provide ? kind.provided(model, provide) : provide?.value
+  const inlined = new Map(
+    (providedValue ?? []).flatMap(({ code }) => {
+      const source = derived.find(({ name }) => name === code.trim())
+      if (!source || !accessors.has(source.name)) return []
+      const line = accessorCode(source.name, source.code)
+      const read = new RegExp(`(?<![\\w$.])${source.name}\\(`)
+      const others = [...body.filter((other) => other !== line), rendered]
+      return others.some((other) => read.test(other))
+        ? []
+        : [[source.name, { line, parts: narrowed(source.name, source.code) }]]
+    }),
+  )
+  inlined.forEach(({ line }) => body.splice(body.indexOf(line), 1))
   const getters = (entries) =>
     `{ ${entries
       .map(({ code, key }) => {
+        const own = inlined.get(code.trim())
+        if (own) {
+          return `get ${key}() { ${[...own.parts.locals, `return ${own.parts.value}`].join("\n")} }`
+        }
         const value = rewrite(code)
         return value === key && !reactive.has(code)
           ? key
           : `get ${key}() { return ${value} }`
       })
       .join(", ")} }`
+  const provided = (content) =>
+    `<${provide.context.name}Context value={${getters(providedValue)}}>${content}</${provide.context.name}Context>`
   const returned = provide
-    ? `<${provide.context.name}Context value={${getters(providedValue)}}>${rootNode.type === "if" ? `{${rendered}}` : rendered}</${provide.context.name}Context>`
+    ? provided(rootNode.type === "if" ? `{${rendered}}` : rendered)
     : multiRoot
       ? `<>${rendered}</>`
       : rootNode.type === "if"
         ? `<>{${rendered}}</>`
         : rendered
-  const slotRead = (name) =>
-    new RegExp(`(?<![\\w$.])props\\.${name}(?![\\w$])`, "g")
+  const slotPattern = (name, marker = `(?<![\\w$.${PER_ITEM}])`) =>
+    new RegExp(`${marker}props\\.${name}(?![\\w$])`, "g")
+  const emitted = [...body, returned].join("\n")
   const resolvedSlots = slots
     .map((slot) => slotProp(slot))
-    .filter(
-      (name) =>
-        [...body, returned].join("\n").match(slotRead(name))?.length > 1,
-    )
+    .filter((name) => emitted.match(slotPattern(name))?.length > 1)
   const resolveSlots = (code) =>
-    resolvedSlots.reduce(
-      (text, name) =>
-        text.replace(slotRead(name), `resolved${capitalize(name)}()`),
-      code,
+    resolvedSlots
+      .reduce(
+        (text, name) =>
+          text.replace(slotPattern(name), `resolved${capitalize(name)}()`),
+        code,
+      )
+      .replaceAll(PER_ITEM, "")
+  const resolvedLines = resolvedSlots.map(
+    (name) =>
+      `const resolved${capitalize(name)} = children(() => props.${name})`,
+  )
+  const lines = body.slice(rest ? 1 : 0).map(resolveSlots)
+  const underProvider = () => {
+    const moved = new Set(
+      resolvedSlots.map((name) => `resolved${capitalize(name)}`),
     )
+    const inner = lines.filter((line) => {
+      if (![...identifiersIn(line)].some((name) => moved.has(name))) {
+        return false
+      }
+      const declared = /^const ([A-Za-z_$][\w$]*) =/.exec(line)?.[1]
+      if (declared) moved.add(declared)
+      return true
+    })
+    const read = [...identifiersIn(getters(providedValue))].find((name) =>
+      moved.has(name),
+    )
+    if (read) {
+      throw unsupported(
+        component.file,
+        `a context value that reads ${read}, which reads a slot the Solid port resolves under the provider`,
+        "provide a value that reads no slot",
+      )
+    }
+    const content = declare(options, ["content"], "", () => "")
+    return {
+      body: [
+        ...lines.filter((line) => !inner.includes(line)),
+        `const ${content} = () => {\n${[...resolvedLines, ...inner].join("\n")}\nreturn (\n${resolveSlots(rendered)}\n)\n}`,
+      ],
+      returned: provided(`{${content}()}`),
+    }
+  }
+  const scoped =
+    provide && resolvedSlots.length > 0 ? underProvider() : undefined
   const resolvedBody = [
     ...body.slice(0, rest ? 1 : 0),
-    ...resolvedSlots.map(
-      (name) =>
-        `const resolved${capitalize(name)} = children(() => props.${name})`,
-    ),
-    ...body.slice(rest ? 1 : 0).map(resolveSlots),
+    ...(scoped ? scoped.body : [...resolvedLines, ...lines]),
   ]
+  const resolvedReturn = scoped ? scoped.returned : resolveSlots(returned)
   const solidValues = [
+    ...(usesFor ? ["For"] : []),
     ...(usesShow ? ["Show"] : []),
-    ...(resolvedSlots.length ? ["children"] : []),
+    ...(resolvedSlots.length || usesChildren ? ["children"] : []),
     ...(kind?.solidValues?.(model) ?? []),
-    ...(rest ? ["omit"] : []),
+    ...(rest || usesOmit ? ["omit"] : []),
     ...(uid ? ["createUniqueId"] : []),
     ...(warnings.length > 0 || item || usesInitial ? ["untrack"] : []),
   ].toSorted(byName)
@@ -497,10 +846,14 @@ export const toSolid = (component) => {
     ...(kind?.solidHelpers?.(model) ?? []),
     ...(item ? ["callHandler", "checkedProps", "seedChecked"] : []),
   ].toSorted(byName)
-  const usesDynamic =
-    tagProps.length > 0 || tagConsts.length > 0 || usesLoopDynamic
+  const webValues = [
+    ...(tagProps.length > 0 || tagConsts.length > 0 ? ["dynamic"] : []),
+    ...(usesDynamicComponent ? ["Dynamic"] : []),
+  ].toSorted(byName)
   const importLines = [
-    ...(usesDynamic ? [`import { dynamic } from "@solidjs/web"`] : []),
+    ...(webValues.length
+      ? [`import { ${webValues.join(", ")} } from "@solidjs/web"`]
+      : []),
     ...(solidValues.length
       ? [`import { ${[...new Set(solidValues)].join(", ")} } from "solid-js"`]
       : []),
@@ -526,5 +879,5 @@ export const toSolid = (component) => {
       : []),
     propsImport(propsType, "types.solid"),
   ]
-  return `${SOLID_PRAGMA}\n${importLines.join("\n")}\n\n${componentFunction(component.name, "props: Props", resolvedBody, resolveSlots(returned))}`
+  return `${SOLID_PRAGMA}\n${importLines.join("\n")}\n\n${componentFunction(component.name, "props: Props", resolvedBody, resolvedReturn)}`
 }

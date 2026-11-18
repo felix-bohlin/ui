@@ -230,6 +230,7 @@ export default function Testimonials() {
             figure {
               display: grid;
               gap: var(--ui-space-3);
+              place-items: normal;
             }
           }
 

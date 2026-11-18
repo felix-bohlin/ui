@@ -5457,8 +5457,13 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Fix: when a `@solidjs/start` release takes solid-js 2 as a peer, add a SolidStart app to `tests/apps/apps.ts` with `ssr: true`, and name it in the app test lines of `AGENTS.md` and `README.md`.
 - [ ] (3) Docs site: the icon libraries list no Solid package: `lucide-solid` 1.74 and `@tabler/icons-solidjs` 3.52 require solid-js 1, and Fluent, Material Symbols and Phosphor ship none (`src/utils/icon-libraries.ts`)
   - Summary: The icon pages name React, Svelte and Vue icon packages but none for Solid, since none supports Solid 2 yet.
-  - Recommended: Fix. List each library's Solid package once it accepts solid-js 2.
-  - Fix: when `lucide-solid` or `@tabler/icons-solidjs` takes solid-js 2 as a peer, add `solid` to the `frameworks` of its library and to `FRAMEWORK_NAMES` in `src/utils/icon-libraries.ts`, and run `node scripts/build-icons.mjs`.
+  - Recommended: Fix with option A. Add the `solid:` entries once each upstream package takes solid-js 2 as a peer.
+  - Fix: when `lucide-solid` or `@tabler/icons-solidjs` takes solid-js 2 as a peer, add `solid` to the `frameworks` of its library in `src/utils/icon-libraries.ts`, and run `node scripts/build-icons.mjs`.
+  > Fix
+  - Still open: `lucide-solid` 1.75.0 (out 2026-11-18) and `@tabler/icons-solidjs` 3.52.0 still take `solid-js` `^1.4.7` as a peer, and their components call `splitProps` and `mergeProps`, which Solid 2 drops, so listing them would point Solid users at packages that break. Phosphor still has no Solid package. `frameworks` in `IconLibrary` and `FRAMEWORK_NAMES` in `src/utils/icon-libraries.ts` now take `solid`, so the fix is one `solid:` line per library and `node scripts/build-icons.mjs`. The only package that takes solid-js 2 is `solid-icons` 2.0.0, a third-party wrapper published 2026-11-18 (inside the `minimumReleaseAge` window) that covers Tabler and none of the other four.
+  - Options:
+    - A (recommended): Wait for `lucide-solid` and `@tabler/icons-solidjs` to accept solid-js 2, then add their `solid:` entries.
+    - B: List `solid-icons` (its `tb` set) as the Solid package for Tabler once it is past the release age window, with a `packageNote` that it is a third-party wrapper.
 - [ ] (4) New components the blocks point to. Each block currently draws these with its own CSS:
   - Summary: Blocks draw charts, breadcrumbs, steppers, timelines, ratings, pagination and stat cards with their own CSS for lack of components.
   - Recommended: Fix. Breadcrumb, empty state and pagination are left, and their blocks already show the markup each needs.

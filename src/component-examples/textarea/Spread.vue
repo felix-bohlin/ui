@@ -37,6 +37,7 @@ import { Textarea } from "opui-css/vue"
     <template #start-text>Shown on your public profile</template>
     <template #start>
       <svg
+        data-icon="edit"
         aria-hidden="true"
         width="16"
         height="16"

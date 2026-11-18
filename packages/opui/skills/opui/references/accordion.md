@@ -3,7 +3,7 @@
 A summary that opens to show more content, on its own or in a group.
 
 - CSS: `opui-css/css/components/accordion.css` and `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/accordion.md), [Astro](https://opui.dev/astro/components/accordion.md), [React](https://opui.dev/react/components/accordion.md), [Svelte](https://opui.dev/svelte/components/accordion.md), [Vue](https://opui.dev/vue/components/accordion.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/accordion.md), [Astro](https://opui.dev/astro/components/accordion.md), [React](https://opui.dev/react/components/accordion.md), [Solid](https://opui.dev/solid/components/accordion.md), [Svelte](https://opui.dev/svelte/components/accordion.md), [Vue](https://opui.dev/vue/components/accordion.md).
 
 ## Accordion
 
@@ -11,7 +11,7 @@ A summary that opens to show more content, on its own or in a group.
 
 - `details.ui-accordion` (root): Container element.
 - `<summary>` (`AccordionSummary`): The always visible header.
-- `<svg class="ui-marker">`: The marker. In Astro, React, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates.
+- `<svg class="ui-marker">`: The marker. In Astro, React, Solid, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates.
 - `.ui-content` (`AccordionContent`): The collapsible content.
 - `.ui-actions` (`AccordionActions`): A group of actions, such as buttons.
 
@@ -29,7 +29,7 @@ A summary that opens to show more content, on its own or in a group.
 ### Notes
 
 - HTML: To group accordions, wrap them in a `.ui-card[role="group"]` with an `aria-label`. A variant on the group styles every accordion in it.
-- Astro, React, Svelte and Vue: Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">` with an `aria-label`. Its `variant` styles every accordion in it.
+- Astro, React, Solid, Svelte and Vue: Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">` with an `aria-label`. Its `variant` styles every accordion in it.
 
 ## AccordionSummary
 
@@ -166,6 +166,33 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/astro"
 
 ```tsx
 import { Accordion, AccordionContent, AccordionSummary } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <Accordion>
+      <AccordionSummary>What is included in free Bassbook?</AccordionSummary>
+      <AccordionContent>
+        <p>
+          Three setlists, 2 GB of slap videos and email support. Upgrade to
+          Bassbook Gold at any time to add more setlists and invite your band.
+        </p>
+      </AccordionContent>
+    </Accordion>
+  )
+}
+```
+
+## Solid
+
+`import { Accordion, AccordionActions, AccordionContent, AccordionSummary } from "opui-css/solid"`
+
+- `AccordionSummary` slot props (`JSX.Element`): `children` and `marker`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Accordion, AccordionContent, AccordionSummary } from "opui-css/solid"
 
 export default function Basics() {
   return (

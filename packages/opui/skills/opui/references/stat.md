@@ -3,7 +3,7 @@
 A number with its label and its change, like revenue on a dashboard.
 
 - CSS: `opui-css/css/components/stat.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/stat.md), [Astro](https://opui.dev/astro/components/stat.md), [React](https://opui.dev/react/components/stat.md), [Svelte](https://opui.dev/svelte/components/stat.md), [Vue](https://opui.dev/vue/components/stat.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/stat.md), [Astro](https://opui.dev/astro/components/stat.md), [React](https://opui.dev/react/components/stat.md), [Solid](https://opui.dev/solid/components/stat.md), [Svelte](https://opui.dev/svelte/components/stat.md), [Vue](https://opui.dev/vue/components/stat.md).
 
 ## Stat
 
@@ -88,6 +88,34 @@ export default function Basics() {
       description={
         <>
           <span className="ui-caption ui-success">+12.4%</span> from last week
+        </>
+      }
+      label="Visitors"
+    >
+      48,210
+    </Stat>
+  )
+}
+```
+
+## Solid
+
+`import { Stat } from "opui-css/solid"`
+
+- `Stat` slot props (`JSX.Element`): `children`, `description` and `label`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Stat } from "opui-css/solid"
+
+export default function Basics() {
+  return (
+    <Stat
+      description={
+        <>
+          <span class="ui-caption ui-success">+12.4%</span> from last week
         </>
       }
       label="Visitors"

@@ -3727,11 +3727,11 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - B: keep the list of buttons and the current keyboard table.
   - Explained: A correction to the recommendation: arrow keys don't need the menu roles. The APG disclosure navigation example adds optional Up and Down Arrow, Home and End to plain buttons and links, so an element could add them and keep the list of buttons, the Tab order and what screen readers hear. That is a third way next to the two options. The full menu pattern (option A) changes the roles and also has to move focus on open and close (see the Esc in a submenu item), while arrow keys alone are a small element with no role change. Either way it's a design decision about the documented list model.
   - Explained: Re-checked on 2026-11-17: the Menu page no longer has a sentence about the trade-off. It shows the keyboard table from `api.ts` through `KeyboardSupport` (`src/docs/components/menu.astro:278`), where the arrow keys row says they don't move focus. The citation now names that line.
-- [ ] (1) Package: there is no breadcrumb: the file manager block styles its own breadcrumb list and separators (`src/blocks/file-manager.html:5-13`, `src/blocks/file-manager.html:55-61`)
+- [ ] (1) Package: there is no breadcrumb: the file manager block styles its own breadcrumb list and separators (`src/blocks/file-manager/FileManager.astro:23-31`, `src/blocks/file-manager/FileManager.astro:73-79`)
   - Summary: Pages that show where the user is in a hierarchy have to style their own breadcrumbs.
   - Recommended: Fix. It is CSS only, and the file manager block already has the markup.
   - Fix: a `.ui-breadcrumb` class on a `nav` with an `ol` of links and `aria-current="page"` on the last item, with the separator drawn in `li + li::before` with `content: "/" / ""` so screen readers skip it, and a `--_separator` property for another character or an icon. A `Breadcrumb` component in all five formats.
-- [ ] (1) Package: there are no charts: the analytics dashboard draws its bar chart with its own grid and custom properties, and line, area and donut charts aren't covered (`src/blocks/analytics-dashboard.html:5-15`, `src/blocks/analytics-dashboard.html:160-165`)
+- [ ] (1) Package: there are no charts: the analytics dashboard draws its bar chart with its own grid and custom properties, and line, area and donut charts aren't covered (`src/blocks/analytics-dashboard/AnalyticsDashboard.astro:23-33`, `src/blocks/analytics-dashboard/AnalyticsDashboard.astro:165-170`)
   - Summary: Dashboards have to draw their own charts.
   - Recommended: Explain further. Charts are a large scope, and the library could ship only the CSS for simple ones.
   - Fix: a `.ui-chart` with bar and column variants for a list or a table, each value in a `--value` custom property and its text in an `.ui-sr-only` label, as the analytics block does, colored from the palette. Line and area charts need SVG, so leave those to chart libraries and document how to theme them with the `--ui-*` tokens.
@@ -3739,23 +3739,23 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Summary: Loading content shows a spinner but no placeholder in the shape of what is coming.
   - Recommended: Fix. It is CSS only and builds on the `aria-busy` state the Spinner already reads.
   - Fix: a `.ui-skeleton` class for a block of text lines, a circle or a rectangle, with a shimmer that `--ui-motion` turns off, `aria-hidden="true"` on the placeholder and `aria-busy="true"` on the container that loads. A `Skeleton` component in all five formats.
-- [ ] (1) Package: there is no sidebar: the app shell and chat blocks each style their own side navigation, hide it below a container size and offer no way to open it on narrow screens or to collapse it (`src/blocks/app-shell.html:36-45`, `src/blocks/chat.html:5-12`)
+- [ ] (1) Package: there is no sidebar: the app shell and chat blocks each style their own side navigation, hide it below a container size and offer no way to open it on narrow screens or to collapse it (`src/blocks/app-shell/AppShell.astro:56-64`, `src/blocks/chat/Chat.astro:26-33`)
   - Summary: Apps have to build their own side navigation, and it disappears on narrow screens.
   - Recommended: Explain further and provide an example. The pieces exist (List, Drawer, Accordion), so the question is whether a layout component is worth adding.
   - Fix: a `.ui-sidebar` layout with a sidebar and main area, groups that collapse through `<details>`, and below a container size the same `nav` shown in a `Drawer` that a menu button in the header opens. A `Sidebar` component in all five formats.
-  - Explained: Part of the claim is out of date: app-shell, chat and inbox already open their navigation on narrow screens, from a header button that opens a copy of it in a `Drawer` (`src/blocks/chat.html:199`, `src/blocks/chat.html:439`). The done Drawer item tried a sidebar mode that keeps one copy and found two catches: Chromium exposes the closed dialog in the page as a dialog around the navigation, and narrowing the frame runs the drawer's exit transition over the page. So a `.ui-sidebar` keeps a plain `nav` in the page when wide and the Drawer when narrow, as the blocks do by hand, and what it adds is the shared layout and the collapse. The chat sidebar's fixed width is at `src/blocks/chat.html:70` (`--_columns: 20rem 1fr`).
-  - Explained: Re-checked on 2026-11-17: the note above holds. The headline's "no way to open it on narrow screens" is out of date, and the lines it names moved: the chat block's Drawer button is at `src/blocks/chat.html:202`, the Drawer at `src/blocks/chat.html:442` and the fixed width at `src/blocks/chat.html:68`. What a `.ui-sidebar` would add is still the shared layout and the collapse.
-- [ ] (1) Web components: there is no command palette: the app shell has a search field in its header but no dialog that searches commands and pages from anywhere with a keyboard shortcut (`src/blocks/app-shell.html:94-100`)
+  - Explained: Part of the claim is out of date: app-shell, chat and inbox already open their navigation on narrow screens, from a header button that opens a copy of it in a `Drawer` (`src/blocks/chat/Chat.astro:193`, `src/blocks/chat/Chat.astro:386`). The done Drawer item tried a sidebar mode that keeps one copy and found two catches: Chromium exposes the closed dialog in the page as a dialog around the navigation, and narrowing the frame runs the drawer's exit transition over the page. So a `.ui-sidebar` keeps a plain `nav` in the page when wide and the Drawer when narrow, as the blocks do by hand, and what it adds is the shared layout and the collapse. The chat sidebar's fixed width is at `src/blocks/chat/Chat.astro:89` (`--_columns: 20rem 1fr`).
+  - Explained: Re-checked on 2026-11-17: the note above holds. The headline's "no way to open it on narrow screens" is out of date, and the lines it names moved: the chat block's Drawer button is at `src/blocks/chat/Chat.astro:193`, the Drawer at `src/blocks/chat/Chat.astro:386` and the fixed width at `src/blocks/chat/Chat.astro:89`. What a `.ui-sidebar` would add is still the shared layout and the collapse.
+- [ ] (1) Web components: there is no command palette: the app shell has a search field in its header but no dialog that searches commands and pages from anywhere with a keyboard shortcut (`src/blocks/app-shell/AppShell.astro:118-125`)
   - Summary: Apps have no keyboard-first way to jump to a page or run a command.
   - Recommended: Explain further. It builds on the combobox, so it waits for that.
   - Fix: once the combobox exists, a `CommandPalette` that puts it in a `Dialog`, groups the options under headings and opens on a shortcut that the page chooses through `aria-keyshortcuts`.
-- [ ] (1) Web components: there are no resizable panels: the chat block gives its sidebar a fixed width, and changing it needs a script and a separator the keyboard can move (`src/blocks/chat.html:5-12`)
+- [ ] (1) Web components: there are no resizable panels: the chat block gives its sidebar a fixed width, and changing it needs a script and a separator the keyboard can move (`src/blocks/chat/Chat.astro:26-33`)
   - Summary: Users can't make a sidebar or panel wider or narrower.
   - Recommended: Explain further. Few blocks need it, and CSS `resize` covers simple cases.
   - Fix: an `<opui-splitter>` between two panels with `role="separator"`, `aria-valuenow` and `aria-orientation`, moved by dragging or by the arrow keys, writing the size to a custom property on the container. Without the script the panels keep their default sizes.
-  - Explained: The claim holds, but the width isn't in the cited lines: the chat block sets it on its `.ui-layout-columns` wrapper, `--_columns: 20rem 1fr` (`src/blocks/chat.html:70`).
-  - Explained: Re-checked on 2026-11-17: the width is now at `src/blocks/chat.html:68`.
-- [ ] (1) Web components: there is no tree view: nested items, like the folders in the file manager, can only be nested lists or `<details>`, with no arrow-key navigation or selection (`src/blocks/file-manager.html:55-61`)
+  - Explained: The claim holds, but the width isn't in the cited lines: the chat block sets it on its `.ui-layout-columns` wrapper, `--_columns: 20rem 1fr` (`src/blocks/chat/Chat.astro:89`).
+  - Explained: Re-checked on 2026-11-17: the width is now at `src/blocks/chat/Chat.astro:89`.
+- [ ] (1) Web components: there is no tree view: nested items, like the folders in the file manager, can only be nested lists or `<details>`, with no arrow-key navigation or selection (`src/blocks/file-manager/FileManager.astro:73-79`)
   - Summary: Nested folders or categories can't be shown as a tree that the keyboard can move through.
   - Recommended: Explain further. Nested `<details>` lists already cover most uses without a script.
   - Fix: document nested `.ui-list` items in `<details>` as the tree without a script. An `<opui-tree>` then adds `role="tree"`, `treeitem` and `group`, roving tabindex, the arrow keys to move, open and close, typeahead and `aria-selected`, only once it is defined.
@@ -3825,11 +3825,11 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Fix: an `<opui-number-stepper class="ui-number-stepper">` around a number `TextField` and two `.ui-button`s with `commandfor` naming the input and `command="--step-down"` or `command="--step-up"`. The element handles the `command` event: it calls `stepDown()` or `stepUp()`, fires `input` and `change`, disables a button at `min` or `max`, repeats while a button is held and follows form reset. The cart's input becomes `type="number"`. Without the script it is a plain number input with the browser's spin buttons, and `:not(:defined)` hides the two buttons. If browsers add built-in step commands for number inputs, the element is no longer needed.
   > Fix
   - Fixed: `NumberStepper` (`opui-number-stepper.ui-number-stepper`) in Astro, React, Svelte and Vue, styled by `text-field.css` (which lists the new root), `button.css` and `number-stepper.css`. Its buttons are `Button`s with `commandfor` naming the input and `command="--step-down"` or `command="--step-up"`. The element calls `stepDown()` or `stepUp()`, fires `input` and `change`, repeats after a 400ms hold, marks a button `aria-disabled="true"` at `min` or `max`, follows a form reset, and syncs again after a framework sets the value. Before it loads, `:not(:defined)` hides the buttons and the input keeps the browser's spin buttons. The page has a hero anatomy, Usage, Accessibility and keys, and seven examples in five formats with new parity snapshots. Interaction tests in every framework cover the buttons, the limits and the hold, and axe and the anatomy checks pass. The shopping cart and product page blocks use it now (the cart's inputs are `type="number"`), and the Text field Usage points amounts like a quantity here. The examples and the two blocks need new visual baselines (`update-snapshots` label).
-- [ ] (2) Package: there is no pagination: the data-table block builds its page links from a button group by hand, with its own disabled Previous link and no gap between the page numbers (`src/blocks/data-table.html:577-614`)
+- [ ] (2) Package: there is no pagination: the data-table block builds its page links from a button group by hand, with its own disabled Previous link and no gap between the page numbers (`src/blocks/data-table/DataTable.astro:512-549`)
   - Summary: Every page that lists many results has to build its own page links.
   - Recommended: Fix. It needs no script, and the data-table block already shows the markup.
   - Fix: a `.ui-pagination` class on a `nav` with a list of links, `aria-current="page"` on the current one, an ellipsis item between ranges and Previous and Next links that a missing `href` disables. A `Pagination` component in all five formats takes the current page, the page count and a function or template for the `href`.
-- [ ] (2) Table: a table with thousands of rows renders and lays out every row, and the library has no data grid that virtualizes them, so the data-table block shows five rows and pages the rest (`src/blocks/data-table.html:576-577`)
+- [ ] (2) Table: a table with thousands of rows renders and lays out every row, and the library has no data grid that virtualizes them, so the data-table block shows five rows and pages the rest (`src/blocks/data-table/DataTable.astro:511-512`)
   - Summary: Large tables get slow, since every row renders and lays out at once.
   - Recommended: Fix with option A. A class on table rows can't skip their layout, so it would promise speed it doesn't give.
   - Fix: add `.ui-lazy-rows`, which sets `content-visibility: auto` and `contain-intrinsic-size: auto <row size>` on the `tbody` rows, so the browser skips the layout and paint of rows out of view while find in page and the accessibility tree keep them. Document on the Table page that windowing a data set of tens of thousands of rows belongs to a data grid library, styled with the `.ui-table` classes.
@@ -3853,11 +3853,11 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - A: build the kit with the Figma MCP server's `use_figma` and `/figma-generate-library` from the `api.ts` props and slots (enum props as variant properties, booleans as boolean properties, slots as text or instance swap properties), starting with Button, TextField, Select, Checkbox, Radio, Switch, Card, Dialog, Tabs and Callout. It takes a Professional plan with a Full seat.
     - B (recommended): a component script next to `sync.js` that builds the same components from the `api.ts` data with the synced variables bound, run by the plugin, with one `use_figma` run and a screenshot per component to check it.
     - C: wait until someone asks for components.
-- [ ] (3) Web components: there is no combobox: a search field can't suggest or filter options as the user types, so the app shell's search is a plain input and a long Select has no filter (`src/blocks/app-shell.html:94-100`)
+- [ ] (3) Web components: there is no combobox: a search field can't suggest or filter options as the user types, so the app shell's search is a plain input and a long Select has no filter (`src/blocks/app-shell/AppShell.astro:118-125`)
   - Summary: Users can't filter a long list of options by typing, and search fields offer no suggestions.
   - Recommended: Fix. A combobox is the most requested control the library lacks, and `<datalist>` gives a fallback without the script.
   - Fix: an `<opui-combobox>` in the light DOM around a `.ui-text-field` input and a `.ui-list` listbox popover anchored to the field. It filters the options as the user types, moves through them with the arrow keys through `aria-activedescendant`, selects with Enter and closes with Escape, and sets `role="combobox"`, `aria-expanded` and `aria-controls` only once it is defined. Without the script the input keeps a `list` pointing at a `<datalist>` with the same options. Add `Combobox` in all five formats.
-- [ ] (3) Web components: there is no date picker: the analytics dashboard offers only fixed ranges as toggle buttons, and a custom date or range needs a calendar that a script draws (`src/blocks/analytics-dashboard.html:59-75`)
+- [ ] (3) Web components: there is no date picker: the analytics dashboard offers only fixed ranges as toggle buttons, and a custom date or range needs a calendar that a script draws (`src/blocks/analytics-dashboard/AnalyticsDashboard.astro:78-82`)
   - Summary: Users can only pick preset ranges, never a date or a custom range, outside the browser's own date input.
   - Recommended: Fix. A styled native date input covers single dates, and the element adds the range calendar.
   - Fix: style `input[type="date"]` in `.ui-text-field` first. Then an `<opui-calendar>` that renders a month grid with `Intl.DateTimeFormat` in the page's `lang` (week start from `Intl.Locale` `getWeekInfo()`), moves by day with the arrow keys and by month with Page Up and Page Down, and selects a single date or a range into named form inputs. A `DatePicker` puts it in a popover anchored to a text field. Without the script the native date inputs remain.
@@ -3881,6 +3881,31 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Still open: `opui-css/vue` and the deep `opui-css/components/*.vue` imports now resolve to compiled JavaScript, so an app that uses the package no longer compiles the Select template and prints neither warning in `vite dev` or `nuxi dev`. Only this repo's own dev server, which compiles the sources, still warns, so the comment on vuejs/core#13608 is still the fix. `scripts/build-frameworks.mjs` (`KNOWN_VUE_WARNINGS`) lets the package build pass on these two warnings and fails on any other.
   - Explained: Nothing to change in the repo: the fix is upstream. This batch's Select changes moved the cited markup: the `<button>`, `<selectedcontent>` and `.ui-list` lines are now `packages/opui/components/Select/Select.vue:123-126`.
   - Explained: Re-checked on 2026-11-17: Vue 3.5.45 is still the latest release. vuejs/core#13608 was closed as not planned on 2026-09-18 and reopened the same day, and #13720 and #13616 are still open, #13720 waiting on review changes with an offer from 2026-11-01 to take it over. The comment is still to post. The cited markup is now `packages/opui/components/Select/Select.vue:129-132`.
+  - Explained: The comment, to post on vuejs/core#13608 with a thumbs up on vuejs/core#13720. Code is indented four spaces here, which GitHub renders as a code block; the item's example on the `/dev/todo` page has the same text with fenced code and a Copy button.
+    ```text
+    Still seeing this in 3.5.45. A component library that ships a customizable select (`appearance: base-select`) gets two warnings in every `vite dev` and `nuxi dev` session, also on pages that never render the Select, because the compiler checks the component's template when it compiles it:
+
+        [Vue warn]: <button> cannot be child of <select>, according to HTML specifications. This can cause hydration errors or potentially disrupt future functionality.
+        [Vue warn]: <div> cannot be child of <select>, according to HTML specifications. This can cause hydration errors or potentially disrupt future functionality.
+
+    Minimal template:
+
+        <template>
+          <select>
+            <button>
+              <selectedcontent></selectedcontent>
+            </button>
+            <div class="list">
+              <option value="a">A</option>
+              <option value="b">B</option>
+            </div>
+          </select>
+        </template>
+
+    The HTML spec now allows this content model (https://html.spec.whatwg.org/multipage/form-elements.html#the-select-element: an optional leading `button`, then `option`, `optgroup`, `hr` and `div`, plus script-supporting elements), and the relaxed HTML parser that ships with the customizable select keeps the `button` and the `div` inside the `select`, so there is no hydration mismatch in the browsers that render it. Production builds don't warn.
+
+    #13720 updates `onlyValidChildren.select` to that content model and would remove both warnings here. It has waited on review changes since July 2025 (`div` is also allowed in `optgroup` and `option`), and there is an offer on it to take it over. #13616 drops the `select` rules instead. Could one of the two land in a 3.5 patch?
+    ```
 - [x] (1) Table: `.ui-sticky-header` together with `.ui-overflow-scroll` never sticks to the page: `.ui-overflow-scroll` makes the table itself the scroll container, so the sticky `thead` is held by the table's own scrollport, which doesn't scroll in the block axis, while the page says to put the table in a scroll box or let it stick to the page (`packages/opui/css/components/table.css:152-156`, `packages/opui/css/components/table.css:167-175`, `src/docs/components/table.astro:240-254`)
   - Summary: A wide table that scrolls sideways loses its sticky header as soon as the page scrolls.
   - Recommended: Fix with option A. The sticky header example already wraps the table in a scroll box, so the pattern exists.
@@ -3926,6 +3951,87 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Explained: On the `/todo` page, as this item's example (`OPUI_TEST_PAGES=1 pnpm dev`, then Example under this item). It has the Astro bug report field by field, each with a Copy button: the title, Astro Info, Describe the Bug, What's the expected result?, and the page and component files for the StackBlitz, with where to open the issue (github.com/withastro/astro, New issue, Bug report) and how to build the StackBlitz from astro.new/minimal. Before, the draft only lived in a session's report. The Vue comment for the Select item is on the page the same way, as that item's `vue-select-comment` example. Both were checked again against the latest releases, Astro 7.4.5 and Vue 3.5.45. Example: astro-raw-issue
   - Explained: Still open on the latest release. Astro 7.4.9 is out (the repo has 7.4.5) and moved `ensureModulesLoaded` into `@astrojs/vite-plugin-astro` 0.1.0 (`dist/internal/vite-plugin-css/collect.js`), which still descends into `?raw` modules, while `collectCSSWithOrder` next to it returns at `?raw`. The draft's one-line fix goes in that file now. When the repo updates, the repro in `tests/unit/tooling-bugs.test.ts` has to read that file instead of `astro/dist/vite-plugin-css/index.js`, which no longer has the function, or it stops testing anything.
   - Explained: Re-checked on 2026-11-17: Astro 7.4.12 is the latest release (the repo has 7.4.5), with `@astrojs/vite-plugin-astro` 0.1.3, whose `ensureModulesLoaded` (`dist/internal/vite-plugin-css/collect.js`) still descends into `?raw` modules. A search of Astro's issues for `ensureModulesLoaded raw` finds nothing, so the draft is still to post. A correction to the note above: after the update the repro in `tests/unit/tooling-bugs.test.ts` fails on its `importedModules` check, since `astro/dist/vite-plugin-css/index.js` only imports the function, so it can't pass silently, but it has to read the new file.
+  - Explained: The bug report, to paste field by field into the Bug report form at github.com/withastro/astro (New issue). For Link to Minimal Reproducible Example, start a StackBlitz from astro.new/minimal with the two repro files, the component three times as `A.astro`, `B.astro` and `C.astro`, and any CSS file for its import. Code inside a field is indented four spaces here, which GitHub renders as a code block; the item's example on the `/dev/todo` page has the same text with fenced code and Copy buttons.
+    ```text
+    Title:
+
+    Dev: first request compiles every module behind `?raw` imports (`ensureModulesLoaded` follows the edge `collectCSSWithOrder` skips)
+
+    Astro Info:
+
+    Astro                    v7.4.5
+    Node                     v26.10.0
+    System                   Linux (x64)
+    Package Manager          pnpm
+    Output                   static
+    Adapter                  none
+    Integrations             @astrojs/react
+                             @astrojs/sitemap
+                             @astrojs/svelte
+                             @astrojs/vue
+
+    Also read against 7.4.12, the latest release, where the function lives in `@astrojs/vite-plugin-astro` 0.1.3 (`dist/internal/vite-plugin-css/collect.js`): it still descends into `?raw` modules.
+
+    Describe the Bug:
+
+    On the first request after `astro dev` starts, the CSS collector (`astro/dist/vite-plugin-css/index.js`, and since 7.4.9 `dist/internal/vite-plugin-css/collect.js` in `@astrojs/vite-plugin-astro`) calls `ensureModulesLoaded(env, mod)` on the page module. It walks `mod.importedModules` recursively and `fetchModule()`s every module it reaches that has no `transformResult` yet, dynamic imports included.
+
+    Vite adds a module graph edge from `file.ext?raw` to `file.ext`, so `ensureModulesLoaded` follows a `?raw` import into the file itself, compiles it as a module, and then everything that file imports. `collectCSSWithOrder`, in the same file, already stops at `?raw`:
+
+        } else if (id.endsWith("?raw")) {
+          return;
+        }
+
+    `ensureModulesLoaded` has no such check, so a page that globs source files as text (a docs site showing component source, for example) compiles all of them as modules on its first request. On our docs site that is about 3,000 modules and 9 seconds for the first component page; the edge alone costs 2.8s on a page that only imports examples as `?raw` (11.5s without a workaround, 8.7s with it).
+
+    The page, `src/pages/index.astro`:
+
+        ---
+        const sources = import.meta.glob("../components/*.astro", {
+          eager: true,
+          import: "default",
+          query: "?raw",
+        })
+        ---
+
+        <pre>{Object.keys(sources).join("\n")}</pre>
+
+    Steps to reproduce:
+
+    1. `src/components/A.astro`, `B.astro` and `C.astro`: any components (each can import something heavy to make the cost visible).
+    2. `src/pages/index.astro` globs them as text (above).
+    3. `astro dev`, open `/` and watch the server log (`DEBUG=vite:transform`): A, B and C are transformed as modules, although the page only uses their text.
+
+    Workaround: a `serve`-only Vite plugin with `enforce: "pre"` that loads `?raw` ids itself (`export default ${JSON.stringify(readFileSync(file, "utf-8"))}`), so Vite adds no edge to the file.
+
+    What's the expected result?:
+
+    `ensureModulesLoaded` skips `?raw` modules like `collectCSSWithOrder` does, so nothing behind a `?raw` import is compiled. A one-line fix in its loop:
+
+        if (rawRE.test(imp.id)) continue;
+
+    (or `imp.id.endsWith("?raw")`, matching `collectCSSWithOrder`). With it, the repro compiles nothing behind the glob, and a page with 300 `?raw` examples goes from 2.0s to 0.6s on its first request.
+
+    Repro: src/pages/index.astro:
+
+    ---
+    const sources = import.meta.glob("../components/*.astro", {
+      eager: true,
+      import: "default",
+      query: "?raw",
+    })
+    ---
+
+    <pre>{Object.keys(sources).join("\n")}</pre>
+
+    Repro: src/components/A.astro (and B, C):
+
+    ---
+    import "../styles/heavy.css"
+    ---
+
+    <p>A component whose source the page shows as text.</p>
+    ```
 - [x] (2) CSS: in a build that rewrites `light-dark()` for older browsers (the defaults of Vite 8 and Next 16), `.ui-light` or `.ui-dark` on an element inside the page and the `--ui-color-scheme` knob don't switch the colors. The color tokens are declared on `html`, where the rewritten `var(--lightningcss-light, …) var(--lightningcss-dark, …)` resolves to the page's scheme, and a part of the page inherits that result, while `light-dark()` itself resolves where the color is used. The classes on `html` and the OS setting work, and the README gives the build settings that keep `light-dark()` (`packages/opui/css/theme.css:3-13`, `packages/opui/css/theme.css:207`)
   - Summary: In some bundler builds, a light or dark section inside the page keeps the page's colors unless the build keeps light-dark().
   - Recommended: Fix with option B. Option A changes the scope selector every theme uses, in native builds too, to work around a lowered build the README already shows how to avoid.
@@ -3936,6 +4042,21 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Explained: lightningcss turns each `light-dark(a, b)` into `var(--lightningcss-light, a) var(--lightningcss-dark, b)` and each plain `color-scheme: light` or `dark` into the two toggles, so `.ui-dark` on a part does set the toggles there, but `color-scheme: var(--ui-color-scheme)` isn't plain, so the knob alone does nothing. The 34 color tokens in the derived block, and `--ui-shadow-color` among the knobs, are declared on `html`, where the `var()` is substituted at computed-value time, and a part inherits the resolved color; the 24 `light-dark()` in the component stylesheets resolve on the element and follow the part. Option A adds `.ui-dark` and `.ui-light` to `:where(html, .ui-palette, .ui-contrast-more)`, but that is also the selector the example themes and the theming guide use for overrides in `theme.custom`: a theme that sets `--ui-surface` there would stop at every `.ui-dark` part unless it lists the two classes too, in native builds as well. It trades a documented build setting for a change to the documented scope list, and the knob on a part still needs `light-dark()` itself.
   > Fix with option B
   - Fixed: Kept as documented, with no change: the README's Builds that rewrite `light-dark()` section and the theming guide, which links it, give the build settings that keep `light-dark()`, which `.ui-light` or `.ui-dark` on a part of the page and the `--ui-color-scheme` knob need.
+- [ ] (2) Package: Solid 2's server render prints a `defaultValue` next to a spread as a literal `defaultValue` attribute, so the Solid value model sets the form reset value with `defaultValueProp`, a `prop:defaultValue` its JSX types forbid (`scripts/component-models.mjs:35-38,178-181,220-230`, `packages/opui/components/solid.ts:9-15`)
+  - Summary: Solid form controls reset to their starting state through a typed workaround until Solid renders the defaults on the server.
+  - Recommended: Fix. Plain defaultValue and defaultChecked are what Solid's types ask for, once its server render stops printing them.
+  - Fix: check each Solid RC: when `<input {...rest} defaultValue={value} />` renders only `value="..."` and `<input {...rest} defaultChecked />` only `checked` on the server, emit `defaultValue={untrack(() => props.value)}` and `defaultChecked={untrack(() => props.checked)}` from the solid value, checked and radio models and delete `defaultValueProp` and `defaultCheckedProp`.
+  - Still open: checked against solid-js 2.0.0. A `defaultValue` or `defaultChecked` written before a spread, or inside one, now renders as `value` or `checked` on the server; after a spread it still prints a literal attribute. The models write the default before the rest spread, `defaultValueProp` and `prop:defaultValue` are gone, and `tests/unit/tooling-bugs.test.ts` holds the repro, which fails once Solid fixes the order.
+- [ ] (2) Package: Solid 2 hydrates one root per page: once the first `hydrate()` finishes it sets `_$HY.done`, and every later `hydrate()` renders from scratch over the server markup instead of claiming it. The fixture page therefore hydrates only the example `?hydrate=` names, and an app with several Solid islands on a page only hydrates the first (`src/components/Example/mount-solid-examples.ts:9-12`)
+  - Summary: A page with several Solid roots hydrates only the first and renders the others again on the client.
+  - Recommended: Fix. Solid may lift the limit before 2.0, and the test should cover every example per page once it does.
+  - Fix: check each Solid RC: when a second `hydrate()` on a page claims its server markup, hydrate every example on `?hydrate` and check them all in one page load in `tests/e2e/hydration.spec.ts`.
+  - Still open: checked against solid-js 2.0.0: `hydrate()` still renders from scratch once `_$HY.done` is set. `tests/unit/tooling-bugs.test.ts` holds the repro.
+- [x] (3) Package: the app tests check Solid only in the Vite starter, which renders on the client: every SolidStart release up to 2.2.1, the release candidates too, requires solid-js 1.9, so no Solid app renders the examples on the server and hydrates them as one page (`tests/apps/apps.ts:74-83`, `tests/apps/vite-solid/src/main.tsx:1-5`)
+  - Summary: The Solid app test renders the examples only in the browser, since SolidStart doesn't support Solid 2 yet.
+  - Recommended: Fix. Add it next to Next.js, Nuxt and SvelteKit once a SolidStart release supports Solid 2.
+  - Fix: when a SolidStart release takes solid-js 2 as a peer, add a solid-start app to tests/apps (a route per component that renders its examples, like tests/apps/sveltekit) with ssr: true in tests/apps/apps.ts, and name it in the app test lines of AGENTS.md and README.md.
+  - Fixed: `tests/apps/solid-start` renders every example on the server and hydrates it, built on the `start` and `ssr` options of `@solidjs/vite-plugin`, the server layer Solid 2 ships. SolidStart 2.2.3 still requires solid-js 1.9.
 
 ## Questions
 
@@ -5326,6 +5447,14 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Recommended: Fix. `useListener` already passes a caller's ref on, as Callout shows.
   - Fix: take `ref` through `ComponentProps<"opui-sortable-table">`, as Toaster does, pass it to `useListener`, remove `data-hydrating` from the element the ref callback receives, and update the ledger reason for `types.react.ts`.
   - Fixed: Already in 93538658 ("pass a SortableTable ref on"): the React types take `ref` through `ComponentProps<"opui-sortable-table">`, the component passes it to `useListener` and takes `data-hydrating` off the element its ref callback receives, and the `types.react.ts` ledger entry is gone. Since 9cac3d61d the compiler writes the whole port.
+- [ ] (3) Package: the server-rendered Solid app test runs on the `start` option of `@solidjs/vite-plugin`, not on SolidStart, since SolidStart 2.2.3 requires solid-js 1.9 (`tests/apps/apps.ts`, `tests/apps/solid-start/vite.config.ts`)
+  - Summary: The Solid app test uses the Vite plugin's server layer until SolidStart supports Solid 2.
+  - Recommended: Fix. Add a SolidStart app next to it once a release takes solid-js 2, so the meta-framework people scaffold is covered like Next.js, Nuxt and SvelteKit.
+  - Fix: when a `@solidjs/start` release takes solid-js 2 as a peer, add a SolidStart app to `tests/apps/apps.ts` with `ssr: true`, and name it in the app test lines of `AGENTS.md` and `README.md`.
+- [ ] (3) Docs site: the icon libraries list no Solid package: `lucide-solid` 1.74 and `@tabler/icons-solidjs` 3.52 require solid-js 1, and Fluent, Material Symbols and Phosphor ship none (`src/utils/icon-libraries.ts`)
+  - Summary: The icon pages name React, Svelte and Vue icon packages but none for Solid, since none supports Solid 2 yet.
+  - Recommended: Fix. List each library's Solid package once it accepts solid-js 2.
+  - Fix: when `lucide-solid` or `@tabler/icons-solidjs` takes solid-js 2 as a peer, add `solid` to the `frameworks` of its library and to `FRAMEWORK_NAMES` in `src/utils/icon-libraries.ts`, and run `node scripts/build-icons.mjs`.
 - [ ] (4) New components the blocks point to. Each block currently draws these with its own CSS:
   - Summary: Blocks draw charts, breadcrumbs, steppers, timelines, ratings, pagination and stat cards with their own CSS for lack of components.
   - Recommended: Fix. Breadcrumb, empty state and pagination are left, and their blocks already show the markup each needs.

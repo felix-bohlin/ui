@@ -12,6 +12,7 @@ import { Timeline, TimelineItem } from "opui-css/vue"
     >
       <template #marker>
         <svg
+          data-icon="check"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -35,6 +36,7 @@ import { Timeline, TimelineItem } from "opui-css/vue"
     >
       <template #marker>
         <svg
+          data-icon="check"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -58,6 +60,7 @@ import { Timeline, TimelineItem } from "opui-css/vue"
     >
       <template #marker>
         <svg
+          data-icon="check"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="16"

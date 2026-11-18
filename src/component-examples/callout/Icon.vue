@@ -5,6 +5,7 @@ import { Callout, CalloutContent } from "opui-css/vue"
 <template>
   <Callout>
     <svg
+      data-icon="info"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"

@@ -3,6 +3,7 @@ import { readFileSync, realpathSync } from "node:fs"
 import { join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { unreleasedPart } from "../src/utils/changelog-file.ts"
+import { astroSourceOf } from "./example-targets.mjs"
 
 const root =
   process.env.OPUI_ROOT ?? fileURLToPath(new URL("..", import.meta.url))
@@ -64,6 +65,14 @@ const checked = (file, text) => {
   return null
 }
 
+const exists = (file) => {
+  try {
+    return readFileSync(join(root, file), "utf8")
+  } catch {
+    return undefined
+  }
+}
+
 export const FIX = "Write every color as oklch()."
 
 export const colorProblems = (file, text) => {
@@ -74,6 +83,7 @@ export const colorProblems = (file, text) => {
   ) {
     return []
   }
+  if (astroSourceOf(file, exists)) return []
   const source = checked(file, text)
   if (source === null) return []
   return [...source.matchAll(COLOR)].map((match) => {

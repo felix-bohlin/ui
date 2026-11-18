@@ -10,6 +10,7 @@
   size="small"
 >
   <svg
+    data-icon="more-vertical"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
@@ -30,6 +31,7 @@
   >
     {#snippet start()}
       <svg
+        data-icon="edit"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -52,6 +54,7 @@
   >
     {#snippet start()}
       <svg
+        data-icon="copy"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -73,6 +76,7 @@
   >
     {#snippet start()}
       <svg
+        data-icon="open"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -94,6 +98,7 @@
   >
     {#snippet start()}
       <svg
+        data-icon="delete"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"

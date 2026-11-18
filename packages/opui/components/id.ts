@@ -7,9 +7,9 @@ export const createId = (locals: Locals) =>
 export const createIds = (
   locals: Locals,
   prefix: string,
-  id?: string | null,
+  id?: string | false | null,
 ) => {
-  let base = id
+  let base = id === false ? undefined : id
   return (part?: string) => {
     base ||= createId(locals)(prefix)
     return part ? `${base}-${part}` : base
@@ -21,5 +21,28 @@ export const autoLabelledBy = (
   id: string,
 ) => (attrs["aria-label"] || attrs["aria-labelledby"] ? undefined : id)
 
-export const idRefs = (...ids: (string | false | null | undefined)[]) =>
+type IdRef = string | false | null | undefined
+
+export const idRefs = (...ids: IdRef[]) =>
   ids.filter(Boolean).join(" ") || undefined
+
+export const fieldDescribedBy = (
+  parts: {
+    bottom?: IdRef
+    end?: IdRef
+    endText?: IdRef
+    start?: IdRef
+    startText?: IdRef
+    top?: IdRef
+  },
+  ...ids: IdRef[]
+) =>
+  idRefs(
+    parts.startText,
+    parts.top,
+    parts.start,
+    parts.end,
+    parts.bottom,
+    parts.endText,
+    ...ids,
+  )

@@ -13,6 +13,7 @@
 <Select label="Country">
   {#snippet start()}
     <svg
+      data-icon="globe"
       aria-hidden="true"
       width="16"
       height="16"

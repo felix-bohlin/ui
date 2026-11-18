@@ -10,7 +10,7 @@ import {
 import { useInputAttrs, vSeed } from "../vue"
 import type { Props, Slots } from "./types.vue-props"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
-import { idRefs } from "../id"
+import { fieldDescribedBy } from "../id"
 import { initialValue, sameValue } from "./selection"
 import { styleAttrs } from "../style"
 
@@ -111,13 +111,15 @@ const field = inject(FieldGroupKey, undefined)
         v-seed
         v-model="model"
         :aria-describedby="
-          idRefs(
-            (startText || $slots['start-text']) && startTextId,
-            $slots.top && topId,
-            $slots.start && startId,
-            $slots.end && endId,
-            $slots.bottom && bottomId,
-            (endText || $slots['end-text']) && endTextId,
+          fieldDescribedBy(
+            {
+              bottom: $slots.bottom && bottomId,
+              end: $slots.end && endId,
+              endText: (endText || $slots['end-text']) && endTextId,
+              start: $slots.start && startId,
+              startText: (startText || $slots['start-text']) && startTextId,
+              top: $slots.top && topId,
+            },
             attrs['aria-describedby'],
           )
         "

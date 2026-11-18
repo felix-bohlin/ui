@@ -1,6 +1,10 @@
 import { renderedText } from "../../scripts/example-display.mjs"
 import { declarations, mergeText } from "../../scripts/example-html.mjs"
-import { parseHtml, VOID_ELEMENTS } from "../../scripts/html-tokens.mjs"
+import {
+  BOOLEAN_ATTRIBUTES,
+  parseHtml,
+  VOID_ELEMENTS,
+} from "../../scripts/html-tokens.mjs"
 
 type Node = ReturnType<typeof parseHtml>[number]
 
@@ -31,9 +35,10 @@ const ID_REFERENCE_ATTRIBUTES = new Set([
 const ASCII_WHITESPACE = /[\t\n\f\r ]+/
 
 const GENERATED_NAME =
-  /^(v-[\w-]+|[a-z][a-z-]*-\d+|([a-z][a-z-]*-)?(_R_\w+_|s\d+))$/
+  /^(v-[\w-]+|[a-z][a-z-]*-\d+|([a-z][a-z-]*-)?(_R_\w+_|s\d+|solid-[\dA-Za-z]+))$/
 
-const GENERATED_REFERENCE = /(^|-)(\d+|_R_\w+_|s\d+|v-\d+)(-|$)/
+const GENERATED_REFERENCE =
+  /(^|-)(\d+|_R_\w+_|s\d+|v-\d+|solid-[\dA-Za-z]+)(-|$)/
 
 const attribute = (node: Node, name: string) =>
   node.attrs.find((attr: { name: string }) => attr.name === name)?.value as
@@ -72,6 +77,7 @@ const normalizeAttribute = (
   if (name === "class") {
     return value.split(ASCII_WHITESPACE).filter(Boolean).toSorted().join(" ")
   }
+  if (BOOLEAN_ATTRIBUTES.has(name) && value === "true") return ""
   if (name === "id") return ids.get(value) ?? value
   if (name === "name") return ids.get(`name:${value}`) ?? value
   if (ID_REFERENCE_ATTRIBUTES.has(name)) {

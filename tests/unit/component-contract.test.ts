@@ -1,5 +1,6 @@
 import { createElement, type ComponentType } from "react"
 import { renderToString as renderReact } from "react-dom/server"
+import { ssr } from "@solidjs/web"
 import { createRawSnippet, type Component as SvelteComponent } from "svelte"
 import { render as renderSvelte } from "svelte/server"
 import { createSSRApp, h, type Component as VueComponent } from "vue"
@@ -24,6 +25,8 @@ import {
   contentOf,
   reactNodes,
   render as renderers,
+  renderSolid,
+  type SolidComponent,
   TEXT,
   vueNodes,
 } from "./renderers"
@@ -38,6 +41,9 @@ const astroPaths = Object.keys(
 const reactComponents = import.meta.glob<{
   default: ComponentType<Record<string, unknown>>
 }>("../../packages/opui/components/*/*.react.tsx")
+const solidComponents = import.meta.glob<{ default: SolidComponent }>(
+  "../../packages/opui/components/*/*.solid.tsx",
+)
 const svelteComponents = import.meta.glob<{
   default: SvelteComponent<Record<string, unknown>>
 }>("../../packages/opui/components/*/*.svelte")
@@ -46,7 +52,7 @@ const vueComponents = import.meta.glob<VueComponent>(
   { import: "default" },
 )
 
-const FRAMEWORKS = ["astro", "react", "svelte", "vue"] as const
+const FRAMEWORKS = ["astro", "react", "solid", "svelte", "vue"] as const
 
 type Framework = (typeof FRAMEWORKS)[number]
 
@@ -67,7 +73,7 @@ const REACT_NAMES: Record<string, string> = {
   value: "defaultValue",
 }
 
-const SLOT_TYPE = /\b(ReactNode|Snippet)\b/
+const SLOT_TYPE = /\b(Element|ReactNode|Snippet)\b/
 
 const PRELOAD = /<link rel="preload" as="image"[^>]*\/>/g
 
@@ -100,7 +106,7 @@ const withoutAttribute = (markup: string, attribute: string) =>
 const loaderOf = <T>(modules: Record<string, () => Promise<T>>, name: string) =>
   Object.entries(modules).find(([path]) =>
     path
-      .replace(/\.react\.tsx$/, ".tsx")
+      .replace(/\.(react|solid)\.tsx$/, ".tsx")
       .endsWith(`/${name}.${path.split(".").at(-1)}`),
   )?.[1]
 
@@ -494,6 +500,26 @@ const render: Record<Framework, (entry: Case) => Promise<string | undefined>> =
         }),
       ).replace(PRELOAD, "")
     },
+    solid: async ({ component, props, slots, types }) => {
+      const load = loaderOf(solidComponents, component)
+      if (!load) return undefined
+      const { default: Component } = await load()
+      return renderSolid(Component, {
+        ...props,
+        ...Object.fromEntries(
+          slots
+            .filter(
+              (slot) => slot === "default" || types.solid.has(slotProp(slot)),
+            )
+            .map((slot) => [
+              slotProp(slot),
+              slotValue("solid", types.solid.get(slotProp(slot)), () =>
+                ssr(contentOf(component)),
+              ),
+            ]),
+        ),
+      })
+    },
     svelte: async ({ component, props, slots, types }) => {
       const load = loaderOf(svelteComponents, component)
       if (!load) return undefined
@@ -556,7 +582,7 @@ const repeatedAttribute = (markup: string) => {
 const BEFORE_SPREAD_RULE =
   "Astro prints an attribute an element writes before {...rest} and then the caller's, and the browser keeps the first, while React, Svelte and Vue render the caller's: where the caller may replace the value, destructure the attribute and fall back with ?? (role={role ?? \"list\"}); where the component's value must stay, leave the attribute out of the types, so no caller passes it, as CheckboxInput does for type"
 
-describe("every component renders the same in Astro, React, Svelte and Vue", () => {
+describe("every component renders the same in Astro, React, Solid, Svelte and Vue", () => {
   test("covers the components with a matrix of props and slots", () => {
     expect(
       new Set(CASES.map(({ component }) => component)).size,

@@ -4,6 +4,7 @@
 
 <Badge corner="start-start" hideLabel label="35 unread messages">
   <svg
+    data-icon="mail"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -19,6 +20,7 @@
 </Badge>
 <Badge hideLabel label="More than 99 unread messages">
   <svg
+    data-icon="mail"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -34,6 +36,7 @@
 </Badge>
 <Badge corner="end-start" hideLabel label="New messages">
   <svg
+    data-icon="mail"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -49,6 +52,7 @@
 </Badge>
 <Badge corner="end-end" hideLabel label="About 3,000 unread messages">
   <svg
+    data-icon="mail"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"

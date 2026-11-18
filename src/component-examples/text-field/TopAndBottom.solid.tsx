@@ -1,0 +1,22 @@
+/** @jsxImportSource @solidjs/web */
+import { TextField } from "opui-css/solid"
+
+export default function TopAndBottom() {
+  return (
+    <>
+      <TextField
+        label="Name"
+        placeholder="Holly Humbucker"
+        top="Shown on your profile"
+      />
+
+      <TextField
+        bottom="Plain text, no links"
+        characterCount
+        label="Bass motto"
+        maxlength={80}
+        placeholder="Turn it up, not down"
+      />
+    </>
+  )
+}

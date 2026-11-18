@@ -15,8 +15,12 @@ export const createExampleIdPlaceholders = () => {
 export const exampleKeyOf = (file) =>
   file.replace(/^.*src\/component-examples\//, "").replace(/\.astro$/, "")
 
-export const assignExampleIds = (html, key) => {
-  const base = exampleIdBase(key)
+export const idBaseOf = (file) => {
+  const block = /(?:^|\/)src\/blocks\/([^/]+)\/[^/]+\.astro$/.exec(file)
+  return block ? block[1] : exampleIdBase(exampleKeyOf(file))
+}
+
+export const assignExampleIds = (html, key, base = exampleIdBase(key)) => {
   const own = new RegExp(`^#?${base}-(\\d+)(?:-|$)`)
   const reserved = new Set()
   const order = []

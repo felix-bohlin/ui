@@ -12,6 +12,8 @@ export default {
   notes: {
     ...passThrough("input", ".ui-one-time-code", ["autofocus", "placeholder"], {
       react: "Use `value` with `onChange`, or `defaultValue`.",
+      solid:
+        "`value` sets the value and follows it when it changes. Follow typing with `onInput`.",
     }),
     html: 'Use one `<input>` with `autocomplete="one-time-code"`, `maxlength` and a matching `pattern`, such as `[0-9]{6}`, plus `inputmode="numeric"` for digits.',
   },
@@ -30,7 +32,7 @@ export default {
     {
       description:
         "The `autocapitalize` of the `<input>`. With `alphanumeric` it is `characters`.",
-      frameworks: ["astro", "svelte", "vue"],
+      frameworks: ["astro", "solid", "svelte", "vue"],
       inherited: true,
       prop: "autocapitalize",
       type: "string",
@@ -79,7 +81,7 @@ export default {
     {
       description:
         "The `inputmode` of the `<input>`. Without `alphanumeric` it is `numeric`.",
-      frameworks: ["astro", "svelte", "vue"],
+      frameworks: ["astro", "solid", "svelte", "vue"],
       inherited: true,
       prop: "inputmode",
       type: "string",
@@ -141,7 +143,7 @@ export default {
     {
       description:
         "The `spellcheck` of the `<input>`. With `alphanumeric` it is `false`.",
-      frameworks: ["astro", "svelte", "vue"],
+      frameworks: ["astro", "solid", "svelte", "vue"],
       inherited: true,
       prop: "spellcheck",
       type: "boolean",

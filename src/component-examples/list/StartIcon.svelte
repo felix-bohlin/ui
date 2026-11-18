@@ -6,6 +6,7 @@
   <ListItem label="Lou Headstock">
     {#snippet start()}
       <svg
+        data-icon="person"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -22,6 +23,7 @@
   <ListItem description="5-string slapper" label="Percy Groove">
     {#snippet start()}
       <svg
+        data-icon="person"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"

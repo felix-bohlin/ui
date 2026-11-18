@@ -17,6 +17,12 @@ export const TARGETS = Object.fromEntries(
   ]),
 )
 
+export const EXAMPLES_DIR = "src/component-examples"
+
+export const BLOCKS_DIR = "src/blocks"
+
+export const SOURCE_DIRS = [BLOCKS_DIR, EXAMPLES_DIR]
+
 export const byAttributeName = (a, b) => a.localeCompare(b, "en")
 
 export const readHandWritten = () =>
@@ -38,7 +44,10 @@ export const handWrittenProblems = (handWritten, exists) => {
       ? []
       : [`${list} is not sorted`]),
     ...files.flatMap((file) => {
-      const astro = file.replace(/\.(html|react\.tsx|svelte|vue)$/, ".astro")
+      const astro = file.replace(
+        /\.(html|react\.tsx|solid\.tsx|svelte|vue)$/,
+        ".astro",
+      )
       return [
         ...(exists(`src/component-examples/${file}`)
           ? []
@@ -52,29 +61,27 @@ export const handWrittenProblems = (handWritten, exists) => {
 }
 
 const GENERATED_FILE = new RegExp(
-  `^src/component-examples/(.+?)(${Object.values(TARGETS)
+  `^(${SOURCE_DIRS.join("|")})/(.+?)(${Object.values(TARGETS)
     .map((extension) => extension.replace(/\./g, "\\."))
     .join("|")})$`,
 )
 
 export const astroSourceOf = (file, read) => {
-  const [, key, extension] = GENERATED_FILE.exec(file) ?? []
-  if (!key || read(`src/component-examples/${key}.astro`) === undefined) {
+  const [, dir, key, extension] = GENERATED_FILE.exec(file) ?? []
+  if (!key || read(`${dir}/${key}.astro`) === undefined) {
     return undefined
   }
-  const generated = generatedTargets(key, readHandWritten()).some(
-    (framework) => TARGETS[framework] === extension,
-  )
-  return generated ? `src/component-examples/${key}.astro` : undefined
+  const generated = generatedTargets(
+    key,
+    dir === EXAMPLES_DIR ? readHandWritten() : {},
+  ).some((framework) => TARGETS[framework] === extension)
+  return generated ? `${dir}/${key}.astro` : undefined
 }
 
 export const staleProblems = (outputs, read) =>
   [...outputs]
     .filter(([file, code]) => read(file) !== code)
     .map(([file]) => {
-      const astro = file.replace(
-        GENERATED_FILE,
-        "src/component-examples/$1.astro",
-      )
+      const astro = file.replace(GENERATED_FILE, "$1/$2.astro")
       return `${file} is stale: edit ${astro} and run pnpm build-examples`
     })

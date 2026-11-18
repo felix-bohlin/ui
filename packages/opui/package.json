@@ -1,7 +1,7 @@
 {
   "name": "opui-css",
   "version": "6.0.0-rc.4",
-  "description": "Design system. Components. Modern HTML & CSS. HTML, Astro, React, Svelte and Vue. The tokens started from Open Props, and the components don't need it.",
+  "description": "Design system. Components. Modern HTML & CSS. HTML, Astro, React, Solid, Svelte and Vue. The tokens started from Open Props, and the components don't need it.",
   "type": "module",
   "license": "MIT",
   "author": "Felix Bohlin",
@@ -24,6 +24,9 @@
     "open-props",
     "react",
     "react-components",
+    "solid",
+    "solid-components",
+    "solidjs",
     "svelte",
     "svelte-components",
     "ui",
@@ -54,6 +57,7 @@
     "open-props.css",
     "react",
     "skills",
+    "solid",
     "svelte",
     "themes",
     "tokens.json",
@@ -76,6 +80,11 @@
       "types": "./dist/react/index.d.ts",
       "default": "./dist/react/index.js"
     },
+    "./solid": {
+      "types": "./dist/solid/index.d.ts",
+      "solid": "./dist/solid/index.js",
+      "default": "./dist/solid/index.js"
+    },
     "./svelte": {
       "types": "./dist/svelte/index.d.ts",
       "svelte": "./dist/svelte/index.js",
@@ -95,6 +104,16 @@
     "./components/*.react.tsx": {
       "types": "./dist/components/*.react.d.ts",
       "default": "./dist/components/*.react.js"
+    },
+    "./components/*.solid": {
+      "types": "./dist/components/*.solid.d.ts",
+      "solid": "./dist/components/*.solid.jsx",
+      "default": "./dist/components/*.solid.jsx"
+    },
+    "./components/*.solid.tsx": {
+      "types": "./dist/components/*.solid.d.ts",
+      "solid": "./dist/components/*.solid.jsx",
+      "default": "./dist/components/*.solid.jsx"
     },
     "./components/*.svelte": {
       "types": "./dist/components/*.svelte.d.ts",
@@ -143,14 +162,19 @@
     "web-features": "catalog:"
   },
   "peerDependencies": {
+    "@solidjs/web": "^2.0.0",
     "astro": "^7",
     "open-props": "^1.7.23",
     "react": "^19",
     "react-dom": "^19",
+    "solid-js": "^2.0.0",
     "svelte": "^5.57",
     "vue": "^3.5.2"
   },
   "peerDependenciesMeta": {
+    "@solidjs/web": {
+      "optional": true
+    },
     "astro": {
       "optional": true
     },
@@ -161,6 +185,9 @@
       "optional": true
     },
     "react-dom": {
+      "optional": true
+    },
+    "solid-js": {
       "optional": true
     },
     "svelte": {

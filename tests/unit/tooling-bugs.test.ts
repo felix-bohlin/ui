@@ -2,11 +2,17 @@ import { readFileSync } from "node:fs"
 import { createRequire } from "node:module"
 import { pathToFileURL } from "node:url"
 import { convertToTSX } from "@astrojs/compiler"
+import { createComponent, renderToString } from "@solidjs/web"
 import { experimental_AstroContainer as AstroContainer } from "astro/container"
 import { parseFragment } from "parse5"
 import { describe, expect, test } from "vitest"
+import { compileTemplate } from "vue/compiler-sfc"
+import BooleanSpread from "./fixtures/BooleanSpread.astro"
+import ConditionalProp from "./fixtures/ConditionalProp.solid"
+import DefaultAfterSpread from "./fixtures/DefaultAfterSpread.solid"
 import EmptyUnknown from "./fixtures/EmptyUnknown.astro"
 import UndefinedSpread from "./fixtures/UndefinedSpread.astro"
+import { renderSolid } from "./renderers"
 
 const fixed = (workaround: string) =>
   `fixed upstream: remove the workaround in ${workaround}, then this entry`
@@ -34,6 +40,30 @@ describe("tooling bugs the generator and the components work around", () => {
         "the defined(rest) spreads in the Avatar, Button, Chip, Copy, Fieldset, ListItem, SortableTable and Toaster Astro files",
       ),
     ).toEqual([false, false])
+  })
+
+  test('Astro writes multiple="true" for a true boolean attribute it doesn\'t list', async () => {
+    const container = await AstroContainer.create()
+    expect(
+      await container.renderToString(BooleanSpread),
+      fixed(
+        'attributeOf in scripts/example-html.mjs and normalizeAttribute in tests/unit/normalize.ts, which read a boolean attribute with the value "true" as the bare attribute',
+      ),
+    ).toContain('multiple="true"')
+  })
+
+  test("Vue takes <search> for a component it can't resolve", () => {
+    const { code } = compileTemplate({
+      filename: "Search.vue",
+      id: "search",
+      source: "<search><form></form></search>",
+    })
+    expect(
+      code,
+      fixed(
+        'VUE_UNKNOWN_TAGS in scripts/build-examples.mjs, which writes <search> as <component is="search"> in Vue',
+      ),
+    ).toContain("resolveComponent")
   })
 
   test("Astro's dev CSS collector compiles the files behind ?raw imports", () => {
@@ -109,6 +139,54 @@ describe("tooling bugs the generator and the components work around", () => {
         "packages/opui/css/components/menu.css, the inset formula for submenus of submenus",
       ),
     ).toThrow('Function("anchored")')
+  })
+
+  test("Solid's server render prints a defaultValue after a spread as a literal attribute, and as value before it", () => {
+    const html = renderSolid(DefaultAfterSpread, { rest: { name: "field" } })
+    const attributes = (order: string) =>
+      new RegExp(`<input data-order="${order}"([^>]*)>`).exec(html)?.[1] ?? ""
+    expect(attributes("before")).toContain('value="x"')
+    expect(attributes("before")).not.toContain("defaultValue")
+    expect(
+      attributes("after"),
+      fixed(
+        "scripts/component-solid.mjs, which writes the defaultValue and defaultChecked of a model before the rest spread instead of after it like the other attributes a model adds",
+      ),
+    ).toContain('defaultValue="x"')
+  })
+
+  test("Solid takes a hydration id for each read of a component prop that holds a condition", () => {
+    const keyAfter = (reads: number) =>
+      /<b _hk=([^>]+)>/.exec(
+        renderToString(() => createComponent(ConditionalProp, { reads }), {
+          renderId: "solid-",
+        }),
+      )?.[1]
+    expect(keyAfter(1)).toBeDefined()
+    expect(
+      keyAfter(2),
+      fixed(
+        "scripts/component-solid.mjs, which reads a condition in a component's prop through an accessor (hoist), since the server reads the prop in the component and the client in the effect of its spread",
+      ),
+    ).not.toBe(keyAfter(1))
+  })
+
+  test("Solid hydrates one root per page: once the first hydrate() is done, the next renders over the server markup", () => {
+    const source = readFileSync(
+      new URL("../../node_modules/@solidjs/web/dist/web.js", import.meta.url),
+      "utf-8",
+    )
+    const hydrate = source.slice(
+      source.indexOf("function hydrate("),
+      source.indexOf("function ", source.indexOf("function hydrate(") + 1),
+    )
+    expect(hydrate).toContain("globalThis._$HY")
+    expect(
+      hydrate,
+      fixed(
+        "src/components/Example/mount-solid-examples.ts, which hydrates only the example ?hydrate= names and renders the others, and tests/e2e/hydration.spec.ts, which loads the page once per example",
+      ),
+    ).toMatch(/if \(\w+\.done\) return render\(/)
   })
 
   test("parse5 drops the button and div inside a select", () => {

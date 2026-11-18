@@ -3,7 +3,7 @@
 A single-line text input with a label, start and end text, and validation.
 
 - CSS: `opui-css/css/components/text-field.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/text-field.md), [Astro](https://opui.dev/astro/components/text-field.md), [React](https://opui.dev/react/components/text-field.md), [Svelte](https://opui.dev/svelte/components/text-field.md), [Vue](https://opui.dev/vue/components/text-field.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/text-field.md), [Astro](https://opui.dev/astro/components/text-field.md), [React](https://opui.dev/react/components/text-field.md), [Solid](https://opui.dev/solid/components/text-field.md), [Svelte](https://opui.dev/svelte/components/text-field.md), [Vue](https://opui.dev/vue/components/text-field.md).
 
 ## TextField
 
@@ -54,13 +54,14 @@ A single-line text input with a label, start and end text, and validation.
   - `input`: The `<input>` inside, or `null`. Read-only.
   - `showPassword()`: Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.
 
-Model: `value` (`string | number`), the input value. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
+Model: `value` (`string | number`), the input value. Astro, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes
 
 - HTML: Use `.ui-select` for a `<select>` and `.ui-textarea` for a `<textarea>`. You can put a `<datalist>` inside the root. For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. For a password toggle, use `<opui-text-field class="ui-text-field">` with a `<label class="ui-label" for>`, put a `.ui-button` with `aria-pressed="false"`, `commandfor` naming the input and `command="--toggle-password"` in `.ui-end`, and import `opui-css/elements/text-field.js`. With a label, put a `<label class="ui-label" for>` inside the root that points at the field's `id`, so the label alone names it, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Put `.ui-top` and `.ui-start` before the `<input>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they're drawn.
 - Astro, Svelte and Vue: Attributes that aren't props go to the `<input>`, like `autocomplete` and `placeholder`, and `class` and `style` go to the `.ui-text-field` root.
 - React: Attributes that aren't props go to the `<input>`, like `autocomplete` and `placeholder`, and `className` and `style` go to the `.ui-text-field` root. Use `value` with `onChange`, or `defaultValue`.
+- Solid: Attributes that aren't props go to the `<input>`, like `autocomplete` and `placeholder`, and `class` and `style` go to the `.ui-text-field` root. `value` sets the value and follows it when it changes. Follow typing with `onInput`.
 
 ## Component properties
 
@@ -140,6 +141,28 @@ import { TextField } from "opui-css/astro"
 
 ```tsx
 import { TextField } from "opui-css/react"
+
+export default function Variants() {
+  return (
+    <>
+      <TextField label="Outlined" placeholder="Your name" />
+      <TextField label="Filled" placeholder="Your name" variant="filled" />
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { TextField } from "opui-css/solid"`
+
+- `TextField` slot props (`JSX.Element`): `bottom`, `children`, `end`, `endText`, `iconChecked`, `iconUnchecked`, `label`, `start`, `startText` and `top`.
+
+### Example: Variants
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { TextField } from "opui-css/solid"
 
 export default function Variants() {
   return (

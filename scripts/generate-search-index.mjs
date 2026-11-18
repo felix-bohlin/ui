@@ -507,6 +507,7 @@ async function generateIndex() {
     const name = componentName(folder, titles)
 
     for (const framework of FRAMEWORKS) {
+      if (!componentHasFramework(framework.id, api.page ?? folder)) continue
       const html = framework.id === "html"
       const options = api.options
         .filter(

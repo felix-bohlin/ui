@@ -3,7 +3,7 @@
 A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill.
 
 - CSS: `opui-css/css/components/text-field.css` and `opui-css/css/components/one-time-code.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/one-time-code.md), [Astro](https://opui.dev/astro/components/one-time-code.md), [React](https://opui.dev/react/components/one-time-code.md), [Svelte](https://opui.dev/svelte/components/one-time-code.md), [Vue](https://opui.dev/vue/components/one-time-code.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/one-time-code.md), [Astro](https://opui.dev/astro/components/one-time-code.md), [React](https://opui.dev/react/components/one-time-code.md), [Solid](https://opui.dev/solid/components/one-time-code.md), [Svelte](https://opui.dev/svelte/components/one-time-code.md), [Vue](https://opui.dev/vue/components/one-time-code.md).
 
 ## OneTimeCode
 
@@ -18,29 +18,30 @@ A one-time password (OTP) field: one input drawn as a box per character, with pa
 ### Props and modifiers
 
 - `alphanumeric`: `boolean`, `input[autocapitalize="characters"]`. Accepts letters and digits. Letters show uppercase and keep the case they were typed in.
-- `autocapitalize` (Astro, Svelte and Vue): `string`. The `autocapitalize` of the `<input>`. With `alphanumeric` it is `characters`.
+- `autocapitalize` (Astro, Solid, Svelte and Vue): `string`. The `autocapitalize` of the `<input>`. With `alphanumeric` it is `characters`.
 - `autoCapitalize` (React): `string`. The `autocapitalize` of the `<input>`, as `autoCapitalize` like on the element. With `alphanumeric` it is `characters`.
 - `disabled`: `boolean`, `input[disabled]`. Dims the field and blocks input.
 - `error`: `boolean`, `input[aria-invalid="true"]`. Marks the control invalid and shows error styles.
 - `grouped`: `boolean`, `.ui-grouped`. Draws a dash between the two halves of the code. Use it with an even `length`.
 - `id`: `string`. The id of the `<input>`. With a label, the `<label for>` points at it, so the component generates one when it's left out. The end text's id, `x-end-text`, starts with it.
-- `inputmode` (Astro, Svelte and Vue): `string`. The `inputmode` of the `<input>`. Without `alphanumeric` it is `numeric`.
+- `inputmode` (Astro, Solid, Svelte and Vue): `string`. The `inputmode` of the `<input>`. Without `alphanumeric` it is `numeric`.
 - `inputMode` (React): `string`. The `inputmode` of the `<input>`, as `inputMode` like on the element. Without `alphanumeric` it is `numeric`.
 - `length`: `4 | 5 | 6 | 7 | 8`, `input[maxlength]`, default `6`. The number of characters and boxes, from 4 to 8.
 - `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
 - `pattern`: `string`. The `pattern` of the `<input>`. It is `[0-9]{length}`, or `[A-Za-z0-9]{length}` with `alphanumeric`.
 - `required`: `boolean`, `input[required]`. Adds a required mark after the label. The form won't submit while the code is incomplete.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
-- `spellcheck` (Astro, Svelte and Vue): `boolean`. The `spellcheck` of the `<input>`. With `alphanumeric` it is `false`.
+- `spellcheck` (Astro, Solid, Svelte and Vue): `boolean`. The `spellcheck` of the `<input>`. With `alphanumeric` it is `false`.
 - `spellCheck` (React): `boolean`. The `spellcheck` of the `<input>`, as `spellCheck` like on the element. With `alphanumeric` it is `false`.
 
-Model: `value` (`string`), the code. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
+Model: `value` (`string`), the code. Astro, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes
 
 - HTML: Use one `<input>` with `autocomplete="one-time-code"`, `maxlength` and a matching `pattern`, such as `[0-9]{6}`, plus `inputmode="numeric"` for digits.
 - Astro, Svelte and Vue: Attributes that aren't props go to the `<input>`, like `autofocus` and `placeholder`, and `class` and `style` go to the `.ui-one-time-code` root.
 - React: Attributes that aren't props go to the `<input>`, like `autofocus` and `placeholder`, and `className` and `style` go to the `.ui-one-time-code` root. Use `value` with `onChange`, or `defaultValue`.
+- Solid: Attributes that aren't props go to the `<input>`, like `autofocus` and `placeholder`, and `class` and `style` go to the `.ui-one-time-code` root. `value` sets the value and follows it when it changes. Follow typing with `onInput`.
 
 ## Component properties
 
@@ -143,6 +144,30 @@ import { OneTimeCode } from "opui-css/astro"
 
 ```tsx
 import { OneTimeCode } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <OneTimeCode
+      endText="The code expires in 10 minutes."
+      label="Verification code"
+      name="code"
+      required
+    />
+  )
+}
+```
+
+## Solid
+
+`import { OneTimeCode } from "opui-css/solid"`
+
+- `OneTimeCode` slot props (`JSX.Element`): `endText` and `label`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { OneTimeCode } from "opui-css/solid"
 
 export default function Basics() {
   return (

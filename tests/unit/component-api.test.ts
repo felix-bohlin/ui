@@ -109,6 +109,12 @@ describe("component api checks", () => {
     ).toEqual(expected)
     expect(
       destructuredDefaults(
+        "solid",
+        'export default function A(props: Props) {\n  const open = () => (props.open === undefined ? false : props.open)\n  const size = () =>\n    props.size === undefined ? "large" : props.size\n  const value = () => (props.value === undefined ? 1 : props.value)\n  return <div />\n}',
+      ),
+    ).toEqual(expected)
+    expect(
+      destructuredDefaults(
         "svelte",
         '<script lang="ts">\n  let { checked = $bindable(), open = false, size = "large", value = $bindable(1) }: Props = $props()\n</script>',
       ),
@@ -127,6 +133,7 @@ describe("component api checks", () => {
       source: "SortableTable",
     }
     expect(frameworkProps(sortableTable, "svelte").has("onsort")).toBe(true)
+    expect(frameworkProps(sortableTable, "solid").has("onSort")).toBe(true)
     expect(frameworkProps(sortableTable, "svelte").has("ascending-label")).toBe(
       false,
     )

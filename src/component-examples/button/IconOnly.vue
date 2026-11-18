@@ -6,6 +6,7 @@ import { Button } from "opui-css/vue"
   <div class="example-row">
     <Button aria-label="Edit">
       <svg
+        data-icon="edit"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -20,6 +21,7 @@ import { Button } from "opui-css/vue"
     </Button>
     <Button aria-label="Edit" round>
       <svg
+        data-icon="edit"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -36,6 +38,7 @@ import { Button } from "opui-css/vue"
   <div class="example-row">
     <Button aria-label="Edit" variant="outlined">
       <svg
+        data-icon="edit"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -50,6 +53,7 @@ import { Button } from "opui-css/vue"
     </Button>
     <Button aria-label="Edit" round variant="outlined">
       <svg
+        data-icon="edit"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -66,6 +70,7 @@ import { Button } from "opui-css/vue"
   <div class="example-row">
     <Button aria-label="Edit" variant="tonal">
       <svg
+        data-icon="edit"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -80,6 +85,7 @@ import { Button } from "opui-css/vue"
     </Button>
     <Button aria-label="Edit" round variant="tonal">
       <svg
+        data-icon="edit"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -96,6 +102,7 @@ import { Button } from "opui-css/vue"
   <div class="example-row">
     <Button aria-label="Edit" variant="filled">
       <svg
+        data-icon="edit"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -110,6 +117,7 @@ import { Button } from "opui-css/vue"
     </Button>
     <Button aria-label="Edit" round variant="filled">
       <svg
+        data-icon="edit"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -126,6 +134,7 @@ import { Button } from "opui-css/vue"
   <div class="example-row">
     <Button aria-label="Edit" round size="x-small" variant="tonal">
       <svg
+        data-icon="edit"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -140,6 +149,7 @@ import { Button } from "opui-css/vue"
     </Button>
     <Button aria-label="Edit" round size="small" variant="tonal">
       <svg
+        data-icon="edit"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -154,6 +164,7 @@ import { Button } from "opui-css/vue"
     </Button>
     <Button aria-label="Edit" round variant="tonal">
       <svg
+        data-icon="edit"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -168,6 +179,7 @@ import { Button } from "opui-css/vue"
     </Button>
     <Button aria-label="Edit" round size="large" variant="tonal">
       <svg
+        data-icon="edit"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"

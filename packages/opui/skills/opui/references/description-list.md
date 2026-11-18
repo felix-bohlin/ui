@@ -3,7 +3,7 @@
 A list of terms and their values, like order details or totals.
 
 - CSS: `opui-css/css/components/description-list.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/description-list.md), [Astro](https://opui.dev/astro/components/description-list.md), [React](https://opui.dev/react/components/description-list.md), [Svelte](https://opui.dev/svelte/components/description-list.md), [Vue](https://opui.dev/vue/components/description-list.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/description-list.md), [Astro](https://opui.dev/astro/components/description-list.md), [React](https://opui.dev/react/components/description-list.md), [Solid](https://opui.dev/solid/components/description-list.md), [Svelte](https://opui.dev/svelte/components/description-list.md), [Vue](https://opui.dev/vue/components/description-list.md).
 
 ## DescriptionList
 
@@ -116,6 +116,41 @@ import {
   DescriptionListItem,
   DescriptionListTerm,
 } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <DescriptionList>
+      <DescriptionListItem>
+        <DescriptionListTerm>Order number</DescriptionListTerm>
+        <DescriptionListDescription>10482</DescriptionListDescription>
+      </DescriptionListItem>
+      <DescriptionListItem>
+        <DescriptionListTerm>Placed on</DescriptionListTerm>
+        <DescriptionListDescription>Oct 8, 2026</DescriptionListDescription>
+      </DescriptionListItem>
+      <DescriptionListItem>
+        <DescriptionListTerm>Status</DescriptionListTerm>
+        <DescriptionListDescription>Shipped</DescriptionListDescription>
+      </DescriptionListItem>
+    </DescriptionList>
+  )
+}
+```
+
+## Solid
+
+`import { DescriptionList, DescriptionListDescription, DescriptionListItem, DescriptionListTerm } from "opui-css/solid"`
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import {
+  DescriptionList,
+  DescriptionListDescription,
+  DescriptionListItem,
+  DescriptionListTerm,
+} from "opui-css/solid"
 
 export default function Basics() {
   return (

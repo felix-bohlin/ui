@@ -7,6 +7,7 @@ export default function Icons() {
         hideLabel
         iconChecked={
           <svg
+            data-icon="moon"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -20,6 +21,7 @@ export default function Icons() {
         }
         iconUnchecked={
           <svg
+            data-icon="sun"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -42,6 +44,7 @@ export default function Icons() {
         hideLabel
         iconChecked={
           <svg
+            data-icon="moon"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -55,6 +58,7 @@ export default function Icons() {
         }
         iconUnchecked={
           <svg
+            data-icon="sun"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"

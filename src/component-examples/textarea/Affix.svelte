@@ -5,6 +5,7 @@
 <Textarea label="Notes" placeholder="Add a note...">
   {#snippet start()}
     <svg
+      data-icon="edit"
       aria-hidden="true"
       width="16"
       height="16"

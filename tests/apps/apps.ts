@@ -7,6 +7,7 @@ export const root = path.resolve(appsDir, "../..")
 
 const EXTENSIONS = {
   react: ".react.tsx",
+  solid: ".solid.tsx",
   svelte: ".svelte",
   vue: ".vue",
 }
@@ -73,6 +74,18 @@ const ALL_APPS: App[] = [
   },
   {
     build: ["vite", "build"],
+    check: [["tsc", "--noEmit", "-p", "."]],
+    examples: "src/examples",
+    framework: "solid",
+    name: "solid-start",
+    port: 4409,
+    publicDir: "public",
+    scripts: "/assets/",
+    ssr: true,
+    start: "PORT=4409 node dist/server/node.js",
+  },
+  {
+    build: ["vite", "build"],
     check: [
       ["svelte-kit", "sync"],
       ["svelte-check", "--threshold", "error"],
@@ -113,6 +126,17 @@ const ALL_APPS: App[] = [
     publicDir: "public",
     ssr: false,
     start: "pnpm exec vite --force --port 4407 --strictPort",
+  },
+  {
+    build: ["vite", "build"],
+    check: [["tsc", "--noEmit", "-p", "."]],
+    examples: "src/examples",
+    framework: "solid",
+    name: "vite-solid",
+    port: 4408,
+    publicDir: "public",
+    ssr: false,
+    start: "pnpm exec vite preview --port 4408 --strictPort",
   },
   {
     build: ["vite", "build"],

@@ -3,7 +3,7 @@
 Rows of similar items, like contacts, files or settings, with icons, controls and links.
 
 - CSS: `opui-css/css/components/list.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/list.md), [Astro](https://opui.dev/astro/components/list.md), [React](https://opui.dev/react/components/list.md), [Svelte](https://opui.dev/svelte/components/list.md), [Vue](https://opui.dev/vue/components/list.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/list.md), [Astro](https://opui.dev/astro/components/list.md), [React](https://opui.dev/react/components/list.md), [Solid](https://opui.dev/solid/components/list.md), [Svelte](https://opui.dev/svelte/components/list.md), [Vue](https://opui.dev/vue/components/list.md).
 
 ## List
 
@@ -45,7 +45,7 @@ Rows of similar items, like contacts, files or settings, with icons, controls an
 - `choice`: `"checkbox"` (`label.ui-checkbox`), `"radio"` (`label.ui-radio`), `"switch"` (`label.ui-switch`). Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.
 - `color`: `"critical"` (`.ui-critical`). Optional colors. `critical` marks a destructive item in a [Menu](/components/menu).
 - `disabled`: `boolean`. Disables a button item. A link item drops its `href` and gets `role="link"` and `aria-disabled="true"` instead.
-- `for` (Astro, Svelte and Vue): `string`. The `for` attribute of the `<label>` when `choice` is set.
+- `for` (Astro, Solid, Svelte and Vue): `string`. The `for` attribute of the `<label>` when `choice` is set.
 - `href`: `string`. The link to use. Renders an `<a>` inside the `<li>`.
 - `htmlFor` (React): `string`. The `for` attribute of the `<label>` when `choice` is set, as `htmlFor` like on the element.
 - `inset`: `boolean`, `.ui-inset`. Aligns the text with items that have start content.
@@ -59,7 +59,7 @@ Rows of similar items, like contacts, files or settings, with icons, controls an
 ### Notes
 
 - HTML: To make the item interactive, wrap the content in an `<a>`, `<button>` or `<label>`.
-- Astro, Svelte and Vue: With `as` or `href`, attributes that aren't props go to the `<a>` or `<button>`, like `aria-current`, `target` or `style`, and `type` to the `<button>`. Without them, and with `choice`, they go to the `<li>`. `class` always goes to the `<li>`.
+- Astro, Solid, Svelte and Vue: With `as` or `href`, attributes that aren't props go to the `<a>` or `<button>`, like `aria-current`, `target` or `style`, and `type` to the `<button>`. Without them, and with `choice`, they go to the `<li>`. `class` always goes to the `<li>`.
 - React: With `as` or `href`, attributes that aren't props go to the `<a>` or `<button>`, like `aria-current`, `target` or `style`, and `type` to the `<button>`. Without them, and with `choice`, they go to the `<li>`. `className` always goes to the `<li>`.
 
 ## Component properties
@@ -156,6 +156,32 @@ import { List, ListItem } from "opui-css/astro"
 
 ```tsx
 import { List, ListItem } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <List>
+      <ListItem label="Gig poster.pdf" />
+      <ListItem
+        description="Our logo in every color, with the bass drawn way bigger than the drum kit, at last."
+        label="Band logo pack.pdf"
+      />
+      <ListItem end="100+" label="Photos" />
+    </List>
+  )
+}
+```
+
+## Solid
+
+`import { List, ListItem } from "opui-css/solid"`
+
+- `ListItem` slot props (`JSX.Element`): `children`, `description`, `end`, `iconChecked`, `label`, `start` and `submenu`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { List, ListItem } from "opui-css/solid"
 
 export default function Basics() {
   return (

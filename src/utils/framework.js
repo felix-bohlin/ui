@@ -7,7 +7,7 @@
 //
 // Order convention: default framework first.
 
-/** @typedef {"html" | "astro" | "react" | "svelte" | "vue"} FrameworkId */
+/** @typedef {"html" | "astro" | "react" | "solid" | "svelte" | "vue"} FrameworkId */
 
 /** @type {FrameworkId} */
 export const DEFAULT_FRAMEWORK = "html"
@@ -17,6 +17,7 @@ export const FRAMEWORKS = [
   { id: "html", label: "HTML" },
   { id: "astro", label: "Astro" },
   { id: "react", label: "React" },
+  { id: "solid", label: "Solid" },
   { id: "svelte", label: "Svelte" },
   { id: "vue", label: "Vue" },
 ]
@@ -43,7 +44,9 @@ export function isHydratedFramework(framework) {
 
 /** @param {FrameworkId} framework */
 export function exampleExtension(framework) {
-  return framework === "react" ? "react.tsx" : framework
+  return framework === "react" || framework === "solid"
+    ? `${framework}.tsx`
+    : framework
 }
 
 /**

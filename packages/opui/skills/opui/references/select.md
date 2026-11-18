@@ -3,7 +3,7 @@
 A dropdown for picking one value from a list in a form.
 
 - CSS: `opui-css/css/components/text-field.css`, `opui-css/css/components/select.css` and `opui-css/css/components/list.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/select.md), [Astro](https://opui.dev/astro/components/select.md), [React](https://opui.dev/react/components/select.md), [Svelte](https://opui.dev/svelte/components/select.md), [Vue](https://opui.dev/vue/components/select.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/select.md), [Astro](https://opui.dev/astro/components/select.md), [React](https://opui.dev/react/components/select.md), [Solid](https://opui.dev/solid/components/select.md), [Svelte](https://opui.dev/svelte/components/select.md), [Vue](https://opui.dev/vue/components/select.md).
 
 ## Select
 
@@ -23,6 +23,7 @@ A dropdown for picking one value from a list in a form.
 ### Props and modifiers
 
 - `autoFit`: `boolean`, `.ui-auto-fit`. Lets the width follow the selected option, from `25ch`.
+- `defaultValue` (Solid): `(string | number)[] | number | string`. The value selected at the start, or the values with `multiple`, when `value` is omitted.
 - `dense`: `boolean`, `.ui-list.ui-dense`. Packs the items tighter.
 - `disabled`: `boolean`, `select[disabled]`. Dims the select and blocks input.
 - `error`: `boolean`, `select[aria-invalid="true"]`. Marks the control invalid and shows error styles.
@@ -39,12 +40,12 @@ A dropdown for picking one value from a list in a form.
 
 - `default`: Extra `<option>` and `<optgroup>` elements.
 
-Model: `value` (`string | number | (string | number)[]`), the selected value, or values with `multiple`. It picks among `items`; a child `<option>` takes `selected` itself, as in HTML, since Astro and Vue's server markup only mark the `items` options. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
+Model: `value` (`string | number | (string | number)[]`), the selected value, or values with `multiple`. It picks among `items`; a child `<option>` takes `selected` itself, as in HTML, since Astro and Vue's server markup only mark the `items` options. Astro, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes
 
 - HTML: The `<select>` holds an `inert` `<button>` and a `.ui-list`. The button holds `<selectedcontent>`, and `inert` leaves clicks, focus and the name to the select. The list holds the options. Browsers without customizable selects show a native select. Put `.ui-top` and `.ui-start` before the `<select>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they're drawn.
-- Astro, Svelte and Vue: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `class` and `style` go to the `.ui-select` root.
+- Astro, Solid, Svelte and Vue: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `class` and `style` go to the `.ui-select` root.
 - React: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `className` and `style` go to the `.ui-select` root.
 
 ## Component properties
@@ -185,6 +186,39 @@ import { Select } from "opui-css/astro"
 
 ```tsx
 import { Select } from "opui-css/react"
+
+export default function Variants() {
+  return (
+    <>
+      <Select label="Role">
+        <option value="">-</option>
+        <option>Backing vocals</option>
+        <option>Bass</option>
+        <option>Tambourine</option>
+      </Select>
+
+      <Select label="Band" variant="filled">
+        <option value="">-</option>
+        <option>Brad and the Brads</option>
+        <option>Low End Theory</option>
+        <option>The Low Enders</option>
+      </Select>
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Select } from "opui-css/solid"`
+
+- `Select` slot props (`JSX.Element`): `bottom`, `children`, `end`, `endText`, `label`, `start`, `startText` and `top`.
+
+### Example: Variants
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Select } from "opui-css/solid"
 
 export default function Variants() {
   return (

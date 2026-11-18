@@ -15,6 +15,7 @@ import { NumberField } from "opui-css/vue"
     >
       <template #decrease-icon>
         <svg
+          data-icon="chevron-down"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -29,6 +30,7 @@ import { NumberField } from "opui-css/vue"
       </template>
       <template #increase-icon>
         <svg
+          data-icon="chevron-up"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"

@@ -6,7 +6,7 @@ export const EXAMPLE_THEME_NOTES = {
   },
   brutalist: {
     description:
-      "Black 2px borders, hard 4px shadows on cards, dialogs and menus and on buttons that press into them on hover, with a state layer instead of a fill swap, filled in the main blue, white fields on the gray-blue page, the main blue also behind tooltips and selected items, black links, 500 weight body text and the 1.75 line height of Tailwind prose in rich text.",
+      "Black 2px borders, hard 4px shadows on cards, dialogs and menus and on buttons that press into them on hover, with a state layer instead of a fill swap, filled in the main blue, white fields on the gray-blue page, the main blue also behind tooltips and selected items, black links, 500 weight body text, the 1.75 line height of Tailwind prose in rich text and Lucide icons.",
     original: "neobrutalism",
   },
   govuk: {

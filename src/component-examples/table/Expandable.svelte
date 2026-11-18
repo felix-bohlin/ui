@@ -65,6 +65,7 @@
             size="small"
           >
             <svg
+              data-icon="chevron-down"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="32"

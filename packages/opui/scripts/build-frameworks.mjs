@@ -19,7 +19,7 @@ import { compileScript, parse, registerTS } from "vue/compiler-sfc"
 const here = dirname(fileURLToPath(import.meta.url))
 const require = createRequire(import.meta.url)
 
-const FRAMEWORKS = ["react", "svelte", "vue"]
+const FRAMEWORKS = ["react", "solid", "svelte", "vue"]
 
 const OUTPUTS = ["components", ...FRAMEWORKS]
 
@@ -69,10 +69,15 @@ const compiles = (root, file) =>
 const outPath = (root, dist, file) =>
   join(dist, relative(root, file)).replace(/\.tsx?$/, ".js")
 
+const solidOutPath = (root, dist, file) =>
+  file.endsWith(".solid.tsx")
+    ? join(dist, relative(root, file)).replace(/\.tsx$/, ".jsx")
+    : outPath(root, dist, file)
+
 export const sourceOf = (root, target) => {
   const path = toPosix(relative(join(root, "dist"), join(root, target)))
   if (!OUTPUTS.includes(path.split("/")[0])) return undefined
-  const base = join(root, path.replace(/\.(d\.ts|js)$/, ""))
+  const base = join(root, path.replace(/\.(d\.ts|jsx?)$/, ""))
   return [base, `${base}.ts`, `${base}.tsx`, `${base}.js`].find(
     (file) => isFile(file) && !file.endsWith(".d.ts"),
   )
@@ -85,10 +90,10 @@ const write = (file, code) => {
 
 const SOURCE_MAPPING_URL = /\n\/\/# sourceMappingURL=\S+\s*$/
 
-const transpile = (code, fileName) => {
+const transpile = (code, fileName, jsx = ts.JsxEmit.ReactJSX) => {
   const { outputText, sourceMapText } = ts.transpileModule(code, {
     compilerOptions: {
-      jsx: ts.JsxEmit.ReactJSX,
+      jsx,
       module: ts.ModuleKind.ESNext,
       sourceMap: true,
       target: ts.ScriptTarget.ES2022,
@@ -314,6 +319,33 @@ const buildSvelte = async (root, dist, files) => {
   }
 }
 
+const buildSolid = (root, dist, files) => {
+  for (const file of files) {
+    if (!compiles(root, file)) continue
+    writeCompiled(
+      solidOutPath(root, dist, file),
+      file,
+      transpile(readFileSync(file, "utf8"), file, ts.JsxEmit.Preserve),
+    )
+  }
+  const augmentations = new Set(
+    files.filter((file) => isAugmentation(readFileSync(file, "utf8"))),
+  )
+  const program = ts.createProgram([join(root, "solid/index.ts")], {
+    ...compilerOptions(root, dist),
+    emitDeclarationOnly: true,
+    jsx: ts.JsxEmit.Preserve,
+    jsxImportSource: "@solidjs/web",
+    sourceMap: false,
+  })
+  report(
+    [
+      ...ts.getPreEmitDiagnostics(program),
+      ...program.emit().diagnostics,
+    ].filter(({ file }) => !file || !augmentations.has(resolve(file.fileName))),
+  )
+}
+
 const filesIn = (dir) =>
   readdirSync(dir, { recursive: true })
     .map((file) => join(dir, String(file)))
@@ -328,6 +360,7 @@ export const rewriteSpecifiers = (code, file, root, dist) =>
       ...(file.endsWith(".d.ts") ? [declaration] : []),
       [base, specifier],
       [`${base}.js`, `${specifier}.js`],
+      [`${base}.jsx`, `${specifier}.jsx`],
       declaration,
     ].find(([target]) => isFile(target))
     if (inDist) return `${before}${quote}${inDist[1]}${quote}`
@@ -350,6 +383,7 @@ export const buildFrameworks = async (root = resolve(here, "..")) => {
     ]),
   )
   buildReact(root, dist, files.react)
+  buildSolid(root, dist, files.solid)
   await buildSvelte(root, dist, files.svelte)
   buildVue(root, dist, files.vue)
   for (const framework of FRAMEWORKS) {
@@ -362,7 +396,7 @@ export const buildFrameworks = async (root = resolve(here, "..")) => {
   }
   for (const folder of OUTPUTS) {
     for (const file of filesIn(join(dist, folder))) {
-      if (!/\.(js|svelte|d\.ts)$/.test(file)) continue
+      if (!/\.(jsx?|svelte|d\.ts)$/.test(file)) continue
       const code = readFileSync(file, "utf8")
       const rewritten = rewriteSpecifiers(code, file, root, dist)
       if (rewritten !== code) writeFileSync(file, rewritten)

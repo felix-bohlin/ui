@@ -2269,6 +2269,13 @@
     "url": "/vue/components/spinner/#blocked-by-another-use-case"
   },
   {
+    "id": "component-spinner-vue-skeleton-placeholders",
+    "title": "In a region that shows skeletons",
+    "page": "Spinner",
+    "category": "Component",
+    "url": "/vue/components/spinner/#skeleton-placeholders"
+  },
+  {
     "id": "component-spinner-vue-doesnt-make-sense",
     "title": "On elements that can't show one",
     "page": "Spinner",

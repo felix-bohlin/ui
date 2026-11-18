@@ -1248,6 +1248,7 @@ export const whatsNew = {
     `With more contrast the <a href="#buttons">ring</a> is opaque, so it stands out on filled buttons and links.`,
     `The spinner styles have no specificity (<code>:where()</code>), so your own <code>::before</code> rules override them (<a href="#api">API</a>).`,
     `The <a href="#sizes">ring</a> grows with the spinner and is at least <code>--ui-border-width-thick</code>.`,
+    `A busy region that holds skeleton placeholders <a href="#skeleton-placeholders">shows those instead</a> of a spinner.`,
     `Styles use logical properties only, so the <a href="#sizes">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
   ],
   switch: [

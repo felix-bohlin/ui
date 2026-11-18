@@ -1,6 +1,9 @@
 import { elementNotes } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
+const sortNote =
+  "The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead."
+
 const sortEvent =
   "Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are."
 
@@ -32,11 +35,9 @@ export default {
     },
   ],
   notes: {
-    ...elementNotes(
-      "sortable-table.js",
-      "The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead.",
-    ),
+    ...elementNotes("sortable-table.js", sortNote),
     html: 'Wrap the table in `<opui-sortable-table class="ui-sortable-table">`, add `data-sort` to each sortable header with a `<button type="button">` around its label, and import `opui-css/elements/sortable-table.js`. A cell sorts by its `data-sort-value`, or else its text.',
+    solid: `${elementNotes("sortable-table.js", sortNote).solid} Don't load \`opui-css/elements/sortable-table.js\` ahead of the components: a press before they hydrate then sorts the rows without \`onSort\`.`,
   },
   options: [
     {

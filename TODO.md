@@ -1727,13 +1727,14 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix. ControlGroup's scroll mode already keeps its buttons at full width on one line.
   - Fix: `&.ui-overflow-scroll { & > .ui-toggle-button { flex: none; inline-size: max-content; } }`
   - Fixed: Fixed in 907d1a484: `inline-size: max-content` on the toggles of `.ui-overflow-scroll`. Checked in Chromium at 390px and 1280px, also with `dir="rtl"`, on the Overflow example with a long German first label: the scrolling row stays 40px high and scrolls, where the old rule made it 84px. The ToggleGroup `overflow` Added entry says so.
-- [ ] (2) Callout: a Solid Callout or SortableTable acts on a press before hydration when the page loads `elements/callout.js` or `elements/sortable-table.js` itself ahead of the Solid bundle: the callout hides without `onDismiss` and the table sorts without `onSort`, where the React ports wait behind `data-hydrating` (`packages/opui/components/Callout/Callout.solid.tsx`, `packages/opui/components/SortableTable/SortableTable.solid.tsx`, `tests/apps/apps.spec.ts`)
+- [x] (2) Callout: a Solid Callout or SortableTable acts on a press before hydration when the page loads `elements/callout.js` or `elements/sortable-table.js` itself ahead of the Solid bundle: the callout hides without `onDismiss` and the table sorts without `onSort`, where the React ports wait behind `data-hydrating` (`packages/opui/components/Callout/Callout.solid.tsx`, `packages/opui/components/SortableTable/SortableTable.solid.tsx`, `tests/apps/apps.spec.ts`)
   - Summary: In Solid, a callout dismissed or a table sorted just before hydration skips the app's handler if the element script loaded early.
   - Recommended: Fix with option A. It only bites when the element script loads before the components, which the Solid components don't do on their own.
   - Fix: confirmed on `tests/apps/solid-start` with the React scenarios of `tests/apps/apps.spec.ts` and the element script defined first.
   - Options:
     - A (recommended): keep the markup and say in the Solid notes of Callout and SortableTable not to load the element script ahead of the components.
     - B: give the Solid ports the `data-hydrating` gate React has, and accept three Solid parity `.diff` files like React's (`callout/Dismissible`, `table/Sortable`, `table/SortableData`).
+  - Fixed: with option A. The Solid notes of Callout and SortableTable say not to load the element script ahead of the components (`src/component-api/callout/api.ts`, `src/component-api/sortable-table/api.ts`), and the markup stays the same as Astro's.
 
 ## Docs
 

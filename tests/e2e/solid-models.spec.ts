@@ -83,6 +83,9 @@ test("a Solid list keeps its rows when its items are replaced by new objects", a
   await refresh.click()
   await expect(page.getByRole("button", { name: "Round 1" })).toBeVisible()
   await expect(refresh).toBeFocused()
+  await page.evaluate(() =>
+    document.getElementById("solid-models-menu")!.hidePopover(),
+  )
 
   const fruit = page.getByLabel("Fruit")
   await fruit.selectOption("cherry")

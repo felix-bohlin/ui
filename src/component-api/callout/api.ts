@@ -44,7 +44,7 @@ export default {
     astro: `${icon} ${closeButton.astro} Listen for \`dismiss\` in a client script.`,
     html: 'For a close button that hides the callout, use `<opui-callout class="ui-callout" role="article">` with an id, end it with a `.ui-button` with `commandfor` naming it and `command="--dismiss"`, and import `opui-css/elements/callout.js`. Until it loads, the button is hidden.',
     react: `${icon} ${closeButton.react}`,
-    solid: `${icon} ${closeButton.solid}`,
+    solid: `${icon} ${closeButton.solid} Don't load \`opui-css/elements/callout.js\` ahead of the components: a press before they hydrate then hides the callout without \`onDismiss\`.`,
     svelte: `${icon} ${closeButton.svelte}`,
     vue: `${icon} ${closeButton.vue}`,
   },

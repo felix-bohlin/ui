@@ -33,8 +33,7 @@ Model: `value` (`string | string[]`), the value of the checked button, or the va
 ### Notes
 
 - Astro: `value` checks the buttons whose `value` matches on the server. After that the selection lives in the inputs: read it from the form, or listen for `change` in a script.
-- React: Use `value` with `onValueChange`, or `defaultValue`. Without them the buttons keep their own state, and `onValueChange` still reports changes.
-- Solid: `value` sets the selection and follows it when it changes, and `onValueChange` reports the new one. Without `value` the buttons keep their own state.
+- React and Solid: Use `value` with `onValueChange`, or `defaultValue`. Without them the buttons keep their own state, and `onValueChange` still reports changes.
 - Svelte: Bind `value` with a starting value to control the selection, `""` or `[]` for none. Without it, or bound to `undefined`, the buttons keep their own state.
 - Vue: Bind `v-model` with a starting value to control the selection, `""` or `[]` for none. Without it, or bound to `undefined`, the buttons keep their own state.
 

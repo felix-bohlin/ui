@@ -35,8 +35,7 @@ Model: `value` (`string`), the `value` of the selected tab. Astro, React and Sol
 
 - HTML: Each tab is three elements, in this order: `input.ui-input[type="radio"]`, `label.ui-label` and `.ui-panel`.
 - Astro: `value` selects the item whose `value` matches on the server. After that the selection lives in the inputs: read it from the form, or listen for `change` in a script.
-- React: Use `value` with `onValueChange`, or `defaultValue`. Without them the items keep their own state, and `onValueChange` still reports changes.
-- Solid: `value` sets the selected item and follows it when it changes, and `onValueChange` reports the new one. Without `value` the items keep their own state.
+- React and Solid: Use `value` with `onValueChange`, or `defaultValue`. Without them the items keep their own state, and `onValueChange` still reports changes.
 - Svelte: Bind `value` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state.
 - Vue: Bind `v-model` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state.
 

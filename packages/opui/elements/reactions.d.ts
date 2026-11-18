@@ -9,9 +9,15 @@ export type Reaction = {
   text?: string
 }
 
-export declare class Reactions extends HTMLElement {
+export declare class ReactionsElement extends HTMLElement {
   readonly group: HTMLElement | null
   announce(message: string): void
   delete(value: string): void
   set(value: string, reaction?: Reaction): void
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "opui-reactions": ReactionsElement
+  }
 }

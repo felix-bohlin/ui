@@ -322,6 +322,61 @@ const ELEMENTS: Scenario[] = [
     },
   },
   {
+    file: "reactions.js",
+    markup: `<opui-reactions class="ui-reactions" quick-label="Thumbs up" quick-text="Up" quick-value="+1">
+      <div class="ui-toggle-group" role="group" aria-label="Reactions">
+        <label class="ui-toggle-button ui-unused"><input type="checkbox" name="reaction" value="+1" aria-label="Thumbs up" /><span aria-hidden="true">Up</span></label>
+      </div>
+      <span class="ui-sr-only" role="status"></span>
+    </opui-reactions>`,
+    ready: async (page) => {
+      await expect(page.getByRole("checkbox")).not.toBeChecked()
+    },
+    selector: "opui-reactions",
+    title:
+      "asks for a reaction, leaves the pill as it is and applies the reply",
+    works: async (page) => {
+      const pill = page.locator(".ui-toggle-button")
+      const quick = page.getByRole("checkbox")
+      await page.evaluate(() => {
+        document.querySelector("opui-reactions")!.addEventListener(
+          "reaction",
+          (event) => {
+            Object.assign(window, { asked: (event as CustomEvent).detail })
+          },
+          { once: true },
+        )
+      })
+      await pill.click()
+      await expect(quick).not.toBeChecked()
+      expect(
+        await page.evaluate(
+          () => (window as unknown as { asked: unknown }).asked,
+        ),
+      ).toEqual({ checked: true, value: "+1" })
+      await page.evaluate(() => {
+        document.querySelector("opui-reactions")!.set("+1", {
+          checked: true,
+          label: "Thumbs up, 1",
+          text: "Up 1",
+        })
+      })
+      await expect(quick).toBeChecked()
+      await expect(pill).toHaveText("Up 1")
+      await expect(pill).not.toHaveClass(/ui-unused/)
+      await page.evaluate(() => {
+        const element = document.querySelector("opui-reactions")!
+        element.delete("+1")
+        element.announce("Thumbs up removed")
+      })
+      await expect(quick).not.toBeChecked()
+      await expect(quick).toHaveAccessibleName("Thumbs up")
+      await expect(pill).toHaveText("Up")
+      await expect(pill).toHaveClass(/ui-unused/)
+      await expect(page.getByRole("status")).toHaveText("Thumbs up removed")
+    },
+  },
+  {
     detached: async (page) => {
       await page.evaluate(() => {
         for (const input of window.removed.element.querySelectorAll("input")) {

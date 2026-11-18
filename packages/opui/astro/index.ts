@@ -169,7 +169,10 @@ export type {
 export type { RangeItem } from "../components/Range/types"
 export type { Props as RangeProps } from "../components/Range/types.astro"
 export type { Props as RatingProps } from "../components/Rating/types.astro"
-export type { ReactionDetail } from "../components/Reactions/types"
+export type {
+  ReactionDetail,
+  ReactionsItem,
+} from "../components/Reactions/types"
 export type { Props as ReactionsProps } from "../components/Reactions/types.astro"
 export type { SelectItem } from "../components/Select/types"
 export type { Props as SelectProps } from "../components/Select/types.astro"

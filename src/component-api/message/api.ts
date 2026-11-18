@@ -108,7 +108,7 @@ export default {
     },
     {
       description:
-        "Reactions in a `ToggleGroup`, drawn as separate pills over the bottom edge of the bubble.",
+        "The `Reactions`, whose pills sit over the bottom edge of the bubble.",
       selector: ".ui-bottom",
       slots: ["bottom"],
     },

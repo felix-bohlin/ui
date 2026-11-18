@@ -47,6 +47,7 @@
 @import "./components/menu.css";
 @import "./components/message.css";
 @import "./components/number-field.css";
+@import "./components/reactions.css";
 @import "./components/select.css";
 @import "./components/text-field.css";
 @import "./components/one-time-code.css";

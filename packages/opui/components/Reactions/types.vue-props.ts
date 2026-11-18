@@ -1,6 +1,8 @@
 import type { Class, DefaultSlots } from "../vue"
-import type { Props as BaseProps } from "./types"
+import type { Events as BaseEvents, Props as BaseProps } from "./types"
 
-export type Props = BaseProps & Class
+export type Props = Omit<BaseProps, "aria-label" | "aria-labelledby"> & Class
+
+export type Emits = { reaction: [event: BaseEvents["reaction"]] }
 
 export type Slots = DefaultSlots

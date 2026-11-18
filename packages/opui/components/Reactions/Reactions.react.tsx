@@ -1,37 +1,69 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect } from "react"
+import { defined } from "../attrs"
 import { cx } from "../cx"
+import { useHydrated, useListener } from "../react"
+import ToggleButton from "../ToggleButton/ToggleButton.react"
+import ToggleGroup from "../ToggleGroup/ToggleGroup.react"
 import type { Props } from "./types.react"
 
 export default function Reactions({
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledby,
   className,
+  items = [],
+  name,
   onReaction,
+  quick,
+  ref,
   children,
   ...rest
 }: Props) {
-  const ref = useRef<HTMLElement>(null)
-
+  const used = items.find((item) => item.value === quick?.value)
+  const pills = quick
+    ? [used ?? quick, ...items.filter((item) => item.value !== quick?.value)]
+    : items
+  const rootRef = useHydrated(useListener(ref, "reaction", onReaction))
   useEffect(() => {
     void import("../../elements/reactions.js")
   }, [])
 
-  useEffect(() => {
-    const element = ref.current
-    if (!element || !onReaction) return
-    const listener = (event: Event) => onReaction(event as CustomEvent)
-    element.addEventListener("reaction", listener)
-    return () => element.removeEventListener("reaction", listener)
-  }, [onReaction])
-
   return (
     <opui-reactions
       className={cx(["ui-reactions", className])}
-      ref={ref}
-      {...rest}
+      quick-label={quick?.["aria-label"]}
+      quick-text={quick?.label}
+      quick-value={quick?.value}
+      data-hydrating=""
+      ref={rootRef}
+      {...defined(rest)}
     >
-      {children}
-      <span className="ui-sr-only" role="status"></span>
+      <ToggleGroup
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledby}
+        multiple
+        name={name}
+      >
+        {pills.map((item, index) => (
+          <ToggleButton
+            key={index}
+            aria-label={item["aria-label"]}
+            checked={!!item.checked}
+            className={cx([{ "ui-unused": quick && !used && index === 0 }])}
+            value={item.value}
+          >
+            <span aria-hidden="true">{item.label}</span>
+          </ToggleButton>
+        ))}
+      </ToggleGroup>{" "}
+      {children}{" "}
+      <span
+        className="ui-sr-only"
+        role="status"
+        dangerouslySetInnerHTML={{ __html: "" }}
+        suppressHydrationWarning
+      />
     </opui-reactions>
   )
 }

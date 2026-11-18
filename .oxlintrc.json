@@ -23,6 +23,7 @@
         "packages/opui/elements/character-count.d.ts",
         "packages/opui/elements/copy.d.ts",
         "packages/opui/elements/number-field.d.ts",
+        "packages/opui/elements/reactions.d.ts",
         "packages/opui/elements/select-all.d.ts",
         "packages/opui/elements/sortable-table.d.ts",
         "packages/opui/elements/text-field.d.ts",

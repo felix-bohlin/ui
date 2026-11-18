@@ -6,36 +6,84 @@
     Message,
     MessageList,
     Reactions,
-    ToggleButton,
-    ToggleGroup,
   } from "opui-css/svelte"
 
-  const emoji = [
-    { "aria-label": "Thumbs up", label: "👍", value: "+1" },
-    { "aria-label": "Heart", label: "❤️", value: "heart" },
-    { "aria-label": "Laughing", label: "😂", value: "joy" },
-    { "aria-label": "Party", label: "🎉", value: "tada" },
-    { "aria-label": "Eyes", label: "👀", value: "eyes" },
+  const firstPicker = [
+    {
+      "aria-label": "Thumbs up",
+      command: "--react",
+      commandfor: "message-reactions-1",
+      label: "👍",
+      value: "+1",
+    },
+    {
+      "aria-label": "Heart",
+      command: "--react",
+      commandfor: "message-reactions-1",
+      label: "❤️",
+      value: "heart",
+    },
+    {
+      "aria-label": "Laughing",
+      command: "--react",
+      commandfor: "message-reactions-1",
+      label: "😂",
+      value: "joy",
+    },
+    {
+      "aria-label": "Party",
+      command: "--react",
+      commandfor: "message-reactions-1",
+      label: "🎉",
+      value: "tada",
+    },
+    {
+      "aria-label": "Eyes",
+      command: "--react",
+      commandfor: "message-reactions-1",
+      label: "👀",
+      value: "eyes",
+    },
   ]
 
-  const picker = (id: string) =>
-    emoji.map((item) => ({ ...item, command: "--react", commandfor: id }))
+  const secondPicker = [
+    {
+      "aria-label": "Thumbs up",
+      command: "--react",
+      commandfor: "message-reactions-2",
+      label: "👍",
+      value: "+1",
+    },
+    {
+      "aria-label": "Heart",
+      command: "--react",
+      commandfor: "message-reactions-2",
+      label: "❤️",
+      value: "heart",
+    },
+    {
+      "aria-label": "Laughing",
+      command: "--react",
+      commandfor: "message-reactions-2",
+      label: "😂",
+      value: "joy",
+    },
+    {
+      "aria-label": "Party",
+      command: "--react",
+      commandfor: "message-reactions-2",
+      label: "🎉",
+      value: "tada",
+    },
+    {
+      "aria-label": "Eyes",
+      command: "--react",
+      commandfor: "message-reactions-2",
+      label: "👀",
+      value: "eyes",
+    },
+  ]
 </script>
-
-{#snippet addReactionIcon()}
-  <svg
-    aria-hidden="true"
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-  >
-    <path
-      fill="currentColor"
-      d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8zm-3.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m7 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M7 14a5.5 5.5 0 0 0 10 0zM19 1v3h-3v2h3v3h2V6h3V4h-3V1z"
-    ></path>
-  </svg>
-{/snippet}
 
 <MessageList aria-label="Messages with Stella">
   <Message author="Stella" datetime="2026-10-08T16:05" time="16:05">
@@ -51,27 +99,43 @@
         round
         size="x-small"
       >
-        {@render addReactionIcon()}
+        <svg
+          data-icon="add"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+          ></path>
+        </svg>
       </Button>
       <Menu
         aria-label="Add reaction"
         id="message-reactions-1-picker"
-        items={picker("message-reactions-1")}
+        items={firstPicker}
         orientation="horizontal"
         side="block-start"
       />
     {/snippet}
     {#snippet bottom()}
-      <Reactions id="message-reactions-1">
-        <ToggleGroup aria-label="Reactions" multiple name="reaction">
-          <ToggleButton aria-label="Thumbs up, 2" defaultChecked value="+1"
-            ><span aria-hidden="true">👍 2</span></ToggleButton
-          >
-          <ToggleButton aria-label="Party, 1" value="tada"
-            ><span aria-hidden="true">🎉 1</span></ToggleButton
-          >
-        </ToggleGroup>
-      </Reactions>
+      <Reactions
+        aria-label="Reactions"
+        id="message-reactions-1"
+        items={[
+          {
+            "aria-label": "Thumbs up, 2",
+            checked: true,
+            label: "👍 2",
+            value: "+1",
+          },
+          { "aria-label": "Party, 1", label: "🎉 1", value: "tada" },
+        ]}
+        name="reaction"
+      />
     {/snippet}
   </Message>
   <Message author="You" datetime="2026-10-08T16:07" outgoing time="16:07">
@@ -84,25 +148,36 @@
         round
         size="x-small"
       >
-        {@render addReactionIcon()}
+        <svg
+          data-icon="add"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+          ></path>
+        </svg>
       </Button>
       <Menu
         align="end"
         aria-label="Add reaction"
         id="message-reactions-2-picker"
-        items={picker("message-reactions-2")}
+        items={secondPicker}
         orientation="horizontal"
         side="block-start"
       />
     {/snippet}
     {#snippet bottom()}
-      <Reactions id="message-reactions-2">
-        <ToggleGroup aria-label="Reactions" multiple name="reaction">
-          <ToggleButton aria-label="Heart, 1" value="heart"
-            ><span aria-hidden="true">❤️ 1</span></ToggleButton
-          >
-        </ToggleGroup>
-      </Reactions>
+      <Reactions
+        aria-label="Reactions"
+        id="message-reactions-2"
+        items={[{ "aria-label": "Heart, 1", label: "❤️ 1", value: "heart" }]}
+        name="reaction"
+      />
     {/snippet}
   </Message>
 </MessageList>

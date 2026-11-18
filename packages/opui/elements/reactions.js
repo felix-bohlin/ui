@@ -1,8 +1,9 @@
 const Base = globalThis.HTMLElement ?? class {}
 
 const CHECKBOX = 'input[type="checkbox"]'
+const PILL = ".ui-toggle-button"
 
-export class Reactions extends Base {
+export class ReactionsElement extends Base {
   #controller
 
   get group() {
@@ -16,8 +17,9 @@ export class Reactions extends Base {
       "click",
       (event) => {
         const input = event.target
-        if (!input.matches?.(CHECKBOX)) return
+        if (!input.matches?.(CHECKBOX) || !this.group?.contains(input)) return
         event.preventDefault()
+        if (this.hasAttribute("data-hydrating")) return
         this.#request(input.value, input.checked)
       },
       { signal },
@@ -27,6 +29,7 @@ export class Reactions extends Base {
       (event) => {
         const value = event.source?.value
         if (event.command !== "--react" || !value) return
+        if (this.hasAttribute("data-hydrating")) return
         event.source.closest(":popover-open")?.hidePopover()
         this.#request(value, !this.#input(value)?.checked)
       },
@@ -48,23 +51,37 @@ export class Reactions extends Base {
   }
 
   delete(value) {
-    const pill = this.#input(value)?.closest(".ui-toggle-button")
+    const pill = this.#input(value)?.closest(PILL)
     if (!pill) return
+    if (value === this.getAttribute("quick-value")) {
+      this.#fill(value, {
+        checked: false,
+        label: this.getAttribute("quick-label") ?? undefined,
+        text: this.getAttribute("quick-text") ?? undefined,
+      })
+      pill.classList.add("ui-unused")
+      return
+    }
     const focused = pill.contains(this.ownerDocument.activeElement)
-    const pills = [...(this.group?.querySelectorAll(".ui-toggle-button") ?? [])]
+    const pills = [...(this.group?.querySelectorAll(PILL) ?? [])]
     const index = pills.indexOf(pill)
     pill.remove()
     if (!focused) return
     const next =
       pills[index + 1] ??
       pills[index - 1] ??
+      this.querySelector(":scope > :is(a, button)") ??
       this.closest(".ui-message")?.querySelector(
         ":scope > .ui-actions :is(a, button)",
       )
     ;(next?.querySelector(CHECKBOX) ?? next)?.focus()
   }
 
-  set(value, { checked, label, text } = {}) {
+  set(value, reaction) {
+    this.#fill(value, reaction)?.classList.remove("ui-unused")
+  }
+
+  #fill(value, { checked, label, text } = {}) {
     let input = this.#input(value)
     if (!input) {
       const group = this.group
@@ -80,20 +97,21 @@ export class Reactions extends Base {
       const visible = document.createElement("span")
       visible.setAttribute("aria-hidden", "true")
       pill.append(input, visible)
-      group.append(pill)
+      if (value === this.getAttribute("quick-value")) group.prepend(pill)
+      else group.append(pill)
     }
+    const pill = input.closest(PILL)
     if (checked !== undefined) input.checked = checked
     if (label !== undefined) input.setAttribute("aria-label", label)
     if (text !== undefined) {
-      const visible = input
-        .closest(".ui-toggle-button")
-        ?.querySelector(':scope > [aria-hidden="true"]')
+      const visible = pill?.querySelector(':scope > [aria-hidden="true"]')
       if (visible) visible.textContent = text
     }
+    return pill
   }
 
   #input(value) {
-    return [...this.querySelectorAll(CHECKBOX)].find(
+    return [...(this.group?.querySelectorAll(CHECKBOX) ?? [])].find(
       (input) => input.value === value,
     )
   }
@@ -109,5 +127,5 @@ export class Reactions extends Base {
 }
 
 if (globalThis.customElements && !customElements.get("opui-reactions")) {
-  customElements.define("opui-reactions", Reactions)
+  customElements.define("opui-reactions", ReactionsElement)
 }

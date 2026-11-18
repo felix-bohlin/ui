@@ -170,7 +170,10 @@ export type {
 export type { RangeItem } from "../components/Range/types"
 export type { Props as RangeProps } from "../components/Range/types.vue-props"
 export type { Props as RatingProps } from "../components/Rating/types.vue-props"
-export type { ReactionDetail } from "../components/Reactions/types"
+export type {
+  ReactionDetail,
+  ReactionsItem,
+} from "../components/Reactions/types"
 export type { Props as ReactionsProps } from "../components/Reactions/types.vue-props"
 export type { SelectItem } from "../components/Select/types"
 export type { Props as SelectProps } from "../components/Select/types.vue-props"

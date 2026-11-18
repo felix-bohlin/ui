@@ -98,6 +98,11 @@ const KNOWN_ATTRIBUTES: Record<
       "the element ignores the close button until the framework has hydrated the callout and attached its dismiss handler",
     when: ({ closeButton }) => Boolean(closeButton),
   },
+  Reactions: {
+    attribute: "data-hydrating",
+    reason:
+      "the element asks for nothing on a click until the framework has hydrated the reactions and attached its reaction handler",
+  },
   SortableTable: {
     attribute: "data-hydrating",
     reason:

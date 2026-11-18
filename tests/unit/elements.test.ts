@@ -7,6 +7,7 @@ import type { CalloutElement } from "../../packages/opui/elements/callout.js"
 import type { CharacterCountElement } from "../../packages/opui/elements/character-count.js"
 import type { CopyElement } from "../../packages/opui/elements/copy.js"
 import type { NumberFieldElement } from "../../packages/opui/elements/number-field.js"
+import type { ReactionsElement } from "../../packages/opui/elements/reactions.js"
 import type { SelectAllElement } from "../../packages/opui/elements/select-all.js"
 import type { SortableTableElement } from "../../packages/opui/elements/sortable-table.js"
 import type { TextFieldElement } from "../../packages/opui/elements/text-field.js"
@@ -356,6 +357,7 @@ test("querySelector returns the element class of an opui tag", () => {
     characterCount: root.querySelector("opui-character-count"),
     copy: root.querySelector("opui-copy"),
     numberField: root.querySelector("opui-number-field"),
+    reactions: root.querySelector("opui-reactions"),
     selectAll: root.querySelector("opui-select-all"),
     sortableTable: root.querySelector("opui-sortable-table"),
     textField: root.querySelector("opui-text-field"),
@@ -366,6 +368,7 @@ test("querySelector returns the element class of an opui tag", () => {
     characterCount: CharacterCountElement | null
     copy: CopyElement | null
     numberField: NumberFieldElement | null
+    reactions: ReactionsElement | null
     selectAll: SelectAllElement | null
     sortableTable: SortableTableElement | null
     textField: TextFieldElement | null

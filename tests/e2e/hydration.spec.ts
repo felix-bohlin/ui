@@ -40,8 +40,14 @@ const LATE: Partial<Record<Framework, Late[]>> = {
     },
     {
       attribute: "data-hydrating",
-      examples: ["callout/Dismissible", "table/Sortable", "table/SortableData"],
-      on: "opui-callout, opui-sortable-table",
+      examples: [
+        "callout/Dismissible",
+        "message/QuickReaction",
+        "message/Reactions",
+        "table/Sortable",
+        "table/SortableData",
+      ],
+      on: "opui-callout, opui-reactions, opui-sortable-table",
       reason:
         "useHydrated takes it off once the listeners are attached, so the element stops ignoring clicks",
     },
@@ -49,8 +55,14 @@ const LATE: Partial<Record<Framework, Late[]>> = {
   solid: [
     {
       attribute: "data-hydrating",
-      examples: ["callout/Dismissible", "table/Sortable", "table/SortableData"],
-      on: "opui-callout, opui-sortable-table",
+      examples: [
+        "callout/Dismissible",
+        "message/QuickReaction",
+        "message/Reactions",
+        "table/Sortable",
+        "table/SortableData",
+      ],
+      on: "opui-callout, opui-reactions, opui-sortable-table",
       reason:
         "hydrated, in the root's ref, takes it off as the spread attaches the listeners, so the element stops ignoring clicks",
     },
@@ -58,8 +70,14 @@ const LATE: Partial<Record<Framework, Late[]>> = {
   svelte: [
     {
       attribute: "data-hydrating",
-      examples: ["callout/Dismissible", "table/Sortable", "table/SortableData"],
-      on: "opui-callout, opui-sortable-table",
+      examples: [
+        "callout/Dismissible",
+        "message/QuickReaction",
+        "message/Reactions",
+        "table/Sortable",
+        "table/SortableData",
+      ],
+      on: "opui-callout, opui-reactions, opui-sortable-table",
       reason:
         "the hydrated attachment takes it off once the component has mounted, so the element stops ignoring clicks",
     },
@@ -67,8 +85,14 @@ const LATE: Partial<Record<Framework, Late[]>> = {
   vue: [
     {
       attribute: "data-hydrating",
-      examples: ["callout/Dismissible", "table/Sortable", "table/SortableData"],
-      on: "opui-callout, opui-sortable-table",
+      examples: [
+        "callout/Dismissible",
+        "message/QuickReaction",
+        "message/Reactions",
+        "table/Sortable",
+        "table/SortableData",
+      ],
+      on: "opui-callout, opui-reactions, opui-sortable-table",
       reason:
         "v-hydrated takes it off once the root has mounted, so the element stops ignoring clicks",
     },

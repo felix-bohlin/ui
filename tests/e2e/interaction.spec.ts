@@ -2100,6 +2100,19 @@ const reactionRequests = async (root: Locator) => {
     )
 }
 
+const callReactions = (
+  reactions: Locator,
+  method: "announce" | "delete" | "set",
+  ...args: unknown[]
+) =>
+  reactions.evaluate(
+    (element, [name, params]) =>
+      (element as unknown as Record<string, (...rest: unknown[]) => void>)[
+        name as string
+      ](...(params as unknown[])),
+    [method, args] as const,
+  )
+
 interaction(
   "message",
   "Reactions",
@@ -2164,18 +2177,7 @@ interaction(
   async ({ root }) => {
     await root.evaluate(() => customElements.whenDefined("opui-reactions"))
     const [first, second] = await root.locator("opui-reactions").all()
-    const call = (
-      reactions: Locator,
-      method: "announce" | "delete" | "set",
-      ...args: unknown[]
-    ) =>
-      reactions.evaluate(
-        (element, [name, params]) =>
-          (element as unknown as Record<string, (...rest: unknown[]) => void>)[
-            name as string
-          ](...(params as unknown[])),
-        [method, args] as const,
-      )
+    const call = callReactions
 
     await call(first, "set", "heart", {
       checked: true,
@@ -2210,6 +2212,119 @@ interaction(
     await call(second, "delete", "heart")
     expect(await computed(bottom, "margin-block-start")).toBe("0px")
     expect((await bottom.boundingBox())!.height).toBe(0)
+  },
+  ["html"],
+)
+
+interaction(
+  "message",
+  "QuickReaction",
+  "the quick reaction comes first, dashed and without a count until it is used, and a click asks to check it",
+  async ({ page, root }) => {
+    const requests = await reactionRequests(root)
+    const [unused, used] = await root.locator("opui-reactions").all()
+    const pills = unused.locator(".ui-toggle-button")
+    const quick = unused.getByRole("checkbox", {
+      exact: true,
+      name: "Thumbs up",
+    })
+
+    await expect(pills).toHaveCount(1)
+    await expect(pills).toHaveClass(/ui-unused/)
+    await expect(pills).toHaveText("👍")
+    await expect(quick).not.toBeChecked()
+    expect(await computed(pills, "border-top-style")).toBe("dashed")
+
+    const usedPills = used.locator(".ui-toggle-button")
+    await expect(usedPills).toHaveText(["👍 3", "🎉 1"])
+    await expect(usedPills.first()).not.toHaveClass(/ui-unused/)
+    await expect(
+      used.getByRole("checkbox", { name: "Thumbs up, 3" }),
+    ).toBeChecked()
+    expect(await computed(usedPills.first(), "border-top-style")).toBe("solid")
+
+    const add = unused.getByRole("button", { name: "Add reaction" })
+    const pillBox = (await pills.boundingBox())!
+    const addBox = (await add.boundingBox())!
+    expect(addBox.x).toBeGreaterThanOrEqual(pillBox.x + pillBox.width)
+    expect(
+      Math.abs(addBox.y + addBox.height / 2 - pillBox.y - pillBox.height / 2),
+    ).toBeLessThanOrEqual(1)
+
+    await pills.click()
+    await expect(quick).not.toBeChecked()
+    await expect(pills).toHaveClass(/ui-unused/)
+    expect(await requests()).toEqual([{ checked: true, value: "+1" }])
+
+    await page.emulateMedia({ forcedColors: "active" })
+    expect(await computed(pills, "border-top-style")).toBe("dashed")
+    expect(await computed(usedPills.first(), "border-top-style")).toBe("solid")
+    await page.emulateMedia({ forcedColors: "none" })
+  },
+)
+
+interaction(
+  "message",
+  "QuickReaction",
+  "set fills the quick reaction in place, and delete returns it to unused and keeps focus on it",
+  async ({ root }) => {
+    await root.evaluate(() => customElements.whenDefined("opui-reactions"))
+    const [first, second] = await root.locator("opui-reactions").all()
+    const pills = first.locator(".ui-toggle-button")
+    const quick = pills.first().getByRole("checkbox")
+
+    await quick.focus()
+    await callReactions(first, "set", "+1", {
+      checked: true,
+      label: "Thumbs up, 1",
+      text: "👍 1",
+    })
+    await expect(pills).toHaveCount(1)
+    await expect(pills).not.toHaveClass(/ui-unused/)
+    await expect(pills).toHaveText("👍 1")
+    await expect(quick).toBeChecked()
+    await expect(quick).toHaveAccessibleName("Thumbs up, 1")
+    await expect(quick).toBeFocused()
+    expect(await computed(pills, "border-top-style")).toBe("solid")
+
+    await callReactions(first, "set", "heart", {
+      checked: false,
+      label: "Heart, 1",
+      text: "❤️ 1",
+    })
+    await expect(pills).toHaveText(["👍 1", "❤️ 1"])
+
+    await callReactions(first, "delete", "+1")
+    await expect(pills).toHaveText(["👍", "❤️ 1"])
+    await expect(pills.first()).toHaveClass(/ui-unused/)
+    await expect(quick).not.toBeChecked()
+    await expect(quick).toHaveAccessibleName("Thumbs up")
+    await expect(quick).toBeFocused()
+    expect(await computed(pills.first(), "border-top-style")).toBe("dashed")
+
+    const heart = first.getByRole("checkbox", { name: "Heart, 1" })
+    await heart.focus()
+    await callReactions(first, "delete", "heart")
+    await expect(pills).toHaveCount(1)
+    await expect(quick).toBeFocused()
+
+    await callReactions(second, "delete", "tada")
+    await callReactions(second, "delete", "+1")
+    const last = second.locator(".ui-toggle-button")
+    await expect(last).toHaveText("👍")
+    await expect(last).toHaveClass(/ui-unused/)
+    await second.evaluate((element) =>
+      element.querySelector(".ui-toggle-button")?.remove(),
+    )
+    await callReactions(second, "set", "eyes", {
+      label: "Eyes, 1",
+      text: "👀 1",
+    })
+    await callReactions(second, "set", "+1", {
+      label: "Thumbs up, 1",
+      text: "👍 1",
+    })
+    await expect(last).toHaveText(["👍 1", "👀 1"])
   },
   ["html"],
 )

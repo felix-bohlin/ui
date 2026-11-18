@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { omit } from "solid-js"
+import { For, omit } from "solid-js"
 import TimelineItem from "./TimelineItem.solid"
 import type { Props } from "./types.solid"
 
@@ -16,11 +16,13 @@ export default function Timeline(props: Props) {
       ]}
       {...rest}
     >
-      {props.items?.map(({ description, ...item }) => (
-        <TimelineItem {...item}>
-          {description && <p>{description}</p>}
-        </TimelineItem>
-      ))}{" "}
+      <For each={props.items}>
+        {({ description, ...item }) => (
+          <TimelineItem {...item}>
+            {description && <p>{description}</p>}
+          </TimelineItem>
+        )}
+      </For>{" "}
       {props.children}
     </ol>
   )

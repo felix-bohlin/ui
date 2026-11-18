@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { children, omit, Show } from "solid-js"
+import { children, omit } from "solid-js"
 import { cx } from "../cx"
 import type { StepperItemProps as Props } from "./types.solid"
 
@@ -49,16 +49,12 @@ export default function StepperItem(props: Props) {
       {link() ? (
         <a href={props.href}>
           {resolvedLabel()}
-          <Show when={state()}>
-            {(state) => <span class="ui-sr-only">{state()}</span>}
-          </Show>
+          {state() && <span class="ui-sr-only">{state()}</span>}
         </a>
       ) : (
         <>
           {resolvedLabel()}
-          <Show when={state()}>
-            {(state) => <span class="ui-sr-only">{state()}</span>}
-          </Show>
+          {state() && <span class="ui-sr-only">{state()}</span>}
         </>
       )}{" "}
       {resolvedDescription() && (

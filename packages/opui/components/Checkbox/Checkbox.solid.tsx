@@ -24,13 +24,9 @@ export default function Checkbox(props: Props) {
   const resolvedChildren = children(() => props.children)
   const resolvedEndText = children(() => props.endText)
   untrack(() => {
-    warnUnnamed(
-      "Checkbox",
-      hasName({ ...rest, label: props.label }, resolvedChildren()),
-    )
+    warnUnnamed("Checkbox", hasName(props, resolvedChildren()))
   })
-  const checkboxInputAriaInvalid = () =>
-    props.error ? "true" : props["aria-invalid"]
+  const invalid = () => (props.error ? "true" : props["aria-invalid"])
 
   return (
     <label
@@ -49,9 +45,9 @@ export default function Checkbox(props: Props) {
       ]}
       style={props.style}
     >
-      <CheckboxInput {...rest} aria-invalid={checkboxInputAriaInvalid()} />
+      <CheckboxInput {...rest} aria-invalid={invalid()} />
       {(props.label || resolvedChildren()) && (
-        <span class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}>
+        <span class={props.hideLabel ? "ui-sr-only" : "ui-label"}>
           {props.label}
           {resolvedChildren()}
         </span>

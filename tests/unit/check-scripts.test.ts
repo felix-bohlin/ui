@@ -1040,6 +1040,55 @@ describe("check-components", () => {
       checkSolidProps(
         "Badge.solid.tsx",
         solid(
+          '  const rest = omit(props, "class", "items", "end")\n  const resolvedEnd = children(() => props.end)\n  return (\n    <ul {...rest}>\n      <For each={props.items}>\n        {(item) => <li>{item}{resolvedEnd() && <i>{props.end}</i>}</li>}\n      </For>\n    </ul>\n  )',
+        ),
+        ["end"],
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class", "items")\n  return <ul {...rest}>{props.items.map((item) => <li>{item}</li>)}</ul>',
+        ),
+      ),
+    ).toEqual([expect.stringContaining("builds JSX with .map()")])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class", "items")\n  const labels = props.items.map((item) => item.label)\n  return <ul {...rest}><For each={labels}>{(label) => <li>{label}</li>}</For></ul>',
+        ),
+      ),
+    ).toEqual([])
+    for (const tag of [
+      'const Tag = dynamic("selectedcontent")',
+      'const Tag = dynamic(() => "selectedcontent")',
+      'const tag = () => "selectedcontent"\n  const Tag = dynamic(tag)',
+    ]) {
+      expect(
+        checkSolidProps(
+          "Badge.solid.tsx",
+          solid(
+            `  const rest = omit(props, "class")\n  ${tag}\n  return <Tag {...rest} />`,
+          ),
+        ),
+      ).toEqual([
+        expect.stringContaining("calls dynamic() on a string literal"),
+      ])
+    }
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "as", "class")\n  const tag = () => props.as || "span"\n  const Tag = dynamic(tag)\n  return <Tag {...rest} />',
+        ),
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
           '  const rest = omit(props, "class", "children")\n  const resolvedChildren = children(() => props.children)\n  return resolvedChildren() && <span {...rest}>{resolvedChildren()}</span>',
         ),
       ),

@@ -16,7 +16,7 @@ export default function Fieldset(props: Props) {
     isFieldset()
       ? undefined
       : autoLabelledBy(rest, `${rest.id || `fieldset-${uid}`}-legend`)
-  const tagRole = () => (isFieldset() ? undefined : "group")
+  const role = () => (isFieldset() ? undefined : "group")
 
   return (
     <FieldsetContext
@@ -29,7 +29,7 @@ export default function Fieldset(props: Props) {
       <Tag
         aria-labelledby={legendId()}
         class={["ui-fieldset", props.class]}
-        role={tagRole()}
+        role={role()}
         {...defined(rest as object)}
       >
         {props.children}

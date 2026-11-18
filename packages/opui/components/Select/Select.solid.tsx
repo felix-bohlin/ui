@@ -1,10 +1,10 @@
 /** @jsxImportSource @solidjs/web */
-import { dynamic } from "@solidjs/web"
-import { children, createUniqueId, omit } from "solid-js"
+import { children, createUniqueId, For, omit, untrack } from "solid-js"
 import { useFieldGroupContext } from "../FieldGroup/context.solid"
 import type { SelectItem } from "./types"
 import { fieldDescribedBy } from "../id"
 import { sameValue } from "./selection"
+import { bound, serverValue } from "../solid"
 import type { Props } from "./types.solid"
 
 export default function Select(props: Props) {
@@ -22,9 +22,11 @@ export default function Select(props: Props) {
     "id",
     "items",
     "name",
+    "ref",
     "size",
     "spread",
     "style",
+    "value",
     "variant",
     "children",
     "bottom",
@@ -44,16 +46,12 @@ export default function Select(props: Props) {
   const resolvedTop = children(() => props.top)
   const field = useFieldGroupContext()
   const uid = createUniqueId()
-  const model = {
-    get value() {
-      return props.value ?? props.defaultValue
-    },
-  }
+  const initialValue = untrack(() => props.value ?? props.defaultValue)
+  const valueRef = bound("value", () => props.value, initialValue)
+  const value = () => props.value ?? props.defaultValue
   const items = () => (props.items === undefined ? [] : props.items)
   const variant = () =>
     props.variant === undefined ? "outlined" : props.variant
-  const selectedContent = () => "selectedcontent"
-  const SelectedContent = dynamic(selectedContent)
   const base = () => props.id || `select-${uid}`
   const startTextId = () =>
     resolvedStartText() ? `${base()}-start-text` : undefined
@@ -74,12 +72,14 @@ export default function Select(props: Props) {
       },
       props["aria-describedby"],
     )
-  const isSelected = (item: SelectItem) =>
-    model.value === undefined
+  const isSelected = (item: SelectItem) => {
+    const current = value()
+    return current === undefined
       ? item.selected
-      : Array.isArray(model.value)
-        ? model.value.some((selected) => sameValue(selected, item.value))
-        : sameValue(item.value, model.value)
+      : Array.isArray(current)
+        ? current.some((selected) => sameValue(selected, item.value))
+        : sameValue(item.value, current)
+  }
   const hasLabel = () => Boolean(resolvedLabel())
   const selectId = () => (hasLabel() ? base() : props.id)
 
@@ -99,7 +99,7 @@ export default function Select(props: Props) {
     >
       {hasLabel() && (
         <label
-          class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}
+          class={props.hideLabel ? "ui-sr-only" : "ui-label"}
           for={selectId()}
         >
           {resolvedLabel()}
@@ -122,6 +122,8 @@ export default function Select(props: Props) {
           </span>
         )}
         <select
+          {...serverValue(initialValue)}
+          ref={[props.ref, valueRef]}
           {...rest}
           aria-describedby={describedBy()}
           aria-invalid={props.error ? "true" : props["aria-invalid"]}
@@ -130,17 +132,19 @@ export default function Select(props: Props) {
           name={props.name ?? field?.name}
         >
           <button inert>
-            <SelectedContent />
+            <selectedcontent />
           </button>
           <div class={["ui-list", { "ui-dense": props.dense }]}>
-            {items().map((item) => (
-              <option
-                selected={isSelected(item) || undefined}
-                value={item.value}
-              >
-                {item.label}
-              </option>
-            ))}
+            <For each={items()}>
+              {(item) => (
+                <option
+                  selected={isSelected(item) || undefined}
+                  value={item.value}
+                >
+                  {item.label}
+                </option>
+              )}
+            </For>
             {props.children}
           </div>
         </select>

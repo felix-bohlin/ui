@@ -3,6 +3,7 @@ import {
   callHandler,
   checkedProps,
   seedChecked,
+  serverValue,
 } from "../../packages/opui/components/solid"
 
 const inputOf = (
@@ -89,5 +90,13 @@ describe("callHandler", () => {
     callHandler([(...args: unknown[]) => calls.push(args), "data"], event)
     callHandler(undefined, event)
     expect(calls).toEqual([[event], ["data", event]])
+  })
+})
+
+describe("serverValue", () => {
+  test("the server render hands a select its first value, which picks its options, and leaves the key out when there is none", () => {
+    expect(serverValue("b")).toEqual({ value: "b" })
+    expect(serverValue(["a", "c"])).toEqual({ value: ["a", "c"] })
+    expect("value" in serverValue(undefined)).toBe(false)
   })
 })

@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { omit, untrack } from "solid-js"
+import { For, omit, untrack } from "solid-js"
 import { mergeStyle, pluralLabel } from "../style"
 import { checkedProps, seedChecked } from "../solid"
 import type { Props } from "./types.solid"
@@ -71,26 +71,28 @@ export default function Rating(props: Props) {
               value={0}
             />
           )}
-          {stars().map((star) => {
-            const initialChecked2 = untrack(() => current() === star)
-            return (
-              <input
-                aria-describedby={props["aria-describedby"]}
-                aria-invalid={invalid()}
-                aria-label={pluralLabel(starLabel(), star, props.lang)}
-                {...checkedProps(
-                  props.value === undefined ? undefined : current() === star,
-                  initialChecked2,
-                )}
-                onChange={() => props.onValueChange?.(star)}
-                ref={seedChecked(() => props.onValueChange?.(star))}
-                name={props.name}
-                required={props.required}
-                type="radio"
-                value={star}
-              />
-            )
-          })}
+          <For each={stars()}>
+            {(star) => {
+              const initialChecked = untrack(() => current() === star)
+              return (
+                <input
+                  aria-describedby={props["aria-describedby"]}
+                  aria-invalid={invalid()}
+                  aria-label={pluralLabel(starLabel(), star, props.lang)}
+                  {...checkedProps(
+                    props.value === undefined ? undefined : current() === star,
+                    initialChecked,
+                  )}
+                  onChange={() => props.onValueChange?.(star)}
+                  ref={seedChecked(() => props.onValueChange?.(star))}
+                  name={props.name}
+                  required={props.required}
+                  type="radio"
+                  value={star}
+                />
+              )
+            }}
+          </For>
         </fieldset>
       ) : (
         <meter

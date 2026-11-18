@@ -2,7 +2,6 @@
 import { omit } from "solid-js"
 import { defined } from "../attrs"
 import { useCalloutContext } from "./context.solid"
-import { cx } from "../cx"
 import type { CalloutIconProps as Props } from "./types.solid"
 
 export default function CalloutIcon(props: Props) {
@@ -15,7 +14,7 @@ export default function CalloutIcon(props: Props) {
       {severity() && severity() !== "neutral" && (
         <svg
           aria-hidden="true"
-          class={cx([props.class])}
+          class={props.class}
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"

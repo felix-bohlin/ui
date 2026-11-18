@@ -25,7 +25,6 @@ export default function Tabs(props: Props) {
     if (inner() !== undefined) setInner(next)
     props.onValueChange?.(next)
   }
-  const groupName = () => props.name || `tabs-${uid}`
   untrack(() => {
     if (props.role === "radiogroup") warnUnnamedGroup("Tabs", rest)
   })
@@ -35,7 +34,7 @@ export default function Tabs(props: Props) {
       value={{
         change,
         get groupName() {
-          return groupName()
+          return props.name || `tabs-${uid}`
         },
         get value() {
           return props.value ?? inner()

@@ -16,13 +16,18 @@ export const tagNamer = (component, shadowed = []) => {
   }
 }
 
+const mapLoop = ({ list, optional, parameters, returned }) =>
+  `{${list}${optional ? "?" : ""}.map((${parameters}) => ${returned})}`
+
 export const jsxEmitter = ({
   attributes,
   each,
+  loop = mapLoop,
   narrow,
   rewrite,
   slotCode,
   stringSlots,
+  tag = (node) => node.tag,
 }) => {
   const branch = (nodes, scope) =>
     wrapFragment(emit(nodes, scope), nodes, scope)
@@ -37,7 +42,7 @@ export const jsxEmitter = ({
     if (only.type === "element") return code
     if (only.type === "if") return conditional(only, scope)
     if (only.type === "slot" && only.fallback.length === 0) {
-      return slotCode(slotProp(only.name))
+      return slotCode(slotProp(only.name), scope, true)
     }
     if (only.type === "expression") return rewrite(only.code, scope)
     return `<>${code}</>`
@@ -67,26 +72,34 @@ export const jsxEmitter = ({
               ? ""
               : `{${slotCode(name)}}`
           }
-          if (node.fallback.length === 0) return `{${slotCode(name)}}`
-          return `{${slotCode(name)} === undefined ? (${branch(node.fallback, scope)}) : (${slotCode(name)})}`
+          if (node.fallback.length === 0) {
+            return `{${slotCode(name, scope, true)}}`
+          }
+          return `{${slotCode(name, scope)} === undefined ? (${branch(node.fallback, scope)}) : (${slotCode(name, scope, true)})}`
         }
         if (node.type === "if") {
           const code = conditional(node, scope)
           return code.startsWith("<") ? code : `{${code}}`
         }
         if (node.type === "each") {
-          const loop = each(node, scope)
-          const body = branch(node.children, loop.scope)
-          const returned = loop.consts.length
-            ? `{\n${loop.consts.join("\n")}\nreturn (\n${body}\n)\n}`
+          const row = each(node, scope)
+          const body = branch(node.children, row.scope)
+          const returned = row.consts.length
+            ? `{\n${row.consts.join("\n")}\nreturn (\n${body}\n)\n}`
             : `(\n${body}\n)`
-          return `{${loop.list}${node.optional ? "?" : ""}.map((${loop.parameters}) => ${returned})}`
+          return loop({
+            list: row.list,
+            optional: node.optional,
+            parameters: row.parameters,
+            returned,
+          })
         }
         const code = attributes(node, scope).join(" ")
-        const open = `<${node.tag}${code ? ` ${code}` : ""}`
+        const name = tag(node, scope)
+        const open = `<${name}${code ? ` ${code}` : ""}`
         return node.children.length === 0
           ? `${open} />`
-          : `${open}>${emit(node.children, scope)}</${node.tag}>`
+          : `${open}>${emit(node.children, scope)}</${name}>`
       })
       .join("")
   const render = (tree, scope) =>

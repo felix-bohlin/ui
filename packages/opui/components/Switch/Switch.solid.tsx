@@ -28,13 +28,9 @@ export default function Switch(props: Props) {
   const resolvedIconChecked = children(() => props.iconChecked)
   const resolvedIconUnchecked = children(() => props.iconUnchecked)
   untrack(() => {
-    warnUnnamed(
-      "Switch",
-      hasName({ ...rest, label: props.label }, resolvedChildren()),
-    )
+    warnUnnamed("Switch", hasName(props, resolvedChildren()))
   })
-  const switchInputAriaInvalid = () =>
-    props.error ? "true" : props["aria-invalid"]
+  const invalid = () => (props.error ? "true" : props["aria-invalid"])
 
   return (
     <label
@@ -63,9 +59,9 @@ export default function Switch(props: Props) {
           {resolvedIconChecked()}
         </span>
       )}{" "}
-      <SwitchInput {...rest} aria-invalid={switchInputAriaInvalid()} />
+      <SwitchInput {...rest} aria-invalid={invalid()} />
       {(props.label || resolvedChildren()) && (
-        <span class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}>
+        <span class={props.hideLabel ? "ui-sr-only" : "ui-label"}>
           {props.label}
           {resolvedChildren()}
         </span>

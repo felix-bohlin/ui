@@ -27,8 +27,6 @@ export default function ToggleGroup(props: Props) {
     if (inner() !== undefined) setInner(next)
     props.onValueChange?.(next as never)
   }
-  const groupName = () => props.name || `toggle-group-${uid}`
-  const inputType = () => (props.multiple ? "checkbox" : "radio")
   untrack(() => {
     warnUnnamedGroup("ToggleGroup", rest)
   })
@@ -38,10 +36,10 @@ export default function ToggleGroup(props: Props) {
       value={{
         change,
         get groupName() {
-          return groupName()
+          return props.name || `toggle-group-${uid}`
         },
         get inputType() {
-          return inputType()
+          return props.multiple ? "checkbox" : "radio"
         },
         get value() {
           return props.value ?? inner()

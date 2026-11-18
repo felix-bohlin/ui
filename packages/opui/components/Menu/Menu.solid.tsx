@@ -1,6 +1,6 @@
 /** @jsxImportSource @solidjs/web */
-import { dynamic } from "@solidjs/web"
-import { children, omit, untrack } from "solid-js"
+import { Dynamic } from "@solidjs/web"
+import { children, For, omit, untrack } from "solid-js"
 import "../../elements/close-on-navigate.js"
 import { defined } from "../attrs"
 import { MenuContext, useMenuContext } from "./context.solid"
@@ -23,7 +23,6 @@ export default function Menu(props: Props) {
     "children",
     "iconChecked",
   )
-  const resolvedIconChecked = children(() => props.iconChecked)
   const parent = useMenuContext()
   const popover = () => (props.popover === undefined ? "auto" : props.popover)
   const rootId = () => parent?.rootId ?? props.id
@@ -54,8 +53,8 @@ export default function Menu(props: Props) {
         popover={popover() === "auto" ? "" : popover()}
         {...rest}
       >
-        {props.items?.map(
-          ({
+        <For each={props.items}>
+          {({
             borderTop,
             color,
             disabled,
@@ -66,10 +65,9 @@ export default function Menu(props: Props) {
             ...itemRest
           }) => {
             const tag = href ? "a" : "button"
-            const Tag = dynamic(() => tag)
             const closes = !href && !keepOpen && !disabled
-            const tagCommand = () => (closes ? "hide-popover" : undefined)
-            const tagCommandfor = () => (closes ? rootId() : undefined)
+            const commandfor = () => (closes ? rootId() : undefined)
+            const resolvedIconChecked = children(() => props.iconChecked)
             return (
               <li
                 class={cx([
@@ -77,10 +75,11 @@ export default function Menu(props: Props) {
                   color && `ui-${color}`,
                 ])}
               >
-                <Tag
+                <Dynamic
+                  component={tag}
                   {...tagAttrs(tag, disabled, href)}
-                  command={tagCommand()}
-                  commandfor={tagCommandfor()}
+                  command={closes ? "hide-popover" : undefined}
+                  commandfor={commandfor()}
                   {...defined(itemRest)}
                 >
                   <div class="ui-text">
@@ -96,11 +95,11 @@ export default function Menu(props: Props) {
                       {resolvedIconChecked()}
                     </span>
                   )}
-                </Tag>
+                </Dynamic>
               </li>
             )
-          },
-        )}
+          }}
+        </For>
         {props.children}
       </menu>
     </MenuContext>

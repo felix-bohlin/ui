@@ -25,12 +25,26 @@ const numeric = (model) =>
       ["number", "range"].includes(item.value),
   )
 
+const solidChecked = {
+  attributes: () => [
+    "defaultChecked={initialChecked}",
+    "ref={[props.ref, checkedRef]}",
+  ],
+  body: () => [
+    "const initialChecked = untrack(() => props.checked)",
+    'const checkedRef = bound("checked", () => props.checked)',
+  ],
+  omits: () => ["checked", "ref"],
+  locals: () => ["checkedRef", "initialChecked"],
+  solidHelpers: () => ["bound"],
+  solidValues: () => ["untrack"],
+}
+
+const ownsDefault = (model) => model.element?.tag === "select"
+
 export const MODEL_KINDS = {
   checked: {
-    solid: {
-      attributes: () => ["defaultChecked={untrack(() => props.checked)}"],
-      solidValues: () => ["untrack"],
-    },
+    solid: solidChecked,
     svelte: {
       attributes: () => [
         "bind:checked={getChecked, setChecked}",
@@ -206,10 +220,7 @@ export const MODEL_KINDS = {
     },
   },
   radio: {
-    solid: {
-      attributes: () => ["defaultChecked={untrack(() => props.checked)}"],
-      solidValues: () => ["untrack"],
-    },
+    solid: solidChecked,
     svelte: {
       attributes: () => [
         "{@attach seedChecked(isChecked, check)}",
@@ -255,22 +266,34 @@ export const MODEL_KINDS = {
           : [],
     },
     solid: {
-      attributes: (model) =>
+      attributes: (model) => [
         resettable(model)
-          ? [`defaultValue={untrack(() => props.${model.prop})}`]
-          : [],
-      body: (model, _, read) =>
-        read
+          ? `default${capitalize(model.prop)}={initial${capitalize(model.prop)}}`
+          : `{...serverValue(initial${capitalize(model.prop)})}`,
+        `ref={[props.ref, ${model.prop}Ref]}`,
+      ],
+      body: (model, _, read) => [
+        `const initial${capitalize(model.prop)} = untrack(() => props.${model.prop}${ownsDefault(model) ? ` ?? props.default${capitalize(model.prop)}` : ""})`,
+        `const ${model.prop}Ref = bound(${JSON.stringify(model.prop)}, () => props.${model.prop}${resettable(model) ? "" : `, initial${capitalize(model.prop)}`})`,
+        ...(read
           ? [
-              `const model = {\n  get ${model.prop}() {\n    return props.${model.prop} ?? props.default${capitalize(model.prop)}\n  },\n}`,
+              `const ${model.local} = () => props.${model.prop} ?? props.default${capitalize(model.prop)}`,
             ]
-          : [],
-      inRest: true,
-      locals: (model) => (model.local ? ["model"] : []),
-      ownDefault: (model) => model.element?.tag === "select",
+          : []),
+      ],
+      omits: (model) => [model.prop, "ref"],
+      locals: (model) => [
+        `initial${capitalize(model.prop)}`,
+        `${model.prop}Ref`,
+      ],
+      ownDefault: ownsDefault,
       rename: (model) =>
-        model.local ? [[model.local, `model.${model.prop}`]] : [],
-      solidValues: (model) => (resettable(model) ? ["untrack"] : []),
+        model.local ? [[model.local, `${model.local}()`]] : [],
+      solidHelpers: (model) => [
+        "bound",
+        ...(resettable(model) ? [] : ["serverValue"]),
+      ],
+      solidValues: () => ["untrack"],
     },
     svelte: {
       attributes: (model) =>

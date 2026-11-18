@@ -246,3 +246,22 @@ export const classText = (code) => {
       : node
   return only && isClassText(only) ? unwrap(only).getText() : undefined
 }
+
+export const onlyClass = (code) => {
+  const [statement] = sourceFileOf(`(${code})`, "class.ts").statements
+  const list =
+    statement && ts.isExpressionStatement(statement)
+      ? unwrap(statement.expression)
+      : undefined
+  if (!list || !ts.isArrayLiteralExpression(list)) return undefined
+  const [entry] = list.elements
+  if (list.elements.length !== 1) return undefined
+  const value = unwrap(entry)
+  return ts.isObjectLiteralExpression(value) ||
+    ts.isArrayLiteralExpression(value) ||
+    ts.isSpreadElement(value) ||
+    (ts.isBinaryExpression(value) &&
+      value.operatorToken.kind === ts.SyntaxKind.AmpersandAmpersandToken)
+    ? undefined
+    : entry.getText()
+}

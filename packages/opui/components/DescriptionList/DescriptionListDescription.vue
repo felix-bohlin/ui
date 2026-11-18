@@ -10,7 +10,7 @@ defineSlots<Slots>()
 </script>
 
 <template>
-  <dd v-bind="classAttrs([$props.class])">
+  <dd v-bind="classAttrs($props.class)">
     <slot></slot>
   </dd>
 </template>

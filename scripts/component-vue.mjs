@@ -33,6 +33,7 @@ import {
   identifiersIn,
   isArrayType,
   isBlank,
+  onlyClass,
   PRESERVED_TAGS,
   propKey,
   scriptCodes,
@@ -346,7 +347,7 @@ export const toVue = (component) => {
   }
   const attribute = (node, item, scope) => {
     if (item.kind === "class") {
-      return `:class="${rewriteExpression(item.code, scope)}"`
+      return `:class="${rewriteExpression(onlyClass(item.code) ?? item.code, scope)}"`
     }
     if (item.kind === "spread") {
       if (item.code === rest && item.condition !== undefined) {

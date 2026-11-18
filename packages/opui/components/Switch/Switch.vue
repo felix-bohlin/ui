@@ -63,7 +63,7 @@ warnUnnamed("Switch", hasName({ ...attrs.value, label }, slots.default))
     />
     <span
       v-if="label || $slots.default"
-      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
+      :class="hideLabel ? 'ui-sr-only' : 'ui-label'"
       >{{ label }}<TrimmedSlot :nodes="$slots.default?.()"
     /></span>
     <span v-if="endText || $slots['end-text']" class="ui-end-text"

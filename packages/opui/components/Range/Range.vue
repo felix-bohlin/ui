@@ -112,7 +112,7 @@ const describedBy = () =>
   >
     <span
       v-if="hasLabel()"
-      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
+      :class="hideLabel ? 'ui-sr-only' : 'ui-label'"
       :id="labelId()"
       >{{ label }}<slot name="label"></slot
     ></span>

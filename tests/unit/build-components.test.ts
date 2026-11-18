@@ -240,10 +240,10 @@ describe("the ports of a sample", () => {
       'import { cx } from "../cx"\nimport Button from "../Button/Button.react"\nimport { markerPath } from "./icons"\nimport type { Props } from "./types.react"\n\nexport default function Sample({\n  className,\n  children,\n  marker,\n  ...rest\n}: Props) {\n  return (\n    <summary className={cx([className])} {...rest}>\n      {children}{" "}\n      {marker === undefined ? (\n        <svg aria-hidden="true">\n          <path d={markerPath} />\n        </svg>\n      ) : (\n        marker\n      )}{" "}\n      <Button round size="small">\n        Close\n      </Button>\n    </summary>\n  )\n}\n',
     )
     expect(ports.svelte).toBe(
-      '<script lang="ts">\n  import Button from "../Button/Button.svelte"\n  import { markerPath } from "./icons"\n  import { classAttrs } from "../cx"\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n\n    // Snippets\n    children,\n    marker,\n    ...rest\n  }: Props = $props()\n</script>\n\n<summary {...classAttrs([className])} {...rest}>\n  {@render children?.()}{" "}{#if marker}\n    {@render marker()}\n  {:else}\n    <svg aria-hidden="true">\n      <path d={markerPath} />\n    </svg>\n  {/if}\n  <Button round size="small">Close</Button>\n</summary>\n',
+      '<script lang="ts">\n  import Button from "../Button/Button.svelte"\n  import { markerPath } from "./icons"\n  import { classAttrs } from "../cx"\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n\n    // Snippets\n    children,\n    marker,\n    ...rest\n  }: Props = $props()\n</script>\n\n<summary {...classAttrs(className)} {...rest}>\n  {@render children?.()}{" "}{#if marker}\n    {@render marker()}\n  {:else}\n    <svg aria-hidden="true">\n      <path d={markerPath} />\n    </svg>\n  {/if}\n  <Button round size="small">Close</Button>\n</summary>\n',
     )
     expect(ports.vue).toBe(
-      '<script setup lang="ts">\nimport Button from "../Button/Button.vue"\nimport { markerPath } from "./icons"\nimport { classAttrs } from "../cx"\nimport type { Props, Slots } from "./types.vue-props"\n\ndefineProps<Props>()\ndefineSlots<Slots>()\n</script>\n\n<template>\n  <summary v-bind="classAttrs([$props.class])">\n    <slot></slot>{{ " " }}<slot v-if="$slots.marker" name="marker"></slot>\n    <svg v-else aria-hidden="true"><path :d="markerPath" /></svg>{{ " "\n    }}<Button round size="small">Close</Button>\n  </summary>\n</template>\n',
+      '<script setup lang="ts">\nimport Button from "../Button/Button.vue"\nimport { markerPath } from "./icons"\nimport { classAttrs } from "../cx"\nimport type { Props, Slots } from "./types.vue-props"\n\ndefineProps<Props>()\ndefineSlots<Slots>()\n</script>\n\n<template>\n  <summary v-bind="classAttrs($props.class)">\n    <slot></slot>{{ " " }}<slot v-if="$slots.marker" name="marker"></slot>\n    <svg v-else aria-hidden="true"><path :d="markerPath" /></svg>{{ " "\n    }}<Button round size="small">Close</Button>\n  </summary>\n</template>\n',
     )
     expect(ports["solid.tsx"]).toBe(
       '/** @jsxImportSource @solidjs/web */\nimport { children, omit } from "solid-js"\nimport Button from "../Button/Button.solid"\nimport { markerPath } from "./icons"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "children", "marker")\n  const resolvedMarker = children(() => props.marker)\n\n  return (\n    <summary class={props.class} {...rest}>\n      {props.children}{" "}\n      {resolvedMarker() === undefined ? (\n        <svg aria-hidden="true">\n          <path d={markerPath} />\n        </svg>\n      ) : (\n        resolvedMarker()\n      )}{" "}\n      <Button round size="small">\n        Close\n      </Button>\n    </summary>\n  )\n}\n',
@@ -650,7 +650,7 @@ describe("the ports of a sample", () => {
     )
     expect(ports.svelte).toContain("style={mergeStyle({ width }, style)}")
     expect(ports.vue).toBe(
-      '<script setup lang="ts">\nimport { mergeStyle, styleAttrs } from "../style"\nimport { classAttrs } from "../cx"\nimport type { Props } from "./types.vue-props"\n\nconst { width } = defineProps<Props>()\n</script>\n\n<template>\n  <col\n    v-bind="{\n      ...classAttrs([$props.class]),\n      ...styleAttrs(mergeStyle({ width }, {})),\n    }"\n  />\n</template>\n',
+      '<script setup lang="ts">\nimport { mergeStyle, styleAttrs } from "../style"\nimport { classAttrs } from "../cx"\nimport type { Props } from "./types.vue-props"\n\nconst { width } = defineProps<Props>()\n</script>\n\n<template>\n  <col\n    v-bind="{\n      ...classAttrs($props.class),\n      ...styleAttrs(mergeStyle({ width }, {})),\n    }"\n  />\n</template>\n',
     )
   })
 
@@ -678,7 +678,7 @@ describe("the ports of a sample", () => {
       "{#if !hidden}\n    {@render end?.()}\n  {/if}",
     )
     expect(ports.vue).toContain(
-      '<span v-bind="classAttrs([$props.class])">\n    <TrimmedSlot v-if="!hidden" :nodes="$slots.end?.()" />\n  </span>',
+      '<span v-bind="classAttrs($props.class)">\n    <TrimmedSlot v-if="!hidden" :nodes="$slots.end?.()" />\n  </span>',
     )
   })
 

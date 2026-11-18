@@ -26,6 +26,6 @@ const severity = computed(() => callout?.severity)
     width="32"
     height="32"
     viewBox="0 0 32 32"
-    v-bind="{ ...defined(attrs), ...classAttrs([$props.class]) }"
+    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"
   ></svg>
 </template>

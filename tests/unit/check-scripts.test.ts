@@ -32,6 +32,7 @@ import {
   checkExampleClient,
   checkExampleWrapper,
   checkIndexSignature,
+  checkLoopKeys,
   checkModel,
   checkPropsType,
   checkProvide,
@@ -986,6 +987,70 @@ describe("check-components", () => {
     ).toEqual([
       'does not type its props with Props from "./types.react": annotate the props parameter with it',
     ])
+  })
+
+  test("a list in a React, Svelte or Vue component gives each row a key", () => {
+    const react = (rows: string) =>
+      `export default function List({ items }: Props) {\n  return <ul>{${rows}}</ul>\n}\n`
+    expect(
+      checkLoopKeys(
+        "List.react.tsx",
+        react("items.map((item, index) => (<li key={index}>{item}</li>))"),
+      ),
+    ).toEqual([])
+    expect(
+      checkLoopKeys(
+        "List.react.tsx",
+        react("items.map((item) => (<li>{item}</li>))"),
+      ),
+    ).toEqual([
+      "builds <li>{item}</li> with .map() and no key: React matches the rows of a list by their key, so give each row key={...}, the item's own value where it has one and the index otherwise",
+    ])
+    expect(
+      checkLoopKeys(
+        "List.react.tsx",
+        react(
+          'items.map((item, index) => typeof item === "object" ? <li key={index}>{item.label}</li> : <li>{item}</li>)',
+        ),
+      ),
+    ).toHaveLength(1)
+    expect(
+      checkLoopKeys(
+        "List.react.tsx",
+        react("items.map((item) => { return <>{item}</> })"),
+      ),
+    ).toHaveLength(1)
+    expect(
+      checkLoopKeys(
+        "List.svelte",
+        "<ul>\n  {#each items ?? [] as { label, ...item }, index (index)}\n    <li {...item}>{label}</li>\n  {/each}\n</ul>\n",
+      ),
+    ).toEqual([])
+    expect(
+      checkLoopKeys(
+        "List.svelte",
+        "<ul>\n  {#each items as { label }, index}\n    <li>{label}</li>\n  {/each}\n</ul>\n",
+      ),
+    ).toEqual([
+      "has {#each items as { label }, index} without a key: Svelte matches the rows of a list by their key, so end the block's opening with (key), the item's own value where it has one and the index otherwise",
+    ])
+    expect(
+      checkLoopKeys(
+        "List.vue",
+        '<template>\n  <ul>\n    <li v-for="item in items" :key="item.value" :title="item.value > 1 ? \'a\' : \'b\'">{{ item.label }}</li>\n  </ul>\n</template>\n',
+      ),
+    ).toEqual([])
+    expect(
+      checkLoopKeys(
+        "List.vue",
+        '<template>\n  <ul>\n    <li v-for="(item, index) in items" :title="item">{{ item }}</li>\n    <li :key="1" />\n  </ul>\n</template>\n',
+      ),
+    ).toEqual([
+      'has v-for="(item, index) in items" on <li> without :key: Vue matches the rows of a list by their key, so bind :key on the element with v-for, the item\'s own value where it has one and the index otherwise',
+    ])
+    expect(checkLoopKeys("List.solid.tsx", "items.map(() => <li />)")).toEqual(
+      [],
+    )
   })
 
   test("a Solid port reads props as props.x and omits them in order", () => {

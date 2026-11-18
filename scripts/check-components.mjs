@@ -84,9 +84,19 @@ const CLASS_LISTS = [
     /\bclass=\{\[|\bclass=\{cx\(\[|\bclass=\{(?!\[|cx\()/g,
     "class",
   ],
-  [".svelte", /\bclass=\{\[|\{\.\.\.classAttrs\(\[/g, "class"],
-  [".vue", /:class="\[|\bclassAttrs\(\[/g, ":class"],
+  [
+    ".svelte",
+    /\bclass=\{\[|\{\.\.\.classAttrs\(\[|\bclass=\{(?!\[)|\{\.\.\.classAttrs\((?!\[)/g,
+    "class",
+  ],
+  [
+    ".vue",
+    /:class="\[|\bclassAttrs\(\[|:class="(?!\[)|\bclassAttrs\((?!\[)/g,
+    ":class",
+  ],
 ]
+
+const CLASS_LIST_ENDS = { '"': '"', "(": ")", "[": "]", "{": "}" }
 
 const CLIENT =
   /\buse(?:ActionState|Context|Effect|ImperativeHandle|InsertionEffect|LayoutEffect|Listener|Optimistic|Reducer|Ref|State|SyncExternalStore|Transition)\(|\buse\w+Context\(|\bcreateContext\(|<\w+Context\b|\bon[A-Z]\w*(?:=\{|: )/
@@ -176,12 +186,12 @@ const splitTopLevel = (body) => {
 const classLists = (source, pattern) =>
   [...source.matchAll(pattern)].map((match) => {
     const open = match[0].at(-1)
-    const close = open === "[" ? "]" : "}"
+    const close = CLASS_LIST_ENDS[open]
     let depth = 1
     let end = match.index + match[0].length
     while (end < source.length && depth > 0) {
-      if (source[end] === open) depth++
       if (source[end] === close) depth--
+      else if (source[end] === open) depth++
       end++
     }
     return splitTopLevel(source.slice(match.index + match[0].length, end - 1))
@@ -267,6 +277,7 @@ const classTokens = (lists) =>
         .map(([token, name]) => (name ? `ui-\${${name}}` : token))
         .join(" "),
     )
+    .filter((tokens) => tokens !== "className")
     .join("\n")
 
 const clientProblems = (source, used, uses) => {
@@ -765,6 +776,113 @@ export const checkSolidProps = (
   return problems
 }
 
+const unwrapParentheses = (node) =>
+  ts.isParenthesizedExpression(node) ? unwrapParentheses(node.expression) : node
+
+const rowsOf = (node) => {
+  const row = unwrapParentheses(node)
+  if (ts.isConditionalExpression(row)) {
+    return [...rowsOf(row.whenTrue), ...rowsOf(row.whenFalse)]
+  }
+  if (
+    ts.isBinaryExpression(row) &&
+    row.operatorToken.kind === ts.SyntaxKind.AmpersandAmpersandToken
+  ) {
+    return rowsOf(row.right)
+  }
+  return isJsx(row) ? [row] : []
+}
+
+const hasKey = (row) =>
+  !ts.isJsxFragment(row) &&
+  (ts.isJsxElement(row) ? row.openingElement : row).attributes.properties.some(
+    (attribute) =>
+      ts.isJsxAttribute(attribute) && attribute.name.getText() === "key",
+  )
+
+const openingTags = (source) => {
+  const tags = []
+  for (const match of source.matchAll(/<[A-Za-z][\w.:-]*/g)) {
+    let end = match.index + match[0].length
+    let quote
+    while (end < source.length && (quote || source[end] !== ">")) {
+      if (quote) {
+        if (source[end] === quote) quote = undefined
+      } else if (source[end] === '"' || source[end] === "'") {
+        quote = source[end]
+      }
+      end++
+    }
+    tags.push(source.slice(match.index, end + 1))
+  }
+  return tags
+}
+
+const eachHeaders = (source) =>
+  [...source.matchAll(/\{#each\s/g)].map((match) => {
+    let depth = 1
+    let end = match.index + match[0].length
+    while (end < source.length && depth > 0) {
+      if (source[end] === "{") depth++
+      if (source[end] === "}") depth--
+      end++
+    }
+    return source.slice(match.index + match[0].length, end - 1)
+  })
+
+export const checkLoopKeys = (file, source) => {
+  if (file.endsWith(".react.tsx")) {
+    return nodesIn(
+      parseScript(file, source),
+      (node) =>
+        ts.isCallExpression(node) &&
+        ts.isPropertyAccessExpression(node.expression) &&
+        node.expression.name.text === "map",
+    )
+      .flatMap((call) =>
+        call.arguments.filter(
+          (argument) =>
+            ts.isArrowFunction(argument) || ts.isFunctionExpression(argument),
+        ),
+      )
+      .flatMap((callback) =>
+        ts.isBlock(callback.body)
+          ? nodesIn(callback.body, ts.isReturnStatement).flatMap((statement) =>
+              statement.expression ? rowsOf(statement.expression) : [],
+            )
+          : rowsOf(callback.body),
+      )
+      .filter((row) => !hasKey(row))
+      .map(
+        (row) =>
+          `builds ${row.getText().split("\n")[0]} with .map() and no key: React matches the rows of a list by their key, so give each row key={...}, the item's own value where it has one and the index otherwise`,
+      )
+  }
+  if (file.endsWith(".svelte")) {
+    return eachHeaders(source)
+      .filter(
+        (header) =>
+          !header.includes(" as ") ||
+          !/\)\s*$/.test(header.slice(header.lastIndexOf(" as "))),
+      )
+      .map(
+        (header) =>
+          `has {#each ${header.trim()}} without a key: Svelte matches the rows of a list by their key, so end the block's opening with (key), the item's own value where it has one and the index otherwise`,
+      )
+  }
+  if (file.endsWith(".vue")) {
+    return openingTags(source)
+      .filter(
+        (tag) => /\sv-for="/.test(tag) && !/\s(?::|v-bind:)key="/.test(tag),
+      )
+      .map(
+        (tag) =>
+          `has ${/\sv-for="[^"]*"/.exec(tag)[0].trim()} on <${/^<([\w.:-]+)/.exec(tag)[1]}> without :key: Vue matches the rows of a list by their key, so bind :key on the element with v-for, the item's own value where it has one and the index otherwise`,
+      )
+  }
+  return []
+}
+
 export const checkVueAttrs = (source) =>
   /inheritAttrs:\s*false/.test(source) && !/\sv-bind="[^"]+"/.test(source)
     ? [
@@ -1177,6 +1295,7 @@ const main = async () => {
       if (CONTEXT_FILES.includes(file)) {
         reportAll(path, checkContext(path, source, folder))
       }
+      reportAll(path, checkLoopKeys(path, source))
       if (file.endsWith(".vue")) {
         reportAll(path, checkProvide(path, source))
         reportAll(path, checkVueAttrs(source))

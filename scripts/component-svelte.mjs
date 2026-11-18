@@ -24,6 +24,7 @@ import {
   chosenSpreadCode,
   classMayBeEmpty,
   filtersSpread,
+  onlyClass,
   PRESERVED_TAGS,
   propKey,
   unsupported,
@@ -109,7 +110,7 @@ export const toSvelte = (component) => {
   let usesDefined = false
   const attribute = (node, item) => {
     if (item.kind === "class") {
-      const code = rewriteExpression(item.code, options)
+      const code = rewriteExpression(onlyClass(item.code) ?? item.code, options)
       if (!classMayBeEmpty(item.code)) return `class={${code}}`
       usesClassAttrs = true
       return `{...classAttrs(${code})}`

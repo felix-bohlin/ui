@@ -88,7 +88,7 @@
   {style}
 >
   {#if hasLabel}
-    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]} id={labelId}>
+    <span class={hideLabel ? "ui-sr-only" : "ui-label"} id={labelId}>
       {@render content(label)}
     </span>
   {/if}

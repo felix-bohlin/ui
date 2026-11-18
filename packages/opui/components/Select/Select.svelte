@@ -95,7 +95,7 @@
   {style}
 >
   {#if label}
-    <label class={[hideLabel ? "ui-sr-only" : "ui-label"]} for={selectId}>
+    <label class={hideLabel ? "ui-sr-only" : "ui-label"} for={selectId}>
       {@render content(label)}
     </label>
   {/if}

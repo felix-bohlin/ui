@@ -5501,6 +5501,21 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Summary: The Solid Range rebuilds its tick marks when `options` is replaced with new objects, with no effect on the slider itself.
   - Recommended: Fix. One key rule for every loop reads better, and the ticks hold no state today.
   - Fix: in `scripts/component-solid.mjs`, narrow a loop item that is a union through its accessor so the Range loop can take `keyed={false}` too.
+- [ ] (1) Tooling: the Vue emitter writes each const of a loop callback inline wherever it is read, so the compiled Menu repeats `href ? 'a' : 'button'` and `!href && !keepOpen && !disabled` twice each where React and Svelte declare `Tag` and `closes` once per row (`packages/opui/components/Menu/Menu.vue:66-70`, `scripts/component-vue.mjs:427-436`)
+  - Summary: The compiled Vue Menu repeats each per-row expression where the other frameworks name it once.
+  - Recommended: Fix with option A. Vue templates have no per-row const, and the other forms add a construct to save one repetition.
+  - Fix: found by the framework idioms blind port of Menu. Rendering is the same either way.
+  - Options:
+    - A (recommended): keep the inline form and document it in `packages/opui/components/AGENTS.md` as the Vue convention for a loop const.
+    - B: emit a script function per const that takes the item (`const closes = (item: Item) => !item.href && !item.keepOpen && !item.disabled`) and loop over `item` without the destructuring pattern.
+    - C: move the row into a child component with a `computed` per const, which the compiler would have to write as a second file.
+- [ ] (1) Tooling: the Svelte emitter writes two sibling blocks with no whitespace between them on one line, `{/if}{#if iconChecked}`, in six compiled components, where a hand-written file starts each block on its own line (`packages/opui/components/Menu/Menu.svelte:72`, `packages/opui/components/Badge/Badge.svelte:42`, `scripts/component-svelte.mjs:169-171`)
+  - Summary: Six compiled Svelte components close one block and open the next on the same line.
+  - Recommended: Fix with option A. A line break between the blocks is a text node in Svelte, which the markup comparison would see.
+  - Fix: found by the framework idioms blind port of Menu. `scripts/component-layout.mjs` drops the whitespace because it can't render in Astro's output, and a line break between the blocks would add a whitespace text node the parity test compares.
+  - Options:
+    - A (recommended): keep the glued form and document it in `packages/opui/components/AGENTS.md`, since it is what keeps the markup equal to Astro's.
+    - B: where the parent is a flex or grid container, which renders no whitespace, start each block on its own line and normalize that whitespace in `tests/unit/normalize.ts`.
 - [ ] (3) Docs site: the icon libraries list no Solid package: `lucide-solid` 1.74 and `@tabler/icons-solidjs` 3.52 require solid-js 1, and Fluent, Material Symbols and Phosphor ship none (`src/utils/icon-libraries.ts`)
   - Summary: The icon pages name React, Svelte and Vue icon packages but none for Solid, since none supports Solid 2 yet.
   - Recommended: Fix. List each library's Solid package once it accepts solid-js 2.

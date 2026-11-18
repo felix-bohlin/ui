@@ -2,7 +2,7 @@
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { fieldDescribedBy } from "../id"
-  import { initialValue, sameValue } from "./selection"
+  import { initialValue, keepSelected, sameValue } from "./selection"
   import type { SelectItem } from "./types"
   import type { Props } from "./types.svelte"
   import { untrack } from "svelte"
@@ -69,6 +69,10 @@
 
   const first = untrack(() => value)
 
+  const keepFirst = (select: HTMLSelectElement) => {
+    if (first !== undefined) keepSelected(select, first)
+  }
+
   const isSelected = (item: SelectItem) =>
     first === undefined
       ? item.selected
@@ -113,6 +117,7 @@
       aria-invalid={error ? "true" : rest["aria-invalid"]}
       aria-labelledby={rest["aria-labelledby"]}
       bind:value
+      {@attach keepFirst}
       id={selectId}
       name={name ?? field?.name}
     >

@@ -7,13 +7,6 @@ const CONTROLLED: Partial<Record<string, string>> = {
     "a value with onChange is React state, which a form reset doesn't change: React keeps the input at it and puts the select back at it on the next render",
 }
 
-const FIRST_OPTION: Partial<Record<string, string>> = {
-  solid:
-    "the select sets its first value as a property, and child options carry no selected attribute for a reset to return to (the Select item on a reset with child options in TODO.md)",
-  svelte:
-    "bind:value sets the first value as a property, and child options carry no selected attribute for a reset to return to (the Select item on a reset with child options in TODO.md)",
-}
-
 const ONE_WAY: Partial<Record<string, string>> = {
   svelte:
     "a value passed without bind: is a starting value: the group keeps the selection itself until the parent passes another",
@@ -23,7 +16,6 @@ const ONE_WAY: Partial<Record<string, string>> = {
 for (const { id, label } of FRAMEWORKS) {
   if (!isHydratedFramework(id)) continue
   const controlled = CONTROLLED[id]
-  const firstOption = FIRST_OPTION[id]
   const refuses = !ONE_WAY[id]
   const explain = (...reasons: (string | undefined)[]) =>
     test
@@ -68,7 +60,7 @@ for (const { id, label } of FRAMEWORKS) {
     test(`a control follows its value when it changes, and a reset ${controlled ? "leaves the value its state holds" : "returns to the first value"}`, async ({
       page,
     }) => {
-      explain(controlled, firstOption)
+      explain(controlled)
       const name = page.getByLabel("Name")
       const fruit = page.getByLabel("Fruit")
       await name.fill("Edsger")
@@ -82,9 +74,7 @@ for (const { id, label } of FRAMEWORKS) {
       await page.getByRole("button", { name: "Reset" }).click()
       await expect(name).toHaveValue(controlled ? "Grace" : "Ada")
       await expect(page.getByLabel("City")).toHaveValue("Lund")
-      await expect(page.getByLabel("Color")).toHaveValue(
-        firstOption ? "red" : "blue",
-      )
+      await expect(page.getByLabel("Color")).toHaveValue("blue")
       await expect(fruit).toHaveValue("apple")
 
       await page.getByRole("button", { name: "Toggle error" }).click()

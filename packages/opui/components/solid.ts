@@ -1,5 +1,6 @@
 import { isServer, setProperty } from "@solidjs/web"
 import { createRenderEffect } from "solid-js"
+import { keepSelected } from "./Select/selection"
 
 const INITIAL = {
   checked: "defaultChecked",
@@ -32,6 +33,9 @@ export const control = <V>(
           node.nodeName === "SELECT" ? prop : INITIAL[prop],
           initial,
         )
+        if (node instanceof HTMLSelectElement) {
+          queueMicrotask(() => keepSelected(node, initial))
+        }
       }
       element = node
     },

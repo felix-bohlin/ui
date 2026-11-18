@@ -30,10 +30,11 @@ export default function AnalyticsDashboard() {
           <div class="ui-layout-row ui-small">
             <ToggleGroup
               aria-label="Date range"
+              defaultValue="7"
               name="analytics-range"
               size="small"
             >
-              <ToggleButton defaultChecked label="7 days" value="7" />
+              <ToggleButton label="7 days" value="7" />
               <ToggleButton label="30 days" value="30" />
               <ToggleButton label="90 days" value="90" />
             </ToggleGroup>

@@ -31,8 +31,9 @@ import {
           aria-label="Date range"
           name="analytics-range"
           size="small"
+          model-value="7"
         >
-          <ToggleButton checked label="7 days" value="7" />
+          <ToggleButton label="7 days" value="7" />
           <ToggleButton label="30 days" value="30" />
           <ToggleButton label="90 days" value="90" />
         </ToggleGroup>

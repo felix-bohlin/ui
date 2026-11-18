@@ -42,10 +42,7 @@ export default function UserDirectory() {
             <span class="ui-text">Invite a bassist</span>
           </Button>
         </div>
-        <div
-          class="ui-layout-row ui-spread user-directory-filters"
-          role="search"
-        >
+        <search class="ui-layout-row ui-spread user-directory-filters">
           <TextField
             hideLabel
             id="user-directory-q"
@@ -82,7 +79,7 @@ export default function UserDirectory() {
             <ToggleButton value="fretless">Fretless</ToggleButton>
             <ToggleButton value="upright">Upright</ToggleButton>
           </ToggleGroup>
-        </div>
+        </search>
         <ul
           class="ui-layout-grid user-directory-list"
           style="--_min-inline-size: 17rem"

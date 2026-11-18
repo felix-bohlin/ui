@@ -31,14 +31,17 @@ export default function Pricing() {
             </p>
           </hgroup>
           <div class="ui-layout-row ui-small ui-align-center">
-            <ToggleGroup aria-label="Billing period" name="pricing-period">
+            <ToggleGroup
+              aria-label="Billing period"
+              defaultValue="yearly"
+              name="pricing-period"
+            >
               <ToggleButton
                 id="pricing-period-monthly"
                 label="Monthly"
                 value="monthly"
               />
               <ToggleButton
-                defaultChecked
                 id="pricing-period-yearly"
                 label="Yearly"
                 value="yearly"

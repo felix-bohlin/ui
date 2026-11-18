@@ -955,6 +955,10 @@ const markupAttributes = (node, expression, braces) =>
 const openTag = (name, attributes) =>
   attributes ? `<${name} ${attributes}` : `<${name}`
 
+export const VUE_UNKNOWN_TAGS = new Set(["search"])
+
+export const VUE_MODEL_VALUE = ["Tabs", "ToggleGroup"]
+
 const markupTarget = (framework, roles) => {
   const vue = framework === "vue"
   const isBlankText = (node) => node.type === "text" && !node.value.trim()
@@ -1060,14 +1064,30 @@ const markupTarget = (framework, roles) => {
           ),
         }
       : node
+  const vueModel = (node) =>
+    vue && node.component && VUE_MODEL_VALUE.includes(node.name)
+      ? {
+          ...node,
+          attributes: node.attributes.map((item) =>
+            item.name === "value" ? { ...item, name: "model-value" } : item,
+          ),
+        }
+      : node
   const element = (node, html) => {
-    const attributes = markupAttributes(svelteDefaults(node), expression, !vue)
+    const attributes = markupAttributes(
+      vueModel(svelteDefaults(node)),
+      expression,
+      !vue,
+    )
     const children = emit(node.children, html)
     if (VOID_ELEMENTS.has(node.name)) {
       return `${openTag(node.name, attributes)} />`
     }
     if (!children && node.component) {
       return `${openTag(node.name, attributes)} />`
+    }
+    if (vue && !node.component && VUE_UNKNOWN_TAGS.has(node.name)) {
+      return `${openTag("component", [`is="${node.name}"`, attributes].filter(Boolean).join(" "))}>${children}</component>`
     }
     return `${openTag(node.name, attributes)}>${children}</${node.name}>`
   }
@@ -1087,18 +1107,6 @@ const mixedSvgText = (nodes) =>
         )) ||
         mixedSvgText(node.children)),
   )
-
-const VUE_UNKNOWN_TAGS = new Set(["search"])
-
-const vueUnknownTag = (nodes) => {
-  for (const node of nodes) {
-    if (node.type !== "element") continue
-    if (VUE_UNKNOWN_TAGS.has(node.name)) return node.name
-    const inner = vueUnknownTag(node.children)
-    if (inner) return inner
-  }
-  return undefined
-}
 
 const toSvelte = (example) => {
   const emit = markupTarget("svelte", example.roles)
@@ -1629,15 +1637,6 @@ export const convertExample = async (
   }
   if (framework !== "vue") {
     throw unsupported(file, `the framework ${framework}`, framework)
-  }
-  const unknown = vueUnknownTag(example.tree)
-  if (unknown) {
-    throw unsupported(
-      file,
-      `<${unknown}>`,
-      framework,
-      `Vue takes it for a component it can't resolve and renders nothing: use an element Vue knows, such as <form role="search">`,
-    )
   }
   return formatStably(toVue(example), target)
 }

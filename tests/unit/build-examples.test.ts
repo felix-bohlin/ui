@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs"
+import { globSync, readFileSync } from "node:fs"
 import { stripTypeScriptTypes } from "node:module"
 import { compile as compileSvelte } from "svelte/compiler"
 import { beforeAll, describe, expect, test } from "vitest"
@@ -12,6 +12,7 @@ import {
   runtimeImports,
   scriptImports,
   REACT_DEFAULT_VALUE,
+  VUE_MODEL_VALUE,
 } from "../../scripts/build-examples.mjs"
 import { typeDiagnostics } from "../../scripts/example-react-props.mjs"
 import { formatCode } from "../../scripts/format.mjs"
@@ -920,6 +921,33 @@ test("REACT_DEFAULT_VALUE lists the components that hold their value as state", 
     .map((api) => api.component)
     .toSorted()
   expect(REACT_DEFAULT_VALUE).toEqual(state)
+})
+
+test("VUE_MODEL_VALUE lists the components whose Vue file holds the value in a model no element binds", () => {
+  const held = Object.values(apis)
+    .filter(
+      (api) =>
+        api.model?.prop === "value" &&
+        globSync(`packages/opui/components/*/${api.component}.vue`).some(
+          (file) =>
+            /^const model = defineModel/m.test(readFileSync(file, "utf8")),
+        ),
+    )
+    .map((api) => api.component)
+    .toSorted()
+  expect(VUE_MODEL_VALUE).toEqual(held)
+})
+
+test("Vue takes the value of a group as model-value, and <search> through <component>", async () => {
+  const source =
+    '---\nimport { ToggleButton, ToggleGroup } from "opui-css/astro"\n---\n\n<search>\n  <ToggleGroup name="range" value="7">\n    <ToggleButton label="7 days" value="7" />\n  </ToggleGroup>\n</search>\n'
+  const vue = await convertExample(source, "vue", sampleFile())
+  expect(vue).toContain('<component is="search">')
+  expect(vue).toContain('<ToggleGroup name="range" model-value="7">')
+  expect(vue).toContain('<ToggleButton label="7 days" value="7" />')
+  const svelte = await convertExample(source, "svelte", sampleFile())
+  expect(svelte).toContain("<search>")
+  expect(svelte).toContain('<ToggleGroup name="range" value="7">')
 })
 
 describe("generated examples", () => {

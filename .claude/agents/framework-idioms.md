@@ -86,4 +86,4 @@ When asked to blind-port a component:
 
 ## Report
 
-Follow `.claude/skills/audit/findings-format.md`. A pattern that changes behavior goes under `## Bugs`, the rest under `## Suggestions`. Cite the compiled file and the emitter line, for example `packages/opui/components/Rating/Rating.vue:70-90` and `scripts/component-models.mjs:140-160`.
+Follow `.claude/skills/audit/findings-format.md`. A pattern that changes behavior goes under `## Bugs`, the rest under `## Compiler` when the emitter writes it and under `## Suggestions` when the file is hand-written. Cite the compiled file and the emitter line, for example `packages/opui/components/Rating/Rating.vue:70-90` and `scripts/component-models.mjs:140-160`.

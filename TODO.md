@@ -1766,6 +1766,60 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - C: have `sortable-table.js` and `callout.js` hold input on a server-rendered root until its framework marks it ready, with no markup difference: the element checks a marker the components set in their mount hook.
   - Fixed: with option B. The Solid, Svelte and Vue SortableTable and Callout render `data-hydrating` on a custom element root with events, like React, and take it off once the root has hydrated or rendered on the client: `hydrating()` and the `hydrated` ref in Solid, the `hydrated` attachment in Svelte and `v-hydrated` in Vue (`packages/opui/components/solid.ts`, `packages/opui/components/svelte.ts`, `packages/opui/components/vue.ts`, written by `scripts/component-solid.mjs`, `scripts/component-svelte.mjs` and `scripts/component-vue.mjs`). The two scenarios of `tests/apps/apps.spec.ts` run in every server-rendered app, `tests/e2e/hydration.spec.ts` lists the attribute in `LATE`, the parity drift is twelve `.diff` files with only the marker, and the API notes no longer say not to load the element script first.
 
+## Compiler
+
+- [ ] (1) Range: the Solid Range loops its `options` with the default identity key of `<For>`, while Menu, Rating, Stepper and Timeline key by index and Select by value (`packages/opui/components/Range/Range.solid.tsx`, `scripts/component-solid.mjs`)
+  - Summary: The Solid Range rebuilds its tick marks when `options` is replaced with new objects, with no effect on the slider itself.
+  - Recommended: Fix. One key rule for every loop reads better, and the ticks hold no state today.
+  - Fix: in `scripts/component-solid.mjs`, narrow a loop item that is a union through its accessor so the Range loop can take `keyed={false}` too.
+- [ ] (1) Tooling: the Vue emitter writes each const of a loop callback inline wherever it is read, so the compiled Menu repeats `href ? 'a' : 'button'` and `!href && !keepOpen && !disabled` twice each where React and Svelte declare `Tag` and `closes` once per row (`packages/opui/components/Menu/Menu.vue:66-70`, `scripts/component-vue.mjs:427-436`)
+  - Summary: The compiled Vue Menu repeats each per-row expression where the other frameworks name it once.
+  - Recommended: Fix with option A. Vue templates have no per-row const, and the other forms add a construct to save one repetition.
+  - Fix: found by the framework idioms blind port of Menu. Rendering is the same either way.
+  - Options:
+    - A (recommended): keep the inline form and document it in `packages/opui/components/AGENTS.md` as the Vue convention for a loop const.
+    - B: emit a script function per const that takes the item (`const closes = (item: Item) => !item.href && !item.keepOpen && !item.disabled`) and loop over `item` without the destructuring pattern.
+    - C: move the row into a child component with a `computed` per const, which the compiler would have to write as a second file.
+- [ ] (1) Tooling: the Svelte emitter writes two sibling blocks with no whitespace between them on one line, `{/if}{#if iconChecked}`, in six compiled components, where a hand-written file starts each block on its own line (`packages/opui/components/Menu/Menu.svelte:72`, `packages/opui/components/Badge/Badge.svelte:42`, `scripts/component-svelte.mjs:169-171`)
+  - Summary: Six compiled Svelte components close one block and open the next on the same line.
+  - Recommended: Fix with option A. A line break between the blocks is a text node in Svelte, which the markup comparison would see.
+  - Fix: found by the framework idioms blind port of Menu. `scripts/component-layout.mjs` drops the whitespace because it can't render in Astro's output, and a line break between the blocks would add a whitespace text node the parity test compares.
+  - Options:
+    - A (recommended): keep the glued form and document it in `packages/opui/components/AGENTS.md`, since it is what keeps the markup equal to Astro's.
+    - B: where the parent is a flex or grid container, which renders no whitespace, start each block on its own line and normalize that whitespace in `tests/unit/normalize.ts`.
+- [ ] (1) ToggleGroup: the React and Solid ports call `onValueChange?.(next as never)`, where a cast to the callback's parameter type would say that the value is a string, or an array of strings with `multiple` (`packages/opui/components/ToggleGroup/ToggleGroup.react.tsx:29`, `packages/opui/components/ToggleGroup/ToggleGroup.solid.tsx:29`, `scripts/component-models.mjs:113`, `scripts/component-models.mjs:131`)
+  - Summary: The compiled React and Solid ToggleGroup pass the new value to `onValueChange` as `never`, which hides what the value is.
+  - Recommended: Fix. A named cast reads better and changes no behavior.
+  - Fix: in the `group` kind of `scripts/component-models.mjs`, emit a cast to the parameter of the callback for a model read with `selectionOf` (`next as Parameters<NonNullable<Props["onValueChange"]>>[0]`, or a `Value` type the React and Solid type files export) in place of `as never`. Found by the framework idioms blind port of ToggleGroup. Rendering is the same either way.
+- [ ] (1) Tooling: the React emitter spreads the rest props of a variable tag as `object` (`{...defined(rest as object)}` in Button, Avatar and Chip), where the Astro file casts them to `HTMLAttributes<"button">`, so the spread checks no attribute type. The Astro cast carried over as `ComponentProps<"button">` fails the type check on a tag that is `"a" | "button"`: the `ref` and every event handler are typed for one element (`packages/opui/components/Button/Button.react.tsx:31`, `scripts/component-react.mjs:203-217`)
+  - Summary: The compiled React Button, Avatar and Chip spread their rest props as `object`, so the spread checks no attribute type.
+  - Recommended: Fix with option A. It type checked in a trial and names the attributes every tag takes.
+  - Fix: found by the framework idioms blind port of Button. Rendering is the same either way, and Callout, Card, CardHeader, FieldLegend, Fieldset, Form, List and ListItem spread `rest as object` on a variable tag too, with no cast in the Astro file.
+  - Options:
+    - A (recommended): on a variable tag, cast to `HTMLAttributes<HTMLElement>` from `react`, whose handlers every element accepts, and on a plain element carry the Astro cast over as `ComponentProps` (`rest as ComponentProps<"li">` in ListItem). `pnpm typecheck` passed with both in a trial.
+    - B: keep `as object` and say in `scripts/AGENTS.md` that React spreads the rest of a variable tag untyped, since no single element type fits a union of tags.
+- [ ] (1) Tooling: the React emitter writes the value of a provided context as an object literal in the JSX (`<ToggleGroupContext value={{ change, groupName, inputType, value: value ?? inner }}>`, `<MenuContext value={{ rootId }}>`), and `change` is a new function on every render, so each render of the provider gives its consumers a new value. The same is in Callout, Dialog, Drawer, FieldGroup, Fieldset, Tabs and TabsItem (`packages/opui/components/ToggleGroup/ToggleGroup.react.tsx:36-38`, `packages/opui/components/Menu/Menu.react.tsx:32`, `scripts/component-react.mjs:302-305`)
+  - Summary: A compiled React provider gives its consumers a new context object on every render, so they render again when nothing changed.
+  - Recommended: Fix with option A. A memoized value costs little and needs nothing from the app's build.
+  - Fix: found by the framework idioms blind port of ToggleGroup and Menu. Rendering is the same either way; the cost is a render of every consumer when the provider's parent renders.
+  - Options:
+    - A (recommended): emit `const context = useMemo(() => ({ ... }), [...])` with the provided values as dependencies, and wrap a provided function such as `change` in `useCallback`.
+    - B: leave it and note in `packages/opui/components/AGENTS.md` that providers rely on the React Compiler or on children that aren't memoized.
+- [ ] (1) Tooling: the dev warnings log once per message, and a message names the component, not the instance, so a second unnamed Checkbox on the page stays silent after the first, and on a dev server that stays up a warning shows once per process (`packages/opui/components/dev.ts:7-12`)
+  - Summary: After the first warning for a component, later instances with the same problem log nothing until the dev server restarts.
+  - Recommended: Fix with option B. One line per problem is what React, Svelte and Vue did at setup, and the message already says which prop to add.
+  - Options:
+    - A: key the set on the message plus the element's `id` or `name` when it has one, so each instance warns once
+    - B (recommended): keep one warning per message and say in the message that other instances may have the same problem
+- [ ] (2) ToggleGroup: in Svelte and Vue, a `value` passed without `bind:` or a `v-model` listener is a starting value and the group keeps the selection itself, while React and Solid hold the group at the passed value. The Svelte and Vue notes on `value` describe the bound case only, and Tabs reads the same way (`src/component-api/toggle-group/api.ts:37-38`, `src/component-api/tabs/api.ts:31-32`, `tests/e2e/models.spec.ts:10-14`)
+  - Summary: The Svelte and Vue docs don't say that a value passed one-way is only a starting value, unlike in React and Solid.
+  - Recommended: Fix. One sentence in each note states what the behavior spec already records as by design.
+  - Fix: Add to the Svelte and Vue notes of `value` in both `api.ts` files that a value passed without `bind:` (Svelte) or without a listener (Vue) is a starting value.
+- [ ] (2) Release: the compiler figure of the 6.0 release post is titled "How one Astro file becomes React, Svelte and Vue" and lists three targets, three logos and three port extensions, so the Solid files the compiler also writes are missing from the figure and from its compiled-file count (`src/components/Release/Compiler.astro:100-102`, `src/components/Release/Compiler.astro:135`, `src/components/Release/Compiler.astro:179`, `src/components/Release/Compiler.astro:248-249`)
+  - Summary: The release post's compiler figure shows React, Svelte and Vue and leaves out Solid, which 6.0 also ships.
+  - Recommended: Fix. The figure reads its numbers from the repo at build time, so Solid needs a logo, a target row and its extension in `PORTS`.
+  - Fix: Add Solid to the targets, to `PORTS` (`.solid.tsx`) and to the title and ledger sentence, deriving the list from `src/utils/framework.js` where the figure allows.
+
 ## Docs
 
 - [x] (2) Docs: nothing checks internal links and anchors. `src/utils/whats-new.ts` alone has 655 `href="#…"` links into component pages, and a renamed heading leaves them pointing at nothing without a failure (`src/utils/whats-new.ts`, `src/docs/components/`)
@@ -5497,43 +5551,6 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Recommended: Fix. Add a SolidStart app next to it once a release takes solid-js 2, so the meta-framework people scaffold is covered like Next.js, Nuxt and SvelteKit.
   - Fix: when a `@solidjs/start` release takes solid-js 2 as a peer, add a SolidStart app to `tests/apps/apps.ts` with `ssr: true`, and name it in the app test lines of `AGENTS.md` and `README.md`.
   - Removed: Solid 2 needs no SolidStart: start mode of `@solidjs/vite-plugin` is its own application layer ("in place of SolidStart" in the plugin's README), and `tests/apps/solid-start` already renders every example on the server with it. The Solid Getting started page and the README name the `start` and `ssr` options.
-- [ ] (1) Range: the Solid Range loops its `options` with the default identity key of `<For>`, while Menu, Rating, Stepper and Timeline key by index and Select by value (`packages/opui/components/Range/Range.solid.tsx`, `scripts/component-solid.mjs`)
-  - Summary: The Solid Range rebuilds its tick marks when `options` is replaced with new objects, with no effect on the slider itself.
-  - Recommended: Fix. One key rule for every loop reads better, and the ticks hold no state today.
-  - Fix: in `scripts/component-solid.mjs`, narrow a loop item that is a union through its accessor so the Range loop can take `keyed={false}` too.
-- [ ] (1) Tooling: the Vue emitter writes each const of a loop callback inline wherever it is read, so the compiled Menu repeats `href ? 'a' : 'button'` and `!href && !keepOpen && !disabled` twice each where React and Svelte declare `Tag` and `closes` once per row (`packages/opui/components/Menu/Menu.vue:66-70`, `scripts/component-vue.mjs:427-436`)
-  - Summary: The compiled Vue Menu repeats each per-row expression where the other frameworks name it once.
-  - Recommended: Fix with option A. Vue templates have no per-row const, and the other forms add a construct to save one repetition.
-  - Fix: found by the framework idioms blind port of Menu. Rendering is the same either way.
-  - Options:
-    - A (recommended): keep the inline form and document it in `packages/opui/components/AGENTS.md` as the Vue convention for a loop const.
-    - B: emit a script function per const that takes the item (`const closes = (item: Item) => !item.href && !item.keepOpen && !item.disabled`) and loop over `item` without the destructuring pattern.
-    - C: move the row into a child component with a `computed` per const, which the compiler would have to write as a second file.
-- [ ] (1) Tooling: the Svelte emitter writes two sibling blocks with no whitespace between them on one line, `{/if}{#if iconChecked}`, in six compiled components, where a hand-written file starts each block on its own line (`packages/opui/components/Menu/Menu.svelte:72`, `packages/opui/components/Badge/Badge.svelte:42`, `scripts/component-svelte.mjs:169-171`)
-  - Summary: Six compiled Svelte components close one block and open the next on the same line.
-  - Recommended: Fix with option A. A line break between the blocks is a text node in Svelte, which the markup comparison would see.
-  - Fix: found by the framework idioms blind port of Menu. `scripts/component-layout.mjs` drops the whitespace because it can't render in Astro's output, and a line break between the blocks would add a whitespace text node the parity test compares.
-  - Options:
-    - A (recommended): keep the glued form and document it in `packages/opui/components/AGENTS.md`, since it is what keeps the markup equal to Astro's.
-    - B: where the parent is a flex or grid container, which renders no whitespace, start each block on its own line and normalize that whitespace in `tests/unit/normalize.ts`.
-- [ ] (1) ToggleGroup: the React and Solid ports call `onValueChange?.(next as never)`, where a cast to the callback's parameter type would say that the value is a string, or an array of strings with `multiple` (`packages/opui/components/ToggleGroup/ToggleGroup.react.tsx:29`, `packages/opui/components/ToggleGroup/ToggleGroup.solid.tsx:29`, `scripts/component-models.mjs:113`, `scripts/component-models.mjs:131`)
-  - Summary: The compiled React and Solid ToggleGroup pass the new value to `onValueChange` as `never`, which hides what the value is.
-  - Recommended: Fix. A named cast reads better and changes no behavior.
-  - Fix: in the `group` kind of `scripts/component-models.mjs`, emit a cast to the parameter of the callback for a model read with `selectionOf` (`next as Parameters<NonNullable<Props["onValueChange"]>>[0]`, or a `Value` type the React and Solid type files export) in place of `as never`. Found by the framework idioms blind port of ToggleGroup. Rendering is the same either way.
-- [ ] (1) Tooling: the React emitter spreads the rest props of a variable tag as `object` (`{...defined(rest as object)}` in Button, Avatar and Chip), where the Astro file casts them to `HTMLAttributes<"button">`, so the spread checks no attribute type. The Astro cast carried over as `ComponentProps<"button">` fails the type check on a tag that is `"a" | "button"`: the `ref` and every event handler are typed for one element (`packages/opui/components/Button/Button.react.tsx:31`, `scripts/component-react.mjs:203-217`)
-  - Summary: The compiled React Button, Avatar and Chip spread their rest props as `object`, so the spread checks no attribute type.
-  - Recommended: Fix with option A. It type checked in a trial and names the attributes every tag takes.
-  - Fix: found by the framework idioms blind port of Button. Rendering is the same either way, and Callout, Card, CardHeader, FieldLegend, Fieldset, Form, List and ListItem spread `rest as object` on a variable tag too, with no cast in the Astro file.
-  - Options:
-    - A (recommended): on a variable tag, cast to `HTMLAttributes<HTMLElement>` from `react`, whose handlers every element accepts, and on a plain element carry the Astro cast over as `ComponentProps` (`rest as ComponentProps<"li">` in ListItem). `pnpm typecheck` passed with both in a trial.
-    - B: keep `as object` and say in `scripts/AGENTS.md` that React spreads the rest of a variable tag untyped, since no single element type fits a union of tags.
-- [ ] (1) Tooling: the React emitter writes the value of a provided context as an object literal in the JSX (`<ToggleGroupContext value={{ change, groupName, inputType, value: value ?? inner }}>`, `<MenuContext value={{ rootId }}>`), and `change` is a new function on every render, so each render of the provider gives its consumers a new value. The same is in Callout, Dialog, Drawer, FieldGroup, Fieldset, Tabs and TabsItem (`packages/opui/components/ToggleGroup/ToggleGroup.react.tsx:36-38`, `packages/opui/components/Menu/Menu.react.tsx:32`, `scripts/component-react.mjs:302-305`)
-  - Summary: A compiled React provider gives its consumers a new context object on every render, so they render again when nothing changed.
-  - Recommended: Fix with option A. A memoized value costs little and needs nothing from the app's build.
-  - Fix: found by the framework idioms blind port of ToggleGroup and Menu. Rendering is the same either way; the cost is a render of every consumer when the provider's parent renders.
-  - Options:
-    - A (recommended): emit `const context = useMemo(() => ({ ... }), [...])` with the provided values as dependencies, and wrap a provided function such as `change` in `useCallback`.
-    - B: leave it and note in `packages/opui/components/AGENTS.md` that providers rely on the React Compiler or on children that aren't memoized.
 - [ ] (3) Docs site: the icon libraries list no Solid package: `lucide-solid` 1.74 and `@tabler/icons-solidjs` 3.52 require solid-js 1, and Fluent, Material Symbols and Phosphor ship none (`src/utils/icon-libraries.ts`)
   - Summary: The icon pages name React, Svelte and Vue icon packages but none for Solid, since none supports Solid 2 yet.
   - Recommended: Fix. List each library's Solid package once it accepts solid-js 2.

@@ -529,7 +529,9 @@ test.describe("drawer swipe", () => {
   test.use({ hasTouch: true })
 
   // A finger on `target` that moves `by` a share of the drawer's height,
-  // in `steps` moves `pause` milliseconds apart, then lifts.
+  // in `steps` moves `pause` milliseconds apart, then lifts. Each touch
+  // carries its time, so the speed the script measures is the one asked
+  // for, however long CDP takes to deliver the touches.
   const swipe = async (
     page: Page,
     cdp: CDPSession,
@@ -543,22 +545,24 @@ test.describe("drawer swipe", () => {
     const { height } = (await drawer.boundingBox())!
     const x = box.x + box.width / 2
     const y = box.y + Math.min(box.height / 2, 12)
-    const point = (dy: number) => ({ touchPoints: [{ x, y: y + dy }] })
-    await cdp.send("Input.dispatchTouchEvent", {
-      type: "touchStart",
-      ...point(0),
-    })
+    const start = Date.now() / 1000
+    const touch = (
+      type: "touchEnd" | "touchMove" | "touchStart",
+      step: number,
+      touchPoints: { x: number; y: number }[],
+    ) =>
+      cdp.send("Input.dispatchTouchEvent", {
+        timestamp: start + (pause * step) / 1000,
+        touchPoints,
+        type,
+      })
+    const at = (step: number) => [{ x, y: y + (height * by * step) / steps }]
+    await touch("touchStart", 0, at(0))
     for (let step = 1; step <= steps; step++) {
       await page.waitForTimeout(pause)
-      await cdp.send("Input.dispatchTouchEvent", {
-        type: "touchMove",
-        ...point((height * by * step) / steps),
-      })
+      await touch("touchMove", step, at(step))
     }
-    await cdp.send("Input.dispatchTouchEvent", {
-      type: "touchEnd",
-      touchPoints: [],
-    })
+    await touch("touchEnd", steps, [])
   }
 
   test("html drawer at the block start or end closes with a swipe of its header", async ({
@@ -597,9 +601,9 @@ test.describe("drawer swipe", () => {
     await swipe(page, cdp, drawer.locator(".ui-header"), drawer, 0.6, 60)
     await expect(drawer).toHaveCount(0)
 
-    // So does a short flick (two moves, since each one takes CDP a while).
+    // So does a short flick.
     await open("Block end")
-    await swipe(page, cdp, drawer.locator(".ui-header"), drawer, 0.15, 0, 2)
+    await swipe(page, cdp, drawer.locator(".ui-header"), drawer, 0.15, 16, 2)
     await expect(drawer).toHaveCount(0)
 
     // A drawer at the block start closes toward the top.
@@ -1537,6 +1541,19 @@ const nextButtonPoint = (carousel: Locator) =>
       y: box.top + box.height / 2,
     }
   })
+
+interaction(
+  "carousel",
+  "WholePhotos",
+  "--_media-fit: contain shows portrait and landscape photos whole",
+  async ({ root }) => {
+    const images = root.locator("img")
+    await expect(images).toHaveCount(4)
+    for (const image of await images.all()) {
+      expect(await computed(image, "object-fit")).toBe("contain")
+    }
+  },
+)
 
 interaction(
   "carousel",

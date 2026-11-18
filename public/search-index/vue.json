@@ -470,6 +470,13 @@
     "url": "/vue/components/carousel/#images"
   },
   {
+    "id": "component-carousel-vue-whole-photos",
+    "title": "Whole photos",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/vue/components/carousel/#whole-photos"
+  },
+  {
     "id": "component-carousel-vue-gallery",
     "title": "Gallery",
     "page": "Carousel",

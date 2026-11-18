@@ -808,6 +808,10 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix. It is one attribute per announcement, and the Copy, SortableTable and Toaster live regions already inherit their component's language.
   - Fix: set the announcer's `lang` each time it speaks, from `this.closest("[lang]")?.lang ?? ""`.
   - Fixed: Fixed in 6a3c5f22c: `character-count.js` sets the announcer's `lang` from the field's closest `[lang]` each time it speaks. A new interaction test on the TextField CharacterCount example gives the field `lang="sv"` and a Swedish `label` and checks the announcement and the announcer's `lang` in all five formats. The CHANGELOG character count entry says so.
+- [ ] (2) Rating: the input sets `aria-invalid` on every radio, and ARIA 1.2 supports that attribute on `radiogroup`, not on `radio`. Svelte's compiler reports it as `a11y_role_supports_aria_props_implicit` for the compiled port, and `tests/unit/framework-diagnostics-allowlist.json` accepts the warning until this is decided. (`packages/opui/components/Rating/Rating.astro:50`, `packages/opui/components/Rating/Rating.astro:61`)
+  - Summary: An invalid rating marks each star radio as invalid, which ARIA 1.2 only supports on the group.
+  - Recommended: Explain further. Whether screen readers announce the invalid state from the radios, the fieldset or neither needs a check first.
+  - Fix: check in NVDA, JAWS and VoiceOver how an invalid rating is announced with `aria-invalid` on the radios and on the `fieldset`. If the group works, move the attribute and the `:has([aria-invalid="true"])` rule in `packages/opui/css/components/rating.css` with it, then remove the entry from `tests/unit/framework-diagnostics-allowlist.json`. Radio takes `aria-invalid` through its rest props, so the same answer applies there.
 
 ## Bugs
 

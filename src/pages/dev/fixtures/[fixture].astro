@@ -4,15 +4,18 @@ import { generateHydrationScript } from "@solidjs/web"
 import type { Component } from "solid-js"
 import { renderHydratableSolid } from "../../../components/Example/render-solid"
 import SolidRoots from "../../../fixtures/SolidRoots.solid"
+import { FRAMEWORKS, isHydratedFramework } from "../../../utils/framework"
 import { fixturePagesEnabled } from "../../../utils/test-pages"
 
 export function getStaticPaths() {
   return fixturePagesEnabled()
     ? [
-        {
-          params: { fixture: "solid-models" },
-          props: { title: "Solid models" },
-        },
+        ...FRAMEWORKS.filter(({ id }) => isHydratedFramework(id)).map(
+          ({ id, label }) => ({
+            params: { fixture: `${id}-models` },
+            props: { title: `${label} models` },
+          }),
+        ),
         { params: { fixture: "solid-roots" }, props: { title: "Solid roots" } },
       ]
     : []

@@ -1,5 +1,4 @@
 /** @jsxImportSource @solidjs/web */
-import { render } from "@solidjs/web"
 import {
   Checkbox,
   Menu,
@@ -34,7 +33,7 @@ const stepsOf = (round: number) => [
   { label: "Payment" },
 ]
 
-const SolidModels = () => {
+const Models = () => {
   const [actions, setActions] = createSignal(actionsOf(0))
   const [align, setAlign] = createSignal("left")
   const [error, setError] = createSignal(false)
@@ -105,7 +104,7 @@ const SolidModels = () => {
       </ToggleGroup>
       <Rating label="Refused rating" name="refused-rating" value={2} />
       <Menu
-        id="solid-models-menu"
+        id="models-menu"
         items={actions()}
         onClick={(event) => {
           if (
@@ -139,5 +138,4 @@ const SolidModels = () => {
   )
 }
 
-const root = document.getElementById("solid-models")
-if (root) render(() => <SolidModels />, root)
+export default Models

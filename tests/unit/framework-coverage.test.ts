@@ -53,6 +53,9 @@ const repo = () => ({
     ...readdirSync(path.join(root, "src/docs/guide/getting-started")).map(
       (file) => `src/docs/guide/getting-started/${file}`,
     ),
+    ...readdirSync(path.join(root, "src/fixtures")).map(
+      (file) => `src/fixtures/${file}`,
+    ),
     ...readdirSync(path.join(root, "tests/package/fixtures")).map(
       (folder) => `tests/package/fixtures/${folder}`,
     ),
@@ -150,6 +153,10 @@ const problemsOf = (
             `src/components/Example/render-${id}.ts`,
             `render the ${label} examples on the fixture page with the framework's own server renderer, so tests/e2e/hydration.spec.ts hydrates them`,
           ),
+          ...file(
+            `src/fixtures/models.${extension}`,
+            `write the fixture with the controls of the other frameworks' and add it to src/fixtures/mount.ts, so tests/e2e/models.spec.ts runs its scenarios in ${label}`,
+          ),
           ...missing(
             facts.apps.includes(id),
             `tests/apps/apps.ts has no app with framework "${id}": add one, so pnpm test:apps builds the package into a ${label} app`,
@@ -200,6 +207,7 @@ test("the check flags a framework that is listed but wired up nowhere", () => {
     "FRAMEWORKS",
     "src/components/Example/mount-lit-examples.ts",
     "src/components/Example/render-lit.ts",
+    "src/fixtures/models.lit.ts",
     "tests/apps/apps.ts",
   ])
 })

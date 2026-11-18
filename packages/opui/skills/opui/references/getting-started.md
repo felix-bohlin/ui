@@ -586,7 +586,7 @@ export default defineConfig({
 })
 ```
 
-A page with more than one root gives each its own `renderId` in `renderToString` and `hydrate`, so the ids the components generate differ between the roots.
+A page with more than one root gives each its own `renderId` in `renderToString` and `hydrate`, so the ids the components generate differ between the roots. Roots hydrated in the same task each claim their server markup. A root hydrated in a later task renders again over its markup, so load the code of every root first and call `hydrate` for all of them in one loop.
 
 The props in the last column need hydration.
 

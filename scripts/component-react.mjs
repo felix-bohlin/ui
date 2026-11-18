@@ -11,7 +11,6 @@ import {
   eventRoots,
   groupWarning,
   hydratingRoots,
-  indent,
   objectCode,
   propsImport,
   rewriteExpression,
@@ -20,6 +19,7 @@ import {
   styleOption,
   withImport,
 } from "./component-emit.mjs"
+import { componentFunction, jsxEmitter } from "./component-jsx.mjs"
 import { MODEL_KINDS } from "./component-models.mjs"
 import { jsxAttribute } from "./example-encoders.mjs"
 import { eventProp } from "./component-types.mjs"
@@ -28,7 +28,6 @@ import {
   chosenSpreadCode,
   classText,
   filtersSpread,
-  isBlank,
   isIdentifierName,
   unsupported,
 } from "./component-shared.mjs"
@@ -235,116 +234,67 @@ export const toReact = (component) => {
     }
     return `${name}={${rewriteExpression(item.code, options)}}`
   }
-  const wrapFragment = (code, nodes) => {
-    const significant = nodes.filter(
-      (node) =>
-        !isBlank(node) &&
-        !(node.type === "slot" && stringSlots.includes(slotProp(node.name))),
-    )
-    const [only] = significant
-    if (significant.length !== 1) return `<>${code}</>`
-    if (only.type === "element") return code
-    if (only.type === "if") return conditional(only)
-    if (only.type === "slot" && only.fallback.length === 0) {
-      return slotProp(only.name)
-    }
-    if (only.type === "expression") return rewriteExpression(only.code, options)
-    return `<>${code}</>`
-  }
-  const conditional = (node) => {
-    const test = rewriteExpression(node.test, options)
-    const consequent = wrapFragment(emit(node.consequent), node.consequent)
-    if (!node.alternate) return `(${test}) && (${consequent})`
-    const alternate = wrapFragment(emit(node.alternate), node.alternate)
-    return `${test} ? (${consequent}) : (${alternate})`
-  }
-  const emit = (nodes) =>
-    nodes
-      .map((node) => {
-        if (node.type === "text") {
-          return node.value === " " || node.inline ? '{" "}' : node.value
-        }
-        if (node.type === "expression") {
-          return `{${rewriteExpression(node.code, options)}}`
-        }
-        if (node.type === "slot") {
-          const name = slotProp(node.name)
-          if (stringSlots.includes(name)) {
-            return nodes.some(
-              (sibling) =>
-                sibling.type === "expression" && sibling.code.trim() === name,
+  const elementAttributes = (node) => {
+    const listens = listened.includes(node)
+    const restAt = listens
+      ? node.attributes.findIndex(
+          (entry) => entry.kind === "spread" && entry.code === rest,
+        )
+      : -1
+    const rootRef = [
+      ...(hydrating.has(node) ? [hydrating.get(node)] : []),
+      "ref={rootRef}",
+    ]
+    return [
+      ...(node.keyed ? [`key={${node.keyed}}`] : []),
+      ...node.attributes.flatMap((entry, index) => [
+        ...(index === restAt ? rootRef : []),
+        ...(node.groupRadio !== undefined &&
+        entry.kind === "expression" &&
+        entry.name === "checked"
+          ? kind.radioAttributes(
+              model,
+              rewriteExpression(node.groupRadio, options),
+              rewriteExpression(entry.code, options),
             )
-              ? ""
-              : `{${name}}`
-          }
-          if (node.fallback.length === 0) return `{${name}}`
-          return `{${name} === undefined ? (${wrapFragment(emit(node.fallback), node.fallback)}) : (${name})}`
-        }
-        if (node.type === "if") return `{${conditional(node)}}`
-        if (node.type === "each") {
-          const consts = node.consts.map(
-            ({ code, name }) =>
-              `const ${name} = ${rewriteExpression(code, options)}`,
-          )
-          const body = wrapFragment(emit(node.children), node.children)
-          const returned = consts.length
-            ? `{\n${consts.join("\n")}\nreturn (\n${body}\n)\n}`
-            : `(\n${body}\n)`
-          return `{${node.list}${node.optional ? "?" : ""}.map((${node.item}, ${node.index}) => ${returned})}`
-        }
-        const listens = listened.includes(node)
-        const restAt = listens
-          ? node.attributes.findIndex(
-              (entry) => entry.kind === "spread" && entry.code === rest,
-            )
-          : -1
-        const rootRef = [
-          ...(hydrating.has(node) ? [hydrating.get(node)] : []),
-          "ref={rootRef}",
-        ]
-        const attributes = [
-          ...(node.keyed ? [`key={${node.keyed}}`] : []),
-          ...node.attributes.flatMap((entry, index) => [
-            ...(index === restAt ? rootRef : []),
-            ...(node.groupRadio !== undefined &&
-            entry.kind === "expression" &&
-            entry.name === "checked"
-              ? kind.radioAttributes(
-                  model,
-                  rewriteExpression(node.groupRadio, options),
-                  rewriteExpression(entry.code, options),
-                )
-              : [attribute(node, entry)]),
-            ...(node.item &&
-            entry.kind === "expression" &&
-            entry.name === "checked"
-              ? [
-                  `defaultChecked={${item.grouped} === undefined ? defaultChecked : undefined}`,
-                ]
-              : []),
-          ]),
-          ...(node.item
-            ? [
-                "ref={inputRef}",
-                `onChange={(event) => {\n  ${item.parent}?.change?.(event.currentTarget)\n  onChange?.(event)\n}}`,
-              ]
-            : []),
-          ...(node.external
-            ? [
-                'dangerouslySetInnerHTML={{ __html: "" }}',
-                "suppressHydrationWarning",
-              ]
-            : []),
-          ...(listens && restAt === -1 ? rootRef : []),
-        ].join(" ")
-        const open = `<${node.tag}${attributes ? ` ${attributes}` : ""}`
-        return node.children.length === 0
-          ? `${open} />`
-          : `${open}>${emit(node.children)}</${node.tag}>`
-      })
-      .join("")
+          : [attribute(node, entry)]),
+        ...(node.item && entry.kind === "expression" && entry.name === "checked"
+          ? [
+              `defaultChecked={${item.grouped} === undefined ? defaultChecked : undefined}`,
+            ]
+          : []),
+      ]),
+      ...(node.item
+        ? [
+            "ref={inputRef}",
+            `onChange={(event) => {\n  ${item.parent}?.change?.(event.currentTarget)\n  onChange?.(event)\n}}`,
+          ]
+        : []),
+      ...(node.external
+        ? [
+            'dangerouslySetInnerHTML={{ __html: "" }}',
+            "suppressHydrationWarning",
+          ]
+        : []),
+      ...(listens && restAt === -1 ? rootRef : []),
+    ]
+  }
+  const { render } = jsxEmitter({
+    attributes: elementAttributes,
+    each: (node) => ({
+      consts: node.consts.map(
+        ({ code, name }) =>
+          `const ${name} = ${rewriteExpression(code, options)}`,
+      ),
+      list: node.list,
+      parameters: `${node.item}, ${node.index}`,
+    }),
+    rewrite: (code) => rewriteExpression(code, options),
+    slotCode: (name) => name,
+    stringSlots,
+  })
   const [rootNode] = tree
-  const rendered = rootNode.type === "if" ? conditional(rootNode) : emit(tree)
+  const rendered = render(tree)
   const providedValue =
     kind?.provided && provide ? kind.provided(model, provide) : provide?.value
   const returned = provide
@@ -390,5 +340,5 @@ export const toReact = (component) => {
     scripts.length > 0 ||
     events.length > 0 ||
     kind?.client === true
-  return `${client ? '"use client"\n\n' : ""}${importLines.join("\n")}\n\nexport default function ${component.name}({ ${destructured.join(", ")} }: Props) {\n${body.map((line) => `  ${line}\n`).join("")}${body.length ? "\n" : ""}  return (\n${indent(returned, 4)}\n  )\n}\n`
+  return `${client ? '"use client"\n\n' : ""}${importLines.join("\n")}\n\n${componentFunction(component.name, `{ ${destructured.join(", ")} }: Props`, body, returned)}`
 }

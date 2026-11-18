@@ -36,6 +36,11 @@ import type * as MenuSvelte from "../../packages/opui/components/Menu/types.svel
 import type * as MenuVue from "../../packages/opui/components/Menu/types.vue-props"
 import type * as NumberFieldReact from "../../packages/opui/components/NumberField/types.react"
 import type * as NumberFieldVue from "../../packages/opui/components/NumberField/types.vue-props"
+import type * as OneTimeCodeAstro from "../../packages/opui/components/OneTimeCode/types.astro"
+import type * as OneTimeCodeReact from "../../packages/opui/components/OneTimeCode/types.react"
+import type * as OneTimeCodeSolid from "../../packages/opui/components/OneTimeCode/types.solid"
+import type * as OneTimeCodeSvelte from "../../packages/opui/components/OneTimeCode/types.svelte"
+import type * as OneTimeCodeVue from "../../packages/opui/components/OneTimeCode/types.vue-props"
 import type * as RangeReact from "../../packages/opui/components/Range/types.react"
 import type * as RangeSvelte from "../../packages/opui/components/Range/types.svelte"
 import type * as RatingReact from "../../packages/opui/components/Rating/types.react"
@@ -491,4 +496,24 @@ test("a close icon needs closeButton where the icon is a prop, and stays a slot 
   expectTypeOf<DrawerVue.DrawerHeaderSlots["close-icon"]>().toEqualTypeOf<
     Slot | undefined
   >()
+})
+
+test("an attribute the base props narrow keeps the narrow type, under the element's name in React", () => {
+  type Autocomplete = "off" | "one-time-code" | undefined
+  expectTypeOf<
+    OneTimeCodeAstro.Props["autocomplete"]
+  >().toEqualTypeOf<Autocomplete>()
+  expectTypeOf<
+    OneTimeCodeReact.Props["autoComplete"]
+  >().toEqualTypeOf<Autocomplete>()
+  expectTypeOf<OneTimeCodeReact.Props>().not.toHaveProperty("autocomplete")
+  expectTypeOf<
+    OneTimeCodeSolid.Props["autocomplete"]
+  >().toEqualTypeOf<Autocomplete>()
+  expectTypeOf<
+    OneTimeCodeSvelte.Props["autocomplete"]
+  >().toEqualTypeOf<Autocomplete>()
+  expectTypeOf<
+    OneTimeCodeVue.Props["autocomplete"]
+  >().toEqualTypeOf<Autocomplete>()
 })

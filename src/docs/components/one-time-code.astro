@@ -179,6 +179,32 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
     <AutoExample name="Disabled" />
   </section>
 
+  <section id="another-screen">
+    <h2>Another screen</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The input has <code>autocomplete="one-time-code"</code>, so the browser
+        offers a code this device received. Set <code>autocomplete="off"</code>
+        for a code read off another screen, such as a TV or the computer you're
+        signing in on.
+      </Fragment>
+      <Fragment slot="react">
+        The input has <code>autoComplete="one-time-code"</code>, so the browser
+        offers a code this device received. Set <code>autoComplete="off"</code>
+        for a code read off another screen, such as a TV or the computer you're
+        signing in on.
+      </Fragment>
+      <Fragment slot="html">
+        <code>autocomplete="one-time-code"</code> lets the browser offer a code
+        this device received. Write <code>autocomplete="off"</code> for a code
+        read off another screen, such as a TV or the computer you're signing in
+        on.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="AnotherScreen" />
+  </section>
+
   <section id="right-to-left">
     <h2>Right-to-left</h2>
     <p>

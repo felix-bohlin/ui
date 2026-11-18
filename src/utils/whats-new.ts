@@ -963,7 +963,7 @@ export const whatsNew = {
     },
   ],
   "one-time-code": [
-    `New: a <a href="#basics">One-time code</a> field draws one input as a box per character, with <a href="#grouped">grouped</a> halves, a <a href="#length">length</a> from 4 to 8 and <a href="#alphanumeric">alphanumeric</a> codes.`,
+    `New: a <a href="#basics">One-time code</a> field draws one input as a box per character, with <a href="#grouped">grouped</a> halves, a <a href="#length">length</a> from 4 to 8, <a href="#alphanumeric">alphanumeric</a> codes and autofill you can turn off for a code read off <a href="#another-screen">another screen</a>.`,
   ],
   progress: [
     `The <a href="#determinate">track</a> is always outlined with <code>--ui-field-border-color</code>, so the empty part is visible.`,

@@ -967,6 +967,28 @@ describe("the ports of a sample", () => {
     expect(once.vue).toContain("!href && !label ? 'hide' : undefined")
   })
 
+  test("Vue keeps the consts of a loop where they are read when one reads a slot, which a computed list would read once and without $slots", async () => {
+    const { vue } = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<ul class:list={["ui-sample", className]} {...rest}>\n  {items.map(({ href, text, ...item }) => {\n    const marked = !href && Astro.slots.has("icon")\n    return <li data-marked={marked ? "true" : undefined} title={marked ? text : undefined} {...item}>{text}</li>\n  })}\n  <slot name="icon" />\n</ul>\n',
+    )
+    expect(vue).not.toContain("computed")
+    expect(vue).not.toMatch(/(?<![$\w])slots\b/)
+    expect(vue).toContain(
+      '      v-for="({ href, text, ...item }, index) in items"\n      :key="index"\n      :data-marked="!href && $slots.icon ? \'true\' : undefined"\n      :title="!href && $slots.icon ? text : undefined"\n',
+    )
+  })
+
+  test("Vue keeps the consts of a nested loop where they are read when the list or a const reads the outer loop's item, which the script doesn't have", async () => {
+    const { vue } = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<ul class:list={["ui-sample", className]} {...rest}>\n  {items.map((group) => <li>{group.items.map((entry) => {\n    const both = group.label + entry.label\n    return <span data-both={both} title={both}>{entry.label}</span>\n  })}</li>)}\n</ul>\n',
+    )
+    expect(vue).not.toContain("computed")
+    expect(vue.split("<template>")[0]).not.toContain("group")
+    expect(vue).toContain(
+      '        v-for="(entry, index) in group.items"\n        :key="index"\n        :data-both="group.label + entry.label"\n        :title="group.label + entry.label"\n',
+    )
+  })
+
   test("accepts a helper import from another component folder", async () => {
     await expect(
       readComponent(

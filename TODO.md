@@ -1858,20 +1858,22 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A: emit one `<option>` per row whose attributes read the item through the accessor (`value={typeof item() === "object" ? item().value : item()}`), so the element is patched in place
     - B (recommended): leave it and say in `packages/opui/components/AGENTS.md` that a row with a condition between two elements is rebuilt when its item changes
-- [ ] (3) Tooling: the Vue emitter moves a loop's consts into a `computed` list of rows when one is read more than once, and a const that reads a slot then compiles to `slots.icon` with no `slots` declared, where the same const read once still compiles inline to `$slots.icon`. A `computed` would also keep the slot's first answer. No component has such a const yet (`scripts/component-vue.mjs:605-690`)
+- [x] (3) Tooling: the Vue emitter moves a loop's consts into a `computed` list of rows when one is read more than once, and a const that reads a slot then compiles to `slots.icon` with no `slots` declared, where the same const read once still compiles inline to `$slots.icon`. A `computed` would also keep the slot's first answer. No component has such a const yet (`scripts/component-vue.mjs:605-690`)
   - Summary: A Vue component whose loop const reads a slot and is used twice would throw at render, and the compiler doesn't refuse it.
   - Recommended: Fix with option A. The inline form already works for a slot read, so the rows list only needs to step aside.
   - Fix: found by reviewing commit `60d8d9a62` with a probe source: `const marked = !href && Astro.slots.has("icon")` read by two attributes of the row. Add the probe as a sample to `tests/unit/build-components.test.ts`.
   - Options:
     - A (recommended): keep the consts inline when one of them reads a slot
     - B: refuse the loop with a named construct, so the component is written by hand
-- [ ] (3) Tooling: the Vue emitter hoists the list of an inner loop into a script `computed` when one of its consts is read more than once, and the list and the consts still name the outer loop's item (`group.items.map(...)`, `group.label + entry.label`), which the script doesn't have. The compiler emits it without refusing. No component nests such a loop yet (`scripts/component-vue.mjs:605-690`)
+  - Fixed: Option A. `rowsOf` in `scripts/component-vue.mjs` returns no rows list when a const of the loop reads a slot (`Astro.slots.has`, a trimmed slot or a derived value that reads one), so the consts stay where they are read and compile to `$slots.icon`. The probe is a sample in `tests/unit/build-components.test.ts`, which fails on a `computed` and on a bare `slots`. No compiled file changed. `scripts/AGENTS.md` and `packages/opui/components/AGENTS.md` state the rule.
+- [x] (3) Tooling: the Vue emitter hoists the list of an inner loop into a script `computed` when one of its consts is read more than once, and the list and the consts still name the outer loop's item (`group.items.map(...)`, `group.label + entry.label`), which the script doesn't have. The compiler emits it without refusing. No component nests such a loop yet (`scripts/component-vue.mjs:605-690`)
   - Summary: A Vue component with a nested loop whose const is used twice would compile to a script that reads an undefined variable.
   - Recommended: Fix with option A. A const or list that reads a template-scoped name can't live in the script, and the inline form handles it.
   - Fix: found by reviewing commit `60d8d9a62` with a probe source: `items.map((group) => group.items.map((entry) => { const both = group.label + entry.label; ... }))` with `both` read twice. Add the probe as a sample to `tests/unit/build-components.test.ts`.
   - Options:
     - A (recommended): keep the consts inline when the list or a const reads a name the template declares, such as an outer loop's item
     - B: refuse the loop with a named construct
+  - Fixed: Option A. The `each` branch of `emitOne` in `scripts/component-vue.mjs` carries the names the template declares (each enclosing loop's item names, index and consts) in the scope as `declared`, and `rowsOf` returns no rows list when the list or a const of the loop reads one of them, so the inner loop stays `v-for="(entry, index) in group.items"` with its consts where they are read. The probe is a sample in `tests/unit/build-components.test.ts`, which fails on a `computed` and on `group` in the script. No compiled file changed. `scripts/AGENTS.md` and `packages/opui/components/AGENTS.md` state the rule.
 
 ## Docs
 
@@ -5615,8 +5617,16 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Removed: Solid 2 needs no SolidStart: start mode of `@solidjs/vite-plugin` is its own application layer ("in place of SolidStart" in the plugin's README), and `tests/apps/solid-start` already renders every example on the server with it. The Solid Getting started page and the README name the `start` and `ssr` options.
 - [ ] (3) Docs site: the icon libraries list no Solid package: `lucide-solid` 1.74 and `@tabler/icons-solidjs` 3.52 require solid-js 1, and Fluent, Material Symbols and Phosphor ship none (`src/utils/icon-libraries.ts`)
   - Summary: The icon pages name React, Svelte and Vue icon packages but none for Solid, since none supports Solid 2 yet.
-  - Recommended: Fix. List each library's Solid package once it accepts solid-js 2.
-  - Fix: when `lucide-solid` or `@tabler/icons-solidjs` takes solid-js 2 as a peer, add `solid` to the `frameworks` of its library and to `FRAMEWORK_NAMES` in `src/utils/icon-libraries.ts`, and run `node scripts/build-icons.mjs`.
+  - Recommended: Fix with option A. Add the `solid:` entries once each upstream package takes solid-js 2 as a peer.
+  - Fix: when `lucide-solid` or `@tabler/icons-solidjs` takes solid-js 2 as a peer, add `solid` to the `frameworks` of its library in `src/utils/icon-libraries.ts`, and run `node scripts/build-icons.mjs`.
+  > Fix
+  - Still open: `lucide-solid` 1.75.0 (out 2026-11-18) and `@tabler/icons-solidjs` 3.52.0 still take `solid-js` `^1.4.7` as a peer, and their components call `splitProps` and `mergeProps`, which Solid 2 drops, so listing them would point Solid users at packages that break. Phosphor still has no Solid package. `frameworks` in `IconLibrary` and `FRAMEWORK_NAMES` in `src/utils/icon-libraries.ts` now take `solid`, so the fix is one `solid:` line per library and `node scripts/build-icons.mjs`. The only package that takes solid-js 2 is `solid-icons` 2.0.0, a third-party wrapper published 2026-11-18 (inside the `minimumReleaseAge` window) that covers Tabler and none of the other four.
+  - Options:
+    - A (recommended): Wait for `lucide-solid` and `@tabler/icons-solidjs` to accept solid-js 2, then add their `solid:` entries.
+    - B: List `solid-icons` (its `tb` set) as the Solid package for Tabler once it is past the release age window, with a `packageNote` that it is a third-party wrapper.
+  > Fix with option A
+  > Wait
+  - Still open: waiting for `lucide-solid` and `@tabler/icons-solidjs` to take solid-js 2 as a peer. Then add their `solid:` entries in `src/utils/icon-libraries.ts` and run `node scripts/build-icons.mjs`.
 - [ ] (4) New components the blocks point to. Each block currently draws these with its own CSS:
   - Summary: Blocks draw charts, breadcrumbs, steppers, timelines, ratings, pagination and stat cards with their own CSS for lack of components.
   - Recommended: Fix. Breadcrumb, empty state and pagination are left, and their blocks already show the markup each needs.

@@ -3,12 +3,8 @@ import { Select } from "opui-css/react"
 export default function Spread() {
   return (
     <>
-      <Select
-        spread
-        label="Country"
-        startText="Select your country of residence"
-      >
-        <option value="">Select a country</option>
+      <Select label="Country" spread>
+        <option value="">-</option>
         <option>Denmark</option>
         <option>Finland</option>
         <option>Iceland</option>
@@ -17,13 +13,13 @@ export default function Spread() {
       </Select>
 
       <Select
-        spread
-        variant="filled"
+        endText="This affects UI translations."
         label="Language"
-        startText="Choose your preferred language"
-        endText="This affects UI translations"
+        spread
+        startText="Choose your preferred language."
+        variant="filled"
       >
-        <option value="">Select a language</option>
+        <option value="">-</option>
         <option>Danish</option>
         <option>Finnish</option>
         <option>Icelandic</option>
@@ -32,40 +28,41 @@ export default function Spread() {
       </Select>
 
       <Select
-        spread
+        label="Forum"
         required
-        label="Required"
-        startText="You must select an option"
+        spread
+        startText="Posts your question where the right bassists hang out."
       >
-        <option value="">Select an option</option>
-        <option>Option 1</option>
-        <option>Option 2</option>
+        <option value="">-</option>
+        <option>Gear Talk</option>
+        <option>Ignored Bassists Anonymous</option>
       </Select>
 
       <Select
-        spread
         disabled
-        label="Disabled"
-        startText="This select is disabled"
+        label="Plan"
+        spread
+        startText="A gift from your band, aww."
       >
-        <option>Option 1</option>
+        <option>Gold</option>
       </Select>
 
       <Select
-        spread
+        endText="This card has expired. Pick another one."
         error
-        label="Invalid Select"
-        startText="This select has an error"
-        endText="Please select a valid option."
+        label="Payment method"
+        spread
+        startText="Bassbook Gold renews on the first of each month."
       >
-        <option>Option 1</option>
+        <option>Visa ending in 4242</option>
+        <option>Mastercard ending in 5100</option>
       </Select>
 
       <Select
-        spread
         label="Time zone"
-        startText="Used for reminders and due dates"
+        spread
         start="UTC"
+        startText="Used for gig and rehearsal reminders."
       >
         <option>-03:00</option>
         <option>+00:00</option>
@@ -75,12 +72,12 @@ export default function Spread() {
       </Select>
 
       <Select
+        endText="Cannot be changed mid-jam."
+        label="Jam region"
         spread
-        variant="filled"
-        label="Region"
-        startText="Affects data residency and latency"
         start={
           <svg
+            data-icon="globe"
             aria-hidden="true"
             width="16"
             height="16"
@@ -96,12 +93,13 @@ export default function Spread() {
             <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
           </svg>
         }
-        endText="Cannot be changed after deploy"
+        startText="Less lag means tighter grooves."
+        variant="filled"
       >
         <option value="">-</option>
-        <option>ap-southeast-1</option>
-        <option>eu-north-1</option>
-        <option>us-east-1</option>
+        <option>Asia</option>
+        <option>Europe</option>
+        <option>North America</option>
       </Select>
     </>
   )

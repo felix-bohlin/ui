@@ -1,13 +1,25 @@
 import { execFileSync, spawnSync } from "node:child_process"
-import { mkdirSync, mkdtempSync, readdirSync, writeFileSync } from "node:fs"
+import {
+  mkdirSync,
+  mkdtempSync,
+  readdirSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs"
 import { tmpdir } from "node:os"
 import { dirname, join } from "node:path"
 import stylelint from "stylelint"
-import { describe, expect, test } from "vitest"
+import { describe, expect, onTestFinished, test } from "vitest"
 import { featureIds, patterns } from "../../packages/opui/scripts/features.mjs"
 import {
+  fallbackProblems,
+  fallbacksOf,
   htmlFeatureIds,
+  lackingIds,
   pageProblems,
+  unusedSharedFeatures,
+  usedFeatureIds,
+  withBrowserSupport,
 } from "../../scripts/check-browser-support.mjs"
 import { findProblems } from "../../scripts/check-characters.mjs"
 import { problems } from "../../scripts/check-commits.mjs"
@@ -20,14 +32,17 @@ import {
   checkExampleClient,
   checkExampleWrapper,
   checkIndexSignature,
+  checkLoopKeys,
   checkModel,
   checkPropsType,
   checkProvide,
   checkReactExample,
   checkRest,
+  checkSolidProps,
   checkSortedKeys,
   checkTypeNames,
   checkTypesImport,
+  checkVariableTagClassList,
   checkVueAttrs,
 } from "../../scripts/check-components.mjs"
 import { colorProblems } from "../../scripts/check-colors.mjs"
@@ -46,13 +61,20 @@ import {
   intended,
 } from "../../scripts/check-ratchets.mjs"
 import {
+  frameworkIndex,
   indexProblems,
   readHeadings,
+  readKeywords,
+  readPage,
+  readPreamble,
+  readSections,
+  slotText,
 } from "../../scripts/generate-search-index.mjs"
 import { localBaselines } from "../../scripts/check-screenshot-authors.mjs"
 import { releasedApi } from "../../scripts/released-api.mjs"
 import { sortSource } from "../../scripts/sort-css.mjs"
 import logicalShorthands from "../../scripts/stylelint-logical-shorthands.mjs"
+import { SHARED_FEATURES } from "../../src/utils/browser-support"
 
 const EM_DASH = String.fromCodePoint(0x2014)
 const MIDDLE_DOT = String.fromCodePoint(0x00b7)
@@ -89,6 +111,7 @@ describe("sort-css", () => {
 
 describe("check-browser-support", () => {
   const samples: Record<string, string> = {
+    "alt-text-generated-content": '.a::after { content: "*" / ""; }',
     "anchor-positioning": ".a { anchor-name: --a; }",
     attr: '.a { content: attr(data-label type(<string>), ""); }',
     "backdrop-filter": "::backdrop { backdrop-filter: blur(4px); }",
@@ -107,11 +130,14 @@ describe("check-browser-support", () => {
     "display-animation": ".a { transition: display 1s allow-discrete; }",
     "exp-functions": ".a { font-size: calc(1rem * pow(1.2, 2)); }",
     "field-sizing": "textarea { field-sizing: content; }",
+    "gap-decorations": ".a { row-rule: 1px solid; }",
     has: ".a:has(> svg) { gap: 0; }",
+    if: ".a { --b: if(style(--c): 0px; else: 1px); }",
     "interest-invokers": ".a { interest-delay: 0.5s; }",
     "interpolate-size": ":root { interpolate-size: allow-keywords; }",
     lh: ".a { block-size: 0.5lh; }",
     "light-dark": ".a { color: light-dark(white, black); }",
+    "logical-properties": ".a { overflow-inline: auto; }",
     marker: "li::marker { color: red; }",
     "nth-child-of": ".a:nth-child(2 of .b) { gap: 0; }",
     "open-pseudo": "select:open { gap: 0; }",
@@ -119,6 +145,7 @@ describe("check-browser-support", () => {
     overlay: ".a { transition: opacity 1s, overlay 1s allow-discrete; }",
     popover: ".a:popover-open { opacity: 1; }",
     "progress-function": ".a { --p: progress(100vi, 20rem, 80rem); }",
+    "reading-flow": ".a { display: grid; reading-flow: grid-rows; }",
     "registered-custom-properties":
       '@property --a { inherits: false; initial-value: 0; syntax: "<number>"; }',
     "relative-color": ".a { color: oklch(from red l c h); }",
@@ -150,12 +177,57 @@ describe("check-browser-support", () => {
     ).toEqual([])
   })
 
+  test("finds each shared feature in a sheet, and reports the ones it doesn't use", () => {
+    const shared: Record<string, string> = {
+      "cascade-layers": "@layer a { .a { gap: 0; } }",
+      "color-mix": ".a { color: color-mix(in oklch, red, blue); }",
+      "light-dark": ".a { color: light-dark(white, black); }",
+      nesting: ".a { @media (width > 30em) { gap: 0; } }",
+      oklab: ".a { color: oklch(50% 0.1 200); }",
+      "relative-color": ".a { color: oklch(from red l c h); }",
+    }
+    expect(Object.keys(shared)).toEqual(SHARED_FEATURES)
+    expect(
+      Object.entries(shared).filter(([id, css]) =>
+        unusedSharedFeatures(css).includes(id),
+      ),
+    ).toEqual([])
+    expect(
+      unusedSharedFeatures("@media (width > 30em) { .a { color: red; } }"),
+    ).toEqual(SHARED_FEATURES)
+  })
+
   test("the patterns skip near misses", () => {
     expect(
       featureIds(
         ".a[open] { --_overlay: 1rlh; block-size: 2rem; overflow: hidden; transition: opacity 1s; }",
       ),
     ).toEqual([])
+    expect(featureIds(".a { overflow-clip-margin: 4px; }")).toEqual([])
+    expect(featureIds(".a::before { content: attr(data-label); }")).toEqual([])
+  })
+
+  test("anchor positioning is found in every property, function and at-rule of its compat keys", () => {
+    expect(
+      [
+        ".a { position-area: block-end; }",
+        ".a { position-try-fallbacks: flip-block; }",
+        ".a { position-visibility: anchors-visible; }",
+        ".a { anchor-scope: --a; }",
+        ".a { inset-block-start: anchor(end); }",
+        ".a { min-inline-size: anchor-size(inline); }",
+        "@position-try --a { inset: auto; }",
+      ].filter((css) => !featureIds(css).includes("anchor-positioning")),
+    ).toEqual([])
+  })
+
+  test("a rule inside @scope applies only when its root can match the examples", () => {
+    const css =
+      "@scope (.ui-rich-text) to (.ui-not-rich-text) { .ui-callout { border: 0; } }"
+    expect(usedFeatureIds(css, new Set([".ui-callout"]))).toEqual([])
+    expect(
+      usedFeatureIds(css, new Set([".ui-callout", ".ui-rich-text"])),
+    ).toEqual(["scope"])
   })
 
   test("reads the HTML features from the attributes and elements of the examples", () => {
@@ -180,15 +252,15 @@ describe("check-browser-support", () => {
     ).toEqual([])
   })
 
-  test("reports missing, unused and undetected ids, and widely available ones only next to another", () => {
+  test("reports missing, unused and undetected ids, widely available ones and the ones a page gets from the core sheets included", () => {
     expect(
       pageProblems({
-        available: new Set(["light-dark"]),
+        available: new Set(["light-dark", "scrollbar-gutter"]),
         ids: ["light-dark", "popover", "scroll-snap", "zoom"],
         used: new Set(["has", "scroll-snap", "starting-style"]),
       }),
     ).toEqual({
-      missing: ["has", "starting-style"],
+      missing: ["has", "scrollbar-gutter", "starting-style"],
       undetected: ["zoom"],
       unused: ["popover"],
     })
@@ -199,7 +271,61 @@ describe("check-browser-support", () => {
         ignored: ["starting-style"],
         used: new Set(["has", "popover", "starting-style"]),
       }),
-    ).toEqual({ missing: [], undetected: [], unused: [] })
+    ).toEqual({ missing: ["has"], undetected: [], unused: [] })
+  })
+
+  test("reads a page's fallbacks, with quoted and bare ids", async () => {
+    expect(
+      await fallbacksOf(`---
+import Component from "../../layouts/Component.astro"
+---
+
+<Component
+  slug="a"
+  browserSupport={["overlay", "popover-hint"]}
+  fallbacks={{
+    overlay: "Without \`overlay\`, the page can cover it {at once}.",
+    "popover-hint": 'Without \`popover="hint"\`, it stays open.',
+  }}
+>
+  <p>Text</p>
+</Component>
+`),
+    ).toEqual({
+      overlay: "Without `overlay`, the page can cover it {at once}.",
+      "popover-hint": 'Without `popover="hint"`, it stays open.',
+    })
+    expect(
+      await fallbacksOf('<Component slug="a" browserSupport={["has"]} />'),
+    ).toEqual({})
+  })
+
+  test("asks for a fallback sentence for each id some browser lacks, and for no other", () => {
+    expect(lackingIds(["has", "nesting"])).toEqual([])
+    expect(
+      fallbackProblems({
+        fallbacks: { has: "Without :has()", overlay: "Without overlay" },
+        lacking: ["corner-shape", "overlay"],
+      }),
+    ).toEqual({ missing: ["corner-shape"], unneeded: ["has"] })
+    expect(
+      fallbackProblems({
+        fallbacks: { overlay: "Without overlay" },
+        lacking: ["overlay"],
+      }),
+    ).toEqual({ missing: [], unneeded: [] })
+  })
+
+  test("--write replaces a page's list, or adds one after its slug", () => {
+    expect(
+      withBrowserSupport(
+        '<Component\n  slug="a"\n  browserSupport={[\n    "has",\n  ]}\n>',
+        ["has", "scope"],
+      ),
+    ).toBe('<Component\n  slug="a"\n  browserSupport={["has", "scope"]}\n>')
+    expect(withBrowserSupport('<Component\n  slug="a"\n>', ["has"])).toBe(
+      '<Component\n  slug="a"\n  browserSupport={["has"]}\n>',
+    )
   })
 })
 
@@ -366,7 +492,7 @@ const size = knob("--ui-tpyo")
 })
 
 describe("check-colors", () => {
-  test("reports colors outside comments, and skips tests and generated files", () => {
+  test("reports colors outside comments, and skips tests, TODO.md and generated files", () => {
     expect(
       colorProblems("a.css", "/* #fff */\n.a {\n  color: rgb(0 0 0);\n}\n"),
     ).toEqual(["a.css:3: rgb(...)"])
@@ -374,6 +500,22 @@ describe("check-colors", () => {
       [],
     )
     expect(colorProblems("notes.txt", "#fff")).toEqual([])
+    expect(
+      colorProblems(
+        "src/component-examples/button/Colors.react.tsx",
+        "<a>#2482</a>",
+      ),
+    ).toEqual([])
+    expect(
+      colorProblems("src/component-examples/button/Gone.react.tsx", "#2482"),
+    ).toEqual(["src/component-examples/button/Gone.react.tsx:1: #2482"])
+    expect(colorProblems("docs/notes.md", "PR `#418`")).toEqual([
+      "docs/notes.md:1: #418",
+    ])
+    expect(colorProblems("TODO.md", "PR `#418`")).toEqual([])
+    expect(colorProblems("testsuite.css", ".a { color: #fff }")).toEqual([
+      "testsuite.css:1: #fff",
+    ])
   })
 })
 
@@ -466,12 +608,13 @@ describe("released-api", () => {
   })
 })
 
-describe("file discovery", () => {
+describe("file discovery", { timeout: 15_000 }, () => {
   const UNSORTED = `/* one ${EM_DASH} two */\n.a {\n  inset: 0;\n  color: #fff;\n}\n`
   const SORTED = ".a {\n  color: oklch(100% 0 0);\n  inset: 0;\n}\n"
 
   const repo = (files: Record<string, string>) => {
     const root = mkdtempSync(join(tmpdir(), "opui-scan-"))
+    onTestFinished(() => rmSync(root, { force: true, recursive: true }))
     execFileSync("git", ["init", "-q"], { cwd: root })
     for (const [file, text] of Object.entries({
       ".gitignore": "ignored/\n",
@@ -536,6 +679,68 @@ describe("check-ratchets", () => {
     ).toEqual(["dark/html/b: list", "light/html/a: color-contrast"])
   })
 
+  test("the hand-written examples list grows only with the intended trailer", () => {
+    const dir = mkdtempSync(join(tmpdir(), "opui-ratchets-"))
+    onTestFinished(() => rmSync(dir, { force: true, recursive: true }))
+    const git = (...args: string[]) =>
+      execFileSync(
+        "git",
+        ["-c", "user.email=a@example.com", "-c", "user.name=A", ...args],
+        { cwd: dir, encoding: "utf8", stdio: "pipe" },
+      )
+    const list = join(dir, "scripts/hand-written-examples.json")
+    mkdirSync(join(dir, "scripts"))
+    git("init", "-q", "-b", "main")
+    writeFileSync(list, JSON.stringify({ "a/B.vue": "reason" }))
+    git("add", ".")
+    git("commit", "-q", "-m", "chore: add the list")
+    git("checkout", "-q", "-b", "work")
+    const run = () =>
+      spawnSync(
+        "node",
+        [join(process.cwd(), "scripts/check-ratchets.mjs"), "main"],
+        { cwd: dir, encoding: "utf8" },
+      )
+
+    writeFileSync(list, JSON.stringify({ "a/B.vue": "reason" }))
+    expect(run().status).toBe(0)
+
+    writeFileSync(
+      list,
+      JSON.stringify({ "a/B.vue": "reason", "a/C.vue": "reason" }),
+    )
+    git("commit", "-q", "-am", "chore: write C by hand")
+    const refused = run()
+    expect(refused.status).toBe(1)
+    expect(refused.stderr).toContain(
+      'scripts/hand-written-examples.json gained "a/C.vue"',
+    )
+
+    git(
+      "commit",
+      "-q",
+      "--amend",
+      "--no-edit",
+      "--trailer",
+      "Ledger-Change: intended",
+    )
+    expect(run().status).toBe(0)
+
+    writeFileSync(list, JSON.stringify({}))
+    git(
+      "commit",
+      "-q",
+      "-am",
+      "chore: generate B",
+      "--trailer",
+      "Ledger-Change: intended",
+    )
+    git("checkout", "-q", "-b", "shrink", "main")
+    writeFileSync(list, JSON.stringify({}))
+    git("commit", "-q", "-am", "chore: generate B")
+    expect(run().status).toBe(0)
+  }, 15_000)
+
   test("reports a new drift file and new drift lines, not moved context or fewer lines", () => {
     const diff = "===\n--- astro\n+++ react\n@@ -1,2 +1,2 @@\n <a>\n-x\n+y\n"
     expect(
@@ -571,6 +776,61 @@ describe("check-ratchets", () => {
   test("accepts the trailer on any commit, in any case", () => {
     expect(intended("\n\nIntended\n")).toBe(true)
     expect(intended("\nnot intended\n")).toBe(false)
+  })
+})
+
+describe("checkVariableTagClassList", () => {
+  const source = (body: string, imports = "") =>
+    `---\n${imports}\nconst Tag = "div"\n---\n${body}\n`
+
+  test("flags class:list on a variable tag, also inside another element", async () => {
+    expect(
+      await checkVariableTagClassList(
+        source('<Tag class:list={["ui-a", className]}><slot /></Tag>'),
+      ),
+    ).toEqual([
+      '<Tag> is a variable tag with class:list, which Astro renders after the other attributes; use class={cx([...])} and import cx from "../cx"',
+    ])
+    expect(
+      await checkVariableTagClassList(
+        source('<section><Tag class:list={["a"]} /></section>'),
+      ),
+    ).toHaveLength(1)
+  })
+
+  test("flags every variable tag", async () => {
+    expect(
+      await checkVariableTagClassList(
+        source('<Root class:list={["a"]}><Label class:list={["b"]} /></Root>'),
+      ),
+    ).toHaveLength(2)
+  })
+
+  test("allows class:list on an element and on an imported component", async () => {
+    expect(
+      await checkVariableTagClassList(
+        source(
+          '<div class:list={["a"]} /><Anchor class:list={["b"]} /><Ns.Part class:list={["c"]} />',
+          'import Anchor from "../Anchor/Anchor.astro"\nimport * as Ns from "./ns"',
+        ),
+      ),
+    ).toEqual([])
+    expect(
+      await checkVariableTagClassList(
+        source('<Part class:list={["c"]} />', 'import { Part } from "./part"'),
+      ),
+    ).toEqual([])
+  })
+
+  test("allows cx on a variable tag", async () => {
+    expect(
+      await checkVariableTagClassList(
+        source(
+          '<Tag class={cx(["ui-a", className])} />',
+          'import { cx } from "../cx"',
+        ),
+      ),
+    ).toEqual([])
   })
 })
 
@@ -622,6 +882,11 @@ describe("check-components", () => {
     ])
     expect(checkClient(`"use client"\n\n${plain}`)).toEqual([
       expect.stringContaining("uses no context, state"),
+    ])
+    const listening =
+      'export default function A({ onDismiss, ref }) {\n  const rootRef = useListener(ref, "dismiss", onDismiss)\n  return <div ref={rootRef} />\n}\n'
+    expect(checkClient(listening)).toEqual([
+      expect.stringContaining('start it with "use client"'),
     ])
   })
 
@@ -721,6 +986,237 @@ describe("check-components", () => {
       ),
     ).toEqual([
       'does not type its props with Props from "./types.react": annotate the props parameter with it',
+    ])
+  })
+
+  test("a list in a React, Svelte or Vue component gives each row a key", () => {
+    const react = (rows: string) =>
+      `export default function List({ items }: Props) {\n  return <ul>{${rows}}</ul>\n}\n`
+    expect(
+      checkLoopKeys(
+        "List.react.tsx",
+        react("items.map((item, index) => (<li key={index}>{item}</li>))"),
+      ),
+    ).toEqual([])
+    expect(
+      checkLoopKeys(
+        "List.react.tsx",
+        react("items.map((item) => (<li>{item}</li>))"),
+      ),
+    ).toEqual([
+      "builds <li>{item}</li> with .map() and no key: React matches the rows of a list by their key, so give each row key={...}, the item's own value where it has one and the index otherwise",
+    ])
+    expect(
+      checkLoopKeys(
+        "List.react.tsx",
+        react(
+          'items.map((item, index) => typeof item === "object" ? <li key={index}>{item.label}</li> : <li>{item}</li>)',
+        ),
+      ),
+    ).toHaveLength(1)
+    expect(
+      checkLoopKeys(
+        "List.react.tsx",
+        react("items.map((item) => { return <>{item}</> })"),
+      ),
+    ).toHaveLength(1)
+    expect(
+      checkLoopKeys(
+        "List.svelte",
+        "<ul>\n  {#each items ?? [] as { label, ...item }, index (index)}\n    <li {...item}>{label}</li>\n  {/each}\n</ul>\n",
+      ),
+    ).toEqual([])
+    expect(
+      checkLoopKeys(
+        "List.svelte",
+        "<ul>\n  {#each items as { label }, index}\n    <li>{label}</li>\n  {/each}\n</ul>\n",
+      ),
+    ).toEqual([
+      "has {#each items as { label }, index} without a key: Svelte matches the rows of a list by their key, so end the block's opening with (key), the item's own value where it has one and the index otherwise",
+    ])
+    expect(
+      checkLoopKeys(
+        "List.vue",
+        '<template>\n  <ul>\n    <li v-for="item in items" :key="item.value" :title="item.value > 1 ? \'a\' : \'b\'">{{ item.label }}</li>\n  </ul>\n</template>\n',
+      ),
+    ).toEqual([])
+    expect(
+      checkLoopKeys(
+        "List.vue",
+        '<template>\n  <ul>\n    <li v-for="(item, index) in items" :title="item">{{ item }}</li>\n    <li :key="1" />\n  </ul>\n</template>\n',
+      ),
+    ).toEqual([
+      'has v-for="(item, index) in items" on <li> without :key: Vue matches the rows of a list by their key, so bind :key on the element with v-for, the item\'s own value where it has one and the index otherwise',
+    ])
+    expect(checkLoopKeys("List.solid.tsx", "items.map(() => <li />)")).toEqual(
+      [],
+    )
+  })
+
+  test("a Solid port reads props as props.x and omits them in order", () => {
+    const solid = (body: string) =>
+      `/** @jsxImportSource @solidjs/web */\nimport { omit } from "solid-js"\n\nexport default function Badge(props: Props) {\n${body}\n}\n`
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class", "size", "children", "end")\n  return <span {...rest} />',
+        ),
+        ["end"],
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "size", "class")\n  return <span {...rest} />',
+        ),
+      ),
+    ).toEqual([expect.stringContaining("expected class, size")])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "children", "class")\n  return <span {...rest} />',
+        ),
+      ),
+    ).toEqual([expect.stringContaining("expected class, children")])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid('  const rest = omit(props, "class")\n  return <span />'),
+      ),
+    ).toEqual([expect.stringContaining("never spreads it")])
+    expect(
+      checkSolidProps("Badge.solid.tsx", solid("  return <span />"), [], true),
+    ).toEqual([expect.stringContaining("does not take the rest with omit")])
+    expect(
+      checkSolidProps("Badge.solid.tsx", solid("  return <span />"), [], false),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class", "children")\n  return props.children && <span {...rest}>{props.children}</span>',
+        ),
+      ),
+    ).toEqual([expect.stringContaining("reads props.children 2 times")])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class", "items", "end")\n  const resolvedEnd = children(() => props.end)\n  return (\n    <ul {...rest}>\n      <For each={props.items}>\n        {(item) => <li>{item}{resolvedEnd() && <i>{props.end}</i>}</li>}\n      </For>\n    </ul>\n  )',
+        ),
+        ["end"],
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class", "items")\n  return <ul {...rest}>{props.items.map((item) => <li>{item}</li>)}</ul>',
+        ),
+      ),
+    ).toEqual([expect.stringContaining("builds JSX with .map()")])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class", "items")\n  const labels = props.items.map((item) => item.label)\n  return <ul {...rest}><For each={labels}>{(label) => <li>{label}</li>}</For></ul>',
+        ),
+      ),
+    ).toEqual([])
+    for (const condition of [
+      'title={props.label ? "Labelled" : rest.title}',
+      "title={props.label && rest.title}",
+      "title={(rest.title || props.label)}",
+      "aria-label={label() ?? rest.title}",
+    ]) {
+      expect(
+        checkSolidProps(
+          "Badge.solid.tsx",
+          solid(
+            `  const rest = omit(props, "label")\n  return <span {...rest}><Button ${condition} /></span>`,
+          ),
+        ),
+      ).toEqual([
+        expect.stringContaining(
+          `passes the condition ${condition} to <Button>`,
+        ),
+      ])
+    }
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "label")\n  const title = () => (props.label ? "Labelled" : rest.title)\n  const fallback = "Close"\n  return (\n    <span title={props.label ? "Labelled" : rest.title} {...rest}>\n      <Button aria-label={fallback || "Close"} disabled={!(props.label && rest.title)} title={title()} />\n    </span>\n  )',
+        ),
+      ),
+    ).toEqual([])
+    for (const tag of [
+      'const Tag = dynamic("selectedcontent")',
+      'const Tag = dynamic(() => "selectedcontent")',
+      'const tag = () => "selectedcontent"\n  const Tag = dynamic(tag)',
+    ]) {
+      expect(
+        checkSolidProps(
+          "Badge.solid.tsx",
+          solid(
+            `  const rest = omit(props, "class")\n  ${tag}\n  return <Tag {...rest} />`,
+          ),
+        ),
+      ).toEqual([
+        expect.stringContaining("calls dynamic() on a string literal"),
+      ])
+    }
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "as", "class")\n  const tag = () => props.as || "span"\n  const Tag = dynamic(tag)\n  return <Tag {...rest} />',
+        ),
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class", "children")\n  const resolvedChildren = children(() => props.children)\n  return resolvedChildren() && <span {...rest}>{resolvedChildren()}</span>',
+        ),
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class")\n  return <span {...(rest as object)} />',
+        ),
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class")\n  return <span {...(props.size ? (rest as object) : {})} />',
+        ),
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const all = mergeProps({ size: "medium" }, props)\n  return <span />',
+        ),
+      ),
+    ).toEqual([expect.stringContaining("calls mergeProps()")])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        "export default function Badge({ size }: Props) {\n  return <span />\n}\n",
+      ),
+    ).toEqual([
+      expect.stringContaining("does not start with"),
+      expect.stringContaining("destructures its props"),
     ])
   })
 
@@ -893,6 +1389,18 @@ describe("check-components", () => {
         "Tabs",
       ),
     ).toEqual([])
+    const svelte = (types: string) =>
+      `/** @import { Context } from "./types" */\nimport { getContext, setContext } from "svelte"\n\nconst key = Symbol()\n\n/** @type {${types}} */\nexport const getTabsContext = () => getContext(key)\nexport const setTabsContext = (context) => setContext(key, context)\n`
+    expect(
+      checkContext(
+        "context.svelte.js",
+        svelte("() => Context | undefined"),
+        "Tabs",
+      ),
+    ).toEqual([])
+    expect(
+      checkContext("context.svelte.js", svelte("() => unknown"), "Tabs"),
+    ).toEqual(["does not take its shape from the Context type in ./types"])
   })
 
   test('"use client" marks exactly the React examples with client hooks or function props', () => {
@@ -1015,6 +1523,7 @@ describe("generate-search-index", () => {
     description: "A page.",
     id,
     title: "Page",
+    url: `/${id}/`,
   })
 
   test("reports a category without entries, an unknown category and an entry without a description", () => {
@@ -1030,8 +1539,18 @@ describe("generate-search-index", () => {
     ).toEqual([
       "Unknown search categories: Notes",
       "Search categories without entries: Blog",
-      "Search entries without a title or description: guide-empty",
+      "Search entries without a title, or without a description or page: guide-empty",
     ])
+  })
+
+  test("reads a slot as the text it renders, however its source is wrapped", () => {
+    expect(
+      slotText(
+        "\n    Callouts call out for attention and are used\n    <strong>without</strong> interrupting the task.\n  ",
+      ),
+    ).toBe(
+      "Callouts call out for attention and are used without interrupting the task.",
+    )
   })
 
   test("accepts an index with every category", () => {
@@ -1040,6 +1559,163 @@ describe("generate-search-index", () => {
         ["API", "Blocks", "Blog", "Component", "Guide"].map((id) => entry(id)),
       ),
     ).toEqual([])
+  })
+
+  test("accepts a section entry with a page instead of a description", () => {
+    expect(
+      indexProblems([
+        ...["API", "Blocks", "Blog", "Component", "Guide"].map((id) =>
+          entry(id),
+        ),
+        { ...entry("Guide", "guide-sizes"), description: "", page: "Button" },
+      ]),
+    ).toEqual([])
+  })
+
+  test("reports entries that share an id and paths without a trailing slash", () => {
+    expect(
+      indexProblems([
+        ...["API", "Blocks", "Blog", "Component", "Guide"].map((id) =>
+          entry(id),
+        ),
+        { ...entry("Guide", "Guide"), url: "/html/guide/theming/#tokens" },
+        { ...entry("Guide", "guide-sizes"), url: "/html/guide/sizes#small" },
+      ]),
+    ).toEqual([
+      "Search entries that share an id: Guide",
+      "Search entries whose path doesn't end in a slash: guide-sizes",
+    ])
+  })
+
+  test("reads text without tags, entities, string expressions or extra spaces", () => {
+    expect(
+      slotText(
+        'Do I use <code>&lt;label&gt;</code>{" "}\n  or <DocLink href="/x">a <code>for</code></DocLink>?',
+      ),
+    ).toBe("Do I use <label> or a for?")
+  })
+
+  test("reads a string expression as the text it renders, markup and escapes included", () => {
+    expect(
+      slotText(
+        String.raw`Use <code>{"<label>"}</code>, {'it\'s'}, {"&lt;"} and {"a\\nb"}.`,
+      ),
+    ).toBe(String.raw`Use <label>, it's, &lt; and a\nb.`)
+    expect(slotText("Save {`$5`} now")).toBe("Save $5 now")
+    expect(slotText("Hi {`${name}`}")).toBe("Hi {`${name}`}")
+  })
+
+  test("reads the preamble a framework renders, or the description a page exports", () => {
+    const page =
+      '<Fragment slot="preamble">\n  <p>Built on <DocLink href="/a">Anchor</DocLink>.</p>\n  <Conditional as="p">\n    <Fragment slot="components">Wrap it in <code>&lt;Tip&gt;</code>.</Fragment>\n    <Fragment slot="html">Add <code>.ui-tip</code>.</Fragment>\n    <Fragment slot="vue">Use <code>v-tip</code>.</Fragment>\n  </Conditional>\n</Fragment>'
+    expect(
+      (["html", "react", "vue"] as const).map((framework) =>
+        readPreamble(page, framework),
+      ),
+    ).toEqual([
+      "Built on Anchor. Add .ui-tip.",
+      "Built on Anchor. Wrap it in <Tip>.",
+      "Built on Anchor. Use v-tip.",
+    ])
+    expect(
+      readPreamble(`export const description = "A tip."\n${page}`, "html"),
+    ).toBe("A tip.")
+  })
+
+  test("refuses a title, preamble or heading it can't read as text", () => {
+    const page = (body: string) =>
+      readPage("page.astro", `<Fragment slot="title">Page</Fragment>\n${body}`)
+    expect(() =>
+      page(
+        '<Fragment slot="preamble"><p>Use {name} to open it.</p></Fragment>',
+      ),
+    ).toThrow(
+      "page.astro has a preamble or heading the search index can't read: write it as text, or export a description: Use {name} to open it.",
+    )
+    expect(() => page('<h2 id="title">{title}</h2>')).toThrow(
+      "page.astro has a preamble or heading the search index can't read: write it as text, or export a description: {title}",
+    )
+    expect(() =>
+      readPage("page.astro", '<Fragment slot="title">{"A"} {b}</Fragment>'),
+    ).toThrow("page.astro has a title slot the search index can't read")
+    expect(
+      page(
+        '<Fragment slot="preamble"><p>Use <code>{" "}name</code>.</p></Fragment>\n<h2 id="name">The name</h2>',
+      ),
+    ).toMatchObject({
+      sections: [{ id: "name", title: "The name" }],
+      title: "Page",
+    })
+  })
+
+  test("reads a preamble whose Conditional slots are elements or hold Fragments", () => {
+    const page = [
+      '<Fragment slot="preamble">',
+      "  <Fragment>Built on Anchor.</Fragment>",
+      '  <Conditional as="div">',
+      '    <p slot="components">Wrap it in <Fragment>the <code>Tip</code></Fragment> component.</p>',
+      '    <p slot="html">Add <code>.ui-tip</code>.<br>Then style it.</p>',
+      '    <p data-slot="react">Not a slot.</p>',
+      "  </Conditional>",
+      "  <Conditional>",
+      '    <Fragment slot="react">See <Fragment><code>onOpen</code></Fragment>.</Fragment>',
+      "  </Conditional>",
+      "</Fragment>",
+      "<p>After the preamble.</p>",
+    ].join("\n")
+    expect(
+      (["html", "react", "vue"] as const).map((framework) =>
+        readPreamble(page, framework),
+      ),
+    ).toEqual([
+      "Built on Anchor. Add .ui-tip.Then style it.",
+      "Built on Anchor. Wrap it in the Tip component. See onOpen.",
+      "Built on Anchor. Wrap it in the Tip component.",
+    ])
+  })
+
+  test("reads the id and title of each section and h3 with an id, once per id", () => {
+    expect(
+      readSections(
+        '<section id="sizes">\n  <h2>Sizes</h2>\n  <h3 id="small">Small <code>sm</code></h3>\n</section>\n<section id="sizes">\n  <h2>Sizes again</h2>\n</section>\n<h2>Notes</h2>',
+      ),
+    ).toEqual([
+      { id: "sizes", title: "Sizes" },
+      { id: "small", title: "Small sm" },
+    ])
+  })
+
+  test("reads the keywords a page exports", () => {
+    expect(
+      readKeywords(
+        'export const description = "A page."\nexport const keywords = [\n  "modal",\n  "popup",\n]\n',
+      ),
+    ).toEqual(["modal", "popup"])
+    expect(readKeywords('export const description = "A page."')).toEqual([])
+  })
+
+  test("keeps the shared entries and one framework's entries, without the framework id", () => {
+    expect(
+      frameworkIndex(
+        [
+          { ...entry("Blog", "blog-post"), url: "/blog/post" },
+          {
+            ...entry("Component", "component-button-html"),
+            frameworkId: "html",
+            url: "/html/components/button",
+          },
+          {
+            ...entry("Component", "component-button-react"),
+            frameworkId: "react",
+            url: "/react/components/button",
+          },
+        ] as Parameters<typeof frameworkIndex>[0],
+        "react",
+      ).map(({ id, ...item }) => [id, "frameworkId" in item]),
+    ).toEqual([
+      ["blog-post", false],
+      ["component-button-react", false],
+    ])
   })
 
   test("reads the h2 of a section with an id and the h3s with an id, in order", () => {

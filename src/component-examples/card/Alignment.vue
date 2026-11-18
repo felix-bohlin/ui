@@ -4,26 +4,34 @@ import { Button, Card, CardActions, CardContent } from "opui-css/vue"
 
 <template>
   <Card variant="outlined">
-    <CardContent>Buttons aligned to the end. Works too!</CardContent>
+    <CardContent
+      >Invite your bandmates to Bassbook (they might listen here).</CardContent
+    >
     <CardActions align="start">
-      <Button>Cancel</Button>
-      <Button>Save</Button>
+      <Button>Copy link</Button>
+      <Button>Send invites</Button>
     </CardActions>
   </Card>
 
   <Card variant="outlined">
-    <CardContent>Again, buttons are aligned to the end!</CardContent>
+    <CardContent
+      >Export your setlists from the last 30 days as CSV.</CardContent
+    >
     <CardActions align="start">
       <Button variant="outlined">Cancel</Button>
-      <Button variant="filled">Save</Button>
+      <Button variant="filled">Export</Button>
     </CardActions>
   </Card>
 
   <Card variant="outlined">
-    <CardContent>Icon buttons aligned to the end!</CardContent>
+    <CardContent
+      >Band photo where you're finally in focus, added by Lou
+      Headstock.</CardContent
+    >
     <CardActions align="start">
       <Button aria-label="Favorite" round size="small">
         <svg
+          data-icon="heart"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -38,6 +46,7 @@ import { Button, Card, CardActions, CardContent } from "opui-css/vue"
       </Button>
       <Button aria-label="Share" round size="small">
         <svg
+          data-icon="share"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"

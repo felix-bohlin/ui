@@ -11,8 +11,8 @@ export default function Width() {
   return (
     <>
       <Button
-        commandfor="dialog-width-1"
         command="show-modal"
+        commandfor="dialog-width-1"
         variant="outlined"
       >
         Open wide dialog
@@ -29,10 +29,10 @@ export default function Width() {
           </p>
         </DialogContent>
         <DialogFooter>
-          <Button commandfor="dialog-width-1" command="close">
+          <Button command="close" commandfor="dialog-width-1">
             Not now
           </Button>
-          <Button commandfor="dialog-width-1" command="close" variant="filled">
+          <Button command="close" commandfor="dialog-width-1" variant="filled">
             Subscribe
           </Button>
         </DialogFooter>

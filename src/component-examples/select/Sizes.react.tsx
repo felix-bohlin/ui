@@ -4,24 +4,24 @@ export default function Sizes() {
   return (
     <>
       <Select label="X-small" size="x-small">
-        <option value="">X-small</option>
-        <option>Option Two</option>
-        <option>Option Three</option>
+        <option>Apple</option>
+        <option>Banana</option>
+        <option>Cherry</option>
       </Select>
       <Select label="Small" size="small">
-        <option value="">Small</option>
-        <option>Option Two</option>
-        <option>Option Three</option>
+        <option>Apple</option>
+        <option>Banana</option>
+        <option>Cherry</option>
       </Select>
       <Select label="Medium">
-        <option value="">Medium</option>
-        <option>Option Two</option>
-        <option>Option Three</option>
+        <option>Apple</option>
+        <option>Banana</option>
+        <option>Cherry</option>
       </Select>
       <Select label="Large" size="large">
-        <option value="">Large</option>
-        <option>Option Two</option>
-        <option>Option Three</option>
+        <option>Apple</option>
+        <option>Banana</option>
+        <option>Cherry</option>
       </Select>
     </>
   )

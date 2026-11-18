@@ -1,10 +1,12 @@
 ---
 import type { StepperItemProps as Props } from "./types.astro"
+import { trimEdges } from "../whitespace"
 
 const {
+  "aria-current": ariaCurrent,
   class: className,
   complete,
-  completedLabel = ", completed",
+  completeLabel = ", completed",
   current,
   description,
   error,
@@ -14,43 +16,42 @@ const {
   ...rest
 } = Astro.props
 
-const state = error ? errorLabel : complete ? completedLabel : undefined
+const state = error ? errorLabel : complete ? completeLabel : undefined
 const link = href && !current && (complete || error)
+const labelSlot = Astro.slots.has("label")
+  ? trimEdges(await Astro.slots.render("label"))
+  : ""
 ---
 
 <li
-  aria-current={current ? "step" : undefined}
+  aria-current={ariaCurrent ?? (current ? "step" : undefined)}
   class:list={[{ "ui-complete": complete, "ui-error": error }, className]}
   {...rest}
 >
-  {
-    Astro.slots.has("icon-checked") && (
-      <span aria-hidden="true" class="ui-icon-checked">
-        <slot name="icon-checked" />
-      </span>
-    )
-  }
-  {
-    link ? (
-      <a href={href}>
-        {label}
-        <slot name="label" />
-        {state && <span class="ui-sr-only">{state}</span>}
-      </a>
-    ) : (
-      <Fragment>
-        {label}
-        <slot name="label" />
-        {state && <span class="ui-sr-only">{state}</span>}
-      </Fragment>
-    )
-  }
-  {
-    (description || Astro.slots.has("description")) && (
-      <span class="ui-description">
-        {description}
-        <slot name="description" />
-      </span>
-    )
-  }
+  {Astro.slots.has("icon-complete") && <span
+    aria-hidden="true"
+    class="ui-icon-complete"
+    ><slot name="icon-complete"
+  /></span>}
+  {link ? (
+    <a href={href}
+      >{label}<Fragment set:html={labelSlot} />{state && <span
+        class="ui-sr-only"
+        >{state}</span
+      >}</a
+    >
+  ) : (
+    <Fragment
+      >{label}<Fragment set:html={labelSlot} />{state && <span
+        class="ui-sr-only"
+        >{state}</span
+      >}</Fragment
+    >
+  )}
+  {(description || Astro.slots.has("description")) && <span
+    class="ui-description"
+  >
+    {description}
+    <slot name="description" />
+  </span>}
 </li>

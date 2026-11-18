@@ -4,13 +4,14 @@ import { Button, ListItem, Menu } from "opui-css/vue"
 
 <template>
   <Button
+    aria-label="More actions"
+    command="toggle-popover"
+    commandfor="menu-custom-1"
     round
     size="small"
-    aria-label="More actions"
-    commandfor="menu-custom-1"
-    command="toggle-popover"
   >
     <svg
+      data-icon="more-vertical"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
@@ -25,12 +26,13 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     <li class="ui-heading">Document</li>
     <ListItem
       as="button"
-      label="Rename"
-      commandfor="menu-custom-1"
       command="hide-popover"
+      commandfor="menu-custom-1"
+      label="Rename"
     >
       <template #start>
         <svg
+          data-icon="edit"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -41,16 +43,19 @@ import { Button, ListItem, Menu } from "opui-css/vue"
           ></path>
         </svg>
       </template>
-      <template #end><kbd>F2</kbd></template>
+      <template #end>
+        <kbd>F2</kbd>
+      </template>
     </ListItem>
     <ListItem
       as="button"
-      label="Copy"
-      commandfor="menu-custom-1"
       command="hide-popover"
+      commandfor="menu-custom-1"
+      label="Copy"
     >
       <template #start>
         <svg
+          data-icon="copy"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -61,15 +66,18 @@ import { Button, ListItem, Menu } from "opui-css/vue"
           ></path>
         </svg>
       </template>
-      <template #end><kbd>Ctrl+C</kbd></template>
+      <template #end>
+        <kbd>Ctrl+C</kbd>
+      </template>
     </ListItem>
     <ListItem
-      label="Open in new tab"
       href="/guide/getting-started/"
+      label="Open in new tab"
       target="_blank"
     >
       <template #start>
         <svg
+          data-icon="open"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -83,14 +91,15 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     </ListItem>
     <ListItem
       as="button"
-      label="Delete"
       borderTop
       color="critical"
-      commandfor="menu-custom-1"
       command="hide-popover"
+      commandfor="menu-custom-1"
+      label="Delete"
     >
       <template #start>
         <svg
+          data-icon="delete"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"

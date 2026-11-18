@@ -3,11 +3,16 @@ import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField label="Name" placeholder="Ada Lovelace">
+  <TextField label="Name" placeholder="Holly Humbucker">
     <template #top>Shown on your profile</template>
   </TextField>
 
-  <TextField label="Tagline" placeholder="A short description">
-    <template #bottom>0 / 80</template>
+  <TextField
+    characterCount
+    label="Bass motto"
+    :maxlength="80"
+    placeholder="Turn it up, not down"
+  >
+    <template #bottom>Plain text, no links</template>
   </TextField>
 </template>

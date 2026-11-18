@@ -1,42 +1,46 @@
 "use client"
 
 import { cx } from "../cx"
-import { mergeStyle } from "../style"
+import { seedChecked } from "../react"
+import { mergeStyle, pluralLabel } from "../style"
 import type { Props } from "./types.react"
 
 export default function Rating({
   "aria-describedby": ariaDescribedBy,
   "aria-invalid": ariaInvalid,
+  "aria-label": ariaLabel,
   className,
   clearLabel = "No rating",
   defaultValue,
   disabled,
   error,
   label,
+  lang,
   max = 5,
   name,
-  onChange,
+  onValueChange,
   required,
   size,
-  starLabel = (value: number) => (value === 1 ? "1 star" : `${value} stars`),
+  starLabel = { one: "{count} star", other: "{count} stars" },
   style,
   value,
   ...rest
 }: Props) {
   const count = Number(max)
   const stars = Array.from({ length: count }, (_, index) => index + 1)
-  const controlled = value !== undefined
-  const current = Number(controlled ? value : defaultValue)
+  const current = Number(value ?? defaultValue)
   const invalid = error ? "true" : ariaInvalid
 
   return name ? (
     <fieldset
+      aria-label={ariaLabel}
       className={cx([
         "ui-rating",
         size && size !== "medium" && `ui-${size}`,
         className,
       ])}
       disabled={disabled}
+      lang={lang}
       style={style}
       {...rest}
     >
@@ -46,24 +50,26 @@ export default function Rating({
           aria-describedby={ariaDescribedBy}
           aria-invalid={invalid}
           aria-label={clearLabel}
-          checked={controlled ? current === 0 : undefined}
-          defaultChecked={controlled ? undefined : current === 0}
+          checked={value !== undefined ? current === 0 : undefined}
+          defaultChecked={value !== undefined ? undefined : current === 0}
+          onChange={() => onValueChange?.(0)}
+          ref={seedChecked(() => onValueChange?.(0))}
           name={name}
-          onChange={onChange}
           type="radio"
-          value="0"
+          value={0}
         />
       )}
-      {stars.map((star) => (
+      {stars.map((star, index) => (
         <input
+          key={index}
           aria-describedby={ariaDescribedBy}
           aria-invalid={invalid}
-          aria-label={starLabel(star)}
-          checked={controlled ? current === star : undefined}
-          defaultChecked={controlled ? undefined : current === star}
-          key={star}
+          aria-label={pluralLabel(starLabel, star, lang)}
+          checked={value !== undefined ? current === star : undefined}
+          defaultChecked={value !== undefined ? undefined : current === star}
+          onChange={() => onValueChange?.(star)}
+          ref={seedChecked(() => onValueChange?.(star))}
           name={name}
-          onChange={onChange}
           required={required}
           type="radio"
           value={star}
@@ -73,12 +79,13 @@ export default function Rating({
   ) : (
     <meter
       aria-describedby={ariaDescribedBy}
-      aria-label={label}
+      aria-label={ariaLabel ?? label}
       className={cx([
         "ui-rating",
         size && size !== "medium" && `ui-${size}`,
         className,
       ])}
+      lang={lang}
       max={max}
       style={mergeStyle(
         { "--_max": count === 5 ? undefined : count },

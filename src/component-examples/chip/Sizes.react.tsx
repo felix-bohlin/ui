@@ -3,15 +3,10 @@ import { Chip } from "opui-css/react"
 export default function Sizes() {
   return (
     <>
-      <Chip size="x-small" label="x-small" />
-      <Chip size="small" label="Small" />
+      <Chip label="X-small" size="x-small" />
+      <Chip label="Small" size="small" />
       <Chip label="Medium" />
-      <Chip size="large" label="Large" />
-      <Chip
-        multiline
-        style={{ maxInlineSize: "30ch" }}
-        label="Free returns within 30 days on every order"
-      />
+      <Chip label="Large" size="large" />
     </>
   )
 }

@@ -1,14 +1,20 @@
 <script lang="ts">
   import "../../elements/character-count.js"
+  import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
+  import { fieldDescribedBy } from "../id"
   import type { Props } from "./types.svelte"
 
   let {
+    "aria-describedby": ariaDescribedBy,
+    "aria-invalid": ariaInvalid,
+    "aria-labelledby": ariaLabelledBy,
     autoFit,
     characterCount,
     characterCountLabel,
     class: className,
+    defaultValue,
     error,
     hideLabel,
     id,
@@ -32,9 +38,26 @@
   }: Props = $props()
 
   const field = getFieldGroupContext()
+  const uid = $props.id()
+  const getValue = () => value ?? defaultValue
+  const setValue = (next: typeof value) => {
+    value = next
+  }
+  const initialValue = untrack(getValue)
+  const base = $derived(id || `textarea-${uid}`)
+  const hasLabel = $derived(Boolean(label))
+  const hasStartText = $derived(Boolean(startText))
+  const hasEndText = $derived(Boolean(endText || characterCount))
+  const textareaId = $derived(hasLabel ? base : id)
+  const startId = $derived(start ? `${base}-start` : undefined)
+  const endId = $derived(end ? `${base}-end` : undefined)
+  const topId = $derived(top ? `${base}-top` : undefined)
+  const bottomId = $derived(bottom ? `${base}-bottom` : undefined)
+  const startTextId = $derived(hasStartText ? `${base}-start-text` : undefined)
+  const endTextId = $derived(hasEndText ? `${base}-end-text` : undefined)
 </script>
 
-<label
+<div
   class={[
     "ui-textarea",
     {
@@ -47,45 +70,67 @@
   ]}
   {style}
 >
-  {#if label}
-    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}
-      >{@render content(label)}</span
-    >
+  {#if hasLabel}
+    <label class={hideLabel ? "ui-sr-only" : "ui-label"} for={textareaId}>
+      {@render content(label)}
+    </label>
   {/if}
-  {#if startText}
-    <span class="ui-start-text">{@render content(startText)}</span>
+  {#if hasStartText}
+    <span class="ui-start-text" id={startTextId}>
+      {@render content(startText)}
+    </span>
   {/if}
   <span class="ui-field">
+    {#if top}
+      <span class="ui-top" id={topId}>
+        {@render content(top)}
+      </span>
+    {/if}
+    {#if start}
+      <span class="ui-start" id={startId}>
+        {@render content(start)}
+      </span>
+    {/if}
     <textarea
       {...rest}
-      aria-invalid={error ? "true" : rest["aria-invalid"]}
-      bind:value
-      {id}
+      aria-describedby={fieldDescribedBy(
+        {
+          bottom: bottomId,
+          end: endId,
+          endText: endTextId,
+          start: startId,
+          startText: startTextId,
+          top: topId,
+        },
+        ariaDescribedBy,
+      )}
+      aria-invalid={error ? "true" : ariaInvalid}
+      aria-labelledby={ariaLabelledBy}
+      id={textareaId}
       name={name ?? field?.name}
-    ></textarea>
-    {#if start}
-      <span class="ui-start">{@render content(start)}</span>
-    {/if}
+      bind:value={getValue, setValue}
+      defaultValue={defaultValue ?? initialValue}></textarea>
     {#if end}
-      <span class="ui-end">{@render content(end)}</span>
-    {/if}
-    {#if top}
-      <span class="ui-top">{@render content(top)}</span>
+      <span class="ui-end" id={endId}>
+        {@render content(end)}
+      </span>
     {/if}
     {#if bottom}
-      <span class="ui-bottom">{@render content(bottom)}</span>
+      <span class="ui-bottom" id={bottomId}>
+        {@render content(bottom)}
+      </span>
     {/if}
   </span>
-  {#if endText || characterCount}
-    <span class="ui-end-text"
-      >{#if endText}{@render content(
-          endText,
-        )}{/if}{#if characterCount}<opui-character-count
+  {#if hasEndText}
+    <span class="ui-end-text" id={endTextId}>
+      {@render content(endText)}{#if characterCount}
+        <opui-character-count
           aria-hidden="true"
           class="ui-value"
           label={characterCountLabel}
-        ></opui-character-count>{/if}</span
-    >
+        ></opui-character-count>
+      {/if}
+    </span>
   {/if}
   {@render children?.()}
-</label>
+</div>

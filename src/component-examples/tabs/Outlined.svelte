@@ -3,7 +3,7 @@
 </script>
 
 <Tabs name="outlined-tabs" variant="outlined">
-  <TabsItem checked>
+  <TabsItem defaultChecked>
     <TabsLabel>Profile</TabsLabel>
     <TabsPanel>Profile settings and information.</TabsPanel>
   </TabsItem>

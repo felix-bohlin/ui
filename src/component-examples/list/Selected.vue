@@ -5,11 +5,11 @@ import { List, ListItem } from "opui-css/vue"
 <template>
   <List>
     <ListItem
-      href="#"
       aria-current="page"
-      label="Selected item"
-      description='This item has aria-current="page" on its link'
+      description="12 unread"
+      href="#selected"
+      label="Inbox"
     />
-    <ListItem href="#" label="Normal item" />
+    <ListItem href="#selected" label="Sent" />
   </List>
 </template>

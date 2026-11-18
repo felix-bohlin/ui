@@ -6,8 +6,8 @@ const formats = [{ label: "PDF" }, { label: "PNG" }, { label: "SVG" }]
 
 <template>
   <Button
-    commandfor="menu-submenu-1"
     command="toggle-popover"
+    commandfor="menu-submenu-1"
     variant="outlined"
   >
     File
@@ -15,12 +15,13 @@ const formats = [{ label: "PDF" }, { label: "PNG" }, { label: "SVG" }]
   <Menu id="menu-submenu-1" :items="[{ label: 'New' }, { label: 'Open' }]">
     <ListItem
       as="button"
-      label="Export"
-      commandfor="menu-submenu-2"
       command="toggle-popover"
+      commandfor="menu-submenu-2"
+      label="Export"
     >
       <template #end>
         <svg
+          data-icon="chevron-right"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"

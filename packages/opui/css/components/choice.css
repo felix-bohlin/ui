@@ -19,7 +19,7 @@
     --_on-accent: var(
       --ui-choice-on-accent,
       var(
-        --ui-on-control-accent,
+        --ui-control-on-accent,
         light-dark(var(--ui-on-primary), var(--ui-on-fill))
       )
     );
@@ -36,20 +36,22 @@
     -webkit-user-select: none;
     user-select: none;
 
+    @media print {
+      print-color-adjust: exact;
+    }
+
     &:not(:has(.ui-label, .ui-text)) {
       align-items: center;
-      min-block-size: var(--ui-space-5);
-      min-inline-size: var(--ui-space-5);
+      min-block-size: var(--ui-target-min-size);
+      min-inline-size: var(--ui-target-min-size);
       place-content: center;
       vertical-align: middle;
     }
 
     /* Disabled */
-    &:has([disabled], input[aria-disabled="true"]) {
+    &:has(:disabled, input[aria-disabled="true"]) {
       cursor: not-allowed;
       opacity: var(--ui-disabled-opacity);
-      -webkit-user-select: none;
-      user-select: none;
 
       input {
         cursor: not-allowed;
@@ -57,7 +59,7 @@
     }
 
     /* Required dot */
-    &:has(:required) {
+    &:not(.ui-radio):has(:required) {
       .ui-label::after {
         color: var(--ui-field-required-text-color);
         content: "*";
@@ -95,40 +97,80 @@
     &:where(.ui-checkbox, .ui-radio) {
       --_size: var(--ui-choice-size);
 
-      transform: translateZ(0);
+      isolation: isolate;
 
       &.ui-card input:is([type="checkbox"], [type="radio"])::before {
         content: none;
       }
 
-      /* Hover and active effect */
       input:is([type="checkbox"], [type="radio"]) {
+        --_border-color: var(
+          --ui-choice-border-color,
+          var(--ui-field-border-color)
+        );
+        --_border-width: var(--_rest-border-width);
+        --_mark-bg-color: light-dark(
+          var(--_accent),
+          oklch(
+            from var(--_accent) max(l, var(--ui-text-min-lightness))
+              min(c, var(--ui-text-max-chroma)) h
+          )
+        );
+        --_rest-border-width: var(
+          --ui-choice-border-width,
+          var(--ui-field-border-width)
+        );
         --_ripple-size: 175%;
 
+        appearance: none;
+        aspect-ratio: 1;
+        background-color: var(--ui-surface);
+        block-size: var(--_size);
+        border: var(--_border-width) solid var(--_border-color);
+        cursor: pointer;
+        inline-size: var(--_size);
+        margin: 0;
+        padding: 0;
+        position: relative;
+
+        &:focus-visible {
+          --_border-width: max(
+            var(--_rest-border-width),
+            var(--ui-focus-border-width, 0px)
+          );
+
+          @media (forced-colors: none) {
+            border-color: var(--ui-focus-border-color, var(--_border-color));
+          }
+        }
+
+        @media (forced-colors: active) {
+          --_border-color: CanvasText;
+        }
+
+        /* Hover and active effect */
         &:where(:not(:disabled, [aria-disabled="true"])) {
           @media (hover: hover) {
             &:hover::before {
-              --_thumb-scale: 1;
+              --_ripple-scale: 1;
             }
           }
 
           &:active::before {
-            --_thumb-scale: 1.1;
+            --_ripple-scale: 1.1;
           }
 
           &::before {
-            --_thumb-scale: 0.01;
+            --_ripple-scale: 0.01;
 
             background-color: var(--ui-choice-ripple-bg-color);
             clip-path: circle(50%);
             content: "";
             inset: calc((100% - var(--_ripple-size)) / 2);
             position: absolute;
-            transform: translateZ(-1px) scale(var(--_thumb-scale));
-            transform-origin: center center;
-
-            transition: transform var(--_duration) var(--_ease);
-            will-change: transform;
+            scale: var(--_ripple-scale);
+            transition: scale var(--_duration) var(--_ease);
+            z-index: -1;
           }
         }
       }
@@ -146,6 +188,14 @@
 
       :where(.ui-end-text) {
         color: var(--ui-invalid-text);
+      }
+
+      @media (forced-colors: active) {
+        &.ui-card,
+        input:is([type="checkbox"], [type="radio"]):not([role="switch"]),
+        input[role="switch"]::before {
+          border-style: dashed;
+        }
       }
     }
 
@@ -217,18 +267,17 @@
 
     /* Card */
     &.ui-card {
-      --_checked-bg-color: var(
-        --ui-primary-tonal,
-        oklch(
-          from var(--ui-primary) l c h / var(--ui-state-selected-alpha-accent)
-        )
-      );
       --_hover-bg-color: var(--ui-surface-tonal-hover);
       --_padding: var(--ui-card-padding, var(--ui-space-3));
+      --_selected-bg-color: oklch(
+        from var(--_accent) l c h / var(--ui-state-selected-alpha-accent)
+      );
 
+      display: inline-grid;
       inline-size: 100%;
       overflow: visible;
       padding: var(--_padding);
+      row-gap: 0;
 
       &:not(.ui-spread) {
         column-gap: var(--ui-space-3);
@@ -246,13 +295,13 @@
       }
 
       @media (hover: hover) {
-        &:hover:not(:has(:checked, [disabled], input[aria-disabled="true"])) {
+        &:hover:not(:has(:checked, :disabled, input[aria-disabled="true"])) {
           --_bg-color: var(--_hover-bg-color);
         }
       }
 
       &:has(input:checked) {
-        --_bg-color: var(--_checked-bg-color);
+        --_bg-color: var(--_selected-bg-color);
         --_border-color: var(--_accent);
 
         @media (forced-colors: active) {
@@ -269,6 +318,10 @@
         outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
           var(--ui-focus-ring-color);
         outline-offset: var(--ui-focus-ring-offset);
+
+        @media (forced-colors: none) {
+          border-color: var(--ui-focus-border-color, var(--_border-color));
+        }
       }
 
       input:focus-visible {

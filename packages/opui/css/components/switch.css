@@ -14,11 +14,17 @@
       (var(--_track-block-size) - var(--_thumb-size)) / 2,
       1px
     );
-    --_thumb-outline-size: 0;
+    --_thumb-outline-width: 0;
     --_thumb-size: round(var(--ui-switch-thumb-size), 1px);
     --_track-bg-color: var(
-      --ui-track-bg-color,
-      var(--ui-switch-track-bg-color)
+      --ui-switch-track-bg-color,
+      var(
+        --ui-track-bg-color,
+        light-dark(
+          var(--ui-surface-tonal),
+          oklch(from var(--ui-surface-tonal) 0.58 c h)
+        )
+      )
     );
     --_track-block-size: round(var(--ui-switch-track-block-size), 1px);
     --_track-border-color: var(
@@ -40,7 +46,8 @@
       &::before {
         background-color: var(--_track-bg-color);
         block-size: var(--_track-block-size);
-        border: var(--ui-field-border-width) solid var(--_track-border-color);
+        border: var(--ui-choice-border-width, var(--ui-field-border-width))
+          solid var(--_track-border-color);
         border-radius: var(--ui-radius-round);
         content: "";
         inline-size: var(--_track-inline-size);
@@ -57,22 +64,32 @@
         inline-size: var(--_thumb-size);
         inset-block-start: var(--_thumb-inset);
         inset-inline-start: var(--_thumb-inset);
-        outline: var(--_thumb-outline-size) solid var(--_thumb-bg-color);
+        outline: var(--_thumb-outline-width) solid var(--_thumb-bg-color);
         outline-offset: calc(-1 * var(--ui-border-width));
         position: absolute;
       }
 
+      &:focus-visible::before {
+        @media (forced-colors: none) {
+          border-color: var(
+            --ui-focus-border-color,
+            var(--_track-border-color)
+          );
+        }
+      }
+
       /* Checked */
       &:checked {
+        --_track-border-color: var(--_accent);
+
         &::before {
           background-color: var(--_accent);
-          border-color: var(--_accent);
         }
 
         /* Dot */
         &::after {
           --_thumb-bg-color: var(--_on-accent);
-          --_thumb-outline-size: calc(
+          --_thumb-outline-width: calc(
             var(--_thumb-inset) - var(--ui-border-width)
           );
 
@@ -83,7 +100,7 @@
       }
 
       &:active::after {
-        --_thumb-outline-size: calc(
+        --_thumb-outline-width: calc(
           var(--_thumb-inset) + var(--ui-border-width)
         );
       }
@@ -154,22 +171,14 @@
 
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
-      input {
-        box-shadow: 0 0 0 var(--ui-focus-ring-width) var(--ui-invalid);
-      }
-
-      input:focus-visible {
-        outline-offset: calc(
-          var(--ui-focus-ring-offset) + var(--ui-focus-ring-width)
-        );
-      }
+      --_track-border-color: var(--ui-invalid);
     }
 
     @media (forced-colors: active) {
       --_thumb-bg-color: CanvasText;
       --_track-bg-color: Canvas;
 
-      &:has([disabled], input[aria-disabled="true"]) {
+      &:has(:disabled, input[aria-disabled="true"]) {
         --_thumb-bg-color: GrayText;
       }
 

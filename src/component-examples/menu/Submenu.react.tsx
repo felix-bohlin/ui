@@ -6,8 +6,8 @@ export default function Submenu() {
   return (
     <>
       <Button
-        commandfor="menu-submenu-1"
         command="toggle-popover"
+        commandfor="menu-submenu-1"
         variant="outlined"
       >
         File
@@ -15,11 +15,11 @@ export default function Submenu() {
       <Menu id="menu-submenu-1" items={[{ label: "New" }, { label: "Open" }]}>
         <ListItem
           as="button"
-          label="Export"
-          commandfor="menu-submenu-2"
           command="toggle-popover"
+          commandfor="menu-submenu-2"
           end={
             <svg
+              data-icon="chevron-right"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -32,6 +32,7 @@ export default function Submenu() {
               ></path>
             </svg>
           }
+          label="Export"
           submenu={
             <Menu id="menu-submenu-2" items={formats} side="inline-end" />
           }

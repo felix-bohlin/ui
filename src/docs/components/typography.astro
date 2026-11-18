@@ -20,9 +20,15 @@ import LinkCSS from "@opui/css/components/link.css?raw"
 import TypographyCSS from "@opui/css/components/typography.css?raw"
 
 import typographyApi from "../../component-api/typography/api"
+
+export const description =
+  "Text styles: classes on single elements, or .ui-rich-text around content."
+
+export const keywords = ["font", "heading", "prose", "text"]
 ---
 
 <Component
+  description={description}
   slug="typography"
   browserSupport={[
     "attr",
@@ -30,26 +36,25 @@ import typographyApi from "../../component-api/typography/api"
     "container-style-queries",
     "exp-functions",
     "has",
+    "if",
+    "lh",
     "light-dark",
-    "marker",
-    "progress-function",
+    "logical-properties",
     "registered-custom-properties",
     "relative-color",
     "round-mod-rem",
     "scope",
-    "scrollbar-width",
     "text-wrap-pretty",
   ]}
+  fallbacks={{
+    attr: "Without typed `attr()`, an ordered list in rich text with a `start` indents for four-digit numbers.",
+    "box-decoration-break":
+      "Without `box-decoration-break`, a highlight that wraps keeps its padding and rounded corners only at its start and end.",
+    if: "Without `if()`, the compat layer still dims the subtitle of a heading group, and keeps it at full strength with more contrast.",
+    "text-wrap-pretty":
+      "Without `text-wrap: pretty`, the last line of a paragraph, heading or caption can hold a single word.",
+  }}
   apis={[{ title: "Typography API", api: typographyApi }]}
-  changelogPaths={[
-    { path: "src/docs/components/typography.astro", type: "docs" },
-    { path: "src/component-examples/typography", type: "docs" },
-    {
-      path: "packages/opui/css/components/typography.css",
-      type: "css",
-    },
-    { path: "src/component-api/typography", type: "api" },
-  ]}
   installationTabs={[
     { title: "typography.css", code: TypographyCSS, lang: "css" },
     { title: "link.css", code: LinkCSS, lang: "css" },
@@ -57,94 +62,67 @@ import typographyApi from "../../component-api/typography/api"
 >
   <Fragment slot="title">Typography</Fragment>
   <Fragment slot="preamble">
-    Styles for headings, body text, and other text content. Use util classes
-    anywhere or wrap content in <code>.ui-rich-text</code>.
+    Text styles: classes on single elements, or <code>.ui-rich-text</code>
+    around content.
   </Fragment>
 
   <Usage slot="usage">
     <li slot="when">
-      Text that you can't add classes to, like rich text from a CMS, in <a
-        href="#classless"><code>.ui-rich-text</code></a
-      >.
+      Text you can't add classes to, like CMS content:
+      <a href="#classless"><code>.ui-rich-text</code></a>.
     </li>
     <li slot="when">
-      Text styles on elements in your own markup, with the <a
-        href="#class-based">classes</a
-      >, like <code>.ui-link</code>.
+      Elements in your own markup: the <a href="#class-based">classes</a>.
     </li>
     <li slot="when-not">
-      Picking a heading level for its size. Use the level the outline needs, and
-      a class like <code>.ui-h4</code> for the size.
+      Heading size: pick the level the outline needs, and a class like
+      <code>.ui-h4</code> for the size.
     </li>
     <li slot="when-not">
-      Spacing components. Rich text spaces text elements, so lay out components
-      with the <DocLink href="/components/layout">Layout</DocLink> classes.
+      Spacing components: use the
+      <DocLink href="/components/layout">Layout</DocLink> classes.
     </li>
   </Usage>
 
   <section id="class-based">
     <h2>Class-based</h2>
-    <p>Utils that you can plop down wherever.</p>
 
     <h3 id="variants">Variants</h3>
     <AutoExample name="Variants" column />
 
     <h3 id="heading-group">Heading group</h3>
+    <p>
+      One heading, with a <code>p</code> before it for an overline and after it
+      for a subtitle.
+    </p>
     <AutoExample name="HeadingGroupClass" column />
 
     <h3 id="blockquote">Blockquote</h3>
     <AutoExample name="Blockquote" />
 
     <h3 id="link">Link</h3>
-    <p>
-      Use <code>.ui-link</code> for links outside <code>.ui-rich-text</code>.
-      Inside rich text, links get the same style without a class. On hover and
-      focus the underline gets thicker, and the color darkens in light mode and
-      lightens in dark mode.
-    </p>
+    <p>Use <code>.ui-link</code> outside <code>.ui-rich-text</code>.</p>
     <AutoExample name="Link" />
 
     <h3 id="code-block">Code block</h3>
     <AutoExample name="CodeBlock" column />
 
     <h3 id="icon">Icon</h3>
-    <p>
-      <code>.ui-icon</code> sizes an <code>svg</code> to <code
-        >--ui-icon-size</code
-      >
-      and keeps it from shrinking next to text. <code>.ui-small</code> and <code
-        >.ui-large</code
-      > read <code>--ui-icon-size-small</code> and <code
-        >--ui-icon-size-large</code
-      >. Components size the icons they own, so the class is for icons in your
-      own markup.
-    </p>
+    <p>Use <code>.ui-icon</code> on an <code>svg</code> in your own markup.</p>
     <AutoExample name="Icon" />
 
     <h3 id="swatch">Swatch</h3>
     <p>
-      <code>.ui-swatch</code> is a small dot for a color legend. A severity class
-      on it, such as <code>.ui-info</code>, paints it in that tone, and <code
-        >--_swatch-bg-color</code
-      > takes any other color. A status with a name is a <code>Chip</code> with a
-      dot instead.
+      Use a severity class, or <code>--_swatch-bg-color</code> for any color.
     </p>
     <AutoExample name="Swatch" />
 
     <h3 id="severity">Severity</h3>
-    <p>
-      The same severity class on <code>.ui-p</code>, <code>.ui-caption</code> or <code
-        >.ui-overline</code
-      > colors the text in that tone, for a change next to a stat or a "Verified"
-      next to an email. The tone alone carries no meaning, so say it in words too.
-    </p>
+    <p>Add a severity class, like <code>.ui-success</code>, to text.</p>
     <AutoExample name="Severity" />
 
     <h3 id="tabular-numbers">Tabular numbers</h3>
-    <p>
-      <code>.ui-tabular-nums</code> gives every digit the same width, so prices and
-      stats line up in a column and a counter doesn't shift as it ticks.
-    </p>
+    <p>Use <code>.ui-tabular-nums</code> for numbers that line up.</p>
     <AutoExample name="TabularNumbers" />
   </section>
 
@@ -167,7 +145,8 @@ import typographyApi from "../../component-api/typography/api"
           </TableRow>
           <TableRow>
             <TableCell
-              ><abbr class="ui-abbr" title="Abbreviation">Abbr.</abbr
+              ><abbr class="ui-abbr" title="Abbreviation"
+                >Abbr.</abbr
               ></TableCell
             >
             <TableCell><code>&lt;abbr&gt;</code></TableCell>
@@ -262,14 +241,19 @@ import typographyApi from "../../component-api/typography/api"
   <section id="classless">
     <h2>Classless</h2>
     <p>
-      Wrap your code in <code>.ui-rich-text</code> to add typographic styles to its
-      children. It's extra handy when you can't control the contents yourself, like
-      printing text from a CMS.
+      Wrap content in <code>.ui-rich-text</code>. Use
+      <code>.ui-not-rich-text</code> to opt a part out.
     </p>
     <p>
-      Headings, lists and tables with a class keep their own styles, and
-      components look the same inside rich text as outside it. Wrap a part in
-      {" "}<code>.ui-not-rich-text</code> to end the rich text styles there.
+      Paragraphs, lists, blockquotes and tables are spaced by
+      <code>--ui-rich-text-flow-gap</code>, <code>1.25em</code> until a theme
+      sets it, rounded to <code>--ui-rhythm-step</code>. Headings, code blocks
+      and figures take multiples of it, with more room above headings than
+      below. A theme can space headings with
+      <code>--ui-rich-text-heading-margin-block-start</code> and
+      <code>--ui-rich-text-heading-margin-block-end</code>, where
+      <code>em</code> is the heading's own font size, and loosen prose with
+      <code>--ui-rich-text-line-height</code>.
     </p>
     <Code
       lang="html"
@@ -277,13 +261,27 @@ import typographyApi from "../../component-api/typography/api"
     />
 
     <h3 id="rich-text-showcase">Classless showcase</h3>
-    <p>
-      Let's put everything together and see how all elements look in a
-      classless, rich-text context. It's plain HTML on every framework page, the
-      way rich text arrives from a CMS.
-    </p>
     <AutoExample name="Default" />
   </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Hide a decorative <a href="#icon"><code>svg.ui-icon</code></a> with
+        <code>aria-hidden="true"</code>.
+      </li>
+      <li>
+        A <a href="#swatch"><code>.ui-swatch</code></a> has no text: a screen
+        reader only gets the words next to it.
+      </li>
+      <li>
+        Give a <a href="#code-block">code block</a> that scrolls sideways
+        <code>tabindex="0"</code>, <code>role="region"</code> and a unique
+        <code>aria-label</code>, so a keyboard can scroll it.
+      </li>
+    </ul>
+  </Fragment>
+
   <Fragment slot="under-the-hood">
     <RhythmBuild />
     <FluidTypeBuild />

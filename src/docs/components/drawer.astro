@@ -1,5 +1,6 @@
 ---
 import Component from "../../layouts/Component.astro"
+import DefaultIcon from "./partials/DefaultIcon.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
 import DocLink from "../../components/DocLink.astro"
@@ -11,30 +12,31 @@ import {
   DrawerFooter as UIDrawerFooter,
   DrawerHeader as UIDrawerHeader,
   DrawerTitle as UIDrawerTitle,
-  Switch,
-  Table,
-  TableBody,
   TableCell,
-  TableColumn,
-  TableColumnGroup,
-  TableHead,
-  TableHeaderCell,
   TableRow,
 } from "opui-css/astro"
 
 import DrawerCSS from "@opui/css/components/drawer.css?raw"
+import CardCSS from "@opui/css/components/card.css?raw"
 import drawerApi from "../../component-api/drawer/api"
 import drawerFooterApi from "../../component-api/drawer-footer/api"
 import drawerHeaderApi from "../../component-api/drawer-header/api"
 import DrawerBuild from "../../components/UnderTheHood/DrawerBuild.astro"
 
+import BlockLink from "../../components/BlockLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import ClosedbyTable from "../../components/ClosedbyTable.astro"
 import Conditional from "../../components/Conditional.astro"
-import PropOrClass from "../../components/PropOrClass.astro"
+import DocsTable from "../../components/DocsTable.astro"
+
+export const description =
+  "A panel that slides in from an edge of the screen, for navigation, filters or side content."
+
+export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
 ---
 
 <Component
+  description={description}
   heroAnatomy
   slug="drawer"
   browserSupport={[
@@ -46,6 +48,7 @@ import PropOrClass from "../../components/PropOrClass.astro"
     "display-animation",
     "has",
     "invoker-commands",
+    "logical-properties",
     "overflow-clip",
     "overlay",
     "round-mod-rem",
@@ -53,50 +56,52 @@ import PropOrClass from "../../components/PropOrClass.astro"
     "starting-style",
     "transition-behavior",
   ]}
+  fallbacks={{
+    "container-scroll-state-queries":
+      "Without scroll-state queries, long content scrolls without the shadows that mark more content above or below.",
+    "dialog-closedby":
+      "Without `closedby`, a modal drawer closes with Esc whatever the value, and a click outside doesn't close it. The [polyfill](/guide/browser-support#polyfills) adds it.",
+    "display-animation":
+      "Without display animation, the drawer disappears at once instead of sliding out.",
+    overlay:
+      "Without `overlay`, the backdrop disappears as soon as the drawer starts to close, and the page can cover the drawer while it slides out.",
+  }}
   apis={[
     { title: "Drawer API", api: drawerApi },
     { title: "Drawer header API", api: drawerHeaderApi },
     { title: "Drawer footer API", api: drawerFooterApi },
   ]}
-  changelogPaths={[
-    {
-      path: "packages/opui/components/Drawer",
-      type: "component",
-    },
-    { path: "src/docs/components/drawer.astro", type: "docs" },
-    { path: "src/component-examples/drawer", type: "docs" },
-    {
-      path: "packages/opui/css/components/drawer.css",
-      type: "css",
-    },
-    { path: "src/component-api/drawer", type: "api" },
+  installationTabs={[
+    { title: "drawer.css", code: DrawerCSS, lang: "css" },
+    { title: "card.css", code: CardCSS, lang: "css", isDependency: true },
   ]}
-  installationTabs={[{ title: "drawer.css", code: DrawerCSS, lang: "css" }]}
 >
   <Fragment slot="title">Drawer</Fragment>
   <Fragment slot="preamble">
-    Slides in from the sides, top or bottom of the screen. Good for navigation,
-    filters and side content. For a question or a short task that needs the
-    user's full attention, use a <DocLink href="/components/dialog"
-      >Dialog</DocLink
-    >.
+    Navigation, filters or side content that slides in from an edge of the
+    screen. For a task that needs full attention, use a
+    <DocLink href="/components/dialog">Dialog</DocLink>.
   </Fragment>
 
   <Usage slot="usage">
-    <li slot="when">Navigation, especially on small screens.</li>
-    <li slot="when">Filters or settings for the content on the page.</li>
     <li slot="when">
-      The details of an item, like a preview, without leaving the list.
+      Navigation on small screens, like an <a href="#basics">app menu</a>.
+    </li>
+    <li slot="when">
+      Filters or settings for the page, like <a href="#basics">filters</a> for a
+      list.
+    </li>
+    <li slot="when">
+      Item details without leaving the list, like a <a href="#basics">task</a>.
     </li>
     <li slot="when-not">
-      A question or a short task that needs the user's full attention. Use a <DocLink
-        href="/components/dialog">Dialog</DocLink
-      >.
+      A task that needs full attention: use a
+      <DocLink href="/components/dialog">Dialog</DocLink>.
     </li>
     <li slot="when-not">
-      Content that people use together with the page. The drawer opens as a
-      modal and makes the page behind it inert, so put that content in the page,
-      like a sidebar.
+      Content used together with the page, like filters beside the results: use
+      a sticky column with the
+      <DocLink href="/components/layout#sticky">Layout</DocLink> classes.
     </li>
   </Usage>
 
@@ -105,94 +110,127 @@ import PropOrClass from "../../components/PropOrClass.astro"
     <Conditional as="div">
       <Fragment slot="components">
         <p>
-          Change the opening side with the <code>side</code> prop. The default is
-          <code>inline-start</code>.
+          Opens from <code>inline-start</code> by default. Use <code>side</code>
+          to change it.
         </p>
         <p>
-          Build it from <code>DrawerHeader</code>, <code>DrawerContent</code> and
-          <code>DrawerFooter</code>. The <code>DrawerHeader</code> adds a close button.
-          Put a <code>DrawerTitle</code> in it for the heading, which names the drawer,
-          and more buttons before the close button, which line up at the end. The
-          title is <code>--ui-font-size-h4</code>, like the Dialog title; set <code
-            >--_title-font-size</code
-          > on the drawer to change it. Give the drawer an <code>id</code>,
-          which the trigger's <code>commandfor</code> points at.
-        </p>
-        <p>
-          The header and the footer stay put while the content scrolls, with a
-          shadow on the scrolled edge. The content is a stack with <code
-            >--ui-space-3</code
-          > between its children, like a Dialog's, unless it has inline children such
-          as links. The footer is a row for buttons, text or anything else. Its content
-          lines up at the end, and <code>align="start"</code> on <code
-            >DrawerFooter</code
-          > moves it to the start. Wrap the buttons in <code>.ui-actions</code> to
-          keep them together at the end when other content comes first.
-        </p>
-        <p>
-          The backdrop dims and blurs the page by default. Use <code
-            >backdrop="transparent"</code
-          > to keep the page behind it fully visible.
-        </p>
-        <p>
-          Set <code>scrollLock</code> to lock page scrolling while the drawer is open.
-          With a transparent backdrop the page stays scrollable, except on screens
-          narrower than 500px.
+          The page behind a modal drawer doesn't scroll. Use
+          <code>backdrop="transparent"</code> to keep it in view and, on screens
+          <code>31.25rem</code> and wider, scrollable.
         </p>
       </Fragment>
       <Fragment slot="html">
         <p>
-          A drawer opens from the inline start by default. Change the side with
-          the <code>.ui-inline-end</code>, <code>.ui-block-start</code> and <code
-            >.ui-block-end</code
-          > classes.
+          Opens from the inline start by default. Use <code>.ui-inline-end</code
+          >, <code>.ui-block-start</code> or <code>.ui-block-end</code> to
+          change it.
         </p>
         <p>
-          Put the heading and more buttons before the close button in <code
-            >.ui-header</code
-          >; the buttons line up at the end. The heading is <code
-            >--ui-font-size-h4</code
-          >, like the Dialog title; set <code>--_title-font-size</code> on the drawer
-          to change it.
-        </p>
-        <p>
-          <code>.ui-header</code> and <code>.ui-footer</code> stay put while <code
-            >.ui-content</code
-          > scrolls, with a shadow on the scrolled edge. The content is a stack with
-          <code>--ui-space-3</code> between its children, like a Dialog's, unless
-          it has inline children such as links. The footer is a row for buttons, text
-          or anything else. Its content lines up at the end, and <code
-            >.ui-align-start</code
-          > moves it to the start. Wrap the buttons in <code>.ui-actions</code> to
-          keep them together at the end when other content comes first.
-        </p>
-        <p>
-          The backdrop dims and blurs the page by default. Use the <code
-            >.ui-backdrop-transparent</code
-          > class to keep the page behind it fully visible.
-        </p>
-        <p>
-          Add the <code>.ui-scroll-lock</code> utility class to the drawer to lock
-          page scrolling while it's open. With <code
-            >.ui-backdrop-transparent</code
-          >
-          the page stays scrollable, except on screens narrower than 500px. Omit the
-          class to allow background scrolling.
+          The page behind a modal drawer doesn't scroll. Use
+          <code>.ui-backdrop-transparent</code> to keep it in view and, on
+          screens <code>31.25rem</code> and wider, scrollable.
         </p>
       </Fragment>
     </Conditional>
-    <AutoExample name="Basics" column>
-      <Switch
-        slot="controls"
-        data-toggle-class="ui-backdrop-transparent"
-        data-toggle-target="dialog.ui-drawer"
+    <p>
+      Content with only text needs <code>tabindex="0"</code>,
+      <code>role="region"</code> and an <code>aria-label</code> to scroll by
+      keyboard in Safari.
+    </p>
+    <AutoExample name="Basics" column />
+
+    <BlockLink slug="app-shell">
+      On narrow screens the sidebar navigation moves into a drawer that the menu
+      button in the header opens.
+    </BlockLink>
+  </section>
+
+  <section id="navigation">
+    <h2>Navigation</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        A drawer used as navigation, like the menu in
+        <a href="#basics">Basics</a>, closes when the page navigates with
+        <code>closeOnNavigate</code>: a link inside it, Back and Forward, or a
+        client router in SvelteKit, Next or Nuxt. Otherwise the new page loads
+        behind a modal drawer, inert, and screen readers miss the change.
+      </Fragment>
+      <Fragment slot="html">
+        A drawer used as navigation, like the menu in
+        <a href="#basics">Basics</a>, closes when the page navigates with
+        <code>data-close-on-navigate</code> and
+        <code>opui-css/elements/close-on-navigate.js</code>: a link inside it,
+        Back and Forward, or a client router.
+      </Fragment>
+    </Conditional>
+  </section>
+
+  <section id="non-modal">
+    <h2>Non-modal</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Open it with <code>show()</code> from a script to keep the page usable.
+        Set <code>scrollLock</code> to keep the page from scrolling.
+      </Fragment>
+      <Fragment slot="html">
+        Open it with <code>show()</code> from a script to keep the page usable.
+        Add <code>.ui-scroll-lock</code> to keep the page from scrolling.
+      </Fragment>
+    </Conditional>
+    <p>
+      A drawer opened with <code>show()</code> isn't in the top layer, so give
+      it a <code>z-index</code> above the page's sticky headers.
+    </p>
+
+    <AutoExample name="NonModal" row />
+  </section>
+
+  <section id="close-button">
+    <h2>Close button</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>closeButton</code> on <code>DrawerHeader</code> to add it. It
+        says "Close" unless you translate it with <code>closeLabel</code>, like
+        the other
+        <DocLink href="/guide/accessibility#built-in-labels"
+          >built-in labels</DocLink
+        >.
+      </Fragment>
+      <Fragment slot="html">
+        Translate its <code>aria-label</code>, like the other
+        <DocLink href="/guide/accessibility#built-in-labels"
+          >built-in labels</DocLink
+        >.
+      </Fragment>
+    </Conditional>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The button closes the <code>Drawer</code> it is in. A header outside a
+        <code>Drawer</code>, in a <code>&lt;dialog&gt;</code> of your own or in
+        an island on an Astro page, can't find the drawer to close: set
+        <code>commandfor</code> to its <code>id</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Point its <code>commandfor</code> at the drawer's <code>id</code>.
+      </Fragment>
+    </Conditional>
+    <DefaultIcon slots={["close-icon"]} tokens={["--ui-icon-close"]} />
+
+    <AutoExample name="CloseButton" row />
+  </section>
+
+  <section id="safe-areas">
+    <h2>Safe areas</h2>
+    <p>
+      With <code>viewport-fit=cover</code> in the viewport meta tag, a phone
+      draws the page under its notch and home indicator. Each side of a drawer
+      that touches the screen edge pads its content clear of them, by the
+      <DocLink href="/guide/theme-tokens#safe-areas"
+        ><code>--ui-safe-area-inset-*</code></DocLink
       >
-        <PropOrClass
-          prop='backdrop="transparent"'
-          class=".ui-backdrop-transparent"
-        />
-      </Switch>
-    </AutoExample>
+      tokens, and its background runs under them. Without
+      <code>viewport-fit=cover</code> they are <code>0px</code>.
+    </p>
   </section>
 
   <section id="how-to-close">
@@ -200,6 +238,19 @@ import PropOrClass from "../../components/PropOrClass.astro"
     <ClosedbyTable componentDefault="any" name="drawer" />
 
     <AutoExample name="CloseBehaviors" row />
+
+    <h3 id="swipe-to-close">Swipe to close</h3>
+    <p>
+      On a touch screen, a drawer at the block start or end has a grab handle.
+      Drag the handle or the header toward the edge, past a quarter of the
+      drawer or with a flick, and the drawer closes. Let go sooner and it
+      settles back. The content scrolls as usual and never moves the drawer.
+    </p>
+    <p>
+      The swipe is a close request, like <kbd>Esc</kbd>: with
+      <code>closedby="none"</code> there's no handle and no swipe, and a
+      <code>cancel</code> listener can keep the drawer open.
+    </p>
   </section>
 
   <Fragment slot="anatomy">
@@ -210,7 +261,7 @@ import PropOrClass from "../../components/PropOrClass.astro"
         open
         style="block-size: auto; inline-size: 18rem; position: static"
       >
-        <UIDrawerHeader>
+        <UIDrawerHeader closeButton>
           <UIDrawerTitle>Filters</UIDrawerTitle>
         </UIDrawerHeader>
         <UIDrawerContent>
@@ -227,76 +278,60 @@ import PropOrClass from "../../components/PropOrClass.astro"
   <DrawerBuild slot="under-the-hood" />
 
   <Fragment slot="accessibility">
+    <h3 id="role-attributes">Role & attributes</h3>
+    <p>
+      The <code>&lt;dialog&gt;</code> element has the dialog role, and opening
+      it with <code>command="show-modal"</code> (or <code>showModal()</code>)
+      makes it modal and the page behind it inert.
+    </p>
+    <DocsTable
+      columns={[{ label: "Role/attribute", width: "30%" }, { label: "Usage" }]}
+    >
+      <TableRow>
+        <TableCell><code>aria-labelledby="IDREF"</code></TableCell>
+        <TableCell>
+          Gives the drawer an accessible name by referring to the element that
+          provides the drawer title.
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell><code>aria-describedby="IDREF"</code></TableCell>
+        <TableCell>
+          Optional. Gives the drawer an accessible description by referring to
+          the drawer content that describes the primary message or purpose of
+          the drawer.
+        </TableCell>
+      </TableRow>
+    </DocsTable>
+
     <ul>
       <li>
         <Conditional>
           <Fragment slot="components"
-            >The <code>DrawerTitle</code> names the drawer through <code
-              >aria-labelledby</code
-            >. A drawer without one needs an <code>aria-label</code>. Pass <code
-              >aria-labelledby</code
-            > to name it after another element.</Fragment
+            >Without a <code>DrawerTitle</code>, add an <code>aria-label</code
+            >.</Fragment
           >
           <Fragment slot="html"
-            >Name the drawer with <code>aria-labelledby</code> pointing at the heading's
-            <code>id</code>, not at <code>.ui-header</code>, which also holds
-            the close button.</Fragment
+            >Point <code>aria-labelledby</code> at the heading, not
+            <code>.ui-header</code>.</Fragment
           >
         </Conditional>
       </li>
       <li>
-        The <code>autofocus</code> attribute should be added to the element the user
-        is expected to interact with immediately upon opening a modal dialog. If no
-        other element involves more immediate interaction, it is recommended to add
-        autofocus to the close button inside the dialog, or the dialog itself if the
-        user is expected to click/activate it to dismiss.
+        Put <code>autofocus</code> on the first thing to interact with, or the
+        close button.
       </li>
     </ul>
 
     <p>
-      Source: <a
+      Source:
+      <a
         class="ui-link"
         target="_blank"
         href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog"
         >MDN</a
       >
     </p>
-
-    <h3 id="role-attributes">Role & attributes</h3>
-    <p>
-      The <code>&lt;dialog&gt;</code> element has the dialog role, and opening it
-      with <code>command="show-modal"</code> (or <code>showModal()</code>) makes
-      it modal and the page behind it inert.
-    </p>
-    <Table style="table-layout: fixed">
-      <TableColumnGroup>
-        <TableColumn width="30%" />
-        <TableColumn />
-      </TableColumnGroup>
-      <TableHead>
-        <TableRow>
-          <TableHeaderCell>Role/attribute</TableHeaderCell>
-          <TableHeaderCell>Usage</TableHeaderCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        <TableRow>
-          <TableCell><code>aria-labelledby="IDREF"</code></TableCell>
-          <TableCell>
-            Gives the drawer an accessible name by referring to the element that
-            provides the drawer title.
-          </TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell><code>aria-describedby="IDREF"</code></TableCell>
-          <TableCell>
-            Optional. Gives the drawer an accessible description by referring to
-            the drawer content that describes the primary message or purpose of
-            the drawer.
-          </TableCell>
-        </TableRow>
-      </TableBody>
-    </Table>
 
     <KeyboardSupport />
   </Fragment>

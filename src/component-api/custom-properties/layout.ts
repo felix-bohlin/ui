@@ -1,9 +1,19 @@
 import type { CustomProperties } from "../types"
 
 export default {
+  "--_auto-repeat": {
+    description:
+      "How `.ui-layout-grid` repeats its columns: `auto-fill`, which keeps the empty tracks of a short last row, or `auto-fit` with `.ui-stretch`, which collapses them so the items stretch across the row.",
+    kind: "output",
+  },
   "--_columns": {
     description:
       "The `grid-template-columns` of `.ui-layout-columns` from its breakpoint on, such as `3fr 2fr` or `15rem 1fr`. Defaults to `1fr 1fr`.",
+    kind: "input",
+  },
+  "--_divider-border-color": {
+    description:
+      "Color of the lines `.ui-bordered` draws between the children. Defaults to `--ui-border-color`.",
     kind: "input",
   },
   "--_gap": {

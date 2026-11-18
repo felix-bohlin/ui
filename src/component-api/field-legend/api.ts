@@ -10,6 +10,13 @@ export default {
         'The element to render. Adds `.ui-legend` when not `"legend"`.',
       prop: "as",
     },
+    {
+      description:
+        "The id of the legend. Inside a `Fieldset` rendered with `as`, the legend takes the fieldset's generated id instead, unless the fieldset has `aria-label` or `aria-labelledby`.",
+      inherited: true,
+      prop: "id",
+      type: "string",
+    },
   ],
   page: "form",
   parts: [],

@@ -1,14 +1,29 @@
-import type { ElementType } from "react"
+"use client"
+
 import { cx } from "../cx"
+import { useFieldsetContext } from "../Fieldset/context.react"
+import { warnReplacedId } from "../dev"
 import type { Props } from "./types.react"
 
-export default function FieldLegend({ as, className, ...rest }: Props) {
-  const Tag: ElementType = as || "legend"
+export default function FieldLegend({
+  as,
+  className,
+  id,
+  children,
+  ...rest
+}: Props) {
+  const fieldset = useFieldsetContext()
+  const Tag = as || "legend"
+  const isLegend = Tag === "legend"
+  warnReplacedId("FieldLegend", "Fieldset", id, fieldset?.legendId)
 
   return (
     <Tag
-      className={cx([{ "ui-legend": Tag !== "legend" }, className])}
+      className={cx([{ "ui-legend": !isLegend }, className])}
       {...(rest as object)}
-    />
+      id={fieldset?.legendId ?? id}
+    >
+      {children}
+    </Tag>
   )
 }

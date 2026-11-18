@@ -1,3 +1,4 @@
+import { probeColors } from "./color-probe"
 import type { Theme } from "./theme"
 import { contrastRatio } from "./theme-brand"
 import {
@@ -6,13 +7,13 @@ import {
   themeTokenPromises,
 } from "./theme-token-promises"
 
-export type Scheme = "dark" | "light"
+type Scheme = "dark" | "light"
 
-export type ContrastMode = { contrast?: "more"; scheme: Scheme }
+type ContrastMode = { contrast?: "more"; scheme: Scheme }
 
 export type Rgba = [number, number, number, number]
 
-export type ContrastPair = {
+type ContrastPair = {
   against: string
   bg: string
   fg: string
@@ -50,13 +51,17 @@ export const CONTRAST_LABELS: Record<string, string> = {
   "--ui-field-helper-text-color": "Field help text",
   "--ui-field-label-text-color": "Field label",
   "--ui-field-required-text-color": "Required field marker",
+  "--ui-focus-border-color": "Focus border, or the page",
+  "--ui-focus-highlight": "Focus highlight",
   "--ui-focus-ring-color": "Focus ring",
   "--ui-info": "Info fill",
   "--ui-info-text": "Info text",
   "--ui-invalid-text": "Invalid field message",
+  "--ui-link-visited-text-color": "Visited link",
   "--ui-neutral": "Neutral fill",
   "--ui-neutral-text": "Neutral text",
   "--ui-on-fill": "Text on status fills",
+  "--ui-on-focus-highlight": "Text on the focus highlight",
   "--ui-on-inverse": "Text on inverse surface",
   "--ui-on-primary": "Text on brand fill",
   "--ui-on-selected-strong": "Text on selected fill",
@@ -206,45 +211,34 @@ export const evaluatePair = (
   }
 }
 
-export const resolveColors = (
+const resolveColors = (
   root: Element,
   sets: { colors: string[]; unset?: string[] }[],
   modes: ContrastMode[],
 ) => {
-  const document = root.ownerDocument
-  const hosts = sets.map(({ colors, unset = [] }) =>
-    modes.map(({ contrast, scheme }) => {
-      const host = document.createElement("div")
-      host.className = `ui-${scheme}${contrast === "more" ? " ui-contrast-more" : ""}${unset.length > 0 ? " ui-palette" : ""}`
-      host.hidden = true
-      host.style.color = "transparent"
-      host.style.setProperty("forced-color-adjust", "none")
-      for (const name of unset) host.style.setProperty(name, "initial")
-      host.append(
-        ...colors.map((color) => {
-          const probe = document.createElement("div")
-          probe.style.color = `color(from ${color} srgb r g b / alpha)`
-          return probe
-        }),
-      )
-      return host
-    }),
+  const values = probeColors(
+    root,
+    sets.flatMap(({ colors, unset = [] }) =>
+      modes.map(({ contrast, scheme }) => ({
+        className: `ui-${scheme}${contrast === "more" ? " ui-contrast-more" : ""}${unset.length > 0 ? " ui-palette" : ""}`,
+        colors: colors.map(
+          (color) => `color(from ${color} srgb r g b / alpha)`,
+        ),
+        unset,
+      })),
+    ),
   )
-  root.append(...hosts.flat())
-  const view = document.defaultView!
-  const resolved = hosts.map((row, set) =>
-    row.map(
-      (host) =>
+  return sets.map(({ colors }, set) =>
+    modes.map(
+      (_, mode) =>
         new Map(
-          sets[set].colors.map((color, index) => [
+          colors.map((color, index) => [
             color,
-            parseSrgb(view.getComputedStyle(host.children[index]).color),
+            parseSrgb(values[set * modes.length + mode][index]),
           ]),
         ),
     ),
   )
-  for (const host of hosts.flat()) host.remove()
-  return resolved
 }
 
 export const checkPromises = (

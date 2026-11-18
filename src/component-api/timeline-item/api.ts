@@ -19,7 +19,7 @@ export default {
       attribute: "[aria-current]",
       default: "false",
       description:
-        'Marks the current item, which fills its marker with the primary color and a halo. `true` renders `aria-current="true"`, and `"step"`, `"date"` or `"time"` that value.',
+        'Marks the current item, which fills its marker with `--ui-selected-strong` and a halo. `true` renders `aria-current="true"`, and `step`, `date` or `time` that value.',
       group: "Current",
       prop: "current",
     },
@@ -38,8 +38,7 @@ export default {
       prop: "headingLevel",
     },
     {
-      description:
-        "The title of the event, rendered as a heading. Rich content goes in the `label` slot.",
+      description: "The title of the event, rendered as a heading.",
       group: "Label",
       prop: "label",
     },
@@ -53,16 +52,16 @@ export default {
   page: "timeline",
   parts: [
     {
-      description:
-        "Replaces the dot with an icon. It follows the item's color and the current state.",
-      selector: ".ui-marker",
-      slots: ["marker"],
-    },
-    {
       code: "<time>",
       description: "The date, in its own column.",
       props: ["datetime", "time"],
       selector: "time",
+    },
+    {
+      description:
+        "Replaces the dot with an icon. It follows the item's color and the current state.",
+      selector: ".ui-marker",
+      slots: ["marker"],
     },
     {
       code: "<h3>",

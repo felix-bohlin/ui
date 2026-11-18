@@ -13,32 +13,25 @@ const columns = [
 
 <form class="validity-compare">
   <div class="validity-compare-columns">
-    {
-      columns.map((column) => (
-        <div class="validity-compare-column" data-mode={column.mode}>
-          <p
-            aria-atomic="true"
-            aria-live="polite"
-            class="validity-compare-title"
-          >
-            <code>{column.selector}</code>
-            <span class="validity-compare-status" data-match="true">
-              matches
-            </span>
-            <span class="validity-compare-status" data-match="false">
-              doesn't match
-            </span>
-          </p>
-          <TextField
-            endText="Enter an email address."
-            label={column.label}
-            placeholder="name@example.com"
-            required
-            type="email"
-          />
-        </div>
-      ))
-    }
+    {columns.map((column) => <div
+      class="validity-compare-column"
+      data-mode={column.mode}
+    >
+      <p aria-atomic="true" aria-live="polite" class="validity-compare-title">
+        <code>{column.selector}</code>
+        <span class="validity-compare-status" data-match="true"> matches </span>
+        <span class="validity-compare-status" data-match="false">
+          doesn't match
+        </span>
+      </p>
+      <TextField
+        endText="Enter an email address."
+        label={column.label}
+        placeholder="name@example.com"
+        required
+        type="email"
+      />
+    </div>)}
   </div>
   <div class="validity-compare-actions">
     <Button type="submit" variant="filled">Submit</Button>

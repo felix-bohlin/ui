@@ -1,0 +1,348 @@
+import { slotProp } from "../src/component-api/frameworks.ts"
+import {
+  reactAttributeName,
+  reactBareAttribute,
+  reactKinds,
+  reactPropsOf,
+} from "./example-react-props.mjs"
+import {
+  componentImport,
+  contextImports,
+  eventRoots,
+  groupWarning,
+  hydratingRoots,
+  objectCode,
+  propsImport,
+  rewriteExpression,
+  rewriteStatement,
+  slotOrder,
+  styleOption,
+  withImport,
+} from "./component-emit.mjs"
+import { componentFunction, jsxEmitter } from "./component-jsx.mjs"
+import { MODEL_KINDS } from "./component-models.mjs"
+import { jsxAttribute } from "./example-encoders.mjs"
+import { eventProp } from "./component-types.mjs"
+import {
+  byName,
+  chosenSpreadCode,
+  classText,
+  filtersSpread,
+  isIdentifierName,
+  unsupported,
+} from "./component-shared.mjs"
+
+export const toReact = (component) => {
+  const {
+    components,
+    derived,
+    imports,
+    propsType,
+    provide,
+    reads,
+    rest,
+    scripts,
+    slots,
+    stringSlots,
+    tree,
+    trimmedSlots,
+    uid,
+    variableTags,
+    warnings,
+  } = component
+  if (component.model?.everywhere) throw component.model.refusal
+  const kind = MODEL_KINDS[component.model?.kind]?.react
+  const props = component.props.filter(
+    ({ local }) =>
+      !stringSlots.includes(local) &&
+      !(kind?.inRest && local === component.model.local),
+  )
+  const tagProps = props.filter(({ local }) => variableTags.includes(local))
+  const reactPropOf = (entry) =>
+    reactAttributeName(
+      component.baseProps?.includes(entry.prop) ? undefined : component.element,
+      entry.prop,
+    )
+  const taken = new Set([
+    ...component.props.map(({ local }) => local),
+    ...derived.map(({ name }) => name),
+  ])
+  const events = component.events ?? []
+  const listened = eventRoots(component)
+  const hydrating = new Map(
+    [...hydratingRoots(component, listened)].map(([node, tag]) => [
+      node,
+      tag
+        ? `data-hydrating={${tag}.includes("-") ? "" : undefined}`
+        : 'data-hydrating=""',
+    ]),
+  )
+  const handlers = events.map((event) => eventProp("react", event))
+  const clash = ["ref", "rootRef", ...handlers].find(
+    (name) => events.length > 0 && taken.has(name),
+  )
+  if (clash) {
+    throw unsupported(
+      component.file,
+      `the name \`${clash}\`, which the React port also declares for its events`,
+      "rename the prop or const in the Astro file",
+    )
+  }
+  const renamed = new Map(
+    props
+      .filter(
+        (entry) =>
+          entry.prop !== "class" &&
+          !tagProps.includes(entry) &&
+          entry.local === entry.prop &&
+          isIdentifierName(reactPropOf(entry)) &&
+          !taken.has(reactPropOf(entry)),
+      )
+      .map((entry) => [entry.local, reactPropOf(entry)]),
+  )
+  const rename = new Map([
+    ...(kind?.rename?.(component.model) ?? []),
+    ...props
+      .filter(({ prop }) => prop === "class")
+      .map(({ local }) => [local, "className"]),
+    ...renamed,
+    ...trimmedSlots.map(({ local, slot }) => [local, slotProp(slot)]),
+  ])
+  const options = {
+    rename,
+    ids: component.ids,
+    slotHas: (name) => slotProp(name),
+    style: styleOption(component, "style ?? {}"),
+  }
+  const entries = props.map((entry) => {
+    if (entry.prop === "class") return { key: "className", text: "className" }
+    if (tagProps.includes(entry)) return { key: entry.prop, text: entry.prop }
+    const reactProp = reactPropOf(entry)
+    const local = renamed.get(entry.local) ?? entry.local
+    if (reactProp === local) {
+      return {
+        key: local,
+        text: entry.default ? `${local} = ${entry.default}` : local,
+      }
+    }
+    return {
+      key: entry.local,
+      text: `${JSON.stringify(reactProp)}: ${entry.local}${entry.default ? ` = ${entry.default}` : ""}`,
+    }
+  })
+  const slotEntries = slotOrder(slots).map((slot) => slotProp(slot))
+  const { item, model, multiRoot } = component
+  const extraEntries = [
+    ...(kind?.entries?.() ?? []),
+    ...(item ? ["defaultChecked", "onChange"] : []),
+    ...(events.length ? handlers : []),
+    ...(events.length || item ? ["ref"] : []),
+  ]
+    .filter((key) => !entries.some((entry) => entry.key === key))
+    .map((key) => ({ key, text: key }))
+  const destructured = [
+    ...[...entries, ...extraEntries]
+      .toSorted((a, b) => byName(a.key, b.key))
+      .map(({ text }) => text),
+    ...slotEntries,
+    ...(rest ? [`...${rest}`] : []),
+  ]
+  const body = [
+    ...reads.map(
+      ({ context, name }) => `const ${name} = use${context.name}Context()`,
+    ),
+    ...(uid ? ["const uid = useId()"] : []),
+    ...(kind?.body?.(model) ?? []),
+    ...tagProps.map(
+      ({ local, prop, default: fallback }) =>
+        `const ${local} = ${fallback ? `${prop} || ${fallback}` : prop}`,
+    ),
+    ...derived.map(
+      ({ code, name }) => `const ${name} = ${rewriteExpression(code, options)}`,
+    ),
+    ...warnings.map((code) => rewriteStatement(code, options)),
+    ...(item
+      ? [
+          groupWarning(
+            component,
+            item,
+            `${item.checked ?? "undefined"} ?? defaultChecked`,
+          ),
+        ]
+      : []),
+    ...(item
+      ? [
+          `const inputRef = useSeedChecked(ref, (input) => ${item.parent}?.change?.(input))`,
+        ]
+      : []),
+    ...(events.length
+      ? [
+          `const rootRef = ${hydrating.size ? "useHydrated(" : ""}${events.reduce(
+            (ref, event, index) =>
+              `useListener(${ref}, ${JSON.stringify(event)}, ${handlers[index]})`,
+            "ref",
+          )}${hydrating.size ? ")" : ""}`,
+        ]
+      : []),
+    ...(scripts.length
+      ? [
+          `useEffect(() => {\n${scripts.map((specifier) => `  void import(${JSON.stringify(specifier)})\n`).join("")}}, [])`,
+        ]
+      : []),
+  ]
+  let usesCx = false
+  let usesDefined = false
+  const attribute = (node, item) => {
+    if (item.kind === "class") {
+      const text = classText(item.code)
+      if (text) return `className={${rewriteExpression(text, options)}}`
+      usesCx = true
+      return `className={cx(${rewriteExpression(item.code, options)})}`
+    }
+    if (item.kind === "spread") {
+      const filtered = filtersSpread(node, item, component)
+      if (filtered) usesDefined = true
+      if (item.condition !== undefined) {
+        const chosen = chosenSpreadCode(
+          item,
+          `(${item.code} as object)`,
+          rewriteExpression(item.condition, options),
+        )
+        return filtered ? `{...defined(${chosen})}` : `{...(${chosen})}`
+      }
+      if (node.variable && item.code === rest) {
+        return filtered
+          ? `{...defined(${item.code} as object)}`
+          : `{...(${item.code} as object)}`
+      }
+      const code = rewriteExpression(item.code, options)
+      return filtered ? `{...defined(${code})}` : `{...${code}}`
+    }
+    const name = node.component
+      ? item.name
+      : reactAttributeName(
+          node.variable || node.custom ? undefined : node.tag,
+          item.name,
+        )
+    if (item.kind === "static") return jsxAttribute(name, item.value)
+    if (item.kind === "boolean") {
+      const kinds =
+        node.component || node.variable || node.custom
+          ? new Set()
+          : reactKinds(reactPropsOf(node.tag, false) ?? new Map(), name)
+      return reactBareAttribute(name, kinds) ?? name
+    }
+    return `${name}={${rewriteExpression(item.code, options)}}`
+  }
+  const keys = new Map()
+  const elementAttributes = (node) => {
+    const listens = listened.includes(node)
+    const restAt = listens
+      ? node.attributes.findIndex(
+          (entry) => entry.kind === "spread" && entry.code === rest,
+        )
+      : -1
+    const rootRef = [
+      ...(hydrating.has(node) ? [hydrating.get(node)] : []),
+      "ref={rootRef}",
+    ]
+    return [
+      ...(keys.has(node) ? [`key={${keys.get(node)}}`] : []),
+      ...node.attributes.flatMap((entry, index) => [
+        ...(index === restAt ? rootRef : []),
+        ...(node.groupRadio !== undefined &&
+        entry.kind === "expression" &&
+        entry.name === "checked"
+          ? kind.radioAttributes(
+              model,
+              rewriteExpression(node.groupRadio, options),
+              rewriteExpression(entry.code, options),
+            )
+          : [attribute(node, entry)]),
+        ...(node.item && entry.kind === "expression" && entry.name === "checked"
+          ? [
+              `defaultChecked={${item.grouped} === undefined ? defaultChecked : undefined}`,
+            ]
+          : []),
+      ]),
+      ...(node.item
+        ? [
+            "ref={inputRef}",
+            `onChange={(event) => {\n  ${item.parent}?.change?.(event.currentTarget)\n  onChange?.(event)\n}}`,
+          ]
+        : []),
+      ...(node.external
+        ? [
+            'dangerouslySetInnerHTML={{ __html: "" }}',
+            "suppressHydrationWarning",
+          ]
+        : []),
+      ...(listens && restAt === -1 ? rootRef : []),
+    ]
+  }
+  const { render } = jsxEmitter({
+    attributes: elementAttributes,
+    each: (node) => {
+      node.rows.forEach((row) => keys.set(row, node.key?.code ?? node.index))
+      return {
+        consts: node.consts.map(
+          ({ code, name }) =>
+            `const ${name} = ${rewriteExpression(code, options)}`,
+        ),
+        list: node.list,
+        parameters: `${node.item}${node.index ? `, ${node.index}` : ""}`,
+      }
+    },
+    rewrite: (code) => rewriteExpression(code, options),
+    slotCode: (name) => name,
+    stringSlots,
+  })
+  const [rootNode] = tree
+  const rendered = render(tree)
+  const providedValue =
+    kind?.provided && provide ? kind.provided(model, provide) : provide?.value
+  const returned = provide
+    ? `<${provide.context.name}Context value={${rewriteExpression(objectCode(providedValue), options)}}>${rootNode.type === "if" ? `{${rendered}}` : rendered}</${provide.context.name}Context>`
+    : multiRoot
+      ? `<>${rendered}</>`
+      : rendered
+  const reactValues = [
+    ...(scripts.length ? ["useEffect"] : []),
+    ...(uid ? ["useId"] : []),
+    ...(kind?.reactValues?.() ?? []),
+  ]
+  const reactHelpers = [
+    ...(kind?.reactHelpers?.() ?? []),
+    ...(hydrating.size ? ["useHydrated"] : []),
+    ...(events.length ? ["useListener"] : []),
+    ...(item ? ["useSeedChecked"] : []),
+  ].toSorted(byName)
+  const reactImport = reactValues.length
+    ? `import { ${reactValues.join(", ")} } from "react"`
+    : undefined
+  const importLines = [
+    ...(reactImport ? [reactImport] : []),
+    ...(usesDefined ? [`import { defined } from "../attrs"`] : []),
+    ...(usesCx ? [`import { cx } from "../cx"`] : []),
+    ...(reactHelpers.length
+      ? [`import { ${reactHelpers.join(", ")} } from "../react"`]
+      : []),
+    ...components
+      .map((entry) => componentImport(entry, ".react"))
+      .toSorted(byName),
+    ...contextImports(component, "react", {
+      provide: (name) => `${name}Context`,
+      read: (name) => `use${name}Context`,
+    }),
+    ...(kind?.imports?.(component, model) ?? []),
+    ...(item ? withImport(imports, "../dev", "warnGroupedChecked") : imports),
+    propsImport(propsType, "types.react"),
+  ]
+  const client =
+    reads.length > 0 ||
+    provide ||
+    scripts.length > 0 ||
+    events.length > 0 ||
+    kind?.client === true
+  return `${client ? '"use client"\n\n' : ""}${importLines.join("\n")}\n\n${componentFunction(component.name, `{ ${destructured.join(", ")} }: Props`, body, returned)}`
+}

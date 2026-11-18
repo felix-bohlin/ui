@@ -40,12 +40,8 @@ const keyCell = (keys: ApiKey[]) =>
 <h3 id="keyboard-support">Keyboard support</h3>
 <slot />
 <DocsTable columns={[{ label: "Key", width: "30%" }, { label: "Function" }]}>
-  {
-    api.keyboard.map(({ description, keys }) => (
-      <TableRow>
-        <TableCell set:html={keyCell(keys)} />
-        <TableCell set:html={formatInline(description, link)} />
-      </TableRow>
-    ))
-  }
+  {api.keyboard.map(({ description, keys }) => <TableRow>
+    <TableCell set:html={keyCell(keys)} />
+    <TableCell set:html={formatInline(description, link)} />
+  </TableRow>)}
 </DocsTable>

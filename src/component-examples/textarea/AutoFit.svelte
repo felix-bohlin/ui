@@ -2,4 +2,4 @@
   import { Textarea } from "opui-css/svelte"
 </script>
 
-<Textarea label="Auto-fit" placeholder="Auto-fit" autoFit />
+<Textarea autoFit label="Message" placeholder="Write a message" />

@@ -1,21 +1,26 @@
 ---
 import type { Props } from "./types.astro"
+import { warnUnnamedGroup } from "../dev"
 import { createId } from "../id"
 import { tabsContext } from "./context.astro"
 
 export const title = "Tabs"
 
-const $id = createId(Astro.locals)
+const idOf = createId(Astro.locals)
 const {
   class: className,
   name,
+  orientation,
   overflow,
+  role,
   value,
   variant,
   ...rest
 } = Astro.props
 
-const groupName = name || $id("tabs")
+if (role === "radiogroup") warnUnnamedGroup("Tabs", rest)
+
+const groupName = name || idOf("tabs")
 const html = await tabsContext.provide({ groupName, value }, () =>
   Astro.slots.render("default"),
 )
@@ -24,10 +29,12 @@ const html = await tabsContext.provide({ groupName, value }, () =>
 <div
   class:list={[
     "ui-tabs",
-    overflow && overflow !== "wrap" && `ui-overflow-${overflow}`,
+    orientation === "vertical" && "ui-vertical",
+    overflow && overflow !== "scroll" && `ui-overflow-${overflow}`,
     variant && variant !== "tonal" && `ui-${variant}`,
     className,
   ]}
+  role={role}
   {...rest}
 >
   <Fragment set:html={html} />

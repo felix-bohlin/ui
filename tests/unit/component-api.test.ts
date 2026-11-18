@@ -1,10 +1,12 @@
 import { describe, expect, test } from "vitest"
 import type { ComponentApi } from "../../src/component-api/types"
 import {
+  anchorNames,
   checkApi,
   checkClasses,
   checkExports,
   destructuredDefaults,
+  frameworkProps,
 } from "../../src/utils/component-source"
 
 const apis = Object.values(
@@ -29,6 +31,14 @@ describe("component api", () => {
 })
 
 describe("component api checks", () => {
+  test("anchorNames reads anchor-name, and the private property it reads", () => {
+    expect([
+      ...anchorNames(
+        ":where(.a) { --_content-anchor: --ui-a; &:where(.b) { --_content-anchor: --ui-b; } & > .c { anchor-name: var(--_content-anchor); } } .d { anchor-name: --ui-d, --ui-e; }",
+      ),
+    ]).toEqual(["--ui-a", "--ui-b", "--ui-d", "--ui-e"])
+  })
+
   test("report classes, cssVars and anchor names the stylesheets don't have", () => {
     expect(
       checkApi({
@@ -75,7 +85,7 @@ describe("component api checks", () => {
 
   test("report stylesheet classes that no api.ts names", () => {
     expect(checkClasses([])).toContain(
-      'carousel.css: class ".ui-motion-off" is in no api.ts; document it as an option, a part or in a note',
+      'carousel.css: class ".ui-markers" is in no api.ts; document it as an option, a part or in a note',
     )
   })
 
@@ -99,6 +109,12 @@ describe("component api checks", () => {
     ).toEqual(expected)
     expect(
       destructuredDefaults(
+        "solid",
+        'export default function A(props: Props) {\n  const open = () => (props.open === undefined ? false : props.open)\n  const size = () =>\n    props.size === undefined ? "large" : props.size\n  const value = () => (props.value === undefined ? 1 : props.value)\n  return <div />\n}',
+      ),
+    ).toEqual(expected)
+    expect(
+      destructuredDefaults(
         "svelte",
         '<script lang="ts">\n  let { checked = $bindable(), open = false, size = "large", value = $bindable(1) }: Props = $props()\n</script>',
       ),
@@ -109,5 +125,54 @@ describe("component api checks", () => {
         "<script setup lang=\"ts\">\nconst { open = false, size = 'large', value = 1 } = defineProps<Props>()\n</script>",
       ),
     ).toEqual(expected)
+  })
+
+  test("read the events a framework types on the package's custom elements, not their attributes", () => {
+    const sortableTable = {
+      component: "SortableTable",
+      source: "SortableTable",
+    }
+    expect(frameworkProps(sortableTable, "svelte").has("onsort")).toBe(true)
+    expect(frameworkProps(sortableTable, "solid").has("onSort")).toBe(true)
+    expect(frameworkProps(sortableTable, "svelte").has("ascending-label")).toBe(
+      false,
+    )
+    expect(
+      frameworkProps({ component: "Button", source: "Button" }, "react").has(
+        "interestfor",
+      ),
+    ).toBe(false)
+  })
+
+  test("read a component's events as onDismiss in React, ondismiss in Svelte and @dismiss in Vue, from its own Emits type", () => {
+    const callout = { component: "Callout", source: "Callout" }
+    expect(frameworkProps(callout, "react").get("onDismiss")).toBe(
+      "(event: Event) => void",
+    )
+    expect(frameworkProps(callout, "svelte").get("ondismiss")).toBe(
+      "(event: Event) => void",
+    )
+    expect(frameworkProps(callout, "vue").get("@dismiss")).toBe(
+      "(event: Event) => void",
+    )
+    expect(
+      frameworkProps({ component: "CalloutActions", source: "Callout" }, "vue")
+        .size,
+    ).toBe(0)
+    expect(
+      checkApi({
+        component: "CalloutActions",
+        options: [
+          {
+            description: "Called.",
+            frameworks: ["vue"],
+            prop: "@dismiss",
+          },
+        ],
+        parts: [],
+        root: { description: "Root.", selector: ".ui-actions" },
+        source: "Callout",
+      }),
+    ).toContain('CalloutActions (vue): prop "@dismiss" does not exist')
   })
 })

@@ -3,12 +3,14 @@ import { Switch } from "opui-css/vue"
 </script>
 
 <template>
-  <Switch name="switch-end-text" endText="Supporting text"> Default </Switch>
+  <Switch endText="A summary every morning." name="switch-end-text">
+    Daily digest
+  </Switch>
   <Switch
+    endText="Only when someone mentions you."
     name="switch-end-text"
     orientation="vertical"
-    endText="Supporting text"
   >
-    Stack
+    Mentions
   </Switch>
 </template>

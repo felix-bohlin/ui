@@ -2,10 +2,15 @@
   import { TextField } from "opui-css/svelte"
 </script>
 
-<TextField label="Name" placeholder="Ada Lovelace">
+<TextField label="Name" placeholder="Holly Humbucker">
   {#snippet top()}Shown on your profile{/snippet}
 </TextField>
 
-<TextField label="Tagline" placeholder="A short description">
-  {#snippet bottom()}0 / 80{/snippet}
+<TextField
+  characterCount
+  label="Bass motto"
+  maxlength={80}
+  placeholder="Turn it up, not down"
+>
+  {#snippet bottom()}Plain text, no links{/snippet}
 </TextField>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { TrimmedSlot } from "../whitespace.vue"
 import {
   computed,
   inject,
@@ -6,11 +7,12 @@ import {
   useAttrs,
   useId,
 } from "vue"
-import { useInputAttrs } from "../vue"
+import { useInputAttrs, vSeed } from "../vue"
 import type { Props, Slots } from "./types.vue-props"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
-import { idRefs } from "../id"
-import { initialValue } from "./selection"
+import { fieldDescribedBy } from "../id"
+import { initialValue, sameValue } from "./selection"
+import { styleAttrs } from "../style"
 
 defineOptions({
   inheritAttrs: false,
@@ -25,13 +27,14 @@ const {
   id,
   items = [],
   label,
+  name,
   size,
   spread,
   startText,
   value,
   variant = "outlined",
 } = defineProps<Props>()
-defineSlots<Slots>()
+const slots = defineSlots<Slots>()
 const attrs = useAttrs() as SelectHTMLAttributes
 const inputAttrs = useInputAttrs()
 const modelValue = defineModel<string | number | (string | number)[]>()
@@ -46,30 +49,28 @@ const model = computed({
   },
 })
 
-const vSeed = {
-  beforeMount: (el: HTMLSelectElement) => {
-    model.value ??= el.multiple
-      ? [...el.selectedOptions].map((option) => option.value)
-      : el.value
-  },
-}
+const initialSelection = model.value
 
-const isSelected = (value: unknown) =>
-  Array.isArray(model.value)
-    ? model.value.includes(value as string | number)
-    : model.value === value
+const selectedAtFirst = (value: unknown) =>
+  Array.isArray(initialSelection)
+    ? initialSelection.some((selected) => sameValue(selected, value))
+    : initialSelection !== undefined && sameValue(initialSelection, value)
 
 const uid = useId()
-const labelId = `select-label-${uid}`
-const startTextId = `start-text-${uid}`
-const endTextId = `end-text-${uid}`
-const topId = `top-${uid}`
-const bottomId = `bottom-${uid}`
+const base = computed(() => id || `select-${uid}`)
+const hasLabel = () => Boolean(label || slots.label)
+const selectId = () => (hasLabel() ? base.value : id)
+const startTextId = computed(() => `${base.value}-start-text`)
+const endTextId = computed(() => `${base.value}-end-text`)
+const startId = computed(() => `${base.value}-start`)
+const endId = computed(() => `${base.value}-end`)
+const topId = computed(() => `${base.value}-top`)
+const bottomId = computed(() => `${base.value}-bottom`)
 const field = inject(FieldGroupKey, undefined)
 </script>
 
 <template>
-  <label
+  <div
     :class="[
       'ui-select',
       {
@@ -80,15 +81,15 @@ const field = inject(FieldGroupKey, undefined)
       size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
-    :style="$attrs.style"
+    v-bind="styleAttrs($attrs.style)"
   >
-    <span
-      v-if="label || $slots.label"
-      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
-      :id="labelId"
+    <label
+      v-if="hasLabel()"
+      :class="hideLabel ? 'ui-sr-only' : 'ui-label'"
+      :for="selectId()"
     >
-      {{ label }}<slot name="label"></slot>
-    </span>
+      {{ label }}<TrimmedSlot :nodes="$slots.label?.()" />
+    </label>
 
     <span
       v-if="startText || $slots['start-text']"
@@ -99,34 +100,42 @@ const field = inject(FieldGroupKey, undefined)
     </span>
 
     <span class="ui-field">
+      <span class="ui-top" :id="topId" v-if="$slots.top"
+        ><slot name="top"></slot
+      ></span>
+      <span class="ui-start" :id="startId" v-if="$slots.start"
+        ><slot name="start"></slot
+      ></span>
       <select
         v-bind="inputAttrs"
         v-seed
         v-model="model"
         :aria-describedby="
-          idRefs(
-            $slots.top && topId,
-            (startText || $slots['start-text']) && startTextId,
-            (endText || $slots['end-text']) && endTextId,
-            $slots.bottom && bottomId,
+          fieldDescribedBy(
+            {
+              bottom: $slots.bottom && bottomId,
+              end: $slots.end && endId,
+              endText: (endText || $slots['end-text']) && endTextId,
+              start: $slots.start && startId,
+              startText: (startText || $slots['start-text']) && startTextId,
+              top: $slots.top && topId,
+            },
             attrs['aria-describedby'],
           )
         "
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
-        :aria-labelledby="
-          label || $slots.label ? labelId : attrs['aria-labelledby']
-        "
-        :id="id"
-        :name="attrs.name ?? field?.name"
+        :aria-labelledby="attrs['aria-labelledby']"
+        :id="selectId()"
+        :name="name ?? field?.name"
       >
-        <button v-pre>
+        <button inert v-pre>
           <selectedcontent></selectedcontent>
         </button>
         <div :class="['ui-list', { 'ui-dense': dense }]">
           <option
             v-for="item in items"
             :key="item.value"
-            :selected="isSelected(item.value) || undefined"
+            :selected="selectedAtFirst(item.value) || undefined"
             :value="item.value"
           >
             {{ item.label }}
@@ -134,12 +143,8 @@ const field = inject(FieldGroupKey, undefined)
           <slot></slot>
         </div>
       </select>
-      <span class="ui-start" v-if="$slots.start"
-        ><slot name="start"></slot
-      ></span>
-      <span class="ui-end" v-if="$slots.end"><slot name="end"></slot></span>
-      <span class="ui-top" :id="topId" v-if="$slots.top"
-        ><slot name="top"></slot
+      <span class="ui-end" :id="endId" v-if="$slots.end"
+        ><slot name="end"></slot
       ></span>
       <span class="ui-bottom" :id="bottomId" v-if="$slots.bottom"
         ><slot name="bottom"></slot
@@ -153,5 +158,5 @@ const field = inject(FieldGroupKey, undefined)
     >
       {{ endText }}<slot name="end-text"></slot>
     </span>
-  </label>
+  </div>
 </template>

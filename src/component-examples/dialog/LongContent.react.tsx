@@ -11,12 +11,13 @@ export default function LongContent() {
   return (
     <>
       <Button
-        commandfor="dialog-long-content-1"
         command="show-modal"
+        commandfor="dialog-long-content-1"
         variant="outlined"
       >
         Read the terms
       </Button>
+
       <Dialog id="dialog-long-content-1">
         <DialogHeader>
           <DialogTitle>Terms of service</DialogTitle>
@@ -92,12 +93,12 @@ export default function LongContent() {
           </p>
         </DialogContent>
         <DialogFooter>
-          <Button commandfor="dialog-long-content-1" command="close">
+          <Button command="close" commandfor="dialog-long-content-1">
             Decline
           </Button>
           <Button
-            commandfor="dialog-long-content-1"
             command="close"
+            commandfor="dialog-long-content-1"
             variant="filled"
           >
             Accept

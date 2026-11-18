@@ -100,35 +100,31 @@ const tour = [
     </div>
 
     <List class="legend" dense variant="transparent">
-      {
-        parts.map((part, i) => (
-          <ListItem
-            class="part"
-            tabindex="0"
-            style={`--i: ${i}; --part: --${id}-part-${i + 1}; --marker: --${id}-marker-${i + 1}; --row: --${id}-row-${i + 1};`}
-          >
-            <span slot="start" class="marker" />
-            <code slot="label">{part.label}</code>
-            <Fragment
-              slot="description"
-              set:html={formatInline(part.description, Astro.locals.link)}
-            />
-            <span class="glow" aria-hidden="true" />
-            <span class="frame" aria-hidden="true" />
-            <span class="leader" aria-hidden="true">
-              <span>
-                <span />
-              </span>
-              <span>
-                <span />
-              </span>
-              <span>
-                <span />
-              </span>
-            </span>
-          </ListItem>
-        ))
-      }
+      {parts.map((part, i) => <ListItem
+        class="part"
+        tabindex="0"
+        style={`--i: ${i}; --part: --${id}-part-${i + 1}; --marker: --${id}-marker-${i + 1}; --row: --${id}-row-${i + 1};`}
+      >
+        <span slot="start" class="marker" />
+        <code slot="label">{part.label}</code>
+        <Fragment
+          slot="description"
+          set:html={formatInline(part.description, Astro.locals.link)}
+        />
+        <span class="glow" aria-hidden="true" />
+        <span class="frame" aria-hidden="true" />
+        <span class="leader" aria-hidden="true">
+          <span>
+            <span />
+          </span>
+          <span>
+            <span />
+          </span>
+          <span>
+            <span />
+          </span>
+        </span>
+      </ListItem>)}
     </List>
   </div>
 </figure>
@@ -203,6 +199,10 @@ const tour = [
 
     > :global(*) {
       max-inline-size: 100%;
+    }
+
+    > :global(dialog) {
+      transition: none;
     }
   }
 
@@ -485,6 +485,19 @@ const tour = [
     .layout .frame::before,
     .layout .leader > * > * {
       animation: none;
+    }
+  }
+
+  @media print {
+    .glow::before,
+    .frame::before,
+    .marker::after {
+      background: none;
+    }
+
+    .stage::before,
+    .stage::after {
+      display: none;
     }
   }
 </style>

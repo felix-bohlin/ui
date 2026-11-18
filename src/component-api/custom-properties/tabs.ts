@@ -44,6 +44,11 @@ export default {
       "Space between the tab list and the panel. Defaults to `--ui-space-2`.",
     kind: "input",
   },
+  "--_panel-padding": {
+    description:
+      "Inline and block-end padding of the panel unless `.ui-overflow-wrap`, `--ui-focus-ring-offset` plus `--ui-focus-ring-width`, so a focus ring on a control at the panel's edge isn't clipped by the scroll container.",
+    kind: "output",
+  },
   "--_radius": {
     description:
       "Corner radius of the track. The selected tab's radius is reduced by `--_inset` and `--_track-border-width`.",
@@ -51,7 +56,7 @@ export default {
   },
   "--_selected-bg-color": {
     description:
-      "Background of the selected tab. Defaults to `--ui-surface`, a translucent white in dark mode; the variant classes set it.",
+      "Background of the selected tab. Defaults to `--ui-surface`, and in dark mode to `--ui-text-strong` at `--ui-state-selected-alpha-accent`; the variant classes set it.",
     kind: "input",
   },
   "--_selected-border-color": {

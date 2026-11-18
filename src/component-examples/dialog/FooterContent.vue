@@ -11,8 +11,8 @@ import {
 
 <template>
   <Button
-    commandfor="dialog-footer-content-1"
     command="show-modal"
+    commandfor="dialog-footer-content-1"
     variant="outlined"
   >
     Export data
@@ -28,12 +28,12 @@ import {
     <DialogFooter>
       <p>About 24 MB</p>
       <div class="ui-actions">
-        <Button commandfor="dialog-footer-content-1" command="close">
+        <Button command="close" commandfor="dialog-footer-content-1">
           Cancel
         </Button>
         <Button
-          commandfor="dialog-footer-content-1"
           command="close"
+          commandfor="dialog-footer-content-1"
           variant="filled"
         >
           Export

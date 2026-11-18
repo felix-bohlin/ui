@@ -3,16 +3,16 @@
 </script>
 
 <List>
-  <ListItem label="Headline">
-    {#snippet end()}30kB{/snippet}
+  <ListItem label="Slap lesson 3.pdf">
+    {#snippet end()}2.4 MB{/snippet}
   </ListItem>
-  <ListItem label="Headline" description="Supporting text">
-    {#snippet end()}99%{/snippet}
+  <ListItem description="Uploaded by Lou Headstock" label="Band photo.jpg">
+    {#snippet end()}860 kB{/snippet}
   </ListItem>
   <ListItem
-    label="Headline"
-    description="Supporting text that truly is quite long enough to fill up multiple lines."
+    description="Every root note of the setlist, with a tiny drawing of where the drummer should look when it changes."
+    label="Bass charts.pdf"
   >
-    {#snippet end()}100+{/snippet}
+    {#snippet end()}12 MB{/snippet}
   </ListItem>
 </List>

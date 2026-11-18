@@ -2,23 +2,26 @@ import { Card, CardContent } from "opui-css/react"
 
 export default function List() {
   return (
-    <ul className="ui-layout-grid" style={{ "--_min-inline-size": "10rem" }}>
+    <ul
+      role="list"
+      className="ui-layout-grid"
+      style={{ "--_min-inline-size": "10rem" }}
+    >
       <li>
         <Card variant="outlined">
-          <CardContent>Design</CardContent>
+          <CardContent>Bass</CardContent>
         </Card>
       </li>
       <li>
         <Card variant="outlined">
           <CardContent>
-            Engineering, with a longer description that wraps onto a second
-            line.
+            Drums: keeps the beat and somehow gets all the credit
           </CardContent>
         </Card>
       </li>
       <li>
         <Card variant="outlined">
-          <CardContent>Support</CardContent>
+          <CardContent>Vocals</CardContent>
         </Card>
       </li>
     </ul>

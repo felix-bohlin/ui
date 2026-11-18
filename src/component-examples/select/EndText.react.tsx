@@ -3,18 +3,22 @@ import { Select } from "opui-css/react"
 export default function EndText() {
   return (
     <>
-      <Select label="Label" endText="Supporting text">
+      <Select endText="Shown on your profile." label="Role">
         <option value="">-</option>
-        <option>Outlined (default)</option>
-        <option>Option Two</option>
-        <option>Option Three</option>
+        <option>Backing vocals</option>
+        <option>Bass</option>
+        <option>Tambourine</option>
       </Select>
 
-      <Select label="Label" variant="filled" endText="Supporting text">
+      <Select
+        endText="The drummer approves requests, as always."
+        label="Band"
+        variant="filled"
+      >
         <option value="">-</option>
-        <option>Filled</option>
-        <option>Option Two</option>
-        <option>Option Three</option>
+        <option>Brad and the Brads</option>
+        <option>Low End Theory</option>
+        <option>The Low Enders</option>
       </Select>
     </>
   )

@@ -1,14 +1,16 @@
 <script lang="ts">
   import { untrack } from "svelte"
-  import { warnGroupedChecked } from "../dev"
+  import { seedChecked } from "../svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { getToggleGroupContext } from "../ToggleGroup/context.svelte"
   import { isSelected } from "../ToggleGroup/selection"
+  import { warnGroupedChecked } from "../dev"
   import type { Props } from "./types.svelte"
 
   let {
     checked = $bindable(),
     class: className,
+    defaultChecked,
     label,
     name,
     onchange,
@@ -24,14 +26,25 @@
 
   const field = getFieldGroupContext()
   const group = getToggleGroupContext()
-
   const finalName = $derived(name || group?.groupName || field?.name)
   const finalType = $derived(
     group?.inputType === "radio" ? "radio" : (type ?? "checkbox"),
   )
   const grouped = $derived(isSelected(group?.value, value))
-
-  untrack(() => warnGroupedChecked("ToggleButton", grouped, checked))
+  untrack(() =>
+    warnGroupedChecked(
+      "ToggleButton",
+      grouped,
+      checked ?? defaultChecked,
+      "ToggleGroup",
+    ),
+  )
+  const isChecked = () => grouped ?? checked ?? !!defaultChecked
+  const initialChecked = untrack(isChecked)
+  const change = (input: HTMLInputElement) => {
+    if (grouped === undefined) checked = input.checked
+    group?.change?.(input)
+  }
 </script>
 
 <label
@@ -43,16 +56,20 @@
   {style}
 >
   <input
-    checked={grouped ?? checked}
+    {@attach seedChecked(isChecked, change)}
+    defaultChecked={grouped === undefined
+      ? (defaultChecked ?? initialChecked)
+      : initialChecked}
     name={finalName}
     type={finalType}
     {value}
     {...rest}
     onchange={(event) => {
-      if (grouped === undefined) checked = event.currentTarget.checked
-      group?.change(event.currentTarget)
+      change(event.currentTarget)
       onchange?.(event)
     }}
   />
-  {#if children}{@render children()}{:else}{label}{/if}
+  {#if children}
+    {@render children()}
+  {:else}{label}{/if}
 </label>

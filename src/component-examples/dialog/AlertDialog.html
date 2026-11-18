@@ -1,18 +1,18 @@
 <button
+  class="ui-button ui-critical ui-outlined"
   type="button"
-  commandfor="dialog-alert-dialog-1"
   command="show-modal"
-  class="ui-button ui-outlined ui-critical"
+  commandfor="dialog-alert-dialog-1"
 >
   Delete project
 </button>
 
 <dialog
-  id="dialog-alert-dialog-1"
-  class="ui-dialog ui-elevated"
-  role="alertdialog"
   aria-labelledby="dialog-alert-dialog-1-title"
+  class="ui-dialog ui-elevated"
   aria-describedby="dialog-alert-dialog-1-description"
+  id="dialog-alert-dialog-1"
+  role="alertdialog"
 >
   <div class="ui-header">
     <h2 id="dialog-alert-dialog-1-title">Delete project?</h2>
@@ -24,18 +24,18 @@
   </div>
   <div class="ui-footer">
     <button
-      commandfor="dialog-alert-dialog-1"
-      command="close"
       class="ui-button"
       type="button"
+      command="close"
+      commandfor="dialog-alert-dialog-1"
     >
       Cancel
     </button>
     <button
-      commandfor="dialog-alert-dialog-1"
-      command="close"
-      class="ui-button ui-filled ui-critical"
+      class="ui-button ui-critical ui-filled"
       type="button"
+      command="close"
+      commandfor="dialog-alert-dialog-1"
     >
       Delete
     </button>

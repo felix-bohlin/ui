@@ -5,19 +5,18 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/vue"
 <template>
   <Form>
     <Fieldset disabled>
-      <FieldLegend>Legend</FieldLegend>
-      <FieldGroup orientation="horizontal" name="radio-group-disabled">
-        <Radio value="1" checked>Radio 1</Radio>
-        <Radio value="2">Radio 2</Radio>
-        <Radio value="3">Radio 3</Radio>
+      <FieldLegend>Band practice</FieldLegend>
+      <FieldGroup name="radio-group-disabled" orientation="horizontal">
+        <Radio checked value="weekly">Weekly</Radio>
+        <Radio value="monthly">Monthly</Radio>
+        <Radio value="drummer">When the drummer shows up</Radio>
       </FieldGroup>
     </Fieldset>
     <Fieldset>
-      <FieldLegend>One by one</FieldLegend>
-      <FieldGroup orientation="horizontal" name="radio-group-disabled-single">
-        <Radio value="1" checked>Enabled</Radio>
-        <Radio value="2" disabled>Disabled</Radio>
-        <Radio value="3" aria-disabled="true">Aria-disabled</Radio>
+      <FieldLegend>Delivery</FieldLegend>
+      <FieldGroup name="radio-group-disabled-single" orientation="horizontal">
+        <Radio checked value="standard">Standard</Radio>
+        <Radio disabled value="same-day">Same day</Radio>
       </FieldGroup>
     </Fieldset>
   </Form>

@@ -1,7 +1,7 @@
 ---
 import { execFileSync } from "node:child_process"
 import { readFileSync } from "node:fs"
-import { changelogSections } from "../../utils/changelog"
+import { changelogSections } from "../../utils/changelog-file"
 import { components } from "../../utils/components"
 import { EXAMPLE_THEMES } from "../../utils/example-themes"
 import { FRAMEWORKS } from "../../utils/framework"
@@ -41,11 +41,13 @@ const changelog = readFileSync("packages/opui/CHANGELOG.md", "utf8")
 const commits = commitsSince(previous)
 
 const tiles = [
-  ...changelogSections(changelog, releaseVersion).map((section) => ({
-    caption: "changelog entries",
-    label: section.title,
-    value: section.entries.length,
-  })),
+  ...changelogSections(changelog, releaseVersion)
+    .toSorted((a, b) => a.title.localeCompare(b.title, "en"))
+    .map((section) => ({
+      caption: "changelog entries",
+      label: section.title,
+      value: section.entries.length,
+    })),
   ...(commits === undefined
     ? []
     : [{ caption: "", label: `Commits since ${previous}`, value: commits }]),
@@ -59,26 +61,20 @@ const tiles = [
 
 <div class="numbers ui-not-rich-text" id={id}>
   <ul class="numbers-tiles">
-    {
-      tiles.map((tile) => (
-        <li class="numbers-tile">
-          <p class="numbers-value">
-            <span
-              aria-hidden="true"
-              class="numbers-count"
-              style={`--n: ${tile.value}`}
-            />
-            <span class="ui-sr-only">{tile.value}</span>
-          </p>
-          <p class="numbers-label">
-            {tile.label}
-            {tile.caption && (
-              <span class="numbers-caption">{tile.caption}</span>
-            )}
-          </p>
-        </li>
-      ))
-    }
+    {tiles.map((tile) => <li class="numbers-tile">
+      <p class="numbers-value">
+        <span
+          aria-hidden="true"
+          class="numbers-count"
+          style={`--n: ${tile.value}`}
+        />
+        <span class="ui-sr-only">{tile.value}</span>
+      </p>
+      <p class="numbers-label">
+        {tile.label}
+        {tile.caption && <span class="numbers-caption">{tile.caption}</span>}
+      </p>
+    </li>)}
   </ul>
 </div>
 
@@ -117,7 +113,7 @@ const tiles = [
   }
 
   .numbers-value {
-    color: var(--ui-primary);
+    color: var(--ui-primary-text);
     font-family: var(--ui-font-heading, var(--ui-font-body));
     font-size: var(--ui-font-size-h2);
     font-variant-numeric: tabular-nums;
@@ -149,9 +145,11 @@ const tiles = [
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
       .numbers-count {
-        animation: numbers-count linear both;
+        animation-fill-mode: both;
+        animation-name: numbers-count;
         animation-range: entry;
         animation-timeline: --numbers;
+        animation-timing-function: linear;
       }
     }
   }

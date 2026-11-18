@@ -4,38 +4,42 @@ export default function Spread() {
   return (
     <>
       <Checkbox
+        endText="Wrapped in recycled paper for €3."
         name="checkbox-spread"
         spread
-        endText="I have read and agree to the privacy policy."
+        value="gift-wrap"
       >
-        Accept Terms & Conditions
+        Gift wrap
       </Checkbox>
 
       <Checkbox
+        endText="Required to place the order."
         name="checkbox-spread"
-        spread
         required
-        endText="You must accept this to continue."
+        spread
+        value="terms"
       >
-        Required
+        I accept the terms of sale
       </Checkbox>
 
       <Checkbox
-        name="checkbox-spread"
-        spread
         disabled
-        endText="This checkbox is disabled."
+        endText="Not available for your address."
+        name="checkbox-spread"
+        spread
+        value="express"
       >
-        Disabled
+        Express delivery
       </Checkbox>
 
       <Checkbox
+        endText="Confirm your age to buy this item."
+        error
         name="checkbox-spread"
         spread
-        error
-        endText="Check this box to continue."
+        value="age"
       >
-        Invalid Checkbox
+        I'm 18 or older
       </Checkbox>
     </>
   )

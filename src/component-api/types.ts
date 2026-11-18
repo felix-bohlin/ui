@@ -18,6 +18,15 @@ export type ApiPart = {
   slots?: string[]
 }
 
+export type ApiElement = {
+  members: {
+    description: string
+    kind: "event" | "method" | "property"
+    name: string
+  }[]
+  tag: string
+}
+
 export type ApiHydration = {
   description: string
   fallback?: string
@@ -38,7 +47,7 @@ export type ApiOption = {
   values?: Partial<Record<string, string | null>>
 } & ({ inherited: true; type: string } | { inherited?: never; type?: string })
 
-export type ApiModel = { description: string; prop: string; type: string }
+type ApiModel = { description: string; prop: string; type: string }
 
 export type CustomProperties = Record<
   string,
@@ -48,6 +57,7 @@ export type CustomProperties = Record<
 export type ComponentApi = {
   component: string
   css?: string[]
+  elements?: ApiElement[]
   hydration?: Partial<
     Record<Exclude<ComponentFramework, "astro"> | "default", ApiHydration[]>
   >

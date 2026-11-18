@@ -2,34 +2,42 @@
 import Button from "../Button/Button.astro"
 
 import type { DrawerHeaderProps as Props } from "./types.astro"
+import { warnMissingCloseTarget } from "../dev"
 import { drawerContext } from "./context.astro"
-import { closePath } from "./icons"
+import { trimEdges } from "../whitespace"
 
 const {
   class: className,
+  closeButton,
   closeLabel = "Close",
   commandfor,
   ...rest
 } = Astro.props
 
 const drawer = drawerContext.get()
-const closeAttrs =
-  commandfor || drawer
-    ? { command: "close", commandfor: commandfor ?? drawer?.id }
-    : { onclick: "this.closest('dialog')?.close()" }
+const target = commandfor ?? drawer?.id
+if (closeButton) warnMissingCloseTarget("DrawerHeader", target, "Drawer")
+const content = Astro.slots.has("default")
+  ? trimEdges(await Astro.slots.render("default"))
+  : ""
 ---
 
 <div class:list={["ui-header", className]} {...rest}>
-  <slot />
-  <Button aria-label={closeLabel} round size="small" {...closeAttrs}>
-    <svg
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="32"
-      viewBox="0 0 32 32"
-    >
-      <path fill="currentColor" d={closePath}></path>
-    </svg>
-  </Button>
+  <Fragment set:html={content} />{closeButton && <Button
+    aria-label={closeLabel}
+    command="close"
+    commandfor={target}
+    round
+    size="small"
+  >
+    <slot name="close-icon">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      ></svg>
+    </slot>
+  </Button>}
 </div>

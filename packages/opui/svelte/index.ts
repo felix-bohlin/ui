@@ -10,8 +10,8 @@ export { default as Avatar } from "../components/Avatar/Avatar.svelte"
 export { default as AvatarGroup } from "../components/Avatar/AvatarGroup.svelte"
 export { default as Badge } from "../components/Badge/Badge.svelte"
 export { default as Button } from "../components/Button/Button.svelte"
-export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.svelte"
 export { default as Callout } from "../components/Callout/Callout.svelte"
+export { default as CalloutActions } from "../components/Callout/CalloutActions.svelte"
 export { default as CalloutContent } from "../components/Callout/CalloutContent.svelte"
 export { default as CalloutIcon } from "../components/Callout/CalloutIcon.svelte"
 export { default as Card } from "../components/Card/Card.svelte"
@@ -22,6 +22,7 @@ export { default as Carousel } from "../components/Carousel/Carousel.svelte"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.svelte"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.svelte"
 export { default as Chip } from "../components/Chip/Chip.svelte"
+export { default as ControlGroup } from "../components/ControlGroup/ControlGroup.svelte"
 export { default as Copy } from "../components/Copy/Copy.svelte"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.svelte"
 export { default as DescriptionListDescription } from "../components/DescriptionList/DescriptionListDescription.svelte"
@@ -47,7 +48,7 @@ export { default as List } from "../components/List/List.svelte"
 export { default as ListItem } from "../components/ListItem/ListItem.svelte"
 export { default as Menu } from "../components/Menu/Menu.svelte"
 export { default as Message } from "../components/Message/Message.svelte"
-export { default as Messages } from "../components/Message/Messages.svelte"
+export { default as MessageList } from "../components/Message/MessageList.svelte"
 export { default as NumberField } from "../components/NumberField/NumberField.svelte"
 export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.svelte"
 export { default as Progress } from "../components/Progress/Progress.svelte"
@@ -105,8 +106,8 @@ export type {
 } from "../components/Avatar/types.svelte"
 export type { Props as BadgeProps } from "../components/Badge/types.svelte"
 export type { Props as ButtonProps } from "../components/Button/types.svelte"
-export type { Props as ButtonGroupProps } from "../components/ButtonGroup/types.svelte"
 export type {
+  CalloutActionsProps,
   CalloutContentProps,
   CalloutIconProps,
   Props as CalloutProps,
@@ -123,6 +124,7 @@ export type {
   Props as CheckboxProps,
 } from "../components/Checkbox/types.svelte"
 export type { Props as ChipProps } from "../components/Chip/types.svelte"
+export type { Props as ControlGroupProps } from "../components/ControlGroup/types.svelte"
 export type { Props as CopyProps } from "../components/Copy/types.svelte"
 export type {
   DescriptionListDescriptionProps,
@@ -157,8 +159,8 @@ export type {
   Props as MenuProps,
 } from "../components/Menu/types.svelte"
 export type {
+  MessageListProps,
   Props as MessageProps,
-  MessagesProps,
 } from "../components/Message/types.svelte"
 export type { Props as NumberFieldProps } from "../components/NumberField/types.svelte"
 export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.svelte"

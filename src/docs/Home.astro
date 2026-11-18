@@ -13,17 +13,17 @@ import ComponentCard from "../components/ComponentShowcase/ComponentCard.astro"
 import ComponentShowcase from "../components/ComponentShowcase/ComponentShowcase.astro"
 import Html5Logo from "../components/Html5Logo.astro"
 import ReactLogo from "../components/ReactLogo.astro"
+import SolidLogo from "../components/SolidLogo.astro"
 import SvelteLogo from "../components/SvelteLogo.astro"
 import ThemeQuickControls from "../components/ThemeQuickControls.astro"
 import VueLogo from "../components/VueLogo.astro"
 import Default from "../layouts/Default.astro"
 import { allBlocks, blockPreviewHref } from "../utils/blocks"
-import { components } from "../utils/components"
+import { componentName, components } from "../utils/components"
 import { formatInline } from "../utils/format-inline"
 import { FRAMEWORKS, hrefFor, type FrameworkId } from "../utils/framework"
 import { posts } from "../utils/blog-posts"
-import { componentName } from "../utils/names"
-import { packageVersion, prerelease, unreleased } from "../utils/release"
+import { releaseVersion } from "../utils/release"
 import { themeTokens, tokenTier } from "../utils/theme-tokens"
 
 const description = "Design system. Components. Modern HTML & CSS."
@@ -38,6 +38,7 @@ const FRAMEWORK_BRANDING: Record<FrameworkId, { Logo: typeof AstroLogo }> = {
   astro: { Logo: AstroLogo },
   html: { Logo: Html5Logo },
   react: { Logo: ReactLogo },
+  solid: { Logo: SolidLogo },
   svelte: { Logo: SvelteLogo },
   vue: { Logo: VueLogo },
 }
@@ -85,16 +86,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         <div class="hero-copy">
           <hgroup class="ui-hgroup">
             <p class="hero-version">
-              {packageVersion}
-              {
-                unreleased && (
-                  <span class="ui-chip ui-dot ui-warning ui-x-small">
-                    <span class="ui-text">
-                      {prerelease ? "Release candidate" : "Not on npm yet"}
-                    </span>
-                  </span>
-                )
-              }
+              <a href={link("/blog/release-6")}>v{releaseVersion}</a>
             </p>
 
             <h1 class="ui-h1" id="main-heading">Open Props UI</h1>
@@ -112,24 +104,20 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
           </div>
 
           <nav class="framework-support" aria-label="Framework">
-            {
-              FRAMEWORKS.map((framework) => {
-                const branding = FRAMEWORK_BRANDING[framework.id]
-                const Logo = branding.Logo
-                const isCurrent = framework.id === currentFramework
-                return (
-                  <Chip
-                    href={hrefFor(framework.id, "/")}
-                    aria-current={isCurrent ? "page" : undefined}
-                    variant={isCurrent ? "tonal" : "outlined"}
-                    data-framework={framework.id}
-                  >
-                    <Logo slot="start" />
-                    <Fragment slot="label">{framework.label}</Fragment>
-                  </Chip>
-                )
-              })
-            }
+            {FRAMEWORKS.map((framework) => {
+              const branding = FRAMEWORK_BRANDING[framework.id]
+              const Logo = branding.Logo
+              const isCurrent = framework.id === currentFramework
+              return <Chip
+                href={hrefFor(framework.id, "/")}
+                aria-current={isCurrent ? "page" : undefined}
+                variant={isCurrent ? "tonal" : "outlined"}
+                data-framework={framework.id}
+              >
+                <Logo slot="start" />
+                <Fragment slot="label">{framework.label}</Fragment>
+              </Chip>
+            })}
           </nav>
         </div>
 
@@ -153,23 +141,21 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
             <span class="leader leader-text" aria-hidden="true"></span>
             <span class="leader leader-weight" aria-hidden="true"></span>
             <dl class="dimensions">
-              {
-                dimensions.map((dimension) => (
-                  <div class={`dimension-label label-${dimension.prop}`}>
-                    <dt>
-                      <code>{dimension.token}</code>
-                    </dt>
-                    <dd>
-                      {dimension.prop === "background-color" && (
-                        <span class="swatch" aria-hidden="true" />
-                      )}
-                      <output data-prop={dimension.prop}>
-                        {dimension.value}
-                      </output>
-                    </dd>
-                  </div>
-                ))
-              }
+              {dimensions.map((dimension) => <div
+                class={`dimension-label label-${dimension.prop}`}
+              >
+                <dt>
+                  <code>{dimension.token}</code>
+                </dt>
+                <dd>
+                  {dimension.prop === "background-color" && (
+                    <span class="swatch" aria-hidden="true" />
+                  )}
+                  <output data-prop={dimension.prop}>
+                    {dimension.value}
+                  </output>
+                </dd>
+              </div>)}
             </dl>
           </div>
         </figure>
@@ -181,20 +167,26 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         <header class="sheet-header">
           <h2 class="ui-h2" id="components-heading">Components</h2>
           <p>
-            {components.length} components in plain CSS. Read them, override them,
-            make them yours.
+            {components.length} components in plain CSS. Read them, override
+            them, make them yours.
           </p>
         </header>
 
         <ComponentShowcase />
+
+        <div class="hero-ctas">
+          <Button href={link("/components")} variant="outlined" color="primary">
+            Browse all {components.length} components
+          </Button>
+        </div>
       </section>
 
       <section class="sheet" aria-labelledby="blocks-heading">
         <header class="sheet-header">
           <h2 class="ui-h2" id="blocks-heading">Blocks</h2>
           <p>
-            {allBlocks.length} pages and sections built from the components, from
-            sign-in forms to dashboards.
+            {allBlocks.length} pages and sections built from the components,
+            from sign-in forms to dashboards.
           </p>
         </header>
 
@@ -203,25 +195,21 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
           class="block-showcase showcase-grid"
           markers
         >
-          {
-            featuredBlocks.map((block, index) => (
-              <ComponentCard
-                name={block.name}
-                href={`/blocks/${block.slug}`}
-                size={index === 0 ? "xl" : undefined}
-              >
-                <div class="block-thumbnail">
-                  <iframe
-                    inert
-                    loading="lazy"
-                    src={blockPreviewHref(block.slug)}
-                    tabindex="-1"
-                    title={`${block.name} preview`}
-                  />
-                </div>
-              </ComponentCard>
-            ))
-          }
+          {featuredBlocks.map((block, index) => <ComponentCard
+            name={block.name}
+            href={`/blocks/${block.slug}`}
+            size={index === 0 ? "xl" : undefined}
+          >
+            <div class="block-thumbnail">
+              <iframe
+                inert
+                loading="lazy"
+                src={blockPreviewHref(block.slug)}
+                tabindex="-1"
+                title={`${block.name} preview`}
+              />
+            </div>
+          </ComponentCard>)}
         </Carousel>
 
         <div class="hero-ctas">
@@ -234,7 +222,9 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
       <section class="sheet" aria-labelledby="spec-heading">
         <header class="sheet-header">
           <h2 class="ui-h2" id="spec-heading">Build your theme</h2>
-          <p>Three choices set {roleTokens} role tokens. Try it.</p>
+          <p>
+            Three choices drive most of the {roleTokens} role tokens. Try it.
+          </p>
         </header>
 
         <div class="bench">
@@ -249,11 +239,9 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
           <div class="specimen ui-not-rich-text">
             <div class="palette-strip" aria-hidden="true">
-              {
-                steps.map((step) => (
-                  <span style={`background-color: var(--ui-color-${step})`} />
-                ))
-              }
+              {steps.map((step) => (
+                <span style={`background-color: var(--ui-color-${step})`} />
+              ))}
             </div>
 
             <div class="specimen-row">
@@ -289,49 +277,47 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
           <p>Short posts on the new CSS inside each component.</p>
         </header>
 
-        <ul class="blog-showcase">
-          {
-            featuredPosts.map((post) => (
-              <li>
-                <article class="ui-card ui-outlined blog-card">
-                  <hgroup>
-                    <h3>
-                      <a href={link(`/blog/${post.slug}`)}>{post.title}</a>
-                    </h3>
-                    <p>{post.description}</p>
-                  </hgroup>
-                  <div class="ui-content">
-                    <dl class="then-now">
-                      <div>
-                        <dt>Then</dt>
-                        <dd>
-                          <s set:html={formatInline(post.before ?? "", link)} />
-                        </dd>
-                      </div>
-                      <div>
-                        <dt>Now</dt>
-                        <dd>
-                          <code>{post.technique}</code>
-                        </dd>
-                      </div>
-                    </dl>
-                    <ul aria-label="Tags" class="blog-chips">
-                      {post.component && (
-                        <li>
-                          <Chip
-                            size="small"
-                            variant="outlined"
-                            label={componentName(post.component)}
-                          />
-                        </li>
-                      )}
-                    </ul>
+        <Carousel
+          aria-label="Posts"
+          class="blog-showcase showcase-grid"
+          markers
+        >
+          {featuredPosts.map((post) => <li>
+            <article class="ui-card ui-outlined blog-card">
+              <hgroup>
+                <h3>
+                  <a href={link(`/blog/${post.slug}`)}>{post.title}</a>
+                </h3>
+                <p>{post.description}</p>
+              </hgroup>
+              <div class="ui-content">
+                <dl class="then-now">
+                  <div>
+                    <dt>Then</dt>
+                    <dd>
+                      <s set:html={formatInline(post.before ?? "", link)} />
+                    </dd>
                   </div>
-                </article>
-              </li>
-            ))
-          }
-        </ul>
+                  <div>
+                    <dt>Now</dt>
+                    <dd>
+                      <code>{post.technique}</code>
+                    </dd>
+                  </div>
+                </dl>
+                <ul aria-label="Tags" class="blog-chips">
+                  {post.component && <li>
+                    <Chip
+                      size="small"
+                      variant="outlined"
+                      label={componentName(post.component)}
+                    />
+                  </li>}
+                </ul>
+              </div>
+            </article>
+          </li>)}
+        </Carousel>
 
         <div class="hero-ctas">
           <Button href={link("/blog")} variant="outlined" color="primary">
@@ -413,7 +399,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
   html {
     --blueprint-ink: light-dark(var(--ui-color-11), var(--ui-color-5));
-    --blueprint-ink-strong: light-dark(var(--ui-color-13), var(--ui-color-2));
     --blueprint-line-major: light-dark(
       oklch(from var(--ui-color-9) l c h / 18%),
       oklch(from var(--ui-color-5) l c h / 16%)
@@ -528,7 +513,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     @media (width >= 900px) {
       align-items: center;
       gap: var(--size-10);
-      grid-template-columns: minmax(0, 7fr) minmax(0, 6fr);
+      grid-template-columns: minmax(24rem, 1fr) minmax(0, 38rem);
     }
   }
 
@@ -541,6 +526,15 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     .ui-chip {
       letter-spacing: normal;
       text-transform: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
@@ -564,15 +558,13 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     flex-wrap: wrap;
     gap: var(--size-2);
     margin-block-start: var(--size-5);
-
-    & :global(.astro-logo) {
-      color: currentColor;
-    }
   }
 
   /* Drawing, a button with dimension lines */
   .drawing {
+    container: drawing / inline-size;
     display: grid;
+    font-size: var(--ui-font-size-caption);
     gap: var(--size-4);
     justify-items: stretch;
     margin: 0;
@@ -580,7 +572,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
   .drawing-stage {
     align-items: center;
-    container-type: inline-size;
     display: flex;
     justify-content: center;
     min-block-size: 22rem;
@@ -750,7 +741,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     inset-inline-start: calc(anchor(right) + 1rem);
   }
 
-  @container (width < 30rem) {
+  @container drawing (width < 50em) {
     .drawing-stage {
       flex-direction: column;
       gap: var(--size-7);
@@ -907,12 +898,11 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
   }
 
   .blog-showcase {
-    display: grid;
     gap: var(--size-4);
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
-    list-style: none;
-    margin: 0;
-    padding: 0;
+
+    @media (width >= 900px) {
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    }
   }
 
   .blog-card {

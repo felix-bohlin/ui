@@ -1,75 +1,91 @@
 <table class="ui-table ui-dense">
   <caption>
-    Band Members
+    Low End Theory members
   </caption>
   <thead>
     <tr>
       <th>Name</th>
-      <th>Instrument</th>
+      <th>Specialty</th>
       <th>Notes</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Jonathan Davis</td>
+      <td>Lou Headstock</td>
       <td>
-        <label class="ui-select">
-          <span class="ui-sr-only" id="table-controls-1-label"
-            >Instrument for Jonathan Davis</span
+        <div class="ui-select">
+          <label class="ui-sr-only" for="table-controls-1"
+            >Specialty for Lou Headstock</label
           >
           <span class="ui-field">
-            <select aria-labelledby="table-controls-1-label">
-              <button>
+            <select id="table-controls-1">
+              <button inert>
                 <selectedcontent></selectedcontent>
               </button>
               <div class="ui-list">
-                <option value="bass">Bass</option>
-                <option value="drums">Drums</option>
-                <option value="guitar">Guitar</option>
-                <option selected value="vocals">Vocals</option>
+                <option selected value="flatwound-collector">
+                  Flatwound collector
+                </option>
+                <option value="low-b-whisperer">Low B whisperer</option>
+                <option value="slap-enthusiast">Slap enthusiast</option>
+                <option value="tone-advisor">Tone advisor</option>
               </div>
             </select>
           </span>
-        </label>
+        </div>
       </td>
       <td>
-        <label class="ui-text-field">
-          <span class="ui-sr-only">Notes for Jonathan Davis</span>
+        <div class="ui-text-field">
+          <label class="ui-sr-only" for="table-controls-2"
+            >Notes for Lou Headstock</label
+          >
           <span class="ui-field">
-            <input type="text" placeholder="Add a note" />
+            <input
+              placeholder="Add a note about their tone"
+              id="table-controls-2"
+              type="text"
+            />
           </span>
-        </label>
+        </div>
       </td>
     </tr>
     <tr>
-      <td>Ed O'Brien</td>
+      <td>Percy Groove</td>
       <td>
-        <label class="ui-select">
-          <span class="ui-sr-only" id="table-controls-2-label"
-            >Instrument for Ed O'Brien</span
+        <div class="ui-select">
+          <label class="ui-sr-only" for="table-controls-3"
+            >Specialty for Percy Groove</label
           >
           <span class="ui-field">
-            <select aria-labelledby="table-controls-2-label">
-              <button>
+            <select id="table-controls-3">
+              <button inert>
                 <selectedcontent></selectedcontent>
               </button>
               <div class="ui-list">
-                <option value="bass">Bass</option>
-                <option value="drums">Drums</option>
-                <option selected value="guitar">Guitar</option>
-                <option value="vocals">Vocals</option>
+                <option value="flatwound-collector">Flatwound collector</option>
+                <option value="low-b-whisperer">Low B whisperer</option>
+                <option selected value="slap-enthusiast">
+                  Slap enthusiast
+                </option>
+                <option value="tone-advisor">Tone advisor</option>
               </div>
             </select>
           </span>
-        </label>
+        </div>
       </td>
       <td>
-        <label class="ui-text-field">
-          <span class="ui-sr-only">Notes for Ed O'Brien</span>
+        <div class="ui-text-field">
+          <label class="ui-sr-only" for="table-controls-4"
+            >Notes for Percy Groove</label
+          >
           <span class="ui-field">
-            <input type="text" placeholder="Add a note" />
+            <input
+              placeholder="Add a note about their tone"
+              id="table-controls-4"
+              type="text"
+            />
           </span>
-        </label>
+        </div>
       </td>
     </tr>
   </tbody>

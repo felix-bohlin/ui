@@ -2,12 +2,18 @@
   :where(.ui-rating) {
     --_motion: var(--ui-motion);
     --_accent: var(--ui-warning);
+    --_clear-image: var(--ui-icon-clear);
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease);
-    --_empty-bg-color: var(--ui-track-bg-color, var(--ui-border-color));
+    --_empty-bg-color: var(--ui-field-border-color);
     --_max: 5;
     --_size: var(--ui-icon-size);
-    --_star-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/%3E%3C/svg%3E");
+    --_star-empty-image: var(--ui-icon-rating-empty);
+    --_star-image: var(--ui-icon-rating);
+
+    @media print {
+      print-color-adjust: exact;
+    }
   }
 
   :where(meter.ui-rating) {
@@ -17,7 +23,6 @@
     border: 0;
     border-radius: 0;
     inline-size: calc(var(--_max) * var(--_size));
-    inline-size: calc(attr(max type(<number>), var(--_max)) * var(--_size));
     mask: var(--_star-image) 0 0 / var(--_size) var(--_size) repeat-x;
     vertical-align: middle;
 
@@ -27,6 +32,10 @@
 
     &.ui-large {
       --_size: var(--ui-icon-size-large);
+    }
+
+    &:dir(rtl) {
+      mask-position: 100% 0;
     }
 
     &::-webkit-meter-bar {
@@ -54,10 +63,25 @@
     }
   }
 
+  @supports (inline-size: calc(attr(max type(<number>), 5) * 1px)) {
+    :where(meter.ui-rating) {
+      inline-size: calc(attr(max type(<number>), var(--_max)) * var(--_size));
+      mask:
+        var(--_star-empty-image) 0 0 / var(--_size) var(--_size) repeat-x add,
+        linear-gradient(oklch(0% 0 0) 0 0) 0 0 /
+          calc(
+            attr(value type(<number>), 0) /
+              attr(max type(<number>), var(--_max)) * 100%
+          )
+          100% no-repeat intersect,
+        var(--_star-image) 0 0 / var(--_size) var(--_size) repeat-x;
+    }
+  }
+
   :where(fieldset.ui-rating) {
     --_clear-bg-color: var(--ui-text-subtle);
     --_clear-hover-bg-color: var(--ui-text);
-    --_size: var(--ui-control-size-x-small);
+    --_size: max(var(--ui-target-min-size), var(--ui-control-size-x-small));
 
     align-items: center;
     border: 0;
@@ -71,7 +95,7 @@
     padding: 0;
 
     &.ui-small {
-      --_size: var(--ui-icon-size-large);
+      --_size: max(var(--ui-target-min-size), var(--ui-icon-size-large));
     }
 
     &.ui-large {
@@ -88,6 +112,7 @@
 
     input {
       --_fill-bg-color: var(--_empty-bg-color);
+      --_fill-image: var(--_star-empty-image);
 
       appearance: none;
       block-size: var(--_size);
@@ -102,7 +127,7 @@
         background-color: var(--_fill-bg-color);
         content: "";
         inset: 0;
-        mask: var(--_star-image) center / contain no-repeat;
+        mask: var(--_fill-image) center / contain no-repeat;
         position: absolute;
         transition: background-color var(--_duration) var(--_ease);
       }
@@ -110,18 +135,19 @@
 
     input[value="0"] {
       --_fill-bg-color: var(--_clear-bg-color);
+      --_fill-image: var(--_clear-image);
 
       counter-increment: none;
       margin-inline-end: var(--ui-space-1);
 
       &::before {
-        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m0 18a8 8 0 0 1-6.32-12.9l11.22 11.22A7.96 7.96 0 0 1 12 20m6.32-3.1L7.1 5.68A8 8 0 0 1 18.32 16.9'/%3E%3C/svg%3E");
         mask-size: 65%;
       }
     }
 
     input:not([value="0"]):is(:checked, :has(~ :checked)) {
       --_fill-bg-color: var(--_accent);
+      --_fill-image: var(--_star-image);
 
       counter-increment: ui-rating ui-rating-max;
     }
@@ -129,9 +155,11 @@
     @media (hover: hover) {
       &:has(input:enabled:hover) input:not([value="0"]) {
         --_fill-bg-color: var(--_empty-bg-color);
+        --_fill-image: var(--_star-empty-image);
 
         &:is(:hover, :has(~ input:hover)) {
           --_fill-bg-color: var(--_accent);
+          --_fill-image: var(--_star-image);
         }
       }
 
@@ -173,7 +201,15 @@
     }
 
     &:has([aria-invalid="true"], :user-invalid) {
-      --_empty-bg-color: oklch(from var(--ui-invalid) l c h / 60%);
+      @media (forced-colors: none) {
+        --_empty-bg-color: oklch(from var(--ui-invalid) l c h / 60%);
+      }
+
+      @media (forced-colors: active) {
+        input:not([value="0"]) {
+          border: var(--ui-border-width) dashed CanvasText;
+        }
+      }
     }
 
     @media (forced-colors: active) {

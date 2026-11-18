@@ -10,11 +10,11 @@
 
 <Form>
   <Fieldset>
-    <FieldLegend>Legend</FieldLegend>
+    <FieldLegend>Spot on stage</FieldLegend>
     <FieldGroup name="radio-group-orientation" orientation="horizontal">
-      <Radio value="1" checked>Radio 1</Radio>
-      <Radio value="2">Radio 2</Radio>
-      <Radio value="3">Radio 3</Radio>
+      <Radio defaultChecked value="front">Front</Radio>
+      <Radio value="middle">Middle</Radio>
+      <Radio value="amp">Behind the amp</Radio>
     </FieldGroup>
   </Fieldset>
 </Form>

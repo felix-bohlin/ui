@@ -2,15 +2,17 @@
 import type { TabsItemProps as Props } from "./types.astro"
 import { createId } from "../id"
 import { isSelected } from "../ToggleGroup/selection"
+import { warnGroupedChecked } from "../dev"
 import { tabsContext } from "./context.astro"
 
-const $id = createId(Astro.locals)
+const idOf = createId(Astro.locals)
 const { checked, class: className, id, name, value, ...rest } = Astro.props
 
 const parent = tabsContext.get()
-const groupName = name || parent?.groupName || $id("tabs")
-const tabId = id || $id("tab")
+const groupName = name || parent?.groupName || idOf("tabs")
+const tabId = id || idOf("tab")
 const grouped = isSelected(parent?.value, value)
+warnGroupedChecked("TabsItem", grouped, checked, "Tabs")
 const html = await tabsContext.provide({ groupName, tabId }, () =>
   Astro.slots.render("default"),
 )

@@ -10,23 +10,30 @@
 </script>
 
 <Form>
-  <Fieldset>
-    <FieldLegend>Legend</FieldLegend>
-    <FieldDescription>Field description above fields</FieldDescription>
-    <FieldGroup orientation="horizontal" name="radio-group-field-description-1">
-      <Radio value="1" checked>Radio 1</Radio>
-      <Radio value="2">Radio 2</Radio>
-      <Radio value="3">Radio 3</Radio>
+  <Fieldset
+    aria-describedby="radio-field-group-field-description-1-description"
+  >
+    <FieldLegend>Contact method</FieldLegend>
+    <FieldDescription id="radio-field-group-field-description-1-description"
+      >We only contact you about your order.</FieldDescription
+    >
+    <FieldGroup name="radio-group-field-description-1" orientation="horizontal">
+      <Radio defaultChecked value="email">Email</Radio>
+      <Radio value="phone">Phone</Radio>
+      <Radio value="sms">SMS</Radio>
     </FieldGroup>
   </Fieldset>
-
-  <Fieldset>
-    <FieldLegend>Legend</FieldLegend>
-    <FieldGroup orientation="horizontal" name="radio-group-field-description-2">
-      <Radio value="1" checked>Radio 1</Radio>
-      <Radio value="2">Radio 2</Radio>
-      <Radio value="3">Radio 3</Radio>
+  <Fieldset
+    aria-describedby="radio-field-group-field-description-2-description"
+  >
+    <FieldLegend>Theme</FieldLegend>
+    <FieldGroup name="radio-group-field-description-2" orientation="horizontal">
+      <Radio defaultChecked value="system">System</Radio>
+      <Radio value="light">Light</Radio>
+      <Radio value="dark">Dark</Radio>
     </FieldGroup>
-    <FieldDescription>Field description below fields</FieldDescription>
+    <FieldDescription id="radio-field-group-field-description-2-description"
+      >System follows your device setting.</FieldDescription
+    >
   </Fieldset>
 </Form>

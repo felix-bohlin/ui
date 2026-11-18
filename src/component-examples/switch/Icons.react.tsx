@@ -4,11 +4,10 @@ export default function Icons() {
   return (
     <>
       <Switch
-        name="switch-icons"
-        size="small"
         hideLabel
-        iconUnchecked={
+        iconChecked={
           <svg
+            data-icon="moon"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -20,8 +19,9 @@ export default function Icons() {
             ></path>
           </svg>
         }
-        iconChecked={
+        iconUnchecked={
           <svg
+            data-icon="sun"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -33,16 +33,18 @@ export default function Icons() {
             ></path>
           </svg>
         }
+        name="switch-icons"
+        size="small"
       >
-        Toggle theme
+        Dark theme
       </Switch>
 
       <Switch
-        name="switch-icons"
         defaultChecked
         hideLabel
-        iconUnchecked={
+        iconChecked={
           <svg
+            data-icon="moon"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -54,8 +56,9 @@ export default function Icons() {
             ></path>
           </svg>
         }
-        iconChecked={
+        iconUnchecked={
           <svg
+            data-icon="sun"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -67,8 +70,9 @@ export default function Icons() {
             ></path>
           </svg>
         }
+        name="switch-icons"
       >
-        Toggle theme
+        Dark theme
       </Switch>
     </>
   )

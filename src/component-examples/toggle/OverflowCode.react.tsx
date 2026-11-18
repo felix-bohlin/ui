@@ -3,17 +3,17 @@ import { ToggleButton, ToggleGroup } from "opui-css/react"
 export default function OverflowCode() {
   return (
     <>
-      <ToggleGroup multiple name="overflow-wrap">
+      <ToggleGroup aria-label="Notifications">
         <ToggleButton value="all">Everything</ToggleButton>
         <ToggleButton value="mentions">Mentions</ToggleButton>
         <ToggleButton value="none">Nothing at all</ToggleButton>
       </ToggleGroup>
-      <ToggleGroup multiple name="overflow-scroll" overflow="scroll">
+      <ToggleGroup aria-label="Notifications" overflow="scroll">
         <ToggleButton value="all">Everything</ToggleButton>
         <ToggleButton value="mentions">Mentions</ToggleButton>
         <ToggleButton value="none">Nothing at all</ToggleButton>
       </ToggleGroup>
-      <ToggleGroup multiple name="overflow-shrink" overflow="shrink">
+      <ToggleGroup aria-label="Notifications" overflow="shrink">
         <ToggleButton value="all">Everything</ToggleButton>
         <ToggleButton value="mentions">Mentions</ToggleButton>
         <ToggleButton value="none">Nothing at all</ToggleButton>

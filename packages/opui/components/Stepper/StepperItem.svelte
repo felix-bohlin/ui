@@ -1,49 +1,55 @@
 <script lang="ts">
   import { content } from "../content.svelte"
+  import { classAttrs } from "../cx"
   import type { StepperItemProps as Props } from "./types.svelte"
 
   let {
+    "aria-current": ariaCurrent,
     class: className,
     complete,
-    completedLabel = ", completed",
+    completeLabel = ", completed",
     current,
-    description,
     error,
     errorLabel = ", error",
     href,
-    label,
 
     // Snippets
-    iconChecked,
+    description,
+    iconComplete,
+    label,
     ...rest
   }: Props = $props()
 
   const state = $derived(
-    error ? errorLabel : complete ? completedLabel : undefined,
+    error ? errorLabel : complete ? completeLabel : undefined,
   )
+  const link = $derived(href && !current && (complete || error))
 </script>
 
-{#snippet text()}
-  {#if label}{@render content(label)}{/if}
-  {#if state}<span class="ui-sr-only">{state}</span>{/if}
-{/snippet}
-
 <li
-  aria-current={current ? "step" : undefined}
-  class={[{ "ui-complete": complete, "ui-error": error }, className]}
+  aria-current={ariaCurrent ?? (current ? "step" : undefined)}
+  {...classAttrs([{ "ui-complete": complete, "ui-error": error }, className])}
   {...rest}
 >
-  {#if iconChecked}
-    <span aria-hidden="true" class="ui-icon-checked"
-      >{@render iconChecked()}</span
-    >
+  {#if iconComplete}
+    <span aria-hidden="true" class="ui-icon-complete">
+      {@render iconComplete()}
+    </span>
   {/if}
-  {#if href && !current && (complete || error)}
-    <a {href}>{@render text()}</a>
+  {#if link}
+    <a {href}>
+      {@render content(label)}{#if state}
+        <span class="ui-sr-only">{state}</span>
+      {/if}
+    </a>
   {:else}
-    {@render text()}
+    {@render content(label)}{#if state}
+      <span class="ui-sr-only">{state}</span>
+    {/if}
   {/if}
   {#if description}
-    <span class="ui-description">{@render content(description)}</span>
+    <span class="ui-description">
+      {@render content(description)}
+    </span>
   {/if}
 </li>

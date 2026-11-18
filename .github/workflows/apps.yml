@@ -1,0 +1,87 @@
+name: Apps
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        description: A published opui-css version to test instead of packages/opui
+        required: false
+        type: string
+  workflow_dispatch:
+    inputs:
+      version:
+        description: A published opui-css version to test instead of packages/opui (empty tests the branch)
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.changes.outputs.run }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          filter: blob:none
+      - id: changes
+        name: Check whether the change reaches the apps
+        run: |
+          case "$EVENT:$REF" in
+            pull_request:*) base=$BASE_SHA ;;
+            push:refs/heads/main) base=$BEFORE ;;
+            *) echo "run=true" >> "$GITHUB_OUTPUT"; exit 0 ;;
+          esac
+          if [ -n "$VERSION" ] || ! git cat-file -e "$base^{commit}" 2>/dev/null; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          changed=$(git diff --name-only "$base" HEAD)
+          printf '%s\n' "$changed"
+          if printf '%s\n' "$changed" | grep -qE '^(\.github/workflows/(apps|ci)\.yml|packages/opui/|src/component-examples/|src/utils/example-variants\.ts|tests/apps/)'; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::Nothing the app tests render changed, so they're skipped"
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BEFORE: ${{ github.event.before }}
+          EVENT: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+          VERSION: ${{ inputs.version }}
+
+  apps:
+    needs: changes
+    if: needs.changes.outputs.run == 'true'
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v1.63.0-noble
+    timeout-minutes: 30
+    env:
+      GIT_LFS_SKIP_SMUDGE: "1"
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            tests/apps/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test:apps
+        env:
+          HOME: /root
+          OPUI_VERSION: ${{ inputs.version }}
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: playwright-report-apps
+          path: |
+            tests/apps/playwright-report/
+            tests/apps/test-results/
+          retention-days: 14

@@ -22,7 +22,7 @@ Names and slugs can be mixed: `/audit css button` runs `css` on Button only.
 ## Run
 
 1. Start the agents in parallel, in one message. Give each one its scope, and tell it to follow `.claude/skills/audit/findings-format.md`.
-2. In a full sweep, split `a11y`, `api-docs`, `css`, `examples` and `framework-parity` by their `components`, about 10 per agent and in the order the script prints them, so each one reads its files closely.
+2. In a full sweep, split `a11y`, `api-docs`, `css`, `examples`, `framework-idioms` and `framework-parity` by their `components`, about 10 per agent and in the order the script prints them, so each one reads its files closely.
 3. Wait for every agent to finish.
 
 ## Merge
@@ -37,4 +37,4 @@ Names and slugs can be mixed: `/audit css button` runs `css` on Button only.
 ## Report
 
 - **Current changes:** show the merged findings in chat, then one line per agent that found nothing. Don't touch `TODO.md`. Offer to fix the findings.
-- **Sweeps:** write the merged findings as JSON, `[{ "section", "severity", "component", "text", "files", "summary", "recommended", "fix", "options", "notes" }]`, and run `node scripts/todo.mjs add <file>`. It adds them as open items, each in its section after the items with the same or a lower severity, and rejects a finding the `/todo` page can't show before it writes anything. Never change or remove existing items. Then run `pnpm exec prettier --write TODO.md` and `pnpm exec vitest run tests/unit/todo.test.ts`, and summarize in chat: how many findings per section, and the most severe ones. The user answers in `TODO.md` with `> ` notes, as with the other items.
+- **Sweeps:** write the merged findings as JSON, `[{ "section", "severity", "component", "text", "files", "summary", "recommended", "fix", "options", "notes" }]`, and run `node scripts/todo.mjs add <file>`. It adds them as open items, each in its section after the items with the same or a lower severity, and rejects a finding the `/dev/todo` page can't show before it writes anything. Never change or remove existing items. Then run `pnpm exec oxfmt TODO.md` and `pnpm exec vitest run tests/unit/todo.test.ts`, and summarize in chat: how many findings per section, and the most severe ones. The user answers in `TODO.md` with `> ` notes, as with the other items.

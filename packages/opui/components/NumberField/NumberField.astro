@@ -1,10 +1,11 @@
 ---
 import Button from "../Button/Button.astro"
+import { trimEdges } from "../whitespace"
 
 import type { Props } from "./types.astro"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
-import { createId, idRefs } from "../id"
-import { minusPath, plusPath } from "./icons"
+import { createIds, fieldDescribedBy } from "../id"
+import { cx } from "../cx"
 
 export const title = "Number Field"
 
@@ -13,6 +14,7 @@ const {
   "aria-invalid": ariaInvalid,
   class: className,
   decreaseLabel = "Decrease",
+  disabled,
   endText,
   error,
   hideLabel,
@@ -30,12 +32,16 @@ const {
 } = Astro.props
 
 const field = fieldGroupContext.get()
-const $id = createId(Astro.locals)
-const inputId = id ?? $id("number-field")
+const ids = createIds(Astro.locals, "number-field", id)
+const inputId = ids()
 const startTextId =
-  startText || Astro.slots.has("start-text") ? $id("start-text") : undefined
+  startText || Astro.slots.has("start-text") ? ids("start-text") : undefined
 const endTextId =
-  endText || Astro.slots.has("end-text") ? $id("end-text") : undefined
+  endText || Astro.slots.has("end-text") ? ids("end-text") : undefined
+const labelSlot = Astro.slots.has("label")
+  ? trimEdges(await Astro.slots.render("label"))
+  : ""
+const LabelTag = label || labelSlot ? "label" : Fragment
 ---
 
 <opui-number-field
@@ -51,76 +57,77 @@ const endTextId =
   ]}
   style={style}
 >
-  {
-    (label || Astro.slots.has("label")) && (
-      <label class:list={[hideLabel ? "ui-sr-only" : "ui-label"]} for={inputId}>
-        {label}
-        <slot name="label" />
-      </label>
-    )
-  }
-  {
-    (startText || Astro.slots.has("start-text")) && (
-      <span class="ui-start-text" id={startTextId}>
-        {startText}
-        <slot name="start-text" />
-      </span>
-    )
-  }
+  <LabelTag class={cx([hideLabel ? "ui-sr-only" : "ui-label"])} for={inputId}
+    >{label}<Fragment set:html={labelSlot}
+  /></LabelTag>
+  {(startText || Astro.slots.has("start-text")) && <span
+    class="ui-start-text"
+    id={startTextId}
+  >
+    {startText}
+    <slot name="start-text" />
+  </span>}
   <span class="ui-field">
     <span class="ui-start">
       <Button
+        aria-controls={inputId}
         aria-label={decreaseLabel}
         command="--step-down"
         commandfor={inputId}
+        disabled={disabled}
         round
       >
-        <svg
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-        >
-          <path fill="currentColor" d={minusPath}></path>
-        </svg>
+        <slot name="decrease-icon">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          ></svg>
+        </slot>
       </Button>
     </span>
     <input
       {...rest}
-      aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
+      aria-describedby={fieldDescribedBy(
+        { endText: endTextId, startText: startTextId },
+        ariaDescribedBy,
+      )}
       aria-invalid={error ? "true" : ariaInvalid}
+      disabled={disabled}
       id={inputId}
       name={name ?? field?.name}
       type="number"
     />
     <span class="ui-end">
       <Button
+        aria-controls={inputId}
         aria-label={increaseLabel}
         command="--step-up"
         commandfor={inputId}
+        disabled={disabled}
         round
       >
-        <svg
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-        >
-          <path fill="currentColor" d={plusPath}></path>
-        </svg>
+        <slot name="increase-icon">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          ></svg>
+        </slot>
       </Button>
     </span>
   </span>
-  {
-    (endText || Astro.slots.has("end-text")) && (
-      <span class="ui-end-text" id={endTextId}>
-        {endText}
-        <slot name="end-text" />
-      </span>
-    )
-  }
+  {(endText || Astro.slots.has("end-text")) && <span
+    class="ui-end-text"
+    id={endTextId}
+  >
+    {endText}
+    <slot name="end-text" />
+  </span>}
 </opui-number-field>
 
 <script>

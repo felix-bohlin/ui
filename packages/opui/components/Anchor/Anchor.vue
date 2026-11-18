@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed, provide, reactive } from "vue"
-import { warnMissingId } from "../dev"
 import { AnchorKey } from "./context.vue"
+import { warnMissingId } from "../dev"
+import { mergeStyle, styleAttrs } from "../style"
 import { extendsAnchor } from "./root"
+import { classAttrs } from "../cx"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
@@ -14,14 +16,12 @@ const {
 defineSlots<Slots>()
 
 const isHover = computed(() => trigger === "hover")
-const id = computed(() => (isHover.value ? idProp : undefined))
+
+const id = computed(() => (isHover.value ? idProp || undefined : undefined))
+
 if (isHover.value && !extendsAnchor(className)) {
   warnMissingId("Anchor", id.value, "interestfor")
 }
-
-const positionStyle = computed(() =>
-  positionArea ? { "--ui-anchor-position-area": positionArea } : undefined,
-)
 
 provide(
   AnchorKey,
@@ -34,9 +34,16 @@ provide(
 
 <template>
   <span
+    v-bind="{
+      ...classAttrs([
+        !extendsAnchor($props.class) && 'ui-anchor',
+        $props.class,
+      ]),
+      ...styleAttrs(
+        mergeStyle({ '--ui-anchor-position-area': positionArea }, {}),
+      ),
+    }"
     :id="isHover ? undefined : idProp"
-    :class="[!extendsAnchor($props.class) && 'ui-anchor', $props.class]"
-    v-bind="positionStyle && { style: positionStyle }"
   >
     <slot></slot>
   </span>

@@ -6,12 +6,18 @@ const reviewedExampleWarnings = new Set([
   "a11y_no_noninteractive_tabindex",
 ])
 
+const invalidChoice =
+  /'aria-invalid' is not supported by the role '(checkbox|radio)'/
+
 export default {
   compilerOptions: {
     warningFilter: (warning) =>
       !(
-        warning.filename?.includes("component-examples") &&
-        reviewedExampleWarnings.has(warning.code)
+        (warning.filename?.includes("component-examples") &&
+          reviewedExampleWarnings.has(warning.code)) ||
+        (warning.filename?.includes("packages/opui/components") &&
+          warning.code === "a11y_role_supports_aria_props_implicit" &&
+          invalidChoice.test(warning.message))
       ),
   },
 }

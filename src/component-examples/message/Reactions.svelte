@@ -4,7 +4,7 @@
     Button,
     Menu,
     Message,
-    Messages,
+    MessageList,
     Reactions,
     ToggleButton,
     ToggleGroup,
@@ -22,29 +22,32 @@
     emoji.map((item) => ({ ...item, command: "--react", commandfor: id }))
 </script>
 
-{#snippet addReactionIcon()}<svg
+{#snippet addReactionIcon()}
+  <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="24"
     height="24"
     viewBox="0 0 24 24"
-    ><path
+  >
+    <path
       fill="currentColor"
       d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8zm-3.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m7 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M7 14a5.5 5.5 0 0 0 10 0zM19 1v3h-3v2h3v3h2V6h3V4h-3V1z"
-    ></path></svg
-  >{/snippet}
+    ></path>
+  </svg>
+{/snippet}
 
-<Messages aria-label="Messages with Saga">
-  <Message author="Saga" datetime="2026-10-08T16:05" time="16:05">
+<MessageList aria-label="Messages with Stella">
+  <Message author="Stella" datetime="2026-10-08T16:05" time="16:05">
     {#snippet start()}
-      <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
+      <Avatar aria-hidden="true">SN</Avatar>
     {/snippet}
-    <p>The deck is out. Thanks everyone!</p>
+    <p>My slap cover is up. Thanks for listening, everyone!</p>
     {#snippet actions()}
       <Button
         aria-label="Add reaction"
-        commandfor="message-reactions-1-picker"
         command="toggle-popover"
+        commandfor="message-reactions-1-picker"
         round
         size="x-small"
       >
@@ -61,7 +64,7 @@
     {#snippet bottom()}
       <Reactions id="message-reactions-1">
         <ToggleGroup aria-label="Reactions" multiple name="reaction">
-          <ToggleButton aria-label="Thumbs up, 2" checked value="+1"
+          <ToggleButton aria-label="Thumbs up, 2" defaultChecked value="+1"
             ><span aria-hidden="true">👍 2</span></ToggleButton
           >
           <ToggleButton aria-label="Party, 1" value="tada"
@@ -72,12 +75,12 @@
     {/snippet}
   </Message>
   <Message author="You" datetime="2026-10-08T16:07" outgoing time="16:07">
-    <p>Great work, it looks sharp.</p>
+    <p>Totally rad, that low B rattled my windows.</p>
     {#snippet actions()}
       <Button
         aria-label="Add reaction"
-        commandfor="message-reactions-2-picker"
         command="toggle-popover"
+        commandfor="message-reactions-2-picker"
         round
         size="x-small"
       >
@@ -102,4 +105,4 @@
       </Reactions>
     {/snippet}
   </Message>
-</Messages>
+</MessageList>

@@ -10,7 +10,9 @@ export type Props = {
     }
 )
 
-export type AnchorContentProps = {}
+export type AnchorContentProps = {
+  popover?: "auto" | "hint" | "manual"
+}
 
 export type Context = {
   floatingId?: string

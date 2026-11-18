@@ -1,24 +1,27 @@
 <script lang="ts">
   import { content } from "../content.svelte"
   import { tagAttrs } from "../tag"
+  import { defined } from "../attrs"
+  import { classAttrs } from "../cx"
   import type { Props } from "./types.svelte"
-  import type { HTMLAttributes } from "svelte/elements"
+  import type { SvelteHTMLElements } from "svelte/elements"
 
   let {
     as,
     borderTop,
+    choice,
     class: className,
     color,
     disabled,
     for: htmlFor,
     href,
     inset,
-    type,
 
     // Snippets
     children,
     description,
     end,
+    iconChecked,
     label,
     start,
     submenu,
@@ -26,55 +29,89 @@
   }: Props = $props()
 
   const hasControl = $derived(
-    type === "checkbox" || type === "radio" || type === "switch",
+    choice === "checkbox" || choice === "radio" || choice === "switch",
   )
   const Tag = $derived(hasControl ? "label" : (as ?? (href ? "a" : undefined)))
-  const tagProps = $derived(
-    hasControl
-      ? { class: `ui-${type}`, for: htmlFor }
-      : { ...tagAttrs(Tag ?? "", disabled, href), ...rest },
-  )
+  const restOnItem = $derived(hasControl || !Tag)
+  const hasLabel = $derived(!!label)
+  const hasDescription = $derived(!!description)
 </script>
 
-{#snippet body()}
-  {#if start}
-    <div class="ui-start">
-      {@render start()}
-    </div>
-  {/if}
-  {#if label || description}
-    <div class="ui-text">
-      {#if label}<p>{@render content(label)}</p>{/if}
-      {#if description}<p>{@render content(description)}</p>{/if}
-      {@render children?.()}
-    </div>
-  {:else}
-    {@render children?.()}
-  {/if}
-  {#if end}
-    <div class="ui-end">
-      {@render end()}
-    </div>
-  {/if}
-{/snippet}
-
 <li
-  class={[
-    {
-      "ui-border-top": borderTop,
-      "ui-inset": inset,
-    },
+  {...classAttrs([
+    { "ui-border-top": borderTop, "ui-inset": inset },
     color && `ui-${color}`,
     className,
-  ]}
-  {...(hasControl || !Tag ? rest : {}) as HTMLAttributes<HTMLLIElement>}
+  ])}
+  {...restOnItem ? (rest as SvelteHTMLElements["li"]) : {}}
 >
   {#if Tag}
-    <svelte:element this={Tag} {...tagProps as HTMLAttributes<HTMLElement>}>
-      {@render body()}
+    <svelte:element
+      this={Tag}
+      {...classAttrs([hasControl && `ui-${choice}`])}
+      for={hasControl ? htmlFor : undefined}
+      {...hasControl ? {} : tagAttrs(Tag, disabled, href)}
+      {...defined(restOnItem ? {} : (rest as object))}
+    >
+      {#if start}
+        <div class="ui-start">
+          {@render start()}
+        </div>
+      {/if}{#if hasLabel || hasDescription}
+        <div class="ui-text">
+          {#if hasLabel}
+            <p>
+              {@render content(label)}
+            </p>
+          {/if}
+          {#if hasDescription}
+            <p>
+              {@render content(description)}
+            </p>
+          {/if}
+          {@render children?.()}
+        </div>
+      {:else}
+        {@render children?.()}
+      {/if}{#if end}
+        <div class="ui-end">
+          {@render end()}
+        </div>
+      {/if}{#if iconChecked}
+        <span aria-hidden="true" class="ui-icon-checked">
+          {@render iconChecked()}
+        </span>
+      {/if}
     </svelte:element>
   {:else}
-    {@render body()}
-  {/if}
-  {@render submenu?.()}
+    {#if start}
+      <div class="ui-start">
+        {@render start()}
+      </div>
+    {/if}{#if hasLabel || hasDescription}
+      <div class="ui-text">
+        {#if hasLabel}
+          <p>
+            {@render content(label)}
+          </p>
+        {/if}
+        {#if hasDescription}
+          <p>
+            {@render content(description)}
+          </p>
+        {/if}
+        {@render children?.()}
+      </div>
+    {:else}
+      {@render children?.()}
+    {/if}{#if end}
+      <div class="ui-end">
+        {@render end()}
+      </div>
+    {/if}{#if iconChecked}
+      <span aria-hidden="true" class="ui-icon-checked">
+        {@render iconChecked()}
+      </span>
+    {/if}
+  {/if}{@render submenu?.()}
 </li>

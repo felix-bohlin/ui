@@ -7,8 +7,8 @@ import { Card, CardContent } from "opui-css/vue"
     <CardContent>Plain</CardContent>
   </Card>
 
-  <Card variant="transparent">
-    <CardContent>Transparent</CardContent>
+  <Card variant="elevated">
+    <CardContent>Elevated</CardContent>
   </Card>
 
   <Card variant="outlined">
@@ -19,7 +19,7 @@ import { Card, CardContent } from "opui-css/vue"
     <CardContent>Tonal</CardContent>
   </Card>
 
-  <Card variant="elevated">
-    <CardContent>Elevated</CardContent>
+  <Card variant="transparent">
+    <CardContent>Transparent</CardContent>
   </Card>
 </template>

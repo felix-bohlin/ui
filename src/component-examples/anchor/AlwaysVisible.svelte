@@ -11,7 +11,7 @@
 <Anchor positionArea="inline-end">
   <Button variant="outlined">Export</Button>
   <AnchorContent>
-    <Card variant="tonal" class="coach-mark">
+    <Card class="coach-mark" variant="tonal">
       <CardContent>
         <strong>New</strong> Export to PDF and CSV from the same menu.
       </CardContent>

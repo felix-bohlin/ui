@@ -4,20 +4,20 @@ export default function EndText() {
   return (
     <>
       <Radio
-        name="radio-end-text"
-        value="default"
         defaultChecked
-        endText="Supporting text"
+        endText="Arrives in 3 to 5 days."
+        name="radio-end-text"
+        value="standard"
       >
-        Default
+        Standard delivery
       </Radio>
       <Radio
+        endText="Arrives tomorrow."
         name="radio-end-text"
-        value="stack"
         orientation="vertical"
-        endText="Supporting text"
+        value="express"
       >
-        Stack
+        Express delivery
       </Radio>
     </>
   )

@@ -3,22 +3,26 @@
 </script>
 
 <List>
-  <ListItem label="Headline" description="Supporting text">
-    {#snippet start()}<video controls muted>
+  <ListItem description="Uploaded by Lou Headstock" label="Slap tutorial">
+    {#snippet start()}
+      <video controls muted>
         <source
           src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
           type="video/mp4"
-        /></video
-      >{/snippet}
-    {#snippet end()}13:37{/snippet}
+        />
+      </video>
+    {/snippet}
+    {#snippet end()}1:30{/snippet}
   </ListItem>
-  <ListItem label="Headline" description="Supporting text">
-    {#snippet start()}<video controls muted>
+  <ListItem description="Uploaded by Percy Groove" label="Drop D in 45 seconds">
+    {#snippet start()}
+      <video controls muted>
         <source
           src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
           type="video/mp4"
-        /></video
-      >{/snippet}
-    {#snippet end()}90s{/snippet}
+        />
+      </video>
+    {/snippet}
+    {#snippet end()}0:45{/snippet}
   </ListItem>
 </List>

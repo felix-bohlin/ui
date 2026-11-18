@@ -1,27 +1,35 @@
-export function mountExamples<Module>(
+export const hydratable = (el: HTMLElement) =>
+  "hydratable" in el.dataset &&
+  new URLSearchParams(location.search).has("hydrate")
+
+export const idPrefixOf = (id: string) => id.replace(/[^\w-]/g, "-")
+
+export async function mountExamples<Module>(
   framework: string,
   extension: string,
   loaders: Record<string, () => Promise<Module>>,
   mount: (el: HTMLElement, mod: Module, id: string) => void,
+  keepsMarkup: (el: HTMLElement) => boolean = hydratable,
 ) {
-  const pending = new WeakSet<HTMLElement>()
-
-  async function mountExample(el: HTMLElement) {
+  const targets = [
+    ...document.querySelectorAll<HTMLElement>(
+      `[data-${framework}-example]:not([data-${framework}-mounted])`,
+    ),
+  ].flatMap((el) => {
     const id = el.getAttribute(`data-${framework}-example`)
-    if (!id || pending.has(el)) return
+    const loader = id && loaders[`../../component-examples/${id}${extension}`]
+    return loader ? [{ el, id, loader }] : []
+  })
+  const modules = await Promise.all(targets.map(({ loader }) => loader()))
 
-    const loader = loaders[`../../component-examples/${id}${extension}`]
-    if (!loader) return
-
-    pending.add(el)
-    const mod = await loader()
-    el.innerHTML = ""
-    mount(el, mod, id)
+  for (const [index, { el, id }] of targets.entries()) {
+    if (!keepsMarkup(el)) el.innerHTML = ""
+    el.dispatchEvent(new Event("example-mount", { bubbles: true }))
+    try {
+      mount(el, modules[index], id)
+    } catch (error) {
+      reportError(error)
+    }
     el.setAttribute(`data-${framework}-mounted`, "")
   }
-
-  const targets = document.querySelectorAll<HTMLElement>(
-    `[data-${framework}-example]:not([data-${framework}-mounted])`,
-  )
-  return Promise.all([...targets].map(mountExample))
 }

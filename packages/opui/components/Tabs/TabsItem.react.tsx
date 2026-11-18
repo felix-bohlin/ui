@@ -1,10 +1,12 @@
 "use client"
 
 import { useId } from "react"
+import { defined } from "../attrs"
 import { cx } from "../cx"
-import { warnGroupedChecked } from "../dev"
-import { isSelected } from "../ToggleGroup/selection"
+import { useSeedChecked } from "../react"
 import { TabsContext, useTabsContext } from "./context.react"
+import { isSelected } from "../ToggleGroup/selection"
+import { warnGroupedChecked } from "../dev"
 import type { TabsItemProps as Props } from "./types.react"
 
 export default function TabsItem({
@@ -14,28 +16,31 @@ export default function TabsItem({
   id,
   name,
   onChange,
+  ref,
   value,
   children,
   ...rest
 }: Props) {
-  const uid = useId()
   const parent = useTabsContext()
+  const uid = useId()
   const groupName = name || parent?.groupName || `tabs-${uid}`
   const tabId = id || `tab-${uid}`
   const grouped = isSelected(parent?.value, value)
   warnGroupedChecked("TabsItem", grouped, checked ?? defaultChecked, "Tabs")
+  const inputRef = useSeedChecked(ref, (input) => parent?.change?.(input))
 
   return (
     <TabsContext value={{ groupName, tabId }}>
       <input
         checked={grouped ?? checked}
-        className={cx(["ui-input", className])}
         defaultChecked={grouped === undefined ? defaultChecked : undefined}
+        className={cx(["ui-input", className])}
         id={tabId}
         name={groupName}
         type="radio"
         value={value}
-        {...rest}
+        {...defined(rest)}
+        ref={inputRef}
         onChange={(event) => {
           parent?.change?.(event.currentTarget)
           onChange?.(event)

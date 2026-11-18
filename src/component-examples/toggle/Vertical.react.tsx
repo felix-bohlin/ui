@@ -2,9 +2,9 @@ import { ToggleButton, ToggleGroup } from "opui-css/react"
 
 export default function Vertical() {
   return (
-    <ToggleGroup name="view" orientation="vertical">
+    <ToggleGroup aria-label="View" name="view" orientation="vertical">
       <ToggleButton value="day">Day</ToggleButton>
-      <ToggleButton value="week" defaultChecked>
+      <ToggleButton defaultChecked value="week">
         Week
       </ToggleButton>
       <ToggleButton value="month">Month</ToggleButton>

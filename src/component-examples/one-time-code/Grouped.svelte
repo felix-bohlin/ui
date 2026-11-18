@@ -3,8 +3,8 @@
 </script>
 
 <OneTimeCode
-  label="Verification code"
   grouped
+  label="Verification code"
   name="code"
   required
   value="482"

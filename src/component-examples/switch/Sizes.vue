@@ -4,17 +4,17 @@ import { Switch } from "opui-css/vue"
 
 <template>
   <div class="example-row">
-    <Switch name="switch-sizes" size="x-small" checked hideLabel
+    <Switch checked hideLabel name="switch-sizes" size="x-small"
       >X-small</Switch
     >
-    <Switch name="switch-sizes" size="small" checked hideLabel>Small</Switch>
-    <Switch name="switch-sizes" checked hideLabel>Medium</Switch>
-    <Switch name="switch-sizes" size="large" checked hideLabel>Large</Switch>
+    <Switch checked hideLabel name="switch-sizes" size="small">Small</Switch>
+    <Switch checked hideLabel name="switch-sizes">Medium</Switch>
+    <Switch checked hideLabel name="switch-sizes" size="large">Large</Switch>
   </div>
   <div class="example-row">
-    <Switch name="switch-sizes" size="x-small" checked>X-small</Switch>
-    <Switch name="switch-sizes" size="small" checked>Small</Switch>
-    <Switch name="switch-sizes" checked>Medium</Switch>
-    <Switch name="switch-sizes" size="large" checked>Large</Switch>
+    <Switch checked name="switch-sizes" size="x-small">X-small</Switch>
+    <Switch checked name="switch-sizes" size="small">Small</Switch>
+    <Switch checked name="switch-sizes">Medium</Switch>
+    <Switch checked name="switch-sizes" size="large">Large</Switch>
   </div>
 </template>

@@ -3,13 +3,14 @@
 </script>
 
 <Button
+  aria-label="More actions"
+  command="toggle-popover"
+  commandfor="menu-custom-1"
   round
   size="small"
-  aria-label="More actions"
-  commandfor="menu-custom-1"
-  command="toggle-popover"
 >
   <svg
+    data-icon="more-vertical"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
@@ -24,12 +25,13 @@
   <li class="ui-heading">Document</li>
   <ListItem
     as="button"
-    label="Rename"
-    commandfor="menu-custom-1"
     command="hide-popover"
+    commandfor="menu-custom-1"
+    label="Rename"
   >
     {#snippet start()}
       <svg
+        data-icon="edit"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -40,16 +42,19 @@
         ></path>
       </svg>
     {/snippet}
-    {#snippet end()}<kbd>F2</kbd>{/snippet}
+    {#snippet end()}
+      <kbd>F2</kbd>
+    {/snippet}
   </ListItem>
   <ListItem
     as="button"
-    label="Copy"
-    commandfor="menu-custom-1"
     command="hide-popover"
+    commandfor="menu-custom-1"
+    label="Copy"
   >
     {#snippet start()}
       <svg
+        data-icon="copy"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -60,15 +65,18 @@
         ></path>
       </svg>
     {/snippet}
-    {#snippet end()}<kbd>Ctrl+C</kbd>{/snippet}
+    {#snippet end()}
+      <kbd>Ctrl+C</kbd>
+    {/snippet}
   </ListItem>
   <ListItem
-    label="Open in new tab"
     href="/guide/getting-started/"
+    label="Open in new tab"
     target="_blank"
   >
     {#snippet start()}
       <svg
+        data-icon="open"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -82,14 +90,15 @@
   </ListItem>
   <ListItem
     as="button"
-    label="Delete"
     borderTop
     color="critical"
-    commandfor="menu-custom-1"
     command="hide-popover"
+    commandfor="menu-custom-1"
+    label="Delete"
   >
     {#snippet start()}
       <svg
+        data-icon="delete"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"

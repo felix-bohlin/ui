@@ -28,7 +28,15 @@ export default {
       "The switch `<input>` without the label, for a custom layout such as the end of a list item. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.",
     ),
   },
-  options: [],
+  options: [
+    {
+      description:
+        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
+      inherited: true,
+      prop: "name",
+      type: "string",
+    },
+  ],
   page: "switch",
   parts: [],
   root: {

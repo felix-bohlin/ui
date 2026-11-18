@@ -3,7 +3,7 @@ import { Select } from "opui-css/vue"
 </script>
 
 <template>
-  <Select label="Fruit" dense>
+  <Select dense label="Fruit">
     <option value="">-</option>
     <option>Apple</option>
     <option>Banana</option>

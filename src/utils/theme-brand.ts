@@ -4,6 +4,7 @@ import {
   oklchLuminances,
   parseOklch,
 } from "./color-utils"
+import { probeColors } from "./color-probe"
 import { themeStore, type ThemeTokens } from "./theme"
 
 type Rgb = [number, number, number]
@@ -27,7 +28,7 @@ const parseSrgb = (value: string): Rgb | null => {
     : null
 }
 
-export const luminance = (rgb: Rgb) =>
+const luminance = (rgb: Rgb) =>
   rgb
     .map((channel) =>
       channel <= 0.03928 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4,
@@ -43,20 +44,16 @@ export const contrastRatio = (a: Rgb, b: Rgb) => {
 }
 
 const surfaceOf = (scheme: "dark" | "light") => {
-  const host = document.createElement("div")
-  host.className = `ui-${scheme}`
-  host.hidden = true
-  host.style.forcedColorAdjust = "none"
-  const probe = document.createElement("div")
-  probe.style.color = "color(from var(--ui-surface) srgb r g b)"
-  host.append(probe)
-  document.body.append(host)
-  const surface = parseSrgb(getComputedStyle(probe).color)
-  host.remove()
-  return surface
+  const [[color]] = probeColors(document.body, [
+    {
+      className: `ui-${scheme}`,
+      colors: ["color(from var(--ui-surface) srgb r g b)"],
+    },
+  ])
+  return parseSrgb(color)
 }
 
-export const fitBrand = (color: string, scheme: "dark" | "light") => {
+const fitBrand = (color: string, scheme: "dark" | "light") => {
   const surface = surfaceOf(scheme)
   const oklch = colorToOklch(color)
   if (!surface || !oklch) return color
@@ -92,16 +89,10 @@ export const brandTokens = (color: string) => {
 }
 
 export const resolveOklch = (color: string) => {
-  const host = document.createElement("div")
-  host.hidden = true
-  host.style.color = "transparent"
-  const probe = document.createElement("div")
-  probe.style.color = `oklch(from ${color} l c h)`
-  probe.style.forcedColorAdjust = "none"
-  host.append(probe)
-  document.body.append(host)
-  const oklch = parseOklch(getComputedStyle(probe).color)
-  host.remove()
+  const [[resolved]] = probeColors(document.body, [
+    { className: "", colors: [`oklch(from ${color} l c h)`] },
+  ])
+  const oklch = parseOklch(resolved)
   return oklch && formatOklch(oklch)
 }
 

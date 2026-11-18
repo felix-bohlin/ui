@@ -6,7 +6,7 @@ export default {
   keyboard: [
     {
       description:
-        'Moves focus to a scrolling table, or to its scroll box, when it has `tabindex="0"`. A table without one isn\'t a tab stop.',
+        'Moves focus to a scrolling table, or to its scroll box. Safari only stops on it when it has `tabindex="0"`.',
       keys: ["Tab"],
     },
     {
@@ -47,7 +47,7 @@ export default {
     {
       default: '"wrap"',
       description:
-        'What the table does when its columns don\'t fit. `"wrap"` lets the cells wrap their text, and `"scroll"` keeps each cell on one line, scrolls the table sideways and lets the last column take the space left over. Give a scrolling table `tabindex="0"`, so keyboard users can scroll it.',
+        'What the table does when its columns don\'t fit. `wrap` lets the cells wrap their text, and `scroll` keeps each cell on one line, scrolls the table sideways and lets the last column take the space left over. Give a scrolling table `tabindex="0"`, so keyboard users can scroll it.',
       group: "Overflow",
       prop: "overflow",
       values: { scroll: ".ui-overflow-scroll", wrap: null },
@@ -56,7 +56,7 @@ export default {
       class: ".ui-sticky-header",
       default: "false",
       description:
-        "Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`.",
+        "Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-inset`.",
       group: "Sticky header",
       prop: "stickyHeader",
     },

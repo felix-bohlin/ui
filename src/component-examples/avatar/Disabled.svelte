@@ -2,7 +2,13 @@
   import { Avatar } from "opui-css/svelte"
 </script>
 
-<Avatar aria-label="Eva Falk" as="button">EF</Avatar>
-<Avatar aria-label="Gustav Holm" as="button" disabled>GH</Avatar>
-<Avatar aria-label="Ida Jansson" href="#">IJ</Avatar>
-<Avatar aria-label="Karl Lund" disabled href="#">KL</Avatar>
+<Avatar as="button"
+  ><span aria-label="Holly Humbucker" role="img">HH</span></Avatar
+>
+<Avatar as="button" disabled
+  ><span aria-label="Ines Hertz" role="img">IH</span></Avatar
+>
+<Avatar href="#"><span aria-label="Lou Headstock" role="img">LH</span></Avatar>
+<Avatar disabled href="#"
+  ><span aria-label="Percy Groove" role="img">PG</span></Avatar
+>

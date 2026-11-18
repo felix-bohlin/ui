@@ -67,14 +67,17 @@
     /* Body paragraphs after the heading */
     :where(:scope.ui-hgroup) > p:not(:first-of-type:first-child),
     hgroup > p:not(:first-of-type:first-child) {
-      color: oklch(from currentColor l c h / 75%);
-
-      @container style(--ui-contrast: more) {
-        color: inherit;
-      }
+      color: if(
+        style(--ui-contrast: more): inherit;
+          else: oklch(from currentColor l c h / 75%)
+      );
 
       font-size: var(--ui-font-size-large);
-      line-height: round(up, 1.6em, var(--ui-rhythm-step));
+      line-height: round(
+        up,
+        calc(1em * var(--ui-line-height)),
+        var(--ui-rhythm-step)
+      );
     }
   }
 
@@ -148,6 +151,10 @@
       background-color: CanvasText;
       forced-color-adjust: none;
     }
+
+    @media print {
+      print-color-adjust: exact;
+    }
   }
 
   /* Inline text elements - class utilities */
@@ -186,6 +193,10 @@
     overflow-wrap: anywhere;
     padding-block: calc(0.1ex + var(--ui-border-width));
     padding-inline: calc(0.3ex + var(--ui-border-width));
+
+    @media print {
+      print-color-adjust: exact;
+    }
   }
 
   :where(.ui-mark) {
@@ -234,11 +245,11 @@
     padding-block: var(--ui-space-3);
     padding-inline: var(--ui-space-4);
 
-    :first-child {
+    & > :first-child {
       margin-block-start: 0;
     }
 
-    :last-child {
+    & > :last-child {
       margin-block-end: 0;
     }
 
@@ -260,8 +271,12 @@
       overflow-inline: auto;
       padding-block: var(--ui-space-3);
       padding-inline: var(--ui-space-4);
-      scrollbar-width: thin;
       white-space: pre;
+
+      @media print {
+        overflow-wrap: anywhere;
+        white-space: pre-wrap;
+      }
 
       > :is(code, samp) {
         background: none;
@@ -287,6 +302,12 @@
   syntax: "<length>";
 }
 
+@property --_line-height {
+  inherits: true;
+  initial-value: 0px;
+  syntax: "<length>";
+}
+
 @layer components.prose {
   :where(p:not(.ui-p), small, span).ui-small {
     font-size: max(0.75em, var(--ui-font-size-caption));
@@ -294,7 +315,11 @@
 
   @scope (.ui-rich-text) to (.ui-not-rich-text) {
     :scope {
-      --_flow-gap: round(1.25em, var(--ui-rhythm-step));
+      --_flow-gap: round(
+        var(--ui-rich-text-flow-gap, 1.25em),
+        var(--ui-rhythm-step)
+      );
+      line-height: var(--ui-rich-text-line-height);
       min-inline-size: 0;
       overflow-wrap: break-word;
     }
@@ -341,11 +366,11 @@
       padding-block: var(--ui-space-3);
       padding-inline: var(--ui-space-4);
 
-      :first-child {
+      & > :first-child {
         margin-block-start: 0;
       }
 
-      :last-child {
+      & > :last-child {
         margin-block-end: 0;
       }
 
@@ -436,7 +461,7 @@
     :is(h1, h2, h3, h4, h5, h6):where(:not([class])) {
       /* Firefox and Safari fallback */
       @supports (inline-size: calc(1px * 1em / 1rem)) {
-        --_font-scale: calc(1em / 1rem);
+        --_font-scale: calc(1em / var(--ui-font-size-body));
       }
 
       color: var(--ui-text-strong);
@@ -446,64 +471,79 @@
         1em + 2 * var(--ui-rhythm-step),
         var(--ui-rhythm-step)
       );
+      margin-block: round(
+          var(
+            --ui-rich-text-heading-margin-block-start,
+            var(--_flow-gap) * var(--_flow-before)
+          ),
+          var(--ui-rhythm-step)
+        )
+        round(
+          var(
+            --ui-rich-text-heading-margin-block-end,
+            var(--_flow-gap) * var(--_flow-after)
+          ),
+          var(--ui-rhythm-step)
+        );
       text-wrap: pretty;
     }
 
     h1:where(:not([class])) {
+      --_flow-after: 1;
+      --_flow-before: 3;
       font-size: round(
         calc(var(--ui-font-size-h1) * var(--_font-scale, 1)),
         var(--ui-rhythm-step) / 2
       );
       letter-spacing: var(--ui-letter-spacing-display);
-      margin-block: calc(var(--_flow-gap) * 3) var(--_flow-gap);
     }
 
     h2:where(:not([class])) {
+      --_flow-after: 0.75;
+      --_flow-before: 3;
       font-size: round(
         calc(var(--ui-font-size-h2) * var(--_font-scale, 1)),
         var(--ui-rhythm-step) / 2
       );
       letter-spacing: var(--ui-letter-spacing-display);
-      margin-block: calc(var(--_flow-gap) * 3)
-        round(var(--_flow-gap) * 0.75, var(--ui-rhythm-step));
     }
 
     h3:where(:not([class])) {
+      --_flow-after: 0.5;
+      --_flow-before: 2;
       font-size: round(
         calc(var(--ui-font-size-h3) * var(--_font-scale, 1)),
         var(--ui-rhythm-step) / 2
       );
       letter-spacing: var(--ui-letter-spacing-heading);
-      margin-block: calc(var(--_flow-gap) * 2)
-        round(var(--_flow-gap) * 0.5, var(--ui-rhythm-step));
     }
 
     h4:where(:not([class])) {
+      --_flow-after: 0.5;
+      --_flow-before: 1.5;
       font-size: round(
         calc(var(--ui-font-size-h4) * var(--_font-scale, 1)),
         var(--ui-rhythm-step) / 2
       );
       letter-spacing: var(--ui-letter-spacing-heading);
-      margin-block: round(var(--_flow-gap) * 1.5, var(--ui-rhythm-step))
-        round(var(--_flow-gap) * 0.5, var(--ui-rhythm-step));
     }
 
     h5:where(:not([class])) {
+      --_flow-after: 0.5;
+      --_flow-before: 1.5;
       font-size: round(
         calc(var(--ui-font-size-h5) * var(--_font-scale, 1)),
         var(--ui-rhythm-step) / 2
       );
-      margin-block: round(var(--_flow-gap) * 1.5, var(--ui-rhythm-step))
-        round(var(--_flow-gap) * 0.5, var(--ui-rhythm-step));
     }
 
     h6:where(:not([class])) {
+      --_flow-after: 0.5;
+      --_flow-before: 1.5;
       font-size: round(
         calc(var(--ui-font-size-h6) * var(--_font-scale, 1)),
         var(--ui-rhythm-step) / 2
       );
-      margin-block: round(var(--_flow-gap) * 1.5, var(--ui-rhythm-step))
-        round(var(--_flow-gap) * 0.5, var(--ui-rhythm-step));
     }
 
     hgroup {
@@ -740,6 +780,10 @@
       font-family: var(--ui-font-code);
     }
 
+    :where(:has(> code)) {
+      --_line-height: 1lh;
+    }
+
     code {
       background-color: var(--ui-code-bg-color);
       border-radius: var(--ui-radius-small);
@@ -771,6 +815,10 @@
       color: var(--ui-on-inverse);
       padding-block: calc(0.1ex + var(--ui-border-width));
       padding-inline: calc(0.3ex + var(--ui-border-width));
+
+      @media print {
+        print-color-adjust: exact;
+      }
     }
 
     :not(pre) > code,
@@ -781,7 +829,12 @@
     }
 
     :not(pre) > code {
+      padding-block: clamp(0px, (var(--_line-height) - 1.3em) / 2, 0.5ex);
       writing-mode: horizontal-tb;
+    }
+
+    :where(td, th) :is(:not(pre) > code, kbd, var) {
+      overflow-wrap: break-word;
     }
 
     :where(pre, :not(pre) > code):where(:not([dir])) {

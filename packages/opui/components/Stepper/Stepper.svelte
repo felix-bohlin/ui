@@ -5,7 +5,7 @@
   let {
     class: className,
     complete,
-    completedLabel,
+    completeLabel,
     current,
     errorLabel,
     items,
@@ -27,9 +27,9 @@
   ]}
   {...rest}
 >
-  {#each items ?? [] as item, index (index)}
+  {#each items as item, index (index)}
     <StepperItem
-      {completedLabel}
+      {completeLabel}
       {errorLabel}
       {...item}
       complete={item.complete ||

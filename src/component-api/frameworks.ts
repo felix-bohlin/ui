@@ -20,9 +20,22 @@ export const slotProp = (name: string) =>
 export const components = (note: string) => ({
   astro: note,
   react: note,
+  solid: note,
   svelte: note,
   vue: note,
 })
+
+export const elementNotes = (file: string, note: string) => {
+  const module = `\`opui-css/elements/${file}\``
+  const imported = `The component imports ${module}, so the element runs as soon as the component's code loads. ${note}`
+  return {
+    astro: `The component loads ${module}. ${note}`,
+    react: `The component loads ${module} once it mounts, unless the page imports it first. ${note}`,
+    solid: imported,
+    svelte: imported,
+    vue: imported,
+  }
+}
 
 export const frameworks: Record<ComponentFramework, Syntax> = {
   astro: {
@@ -37,6 +50,13 @@ export const frameworks: Record<ComponentFramework, Syntax> = {
     slotType: "ReactNode",
     slotsAreProps: true,
     types: "types.react.ts",
+  },
+  solid: {
+    component: (source) => `${source}.solid.tsx`,
+    slot: slotProp,
+    slotType: "JSX.Element",
+    slotsAreProps: true,
+    types: "types.solid.ts",
   },
   svelte: {
     component: (source) => `${source}.svelte`,
@@ -73,7 +93,7 @@ export const passThrough = (
     (Object.keys(frameworks) as ComponentFramework[]).map((framework) => [
       framework,
       [
-        `Attributes that aren't props go to the \`<${element}>\`, like ${listOf(examples)}, and \`${framework === "react" ? "className" : "class"}\` and \`style\` go to the root \`<${root}>\`.`,
+        `Attributes that aren't props go to the \`<${element}>\`, like ${listOf(examples)}, and \`${framework === "react" ? "className" : "class"}\` and \`style\` go to ${root.startsWith(".") ? `the \`${root}\` root` : `the root \`<${root}>\``}.`,
         more[framework] ?? more.default,
       ]
         .filter(Boolean)

@@ -19,7 +19,6 @@
     <li>
       <iframe
         allow="encrypted-media; fullscreen; picture-in-picture"
-        allowfullscreen
         loading="lazy"
         referrerpolicy="strict-origin-when-cross-origin"
         src={`https://www.youtube-nocookie.com/embed/${id}`}

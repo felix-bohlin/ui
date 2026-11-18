@@ -4,12 +4,15 @@ import {
   clientParts,
   clientRoots,
   describeClientComponents,
+  isClientComponent,
 } from "../../src/utils/react-client-components"
 
 test("finds the client roots and the client parts of server roots", () => {
   expect(clientRoots).toContain("Menu")
   expect(clientRoots).not.toContain("Tooltip")
   expect(clientParts).toEqual(["CheckboxInput", "RadioInput", "SwitchInput"])
+  expect(isClientComponent("TabsItem")).toBe(true)
+  expect(isClientComponent("Tooltip")).toBe(false)
 })
 
 test("the README names the same components", () => {

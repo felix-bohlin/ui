@@ -6,41 +6,41 @@
   <TimelineItem
     color="critical"
     datetime="2026-10-08T12:18"
-    time="12:18"
     label="Investigating"
+    time="12:18"
   >
-    <p>Search is slower in eu-north.</p>
+    <p>Scribbles are slow to show up in Europe.</p>
   </TimelineItem>
   <TimelineItem
     color="warning"
     datetime="2026-10-08T13:40"
-    time="13:40"
     label="Identified"
+    time="13:40"
   >
-    <p>An index rebuild competes with live traffic.</p>
+    <p>A huge photo upload from the gig hogs the servers.</p>
   </TimelineItem>
   <TimelineItem
     color="info"
     datetime="2026-10-08T14:05"
-    time="14:05"
     label="Monitoring"
+    time="14:05"
   >
-    <p>Response times are back to normal.</p>
+    <p>Scribbles show up as fast as a slap again.</p>
   </TimelineItem>
   <TimelineItem
     color="success"
     datetime="2026-10-08T15:30"
-    time="15:30"
     label="Resolved"
+    time="15:30"
   >
-    <p>The rebuild finished. No data was lost.</p>
+    <p>The upload finished. No scribbles were lost, phew.</p>
   </TimelineItem>
   <TimelineItem
     color="neutral"
     datetime="2026-10-09T09:00"
-    time="Oct 9"
     label="Postmortem"
+    time="Oct 9"
   >
-    <p>A full report follows within a week.</p>
+    <p>A full report for the Bassbook crew within a week.</p>
   </TimelineItem>
 </Timeline>

@@ -3,6 +3,7 @@
 
   let {
     class: className,
+    role,
 
     // Snippets
     children,
@@ -10,6 +11,6 @@
   }: Props = $props()
 </script>
 
-<div class={["ui-avatar-group", className]} role="group" {...rest}>
+<div class={["ui-avatar-group", className]} role={role ?? "group"} {...rest}>
   {@render children?.()}
 </div>

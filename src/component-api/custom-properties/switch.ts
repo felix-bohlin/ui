@@ -31,7 +31,7 @@ export default {
       "Gap between the thumb and the track edge, computed from `--_track-block-size` and `--_thumb-size`.",
     kind: "output",
   },
-  "--_thumb-outline-size": {
+  "--_thumb-outline-width": {
     description:
       "Current outline width that grows the thumb. Set by the checked and active states.",
     kind: "output",
@@ -43,7 +43,7 @@ export default {
   },
   "--_track-bg-color": {
     description:
-      "Background of the unchecked track. `--ui-track-bg-color` when the theme sets it, otherwise `--ui-switch-track-bg-color`.",
+      "Background of the unchecked track. `--ui-switch-track-bg-color` when the theme sets it, else `--ui-track-bg-color`, otherwise `--ui-surface-tonal`, at `0.58` lightness in dark mode.",
     kind: "input",
   },
   "--_track-block-size": {
@@ -53,7 +53,7 @@ export default {
   },
   "--_track-border-color": {
     description:
-      "Border of the unchecked track. Defaults to `--ui-choice-border-color`, or `--ui-field-border-color` when the theme leaves it unset, like the checkbox and radio borders. The checked track uses `--_accent`.",
+      "Border of the track. Defaults to `--ui-choice-border-color`, or `--ui-field-border-color` when the theme leaves it unset, like the checkbox and radio borders, and `--_accent` when checked. A focused switch draws `--ui-focus-border-color` instead when the theme sets it.",
     kind: "input",
   },
   "--_track-inline-size": {

@@ -3,10 +3,10 @@ import type { Props } from "./types.react"
 
 export default function Stat({
   className,
-  description,
-  label,
   size,
   children,
+  description,
+  label,
   ...rest
 }: Props) {
   return (

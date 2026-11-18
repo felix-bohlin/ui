@@ -1,7 +1,6 @@
-import { readdirSync } from "node:fs"
 import { expect, test } from "@playwright/test"
 import type { Page } from "@playwright/test"
-import { computed, openFixture, resolveColor } from "./fixtures"
+import { THEMES, computed, needs, openFixture, resolveColor } from "./fixtures"
 
 const example = (page: Page, name: string) =>
   page.locator(`[data-example="${name}"]`)
@@ -50,14 +49,6 @@ test("a .ui-palette subtree re-derives its colors", async ({ page }) => {
   )
   expect(await resolveColor(scope, "var(--ui-primary)")).toMatch(/ 120\)$/)
 })
-
-const THEMES = [
-  "default",
-  ...readdirSync(new URL("../../packages/opui/themes/", import.meta.url))
-    .filter((file) => file.endsWith(".css"))
-    .map((file) => file.replace(/\.css$/, ""))
-    .toSorted(),
-]
 
 for (const theme of THEMES) {
   test(`a severity class keeps its palette on a .ui-palette or .ui-contrast-more element (${theme})`, async ({
@@ -125,4 +116,31 @@ test("prefers-reduced-motion sets --ui-motion to 0", async ({ page }) => {
   expect(await computed(page.locator("html"), "--ui-motion")).toBe("0")
   await page.emulateMedia({ reducedMotion: "no-preference" })
   expect(await computed(page.locator("html"), "--ui-motion")).toBe("1")
+})
+
+test("the page's smooth scrolling follows --ui-motion", async ({ page }) => {
+  const html = page.locator("html")
+  await html.evaluate((element) =>
+    element.style.removeProperty("scroll-behavior"),
+  )
+  expect(await computed(html, "scroll-behavior")).toBe("smooth")
+
+  await page.emulateMedia({ reducedMotion: "reduce" })
+  await expect.poll(() => computed(html, "scroll-behavior")).toBe("auto")
+  await html.evaluate((element) => element.classList.add("ui-motion-on"))
+  expect(await computed(html, "scroll-behavior")).toBe("smooth")
+
+  await html.evaluate((element) => element.classList.remove("ui-motion-on"))
+  await page.emulateMedia({ reducedMotion: "no-preference" })
+  await html.evaluate((element) => element.classList.add("ui-motion-off"))
+  expect(await computed(html, "scroll-behavior")).toBe("auto")
+
+  await needs(page, "if()", () =>
+    CSS.supports("scroll-behavior", "if(else: auto)"),
+  )
+  await html.evaluate((element) => {
+    element.classList.remove("ui-motion-off")
+    element.style.setProperty("--ui-motion", "0")
+  })
+  expect(await computed(html, "scroll-behavior")).toBe("auto")
 })

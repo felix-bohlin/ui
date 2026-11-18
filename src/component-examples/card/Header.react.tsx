@@ -4,9 +4,9 @@ export default function Header() {
   return (
     <Card variant="outlined">
       <CardHeader>
-        <p>Blog</p>
-        <h3>My ultra-great blog post</h3>
-        <p>Please read it.</p>
+        <p>Bassbook blog</p>
+        <h3>Why nobody watches the bassist (yet)</h3>
+        <p>Published on 12 March</p>
       </CardHeader>
     </Card>
   )

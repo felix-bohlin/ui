@@ -3,12 +3,16 @@
 </script>
 
 <List>
-  <ListItem type="switch">
-    {#snippet label()}Switch 1{/snippet}
-    {#snippet end()}<SwitchInput />{/snippet}
+  <ListItem choice="switch">
+    {#snippet label()}Bluetooth{/snippet}
+    {#snippet end()}
+      <SwitchInput />
+    {/snippet}
   </ListItem>
-  <ListItem type="switch">
-    {#snippet label()}Switch 2{/snippet}
-    {#snippet end()}<SwitchInput />{/snippet}
+  <ListItem choice="switch">
+    {#snippet label()}Wi-Fi{/snippet}
+    {#snippet end()}
+      <SwitchInput />
+    {/snippet}
   </ListItem>
 </List>

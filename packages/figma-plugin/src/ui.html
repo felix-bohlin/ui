@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>opui</title>
+    <style>
+      body {
+        background: var(--figma-color-bg);
+        color: var(--figma-color-text);
+        font:
+          11px/1.45 Inter,
+          system-ui,
+          sans-serif;
+        margin: 0;
+        padding: 12px;
+      }
+
+      form {
+        display: grid;
+        gap: 12px;
+      }
+
+      label,
+      legend {
+        display: grid;
+        gap: 4px;
+      }
+
+      fieldset {
+        border: 1px solid var(--figma-color-border);
+        border-radius: 6px;
+        display: grid;
+        gap: 4px;
+        margin: 0;
+        padding: 8px;
+      }
+
+      .check {
+        align-items: center;
+        display: flex;
+        gap: 6px;
+      }
+
+      select,
+      input[type="file"] {
+        font: inherit;
+      }
+
+      button {
+        background: var(--figma-color-bg-brand);
+        border: 0;
+        border-radius: 6px;
+        color: var(--figma-color-text-onbrand);
+        font: inherit;
+        font-weight: 600;
+        padding: 8px 12px;
+      }
+
+      output {
+        color: var(--figma-color-text-secondary);
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="sync">
+      <label>
+        Theme
+        <select name="theme"></select>
+      </label>
+      <label>
+        Or a theme.figma.json from the Theme builder
+        <input accept=".json,application/json" name="file" type="file" />
+      </label>
+      <fieldset id="modes">
+        <legend>Modes</legend>
+      </fieldset>
+      <label class="check">
+        <input checked name="effects" type="checkbox" />
+        Effect styles for the shadows
+      </label>
+      <label class="check">
+        <input checked name="text" type="checkbox" />
+        Text styles
+      </label>
+      <button type="submit">Sync to this file</button>
+      <output id="status" role="status"></output>
+    </form>
+    <script id="themes" type="application/json">
+      __THEMES__
+    </script>
+    <script>
+      const themes = JSON.parse(document.getElementById("themes").textContent)
+      const form = document.getElementById("sync")
+      const modes = document.getElementById("modes")
+      const status = document.getElementById("status")
+      let custom = null
+
+      for (const entry of themes) {
+        const option = document.createElement("option")
+        option.value = entry.id
+        option.textContent = entry.label
+        option.selected = entry.id === "default"
+        form.theme.append(option)
+      }
+
+      const current = () =>
+        custom || themes.find((entry) => entry.id === form.theme.value).theme
+
+      const renderModes = () => {
+        modes.replaceChildren(modes.querySelector("legend"))
+        for (const mode of current().modes) {
+          const label = document.createElement("label")
+          const input = document.createElement("input")
+          label.className = "check"
+          input.checked = true
+          input.name = "mode"
+          input.type = "checkbox"
+          input.value = mode.id
+          label.append(input, mode.name)
+          modes.append(label)
+        }
+      }
+
+      form.theme.addEventListener("change", () => {
+        custom = null
+        form.file.value = ""
+        renderModes()
+      })
+
+      form.file.addEventListener("change", async () => {
+        const [file] = form.file.files
+        custom = null
+        status.textContent = ""
+        if (file) {
+          try {
+            const parsed = JSON.parse(await file.text())
+            if (!Array.isArray(parsed.variables) || !parsed.modes) {
+              throw new Error("No variables")
+            }
+            custom = parsed
+          } catch {
+            status.textContent =
+              "That file isn't a theme.figma.json from the Theme builder."
+          }
+        }
+        renderModes()
+      })
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault()
+        const picked = [
+          ...form.querySelectorAll('input[name="mode"]:checked'),
+        ].map((input) => input.value)
+        status.textContent = "Syncing"
+        parent.postMessage(
+          {
+            pluginMessage: {
+              options: {
+                effects: form.effects.checked,
+                modes: picked,
+                text: form.text.checked,
+              },
+              theme: current(),
+              type: "sync",
+            },
+          },
+          "*",
+        )
+      })
+
+      window.onmessage = (event) => {
+        const message = event.data.pluginMessage
+        if (!message) return
+        if (message.type === "error") {
+          status.textContent = message.message
+          return
+        }
+        const { collections, effectStyles, textStyles, variables, warnings } =
+          message.report
+        status.textContent = [
+          `${collections.map((entry) => entry.name).join(", ")}: ${variables.created} variables created, ${variables.updated} updated.`,
+          `${effectStyles.length} effect styles, ${textStyles.length} text styles.`,
+          ...warnings,
+        ].join("\n")
+      }
+
+      renderModes()
+    </script>
+  </body>
+</html>

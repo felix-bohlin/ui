@@ -16,7 +16,7 @@ export default {
     },
     {
       description:
-        "In a single-select group, moves focus to the previous or next button and checks it, wrapping around at the ends (Safari stops at the first and the last). Left and Right follow the reading direction. A multi-select group ignores them.",
+        "In a single-select group, moves focus to the previous or next button and checks it, wrapping around at the ends (Safari stops at the first and the last). Left and Right follow the reading direction in Chromium and Firefox; Safari always takes Left as the previous button. A multi-select group ignores them.",
       keys: ["Up Arrow", "Down Arrow", "Left Arrow", "Right Arrow"],
     },
   ],
@@ -28,8 +28,10 @@ export default {
   },
   notes: {
     astro:
-      "The selection lives in the inputs. Read it from the form, or listen for `change` in a script.",
+      "`value` checks the buttons whose `value` matches on the server. After that the selection lives in the inputs: read it from the form, or listen for `change` in a script.",
     react:
+      "Use `value` with `onValueChange`, or `defaultValue`. Without them the buttons keep their own state, and `onValueChange` still reports changes.",
+    solid:
       "Use `value` with `onValueChange`, or `defaultValue`. Without them the buttons keep their own state, and `onValueChange` still reports changes.",
     svelte:
       'Bind `value` with a starting value to control the selection, `""` or `[]` for none. Without it, or bound to `undefined`, the buttons keep their own state.',
@@ -38,7 +40,7 @@ export default {
   options: [
     {
       description: "The starting selection when `value` is omitted.",
-      frameworks: ["react"],
+      frameworks: ["react", "solid"],
       prop: "defaultValue",
     },
     {
@@ -55,7 +57,7 @@ export default {
     },
     {
       description: "Called with the new selection when a button is toggled.",
-      frameworks: ["react"],
+      frameworks: ["react", "solid"],
       prop: "onValueChange",
       type: "(value: string | string[]) => void",
     },
@@ -69,7 +71,7 @@ export default {
     {
       default: '"wrap"',
       description:
-        'What the items do when they don\'t fit. `"wrap"` wraps them onto more rows, `"scroll"` keeps them on one row and scrolls it sideways, and `"shrink"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size.',
+        "What the items do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size.",
       group: "Overflow",
       prop: "overflow",
       values: {
@@ -77,6 +79,13 @@ export default {
         shrink: ".ui-overflow-shrink",
         wrap: null,
       },
+    },
+    {
+      description:
+        "The `role` of the root, such as `toolbar`. Without it, `radiogroup`, or `group` with `multiple`.",
+      inherited: true,
+      prop: "role",
+      type: "string",
     },
     {
       default: '"medium"',
@@ -92,8 +101,8 @@ export default {
     },
     {
       description:
-        "The value of the checked button, or the values of the checked buttons with `multiple`.",
-      frameworks: ["react"],
+        "The value of the checked button, or the values of the checked buttons with `multiple`. The buttons whose `value` matches are checked, and their own `checked` is ignored.",
+      frameworks: ["astro", "react", "solid"],
       prop: "value",
     },
   ],

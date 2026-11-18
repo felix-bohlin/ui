@@ -7,14 +7,11 @@
 </script>
 
 <Accordion>
-  <AccordionSummary>Accordion</AccordionSummary>
+  <AccordionSummary>What is included in free Bassbook?</AccordionSummary>
   <AccordionContent>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-      neque ante id justo. Nam tempor euismod nisi ac ornare. Pellentesque id
-      sapien lacinia, venenatis est aliquam, dignissim elit. Suspendisse
-      potenti. Cras ut ante in libero tempus sodales sed quis dolor.
+      Three setlists, 2 GB of slap videos and email support. Upgrade to Bassbook
+      Gold at any time to add more setlists and invite your band.
     </p>
   </AccordionContent>
 </Accordion>

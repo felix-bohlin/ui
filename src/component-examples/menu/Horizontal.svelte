@@ -3,8 +3,8 @@
 </script>
 
 <Button
-  commandfor="menu-horizontal-1"
   command="toggle-popover"
+  commandfor="menu-horizontal-1"
   variant="outlined"
 >
   React

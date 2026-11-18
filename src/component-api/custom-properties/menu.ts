@@ -34,9 +34,14 @@ export default {
       "Easing of the scale. `--ui-ease-move` while opening when a theme sets it, otherwise `--_ease`.",
     kind: "output",
   },
+  "--_fit-max-block-size": {
+    description:
+      "Maximum height of a popover menu in the space on its side: `--_max-block-size`, capped to that space minus `--_offset` at both ends. Needs `calc-size()`, and the `--ui-menu-block-end` and `--ui-menu-block-start` fallbacks read it too.",
+    kind: "output",
+  },
   "--_hover-bg-color": {
     description:
-      "Hover background of `.ui-critical` items, from `--ui-critical`.",
+      "Hover background of `.ui-critical` items, from `--ui-palette-accent` of the critical palette.",
     kind: "output",
   },
   "--_margin-block": {
@@ -80,6 +85,11 @@ export default {
     description:
       "The corner radius. Defaults to `--ui-menu-radius`, or `--ui-radius` when the theme doesn't set it.",
     kind: "input",
+  },
+  "--_selected-shadow": {
+    description:
+      "`none`: the current item is marked with a check (`--_check-image`) instead of the bar a `List` draws.",
+    kind: "output",
   },
   "--_shadow": {
     description: "The shadow. Defaults to `--ui-shadow-overlay`.",

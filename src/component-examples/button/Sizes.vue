@@ -10,16 +10,17 @@ import { Button } from "opui-css/vue"
     <Button size="large">Large</Button>
   </div>
   <div class="example-row">
-    <Button variant="filled" size="x-small">X-small</Button>
-    <Button variant="filled" size="small">Small</Button>
+    <Button size="x-small" variant="filled">X-small</Button>
+    <Button size="small" variant="filled">Small</Button>
     <Button variant="filled">Medium</Button>
-    <Button variant="filled" size="large">Large</Button>
+    <Button size="large" variant="filled">Large</Button>
   </div>
 
   <div class="example-row">
     <Button size="x-small" variant="outlined">
       <span class="ui-text">X-small</span>
       <svg
+        data-icon="add"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -35,6 +36,7 @@ import { Button } from "opui-css/vue"
     <Button size="small" variant="outlined">
       <span class="ui-text">Small</span>
       <svg
+        data-icon="add"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -50,6 +52,7 @@ import { Button } from "opui-css/vue"
     <Button variant="outlined">
       <span class="ui-text">Medium</span>
       <svg
+        data-icon="add"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -62,9 +65,10 @@ import { Button } from "opui-css/vue"
         ></path>
       </svg>
     </Button>
-    <Button variant="outlined" size="large">
+    <Button size="large" variant="outlined">
       <span class="ui-text">Large</span>
       <svg
+        data-icon="add"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"

@@ -1,41 +1,61 @@
 <script setup lang="ts">
-import { computed, inject, provide, reactive, useId, watchEffect } from "vue"
-import { warnGroupedChecked } from "../dev"
-import { isSelected } from "../ToggleGroup/selection"
+import {
+  computed,
+  inject,
+  provide,
+  reactive,
+  useAttrs,
+  useId,
+  watchEffect,
+} from "vue"
+import { seedChecked } from "../vue"
 import { TabsKey } from "./context.vue"
-import type { Slots, TabsItemProps } from "./types.vue-props"
+import { isSelected } from "../ToggleGroup/selection"
+import { warnGroupedChecked } from "../dev"
+import { defined } from "../attrs"
+import type { TabsItemProps as Props, Slots } from "./types.vue-props"
 
-const { checked = undefined, id, name, value } = defineProps<TabsItemProps>()
+const { checked = undefined, id, name, value } = defineProps<Props>()
 defineSlots<Slots>()
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const uid = useId()
+const attrs = useAttrs()
+
 const parent = inject(TabsKey, undefined)
+
+const uid = useId()
+
 const groupName = computed(() => name || parent?.groupName || `tabs-${uid}`)
+
 const tabId = computed(() => id || `tab-${uid}`)
+
 const grouped = computed(() => isSelected(parent?.value, value))
+
 watchEffect(() =>
   warnGroupedChecked("TabsItem", grouped.value, checked, "Tabs"),
 )
-const change = (event: Event) =>
-  parent?.change?.(event.currentTarget as HTMLInputElement)
+
+const change = (input: HTMLInputElement) => {
+  parent?.change?.(input)
+}
+
+const vSeedChecked = seedChecked(change)
 
 provide(TabsKey, reactive({ groupName, tabId }))
 </script>
 
 <template>
   <input
-    :checked="grouped ?? checked"
     :class="['ui-input', $props.class]"
     :id="tabId"
     :name="groupName"
     type="radio"
     :value="value"
-    @change="change"
-    v-bind="$attrs"
-  />
-  <slot></slot>
+    v-bind="defined(attrs)"
+    v-seed-checked="grouped ?? checked"
+    @change="change($event.currentTarget as HTMLInputElement)"
+  /><slot></slot>
 </template>

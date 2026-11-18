@@ -21,8 +21,8 @@ const steps = [
 <div class="card" id="card" popover="hint">…</div>`,
     notes: [
       "<code>interestfor</code> opens it on hover and keyboard focus, no JavaScript",
-      "Only <code>&lt;button&gt;</code>, <code>&lt;a href&gt;</code> and <code>&lt;area&gt;</code> can be interest invokers",
-      "<code>popover=&quot;hint&quot;</code> leaves open menus and dialogs alone",
+      "Only <code>&lt;button&gt;</code>, links with an <code>href</code> (HTML or SVG) and <code>&lt;area&gt;</code> can be interest invokers",
+      "<code>popover=&quot;hint&quot;</code> leaves open menus alone",
       "Without positioning it opens in the middle of the viewport",
     ],
     title: "Hint",
@@ -71,7 +71,7 @@ const steps = [
     notes: [
       "Scroll the trigger to the bottom of the window and hover it again",
       "The browser tries each fallback when the card would overflow",
-      "<code>anchors-visible</code> hides it when the trigger scrolls out of view",
+      "<code>anchors-visible</code> hides it when the trigger is scrolled out of view inside a scrolling container",
     ],
     title: "Flip",
   },

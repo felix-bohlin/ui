@@ -14,12 +14,6 @@ import {
 } from "../utils/framework.js"
 import { guideIndex } from "../utils/guide.ts"
 import { markdownPath } from "../utils/markdown.js"
-import {
-  majorPublished,
-  publishedVersion,
-  releaseVersion,
-  unreleased,
-} from "../utils/release.ts"
 import { articleToMarkdown, pageMeta, parseHtml } from "./html-to-markdown.mjs"
 
 /** @typedef {(typeof FRAMEWORKS)[number]} Framework */
@@ -69,14 +63,7 @@ const header = (framework) =>
     `These docs show ${framework.label} usage. Install with \`npm install opui-css\`.`,
     "",
     "- Every class is prefixed with `ui-` (e.g. `.ui-button`, `.ui-filled`).",
-    '- With a bundler, import everything with `@import "opui-css/css/imports.css"`, or one component at a time from `opui-css/css/components/<name>.css`. Without one, link `https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css`.',
-    ...(unreleased
-      ? [
-          majorPublished
-            ? `- ${releaseVersion} isn't on npm yet, so \`npm install opui-css\` and the CDN link get ${publishedVersion} until it is published.`
-            : `- ${releaseVersion} isn't on npm yet, so the CDN link works once it is published, and \`npm install opui-css\` gets ${publishedVersion}, the previous major. Until then, build the package from https://github.com/felix-bohlin/ui with \`pnpm install\` and \`pnpm --filter opui-css build\`.`,
-        ]
-      : []),
+    '- With a bundler, import everything with `@import "opui-css/css/imports.css"`, or the files you need one by one: `opui-css/css/layers.css`, `opui-css/core/palette.css`, `opui-css/css/theme.css`, `opui-css/core/normalize.css`, `opui-css/css/components/<name>.css` (plus `choice.css` for checkbox, radio and switch), optionally `opui-css/css/compat.css`, then `opui-css/core/utils.css`. Without one, link `https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css`.',
     ...(framework.id === DEFAULT_FRAMEWORK
       ? []
       : [
@@ -142,11 +129,13 @@ export const hrefRewriter = (frameworkId, site) => (href) => {
     : pathname
   const isDoc =
     !path.extname(localized) &&
+    !/\/preview\/?$|^\/dev\/(?:share-image|tests|todo\/example)\/|^\/[^/]+\/test\//.test(
+      localized,
+    ) &&
     (FRAMEWORKS.some(
       (f) => localized === `/${f.id}` || localized.startsWith(`/${f.id}/`),
     ) ||
-      (isFrameworkFree(localized) &&
-        !/\/preview\/?$|^\/todo\/example\//.test(localized)))
+      isFrameworkFree(localized))
   const target = isDoc ? markdownPath(localized) : localized
   return `${new URL(target, site)}${hash ? `#${hash}` : ""}`
 }
@@ -240,8 +229,7 @@ async function devPages(framework, origin, rewriteHref) {
       .map((slug) => `/blog/${slug}/`),
     ...fs
       .readdirSync(new URL("../blocks/", import.meta.url))
-      .filter((file) => file.endsWith(".html"))
-      .map((file) => `/blocks/${file.replace(/\.html$/, "")}/`)
+      .map((folder) => `/blocks/${folder}/`)
       .toSorted(),
     "/theme-builder/",
   ]

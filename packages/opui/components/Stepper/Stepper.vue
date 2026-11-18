@@ -4,7 +4,7 @@ import type { Props, Slots } from "./types.vue-props"
 
 const {
   complete,
-  completedLabel,
+  completeLabel,
   current,
   errorLabel,
   items,
@@ -26,14 +26,15 @@ defineSlots<Slots>()
     <StepperItem
       v-for="(item, index) in items"
       :key="index"
-      :completedLabel="completedLabel"
+      :completeLabel="completeLabel"
       :errorLabel="errorLabel"
       v-bind="item"
       :complete="
         item.complete || complete || (current !== undefined && index < current)
       "
       :current="item.current || index === current"
-    />
-    <slot></slot>
+    />{{
+      " "
+    }}<slot></slot>
   </ol>
 </template>

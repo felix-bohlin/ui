@@ -2,56 +2,48 @@ import { cx } from "../cx"
 import type { StepperItemProps as Props } from "./types.react"
 
 export default function StepperItem({
+  "aria-current": ariaCurrent,
   className,
   complete,
-  completedLabel = ", completed",
+  completeLabel = ", completed",
   current,
-  description,
   error,
   errorLabel = ", error",
   href,
+  description,
+  iconComplete,
   label,
-  iconChecked,
   ...rest
 }: Props) {
-  const state = error ? errorLabel : complete ? completedLabel : undefined
-  const text = (
-    <>
-      {label}
-      {state && (
-        <>
-          {" "}
-          <span className="ui-sr-only">{state}</span>
-        </>
-      )}
-    </>
-  )
+  const state = error ? errorLabel : complete ? completeLabel : undefined
+  const link = href && !current && (complete || error)
 
   return (
     <li
-      aria-current={current ? "step" : undefined}
+      aria-current={ariaCurrent ?? (current ? "step" : undefined)}
       className={cx([
         { "ui-complete": complete, "ui-error": error },
         className,
       ])}
       {...rest}
     >
-      {iconChecked && (
-        <span aria-hidden="true" className="ui-icon-checked">
-          {iconChecked}
+      {iconComplete && (
+        <span aria-hidden="true" className="ui-icon-complete">
+          {iconComplete}
         </span>
-      )}
-      {href && !current && (complete || error) ? (
-        <a href={href}>{text}</a>
+      )}{" "}
+      {link ? (
+        <a href={href}>
+          {label}
+          {state && <span className="ui-sr-only">{state}</span>}
+        </a>
       ) : (
-        text
-      )}
-      {description && (
         <>
-          {" "}
-          <span className="ui-description">{description}</span>
+          {label}
+          {state && <span className="ui-sr-only">{state}</span>}
         </>
-      )}
+      )}{" "}
+      {description && <span className="ui-description">{description}</span>}
     </li>
   )
 }

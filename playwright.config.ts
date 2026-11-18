@@ -32,7 +32,7 @@ export default defineConfig({
     {
       name: "firefox",
       retries: 1,
-      testIgnore: /\/(a11y|themes|visual)\.spec\.ts$/,
+      testIgnore: /\/(a11y|icons|themes|visual)\.spec\.ts$/,
       use: {
         ...devices["Desktop Firefox"],
         actionTimeout: 10_000,
@@ -42,7 +42,7 @@ export default defineConfig({
     {
       name: "webkit",
       retries: 1,
-      testIgnore: /\/(a11y|themes|visual)\.spec\.ts$/,
+      testIgnore: /\/(a11y|icons|themes|visual)\.spec\.ts$/,
       use: {
         ...devices["Desktop Safari"],
         actionTimeout: 10_000,
@@ -50,7 +50,13 @@ export default defineConfig({
       },
     },
   ],
-  reporter: process.env.CI ? [["github"], ["html", { open: "never" }]] : "list",
+  reporter: process.env.CI
+    ? [
+        ["github"],
+        ["html", { open: "never" }],
+        ["json", { outputFile: "test-results/report.json" }],
+      ]
+    : "list",
   retries: 0,
   snapshotPathTemplate: "{testDir}/__screenshots__/{projectName}/{arg}{ext}",
   testDir: "tests/e2e",

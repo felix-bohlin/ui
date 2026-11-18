@@ -1,33 +1,59 @@
 <script setup lang="ts">
 import {
   Button,
+  Checkbox,
   Drawer,
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  List,
+  ListItem,
 } from "opui-css/vue"
 </script>
 
 <template>
   <div class="example-compass">
-    <Button commandfor="drawer-basics-3" command="show-modal"
-      >Block Start</Button
+    <Button command="show-modal" commandfor="drawer-basics-3"
+      >Block start</Button
     >
-    <Button commandfor="drawer-basics-1" command="show-modal"
-      >Inline Start</Button
+    <Button command="show-modal" commandfor="drawer-basics-1"
+      >Inline start</Button
     >
-    <Button commandfor="drawer-basics-2" command="show-modal"
-      >Inline End</Button
+    <Button command="show-modal" commandfor="drawer-basics-2"
+      >Inline end</Button
     >
-    <Button commandfor="drawer-basics-4" command="show-modal">Block End</Button>
+    <Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
   </div>
 
-  <Drawer id="drawer-basics-1" scrollLock side="inline-start">
-    <DrawerHeader>
-      <DrawerTitle>Inline Start</DrawerTitle>
+  <Drawer closeOnNavigate id="drawer-basics-1" side="inline-start">
+    <DrawerHeader closeButton>
+      <DrawerTitle>Menu</DrawerTitle>
+    </DrawerHeader>
+    <DrawerContent>
+      <List variant="transparent">
+        <ListItem aria-current="page" href="#basics" label="My wall" />
+        <ListItem href="#basics" label="My bands" />
+        <ListItem href="#basics" label="Gear Talk" />
+        <ListItem href="#basics" label="Settings" />
+      </List>
+    </DrawerContent>
+    <DrawerFooter align="start">
+      <Button command="close" commandfor="drawer-basics-1" size="small"
+        >Sign out</Button
+      >
+    </DrawerFooter>
+  </Drawer>
+
+  <Drawer backdrop="transparent" id="drawer-basics-2" side="inline-end">
+    <DrawerHeader closeButton>
+      <DrawerTitle>Friday gig prep</DrawerTitle>
       <Button aria-label="Edit" round size="small">
         <svg
+          data-icon="edit"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -37,140 +63,110 @@ import {
           <path
             fill="currentColor"
             d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
-          />
+          ></path>
         </svg>
       </Button>
     </DrawerHeader>
-    <DrawerContent>
+    <DrawerContent aria-label="Gig details" role="region" tabindex="0">
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
+        Assigned to Lou Headstock, due Friday. Holly Humbucker checks the
+        setlist, and the drummer promises (again) to bring the cymbals by
+        Wednesday.
       </p>
       <p>
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        The band booked this gig without telling you, so here is the totally rad
+        catch-up plan: five rehearsals over two weeks, and no more surprises.
       </p>
       <p>
-        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-        accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
-        illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-        explicabo.
+        Day 1: restring with fresh flatwounds, tune to drop D and play the root
+        notes of every song until your fingers say thank you.
       </p>
       <p>
-        Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
-        fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
-        sequi nesciunt.
+        Day 2: learn the new song the guitarist wrote, which has eleven chords,
+        four key changes and one very long solo that is not yours.
       </p>
       <p>
-        Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-        consectetur, adipisci velit, sed quia non numquam eius modi tempora
-        incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+        Day 4: practice the slap part in the bridge, with a short video that
+        shows how to look cool while nobody watches the bassist.
       </p>
       <p>
-        Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
-        suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.
+        Day 7: full rehearsal with the band, where somebody will ask you to turn
+        it down and somebody else will ask why you can't be heard.
       </p>
       <p>
-        Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse
-        quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo
-        voluptas nulla pariatur.
+        Day 14: soundcheck at the venue, where the sound engineer calls you the
+        tall guitarist and the drummer gets all the credit.
       </p>
       <p>
-        At vero eos et accusamus et iusto odio dignissimos ducimus qui
-        blanditiis praesentium voluptatum deleniti atque corrupti quos dolores
-        et quas molestias excepturi sint occaecati cupiditate non provident.
+        Keep the pedalboard under 10 pedals, with one tuner and no more than two
+        fuzzes. Pack the spare strings last, once the cables are coiled.
       </p>
       <p>
-        Similique sunt in culpa qui officia deserunt mollitia animi, id est
-        laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
-        distinctio.
+        Send the setlist to the merch table before Thursday. They sell the
+        shirts, so they need to know which songs have a bass solo (zero).
+      </p>
+      <p>
+        Test every cable and the low B on the 5-string, in the rehearsal room
+        and on the actual stage, before the doors open at eight.
+      </p>
+      <p>
+        Holly Humbucker created the task on 3 March, and Lou Headstock moved it
+        to Rocking on 5 March.
       </p>
     </DrawerContent>
     <DrawerFooter>
-      <Button size="small" commandfor="drawer-basics-1" command="close"
-        >Close</Button
+      <Button
+        command="close"
+        commandfor="drawer-basics-2"
+        size="small"
+        variant="filled"
+        >Mark as done</Button
       >
     </DrawerFooter>
   </Drawer>
 
-  <Drawer id="drawer-basics-2" scrollLock side="inline-end">
-    <DrawerHeader>
-      <DrawerTitle>Inline End</DrawerTitle>
+  <Drawer id="drawer-basics-3" side="block-start">
+    <DrawerHeader closeButton>
+      <DrawerTitle>Notifications</DrawerTitle>
     </DrawerHeader>
     <DrawerContent>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
-      </p>
-      <p>
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </p>
-      <p>
-        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-        accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
-        illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-        explicabo.
-      </p>
+      <p>Holly Humbucker commented on Friday gig prep.</p>
+      <p>Your setlist export is ready to download, woohoo.</p>
+      <p>Lou Headstock invited you to Ignored Bassists Anonymous.</p>
     </DrawerContent>
     <DrawerFooter>
-      <Button size="small" commandfor="drawer-basics-2" command="close"
-        >Close</Button
+      <Button command="close" commandfor="drawer-basics-3" size="small"
+        >Mark all as read</Button
       >
     </DrawerFooter>
   </Drawer>
 
-  <Drawer id="drawer-basics-3" scrollLock side="block-start">
-    <DrawerHeader>
-      <DrawerTitle>Block Start</DrawerTitle>
+  <Drawer id="drawer-basics-4" side="block-end">
+    <DrawerHeader closeButton>
+      <DrawerTitle>Filters</DrawerTitle>
     </DrawerHeader>
     <DrawerContent>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
-      </p>
-      <p>
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </p>
+      <Fieldset>
+        <FieldLegend>Status</FieldLegend>
+        <FieldGroup name="status" orientation="horizontal">
+          <Checkbox checked value="done">Done</Checkbox>
+          <Checkbox checked value="in-progress">Rocking</Checkbox>
+          <Checkbox value="open">Not yet</Checkbox>
+        </FieldGroup>
+      </Fieldset>
     </DrawerContent>
     <DrawerFooter>
-      <Button size="small" commandfor="drawer-basics-3" command="close"
-        >Close</Button
-      >
-    </DrawerFooter>
-  </Drawer>
-
-  <Drawer id="drawer-basics-4" scrollLock side="block-end">
-    <DrawerHeader>
-      <DrawerTitle>Block End</DrawerTitle>
-    </DrawerHeader>
-    <DrawerContent>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
-      </p>
-      <p>
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </p>
-    </DrawerContent>
-    <DrawerFooter>
-      <Button size="small" commandfor="drawer-basics-4" command="close"
-        >Close</Button
-      >
+      <p>24 tasks</p>
+      <div class="ui-actions">
+        <Button size="small">Reset</Button>
+        <Button
+          command="close"
+          commandfor="drawer-basics-4"
+          size="small"
+          variant="filled"
+          >Apply</Button
+        >
+      </div>
     </DrawerFooter>
   </Drawer>
 </template>

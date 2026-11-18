@@ -36,13 +36,14 @@ export default {
     },
   ],
   model: {
-    description: "The selected value, or values with `multiple`.",
+    description:
+      "The selected value, or values with `multiple`. It picks among `items`; a child `<option>` takes `selected` itself, as in HTML, since Astro and Vue's server markup only mark the `items` options.",
     prop: "value",
     type: "string | number | (string | number)[]",
   },
   notes: {
-    ...passThrough("select", "label", ["autocomplete", "multiple"]),
-    html: "The `<select>` holds a `<button>` and a `.ui-list`. The button holds `<selectedcontent>`. The list holds the options. Browsers without customizable selects show a native select.",
+    ...passThrough("select", ".ui-select", ["autocomplete", "multiple"]),
+    html: "The `<select>` holds an `inert` `<button>` and a `.ui-list`. The button holds `<selectedcontent>`, and `inert` leaves clicks, focus and the name to the select. The list holds the options. Browsers without customizable selects show a native select. Put `.ui-top` and `.ui-start` before the `<select>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they're drawn.",
   },
   options: [
     {
@@ -51,6 +52,12 @@ export default {
       description: "Lets the width follow the selected option, from `25ch`.",
       group: "Auto fit",
       prop: "autoFit",
+    },
+    {
+      description:
+        "The value selected at the start, or the values with `multiple`, when `value` is omitted.",
+      frameworks: ["solid"],
+      prop: "defaultValue",
     },
     {
       class: ".ui-dense",
@@ -84,23 +91,25 @@ export default {
       description:
         "Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.",
       group: "Label",
-      part: ".ui-select > span",
+      part: ".ui-select > label",
       prop: "hideLabel",
     },
     {
-      description: "The id of the `<select>`.",
+      description:
+        "The id of the `<select>`. The `<label for>` points at it, so the component generates one when it's left out and there's a label. The ids the component generates start with it: `x-start-text`, `x-end-text`, `x-start`, `x-end`, `x-top` and `x-bottom` for `id=\"x\"`.",
       inherited: true,
       prop: "id",
       type: "string",
     },
     {
       default: "[]",
-      description: "The options, as `{ label, selected, value }` objects.",
+      description:
+        "The options, as `{ label, selected, value }` objects. `value` selects among them; child `<option>` elements set `selected` themselves.",
       prop: "items",
     },
     {
       description:
-        "The name of the `<select>`. Inside a `FieldGroup`, the group's `name` applies.",
+        "The name of the `<select>`. Inside a `FieldGroup`, the group's `name` when omitted.",
       inherited: true,
       prop: "name",
       type: "string",
@@ -198,7 +207,7 @@ export default {
   ],
   root: {
     description: "Container element.",
-    selector: "label.ui-select",
+    selector: "div.ui-select",
   },
   slots: [
     {

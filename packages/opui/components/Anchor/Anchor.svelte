@@ -1,9 +1,10 @@
 <script lang="ts">
   import { untrack } from "svelte"
+  import { setAnchorContext } from "./context.svelte"
   import { warnMissingId } from "../dev"
   import { mergeStyle } from "../style"
-  import { setAnchorContext } from "./context.svelte"
   import { extendsAnchor } from "./root"
+  import { classAttrs } from "../cx"
   import type { Props } from "./types.svelte"
 
   let {
@@ -19,14 +20,12 @@
   }: Props = $props()
 
   const isHover = $derived(trigger === "hover")
-  const id = $derived(isHover ? (idProp ?? undefined) : undefined)
-
+  const id = $derived(isHover ? idProp || undefined : undefined)
   untrack(() => {
     if (isHover && !extendsAnchor(className)) {
       warnMissingId("Anchor", id, "interestfor")
     }
   })
-
   setAnchorContext({
     get floatingId() {
       return id
@@ -38,7 +37,7 @@
 </script>
 
 <span
-  class={[!extendsAnchor(className) && "ui-anchor", className]}
+  {...classAttrs([!extendsAnchor(className) && "ui-anchor", className])}
   id={isHover ? undefined : idProp}
   style={mergeStyle({ "--ui-anchor-position-area": positionArea }, style)}
   {...rest}

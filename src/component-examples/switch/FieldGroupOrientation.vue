@@ -5,11 +5,11 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/vue"
 <template>
   <Form>
     <Fieldset>
-      <FieldLegend>Legend</FieldLegend>
+      <FieldLegend>Show in sidebar</FieldLegend>
       <FieldGroup name="switch-group-orientation" orientation="horizontal">
-        <Switch>Switch 1</Switch>
-        <Switch>Switch 2</Switch>
-        <Switch>Switch 3</Switch>
+        <Switch value="calendar">Calendar</Switch>
+        <Switch value="files">Files</Switch>
+        <Switch value="tasks">Tasks</Switch>
       </FieldGroup>
     </Fieldset>
   </Form>

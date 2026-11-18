@@ -4,6 +4,7 @@
   let {
     class: className,
     max,
+    round,
     style,
     value,
     variant,
@@ -17,6 +18,7 @@
 <div
   class={[
     "ui-progress",
+    { "ui-round": round },
     variant && variant !== "tonal" && `ui-${variant}`,
     className,
   ]}

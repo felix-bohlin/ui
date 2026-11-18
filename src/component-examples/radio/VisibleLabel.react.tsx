@@ -3,18 +3,19 @@ import { Radio } from "opui-css/react"
 export default function VisibleLabel() {
   return (
     <>
-      <Radio name="radio-visible-label" value="a" defaultChecked>
-        Choice A
+      <Radio defaultChecked name="radio-visible-label" value="monthly">
+        Monthly newsletter
       </Radio>
-      <Radio name="radio-visible-label" value="b" disabled>
-        Disabled
+      <Radio disabled name="radio-visible-label" value="weekly">
+        Weekly digest
       </Radio>
-      <Radio name="radio-visible-label" value="c">
-        Long text dolor amet mustache knausgaard +1, blue bottle waistcoat tbh
-        semiotics artisan synth stumptown gastropub cornhole{" "}
+      <Radio name="radio-visible-label" value="updates">
+        Bassbook news only, a few times a year when we add something totally
+        rad. You can unsubscribe at any time, as described in our{" "}
         <a className="ui-link" href="#visible-label">
-          privacy policy ipsum
+          privacy policy
         </a>
+        .
       </Radio>
     </>
   )

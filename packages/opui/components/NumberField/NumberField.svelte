@@ -1,17 +1,19 @@
 <script lang="ts">
   import "../../elements/number-field.js"
-  import Button from "../Button/Button.svelte"
+  import { untrack } from "svelte"
   import { content } from "../content.svelte"
+  import Button from "../Button/Button.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
-  import { idRefs } from "../id"
-  import { minusPath, plusPath } from "./icons"
+  import { fieldDescribedBy } from "../id"
   import type { Props } from "./types.svelte"
 
-  const generatedId = $props.id()
-
   let {
+    "aria-describedby": ariaDescribedBy,
+    "aria-invalid": ariaInvalid,
     class: className,
     decreaseLabel = "Decrease",
+    defaultValue,
+    disabled,
     error,
     hideLabel,
     id,
@@ -25,18 +27,25 @@
     variant,
 
     // Snippets
+    decreaseIcon,
     endText,
+    increaseIcon,
     label,
     startText,
     ...rest
   }: Props = $props()
 
   const field = getFieldGroupContext()
-  const inputId = $derived(id ?? generatedId)
-  const startTextId = $derived(
-    startText ? `${generatedId}-start-text` : undefined,
-  )
-  const endTextId = $derived(endText ? `${generatedId}-end-text` : undefined)
+  const uid = $props.id()
+  const getValue = () => value ?? defaultValue
+  const setValue = (next: typeof value) => {
+    value = next
+  }
+  const initialValue = untrack(getValue)
+  const base = $derived(id || `number-field-${uid}`)
+  const inputId = $derived(base)
+  const startTextId = $derived(startText ? `${base}-start-text` : undefined)
+  const endTextId = $derived(endText ? `${base}-end-text` : undefined)
 </script>
 
 <opui-number-field
@@ -53,67 +62,78 @@
   {style}
 >
   {#if label}
-    <label class={[hideLabel ? "ui-sr-only" : "ui-label"]} for={inputId}
-      >{@render content(label)}</label
-    >
+    <label class={hideLabel ? "ui-sr-only" : "ui-label"} for={inputId}>
+      {@render content(label)}
+    </label>
   {/if}
   {#if startText}
-    <span class="ui-start-text" id={startTextId}
-      >{@render content(startText)}</span
-    >
+    <span class="ui-start-text" id={startTextId}>
+      {@render content(startText)}
+    </span>
   {/if}
   <span class="ui-field">
     <span class="ui-start">
       <Button
+        aria-controls={inputId}
         aria-label={decreaseLabel}
         command="--step-down"
         commandfor={inputId}
+        {disabled}
         round
       >
-        <svg
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-        >
-          <path fill="currentColor" d={minusPath}></path>
-        </svg>
+        {#if decreaseIcon}
+          {@render decreaseIcon()}
+        {:else}
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          ></svg>
+        {/if}
       </Button>
     </span>
     <input
       {...rest}
-      aria-describedby={idRefs(
-        startTextId,
-        endTextId,
-        rest["aria-describedby"],
+      aria-describedby={fieldDescribedBy(
+        { endText: endTextId, startText: startTextId },
+        ariaDescribedBy,
       )}
-      aria-invalid={error ? "true" : rest["aria-invalid"]}
-      bind:value
+      aria-invalid={error ? "true" : ariaInvalid}
+      {disabled}
       id={inputId}
       name={name ?? field?.name}
       type="number"
+      bind:value={getValue, setValue}
+      defaultValue={defaultValue ?? initialValue}
     />
     <span class="ui-end">
       <Button
+        aria-controls={inputId}
         aria-label={increaseLabel}
         command="--step-up"
         commandfor={inputId}
+        {disabled}
         round
       >
-        <svg
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-        >
-          <path fill="currentColor" d={plusPath}></path>
-        </svg>
+        {#if increaseIcon}
+          {@render increaseIcon()}
+        {:else}
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          ></svg>
+        {/if}
       </Button>
     </span>
   </span>
   {#if endText}
-    <span class="ui-end-text" id={endTextId}>{@render content(endText)}</span>
+    <span class="ui-end-text" id={endTextId}>
+      {@render content(endText)}
+    </span>
   {/if}
 </opui-number-field>

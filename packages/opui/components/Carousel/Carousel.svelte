@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { mergeStyle } from "../style"
+  import { counterLabel, cssString, mergeStyle } from "../style"
   import type { Props } from "./types.svelte"
 
   let {
@@ -8,10 +8,14 @@
     buttons,
     class: className,
     itemsPerView,
+    markerLabel,
     markers,
+    nextLabel,
     orientation,
     peek,
     persistentButtons,
+    previousLabel,
+    role,
     stretch,
     style,
 
@@ -25,20 +29,28 @@
   class={[
     "ui-carousel",
     {
-      "ui-persistent-buttons": persistentButtons,
+      "ui-markers": markers,
       "ui-peek": peek,
+      "ui-persistent-buttons": persistentButtons,
       "ui-stretch": stretch,
       "ui-vertical": orientation === "vertical",
-      "ui-markers": markers,
     },
     align && align !== "start" && `ui-align-${align}`,
     buttons && buttons !== "inside" && `ui-buttons-${buttons}`,
     className,
   ]}
   style={mergeStyle(
-    { "--_items-per-view": itemsPerView, "--_media-aspect-ratio": aspectRatio },
+    {
+      "--_button-next-label": nextLabel && cssString(nextLabel),
+      "--_button-previous-label": previousLabel && cssString(previousLabel),
+      "--_items-per-view": itemsPerView,
+      "--_marker-label":
+        markerLabel && counterLabel(markerLabel, "ui-carousel-item"),
+      "--_media-aspect-ratio": aspectRatio,
+    },
     style,
   )}
+  role={role ?? "list"}
   {...rest}
 >
   {@render children?.()}

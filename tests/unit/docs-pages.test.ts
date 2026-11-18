@@ -384,7 +384,7 @@ test("callouts sit outside rich text", () => {
 const sample = async (
   rule: string,
   source: string,
-  file = "src/docs/components/button-group.astro",
+  file = "src/docs/components/control-group.astro",
 ) =>
   walkPages(
     [{ ast: (await parse(source, { position: true })).ast, file }],

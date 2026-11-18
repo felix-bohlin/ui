@@ -8,17 +8,17 @@ import {
 </script>
 
 <template>
-  <Card variant="outlined" role="group">
-    <Accordion name="example-group">
-      <AccordionSummary>First</AccordionSummary>
+  <Card aria-label="Plan questions" role="group" variant="outlined">
+    <Accordion name="plan-questions">
+      <AccordionSummary>Can I switch to Bassbook Gold later?</AccordionSummary>
       <AccordionContent>
-        <p>Only one accordion in the group is open at a time.</p>
+        <p>Yes. Upgrades apply right away, downgrades at the next renewal.</p>
       </AccordionContent>
     </Accordion>
-    <Accordion name="example-group">
-      <AccordionSummary>Second</AccordionSummary>
+    <Accordion name="plan-questions">
+      <AccordionSummary>Do you offer refunds?</AccordionSummary>
       <AccordionContent>
-        <p>Only one accordion in the group is open at a time.</p>
+        <p>Within 14 days of purchase, for any reason (even a drummer one).</p>
       </AccordionContent>
     </Accordion>
   </Card>

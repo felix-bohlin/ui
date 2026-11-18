@@ -5,17 +5,18 @@ import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/astro"
 <div>
   Learn more about
   <Anchor
+    id="anchor-link-preview-1"
     positionArea="block-end span-inline-end"
     trigger="hover"
-    id="anchor-link-preview-1"
   >
     <a
       class="ui-link"
       href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning"
-      interestfor="anchor-link-preview-1">CSS anchor positioning</a
+      interestfor="anchor-link-preview-1"
+      >CSS anchor positioning</a
     >
     <AnchorContent>
-      <Card variant="elevated" class="link-preview">
+      <Card class="link-preview" variant="elevated">
         <img src="https://picsum.photos/id/1018/800/450" alt="" />
         <CardHeader>
           <p class="ui-caption">developer.mozilla.org</p>
@@ -30,7 +31,7 @@ import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/astro"
   on MDN.
 </div>
 
-<style>
+<style is:global>
   .link-preview {
     inline-size: 280px;
     margin-block-start: var(--ui-space-2);

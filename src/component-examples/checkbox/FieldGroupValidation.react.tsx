@@ -10,13 +10,13 @@ export default function FieldGroupValidation() {
   return (
     <Form>
       <Fieldset aria-describedby="checkbox-field-group-validation-1-error">
-        <FieldLegend>Legend</FieldLegend>
-        <FieldGroup orientation="horizontal" name="checkbox-group-validation">
+        <FieldLegend>Bass interests</FieldLegend>
+        <FieldGroup name="checkbox-group-validation" orientation="horizontal">
           <Checkbox defaultChecked error>
-            Checkbox 1
+            Slap
           </Checkbox>
-          <Checkbox error>Checkbox 2</Checkbox>
-          <Checkbox error>Checkbox 3</Checkbox>
+          <Checkbox error>Fretless</Checkbox>
+          <Checkbox error>Drop D</Checkbox>
         </FieldGroup>
         <span
           className="ui-end-text"

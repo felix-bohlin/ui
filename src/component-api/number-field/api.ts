@@ -1,12 +1,37 @@
 import { passThrough } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
-const hydrated =
-  "The step buttons work once the component hydrates, or once the page imports `opui-css/elements/number-field.js`."
+const imported =
+  "The step buttons work as soon as the component's code loads, which imports `opui-css/elements/number-field.js`."
 
 export default {
   component: "NumberField",
   css: ["button", "number-field", "text-field"],
+  elements: [
+    {
+      members: [
+        {
+          description:
+            'The `<input type="number">` inside, or `null`. Read-only.',
+          kind: "property",
+          name: "input",
+        },
+        {
+          description:
+            "Steps the value down by `step`, unless the input is disabled, read-only or at `min`, and fires `input` and `change`.",
+          kind: "method",
+          name: "stepDown()",
+        },
+        {
+          description:
+            "Steps the value up by `step`, unless the input is disabled, read-only or at `max`, and fires `input` and `change`.",
+          kind: "method",
+          name: "stepUp()",
+        },
+      ],
+      tag: "opui-number-field",
+    },
+  ],
   keyboard: [
     {
       description:
@@ -32,16 +57,18 @@ export default {
     ...passThrough(
       "input",
       "opui-number-field",
-      ["min", "max", "step", "placeholder"],
+      ["max", "min", "placeholder", "step"],
       {
         astro:
           "The component loads `opui-css/elements/number-field.js`, which steps the value when a button is pressed or held.",
-        react: `Use \`value\` with \`onChange\`, or \`defaultValue\`. ${hydrated}`,
-        svelte: hydrated,
-        vue: hydrated,
+        react:
+          "Use `value` with `onChange`, or `defaultValue`. The step buttons work once the component mounts and loads `opui-css/elements/number-field.js`, or as soon as the page imports it.",
+        solid: `${imported} \`value\` sets the value and follows it when it changes, and leaves the field as it is once it is \`undefined\`. Follow typing with \`onInput\`.`,
+        svelte: imported,
+        vue: imported,
       },
     ),
-    html: 'Put the decrease and increase buttons in `.ui-start` and `.ui-end`, with `commandfor` naming the input and `command="--step-down"` or `command="--step-up"`, give the `<label>` a `for`, and import `opui-css/elements/number-field.js`. Without it, the buttons are hidden and the input keeps the browser\'s own spin buttons.',
+    html: 'Put the decrease and increase buttons in `.ui-start` and `.ui-end`, with `commandfor` and `aria-controls` naming the input and `command="--step-down"` or `command="--step-up"`, give the `<label>` a `for`, and import `opui-css/elements/number-field.js`. Without it, the buttons are hidden and the input keeps the browser\'s own spin buttons.',
   },
   options: [
     {
@@ -54,7 +81,6 @@ export default {
       default: "false",
       description: "Dims the field and blocks input and the step buttons.",
       group: "Disabled",
-      inherited: true,
       part: "input",
       prop: "disabled",
       type: "boolean",
@@ -78,7 +104,7 @@ export default {
     },
     {
       description:
-        "The id of the `<input>`. The label and the step buttons point at it, so the component generates one when it's left out.",
+        'The id of the `<input>`. The label and the step buttons point at it, so the component generates one when it\'s left out. The start and end text ids start with it: `x-start-text` and `x-end-text` for `id="x"`.',
       inherited: true,
       prop: "id",
       type: "string",
@@ -90,7 +116,7 @@ export default {
     },
     {
       description:
-        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.",
+        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
       inherited: true,
       prop: "name",
       type: "string",
@@ -160,9 +186,10 @@ export default {
     },
     {
       description:
-        'The decrease button, with `command="--step-down"`. Hidden until the element is defined.',
+        'The decrease button, with `command="--step-down"`. Renders a minus icon by default, or the `svg` in `decrease-icon`. Hidden until the element is defined.',
       props: ["decreaseLabel"],
       selector: ".ui-field > .ui-start",
+      slots: ["decrease-icon"],
     },
     {
       code: '<input type="number">',
@@ -172,9 +199,10 @@ export default {
     },
     {
       description:
-        'The increase button, with `command="--step-up"`. Hidden until the element is defined.',
+        'The increase button, with `command="--step-up"`. Renders a plus icon by default, or the `svg` in `increase-icon`. Hidden until the element is defined.',
       props: ["increaseLabel"],
       selector: ".ui-field > .ui-end",
+      slots: ["increase-icon"],
     },
     {
       description: "Supporting text displayed below the field.",
@@ -185,7 +213,7 @@ export default {
   ],
   root: {
     description:
-      "The `<opui-number-field>` custom element. It steps the value and marks a button `aria-disabled` at `min` or `max`.",
+      "The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max`, and keeps both disabled while the input is disabled and `aria-disabled` while the input is, also when a script changes the input.",
     selector: "opui-number-field.ui-number-field",
   },
   source: "NumberField",

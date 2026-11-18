@@ -1,26 +1,8 @@
 const Base = globalThis.HTMLElement ?? class {}
 
-const CLOSE_PATH =
-  "M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
-const ICONS = {
-  critical: {
-    d: "M24 13c.69 0 1.25.56 1.25 1.25v12.5a1.25 1.25 0 1 1-2.5 0v-12.5c0-.69.56-1.25 1.25-1.25m0 21a2 2 0 1 0 0-4a2 2 0 0 0 0 4M4 24C4 12.954 12.954 4 24 4s20 8.954 20 20s-8.954 20-20 20S4 35.046 4 24M24 6.5C14.335 6.5 6.5 14.335 6.5 24S14.335 41.5 24 41.5S41.5 33.665 41.5 24S33.665 6.5 24 6.5",
-    viewBox: "0 0 48 48",
-  },
-  info: {
-    d: "M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4",
-    viewBox: "0 0 32 32",
-  },
-  success: {
-    d: "M22.707 12.707a1 1 0 0 0-1.414-1.414L14.5 18.086l-3.293-3.293a1 1 0 0 0-1.414 1.414l4 4a1 1 0 0 0 1.414 0zM16 2C8.268 2 2 8.268 2 16s6.268 14 14 14s14-6.268 14-14S23.732 2 16 2M4 16C4 9.373 9.373 4 16 4s12 5.373 12 12s-5.373 12-12 12S4 22.627 4 16",
-    viewBox: "0 0 32 32",
-  },
-  warning: {
-    d: "M17.25 22a1.25 1.25 0 1 1-2.5 0a1.25 1.25 0 0 1 2.5 0M16 9a1 1 0 0 0-1 1v8a1 1 0 1 0 2 0v-8a1 1 0 0 0-1-1m-3.064-5.191c1.332-2.41 4.796-2.41 6.128 0l10.493 18.999C30.846 25.14 29.158 28 26.494 28H5.507c-2.665 0-4.352-2.86-3.064-5.192zm4.377.967a1.5 1.5 0 0 0-2.626 0L4.194 23.775A1.5 1.5 0 0 0 5.507 26h20.987a1.5 1.5 0 0 0 1.313-2.225z",
-    viewBox: "0 0 32 32",
-  },
-}
 const DURATION = 5000
+const LIMIT = 3
+const MAX_TIMEOUT = 2 ** 31 - 1
 const SEVERITIES = new Set([
   "critical",
   "info",
@@ -30,12 +12,18 @@ const SEVERITIES = new Set([
 ])
 const SVG = "http://www.w3.org/2000/svg"
 
-export class Toaster extends Base {
+export class ToasterElement extends Base {
   #controller
   #focused = false
   #hovered = false
   #leaving = new Map()
+  #lines = new Map()
+  #origin = null
   #timers = new Map()
+
+  get alert() {
+    return this.querySelector(':scope > [role="alert"]')
+  }
 
   get list() {
     return this.querySelector(":scope > ol")
@@ -67,59 +55,88 @@ export class Toaster extends Base {
       },
       { signal },
     )
-    const list = this.list
-    list?.addEventListener(
+    this.addEventListener(
       "keydown",
       (event) => {
         const item = event.target.closest?.("li")
-        if (event.key === "Escape" && item) this.dismiss(item)
+        if (event.key === "Escape" && item && this.list?.contains(item)) {
+          this.dismiss(item)
+        }
       },
       { signal },
     )
-    list?.addEventListener(
+    this.addEventListener(
       "focusin",
-      () => {
+      (event) => {
+        const list = this.list
+        if (!list?.contains(event.target)) return
+        if (!list.contains(event.relatedTarget)) {
+          this.#origin = event.relatedTarget
+        }
         this.#focused = true
         this.#pause()
       },
       { signal },
     )
-    list?.addEventListener(
+    this.addEventListener(
       "focusout",
       (event) => {
+        const list = this.list
+        if (!list?.contains(event.target)) return
         if (list.contains(event.relatedTarget)) return
         this.#focused = false
         this.#resume()
       },
       { signal },
     )
-    list?.addEventListener(
+    this.addEventListener(
       "pointerenter",
-      () => {
+      (event) => {
+        if (event.target !== this.list) return
         this.#hovered = true
         this.#pause()
       },
-      { signal },
+      { capture: true, signal },
     )
-    list?.addEventListener(
+    this.addEventListener(
       "pointerleave",
-      () => {
+      (event) => {
+        if (event.target !== this.list) return
         this.#hovered = false
         this.#resume()
       },
-      { signal },
+      { capture: true, signal },
     )
+    const list = this.list
+    if (list?.children.length && !list.matches(":popover-open")) {
+      list.showPopover?.()
+    }
+    this.#resume()
   }
 
   disconnectedCallback() {
     this.#controller?.abort()
-    for (const timer of this.#timers.values()) clearTimeout(timer.id)
-    this.#timers.clear()
+    this.#focused = false
+    this.#hovered = false
+    this.#pause()
+    for (const [line, id] of this.#lines) {
+      clearTimeout(id)
+      line.remove()
+    }
+    this.#lines.clear()
   }
 
   show(message, { action, duration, severity } = {}) {
     const list = this.list
     if (!list) return null
+    if (
+      !this.closest("dialog:modal") &&
+      this.ownerDocument.querySelector("dialog:modal")
+    ) {
+      console.warn(
+        `<opui-toaster id="${this.id}">: a modal dialog is open, so this toast is inert and screen readers don't announce it. Put a toaster inside the dialog.`,
+      )
+    }
     const item = this.ownerDocument.createElement("li")
     item.className = SEVERITIES.has(severity)
       ? `ui-callout ui-${severity}`
@@ -136,8 +153,10 @@ export class Toaster extends Base {
     item.append(this.#closeButton())
     list.append(item)
     if (!list.matches(":popover-open")) list.showPopover?.()
-    this.#announce(message)
-    const base = Number(this.getAttribute("duration")) || DURATION
+    this.#limit(list)
+    this.#announce(message, severity)
+    const set = this.getAttribute("duration")?.trim()
+    const base = set && !Number.isNaN(Number(set)) ? Number(set) : DURATION
     const time = duration ?? (action?.label ? base * 2 : base)
     this.#timers.set(item, { id: undefined, remaining: time, start: 0 })
     if (!this.#focused && !this.#hovered) this.#start(item)
@@ -161,10 +180,14 @@ export class Toaster extends Base {
           Node.DOCUMENT_POSITION_FOLLOWING,
       ) ?? staying.at(-1)
     item.inert = true
-    if (focused) next?.querySelector("button")?.focus()
+    if (focused) {
+      const target = next?.querySelector("button") ?? this.#origin
+      if (target?.isConnected) target.focus()
+    }
     if (!staying.length) {
       this.#focused = false
       this.#hovered = false
+      this.#origin = null
     }
     const left = Promise.allSettled(
       item.getAnimations().map((animation) => animation.finished),
@@ -179,28 +202,34 @@ export class Toaster extends Base {
     return left
   }
 
-  #announce(message) {
-    const status = this.status
-    if (!status) return
+  #limit(list) {
+    const limit = Number(this.getAttribute("limit")) || LIMIT
+    const staying = [...list.children].filter(
+      (child) => !this.#leaving.has(child),
+    )
+    for (const child of staying.slice(0, -limit)) {
+      if (!child.contains(this.ownerDocument.activeElement)) this.dismiss(child)
+    }
+  }
+
+  #announce(message, severity) {
+    const region = (severity === "critical" && this.alert) || this.status
+    if (!region) return
     const line = this.ownerDocument.createElement("p")
     line.textContent = message
-    status.append(line)
-    setTimeout(() => line.remove(), DURATION)
+    region.append(line)
+    this.#lines.set(
+      line,
+      setTimeout(() => {
+        this.#lines.delete(line)
+        line.remove()
+      }, DURATION),
+    )
   }
 
   #icon(severity) {
-    const icon = ICONS[severity]
-    if (!icon) return null
-    const svg = this.ownerDocument.createElementNS(SVG, "svg")
-    svg.setAttribute("aria-hidden", "true")
-    svg.setAttribute("width", "32")
-    svg.setAttribute("height", "32")
-    svg.setAttribute("viewBox", icon.viewBox)
-    const path = this.ownerDocument.createElementNS(SVG, "path")
-    path.setAttribute("fill", "currentColor")
-    path.setAttribute("d", icon.d)
-    svg.append(path)
-    return svg
+    if (!SEVERITIES.has(severity) || severity === "neutral") return null
+    return this.#svg()
   }
 
   #actionButton({ label, onClick }) {
@@ -220,17 +249,16 @@ export class Toaster extends Base {
       "aria-label",
       this.getAttribute("close-label") ?? "Close",
     )
+    button.append(this.#svg())
+    return button
+  }
+
+  #svg() {
     const svg = this.ownerDocument.createElementNS(SVG, "svg")
     svg.setAttribute("aria-hidden", "true")
     svg.setAttribute("width", "32")
     svg.setAttribute("height", "32")
-    svg.setAttribute("viewBox", "0 0 32 32")
-    const path = this.ownerDocument.createElementNS(SVG, "path")
-    path.setAttribute("fill", "currentColor")
-    path.setAttribute("d", CLOSE_PATH)
-    svg.append(path)
-    button.append(svg)
-    return button
+    return svg
   }
 
   #pause() {
@@ -249,21 +277,31 @@ export class Toaster extends Base {
 
   #start(item) {
     const timer = this.#timers.get(item)
-    if (!timer || timer.id !== undefined) return
+    if (!timer || timer.id !== undefined || timer.remaining === Infinity) return
     timer.start = performance.now()
     timer.id = setTimeout(
       () => this.dismiss(item),
-      Math.max(0, timer.remaining),
+      Math.min(MAX_TIMEOUT, Math.max(0, timer.remaining)),
     )
   }
+}
+
+function defaultToaster() {
+  const modal =
+    document.activeElement?.closest("dialog:modal") ??
+    document.querySelector("dialog:modal")
+  return (
+    modal?.querySelector("opui-toaster") ??
+    document.querySelector("opui-toaster")
+  )
 }
 
 export function toast(message, { toaster, ...options } = {}) {
   const element =
     typeof toaster === "string"
       ? document.getElementById(toaster)
-      : (toaster ?? document.querySelector("opui-toaster"))
-  if (!(element instanceof Toaster)) {
+      : (toaster ?? defaultToaster())
+  if (!(element instanceof ToasterElement)) {
     console.warn("toast(): no <opui-toaster> on the page")
     return null
   }
@@ -276,5 +314,5 @@ for (const severity of SEVERITIES) {
 }
 
 if (globalThis.customElements && !customElements.get("opui-toaster")) {
-  customElements.define("opui-toaster", Toaster)
+  customElements.define("opui-toaster", ToasterElement)
 }

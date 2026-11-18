@@ -4,10 +4,10 @@ export default function Flush() {
   return (
     <List flush>
       <ListItem
-        label="Gutterless list item"
         end={
           <Button aria-label="Delete" round size="small">
             <svg
+              data-icon="delete"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="32"
@@ -21,12 +21,15 @@ export default function Flush() {
             </svg>
           </Button>
         }
+        label="Saved pedalboards"
       />
       <ListItem
-        label="Headline"
-        description="Supporting text"
+        description="Fretless enthusiast"
+        end="Admin"
+        label="Lou Headstock"
         start={
           <svg
+            data-icon="person"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
@@ -39,7 +42,6 @@ export default function Flush() {
             ></path>
           </svg>
         }
-        end="100+"
       />
     </List>
   )

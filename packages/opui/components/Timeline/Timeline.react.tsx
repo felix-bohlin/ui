@@ -24,7 +24,7 @@ export default function Timeline({
         <TimelineItem key={index} {...item}>
           {description && <p>{description}</p>}
         </TimelineItem>
-      ))}
+      ))}{" "}
       {children}
     </ol>
   )

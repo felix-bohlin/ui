@@ -3,8 +3,13 @@ import type { Page } from "@playwright/test"
 import {
   ENGINE_BUGS,
   FIREFOX_SELF_RTL,
+  FIREFOX_STALE_FALLBACK_OPACITY,
+  FIREFOX_STICKY_ANCHOR_SCROLL,
   WEBKIT_ARROW_FOCUS_SCROLL,
+  WEBKIT_HIGHLIGHT_HIDDEN_TEXT,
+  WEBKIT_INNER_TEXT_HIDDEN_NODES,
   WEBKIT_RADIO_NO_WRAP,
+  WEBKIT_RADIO_RTL_ARROWS,
   WEBKIT_TOP_LAYER_ANCHOR,
   failsIn,
   type EngineBug,
@@ -113,6 +118,83 @@ repro(FIREFOX_SELF_RTL, () => {
       .poll(() => placement(tab))
       .toMatchObject({ below: 0, endEdge: 0 })
   })
+})
+
+repro(FIREFOX_STALE_FALLBACK_OPACITY, () => {
+  for (const flipped of [false, true]) {
+    test(`a popover a hover rule fades in reads the opacity it paints ${flipped ? "when a fallback flips it" : "in its first position"}`, async ({
+      browserName,
+      page: tab,
+    }) => {
+      failsIn(
+        browserName,
+        flipped ? { firefox: FIREFOX_STALE_FALLBACK_OPACITY } : {},
+      )
+      await tab.setContent(`<!doctype html>
+<style>
+  body { margin: 0 }
+  .center { display: flex; justify-content: center; padding-block-start: ${flipped ? 0 : 200}px }
+  #wrap { anchor-name: --wrap; display: inline-block }
+  #popover { inset: auto; margin: 0; opacity: 0; position-anchor: --wrap; position-area: block-start; position-try-fallbacks: flip-block; transition: display 0.3s allow-discrete, opacity 0.3s, overlay 0.3s allow-discrete }
+  #popover:popover-open { opacity: 1; @starting-style { opacity: 0 } }
+  #wrap:has(> :hover) > #popover { display: block; opacity: 1; @starting-style { opacity: 0 } }
+</style>
+<div class="center"><span id="wrap"><button id="trigger">Open</button><span id="popover" popover="hint">Tip</span></span></div>`)
+      await tab.hover("#trigger")
+      await tab.evaluate(() =>
+        document.getElementById("popover")!.showPopover(),
+      )
+      if (flipped) {
+        await expect.poll(() => placement(tab)).toMatchObject({ below: 0 })
+      }
+      await expect
+        .poll(() =>
+          tab
+            .locator("#popover")
+            .evaluate((popover) => getComputedStyle(popover).opacity),
+        )
+        .toBe("1")
+    })
+  }
+})
+
+repro(FIREFOX_STICKY_ANCHOR_SCROLL, () => {
+  for (const scrolled of [false, true]) {
+    test(`a fixed element anchored inside a sticky header lines up with it after a layout ${scrolled ? "on a scrolled page" : "at the top of the page"}`, async ({
+      browserName,
+      page: tab,
+    }) => {
+      failsIn(
+        browserName,
+        scrolled ? { firefox: FIREFOX_STICKY_ANCHOR_SCROLL } : {},
+      )
+      await tab.setContent(`<!doctype html>
+<style>
+  body { margin: 0 }
+  #sticky { inset-block-start: 0; padding-block-start: 16px; position: sticky; z-index: 1 }
+  #header { anchor-name: --header; block-size: 60px; margin-inline: auto; max-inline-size: 600px }
+  #overlay { bottom: anchor(--header bottom); left: 0; position: fixed; right: 0; top: anchor(--header top) }
+  .spacer { block-size: 3000px }
+</style>
+<div id="sticky"><header><div id="header">Header</div></header></div>
+<div id="overlay"></div>
+<div class="spacer"></div>`)
+      if (scrolled) await tab.evaluate(() => scrollTo(0, 1000))
+      await tab.evaluate(async () => {
+        await new Promise(requestAnimationFrame)
+        document.getElementById("overlay")!.style.insetInline = "8px"
+      })
+      await expect
+        .poll(() =>
+          tab.evaluate(() => {
+            const box = (id: string) =>
+              document.getElementById(id)!.getBoundingClientRect()
+            return Math.round(box("overlay").top - box("header").top)
+          }),
+        )
+        .toBe(0)
+    })
+  }
 })
 
 const splitButton = (start: string) => `<!doctype html>
@@ -236,6 +318,20 @@ repro(WEBKIT_RADIO_NO_WRAP, () => {
   })
 })
 
+repro(WEBKIT_RADIO_RTL_ARROWS, () => {
+  test("Left Arrow moves to the next radio of a right-to-left group", async ({
+    browserName,
+    page: tab,
+  }) => {
+    failsIn(browserName, { webkit: WEBKIT_RADIO_RTL_ARROWS })
+    await tab.setContent(`<!doctype html><div dir="rtl">${radios(3)}</div>`)
+    await tab.locator("label").first().click()
+    await expect(tab.locator("#radio-1")).toBeChecked()
+    await tab.keyboard.press("ArrowLeft")
+    await expect(tab.locator("#radio-2")).toBeChecked()
+  })
+})
+
 repro(WEBKIT_ARROW_FOCUS_SCROLL, () => {
   test("a scroll container scrolls to the clipped radio the arrow keys focus", async ({
     browserName,
@@ -269,4 +365,146 @@ ${Array.from({ length: 8 }, (_, index) => `  #radio-${index + 1} { grid-column: 
       )
       .toBe(true)
   })
+})
+
+const readers = (spaced: string, tight: string) => `<!doctype html>
+<style>
+  .avatar { display: flex; grid-area: start; margin-inline-end: 8px }
+  .counter { align-items: center; display: inline-flex; justify-content: center; position: relative }
+  .content { display: grid; gap: 4px; grid-area: content; padding: 8px 16px }
+  .floating { margin: 8px; padding: 4px 8px }
+  .footer { display: flex; gap: 4px }
+  .hidden { block-size: 1px; clip-path: inset(50%); inline-size: 1px; overflow: hidden; position: absolute; white-space: nowrap }
+  .messages { display: flex; flex-direction: column; gap: 4px; list-style: none; margin: 0; padding: 0 }
+  .messages > li { display: grid; grid-template-areas: "start content" ". bottom"; grid-template-columns: 40px 1fr }
+  .messages p { margin: 0 }
+  .messages time { display: block }
+  .steps { display: flex; list-style: none; margin: 0; padding: 0 }
+  .steps .description { display: block }
+  .steps > li { display: grid; position: relative }
+  .tooltip { display: block }
+  .tooltip > button { display: inline-flex }
+  table { position: relative }
+  table input { display: grid; position: relative }
+  table label { display: flex }
+</style>
+<div id="spaced">${spaced}</div>
+<div id="tight">${tight}</div>`
+
+const READERS = {
+  "a button with an open popover": [
+    `<span class="tooltip">   <button type="button"> Save </button> <span class="floating" popover="manual"> Save your changes </span>   </span>`,
+    `<span class="tooltip"><button type="button">Save</button><span class="floating" popover="manual">Save your changes</span></span>`,
+  ],
+  "a button with a visually hidden span after its text": [
+    `<button class="counter" type="button">  +4<span class="hidden"> more reviewers</span>  </button>`,
+    `<button class="counter" type="button">+4<span class="hidden">more reviewers</span></button>`,
+  ],
+  "a grid item of text before a visually hidden span": [
+    `<ol class="steps">
+  <li>
+    Account
+    <span class="hidden">, completed</span>
+    <span class="description">Name and email</span>
+  </li>
+</ol>`,
+    `<ol class="steps">  <li>  Account<span class="hidden">, completed</span> <span class="description"> Name and email  </span> </li>  </ol>`,
+  ],
+  "a list of grid items": [
+    `<ol class="messages">  <li> <div class="avatar" aria-label="Stella" role="img">SN</div> <div class="content"> <p>Stella</p>   <p>Did you get a chance to look?</p>  <p class="footer"> <time>14:02</time>  </p> </div>  </li> <li> <div class="avatar" aria-label="Stella" role="img">SN</div> <div class="content"> <p>Stella</p>   <p>No rush.</p>  <p class="footer"> <time>14:03</time>  </p> </div>  </li>  </ol>`,
+    `<ol class="messages"><!--[--><li><!--[--><div class="avatar" aria-label="Stella" role="img"><!--[-->SN<!--]--></div><!--]--><div class="content"><p>Stella</p><!--[--><p>Did you get a chance to look?</p><!--]--><p class="footer"><time>14:02</time><!----></p></div><!----></li><li><!--[--><div class="avatar" aria-label="Stella" role="img"><!--[-->SN<!--]--></div><!--]--><div class="content"><p>Stella</p><!--[--><p>No rush.</p><!--]--><p class="footer"><time>14:03</time><!----></p></div><!----></li><!--]--></ol>`,
+  ],
+  "a table with visually hidden labels": [
+    `<table><thead>  <tr>  <th>  <label> <input type="checkbox"> <span class="hidden">Select all</span>  </label>  </th> <th> File </th> <th> Size </th>  </tr>  </thead> <tbody>  <tr>  <td>  <label> <input type="checkbox"> <span class="hidden">Select Invoice.pdf</span>  </label>  </td> <td> Invoice.pdf </td> <td> 120 kB </td>  </tr>  </tbody></table>`,
+    `<table><thead><tr><th><label><input type="checkbox"> <span class="hidden">Select all</span> </label></th><th>File</th><th>Size</th></tr></thead><tbody><tr><td><label><input type="checkbox"> <span class="hidden">Select Invoice.pdf</span> </label></td><td>Invoice.pdf</td><td>120 kB</td></tr></tbody></table>`,
+  ],
+  "a table with visually hidden labels that end in a comment": [
+    `<table><thead>  <tr>  <th>  <label> <input type="checkbox"> <span class="hidden">Select all</span>  </label>  </th> <th> File </th> <th> Size </th>  </tr>  </thead> <tbody>  <tr>  <td>  <label> <input type="checkbox"> <span class="hidden">Select Invoice.pdf</span>  </label>  </td> <td> Invoice.pdf </td> <td> 120 kB </td>  </tr>  </tbody></table>`,
+    `<table><thead><tr><th><label><!--$--><input type="checkbox"><!--/--><!--$--><span class="hidden"><!--$--><!--/--><!--$-->Select all<!--/--></span><!--/--><!--$--><!--/--></label></th><th>File</th><th>Size</th></tr></thead><tbody><tr><td><label><!--$--><input type="checkbox"><!--/--><!--$--><span class="hidden"><!--$--><!--/--><!--$-->Select Invoice.pdf<!--/--></span><!--/--><!--$--><!--/--></label></td><td>Invoice.pdf</td><td>120 kB</td></tr></tbody></table>`,
+  ],
+}
+
+repro(WEBKIT_INNER_TEXT_HIDDEN_NODES, () => {
+  for (const [name, [spacedMarkup, tightMarkup]] of Object.entries(READERS)) {
+    test(`${name} reads the same with and without the whitespace and comments between its elements`, async ({
+      browserName,
+      page: tab,
+    }) => {
+      failsIn(browserName, { webkit: WEBKIT_INNER_TEXT_HIDDEN_NODES })
+      await tab.setContent(readers(spacedMarkup, tightMarkup))
+      await tab.evaluate(() => {
+        for (const popover of document.querySelectorAll<HTMLElement>(
+          "[popover]",
+        )) {
+          popover.showPopover()
+        }
+      })
+      const [spaced, tight] = await tab.evaluate(() =>
+        ["spaced", "tight"].map((id) => document.getElementById(id)!.innerText),
+      )
+      expect(tight).toBe(spaced)
+    })
+  }
+})
+
+repro(WEBKIT_HIGHLIGHT_HIDDEN_TEXT, () => {
+  for (const kind of ["Range", "StaticRange"]) {
+    test(`a highlight with a ${kind} paints text that is shown after it was added`, async ({
+      browserName,
+      page: tab,
+    }) => {
+      failsIn(
+        browserName,
+        kind === "StaticRange" ? { webkit: WEBKIT_HIGHLIGHT_HIDDEN_TEXT } : {},
+      )
+      await tab.setContent(`<!doctype html>
+<style>
+  pre { color: oklch(0 0 0); display: none; font-size: 40px }
+  ::highlight(word) { color: oklch(0.628 0.258 29.2) }
+</style>
+<pre id="code">highlighted</pre>`)
+      await tab.evaluate((kind) => {
+        const text = document.getElementById("code")!.firstChild!
+        const range =
+          kind === "Range"
+            ? new Range()
+            : new StaticRange({
+                endContainer: text,
+                endOffset: 11,
+                startContainer: text,
+                startOffset: 0,
+              })
+        if (range instanceof Range) range.selectNodeContents(text)
+        CSS.highlights.set("word", new Highlight(range))
+      }, kind)
+      await tab.evaluate(
+        () =>
+          new Promise((resolve) =>
+            requestAnimationFrame(() =>
+              requestAnimationFrame(() => resolve(null)),
+            ),
+          ),
+      )
+      await tab.locator("#code").evaluate((code) => {
+        code.style.display = "block"
+      })
+      const screenshot = await tab.locator("#code").screenshot()
+      const redPixels = await tab.evaluate(async (png) => {
+        const image = await createImageBitmap(
+          await (await fetch(`data:image/png;base64,${png}`)).blob(),
+        )
+        const canvas = new OffscreenCanvas(image.width, image.height)
+        const context = canvas.getContext("2d")!
+        context.drawImage(image, 0, 0)
+        const { data } = context.getImageData(0, 0, image.width, image.height)
+        let count = 0
+        for (let index = 0; index < data.length; index += 4) {
+          if (data[index] > 150 && data[index + 1] < 90 && data[index + 2] < 90)
+            count++
+        }
+        return count
+      }, screenshot.toString("base64"))
+      expect(redPixels).toBeGreaterThan(0)
+    })
+  }
 })

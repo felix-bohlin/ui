@@ -10,11 +10,11 @@ export default function FieldGroupExample() {
   return (
     <Form>
       <Fieldset>
-        <FieldLegend>Legend</FieldLegend>
+        <FieldLegend>Notifications</FieldLegend>
         <FieldGroup name="checkbox-group">
-          <Checkbox defaultChecked>Checkbox 1</Checkbox>
-          <Checkbox>Checkbox 2</Checkbox>
-          <Checkbox>Checkbox 3</Checkbox>
+          <Checkbox defaultChecked>Email</Checkbox>
+          <Checkbox>Push</Checkbox>
+          <Checkbox>SMS</Checkbox>
         </FieldGroup>
       </Fieldset>
     </Form>

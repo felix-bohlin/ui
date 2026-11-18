@@ -1,54 +1,40 @@
 <form class="ui-form">
-  <fieldset class="ui-fieldset">
-    <legend>Choose your favorite Radiohead album</legend>
-    <p class="ui-description">There are no wrong answers.</p>
+  <fieldset aria-describedby="id-1" class="ui-fieldset">
+    <legend>Plan</legend>
+    <p class="ui-description" id="id-1">You can change your plan at any time.</p>
     <div class="ui-field-group">
       <label class="ui-radio">
-        <input name="albums" type="radio" value="ok-computer">
-        <span class="ui-label">OK Computer</span>
+        <input name="plan" type="radio" value="starter">
+        <span class="ui-label">Starter</span>
       </label>
       <label class="ui-radio">
-        <input name="albums" type="radio" value="kid-a">
-        <span class="ui-label">Kid A</span>
+        <input name="plan" type="radio" value="team">
+        <span class="ui-label">Team</span>
       </label>
       <label class="ui-radio">
-        <input name="albums" type="radio" value="in-rainbows">
-        <span class="ui-label">In Rainbows</span>
-      </label>
-      <label class="ui-radio">
-        <input name="albums" type="radio" value="king-of-limbs">
-        <span class="ui-label">The King of Limbs</span>
+        <input name="plan" type="radio" value="business">
+        <span class="ui-label">Business</span>
       </label>
     </div>
   </fieldset>
-  <fieldset class="ui-fieldset">
-    <legend>Which side projects do you follow?</legend>
-    <p class="ui-description">Some are better than others.</p>
+  <fieldset aria-describedby="id-2" class="ui-fieldset">
+    <legend>Add-ons</legend>
+    <p class="ui-description" id="id-2">Billed monthly with your plan.</p>
     <div class="ui-field-group">
       <label class="ui-checkbox">
-        <input name="projects" type="checkbox" value="atoms-for-peace">
-        <span class="ui-label">Atoms for Peace</span>
-        <span class="ui-end-text">Thom Yorke, Flea, Nigel Godrich</span>
+        <input name="add-ons" type="checkbox" value="backups">
+        <span class="ui-label">Backups</span>
+        <span class="ui-end-text">Daily snapshots, kept for 30 days.</span>
       </label>
       <label class="ui-checkbox">
-        <input name="projects" type="checkbox" value="eob">
-        <span class="ui-label">EOB</span>
-        <span class="ui-end-text">Ed O'Brien solo</span>
+        <input name="add-ons" type="checkbox" value="encryption">
+        <span class="ui-label">Encryption</span>
+        <span class="ui-end-text">Encrypt your files with your own keys.</span>
       </label>
       <label class="ui-checkbox">
-        <input name="projects" type="checkbox" value="jonny-scores">
-        <span class="ui-label">Film Scores</span>
-        <span class="ui-end-text">Film compositions by Jonny Greenwood</span>
-      </label>
-      <label class="ui-checkbox">
-        <input name="projects" type="checkbox" value="selway-solo">
-        <span class="ui-label">Philip Selway</span>
-        <span class="ui-end-text">Philip Selway solo albums</span>
-      </label>
-      <label class="ui-checkbox">
-        <input name="projects" type="checkbox" value="the-smile">
-        <span class="ui-label">The Smile</span>
-        <span class="ui-end-text">Thom Yorke, Jonny Greenwood, Tom Skinner</span>
+        <input name="add-ons" type="checkbox" value="single-sign-on">
+        <span class="ui-label">Single sign-on</span>
+        <span class="ui-end-text">Sign in with your company account.</span>
       </label>
     </div>
   </fieldset>

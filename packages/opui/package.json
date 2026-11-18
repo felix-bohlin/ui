@@ -1,11 +1,11 @@
 {
   "name": "opui-css",
-  "version": "6.0.0-rc.1",
-  "description": "Design system. Components. Modern HTML & CSS. HTML, Astro, React, Svelte and Vue. The tokens started from Open Props, and the components don't need it.",
+  "version": "6.0.0-rc.5",
+  "description": "Design system. Components. Modern HTML & CSS. HTML, Astro, React, Solid, Svelte and Vue. The tokens started from Open Props, and the components don't need it.",
   "type": "module",
   "license": "MIT",
   "author": "Felix Bohlin",
-  "homepage": "https://open-props-ui.netlify.app/",
+  "homepage": "https://opui.dev/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/felix-bohlin/ui.git",
@@ -24,6 +24,9 @@
     "open-props",
     "react",
     "react-components",
+    "solid",
+    "solid-components",
+    "solidjs",
     "svelte",
     "svelte-components",
     "ui",
@@ -49,9 +52,12 @@
     "dist",
     "elements",
     "env.d.ts",
+    "figma",
+    "icons",
     "open-props.css",
     "react",
     "skills",
+    "solid",
     "svelte",
     "themes",
     "tokens.json",
@@ -60,24 +66,68 @@
     "LICENSE",
     "MIGRATING-legacy.md",
     "MIGRATING.md",
-    "README.md"
+    "README.md",
+    "THIRD-PARTY-NOTICES"
   ],
   "style": "./dist/opui.css",
-  "svelte": "./svelte/index.ts",
+  "svelte": "./dist/svelte/index.js",
   "exports": {
     ".": "./dist/opui.css",
     "./open-props": "./dist/op.css",
     "./open-props.css": "./open-props.css",
     "./astro": "./astro/index.ts",
-    "./react": "./react/index.ts",
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "default": "./dist/react/index.js"
+    },
+    "./solid": {
+      "types": "./dist/solid/index.d.ts",
+      "solid": "./dist/solid/index.js",
+      "default": "./dist/solid/index.js"
+    },
     "./svelte": {
-      "svelte": "./svelte/index.ts",
-      "default": "./svelte/index.ts"
+      "types": "./dist/svelte/index.d.ts",
+      "svelte": "./dist/svelte/index.js",
+      "default": "./dist/svelte/index.js"
     },
     "./themes/*.css": "./themes/*.css",
     "./themes/*": "./themes/*.css",
     "./tokens.json": "./tokens.json",
-    "./vue": "./vue/index.ts",
+    "./vue": {
+      "types": "./dist/vue/index.d.ts",
+      "default": "./dist/vue/index.js"
+    },
+    "./components/*.react": {
+      "types": "./dist/components/*.react.d.ts",
+      "default": "./dist/components/*.react.js"
+    },
+    "./components/*.react.tsx": {
+      "types": "./dist/components/*.react.d.ts",
+      "default": "./dist/components/*.react.js"
+    },
+    "./components/*.solid": {
+      "types": "./dist/components/*.solid.d.ts",
+      "solid": "./dist/components/*.solid.jsx",
+      "default": "./dist/components/*.solid.jsx"
+    },
+    "./components/*.solid.tsx": {
+      "types": "./dist/components/*.solid.d.ts",
+      "solid": "./dist/components/*.solid.jsx",
+      "default": "./dist/components/*.solid.jsx"
+    },
+    "./components/*.svelte": {
+      "types": "./dist/components/*.svelte.d.ts",
+      "svelte": "./dist/components/*.svelte",
+      "default": "./dist/components/*.svelte"
+    },
+    "./components/*.svelte.js": {
+      "types": "./dist/components/*.svelte.d.ts",
+      "default": "./dist/components/*.svelte.js"
+    },
+    "./components/*.vue": {
+      "types": "./dist/components/*.vue.d.ts",
+      "default": "./dist/components/*.vue.js"
+    },
     "./components/*": "./components/*",
     "./core/*.css": "./core/*.css",
     "./core/*": "./core/*.css",
@@ -87,6 +137,9 @@
     "./dist/*": "./dist/*",
     "./elements/*": "./elements/*",
     "./env.d.ts": "./env.d.ts",
+    "./figma/*": "./figma/*",
+    "./icons/*.css": "./icons/*.css",
+    "./icons/*": "./icons/*.css",
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -98,20 +151,30 @@
     "release:prerelease": "node ../../scripts/release.mjs prerelease"
   },
   "devDependencies": {
+    "@jridgewell/remapping": "^2.3.5",
+    "@types/react": "catalog:",
     "open-props": "^1.7.23",
-    "postcss": "^8.4.0",
-    "postcss-import": "^16.1.0",
+    "postcss": "^8.5.32",
+    "postcss-import": "^16.2.0",
+    "svelte2tsx": "^0.7.63",
+    "typescript": "^6.0.3",
+    "vue-tsc": "^3.3.14",
     "web-features": "catalog:"
   },
   "peerDependencies": {
+    "@solidjs/web": "^2.0.0",
     "astro": "^7",
     "open-props": "^1.7.23",
     "react": "^19",
     "react-dom": "^19",
+    "solid-js": "^2.0.0",
     "svelte": "^5.57",
-    "vue": "^3.5"
+    "vue": "^3.5.2"
   },
   "peerDependenciesMeta": {
+    "@solidjs/web": {
+      "optional": true
+    },
     "astro": {
       "optional": true
     },
@@ -122,6 +185,9 @@
       "optional": true
     },
     "react-dom": {
+      "optional": true
+    },
+    "solid-js": {
       "optional": true
     },
     "svelte": {
@@ -135,6 +201,6 @@
     "access": "public"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=26.10.0"
   }
 }

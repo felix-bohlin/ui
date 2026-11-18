@@ -3,6 +3,8 @@
 </script>
 
 <Tooltip id="tooltip-basics-1">
-  <Button interestfor="tooltip-basics-1">Save</Button>
+  <Button aria-describedby="tooltip-basics-1" interestfor="tooltip-basics-1"
+    >Save</Button
+  >
   <TooltipContent>Save your changes</TooltipContent>
 </Tooltip>

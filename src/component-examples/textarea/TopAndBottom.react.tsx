@@ -10,9 +10,11 @@ export default function TopAndBottom() {
       />
 
       <Textarea
+        bottom="Markdown supported"
+        characterCount
         label="Comment"
+        maxLength={280}
         placeholder="Write a comment..."
-        bottom="0 / 280"
       />
     </>
   )

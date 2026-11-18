@@ -2,58 +2,64 @@
   import { TextField } from "opui-css/svelte"
 </script>
 
-<TextField spread placeholder="Evil Rabbit">
+<TextField placeholder="Holly Humbucker" spread>
   {#snippet label()}Name{/snippet}
-  {#snippet startText()}Provide your full name for identification{/snippet}
+  {#snippet startText()}Your full name, as the drummer never says it{/snippet}
 </TextField>
 
-<TextField spread placeholder="you@example.com" type="email" variant="filled">
+<TextField
+  placeholder="name@lowend.example"
+  spread
+  type="email"
+  variant="filled"
+>
   {#snippet label()}Email{/snippet}
-  {#snippet startText()}We'll use this to contact you{/snippet}
-  {#snippet endText()}Please use a valid email address{/snippet}
+  {#snippet startText()}We'll send your gig invites here{/snippet}
+  {#snippet endText()}Use one the band checks.{/snippet}
 </TextField>
 
-<TextField spread required label="Required">
-  {#snippet startText()}You must fill this in{/snippet}
+<TextField label="Band" required spread>
+  {#snippet startText()}Shown on your gig flyers{/snippet}
 </TextField>
 
-<TextField spread disabled label="Disabled">
-  {#snippet startText()}This field is disabled{/snippet}
+<TextField disabled label="Member ID" spread value="BASS-20931">
+  {#snippet startText()}Assigned when you joined Bassbook{/snippet}
 </TextField>
 
-<TextField spread error label="Invalid Name">
-  {#snippet startText()}This field has an error{/snippet}
+<TextField error label="Display name" spread value="A">
+  {#snippet startText()}Shown next to your wall posts{/snippet}
   {#snippet endText()}Enter at least two characters.{/snippet}
 </TextField>
 
-<TextField spread label="Amount" placeholder="0.00">
-  {#snippet startText()}Daily spending limit{/snippet}
+<TextField label="Amount" placeholder="0.00" spread>
+  {#snippet startText()}Daily gear spending limit{/snippet}
   {#snippet start()}€{/snippet}
   {#snippet end()}EUR{/snippet}
 </TextField>
 
-<TextField spread label="Website" placeholder="example.com" variant="filled">
-  {#snippet startText()}Your public profile URL{/snippet}
+<TextField label="Website" placeholder="example.com" spread variant="filled">
+  {#snippet startText()}Your band homepage, totally rad{/snippet}
   {#snippet start()}https://{/snippet}
-  {#snippet endText()}Must include a valid domain{/snippet}
+  {#snippet endText()}Include the domain, like example.com.{/snippet}
 </TextField>
 
-<TextField spread label="Project name" placeholder="my-project">
-  {#snippet startText()}Used to generate the project URL{/snippet}
-  {#snippet top()}acme.dev/{/snippet}
+<TextField label="Band page" placeholder="my-band" spread>
+  {#snippet startText()}Used to make your band page URL{/snippet}
+  {#snippet top()}bassbook.example/{/snippet}
   {#snippet bottom()}Lowercase letters and dashes only{/snippet}
 </TextField>
 
 <TextField
+  label="Secret riff"
+  placeholder="Paste your riff"
   spread
-  variant="filled"
-  label="API key"
-  placeholder="Paste your key"
   type="password"
+  variant="filled"
 >
-  {#snippet startText()}Stored encrypted at rest{/snippet}
+  {#snippet startText()}Locked away from guitarists{/snippet}
   {#snippet start()}
     <svg
+      data-icon="lock"
       aria-hidden="true"
       width="16"
       height="16"
@@ -69,6 +75,6 @@
     </svg>
   {/snippet}
   {#snippet top()}Secret{/snippet}
-  {#snippet bottom()}Rotates every 90 days{/snippet}
-  {#snippet endText()}Treat like a password{/snippet}
+  {#snippet bottom()}Changes every 90 days{/snippet}
+  {#snippet endText()}Never show it to the drummer.{/snippet}
 </TextField>

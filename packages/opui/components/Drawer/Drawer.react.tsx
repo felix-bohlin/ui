@@ -1,26 +1,35 @@
 "use client"
 
+import { useEffect } from "react"
+import { defined } from "../attrs"
 import { cx } from "../cx"
-import { warnMissingId } from "../dev"
-import { autoLabelledBy } from "../id"
 import { DrawerContext } from "./context.react"
+import { autoLabelledBy } from "../id"
+import { warnMissingId } from "../dev"
 import type { Props } from "./types.react"
 
 export default function Drawer({
   backdrop = "blurred",
   className,
   closedby = "any",
+  closeOnNavigate,
   id,
   scrollLock,
   side = "inline-start",
+  children,
   ...rest
 }: Props) {
+  const labelledBy = autoLabelledBy(rest, `${id}-title`)
   warnMissingId("Drawer", id)
-  const labelledBy = autoLabelledBy(rest, `${id}-heading`)
+  useEffect(() => {
+    void import("../../elements/close-on-navigate.js")
+    void import("../../elements/drawer-swipe.js")
+  }, [])
 
   return (
     <DrawerContext value={{ id, titleId: labelledBy }}>
       <dialog
+        closedby={closedby}
         className={cx([
           "ui-drawer",
           {
@@ -31,10 +40,12 @@ export default function Drawer({
           className,
         ])}
         aria-labelledby={labelledBy}
-        closedby={closedby}
+        data-close-on-navigate={closeOnNavigate ? "" : undefined}
         id={id}
-        {...rest}
-      />
+        {...defined(rest)}
+      >
+        {children}
+      </dialog>
     </DrawerContext>
   )
 }

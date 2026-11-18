@@ -14,37 +14,26 @@ The docs site uses **URL-based framework routing**, not client-side toggling:
 
 Practical implication: **author each page once with all framework slots populated.** The router and these components decide what gets rendered for any given URL.
 
-## 1. Research & Analysis Phase
+## 1. Sources for a page
 
-Before creating or refactoring a page, perform the following research:
+A page documents what these files hold:
 
-1.  **Analyze the Component Source**: Read `packages/opui/components/[Name]/[Name].astro` to identify:
-    - Supported props (e.g., `variant`, `size`, `color`).
-    - Default prop values.
-    - Default HTML structure and class names.
-    - Provided parts (e.g., `CardHeader`, `AccordionSummary`) for containers, and slots (e.g., `label`, `end-text`) for form controls.
-2.  **Analyze the CSS**: Read `packages/opui/css/components/[name].css` to identify:
-    - Modifier classes (e.g., `.ui-filled`, `.ui-outlined`, `.ui-small`).
-    - Modern CSS features being used (to populate `browserSupport`).
-    - Internal part classes (the `parts` in `api.ts`, which drive the `anatomy` diagram).
-3.  **Check for API Metadata**: Verify if `src/component-api/[name]/api.ts` exists.
-    - If not, create it from the props, parts and slots identified in steps 1 and 2, following [src/component-api/AGENTS.md](../../component-api/AGENTS.md). Props and slots are read from the component source, so `pnpm test` and the build fail when `api.ts` and the source disagree.
-4.  **Identify Dependencies**: Determine if the component relies on other components.
-    - **Field-based components** (`TextField`, `Select`, `Textarea`): Usually depend on `text-field.css`.
-    - **Field groups** (`Checkbox`, `Radio`, `Switch` inside `Fieldset`/`FieldGroup`): Depend on `form.css`.
-    - **Popover-based components** (`Select`): Usually depend on `list.css`.
-5.  **Examine Patterns**: Read a similar existing module (e.g., `src/docs/components/accordion.astro`) to ensure UI and content parity.
+- **Component source**, `packages/opui/components/[Name]/[Name].astro`: the props and their defaults, the default HTML structure and class names, and the parts (`CardHeader`, `AccordionSummary`) of a container or the slots (`label`, `end-text`) of a form control.
+- **CSS**, `packages/opui/css/components/[name].css`: the modifier classes (`.ui-filled`, `.ui-outlined`, `.ui-small`), the modern CSS features that go in `browserSupport`, and the part classes (the `parts` in `api.ts`, which drive the `anatomy` diagram).
+- **API metadata**, `src/component-api/[name]/api.ts`. When it doesn't exist, create it from those props, parts and slots, following [src/component-api/AGENTS.md](../../component-api/AGENTS.md). Props and slots are read from the component source, so `pnpm test` and the build fail when `api.ts` and the source disagree.
+- **Dependencies**: field-based components (`TextField`, `Select`, `Textarea`) usually depend on `text-field.css`, field groups (`Checkbox`, `Radio`, `Switch` inside `Fieldset`/`FieldGroup`) on `form.css`, and popover-based components (`Select`) usually on `list.css`.
+- **A similar page**, such as `src/docs/components/accordion.astro`, for UI and content parity.
 
 ## 2. File Structure & Location
 
 - **Documentation Modules**: `src/docs/components/[name].astro` (lowercase, kebab-case). These are shared per-component modules consumed by the dynamic route shell.
 - **Route Shell** (do not edit per-component): [`src/pages/[framework]/components/[component].astro`](../../pages/%5Bframework%5D/components/%5Bcomponent%5D.astro) generates one route per (framework × component) and delegates to `src/docs/components/[name].astro`.
 - **Example Files**: For each component, create a directory: `src/component-examples/[component]/`.
-  - `Basics.astro`, `Basics.html`, `Basics.react.tsx`, `Basics.svelte` and `Basics.vue`, one per framework in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Every example has a file for each framework its component ships: `pnpm check-components` fails when one is missing, except for the examples in `FRAMEWORK_AGNOSTIC_EXAMPLES` and the HTML file of a `*Code` override, and the parity test compares them.
+  - `Basics.astro`, `Basics.html`, `Basics.react.tsx`, `Basics.solid.tsx`, `Basics.svelte` and `Basics.vue`, one per framework in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Write the `.astro` file: `pnpm build-examples` ([scripts/build-examples.mjs](../../../scripts/build-examples.mjs)) writes the others from it, `pnpm build` runs it first, and `pnpm check-examples` (part of `pnpm check:fast`) fails on a stale file. A file written by hand is listed with its reason in [scripts/hand-written-examples.json](../../../scripts/hand-written-examples.json), such as the React, Svelte and Vue files of an example with a client `<script>`. An example takes at most scripts without attributes or imports and `<style is:global>` blocks at its top level, and no comment directly inside a component, which the Astro compiler drops. Every example has a file for each framework its component ships: `pnpm check-components` fails when one is missing, except for the examples in `FRAMEWORK_AGNOSTIC_EXAMPLES` and the HTML file of a `*Code` override, and the parity test compares them.
   - `Variants.astro`, `Variants.html`, `Variants.react.tsx`, `Variants.svelte`, `Variants.vue`, etc.
 - **Partials**: `src/docs/components/partials/[Name].astro` holds prose that several pages share, such as `ValidationNotes` and `LabelAlignment`. Give a partial props for the words that differ per page, and write it once with `<PropOrClass>` and `<Conditional>`. `Usage` and `KeyboardSupport` render the sections every component page shares (see 5.7 and 5.8).
-- **Checks**: `pnpm check-components` checks the example files (names, React default exports and `"use client"`, outer wrappers, and that a page shows each one through `<AutoExample>` or an import). `tests/unit/docs-pages.test.ts` checks the pages (links, section headings, examples in sections, the anatomy slot, `isDependency`, callouts and `<Conditional>` tags), and `tests/unit/parity.test.ts` that decorative SVGs are hidden.
-- **Code files**: If a code snippet needs to differ from the rendered preview (e.g., to hide documentation-specific scripts or wrappers), add a file with a `Code` suffix for each framework that needs one, such as `SizesCode.astro` and `SizesCode.react.tsx`. `<AutoExample>` shows it in the code tab instead of the preview's source.
+- **Checks**: `pnpm check-components` checks the example files (names, React default exports and `"use client"`, outer wrappers, and that a page shows each one through `<AutoExample>` or an import). `tests/unit/docs-pages.test.ts` checks the pages (links, section headings, examples in sections, the anatomy slot, `isDependency`, callouts and `<Conditional>` tags), `tests/unit/parity.test.ts` that decorative SVGs are hidden, and `tests/unit/default-icons.test.ts` that a page names each icon token an empty `svg` shows, through the `DefaultIcon` partial.
+- **Code files**: If a code snippet needs to differ from the rendered preview (e.g., to hide documentation-specific scripts or wrappers), add a file with a `Code` suffix, such as `SizesCode.astro`, which `pnpm build-examples` turns into the other formats like any example. `<AutoExample>` shows it in the code tab instead of the preview's source.
 
 ## 3. Implementation Pattern: Externalized Examples
 
@@ -72,10 +61,8 @@ import ComponentCSS from "@opui/css/components/component.css?raw"
 >
   <Fragment slot="title">Component Name</Fragment>
   <Fragment slot="preamble">
-    Brief description. See also: <DocLink
-      href="/components/related"
-      class="ui-link">Related</DocLink
-    >.
+    Brief description. See also:
+    <DocLink href="/components/related" class="ui-link">Related</DocLink>.
   </Fragment>
 
   <section id="basics">
@@ -97,7 +84,7 @@ CSS imports use the `@opui/css/...` package alias. UI-component imports use the 
 
 `<AutoExample>` covers the common case (file-per-framework with matching basenames), shows a `<Name>Code.<ext>` file in the code tab when one exists, and forwards a `slot="controls"` child for interactive switches. Use the manual `<Example>` form when a section needs a `code-js` slot (JS-driven demos).
 
-The manual form remains supported and unchanged:
+The manual form:
 
 ```astro
 <Example column>
@@ -107,23 +94,14 @@ The manual form remains supported and unchanged:
 </Example>
 ```
 
-### 3.2 Refactoring Steps
-
-1.  **Extract Examples**: Move inline code to `src/component-examples/{component}/`.
-    - `.astro`, `.react.tsx`, `.svelte` and `.vue` files mirror one another with the components from `opui-css/<framework>` (see **Path Resolution**).
-    - `.html` files hold the vanilla HTML equivalent (see **Functional Parity**).
-    - Set `row` / `column` on `<AutoExample>` for the example's layout. Sibling `example-row` / `example-column` groups inside one example are fine.
-2.  **Replace `<Example>` blocks**: For each standard section, replace the import block + `<Example>` + four slots with a single `<AutoExample name="..." />`.
-3.  **Cleanup**: Remove the now-unused `?raw` and component imports from the page frontmatter.
-
-### 3.3 Section order
+### 3.2 Section order
 
 The `Component` layout renders a page in this order. Only the default slot is ordered by the page itself; the rest is placed by the layout, wherever the slot sits in the source.
 
 1. `title` and `preamble`. Not every page needs a preamble. Use it for a short description, and name the close sibling when there is one (Chip vs Button, Dialog vs Drawer, Menu vs Select, Switch vs Checkbox vs Toggle, Tabs vs Toggle group), linked both ways with `<DocLink>`. The full guidance goes in the `usage` slot.
 2. Browser support chips (`browserSupport`).
 3. The `anatomy` slot, when `heroAnatomy` is set.
-4. The `usage` slot, as "Usage" (see 5.7). It comes before the examples, so readers know they're on the right page before they read how to set it up, and starts collapsed, so the examples stay close to the top.
+4. On the Astro, React, Svelte and Vue pages, Installation (`installationTabs` and the `installation` slot), with a Command tab (the install command and the import line) and a Manual tab (the CSS files), then the `usage` slot, as "Usage" (see 5.7). Usage comes before the examples, so readers know they're on the right page before they read how to set it up, and starts collapsed, so the examples stay close to the top.
 5. The default slot, in this order. Skip what doesn't apply:
    1. Basics: the plain component, usually under `<section id="basics"><h2>Basics</h2>`.
    2. Variants, colors and severities.
@@ -136,7 +114,7 @@ The `Component` layout renders a page in this order. Only the default slot is or
 7. The `anatomy` slot as "Anatomy", when `heroAnatomy` isn't set.
 8. The API tables (`apis`).
 9. The `under-the-hood` slot, as "Under the hood".
-10. Browser support, Installation (`installationTabs` and the `installation` slot), Used in blocks (the blocks in `src/blocks/` whose markup has the root class of an `api.ts` on the page), See also (`seeAlsoLinks`) and Changelog (the What's new callout with the notes from `src/utils/whats-new.ts`, then a "Migrating from 5.x" callout with the notes that start with `Breaking:`, collapsed after five and linked to the matching section of the migration guide, then the `changelogPaths` commits).
+10. Browser support, Installation on the HTML pages (`installationTabs` and the `installation` slot), Used in blocks (the blocks in `src/blocks/` whose markup has the root class of an `api.ts` on the page), See also (`seeAlsoLinks`) and Changelog (the What's new callout with the notes from `src/utils/whats-new.ts`, then a "Migrating from 5.x" callout with the notes that start with `Breaking:`, collapsed after five and linked to the matching section of the migration guide, then the `changelogPaths` commits).
 
 ## 4. Layout Props & Slots
 
@@ -144,16 +122,17 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 
 ### 4.1 Props
 
-- `apis`: (Optional) An array of `{ title, api }` objects, where `api` is the default export of a `src/component-api/<slug>/api.ts`. Use several entries when a page documents more than one component (e.g. Tabs and its `TabsItem`). Hand-written `.astro` tables can still be passed as a framework-keyed object, such as `{ html: HtmlTable }`.
-- `browserSupport`: (Optional) Array of feature IDs (e.g., `["has", "light-dark"]`). List the modern features the component's own CSS relies on, the ones a reader would check before adopting it. Leave out the library-wide basics every stylesheet shares, even when an Under the hood step tags them in its `features`: cascade layers (`cascade-layers`), nesting (`nesting`), `oklch()`, logical properties (`logical-properties`), `:focus-visible` (`focus-visible`), `forced-colors`, masks (`masks`), `overscroll-behavior`, `appearance`, `aspect-ratio`, `::backdrop` (`backdrop`), the individual transform properties (`individual-transforms`) and the viewport unit variants (`viewport-unit-variants`), and long-settled features such as `:not()`, `clip-path`, `grid`, `flexbox-gap`, `isolation`, `object-fit`, `min-max-clamp` and `sticky-positioning`. Widely available features that still date a component, such as `container-queries`, `overflow-clip` and `scroll-snap`, stay listed. `pnpm check-browser-support` fails on an unknown or unsorted id, on an id it has no detector for, and on a missing or unused one among the features it detects (`patterns` in `packages/opui/scripts/features.mjs` and `HTML_FEATURES` in the script).
-- `changelogPaths`: (Optional) Array of `{ path, type }` entries used to render the per-component changelog.
+- `apis`: (Optional) An array of `{ title, api }` objects, where `api` is the default export of a `src/component-api/<slug>/api.ts`. Use several entries when a page documents more than one component (e.g. Tabs and its `TabsItem`). It also takes a framework-keyed object of hand-written `.astro` tables, such as `{ html: HtmlTable }`.
+- `browserSupport`: (Optional) Array of feature IDs (e.g., `["has", "light-dark"]`). List the modern features the component's own CSS relies on, the ones a reader would check before adopting it. The chips of every page also count `SHARED_FEATURES` in [src/utils/browser-support.ts](../../utils/browser-support.ts), the features of the theme and the core sheets that the browser support guide lists under Shared features, so the versions show the true minimum: `cascade-layers`, `nesting` and `oklab` stay out of the list, and `color-mix`, `light-dark` and `relative-color` are listed where the component's own CSS uses them. Leave out the library-wide basics every stylesheet shares, even when an Under the hood step tags them in its `features`: logical margins, insets and sizes (`logical-properties` stands for `overflow-block` and `overflow-inline`, which pages list), `:focus-visible` (`focus-visible`), `forced-colors`, masks (`masks`), `overscroll-behavior`, `appearance`, `aspect-ratio`, `::backdrop` (`backdrop`), the individual transform properties (`individual-transforms`) and the viewport unit variants (`viewport-unit-variants`), and long-settled features such as `:not()`, `clip-path`, `grid`, `flexbox-gap`, `isolation`, `object-fit`, `min-max-clamp` and `sticky-positioning`. Widely available features that still date a component, such as `container-queries`, `overflow-clip` and `scroll-snap`, stay listed. `pnpm check-browser-support` fails on an unknown or unsorted id, on an id it has no detector for, and on a missing or unused one among the features it detects (`patterns` in `packages/opui/scripts/features.mjs` and `HTML_FEATURES` in the script), and `node scripts/check-browser-support.mjs --write` rewrites the lists it reports.
+- `changelogPaths`: (Optional) Array of `{ path, type }` entries the per-component changelog follows on top of the files the page owns. The layout already follows those (`filesOf` in [src/component-api/catalog.ts](../../component-api/catalog.ts)): the page, its examples, its `api.ts` folders, its component folders and elements, and the stylesheets named after the page or one of its components. Add only what that leaves out, such as a component of another page or the paths the page had before a rename.
+- `fallbacks`: (Optional) `{ [id]: sentence }`, rendered under the chips in Browser support: for each `browserSupport` id some browser lacks, what the component does without it. Read it off the component CSS, `packages/opui/css/compat/` and the features data, check it in the browser when you can, and say it plainly: what still works and what's missing ("Without `overlay`, the page can cover the menu while it fades out."), never more than the CSS does. Backticks and `[label](/path)` links are formatted by `formatInline`. `pnpm check-browser-support` checks which ids need one.
 - `heroAnatomy`: (Optional) Renders the `anatomy` slot at the top of the page, above the content, instead of in its own section.
 - `installationTabs`: (Optional) Array of `{ title, code, lang, isDependency }` objects. `isDependency` marks a CSS file that has its own component page.
 - `overline`: (Optional) Sidebar/breadcrumb overline. Defaults to `"Components"`.
 - `seeAlsoLinks`: (Optional) Array of `{ name, href }` entries rendered in a "See also" section.
 - `showToc`: (Optional) Shows the table of contents. Defaults to `true`.
 - `slug`: (Required for auto examples, API tables and anatomy) The component slug, such as `text-field`. `<AutoExample>`, the auto-resolved `api.ts` and `<Anatomy>` all key off it. Defaults to the last URL segment.
-- `title`, `description`, `image`: (Optional) Page meta. The `title` slot wins over `title`, and `description` defaults to the `preamble` text.
+- `description`, `image`: (Optional) Page meta. `description` defaults to the `preamble` text.
 
 ### 4.2 Slots
 
@@ -177,7 +156,7 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 
 ### 5.2 API Documentation
 
-**DO NOT hardcode API tables.** Describe the component once in `src/component-api/<slug>/api.ts` ([src/component-api/AGENTS.md](../../component-api/AGENTS.md)) and pass it to the layout:
+Don't hardcode API tables. Describe the component once in `src/component-api/<slug>/api.ts` ([src/component-api/AGENTS.md](../../component-api/AGENTS.md)) and pass it to the layout:
 
 ```astro
 ---
@@ -226,14 +205,15 @@ Use the `anatomy` slot with the `<Anatomy>` component ([src/components/Anatomy.a
 
 Place logic in a `<script>` tag.
 
-- Use specific IDs to avoid global conflicts. Name ids in examples `<slug>-<example>-<n>`, with an optional part suffix (`dialog-basics-1-title`), and use the same ids in every format. The parity test checks this, skipping ids that components generate.
+- Use specific IDs to avoid global conflicts. Name ids in examples `<slug>-<example>-<n>`, with an optional part suffix (`dialog-basics-1-title`), and use the same ids in every format. The parity test checks this, skipping ids that components generate. In the HTML examples, `pnpm build-examples` numbers the ids components generate in document order after the numbers the example writes itself, and `tests/unit/example-ids.test.ts` checks that every id in them is unique, resolves and belongs to one component instance.
+- The HTML example gets each `<script>` without its types in its own `<script type="module">`, after one module that imports the custom elements and helpers its components render, less a module the `<script>` imports from `opui-css` itself. Write the React, Solid, Svelte and Vue versions of a script example by hand, with state where the `<script>` changes the DOM.
 - The site uses cross-document view transitions (`@view-transition` in `base.css`), not `<ClientRouter>`, so scripts run on every page load. Do not listen for `astro:after-swap`.
 
 ### 5.6 `<Conditional>` (Framework-Specific Content)
 
 Use `<Conditional>` to display different text or HTML content for different frameworks. This is ideal for descriptions or instructions that only apply to a specific framework (e.g., explaining an `aria-label` attribute for HTML vs. a `label` prop for Astro).
 
-- **Slots**: Named after the framework ids defined in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Today: `html`, `astro`, `react`, `svelte`, `vue`. `components` holds the text Astro, React, Svelte and Vue share, and is never shown on HTML pages.
+- **Slots**: Named after the framework ids defined in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Today: `html`, `astro`, `react`, `solid`, `svelte`, `vue`. `components` holds the text Astro, React, Solid, Svelte and Vue share, and is never shown on HTML pages.
 - **Props**: `as` (optional), the wrapper tag: `span` (the default) for inline text, `p` for a paragraph of text, `div` around block content, which `tests/unit/docs-pages.test.ts` requires.
 - **Resolution**: Server-rendered. The component reads `Astro.locals.framework` (driven by URL routing) and emits only one slot: the active framework's, then `components` on every framework except HTML, then the default framework's (`html`).
 - **One copy per wording**: Write the shared text once in `components` and the HTML text in `html`. Give a framework its own slot only where its text must differ, such as a `bind:group` note for Svelte, `v-model` for Vue, `className` or `children` for React, or a slot, prop or snippet that each framework names differently.
@@ -241,11 +221,9 @@ Use `<Conditional>` to display different text or HTML content for different fram
 ```astro
 <Conditional as="p">
   <Fragment slot="components">
-    Choose between four sizes with the <code>size</code> prop: <code
-      >x-small</code
-    >, <code>small</code>, <code>medium</code> (the default) and <code
-      >large</code
-    >.
+    Choose between four sizes with the <code>size</code> prop:
+    <code>x-small</code>, <code>small</code>, <code>medium</code> (the default)
+    and <code>large</code>.
   </Fragment>
   <Fragment slot="html">
     Choose between four sizes: <code>.ui-x-small</code>, <code>.ui-small</code>,
@@ -254,12 +232,12 @@ Use `<Conditional>` to display different text or HTML content for different fram
 </Conditional>
 ```
 
-For a sentence that only differs by the prop and the class it names, use `<PropOrClass>` ([src/components/PropOrClass.astro](../../components/PropOrClass.astro)) inline instead, so the sentence is written once. It renders `prop` in a `<code>` on Astro, React, Svelte and Vue pages and `class` on HTML pages:
+For a sentence that only differs by the prop and the class it names, use `<PropOrClass>` ([src/components/PropOrClass.astro](../../components/PropOrClass.astro)) inline instead, so the sentence is written once. It renders `prop` in a `<code>` on Astro, React, Solid, Svelte and Vue pages and `class` on HTML pages:
 
 ```astro
 <p>
-  Use <PropOrClass prop='variant="filled"' class=".ui-filled" /> to fill the selected
-  tab with the primary color.
+  Use <PropOrClass prop='variant="filled"' class=".ui-filled" /> to fill the
+  selected tab with the primary color.
 </p>
 ```
 
@@ -274,14 +252,12 @@ Every component page fills the `usage` slot with the `Usage` partial ([partials/
     renaming a file.
   </li>
   <li slot="when">
-    Confirming a destructive action, in an <a href="#alert-dialog"
-      >alert dialog</a
-    >.
+    Confirming a destructive action, in an
+    <a href="#alert-dialog">alert dialog</a>.
   </li>
   <li slot="when-not">
-    Navigation, filters or side content. Use a <DocLink
-      href="/components/drawer">Drawer</DocLink
-    >.
+    Navigation, filters or side content. Use a
+    <DocLink href="/components/drawer">Drawer</DocLink>.
   </li>
   <li slot="when-not">Long or complex tasks. Give them a page of their own.</li>
 </Usage>
@@ -302,28 +278,30 @@ Every component page fills the `usage` slot with the `Usage` partial ([partials/
 ## 6. Content Generation & Best Practices
 
 - **Analytical Examples**: Show sections for each major variant, size, and state found in CSS/source.
+- **Section Length**: Section text is at most two short sentences: the default and the class or prop that changes it ("The select is outlined by default. Use `.ui-filled` for a filled background."), or a required JS import or accessibility attribute. Never list values the example shows, explain how the CSS works or say why. The same goes for Usage items, Accessibility bullets and the preamble.
+- **Current Facts Only**: Docs say what is true now, not what changed or when ("v6 renamed them all"). Version history belongs in the migration guide, the changelog and the What's new and Migrating callouts.
 - **Modifier Descriptions**: Section descriptions should focus on **actionable modifiers** (props or CSS classes).
-  - **Include** when explaining how to change the component (e.g., "Set the `orientation` prop to change the button group layout" or "Resize any button with the `.ui-small` and `.ui-large` classes").
+  - **Include** when explaining how to change the component (e.g., "Set the `orientation` prop to change the control group layout").
   - **Omit** when the heading is self-explanatory and the configuration is static or default (e.g., "Image", "Letter", or "Icon" sections for an Avatar). If the section merely showcases a built-in capability without requiring specific prop-based modification logic to understand, skip the description to avoid "stating the obvious."
   - **Framework-Specific Counterparts**: Descriptions should always have framework-specific counterparts when referring to implementation details (like props vs. classes). Use the `<Conditional>` component (or `<PropOrClass>` for a single prop or class) to ensure the technical guidance matches the active framework's URL.
-- **Functional Parity**: Ensure that HTML examples are just as functional and complete as their Astro counterparts. Both versions should result in the same visual and functional output in their respective previews.
+- **Functional Parity**: The hand-written React, Solid, Svelte and Vue versions of a script example do what its `<script>` does, so every format results in the same visual and functional output in its preview. `tests/unit/example-scripts.test.ts` checks that an HTML example imports the modules its markup needs.
 - **Code Example Intent**: Code examples should be **sparse and minimal**. Focus on highlighting the most important change or point of the demo rather than being an exhaustive mirror of the preview's implementation.
 - **No Fluff**: Stick to direct, technical descriptions. No conversational filler.
 - **No Prohibitions**: Show what the user can do. Leave out "don't do this" notes about things the page doesn't cover or that point away from the topic, like "Don't add `role="region"` to the content". The "When not to use" list in Usage is the exception, and each of its items says what to use instead.
-- **Alphabetical Order**: Organize imports and props alphabetically where possible.
+- **Alphabetical Order**: Organize imports alphabetically where possible. `pnpm check-components` checks the order of the props of a component in an example.
 
 ## 7. Key Learnings & Debugging
 
 - **Framework Routing**: Every framework lives under its own prefix (e.g. `/html/components/button`, `/astro/components/button`). The active framework comes from `Astro.locals.framework` and flows into `<Conditional>`, `<Example>`, and `<ComponentAPI>` automatically. Legacy unprefixed URLs redirect to the default framework variant.
-- **Adding a New Framework**: Add the framework to `FRAMEWORKS` in [src/utils/framework.js](../../utils/framework.js) and a row to the `FRAMEWORK_BRANDING` map in [src/docs/Home.astro](../Home.astro). Then drop the per-component content into the right folders - `src/component-examples/<component>/<Name>.<ext>` for each example and `packages/opui/components/<Name>/types.<framework>.ts` for the props `api.ts` reads (see [src/component-api/frameworks.ts](../../component-api/frameworks.ts)). `<AutoExample>` and `api.ts` pick those up without doc-page edits. Any sections still using the manual `<Example>` form will need `preview-<id>` / `code-<id>` slots added alongside the existing ones.
+- **Adding a New Framework**: Add the id to `FRAMEWORKS` and the `FrameworkId` type in [src/utils/framework.js](../../utils/framework.js), its file extension to `EXAMPLE_EXTENSIONS` and its types file to `TYPES_FILES` there. Then run `pnpm exec vitest run tests/unit/framework-coverage.test.ts` and `pnpm typecheck`, and follow their failures. A section that uses the manual `<Example>` form needs `preview-<id>` and `code-<id>` slots for the new framework.
 - **Line Highlighting**: Use the `ins`, `del`, or `mark` props with array syntax (e.g., `mark={[1, 5, 10]}`).
   - **1-indexed**: Highlights are 1-indexed. The opening `---` of an Astro file is line 1.
   - **Validation**: Cross-check that highlighted lines in Astro correspond to the same functionality in HTML.
   - **Accuracy**: Use `cat -n path/to/file` in the terminal to verify indices.
 - **Path Resolution**: Inside `src/component-examples/`, import UI components from `opui-css/<framework>`, the path readers copy, never from `@opui/...` (`pnpm check-components` fails on it) or a relative path into the package.
-- **API prop vs. Hardcoding**: Always use the `apis` prop on `<Component />` instead of hardcoding `<BadgeAPI />` in the default slot. This ensures consistent positioning and styling.
+- **API prop vs. Hardcoding**: Always use the `apis` prop on `<Component />` instead of hardcoding an API table in the default slot. This ensures consistent positioning and styling.
 - **Internal Links in Prose**: Use canonical paths (e.g. `/components/text-field#file`) and let the docs site resolve them per request. Two primitives:
   - **`<DocLink href="...">`** - drop-in replacement for `<a>` in shared docs content. SSR-resolves the href to the active framework variant (`/html/components/...`, `/astro/components/...`) at build time.
   - **`Astro.locals.link("/path")`** - same resolution as a function. Use it for `href` props on components that render their own anchor (e.g. `Button`, `Chip`, `ComponentCard`): `<Button href={link("/components/button")}>`.
   - **Never** hard-code `/astro/...` or `/html/...` in doc prose; `DocLink` and `link` resolve to whichever variant the reader is currently on. `tests/unit/docs-pages.test.ts` fails on a quoted `<a href="/...">` to a docs page and on a framework prefix in an `href` or `link()`. The framework switcher chips on the homepage are the only exception (they intentionally name a specific variant).
-  - The `componentHrefFor` helper in [src/utils/components.ts](../../utils/components.ts) is still around for slug-only convenience in structural lists (sidebar, pagination, [ComponentList](../../components/ComponentList.astro)). For everything else, prefer `DocLink` / `Astro.locals.link`.
+  - The `componentHrefFor` helper in [src/utils/components.ts](../../utils/components.ts) builds an href from a slug for structural lists (sidebar, pagination, [ComponentList](../../components/ComponentList.astro)). For everything else, use `DocLink` / `Astro.locals.link`.

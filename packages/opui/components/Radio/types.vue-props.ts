@@ -1,5 +1,5 @@
-import type { Slot } from "vue"
-import type { Class } from "../vue"
+import type { IntrinsicElementAttributes, Slot } from "vue"
+import type { Class, DefaultSlots } from "../vue"
 import type {
   Props as BaseProps,
   RadioInputProps as BaseRadioInputProps,
@@ -7,9 +7,7 @@ import type {
 
 export type Props = BaseProps & Class
 
-export type RadioInputProps = BaseRadioInputProps & Class
+export type RadioInputProps = BaseRadioInputProps &
+  Class & { name?: IntrinsicElementAttributes["input"]["name"] }
 
-export type Slots = {
-  default?: Slot
-  "end-text"?: Slot
-}
+export type Slots = { "end-text"?: Slot } & DefaultSlots

@@ -3,6 +3,6 @@ import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField type="file" label="Label" />
-  <TextField type="file" label="Label" variant="filled" />
+  <TextField accept="image/*" label="Avatar" type="file" />
+  <TextField label="Attachments" type="file" variant="filled" />
 </template>

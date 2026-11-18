@@ -2,35 +2,41 @@
   import { Textarea } from "opui-css/svelte"
 </script>
 
-<Textarea spread placeholder="Hello, world!">
+<Textarea placeholder="Hi, I have a question about my order." spread>
   {#snippet label()}Message{/snippet}
-  {#snippet startText()}You can write your message here. Keep it short,
-    preferably under 100 characters.{/snippet}
+  {#snippet startText()}Keep it under 100 characters.{/snippet}
 </Textarea>
 
-<Textarea spread placeholder="Additional notes..." variant="filled">
+<Textarea placeholder="Additional notes..." spread variant="filled">
   {#snippet label()}Notes{/snippet}
   {#snippet startText()}Add any additional notes or comments{/snippet}
-  {#snippet endText()}Maximum 500 characters{/snippet}
+  {#snippet endText()}Only your team sees these.{/snippet}
 </Textarea>
 
-<Textarea spread required label="Required">
-  {#snippet startText()}You must provide a response{/snippet}
+<Textarea label="Reason for return" required spread>
+  {#snippet startText()}Helps us improve our products{/snippet}
 </Textarea>
 
-<Textarea spread disabled label="Disabled">
-  {#snippet startText()}This textarea is disabled{/snippet}
+<Textarea disabled label="Order notes" spread>
+  {#snippet startText()}Orders can't change once they ship{/snippet}
 </Textarea>
 
-<Textarea spread error label="Invalid Message">
-  {#snippet startText()}This textarea has an error{/snippet}
-  {#snippet endText()}This value is too short.{/snippet}
+<Textarea error label="Review" spread value="Great">
+  {#snippet startText()}Shown with your rating{/snippet}
+  {#snippet endText()}Write at least 20 characters.{/snippet}
 </Textarea>
 
-<Textarea spread label="Bio" placeholder="Tell us about yourself...">
+<Textarea
+  characterCount
+  label="Bio"
+  maxlength={280}
+  placeholder="Tell us about yourself..."
+  spread
+>
   {#snippet startText()}Shown on your public profile{/snippet}
   {#snippet start()}
     <svg
+      data-icon="edit"
       aria-hidden="true"
       width="16"
       height="16"
@@ -46,17 +52,16 @@
       <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
     </svg>
   {/snippet}
-  {#snippet bottom()}280 characters left{/snippet}
 </Textarea>
 
 <Textarea
-  spread
-  variant="filled"
   label="Release notes"
   placeholder="Markdown supported..."
+  spread
+  variant="filled"
 >
   {#snippet startText()}Shown on the changelog page{/snippet}
   {#snippet top()}v1.4.0{/snippet}
   {#snippet bottom()}Saved 2 minutes ago{/snippet}
-  {#snippet endText()}Drafts are auto-saved{/snippet}
+  {#snippet endText()}Drafts save automatically.{/snippet}
 </Textarea>

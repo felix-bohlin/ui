@@ -1,20 +1,24 @@
 <script lang="ts">
-  import { mergeStyle } from "../style"
+  import { untrack } from "svelte"
+  import { seedChecked } from "../svelte"
+  import { mergeStyle, pluralLabel } from "../style"
   import type { Props } from "./types.svelte"
 
   let {
     "aria-describedby": ariaDescribedBy,
     "aria-invalid": ariaInvalid,
+    "aria-label": ariaLabel,
     class: className,
     clearLabel = "No rating",
     disabled,
     error,
     label,
+    lang,
     max = 5,
     name,
     required,
     size,
-    starLabel = (value: number) => (value === 1 ? "1 star" : `${value} stars`),
+    starLabel = { one: "{count} star", other: "{count} stars" },
     style,
     value = $bindable(),
     ...rest
@@ -22,47 +26,66 @@
 
   const count = $derived(Number(max))
   const stars = $derived(Array.from({ length: count }, (_, index) => index + 1))
-  const radioAttrs = $derived({
-    "aria-describedby": ariaDescribedBy,
-    "aria-invalid": error ? "true" : ariaInvalid,
-  })
+  const current = $derived(Number(value))
+  const invalid = $derived(error ? "true" : ariaInvalid)
 </script>
 
 {#if name}
   <fieldset
+    aria-label={ariaLabel}
     class={["ui-rating", size && size !== "medium" && `ui-${size}`, className]}
     {disabled}
+    {lang}
     {style}
     {...rest}
   >
-    <legend>{label}</legend>
-    {#if !required}
+    <legend>{label}</legend>{#if !required}
       <input
-        {...radioAttrs}
+        aria-describedby={ariaDescribedBy}
+        aria-invalid={invalid}
         aria-label={clearLabel}
-        bind:group={value}
         {name}
         type="radio"
         value={0}
+        defaultChecked={untrack(() => current === 0)}
+        {@attach seedChecked(
+          () => current === 0,
+          () => {
+            value = 0
+          },
+        )}
+        onchange={() => {
+          value = 0
+        }}
       />
-    {/if}
-    {#each stars as star (star)}
+    {/if}{#each stars as star, index (index)}
       <input
-        {...radioAttrs}
-        aria-label={starLabel(star)}
-        bind:group={value}
+        aria-describedby={ariaDescribedBy}
+        aria-invalid={invalid}
+        aria-label={pluralLabel(starLabel, star, lang)}
         {name}
         {required}
         type="radio"
         value={star}
+        defaultChecked={untrack(() => current === star)}
+        {@attach seedChecked(
+          () => current === star,
+          () => {
+            value = star
+          },
+        )}
+        onchange={() => {
+          value = star
+        }}
       />
     {/each}
   </fieldset>
 {:else}
   <meter
     aria-describedby={ariaDescribedBy}
-    aria-label={label}
+    aria-label={ariaLabel ?? label}
     class={["ui-rating", size && size !== "medium" && `ui-${size}`, className]}
+    {lang}
     {max}
     style={mergeStyle({ "--_max": count === 5 ? undefined : count }, style)}
     value={value ?? 0}

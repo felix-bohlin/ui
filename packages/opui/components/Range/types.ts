@@ -1,5 +1,7 @@
 export type RangeItem =
-  string | number | { label?: string; value: string | number }
+  | string
+  | number
+  | { label?: string; value: string | number }
 
 export type Props = {
   endText?: string
@@ -21,4 +23,5 @@ export type Slots<S> = {
   endText?: string | S
   label?: string | S
   startText?: string | S
+  valueText?: S
 }

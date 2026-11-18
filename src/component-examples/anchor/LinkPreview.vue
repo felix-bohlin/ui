@@ -6,9 +6,9 @@ import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/vue"
   <div>
     Learn more about
     <Anchor
+      id="anchor-link-preview-1"
       positionArea="block-end span-inline-end"
       trigger="hover"
-      id="anchor-link-preview-1"
     >
       <a
         class="ui-link"
@@ -17,7 +17,7 @@ import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/vue"
         >CSS anchor positioning</a
       >
       <AnchorContent>
-        <Card variant="elevated" class="link-preview">
+        <Card class="link-preview" variant="elevated">
           <img src="https://picsum.photos/id/1018/800/450" alt="" />
           <CardHeader>
             <p class="ui-caption">developer.mozilla.org</p>

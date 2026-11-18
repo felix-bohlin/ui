@@ -11,6 +11,8 @@ export default {
   notes: passThrough("input", "label", ["autofocus", "form"], {
     react:
       "`defaultChecked` sets the starting state, and `checked` with `onChange` controls it, like on any input. In a `ToggleGroup` with a `value` or `defaultValue`, the group's value wins and a button's own `checked` and `defaultChecked` are ignored.",
+    solid:
+      "`checked` sets the state and follows it when it changes, and `onChange` reports changes. In a `ToggleGroup` with a `value`, the group's value wins and a button's own `checked` is ignored.",
     svelte:
       "`bind:checked` binds a standalone checkbox button. A radio fires no `change` when another one takes the check, so for a choice of one, use a `ToggleGroup` with `bind:value`. In a `ToggleGroup`, `checked` only sets the starting state: the group's value wins once it has one.",
     vue: "`v-model` binds a standalone checkbox button. A radio fires no `change` when another one takes the check, so for a choice of one, use a `ToggleGroup` with `v-model`. In a `ToggleGroup`, `checked` only sets the starting state: the group's value wins once it has one.",
@@ -25,14 +27,18 @@ export default {
       prop: "checked",
     },
     {
-      attribute: "[disabled]",
       default: "false",
-      description: "Disables the button.",
+      description:
+        'Dims the button and skips it with Tab and the arrow keys. `aria-disabled="true"` looks the same, but keeps the button focusable and its value in the form, and doesn\'t stop the change, so block it with a script.',
       group: "Disabled",
       inherited: true,
       part: "input",
       prop: "disabled",
       type: "boolean",
+      values: {
+        "aria-disabled": '[aria-disabled="true"]',
+        disabled: "[disabled]",
+      },
     },
     {
       description: "The id of the `<input>`.",
@@ -45,7 +51,8 @@ export default {
       prop: "label",
     },
     {
-      description: "The name of the input. Set by the group.",
+      description:
+        "The name of the input. Falls back to the `ToggleGroup`'s name, then to a `FieldGroup`'s.",
       inherited: true,
       prop: "name",
       type: "string",
@@ -73,7 +80,7 @@ export default {
     {
       default: '"checkbox"',
       description:
-        'The input type. `"radio"` allows one selection in a group. A `ToggleGroup` without `multiple` makes every button a radio.',
+        "The input type. `radio` allows one selection in a group. A `ToggleGroup` without `multiple` makes every button a radio.",
       group: "Type",
       part: "input",
       prop: "type",
@@ -91,6 +98,7 @@ export default {
     {
       code: "<input>",
       description: "A visually hidden checkbox or radio input.",
+      model: true,
       selector: ".ui-toggle-button > input",
     },
   ],

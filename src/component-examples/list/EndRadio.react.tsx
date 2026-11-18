@@ -1,18 +1,30 @@
-import { List, ListItem, RadioInput } from "opui-css/react"
+import {
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  List,
+  ListItem,
+  RadioInput,
+} from "opui-css/react"
 
 export default function EndRadio() {
   return (
-    <List>
-      <ListItem
-        type="radio"
-        label="Radio 1"
-        end={<RadioInput name="radio-example-group" value="1" />}
-      />
-      <ListItem
-        type="radio"
-        label="Radio 2"
-        end={<RadioInput name="radio-example-group" value="2" />}
-      />
-    </List>
+    <Fieldset>
+      <FieldLegend>Theme</FieldLegend>
+      <FieldGroup>
+        <List>
+          <ListItem
+            choice="radio"
+            end={<RadioInput name="theme" value="dark" />}
+            label="Dark mode"
+          />
+          <ListItem
+            choice="radio"
+            end={<RadioInput name="theme" value="light" />}
+            label="Light mode"
+          />
+        </List>
+      </FieldGroup>
+    </Fieldset>
   )
 }

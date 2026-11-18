@@ -1,13 +1,7 @@
 <script setup lang="ts">
-import { Card, CardHeader, Carousel } from "opui-css/vue"
+import { Card, Carousel } from "opui-css/vue"
 
-const places = [
-  { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
-  { description: "Ceviche by the Pacific.", title: "Lima" },
-  { description: "Tiles, trams and custard tarts.", title: "Lisbon" },
-  { description: "Fjords, saunas and modern architecture.", title: "Oslo" },
-  { description: "Medina markets and Mediterranean light.", title: "Tunis" },
-]
+const slides = [1, 2, 3, 4, 5]
 </script>
 
 <template>
@@ -17,21 +11,14 @@ const places = [
     class="carousel-custom-buttons"
     :itemsPerView="2"
   >
-    <li v-for="{ description, title } in places" :key="title">
-      <Card variant="tonal">
-        <CardHeader>
-          <p>Destination</p>
-          <h3>{{ title }}</h3>
-          <p>{{ description }}</p>
-        </CardHeader>
-      </Card>
+    <li v-for="slide in slides" :key="slide">
+      <Card style="block-size: 8rem" variant="tonal" />
     </li>
   </Carousel>
 </template>
 
 <style>
 .carousel-custom-buttons {
-  --_button-bg-color: var(--ui-primary);
-  --_button-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 12h14m-6-6 6 6-6 6'/%3E%3C/svg%3E");
+  --_button-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 12h14m-6-6 6 6-6 6'/%3E%3C/svg%3E");
 }
 </style>

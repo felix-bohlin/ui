@@ -1,9 +1,9 @@
 # Accordion
 
-Lets you show and hide content, on its own or as a group.
+A summary that opens to show more content, on its own or in a group.
 
 - CSS: `opui-css/css/components/accordion.css` and `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/accordion.md), [Astro](https://open-props-ui.netlify.app/astro/components/accordion.md), [React](https://open-props-ui.netlify.app/react/components/accordion.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/accordion.md), [Vue](https://open-props-ui.netlify.app/vue/components/accordion.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/accordion.md), [Astro](https://opui.dev/astro/components/accordion.md), [React](https://opui.dev/react/components/accordion.md), [Solid](https://opui.dev/solid/components/accordion.md), [Svelte](https://opui.dev/svelte/components/accordion.md), [Vue](https://opui.dev/vue/components/accordion.md).
 
 ## Accordion
 
@@ -11,16 +11,16 @@ Lets you show and hide content, on its own or as a group.
 
 - `details.ui-accordion` (root): Container element.
 - `<summary>` (`AccordionSummary`): The always visible header.
-- `<svg class="ui-marker">`: The marker. In Astro, React, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates.
+- `<svg class="ui-marker">`: The marker. In Astro, React, Solid, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates.
 - `.ui-content` (`AccordionContent`): The collapsible content.
 - `.ui-actions` (`AccordionActions`): A group of actions, such as buttons.
 
 ### Props and modifiers
 
-- `markerAnimation`: `"flip"` (`.ui-marker-animation-flip`), `"rotate"` (default), `"turn"` (`.ui-marker-animation-turn`). How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` gives a chevron that points to the inline end a quarter turn, so it points down when open.
+- `markerAnimation`: `"flip"` (`.ui-marker-animation-flip`), `"rotate"` (default), `"turn"` (`.ui-marker-animation-turn`). How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` turns it a quarter turn, for a marker that points to the inline end and then points down when open. The default chevron points down, so `turn` needs a custom marker.
 - `name`: `string`, `[name]`. Groups accordions so only one of them can be open at a time.
 - `open`: `boolean`, `[open]`. Whether the accordion is open.
-- `variant`: `"elevated"` (`.ui-elevated`), `"outlined"` (`.ui-outlined`), `"plain"` (default), `"tonal"` (`.ui-tonal`), `"transparent"` (`.ui-transparent`). The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface, border or padding.
+- `variant`: `"elevated"` (`.ui-elevated`), `"outlined"` (`.ui-outlined`), `"plain"` (default), `"tonal"` (`.ui-tonal`), `"transparent"` (`.ui-transparent`). The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface or border, and no inline padding.
 
 ### Slots
 
@@ -28,8 +28,8 @@ Lets you show and hide content, on its own or as a group.
 
 ### Notes
 
-- HTML: To group accordions, wrap them in a `.ui-card[role="group"]`. A variant on the group styles every accordion in it.
-- Astro, React, Svelte and Vue: Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">`. Its `variant` styles every accordion in it.
+- HTML: To group accordions, wrap them in a `.ui-card[role="group"]` with an `aria-label`. A variant on the group styles every accordion in it.
+- Astro, React, Solid, Svelte and Vue: Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">` with an `aria-label`. Its `variant` styles every accordion in it.
 
 ## AccordionSummary
 
@@ -69,37 +69,42 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_content-padding-block`: Block padding of `.ui-content`.
 - `--_content-padding-inline`: Inline padding of `.ui-content`. Defaults to `--_padding-inline`.
 - `--_divider-border-color`: Color of the border between items in a group. Defaults to `--ui-border-color`.
-- `--_ease`: Easing of the transitions. Defaults to `--ui-ease`.
 - `--_focus-ring-offset`: Offset of the `summary` focus ring. Inside the summary, except in `.ui-transparent`.
 - `--_group-radius`: Corner radius of the first and last item in a group. Defaults to `--ui-radius`.
 - `--_item-padding-inline`: Inline padding of the items in a group. `0` when the card is `.ui-transparent`.
 - `--_item-summary-padding-inline`: Inline padding of the item `summary` in a group. Defaults to `--_item-padding-inline`.
 - `--_margin-inline`: The inline margin. `0`, except in `.ui-transparent` outside a group.
-- `--_motion`: Motion multiplier for `--_duration`. `0` turns the transitions off.
-- `--_padding`: Padding the accordion shares with cards, from `card.css`: `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset. Sets `--_padding-inline`, `--_summary-padding-block` and the block end of `--_content-padding-block`.
 - `--_padding-inline`: Inline padding of `summary`, `.ui-content` and `.ui-actions`. `0` in `.ui-transparent`.
 - `--_radius`: The corner radius, also of the `summary` focus ring. Defaults to `--ui-radius`.
 - `--_summary-padding-block`: Block padding of `summary`.
 - `--_summary-padding-inline`: Inline padding of `summary`. Defaults to `--_padding-inline`.
 
-Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration`, `--_overflow` and `--_shadow`.
+Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_overflow` and `--_shadow`.
 
 ### card.css
 
-- `--_ease`: Easing of the card link border transition and the focus ring animation. Defaults to `--ui-ease`.
+- `--_actions-padding-inline`: Inline padding of `.ui-actions`. Defaults to `--_padding`. The actions pass it on as `--ui-card-padding`, so a text button at either end keeps its focus ring inside the card.
+- `--_backdrop-bg-color`: Backdrop color of a dialog or drawer. Defaults to `--ui-backdrop-bg-color`.
+- `--_backdrop-blur`: Backdrop filter of a dialog or drawer. Defaults to a `--ui-backdrop-blur` blur.
+- `--_ease`: Easing of the card link border transition, the focus ring animation and the accordion transitions. Defaults to `--ui-ease`.
 - `--_elevated-bg-color`: Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.
 - `--_elevated-shadow`: Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.
-- `--_motion`: Motion multiplier for the card link border transition and the focus ring animation. `0` turns them off.
+- `--_footer-gap`: Gap between the items in a dialog's or drawer's `.ui-footer` and between the buttons in its `.ui-actions`. Defaults to `--ui-space-2`.
+- `--_gap`: Gap between the parts. `--ui-space-3`, or `--ui-space-2` in `.ui-dense`. The part after an image subtracts it from its padding.
+- `--_media-inline-size`: Width of the image when it sits at the start of the card, and the start margin of the parts next to it. Defaults to `40%` of the card.
+- `--_motion`: Motion multiplier for the card link border transition, the focus ring animation and the accordion transitions. `0` turns them off.
 - `--_outlined-border-color`: Border color of `.ui-outlined`. Defaults to `--ui-border-color`.
-- `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
+- `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset. In an accordion it sets `--_padding-inline`, `--_summary-padding-block` and the block end of `--_content-padding-block`.
+- `--_scroll-shadow`: Shadow at the edges of a dialog's or drawer's `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
 - `--_surface-bg-color`: Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-surface`.
+- `--_title-font-size`: Font size of a dialog's or drawer's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.
 - `--_tonal-bg-color`: Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`.
 
-Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration` and `--_shadow`.
+Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor`, `--_duration`, `--_orientation` and `--_shadow`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-card-padding`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-weight-bold`, `--ui-line-height-tight`, `--ui-motion`, `--ui-radius`, `--ui-shadow-elevated`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal` and `--ui-text`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-card-padding`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-font-weight-bold`, `--ui-icon-close`, `--ui-icon-expand`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -108,7 +113,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
 ```html
 <details class="ui-accordion">
   <summary>
-    Accordion
+    What is included in free Bassbook?
     <svg
       aria-hidden="true"
       class="ui-marker"
@@ -116,20 +121,12 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
       width="24"
       height="24"
       viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
-      />
-    </svg>
+    ></svg>
   </summary>
   <div class="ui-content">
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-      neque ante id justo. Nam tempor euismod nisi ac ornare. Pellentesque id
-      sapien lacinia, venenatis est aliquam, dignissim elit. Suspendisse
-      potenti. Cras ut ante in libero tempus sodales sed quis dolor.
+      Three setlists, 2 GB of slap videos and email support. Upgrade to Bassbook
+      Gold at any time to add more setlists and invite your band.
     </p>
   </div>
 </details>
@@ -149,14 +146,11 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/astro"
 ---
 
 <Accordion>
-  <AccordionSummary>Accordion</AccordionSummary>
+  <AccordionSummary>What is included in free Bassbook?</AccordionSummary>
   <AccordionContent>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-      neque ante id justo. Nam tempor euismod nisi ac ornare. Pellentesque id
-      sapien lacinia, venenatis est aliquam, dignissim elit. Suspendisse
-      potenti. Cras ut ante in libero tempus sodales sed quis dolor.
+      Three setlists, 2 GB of slap videos and email support. Upgrade to Bassbook
+      Gold at any time to add more setlists and invite your band.
     </p>
   </AccordionContent>
 </Accordion>
@@ -176,15 +170,38 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/react"
 export default function Basics() {
   return (
     <Accordion>
-      <AccordionSummary>Accordion</AccordionSummary>
+      <AccordionSummary>What is included in free Bassbook?</AccordionSummary>
       <AccordionContent>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-          sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-          ac mollis neque ante id justo. Nam tempor euismod nisi ac ornare.
-          Pellentesque id sapien lacinia, venenatis est aliquam, dignissim elit.
-          Suspendisse potenti. Cras ut ante in libero tempus sodales sed quis
-          dolor.
+          Three setlists, 2 GB of slap videos and email support. Upgrade to
+          Bassbook Gold at any time to add more setlists and invite your band.
+        </p>
+      </AccordionContent>
+    </Accordion>
+  )
+}
+```
+
+## Solid
+
+`import { Accordion, AccordionActions, AccordionContent, AccordionSummary } from "opui-css/solid"`
+
+- `AccordionSummary` slot props (`JSX.Element`): `children` and `marker`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Accordion, AccordionContent, AccordionSummary } from "opui-css/solid"
+
+export default function Basics() {
+  return (
+    <Accordion>
+      <AccordionSummary>What is included in free Bassbook?</AccordionSummary>
+      <AccordionContent>
+        <p>
+          Three setlists, 2 GB of slap videos and email support. Upgrade to
+          Bassbook Gold at any time to add more setlists and invite your band.
         </p>
       </AccordionContent>
     </Accordion>
@@ -210,14 +227,11 @@ export default function Basics() {
 </script>
 
 <Accordion>
-  <AccordionSummary>Accordion</AccordionSummary>
+  <AccordionSummary>What is included in free Bassbook?</AccordionSummary>
   <AccordionContent>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-      neque ante id justo. Nam tempor euismod nisi ac ornare. Pellentesque id
-      sapien lacinia, venenatis est aliquam, dignissim elit. Suspendisse
-      potenti. Cras ut ante in libero tempus sodales sed quis dolor.
+      Three setlists, 2 GB of slap videos and email support. Upgrade to Bassbook
+      Gold at any time to add more setlists and invite your band.
     </p>
   </AccordionContent>
 </Accordion>
@@ -238,15 +252,11 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/vue"
 
 <template>
   <Accordion>
-    <AccordionSummary>Accordion</AccordionSummary>
+    <AccordionSummary>What is included in free Bassbook?</AccordionSummary>
     <AccordionContent>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo. Nam tempor euismod nisi ac ornare.
-        Pellentesque id sapien lacinia, venenatis est aliquam, dignissim elit.
-        Suspendisse potenti. Cras ut ante in libero tempus sodales sed quis
-        dolor.
+        Three setlists, 2 GB of slap videos and email support. Upgrade to
+        Bassbook Gold at any time to add more setlists and invite your band.
       </p>
     </AccordionContent>
   </Accordion>

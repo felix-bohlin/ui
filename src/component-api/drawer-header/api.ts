@@ -2,25 +2,15 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "DrawerHeader",
-  hydration: {
-    react: [
-      {
-        description:
-          "Outside a `Drawer` and without `commandfor`, the button closes the nearest `<dialog>` with a click handler, which only works after hydration.",
-        fallback: "Set `commandfor` to the dialog's id.",
-        prop: "commandfor",
-      },
-    ],
-    svelte: [
-      {
-        description:
-          "Outside a `Drawer` and without `commandfor`, the button closes the nearest `<dialog>` with a click handler, which only works after hydration.",
-        fallback: "Set `commandfor` to the dialog's id.",
-        prop: "commandfor",
-      },
-    ],
-  },
+  css: ["card", "drawer"],
   options: [
+    {
+      default: "false",
+      description:
+        "Adds a close button at the end of the title row, which closes its `Drawer`, or the `<dialog>` that `commandfor` names.",
+      group: "Close button",
+      prop: "closeButton",
+    },
     {
       default: '"Close"',
       description: "The accessible name of the close button.",
@@ -28,7 +18,7 @@ export default {
     },
     {
       description:
-        "The id of the drawer to close with the `close` command. Without it, the button closes its `Drawer`, or the nearest `<dialog>` on click.",
+        "The id of the drawer the close button closes with the `close` command. Without it, the button closes its `Drawer`. Outside a `Drawer`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.",
       prop: "commandfor",
     },
   ],
@@ -36,8 +26,11 @@ export default {
   parts: [
     {
       code: "<button>",
-      description: "Closes the drawer.",
+      description:
+        "Closes the drawer, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`.",
+      props: ["closeButton", "closeLabel"],
       selector: ".ui-header > .ui-button",
+      slots: ["close-icon"],
     },
   ],
   root: {

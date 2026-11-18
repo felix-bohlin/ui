@@ -1,14 +1,18 @@
 <script lang="ts">
+  import "../../elements/close-on-navigate.js"
+  import "../../elements/drawer-swipe.js"
   import { untrack } from "svelte"
-  import { warnMissingId } from "../dev"
-  import { autoLabelledBy } from "../id"
   import { setDrawerContext } from "./context.svelte"
+  import { autoLabelledBy } from "../id"
+  import { warnMissingId } from "../dev"
+  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
     backdrop = "blurred",
     class: className,
     closedby = "any",
+    closeOnNavigate,
     id,
     scrollLock,
     side = "inline-start",
@@ -18,9 +22,8 @@
     ...rest
   }: Props = $props()
 
+  const labelledBy = $derived(autoLabelledBy(rest, `${id}-title`))
   untrack(() => warnMissingId("Drawer", id))
-  const labelledBy = $derived(autoLabelledBy(rest, `${id}-heading`))
-
   setDrawerContext({
     get id() {
       return id
@@ -43,8 +46,9 @@
     className,
   ]}
   aria-labelledby={labelledBy}
+  data-close-on-navigate={closeOnNavigate ? "" : undefined}
   {id}
-  {...rest}
+  {...defined(rest)}
 >
   {@render children?.()}
 </dialog>

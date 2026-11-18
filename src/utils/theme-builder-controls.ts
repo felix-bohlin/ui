@@ -1,4 +1,6 @@
 import { exampleTheme } from "./example-themes"
+import { iconUrl } from "./icon-libraries"
+import ICON_SETS from "./icon-sets.json" with { type: "json" }
 import {
   BRAND_TOKENS,
   COMPONENT_RADII,
@@ -9,19 +11,21 @@ import {
 } from "./theme"
 import { BALANCED_PRIMARY, MONOCHROME_PRIMARY } from "./theme-brand"
 import { WEB_FONTS, fontStack } from "./theme-fonts"
+import { iconTokensOf } from "./theme-icons"
 
-export type ChoiceOption = {
+type ChoiceOption = {
   group?: string
   label: string
+  preview?: string[]
   tokens: ThemeTokens
   value: string
 }
 
 type Base = { hint?: string; id: string; label: string; tier: "basic" | "fine" }
 
-export type BrandControl = Base & { kind: "brand" }
+type BrandControl = Base & { kind: "brand" }
 
-export type CornersControl = Base & { kind: "corners" }
+type CornersControl = Base & { kind: "corners" }
 
 export type ColorControl = Base & {
   follow?: string[]
@@ -33,6 +37,7 @@ export type ChoiceControl = Base & {
   display: "select" | "toggle"
   dynamic?: "brand-hue" | "primary-tone"
   font?: boolean
+  icons?: boolean
   kind: "choice"
   options: ChoiceOption[]
 }
@@ -51,9 +56,13 @@ export type RangeControl = Base & {
 }
 
 export type Control =
-  BrandControl | ChoiceControl | ColorControl | CornersControl | RangeControl
+  | BrandControl
+  | ChoiceControl
+  | ColorControl
+  | CornersControl
+  | RangeControl
 
-export type ControlGroup = {
+type ControlGroup = {
   controls: Control[]
   description: string
   id: string
@@ -121,9 +130,9 @@ const fontOptions = (token: string, fonts = FONTS) =>
 const SHADOW_TOKENS = [
   "--ui-button-hover-shadow",
   "--ui-button-hover-translate",
+  "--ui-field-shadow",
   "--ui-shadow-control",
   "--ui-shadow-elevated",
-  "--ui-shadow-field",
   "--ui-shadow-overlay",
   "--ui-shadow-scroll",
   "--ui-shadow-selected",
@@ -226,6 +235,17 @@ export const tidy = (value: string) =>
     .replace(/\s*,\s*/g, ", ")
     .trim()
 
+const ICON_PREVIEW = ["check", "close", "rating"] as const
+
+export const ICON_OPTIONS: ChoiceOption[] = Object.entries(ICON_SETS)
+  .map(([value, set]) => ({
+    label: set.name,
+    preview: ICON_PREVIEW.map((role) => iconUrl(set.icons[role])),
+    tokens: iconTokensOf(value)!,
+    value,
+  }))
+  .toSorted((a, b) => a.label.localeCompare(b.label))
+
 export const GROUPS: ControlGroup[] = [
   {
     controls: [
@@ -260,7 +280,7 @@ export const GROUPS: ControlGroup[] = [
       },
       {
         display: "toggle",
-        hint: "Tonal buttons and chips",
+        hint: "Primary tonal buttons, tonal avatars and checked choice cards",
         id: "tonal",
         kind: "choice",
         label: "Tonal fill",
@@ -410,7 +430,7 @@ export const GROUPS: ControlGroup[] = [
         { hint: "Cards, menus and dialogs" },
       ),
       color("surface-filled", "Filled surface", "--ui-surface-filled", "fine", {
-        hint: "Filled cards and fields",
+        hint: "Lists, table headers and footers, and filled dividers, progress bars and range tracks",
       }),
       color("surface-tonal", "Tonal surface", "--ui-surface-tonal", "fine", {
         hint: "Tonal buttons, chips and hover fills",
@@ -914,7 +934,7 @@ export const GROUPS: ControlGroup[] = [
       },
       {
         display: "toggle",
-        hint: "Text in buttons, fields and menus",
+        hint: "Text in buttons, fields, tabs and toggle buttons",
         id: "control-text",
         kind: "choice",
         label: "Control text size",
@@ -965,10 +985,31 @@ export const GROUPS: ControlGroup[] = [
         ],
         tier: "fine",
       },
+      {
+        display: "select",
+        icons: true,
+        id: "icons",
+        kind: "choice",
+        label: "Icons",
+        options: ICON_OPTIONS,
+        tier: "basic",
+      },
+      {
+        display: "unit",
+        id: "icon-size",
+        kind: "range",
+        label: "Icon size",
+        max: 1.5,
+        min: 1,
+        step: 0.125,
+        tier: "fine",
+        token: "--ui-icon-size",
+        unit: "rem",
+      },
     ],
-    description: "Fonts, weights and line height.",
+    description: "Fonts, weights, line height and the icon set.",
     id: "typography",
-    label: "Typography",
+    label: "Typography and icons",
   },
   {
     controls: [
@@ -1055,18 +1096,6 @@ export const GROUPS: ControlGroup[] = [
         step: 0.125,
         tier: "fine",
         token: "--ui-list-item-padding-inline",
-        unit: "rem",
-      },
-      {
-        display: "unit",
-        id: "icon-size",
-        kind: "range",
-        label: "Icon size",
-        max: 1.5,
-        min: 1,
-        step: 0.125,
-        tier: "fine",
-        token: "--ui-icon-size",
         unit: "rem",
       },
       {
@@ -1181,9 +1210,9 @@ export const GROUPS: ControlGroup[] = [
             tokens: {
               "--ui-button-hover-shadow": "none",
               "--ui-button-hover-translate": "4px 4px",
+              "--ui-field-shadow": "none",
               "--ui-shadow-control": "4px 4px 0 0 oklch(0 0 0)",
               "--ui-shadow-elevated": "var(--ui-shadow-control)",
-              "--ui-shadow-field": "none",
               "--ui-shadow-overlay": "var(--ui-shadow-control)",
               "--ui-shadow-scroll": "0 2px 0 0 oklch(0 0 0)",
               "--ui-shadow-selected": "none",
@@ -1314,7 +1343,7 @@ export const GROUPS: ControlGroup[] = [
               "--ui-button-accent",
               "--ui-button-on-accent",
               "--ui-control-accent",
-              "--ui-on-control-accent",
+              "--ui-control-on-accent",
             ),
             value: "neutral",
           },
@@ -1323,14 +1352,14 @@ export const GROUPS: ControlGroup[] = [
             tokens: {
               ...revert("--ui-button-accent", "--ui-button-on-accent"),
               "--ui-control-accent": "var(--ui-primary)",
-              "--ui-on-control-accent": "var(--ui-on-primary)",
+              "--ui-control-on-accent": "var(--ui-on-primary)",
             },
             value: "brand",
           },
           {
             label: "Gray",
             tokens: {
-              ...revert("--ui-control-accent", "--ui-on-control-accent"),
+              ...revert("--ui-control-accent", "--ui-control-on-accent"),
               "--ui-button-accent":
                 "light-dark(oklch(0.525 0.017 245), oklch(0.77 0.014 248))",
               "--ui-button-on-accent": "light-dark(oklch(1 0 0), oklch(0 0 0))",
@@ -1432,6 +1461,11 @@ export const GROUPS: ControlGroup[] = [
             label: "Shade",
             tokens: { "--ui-button-hover": "shade" },
             value: "shade",
+          },
+          {
+            label: "Shade all",
+            tokens: { "--ui-button-hover": "shade-all" },
+            value: "shade-all",
           },
           {
             label: "Layer",

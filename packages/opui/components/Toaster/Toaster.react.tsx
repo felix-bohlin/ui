@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import { warnMissingId } from "../dev"
 import type { Props } from "./types.react"
@@ -11,11 +12,11 @@ export default function Toaster({
   closeLabel,
   duration,
   id,
+  limit,
   side,
   ...rest
 }: Props) {
   warnMissingId("Toaster", id)
-
   useEffect(() => {
     void import("../../elements/toaster.js")
   }, [])
@@ -31,10 +32,26 @@ export default function Toaster({
       close-label={closeLabel}
       duration={duration}
       id={id}
-      {...rest}
+      limit={limit}
+      {...defined(rest)}
     >
-      <ol popover="manual"></ol>
-      <div className="ui-sr-only" role="status"></div>
+      <ol
+        popover="manual"
+        dangerouslySetInnerHTML={{ __html: "" }}
+        suppressHydrationWarning
+      />
+      <div
+        className="ui-sr-only"
+        role="status"
+        dangerouslySetInnerHTML={{ __html: "" }}
+        suppressHydrationWarning
+      />
+      <div
+        className="ui-sr-only"
+        role="alert"
+        dangerouslySetInnerHTML={{ __html: "" }}
+        suppressHydrationWarning
+      />
     </opui-toaster>
   )
 }

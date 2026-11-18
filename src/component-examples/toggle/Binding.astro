@@ -2,13 +2,18 @@
 import { Button, ToggleButton, ToggleGroup } from "opui-css/astro"
 ---
 
-<ToggleGroup aria-label="View" name="calendar-view">
+<ToggleGroup aria-label="View" name="calendar-view" value="week">
   <ToggleButton value="day">Day</ToggleButton>
-  <ToggleButton checked value="week">Week</ToggleButton>
+  <ToggleButton value="week">Week</ToggleButton>
   <ToggleButton value="month">Month</ToggleButton>
 </ToggleGroup>
-<ToggleGroup aria-label="Text format" multiple name="text-format">
-  <ToggleButton checked value="bold">Bold</ToggleButton>
+<ToggleGroup
+  aria-label="Text format"
+  multiple
+  name="text-format"
+  value={["bold"]}
+>
+  <ToggleButton value="bold">Bold</ToggleButton>
   <ToggleButton value="italic">Italic</ToggleButton>
   <ToggleButton value="underline">Underline</ToggleButton>
 </ToggleGroup>

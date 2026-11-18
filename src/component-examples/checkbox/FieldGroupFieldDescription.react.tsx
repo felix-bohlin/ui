@@ -10,30 +10,33 @@ import {
 export default function FieldGroupFieldDescription() {
   return (
     <Form>
-      <Fieldset>
-        <FieldLegend>Legend</FieldLegend>
-        <FieldDescription>Field description above fields</FieldDescription>
+      <Fieldset aria-describedby="checkbox-field-group-field-description-1-description">
+        <FieldLegend>Notifications</FieldLegend>
+        <FieldDescription id="checkbox-field-group-field-description-1-description">
+          How we tell you a bandmate finally replied.
+        </FieldDescription>
         <FieldGroup
-          orientation="horizontal"
           name="checkbox-group-field-description-1"
+          orientation="horizontal"
         >
-          <Checkbox defaultChecked>Checkbox 1</Checkbox>
-          <Checkbox>Checkbox 2</Checkbox>
-          <Checkbox>Checkbox 3</Checkbox>
+          <Checkbox defaultChecked>Email</Checkbox>
+          <Checkbox>Push</Checkbox>
+          <Checkbox>SMS</Checkbox>
         </FieldGroup>
       </Fieldset>
-
-      <Fieldset>
-        <FieldLegend>Legend</FieldLegend>
+      <Fieldset aria-describedby="checkbox-field-group-field-description-2-description">
+        <FieldLegend>Newsletter topics</FieldLegend>
         <FieldGroup
-          orientation="horizontal"
           name="checkbox-group-field-description-2"
+          orientation="horizontal"
         >
-          <Checkbox defaultChecked>Checkbox 1</Checkbox>
-          <Checkbox>Checkbox 2</Checkbox>
-          <Checkbox>Checkbox 3</Checkbox>
+          <Checkbox defaultChecked>Bassbook news</Checkbox>
+          <Checkbox>Events</Checkbox>
+          <Checkbox>Gear deals</Checkbox>
         </FieldGroup>
-        <FieldDescription>Field description below fields</FieldDescription>
+        <FieldDescription id="checkbox-field-group-field-description-2-description">
+          Change these at any time in your account.
+        </FieldDescription>
       </Fieldset>
     </Form>
   )

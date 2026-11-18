@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import { warnMissingId } from "../dev"
 import type { Props } from "./types.react"
@@ -14,7 +15,6 @@ export default function Copy({
   ...rest
 }: Props) {
   warnMissingId("Copy", id)
-
   useEffect(() => {
     void import("../../elements/copy.js")
   }, [])
@@ -25,11 +25,22 @@ export default function Copy({
       copied-label={copiedLabel}
       failed-label={failedLabel}
       id={id}
-      {...rest}
+      {...defined(rest)}
     >
-      {children}
-      <span className="ui-sr-only" role="status"></span>
-      <span aria-hidden="true" className="ui-floating" popover=""></span>
+      {children}{" "}
+      <span
+        className="ui-sr-only"
+        role="status"
+        dangerouslySetInnerHTML={{ __html: "" }}
+        suppressHydrationWarning
+      />{" "}
+      <span
+        aria-hidden="true"
+        className="ui-floating"
+        popover=""
+        dangerouslySetInnerHTML={{ __html: "" }}
+        suppressHydrationWarning
+      />
     </opui-copy>
   )
 }

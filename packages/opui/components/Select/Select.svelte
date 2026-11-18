@@ -1,8 +1,8 @@
 <script lang="ts">
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
-  import { idRefs } from "../id"
-  import { initialValue } from "./selection"
+  import { fieldDescribedBy } from "../id"
+  import { initialValue, keepSelected, sameValue } from "./selection"
   import type { SelectItem } from "./types"
   import type { Props } from "./types.svelte"
   import { untrack } from "svelte"
@@ -34,30 +34,54 @@
     ...rest
   }: Props = $props()
 
+  const itemValue = (selected: string | number) =>
+    items.find((item) => sameValue(item.value, selected))?.value ?? selected
+
   untrack(() => {
     value ??= initialValue(items, rest.multiple)
+    if (Array.isArray(value)) value = value.map(itemValue)
+    else if (value !== undefined) value = itemValue(value)
   })
 
   const uid = $props.id()
   const field = getFieldGroupContext()
-  const labelId = `select-label-${uid}`
-  const startTextId = $derived(startText ? `start-text-${uid}` : undefined)
-  const endTextId = $derived(endText ? `end-text-${uid}` : undefined)
-  const topId = $derived(top ? `top-${uid}` : undefined)
-  const bottomId = $derived(bottom ? `bottom-${uid}` : undefined)
+  const base = $derived(id || `select-${uid}`)
+  const selectId = $derived(label ? base : id)
+  const startTextId = $derived(startText ? `${base}-start-text` : undefined)
+  const endTextId = $derived(endText ? `${base}-end-text` : undefined)
+  const startId = $derived(start ? `${base}-start` : undefined)
+  const endId = $derived(end ? `${base}-end` : undefined)
+  const topId = $derived(top ? `${base}-top` : undefined)
+  const bottomId = $derived(bottom ? `${base}-bottom` : undefined)
   const describedBy = $derived(
-    idRefs(topId, startTextId, endTextId, bottomId, rest["aria-describedby"]),
+    fieldDescribedBy(
+      {
+        bottom: bottomId,
+        end: endId,
+        endText: endTextId,
+        start: startId,
+        startText: startTextId,
+        top: topId,
+      },
+      rest["aria-describedby"],
+    ),
   )
 
+  const first = untrack(() => value)
+
+  const keepFirst = (select: HTMLSelectElement) => {
+    if (first !== undefined) keepSelected(select, first)
+  }
+
   const isSelected = (item: SelectItem) =>
-    value === undefined
+    first === undefined
       ? item.selected
-      : Array.isArray(value)
-        ? value.includes(item.value)
-        : item.value === value
+      : Array.isArray(first)
+        ? first.some((selected) => sameValue(selected, item.value))
+        : sameValue(item.value, first)
 </script>
 
-<label
+<div
   class={[
     "ui-select",
     {
@@ -71,9 +95,9 @@
   {style}
 >
   {#if label}
-    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]} id={labelId}>
+    <label class={hideLabel ? "ui-sr-only" : "ui-label"} for={selectId}>
       {@render content(label)}
-    </span>
+    </label>
   {/if}
   {#if startText}
     <span class="ui-start-text" id={startTextId}>
@@ -81,16 +105,23 @@
     </span>
   {/if}
   <span class="ui-field">
+    {#if top}
+      <span class="ui-top" id={topId}>{@render content(top)}</span>
+    {/if}
+    {#if start}
+      <span class="ui-start" id={startId}>{@render content(start)}</span>
+    {/if}
     <select
       {...rest}
       aria-describedby={describedBy}
       aria-invalid={error ? "true" : rest["aria-invalid"]}
-      aria-labelledby={label ? labelId : rest["aria-labelledby"]}
+      aria-labelledby={rest["aria-labelledby"]}
       bind:value
-      {id}
+      {@attach keepFirst}
+      id={selectId}
       name={name ?? field?.name}
     >
-      <button>
+      <button inert>
         <selectedcontent></selectedcontent>
       </button>
       <div class={["ui-list", { "ui-dense": dense }]}>
@@ -102,14 +133,8 @@
         {@render children?.()}
       </div>
     </select>
-    {#if start}
-      <span class="ui-start">{@render content(start)}</span>
-    {/if}
     {#if end}
-      <span class="ui-end">{@render content(end)}</span>
-    {/if}
-    {#if top}
-      <span class="ui-top" id={topId}>{@render content(top)}</span>
+      <span class="ui-end" id={endId}>{@render content(end)}</span>
     {/if}
     {#if bottom}
       <span class="ui-bottom" id={bottomId}>{@render content(bottom)}</span>
@@ -120,4 +145,4 @@
       {@render content(endText)}
     </span>
   {/if}
-</label>
+</div>

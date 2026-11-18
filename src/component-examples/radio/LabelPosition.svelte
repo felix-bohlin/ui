@@ -2,7 +2,9 @@
   import { Radio } from "opui-css/svelte"
 </script>
 
-<Radio name="radio-label-position" value="default" checked>Default</Radio>
-<Radio name="radio-label-position" value="stack" orientation="vertical"
-  >Stack</Radio
+<Radio defaultChecked name="radio-label-position" value="standard"
+  >Standard delivery</Radio
+>
+<Radio name="radio-label-position" orientation="vertical" value="express"
+  >Express delivery</Radio
 >

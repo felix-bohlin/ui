@@ -3,37 +3,41 @@ import { Textarea } from "opui-css/vue"
 </script>
 
 <template>
-  <Textarea spread placeholder="Hello, world!">
+  <Textarea placeholder="Hi, I have a question about my order." spread>
     <template #label>Message</template>
-    <template #start-text
-      >You can write your message here. Keep it short, preferably under 100
-      characters.</template
-    >
+    <template #start-text>Keep it under 100 characters.</template>
   </Textarea>
 
-  <Textarea spread placeholder="Additional notes..." variant="filled">
+  <Textarea placeholder="Additional notes..." spread variant="filled">
     <template #label>Notes</template>
     <template #start-text>Add any additional notes or comments</template>
-    <template #end-text>Maximum 500 characters</template>
+    <template #end-text>Only your team sees these.</template>
   </Textarea>
 
-  <Textarea spread required label="Required">
-    <template #start-text>You must provide a response</template>
+  <Textarea label="Reason for return" required spread>
+    <template #start-text>Helps us improve our products</template>
   </Textarea>
 
-  <Textarea spread disabled label="Disabled">
-    <template #start-text>This textarea is disabled</template>
+  <Textarea disabled label="Order notes" spread>
+    <template #start-text>Orders can't change once they ship</template>
   </Textarea>
 
-  <Textarea spread error label="Invalid Message">
-    <template #start-text>This textarea has an error</template>
-    <template #end-text>This value is too short.</template>
+  <Textarea error label="Review" spread value="Great">
+    <template #start-text>Shown with your rating</template>
+    <template #end-text>Write at least 20 characters.</template>
   </Textarea>
 
-  <Textarea spread label="Bio" placeholder="Tell us about yourself...">
+  <Textarea
+    characterCount
+    label="Bio"
+    :maxlength="280"
+    placeholder="Tell us about yourself..."
+    spread
+  >
     <template #start-text>Shown on your public profile</template>
     <template #start>
       <svg
+        data-icon="edit"
         aria-hidden="true"
         width="16"
         height="16"
@@ -52,18 +56,17 @@ import { Textarea } from "opui-css/vue"
         ></path>
       </svg>
     </template>
-    <template #bottom>280 characters left</template>
   </Textarea>
 
   <Textarea
-    spread
-    variant="filled"
     label="Release notes"
     placeholder="Markdown supported..."
+    spread
+    variant="filled"
   >
     <template #start-text>Shown on the changelog page</template>
     <template #top>v1.4.0</template>
     <template #bottom>Saved 2 minutes ago</template>
-    <template #end-text>Drafts are auto-saved</template>
+    <template #end-text>Drafts save automatically.</template>
   </Textarea>
 </template>

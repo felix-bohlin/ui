@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { computed, inject, useAttrs, watchEffect } from "vue"
-import { useInputAttrs } from "../vue"
-import { warnGroupedChecked } from "../dev"
+import { computed, inject, watchEffect } from "vue"
+import { seedChecked, useInputAttrs } from "../vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { ToggleGroupKey } from "../ToggleGroup/context.vue"
 import { isSelected } from "../ToggleGroup/selection"
+import { warnGroupedChecked } from "../dev"
+import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
-  checked: checkedProp = undefined,
+  checked = undefined,
   label,
   name,
   size,
@@ -16,31 +17,44 @@ const {
   value,
 } = defineProps<Props>()
 defineSlots<Slots>()
-const model = defineModel<boolean | undefined>({ default: undefined })
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs()
-const inputAttrs = useInputAttrs()
+const attrs = useInputAttrs()
+
+const model = defineModel<boolean | undefined>({
+  default: undefined,
+})
 
 const field = inject(FieldGroupKey, undefined)
+
 const group = inject(ToggleGroupKey, undefined)
+
 const finalName = computed(() => name || group?.groupName || field?.name)
+
 const finalType = computed(() =>
   group?.inputType === "radio" ? "radio" : (type ?? "checkbox"),
 )
+
 const grouped = computed(() => isSelected(group?.value, value))
+
 watchEffect(() =>
-  warnGroupedChecked("ToggleButton", grouped.value, checkedProp ?? model.value),
+  warnGroupedChecked(
+    "ToggleButton",
+    grouped.value,
+    checked ?? model.value,
+    "ToggleGroup",
+  ),
 )
-const checked = computed(() => grouped.value ?? model.value ?? checkedProp)
-const change = (event: Event) => {
-  const input = event.currentTarget as HTMLInputElement
+
+const change = (input: HTMLInputElement) => {
   if (grouped.value === undefined) model.value = input.checked
-  group?.change(input)
+  group?.change?.(input)
 }
+
+const vSeedChecked = seedChecked(change)
 </script>
 
 <template>
@@ -50,15 +64,16 @@ const change = (event: Event) => {
       size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
-    :style="$attrs.style"
+    v-bind="styleAttrs($attrs.style)"
   >
     <input
-      :checked="checked"
       :name="finalName"
       :type="finalType"
       :value="value"
-      @change="change"
-      v-bind="inputAttrs"
-    />{{ " " }}<slot>{{ label }}</slot>
+      v-bind="attrs"
+      v-seed-checked="grouped ?? model ?? checked"
+      @change="change($event.currentTarget as HTMLInputElement)"
+    />{{ " " }}<slot v-if="$slots.default"></slot>
+    <template v-else>{{ label }}</template>
   </label>
 </template>

@@ -2,13 +2,18 @@
 import fs from "node:fs"
 import path from "node:path"
 import postcss from "postcss"
+import { TYPES_FILES } from "./framework.js"
 
-export const BARREL_TYPES = {
-  astro: "types.astro",
-  react: "types.react",
-  svelte: "types.svelte",
-  vue: "types.vue-props",
-}
+/** @typedef {import("./framework.js").PackageFrameworkId} PackageFrameworkId */
+
+export const BARREL_TYPES = /** @type {Record<PackageFrameworkId, string>} */ (
+  Object.fromEntries(
+    Object.entries(TYPES_FILES).map(([framework, file]) => [
+      framework,
+      file.replace(/\.ts$/, ""),
+    ]),
+  )
+)
 
 const BARREL_EXPORT = /^export \{ default as (\w+) \} from "([^"]+)"/gm
 const COMPONENT_FOLDER = /^\.\.\/components\/([^/]+)\//

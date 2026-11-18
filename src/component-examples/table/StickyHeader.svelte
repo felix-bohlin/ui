@@ -2,6 +2,7 @@
   import {
     Table,
     TableBody,
+    TableCaption,
     TableCell,
     TableHead,
     TableHeaderCell,
@@ -11,68 +12,69 @@
 
 <div
   role="region"
-  aria-label="Invoices"
+  aria-label="Gear orders"
   tabindex="0"
-  style="max-block-size: 15rem; overflow: auto"
+  style="max-block-size: 15rem; overflow: auto; scroll-padding-block-start: 2.5rem"
 >
   <Table stickyHeader>
+    <TableCaption>Gear orders</TableCaption>
     <TableHead>
       <TableRow>
-        <TableHeaderCell>Invoice</TableHeaderCell>
-        <TableHeaderCell>Customer</TableHeaderCell>
-        <TableHeaderCell>Amount</TableHeaderCell>
+        <TableHeaderCell>Order</TableHeaderCell>
+        <TableHeaderCell>Bassist</TableHeaderCell>
+        <TableHeaderCell numeric>Amount</TableHeaderCell>
       </TableRow>
     </TableHead>
     <TableBody>
       <TableRow>
-        <TableCell>INV-1000</TableCell>
-        <TableCell>Ada</TableCell>
-        <TableCell>€130</TableCell>
+        <TableCell>BB-1000</TableCell>
+        <TableCell>Holly Humbucker</TableCell>
+        <TableCell numeric>€1,240.00</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>INV-1001</TableCell>
-        <TableCell>Grace</TableCell>
-        <TableCell>€260</TableCell>
+        <TableCell>BB-1001</TableCell>
+        <TableCell>Percy Groove</TableCell>
+        <TableCell numeric>€86.50</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>INV-1002</TableCell>
-        <TableCell>Linus</TableCell>
-        <TableCell>€390</TableCell>
+        <TableCell>BB-1002</TableCell>
+        <TableCell>Rory Rootnote</TableCell>
+        <TableCell numeric>€412.90</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>INV-1003</TableCell>
-        <TableCell>Margaret</TableCell>
-        <TableCell>€520</TableCell>
+        <TableCell>BB-1003</TableCell>
+        <TableCell>Stella Nut</TableCell>
+        <TableCell numeric>€2,075.00</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>INV-1004</TableCell>
-        <TableCell>Alan</TableCell>
-        <TableCell>€650</TableCell>
+        <TableCell>BB-1004</TableCell>
+        <TableCell>Ines Hertz</TableCell>
+        <TableCell numeric>€318.40</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>INV-1005</TableCell>
-        <TableCell>Barbara</TableCell>
-        <TableCell>€780</TableCell>
+        <TableCell>BB-1005</TableCell>
+        <TableCell>Lou Headstock</TableCell>
+        <TableCell numeric>€59.99</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>INV-1006</TableCell>
-        <TableCell>Ken</TableCell>
-        <TableCell>€910</TableCell>
+        <TableCell>BB-1006</TableCell>
+        <TableCell>Kenny Wah</TableCell>
+        <TableCell numeric>€764.15</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>INV-1007</TableCell>
-        <TableCell>Frances</TableCell>
-        <TableCell>€1,040</TableCell>
+        <TableCell>BB-1007</TableCell>
+        <TableCell>Frankie Octaver</TableCell>
+        <TableCell numeric>€1,532.80</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>INV-1008</TableCell>
-        <TableCell>Dennis</TableCell>
-        <TableCell>€1,170</TableCell>
+        <TableCell>BB-1008</TableCell>
+        <TableCell>Danny Muffler</TableCell>
+        <TableCell numeric>€205.00</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>INV-1009</TableCell>
-        <TableCell>Radia</TableCell>
-        <TableCell>€1,300</TableCell>
+        <TableCell>BB-1009</TableCell>
+        <TableCell>Ruby Headroom</TableCell>
+        <TableCell numeric>€948.60</TableCell>
       </TableRow>
     </TableBody>
   </Table>

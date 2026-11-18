@@ -10,14 +10,14 @@ export default function Sizes() {
         <Button size="large">Large</Button>
       </div>
       <div className="example-row">
-        <Button variant="filled" size="x-small">
+        <Button size="x-small" variant="filled">
           X-small
         </Button>
-        <Button variant="filled" size="small">
+        <Button size="small" variant="filled">
           Small
         </Button>
         <Button variant="filled">Medium</Button>
-        <Button variant="filled" size="large">
+        <Button size="large" variant="filled">
           Large
         </Button>
       </div>
@@ -26,6 +26,7 @@ export default function Sizes() {
         <Button size="x-small" variant="outlined">
           <span className="ui-text">X-small</span>
           <svg
+            data-icon="add"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -41,6 +42,7 @@ export default function Sizes() {
         <Button size="small" variant="outlined">
           <span className="ui-text">Small</span>
           <svg
+            data-icon="add"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -56,6 +58,7 @@ export default function Sizes() {
         <Button variant="outlined">
           <span className="ui-text">Medium</span>
           <svg
+            data-icon="add"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -68,9 +71,10 @@ export default function Sizes() {
             ></path>
           </svg>
         </Button>
-        <Button variant="outlined" size="large">
+        <Button size="large" variant="outlined">
           <span className="ui-text">Large</span>
           <svg
+            data-icon="add"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"

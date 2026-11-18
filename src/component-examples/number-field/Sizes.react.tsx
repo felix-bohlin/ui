@@ -6,7 +6,7 @@ export default function Sizes() {
       <NumberField
         defaultValue={1}
         id="number-field-sizes-1"
-        label="x-small"
+        label="X-small"
         size="x-small"
       />
       <NumberField

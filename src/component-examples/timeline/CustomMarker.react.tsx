@@ -1,22 +1,5 @@
 import { Timeline, TimelineItem } from "opui-css/react"
 
-const check = (
-  <svg
-    aria-hidden="true"
-    xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="3"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M20 6 9 17l-5-5"></path>
-  </svg>
-)
-
 export default function CustomMarker() {
   return (
     <Timeline>
@@ -24,21 +7,69 @@ export default function CustomMarker() {
         color="success"
         datetime="2026-10-01"
         label="Ordered"
-        marker={check}
+        marker={
+          <svg
+            data-icon="check"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M20 6 9 17l-5-5"></path>
+          </svg>
+        }
         time="Oct 1"
       />
       <TimelineItem
         color="success"
         datetime="2026-10-02"
         label="Packed"
-        marker={check}
+        marker={
+          <svg
+            data-icon="check"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M20 6 9 17l-5-5"></path>
+          </svg>
+        }
         time="Oct 2"
       />
       <TimelineItem
         color="success"
         datetime="2026-10-03"
         label="Shipped"
-        marker={check}
+        marker={
+          <svg
+            data-icon="check"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M20 6 9 17l-5-5"></path>
+          </svg>
+        }
         time="Oct 3"
       >
         <p>On its way from Gothenburg.</p>

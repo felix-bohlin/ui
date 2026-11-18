@@ -1,9 +1,9 @@
 # Tabs
 
-The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' :checked state. Use Tabs to switch between panels of content. To pick an option, like a list or grid view, use a Toggle group.
+Tabs that switch between panels of related content, built on radio inputs.
 
 - CSS: `opui-css/css/components/tabs.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/tabs.md), [Astro](https://open-props-ui.netlify.app/astro/components/tabs.md), [React](https://open-props-ui.netlify.app/react/components/tabs.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/tabs.md), [Vue](https://open-props-ui.netlify.app/vue/components/tabs.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/tabs.md), [Astro](https://opui.dev/astro/components/tabs.md), [React](https://opui.dev/react/components/tabs.md), [Solid](https://opui.dev/solid/components/tabs.md), [Svelte](https://opui.dev/svelte/components/tabs.md), [Vue](https://opui.dev/vue/components/tabs.md).
 
 ## Tabs
 
@@ -16,24 +16,26 @@ The Tabs are radio inputs and the Panels are just divs that show and hide based 
 
 ### Props and modifiers
 
-- `defaultValue` (React): `string`. The `value` of the tab selected at the start, when `value` is omitted.
+- `defaultValue` (React and Solid): `string`. The `value` of the tab selected at the start, when `value` is omitted.
 - `name`: `string`, `.ui-input[name]`. The name shared by the tab inputs. Generated when omitted.
-- `onValueChange` (React): `(value: string) => void`. Called with the `value` of the tab when one is selected.
-- `overflow`: `"scroll"` (`.ui-overflow-scroll`), `"wrap"` (default). What the tabs do when they don't fit. `"wrap"` wraps them onto more rows, and `"scroll"` keeps them on one row and scrolls it sideways.
-- `value` (Astro and React): `string`. The `value` of the selected tab. The item whose `value` matches is checked, and the items' own `checked` is ignored.
+- `onValueChange` (React and Solid): `(value: string) => void`. Called with the `value` of the tab when one is selected.
+- `orientation`: `"horizontal"` (default), `"vertical"` (`.ui-vertical`). The orientation of the tabs. `vertical` stacks them in a column at the inline start, with the panel beside them.
+- `overflow`: `"scroll"` (default), `"wrap"` (`.ui-overflow-wrap`). What the tabs do when they don't fit. `scroll` keeps them on one row and scrolls it sideways, and `wrap` wraps them onto more rows. Vertical tabs ignore it: long labels wrap within the column.
+- `role`: `string`, `[role="radiogroup"]`. Makes tabs without panels a radio group, which `aria-label` names. Tabs with panels take no role: the root holds the panels, and a radio group holds only radios.
+- `value` (Astro, React and Solid): `string`. The `value` of the selected tab. The item whose `value` matches is checked, and the items' own `checked` is ignored.
 - `variant`: `"filled"` (`.ui-filled`), `"line"` (`.ui-line`), `"outlined"` (`.ui-outlined`), `"tonal"` (default). The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.
 
 ### Slots
 
 - `default`: The tab items.
 
-Model: `value` (`string`), the `value` of the selected tab. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
+Model: `value` (`string`), the `value` of the selected tab. Astro, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes
 
 - HTML: Each tab is three elements, in this order: `input.ui-input[type="radio"]`, `label.ui-label` and `.ui-panel`.
 - Astro: `value` selects the item whose `value` matches on the server. After that the selection lives in the inputs: read it from the form, or listen for `change` in a script.
-- React: Use `value` with `onValueChange`, or `defaultValue`. Without them the items keep their own state, and `onValueChange` still reports changes.
+- React and Solid: Use `value` with `onValueChange`, or `defaultValue`. Without them the items keep their own state, and `onValueChange` still reports changes.
 - Svelte: Bind `value` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state.
 - Vue: Bind `v-model` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state.
 
@@ -57,6 +59,7 @@ Model: `value` (`string`), the `value` of the selected tab. Astro and React `val
 ### Notes
 
 - React: `defaultChecked` selects the starting tab. A tab that loses its check to another one fires no `onChange` of its own, so to control the tabs, give each item a `value` and set `value` with `onValueChange` on `Tabs`. The `Tabs` value then wins and an item's own `checked` and `defaultChecked` are ignored.
+- Solid: `checked` selects the starting tab. A tab that loses its check to another one fires no `change` of its own, so to control the tabs, give each item a `value` and set `value` with `onValueChange` on `Tabs`. The `Tabs` value then wins and an item's own `checked` is ignored.
 - Svelte: `checked` selects the starting tab. A tab that loses its check to another one fires no `change` of its own, so to control the tabs, give each item a `value` and bind `value` on `Tabs`. The `Tabs` value then wins and an item's own `checked` is ignored.
 - Vue: `checked` selects the starting tab. A tab that loses its check to another one fires no `change` of its own, so to control the tabs, give each item a `value` and bind `v-model` on `Tabs`. The `Tabs` value then wins and an item's own `checked` is ignored.
 
@@ -68,7 +71,7 @@ Model: `value` (`string`), the `value` of the selected tab. Astro and React `val
 
 ### Props and modifiers
 
-- `for` (Astro, Svelte and Vue): `string`, `[for]`. The id of the input it labels. Set by the item.
+- `for` (Astro, HTML, Solid, Svelte and Vue): `string`, `[for]`. The id of the input it labels. Set by the item.
 - `htmlFor` (React): `string`. The id of the input it labels, as `htmlFor` like on the element. Set by the item.
 
 ### Slots
@@ -98,7 +101,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
 - `--_panel-gap`: Space between the tab list and the panel. Defaults to `--ui-space-2`.
 - `--_radius`: Corner radius of the track. The selected tab's radius is reduced by `--_inset` and `--_track-border-width`.
-- `--_selected-bg-color`: Background of the selected tab. Defaults to `--ui-surface`, a translucent white in dark mode; the variant classes set it.
+- `--_selected-bg-color`: Background of the selected tab. Defaults to `--ui-surface`, and in dark mode to `--ui-text-strong` at `--ui-state-selected-alpha-accent`; the variant classes set it.
 - `--_selected-border-color`: Border color of the selected tab. `--ui-control-border-color`, or `--ui-field-border-color` when the theme doesn't set it, so the pill reaches 3:1 against the track; the variant classes set it to `transparent`.
 - `--_selected-shadow`: Shadow of the selected tab. Defaults to `--ui-shadow-selected`. `.ui-line` and `.ui-outlined` remove it.
 - `--_selected-text-color`: Text color of the selected tab. Defaults to `--ui-tabs-accent`, or `--ui-text-strong` when a theme leaves it unset. `.ui-filled` sets it to `--ui-on-selected-strong`.
@@ -107,11 +110,11 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_track-border-color`: Border color of the track. `.ui-outlined` sets it to `--ui-control-border-color`, or `--ui-border-color` when the theme doesn't set it.
 - `--_track-border-width`: Border width of the track. `0px` in `.ui-line`.
 
-Outputs: `--_duration`, `--_focus-ring-duration` and `--_indicator-duration`.
+Outputs: `--_duration`, `--_focus-ring-duration`, `--_indicator-duration` and `--_panel-padding`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-control-border-color`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-move`, `--ui-field-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-control`, `--ui-font-weight-medium`, `--ui-line-height-relaxed`, `--ui-motion`, `--ui-on-selected-strong`, `--ui-radius`, `--ui-selected-strong`, `--ui-shadow-selected`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-state-hover-alpha-dark`, `--ui-surface`, `--ui-surface-tonal`, `--ui-tabs-accent`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-control-border-color`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-move`, `--ui-field-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-control`, `--ui-font-weight-medium`, `--ui-line-height-relaxed`, `--ui-motion`, `--ui-on-selected-strong`, `--ui-radius`, `--ui-selected-strong`, `--ui-shadow-selected`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-tabs-accent`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -120,20 +123,18 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 ```html
 <div class="ui-tabs">
   <input
-    type="radio"
-    name="basic-tabs"
-    id="tabs-basics-1"
-    class="ui-input"
     checked
+    class="ui-input"
+    id="tabs-basics-1"
+    name="basic-tabs"
+    type="radio"
   />
   <label for="tabs-basics-1" class="ui-label">Profile</label>
   <div class="ui-panel">Profile settings and information.</div>
-
-  <input type="radio" name="basic-tabs" id="tabs-basics-2" class="ui-input" />
+  <input class="ui-input" id="tabs-basics-2" name="basic-tabs" type="radio" />
   <label for="tabs-basics-2" class="ui-label">Settings</label>
   <div class="ui-panel">General account settings.</div>
-
-  <input type="radio" name="basic-tabs" id="tabs-basics-3" class="ui-input" />
+  <input class="ui-input" id="tabs-basics-3" name="basic-tabs" type="radio" />
   <label for="tabs-basics-3" class="ui-label">Notifications</label>
   <div class="ui-panel">Manage your notifications.</div>
 </div>
@@ -197,6 +198,36 @@ export default function Basics() {
 }
 ```
 
+## Solid
+
+`import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/solid"`
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/solid"
+
+export default function Basics() {
+  return (
+    <Tabs name="basic-tabs">
+      <TabsItem defaultChecked>
+        <TabsLabel>Profile</TabsLabel>
+        <TabsPanel>Profile settings and information.</TabsPanel>
+      </TabsItem>
+      <TabsItem>
+        <TabsLabel>Settings</TabsLabel>
+        <TabsPanel>General account settings.</TabsPanel>
+      </TabsItem>
+      <TabsItem>
+        <TabsLabel>Notifications</TabsLabel>
+        <TabsPanel>Manage your notifications.</TabsPanel>
+      </TabsItem>
+    </Tabs>
+  )
+}
+```
+
 ## Svelte
 
 `import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/svelte"`
@@ -211,7 +242,7 @@ export default function Basics() {
 </script>
 
 <Tabs name="basic-tabs">
-  <TabsItem checked>
+  <TabsItem defaultChecked>
     <TabsLabel>Profile</TabsLabel>
     <TabsPanel>Profile settings and information.</TabsPanel>
   </TabsItem>

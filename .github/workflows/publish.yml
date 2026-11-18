@@ -15,7 +15,13 @@ permissions:
   contents: read
 
 jobs:
+  apps:
+    permissions:
+      contents: read
+    uses: ./.github/workflows/apps.yml
+
   publish:
+    needs: apps
     runs-on: ubuntu-latest
     environment: npm
     env:
@@ -33,3 +39,12 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
       - run: node scripts/release.mjs publish
+
+  published:
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: publish
+    permissions:
+      contents: read
+    uses: ./.github/workflows/apps.yml
+    with:
+      version: ${{ github.ref_name }}

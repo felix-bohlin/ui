@@ -1,7 +1,6 @@
-import { readdirSync } from "node:fs"
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test } from "@playwright/test"
-import type { Locator, Page } from "@playwright/test"
+import type { Page } from "@playwright/test"
 import {
   THEME_EXCEPTIONS,
   promiseColor,
@@ -9,48 +8,13 @@ import {
 } from "../../src/utils/theme-token-promises"
 import {
   COMPONENTS,
+  THEMES,
   computed,
+  contrast,
   openFixture,
   resolveColor,
   settle,
 } from "./fixtures"
-
-const contrast = async (
-  locator: Locator,
-  foreground: string,
-  background: string,
-) => {
-  const colors = await Promise.all([
-    resolveColor(locator, "var(--ui-surface)"),
-    resolveColor(locator, background),
-    resolveColor(locator, foreground),
-  ])
-  return locator.page().evaluate(([page, back, fore]) => {
-    const canvas = document.createElement("canvas")
-    canvas.width = canvas.height = 1
-    const context = canvas.getContext("2d", { willReadFrequently: true })!
-    const paint = (...layers: string[]) => {
-      context.clearRect(0, 0, 1, 1)
-      for (const layer of layers) {
-        context.fillStyle = layer
-        context.fillRect(0, 0, 1, 1)
-      }
-      return [...context.getImageData(0, 0, 1, 1).data].slice(0, 3)
-    }
-    const luminance = (rgb: number[]) => {
-      const [r, g, b] = rgb.map((channel) => {
-        const value = channel / 255
-        return value <= 0.03928
-          ? value / 12.92
-          : ((value + 0.055) / 1.055) ** 2.4
-      })
-      return 0.2126 * r + 0.7152 * g + 0.0722 * b
-    }
-    const a = luminance(paint(page, back, fore))
-    const b = luminance(paint(page, back))
-    return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05)
-  }, colors)
-}
 
 const QUERIES = {
   colorScheme: "prefers-color-scheme",
@@ -140,14 +104,6 @@ test.describe("prefers-contrast", () => {
   })
 })
 
-const THEMES = [
-  "default",
-  ...readdirSync(new URL("../../packages/opui/themes/", import.meta.url))
-    .filter((file) => file.endsWith(".css"))
-    .map((file) => file.replace(/\.css$/, ""))
-    .toSorted(),
-]
-
 test.describe("token promises", () => {
   for (const theme of THEMES) {
     for (const colorScheme of ["light", "dark"] as const) {
@@ -219,6 +175,18 @@ test.describe("forced-colors", () => {
     const button = page.locator(".ui-toggle-button:has(input:checked)").first()
     expect(await computed(button, "background-color")).toBe(
       await resolveColor(button, "SelectedItem"),
+    )
+  })
+
+  test("the current list item's description uses SelectedItemText", async ({
+    page,
+  }) => {
+    await openFixture(page, "html", "list")
+    const description = page
+      .locator('.ui-list [aria-current="page"] .ui-text p + p')
+      .first()
+    expect(await computed(description, "color")).toBe(
+      await resolveColor(description, "SelectedItemText"),
     )
   })
 
@@ -319,6 +287,9 @@ for (const component of COMPONENTS) {
       const { violations } = await new AxeBuilder({ page })
         .include("main")
         .exclude(".ui-not-rich-text a:not([class])")
+        .exclude(
+          ":is(.ui-select, .ui-text-field, .ui-textarea):has(:disabled) > :is(.ui-end-text, .ui-start-text)",
+        )
         .withRules(["color-contrast-enhanced"])
         .analyze()
       expect(

@@ -26,6 +26,16 @@ export default {
       "Radius of the bubble's corner on the avatar side at the top. Tightened on every message of a run but the first.",
     kind: "output",
   },
+  "--_border-color": {
+    description:
+      "Border of the `.ui-toggle-button` reactions in the `bottom` slot. The group's `--_border-color`, `--ui-text-subtle` on hover and `--ui-selected-strong` when checked. A focused reaction draws `--ui-focus-border-color` instead when the theme sets it.",
+    kind: "output",
+  },
+  "--_divider-gap": {
+    description:
+      "Set to `0px` on the `.ui-toggle-group` in the `bottom` slot, so the group draws no lines between the reaction pills, which keep their own gap.",
+    kind: "output",
+  },
   "--_dot-image": {
     description: "One dot of the typing indicator.",
     kind: "output",
@@ -58,6 +68,11 @@ export default {
     description:
       "Radius of the bubble corners. Defaults to `--ui-radius`, larger with `corner-shape: squircle`.",
     kind: "input",
+  },
+  "--_selected-bg-color": {
+    description:
+      "Fill of a checked `.ui-toggle-button` reaction in the `bottom` slot. `--ui-selected` when the theme sets it, otherwise `--ui-primary` mixed into `--ui-surface` at `--ui-state-selected-alpha-accent`. Its border is `--ui-selected-strong` and its text `--ui-on-selected`, or `--ui-text-strong`.",
+    kind: "output",
   },
   "--_size": {
     description:

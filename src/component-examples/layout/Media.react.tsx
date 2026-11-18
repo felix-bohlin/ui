@@ -3,12 +3,10 @@ import { Avatar } from "opui-css/react"
 export default function Media() {
   return (
     <div className="ui-layout-media">
-      <Avatar aria-label="Lena Ek" role="img">
-        LE
-      </Avatar>
+      <Avatar aria-hidden="true">LH</Avatar>
       <div>
-        <p>Lena Ek</p>
-        <p className="ui-caption">Product designer, joined in March</p>
+        <p>Lou Headstock</p>
+        <p className="ui-caption">Fretless fan, joined in March</p>
       </div>
     </div>
   )

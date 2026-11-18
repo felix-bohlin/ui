@@ -5,20 +5,19 @@ import { Callout, CalloutContent } from "opui-css/vue"
 <template>
   <Callout>
     <CalloutContent>
-      <h3>Note</h3>
+      <h3>Scheduled maintenance</h3>
       <p>
-        This is a tonal Callout. Notice the lack of icons - it's not really
-        needed here.
+        Bassbook is read-only on Sunday from 02:00 to 04:00 UTC while we
+        restring the servers.
       </p>
     </CalloutContent>
   </Callout>
   <Callout variant="outlined">
     <CalloutContent>
-      <h3>Another Callout</h3>
+      <h3>Bassbook Gold has moved</h3>
       <p>
-        This is an outlined Callout. Why not use a
-        <a class="ui-link" href="#">Card</a> since they look very similar? For
-        one, the Callout is a more focused component with different properties.
+        Receipts and payment methods now live in the Gold tab of your profile
+        settings, right next to your gear list.
       </p>
     </CalloutContent>
   </Callout>

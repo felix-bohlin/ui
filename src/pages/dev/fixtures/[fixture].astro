@@ -1,0 +1,57 @@
+---
+import "@opui/css/imports.css"
+import { generateHydrationScript } from "@solidjs/web"
+import type { Component } from "solid-js"
+import { renderHydratableSolid } from "../../../components/Example/render-solid"
+import SolidRoots from "../../../fixtures/SolidRoots.solid"
+import { FRAMEWORKS, isHydratedFramework } from "../../../utils/framework"
+import { fixturePagesEnabled } from "../../../utils/test-pages"
+
+export function getStaticPaths() {
+  return fixturePagesEnabled()
+    ? [
+        ...FRAMEWORKS.filter(({ id }) => isHydratedFramework(id)).map(
+          ({ id, label }) => ({
+            params: { fixture: `${id}-models` },
+            props: { title: `${label} models` },
+          }),
+        ),
+        { params: { fixture: "solid-roots" }, props: { title: "Solid roots" } },
+      ]
+    : []
+}
+
+const { fixture } = Astro.params
+const { title } = Astro.props
+const roots =
+  fixture === "solid-roots"
+    ? ["first-", "second-"].map((renderId) => ({
+        html: renderHydratableSolid(
+          SolidRoots as unknown as Component,
+          renderId,
+        ),
+        renderId,
+      }))
+    : []
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex" />
+    <title>{title}</title>
+    {roots.length > 0 && <Fragment set:html={generateHydrationScript()} />}
+  </head>
+  <body data-fixture={fixture}>
+    <main id={fixture}>
+      {roots.map((root) => (
+        <div data-solid-root={root.renderId} set:html={root.html} />
+      ))}
+    </main>
+    <script>
+      import "../../../fixtures/mount"
+    </script>
+  </body>
+</html>

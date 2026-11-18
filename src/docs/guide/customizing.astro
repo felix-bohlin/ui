@@ -5,23 +5,30 @@ import DocLink from "../../components/DocLink.astro"
 import Example from "../../components/Example/index"
 import { exampleThemeNotes } from "../../utils/example-theme-notes"
 import { EXAMPLE_THEMES } from "../../utils/example-themes"
+
+export const keywords = [
+  "css variables",
+  "custom properties",
+  "override",
+  "restyle",
+]
 ---
 
 <Guide overline="Guide">
   <Fragment slot="title">Customizing</Fragment>
   <Fragment slot="preamble">
-    Where your CSS goes: a theme in <code>theme.custom</code> changes the whole library,
-    a component's <code>--_*</code> properties change one component or one instance,
-    and your own layer holds the rest.
+    A theme in <code>theme.custom</code>, <code>--_*</code> properties for one
+    component, and your own layer for the rest.
   </Fragment>
 
   <section id="your-theme">
     <h2>Your theme</h2>
     <p>
-      A theme is the <DocLink href="/guide/concepts#token-tiers"
+      Set the
+      <DocLink href="/guide/concepts#token-tiers"
         >knobs, roles and component tokens</DocLink
-      > you change, in the <code>theme.custom</code> layer, right after the defaults.
-      Tokens you leave out keep their defaults, also new ones in later releases.
+      >
+      you change in the <code>theme.custom</code> layer.
     </p>
     <Code
       code={`@layer theme.custom {
@@ -36,50 +43,43 @@ import { EXAMPLE_THEMES } from "../../utils/example-themes"
       lang="css"
     />
     <p>
-      If it might load before <code>layers.css</code>, start it with the two <code
-        >@layer</code
-      > statements from there, like the example themes do. The <DocLink
-        href="/theme-builder">Theme builder</DocLink
-      > writes one for you, and <DocLink href="/guide/theming">Theming</DocLink> walks
-      through the knobs.
-    </p>
-    <p>
-      Knobs inherit, so <code>html</code> is enough for them. A role you pin, such
-      as
-      <code>--ui-surface</code> or <code>--ui-primary</code>, goes on <code
-        >:where(html, .ui-palette, .ui-contrast-more)</code
-      > so the scope classes keep it. The example themes and the Theme builder do
-      that for every token.
+      The <DocLink href="/theme-builder">Theme builder</DocLink> writes one for
+      you. Put pinned roles, like <code>--ui-primary</code>, on
+      <code>:where(html, .ui-palette, .ui-contrast-more)</code>.
     </p>
     <h3 id="example-themes">Example themes</h3>
     <p>
-      The themes below ship with the package to show how far tokens go. Each is
-      only tokens in <code>theme.custom</code>, on <code>html</code> and, for the
-      colors of severity scopes such as <code>.ui-info</code>, on those classes.
-      No component CSS. Every stress test page runs with each of them in light
-      and dark mode. They copy their originals faithfully, also where those fall
-      short of WCAG contrast (the translucent focus rings of Bootstrap and
-      shadcn, the light field borders of Bootstrap and shadcn, the bright blue
-      of brutalist). They name their fonts (Geist, Roboto, DM Sans) but don't
-      load them. The <DocLink href="/theme-builder">Theme builder</DocLink> starts
-      from any of them.
+      Tokens only, no component CSS. They name their fonts but don't load them.
+      Each borrows the look of a design system it isn't affiliated with.
     </p>
     <ul>
-      {
-        EXAMPLE_THEMES.map(({ name }) => {
-          const { description, original } = exampleThemeNotes(name)
-          return (
-            <li>
-              <code>{name}</code>: {original}.{" "}
-              <Fragment set:html={description} />
-            </li>
-          )
-        })
-      }
+      {EXAMPLE_THEMES.map(({ name }) => {
+        const { description, original } = exampleThemeNotes(name)
+        return <li>
+          <code>{name}</code>: {original}.{" "}
+          <Fragment set:html={description} />
+        </li>
+      })}
     </ul>
     <Code
       code={`@import "opui-css/css/imports.css";
 @import "opui-css/themes/brutalist.css";`}
+      lang="css"
+    />
+    <p>
+      The bootstrap, brutalist, govuk and m3 themes derive their primary color
+      and their tinted surfaces, text and borders from
+      <code>--ui-palette-source</code>, so setting it recolors them, on the page
+      or in a
+      <DocLink href="/guide/theming#scopes"><code>.ui-palette</code></DocLink>
+      scope. The shadcn theme stays black, white and gray. The gray ramp keeps
+      <code>--ui-gray-hue</code>, so set it too:
+    </p>
+    <Code
+      code={`:where(html) {
+  --ui-palette-source: oklch(0.65 0.15 30);
+  --ui-gray-hue: 30;
+}`}
       lang="css"
     />
   </section>
@@ -87,16 +87,13 @@ import { EXAMPLE_THEMES } from "../../utils/example-themes"
   <section id="component-properties">
     <h2>Component properties</h2>
     <p>
-      The <code>--_*</code> private properties are each component's wiring, the last
-      <DocLink href="/guide/concepts#token-tiers">tier</DocLink> before its CSS. Every
-      component page lists its own under Component properties, marked as inputs or
-      outputs, and components share names where they mean the same thing. Button reads
-      these:
+      Each component page lists its <code>--_*</code> properties. Button reads
+      these, among others:
     </p>
     <ul>
       <li>
-        <code>--_accent</code>: the accent color. Fills, borders, text, hover
-        and active states are all derived from it.
+        <code>--_accent</code>: the accent color, which every state derives
+        from.
       </li>
       <li>
         <code>--_bg-color</code> and <code>--_text-color</code>: the current
@@ -109,23 +106,11 @@ import { EXAMPLE_THEMES } from "../../utils/example-themes"
       <li>
         <code>--_icon-size</code>: the size of a direct child <code>svg</code>.
       </li>
-      <li>
-        <code>--_size</code>: the control size, set by the size classes: the
-        height, and the width when the control is square.
-      </li>
-      <li>
-        <code>--_motion</code>: the motion multiplier, <code>0</code> turns transitions
-        off.
-      </li>
-      <li>
-        <code>--_padding-inline</code>: the inline padding, set by the size
-        classes.
-      </li>
+      <li><code>--_size</code>: the control size.</li>
+      <li><code>--_motion</code>: the motion multiplier.</li>
+      <li><code>--_padding-inline</code>: the inline padding.</li>
     </ul>
-    <p>
-      The component declares them on itself, so set them on the component, not
-      on a parent. Theme tokens are the ones to set on a parent:
-    </p>
+    <p>Set them on the component, not on a parent:</p>
     <Code
       code={`/* Does nothing: every .ui-button declares its own --_icon-size */
 .toolbar {
@@ -160,22 +145,17 @@ import { EXAMPLE_THEMES } from "../../utils/example-themes"
       </button>
     </Example>
     <p>
-      Prefer inputs like <code>--_accent</code> over outputs like <code
-        >--_bg-color</code
-      >. The states set the outputs, so a new <code>--_bg-color</code> freezes the
-      background in every state, while a new <code>--_accent</code> flows through
-      all of them.
+      Prefer inputs like <code>--_accent</code> over outputs like
+      <code>--_bg-color</code>, which freezes every state.
     </p>
   </section>
 
   <section id="unlayered-or-your-own-layer">
     <h2>Unlayered or your own layer</h2>
     <p>
-      Unlayered CSS beats every <DocLink href="/guide/concepts#cascade-layers"
-        >layer</DocLink
-      >, which is fine for most apps. If you use layers yourself, add one after <code
-        >utils</code
-      >: it beats the library and still loses to your unlayered one-off fixes.
+      Unlayered CSS beats every
+      <DocLink href="/guide/concepts#cascade-layers">layer</DocLink>. With your
+      own layers, add one after <code>utils</code>.
     </p>
     <Code
       code={`@layer openprops, theme, normalize, components.prose, components.root, components.extended, components.compat, utils, overrides;
@@ -183,7 +163,7 @@ import { EXAMPLE_THEMES } from "../../utils/example-themes"
 
 @layer overrides {
   .ui-badge {
-    --_size: var(--ui-space-5);
+    --_indicator-size: var(--ui-space-5);
   }
 }`}
       lang="css"

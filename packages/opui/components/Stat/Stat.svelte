@@ -4,12 +4,12 @@
 
   let {
     class: className,
-    description,
-    label,
     size,
 
     // Snippets
     children,
+    description,
+    label,
     ...rest
   }: Props = $props()
 </script>
@@ -19,10 +19,14 @@
   {...rest}
 >
   <dt class="ui-label">
-    {#if label}{@render content(label)}{/if}
+    {@render content(label)}
   </dt>
-  <dd class="ui-value">{@render children?.()}</dd>
+  <dd class="ui-value">
+    {@render children?.()}
+  </dd>
   {#if description}
-    <dd class="ui-description">{@render content(description)}</dd>
+    <dd class="ui-description">
+      {@render content(description)}
+    </dd>
   {/if}
 </dl>

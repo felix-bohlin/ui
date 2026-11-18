@@ -4,10 +4,11 @@ import { Button, List, ListItem } from "opui-css/vue"
 
 <template>
   <List flush>
-    <ListItem label="Gutterless list item">
+    <ListItem label="Saved pedalboards">
       <template #end>
         <Button aria-label="Delete" round size="small">
           <svg
+            data-icon="delete"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
@@ -22,9 +23,10 @@ import { Button, List, ListItem } from "opui-css/vue"
         </Button>
       </template>
     </ListItem>
-    <ListItem label="Headline" description="Supporting text">
-      <template #start
-        ><svg
+    <ListItem description="Fretless enthusiast" label="Lou Headstock">
+      <template #start>
+        <svg
+          data-icon="person"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -34,9 +36,10 @@ import { Button, List, ListItem } from "opui-css/vue"
           <path
             fill="currentColor"
             d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
-          ></path></svg
-      ></template>
-      <template #end>100+</template>
+          ></path>
+        </svg>
+      </template>
+      <template #end>Admin</template>
     </ListItem>
   </List>
 </template>

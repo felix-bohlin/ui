@@ -7,14 +7,14 @@ export default {
   keyboard: modalKeyboard("dialog"),
   notes: {
     default:
-      "Attributes that aren't props go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogTitle` names the dialog. A dialog without a `DialogTitle` needs an `aria-label`. An `id` on `DialogTitle` only applies when the dialog has `aria-label` or `aria-labelledby`.",
+      'Attributes that aren\'t props go to the `<dialog>`, like `id`, which also starts the generated title id: `x-title` for `id="x"`. Without `aria-label` or `aria-labelledby`, the `DialogTitle` names the dialog. A dialog without a `DialogTitle` needs an `aria-label`. An `id` on `DialogTitle` only applies when the dialog has `aria-label` or `aria-labelledby`.',
     html: "Add `.ui-elevated` to the root for the raised surface.",
   },
   options: [
     {
       attribute: "[closedby]",
       description:
-        'How the dialog can be closed. `"any"` also closes it on a click outside.',
+        "How the dialog can be closed. Without it, a modal dialog acts like `closerequest` and a non-modal one like `none`. `any` also closes it on a click outside.",
       group: "Behavior",
       prop: "closedby",
     },
@@ -22,7 +22,8 @@ export default {
   parts: [
     {
       component: "DialogHeader",
-      description: "The header, a row for the title and anything next to it.",
+      description:
+        "The header, a row for the title and anything next to it, with an optional close button.",
       selector: ".ui-header",
     },
     {

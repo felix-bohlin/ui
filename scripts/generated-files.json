@@ -1,8 +1,17 @@
 {
   "files": [
+    "packages/opui/figma/themes",
+    "packages/opui/icons",
     "packages/opui/skills/opui/references",
     "packages/opui/tokens.json",
-    "public/search-index.json"
+    "public/search-index",
+    "src/utils/icon-samples.json",
+    "src/utils/icon-sets.json"
   ],
-  "sections": ["packages/opui/README.md"]
+  "sections": [
+    "packages/opui/README.md",
+    "packages/opui/css/theme.css",
+    "packages/opui/themes/m3.css",
+    "packages/opui/themes/shadcn.css"
+  ]
 }

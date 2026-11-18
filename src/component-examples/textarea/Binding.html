@@ -1,30 +1,27 @@
-<label class="ui-textarea">
-  <span class="ui-label">Message</span>
+<div class="ui-textarea">
+  <label class="ui-label" for="textarea-binding-1">Message</label>
   <span class="ui-field">
-    <textarea name="textarea-binding">Thanks for the update.</textarea>
+    <textarea id="textarea-binding-1" name="textarea-binding">
+Thanks for the update.</textarea>
   </span>
-</label>
+</div>
 <p class="textarea-binding-text">22 characters</p>
-<button type="button" class="ui-button textarea-binding-reset">Reset</button>
+<button class="ui-button textarea-binding-reset" type="button">Reset</button>
 
-<script>
-  function setupTextareaBinding() {
-    const text = document.querySelector(".textarea-binding-text")
-    const textarea = document.querySelector('[name="textarea-binding"]')
+<script type="module">
+  const text = document.querySelector(".textarea-binding-text")
+  const textarea = document.querySelector('[name="textarea-binding"]')
 
-    function update() {
-      if (!text || !textarea) return
-      text.textContent = `${textarea.value.length} characters`
-    }
-
-    textarea?.addEventListener("input", update)
-    document
-      .querySelector(".textarea-binding-reset")
-      ?.addEventListener("click", () => {
-        if (textarea) textarea.value = textarea.defaultValue
-        update()
-      })
+  function update() {
+    if (!text || !textarea) return
+    text.textContent = `${textarea.value.length} characters`
   }
 
-  setupTextareaBinding()
+  textarea?.addEventListener("input", update)
+  document
+    .querySelector(".textarea-binding-reset")
+    ?.addEventListener("click", () => {
+      if (textarea) textarea.value = textarea.defaultValue
+      update()
+    })
 </script>

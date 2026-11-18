@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { classAttrs } from "../cx"
   import type { DescriptionListItemProps as Props } from "./types.svelte"
 
   let {
@@ -11,6 +12,6 @@
   }: Props = $props()
 </script>
 
-<div class={[total && "ui-total", className]} {...rest}>
+<div {...classAttrs([total && "ui-total", className])} {...rest}>
   {@render children?.()}
 </div>

@@ -10,9 +10,7 @@
   <AccordionSummary>Flip</AccordionSummary>
   <AccordionContent>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-      neque ante id justo.
+      Return any bass within 30 days for a full refund, no awkward questions.
     </p>
   </AccordionContent>
 </Accordion>
@@ -20,11 +18,7 @@
 <Accordion markerAnimation="rotate" variant="outlined">
   <AccordionSummary>Rotate</AccordionSummary>
   <AccordionContent>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-      neque ante id justo.
-    </p>
+    <p>String orders over €50 ship free within the EU.</p>
   </AccordionContent>
 </Accordion>
 
@@ -33,6 +27,7 @@
     Turn
     {#snippet marker()}
       <svg
+        data-icon="chevron-right"
         aria-hidden="true"
         class="ui-marker"
         xmlns="http://www.w3.org/2000/svg"
@@ -48,10 +43,6 @@
     {/snippet}
   </AccordionSummary>
   <AccordionContent>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-      neque ante id justo.
-    </p>
+    <p>Pay by card, bank transfer or a jar of gig money.</p>
   </AccordionContent>
 </Accordion>

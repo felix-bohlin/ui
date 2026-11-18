@@ -25,7 +25,10 @@ export default {
     default:
       "Extra attributes go to the `<fieldset>` or the `<meter>`, except `aria-describedby` and `aria-invalid`, which go to every radio.",
     html: "Add `.ui-rating` to a `<meter>` with `max` and `value`, or to a `<fieldset>` with a `<legend>` and one radio per star.",
-    react: "Use `value` with `onChange`, or `defaultValue`.",
+    react:
+      "Use `value` with `onValueChange`, or `defaultValue`. Without them the radios keep their own state, and `onValueChange` still reports changes.",
+    solid:
+      "Use `value` with `onValueChange`, or `defaultValue`. Without them the radios keep their own state, and `onValueChange` still reports changes.",
     svelte: "Bind the input with `bind:value`.",
     vue: "Bind the input with `v-model`.",
   },
@@ -35,6 +38,12 @@ export default {
       description:
         "The accessible name of the radio that clears the rating. Not rendered with `required`.",
       prop: "clearLabel",
+    },
+    {
+      description:
+        "The starting score of the meter or the star checked at the start, when `value` is omitted.",
+      frameworks: ["react", "solid"],
+      prop: "defaultValue",
     },
     {
       attribute: "[disabled]",
@@ -58,6 +67,13 @@ export default {
       prop: "label",
     },
     {
+      description:
+        "The language of the `<fieldset>` or the `<meter>`, which picks the plural form of `starLabel` with `Intl.PluralRules`. Without it, the rating picks the English form.",
+      inherited: true,
+      prop: "lang",
+      type: "string",
+    },
+    {
       attribute: "[max]",
       cssVar: "--_max",
       default: "5",
@@ -73,22 +89,24 @@ export default {
       prop: "name",
     },
     {
-      description: "Called when a star or the clear radio is picked.",
-      frameworks: ["react"],
-      prop: "onChange",
-      type: "ChangeEventHandler<HTMLInputElement>",
+      description:
+        "Called with the `value` of the star when one is picked, or `0` for the clear radio.",
+      frameworks: ["react", "solid"],
+      prop: "onValueChange",
+      type: "(value: number | string) => void",
     },
     {
       attribute: "[required]",
       default: "false",
-      description: "Requires a star and drops the clear radio.",
+      description:
+        "Adds a required mark after the legend, requires a star and drops the clear radio.",
       group: "Required",
       part: "input",
       prop: "required",
     },
     {
       default: '"medium"',
-      description: "The size of the stars.",
+      description: "The size of the element.",
       group: "Sizes",
       prop: "size",
       values: {
@@ -98,9 +116,9 @@ export default {
       },
     },
     {
-      default: '(value) => "1 star", "2 stars"',
+      default: '{ one: "{count} star", other: "{count} stars" }',
       description:
-        "Returns the accessible name of each star radio. Use it to translate.",
+        "The accessible name of each star radio: a template per plural category of `lang` (`zero`, `one`, `two`, `few`, `many` and `other`), with `{count}` where the number goes. A category without a template takes `other`. Use it to translate.",
       prop: "starLabel",
     },
   ],

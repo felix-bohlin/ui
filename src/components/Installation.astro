@@ -1,9 +1,11 @@
 ---
 import Code from "./Code.astro"
-import CodeGroup from "./CodeGroup.astro"
 import { compatCss } from "../utils/compat"
 import { components, dependentsOf } from "../utils/components"
 import { componentHasFramework } from "../utils/framework"
+import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
+import InstallationFiles from "./InstallationFiles.astro"
+import InstallCommand from "../docs/guide/getting-started/partials/InstallCommand.astro"
 
 export type Tab = {
   title: string
@@ -15,10 +17,11 @@ export type Tab = {
 type Props = {
   imports?: { names: string[]; package: string }
   slug?: string
+  sourceTabs?: Tab[]
   tabs: Tab[]
 }
 
-const { imports, slug, tabs } = Astro.props
+const { imports, slug, sourceTabs = [], tabs } = Astro.props
 
 const importLine = imports
   ? `import { ${imports.names.join(", ")} } from "${imports.package}"`
@@ -54,11 +57,6 @@ const allTabs = [
   ),
 ]
 
-const cssTabs = allTabs.filter((tab) => tab.title.endsWith(".css"))
-const allCss = cssTabs
-  .map((tab) => `/* ${tab.title} */\n${tab.code.trim()}\n`)
-  .join("\n")
-
 const usedBy = slug
   ? dependentsOf(slug).filter((c) =>
       componentHasFramework(Astro.locals.framework, c.slug),
@@ -68,101 +66,72 @@ const usedBy = slug
 
 <section id="installation">
   <h2>Installation</h2>
-  <slot />
+  {imports ? (
+    <Tabs class="installation-methods" overflow="wrap" variant="line">
+      <TabsItem checked>
+        <TabsLabel>Command</TabsLabel>
+        <TabsPanel>
+          <InstallCommand />
+          {imports.names.length > 0 && (
+            <>
+              <p>
+                Import{" "}
+                {imports.names.length === 1
+                  ? "the component"
+                  : "the components"}
+                from{" "} <code>{imports.package}</code>:
+              </p>
+              <Code code={importCode} lang="ts" />
+            </>
+          )}
+          <p>
+            The components ship markup only. Import
+            <code>opui-css/css/imports.css</code> once, or only the files under
+            Manual. See
+            <a href={link("/guide/getting-started")}>Getting started</a>.
+          </p>
+        </TabsPanel>
+      </TabsItem>
+      <TabsItem>
+        <TabsLabel>Manual</TabsLabel>
+        <TabsPanel>
+          <InstallationFiles sourceTabs={sourceTabs} tabs={allTabs}>
+            <slot />
+          </InstallationFiles>
+        </TabsPanel>
+      </TabsItem>
+    </Tabs>
+  ) : (
+    <InstallationFiles sourceTabs={sourceTabs} tabs={allTabs}>
+      <slot />
+    </InstallationFiles>
+  )}
 
-  {
-    imports && imports.names.length > 0 && (
-      <>
-        <p>
-          Import{" "}
-          {imports.names.length === 1 ? "the component" : "the components"} from{" "}
-          <code>{imports.package}</code>:
-        </p>
-        <Code code={importCode} lang="ts" />
-      </>
-    )
-  }
+  {dependencies.length > 0 && (
+    <>
+      <h3 id="dependencies">Dependencies</h3>
+      <ul>
+        {dependencies.map((dep) => <li>
+          <a href={link(dep.href)}>{dep.name}</a>
+        </li>)}
+      </ul>
+    </>
+  )}
 
-  {
-    dependencies.length > 0 && (
-      <>
-        <h3 id="dependencies">Dependencies</h3>
-        <ul>
-          {dependencies.map((dep) => (
-            <li>
-              <a href={link(dep.href)}>{dep.name}</a>
-            </li>
-          ))}
-        </ul>
-      </>
-    )
-  }
-
-  {
-    usedBy.length > 0 && (
-      <>
-        <h3 id="used-by">Used by</h3>
-        <ul>
-          {usedBy.map((item) => (
-            <li>
-              <a href={link(item.href)}>{item.name}</a>
-            </li>
-          ))}
-        </ul>
-      </>
-    )
-  }
-
-  {
-    cssTabs.length > 0 && (
-      <div class="copy-all-css">
-        <p>
-          Copy the CSS into your project to own it. It reads tokens from Open
-          Props, <code>palette.css</code> and <code>theme.css</code>, so those
-          go on the page too, after <code>layers.css</code>. See
-          <a href={link("/guide/getting-started")}>Getting started</a>.
-        </p>
-        {cssTabs.length > 1 && (
-          <button
-            type="button"
-            class="ui-button ui-outlined ui-small"
-            data-css={allCss}
-          >
-            Copy all CSS
-          </button>
-        )}
-      </div>
-    )
-  }
-
-  <CodeGroup tabs={allTabs} />
+  {usedBy.length > 0 && (
+    <>
+      <h3 id="used-by">Used by</h3>
+      <ul>
+        {usedBy.map((item) => <li>
+          <a href={link(item.href)}>{item.name}</a>
+        </li>)}
+      </ul>
+    </>
+  )}
 </section>
 
 <style>
-  .copy-all-css {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--ui-space-3);
-    justify-content: space-between;
-
-    p {
-      flex: 1 1 30ch;
-      margin: 0;
-    }
+  .installation-methods {
+    margin-block: var(--size-4);
   }
 </style>
-
-<script>
-  import { copyText } from "../utils/storage"
-
-  document.addEventListener("click", async (event) => {
-    const button = (event.target as Element).closest<HTMLElement>(
-      ".copy-all-css [data-css]",
-    )
-    if (!button || !(await copyText(button.dataset.css ?? ""))) return
-    const label = button.textContent
-    button.textContent = "Copied"
-    setTimeout(() => (button.textContent = label), 1500)
-  })
-</script>

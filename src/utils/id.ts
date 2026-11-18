@@ -7,3 +7,12 @@ export const createIdGenerator = () => {
     return `${prefix}-${count}`
   }
 }
+
+export const exampleIdBase = (key: string) => {
+  const [slug, name] = key.split("/")
+  const example = name
+    .replace(/Code$/, "")
+    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
+    .toLowerCase()
+  return `${slug}-${example}`
+}

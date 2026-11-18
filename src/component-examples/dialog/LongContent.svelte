@@ -10,8 +10,8 @@
 </script>
 
 <Button
-  commandfor="dialog-long-content-1"
   command="show-modal"
+  commandfor="dialog-long-content-1"
   variant="outlined"
 >
   Read the terms
@@ -87,8 +87,8 @@
     </p>
   </DialogContent>
   <DialogFooter>
-    <Button commandfor="dialog-long-content-1" command="close">Decline</Button>
-    <Button commandfor="dialog-long-content-1" command="close" variant="filled">
+    <Button command="close" commandfor="dialog-long-content-1">Decline</Button>
+    <Button command="close" commandfor="dialog-long-content-1" variant="filled">
       Accept
     </Button>
   </DialogFooter>

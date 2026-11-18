@@ -20,394 +20,288 @@ const id = (name: string) => `blog-preview-${slug}-${name}`
 ---
 
 <div class="blog-preview" data-preview={slug} inert>
-  {
-    slug === "accordion-height-auto" && (
-      <details class="ui-accordion ui-outlined" open>
-        <summary>
-          Shipping
-          <svg aria-hidden="true" class="ui-marker" viewBox="0 0 24 24">
-            <path
-              d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
-              fill="currentColor"
-            />
-          </svg>
-        </summary>
-        <div class="ui-content">
-          <p>Free over 50 €, in two to four days.</p>
-        </div>
-      </details>
-    )
-  }
-  {
-    slug === "anchor-hover-cards" && (
-      <div class="blog-preview-anchor">
-        <a class="ui-link" href="#">
-          @opui
-        </a>
-        <span class="ui-card ui-elevated blog-preview-hover-card">
-          <span class="ui-avatar ui-small ui-tonal">OP</span>
-          <span>
-            <strong>opui</strong>
-            <br />
-            CSS-first components
-          </span>
-        </span>
-      </div>
-    )
-  }
-  {
-    slug === "avatar-squircles" && (
-      <div class="blog-preview-row">
-        <span class="ui-avatar ui-large ui-squircle">AK</span>
-        <span class="ui-avatar ui-large ui-squircle ui-tonal">JB</span>
-        <span class="ui-avatar ui-large ui-squircle ui-outlined">SQ</span>
-      </div>
-    )
-  }
-  {
-    slug === "button-icon-only-has" && (
-      <div class="blog-preview-row">
-        <button aria-label="Edit" class="ui-button ui-outlined" type="button">
-          <svg aria-hidden="true" height="32" viewBox="0 0 16 16" width="32">
-            <path d={icons.edit} fill="currentColor" />
-          </svg>
-        </button>
-        <button
-          aria-label="Like"
-          class="ui-button ui-round ui-tonal"
-          type="button"
-        >
-          <svg aria-hidden="true" height="32" viewBox="0 0 16 16" width="32">
-            <path d={icons.heart} fill="currentColor" />
-          </svg>
-        </button>
-        <button class="ui-button ui-filled" type="button">
-          <svg aria-hidden="true" height="32" viewBox="0 0 16 16" width="32">
-            <path d={icons.download} fill="currentColor" />
-          </svg>
-          <span class="ui-text">Download</span>
-        </button>
-      </div>
-    )
-  }
-  {
-    slug === "callout-relative-colors" && (
-      <div class="blog-preview-stack">
-        <article class="ui-callout ui-info">
-          <svg aria-hidden="true" viewBox="0 0 16 16">
-            <path d={icons.info} fill="currentColor" />
-          </svg>
-          <div class="ui-content">One hue, every shade.</div>
-        </article>
-        <article class="ui-callout ui-success">
-          <svg aria-hidden="true" viewBox="0 0 16 16">
-            <path d={icons.success} fill="currentColor" />
-          </svg>
-          <div class="ui-content">Derived with oklch(from).</div>
-        </article>
-      </div>
-    )
-  }
-  {
-    slug === "carousel-css-only" && (
-      <ul
-        aria-label="Slides"
-        class="ui-carousel"
-        style="--_items-per-view: 2.3"
-      >
-        {["Kyoto", "Lima", "Lisbon", "Oslo"].map((city) => (
-          <li>
-            <div class="ui-card ui-tonal">
-              <div class="ui-content">{city}</div>
-            </div>
-          </li>
-        ))}
-      </ul>
-    )
-  }
-  {
-    slug === "checkbox-appearance-none" && (
-      <div class="blog-preview-row">
-        <label class="ui-checkbox">
-          <input checked name={id("checkbox")} type="checkbox" />
-          <span class="ui-label">Checked</span>
-        </label>
-        <label class="ui-checkbox">
-          <input name={id("checkbox")} type="checkbox" />
-          <span class="ui-label">Not yet</span>
-        </label>
-      </div>
-    )
-  }
-  {
-    slug === "description-list-leader-lines" && (
-      <dl class="ui-description-list ui-bordered ui-dotted ui-horizontal">
-        <div>
-          <dt>Espresso</dt>
-          <dd>2.80</dd>
-        </div>
-        <div>
-          <dt>Flat white</dt>
-          <dd>3.90</dd>
-        </div>
-        <div>
-          <dt>Cardamom bun</dt>
-          <dd>4.20</dd>
-        </div>
-      </dl>
-    )
-  }
-  {
-    slug === "dialog-closedby" && (
-      <div class="blog-preview-backdrop">
-        <div class="ui-card ui-elevated blog-preview-dialog">
-          <strong>Discard draft?</strong>
-          <span>Click outside to keep writing.</span>
-          <div class="blog-preview-row">
-            <button class="ui-button ui-small" type="button">
-              Cancel
-            </button>
-            <button
-              class="ui-button ui-critical ui-filled ui-small"
-              type="button"
-            >
-              Discard
-            </button>
-          </div>
-        </div>
-      </div>
-    )
-  }
-  {
-    slug === "drawer-starting-style" && (
-      <div class="blog-preview-backdrop blog-preview-drawer-stage">
-        <div class="ui-card ui-elevated blog-preview-drawer">
-          <strong>Filters</strong>
-          <span class="blog-preview-line" />
-          <span class="blog-preview-line" />
-          <span class="blog-preview-line blog-preview-line-short" />
-        </div>
-      </div>
-    )
-  }
-  {
-    slug === "form-fieldset-has" && (
-      <fieldset class="ui-fieldset">
-        <legend>Contact</legend>
-        <label class="ui-text-field ui-small">
-          <span class="ui-label">Email</span>
-          <span class="ui-field">
-            <input required type="email" value="hi@opui.dev" />
-          </span>
-        </label>
-      </fieldset>
-    )
-  }
-  {
-    slug === "menu-popover-anchor" && (
-      <div class="blog-preview-menu">
-        <button class="ui-button ui-outlined ui-small" type="button">
-          Options
-        </button>
-        <menu class="ui-menu ui-dense">
-          <li>
-            <button type="button">
-              <div class="ui-text">
-                <p>Edit</p>
-              </div>
-            </button>
-          </li>
-          <li>
-            <button type="button">
-              <div class="ui-text">
-                <p>Duplicate</p>
-              </div>
-            </button>
-          </li>
-          <li class="ui-border-top ui-critical">
-            <button type="button">
-              <div class="ui-text">
-                <p>Delete</p>
-              </div>
-            </button>
-          </li>
-        </menu>
-      </div>
-    )
-  }
-  {
-    slug === "progress-native" && (
-      <div class="blog-preview-stack">
-        <div class="ui-progress">
-          <progress aria-label="Upload" max="100" value="64" />
-        </div>
-        <div class="ui-progress">
-          <progress aria-label="Loading" />
-        </div>
-      </div>
-    )
-  }
-  {
-    slug === "range-tick-marks" && (
-      <label class="ui-range">
-        <span class="ui-label">Quality</span>
-        <input list={id("ticks")} max="2" type="range" value="1" />
-        <datalist id={id("ticks")}>
-          <option label="Low" value="0" />
-          <option label="Medium" value="1" />
-          <option label="High" value="2" />
-        </datalist>
-      </label>
-    )
-  }
-  {
-    slug === "select-base-select" && (
-      <label class="ui-select">
-        <span class="ui-label">Role</span>
-        <span class="ui-field">
-          <select>
-            <button>
-              <selectedcontent />
-            </button>
-            <div class="ui-list">
-              <option value="designer">Designer</option>
-              <option selected value="developer">
-                Developer
-              </option>
-            </div>
-          </select>
-        </span>
-      </label>
-    )
-  }
-  {
-    slug === "spinner-aria-busy" && (
-      <div class="blog-preview-row">
-        <div aria-busy="true">Loading</div>
-        <button aria-busy="true" class="ui-button ui-filled" type="button">
-          Saving
-        </button>
-      </div>
-    )
-  }
-  {
-    slug === "switch-checkbox" && (
-      <div class="blog-preview-stack">
-        <label class="ui-switch">
-          <input checked role="switch" type="checkbox" />
-          <span class="ui-label">Wi-Fi</span>
-        </label>
-        <label class="ui-switch">
-          <input role="switch" type="checkbox" />
-          <span class="ui-label">Airplane mode</span>
-        </label>
-      </div>
-    )
-  }
-  {
-    slug === "table-scroll-state" && (
-      <table class="ui-table ui-dense">
-        <thead>
-          <tr>
-            <th>Planet</th>
-            <th>Moons</th>
-            <th>Rings</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Saturn</td>
-            <td>146</td>
-            <td>Yes</td>
-          </tr>
-          <tr>
-            <td>Jupiter</td>
-            <td>95</td>
-            <td>Faint</td>
-          </tr>
-        </tbody>
-      </table>
-    )
-  }
-  {
-    slug === "tabs-radio-buttons" && (
-      <div class="ui-tabs">
-        <input
-          checked
-          class="ui-input"
-          id={id("tab-1")}
-          name={id("tabs")}
-          type="radio"
+  {slug === "accordion-height-auto" && <details
+    class="ui-accordion ui-outlined"
+    open
+  >
+    <summary>
+      Shipping
+      <svg aria-hidden="true" class="ui-marker" viewBox="0 0 24 24">
+        <path
+          d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+          fill="currentColor"
         />
-        <label class="ui-label" for={id("tab-1")}>
-          Profile
-        </label>
-        <div class="ui-panel">Name, photo and bio.</div>
-        <input
-          class="ui-input"
-          id={id("tab-2")}
-          name={id("tabs")}
-          type="radio"
-        />
-        <label class="ui-label" for={id("tab-2")}>
-          Settings
-        </label>
-        <div class="ui-panel">General settings.</div>
-      </div>
-    )
-  }
-  {
-    slug === "text-field-user-invalid" && (
-      <label class="ui-text-field">
-        <span class="ui-label">Email</span>
-        <span class="ui-field">
-          <input aria-invalid="true" type="email" value="hi@opui" />
-        </span>
-        <span class="ui-end-text">Add a domain, like opui.dev.</span>
-      </label>
-    )
-  }
-  {
-    slug === "textarea-field-sizing" && (
-      <label class="ui-textarea">
-        <span class="ui-label">Message</span>
-        <span class="ui-field">
-          <textarea
-            rows="2"
-            set:text="The box grows with every line you write, no script needed."
-          />
-        </span>
-      </label>
-    )
-  }
-  {
-    slug === "tooltip-interest-invokers" && (
-      <span class="ui-tooltip">
-        <button class="ui-button ui-outlined ui-small" type="button">
-          Save
-        </button>
-        <span class="ui-floating">Saves a draft</span>
+      </svg>
+    </summary>
+    <div class="ui-content">
+      <p>Free over 50 €, in two to four days.</p>
+    </div>
+  </details>}
+  {slug === "anchor-hover-cards" && <div class="blog-preview-anchor">
+    <a class="ui-link" href="#"> @opui </a>
+    <span class="ui-card ui-elevated blog-preview-hover-card">
+      <span class="ui-avatar ui-small ui-tonal">OP</span>
+      <span>
+        <strong>opui</strong>
+        <br />
+        CSS-first components
       </span>
-    )
-  }
-  {
-    slug === "fluid-type-progress" && (
-      <div class="blog-preview-type">
-        <span class="blog-preview-type-xl">Aa</span>
-        <span class="blog-preview-type-l">Aa</span>
-        <span class="blog-preview-type-m">Aa</span>
-        <span class="blog-preview-type-s">Aa</span>
+    </span>
+  </div>}
+  {slug === "avatar-squircles" && <div class="blog-preview-row">
+    <span class="ui-avatar ui-large ui-squircle">HH</span>
+    <span class="ui-avatar ui-large ui-squircle ui-tonal">PG</span>
+    <span class="ui-avatar ui-large ui-squircle ui-outlined">RR</span>
+  </div>}
+  {slug === "button-icon-only-has" && <div class="blog-preview-row">
+    <button aria-label="Edit" class="ui-button ui-outlined" type="button">
+      <svg aria-hidden="true" height="32" viewBox="0 0 16 16" width="32">
+        <path d={icons.edit} fill="currentColor" />
+      </svg>
+    </button>
+    <button aria-label="Like" class="ui-button ui-round ui-tonal" type="button">
+      <svg aria-hidden="true" height="32" viewBox="0 0 16 16" width="32">
+        <path d={icons.heart} fill="currentColor" />
+      </svg>
+    </button>
+    <button class="ui-button ui-filled" type="button">
+      <svg aria-hidden="true" height="32" viewBox="0 0 16 16" width="32">
+        <path d={icons.download} fill="currentColor" />
+      </svg>
+      <span class="ui-text">Download</span>
+    </button>
+  </div>}
+  {slug === "callout-relative-colors" && <div class="blog-preview-stack">
+    <article class="ui-callout ui-info">
+      <svg aria-hidden="true" viewBox="0 0 16 16">
+        <path d={icons.info} fill="currentColor" />
+      </svg>
+      <div class="ui-content">One hue, every shade.</div>
+    </article>
+    <article class="ui-callout ui-success">
+      <svg aria-hidden="true" viewBox="0 0 16 16">
+        <path d={icons.success} fill="currentColor" />
+      </svg>
+      <div class="ui-content">Derived with oklch(from).</div>
+    </article>
+  </div>}
+  {slug === "carousel-css-only" && <ul
+    aria-label="Slides"
+    class="ui-carousel"
+    style="--_items-per-view: 2.3"
+  >
+    {["Kyoto", "Lima", "Lisbon", "Oslo"].map((city) => <li>
+      <div class="ui-card ui-tonal">
+        <div class="ui-content">{city}</div>
       </div>
-    )
-  }
-  {
-    slug === "vertical-rhythm-round" && (
-      <div class="blog-preview-rhythm">
-        <strong>Heading on the grid</strong>
-        <span>Every line lands on the same rhythm, headings too.</span>
+    </li>)}
+  </ul>}
+  {slug === "checkbox-appearance-none" && <div class="blog-preview-row">
+    <label class="ui-checkbox">
+      <input checked name={id("checkbox")} type="checkbox" />
+      <span class="ui-label">Checked</span>
+    </label>
+    <label class="ui-checkbox">
+      <input name={id("checkbox")} type="checkbox" />
+      <span class="ui-label">Not yet</span>
+    </label>
+  </div>}
+  {slug === "description-list-leader-lines" && <dl
+    class="ui-description-list ui-border-dotted ui-horizontal"
+  >
+    <div>
+      <dt>Espresso</dt>
+      <dd>2.80</dd>
+    </div>
+    <div>
+      <dt>Flat white</dt>
+      <dd>3.90</dd>
+    </div>
+    <div>
+      <dt>Cardamom bun</dt>
+      <dd>4.20</dd>
+    </div>
+  </dl>}
+  {slug === "dialog-closedby" && <div class="blog-preview-backdrop">
+    <div class="ui-card ui-elevated blog-preview-dialog">
+      <strong>Discard draft?</strong>
+      <span>Click outside to keep writing.</span>
+      <div class="blog-preview-row">
+        <button class="ui-button ui-small" type="button">Cancel</button>
+        <button class="ui-button ui-critical ui-filled ui-small" type="button">
+          Discard
+        </button>
       </div>
-    )
-  }
+    </div>
+  </div>}
+  {slug === "drawer-starting-style" && <div
+    class="blog-preview-backdrop blog-preview-drawer-stage"
+  >
+    <div class="ui-card ui-elevated blog-preview-drawer">
+      <strong>Filters</strong>
+      <span class="blog-preview-line" />
+      <span class="blog-preview-line" />
+      <span class="blog-preview-line blog-preview-line-short" />
+    </div>
+  </div>}
+  {slug === "form-fieldset-has" && <fieldset class="ui-fieldset">
+    <legend>Contact</legend>
+    <div class="ui-text-field ui-small">
+      <label class="ui-label" for={id("email")}>Email</label>
+      <span class="ui-field">
+        <input id={id("email")} required type="email" value="hi@opui.dev" />
+      </span>
+    </div>
+  </fieldset>}
+  {slug === "menu-popover-anchor" && <div class="blog-preview-menu">
+    <button class="ui-button ui-outlined ui-small" type="button">
+      Options
+    </button>
+    <menu class="ui-menu ui-dense">
+      <li>
+        <button type="button">
+          <div class="ui-text">
+            <p>Edit</p>
+          </div>
+        </button>
+      </li>
+      <li>
+        <button type="button">
+          <div class="ui-text">
+            <p>Duplicate</p>
+          </div>
+        </button>
+      </li>
+      <li class="ui-border-top ui-critical">
+        <button type="button">
+          <div class="ui-text">
+            <p>Delete</p>
+          </div>
+        </button>
+      </li>
+    </menu>
+  </div>}
+  {slug === "progress-native" && <div class="blog-preview-stack">
+    <div class="ui-progress">
+      <progress aria-label="Upload" max="100" value="64" />
+    </div>
+    <div class="ui-progress">
+      <progress aria-label="Loading" />
+    </div>
+  </div>}
+  {slug === "range-tick-marks" && <label class="ui-range">
+    <span class="ui-label">Quality</span>
+    <input list={id("ticks")} max="2" type="range" value="1" />
+    <datalist id={id("ticks")}>
+      <option label="Low" value="0" />
+      <option label="Medium" value="1" />
+      <option label="High" value="2" />
+    </datalist>
+  </label>}
+  {slug === "select-base-select" && <div class="ui-select">
+    <label class="ui-label" for={id("role")}>Role</label>
+    <span class="ui-field">
+      <select id={id("role")}>
+        <button inert>
+          <selectedcontent />
+        </button>
+        <div class="ui-list">
+          <option value="designer">Designer</option>
+          <option selected value="developer">Developer</option>
+        </div>
+      </select>
+    </span>
+  </div>}
+  {slug === "spinner-aria-busy" && <div class="blog-preview-row">
+    <div aria-busy="true">Loading</div>
+    <button aria-busy="true" class="ui-button ui-filled" type="button">
+      Saving
+    </button>
+  </div>}
+  {slug === "switch-checkbox" && <div class="blog-preview-stack">
+    <label class="ui-switch">
+      <input checked role="switch" type="checkbox" />
+      <span class="ui-label">Wi-Fi</span>
+    </label>
+    <label class="ui-switch">
+      <input role="switch" type="checkbox" />
+      <span class="ui-label">Airplane mode</span>
+    </label>
+  </div>}
+  {slug === "table-scroll-state" && <table class="ui-table ui-dense">
+    <thead>
+      <tr>
+        <th>Planet</th>
+        <th>Moons</th>
+        <th>Rings</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Saturn</td>
+        <td>146</td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td>Jupiter</td>
+        <td>95</td>
+        <td>Faint</td>
+      </tr>
+    </tbody>
+  </table>}
+  {slug === "tabs-radio-buttons" && <div class="ui-tabs">
+    <input
+      checked
+      class="ui-input"
+      id={id("tab-1")}
+      name={id("tabs")}
+      type="radio"
+    />
+    <label class="ui-label" for={id("tab-1")}> Profile </label>
+    <div class="ui-panel">Name, photo and bio.</div>
+    <input class="ui-input" id={id("tab-2")} name={id("tabs")} type="radio" />
+    <label class="ui-label" for={id("tab-2")}> Settings </label>
+    <div class="ui-panel">General settings.</div>
+  </div>}
+  {slug === "text-field-user-invalid" && <div class="ui-text-field">
+    <label class="ui-label" for={id("email-invalid")}>Email</label>
+    <span class="ui-field">
+      <input
+        aria-describedby={id("email-invalid-hint")}
+        aria-invalid="true"
+        id={id("email-invalid")}
+        type="email"
+        value="hi@opui"
+      />
+    </span>
+    <span class="ui-end-text" id={id("email-invalid-hint")}
+      >Add a domain, like opui.dev.</span
+    >
+  </div>}
+  {slug === "textarea-field-sizing" && <div class="ui-textarea">
+    <label class="ui-label" for={id("message")}>Message</label>
+    <span class="ui-field">
+      <textarea
+        id={id("message")}
+        rows="2"
+        set:text="The box grows with every line you write, no script needed."
+      />
+    </span>
+  </div>}
+  {slug === "tooltip-interest-invokers" && <span class="ui-tooltip">
+    <button class="ui-button ui-outlined ui-small" type="button">Save</button>
+    <span class="ui-floating">Saves a draft</span>
+  </span>}
+  {slug === "fluid-type-progress" && <div class="blog-preview-type">
+    <span class="blog-preview-type-xl">Aa</span>
+    <span class="blog-preview-type-l">Aa</span>
+    <span class="blog-preview-type-m">Aa</span>
+    <span class="blog-preview-type-s">Aa</span>
+  </div>}
+  {slug === "vertical-rhythm-round" && <div class="blog-preview-rhythm">
+    <strong>Heading on the grid</strong>
+    <span>Every line lands on the same rhythm, headings too.</span>
+  </div>}
 </div>
 
 <style>

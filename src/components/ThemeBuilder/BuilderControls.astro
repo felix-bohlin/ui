@@ -16,128 +16,119 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
   data-defaults={defaults}
 >
   <h2 class="ui-sr-only" id="builder-settings-title">Settings</h2>
-  <p class="builder-search-summary" data-search-summary hidden role="status">
-  </p>
-  {
-    GROUPS.map((group, index) => {
-      const basic = group.controls.filter((control) => control.tier === "basic")
-      const fine = group.controls.filter((control) => control.tier === "fine")
-      return (
-        <section
-          aria-labelledby={`builder-group-${group.id}`}
-          class="builder-group"
-          data-group={group.id}
-          hidden={index > 0}
+  <p
+    class="builder-search-summary"
+    data-search-summary
+    hidden
+    role="status"
+  ></p>
+  {GROUPS.map((group, index) => {
+    const basic = group.controls.filter((control) => control.tier === "basic")
+    const fine = group.controls.filter((control) => control.tier === "fine")
+    return <section
+      aria-labelledby={`builder-group-${group.id}`}
+      class="builder-group"
+      data-group={group.id}
+      hidden={index > 0}
+    >
+      <header class="builder-group-head">
+        <h3 id={`builder-group-${group.id}`} tabindex="-1">
+          {group.label}
+          <span class="builder-count" data-count hidden />
+        </h3>
+        <p>{group.description}</p>
+      </header>
+      {group.id === "brand" && <div class="builder-start" data-start>
+        <BuilderPresets />
+        <div
+          aria-labelledby="builder-moods-title"
+          class="builder-moods"
+          role="group"
         >
-          <header class="builder-group-head">
-            <h3 id={`builder-group-${group.id}`} tabindex="-1">
-              {group.label}
-              <span class="builder-count" data-count hidden />
-            </h3>
-            <p>{group.description}</p>
-          </header>
-          {group.id === "brand" && (
-            <div class="builder-start" data-start>
-              <BuilderPresets />
-              <div
-                aria-labelledby="builder-moods-title"
-                class="builder-moods"
-                role="group"
-              >
-                <p class="builder-moods-title" id="builder-moods-title">
-                  Mood
-                </p>
-                <div class="builder-moods-list">
-                  {MOODS.map((mood) => (
-                    <Chip
-                      as="button"
-                      aria-pressed="false"
-                      data-mood={mood.id}
-                      label={mood.label}
-                      size="small"
-                      title={mood.hint}
-                      type="button"
-                      variant="outlined"
-                    />
-                  ))}
-                </div>
-                <p class="builder-moods-hint">
-                  A mood sets a handful of settings on top of your starting
-                  point and stays marked while they all hold. Press it again to
-                  take them back.
-                </p>
-              </div>
-              <div class="builder-paste" data-paste>
-                <p class="builder-paste-title" id="builder-paste-title">
-                  Paste anything
-                </p>
-                <div class="builder-paste-row">
-                  <TextField
-                    aria-describedby="builder-paste-hint"
-                    autocomplete="off"
-                    class="builder-paste-field"
-                    hideLabel
-                    label="Paste a color, a theme.css or an image"
-                    name="builder-paste"
-                    placeholder="A color, a theme.css or an image"
-                    size="small"
-                    spellcheck="false"
-                  />
-                  <Button data-paste-image size="small" variant="outlined">
-                    Choose image
-                  </Button>
-                  <input
-                    accept="image/*"
-                    aria-label="Image for the brand color"
-                    class="ui-sr-only"
-                    data-paste-file
-                    type="file"
-                  />
-                </div>
-                <p class="builder-paste-hint" id="builder-paste-hint">
-                  A hex, rgb or oklch color becomes the brand color. A theme.css
-                  from this builder replaces the theme. An image gives its main
-                  color. You can also drop them here.
-                </p>
-              </div>
-            </div>
-          )}
-          <div class="builder-tier" data-tier="basic">
-            {basic.map((control) => (
-              <BuilderControl control={control} />
+          <p class="builder-moods-title" id="builder-moods-title">Mood</p>
+          <div class="builder-moods-list">
+            {MOODS.map((mood) => (
+              <Chip
+                as="button"
+                aria-pressed="false"
+                data-mood={mood.id}
+                label={mood.label}
+                size="small"
+                title={mood.hint}
+                type="button"
+                variant="outlined"
+              />
             ))}
           </div>
-          {fine.length > 0 && (
-            <h4 class="builder-fine-title" data-fine-title>
-              Fine-tune
-              <span class="builder-fine-meta" data-fine-meta>
-                {fine.length} {fine.length === 1 ? "setting" : "settings"}
-              </span>
-            </h4>
-          )}
-          {fine.length > 0 && (
-            <div class="builder-tier" data-tier="fine">
-              {fine.map((control) => (
-                <BuilderControl control={control} />
-              ))}
-            </div>
-          )}
-        </section>
-      )
-    })
-  }
+          <p class="builder-moods-hint">
+            A mood sets a handful of settings on top of your starting point and
+            stays marked while they all hold. Press it again to take them back.
+          </p>
+        </div>
+        <div class="builder-paste" data-paste>
+          <p class="builder-paste-title" id="builder-paste-title">
+            Paste anything
+          </p>
+          <div class="builder-paste-row">
+            <TextField
+              aria-describedby="builder-paste-hint"
+              autocomplete="off"
+              class="builder-paste-field"
+              hideLabel
+              label="Paste a color, a theme.css or an image"
+              name="builder-paste"
+              placeholder="A color, a theme.css or an image"
+              size="small"
+              spellcheck="false"
+            />
+            <Button data-paste-image size="small" variant="outlined">
+              Choose image
+            </Button>
+            <input
+              accept="image/*"
+              aria-label="Image for the brand color"
+              class="ui-sr-only"
+              data-paste-file
+              type="file"
+            />
+          </div>
+          <p class="builder-paste-hint" id="builder-paste-hint">
+            A hex, rgb or oklch color becomes the brand color. A theme.css from
+            this builder replaces the theme. An image gives its main color. You
+            can also drop them here.
+          </p>
+        </div>
+      </div>}
+      <div class="builder-tier" data-tier="basic">
+        {basic.map((control) => (
+          <BuilderControl control={control} />
+        ))}
+      </div>
+      {fine.length > 0 && <h4 class="builder-fine-title" data-fine-title>
+        Fine-tune
+        <span class="builder-fine-meta" data-fine-meta>
+          {fine.length} {fine.length === 1 ? "setting" : "settings"}
+        </span>
+      </h4>}
+      {fine.length > 0 && <div class="builder-tier" data-tier="fine">
+        {fine.map((control) => (
+          <BuilderControl control={control} />
+        ))}
+      </div>}
+    </section>
+  })}
   <BuilderTokens />
 </section>
 
 <script>
   import { syncBrandPicker } from "../../utils/brand-picker"
+  import { probeColors } from "../../utils/color-probe"
   import {
     colorToOklch,
     formatOklch,
     parseOklch,
   } from "../../utils/color-utils"
   import { exampleTheme } from "../../utils/example-themes"
-  import { morph } from "../../utils/morph"
   import { OklchInput } from "../../utils/oklch-input"
   import { readStored, writeStored } from "../../utils/storage"
   import {
@@ -232,15 +223,6 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     let frame = 0
     let room = ""
 
-    const hosts = (["light", "dark"] as const).map((scheme) => {
-      const host = document.createElement("div")
-      host.className = `ui-${scheme}`
-      host.hidden = true
-      host.style.color = "transparent"
-      host.style.forcedColorAdjust = "none"
-      root.append(host)
-      return host
-    })
     const lengthProbe = document.createElement("div")
     lengthProbe.hidden = true
     lengthProbe.style.forcedColorAdjust = "none"
@@ -259,20 +241,16 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     }
 
     const resolveColors = (expressions: string[]) => {
-      for (const host of hosts) {
-        host.replaceChildren(
-          ...expressions.map((expression) => {
-            const probe = document.createElement("div")
-            probe.style.color = `oklch(from ${expression} l c h / alpha)`
-            return probe
-          }),
-        )
-      }
-      const resolved = hosts.map((host) =>
-        [...host.children].map((probe) =>
-          toColor(getComputedStyle(probe).color),
-        ),
+      const colors = expressions.map(
+        (expression) => `oklch(from ${expression} l c h / alpha)`,
       )
+      const resolved = probeColors(
+        root,
+        (["light", "dark"] as const).map((scheme) => ({
+          className: `ui-${scheme}`,
+          colors,
+        })),
+      ).map((mode) => mode.map(toColor))
       return new Map(
         expressions.map((expression, index) => [
           expression,
@@ -612,16 +590,18 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
           const tokens = controlTokens(control)
           text = option
             ? ""
-            : tokens.length === 1
-              ? `${owner} value, ${tidy(valueOf(tokens[0]) ?? "not set")}`
-              : `${owner} values: ${tokens
-                  .filter((token) => valueOf(token) !== undefined)
-                  .map((token) => `${token}: ${tidy(valueOf(token)!)}`)
-                  .join("; ")}`
+            : control.icons
+              ? `${owner} icons`
+              : tokens.length === 1
+                ? `${owner} value, ${tidy(valueOf(tokens[0]) ?? "not set")}`
+                : `${owner} values: ${tokens
+                    .filter((token) => valueOf(token) !== undefined)
+                    .map((token) => `${token}: ${tidy(valueOf(token)!)}`)
+                    .join("; ")}`
           if (control.display === "select") {
             element.querySelector<HTMLOptionElement>(
               "option[value=custom]",
-            )!.textContent = `${owner} value`
+            )!.textContent = control.icons ? `${owner} icons` : `${owner} value`
           }
         } else if (control.kind === "range") {
           const raw = valueOf(control.token)
@@ -827,9 +807,8 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       const before = themeStore.get()
       dual.delete("brand")
       picked.delete("brand")
-      morph(() => write(applyBrand(color))).then(() =>
-        say(message, pasteField, before),
-      )
+      write(applyBrand(color))
+      say(message, pasteField, before)
     }
 
     const usePaste = (paste: Paste) => {
@@ -840,12 +819,11 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       if (paste.kind === "css") {
         const before = themeStore.get()
         const count = Object.keys(paste.theme.tokens).length
-        morph(() => themeStore.set(paste.theme)).then(() =>
-          say(
-            `Loaded ${exampleTheme(paste.theme.preset)?.label ?? "Default"} with ${count} ${count === 1 ? "token" : "tokens"} from the CSS.`,
-            pasteField,
-            before,
-          ),
+        themeStore.set(paste.theme)
+        say(
+          `Loaded ${exampleTheme(paste.theme.preset)?.label ?? "Default"} with ${count} ${count === 1 ? "token" : "tokens"} from the CSS.`,
+          pasteField,
+          before,
         )
         return
       }
@@ -930,9 +908,8 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         if (event.type !== "change" || !target.checked) return
         const before = themeStore.get()
         const label = exampleTheme(target.value)?.label ?? "Default"
-        morph(() => switchPreset(target.value || null)).then(() =>
-          say(`Starting from ${label}. Your changes are kept.`, target, before),
-        )
+        switchPreset(target.value || null)
+        say(`Starting from ${label}. Your changes are kept.`, target, before)
         return
       }
       const element = target.closest<HTMLElement>("[data-control]")
@@ -1110,9 +1087,8 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       const remix = shuffleRemix(lockedRooms(), theme.tokens)
       const focus =
         document.querySelector<HTMLElement>("[data-shuffle]") ?? root
-      morph(() => applyRemix(remix)).then(() =>
-        say("Shuffled the unlocked settings.", focus, before),
-      )
+      applyRemix(remix)
+      say("Shuffled the unlocked settings.", focus, before)
     }
 
     root.addEventListener("input", onChange)
@@ -1129,15 +1105,13 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
           for (const id of ["corners", ...Object.keys(definition.choices)]) {
             Object.assign(update, resetTokens(controls.get(id)!))
           }
-          morph(() => write(update)).then(() =>
-            say(`${definition.label} removed.`, mood, before),
-          )
+          write(update)
+          say(`${definition.label} removed.`, mood, before)
           return
         }
         const remix = moodRemix(definition, theme.tokens)
-        morph(() => applyRemix(remix)).then(() =>
-          say(`${definition.label} applied.`, mood, before),
-        )
+        applyRemix(remix)
+        say(`${definition.label} applied.`, mood, before)
         return
       }
       if (target.closest("[data-paste-image]")) {
@@ -1242,9 +1216,8 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       const before = themeStore.get()
       dual.clear()
       picked.clear()
-      morph(() => themeStore.set(loaded)).then(() =>
-        say(message, presets.querySelector("input:checked") ?? root, before),
-      )
+      themeStore.set(loaded)
+      say(message, presets.querySelector("input:checked") ?? root, before)
     })
 
     document.addEventListener("builder:shuffle", shuffle)

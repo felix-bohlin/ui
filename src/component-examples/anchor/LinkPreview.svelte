@@ -3,11 +3,10 @@
 </script>
 
 <div>
-  Learn more about
-  <Anchor
+  Learn more about <Anchor
+    id="anchor-link-preview-1"
     positionArea="block-end span-inline-end"
     trigger="hover"
-    id="anchor-link-preview-1"
   >
     <a
       class="ui-link"
@@ -15,7 +14,7 @@
       interestfor="anchor-link-preview-1">CSS anchor positioning</a
     >
     <AnchorContent>
-      <Card variant="elevated" class="link-preview">
+      <Card class="link-preview" variant="elevated">
         <img src="https://picsum.photos/id/1018/800/450" alt="" />
         <CardHeader>
           <p class="ui-caption">developer.mozilla.org</p>
@@ -26,8 +25,7 @@
         </CardHeader>
       </Card>
     </AnchorContent>
-  </Anchor>
-  on MDN.
+  </Anchor> on MDN.
 </div>
 
 <style>

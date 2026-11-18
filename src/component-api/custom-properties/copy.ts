@@ -23,15 +23,15 @@ export default {
   },
   "--_ease": {
     description:
-      "Easing of the reveal and the fade. Defaults to `--ui-ease-enter`.",
-    kind: "input",
+      "Easing of the reveal and the fade. `--ui-ease-enter` while opening and `--ui-ease-exit` while closing.",
+    kind: "output",
   },
   "--_font-size": {
     description:
       "Font size of the label. `copy.js` sets the button's font size before it shows the label.",
     kind: "output",
   },
-  "--_hidden": {
+  "--_hidden-clip-path": {
     description:
       "The `clip-path` the label reveals from, at its edge toward the button.",
     kind: "output",
@@ -50,7 +50,7 @@ export default {
       "Corner radius of the label. `copy.js` sets the button's radius before it shows the label.",
     kind: "output",
   },
-  "--_shown": {
+  "--_shown-clip-path": {
     description:
       "The `clip-path` of the open label, wide enough to keep its shadow.",
     kind: "output",

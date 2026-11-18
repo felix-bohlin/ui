@@ -1,11 +1,16 @@
 ---
 import type { Props } from "./types.astro"
+import { trimEdges } from "../whitespace"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
+import { createIds, fieldDescribedBy } from "../id"
+import { cx } from "../cx"
 
 export const title = "Textarea"
 
 const {
+  "aria-describedby": ariaDescribedBy,
   "aria-invalid": ariaInvalid,
+  "aria-labelledby": ariaLabelledBy,
   autoFit,
   characterCount,
   characterCountLabel,
@@ -26,10 +31,26 @@ const {
 } = Astro.props
 
 const field = fieldGroupContext.get()
+const ids = createIds(Astro.locals, "textarea", id)
+const labelSlot = Astro.slots.has("label")
+  ? trimEdges(await Astro.slots.render("label"))
+  : ""
+const hasLabel = Boolean(label || labelSlot)
+const hasStartText = Boolean(startText || Astro.slots.has("start-text"))
+const hasEndText = Boolean(
+  endText || Astro.slots.has("end-text") || characterCount,
+)
+const textareaId = hasLabel ? ids() : id
+const startId = Astro.slots.has("start") ? ids("start") : undefined
+const endId = Astro.slots.has("end") ? ids("end") : undefined
+const topId = Astro.slots.has("top") ? ids("top") : undefined
+const bottomId = Astro.slots.has("bottom") ? ids("bottom") : undefined
+const startTextId = hasStartText ? ids("start-text") : undefined
+const endTextId = hasEndText ? ids("end-text") : undefined
 ---
 
-<label
-  class:list={[
+<div
+  class={cx([
     "ui-textarea",
     {
       "ui-auto-fit": autoFit,
@@ -38,79 +59,65 @@ const field = fieldGroupContext.get()
     },
     size && size !== "medium" && `ui-${size}`,
     className,
-  ]}
+  ])}
   style={style}
 >
-  {
-    (label || Astro.slots.has("label")) && (
-      <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}>
-        {label}
-        <slot name="label" />
-      </span>
-    )
-  }
+  {hasLabel && <label
+    class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
+    for={textareaId}
+    >{label}<Fragment set:html={labelSlot}
+  /></label>}
 
-  {
-    (startText || Astro.slots.has("start-text")) && (
-      <span class="ui-start-text">
-        {startText}
-        <slot name="start-text" />
-      </span>
-    )
-  }
+  {hasStartText && <span class="ui-start-text" id={startTextId}>
+    {startText}
+    <slot name="start-text" />
+  </span>}
   <span class="ui-field">
+    {Astro.slots.has("top") && <span class="ui-top" id={topId}>
+      <slot name="top" />
+    </span>}
+    {Astro.slots.has("start") && <span class="ui-start" id={startId}>
+      <slot name="start" />
+    </span>}
     <textarea
       {...rest}
+      aria-describedby={fieldDescribedBy(
+        {
+          bottom: bottomId,
+          end: endId,
+          endText: endTextId,
+          start: startId,
+          startText: startTextId,
+          top: topId,
+        },
+        ariaDescribedBy,
+      )}
       aria-invalid={error ? "true" : ariaInvalid}
-      id={id}
-      name={name ?? field?.name}>{value}</textarea
-    >
-    {
-      Astro.slots.has("start") && (
-        <span class="ui-start">
-          <slot name="start" />
-        </span>
-      )
-    }
-    {
-      Astro.slots.has("end") && (
-        <span class="ui-end">
-          <slot name="end" />
-        </span>
-      )
-    }
-    {
-      Astro.slots.has("top") && (
-        <span class="ui-top">
-          <slot name="top" />
-        </span>
-      )
-    }
-    {
-      Astro.slots.has("bottom") && (
-        <span class="ui-bottom">
-          <slot name="bottom" />
-        </span>
-      )
-    }
+      aria-labelledby={ariaLabelledBy}
+      id={textareaId}
+      name={name ?? field?.name}
+    >{value}</textarea>
+    {Astro.slots.has("end") && <span class="ui-end" id={endId}>
+      <slot name="end" />
+    </span>}
+    {Astro.slots.has("bottom") && <span class="ui-bottom" id={bottomId}>
+      <slot name="bottom" />
+    </span>}
   </span>
-  {
-    (endText || Astro.slots.has("end-text") || characterCount) && (
-      <span class="ui-end-text">
-        {endText}
-        <slot name="end-text" />
-        {characterCount && (
-          <opui-character-count
-            aria-hidden="true"
-            class="ui-value"
-            label={characterCountLabel}
-          />
-        )}
-      </span>
-    )
-  }
+  {hasEndText && <span class="ui-end-text" id={endTextId}>
+    {endText}
+    <slot name="end-text" />
+    {characterCount && (
+      <opui-character-count
+        aria-hidden="true"
+        class="ui-value"
+        label={characterCountLabel}
+        set:html=""
+      />
+    )}
+  </span>}
   <slot />
-</label>
+</div>
 
 <script>
   import "../../elements/character-count.js"

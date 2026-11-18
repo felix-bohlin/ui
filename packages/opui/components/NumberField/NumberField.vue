@@ -1,32 +1,24 @@
 <script setup lang="ts">
 import "../../elements/number-field.js"
-import {
-  computed,
-  inject,
-  type InputHTMLAttributes,
-  useAttrs,
-  useId,
-  useSlots,
-} from "vue"
+import { computed, inject, useId } from "vue"
+import { useInputAttrs, vSeed } from "../vue"
+import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
-import { idRefs } from "../id"
-import { useInputAttrs } from "../vue"
-import { minusPath, plusPath } from "./icons"
+import { fieldDescribedBy } from "../id"
+import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
-
-defineOptions({
-  inheritAttrs: false,
-})
 
 const {
   decreaseLabel = "Decrease",
+  disabled,
   endText,
   error,
   hideLabel,
   id,
   increaseLabel = "Increase",
   label,
+  name,
   size,
   spread,
   startText,
@@ -34,10 +26,14 @@ const {
   value,
   variant,
 } = defineProps<Props>()
-defineSlots<Slots>()
-const slots = useSlots()
-const attrs = useAttrs() as InputHTMLAttributes
-const inputAttrs = useInputAttrs()
+const slots = defineSlots<Slots>()
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const attrs = useInputAttrs()
+
 const modelValue = defineModel<number | string>()
 
 const model = computed({
@@ -47,15 +43,19 @@ const model = computed({
   },
 })
 
-const generatedId = useId()
-const inputId = computed(() => id ?? generatedId)
-const startTextId = computed(() =>
-  startText || slots["start-text"] ? `${generatedId}-start-text` : undefined,
-)
-const endTextId = computed(() =>
-  endText || slots["end-text"] ? `${generatedId}-end-text` : undefined,
-)
 const field = inject(FieldGroupKey, undefined)
+
+const uid = useId()
+
+const base = computed(() => id || `number-field-${uid}`)
+
+const inputId = computed(() => base.value)
+
+const startTextId = () =>
+  startText || slots["start-text"] ? `${base.value}-start-text` : undefined
+
+const endTextId = () =>
+  endText || slots["end-text"] ? `${base.value}-end-text` : undefined
 </script>
 
 <template>
@@ -71,80 +71,83 @@ const field = inject(FieldGroupKey, undefined)
       size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
-    :style="$attrs.style"
+    v-bind="styleAttrs($attrs.style)"
   >
     <label
       v-if="label || $slots.label"
-      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
+      :class="hideLabel ? 'ui-sr-only' : 'ui-label'"
       :for="inputId"
-    >
-      {{ label }}<slot name="label"></slot>
-    </label>
-
+      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
+    /></label>
     <span
       v-if="startText || $slots['start-text']"
-      :id="startTextId"
       class="ui-start-text"
-    >
-      {{ startText }}<slot name="start-text"></slot>
-    </span>
-
+      :id="startTextId()"
+      >{{ startText }}<slot name="start-text"></slot
+    ></span>
     <span class="ui-field">
       <span class="ui-start">
         <Button
+          :aria-controls="inputId"
           :aria-label="decreaseLabel"
           command="--step-down"
           :commandfor="inputId"
+          :disabled="disabled"
           round
         >
+          <slot v-if="$slots['decrease-icon']" name="decrease-icon"></slot>
           <svg
+            v-else
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" :d="minusPath"></path>
-          </svg>
+          ></svg>
         </Button>
       </span>
       <input
-        v-bind="inputAttrs"
-        v-model="model"
+        v-bind="attrs"
         :aria-describedby="
-          idRefs(startTextId, endTextId, attrs['aria-describedby'] as string)
+          fieldDescribedBy(
+            { endText: endTextId(), startText: startTextId() },
+            attrs['aria-describedby'],
+          )
         "
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+        :disabled="disabled"
         :id="inputId"
-        :name="attrs.name ?? field?.name"
+        :name="name ?? field?.name"
         type="number"
+        v-seed
+        v-model.number="model"
       />
       <span class="ui-end">
         <Button
+          :aria-controls="inputId"
           :aria-label="increaseLabel"
           command="--step-up"
           :commandfor="inputId"
+          :disabled="disabled"
           round
         >
+          <slot v-if="$slots['increase-icon']" name="increase-icon"></slot>
           <svg
+            v-else
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" :d="plusPath"></path>
-          </svg>
+          ></svg>
         </Button>
       </span>
     </span>
-
     <span
       v-if="endText || $slots['end-text']"
-      :id="endTextId"
       class="ui-end-text"
-    >
-      {{ endText }}<slot name="end-text"></slot>
-    </span>
+      :id="endTextId()"
+      >{{ endText }}<slot name="end-text"></slot
+    ></span>
   </component>
 </template>

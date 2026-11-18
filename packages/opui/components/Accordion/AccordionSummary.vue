@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { markerPath } from "./icons"
+import { classAttrs } from "../cx"
 import type {
   AccordionSummaryProps as Props,
-  AccordionSummarySlots as Slots,
+  AccordionSummarySlots,
 } from "./types.vue-props"
 
 defineProps<Props>()
-defineSlots<Slots>()
+defineSlots<AccordionSummarySlots>()
 </script>
 
 <template>
-  <summary :class="[$props.class]">
-    <slot></slot>{{ " " }}<slot v-if="$slots.marker" name="marker"></slot
-    ><svg
+  <summary v-bind="classAttrs($props.class)">
+    <slot></slot>{{ " " }}<slot v-if="$slots.marker" name="marker"></slot>
+    <svg
       v-else
       aria-hidden="true"
       class="ui-marker"
@@ -20,8 +20,6 @@ defineSlots<Slots>()
       width="24"
       height="24"
       viewBox="0 0 24 24"
-    >
-      <path fill="currentColor" :d="markerPath"></path>
-    </svg>
+    ></svg>
   </summary>
 </template>

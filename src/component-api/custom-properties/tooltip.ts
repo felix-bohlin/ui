@@ -17,8 +17,8 @@ export default {
   },
   "--_ease": {
     description:
-      "Easing of the fade and the scale. Defaults to `--ui-ease-enter`.",
-    kind: "input",
+      "Easing of the fade and the scale. `--ui-ease-enter` while opening and `--ui-ease-exit` while closing.",
+    kind: "output",
   },
   "--_ease-move": {
     description:

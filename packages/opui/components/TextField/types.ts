@@ -2,6 +2,8 @@ export type Props = {
   autoFit?: boolean
   characterCount?: boolean
   characterCountLabel?: string
+  disabled?: boolean
+  dropZone?: boolean
   endText?: string
   error?: boolean
   hideLabel?: boolean
@@ -18,6 +20,8 @@ export type Slots<S> = {
   bottom?: string | S
   end?: string | S
   endText?: string | S
+  iconChecked?: S
+  iconUnchecked?: S
   label?: string | S
   start?: string | S
   startText?: string | S

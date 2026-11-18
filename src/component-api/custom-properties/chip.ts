@@ -1,11 +1,6 @@
 import type { CustomProperties } from "../types"
 
 export default {
-  "--_accent": {
-    description:
-      "The color the hover background of a colored button or link chip is derived from. Set by `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` and `.ui-warning`.",
-    kind: "output",
-  },
   "--_bg-color": {
     description:
       "The current background. Set by the variant, color classes and hover states.",
@@ -53,7 +48,7 @@ export default {
     description: "The inline padding. `.ui-large` sets it.",
     kind: "input",
   },
-  "--_pressed-bg-color": {
+  "--_selected-bg-color": {
     description:
       'Background of a button chip with `aria-pressed="true"`. `--ui-selected` when the theme sets it, otherwise `--ui-primary`.',
     kind: "input",

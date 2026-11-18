@@ -8,10 +8,10 @@ export default function Columns() {
         style={{ "--_columns": "2fr 1fr" }}
       >
         <Card variant="outlined">
-          <CardContent>Content</CardContent>
+          <CardContent>Summer tour: 12 songs to learn</CardContent>
         </Card>
         <Card variant="outlined">
-          <CardContent>Aside</CardContent>
+          <CardContent>First gig March 14</CardContent>
         </Card>
       </div>
     </div>

@@ -3,10 +3,13 @@
 </script>
 
 <List>
-  <ListItem as="button" label="Button list item" />
-  <ListItem as="button" disabled label="Archived" />
-  <ListItem href="#clickable-list-item" label="Link list item" />
-  <ListItem type="checkbox" label="Checkbox list item">
-    {#snippet end()}<CheckboxInput />{/snippet}
+  <ListItem as="button" disabled label="Empty trash" />
+  <ListItem as="button" label="New folder" />
+  <ListItem href="#clickable-list-item" label="Recent files" />
+  <ListItem disabled href="#clickable-list-item" label="Shared drives" />
+  <ListItem choice="checkbox" label="Show hidden files">
+    {#snippet end()}
+      <CheckboxInput />
+    {/snippet}
   </ListItem>
 </List>

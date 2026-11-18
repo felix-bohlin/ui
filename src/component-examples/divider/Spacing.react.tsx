@@ -4,17 +4,21 @@ export default function Spacing() {
   return (
     <>
       <Card variant="outlined">
-        <CardContent>Inside a card, the gap spaces the divider.</CardContent>
+        <CardContent>
+          Order 1042 from Fretless Fiona's Bass Barn, placed on 3 March.
+        </CardContent>
         <Divider />
         <CardContent>
-          Nested deeper, it uses the card's tighter space. <Divider /> So
-          everything stays close together.
+          Two sets of flatwounds: €98
+          <Divider />
+          Shipping: free
         </CardContent>
       </Card>
 
       <div style={{ "--ui-divider-gap": "var(--ui-space-1)" }}>
-        A custom space on any wrapper <Divider /> reaches every divider inside
-        it.
+        Ships to Lou Headstock, Low End Lane
+        <Divider />
+        Arrives in 2 to 4 days
       </div>
     </>
   )

@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from "vue"
+import type { IntrinsicElementAttributes, Slot } from "vue"
 import type { Class, DefaultSlots } from "../vue"
 import type {
   DrawerContentProps as BaseDrawerContentProps,
@@ -8,8 +8,6 @@ import type {
   Props as BaseProps,
 } from "./types"
 
-export type Props = BaseProps & Class
-
 export type DrawerContentProps = BaseDrawerContentProps & Class
 
 export type DrawerFooterProps = BaseDrawerFooterProps & Class
@@ -17,8 +15,10 @@ export type DrawerFooterProps = BaseDrawerFooterProps & Class
 export type DrawerHeaderProps = BaseDrawerHeaderProps & Class
 
 export type DrawerTitleProps = BaseDrawerTitleProps &
-  Class & {
-    id?: HTMLAttributes["id"]
-  }
+  Class & { id?: IntrinsicElementAttributes["h2"]["id"] }
+
+export type Props = BaseProps & Class
 
 export type Slots = DefaultSlots
+
+export type DrawerHeaderSlots = { "close-icon"?: Slot } & DefaultSlots

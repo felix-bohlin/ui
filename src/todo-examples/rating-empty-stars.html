@@ -1,0 +1,738 @@
+<style>
+  .todo-rating-a,
+  .todo-rating-b {
+    --_star-empty-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill-rule='evenodd' d='M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z'/%3E%3C/svg%3E");
+  }
+
+  .todo-rating-a {
+    fieldset.ui-rating {
+      input {
+        --_fill-image: var(--_star-empty-image);
+      }
+
+      input:not([value="0"])::before {
+        mask-image: var(--_fill-image);
+      }
+
+      input:not([value="0"]):is(:checked, :has(~ :checked)) {
+        --_fill-image: var(--_star-image);
+      }
+
+      @media (hover: hover) {
+        &:has(input:enabled:hover) input:not([value="0"]) {
+          --_fill-image: var(--_star-empty-image);
+
+          &:is(:hover, :has(~ input:hover)) {
+            --_fill-image: var(--_star-image);
+          }
+        }
+      }
+    }
+
+    meter.ui-rating {
+      mask:
+        var(--_star-empty-image) 0 0 / var(--_size) var(--_size) repeat-x,
+        linear-gradient(oklch(0 0 0) 0 0) 0 0 /
+          calc(
+            attr(value type(<number>), 0) / attr(max type(<number>), 5) * 100%
+          )
+          100% no-repeat,
+        var(--_star-image) 0 0 / var(--_size) var(--_size) repeat-x;
+      mask-composite: add, intersect, add;
+    }
+  }
+
+  .todo-rating-b {
+    @container style(--ui-contrast: more) {
+      fieldset.ui-rating {
+        input {
+          --_fill-image: var(--_star-empty-image);
+        }
+
+        input:not([value="0"])::before {
+          mask-image: var(--_fill-image);
+        }
+
+        input:not([value="0"]):is(:checked, :has(~ :checked)) {
+          --_fill-image: var(--_star-image);
+        }
+
+        @media (hover: hover) {
+          &:has(input:enabled:hover) input:not([value="0"]) {
+            --_fill-image: var(--_star-empty-image);
+
+            &:is(:hover, :has(~ input:hover)) {
+              --_fill-image: var(--_star-image);
+            }
+          }
+        }
+      }
+
+      meter.ui-rating {
+        mask:
+          var(--_star-empty-image) 0 0 / var(--_size) var(--_size) repeat-x,
+          linear-gradient(oklch(0 0 0) 0 0) 0 0 /
+            calc(
+              attr(value type(<number>), 0) / attr(max type(<number>), 5) * 100%
+            )
+            100% no-repeat,
+          var(--_star-image) 0 0 / var(--_size) var(--_size) repeat-x;
+        mask-composite: add, intersect, add;
+      }
+    }
+  }
+
+  .todo-rating-scheme,
+  .todo-rating-more {
+    display: grid;
+    gap: var(--size-2);
+    inline-size: 100%;
+    padding: var(--size-3);
+  }
+
+  .todo-rating-more {
+    background-color: var(--ui-surface);
+  }
+
+  .todo-rating-sample {
+    display: grid;
+    gap: var(--size-2);
+    justify-items: start;
+  }
+</style>
+
+<p class="todo-note">
+  The input with three stars and the meter at 3.5, in light and dark mode, each
+  with default and more contrast. Today the empty stars differ from the filled
+  ones by color alone: filled against empty is 1.95:1 in light and 3.58:1 in
+  dark mode, and more contrast, which darkens the empty stars toward the fixed
+  warning fill, drops it to 1.66:1 and 1.03:1. Option A draws the empty stars as
+  outlines in every mode, with an outline mask on the radios and, for the meter,
+  a mask that keeps the solid stars up to the value (typed
+  <code>attr()</code>, Chromium only) over outline stars. Option B does the same
+  only under more contrast. The input also shows its count, 3/5; the meter shows
+  nothing else.
+</p>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Today, solid empty stars</p>
+    <div class="todo-rating-scheme ui-light">
+      <p class="todo-label">Light</p>
+      <div class="todo-rating-sample">
+        <fieldset class="ui-rating">
+          <legend>Your rating</legend>
+          <input
+            aria-label="No rating"
+            name="todo-rating-today-light"
+            type="radio"
+            value="0"
+          />
+          <input
+            aria-label="1 star"
+            name="todo-rating-today-light"
+            type="radio"
+            value="1"
+          />
+          <input
+            aria-label="2 stars"
+            name="todo-rating-today-light"
+            type="radio"
+            value="2"
+          />
+          <input
+            aria-label="3 stars"
+            checked
+            name="todo-rating-today-light"
+            type="radio"
+            value="3"
+          />
+          <input
+            aria-label="4 stars"
+            name="todo-rating-today-light"
+            type="radio"
+            value="4"
+          />
+          <input
+            aria-label="5 stars"
+            name="todo-rating-today-light"
+            type="radio"
+            value="5"
+          />
+        </fieldset>
+        <meter
+          aria-label="Rated 3.5 out of 5"
+          class="ui-rating"
+          max="5"
+          value="3.5"
+        ></meter>
+      </div>
+      <div class="todo-rating-more ui-contrast-more">
+        <p class="todo-label">Light, more contrast</p>
+        <div class="todo-rating-sample">
+          <fieldset class="ui-rating">
+            <legend>Your rating</legend>
+            <input
+              aria-label="No rating"
+              name="todo-rating-today-light-more"
+              type="radio"
+              value="0"
+            />
+            <input
+              aria-label="1 star"
+              name="todo-rating-today-light-more"
+              type="radio"
+              value="1"
+            />
+            <input
+              aria-label="2 stars"
+              name="todo-rating-today-light-more"
+              type="radio"
+              value="2"
+            />
+            <input
+              aria-label="3 stars"
+              checked
+              name="todo-rating-today-light-more"
+              type="radio"
+              value="3"
+            />
+            <input
+              aria-label="4 stars"
+              name="todo-rating-today-light-more"
+              type="radio"
+              value="4"
+            />
+            <input
+              aria-label="5 stars"
+              name="todo-rating-today-light-more"
+              type="radio"
+              value="5"
+            />
+          </fieldset>
+          <meter
+            aria-label="Rated 3.5 out of 5"
+            class="ui-rating"
+            max="5"
+            value="3.5"
+          ></meter>
+        </div>
+      </div>
+    </div>
+    <div class="todo-rating-scheme ui-dark">
+      <p class="todo-label">Dark</p>
+      <div class="todo-rating-sample">
+        <fieldset class="ui-rating">
+          <legend>Your rating</legend>
+          <input
+            aria-label="No rating"
+            name="todo-rating-today-dark"
+            type="radio"
+            value="0"
+          />
+          <input
+            aria-label="1 star"
+            name="todo-rating-today-dark"
+            type="radio"
+            value="1"
+          />
+          <input
+            aria-label="2 stars"
+            name="todo-rating-today-dark"
+            type="radio"
+            value="2"
+          />
+          <input
+            aria-label="3 stars"
+            checked
+            name="todo-rating-today-dark"
+            type="radio"
+            value="3"
+          />
+          <input
+            aria-label="4 stars"
+            name="todo-rating-today-dark"
+            type="radio"
+            value="4"
+          />
+          <input
+            aria-label="5 stars"
+            name="todo-rating-today-dark"
+            type="radio"
+            value="5"
+          />
+        </fieldset>
+        <meter
+          aria-label="Rated 3.5 out of 5"
+          class="ui-rating"
+          max="5"
+          value="3.5"
+        ></meter>
+      </div>
+      <div class="todo-rating-more ui-contrast-more">
+        <p class="todo-label">Dark, more contrast</p>
+        <div class="todo-rating-sample">
+          <fieldset class="ui-rating">
+            <legend>Your rating</legend>
+            <input
+              aria-label="No rating"
+              name="todo-rating-today-dark-more"
+              type="radio"
+              value="0"
+            />
+            <input
+              aria-label="1 star"
+              name="todo-rating-today-dark-more"
+              type="radio"
+              value="1"
+            />
+            <input
+              aria-label="2 stars"
+              name="todo-rating-today-dark-more"
+              type="radio"
+              value="2"
+            />
+            <input
+              aria-label="3 stars"
+              checked
+              name="todo-rating-today-dark-more"
+              type="radio"
+              value="3"
+            />
+            <input
+              aria-label="4 stars"
+              name="todo-rating-today-dark-more"
+              type="radio"
+              value="4"
+            />
+            <input
+              aria-label="5 stars"
+              name="todo-rating-today-dark-more"
+              type="radio"
+              value="5"
+            />
+          </fieldset>
+          <meter
+            aria-label="Rated 3.5 out of 5"
+            class="ui-rating"
+            max="5"
+            value="3.5"
+          ></meter>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="todo-fixed todo-rating-a">
+    <p class="todo-label">A, hollow empty stars in every mode</p>
+    <div class="todo-rating-scheme ui-light">
+      <p class="todo-label">Light</p>
+      <div class="todo-rating-sample">
+        <fieldset class="ui-rating">
+          <legend>Your rating</legend>
+          <input
+            aria-label="No rating"
+            name="todo-rating-a-light"
+            type="radio"
+            value="0"
+          />
+          <input
+            aria-label="1 star"
+            name="todo-rating-a-light"
+            type="radio"
+            value="1"
+          />
+          <input
+            aria-label="2 stars"
+            name="todo-rating-a-light"
+            type="radio"
+            value="2"
+          />
+          <input
+            aria-label="3 stars"
+            checked
+            name="todo-rating-a-light"
+            type="radio"
+            value="3"
+          />
+          <input
+            aria-label="4 stars"
+            name="todo-rating-a-light"
+            type="radio"
+            value="4"
+          />
+          <input
+            aria-label="5 stars"
+            name="todo-rating-a-light"
+            type="radio"
+            value="5"
+          />
+        </fieldset>
+        <meter
+          aria-label="Rated 3.5 out of 5"
+          class="ui-rating"
+          max="5"
+          value="3.5"
+        ></meter>
+      </div>
+      <div class="todo-rating-more ui-contrast-more">
+        <p class="todo-label">Light, more contrast</p>
+        <div class="todo-rating-sample">
+          <fieldset class="ui-rating">
+            <legend>Your rating</legend>
+            <input
+              aria-label="No rating"
+              name="todo-rating-a-light-more"
+              type="radio"
+              value="0"
+            />
+            <input
+              aria-label="1 star"
+              name="todo-rating-a-light-more"
+              type="radio"
+              value="1"
+            />
+            <input
+              aria-label="2 stars"
+              name="todo-rating-a-light-more"
+              type="radio"
+              value="2"
+            />
+            <input
+              aria-label="3 stars"
+              checked
+              name="todo-rating-a-light-more"
+              type="radio"
+              value="3"
+            />
+            <input
+              aria-label="4 stars"
+              name="todo-rating-a-light-more"
+              type="radio"
+              value="4"
+            />
+            <input
+              aria-label="5 stars"
+              name="todo-rating-a-light-more"
+              type="radio"
+              value="5"
+            />
+          </fieldset>
+          <meter
+            aria-label="Rated 3.5 out of 5"
+            class="ui-rating"
+            max="5"
+            value="3.5"
+          ></meter>
+        </div>
+      </div>
+    </div>
+    <div class="todo-rating-scheme ui-dark">
+      <p class="todo-label">Dark</p>
+      <div class="todo-rating-sample">
+        <fieldset class="ui-rating">
+          <legend>Your rating</legend>
+          <input
+            aria-label="No rating"
+            name="todo-rating-a-dark"
+            type="radio"
+            value="0"
+          />
+          <input
+            aria-label="1 star"
+            name="todo-rating-a-dark"
+            type="radio"
+            value="1"
+          />
+          <input
+            aria-label="2 stars"
+            name="todo-rating-a-dark"
+            type="radio"
+            value="2"
+          />
+          <input
+            aria-label="3 stars"
+            checked
+            name="todo-rating-a-dark"
+            type="radio"
+            value="3"
+          />
+          <input
+            aria-label="4 stars"
+            name="todo-rating-a-dark"
+            type="radio"
+            value="4"
+          />
+          <input
+            aria-label="5 stars"
+            name="todo-rating-a-dark"
+            type="radio"
+            value="5"
+          />
+        </fieldset>
+        <meter
+          aria-label="Rated 3.5 out of 5"
+          class="ui-rating"
+          max="5"
+          value="3.5"
+        ></meter>
+      </div>
+      <div class="todo-rating-more ui-contrast-more">
+        <p class="todo-label">Dark, more contrast</p>
+        <div class="todo-rating-sample">
+          <fieldset class="ui-rating">
+            <legend>Your rating</legend>
+            <input
+              aria-label="No rating"
+              name="todo-rating-a-dark-more"
+              type="radio"
+              value="0"
+            />
+            <input
+              aria-label="1 star"
+              name="todo-rating-a-dark-more"
+              type="radio"
+              value="1"
+            />
+            <input
+              aria-label="2 stars"
+              name="todo-rating-a-dark-more"
+              type="radio"
+              value="2"
+            />
+            <input
+              aria-label="3 stars"
+              checked
+              name="todo-rating-a-dark-more"
+              type="radio"
+              value="3"
+            />
+            <input
+              aria-label="4 stars"
+              name="todo-rating-a-dark-more"
+              type="radio"
+              value="4"
+            />
+            <input
+              aria-label="5 stars"
+              name="todo-rating-a-dark-more"
+              type="radio"
+              value="5"
+            />
+          </fieldset>
+          <meter
+            aria-label="Rated 3.5 out of 5"
+            class="ui-rating"
+            max="5"
+            value="3.5"
+          ></meter>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="todo-fixed todo-rating-b">
+    <p class="todo-label">B, hollow empty stars with more contrast</p>
+    <div class="todo-rating-scheme ui-light">
+      <p class="todo-label">Light</p>
+      <div class="todo-rating-sample">
+        <fieldset class="ui-rating">
+          <legend>Your rating</legend>
+          <input
+            aria-label="No rating"
+            name="todo-rating-b-light"
+            type="radio"
+            value="0"
+          />
+          <input
+            aria-label="1 star"
+            name="todo-rating-b-light"
+            type="radio"
+            value="1"
+          />
+          <input
+            aria-label="2 stars"
+            name="todo-rating-b-light"
+            type="radio"
+            value="2"
+          />
+          <input
+            aria-label="3 stars"
+            checked
+            name="todo-rating-b-light"
+            type="radio"
+            value="3"
+          />
+          <input
+            aria-label="4 stars"
+            name="todo-rating-b-light"
+            type="radio"
+            value="4"
+          />
+          <input
+            aria-label="5 stars"
+            name="todo-rating-b-light"
+            type="radio"
+            value="5"
+          />
+        </fieldset>
+        <meter
+          aria-label="Rated 3.5 out of 5"
+          class="ui-rating"
+          max="5"
+          value="3.5"
+        ></meter>
+      </div>
+      <div class="todo-rating-more ui-contrast-more">
+        <p class="todo-label">Light, more contrast</p>
+        <div class="todo-rating-sample">
+          <fieldset class="ui-rating">
+            <legend>Your rating</legend>
+            <input
+              aria-label="No rating"
+              name="todo-rating-b-light-more"
+              type="radio"
+              value="0"
+            />
+            <input
+              aria-label="1 star"
+              name="todo-rating-b-light-more"
+              type="radio"
+              value="1"
+            />
+            <input
+              aria-label="2 stars"
+              name="todo-rating-b-light-more"
+              type="radio"
+              value="2"
+            />
+            <input
+              aria-label="3 stars"
+              checked
+              name="todo-rating-b-light-more"
+              type="radio"
+              value="3"
+            />
+            <input
+              aria-label="4 stars"
+              name="todo-rating-b-light-more"
+              type="radio"
+              value="4"
+            />
+            <input
+              aria-label="5 stars"
+              name="todo-rating-b-light-more"
+              type="radio"
+              value="5"
+            />
+          </fieldset>
+          <meter
+            aria-label="Rated 3.5 out of 5"
+            class="ui-rating"
+            max="5"
+            value="3.5"
+          ></meter>
+        </div>
+      </div>
+    </div>
+    <div class="todo-rating-scheme ui-dark">
+      <p class="todo-label">Dark</p>
+      <div class="todo-rating-sample">
+        <fieldset class="ui-rating">
+          <legend>Your rating</legend>
+          <input
+            aria-label="No rating"
+            name="todo-rating-b-dark"
+            type="radio"
+            value="0"
+          />
+          <input
+            aria-label="1 star"
+            name="todo-rating-b-dark"
+            type="radio"
+            value="1"
+          />
+          <input
+            aria-label="2 stars"
+            name="todo-rating-b-dark"
+            type="radio"
+            value="2"
+          />
+          <input
+            aria-label="3 stars"
+            checked
+            name="todo-rating-b-dark"
+            type="radio"
+            value="3"
+          />
+          <input
+            aria-label="4 stars"
+            name="todo-rating-b-dark"
+            type="radio"
+            value="4"
+          />
+          <input
+            aria-label="5 stars"
+            name="todo-rating-b-dark"
+            type="radio"
+            value="5"
+          />
+        </fieldset>
+        <meter
+          aria-label="Rated 3.5 out of 5"
+          class="ui-rating"
+          max="5"
+          value="3.5"
+        ></meter>
+      </div>
+      <div class="todo-rating-more ui-contrast-more">
+        <p class="todo-label">Dark, more contrast</p>
+        <div class="todo-rating-sample">
+          <fieldset class="ui-rating">
+            <legend>Your rating</legend>
+            <input
+              aria-label="No rating"
+              name="todo-rating-b-dark-more"
+              type="radio"
+              value="0"
+            />
+            <input
+              aria-label="1 star"
+              name="todo-rating-b-dark-more"
+              type="radio"
+              value="1"
+            />
+            <input
+              aria-label="2 stars"
+              name="todo-rating-b-dark-more"
+              type="radio"
+              value="2"
+            />
+            <input
+              aria-label="3 stars"
+              checked
+              name="todo-rating-b-dark-more"
+              type="radio"
+              value="3"
+            />
+            <input
+              aria-label="4 stars"
+              name="todo-rating-b-dark-more"
+              type="radio"
+              value="4"
+            />
+            <input
+              aria-label="5 stars"
+              name="todo-rating-b-dark-more"
+              type="radio"
+              value="5"
+            />
+          </fieldset>
+          <meter
+            aria-label="Rated 3.5 out of 5"
+            class="ui-rating"
+            max="5"
+            value="3.5"
+          ></meter>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

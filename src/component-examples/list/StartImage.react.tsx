@@ -4,11 +4,11 @@ export default function StartImage() {
   return (
     <List>
       <ListItem
-        label="Headline"
-        description="Supporting text"
+        description="48 photos"
+        label="Gig in a basement"
         start={
           <img
-            src="https://images.unsplash.com/photo-1504579264001-833438f93df2?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            src="/photos/lou-headstock.png"
             alt=""
             decoding="async"
             loading="lazy"
@@ -16,11 +16,11 @@ export default function StartImage() {
         }
       />
       <ListItem
-        label="Headline"
-        description="Supporting text"
+        description="112 photos"
+        label="Pedalboard glamour shots"
         start={
           <img
-            src="https://images.unsplash.com/photo-1504579264001-833438f93df2?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            src="/photos/lou-headstock.png"
             alt=""
             decoding="async"
             loading="lazy"

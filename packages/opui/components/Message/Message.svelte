@@ -35,7 +35,9 @@
   {@render start?.()}
   {#if typing}
     <div class="ui-content" role="status">
-      <span class="ui-sr-only">{@render children?.()}</span>
+      <span class="ui-sr-only">
+        {@render children?.()}
+      </span>
     </div>
   {:else}
     <div class="ui-content">
@@ -47,18 +49,23 @@
         <p class="ui-footer">
           {#if time}
             <time {datetime}>{time}</time>
-          {/if}
-          {#if end}
-            <span class="ui-end">{@render end()}</span>
+          {/if}{#if end}
+            <span class="ui-end">
+              {@render end()}
+            </span>
           {/if}
         </p>
       {/if}
     </div>
   {/if}
   {#if actions}
-    <div class="ui-actions">{@render actions()}</div>
+    <div class="ui-actions">
+      {@render actions()}
+    </div>
   {/if}
   {#if bottom}
-    <div class="ui-bottom">{@render bottom()}</div>
+    <div class="ui-bottom">
+      {@render bottom()}
+    </div>
   {/if}
 </li>

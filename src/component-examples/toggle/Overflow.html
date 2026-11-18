@@ -1,51 +1,59 @@
 <div style="display: grid; gap: var(--ui-space-4); max-inline-size: 14rem">
   <div style="display: grid; gap: var(--ui-space-1)">
     <p>Wrap</p>
-    <div role="group" class="ui-toggle-group">
+    <div class="ui-toggle-group" role="radiogroup" aria-label="Notifications">
       <label class="ui-toggle-button">
-        <input type="checkbox" name="overflow-wrap" value="all" />
+        <input name="toggle-overflow-1" type="radio" value="all" />
         Everything
       </label>
       <label class="ui-toggle-button">
-        <input type="checkbox" name="overflow-wrap" value="mentions" />
+        <input name="toggle-overflow-1" type="radio" value="mentions" />
         Mentions
       </label>
       <label class="ui-toggle-button">
-        <input type="checkbox" name="overflow-wrap" value="none" />
+        <input name="toggle-overflow-1" type="radio" value="none" />
         Nothing at all
       </label>
     </div>
   </div>
   <div style="display: grid; gap: var(--ui-space-1)">
     <p>Scroll</p>
-    <div role="group" class="ui-toggle-group ui-overflow-scroll">
+    <div
+      class="ui-toggle-group ui-overflow-scroll"
+      role="radiogroup"
+      aria-label="Notifications"
+    >
       <label class="ui-toggle-button">
-        <input type="checkbox" name="overflow-scroll" value="all" />
+        <input name="toggle-overflow-2" type="radio" value="all" />
         Everything
       </label>
       <label class="ui-toggle-button">
-        <input type="checkbox" name="overflow-scroll" value="mentions" />
+        <input name="toggle-overflow-2" type="radio" value="mentions" />
         Mentions
       </label>
       <label class="ui-toggle-button">
-        <input type="checkbox" name="overflow-scroll" value="none" />
+        <input name="toggle-overflow-2" type="radio" value="none" />
         Nothing at all
       </label>
     </div>
   </div>
   <div style="display: grid; gap: var(--ui-space-1)">
     <p>Shrink</p>
-    <div role="group" class="ui-toggle-group ui-overflow-shrink">
+    <div
+      class="ui-toggle-group ui-overflow-shrink"
+      role="radiogroup"
+      aria-label="Notifications"
+    >
       <label class="ui-toggle-button">
-        <input type="checkbox" name="overflow-shrink" value="all" />
+        <input name="toggle-overflow-3" type="radio" value="all" />
         Everything
       </label>
       <label class="ui-toggle-button">
-        <input type="checkbox" name="overflow-shrink" value="mentions" />
+        <input name="toggle-overflow-3" type="radio" value="mentions" />
         Mentions
       </label>
       <label class="ui-toggle-button">
-        <input type="checkbox" name="overflow-shrink" value="none" />
+        <input name="toggle-overflow-3" type="radio" value="none" />
         Nothing at all
       </label>
     </div>

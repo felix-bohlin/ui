@@ -9,8 +9,8 @@ export { default as Avatar } from "../components/Avatar/Avatar.react"
 export { default as AvatarGroup } from "../components/Avatar/AvatarGroup.react"
 export { default as Badge } from "../components/Badge/Badge.react"
 export { default as Button } from "../components/Button/Button.react"
-export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.react"
 export { default as Callout } from "../components/Callout/Callout.react"
+export { default as CalloutActions } from "../components/Callout/CalloutActions.react"
 export { default as CalloutContent } from "../components/Callout/CalloutContent.react"
 export { default as CalloutIcon } from "../components/Callout/CalloutIcon.react"
 export { default as Card } from "../components/Card/Card.react"
@@ -21,6 +21,7 @@ export { default as Carousel } from "../components/Carousel/Carousel.react"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.react"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.react"
 export { default as Chip } from "../components/Chip/Chip.react"
+export { default as ControlGroup } from "../components/ControlGroup/ControlGroup.react"
 export { default as Copy } from "../components/Copy/Copy.react"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.react"
 export { default as DescriptionListDescription } from "../components/DescriptionList/DescriptionListDescription.react"
@@ -46,7 +47,7 @@ export { default as List } from "../components/List/List.react"
 export { default as ListItem } from "../components/ListItem/ListItem.react"
 export { default as Menu } from "../components/Menu/Menu.react"
 export { default as Message } from "../components/Message/Message.react"
-export { default as Messages } from "../components/Message/Messages.react"
+export { default as MessageList } from "../components/Message/MessageList.react"
 export { default as NumberField } from "../components/NumberField/NumberField.react"
 export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.react"
 export { default as Progress } from "../components/Progress/Progress.react"
@@ -104,8 +105,8 @@ export type {
 } from "../components/Avatar/types.react"
 export type { Props as BadgeProps } from "../components/Badge/types.react"
 export type { Props as ButtonProps } from "../components/Button/types.react"
-export type { Props as ButtonGroupProps } from "../components/ButtonGroup/types.react"
 export type {
+  CalloutActionsProps,
   CalloutContentProps,
   CalloutIconProps,
   Props as CalloutProps,
@@ -122,6 +123,7 @@ export type {
   Props as CheckboxProps,
 } from "../components/Checkbox/types.react"
 export type { Props as ChipProps } from "../components/Chip/types.react"
+export type { Props as ControlGroupProps } from "../components/ControlGroup/types.react"
 export type { Props as CopyProps } from "../components/Copy/types.react"
 export type {
   DescriptionListDescriptionProps,
@@ -156,8 +158,8 @@ export type {
   Props as MenuProps,
 } from "../components/Menu/types.react"
 export type {
+  MessageListProps,
   Props as MessageProps,
-  MessagesProps,
 } from "../components/Message/types.react"
 export type { Props as NumberFieldProps } from "../components/NumberField/types.react"
 export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.react"

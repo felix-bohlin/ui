@@ -2,7 +2,7 @@
 import type { Props, Slots } from "./types.vue-props"
 
 const { description, label, size } = defineProps<Props>()
-const slots = defineSlots<Slots>()
+defineSlots<Slots>()
 </script>
 
 <template>
@@ -14,8 +14,10 @@ const slots = defineSlots<Slots>()
     ]"
   >
     <dt class="ui-label">{{ label }}<slot name="label"></slot></dt>
-    <dd class="ui-value"><slot></slot></dd>
-    <dd v-if="description || slots.description" class="ui-description">
+    <dd class="ui-value">
+      <slot></slot>
+    </dd>
+    <dd v-if="description || $slots.description" class="ui-description">
       {{ description }}<slot name="description"></slot>
     </dd>
   </dl>

@@ -4,50 +4,53 @@ export default function Spread() {
   return (
     <>
       <Textarea
-        spread
-        placeholder="Hello, world!"
         label="Message"
-        startText="You can write your message here. Keep it short, preferably under 100 characters."
+        placeholder="Hi, I have a question about my order."
+        spread
+        startText="Keep it under 100 characters."
       />
 
       <Textarea
-        spread
-        placeholder="Additional notes..."
-        variant="filled"
+        endText="Only your team sees these."
         label="Notes"
+        placeholder="Additional notes..."
+        spread
         startText="Add any additional notes or comments"
-        endText="Maximum 500 characters"
+        variant="filled"
       />
 
       <Textarea
-        spread
+        label="Reason for return"
         required
-        label="Required"
-        startText="You must provide a response"
+        spread
+        startText="Helps us improve our products"
       />
 
       <Textarea
-        spread
         disabled
-        label="Disabled"
-        startText="This textarea is disabled"
+        label="Order notes"
+        spread
+        startText="Orders can't change once they ship"
       />
 
       <Textarea
-        spread
+        defaultValue="Great"
+        endText="Write at least 20 characters."
         error
-        label="Invalid Message"
-        startText="This textarea has an error"
-        endText="This value is too short."
+        label="Review"
+        spread
+        startText="Shown with your rating"
       />
 
       <Textarea
-        spread
+        characterCount
         label="Bio"
+        maxLength={280}
         placeholder="Tell us about yourself..."
-        startText="Shown on your public profile"
+        spread
         start={
           <svg
+            data-icon="edit"
             aria-hidden="true"
             width="16"
             height="16"
@@ -62,18 +65,18 @@ export default function Spread() {
             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
           </svg>
         }
-        bottom="280 characters left"
+        startText="Shown on your public profile"
       />
 
       <Textarea
-        spread
-        variant="filled"
+        bottom="Saved 2 minutes ago"
+        endText="Drafts save automatically."
         label="Release notes"
         placeholder="Markdown supported..."
+        spread
         startText="Shown on the changelog page"
         top="v1.4.0"
-        bottom="Saved 2 minutes ago"
-        endText="Drafts are auto-saved"
+        variant="filled"
       />
     </>
   )

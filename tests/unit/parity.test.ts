@@ -1,44 +1,53 @@
 import { existsSync } from "node:fs"
-import { experimental_AstroContainer as AstroContainer } from "astro/container"
 import type { AstroInstance } from "astro"
 import { createTwoFilesPatch } from "diff"
-import { parseFragment, type DefaultTreeAdapterMap } from "parse5"
 import { createElement, type ComponentType } from "react"
-import { renderToString as renderReact } from "react-dom/server"
 import type { Component as SvelteComponent } from "svelte"
-import { render } from "svelte/server"
-import { createSSRApp, type Component as VueComponent } from "vue"
-import { renderToString } from "vue/server-renderer"
-import { describe, expect, test } from "vitest"
+import type { Component as VueComponent } from "vue"
+import { beforeAll, describe, expect, test, vi } from "vitest"
+import { readExample } from "../../scripts/build-examples.mjs"
+import { parseHtml, serialize } from "../../scripts/html-tokens.mjs"
 import {
   DEFAULT_FRAMEWORK,
   exampleExtension,
   FRAMEWORK_IDS as FRAMEWORKS,
   type FrameworkId as Framework,
 } from "../../src/utils/framework"
-import { createIdGenerator } from "../../src/utils/id"
+import { createIdGenerator, exampleIdBase } from "../../src/utils/id"
 import { idsOf, normalize } from "./normalize"
+import { render, type SolidComponent } from "./renderers"
 
 const RECORD = !!process.env.PARITY_RECORD
 
-const astroModules = import.meta.glob<AstroInstance>(
+const astroModules = import.meta.glob<AstroInstance>([
+  "../../src/blocks/**/*.astro",
   "../../src/component-examples/**/*.astro",
-)
-const reactModules = import.meta.glob<{ default: ComponentType }>(
+])
+const reactModules = import.meta.glob<{ default: ComponentType }>([
+  "../../src/blocks/**/*.react.tsx",
   "../../src/component-examples/**/*.react.tsx",
-)
-const svelteModules = import.meta.glob<{ default: SvelteComponent }>(
+])
+const solidModules = import.meta.glob<{ default: SolidComponent }>([
+  "../../src/blocks/**/*.solid.tsx",
+  "../../src/component-examples/**/*.solid.tsx",
+])
+const svelteModules = import.meta.glob<{ default: SvelteComponent }>([
+  "../../src/blocks/**/*.svelte",
   "../../src/component-examples/**/*.svelte",
-)
-const vueModules = import.meta.glob<{ default: VueComponent }>(
+])
+const vueModules = import.meta.glob<{ default: VueComponent }>([
+  "../../src/blocks/**/*.vue",
   "../../src/component-examples/**/*.vue",
-)
+])
 const exampleSources = import.meta.glob<string>(
-  "../../src/component-examples/**/*.{astro,html,react.tsx,svelte,vue}",
+  [
+    "../../src/blocks/**/*.{astro,html,react.tsx,solid.tsx,svelte,vue}",
+    "../../src/component-examples/**/*.{astro,html,react.tsx,solid.tsx,svelte,vue}",
+  ],
   { eager: true, import: "default", query: "?raw" },
 )
 const htmlSources = import.meta.glob<string>(
-  "../../src/component-examples/**/*.html",
+  ["../../src/blocks/**/*.html", "../../src/component-examples/**/*.html"],
   { import: "default", query: "?raw" },
 )
 
@@ -50,10 +59,13 @@ const EXAMPLE_CLASSES = new Set(
   ),
 )
 
+const KNOWN_DIFFERENCES: Record<string, string> = {}
+
 const REFERENCES: Record<Framework, Framework[]> = {
   astro: ["html"],
   html: [],
   react: ["astro", "html"],
+  solid: ["astro", "html"],
   svelte: ["astro", "html"],
   vue: ["astro", "html"],
 }
@@ -62,6 +74,7 @@ type Loaded = {
   astro: AstroInstance
   html: string
   react: { default: ComponentType }
+  solid: { default: SolidComponent }
   svelte: { default: SvelteComponent }
   vue: { default: VueComponent }
 }
@@ -71,10 +84,20 @@ type Example = {
   loaders: { [F in Framework]?: () => Promise<Loaded[F]> }
 }
 
+const BLOCKS = "blocks/"
+
 const keyOf = (path: string) =>
   path
+    .replace("../../src/blocks/", BLOCKS)
     .replace("../../src/component-examples/", "")
-    .replace(/(\.react)?\.[a-z]+$/, "")
+    .replace(/(\.react|\.solid)?\.[a-z]+$/, "")
+
+const sourceOf = (key: string, extension: string) =>
+  exampleSources[
+    key.startsWith(BLOCKS)
+      ? `../../src/${key}.${extension}`
+      : `../../src/component-examples/${key}.${extension}`
+  ]
 
 const examples = new Map<string, Example>()
 const register = <F extends Framework>(
@@ -90,6 +113,7 @@ const register = <F extends Framework>(
 register("astro", astroModules)
 register("html", htmlSources)
 register("react", reactModules)
+register("solid", solidModules)
 register("svelte", svelteModules)
 register("vue", vueModules)
 
@@ -97,29 +121,53 @@ const cases = [...examples.values()].toSorted((a, b) =>
   a.key.localeCompare(b.key),
 )
 
-const container = await AstroContainer.create()
-
 const renderers: {
   [F in Framework]: (loaded: Loaded[F], key: string) => Promise<string>
 } = {
   astro: (loaded, key) =>
-    container.renderToString(loaded.default, {
-      locals: {
+    render.astro(
+      loaded.default,
+      {},
+      {},
+      {
         $id: createIdGenerator(),
         componentSlug: key.split("/")[0],
         framework: DEFAULT_FRAMEWORK,
         link: (path: string) => path,
       },
-    }),
-  html: async (loaded) => loaded,
-  react: async (loaded) =>
-    renderReact(createElement(loaded.default)).replace(
-      /<link rel="preload" as="image"[^>]*\/>/g,
-      "",
     ),
-  svelte: async (loaded) => render(loaded.default).body,
-  vue: (loaded) => renderToString(createSSRApp(loaded.default)),
+  html: async (loaded) => loaded,
+  react: async (loaded, key) => {
+    const spy = vi.spyOn(console, "error").mockImplementation(() => {})
+    try {
+      const html = await render.react(loaded.default)
+      if (spy.mock.calls.length > 0) {
+        throw new Error(
+          `${key} logged a React error: ${String(spy.mock.calls[0][0]).slice(0, 200)}`,
+        )
+      }
+      return html.replace(/<link rel="preload" as="image"[^>]*\/>/g, "")
+    } finally {
+      spy.mockRestore()
+    }
+  },
+  solid: (loaded) => render.solid(loaded.default),
+  svelte: (loaded) => render.svelte(loaded.default),
+  vue: (loaded) => render.vue(loaded.default),
 }
+
+test("the React renderer fails on a console.error", async () => {
+  const Controlled = () => createElement("input", { value: "x" })
+  await expect(
+    renderers.react({ default: Controlled }, "sample/Controlled"),
+  ).rejects.toThrow("sample/Controlled logged a React error")
+  expect(
+    await renderers.react(
+      { default: () => createElement("input", { defaultValue: "x" }) },
+      "sample/Uncontrolled",
+    ),
+  ).toBe('<input value="x"/>')
+})
 
 const renderExample = <F extends Framework>(example: Example, framework: F) =>
   example.loaders[framework]!().then((loaded) =>
@@ -135,70 +183,101 @@ const rendered = (example: Example, framework: Framework) => {
   return renders.get(cacheKey)!
 }
 
+const styles = new Map<string, Promise<string[]>>()
+const exampleCss = (example: Example) => {
+  if (!styles.has(example.key)) {
+    const source = sourceOf(example.key, "astro")
+    styles.set(
+      example.key,
+      source
+        ? readExample(source, `${example.key}.astro`).then(
+            ({ styles }) => styles,
+          )
+        : Promise.resolve([]),
+    )
+  }
+  return styles.get(example.key)!
+}
+
+const COMMENTED: Framework[] = ["astro", "html"]
+
 const cache = new Map<string, Promise<string>>()
-const markup = (example: Example, framework: Framework) => {
-  const cacheKey = `${example.key}.${framework}`
+const markup = (
+  example: Example,
+  framework: Framework,
+  comments = COMMENTED.includes(framework),
+) => {
+  const cacheKey = `${example.key}.${framework}.${comments}`
   if (!cache.has(cacheKey)) {
-    cache.set(cacheKey, rendered(example, framework).then(normalize))
+    cache.set(
+      cacheKey,
+      Promise.all([rendered(example, framework), exampleCss(example)]).then(
+        ([html, css]) => normalize(html, { comments, css }),
+      ),
+    )
   }
   return cache.get(cacheKey)!
 }
 
-const idPattern = (key: string) => {
-  const [slug, name] = key.split("/")
-  const example = name
-    .replace(/Code$/, "")
-    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
-    .toLowerCase()
-  return new RegExp(`^${slug}-${example}-\\d+(-[a-z]+)*$`)
-}
+const idPattern = (key: string) =>
+  key.startsWith(BLOCKS)
+    ? new RegExp(`^${key.split("/")[1]}(-[a-z0-9]+)+$`)
+    : new RegExp(`^${exampleIdBase(key)}-\\d+(-[a-z]+)*$`)
 
 const authoredIds = async (example: Example, framework: Framework) => {
-  const source =
-    exampleSources[
-      `../../src/component-examples/${example.key}.${exampleExtension(framework)}`
-    ]
+  const source = sourceOf(example.key, exampleExtension(framework))
   return idsOf(await rendered(example, framework)).filter((id) =>
     source.includes(`"${id}"`),
   )
 }
 
 const exposedSvgs = (
-  nodes: DefaultTreeAdapterMap["childNode"][],
+  nodes: ReturnType<typeof parseHtml>,
   hidden = false,
 ): string[] =>
   nodes.flatMap((node) => {
-    if (!("tagName" in node)) return []
+    if (node.type !== "element") return []
     const attribute = (name: string) =>
-      node.attrs.find((attr) => attr.name === name)?.value
+      node.attrs.find((attr: { name: string }) => attr.name === name)?.value
     const inner = hidden || attribute("aria-hidden") === "true"
     const named =
       attribute("aria-label") ||
       attribute("aria-labelledby") ||
-      node.childNodes.some(
-        (child) => "tagName" in child && child.tagName === "title",
+      node.children.some(
+        (child: { type: string; tag?: string }) =>
+          child.type === "element" && child.tag === "title",
       )
-    if (node.tagName === "svg" && !inner && !named) {
+    if (node.tag === "svg" && !inner && !named) {
       return [
-        `<svg ${node.attrs.map(({ name, value }) => `${name}="${value}"`).join(" ")}>`,
+        `<svg ${node.attrs.map(({ name, value }: { name: string; value: string }) => `${name}="${value}"`).join(" ")}>`,
       ]
     }
-    return exposedSvgs(
-      "content" in node ? node.content.childNodes : node.childNodes,
-      inner,
-    )
+    return exposedSvgs(node.children, inner)
   })
+
+beforeAll(
+  () =>
+    Promise.allSettled(
+      FRAMEWORKS.filter((framework) => cases[0]?.loaders[framework]).map(
+        (framework) => markup(cases[0], framework),
+      ),
+    ),
+  15_000,
+)
 
 describe.each(cases)("$key", (example) => {
   const frameworks = FRAMEWORKS.filter(
     (framework) => example.loaders[framework],
   )
 
-  test(`${frameworks[0]} matches snapshot`, async () => {
-    await expect(await markup(example, frameworks[0])).toMatchFileSnapshot(
-      `__snapshots__/${example.key}.html`,
-    )
-  })
+  test.skipIf(example.key.startsWith(BLOCKS))(
+    `${frameworks[0]} matches snapshot`,
+    async () => {
+      await expect(await markup(example, frameworks[0])).toMatchFileSnapshot(
+        `__snapshots__/${example.key}.html`,
+      )
+    },
+  )
 
   test.each(frameworks.filter((framework) => framework !== "html"))(
     "%s only adds ui- prefixed classes",
@@ -213,15 +292,23 @@ describe.each(cases)("$key", (example) => {
     },
   )
 
+  test.each(frameworks)(
+    "%s parses back to its own markup",
+    async (framework) => {
+      const html = await rendered(example, framework)
+      expect(serialize(parseHtml(html))).toBe(html)
+    },
+  )
+
   test.each(frameworks)("%s hides decorative svgs", async (framework) => {
     expect(
-      exposedSvgs(parseFragment(await rendered(example, framework)).childNodes),
+      exposedSvgs(parseHtml(await rendered(example, framework))),
       'decorative svgs need aria-hidden="true"; name the others with aria-label or a <title>',
     ).toEqual([])
   })
 
   test.each(frameworks)(
-    "%s ids follow <slug>-<example>-<n> and match html",
+    "%s ids follow <slug>-<example>-<n>, or <slug>-<name> in a block, and match html",
     async (framework) => {
       const pattern = idPattern(example.key)
       const ids = await authoredIds(example, framework)
@@ -246,10 +333,23 @@ describe.each(cases)("$key", (example) => {
       return reference ? [[framework, reference]] : []
     }),
   )("%s matches %s", async (framework, reference) => {
+    const comments = [framework, reference].every((name) =>
+      COMMENTED.includes(name),
+    )
     const [expected, actual] = await Promise.all([
-      markup(example, reference),
-      markup(example, framework),
+      markup(example, reference, comments),
+      markup(example, framework, comments),
     ])
+    const known = [framework, reference]
+      .map((name) => `${example.key}: ${name}`)
+      .find((name) => name in KNOWN_DIFFERENCES)
+    if (known) {
+      expect(
+        actual,
+        `${known} is in KNOWN_DIFFERENCES (${KNOWN_DIFFERENCES[known]}) but no longer differs; delete it`,
+      ).not.toBe(expected)
+      return
+    }
     const driftFile = `__snapshots__/${example.key}.${framework}.diff`
     const recorded = existsSync(new URL(driftFile, import.meta.url))
 

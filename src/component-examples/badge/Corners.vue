@@ -5,6 +5,7 @@ import { Badge } from "opui-css/vue"
 <template>
   <Badge corner="start-start" hideLabel label="35 unread messages">
     <svg
+      data-icon="mail"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -20,6 +21,7 @@ import { Badge } from "opui-css/vue"
   </Badge>
   <Badge hideLabel label="More than 99 unread messages">
     <svg
+      data-icon="mail"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -33,8 +35,9 @@ import { Badge } from "opui-css/vue"
     </svg>
     <template #indicator>99+</template>
   </Badge>
-  <Badge corner="end-start" hideLabel label="Inbox synced">
+  <Badge corner="end-start" hideLabel label="New messages">
     <svg
+      data-icon="mail"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -46,10 +49,11 @@ import { Badge } from "opui-css/vue"
         d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
       ></path>
     </svg>
-    <template #indicator>OK!</template>
+    <template #indicator>New</template>
   </Badge>
   <Badge corner="end-end" hideLabel label="About 3,000 unread messages">
     <svg
+      data-icon="mail"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"

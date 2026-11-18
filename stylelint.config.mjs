@@ -1,3 +1,15 @@
+const PHYSICAL = [
+  /^(-webkit-)?(min-|max-)?(width|height)$/,
+  /^(top|right|bottom|left)$/,
+  /^(margin|padding|scroll-margin|scroll-padding)-(top|right|bottom|left)$/,
+  /^border-(top|right|bottom|left)(-(color|style|width))?$/,
+  /^border-(top|bottom)-(left|right)-radius$/,
+  /^contain-intrinsic-(width|height)$/,
+  /^overscroll-behavior-[xy]$/,
+]
+
+const PHYSICAL_OVERFLOW = /^overflow-[xy]$/
+
 export default {
   ignoreFiles: ["**/dist/**", "**/node_modules/**"],
   overrides: [
@@ -22,22 +34,14 @@ export default {
           "/./": [/(^|[\s(,*/+-])[\d.]+[sdl]?v[wh]\b/],
         },
         "media-feature-name-no-vendor-prefix": true,
+        "opui/disabled-pseudo": true,
         "opui/focus-visible": true,
         "opui/hover-media": true,
         "opui/logical-shorthands": true,
         "opui/motion-duration": true,
         "opui/state-classes": true,
         "opui/vendor-prefix": true,
-        "property-disallowed-list": [
-          /^(-webkit-)?(min-|max-)?(width|height)$/,
-          /^(top|right|bottom|left)$/,
-          /^(margin|padding|scroll-margin|scroll-padding)-(top|right|bottom|left)$/,
-          /^border-(top|right|bottom|left)(-(color|style|width))?$/,
-          /^border-(top|bottom)-(left|right)-radius$/,
-          /^contain-intrinsic-(width|height)$/,
-          /^overflow-[xy]$/,
-          /^overscroll-behavior-[xy]$/,
-        ],
+        "property-disallowed-list": [...PHYSICAL, PHYSICAL_OVERFLOW],
         "selector-no-vendor-prefix": [
           true,
           {
@@ -57,28 +61,12 @@ export default {
       rules: { "opui/unused-classes": true },
     },
     {
+      files: ["packages/opui/css/compat/*.css"],
+      rules: { "property-disallowed-list": PHYSICAL },
+    },
+    {
       files: ["packages/opui/core/normalize.css"],
       rules: {
-        "opui/focus-visible": [
-          true,
-          {
-            except: [
-              ":where(input):autofill:focus",
-              ":where(select):autofill:focus",
-              ":where(textarea):autofill:focus",
-            ],
-          },
-        ],
-        "opui/hover-media": [
-          true,
-          {
-            except: [
-              ":where(input):autofill:hover",
-              ":where(select):autofill:hover",
-              ":where(textarea):autofill:hover",
-            ],
-          },
-        ],
         "opui/motion-duration": [
           true,
           { except: ["transition: background-color 5000s ease-in-out 0s"] },
@@ -110,6 +98,7 @@ export default {
     },
   ],
   plugins: [
+    "./scripts/stylelint-disabled-pseudo.mjs",
     "./scripts/stylelint-focus-visible.mjs",
     "./scripts/stylelint-hover-media.mjs",
     "./scripts/stylelint-logical-shorthands.mjs",

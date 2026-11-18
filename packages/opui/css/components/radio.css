@@ -3,57 +3,60 @@
     /* Input */
     input[type="radio"] {
       --_dot-radius: calc(
-        var(--_size) / 2 - var(--ui-field-border-width) -
-          round(
-            down,
-            (var(--_size) - 2 * var(--ui-field-border-width)) / 4,
-            1px
-          )
+        var(--_size) / 2 - var(--_rest-border-width) -
+          round(down, (var(--_size) - 2 * var(--_rest-border-width)) / 4, 1px)
       );
 
-      appearance: none;
-      aspect-ratio: 1;
-      background-color: var(--ui-surface);
-      block-size: var(--_size);
-      border: var(--ui-field-border-width) solid
-        var(--ui-choice-border-color, var(--ui-field-border-color));
       border-radius: var(--ui-radius-round);
-      box-sizing: border-box;
-      cursor: pointer;
-      inline-size: var(--_size);
-      margin: 0;
-      padding: 0;
-      position: relative;
-      transform-style: preserve-3d;
 
       /* Dot */
       &:checked {
+        --_border-color: var(--_accent);
+
         background-color: var(--_accent);
         background-image: radial-gradient(
           circle,
           var(--_on-accent) calc(var(--_dot-radius) - 0.25px),
           var(--_accent) calc(var(--_dot-radius) + 0.25px)
         );
-        border-color: var(--_accent);
+
+        @container style(--ui-choice-checked: mark) {
+          @media (forced-colors: none) {
+            --_border-color: var(
+              --ui-choice-border-color,
+              var(--ui-field-border-color)
+            );
+
+            background-color: var(--ui-surface);
+            background-image: radial-gradient(
+              circle,
+              var(--_mark-bg-color) calc(var(--_dot-radius) - 0.25px),
+              transparent calc(var(--_dot-radius) + 0.25px)
+            );
+          }
+        }
       }
     }
 
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
       input[type="radio"]:not(:checked) {
-        border-color: var(--ui-invalid);
+        --_border-color: var(--ui-invalid);
       }
     }
 
     @media (forced-colors: active) {
       input[type="radio"] {
-        border-color: CanvasText;
-
         &:checked {
           --_accent: SelectedItem;
           --_on-accent: SelectedItemText;
 
           forced-color-adjust: none;
+        }
+
+        &:is(:disabled, [aria-disabled="true"]) {
+          --_accent: GrayText;
+          --_border-color: GrayText;
         }
       }
     }

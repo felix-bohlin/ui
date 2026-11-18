@@ -1,4 +1,4 @@
-import type { ElementType } from "react"
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import { tagAttrs } from "../tag"
 import type { Props } from "./types.react"
@@ -12,9 +12,10 @@ export default function Button({
   round,
   size,
   variant,
+  children,
   ...rest
 }: Props) {
-  const Tag: ElementType = as || (href ? "a" : "button")
+  const Tag = as || (href ? "a" : "button")
 
   return (
     <Tag
@@ -26,8 +27,10 @@ export default function Button({
         variant && variant !== "transparent" && `ui-${variant}`,
         className,
       ])}
-      {...tagAttrs(Tag as string, disabled, href)}
-      {...(rest as object)}
-    />
+      {...tagAttrs(Tag, disabled, href)}
+      {...defined(rest as object)}
+    >
+      {children}
+    </Tag>
   )
 }

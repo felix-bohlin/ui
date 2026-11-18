@@ -28,42 +28,28 @@ const {
   {...rest}
 >
   <slot name="start" />
-  {
-    typing ? (
-      <div class="ui-content" role="status">
-        <span class="ui-sr-only">
-          <slot />
-        </span>
-      </div>
-    ) : (
-      <div class="ui-content">
-        {author && <p class="ui-header">{author}</p>}
+  {typing ? (
+    <div class="ui-content" role="status">
+      <span class="ui-sr-only">
         <slot />
-        {(time || Astro.slots.has("end")) && (
-          <p class="ui-footer">
-            {time && <time datetime={datetime}>{time}</time>}
-            {Astro.slots.has("end") && (
-              <span class="ui-end">
-                <slot name="end" />
-              </span>
-            )}
-          </p>
-        )}
-      </div>
-    )
-  }
-  {
-    Astro.slots.has("actions") && (
-      <div class="ui-actions">
-        <slot name="actions" />
-      </div>
-    )
-  }
-  {
-    Astro.slots.has("bottom") && (
-      <div class="ui-bottom">
-        <slot name="bottom" />
-      </div>
-    )
-  }
+      </span>
+    </div>
+  ) : (
+    <div class="ui-content">
+      {author && <p class="ui-header">{author}</p>}
+      <slot />
+      {(time || Astro.slots.has("end")) && <p class="ui-footer">
+        {time && <time datetime={datetime}>{time}</time>}
+        {Astro.slots.has("end") && <span class="ui-end">
+          <slot name="end" />
+        </span>}
+      </p>}
+    </div>
+  )}
+  {Astro.slots.has("actions") && <div class="ui-actions">
+    <slot name="actions" />
+  </div>}
+  {Astro.slots.has("bottom") && <div class="ui-bottom">
+    <slot name="bottom" />
+  </div>}
 </li>

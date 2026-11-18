@@ -3,14 +3,14 @@ import { Checkbox } from "opui-css/vue"
 </script>
 
 <template>
-  <Checkbox name="checkbox-end-text" endText="Supporting text">
-    Default
+  <Checkbox endText="Wrapped in recycled paper." name="checkbox-end-text">
+    Gift wrap
   </Checkbox>
   <Checkbox
-    orientation="vertical"
+    endText="Printed on the packing slip."
     name="checkbox-end-text"
-    endText="Supporting text"
+    orientation="vertical"
   >
-    Stack
+    Gift message
   </Checkbox>
 </template>

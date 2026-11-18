@@ -1,6 +1,7 @@
 <script lang="ts">
   import { content } from "../content.svelte"
   import { tagAttrs } from "../tag"
+  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
@@ -28,18 +29,18 @@
   this={Tag}
   class={[
     "ui-chip",
-    {
-      "ui-dot": dot,
-      "ui-multiline": multiline,
-    },
+    { "ui-dot": dot, "ui-multiline": multiline },
     severity && `ui-${severity}`,
     size && size !== "medium" && `ui-${size}`,
     variant !== "tonal" && `ui-${variant}`,
     className,
   ]}
   {...tagAttrs(Tag, disabled, href)}
-  {...rest}
-  >{@render start?.()}{#if label}<span class="ui-text"
-      >{@render content(label)}</span
-    >{/if}{@render end?.()}</svelte:element
+  {...defined(rest)}
 >
+  {@render start?.()}{#if label}
+    <span class="ui-text">
+      {@render content(label)}
+    </span>
+  {/if}{@render end?.()}
+</svelte:element>

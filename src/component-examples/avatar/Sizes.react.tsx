@@ -3,17 +3,17 @@ import { Avatar } from "opui-css/react"
 export default function Sizes() {
   return (
     <>
-      <Avatar aria-label="Lena Ek" role="img" size="x-small">
-        LE
+      <Avatar aria-label="Lou Headstock" role="img" size="x-small">
+        LH
       </Avatar>
-      <Avatar aria-label="Tom Tanaka" role="img" size="small">
-        TT
+      <Avatar aria-label="Percy Groove" role="img" size="small">
+        PG
       </Avatar>
-      <Avatar aria-label="Elif Rahman" role="img">
-        ER
+      <Avatar aria-label="Ines Hertz" role="img">
+        IH
       </Avatar>
-      <Avatar aria-label="Kai Lund" role="img" size="large">
-        KL
+      <Avatar aria-label="Holly Humbucker" role="img" size="large">
+        HH
       </Avatar>
     </>
   )

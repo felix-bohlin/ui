@@ -3,10 +3,10 @@ import { Textarea } from "opui-css/react"
 export default function Sizes() {
   return (
     <>
-      <Textarea label="x-small" placeholder="Placeholder" size="x-small" />
-      <Textarea label="Small" placeholder="Placeholder" size="small" />
-      <Textarea label="Medium" placeholder="Placeholder" />
-      <Textarea label="Large" placeholder="Placeholder" size="large" />
+      <Textarea label="X-small" placeholder="Write a message" size="x-small" />
+      <Textarea label="Small" placeholder="Write a message" size="small" />
+      <Textarea label="Medium" placeholder="Write a message" />
+      <Textarea label="Large" placeholder="Write a message" size="large" />
     </>
   )
 }

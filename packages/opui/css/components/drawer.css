@@ -1,25 +1,24 @@
 @layer components.root {
   :where(dialog.ui-drawer) {
     --_motion: var(--ui-motion);
-    --_backdrop-bg-color: var(--ui-backdrop-bg-color);
-    --_backdrop-blur: blur(var(--ui-backdrop-blur));
     --_bg-color: var(--ui-surface-elevated);
-    --_block-size: min(80vb, 650px);
+    --_block-size: min(80dvb, 650px);
     --_border-color: var(--ui-border-color);
     --_border-width: var(--ui-border-width);
+    --_closed-translate: calc(-100% * var(--_direction)) 0;
     --_content-padding: var(--ui-card-padding, var(--ui-space-3));
     --_direction: 1;
     --_duration: calc(var(--ui-duration-slow) * var(--_motion));
     --_ease: var(--ui-ease-exit);
     --_edge-border-color: var(--ui-border-color-raised, var(--_border-color));
-    --_footer-gap: var(--ui-space-3);
     --_footer-padding: var(--ui-card-padding, var(--ui-space-3));
+    --_handle-border-color: var(--ui-border-color);
     --_header-padding: var(--ui-card-padding, var(--ui-space-3));
     --_inline-size: min(375px, 100vi);
-    --_scroll-shadow: var(--ui-shadow-scroll);
     --_shadow: var(--ui-shadow-overlay);
+    --_swipe-offset: 0px;
+    --_swipe-progress: 0;
     --_text-color: var(--ui-text-strong);
-    --_title-font-size: var(--ui-font-size-h4);
     --ui-border-color: var(--ui-border-color-on-raised);
     --ui-divider-gap: var(--ui-space-3);
     --ui-field-border-color: var(--ui-field-border-color-on-raised);
@@ -39,19 +38,10 @@
       display var(--_duration) allow-discrete,
       overlay var(--_duration) allow-discrete,
       translate var(--_duration) var(--_ease);
+    translate: var(--_closed-translate);
 
     &:dir(rtl) {
       --_direction: -1;
-    }
-
-    &::backdrop {
-      backdrop-filter: var(--_backdrop-blur);
-      background-color: var(--_backdrop-bg-color);
-      opacity: 0;
-      transition:
-        display var(--_duration) allow-discrete,
-        overlay var(--_duration) allow-discrete,
-        opacity var(--_duration) var(--_ease);
     }
 
     &.ui-backdrop-transparent {
@@ -60,176 +50,44 @@
     }
 
     & > .ui-header {
-      align-items: center;
       border-block-end: var(--_border-width) solid var(--_border-color);
-      column-gap: var(--ui-space-1);
-      display: flex;
-      flex-wrap: wrap;
       padding: var(--_header-padding);
-
-      & > :where(h1, h2, h3, h4, h5, h6) {
-        flex: 1;
-        font-size: var(--_title-font-size);
-        letter-spacing: var(--ui-letter-spacing-heading);
-        line-height: round(
-          up,
-          1em + 2 * var(--ui-rhythm-step),
-          var(--ui-rhythm-step)
-        );
-        margin: 0;
-      }
-
-      & > :where(p) {
-        flex-basis: 100%;
-      }
-
-      &:not(:has(> :where(h1, h2, h3, h4, h5, h6)))
-        > :where(.ui-button:has(> svg:only-child)):first-of-type {
-        margin-inline-start: auto;
-      }
     }
 
     & > .ui-content {
-      anchor-name: --ui-drawer-content;
-      anchor-scope: --ui-drawer-content;
-      container-type: scroll-state;
       flex: 1;
-      overflow-block: auto;
-      overscroll-behavior: contain;
       padding: var(--_content-padding);
-
-      &:focus-visible {
-        outline-offset: var(--ui-focus-ring-inset);
-      }
-
-      &::before,
-      &::after {
-        block-size: var(--ui-space-2);
-        box-shadow: var(--_scroll-shadow);
-        clip-path: inset(100% 0 calc(-1 * var(--ui-space-6)));
-        content: "";
-        inset-inline: anchor(--ui-drawer-content inside);
-        opacity: 0;
-        pointer-events: none;
-        position: absolute;
-        transition: opacity var(--_duration);
-        z-index: 1;
-      }
-
-      &::before {
-        inset-block-end: anchor(--ui-drawer-content outside);
-      }
-
-      &::after {
-        inset-block-start: anchor(--ui-drawer-content outside);
-        scale: 1 -1;
-      }
-    }
-
-    & > :where(.ui-content:not(.ui-rich-text)) > * {
-      margin-block: 0;
-    }
-
-    &
-      > :where(
-        .ui-content:not(
-          .ui-rich-text,
-          :has(
-            > :is(
-              a,
-              abbr,
-              b,
-              button,
-              cite,
-              code,
-              em,
-              i,
-              img,
-              input,
-              kbd,
-              mark,
-              q,
-              s,
-              samp,
-              small,
-              span,
-              strong,
-              sub,
-              sup,
-              svg,
-              time,
-              u,
-              var,
-              .ui-carousel
-            )
-          )
-        )
-      ) {
-      align-content: start;
-      display: grid;
-      gap: var(--ui-space-3);
-      grid-template-columns: minmax(0, 1fr);
-
-      & > .ui-divider {
-        margin-block: 0;
-      }
-    }
-
-    @container scroll-state(scrollable: block-start) {
-      & > .ui-content::before {
-        opacity: 1;
-      }
-    }
-
-    @container scroll-state(scrollable: block-end) {
-      & > .ui-content::after {
-        opacity: 1;
-      }
     }
 
     & > .ui-footer {
-      align-items: center;
       border-block-start: var(--_border-width) solid var(--_border-color);
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--_footer-gap);
-      justify-content: end;
       padding: var(--_footer-padding);
-
-      &.ui-align-start {
-        justify-content: start;
-      }
-
-      & > .ui-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--_footer-gap);
-      }
-
-      & > * + .ui-actions {
-        margin-inline-start: auto;
-      }
     }
 
+    /* Each side on a screen edge keeps its content out of the safe area. */
     &:not(.ui-block-end, .ui-block-start) {
       block-size: 100dvb;
       inline-size: var(--_inline-size);
       inset-block: 0;
       max-block-size: 100%;
+      padding-block: var(--ui-safe-area-inset-block-start)
+        var(--ui-safe-area-inset-block-end);
     }
 
     &:not(.ui-block-end, .ui-block-start, .ui-inline-end) {
       border-inline-end: var(--_border-width) solid var(--_edge-border-color);
       inset-inline-end: auto;
       inset-inline-start: 0;
-      translate: calc(-100% * var(--_direction)) 0;
+      padding-inline-start: var(--ui-safe-area-inset-inline-start);
     }
 
     &.ui-inline-end {
+      --_closed-translate: calc(100% * var(--_direction)) 0;
+
       border-inline-start: var(--_border-width) solid var(--_edge-border-color);
       inset-inline-end: 0;
       inset-inline-start: auto;
-      translate: calc(100% * var(--_direction)) 0;
+      padding-inline-end: var(--ui-safe-area-inset-inline-end);
     }
 
     &.ui-block-start,
@@ -237,63 +95,81 @@
       block-size: var(--_block-size);
       inline-size: 100dvi;
       inset-inline: 0;
-      max-block-size: 80dvb;
+      max-block-size: 100%;
+      padding-inline: var(--ui-safe-area-inset-inline-start)
+        var(--ui-safe-area-inset-inline-end);
     }
 
     &.ui-block-start {
+      --_closed-translate: 0 -100%;
+
       border-block-end: var(--_border-width) solid var(--_edge-border-color);
       inset-block-end: auto;
       inset-block-start: 0;
-      translate: 0 -100%;
+      padding-block-start: var(--ui-safe-area-inset-block-start);
     }
 
     &.ui-block-end {
+      --_closed-translate: 0 100%;
+
       border-block-start: var(--_border-width) solid var(--_edge-border-color);
       inset-block-end: 0;
       inset-block-start: auto;
-      translate: 0 100%;
+      padding-block-end: var(--ui-safe-area-inset-block-end);
     }
 
-    &:not([open]) {
-      display: none;
+    /* Swiping a drawer at the block start or end toward its edge closes it,
+       from its grab handle or header (elements/drawer-swipe.js). Vertical
+       pans stay with the script there; the content scrolls on its own. */
+    &:is(.ui-block-start, .ui-block-end):not([closedby="none" i]) {
+      touch-action: pan-x pinch-zoom;
+
+      /* The handle is a border, so forced colors keep it. */
+      @media (any-pointer: coarse) {
+        &.ui-block-end::before,
+        &.ui-block-start::after {
+          align-self: center;
+          block-size: 0;
+          border-block-start: var(--ui-space-1) solid
+            var(--_handle-border-color);
+          border-radius: var(--ui-radius-round);
+          content: "";
+          flex: none;
+          inline-size: var(--ui-space-7);
+          margin-block: var(--ui-space-2);
+        }
+
+        &.ui-block-end::before {
+          margin-block-end: 0;
+        }
+
+        &.ui-block-start::after {
+          margin-block-start: 0;
+        }
+      }
     }
 
     &[open] {
       --_ease: var(--ui-ease-enter);
 
-      translate: 0 0;
+      translate: 0 var(--_swipe-offset);
 
+      /* The backdrop fades as the drawer is swiped away. */
       &::backdrop {
-        opacity: 1;
+        opacity: calc(1 - var(--_swipe-progress));
       }
 
       @starting-style {
-        &::backdrop {
-          opacity: 0;
-        }
-
-        &:not(.ui-block-end, .ui-block-start, .ui-inline-end) {
-          translate: calc(-100% * var(--_direction)) 0;
-        }
-
-        &.ui-inline-end {
-          translate: calc(100% * var(--_direction)) 0;
-        }
-
-        &.ui-block-start {
-          translate: 0 -100%;
-        }
-
-        &.ui-block-end {
-          translate: 0 100%;
-        }
+        translate: var(--_closed-translate);
       }
     }
   }
 
   /* Scroll-lock is provided by the shared `.ui-scroll-lock` utility in core/utils.css. */
-  @media (width < 500px) {
-    html:has(dialog.ui-drawer.ui-scroll-lock[open].ui-backdrop-transparent) {
+  @media (width < 31.25rem) {
+    html:has(
+      dialog.ui-drawer.ui-backdrop-transparent:is(:modal, .ui-scroll-lock[open])
+    ) {
       overflow: clip;
       overscroll-behavior: contain;
     }

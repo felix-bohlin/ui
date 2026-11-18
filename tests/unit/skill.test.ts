@@ -1,6 +1,7 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs"
 import path from "node:path"
 import { describe, expect, test } from "vitest"
+import { sourceOf } from "../../packages/opui/scripts/build-frameworks.mjs"
 import { skillGuides } from "../../src/utils/guide"
 
 const PACKAGE = "packages/opui"
@@ -108,7 +109,8 @@ test("SKILL.md names only entry points the package exports", () => {
       const file = typeof value === "string" ? value : value.default
       return [file.replace("*", match[1] ?? "")]
     })[0]
-    return !target || !existsSync(path.join(PACKAGE, target))
+    if (!target) return true
+    return !sourceOf(PACKAGE, target) && !existsSync(path.join(PACKAGE, target))
   })
   expect(missing).toEqual([])
 })
@@ -142,6 +144,27 @@ test("no reference is orphaned", () => {
     [...pages, ...skillGuides, "index"].map((name) => `${name}.md`),
   )
   expect(referenceFiles.filter((file) => !expected.has(file))).toEqual([])
+})
+
+const fullIcons = (markdown: string) =>
+  [...markdown.matchAll(/```[\s\S]*?```/g)].flatMap(([block]) =>
+    [...block.matchAll(/<svg\b[^>]*>([\s\S]*?)<\/svg\s*>/g)].filter(
+      ([, inner]) => inner.trim() !== "",
+    ),
+  ).length
+
+test("a reference writes only its first icon in full", () => {
+  expect(
+    fullIcons(
+      '```astro\n<svg viewBox="0 0 1 1"><path d="M0 0" /></svg>\n<svg viewBox="0 0 1 1"\n  ><path d="M0 0" /></svg\n>\n```',
+    ),
+  ).toBe(2)
+  expect(
+    referenceFiles.filter(
+      (file) =>
+        fullIcons(readFileSync(path.join(REFERENCES, file), "utf8")) > 1,
+    ),
+  ).toEqual([])
 })
 
 test("the index lists every component reference", () => {

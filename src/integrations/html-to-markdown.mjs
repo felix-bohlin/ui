@@ -14,6 +14,7 @@ import { select, selectAll } from "hast-util-select"
 
 const REMOVE_SELECTORS = [
   "#changelog-list",
+  ".browser-logo",
   ".build-up-knobs",
   ".build-up-stage",
   ".build-up-steps legend",
@@ -121,7 +122,16 @@ function unwrapTemplates(node, test) {
 /** @param {Element} node */
 const codeBlock = (node) => {
   const lang = node.properties?.dataLanguage
-  const code = textContent(select("code", node) ?? node)
+  const lines = selectAll(".diff-line", node)
+  const code = lines.length
+    ? lines
+        .map((line) => {
+          const type = line.properties?.dataDiff
+          const marker = type === "ins" ? "+" : type === "del" ? "-" : " "
+          return marker + textContent(line)
+        })
+        .join("\n")
+    : textContent(select("code", node) ?? node)
   return element("pre", {}, [
     element("code", { className: lang ? [`language-${lang}`] : [] }, [
       text(code),
@@ -135,6 +145,9 @@ const codeGroup = (node) => {
     textContent(tab).trim(),
   )
   const blocks = selectAll(".code-block", node)
+  if (labels.length === 0) {
+    return element("div", {}, blocks.slice(0, 1).map(codeBlock))
+  }
   return element(
     "div",
     {},
@@ -268,8 +281,23 @@ export async function articleToMarkdown(
   if (omitInstallationCode) {
     const installation = select("section#installation", article)
     if (installation) {
-      prune(installation, new Set(selectAll(".code-block", installation)))
-      replace(installation, isClass("code-group"), installationGroup)
+      const command = new Set(
+        selectAll(".install-command .code-block", installation),
+      )
+      prune(
+        installation,
+        new Set(
+          selectAll(".code-block", installation).filter(
+            (block) => !command.has(block),
+          ),
+        ),
+      )
+      replace(
+        installation,
+        (node) =>
+          isClass("code-group")(node) && !isClass("install-command")(node),
+        installationGroup,
+      )
     }
   }
 
@@ -298,6 +326,14 @@ export async function articleToMarkdown(
   replace(article, isClass("feature-support"), featureSupport)
   replace(article, isClass("code-group"), codeGroup)
   replace(article, isClass("code-block"), codeBlock)
+  replace(
+    article,
+    (node) =>
+      node.tagName === "svg" &&
+      node.properties?.role === "img" &&
+      typeof node.properties.ariaLabel === "string",
+    (node) => text(String(node.properties.ariaLabel)),
+  )
   prune(article, new Set(selectAll(REMOVE_SELECTORS.join(", "), article)))
 
   for (const link of selectAll("a[href]", article)) {

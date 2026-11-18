@@ -9,6 +9,7 @@
 /*** Root components (components.prose, components.root) */
 @import "./components/anchor.css";
 @import "./components/avatar.css";
+@import "./components/badge.css";
 @import "./components/button.css";
 @import "./components/callout.css";
 @import "./components/card.css";
@@ -38,8 +39,7 @@
 
 /*** Extended components (components.extended, components.root) */
 @import "./components/accordion.css";
-@import "./components/badge.css";
-@import "./components/button-group.css";
+@import "./components/control-group.css";
 @import "./components/copy.css";
 @import "./components/dialog.css";
 @import "./components/form.css";
@@ -47,9 +47,9 @@
 @import "./components/menu.css";
 @import "./components/message.css";
 @import "./components/number-field.css";
-@import "./components/one-time-code.css";
 @import "./components/select.css";
 @import "./components/text-field.css";
+@import "./components/one-time-code.css";
 @import "./components/textarea.css";
 @import "./components/toaster.css";
 @import "./components/toggle-group.css";

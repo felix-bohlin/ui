@@ -1,6 +1,7 @@
 ---
 import type { Props } from "./types.astro"
 import { menuContext } from "./context.astro"
+import { defined } from "../attrs"
 import { warnMissingId } from "../dev"
 import { tagAttrs } from "../tag"
 
@@ -20,7 +21,8 @@ const {
 } = Astro.props
 
 warnMissingId("Menu", id)
-const rootId = menuContext.get()?.rootId ?? id
+const parent = menuContext.get()
+const rootId = parent?.rootId ?? id
 const html = await menuContext.provide({ rootId }, () =>
   Astro.slots.render("default"),
 )
@@ -42,47 +44,47 @@ const html = await menuContext.provide({ rootId }, () =>
   popover={popover === "auto" ? "" : popover}
   {...rest}
 >
-  {
-    items?.map(
-      ({
-        borderTop,
-        color,
-        disabled,
-        href,
-        keepOpen,
-        label,
-        shortcut,
-        ...itemRest
-      }) => {
-        const Tag = href ? "a" : "button"
-        const closes = !href && !keepOpen && !disabled
+  {items?.map(
+    ({
+      borderTop,
+      color,
+      disabled,
+      href,
+      keepOpen,
+      label,
+      shortcut,
+      ...itemRest
+    }) => {
+      const Tag = href ? "a" : "button"
+      const closes = !href && !keepOpen && !disabled
 
-        return (
-          <li
-            class:list={[
-              { "ui-border-top": borderTop },
-              color && `ui-${color}`,
-            ]}
-          >
-            <Tag
-              {...tagAttrs(Tag, disabled, href)}
-              command={closes ? "hide-popover" : undefined}
-              commandfor={closes ? rootId : undefined}
-              {...itemRest}
-            >
-              <div class="ui-text">
-                <p>{label}</p>
-              </div>
-              {shortcut && (
-                <div class="ui-end">
-                  <kbd>{shortcut}</kbd>
-                </div>
-              )}
-            </Tag>
-          </li>
-        )
-      },
-    )
-  }
+      return <li
+        class:list={[{ "ui-border-top": borderTop }, color && `ui-${color}`]}
+      >
+        <Tag
+          {...tagAttrs(Tag, disabled, href)}
+          command={closes ? "hide-popover" : undefined}
+          commandfor={closes ? rootId : undefined}
+          {...defined(itemRest)}
+        >
+          <div class="ui-text">
+            <p>{label}</p>
+          </div>
+          {shortcut && <div class="ui-end">
+            <kbd>{shortcut}</kbd>
+          </div>}
+          {Astro.slots.has("icon-checked") && <span
+            aria-hidden="true"
+            class="ui-icon-checked"
+            ><slot name="icon-checked"
+          /></span>}
+        </Tag>
+      </li>
+    },
+  )}
   <Fragment set:html={html} />
 </menu>
+
+<script>
+  import "../../elements/close-on-navigate.js"
+</script>

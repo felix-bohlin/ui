@@ -3,12 +3,12 @@ import { List, ListItem } from "opui-css/react"
 export default function Dense() {
   return (
     <List dense>
-      <ListItem label="Headline" />
+      <ListItem label="Gig poster.pdf" />
       <ListItem
-        label="Headline"
-        description="Supporting text that truly is quite long enough to fill up multiple lines."
+        description="Our logo in every color, with the bass drawn way bigger than the drum kit, at last."
+        label="Band logo pack.pdf"
       />
-      <ListItem label="Trailing supporting text" end="100+" />
+      <ListItem end="100+" label="Photos" />
     </List>
   )
 }

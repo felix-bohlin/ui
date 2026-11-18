@@ -13,5 +13,12 @@
   aria-label="Checkout steps"
   current={2}
   {items}
-  style="max-inline-size: 20rem"
+  style="max-inline-size: 28rem"
+/>
+<Stepper
+  aria-label="Checkout steps"
+  current={2}
+  {items}
+  orientation="horizontal"
+  style="max-inline-size: 28rem"
 />

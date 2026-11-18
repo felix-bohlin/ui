@@ -3,8 +3,9 @@ const Base = globalThis.HTMLElement ?? class {}
 const COPIED = 2000
 const TIMEOUT = 1000
 
-export class Copy extends Base {
+export class CopyElement extends Base {
   #controller
+  #frame
   #interest
   #timeout
 
@@ -14,7 +15,7 @@ export class Copy extends Base {
     const clone = this.ownerDocument.createElement("div")
     clone.append(...[...this.childNodes].map((node) => node.cloneNode(true)))
     for (const node of clone.querySelectorAll(
-      'button, [popover], [role="status"]',
+      'button, [data-copy-ignore], [popover], [role="status"]',
     )) {
       node.remove()
     }
@@ -50,12 +51,13 @@ export class Copy extends Base {
   async copy(source) {
     this.#reset()
     const copied = await this.#write(this.text)
+    if (!this.isConnected) return copied
     if (!copied) this.#select()
     const message = copied
       ? (this.getAttribute("copied-label") ?? "Copied")
       : (this.getAttribute("failed-label") ?? "Copy failed")
     const status = this.#status
-    requestAnimationFrame(() => {
+    this.#frame = requestAnimationFrame(() => {
       if (status) status.textContent = message
     })
     this.#show(source, message)
@@ -72,6 +74,7 @@ export class Copy extends Base {
   }
 
   #reset() {
+    cancelAnimationFrame(this.#frame)
     clearTimeout(this.#timeout)
     this.#interest?.abort()
     if (this.#label?.matches(":popover-open")) this.#label.hidePopover()
@@ -85,19 +88,32 @@ export class Copy extends Base {
       field.select()
       return
     }
-    this.ownerDocument.getSelection()?.selectAllChildren(this)
+    const range = this.ownerDocument.createRange()
+    range.selectNodeContents(this)
+    const end = this.querySelector(
+      ':scope > [role="status"], :scope > .ui-floating[popover]',
+    )
+    if (end) range.setEndBefore(end)
+    const selection = this.ownerDocument.getSelection()
+    selection?.removeAllRanges()
+    selection?.addRange(range)
   }
 
   async #write(text) {
     if (!navigator.clipboard?.writeText) return this.#writeWithField(text)
+    let timeout
     try {
       await Promise.race([
         navigator.clipboard.writeText(text),
-        new Promise((_, reject) => setTimeout(reject, TIMEOUT)),
+        new Promise((_, reject) => {
+          timeout = setTimeout(reject, TIMEOUT)
+        }),
       ])
       return true
     } catch {
       return this.#writeWithField(text)
+    } finally {
+      clearTimeout(timeout)
     }
   }
 
@@ -140,5 +156,5 @@ export class Copy extends Base {
 }
 
 if (globalThis.customElements && !customElements.get("opui-copy")) {
-  customElements.define("opui-copy", Copy)
+  customElements.define("opui-copy", CopyElement)
 }

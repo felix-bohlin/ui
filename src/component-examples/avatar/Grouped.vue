@@ -1,14 +1,27 @@
 <script setup lang="ts">
-import { Avatar, AvatarGroup } from "opui-css/vue"
+import { Avatar, AvatarGroup, Badge } from "opui-css/vue"
 </script>
 
 <template>
-  <AvatarGroup aria-label="Team">
-    <Avatar aria-label="Anna Berg" role="img">AB</Avatar>
-    <Avatar aria-label="Carl Dahl" role="img">CD</Avatar>
-    <Avatar aria-label="Eva Falk" as="button">EF</Avatar>
-    <Avatar aria-label="Gustav Holm" as="button">GH</Avatar>
-    <Avatar aria-label="Ida Jansson" href="#">IJ</Avatar>
-    <Avatar aria-label="Karl Lund" href="#">KL</Avatar>
+  <AvatarGroup aria-label="Band">
+    <Avatar aria-label="Ada Bridge" role="img">AB</Avatar>
+    <Avatar aria-label="Holly Humbucker" role="img">HH</Avatar>
+    <Avatar as="button"
+      ><span aria-label="Ines Hertz" role="img">IH</span></Avatar
+    >
+    <Avatar as="button"
+      ><span aria-label="Lou Headstock" role="img">LH</span></Avatar
+    >
+    <Avatar href="#"
+      ><span aria-label="Percy Groove" role="img">PG</span></Avatar
+    >
+    <Avatar href="#"
+      ><span aria-label="Rory Rootnote" role="img">RR</span></Avatar
+    >
+    <Badge dot label="Online">
+      <Avatar href="#"
+        ><span aria-label="Stella Nut, online" role="img">SN</span></Avatar
+      >
+    </Badge>
   </AvatarGroup>
 </template>

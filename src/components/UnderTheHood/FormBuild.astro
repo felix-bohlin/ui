@@ -136,19 +136,15 @@ const channels = ["Email", "Push", "SMS"]
         </label>
       </div>
       <div class="group">
-        {
-          channels.map((channel, index) => (
-            <label class="check">
-              <input
-                checked={index === 0}
-                name="build-form-channel"
-                type="checkbox"
-                value={channel}
-              />
-              {channel}
-            </label>
-          ))
-        }
+        {channels.map((channel, index) => <label class="check">
+          <input
+            checked={index === 0}
+            name="build-form-channel"
+            type="checkbox"
+            value={channel}
+          />
+          {channel}
+        </label>)}
       </div>
     </fieldset>
     <div class="group">

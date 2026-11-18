@@ -1,30 +1,32 @@
 ---
 import Button from "../Button/Button.astro"
+import { trimEdges } from "../whitespace"
 
 import type { Props } from "./types.astro"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
-import { createId, idRefs } from "../id"
-import { hidePath, showPath } from "./icons"
+import { createIds, fieldDescribedBy } from "../id"
+import { cx } from "../cx"
 
 export const title = "Text Field"
 
 const {
   "aria-describedby": ariaDescribedBy,
   "aria-invalid": ariaInvalid,
+  "aria-labelledby": ariaLabelledBy,
   autoFit,
   characterCount,
   characterCountLabel,
   class: className,
+  disabled,
+  dropZone,
   endText,
   error,
   hideLabel,
   id,
-  inputmode,
   label,
   name,
   passwordToggle,
   passwordToggleLabel = "Show password",
-  pattern,
   size,
   spread,
   startText,
@@ -35,136 +37,134 @@ const {
 } = Astro.props
 
 const field = fieldGroupContext.get()
-const $id = createId(Astro.locals)
-const Root = passwordToggle ? "opui-text-field" : "label"
-const Label = passwordToggle ? "label" : "span"
+const ids = createIds(Astro.locals, "text-field", id)
+const labelSlot = Astro.slots.has("label")
+  ? trimEdges(await Astro.slots.render("label"))
+  : ""
+const hasLabel = Boolean(label || labelSlot)
+const Root = passwordToggle ? "opui-text-field" : "div"
 const hasStartText = Boolean(startText || Astro.slots.has("start-text"))
 const hasEndText = Boolean(
   endText || Astro.slots.has("end-text") || characterCount,
 )
-const inputId = passwordToggle ? (id ?? $id("text-field")) : id
-const startTextId =
-  passwordToggle && hasStartText ? $id("start-text") : undefined
-const endTextId = passwordToggle && hasEndText ? $id("end-text") : undefined
+const inputId = hasLabel || passwordToggle ? ids() : id
+const startId = Astro.slots.has("start") ? ids("start") : undefined
+const endId = Astro.slots.has("end") ? ids("end") : undefined
+const topId = Astro.slots.has("top") ? ids("top") : undefined
+const bottomId = Astro.slots.has("bottom") ? ids("bottom") : undefined
+const startTextId = hasStartText ? ids("start-text") : undefined
+const endTextId = hasEndText ? ids("end-text") : undefined
 ---
 
 <Root
-  class:list={[
+  class={cx([
     "ui-text-field",
     {
       "ui-auto-fit": autoFit,
+      "ui-drop-zone": dropZone,
       "ui-filled": variant === "filled",
       "ui-spread": spread,
     },
     size && size !== "medium" && `ui-${size}`,
     className,
-  ]}
+  ])}
   style={style}
 >
-  {
-    (label || Astro.slots.has("label")) && (
-      <Label
-        class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}
-        for={passwordToggle ? inputId : undefined}
-      >
-        {label}
-        <slot name="label" />
-      </Label>
-    )
-  }
-  {
-    hasStartText && (
-      <span class="ui-start-text" id={startTextId}>
-        {startText}
-        <slot name="start-text" />
-      </span>
-    )
-  }
+  {hasLabel && <label
+    class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
+    for={inputId}
+    >{label}<Fragment set:html={labelSlot}
+  /></label>}
+  {hasStartText && <span class="ui-start-text" id={startTextId}>
+    {startText}
+    <slot name="start-text" />
+  </span>}
   <span class="ui-field">
+    {Astro.slots.has("top") && <span class="ui-top" id={topId}>
+      <slot name="top" />
+    </span>}
+    {Astro.slots.has("start") && <span class="ui-start" id={startId}>
+      <slot name="start" />
+    </span>}
     <input
       {...rest}
-      aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
+      aria-describedby={fieldDescribedBy(
+        {
+          bottom: bottomId,
+          end: endId,
+          endText: endTextId,
+          start: startId,
+          startText: startTextId,
+          top: topId,
+        },
+        ariaDescribedBy,
+      )}
       aria-invalid={error ? "true" : ariaInvalid}
+      aria-labelledby={ariaLabelledBy}
+      disabled={disabled}
       id={inputId}
-      inputmode={inputmode ?? (type === "numeric" ? "numeric" : undefined)}
       name={name ?? field?.name}
-      pattern={pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
-      type={type === "numeric" ? "text" : type}
+      type={type}
     />
-    {
-      Astro.slots.has("start") && (
-        <span class="ui-start">
-          <slot name="start" />
-        </span>
-      )
-    }
-    {
-      (Astro.slots.has("end") || passwordToggle) && (
-        <span class="ui-end">
-          <slot name="end" />
-          {passwordToggle && (
-            <Button
-              aria-label={passwordToggleLabel}
-              aria-pressed="false"
-              command="--toggle-password"
-              commandfor={inputId}
-              round
-            >
-              <svg
-                aria-hidden="true"
-                class="ui-icon-unchecked"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
-                <path fill="currentColor" d={showPath} />
-              </svg>
-              <svg
-                aria-hidden="true"
-                class="ui-icon-checked"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
-                <path fill="currentColor" d={hidePath} />
-              </svg>
-            </Button>
-          )}
-        </span>
-      )
-    }
-    {
-      Astro.slots.has("top") && (
-        <span class="ui-top">
-          <slot name="top" />
-        </span>
-      )
-    }
-    {
-      Astro.slots.has("bottom") && (
-        <span class="ui-bottom">
-          <slot name="bottom" />
-        </span>
-      )
-    }
-  </span>
-  {
-    hasEndText && (
-      <span class="ui-end-text" id={endTextId}>
-        {endText}
-        <slot name="end-text" />
-        {characterCount && (
-          <opui-character-count
+    {(Astro.slots.has("end") || passwordToggle) && <span
+      class="ui-end"
+      id={endId}
+    >
+      <slot name="end" />
+      {passwordToggle && <Button
+        aria-label={passwordToggleLabel}
+        aria-pressed="false"
+        command="--toggle-password"
+        commandfor={inputId}
+        disabled={disabled}
+        round
+      >
+        {Astro.slots.has("icon-unchecked") ? (
+          <span aria-hidden="true" class="ui-icon-unchecked">
+            <slot name="icon-unchecked" />
+          </span>
+        ) : (
+          <svg
             aria-hidden="true"
-            class="ui-value"
-            label={characterCountLabel}
-          />
+            class="ui-icon-unchecked"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          ></svg>
         )}
-      </span>
-    )
-  }
+        {Astro.slots.has("icon-checked") ? (
+          <span aria-hidden="true" class="ui-icon-checked">
+            <slot name="icon-checked" />
+          </span>
+        ) : (
+          <svg
+            aria-hidden="true"
+            class="ui-icon-checked"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          ></svg>
+        )}
+      </Button>}
+    </span>}
+    {Astro.slots.has("bottom") && <span class="ui-bottom" id={bottomId}>
+      <slot name="bottom" />
+    </span>}
+  </span>
+  {hasEndText && <span class="ui-end-text" id={endTextId}>
+    {endText}
+    <slot name="end-text" />
+    {characterCount && (
+      <opui-character-count
+        aria-hidden="true"
+        class="ui-value"
+        label={characterCountLabel}
+        set:html=""
+      />
+    )}
+  </span>}
   <slot />
 </Root>
 

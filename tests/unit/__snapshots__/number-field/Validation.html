@@ -1,0 +1,33 @@
+<opui-number-field class="ui-number-field">
+  <label class="ui-label" for="id-1">Bandmates</label>
+  <span class="ui-field">
+    <span class="ui-start">
+      <button aria-controls="id-1" aria-label="Decrease" class="ui-button ui-round" command="--step-down" commandfor="id-1" type="button">
+        <svg aria-hidden="true" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"></svg>
+      </button>
+    </span>
+    <input id="id-1" min="1" required type="number">
+    <span class="ui-end">
+      <button aria-controls="id-1" aria-label="Increase" class="ui-button ui-round" command="--step-up" commandfor="id-1" type="button">
+        <svg aria-hidden="true" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"></svg>
+      </button>
+    </span>
+  </span>
+</opui-number-field>
+<opui-number-field class="ui-number-field">
+  <label class="ui-label" for="id-2">Quantity</label>
+  <span class="ui-field">
+    <span class="ui-start">
+      <button aria-controls="id-2" aria-label="Decrease" class="ui-button ui-round" command="--step-down" commandfor="id-2" type="button">
+        <svg aria-hidden="true" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"></svg>
+      </button>
+    </span>
+    <input aria-describedby="id-3" aria-invalid="true" id="id-2" min="1" type="number" value="6">
+    <span class="ui-end">
+      <button aria-controls="id-2" aria-label="Increase" class="ui-button ui-round" command="--step-up" commandfor="id-2" type="button">
+        <svg aria-hidden="true" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"></svg>
+      </button>
+    </span>
+  </span>
+  <span class="ui-end-text" id="id-3">Only 4 sets of flatwounds left, whoops.</span>
+</opui-number-field>

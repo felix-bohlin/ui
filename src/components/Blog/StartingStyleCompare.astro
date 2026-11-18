@@ -11,24 +11,22 @@ const columns = [
 
 <div class="starting-style-compare" style={`--_seconds: ${seconds}s`}>
   <div class="starting-style-compare-columns">
-    {
-      columns.map((column) => (
-        <figure class="starting-style-compare-column" data-mode={column.mode}>
-          <figcaption>
-            <code>{column.code}</code>
-          </figcaption>
-          <div class="starting-style-compare-stage">
-            <div class="starting-style-compare-panel">
-              <p class="starting-style-compare-title">Drawer</p>
-              <p>
-                Open and close it. Watch how each side enters, and how both
-                leave.
-              </p>
-            </div>
-          </div>
-        </figure>
-      ))
-    }
+    {columns.map((column) => <figure
+      class="starting-style-compare-column"
+      data-mode={column.mode}
+    >
+      <figcaption>
+        <code>{column.code}</code>
+      </figcaption>
+      <div class="starting-style-compare-stage">
+        <div class="starting-style-compare-panel">
+          <p class="starting-style-compare-title">Drawer</p>
+          <p>
+            Open and close it. Watch how each side enters, and how both leave.
+          </p>
+        </div>
+      </div>
+    </figure>)}
   </div>
   <div class="starting-style-compare-knobs">
     <Switch class="starting-style-compare-switch" label="Open" />

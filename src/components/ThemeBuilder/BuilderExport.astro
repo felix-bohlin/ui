@@ -24,7 +24,7 @@ const setup = `@import "opui-css/css/imports.css";
   scrollLock
   side="inline-end"
 >
-  <DrawerHeader>
+  <DrawerHeader closeButton>
     <DrawerTitle>Export</DrawerTitle>
   </DrawerHeader>
   <DrawerContent class="builder-export">
@@ -35,9 +35,9 @@ const setup = `@import "opui-css/css/imports.css";
       </p>
       <ol>
         <li>
-          Load opui-css as shown in <a
-            class="ui-link"
-            href={link("/guide/getting-started")}>Getting started</a
+          Load opui-css as shown in
+          <a class="ui-link" href={link("/guide/getting-started")}
+            >Getting started</a
           >.
         </li>
         <li>
@@ -64,25 +64,31 @@ const setup = `@import "opui-css/css/imports.css";
         <Button data-json-download size="small" variant="outlined"
           >tokens.json</Button
         >
+        <Button data-figma-download size="small" variant="outlined"
+          >Figma</Button
+        >
       </div>
       <pre
         tabindex="0"
-        aria-label="theme.css"><code class="language-css" data-css>{PLACEHOLDER_CSS}</code></pre>
+        aria-label="theme.css"
+      ><code class="language-css" data-css>{PLACEHOLDER_CSS}</code></pre>
       <p class="builder-css-status" data-css-status role="status"></p>
     </div>
   </DrawerContent>
 </Drawer>
 
 <script>
-  import { highlightAll } from "microlighter"
   import { exampleTheme } from "../../utils/example-themes"
   import { copyText } from "../../utils/storage"
+  import { highlightCode } from "../../utils/syntax-highlight"
   import { exportCss, themeFontIds, themeStore } from "../../utils/theme"
   import { WEB_FONTS, firstFamily } from "../../utils/theme-fonts"
+  import { iconExport } from "../../utils/theme-icons"
   import { resolveTokens, tokensExport } from "../../utils/tokens-export"
 
   const section = document.querySelector<HTMLElement>(".builder-export")
-  if (section) {
+  const drawer = section?.closest("dialog")
+  if (section && drawer) {
     const code = section.querySelector<HTMLElement>("[data-css]")!
     const meta = section.querySelector<HTMLElement>("[data-css-meta]")!
     const status = section.querySelector<HTMLElement>("[data-css-status]")!
@@ -134,8 +140,12 @@ const setup = `@import "opui-css/css/imports.css";
       return { custom: [...custom].toSorted(), named }
     }
 
-    const download = (name: string, text: string, type: string) => {
-      const url = URL.createObjectURL(new Blob([text], { type }))
+    const download = (
+      name: string,
+      content: string | Uint8Array<ArrayBuffer>,
+      type: string,
+    ) => {
+      const url = URL.createObjectURL(new Blob([content], { type }))
       const anchor = document.createElement("a")
       anchor.href = url
       anchor.download = name
@@ -146,9 +156,9 @@ const setup = `@import "opui-css/css/imports.css";
     const render = () => {
       frame = 0
       const theme = themeStore.get()
-      css = exportCss(theme)
+      css = exportCss(theme, iconExport(theme.tokens))
       code.textContent = css
-      highlightAll()
+      highlightCode()
       const lines = css.trimEnd().split("\n").length
       meta.textContent = `${lines} lines`
       const fonts = fontsOf(theme)
@@ -168,7 +178,7 @@ const setup = `@import "opui-css/css/imports.css";
     }
 
     const schedule = () => {
-      if (!frame) frame = requestAnimationFrame(render)
+      if (drawer.open && !frame) frame = requestAnimationFrame(render)
     }
 
     const say = (message: string) => {
@@ -204,7 +214,56 @@ const setup = `@import "opui-css/css/imports.css";
         say("Downloaded tokens.json with every token resolved per mode.")
       })
 
-    render()
+    section
+      .querySelector("[data-figma-download]")!
+      .addEventListener("click", async () => {
+        const [{ strToU8, zipSync }, { probeFigmaTokens }, figma, json] =
+          await Promise.all([
+            import("fflate"),
+            import("../../utils/figma-probe"),
+            import("../../utils/figma-tokens"),
+            import("../../utils/tokens-json"),
+          ])
+        const theme = themeStore.get()
+        const tokens = json.tokensJson()
+        const collection = [
+          "opui",
+          exampleTheme(theme.preset)?.label,
+          Object.keys(theme.tokens).length > 0 && "custom",
+        ]
+          .filter(Boolean)
+          .join(" ")
+        const file = figma.figmaTheme(
+          tokens,
+          probeFigmaTokens(
+            figma.figmaProbeRequest(figma.figmaTokenMeta(tokens)),
+            document.body,
+          ),
+          collection,
+        )
+        const text = (value: unknown) => strToU8(figma.figmaJson(value))
+        download(
+          "opui-figma.zip",
+          new Uint8Array(
+            zipSync({
+              "theme.figma.json": text(file),
+              ...Object.fromEntries(
+                Object.entries(figma.figmaModeFiles(file)).map(
+                  ([mode, doc]) => [`${mode}.tokens.json`, text(doc)],
+                ),
+              ),
+            }),
+          ),
+          "application/zip",
+        )
+        say(
+          "Downloaded opui-figma.zip: a variables file per mode and theme.figma.json for the opui Figma plugin.",
+        )
+      })
+
+    new MutationObserver(() => {
+      if (drawer.open) render()
+    }).observe(drawer, { attributeFilter: ["open"] })
     themeStore.subscribe(schedule)
   }
 </script>
@@ -274,7 +333,7 @@ const setup = `@import "opui-css/css/imports.css";
       color: oklch(0.87 0 0);
       display: block;
       font-family: var(--font-mono);
-      font-size: var(--font-size-0);
+      font-size: var(--ui-font-size-caption);
       line-height: 1.65;
       padding: 0;
       white-space: pre;

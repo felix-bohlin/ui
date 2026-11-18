@@ -25,9 +25,9 @@ const steps = [
   opacity: 0;
   overflow-block: clip;
   transition:
-    block-size 0.2s,
-    content-visibility 0.2s allow-discrete,
-    opacity 0.2s;
+    block-size var(--ui-duration),
+    content-visibility var(--ui-duration) allow-discrete,
+    opacity var(--ui-duration);
 }
 
 .accordion[open]::details-content {
@@ -38,6 +38,7 @@ const steps = [
       "details-content",
       "display-animation",
       "interpolate-size",
+      "logical-properties",
       "transition-behavior",
     ],
     notes: [
@@ -63,8 +64,8 @@ const steps = [
 .accordion > summary .marker {
   margin-inline-start: auto;
   transition:
-    rotate 0.2s,
-    scale 0.2s;
+    rotate var(--ui-duration),
+    scale var(--ui-duration);
 }
 
 .marker-flip[open] > summary .marker {
@@ -115,38 +116,35 @@ const markers = [
 
 <BuildUp id="build-accordion" steps={steps}>
   <div class="stack">
-    {
-      markers.map((marker) => (
-        <details class:list={["accordion", marker.className]} dir={marker.dir}>
-          <summary>
-            {marker.label}
-            {marker.icon && (
-              <svg
-                aria-hidden="true"
-                class="marker"
-                height="20"
-                viewBox="0 0 24 24"
-                width="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d={marker.icon}
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </svg>
-            )}
-          </summary>
-          <p>
-            Panel content with enough text to show the height transition as it
-            opens and closes.
-          </p>
-        </details>
-      ))
-    }
+    {markers.map((marker) => <details
+      class:list={["accordion", marker.className]}
+      dir={marker.dir}
+    >
+      <summary>
+        {marker.label}
+        {marker.icon && <svg
+          aria-hidden="true"
+          class="marker"
+          height="20"
+          viewBox="0 0 24 24"
+          width="20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d={marker.icon}
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+          />
+        </svg>}
+      </summary>
+      <p>
+        Panel content with enough text to show the height transition as it opens
+        and closes.
+      </p>
+    </details>)}
   </div>
 </BuildUp>
 

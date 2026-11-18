@@ -2,4 +2,4 @@
   import { Range } from "opui-css/svelte"
 </script>
 
-<Range disabled label="Disabled" />
+<Range disabled label="Microphone" />

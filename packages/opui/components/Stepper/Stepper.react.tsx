@@ -5,7 +5,7 @@ import type { Props } from "./types.react"
 export default function Stepper({
   className,
   complete,
-  completedLabel,
+  completeLabel,
   current,
   errorLabel,
   items,
@@ -26,9 +26,9 @@ export default function Stepper({
     >
       {items?.map((item, index) => (
         <StepperItem
-          completedLabel={completedLabel}
-          errorLabel={errorLabel}
           key={index}
+          completeLabel={completeLabel}
+          errorLabel={errorLabel}
           {...item}
           complete={
             item.complete ||
@@ -37,7 +37,7 @@ export default function Stepper({
           }
           current={item.current || index === current}
         />
-      ))}
+      ))}{" "}
       {children}
     </ol>
   )

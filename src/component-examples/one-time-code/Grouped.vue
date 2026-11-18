@@ -4,8 +4,8 @@ import { OneTimeCode } from "opui-css/vue"
 
 <template>
   <OneTimeCode
-    label="Verification code"
     grouped
+    label="Verification code"
     name="code"
     required
     value="482"

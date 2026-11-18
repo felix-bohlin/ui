@@ -7,6 +7,13 @@ export type Props = {
   name?: string
   required?: boolean
   size?: "small" | "medium" | "large"
-  starLabel?: (value: number) => string
+  starLabel?: {
+    few?: string
+    many?: string
+    one?: string
+    other: string
+    two?: string
+    zero?: string
+  }
   value?: number | string
 }

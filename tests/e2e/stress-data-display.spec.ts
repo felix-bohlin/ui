@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test"
-import { openFixture } from "./fixtures"
+import { THEMES, contrast, layerContrast, openFixture } from "./fixtures"
 
 const CONTROLS = ".ui-button, .ui-checkbox, .ui-field, .ui-switch"
 
@@ -75,5 +75,57 @@ test("inline editing controls fit their table row", async ({ page }) => {
       height,
       `${row} should be as tall as its tallest control`,
     ).toBeCloseTo(expected, 0)
+  }
+})
+
+test.describe("the current page in a control group", () => {
+  for (const theme of THEMES) {
+    for (const colorScheme of ["light", "dark"] as const) {
+      test(`stands out and stays readable in the ${theme} theme in ${colorScheme} mode`, async ({
+        page,
+      }) => {
+        test.setTimeout(60_000)
+        await page.emulateMedia({ colorScheme })
+        await openFixture(
+          page,
+          "html",
+          "stress/data-display",
+          theme === "default" ? undefined : `?theme=${theme}`,
+        )
+        const navs = page.locator('[data-example="ControlGroupCurrent"] nav')
+        for (const nav of await navs.all()) {
+          const name = await nav.getAttribute("aria-label")
+          const current = nav.locator('[aria-current="page"]')
+          const sibling = nav.locator(".ui-button:not([aria-current])").first()
+          const [look, siblingLook] = await Promise.all(
+            [current, sibling].map((button) =>
+              button.evaluate((element) => {
+                const style = getComputedStyle(element)
+                return {
+                  background: style.backgroundColor,
+                  color: style.color,
+                }
+              }),
+            ),
+          )
+          expect
+            .soft(
+              await layerContrast(
+                current,
+                [look.background],
+                [siblingLook.background],
+              ),
+              `${name}: the current page stands out from the other pages`,
+            )
+            .toBeGreaterThanOrEqual(1.1)
+          expect
+            .soft(
+              await contrast(current, look.color, look.background),
+              `${name}: the text of the current page`,
+            )
+            .toBeGreaterThanOrEqual(4.5)
+        }
+      })
+    }
   }
 })

@@ -1,27 +1,24 @@
 <script setup lang="ts">
-import { ref } from "vue"
 import { Select } from "opui-css/vue"
-
-const role = ref("developer")
 </script>
 
 <template>
   <Select
-    label="Role"
     :items="[
-      { label: 'Designer', value: 'designer' },
-      { label: 'Developer', value: 'developer' },
-      { label: 'Manager', value: 'manager' },
+      { label: 'Backing vocals', value: 'backing-vocals' },
+      { label: 'Bass', value: 'bass' },
+      { label: 'Tambourine', value: 'tambourine' },
     ]"
-    v-model="role"
+    label="Role"
+    value="bass"
   />
 
   <Select
-    label="Team"
     :items="[
-      { label: 'Design', value: 'design' },
-      { label: 'Engineering', selected: true, value: 'engineering' },
-      { label: 'Sales', value: 'sales' },
+      { label: 'Brad and the Brads', value: 'brad-and-the-brads' },
+      { label: 'Low End Theory', selected: true, value: 'low-end-theory' },
+      { label: 'The Low Enders', value: 'the-low-enders' },
     ]"
+    label="Band"
   />
 </template>

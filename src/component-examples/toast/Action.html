@@ -1,9 +1,10 @@
-<button type="button" class="ui-button ui-filled" id="toast-action-1-button">
+<button class="ui-button ui-filled" type="button" id="toast-action-1-button">
   Archive
 </button>
-<opui-toaster class="ui-toaster" id="toast-action-1">
+<opui-toaster id="toast-action-1" class="ui-toaster">
   <ol popover="manual"></ol>
   <div class="ui-sr-only" role="status"></div>
+  <div class="ui-sr-only" role="alert"></div>
 </opui-toaster>
 
 <script type="module">
@@ -11,7 +12,7 @@
 
   document
     .getElementById("toast-action-1-button")
-    .addEventListener("click", () =>
+    ?.addEventListener("click", () =>
       toast("Conversation archived", {
         action: {
           label: "Undo",

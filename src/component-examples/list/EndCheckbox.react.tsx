@@ -3,8 +3,16 @@ import { CheckboxInput, List, ListItem } from "opui-css/react"
 export default function EndCheckbox() {
   return (
     <List>
-      <ListItem type="checkbox" label="Checkbox 1" end={<CheckboxInput />} />
-      <ListItem type="checkbox" label="Checkbox 2" end={<CheckboxInput />} />
+      <ListItem
+        choice="checkbox"
+        end={<CheckboxInput />}
+        label="Email notifications"
+      />
+      <ListItem
+        choice="checkbox"
+        end={<CheckboxInput />}
+        label="Push notifications"
+      />
     </List>
   )
 }

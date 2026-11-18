@@ -5,13 +5,23 @@ const COMPAT_LAYER = "components.compat"
 const yearOf = (date) => Number(date.match(/\d{4}/)[0])
 
 const lowYear = (id) => {
-  const date = features[id]?.status?.baseline_low_date
+  const date = featureOf(id)?.status?.baseline_low_date
   return date ? yearOf(date) : Infinity
 }
 
 const compatLayers = (root, callback) =>
   root.walkAtRules("layer", (rule) => {
     if (rule.params === COMPAT_LAYER && rule.nodes) callback(rule)
+  })
+
+export const coreFallbacks = (root, callback) =>
+  root.walkAtRules("layer", (layer) => {
+    if (!/^(?:normalize|theme)(?:\.|$)/.test(layer.params) || !layer.nodes) {
+      return
+    }
+    layer.walkAtRules("supports", (rule) => {
+      if (/^not\s/.test(rule.params)) callback(rule)
+    })
   })
 
 export const ENGINE_GATES = ["(-webkit-touch-callout: none)"]
@@ -25,6 +35,9 @@ export const baselineYear = (year) => ({
       })
       if (layer.nodes.every((node) => node.type === "comment")) layer.remove()
     })
+    coreFallbacks(root, (rule) => {
+      if (!keepsFallback(rule.params, year)) rule.remove()
+    })
   },
 })
 
@@ -37,6 +50,17 @@ export const baselineYears = () => {
   return Array.from({ length: last - 2022 }, (_, index) => 2023 + index)
 }
 
+export const featureOf = (id) => {
+  const feature = features[id]
+  const entry = patterns.find((pattern) => pattern.id === id && pattern.key)
+  if (feature?.kind !== "feature" || !entry) return feature
+  return {
+    ...feature,
+    name: entry.name ?? feature.name,
+    status: feature.status.by_compat_key[entry.key],
+  }
+}
+
 export const featureIds = (text) =>
   patterns.filter(({ pattern }) => pattern.test(text)).map(({ id }) => id)
 
@@ -47,8 +71,19 @@ export const keepsFallback = (condition, year) => {
 }
 
 export const patterns = [
-  { id: "anchor-positioning", pattern: /\b(?:anchor-name|position-anchor):/ },
-  { id: "attr", pattern: /\battr\(/ },
+  {
+    id: "alt-text-generated-content",
+    pattern: /\bcontent:[^;{}]*\s\/\s*(?:["']|var\()/,
+  },
+  {
+    id: "anchor-positioning",
+    pattern:
+      /\b(?:anchor-name|anchor-scope|position-anchor|position-area|position-try(?:-fallbacks|-order)?|position-visibility):|\banchor(?:-size)?\(|@position-try\b/,
+  },
+  {
+    id: "attr",
+    pattern: /(?<!\bcontent:[^;{}]*)\battr\(|\battr\([^()]*\btype\(/,
+  },
   { id: "backdrop-filter", pattern: /\bbackdrop-filter:/ },
   { id: "box-decoration-break", pattern: /\bbox-decoration-break:/ },
   { id: "calc-size", pattern: /\bcalc-size\(/ },
@@ -58,7 +93,11 @@ export const patterns = [
     pattern:
       /\bcontainer(?:-type)?:[^;]*\b(?:inline-)?size\b|@container\s+(?:[\w-]+\s+)?\(|(?<![\w.-])\d*\.?\d+cq(?:b|h|i|max|min|w)\b/,
   },
-  { id: "container-scroll-state-queries", pattern: /scroll-state\(/ },
+  {
+    id: "container-scroll-state-queries",
+    key: "css.at-rules.container.scroll-state_queries",
+    pattern: /scroll-state\(/,
+  },
   {
     id: "container-style-queries",
     pattern: /@container\s[^{]*?(?<![\w-])style\(/,
@@ -76,7 +115,12 @@ export const patterns = [
   },
   { id: "exp-functions", pattern: /\b(?:exp|hypot|log|pow|sqrt)\(/ },
   { id: "field-sizing", pattern: /field-sizing:/ },
+  {
+    id: "gap-decorations",
+    pattern: /(?<![\w-])(?:column-|row-)?rule(?:-[a-z]+)*:/,
+  },
   { id: "has", pattern: /:has\(/ },
+  { id: "if", pattern: /(?<![\w-])if\(/ },
   {
     id: "interest-invokers",
     pattern: /\binterest-delay(?:-end|-start)?:|:interest-(?:source|target)\b/,
@@ -84,13 +128,18 @@ export const patterns = [
   { id: "interpolate-size", pattern: /\binterpolate-size:/ },
   { id: "lh", pattern: /(?<![\w.])-?\d*\.?\d+lh\b/ },
   { id: "light-dark", pattern: /light-dark\(/ },
+  {
+    id: "logical-properties",
+    key: "css.properties.overflow-inline",
+    name: "overflow-block and overflow-inline",
+    pattern: /\boverflow-(?:block|inline):/,
+  },
   { id: "marker", pattern: /::marker\b/ },
   { id: "nth-child-of", pattern: /:nth-(?:last-)?child\([^)]*\sof\s/ },
   { id: "open-pseudo", pattern: /(?<!:):open\b/ },
   {
     id: "overflow-clip",
-    pattern:
-      /\boverflow(?:-block|-inline|-x|-y)?:\s*(?:[\w-]+\s+)?clip\b|\boverflow-clip-margin:/,
+    pattern: /\boverflow(?:-block|-inline|-x|-y)?:\s*(?:[\w-]+\s+)?clip\b/,
   },
   {
     id: "overlay",
@@ -98,6 +147,7 @@ export const patterns = [
   },
   { id: "popover", pattern: /:popover-open\b/ },
   { id: "progress-function", pattern: /\bprogress\(/ },
+  { id: "reading-flow", pattern: /\breading-flow:/ },
   { id: "registered-custom-properties", pattern: /@property\s+--/ },
   { id: "relative-color", pattern: /\(\s*from\s/ },
   { id: "round-mod-rem", pattern: /\b(?:mod|rem|round)\(/ },
@@ -136,5 +186,6 @@ export const withoutCompat = () => ({
   postcssPlugin: "opui-without-compat",
   OnceExit(root) {
     compatLayers(root, (layer) => layer.remove())
+    coreFallbacks(root, (rule) => rule.remove())
   },
 })

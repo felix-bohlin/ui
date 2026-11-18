@@ -41,6 +41,7 @@
   }
 
   :where(.ui-layout-grid) {
+    --_auto-repeat: auto-fill;
     --_gap: var(--ui-space-3);
     --_max-columns: infinity;
     --_min-inline-size: 16rem;
@@ -48,7 +49,7 @@
     display: grid;
     gap: var(--_gap);
     grid-template-columns: repeat(
-      auto-fill,
+      var(--_auto-repeat),
       minmax(
         max(
           min(var(--_min-inline-size), 100%),
@@ -59,16 +60,7 @@
     );
 
     &.ui-stretch {
-      grid-template-columns: repeat(
-        auto-fit,
-        minmax(
-          max(
-            min(var(--_min-inline-size), 100%),
-            calc(100% / var(--_max-columns) - var(--_gap))
-          ),
-          1fr
-        )
-      );
+      --_auto-repeat: auto-fit;
     }
 
     & > li > :where(.ui-card) {
@@ -167,6 +159,19 @@
     &.ui-large {
       --_gap: var(--ui-space-5);
     }
+  }
+
+  :where(
+    .ui-layout-column,
+    .ui-layout-row,
+    .ui-layout-grid,
+    .ui-layout-columns
+  ).ui-bordered {
+    --_divider-border-color: var(--ui-border-color);
+
+    column-rule: var(--ui-border-width) solid var(--_divider-border-color);
+    row-rule: var(--ui-border-width) solid var(--_divider-border-color);
+    rule-visibility-items: between;
   }
 
   :where(ul, ol):where(.ui-layout-column, .ui-layout-row, .ui-layout-grid) {

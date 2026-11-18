@@ -4,13 +4,17 @@ import { List, ListItem, SwitchInput } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem type="switch">
-      <template #label>Switch 1</template>
-      <template #end><SwitchInput /></template>
+    <ListItem choice="switch">
+      <template #label>Bluetooth</template>
+      <template #end>
+        <SwitchInput />
+      </template>
     </ListItem>
-    <ListItem type="switch">
-      <template #label>Switch 2</template>
-      <template #end><SwitchInput /></template>
+    <ListItem choice="switch">
+      <template #label>Wi-Fi</template>
+      <template #end>
+        <SwitchInput />
+      </template>
     </ListItem>
   </List>
 </template>

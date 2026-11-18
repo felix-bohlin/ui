@@ -3,17 +3,19 @@
 </script>
 
 <Card variant="outlined">
-  <CardContent>Inside a card, the gap spaces the divider.</CardContent>
+  <CardContent
+    >Order 1042 from Fretless Fiona's Bass Barn, placed on 3 March.</CardContent
+  >
   <Divider />
   <CardContent>
-    Nested deeper, it uses the card's tighter space.
+    Two sets of flatwounds: €98
     <Divider />
-    So everything stays close together.
+    Shipping: free
   </CardContent>
 </Card>
 
 <div style="--ui-divider-gap: var(--ui-space-1)">
-  A custom space on any wrapper
+  Ships to Lou Headstock, Low End Lane
   <Divider />
-  reaches every divider inside it.
+  Arrives in 2 to 4 days
 </div>

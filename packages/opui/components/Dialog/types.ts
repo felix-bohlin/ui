@@ -8,10 +8,19 @@ export type DialogFooterProps = {
   align?: "start" | "end"
 }
 
-export type DialogHeaderProps = {}
+export type DialogHeaderProps = {
+  closeButton?: boolean
+  closeLabel?: string
+  commandfor?: string
+}
+
+export type DialogHeaderSlots<S> = {
+  closeIcon?: S
+}
 
 export type DialogTitleProps = {}
 
 export type Context = {
+  id?: string
   titleId?: string
 }

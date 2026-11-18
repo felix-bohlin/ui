@@ -1,17 +1,32 @@
 <script setup lang="ts">
-import { computed, provide, reactive, useId } from "vue"
+import {
+  computed,
+  type HTMLAttributes,
+  provide,
+  reactive,
+  useAttrs,
+  useId,
+} from "vue"
 import { TabsKey } from "./context.vue"
+import { warnUnnamedGroup } from "../dev"
 import type { Props, Slots } from "./types.vue-props"
 
-const { name, overflow, variant } = defineProps<Props>()
+const { name, orientation, overflow, role, variant } = defineProps<Props>()
 defineSlots<Slots>()
+
+const attrs = useAttrs() as HTMLAttributes
+
 const model = defineModel<string>()
 
-const uid = useId()
-const groupName = computed(() => name || `tabs-${uid}`)
 const change = (input: HTMLInputElement) => {
   if (model.value !== undefined) model.value = input.value
 }
+
+const uid = useId()
+
+const groupName = computed(() => name || `tabs-${uid}`)
+
+if (role === "radiogroup") warnUnnamedGroup("Tabs", attrs)
 
 provide(TabsKey, reactive({ change, groupName, value: model }))
 </script>
@@ -20,10 +35,12 @@ provide(TabsKey, reactive({ change, groupName, value: model }))
   <div
     :class="[
       'ui-tabs',
-      overflow && overflow !== 'wrap' && `ui-overflow-${overflow}`,
+      orientation === 'vertical' && 'ui-vertical',
+      overflow && overflow !== 'scroll' && `ui-overflow-${overflow}`,
       variant && variant !== 'tonal' && `ui-${variant}`,
       $props.class,
     ]"
+    :role="role"
   >
     <slot></slot>
   </div>

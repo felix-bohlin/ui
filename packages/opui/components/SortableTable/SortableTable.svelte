@@ -1,9 +1,14 @@
 <script lang="ts">
   import "../../elements/sortable-table.js"
+  import { hydrated } from "../svelte"
+  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
+    ascendingLabel,
     class: className,
+    descendingLabel,
+    onsort,
 
     // Snippets
     children,
@@ -11,6 +16,15 @@
   }: Props = $props()
 </script>
 
-<opui-sortable-table class={["ui-sortable-table", className]} {...rest}>
+<opui-sortable-table
+  ascending-label={ascendingLabel}
+  class={["ui-sortable-table", className]}
+  descending-label={descendingLabel}
+  {onsort}
+  data-hydrating=""
+  {@attach hydrated}
+  {...defined(rest)}
+>
   {@render children?.()}
+  <span class="ui-sr-only" role="status"></span>
 </opui-sortable-table>

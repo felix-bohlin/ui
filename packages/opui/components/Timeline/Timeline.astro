@@ -16,12 +16,8 @@ const { class: className, items, size, tracked, ...rest } = Astro.props
   ]}
   {...rest}
 >
-  {
-    items?.map(({ description, ...item }) => (
-      <TimelineItem {...item}>
-        {description && <p>{description}</p>}
-      </TimelineItem>
-    ))
-  }
+  {items?.map(({ description, ...item }) => <TimelineItem {...item}>
+    {description && <p>{description}</p>}
+  </TimelineItem>)}
   <slot />
 </ol>

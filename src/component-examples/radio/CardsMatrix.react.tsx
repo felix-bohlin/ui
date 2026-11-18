@@ -1,61 +1,66 @@
-import { Radio, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/react"
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/react"
 
 export default function CardsMatrix() {
   return (
     <Form>
       <Fieldset>
-        <FieldLegend>Input at the end</FieldLegend>
+        <FieldLegend>Plan</FieldLegend>
         <FieldGroup name="radio-cards-end" orientation="horizontal">
           <Radio
-            value="outlined"
+            card
             defaultChecked
-            card
+            endText="€0 per month, forever"
             spread
-            endText="The default surface."
+            value="basic"
           >
-            Outlined
+            Basic
           </Radio>
           <Radio
-            value="tonal"
             card
-            variant="tonal"
+            endText="€3 per month, shiny badge included"
             spread
-            endText="A tinted surface."
-          >
-            Tonal
-          </Radio>
-          <Radio
-            value="elevated"
-            card
+            value="gold"
             variant="elevated"
-            spread
-            endText="A raised surface."
           >
-            Elevated
+            Gold
+          </Radio>
+          <Radio
+            card
+            endText="€5 per month, extra sparkly"
+            spread
+            value="platinum"
+            variant="tonal"
+          >
+            Platinum
           </Radio>
         </FieldGroup>
       </Fieldset>
       <Fieldset>
-        <FieldLegend>Input at the start</FieldLegend>
+        <FieldLegend>Billing</FieldLegend>
         <FieldGroup name="radio-cards-start" orientation="horizontal">
           <Radio
-            value="outlined"
-            defaultChecked
             card
-            endText="The default surface."
+            defaultChecked
+            endText="Cancel any time, no hard feelings."
+            value="monthly"
           >
-            Outlined
-          </Radio>
-          <Radio value="tonal" card variant="tonal" endText="A tinted surface.">
-            Tonal
+            Monthly
           </Radio>
           <Radio
-            value="elevated"
             card
+            endText="Two months free, woohoo."
+            value="yearly"
             variant="elevated"
-            endText="A raised surface."
           >
-            Elevated
+            Yearly
+          </Radio>
+          <Radio
+            card
+            endText="Pay in coins after your next gig."
+            value="gig-money"
+            variant="tonal"
+          >
+            Gig money
           </Radio>
         </FieldGroup>
       </Fieldset>

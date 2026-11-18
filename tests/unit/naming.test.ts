@@ -100,7 +100,8 @@ const openRoots = /^(details|dialog)\b|\[popover\]/
 
 const optionalModifiers = new Set([
   "as",
-  "bordered",
+  "border",
+  "choice",
   "color",
   "severity",
   "trigger",
@@ -141,6 +142,7 @@ const parts = new Set([
   ".ui-header",
   ".ui-heading",
   ".ui-icon-checked",
+  ".ui-icon-complete",
   ".ui-icon-unchecked",
   ".ui-indicator",
   ".ui-input",
@@ -158,13 +160,17 @@ const partExceptions = new Set([".ui-card-link"])
 const slots = new Set([
   "actions",
   "bottom",
+  "close-icon",
   "datalist",
+  "decrease-icon",
   "default",
   "description",
   "end",
   "end-text",
   "icon-checked",
+  "icon-complete",
   "icon-unchecked",
+  "increase-icon",
   "indicator",
   "label",
   "marker",
@@ -314,6 +320,32 @@ const problemsOf = (api: ComponentApi) => {
     if (!slots.has(slot)) {
       found.push(`${api.component} ${slot}: not in the slot list`)
     }
+    const control = slot.match(/^([a-z]+)-icon$/)?.[1]
+    if (
+      control &&
+      !api.options.some(({ prop }) => prop === `${control}Label`)
+    ) {
+      found.push(
+        `${api.component} ${slot}: the icon of a generated control sits next to its ${control}Label`,
+      )
+    }
+  }
+
+  for (const part of api.parts) {
+    const labels = (part.props ?? []).filter((prop) => prop.endsWith("Label"))
+    for (const prop of part.props ?? []) {
+      const option = api.options.find((each) => each.prop === prop)
+      if (
+        option?.default === "false" &&
+        labels.length > 0 &&
+        !labels.some((label) => prop.startsWith(label.slice(0, -5)))
+      ) {
+        report(
+          option,
+          `the boolean that adds a generated control starts with the word of its ${labels.join(" or ")}`,
+        )
+      }
+    }
   }
 
   const names = new Set(props.map((option) => option.prop))
@@ -426,6 +458,28 @@ test.each([
     "a slot outside the list",
     "gadget: not in the slot list",
     { options: [], slots: [{ description: "", name: "gadget" }] },
+  ],
+  [
+    "a control icon without its label",
+    "close-icon: the icon of a generated control sits next to its closeLabel",
+    { options: [], slots: [{ description: "", name: "close-icon" }] },
+  ],
+  [
+    "a control's boolean named apart from its label",
+    "dismissible: the boolean that adds a generated control starts with the word of its closeLabel",
+    {
+      options: [
+        option({ prop: "closeLabel" }),
+        option({ default: "false", prop: "dismissible" }),
+      ],
+      parts: [
+        {
+          description: "",
+          props: ["closeLabel", "dismissible"],
+          selector: ".ui-callout > .ui-button",
+        },
+      ],
+    },
   ],
 ])("the naming model flags %s", (_, message, fields) => {
   expect(

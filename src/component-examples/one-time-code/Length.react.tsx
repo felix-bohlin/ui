@@ -4,7 +4,7 @@ export default function Length() {
   return (
     <>
       <OneTimeCode label="PIN" length={4} name="pin" />
-      <OneTimeCode label="Backup code" grouped length={8} name="backup-code" />
+      <OneTimeCode grouped label="Backup code" length={8} name="backup-code" />
     </>
   )
 }

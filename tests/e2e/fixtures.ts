@@ -10,6 +10,7 @@ import {
 import {
   exampleExtension,
   FRAMEWORK_IDS,
+  HYDRATED_FRAMEWORK_IDS,
   type FrameworkId,
 } from "../../src/utils/framework"
 
@@ -62,11 +63,18 @@ export const STRESS_TESTS = readdirSync(
   .toSorted()
 
 export const BLOCKS = readdirSync(new URL("../../src/blocks/", import.meta.url))
-  .filter((file) => file.endsWith(".html"))
-  .map((file) => `blocks/${file.replace(/\.html$/, "")}`)
+  .map((folder) => `blocks/${folder}`)
   .toSorted()
 
 export const FIXTURES = [...COMPONENTS, ...STRESS_TESTS].toSorted()
+
+export const THEMES = [
+  "default",
+  ...readdirSync(new URL("../../packages/opui/themes/", import.meta.url))
+    .filter((file) => file.endsWith(".css"))
+    .map((file) => file.replace(/\.css$/, ""))
+    .toSorted(),
+]
 
 export const hasExample = (
   framework: Framework,
@@ -84,6 +92,25 @@ export const instantScrolling = (page: Page) =>
     })
   })
 
+export const stubExternalHosts = (page: Page) =>
+  page.route(
+    (url) =>
+      url.hostname !== "localhost" || url.pathname.startsWith("/photos/"),
+    (route) =>
+      route.request().resourceType() === "image"
+        ? route.fulfill({ body: PIXEL, contentType: "image/png" })
+        : route.abort(),
+  )
+
+export const examplesMounted = (page: Page, framework: string) =>
+  page.waitForFunction(
+    (name) =>
+      [...document.querySelectorAll(`[data-${name}-example]`)].every((el) =>
+        el.hasAttribute(`data-${name}-mounted`),
+      ),
+    framework,
+  )
+
 export const openFixture = async (
   page: Page,
   framework: Framework,
@@ -95,18 +122,15 @@ export const openFixture = async (
   page.on("request", (request) => inflight.add(request))
   page.on("requestfailed", (request) => inflight.delete(request))
   page.on("requestfinished", (request) => inflight.delete(request))
-  await page.route(
-    (url) => url.hostname !== "localhost",
-    (route) =>
-      route.request().resourceType() === "image"
-        ? route.fulfill({ body: PIXEL, contentType: "image/png" })
-        : route.abort(),
-  )
+  page.on("framenavigated", (frame) => {
+    if (frame === page.mainFrame()) inflight.clear()
+  })
+  await stubExternalHosts(page)
   await page.goto(
     (component.startsWith("blocks/")
       ? `/${component}/preview/`
       : component.startsWith("stress/")
-        ? `/tests/${component.slice("stress/".length)}/`
+        ? `/dev/tests/${component.slice("stress/".length)}/`
         : `/${framework}/test/${component}/`) + search,
   )
   if (!component.startsWith("blocks/")) {
@@ -116,13 +140,7 @@ export const openFixture = async (
     ).toBeAttached()
   }
   if (framework !== "astro" && framework !== "html") {
-    await page.waitForFunction(
-      (name) =>
-        [...document.querySelectorAll(`[data-${name}-example]`)].every((el) =>
-          el.hasAttribute(`data-${name}-mounted`),
-        ),
-      framework,
-    )
+    await examplesMounted(page, framework)
   }
   const fonts = await page.evaluate(() =>
     Promise.race([
@@ -165,7 +183,122 @@ export const openFixture = async (
   })
 }
 
-export const needs = async (
+export const pageErrors = (page: Page) => {
+  const errors: string[] = []
+  page.on("pageerror", (error) => errors.push(error.message))
+  page.on("console", (message) => {
+    if (
+      message.type() === "error" &&
+      new URL(message.location().url || "http://localhost").hostname ===
+        "localhost"
+    ) {
+      errors.push(message.text())
+    }
+  })
+  return errors
+}
+
+export const HYDRATED: readonly Framework[] = HYDRATED_FRAMEWORK_IDS
+
+export const exampleSnapshots = (
+  page: Page,
+  framework: Framework,
+  html?: string,
+) =>
+  page.evaluate(
+    async ([name, source]) => {
+      const container = source ? document.createElement("form") : undefined
+      if (container) {
+        const parsed = new DOMParser().parseFromString(source, "text/html")
+        for (const script of parsed.querySelectorAll("script")) script.remove()
+        container.hidden = true
+        container.append(...document.adoptNode(parsed.body).childNodes)
+        document.body.append(container)
+      }
+      await new Promise((resolve) => setTimeout(resolve))
+      const root = container ?? document
+      const examples = [...root.querySelectorAll(`[data-${name}-example]`)].map(
+        (example) => {
+          const state = [
+            ...example.querySelectorAll<HTMLElement>(
+              "input, select, textarea, video",
+            ),
+          ].map((control) => {
+            if (control instanceof HTMLVideoElement) {
+              return `video muted ${control.muted}`
+            }
+            if (control instanceof HTMLSelectElement) {
+              return `select ${[...control.selectedOptions].map((option) => option.value).join(",")}`
+            }
+            if (control instanceof HTMLTextAreaElement) {
+              return `textarea ${control.value}`
+            }
+            const input = control as HTMLInputElement
+            return `input ${input.type} ${
+              ["checkbox", "radio"].includes(input.type)
+                ? input.checked
+                : input.value
+            }`
+          })
+
+          const clone = example.cloneNode(true) as HTMLElement
+          for (const element of clone.querySelectorAll('link[rel="preload"]')) {
+            element.remove()
+          }
+          for (const element of clone.querySelectorAll("img")) {
+            element.removeAttribute("loading")
+          }
+          for (const element of clone.querySelectorAll("svg")) {
+            element.removeAttribute("xmlns")
+          }
+          for (const element of clone.querySelectorAll("[_hk]")) {
+            element.removeAttribute("_hk")
+          }
+          for (const element of clone.querySelectorAll("video")) {
+            element.removeAttribute("muted")
+          }
+          for (const element of clone.querySelectorAll("input, option")) {
+            element.removeAttribute("checked")
+            element.removeAttribute("selected")
+            if (
+              element instanceof HTMLInputElement &&
+              !["checkbox", "radio"].includes(element.type)
+            ) {
+              element.removeAttribute("value")
+            }
+          }
+          for (const element of clone.querySelectorAll(
+            "selectedcontent, textarea",
+          )) {
+            element.replaceChildren()
+          }
+          const names = new Map<string, string>()
+          for (const element of clone.querySelectorAll("[name]")) {
+            const value = element.getAttribute("name")!
+            if (!names.has(value)) names.set(value, `name-${names.size + 1}`)
+            element.setAttribute("name", names.get(value)!)
+          }
+
+          const hydrating = clone.querySelectorAll("[data-hydrating]").length
+          for (const element of clone.querySelectorAll("[data-hydrating]")) {
+            element.removeAttribute("data-hydrating")
+          }
+
+          return {
+            example: example.getAttribute(`data-${name}-example`)!,
+            hydrating,
+            markup: clone.innerHTML,
+            state,
+          }
+        },
+      )
+      container?.remove()
+      return examples
+    },
+    [framework, html ?? ""] as const,
+  )
+
+export const supports = async (
   page: Page,
   feature: string,
   supported: () => boolean,
@@ -173,9 +306,16 @@ export const needs = async (
   const has = await page.evaluate(supported)
   if (page.context().browser()?.browserType().name() === "chromium") {
     expect(has, `Chromium has ${feature}`).toBe(true)
-  } else {
-    test.skip(!has, `needs ${feature}`)
   }
+  return has
+}
+
+export const needs = async (
+  page: Page,
+  feature: string,
+  supported: () => boolean,
+) => {
+  test.skip(!(await supports(page, feature, supported)), `needs ${feature}`)
 }
 
 export const settle = (locator: Locator) =>
@@ -185,6 +325,7 @@ export const settle = (locator: Locator) =>
         .getAnimations({ subtree: true })
         .filter(
           (animation) =>
+            animation.timeline instanceof DocumentTimeline &&
             animation.effect?.getComputedTiming().endTime !== Infinity,
         )
         .map((animation) => animation.finished.catch(() => undefined)),
@@ -218,3 +359,48 @@ export const resolveColor = (
     },
     [color, colorScheme ?? null] as const,
   )
+
+export const layerContrast = async (
+  locator: Locator,
+  top: string[],
+  bottom: string[],
+) => {
+  const resolve = (layers: string[]) =>
+    Promise.all(layers.map((layer) => resolveColor(locator, layer)))
+  const colors = await Promise.all([
+    resolveColor(locator, "var(--ui-surface)"),
+    resolve(top),
+    resolve(bottom),
+  ])
+  return locator.page().evaluate(([page, upper, lower]) => {
+    const canvas = document.createElement("canvas")
+    canvas.width = canvas.height = 1
+    const context = canvas.getContext("2d", { willReadFrequently: true })!
+    const paint = (...layers: string[]) => {
+      context.clearRect(0, 0, 1, 1)
+      for (const layer of layers) {
+        context.fillStyle = layer
+        context.fillRect(0, 0, 1, 1)
+      }
+      return [...context.getImageData(0, 0, 1, 1).data].slice(0, 3)
+    }
+    const luminance = (rgb: number[]) => {
+      const [r, g, b] = rgb.map((channel) => {
+        const value = channel / 255
+        return value <= 0.03928
+          ? value / 12.92
+          : ((value + 0.055) / 1.055) ** 2.4
+      })
+      return 0.2126 * r + 0.7152 * g + 0.0722 * b
+    }
+    const a = luminance(paint(page, ...upper))
+    const b = luminance(paint(page, ...lower))
+    return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05)
+  }, colors)
+}
+
+export const contrast = (
+  locator: Locator,
+  foreground: string,
+  background: string,
+) => layerContrast(locator, [background, foreground], [background])

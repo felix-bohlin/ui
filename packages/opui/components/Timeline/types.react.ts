@@ -1,13 +1,10 @@
 import type * as Base from "./types"
 import type { ComponentProps, ReactNode } from "react"
 
-type TimelineItemSlots = Base.TimelineItemSlots<ReactNode>
+type Without<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never
 
 export type Props = Base.Props & ComponentProps<"ol">
 
-export type TimelineItemProps = Omit<
-  Base.TimelineItemProps,
-  keyof TimelineItemSlots
-> &
-  TimelineItemSlots &
+export type TimelineItemProps = Without<Base.TimelineItemProps, "label"> &
+  Base.TimelineItemSlots<ReactNode> &
   ComponentProps<"li">

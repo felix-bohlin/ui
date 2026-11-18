@@ -15,6 +15,9 @@ const client = Object.keys(sources).filter((path) =>
 )
 const clientNames = new Set(client.map(name))
 
+export const isClientComponent = (component: string) =>
+  clientNames.has(component)
+
 export const clientRoots = client
   .filter((path) => name(path) === folder(path))
   .map(name)
@@ -27,7 +30,7 @@ export const clientParts = client
   .map(name)
   .toSorted()
 
-export const joinNames = (names: string[]) =>
+const joinNames = (names: string[]) =>
   names.length < 2
     ? names.join("")
     : `${names.slice(0, -1).join(", ")} and ${names.at(-1)}`

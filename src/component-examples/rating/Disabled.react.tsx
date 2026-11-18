@@ -1,5 +1,7 @@
 import { Rating } from "opui-css/react"
 
 export default function Disabled() {
-  return <Rating disabled label="Your rating" name="disabled" value={2} />
+  return (
+    <Rating defaultValue={2} disabled label="Your rating" name="disabled" />
+  )
 }

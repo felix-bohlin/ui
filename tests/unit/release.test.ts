@@ -3,7 +3,6 @@ import { describe, expect, test } from "vitest"
 import opui from "../../packages/opui/package.json"
 import released from "./released-api.json"
 import {
-  dated,
   isUnreleased,
   newer,
   packageVersion,
@@ -12,6 +11,7 @@ import {
   releaseVersion,
   unreleased,
 } from "../../src/utils/release"
+import { parseTodo, slugify } from "../../src/utils/todo"
 
 const changelog = [
   "# Changelog",
@@ -33,21 +33,6 @@ describe("newer", () => {
     ["6.0.0-rc.1", "6.0.0", false],
   ])("%s is newer than %s: %s", (version, than, expected) => {
     expect(newer(version, than)).toBe(expected)
-  })
-})
-
-describe("dated", () => {
-  test("finds a dated heading", () => {
-    expect(dated("5.4.3", changelog)).toBe(true)
-  })
-
-  test("skips an unreleased heading", () => {
-    expect(dated("6.0.0", changelog)).toBe(false)
-  })
-
-  test("matches the whole version", () => {
-    expect(dated("5.4", changelog)).toBe(false)
-    expect(dated("5x4x3", changelog)).toBe(false)
   })
 })
 
@@ -110,6 +95,33 @@ test.each(releaseChecks)(
         (slug) => !components?.includes(`/html/components/${slug}/`),
       ),
       "add a check for the page under ## Components",
+    ).toEqual([])
+  },
+)
+
+const repeatedHeadlines = (source: string) => {
+  const keys = parseTodo(source).all.flatMap((section) =>
+    section.items.map((item) => slugify(item.text)),
+  )
+  return keys.filter((key, index) => keys.indexOf(key) !== index)
+}
+
+test("repeatedHeadlines finds two items with the same headline", () => {
+  expect(
+    repeatedHeadlines(
+      ["## Scope", "", "- [ ] Same", "", "## Launch", "", "- [x] Same"].join(
+        "\n",
+      ),
+    ),
+  ).toEqual(["same"])
+})
+
+test.each(readdirSync("docs/releases").filter((file) => file.endsWith(".md")))(
+  "every item in docs/releases/%s has its own headline",
+  (file) => {
+    expect(
+      repeatedHeadlines(readFileSync(`docs/releases/${file}`, "utf8")),
+      "the /checks and /checklist pages save checks and comments under the headline: reword one of the items",
     ).toEqual([])
   },
 )

@@ -60,35 +60,25 @@ const pathLength = built ? 1 : undefined
       <div class="blueprint-panel">
         <p class="blueprint-title" id={`${id}-layers`}>Cascade layers</p>
         <ol aria-labelledby={`${id}-layers`} class="blueprint-chain">
-          {
-            [...layers].map(([name, children], index) => (
-              <li>
-                {index > 0 && (
-                  <svg aria-hidden="true" class="blueprint-wire">
-                    <line
-                      pathLength={pathLength}
-                      x1="50%"
-                      x2="50%"
-                      y1="0"
-                      y2="100%"
-                    />
-                  </svg>
-                )}
-                <div class="blueprint-node">
-                  <code class="blueprint-label">{name}</code>
-                  {children.length > 0 && (
-                    <ol class="blueprint-chips">
-                      {children.map((child) => (
-                        <li>
-                          <code>{child}</code>
-                        </li>
-                      ))}
-                    </ol>
-                  )}
-                </div>
-              </li>
-            ))
-          }
+          {[...layers].map(([name, children], index) => <li>
+            {index > 0 && <svg aria-hidden="true" class="blueprint-wire">
+              <line
+                pathLength={pathLength}
+                x1="50%"
+                x2="50%"
+                y1="0"
+                y2="100%"
+              />
+            </svg>}
+            <div class="blueprint-node">
+              <code class="blueprint-label">{name}</code>
+              {children.length > 0 && <ol class="blueprint-chips">
+                {children.map((child) => <li>
+                  <code>{child}</code>
+                </li>)}
+              </ol>}
+            </div>
+          </li>)}
         </ol>
       </div>
 
@@ -99,40 +89,36 @@ const pathLength = built ? 1 : undefined
           x1="0"
           x2="100%"
           y1="50%"
-          y2="50%"></line>
+          y2="50%"
+        ></line>
         <line
           class="blueprint-down"
           pathLength={pathLength}
           x1="50%"
           x2="50%"
           y1="0"
-          y2="100%"></line>
+          y2="100%"
+        ></line>
       </svg>
 
       <div class="blueprint-panel">
         <p class="blueprint-title" id={`${id}-tiers`}>Token tiers</p>
         <ol aria-labelledby={`${id}-tiers`} class="blueprint-chain">
-          {
-            tiers.map((tier, index) => (
-              <li>
-                {index > 0 && (
-                  <svg aria-hidden="true" class="blueprint-wire">
-                    <line
-                      pathLength={pathLength}
-                      x1="50%"
-                      x2="50%"
-                      y1="0"
-                      y2="100%"
-                    />
-                  </svg>
-                )}
-                <div class="blueprint-node">
-                  <span class="blueprint-label">{tier.name}</span>
-                  {tier.token && <code>{tier.token}</code>}
-                </div>
-              </li>
-            ))
-          }
+          {tiers.map((tier, index) => <li>
+            {index > 0 && <svg aria-hidden="true" class="blueprint-wire">
+              <line
+                pathLength={pathLength}
+                x1="50%"
+                x2="50%"
+                y1="0"
+                y2="100%"
+              />
+            </svg>}
+            <div class="blueprint-node">
+              <span class="blueprint-label">{tier.name}</span>
+              {tier.token && <code>{tier.token}</code>}
+            </div>
+          </li>)}
         </ol>
       </div>
 
@@ -143,14 +129,16 @@ const pathLength = built ? 1 : undefined
           x1="0"
           x2="100%"
           y1="50%"
-          y2="50%"></line>
+          y2="50%"
+        ></line>
         <line
           class="blueprint-down"
           pathLength={pathLength}
           x1="50%"
           x2="50%"
           y1="0"
-          y2="100%"></line>
+          y2="100%"
+        ></line>
       </svg>
 
       <div class="blueprint-panel">
@@ -160,27 +148,24 @@ const pathLength = built ? 1 : undefined
             <code class="blueprint-label">{packageName}</code>
           </div>
           <svg aria-hidden="true" class="blueprint-wire">
-            <line pathLength={pathLength} x1="50%" x2="50%" y1="0" y2="100%"
+            <line
+              pathLength={pathLength}
+              x1="50%"
+              x2="50%"
+              y1="0"
+              y2="100%"
             ></line>
           </svg>
           <ul aria-labelledby={`${id}-delivery`} class="blueprint-surfaces">
-            {
-              FRAMEWORKS.map((framework) => (
-                <li class="blueprint-node">
-                  <span class="blueprint-label">{framework.label}</span>
-                </li>
-              ))
-            }
+            {FRAMEWORKS.map((framework) => <li class="blueprint-node">
+              <span class="blueprint-label">{framework.label}</span>
+            </li>)}
             <li class="blueprint-node blueprint-elements">
               <span class="blueprint-label">Custom elements</span>
               <ul class="blueprint-chips">
-                {
-                  elements.map((element) => (
-                    <li>
-                      <code>{element}</code>
-                    </li>
-                  ))
-                }
+                {elements.map((element) => <li>
+                  <code>{element}</code>
+                </li>)}
               </ul>
             </li>
           </ul>
@@ -426,9 +411,11 @@ const pathLength = built ? 1 : undefined
     @media (prefers-reduced-motion: no-preference) {
       .blueprint[data-state="built"] {
         & .blueprint-wire {
-          animation: blueprint-draw linear both;
+          animation-fill-mode: both;
+          animation-name: blueprint-draw;
           animation-range: entry 100% cover 22%;
           animation-timeline: view();
+          animation-timing-function: linear;
         }
       }
     }

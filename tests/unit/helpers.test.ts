@@ -1,13 +1,23 @@
 import { describe, expect, test } from "vitest"
+import { defined } from "../../packages/opui/components/attrs"
 import { cx } from "../../packages/opui/components/cx"
 import { toggleInGroup } from "../../packages/opui/components/group"
 import {
   autoLabelledBy,
   createId,
+  createIds,
+  fieldDescribedBy,
   idRefs,
 } from "../../packages/opui/components/id"
-import { mergeStyle, styleVars } from "../../packages/opui/components/style"
+import {
+  counterLabel,
+  cssString,
+  mergeStyle,
+  pluralLabel,
+  styleVars,
+} from "../../packages/opui/components/style"
 import { tagAttrs } from "../../packages/opui/components/tag"
+import { exampleIdBase } from "../../src/utils/id"
 
 describe("cx", () => {
   test("joins strings, arrays and truthy object keys", () => {
@@ -52,6 +62,72 @@ describe("styleVars and mergeStyle", () => {
   })
 })
 
+describe("cssString and counterLabel", () => {
+  test("cssString quotes text and escapes quotes, backslashes and line breaks", () => {
+    expect(cssString("Nästa")).toBe('"Nästa"')
+    expect(cssString('Say "hi"\\\n')).toBe('"Say \\"hi\\"\\\\\\a "')
+    expect(cssString("a\r\nb\rc\fd")).toBe('"a\\a b\\a c\\c d"')
+  })
+
+  test("counterLabel puts the counter where {number} is", () => {
+    expect(counterLabel("Slide {number}", "x")).toBe('"Slide " counter(x)')
+    expect(counterLabel("{number}. dia", "x")).toBe('counter(x) ". dia"')
+    expect(counterLabel("Page {number} of the tour", "x")).toBe(
+      '"Page " counter(x) " of the tour"',
+    )
+    expect(counterLabel("Slide", "x")).toBe('"Slide"')
+  })
+})
+
+describe("pluralLabel", () => {
+  const english = { one: "{count} star", other: "{count} stars" }
+
+  test("picks the English form without a lang", () => {
+    expect([0, 1, 2, 5].map((count) => pluralLabel(english, count))).toEqual([
+      "0 stars",
+      "1 star",
+      "2 stars",
+      "5 stars",
+    ])
+  })
+
+  test("picks the Polish one, few and many forms", () => {
+    const polish = {
+      few: "{count} gwiazdki",
+      many: "{count} gwiazdek",
+      one: "{count} gwiazdka",
+      other: "{count} gwiazdki",
+    }
+    expect(
+      [1, 2, 4, 5, 12, 22, 25].map((count) => pluralLabel(polish, count, "pl")),
+    ).toEqual([
+      "1 gwiazdka",
+      "2 gwiazdki",
+      "4 gwiazdki",
+      "5 gwiazdek",
+      "12 gwiazdek",
+      "22 gwiazdki",
+      "25 gwiazdek",
+    ])
+  })
+
+  test("takes other in Japanese, whose only category is other", () => {
+    const japanese = { one: "unused", other: "星{count}つ" }
+    expect([1, 3].map((count) => pluralLabel(japanese, count, "ja"))).toEqual([
+      "星1つ",
+      "星3つ",
+    ])
+  })
+
+  test("falls back to other for a missing category and to English for a bad lang", () => {
+    expect(pluralLabel({ other: "{count} gwiazdek" }, 2, "pl")).toBe(
+      "2 gwiazdek",
+    )
+    expect(pluralLabel(english, 1, "")).toBe("1 star")
+    expect(pluralLabel(english, 1, "not a language")).toBe("1 star")
+  })
+})
+
 describe("tagAttrs", () => {
   test("a button gets type and disabled, no href or aria-disabled", () => {
     expect(tagAttrs("button", true, "/x")).toEqual({
@@ -62,17 +138,19 @@ describe("tagAttrs", () => {
     })
   })
 
-  test("a disabled link loses its href and gets aria-disabled", () => {
+  test("a disabled link loses its href and gets aria-disabled and the link role", () => {
     expect(tagAttrs("a", true, "/x")).toEqual({
       "aria-disabled": "true",
       disabled: undefined,
       href: undefined,
+      role: "link",
       type: undefined,
     })
     expect(tagAttrs("a", false, "/x")).toMatchObject({
       "aria-disabled": undefined,
       href: "/x",
     })
+    expect(tagAttrs("a", false, "/x")).not.toHaveProperty("role")
   })
 
   test("other tags get none of them", () => {
@@ -82,6 +160,26 @@ describe("tagAttrs", () => {
       href: undefined,
       type: undefined,
     })
+  })
+})
+
+describe("defined", () => {
+  test("drops the attributes a caller passes as undefined or null, so a spread doesn't remove an attribute set before it", () => {
+    expect(
+      defined({
+        "aria-labelledby": undefined,
+        hidden: false,
+        id: "",
+        role: null,
+        tabIndex: 0,
+      }),
+    ).toEqual({ hidden: false, id: "", tabIndex: 0 })
+  })
+
+  test("only sees attributes: a slot prop such as closeIcon={null} never travels in rest", () => {
+    const { closeIcon, ...rest } = { closeIcon: null, role: null }
+    expect(closeIcon).toBe(null)
+    expect(defined(rest)).toEqual({})
   })
 })
 
@@ -99,13 +197,68 @@ describe("ids", () => {
     expect(idRefs(undefined, "")).toBe(undefined)
   })
 
-  test("createId uses the page's generator and falls back to a random suffix", () => {
+  test("fieldDescribedBy lists a field's parts in the order they're drawn, then the other ids", () => {
+    expect(
+      fieldDescribedBy(
+        {
+          bottom: "bottom",
+          end: "end",
+          endText: "end-text",
+          start: "start",
+          startText: "start-text",
+          top: "top",
+        },
+        "outside",
+      ),
+    ).toBe("start-text top start end bottom end-text outside")
+    expect(
+      fieldDescribedBy({ endText: "end-text", top: false }, undefined),
+    ).toBe("end-text")
+    expect(fieldDescribedBy({ start: undefined })).toBe(undefined)
+  })
+
+  test("createIds asks for one base per instance, only when a part needs it", () => {
+    const calls: string[] = []
+    const locals = {
+      $id: (prefix: string) => {
+        calls.push(prefix)
+        return `${prefix}-${calls.length}`
+      },
+    }
+    const ids = createIds(locals, "select")
+    expect(calls).toEqual([])
+    expect([ids("label"), ids("end-text"), ids()]).toEqual([
+      "select-1-label",
+      "select-1-end-text",
+      "select-1",
+    ])
+    expect(createIds(locals, "select", "x")("label")).toBe("x-label")
+    expect(calls).toEqual(["select"])
+  })
+
+  test("createIds takes an empty id as no id, so two of them don't share part ids", () => {
+    let count = 0
+    const locals = { $id: (prefix: string) => `${prefix}-${++count}` }
+    expect(createIds(locals, "select", "")("label")).toBe("select-1-label")
+    expect(createIds(locals, "select", "")("label")).toBe("select-2-label")
+  })
+
+  test("createId uses the page's generator or a random suffix", () => {
     expect(createId({ $id: (prefix) => `${prefix}-1` })("field")).toBe(
       "field-1",
     )
     const id = createId({})
     expect(id("field")).toMatch(/^field-[0-9a-f]{8}$/)
     expect(id("field")).not.toBe(id("field"))
+  })
+})
+
+describe("example ids", () => {
+  test("exampleIdBase is the slug and the kebab-case name without Code", () => {
+    expect(exampleIdBase("select/Spread")).toBe("select-spread")
+    expect(exampleIdBase("button/IconAndLabelCode")).toBe(
+      "button-icon-and-label",
+    )
   })
 })
 

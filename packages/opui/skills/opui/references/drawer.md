@@ -1,26 +1,27 @@
 # Drawer
 
-Slides in from the sides, top or bottom of the screen. Good for navigation, filters and side content. For a question or a short task that needs the user's full attention, use a Dialog.
+A panel that slides in from an edge of the screen, for navigation, filters or side content.
 
-- CSS: `opui-css/css/components/drawer.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/drawer.md), [Astro](https://open-props-ui.netlify.app/astro/components/drawer.md), [React](https://open-props-ui.netlify.app/react/components/drawer.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/drawer.md), [Vue](https://open-props-ui.netlify.app/vue/components/drawer.md).
+- CSS: `opui-css/css/components/drawer.css` and `opui-css/css/components/card.css`.
+- Full docs with every example: [HTML](https://opui.dev/html/components/drawer.md), [Astro](https://opui.dev/astro/components/drawer.md), [React](https://opui.dev/react/components/drawer.md), [Solid](https://opui.dev/solid/components/drawer.md), [Svelte](https://opui.dev/svelte/components/drawer.md), [Vue](https://opui.dev/vue/components/drawer.md).
 
 ## Drawer
 
 ### Parts
 
 - `dialog.ui-drawer` (root): Container element.
-- `.ui-header` (`DrawerHeader`): The header, a row for the title and anything next to it, with a close button.
+- `.ui-header` (`DrawerHeader`): The header, a row for the title and anything next to it, with an optional close button.
 - `<h2>` (`DrawerTitle`): The title. Names the drawer through `aria-labelledby`.
 - `.ui-content` (`DrawerContent`): The scrollable content.
 - `.ui-footer` (`DrawerFooter`): The footer, a row at the end.
 
 ### Props and modifiers
 
-- `backdrop`: `"blurred"` (default), `"transparent"` (`.ui-backdrop-transparent`). The backdrop style. `"transparent"` keeps the page behind it fully visible.
-- `closedby`: `"any" | "closerequest" | "none"`, `[closedby]`, default `"any"`. How the drawer can be closed. `"any"` also closes it on a click outside.
+- `backdrop`: `"blurred"` (default), `"transparent"` (`.ui-backdrop-transparent`). The backdrop style. `transparent` keeps the page behind it fully visible.
+- `closedby`: `"any" | "closerequest" | "none"`, `[closedby]`, default `"any"`. How the drawer can be closed. `any` also closes it on a click outside. Swiping a drawer at the block start or end toward its edge is a close request too, so `none` turns it off.
+- `closeOnNavigate`: `boolean`, `[data-close-on-navigate]`. Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API.
 - `id`: `string`. The id of the `<dialog>`, which the trigger's `commandfor` points at. Required.
-- `scrollLock`: `boolean`, `.ui-scroll-lock`. Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px.
+- `scrollLock`: `boolean`, `.ui-scroll-lock`. Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`.
 - `side`: `"block-end"` (`.ui-block-end`), `"block-start"` (`.ui-block-start`), `"inline-end"` (`.ui-inline-end`), `"inline-start"` (default). The side it opens from.
 
 ### Slots
@@ -29,20 +30,21 @@ Slides in from the sides, top or bottom of the screen. Good for navigation, filt
 
 ### Notes
 
-- HTML: Add `autofocus` to the element that gets focus on open. It can be the root or an element inside.
-- Astro, React, Svelte and Vue: Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`.
+- HTML: Add `autofocus` to the element that gets focus on open. It can be the root or an element inside. For `[data-close-on-navigate]`, import `opui-css/elements/close-on-navigate.js`. For swiping a `.ui-block-start` or `.ui-block-end` drawer closed, import `opui-css/elements/drawer-swipe.js`.
+- Astro, React, Solid, Svelte and Vue: Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer, with the id `x-title` for `id="x"`. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`.
 
 ## DrawerHeader
 
 ### Parts
 
 - `.ui-header` (root): Container element.
-- `<button>`: Closes the drawer.
+- `<button>` (prop `closeButton`, prop `closeLabel`, slot `close-icon`): Closes the drawer, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`.
 
 ### Props and modifiers
 
+- `closeButton`: `boolean`. Adds a close button at the end of the title row, which closes its `Drawer`, or the `<dialog>` that `commandfor` names.
 - `closeLabel`: `string`, default `"Close"`. The accessible name of the close button.
-- `commandfor`: `string`. The id of the drawer to close with the `close` command. Without it, the button closes its `Drawer`, or the nearest `<dialog>` on click.
+- `commandfor`: `string`. The id of the drawer the close button closes with the `close` command. Without it, the button closes its `Drawer`. Outside a `Drawer`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.
 
 ### Slots
 
@@ -69,250 +71,294 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### drawer.css
 
-- `--_backdrop-bg-color`: The backdrop color. Defaults to `--ui-backdrop-bg-color`, `.ui-backdrop-transparent` clears it.
-- `--_backdrop-blur`: The backdrop filter. Defaults to a `--ui-backdrop-blur` blur, `.ui-backdrop-transparent` removes it.
+- `--_backdrop-bg-color`: The backdrop color. `card.css` declares it for dialogs and drawers, and `.ui-backdrop-transparent` clears it.
+- `--_backdrop-blur`: The backdrop filter. `card.css` declares it for dialogs and drawers, and `.ui-backdrop-transparent` removes it.
 - `--_bg-color`: The background. Defaults to `--ui-surface-elevated`.
-- `--_block-size`: Height of `.ui-block-start` and `.ui-block-end` drawers.
+- `--_block-size`: Height of `.ui-block-start` and `.ui-block-end` drawers. Defaults to 80% of the viewport, at most `650px`.
 - `--_border-color`: Color of the `.ui-header` and `.ui-footer` dividers, and of the inner edge unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-border-color-on-raised`.
 - `--_border-width`: Width of the inner edge border and the `.ui-header` and `.ui-footer` dividers.
 - `--_content-padding`: Padding of `.ui-content`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
 - `--_edge-border-color`: Color of the inner edge border. `--ui-border-color-raised` when a theme sets it, otherwise `--_border-color`.
-- `--_footer-gap`: Gap between the items in `.ui-footer` and between the buttons in its `.ui-actions`.
 - `--_footer-padding`: Padding of `.ui-footer`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
+- `--_handle-border-color`: Color of the grab handle a drawer at the block start or end shows on a touch screen. `--ui-border-color` on the drawer's surface.
 - `--_header-padding`: Padding of `.ui-header`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
 - `--_inline-size`: Width of drawers that open from the inline start or end.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
-- `--_scroll-shadow`: Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
 - `--_shadow`: The shadow. Defaults to `--ui-shadow-overlay`.
+- `--_swipe-offset`: How far a swipe has moved the open drawer toward its edge. `opui-css/elements/drawer-swipe.js` sets it on the drawer while a finger drags it. `0px` otherwise.
+- `--_swipe-progress`: The share of its size a swipe has moved the drawer, from `0` to `1`. `opui-css/elements/drawer-swipe.js` sets it while a finger drags the drawer, and the backdrop fades by it. `0` otherwise.
 - `--_text-color`: The text color. Defaults to `--ui-text-strong`.
-- `--_title-font-size`: Font size of the title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.
 
-Outputs: `--_direction`, `--_duration` and `--_ease`.
+Outputs: `--_closed-translate`, `--_direction`, `--_duration` and `--_ease`.
+
+### card.css
+
+- `--_actions-padding-inline`: Inline padding of `.ui-actions`. Defaults to `--_padding`. The actions pass it on as `--ui-card-padding`, so a text button at either end keeps its focus ring inside the card.
+- `--_backdrop-bg-color`: Backdrop color of a dialog or drawer. Defaults to `--ui-backdrop-bg-color`.
+- `--_backdrop-blur`: Backdrop filter of a dialog or drawer. Defaults to a `--ui-backdrop-blur` blur.
+- `--_ease`: Easing of the card link border transition, the focus ring animation and the accordion transitions. Defaults to `--ui-ease`.
+- `--_elevated-bg-color`: Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.
+- `--_elevated-shadow`: Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.
+- `--_footer-gap`: Gap between the items in a dialog's or drawer's `.ui-footer` and between the buttons in its `.ui-actions`. Defaults to `--ui-space-2`.
+- `--_gap`: Gap between the parts. `--ui-space-3`, or `--ui-space-2` in `.ui-dense`. The part after an image subtracts it from its padding.
+- `--_media-inline-size`: Width of the image when it sits at the start of the card, and the start margin of the parts next to it. Defaults to `40%` of the card.
+- `--_motion`: Motion multiplier for the card link border transition, the focus ring animation and the accordion transitions. `0` turns them off.
+- `--_outlined-border-color`: Border color of `.ui-outlined`. Defaults to `--ui-border-color`.
+- `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset. In an accordion it sets `--_padding-inline`, `--_summary-padding-block` and the block end of `--_content-padding-block`.
+- `--_scroll-shadow`: Shadow at the edges of a dialog's or drawer's `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
+- `--_surface-bg-color`: Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-surface`.
+- `--_title-font-size`: Font size of a dialog's or drawer's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.
+- `--_tonal-bg-color`: Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`.
+
+Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor`, `--_duration`, `--_orientation` and `--_shadow`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-card-padding`, `--ui-duration-slow`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-inset`, `--ui-font-size-h4`, `--ui-letter-spacing-heading`, `--ui-motion`, `--ui-rhythm-step`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-6`, `--ui-surface-elevated` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-card-padding`, `--ui-duration`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-icon-close`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-rhythm-step`, `--ui-safe-area-inset-block-end`, `--ui-safe-area-inset-block-start`, `--ui-safe-area-inset-inline-end`, `--ui-safe-area-inset-inline-start`, `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-6`, `--ui-space-7`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
 ### Example: Basics
 
 ```html
-<div class="example-compass">
-  <button
-    type="button"
-    class="ui-button"
-    commandfor="drawer-basics-3"
-    command="show-modal"
-  >
-    Block Start
-  </button>
-  <button
-    type="button"
-    class="ui-button"
-    commandfor="drawer-basics-1"
-    command="show-modal"
-  >
-    Inline Start
-  </button>
-  <button
-    type="button"
-    class="ui-button"
-    commandfor="drawer-basics-2"
-    command="show-modal"
-  >
-    Inline End
-  </button>
-  <button
-    type="button"
-    class="ui-button"
-    commandfor="drawer-basics-4"
-    command="show-modal"
-  >
-    Block End
-  </button>
-</div>
+<button
+  class="ui-button"
+  type="button"
+  command="show-modal"
+  commandfor="drawer-basics-3"
+>
+  Block start
+</button>
+<button
+  class="ui-button"
+  type="button"
+  command="show-modal"
+  commandfor="drawer-basics-1"
+>
+  Inline start
+</button>
+<button
+  class="ui-button"
+  type="button"
+  command="show-modal"
+  commandfor="drawer-basics-2"
+>
+  Inline end
+</button>
+<button
+  class="ui-button"
+  type="button"
+  command="show-modal"
+  commandfor="drawer-basics-4"
+>
+  Block end
+</button>
 
 <dialog
-  class="ui-drawer ui-scroll-lock"
-  id="drawer-basics-1"
-  aria-labelledby="drawer-basics-1-heading"
   closedby="any"
+  class="ui-drawer"
+  aria-labelledby="drawer-basics-1-title"
+  data-close-on-navigate
+  id="drawer-basics-1"
 >
   <div class="ui-header">
-    <h2 id="drawer-basics-1-heading">Inline Start</h2>
-    <button type="button" class="ui-button ui-round ui-small" aria-label="Edit">
+    <h2 id="drawer-basics-1-title">Menu</h2>
+    <button
+      class="ui-button ui-round ui-small"
+      type="button"
+      aria-label="Close"
+      command="close"
+      commandfor="drawer-basics-1"
+    >
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
         viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
-        />
-      </svg>
-    </button>
-    <button
-      type="button"
-      class="ui-button ui-round ui-small"
-      aria-label="Close"
-      commandfor="drawer-basics-1"
-      command="close"
-    >
-      <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+      ></svg>
     </button>
   </div>
   <div class="ui-content">
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.
-    </p>
+    <ul class="ui-list ui-transparent" role="list">
+      <li>
+        <a href="#basics" aria-current="page">
+          <div class="ui-text">
+            <p>My wall</p>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#basics">
+          <div class="ui-text">
+            <p>My bands</p>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#basics">
+          <div class="ui-text">
+            <p>Gear Talk</p>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#basics">
+          <div class="ui-text">
+            <p>Settings</p>
+          </div>
+        </a>
+      </li>
+    </ul>
   </div>
-  <div class="ui-footer">
+  <div class="ui-footer ui-align-start">
     <button
-      type="button"
       class="ui-button ui-small"
-      commandfor="drawer-basics-1"
+      type="button"
       command="close"
+      commandfor="drawer-basics-1"
     >
-      Close
+      Sign out
     </button>
   </div>
 </dialog>
 
 <dialog
-  class="ui-drawer ui-scroll-lock ui-inline-end"
+  closedby="any"
+  class="ui-drawer ui-backdrop-transparent ui-inline-end"
+  aria-labelledby="drawer-basics-2-title"
   id="drawer-basics-2"
-  aria-labelledby="drawer-basics-2-heading"
-  closedby="any"
 >
   <div class="ui-header">
-    <h2 id="drawer-basics-2-heading">Inline End</h2>
+    <h2 id="drawer-basics-2-title">Friday gig prep</h2>
+    <button class="ui-button ui-round ui-small" type="button" aria-label="Edit">
+      <svg data-icon="edit" aria-hidden="true" viewBox="0 0 32 32"></svg>
+    </button>
     <button
-      type="button"
       class="ui-button ui-round ui-small"
+      type="button"
       aria-label="Close"
-      commandfor="drawer-basics-2"
       command="close"
+      commandfor="drawer-basics-2"
     >
       <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
   </div>
-  <div class="ui-content">
+  <div class="ui-content" aria-label="Gig details" role="region" tabindex="0">
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.
+      Assigned to Lou Headstock, due Friday. Holly Humbucker checks the setlist,
+      and the drummer promises (again) to bring the cymbals by Wednesday.
     </p>
   </div>
   <div class="ui-footer">
     <button
+      class="ui-button ui-small ui-filled"
       type="button"
-      class="ui-button ui-small"
-      commandfor="drawer-basics-2"
       command="close"
+      commandfor="drawer-basics-2"
     >
-      Close
+      Mark as done
     </button>
   </div>
 </dialog>
 
 <dialog
-  class="ui-drawer ui-scroll-lock ui-block-start"
+  closedby="any"
+  class="ui-drawer ui-block-start"
+  aria-labelledby="drawer-basics-3-title"
   id="drawer-basics-3"
-  aria-labelledby="drawer-basics-3-heading"
-  closedby="any"
 >
   <div class="ui-header">
-    <h2 id="drawer-basics-3-heading">Block Start</h2>
+    <h2 id="drawer-basics-3-title">Notifications</h2>
     <button
-      type="button"
       class="ui-button ui-round ui-small"
+      type="button"
       aria-label="Close"
-      commandfor="drawer-basics-3"
       command="close"
+      commandfor="drawer-basics-3"
     >
       <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
   </div>
   <div class="ui-content">
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.
-    </p>
-    <p>
-      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-      dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
+    <p>Holly Humbucker commented on Friday gig prep.</p>
   </div>
   <div class="ui-footer">
     <button
-      type="button"
       class="ui-button ui-small"
-      commandfor="drawer-basics-3"
+      type="button"
       command="close"
+      commandfor="drawer-basics-3"
     >
-      Close
+      Mark all as read
     </button>
   </div>
 </dialog>
 
 <dialog
-  class="ui-drawer ui-scroll-lock ui-block-end"
-  id="drawer-basics-4"
-  aria-labelledby="drawer-basics-4-heading"
   closedby="any"
+  class="ui-drawer ui-block-end"
+  aria-labelledby="drawer-basics-4-title"
+  id="drawer-basics-4"
 >
   <div class="ui-header">
-    <h2 id="drawer-basics-4-heading">Block End</h2>
+    <h2 id="drawer-basics-4-title">Filters</h2>
     <button
-      type="button"
       class="ui-button ui-round ui-small"
+      type="button"
       aria-label="Close"
-      commandfor="drawer-basics-4"
       command="close"
+      commandfor="drawer-basics-4"
     >
       <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
   </div>
   <div class="ui-content">
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.
-    </p>
-    <p>
-      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-      dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
+    <fieldset class="ui-fieldset">
+      <legend>Status</legend>
+      <div class="ui-field-group ui-horizontal">
+        <label class="ui-checkbox">
+          <input type="checkbox" name="status" checked value="done" />
+          <span class="ui-label">Done</span>
+        </label>
+        <label class="ui-checkbox">
+          <input type="checkbox" name="status" checked value="in-progress" />
+          <span class="ui-label">Rocking</span>
+        </label>
+        <label class="ui-checkbox">
+          <input type="checkbox" name="status" value="open" />
+          <span class="ui-label">Not yet</span>
+        </label>
+      </div>
+    </fieldset>
   </div>
   <div class="ui-footer">
-    <button
-      type="button"
-      class="ui-button ui-small"
-      commandfor="drawer-basics-4"
-      command="close"
-    >
-      Close
-    </button>
+    <p>24 tasks</p>
+    <div class="ui-actions">
+      <button class="ui-button ui-small" type="button">Reset</button>
+      <button
+        class="ui-button ui-small ui-filled"
+        type="button"
+        command="close"
+        commandfor="drawer-basics-4"
+      >
+        Apply
+      </button>
+    </div>
   </div>
 </dialog>
+
+<script type="module">
+  import "opui-css/elements/close-on-navigate.js"
+  import "opui-css/elements/drawer-swipe.js"
+</script>
 ```
 
 ## Astro
 
 `import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from "opui-css/astro"`
+
+- `DrawerHeader` named slots: `close-icon`. Fill one with `slot="close-icon"` on a child.
 
 ### Example: Basics
 
@@ -320,110 +366,110 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 ---
 import {
   Button,
+  Checkbox,
   Drawer,
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  List,
+  ListItem,
 } from "opui-css/astro"
 
-const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
+const editIcon = `<svg data-icon="edit" aria-hidden="true" viewBox="0 0 32 32"></svg>`
 ---
 
-<div class="example-compass">
-  <Button commandfor="drawer-basics-3" command="show-modal">Block Start</Button>
-  <Button commandfor="drawer-basics-1" command="show-modal">Inline Start</Button
-  >
-  <Button commandfor="drawer-basics-2" command="show-modal">Inline End</Button>
-  <Button commandfor="drawer-basics-4" command="show-modal">Block End</Button>
-</div>
+<Button command="show-modal" commandfor="drawer-basics-3">Block start</Button>
+<Button command="show-modal" commandfor="drawer-basics-1">Inline start</Button>
+<Button command="show-modal" commandfor="drawer-basics-2">Inline end</Button>
+<Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
 
-<Drawer id="drawer-basics-1" scrollLock side="inline-start">
-  <DrawerHeader>
-    <DrawerTitle>Inline Start</DrawerTitle>
+<Drawer closeOnNavigate id="drawer-basics-1" side="inline-start">
+  <DrawerHeader closeButton>
+    <DrawerTitle>Menu</DrawerTitle>
+  </DrawerHeader>
+  <DrawerContent>
+    <List variant="transparent">
+      <ListItem aria-current="page" href="#basics" label="My wall" />
+      <ListItem href="#basics" label="My bands" />
+      <ListItem href="#basics" label="Gear Talk" />
+      <ListItem href="#basics" label="Settings" />
+    </List>
+  </DrawerContent>
+  <DrawerFooter align="start">
+    <Button command="close" commandfor="drawer-basics-1" size="small"
+      >Sign out</Button
+    >
+  </DrawerFooter>
+</Drawer>
+
+<Drawer backdrop="transparent" id="drawer-basics-2" side="inline-end">
+  <DrawerHeader closeButton>
+    <DrawerTitle>Friday gig prep</DrawerTitle>
     <Button aria-label="Edit" round size="small">
       <Fragment set:html={editIcon} />
     </Button>
   </DrawerHeader>
-  <DrawerContent>
+  <DrawerContent aria-label="Gig details" role="region" tabindex="0">
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.
+      Assigned to Lou Headstock, due Friday. Holly Humbucker checks the setlist,
+      and the drummer promises (again) to bring the cymbals by Wednesday.
     </p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-1" command="close"
-      >Close</Button
+    <Button
+      command="close"
+      commandfor="drawer-basics-2"
+      size="small"
+      variant="filled"
+      >Mark as done</Button
     >
   </DrawerFooter>
 </Drawer>
 
-<Drawer id="drawer-basics-2" scrollLock side="inline-end">
-  <DrawerHeader>
-    <DrawerTitle>Inline End</DrawerTitle>
+<Drawer id="drawer-basics-3" side="block-start">
+  <DrawerHeader closeButton>
+    <DrawerTitle>Notifications</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.
-    </p>
+    <p>Holly Humbucker commented on Friday gig prep.</p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-2" command="close"
-      >Close</Button
+    <Button command="close" commandfor="drawer-basics-3" size="small"
+      >Mark all as read</Button
     >
   </DrawerFooter>
 </Drawer>
 
-<Drawer id="drawer-basics-3" scrollLock side="block-start">
-  <DrawerHeader>
-    <DrawerTitle>Block Start</DrawerTitle>
+<Drawer id="drawer-basics-4" side="block-end">
+  <DrawerHeader closeButton>
+    <DrawerTitle>Filters</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.
-    </p>
-    <p>
-      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-      dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
+    <Fieldset>
+      <FieldLegend>Status</FieldLegend>
+      <FieldGroup name="status" orientation="horizontal">
+        <Checkbox checked value="done">Done</Checkbox>
+        <Checkbox checked value="in-progress">Rocking</Checkbox>
+        <Checkbox value="open">Not yet</Checkbox>
+      </FieldGroup>
+    </Fieldset>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-3" command="close"
-      >Close</Button
-    >
-  </DrawerFooter>
-</Drawer>
-
-<Drawer id="drawer-basics-4" scrollLock side="block-end">
-  <DrawerHeader>
-    <DrawerTitle>Block End</DrawerTitle>
-  </DrawerHeader>
-  <DrawerContent>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.
-    </p>
-    <p>
-      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-      dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
-  </DrawerContent>
-  <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-4" command="close"
-      >Close</Button
-    >
+    <p>24 tasks</p>
+    <div class="ui-actions">
+      <Button size="small">Reset</Button>
+      <Button
+        command="close"
+        commandfor="drawer-basics-4"
+        size="small"
+        variant="filled"
+        >Apply</Button
+      >
+    </div>
   </DrawerFooter>
 </Drawer>
 ```
@@ -432,127 +478,271 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
 
 `import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from "opui-css/react"`
 
+- `DrawerHeader` slot props (`ReactNode`): `children` and `closeIcon`.
 - Client components (`"use client"`): `Drawer` and `DrawerHeader`.
-- Hydration: `commandfor` on `DrawerHeader`. Outside a `Drawer` and without `commandfor`, the button closes the nearest `<dialog>` with a click handler, which only works after hydration. Without hydration: Set `commandfor` to the dialog's id.
 
 ### Example: Basics
 
 ```tsx
 import {
   Button,
+  Checkbox,
   Drawer,
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  List,
+  ListItem,
 } from "opui-css/react"
 
-export default function Basics() {
+export default function BasicsCode() {
   return (
     <>
-      <div className="example-compass">
-        <Button commandfor="drawer-basics-3" command="show-modal">
-          Block Start
-        </Button>
-        <Button commandfor="drawer-basics-1" command="show-modal">
-          Inline Start
-        </Button>
-        <Button commandfor="drawer-basics-2" command="show-modal">
-          Inline End
-        </Button>
-        <Button commandfor="drawer-basics-4" command="show-modal">
-          Block End
-        </Button>
-      </div>
+      <Button command="show-modal" commandfor="drawer-basics-3">
+        Block start
+      </Button>
+      <Button command="show-modal" commandfor="drawer-basics-1">
+        Inline start
+      </Button>
+      <Button command="show-modal" commandfor="drawer-basics-2">
+        Inline end
+      </Button>
+      <Button command="show-modal" commandfor="drawer-basics-4">
+        Block end
+      </Button>
 
-      <Drawer id="drawer-basics-1" scrollLock side="inline-start">
-        <DrawerHeader>
-          <DrawerTitle>Inline Start</DrawerTitle>
+      <Drawer closeOnNavigate id="drawer-basics-1" side="inline-start">
+        <DrawerHeader closeButton>
+          <DrawerTitle>Menu</DrawerTitle>
+        </DrawerHeader>
+        <DrawerContent>
+          <List variant="transparent">
+            <ListItem aria-current="page" href="#basics" label="My wall" />
+            <ListItem href="#basics" label="My bands" />
+            <ListItem href="#basics" label="Gear Talk" />
+            <ListItem href="#basics" label="Settings" />
+          </List>
+        </DrawerContent>
+        <DrawerFooter align="start">
+          <Button command="close" commandfor="drawer-basics-1" size="small">
+            Sign out
+          </Button>
+        </DrawerFooter>
+      </Drawer>
+
+      <Drawer backdrop="transparent" id="drawer-basics-2" side="inline-end">
+        <DrawerHeader closeButton>
+          <DrawerTitle>Friday gig prep</DrawerTitle>
           <Button aria-label="Edit" round size="small">
-            <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+            <svg data-icon="edit" aria-hidden="true" viewBox="0 0 32 32"></svg>
           </Button>
         </DrawerHeader>
-        <DrawerContent>
+        <DrawerContent aria-label="Gig details" role="region" tabIndex={0}>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            Assigned to Lou Headstock, due Friday. Holly Humbucker checks the
+            setlist, and the drummer promises (again) to bring the cymbals by
+            Wednesday.
           </p>
         </DrawerContent>
         <DrawerFooter>
-          <Button size="small" commandfor="drawer-basics-1" command="close">
-            Close
+          <Button
+            command="close"
+            commandfor="drawer-basics-2"
+            size="small"
+            variant="filled"
+          >
+            Mark as done
           </Button>
         </DrawerFooter>
       </Drawer>
 
-      <Drawer id="drawer-basics-2" scrollLock side="inline-end">
-        <DrawerHeader>
-          <DrawerTitle>Inline End</DrawerTitle>
+      <Drawer id="drawer-basics-3" side="block-start">
+        <DrawerHeader closeButton>
+          <DrawerTitle>Notifications</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </p>
+          <p>Holly Humbucker commented on Friday gig prep.</p>
         </DrawerContent>
         <DrawerFooter>
-          <Button size="small" commandfor="drawer-basics-2" command="close">
-            Close
+          <Button command="close" commandfor="drawer-basics-3" size="small">
+            Mark all as read
           </Button>
         </DrawerFooter>
       </Drawer>
 
-      <Drawer id="drawer-basics-3" scrollLock side="block-start">
-        <DrawerHeader>
-          <DrawerTitle>Block Start</DrawerTitle>
+      <Drawer id="drawer-basics-4" side="block-end">
+        <DrawerHeader closeButton>
+          <DrawerTitle>Filters</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </p>
-          <p>
-            Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-            cupidatat non proident, sunt in culpa qui officia deserunt mollit
-            anim id est laborum.
-          </p>
+          <Fieldset>
+            <FieldLegend>Status</FieldLegend>
+            <FieldGroup name="status" orientation="horizontal">
+              <Checkbox defaultChecked value="done">
+                Done
+              </Checkbox>
+              <Checkbox defaultChecked value="in-progress">
+                Rocking
+              </Checkbox>
+              <Checkbox value="open">Not yet</Checkbox>
+            </FieldGroup>
+          </Fieldset>
         </DrawerContent>
         <DrawerFooter>
-          <Button size="small" commandfor="drawer-basics-3" command="close">
-            Close
+          <p>24 tasks</p>
+          <div className="ui-actions">
+            <Button size="small">Reset</Button>
+            <Button
+              command="close"
+              commandfor="drawer-basics-4"
+              size="small"
+              variant="filled"
+            >
+              Apply
+            </Button>
+          </div>
+        </DrawerFooter>
+      </Drawer>
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from "opui-css/solid"`
+
+- `DrawerHeader` slot props (`JSX.Element`): `children` and `closeIcon`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import {
+  Button,
+  Checkbox,
+  Drawer,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  List,
+  ListItem,
+} from "opui-css/solid"
+
+export default function BasicsCode() {
+  return (
+    <>
+      <Button command="show-modal" commandfor="drawer-basics-3">
+        Block start
+      </Button>
+      <Button command="show-modal" commandfor="drawer-basics-1">
+        Inline start
+      </Button>
+      <Button command="show-modal" commandfor="drawer-basics-2">
+        Inline end
+      </Button>
+      <Button command="show-modal" commandfor="drawer-basics-4">
+        Block end
+      </Button>
+
+      <Drawer closeOnNavigate id="drawer-basics-1" side="inline-start">
+        <DrawerHeader closeButton>
+          <DrawerTitle>Menu</DrawerTitle>
+        </DrawerHeader>
+        <DrawerContent>
+          <List variant="transparent">
+            <ListItem aria-current="page" href="#basics" label="My wall" />
+            <ListItem href="#basics" label="My bands" />
+            <ListItem href="#basics" label="Gear Talk" />
+            <ListItem href="#basics" label="Settings" />
+          </List>
+        </DrawerContent>
+        <DrawerFooter align="start">
+          <Button command="close" commandfor="drawer-basics-1" size="small">
+            Sign out
           </Button>
         </DrawerFooter>
       </Drawer>
 
-      <Drawer id="drawer-basics-4" scrollLock side="block-end">
-        <DrawerHeader>
-          <DrawerTitle>Block End</DrawerTitle>
+      <Drawer backdrop="transparent" id="drawer-basics-2" side="inline-end">
+        <DrawerHeader closeButton>
+          <DrawerTitle>Friday gig prep</DrawerTitle>
+          <Button aria-label="Edit" round size="small">
+            <svg data-icon="edit" aria-hidden="true" viewBox="0 0 32 32"></svg>
+          </Button>
         </DrawerHeader>
-        <DrawerContent>
+        <DrawerContent aria-label="Gig details" role="region" tabindex="0">
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </p>
-          <p>
-            Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-            cupidatat non proident, sunt in culpa qui officia deserunt mollit
-            anim id est laborum.
+            Assigned to Lou Headstock, due Friday. Holly Humbucker checks the
+            setlist, and the drummer promises (again) to bring the cymbals by
+            Wednesday.
           </p>
         </DrawerContent>
         <DrawerFooter>
-          <Button size="small" commandfor="drawer-basics-4" command="close">
-            Close
+          <Button
+            command="close"
+            commandfor="drawer-basics-2"
+            size="small"
+            variant="filled"
+          >
+            Mark as done
           </Button>
+        </DrawerFooter>
+      </Drawer>
+
+      <Drawer id="drawer-basics-3" side="block-start">
+        <DrawerHeader closeButton>
+          <DrawerTitle>Notifications</DrawerTitle>
+        </DrawerHeader>
+        <DrawerContent>
+          <p>Holly Humbucker commented on Friday gig prep.</p>
+        </DrawerContent>
+        <DrawerFooter>
+          <Button command="close" commandfor="drawer-basics-3" size="small">
+            Mark all as read
+          </Button>
+        </DrawerFooter>
+      </Drawer>
+
+      <Drawer id="drawer-basics-4" side="block-end">
+        <DrawerHeader closeButton>
+          <DrawerTitle>Filters</DrawerTitle>
+        </DrawerHeader>
+        <DrawerContent>
+          <Fieldset>
+            <FieldLegend>Status</FieldLegend>
+            <FieldGroup name="status" orientation="horizontal">
+              <Checkbox defaultChecked value="done">
+                Done
+              </Checkbox>
+              <Checkbox defaultChecked value="in-progress">
+                Rocking
+              </Checkbox>
+              <Checkbox value="open">Not yet</Checkbox>
+            </FieldGroup>
+          </Fieldset>
+        </DrawerContent>
+        <DrawerFooter>
+          <p>24 tasks</p>
+          <div class="ui-actions">
+            <Button size="small">Reset</Button>
+            <Button
+              command="close"
+              commandfor="drawer-basics-4"
+              size="small"
+              variant="filled"
+            >
+              Apply
+            </Button>
+          </div>
         </DrawerFooter>
       </Drawer>
     </>
@@ -564,7 +754,7 @@ export default function Basics() {
 
 `import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from "opui-css/svelte"`
 
-- Hydration: `commandfor` on `DrawerHeader`. Outside a `Drawer` and without `commandfor`, the button closes the nearest `<dialog>` with a click handler, which only works after hydration. Without hydration: Set `commandfor` to the dialog's id.
+- `DrawerHeader` slot snippets: `children` and `closeIcon`.
 
 ### Example: Basics
 
@@ -572,108 +762,106 @@ export default function Basics() {
 <script lang="ts">
   import {
     Button,
+    Checkbox,
     Drawer,
     DrawerContent,
     DrawerFooter,
     DrawerHeader,
     DrawerTitle,
+    FieldGroup,
+    FieldLegend,
+    Fieldset,
+    List,
+    ListItem,
   } from "opui-css/svelte"
 </script>
 
-<div class="example-compass">
-  <Button commandfor="drawer-basics-3" command="show-modal">Block Start</Button>
-  <Button commandfor="drawer-basics-1" command="show-modal">Inline Start</Button
-  >
-  <Button commandfor="drawer-basics-2" command="show-modal">Inline End</Button>
-  <Button commandfor="drawer-basics-4" command="show-modal">Block End</Button>
-</div>
+<Button command="show-modal" commandfor="drawer-basics-3">Block start</Button>
+<Button command="show-modal" commandfor="drawer-basics-1">Inline start</Button>
+<Button command="show-modal" commandfor="drawer-basics-2">Inline end</Button>
+<Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
 
-<Drawer id="drawer-basics-1" scrollLock side="inline-start">
-  <DrawerHeader>
-    <DrawerTitle>Inline Start</DrawerTitle>
+<Drawer closeOnNavigate id="drawer-basics-1" side="inline-start">
+  <DrawerHeader closeButton>
+    <DrawerTitle>Menu</DrawerTitle>
+  </DrawerHeader>
+  <DrawerContent>
+    <List variant="transparent">
+      <ListItem aria-current="page" href="#basics" label="My wall" />
+      <ListItem href="#basics" label="My bands" />
+      <ListItem href="#basics" label="Gear Talk" />
+      <ListItem href="#basics" label="Settings" />
+    </List>
+  </DrawerContent>
+  <DrawerFooter align="start">
+    <Button command="close" commandfor="drawer-basics-1" size="small"
+      >Sign out</Button
+    >
+  </DrawerFooter>
+</Drawer>
+
+<Drawer backdrop="transparent" id="drawer-basics-2" side="inline-end">
+  <DrawerHeader closeButton>
+    <DrawerTitle>Friday gig prep</DrawerTitle>
     <Button aria-label="Edit" round size="small">
-      <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+      <svg data-icon="edit" aria-hidden="true" viewBox="0 0 32 32"></svg>
     </Button>
   </DrawerHeader>
-  <DrawerContent>
+  <DrawerContent aria-label="Gig details" role="region" tabindex={0}>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.
+      Assigned to Lou Headstock, due Friday. Holly Humbucker checks the setlist,
+      and the drummer promises (again) to bring the cymbals by Wednesday.
     </p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-1" command="close"
-      >Close</Button
+    <Button
+      command="close"
+      commandfor="drawer-basics-2"
+      size="small"
+      variant="filled">Mark as done</Button
     >
   </DrawerFooter>
 </Drawer>
 
-<Drawer id="drawer-basics-2" scrollLock side="inline-end">
-  <DrawerHeader>
-    <DrawerTitle>Inline End</DrawerTitle>
+<Drawer id="drawer-basics-3" side="block-start">
+  <DrawerHeader closeButton>
+    <DrawerTitle>Notifications</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.
-    </p>
+    <p>Holly Humbucker commented on Friday gig prep.</p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-2" command="close"
-      >Close</Button
+    <Button command="close" commandfor="drawer-basics-3" size="small"
+      >Mark all as read</Button
     >
   </DrawerFooter>
 </Drawer>
 
-<Drawer id="drawer-basics-3" scrollLock side="block-start">
-  <DrawerHeader>
-    <DrawerTitle>Block Start</DrawerTitle>
+<Drawer id="drawer-basics-4" side="block-end">
+  <DrawerHeader closeButton>
+    <DrawerTitle>Filters</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.
-    </p>
-    <p>
-      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-      dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
+    <Fieldset>
+      <FieldLegend>Status</FieldLegend>
+      <FieldGroup name="status" orientation="horizontal">
+        <Checkbox defaultChecked value="done">Done</Checkbox>
+        <Checkbox defaultChecked value="in-progress">Rocking</Checkbox>
+        <Checkbox value="open">Not yet</Checkbox>
+      </FieldGroup>
+    </Fieldset>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-3" command="close"
-      >Close</Button
-    >
-  </DrawerFooter>
-</Drawer>
-
-<Drawer id="drawer-basics-4" scrollLock side="block-end">
-  <DrawerHeader>
-    <DrawerTitle>Block End</DrawerTitle>
-  </DrawerHeader>
-  <DrawerContent>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.
-    </p>
-    <p>
-      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-      dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
-  </DrawerContent>
-  <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-4" command="close"
-      >Close</Button
-    >
+    <p>24 tasks</p>
+    <div class="ui-actions">
+      <Button size="small">Reset</Button>
+      <Button
+        command="close"
+        commandfor="drawer-basics-4"
+        size="small"
+        variant="filled">Apply</Button
+      >
+    </div>
   </DrawerFooter>
 </Drawer>
 ```
@@ -682,120 +870,120 @@ export default function Basics() {
 
 `import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from "opui-css/vue"`
 
+- `DrawerHeader` named slots: `close-icon`. Fill one with `<template #close-icon>`.
+
 ### Example: Basics
 
 ```vue
 <script setup lang="ts">
 import {
   Button,
+  Checkbox,
   Drawer,
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  List,
+  ListItem,
 } from "opui-css/vue"
 </script>
 
 <template>
-  <div class="example-compass">
-    <Button commandfor="drawer-basics-3" command="show-modal"
-      >Block Start</Button
-    >
-    <Button commandfor="drawer-basics-1" command="show-modal"
-      >Inline Start</Button
-    >
-    <Button commandfor="drawer-basics-2" command="show-modal"
-      >Inline End</Button
-    >
-    <Button commandfor="drawer-basics-4" command="show-modal">Block End</Button>
-  </div>
+  <Button command="show-modal" commandfor="drawer-basics-3">Block start</Button>
+  <Button command="show-modal" commandfor="drawer-basics-1"
+    >Inline start</Button
+  >
+  <Button command="show-modal" commandfor="drawer-basics-2">Inline end</Button>
+  <Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
 
-  <Drawer id="drawer-basics-1" scrollLock side="inline-start">
-    <DrawerHeader>
-      <DrawerTitle>Inline Start</DrawerTitle>
+  <Drawer closeOnNavigate id="drawer-basics-1" side="inline-start">
+    <DrawerHeader closeButton>
+      <DrawerTitle>Menu</DrawerTitle>
+    </DrawerHeader>
+    <DrawerContent>
+      <List variant="transparent">
+        <ListItem aria-current="page" href="#basics" label="My wall" />
+        <ListItem href="#basics" label="My bands" />
+        <ListItem href="#basics" label="Gear Talk" />
+        <ListItem href="#basics" label="Settings" />
+      </List>
+    </DrawerContent>
+    <DrawerFooter align="start">
+      <Button command="close" commandfor="drawer-basics-1" size="small"
+        >Sign out</Button
+      >
+    </DrawerFooter>
+  </Drawer>
+
+  <Drawer backdrop="transparent" id="drawer-basics-2" side="inline-end">
+    <DrawerHeader closeButton>
+      <DrawerTitle>Friday gig prep</DrawerTitle>
       <Button aria-label="Edit" round size="small">
-        <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+        <svg data-icon="edit" aria-hidden="true" viewBox="0 0 32 32"></svg>
       </Button>
     </DrawerHeader>
-    <DrawerContent>
+    <DrawerContent aria-label="Gig details" role="region" tabindex="0">
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
+        Assigned to Lou Headstock, due Friday. Holly Humbucker checks the
+        setlist, and the drummer promises (again) to bring the cymbals by
+        Wednesday.
       </p>
     </DrawerContent>
     <DrawerFooter>
-      <Button size="small" commandfor="drawer-basics-1" command="close"
-        >Close</Button
+      <Button
+        command="close"
+        commandfor="drawer-basics-2"
+        size="small"
+        variant="filled"
+        >Mark as done</Button
       >
     </DrawerFooter>
   </Drawer>
 
-  <Drawer id="drawer-basics-2" scrollLock side="inline-end">
-    <DrawerHeader>
-      <DrawerTitle>Inline End</DrawerTitle>
+  <Drawer id="drawer-basics-3" side="block-start">
+    <DrawerHeader closeButton>
+      <DrawerTitle>Notifications</DrawerTitle>
     </DrawerHeader>
     <DrawerContent>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
-      </p>
+      <p>Holly Humbucker commented on Friday gig prep.</p>
     </DrawerContent>
     <DrawerFooter>
-      <Button size="small" commandfor="drawer-basics-2" command="close"
-        >Close</Button
+      <Button command="close" commandfor="drawer-basics-3" size="small"
+        >Mark all as read</Button
       >
     </DrawerFooter>
   </Drawer>
 
-  <Drawer id="drawer-basics-3" scrollLock side="block-start">
-    <DrawerHeader>
-      <DrawerTitle>Block Start</DrawerTitle>
+  <Drawer id="drawer-basics-4" side="block-end">
+    <DrawerHeader closeButton>
+      <DrawerTitle>Filters</DrawerTitle>
     </DrawerHeader>
     <DrawerContent>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
-      </p>
-      <p>
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </p>
+      <Fieldset>
+        <FieldLegend>Status</FieldLegend>
+        <FieldGroup name="status" orientation="horizontal">
+          <Checkbox checked value="done">Done</Checkbox>
+          <Checkbox checked value="in-progress">Rocking</Checkbox>
+          <Checkbox value="open">Not yet</Checkbox>
+        </FieldGroup>
+      </Fieldset>
     </DrawerContent>
     <DrawerFooter>
-      <Button size="small" commandfor="drawer-basics-3" command="close"
-        >Close</Button
-      >
-    </DrawerFooter>
-  </Drawer>
-
-  <Drawer id="drawer-basics-4" scrollLock side="block-end">
-    <DrawerHeader>
-      <DrawerTitle>Block End</DrawerTitle>
-    </DrawerHeader>
-    <DrawerContent>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
-      </p>
-      <p>
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </p>
-    </DrawerContent>
-    <DrawerFooter>
-      <Button size="small" commandfor="drawer-basics-4" command="close"
-        >Close</Button
-      >
+      <p>24 tasks</p>
+      <div class="ui-actions">
+        <Button size="small">Reset</Button>
+        <Button
+          command="close"
+          commandfor="drawer-basics-4"
+          size="small"
+          variant="filled"
+          >Apply</Button
+        >
+      </div>
     </DrawerFooter>
   </Drawer>
 </template>

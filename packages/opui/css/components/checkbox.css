@@ -2,28 +2,31 @@
   :where(label.ui-checkbox) {
     /* Input */
     input[type="checkbox"] {
-      appearance: none;
-      aspect-ratio: 1;
-      background-color: var(--ui-surface);
-      block-size: var(--_size);
-      border: var(--ui-field-border-width) solid
-        var(--ui-choice-border-color, var(--ui-field-border-color));
       border-radius: var(--ui-radius-x-small);
-      box-sizing: border-box;
-      cursor: pointer;
       display: grid;
       font-size: var(--_size);
-      inline-size: var(--_size);
-      margin: 0;
-      padding: 0;
       place-items: center;
-      position: relative;
-      transform-style: preserve-3d;
 
       &:checked,
       &:indeterminate {
+        --_border-color: var(--_accent);
+
         background-color: var(--_accent);
-        border-color: var(--_accent);
+
+        @container style(--ui-choice-checked: mark) {
+          @media (forced-colors: none) {
+            --_border-color: var(
+              --ui-choice-border-color,
+              var(--ui-field-border-color)
+            );
+
+            background-color: var(--ui-surface);
+
+            &::after {
+              background-color: var(--_mark-bg-color);
+            }
+          }
+        }
       }
 
       /* Checkmark */
@@ -38,7 +41,7 @@
           25% 42%
         );
         content: "";
-        inset: 0;
+        inset: calc(var(--_rest-border-width) - var(--_border-width));
         opacity: 0;
         position: absolute;
       }
@@ -57,14 +60,12 @@
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
       input[type="checkbox"]:not(:checked, :indeterminate) {
-        border-color: var(--ui-invalid);
+        --_border-color: var(--ui-invalid);
       }
     }
 
     @media (forced-colors: active) {
       input[type="checkbox"] {
-        border-color: CanvasText;
-
         &:checked,
         &:indeterminate {
           background-color: SelectedItem;

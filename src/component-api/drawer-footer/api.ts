@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "DrawerFooter",
+  css: ["card", "drawer"],
   options: [
     {
       default: '"end"',

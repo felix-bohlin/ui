@@ -1,13 +1,19 @@
-import { features } from "web-features"
-import { existsSync, realpathSync } from "node:fs"
-import { readdir, readFile } from "node:fs/promises"
+import { realpathSync } from "node:fs"
+import { readdir, readFile, writeFile } from "node:fs/promises"
 import { join, basename } from "node:path"
-import { fileURLToPath, pathToFileURL } from "node:url"
+import { fileURLToPath } from "node:url"
+import { parse as parseAstro } from "@astrojs/compiler"
 import { parseFragment } from "parse5"
 import postcss from "postcss"
+import ts from "typescript"
 
-import { patterns } from "../packages/opui/scripts/features.mjs"
-import { computeBrowserSupport } from "../src/utils/browser-support.ts"
+import { featureOf, patterns } from "../packages/opui/scripts/features.mjs"
+import { stylesheetsOf } from "../src/component-api/catalog.ts"
+import {
+  computeBrowserSupport,
+  SHARED_FEATURES,
+} from "../src/utils/browser-support.ts"
+import { loadCatalog } from "./catalog.mjs"
 
 const componentsDir = fileURLToPath(
   new URL("../src/docs/components", import.meta.url),
@@ -18,13 +24,11 @@ const cssDir = fileURLToPath(
 const examplesDir = fileURLToPath(
   new URL("../src/component-examples", import.meta.url),
 )
-const coreDir = fileURLToPath(new URL("../packages/opui/core", import.meta.url))
-const apiDir = fileURLToPath(new URL("../src/component-api", import.meta.url))
 
 const attribute = (element, name) =>
   element.attrs?.find((attr) => attr.name === name)?.value
 
-export const HTML_FEATURES = [
+const HTML_FEATURES = [
   { id: "datalist", test: (element) => element.nodeName === "datalist" },
   {
     id: "details-name",
@@ -74,29 +78,58 @@ export const htmlFeatureIds = (sources) => {
   )
 }
 
-const widelyAvailable = (id) => features[id]?.status?.baseline === "high"
-
 /** @param {{ available: Set<string>, ids: string[], ignored?: string[], used: Set<string> }} page */
-export const pageProblems = ({ available, ids, ignored = [], used }) => {
-  const listsWidelyAvailable = ids.some(widelyAvailable)
-  return {
-    missing: [...used]
-      .filter(
-        (id) =>
-          !ids.includes(id) &&
-          !ignored.includes(id) &&
-          (!widelyAvailable(id) || listsWidelyAvailable),
-      )
-      .toSorted(),
-    undetected: ids.filter((id) => !DETECTED.has(id)),
-    unused: ids.filter(
-      (id) => DETECTED.has(id) && !used.has(id) && !available.has(id),
-    ),
-  }
+export const pageProblems = ({ available, ids, ignored = [], used }) => ({
+  missing: [...used, ...available]
+    .filter((id) => !ids.includes(id) && !ignored.includes(id))
+    .filter((id, index, all) => all.indexOf(id) === index)
+    .toSorted(),
+  undetected: ids.filter((id) => !DETECTED.has(id)),
+  unused: ids.filter(
+    (id) => DETECTED.has(id) && !used.has(id) && !available.has(id),
+  ),
+})
+
+const componentOf = (node) =>
+  node.type === "component" && node.name === "Component"
+    ? node
+    : (node.children ?? []).map(componentOf).find(Boolean)
+
+export const fallbacksOf = async (source) => {
+  const { ast } = await parseAstro(source, { position: false })
+  const value = componentOf(ast)?.attributes.find(
+    ({ name }) => name === "fallbacks",
+  )?.value
+  if (!value) return {}
+  const [statement] = ts.createSourceFile(
+    "fallbacks.ts",
+    `(${value})`,
+    ts.ScriptTarget.Latest,
+  ).statements
+  return Object.fromEntries(
+    statement.expression.expression.properties.map((property) => [
+      property.name.text,
+      property.initializer.text,
+    ]),
+  )
 }
 
-const kebab = (name) =>
-  name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
+export const lackingIds = (ids) =>
+  [
+    ...new Set(
+      computeBrowserSupport(ids).flatMap(
+        ({ unsupportedFeatures }) => unsupportedFeatures,
+      ),
+    ),
+  ].toSorted()
+
+/** @param {{ fallbacks: Record<string, string>, lacking: string[] }} page */
+export const fallbackProblems = ({ fallbacks, lacking }) => ({
+  missing: lacking.filter((id) => !Object.hasOwn(fallbacks, id)),
+  unneeded: Object.keys(fallbacks)
+    .filter((id) => !lacking.includes(id))
+    .toSorted(),
+})
 
 const readPages = async () => {
   const components = {}
@@ -111,21 +144,32 @@ const readPages = async () => {
   return components
 }
 
+export const withBrowserSupport = (content, ids) => {
+  const list = `browserSupport={[${ids.map((id) => `"${id}"`).join(", ")}]}`
+  if (/browserSupport=\{\[[\s\S]*?\]\}/.test(content)) {
+    return content.replace(/browserSupport=\{\[[\s\S]*?\]\}/, list)
+  }
+  return content.replace(/(<Component\b[^>]*?\bslug="[^"]+")/, `$1\n  ${list}`)
+}
+
+const writePage = async (comp, ids) => {
+  const file = join(componentsDir, `${comp}.astro`)
+  await writeFile(file, withBrowserSupport(await readFile(file, "utf-8"), ids))
+}
+
 const readApis = async () => {
+  const { apis } = await loadCatalog()
   const pages = {}
-  for (const folder of (await readdir(apiDir)).sort()) {
-    const file = join(apiDir, folder, "api.ts")
-    if (!existsSync(file)) continue
-    const { default: api } = await import(pathToFileURL(file).href)
-    const page = (pages[api.page ?? folder] ??= {
+  for (const { api, page } of apis) {
+    const entry = (pages[page] ??= {
       classes: new Set(),
       stylesheets: new Set(),
     })
     for (const [name] of JSON.stringify(api).matchAll(/\.ui-[a-z0-9-]+/g)) {
-      page.classes.add(name)
+      entry.classes.add(name)
     }
-    for (const sheet of api.css ?? (api.source ? [kebab(api.source)] : [])) {
-      page.stylesheets.add(`${sheet}.css`)
+    for (const sheet of stylesheetsOf(api)) {
+      entry.stylesheets.add(`${sheet}.css`)
     }
   }
   return pages
@@ -286,8 +330,22 @@ const inKeyframes = (node) => {
   return false
 }
 
+const scopeRoot = (node) => {
+  for (let ancestor = node.parent; ancestor; ancestor = ancestor.parent) {
+    if (ancestor.type === "atrule" && ancestor.name === "scope") {
+      const params = ancestor.params.trim()
+      return params.startsWith("(")
+        ? params.slice(1, groupEnd(params, 0) - 1)
+        : undefined
+    }
+  }
+  return undefined
+}
+
 const ruleApplies = (rule, elements) => {
   if (inKeyframes(rule)) return true
+  const root = scopeRoot(rule)
+  if (root !== undefined && !listMatches(root, true, elements)) return false
   const parentRule = ancestorRule(rule)
   const parent = parentRule ? ruleApplies(parentRule, elements) : true
   return splitList(rule.selector).some(
@@ -299,25 +357,32 @@ const ruleApplies = (rule, elements) => {
 
 const parsed = new Map()
 
+const parseSource = (source, file) => {
+  const atRules = []
+  const rules = []
+  const root = postcss.parse(source, { from: file })
+  root.walkAtRules((atRule) => {
+    const start = atRule.source.start.offset
+    const body = source.indexOf("{", start)
+    atRules.push({
+      atRule,
+      end: body === -1 ? atRule.source.end.offset : body,
+      start,
+    })
+  })
+  root.walkRules((rule) => {
+    rules.push(rule)
+  })
+  const tries = []
+  root.walkAtRules("position-try", (atRule) => {
+    tries.push([atRule.source.start.offset, atRule.source.end.offset])
+  })
+  return { atRules, rules, source, tries }
+}
+
 const parseCss = async (file) => {
   if (!parsed.has(file)) {
-    const source = await readCss([file])
-    const atRules = []
-    const rules = []
-    const root = postcss.parse(source, { from: file })
-    root.walkAtRules((atRule) => {
-      const start = atRule.source.start.offset
-      const body = source.indexOf("{", start)
-      atRules.push({
-        atRule,
-        end: body === -1 ? atRule.source.end.offset : body,
-        start,
-      })
-    })
-    root.walkRules((rule) => {
-      rules.push(rule)
-    })
-    parsed.set(file, { atRules, rules, source })
+    parsed.set(file, parseSource(await readCss([file]), file))
   }
   return parsed.get(file)
 }
@@ -334,10 +399,13 @@ const atRuleApplies = (atRule, elements) => {
   return !parent || ruleApplies(parent, elements)
 }
 
-const usesFeature = ({ atRules, rules, source }, pattern, elements) => {
+const usesFeature = ({ atRules, rules, source, tries }, pattern, elements) => {
   if (!elements) return pattern.test(source)
   return [...source.matchAll(new RegExp(pattern.source, "g"))].some(
     ({ index }) => {
+      if (tries.some(([start, end]) => start <= index && index < end)) {
+        return false
+      }
       const header = atRules.findLast(
         ({ end, start }) => start <= index && index < end,
       )
@@ -351,8 +419,58 @@ const usesFeature = ({ atRules, rules, source }, pattern, elements) => {
   )
 }
 
-const ignore = { accordion: ["marker"], badge: ["anchor-positioning"] }
-const viaTheme = { typography: ["progress-function"] }
+export const usedFeatureIds = (source, elements) => {
+  const sheet = parseSource(source, "sample.css")
+  return patterns
+    .filter(({ pattern }) => usesFeature(sheet, pattern, elements))
+    .map(({ id }) => id)
+}
+
+const nests = (source) => {
+  let nested = false
+  postcss.parse(source).walk((node) => {
+    if (node.parent?.type === "rule" && node.type !== "decl") nested = true
+  })
+  return nested
+}
+
+const SHARED_DETECTORS = {
+  "cascade-layers": (source) => /@layer\b/.test(source),
+  nesting: nests,
+  oklab: (source) => /\boklch\(/.test(source),
+}
+
+export const unusedSharedFeatures = (source) =>
+  SHARED_FEATURES.filter((id) => {
+    const pattern = patterns.find((entry) => entry.id === id)?.pattern
+    const detect = SHARED_DETECTORS[id] ?? ((css) => !!pattern?.test(css))
+    return !detect(source)
+  })
+
+const sharedSheets = async () => {
+  const coreDir = fileURLToPath(
+    new URL("../packages/opui/core", import.meta.url),
+  )
+  return [
+    ...(await readdir(coreDir))
+      .filter((file) => file.endsWith(".css"))
+      .toSorted()
+      .map((file) => join(coreDir, file)),
+    ...["layers.css", "theme.css"].map((file) =>
+      fileURLToPath(new URL(`../packages/opui/css/${file}`, import.meta.url)),
+    ),
+  ]
+}
+
+const ignore = {
+  "number-field": ["popover"],
+  radio: ["alt-text-generated-content"],
+  typography: ["marker"],
+}
+const viaCore = {
+  dialog: ["overflow-clip", "scrollbar-gutter"],
+  drawer: ["overflow-clip", "scrollbar-gutter"],
+}
 
 const report = (heading, entries) => {
   if (entries.length === 0) return
@@ -363,16 +481,8 @@ const report = (heading, entries) => {
 const main = async () => {
   const components = await readPages()
   const apis = await readApis()
-  const shared = await readCss(
-    (await readdir(coreDir))
-      .filter((file) => file.endsWith(".css"))
-      .sort()
-      .map((file) => join(coreDir, file)),
-  )
-  const sharedIds = patterns
-    .filter(({ pattern }) => pattern.test(shared))
-    .map(({ id }) => id)
 
+  const fixes = {}
   const missing = []
   const undetected = []
   const unused = []
@@ -385,7 +495,7 @@ const main = async () => {
       [...stylesheets].toSorted().map((file) => parseCss(join(cssDir, file))),
     )
     const problems = pageProblems({
-      available: new Set([...sharedIds, ...(viaTheme[comp] ?? [])]),
+      available: new Set(viaCore[comp]),
       ids,
       ignored: ignore[comp],
       used: new Set([
@@ -397,6 +507,12 @@ const main = async () => {
         ...htmlFeatureIds(sources),
       ]),
     })
+    if (problems.missing.length + problems.unused.length > 0) {
+      fixes[comp] = [
+        ...ids.filter((id) => !problems.unused.includes(id)),
+        ...problems.missing,
+      ].toSorted()
+    }
     missing.push(...problems.missing.map((id) => `${comp}: "${id}"`))
     undetected.push(...problems.undetected.map((id) => `${comp}: "${id}"`))
     unused.push(...problems.unused.map((id) => `${comp}: "${id}"`))
@@ -407,15 +523,23 @@ const main = async () => {
     .map(([comp, ids]) => `${comp}: ${ids.toSorted().join(", ")}`)
 
   const unknown = Object.entries(components).flatMap(([comp, ids]) =>
-    ids.filter((id) => !features[id]).map((id) => `${comp}: "${id}"`),
+    ids.filter((id) => !featureOf(id)).map((id) => `${comp}: "${id}"`),
   )
 
+  if (process.argv.includes("--write")) {
+    for (const [comp, ids] of Object.entries(fixes)) {
+      await writePage(comp, ids)
+      console.log(`Wrote the browserSupport of ${comp}.`)
+    }
+    return
+  }
+
   report(
-    "browserSupport is missing ids that the page uses, in the stylesheets of its api.ts files (in rules whose selectors can match the elements of its HTML examples and the classes of those examples and api.ts files; inside :has() only the elements count) or in the HTML examples. A Baseline widely available feature only counts when the page lists one:",
+    "browserSupport is missing ids that the page uses, in the stylesheets of its api.ts files (in rules whose selectors and @scope roots can match the elements of its HTML examples and the classes of those examples and api.ts files; inside :has() only the elements count) or in the HTML examples, Baseline widely available ones included. Run node scripts/check-browser-support.mjs --write to fix the lists:",
     missing,
   )
   report(
-    "browserSupport lists ids that neither the page's stylesheets nor its HTML examples use:",
+    "browserSupport lists ids that neither the page's stylesheets nor its HTML examples use. Run node scripts/check-browser-support.mjs --write to fix the lists:",
     unused,
   )
   report(
@@ -424,13 +548,41 @@ const main = async () => {
   )
   report("browserSupport is not sorted, expected:", unsorted)
   report("Unknown web-features ids in browserSupport:", unknown)
+  const unusedShared = unusedSharedFeatures(await readCss(await sharedSheets()))
+  const fallbackMissing = []
+  const fallbackUnneeded = []
+  for (const [comp, ids] of Object.entries(components)) {
+    const problems = fallbackProblems({
+      fallbacks: await fallbacksOf(
+        await readFile(join(componentsDir, `${comp}.astro`), "utf-8"),
+      ),
+      lacking: lackingIds(ids),
+    })
+    fallbackMissing.push(...problems.missing.map((id) => `${comp}: "${id}"`))
+    fallbackUnneeded.push(...problems.unneeded.map((id) => `${comp}: "${id}"`))
+  }
+  report(
+    "browserSupport lists ids that some browser lacks, and the page's fallbacks has no sentence for them. Add one: say plainly what the component still does without the feature and what's missing, as its CSS, packages/opui/css/compat/ and the features data show it:",
+    fallbackMissing,
+  )
+  report(
+    "fallbacks has sentences for ids that browserSupport doesn't list or that every browser supports. Remove them:",
+    fallbackUnneeded,
+  )
+  report(
+    "SHARED_FEATURES in src/utils/browser-support.ts lists ids that packages/opui/core, css/layers.css and css/theme.css don't use, which every page counts into its browser versions. Remove them, or detect the id with a pattern in packages/opui/scripts/features.mjs or SHARED_DETECTORS in scripts/check-browser-support.mjs:",
+    unusedShared,
+  )
 
   if (
     missing.length +
       undetected.length +
       unused.length +
       unsorted.length +
-      unknown.length >
+      unknown.length +
+      unusedShared.length +
+      fallbackMissing.length +
+      fallbackUnneeded.length >
     0
   ) {
     process.exit(1)

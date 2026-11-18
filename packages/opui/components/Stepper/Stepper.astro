@@ -7,7 +7,7 @@ export const title = "Stepper"
 const {
   class: className,
   complete,
-  completedLabel,
+  completeLabel,
   current,
   errorLabel,
   items,
@@ -26,20 +26,16 @@ const {
   ]}
   {...rest}
 >
-  {
-    items?.map((item, index) => (
-      <StepperItem
-        completedLabel={completedLabel}
-        errorLabel={errorLabel}
-        {...item}
-        complete={
-          item.complete ||
-          complete ||
-          (current !== undefined && index < current)
-        }
-        current={item.current || index === current}
-      />
-    ))
-  }
+  {items?.map((item, index) => (
+    <StepperItem
+      completeLabel={completeLabel}
+      errorLabel={errorLabel}
+      {...item}
+      complete={
+        item.complete || complete || (current !== undefined && index < current)
+      }
+      current={item.current || index === current}
+    />
+  ))}
   <slot />
 </ol>

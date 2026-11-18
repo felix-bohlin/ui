@@ -94,7 +94,7 @@ const steps = [
 }
 
 .bordered > li + li::before {
-  border-block-start: 1px solid var(--ui-border-color);
+  border-block-start: 1px solid var(--ui-border-color-on-filled);
   content: "";
   inset: -0.5rem 0 auto 0;
   position: absolute;
@@ -102,6 +102,7 @@ const steps = [
     notes: [
       "<code>&gt; li + li</code>: a line between items, never above the first",
       "The line sits in the margin, outside the hover area",
+      "<code>--ui-border-color-on-filled</code>, since <code>--ui-border-color</code> matches the filled surface",
     ],
     title: "Bordered",
   },
@@ -151,32 +152,26 @@ const items = [
 
 <BuildUp id="build-list" knobs={knobs} steps={steps}>
   <ul class="list bordered">
-    {
-      items.map((item) => (
-        <li class:list={{ inset: !item.icon }}>
-          <button type="button">
-            {item.icon && (
-              <span class="start">
-                <svg
-                  aria-hidden="true"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d={item.icon} fill="currentColor" />
-                </svg>
-              </span>
-            )}
-            <span class="text">
-              <span>{item.label}</span>
-              <span>{item.description}</span>
-            </span>
-            <span class="end">
-              <kbd>{item.end}</kbd>
-            </span>
-          </button>
-        </li>
-      ))
-    }
+    {items.map((item) => <li class:list={{ inset: !item.icon }}>
+      <button type="button">
+        {item.icon && <span class="start">
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d={item.icon} fill="currentColor" />
+          </svg>
+        </span>}
+        <span class="text">
+          <span>{item.label}</span>
+          <span>{item.description}</span>
+        </span>
+        <span class="end">
+          <kbd>{item.end}</kbd>
+        </span>
+      </button>
+    </li>)}
   </ul>
 </BuildUp>
 

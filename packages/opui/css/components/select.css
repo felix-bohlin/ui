@@ -5,7 +5,7 @@
 
     /* Default arrow */
     &::picker-icon {
-      background-color: currentColor;
+      background-color: var(--ui-text-strong);
       block-size: var(--_chevron-size);
       content: "";
       inline-size: var(--_chevron-size);
@@ -19,6 +19,10 @@
 
       @media (forced-colors: active) {
         background-color: ButtonText;
+      }
+
+      @media print {
+        print-color-adjust: exact;
       }
     }
 
@@ -35,7 +39,10 @@
       /* Animation on-stage styles */
       background: transparent;
       border: 0;
-      border-radius: var(--ui-field-radius, var(--ui-radius));
+      border-radius: var(
+        --ui-menu-radius,
+        var(--ui-field-radius, var(--ui-radius))
+      );
       box-shadow: var(--ui-shadow-overlay);
       opacity: 1;
       padding: 0;
@@ -74,16 +81,57 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+
+        /* Rich options */
+        &:has(> :where(.ui-start, .ui-text)) {
+          align-items: center;
+          display: flex;
+          gap: var(--ui-space-2);
+          min-inline-size: 0;
+        }
+
+        & > .ui-start {
+          display: grid;
+          flex-shrink: 0;
+
+          & > svg {
+            block-size: auto;
+            inline-size: var(--ui-icon-size);
+          }
+
+          & > .ui-avatar {
+            max-block-size: var(--ui-icon-size-large);
+            max-inline-size: var(--ui-icon-size-large);
+          }
+        }
+
+        & > .ui-text {
+          min-inline-size: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+          & > * + * {
+            display: none;
+          }
+        }
+
+        & > :where(.ui-end, .ui-icon-checked) {
+          display: none;
+        }
       }
     }
 
     .ui-list {
       --_bg-color: var(--ui-surface-elevated);
+      --_selected-shadow: none;
       --ui-border-color: var(--ui-border-color-on-raised);
       --ui-field-border-color: var(--ui-field-border-color-on-raised);
       border: var(--ui-border-width) solid
         var(--ui-border-color-raised, var(--ui-border-color-on-raised));
-      border-radius: var(--ui-field-radius, var(--ui-radius));
+      border-radius: var(
+        --ui-menu-radius,
+        var(--ui-field-radius, var(--ui-radius))
+      );
 
       /* Groups */
       :is([role="group"], optgroup) {
@@ -110,8 +158,26 @@
       /* Option */
       option {
         /* Checkmark */
-        /* TODO - checkmark should be the final version of the checkmark API. Follow the development of this and remove redundant pseudo stuff. */
         &::checkmark {
+          background-color: currentColor;
+          block-size: var(--_start-size);
+          content: "";
+          flex-shrink: 0;
+          inline-size: var(--_start-size);
+          margin-inline-start: auto;
+          mask: var(--_check-image) center / contain no-repeat;
+          order: 1;
+
+          @media (forced-colors: active) {
+            background-color: SelectedItemText;
+          }
+
+          @media print {
+            print-color-adjust: exact;
+          }
+        }
+
+        &:has(> .ui-icon-checked)::checkmark {
           display: none;
         }
 
@@ -142,23 +208,13 @@
       /* Arrow */
       &::after {
         align-self: center;
-        background-color: currentColor;
-        block-size: var(--_chevron-size);
-        content: "";
         display: inline-block;
         flex-shrink: 0;
         grid-column: 1/-1;
         grid-row: 2;
-        inline-size: var(--_chevron-size);
         inset-inline-end: var(--_arrow-inset);
         justify-self: end;
-        mask: var(--_chevron-image) center / contain no-repeat;
-        pointer-events: none;
         position: relative;
-
-        @media (forced-colors: active) {
-          background-color: ButtonText;
-        }
       }
 
       &:not(.ui-spread):has(> .ui-start-text)::after {
@@ -171,7 +227,7 @@
         margin-block-start: calc((var(--_size) - var(--_chevron-size)) / 2);
       }
 
-      @container (inline-size < 400px) {
+      @container (inline-size < 25rem) {
         &.ui-spread::after {
           align-self: center;
           grid-row: 2;

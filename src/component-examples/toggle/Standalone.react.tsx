@@ -3,9 +3,10 @@ import { ToggleButton } from "opui-css/react"
 export default function Standalone() {
   return (
     <>
-      <ToggleButton label="Toggle me" name="standalone-demo-1" />
+      <ToggleButton label="Show grid" name="standalone-demo-1" />
       <ToggleButton name="standalone-demo-2">
         <svg
+          data-icon="critical"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -20,8 +21,8 @@ export default function Standalone() {
           <path d="M12 21a9 9 0 1 0-9-9 9 9 0 0 0 9 9Z"></path>
           <path d="M12 8v4"></path>
           <path d="M12 16h.01"></path>
-        </svg>{" "}
-        Toggle with icon
+        </svg>
+        Show warnings
       </ToggleButton>
     </>
   )

@@ -9,11 +9,22 @@ import {
 } from "node:fs"
 import { tmpdir } from "node:os"
 import { join, resolve } from "node:path"
-import { describe, expect, test } from "vitest"
+import { afterAll, beforeEach, describe, expect, test } from "vitest"
 import { binOf, run, styledGlobs, suites } from "../../.claude/hooks/checks.mjs"
 import { checkFiles, report } from "../../scripts/check-staged.mjs"
 
 const EM_DASH = String.fromCodePoint(0x2014)
+
+const temps: string[] = []
+const tempDir = (prefix: string) => {
+  const dir = mkdtempSync(join(tmpdir(), prefix))
+  temps.push(dir)
+  return dir
+}
+
+afterAll(() => {
+  for (const dir of temps) rmSync(dir, { force: true, recursive: true })
+})
 
 const settings = JSON.parse(readFileSync(".claude/settings.json", "utf-8"))
 
@@ -40,8 +51,8 @@ test("every hook command runs a file that exists", () => {
   ).toEqual([])
 })
 
-describe("post-edit", () => {
-  const project = mkdtempSync(join(tmpdir(), "opui-hook-"))
+describe("post-edit", { timeout: 30_000 }, () => {
+  const project = tempDir("opui-hook-")
   mkdirSync(join(project, "docs"))
   writeFileSync(join(project, "docs/clean.md"), "One, two.\n")
   writeFileSync(join(project, "docs/dash.md"), `One ${EM_DASH} two.\n`)
@@ -58,12 +69,84 @@ describe("post-edit", () => {
     )
   })
 
-  test("stays quiet for a clean file and for files outside the project", () => {
-    for (const file_path of [
-      join(project, "docs/clean.md"),
-      join(tmpdir(), "elsewhere.md"),
-      "",
+  test("rejects an edit to a generated example and names its Astro file", () => {
+    const examples = join(project, "src/component-examples/sample")
+    mkdirSync(examples, { recursive: true })
+    writeFileSync(join(examples, "Plain.astro"), "<p>Hi</p>\n")
+    for (const file of [
+      "Plain.html",
+      "Plain.react.tsx",
+      "Plain.svelte",
+      "Plain.vue",
     ]) {
+      writeFileSync(join(examples, file), "One, two.\n")
+      const result = hook(
+        ".claude/hooks/post-edit.mjs",
+        { tool_input: { file_path: join(examples, file) } },
+        project,
+      )
+      expect(result.status, file).toBe(2)
+      expect(result.stderr, file).toContain(
+        `is generated from src/component-examples/sample/${file.split(".")[0]}.astro`,
+      )
+    }
+  })
+
+  test("rejects an edit to a compiled component and allows a hand-written one", () => {
+    const components = join(project, "packages/opui/components")
+    for (const folder of ["ListItem", "Card"]) {
+      mkdirSync(join(components, folder), { recursive: true })
+    }
+    writeFileSync(join(components, "Card/CardActions.astro"), "<p>Hi</p>\n")
+    writeFileSync(join(components, "Card/CardActions.vue"), "One, two.\n")
+    writeFileSync(join(components, "Card/types.astro.ts"), "export {}\n")
+    writeFileSync(join(components, "Card/types.react.ts"), "export {}\n")
+    writeFileSync(join(components, "ListItem/ListItem.astro"), "<p>Hi</p>\n")
+    writeFileSync(join(components, "ListItem/ListItem.vue"), "One, two.\n")
+    mkdirSync(join(project, "scripts"), { recursive: true })
+    writeFileSync(
+      join(project, "scripts/hand-written-components.json"),
+      JSON.stringify({ "ListItem/ListItem.vue": "a conditional rest" }),
+    )
+    const run = (file: string) =>
+      hook(
+        ".claude/hooks/post-edit.mjs",
+        { tool_input: { file_path: join(components, file) } },
+        project,
+      )
+    expect(run("Card/CardActions.vue").stderr).toContain(
+      "is compiled from packages/opui/components/Card/CardActions.astro",
+    )
+    expect(run("Card/types.react.ts").stderr).toContain(
+      "is compiled from packages/opui/components/Card/types.astro.ts",
+    )
+    expect(run("Card/CardActions.astro").status).toBe(0)
+    expect(run("ListItem/ListItem.vue").status).toBe(0)
+  })
+
+  test("allows edits to Astro examples and to the hand-written files in the list", () => {
+    const examples = join(project, "src/component-examples/tabs")
+    mkdirSync(examples, { recursive: true })
+    writeFileSync(join(examples, "Binding.astro"), "<p>Hi</p>\n")
+    writeFileSync(join(examples, "Binding.vue"), "One, two.\n")
+    writeFileSync(join(examples, "Binding.html"), "One, two.\n")
+    writeFileSync(join(examples, "Orphan.vue"), "One, two.\n")
+    const status = (file: string) =>
+      hook(
+        ".claude/hooks/post-edit.mjs",
+        { tool_input: { file_path: join(examples, file) } },
+        project,
+      ).status
+    expect(status("Binding.astro")).toBe(0)
+    expect(status("Binding.vue")).toBe(0)
+    expect(status("Orphan.vue")).toBe(0)
+    expect(status("Binding.html")).toBe(2)
+  })
+
+  test("stays quiet for a clean file and for files outside the project", () => {
+    const elsewhere = join(tempDir("opui-elsewhere-"), "elsewhere.md")
+    writeFileSync(elsewhere, `One ${EM_DASH} two.\n`)
+    for (const file_path of [join(project, "docs/clean.md"), elsewhere, ""]) {
       const result = hook(
         ".claude/hooks/post-edit.mjs",
         { tool_input: { file_path } },
@@ -75,7 +158,7 @@ describe("post-edit", () => {
   })
 })
 
-describe("stop", () => {
+describe("stop", { timeout: 30_000 }, () => {
   test("lets Claude stop when a stop hook already made it continue", () => {
     const result = hook(".claude/hooks/stop.mjs", { stop_hook_active: true })
     expect(result.status).toBe(0)
@@ -83,8 +166,8 @@ describe("stop", () => {
   })
 
   test("checks the files changed since the upstream branch", () => {
-    const remote = mkdtempSync(join(tmpdir(), "opui-remote-"))
-    const clone = mkdtempSync(join(tmpdir(), "opui-clone-"))
+    const remote = tempDir("opui-remote-")
+    const clone = tempDir("opui-clone-")
     const git = (...args: string[]) =>
       execFileSync(
         "git",
@@ -119,9 +202,9 @@ describe("stop", () => {
     expect(stop().status).toBe(0)
   })
 
-  test("reports Prettier, oxlint and ratchet problems in their groups", () => {
-    const remote = mkdtempSync(join(tmpdir(), "opui-remote-"))
-    const clone = mkdtempSync(join(tmpdir(), "opui-clone-"))
+  test("reports oxfmt, oxlint and ratchet problems in their groups", () => {
+    const remote = tempDir("opui-remote-")
+    const clone = tempDir("opui-clone-")
     const git = (...args: string[]) =>
       execFileSync(
         "git",
@@ -151,7 +234,7 @@ describe("stop", () => {
       clone,
     )
     expect(result.status).toBe(2)
-    expect(result.stderr).toMatch(/Prettier:\n(.*\n)*.*loose\.md/)
+    expect(result.stderr).toMatch(/oxfmt:\n(.*\n)*.*loose\.md/)
     expect(result.stderr).toMatch(/oxlint:\n(.*\n)*.*no-debugger/)
     expect(result.stderr).toMatch(
       /Ratchets:\n(.*\n)*.*todo-allowlist\.json gained "prefixes: Nope:"/,
@@ -159,11 +242,20 @@ describe("stop", () => {
   })
 })
 
+test("the session-start hook does nothing outside a remote session", () => {
+  const result = spawnSync("bash", [".claude/hooks/session-start.sh"], {
+    encoding: "utf-8",
+    env: { ...process.env, CLAUDE_CODE_REMOTE: "" },
+  })
+  expect(result.status).toBe(0)
+  expect(result.stdout + result.stderr).toBe("")
+})
+
 test("the stop hook lints the stylesheets the lint script names", () => {
   expect(styledGlobs()).toEqual(["packages/opui/**/*.css", "src/**/*.css"])
 })
 
-test.each(["oxlint", "prettier", "stylelint", "vitest"])(
+test.each(["oxfmt", "oxlint", "stylelint", "vitest"])(
   "the checks start %s with Node, which also works on Windows",
   (name) => {
     expect(binOf(name)).not.toContain(".bin")
@@ -180,7 +272,7 @@ test("the hooks run the TODO.md and guide tests for those files", () => {
 })
 
 describe("commit-msg", () => {
-  const dir = mkdtempSync(join(tmpdir(), "opui-commit-"))
+  const dir = tempDir("opui-commit-")
   const commit = (message: string) => {
     writeFileSync(join(dir, "MSG"), `${message}\n`)
     return spawnSync("sh", [".githooks/commit-msg", join(dir, "MSG")], {
@@ -202,7 +294,7 @@ describe("commit-msg", () => {
 })
 
 describe("Git LFS hooks", () => {
-  const bin = mkdtempSync(join(tmpdir(), "opui-lfs-"))
+  const bin = tempDir("opui-lfs-")
   writeFileSync(join(bin, "git"), '#!/bin/sh\necho "$@"\n', { mode: 0o755 })
   const run = (hook: string) =>
     spawnSync("/bin/sh", [hook, "origin", "main"], {
@@ -234,7 +326,7 @@ describe("Git LFS hooks", () => {
 })
 
 describe("pre-commit", () => {
-  const dir = mkdtempSync(join(tmpdir(), "opui-staged-"))
+  const dir = tempDir("opui-staged-")
   const git = (...args: string[]) =>
     execFileSync("git", args, { cwd: dir, encoding: "utf-8" })
   git("init", "--quiet")
@@ -247,6 +339,11 @@ describe("pre-commit", () => {
       cwd: dir,
       encoding: "utf-8",
     })
+
+  beforeEach(() => {
+    git("read-tree", "--empty")
+    git("clean", "-fdq")
+  })
 
   test("passes with nothing staged", () => {
     expect(run().status).toBe(0)
@@ -271,7 +368,7 @@ describe("pre-commit", () => {
     const groups = await checkFiles(["notes.md", "styles.css"], dir)
     expect(groups.map(([name]) => name)).toEqual([
       "Characters, colors and declaration order",
-      "Prettier",
+      "oxfmt",
     ])
     expect(report(groups, "Intro")).toMatch(/^Intro\n\nCharacters/)
   })

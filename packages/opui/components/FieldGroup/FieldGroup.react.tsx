@@ -8,6 +8,7 @@ export default function FieldGroup({
   className,
   name,
   orientation,
+  children,
   ...rest
 }: Props) {
   const parent = useFieldGroupContext()
@@ -21,7 +22,9 @@ export default function FieldGroup({
           className,
         ])}
         {...rest}
-      />
+      >
+        {children}
+      </div>
     </FieldGroupContext>
   )
 }

@@ -1,45 +1,45 @@
 <script lang="ts">
   import {
-    Radio,
     FieldGroup,
     FieldLegend,
     Fieldset,
     Form,
+    Radio,
   } from "opui-css/svelte"
 </script>
 
 <Form>
   <Fieldset>
-    <FieldLegend>Input at the end</FieldLegend>
+    <FieldLegend>Plan</FieldLegend>
     <FieldGroup name="radio-cards-end" orientation="horizontal">
-      <Radio value="outlined" checked card spread>
-        Outlined
-        {#snippet endText()}The default surface.{/snippet}
+      <Radio card defaultChecked spread value="basic">
+        Basic
+        {#snippet endText()}€0 per month, forever{/snippet}
       </Radio>
-      <Radio value="tonal" card variant="tonal" spread>
-        Tonal
-        {#snippet endText()}A tinted surface.{/snippet}
+      <Radio card spread value="gold" variant="elevated">
+        Gold
+        {#snippet endText()}€3 per month, shiny badge included{/snippet}
       </Radio>
-      <Radio value="elevated" card variant="elevated" spread>
-        Elevated
-        {#snippet endText()}A raised surface.{/snippet}
+      <Radio card spread value="platinum" variant="tonal">
+        Platinum
+        {#snippet endText()}€5 per month, extra sparkly{/snippet}
       </Radio>
     </FieldGroup>
   </Fieldset>
   <Fieldset>
-    <FieldLegend>Input at the start</FieldLegend>
+    <FieldLegend>Billing</FieldLegend>
     <FieldGroup name="radio-cards-start" orientation="horizontal">
-      <Radio value="outlined" checked card>
-        Outlined
-        {#snippet endText()}The default surface.{/snippet}
+      <Radio card defaultChecked value="monthly">
+        Monthly
+        {#snippet endText()}Cancel any time, no hard feelings.{/snippet}
       </Radio>
-      <Radio value="tonal" card variant="tonal">
-        Tonal
-        {#snippet endText()}A tinted surface.{/snippet}
+      <Radio card value="yearly" variant="elevated">
+        Yearly
+        {#snippet endText()}Two months free, woohoo.{/snippet}
       </Radio>
-      <Radio value="elevated" card variant="elevated">
-        Elevated
-        {#snippet endText()}A raised surface.{/snippet}
+      <Radio card value="gig-money" variant="tonal">
+        Gig money
+        {#snippet endText()}Pay in coins after your next gig.{/snippet}
       </Radio>
     </FieldGroup>
   </Fieldset>

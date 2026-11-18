@@ -1,12 +1,38 @@
-import { components } from "../frameworks.ts"
+import { elementNotes } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
   component: "SelectAll",
   css: ["select-all"],
+  elements: [
+    {
+      members: [
+        {
+          description:
+            "The controlling checkbox, the one with `data-select-all`, or `null`. Read-only.",
+          kind: "property",
+          name: "control",
+        },
+        {
+          description:
+            "The enabled checkboxes it controls, in document order. Read-only.",
+          kind: "property",
+          name: "items",
+        },
+        {
+          description:
+            "Sets the controlling checkbox's `checked` and `indeterminate` from the others. The element calls it when one changes, so call it only after setting `checked` from a script.",
+          kind: "method",
+          name: "sync()",
+        },
+      ],
+      tag: "opui-select-all",
+    },
+  ],
   notes: {
-    ...components(
-      "The component loads `opui-css/elements/select-all.js`. In React, Svelte and Vue it runs once the component hydrates, or once the page imports the module. Leave the controlling checkbox uncontrolled: the element sets its `checked` and `indeterminate`.",
+    ...elementNotes(
+      "select-all.js",
+      "Leave the controlling checkbox uncontrolled: the element sets its `checked` and `indeterminate`.",
     ),
     html: 'Wrap the group in `<opui-select-all class="ui-select-all">`, add `data-select-all` to the controlling checkbox and import `opui-css/elements/select-all.js`.',
   },

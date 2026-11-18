@@ -53,25 +53,21 @@ try {
 }
 ---
 
-{
-  !error && (
-    <div class="contributors">
-      {contributors.length > 0
-        ? contributors.map((contributor) => (
-            <Tooltip id={`tooltip-${contributor.login}`}>
-              <Avatar
-                src={contributor.avatar_url}
-                alt={contributor.login}
-                href={contributor.html_url}
-                interestfor={`tooltip-${contributor.login}`}
-              />
-              <TooltipContent>{contributor.login}</TooltipContent>
-            </Tooltip>
-          ))
-        : !error && <p>Loading contributors...</p>}
-    </div>
-  )
-}
+{!error && <div class="contributors">
+  {contributors.length > 0
+    ? contributors.map((contributor) => <Tooltip
+        id={`tooltip-${contributor.login}`}
+      >
+        <Avatar
+          src={contributor.avatar_url}
+          alt={contributor.login}
+          href={contributor.html_url}
+          interestfor={`tooltip-${contributor.login}`}
+        />
+        <TooltipContent>{contributor.login}</TooltipContent>
+      </Tooltip>)
+    : !error && <p>Loading contributors...</p>}
+</div>}
 
 <style>
   .contributors {

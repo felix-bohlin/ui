@@ -4,19 +4,19 @@ import { Radio } from "opui-css/vue"
 
 <template>
   <Radio
-    name="radio-end-text"
-    value="default"
     checked
-    endText="Supporting text"
+    endText="Arrives in 3 to 5 days."
+    name="radio-end-text"
+    value="standard"
   >
-    Default
+    Standard delivery
   </Radio>
   <Radio
+    endText="Arrives tomorrow."
     name="radio-end-text"
-    value="stack"
     orientation="vertical"
-    endText="Supporting text"
+    value="express"
   >
-    Stack
+    Express delivery
   </Radio>
 </template>

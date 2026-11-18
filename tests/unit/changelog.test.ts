@@ -1,27 +1,21 @@
 import { readFileSync } from "node:fs"
 import { describe, expect, test } from "vitest"
-import type { ComponentApi } from "../../src/component-api/types"
-import { components } from "../../src/utils/components"
+import { catalog } from "../../src/component-api/catalog.glob"
+import {
+  changelogSections,
+  changesSince,
+  releaseHeadings,
+} from "../../src/utils/changelog-file"
 import { FRAMEWORK_IDS } from "../../src/utils/framework"
 import { migratingAnchor } from "../../src/utils/migrating"
 import { classNamesIn } from "../../src/utils/package-source"
 import { themeTokens } from "../../src/utils/theme-tokens"
-import { whatsNewFor } from "../../src/utils/whats-new"
+import { added, whatsNewFor } from "../../src/utils/whats-new"
 import releasedApi from "./released-api.json"
 import releasedTokens from "./released-tokens.json"
 
 const changelog = readFileSync("packages/opui/CHANGELOG.md", "utf8")
-const sectionsOf = (text: string) => {
-  const start = text.indexOf("\n## ")
-  const end = text.indexOf("\n## ", start + 1)
-  const unreleased = text.slice(start, end === -1 ? undefined : end)
-  return [
-    ...unreleased.matchAll(/^### (\w+)\n([\s\S]*?)(?=^### |(?![\s\S]))/gm),
-  ].map(([, title, body]) => ({
-    entries: body.split("\n").filter((line) => line.startsWith("- ")),
-    title,
-  }))
-}
+const sectionsOf = (text: string) => changelogSections(text)
 const sections = sectionsOf(changelog)
 
 const name = (entry: string) => entry.match(/^- `([^`]+)`/)?.[1]
@@ -64,7 +58,7 @@ test("the unreleased version has sections", () => {
   )
 })
 
-const headings = [...changelog.matchAll(/^## (.+)$/gm)].map(([, text]) => text)
+const headings = releaseHeadings(changelog)
 const HEADING = /^(\d+)\.(\d+)\.(\d+)(?: - (?:\d{4}-\d{2}-\d{2}|Unreleased))?$/
 
 test("every release heading is a version with a date or Unreleased", () => {
@@ -105,29 +99,7 @@ test("the unreleased sections come in order", () => {
   ).toEqual([])
 })
 
-const apis = import.meta.glob<ComponentApi>(
-  "../../src/component-api/*/api.ts",
-  {
-    eager: true,
-    import: "default",
-  },
-)
-const slugs = components.map(({ slug }) => slug)
-const PAGES: Record<string, string> = { FieldSet: "form", Link: "typography" }
-const pageOf = (component: string) => {
-  const [file, api] =
-    Object.entries(apis).find(([, entry]) => entry.component === component) ??
-    []
-  if (api) return api.page ?? file?.split("/").at(-2)
-  if (PAGES[component]) return PAGES[component]
-  const words = component
-    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
-    .toLowerCase()
-    .split("-")
-  return words
-    .map((_, index) => words.slice(0, words.length - index).join("-"))
-    .find((slug) => slugs.includes(slug))
-}
+const pageOf = catalog.pageOfComponent
 const subjects = (entry: string) =>
   [
     ...(entry.match(/^- ((?:`[A-Z]\w*`(?:,? and |, )?)+)/)?.[1] ?? "").matchAll(
@@ -180,7 +152,7 @@ const unmigrated = (all: Section[], page: Page, migrating: string) =>
 test("every component an entry starts with has a docs page", () => {
   expect(
     unpaged(noted, pageOf),
-    "map it to its page in PAGES in tests/unit/changelog.test.ts",
+    "map it to its page in COMPONENT_PAGES in src/component-api/catalog.ts",
   ).toEqual([])
 })
 
@@ -194,6 +166,28 @@ test.each(noted)(
   },
 )
 
+const reworked = (
+  all: Section[],
+  page: Page,
+  isNew: (slug: string) => boolean,
+) =>
+  all
+    .filter(({ title }) => title === "Changed" || title === "Fixed")
+    .flatMap(({ entries, title }) =>
+      entries.flatMap((entry) =>
+        subjects(entry)
+          .filter((component) => isNew(page(component) ?? ""))
+          .map((component) => `${title}: ${component}: ${entry.slice(0, 60)}`),
+      ),
+    )
+
+test("Changed and Fixed entries don't start with a component the version adds", () => {
+  expect(
+    reworked(sections, pageOf, (slug) => added.has(slug)),
+    "the version adds these components (their pages are in `added` in src/utils/whats-new.ts), so there is no released behavior to change or fix: fold the change into the component's Added entry",
+  ).toEqual([])
+})
+
 const migrating = readFileSync("packages/opui/MIGRATING.md", "utf8")
 
 test("Breaking entries have a MIGRATING.md section for each component they start with", () => {
@@ -203,8 +197,7 @@ test("Breaking entries have a MIGRATING.md section for each component they start
   ).toEqual([])
 })
 
-const sinceRelease = (version: string) =>
-  changelog.slice(0, changelog.indexOf(`\n## ${version} `))
+const sinceRelease = (version: string) => changesSince(changelog, version)
 
 const namedIn = (text: string) => {
   const names = new Set(
@@ -311,6 +304,28 @@ describe("the changelog rules flag their samples", () => {
     expect(unmigrated([breaking], page, "")).toEqual([
       "Tabs (tabs)",
       "Nope (undefined)",
+    ])
+  })
+
+  test("a Changed or Fixed entry on a component the version adds", () => {
+    const page: Page = (component) => component.toLowerCase()
+    const all = sectionsOf(
+      log(
+        "### Added",
+        "",
+        "- `Menu` component.",
+        "",
+        "### Changed",
+        "",
+        "- `Menu` and `Tabs` get a gap.",
+        "",
+        "### Fixed",
+        "",
+        "- `Tabs` keep their focus ring.",
+      ),
+    )
+    expect(reworked(all, page, (slug) => slug === "menu")).toEqual([
+      "Changed: Menu: - `Menu` and `Tabs` get a gap.",
     ])
   })
 

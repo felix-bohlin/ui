@@ -1,15 +1,18 @@
-<opui-copy class="ui-copy" id="copy-snippet-1">
-  <pre class="ui-code-block"><code>npm install opui-css</code></pre>
+<opui-copy id="copy-snippet-1" class="ui-copy">
+  <pre
+    class="ui-code-block"
+  ><code><span data-copy-ignore>$ </span>npm install opui-css</code></pre>
   <span class="ui-tooltip">
     <button
-      type="button"
       class="ui-button ui-round"
+      type="button"
       aria-label="Copy"
-      commandfor="copy-snippet-1"
       command="--copy"
+      commandfor="copy-snippet-1"
       interestfor="copy-snippet-2"
     >
       <svg
+        data-icon="copy"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -25,7 +28,7 @@
     <span class="ui-floating" id="copy-snippet-2" popover="hint">Copy</span>
   </span>
   <span class="ui-sr-only" role="status"></span>
-  <span class="ui-floating" popover aria-hidden="true"></span>
+  <span aria-hidden="true" class="ui-floating" popover></span>
 </opui-copy>
 
 <script type="module">

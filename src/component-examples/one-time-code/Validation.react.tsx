@@ -3,12 +3,12 @@ import { OneTimeCode } from "opui-css/react"
 export default function Validation() {
   return (
     <OneTimeCode
-      label="Verification code"
-      endText="Enter all 6 digits."
+      defaultValue="482193"
+      endText="That code has expired. Request a new one."
       error
+      label="Verification code"
       name="code"
       required
-      value="4821"
     />
   )
 }

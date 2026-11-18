@@ -1,3 +1,4 @@
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import type { TableHeaderCellProps as Props } from "./types.react"
 
@@ -12,7 +13,7 @@ export default function TableHeaderCell({
     <th
       className={cx([{ "ui-numeric": numeric }, className])}
       data-sort={sortable ? "" : undefined}
-      {...rest}
+      {...defined(rest)}
     >
       {sortable ? <button type="button">{children}</button> : children}
     </th>

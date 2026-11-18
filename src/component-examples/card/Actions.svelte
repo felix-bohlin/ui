@@ -3,28 +3,27 @@
 </script>
 
 <Card variant="outlined">
-  <CardContent>
-    Notice how the buttons are made to align with the text above.
-  </CardContent>
+  <CardContent>You have unsaved changes to your bass rig profile.</CardContent>
   <CardActions>
-    <Button>Cancel</Button>
+    <Button>Discard</Button>
     <Button>Save</Button>
   </CardActions>
 </Card>
 
 <Card variant="outlined">
-  <CardContent>Trying other button types too. Look at that!</CardContent>
+  <CardContent>Publish this setlist to share it with your band.</CardContent>
   <CardActions>
     <Button variant="outlined">Cancel</Button>
-    <Button variant="filled">Save</Button>
+    <Button variant="filled">Publish</Button>
   </CardActions>
 </Card>
 
 <Card variant="outlined">
-  <CardContent>Icon buttons work too!</CardContent>
+  <CardContent>Top ten basslines of the week, updated today.</CardContent>
   <CardActions>
     <Button aria-label="Favorite" round size="small">
       <svg
+        data-icon="heart"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -39,6 +38,7 @@
     </Button>
     <Button aria-label="Share" round size="small">
       <svg
+        data-icon="share"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"

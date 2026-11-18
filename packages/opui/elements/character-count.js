@@ -3,33 +3,41 @@ const Base = globalThis.HTMLElement ?? class {}
 const DELAY = 750
 const LABEL = "Characters left: {count}"
 
-let announcer
+const announcers = new WeakMap()
 
-function announce(text) {
-  if (!announcer?.isConnected) return
+function announce(announcer, text, lang) {
+  announcer.lang = lang
   announcer.textContent = ""
   requestAnimationFrame(() => {
     announcer.textContent = text
   })
 }
 
-function ensureAnnouncer(document) {
-  if (announcer?.isConnected) return
-  announcer = document.createElement("div")
+function announcerOf(control) {
+  const dialog = control.closest("dialog")
+  const root = dialog ?? control.ownerDocument.body
+  let announcer = announcers.get(root)
+  if (announcer?.isConnected) return announcer
+  announcer = control.ownerDocument.createElement("div")
   announcer.className = "ui-sr-only"
   announcer.dataset.opuiAnnouncer = ""
   announcer.setAttribute("aria-live", "polite")
-  document.body.append(announcer)
+  if (dialog) dialog.prepend(announcer)
+  else root.append(announcer)
+  announcers.set(root, announcer)
+  return announcer
 }
 
-export class CharacterCount extends Base {
+export class CharacterCountElement extends Base {
   #controller
   #observer
   #timeout
 
-  get field() {
-    return this.closest(".ui-text-field, .ui-textarea")?.querySelector(
-      "input, textarea",
+  get control() {
+    return (
+      this.closest(".ui-text-field, .ui-textarea")?.querySelector(
+        "input, textarea",
+      ) ?? null
     )
   }
 
@@ -37,22 +45,22 @@ export class CharacterCount extends Base {
     if (!this.hasAttribute("aria-hidden")) {
       this.setAttribute("aria-hidden", "true")
     }
-    ensureAnnouncer(this.ownerDocument)
     this.#controller = new AbortController()
     const { signal } = this.#controller
     this.ownerDocument.addEventListener(
       "input",
       (event) => {
-        if (event.target !== this.field) return
+        if (event.target !== this.control) return
         this.#update()
-        this.#schedule()
+        this.#schedule(announcerOf(event.target))
       },
       { signal },
     )
     this.ownerDocument.addEventListener(
       "reset",
       (event) => {
-        if (event.target === this.field?.form) setTimeout(() => this.#update())
+        if (event.target === this.control?.form)
+          setTimeout(() => this.#update())
       },
       { signal },
     )
@@ -75,28 +83,33 @@ export class CharacterCount extends Base {
   }
 
   #remaining() {
-    const field = this.field
-    if (!field || field.maxLength < 0) return
-    return Math.max(0, field.maxLength - field.value.length)
+    const control = this.control
+    if (!control || control.maxLength < 0) return
+    return Math.max(0, control.maxLength - control.value.length)
   }
 
-  #schedule() {
+  #schedule(announcer) {
     clearTimeout(this.#timeout)
-    const field = this.field
+    const control = this.control
     const remaining = this.#remaining()
     if (remaining === undefined) return
-    if (remaining > Math.max(10, Math.ceil(field.maxLength / 10))) return
+    if (remaining > Math.max(10, Math.ceil(control.maxLength / 10))) return
     this.#timeout = setTimeout(() => {
+      if (!announcer.isConnected) return
       const label = this.getAttribute("label") ?? LABEL
-      announce(label.replace("{count}", String(this.#remaining())))
+      announce(
+        announcer,
+        label.replace("{count}", String(this.#remaining())),
+        (this.control?.closest("[lang]") ?? this.closest("[lang]"))?.lang ?? "",
+      )
     }, DELAY)
   }
 
   #update() {
-    const field = this.field
+    const control = this.control
     const text =
-      field && field.maxLength >= 0
-        ? `${field.value.length}/${field.maxLength}`
+      control && control.maxLength >= 0
+        ? `${control.value.length}/${control.maxLength}`
         : ""
     const node = this.firstChild
     if (node instanceof Text && !node.nextSibling) node.data = text
@@ -105,5 +118,5 @@ export class CharacterCount extends Base {
 }
 
 if (globalThis.customElements && !customElements.get("opui-character-count")) {
-  customElements.define("opui-character-count", CharacterCount)
+  customElements.define("opui-character-count", CharacterCountElement)
 }

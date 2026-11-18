@@ -21,6 +21,7 @@ const components = [
     file.replace(/\.css$/, ""),
   ),
   "field",
+  "rich-text",
 ]
 
 const sources = sheets.map((file) => stripComments(readFileSync(file, "utf8")))
@@ -64,6 +65,9 @@ const problem = (name: string) => {
   ) {
     return "use -block-size or -inline-size"
   }
+  if (/(^--_|-)(border|outline)-size$/.test(name)) {
+    return "a border or outline thickness is -width"
+  }
   if (/(^--_|-)space(-|$)/.test(name)) return "use -gap or -padding"
   if (/(^--_|-)(tx|ty)$/.test(name)) return "use -shift-x or -shift-y"
   if (/(^--_|-)dir$/.test(name)) return "use -direction"
@@ -86,11 +90,12 @@ const problem = (name: string) => {
 }
 
 const SUFFIX =
-  /-(bg-color|text-color|border-color|size|radius|gap|shadow|padding(-inline|-block)?|font-size|font-weight|line-height|position-area|blur|offset|translate|hover|border-width|accent|on-accent|strength|lightness)$/
+  /-(bg-color|text-color|border-color|size|radius|gap|shadow|(margin|padding)(-(block|inline)(-start|-end)?)?|font-size|font-weight|line-height|position-area|blur|offset|translate|hover|focus|checked|border-width|accent|on-accent|strength|lightness)$/
 
 test.each([
   ["--_height", "use -block-size or -inline-size"],
   ["--_icon-width", "use -block-size or -inline-size"],
+  ["--_thumb-outline-size", "a border or outline thickness is -width"],
   ["--_space", "use -gap or -padding"],
   ["--_tx", "use -shift-x or -shift-y"],
   ["--_dir", "use -direction"],
@@ -102,6 +107,10 @@ test.each([
   ],
   [
     "--ui-card-spacing",
+    "end in the property it sets, a value type, -accent, -strength or -lightness",
+  ],
+  [
+    "--ui-rich-text-heading-margin-start",
     "end in the property it sets, a value type, -accent, -strength or -lightness",
   ],
 ])("%s breaks the suffix rules", (name, message) => {
@@ -118,17 +127,21 @@ test.each([
   "--_shift-x",
   "--_size",
   "--ui-card-padding",
+  "--ui-rich-text-heading-margin-block-start",
 ])("%s follows the suffix rules", (name) => {
   expect(problem(name)).toBeUndefined()
 })
 
 test("private and component custom properties follow the suffix rules", () => {
-  const checked = [...names].filter(
+  const checked = [
+    ...new Set([...names, ...themeTokens().map((token) => token.name)]),
+  ].filter(
     (name) =>
       name.startsWith("--_") ||
       components.some((component) => name.startsWith(`--ui-${component}-`)),
   )
   expect(checked.length).toBeGreaterThan(100)
+  expect(checked).toContain("--ui-rich-text-flow-gap")
   expect(
     checked
       .map((name) => [name, problem(name)])

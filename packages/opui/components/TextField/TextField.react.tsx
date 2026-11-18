@@ -1,18 +1,22 @@
 "use client"
 
 import { useEffect, useId } from "react"
-import Button from "../Button/Button.react"
 import { cx } from "../cx"
+import Button from "../Button/Button.react"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
-import { idRefs } from "../id"
-import { hidePath, showPath } from "./icons"
+import { fieldDescribedBy } from "../id"
 import type { Props } from "./types.react"
 
 export default function TextField({
+  "aria-describedby": ariaDescribedBy,
+  "aria-invalid": ariaInvalid,
+  "aria-labelledby": ariaLabelledBy,
   autoFit,
   characterCount,
   characterCountLabel,
   className,
+  disabled,
+  dropZone,
   error,
   hideLabel,
   id,
@@ -28,6 +32,8 @@ export default function TextField({
   bottom,
   end,
   endText,
+  iconChecked,
+  iconUnchecked,
   label,
   start,
   startText,
@@ -35,20 +41,23 @@ export default function TextField({
   ...rest
 }: Props) {
   const field = useFieldGroupContext()
-  const generatedId = useId()
-  const Root = passwordToggle ? "opui-text-field" : "label"
-  const Label = passwordToggle ? "label" : "span"
+  const uid = useId()
+  const base = id || `text-field-${uid}`
+  const hasLabel = Boolean(label)
+  const Root = passwordToggle ? "opui-text-field" : "div"
+  const hasStartText = Boolean(startText)
   const hasEndText = Boolean(endText || characterCount)
-  const inputId = passwordToggle ? (id ?? `${generatedId}text-field`) : id
-  const startTextId =
-    passwordToggle && startText ? `${generatedId}start-text` : undefined
-  const endTextId =
-    passwordToggle && hasEndText ? `${generatedId}end-text` : undefined
-
+  const inputId = hasLabel || passwordToggle ? base : id
+  const startId = start ? `${base}-start` : undefined
+  const endId = end ? `${base}-end` : undefined
+  const topId = top ? `${base}-top` : undefined
+  const bottomId = bottom ? `${base}-bottom` : undefined
+  const startTextId = hasStartText ? `${base}-start-text` : undefined
+  const endTextId = hasEndText ? `${base}-end-text` : undefined
   useEffect(() => {
-    if (characterCount) void import("../../elements/character-count.js")
-    if (passwordToggle) void import("../../elements/text-field.js")
-  }, [characterCount, passwordToggle])
+    void import("../../elements/character-count.js")
+    void import("../../elements/text-field.js")
+  }, [])
 
   return (
     <Root
@@ -56,6 +65,7 @@ export default function TextField({
         "ui-text-field",
         {
           "ui-auto-fit": autoFit,
+          "ui-drop-zone": dropZone,
           "ui-filled": variant === "filled",
           "ui-spread": spread,
         },
@@ -64,39 +74,52 @@ export default function TextField({
       ])}
       style={style}
     >
-      {label && (
-        <Label
+      {hasLabel && (
+        <label
           className={hideLabel ? "ui-sr-only" : "ui-label"}
-          htmlFor={passwordToggle ? inputId : undefined}
+          htmlFor={inputId}
         >
           {label}
-        </Label>
+        </label>
       )}
-      {startText && (
+      {hasStartText && (
         <span className="ui-start-text" id={startTextId}>
           {startText}
         </span>
       )}
       <span className="ui-field">
+        {top && (
+          <span className="ui-top" id={topId}>
+            {top}
+          </span>
+        )}
+        {start && (
+          <span className="ui-start" id={startId}>
+            {start}
+          </span>
+        )}
         <input
           {...rest}
-          aria-describedby={idRefs(
-            startTextId,
-            endTextId,
-            rest["aria-describedby"],
+          aria-describedby={fieldDescribedBy(
+            {
+              bottom: bottomId,
+              end: endId,
+              endText: endTextId,
+              start: startId,
+              startText: startTextId,
+              top: topId,
+            },
+            ariaDescribedBy,
           )}
-          aria-invalid={error ? "true" : rest["aria-invalid"]}
+          aria-invalid={error ? "true" : ariaInvalid}
+          aria-labelledby={ariaLabelledBy}
+          disabled={disabled}
           id={inputId}
-          inputMode={
-            rest.inputMode ?? (type === "numeric" ? "numeric" : undefined)
-          }
           name={name ?? field?.name}
-          pattern={rest.pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
-          type={type === "numeric" ? "text" : type}
+          type={type}
         />
-        {start && <span className="ui-start">{start}</span>}
         {(end || passwordToggle) && (
-          <span className="ui-end">
+          <span className="ui-end" id={endId}>
             {end}
             {passwordToggle && (
               <Button
@@ -104,34 +127,46 @@ export default function TextField({
                 aria-pressed="false"
                 command="--toggle-password"
                 commandfor={inputId}
+                disabled={disabled}
                 round
               >
-                <svg
-                  aria-hidden="true"
-                  className="ui-icon-unchecked"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <path fill="currentColor" d={showPath} />
-                </svg>
-                <svg
-                  aria-hidden="true"
-                  className="ui-icon-checked"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <path fill="currentColor" d={hidePath} />
-                </svg>
+                {iconUnchecked ? (
+                  <span aria-hidden="true" className="ui-icon-unchecked">
+                    {iconUnchecked}
+                  </span>
+                ) : (
+                  <svg
+                    aria-hidden="true"
+                    className="ui-icon-unchecked"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  />
+                )}
+                {iconChecked ? (
+                  <span aria-hidden="true" className="ui-icon-checked">
+                    {iconChecked}
+                  </span>
+                ) : (
+                  <svg
+                    aria-hidden="true"
+                    className="ui-icon-checked"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  />
+                )}
               </Button>
             )}
           </span>
         )}
-        {top && <span className="ui-top">{top}</span>}
-        {bottom && <span className="ui-bottom">{bottom}</span>}
+        {bottom && (
+          <span className="ui-bottom" id={bottomId}>
+            {bottom}
+          </span>
+        )}
       </span>
       {hasEndText && (
         <span className="ui-end-text" id={endTextId}>
@@ -141,6 +176,8 @@ export default function TextField({
               aria-hidden="true"
               className="ui-value"
               label={characterCountLabel}
+              dangerouslySetInnerHTML={{ __html: "" }}
+              suppressHydrationWarning
             />
           )}
         </span>

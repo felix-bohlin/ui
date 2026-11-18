@@ -1,20 +1,30 @@
 <script lang="ts">
-  import { List, ListItem, RadioInput } from "opui-css/svelte"
+  import {
+    FieldGroup,
+    FieldLegend,
+    Fieldset,
+    List,
+    ListItem,
+    RadioInput,
+  } from "opui-css/svelte"
 </script>
 
-<List>
-  <ListItem type="radio">
-    {#snippet label()}Radio 1{/snippet}
-    {#snippet end()}<RadioInput
-        name="radio-example-group"
-        value="1"
-      />{/snippet}
-  </ListItem>
-  <ListItem type="radio">
-    {#snippet label()}Radio 2{/snippet}
-    {#snippet end()}<RadioInput
-        name="radio-example-group"
-        value="2"
-      />{/snippet}
-  </ListItem>
-</List>
+<Fieldset>
+  <FieldLegend>Theme</FieldLegend>
+  <FieldGroup>
+    <List>
+      <ListItem choice="radio">
+        {#snippet label()}Dark mode{/snippet}
+        {#snippet end()}
+          <RadioInput name="theme" value="dark" />
+        {/snippet}
+      </ListItem>
+      <ListItem choice="radio">
+        {#snippet label()}Light mode{/snippet}
+        {#snippet end()}
+          <RadioInput name="theme" value="light" />
+        {/snippet}
+      </ListItem>
+    </List>
+  </FieldGroup>
+</Fieldset>

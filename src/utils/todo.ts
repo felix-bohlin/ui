@@ -81,6 +81,7 @@ export const parseTodo = (source: string) => {
       .filter((section) => section.items.length)
 
   return {
+    all: sections.filter((section) => section.items.length),
     done: byStatus(true),
     intro,
     sections: byStatus(false),

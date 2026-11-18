@@ -12,7 +12,7 @@ import {
   Avatar as UIAvatar,
   Button as UIButton,
   Message as UIMessage,
-  Messages as UIMessages,
+  MessageList as UIMessageList,
   ToggleButton as UIToggleButton,
   ToggleGroup as UIToggleGroup,
 } from "opui-css/astro"
@@ -22,7 +22,7 @@ import MessageCSS from "@opui/css/components/message.css?raw"
 import ReactionsJS from "@opui/elements/reactions.js?raw"
 
 import messageApi from "../../component-api/message/api"
-import messagesApi from "../../component-api/messages/api"
+import messageListApi from "../../component-api/message-list/api"
 import reactionsApi from "../../component-api/reactions/api"
 
 const saveDom = `document.addEventListener("reaction", async (event) => {
@@ -173,6 +173,8 @@ const addReactionIcon = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/s
 
 export const description =
   "Chat bubbles that group by sender, with attachments, reactions and a typing indicator."
+
+export const keywords = ["chat", "chat bubble", "conversation"]
 ---
 
 <Component
@@ -180,7 +182,7 @@ export const description =
   slug="message"
   heroAnatomy
   apis={[
-    { title: "Messages API", api: messagesApi },
+    { title: "Message list API", api: messageListApi },
     { title: "Message API", api: messageApi },
     { title: "Reactions API", api: reactionsApi },
   ]}
@@ -189,22 +191,16 @@ export const description =
     "container-queries",
     "container-style-queries",
     "corner-shape",
+    "dir-pseudo",
     "has",
     "invoker-commands",
     "lh",
     "popover",
   ]}
-  changelogPaths={[
-    { path: "packages/opui/components/Message", type: "component" },
-    { path: "packages/opui/components/Reactions", type: "component" },
-    { path: "packages/opui/elements/reactions.js", type: "component" },
-    { path: "src/docs/components/message.astro", type: "docs" },
-    { path: "src/component-examples/message", type: "docs" },
-    { path: "packages/opui/css/components/message.css", type: "css" },
-    { path: "src/component-api/message", type: "api" },
-    { path: "src/component-api/messages", type: "api" },
-    { path: "src/component-api/reactions", type: "api" },
-  ]}
+  fallbacks={{
+    "corner-shape":
+      "Without `corner-shape`, the bubbles keep plain rounded corners.",
+  }}
   installationTabs={[
     { title: "message.css", code: MessageCSS, lang: "css" },
     { title: "reactions.js", code: ReactionsJS, lang: "js" },
@@ -218,27 +214,24 @@ export const description =
 >
   <Fragment slot="title">Message</Fragment>
   <Fragment slot="preamble">
-    Chat bubbles for a conversation. Consecutive messages from the same side
-    group into a run, with tighter corners on the avatar side, the author on the
-    first message and the <DocLink href="/components/avatar">Avatar</DocLink> on the
-    last. For a note from the app, use a <DocLink href="/components/callout"
-      >Callout</DocLink
-    >.
+    Chat bubbles for a conversation. For a note from the app, use a
+    <DocLink href="/components/callout">Callout</DocLink>.
   </Fragment>
 
   <Fragment slot="anatomy">
     <Anatomy>
-      <UIMessages aria-label="Messages with Saga" style="inline-size: 22rem">
+      <UIMessageList
+        aria-label="Messages with Stella"
+        style="inline-size: 22rem"
+      >
         <UIMessage
-          author="Saga"
+          author="Stella"
           datetime="2026-10-08T14:31"
           style="--_actions-opacity: 1"
           time="14:31"
         >
-          <UIAvatar aria-label="Saga Nyström" role="img" slot="start"
-            >SN</UIAvatar
-          >
-          <p>Here's the current draft.</p>
+          <UIAvatar aria-hidden="true" slot="start">SN</UIAvatar>
+          <p>Here's my totally rad new bass line.</p>
           <Fragment slot="end">Read</Fragment>
           <UIButton
             aria-label="Add reaction"
@@ -259,65 +252,29 @@ export const description =
             >
           </UIToggleGroup>
         </UIMessage>
-      </UIMessages>
+      </UIMessageList>
     </Anatomy>
   </Fragment>
 
   <Usage slot="usage">
+    <li slot="when">A conversation, like support chat or direct messages.</li>
     <li slot="when">
-      A conversation between people, like support chat or direct messages, in a
-      list of <a href="#basics">messages</a>.
-    </li>
-    <li slot="when">
-      A channel with several senders, like a team chat, with a <a
-        href="#group-chat">new author</a
-      > marking each change of sender.
+      A channel with several senders: <a href="#group-chat">group chat</a>.
     </li>
     <li slot="when-not">
-      A note from the app, like a warning or a success. Use a <DocLink
-        href="/components/callout">Callout</DocLink
-      >.
+      A note from the app: use a
+      <DocLink href="/components/callout">Callout</DocLink>.
     </li>
     <li slot="when-not">
-      Comments on a post, which are read in order rather than as a chat. Use a <DocLink
-        href="/components/list">List</DocLink
-      >.
+      Comments on a post: use a <DocLink href="/components/list">List</DocLink>.
     </li>
   </Usage>
 
   <section id="basics">
     <h2>Basics</h2>
-    <Conditional as="p">
-      <Fragment slot="html"
-        >Each message is an <code>li.ui-message</code> in an <code
-          >ol.ui-messages</code
-        >. Add <code>.ui-outgoing</code> to the messages you sent, put the sender
-        in <code>p.ui-header</code>, the text in <code>.ui-content</code>
-        and the time in <code>p.ui-footer</code>.</Fragment
-      >
-      <Fragment slot="components"
-        >Put each <code>Message</code> in <code>Messages</code>. Set <code
-          >outgoing</code
-        > on the messages you sent, <code>author</code> and <code>time</code> on every
-        message, and the sender's <code>Avatar</code> in the <code>start</code> slot.</Fragment
-      >
-      <Fragment slot="react"
-        >Put each <code>Message</code> in <code>Messages</code>. Set <code
-          >outgoing</code
-        > on the messages you sent, <code>author</code> and <code>time</code> on every
-        message, and the sender's <code>Avatar</code> in the <code>start</code> prop.</Fragment
-      >
-      <Fragment slot="svelte"
-        >Put each <code>Message</code> in <code>Messages</code>. Set <code
-          >outgoing</code
-        > on the messages you sent, <code>author</code> and <code>time</code> on every
-        message, and the sender's <code>Avatar</code> in the <code>start</code> snippet.</Fragment
-      >
-    </Conditional>
     <p>
-      Bubbles are at most 85% as wide as the list. The author of an outgoing
-      message, and of every message in a run but the first, is visually hidden
-      and still read by screen readers.
+      Mark your own messages with
+      <PropOrClass prop="outgoing" class=".ui-outgoing" />.
     </p>
     <AutoExample name="Basics" />
   </section>
@@ -325,22 +282,31 @@ export const description =
   <section id="group-chat">
     <h2>Group chat</h2>
     <p>
-      CSS can't compare authors, so mark the first message after the sender
-      changes with <PropOrClass prop="newAuthor" class=".ui-new-author" />. Any
-      other <code>li</code> between messages, such as a date <DocLink
-        href="/components/divider">Divider</DocLink
-      >, also starts a new run.
+      Mark each change of sender with
+      <PropOrClass prop="newAuthor" class=".ui-new-author" />. Put a date or an
+      event, like someone joining, in an <code>li.ui-divider</code>. Every child
+      of <PropOrClass prop="MessageList" class=".ui-message-list" /> is an
+      <code>li</code>, since it's a list.
     </p>
     <AutoExample name="GroupChat" />
+  </section>
+
+  <section id="direct">
+    <h2>Direct</h2>
+    <p>
+      In a chat between two people, the chat's title already names the other
+      person. <PropOrClass prop="direct" class=".ui-direct" /> on the
+      <PropOrClass prop="MessageList" class=".ui-message-list" /> leaves out
+      every author name and avatar, so the messages are just the bubbles on each
+      side. A screen reader still hears who wrote each one.
+    </p>
+    <AutoExample name="Direct" />
   </section>
 
   <section id="attachments">
     <h2>Attachments</h2>
     <p>
-      A file is an outlined <DocLink href="/components/card">Card</DocLink> in the
-      bubble, with an icon, a link and the details in a <DocLink
-        href="/components/layout#media">media layout</DocLink
-      >.
+      An outlined <DocLink href="/components/card">Card</DocLink> in the bubble.
     </p>
     <AutoExample name="Attachments" />
   </section>
@@ -349,32 +315,31 @@ export const description =
     <h2>Reactions</h2>
     <Conditional as="p">
       <Fragment slot="html"
-        >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of checkboxes
-        in <code>&lt;opui-reactions class="ui-reactions"&gt;</code>, with an
-        empty <code>&lt;span class="ui-sr-only" role="status"&gt;</code> after it,
-        in <code>.ui-bottom</code>, and import <code
-          >opui-css/elements/reactions.js</code
-        >. The label of each input names the emoji and the count, and <code
-          >checked</code
-        > marks your own reaction.</Fragment
+        >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of
+        checkboxes in <code>&lt;opui-reactions class="ui-reactions"&gt;</code>,
+        with an empty <code>&lt;span class="ui-sr-only" role="status"&gt;</code>
+        after it, in <code>.ui-bottom</code>, and import
+        <code>opui-css/elements/reactions.js</code>. The label of each input
+        names the emoji and the count, and <code>checked</code> marks your own
+        reaction.</Fragment
       >
       <Fragment slot="components"
-        >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of checkboxes
-        in <code>Reactions</code>, in the <code>bottom</code> slot. The label of each
-        toggle names the emoji and the count, and <code>checked</code> marks your
-        own reaction.</Fragment
+        >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of
+        checkboxes in <code>Reactions</code>, in the <code>bottom</code> slot.
+        The label of each toggle names the emoji and the count, and
+        <code>checked</code> marks your own reaction.</Fragment
       >
       <Fragment slot="react"
-        >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of checkboxes
-        in <code>Reactions</code>, in the <code>bottom</code> prop. The label of each
-        toggle names the emoji and the count, and <code>defaultChecked</code> marks
-        your own reaction.</Fragment
+        >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of
+        checkboxes in <code>Reactions</code>, in the <code>bottom</code> prop.
+        The label of each toggle names the emoji and the count, and
+        <code>defaultChecked</code> marks your own reaction.</Fragment
       >
       <Fragment slot="svelte"
-        >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of checkboxes
-        in <code>Reactions</code>, in the <code>bottom</code> snippet. The label of
-        each toggle names the emoji and the count, and <code>checked</code> marks
-        your own reaction.</Fragment
+        >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of
+        checkboxes in <code>Reactions</code>, in the <code>bottom</code>
+        snippet. The label of each toggle names the emoji and the count, and
+        <code>checked</code> marks your own reaction.</Fragment
       >
     </Conditional>
     <p>
@@ -383,57 +348,53 @@ export const description =
     </p>
     <Conditional as="p">
       <Fragment slot="html"
-        >To add a reaction, put a round <code>.ui-button</code> in <code
-          >.ui-actions</code
-        >, beside the bubble, that opens a <DocLink
-          href="/components/menu#horizontal">horizontal menu</DocLink
-        > of emoji with <code>.ui-block-start</code>. Give each emoji <code
-          >command="--react"</code
-        >, the id of the <code>opui-reactions</code> in <code>commandfor</code> and
-        the emoji in <code>value</code>. Add <code>.ui-align-end</code> to the menu
-        of an outgoing message, so it opens away from the bubble.</Fragment
+        >To add a reaction, put a round <code>.ui-button</code> in
+        <code>.ui-actions</code>, beside the bubble, that opens a
+        <DocLink href="/components/menu#horizontal">horizontal menu</DocLink> of
+        emoji with <code>.ui-block-start</code>. Give each emoji
+        <code>command="--react"</code>, the id of the
+        <code>opui-reactions</code> in <code>commandfor</code> and the emoji in
+        <code>value</code>. Add <code>.ui-align-end</code> to the menu of an
+        outgoing message, so it opens away from the bubble.</Fragment
       >
       <Fragment slot="components"
-        >To add a reaction, put a round <code>Button</code> in the <code
-          >actions</code
-        > slot, beside the bubble, that opens a <DocLink
-          href="/components/menu#horizontal">horizontal menu</DocLink
-        > of emoji with <code>side="block-start"</code>. Give each item <code
-          >command: "--react"</code
-        >, the id of the <code>Reactions</code> in <code>commandfor</code> and the
-        emoji in <code>value</code>. Set <code>align="end"</code> on the menu of an
-        outgoing message, so it opens away from the bubble.</Fragment
+        >To add a reaction, put a round <code>Button</code> in the
+        <code>actions</code> slot, beside the bubble, that opens a
+        <DocLink href="/components/menu#horizontal">horizontal menu</DocLink> of
+        emoji with <code>side="block-start"</code>. Give each item
+        <code>command: "--react"</code>, the id of the <code>Reactions</code> in
+        <code>commandfor</code> and the emoji in <code>value</code>. Set
+        <code>align="end"</code> on the menu of an outgoing message, so it opens
+        away from the bubble.</Fragment
       >
       <Fragment slot="react"
-        >To add a reaction, put a round <code>Button</code> in the <code
-          >actions</code
-        > prop, beside the bubble, that opens a <DocLink
-          href="/components/menu#horizontal">horizontal menu</DocLink
-        > of emoji with <code>side="block-start"</code>. Give each item <code
-          >command: "--react"</code
-        >, the id of the <code>Reactions</code> in <code>commandfor</code> and the
-        emoji in <code>value</code>. Set <code>align="end"</code> on the menu of an
-        outgoing message, so it opens away from the bubble.</Fragment
+        >To add a reaction, put a round <code>Button</code> in the
+        <code>actions</code> prop, beside the bubble, that opens a
+        <DocLink href="/components/menu#horizontal">horizontal menu</DocLink> of
+        emoji with <code>side="block-start"</code>. Give each item
+        <code>command: "--react"</code>, the id of the <code>Reactions</code> in
+        <code>commandfor</code> and the emoji in <code>value</code>. Set
+        <code>align="end"</code> on the menu of an outgoing message, so it opens
+        away from the bubble.</Fragment
       >
       <Fragment slot="svelte"
-        >To add a reaction, put a round <code>Button</code> in the <code
-          >actions</code
-        > snippet, beside the bubble, that opens a <DocLink
-          href="/components/menu#horizontal">horizontal menu</DocLink
-        > of emoji with <code>side="block-start"</code>. Give each item <code
-          >command: "--react"</code
-        >, the id of the <code>Reactions</code> in <code>commandfor</code> and the
-        emoji in <code>value</code>. Set <code>align="end"</code> on the menu of an
-        outgoing message, so it opens away from the bubble.</Fragment
+        >To add a reaction, put a round <code>Button</code> in the
+        <code>actions</code> snippet, beside the bubble, that opens a
+        <DocLink href="/components/menu#horizontal">horizontal menu</DocLink> of
+        emoji with <code>side="block-start"</code>. Give each item
+        <code>command: "--react"</code>, the id of the <code>Reactions</code> in
+        <code>commandfor</code> and the emoji in <code>value</code>. Set
+        <code>align="end"</code> on the menu of an outgoing message, so it opens
+        away from the bubble.</Fragment
       >
     </Conditional>
     <p>
       On a device that can hover, the actions show while the message is hovered,
       holds focus or has its menu open. Picking an emoji closes the menu and
       returns focus to the button. Neither a pick nor a click on a pill changes
-      the pills: they ask your server first, see <a href="#saving-reactions"
-        >Saving reactions</a
-      >. Here a pretend server answers after half a second.
+      the pills: they ask your server first, see
+      <a href="#saving-reactions">Saving reactions</a>. Here a pretend server
+      answers after half a second.
     </p>
     <AutoExample name="Reactions" />
   </section>
@@ -441,91 +402,84 @@ export const description =
   <section id="saving-reactions">
     <h2>Saving reactions</h2>
     <p>
-      A click on a pill, or on an emoji in the menu, fires a <code
-        >reaction</code
-      > event that bubbles from the <code>opui-reactions</code> element, with the
-      emoji's <code>value</code> and the state asked for in <code
-        >event.detail.checked</code
-      >, and changes nothing. Picking an emoji you already reacted with asks to
-      remove it, like a click on its pill. Send the change to your server and
-      apply its reply, so the pills only show what the server saved.
+      A click on a pill, or on an emoji in the menu, fires a
+      <code>reaction</code> event that bubbles from the
+      <code>opui-reactions</code> element, with the emoji's <code>value</code>
+      and the state asked for in <code>event.detail.checked</code>, and changes
+      nothing. Picking an emoji you already reacted with asks to remove it, like
+      a click on its pill. Send the change to your server and apply its reply,
+      so the pills only show what the server saved.
     </p>
     <Conditional as="div">
       <Fragment slot="html"
         ><p>
-          Apply the reply with <code
-            >set(value, &lbrace; checked, label, text &rbrace;)</code
-          >, which updates a pill or adds one at the end, and <code
-            >delete(value)</code
-          >, which removes one and moves focus to the next pill when the removed
-          one had it. <code>announce(message)</code> reads a sentence to screen readers,
-          such as "Thumbs up added" or "Couldn't save the reaction". Here the server
-          answers with the message's reactions, each with its <code>value</code
-          >, <code>emoji</code>, <code>count</code>, <code>label</code> and whether
-          it's <code>mine</code>, and a <code>status</code> sentence, and each <code
-            >li.ui-message</code
-          > has a <code>data-id</code>.
+          Apply the reply with
+          <code>set(value, &lbrace; checked, label, text &rbrace;)</code>, which
+          updates a pill or adds one at the end, and <code>delete(value)</code>,
+          which removes one and moves focus to the next pill when the removed
+          one had it. <code>announce(message)</code> reads a sentence to screen
+          readers, such as "Thumbs up added" or "Couldn't save the reaction".
+          Here the server answers with the message's reactions, each with its
+          <code>value</code>, <code>emoji</code>, <code>count</code>,
+          <code>label</code> and whether it's <code>mine</code>, and a
+          <code>status</code> sentence, and each <code>li.ui-message</code> has
+          a <code>data-id</code>.
         </p>
-        <Code lang="js" code={saveDom} /></Fragment
-      >
+        <Code lang="js" code={saveDom}
+      /></Fragment>
       <Fragment slot="astro"
         ><p>
-          The page is static HTML, so save the reaction in a <code
-            >&lt;script&gt;</code
-          >. Apply the reply with <code
-            >set(value, &lbrace; checked, label, text &rbrace;)</code
-          >, which updates a pill or adds one at the end, and <code
-            >delete(value)</code
-          >, which removes one and moves focus to the next pill when the removed
-          one had it. <code>announce(message)</code> reads a sentence to screen readers,
-          such as "Thumbs up added" or "Couldn't save the reaction". Here the server
-          answers with the message's reactions, each with its <code>value</code
-          >, <code>emoji</code>, <code>count</code>, <code>label</code> and whether
-          it's <code>mine</code>, and a <code>status</code> sentence, and each <code
-            >Message</code
-          > has a <code>data-id</code>.
+          The page is static HTML, so save the reaction in a
+          <code>&lt;script&gt;</code>. Apply the reply with
+          <code>set(value, &lbrace; checked, label, text &rbrace;)</code>, which
+          updates a pill or adds one at the end, and <code>delete(value)</code>,
+          which removes one and moves focus to the next pill when the removed
+          one had it. <code>announce(message)</code> reads a sentence to screen
+          readers, such as "Thumbs up added" or "Couldn't save the reaction".
+          Here the server answers with the message's reactions, each with its
+          <code>value</code>, <code>emoji</code>, <code>count</code>,
+          <code>label</code> and whether it's <code>mine</code>, and a
+          <code>status</code> sentence, and each <code>Message</code> has a
+          <code>data-id</code>.
         </p>
-        <Code lang="js" code={saveDom} /></Fragment
-      >
+        <Code lang="js" code={saveDom}
+      /></Fragment>
       <Fragment slot="react"
         ><p>
-          Render the pills from state, and set it from the reply in <code
-            >onReaction</code
-          >. <code>event.target.announce(message)</code> reads a sentence to screen
-          readers, such as "Thumbs up added" or "Couldn't save the reaction". Here
-          the server answers with the message's reactions, each with its <code
-            >value</code
-          >, <code>emoji</code>, <code>count</code>, <code>label</code> and whether
+          Render the pills from state, and set it from the reply in
+          <code>onReaction</code>. <code>event.target.announce(message)</code>
+          reads a sentence to screen readers, such as "Thumbs up added" or
+          "Couldn't save the reaction". Here the server answers with the
+          message's reactions, each with its <code>value</code>,
+          <code>emoji</code>, <code>count</code>, <code>label</code> and whether
           it's <code>mine</code>, and a <code>status</code> sentence.
         </p>
-        <Code lang="tsx" code={saveReact} /></Fragment
-      >
+        <Code lang="tsx" code={saveReact}
+      /></Fragment>
       <Fragment slot="svelte"
         ><p>
-          Render the pills from state, and set it from the reply in <code
-            >onreaction</code
-          >. <code>event.target.announce(message)</code> reads a sentence to screen
-          readers, such as "Thumbs up added" or "Couldn't save the reaction". Here
-          the server answers with the message's reactions, each with its <code
-            >value</code
-          >, <code>emoji</code>, <code>count</code>, <code>label</code> and whether
+          Render the pills from state, and set it from the reply in
+          <code>onreaction</code>. <code>event.target.announce(message)</code>
+          reads a sentence to screen readers, such as "Thumbs up added" or
+          "Couldn't save the reaction". Here the server answers with the
+          message's reactions, each with its <code>value</code>,
+          <code>emoji</code>, <code>count</code>, <code>label</code> and whether
           it's <code>mine</code>, and a <code>status</code> sentence.
         </p>
-        <Code lang="svelte" code={saveSvelte} /></Fragment
-      >
+        <Code lang="svelte" code={saveSvelte}
+      /></Fragment>
       <Fragment slot="vue"
         ><p>
-          Render the pills from state, and set it from the reply in <code
-            >@reaction</code
-          >. <code>event.target.announce(message)</code> reads a sentence to screen
-          readers, such as "Thumbs up added" or "Couldn't save the reaction". Here
-          the server answers with the message's reactions, each with its <code
-            >value</code
-          >, <code>emoji</code>, <code>count</code>, <code>label</code> and whether
+          Render the pills from state, and set it from the reply in
+          <code>@reaction</code>. <code>event.target.announce(message)</code>
+          reads a sentence to screen readers, such as "Thumbs up added" or
+          "Couldn't save the reaction". Here the server answers with the
+          message's reactions, each with its <code>value</code>,
+          <code>emoji</code>, <code>count</code>, <code>label</code> and whether
           it's <code>mine</code>, and a <code>status</code> sentence.
         </p>
-        <Code lang="vue" code={saveVue} /></Fragment
-      >
+        <Code lang="vue" code={saveVue}
+      /></Fragment>
     </Conditional>
     <p>
       To show a reaction before the server answers, apply it in the event
@@ -538,89 +492,75 @@ export const description =
     <h2>Typing indicator</h2>
     <Conditional as="p">
       <Fragment slot="html"
-        >Add <code>.ui-typing</code> to a message to animate three dots in its bubble.
-        Give the bubble <code>role="status"</code> and visually hidden text, such
-        as "Saga is typing", so screen readers announce it once.</Fragment
+        >Add <code>.ui-typing</code>, and <code>role="status"</code> with hidden
+        text on the bubble.</Fragment
       >
-      <Fragment slot="components"
-        >Set <code>typing</code> on a message to animate three dots in its bubble.
-        The default slot becomes visually hidden status text, such as "Saga is typing",
-        which screen readers announce once.</Fragment
-      >
-      <Fragment slot="react"
-        >Set <code>typing</code> on a message to animate three dots in its bubble.
-        The children become visually hidden status text, such as "Saga is typing",
-        which screen readers announce once.</Fragment
-      >
+      <Fragment slot="components">Set <code>typing</code>.</Fragment>
     </Conditional>
-    <p>The dots stand still under reduced motion.</p>
     <AutoExample name="Typing" />
   </section>
 
   <Fragment slot="accessibility">
-    <p>
-      The conversation is an <code>ol</code>, named with <code>aria-label</code
-      >, so a screen reader announces the number of messages and reads them in
-      order. The author is in every bubble, hidden visually where the run makes
-      it clear, so each message is read with its sender. Put the time in a <code
-        >time</code
-      > element with <code>datetime</code>.
-    </p>
-    <p>
-      Color alone never carries meaning: an outgoing message is also at the end
-      of the list, with "You" as its author. In forced colors mode the bubbles
-      get a border and the typing dots stay visible.
-    </p>
-    <p>
-      The add reaction button has no visible text, so give it an <code
-        >aria-label</code
-      >, and give each emoji in the menu one with its name, such as "Thumbs up".
-      The actions hide with <code>opacity</code>, so they stay in the tab order
-      and are read by screen readers.
-    </p>
-    <p>
-      A reaction changes after the server answers, while focus is back on the
-      add reaction button or still on the pill, so the change itself isn't read.
-      Pass a sentence to <code>announce()</code>, which writes it to the
-      visually hidden <code>role="status"</code> region inside <code
-        >opui-reactions</code
-      >, and a screen reader reads it once. Write it in the page's language, for
-      a failure too.
-    </p>
+    <ul>
+      <li>
+        Name the list with <code>aria-label</code>. Keep
+        <code>role="list"</code> for Safari.
+      </li>
+      <li>
+        Keep every child an <code>li</code>: a <code>div</code> or
+        <code>p</code> in the list breaks it for screen readers, without a sign
+        on screen.
+      </li>
+      <li>Put the time in a <code>&lt;time datetime&gt;</code>.</li>
+      <li>
+        Wrap the list of a live conversation in
+        <code>&lt;div role="log" aria-label="…"&gt;</code> so screen readers
+        announce new messages. The list keeps its items and count.
+      </li>
+      <li>
+        The add reaction button has no visible text, so give it an
+        <code>aria-label</code>, and give each emoji in the menu one with its
+        name, such as "Thumbs up". The actions hide with <code>opacity</code>,
+        so they stay in the tab order and are read by screen readers.
+      </li>
+      <li>
+        A reaction changes after the server answers, so the change itself isn't
+        read. Pass a sentence to <code>announce()</code>, which writes it to the
+        visually hidden <code>role="status"</code> region inside
+        <code>opui-reactions</code>, in the page's language, for a failure too.
+      </li>
+    </ul>
     <KeyboardSupport />
   </Fragment>
 
   <Fragment slot="under-the-hood">
     <p>
-      <code>li.ui-message</code> is a grid with a <code>start</code> area for the
-      avatar, a <code>content</code> area for the bubble, an <code>actions</code
-      > area beside it and a <code>bottom</code> area under it, pulled up by a negative
-      margin so the reactions sit on the bubble's edge. A ring in the page's surface
-      color around each pill keeps it apart from the bubble. <code
-        >.ui-outgoing</code
-      > swaps the columns and aligns the message to the end. On a device that can
-      hover, <code>:not(:hover, :focus-within, :has(:popover-open))</code> fades the
+      <code>li.ui-message</code> is a grid with a <code>start</code> area for
+      the avatar, a <code>content</code> area for the bubble, an
+      <code>actions</code> area beside it and a <code>bottom</code> area under
+      it, pulled up by a negative margin so the reactions sit on the bubble's
+      edge. A ring in the page's surface color around each pill keeps it apart
+      from the bubble. <code>.ui-outgoing</code> swaps the columns and aligns
+      the message to the end. On a device that can hover,
+      <code>:not(:hover, :focus-within, :has(:popover-open))</code> fades the
       actions out.
     </p>
     <p>
-      <code>opui-reactions</code> has <code>display: contents</code>. It calls <code
-        >preventDefault()</code
-      > on the click of a checkbox inside it, which keeps the checkbox as it was,
-      and listens for the <code>command</code> event that a button with <code
-        >commandfor</code
-      > and <code>command="--react"</code> fires on it, then closes the popover the
-      button is in, which returns focus to the button that opened it. A <code
-        >.ui-bottom</code
-      > without pills loses its margins, so a message whose last reaction is removed
-      closes up.
+      <code>opui-reactions</code> has <code>display: contents</code>. It calls
+      <code>preventDefault()</code> on the click of a checkbox inside it, which
+      keeps the checkbox as it was, and listens for the <code>command</code>
+      event that a button with <code>commandfor</code> and
+      <code>command="--react"</code> fires on it, then closes the popover the
+      button is in, which returns focus to the button that opened it. A
+      <code>.ui-bottom</code> without pills loses its margins, so a message
+      whose last reaction is removed closes up.
     </p>
     <p>
       A run is found with <code>:has()</code>: a message followed by one on the
       same side tightens its bottom corner on the avatar side and hides its
       avatar, and a message after one on the same side tightens its top corner
-      and hides its author. <code>.ui-new-author</code> and any other <code
-        >li</code
-      > break the chain.
+      and hides its author. <code>.ui-new-author</code> and any other
+      <code>li</code> break the chain.
     </p>
   </Fragment>
 </Component>

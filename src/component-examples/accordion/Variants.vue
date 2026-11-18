@@ -7,9 +7,7 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/vue"
     <AccordionSummary>Plain</AccordionSummary>
     <AccordionContent>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo.
+        Return any bass within 30 days for a full refund, no awkward questions.
       </p>
     </AccordionContent>
   </Accordion>
@@ -17,33 +15,21 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/vue"
   <Accordion variant="elevated">
     <AccordionSummary>Elevated</AccordionSummary>
     <AccordionContent>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo.
-      </p>
+      <p>String orders over €50 ship free within the EU.</p>
     </AccordionContent>
   </Accordion>
 
   <Accordion variant="outlined">
     <AccordionSummary>Outlined</AccordionSummary>
     <AccordionContent>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo.
-      </p>
+      <p>Pay by card, bank transfer or a jar of gig money.</p>
     </AccordionContent>
   </Accordion>
 
   <Accordion variant="tonal">
     <AccordionSummary>Tonal</AccordionSummary>
     <AccordionContent>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo.
-      </p>
+      <p>Track your new flatwounds from the link in the confirmation email.</p>
     </AccordionContent>
   </Accordion>
 
@@ -51,9 +37,7 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/vue"
     <AccordionSummary>Transparent</AccordionSummary>
     <AccordionContent>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo.
+        Reach our bass whisperers by chat or email on weekdays from 9 to 17.
       </p>
     </AccordionContent>
   </Accordion>

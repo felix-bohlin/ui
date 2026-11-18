@@ -5,9 +5,9 @@ export default function Icon() {
     <>
       <Chip
         label="Tonal"
-        variant="tonal"
         start={
           <svg
+            data-icon="train"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
@@ -20,12 +20,12 @@ export default function Icon() {
             ></path>
           </svg>
         }
+        variant="tonal"
       />
       <Chip
-        label="Outlined"
-        variant="outlined"
         end={
           <svg
+            data-icon="train"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
@@ -38,6 +38,8 @@ export default function Icon() {
             ></path>
           </svg>
         }
+        label="Outlined"
+        variant="outlined"
       />
     </>
   )

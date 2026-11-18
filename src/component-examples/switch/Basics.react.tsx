@@ -3,17 +3,23 @@ import { Switch } from "opui-css/react"
 export default function Basics() {
   return (
     <>
-      <Switch name="switch-basics" defaultChecked hideLabel>
-        Label
+      <Switch defaultChecked hideLabel name="switch-basics" value="wifi">
+        Wi-Fi
       </Switch>
-      <Switch name="switch-basics" hideLabel>
-        Label
+      <Switch hideLabel name="switch-basics" value="bluetooth">
+        Bluetooth
       </Switch>
-      <Switch name="switch-basics" defaultChecked disabled hideLabel>
-        Label
+      <Switch
+        defaultChecked
+        disabled
+        hideLabel
+        name="switch-basics"
+        value="location"
+      >
+        Location
       </Switch>
-      <Switch name="switch-basics" disabled hideLabel>
-        Label
+      <Switch disabled hideLabel name="switch-basics" value="airplane-mode">
+        Airplane mode
       </Switch>
     </>
   )

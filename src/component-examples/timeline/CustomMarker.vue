@@ -7,11 +7,12 @@ import { Timeline, TimelineItem } from "opui-css/vue"
     <TimelineItem
       color="success"
       datetime="2026-10-01"
-      time="Oct 1"
       label="Ordered"
+      time="Oct 1"
     >
-      <template #marker
-        ><svg
+      <template #marker>
+        <svg
+          data-icon="check"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -23,17 +24,19 @@ import { Timeline, TimelineItem } from "opui-css/vue"
           stroke-linecap="round"
           stroke-linejoin="round"
         >
-          <path d="M20 6 9 17l-5-5"></path></svg
-      ></template>
+          <path d="M20 6 9 17l-5-5"></path>
+        </svg>
+      </template>
     </TimelineItem>
     <TimelineItem
       color="success"
       datetime="2026-10-02"
-      time="Oct 2"
       label="Packed"
+      time="Oct 2"
     >
-      <template #marker
-        ><svg
+      <template #marker>
+        <svg
+          data-icon="check"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -45,17 +48,19 @@ import { Timeline, TimelineItem } from "opui-css/vue"
           stroke-linecap="round"
           stroke-linejoin="round"
         >
-          <path d="M20 6 9 17l-5-5"></path></svg
-      ></template>
+          <path d="M20 6 9 17l-5-5"></path>
+        </svg>
+      </template>
     </TimelineItem>
     <TimelineItem
       color="success"
       datetime="2026-10-03"
-      time="Oct 3"
       label="Shipped"
+      time="Oct 3"
     >
-      <template #marker
-        ><svg
+      <template #marker>
+        <svg
+          data-icon="check"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -67,11 +72,12 @@ import { Timeline, TimelineItem } from "opui-css/vue"
           stroke-linecap="round"
           stroke-linejoin="round"
         >
-          <path d="M20 6 9 17l-5-5"></path></svg
-      ></template>
+          <path d="M20 6 9 17l-5-5"></path>
+        </svg>
+      </template>
       <p>On its way from Gothenburg.</p>
     </TimelineItem>
-    <TimelineItem datetime="2026-10-06" time="Oct 6" label="Delivered">
+    <TimelineItem datetime="2026-10-06" label="Delivered" time="Oct 6">
       <p>Expected</p>
     </TimelineItem>
   </Timeline>

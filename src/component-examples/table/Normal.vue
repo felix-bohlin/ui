@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import {
-  Checkbox,
   Table,
   TableBody,
   TableCaption,
   TableCell,
-  TableFoot,
   TableHead,
   TableHeaderCell,
   TableRow,
@@ -14,55 +12,30 @@ import {
 
 <template>
   <Table>
-    <TableCaption>Band Members</TableCaption>
+    <TableCaption>Low End Theory members</TableCaption>
     <TableHead>
       <TableRow>
-        <TableHeaderCell>
-          <Checkbox hideLabel>Select all</Checkbox>
-        </TableHeaderCell>
-        <TableHeaderCell>Band</TableHeaderCell>
         <TableHeaderCell>Name</TableHeaderCell>
-        <TableHeaderCell>Instrument</TableHeaderCell>
+        <TableHeaderCell>Specialty</TableHeaderCell>
+        <TableHeaderCell>Location</TableHeaderCell>
       </TableRow>
     </TableHead>
     <TableBody>
       <TableRow>
-        <TableCell>
-          <Checkbox hideLabel>Select James Mercer</Checkbox>
-        </TableCell>
-        <TableCell>Broken Bells</TableCell>
-        <TableCell>James Mercer</TableCell>
-        <TableCell>Vocals/Guitar</TableCell>
+        <TableCell>Lou Headstock</TableCell>
+        <TableCell>Flatwound collector</TableCell>
+        <TableCell>Göteborg</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>
-          <Checkbox hideLabel>Select Jonathan Davis</Checkbox>
-        </TableCell>
-        <TableCell>Korn</TableCell>
-        <TableCell>Jonathan Davis</TableCell>
-        <TableCell>Vocals</TableCell>
+        <TableCell>Percy Groove</TableCell>
+        <TableCell>Slap enthusiast</TableCell>
+        <TableCell>Lisbon</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>
-          <Checkbox hideLabel>Select David Gilmour</Checkbox>
-        </TableCell>
-        <TableCell>Pink Floyd</TableCell>
-        <TableCell>David Gilmour</TableCell>
-        <TableCell>Guitar/Vocals</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>
-          <Checkbox hideLabel>Select Ed O'Brien</Checkbox>
-        </TableCell>
-        <TableCell>Radiohead</TableCell>
-        <TableCell>Ed O'Brien</TableCell>
-        <TableCell>Guitar/Vocals</TableCell>
+        <TableCell>Ines Hertz</TableCell>
+        <TableCell>Low B whisperer</TableCell>
+        <TableCell>Berlin</TableCell>
       </TableRow>
     </TableBody>
-    <TableFoot>
-      <TableRow>
-        <TableCell :colspan="4">4 members</TableCell>
-      </TableRow>
-    </TableFoot>
   </Table>
 </template>

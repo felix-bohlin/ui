@@ -1,24 +1,12 @@
 <script setup lang="ts">
-import type { Props, Slots } from "./types.vue-props"
-import {
-  computed,
-  inject,
-  type InputHTMLAttributes,
-  onBeforeUnmount,
-  onMounted,
-  ref,
-  useAttrs,
-  useId,
-  useTemplateRef,
-} from "vue"
-import { useInputAttrs } from "../vue"
+import "../../css/js/range.js"
+import { computed, inject, useId } from "vue"
+import { useInputAttrs, vSeed } from "../vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { idRefs } from "../id"
-import { defaultValue, resetValue } from "./value"
-
-defineOptions({
-  inheritAttrs: false,
-})
+import { formatValue, middleValue } from "./value"
+import { styleAttrs } from "../style"
+import type { Props, Slots } from "./types.vue-props"
 
 const {
   endText,
@@ -27,15 +15,27 @@ const {
   id,
   items,
   label,
+  lang,
   list,
+  max,
+  min,
+  name,
   size,
   spread,
   startText,
+  step,
   value,
   valueSuffix,
   variant,
 } = defineProps<Props>()
 const slots = defineSlots<Slots>()
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const attrs = useInputAttrs()
+
 const modelValue = defineModel<number | string>()
 
 const model = computed({
@@ -45,42 +45,56 @@ const model = computed({
   },
 })
 
-const input = useTemplateRef<HTMLInputElement>("input")
-const resets = ref(0)
-let form: HTMLFormElement | null | undefined
-const syncAfterReset = (event: Event) =>
-  setTimeout(() => {
-    if (!input.value || event.defaultPrevented) return
-    model.value = resetValue(input.value)
-    resets.value++
-  })
-onMounted(() => {
-  if (input.value && !input.value.hasAttribute("value") && model.value != null)
-    input.value.defaultValue = String(model.value)
-  form = input.value?.form
-  form?.addEventListener("reset", syncAfterReset)
-})
-onBeforeUnmount(() => form?.removeEventListener("reset", syncAfterReset))
-
-const attrs = useAttrs() as InputHTMLAttributes
-const inputAttrs = useInputAttrs()
-const middle = computed(() => defaultValue(attrs))
+const field = inject(FieldGroupKey, undefined)
 
 const uid = useId()
-const field = inject(FieldGroupKey, undefined)
-const hasValue = computed(
-  () => valueSuffix !== undefined || !!slots["value-text"],
-)
-const inputId = computed(
-  () => id || (hasValue.value ? `range-${uid}` : undefined),
-)
-const listId = computed(
-  () => list ?? (items || slots.datalist ? `range-list-${uid}` : undefined),
+
+const base = computed(() => id || `range-${uid}`)
+
+const hasLabel = () => !!label || slots.label
+
+const hasStartText = () => !!startText || slots["start-text"]
+
+const hasEndText = () => !!endText || slots["end-text"]
+
+const hasValueText = () => slots["value-text"]
+
+const hasValue = () => valueSuffix !== undefined || hasValueText()
+
+const hasDatalist = () => !!items || slots.datalist
+
+const current = computed(() => model.value ?? middleValue({ max, min, step }))
+
+const readout = computed(
+  () =>
+    `${formatValue(current.value, { lang, min, step })}${valueSuffix ?? ""}`,
 )
 
-const labelId = `range-label-${uid}`
-const startTextId = `range-start-${uid}`
-const endTextId = `range-end-${uid}`
+const tick = computed(() =>
+  items?.find(
+    (option) =>
+      typeof option === "object" &&
+      Number(option.value) === Number(current.value),
+  ),
+)
+
+const tickLabel = computed(() =>
+  valueSuffix || typeof tick.value !== "object" ? undefined : tick.value.label,
+)
+
+const inputId = () => id || (hasValue() ? base.value : undefined)
+
+const labelId = () => (hasLabel() ? `${base.value}-label` : undefined)
+
+const startTextId = () =>
+  hasStartText() ? `${base.value}-start-text` : undefined
+
+const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
+
+const listId = () => list ?? (hasDatalist() ? `${base.value}-list` : undefined)
+
+const describedBy = () =>
+  idRefs(startTextId(), endTextId(), attrs.value["aria-describedby"])
 </script>
 
 <template>
@@ -92,82 +106,62 @@ const endTextId = `range-end-${uid}`
       variant && variant !== 'outlined' && `ui-${variant}`,
       $props.class,
     ]"
-    :for="hasValue ? inputId : undefined"
-    :style="$attrs.style"
+    :for="hasValue() ? inputId() : undefined"
+    :lang="lang"
+    v-bind="styleAttrs($attrs.style)"
   >
     <span
-      v-if="label || $slots.label"
-      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
-      :id="labelId"
-    >
-      {{ label }}<slot name="label"></slot>
-    </span>
+      v-if="hasLabel()"
+      :class="hideLabel ? 'ui-sr-only' : 'ui-label'"
+      :id="labelId()"
+      >{{ label }}<slot name="label"></slot
+    ></span>
     <output
-      v-if="valueSuffix !== undefined || $slots['value-text']"
+      v-if="hasValue()"
       aria-live="off"
       class="ui-value"
-      :for="inputId"
+      :data-live="hasValueText() ? undefined : ''"
+      :for="inputId()"
       :data-suffix="valueSuffix"
-      :key="resets"
     >
-      <slot name="value-text" :value="Number(model ?? middle)"
-        >{{ model ?? middle }}{{ valueSuffix }}</slot
-      >
+      <slot v-if="$slots['value-text']" name="value-text"></slot>
+      <template v-else>{{ readout }}</template>
     </output>
-    <span
-      v-if="startText || $slots['start-text']"
-      class="ui-start-text"
-      :id="startTextId"
-    >
-      {{ startText }}<slot name="start-text"></slot>
-    </span>
-
+    <span v-if="hasStartText()" class="ui-start-text" :id="startTextId()"
+      >{{ startText }}<slot name="start-text"></slot
+    ></span>
     <input
-      v-bind="inputAttrs"
-      v-model.number="model"
-      :aria-describedby="
-        idRefs(
-          (startText || $slots['start-text']) && startTextId,
-          (endText || $slots['end-text']) && endTextId,
-          attrs['aria-describedby'],
-        )
-      "
+      v-bind="attrs"
+      :aria-describedby="describedBy()"
       :aria-invalid="error ? 'true' : attrs['aria-invalid']"
-      :aria-labelledby="
-        label || $slots.label ? labelId : attrs['aria-labelledby']
-      "
+      :aria-labelledby="labelId() ?? attrs['aria-labelledby']"
       :aria-valuetext="
         attrs['aria-valuetext'] ??
-        (valueSuffix && !$slots['value-text']
-          ? `${model ?? middle}${valueSuffix}`
-          : undefined)
+        (valueSuffix && !hasValueText() ? readout : tickLabel)
       "
-      :id="inputId"
-      :list="listId"
-      :name="attrs.name ?? field?.name"
-      ref="input"
+      :id="inputId()"
+      :list="listId()"
+      :max="max"
+      :min="min"
+      :name="name ?? field?.name"
+      :step="step"
       type="range"
+      v-seed
+      v-model.number="model"
     />
-
-    <datalist v-if="items || $slots.datalist" aria-hidden="true" :id="listId">
-      <template
-        v-for="option in items"
-        :key="typeof option === 'object' ? option.value : option"
-      >
-        <option
-          :value="typeof option === 'object' ? option.value : option"
-          :label="typeof option === 'object' ? option.label : undefined"
-        />
-      </template>
+    <datalist v-if="hasDatalist()" aria-hidden="true" :id="listId()">
+      <template v-for="(option, index) in items" :key="index"
+        ><option
+          v-if="typeof option === 'object'"
+          :value="option.value"
+          :label="option.label"
+        ></option>
+        <option v-else :value="option"></option
+      ></template>
       <slot name="datalist"></slot>
     </datalist>
-
-    <span
-      v-if="endText || $slots['end-text']"
-      class="ui-end-text"
-      :id="endTextId"
-    >
-      {{ endText }}<slot name="end-text"></slot>
-    </span>
+    <span v-if="hasEndText()" class="ui-end-text" :id="endTextId()"
+      >{{ endText }}<slot name="end-text"></slot
+    ></span>
   </label>
 </template>

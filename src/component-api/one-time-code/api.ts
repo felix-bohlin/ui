@@ -10,8 +10,10 @@ export default {
     type: "string",
   },
   notes: {
-    ...passThrough("input", "label", ["autocomplete", "placeholder"], {
+    ...passThrough("input", ".ui-one-time-code", ["autofocus", "placeholder"], {
       react: "Use `value` with `onChange`, or `defaultValue`.",
+      solid:
+        "`value` sets the value and follows it when it changes. Follow typing with `onInput`.",
     }),
     html: 'Use one `<input>` with `autocomplete="one-time-code"`, `maxlength` and a matching `pattern`, such as `[0-9]{6}`, plus `inputmode="numeric"` for digits.',
   },
@@ -26,6 +28,22 @@ export default {
         "Shows letters uppercase. Pair it with a `pattern` such as `[A-Za-z0-9]{6}` and no `inputmode`.",
       part: "input",
       prop: "alphanumeric",
+    },
+    {
+      description:
+        "The `autocapitalize` of the `<input>`. With `alphanumeric` it is `characters`.",
+      frameworks: ["astro", "solid", "svelte", "vue"],
+      inherited: true,
+      prop: "autocapitalize",
+      type: "string",
+    },
+    {
+      description:
+        "The `autocapitalize` of the `<input>`, as `autoCapitalize` like on the element. With `alphanumeric` it is `characters`.",
+      frameworks: ["react"],
+      inherited: true,
+      prop: "autoCapitalize",
+      type: "string",
     },
     {
       attribute: "[disabled]",
@@ -48,14 +66,32 @@ export default {
     {
       class: ".ui-grouped",
       default: "false",
-      description: "Draws a dash between the two halves of the code.",
+      description:
+        "Draws a dash between the two halves of the code. Use it with an even `length`.",
       group: "Grouped",
       prop: "grouped",
     },
     {
-      description: "The id of the `<input>`.",
+      description:
+        "The id of the `<input>`. With a label, the `<label for>` points at it, so the component generates one when it's left out. The end text's id, `x-end-text`, starts with it.",
       inherited: true,
       prop: "id",
+      type: "string",
+    },
+    {
+      description:
+        "The `inputmode` of the `<input>`. Without `alphanumeric` it is `numeric`.",
+      frameworks: ["astro", "solid", "svelte", "vue"],
+      inherited: true,
+      prop: "inputmode",
+      type: "string",
+    },
+    {
+      description:
+        "The `inputmode` of the `<input>`, as `inputMode` like on the element. Without `alphanumeric` it is `numeric`.",
+      frameworks: ["react"],
+      inherited: true,
+      prop: "inputMode",
       type: "string",
     },
     {
@@ -70,9 +106,16 @@ export default {
     },
     {
       description:
-        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.",
+        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
       inherited: true,
       prop: "name",
+      type: "string",
+    },
+    {
+      description:
+        "The `pattern` of the `<input>`. It is `[0-9]{length}`, or `[A-Za-z0-9]{length}` with `alphanumeric`.",
+      inherited: true,
+      prop: "pattern",
       type: "string",
     },
     {
@@ -97,6 +140,22 @@ export default {
         "x-small": ".ui-x-small",
       },
     },
+    {
+      description:
+        "The `spellcheck` of the `<input>`. With `alphanumeric` it is `false`.",
+      frameworks: ["astro", "solid", "svelte", "vue"],
+      inherited: true,
+      prop: "spellcheck",
+      type: "boolean",
+    },
+    {
+      description:
+        "The `spellcheck` of the `<input>`, as `spellCheck` like on the element. With `alphanumeric` it is `false`.",
+      frameworks: ["react"],
+      inherited: true,
+      prop: "spellCheck",
+      type: "boolean",
+    },
   ],
   parts: [
     {
@@ -111,7 +170,8 @@ export default {
     },
     {
       code: "<input>",
-      description: "The input element.",
+      description:
+        'The input element, with `autocomplete="one-time-code"`, which lets the browser fill in a code it received.',
       model: true,
       selector: "input",
     },
@@ -124,7 +184,7 @@ export default {
   ],
   root: {
     description: "Container element.",
-    selector: "label.ui-text-field.ui-one-time-code",
+    selector: "div.ui-one-time-code",
   },
   source: "OneTimeCode",
 } satisfies ComponentApi

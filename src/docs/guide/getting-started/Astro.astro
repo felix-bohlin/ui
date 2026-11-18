@@ -1,44 +1,57 @@
 ---
 import Guide from "../../../layouts/Guide.astro"
 import Code from "../../../components/Code.astro"
+import CssFiles from "./partials/CssFiles.astro"
 import InstallCommand from "./partials/InstallCommand.astro"
 import NextSteps from "./partials/NextSteps.astro"
 import PickAndChoose from "./partials/PickAndChoose.astro"
+import QuickStart from "./partials/QuickStart.astro"
+
+export const keywords = ["install", "npm", "setup", "ssr"]
 ---
 
 <Guide overline="Guide">
   <Fragment slot="title">Getting started</Fragment>
   <Fragment slot="preamble">
-    OPUI ships first-class Astro components. Install the package, import what
+    OPUI ships first-class Astro 7 components. Install the package, import what
     you need, and you're set.
   </Fragment>
 
-  <section id="installation">
-    <h2>Install via NPM</h2>
-    <p>
-      The components ship as uncompiled <code>.astro</code> files, which Astro compiles
-      as they are. They need Astro 7 or later.
-    </p>
-    <InstallCommand />
-  </section>
-
-  <section id="css">
-    <h2>Import the CSS</h2>
-    <p>
-      Astro components ship markup only - the CSS still has to be imported once.
-      The frontmatter of the layout every page uses is a good spot. Import
-      everything:
-    </p>
-    <Code
-      code={`---
+  <section id="quick-start">
+    <h2>Quick start</h2>
+    <QuickStart>
+      <Fragment slot="install">
+        <InstallCommand packages="astro@7" />
+        <Code
+          code={`---
 // src/layouts/Layout.astro
 import "opui-css/css/imports.css"
 ---`}
-      lang="astro"
-    />
+          lang="astro"
+        />
+      </Fragment>
+      <Code
+        slot="use"
+        code={`---
+import { Button } from "opui-css/astro"
+---
+
+<Button color="primary" variant="filled">Save</Button>`}
+        lang="astro"
+      />
+    </QuickStart>
+  </section>
+
+  <section id="whats-in-the-css">
+    <h2>What's in the CSS</h2>
+    <CssFiles />
+  </section>
+
+  <section id="css">
+    <h2>Import only what you use</h2>
     <p>
-      Or pick and choose in a CSS file, and import that file in the layout
-      instead:
+      List the files in a CSS file, and import that file in the layout instead
+      of <code>imports.css</code>:
     </p>
     <PickAndChoose file="src/styles/global.css" />
     <Code
@@ -50,41 +63,32 @@ import "../styles/global.css"
     />
   </section>
 
+  <section id="typescript">
+    <h2>TypeScript</h2>
+    <p>
+      <code>astro check</code> runs on TypeScript 6, not on 7. Keep
+      <code>moduleResolution</code> set to <code>"bundler"</code>, as Astro's
+      <code>tsconfig.json</code> presets do: with <code>"nodenext"</code>, the
+      component props aren't checked.
+    </p>
+  </section>
+
   <section id="usage">
     <h2>How to use</h2>
-    <Code
-      code={`---
-import { Button } from "opui-css/astro"
----
-
-<Button variant="filled">Click me</Button>`}
-      lang="astro"
-    />
-    <p>
-      Containers take parts, such as <code>CardHeader</code> and <code
-        >DialogFooter</code
-      >. Other components take named slots for rich content, such as <code
-        >end-text</code
-      > on a <code>TextField</code>.
-    </p>
-    <NextSteps />
+    <p>Named slots take rich content, like <code>end-text</code>.</p>
   </section>
 
   <section id="server-runtime">
     <h2>Server runtime</h2>
     <p>
-      The components pass settings to their parts with <code
-        >AsyncLocalStorage</code
-      > from <code>node:async_hooks</code>, so they run on Node, Deno and Bun.
-      On Cloudflare, enable the <code>nodejs_compat</code> compatibility flag.
+      Runs on Node, Deno and Bun. On Cloudflare, enable
+      <code>nodejs_compat</code>.
     </p>
 
     <h3 id="ids">Ids</h3>
     <p>
-      Components that link elements with ids (form fields, Tabs, Drawer, Menu)
-      read <code>Astro.locals.$id</code> when it exists and otherwise generate a random
-      id per render. For stable, per-request ids, useful for snapshot tests, define
-      it in a middleware:
+      Components a trigger points at need an <code>id</code>. For stable
+      generated ids, define <code>Astro.locals.$id</code>:
     </p>
     <Code
       code={`// src/middleware.ts
@@ -102,11 +106,13 @@ export const onRequest = defineMiddleware((context, next) => {
       lang="ts"
     />
     <p>
-      Add <code>/// &lt;reference types="opui-css/env.d.ts" /&gt;</code> to your
-      <code>env.d.ts</code> to type <code>$id</code> and the <code
-        >interestfor</code
-      >
-      attribute on <code>a</code> and <code>button</code>.
+      Add <code>/// &lt;reference types="opui-css/env.d.ts" /&gt;</code> to
+      <code>env.d.ts</code> for the types.
     </p>
+  </section>
+
+  <section id="next-steps">
+    <h2>Next steps</h2>
+    <NextSteps />
   </section>
 </Guide>

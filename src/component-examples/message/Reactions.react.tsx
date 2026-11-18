@@ -1,13 +1,26 @@
+"use client"
+
 import {
   Avatar,
   Button,
   Menu,
   Message,
-  Messages,
+  MessageList,
   Reactions,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/react"
+
+const emoji = [
+  { "aria-label": "Thumbs up", label: "👍", value: "+1" },
+  { "aria-label": "Heart", label: "❤️", value: "heart" },
+  { "aria-label": "Laughing", label: "😂", value: "joy" },
+  { "aria-label": "Party", label: "🎉", value: "tada" },
+  { "aria-label": "Eyes", label: "👀", value: "eyes" },
+]
+
+const picker = (id: string) =>
+  emoji.map((item) => ({ ...item, command: "--react", commandfor: id }))
 
 const addReactionIcon = (
   <svg
@@ -24,27 +37,16 @@ const addReactionIcon = (
   </svg>
 )
 
-const emoji = [
-  { "aria-label": "Thumbs up", label: "👍", value: "+1" },
-  { "aria-label": "Heart", label: "❤️", value: "heart" },
-  { "aria-label": "Laughing", label: "😂", value: "joy" },
-  { "aria-label": "Party", label: "🎉", value: "tada" },
-  { "aria-label": "Eyes", label: "👀", value: "eyes" },
-]
-
-const picker = (id: string) =>
-  emoji.map((item) => ({ ...item, command: "--react", commandfor: id }))
-
 export default function ReactionsExample() {
   return (
-    <Messages aria-label="Messages with Saga">
+    <MessageList aria-label="Messages with Stella">
       <Message
         actions={
           <>
             <Button
               aria-label="Add reaction"
-              commandfor="message-reactions-1-picker"
               command="toggle-popover"
+              commandfor="message-reactions-1-picker"
               round
               size="x-small"
             >
@@ -59,7 +61,7 @@ export default function ReactionsExample() {
             />
           </>
         }
-        author="Saga"
+        author="Stella"
         bottom={
           <Reactions id="message-reactions-1">
             <ToggleGroup aria-label="Reactions" multiple name="reaction">
@@ -73,22 +75,18 @@ export default function ReactionsExample() {
           </Reactions>
         }
         datetime="2026-10-08T16:05"
-        start={
-          <Avatar aria-label="Saga Nyström" role="img">
-            SN
-          </Avatar>
-        }
+        start={<Avatar aria-hidden="true">SN</Avatar>}
         time="16:05"
       >
-        <p>The deck is out. Thanks everyone!</p>
+        <p>My slap cover is up. Thanks for listening, everyone!</p>
       </Message>
       <Message
         actions={
           <>
             <Button
               aria-label="Add reaction"
-              commandfor="message-reactions-2-picker"
               command="toggle-popover"
+              commandfor="message-reactions-2-picker"
               round
               size="x-small"
             >
@@ -118,8 +116,8 @@ export default function ReactionsExample() {
         outgoing
         time="16:07"
       >
-        <p>Great work, it looks sharp.</p>
+        <p>Totally rad, that low B rattled my windows.</p>
       </Message>
-    </Messages>
+    </MessageList>
   )
 }

@@ -6,15 +6,15 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
   <Fieldset>
     <FieldLegend>Delivery</FieldLegend>
     <FieldGroup name="radio-spread">
-      <Radio value="standard" checked spread>
+      <Radio checked spread value="standard">
         Standard
         <Fragment slot="end-text">Arrives in 3 to 5 days.</Fragment>
       </Radio>
-      <Radio value="express" spread>
+      <Radio spread value="express">
         Express
         <Fragment slot="end-text">Arrives tomorrow.</Fragment>
       </Radio>
-      <Radio value="pickup" spread disabled>
+      <Radio disabled spread value="pickup">
         Pickup
         <Fragment slot="end-text">Not available in your area.</Fragment>
       </Radio>

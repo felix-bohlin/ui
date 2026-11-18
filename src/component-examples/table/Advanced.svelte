@@ -14,7 +14,7 @@
 </script>
 
 <Table>
-  <TableCaption>Nordic Countries Overview</TableCaption>
+  <TableCaption>Nordic countries</TableCaption>
   <TableColumnGroup>
     <TableColumn width="8rem" />
     <TableColumn span={3} />
@@ -24,16 +24,16 @@
     <TableRow>
       <TableHeaderCell rowspan={2} scope="col">Country</TableHeaderCell>
       <TableHeaderCell colspan={3} scope="colgroup"
-        >Major Cities</TableHeaderCell
+        >Major cities</TableHeaderCell
       >
       <TableHeaderCell colspan={2} scope="colgroup">Nature</TableHeaderCell>
     </TableRow>
     <TableRow>
       <TableHeaderCell scope="col">Capital</TableHeaderCell>
-      <TableHeaderCell scope="col">2nd Largest</TableHeaderCell>
-      <TableHeaderCell scope="col">3rd Largest</TableHeaderCell>
-      <TableHeaderCell scope="col">National Animal</TableHeaderCell>
-      <TableHeaderCell scope="col">National Bird</TableHeaderCell>
+      <TableHeaderCell scope="col">2nd largest</TableHeaderCell>
+      <TableHeaderCell scope="col">3rd largest</TableHeaderCell>
+      <TableHeaderCell scope="col">National animal</TableHeaderCell>
+      <TableHeaderCell scope="col">National bird</TableHeaderCell>
     </TableRow>
   </TableHead>
   <TableBody>
@@ -42,16 +42,16 @@
       <TableCell>København</TableCell>
       <TableCell>Aarhus</TableCell>
       <TableCell>Odense</TableCell>
-      <TableCell>Mute Swan</TableCell>
-      <TableCell>Mute Swan</TableCell>
+      <TableCell>Mute swan</TableCell>
+      <TableCell>Mute swan</TableCell>
     </TableRow>
     <TableRow>
       <TableHeaderCell scope="row">Finland</TableHeaderCell>
       <TableCell>Helsinki</TableCell>
       <TableCell>Espoo</TableCell>
       <TableCell>Tampere</TableCell>
-      <TableCell>Brown Bear</TableCell>
-      <TableCell>Whooper Swan</TableCell>
+      <TableCell>Brown bear</TableCell>
+      <TableCell>Whooper swan</TableCell>
     </TableRow>
     <TableRow>
       <TableHeaderCell scope="row">Iceland</TableHeaderCell>
@@ -67,7 +67,7 @@
       <TableCell>Bergen</TableCell>
       <TableCell>Trondheim</TableCell>
       <TableCell>Elk</TableCell>
-      <TableCell>White-throated Dipper</TableCell>
+      <TableCell>White-throated dipper</TableCell>
     </TableRow>
     <TableRow>
       <TableHeaderCell scope="row">Sweden</TableHeaderCell>
@@ -75,7 +75,7 @@
       <TableCell>Göteborg</TableCell>
       <TableCell>Malmö</TableCell>
       <TableCell>Elk</TableCell>
-      <TableCell>Common Blackbird</TableCell>
+      <TableCell>Common blackbird</TableCell>
     </TableRow>
   </TableBody>
   <TableFoot>

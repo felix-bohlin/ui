@@ -1,15 +1,6 @@
 import type { CustomProperties } from "../types"
 
 export default {
-  "--_backdrop-bg-color": {
-    description: "The backdrop color. Defaults to `--ui-backdrop-bg-color`.",
-    kind: "input",
-  },
-  "--_backdrop-blur": {
-    description:
-      "The backdrop filter. Defaults to a `--ui-backdrop-blur` blur.",
-    kind: "input",
-  },
   "--_duration": {
     description:
       "Duration of the open and close transitions and scroll shadows, `--ui-duration-slow` times `--_motion`.",
@@ -31,16 +22,6 @@ export default {
   },
   "--_motion": {
     description: "Motion multiplier for the transitions. `0` turns them off.",
-    kind: "input",
-  },
-  "--_scroll-shadow": {
-    description:
-      "Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.",
-    kind: "input",
-  },
-  "--_title-font-size": {
-    description:
-      "Font size of the title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.",
     kind: "input",
   },
 } satisfies CustomProperties

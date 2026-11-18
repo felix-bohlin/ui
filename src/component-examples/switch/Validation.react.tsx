@@ -5,29 +5,29 @@ export default function Validation() {
     <>
       <div className="example-row">
         <Switch name="switch-validation" required>
-          Default
+          Two-step login
         </Switch>
-        <Switch name="switch-validation" required orientation="vertical">
-          Stack
+        <Switch name="switch-validation" orientation="vertical" required>
+          Usage reports
         </Switch>
       </div>
 
       <div className="example-row">
         <Switch
-          name="switch-validation"
-          error
           defaultChecked
-          endText="Supporting text"
+          endText="Your organization keeps profiles private. Turn it off."
+          error
+          name="switch-validation"
         >
-          Default
+          Public profile
         </Switch>
         <Switch
-          name="switch-validation"
+          endText="Sync needs cloud backup. Turn it on to continue."
           error
+          name="switch-validation"
           orientation="vertical"
-          endText="Supporting text"
         >
-          Stack
+          Cloud backup
         </Switch>
       </div>
     </>

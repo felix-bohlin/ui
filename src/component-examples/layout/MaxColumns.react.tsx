@@ -4,16 +4,16 @@ export default function MaxColumns() {
   return (
     <div
       className="ui-layout-grid"
-      style={{ "--_max-columns": 2, "--_min-inline-size": "10rem" }}
+      style={{ "--_max-columns": "2", "--_min-inline-size": "10rem" }}
     >
       <Card variant="outlined">
-        <CardContent>One</CardContent>
+        <CardContent>Tab backups</CardContent>
       </Card>
       <Card variant="outlined">
-        <CardContent>Two</CardContent>
+        <CardContent>HD slap videos</CardContent>
       </Card>
       <Card variant="outlined">
-        <CardContent>Three</CardContent>
+        <CardContent>Glitter profiles</CardContent>
       </Card>
     </div>
   )

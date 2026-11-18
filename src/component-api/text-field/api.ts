@@ -3,10 +3,45 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "TextField",
+  elements: [
+    {
+      members: [
+        {
+          description:
+            "The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only.",
+          kind: "property",
+          name: "control",
+        },
+      ],
+      tag: "opui-character-count",
+    },
+    {
+      members: [
+        {
+          description:
+            "Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits.",
+          kind: "method",
+          name: "hidePassword()",
+        },
+        {
+          description: "The `<input>` inside, or `null`. Read-only.",
+          kind: "property",
+          name: "input",
+        },
+        {
+          description:
+            "Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.",
+          kind: "method",
+          name: "showPassword()",
+        },
+      ],
+      tag: "opui-text-field",
+    },
+  ],
   keyboard: [
     {
       description:
-        "In the field, submits the form it's in, when the form has a submit button. On the password toggle, shows or hides the password.",
+        "In the field, submits the form it's in, when the form has a submit button or only one field that blocks implicit submission. On a file input, opens the file picker. On the password toggle, shows or hides the password.",
       keys: ["Enter"],
     },
     {
@@ -25,10 +60,12 @@ export default {
     type: "string | number",
   },
   notes: {
-    ...passThrough("input", "label", ["autocomplete", "placeholder"], {
+    ...passThrough("input", ".ui-text-field", ["autocomplete", "placeholder"], {
       react: "Use `value` with `onChange`, or `defaultValue`.",
+      solid:
+        "`value` sets the value and follows it when it changes, and leaves the field as it is once it is `undefined`. Follow typing with `onInput`.",
     }),
-    html: "Use `.ui-select` for a `<select>` and `.ui-textarea` for a `<textarea>`. You can put a `<datalist>` inside the root.",
+    html: 'Use `.ui-select` for a `<select>` and `.ui-textarea` for a `<textarea>`. You can put a `<datalist>` inside the root. For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. For a password toggle, use `<opui-text-field class="ui-text-field">` with a `<label class="ui-label" for>`, put a `.ui-button` with `aria-pressed="false"`, `commandfor` naming the input and `command="--toggle-password"` in `.ui-end`, and import `opui-css/elements/text-field.js`. With a label, put a `<label class="ui-label" for>` inside the root that points at the field\'s `id`, so the label alone names it, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Put `.ui-top` and `.ui-start` before the `<input>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they\'re drawn.',
   },
   options: [
     {
@@ -41,26 +78,30 @@ export default {
     {
       default: "false",
       description:
-        "Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The count needs `opui-css/elements/character-count.js`.",
+        "Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count.",
       group: "Character count",
-      htmlDescription:
-        'Add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, and import `opui-css/elements/character-count.js`.',
       prop: "characterCount",
     },
     {
       default: '"Characters left: {count}"',
       description:
         "The announcement near the limit, with `{count}` for the characters left. Pass it translated.",
-      htmlDescription:
-        "Set the announcement as the `label` attribute of `<opui-character-count>`, with `{count}` for the characters left.",
       prop: "characterCountLabel",
+    },
+    {
+      class: ".ui-drop-zone",
+      default: "false",
+      description:
+        'Makes a `type="file"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker.',
+      group: "Drop zone",
+      prop: "dropZone",
     },
     {
       attribute: "[disabled]",
       default: "false",
-      description: "Dims the field and blocks input.",
+      description:
+        'Dims the field and blocks input and the password toggle. `aria-disabled="true"` on the input looks the same, but keeps the field focusable, its text editable and its value in the form.',
       group: "Disabled",
-      inherited: true,
       part: "input",
       prop: "disabled",
       type: "boolean",
@@ -79,19 +120,19 @@ export default {
       description:
         "Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.",
       group: "Label",
-      part: ".ui-text-field > span",
+      part: ".ui-text-field > label",
       prop: "hideLabel",
     },
     {
       description:
-        "The id of the `<input>`. With `passwordToggle`, the label and the toggle point at it, so the component generates one when it's left out.",
+        'The id of the `<input>`. The `<label for>` and the password toggle point at it, so the component generates one when it\'s left out. The ids the component generates start with it: `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id="x"`.',
       inherited: true,
       prop: "id",
       type: "string",
     },
     {
       description:
-        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.",
+        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
       inherited: true,
       prop: "name",
       type: "string",
@@ -99,10 +140,8 @@ export default {
     {
       default: "false",
       description:
-        'Adds a button to the end of a `type="password"` field that shows and hides the password. The root becomes `<opui-text-field>` with a `<label for>`, since a button inside a `<label>` would join the field\'s name, and the start and end text describe the input. The button needs `opui-css/elements/text-field.js`.',
+        "Adds a button to the end of a `type=\"password\"` field that shows and hides the password. The root becomes `<opui-text-field>`, and the button stays out of the input's description, unless there's also an `end` slot, whose part it shares. The component loads `opui-css/elements/text-field.js`, which runs the button.",
       group: "Password toggle",
-      htmlDescription:
-        'Use `<opui-text-field class="ui-text-field">` with a `<label class="ui-label" for>`, put a `.ui-button` with `aria-pressed="false"`, `commandfor` naming the input and `command="--toggle-password"` in `.ui-end`, and import `opui-css/elements/text-field.js`.',
       prop: "passwordToggle",
     },
     {
@@ -142,10 +181,10 @@ export default {
     },
     {
       default: '"text"',
-      description:
-        'The input type. `"numeric"` renders a text input with a numeric keyboard.',
+      description: "The input type.",
+      inherited: true,
       prop: "type",
-      type: '"numeric" | string',
+      type: "string",
     },
     {
       default: '"outlined"',
@@ -198,9 +237,10 @@ export default {
     },
     {
       description:
-        'The password toggle, with `aria-pressed` and `command="--toggle-password"`. Hidden until `<opui-text-field>` is defined.',
+        'The password toggle, with `aria-pressed` and `command="--toggle-password"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is, and `aria-disabled` while the input is. `<opui-text-field>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-text-field>` is defined.',
       props: ["passwordToggle", "passwordToggleLabel"],
       selector: ".ui-field > .ui-end > .ui-button",
+      slots: ["icon-checked", "icon-unchecked"],
     },
     {
       description:
@@ -217,14 +257,14 @@ export default {
     {
       code: "<opui-character-count>",
       description:
-        "The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left.",
+        "The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left.",
       props: ["characterCount", "characterCountLabel"],
       selector: ".ui-end-text > .ui-value",
     },
   ],
   root: {
     description:
-      "Container element, a `<label>`, or the `<opui-text-field>` custom element with `passwordToggle`.",
+      "Container element: a `<div>`, or the `<opui-text-field>` custom element with a password toggle. The label inside is a `<label for>` that names the input by itself.",
     selector: ".ui-text-field",
   },
   slots: [

@@ -5,7 +5,7 @@ import { NumberField } from "opui-css/vue"
 <template>
   <NumberField
     id="number-field-sizes-1"
-    label="x-small"
+    label="X-small"
     size="x-small"
     :value="1"
   />

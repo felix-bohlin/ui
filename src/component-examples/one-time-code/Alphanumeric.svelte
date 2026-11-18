@@ -3,8 +3,8 @@
 </script>
 
 <OneTimeCode
-  label="Recovery code"
   alphanumeric
+  label="Recovery code"
   name="recovery-code"
   value="k7q"
 />

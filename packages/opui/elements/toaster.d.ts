@@ -1,5 +1,9 @@
 export type ToastSeverity =
-  "critical" | "info" | "neutral" | "success" | "warning"
+  | "critical"
+  | "info"
+  | "neutral"
+  | "success"
+  | "warning"
 
 export type ToastAction = {
   label: string
@@ -12,14 +16,15 @@ export type ToastOptions = {
   severity?: ToastSeverity
 }
 
-export declare class Toaster extends HTMLElement {
+export declare class ToasterElement extends HTMLElement {
+  readonly alert: HTMLElement | null
   readonly list: HTMLOListElement | null
   readonly status: HTMLElement | null
   dismiss(item: HTMLLIElement): Promise<void>
   show(message: string, options?: ToastOptions): HTMLLIElement | null
 }
 
-type Target = { toaster?: string | Toaster }
+type Target = { toaster?: string | ToasterElement }
 
 export declare const toast: ((
   message: string,
@@ -32,3 +37,9 @@ export declare const toast: ((
       options?: Omit<ToastOptions, "severity"> & Target,
     ) => HTMLLIElement | null
   >
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "opui-toaster": ToasterElement
+  }
+}

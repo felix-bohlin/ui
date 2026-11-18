@@ -3,6 +3,7 @@ import type { SvelteHTMLElements } from "svelte/elements"
 
 export type Props = Base.Props &
   Omit<
-    SvelteHTMLElements["fieldset"] & SvelteHTMLElements["meter"],
+    Omit<SvelteHTMLElements["fieldset"], "children"> &
+      Omit<SvelteHTMLElements["meter"], "children">,
     keyof Base.Props
   >

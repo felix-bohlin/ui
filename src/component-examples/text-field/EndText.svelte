@@ -2,4 +2,9 @@
   import { TextField } from "opui-css/svelte"
 </script>
 
-<TextField label="Label" placeholder="Outlined" endText="Supporting text" />
+<TextField
+  endText="We never share your email."
+  label="Email"
+  placeholder="name@example.com"
+  type="email"
+/>

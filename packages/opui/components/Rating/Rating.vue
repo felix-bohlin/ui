@@ -1,54 +1,70 @@
 <script setup lang="ts">
-import { computed, type HTMLAttributes, useAttrs } from "vue"
+import { computed, type HTMLAttributes, mergeProps, useAttrs } from "vue"
+import { vSeed } from "../vue"
+import { mergeStyle, pluralLabel, styleAttrs } from "../style"
 import type { Props } from "./types.vue-props"
-
-defineOptions({
-  inheritAttrs: false,
-})
 
 const {
   clearLabel = "No rating",
   disabled,
   error,
   label,
+  lang,
   max = 5,
   name,
   required,
   size,
-  starLabel = (value: number) => (value === 1 ? "1 star" : `${value} stars`),
+  starLabel = { one: "{count} star", other: "{count} stars" },
   value,
 } = defineProps<Props>()
-const attrs = useAttrs() as HTMLAttributes
-const modelValue = defineModel<number | string>()
 
-const fieldsetAttrs = computed(() =>
+defineOptions({
+  inheritAttrs: false,
+})
+
+const attrs = useAttrs() as HTMLAttributes
+
+const restAttrs = computed(() =>
   Object.fromEntries(
     Object.entries(attrs).filter(
-      ([key]) => key !== "aria-describedby" && key !== "aria-invalid",
+      ([key]) =>
+        key !== "aria-describedby" &&
+        key !== "aria-invalid" &&
+        key !== "aria-label",
     ),
   ),
 )
-const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
+
+const modelValue = defineModel<number | string>()
+
+const model = computed({
+  get: () => modelValue.value ?? value,
+  set: (value) => {
+    modelValue.value = value
+  },
+})
+
 const count = computed(() => Number(max))
+
 const stars = computed(() =>
   Array.from({ length: count.value }, (_, index) => index + 1),
 )
-const current = computed(() => Number(modelValue.value ?? value))
-const select = (star: number) => {
-  modelValue.value = star
-}
+
+const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
 </script>
 
 <template>
   <fieldset
     v-if="name"
+    :aria-label="attrs['aria-label']"
     :class="[
       'ui-rating',
       size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
     :disabled="disabled"
-    v-bind="fieldsetAttrs"
+    :lang="lang"
+    v-bind="mergeProps(styleAttrs($attrs.style), { ...restAttrs })"
   >
     <legend>{{ label }}</legend>
     <input
@@ -56,37 +72,44 @@ const select = (star: number) => {
       :aria-describedby="attrs['aria-describedby']"
       :aria-invalid="invalid"
       :aria-label="clearLabel"
-      :checked="current === 0"
       :name="name"
       type="radio"
-      value="0"
-      @change="select(0)"
-    />
-    <input
-      v-for="star in stars"
-      :key="star"
+      :value="0"
+      v-seed
+      v-model="model"
+    /><input
+      v-for="(star, index) in stars"
+      :key="index"
       :aria-describedby="attrs['aria-describedby']"
       :aria-invalid="invalid"
-      :aria-label="starLabel(star)"
-      :checked="current === star"
+      :aria-label="pluralLabel(starLabel, star, lang)"
       :name="name"
       :required="required"
       type="radio"
       :value="star"
-      @change="select(star)"
+      v-seed
+      v-model="model"
     />
   </fieldset>
   <meter
     v-else
-    :aria-label="label"
+    :aria-describedby="attrs['aria-describedby']"
+    :aria-label="attrs['aria-label'] ?? label"
     :class="[
       'ui-rating',
       size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
+    :lang="lang"
     :max="max"
-    :style="count === 5 ? undefined : { '--_max': count }"
-    :value="modelValue ?? value ?? 0"
-    v-bind="attrs"
+    :value="model ?? 0"
+    v-bind="
+      mergeProps(
+        styleAttrs(
+          mergeStyle({ '--_max': count === 5 ? undefined : count }, {}),
+        ),
+        { ...restAttrs },
+      )
+    "
   ></meter>
 </template>

@@ -1,25 +1,30 @@
 <script lang="ts">
+  import "../../css/js/range.js"
   import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { idRefs } from "../id"
+  import { formatValue, middleValue } from "./value"
   import type { Props } from "./types.svelte"
-  import { defaultValue, resetValue } from "./value"
 
   let {
+    "aria-describedby": ariaDescribedBy,
+    "aria-invalid": ariaInvalid,
+    "aria-labelledby": ariaLabelledBy,
+    "aria-valuetext": ariaValueText,
     class: className,
-    endText,
+    defaultValue,
     error,
     hideLabel,
     id,
     items,
+    lang,
     list,
     max,
     min,
     name,
     size,
     spread,
-    startText,
     step,
     style,
     value = $bindable(),
@@ -28,31 +33,46 @@
 
     // Snippets
     datalist,
+    endText,
     label,
+    startText,
     valueText,
     ...rest
   }: Props = $props()
 
-  const uid = $props.id()
   const field = getFieldGroupContext()
-  const initialValue = untrack(() => value)
-  let resets = $state(0)
-
+  const uid = $props.id()
+  const getValue = () => value ?? defaultValue
+  const setValue = (next: typeof value) => {
+    value = next
+  }
+  const initialValue = untrack(getValue)
+  const base = $derived(id || `range-${uid}`)
   const hasLabel = $derived(!!label)
-  const hasValue = $derived(valueSuffix !== undefined || !!valueText)
-  const hasDatalist = $derived(!!items || !!datalist)
-  const middle = $derived(defaultValue({ max, min, step }))
-
-  const inputId = $derived(id || (hasValue ? `range-${uid}` : undefined))
-  const labelId = $derived(hasLabel ? `range-label-${uid}` : undefined)
-  const startTextId = $derived(startText ? `range-start-${uid}` : undefined)
-  const endTextId = $derived(endText ? `range-end-${uid}` : undefined)
-  const listId = $derived(
-    list ?? (hasDatalist ? `range-list-${uid}` : undefined),
+  const hasStartText = $derived(!!startText)
+  const hasEndText = $derived(!!endText)
+  const hasValueText = $derived(valueText)
+  const hasValue = $derived(valueSuffix !== undefined || hasValueText)
+  const hasDatalist = $derived(!!items || datalist)
+  const current = $derived(getValue() ?? middleValue({ max, min, step }))
+  const readout = $derived(
+    `${formatValue(current, { lang, min, step })}${valueSuffix ?? ""}`,
   )
-  const describedBy = $derived(
-    idRefs(startTextId, endTextId, rest["aria-describedby"]),
+  const tick = $derived(
+    items?.find(
+      (option) =>
+        typeof option === "object" && Number(option.value) === Number(current),
+    ),
   )
+  const tickLabel = $derived(
+    valueSuffix || typeof tick !== "object" ? undefined : tick.label,
+  )
+  const inputId = $derived(id || (hasValue ? base : undefined))
+  const labelId = $derived(hasLabel ? `${base}-label` : undefined)
+  const startTextId = $derived(hasStartText ? `${base}-start-text` : undefined)
+  const endTextId = $derived(hasEndText ? `${base}-end-text` : undefined)
+  const listId = $derived(list ?? (hasDatalist ? `${base}-list` : undefined))
+  const describedBy = $derived(idRefs(startTextId, endTextId, ariaDescribedBy))
 </script>
 
 <label
@@ -64,28 +84,28 @@
     className,
   ]}
   for={hasValue ? inputId : undefined}
+  {lang}
   {style}
 >
-  {#if label}
-    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]} id={labelId}>
+  {#if hasLabel}
+    <span class={hideLabel ? "ui-sr-only" : "ui-label"} id={labelId}>
       {@render content(label)}
     </span>
   {/if}
   {#if hasValue}
-    {#key resets}
-      <output
-        aria-live="off"
-        class="ui-value"
-        for={inputId}
-        data-suffix={valueSuffix}
-      >
-        {#if valueText}{@render valueText(
-            Number(value ?? middle),
-          )}{:else}{value ?? middle}{valueSuffix ?? ""}{/if}
-      </output>
-    {/key}
+    <output
+      aria-live="off"
+      class="ui-value"
+      data-live={hasValueText ? undefined : ""}
+      for={inputId}
+      data-suffix={valueSuffix}
+    >
+      {#if valueText}
+        {@render valueText()}
+      {:else}{readout}{/if}
+    </output>
   {/if}
-  {#if startText}
+  {#if hasStartText}
     <span class="ui-start-text" id={startTextId}>
       {@render content(startText)}
     </span>
@@ -93,12 +113,10 @@
   <input
     {...rest}
     aria-describedby={describedBy}
-    aria-invalid={error ? "true" : rest["aria-invalid"]}
-    aria-labelledby={labelId ?? rest["aria-labelledby"]}
-    aria-valuetext={rest["aria-valuetext"] ??
-      (valueSuffix && !valueText
-        ? `${value ?? middle}${valueSuffix}`
-        : undefined)}
+    aria-invalid={error ? "true" : ariaInvalid}
+    aria-labelledby={labelId ?? ariaLabelledBy}
+    aria-valuetext={ariaValueText ??
+      (valueSuffix && !hasValueText ? readout : tickLabel)}
     id={inputId}
     list={listId}
     {max}
@@ -106,34 +124,21 @@
     name={name ?? field?.name}
     {step}
     type="range"
-    bind:value
-    {@attach (input) => {
-      if (!input.hasAttribute("value") && initialValue != null)
-        input.defaultValue = String(initialValue)
-      const form = input.form
-      const sync = (event: Event) =>
-        setTimeout(() => {
-          if (event.defaultPrevented) return
-          value = resetValue(input)
-          resets++
-        })
-      form?.addEventListener("reset", sync)
-      return () => form?.removeEventListener("reset", sync)
-    }}
+    bind:value={getValue, setValue}
+    defaultValue={defaultValue ?? initialValue}
   />
   {#if hasDatalist}
     <datalist aria-hidden="true" id={listId}>
-      {#each items ?? [] as option (typeof option === "object" ? option.value : option)}
+      {#each items as option, index (index)}
         {#if typeof option === "object"}
           <option value={option.value} label={option.label}></option>
         {:else}
           <option value={option}></option>
         {/if}
-      {/each}
-      {@render datalist?.()}
+      {/each}{@render datalist?.()}
     </datalist>
   {/if}
-  {#if endText}
+  {#if hasEndText}
     <span class="ui-end-text" id={endTextId}>
       {@render content(endText)}
     </span>

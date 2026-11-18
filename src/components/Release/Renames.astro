@@ -61,7 +61,7 @@ const snippet: Piece[][] = [
   [
     "<Avatar ",
     ["variant", "shape"],
-    '="rounded" alt="Jane Doe" src="/jane.jpg" />',
+    '="rounded" alt="Lou Headstock" src="/lou.jpg" />',
   ],
   [
     "<Tooltip ",
@@ -71,7 +71,7 @@ const snippet: Piece[][] = [
   [""],
   [`<${STYLE}>`],
   ["  .invite {"],
-  ["    ", ["--_card-shadow", "--_shadow"], ": none;"],
+  ["    ", ["--_card-shadow", "--_elevated-shadow"], ": none;"],
   ["    border-radius: var(", ["--border-radius", "--ui-radius"], ");"],
   ["    color: var(", ["--text-primary", "--ui-text-strong"], ");"],
   ["  }"],
@@ -102,7 +102,7 @@ const sectionHref = (anchor: string) => link(`/guide/migrating#${anchor}`)
   <div class="renames-diff">
     <Fieldset class="renames-version">
       <FieldLegend>Version</FieldLegend>
-      <ToggleGroup name={`${id}-version`} size="small">
+      <ToggleGroup aria-label="Version" name={`${id}-version`} size="small">
         <ToggleButton value="5">5.x</ToggleButton>
         <ToggleButton checked value="6">6.0</ToggleButton>
       </ToggleGroup>
@@ -126,18 +126,43 @@ const sectionHref = (anchor: string) => link(`/guide/migrating#${anchor}`)
         width="24"
         height="24"
         viewBox="0 0 24 24"
-        ><path
+      >
+        <path
           fill="currentColor"
           d="M9.5 3a6.5 6.5 0 0 1 5.2 10.4l5.45 5.45-1.4 1.4-5.45-5.44A6.5 6.5 0 1 1 9.5 3m0 2a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9"
-        ></path></svg
-      >
+        ></path>
+      </svg>
     </TextField>
     <p class="renames-count" role="status">{renames.length} renames</p>
     <p class="renames-empty" hidden>No rename matches that name.</p>
     <ul class="renames-list">
-      {
-        first.map((rename) => (
-          <li
+      {first.map((rename) => <li
+        class="renames-item"
+        data-names={`${rename.from} ${rename.to}`.toLowerCase()}
+      >
+        <span class="renames-names">
+          <code class="renames-from">{rename.from}</code>
+          <span aria-hidden="true">→</span>
+          <code class="renames-to">{rename.to}</code>
+        </span>
+        <span class="renames-meta">
+          <Chip label={rename.kind} size="x-small" />
+          {rename.scope && <span class="renames-scope">{rename.scope}</span>}
+          {rename.sections.map((section) => <a
+            href={sectionHref(section.anchor)}
+            >{section.title}</a
+          >)}
+        </span>
+      </li>)}
+    </ul>
+    <Accordion class="renames-more" variant="transparent">
+      <AccordionSummary>
+        <span class="renames-show">Show all {renames.length}</span>
+        <span class="renames-hide">Show the first {SHOWN}</span>
+      </AccordionSummary>
+      <AccordionContent>
+        <ul class="renames-list">
+          {rest.map((rename) => <li
             class="renames-item"
             data-names={`${rename.from} ${rename.to}`.toLowerCase()}
           >
@@ -148,47 +173,15 @@ const sectionHref = (anchor: string) => link(`/guide/migrating#${anchor}`)
             </span>
             <span class="renames-meta">
               <Chip label={rename.kind} size="x-small" />
-              {rename.scope && (
-                <span class="renames-scope">{rename.scope}</span>
-              )}
-              {rename.sections.map((section) => (
-                <a href={sectionHref(section.anchor)}>{section.title}</a>
-              ))}
+              {rename.scope && <span class="renames-scope"
+                >{rename.scope}</span
+              >}
+              {rename.sections.map((section) => <a
+                href={sectionHref(section.anchor)}
+                >{section.title}</a
+              >)}
             </span>
-          </li>
-        ))
-      }
-    </ul>
-    <Accordion class="renames-more" variant="transparent">
-      <AccordionSummary>
-        <span class="renames-show">Show all {renames.length}</span>
-        <span class="renames-hide">Show the first {SHOWN}</span>
-      </AccordionSummary>
-      <AccordionContent>
-        <ul class="renames-list">
-          {
-            rest.map((rename) => (
-              <li
-                class="renames-item"
-                data-names={`${rename.from} ${rename.to}`.toLowerCase()}
-              >
-                <span class="renames-names">
-                  <code class="renames-from">{rename.from}</code>
-                  <span aria-hidden="true">→</span>
-                  <code class="renames-to">{rename.to}</code>
-                </span>
-                <span class="renames-meta">
-                  <Chip label={rename.kind} size="x-small" />
-                  {rename.scope && (
-                    <span class="renames-scope">{rename.scope}</span>
-                  )}
-                  {rename.sections.map((section) => (
-                    <a href={sectionHref(section.anchor)}>{section.title}</a>
-                  ))}
-                </span>
-              </li>
-            ))
-          }
+          </li>)}
         </ul>
       </AccordionContent>
     </Accordion>
@@ -341,10 +334,12 @@ const sectionHref = (anchor: string) => link(`/guide/migrating#${anchor}`)
       }
 
       .renames-pair {
-        animation: renames-width linear both;
+        animation-fill-mode: both;
+        animation-name: renames-width;
         animation-range-end: cover calc(32% + var(--i) * 2.5%);
         animation-range-start: cover calc(12% + var(--i) * 2.5%);
         animation-timeline: --renames;
+        animation-timing-function: linear;
         transition: none;
 
         & > span {
@@ -353,17 +348,21 @@ const sectionHref = (anchor: string) => link(`/guide/migrating#${anchor}`)
       }
 
       .renames-old {
-        animation: renames-out linear both;
+        animation-fill-mode: both;
+        animation-name: renames-out;
         animation-range-end: cover calc(32% + var(--i) * 2.5%);
         animation-range-start: cover calc(12% + var(--i) * 2.5%);
         animation-timeline: --renames;
+        animation-timing-function: linear;
       }
 
       .renames-new {
-        animation: renames-in linear both;
+        animation-fill-mode: both;
+        animation-name: renames-in;
         animation-range-end: cover calc(32% + var(--i) * 2.5%);
         animation-range-start: cover calc(12% + var(--i) * 2.5%);
         animation-timeline: --renames;
+        animation-timing-function: linear;
       }
     }
   }

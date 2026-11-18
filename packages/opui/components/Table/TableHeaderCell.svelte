@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { defined } from "../attrs"
+  import { classAttrs } from "../cx"
   import type { TableHeaderCellProps as Props } from "./types.svelte"
 
   let {
@@ -13,12 +15,14 @@
 </script>
 
 <th
-  class={[{ "ui-numeric": numeric }, className]}
+  {...classAttrs([{ "ui-numeric": numeric }, className])}
   data-sort={sortable ? "" : undefined}
-  {...rest}
+  {...defined(rest)}
 >
   {#if sortable}
-    <button type="button">{@render children?.()}</button>
+    <button type="button">
+      {@render children?.()}
+    </button>
   {:else}
     {@render children?.()}
   {/if}

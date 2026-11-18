@@ -3,18 +3,22 @@
 </script>
 
 <div class="example-row">
-  <Checkbox hideLabel size="x-small" checked name="checkbox-sizes"
-    >Label</Checkbox
+  <Checkbox defaultChecked hideLabel name="checkbox-sizes" size="x-small"
+    >X-small</Checkbox
   >
-  <Checkbox hideLabel size="small" checked name="checkbox-sizes">Label</Checkbox
+  <Checkbox defaultChecked hideLabel name="checkbox-sizes" size="small"
+    >Small</Checkbox
   >
-  <Checkbox hideLabel checked name="checkbox-sizes">Label</Checkbox>
-  <Checkbox hideLabel size="large" checked name="checkbox-sizes">Label</Checkbox
+  <Checkbox defaultChecked hideLabel name="checkbox-sizes">Medium</Checkbox>
+  <Checkbox defaultChecked hideLabel name="checkbox-sizes" size="large"
+    >Large</Checkbox
   >
 </div>
 <div class="example-row">
-  <Checkbox size="x-small" checked name="checkbox-sizes">x-small</Checkbox>
-  <Checkbox size="small" checked name="checkbox-sizes">Small</Checkbox>
-  <Checkbox checked name="checkbox-sizes">Medium</Checkbox>
-  <Checkbox size="large" checked name="checkbox-sizes">Large</Checkbox>
+  <Checkbox defaultChecked name="checkbox-sizes" size="x-small"
+    >X-small</Checkbox
+  >
+  <Checkbox defaultChecked name="checkbox-sizes" size="small">Small</Checkbox>
+  <Checkbox defaultChecked name="checkbox-sizes">Medium</Checkbox>
+  <Checkbox defaultChecked name="checkbox-sizes" size="large">Large</Checkbox>
 </div>

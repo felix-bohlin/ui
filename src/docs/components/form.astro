@@ -48,19 +48,25 @@ const anatomyApi = {
     endTextPart,
   ],
 }
+
+export const description =
+  "Classes that space and group form fields, with fieldsets and field groups."
+
+export const keywords = ["fieldset", "input group", "label", "validation"]
 ---
 
 <Component
+  description={description}
   slug="form"
   heroAnatomy
-  browserSupport={["has", "user-pseudos"]}
+  browserSupport={["alt-text-generated-content", "has", "user-pseudos"]}
   installationTabs={[{ title: "form.css", code: FormCSS, lang: "css" }]}
   seeAlsoLinks={[
     { name: "Button", href: "/components/button" },
     { name: "Divider", href: "/components/divider" },
     { name: "Range", href: "/components/range" },
     { name: "Select", href: "/components/select" },
-    { name: "Text Field", href: "/components/text-field" },
+    { name: "Text field", href: "/components/text-field" },
     { name: "Textarea", href: "/components/textarea" },
   ]}
   apis={[
@@ -70,43 +76,24 @@ const anatomyApi = {
     { title: "Field description API", api: fieldDescriptionApi },
     { title: "Field group API", api: fieldGroupApi },
   ]}
-  changelogPaths={[
-    {
-      path: "packages/opui/components/Form/Form.astro",
-      type: "component",
-    },
-    { path: "src/docs/components/form.astro", type: "docs" },
-    { path: "src/component-examples/form", type: "docs" },
-    {
-      path: "packages/opui/css/components/form.css",
-      type: "css",
-    },
-    { path: "src/component-api/form", type: "api" },
-  ]}
 >
   <Fragment slot="title">Form</Fragment>
   <Fragment slot="preamble">Spacing and grouping for form fields.</Fragment>
 
   <Usage slot="usage">
-    <li slot="when">Spacing the fields, groups and buttons of a form.</li>
+    <li slot="when">Spacing a form's fields, groups and buttons.</li>
     <li slot="when">
-      Related fields under one heading, like an address, in a <a
-        href="#fieldset">fieldset</a
-      > with a legend.
+      Related fields under a heading: a <a href="#fieldset">fieldset</a>.
     </li>
     <li slot="when">
-      A set of checkboxes, radios or switches, in a <a href="#field-group"
-        >field group</a
-      >.
+      Checkboxes, radios or switches: a <a href="#field-group">field group</a>.
     </li>
     <li slot="when-not">
-      Laying out content that isn't a form. Use the <DocLink
-        href="/components/layout">Layout</DocLink
-      > classes.
+      Content that isn't a form: use the
+      <DocLink href="/components/layout">Layout</DocLink> classes.
     </li>
     <li slot="when-not">
-      Grouping fields only for the look. A fieldset is also a group for screen
-      readers, so use a field group on its own.
+      Grouping only for the look: use a field group without a fieldset.
     </li>
   </Usage>
 
@@ -117,52 +104,24 @@ const anatomyApi = {
 
   <section id="fieldset">
     <h2>Fieldset</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Groups related fields. Label it with <code>FieldLegend</code> and add an optional
-        <code>FieldDescription</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Groups related fields. Label it with <code>&lt;legend&gt;</code> and add an
-        optional <code>.ui-description</code>.
-      </Fragment>
-    </Conditional>
+    <p>Label it with <PropOrClass prop="FieldLegend" class="<legend>" />.</p>
     <AutoExample name="FieldsetStacked" />
   </section>
 
   <section id="field-group">
     <h2>Field group</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Lays out related fields and passes a shared <code>name</code> to the OPUI
-        fields inside. Wrap it in a fieldset to group them for screen readers.
-      </Fragment>
-      <Fragment slot="html">
-        Lays out related fields. Wrap it in a fieldset to group them for screen
-        readers.
-      </Fragment>
-    </Conditional>
-
+    <p>Wrap it in a fieldset to group the fields for screen readers.</p>
     <AutoExample name="FieldGroup" />
 
     <h3 id="field-group-horizontal">Horizontal</h3>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Set <code>orientation="horizontal"</code> to lay out fields horizontally.
-      </Fragment>
-      <Fragment slot="html">
-        Add <code>.ui-horizontal</code> to lay out fields horizontally.
-      </Fragment>
-    </Conditional>
-
-    <AutoExample name="FieldGroupHorizontal" row />
     <p>
-      A horizontal group lines its fields up at their end, so a field and its
-      button sit on one line. A text field, a textarea, a select or a number
-      field grows to share the row and wraps below <code
-        >--_field-min-inline-size</code
-      > (<code>11rem</code>).
+      Use
+      <PropOrClass prop='orientation="horizontal"' class=".ui-horizontal" />. To
+      join a field and its button into one control, with no space between them,
+      use a
+      <DocLink href="/components/control-group#fields">Control group</DocLink>.
     </p>
+    <AutoExample name="FieldGroupHorizontal" row />
     <AutoExample name="FieldGroupHorizontalFields" />
   </section>
 
@@ -170,63 +129,34 @@ const anatomyApi = {
     <h2>States</h2>
 
     <h3 id="fieldset-disabled">Disabled</h3>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Set <code>disabled</code> on <code>Fieldset</code> to disable every field
-        inside.
-      </Fragment>
-      <Fragment slot="html">
-        Add <code>disabled</code> to the <code>&lt;fieldset&gt;</code> to disable
-        every field inside.
-      </Fragment>
-    </Conditional>
+    <p>Disable the fieldset to disable every field in it.</p>
     <AutoExample name="FieldsetDisabled" />
 
     <h3 id="fieldset-invalid">Invalid</h3>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Set <code>error</code> on each field in the <code>Fieldset</code>, and
-        explain the error in a <code>.ui-end-text</code> directly inside it. The end
-        text turns red when a field has <code>error</code> set.
-      </Fragment>
-      <Fragment slot="html">
-        Add <code>aria-invalid="true"</code> to each control in the
-        <code>&lt;fieldset&gt;</code>, and explain the error in a
-        <code>.ui-end-text</code> directly inside it. The end text turns red when
-        a control has <code>aria-invalid="true"</code>.
-      </Fragment>
-    </Conditional>
     <p>
-      Give the end text an <code>id</code> and point <code
-        >aria-describedby</code
-      >
-      on the fieldset at it, so screen readers read the error with the group.
+      Point <code>aria-describedby</code> on the fieldset at the description,
+      then the error.
     </p>
     <AutoExample name="FieldsetInvalid" />
 
+    <h3 id="error-summary">Error summary</h3>
+    <p>
+      A critical <DocLink href="/components/callout">Callout</DocLink> with
+      <code>tabindex="-1"</code>. Move focus to it after submit.
+    </p>
+    <AutoExample name="ErrorSummary" />
+
     <h3 id="fieldset-required">Required</h3>
-    <p>The legend gets an asterisk when a field inside is required.</p>
     <AutoExample name="FieldsetRequired" />
   </section>
 
   <section id="actions">
     <h2>Actions</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        A field group with only buttons lines up in a row. Set <code
-          >orientation="vertical"</code
-        > to stack the buttons instead. Separate the group from the fields with <code
-          >Divider</code
-        >.
-      </Fragment>
-      <Fragment slot="html">
-        A field group with only buttons lines up in a row. Add <code
-          >.ui-vertical</code
-        > to stack the buttons instead. Separate the group from the fields with <code
-          >&lt;hr class="ui-divider"&gt;</code
-        >.
-      </Fragment>
-    </Conditional>
+    <p>
+      Buttons line up in a row. Use
+      <PropOrClass prop='orientation="vertical"' class=".ui-vertical" /> to
+      stack them.
+    </p>
     <AutoExample name="Divider" />
     <AutoExample name="ActionsColumn" />
   </section>
@@ -235,22 +165,12 @@ const anatomyApi = {
     <h2>Without fieldset</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Can't use <code>&lt;form&gt;</code>, <code>&lt;fieldset&gt;</code> or <code
-          >&lt;legend&gt;</code
-        >? Set <code>as</code> on <code>Form</code>, <code>Fieldset</code> and <code
-          >FieldLegend</code
-        >. A <code>div</code> doesn't pick up its name from the legend, so give the
-        legend an <code>id</code> and point <code>aria-labelledby</code> on the field
-        set at it.
+        Set <code>as</code> on <code>Form</code>, <code>Fieldset</code> and
+        <code>FieldLegend</code>.
       </Fragment>
       <Fragment slot="html">
-        Can't use <code>&lt;form&gt;</code>, <code>&lt;fieldset&gt;</code> or <code
-          >&lt;legend&gt;</code
-        >? Use <code>.ui-form</code>, <code>.ui-fieldset</code> with <code
-          >role="group"</code
-        > and <code>.ui-legend</code> on other elements. A <code>div</code> doesn't
-        pick up its name from the legend, so give the legend an <code>id</code> and
-        point <code>aria-labelledby</code> on the fieldset at it.
+        Use <code>.ui-fieldset</code> with <code>role="group"</code> and
+        <code>aria-labelledby</code>.
       </Fragment>
     </Conditional>
     <AutoExample name="AdaptiveOutput" />
@@ -258,19 +178,18 @@ const anatomyApi = {
 
   <section id="kitchen-sink">
     <h2>Kitchen sink</h2>
-    <p>Everything at once.</p>
     <AutoExample name="KitchenSink">
       <Fragment slot="controls">
         <UISwitch
           data-toggle-class="ui-small"
           data-toggle-target=".ui-text-field, .ui-textarea, .ui-select, .ui-radio, .ui-checkbox, .ui-switch, .ui-button, .ui-range"
-          ><PropOrClass prop='size="small"' class=".ui-small" /></UISwitch
-        >
+          ><PropOrClass prop='size="small"' class=".ui-small"
+        /></UISwitch>
         <UISwitch
           data-toggle-class="ui-spread; ui-horizontal"
           data-toggle-target=".ui-text-field, .ui-textarea, .ui-select, .ui-checkbox, .ui-switch, .ui-range; .ui-field-group:has(> .ui-radio)"
-          ><PropOrClass prop="spread" class=".ui-spread" /></UISwitch
-        >
+          ><PropOrClass prop="spread" class=".ui-spread"
+        /></UISwitch>
         <UISwitch
           data-toggle-class="kitchen-sink-dividers"
           data-toggle-target="#form-kitchen-sink-1"
@@ -288,17 +207,9 @@ const anatomyApi = {
 
   <Fragment slot="accessibility">
     <ul>
+      <li>A fieldset is a group named by its legend.</li>
       <li>
-        A fieldset is a group named by its legend, so screen readers can read
-        the legend with the fields in it.
-      </li>
-      <li>
-        The asterisk on the legend of a <a href="#fieldset-required">required</a
-        >
-        group is hidden from screen readers in browsers that support alternative text
-        in <code>content</code>. They announce each field as required from its <code
-          >required</code
-        > attribute.
+        Point <code>aria-describedby</code> on the fieldset at the description.
       </li>
     </ul>
   </Fragment>
@@ -313,9 +224,11 @@ const anatomyApi = {
   <Fragment slot="anatomy">
     <Anatomy api={anatomyApi}>
       <UIForm style="inline-size: 18rem">
-        <UIFieldset>
+        <UIFieldset aria-describedby="form-anatomy-description">
           <UIFieldLegend>Favorite pet</UIFieldLegend>
-          <UIFieldDescription>Pick one.</UIFieldDescription>
+          <UIFieldDescription id="form-anatomy-description"
+            >Pick one.</UIFieldDescription
+          >
           <UIFieldGroup name="form-anatomy">
             <UIRadio value="cat" checked>Cat</UIRadio>
             <UIRadio value="dog">Dog</UIRadio>
@@ -336,12 +249,7 @@ const anatomyApi = {
     display: none;
   }
 
-  .ui-field-group {
-    &:has(.ui-button):not(:has(*:not(.ui-button))) {
-      &:not(hr + &),
-      #form-kitchen-sink-1:not(.kitchen-sink-dividers) > & {
-        margin-block-start: var(--size-4);
-      }
-    }
+  #form-kitchen-sink-1:not(.kitchen-sink-dividers) > .ui-field-group {
+    margin-block-start: var(--ui-space-4);
   }
 </style>

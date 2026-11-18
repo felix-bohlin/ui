@@ -1,19 +1,35 @@
 <button
-  type="button"
-  commandfor="dialog-basics-1"
-  command="show-modal"
   class="ui-button ui-outlined"
+  type="button"
+  command="show-modal"
+  commandfor="dialog-basics-1"
 >
   Open dialog
 </button>
 
 <dialog
-  id="dialog-basics-1"
-  class="ui-dialog ui-elevated"
   aria-labelledby="dialog-basics-1-title"
+  class="ui-dialog ui-elevated"
+  id="dialog-basics-1"
 >
   <div class="ui-header">
     <h2 id="dialog-basics-1-title">Newsletter</h2>
+    <p>Sent by the product team.</p>
+    <button
+      class="ui-button ui-round ui-small"
+      type="button"
+      aria-label="Close"
+      command="close"
+      commandfor="dialog-basics-1"
+    >
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      ></svg>
+    </button>
   </div>
   <div class="ui-content">
     <p>
@@ -22,18 +38,18 @@
   </div>
   <div class="ui-footer">
     <button
-      commandfor="dialog-basics-1"
-      command="close"
       class="ui-button"
       type="button"
+      command="close"
+      commandfor="dialog-basics-1"
     >
       Not now
     </button>
     <button
-      commandfor="dialog-basics-1"
-      command="close"
       class="ui-button ui-filled"
       type="button"
+      command="close"
+      commandfor="dialog-basics-1"
     >
       Subscribe
     </button>

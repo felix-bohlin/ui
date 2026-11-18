@@ -1,5 +1,6 @@
 <script lang="ts">
   import { tagAttrs } from "../tag"
+  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
@@ -31,7 +32,7 @@
     className,
   ]}
   {...tagAttrs(Tag, disabled, href)}
-  {...rest}
+  {...defined(rest)}
 >
   {@render children?.()}
 </svelte:element>

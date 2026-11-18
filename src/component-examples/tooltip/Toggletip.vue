@@ -5,13 +5,14 @@ import { Button, Tooltip, TooltipContent } from "opui-css/vue"
 <template>
   <Tooltip id="tooltip-toggletip-1">
     <Button
-      aria-label="About billing"
-      interestfor="tooltip-toggletip-1"
-      commandfor="tooltip-toggletip-1"
+      aria-label="About Bassbook Gold"
       command="toggle-popover"
+      commandfor="tooltip-toggletip-1"
+      interestfor="tooltip-toggletip-1"
       round
     >
       <svg
+        data-icon="info"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -25,7 +26,7 @@ import { Button, Tooltip, TooltipContent } from "opui-css/vue"
       </svg>
     </Button>
     <TooltipContent
-      >You're billed on the first day of each month.</TooltipContent
+      >Bassbook Gold renews on the first day of each month.</TooltipContent
     >
   </Tooltip>
 </template>

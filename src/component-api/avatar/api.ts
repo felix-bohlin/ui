@@ -16,7 +16,7 @@ export default {
     {
       default: "false",
       description:
-        'Disables a button avatar. A link avatar drops its `href` and gets `aria-disabled="true"` instead.',
+        'Disables a button avatar. A link avatar drops its `href` and gets `role="link"` and `aria-disabled="true"` instead.',
       prop: "disabled",
     },
     {
@@ -54,7 +54,7 @@ export default {
     {
       default: '"filled"',
       description:
-        "The variant to use. `filled` is the primary color, `tonal` its tint and `outlined` the border color with no fill.",
+        "The variant to use. `filled` is the primary color, `outlined` the border color with no fill and `tonal` the primary tint.",
       group: "Variants",
       prop: "variant",
       values: {
@@ -65,7 +65,7 @@ export default {
     },
     {
       description:
-        'Disables a button avatar. A link avatar, which can\'t take `disabled`, drops its `href` and takes `aria-disabled="true"` instead.',
+        'Disables a button avatar. A link avatar, which can\'t take `disabled`, drops its `href` and takes `role="link"` and `aria-disabled="true"` instead.',
       frameworks: ["html"],
       group: "State",
       prop: "state",
@@ -76,7 +76,7 @@ export default {
     {
       code: "<img>",
       description: "The avatar image.",
-      props: ["src", "alt"],
+      props: ["alt", "src"],
       selector: "img",
     },
   ],

@@ -1,16 +1,18 @@
 "use client"
 
 import { useEffect, useId } from "react"
-import Button from "../Button/Button.react"
 import { cx } from "../cx"
-import { idRefs } from "../id"
+import Button from "../Button/Button.react"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
-import { minusPath, plusPath } from "./icons"
+import { fieldDescribedBy } from "../id"
 import type { Props } from "./types.react"
 
 export default function NumberField({
+  "aria-describedby": ariaDescribedBy,
+  "aria-invalid": ariaInvalid,
   className,
   decreaseLabel = "Decrease",
+  disabled,
   error,
   hideLabel,
   id,
@@ -21,17 +23,19 @@ export default function NumberField({
   stretch,
   style,
   variant,
+  decreaseIcon,
   endText,
+  increaseIcon,
   label,
   startText,
   ...rest
 }: Props) {
   const field = useFieldGroupContext()
-  const generatedId = useId()
-  const inputId = id ?? generatedId
-  const startTextId = startText ? `${generatedId}start-text` : undefined
-  const endTextId = endText ? `${generatedId}end-text` : undefined
-
+  const uid = useId()
+  const base = id || `number-field-${uid}`
+  const inputId = base
+  const startTextId = startText ? `${base}-start-text` : undefined
+  const endTextId = endText ? `${base}-end-text` : undefined
   useEffect(() => {
     void import("../../elements/number-field.js")
   }, [])
@@ -66,50 +70,58 @@ export default function NumberField({
       <span className="ui-field">
         <span className="ui-start">
           <Button
+            aria-controls={inputId}
             aria-label={decreaseLabel}
             command="--step-down"
             commandfor={inputId}
+            disabled={disabled}
             round
           >
-            <svg
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-            >
-              <path fill="currentColor" d={minusPath}></path>
-            </svg>
+            {decreaseIcon === undefined ? (
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              />
+            ) : (
+              decreaseIcon
+            )}
           </Button>
         </span>
         <input
           {...rest}
-          aria-describedby={idRefs(
-            startTextId,
-            endTextId,
-            rest["aria-describedby"],
+          aria-describedby={fieldDescribedBy(
+            { endText: endTextId, startText: startTextId },
+            ariaDescribedBy,
           )}
-          aria-invalid={error ? "true" : rest["aria-invalid"]}
+          aria-invalid={error ? "true" : ariaInvalid}
+          disabled={disabled}
           id={inputId}
           name={name ?? field?.name}
           type="number"
         />
         <span className="ui-end">
           <Button
+            aria-controls={inputId}
             aria-label={increaseLabel}
             command="--step-up"
             commandfor={inputId}
+            disabled={disabled}
             round
           >
-            <svg
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-            >
-              <path fill="currentColor" d={plusPath}></path>
-            </svg>
+            {increaseIcon === undefined ? (
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              />
+            ) : (
+              increaseIcon
+            )}
           </Button>
         </span>
       </span>

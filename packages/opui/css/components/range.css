@@ -22,6 +22,10 @@
     --_focus-ring-duration: calc(var(--ui-duration) * var(--_motion));
     --_thumb-size: 3ex;
 
+    @media print {
+      print-color-adjust: exact;
+    }
+
     @media (hover: none) {
       --_thumb-size: 30px;
     }
@@ -92,11 +96,23 @@
         justify-content: center;
         padding: 0;
         white-space: nowrap;
+
+        &:first-child {
+          justify-content: start;
+          margin-inline: calc(var(--_thumb-size) / -2)
+            calc(var(--_thumb-size) / 2);
+        }
+
+        &:last-child {
+          justify-content: end;
+          margin-inline: calc(var(--_thumb-size) / 2)
+            calc(var(--_thumb-size) / -2);
+        }
       }
     }
 
     /* Disabled */
-    &:has([disabled]) {
+    &:has(:disabled) {
       cursor: not-allowed;
       opacity: var(--ui-disabled-opacity);
       -webkit-user-select: none;
@@ -125,13 +141,19 @@
 
     /* Sizes */
     &.ui-x-small {
-      --_thumb-size: 2ex;
       --_track-block-size: 0.5ex;
+
+      @media (hover: hover) {
+        --_thumb-size: 2ex;
+      }
     }
 
     &.ui-small {
-      --_thumb-size: 2.5ex;
       --_track-block-size: 0.625ex;
+
+      @media (hover: hover) {
+        --_thumb-size: 2.5ex;
+      }
     }
 
     &.ui-large {
@@ -189,11 +211,7 @@
         grid-row: 4;
       }
 
-      @container (inline-size < 400px) {
-        * {
-          grid-column: 1/-1;
-        }
-
+      @container (inline-size < 25rem) {
         .ui-label {
           align-self: baseline;
           grid-column: 1/-1;
@@ -240,17 +258,34 @@
       .ui-value {
         color: var(--ui-invalid-text);
       }
+
+      & > input[type="range"] {
+        @media (forced-colors: active) {
+          &::-webkit-slider-thumb {
+            border-color: CanvasText;
+            border-style: dashed;
+          }
+
+          &::-moz-range-thumb {
+            border-color: CanvasText;
+            border-style: dashed;
+          }
+        }
+      }
     }
 
     /* Range input */
     :where(& > input[type="range"]) {
-      --_inset: max(
+      --_padding: max(
         var(--ui-space-2),
         var(--_thumb-size) / 2 + var(--ui-space-2) - var(--ui-space-4) / 2
       );
       --_thumb-bg-color: var(--_accent);
       --_thumb-border-width: 3px;
-      --_thumb-highlight-bg-color: light-dark(
+      --_thumb-offset: calc(
+        (var(--_track-block-size) - var(--_thumb-size)) / 2
+      );
+      --_thumb-ripple-bg-color: light-dark(
         oklch(
           from var(--_accent) 70% 100% h / var(--ui-state-active-alpha-light)
         ),
@@ -258,10 +293,7 @@
           from var(--_accent) 70% 100% h / var(--ui-state-active-alpha-dark)
         )
       );
-      --_thumb-highlight-size: 0px;
-      --_thumb-offset: calc(
-        (var(--_track-block-size) - var(--_thumb-size)) / 2
-      );
+      --_thumb-ripple-size: 0px;
       --_track-bg-color: var(--_track-base-bg-color);
       --_track-fill-bg-color: var(--_accent);
       --_track-fill-fraction: 0%;
@@ -279,13 +311,13 @@
       grid-column: 1/-1;
       grid-row: 3;
       inline-size: 100%;
-      margin: calc(var(--_inset) * -1);
+      margin: calc(var(--_padding) * -1);
       outline-offset: calc(
         max(0px, (var(--_thumb-size) - var(--ui-space-4)) / 2) +
-          var(--ui-focus-ring-offset) - var(--_inset)
+          var(--ui-focus-ring-offset) - var(--_padding)
       );
       overflow: hidden;
-      padding: var(--_inset);
+      padding: var(--_padding);
       timeline-scope: --ui-range-thumb;
 
       @container style(--ui-contrast: more) {
@@ -351,15 +383,15 @@
         block-size: var(--_thumb-size);
         border: var(--_thumb-border-width) solid var(--ui-surface);
         border-radius: 50%;
-        box-shadow: 0 0 0 var(--_thumb-highlight-size)
-          var(--_thumb-highlight-bg-color);
+        box-shadow: 0 0 0 var(--_thumb-ripple-size)
+          var(--_thumb-ripple-bg-color);
         cursor: ew-resize;
         inline-size: var(--_thumb-size);
         margin-block-start: var(--_thumb-offset);
 
         transition: box-shadow var(--_duration) var(--_ease);
         view-timeline: --ui-range-thumb inline;
-        view-timeline-inset: var(--_inset);
+        view-timeline-inset: var(--_padding);
       }
 
       &::-moz-range-thumb {
@@ -368,8 +400,8 @@
         block-size: var(--_thumb-size);
         border: var(--_thumb-border-width) solid var(--ui-surface);
         border-radius: 50%;
-        box-shadow: 0 0 0 var(--_thumb-highlight-size)
-          var(--_thumb-highlight-bg-color);
+        box-shadow: 0 0 0 var(--_thumb-ripple-size)
+          var(--_thumb-ripple-bg-color);
         cursor: ew-resize;
         inline-size: var(--_thumb-size);
         margin-block-start: var(--_thumb-offset);
@@ -381,26 +413,22 @@
       &:not(:disabled) {
         @media (hover: hover) {
           &:hover {
-            --_thumb-highlight-size: var(--ui-space-1);
+            --_thumb-ripple-size: var(--ui-space-1);
           }
         }
 
         &:active {
-          --_thumb-highlight-size: var(--ui-space-2);
+          --_thumb-ripple-size: var(--ui-space-2);
           --_track-bg-color: light-dark(
-            oklch(from var(--ui-field-border-color) calc(l * 0.9) c h),
-            oklch(from var(--ui-field-border-color) calc(l * 1.1) c h)
+            oklch(from var(--_track-base-bg-color) calc(l * 0.9) c h),
+            oklch(from var(--_track-base-bg-color) calc(l * 1.1) c h)
           );
         }
       }
 
       &:disabled {
-        --_thumb-bg-color: color-mix(
-          in oklch,
-          var(--ui-text-strong) 50%,
-          var(--ui-surface)
-        );
-        --_track-bg-color: var(--ui-field-border-color);
+        --_thumb-bg-color: var(--ui-text-disabled);
+        --_track-bg-color: var(--_track-base-bg-color);
 
         cursor: not-allowed;
 
@@ -428,6 +456,7 @@
             var(--_forced-fill-bg-color),
             var(--_forced-fill-bg-color)
           );
+          forced-color-adjust: none;
         }
 
         &::-moz-range-track {

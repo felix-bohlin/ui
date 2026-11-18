@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { classAttrs } from "../cx"
 import type { TableHeadProps as Props, Slots } from "./types.vue-props"
 
 defineProps<Props>()
@@ -6,7 +7,7 @@ defineSlots<Slots>()
 </script>
 
 <template>
-  <thead :class="$props.class">
+  <thead v-bind="classAttrs($props.class)">
     <slot></slot>
   </thead>
 </template>

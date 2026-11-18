@@ -2,6 +2,7 @@
   import "../../elements/copy.js"
   import { untrack } from "svelte"
   import { warnMissingId } from "../dev"
+  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
@@ -23,9 +24,9 @@
   copied-label={copiedLabel}
   failed-label={failedLabel}
   {id}
-  {...rest}
+  {...defined(rest)}
 >
   {@render children?.()}
   <span class="ui-sr-only" role="status"></span>
-  <span aria-hidden="true" class="ui-floating" popover=""></span>
+  <span aria-hidden="true" class="ui-floating" popover></span>
 </opui-copy>

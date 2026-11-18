@@ -3,6 +3,7 @@ import { Card, CardContent, Stat } from "opui-css/react"
 export default function Cards() {
   return (
     <ul
+      role="list"
       className="ui-layout-grid ui-stretch"
       style={{ "--_min-inline-size": "11rem" }}
     >

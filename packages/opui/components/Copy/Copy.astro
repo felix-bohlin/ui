@@ -1,5 +1,7 @@
 ---
 import type { Props } from "./types.astro"
+// A dynamic <Tag> or a custom element lets an undefined spread value remove an attribute set before it: tests/unit/tooling-bugs.test.ts
+import { defined } from "../attrs"
 import { warnMissingId } from "../dev"
 
 export const title = "Copy"
@@ -14,11 +16,11 @@ warnMissingId("Copy", id)
   copied-label={copiedLabel}
   failed-label={failedLabel}
   id={id}
-  {...rest}
+  {...defined(rest)}
 >
   <slot />
-  <span class="ui-sr-only" role="status"></span>
-  <span aria-hidden="true" class="ui-floating" popover></span>
+  <span class="ui-sr-only" role="status" set:html="" />
+  <span aria-hidden="true" class="ui-floating" popover set:html="" />
 </opui-copy>
 
 <script>

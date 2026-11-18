@@ -1,5 +1,10 @@
 import type { AstroInstance } from "astro"
-import { exampleExtension, type FrameworkId } from "./framework"
+import {
+  exampleExtension,
+  extensionPattern,
+  frameworkOfFile,
+  type FrameworkId,
+} from "./framework"
 
 // Eager globs scoped to the component-examples tree. Vite resolves these at
 // build time, so missing files mean `undefined` rather than a runtime fetch.
@@ -7,12 +12,12 @@ import { exampleExtension, type FrameworkId } from "./framework"
 // will fail the whole build.
 export const exampleModules: Partial<Record<string, AstroInstance>> =
   import.meta.glob<AstroInstance>(
-    "../component-examples/*/*.{astro,react.tsx,svelte,vue}",
+    "../component-examples/*/*.{astro,react.tsx,solid.tsx,svelte,vue}",
     { eager: true },
   )
 
 export const exampleSources = import.meta.glob<string>(
-  "../component-examples/*/*.{astro,html,react.tsx,svelte,vue}",
+  "../component-examples/*/*.{astro,html,react.tsx,solid.tsx,svelte,vue}",
   { eager: true, import: "default", query: "?raw" },
 )
 
@@ -22,12 +27,12 @@ export const examplePath = (
   framework: FrameworkId,
 ) => `../component-examples/${slug}/${name}.${exampleExtension(framework)}`
 
+const EXAMPLE_PATH = new RegExp(
+  `component-examples/([^/]+)/([^/.]+)\\.(?:${extensionPattern()})$`,
+)
+
 export const parseExamplePath = (path: string) => {
-  const [, slug, name, extension] = path.match(
-    /component-examples\/([^/]+)\/([^/.]+)\.(react\.tsx|\w+)$/,
-  )!
-  const framework = (
-    extension === "react.tsx" ? "react" : extension
-  ) as FrameworkId
+  const [, slug, name] = path.match(EXAMPLE_PATH)!
+  const framework = frameworkOfFile(path)!
   return { framework, name, slug }
 }

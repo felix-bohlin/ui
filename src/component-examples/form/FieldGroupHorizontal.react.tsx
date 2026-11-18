@@ -10,11 +10,11 @@ export default function FieldGroupHorizontal() {
   return (
     <Form>
       <Fieldset>
-        <FieldLegend>Options</FieldLegend>
+        <FieldLegend>Notifications</FieldLegend>
         <FieldGroup orientation="horizontal">
-          <Checkbox>Option 1</Checkbox>
-          <Checkbox>Option 2</Checkbox>
-          <Checkbox>Option 3</Checkbox>
+          <Checkbox>Email</Checkbox>
+          <Checkbox>Push</Checkbox>
+          <Checkbox>SMS</Checkbox>
         </FieldGroup>
       </Fieldset>
     </Form>

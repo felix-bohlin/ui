@@ -1,16 +1,21 @@
 import { readdirSync, readFileSync, writeFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
-import { format, resolveConfig } from "prettier"
 import {
   EXAMPLE_THEME_NOTES,
   exampleThemeNotes,
 } from "../src/utils/example-theme-notes.ts"
+import { formatCode } from "./format.mjs"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const README = `${root}packages/opui/README.md`
+const ICONS = `${root}packages/opui/icons`
 const THEMES = `${root}packages/opui/themes`
 
 const themes = readdirSync(THEMES)
+  .filter((file) => file.endsWith(".css"))
+  .map((file) => file.replace(/\.css$/, ""))
+  .toSorted()
+const icons = readdirSync(ICONS)
   .filter((file) => file.endsWith(".css"))
   .map((file) => file.replace(/\.css$/, ""))
   .toSorted()
@@ -37,6 +42,10 @@ const SECTIONS = [
       themes.map((name) => `\`${name}\` (${exampleThemeNotes(name).original})`),
     )}.`,
   ],
+  [
+    /Icon sets for the `--ui-icon-\*` tokens \(`[^\n]*?`\), with or without `\.css`/,
+    `Icon sets for the \`--ui-icon-*\` tokens (${icons.map((name) => `\`${name}\``).join(", ")}), with or without \`.css\``,
+  ],
 ]
 
 let readme = readFileSync(README, "utf8")
@@ -48,11 +57,5 @@ for (const [pattern, text] of SECTIONS) {
   }
   readme = readme.replace(pattern, () => text)
 }
-writeFileSync(
-  README,
-  await format(readme, {
-    ...(await resolveConfig(README)),
-    filepath: README,
-  }),
-)
+writeFileSync(README, await formatCode(readme, README))
 console.log(`Wrote the ${themes.length} example themes to ${README}`)

@@ -4,29 +4,28 @@ export default function Validation() {
   return (
     <>
       <div className="example-row">
-        <TextField label="I'm required" placeholder="Placeholder" required />
+        <TextField label="Full name" placeholder="Holly Humbucker" required />
         <TextField
-          label="So am I!"
-          placeholder="Placeholder"
+          label="Email"
+          placeholder="name@lowend.example"
           required
+          type="email"
           variant="filled"
         />
       </div>
 
       <div className="example-row">
         <TextField
-          label="Label"
-          placeholder="Placeholder"
-          defaultValue="This isn't right"
-          endText="Only double-negatives are allowed."
+          defaultValue="ada"
+          endText="Whoops, this username is taken. Try another one."
           error
+          label="Username"
         />
         <TextField
-          label="Label"
-          placeholder="Placeholder"
-          defaultValue="Uh-oh"
-          endText="Only letters from the first half of the alphabet are allowed."
+          defaultValue="STRINGS23"
+          endText="Bummer, this code has expired."
           error
+          label="Gear discount code"
           variant="filled"
         />
       </div>

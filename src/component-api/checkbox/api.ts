@@ -8,27 +8,32 @@ export default {
     react: [
       {
         description:
-          "A DOM property, set in a layout effect. The server renders `data-indeterminate`, but the box looks unchecked until hydration.",
-        fallback:
-          "Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`.",
+          "A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component loads the module once it hydrates, so the box looks unchecked until then.",
+        fallback: "Import `opui-css/css/js/checkbox.js` in the page.",
+        prop: "indeterminate",
+      },
+    ],
+    solid: [
+      {
+        description:
+          "A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs.",
+        fallback: "Import `opui-css/css/js/checkbox.js` in the page.",
         prop: "indeterminate",
       },
     ],
     svelte: [
       {
         description:
-          "A DOM property, set in an `{@attach}`. The server renders `data-indeterminate`, but the box looks unchecked until hydration.",
-        fallback:
-          "Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`.",
+          "A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs.",
+        fallback: "Import `opui-css/css/js/checkbox.js` in the page.",
         prop: "indeterminate",
       },
     ],
     vue: [
       {
         description:
-          "A DOM property, set in `watchPostEffect`. The server renders `data-indeterminate`, but the box looks unchecked until hydration.",
-        fallback:
-          "Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`.",
+          "A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs.",
+        fallback: "Import `opui-css/css/js/checkbox.js` in the page.",
         prop: "indeterminate",
       },
     ],
@@ -70,10 +75,12 @@ export default {
         "To hide the label, set `hideLabel` and keep the text in `label` or the slot.",
       react:
         "To hide the label, set `hideLabel` and keep the text in `label` or `children`. Use `checked` with `onChange`, or `defaultChecked`. For a group, keep the checked values in your own state.",
+      solid:
+        "To hide the label, set `hideLabel` and keep the text in `label` or `children`. `checked` sets the state and follows it when it changes, and `onChange` reports changes. For a group, keep the checked values in your own state.",
       svelte:
         "To hide the label, set `hideLabel` and keep the text in `label` or `children`.",
     }),
-    html: "`data-indeterminate` needs `checkbox.js`. It sets the `indeterminate` property.",
+    html: "`data-indeterminate` needs `checkbox.js`. It sets the `indeterminate` property, and keeps it in step when the attribute changes or a checkbox is added.",
   },
   options: [
     {
@@ -132,7 +139,7 @@ export default {
     },
     {
       description:
-        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.",
+        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
       inherited: true,
       prop: "name",
       type: "string",

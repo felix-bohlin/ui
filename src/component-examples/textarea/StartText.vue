@@ -3,5 +3,5 @@ import { Textarea } from "opui-css/vue"
 </script>
 
 <template>
-  <Textarea startText="Shown on your public profile" label="Bio" />
+  <Textarea label="Bio" startText="Shown on your public profile" />
 </template>

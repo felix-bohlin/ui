@@ -2,7 +2,7 @@ import { Select } from "opui-css/react"
 
 export default function Dense() {
   return (
-    <Select label="Fruit" dense>
+    <Select dense label="Fruit">
       <option value="">-</option>
       <option>Apple</option>
       <option>Banana</option>

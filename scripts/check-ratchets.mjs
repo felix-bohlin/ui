@@ -9,6 +9,20 @@ const RATCHETS = [
     fix: "use a --ui-* role or a documented input instead of a new allowlist entry",
   },
   {
+    file: "tests/unit/example-copy-allowlist.json",
+    fix: "write realistic copy in the example instead of allowing the placeholder",
+  },
+  {
+    file: "tests/unit/example-coverage-allowlist.json",
+    fix: "add an example that shows the prop or value instead of allowing it",
+    keys: true,
+  },
+  {
+    file: "tests/unit/framework-diagnostics-allowlist.json",
+    fix: "fix the warning in the component, its emitter or the example instead of allowing it",
+    keys: true,
+  },
+  {
     file: "tests/unit/todo-allowlist.json",
     fix: "fix the new TODO.md item instead of allowing it",
   },
@@ -20,8 +34,10 @@ const RATCHETS = [
 ]
 
 const A11Y_LEDGER = "tests/e2e/a11y-known-violations.json"
+const HAND_WRITTEN = "scripts/hand-written-examples.json"
+const HAND_WRITTEN_COMPONENTS = "scripts/hand-written-components.json"
 const DRIFT_DIR = "tests/unit/__snapshots__"
-export const TRAILER = "Ledger-Change"
+const TRAILER = "Ledger-Change"
 
 export const entries = (value, path = []) =>
   typeof value === "string"
@@ -123,7 +139,23 @@ const main = () => {
       .filter((file) => file.endsWith(".diff"))
       .map((file) => [file, show(mergeBase, file) ?? ""]),
   )
+  const handWritten = show(mergeBase, HAND_WRITTEN)
+  const handWrittenComponents = show(mergeBase, HAND_WRITTEN_COMPONENTS)
   const ledgerAdditions = [
+    ...(handWrittenComponents === undefined
+      ? []
+      : added(
+          Object.keys(JSON.parse(handWrittenComponents)),
+          Object.keys(
+            JSON.parse(readFileSync(HAND_WRITTEN_COMPONENTS, "utf-8")),
+          ),
+        ).map((file) => `${HAND_WRITTEN_COMPONENTS} gained "${file}"`)),
+    ...(handWritten === undefined
+      ? []
+      : added(
+          Object.keys(JSON.parse(handWritten)),
+          Object.keys(JSON.parse(readFileSync(HAND_WRITTEN, "utf-8"))),
+        ).map((file) => `${HAND_WRITTEN} gained "${file}"`)),
     ...(ledger === undefined
       ? []
       : added(
@@ -157,7 +189,7 @@ const main = () => {
     } else {
       errors.push(
         ...ledgerAdditions.map((entry) => `${entry}.`),
-        `The accessibility ledger and the parity drift only grow for an intended change. Fix the violation or the drift, or, when it is intended, add the trailer "${TRAILER}: intended" to a commit on the branch (git commit --amend --trailer "${TRAILER}: intended") and say in its message what it accepts.`,
+        `The accessibility ledger, the parity drift, the hand-written examples and the hand-written components only grow for an intended change. Fix the violation or the drift, support the construct in scripts/build-examples.mjs or scripts/build-components.mjs, or, when it is intended, add the trailer "${TRAILER}: intended" to a commit on the branch (git commit --amend --trailer "${TRAILER}: intended") and say in its message what it accepts.`,
       )
     }
   }
@@ -168,7 +200,7 @@ const main = () => {
   }
 
   console.log(
-    `Checked ${RATCHETS.length} allowlists, ${A11Y_LEDGER} and the parity drift against ${base}.`,
+    `Checked ${RATCHETS.length} allowlists, ${A11Y_LEDGER}, ${HAND_WRITTEN}, ${HAND_WRITTEN_COMPONENTS} and the parity drift against ${base}.`,
   )
 }
 

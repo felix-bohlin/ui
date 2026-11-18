@@ -4,7 +4,9 @@ import { Button, Tooltip, TooltipContent } from "opui-css/vue"
 
 <template>
   <Tooltip arrow id="tooltip-arrow-1">
-    <Button interestfor="tooltip-arrow-1">Save</Button>
+    <Button aria-describedby="tooltip-arrow-1" interestfor="tooltip-arrow-1"
+      >Save</Button
+    >
     <TooltipContent>Save your changes</TooltipContent>
   </Tooltip>
 </template>

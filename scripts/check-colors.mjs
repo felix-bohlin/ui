@@ -2,6 +2,8 @@ import { execFileSync } from "node:child_process"
 import { readFileSync, realpathSync } from "node:fs"
 import { join } from "node:path"
 import { fileURLToPath } from "node:url"
+import { unreleasedPart } from "../src/utils/changelog-file.ts"
+import { astroSourceOf } from "./example-targets.mjs"
 
 const root =
   process.env.OPUI_ROOT ?? fileURLToPath(new URL("..", import.meta.url))
@@ -10,7 +12,7 @@ const GENERATED = JSON.parse(
   readFileSync(join(root, "scripts/generated-files.json"), "utf-8"),
 ).files
 
-const SKIPPED = ["tests/"]
+const SKIPPED = ["TODO.md", "tests"]
 
 const CODE = /\.(?:cjs|css|js|json|mjs|svg|ts|tsx)$/
 const MARKUP = /\.(?:astro|html|svelte|vue)$/
@@ -48,11 +50,8 @@ const MARKUP_PARTS = [
 
 const MARKDOWN_PARTS = [/```[\s\S]*?```/g, /`[^`\n]+`/g]
 
-const unreleased = (file, text) => {
-  if (!file.endsWith("CHANGELOG.md")) return text
-  const released = text.search(/^## .* - \d{4}-\d{2}-\d{2}\s*$/m)
-  return released === -1 ? text : text.slice(0, released)
-}
+const unreleased = (file, text) =>
+  file.endsWith("CHANGELOG.md") ? unreleasedPart(text) : text
 
 const checked = (file, text) => {
   if (CODE.test(file)) return withoutComments(text)
@@ -66,15 +65,25 @@ const checked = (file, text) => {
   return null
 }
 
+const exists = (file) => {
+  try {
+    return readFileSync(join(root, file), "utf8")
+  } catch {
+    return undefined
+  }
+}
+
 export const FIX = "Write every color as oklch()."
 
 export const colorProblems = (file, text) => {
   if (
-    GENERATED.some((path) => file === path || file.startsWith(`${path}/`)) ||
-    SKIPPED.some((path) => file.startsWith(path))
+    [...GENERATED, ...SKIPPED].some(
+      (path) => file === path || file.startsWith(`${path}/`),
+    )
   ) {
     return []
   }
+  if (astroSourceOf(file, exists)) return []
   const source = checked(file, text)
   if (source === null) return []
   return [...source.matchAll(COLOR)].map((match) => {

@@ -2,7 +2,6 @@ import { execFileSync } from "node:child_process"
 import fs from "node:fs"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
-import { format } from "prettier"
 import ts from "typescript"
 import { PACKAGE_FRAMEWORK_IDS } from "../src/utils/framework.js"
 import {
@@ -10,6 +9,7 @@ import {
   barrelExports,
   classNamesIn,
 } from "../src/utils/package-source.js"
+import { formatCode } from "./format.mjs"
 
 const OLDER_TYPE_FILES = { vue: ["types.d.vue.ts"] }
 
@@ -147,7 +147,7 @@ const main = async () => {
   const output = "tests/unit/released-api.json"
   fs.writeFileSync(
     output,
-    await format(
+    await formatCode(
       JSON.stringify(
         {
           classes: [...classes].toSorted(),
@@ -159,7 +159,7 @@ const main = async () => {
         null,
         2,
       ),
-      { filepath: output },
+      output,
     ),
   )
   fs.rmSync(cache, { force: true, recursive: true })

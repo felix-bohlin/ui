@@ -4,7 +4,7 @@ import {
   Button,
   Menu,
   Message,
-  Messages,
+  MessageList,
   Reactions,
   ToggleButton,
   ToggleGroup,
@@ -24,10 +24,10 @@ const picker = (id: string) =>
   emoji.map((item) => ({ ...item, command: "--react", commandfor: id }))
 ---
 
-<Messages aria-label="Messages with Saga">
-  <Message author="Saga" datetime="2026-10-08T16:05" time="16:05">
-    <Avatar aria-label="Saga Nyström" role="img" slot="start">SN</Avatar>
-    <p>The deck is out. Thanks everyone!</p>
+<MessageList aria-label="Messages with Stella">
+  <Message author="Stella" datetime="2026-10-08T16:05" time="16:05">
+    <Avatar aria-hidden="true" slot="start">SN</Avatar>
+    <p>My slap cover is up. Thanks for listening, everyone!</p>
     <Fragment slot="actions">
       <Button
         aria-label="Add reaction"
@@ -58,7 +58,7 @@ const picker = (id: string) =>
     </Reactions>
   </Message>
   <Message author="You" datetime="2026-10-08T16:07" outgoing time="16:07">
-    <p>Great work, it looks sharp.</p>
+    <p>Totally rad, that low B rattled my windows.</p>
     <Fragment slot="actions">
       <Button
         aria-label="Add reaction"
@@ -86,4 +86,4 @@ const picker = (id: string) =>
       </ToggleGroup>
     </Reactions>
   </Message>
-</Messages>
+</MessageList>

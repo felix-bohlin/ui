@@ -40,6 +40,8 @@ export default {
         "To hide the label, set `hideLabel` and keep the text in `label` or the slot.",
       react:
         "To hide the label, set `hideLabel` and keep the text in `label` or `children`. Use `checked` with `onChange`, or `defaultChecked`.",
+      solid:
+        "To hide the label, set `hideLabel` and keep the text in `label` or `children`. `checked` sets the state and follows it when it changes, and `onChange` reports changes.",
       svelte:
         "To hide the label, set `hideLabel` and keep the text in `label` or `children`.",
     }),
@@ -93,7 +95,7 @@ export default {
     },
     {
       description:
-        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.",
+        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
       inherited: true,
       prop: "name",
       type: "string",
@@ -159,12 +161,12 @@ export default {
       selector: "input",
     },
     {
-      description: "An optional icon in the thumb when unchecked.",
+      description: "An optional icon on the track, shown while unchecked.",
       selector: ".ui-icon-unchecked",
       slots: ["icon-unchecked"],
     },
     {
-      description: "An optional icon in the thumb when checked.",
+      description: "An optional icon on the track, shown while checked.",
       selector: ".ui-icon-checked",
       slots: ["icon-checked"],
     },

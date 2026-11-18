@@ -3,7 +3,7 @@ import { Avatar } from "opui-css/vue"
 </script>
 
 <template>
-  <Avatar aria-label="Lena Ek" role="img">LE</Avatar>
-  <Avatar aria-label="Tom Tanaka" role="img">TT</Avatar>
-  <Avatar aria-label="Elif Rahman" role="img">ER</Avatar>
+  <Avatar aria-label="Lou Headstock" role="img">LH</Avatar>
+  <Avatar aria-label="Percy Groove" role="img">PG</Avatar>
+  <Avatar aria-label="Ines Hertz" role="img">IH</Avatar>
 </template>

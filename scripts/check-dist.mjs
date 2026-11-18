@@ -25,7 +25,7 @@ const attr = (node, name) =>
   node.attrs?.find((attribute) => attribute.name === name)?.value
 
 const PLACEHOLDER_FRAGMENTS =
-  /^\/(?:blocks\/[^/]+\/preview|[^/]+\/test\/[^/]+|tests\/[^/]+)\/$/
+  /^\/(?:blocks\/[^/]+\/preview|[^/]+\/test\/[^/]+|dev\/tests\/[^/]+)\/$/
 
 const COMPONENT_PAGE = /^\/[^/]+\/components\/[^/]+\/$/
 
@@ -34,7 +34,23 @@ const MARKDOWN_LINK = /\]\((\S+?)\)/g
 const NO_MARKDOWN = /^\/[^/]+\/$/
 const NOT_IN_LLMS = /^\/[^/]+\/(?:components\/)?$/
 
-export const distProblems = ({ dist, searchIndex, site }) => {
+export const NETLIFY_ORIGIN = "https://open-props-ui.netlify.app"
+
+const ANIMATION_SHORTHAND = /(?<![\w-])animation\s*:([^;{}]+)/g
+const VAR_CALL = /var\([^()]*(?:\([^()]*\)[^()]*)*\)/g
+const TIMELINE = /\b(?:scroll|view)\(|(?:^|[\s,])--[\w-]/
+
+const timelineShorthands = (css) =>
+  [...css.replace(/\/\*[\s\S]*?\*\//g, "").matchAll(ANIMATION_SHORTHAND)]
+    .filter(([, value]) => TIMELINE.test(value.replace(VAR_CALL, "")))
+    .map(([declaration]) => declaration.trim())
+
+export const distProblems = ({
+  dist,
+  searchIndex,
+  site,
+  standardSite = { documents: {} },
+}) => {
   const files = walk(dist).toSorted()
   const urlPath = (file) =>
     `/${relative(dist, file).split(sep).join("/")}`.replace(
@@ -46,12 +62,17 @@ export const distProblems = ({ dist, searchIndex, site }) => {
   for (const file of files.filter((file) => file.endsWith(".html"))) {
     const ids = []
     const links = []
+    const standardSite = {}
+    const styles = []
     let noindex = false
     let redirect
     const visit = (node, inExample = false) => {
       if (node.tagName === "template") return
       const id = attr(node, "id")
       if (id) ids.push(id)
+      if (node.tagName === "style") {
+        styles.push(node.childNodes.map((child) => child.value ?? "").join(""))
+      }
       if (node.tagName === "a" && attr(node, "href") !== undefined) {
         links.push({ href: attr(node, "href"), inExample })
       }
@@ -60,6 +81,12 @@ export const distProblems = ({ dist, searchIndex, site }) => {
         attr(node, "rel")?.split(/\s+/).includes("alternate")
       ) {
         links.push({ href: attr(node, "href"), inExample })
+      }
+      if (
+        node.tagName === "link" &&
+        attr(node, "rel")?.startsWith("site.standard.")
+      ) {
+        standardSite[attr(node, "rel")] = attr(node, "href")
       }
       if (
         node.tagName === "meta" &&
@@ -85,6 +112,8 @@ export const distProblems = ({ dist, searchIndex, site }) => {
       links,
       noindex,
       redirect,
+      standardSite,
+      styles,
       all: ids,
     })
   }
@@ -143,7 +172,24 @@ export const distProblems = ({ dist, searchIndex, site }) => {
     }
   }
 
-  for (const item of searchIndex) checkLink(item.url, "/search-index.json")
+  const stylesheets = [
+    ...files
+      .filter((file) => file.endsWith(".css"))
+      .map((file) => [urlPath(file), readFileSync(file, "utf-8")]),
+    ...[...pages].flatMap(([path, page]) =>
+      page.styles.map((css) => [path, css]),
+    ),
+  ]
+  for (const [from, css] of stylesheets) {
+    for (const declaration of timelineShorthands(css)) {
+      problem(
+        `"${declaration}" puts a timeline in the animation shorthand, which browsers drop with the whole declaration: Lightning CSS folds an animation-timeline that follows the shorthand into it when Astro minifies, so write that rule with animation-* longhands`,
+        from,
+      )
+    }
+  }
+
+  for (const item of searchIndex) checkLink(item.url, "/search-index/")
 
   for (const file of files.filter((file) => /\.(?:md|txt)$/.test(file))) {
     const from = urlPath(file)
@@ -172,6 +218,20 @@ export const distProblems = ({ dist, searchIndex, site }) => {
         )
       }
     }
+  }
+
+  const domainRule = `${NETLIFY_ORIGIN}/* ${site.origin}/:splat 301!`
+  const firstRule = isFile("/_redirects")
+    ? readFileSync(join(dist, "_redirects"), "utf-8")
+        .split("\n")
+        .map((line) => line.trim().split(/\s+/).join(" "))
+        .find((line) => line && !line.startsWith("#"))
+    : undefined
+  if (firstRule !== domainRule) {
+    problem(
+      `/_redirects doesn't start with "${domainRule}": public/_redirects sends the netlify.app address to site in astro.config.mjs, path included, ahead of every other rule`,
+      "/_redirects",
+    )
   }
 
   for (const [path] of pages) {
@@ -219,6 +279,31 @@ export const distProblems = ({ dist, searchIndex, site }) => {
     }
   }
 
+  const wellKnown = "/.well-known/site.standard.publication"
+  const served = isFile(wellKnown)
+    ? readFileSync(join(dist, wellKnown), "utf-8")
+    : undefined
+  if (served !== standardSite.publication) {
+    problem(
+      `${wellKnown} serves ${served === undefined ? "nothing" : `"${served}"`} instead of ${standardSite.publication === undefined ? "nothing" : `"${standardSite.publication}"`}: src/pages/.well-known/[record].ts serves the publication in src/utils/standard-site.json`,
+      wellKnown,
+    )
+  }
+  for (const [slug, uri] of Object.entries(standardSite.documents)) {
+    const path = `/blog/${slug}/`
+    const links = pages.get(path)?.standardSite
+    if (
+      links &&
+      (links["site.standard.document"] !== uri ||
+        links["site.standard.publication"] !== standardSite.publication)
+    ) {
+      problem(
+        `${path} doesn't link its Standard Site records: Layout.astro adds <link rel="site.standard.publication"> and <link rel="site.standard.document"> from src/utils/standard-site.json`,
+        path,
+      )
+    }
+  }
+
   return {
     pages: pages.size,
     problems: [...problems]
@@ -230,13 +315,19 @@ export const distProblems = ({ dist, searchIndex, site }) => {
 const main = () => {
   const { pages, problems } = distProblems({
     dist: join(root, "dist"),
-    searchIndex: JSON.parse(
-      readFileSync(join(root, "public/search-index.json"), "utf-8"),
+    searchIndex: readdirSync(join(root, "public/search-index")).flatMap(
+      (file) =>
+        JSON.parse(
+          readFileSync(join(root, "public/search-index", file), "utf-8"),
+        ),
     ),
     site: new URL(
       readFileSync(join(root, "astro.config.mjs"), "utf-8").match(
         /\bsite:\s*"([^"]+)"/,
       )[1],
+    ),
+    standardSite: JSON.parse(
+      readFileSync(join(root, "src/utils/standard-site.json"), "utf-8"),
     ),
   })
   if (problems.length > 0) {

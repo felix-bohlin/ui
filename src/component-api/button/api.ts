@@ -22,7 +22,7 @@ export default {
   options: [
     {
       description:
-        "The accessible name, for a button without visible text. React and Svelte require it, or `aria-labelledby`, when there are no `children`.",
+        "The accessible name, for a button without visible text. React, Solid and Svelte require it, or `aria-labelledby`, when there are no `children`.",
       inherited: true,
       prop: "aria-label",
       type: "string",
@@ -48,12 +48,12 @@ export default {
     {
       default: "false",
       description:
-        'Disables the button. A link button drops its `href` and gets `aria-disabled="true"`.',
+        'Disables the button. A link button drops its `href` and gets `role="link"` and `aria-disabled="true"`.',
       prop: "disabled",
     },
     {
       description:
-        'Keeps the pressed background on a transparent (text) button link for the current page in navigation, or dims a disabled one. A link button, which can\'t take `disabled`, drops its `href` and takes `aria-disabled="true"` instead.',
+        'Marks the link to the current page in navigation with the selected tint and strong text (a filled button drops its fill), or dims a disabled one. A link button, which can\'t take `disabled`, drops its `href` and takes `role="link"` and `aria-disabled="true"` instead.',
       frameworks: ["html"],
       group: "State",
       prop: "state",
@@ -87,6 +87,14 @@ export default {
       },
     },
     {
+      default: '"button"',
+      description:
+        'The button type. Use `"submit"` to submit a form, which a native `<button>` does by default.',
+      inherited: true,
+      prop: "type",
+      type: '"button" | "reset" | "submit"',
+    },
+    {
       default: '"transparent"',
       description: "The variant to use.",
       group: "Variants",
@@ -104,6 +112,12 @@ export default {
       code: "<svg>",
       description: "An optional icon.",
       selector: ".ui-button > svg",
+    },
+    {
+      code: '<span class="ui-text">',
+      description:
+        "The label next to an icon. The CSS styles the `span`, and `.ui-text` is a hook for your own styles.",
+      selector: ".ui-button > span",
     },
     {
       code: "<kbd>",

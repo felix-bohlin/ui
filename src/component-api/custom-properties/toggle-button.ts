@@ -3,7 +3,12 @@ import type { CustomProperties } from "../types"
 export default {
   "--_bg-color": {
     description:
-      "The current background. Set by the hover and selected states.",
+      "The current background. Set by the hover state, `--ui-text-strong` at `--ui-state-hover-alpha-light` or `--ui-state-hover-alpha-dark`, and the selected state.",
+    kind: "output",
+  },
+  "--_border-color": {
+    description:
+      "The current border color. Defaults to `--ui-control-border-color`, or `--ui-border-color` when the theme leaves it unset, `--ui-control-border-color-filled` when selected and `--ui-text-disabled` when disabled and not selected. A focused toggle button draws `--ui-focus-border-color` instead when the theme sets it.",
     kind: "output",
   },
   "--_duration": {

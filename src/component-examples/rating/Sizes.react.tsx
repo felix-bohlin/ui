@@ -4,14 +4,14 @@ export default function Sizes() {
   return (
     <>
       <div className="example-column">
-        <Rating label="Rated 4 out of 5" size="small" value={4} />
-        <Rating label="Rated 4 out of 5" value={4} />
-        <Rating label="Rated 4 out of 5" size="large" value={4} />
+        <Rating defaultValue={4} label="Rated 4 out of 5" size="small" />
+        <Rating defaultValue={4} label="Rated 4 out of 5" />
+        <Rating defaultValue={4} label="Rated 4 out of 5" size="large" />
       </div>
       <div className="example-column">
-        <Rating label="Small" name="size-small" size="small" value={4} />
-        <Rating label="Default" name="size-default" value={4} />
-        <Rating label="Large" name="size-large" size="large" value={4} />
+        <Rating defaultValue={4} label="Small" name="size-small" size="small" />
+        <Rating defaultValue={4} label="Medium" name="size-medium" />
+        <Rating defaultValue={4} label="Large" name="size-large" size="large" />
       </div>
     </>
   )

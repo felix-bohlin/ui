@@ -3,15 +3,15 @@ import { Switch } from "opui-css/react"
 export default function EndText() {
   return (
     <>
-      <Switch name="switch-end-text" endText="Supporting text">
-        Default
+      <Switch endText="A summary every morning." name="switch-end-text">
+        Daily digest
       </Switch>
       <Switch
+        endText="Only when someone mentions you."
         name="switch-end-text"
         orientation="vertical"
-        endText="Supporting text"
       >
-        Stack
+        Mentions
       </Switch>
     </>
   )

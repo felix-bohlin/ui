@@ -1,0 +1,8 @@
+---
+const Tag = "div"
+const caller: { "data-state"?: string } = { "data-state": undefined }
+---
+
+<div data-shape="static" data-state="set" {...caller}></div>
+<Tag data-shape="dynamic" data-state="set" {...caller} />
+<x-element data-shape="custom" data-state="set" {...caller}></x-element>

@@ -5,9 +5,10 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/vue"
 <template>
   <Accordion variant="outlined">
     <AccordionSummary>
-      Custom marker
+      How do I get started?
       <template #marker>
         <svg
+          data-icon="hand"
           aria-hidden="true"
           class="ui-marker"
           xmlns="http://www.w3.org/2000/svg"
@@ -25,12 +26,8 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/vue"
     </AccordionSummary>
     <AccordionContent>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo. Nam tempor euismod nisi ac ornare.
-        Pellentesque id sapien lacinia, venenatis est aliquam, dignissim elit.
-        Suspendisse potenti. Cras ut ante in libero tempus sodales sed quis
-        dolor.
+        Make a profile, invite your bandmates and add your very first bass. Each
+        step takes about a minute, easy peasy.
       </p>
     </AccordionContent>
   </Accordion>

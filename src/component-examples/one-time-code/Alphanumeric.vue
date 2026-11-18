@@ -4,8 +4,8 @@ import { OneTimeCode } from "opui-css/vue"
 
 <template>
   <OneTimeCode
-    label="Recovery code"
     alphanumeric
+    label="Recovery code"
     name="recovery-code"
     value="k7q"
   />

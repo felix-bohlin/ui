@@ -3,12 +3,12 @@ import type { CustomProperties } from "../types"
 export default {
   "--_backdrop-bg-color": {
     description:
-      "The backdrop color. Defaults to `--ui-backdrop-bg-color`, `.ui-backdrop-transparent` clears it.",
+      "The backdrop color. `card.css` declares it for dialogs and drawers, and `.ui-backdrop-transparent` clears it.",
     kind: "input",
   },
   "--_backdrop-blur": {
     description:
-      "The backdrop filter. Defaults to a `--ui-backdrop-blur` blur, `.ui-backdrop-transparent` removes it.",
+      "The backdrop filter. `card.css` declares it for dialogs and drawers, and `.ui-backdrop-transparent` removes it.",
     kind: "input",
   },
   "--_bg-color": {
@@ -16,7 +16,8 @@ export default {
     kind: "input",
   },
   "--_block-size": {
-    description: "Height of `.ui-block-start` and `.ui-block-end` drawers.",
+    description:
+      "Height of `.ui-block-start` and `.ui-block-end` drawers. Defaults to 80% of the viewport, at most `650px`.",
     kind: "input",
   },
   "--_border-color": {
@@ -28,6 +29,11 @@ export default {
     description:
       "Width of the inner edge border and the `.ui-header` and `.ui-footer` dividers.",
     kind: "input",
+  },
+  "--_closed-translate": {
+    description:
+      "Where the drawer slides from and back to: off the inline start by default, the inline end with `.ui-inline-end` (both mirrored by `--_direction`), and the top or bottom with `.ui-block-start` and `.ui-block-end`.",
+    kind: "output",
   },
   "--_content-padding": {
     description:
@@ -53,14 +59,14 @@ export default {
       "Color of the inner edge border. `--ui-border-color-raised` when a theme sets it, otherwise `--_border-color`.",
     kind: "input",
   },
-  "--_footer-gap": {
-    description:
-      "Gap between the items in `.ui-footer` and between the buttons in its `.ui-actions`.",
-    kind: "input",
-  },
   "--_footer-padding": {
     description:
       "Padding of `.ui-footer`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.",
+    kind: "input",
+  },
+  "--_handle-border-color": {
+    description:
+      "Color of the grab handle a drawer at the block start or end shows on a touch screen. `--ui-border-color` on the drawer's surface.",
     kind: "input",
   },
   "--_header-padding": {
@@ -76,22 +82,22 @@ export default {
     description: "Motion multiplier for the transitions. `0` turns them off.",
     kind: "input",
   },
-  "--_scroll-shadow": {
-    description:
-      "Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.",
-    kind: "input",
-  },
   "--_shadow": {
     description: "The shadow. Defaults to `--ui-shadow-overlay`.",
     kind: "input",
   },
-  "--_text-color": {
-    description: "The text color. Defaults to `--ui-text-strong`.",
+  "--_swipe-offset": {
+    description:
+      "How far a swipe has moved the open drawer toward its edge. `opui-css/elements/drawer-swipe.js` sets it on the drawer while a finger drags it. `0px` otherwise.",
     kind: "input",
   },
-  "--_title-font-size": {
+  "--_swipe-progress": {
     description:
-      "Font size of the title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.",
+      "The share of its size a swipe has moved the drawer, from `0` to `1`. `opui-css/elements/drawer-swipe.js` sets it while a finger drags the drawer, and the backdrop fades by it. `0` otherwise.",
+    kind: "input",
+  },
+  "--_text-color": {
+    description: "The text color. Defaults to `--ui-text-strong`.",
     kind: "input",
   },
 } satisfies CustomProperties

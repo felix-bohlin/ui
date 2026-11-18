@@ -1,18 +1,23 @@
-<opui-copy class="ui-copy" id="copy-basics-1">
-  <label class="ui-text-field">
-    <span class="ui-sr-only">Invite link</span>
+<opui-copy id="copy-basics-1" class="ui-copy">
+  <div class="ui-text-field">
+    <label class="ui-sr-only" for="copy-basics-2">Invite link</label>
     <span class="ui-field">
-      <input readonly type="text" value="https://example.com/invite/8f3k2" />
+      <input
+        readonly
+        value="https://example.com/invite/8f3k2"
+        id="copy-basics-2"
+        type="text"
+      />
     </span>
-  </label>
+  </div>
   <span class="ui-sr-only" role="status"></span>
-  <span class="ui-floating" popover aria-hidden="true"></span>
+  <span aria-hidden="true" class="ui-floating" popover></span>
 </opui-copy>
 <button
-  type="button"
   class="ui-button ui-outlined"
-  commandfor="copy-basics-1"
+  type="button"
   command="--copy"
+  commandfor="copy-basics-1"
 >
   Copy
 </button>

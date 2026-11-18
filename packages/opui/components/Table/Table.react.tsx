@@ -7,6 +7,7 @@ export default function Table({
   flush,
   overflow,
   stickyHeader,
+  children,
   ...rest
 }: Props) {
   return (
@@ -19,6 +20,8 @@ export default function Table({
         className,
       ])}
       {...rest}
-    />
+    >
+      {children}
+    </table>
   )
 }

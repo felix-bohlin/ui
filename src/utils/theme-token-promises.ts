@@ -1,4 +1,4 @@
-export type TokenPromise = {
+type TokenPromise = {
   against: string[]
   fallback?: string
   ratio: 3 | 4.5
@@ -79,9 +79,17 @@ export const themeTokenPromises: Record<string, TokenPromise> = {
   "--ui-field-helper-text-color": { against: SURFACES, ratio: 4.5 },
   "--ui-field-label-text-color": { against: SURFACES, ratio: 4.5 },
   "--ui-field-required-text-color": { against: SURFACES, ratio: 4.5 },
-  "--ui-focus-ring-color": { against: ["--ui-surface"], ratio: 3 },
+  "--ui-focus-ring-color": {
+    against: ["var(--ui-focus-border-color, var(--ui-surface))"],
+    ratio: 3,
+  },
   "--ui-info-text": { against: SURFACES, ratio: 4.5 },
   "--ui-invalid-text": { against: SURFACES, ratio: 4.5 },
+  "--ui-link-visited-text-color": {
+    against: SURFACES,
+    fallback: "--ui-primary-text",
+    ratio: 4.5,
+  },
   "--ui-neutral-text": { against: SURFACES, ratio: 4.5 },
   "--ui-on-fill": {
     against: ["--ui-critical", "--ui-info", "--ui-neutral", "--ui-success"].map(
@@ -89,6 +97,7 @@ export const themeTokenPromises: Record<string, TokenPromise> = {
     ),
     ratio: 4.5,
   },
+  "--ui-on-focus-highlight": { against: ["--ui-focus-highlight"], ratio: 4.5 },
   "--ui-on-inverse": { against: ["--ui-surface-inverse"], ratio: 4.5 },
   "--ui-on-primary": { against: ["--ui-primary"], ratio: 4.5 },
   "--ui-on-selected-strong": { against: ["--ui-selected-strong"], ratio: 4.5 },
@@ -107,6 +116,3 @@ export const themeTokenPromises: Record<string, TokenPromise> = {
 
 export const promiseColor = (value: string) =>
   value.startsWith("--") ? `var(${value})` : value
-
-export const describePromise = ({ against, ratio }: TokenPromise) =>
-  `Promises ${ratio}:1 against ${new Intl.ListFormat("en").format(against.map((name) => `\`${name}\``))}, in light and dark mode and under more contrast.`

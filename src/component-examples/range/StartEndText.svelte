@@ -2,4 +2,8 @@
   import { Range } from "opui-css/svelte"
 </script>
 
-<Range label="Label" startText="Start helper text" endText="End helper text" />
+<Range
+  endText="You can also zoom with your browser."
+  label="Text size"
+  startText="Applies to articles and comments."
+/>

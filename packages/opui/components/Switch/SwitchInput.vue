@@ -1,18 +1,27 @@
 <script setup lang="ts">
-import { computed, inject, type InputHTMLAttributes, useAttrs } from "vue"
-import type { SwitchInputProps } from "./types.vue-props"
+import {
+  computed,
+  inject,
+  type IntrinsicElementAttributes,
+  useAttrs,
+} from "vue"
+import { vSeed } from "../vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
+import { defined } from "../attrs"
+import { classAttrs } from "../cx"
+import type { SwitchInputProps as Props } from "./types.vue-props"
+
+const { name } = defineProps<Props>()
 
 defineOptions({
   inheritAttrs: false,
 })
 
-defineProps<SwitchInputProps>()
-const attrs = useAttrs() as InputHTMLAttributes
+const attrs = useAttrs() as IntrinsicElementAttributes["input"]
+
 const modelValue = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
-const field = inject(FieldGroupKey, undefined)
 
 const model = computed({
   get: () =>
@@ -22,15 +31,17 @@ const model = computed({
     modelValue.value = value
   },
 })
+
+const field = inject(FieldGroupKey, undefined)
 </script>
 
 <template>
   <input
     type="checkbox"
     role="switch"
-    :class="$props.class"
-    v-bind="$attrs"
-    :name="attrs.name ?? field?.name"
+    :name="name ?? field?.name"
+    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"
+    v-seed
     v-model="model"
   />
 </template>

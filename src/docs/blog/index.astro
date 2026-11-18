@@ -165,102 +165,86 @@ const filterCss = [
 >
   <Fragment slot="title">Blog</Fragment>
 
-  {
-    release && (
-      <article class="blog-release ui-not-rich-text">
-        <div aria-hidden="true" class="blog-release-sky">
-          {starLayers.map((layer, index) => (
-            <span
-              class="blog-release-stars"
-              style={`--layer: ${index}; background-image: ${layer}`}
-            />
-          ))}
-          <span class="blog-release-glow" />
-        </div>
-        <div class="blog-release-content">
-          <h2>{release.title}</h2>
-          <p>{release.description}</p>
-          <div class="blog-release-actions">
-            <Button href={link(`/blog/${release.slug}`)} variant="filled">
-              Read the release
-            </Button>
-            <dl class="blog-meta">
-              {release.meta.map((item) => (
-                <div>
-                  <dt>
-                    <svg aria-hidden="true" viewBox="0 0 16 16">
-                      <path d={item.icon} />
-                    </svg>
-                    <span class="ui-sr-only">{item.label}</span>
-                  </dt>
-                  <dd>{item.value}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </div>
-      </article>
-    )
-  }
+  {release && <article class="blog-release ui-not-rich-text">
+    <div aria-hidden="true" class="blog-release-sky">
+      {starLayers.map((layer, index) => (
+        <span
+          class="blog-release-stars"
+          style={`--layer: ${index}; background-image: ${layer}`}
+        />
+      ))}
+      <span class="blog-release-glow" />
+    </div>
+    <div class="blog-release-content">
+      <h2>{release.title}</h2>
+      <p>{release.description}</p>
+      <div class="blog-release-actions">
+        <Button href={link(`/blog/${release.slug}`)} variant="filled">
+          Read the release
+        </Button>
+        <dl class="blog-meta">
+          {release.meta.map((item) => <div>
+            <dt>
+              <svg aria-hidden="true" viewBox="0 0 16 16">
+                <path d={item.icon} />
+              </svg>
+              <span class="ui-sr-only">{item.label}</span>
+            </dt>
+            <dd>{item.value}</dd>
+          </div>)}
+        </dl>
+      </div>
+    </div>
+  </article>}
 
-  {
-    underTheHood && (
-      <article class="blog-builds ui-card ui-tonal ui-not-rich-text">
-        <div class="ui-content">
-          <hgroup>
-            <h2>
-              <DocLink href={`/blog/${underTheHood.slug}`}>
-                {underTheHood.title}
-              </DocLink>
-            </h2>
-            <p>{underTheHood.description}</p>
-          </hgroup>
-          <dl class="blog-meta">
-            {underTheHood.meta.map((item) => (
-              <div>
-                <dt>
-                  <svg aria-hidden="true" viewBox="0 0 16 16">
-                    <path d={item.icon} />
-                  </svg>
-                  <span class="ui-sr-only">{item.label}</span>
-                </dt>
-                <dd>{item.value}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-        <ol class="blog-steps" inert>
-          {buildSteps.map((step, index) => (
-            <li style={`--step: ${index}`}>
-              <button
-                class:list={[
-                  step.variant === "raw"
-                    ? "blog-step-raw"
-                    : ["ui-button", "ui-small", step.variant],
-                ]}
-                type="button"
-              >
-                {step.icon && (
-                  <svg
-                    aria-hidden="true"
-                    height="32"
-                    viewBox="0 0 16 16"
-                    width="32"
-                  >
-                    <path d={icons.download} fill="currentColor" />
-                  </svg>
-                )}
-                <span class="ui-text">Save</span>
-              </button>
-              <span class="blog-step-label">
-                {index + 1} {step.label}
-              </span>
-            </li>
-          ))}
-        </ol>
-      </article>
-    )
-  }
+  {underTheHood && <article
+    class="blog-builds ui-card ui-tonal ui-not-rich-text"
+  >
+    <div class="ui-content">
+      <hgroup>
+        <h2>
+          <DocLink href={`/blog/${underTheHood.slug}`}>
+            {underTheHood.title}
+          </DocLink>
+        </h2>
+        <p>{underTheHood.description}</p>
+      </hgroup>
+      <dl class="blog-meta">
+        {underTheHood.meta.map((item) => <div>
+          <dt>
+            <svg aria-hidden="true" viewBox="0 0 16 16">
+              <path d={item.icon} />
+            </svg>
+            <span class="ui-sr-only">{item.label}</span>
+          </dt>
+          <dd>{item.value}</dd>
+        </div>)}
+      </dl>
+    </div>
+    <ol class="blog-steps" inert>
+      {buildSteps.map((step, index) => <li style={`--step: ${index}`}>
+        <button
+          class:list={[
+            step.variant === "raw"
+              ? "blog-step-raw"
+              : ["ui-button", "ui-small", step.variant],
+          ]}
+          type="button"
+        >
+          {step.icon && <svg
+            aria-hidden="true"
+            height="32"
+            viewBox="0 0 16 16"
+            width="32"
+          >
+            <path d={icons.download} fill="currentColor" />
+          </svg>}
+          <span class="ui-text">Save</span>
+        </button>
+        <span class="blog-step-label"> {index + 1} {step.label} </span>
+      </li>)}
+    </ol>
+  </article>}
 
   <div class="blog-browse ui-not-rich-text">
     <div class="blog-toolbar">
@@ -281,13 +265,11 @@ const filterCss = [
       <div class="blog-filters" id="blog-filters" popover>
         <Fieldset>
           <FieldLegend>Level</FieldLegend>
-          <ToggleGroup name="blog-level" size="small">
+          <ToggleGroup aria-label="Level" name="blog-level" size="small">
             <ToggleButton checked value="">All</ToggleButton>
-            {
-              levels.map((level) => (
-                <ToggleButton value={level.id}>{level.label}</ToggleButton>
-              ))
-            }
+            {levels.map((level) => <ToggleButton value={level.id}
+              >{level.label}</ToggleButton
+            >)}
           </ToggleGroup>
         </Fieldset>
         <Select
@@ -307,102 +289,84 @@ const filterCss = [
     <p class="blog-empty">No post matches this level and topic.</p>
 
     <ul class="blog-posts">
-      {
-        componentPosts.map((post) => (
-          <li
-            class="blog-post"
-            data-level={post.level}
-            data-topics={post.topics?.join(" ")}
-          >
-            <article class="blog-row">
-              <p class="blog-row-component">{componentName(post.component!)}</p>
-              <div class="blog-row-text">
-                <hgroup>
-                  <h2>
-                    <DocLink href={`/blog/${post.slug}`}>{post.title}</DocLink>
-                  </h2>
-                  <p>{post.description}</p>
-                </hgroup>
-                <div class="blog-row-meta">
-                  {post.technique && (
-                    <Chip size="small">
-                      <code slot="label">{post.technique}</code>
-                    </Chip>
-                  )}
-                  <dl class="blog-meta">
-                    {post.meta.map((item) => (
-                      <div>
-                        <dt>
-                          <svg aria-hidden="true" viewBox="0 0 16 16">
-                            <path d={item.icon} />
-                          </svg>
-                          <span class="ui-sr-only">{item.label}</span>
-                        </dt>
-                        <dd>{item.value}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                </div>
-              </div>
-              <PostPreview slug={post.slug} />
-            </article>
-          </li>
-        ))
-      }
+      {componentPosts.map((post) => <li
+        class="blog-post"
+        data-level={post.level}
+        data-topics={post.topics?.join(" ")}
+      >
+        <article class="blog-row">
+          <p class="blog-row-component">{componentName(post.component!)}</p>
+          <div class="blog-row-text">
+            <hgroup>
+              <h2>
+                <DocLink href={`/blog/${post.slug}`}>{post.title}</DocLink>
+              </h2>
+              <p>{post.description}</p>
+            </hgroup>
+            <div class="blog-row-meta">
+              {post.technique && <Chip size="small">
+                <code slot="label">{post.technique}</code>
+              </Chip>}
+              <dl class="blog-meta">
+                {post.meta.map((item) => <div>
+                  <dt>
+                    <svg aria-hidden="true" viewBox="0 0 16 16">
+                      <path d={item.icon} />
+                    </svg>
+                    <span class="ui-sr-only">{item.label}</span>
+                  </dt>
+                  <dd>{item.value}</dd>
+                </div>)}
+              </dl>
+            </div>
+          </div>
+          <PostPreview slug={post.slug} />
+        </article>
+      </li>)}
     </ul>
   </div>
 
   <section class="blog-series-list" id="series">
     <h2>Series</h2>
     <p>Posts that build on each other, in reading order.</p>
-    {
-      series.map((entry) => (
-        <section class="ui-not-rich-text">
-          <h3 id={entry.id}>{entry.label}</h3>
-          <Carousel aria-label={entry.label} buttons="outside">
-            {entry.posts.map((slug, index) => (
-              <li>
-                <article class="ui-card ui-tonal blog-series-slide">
-                  <hgroup>
-                    <p class="blog-series-number">
-                      <span class="ui-sr-only">Part </span>
-                      {index + 1}
-                    </p>
-                    <h4>
-                      <DocLink href={`/blog/${slug}`}>
-                        {posts.find((post) => post.slug === slug)!.title}
-                      </DocLink>
-                    </h4>
-                    <p>{readingMinutes(slug)} min</p>
-                  </hgroup>
-                </article>
-              </li>
-            ))}
-          </Carousel>
-        </section>
-      ))
-    }
+    {series.map((entry) => <section class="ui-not-rich-text">
+      <h3 id={entry.id}>{entry.label}</h3>
+      <Carousel aria-label={entry.label} buttons="outside">
+        {entry.posts.map((slug, index) => <li>
+          <article class="ui-card ui-tonal blog-series-slide">
+            <hgroup>
+              <p class="blog-series-number">
+                <span class="ui-sr-only">Part </span>
+                {index + 1}
+              </p>
+              <h4>
+                <DocLink href={`/blog/${slug}`}>
+                  {posts.find((post) => post.slug === slug)!.title}
+                </DocLink>
+              </h4>
+              <p>{readingMinutes(slug)} min</p>
+            </hgroup>
+          </article>
+        </li>)}
+      </Carousel>
+    </section>)}
   </section>
 
   <section id="walkthrough-only">
     <h2>Walkthrough only</h2>
     <p>
       These components have a step-by-step build-up on the
-      <DocLink href="/blog/under-the-hood">Under the hood</DocLink> page, but no post
-      yet.
+      <DocLink href="/blog/under-the-hood">Under the hood</DocLink> page, but no
+      post yet.
     </p>
     <ul aria-label="Walkthroughs" class="blog-chips ui-not-rich-text">
-      {
-        walkthroughs.map((slug) => (
-          <li>
-            <Chip
-              href={link(`/blog/under-the-hood#${slug}`)}
-              label={componentName(slug)}
-              variant="outlined"
-            />
-          </li>
-        ))
-      }
+      {walkthroughs.map((slug) => <li>
+        <Chip
+          href={link(`/blog/under-the-hood#${slug}`)}
+          label={componentName(slug)}
+          variant="outlined"
+        />
+      </li>)}
     </ul>
   </section>
 </Blog>

@@ -14,25 +14,22 @@ const columns = [
   style={`--_max-lines: ${lines.max}; --_min-lines: ${lines.min}`}
 >
   <div class="field-sizing-compare-columns">
-    {
-      columns.map((column) => (
-        <div class="field-sizing-compare-column" data-sizing={column.sizing}>
-          <p class="field-sizing-compare-title">
-            <code>field-sizing: {column.sizing}</code>
-            <span>{column.caption}</span>
-          </p>
-          <Textarea
-            label={`Notes, field-sizing: ${column.sizing}`}
-            name={`field-sizing-${column.sizing}`}
-            placeholder="Type a few lines"
-            rows={lines.min}
-          />
-          <p class="field-sizing-compare-readout">
-            Box: <span data-lines />
-          </p>
-        </div>
-      ))
-    }
+    {columns.map((column) => <div
+      class="field-sizing-compare-column"
+      data-sizing={column.sizing}
+    >
+      <p class="field-sizing-compare-title">
+        <code>field-sizing: {column.sizing}</code>
+        <span>{column.caption}</span>
+      </p>
+      <Textarea
+        label={`Notes, field-sizing: ${column.sizing}`}
+        name={`field-sizing-${column.sizing}`}
+        placeholder="Type a few lines"
+        rows={lines.min}
+      />
+      <p class="field-sizing-compare-readout">Box: <span data-lines /></p>
+    </div>)}
   </div>
   <fieldset class="field-sizing-compare-knobs">
     <legend class="ui-sr-only">Line limits</legend>

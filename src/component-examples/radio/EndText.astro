@@ -2,14 +2,19 @@
 import { Radio } from "opui-css/astro"
 ---
 
-<Radio name="radio-end-text" value="default" checked endText="Supporting text">
-  Default
+<Radio
+  checked
+  endText="Arrives in 3 to 5 days."
+  name="radio-end-text"
+  value="standard"
+>
+  Standard delivery
 </Radio>
 <Radio
+  endText="Arrives tomorrow."
   name="radio-end-text"
-  value="stack"
   orientation="vertical"
-  endText="Supporting text"
+  value="express"
 >
-  Stack
+  Express delivery
 </Radio>

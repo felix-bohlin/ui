@@ -1,5 +1,5 @@
 <template>
-  <ul class="ui-layout-row">
+  <ul role="list" class="ui-layout-row">
     <li class="ui-layout-row ui-x-small">
       <span class="ui-swatch ui-success"></span> Online
     </li>

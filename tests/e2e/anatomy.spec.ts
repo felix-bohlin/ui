@@ -1,7 +1,7 @@
 import { readdirSync, readFileSync } from "node:fs"
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test } from "@playwright/test"
-import { FRAMEWORKS } from "./fixtures"
+import { FRAMEWORKS, instantScrolling } from "./fixtures"
 
 const docsDir = new URL("../../src/docs/components/", import.meta.url)
 
@@ -30,6 +30,7 @@ for (const framework of FRAMEWORKS) {
         (url) => url.hostname !== "localhost",
         (route) => route.abort(),
       )
+      await instantScrolling(page)
       await page.goto(`/${framework}/components/${slug}/`)
       await page.evaluate(() => document.fonts.ready)
 

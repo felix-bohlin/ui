@@ -17,8 +17,8 @@ export default {
   ],
   notes: {
     default:
-      'Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">`. Its `variant` styles every accordion in it.',
-    html: 'To group accordions, wrap them in a `.ui-card[role="group"]`. A variant on the group styles every accordion in it.',
+      'Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">` with an `aria-label`. Its `variant` styles every accordion in it.',
+    html: 'To group accordions, wrap them in a `.ui-card[role="group"]` with an `aria-label`. A variant on the group styles every accordion in it.',
   },
   options: [
     {
@@ -33,7 +33,7 @@ export default {
     {
       default: '"rotate"',
       description:
-        "How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` gives a chevron that points to the inline end a quarter turn, so it points down when open.",
+        "How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` turns it a quarter turn, for a marker that points to the inline end and then points down when open. The default chevron points down, so `turn` needs a custom marker.",
       group: "Marker animation",
       prop: "markerAnimation",
       values: {
@@ -54,7 +54,7 @@ export default {
     {
       default: '"plain"',
       description:
-        "The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface, border or padding.",
+        "The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface or border, and no inline padding.",
       group: "Variants",
       prop: "variant",
       values: {
@@ -76,7 +76,7 @@ export default {
     {
       code: '<svg class="ui-marker">',
       description:
-        "The marker. In Astro, React, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates.",
+        "The marker. In Astro, React, Solid, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates.",
       selector: "summary .ui-marker",
     },
     {

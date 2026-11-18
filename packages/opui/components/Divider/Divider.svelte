@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
-  import type { HTMLAttributes } from "svelte/elements"
+  import type { SvelteHTMLElements } from "svelte/elements"
 
   let {
     align,
@@ -23,7 +23,7 @@
       variant && variant !== "outlined" && `ui-${variant}`,
       className,
     ]}
-    {...rest as HTMLAttributes<HTMLDivElement>}
+    {...rest as SvelteHTMLElements["div"]}
   >
     {@render children()}
   </div>

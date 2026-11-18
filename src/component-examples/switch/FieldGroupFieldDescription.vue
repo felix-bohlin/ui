@@ -11,30 +11,37 @@ import {
 
 <template>
   <Form>
-    <Fieldset>
-      <FieldLegend>Legend</FieldLegend>
-      <FieldDescription>Field description above fields</FieldDescription>
-      <FieldGroup
-        orientation="horizontal"
-        name="switch-group-field-description-1"
+    <Fieldset
+      aria-describedby="switch-field-group-field-description-1-description"
+    >
+      <FieldLegend>Email me about</FieldLegend>
+      <FieldDescription id="switch-field-group-field-description-1-description"
+        >We send at most one email a week.</FieldDescription
       >
-        <Switch>Switch 1</Switch>
-        <Switch>Switch 2</Switch>
-        <Switch>Switch 3</Switch>
+      <FieldGroup
+        name="switch-group-field-description-1"
+        orientation="horizontal"
+      >
+        <Switch value="news">Product news</Switch>
+        <Switch value="tips">Tips</Switch>
+        <Switch value="offers">Offers</Switch>
       </FieldGroup>
     </Fieldset>
-
-    <Fieldset>
-      <FieldLegend>Legend</FieldLegend>
+    <Fieldset
+      aria-describedby="switch-field-group-field-description-2-description"
+    >
+      <FieldLegend>Accessibility</FieldLegend>
       <FieldGroup
-        orientation="horizontal"
         name="switch-group-field-description-2"
+        orientation="horizontal"
       >
-        <Switch>Switch 1</Switch>
-        <Switch>Switch 2</Switch>
-        <Switch>Switch 3</Switch>
+        <Switch value="reduce-motion">Reduce motion</Switch>
+        <Switch value="high-contrast">High contrast</Switch>
+        <Switch value="captions">Captions</Switch>
       </FieldGroup>
-      <FieldDescription>Field description below fields</FieldDescription>
+      <FieldDescription id="switch-field-group-field-description-2-description"
+        >These apply on this device only.</FieldDescription
+      >
     </Fieldset>
   </Form>
 </template>

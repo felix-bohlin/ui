@@ -13,6 +13,14 @@ export default {
         prop: "indeterminate",
       },
     ],
+    solid: [
+      {
+        description:
+          "A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs.",
+        fallback: "Import `opui-css/css/js/checkbox.js` in the page.",
+        prop: "indeterminate",
+      },
+    ],
     svelte: [
       {
         description:

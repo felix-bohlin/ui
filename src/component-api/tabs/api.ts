@@ -25,6 +25,8 @@ export default {
     html: 'Each tab is three elements, in this order: `input.ui-input[type="radio"]`, `label.ui-label` and `.ui-panel`.',
     react:
       "Use `value` with `onValueChange`, or `defaultValue`. Without them the items keep their own state, and `onValueChange` still reports changes.",
+    solid:
+      "Use `value` with `onValueChange`, or `defaultValue`. Without them the items keep their own state, and `onValueChange` still reports changes.",
     svelte:
       "Bind `value` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state.",
     vue: "Bind `v-model` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state.",
@@ -33,7 +35,7 @@ export default {
     {
       description:
         "The `value` of the tab selected at the start, when `value` is omitted.",
-      frameworks: ["react"],
+      frameworks: ["react", "solid"],
       prop: "defaultValue",
     },
     {
@@ -46,7 +48,7 @@ export default {
     },
     {
       description: "Called with the `value` of the tab when one is selected.",
-      frameworks: ["react"],
+      frameworks: ["react", "solid"],
       prop: "onValueChange",
       type: "(value: string) => void",
     },
@@ -91,7 +93,7 @@ export default {
     {
       description:
         "The `value` of the selected tab. The item whose `value` matches is checked, and the items' own `checked` is ignored.",
-      frameworks: ["astro", "react"],
+      frameworks: ["astro", "react", "solid"],
       prop: "value",
     },
   ],

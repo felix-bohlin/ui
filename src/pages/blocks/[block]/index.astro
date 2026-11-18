@@ -53,7 +53,8 @@ const codeTabs = FRAMEWORKS.flatMap<CodeTab>(({ id: framework, label }) =>
           code: block.sources[framework],
           framework,
           label,
-          lang: framework === "react" ? "tsx" : framework,
+          lang:
+            framework === "react" || framework === "solid" ? "tsx" : framework,
           name: framework,
         },
       ],

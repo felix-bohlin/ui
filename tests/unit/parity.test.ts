@@ -15,7 +15,7 @@ import {
 } from "../../src/utils/framework"
 import { createIdGenerator, exampleIdBase } from "../../src/utils/id"
 import { idsOf, normalize } from "./normalize"
-import { render } from "./renderers"
+import { render, type SolidComponent } from "./renderers"
 
 const RECORD = !!process.env.PARITY_RECORD
 
@@ -27,6 +27,10 @@ const reactModules = import.meta.glob<{ default: ComponentType }>([
   "../../src/blocks/**/*.react.tsx",
   "../../src/component-examples/**/*.react.tsx",
 ])
+const solidModules = import.meta.glob<{ default: SolidComponent }>([
+  "../../src/blocks/**/*.solid.tsx",
+  "../../src/component-examples/**/*.solid.tsx",
+])
 const svelteModules = import.meta.glob<{ default: SvelteComponent }>([
   "../../src/blocks/**/*.svelte",
   "../../src/component-examples/**/*.svelte",
@@ -37,8 +41,8 @@ const vueModules = import.meta.glob<{ default: VueComponent }>([
 ])
 const exampleSources = import.meta.glob<string>(
   [
-    "../../src/blocks/**/*.{astro,html,react.tsx,svelte,vue}",
-    "../../src/component-examples/**/*.{astro,html,react.tsx,svelte,vue}",
+    "../../src/blocks/**/*.{astro,html,react.tsx,solid.tsx,svelte,vue}",
+    "../../src/component-examples/**/*.{astro,html,react.tsx,solid.tsx,svelte,vue}",
   ],
   { eager: true, import: "default", query: "?raw" },
 )
@@ -61,6 +65,7 @@ const REFERENCES: Record<Framework, Framework[]> = {
   astro: ["html"],
   html: [],
   react: ["astro", "html"],
+  solid: ["astro", "html"],
   svelte: ["astro", "html"],
   vue: ["astro", "html"],
 }
@@ -69,6 +74,7 @@ type Loaded = {
   astro: AstroInstance
   html: string
   react: { default: ComponentType }
+  solid: { default: SolidComponent }
   svelte: { default: SvelteComponent }
   vue: { default: VueComponent }
 }
@@ -84,7 +90,7 @@ const keyOf = (path: string) =>
   path
     .replace("../../src/blocks/", BLOCKS)
     .replace("../../src/component-examples/", "")
-    .replace(/(\.react)?\.[a-z]+$/, "")
+    .replace(/(\.react|\.solid)?\.[a-z]+$/, "")
 
 const sourceOf = (key: string, extension: string) =>
   exampleSources[
@@ -107,6 +113,7 @@ const register = <F extends Framework>(
 register("astro", astroModules)
 register("html", htmlSources)
 register("react", reactModules)
+register("solid", solidModules)
 register("svelte", svelteModules)
 register("vue", vueModules)
 
@@ -144,6 +151,7 @@ const renderers: {
       spy.mockRestore()
     }
   },
+  solid: (loaded) => render.solid(loaded.default),
   svelte: (loaded) => render.svelte(loaded.default),
   vue: (loaded) => render.vue(loaded.default),
 }

@@ -2,6 +2,7 @@ import { describe, expect, test } from "vitest"
 import type { ComponentFramework } from "../../src/component-api/frameworks"
 import RangeAstro from "../../packages/opui/components/Range/Range.astro"
 import RangeReact from "../../packages/opui/components/Range/Range.react"
+import RangeSolid from "../../packages/opui/components/Range/Range.solid"
 import RangeSvelte from "../../packages/opui/components/Range/Range.svelte"
 import RangeVue from "../../packages/opui/components/Range/Range.vue"
 import {
@@ -13,6 +14,7 @@ import { render } from "./renderers"
 const ranges: Record<ComponentFramework, unknown> = {
   astro: RangeAstro,
   react: RangeReact,
+  solid: RangeSolid,
   svelte: RangeSvelte,
   vue: RangeVue,
 }

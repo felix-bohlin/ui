@@ -3,7 +3,7 @@
 Floating content placed next to an element with CSS anchor positioning.
 
 - CSS: `opui-css/css/components/anchor.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/anchor.md), [Astro](https://opui.dev/astro/components/anchor.md), [React](https://opui.dev/react/components/anchor.md), [Svelte](https://opui.dev/svelte/components/anchor.md), [Vue](https://opui.dev/vue/components/anchor.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/anchor.md), [Astro](https://opui.dev/astro/components/anchor.md), [React](https://opui.dev/react/components/anchor.md), [Solid](https://opui.dev/solid/components/anchor.md), [Svelte](https://opui.dev/svelte/components/anchor.md), [Vue](https://opui.dev/vue/components/anchor.md).
 
 ## Anchor
 
@@ -122,6 +122,47 @@ export default function AlwaysVisible() {
         <Button variant="outlined">Export</Button>
         <AnchorContent>
           <Card className="coach-mark" variant="tonal">
+            <CardContent>
+              <strong>New</strong> Export to PDF and CSV from the same menu.
+            </CardContent>
+          </Card>
+        </AnchorContent>
+      </Anchor>
+      <style>{`
+        .coach-mark {
+          font-size: var(--ui-font-size-body);
+          margin-inline-start: var(--ui-space-2);
+          max-inline-size: 220px;
+        }
+      `}</style>
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Anchor, AnchorContent } from "opui-css/solid"`
+
+### Example: Always visible
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import {
+  Anchor,
+  AnchorContent,
+  Button,
+  Card,
+  CardContent,
+} from "opui-css/solid"
+
+export default function AlwaysVisible() {
+  return (
+    <>
+      <Anchor positionArea="inline-end">
+        <Button variant="outlined">Export</Button>
+        <AnchorContent>
+          <Card class="coach-mark" variant="tonal">
             <CardContent>
               <strong>New</strong> Export to PDF and CSV from the same menu.
             </CardContent>

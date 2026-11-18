@@ -7,12 +7,12 @@ import { exampleExtension, type FrameworkId } from "./framework"
 // will fail the whole build.
 export const exampleModules: Partial<Record<string, AstroInstance>> =
   import.meta.glob<AstroInstance>(
-    "../component-examples/*/*.{astro,react.tsx,svelte,vue}",
+    "../component-examples/*/*.{astro,react.tsx,solid.tsx,svelte,vue}",
     { eager: true },
   )
 
 export const exampleSources = import.meta.glob<string>(
-  "../component-examples/*/*.{astro,html,react.tsx,svelte,vue}",
+  "../component-examples/*/*.{astro,html,react.tsx,solid.tsx,svelte,vue}",
   { eager: true, import: "default", query: "?raw" },
 )
 
@@ -24,10 +24,8 @@ export const examplePath = (
 
 export const parseExamplePath = (path: string) => {
   const [, slug, name, extension] = path.match(
-    /component-examples\/([^/]+)\/([^/.]+)\.(react\.tsx|\w+)$/,
+    /component-examples\/([^/]+)\/([^/.]+)\.((?:react|solid)\.tsx|\w+)$/,
   )!
-  const framework = (
-    extension === "react.tsx" ? "react" : extension
-  ) as FrameworkId
+  const framework = extension.replace(/\.tsx$/, "") as FrameworkId
   return { framework, name, slug }
 }

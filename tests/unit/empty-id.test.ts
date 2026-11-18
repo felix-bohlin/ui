@@ -1,5 +1,8 @@
 import { describe, expect, test } from "vitest"
-import type { ComponentFramework } from "../../src/component-api/frameworks"
+import {
+  type ComponentFramework,
+  frameworks,
+} from "../../src/component-api/frameworks"
 import { render } from "./renderers"
 
 const modules = import.meta.glob<{ default: unknown } | unknown>(
@@ -16,16 +19,9 @@ const modules = import.meta.glob<{ default: unknown } | unknown>(
   { eager: true },
 )
 
-const EXTENSIONS: Record<ComponentFramework, string> = {
-  astro: ".astro",
-  react: ".react.tsx",
-  svelte: ".svelte",
-  vue: ".vue",
-}
-
 const componentOf = (name: string, framework: ComponentFramework) => {
   const entry = Object.entries(modules).find(([path]) =>
-    path.endsWith(`/${name}${EXTENSIONS[framework]}`),
+    path.endsWith(`/${frameworks[framework].component(name)}`),
   )?.[1]
   return entry && typeof entry === "object" && "default" in entry
     ? entry.default
@@ -57,7 +53,7 @@ const partsOfEmpty = (html: string) =>
 describe("an empty id is no id", () => {
   test.each(
     CASES.flatMap(([name, props]) =>
-      (["astro", "react", "svelte", "vue"] as const).map(
+      (Object.keys(render) as ComponentFramework[]).map(
         (framework) => [name, framework, props] as const,
       ),
     ),

@@ -63,4 +63,4 @@ for (const { inputs, out, plugins = [] } of targets) {
 }
 
 await buildFrameworks(root)
-console.log("built dist/react, dist/svelte and dist/vue")
+console.log("built dist/react, dist/solid, dist/svelte and dist/vue")

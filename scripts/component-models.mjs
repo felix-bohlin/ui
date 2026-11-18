@@ -27,6 +27,10 @@ const numeric = (model) =>
 
 export const MODEL_KINDS = {
   checked: {
+    solid: {
+      attributes: () => ["defaultChecked={untrack(() => props.checked)}"],
+      solidValues: () => ["untrack"],
+    },
     svelte: {
       attributes: () => [
         "bind:checked={getChecked, setChecked}",
@@ -56,6 +60,7 @@ export const MODEL_KINDS = {
     },
   },
   checkedItem: {
+    solid: {},
     svelte: {
       bindables: bindableProps,
       change: (model, item) => [
@@ -77,6 +82,7 @@ export const MODEL_KINDS = {
     },
   },
   forward: {
+    solid: {},
     svelte: {
       attributes: (model) => model.bindables.map(({ prop }) => `bind:${prop}`),
       bindables: bindableProps,
@@ -104,6 +110,25 @@ export const MODEL_KINDS = {
         ),
       ],
       reactValues: () => ["useState"],
+      tiedCallbacks: true,
+    },
+    solid: {
+      body: (model, rewrite) => [
+        "const [inner, setInner] = createSignal(untrack(() => props.defaultValue))",
+        `const change = (input: HTMLInputElement) => {\n  const next = ${rewrite(model.read)}\n  if (inner() !== undefined) setInner(next)\n  props.onValueChange?.(next${arrayRead(model) ? " as never" : ""})\n}`,
+      ],
+      entries: () => ["defaultValue", "onValueChange"],
+      imports: selectionImports,
+      locals: () => ["change", "inner", "setInner"],
+      provided: (model, provide) => [
+        { code: "change", key: "change" },
+        ...provide.value.map((entry) =>
+          entry.key === model.prop
+            ? { code: `props.${model.prop} ?? inner()`, key: entry.key }
+            : entry,
+        ),
+      ],
+      solidValues: () => ["createSignal", "untrack"],
       tiedCallbacks: true,
     },
     svelte: {
@@ -141,6 +166,18 @@ export const MODEL_KINDS = {
       reactHelpers: () => ["seedChecked"],
       rename: (model) => [[model.local, `${model.local} ?? defaultValue`]],
     },
+    solid: {
+      entries: () => ["defaultValue", "onValueChange"],
+      radioAttributes: (model, value, checked, initial) => [
+        `{...checkedProps(props.${model.prop} === undefined ? undefined : ${checked}, ${initial})}`,
+        `onChange={() => props.onValueChange?.(${value})}`,
+        `ref={seedChecked(() => props.onValueChange?.(${value}))}`,
+      ],
+      rename: (model) => [
+        [model.local, `props.${model.prop} ?? props.defaultValue`],
+      ],
+      solidHelpers: () => ["checkedProps", "seedChecked"],
+    },
     svelte: {
       bindables: (model) => [model.prop],
       imports: () => [`import { seedChecked } from "../svelte"`],
@@ -169,6 +206,10 @@ export const MODEL_KINDS = {
     },
   },
   radio: {
+    solid: {
+      attributes: () => ["defaultChecked={untrack(() => props.checked)}"],
+      solidValues: () => ["untrack"],
+    },
     svelte: {
       attributes: () => [
         "{@attach seedChecked(isChecked, check)}",
@@ -212,6 +253,24 @@ export const MODEL_KINDS = {
               ],
             ]
           : [],
+    },
+    solid: {
+      attributes: (model) =>
+        resettable(model)
+          ? [`defaultValue={untrack(() => props.${model.prop})}`]
+          : [],
+      body: (model, _, read) =>
+        read
+          ? [
+              `const model = {\n  get ${model.prop}() {\n    return props.${model.prop} ?? props.default${capitalize(model.prop)}\n  },\n}`,
+            ]
+          : [],
+      inRest: true,
+      locals: (model) => (model.local ? ["model"] : []),
+      ownDefault: (model) => model.element?.tag === "select",
+      rename: (model) =>
+        model.local ? [[model.local, `model.${model.prop}`]] : [],
+      solidValues: (model) => (resettable(model) ? ["untrack"] : []),
     },
     svelte: {
       attributes: (model) =>

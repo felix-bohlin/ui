@@ -126,6 +126,15 @@ export const keywords = ["pressed", "toggle button"]
       <Fragment slot="react">
         Use <code>value</code> and <code>onValueChange</code> on the group.
       </Fragment>
+      <Fragment slot="solid">
+        Control the selection with <code>value</code> and
+        <code>onValueChange</code> on the <code>ToggleGroup</code>. The value is
+        a string, and an array of strings with <code>multiple</code>. A button
+        is checked when its <code>value</code> is in it, so the buttons don't
+        need <code>checked</code>. A standalone <code>ToggleButton</code> takes
+        <code>checked</code>, which sets the state and follows it when it
+        changes, and <code>onChange</code>, like any input.
+      </Fragment>
       <Fragment slot="svelte">
         Use <code>bind:value</code> on the group.
       </Fragment>

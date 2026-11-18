@@ -67,7 +67,9 @@ const sectionOf = (apis: ApiGroup["apis"]) => {
 }
 
 const apiList = Object.values(groups)
-  .filter(({ folder }) => componentHasFramework(currentFramework, folder))
+  .filter(({ folder, page }) =>
+    componentHasFramework(currentFramework, page ?? folder),
+  )
   .map((group) => {
     let slug = group.prefix ? group.prefix.toLowerCase() : group.folder
 

@@ -1,8 +1,9 @@
 {
   "extends": "astro/tsconfigs/strict",
-  // astro check type-checks every file here but .svelte and .vue, React included, so only Svelte and Vue have their own project.
+  // astro check type-checks every file here but .svelte and .vue, React included, so only Solid, Svelte and Vue have their own project.
   "include": [".astro/types.d.ts", "**/*"],
   "exclude": [
+    "**/*.solid.tsx",
     "dist",
     "dist-test",
     "playwright-report",
@@ -16,6 +17,7 @@
     "paths": {
       "@opui/*": ["./packages/opui/*"],
       "opui-css/react": ["./packages/opui/react/index.ts"],
+      "opui-css/solid": ["./packages/opui/solid/index.ts"],
       "opui-css/svelte": ["./packages/opui/svelte/index.ts"],
       "opui-css/vue": ["./packages/opui/vue/index.ts"]
     }

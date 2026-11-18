@@ -44,7 +44,10 @@ export const handWrittenProblems = (handWritten, exists) => {
       ? []
       : [`${list} is not sorted`]),
     ...files.flatMap((file) => {
-      const astro = file.replace(/\.(html|react\.tsx|svelte|vue)$/, ".astro")
+      const astro = file.replace(
+        /\.(html|react\.tsx|solid\.tsx|svelte|vue)$/,
+        ".astro",
+      )
       return [
         ...(exists(`src/component-examples/${file}`)
           ? []

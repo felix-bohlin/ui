@@ -17,7 +17,7 @@ const apis = Object.values(
   }),
 )
 const components = import.meta.glob<unknown>(
-  "../../packages/opui/components/*/*.{astro,react.tsx,svelte,vue}",
+  "../../packages/opui/components/*/*.{astro,react.tsx,solid.tsx,svelte,vue}",
   { import: "default" },
 )
 

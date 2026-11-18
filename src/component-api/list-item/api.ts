@@ -51,7 +51,7 @@ export default {
     },
     {
       description: "The `for` attribute of the `<label>` when `choice` is set.",
-      frameworks: ["astro", "svelte", "vue"],
+      frameworks: ["astro", "solid", "svelte", "vue"],
       prop: "for",
     },
     {

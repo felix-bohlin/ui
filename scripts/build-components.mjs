@@ -7,6 +7,7 @@ import { MODEL_KINDS } from "./component-models.mjs"
 import { toReact } from "./component-react.mjs"
 import { apiOf, loadApis, readComponent } from "./component-reader.mjs"
 import { root, unsupported } from "./component-shared.mjs"
+import { toSolid } from "./component-solid.mjs"
 import { toSvelte } from "./component-svelte.mjs"
 import {
   astroTypesOf,
@@ -27,14 +28,23 @@ const componentsDir = join(root, "packages/opui/components")
 
 export const PORTS = {
   react: ".react.tsx",
+  solid: ".solid.tsx",
   svelte: ".svelte",
   vue: ".vue",
 }
 
 export const TYPE_FILES = {
   react: "types.react.ts",
+  solid: "types.solid.ts",
   svelte: "types.svelte.ts",
   vue: "types.vue-props.ts",
+}
+
+const EMITTERS = {
+  react: toReact,
+  solid: toSolid,
+  svelte: toSvelte,
+  vue: toVue,
 }
 
 export const compileComponent = async (source, file, options = {}) => {
@@ -61,18 +71,17 @@ export const compileComponent = async (source, file, options = {}) => {
   }
   const outputs = new Map()
   const refused = new Map()
-  for (const [framework, extension] of Object.entries(PORTS)) {
+  const ports = Object.entries(PORTS)
+  for (const [framework, extension] of ports) {
     const target = `packages/opui/components/${folder}/${name}${extension}`
     try {
-      const code = { react: toReact, svelte: toSvelte, vue: toVue }[framework](
-        named,
-      )
+      const code = EMITTERS[framework](named)
       outputs.set(target, await formatStably(code, target))
     } catch (error) {
       refused.set(target, error)
     }
   }
-  if (refused.size === Object.keys(PORTS).length) throw [...refused.values()][0]
+  if (refused.size === ports.length) throw [...refused.values()][0]
   return { component: named, outputs, refused }
 }
 

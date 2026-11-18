@@ -3,7 +3,7 @@
 A short label or hint for a control, shown on hover and focus.
 
 - CSS: `opui-css/css/components/tooltip.css` and `opui-css/css/components/anchor.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/tooltip.md), [Astro](https://opui.dev/astro/components/tooltip.md), [React](https://opui.dev/react/components/tooltip.md), [Svelte](https://opui.dev/svelte/components/tooltip.md), [Vue](https://opui.dev/vue/components/tooltip.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/tooltip.md), [Astro](https://opui.dev/astro/components/tooltip.md), [React](https://opui.dev/react/components/tooltip.md), [Solid](https://opui.dev/solid/components/tooltip.md), [Svelte](https://opui.dev/svelte/components/tooltip.md), [Vue](https://opui.dev/vue/components/tooltip.md).
 
 ## Tooltip
 
@@ -100,6 +100,31 @@ import { Button, Tooltip, TooltipContent } from "opui-css/astro"
 
 ```tsx
 import { Button, Tooltip, TooltipContent } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <Tooltip id="tooltip-basics-1">
+      <Button
+        aria-describedby="tooltip-basics-1"
+        interestfor="tooltip-basics-1"
+      >
+        Save
+      </Button>
+      <TooltipContent>Save your changes</TooltipContent>
+    </Tooltip>
+  )
+}
+```
+
+## Solid
+
+`import { Tooltip, TooltipContent } from "opui-css/solid"`
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Button, Tooltip, TooltipContent } from "opui-css/solid"
 
 export default function Basics() {
   return (

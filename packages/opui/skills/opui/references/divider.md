@@ -3,7 +3,7 @@
 A line between content, plain or with a label at the start, middle or end.
 
 - CSS: `opui-css/css/components/divider.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/divider.md), [Astro](https://opui.dev/astro/components/divider.md), [React](https://opui.dev/react/components/divider.md), [Svelte](https://opui.dev/svelte/components/divider.md), [Vue](https://opui.dev/vue/components/divider.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/divider.md), [Astro](https://opui.dev/astro/components/divider.md), [React](https://opui.dev/react/components/divider.md), [Solid](https://opui.dev/solid/components/divider.md), [Svelte](https://opui.dev/svelte/components/divider.md), [Vue](https://opui.dev/vue/components/divider.md).
 
 ## Divider
 
@@ -67,6 +67,27 @@ Send me a summary of my jam sessions every Monday.
 
 ```tsx
 import { Divider } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <>
+      Email me when someone mentions me in a comment.
+      <Divider />
+      Send me a summary of my jam sessions every Monday.
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Divider } from "opui-css/solid"`
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Divider } from "opui-css/solid"
 
 export default function Basics() {
   return (

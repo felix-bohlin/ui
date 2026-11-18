@@ -8,6 +8,7 @@ import {
 } from "astro/config"
 import sitemap from "@astrojs/sitemap"
 import react from "@astrojs/react"
+import solid from "@solidjs/vite-plugin"
 import svelte from "@astrojs/svelte"
 import vue from "@astrojs/vue"
 import llms from "./src/integrations/llms.mjs"
@@ -108,7 +109,7 @@ export default defineConfig({
     },
     optimizeDeps: { exclude: ["microlighter"] },
     resolve: {
-      alias: ["react", "svelte", "vue"].map((framework) => ({
+      alias: ["react", "solid", "svelte", "vue"].map((framework) => ({
         find: new RegExp(`^opui-css/${framework}$`),
         replacement: fileURLToPath(
           new URL(`./packages/opui/${framework}/index.ts`, import.meta.url),
@@ -117,6 +118,11 @@ export default defineConfig({
       external: ["oxfmt"],
     },
     plugins: [
+      solid({
+        include: [/\.solid\.tsx$/],
+        refresh: false,
+        solid: { hydratable: true },
+      }),
       {
         name: "opui-no-react-refresh",
         enforce: "post",

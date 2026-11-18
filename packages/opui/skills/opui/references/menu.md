@@ -3,7 +3,7 @@
 A popover list of actions or links.
 
 - CSS: `opui-css/css/components/list.css` and `opui-css/css/components/menu.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/menu.md), [Astro](https://opui.dev/astro/components/menu.md), [React](https://opui.dev/react/components/menu.md), [Svelte](https://opui.dev/svelte/components/menu.md), [Vue](https://opui.dev/vue/components/menu.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/menu.md), [Astro](https://opui.dev/astro/components/menu.md), [React](https://opui.dev/react/components/menu.md), [Solid](https://opui.dev/solid/components/menu.md), [Svelte](https://opui.dev/svelte/components/menu.md), [Vue](https://opui.dev/vue/components/menu.md).
 
 ## Menu
 
@@ -39,6 +39,7 @@ A popover list of actions or links.
 - HTML: Items are built like `List` items: icons in `.ui-start`, the text in `.ui-text` and shortcuts in `.ui-end`. Open the menu with a button that has `commandfor` set to the menu id and `command="toggle-popover"`. Import `opui-css/elements/close-on-navigate.js` to close open menus when the page navigates, also with a client router.
 - Astro and Vue: Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `target` or `data-*`. Open menus close when the page navigates, also with a client router, through `opui-css/elements/close-on-navigate.js`, which the component loads.
 - React: Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onClick`, `target` or `data-*`. Open menus close when the page navigates, also with a client router, through `opui-css/elements/close-on-navigate.js`, which the component loads.
+- Solid: Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onClick`, `target` or `data-*`.
 - Svelte: Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onclick`, `target` or `data-*`. Open menus close when the page navigates, also with a client router, through `opui-css/elements/close-on-navigate.js`, which the component loads.
 
 ## Component properties
@@ -184,6 +185,43 @@ import { Button, Menu } from "opui-css/astro"
 
 ```tsx
 import { Button, Menu } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <>
+      <Button
+        command="toggle-popover"
+        commandfor="menu-basics-1"
+        variant="outlined"
+      >
+        Options
+      </Button>
+      <Menu
+        id="menu-basics-1"
+        items={[
+          { label: "Edit", shortcut: "Ctrl+E" },
+          { label: "Duplicate", shortcut: "Ctrl+D" },
+          { disabled: true, label: "Archive" },
+          { href: "/guide/getting-started/", label: "Help" },
+          { borderTop: true, color: "critical", label: "Delete" },
+        ]}
+      />
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Menu } from "opui-css/solid"`
+
+- `Menu` slot props (`JSX.Element`): `children` and `iconChecked`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Button, Menu } from "opui-css/solid"
 
 export default function Basics() {
   return (

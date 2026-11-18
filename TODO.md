@@ -5839,3 +5839,11 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - A (recommended): add to the Solid notes of Tabs and ToggleGroup that `value` follows the prop when it changes and a refused choice has to be written back.
     - B: have `change` write `checked` back on the inputs when `props.value` is set and unchanged after `onValueChange`.
   - Fixed: confirmed in Chromium, on Rating too. `restoreChecked` in `packages/opui/components/solid.ts` puts the inputs back after `onValueChange` when `value` is set and unchanged, as React does, and `tests/e2e/solid-models.spec.ts` covers it.
+- [ ] (2) Docs site: the server status block's dialog changed from `form.ui-content` to `div.ui-content > form` when the blocks were rewritten with the components, and no screenshot shows the dialog open (`src/blocks/server-status/ServerStatus.astro`)
+  - Summary: The server status block's dialog nests its form differently since the blocks rewrite, and nothing checks how it looks open.
+  - Recommended: Explain further. The closed block is unchanged, so only the open dialog can differ.
+  - Fix: open `/blocks/server-status/preview/`, open its dialog and compare the spacing of the form and its actions with the block before `0ee7be8ec`.
+- [ ] (2) Docs site: the snapshot update `c8efbfc` rewrote 71 baselines that are no block (stress pages, their theme and icon variants, `range-*`, `switch-HiddenLabel`, `text-field-File`, `carousel-GridLayout`), all passing before and differing by a few bytes, and nobody has looked at them (`tests/e2e/__screenshots__`)
+  - Summary: 71 stress page and example baselines were regenerated without failing first, and their images haven't been compared by eye.
+  - Recommended: Explain further. The likely cause is the reordered field parts, which grid areas place the same, but the commit hides the intent.
+  - Fix: open the changed images of commit `c8efbfc` on GitHub with the image diff view and confirm nothing moved; the number field's step icons and the callout warning icon changing to the theme's glyphs is expected.

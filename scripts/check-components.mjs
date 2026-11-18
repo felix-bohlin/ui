@@ -7,9 +7,11 @@ import ts from "typescript"
 import {
   componentHasFramework,
   exampleExtension,
+  extensionPattern,
   FRAMEWORK_AGNOSTIC_EXAMPLES,
   FRAMEWORK_IDS,
   PACKAGE_FRAMEWORK_IDS,
+  TYPES_FILES,
 } from "../src/utils/framework.js"
 import { BARREL_TYPES, barrelExports } from "../src/utils/package-source.js"
 import { loadCatalog } from "./catalog.mjs"
@@ -21,24 +23,32 @@ const componentsDir = join(root, "packages/opui/components")
 const examplesDir = join(root, "src/component-examples")
 const docsDir = join(root, "src/docs/components")
 
-const SCRIPTS = [
-  [".astro", /^---\n([\s\S]*?)\n---/g],
-  [".react.tsx", /^([\s\S]*)$/g],
-  [".solid.tsx", /^([\s\S]*)$/g],
-  [".svelte", /<script\b[^>]*>([\s\S]*?)<\/script>/g],
-  [".vue", /<script\b[^>]*>([\s\S]*?)<\/script>/g],
-]
+const COMPONENT_FILES = Object.fromEntries(
+  PACKAGE_FRAMEWORK_IDS.map((framework) => [
+    framework,
+    `.${exampleExtension(framework)}`,
+  ]),
+)
 
-const TYPES_FILES = [
-  [".astro", "./types.astro"],
-  [".react.tsx", "./types.react"],
-  [".solid.tsx", "./types.solid"],
-  [".svelte", "./types.svelte"],
-  [".vue", "./types.vue-props"],
-]
+const SCRIPT_BLOCKS = {
+  astro: /^---\n([\s\S]*?)\n---/g,
+  svelte: /<script\b[^>]*>([\s\S]*?)<\/script>/g,
+  vue: /<script\b[^>]*>([\s\S]*?)<\/script>/g,
+}
+
+const SCRIPTS = Object.entries(COMPONENT_FILES).map(
+  ([framework, extension]) => [
+    extension,
+    SCRIPT_BLOCKS[framework] ?? /^([\s\S]*)$/g,
+  ],
+)
+
+const OWN_TYPES = Object.entries(COMPONENT_FILES).map(
+  ([framework, extension]) => [extension, `./${BARREL_TYPES[framework]}`],
+)
 
 export const checkTypesImport = (file, source) => {
-  const own = TYPES_FILES.find(([extension]) => file.endsWith(extension))?.[1]
+  const own = OWN_TYPES.find(([extension]) => file.endsWith(extension))?.[1]
   if (!own) return []
   return [...source.matchAll(/from\s+["'](\.\/types\.[\w-]+)["']/g)]
     .filter(([, from]) => from !== own)
@@ -101,26 +111,16 @@ const CONTEXT_IMPORTS = {
   "context.vue.ts": ["vue", ["InjectionKey"]],
 }
 
-const TYPE_FILES = [
-  "types.astro.ts",
-  "types.vue-props.ts",
-  "types.react.ts",
-  "types.solid.ts",
-  "types.svelte.ts",
-  "types.ts",
-]
+const TYPE_FILES = [...Object.values(TYPES_FILES), "types.ts"]
 
 const BARRELS = Object.fromEntries(
   PACKAGE_FRAMEWORK_IDS.map((framework) => [framework, `.${framework}`]),
 )
 
-const COMPONENT_FILES = {
-  astro: ".astro",
-  react: ".react.tsx",
-  solid: ".solid.tsx",
-  svelte: ".svelte",
-  vue: ".vue",
-}
+const EXAMPLE_IMPORT = new RegExp(
+  `^import\\s+([\\w$]+)\\s+from\\s+["'][^"']*component-examples\\/([\\w-]+)\\/(\\w+)\\.(?:${extensionPattern()})(?:\\?raw)?["']`,
+  "gm",
+)
 
 const exportedNames = (source) =>
   barrelExports(source)
@@ -1031,7 +1031,7 @@ const pageExamples = async (file, slug, seen = new Set()) => {
     },
   )
   for (const [, binding, folder, name] of frontmatter.matchAll(
-    /^import\s+([\w$]+)\s+from\s+["'][^"']*component-examples\/([\w-]+)\/(\w+)\.(?:astro|html|react\.tsx|solid\.tsx|svelte|vue)(?:\?raw)?["']/gm,
+    EXAMPLE_IMPORT,
   )) {
     if (new RegExp(`(?<![\\w$])${binding}(?![\\w$])`).test(source)) {
       examples.push({ auto: false, name, slug: folder })

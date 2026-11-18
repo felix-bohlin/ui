@@ -3,6 +3,11 @@ import { readdir, readFile, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { parseArgs } from "node:util"
+import {
+  exampleExtension,
+  HYDRATED_FRAMEWORK_IDS,
+  TYPES_FILES,
+} from "../src/utils/framework.js"
 import { MODEL_KINDS } from "./component-models.mjs"
 import { toReact } from "./component-react.mjs"
 import { apiOf, loadApis, readComponent } from "./component-reader.mjs"
@@ -26,21 +31,21 @@ export { loadApis, readComponent, toTypes }
 
 const componentsDir = join(root, "packages/opui/components")
 
-export const PORTS = {
-  react: ".react.tsx",
-  solid: ".solid.tsx",
-  svelte: ".svelte",
-  vue: ".vue",
-}
+export const PORTS = Object.fromEntries(
+  HYDRATED_FRAMEWORK_IDS.map((framework) => [
+    framework,
+    `.${exampleExtension(framework)}`,
+  ]),
+)
 
-export const TYPE_FILES = {
-  react: "types.react.ts",
-  solid: "types.solid.ts",
-  svelte: "types.svelte.ts",
-  vue: "types.vue-props.ts",
-}
+export const TYPE_FILES = Object.fromEntries(
+  HYDRATED_FRAMEWORK_IDS.map((framework) => [
+    framework,
+    TYPES_FILES[framework],
+  ]),
+)
 
-const EMITTERS = {
+export const EMITTERS = {
   react: toReact,
   solid: toSolid,
   svelte: toSvelte,

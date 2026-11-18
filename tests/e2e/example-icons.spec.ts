@@ -1,4 +1,5 @@
 import { expect, type Page, test } from "@playwright/test"
+import { FRAMEWORK_IDS } from "../../src/utils/framework"
 import {
   examplesMounted,
   instantScrolling,
@@ -7,7 +8,7 @@ import {
 
 const THEME_KEY = "opui-theme"
 
-const FRAMEWORKS = ["html", "react", "svelte", "vue"]
+const FRAMEWORKS = FRAMEWORK_IDS.filter((id) => id !== "astro")
 
 test.beforeEach(async ({ page }) => {
   await instantScrolling(page)

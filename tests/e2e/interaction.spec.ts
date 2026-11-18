@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test"
 import type { CDPSession, Locator, Page } from "@playwright/test"
+import { PACKAGE_FRAMEWORK_IDS } from "../../src/utils/framework"
 import {
   failsIn,
   WEBKIT_ARROW_FOCUS_SCROLL,
@@ -1748,7 +1749,7 @@ interaction(
     await page.evaluate(() => history.pushState({}, "", "elsewhere/"))
     await expect(menu).toBeHidden()
   },
-  ["astro", "react", "svelte", "vue"],
+  PACKAGE_FRAMEWORK_IDS,
 )
 
 interaction(
@@ -1781,7 +1782,7 @@ interaction(
     })
     await expect(menu).toBeHidden()
   },
-  ["astro", "react", "svelte", "vue"],
+  PACKAGE_FRAMEWORK_IDS,
 )
 
 interaction(

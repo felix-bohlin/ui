@@ -1841,6 +1841,27 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fix: Add Solid to the targets, to `PORTS` (`.solid.tsx`) and to the title and ledger sentence, deriving the list from `src/utils/framework.js` where the figure allows.
   > Fix
   - Fixed: `src/components/Release/Compiler.astro` takes its targets from `HYDRATED_FRAMEWORK_IDS`, `FRAMEWORKS` and `EXAMPLE_EXTENSIONS` in `src/utils/framework.js`, so the title, the Emit stage, the cells, `PORTS`, the contract check and the ledger sentence name Solid, and a framework added there joins the figure once it has a logo and cells. Solid has its logo and a cell in every row, read from `CardActions.solid.tsx`, and the cells sit two by two from 30rem. The post's own paragraphs around the figure still say React, Svelte and Vue and four frameworks (`src/docs/blog/release-6.astro:322`, `:437-440`, `:447-448`, `:469`, `:475`, `:480`); they are not changed.
+- [ ] (1) Range: the compiled Solid Range now loops with `keyed={false}`, but each row is `<>{row()}</>`, a memo that builds a new `<option>` whenever the item at its index changes, so replacing `options` with new objects still rebuilds every tick, where Menu, Rating, Stepper and Timeline patch the row in place (`packages/opui/components/Range/Range.solid.tsx:145-156`, `scripts/component-jsx.mjs:95-97`)
+  - Summary: The Solid Range still rebuilds its tick marks when `options` is replaced with new objects, with no effect on the slider itself.
+  - Recommended: Fix with option B. The ticks hold no state, so the rebuild costs nothing a user sees, and the note keeps the audit from reporting it again.
+  - Fix: found by reviewing commit `a78dd35b8`, whose `Fixed:` note on the earlier Range item says the row is built again; the rebuild is read from the compiled output, not measured in a browser.
+  - Options:
+    - A: emit one `<option>` per row whose attributes read the item through the accessor (`value={typeof item() === "object" ? item().value : item()}`), so the element is patched in place
+    - B (recommended): leave it and say in `packages/opui/components/AGENTS.md` that a row with a condition between two elements is rebuilt when its item changes
+- [ ] (3) Tooling: the Vue emitter moves a loop's consts into a `computed` list of rows when one is read more than once, and a const that reads a slot then compiles to `slots.icon` with no `slots` declared, where the same const read once still compiles inline to `$slots.icon`. A `computed` would also keep the slot's first answer. No component has such a const yet (`scripts/component-vue.mjs:605-690`)
+  - Summary: A Vue component whose loop const reads a slot and is used twice would throw at render, and the compiler doesn't refuse it.
+  - Recommended: Fix with option A. The inline form already works for a slot read, so the rows list only needs to step aside.
+  - Fix: found by reviewing commit `60d8d9a62` with a probe source: `const marked = !href && Astro.slots.has("icon")` read by two attributes of the row. Add the probe as a sample to `tests/unit/build-components.test.ts`.
+  - Options:
+    - A (recommended): keep the consts inline when one of them reads a slot
+    - B: refuse the loop with a named construct, so the component is written by hand
+- [ ] (3) Tooling: the Vue emitter hoists the list of an inner loop into a script `computed` when one of its consts is read more than once, and the list and the consts still name the outer loop's item (`group.items.map(...)`, `group.label + entry.label`), which the script doesn't have. The compiler emits it without refusing. No component nests such a loop yet (`scripts/component-vue.mjs:605-690`)
+  - Summary: A Vue component with a nested loop whose const is used twice would compile to a script that reads an undefined variable.
+  - Recommended: Fix with option A. A const or list that reads a template-scoped name can't live in the script, and the inline form handles it.
+  - Fix: found by reviewing commit `60d8d9a62` with a probe source: `items.map((group) => group.items.map((entry) => { const both = group.label + entry.label; ... }))` with `both` read twice. Add the probe as a sample to `tests/unit/build-components.test.ts`.
+  - Options:
+    - A (recommended): keep the consts inline when the list or a const reads a name the template declares, such as an outer loop's item
+    - B: refuse the loop with a named construct
 
 ## Docs
 

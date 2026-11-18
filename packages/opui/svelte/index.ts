@@ -43,6 +43,7 @@ export { default as FieldDescription } from "../components/FieldDescription/Fiel
 export { default as FieldGroup } from "../components/FieldGroup/FieldGroup.svelte"
 export { default as FieldLegend } from "../components/FieldLegend/FieldLegend.svelte"
 export { default as Fieldset } from "../components/Fieldset/Fieldset.svelte"
+export { default as FileUpload } from "../components/FileUpload/FileUpload.svelte"
 export { default as Form } from "../components/Form/Form.svelte"
 export { default as List } from "../components/List/List.svelte"
 export { default as ListItem } from "../components/ListItem/ListItem.svelte"
@@ -150,6 +151,12 @@ export type { Props as FieldDescriptionProps } from "../components/FieldDescript
 export type { Props as FieldGroupProps } from "../components/FieldGroup/types.svelte"
 export type { Props as FieldLegendProps } from "../components/FieldLegend/types.svelte"
 export type { Props as FieldsetProps } from "../components/Fieldset/types.svelte"
+export type {
+  FileUploadItem,
+  RemoveDetail,
+  SelectDetail,
+} from "../components/FileUpload/types"
+export type { Props as FileUploadProps } from "../components/FileUpload/types.svelte"
 export type { Props as FormProps } from "../components/Form/types.svelte"
 export type { Props as ListProps } from "../components/List/types.svelte"
 export type { Props as ListItemProps } from "../components/ListItem/types.svelte"

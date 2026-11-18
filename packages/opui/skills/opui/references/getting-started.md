@@ -196,6 +196,7 @@ A few features need a script in plain HTML:
 | [Close on navigate](https://opui.dev/html/components/drawer.md#navigation) | Closes open menus and `[data-close-on-navigate]` drawers when the page navigates | `opui-css/elements/close-on-navigate.js` |
 | [Copy](https://opui.dev/html/components/copy.md) | Copies text or a field's value | `opui-css/elements/copy.js` |
 | [Dismissible callout](https://opui.dev/html/components/callout.md#dismissible) | Hides a callout with its close button | `opui-css/elements/callout.js` |
+| [File upload](https://opui.dev/html/components/file-upload.md) | Fires `select` for picked and dropped files and `remove` for a file's remove button | `opui-css/elements/file-upload.js` |
 | [Indeterminate checkbox](https://opui.dev/html/components/checkbox.md#indeterminate) | Sets `indeterminate` from `data-indeterminate` | `opui-css/css/js/checkbox.js` |
 | [Number field](https://opui.dev/html/components/number-field.md) | Steps the value with its buttons | `opui-css/elements/number-field.js` |
 | [Password toggle](https://opui.dev/html/components/text-field.md#password-toggle) | Shows and hides the password | `opui-css/elements/text-field.js` |
@@ -224,7 +225,7 @@ Without a bundler, add this import map to the `head`:
 
 #### [Components](https://opui.dev/html/components.md)
 
-41 components, each with HTML examples and its API.
+42 components, each with HTML examples and its API.
 
 #### [Concepts](https://opui.dev/html/guide/concepts.md)
 
@@ -340,7 +341,7 @@ Add `/// <reference types="opui-css/env.d.ts" />` to `env.d.ts` for the types.
 
 #### [Components](https://opui.dev/astro/components.md)
 
-41 components, each with Astro examples and its API.
+42 components, each with Astro examples and its API.
 
 #### [Concepts](https://opui.dev/astro/guide/concepts.md)
 
@@ -433,7 +434,7 @@ Every component renders full HTML on the server. Components with state or effect
 
 A choice the user makes before the page hydrates stays on screen. `Rating`, `Tabs` and `ToggleGroup` pass it to `onValueChange` as they hydrate. `Checkbox`, `Radio` and `Switch` pass `checked` and `onChange` to the native input, so they work like a plain React input: React doesn't call `onChange` for that choice, and a controlled `checked` misses it. A form that reads its values on submit gets it.
 
-- **66** of 69 need no hydration
+- **67** of 70 need no hydration
 - **3** hydrate for `indeterminate`, `valueSuffix`, `valueText`
 - **39** are Server Components
 
@@ -470,6 +471,7 @@ A choice the user makes before the page hydrates stays on screen. `Rating`, `Tab
 | [`FieldGroup`](https://opui.dev/react/components/form.md) | Yes | Yes | No | - |
 | [`FieldLegend`](https://opui.dev/react/components/form.md) | Yes | Yes | No | - |
 | [`Fieldset`](https://opui.dev/react/components/form.md) | Yes | Yes | No | - |
+| [`FileUpload`](https://opui.dev/react/components/file-upload.md) | Yes | Yes | No | - |
 | [`Form`](https://opui.dev/react/components/form.md) | Yes | Yes | Yes | - |
 | [`List`](https://opui.dev/react/components/list.md) | Yes | Yes | Yes | - |
 | [`ListItem`](https://opui.dev/react/components/list.md) | Yes | Yes | Yes | - |
@@ -517,7 +519,7 @@ A choice the user makes before the page hydrates stays on screen. `Rating`, `Tab
 
 #### [Components](https://opui.dev/react/components.md)
 
-41 components, each with React examples and its API.
+42 components, each with React examples and its API.
 
 #### [Concepts](https://opui.dev/react/guide/concepts.md)
 
@@ -592,7 +594,7 @@ The props in the last column need hydration.
 
 A choice the user makes before the page hydrates stays on screen. `Rating`, `Tabs` and `ToggleGroup` pass it to `onValueChange` as they hydrate.
 
-- **66** of 69 need no hydration
+- **67** of 70 need no hydration
 - **3** hydrate for `indeterminate`, `valueSuffix`, `valueText`
 
 | Component | Client | Server | Needs hydration |
@@ -628,6 +630,7 @@ A choice the user makes before the page hydrates stays on screen. `Rating`, `Tab
 | [`FieldGroup`](https://opui.dev/solid/components/form.md) | Yes | Yes | - |
 | [`FieldLegend`](https://opui.dev/solid/components/form.md) | Yes | Yes | - |
 | [`Fieldset`](https://opui.dev/solid/components/form.md) | Yes | Yes | - |
+| [`FileUpload`](https://opui.dev/solid/components/file-upload.md) | Yes | Yes | - |
 | [`Form`](https://opui.dev/solid/components/form.md) | Yes | Yes | - |
 | [`List`](https://opui.dev/solid/components/list.md) | Yes | Yes | - |
 | [`ListItem`](https://opui.dev/solid/components/list.md) | Yes | Yes | - |
@@ -675,7 +678,7 @@ A choice the user makes before the page hydrates stays on screen. `Rating`, `Tab
 
 #### [Components](https://opui.dev/solid/components.md)
 
-41 components, each with Solid examples and its API.
+42 components, each with Solid examples and its API.
 
 #### [Concepts](https://opui.dev/solid/guide/concepts.md)
 
@@ -788,7 +791,7 @@ Slots are snippets: `children`, and camelCased names like `endText`. Form contro
 
 Every component renders full HTML on the server. The props in the last column need hydration.
 
-- **53** of 69 need no hydration
+- **54** of 70 need no hydration
 - **16** hydrate for `bind:checked`, `bind:group`, `bind:value`, `indeterminate`, `valueSuffix`, `valueText`
 
 | Component | Client | Server | Needs hydration |
@@ -824,6 +827,7 @@ Every component renders full HTML on the server. The props in the last column ne
 | [`FieldGroup`](https://opui.dev/svelte/components/form.md) | Yes | Yes | - |
 | [`FieldLegend`](https://opui.dev/svelte/components/form.md) | Yes | Yes | - |
 | [`Fieldset`](https://opui.dev/svelte/components/form.md) | Yes | Yes | - |
+| [`FileUpload`](https://opui.dev/svelte/components/file-upload.md) | Yes | Yes | - |
 | [`Form`](https://opui.dev/svelte/components/form.md) | Yes | Yes | - |
 | [`List`](https://opui.dev/svelte/components/list.md) | Yes | Yes | - |
 | [`ListItem`](https://opui.dev/svelte/components/list.md) | Yes | Yes | - |
@@ -871,7 +875,7 @@ Every component renders full HTML on the server. The props in the last column ne
 
 #### [Components](https://opui.dev/svelte/components.md)
 
-41 components, each with Svelte examples and its API.
+42 components, each with Svelte examples and its API.
 
 #### [Concepts](https://opui.dev/svelte/guide/concepts.md)
 
@@ -947,7 +951,7 @@ Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` 
 
 ### Server rendering
 
-- **53** of 69 need no hydration
+- **54** of 70 need no hydration
 - **16** hydrate for `indeterminate`, `v-model`, `valueSuffix`
 
 | Component | Client | Server | Needs hydration |
@@ -983,6 +987,7 @@ Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` 
 | [`FieldGroup`](https://opui.dev/vue/components/form.md) | Yes | Yes | - |
 | [`FieldLegend`](https://opui.dev/vue/components/form.md) | Yes | Yes | - |
 | [`Fieldset`](https://opui.dev/vue/components/form.md) | Yes | Yes | - |
+| [`FileUpload`](https://opui.dev/vue/components/file-upload.md) | Yes | Yes | - |
 | [`Form`](https://opui.dev/vue/components/form.md) | Yes | Yes | - |
 | [`List`](https://opui.dev/vue/components/list.md) | Yes | Yes | - |
 | [`ListItem`](https://opui.dev/vue/components/list.md) | Yes | Yes | - |
@@ -1030,7 +1035,7 @@ Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` 
 
 #### [Components](https://opui.dev/vue/components.md)
 
-41 components, each with Vue examples and its API.
+42 components, each with Vue examples and its API.
 
 #### [Concepts](https://opui.dev/vue/guide/concepts.md)
 

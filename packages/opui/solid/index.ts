@@ -42,6 +42,7 @@ export { default as FieldDescription } from "../components/FieldDescription/Fiel
 export { default as FieldGroup } from "../components/FieldGroup/FieldGroup.solid"
 export { default as FieldLegend } from "../components/FieldLegend/FieldLegend.solid"
 export { default as Fieldset } from "../components/Fieldset/Fieldset.solid"
+export { default as FileUpload } from "../components/FileUpload/FileUpload.solid"
 export { default as Form } from "../components/Form/Form.solid"
 export { default as List } from "../components/List/List.solid"
 export { default as ListItem } from "../components/ListItem/ListItem.solid"
@@ -149,6 +150,12 @@ export type { Props as FieldDescriptionProps } from "../components/FieldDescript
 export type { Props as FieldGroupProps } from "../components/FieldGroup/types.solid"
 export type { Props as FieldLegendProps } from "../components/FieldLegend/types.solid"
 export type { Props as FieldsetProps } from "../components/Fieldset/types.solid"
+export type {
+  FileUploadItem,
+  RemoveDetail,
+  SelectDetail,
+} from "../components/FileUpload/types"
+export type { Props as FileUploadProps } from "../components/FileUpload/types.solid"
 export type { Props as FormProps } from "../components/Form/types.solid"
 export type { Props as ListProps } from "../components/List/types.solid"
 export type { Props as ListItemProps } from "../components/ListItem/types.solid"

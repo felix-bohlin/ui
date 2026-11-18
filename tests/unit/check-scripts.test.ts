@@ -160,6 +160,7 @@ describe("check-browser-support", () => {
     "scrollbar-width": ".a { scrollbar-width: thin; }",
     "sibling-count": ".a { --n: sibling-count(); }",
     "starting-style": "@starting-style { .a { opacity: 0; } }",
+    state: ".a:state(drag-over) { gap: 0; }",
     subgrid: ".a { grid-template-columns: subgrid; }",
     "text-box": ".a { text-box: trim-both cap alphabetic; }",
     "text-wrap-pretty": ".a { text-wrap: pretty; }",

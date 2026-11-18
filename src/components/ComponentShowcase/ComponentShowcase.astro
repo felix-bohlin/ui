@@ -28,6 +28,7 @@ import {
   FieldGroup,
   FieldLegend,
   Fieldset,
+  FileUpload,
   Form,
   List,
   ListItem,
@@ -292,6 +293,30 @@ const Wrapper = wrap ? "ul" : Carousel
           <Checkbox checked>In stock</Checkbox>
           <Checkbox>On sale</Checkbox>
         </div>
+      </div>
+    </Fragment>
+
+    <Fragment slot="file-upload">
+      <div aria-hidden="true" inert style="inline-size: 100%">
+        <FileUpload
+          id="index-file-upload-showcase"
+          items={[
+            {
+              label: "lou-headstock.png",
+              preview: "/photos/lou-headstock.png",
+              state: "done",
+              value: "lou",
+            },
+            {
+              label: "percy-groove.png",
+              preview: "/photos/percy-groove.png",
+              progress: 0.6,
+              state: "uploading",
+              value: "percy",
+            },
+          ]}
+          label="Choose photos"
+        />
       </div>
     </Fragment>
 

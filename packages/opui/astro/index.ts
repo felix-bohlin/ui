@@ -41,6 +41,7 @@ export { default as FieldDescription } from "../components/FieldDescription/Fiel
 export { default as FieldGroup } from "../components/FieldGroup/FieldGroup.astro"
 export { default as FieldLegend } from "../components/FieldLegend/FieldLegend.astro"
 export { default as Fieldset } from "../components/Fieldset/Fieldset.astro"
+export { default as FileUpload } from "../components/FileUpload/FileUpload.astro"
 export { default as Form } from "../components/Form/Form.astro"
 export { default as List } from "../components/List/List.astro"
 export { default as ListItem } from "../components/ListItem/ListItem.astro"
@@ -147,6 +148,12 @@ export type { Props as FieldDescriptionProps } from "../components/FieldDescript
 export type { Props as FieldGroupProps } from "../components/FieldGroup/types.astro"
 export type { Props as FieldLegendProps } from "../components/FieldLegend/types.astro"
 export type { Props as FieldsetProps } from "../components/Fieldset/types.astro"
+export type {
+  FileUploadItem,
+  RemoveDetail,
+  SelectDetail,
+} from "../components/FileUpload/types"
+export type { Props as FileUploadProps } from "../components/FileUpload/types.astro"
 export type { Props as FormProps } from "../components/Form/types.astro"
 export type { Props as ListProps } from "../components/List/types.astro"
 export type { Props as ListItemProps } from "../components/ListItem/types.astro"

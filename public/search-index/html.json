@@ -1108,6 +1108,70 @@
     "url": "/html/components/drawer/#keyboard-support"
   },
   {
+    "id": "component-file-upload-html",
+    "title": "File upload",
+    "description": "A drop zone around a file input that lists the files your app is uploading, with a preview, progress, a message and a remove button for each.",
+    "keywords": "attachment drop zone dropzone photos",
+    "category": "Component",
+    "url": "/html/components/file-upload/"
+  },
+  {
+    "id": "component-file-upload-html-basics",
+    "title": "Basics",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/html/components/file-upload/#basics"
+  },
+  {
+    "id": "component-file-upload-html-files",
+    "title": "Files",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/html/components/file-upload/#files"
+  },
+  {
+    "id": "component-file-upload-html-upload-as-you-pick",
+    "title": "Upload as you pick",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/html/components/file-upload/#upload-as-you-pick"
+  },
+  {
+    "id": "component-file-upload-html-errors",
+    "title": "Errors",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/html/components/file-upload/#errors"
+  },
+  {
+    "id": "component-file-upload-html-disabled",
+    "title": "Disabled",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/html/components/file-upload/#disabled"
+  },
+  {
+    "id": "component-file-upload-html-compact",
+    "title": "Compact",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/html/components/file-upload/#compact"
+  },
+  {
+    "id": "component-file-upload-html-labels",
+    "title": "Labels",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/html/components/file-upload/#labels"
+  },
+  {
+    "id": "component-file-upload-html-keyboard-support",
+    "title": "Keyboard support",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/html/components/file-upload/#keyboard-support"
+  },
+  {
     "id": "component-form-html",
     "title": "Form",
     "description": "Classes that space and group form fields, with fieldsets and field groups.",
@@ -4638,6 +4702,14 @@
     "api": ".ui-fieldset Container element. The label of the fieldset. :is(legend, .ui-legend) Supporting text displayed below the legend. .ui-fieldset > .ui-description Supporting or error text for the whole group, after the fields. .ui-fieldset > .ui-end-text [disabled] :has([aria-invalid=\"true\"], :user-invalid) :has(:required) State `disabled` disables every field inside, only on a `<fieldset>`. A field inside with `aria-invalid=\"true\"`, or that is `:user-invalid`, colors the end text, and a required field adds a required mark after the legend.",
     "category": "API",
     "url": "/html/api/#fieldset"
+  },
+  {
+    "id": "api-file-upload-html",
+    "title": "File upload API",
+    "description": "Reference for File upload HTML component.",
+    "api": "opui-file-upload.ui-file-upload The `<opui-file-upload>` custom element, a size container. It fires `select` for picks and drops and `remove` for the remove buttons, and has the `drag-over` custom state while files are dragged over it. While it has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, it holds picked files back and remove buttons do nothing. Lays out the drop zone and the files: stacked, or in one row when the root is narrower than `28rem`. .ui-content The drop zone, dashed, and solid while files are dragged over the root. In the compact row it is a square add tile. .ui-content > .ui-field Names the file input and covers the drop zone, so a click anywhere in it opens the picker. Its plus `<svg>` shows in the compact row. .ui-field > .ui-label The file input, visually hidden. Its focus ring is drawn on the drop zone. .ui-label > input The visible trigger, a `<span>` since a label can't hold a button. Visually hidden in the compact row. .ui-label > .ui-button The hint, linked to the input with `aria-describedby`. .ui-field > .ui-description The files, one `<li>` each: List rows, or square previews that scroll sideways in the compact row. .ui-content > .ui-list The preview: the `<img>` of the file, or a tonal placeholder until there is one. On a failed file it also holds the `<button popovertarget>` that opens the message in the compact row. .ui-list > li > .ui-start The file name, a `Progress` while the file is queued or uploading, and the message in a `.ui-description`. In the compact row the name is visually hidden and the progress lies along the bottom edge. .ui-list > li > .ui-text The remove button, a round `.ui-button` with `command=\"--remove\"`, in every state. .ui-list > li > .ui-end The live region. It is always in the page, so a change of its text is announced. [role=\"status\"] [accept] Accept The file types the input takes, as on a file input: extensions, MIME types and `type/*`. The element applies it to picks as well as drops. :disabled State Disables the input and dims the trigger. A drop does nothing. .ui-error Items The files, as `{ description, label, preview, progress, state, value }` objects. `label` is the file name, `value` the id the `remove` event names, `preview` the URL of an image, `state` one of `\"done\"`, `\"error\"`, `\"queued\"` and `\"uploading\"`, `progress` a fraction from 0 to 1 while uploading, and `description` a message, which a failed file shows in the critical color. [multiple] Multiple Takes several files in one pick or drop. Without it, `select` gets the first accepted file. input The `<input type=\"file\">` inside, or `null`. Read-only. remove Fires when a remove button is pressed, with its `value` in `event.detail.value`. It bubbles. Once the row is gone, focus moves to the next row's remove button, or else the previous one, or else the input. select Fires after a pick or a drop, with the new files in `event.detail.files`: the ones the input's `accept` allows, and only the first without `multiple`. It bubbles, and the input is cleared afterwards.",
+    "category": "API",
+    "url": "/html/api/#file-upload"
   },
   {
     "id": "api-form-html",

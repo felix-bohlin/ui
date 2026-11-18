@@ -780,6 +780,12 @@ export const whatsNew = {
       `A <code>Drawer</code> without an <code>id</code> warns in development, since its trigger and <code>DrawerHeader</code> point at it (<a href="#basics">Basics</a>).`,
     ),
   ],
+  "file-upload": [
+    {
+      default: `New component. A <a href="#basics">drop zone</a> that lists the <a href="#files">files</a> your app uploads, with a preview, a progress bar, a message and a remove button for each. It uploads nothing: start each upload from its <a href="#upload-as-you-pick"><code>select</code> event</a> and pass the state back in <code>items</code>. Narrower than 28rem it is a <a href="#compact">compact row</a> of previews behind an add tile.`,
+      html: `New component. A <a href="#basics">drop zone</a> that lists the <a href="#files">files</a> your app uploads, with a preview, a progress bar, a message and a remove button for each. Import <code>opui-css/elements/file-upload.js</code> for the <code>&lt;opui-file-upload&gt;</code> custom element, and render the rows from its <a href="#upload-as-you-pick"><code>select</code> and <code>remove</code> events</a>. Narrower than 28rem it is a <a href="#compact">compact row</a> of previews behind an add tile.`,
+    },
+  ],
   form: [
     components(
       `A <a href="#without-fieldset"><code>Fieldset</code> rendered as another element</a> names itself from its <code>FieldLegend</code>.`,
@@ -1793,6 +1799,7 @@ export const highlighted = new Set<string>([
   "carousel",
   "control-group",
   "copy",
+  "file-upload",
   "layout",
   "menu",
   "message",
@@ -1810,6 +1817,7 @@ export const highlighted = new Set<string>([
 export const added = new Set<string>([
   "carousel",
   "copy",
+  "file-upload",
   "layout",
   "menu",
   "message",

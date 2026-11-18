@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {
   computed,
-  type HTMLAttributes,
   inject,
   provide,
   reactive,
@@ -23,7 +22,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs() as HTMLAttributes
+const attrs = useAttrs()
 
 const parent = inject(TabsKey, undefined)
 

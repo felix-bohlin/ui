@@ -85,7 +85,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
   >
     <label
       v-if="hasLabel()"
-      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
+      :class="hideLabel ? 'ui-sr-only' : 'ui-label'"
       :for="textareaId()"
       >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
     /></label>

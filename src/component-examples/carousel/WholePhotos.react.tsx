@@ -1,0 +1,36 @@
+import { Carousel } from "opui-css/react"
+
+const photos = [
+  {
+    alt: "A deep blue fjord between steep mountains",
+    height: 450,
+    id: 1015,
+    width: 800,
+  },
+  { alt: "A lighthouse on a rocky shore", height: 800, id: 1043, width: 600 },
+  {
+    alt: "Yellow tents in a snowy mountain camp",
+    height: 450,
+    id: 1036,
+    width: 800,
+  },
+  { alt: "A tall pine forest in the fog", height: 800, id: 1044, width: 600 },
+]
+
+export default function WholePhotos() {
+  return (
+    <Carousel aria-label="Photos" markers style={{ "--_media-fit": "contain" }}>
+      {photos.map(({ alt, height, id, width }) => (
+        <li key={id}>
+          <img
+            alt={alt}
+            height={height}
+            loading="lazy"
+            src={`https://picsum.photos/id/${id}/${width}/${height}`}
+            width={width}
+          />
+        </li>
+      ))}
+    </Carousel>
+  )
+}

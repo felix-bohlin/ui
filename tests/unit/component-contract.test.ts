@@ -18,6 +18,11 @@ import {
   splitUnion,
   typedAttributes,
 } from "../../src/utils/component-source"
+import {
+  exampleExtension,
+  PACKAGE_FRAMEWORK_IDS,
+  type PackageFrameworkId,
+} from "../../src/utils/framework"
 import { createIdGenerator } from "../../src/utils/id"
 import { normalize } from "./normalize"
 import {
@@ -52,9 +57,9 @@ const vueComponents = import.meta.glob<VueComponent>(
   { import: "default" },
 )
 
-const FRAMEWORKS = ["astro", "react", "solid", "svelte", "vue"] as const
+const FRAMEWORKS = PACKAGE_FRAMEWORK_IDS
 
-type Framework = (typeof FRAMEWORKS)[number]
+type Framework = PackageFrameworkId
 
 const SAMPLES: Record<string, unknown> = {
   "MenuItem[]": [{ label: "A", value: "a" }],
@@ -87,27 +92,29 @@ const KNOWN_ATTRIBUTES: Record<
     when?: (props: Record<string, unknown>) => boolean
   }
 > = {
-  "Callout react": {
+  Callout: {
     attribute: "data-hydrating",
     reason:
-      "the element ignores the close button until React has hydrated the callout and attached onDismiss",
+      "the element ignores the close button until the framework has hydrated the callout and attached its dismiss handler",
     when: ({ closeButton }) => Boolean(closeButton),
   },
-  "SortableTable react": {
+  SortableTable: {
     attribute: "data-hydrating",
     reason:
-      "the element ignores header clicks until React has hydrated the table and attached onSort",
+      "the element ignores header clicks until the framework has hydrated the table and attached its sort handler",
   },
 }
 
 const withoutAttribute = (markup: string, attribute: string) =>
   markup.replace(new RegExp(`\\s${attribute}(?:="[^"]*")?(?=[\\s>])`), "")
 
-const loaderOf = <T>(modules: Record<string, () => Promise<T>>, name: string) =>
+const loaderOf = <T>(
+  modules: Record<string, () => Promise<T>>,
+  name: string,
+  framework: Framework,
+) =>
   Object.entries(modules).find(([path]) =>
-    path
-      .replace(/\.(react|solid)\.tsx$/, ".tsx")
-      .endsWith(`/${name}.${path.split(".").at(-1)}`),
+    path.endsWith(`/${name}.${exampleExtension(framework)}`),
   )?.[1]
 
 const valuesOf = (type: string) =>
@@ -475,7 +482,7 @@ const render: Record<Framework, (entry: Case) => Promise<string | undefined>> =
       })
     },
     react: async ({ component, props, reactNames, slots, types }) => {
-      const load = loaderOf(reactComponents, component)
+      const load = loaderOf(reactComponents, component, "react")
       if (!load) return undefined
       const { default: Component } = await load()
       const nodes = () => reactNodes(contentOf(component))
@@ -501,7 +508,7 @@ const render: Record<Framework, (entry: Case) => Promise<string | undefined>> =
       ).replace(PRELOAD, "")
     },
     solid: async ({ component, props, slots, types }) => {
-      const load = loaderOf(solidComponents, component)
+      const load = loaderOf(solidComponents, component, "solid")
       if (!load) return undefined
       const { default: Component } = await load()
       return renderSolid(Component, {
@@ -521,7 +528,7 @@ const render: Record<Framework, (entry: Case) => Promise<string | undefined>> =
       })
     },
     svelte: async ({ component, props, slots, types }) => {
-      const load = loaderOf(svelteComponents, component)
+      const load = loaderOf(svelteComponents, component, "svelte")
       if (!load) return undefined
       const { default: Component } = await load()
       return renderSvelte(Component, {
@@ -542,7 +549,7 @@ const render: Record<Framework, (entry: Case) => Promise<string | undefined>> =
       }).body
     },
     vue: async ({ component, props, slots }) => {
-      const load = loaderOf(vueComponents, component)
+      const load = loaderOf(vueComponents, component, "vue")
       if (!load) return undefined
       const Component = await load()
       return renderVue(
@@ -640,7 +647,7 @@ describe("every component renders the same in Astro, React, Solid, Svelte and Vu
         )
         .toBeDefined()
       if (rendered === undefined) continue
-      const known = KNOWN_ATTRIBUTES[`${entry.component} ${framework}`]
+      const known = KNOWN_ATTRIBUTES[entry.component]
       if (known && (known.when?.(entry.props) ?? true)) {
         expect
           .soft(

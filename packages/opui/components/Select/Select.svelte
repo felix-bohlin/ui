@@ -2,7 +2,7 @@
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { fieldDescribedBy } from "../id"
-  import { initialValue, sameValue } from "./selection"
+  import { initialValue, keepSelected, sameValue } from "./selection"
   import type { SelectItem } from "./types"
   import type { Props } from "./types.svelte"
   import { untrack } from "svelte"
@@ -67,12 +67,18 @@
     ),
   )
 
+  const first = untrack(() => value)
+
+  const keepFirst = (select: HTMLSelectElement) => {
+    if (first !== undefined) keepSelected(select, first)
+  }
+
   const isSelected = (item: SelectItem) =>
-    value === undefined
+    first === undefined
       ? item.selected
-      : Array.isArray(value)
-        ? value.some((selected) => sameValue(selected, item.value))
-        : sameValue(item.value, value)
+      : Array.isArray(first)
+        ? first.some((selected) => sameValue(selected, item.value))
+        : sameValue(item.value, first)
 </script>
 
 <div
@@ -89,7 +95,7 @@
   {style}
 >
   {#if label}
-    <label class={[hideLabel ? "ui-sr-only" : "ui-label"]} for={selectId}>
+    <label class={hideLabel ? "ui-sr-only" : "ui-label"} for={selectId}>
       {@render content(label)}
     </label>
   {/if}
@@ -111,6 +117,7 @@
       aria-invalid={error ? "true" : rest["aria-invalid"]}
       aria-labelledby={rest["aria-labelledby"]}
       bind:value
+      {@attach keepFirst}
       id={selectId}
       name={name ?? field?.name}
     >

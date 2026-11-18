@@ -66,6 +66,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_marker-selected-padding`: Inset of the current marker's dot, smaller than the `--ui-space-2` of the other markers, so the current dot is larger. Defaults to `--ui-space-1`.
 - `--_marker-size`: Size of the markers: `--ui-space-5`, and at least `--ui-target-min-size`, so they stay pointer targets in a theme with a smaller spacing scale. The dot sits inside, inset by `--ui-space-2`.
 - `--_media-aspect-ratio`: Aspect ratio of `img`, `video` and `iframe` in items.
+- `--_media-fit`: How `img`, `video` and `iframe` in items fill their aspect ratio: `cover` crops them, `contain` shows them whole, like photos of mixed orientation in a viewer.
 - `--_media-radius`: Corner radius of `img`, `video` and `iframe` in items. Defaults to `--ui-radius`.
 - `--_motion`: Motion multiplier for the button and marker transitions. `0` turns them off.
 - `--_padding-block`: Block padding of `.ui-vertical`, showing the neighboring items. Set by `.ui-peek`.

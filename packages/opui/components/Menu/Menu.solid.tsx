@@ -53,41 +53,45 @@ export default function Menu(props: Props) {
         popover={popover() === "auto" ? "" : popover()}
         {...rest}
       >
-        <For each={props.items}>
-          {({
-            borderTop,
-            color,
-            disabled,
-            href,
-            keepOpen,
-            label,
-            shortcut,
-            ...itemRest
-          }) => {
-            const tag = href ? "a" : "button"
-            const closes = !href && !keepOpen && !disabled
-            const commandfor = () => (closes ? rootId() : undefined)
+        <For each={props.items} keyed={false}>
+          {(item) => {
+            const itemRest = () =>
+              omit(
+                item(),
+                "borderTop",
+                "color",
+                "disabled",
+                "href",
+                "keepOpen",
+                "label",
+                "shortcut",
+              )
+            const tag = () => (item().href ? "a" : "button")
+            const closes = () =>
+              !item().href && !item().keepOpen && !item().disabled
+            const command = () => (closes() ? "hide-popover" : undefined)
+            const commandfor = () => (closes() ? rootId() : undefined)
             const resolvedIconChecked = children(() => props.iconChecked)
             return (
               <li
                 class={cx([
-                  { "ui-border-top": borderTop },
-                  color && `ui-${color}`,
+                  { "ui-border-top": item().borderTop },
+                  item().color && `ui-${item().color}`,
                 ])}
               >
                 <Dynamic
-                  component={tag}
-                  {...tagAttrs(tag, disabled, href)}
-                  command={closes ? "hide-popover" : undefined}
+                  component={tag()}
+                  {...tagAttrs(tag(), item().disabled, item().href)}
+                  command={command()}
                   commandfor={commandfor()}
-                  {...defined(itemRest)}
+                  {...defined(itemRest())}
                 >
                   <div class="ui-text">
-                    <p>{label}</p>
+                    <p>{item().label}</p>
                   </div>
-                  {shortcut && (
+                  {item().shortcut && (
                     <div class="ui-end">
-                      <kbd>{shortcut}</kbd>
+                      <kbd>{item().shortcut}</kbd>
                     </div>
                   )}
                   {resolvedIconChecked() && (

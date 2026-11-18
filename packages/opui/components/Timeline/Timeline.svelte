@@ -23,7 +23,7 @@
   ]}
   {...rest}
 >
-  {#each items ?? [] as { description, ...item }, index (index)}
+  {#each items as { description, ...item }, index (index)}
     <TimelineItem {...item}>
       {#if description}
         <p>{description}</p>

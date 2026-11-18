@@ -15,12 +15,13 @@ export default function FieldLegend(props: Props) {
   untrack(() => {
     warnReplacedId("FieldLegend", "Fieldset", props.id, fieldset?.legendId)
   })
+  const tagId = () => fieldset?.legendId ?? props.id
 
   return (
     <Tag
       class={cx([{ "ui-legend": !isLegend() }, props.class])}
       {...(rest as object)}
-      id={fieldset?.legendId ?? props.id}
+      id={tagId()}
     >
       {props.children}
     </Tag>

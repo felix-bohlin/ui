@@ -10,6 +10,7 @@ import {
 import {
   exampleExtension,
   FRAMEWORK_IDS,
+  HYDRATED_FRAMEWORK_IDS,
   type FrameworkId,
 } from "../../src/utils/framework"
 
@@ -101,6 +102,15 @@ export const stubExternalHosts = (page: Page) =>
         : route.abort(),
   )
 
+export const examplesMounted = (page: Page, framework: string) =>
+  page.waitForFunction(
+    (name) =>
+      [...document.querySelectorAll(`[data-${name}-example]`)].every((el) =>
+        el.hasAttribute(`data-${name}-mounted`),
+      ),
+    framework,
+  )
+
 export const openFixture = async (
   page: Page,
   framework: Framework,
@@ -130,13 +140,7 @@ export const openFixture = async (
     ).toBeAttached()
   }
   if (framework !== "astro" && framework !== "html") {
-    await page.waitForFunction(
-      (name) =>
-        [...document.querySelectorAll(`[data-${name}-example]`)].every((el) =>
-          el.hasAttribute(`data-${name}-mounted`),
-        ),
-      framework,
-    )
+    await examplesMounted(page, framework)
   }
   const fonts = await page.evaluate(() =>
     Promise.race([
@@ -194,7 +198,7 @@ export const pageErrors = (page: Page) => {
   return errors
 }
 
-export const HYDRATED: readonly Framework[] = ["solid"]
+export const HYDRATED: readonly Framework[] = HYDRATED_FRAMEWORK_IDS
 
 export const exampleSnapshots = (
   page: Page,

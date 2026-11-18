@@ -88,7 +88,7 @@
   {style}
 >
   {#if hasLabel}
-    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]} id={labelId}>
+    <span class={hideLabel ? "ui-sr-only" : "ui-label"} id={labelId}>
       {@render content(label)}
     </span>
   {/if}
@@ -129,7 +129,7 @@
   />
   {#if hasDatalist}
     <datalist aria-hidden="true" id={listId}>
-      {#each items ?? [] as option, index (index)}
+      {#each items as option, index (index)}
         {#if typeof option === "object"}
           <option value={option.value} label={option.label}></option>
         {:else}

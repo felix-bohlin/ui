@@ -14,7 +14,7 @@ warnReplacedId("DialogTitle", "Dialog", id, dialog?.titleId)
 </script>
 
 <template>
-  <h2 v-bind="classAttrs([$props.class])" :id="dialog?.titleId ?? id">
+  <h2 v-bind="classAttrs($props.class)" :id="dialog?.titleId ?? id">
     <slot></slot>
   </h2>
 </template>

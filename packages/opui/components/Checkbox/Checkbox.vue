@@ -26,7 +26,7 @@ defineOptions({
 
 const attrs = useInputAttrs()
 
-const modelValue = defineModel<boolean | (string | number)[] | undefined>({
+const model = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
 
@@ -49,11 +49,11 @@ warnUnnamed("Checkbox", hasName({ ...attrs.value, label }, slots.default))
       v-bind="attrs"
       :indeterminate="indeterminate"
       :aria-invalid="error ? 'true' : attrs['aria-invalid']"
-      v-model="modelValue"
+      v-model="model"
     />
     <span
       v-if="label || $slots.default"
-      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
+      :class="hideLabel ? 'ui-sr-only' : 'ui-label'"
       >{{ label }}<TrimmedSlot :nodes="$slots.default?.()"
     /></span>
     <span v-if="endText || $slots['end-text']" class="ui-end-text"

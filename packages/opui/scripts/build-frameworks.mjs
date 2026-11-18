@@ -15,11 +15,12 @@ import { fileURLToPath } from "node:url"
 import remapping from "@jridgewell/remapping"
 import ts from "typescript"
 import { compileScript, parse, registerTS } from "vue/compiler-sfc"
+import { HYDRATED_FRAMEWORK_IDS } from "../../../src/utils/framework.js"
 
 const here = dirname(fileURLToPath(import.meta.url))
 const require = createRequire(import.meta.url)
 
-const FRAMEWORKS = ["react", "solid", "svelte", "vue"]
+export const FRAMEWORKS = HYDRATED_FRAMEWORK_IDS
 
 const OUTPUTS = ["components", ...FRAMEWORKS]
 

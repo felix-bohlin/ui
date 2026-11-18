@@ -3,7 +3,7 @@ import { children, createUniqueId, omit, untrack } from "solid-js"
 import "../../elements/character-count.js"
 import { useFieldGroupContext } from "../FieldGroup/context.solid"
 import { fieldDescribedBy } from "../id"
-import { bound } from "../solid"
+import { control } from "../solid"
 import type { Props } from "./types.solid"
 
 export default function Textarea(props: Props) {
@@ -44,8 +44,11 @@ export default function Textarea(props: Props) {
   const resolvedTop = children(() => props.top)
   const field = useFieldGroupContext()
   const uid = createUniqueId()
-  const initialValue = untrack(() => props.value)
-  const valueRef = bound("value", () => props.value)
+  const valueControl = control(
+    "value",
+    () => props.value,
+    untrack(() => props.value),
+  )
   const base = () => props.id || `textarea-${uid}`
   const hasLabel = () => Boolean(resolvedLabel())
   const hasStartText = () => Boolean(resolvedStartText())
@@ -98,8 +101,8 @@ export default function Textarea(props: Props) {
           </span>
         )}
         <textarea
-          defaultValue={initialValue}
-          ref={[props.ref, valueRef]}
+          {...valueControl.server}
+          ref={[props.ref, valueControl.ref]}
           {...rest}
           aria-describedby={fieldDescribedBy(
             {

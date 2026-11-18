@@ -495,14 +495,11 @@ test("a form reset after hydration restores the values and the readout", async (
   expect(unexpected(problems, app.name, "range")).toEqual([])
 })
 
-test("a sortable table clicked before React hydrates it waits for onSort", async ({
+test("a sortable table clicked before the app hydrates it waits for the sort handler", async ({
   page,
 }, testInfo) => {
   const app = appOf(testInfo.project.name)
-  test.skip(
-    app.framework !== "react" || !app.scripts || !app.ssr,
-    `${app.name} loads the element with the component`,
-  )
+  test.skip(!app.scripts || !app.ssr, `${app.name} renders on the client only`)
   const problems = await watch(page)
   const { promise, resolve: release } = Promise.withResolvers<void>()
   await page.route(
@@ -548,14 +545,11 @@ test("a sortable table clicked before React hydrates it waits for onSort", async
   expect(unexpected(problems, app.name, "table")).toEqual([])
 })
 
-test("a callout dismissed before React hydrates it waits for onDismiss", async ({
+test("a callout dismissed before the app hydrates it waits for the dismiss handler", async ({
   page,
 }, testInfo) => {
   const app = appOf(testInfo.project.name)
-  test.skip(
-    app.framework !== "react" || !app.scripts || !app.ssr,
-    `${app.name} loads the element with the component`,
-  )
+  test.skip(!app.scripts || !app.ssr, `${app.name} renders on the client only`)
   const problems = await watch(page)
   const { promise, resolve: release } = Promise.withResolvers<void>()
   await page.route(

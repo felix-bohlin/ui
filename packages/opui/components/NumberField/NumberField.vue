@@ -75,7 +75,7 @@ const endTextId = () =>
   >
     <label
       v-if="label || $slots.label"
-      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
+      :class="hideLabel ? 'ui-sr-only' : 'ui-label'"
       :for="inputId"
       >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
     /></label>

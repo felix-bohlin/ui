@@ -81,7 +81,10 @@ export default function BlogList() {
                 three times louder. Here's what's new and how we built it.
               </p>
             </hgroup>
-            <ul className="ui-layout-row ui-x-small" aria-label="Tags">
+            <ul
+              className="ui-layout-row ui-x-small blog-tags"
+              aria-label="Tags"
+            >
               <li>
                 <Chip label="Bassbook news" size="small" />
               </li>
@@ -131,7 +134,10 @@ export default function BlogList() {
                   </p>
                 </hgroup>
                 <CardContent className="blog-meta">
-                  <ul className="ui-layout-row ui-x-small" aria-label="Tags">
+                  <ul
+                    className="ui-layout-row ui-x-small blog-tags"
+                    aria-label="Tags"
+                  >
                     <li>
                       <Chip label="Gear Talk" size="small" />
                     </li>
@@ -172,7 +178,10 @@ export default function BlogList() {
                   </p>
                 </hgroup>
                 <CardContent className="blog-meta">
-                  <ul className="ui-layout-row ui-x-small" aria-label="Tags">
+                  <ul
+                    className="ui-layout-row ui-x-small blog-tags"
+                    aria-label="Tags"
+                  >
                     <li>
                       <Chip label="Guides" size="small" />
                     </li>
@@ -213,7 +222,10 @@ export default function BlogList() {
                   </p>
                 </hgroup>
                 <CardContent className="blog-meta">
-                  <ul className="ui-layout-row ui-x-small" aria-label="Tags">
+                  <ul
+                    className="ui-layout-row ui-x-small blog-tags"
+                    aria-label="Tags"
+                  >
                     <li>
                       <Chip label="Member diaries" size="small" />
                     </li>
@@ -251,7 +263,10 @@ export default function BlogList() {
                   </p>
                 </hgroup>
                 <CardContent className="blog-meta">
-                  <ul className="ui-layout-row ui-x-small" aria-label="Tags">
+                  <ul
+                    className="ui-layout-row ui-x-small blog-tags"
+                    aria-label="Tags"
+                  >
                     <li>
                       <Chip label="Member diaries" size="small" />
                     </li>
@@ -289,7 +304,10 @@ export default function BlogList() {
                   </p>
                 </hgroup>
                 <CardContent className="blog-meta">
-                  <ul className="ui-layout-row ui-x-small" aria-label="Tags">
+                  <ul
+                    className="ui-layout-row ui-x-small blog-tags"
+                    aria-label="Tags"
+                  >
                     <li>
                       <Chip label="Tabs & tips" size="small" />
                     </li>
@@ -330,7 +348,10 @@ export default function BlogList() {
                   </p>
                 </hgroup>
                 <CardContent className="blog-meta">
-                  <ul className="ui-layout-row ui-x-small" aria-label="Tags">
+                  <ul
+                    className="ui-layout-row ui-x-small blog-tags"
+                    aria-label="Tags"
+                  >
                     <li>
                       <Chip label="Dear diary" size="small" />
                     </li>
@@ -392,6 +413,10 @@ export default function BlogList() {
 
           .blog-more {
             align-self: center;
+          }
+
+          .blog-tags li {
+            display: flex;
           }
         }
       `}</style>

@@ -501,7 +501,7 @@ test("a sortable table clicked before React hydrates it waits for onSort", async
   const app = appOf(testInfo.project.name)
   test.skip(
     app.framework !== "react" || !app.scripts || !app.ssr,
-    `${app.name} loads the element with the component`,
+    `${app.name} loads the element with the component, which has no data-hydrating guard: the Solid, Svelte and Vue notes of the SortableTable say not to load the element first`,
   )
   const problems = await watch(page)
   const { promise, resolve: release } = Promise.withResolvers<void>()
@@ -554,7 +554,7 @@ test("a callout dismissed before React hydrates it waits for onDismiss", async (
   const app = appOf(testInfo.project.name)
   test.skip(
     app.framework !== "react" || !app.scripts || !app.ssr,
-    `${app.name} loads the element with the component`,
+    `${app.name} loads the element with the component, which has no data-hydrating guard: the Solid, Svelte and Vue notes of the Callout say not to load the element first`,
   )
   const problems = await watch(page)
   const { promise, resolve: release } = Promise.withResolvers<void>()

@@ -7,6 +7,11 @@ const sortNote =
 const sortEvent =
   "Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are."
 
+const element = elementNotes("sortable-table.js", sortNote)
+
+const early = (event: string) =>
+  `Don't load \`opui-css/elements/sortable-table.js\` ahead of the components: a press before they hydrate then sorts the rows without \`${event}\``
+
 export default {
   component: "SortableTable",
   css: ["sortable-table"],
@@ -35,9 +40,11 @@ export default {
     },
   ],
   notes: {
-    ...elementNotes("sortable-table.js", sortNote),
+    ...element,
     html: 'Wrap the table in `<opui-sortable-table class="ui-sortable-table">`, add `data-sort` to each sortable header with a `<button type="button">` around its label, and import `opui-css/elements/sortable-table.js`. A cell sorts by its `data-sort-value`, or else its text.',
-    solid: `${elementNotes("sortable-table.js", sortNote).solid} Don't load \`opui-css/elements/sortable-table.js\` ahead of the components: a press before they hydrate then sorts the rows without \`onSort\`.`,
+    solid: `${element.solid} ${early("onSort")}.`,
+    svelte: `${element.svelte} ${early("onsort")}, and hydration then throws on the moved rows.`,
+    vue: `${element.vue} ${early("@sort")}, and hydration then puts the rows back in the order the server rendered, under a header that still says sorted.`,
   },
   options: [
     {

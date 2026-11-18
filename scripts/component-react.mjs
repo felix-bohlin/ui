@@ -234,6 +234,7 @@ export const toReact = (component) => {
     }
     return `${name}={${rewriteExpression(item.code, options)}}`
   }
+  const keys = new Map()
   const elementAttributes = (node) => {
     const listens = listened.includes(node)
     const restAt = listens
@@ -246,7 +247,7 @@ export const toReact = (component) => {
       "ref={rootRef}",
     ]
     return [
-      ...(node.keyed ? [`key={${node.keyed}}`] : []),
+      ...(keys.has(node) ? [`key={${keys.get(node)}}`] : []),
       ...node.attributes.flatMap((entry, index) => [
         ...(index === restAt ? rootRef : []),
         ...(node.groupRadio !== undefined &&
@@ -281,14 +282,17 @@ export const toReact = (component) => {
   }
   const { render } = jsxEmitter({
     attributes: elementAttributes,
-    each: (node) => ({
-      consts: node.consts.map(
-        ({ code, name }) =>
-          `const ${name} = ${rewriteExpression(code, options)}`,
-      ),
-      list: node.list,
-      parameters: `${node.item}, ${node.index}`,
-    }),
+    each: (node) => {
+      node.rows.forEach((row) => keys.set(row, node.key?.code ?? node.index))
+      return {
+        consts: node.consts.map(
+          ({ code, name }) =>
+            `const ${name} = ${rewriteExpression(code, options)}`,
+        ),
+        list: node.list,
+        parameters: `${node.item}${node.index ? `, ${node.index}` : ""}`,
+      }
+    },
     rewrite: (code) => rewriteExpression(code, options),
     slotCode: (name) => name,
     stringSlots,

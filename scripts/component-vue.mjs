@@ -434,7 +434,7 @@ export const toVue = (component) => {
         ]),
       }
       const root = node.children.find((child) => !isBlank(child))
-      const loop = `v-for="(${node.item}, ${node.index}) in ${rewriteExpression(node.list, scope)}" :key="${node.index}"`
+      const loop = `v-for="${node.index ? `(${node.item}, ${node.index})` : node.item} in ${rewriteExpression(node.list, scope)}" :key="${node.key?.code ?? node.index}"`
       return root.type === "element"
         ? emitOne(root, loop, inner)
         : `<template ${loop}>${emitOne(root, undefined, inner)}</template>`

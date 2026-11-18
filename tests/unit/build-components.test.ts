@@ -873,12 +873,19 @@ describe("the ports of a sample", () => {
     )
   })
 
-  test("Solid keys a list by index, options by their value and a condition between two rows by the item, and reads an item through an accessor", async () => {
+  test("a list is keyed by index and options by their value in every framework, and Solid keys a condition between two rows by the item and reads an item through an accessor", async () => {
     const options = await compile(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<select class:list={["ui-sample", className]} {...rest}>\n  {items.map((item) => <option selected={item.selected || undefined} value={item.value}>{item.label}</option>)}\n</select>\n',
     )
     expect(options["solid.tsx"]).toContain(
       '      <For each={props.items} keyed={(item) => item.value}>\n        {(item) => {\n          const itemSelectedControl = control(\n            "selected",\n            undefined,\n            untrack(() => item().selected || undefined),\n          )\n          return (\n            <option\n              {...itemSelectedControl.server}\n              ref={itemSelectedControl.ref}\n              value={item().value}\n            >\n              {item().label}\n            </option>\n          )\n        }}\n      </For>\n',
+    )
+    expect(options["react.tsx"]).toContain(
+      "{items.map((item) => (\n        <option\n          key={item.value}",
+    )
+    expect(options.svelte).toContain("{#each items as item (item.value)}")
+    expect(options.vue).toContain(
+      '<option\n      v-for="item in items"\n      :key="item.value"',
     )
     const rows = await compile(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<ol class:list={["ui-sample", className]} {...rest}>\n  {items.map(({ description, ...item }) => <li {...item}>{description}</li>)}\n</ol>\n',

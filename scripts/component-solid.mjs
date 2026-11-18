@@ -27,7 +27,6 @@ import {
   filtersSpread,
   identifierCounts,
   identifiersIn,
-  isBlank,
   isIdentifierName,
   slotsUsedIn,
   sourceFileOf,
@@ -569,31 +568,15 @@ export const toSolid = (component) => {
   const each = (node, scope) => {
     const declared = [
       ...parameterNames(node.item),
-      ...parameterNames(node.index),
+      ...(node.index ? parameterNames(node.index) : []),
       ...node.consts.map(({ name }) => name),
     ]
-    const [root, ...others] = node.children.filter((child) => !isBlank(child))
     const binding = itemBinding(node.item)
-    const optionValue =
-      others.length === 0 &&
-      root?.type === "element" &&
-      root.tag === "option" &&
-      binding?.name
-        ? root.attributes.find(
-            (entry) =>
-              entry.kind === "expression" &&
-              entry.name === "value" &&
-              [...identifiersIn(entry.code)].every(
-                (name) => name === binding.name,
-              ),
-          )?.code
-        : undefined
-    const keyed =
-      others.length === 0 && root?.type === "if"
-        ? undefined
-        : optionValue
-          ? `(${binding.name}) => ${optionValue.trim()}`
-          : "false"
+    const keyed = !node.key
+      ? undefined
+      : node.key.by === "index"
+        ? "false"
+        : `(${node.item}) => ${node.key.code}`
     if (keyed && !binding) {
       throw unsupported(
         component.file,

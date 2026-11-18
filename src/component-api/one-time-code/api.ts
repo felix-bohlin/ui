@@ -32,7 +32,7 @@ export default {
     {
       description:
         "The `autocapitalize` of the `<input>`. With `alphanumeric` it is `characters`.",
-      frameworks: ["astro", "svelte", "vue"],
+      frameworks: ["astro", "solid", "svelte", "vue"],
       inherited: true,
       prop: "autocapitalize",
       type: "string",
@@ -81,7 +81,7 @@ export default {
     {
       description:
         "The `inputmode` of the `<input>`. Without `alphanumeric` it is `numeric`.",
-      frameworks: ["astro", "svelte", "vue"],
+      frameworks: ["astro", "solid", "svelte", "vue"],
       inherited: true,
       prop: "inputmode",
       type: "string",
@@ -143,7 +143,7 @@ export default {
     {
       description:
         "The `spellcheck` of the `<input>`. With `alphanumeric` it is `false`.",
-      frameworks: ["astro", "svelte", "vue"],
+      frameworks: ["astro", "solid", "svelte", "vue"],
       inherited: true,
       prop: "spellcheck",
       type: "boolean",

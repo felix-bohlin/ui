@@ -8,8 +8,14 @@ import {
   Switch,
 } from "opui-css/solid"
 
+const channels = ["email", "push", "sms"]
+
 export default function FieldGroupBinding() {
   const [notifications, setNotifications] = createSignal(["email"])
+  const summary = () =>
+    channels
+      .filter((channel) => notifications().includes(channel))
+      .join(", ") || "none"
 
   function reset() {
     setNotifications(["email"])
@@ -50,9 +56,7 @@ export default function FieldGroupBinding() {
           </Switch>
         </FieldGroup>
       </Fieldset>
-      <p class="switch-binding-text">
-        Selected: {notifications().join(", ") || "none"}
-      </p>
+      <p class="switch-binding-text">Selected: {summary()}</p>
       <Button class="switch-binding-reset" onClick={reset}>
         Reset
       </Button>

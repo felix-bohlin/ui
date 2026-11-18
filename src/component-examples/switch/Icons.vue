@@ -4,9 +4,10 @@ import { Switch } from "opui-css/vue"
 
 <template>
   <Switch hideLabel name="switch-icons" size="small">
-    Toggle theme
-    <template #icon-unchecked>
+    Dark theme
+    <template #icon-checked>
       <svg
+        data-icon="moon"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -18,8 +19,9 @@ import { Switch } from "opui-css/vue"
         ></path>
       </svg>
     </template>
-    <template #icon-checked>
+    <template #icon-unchecked>
       <svg
+        data-icon="sun"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -34,9 +36,10 @@ import { Switch } from "opui-css/vue"
   </Switch>
 
   <Switch checked hideLabel name="switch-icons">
-    Toggle theme
-    <template #icon-unchecked>
+    Dark theme
+    <template #icon-checked>
       <svg
+        data-icon="moon"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -48,8 +51,9 @@ import { Switch } from "opui-css/vue"
         ></path>
       </svg>
     </template>
-    <template #icon-checked>
+    <template #icon-unchecked>
       <svg
+        data-icon="sun"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"

@@ -2,18 +2,18 @@ import { Avatar, AvatarGroup } from "opui-css/react"
 
 export default function GroupedOverflow() {
   return (
-    <AvatarGroup aria-label="Reviewers">
-      <Avatar aria-label="Anna Berg" role="img">
-        AB
+    <AvatarGroup aria-label="Fans">
+      <Avatar aria-label="Holly Humbucker" role="img">
+        HH
       </Avatar>
-      <Avatar aria-label="Carl Dahl" role="img">
-        CD
+      <Avatar aria-label="Ines Hertz" role="img">
+        IH
       </Avatar>
-      <Avatar aria-label="Eva Falk" role="img">
-        EF
+      <Avatar aria-label="Lou Headstock" role="img">
+        LH
       </Avatar>
-      <Avatar aria-label="Show 4 more reviewers" as="button" variant="tonal">
-        +4
+      <Avatar as="button" variant="tonal">
+        +4<span className="ui-sr-only">more fans</span>
       </Avatar>
     </AvatarGroup>
   )

@@ -1,10 +1,12 @@
 ---
 import Component from "../../layouts/Component.astro"
 import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
 import BlockLink from "../../components/BlockLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
+import { Progress as UIProgress } from "opui-css/astro"
 
 import ProgressCSS from "@opui/css/components/progress.css?raw"
 import ProgressBuild from "../../components/UnderTheHood/ProgressBuild.astro"
@@ -12,31 +14,37 @@ import ProgressBuild from "../../components/UnderTheHood/ProgressBuild.astro"
 import progressApi from "../../component-api/progress/api"
 
 export const keywords = ["loading", "meter", "progress bar"]
+export const description =
+  "A progress bar on the native progress element, for a task that reports how far along it is, or one that doesn't."
 ---
 
 <Component
+  description={description}
   slug="progress"
+  heroAnatomy
   browserSupport={["attr", "container-style-queries", "has"]}
+  fallbacks={{
+    attr: "Without typed `attr()`, a round progress shows as a bar.",
+  }}
   apis={[{ title: "Progress API", api: progressApi }]}
-  changelogPaths={[
-    {
-      path: "packages/opui/components/Progress/Progress.astro",
-      type: "component",
-    },
-    { path: "src/docs/components/progress.astro", type: "docs" },
-    { path: "src/component-examples/progress", type: "docs" },
-    {
-      path: "packages/opui/css/components/progress.css",
-      type: "css",
-    },
-    { path: "src/component-api/progress", type: "api" },
-  ]}
   installationTabs={[{ title: "progress.css", code: ProgressCSS, lang: "css" }]}
 >
   <Fragment slot="title">Progress</Fragment>
   <Fragment slot="preamble">
-    See also:
-    <DocLink href="/components/spinner" class="ui-link">Spinner</DocLink>.
+    How far along a task is, like an upload, or that it's still going. For a
+    short wait in a small space, use a
+    <DocLink href="/components/spinner">Spinner</DocLink>.
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy zoom={1.5}>
+      <UIProgress
+        aria-label="Uploading slap video"
+        max="100"
+        style="inline-size: 14rem"
+        value="60"
+      />
+    </Anatomy>
   </Fragment>
 
   <Usage slot="usage">

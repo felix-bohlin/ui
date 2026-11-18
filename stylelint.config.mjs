@@ -67,26 +67,6 @@ export default {
     {
       files: ["packages/opui/core/normalize.css"],
       rules: {
-        "opui/focus-visible": [
-          true,
-          {
-            except: [
-              ":where(input):autofill:focus",
-              ":where(select):autofill:focus",
-              ":where(textarea):autofill:focus",
-            ],
-          },
-        ],
-        "opui/hover-media": [
-          true,
-          {
-            except: [
-              ":where(input):autofill:hover",
-              ":where(select):autofill:hover",
-              ":where(textarea):autofill:hover",
-            ],
-          },
-        ],
         "opui/motion-duration": [
           true,
           { except: ["transition: background-color 5000s ease-in-out 0s"] },

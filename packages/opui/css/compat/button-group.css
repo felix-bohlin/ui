@@ -1,7 +1,0 @@
-@layer components.compat {
-  @supports not (overflow-inline: auto) {
-    :where([role="group"].ui-button-group).ui-overflow-scroll {
-      overflow-x: auto;
-    }
-  }
-}

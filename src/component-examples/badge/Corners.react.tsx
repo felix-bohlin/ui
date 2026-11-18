@@ -10,6 +10,7 @@ export default function Corners() {
         label="35 unread messages"
       >
         <svg
+          data-icon="mail"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -24,6 +25,7 @@ export default function Corners() {
       </Badge>
       <Badge hideLabel indicator="99+" label="More than 99 unread messages">
         <svg
+          data-icon="mail"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -38,6 +40,7 @@ export default function Corners() {
       </Badge>
       <Badge corner="end-start" hideLabel indicator="New" label="New messages">
         <svg
+          data-icon="mail"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -57,6 +60,7 @@ export default function Corners() {
         label="About 3,000 unread messages"
       >
         <svg
+          data-icon="mail"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"

@@ -39,6 +39,8 @@ export default {
       "To hide the label, set `hideLabel` and keep the text in `label` or the slot.",
     react:
       "To hide the label, set `hideLabel` and keep the text in `label` or `children`. Use `checked` with `onChange` on each radio, or `defaultChecked`.",
+    solid:
+      "To hide the label, set `hideLabel` and keep the text in `label` or `children`. `checked` sets each radio's state and follows it when it changes, and `onChange` reports changes.",
     svelte:
       "To hide the label, set `hideLabel` and keep the text in `label` or `children`.",
   }),
@@ -90,7 +92,7 @@ export default {
     },
     {
       description:
-        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.",
+        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
       inherited: true,
       prop: "name",
       type: "string",
@@ -106,7 +108,7 @@ export default {
     {
       attribute: "[required]",
       description:
-        "Adds a required mark after the label. The form won't submit until one radio in the group is checked.",
+        "The form won't submit until one radio in the group is checked. The legend of the enclosing fieldset shows the required mark.",
       group: "Required",
       inherited: true,
       part: "input",
@@ -137,7 +139,7 @@ export default {
         "The value of the `<input>`, submitted with the form when it's checked.",
       inherited: true,
       prop: "value",
-      type: "string",
+      type: "string | number | boolean",
     },
     {
       default: '"outlined"',

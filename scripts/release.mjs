@@ -3,6 +3,12 @@ import fs from "node:fs"
 import os from "node:os"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
+import {
+  dateRelease,
+  hasUnreleased,
+  releaseDate,
+  unreleasedHeading,
+} from "../src/utils/changelog-file.ts"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const CHANGELOG = "packages/opui/CHANGELOG.md"
@@ -10,14 +16,12 @@ const PACKAGE = "packages/opui/package.json"
 
 const escape = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
 
-export const unreleasedHeading = (version) => `## ${version} - Unreleased`
-
 export const nextVersion = (current, level, changelog) => {
   const [base, pre] = current.split("-")
   const [major, minor, patch] = base.split(".").map(Number)
   if (level === "prerelease") {
     if (pre) return `${base}-rc.${Number(pre.match(/\d+$/)?.[0] ?? 0) + 1}`
-    if (changelog.includes(`\n${unreleasedHeading(base)}\n`)) {
+    if (hasUnreleased(changelog, base)) {
       return `${base}-rc.1`
     }
     return `${major}.${minor}.${patch + 1}-rc.1`
@@ -46,10 +50,8 @@ export const releaseCommit = (log, version) =>
 export const isReady = (changelog, version) => {
   const [base] = version.split("-")
   return base === version
-    ? new RegExp(`^## ${escape(version)} - \\d{4}-\\d{2}-\\d{2}$`, "m").test(
-        changelog,
-      )
-    : changelog.includes(`\n${unreleasedHeading(base)}\n`)
+    ? releaseDate(changelog, version) !== undefined
+    : hasUnreleased(changelog, base)
 }
 
 export const repositorySlug = (url) =>
@@ -109,9 +111,8 @@ const prepare = (argument) => {
   if (onOrigin(`refs/heads/${branch}`)) {
     fail(`${branch} exists on origin, merge or delete its pull request first`)
   }
-  const heading = unreleasedHeading(base)
-  if (!changelog.includes(`\n${heading}\n`)) {
-    fail(`${CHANGELOG} has no "${heading}" heading`)
+  if (!hasUnreleased(changelog, base)) {
+    fail(`${CHANGELOG} has no "${unreleasedHeading(base)}" heading`)
   }
 
   run("git", ["switch", "--quiet", "--create", branch])
@@ -119,7 +120,7 @@ const prepare = (argument) => {
     const date = new Date().toISOString().slice(0, 10)
     fs.writeFileSync(
       path.join(root, CHANGELOG),
-      changelog.replace(`\n${heading}\n`, `\n## ${version} - ${date}\n`),
+      dateRelease(changelog, base, date),
     )
   }
   pkg.version = version

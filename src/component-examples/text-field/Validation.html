@@ -1,31 +1,59 @@
 <div class="example-row">
-  <label class="ui-text-field">
-    <span class="ui-label">Full name</span>
+  <div class="ui-text-field">
+    <label class="ui-label" for="text-field-validation-1">Full name</label>
     <span class="ui-field">
-      <input placeholder="Ada Lovelace" required type="text" />
+      <input
+        placeholder="Holly Humbucker"
+        required
+        id="text-field-validation-1"
+        type="text"
+      />
     </span>
-  </label>
-  <label class="ui-text-field ui-filled">
-    <span class="ui-label">Email</span>
+  </div>
+  <div class="ui-text-field ui-filled">
+    <label class="ui-label" for="text-field-validation-2">Email</label>
     <span class="ui-field">
-      <input placeholder="name@example.com" required type="email" />
+      <input
+        placeholder="name@lowend.example"
+        required
+        id="text-field-validation-2"
+        type="email"
+      />
     </span>
-  </label>
+  </div>
 </div>
 
 <div class="example-row">
-  <label class="ui-text-field">
-    <span class="ui-label">Username</span>
+  <div class="ui-text-field">
+    <label class="ui-label" for="text-field-validation-3">Username</label>
     <span class="ui-field">
-      <input value="ada" aria-invalid="true" type="text" />
+      <input
+        value="ada"
+        aria-describedby="text-field-validation-3-end-text"
+        aria-invalid="true"
+        id="text-field-validation-3"
+        type="text"
+      />
     </span>
-    <span class="ui-end-text">This username is taken. Try another one.</span>
-  </label>
-  <label class="ui-text-field ui-filled">
-    <span class="ui-label">Discount code</span>
+    <span class="ui-end-text" id="text-field-validation-3-end-text"
+      >Whoops, this username is taken. Try another one.</span
+    >
+  </div>
+  <div class="ui-text-field ui-filled">
+    <label class="ui-label" for="text-field-validation-4"
+      >Gear discount code</label
+    >
     <span class="ui-field">
-      <input value="SPRING23" aria-invalid="true" type="text" />
+      <input
+        value="STRINGS23"
+        aria-describedby="text-field-validation-4-end-text"
+        aria-invalid="true"
+        id="text-field-validation-4"
+        type="text"
+      />
     </span>
-    <span class="ui-end-text">This code has expired.</span>
-  </label>
+    <span class="ui-end-text" id="text-field-validation-4-end-text"
+      >Bummer, this code has expired.</span
+    >
+  </div>
 </div>

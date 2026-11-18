@@ -17,7 +17,7 @@ export default function Anchor({
   ...rest
 }: Props) {
   const isHover = trigger === "hover"
-  const id = isHover ? (idProp ?? undefined) : undefined
+  const id = isHover ? idProp || undefined : undefined
   if (isHover && !extendsAnchor(className)) {
     warnMissingId("Anchor", id, "interestfor")
   }

@@ -54,9 +54,9 @@ import Basics from "../../component-examples/drawer/Basics.astro"
   inset-inline-end: auto;
   inset-inline-start: 0;
   transition:
-    display 0.3s allow-discrete,
-    overlay 0.3s allow-discrete,
-    translate 0.3s;
+    display var(--ui-duration-slow) allow-discrete,
+    overlay var(--ui-duration-slow) allow-discrete,
+    translate var(--ui-duration-slow);
   translate: calc(-100% * var(--dir)) 0;
 }
 

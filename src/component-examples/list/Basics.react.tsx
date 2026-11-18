@@ -3,12 +3,12 @@ import { List, ListItem } from "opui-css/react"
 export default function Basics() {
   return (
     <List>
-      <ListItem label="Headline" />
+      <ListItem label="Gig poster.pdf" />
       <ListItem
-        description="Supporting text that truly is quite long enough to fill up multiple lines."
-        label="Headline"
+        description="Our logo in every color, with the bass drawn way bigger than the drum kit, at last."
+        label="Band logo pack.pdf"
       />
-      <ListItem end="100+" label="Trailing supporting text" />
+      <ListItem end="100+" label="Photos" />
     </List>
   )
 }

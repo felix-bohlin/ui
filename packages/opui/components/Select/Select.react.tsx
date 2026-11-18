@@ -3,7 +3,7 @@
 import { createElement, useId } from "react"
 import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
-import { idRefs } from "../id"
+import { fieldDescribedBy } from "../id"
 import { initialValue } from "./selection"
 import type { Props } from "./types.react"
 
@@ -35,24 +35,30 @@ export default function Select({
 }: Props) {
   const uid = useId()
   const field = useFieldGroupContext()
-  const base = id ?? `select-${uid}`
-  const labelId = `${base}-label`
+  const base = id || `select-${uid}`
+  const selectId = label ? base : id
   const startTextId = startText ? `${base}-start-text` : undefined
   const endTextId = endText ? `${base}-end-text` : undefined
+  const startId = start ? `${base}-start` : undefined
+  const endId = end ? `${base}-end` : undefined
   const topId = top ? `${base}-top` : undefined
   const bottomId = bottom ? `${base}-bottom` : undefined
-  const describedBy = idRefs(
-    topId,
-    startTextId,
-    endTextId,
-    bottomId,
+  const describedBy = fieldDescribedBy(
+    {
+      bottom: bottomId,
+      end: endId,
+      endText: endTextId,
+      start: startId,
+      startText: startTextId,
+      top: topId,
+    },
     rest["aria-describedby"],
   )
 
   const selected = initialValue(items, multiple)
 
   return (
-    <label
+    <div
       className={cx([
         "ui-select",
         {
@@ -66,9 +72,12 @@ export default function Select({
       style={style}
     >
       {label && (
-        <span className={hideLabel ? "ui-sr-only" : "ui-label"} id={labelId}>
+        <label
+          className={hideLabel ? "ui-sr-only" : "ui-label"}
+          htmlFor={selectId}
+        >
           {label}
-        </span>
+        </label>
       )}
       {startText && (
         <span className="ui-start-text" id={startTextId}>
@@ -76,23 +85,33 @@ export default function Select({
         </span>
       )}
       <span className="ui-field">
+        {top && (
+          <span className="ui-top" id={topId}>
+            {top}
+          </span>
+        )}
+        {start && (
+          <span className="ui-start" id={startId}>
+            {start}
+          </span>
+        )}
         <select
           {...rest}
           aria-describedby={describedBy}
           aria-invalid={error ? "true" : rest["aria-invalid"]}
-          aria-labelledby={label ? labelId : rest["aria-labelledby"]}
+          aria-labelledby={rest["aria-labelledby"]}
           defaultValue={
             value === undefined
               ? (defaultValue ??
                 (Array.isArray(selected) ? selected.map(String) : selected))
               : undefined
           }
-          id={id}
+          id={selectId}
           multiple={multiple}
           name={name ?? field?.name}
           value={value}
         >
-          <button>
+          <button inert>
             {createElement("selectedcontent", {
               dangerouslySetInnerHTML: { __html: "" },
               suppressHydrationWarning: true,
@@ -107,11 +126,9 @@ export default function Select({
             {children}
           </div>
         </select>
-        {start && <span className="ui-start">{start}</span>}
-        {end && <span className="ui-end">{end}</span>}
-        {top && (
-          <span className="ui-top" id={topId}>
-            {top}
+        {end && (
+          <span className="ui-end" id={endId}>
+            {end}
           </span>
         )}
         {bottom && (
@@ -125,6 +142,6 @@ export default function Select({
           {endText}
         </span>
       )}
-    </label>
+    </div>
   )
 }

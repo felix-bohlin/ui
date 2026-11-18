@@ -1,82 +1,151 @@
-<label class="ui-text-field ui-spread">
-  <span class="ui-label">Name</span>
-  <span class="ui-start-text">Provide your full name for identification</span>
+<div class="ui-text-field ui-spread">
+  <label class="ui-label" for="text-field-spread-1">Name</label>
+  <span class="ui-start-text" id="text-field-spread-1-start-text"
+    >Your full name, as the drummer never says it</span
+  >
   <span class="ui-field">
-    <input placeholder="Ada Lovelace" type="text" />
+    <input
+      placeholder="Holly Humbucker"
+      aria-describedby="text-field-spread-1-start-text"
+      id="text-field-spread-1"
+      type="text"
+    />
   </span>
-</label>
+</div>
 
-<label class="ui-text-field ui-filled ui-spread">
-  <span class="ui-label">Email</span>
-  <span class="ui-start-text">We'll use this to contact you</span>
+<div class="ui-text-field ui-filled ui-spread">
+  <label class="ui-label" for="text-field-spread-2">Email</label>
+  <span class="ui-start-text" id="text-field-spread-2-start-text"
+    >We'll send your gig invites here</span
+  >
   <span class="ui-field">
-    <input placeholder="you@example.com" type="email" />
+    <input
+      placeholder="name@lowend.example"
+      aria-describedby="text-field-spread-2-start-text text-field-spread-2-end-text"
+      id="text-field-spread-2"
+      type="email"
+    />
   </span>
-  <span class="ui-end-text">Please use a valid email address</span>
-</label>
+  <span class="ui-end-text" id="text-field-spread-2-end-text"
+    >Use one the band checks.</span
+  >
+</div>
 
-<label class="ui-text-field ui-spread">
-  <span class="ui-label">Company</span>
-  <span class="ui-start-text">Shown on your invoices</span>
+<div class="ui-text-field ui-spread">
+  <label class="ui-label" for="text-field-spread-3">Band</label>
+  <span class="ui-start-text" id="text-field-spread-3-start-text"
+    >Shown on your gig flyers</span
+  >
   <span class="ui-field">
-    <input required type="text" />
+    <input
+      required
+      aria-describedby="text-field-spread-3-start-text"
+      id="text-field-spread-3"
+      type="text"
+    />
   </span>
-</label>
+</div>
 
-<label class="ui-text-field ui-spread">
-  <span class="ui-label">Account ID</span>
-  <span class="ui-start-text">Assigned when you signed up</span>
+<div class="ui-text-field ui-spread">
+  <label class="ui-label" for="text-field-spread-4">Member ID</label>
+  <span class="ui-start-text" id="text-field-spread-4-start-text"
+    >Assigned when you joined Bassbook</span
+  >
   <span class="ui-field">
-    <input disabled value="ACC-20931" type="text" />
+    <input
+      value="BASS-20931"
+      aria-describedby="text-field-spread-4-start-text"
+      disabled
+      id="text-field-spread-4"
+      type="text"
+    />
   </span>
-</label>
+</div>
 
-<label class="ui-text-field ui-spread">
-  <span class="ui-label">Display name</span>
-  <span class="ui-start-text">Shown next to your comments</span>
+<div class="ui-text-field ui-spread">
+  <label class="ui-label" for="text-field-spread-5">Display name</label>
+  <span class="ui-start-text" id="text-field-spread-5-start-text"
+    >Shown next to your wall posts</span
+  >
   <span class="ui-field">
-    <input value="A" aria-invalid="true" type="text" />
+    <input
+      value="A"
+      aria-describedby="text-field-spread-5-start-text text-field-spread-5-end-text"
+      aria-invalid="true"
+      id="text-field-spread-5"
+      type="text"
+    />
   </span>
-  <span class="ui-end-text">Enter at least two characters.</span>
-</label>
+  <span class="ui-end-text" id="text-field-spread-5-end-text"
+    >Enter at least two characters.</span
+  >
+</div>
 
-<label class="ui-text-field ui-spread">
-  <span class="ui-label">Amount</span>
-  <span class="ui-start-text">Daily spending limit</span>
+<div class="ui-text-field ui-spread">
+  <label class="ui-label" for="text-field-spread-6">Amount</label>
+  <span class="ui-start-text" id="text-field-spread-6-start-text"
+    >Daily gear spending limit</span
+  >
   <span class="ui-field">
-    <input placeholder="0.00" type="text" />
-    <span class="ui-start">€</span>
-    <span class="ui-end">EUR</span>
+    <span class="ui-start" id="text-field-spread-6-start">€</span>
+    <input
+      placeholder="0.00"
+      aria-describedby="text-field-spread-6-start-text text-field-spread-6-start text-field-spread-6-end"
+      id="text-field-spread-6"
+      type="text"
+    />
+    <span class="ui-end" id="text-field-spread-6-end">EUR</span>
   </span>
-</label>
+</div>
 
-<label class="ui-text-field ui-filled ui-spread">
-  <span class="ui-label">Website</span>
-  <span class="ui-start-text">Your public profile URL</span>
+<div class="ui-text-field ui-filled ui-spread">
+  <label class="ui-label" for="text-field-spread-7">Website</label>
+  <span class="ui-start-text" id="text-field-spread-7-start-text"
+    >Your band homepage, totally rad</span
+  >
   <span class="ui-field">
-    <input placeholder="example.com" type="text" />
-    <span class="ui-start">https://</span>
+    <span class="ui-start" id="text-field-spread-7-start">https://</span>
+    <input
+      placeholder="example.com"
+      aria-describedby="text-field-spread-7-start-text text-field-spread-7-start text-field-spread-7-end-text"
+      id="text-field-spread-7"
+      type="text"
+    />
   </span>
-  <span class="ui-end-text">Must include a valid domain</span>
-</label>
+  <span class="ui-end-text" id="text-field-spread-7-end-text"
+    >Include the domain, like example.com.</span
+  >
+</div>
 
-<label class="ui-text-field ui-spread">
-  <span class="ui-label">Project name</span>
-  <span class="ui-start-text">Used to generate the project URL</span>
+<div class="ui-text-field ui-spread">
+  <label class="ui-label" for="text-field-spread-8">Band page</label>
+  <span class="ui-start-text" id="text-field-spread-8-start-text"
+    >Used to make your band page URL</span
+  >
   <span class="ui-field">
-    <input placeholder="my-project" type="text" />
-    <span class="ui-top">acme.dev/</span>
-    <span class="ui-bottom">Lowercase letters and dashes only</span>
+    <span class="ui-top" id="text-field-spread-8-top">bassbook.example/</span>
+    <input
+      placeholder="my-band"
+      aria-describedby="text-field-spread-8-start-text text-field-spread-8-top text-field-spread-8-bottom"
+      id="text-field-spread-8"
+      type="text"
+    />
+    <span class="ui-bottom" id="text-field-spread-8-bottom"
+      >Lowercase letters and dashes only</span
+    >
   </span>
-</label>
+</div>
 
-<label class="ui-text-field ui-filled ui-spread">
-  <span class="ui-label">API key</span>
-  <span class="ui-start-text">Stored encrypted at rest</span>
+<div class="ui-text-field ui-filled ui-spread">
+  <label class="ui-label" for="text-field-spread-9">Secret riff</label>
+  <span class="ui-start-text" id="text-field-spread-9-start-text"
+    >Locked away from guitarists</span
+  >
   <span class="ui-field">
-    <input placeholder="Paste your key" type="password" />
-    <span class="ui-start">
+    <span class="ui-top" id="text-field-spread-9-top">Secret</span>
+    <span class="ui-start" id="text-field-spread-9-start">
       <svg
+        data-icon="lock"
         aria-hidden="true"
         width="16"
         height="16"
@@ -91,8 +160,17 @@
         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
       </svg>
     </span>
-    <span class="ui-top">Secret</span>
-    <span class="ui-bottom">Rotates every 90 days</span>
+    <input
+      placeholder="Paste your riff"
+      aria-describedby="text-field-spread-9-start-text text-field-spread-9-top text-field-spread-9-start text-field-spread-9-bottom text-field-spread-9-end-text"
+      id="text-field-spread-9"
+      type="password"
+    />
+    <span class="ui-bottom" id="text-field-spread-9-bottom"
+      >Changes every 90 days</span
+    >
   </span>
-  <span class="ui-end-text">Treat like a password</span>
-</label>
+  <span class="ui-end-text" id="text-field-spread-9-end-text"
+    >Never show it to the drummer.</span
+  >
+</div>

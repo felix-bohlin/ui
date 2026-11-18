@@ -6,8 +6,8 @@
     --ui-backdrop-bg-color: oklch(0 0 0 / 0.32);
     --ui-backdrop-blur: 0px;
     --ui-border-color: light-dark(
-      oklch(0.83 0.0178 308),
-      oklch(0.398 0.017 304)
+      oklch(from var(--ui-palette-source) 0.83 0.0178 calc(h + 14)),
+      oklch(from var(--ui-palette-source) 0.398 0.017 calc(h + 10))
     );
     --ui-border-color-raised: transparent;
     --ui-radius: 0.75rem;
@@ -23,12 +23,12 @@
     --ui-chip-radius: 0.5rem;
     --ui-choice-border-width: 2px;
     --ui-choice-ripple-bg-color: light-dark(
-      oklch(0.227 0.01 304 / 0.08),
-      oklch(0.914 0.014 315 / 0.08)
+      oklch(from var(--ui-palette-source) 0.227 0.01 calc(h + 10) / 0.08),
+      oklch(from var(--ui-palette-source) 0.914 0.014 calc(h + 21) / 0.08)
     );
     --ui-choice-size: calc(18px * var(--ui-density));
     --ui-control-accent: var(--ui-primary);
-    --ui-on-control-accent: var(--ui-on-primary);
+    --ui-control-on-accent: var(--ui-on-primary);
     --ui-control-border-color: var(--ui-field-border-color);
     --ui-critical: light-dark(oklch(0.5 0.1783 28.71), oklch(0.834 0.068 22));
     --ui-dialog-radius: 1.75rem;
@@ -38,16 +38,16 @@
     --ui-ease-enter: cubic-bezier(0.05, 0.7, 0.1, 1);
     --ui-ease-exit: cubic-bezier(0.3, 0, 0.8, 0.15);
     --ui-field-border-color: light-dark(
-      oklch(0.567 0.016 308),
-      oklch(0.657 0.015 304)
+      oklch(from var(--ui-palette-source) 0.567 0.016 calc(h + 14)),
+      oklch(from var(--ui-palette-source) 0.657 0.015 calc(h + 10))
     );
     --ui-field-border-color-on-filled: var(--ui-field-border-color);
     --ui-field-padding-inline: 1rem;
     --ui-field-radius: 0.25rem;
     --ui-focus-border-width: 2px;
     --ui-focus-ring-color: light-dark(
-      oklch(0.486 0.036 300),
-      oklch(0.83 0.037 303)
+      oklch(from var(--ui-palette-source) 0.486 0.036 calc(h + 6)),
+      oklch(from var(--ui-palette-source) 0.83 0.037 calc(h + 9))
     );
     --ui-focus-ring-width: 3px;
     --ui-font-body:
@@ -68,19 +68,22 @@
     --ui-line-height: 1.5;
     --ui-line-height-relaxed: 1.5;
     --ui-menu-radius: 0.25rem;
-    --ui-on-inverse: light-dark(oklch(0.96 0.012 318), oklch(0.31 0.011 308));
+    --ui-on-inverse: light-dark(
+      oklch(from var(--ui-palette-source) 0.96 0.012 calc(h + 24)),
+      oklch(from var(--ui-palette-source) 0.31 0.011 calc(h + 14))
+    );
     --ui-palette-source: oklch(0.496 0.13 294);
     --ui-primary-source: light-dark(
-      oklch(0.496 0.13 294),
-      oklch(0.835 0.095 298)
+      var(--ui-palette-source),
+      oklch(from var(--ui-palette-source) 0.835 0.095 calc(h + 4))
     );
     --ui-primary-tonal: light-dark(
-      oklch(0.918 0.048 303),
-      oklch(0.41 0.134 293)
+      oklch(from var(--ui-palette-source) 0.918 0.048 calc(h + 9)),
+      oklch(from var(--ui-palette-source) 0.41 0.134 calc(h - 1))
     );
     --ui-on-primary-tonal: light-dark(
-      oklch(0.242 0.14 286),
-      oklch(0.918 0.048 303)
+      oklch(from var(--ui-palette-source) 0.242 0.14 calc(h - 8)),
+      oklch(from var(--ui-palette-source) 0.918 0.048 calc(h + 9))
     );
     --ui-selected: var(--ui-surface-tonal);
     --ui-on-selected: var(--ui-text-strong);
@@ -98,40 +101,66 @@
     --ui-state-hover-alpha-dark: 8%;
     --ui-state-hover-alpha-light: 8%;
     --ui-state-selected-alpha-accent: 10%;
-    --ui-surface: light-dark(oklch(0.984 0.013 322), oklch(0.187 0.012 300));
+    --ui-surface: light-dark(
+      oklch(from var(--ui-palette-source) 0.984 0.013 calc(h + 28)),
+      oklch(from var(--ui-palette-source) 0.187 0.012 calc(h + 6))
+    );
     --ui-surface-elevated: light-dark(
-      oklch(0.967 0.012 313),
-      oklch(0.227 0.01 304)
+      oklch(from var(--ui-palette-source) 0.967 0.012 calc(h + 19)),
+      oklch(from var(--ui-palette-source) 0.227 0.01 calc(h + 10))
     );
     --ui-surface-filled: light-dark(
-      oklch(0.914 0.014 315),
-      oklch(0.33 0.012 299)
+      oklch(from var(--ui-palette-source) 0.914 0.014 calc(h + 21)),
+      oklch(from var(--ui-palette-source) 0.33 0.012 calc(h + 5))
     );
     --ui-surface-inverse: light-dark(
-      oklch(0.31 0.011 308),
-      oklch(0.914 0.014 315)
+      oklch(from var(--ui-palette-source) 0.31 0.011 calc(h + 14)),
+      oklch(from var(--ui-palette-source) 0.914 0.014 calc(h + 21))
     );
     --ui-surface-tonal: light-dark(
-      oklch(0.916 0.037 303),
-      oklch(0.4 0.034 299)
+      oklch(from var(--ui-palette-source) 0.916 0.037 calc(h + 9)),
+      oklch(from var(--ui-palette-source) 0.4 0.034 calc(h + 5))
     );
     --ui-switch-thumb-bg-color: light-dark(
-      oklch(0.567 0.016 308),
-      oklch(0.657 0.015 304)
+      oklch(from var(--ui-palette-source) 0.567 0.016 calc(h + 14)),
+      oklch(from var(--ui-palette-source) 0.657 0.015 calc(h + 10))
     );
     --ui-switch-track-block-size: calc(2rem * var(--ui-density));
     --ui-switch-track-inline-size: calc(3.25rem * var(--ui-density));
     --ui-tabs-accent: var(--ui-primary-text);
-    --ui-text: light-dark(oklch(0.227 0.01 304), oklch(0.914 0.014 315));
-    --ui-text-strong: light-dark(oklch(0.227 0.01 304), oklch(0.914 0.014 315));
+    --ui-text: light-dark(
+      oklch(from var(--ui-palette-source) 0.227 0.01 calc(h + 10)),
+      oklch(from var(--ui-palette-source) 0.914 0.014 calc(h + 21))
+    );
+    --ui-text-strong: light-dark(
+      oklch(from var(--ui-palette-source) 0.227 0.01 calc(h + 10)),
+      oklch(from var(--ui-palette-source) 0.914 0.014 calc(h + 21))
+    );
     --ui-text-subtle: light-dark(
-      oklch(0.398 0.017 304),
-      oklch(0.83 0.0178 308)
+      oklch(from var(--ui-palette-source) 0.398 0.017 calc(h + 10)),
+      oklch(from var(--ui-palette-source) 0.83 0.0178 calc(h + 14))
     );
     --ui-track-bg-color: light-dark(
-      oklch(0.914 0.014 315),
-      oklch(0.33 0.012 299)
+      oklch(from var(--ui-palette-source) 0.914 0.014 calc(h + 21)),
+      oklch(from var(--ui-palette-source) 0.33 0.012 calc(h + 5))
     );
+    --ui-icon-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M378-246 154-470l43-43 181 181 384-384 43 43-427 427Z'/%3E%3C/svg%3E");
+    --ui-icon-clear: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M324-111.5Q251-143 197-197t-85.5-127Q80-397 80-480t31.5-156Q143-709 197-763t127-85.5Q397-880 480-880t156 31.5Q709-817 763-763t85.5 127Q880-563 880-480t-31.5 156Q817-251 763-197t-127 85.5Q563-80 480-80t-156-31.5ZM480-140q61.01 0 117.51-20.5Q654-181 699-220L220-699q-38 46-59 102.17T140-480q0 142.37 98.81 241.19Q337.63-140 480-140Zm259-121q37-45 59-101.49 22-56.5 22-117.51 0-142.38-98.81-241.19T480-820q-60.66 0-116.83 21T261-739l478 478ZM480-480Z'/%3E%3C/svg%3E");
+    --ui-icon-close: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z'/%3E%3C/svg%3E");
+    --ui-icon-critical: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M503.5-289.48q9.5-9.48 9.5-23.5t-9.48-23.52q-9.48-9.5-23.5-9.5t-23.52 9.48q-9.5 9.48-9.5 23.5t9.48 23.52q9.48 9.5 23.5 9.5t23.52-9.48ZM453-433h60v-253h-60v253Zm27.27 353q-82.74 0-155.5-31.5Q252-143 197.5-197.5t-86-127.34Q80-397.68 80-480.5t31.5-155.66Q143-709 197.5-763t127.34-85.5Q397.68-880 480.5-880t155.66 31.5Q709-817 763-763t85.5 127Q880-563 880-480.27q0 82.74-31.5 155.5Q817-252 763-197.68q-54 54.31-127 86Q563-80 480.27-80Zm.23-60Q622-140 721-239.5t99-241Q820-622 721.19-721T480-820q-141 0-240.5 98.81T140-480q0 141 99.5 240.5t241 99.5Zm-.5-340Z'/%3E%3C/svg%3E");
+    --ui-icon-decrease: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M200-450v-60h560v60H200Z'/%3E%3C/svg%3E");
+    --ui-icon-expand: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M480-344 240-584l43-43 197 197 197-197 43 43-240 240Z'/%3E%3C/svg%3E");
+    --ui-icon-hide: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='m629-419-44-44q26-71-27-118t-115-24l-44-44q17-11 38-16t43-5q71 0 120.5 49.5T650-500q0 22-5.5 43.5T629-419Zm129 129-40-40q49-36 85.5-80.5T857-500q-50-111-150-175.5T490-740q-42 0-86 8t-69 19l-46-47q35-16 89.5-28T485-800q143 0 261.5 81.5T920-500q-26 64-67 117t-95 93Zm58 226L648-229q-35 14-79 21.5t-89 7.5q-146 0-265-81.5T40-500q20-52 55.5-101.5T182-696L56-822l42-43 757 757-39 44ZM223-654q-37 27-71.5 71T102-500q51 111 153.5 175.5T488-260q33 0 65-4t48-12l-64-64q-11 5-27 7.5t-30 2.5q-70 0-120-49t-50-121q0-15 2.5-30t7.5-27l-97-97Zm305 142Zm-116 58Z'/%3E%3C/svg%3E");
+    --ui-icon-increase: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M450-450H200v-60h250v-250h60v250h250v60H510v250h-60v-250Z'/%3E%3C/svg%3E");
+    --ui-icon-info: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M453-280h60v-240h-60v240Zm50.5-323.2q9.5-9.2 9.5-22.8 0-14.45-9.48-24.22-9.48-9.78-23.5-9.78t-23.52 9.78Q447-640.45 447-626q0 13.6 9.48 22.8 9.48 9.2 23.5 9.2t23.52-9.2ZM480.27-80q-82.74 0-155.5-31.5Q252-143 197.5-197.5t-86-127.34Q80-397.68 80-480.5t31.5-155.66Q143-709 197.5-763t127.34-85.5Q397.68-880 480.5-880t155.66 31.5Q709-817 763-763t85.5 127Q880-563 880-480.27q0 82.74-31.5 155.5Q817-252 763-197.68q-54 54.31-127 86Q563-80 480.27-80Zm.23-60Q622-140 721-239.5t99-241Q820-622 721.19-721T480-820q-141 0-240.5 98.81T140-480q0 141 99.5 240.5t241 99.5Zm-.5-340Z'/%3E%3C/svg%3E");
+    --ui-icon-invalid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M479.91-120q-28.91 0-49.41-20.59-20.5-20.59-20.5-49.5t20.59-49.41q20.59-20.5 49.5-20.5t49.41 20.59q20.5 20.59 20.5 49.5t-20.59 49.41q-20.59 20.5-49.5 20.5ZM410-360v-480h140v480H410Z'/%3E%3C/svg%3E");
+    --ui-icon-next: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M530-481 332-679l43-43 241 241-241 241-43-43 198-198Z'/%3E%3C/svg%3E");
+    --ui-icon-rating: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='m233-120 65-281L80-590l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Z'/%3E%3C/svg%3E");
+    --ui-icon-rating-empty: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='m323-245 157-94 157 95-42-178 138-120-182-16-71-168-71 167-182 16 138 120-42 178Zm-90 125 65-281L80-590l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Zm247-355Z'/%3E%3C/svg%3E");
+    --ui-icon-show: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M600.5-379.5Q650-429 650-500t-49.5-120.5Q551-670 480-670t-120.5 49.5Q310-571 310-500t49.5 120.5Q409-330 480-330t120.5-49.5Zm-200-41Q368-453 368-500t32.5-79.5Q433-612 480-612t79.5 32.5Q592-547 592-500t-32.5 79.5Q527-388 480-388t-79.5-32.5ZM216-283Q98-366 40-500q58-134 176-217t264-83q146 0 264 83t176 217q-58 134-176 217t-264 83q-146 0-264-83Zm264-217Zm222.5 174.5Q804-391 857-500q-53-109-154.5-174.5T480-740q-121 0-222.5 65.5T102-500q54 109 155.5 174.5T480-260q121 0 222.5-65.5Z'/%3E%3C/svg%3E");
+    --ui-icon-sort: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M480-344 240-584l43-43 197 197 197-197 43 43-240 240Z'/%3E%3C/svg%3E");
+    --ui-icon-success: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='m421-298 283-283-46-45-237 237-120-120-45 45 165 166Zm59 218q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-156t86-127Q252-817 325-848.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 82-31.5 155T763-197.5q-54 54.5-127 86T480-80Zm0-60q142 0 241-99.5T820-480q0-142-99-241t-241-99q-141 0-240.5 99T140-480q0 141 99.5 240.5T480-140Zm0-340Z'/%3E%3C/svg%3E");
+    --ui-icon-warning: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='m40-120 440-760 440 760H40Zm104-60h672L480-760 144-180Zm361.5-65.68q8.5-8.67 8.5-21.5 0-12.82-8.68-21.32-8.67-8.5-21.5-8.5-12.82 0-21.32 8.68-8.5 8.67-8.5 21.5 0 12.82 8.68 21.32 8.67 8.5 21.5 8.5 12.82 0 21.32-8.68ZM454-348h60v-224h-60v224Zm26-122Z'/%3E%3C/svg%3E");
   }
 
   @media (prefers-contrast: more) {

@@ -10,7 +10,7 @@ export default function Basics() {
       }
       label="Visitors"
     >
-      48 210
+      48,210
     </Stat>
   )
 }

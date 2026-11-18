@@ -11,20 +11,20 @@ import { Button, CheckboxInput, ListItem, Menu, RadioInput } from "opui-css/vue"
     View
   </Button>
   <Menu id="menu-checkable-1">
-    <ListItem type="checkbox">
+    <ListItem choice="checkbox">
       <template #label>Show hidden files</template>
       <template #end>
         <CheckboxInput />
       </template>
     </ListItem>
-    <ListItem type="checkbox">
+    <ListItem choice="checkbox">
       <template #label>Show file extensions</template>
       <template #end>
         <CheckboxInput checked />
       </template>
     </ListItem>
     <li class="ui-border-top ui-heading" id="menu-checkable-1-sort">Sort by</li>
-    <ListItem type="radio">
+    <ListItem choice="radio">
       <template #label>Name</template>
       <template #end>
         <RadioInput
@@ -35,7 +35,7 @@ import { Button, CheckboxInput, ListItem, Menu, RadioInput } from "opui-css/vue"
         />
       </template>
     </ListItem>
-    <ListItem type="radio">
+    <ListItem choice="radio">
       <template #label>Date modified</template>
       <template #end>
         <RadioInput
@@ -45,7 +45,7 @@ import { Button, CheckboxInput, ListItem, Menu, RadioInput } from "opui-css/vue"
         />
       </template>
     </ListItem>
-    <ListItem type="radio">
+    <ListItem choice="radio">
       <template #label>Size</template>
       <template #end>
         <RadioInput

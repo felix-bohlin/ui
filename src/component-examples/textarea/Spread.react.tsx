@@ -7,11 +7,11 @@ export default function Spread() {
         label="Message"
         placeholder="Hi, I have a question about my order."
         spread
-        startText="You can write your message here. Keep it short, preferably under 100 characters."
+        startText="Keep it under 100 characters."
       />
 
       <Textarea
-        endText="Maximum 500 characters"
+        endText="Only your team sees these."
         label="Notes"
         placeholder="Additional notes..."
         spread
@@ -50,6 +50,7 @@ export default function Spread() {
         spread
         start={
           <svg
+            data-icon="edit"
             aria-hidden="true"
             width="16"
             height="16"
@@ -69,7 +70,7 @@ export default function Spread() {
 
       <Textarea
         bottom="Saved 2 minutes ago"
-        endText="Drafts are auto-saved"
+        endText="Drafts save automatically."
         label="Release notes"
         placeholder="Markdown supported..."
         spread

@@ -8,11 +8,16 @@ import {
 } from "astro/config"
 import sitemap from "@astrojs/sitemap"
 import react from "@astrojs/react"
+import solid from "@solidjs/vite-plugin"
 import svelte from "@astrojs/svelte"
 import vue from "@astrojs/vue"
 import llms from "./src/integrations/llms.mjs"
 
-import { DEFAULT_FRAMEWORK, FRAMEWORK_IDS } from "./src/utils/framework.js"
+import {
+  DEFAULT_FRAMEWORK,
+  FRAMEWORK_IDS,
+  HYDRATED_FRAMEWORK_IDS,
+} from "./src/utils/framework.js"
 
 /** @param {string} relDir */
 const slugsIn = (relDir) =>
@@ -29,7 +34,14 @@ const legacyRedirects = {
   "/components": `${d}/components`,
   "/api": `${d}/api`,
   "/guide": `${d}/guide/getting-started`,
+  "/components/button-group": `${d}/components/control-group`,
   "/components/icon-button": `${d}/components/button#icon-only`,
+  ...Object.fromEntries(
+    FRAMEWORK_IDS.map((f) => [
+      `/${f}/components/button-group`,
+      `/${f}/components/control-group`,
+    ]),
+  ),
   ...Object.fromEntries(
     FRAMEWORK_IDS.map((f) => [
       `/${f}/components/icon-button`,
@@ -72,7 +84,7 @@ export default defineConfig({
   compressHTML: true,
   image: { service: passthroughImageService() },
   markdown: { syntaxHighlight: false },
-  site: "https://open-props-ui.netlify.app/",
+  site: "https://opui.dev/",
   redirects: legacyRedirects,
   integrations: [
     {
@@ -91,13 +103,17 @@ export default defineConfig({
   ],
   vite: {
     build: {
+      assetsInlineLimit: (file) =>
+        /\.woff2?$|\/packages\/opui\/(css\/js|elements)\/[^/]+\.js$/.test(file)
+          ? false
+          : undefined,
       dynamicImportVarsOptions: {
         exclude: [/node_modules\/(?!(\.pnpm\/)?microlighter)/],
       },
     },
     optimizeDeps: { exclude: ["microlighter"] },
     resolve: {
-      alias: ["react", "svelte", "vue"].map((framework) => ({
+      alias: HYDRATED_FRAMEWORK_IDS.map((framework) => ({
         find: new RegExp(`^opui-css/${framework}$`),
         replacement: fileURLToPath(
           new URL(`./packages/opui/${framework}/index.ts`, import.meta.url),
@@ -106,6 +122,11 @@ export default defineConfig({
       external: ["oxfmt"],
     },
     plugins: [
+      solid({
+        include: [/\.solid\.tsx$/],
+        refresh: false,
+        solid: { hydratable: true },
+      }),
       {
         name: "opui-no-react-refresh",
         enforce: "post",
@@ -151,7 +172,7 @@ export default defineConfig({
       options: {
         variants: [
           {
-            src: ["./public/BricolageGrotesque[opsz,wdth,wght].ttf"],
+            src: ["./src/fonts/BricolageGrotesque[opsz,wght].woff2"],
             style: "normal",
             weight: "300 900",
             display: "swap",

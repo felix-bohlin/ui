@@ -7,6 +7,7 @@ export default function Flush() {
         end={
           <Button aria-label="Delete" round size="small">
             <svg
+              data-icon="delete"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="32"
@@ -20,14 +21,15 @@ export default function Flush() {
             </svg>
           </Button>
         }
-        label="Gutterless list item"
+        label="Saved pedalboards"
       />
       <ListItem
-        description="Supporting text"
-        end="100+"
-        label="Headline"
+        description="Fretless enthusiast"
+        end="Admin"
+        label="Lou Headstock"
         start={
           <svg
+            data-icon="person"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"

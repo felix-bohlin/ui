@@ -27,4 +27,6 @@ For each page in scope:
 
 1. Report ids that point at the wrong feature, such as a broader or narrower id than the one used, patterns in `features.mjs` that match more or less than their feature, and features the CSS uses that no pattern detects (which ones a page lists is in `browserSupport` in `src/docs/components/AGENTS.md`). Look up an id with `node -e 'import("web-features").then(({ features }) => console.log(JSON.stringify(features["has"], null, 2)))'`, and search ids by name or `compat_features` key when you aren't sure of one.
 
+2. Report a `fallbacks` sentence that says more or less than the component CSS and `packages/opui/css/compat/` do without its feature (see `fallbacks` in `src/docs/components/AGENTS.md`).
+
 Run `pnpm check-browser-support` and include its partial support summary when it is relevant to a finding. Sort suggested `browserSupport` lists in ascending order.

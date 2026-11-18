@@ -5,7 +5,7 @@ import {
   Button,
   Copy,
   Message,
-  Messages,
+  MessageList,
   NumberField,
   OneTimeCode,
   Rating,
@@ -17,7 +17,7 @@ import {
   Toaster,
 } from "opui-css/astro"
 import DocLink from "../DocLink.astro"
-import { addedComponents } from "../../utils/changelog"
+import { addedComponents, releaseDate } from "../../utils/changelog-file"
 import { releaseVersion } from "../../utils/release"
 
 const id = "new-components-demo"
@@ -27,12 +27,7 @@ const changelog = readFileSync("packages/opui/CHANGELOG.md", "utf8")
 const count = addedComponents(changelog, releaseVersion).length
 
 const dateOf = (version: string) => {
-  const date = changelog.match(
-    new RegExp(
-      `^## ${version.replaceAll(".", "\\.")} - (\\d{4}-\\d{2}-\\d{2})$`,
-      "m",
-    ),
-  )?.[1]
+  const date = releaseDate(changelog, version)
   if (!date) {
     throw new Error(
       `NewComponents.astro: expected a dated ${version} in the changelog`,
@@ -79,18 +74,18 @@ if (count < 1) {
     <p class="new-components-name">
       <DocLink href="/components/message">Message</DocLink>
     </p>
-    <Messages aria-label="Messages about the release">
+    <MessageList aria-label="Messages about the release">
       <Message author="You" datetime="2026-10-27T09:12" outgoing time="09:12">
         <p>Is 6.0 out yet?</p>
       </Message>
       <Message author="You" datetime="2026-10-27T09:12" outgoing time="09:12">
         <p>Asking for a friend.</p>
       </Message>
-      <Message author="Felix" datetime="2026-10-27T09:14" time="09:14">
-        <Avatar aria-label="Felix" role="img" slot="start">F</Avatar>
+      <Message author="Frankie" datetime="2026-10-27T09:14" time="09:14">
+        <Avatar aria-label="Frankie" role="img" slot="start">F</Avatar>
         <p>Almost. Scroll down, it's all in here.</p>
       </Message>
-    </Messages>
+    </MessageList>
   </li>
   <li class="new-components-tile">
     <p class="new-components-name">

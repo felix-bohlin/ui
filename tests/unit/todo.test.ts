@@ -95,6 +95,36 @@ describe("parseTodo", () => {
     ])
   })
 
+  test("keeps open and done items in the order of the file", () => {
+    const { all } = parseTodo(
+      [
+        "## Bugs",
+        "",
+        "- [ ] First",
+        "- [x] Second",
+        "- [ ] Third",
+        "",
+        "## Empty",
+      ].join("\n"),
+    )
+
+    expect(
+      all.map((section) => ({
+        items: section.items.map(({ status, text }) => ({ status, text })),
+        title: section.title,
+      })),
+    ).toEqual([
+      {
+        items: [
+          { status: " ", text: "First" },
+          { status: "x", text: "Second" },
+          { status: " ", text: "Third" },
+        ],
+        title: "Bugs",
+      },
+    ])
+  })
+
   test("parses indented notes under an item", () => {
     const { sections } = parseTodo(
       [
@@ -684,6 +714,7 @@ describe("TODO.md", () => {
     expect(titles(source)).toEqual([
       "Accessibility",
       "Bugs",
+      "Compiler",
       "Docs",
       "Future plans",
       "Limitations",
@@ -771,12 +802,15 @@ describe("TODO.md", () => {
       ),
   ])
 
+  const unnamed = ({ component }: Item) =>
+    !component?.split(", ").every((name) => names.has(name))
+
   const unknownPrefix = (text: string) =>
     parsed(text)
       .items.filter(
-        ({ component, text }) =>
-          !component?.split(", ").every((name) => names.has(name)) &&
-          !allowlist.prefixes.some((prefix) => text.startsWith(prefix)),
+        (item) =>
+          unnamed(item) &&
+          !allowlist.prefixes.some((prefix) => item.text.startsWith(prefix)),
       )
       .map(headline)
 
@@ -1025,7 +1059,7 @@ describe("TODO.md", () => {
   test("the citation check reads every form of citation", () => {
     expect(
       citationProblems(
-        "A: see `AGENTS.md:1`, `src/nope.ts:3`, `nope.css:1` and `spinner.css:99999` (`/etc/hosts`, `../AGENTS.md`, `TODO.md:0`, `src`, `src:2`)",
+        "A: see `AGENTS.md:1`, `src/nope.ts:3`, `nope.css:1` and `stepper.css:99999` (`/etc/hosts`, `../AGENTS.md`, `TODO.md:0`, `src`, `src:2`)",
       ),
     ).toEqual([
       "/etc/hosts cite it from the repo root",
@@ -1035,7 +1069,7 @@ describe("TODO.md", () => {
       "src:2 is a folder, cite no lines",
       "src/nope.ts:3 doesn't exist from the repo root",
       "nope.css:1 matches no file",
-      "spinner.css:99999 cites lines outside packages/opui/css/components/spinner.css",
+      "stepper.css:99999 cites lines outside packages/opui/css/components/stepper.css",
     ])
     expect(
       citationProblems("A: b (`AGENTS.md:1`; `TODO.md:2`, `layout` Surfaces)"),
@@ -1049,10 +1083,17 @@ describe("TODO.md", () => {
       [
         ...allowlist.citations.filter(
           (citation) =>
-            !items.some(({ text }) => text.includes(`\`${citation}\``)),
+            !items.some(({ text }) =>
+              citationProblems(text).some((problem) =>
+                problem.startsWith(`${citation} `),
+              ),
+            ),
         ),
         ...allowlist.prefixes.filter(
-          (prefix) => !items.some(({ text }) => text.startsWith(prefix)),
+          (prefix) =>
+            !items.some(
+              (item) => unnamed(item) && item.text.startsWith(prefix),
+            ),
         ),
       ],
       "fixed, remove from tests/unit/todo-allowlist.json",

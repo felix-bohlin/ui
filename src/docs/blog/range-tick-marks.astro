@@ -33,7 +33,7 @@ import TickMarksLabels from "../../component-examples/range/TickMarksLabels.astr
       <li>
         Firefox paints the fill with <code>::-moz-range-progress</code>.
         Elsewhere a one-color <code>linear-gradient</code> sized to
-        <code>--track-fill</code> does it
+        <code>--track-fill-fraction</code> does it
       </li>
       <li>
         The thumb's position sets the fill, no JavaScript. With
@@ -42,9 +42,9 @@ import TickMarksLabels from "../../component-examples/range/TickMarksLabels.astr
         input animate on it
       </li>
       <li>
-        <code>--track-fill</code> is registered with <code>@property</code>, so
-        keyframes can animate it. The timeline runs from the end edge, so they
-        go from <code>100%</code> to <code>0%</code>
+        <code>--track-fill-fraction</code> is registered with
+        <code>@property</code>, so keyframes can animate it. The timeline runs
+        from the end edge, so they go from <code>100%</code> to <code>0%</code>
       </li>
       <li>
         Padding and an equal negative margin leave room for the thumb and its
@@ -64,7 +64,7 @@ import TickMarksLabels from "../../component-examples/range/TickMarksLabels.astr
     </ul>
     <Code
       lang="css"
-      code={`@property --track-fill {
+      code={`@property --track-fill-fraction {
   syntax: "<percentage>";
   inherits: true;
   initial-value: 0%;
@@ -72,26 +72,26 @@ import TickMarksLabels from "../../component-examples/range/TickMarksLabels.astr
 
 @keyframes range-fill {
   from {
-    --track-fill: 100%;
+    --track-fill-fraction: 100%;
   }
 
   to {
-    --track-fill: 0%;
+    --track-fill-fraction: 0%;
   }
 }
 
 input[type="range"] {
-  --inset: max(0.5rem, 3ex / 2 + 0.5rem - 1.25rem / 2);
+  --padding: max(0.5rem, 3ex / 2 + 0.5rem - 1.25rem / 2);
   animation-fill-mode: both;
   animation-name: range-fill;
   animation-range: contain;
   animation-timeline: --thumb;
   animation-timing-function: linear;
   box-sizing: content-box;
-  margin: calc(-1 * var(--inset));
-  outline-offset: calc(max(0px, (3ex - 1.25rem) / 2) + 2px - var(--inset));
+  margin: calc(-1 * var(--padding));
+  outline-offset: calc(max(0px, (3ex - 1.25rem) / 2) + 2px - var(--padding));
   overflow: hidden;
-  padding: var(--inset);
+  padding: var(--padding);
   timeline-scope: --thumb;
 }
 
@@ -101,14 +101,14 @@ input[type="range"]:dir(rtl) {
 
 input[type="range"]::-webkit-slider-thumb {
   view-timeline: --thumb inline;
-  view-timeline-inset: var(--inset);
+  view-timeline-inset: var(--padding);
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
-  background-color: var(--track-color);
-  background-image: linear-gradient(var(--fill-color), var(--fill-color));
+  background-color: var(--track-bg-color);
+  background-image: linear-gradient(var(--track-fill-bg-color), var(--track-fill-bg-color));
   background-repeat: no-repeat;
-  background-size: var(--track-fill, 0%) 100%;
+  background-size: var(--track-fill-fraction, 0%) 100%;
 }
 
 input[type="range"]:dir(rtl)::-webkit-slider-runnable-track {
@@ -160,8 +160,9 @@ datalist > option {
     <h2>Fallback</h2>
     <ul>
       <li>
-        Without scroll-driven animations <code>--track-fill</code> stays at
-        <code>0%</code>: no fill, the slider still works. Firefox fills natively
+        Without scroll-driven animations <code>--track-fill-fraction</code>
+        stays at <code>0%</code>: no fill, the slider still works. Firefox fills
+        natively
       </li>
       <li>
         The labels are plain flex content and render wherever

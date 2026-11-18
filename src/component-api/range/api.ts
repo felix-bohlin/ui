@@ -27,6 +27,21 @@ export default {
         prop: "valueText",
       },
     ],
+    solid: [
+      {
+        description:
+          "The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works.",
+        fallback: "Import `opui-css/css/js/range.js` in the page.",
+        prop: "valueSuffix",
+      },
+      {
+        description:
+          "The `valueText` content is yours, so it follows the thumb when your own state changes, which takes hydration.",
+        fallback:
+          "Update the content on `input` yourself, or use `valueSuffix`.",
+        prop: "valueText",
+      },
+    ],
     svelte: [
       {
         description:
@@ -70,11 +85,13 @@ export default {
     type: "number | string",
   },
   notes: {
-    ...passThrough("input", "label", ["max", "min", "step"], {
+    ...passThrough("input", "label", ["autofocus", "form"], {
       react:
         "Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.",
+      solid:
+        "`value` sets the value and follows it when it changes. Follow the thumb with `onInput`.",
     }),
-    html: 'Add a `<datalist aria-hidden="true">` after the input for tick marks.',
+    html: 'Add a `<datalist aria-hidden="true">` after the input for tick marks. `data-suffix` on the `.ui-value` output adds text after the value, which `range.js` formats for the closest `lang`.',
   },
   options: [
     {
@@ -118,6 +135,13 @@ export default {
     },
     {
       description:
+        "The language of the `<label>`, which formats the shown value with `Intl.NumberFormat`. Without it, the value is formatted in English until `opui-css/css/js/range.js` formats it for the closest `lang` in the page.",
+      inherited: true,
+      prop: "lang",
+      type: "string",
+    },
+    {
+      description:
         "The id of the `<datalist>`. Generated when `items` or the `datalist` slot is used.",
       prop: "list",
     },
@@ -137,7 +161,7 @@ export default {
     },
     {
       description:
-        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.",
+        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
       inherited: true,
       prop: "name",
       type: "string",
@@ -176,7 +200,7 @@ export default {
     },
     {
       description:
-        "Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`.",
+        "Text after the shown value, such as `%`. Setting it shows the current value in an `<output>` and as the input's `aria-valuetext`, formatted for `lang` with the decimals of `min` and `step` and no grouping.",
       prop: "valueSuffix",
     },
     {
@@ -200,7 +224,7 @@ export default {
       slots: ["label"],
     },
     {
-      code: "<output>",
+      code: '<output class="ui-value" data-live>',
       description:
         "Shows the current value, with an optional `valueSuffix`. `opui-css/css/js/range.js` keeps it in step with the thumb, and content in the `value-text` slot replaces it.",
       props: ["valueSuffix"],

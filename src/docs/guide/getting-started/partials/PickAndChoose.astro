@@ -1,6 +1,5 @@
 ---
 import Code from "../../../../components/Code.astro"
-import DocLink from "../../../../components/DocLink.astro"
 
 type Props = {
   file?: string
@@ -21,13 +20,8 @@ const css = `@import "opui-css/css/layers.css";
 
 <Code code={file ? `/* ${file} */\n${css}` : css} lang="css" />
 <p>
-  Import <code>layers.css</code> first and <code>utils.css</code> last, it holds
-  <code>.ui-sr-only</code> and the motion classes. Add <code>choice.css</code>
-  with <code>checkbox.css</code>, <code>radio.css</code> or
-  <code>switch.css</code>. Import <code>opui-css/css/components.css</code>
-  instead of single component files to get every component.
-  <code>compat.css</code> holds the
-  <DocLink href="/guide/browser-support#compat">browser fallbacks</DocLink>, and
-  you can leave it out.
+  Keep the order from <a href="#whats-in-the-css">What's in the CSS</a>, and add
+  <code>choice.css</code> with <code>checkbox.css</code>, <code>radio.css</code>
+  or <code>switch.css</code>.
 </p>
 <slot />

@@ -3,9 +3,10 @@
 </script>
 
 <Switch hideLabel name="switch-icons" size="small">
-  Toggle theme
-  {#snippet iconUnchecked()}
+  Dark theme
+  {#snippet iconChecked()}
     <svg
+      data-icon="moon"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -17,8 +18,9 @@
       ></path>
     </svg>
   {/snippet}
-  {#snippet iconChecked()}
+  {#snippet iconUnchecked()}
     <svg
+      data-icon="sun"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -33,9 +35,10 @@
 </Switch>
 
 <Switch defaultChecked hideLabel name="switch-icons">
-  Toggle theme
-  {#snippet iconUnchecked()}
+  Dark theme
+  {#snippet iconChecked()}
     <svg
+      data-icon="moon"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -47,8 +50,9 @@
       ></path>
     </svg>
   {/snippet}
-  {#snippet iconChecked()}
+  {#snippet iconUnchecked()}
     <svg
+      data-icon="sun"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"

@@ -17,17 +17,26 @@ const apis = Object.values(
   }),
 )
 const components = import.meta.glob<unknown>(
-  "../../packages/opui/components/*/*.{astro,react.tsx,svelte,vue}",
+  "../../packages/opui/components/*/*.{astro,react.tsx,solid.tsx,svelte,vue}",
   { import: "default" },
 )
 
 const cases = [
   {
-    file: "Dialog/DialogHeader",
-    props: { closeLabel: "Close" },
+    file: "Callout/Callout",
+    props: { closeButton: true },
     slots: ["close-icon"],
   },
-  { file: "Drawer/DrawerHeader", props: {}, slots: ["close-icon"] },
+  {
+    file: "Dialog/DialogHeader",
+    props: { closeButton: true },
+    slots: ["close-icon"],
+  },
+  {
+    file: "Drawer/DrawerHeader",
+    props: { closeButton: true },
+    slots: ["close-icon"],
+  },
   {
     file: "NumberField/NumberField",
     props: { label: "Quantity" },

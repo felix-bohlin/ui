@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import "../../elements/close-on-navigate.js"
+import "../../elements/drawer-swipe.js"
 import { computed, type HTMLAttributes, provide, reactive, useAttrs } from "vue"
 import { DrawerKey } from "./context.vue"
 import { autoLabelledBy } from "../id"
@@ -9,6 +11,7 @@ import type { Props, Slots } from "./types.vue-props"
 const {
   backdrop = "blurred",
   closedby = "any",
+  closeOnNavigate,
   id,
   scrollLock,
   side = "inline-start",
@@ -21,7 +24,7 @@ defineOptions({
 
 const attrs = useAttrs() as HTMLAttributes
 
-const labelledBy = computed(() => autoLabelledBy(attrs, `${id}-heading`))
+const labelledBy = computed(() => autoLabelledBy(attrs, `${id}-title`))
 
 warnMissingId("Drawer", id)
 
@@ -41,6 +44,7 @@ provide(DrawerKey, reactive({ id: computed(() => id), titleId: labelledBy }))
       $props.class,
     ]"
     :aria-labelledby="labelledBy"
+    :data-close-on-navigate="closeOnNavigate ? '' : undefined"
     :id="id"
     v-bind="defined(attrs)"
   >

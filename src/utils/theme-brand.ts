@@ -28,7 +28,7 @@ const parseSrgb = (value: string): Rgb | null => {
     : null
 }
 
-export const luminance = (rgb: Rgb) =>
+const luminance = (rgb: Rgb) =>
   rgb
     .map((channel) =>
       channel <= 0.03928 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4,
@@ -53,7 +53,7 @@ const surfaceOf = (scheme: "dark" | "light") => {
   return parseSrgb(color)
 }
 
-export const fitBrand = (color: string, scheme: "dark" | "light") => {
+const fitBrand = (color: string, scheme: "dark" | "light") => {
   const surface = surfaceOf(scheme)
   const oklch = colorToOklch(color)
   if (!surface || !oklch) return color

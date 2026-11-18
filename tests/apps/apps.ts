@@ -1,17 +1,22 @@
 import { readdirSync } from "node:fs"
 import path from "node:path"
 import { withoutCodeVariants } from "../../src/utils/example-variants.ts"
+import {
+  exampleExtension,
+  HYDRATED_FRAMEWORK_IDS,
+} from "../../src/utils/framework.js"
 
 export const appsDir = import.meta.dirname
 export const root = path.resolve(appsDir, "../..")
 
-const EXTENSIONS = {
-  react: ".react.tsx",
-  svelte: ".svelte",
-  vue: ".vue",
-}
+type Framework = (typeof HYDRATED_FRAMEWORK_IDS)[number]
 
-type Framework = keyof typeof EXTENSIONS
+const EXTENSIONS = Object.fromEntries(
+  HYDRATED_FRAMEWORK_IDS.map((framework) => [
+    framework,
+    `.${exampleExtension(framework)}`,
+  ]),
+) as Record<Framework, string>
 
 type App = {
   build: string[]
@@ -22,6 +27,7 @@ type App = {
   name: string
   port: number
   prefixes?: string[]
+  publicDir: string
   readmeBuild?: {
     css: string
     readmeCss: string
@@ -33,7 +39,7 @@ type App = {
   start: string
 }
 
-const ALL_APPS: App[] = [
+export const ALL_APPS: App[] = [
   {
     build: ["next", "build"],
     check: [],
@@ -42,6 +48,7 @@ const ALL_APPS: App[] = [
     name: "next",
     port: 4401,
     prefixes: ["", "/elements-first"],
+    publicDir: "public",
     readmeBuild: {
       css: ".next/static",
       readmeCss: ".next-readme/static",
@@ -59,6 +66,7 @@ const ALL_APPS: App[] = [
     framework: "vue",
     name: "nuxt",
     port: 4402,
+    publicDir: "public",
     readmeBuild: {
       css: ".output/public",
       readmeCss: ".output-readme/public",
@@ -70,6 +78,18 @@ const ALL_APPS: App[] = [
   },
   {
     build: ["vite", "build"],
+    check: [["tsc", "--noEmit", "-p", "."]],
+    examples: "src/examples",
+    framework: "solid",
+    name: "solid-start",
+    port: 4409,
+    publicDir: "public",
+    scripts: "/assets/",
+    ssr: true,
+    start: "PORT=4409 node dist/server/node.js",
+  },
+  {
+    build: ["vite", "build"],
     check: [
       ["svelte-kit", "sync"],
       ["svelte-check", "--threshold", "error"],
@@ -78,6 +98,12 @@ const ALL_APPS: App[] = [
     framework: "svelte",
     name: "sveltekit",
     port: 4403,
+    publicDir: "static",
+    readmeBuild: {
+      css: "build/client",
+      readmeCss: "build-readme/client",
+      settings: "vite",
+    },
     scripts: "/_app/",
     ssr: true,
     start: "node build",
@@ -89,6 +115,7 @@ const ALL_APPS: App[] = [
     framework: "react",
     name: "vite-react",
     port: 4404,
+    publicDir: "public",
     ssr: false,
     start: "pnpm exec vite preview --port 4404 --strictPort",
   },
@@ -100,8 +127,20 @@ const ALL_APPS: App[] = [
     framework: "react",
     name: "vite-react-dev",
     port: 4407,
+    publicDir: "public",
     ssr: false,
-    start: "pnpm exec vite --port 4407 --strictPort",
+    start: "pnpm exec vite --force --port 4407 --strictPort",
+  },
+  {
+    build: ["vite", "build"],
+    check: [["tsc", "--noEmit", "-p", "."]],
+    examples: "src/examples",
+    framework: "solid",
+    name: "vite-solid",
+    port: 4408,
+    publicDir: "public",
+    ssr: false,
+    start: "pnpm exec vite preview --port 4408 --strictPort",
   },
   {
     build: ["vite", "build"],
@@ -110,6 +149,12 @@ const ALL_APPS: App[] = [
     framework: "svelte",
     name: "vite-svelte",
     port: 4405,
+    publicDir: "public",
+    readmeBuild: {
+      css: "dist",
+      readmeCss: "dist-readme",
+      settings: "vite",
+    },
     ssr: false,
     start: "pnpm exec vite preview --port 4405 --strictPort",
   },
@@ -120,6 +165,7 @@ const ALL_APPS: App[] = [
     framework: "vue",
     name: "vite-vue",
     port: 4406,
+    publicDir: "public",
     ssr: false,
     start: "pnpm exec vite preview --port 4406 --strictPort",
   },

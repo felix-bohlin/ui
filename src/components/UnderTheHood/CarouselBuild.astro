@@ -17,6 +17,7 @@ const steps = [
 .carousel > li {
   min-inline-size: 0;
 }`,
+    features: ["logical-properties"],
     notes: [
       "<code>grid-auto-flow: column</code> lays every item out in one row",
       "Item width = (track − gaps) ÷ items per view",
@@ -28,7 +29,7 @@ const steps = [
     css: `
 .carousel {
   overscroll-behavior-inline: contain;
-  scroll-snap-type: x mandatory;
+  scroll-snap-type: inline mandatory;
 }
 
 .carousel > li {

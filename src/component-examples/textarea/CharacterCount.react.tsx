@@ -5,7 +5,7 @@ export default function CharacterCount() {
     <Textarea
       characterCount
       characterCountLabel="{count} characters to go"
-      endText="Shown on your profile."
+      endText="Up to 160 characters, shown on your profile."
       label="Bio"
       maxLength={160}
     />

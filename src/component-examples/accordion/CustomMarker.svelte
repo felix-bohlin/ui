@@ -11,6 +11,7 @@
     How do I get started?
     {#snippet marker()}
       <svg
+        data-icon="hand"
         aria-hidden="true"
         class="ui-marker"
         xmlns="http://www.w3.org/2000/svg"
@@ -28,8 +29,8 @@
   </AccordionSummary>
   <AccordionContent>
     <p>
-      Create a project, invite your team and connect your first data source.
-      Each step takes about a minute.
+      Make a profile, invite your bandmates and add your very first bass. Each
+      step takes about a minute, easy peasy.
     </p>
   </AccordionContent>
 </Accordion>

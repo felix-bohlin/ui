@@ -3,12 +3,8 @@ import { Select } from "opui-css/react"
 export default function Spread() {
   return (
     <>
-      <Select
-        label="Country"
-        spread
-        startText="Select your country of residence"
-      >
-        <option value="">Select a country</option>
+      <Select label="Country" spread>
+        <option value="">-</option>
         <option>Denmark</option>
         <option>Finland</option>
         <option>Iceland</option>
@@ -17,13 +13,13 @@ export default function Spread() {
       </Select>
 
       <Select
-        endText="This affects UI translations"
+        endText="This affects UI translations."
         label="Language"
         spread
-        startText="Choose your preferred language"
+        startText="Choose your preferred language."
         variant="filled"
       >
-        <option value="">Select a language</option>
+        <option value="">-</option>
         <option>Danish</option>
         <option>Finnish</option>
         <option>Icelandic</option>
@@ -32,23 +28,23 @@ export default function Spread() {
       </Select>
 
       <Select
-        label="Department"
+        label="Forum"
         required
         spread
-        startText="Routes your request to the right team"
+        startText="Posts your question where the right bassists hang out."
       >
-        <option value="">Select a department</option>
-        <option>Billing</option>
-        <option>Support</option>
+        <option value="">-</option>
+        <option>Gear Talk</option>
+        <option>Ignored Bassists Anonymous</option>
       </Select>
 
       <Select
         disabled
         label="Plan"
         spread
-        startText="Managed by your organization"
+        startText="A gift from your band, aww."
       >
-        <option>Business</option>
+        <option>Gold</option>
       </Select>
 
       <Select
@@ -56,7 +52,7 @@ export default function Spread() {
         error
         label="Payment method"
         spread
-        startText="Charged on the first of each month"
+        startText="Bassbook Gold renews on the first of each month."
       >
         <option>Visa ending in 4242</option>
         <option>Mastercard ending in 5100</option>
@@ -66,7 +62,7 @@ export default function Spread() {
         label="Time zone"
         spread
         start="UTC"
-        startText="Used for reminders and due dates"
+        startText="Used for gig and rehearsal reminders."
       >
         <option>-03:00</option>
         <option>+00:00</option>
@@ -76,11 +72,12 @@ export default function Spread() {
       </Select>
 
       <Select
-        endText="Cannot be changed after deploy"
-        label="Region"
+        endText="Cannot be changed mid-jam."
+        label="Jam region"
         spread
         start={
           <svg
+            data-icon="globe"
             aria-hidden="true"
             width="16"
             height="16"
@@ -96,13 +93,13 @@ export default function Spread() {
             <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
           </svg>
         }
-        startText="Affects data residency and latency"
+        startText="Less lag means tighter grooves."
         variant="filled"
       >
         <option value="">-</option>
-        <option>ap-southeast-1</option>
-        <option>eu-north-1</option>
-        <option>us-east-1</option>
+        <option>Asia</option>
+        <option>Europe</option>
+        <option>North America</option>
       </Select>
     </>
   )

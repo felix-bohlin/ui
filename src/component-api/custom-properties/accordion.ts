@@ -47,15 +47,6 @@ export default {
       "Color of the border between items in a group. Defaults to `--ui-border-color`.",
     kind: "input",
   },
-  "--_duration": {
-    description:
-      "Duration of the transitions, `--ui-duration` times `--_motion`.",
-    kind: "output",
-  },
-  "--_ease": {
-    description: "Easing of the transitions. Defaults to `--ui-ease`.",
-    kind: "input",
-  },
   "--_focus-ring-offset": {
     description:
       "Offset of the `summary` focus ring. Inside the summary, except in `.ui-transparent`.",
@@ -81,20 +72,10 @@ export default {
       "The inline margin. `0`, except in `.ui-transparent` outside a group.",
     kind: "input",
   },
-  "--_motion": {
-    description:
-      "Motion multiplier for `--_duration`. `0` turns the transitions off.",
-    kind: "input",
-  },
   "--_overflow": {
     description:
       "The overflow. `hidden`, except in `.ui-transparent` and in groups.",
     kind: "output",
-  },
-  "--_padding": {
-    description:
-      "Padding the accordion shares with cards, from `card.css`: `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset. Sets `--_padding-inline`, `--_summary-padding-block` and the block end of `--_content-padding-block`.",
-    kind: "input",
   },
   "--_padding-inline": {
     description:

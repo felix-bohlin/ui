@@ -3,10 +3,11 @@
 </script>
 
 <List flush>
-  <ListItem label="Gutterless list item">
+  <ListItem label="Saved pedalboards">
     {#snippet end()}
       <Button aria-label="Delete" round size="small">
         <svg
+          data-icon="delete"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -21,9 +22,10 @@
       </Button>
     {/snippet}
   </ListItem>
-  <ListItem description="Supporting text" label="Headline">
+  <ListItem description="Fretless enthusiast" label="Lou Headstock">
     {#snippet start()}
       <svg
+        data-icon="person"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -36,6 +38,6 @@
         ></path>
       </svg>
     {/snippet}
-    {#snippet end()}100+{/snippet}
+    {#snippet end()}Admin{/snippet}
   </ListItem>
 </List>

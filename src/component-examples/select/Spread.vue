@@ -5,8 +5,7 @@ import { Select } from "opui-css/vue"
 <template>
   <Select spread>
     <template #label>Country</template>
-    <template #start-text>Select your country of residence</template>
-    <option value="">Select a country</option>
+    <option value="">-</option>
     <option>Denmark</option>
     <option>Finland</option>
     <option>Iceland</option>
@@ -16,9 +15,9 @@ import { Select } from "opui-css/vue"
 
   <Select spread variant="filled">
     <template #label>Language</template>
-    <template #start-text>Choose your preferred language</template>
-    <template #end-text>This affects UI translations</template>
-    <option value="">Select a language</option>
+    <template #start-text>Choose your preferred language.</template>
+    <template #end-text>This affects UI translations.</template>
+    <option value="">-</option>
     <option>Danish</option>
     <option>Finnish</option>
     <option>Icelandic</option>
@@ -27,22 +26,26 @@ import { Select } from "opui-css/vue"
   </Select>
 
   <Select required spread>
-    <template #label>Department</template>
-    <template #start-text>Routes your request to the right team</template>
-    <option value="">Select a department</option>
-    <option>Billing</option>
-    <option>Support</option>
+    <template #label>Forum</template>
+    <template #start-text
+      >Posts your question where the right bassists hang out.</template
+    >
+    <option value="">-</option>
+    <option>Gear Talk</option>
+    <option>Ignored Bassists Anonymous</option>
   </Select>
 
   <Select disabled spread>
     <template #label>Plan</template>
-    <template #start-text>Managed by your organization</template>
-    <option>Business</option>
+    <template #start-text>A gift from your band, aww.</template>
+    <option>Gold</option>
   </Select>
 
   <Select error spread>
     <template #label>Payment method</template>
-    <template #start-text>Charged on the first of each month</template>
+    <template #start-text
+      >Bassbook Gold renews on the first of each month.</template
+    >
     <template #end-text>This card has expired. Pick another one.</template>
     <option>Visa ending in 4242</option>
     <option>Mastercard ending in 5100</option>
@@ -50,7 +53,7 @@ import { Select } from "opui-css/vue"
 
   <Select spread>
     <template #label>Time zone</template>
-    <template #start-text>Used for reminders and due dates</template>
+    <template #start-text>Used for gig and rehearsal reminders.</template>
     <template #start>UTC</template>
     <option>-03:00</option>
     <option>+00:00</option>
@@ -60,10 +63,11 @@ import { Select } from "opui-css/vue"
   </Select>
 
   <Select spread variant="filled">
-    <template #label>Region</template>
-    <template #start-text>Affects data residency and latency</template>
+    <template #label>Jam region</template>
+    <template #start-text>Less lag means tighter grooves.</template>
     <template #start>
       <svg
+        data-icon="globe"
         aria-hidden="true"
         width="16"
         height="16"
@@ -81,10 +85,10 @@ import { Select } from "opui-css/vue"
         ></path>
       </svg>
     </template>
-    <template #end-text>Cannot be changed after deploy</template>
+    <template #end-text>Cannot be changed mid-jam.</template>
     <option value="">-</option>
-    <option>ap-southeast-1</option>
-    <option>eu-north-1</option>
-    <option>us-east-1</option>
+    <option>Asia</option>
+    <option>Europe</option>
+    <option>North America</option>
   </Select>
 </template>

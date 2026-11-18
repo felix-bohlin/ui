@@ -1,23 +1,24 @@
 <script lang="ts">
   import { untrack } from "svelte"
   import { seedChecked } from "../svelte"
-  import { mergeStyle } from "../style"
-  import { defined } from "../attrs"
+  import { mergeStyle, pluralLabel } from "../style"
   import type { Props } from "./types.svelte"
 
   let {
     "aria-describedby": ariaDescribedBy,
     "aria-invalid": ariaInvalid,
+    "aria-label": ariaLabel,
     class: className,
     clearLabel = "No rating",
     disabled,
     error,
     label,
+    lang,
     max = 5,
     name,
     required,
     size,
-    starLabel = (value: number) => (value === 1 ? "1 star" : `${value} stars`),
+    starLabel = { one: "{count} star", other: "{count} stars" },
     style,
     value = $bindable(),
     ...rest
@@ -31,8 +32,10 @@
 
 {#if name}
   <fieldset
+    aria-label={ariaLabel}
     class={["ui-rating", size && size !== "medium" && `ui-${size}`, className]}
     {disabled}
+    {lang}
     {style}
     {...rest}
   >
@@ -43,23 +46,23 @@
         aria-label={clearLabel}
         {name}
         type="radio"
-        value="0"
+        value={0}
         defaultChecked={untrack(() => current === 0)}
         {@attach seedChecked(
           () => current === 0,
           () => {
-            value = "0"
+            value = 0
           },
         )}
         onchange={() => {
-          value = "0"
+          value = 0
         }}
       />
     {/if}{#each stars as star, index (index)}
       <input
         aria-describedby={ariaDescribedBy}
         aria-invalid={invalid}
-        aria-label={starLabel(star)}
+        aria-label={pluralLabel(starLabel, star, lang)}
         {name}
         {required}
         type="radio"
@@ -80,11 +83,12 @@
 {:else}
   <meter
     aria-describedby={ariaDescribedBy}
-    aria-label={label}
+    aria-label={ariaLabel ?? label}
     class={["ui-rating", size && size !== "medium" && `ui-${size}`, className]}
+    {lang}
     {max}
     style={mergeStyle({ "--_max": count === 5 ? undefined : count }, style)}
     value={value ?? 0}
-    {...defined(rest)}
+    {...rest}
   ></meter>
 {/if}

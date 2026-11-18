@@ -1,12 +1,15 @@
 import { experimental_AstroContainer as AstroContainer } from "astro/container"
+import { ssr } from "@solidjs/web"
 import { createElement, type ComponentType, type ReactNode } from "react"
 import { renderToString as renderReact } from "react-dom/server"
 import { createRawSnippet, type Component as SvelteComponent } from "svelte"
 import { render as renderSvelte } from "svelte/server"
 import { createSSRApp, h, type Component as VueComponent } from "vue"
 import { renderToString as renderVue } from "vue/server-renderer"
+import { REACT_ATTRIBUTE_NAMES } from "../../scripts/example-react-props.mjs"
 import { parseHtml } from "../../scripts/html-tokens.mjs"
 import { slotProp } from "../../src/component-api/frameworks"
+import { renderSolid as renderSolidRoot } from "../../src/components/Example/render-solid"
 
 type Node = ReturnType<typeof parseHtml>[number]
 
@@ -14,7 +17,11 @@ type Props = Record<string, unknown>
 
 export type Slots = Record<string, string>
 
+export type SolidComponent<P = Props> = (props: P) => unknown
+
 export const TEXT = "Text"
+
+export const CALLER_VALUE = "Caller"
 
 const SLOT_CONTENT: Record<string, string> = {
   Table: "<tbody><tr><td>Text</td></tr></tbody>",
@@ -35,6 +42,41 @@ const attributesOf = (node: Node & { type: "element" }) =>
     ]),
   )
 
+const REACT_BOOLEANS = new Set([
+  "checked",
+  "disabled",
+  "hidden",
+  "inert",
+  "multiple",
+  "open",
+  "required",
+  "selected",
+])
+
+const styleObject = (style: string) =>
+  Object.fromEntries(
+    style
+      .split(";")
+      .map((declaration) => declaration.split(":"))
+      .filter(([name, ...value]) => name.trim() && value.length)
+      .map(([name, ...value]) => [
+        name.trim().startsWith("--")
+          ? name.trim()
+          : name
+              .trim()
+              .replace(/-([a-z])/g, (_, letter) => letter.toUpperCase()),
+        value.join(":").trim(),
+      ]),
+  )
+
+const reactAttributes = (node: Node & { type: "element" }) =>
+  Object.fromEntries(
+    Object.entries(attributesOf(node)).map(([name, value]) => [
+      REACT_ATTRIBUTE_NAMES[name as keyof typeof REACT_ATTRIBUTE_NAMES] ?? name,
+      name === "style" ? styleObject(value) : REACT_BOOLEANS.has(name) || value,
+    ]),
+  )
+
 const reactTree = (nodes: Node[]): ReactNode[] =>
   nodes.flatMap((node, index) =>
     node.type === "text"
@@ -43,7 +85,7 @@ const reactTree = (nodes: Node[]): ReactNode[] =>
         ? [
             createElement(
               node.tag,
-              { ...attributesOf(node), key: index },
+              { ...reactAttributes(node), key: index },
               ...reactTree(node.children),
             ),
           ]
@@ -70,6 +112,11 @@ const slotProps = (slots: Slots, value: (html: string) => unknown) =>
 
 let container: AstroContainer | undefined
 
+export const renderSolid = <P extends Props>(
+  Component: SolidComponent<P>,
+  props = {} as P,
+) => renderSolidRoot(Component as never, "solid-", props)
+
 export const render = {
   astro: async (
     component: unknown,
@@ -92,6 +139,11 @@ export const render = {
         ...slotProps(slots, reactNodes),
       }),
     ),
+  solid: async (component: unknown, props: Props = {}, slots: Slots = {}) =>
+    renderSolid(component as SolidComponent, {
+      ...props,
+      ...slotProps(slots, (html) => ssr(html)),
+    }),
   svelte: async (component: unknown, props: Props = {}, slots: Slots = {}) =>
     renderSvelte(component as SvelteComponent<Props>, {
       props: {

@@ -4,8 +4,7 @@ import { trimEdges } from "../whitespace"
 
 import type { Props } from "./types.astro"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
-import { createIds, idRefs } from "../id"
-import { minusPath, plusPath } from "./icons"
+import { createIds, fieldDescribedBy } from "../id"
 import { cx } from "../cx"
 
 export const title = "Number Field"
@@ -15,6 +14,7 @@ const {
   "aria-invalid": ariaInvalid,
   class: className,
   decreaseLabel = "Decrease",
+  disabled,
   endText,
   error,
   hideLabel,
@@ -74,6 +74,7 @@ const LabelTag = label || labelSlot ? "label" : Fragment
         aria-label={decreaseLabel}
         command="--step-down"
         commandfor={inputId}
+        disabled={disabled}
         round
       >
         <slot name="decrease-icon">
@@ -83,16 +84,18 @@ const LabelTag = label || labelSlot ? "label" : Fragment
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" d={minusPath}></path>
-          </svg>
+          ></svg>
         </slot>
       </Button>
     </span>
     <input
       {...rest}
-      aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
+      aria-describedby={fieldDescribedBy(
+        { endText: endTextId, startText: startTextId },
+        ariaDescribedBy,
+      )}
       aria-invalid={error ? "true" : ariaInvalid}
+      disabled={disabled}
       id={inputId}
       name={name ?? field?.name}
       type="number"
@@ -103,6 +106,7 @@ const LabelTag = label || labelSlot ? "label" : Fragment
         aria-label={increaseLabel}
         command="--step-up"
         commandfor={inputId}
+        disabled={disabled}
         round
       >
         <slot name="increase-icon">
@@ -112,9 +116,7 @@ const LabelTag = label || labelSlot ? "label" : Fragment
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" d={plusPath}></path>
-          </svg>
+          ></svg>
         </slot>
       </Button>
     </span>

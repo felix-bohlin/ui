@@ -6,6 +6,7 @@ import {
   ENGINE_GATES,
   baselineYear,
   baselineYears,
+  coreFallbacks,
   featureIds,
   featureOf,
   keepsFallback,
@@ -43,6 +44,18 @@ const conditions = supports(postcss.parse(compatCss), true)
 
 const run = (css: string, plugin: ReturnType<typeof withoutCompat>) =>
   postcss([plugin]).process(css, { from: undefined }).root
+
+const coreConditionsOf = (root: Root) => {
+  const found: string[] = []
+  coreFallbacks(root, (rule: AtRule) => {
+    found.push(rule.params)
+  })
+  return found
+}
+
+const CORE = ["packages/opui/core/normalize.css", `${CSS}/theme.css`]
+const coreCss = CORE.map((file) => readFileSync(file, "utf8")).join("\n")
+const coreConditions = coreConditionsOf(postcss.parse(coreCss))
 
 test("compat.css imports layers.css, then every compat file in ascending order", () => {
   expect(compatFiles.length).toBeGreaterThan(0)
@@ -91,7 +104,7 @@ test("each compat file is one components.compat layer of @supports blocks", () =
 })
 
 test("each fallback tests one web feature that isn't widely available, or is an engine gate", () => {
-  const problems = conditions.flatMap((condition) => {
+  const problems = [...conditions, ...coreConditions].flatMap((condition) => {
     if (!/^not\s/.test(condition)) {
       return ENGINE_GATES.includes(condition)
         ? []
@@ -179,6 +192,50 @@ test("the plugins leave the component @supports alone", () => {
   }
 })
 
+test("the plugins drop the @supports not fallbacks of normalize.css and theme.css like the compat layer's", () => {
+  const css = `@layer normalize {
+    :where(html) {
+      @supports not (field-sizing: content) { color: red; }
+    }
+  }
+  @layer theme.base {
+    :where(html) {
+      --a: 1;
+      @supports not (field-sizing: content) { --a: 2; }
+      @supports (field-sizing: content) { --b: 1; }
+    }
+  }
+  @layer utils {
+    :where(html) {
+      @supports not (field-sizing: content) { color: red; }
+    }
+  }`
+  const positive = (root: Root) => {
+    const found: string[] = []
+    root.walkAtRules("supports", (rule) => {
+      if (!/^not\s/.test(rule.params)) found.push(rule.params)
+    })
+    return found
+  }
+  expect(coreConditionsOf(run(css, baselineYear(2025)))).toEqual([
+    "not (field-sizing: content)",
+    "not (field-sizing: content)",
+  ])
+  expect(coreConditionsOf(run(css, baselineYear(2026)))).toEqual([])
+  const stripped = run(css, withoutCompat())
+  expect(coreConditionsOf(stripped)).toEqual([])
+  expect(positive(stripped)).toEqual(["(field-sizing: content)"])
+  expect(supports(stripped, false)).toEqual([
+    "(field-sizing: content)",
+    "not (field-sizing: content)",
+  ])
+  for (const file of CORE) {
+    const source = readFileSync(file, "utf8")
+    expect(coreConditionsOf(postcss.parse(source)), file).not.toEqual([])
+    expect(coreConditionsOf(run(source, withoutCompat())), file).toEqual([])
+  }
+})
+
 test("the browser support guide lists every compat file", () => {
   const guide = readFileSync("src/docs/guide/browser-support.astro", "utf8")
   expect(
@@ -195,7 +252,7 @@ test("the -text and on-fill formulas wait for @function in Firefox and Safari", 
   const { support } = feature.status
   expect(
     !!support.firefox && !!support.safari,
-    "Firefox and Safari ship CSS @function: write the -text and on-fill formulas in theme.css, button.css, button-group.css and copy.css once each",
+    "Firefox and Safari ship CSS @function: write the -text and on-fill formulas in theme.css, button.css and copy.css once each",
   ).toBe(false)
 })
 

@@ -1,8 +1,8 @@
-import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs"
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs"
 import { tmpdir } from "node:os"
 import { dirname, join } from "node:path"
 import { describe, expect, test } from "vitest"
-import { distProblems } from "../../scripts/check-dist.mjs"
+import { distProblems, NETLIFY_ORIGIN } from "../../scripts/check-dist.mjs"
 import { FRAMEWORK_IDS } from "../../src/utils/framework.js"
 
 const site = new URL("https://example.com")
@@ -14,7 +14,15 @@ const BUTTON = page(
   '<h2 id="sizes">Sizes</h2><a href="/html/components/button/#sizes">Sizes</a><a href="#top">Top</a>',
 )
 
+const TIMELINE_SHORTHAND =
+  "puts a timeline in the animation shorthand, which browsers drop with the whole declaration: Lightning CSS folds an animation-timeline that follows the shorthand into it when Astro minifies, so write that rule with animation-* longhands"
+
+const DOMAIN_RULE = `${NETLIFY_ORIGIN}/* https://example.com/:splat 301!`
+
 const clean = () => ({
+  "/_redirects": `${DOMAIN_RULE}\n`,
+  "/_astro/page.css":
+    ".a{animation:spin 1s var(--ease,linear) infinite}.b{animation-fill-mode:both;animation-name:fill;animation-timeline:scroll(root)}.c{--animation:fill view()}",
   "/html/components/button/index.html": BUTTON,
   "/html/components/button.md": "# Button\n",
   ...Object.fromEntries(
@@ -28,6 +36,7 @@ const clean = () => ({
 const check = (
   files: Record<string, string | undefined>,
   searchIndex = [{ url: "/html/components/button/" }],
+  standardSite?: { documents: Record<string, string>; publication?: string },
 ) => {
   const dist = mkdtempSync(join(tmpdir(), "opui-dist-"))
   for (const [path, text] of Object.entries(files)) {
@@ -35,9 +44,14 @@ const check = (
     mkdirSync(dirname(join(dist, path)), { recursive: true })
     writeFileSync(join(dist, path), text)
   }
-  return distProblems({ dist, searchIndex, site }).problems.map(
-    ([message, sources]) => `${message} <- ${sources.join(", ")}`,
-  )
+  const problems = distProblems({
+    dist,
+    searchIndex,
+    site,
+    standardSite,
+  }).problems.map(([message, sources]) => `${message} <- ${sources.join(", ")}`)
+  rmSync(dist, { force: true, recursive: true })
+  return problems
 }
 
 describe("check-dist", () => {
@@ -99,6 +113,29 @@ describe("check-dist", () => {
       { "/vue/llms.txt": undefined },
       "/vue/llms.txt does not exist <- /vue/",
     ],
+    [
+      "an animation shorthand with a scroll timeline in a stylesheet",
+      {
+        "/_astro/page.css":
+          ".a::before{animation:linear both fill scroll(root);position:absolute}",
+      },
+      `"animation:linear both fill scroll(root)" ${TIMELINE_SHORTHAND} <- /_astro/page.css`,
+    ],
+    [
+      "an animation shorthand with a named timeline in a style element",
+      {
+        "/html/components/button/index.html": BUTTON.replace(
+          "<head>",
+          "<head><style>.a{animation:linear both fill --stages}</style>",
+        ),
+      },
+      `"animation:linear both fill --stages" ${TIMELINE_SHORTHAND} <- /html/components/button/`,
+    ],
+    [
+      "a _redirects with another rule ahead of the domain rule",
+      { "/_redirects": `/old /new 301\n${DOMAIN_RULE}\n` },
+      `/_redirects doesn't start with "${DOMAIN_RULE}": public/_redirects sends the netlify.app address to site in astro.config.mjs, path included, ahead of every other rule <- /_redirects`,
+    ],
   ])("reports %s", (_, files, problem) => {
     expect(check({ ...clean(), ...files })).toEqual([problem])
   })
@@ -133,5 +170,54 @@ describe("check-dist", () => {
         ),
       }),
     ).toEqual([])
+  })
+
+  describe("Standard Site", () => {
+    const publication =
+      "at://did:plc:abc/site.standard.publication/3aaaaaaaaaaaa"
+    const document = "at://did:plc:abc/site.standard.document/3aaaaaaaaaaab"
+    const records = { documents: { post: document }, publication }
+    const LINKS = `<link rel="site.standard.publication" href="${publication}"><link rel="site.standard.document" href="${document}">`
+    const WELL_KNOWN = "/.well-known/site.standard.publication"
+    const SERVES = `src/pages/.well-known/[record].ts serves the publication in src/utils/standard-site.json <- ${WELL_KNOWN}`
+    const post = (head: string) => ({
+      "/blog/post.md": "# Post\n",
+      "/blog/post/index.html": page("", head),
+    })
+
+    test("reports nothing when the records are served and linked", () => {
+      expect(
+        check(
+          { ...clean(), ...post(LINKS), [WELL_KNOWN]: publication },
+          undefined,
+          records,
+        ),
+      ).toEqual([])
+    })
+
+    test.each([
+      [
+        "a post without its links",
+        { ...post(""), [WELL_KNOWN]: publication },
+        records,
+        '/blog/post/ doesn\'t link its Standard Site records: Layout.astro adds <link rel="site.standard.publication"> and <link rel="site.standard.document"> from src/utils/standard-site.json <- /blog/post/',
+      ],
+      [
+        "a missing well-known file",
+        post(LINKS),
+        records,
+        `${WELL_KNOWN} serves nothing instead of "${publication}": ${SERVES}`,
+      ],
+      [
+        "a well-known file without a publication",
+        { [WELL_KNOWN]: publication },
+        undefined,
+        `${WELL_KNOWN} serves "${publication}" instead of nothing: ${SERVES}`,
+      ],
+    ])("reports %s", (_, files, standardSite, problem) => {
+      expect(check({ ...clean(), ...files }, undefined, standardSite)).toEqual([
+        problem,
+      ])
+    })
   })
 })

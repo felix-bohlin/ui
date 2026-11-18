@@ -35,6 +35,10 @@
       color var(--_duration) var(--_ease),
       scale var(--_duration) var(--ui-ease-move, var(--_ease));
 
+    @media print {
+      print-color-adjust: exact;
+    }
+
     &:not(.ui-multiline) > .ui-text {
       min-inline-size: 0;
       overflow: hidden;
@@ -174,6 +178,13 @@
       &.ui-outlined {
         --_text-color: var(--ui-text-disabled);
       }
+
+      &[aria-disabled="true"] {
+        @media (forced-colors: active) {
+          --_border-color: GrayText;
+          --_text-color: GrayText;
+        }
+      }
     }
 
     &.ui-disabled:not(a, button) {
@@ -222,6 +233,15 @@
         border-color: SelectedItem;
         color: SelectedItemText;
         forced-color-adjust: none;
+
+        &.ui-dot::before {
+          background-color: SelectedItemText;
+        }
+
+        &.ui-dot.ui-neutral::before {
+          background-color: transparent;
+          border-color: SelectedItemText;
+        }
       }
     }
   }

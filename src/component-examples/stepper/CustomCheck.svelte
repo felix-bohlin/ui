@@ -4,8 +4,9 @@
 
 <Stepper aria-label="Checkout steps">
   <StepperItem complete href="#" label="Cart">
-    {#snippet iconChecked()}
+    {#snippet iconComplete()}
       <svg
+        data-icon="check-all"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -23,8 +24,9 @@
     {/snippet}
   </StepperItem>
   <StepperItem complete href="#" label="Shipping">
-    {#snippet iconChecked()}
+    {#snippet iconComplete()}
       <svg
+        data-icon="check-all"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"

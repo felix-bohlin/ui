@@ -11,12 +11,13 @@ import { TextField } from "opui-css/astro"
   <Fragment slot="start">https://</Fragment>
 </TextField>
 
-<TextField label="Weight" placeholder="0" type="numeric">
+<TextField inputmode="decimal" label="Weight" placeholder="0">
   <Fragment slot="end">kg</Fragment>
 </TextField>
 
 <TextField label="Search" placeholder="Search...">
   <svg
+    data-icon="search"
     aria-hidden="true"
     slot="start"
     width="16"

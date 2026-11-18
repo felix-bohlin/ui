@@ -3,13 +3,21 @@ import { readdir, readFile, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { parseArgs } from "node:util"
+import {
+  exampleExtension,
+  HYDRATED_FRAMEWORK_IDS,
+  TYPES_FILES,
+} from "../src/utils/framework.js"
+import { MODEL_KINDS } from "./component-models.mjs"
 import { toReact } from "./component-react.mjs"
 import { apiOf, loadApis, readComponent } from "./component-reader.mjs"
 import { root, unsupported } from "./component-shared.mjs"
+import { toSolid } from "./component-solid.mjs"
 import { toSvelte } from "./component-svelte.mjs"
 import {
   astroTypesOf,
   basePropsOf,
+  eventsOf,
   hasSlotsType,
   baseTypesOf,
   propsElement,
@@ -23,16 +31,25 @@ export { loadApis, readComponent, toTypes }
 
 const componentsDir = join(root, "packages/opui/components")
 
-export const PORTS = {
-  react: ".react.tsx",
-  svelte: ".svelte",
-  vue: ".vue",
-}
+export const PORTS = Object.fromEntries(
+  HYDRATED_FRAMEWORK_IDS.map((framework) => [
+    framework,
+    `.${exampleExtension(framework)}`,
+  ]),
+)
 
-export const TYPE_FILES = {
-  react: "types.react.ts",
-  svelte: "types.svelte.ts",
-  vue: "types.vue-props.ts",
+export const TYPE_FILES = Object.fromEntries(
+  HYDRATED_FRAMEWORK_IDS.map((framework) => [
+    framework,
+    TYPES_FILES[framework],
+  ]),
+)
+
+export const EMITTERS = {
+  react: toReact,
+  solid: toSolid,
+  svelte: toSvelte,
+  vue: toVue,
 }
 
 export const compileComponent = async (source, file, options = {}) => {
@@ -53,23 +70,23 @@ export const compileComponent = async (source, file, options = {}) => {
     folder,
     name,
     baseProps: basePropsOf(base, name, folder),
+    events: eventsOf(base, name, folder),
     folderSlots: hasSlotsType(base),
     stringTypedSlots: stringTypedSlots(base, name, folder, component.slots),
   }
   const outputs = new Map()
   const refused = new Map()
-  for (const [framework, extension] of Object.entries(PORTS)) {
+  const ports = Object.entries(PORTS)
+  for (const [framework, extension] of ports) {
     const target = `packages/opui/components/${folder}/${name}${extension}`
     try {
-      const code = { react: toReact, svelte: toSvelte, vue: toVue }[framework](
-        named,
-      )
+      const code = EMITTERS[framework](named)
       outputs.set(target, await formatStably(code, target))
     } catch (error) {
       refused.set(target, error)
     }
   }
-  if (refused.size === Object.keys(PORTS).length) throw [...refused.values()][0]
+  if (refused.size === ports.length) throw [...refused.values()][0]
   return { component: named, outputs, refused }
 }
 
@@ -173,9 +190,9 @@ export const generate = async ({
                 prop !== "class" && prop !== "style" && !prop.includes("-"),
             )
             .map(({ prop }) => prop),
-          ...(component.model?.kind === "value" && !component.model.local
-            ? [component.model.prop]
-            : []),
+          ...(MODEL_KINDS[component.model?.kind]?.vue?.declared?.(
+            component.model,
+          ) ?? []),
         ]
         rootsByComponent[component.name] = component.restOnRoot
           ? [

@@ -1,9 +1,9 @@
 # Avatar
 
-Avatars show a person or entity as an image, initials or icon.
+An image, initials or icon that stands for a person or an entity.
 
 - CSS: `opui-css/css/components/avatar.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/avatar.md), [Astro](https://open-props-ui.netlify.app/astro/components/avatar.md), [React](https://open-props-ui.netlify.app/react/components/avatar.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/avatar.md), [Vue](https://open-props-ui.netlify.app/vue/components/avatar.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/avatar.md), [Astro](https://opui.dev/astro/components/avatar.md), [React](https://opui.dev/react/components/avatar.md), [Solid](https://opui.dev/solid/components/avatar.md), [Svelte](https://opui.dev/svelte/components/avatar.md), [Vue](https://opui.dev/vue/components/avatar.md).
 
 ## Avatar
 
@@ -36,8 +36,9 @@ Avatars show a person or entity as an image, initials or icon.
 
 ### Props and modifiers
 
-- `aria-label`: `string`, `[aria-label]`. The accessible name of the group. The Astro, React and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.
+- `aria-label`: `string`, `[aria-label]`. The accessible name of the group. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.
 - `aria-labelledby`: `string`. The id of the element that names the group, instead of `aria-label`.
+- `role`: `string`, default `"group"`. The `role` of the root. A passed role replaces `group`.
 
 ### Slots
 
@@ -75,24 +76,15 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 
 ```html
 <div class="ui-avatar">
-  <img
-    src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?w=96&h=96&fit=crop&auto=format"
-    alt="Maya Lind"
-  />
+  <img src="/photos/lou-headstock.png" alt="Lou Headstock" />
 </div>
 
 <div class="ui-avatar">
-  <img
-    src="https://images.unsplash.com/photo-1672714413950-c9f7c5a45fa1?w=96&h=96&fit=crop&auto=format"
-    alt="Omar Haddad"
-  />
+  <img src="/photos/holly-humbucker.png" alt="Holly Humbucker" />
 </div>
 
 <div class="ui-avatar">
-  <img
-    src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?w=96&h=96&fit=crop&auto=format"
-    alt="Priya Nair"
-  />
+  <img src="/photos/percy-groove.png" alt="Percy Groove" />
 </div>
 ```
 
@@ -107,20 +99,11 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 import { Avatar } from "opui-css/astro"
 ---
 
-<Avatar
-  alt="Maya Lind"
-  src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?w=96&h=96&fit=crop&auto=format"
-/>
+<Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
 
-<Avatar
-  alt="Omar Haddad"
-  src="https://images.unsplash.com/photo-1672714413950-c9f7c5a45fa1?w=96&h=96&fit=crop&auto=format"
-/>
+<Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
-<Avatar
-  alt="Priya Nair"
-  src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?w=96&h=96&fit=crop&auto=format"
-/>
+<Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
 ```
 
 ## React
@@ -135,20 +118,34 @@ import { Avatar } from "opui-css/react"
 export default function Image() {
   return (
     <>
-      <Avatar
-        alt="Maya Lind"
-        src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?w=96&h=96&fit=crop&auto=format"
-      />
+      <Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
 
-      <Avatar
-        alt="Omar Haddad"
-        src="https://images.unsplash.com/photo-1672714413950-c9f7c5a45fa1?w=96&h=96&fit=crop&auto=format"
-      />
+      <Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
-      <Avatar
-        alt="Priya Nair"
-        src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?w=96&h=96&fit=crop&auto=format"
-      />
+      <Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Avatar, AvatarGroup } from "opui-css/solid"`
+
+### Example: Image
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Avatar } from "opui-css/solid"
+
+export default function Image() {
+  return (
+    <>
+      <Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
+
+      <Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
+
+      <Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
     </>
   )
 }
@@ -165,20 +162,11 @@ export default function Image() {
   import { Avatar } from "opui-css/svelte"
 </script>
 
-<Avatar
-  alt="Maya Lind"
-  src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?w=96&h=96&fit=crop&auto=format"
-/>
+<Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
 
-<Avatar
-  alt="Omar Haddad"
-  src="https://images.unsplash.com/photo-1672714413950-c9f7c5a45fa1?w=96&h=96&fit=crop&auto=format"
-/>
+<Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
-<Avatar
-  alt="Priya Nair"
-  src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?w=96&h=96&fit=crop&auto=format"
-/>
+<Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
 ```
 
 ## Vue
@@ -193,19 +181,10 @@ import { Avatar } from "opui-css/vue"
 </script>
 
 <template>
-  <Avatar
-    alt="Maya Lind"
-    src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?w=96&h=96&fit=crop&auto=format"
-  />
+  <Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
 
-  <Avatar
-    alt="Omar Haddad"
-    src="https://images.unsplash.com/photo-1672714413950-c9f7c5a45fa1?w=96&h=96&fit=crop&auto=format"
-  />
+  <Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
-  <Avatar
-    alt="Priya Nair"
-    src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?w=96&h=96&fit=crop&auto=format"
-  />
+  <Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
 </template>
 ```

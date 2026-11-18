@@ -14,11 +14,11 @@ export default function Dialog({
   ...rest
 }: Props) {
   const uid = useId()
-  const titleId = `${rest.id ?? `dialog-${uid}`}-title`
+  const titleId = `${rest.id || `dialog-${uid}`}-title`
   const labelledBy = autoLabelledBy(rest, titleId)
 
   return (
-    <DialogContext value={{ id: rest.id ?? undefined, titleId: labelledBy }}>
+    <DialogContext value={{ id: rest.id || undefined, titleId: labelledBy }}>
       <dialog
         aria-labelledby={labelledBy}
         className={cx(["ui-dialog", "ui-elevated", className])}

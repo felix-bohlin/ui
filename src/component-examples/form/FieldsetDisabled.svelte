@@ -8,9 +8,10 @@
   } from "opui-css/svelte"
 </script>
 
-<Fieldset disabled>
+<Fieldset aria-describedby="form-fieldset-disabled-1-description" disabled>
   <FieldLegend>Security alerts</FieldLegend>
-  <FieldDescription>Your administrator manages these settings.</FieldDescription
+  <FieldDescription id="form-fieldset-disabled-1-description"
+    >Your administrator manages these settings.</FieldDescription
   >
   <FieldGroup name="alerts">
     <Checkbox defaultChecked value="email">Email</Checkbox>

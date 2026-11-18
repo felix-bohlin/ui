@@ -14,6 +14,10 @@ export const todoExamples = {
     match:
       "Tooling: on the first request after `astro dev` starts, Astro's CSS collector",
   },
+  "button-current-page": {
+    match:
+      'Button: the current page (`aria-current="page"`) in a text, outlined or tonal button',
+  },
   "button-group-rtl-dividers": {
     match:
       "ButtonGroup: in right-to-left, filled and tonal groups lose the dividers",
@@ -28,6 +32,13 @@ export const todoExamples = {
   },
   "carousel-marker-focus": {
     match: "Carousel: the marker's own ring is drawn with `outline`",
+  },
+  "control-group-end-text": {
+    match: "ControlGroup: the group lines its controls up at the bottom",
+  },
+  "control-group-wrapped-divider": {
+    match:
+      "ControlGroup: in a group that isn't outlined and has a field, in forced colors",
   },
   "dialog-scrollbar-gutter": {
     match: "Dialog, Drawer: the scroll lock's `scrollbar-gutter: stable`",
@@ -62,6 +73,10 @@ export const todoExamples = {
     match:
       "Range: under `forced-colors: active` the range source sets its fill",
   },
+  "rating-empty-stars": {
+    match:
+      "Rating: filled and empty stars differ by color alone, and more contrast pulls them together",
+  },
   "resolved-tokens": {
     match: "Tokens: there is no Figma kit",
   },
@@ -76,6 +91,9 @@ export const todoExamples = {
   "spread-rem-breakpoint": {
     match:
       "TextField: the spread layout collapses at `@container (inline-size < 400px)`",
+  },
+  "state-fill-tint": {
+    match: "CSS: two state fills are literal black and white",
   },
   "switch-invalid": {
     match: "Switch: an invalid switch draws a `--ui-focus-ring-width` halo",

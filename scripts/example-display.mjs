@@ -8,9 +8,9 @@ const componentCssDir = join(root, "packages/opui/css/components")
 const coreCssDir = join(root, "packages/opui/core")
 const layersFile = join(root, "packages/opui/css/layers.css")
 
-export const CORE_CSS = ["normalize.css", "utils.css"]
+const CORE_CSS = ["normalize.css", "utils.css"]
 
-export const EXAMPLE_LAYOUT_CSS = join(root, "src/styles/example-layout.css")
+const EXAMPLE_LAYOUT_CSS = join(root, "src/styles/example-layout.css")
 
 export const UA_CSS = `
 area, base, datalist, head, link, meta, noembed, noframes, param, rp, script, style, template, title { display: none }
@@ -118,7 +118,7 @@ const balanced = (text, open) => {
 
 const PSEUDO_ELEMENT = /::|:(after|before|first-letter|first-line|marker)\b/
 
-const GENERATED = /^(.*?)::?(after|before)$/
+const GENERATED = /^(.*?)::?(after|before)$/s
 
 const PROPERTIES = ["content", "display", "position", "white-space"]
 
@@ -516,7 +516,8 @@ const treeOf = (nodes) => {
 export const matches = (selector, element, nodes) =>
   matchesList(parseSelectorList(selector), element, treeOf(nodes))
 
-export const cssRules = (css, { layered = true, rank } = {}) => {
+/** @param {string} css @param {{ conditions?: Map<string, boolean>, layered?: boolean, rank?: number }} [options] */
+export const cssRules = (css, { conditions, layered = true, rank } = {}) => {
   const layers = layerOrder()
   const rules = []
   const visit = (container, parents, layer) => {
@@ -526,6 +527,8 @@ export const cssRules = (css, { layered = true, rank } = {}) => {
           if (!node.nodes) continue
           const name = layer ? `${layer}.${node.params}` : node.params
           visit(node, parents, name)
+        } else if (node.name === "media" && /^print$/i.test(node.params)) {
+          continue
         } else if (node.name === "supports") {
           node.walkDecls((decl) => {
             if (decl.prop === "display" || decl.prop === "white-space") {
@@ -575,8 +578,26 @@ export const cssRules = (css, { layered = true, rank } = {}) => {
             }
           })
           if (!sets) continue
-          throw new Error(
-            `@${node.name} ${node.params} sets content, display or white-space, which the display model in scripts/example-display.mjs doesn't evaluate`,
+          const condition = `@${node.name} ${node.params}`
+          if (!conditions) {
+            throw new Error(
+              `${condition} sets content, display or white-space, which the display model in scripts/example-display.mjs doesn't evaluate`,
+            )
+          }
+          if (!conditions.has(condition)) conditions.set(condition, false)
+          if (!conditions.get(condition)) continue
+          const own = node.nodes.filter((child) => child.type === "decl")
+          visit(
+            {
+              nodes: [
+                ...(own.length > 0
+                  ? [postcss.rule({ nodes: own, selector: "&" })]
+                  : []),
+                ...node.nodes.filter((child) => child.type !== "decl"),
+              ],
+            },
+            parents,
+            layer,
           )
         }
         continue
@@ -684,10 +705,10 @@ export const generatedAtom = (pseudo) => {
 }
 
 /** @param {any[]} nodes @param {string[]} [css] */
-export const boxesOf = (nodes, css = []) => {
+export const boxesOf = (nodes, css = [], conditions = new Map()) => {
   const rules = [
     ...baseCssRules(),
-    ...css.flatMap((text) => cssRules(text, { layered: false })),
+    ...css.flatMap((text) => cssRules(text, { conditions, layered: false })),
   ].map((rule, order) => ({ ...rule, order }))
   const tree = treeOf(nodes)
   const declared = new Map()
@@ -786,8 +807,37 @@ const BREAK = { kind: "break" }
 const ATOMIC = { kind: "atomic" }
 
 /** @param {any[]} nodes @param {{ css?: string[], root?: string }} [options] */
-export const renderedText = (nodes, { css = [], root = "grid" } = {}) => {
-  const boxes = boxesOf(nodes, css)
+export const renderedText = (nodes, options = {}) => {
+  const conditions = new Map()
+  const rendered = renderedWith(nodes, options, conditions)
+  const names = [...conditions.keys()]
+  if (names.length > MAX_CONDITIONS) {
+    throw new Error(
+      `${names.length} conditional rules set content, display or white-space, and the display model in scripts/example-display.mjs evaluates at most ${MAX_CONDITIONS}: ${names.join(", ")}`,
+    )
+  }
+  for (let mask = 1; mask < 2 ** names.length; mask++) {
+    const applied = names.filter((_, index) => mask & (2 ** index))
+    const other = renderedWith(
+      nodes,
+      options,
+      new Map(names.map((name) => [name, applied.includes(name)])),
+    )
+    for (const [node, { text }] of rendered) {
+      if (other.get(node)?.text !== text) {
+        throw new Error(
+          `the whitespace of ${JSON.stringify(node.value)} renders as ${JSON.stringify(other.get(node)?.text)} when ${applied.join(" and ")} applies and as ${JSON.stringify(text)} when not, and the display model in scripts/example-display.mjs keeps one answer: lay the text out the same in both, or remove the whitespace`,
+        )
+      }
+    }
+  }
+  return rendered
+}
+
+const MAX_CONDITIONS = 6
+
+const renderedWith = (nodes, { css = [], root = "grid" }, conditions) => {
+  const boxes = boxesOf(nodes, css, conditions)
   const rendered = new Map()
 
   const settle = (atoms) => {

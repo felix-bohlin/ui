@@ -1,6 +1,8 @@
 ---
 import Guide from "../../layouts/Guide.astro"
 import Contributors from "../../components/Contributors.astro"
+
+export const keywords = ["credits", "inspiration", "thanks"]
 ---
 
 <Guide overline="Guide">
@@ -18,6 +20,15 @@ import Contributors from "../../components/Contributors.astro"
   <section id="thank-you">
     <h2>Thank you to</h2>
     <ul>
+      <li>
+        <a
+          href="https://open-props.style/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Open Props</a
+        >
+        by Adam Argyle, where the theme tokens started.
+      </li>
       <li>
         The community at the Open Props
         <a
@@ -41,14 +52,6 @@ import Contributors from "../../components/Contributors.astro"
     <ul>
       <li>
         <a
-          href="https://mui.com/material-ui/"
-          target="_blank"
-          rel="noopener noreferrer"
-          >Material UI</a
-        >
-      </li>
-      <li>
-        <a
           href="https://m3.material.io/"
           target="_blank"
           rel="noopener noreferrer"
@@ -57,10 +60,18 @@ import Contributors from "../../components/Contributors.astro"
       </li>
       <li>
         <a
-          href="https://tailwindcss.com/"
+          href="https://graffiti-ui.com/"
           target="_blank"
           rel="noopener noreferrer"
-          >Tailwind CSS</a
+          >Graffiti UI</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://mui.com/material-ui/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Material UI</a
         >
       </li>
       <li>
@@ -78,10 +89,10 @@ import Contributors from "../../components/Contributors.astro"
       </li>
       <li>
         <a
-          href="https://graffiti-ui.com/"
+          href="https://tailwindcss.com/"
           target="_blank"
           rel="noopener noreferrer"
-          >Graffiti UI</a
+          >Tailwind CSS</a
         >
       </li>
     </ul>
@@ -91,17 +102,10 @@ import Contributors from "../../components/Contributors.astro"
     <h2>Other amazing resources</h2>
     <ul>
       <li>
-        <a
-          href="https://developer.mozilla.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          >Mozilla Developer Network</a
+        <a href="https://astro.build/" target="_blank" rel="noopener noreferrer"
+          >Astro</a
         >
-      </li>
-      <li>
-        <a href="https://web.dev/" target="_blank" rel="noopener noreferrer"
-          >web.dev</a
-        >
+        - used to build this docs site
       </li>
       <li>
         <a
@@ -113,10 +117,17 @@ import Contributors from "../../components/Contributors.astro"
         - beautiful typeface used in these docs
       </li>
       <li>
-        <a href="https://astro.build/" target="_blank" rel="noopener noreferrer"
-          >Astro</a
+        <a
+          href="https://developer.mozilla.org/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >MDN Web Docs</a
         >
-        - used to build this docs site
+      </li>
+      <li>
+        <a href="https://web.dev/" target="_blank" rel="noopener noreferrer"
+          >web.dev</a
+        >
       </li>
     </ul>
   </section>

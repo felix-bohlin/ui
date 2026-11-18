@@ -8,6 +8,12 @@ import {
   blockPreviewHref,
   splitSource,
 } from "../../../utils/blocks"
+import {
+  FRAMEWORK_IDS,
+  FRAMEWORK_STORAGE_KEY,
+  FRAMEWORKS,
+  type FrameworkId,
+} from "../../../utils/framework"
 
 export function getStaticPaths() {
   const ordered = blockGroups.flatMap((group) => group.blocks)
@@ -26,11 +32,37 @@ const category = blockCategories.find((entry) => entry.id === block.category)
 const id = (name: string) => `block-${block.slug}-${name}`
 
 const source = splitSource(block.source)
-const codeTabs = [
-  { code: source.html, label: "HTML", lang: "html", name: "html" },
-  { code: source.css, label: "CSS", lang: "css", name: "css" },
-  { code: source.js, label: "JS", lang: "js", name: "js" },
-].filter((tab) => tab.code)
+type CodeTab = {
+  code: string
+  framework: FrameworkId
+  label: string
+  lang: string
+  name: string
+}
+const codeTabs = FRAMEWORKS.flatMap<CodeTab>(({ id: framework, label }) =>
+  framework === "html"
+    ? [
+        { code: source.html, label: "HTML", lang: "html", name: "html" },
+        { code: source.css, label: "CSS", lang: "css", name: "css" },
+        { code: source.js, label: "JS", lang: "js", name: "js" },
+      ]
+        .filter((tab) => tab.code)
+        .map((tab) => ({ ...tab, framework }))
+    : [
+        {
+          code: block.sources[framework],
+          framework,
+          label,
+          lang:
+            framework === "react" || framework === "solid" ? "tsx" : framework,
+          name: framework,
+        },
+      ],
+)
+const frameworkCss = FRAMEWORKS.map(
+  ({ id }) =>
+    `:root:not([data-framework="${id}"]) .block-viewer [data-framework="${id}"] { display: none; }`,
+).join("\n")
 
 const widths = [
   { label: "Desktop", value: "100%" },
@@ -43,8 +75,21 @@ const widths = [
   <Fragment slot="title">{block.name}</Fragment>
   <Fragment slot="preamble">{block.description}</Fragment>
 
+  <script
+    is:inline
+    define:vars={{ ids: FRAMEWORK_IDS, key: FRAMEWORK_STORAGE_KEY }}
+  >
+    try {
+      const saved = [
+        sessionStorage.getItem(key),
+        localStorage.getItem(key),
+      ].find((value) => ids.includes(value))
+      if (saved) document.documentElement.dataset.framework = saved
+    } catch {}
+  </script>
+
   <div class="block-viewer ui-not-rich-text">
-    <div class="ui-tabs ui-line">
+    <div class="ui-tabs ui-line ui-overflow-wrap">
       <input
         checked
         class="ui-input"
@@ -91,14 +136,19 @@ const widths = [
         <>
           <input
             class="ui-input"
+            data-framework={tab.framework}
             id={id(`${tab.name}-tab`)}
             name={id("view")}
             type="radio"
           />
-          <label class="ui-label" for={id(`${tab.name}-tab`)}>
+          <label
+            class="ui-label"
+            data-framework={tab.framework}
+            for={id(`${tab.name}-tab`)}
+          >
             {tab.label}
           </label>
-          <div class="ui-panel">
+          <div class="ui-panel" data-framework={tab.framework}>
             <Code code={tab.code} lang={tab.lang} />
           </div>
         </>
@@ -125,6 +175,8 @@ const widths = [
   </nav>
 </Blocks>
 
+<style is:inline set:html={frameworkCss}></style>
+
 <script>
   for (const viewer of document.querySelectorAll(".block-viewer")) {
     const frame = viewer.querySelector<HTMLElement>(".block-frame")
@@ -137,7 +189,10 @@ const widths = [
       "input[data-width]",
     )) {
       input.addEventListener("change", () => {
-        frame.style.inlineSize = input.dataset.width ?? ""
+        const width = input.dataset.width ?? ""
+        frame.style.inlineSize = width.endsWith("px")
+          ? `calc(${width} + 2 * var(--ui-border-width))`
+          : width
       })
     }
 
@@ -147,11 +202,33 @@ const widths = [
       iframe.style.blockSize = `${Math.ceil(content.getBoundingClientRect().height)}px`
     }
 
+    const showModal = (event: Event) => {
+      const dialog = event.target as HTMLElement
+      if (!dialog.matches("dialog:modal")) return
+      const place = () => {
+        const header =
+          document.querySelector(".site-header")?.getBoundingClientRect()
+            .bottom ?? 0
+        const space = innerHeight - header
+        scrollBy({
+          behavior: "instant",
+          top:
+            iframe.getBoundingClientRect().top +
+            dialog.offsetTop -
+            header -
+            Math.max(0, (space - dialog.offsetHeight) / 2),
+        })
+      }
+      place()
+      requestAnimationFrame(place)
+    }
+
     const observe = () => {
       const content = iframe.contentDocument?.querySelector(".block-preview")
       if (!content) return
       fit()
       new ResizeObserver(fit).observe(content)
+      iframe.contentDocument?.addEventListener("toggle", showModal, true)
     }
 
     if (iframe.contentDocument?.readyState === "complete") observe()

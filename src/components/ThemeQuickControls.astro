@@ -3,6 +3,7 @@ import {
   Button,
   FieldLegend,
   Fieldset,
+  Select,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/astro"
@@ -12,15 +13,12 @@ import BrandPicker from "./BrandPicker.astro"
 ---
 
 <form class="theme-quick ui-form">
-  <Fieldset>
-    <FieldLegend>Start from</FieldLegend>
-    <ToggleGroup aria-label="Start from" name="theme-preset" size="small">
-      <ToggleButton checked value="">Default</ToggleButton>
-      {EXAMPLE_THEMES.map((theme) => <ToggleButton value={theme.name}
-        >{theme.label}</ToggleButton
-      >)}
-    </ToggleGroup>
-  </Fieldset>
+  <Select label="Start from" name="theme-preset" size="small">
+    <option selected value="">Default</option>
+    {EXAMPLE_THEMES.map((theme) => <option value={theme.name}>
+      {theme.label}
+    </option>)}
+  </Select>
 
   <Fieldset>
     <FieldLegend>Brand color</FieldLegend>
@@ -88,6 +86,9 @@ import BrandPicker from "./BrandPicker.astro"
     const custom = picker.querySelector<OklchInput>("[data-brand-custom]")!
     const status = form.querySelector<HTMLElement>(".theme-quick-status")!
     const undo = form.querySelector<HTMLButtonElement>(".theme-quick-undo")!
+    const presetSelect = form.querySelector<HTMLSelectElement>(
+      'select[name="theme-preset"]',
+    )!
     let pendingColor: string | null = null
     let undoTheme: Theme | null = null
     let undoFingerprint = ""
@@ -99,7 +100,7 @@ import BrandPicker from "./BrandPicker.astro"
     const sync = () => {
       const theme = themeStore.get()
       const { preset, tokens } = theme
-      check("theme-preset", preset ?? "")
+      presetSelect.value = preset ?? ""
       const start = exampleTheme(preset)?.label ?? "Default"
       for (const label of form.querySelectorAll(".theme-quick-start")) {
         label.lastChild!.textContent = start
@@ -141,11 +142,13 @@ import BrandPicker from "./BrandPicker.astro"
 
     form.addEventListener("change", (event) => {
       const target = event.target
+      if (target === presetSelect) {
+        switchPreset(presetSelect.value || null)
+        return
+      }
       if (!(target instanceof HTMLInputElement)) return
       if (target.type === "radio" && !target.checked) return
-      if (target.name === "theme-preset") {
-        switchPreset(target.value || null)
-      } else if (target.name === "theme-brand") {
+      if (target.name === "theme-brand") {
         applyBrand(target.value || null)
       } else if (target.name === "theme-corners") {
         if (target.value !== "custom") {

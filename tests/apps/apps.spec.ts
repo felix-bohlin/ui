@@ -38,11 +38,16 @@ const expectedExamples = (name: string, slug: string) =>
 
 const offline = (page: Page) =>
   page.route(
-    (url) => url.hostname !== "localhost" || url.pathname === "/favicon.ico",
+    (url) =>
+      url.hostname !== "localhost" ||
+      url.pathname === "/favicon.ico" ||
+      url.pathname.startsWith("/photos/"),
     (route) =>
       route.request().resourceType() === "image"
         ? route.fulfill({ body: PIXEL, contentType: "image/png" })
-        : route.fulfill({ status: 204 }),
+        : new URL(route.request().url()).hostname === "localhost"
+          ? route.fulfill({ status: 204 })
+          : route.abort(),
   )
 
 const knownProblems = (name: string, slug: string) =>
@@ -58,7 +63,11 @@ const watch = async (page: Page) => {
   const problems: string[] = []
   page.on("pageerror", (error) => problems.push(`uncaught ${error.message}`))
   page.on("console", (message) => {
-    if (message.type() === "error" || message.type() === "warning") {
+    if (
+      (message.type() === "error" || message.type() === "warning") &&
+      new URL(message.location().url || "http://localhost").hostname ===
+        "localhost"
+    ) {
       problems.push(`console.${message.type()}: ${message.text()}`)
     }
   })
@@ -69,7 +78,7 @@ const watch = async (page: Page) => {
 const open = async (page: Page, path: string) => {
   await page.goto(path)
   await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
-  await page.waitForLoadState("networkidle")
+  await page.waitForLoadState("load")
 }
 
 const undefinedElements = (page: Page) =>
@@ -225,13 +234,13 @@ test("the components answer input once hydrated", async ({
   await open(page, "/text-field")
   const example = page.locator('[data-example="text-field/Binding"]')
   const text = example.locator(".text-field-binding-text")
-  await example.getByRole("textbox", { name: "Name" }).fill("Grace")
+  await example.getByRole("textbox", { name: "Name" }).fill("Percy")
   await expect(text, `${app.name} updates the bound value`).toHaveText(
-    "Hello, Grace.",
+    "Heyyy, Percy.",
   )
   await example.getByRole("button", { name: "Reset" }).click()
   await expect(text, `${app.name} runs the click handler`).toHaveText(
-    "Hello, Ada.",
+    "Heyyy, Holly.",
   )
   expect(unexpected(problems, app.name, "text-field")).toEqual([])
 })
@@ -273,8 +282,10 @@ const CHANGES = [
   { example: "radio/Basics", label: "PayPal", to: true },
   { example: "range/Basics", label: "Volume", to: "80" },
   { example: "rating/Input", label: "1 star", to: true },
-  { example: "select/Variants", label: "Role", to: "Developer" },
+  { example: "select/Variants", label: "Role", to: "Bass" },
   { example: "switch/Basics", label: "Bluetooth", to: true },
+  { example: "tabs/Basics", label: "Settings", to: true },
+  { example: "tabs/Binding", label: "Notifications", to: true },
   { example: "text-field/InputTypes", label: "Color", to: "#ff0000" },
   { example: "text-field/InputTypes", label: "Email", to: "ada@example.com" },
   { example: "text-field/InputTypes", label: "Password", to: "secret" },
@@ -284,6 +295,10 @@ const CHANGES = [
     to: "https://example.com/",
   },
   { example: "textarea/Variants", label: "Outlined", to: "Typed early" },
+  { example: "toggle/Binding", label: "Bold", to: false },
+  { example: "toggle/Binding", label: "Italic", to: true },
+  { example: "toggle/Binding", label: "Month", to: true },
+  { example: "toggle/Interactive", label: "Cycling", to: true },
 ]
 
 type Change = (typeof CHANGES)[number]
@@ -383,13 +398,49 @@ for (const slug of changedSlugs) {
 
     release()
     await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
-    await page.waitForLoadState("networkidle")
+    await page.waitForLoadState("load")
     for (const { control, initial, item } of changed) {
       expect(
         await formStateOf(control),
         `${app.name} keeps ${item.example} "${item.label}" and its server default when it hydrates`,
       ).toEqual({ current: item.to, initial })
     }
+    expect(unexpected(problems, app.name, slug)).toEqual([])
+  })
+}
+
+const BOUND = [
+  {
+    example: "tabs/Binding",
+    readout: ".tabs-binding-text",
+    text: "Selected: notifications",
+  },
+  {
+    example: "toggle/Binding",
+    readout: ".toggle-binding-text",
+    text: "View: month. Format: italic.",
+  },
+]
+
+for (const { example, readout, text } of BOUND) {
+  test(`${example} binds what changed before it hydrated`, async ({
+    page,
+  }, testInfo) => {
+    const app = appOf(testInfo.project.name)
+    test.skip(!app.scripts, `${app.name} renders on the client only`)
+    const slug = example.split("/")[0] ?? ""
+    const problems = await watch(page)
+    const release = await holdScripts(page, app.scripts ?? "")
+    await page.goto(`/${slug}`, { waitUntil: "commit" })
+    for (const item of CHANGES.filter((entry) => entry.example === example)) {
+      await change(await controlOf(page, item), item)
+    }
+    release()
+    await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
+    await expect(
+      page.locator(`[data-example="${example}"] ${readout}`),
+      `${app.name} sets the bound value of ${example} to the choice made before it hydrated`,
+    ).toHaveText(text)
     expect(unexpected(problems, app.name, slug)).toEqual([])
   })
 }
@@ -414,7 +465,7 @@ for (const slug of changedSlugs) {
     await page.goto("/button")
     await page.goBack()
     await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
-    await page.waitForLoadState("networkidle")
+    await page.waitForLoadState("load")
     for (const { control, item } of changed) {
       expect(
         (await formStateOf(control)).current,
@@ -442,4 +493,112 @@ test("a form reset after hydration restores the values and the readout", async (
   await expect(readout, `${app.name} resets the readout`).toHaveText("250°")
   await expect(slider).toHaveAttribute("aria-valuetext", "250°")
   expect(unexpected(problems, app.name, "range")).toEqual([])
+})
+
+test("a sortable table clicked before the app hydrates it waits for the sort handler", async ({
+  page,
+}, testInfo) => {
+  const app = appOf(testInfo.project.name)
+  test.skip(!app.scripts || !app.ssr, `${app.name} renders on the client only`)
+  const problems = await watch(page)
+  const { promise, resolve: release } = Promise.withResolvers<void>()
+  await page.route(
+    (url) =>
+      url.hostname === "localhost" &&
+      url.pathname.startsWith(app.scripts ?? ""),
+    async (route) => {
+      if (route.request().resourceType() === "script") await promise
+      await route.continue()
+    },
+  )
+  await page.goto("/table", { waitUntil: "commit" })
+  const table = page.locator('[data-example="table/Sortable"]')
+  const header = (name: string) => table.getByRole("columnheader", { name })
+  await header("Planet").waitFor()
+  await page.addScriptTag({
+    content: readFileSync(
+      path.join(
+        import.meta.dirname,
+        "../../packages/opui/elements/sortable-table.js",
+      ),
+      "utf8",
+    ),
+    type: "module",
+  })
+  await expect(table.locator("opui-sortable-table:defined")).toHaveCount(1)
+  await table.getByRole("button", { name: "Moons" }).click()
+  await expect(header("Moons")).not.toHaveAttribute("aria-sort")
+  expect(
+    await page.evaluate(() => "hydrated" in document.documentElement.dataset),
+    `${app.name} hydrated before the click`,
+  ).toBe(false)
+
+  release()
+  await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
+  await page.waitForLoadState("load")
+  await expect(table.locator("opui-sortable-table")).not.toHaveAttribute(
+    "data-hydrating",
+  )
+  await table.getByRole("button", { name: "Moons" }).click()
+  await expect(header("Moons")).toHaveAttribute("aria-sort", "ascending")
+  await expect(table.getByRole("status")).toHaveText("Moons, sorted ascending")
+  expect(unexpected(problems, app.name, "table")).toEqual([])
+})
+
+test("a callout dismissed before the app hydrates it waits for the dismiss handler", async ({
+  page,
+}, testInfo) => {
+  const app = appOf(testInfo.project.name)
+  test.skip(!app.scripts || !app.ssr, `${app.name} renders on the client only`)
+  const problems = await watch(page)
+  const { promise, resolve: release } = Promise.withResolvers<void>()
+  await page.route(
+    (url) =>
+      url.hostname === "localhost" &&
+      url.pathname.startsWith(app.scripts ?? ""),
+    async (route) => {
+      if (route.request().resourceType() === "script") await promise
+      await route.continue()
+    },
+  )
+  const questions: string[] = []
+  page.on("dialog", async (dialog) => {
+    questions.push(dialog.message())
+    await (questions.length === 1 ? dialog.dismiss() : dialog.accept())
+  })
+  await page.goto("/callout", { waitUntil: "commit" })
+  const callout = page.locator(
+    '[data-example="callout/Dismissible"] opui-callout',
+  )
+  const close = callout.getByRole("button", { name: "Dismiss" })
+  await callout.waitFor()
+  await page.addScriptTag({
+    content: readFileSync(
+      path.join(import.meta.dirname, "../../packages/opui/elements/callout.js"),
+      "utf8",
+    ),
+    type: "module",
+  })
+  await expect(
+    page.locator('[data-example="callout/Dismissible"] opui-callout:defined'),
+  ).toHaveCount(1)
+  await close.click()
+  await expect(callout).toBeVisible()
+  expect(questions).toEqual([])
+  expect(
+    await page.evaluate(() => "hydrated" in document.documentElement.dataset),
+    `${app.name} hydrated before the click`,
+  ).toBe(false)
+
+  release()
+  await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
+  await page.waitForLoadState("load")
+  await expect(callout).not.toHaveAttribute("data-hydrating")
+  await close.click()
+  await expect.poll(() => questions).toEqual(["Hide this message?"])
+  await expect(callout).toBeVisible()
+  await close.click()
+  await expect.poll(() => questions).toHaveLength(2)
+  await expect(callout).toBeHidden()
+  expect(unexpected(problems, app.name, "callout")).toEqual([])
 })

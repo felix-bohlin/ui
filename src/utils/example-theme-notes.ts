@@ -6,7 +6,7 @@ export const EXAMPLE_THEME_NOTES = {
   },
   brutalist: {
     description:
-      "Black 2px borders, hard 4px shadows on cards, dialogs and menus and on buttons that press into them on hover, with a state layer instead of a fill swap, filled in the main blue, white fields on the gray-blue page, the main blue also behind tooltips and selected items, black links, 500 weight body text and the 1.75 line height of Tailwind prose in rich text.",
+      "Black 2px borders, hard 4px shadows on cards, dialogs and menus and on buttons that press into them on hover, with a state layer instead of a fill swap, filled in the main blue, white fields on the gray-blue page, the main blue also behind tooltips and selected items, black links, 500 weight body text, the 1.75 line height of Tailwind prose in rich text and Lucide icons.",
     original: "neobrutalism",
   },
   govuk: {
@@ -16,12 +16,12 @@ export const EXAMPLE_THEME_NOTES = {
   },
   m3: {
     description:
-      "The baseline purple scheme and its tinted surfaces, the error red, pill buttons with 24px padding that show 8% state layers and lift on hover, outlined ones in the outline gray, 12px cards, 28px dialogs, 4px menus and outlined fields that thicken to 2px when focused, 8px chips, 18px checkboxes with 2px borders, on-surface text with on-surface-variant secondary text, primary tab labels, 52 by 32px switches, Roboto, the type scale, the emphasized easing and the 3px secondary focus ring over a 32% scrim.",
+      "The baseline purple scheme and its tinted surfaces, the error red, pill buttons with 24px padding that show 8% state layers and lift on hover, outlined ones in the outline gray, 12px cards, 28px dialogs, 4px menus and outlined fields that thicken to 2px when focused, 8px chips, 18px checkboxes with 2px borders, on-surface text with on-surface-variant secondary text, primary tab labels, 52 by 32px switches, Roboto, the type scale, the emphasized easing, the 3px secondary focus ring over a 32% scrim and Material Symbols icons.",
     original: "Material 3",
   },
   shadcn: {
     description:
-      "Neutral grays, a near-black primary also behind tooltips, 36px controls with 14px text and 16px padding, 32px small and 40px large buttons, light borders with a faint shadow, the accent tint on hover instead of a fill, a 3px gray focus ring over a gray border, 16px checks with 4px corners, a 32px switch with a white thumb, 8px menus and chips, 10px dialogs and 14px cards with 24px padding, muted secondary text, 500 weight links and the 1.75 line height of Tailwind prose in rich text.",
+      "Neutral grays, a near-black primary also behind tooltips, 36px controls with 14px text and 16px padding, 32px small and 40px large buttons, light borders with a faint shadow, the accent tint on hover instead of a fill, a 3px gray focus ring over a gray border, 16px checks with 4px corners, a 32px switch with a white thumb, 8px menus and chips, 10px dialogs and 14px cards with 24px padding, muted secondary text, 500 weight links, the 1.75 line height of Tailwind prose in rich text and Lucide icons.",
     original: "shadcn/ui",
   },
 }

@@ -1,17 +1,21 @@
-<label class="ui-textarea">
-  <span class="ui-label">Bio</span>
+<div class="ui-textarea">
+  <label class="ui-label" for="textarea-character-count-1">Bio</label>
   <span class="ui-field">
-    <textarea maxlength="160"></textarea>
+    <textarea
+      maxlength="160"
+      aria-describedby="textarea-character-count-1-end-text"
+      id="textarea-character-count-1"
+    ></textarea>
   </span>
-  <span class="ui-end-text">
-    Shown on your profile.
+  <span class="ui-end-text" id="textarea-character-count-1-end-text">
+    Up to 160 characters, shown on your profile.
     <opui-character-count
       aria-hidden="true"
       class="ui-value"
       label="{count} characters to go"
     ></opui-character-count>
   </span>
-</label>
+</div>
 
 <script type="module">
   import "opui-css/elements/character-count.js"

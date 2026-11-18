@@ -11,29 +11,25 @@ import DividerBuild from "../../components/UnderTheHood/DividerBuild.astro"
 import dividerApi from "../../component-api/divider/api"
 
 export const keywords = ["hr", "rule", "separator"]
+export const description =
+  "A line between content, plain or with a label at the start, middle or end."
 ---
 
 <Component
+  description={description}
   slug="divider"
   browserSupport={["container-style-queries", "text-box"]}
+  fallbacks={{
+    "text-box":
+      "Without `text-box`, a divider with a label keeps the label's full line height, so it takes a little more room.",
+  }}
   apis={[{ title: "Divider API", api: dividerApi }]}
-  changelogPaths={[
-    {
-      path: "packages/opui/components/Divider/Divider.astro",
-      type: "component",
-    },
-    { path: "src/docs/components/divider.astro", type: "docs" },
-    { path: "src/component-examples/divider", type: "docs" },
-    {
-      path: "packages/opui/css/components/divider.css",
-      type: "css",
-    },
-    { path: "src/component-api/divider", type: "api" },
-  ]}
   installationTabs={[{ title: "divider.css", code: DividerCSS, lang: "css" }]}
 >
   <Fragment slot="title">Divider</Fragment>
-  <Fragment slot="preamble"> It's just a line. </Fragment>
+  <Fragment slot="preamble">
+    A line between content, with an optional label.
+  </Fragment>
 
   <Usage slot="usage">
     <li slot="when">Separating groups, like the sections of a long form.</li>
@@ -91,6 +87,19 @@ export const keywords = ["hr", "rule", "separator"]
     <p>Use <code>--ui-divider-gap</code> to change the space around it.</p>
     <AutoExample name="Spacing" column />
   </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        A divider without text is an <code>hr</code>, which screen readers
+        announce as a separator.
+      </li>
+      <li>
+        A divider with text is a <code>div</code>, so screen readers read only
+        the text. Write text that makes sense on its own, like a section name.
+      </li>
+    </ul>
+  </Fragment>
 
   <DividerBuild slot="under-the-hood" />
 </Component>

@@ -9,7 +9,7 @@ export default {
     {
       attribute: "[aria-label]",
       description:
-        "The accessible name of the group. The Astro, React and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.",
+        "The accessible name of the group. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.",
       group: "Label",
       inherited: true,
       prop: "aria-label",
@@ -20,6 +20,13 @@ export default {
         "The id of the element that names the group, instead of `aria-label`.",
       inherited: true,
       prop: "aria-labelledby",
+      type: "string",
+    },
+    {
+      default: '"group"',
+      description: "The `role` of the root. A passed role replaces `group`.",
+      inherited: true,
+      prop: "role",
       type: "string",
     },
   ],

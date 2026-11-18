@@ -12,6 +12,7 @@ const {
   name,
   orientation,
   overflow,
+  role,
   size,
   value,
   ...rest
@@ -38,7 +39,7 @@ const html = await toggleGroupContext.provide(
     size && size !== "medium" && `ui-${size}`,
     className,
   ]}
-  role={multiple ? "group" : "radiogroup"}
+  role={role ?? (multiple ? "group" : "radiogroup")}
   {...rest}
 >
   <Fragment set:html={html} />

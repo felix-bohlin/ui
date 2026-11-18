@@ -18,8 +18,10 @@
       position: absolute;
 
       &::before {
-        animation: reading-progress-fill linear both;
+        animation-fill-mode: both;
+        animation-name: reading-progress-fill;
         animation-timeline: scroll(root block);
+        animation-timing-function: linear;
         background-color: var(--ui-primary);
         content: "";
         inset: 0;

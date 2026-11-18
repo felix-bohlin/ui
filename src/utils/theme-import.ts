@@ -7,7 +7,7 @@ export type Paste =
   | { kind: "css"; theme: Theme }
   | { kind: "none" }
 
-const DECLARATION = /(--ui-[a-z\d-]+)\s*:\s*([^;{}]+);/g
+const DECLARATION = /(--ui-[a-z\d-]+)\s*:\s*([^;{}]+)(?:;|(?=\})|$)/g
 
 const COLOR =
   /#(?:[\da-f]{3,4}|[\da-f]{6}|[\da-f]{8})\b|\b(?:rgba?|hsla?|hwb|lab|lch|oklab|oklch|color)\((?:[^()]|\([^()]*\))*\)/gi
@@ -46,13 +46,6 @@ export const parsePaste = (text: string): Paste => {
   const colors = [...new Set(trimmed.match(COLOR) ?? [])].map(expandHex)
   return colors.length > 0 ? { colors, kind: "colors" } : { kind: "none" }
 }
-
-export const STATUS_ORDER = [
-  "--ui-critical",
-  "--ui-info",
-  "--ui-success",
-  "--ui-warning",
-]
 
 export const imageColor = (data: Uint8ClampedArray | number[], step = 1) => {
   const buckets = new Map<

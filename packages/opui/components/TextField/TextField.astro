@@ -4,8 +4,7 @@ import { trimEdges } from "../whitespace"
 
 import type { Props } from "./types.astro"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
-import { createIds, idRefs } from "../id"
-import { hidePath, showPath } from "./icons"
+import { createIds, fieldDescribedBy } from "../id"
 import { cx } from "../cx"
 
 export const title = "Text Field"
@@ -13,21 +12,21 @@ export const title = "Text Field"
 const {
   "aria-describedby": ariaDescribedBy,
   "aria-invalid": ariaInvalid,
+  "aria-labelledby": ariaLabelledBy,
   autoFit,
   characterCount,
   characterCountLabel,
   class: className,
+  disabled,
   dropZone,
   endText,
   error,
   hideLabel,
   id,
-  inputmode,
   label,
   name,
   passwordToggle,
   passwordToggleLabel = "Show password",
-  pattern,
   size,
   spread,
   startText,
@@ -42,20 +41,19 @@ const ids = createIds(Astro.locals, "text-field", id)
 const labelSlot = Astro.slots.has("label")
   ? trimEdges(await Astro.slots.render("label"))
   : ""
-const Root = passwordToggle
-  ? "opui-text-field"
-  : label || labelSlot
-    ? "label"
-    : "div"
-const Label = passwordToggle ? "label" : "span"
+const hasLabel = Boolean(label || labelSlot)
+const Root = passwordToggle ? "opui-text-field" : "div"
 const hasStartText = Boolean(startText || Astro.slots.has("start-text"))
 const hasEndText = Boolean(
   endText || Astro.slots.has("end-text") || characterCount,
 )
-const inputId = passwordToggle ? ids() : id
-const startTextId =
-  passwordToggle && hasStartText ? ids("start-text") : undefined
-const endTextId = passwordToggle && hasEndText ? ids("end-text") : undefined
+const inputId = hasLabel || passwordToggle ? ids() : id
+const startId = Astro.slots.has("start") ? ids("start") : undefined
+const endId = Astro.slots.has("end") ? ids("end") : undefined
+const topId = Astro.slots.has("top") ? ids("top") : undefined
+const bottomId = Astro.slots.has("bottom") ? ids("bottom") : undefined
+const startTextId = hasStartText ? ids("start-text") : undefined
+const endTextId = hasEndText ? ids("end-text") : undefined
 ---
 
 <Root
@@ -72,36 +70,53 @@ const endTextId = passwordToggle && hasEndText ? ids("end-text") : undefined
   ])}
   style={style}
 >
-  {(label || labelSlot) && <Label
+  {hasLabel && <label
     class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
-    for={passwordToggle ? inputId : undefined}
+    for={inputId}
     >{label}<Fragment set:html={labelSlot}
-  /></Label>}
+  /></label>}
   {hasStartText && <span class="ui-start-text" id={startTextId}>
     {startText}
     <slot name="start-text" />
   </span>}
   <span class="ui-field">
-    <input
-      {...rest}
-      aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
-      aria-invalid={error ? "true" : ariaInvalid}
-      id={inputId}
-      inputmode={inputmode ?? (type === "numeric" ? "numeric" : undefined)}
-      name={name ?? field?.name}
-      pattern={pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
-      type={type === "numeric" ? "text" : type}
-    />
-    {Astro.slots.has("start") && <span class="ui-start">
+    {Astro.slots.has("top") && <span class="ui-top" id={topId}>
+      <slot name="top" />
+    </span>}
+    {Astro.slots.has("start") && <span class="ui-start" id={startId}>
       <slot name="start" />
     </span>}
-    {(Astro.slots.has("end") || passwordToggle) && <span class="ui-end">
+    <input
+      {...rest}
+      aria-describedby={fieldDescribedBy(
+        {
+          bottom: bottomId,
+          end: endId,
+          endText: endTextId,
+          start: startId,
+          startText: startTextId,
+          top: topId,
+        },
+        ariaDescribedBy,
+      )}
+      aria-invalid={error ? "true" : ariaInvalid}
+      aria-labelledby={ariaLabelledBy}
+      disabled={disabled}
+      id={inputId}
+      name={name ?? field?.name}
+      type={type}
+    />
+    {(Astro.slots.has("end") || passwordToggle) && <span
+      class="ui-end"
+      id={endId}
+    >
       <slot name="end" />
       {passwordToggle && <Button
         aria-label={passwordToggleLabel}
         aria-pressed="false"
         command="--toggle-password"
         commandfor={inputId}
+        disabled={disabled}
         round
       >
         {Astro.slots.has("icon-unchecked") ? (
@@ -116,9 +131,7 @@ const endTextId = passwordToggle && hasEndText ? ids("end-text") : undefined
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" d={showPath} />
-          </svg>
+          ></svg>
         )}
         {Astro.slots.has("icon-checked") ? (
           <span aria-hidden="true" class="ui-icon-checked">
@@ -132,16 +145,11 @@ const endTextId = passwordToggle && hasEndText ? ids("end-text") : undefined
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" d={hidePath} />
-          </svg>
+          ></svg>
         )}
       </Button>}
     </span>}
-    {Astro.slots.has("top") && <span class="ui-top">
-      <slot name="top" />
-    </span>}
-    {Astro.slots.has("bottom") && <span class="ui-bottom">
+    {Astro.slots.has("bottom") && <span class="ui-bottom" id={bottomId}>
       <slot name="bottom" />
     </span>}
   </span>

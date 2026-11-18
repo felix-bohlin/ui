@@ -5,34 +5,34 @@ export default function Spread() {
     <>
       <TextField
         label="Name"
-        placeholder="Ada Lovelace"
+        placeholder="Holly Humbucker"
         spread
-        startText="Provide your full name for identification"
+        startText="Your full name, as the drummer never says it"
       />
 
       <TextField
-        endText="Please use a valid email address"
+        endText="Use one the band checks."
         label="Email"
-        placeholder="you@example.com"
+        placeholder="name@lowend.example"
         spread
-        startText="We'll use this to contact you"
+        startText="We'll send your gig invites here"
         type="email"
         variant="filled"
       />
 
       <TextField
-        label="Company"
+        label="Band"
         required
         spread
-        startText="Shown on your invoices"
+        startText="Shown on your gig flyers"
       />
 
       <TextField
-        defaultValue="ACC-20931"
+        defaultValue="BASS-20931"
         disabled
-        label="Account ID"
+        label="Member ID"
         spread
-        startText="Assigned when you signed up"
+        startText="Assigned when you joined Bassbook"
       />
 
       <TextField
@@ -41,7 +41,7 @@ export default function Spread() {
         error
         label="Display name"
         spread
-        startText="Shown next to your comments"
+        startText="Shown next to your wall posts"
       />
 
       <TextField
@@ -50,36 +50,37 @@ export default function Spread() {
         placeholder="0.00"
         spread
         start="€"
-        startText="Daily spending limit"
+        startText="Daily gear spending limit"
       />
 
       <TextField
-        endText="Must include a valid domain"
+        endText="Include the domain, like example.com."
         label="Website"
         placeholder="example.com"
         spread
         start="https://"
-        startText="Your public profile URL"
+        startText="Your band homepage, totally rad"
         variant="filled"
       />
 
       <TextField
         bottom="Lowercase letters and dashes only"
-        label="Project name"
-        placeholder="my-project"
+        label="Band page"
+        placeholder="my-band"
         spread
-        startText="Used to generate the project URL"
-        top="acme.dev/"
+        startText="Used to make your band page URL"
+        top="bassbook.example/"
       />
 
       <TextField
-        bottom="Rotates every 90 days"
-        endText="Treat like a password"
-        label="API key"
-        placeholder="Paste your key"
+        bottom="Changes every 90 days"
+        endText="Never show it to the drummer."
+        label="Secret riff"
+        placeholder="Paste your riff"
         spread
         start={
           <svg
+            data-icon="lock"
             aria-hidden="true"
             width="16"
             height="16"
@@ -94,7 +95,7 @@ export default function Spread() {
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
           </svg>
         }
-        startText="Stored encrypted at rest"
+        startText="Locked away from guitarists"
         top="Secret"
         type="password"
         variant="filled"

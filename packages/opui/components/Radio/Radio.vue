@@ -3,6 +3,7 @@ import { useInputAttrs } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import RadioInput from "./RadioInput.vue"
 import { hasName, warnUnnamed } from "../dev"
+import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
@@ -24,7 +25,7 @@ defineOptions({
 
 const attrs = useInputAttrs()
 
-const modelValue = defineModel<string | number | boolean | undefined>({
+const model = defineModel<string | number | boolean | undefined>({
   default: undefined,
 })
 
@@ -41,16 +42,16 @@ warnUnnamed("Radio", hasName({ ...attrs.value, label }, slots.default))
       size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
-    :style="$attrs.style"
+    v-bind="styleAttrs($attrs.style)"
   >
     <RadioInput
       v-bind="attrs"
       :aria-invalid="error ? 'true' : attrs['aria-invalid']"
-      v-model="modelValue"
+      v-model="model"
     />
     <span
       v-if="label || $slots.default"
-      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
+      :class="hideLabel ? 'ui-sr-only' : 'ui-label'"
       >{{ label }}<TrimmedSlot :nodes="$slots.default?.()"
     /></span>
     <span v-if="endText || $slots['end-text']" class="ui-end-text"

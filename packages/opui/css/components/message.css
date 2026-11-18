@@ -1,5 +1,5 @@
 @layer components.extended {
-  :where(.ui-messages) {
+  :where(.ui-message-list) {
     container-type: inline-size;
     display: flex;
     flex-direction: column;
@@ -7,6 +7,28 @@
     list-style: none;
     margin: 0;
     padding: 0;
+
+    & > :where(.ui-divider) {
+      margin-block: var(--ui-space-2);
+    }
+
+    /* A chat between two people: the chat's title names the other person,
+       so no message repeats a name or an avatar. The name stays for screen
+       readers. */
+    &.ui-direct > .ui-message {
+      & > .ui-avatar {
+        display: none;
+      }
+
+      & > .ui-content > .ui-header {
+        block-size: 1lh;
+        clip-path: inset(50%);
+        inline-size: 1ch;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+      }
+    }
   }
 
   :where(.ui-message) {
@@ -26,6 +48,10 @@
     grid-template-areas: "start content" ". bottom";
     grid-template-columns: auto minmax(0, auto);
     max-inline-size: var(--_max-inline-size);
+
+    @media print {
+      print-color-adjust: exact;
+    }
 
     @supports (corner-shape: squircle) {
       --_radius: calc(var(--ui-radius) * 1.75);
@@ -97,6 +123,8 @@
       padding-inline: var(--ui-space-2);
 
       & > .ui-toggle-group {
+        --_divider-gap: 0px;
+
         background-color: transparent;
         gap: var(--ui-space-1);
         outline: 0;
@@ -115,7 +143,7 @@
           --_size: var(--ui-button-size-x-small);
 
           background-color: var(--ui-surface);
-          border: var(--ui-border-width) solid var(--ui-border-color);
+          border: var(--ui-border-width) solid var(--_border-color);
           border-radius: var(--ui-radius-round);
           box-shadow: 0 0 0 var(--ui-border-width) var(--ui-surface);
           flex: none;
@@ -123,15 +151,21 @@
 
           @media (hover: hover) {
             &:hover {
-              border-color: var(--ui-text-subtle);
+              --_border-color: var(--ui-text-subtle);
+            }
+          }
+
+          &:has(input:focus-visible) {
+            @media (forced-colors: none) {
+              border-color: var(--ui-focus-border-color, var(--_border-color));
             }
           }
 
           &:has(input:checked) {
+            --_border-color: var(--ui-selected-strong);
             --ui-focus-ring-color: inherit;
 
             background-color: var(--_selected-bg-color);
-            border-color: var(--ui-selected-strong);
             color: var(--ui-on-selected, var(--ui-text-strong));
           }
         }
@@ -237,6 +271,10 @@
       color: var(--ui-text-subtle);
       content: "";
       inline-size: var(--ui-space-7);
+    }
+
+    &.ui-typing > .ui-content:dir(rtl)::before {
+      background-position-x: 100%, 50%, 0;
     }
 
     @media (forced-colors: active) {

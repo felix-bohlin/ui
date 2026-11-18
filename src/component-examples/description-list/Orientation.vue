@@ -8,22 +8,37 @@ import {
 </script>
 
 <template>
+  <DescriptionList border="solid" style="max-inline-size: 18rem">
+    <DescriptionListItem>
+      <DescriptionListTerm>Plan</DescriptionListTerm>
+      <DescriptionListDescription>Gold</DescriptionListDescription>
+    </DescriptionListItem>
+    <DescriptionListItem>
+      <DescriptionListTerm>Bandmates</DescriptionListTerm>
+      <DescriptionListDescription>4</DescriptionListDescription>
+    </DescriptionListItem>
+    <DescriptionListItem>
+      <DescriptionListTerm>Renews</DescriptionListTerm>
+      <DescriptionListDescription>Mar 1, 2027</DescriptionListDescription>
+    </DescriptionListItem>
+  </DescriptionList>
+
   <DescriptionList
-    bordered
+    border="solid"
     orientation="horizontal"
     style="max-inline-size: 18rem"
   >
     <DescriptionListItem>
-      <DescriptionListTerm>Subtotal</DescriptionListTerm>
-      <DescriptionListDescription>€120.00</DescriptionListDescription>
+      <DescriptionListTerm>Plan</DescriptionListTerm>
+      <DescriptionListDescription>Gold</DescriptionListDescription>
     </DescriptionListItem>
     <DescriptionListItem>
-      <DescriptionListTerm>Shipping</DescriptionListTerm>
-      <DescriptionListDescription>€8.00</DescriptionListDescription>
+      <DescriptionListTerm>Bandmates</DescriptionListTerm>
+      <DescriptionListDescription>4</DescriptionListDescription>
     </DescriptionListItem>
     <DescriptionListItem>
-      <DescriptionListTerm>Total</DescriptionListTerm>
-      <DescriptionListDescription>€128.00</DescriptionListDescription>
+      <DescriptionListTerm>Renews</DescriptionListTerm>
+      <DescriptionListDescription>Mar 1, 2027</DescriptionListDescription>
     </DescriptionListItem>
   </DescriptionList>
 </template>

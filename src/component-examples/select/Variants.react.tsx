@@ -5,16 +5,16 @@ export default function Variants() {
     <>
       <Select label="Role">
         <option value="">-</option>
-        <option>Designer</option>
-        <option>Developer</option>
-        <option>Manager</option>
+        <option>Backing vocals</option>
+        <option>Bass</option>
+        <option>Tambourine</option>
       </Select>
 
-      <Select label="Team" variant="filled">
+      <Select label="Band" variant="filled">
         <option value="">-</option>
-        <option>Design</option>
-        <option>Engineering</option>
-        <option>Sales</option>
+        <option>Brad and the Brads</option>
+        <option>Low End Theory</option>
+        <option>The Low Enders</option>
       </Select>
     </>
   )

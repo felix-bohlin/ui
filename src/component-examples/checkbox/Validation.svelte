@@ -10,8 +10,8 @@
 </div>
 <div class="example-row">
   <Checkbox defaultChecked error name="checkbox-validation">
-    Daily backups
-    {#snippet endText()}Not available on the free plan.{/snippet}
+    Daily tab backups
+    {#snippet endText()}Only in Bassbook Gold, sorry.{/snippet}
   </Checkbox>
   <Checkbox error name="checkbox-validation" orientation="vertical">
     I accept the terms

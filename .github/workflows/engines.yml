@@ -1,0 +1,75 @@
+name: Engines
+
+on:
+  pull_request:
+    types: [labeled, opened, reopened, synchronize]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: engines-${{ github.event.action == 'labeled' && github.event.label.name != 'e2e-engines' && github.run_id || github.event.pull_request && github.event.pull_request.head.repo.full_name != github.repository && format('fork-{0}', github.event.pull_request.number) || github.head_ref || github.ref_name }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    if: github.event_name != 'pull_request' || (contains(github.event.pull_request.labels.*.name, 'e2e-engines') && (github.event.action != 'labeled' || github.event.label.name == 'e2e-engines'))
+    runs-on: ubuntu-latest
+    env:
+      GIT_LFS_SKIP_SMUDGE: "1"
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test:e2e:build
+      - uses: actions/upload-artifact@v7
+        with:
+          name: dist-test
+          path: dist-test/
+          retention-days: 1
+
+  e2e-engines:
+    name: e2e engines (${{ matrix.project }} ${{ matrix.shard }})
+    needs: build
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v1.63.0-noble
+    env:
+      GIT_LFS_SKIP_SMUDGE: "1"
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [firefox, webkit]
+        shard: [1/2, 2/2]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist-test
+          path: dist-test
+      - run: pnpm test:e2e --project=${{ matrix.project }} --shard=${{ matrix.shard }}
+        env:
+          E2E_PREBUILT: "1"
+          HOME: /root
+      - if: ${{ !cancelled() }}
+        run: node scripts/e2e-summary.mjs test-results/report.json --title "e2e engines (${{ matrix.project }} ${{ matrix.shard }})" | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: playwright-report-${{ matrix.project }}-${{ strategy.job-index }}
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 14

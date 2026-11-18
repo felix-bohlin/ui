@@ -11,6 +11,8 @@ export default {
   notes: passThrough("input", "label", ["autofocus", "form"], {
     react:
       "`defaultChecked` sets the starting state, and `checked` with `onChange` controls it, like on any input. In a `ToggleGroup` with a `value` or `defaultValue`, the group's value wins and a button's own `checked` and `defaultChecked` are ignored.",
+    solid:
+      "`checked` sets the state and follows it when it changes, and `onChange` reports changes. In a `ToggleGroup` with a `value`, the group's value wins and a button's own `checked` is ignored.",
     svelte:
       "`bind:checked` binds a standalone checkbox button. A radio fires no `change` when another one takes the check, so for a choice of one, use a `ToggleGroup` with `bind:value`. In a `ToggleGroup`, `checked` only sets the starting state: the group's value wins once it has one.",
     vue: "`v-model` binds a standalone checkbox button. A radio fires no `change` when another one takes the check, so for a choice of one, use a `ToggleGroup` with `v-model`. In a `ToggleGroup`, `checked` only sets the starting state: the group's value wins once it has one.",
@@ -78,7 +80,7 @@ export default {
     {
       default: '"checkbox"',
       description:
-        'The input type. `"radio"` allows one selection in a group. A `ToggleGroup` without `multiple` makes every button a radio.',
+        "The input type. `radio` allows one selection in a group. A `ToggleGroup` without `multiple` makes every button a radio.",
       group: "Type",
       part: "input",
       prop: "type",

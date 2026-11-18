@@ -11,13 +11,14 @@
   {#snippet start()}https://{/snippet}
 </TextField>
 
-<TextField label="Weight" placeholder="0" type="numeric">
+<TextField inputmode="decimal" label="Weight" placeholder="0">
   {#snippet end()}kg{/snippet}
 </TextField>
 
 <TextField label="Search" placeholder="Search...">
   {#snippet start()}
     <svg
+      data-icon="search"
       aria-hidden="true"
       width="16"
       height="16"

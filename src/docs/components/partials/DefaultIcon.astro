@@ -1,0 +1,55 @@
+---
+import DocLink from "../../../components/DocLink.astro"
+
+type Props = {
+  slots?: string[]
+  tokens: string[]
+}
+
+const { slots = [], tokens } = Astro.props
+
+const framework = Astro.locals.framework
+const camel =
+  framework === "react" || framework === "solid" || framework === "svelte"
+const kind = {
+  astro: "slot",
+  html: "",
+  react: "prop",
+  solid: "prop",
+  svelte: "snippet",
+  vue: "slot",
+}[framework]
+const names = slots.map((slot) =>
+  camel
+    ? slot.replace(/-(\w)/g, (_, letter: string) => letter.toUpperCase())
+    : slot,
+)
+const list = new Intl.ListFormat("en-GB", { type: "conjunction" })
+const codes = (items: string[]) =>
+  list.format(items.map((item) => `<code>${item}</code>`))
+const many = tokens.length > 1
+const empty = `Leave ${many ? "each" : "the"} <code>svg</code> empty, with a <code>viewBox</code> and nothing between its tags, for the default ${many ? "icons" : "icon"} from ${codes(tokens)}. Shapes inside it draw `
+const fromTokens = `The default ${many ? "icons come" : "icon comes"} from ${codes(tokens)}.`
+const inSlots =
+  names.length > 1
+    ? ` go in the ${codes(names)} ${kind}s.`
+    : ` goes in the ${codes(names)} ${kind}.`
+---
+
+{framework === "html" ? (
+  <p>
+    <Fragment set:html={empty} /><DocLink href="/guide/theming#icons-slots"
+      >your own icon</DocLink
+    >
+    instead.
+  </p>
+) : (
+  <p>
+    <Fragment set:html={fromTokens} />
+    {names.length > 0 && <Fragment>
+      <DocLink href="/guide/theming#icons-slots"
+        >{names.length > 1 ? "Your own icons" : "Your own icon"}</DocLink
+      ><Fragment set:html={inSlots} />
+    </Fragment>}
+  </p>
+)}

@@ -1,4 +1,4 @@
-export type ProbeSet = { className: string; colors: string[]; unset?: string[] }
+type ProbeSet = { className: string; colors: string[]; unset?: string[] }
 
 const hosts = new WeakMap<Element, Map<string, HTMLElement>>()
 

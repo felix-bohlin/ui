@@ -5,6 +5,7 @@ import TableOfContents from "../components/TableOfContents.astro"
 import LocalNav from "../components/LocalNav.astro"
 import SidebarNav, { type SidebarGroup } from "../components/SidebarNav.astro"
 import { Button, Drawer, DrawerContent, DrawerFooter } from "opui-css/astro"
+import { addHeadingAnchors } from "../utils/heading-anchors"
 
 type Props = {
   title?: string
@@ -48,12 +49,18 @@ const titleText = rawTitle
 // Same for description. If prop description isn't set, try extracting from preamble.
 const descText =
   description ?? (preamble ? preamble.replace(/<[^>]+>/g, "").trim() : "")
+
+const { headings, html: content } = addHeadingAnchors(
+  await Astro.slots.render("default"),
+)
 ---
 
 <Default title={titleText} description={descText} hasMarkdown image={image}>
   <Fragment slot="toolbar">
     <LocalNav
+      headings={headings}
       sidebarDrawerId={hasSidebarNav ? "sidebar-drawer" : undefined}
+      sidebarLabel={sidebarGroups[0]?.label}
       showToc={showToc}
     />
   </Fragment>
@@ -66,7 +73,7 @@ const descText =
     </aside>}
 
     {hasSidebarNav && <Drawer
-      aria-label="Sidebar"
+      aria-label={sidebarGroups[0]?.label}
       id="sidebar-drawer"
       backdrop="transparent"
       scrollLock
@@ -98,50 +105,35 @@ const descText =
             ))}
         </hgroup>
 
-        <slot />
+        <Fragment set:html={content} />
       </article>
     </main>
 
-    {showToc && <aside class="page-contents">
+    {showToc && <div class="page-contents">
       <ReadingProgress />
-      <TableOfContents slot="table-of-contents" />
-    </aside>}
+      <TableOfContents headings={headings} slot="table-of-contents" />
+    </div>}
   </div>
 </Default>
 
 <script>
-  import { headingId, isContentHeading } from "../utils/headings"
+  import "../utils/scroll-regions"
 
-  const headings = document.querySelectorAll(
-    "#main-content :is(h2, h3, h4, h5, h6)",
-  )
-  headings.forEach((heading) => {
-    if (!isContentHeading(heading)) {
-      return
-    }
-
-    if (!heading.querySelector("span")) {
-      const span = document.createElement("span")
-      while (heading.firstChild) {
-        span.appendChild(heading.firstChild)
-      }
-      heading.appendChild(span)
-    }
-
-    const id = headingId(heading)
+  const sidebar = document.querySelector<HTMLElement>("aside.sidebar")
+  const current = sidebar?.querySelector<HTMLElement>('[aria-current="page"]')
+  if (sidebar && current) {
+    const sidebarRect = sidebar.getBoundingClientRect()
+    const currentRect = current.getBoundingClientRect()
     if (
-      !heading.querySelector(".header-anchor") &&
-      id &&
-      !heading.matches(".ui-sr-only")
+      currentRect.top < sidebarRect.top ||
+      currentRect.bottom > sidebarRect.bottom
     ) {
-      const anchor = document.createElement("a")
-      anchor.className = "header-anchor"
-      anchor.href = `#${id}`
-      anchor.ariaLabel = `Permalink to "${heading.textContent?.trim()}"`
-      anchor.textContent = "\u200B"
-      heading.appendChild(anchor)
+      sidebar.scrollTop +=
+        currentRect.top -
+        sidebarRect.top -
+        (sidebar.clientHeight - currentRect.height) / 2
     }
-  })
+  }
 </script>
 
 <style is:global>
@@ -158,6 +150,17 @@ const descText =
     > :where(.conditional)
     > :where(:not(.is-wide)) {
     max-inline-size: var(--content-inline-size);
+  }
+
+  :where(#main-content > .ui-rich-text) > :where(blockquote, dl, ol, p, ul),
+  :where(#main-content > .ui-rich-text)
+    > section
+    > :where(blockquote, dl, ol, p, ul),
+  :where(#main-content > .ui-rich-text)
+    > section
+    > :where(.conditional)
+    > :where(blockquote, dl, ol, p, ul) {
+    max-inline-size: min(var(--content-inline-size), var(--site-content-text));
   }
 
   #document-page {
@@ -407,6 +410,13 @@ const descText =
       }
 
       @scope (&) to (.example-container, .ui-card) {
+        .ui-callout {
+          max-inline-size: min(
+            var(--content-inline-size),
+            var(--site-content-text)
+          );
+        }
+
         :where(h2, h3, h4, h5, h6) {
           align-items: center;
           display: flex;
@@ -435,11 +445,8 @@ const descText =
         }
 
         @media (width > 1200px) {
-          h2 {
-            container-name: sticky-heading;
-            container-type: scroll-state;
-            inset-block-start: var(--size-4);
-            max-inline-size: min(
+          h2[data-heading] {
+            --sticky-heading-inline-size: min(
               var(--content-inline-size),
               min(
                   100vw - var(--site-gap),
@@ -453,15 +460,38 @@ const descText =
                 ) -
                 var(--site-gap) * 2 - 200px - var(--size-5)
             );
+
+            container-name: sticky-heading;
+            container-type: scroll-state;
+            inset-block-start: calc(var(--size-3) + (3.75rem - 1lh) / 2);
+            pointer-events: none;
             position: sticky;
             z-index: 22;
 
+            & > * {
+              pointer-events: auto;
+            }
+
+            &::after {
+              content: attr(data-heading) / "";
+              inset-block-start: 0;
+              inset-inline-start: 0;
+              max-inline-size: var(--sticky-heading-inline-size);
+              opacity: 0;
+              overflow: hidden;
+              position: absolute;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+
             @container sticky-heading scroll-state(stuck: top) {
-              & > span {
-                min-inline-size: 0;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
+              & > * {
+                opacity: 0;
+                pointer-events: none;
+              }
+
+              &::after {
+                opacity: 1;
               }
             }
           }

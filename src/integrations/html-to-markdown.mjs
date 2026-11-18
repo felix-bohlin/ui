@@ -145,6 +145,9 @@ const codeGroup = (node) => {
     textContent(tab).trim(),
   )
   const blocks = selectAll(".code-block", node)
+  if (labels.length === 0) {
+    return element("div", {}, blocks.slice(0, 1).map(codeBlock))
+  }
   return element(
     "div",
     {},

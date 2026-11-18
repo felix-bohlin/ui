@@ -53,6 +53,18 @@ const checkable = (field: Field): field is HTMLInputElement =>
 const optionValue = (option: HTMLOptionElement | HTMLInputElement) =>
   "_value" in option ? option._value : option.value
 
+const ownValue = (field: HTMLInputElement, vnode: VNode) =>
+  "_value" in field || !(vnode.props && "value" in vnode.props)
+    ? optionValue(field)
+    : vnode.props.value
+
+const serverIndex = (field: HTMLSelectElement) => {
+  const options = [...field.options]
+  const marked = options.findLastIndex((option) => option.defaultSelected)
+  if (marked !== -1 || field.size > 1) return marked
+  return options.findIndex((option) => !option.matches(":disabled"))
+}
+
 const serverValue = (field: HTMLInputElement | HTMLTextAreaElement) => {
   if (!isInput(field)) return field.defaultValue
   const probe = document.createElement("input")
@@ -72,8 +84,7 @@ const changed = (field: Field) => {
         (option) => option.selected !== option.defaultSelected,
       )
     }
-    const initial = options.findIndex((option) => option.defaultSelected)
-    return field.selectedIndex !== Math.max(initial, 0)
+    return field.selectedIndex !== serverIndex(field)
   }
   return field.value !== serverValue(field)
 }
@@ -82,7 +93,7 @@ const pending = new WeakMap<unknown[], unknown[]>()
 
 const toggled = (field: HTMLInputElement, list: unknown[], vnode: VNode) => {
   const base = pending.get(list) ?? list
-  const value = "_value" in field ? optionValue(field) : vnode.props?.value
+  const value = ownValue(field, vnode)
   if (base.includes(value) === field.checked) return base
   const next = field.checked
     ? [...base, value]
@@ -98,7 +109,7 @@ const stateOf = (
   vnode: VNode,
 ) => {
   if (checkable(field)) {
-    if (field.type !== "checkbox") return vnode.props?.value ?? field.value
+    if (field.type !== "checkbox") return ownValue(field, vnode)
     return Array.isArray(model) ? toggled(field, model, vnode) : field.checked
   }
   if (isSelect(field)) {
@@ -235,4 +246,50 @@ export const vSeed: ObjectDirective<Field> = {
     resets.delete(field)
     latest.delete(field)
   },
+}
+
+const wanted = new WeakMap<HTMLInputElement, boolean>()
+
+export const seedChecked = (
+  change: (input: HTMLInputElement) => void,
+): ObjectDirective<HTMLInputElement, boolean | undefined> => {
+  const report = (input: HTMLInputElement) => {
+    if (input.checked || input.type === "checkbox") change(input)
+  }
+  return {
+    created: (input, { value }) => {
+      wanted.set(input, !!value)
+      if (input.parentNode) hydrated.add(input)
+      if (input.parentNode && input.checked !== input.defaultChecked) {
+        report(input)
+      } else input.checked = !!value
+    },
+    mounted: (input) => {
+      if (!hydrated.has(input)) queueMicrotask(() => keepDefaults(input))
+      const { form } = input
+      if (!form) return
+      const listener = (event: Event) =>
+        setTimeout(() => {
+          if (!event.defaultPrevented && input.checked !== wanted.get(input)) {
+            report(input)
+          }
+        })
+      form.addEventListener("reset", listener)
+      resets.set(input, () => form.removeEventListener("reset", listener))
+    },
+    beforeUpdate: (input, { oldValue, value }) => {
+      wanted.set(input, !!value)
+      if (value !== oldValue) input.checked = !!value
+    },
+    beforeUnmount: (input) => {
+      resets.get(input)?.()
+      resets.delete(input)
+      wanted.delete(input)
+    },
+    getSSRProps: ({ value }) => (value ? { checked: true } : undefined),
+  }
+}
+
+export const vHydrated: ObjectDirective<Element> = {
+  mounted: (element) => element.removeAttribute("data-hydrating"),
 }

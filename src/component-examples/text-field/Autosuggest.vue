@@ -4,28 +4,30 @@ import { TextField } from "opui-css/vue"
 
 <template>
   <TextField
-    label="Users"
+    id="text-field-autosuggest-1"
+    label="Bassists"
     list="text-field-autosuggest-1-list"
-    placeholder="Placeholder"
+    placeholder="Search bassists"
   >
     <datalist id="text-field-autosuggest-1-list">
-      <option value="Jonny Greenwood"></option>
-      <option value="Marika Hackman"></option>
-      <option value="Ray Manzarek"></option>
+      <option value="Ines Hertz"></option>
+      <option value="Lou Headstock"></option>
+      <option value="Percy Groove"></option>
     </datalist>
   </TextField>
 
   <TextField
+    id="text-field-autosuggest-2"
     label="Emails"
     list="text-field-autosuggest-2-list"
-    placeholder="Placeholder"
+    placeholder="name@lowend.example"
     type="email"
     variant="filled"
   >
     <datalist id="text-field-autosuggest-2-list">
-      <option value="jonny.greenwood@radio.head"></option>
-      <option value="marika@hack.man"></option>
-      <option value="ray.manzarek@the.doors"></option>
+      <option value="ines@lowend.example"></option>
+      <option value="lou@lowend.example"></option>
+      <option value="percy@lowend.example"></option>
     </datalist>
   </TextField>
 </template>

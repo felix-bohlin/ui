@@ -4,6 +4,7 @@ import { join } from "node:path"
 import { parse } from "@astrojs/compiler"
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
+import { rewriteExpression } from "./component-emit.mjs"
 import { shapeWhitespace } from "./component-layout.mjs"
 import {
   allCodes,
@@ -283,7 +284,12 @@ const readFrontmatter = (code, file) => {
             continue
           }
           result.props.push({
-            default: element.initializer?.getText(sourceFile),
+            default:
+              element.initializer &&
+              (ts.isObjectLiteralExpression(element.initializer) ||
+                ts.isArrayLiteralExpression(element.initializer))
+                ? rewriteExpression(element.initializer.getText(sourceFile))
+                : element.initializer?.getText(sourceFile),
             local: element.name.text,
             prop: element.propertyName
               ? element.propertyName.text
@@ -316,13 +322,10 @@ const readFrontmatter = (code, file) => {
         }
         result.idBases.push([declaration.name.text, ID_BASE])
         const fallback = `\`${factory.prefix}-\${Astro.locals}\``
-        const truthy = /^(.+?)\s*\|\|\s*undefined$/.exec(factory.id ?? "")
         result.derived.push({
-          code: truthy
-            ? `${truthy[1]} || ${fallback}`
-            : factory.id
-              ? `${/^[\w$.?]+$/.test(factory.id) ? factory.id : `(${factory.id})`} ?? ${fallback}`
-              : fallback,
+          code: factory.id
+            ? `${/^[\w$.?]+$/.test(factory.id) ? factory.id : `(${factory.id})`} || ${fallback}`
+            : fallback,
           fn: false,
           name: ID_BASE,
         })
@@ -509,13 +512,12 @@ const attributeNode = (item, context) => {
   if (item.kind === "spread") {
     const sourceFile = sourceFileOf(`(${item.name})`, "spread.ts")
     const written = unwrap(sourceFile.statements[0].expression)
-    const expression =
+    const filtered =
       ts.isCallExpression(written) &&
       ts.isIdentifier(written.expression) &&
       written.expression.text === "defined" &&
       written.arguments.length === 1
-        ? unwrap(written.arguments[0])
-        : written
+    const expression = filtered ? unwrap(written.arguments[0]) : written
     const cast =
       ts.isAsExpression(expression) &&
       ts.isIdentifier(unwrap(expression.expression))
@@ -526,11 +528,16 @@ const attributeNode = (item, context) => {
       return {
         code: chosen.spread.text,
         condition: chosen.condition.getText(sourceFile),
+        ...(filtered && { defined: true }),
         kind: "spread",
         negated: chosen.negated,
       }
     }
-    return { code: cast.getText(sourceFile), kind: "spread" }
+    return {
+      code: cast.getText(sourceFile),
+      ...(filtered && { defined: true }),
+      kind: "spread",
+    }
   }
   if (item.kind === "expression") {
     if (item.name === "class:list") return { kind: "class", code: item.value }
@@ -704,7 +711,7 @@ const expressionNode = (node, context) => {
             branch.filter((child) => !isBlank(child)),
           )
         : undefined
-    const keyed =
+    const rows =
       roots.length === 1 && root.type === "element"
         ? [root]
         : branchRoots?.every(
@@ -712,20 +719,39 @@ const expressionNode = (node, context) => {
             )
           ? branchRoots.map(([element]) => element)
           : undefined
-    if (!keyed) {
+    if (!rows) {
       throw describe(
         "map callback doesn't return one element or a condition between two",
       )
     }
-    for (const element of keyed) element.keyed = index
+    const item = ts.isIdentifier(parameter.name)
+      ? parameter.name.text
+      : undefined
+    const optionValue =
+      !branchRoots && root.tag === "option" && item
+        ? root.attributes.find((entry) => {
+            if (entry.kind !== "expression" || entry.name !== "value") {
+              return false
+            }
+            const names = [...identifiersIn(entry.code)]
+            return names.length > 0 && names.every((name) => name === item)
+          })?.code
+        : undefined
+    const key = branchRoots
+      ? undefined
+      : optionValue
+        ? { by: "item", code: optionValue.trim() }
+        : { by: "index", code: index }
     return [
       {
         children,
         consts,
-        index,
+        index: indexParameter || key?.by !== "item" ? index : undefined,
         item: parameter.getText(sourceFile),
+        key,
         list: expression.expression.expression.getText(sourceFile),
         optional: !!expression.expression.questionDotToken,
+        rows,
         type: "each",
       },
     ]
@@ -1157,6 +1183,9 @@ const itemOf = (frontmatter, tree, folder) => {
   inputs[0].item = true
   return {
     checked: frontmatter.props.find(({ prop }) => prop === "checked")?.local,
+    checkedCode: inputs[0].attributes.find(
+      (item) => item.kind === "expression" && item.name === "checked",
+    ).code,
     group: read.context.folder ?? folder,
     grouped: grouped.name,
     parent: read.name,

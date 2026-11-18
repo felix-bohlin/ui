@@ -31,7 +31,7 @@ import tableHeaderCellApi from "../../component-api/table-header-cell/api"
 import TableBuild from "../../components/UnderTheHood/TableBuild.astro"
 
 export const description =
-  "Displays tabular data. Basic tables with row and column headers, and optional captions and footers."
+  "A table for data people scan and compare, with sticky headers, sorting and expandable rows."
 
 export const keywords = ["data table", "grid", "rows", "sort"]
 ---
@@ -59,62 +59,43 @@ export const keywords = ["data table", "grid", "rows", "sort"]
     "logical-properties",
     "overflow-clip",
     "relative-color",
-    "scrollbar-width",
   ]}
-  changelogPaths={[
-    {
-      path: "packages/opui/components/Table",
-      type: "component",
-    },
-    { path: "src/docs/components/table.astro", type: "docs" },
-    { path: "src/component-examples/table", type: "docs" },
-    {
-      path: "packages/opui/css/components/table.css",
-      type: "css",
-    },
-    { path: "src/component-api/table", type: "api" },
-    { path: "src/component-api/table-cell", type: "api" },
-    { path: "src/component-api/table-column", type: "api" },
-    { path: "src/component-api/table-header-cell", type: "api" },
-    { path: "src/component-api/table-column-group", type: "api" },
-    {
-      path: "packages/opui/components/SortableTable",
-      type: "component",
-    },
-    { path: "packages/opui/elements/sortable-table.js", type: "component" },
-    {
-      path: "packages/opui/css/components/sortable-table.css",
-      type: "css",
-    },
-    { path: "src/component-api/sortable-table", type: "api" },
-  ]}
+  fallbacks={{
+    "container-scroll-state-queries":
+      "Without scroll-state queries, a sticky header gets no shadow once it's stuck.",
+  }}
 >
   <Fragment slot="title">Table</Fragment>
+  <Fragment slot="preamble">
+    Data people scan and compare, like invoices. For labels with single values,
+    use a <DocLink href="/components/description-list">Description list</DocLink
+    >.
+  </Fragment>
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>
       <UITable>
-        <UITableCaption>Components</UITableCaption>
+        <UITableCaption>Pedalboard</UITableCaption>
         <UITableHead>
           <UITableRow>
-            <UITableHeaderCell>Name</UITableHeaderCell>
-            <UITableHeaderCell>Size</UITableHeaderCell>
+            <UITableHeaderCell>Pedal</UITableHeaderCell>
+            <UITableHeaderCell>Price</UITableHeaderCell>
           </UITableRow>
         </UITableHead>
         <UITableBody>
           <UITableRow>
-            <UITableCell>Card</UITableCell>
-            <UITableCell>2 kB</UITableCell>
+            <UITableCell>Compressor</UITableCell>
+            <UITableCell>€89</UITableCell>
           </UITableRow>
           <UITableRow>
-            <UITableCell>Dialog</UITableCell>
-            <UITableCell>3 kB</UITableCell>
+            <UITableCell>Octaver</UITableCell>
+            <UITableCell>€120</UITableCell>
           </UITableRow>
         </UITableBody>
         <UITableFoot>
           <UITableRow>
             <UITableCell>Total</UITableCell>
-            <UITableCell>5 kB</UITableCell>
+            <UITableCell>€209</UITableCell>
           </UITableRow>
         </UITableFoot>
       </UITable>
@@ -207,7 +188,10 @@ export const keywords = ["data table", "grid", "rows", "sort"]
     <h2>Sticky header</h2>
     <p>
       Use <PropOrClass prop="stickyHeader" class=".ui-sticky-header" />, without
-      <PropOrClass prop='overflow="scroll"' class=".ui-overflow-scroll" />.
+      <PropOrClass prop='overflow="scroll"' class=".ui-overflow-scroll" />. Give
+      the scroll box, or <code>html</code> when the header sticks to the page, a
+      <code>scroll-padding-block-start</code> as tall as the header, so a
+      control that takes focus doesn't land under it.
     </p>
 
     <AutoExample name="StickyHeader" />
@@ -227,6 +211,50 @@ export const keywords = ["data table", "grid", "rows", "sort"]
     </Conditional>
     <p>Give formatted numbers and dates a <code>data-sort-value</code>.</p>
     <AutoExample name="Sortable" />
+    <Conditional as="p">
+      <Fragment slot="astro">
+        To sort rows you render from data, listen for the <code>sort</code>
+        event in a client script and call <code>preventDefault()</code>, which
+        leaves the rows where they are, then sort the data by
+        <code>event.detail.column</code> and <code>event.detail.direction</code
+        >.
+      </Fragment>
+      <Fragment slot="html">
+        To sort rows you keep as data, listen for the <code>sort</code> event
+        and call <code>preventDefault()</code>, which leaves the rows where they
+        are, then sort the data by <code>event.detail.column</code> and
+        <code>event.detail.direction</code>.
+      </Fragment>
+      <Fragment slot="react">
+        To sort rows you render from data, pass <code>onSort</code> and call
+        <code>event.preventDefault()</code>, which leaves the rows where they
+        are, then sort the state by <code>event.detail.column</code> and
+        <code>event.detail.direction</code>.
+      </Fragment>
+      <Fragment slot="solid">
+        When the rows come from your data, pass <code>onSort</code>, call
+        <code>event.preventDefault()</code> and sort the data with
+        <code>event.detail.column</code> and <code>event.detail.direction</code
+        >. The element then leaves the rows to Solid and still sets
+        <code>aria-sort</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        To sort rows you render from data, pass <code>onsort</code> and call
+        <code>event.preventDefault()</code>, which leaves the rows where they
+        are, then sort the state by <code>event.detail.column</code> and
+        <code>event.detail.direction</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        To sort rows you render from data, listen with <code>@sort</code> and
+        call <code>event.preventDefault()</code>, which leaves the rows where
+        they are, then sort the ref by <code>event.detail.column</code> and
+        <code>event.detail.direction</code>.
+      </Fragment>
+    </Conditional>
+    <p>
+      The header still gets <code>aria-sort</code>, and the order is announced.
+    </p>
+    <AutoExample name="SortableData" />
   </section>
 
   <section id="empty">
@@ -244,8 +272,19 @@ export const keywords = ["data table", "grid", "rows", "sort"]
   </section>
 
   <section id="advanced">
-    <h2>Advanced</h2>
-
+    <h2>Grouped headers</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Group columns with <code>TableColumnGroup</code>, span headers with
+        <code>colspan</code> and <code>rowspan</code>, and give each header a
+        <code>scope</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Group columns with <code>&lt;colgroup&gt;</code>, span headers with
+        <code>colspan</code> and <code>rowspan</code>, and give each header a
+        <code>scope</code>.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Advanced" />
   </section>
 

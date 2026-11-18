@@ -1,7 +1,7 @@
 import type { Theme } from "./theme"
 import { shareUrl } from "./theme-share"
 
-export type GalleryEntry = {
+type GalleryEntry = {
   author: string
   description: string
   id: string
@@ -81,6 +81,7 @@ export const GALLERY: GalleryEntry[] = [
       tokens: {
         "--ui-button-hover-shadow": "none",
         "--ui-button-hover-translate": "revert-layer",
+        "--ui-field-shadow": "none",
         "--ui-font-heading":
           'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
         "--ui-gray-chroma": "0.012",
@@ -93,7 +94,6 @@ export const GALLERY: GalleryEntry[] = [
         "--ui-radius": "0.25rem",
         "--ui-shadow-control": "none",
         "--ui-shadow-elevated": "none",
-        "--ui-shadow-field": "none",
         "--ui-shadow-overlay": "none",
         "--ui-shadow-scroll": "none",
         "--ui-shadow-selected": "none",

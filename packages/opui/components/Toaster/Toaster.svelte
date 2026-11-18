@@ -11,6 +11,7 @@
     closeLabel,
     duration,
     id,
+    limit,
     side,
     ...rest
   }: Props = $props()
@@ -28,6 +29,7 @@
   close-label={closeLabel}
   {duration}
   {id}
+  {limit}
   {...defined(rest)}
 >
   <ol popover="manual"></ol>

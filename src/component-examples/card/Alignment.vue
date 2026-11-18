@@ -4,7 +4,9 @@ import { Button, Card, CardActions, CardContent } from "opui-css/vue"
 
 <template>
   <Card variant="outlined">
-    <CardContent>Invite your teammates to this workspace.</CardContent>
+    <CardContent
+      >Invite your bandmates to Bassbook (they might listen here).</CardContent
+    >
     <CardActions align="start">
       <Button>Copy link</Button>
       <Button>Send invites</Button>
@@ -12,7 +14,9 @@ import { Button, Card, CardActions, CardContent } from "opui-css/vue"
   </Card>
 
   <Card variant="outlined">
-    <CardContent>Export your orders from the last 30 days as CSV.</CardContent>
+    <CardContent
+      >Export your setlists from the last 30 days as CSV.</CardContent
+    >
     <CardActions align="start">
       <Button variant="outlined">Cancel</Button>
       <Button variant="filled">Export</Button>
@@ -20,10 +24,14 @@ import { Button, Card, CardActions, CardContent } from "opui-css/vue"
   </Card>
 
   <Card variant="outlined">
-    <CardContent>Team photo, added by Lena Ek.</CardContent>
+    <CardContent
+      >Band photo where you're finally in focus, added by Lou
+      Headstock.</CardContent
+    >
     <CardActions align="start">
       <Button aria-label="Favorite" round size="small">
         <svg
+          data-icon="heart"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -38,6 +46,7 @@ import { Button, Card, CardActions, CardContent } from "opui-css/vue"
       </Button>
       <Button aria-label="Share" round size="small">
         <svg
+          data-icon="share"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"

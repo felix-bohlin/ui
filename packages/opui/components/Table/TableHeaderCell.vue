@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type HTMLAttributes, useAttrs } from "vue"
+import { useAttrs } from "vue"
 import { defined } from "../attrs"
 import { classAttrs } from "../cx"
 import type { TableHeaderCellProps as Props, Slots } from "./types.vue-props"
@@ -11,7 +11,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs() as HTMLAttributes
+const attrs = useAttrs()
 </script>
 
 <template>

@@ -1,5 +1,6 @@
 ---
 import Component from "../../layouts/Component.astro"
+import DefaultIcon from "./partials/DefaultIcon.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
 import DocLink from "../../components/DocLink.astro"
@@ -28,10 +29,14 @@ import ClosedbyTable from "../../components/ClosedbyTable.astro"
 import Conditional from "../../components/Conditional.astro"
 import DocsTable from "../../components/DocsTable.astro"
 
+export const description =
+  "A panel that slides in from an edge of the screen, for navigation, filters or side content."
+
 export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
 ---
 
 <Component
+  description={description}
   heroAnatomy
   slug="drawer"
   browserSupport={[
@@ -51,23 +56,20 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
     "starting-style",
     "transition-behavior",
   ]}
+  fallbacks={{
+    "container-scroll-state-queries":
+      "Without scroll-state queries, long content scrolls without the shadows that mark more content above or below.",
+    "dialog-closedby":
+      "Without `closedby`, a modal drawer closes with Esc whatever the value, and a click outside doesn't close it. The [polyfill](/guide/browser-support#polyfills) adds it.",
+    "display-animation":
+      "Without display animation, the drawer disappears at once instead of sliding out.",
+    overlay:
+      "Without `overlay`, the backdrop disappears as soon as the drawer starts to close, and the page can cover the drawer while it slides out.",
+  }}
   apis={[
     { title: "Drawer API", api: drawerApi },
     { title: "Drawer header API", api: drawerHeaderApi },
     { title: "Drawer footer API", api: drawerFooterApi },
-  ]}
-  changelogPaths={[
-    {
-      path: "packages/opui/components/Drawer",
-      type: "component",
-    },
-    { path: "src/docs/components/drawer.astro", type: "docs" },
-    { path: "src/component-examples/drawer", type: "docs" },
-    {
-      path: "packages/opui/css/components/drawer.css",
-      type: "css",
-    },
-    { path: "src/component-api/drawer", type: "api" },
   ]}
   installationTabs={[
     { title: "drawer.css", code: DrawerCSS, lang: "css" },
@@ -76,20 +78,30 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
 >
   <Fragment slot="title">Drawer</Fragment>
   <Fragment slot="preamble">
-    Slides in from an edge of the screen. For a task that needs full attention,
-    use a <DocLink href="/components/dialog">Dialog</DocLink>.
+    Navigation, filters or side content that slides in from an edge of the
+    screen. For a task that needs full attention, use a
+    <DocLink href="/components/dialog">Dialog</DocLink>.
   </Fragment>
 
   <Usage slot="usage">
-    <li slot="when">Navigation, especially on small screens.</li>
-    <li slot="when">Filters or settings for the page.</li>
-    <li slot="when">Item details without leaving the list.</li>
+    <li slot="when">
+      Navigation on small screens, like an <a href="#basics">app menu</a>.
+    </li>
+    <li slot="when">
+      Filters or settings for the page, like <a href="#basics">filters</a> for a
+      list.
+    </li>
+    <li slot="when">
+      Item details without leaving the list, like a <a href="#basics">task</a>.
+    </li>
     <li slot="when-not">
       A task that needs full attention: use a
       <DocLink href="/components/dialog">Dialog</DocLink>.
     </li>
     <li slot="when-not">
-      Content used together with the page: the drawer makes the page inert.
+      Content used together with the page, like filters beside the results: use
+      a sticky column with the
+      <DocLink href="/components/layout#sticky">Layout</DocLink> classes.
     </li>
   </Usage>
 
@@ -102,8 +114,9 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
           to change it.
         </p>
         <p>
-          Use <code>backdrop="transparent"</code> and <code>scrollLock</code>
-          for the page behind it.
+          The page behind a modal drawer doesn't scroll. Use
+          <code>backdrop="transparent"</code> to keep it in view and, on screens
+          <code>31.25rem</code> and wider, scrollable.
         </p>
       </Fragment>
       <Fragment slot="html">
@@ -113,8 +126,9 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
           change it.
         </p>
         <p>
-          Use <code>.ui-backdrop-transparent</code> and
-          <code>.ui-scroll-lock</code> for the page behind it.
+          The page behind a modal drawer doesn't scroll. Use
+          <code>.ui-backdrop-transparent</code> to keep it in view and, on
+          screens <code>31.25rem</code> and wider, scrollable.
         </p>
       </Fragment>
     </Conditional>
@@ -131,14 +145,92 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
     </BlockLink>
   </section>
 
+  <section id="navigation">
+    <h2>Navigation</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        A drawer used as navigation, like the menu in
+        <a href="#basics">Basics</a>, closes when the page navigates with
+        <code>closeOnNavigate</code>: a link inside it, Back and Forward, or a
+        client router in SvelteKit, Next or Nuxt. Otherwise the new page loads
+        behind a modal drawer, inert, and screen readers miss the change.
+      </Fragment>
+      <Fragment slot="html">
+        A drawer used as navigation, like the menu in
+        <a href="#basics">Basics</a>, closes when the page navigates with
+        <code>data-close-on-navigate</code> and
+        <code>opui-css/elements/close-on-navigate.js</code>: a link inside it,
+        Back and Forward, or a client router.
+      </Fragment>
+    </Conditional>
+  </section>
+
+  <section id="non-modal">
+    <h2>Non-modal</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Open it with <code>show()</code> from a script to keep the page usable.
+        Set <code>scrollLock</code> to keep the page from scrolling.
+      </Fragment>
+      <Fragment slot="html">
+        Open it with <code>show()</code> from a script to keep the page usable.
+        Add <code>.ui-scroll-lock</code> to keep the page from scrolling.
+      </Fragment>
+    </Conditional>
+    <p>
+      A drawer opened with <code>show()</code> isn't in the top layer, so give
+      it a <code>z-index</code> above the page's sticky headers.
+    </p>
+
+    <AutoExample name="NonModal" row />
+  </section>
+
   <section id="close-button">
     <h2>Close button</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Translate it with <code>closeLabel</code>.
+        Set <code>closeButton</code> on <code>DrawerHeader</code> to add it. It
+        says "Close" unless you translate it with <code>closeLabel</code>, like
+        the other
+        <DocLink href="/guide/accessibility#built-in-labels"
+          >built-in labels</DocLink
+        >.
       </Fragment>
-      <Fragment slot="html"> Translate its <code>aria-label</code>. </Fragment>
+      <Fragment slot="html">
+        Translate its <code>aria-label</code>, like the other
+        <DocLink href="/guide/accessibility#built-in-labels"
+          >built-in labels</DocLink
+        >.
+      </Fragment>
     </Conditional>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The button closes the <code>Drawer</code> it is in. A header outside a
+        <code>Drawer</code>, in a <code>&lt;dialog&gt;</code> of your own or in
+        an island on an Astro page, can't find the drawer to close: set
+        <code>commandfor</code> to its <code>id</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Point its <code>commandfor</code> at the drawer's <code>id</code>.
+      </Fragment>
+    </Conditional>
+    <DefaultIcon slots={["close-icon"]} tokens={["--ui-icon-close"]} />
+
+    <AutoExample name="CloseButton" row />
+  </section>
+
+  <section id="safe-areas">
+    <h2>Safe areas</h2>
+    <p>
+      With <code>viewport-fit=cover</code> in the viewport meta tag, a phone
+      draws the page under its notch and home indicator. Each side of a drawer
+      that touches the screen edge pads its content clear of them, by the
+      <DocLink href="/guide/theme-tokens#safe-areas"
+        ><code>--ui-safe-area-inset-*</code></DocLink
+      >
+      tokens, and its background runs under them. Without
+      <code>viewport-fit=cover</code> they are <code>0px</code>.
+    </p>
   </section>
 
   <section id="how-to-close">
@@ -146,6 +238,19 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
     <ClosedbyTable componentDefault="any" name="drawer" />
 
     <AutoExample name="CloseBehaviors" row />
+
+    <h3 id="swipe-to-close">Swipe to close</h3>
+    <p>
+      On a touch screen, a drawer at the block start or end has a grab handle.
+      Drag the handle or the header toward the edge, past a quarter of the
+      drawer or with a flick, and the drawer closes. Let go sooner and it
+      settles back. The content scrolls as usual and never moves the drawer.
+    </p>
+    <p>
+      The swipe is a close request, like <kbd>Esc</kbd>: with
+      <code>closedby="none"</code> there's no handle and no swipe, and a
+      <code>cancel</code> listener can keep the drawer open.
+    </p>
   </section>
 
   <Fragment slot="anatomy">
@@ -156,7 +261,7 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
         open
         style="block-size: auto; inline-size: 18rem; position: static"
       >
-        <UIDrawerHeader>
+        <UIDrawerHeader closeButton>
           <UIDrawerTitle>Filters</UIDrawerTitle>
         </UIDrawerHeader>
         <UIDrawerContent>
@@ -173,6 +278,32 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
   <DrawerBuild slot="under-the-hood" />
 
   <Fragment slot="accessibility">
+    <h3 id="role-attributes">Role & attributes</h3>
+    <p>
+      The <code>&lt;dialog&gt;</code> element has the dialog role, and opening
+      it with <code>command="show-modal"</code> (or <code>showModal()</code>)
+      makes it modal and the page behind it inert.
+    </p>
+    <DocsTable
+      columns={[{ label: "Role/attribute", width: "30%" }, { label: "Usage" }]}
+    >
+      <TableRow>
+        <TableCell><code>aria-labelledby="IDREF"</code></TableCell>
+        <TableCell>
+          Gives the drawer an accessible name by referring to the element that
+          provides the drawer title.
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell><code>aria-describedby="IDREF"</code></TableCell>
+        <TableCell>
+          Optional. Gives the drawer an accessible description by referring to
+          the drawer content that describes the primary message or purpose of
+          the drawer.
+        </TableCell>
+      </TableRow>
+    </DocsTable>
+
     <ul>
       <li>
         <Conditional>
@@ -201,32 +332,6 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
         >MDN</a
       >
     </p>
-
-    <h3 id="role-attributes">Role & attributes</h3>
-    <p>
-      The <code>&lt;dialog&gt;</code> element has the dialog role, and opening
-      it with <code>command="show-modal"</code> (or <code>showModal()</code>)
-      makes it modal and the page behind it inert.
-    </p>
-    <DocsTable
-      columns={[{ label: "Role/attribute", width: "30%" }, { label: "Usage" }]}
-    >
-      <TableRow>
-        <TableCell><code>aria-labelledby="IDREF"</code></TableCell>
-        <TableCell>
-          Gives the drawer an accessible name by referring to the element that
-          provides the drawer title.
-        </TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell><code>aria-describedby="IDREF"</code></TableCell>
-        <TableCell>
-          Optional. Gives the drawer an accessible description by referring to
-          the drawer content that describes the primary message or purpose of
-          the drawer.
-        </TableCell>
-      </TableRow>
-    </DocsTable>
 
     <KeyboardSupport />
   </Fragment>

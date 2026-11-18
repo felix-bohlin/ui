@@ -6,21 +6,23 @@ import Code from "../../components/Code.astro"
 import DocLink from "../../components/DocLink.astro"
 import LayoutCSS from "@opui/css/components/layout.css?raw"
 
+import layoutApi from "../../component-api/layout/api"
+
+export const description =
+  "Classes for the space between components, in columns, rows and grids."
+
 export const keywords = ["columns", "container", "grid", "stack"]
 ---
 
 <Component
+  description={description}
   slug="layout"
-  browserSupport={["container-queries"]}
-  changelogPaths={[
-    { path: "src/docs/components/layout.astro", type: "docs" },
-    { path: "src/component-examples/layout", type: "docs" },
-    {
-      path: "packages/opui/css/components/layout.css",
-      type: "css",
-    },
-    { path: "src/component-api/layout", type: "api" },
-  ]}
+  browserSupport={["container-queries", "gap-decorations"]}
+  fallbacks={{
+    "gap-decorations":
+      "Without gap decorations, a bordered layout keeps its gaps but draws no lines in them.",
+  }}
+  apis={[{ title: "Layout API", api: layoutApi }]}
   installationTabs={[{ title: "layout.css", code: LayoutCSS, lang: "css" }]}
 >
   <Fragment slot="title">Layout</Fragment>
@@ -118,6 +120,16 @@ export const keywords = ["columns", "container", "grid", "stack"]
     <AutoExample name="Gap" />
   </section>
 
+  <section id="bordered">
+    <h2>Bordered</h2>
+    <p>
+      Use <code>.ui-bordered</code> to draw a line in each gap. A line only runs
+      between two children, so a wrapped row or a short last row gets no stray
+      one. Set its color with <code>--_divider-border-color</code>.
+    </p>
+    <AutoExample name="Bordered" />
+  </section>
+
   <section id="container">
     <h2>Container</h2>
     <p>
@@ -140,4 +152,17 @@ export const keywords = ["columns", "container", "grid", "stack"]
       code={`.page {\n  container-type: inline-size;\n}\n\n@container (inline-size >= 40rem) {\n  .page-columns {\n    grid-template-columns: 1fr 1fr;\n  }\n}`}
     />
   </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        The layout classes only place elements, so screen readers and the Tab
+        key follow the source order. Write the markup in the order it reads.
+      </li>
+      <li>
+        Make a grid of items that belong together a list, so screen readers say
+        how many there are (see <a href="#grid">Grid</a>).
+      </li>
+    </ul>
+  </Fragment>
 </Component>

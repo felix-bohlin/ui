@@ -9,11 +9,22 @@ import {
 } from "node:fs"
 import { tmpdir } from "node:os"
 import { join, resolve } from "node:path"
-import { describe, expect, test } from "vitest"
+import { afterAll, beforeEach, describe, expect, test } from "vitest"
 import { binOf, run, styledGlobs, suites } from "../../.claude/hooks/checks.mjs"
 import { checkFiles, report } from "../../scripts/check-staged.mjs"
 
 const EM_DASH = String.fromCodePoint(0x2014)
+
+const temps: string[] = []
+const tempDir = (prefix: string) => {
+  const dir = mkdtempSync(join(tmpdir(), prefix))
+  temps.push(dir)
+  return dir
+}
+
+afterAll(() => {
+  for (const dir of temps) rmSync(dir, { force: true, recursive: true })
+})
 
 const settings = JSON.parse(readFileSync(".claude/settings.json", "utf-8"))
 
@@ -41,7 +52,7 @@ test("every hook command runs a file that exists", () => {
 })
 
 describe("post-edit", { timeout: 30_000 }, () => {
-  const project = mkdtempSync(join(tmpdir(), "opui-hook-"))
+  const project = tempDir("opui-hook-")
   mkdirSync(join(project, "docs"))
   writeFileSync(join(project, "docs/clean.md"), "One, two.\n")
   writeFileSync(join(project, "docs/dash.md"), `One ${EM_DASH} two.\n`)
@@ -133,11 +144,9 @@ describe("post-edit", { timeout: 30_000 }, () => {
   })
 
   test("stays quiet for a clean file and for files outside the project", () => {
-    for (const file_path of [
-      join(project, "docs/clean.md"),
-      join(tmpdir(), "elsewhere.md"),
-      "",
-    ]) {
+    const elsewhere = join(tempDir("opui-elsewhere-"), "elsewhere.md")
+    writeFileSync(elsewhere, `One ${EM_DASH} two.\n`)
+    for (const file_path of [join(project, "docs/clean.md"), elsewhere, ""]) {
       const result = hook(
         ".claude/hooks/post-edit.mjs",
         { tool_input: { file_path } },
@@ -149,7 +158,7 @@ describe("post-edit", { timeout: 30_000 }, () => {
   })
 })
 
-describe("stop", () => {
+describe("stop", { timeout: 30_000 }, () => {
   test("lets Claude stop when a stop hook already made it continue", () => {
     const result = hook(".claude/hooks/stop.mjs", { stop_hook_active: true })
     expect(result.status).toBe(0)
@@ -157,8 +166,8 @@ describe("stop", () => {
   })
 
   test("checks the files changed since the upstream branch", () => {
-    const remote = mkdtempSync(join(tmpdir(), "opui-remote-"))
-    const clone = mkdtempSync(join(tmpdir(), "opui-clone-"))
+    const remote = tempDir("opui-remote-")
+    const clone = tempDir("opui-clone-")
     const git = (...args: string[]) =>
       execFileSync(
         "git",
@@ -194,8 +203,8 @@ describe("stop", () => {
   })
 
   test("reports oxfmt, oxlint and ratchet problems in their groups", () => {
-    const remote = mkdtempSync(join(tmpdir(), "opui-remote-"))
-    const clone = mkdtempSync(join(tmpdir(), "opui-clone-"))
+    const remote = tempDir("opui-remote-")
+    const clone = tempDir("opui-clone-")
     const git = (...args: string[]) =>
       execFileSync(
         "git",
@@ -233,6 +242,15 @@ describe("stop", () => {
   })
 })
 
+test("the session-start hook does nothing outside a remote session", () => {
+  const result = spawnSync("bash", [".claude/hooks/session-start.sh"], {
+    encoding: "utf-8",
+    env: { ...process.env, CLAUDE_CODE_REMOTE: "" },
+  })
+  expect(result.status).toBe(0)
+  expect(result.stdout + result.stderr).toBe("")
+})
+
 test("the stop hook lints the stylesheets the lint script names", () => {
   expect(styledGlobs()).toEqual(["packages/opui/**/*.css", "src/**/*.css"])
 })
@@ -254,7 +272,7 @@ test("the hooks run the TODO.md and guide tests for those files", () => {
 })
 
 describe("commit-msg", () => {
-  const dir = mkdtempSync(join(tmpdir(), "opui-commit-"))
+  const dir = tempDir("opui-commit-")
   const commit = (message: string) => {
     writeFileSync(join(dir, "MSG"), `${message}\n`)
     return spawnSync("sh", [".githooks/commit-msg", join(dir, "MSG")], {
@@ -276,7 +294,7 @@ describe("commit-msg", () => {
 })
 
 describe("Git LFS hooks", () => {
-  const bin = mkdtempSync(join(tmpdir(), "opui-lfs-"))
+  const bin = tempDir("opui-lfs-")
   writeFileSync(join(bin, "git"), '#!/bin/sh\necho "$@"\n', { mode: 0o755 })
   const run = (hook: string) =>
     spawnSync("/bin/sh", [hook, "origin", "main"], {
@@ -308,7 +326,7 @@ describe("Git LFS hooks", () => {
 })
 
 describe("pre-commit", () => {
-  const dir = mkdtempSync(join(tmpdir(), "opui-staged-"))
+  const dir = tempDir("opui-staged-")
   const git = (...args: string[]) =>
     execFileSync("git", args, { cwd: dir, encoding: "utf-8" })
   git("init", "--quiet")
@@ -321,6 +339,11 @@ describe("pre-commit", () => {
       cwd: dir,
       encoding: "utf-8",
     })
+
+  beforeEach(() => {
+    git("read-tree", "--empty")
+    git("clean", "-fdq")
+  })
 
   test("passes with nothing staged", () => {
     expect(run().status).toBe(0)

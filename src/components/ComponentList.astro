@@ -1,5 +1,6 @@
 ---
-import { componentsFor, componentHrefFor } from "../utils/components"
+import ComponentShowcase from "./ComponentShowcase/ComponentShowcase.astro"
+import { componentsFor } from "../utils/components"
 import { added, isWhatsNewHighlighted } from "../utils/whats-new"
 
 const currentFramework = Astro.locals.framework
@@ -29,55 +30,17 @@ const sections = [
   id={sections.length > 1 ? `${section.id}-components` : undefined}
 >
   {sections.length > 1 && <h2>{section.label}</h2>}
-  <ul class="card-grid">
-    {section.components.map((component) => <li>
-      <a
-        class="ui-card ui-outlined"
-        href={componentHrefFor(currentFramework, component.slug)}
-      >
-        <div class="ui-content">
-          <p>{component.name}</p>
-        </div>
-      </a>
-    </li>)}
-  </ul>
+  <div class="is-wide">
+    <ComponentShowcase
+      label={section.label}
+      slugs={section.components.map(({ slug }) => slug)}
+      wrap
+    />
+  </div>
 </section>)}
 
 <style>
   section {
     margin-block-start: var(--size-8);
-  }
-
-  .card-grid {
-    align-items: stretch;
-    display: grid;
-    gap: var(--size-3);
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-    list-style-type: none;
-    margin-block-start: var(--size-3);
-    padding: 0;
-
-    .ui-card {
-      color: inherit;
-      display: block;
-      text-decoration: none;
-
-      &:hover {
-        p {
-          text-decoration: underline;
-        }
-      }
-
-      .ui-content {
-        align-items: center;
-        display: flex;
-        justify-content: space-between;
-
-        p {
-          font-weight: 600;
-          margin: 0;
-        }
-      }
-    }
   }
 </style>

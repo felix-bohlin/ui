@@ -1,4 +1,4 @@
-import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/react"
+import { Chip, Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/react"
 
 export default function IconsAndCounts() {
   return (
@@ -6,6 +6,7 @@ export default function IconsAndCounts() {
       <TabsItem defaultChecked>
         <TabsLabel>
           <svg
+            data-icon="inbox"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -18,15 +19,14 @@ export default function IconsAndCounts() {
             ></path>
           </svg>
           Inbox
-          <span className="ui-chip ui-x-small">
-            <span className="ui-text">12</span>
-          </span>
+          <Chip as="span" label="12" size="x-small" />
         </TabsLabel>
-        <TabsPanel>12 unread messages from customers.</TabsPanel>
+        <TabsPanel>12 unread messages from fellow bassists.</TabsPanel>
       </TabsItem>
       <TabsItem>
         <TabsLabel>
           <svg
+            data-icon="send"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -42,6 +42,7 @@ export default function IconsAndCounts() {
       <TabsItem>
         <TabsLabel>
           <svg
+            data-icon="edit"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -54,9 +55,7 @@ export default function IconsAndCounts() {
             ></path>
           </svg>
           Drafts
-          <span className="ui-chip ui-x-small">
-            <span className="ui-text">3</span>
-          </span>
+          <Chip as="span" label="3" size="x-small" />
         </TabsLabel>
         <TabsPanel>Three replies you haven't sent yet.</TabsPanel>
       </TabsItem>

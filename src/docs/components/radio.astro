@@ -22,9 +22,12 @@ import PropOrClass from "../../components/PropOrClass.astro"
 import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
 
 export const keywords = ["option", "radio button", "radio group"]
+export const description =
+  "Radio buttons for picking one option from a few, with sizes, cards and an invalid state."
 ---
 
 <Component
+  description={description}
   slug="radio"
   browserSupport={[
     "container-style-queries",
@@ -43,21 +46,9 @@ export const keywords = ["option", "radio button", "radio group"]
   ]}
   changelogPaths={[
     {
-      path: "packages/opui/components/Radio",
-      type: "component",
-    },
-    {
       path: "packages/opui/components/FieldGroup/FieldGroup.astro",
       type: "component",
     },
-    { path: "src/docs/components/radio.astro", type: "docs" },
-    { path: "src/component-examples/radio", type: "docs" },
-    {
-      path: "packages/opui/css/components/radio.css",
-      type: "css",
-    },
-    { path: "src/component-api/radio", type: "api" },
-    { path: "src/component-api/radio-input", type: "api" },
     { path: "src/component-api/field-group", type: "api" },
   ]}
   installationTabs={[
@@ -69,9 +60,10 @@ export const keywords = ["option", "radio button", "radio group"]
 >
   <Fragment slot="title">Radio</Fragment>
   <Fragment slot="preamble">
-    See also:
-    <DocLink href="/components/form" class="ui-link">Form documentation</DocLink
-    >.
+    One choice out of a few in a form, like a shipping speed. For a view or mode
+    in a toolbar, use a
+    <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>, and
+    for panels of content, <DocLink href="/components/tabs">Tabs</DocLink>.
   </Fragment>
 
   <Usage slot="usage">
@@ -144,7 +136,15 @@ export const keywords = ["option", "radio button", "radio group"]
     <h2>Cards</h2>
     <p>
       Use <PropOrClass prop="card" class=".ui-card" />, with
-      <PropOrClass prop="spread" class=".ui-spread" />.
+      <PropOrClass prop="spread" class=".ui-spread" />. Cards are outlined by
+      default, and
+      <Conditional>
+        <Fragment slot="components"><code>variant</code> changes</Fragment>
+        <Fragment slot="html"
+          ><code>.ui-elevated</code> and <code>.ui-tonal</code> change</Fragment
+        >
+      </Conditional>
+      the surface.
     </p>
 
     <AutoExample name="CardsMatrix" column />

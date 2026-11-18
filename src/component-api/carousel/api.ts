@@ -35,7 +35,7 @@ export default {
     {
       attribute: "[aria-label]",
       description:
-        "The accessible name of the carousel. The Astro, React and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.",
+        "The accessible name of the carousel. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.",
       group: "Label",
       inherited: true,
       prop: "aria-label",
@@ -77,9 +77,9 @@ export default {
     },
     {
       cssVar: "--_marker-label",
-      default: '"Slide {count}"',
+      default: '"Slide {number}"',
       description:
-        "Accessible name of each marker, with `{count}` where the item number goes.",
+        "Accessible name of each marker, with `{number}` where the item number goes.",
       group: "Marker label",
       htmlDescription:
         'Accessible name of each marker, a CSS string with `counter(ui-carousel-item)` where the item number goes: `"Slide " counter(ui-carousel-item)` by default.',
@@ -125,13 +125,21 @@ export default {
       prop: "persistentButtons",
     },
     {
-      cssVar: "--_button-prev-label",
+      cssVar: "--_button-previous-label",
       default: '"Previous"',
       description: "Accessible name of the previous button.",
       group: "Previous label",
       htmlDescription:
         'Accessible name of the previous button, a CSS string: `"Previous"` by default.',
       prop: "previousLabel",
+    },
+    {
+      default: '"list"',
+      description:
+        "The `role` of the `<ul>`. `list` keeps Safari announcing a list.",
+      inherited: true,
+      prop: "role",
+      type: "string",
     },
     {
       class: ".ui-stretch",

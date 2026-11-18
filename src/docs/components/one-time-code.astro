@@ -46,30 +46,24 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
   heroAnatomy
   apis={[{ title: "One-time code API", api: oneTimeCodeApi }]}
   browserSupport={[
+    "alt-text-generated-content",
     "container-queries",
     "field-sizing",
     "has",
     "lh",
     "overflow-clip",
+    "reading-flow",
+    "registered-custom-properties",
+    "relative-color",
     "round-mod-rem",
     "user-pseudos",
   ]}
+  fallbacks={{
+    "reading-flow":
+      "Without `reading-flow` nothing changes: a one-time code has no parts before its input.",
+  }}
   changelogPaths={[
-    {
-      path: "packages/opui/components/OneTimeCode/OneTimeCode.astro",
-      type: "component",
-    },
-    { path: "src/docs/components/one-time-code.astro", type: "docs" },
-    { path: "src/component-examples/one-time-code", type: "docs" },
-    {
-      path: "packages/opui/css/components/one-time-code.css",
-      type: "css",
-    },
-    {
-      path: "packages/opui/css/components/text-field.css",
-      type: "css",
-    },
-    { path: "src/component-api/one-time-code", type: "api" },
+    { path: "packages/opui/css/components/text-field.css", type: "css" },
   ]}
   installationTabs={[
     {
@@ -115,7 +109,9 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
     <Conditional as="p">
       <Fragment slot="components">The code has 6 digits by default.</Fragment>
       <Fragment slot="html">
-        Add <code>.ui-one-time-code</code> to a <code>.ui-text-field</code>.
+        Put the parts of a
+        <DocLink href="/components/text-field">Text field</DocLink> in a
+        <code>label.ui-one-time-code</code>.
       </Fragment>
     </Conditional>
 
@@ -187,7 +183,7 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
     <h2>Right-to-left</h2>
     <p>
       The code always runs left to right. Widen <code>pattern</code> to accept
-      Arabic-Indic digits.
+      Arabic-Indic digits, and convert them to 0 to 9 on the server.
     </p>
 
     <AutoExample name="RightToLeft" />
@@ -202,6 +198,11 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
   <Fragment slot="accessibility">
     <ul>
       <li>One input, so screen readers read the code once, not per box.</li>
+      <li>
+        The label names the input through <code>aria-labelledby</code>, and the
+        end text describes it through <code>aria-describedby</code>, so a hint
+        or an error is read after the name, not as part of it.
+      </li>
     </ul>
   </Fragment>
 
@@ -214,20 +215,22 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
       container.
     </p>
     <p>
-      The boxes are one <code>.ui-field::before</code> with an SVG
-      <code>mask</code> that repeats every <code>--_cell-size</code>. The input
-      is monospace with
-      <code>letter-spacing: calc(var(--_cell-size) - 1ch)</code>, so each
-      character lands in its box, and <code>.ui-grouped</code> draws the dash as
-      a background at the midpoint.
+      The boxes are one <code>.ui-field::before</code> with a <code>mask</code>
+      of gradient layers that repeat every <code>--_cell-size</code>: linear
+      gradients for the edges and radial gradient rings for the corners, sized
+      by <code>--_box-radius</code> and <code>--_box-border-width</code>, so
+      they follow the theme's field radius and border width. The input is
+      monospace with <code>letter-spacing: calc(var(--_cell-size) - 1ch)</code>,
+      so each character lands in its box, and <code>.ui-grouped</code> draws the
+      dash as a background at the midpoint.
     </p>
     <p>
-      <code>:focus-within</code> swaps the mask for the thicker
-      <code>--_box-focus-image</code> on every box. With
-      <code>field-sizing: content</code> the input is as wide as its value, so
-      <code>.ui-field::after</code>, in the grid column right after it, is the
-      ring on the next empty box. A complete code leaves no column for it, and
-      the clipped field hides it, so the thicker boxes are what shows focus.
+      <code>:focus-within</code> doubles <code>--_box-border-width</code> on
+      every box. With <code>field-sizing: content</code> the input is as wide as
+      its value, so <code>.ui-field::after</code>, in the grid column right
+      after it, is the ring on the next empty box, a real border with the same
+      radius. A complete code leaves no column for it, and the clipped field
+      hides it, so the thicker boxes are what shows focus.
     </p>
   </Fragment>
 </Component>

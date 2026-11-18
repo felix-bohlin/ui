@@ -1,0 +1,366 @@
+import {
+  Button,
+  Card,
+  CardContent,
+  Chip,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+  ToggleButton,
+  ToggleGroup,
+} from "opui-css/react"
+
+export default function Pricing() {
+  return (
+    <>
+      <div className="pricing ui-layout-container ui-layout-column ui-large">
+        <div
+          className="ui-layout-container ui-layout-column ui-large ui-align-center pricing-intro"
+          style={{ "--_max-inline-size": "40rem", "--_padding-inline": "0" }}
+        >
+          <hgroup className="ui-hgroup">
+            <p>Memberships</p>
+            <h1 className="ui-h2">Totally rad memberships for the low end</h1>
+            <p>
+              Start free, upgrade when your bandmates still won't listen. Every
+              paid plan comes with a 14-day trial.
+            </p>
+          </hgroup>
+          <div className="ui-layout-row ui-small ui-align-center">
+            <ToggleGroup
+              aria-label="Billing period"
+              defaultValue="yearly"
+              name="pricing-period"
+            >
+              <ToggleButton
+                id="pricing-period-monthly"
+                label="Monthly"
+                value="monthly"
+              />
+              <ToggleButton
+                id="pricing-period-yearly"
+                label="Yearly"
+                value="yearly"
+              />
+            </ToggleGroup>
+            <span className="ui-p ui-success pricing-save">
+              Pay yearly, get 2 months free! Woohoo!
+            </span>
+          </div>
+        </div>
+        <ul className="ui-layout-grid ui-large pricing-plans">
+          <li>
+            <Card
+              aria-labelledby="pricing-basic-heading"
+              as="section"
+              className="pricing-plan"
+              variant="outlined"
+            >
+              <hgroup>
+                <h2 className="ui-h5" id="pricing-basic-heading">
+                  Basic
+                </h2>
+                <p>For bassists just dipping a toe in.</p>
+              </hgroup>
+              <CardContent>
+                <div className="ui-layout-column ui-small">
+                  <span className="ui-tabular-nums pricing-amount">€0</span>
+                  <span>Free forever</span>
+                </div>
+                <Button href="#pricing-basic" variant="outlined">
+                  Join for free
+                </Button>
+                <ul className="ui-layout-column ui-small pricing-features">
+                  <li>Your very own profile</li>
+                  <li>A wall for shoutouts</li>
+                  <li>Up to 3 bands</li>
+                  <li>All the sympathy you need</li>
+                </ul>
+              </CardContent>
+            </Card>
+          </li>
+          <li>
+            <Card
+              aria-labelledby="pricing-gold-heading"
+              as="section"
+              className="pricing-plan pricing-featured"
+              variant="elevated"
+            >
+              <Chip
+                as="span"
+                className="pricing-badge"
+                label="Most popular"
+                size="small"
+              />
+              <hgroup>
+                <h2 className="ui-h5" id="pricing-gold-heading">
+                  Gold
+                </h2>
+                <p>For bassists ready to shine (finally).</p>
+              </hgroup>
+              <CardContent>
+                <div className="ui-layout-column ui-small pricing-monthly">
+                  <span className="ui-tabular-nums pricing-amount">€3</span>
+                  <span>per month</span>
+                </div>
+                <div className="ui-layout-column ui-small pricing-yearly">
+                  <span className="ui-tabular-nums pricing-amount">€30</span>
+                  <span>per year, that's 2 months free</span>
+                </div>
+                <Button href="#pricing-gold" variant="filled">
+                  Start free trial
+                </Button>
+                <ul className="ui-layout-column ui-small pricing-features">
+                  <li>Everything in Basic</li>
+                  <li>A shiny gold name</li>
+                  <li>Unlimited gear photos</li>
+                  <li>Gig calendar with reminders</li>
+                  <li>Speedy support (we listen!)</li>
+                </ul>
+              </CardContent>
+            </Card>
+          </li>
+          <li>
+            <Card
+              aria-labelledby="pricing-platinum-heading"
+              as="section"
+              className="pricing-plan"
+              variant="outlined"
+            >
+              <hgroup>
+                <h2 className="ui-h5" id="pricing-platinum-heading">
+                  Platinum
+                </h2>
+                <p>For legends of the low end. You know who you are.</p>
+              </hgroup>
+              <CardContent>
+                <div className="ui-layout-column ui-small pricing-monthly">
+                  <span className="ui-tabular-nums pricing-amount">€5</span>
+                  <span>per month</span>
+                </div>
+                <div className="ui-layout-column ui-small pricing-yearly">
+                  <span className="ui-tabular-nums pricing-amount">€50</span>
+                  <span>per year, that's 2 months free</span>
+                </div>
+                <Button href="#pricing-platinum" variant="outlined">
+                  Go Platinum
+                </Button>
+                <ul className="ui-layout-column ui-small pricing-features">
+                  <li>Everything in Gold</li>
+                  <li>Posts 10% louder</li>
+                  <li>Custom profile glitter</li>
+                  <li>Early access to new stuff</li>
+                  <li>A personal bass buddy</li>
+                </ul>
+              </CardContent>
+            </Card>
+          </li>
+        </ul>
+        <div className="ui-layout-column">
+          <h2 className="ui-h4" id="pricing-compare-heading">
+            Compare plans
+          </h2>
+          <Table
+            aria-labelledby="pricing-compare-heading"
+            className="pricing-table"
+            flush
+          >
+            <TableHead>
+              <TableRow>
+                <TableHeaderCell scope="col">Feature</TableHeaderCell>
+                <TableHeaderCell scope="col">Basic</TableHeaderCell>
+                <TableHeaderCell scope="col">Gold</TableHeaderCell>
+                <TableHeaderCell scope="col">Platinum</TableHeaderCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow>
+                <TableHeaderCell scope="row">Bands</TableHeaderCell>
+                <TableCell>Up to 3</TableCell>
+                <TableCell>Unlimited</TableCell>
+                <TableCell>Unlimited</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableHeaderCell scope="row">Gear photos</TableHeaderCell>
+                <TableCell>20</TableCell>
+                <TableCell>Unlimited</TableCell>
+                <TableCell>Unlimited</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableHeaderCell scope="row">Song uploads</TableHeaderCell>
+                <TableCell>3 songs</TableCell>
+                <TableCell>100 songs</TableCell>
+                <TableCell>All the songs</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableHeaderCell scope="row">Shiny gold name</TableHeaderCell>
+                <TableCell>
+                  <span aria-hidden="true">–</span>
+                  <span className="ui-sr-only">Not included</span>
+                </TableCell>
+                <TableCell>
+                  <span
+                    className="pricing-check"
+                    role="img"
+                    aria-label="Included"
+                  ></span>
+                </TableCell>
+                <TableCell>
+                  <span
+                    className="pricing-check"
+                    role="img"
+                    aria-label="Included"
+                  ></span>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableHeaderCell scope="row">Gig calendar</TableHeaderCell>
+                <TableCell>
+                  <span aria-hidden="true">–</span>
+                  <span className="ui-sr-only">Not included</span>
+                </TableCell>
+                <TableCell>
+                  <span
+                    className="pricing-check"
+                    role="img"
+                    aria-label="Included"
+                  ></span>
+                </TableCell>
+                <TableCell>
+                  <span
+                    className="pricing-check"
+                    role="img"
+                    aria-label="Included"
+                  ></span>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableHeaderCell scope="row">10% louder posts</TableHeaderCell>
+                <TableCell>
+                  <span aria-hidden="true">–</span>
+                  <span className="ui-sr-only">Not included</span>
+                </TableCell>
+                <TableCell>
+                  <span aria-hidden="true">–</span>
+                  <span className="ui-sr-only">Not included</span>
+                </TableCell>
+                <TableCell>
+                  <span
+                    className="pricing-check"
+                    role="img"
+                    aria-label="Included"
+                  ></span>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableHeaderCell scope="row">Support</TableHeaderCell>
+                <TableCell>Community</TableCell>
+                <TableCell>Speedy email</TableCell>
+                <TableCell>Bass buddy</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+        <p className="ui-caption pricing-note">
+          Prices in EUR, excluding VAT. Buying Gold for your whole band?{" "}
+          <a className="ui-link" href="#pricing-band">
+            Get a band deal
+          </a>
+          .
+        </p>
+      </div>
+      <style>{`
+        .pricing {
+          container-type: inline-size;
+
+          &:has(#pricing-period-monthly:checked) .pricing-yearly,
+          &:has(#pricing-period-yearly:checked) .pricing-monthly {
+            display: none;
+          }
+
+          .pricing-intro h1 {
+            text-wrap: balance;
+          }
+
+          .pricing-save {
+            font-weight: var(--ui-font-weight-medium);
+          }
+
+          .pricing-plans {
+            grid-template-columns: minmax(0, 1fr);
+
+            @container (inline-size >= 56rem) {
+              grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+          }
+
+          .pricing-plan {
+            &.pricing-featured {
+              outline: var(--ui-border-width-thick) solid var(--ui-primary);
+              outline-offset: calc(-1 * var(--ui-border-width-thick));
+            }
+
+            .ui-content {
+              display: grid;
+              gap: var(--ui-space-4);
+            }
+          }
+
+          .pricing-badge {
+            inset-block-start: var(--ui-space-3);
+            inset-inline-end: var(--ui-space-3);
+            position: absolute;
+          }
+
+          .pricing-amount {
+            font-size: var(--ui-font-size-800);
+            font-weight: var(--ui-font-weight-bold);
+            line-height: 1;
+          }
+
+          .pricing-features li {
+            align-items: start;
+            display: flex;
+            gap: var(--ui-space-2);
+
+            &::before {
+              flex-shrink: 0;
+              margin-block-start: 0.15em;
+            }
+          }
+
+          .pricing-check,
+          .pricing-features li::before {
+            background-color: var(--ui-success-text);
+            block-size: 1.25rem;
+            content: "";
+            display: inline-block;
+            inline-size: 1.25rem;
+            mask: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M20.7 6.3a1 1 0 0 1 0 1.4l-10 10a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.4l4.3 4.29 9.3-9.3a1 1 0 0 1 1.4 0'/></svg>")
+              center / contain no-repeat;
+            vertical-align: middle;
+          }
+
+          .pricing-table {
+            table-layout: fixed;
+
+            th[scope="row"] {
+              font-weight: var(--ui-font-weight-normal);
+            }
+
+            :is(td, thead th:not(:first-child)) {
+              text-align: center;
+            }
+          }
+
+          .pricing-note {
+            text-align: center;
+          }
+        }
+      `}</style>
+    </>
+  )
+}

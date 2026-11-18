@@ -12,13 +12,14 @@ import { TextField } from "opui-css/vue"
     <template #start>https://</template>
   </TextField>
 
-  <TextField label="Weight" placeholder="0" type="numeric">
+  <TextField inputmode="decimal" label="Weight" placeholder="0">
     <template #end>kg</template>
   </TextField>
 
   <TextField label="Search" placeholder="Search...">
     <template #start>
       <svg
+        data-icon="search"
         aria-hidden="true"
         width="16"
         height="16"

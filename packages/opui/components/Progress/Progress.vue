@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useInputAttrs } from "../vue"
+import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
 const { max, round, value, variant } = defineProps<Props>()
@@ -20,7 +21,7 @@ const attrs = useInputAttrs()
       variant && variant !== 'tonal' && `ui-${variant}`,
       $props.class,
     ]"
-    :style="$attrs.style"
+    v-bind="styleAttrs($attrs.style)"
   >
     <progress :max="max" :value="value" v-bind="attrs">
       <slot></slot>

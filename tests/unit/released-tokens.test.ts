@@ -2,6 +2,7 @@ import { readFileSync, writeFileSync } from "node:fs"
 import { expect, test } from "vitest"
 import opui from "../../packages/opui/package.json"
 import { themeTokens } from "../../src/utils/theme-tokens"
+import { changesSince, sectionsIn } from "../../src/utils/changelog-file"
 import released from "./released-tokens.json"
 
 if (process.env.RELEASED_RECORD) {
@@ -16,16 +17,9 @@ if (process.env.RELEASED_RECORD) {
 }
 
 const changelog = readFileSync("packages/opui/CHANGELOG.md", "utf8")
-const unreleased = changelog.slice(
-  0,
-  changelog.indexOf(`\n## ${released.version} `),
-)
-const breaking = [
-  ...unreleased.matchAll(
-    /^### (Breaking|Removed)\n([\s\S]*?)(?=^### |^## |(?![\s\S]))/gm,
-  ),
-]
-  .map((match) => match[2])
+const breaking = sectionsIn(changesSince(changelog, released.version))
+  .filter(({ title }) => title === "Breaking" || title === "Removed")
+  .map(({ body }) => body)
   .join("\n")
 
 const unlogged = (tokens: string[], current: Set<string>, logged: string) => {

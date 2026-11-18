@@ -81,7 +81,7 @@ Dev: first request compiles every module behind `?raw` imports (`ensureModulesLo
     </button>
   </div>
   <pre class="todo-draft-text" id="astro-info">
-Astro                    v7.3.6
+Astro                    v7.4.5
 Node                     v26.10.0
 System                   Linux (x64)
 Package Manager          pnpm
@@ -92,7 +92,7 @@ Integrations             @astrojs/react
                          @astrojs/svelte
                          @astrojs/vue
 
-Also read against the 7.4.5 source, the latest release: `ensureModulesLoaded` is unchanged.</pre>
+Also read against 7.4.12, the latest release, where the function lives in `@astrojs/vite-plugin-astro` 0.1.3 (`dist/internal/vite-plugin-css/collect.js`): it still descends into `?raw` modules.</pre>
 </section>
 <section class="todo-draft">
   <div class="todo-draft-head">
@@ -107,7 +107,7 @@ Also read against the 7.4.5 source, the latest release: `ensureModulesLoaded` is
     </button>
   </div>
   <pre class="todo-draft-text" id="astro-bug">
-On the first request after `astro dev` starts, the CSS collector in `astro/dist/vite-plugin-css/index.js` calls `ensureModulesLoaded(env, mod)` on the page module. It walks `mod.importedModules` recursively and `fetchModule()`s every module it reaches that has no `transformResult` yet, dynamic imports included.
+On the first request after `astro dev` starts, the CSS collector (`astro/dist/vite-plugin-css/index.js`, and since 7.4.9 `dist/internal/vite-plugin-css/collect.js` in `@astrojs/vite-plugin-astro`) calls `ensureModulesLoaded(env, mod)` on the page module. It walks `mod.importedModules` recursively and `fetchModule()`s every module it reaches that has no `transformResult` yet, dynamic imports included.
 
 Vite adds a module graph edge from `file.ext?raw` to `file.ext`, so `ensureModulesLoaded` follows a `?raw` import into the file itself, compiles it as a module, and then everything that file imports. `collectCSSWithOrder`, in the same file, already stops at `?raw`:
 
@@ -119,11 +119,7 @@ Vite adds a module graph edge from `file.ext?raw` to `file.ext`, so `ensureModul
 
 `ensureModulesLoaded` has no such check, so a page that globs source files as text (a docs site showing component source, for example) compiles all of them as modules on its first request. On our docs site that is about 3,000 modules and 9 seconds for the first component page; the edge alone costs 2.8s on a page that only imports examples as `?raw` (11.5s without a workaround, 8.7s with it).
 
-Steps to reproduce:
-
-1. `src/components/A.astro`, `B.astro` and `C.astro`: any components (each can import something heavy to make the cost visible).
-2. `src/pages/index.astro` globs them as text (below).
-3. `astro dev`, open `/` and watch the server log (`DEBUG=vite:transform`): A, B and C are transformed as modules, although the page only uses their text.
+The page, `src/pages/index.astro`:
 
 ```astro
 ---
@@ -136,6 +132,12 @@ const sources = import.meta.glob("../components/*.astro", {
 
 &lt;pre&gt;{Object.keys(sources).join("\n")}&lt;/pre&gt;
 ```
+
+Steps to reproduce:
+
+1. `src/components/A.astro`, `B.astro` and `C.astro`: any components (each can import something heavy to make the cost visible).
+2. `src/pages/index.astro` globs them as text (above).
+3. `astro dev`, open `/` and watch the server log (`DEBUG=vite:transform`): A, B and C are transformed as modules, although the page only uses their text.
 
 Workaround: a `serve`-only Vite plugin with `enforce: "pre"` that loads `?raw` ids itself (`export default ${JSON.stringify(readFileSync(file, "utf-8"))}`), so Vite adds no edge to the file.</pre>
 </section>

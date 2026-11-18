@@ -18,6 +18,11 @@ const RATCHETS = [
     keys: true,
   },
   {
+    file: "tests/unit/framework-diagnostics-allowlist.json",
+    fix: "fix the warning in the component, its emitter or the example instead of allowing it",
+    keys: true,
+  },
+  {
     file: "tests/unit/todo-allowlist.json",
     fix: "fix the new TODO.md item instead of allowing it",
   },
@@ -32,7 +37,7 @@ const A11Y_LEDGER = "tests/e2e/a11y-known-violations.json"
 const HAND_WRITTEN = "scripts/hand-written-examples.json"
 const HAND_WRITTEN_COMPONENTS = "scripts/hand-written-components.json"
 const DRIFT_DIR = "tests/unit/__snapshots__"
-export const TRAILER = "Ledger-Change"
+const TRAILER = "Ledger-Change"
 
 export const entries = (value, path = []) =>
   typeof value === "string"

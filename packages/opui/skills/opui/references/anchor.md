@@ -1,9 +1,9 @@
 # Anchor
 
-Places floating content next to an element with CSS anchor positioning.
+Floating content placed next to an element with CSS anchor positioning.
 
 - CSS: `opui-css/css/components/anchor.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/anchor.md), [Astro](https://open-props-ui.netlify.app/astro/components/anchor.md), [React](https://open-props-ui.netlify.app/react/components/anchor.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/anchor.md), [Vue](https://open-props-ui.netlify.app/vue/components/anchor.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/anchor.md), [Astro](https://opui.dev/astro/components/anchor.md), [React](https://opui.dev/react/components/anchor.md), [Solid](https://opui.dev/solid/components/anchor.md), [Svelte](https://opui.dev/svelte/components/anchor.md), [Vue](https://opui.dev/vue/components/anchor.md).
 
 ## Anchor
 
@@ -11,7 +11,7 @@ Places floating content next to an element with CSS anchor positioning.
 
 - `.ui-anchor` (root): Container element. Scopes the anchor to its content.
 - `& > :first-child`: The content the floating content is anchored to.
-- `.ui-floating` (`AnchorContent`): The floating content.
+- `.ui-floating` (`AnchorContent`): The floating content. With `trigger="hover"`, it takes the anchor's `id` and `popover="hint"` over its own, so the trigger's `interestfor` always reaches it. In an anchor that always shows it, its own `id` and `popover` stay.
 
 ### Props and modifiers
 
@@ -122,6 +122,47 @@ export default function AlwaysVisible() {
         <Button variant="outlined">Export</Button>
         <AnchorContent>
           <Card className="coach-mark" variant="tonal">
+            <CardContent>
+              <strong>New</strong> Export to PDF and CSV from the same menu.
+            </CardContent>
+          </Card>
+        </AnchorContent>
+      </Anchor>
+      <style>{`
+        .coach-mark {
+          font-size: var(--ui-font-size-body);
+          margin-inline-start: var(--ui-space-2);
+          max-inline-size: 220px;
+        }
+      `}</style>
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Anchor, AnchorContent } from "opui-css/solid"`
+
+### Example: Always visible
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import {
+  Anchor,
+  AnchorContent,
+  Button,
+  Card,
+  CardContent,
+} from "opui-css/solid"
+
+export default function AlwaysVisible() {
+  return (
+    <>
+      <Anchor positionArea="inline-end">
+        <Button variant="outlined">Export</Button>
+        <AnchorContent>
+          <Card class="coach-mark" variant="tonal">
             <CardContent>
               <strong>New</strong> Export to PDF and CSV from the same menu.
             </CardContent>

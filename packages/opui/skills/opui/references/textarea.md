@@ -1,25 +1,25 @@
 # Textarea
 
-An input for multi-line text data. Basic textareas with labels, supporting text, and validation states.
+A multi-line text input with a label, start and end text, and validation.
 
 - CSS: `opui-css/css/components/text-field.css` and `opui-css/css/components/textarea.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/textarea.md), [Astro](https://open-props-ui.netlify.app/astro/components/textarea.md), [React](https://open-props-ui.netlify.app/react/components/textarea.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/textarea.md), [Vue](https://open-props-ui.netlify.app/vue/components/textarea.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/textarea.md), [Astro](https://opui.dev/astro/components/textarea.md), [React](https://opui.dev/react/components/textarea.md), [Solid](https://opui.dev/solid/components/textarea.md), [Svelte](https://opui.dev/svelte/components/textarea.md), [Vue](https://opui.dev/vue/components/textarea.md).
 
 ## Textarea
 
 ### Parts
 
-- `label.ui-textarea` (root): Container element.
+- `.ui-textarea` (root): Container element, a `<div>`. The label inside is a `<label for>` that names the textarea by itself.
 - `.ui-label` (prop `label`, slot `label`): The label for the field.
 - `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
 - `.ui-field`: The boxed textarea area.
 - `.ui-field > .ui-top` (slot `top`): Content above the textarea, inside the border, with a divider.
-- `.ui-field > .ui-start` (slot `start`): Content at the inline-start of the field, inside the border.
+- `.ui-field > .ui-start` (slot `start`): Content at the inline-start of the field, inside the border, centered on the first line. Taller content starts `--_affix-padding-block` below the field's top, or below `.ui-top`.
 - `<textarea>` (model): The textarea element.
-- `.ui-field > .ui-end` (slot `end`): Content at the inline-end of the field, inside the border.
+- `.ui-field > .ui-end` (slot `end`): Content at the inline-end of the field, inside the border, centered on the first line. Taller content starts `--_affix-padding-block` below the field's top, or below `.ui-top`.
 - `.ui-field > .ui-bottom` (slot `bottom`): Content below the textarea, inside the border, with a divider.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
-- `<opui-character-count>` (prop `characterCount`, prop `characterCountLabel`): The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left.
+- `<opui-character-count>` (prop `characterCount`, prop `characterCountLabel`): The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left.
 
 ### Props and modifiers
 
@@ -28,9 +28,9 @@ An input for multi-line text data. Basic textareas with labels, supporting text,
 - `characterCountLabel`: `string`, default `"Characters left: {count}"`. The announcement near the limit, with `{count}` for the characters left. Pass it translated.
 - `disabled`: `boolean`, `textarea[aria-disabled="true"]`, `textarea[disabled]`. Dims the field and blocks input. `aria-disabled="true"` looks the same, but keeps the field focusable, its text editable and its value in the form.
 - `error`: `boolean`, `textarea[aria-invalid="true"]`. Marks the control invalid and shows error styles.
-- `hideLabel`: `boolean`, `.ui-textarea > span.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
-- `id`: `string`. The id of the `<textarea>`.
-- `name`: `string`. The name of the `<textarea>`. Inside a `FieldGroup`, the group's `name` applies.
+- `hideLabel`: `boolean`, `.ui-textarea > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
+- `id`: `string`. The id of the `<textarea>`. The `<label for>` points at it, so the component generates one when it's left out and there's a label. The ids the component generates start with it: `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id="x"`.
+- `name`: `string`. The name of the `<textarea>`. Inside a `FieldGroup`, the group's `name` when omitted.
 - `required`: `boolean`, `textarea[required]`. Adds a required mark after the label. The form won't submit while the field is empty.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
 - `spread`: `boolean`, `.ui-spread`. Pushes the label and start text to one side and the textarea to the other.
@@ -40,12 +40,19 @@ An input for multi-line text data. Basic textareas with labels, supporting text,
 
 - `default`: Extra content inside the root.
 
-Model: `value` (`string`), the textarea value. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
+### Element
+
+- `<opui-character-count>`, defined by `opui-css/elements/character-count.js`:
+  - `control`: The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only.
+
+Model: `value` (`string`), the textarea value. Astro, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes
 
-- Astro, Svelte and Vue: Attributes that aren't props go to the `<textarea>`, like `maxlength` and `placeholder`, and `class` and `style` go to the root `<label>`.
-- React: Attributes that aren't props go to the `<textarea>`, like `maxlength` and `placeholder`, and `className` and `style` go to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.
+- HTML: For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. With a label, put a `<label class="ui-label" for>` inside the root that points at the field's `id`, so the label alone names it, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Put `.ui-top` and `.ui-start` before the `<textarea>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they're drawn.
+- Astro, Svelte and Vue: Attributes that aren't props go to the `<textarea>`, like `maxlength` and `placeholder`, and `class` and `style` go to the `.ui-textarea` root.
+- React: Attributes that aren't props go to the `<textarea>`, like `maxlength` and `placeholder`, and `className` and `style` go to the `.ui-textarea` root. Use `value` with `onChange`, or `defaultValue`.
+- Solid: `value` sets the value and follows it when it changes. Follow typing with `onInput`.
 
 ## Component properties
 
@@ -58,13 +65,21 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_chevron-image`: The select arrow, as an image used for a mask.
 - `--_chevron-size`: Width and height of the select arrow.
 - `--_ease`: Easing of the transitions. Defaults to `--ui-ease`.
+- `--_end-end-radius`: The radius of the end-end corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the next control.
+- `--_end-start-radius`: The radius of the end-start corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
 - `--_field-padding-block`: The preferred block padding of the control. Set by the size classes.
-- `--_field-padding-inline`: The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`.
-- `--_font-size`: The font size of the control and affixes.
+- `--_field-padding-inline`: The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.
+- `--_file-button-padding`: The preferred gap around the `::file-selector-button` of a file field: `--ui-space-2`, or `--ui-space-1` in `.ui-small` and `.ui-x-small`.
+- `--_font-size`: The font size of the control and affixes. At least 16px on iPhone and iPad (`css/compat/text-field.css`), so iOS Safari doesn't zoom in on focus.
+- `--_min-inline-size`: The least width of the control next to `.ui-start` and `.ui-end`, which shrink and end in an ellipsis to keep it, or the whole field when it is narrower. Defaults to `8ch`; a `NumberField` sets its own.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
+- `--_radius`: The corner radius of `.ui-field` and a file input's button. Defaults to `--ui-field-radius`, or `--ui-radius` when the theme doesn't set it.
+- `--_shadow`: The shadow of `.ui-field`. Defaults to `--ui-field-shadow`, or `--ui-shadow-control` when the theme leaves it unset. `none` in a `ControlGroup`.
 - `--_size`: The height of `.ui-field`, a minimum so a textarea can grow, and the width and height of a color field. Defaults to `--ui-field-size`, set by the size classes.
+- `--_start-end-radius`: The radius of the start-end corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
+- `--_start-start-radius`: The radius of the start-start corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the control before it.
 
-Outputs: `--_affix-button-size`, `--_affix-text-color`, `--_arrow-padding`, `--_bg-color`, `--_border-color`, `--_duration`, `--_field-padding-block-fit`, `--_file-button-inset` and `--_helper-text-color`.
+Outputs: `--_affix-block-size`, `--_affix-button-size`, `--_affix-padding-block`, `--_affix-text-color`, `--_arrow-padding`, `--_bg-color`, `--_border-color`, `--_duration`, `--_field-padding-block-fit`, `--_file-button-inset` and `--_helper-text-color`.
 
 ### textarea.css
 
@@ -72,25 +87,25 @@ Outputs: `--_affix-button-size`, `--_affix-text-color`, `--_arrow-padding`, `--_
 
 ## Theme tokens
 
-The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-field-bg-color`, `--ui-field-border-color`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-padding-inline`, `--ui-field-padding-inline-large`, `--ui-field-placeholder-text-color`, `--ui-field-radius`, `--ui-field-required-text-color`, `--ui-field-size`, `--ui-field-size-large`, `--ui-field-size-small`, `--ui-field-size-x-small`, `--ui-focus-border-color`, `--ui-focus-border-width`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-body`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-shadow-control`, `--ui-shadow-field`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-surface`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-field-bg-color`, `--ui-field-border-color`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-padding-inline`, `--ui-field-padding-inline-large`, `--ui-field-placeholder-text-color`, `--ui-field-radius`, `--ui-field-required-text-color`, `--ui-field-shadow`, `--ui-field-size`, `--ui-field-size-large`, `--ui-field-size-small`, `--ui-field-size-x-small`, `--ui-focus-border-color`, `--ui-focus-border-width`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-body`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-icon-expand`, `--ui-icon-hide`, `--ui-icon-show`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-shadow-control`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-surface`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-target-min-size`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
 ### Example: Variants
 
 ```html
-<label class="ui-textarea">
-  <span class="ui-label">Outlined</span>
+<div class="ui-textarea">
+  <label class="ui-label" for="textarea-variants-1">Outlined</label>
   <span class="ui-field">
-    <textarea placeholder="Placeholder"></textarea>
+    <textarea placeholder="Write a message" id="textarea-variants-1"></textarea>
   </span>
-</label>
-<label class="ui-textarea ui-filled">
-  <span class="ui-label">Filled</span>
+</div>
+<div class="ui-textarea ui-filled">
+  <label class="ui-label" for="textarea-variants-2">Filled</label>
   <span class="ui-field">
-    <textarea placeholder="Placeholder"></textarea>
+    <textarea placeholder="Write a message" id="textarea-variants-2"></textarea>
   </span>
-</label>
+</div>
 ```
 
 ## Astro
@@ -106,8 +121,8 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--u
 import { Textarea } from "opui-css/astro"
 ---
 
-<Textarea label="Outlined" placeholder="Placeholder" />
-<Textarea label="Filled" placeholder="Placeholder" variant="filled" />
+<Textarea label="Outlined" placeholder="Write a message" />
+<Textarea label="Filled" placeholder="Write a message" variant="filled" />
 ```
 
 ## React
@@ -125,8 +140,30 @@ import { Textarea } from "opui-css/react"
 export default function Variants() {
   return (
     <>
-      <Textarea label="Outlined" placeholder="Placeholder" />
-      <Textarea label="Filled" placeholder="Placeholder" variant="filled" />
+      <Textarea label="Outlined" placeholder="Write a message" />
+      <Textarea label="Filled" placeholder="Write a message" variant="filled" />
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Textarea } from "opui-css/solid"`
+
+- `Textarea` slot props (`JSX.Element`): `bottom`, `children`, `end`, `endText`, `label`, `start`, `startText` and `top`.
+
+### Example: Variants
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Textarea } from "opui-css/solid"
+
+export default function Variants() {
+  return (
+    <>
+      <Textarea label="Outlined" placeholder="Write a message" />
+      <Textarea label="Filled" placeholder="Write a message" variant="filled" />
     </>
   )
 }
@@ -146,8 +183,8 @@ export default function Variants() {
   import { Textarea } from "opui-css/svelte"
 </script>
 
-<Textarea label="Outlined" placeholder="Placeholder" />
-<Textarea label="Filled" placeholder="Placeholder" variant="filled" />
+<Textarea label="Outlined" placeholder="Write a message" />
+<Textarea label="Filled" placeholder="Write a message" variant="filled" />
 ```
 
 ## Vue
@@ -165,7 +202,7 @@ import { Textarea } from "opui-css/vue"
 </script>
 
 <template>
-  <Textarea label="Outlined" placeholder="Placeholder" />
-  <Textarea label="Filled" placeholder="Placeholder" variant="filled" />
+  <Textarea label="Outlined" placeholder="Write a message" />
+  <Textarea label="Filled" placeholder="Write a message" variant="filled" />
 </template>
 ```

@@ -16,7 +16,7 @@ import RangeBuild from "../../components/UnderTheHood/RangeBuild.astro"
 
 import rangeApi from "../../component-api/range/api"
 export const description =
-  "Range lets users pick a number by sliding a thumb along a track."
+  "A slider for picking a number by moving a thumb along a track."
 
 export const keywords = ["slider"]
 ---
@@ -38,22 +38,14 @@ export const keywords = ["slider"]
     "scroll-driven-animations",
     "user-pseudos",
   ]}
-  changelogPaths={[
-    {
-      path: "packages/opui/components/Range/Range.astro",
-      type: "component",
-    },
-    { path: "src/docs/components/range.astro", type: "docs" },
-    { path: "src/component-examples/range", type: "docs" },
-    {
-      path: "packages/opui/css/components/range.css",
-      type: "css",
-    },
-    { path: "src/component-api/range", type: "api" },
-  ]}
   installationTabs={[{ title: "range.css", code: RangeCSS, lang: "css" }]}
 >
   <Fragment slot="title">Range</Fragment>
+  <Fragment slot="preamble">
+    A value where the rough position matters, like volume. For an exact amount,
+    like a quantity, use a
+    <DocLink href="/components/number-field">Number field</DocLink>.
+  </Fragment>
 
   <Usage slot="usage">
     <li slot="when">
@@ -66,6 +58,7 @@ export const keywords = ["slider"]
     </li>
     <li slot="when-not">
       An exact number, like a quantity or a price. Use a
+      <DocLink href="/components/number-field">Number field</DocLink>, or a
       <DocLink href="/components/text-field#numeric-vs-input-type-number"
         >Text field</DocLink
       >
@@ -126,6 +119,52 @@ export const keywords = ["slider"]
         <code>opui-css/css/js/range.js</code> for a live readout.
       </Fragment>
     </Conditional>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The readout is formatted with <code>Intl.NumberFormat</code> for the
+        range's <code>lang</code>, with the decimals of <code>min</code> and
+        <code>step</code> and no grouping, so <code>0.5</code> reads
+        <code>0,5</code> in German. Pass <code>lang</code> to the range: without
+        it, the value is English until <code>range.js</code> formats it for the
+        closest <code>lang</code> in the page. A unit before the number needs
+        your own readout.
+      </Fragment>
+      <Fragment slot="html">
+        <code>range.js</code> formats the value with
+        <code>Intl.NumberFormat</code> for the closest <code>lang</code>, with
+        the decimals of <code>min</code> and <code>step</code> and no grouping,
+        so <code>0.5</code> reads <code>0,5</code> in German. A unit before the
+        number needs your own readout.
+      </Fragment>
+    </Conditional>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        For your own readout, use the <code>value-text</code> slot, update it on
+        <code>input</code>, and set <code>aria-valuetext</code> to match.
+      </Fragment>
+      <Fragment slot="html">
+        For your own readout, leave out <code>data-live</code>, update the
+        output on <code>input</code>, and set <code>aria-valuetext</code> to
+        match.
+      </Fragment>
+      <Fragment slot="react">
+        For your own readout, render <code>valueText</code> from your state and
+        set <code>aria-valuetext</code> to match.
+      </Fragment>
+      <Fragment slot="solid">
+        For your own readout, render <code>valueText</code> from your state,
+        kept with <code>onInput</code>, and set <code>aria-valuetext</code> to
+        match.
+      </Fragment>
+      <Fragment slot="svelte">
+        For your own readout, render the <code>valueText</code> snippet from the
+        bound value and set <code>aria-valuetext</code> to match.
+      </Fragment>
+      <Fragment slot="vue">
+        For your own readout, render the <code>value-text</code> slot from the
+        <code>v-model</code> value and set <code>aria-valuetext</code> to match.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Value" column />
     <AutoExample name="ValueText" column />
   </section>
@@ -137,7 +176,9 @@ export const keywords = ["slider"]
         Pass <code>items</code> for tick marks.
       </Fragment>
       <Fragment slot="html">
-        Link a <code>&lt;datalist&gt;</code> with <code>list</code>.
+        Link a <code>&lt;datalist&gt;</code> with <code>list</code>, and import
+        <code>opui-css/css/js/range.js</code> so labeled ticks are read as
+        <code>aria-valuetext</code>.
       </Fragment>
     </Conditional>
     <AutoExample name="TickMarksLabels" column />

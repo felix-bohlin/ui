@@ -12,8 +12,9 @@ export default {
     kind: "output",
   },
   "--_border-color": {
-    description: "Border color of the indicator. Set by the color classes.",
-    kind: "output",
+    description:
+      "Border color of the indicator, a ring in `--ui-surface` that sets it off from what it sits on. Set it to the background behind the badge on another surface.",
+    kind: "input",
   },
   "--_border-width": {
     description: "Border width of the indicator.",
@@ -35,6 +36,10 @@ export default {
   },
   "--_ease": {
     description: "Easing of the indicator fade. Defaults to `--ui-ease-enter`.",
+    kind: "input",
+  },
+  "--_indicator-size": {
+    description: "Height and minimum width of the indicator.",
     kind: "input",
   },
   "--_inset": {
@@ -75,10 +80,6 @@ export default {
     description:
       "Vertical side of the indicator, `1` or `-1`. Set by the corner classes.",
     kind: "output",
-  },
-  "--_size": {
-    description: "Height and minimum width of the indicator.",
-    kind: "input",
   },
   "--_text-color": {
     description:

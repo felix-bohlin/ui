@@ -317,10 +317,11 @@ const gear = `M ${point(root, 0)} ${Array.from(
     @media (prefers-reduced-motion: no-preference) {
       .ratchets-gear,
       .ratchets-pawl {
-        animation: linear both;
+        animation-fill-mode: both;
         animation-range: entry calc(var(--ratchets-i) * 3%) cover
           calc(28% + var(--ratchets-i) * 3%);
         animation-timeline: --ratchets-tile;
+        animation-timing-function: linear;
       }
 
       .ratchets-gear {

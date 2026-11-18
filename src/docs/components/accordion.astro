@@ -1,6 +1,7 @@
 ---
 import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
+import DefaultIcon from "./partials/DefaultIcon.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
@@ -24,7 +25,7 @@ import accordionApi from "../../component-api/accordion/api"
 import accordionActionsApi from "../../component-api/accordion-actions/api"
 import accordionSummaryApi from "../../component-api/accordion-summary/api"
 export const description =
-  "Lets you show and hide content, on its own or as a group."
+  "A summary that opens to show more content, on its own or in a group."
 
 export const keywords = [
   "collapse",
@@ -55,19 +56,12 @@ export const keywords = [
     "overflow-clip",
     "transition-behavior",
   ]}
-  changelogPaths={[
-    {
-      path: "packages/opui/components/Accordion/Accordion.astro",
-      type: "component",
-    },
-    { path: "src/docs/components/accordion.astro", type: "docs" },
-    { path: "src/component-examples/accordion", type: "docs" },
-    {
-      path: "packages/opui/css/components/accordion.css",
-      type: "css",
-    },
-    { path: "src/component-api/accordion", type: "api" },
-  ]}
+  fallbacks={{
+    "display-animation":
+      "Without display animation, the content hides at once when the accordion closes.",
+    "interpolate-size":
+      "Without `interpolate-size`, the content doesn't slide: it fades in at full height and hides at once.",
+  }}
   installationTabs={[
     { title: "accordion.css", code: AccordionCSS, lang: "css" },
     {
@@ -79,6 +73,11 @@ export const keywords = [
   ]}
 >
   <Fragment slot="title">Accordion</Fragment>
+  <Fragment slot="preamble">
+    Content most readers skip, like FAQ answers, behind a summary they open. For
+    views of the same content, use
+    <DocLink href="/components/tabs">Tabs</DocLink>.
+  </Fragment>
   <Usage slot="usage">
     <li slot="when">Content most readers skip, like FAQ answers.</li>
     <li slot="when">Long pages readers scan by heading.</li>
@@ -128,7 +127,11 @@ export const keywords = [
 
   <section id="actions">
     <h2>Actions</h2>
-    <p>Use <PropOrClass prop="AccordionActions" class=".ui-actions" />.</p>
+    <p>
+      Use <PropOrClass prop="AccordionActions" class=".ui-actions" />, with
+      <PropOrClass prop='align="start"' class=".ui-align-start" /> to line them
+      up with the content.
+    </p>
     <AutoExample name="Actions" column />
   </section>
 
@@ -140,6 +143,7 @@ export const keywords = [
       </Fragment>
       <Fragment slot="html"> Replace the <code>svg.ui-marker</code>. </Fragment>
     </Conditional>
+    <DefaultIcon tokens={["--ui-icon-expand"]} />
     <AutoExample name="CustomMarker" column />
   </section>
 
@@ -147,11 +151,13 @@ export const keywords = [
     <h2>Marker animation</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Rotates by default. Use <code>markerAnimation</code> to change it.
+        Rotates by default. Use <code>markerAnimation</code> to change it, with
+        a marker that points to the inline end for <code>turn</code>.
       </Fragment>
       <Fragment slot="html">
-        Rotates by default. Use <code>.ui-marker-animation-flip</code> or
-        <code>.ui-marker-animation-turn</code> to change it.
+        Rotates by default. Use <code>.ui-marker-animation-flip</code>, or
+        <code>.ui-marker-animation-turn</code> with a marker that points to the
+        inline end.
       </Fragment>
     </Conditional>
     <AutoExample name="MarkerAnimation" column />

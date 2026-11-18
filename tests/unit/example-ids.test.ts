@@ -4,6 +4,7 @@ import { describe, expect, test } from "vitest"
 import {
   assignExampleIds,
   createExampleIdPlaceholders,
+  idBaseOf,
 } from "../../scripts/example-ids.mjs"
 import { parseHtml } from "../../scripts/html-tokens.mjs"
 import { exampleIdBase } from "../../src/utils/id"
@@ -14,6 +15,20 @@ type Node = ReturnType<typeof parseHtml>[number]
 const $ = (n: number) => `opui-example-id-${n}`
 
 describe("assignExampleIds", () => {
+  test("a block numbers its ids after its slug, an example after its slug and name", () => {
+    expect(idBaseOf("src/blocks/sign-in/SignIn.astro")).toBe("sign-in")
+    expect(idBaseOf("src/component-examples/select/Spread.astro")).toBe(
+      "select-spread",
+    )
+    expect(
+      assignExampleIds(
+        `<input id="sign-in-1"><input id="${$(1)}">`,
+        "sign-in/SignIn",
+        "sign-in",
+      ),
+    ).toBe('<input id="sign-in-1"><input id="sign-in-2">')
+  })
+
   test("numbers ids in document order, parts with their base", () => {
     expect(
       assignExampleIds(
@@ -84,9 +99,11 @@ const OWNERS = [
   "ui-dialog",
   "ui-drawer",
   "ui-number-field",
+  "ui-one-time-code",
   "ui-range",
   "ui-select",
   "ui-text-field",
+  "ui-textarea",
 ]
 
 const GROUPS = ["ui-tabs", "ui-toggle-group"]
@@ -187,6 +204,7 @@ describe("the ids in the HTML examples", () => {
   const files = globSync("src/component-examples/**/*.html").toSorted()
   const keyOf = (file: string) =>
     file.replace("src/component-examples/", "").replace(/\.html$/, "")
+  const exampleOf = (file: string) => keyOf(file).replace(/Code$/, "")
 
   test("are unique and every reference points at one", () => {
     const problems = files.flatMap((file) =>
@@ -247,10 +265,10 @@ describe("the ids in the HTML examples", () => {
         if ([...groups].some(Boolean) && groups.size > 1) {
           problems.push(`${file}: ${groups.size} groups share the name ${name}`)
         }
-        if (owners.has(page) && owners.get(page) !== file) {
+        if (owners.has(page) && owners.get(page) !== exampleOf(file)) {
           problems.push(`${file}: ${owners.get(page)} also uses ${name}`)
         }
-        owners.set(page, file)
+        owners.set(page, exampleOf(file))
       }
     }
     expect(problems).toEqual([])

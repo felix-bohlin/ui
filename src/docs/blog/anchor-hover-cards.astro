@@ -120,9 +120,11 @@ import RepoCard from "../../component-examples/anchor/RepoCard.astro"
     <h2>Fallback</h2>
     <ul>
       <li>
-        Without interest invokers, hover and focus do nothing. A trigger with
-        <code>commandfor</code> still toggles the card on click, a link just
-        follows its <code>href</code>
+        Without interest invokers, the compat layer shows the card while the
+        anchor is hovered (on devices that hover) or holds keyboard focus,
+        inside <code>@supports not selector(:interest-source)</code>. It isn't
+        in the top layer there, a trigger with <code>commandfor</code> still
+        toggles it on click, and a tap on a link follows its <code>href</code>
       </li>
       <li>
         Without <code>popover="hint"</code>, the unknown value falls back to a

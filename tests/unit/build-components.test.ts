@@ -32,7 +32,7 @@ const compile = async (source: string, name = "Sample") => {
       file.split(".").slice(1).join("."),
       code,
     ]),
-  ) as Record<"react.tsx" | "svelte" | "vue", string>
+  ) as Record<"react.tsx" | "solid.tsx" | "svelte" | "vue", string>
 }
 
 beforeAll(async () => {
@@ -45,7 +45,7 @@ beforeAll(async () => {
   )
 }, 120_000)
 
-describe("the three ports of a sample", () => {
+describe("the ports of a sample", () => {
   test("a wrapper: class list, rest and the default slot", async () => {
     const ports = await compile(
       astro(
@@ -61,6 +61,46 @@ describe("the three ports of a sample", () => {
     expect(ports.vue).toBe(
       '<script setup lang="ts">\nimport type { Props, Slots } from "./types.vue-props"\n\ndefineProps<Props>()\ndefineSlots<Slots>()\n</script>\n\n<template>\n  <div :class="[\'ui-sample\', $props.class]">\n    <slot></slot>\n  </div>\n</template>\n',
     )
+    expect(ports["solid.tsx"]).toBe(
+      '/** @jsxImportSource @solidjs/web */\nimport { omit } from "solid-js"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "children")\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      {props.children}\n    </div>\n  )\n}\n',
+    )
+  })
+
+  test("a static value with quotes, a backslash, braces or a line break reads the same in each port", async () => {
+    const title = async (attribute: string) => {
+      const ports = await compile(
+        astro(
+          `<button class:list={["ui-sample", className]} type="button" ${attribute} {...rest} />`,
+        ),
+      )
+      return Object.values(ports).map(
+        (code) => code.match(/title=(\{[^\n]*\}|"[^"]*"|'[^']*')/)?.[1],
+      )
+    }
+    expect(await title('title="say &quot;hi&quot;"')).toEqual([
+      "'say \"hi\"'",
+      "'say \"hi\"'",
+      "{'say \"hi\"'}",
+      "'say \"hi\"'",
+    ])
+    expect(await title(String.raw`title="a\b"`)).toEqual([
+      String.raw`"a\b"`,
+      String.raw`"a\b"`,
+      String.raw`"a\b"`,
+      String.raw`"a\b"`,
+    ])
+    expect(await title('title="{x}"')).toEqual([
+      '"{x}"',
+      '"{x}"',
+      '{"{x}"}',
+      '"{x}"',
+    ])
+    expect(await title('title="a&#10;b"')).toEqual([
+      String.raw`{"a\nb"}`,
+      String.raw`{"a\nb"}`,
+      String.raw`{"a\nb"}`,
+      '"a&#10;b"',
+    ])
   })
 
   test("casts rest on an element that isn't the one the types extend", async () => {
@@ -121,6 +161,12 @@ describe("the three ports of a sample", () => {
     expect(ports.vue).toContain(
       '<component\n    :is="Tag"\n    :class="[\'ui-sample\', $props.class]"\n    :role="Tag === \'fieldset\' ? undefined : \'group\'"\n    v-bind="defined(attrs)"\n  >',
     )
+    expect(ports["solid.tsx"]).toContain(
+      '  const rest = omit(props, "as", "class", "children")\n  const tag = () => props.as || "fieldset"\n  const Tag = dynamic(tag)\n  const role = () => (tag() === "fieldset" ? undefined : "group")\n',
+    )
+    expect(ports["solid.tsx"]).toContain(
+      "role={role()}\n      {...defined(rest as object)}",
+    )
   })
 
   test("a variable tag keeps its name and infers its type in React", async () => {
@@ -149,7 +195,7 @@ describe("the three ports of a sample", () => {
     )
     expect(ports.svelte).toContain("{...onItem ? {} : (rest as object)}")
     expect(ports.vue).toContain("inheritAttrs: false")
-    expect(ports.vue).toContain("const attrs = useAttrs() as HTMLAttributes")
+    expect(ports.vue).toContain("const attrs = useAttrs()\n")
     expect(ports.vue).toContain('v-bind="onItem ? attrs : {}"')
     expect(ports.vue).toContain('v-bind="onItem ? {} : attrs"')
   })
@@ -179,7 +225,10 @@ describe("the three ports of a sample", () => {
       '<script lang="ts">\n  import { defined } from "../attrs"\n  import { classAttrs } from "../cx"\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n    label,\n    numeric,\n    sortable,\n\n    // Snippets\n    children,\n    endText,\n    ...rest\n  }: Props = $props()\n</script>\n\n<th\n  {...classAttrs([{ "ui-numeric": numeric }, className])}\n  data-sort={sortable ? "" : undefined}\n  {...defined(rest)}\n>\n  {#if sortable}\n    <button type="button">\n      {@render children?.()}\n    </button>\n  {:else}\n    {@render children?.()}\n  {/if}\n  {#if label}\n    <span class="ui-label">\n      {label}{@render endText?.()}\n    </span>\n  {/if}\n</th>\n',
     )
     expect(ports.vue).toBe(
-      '<script setup lang="ts">\nimport { type HTMLAttributes, useAttrs } from "vue"\nimport { defined } from "../attrs"\nimport { classAttrs } from "../cx"\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { label, numeric, sortable } = defineProps<Props>()\ndefineSlots<Slots>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useAttrs() as HTMLAttributes\n</script>\n\n<template>\n  <th\n    :data-sort="sortable ? \'\' : undefined"\n    v-bind="{\n      ...defined(attrs),\n      ...classAttrs([{ \'ui-numeric\': numeric }, $props.class]),\n    }"\n  >\n    <button v-if="sortable" type="button"><slot></slot></button>\n    <slot v-else></slot>{{ " "\n    }}<span v-if="label" class="ui-label"\n      >{{ label }}<slot name="end-text"></slot\n    ></span>\n  </th>\n</template>\n',
+      '<script setup lang="ts">\nimport { useAttrs } from "vue"\nimport { defined } from "../attrs"\nimport { classAttrs } from "../cx"\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { label, numeric, sortable } = defineProps<Props>()\ndefineSlots<Slots>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useAttrs()\n</script>\n\n<template>\n  <th\n    :data-sort="sortable ? \'\' : undefined"\n    v-bind="{\n      ...defined(attrs),\n      ...classAttrs([{ \'ui-numeric\': numeric }, $props.class]),\n    }"\n  >\n    <button v-if="sortable" type="button"><slot></slot></button>\n    <slot v-else></slot>{{ " "\n    }}<span v-if="label" class="ui-label"\n      >{{ label }}<slot name="end-text"></slot\n    ></span>\n  </th>\n</template>\n',
+    )
+    expect(ports["solid.tsx"]).toBe(
+      '/** @jsxImportSource @solidjs/web */\nimport { children, omit } from "solid-js"\nimport { defined } from "../attrs"\nimport { cx } from "../cx"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(\n    props,\n    "class",\n    "label",\n    "numeric",\n    "sortable",\n    "children",\n    "endText",\n  )\n  const resolvedChildren = children(() => props.children)\n\n  return (\n    <th\n      class={cx([{ "ui-numeric": props.numeric }, props.class])}\n      data-sort={props.sortable ? "" : undefined}\n      {...defined(rest)}\n    >\n      {props.sortable ? (\n        <button type="button">{resolvedChildren()}</button>\n      ) : (\n        resolvedChildren()\n      )}{" "}\n      {props.label && (\n        <span class="ui-label">\n          {props.label}\n          {props.endText}\n        </span>\n      )}\n    </th>\n  )\n}\n',
     )
   })
 
@@ -191,10 +240,13 @@ describe("the three ports of a sample", () => {
       'import { cx } from "../cx"\nimport Button from "../Button/Button.react"\nimport { markerPath } from "./icons"\nimport type { Props } from "./types.react"\n\nexport default function Sample({\n  className,\n  children,\n  marker,\n  ...rest\n}: Props) {\n  return (\n    <summary className={cx([className])} {...rest}>\n      {children}{" "}\n      {marker === undefined ? (\n        <svg aria-hidden="true">\n          <path d={markerPath} />\n        </svg>\n      ) : (\n        marker\n      )}{" "}\n      <Button round size="small">\n        Close\n      </Button>\n    </summary>\n  )\n}\n',
     )
     expect(ports.svelte).toBe(
-      '<script lang="ts">\n  import Button from "../Button/Button.svelte"\n  import { markerPath } from "./icons"\n  import { classAttrs } from "../cx"\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n\n    // Snippets\n    children,\n    marker,\n    ...rest\n  }: Props = $props()\n</script>\n\n<summary {...classAttrs([className])} {...rest}>\n  {@render children?.()}{" "}{#if marker}\n    {@render marker()}\n  {:else}\n    <svg aria-hidden="true">\n      <path d={markerPath} />\n    </svg>\n  {/if}\n  <Button round size="small">Close</Button>\n</summary>\n',
+      '<script lang="ts">\n  import Button from "../Button/Button.svelte"\n  import { markerPath } from "./icons"\n  import { classAttrs } from "../cx"\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n\n    // Snippets\n    children,\n    marker,\n    ...rest\n  }: Props = $props()\n</script>\n\n<summary {...classAttrs(className)} {...rest}>\n  {@render children?.()}{" "}{#if marker}\n    {@render marker()}\n  {:else}\n    <svg aria-hidden="true">\n      <path d={markerPath} />\n    </svg>\n  {/if}\n  <Button round size="small">Close</Button>\n</summary>\n',
     )
     expect(ports.vue).toBe(
-      '<script setup lang="ts">\nimport Button from "../Button/Button.vue"\nimport { markerPath } from "./icons"\nimport { classAttrs } from "../cx"\nimport type { Props, Slots } from "./types.vue-props"\n\ndefineProps<Props>()\ndefineSlots<Slots>()\n</script>\n\n<template>\n  <summary v-bind="classAttrs([$props.class])">\n    <slot></slot>{{ " " }}<slot v-if="$slots.marker" name="marker"></slot>\n    <svg v-else aria-hidden="true"><path :d="markerPath" /></svg>{{ " "\n    }}<Button round size="small">Close</Button>\n  </summary>\n</template>\n',
+      '<script setup lang="ts">\nimport Button from "../Button/Button.vue"\nimport { markerPath } from "./icons"\nimport { classAttrs } from "../cx"\nimport type { Props, Slots } from "./types.vue-props"\n\ndefineProps<Props>()\ndefineSlots<Slots>()\n</script>\n\n<template>\n  <summary v-bind="classAttrs($props.class)">\n    <slot></slot>{{ " " }}<slot v-if="$slots.marker" name="marker"></slot>\n    <svg v-else aria-hidden="true"><path :d="markerPath" /></svg>{{ " "\n    }}<Button round size="small">Close</Button>\n  </summary>\n</template>\n',
+    )
+    expect(ports["solid.tsx"]).toBe(
+      '/** @jsxImportSource @solidjs/web */\nimport { children, omit } from "solid-js"\nimport Button from "../Button/Button.solid"\nimport { markerPath } from "./icons"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "children", "marker")\n  const resolvedMarker = children(() => props.marker)\n\n  return (\n    <summary class={props.class} {...rest}>\n      {props.children}{" "}\n      {resolvedMarker() === undefined ? (\n        <svg aria-hidden="true">\n          <path d={markerPath} />\n        </svg>\n      ) : (\n        resolvedMarker()\n      )}{" "}\n      <Button round size="small">\n        Close\n      </Button>\n    </summary>\n  )\n}\n',
     )
   })
 
@@ -226,6 +278,9 @@ describe("the three ports of a sample", () => {
     expect(ports.vue).toBe(
       '<script setup lang="ts">\nimport { computed, inject, provide, reactive } from "vue"\nimport { SampleKey } from "./context.vue"\nimport { FieldGroupKey } from "../FieldGroup/context.vue"\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { name } = defineProps<Props>()\ndefineSlots<Slots>()\n\nconst field = inject(FieldGroupKey, undefined)\n\nprovide(\n  SampleKey,\n  reactive({\n    name: computed(() => name || field?.name),\n    open: computed(() => true),\n  }),\n)\n</script>\n\n<template>\n  <div :class="[\'ui-sample\', $props.class]">\n    <slot></slot>\n  </div>\n</template>\n',
     )
+    expect(ports["solid.tsx"]).toBe(
+      '/** @jsxImportSource @solidjs/web */\nimport { omit } from "solid-js"\nimport { SampleContext } from "./context.solid"\nimport { useFieldGroupContext } from "../FieldGroup/context.solid"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "name", "children")\n  const field = useFieldGroupContext()\n\n  return (\n    <SampleContext\n      value={{\n        get name() {\n          return props.name || field?.name\n        },\n        get open() {\n          return true\n        },\n      }}\n    >\n      <div class={["ui-sample", props.class]} {...rest}>\n        {props.children}\n      </div>\n    </SampleContext>\n  )\n}\n',
+    )
   })
 
   test("ids from the framework's uid and a warning behind an if", async () => {
@@ -233,13 +288,16 @@ describe("the three ports of a sample", () => {
       '---\nimport type { Props } from "./types.astro"\nimport { autoLabelledBy, createIds } from "../id"\nimport { warnMissingId } from "../dev"\n\nconst { class: className, id: idProp, ...rest } = Astro.props\n\nconst titleId = createIds(Astro.locals, "sample", idProp)("title")\nconst labelledBy = autoLabelledBy(rest, titleId)\nif (!labelledBy) {\n  warnMissingId("Sample", idProp)\n}\n---\n\n<section\n  aria-labelledby={labelledBy}\n  class:list={["ui-sample", className]}\n  id={idProp}\n  {...rest}\n>\n  <slot />\n</section>\n',
     )
     expect(ports["react.tsx"]).toBe(
-      'import { useId } from "react"\nimport { defined } from "../attrs"\nimport { cx } from "../cx"\nimport { autoLabelledBy } from "../id"\nimport { warnMissingId } from "../dev"\nimport type { Props } from "./types.react"\n\nexport default function Sample({\n  className,\n  id: idProp,\n  children,\n  ...rest\n}: Props) {\n  const uid = useId()\n  const titleId = `${idProp ?? `sample-${uid}`}-title`\n  const labelledBy = autoLabelledBy(rest, titleId)\n  if (!labelledBy) {\n    warnMissingId("Sample", idProp)\n  }\n\n  return (\n    <section\n      aria-labelledby={labelledBy}\n      className={cx(["ui-sample", className])}\n      id={idProp}\n      {...defined(rest)}\n    >\n      {children}\n    </section>\n  )\n}\n',
+      'import { useId } from "react"\nimport { defined } from "../attrs"\nimport { cx } from "../cx"\nimport { autoLabelledBy } from "../id"\nimport { warnMissingId } from "../dev"\nimport type { Props } from "./types.react"\n\nexport default function Sample({\n  className,\n  id: idProp,\n  children,\n  ...rest\n}: Props) {\n  const uid = useId()\n  const titleId = `${idProp || `sample-${uid}`}-title`\n  const labelledBy = autoLabelledBy(rest, titleId)\n  if (!labelledBy) {\n    warnMissingId("Sample", idProp)\n  }\n\n  return (\n    <section\n      aria-labelledby={labelledBy}\n      className={cx(["ui-sample", className])}\n      id={idProp}\n      {...defined(rest)}\n    >\n      {children}\n    </section>\n  )\n}\n',
     )
     expect(ports.svelte).toContain(
-      '  const uid = $props.id()\n  const titleId = $derived(`${idProp ?? `sample-${uid}`}-title`)\n  const labelledBy = $derived(autoLabelledBy(rest, titleId))\n  untrack(() => {\n    if (!labelledBy) {\n      warnMissingId("Sample", idProp)\n    }\n  })\n',
+      '  const uid = $props.id()\n  const titleId = $derived(`${idProp || `sample-${uid}`}-title`)\n  const labelledBy = $derived(autoLabelledBy(rest, titleId))\n  untrack(() => {\n    if (!labelledBy) {\n      warnMissingId("Sample", idProp)\n    }\n  })\n',
     )
     expect(ports.vue).toBe(
-      '<script setup lang="ts">\nimport { computed, type HTMLAttributes, useAttrs, useId } from "vue"\nimport { autoLabelledBy } from "../id"\nimport { warnMissingId } from "../dev"\nimport { defined } from "../attrs"\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { id: idProp } = defineProps<Props>()\ndefineSlots<Slots>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useAttrs() as HTMLAttributes\n\nconst uid = useId()\n\nconst titleId = computed(() => `${idProp ?? `sample-${uid}`}-title`)\n\nconst labelledBy = computed(() => autoLabelledBy(attrs, titleId.value))\n\nif (!labelledBy.value) {\n  warnMissingId("Sample", idProp)\n}\n</script>\n\n<template>\n  <section\n    :aria-labelledby="labelledBy"\n    :class="[\'ui-sample\', $props.class]"\n    :id="idProp"\n    v-bind="defined(attrs)"\n  >\n    <slot></slot>\n  </section>\n</template>\n',
+      '<script setup lang="ts">\nimport { computed, type HTMLAttributes, useAttrs, useId } from "vue"\nimport { autoLabelledBy } from "../id"\nimport { warnMissingId } from "../dev"\nimport { defined } from "../attrs"\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { id: idProp } = defineProps<Props>()\ndefineSlots<Slots>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useAttrs() as HTMLAttributes\n\nconst uid = useId()\n\nconst titleId = computed(() => `${idProp || `sample-${uid}`}-title`)\n\nconst labelledBy = computed(() => autoLabelledBy(attrs, titleId.value))\n\nif (!labelledBy.value) {\n  warnMissingId("Sample", idProp)\n}\n</script>\n\n<template>\n  <section\n    :aria-labelledby="labelledBy"\n    :class="[\'ui-sample\', $props.class]"\n    :id="idProp"\n    v-bind="defined(attrs)"\n  >\n    <slot></slot>\n  </section>\n</template>\n',
+    )
+    expect(ports["solid.tsx"]).toContain(
+      '  const uid = createUniqueId()\n  const titleId = () => `${props.id || `sample-${uid}`}-title`\n  const labelledBy = () => autoLabelledBy(rest, titleId())\n  untrack(() => {\n    if (!labelledBy()) {\n      warnMissingId("Sample", props.id)\n    }\n  })\n',
     )
   })
 
@@ -248,13 +306,16 @@ describe("the three ports of a sample", () => {
       '---\nimport type { Props } from "./types.astro"\nimport { createId, createIds } from "../id"\n\nconst { class: className, id, label, ...rest } = Astro.props\n\nconst ids = createIds(Astro.locals, "sample", id)\nconst idOf = createId(Astro.locals)\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <input aria-describedby={ids("hint")} id={ids()} />\n  <span id={ids("hint")}>{label}</span>\n  <span id={idOf("status")} role="status" />\n</div>\n',
     )
     expect(ports["react.tsx"]).toContain(
-      "  const uid = useId()\n  const base = id ?? `sample-${uid}`\n",
+      "  const uid = useId()\n  const base = id || `sample-${uid}`\n",
     )
     expect(ports.svelte).toContain(
-      "  const uid = $props.id()\n  const base = $derived(id ?? `sample-${uid}`)\n",
+      "  const uid = $props.id()\n  const base = $derived(id || `sample-${uid}`)\n",
     )
     expect(ports.vue).toContain(
-      "const uid = useId()\n\nconst base = computed(() => id ?? `sample-${uid}`)\n",
+      "const uid = useId()\n\nconst base = computed(() => id || `sample-${uid}`)\n",
+    )
+    expect(ports["solid.tsx"]).toContain(
+      "  const uid = createUniqueId()\n  const base = () => props.id || `sample-${uid}`\n",
     )
     for (const [port, attribute] of [
       [
@@ -268,16 +329,22 @@ describe("the three ports of a sample", () => {
       expect(port).toContain(attribute("id", "base"))
       expect(port).toContain(attribute("id", "`status-${uid}`"))
     }
+    expect(ports["solid.tsx"]).toContain("aria-describedby={`${base()}-hint`}")
+    expect(ports["solid.tsx"]).toContain("id={base()}")
+    expect(ports["solid.tsx"]).toContain("id={`status-${uid}`}")
     for (const port of Object.values(ports)) {
       expect(port).not.toMatch(/createIds?\b/)
     }
   })
 
-  test("a falsy id falls back to the generated base with ||", async () => {
+  test("an empty id falls back to the generated base with ||", async () => {
     const ports = await compile(
-      '---\nimport type { Props } from "./types.astro"\nimport { createIds } from "../id"\n\nconst { class: className, id, ...rest } = Astro.props\n\nconst ids = createIds(Astro.locals, "sample", id || undefined)\n---\n\n<input class:list={["ui-sample", className]} id={ids()} {...rest} />\n',
+      '---\nimport type { Props } from "./types.astro"\nimport { createIds } from "../id"\n\nconst { class: className, id, ...rest } = Astro.props\n\nconst ids = createIds(Astro.locals, "sample", id)\n---\n\n<input class:list={["ui-sample", className]} id={ids()} {...rest} />\n',
     )
     expect(ports["react.tsx"]).toContain("const base = id || `sample-${uid}`")
+    expect(ports["solid.tsx"]).toContain(
+      "const base = () => props.id || `sample-${uid}`",
+    )
   })
 
   test.each([
@@ -362,6 +429,9 @@ describe("the three ports of a sample", () => {
     expect(ports.vue).toContain(
       '<pre\n    :class="[\'ui-sample\', $props.class]"\n  ><b>{{ label }}</b>{{ " " }}<i><slot></slot></i></pre>',
     )
+    expect(ports["solid.tsx"]).toContain(
+      '<pre class={["ui-sample", props.class]} {...rest}>\n      <b>{props.label}</b> <i>{props.children}</i>\n    </pre>',
+    )
   })
 
   test("a side-effect script and a custom element", async () => {
@@ -375,7 +445,23 @@ describe("the three ports of a sample", () => {
       '<script lang="ts">\n  import "../../elements/sample.js"\n  import { defined } from "../attrs"\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n    label,\n\n    // Snippets\n    children,\n    ...rest\n  }: Props = $props()\n</script>\n\n<opui-sample\n  class={["ui-sample", className]}\n  data-label={label}\n  {...defined(rest)}\n>\n  {@render children?.()}\n  <span class="ui-sr-only" role="status"></span>\n</opui-sample>\n',
     )
     expect(ports.vue).toBe(
-      '<script setup lang="ts">\nimport "../../elements/sample.js"\nimport { type HTMLAttributes, useAttrs } from "vue"\nimport { defined } from "../attrs"\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { label } = defineProps<Props>()\ndefineSlots<Slots>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useAttrs() as HTMLAttributes\n</script>\n\n<template>\n  <component\n    is="opui-sample"\n    :class="[\'ui-sample\', $props.class]"\n    :data-label="label"\n    v-bind="defined(attrs)"\n  >\n    <slot></slot>{{ " " }}<span class="ui-sr-only" role="status"></span>\n  </component>\n</template>\n',
+      '<script setup lang="ts">\nimport "../../elements/sample.js"\nimport { useAttrs } from "vue"\nimport { defined } from "../attrs"\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { label } = defineProps<Props>()\ndefineSlots<Slots>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useAttrs()\n</script>\n\n<template>\n  <component\n    is="opui-sample"\n    :class="[\'ui-sample\', $props.class]"\n    :data-label="label"\n    v-bind="defined(attrs)"\n  >\n    <slot></slot>{{ " " }}<span class="ui-sr-only" role="status"></span>\n  </component>\n</template>\n',
+    )
+    expect(ports["solid.tsx"]).toBe(
+      '/** @jsxImportSource @solidjs/web */\nimport { omit } from "solid-js"\nimport "../../elements/sample.js"\nimport { defined } from "../attrs"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "label", "children")\n\n  return (\n    <opui-sample\n      class={["ui-sample", props.class]}\n      data-label={props.label}\n      {...defined(rest)}\n    >\n      {props.children} <span class="ui-sr-only" role="status" />\n    </opui-sample>\n  )\n}\n',
+    )
+  })
+
+  test("Svelte re-creates a progress element whose value switches between a number and none, and React and Vue bind it", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, value, ...rest } = Astro.props\n---\n\n<div class:list={["ui-sample", className]}>\n  <progress value={value} {...rest} />\n</div>\n',
+    )
+    expect(ports.svelte).toContain(
+      '<div class={["ui-sample", className]}>\n  {#key value == null}\n    <progress {value} {...rest}></progress>\n  {/key}\n</div>\n',
+    )
+    expect(ports["react.tsx"]).toContain("<progress value={value} {...rest} />")
+    expect(ports.vue).toContain(
+      '<progress :value="value" v-bind="attrs"></progress>',
     )
   })
 
@@ -387,6 +473,103 @@ describe("the three ports of a sample", () => {
       '  useEffect(() => {\n    void import("../../elements/sample.js")\n    void import("../../elements/other.js")\n  }, [])\n',
     )
     expect(ports["react.tsx"].match(/useEffect\(/g)).toHaveLength(1)
+  })
+
+  test("an event in types.ts listens on the root: a ref callback in React, a handler prop in Svelte, an emit in Vue and the on<Event> prop the rest spread carries in Solid, and each lifts data-hydrating from a custom element", async () => {
+    const { outputs } = await compileComponent(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<opui-sample class:list={["ui-sample", className]} {...rest}>\n  <slot />\n</opui-sample>\n\n<script>\n  import "../../elements/sample.js"\n</script>\n',
+      sampleFile(),
+      {
+        base: "export type Props = {}\n\nexport type Events = {\n  close: Event\n}\n",
+      },
+    )
+    const port = (extension: string) =>
+      outputs.get(sampleFile().replace(".astro", extension)) ?? ""
+    expect(port(".react.tsx")).toBe(
+      '"use client"\n\nimport { useEffect } from "react"\nimport { cx } from "../cx"\nimport { useHydrated, useListener } from "../react"\nimport type { Props } from "./types.react"\n\nexport default function Sample({\n  className,\n  onClose,\n  ref,\n  children,\n  ...rest\n}: Props) {\n  const rootRef = useHydrated(useListener(ref, "close", onClose))\n  useEffect(() => {\n    void import("../../elements/sample.js")\n  }, [])\n\n  return (\n    <opui-sample\n      className={cx(["ui-sample", className])}\n      data-hydrating=""\n      ref={rootRef}\n      {...rest}\n    >\n      {children}\n    </opui-sample>\n  )\n}\n',
+    )
+    expect(port(".svelte")).toContain(
+      "  let {\n    class: className,\n    onclose,\n\n    // Snippets\n    children,\n    ...rest\n  }: Props = $props()\n",
+    )
+    expect(port(".svelte")).toContain(
+      '  import { hydrated } from "../svelte"\n',
+    )
+    expect(port(".svelte")).toContain(
+      '<opui-sample\n  class={["ui-sample", className]}\n  {onclose}\n  data-hydrating=""\n  {@attach hydrated}\n  {...rest}\n>',
+    )
+    expect(port(".vue")).toContain(
+      'import type { Props, Emits, Slots } from "./types.vue-props"\n\ndefineProps<Props>()\ndefineSlots<Slots>()\nconst emit = defineEmits<Emits>()\n',
+    )
+    expect(port(".vue")).toContain('import { vHydrated } from "../vue"\n')
+    expect(port(".vue")).toContain(
+      '    :class="[\'ui-sample\', $props.class]"\n    @close="emit(\'close\', $event)"\n    data-hydrating=""\n    v-hydrated\n  >',
+    )
+    expect(port(".solid.tsx")).toContain(
+      'import { hydrated, hydrating } from "../solid"\n',
+    )
+    expect(port(".solid.tsx")).toContain(
+      '  const rest = omit(props, "class", "ref", "children")\n',
+    )
+    expect(port(".solid.tsx")).toContain(
+      '    <opui-sample\n      class={["ui-sample", props.class]}\n      {...hydrating()}\n      ref={[props.ref, hydrated]}\n      {...rest}\n    >',
+    )
+    expect(port(".solid.tsx")).not.toMatch(/data-hydrating|onClose/)
+  })
+
+  test("an event on a root tag that can be a custom element renders data-hydrating on the custom element only, and none on a plain root", async () => {
+    const portsOf = async (source: string) => {
+      const { outputs } = await compileComponent(source, sampleFile(), {
+        base: "export type Props = {\n  open?: boolean\n}\n\nexport type Events = {\n  close: Event\n}\n",
+      })
+      return (extension: string) =>
+        outputs.get(sampleFile().replace(".astro", extension)) ?? ""
+    }
+    const variablePort = await portsOf(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, open, ...rest } = Astro.props\n\nconst Root = open ? "opui-sample" : "section"\n---\n\n<Root class:list={["ui-sample", className]} {...rest}>\n  <slot />\n</Root>\n',
+    )
+    const variable = variablePort(".react.tsx")
+    expect(variable).toContain(
+      'const rootRef = useHydrated(useListener(ref, "close", onClose))',
+    )
+    expect(variable).toContain(
+      'data-hydrating={Root.includes("-") ? "" : undefined}\n      ref={rootRef}',
+    )
+    expect(variablePort(".solid.tsx")).toContain(
+      '      {...hydrating(root().includes("-"))}\n      ref={[props.ref, hydrated]}\n',
+    )
+    expect(variablePort(".svelte")).toContain(
+      '  data-hydrating={Root.includes("-") ? "" : undefined}\n  {@attach hydrated}\n',
+    )
+    expect(variablePort(".vue")).toContain(
+      "    :data-hydrating=\"Root.includes('-') ? '' : undefined\"\n    v-hydrated\n",
+    )
+    const plainPort = await portsOf(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, open, ...rest } = Astro.props\n---\n\n<section class:list={["ui-sample", { "ui-open": open }, className]} {...rest}>\n  <slot />\n</section>\n',
+    )
+    const plain = plainPort(".react.tsx")
+    expect(plain).toContain(
+      'const rootRef = useListener(ref, "close", onClose)',
+    )
+    expect(plain).not.toMatch(/data-hydrating|useHydrated/)
+    for (const extension of [".solid.tsx", ".svelte", ".vue"]) {
+      expect(plainPort(extension)).not.toMatch(/hydrat/i)
+    }
+  })
+
+  test("an event on a component with more than one root element is refused", async () => {
+    await expect(
+      compileComponent(
+        astro(
+          '<div class:list={["ui-sample", className]} {...rest}>\n  <slot />\n</div>\n<p>After</p>',
+        ),
+        sampleFile(),
+        {
+          base: "export type Props = {}\n\nexport type Events = {\n  close: Event\n}\n",
+        },
+      ),
+    ).rejects.toThrow(
+      "the event close on a component whose root isn't one element",
+    )
   })
 
   test("a native prop destructured under its HTML name takes its React name in React", async () => {
@@ -407,6 +590,19 @@ describe("the three ports of a sample", () => {
     expect(react).toContain('inputMode={inputMode ?? "text"}')
     expect(react).toContain("readOnly={readOnly}")
     expect(react).not.toMatch(/inputmode|readonly/)
+  })
+
+  test("an object default prints on one line in every framework, however the source wraps it", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst {\n  class: className,\n  labels = {\n    one: "{count} item",\n    other: "{count} items",\n  },\n  ...rest\n} = Astro.props\n---\n\n<p class:list={["ui-sample", className]} {...rest}>{labels.other}</p>\n',
+    )
+    for (const [port, code] of Object.entries(ports)) {
+      expect(code, port).toContain(
+        port === "solid.tsx"
+          ? '? { one: "{count} item", other: "{count} items" }'
+          : 'labels = { one: "{count} item", other: "{count} items" }',
+      )
+    }
   })
 
   test("a class that is always one name skips cx in React", async () => {
@@ -440,9 +636,12 @@ describe("the three ports of a sample", () => {
     expect(ports.vue).toContain(
       '<span class="ui-sr-only" role="status"></span>',
     )
+    expect(ports["solid.tsx"]).toContain(
+      '<span class="ui-sr-only" role="status" />',
+    )
   })
 
-  test("mergeStyle merges into an object in React and into the attrs in Vue", async () => {
+  test("mergeStyle merges into an object in React and binds through styleAttrs in Vue", async () => {
     const ports = await compile(
       '---\nimport type { Props } from "./types.astro"\nimport { mergeStyle } from "../style"\n\nconst { class: className, style, width, ...rest } = Astro.props\n---\n\n<col class:list={[className]} style={mergeStyle({ width }, style)} {...rest} />\n',
     )
@@ -451,7 +650,7 @@ describe("the three ports of a sample", () => {
     )
     expect(ports.svelte).toContain("style={mergeStyle({ width }, style)}")
     expect(ports.vue).toBe(
-      '<script setup lang="ts">\nimport { mergeStyle } from "../style"\nimport { classAttrs } from "../cx"\nimport type { Props } from "./types.vue-props"\n\nconst { width } = defineProps<Props>()\n</script>\n\n<template>\n  <col v-bind="classAttrs([$props.class])" :style="mergeStyle({ width }, {})" />\n</template>\n',
+      '<script setup lang="ts">\nimport { mergeStyle, styleAttrs } from "../style"\nimport { classAttrs } from "../cx"\nimport type { Props } from "./types.vue-props"\n\nconst { width } = defineProps<Props>()\n</script>\n\n<template>\n  <col\n    v-bind="{\n      ...classAttrs($props.class),\n      ...styleAttrs(mergeStyle({ width }, {})),\n    }"\n  />\n</template>\n',
     )
   })
 
@@ -479,7 +678,7 @@ describe("the three ports of a sample", () => {
       "{#if !hidden}\n    {@render end?.()}\n  {/if}",
     )
     expect(ports.vue).toContain(
-      '<span v-bind="classAttrs([$props.class])">\n    <TrimmedSlot v-if="!hidden" :nodes="$slots.end?.()" />\n  </span>',
+      '<span v-bind="classAttrs($props.class)">\n    <TrimmedSlot v-if="!hidden" :nodes="$slots.end?.()" />\n  </span>',
     )
   })
 
@@ -503,10 +702,31 @@ describe("the three ports of a sample", () => {
       'import { cx } from "../cx"\nimport type { Props } from "./types.react"\n\nexport default function Sample({ className, items, children, ...rest }: Props) {\n  return (\n    <ul className={cx(["ui-sample", className])} {...rest}>\n      {items?.map(({ href, label, ...itemRest }, index) => {\n        const Tag = href ? "a" : "span"\n        return (\n          <li key={index}>\n            <Tag href={href} {...itemRest}>\n              {label}\n            </Tag>\n          </li>\n        )\n      })}\n      {children}\n    </ul>\n  )\n}\n',
     )
     expect(ports.svelte).toContain(
-      '{#each items ?? [] as { href, label, ...itemRest }, index (index)}\n    {@const Tag = href ? "a" : "span"}\n    <li>\n      <svelte:element this={Tag} {href} {...itemRest}>{label}</svelte:element>\n    </li>\n  {/each}',
+      '{#each items as { href, label, ...itemRest }, index (index)}\n    {@const Tag = href ? "a" : "span"}\n    <li>\n      <svelte:element this={Tag} {href} {...itemRest}>{label}</svelte:element>\n    </li>\n  {/each}',
     )
     expect(ports.vue).toBe(
       '<script setup lang="ts">\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { items } = defineProps<Props>()\ndefineSlots<Slots>()\n</script>\n\n<template>\n  <ul :class="[\'ui-sample\', $props.class]">\n    <li v-for="({ href, label, ...itemRest }, index) in items" :key="index">\n      <component :is="href ? \'a\' : \'span\'" :href="href" v-bind="itemRest">{{\n        label\n      }}</component>\n    </li>\n    <slot></slot>\n  </ul>\n</template>\n',
+    )
+    expect(ports["solid.tsx"]).toContain(
+      '      <For each={props.items} keyed={false}>\n        {(item) => {\n          const itemRest = () => omit(item(), "href", "label")\n          const tag = () => (item().href ? "a" : "span")\n          return (\n            <li>\n              <Dynamic component={tag()} href={item().href} {...itemRest()}>\n                {item().label}\n',
+    )
+  })
+
+  test("a spread the Astro file filters with defined() stays filtered in every framework", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport { defined } from "../attrs"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<ul class:list={["ui-sample", className]} {...rest}>\n  {\n    items?.map(({ label, ...itemRest }) => (\n      <li>\n        <button type="button" {...defined(itemRest)}>{label}</button>\n      </li>\n    ))\n  }\n</ul>\n',
+    )
+    for (const port of Object.values(ports)) {
+      expect(port).toContain('import { defined } from "../attrs"')
+    }
+    expect(ports["react.tsx"]).toContain(
+      '<button type="button" {...defined(itemRest)}>',
+    )
+    expect(ports.svelte).toContain(
+      '<button type="button" {...defined(itemRest)}>',
+    )
+    expect(ports.vue).toContain(
+      '<button type="button" v-bind="defined(itemRest)">',
     )
   })
 
@@ -561,6 +781,9 @@ describe("the three ports of a sample", () => {
     expect(ports.vue).toContain(
       '<li v-for="(item, step) in items" :key="step" :value="step + 1">',
     )
+    expect(ports["solid.tsx"]).toContain(
+      "<For each={items} keyed={false}>\n        {(item, step) => <li value={step + 1}>{item()}</li>}\n      </For>",
+    )
   })
 
   test("a map callback returning a condition keys both branches", async () => {
@@ -571,10 +794,154 @@ describe("the three ports of a sample", () => {
       '      {items?.map((option, index) =>\n        typeof option === "object" ? (\n          <option key={index} value={option.value} label={option.label} />\n        ) : (\n          <option key={index} value={option} />\n        ),\n      )}\n',
     )
     expect(ports.svelte).toContain(
-      '{#each items ?? [] as option, index (index)}\n    {#if typeof option === "object"}\n      <option',
+      '{#each items as option, index (index)}\n    {#if typeof option === "object"}\n      <option',
     )
     expect(ports.vue).toContain(
       '<template v-for="(option, index) in items" :key="index"',
+    )
+  })
+
+  test("Solid reads a default only for undefined and tests an accessor with && where the content only prints it", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, label, size = "medium", ...rest } = Astro.props\n\nconst caption = label?.trim()\n---\n\n<div class:list={["ui-sample", size !== "medium" && `ui-${size}`, className]} {...rest}>\n  {caption && <span class="ui-caption">{caption}</span>}\n  <slot />\n</div>\n',
+    )
+    expect(ports["solid.tsx"]).toBe(
+      '/** @jsxImportSource @solidjs/web */\nimport { omit } from "solid-js"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "label", "size", "children")\n  const size = () => (props.size === undefined ? "medium" : props.size)\n  const caption = () => props.label?.trim()\n\n  return (\n    <div\n      class={["ui-sample", size() !== "medium" && `ui-${size()}`, props.class]}\n      {...rest}\n    >\n      {caption() && <span class="ui-caption">{caption()}</span>}{" "}\n      {props.children}\n    </div>\n  )\n}\n',
+    )
+  })
+
+  test("Solid resolves a slot it reads twice once through children()", async () => {
+    const ports = await compile(
+      astro(
+        '<div class:list={["ui-sample", className]} {...rest}>\n  {Astro.slots.has("default") && <span class="ui-label"><slot /></span>}\n</div>',
+      ),
+    )
+    expect(ports["solid.tsx"]).toBe(
+      '/** @jsxImportSource @solidjs/web */\nimport { children, omit } from "solid-js"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "children")\n  const resolvedChildren = children(() => props.children)\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      {resolvedChildren() && <span class="ui-label">{resolvedChildren()}</span>}\n    </div>\n  )\n}\n',
+    )
+  })
+
+  test("Solid reads an accessor once into a local where a derived value reads it twice, so TypeScript narrows it", async () => {
+    const source =
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n\nconst first = items?.[0]\nconst caption = typeof first === "object" ? first.label : first\n---\n\n<div class:list={["ui-sample", className]} {...rest}>{caption}</div>\n'
+    const ports = await compile(source)
+    expect(ports["solid.tsx"]).toBe(
+      '/** @jsxImportSource @solidjs/web */\nimport { omit } from "solid-js"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "items")\n  const first = () => props.items?.[0]\n  const caption = () => {\n    const firstValue = first()\n    return typeof firstValue === "object" ? firstValue.label : firstValue\n  }\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      {caption()}\n    </div>\n  )\n}\n',
+    )
+    const clash = await compileComponent(
+      source.replace(
+        "const first = items?.[0]\n",
+        "const first = items?.[0]\nconst firstValue = 1\n",
+      ),
+      sampleFile(),
+    )
+    expect([...clash.refused.keys()]).toEqual([
+      sampleFile().replace(".astro", ".solid.tsx"),
+    ])
+    expect(
+      clash.refused.get(sampleFile().replace(".astro", ".solid.tsx"))?.message,
+    ).toContain("uses the name firstValue")
+  })
+
+  test("Solid reads a ternary, &&, || or ?? in a component's prop through an accessor named after the attribute, since each read of the compiled prop takes a hydration id", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport Button from "../Button/Button.astro"\n\nconst buttonTitle = "Close"\nconst { class: className, items, label, ...rest } = Astro.props\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Button title={label ? "Labelled" : rest.title}>Close</Button>\n  {items.map((item) => <Button title={item && label}>{item}</Button>)}\n  <p title={label ? buttonTitle : undefined} />\n</div>\n',
+    )
+    expect(ports["solid.tsx"]).toBe(
+      '/** @jsxImportSource @solidjs/web */\nimport { For, omit } from "solid-js"\nimport Button from "../Button/Button.solid"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "items", "label")\n  const buttonTitle = "Close"\n  const title = () => (props.label ? "Labelled" : rest.title)\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      <Button title={title()}>Close</Button>{" "}\n      <For each={props.items} keyed={false}>\n        {(item) => {\n          const itemTitle = () => item() && props.label\n          return <Button title={itemTitle()}>{item()}</Button>\n        }}\n      </For>\n      <p title={props.label ? buttonTitle : undefined} />\n    </div>\n  )\n}\n',
+    )
+    const logical = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport Button from "../Button/Button.astro"\n\nconst { class: className, label, ...rest } = Astro.props\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Button id={label ?? rest.id} title={rest.title || label} type="button">Close</Button>\n</div>\n',
+    )
+    expect(logical["solid.tsx"]).toContain(
+      '  const id = () => props.label ?? rest.id\n  const title = () => rest.title || props.label\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      <Button id={id()} title={title()} type="button">\n',
+    )
+  })
+
+  test("Solid lists with For, reads the index as a number and builds a slot once per item, since a node has one parent", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<ul class:list={["ui-sample", className]} {...rest}>\n  {items.map((item, index) => (\n    <li value={index + 1}>\n      {item}\n      {Astro.slots.has("icon") && <span class="ui-icon"><slot name="icon" /></span>}\n      <slot name="end" />\n    </li>\n  ))}\n</ul>\n',
+    )
+    expect(ports["solid.tsx"]).toContain(
+      'import { children, For, omit } from "solid-js"',
+    )
+    expect(ports["solid.tsx"]).toContain(
+      '  const rest = omit(props, "class", "items", "end", "icon")\n\n  return (\n',
+    )
+    expect(ports["solid.tsx"]).toContain(
+      '      <For each={props.items} keyed={false}>\n        {(item, index) => {\n          const resolvedIcon = children(() => props.icon)\n          return (\n            <li value={index + 1}>\n              {item()}\n              {resolvedIcon() && <span class="ui-icon">{resolvedIcon()}</span>}\n              {props.end}\n            </li>\n          )\n        }}\n      </For>\n',
+    )
+  })
+
+  test("a list is keyed by index and options by their value in every framework, and Solid reads an item through an accessor, once per row for a condition between two rows", async () => {
+    const options = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<select class:list={["ui-sample", className]} {...rest}>\n  {items.map((item) => <option selected={item.selected || undefined} value={item.value}>{item.label}</option>)}\n</select>\n',
+    )
+    expect(options["solid.tsx"]).toContain(
+      '      <For each={props.items} keyed={(item) => item.value}>\n        {(item) => {\n          const itemSelectedControl = control(\n            "selected",\n            undefined,\n            untrack(() => item().selected || undefined),\n          )\n          return (\n            <option\n              {...itemSelectedControl.server}\n              ref={itemSelectedControl.ref}\n              value={item().value}\n            >\n              {item().label}\n            </option>\n          )\n        }}\n      </For>\n',
+    )
+    expect(options["react.tsx"]).toContain(
+      "{items.map((item) => (\n        <option\n          key={item.value}",
+    )
+    expect(options.svelte).toContain("{#each items as item (item.value)}")
+    expect(options.vue).toContain(
+      '<option\n      v-for="item in items"\n      :key="item.value"',
+    )
+    const rows = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<ol class:list={["ui-sample", className]} {...rest}>\n  {items.map(({ description, ...item }) => <li {...item}>{description}</li>)}\n</ol>\n',
+    )
+    expect(rows["solid.tsx"]).toContain(
+      '      <For each={props.items} keyed={false}>\n        {(entry) => {\n          const item = () => omit(entry(), "description")\n          return <li {...item()}>{entry().description}</li>\n        }}\n      </For>\n',
+    )
+    const branches = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<datalist class:list={[className]} {...rest}>\n  {items?.map((option) =>\n    typeof option === "object" ? (\n      <option value={option.value} label={option.label} />\n    ) : (\n      <option value={option} />\n    ),\n  )}\n</datalist>\n',
+    )
+    expect(branches["solid.tsx"]).toContain(
+      '      <For each={props.items} keyed={false}>\n        {(item) => {\n          const row = () => {\n            const option = item()\n            return typeof option === "object" ? (\n',
+    )
+    const refused = await compileComponent(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<ol class:list={["ui-sample", className]} {...rest}>\n  {items.map(({ label = "x" }) => <li>{label}</li>)}\n</ol>\n',
+      sampleFile(),
+    )
+    expect(
+      refused.refused.get(sampleFile().replace(".astro", ".solid.tsx"))
+        ?.message,
+    ).toContain("which Solid reads through an accessor")
+  })
+
+  test("Solid resolves the slots of a component that provides a context under the provider, and writes a getter inline when nothing else reads its accessor", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\n\nconst { class: className, name, ...rest } = Astro.props\n\nconst groupName = name || "sample"\nconst hasIcon = Astro.slots.has("icon")\nconst html = await sampleContext.provide(\n  { name: groupName, open: true },\n  () => Astro.slots.render("default"),\n)\n---\n\n<div class:list={["ui-sample", { "ui-icon": hasIcon }, className]} {...rest}>\n  {Astro.slots.has("icon") && <span class="ui-icon"><slot name="icon" /></span>}\n  <Fragment set:html={html} />\n</div>\n',
+    )
+    expect(ports["solid.tsx"]).toBe(
+      '/** @jsxImportSource @solidjs/web */\nimport { children, omit } from "solid-js"\nimport { SampleContext } from "./context.solid"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "name", "children", "icon")\n  const content = () => {\n    const resolvedIcon = children(() => props.icon)\n    const hasIcon = () => resolvedIcon()\n    return (\n      <div\n        class={["ui-sample", { "ui-icon": hasIcon() }, props.class]}\n        {...rest}\n      >\n        {resolvedIcon() && <span class="ui-icon">{resolvedIcon()}</span>}{" "}\n        {props.children}\n      </div>\n    )\n  }\n\n  return (\n    <SampleContext\n      value={{\n        get name() {\n          return props.name || "sample"\n        },\n        get open() {\n          return true\n        },\n      }}\n    >\n      {content()}\n    </SampleContext>\n  )\n}\n',
+    )
+  })
+
+  test("Solid narrows with Show only where the content takes the value as an argument or a tag", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport { tagAttrs } from "../tag"\n\nconst { class: className, href, label, ...rest } = Astro.props\n\nconst caption = label?.trim()\nconst Tag = href ? "a" : undefined\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  {caption && <span class="ui-caption">{caption}</span>}\n  {Tag ? <Tag {...tagAttrs(Tag, false, href)}><slot /></Tag> : <slot />}\n</div>\n',
+    )
+    expect(ports["solid.tsx"]).toBe(
+      '/** @jsxImportSource @solidjs/web */\nimport { dynamic } from "@solidjs/web"\nimport { children, omit, Show } from "solid-js"\nimport { tagAttrs } from "../tag"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "href", "label", "children")\n  const resolvedChildren = children(() => props.children)\n  const caption = () => props.label?.trim()\n  const tag = () => (props.href ? "a" : undefined)\n  const Tag = dynamic(tag)\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      {caption() && <span class="ui-caption">{caption()}</span>}{" "}\n      <Show when={tag()} fallback={resolvedChildren()}>\n        {(shownTag) => (\n          <Tag {...tagAttrs(shownTag(), false, props.href)}>\n            {resolvedChildren()}\n          </Tag>\n        )}\n      </Show>\n    </div>\n  )\n}\n',
+    )
+  })
+
+  test("Solid writes a tag that is one string as the element, a class list of one entry as the entry, and keeps cx for an entry that can be false", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, label, ...rest } = Astro.props\n\nconst Content = "selectedcontent"\n---\n\n<button class:list={[label ? "ui-labelled" : "ui-sample"]} {...rest}>\n  <Content />\n  <span class:list={[className]} />\n  <i class:list={[label && "ui-label"]} />\n</button>\n',
+    )
+    expect(ports["solid.tsx"]).toBe(
+      '/** @jsxImportSource @solidjs/web */\nimport { omit } from "solid-js"\nimport { cx } from "../cx"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "label")\n\n  return (\n    <button class={props.label ? "ui-labelled" : "ui-sample"} {...rest}>\n      <selectedcontent /> <span class={props.class} />{" "}\n      <i class={cx([props.label && "ui-label"])} />\n    </button>\n  )\n}\n',
+    )
+  })
+
+  test("Solid hoists a condition only when it reads something reactive, names it after the attribute or the tag and the attribute, and hands props to a helper that reads the rest and props", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport Button from "../Button/Button.astro"\nimport { hasName, warnUnnamed } from "../dev"\n\nconst { class: className, items, label, ...rest } = Astro.props\n\nconst title = "Close"\nwarnUnnamed("Sample", hasName({ ...rest, label }, Astro.slots.has("default")))\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Button aria-invalid={label ? "true" : rest["aria-invalid"]} title={label ? title : undefined}>Close</Button>\n  {items.map((item) => {\n    const closes = !item\n    return <Button command={closes ? "hide-popover" : undefined} title={closes ? label : undefined}>{item}</Button>\n  })}\n  <slot />\n</div>\n',
+    )
+    expect(ports["solid.tsx"]).toBe(
+      '/** @jsxImportSource @solidjs/web */\nimport { children, For, omit, untrack } from "solid-js"\nimport Button from "../Button/Button.solid"\nimport { hasName, warnUnnamed } from "../dev"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "items", "label", "children")\n  const resolvedChildren = children(() => props.children)\n  const title = "Close"\n  untrack(() => {\n    warnUnnamed("Sample", hasName(props, resolvedChildren()))\n  })\n  const invalid = () => (props.label ? "true" : rest["aria-invalid"])\n  const buttonTitle = () => (props.label ? title : undefined)\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      <Button aria-invalid={invalid()} title={buttonTitle()}>\n        Close\n      </Button>{" "}\n      <For each={props.items} keyed={false}>\n        {(item) => {\n          const closes = () => !item()\n          const command = () => (closes() ? "hide-popover" : undefined)\n          const itemTitle = () => (closes() ? props.label : undefined)\n          return (\n            <Button command={command()} title={itemTitle()}>\n              {item()}\n            </Button>\n          )\n        }}\n      </For>{" "}\n      {resolvedChildren()}\n    </div>\n  )\n}\n',
     )
   })
 
@@ -610,7 +977,8 @@ describe("the three ports of a sample", () => {
     const react = port(".react.tsx")
     expect(react).toMatch(/^"use client"\n/)
     expect(react).toContain("defaultValue,")
-    expect(react).toContain("onChange,")
+    expect(react).toContain("onValueChange,")
+    expect(react).not.toContain("onChange,")
     expect(react).toContain("const current = Number(value ?? defaultValue)")
     expect(react).toContain(
       "checked={value !== undefined ? current === star : undefined}",
@@ -618,7 +986,10 @@ describe("the three ports of a sample", () => {
     expect(react).toContain(
       "defaultChecked={value !== undefined ? undefined : current === star}",
     )
-    expect(react).toContain("onChange={onChange}")
+    expect(react).toContain('onChange={() => onValueChange?.("0")}')
+    expect(react).toContain("onChange={() => onValueChange?.(star)}")
+    expect(react).toContain('import { seedChecked } from "../react"\n')
+    expect(react).toContain("ref={seedChecked(() => onValueChange?.(star))}")
     const svelte = port(".svelte")
     expect(svelte).toContain("value = $bindable(),")
     expect(svelte).toContain('value = "0"')
@@ -629,6 +1000,32 @@ describe("the three ports of a sample", () => {
     expect(vue).not.toContain("@change")
     expect(vue.match(/v-seed\s+v-model="model"/g)).toHaveLength(2)
     expect(vue).not.toContain("const current")
+    const solid = port(".solid.tsx")
+    expect(solid).toContain(
+      '    "defaultValue",\n    "name",\n    "onValueChange",\n',
+    )
+    expect(solid).toContain(
+      "const current = () => Number(props.value ?? props.defaultValue)",
+    )
+    expect(solid).toContain(
+      'const checkedControl = control(\n    "checked",\n    () => (props.value === undefined ? undefined : current() === 0),\n    untrack(() => current() === 0),\n  )',
+    )
+    expect(solid).toContain(
+      'const itemCheckedControl = control(\n            "checked",\n            () =>\n              props.value === undefined ? undefined : current() === star(),\n            untrack(() => current() === star()),\n          )',
+    )
+    expect(solid).toContain("{...itemCheckedControl.server}\n")
+    expect(solid).toContain(
+      'onChange={(event) => {\n          props.onValueChange?.("0")\n          restoreChecked(event.currentTarget, () => props.value)\n        }}',
+    )
+    expect(solid).toContain(
+      "onChange={(event) => {\n                props.onValueChange?.(star())\n                restoreChecked(event.currentTarget, () => props.value)\n              }}",
+    )
+    expect(solid).toContain(
+      'import { control, restoreChecked, seedChecked } from "../solid"\n',
+    )
+    expect(solid).toContain(
+      "ref={[\n                itemCheckedControl.ref,\n                seedChecked((input) => {\n                  props.onValueChange?.(star())\n                  restoreChecked(input, () => props.value)\n                }),\n              ]}",
+    )
   })
 
   test("Vue keeps the hyphenated props a component reads out of the attrs its root spreads", async () => {
@@ -642,7 +1039,23 @@ describe("the three ports of a sample", () => {
     expect(ports.vue).toContain('v-bind="restAttrs"')
   })
 
-  test("a value model from api.ts binds the control in Svelte and Vue and stays in rest in React", async () => {
+  test("Vue binds a style that can be empty through styleAttrs, merged with the attrs in attribute order", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport { mergeStyle } from "../style"\n\nconst { "aria-describedby": ariaDescribedBy, class: className, max, style, ...rest } = Astro.props\n---\n\n<fieldset class:list={["ui-sample", className]} style={mergeStyle({ "--_max": max }, style)} {...rest}>\n  <input aria-describedby={ariaDescribedBy} />\n</fieldset>\n',
+    )
+    expect(ports.vue).toContain(
+      'import { computed, type HTMLAttributes, mergeProps, useAttrs } from "vue"',
+    )
+    expect(ports.vue).toContain(
+      'import { mergeStyle, styleAttrs } from "../style"',
+    )
+    expect(ports.vue).toContain(
+      "mergeProps(styleAttrs(mergeStyle({ '--_max': max }, {})), {\n        ...restAttrs,\n      })",
+    )
+    expect(ports.vue).not.toContain(":style=")
+  })
+
+  test("a value model from api.ts binds the control in Svelte and Vue, stays in rest in React, and in Solid is written through a ref only when it changes", async () => {
     const { outputs } = await compileComponent(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, value, ...rest } = Astro.props\n---\n\n<label class:list={["ui-sample", className]}>\n  <textarea {...rest}>{value}</textarea>\n</label>\n',
       sampleFile(),
@@ -658,6 +1071,9 @@ describe("the three ports of a sample", () => {
     )
     expect(port(".vue")).toBe(
       '<script setup lang="ts">\nimport { computed } from "vue"\nimport { useInputAttrs, vSeed } from "../vue"\nimport type { Props } from "./types.vue-props"\n\nconst { value } = defineProps<Props>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useInputAttrs()\n\nconst modelValue = defineModel<number | string>()\n\nconst model = computed({\n  get: () => modelValue.value ?? value,\n  set: (value) => {\n    modelValue.value = value\n  },\n})\n</script>\n\n<template>\n  <label :class="[\'ui-sample\', $props.class]">\n    <textarea v-bind="attrs" v-seed v-model="model"></textarea>\n  </label>\n</template>\n',
+    )
+    expect(port(".solid.tsx")).toBe(
+      '/** @jsxImportSource @solidjs/web */\nimport { omit, untrack } from "solid-js"\nimport { control } from "../solid"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "ref", "value")\n  const valueControl = control(\n    "value",\n    () => props.value,\n    untrack(() => props.value),\n  )\n\n  return (\n    <label class={["ui-sample", props.class]}>\n      <textarea\n        {...valueControl.server}\n        ref={[props.ref, valueControl.ref]}\n        {...rest}\n      />\n    </label>\n  )\n}\n',
     )
   })
 
@@ -677,6 +1093,12 @@ describe("the three ports of a sample", () => {
     )
     expect(port(".vue")).toContain(
       "const shown = computed(() => `${model.value ?? 0}%`)",
+    )
+    expect(port(".solid.tsx")).toContain(
+      "  const value = () => props.value ?? props.defaultValue\n  const shown = () => `${value() ?? 0}%`\n",
+    )
+    expect(port(".solid.tsx")).toContain(
+      '<input\n        {...valueControl.server}\n        ref={[props.ref, valueControl.ref]}\n        {...rest}\n        type="range"\n      />',
     )
   })
 
@@ -840,6 +1262,9 @@ describe("the three ports of a sample", () => {
     expect(vue).toContain(
       '<input\n    type="checkbox"\n    :name="name"\n    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"\n    v-seed\n    v-model="model"\n  />',
     )
+    expect(outputs.get(sampleFile().replace(".astro", ".solid.tsx"))).toContain(
+      '  const rest = omit(props, "checked", "name", "ref")\n  const checkedControl = control(\n    "checked",\n    () => props.checked,\n    untrack(() => props.checked),\n  )\n\n  return (\n    <input\n      type="checkbox"\n      name={props.name}\n      {...checkedControl.server}\n      ref={[props.ref, checkedControl.ref]}\n      {...defined(rest)}\n',
+    )
   })
 
   test("a radio model binds the group", async () => {
@@ -860,6 +1285,9 @@ describe("the three ports of a sample", () => {
     expect(vue).toContain(
       '<input\n    type="radio"\n    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"\n    :value="attrs.value"\n    v-seed\n    v-model="model"\n  />',
     )
+    expect(outputs.get(sampleFile().replace(".astro", ".solid.tsx"))).toContain(
+      '  const checkedControl = control(\n    "checked",\n    () => props.checked,\n    untrack(() => props.checked),\n  )\n\n  return (\n    <input\n      type="radio"\n      {...checkedControl.server}\n      ref={[props.ref, checkedControl.ref]}\n      {...defined(rest)}\n',
+    )
   })
 
   test("a wrapper forwards its model to the component that holds it", async () => {
@@ -878,9 +1306,12 @@ describe("the three ports of a sample", () => {
     )
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
     expect(vue).toContain(
-      "const modelValue = defineModel<string | number | boolean | undefined>({\n  default: undefined,\n})",
+      "const model = defineModel<string | number | boolean | undefined>({\n  default: undefined,\n})",
     )
-    expect(vue).toContain('<RadioInput v-bind="attrs" v-model="modelValue" />')
+    expect(vue).toContain('<RadioInput v-bind="attrs" v-model="model" />')
+    expect(outputs.get(sampleFile().replace(".astro", ".solid.tsx"))).toContain(
+      "<RadioInput {...rest} />",
+    )
   })
 
   test("a model the context shares compiles to a group with a change callback", async () => {
@@ -910,6 +1341,14 @@ describe("the three ports of a sample", () => {
     expect(vue).toContain(
       "const model = defineModel<string>()\n\nconst change = (input: HTMLInputElement) => {\n  if (model.value !== undefined) model.value = input.value\n}\n\nprovide(\n  SampleKey,\n  reactive({ change, name: computed(() => name), value: model }),\n)",
     )
+    const solid = outputs.get(sampleFile().replace(".astro", ".solid.tsx"))
+    expect(solid).toContain(
+      "  const [inner, setInner] = createSignal(untrack(() => props.defaultValue))\n  const change = (input: HTMLInputElement) => {\n    const next = input.value\n    if (inner() !== undefined) setInner(next)\n    props.onValueChange?.(next)\n    restoreChecked(input, () => props.value)\n  }\n",
+    )
+    expect(solid).toContain('import { restoreChecked } from "../solid"\n')
+    expect(solid).toContain(
+      "        get value() {\n          return props.value ?? inner()\n        },\n",
+    )
   })
 
   test("an item of a group wires its input's change to the group", async () => {
@@ -923,24 +1362,57 @@ describe("the three ports of a sample", () => {
       '  warnGroupedChecked("Sample", grouped, checked ?? defaultChecked, "Tabs")\n',
     )
     expect(react).toContain(
-      '    <>\n      <input\n        checked={grouped ?? checked}\n        defaultChecked={grouped === undefined ? defaultChecked : undefined}\n        className={cx(["ui-sample", className])}\n        type="radio"\n        value={value}\n        {...defined(rest)}\n        onChange={(event) => {\n          parent?.change?.(event.currentTarget)\n          onChange?.(event)\n        }}\n      />\n      {children}\n    </>\n',
+      '    <>\n      <input\n        checked={grouped ?? checked}\n        defaultChecked={grouped === undefined ? defaultChecked : undefined}\n        className={cx(["ui-sample", className])}\n        type="radio"\n        value={value}\n        {...defined(rest)}\n        ref={inputRef}\n        onChange={(event) => {\n          parent?.change?.(event.currentTarget)\n          onChange?.(event)\n        }}\n      />\n      {children}\n    </>\n',
+    )
+    expect(react).toContain('import { useSeedChecked } from "../react"\n')
+    expect(react).toContain(
+      "  const inputRef = useSeedChecked(ref, (input) => parent?.change?.(input))\n",
     )
     const svelte = outputs.get(sampleFile().replace(".astro", ".svelte"))
     expect(svelte).toContain(
-      "  checked={grouped ?? checked ?? rest.defaultChecked}\n",
+      '    warnGroupedChecked("Sample", grouped, checked ?? defaultChecked, "Tabs"),\n',
+    )
+    expect(svelte).toContain('  import { seedChecked } from "../svelte"\n')
+    expect(svelte).toContain(
+      "  const isChecked = () => grouped ?? checked ?? !!defaultChecked\n  const initialChecked = untrack(isChecked)\n  const change = (input: HTMLInputElement) => {\n    parent?.change?.(input)\n  }\n",
     )
     expect(svelte).toContain(
-      "  {...defined(rest)}\n  onchange={(event) => {\n    parent?.change?.(event.currentTarget)\n    onchange?.(event)\n  }}\n/>{@render children?.()}\n",
+      "  {@attach seedChecked(isChecked, change)}\n  defaultChecked={grouped === undefined\n    ? (defaultChecked ?? initialChecked)\n    : initialChecked}\n",
+    )
+    expect(svelte).not.toMatch(/\schecked=\{/)
+    expect(svelte).toContain(
+      "  {...defined(rest)}\n  onchange={(event) => {\n    change(event.currentTarget)\n    onchange?.(event)\n  }}\n/>{@render children?.()}\n",
     )
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
+    expect(vue).toContain('import { seedChecked } from "../vue"\n')
     expect(vue).toContain(
       "const { checked = undefined, value } = defineProps<Props>()",
     )
     expect(vue).toContain(
-      "const change = (event: Event) =>\n  parent?.change?.(event.currentTarget as HTMLInputElement)",
+      "const change = (input: HTMLInputElement) => {\n  parent?.change?.(input)\n}\n\nconst vSeedChecked = seedChecked(change)",
     )
+    expect(vue).not.toContain(":checked")
     expect(vue).toContain(
-      '    v-bind="defined(attrs)"\n    @change="change"\n  /><slot></slot>',
+      '    v-bind="defined(attrs)"\n    v-seed-checked="grouped ?? checked"\n    @change="change($event.currentTarget as HTMLInputElement)"\n  /><slot></slot>',
+    )
+    const solid = outputs.get(sampleFile().replace(".astro", ".solid.tsx"))
+    expect(solid).toContain(
+      '    "checked",\n    "class",\n    "defaultChecked",\n    "onChange",\n    "ref",\n    "value",\n    "children",\n  )\n  const parent = useTabsContext()\n  const grouped = () => isSelected(parent?.value, props.value)\n',
+    )
+    expect(solid).toContain(
+      '      props.checked ?? props.defaultChecked,\n      "Tabs",\n',
+    )
+    expect(solid).toContain(
+      'import { callHandler, control, seedChecked } from "../solid"\n',
+    )
+    expect(solid).toContain(
+      '  const checkedControl = control(\n    "checked",\n    () => grouped() ?? props.checked,\n    untrack(() => grouped() ?? props.checked ?? props.defaultChecked),\n  )\n',
+    )
+    expect(solid).toContain(
+      '        {...checkedControl.server}\n        class={["ui-sample", props.class]}\n        type="radio"\n        value={props.value}\n        {...defined(rest)}\n        ref={[\n          props.ref,\n          checkedControl.ref,\n          seedChecked((input) => parent?.change?.(input)),\n        ]}\n',
+    )
+    expect(solid).toContain(
+      "        onChange={(event) => {\n          parent?.change?.(event.currentTarget)\n          callHandler(props.onChange, event)\n        }}\n",
     )
   })
 
@@ -1046,7 +1518,11 @@ describe("the three ports of a sample", () => {
     expect(svelte).toContain("    checked = $bindable(),\n")
     expect(svelte).not.toContain("toggleInGroup")
     expect(svelte).toContain(
-      "    onchange={(event) => {\n      if (grouped === undefined) checked = event.currentTarget.checked\n      group?.change?.(event.currentTarget)\n      onchange?.(event)\n    }}\n",
+      "  const change = (input: HTMLInputElement) => {\n    if (grouped === undefined) checked = input.checked\n    group?.change?.(input)\n  }\n",
+    )
+    expect(svelte).toContain("    {@attach seedChecked(isChecked, change)}\n")
+    expect(svelte).toContain(
+      "    onchange={(event) => {\n      change(event.currentTarget)\n      onchange?.(event)\n    }}\n",
     )
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
     expect(vue).toContain(
@@ -1056,11 +1532,55 @@ describe("the three ports of a sample", () => {
       'warnGroupedChecked(\n    "Sample",\n    grouped.value,\n    checked ?? model.value,\n    "ToggleGroup",\n  )',
     )
     expect(vue).toContain(
-      "const change = (event: Event) => {\n  const input = event.currentTarget as HTMLInputElement\n  if (grouped.value === undefined) model.value = input.checked\n  group?.change?.(input)\n}",
+      "const change = (input: HTMLInputElement) => {\n  if (grouped.value === undefined) model.value = input.checked\n  group?.change?.(input)\n}\n\nconst vSeedChecked = seedChecked(change)",
     )
-    expect(vue).toContain(':checked="grouped ?? model ?? checked"')
+    expect(vue).not.toContain(":checked")
+    expect(vue).toContain('v-seed-checked="grouped ?? model ?? checked"')
     expect(vue).toContain(':data-off="!(model ?? checked)"')
     expect(vue).not.toContain("v-model")
+    const solid = outputs.get(sampleFile().replace(".astro", ".solid.tsx"))
+    expect(solid).toContain(
+      '"checked",\n    () => grouped() ?? props.checked,\n    untrack(() => grouped() ?? props.checked ?? props.defaultChecked),',
+    )
+    expect(solid).toContain("data-off={!props.checked}")
+    expect(solid).toContain(
+      "ref={[\n          props.ref,\n          checkedControl.ref,\n          seedChecked((input) => group?.change?.(input)),\n        ]}",
+    )
+    expect(solid).not.toMatch(/\schecked=\{/)
+  })
+
+  test("Solid gives a select its own defaultValue, which picks the options and the select's first value, reads the value twice through a local, and refuses a name its value model declares", async () => {
+    const source =
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items = [], value, ...rest } = Astro.props\nconst isSelected = (item: string) => (value === undefined ? undefined : value === item)\n---\n\n<label class:list={["ui-sample", className]}>\n  <select {...rest}>\n    {items.map((item) => <option selected={isSelected(item)}>{item}</option>)}\n  </select>\n</label>\n'
+    const { outputs } = await compileComponent(source, sampleFile(), {
+      api: modelApi("value", "select"),
+    })
+    const solid = outputs.get(sampleFile().replace(".astro", ".solid.tsx"))
+    expect(solid).toContain(
+      'const rest = omit(props, "class", "defaultValue", "items", "ref", "value")',
+    )
+    expect(solid).toContain(
+      '  const valueControl = control(\n    "value",\n    () => props.value,\n    untrack(() => props.value ?? props.defaultValue),\n  )\n  const value = () => props.value ?? props.defaultValue\n',
+    )
+    expect(solid).toContain(
+      "  const isSelected = (item: string) => {\n    const current = value()\n    return current === undefined ? undefined : current === item\n  }\n",
+    )
+    expect(solid).toContain(
+      "<select\n        {...valueControl.server}\n        ref={[props.ref, valueControl.ref]}\n        {...rest}\n      >",
+    )
+    const clash = await compileComponent(
+      source.replace(
+        "const isSelected",
+        "const valueControl = items.length\nconst isSelected",
+      ),
+      sampleFile(),
+      { api: modelApi("value", "select") },
+    )
+    expect(
+      clash.refused.get(sampleFile().replace(".astro", ".solid.tsx"))?.message,
+    ).toContain(
+      "the name `valueControl`, which the Solid port also declares for its value model",
+    )
   })
 
   test.each([
@@ -1166,6 +1686,9 @@ describe("the three ports of a sample", () => {
       "{...defined(open ? (rest as SvelteHTMLElements[",
     )
     expect(ports.vue).toContain("...defined(open ? attrs : {})")
+    expect(ports["solid.tsx"]).toContain(
+      "{...defined(props.open ? (rest as object) : {})}",
+    )
     expect(ports.vue).toContain('v-bind="defined(open ? {} : attrs)"')
   })
 
@@ -1179,6 +1702,8 @@ describe("the three ports of a sample", () => {
     expect(ports["react.tsx"].match(/from "\.\.\/attrs"/g)).toHaveLength(1)
     expect(ports.svelte).toContain("{...defined(rest)}")
     expect(ports.vue).toContain("...defined(attrs)")
+    expect(ports["solid.tsx"]).toContain("{...defined(rest)}")
+    expect(ports["solid.tsx"].match(/from "\.\.\/attrs"/g)).toHaveLength(1)
   })
 
   test("a root attribute that reads rest before the spread gets inheritAttrs off, so the fix 3 guard stays quiet", async () => {
@@ -1294,7 +1819,7 @@ describe("toTypes", () => {
   const base =
     'export type Props = {\n  variant?: "a" | "b"\n}\n\nexport type SamplePartProps = {}\n'
 
-  test("writes the three type files from types.ts and types.astro.ts", () => {
+  test("writes the framework type files from types.ts and types.astro.ts", () => {
     const types = toTypes(
       "Sample",
       {
@@ -1307,11 +1832,29 @@ describe("toTypes", () => {
     expect(types.react).toBe(
       'import type * as Base from "./types"\nimport type { ComponentProps } from "react"\n\nexport type Props = Base.Props & ComponentProps<"div">\n\nexport type SamplePartProps = ComponentProps<"dd">\n',
     )
+    expect(types.solid).toBe(
+      'import type * as Base from "./types"\nimport type { ComponentProps } from "@solidjs/web"\n\nexport type Props = Base.Props & ComponentProps<"div">\n\nexport type SamplePartProps = ComponentProps<"dd">\n',
+    )
     expect(types.svelte).toBe(
       'import type * as Base from "./types"\nimport type { SvelteHTMLElements } from "svelte/elements"\n\nexport type Props = Base.Props & SvelteHTMLElements["div"]\n\nexport type SamplePartProps = SvelteHTMLElements["dd"]\n',
     )
     expect(types.vue).toBe(
       'import type { Class, DefaultSlots } from "../vue"\nimport type {\n  Props as BaseProps,\n} from "./types"\n\nexport type Props = BaseProps & Class\n\nexport type SamplePartProps = Class\n\nexport type Slots = DefaultSlots\n',
+    )
+  })
+
+  test("a component without a slot gets no Vue slot type", () => {
+    const { vue } = toTypes(
+      "Sample",
+      {
+        astro:
+          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"div">\n',
+        base: 'export type Props = {\n  variant?: "a" | "b"\n}\n',
+      },
+      { Sample: [] },
+    )
+    expect(vue).toBe(
+      'import type { Class } from "../vue"\nimport type {\n  Props as BaseProps,\n} from "./types"\n\nexport type Props = BaseProps & Class\n',
     )
   })
 
@@ -1374,8 +1917,8 @@ describe("toTypes", () => {
     )
   })
 
-  test("React types a radio group's onChange for its inputs", () => {
-    const { react } = toTypes(
+  test("React and Solid type a radio group's defaultValue and onValueChange like a group's", () => {
+    const { react, solid } = toTypes(
       "Sample",
       {
         astro:
@@ -1394,11 +1937,15 @@ describe("toTypes", () => {
         },
       },
     )
+    expect(react).toContain('import type { ComponentProps } from "react"')
     expect(react).toContain(
-      'import type { ChangeEventHandler, ComponentProps } from "react"',
+      'Base.Props & { defaultValue?: number | string; onValueChange?: (value: number | string) => void } & Omit<ComponentProps<"fieldset">, "children" | "defaultValue">',
     )
-    expect(react).toContain(
-      'Base.Props & { onChange?: ChangeEventHandler<HTMLInputElement> } & Omit<ComponentProps<"fieldset">, "children" | "onChange">',
+    expect(solid).toContain(
+      'import type { ComponentProps } from "@solidjs/web"',
+    )
+    expect(solid).toContain(
+      'Base.Props & { defaultValue?: number | string; onValueChange?: (value: number | string) => void } & Omit<ComponentProps<"fieldset">, "children" | "defaultValue">',
     )
   })
 
@@ -1505,8 +2052,8 @@ describe("toTypes", () => {
     )
   })
 
-  test("the React types of a group add defaultValue and onValueChange", () => {
-    const { react, svelte, vue } = toTypes(
+  test("the React and Solid types of a group add defaultValue and onValueChange", () => {
+    const { react, solid, svelte, vue } = toTypes(
       "Sample",
       {
         astro:
@@ -1528,14 +2075,46 @@ describe("toTypes", () => {
     expect(react).toContain(
       'export type Props = Base.Props & { defaultValue?: string; onValueChange?: (value: string) => void; value?: string } & Omit<ComponentProps<"div">, "defaultValue">',
     )
+    expect(solid).toContain(
+      'export type Props = Base.Props & { defaultValue?: string; onValueChange?: (value: string) => void; value?: string } & Omit<ComponentProps<"div">, "defaultValue">',
+    )
     expect(svelte).toContain(
       'export type Props = Base.Props & { value?: string } & SvelteHTMLElements["div"]\n',
     )
     expect(vue).toContain("export type Props = BaseProps & Class\n")
   })
 
-  test("the types of a group tie the value's React props to each declaration of it", () => {
-    const { react, vue } = toTypes(
+  test("Solid types the defaultValue of a select with the model's type, since its JSX has none for the element", () => {
+    const { react, solid } = toTypes(
+      "Sample",
+      {
+        astro:
+          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"select">\n',
+        base,
+      },
+      { Sample: ["default"] },
+      {},
+      {},
+      {
+        Sample: {
+          bindables: [{ prop: "value", type: "string | string[]" }],
+          element: { tag: "select" },
+          kind: "value",
+          prop: "value",
+          type: "string | string[]",
+        },
+      },
+    )
+    expect(solid).toContain(
+      'export type Props = Base.Props & { defaultValue?: string | string[] } & Omit<ComponentProps<"select">, "defaultValue">',
+    )
+    expect(react).toContain(
+      'export type Props = Base.Props & ComponentProps<"select">',
+    )
+  })
+
+  test("the types of a group tie the value's React and Solid props to each declaration of it", () => {
+    const { react, solid, vue } = toTypes(
       "Sample",
       {
         astro:
@@ -1555,6 +2134,9 @@ describe("toTypes", () => {
       },
     )
     expect(react).toContain(
+      'export type Props = Base.Props &\n  Base.Selection<{ defaultValue?: string; onValueChange?: (value: string) => void; value?: string }, { defaultValue?: string[]; onValueChange?: (value: string[]) => void; value?: string[] }> &\n  Omit<ComponentProps<"div">, "defaultValue" | "size">',
+    )
+    expect(solid).toContain(
       'export type Props = Base.Props &\n  Base.Selection<{ defaultValue?: string; onValueChange?: (value: string) => void; value?: string }, { defaultValue?: string[]; onValueChange?: (value: string[]) => void; value?: string[] }> &\n  Omit<ComponentProps<"div">, "defaultValue" | "size">',
     )
     expect(vue).toContain("export type Props = BaseProps & Class\n")
@@ -1642,11 +2224,81 @@ describe("toTypes", () => {
     )
   })
 
+  test("an Events type adds on<Event> in React and Solid, on<event> in Svelte and an Emits type in Vue", () => {
+    const types = toTypes(
+      "Sample",
+      {
+        astro: simple,
+        base: `${base}\nexport type Events = {\n  close: CustomEvent<number>\n}\n`,
+      },
+      { Sample: ["default"] },
+    )
+    expect(types.react).toContain(
+      'export type Props = Base.Props & { onClose?: (event: Base.Events["close"]) => void } & ComponentProps<"div">',
+    )
+    expect(types.solid).toContain(
+      'export type Props = Base.Props & { onClose?: (event: Base.Events["close"]) => void } & ComponentProps<"div">',
+    )
+    expect(types.svelte).toContain(
+      'export type Props = Base.Props & { onclose?: (event: Base.Events["close"]) => void } & SvelteHTMLElements["div"]',
+    )
+    expect(types.vue).toContain(
+      'import type {\n  Events as BaseEvents,\n  Props as BaseProps,\n} from "./types"',
+    )
+    expect(types.vue).toContain(
+      'export type Props = BaseProps & Class\n\nexport type Emits = { close: [event: BaseEvents["close"]] }\n\nexport type Slots = DefaultSlots\n',
+    )
+  })
+
+  test("a custom element root leaves out its own typing of a component event", () => {
+    const { solid, svelte } = toTypes(
+      "Sample",
+      {
+        astro: simple,
+        base: `${base}\nexport type Events = {\n  close: Event\n}\n`,
+      },
+      { Sample: ["default"] },
+      {},
+      { Sample: ["opui-sample"] },
+    )
+    expect(svelte).toContain(
+      'export type Props = Base.Props & { onclose?: (event: Base.Events["close"]) => void } & Omit<SvelteHTMLElements["opui-sample"], "onclose">',
+    )
+    expect(solid).toContain(
+      'export type Props = Base.Props & { onClose?: (event: Base.Events["close"]) => void } & Omit<ComponentProps<"opui-sample">, "onClose">',
+    )
+  })
+
   test.each([
     [
       { astro: simple, base },
       { Sample: ["default", "end-text"] },
       "the slot end-text of Sample, which types.ts has no Slots type for",
+    ],
+    [
+      {
+        astro: simple,
+        base: `${base}\nexport type Events = {\n  valueChange: Event\n}\n`,
+      },
+      { Sample: ["default"] },
+      "the event valueChange in Events",
+    ],
+    [
+      {
+        astro: simple,
+        base: `${base}\nexport type OtherEvents = {\n  close: Event\n}\n`,
+      },
+      { Sample: ["default"] },
+      "the type OtherEvents, which names no props type in types.astro.ts",
+    ],
+    [
+      {
+        astro:
+          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = HTMLAttributes<"div">\n',
+        base: `${base}\nexport type Events = {\n  close: Event\n}\n`,
+      },
+      { Sample: ["default"] },
+      "the type Props, which has Events but no Base.Props to join them to",
     ],
     [
       {

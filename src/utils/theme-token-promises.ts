@@ -1,4 +1,4 @@
-export type TokenPromise = {
+type TokenPromise = {
   against: string[]
   fallback?: string
   ratio: 3 | 4.5

@@ -3,8 +3,9 @@ import type { SelectItem } from "./types"
 import { trimEdges } from "../whitespace"
 import type { Props } from "./types.astro"
 import { cx } from "../cx"
-import { createIds, idRefs } from "../id"
+import { createIds, fieldDescribedBy } from "../id"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
+import { sameValue } from "./selection"
 
 export const title = "Select"
 
@@ -34,33 +35,39 @@ const {
 const SelectedContent = "selectedcontent"
 const field = fieldGroupContext.get()
 const ids = createIds(Astro.locals, "select", id)
-const labelId = ids("label")
 const startTextId =
   startText || Astro.slots.has("start-text") ? ids("start-text") : undefined
 const endTextId =
   endText || Astro.slots.has("end-text") ? ids("end-text") : undefined
+const startId = Astro.slots.has("start") ? ids("start") : undefined
+const endId = Astro.slots.has("end") ? ids("end") : undefined
 const topId = Astro.slots.has("top") ? ids("top") : undefined
 const bottomId = Astro.slots.has("bottom") ? ids("bottom") : undefined
-const describedBy = idRefs(
-  topId,
-  startTextId,
-  endTextId,
-  bottomId,
+const describedBy = fieldDescribedBy(
+  {
+    bottom: bottomId,
+    end: endId,
+    endText: endTextId,
+    start: startId,
+    startText: startTextId,
+    top: topId,
+  },
   ariaDescribedBy,
 )
 const isSelected = (item: SelectItem) =>
   value === undefined
     ? item.selected
     : Array.isArray(value)
-      ? value.some((selected) => selected === item.value)
-      : item.value === value
+      ? value.some((selected) => sameValue(selected, item.value))
+      : sameValue(item.value, value)
 const labelSlot = Astro.slots.has("label")
   ? trimEdges(await Astro.slots.render("label"))
   : ""
-const LabelTag = label || labelSlot ? "span" : Fragment
+const hasLabel = Boolean(label || labelSlot)
+const selectId = hasLabel ? ids() : id
 ---
 
-<label
+<div
   class:list={[
     "ui-select",
     {
@@ -73,9 +80,11 @@ const LabelTag = label || labelSlot ? "span" : Fragment
   ]}
   style={style}
 >
-  <LabelTag class={cx([hideLabel ? "ui-sr-only" : "ui-label"])} id={labelId}
+  {hasLabel && <label
+    class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
+    for={selectId}
     >{label}<Fragment set:html={labelSlot}
-  /></LabelTag>
+  /></label>}
   {(startText || Astro.slots.has("start-text")) && <span
     class="ui-start-text"
     id={startTextId}
@@ -84,17 +93,21 @@ const LabelTag = label || labelSlot ? "span" : Fragment
     <slot name="start-text" />
   </span>}
   <span class="ui-field">
+    {Astro.slots.has("top") && <span class="ui-top" id={topId}>
+      <slot name="top" />
+    </span>}
+    {Astro.slots.has("start") && <span class="ui-start" id={startId}>
+      <slot name="start" />
+    </span>}
     <select
       {...rest}
       aria-describedby={describedBy}
       aria-invalid={error ? "true" : ariaInvalid}
-      aria-labelledby={
-        label || Astro.slots.has("label") ? labelId : ariaLabelledBy
-      }
-      id={id}
+      aria-labelledby={ariaLabelledBy}
+      id={selectId}
       name={name ?? field?.name}
     >
-      <button>
+      <button inert>
         <SelectedContent />
       </button>
       <div class:list={["ui-list", { "ui-dense": dense }]}>
@@ -107,14 +120,8 @@ const LabelTag = label || labelSlot ? "span" : Fragment
         <slot />
       </div>
     </select>
-    {Astro.slots.has("start") && <span class="ui-start">
-      <slot name="start" />
-    </span>}
-    {Astro.slots.has("end") && <span class="ui-end">
+    {Astro.slots.has("end") && <span class="ui-end" id={endId}>
       <slot name="end" />
-    </span>}
-    {Astro.slots.has("top") && <span class="ui-top" id={topId}>
-      <slot name="top" />
     </span>}
     {Astro.slots.has("bottom") && <span class="ui-bottom" id={bottomId}>
       <slot name="bottom" />
@@ -127,4 +134,4 @@ const LabelTag = label || labelSlot ? "span" : Fragment
     {endText}
     <slot name="end-text" />
   </span>}
-</label>
+</div>

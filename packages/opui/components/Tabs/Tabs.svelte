@@ -1,11 +1,15 @@
 <script lang="ts">
+  import { untrack } from "svelte"
   import { setTabsContext } from "./context.svelte"
+  import { warnUnnamedGroup } from "../dev"
   import type { Props } from "./types.svelte"
 
   let {
     class: className,
     name,
+    orientation,
     overflow,
+    role,
     value = $bindable(),
     variant,
 
@@ -16,6 +20,9 @@
 
   const uid = $props.id()
   const groupName = $derived(name || `tabs-${uid}`)
+  untrack(() => {
+    if (role === "radiogroup") warnUnnamedGroup("Tabs", rest)
+  })
   setTabsContext({
     change(input) {
       if (value !== undefined) value = input.value
@@ -32,10 +39,12 @@
 <div
   class={[
     "ui-tabs",
-    overflow && overflow !== "wrap" && `ui-overflow-${overflow}`,
+    orientation === "vertical" && "ui-vertical",
+    overflow && overflow !== "scroll" && `ui-overflow-${overflow}`,
     variant && variant !== "tonal" && `ui-${variant}`,
     className,
   ]}
+  {role}
   {...rest}
 >
   {@render children?.()}

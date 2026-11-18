@@ -12,7 +12,9 @@
     --_radius: var(--ui-radius);
     --_selected-bg-color: light-dark(
       var(--ui-surface),
-      oklch(100% 0 0 / var(--ui-state-hover-alpha-dark))
+      oklch(
+        from var(--ui-text-strong) l c h / var(--ui-state-selected-alpha-accent)
+      )
     );
     --_selected-border-color: var(
       --ui-control-border-color,
@@ -32,7 +34,6 @@
     position: relative;
 
     & > .ui-input[type="radio"] {
-      /* TODO: use mixin for this when available */
       block-size: 1lh;
       clip-path: inset(50%);
       inline-size: 1ch;
@@ -100,6 +101,10 @@
       -webkit-user-select: none;
       user-select: none;
       white-space: nowrap;
+
+      @media print {
+        print-color-adjust: exact;
+      }
 
       &::before {
         border: var(--ui-border-width) solid transparent;
@@ -200,7 +205,93 @@
       );
     }
 
-    &:where(:is(.ui-accordion, .ui-card, .ui-dialog) > *, .ui-overflow-scroll) {
+    &.ui-vertical {
+      display: grid;
+      grid-template-columns: fit-content(50%) minmax(0, 1fr);
+      grid-template-rows: 1fr;
+
+      & > .ui-label {
+        border-block: 0;
+        border-inline: var(--_track-border-width) solid
+          var(--_track-border-color);
+        grid-column: 1;
+        hyphens: auto;
+        justify-content: start;
+        overflow-wrap: anywhere;
+        padding-block: var(--ui-space-1);
+        padding-inline: calc(
+          var(--ui-space-3) + var(--_inset) - var(--_track-border-width)
+        );
+        white-space: normal;
+
+        &::before {
+          inset-block: 0;
+          inset-inline: var(--_inset);
+        }
+
+        &::after {
+          block-size: auto;
+          inline-size: var(--_indicator-size);
+          inset-block: 0;
+          inset-inline: 0 auto;
+        }
+
+        &:nth-child(1 of .ui-label) {
+          border-block-start: var(--_track-border-width) solid
+            var(--_track-border-color);
+          border-end-start-radius: 0;
+          border-start-end-radius: var(--_radius);
+          padding-block-start: calc(
+            var(--ui-space-1) + var(--_inset) - var(--_track-border-width)
+          );
+
+          &::before {
+            inset-block-start: var(--_inset);
+          }
+        }
+
+        &:nth-last-child(1 of .ui-label) {
+          border-block-end: var(--_track-border-width) solid
+            var(--_track-border-color);
+          border-end-start-radius: var(--_radius);
+          border-start-end-radius: 0;
+          padding-block-end: calc(
+            var(--ui-space-1) + var(--_inset) - var(--_track-border-width)
+          );
+
+          &::before {
+            inset-block-end: var(--_inset);
+          }
+        }
+
+        &:nth-child(1 of .ui-label):nth-last-child(1 of .ui-label) {
+          border-radius: var(--_radius);
+        }
+      }
+
+      & > .ui-panel {
+        grid-column: 2;
+        grid-row: span 99 / -1;
+        hyphens: auto;
+        inline-size: auto;
+        margin-block-start: 0;
+        margin-inline-start: var(--_panel-gap);
+        overflow-wrap: break-word;
+      }
+
+      &.ui-line {
+        column-gap: 0;
+
+        & > .ui-label:not(:nth-last-child(1 of .ui-label)) {
+          margin-block-end: var(--ui-space-1);
+        }
+      }
+    }
+
+    &:where(
+      :is(.ui-accordion, .ui-card, .ui-dialog) > *,
+      :not(.ui-overflow-wrap, .ui-vertical)
+    ) {
       & > .ui-input[type="radio"]:focus-visible + .ui-label::before {
         outline-offset: var(--ui-focus-ring-inset);
       }
@@ -210,14 +301,16 @@
       }
     }
 
-    &.ui-overflow-scroll {
+    &:not(.ui-overflow-wrap, .ui-vertical) {
       column-gap: 0;
-      container-type: inline-size;
       display: grid;
       grid-auto-columns: max-content;
       overflow-inline: auto;
       overscroll-behavior-inline: contain;
-      scrollbar-width: thin;
+
+      &:has(> .ui-panel) {
+        container-type: inline-size;
+      }
 
       & > .ui-input[type="radio"] {
         grid-column: calc((sibling-index() + 2) / 3) / span 1;
@@ -225,6 +318,10 @@
         inset-block-start: 50%;
         inset-inline-start: 50%;
         margin: 0;
+      }
+
+      &:not(:has(> .ui-panel)) > .ui-input[type="radio"] {
+        grid-column: calc((sibling-index() + 1) / 2) / span 1;
       }
 
       & > .ui-label {
@@ -274,6 +371,10 @@
           transition: inset var(--_indicator-duration)
             var(--ui-ease-move, var(--_ease));
           z-index: -2;
+
+          @media print {
+            print-color-adjust: exact;
+          }
         }
 
         &.ui-line::after {
@@ -321,6 +422,31 @@
             inset-inline-end: calc(-1 * var(--_track-border-width));
           }
         }
+
+        &.ui-vertical {
+          &.ui-line::after {
+            inset-block-start: anchor(--ui-tabs-selected inside);
+            inset-inline-end: calc(
+              anchor(--ui-tabs-selected start) - var(--_indicator-size)
+            );
+          }
+
+          & > .ui-label {
+            &::after {
+              inline-size: auto;
+              inset-block: 0;
+              inset-inline: calc(-1 * var(--_track-border-width));
+            }
+
+            &:nth-child(1 of .ui-label)::after {
+              inset-block-start: calc(-1 * var(--_track-border-width));
+            }
+
+            &:nth-last-child(1 of .ui-label)::after {
+              inset-block-end: calc(-1 * var(--_track-border-width));
+            }
+          }
+        }
       }
     }
 
@@ -339,6 +465,15 @@
 
         border-color: CanvasText;
         forced-color-adjust: none;
+      }
+
+      &:where(
+          :is(.ui-accordion, .ui-card, .ui-dialog) > *,
+          :not(.ui-overflow-wrap, .ui-vertical)
+        )
+        > .ui-input[type="radio"]:checked
+        + .ui-label::before {
+        --ui-focus-ring-color: SelectedItemText;
       }
     }
   }

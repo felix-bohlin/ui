@@ -10,6 +10,7 @@ import Code from "../Code.astro"
 import { Chip, Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
 import { formatCode } from "../../../scripts/format.mjs"
 import MountReactExamples from "./MountReactExamples.astro"
+import MountSolidExamples from "./MountSolidExamples.astro"
 import MountSvelteExamples from "./MountSvelteExamples.astro"
 import MountVueExamples from "./MountVueExamples.astro"
 
@@ -39,6 +40,7 @@ type Props = {
   spacious?: boolean
   wide?: boolean
   reactExampleId?: string
+  solidExampleId?: string
   svelteExampleId?: string
   vueExampleId?: string
 }
@@ -52,6 +54,7 @@ const {
   spacious,
   wide,
   reactExampleId,
+  solidExampleId,
   svelteExampleId,
   vueExampleId,
 } = Astro.props
@@ -101,6 +104,8 @@ const hasPreview = Astro.slots.has("default") || !!previewSlot
 const isLivePreview = previewSlot?.name === "preview-vue" && !!vueExampleId
 const isLiveReactPreview =
   previewSlot?.name === "preview-react" && !!reactExampleId
+const isLiveSolidPreview =
+  previewSlot?.name === "preview-solid" && !!solidExampleId
 const isLiveSveltePreview =
   previewSlot?.name === "preview-svelte" && !!svelteExampleId
 
@@ -157,6 +162,7 @@ const outputId = `${groupName}-output`
   data-framework={activeFramework}
 >
   {isLiveReactPreview && <MountReactExamples />}
+  {isLiveSolidPreview && <MountSolidExamples />}
   {isLiveSveltePreview && <MountSvelteExamples />}
   {isLivePreview && <MountVueExamples />}
   {hasControls && <div class="controls" set:html={controlsHtml} />}
@@ -183,6 +189,12 @@ const outputId = `${groupName}-output`
       <div
         class="preview-render"
         data-react-example={reactExampleId}
+        set:html={previewHtml}
+      />
+    ) : isLiveSolidPreview ? (
+      <div
+        class="preview-render"
+        data-solid-example={solidExampleId}
         set:html={previewHtml}
       />
     ) : isLiveSveltePreview ? (
@@ -222,30 +234,50 @@ const outputId = `${groupName}-output`
 
   {hasCode && <div class="example-code-area">
     <template class="example-code">
-      <Tabs class="source-tabs code-tabs" name={groupName} variant="line">
-        <TabsItem id={sourceId} name={groupName} checked>
-          <TabsLabel for={sourceId} data-tab="source">
-            {codeLangLabel}
-          </TabsLabel>
-          <TabsPanel data-panel="source">
-            <div class="ui-panel">
-              <Code
-                code={codeContent}
-                lang={codeLangId === "react" ? "tsx" : codeLangId}
-              />
-            </div>
-          </TabsPanel>
-        </TabsItem>
+      {showOutput ? (
+        <Tabs
+          class="source-tabs code-tabs"
+          name={groupName}
+          overflow="wrap"
+          variant="line"
+        >
+          <TabsItem id={sourceId} name={groupName} checked>
+            <TabsLabel for={sourceId} data-tab="source">
+              {codeLangLabel}
+            </TabsLabel>
+            <TabsPanel data-panel="source">
+              <div class="ui-panel">
+                <Code
+                  code={codeContent}
+                  lang={
+                    codeLangId === "react" || codeLangId === "solid"
+                      ? "tsx"
+                      : codeLangId
+                  }
+                />
+              </div>
+            </TabsPanel>
+          </TabsItem>
 
-        {showOutput && <TabsItem id={outputId} name={groupName}>
-          <TabsLabel for={outputId} data-tab="output"> Output </TabsLabel>
-          <TabsPanel data-panel="output">
-            <div class="ui-panel">
-              <Code code={outputContent} lang="html" />
-            </div>
-          </TabsPanel>
-        </TabsItem>}
-      </Tabs>
+          <TabsItem id={outputId} name={groupName}>
+            <TabsLabel for={outputId} data-tab="output"> Output </TabsLabel>
+            <TabsPanel data-panel="output">
+              <div class="ui-panel">
+                <Code code={outputContent} lang="html" />
+              </div>
+            </TabsPanel>
+          </TabsItem>
+        </Tabs>
+      ) : (
+        <Code
+          code={codeContent}
+          lang={
+            codeLangId === "react" || codeLangId === "solid"
+              ? "tsx"
+              : codeLangId
+          }
+        />
+      )}
     </template>
   </div>}
 </div>
@@ -370,12 +402,13 @@ const outputId = `${groupName}-output`
 </style>
 
 <style is:global>
-  .ui-panel .code-block pre {
+  :is(.example-code-area, .ui-panel) .code-block pre {
     border-radius: 0;
   }
 </style>
 
 <script>
+  import "../../utils/code-blocks"
   import { hrefFor, isFrameworkId } from "../../utils/framework.js"
 
   // Tab interactivity for the source/output toggle and the show-code button.

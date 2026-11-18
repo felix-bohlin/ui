@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs"
+import { releaseDate } from "./changelog-file"
 import opui from "../../packages/opui/package.json" with { type: "json" }
 import released from "../../tests/unit/released-api.json" with { type: "json" }
 
@@ -12,24 +13,16 @@ export const newer = (version: string, than: string) => {
   return than.includes("-") && !version.includes("-")
 }
 
-export const dated = (version: string, changelog: string) =>
-  new RegExp(
-    `^## ${version.replaceAll(".", "\\.")} - \\d{4}-\\d{2}-\\d{2}$`,
-    "m",
-  ).test(changelog)
-
 export const isUnreleased = (
   version: string,
   published: string,
   changelog: string,
-) => newer(version, published) && !dated(version, changelog)
+) => newer(version, published) && !releaseDate(changelog, version)
 
 export const packageVersion = opui.version
 export const publishedVersion = released.version
 export const releaseVersion = packageVersion.split("-")[0]
 export const prerelease = packageVersion !== releaseVersion
-export const majorPublished =
-  numbers(packageVersion)[0] === numbers(publishedVersion)[0]
 export const unreleased = isUnreleased(
   packageVersion,
   publishedVersion,

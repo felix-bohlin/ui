@@ -1,17 +1,17 @@
 # Tooltip
 
-A short label or hint for a control, shown on hover, focus or a long press.
+A short label or hint for a control, shown on hover and focus.
 
 - CSS: `opui-css/css/components/tooltip.css` and `opui-css/css/components/anchor.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/tooltip.md), [Astro](https://open-props-ui.netlify.app/astro/components/tooltip.md), [React](https://open-props-ui.netlify.app/react/components/tooltip.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/tooltip.md), [Vue](https://open-props-ui.netlify.app/vue/components/tooltip.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/tooltip.md), [Astro](https://opui.dev/astro/components/tooltip.md), [React](https://opui.dev/react/components/tooltip.md), [Solid](https://opui.dev/solid/components/tooltip.md), [Svelte](https://opui.dev/svelte/components/tooltip.md), [Vue](https://opui.dev/vue/components/tooltip.md).
 
 ## Tooltip
 
 ### Parts
 
 - `.ui-tooltip` (root): Container element.
-- `& > :first-child`: The trigger that shows the tooltip on hover and focus.
 - `.ui-floating` (`TooltipContent`): The tooltip, a `popover="hint"`.
+- `& > :first-child`: The trigger that shows the tooltip on hover and focus.
 
 ### Props and modifiers
 
@@ -35,7 +35,6 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 - `--_arrow-size`: Size of the arrow in `.ui-arrow`.
 - `--_bg-color`: Background of the tooltip and its arrow. Defaults to `--ui-surface-inverse`.
-- `--_ease`: Easing of the fade and the scale. Defaults to `--ui-ease-enter`.
 - `--_max-inline-size`: The maximum width. Longer content wraps.
 - `--_min-inline-size`: The minimum width, unless the content is narrower.
 - `--_motion`: Motion multiplier for the fade and the scale. `0` turns them off.
@@ -43,7 +42,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_shift`: How far a shifted tooltip reaches past the center of the trigger.
 - `--_text-color`: The text color. Defaults to `--ui-on-inverse`.
 
-Outputs: `--_duration` and `--_ease-move`.
+Outputs: `--_duration`, `--_ease` and `--_ease-move`.
 
 ### anchor.css
 
@@ -52,7 +51,7 @@ Outputs: `--_duration` and `--_ease-move`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width`, `--ui-duration`, `--ui-ease-enter`, `--ui-ease-move`, `--ui-font-size-small`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-inverse`, `--ui-radius-small`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4` and `--ui-surface-inverse`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width`, `--ui-duration`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-font-size-small`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-inverse`, `--ui-radius-small`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4` and `--ui-surface-inverse`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -101,6 +100,31 @@ import { Button, Tooltip, TooltipContent } from "opui-css/astro"
 
 ```tsx
 import { Button, Tooltip, TooltipContent } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <Tooltip id="tooltip-basics-1">
+      <Button
+        aria-describedby="tooltip-basics-1"
+        interestfor="tooltip-basics-1"
+      >
+        Save
+      </Button>
+      <TooltipContent>Save your changes</TooltipContent>
+    </Tooltip>
+  )
+}
+```
+
+## Solid
+
+`import { Tooltip, TooltipContent } from "opui-css/solid"`
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Button, Tooltip, TooltipContent } from "opui-css/solid"
 
 export default function Basics() {
   return (

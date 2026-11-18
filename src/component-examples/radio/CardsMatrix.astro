@@ -1,39 +1,39 @@
 ---
-import { Radio, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/astro"
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
 ---
 
 <Form>
   <Fieldset>
-    <FieldLegend>Input at the end</FieldLegend>
+    <FieldLegend>Plan</FieldLegend>
     <FieldGroup name="radio-cards-end" orientation="horizontal">
-      <Radio card checked spread value="outlined">
-        Outlined
-        <Fragment slot="end-text">The default surface.</Fragment>
+      <Radio card checked spread value="basic">
+        Basic
+        <Fragment slot="end-text">€0 per month, forever</Fragment>
       </Radio>
-      <Radio card spread value="tonal" variant="tonal">
-        Tonal
-        <Fragment slot="end-text">A tinted surface.</Fragment>
+      <Radio card spread value="gold" variant="elevated">
+        Gold
+        <Fragment slot="end-text">€3 per month, shiny badge included</Fragment>
       </Radio>
-      <Radio card spread value="elevated" variant="elevated">
-        Elevated
-        <Fragment slot="end-text">A raised surface.</Fragment>
+      <Radio card spread value="platinum" variant="tonal">
+        Platinum
+        <Fragment slot="end-text">€5 per month, extra sparkly</Fragment>
       </Radio>
     </FieldGroup>
   </Fieldset>
   <Fieldset>
-    <FieldLegend>Input at the start</FieldLegend>
+    <FieldLegend>Billing</FieldLegend>
     <FieldGroup name="radio-cards-start" orientation="horizontal">
-      <Radio card checked value="outlined">
-        Outlined
-        <Fragment slot="end-text">The default surface.</Fragment>
+      <Radio card checked value="monthly">
+        Monthly
+        <Fragment slot="end-text">Cancel any time, no hard feelings.</Fragment>
       </Radio>
-      <Radio card value="tonal" variant="tonal">
-        Tonal
-        <Fragment slot="end-text">A tinted surface.</Fragment>
+      <Radio card value="yearly" variant="elevated">
+        Yearly
+        <Fragment slot="end-text">Two months free, woohoo.</Fragment>
       </Radio>
-      <Radio card value="elevated" variant="elevated">
-        Elevated
-        <Fragment slot="end-text">A raised surface.</Fragment>
+      <Radio card value="gig-money" variant="tonal">
+        Gig money
+        <Fragment slot="end-text">Pay in coins after your next gig.</Fragment>
       </Radio>
     </FieldGroup>
   </Fieldset>

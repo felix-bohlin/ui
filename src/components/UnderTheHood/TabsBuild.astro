@@ -12,7 +12,7 @@ const steps = [
   display: block;
 }`,
     html: `
-<div aria-label="Account" class="tabs" role="radiogroup">
+<div class="tabs">
   <input class="tab-input" type="radio" name="tabs" id="tab-1" checked />
   <label class="tab-label" for="tab-1">Profile</label>
   <div class="tab-panel">…</div>
@@ -43,6 +43,7 @@ const steps = [
     notes: [
       "The markup interleaves label, panel, label, panel",
       "<code>order</code> pulls every label into one row and drops the panel below",
+      "<code>.ui-vertical</code> swaps the row for a two-column grid: the labels stack in the first column, and the panel spans their rows and one <code>1fr</code> row after them, so its height goes to that row and the labels keep theirs",
     ],
     title: "Order",
   },
@@ -136,6 +137,49 @@ const steps = [
     ],
     title: "Segmented",
   },
+  {
+    css: `
+.tabs {
+  container-type: inline-size;
+  display: grid;
+  grid-auto-columns: max-content;
+  overflow-inline: auto;
+  position: relative;
+}
+
+.tab-label {
+  grid-row: 1;
+}
+
+.tab-input {
+  grid-column: calc((sibling-index() + 2) / 3) / span 1;
+  grid-row: 1 / span 1;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+}
+
+.tab-input:focus-visible + .tab-label::before {
+  outline-offset: var(--ui-focus-ring-inset);
+}
+
+.tab-panel {
+  grid-column: 1 / span calc(sibling-count() / 3);
+  grid-row: 2;
+  inline-size: 100cqi;
+  inset-inline-start: 0;
+  margin-inline-end: -100cqi;
+  position: sticky;
+}`,
+    features: ["container-queries", "logical-properties", "sibling-count"],
+    notes: [
+      "A one-row grid scrolls sideways when the labels don't fit: narrow it with the Width knob",
+      "Every label takes a column in row 1, and the panels share row 2",
+      "<code>sibling-index()</code> gives each radio its label's column, and its insets place it there, so the arrow keys scroll the tab they select into view",
+      "The panel is as wide as the container (<code>100cqi</code>) and sticks to its start, and the negative margin keeps it from widening the columns",
+      "The scroller clips what reaches past it, so the focus ring moves inside the pill",
+    ],
+    title: "Scroll",
+  },
 ]
 
 const knobs = [
@@ -156,17 +200,25 @@ const knobs = [
     unit: "px",
     value: 10,
   },
+  {
+    label: "Width",
+    max: 24,
+    min: 8,
+    property: "--width",
+    unit: "rem",
+    value: 24,
+  },
 ]
 
 const tabs = [
-  { label: "Profile", panel: "Profile settings and information." },
-  { label: "Settings", panel: "General account settings." },
-  { label: "Billing", panel: "Plans, invoices and payment methods." },
+  { label: "Profile", panel: "Your bio, your gear and your 5-string." },
+  { label: "Settings", panel: "Pokes, privacy and who hears your slaps." },
+  { label: "Gold", panel: "Your Bassbook Gold plan and its shiny perks." },
 ]
 ---
 
 <BuildUp id="build-tabs" knobs={knobs} steps={steps}>
-  <div aria-label="Account" class="tabs" role="radiogroup">
+  <div class="tabs">
     {tabs.map((tab, index) => (
       <>
         <input
@@ -187,7 +239,7 @@ const tabs = [
 
 <style>
   .tabs {
-    inline-size: min(100%, 24rem);
+    inline-size: min(100%, var(--width));
   }
 
   .tab-label {

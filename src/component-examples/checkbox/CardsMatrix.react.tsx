@@ -10,63 +10,63 @@ export default function CardsMatrix() {
   return (
     <Form>
       <Fieldset>
-        <FieldLegend>Input at the end</FieldLegend>
+        <FieldLegend>Gold add-ons</FieldLegend>
         <FieldGroup name="checkbox-cards-end" orientation="horizontal">
           <Checkbox
             card
             defaultChecked
-            endText="The default surface."
+            endText="€8 per month"
             spread
-            value="outlined"
+            value="support"
           >
-            Outlined
+            Priority bass help
           </Checkbox>
           <Checkbox
             card
-            endText="A tinted surface."
+            endText="€4 per month"
             spread
-            value="tonal"
-            variant="tonal"
-          >
-            Tonal
-          </Checkbox>
-          <Checkbox
-            card
-            endText="A raised surface."
-            spread
-            value="elevated"
+            value="storage"
             variant="elevated"
           >
-            Elevated
+            Extra slap video storage
+          </Checkbox>
+          <Checkbox
+            card
+            endText="€6 per month"
+            spread
+            value="audit-log"
+            variant="tonal"
+          >
+            Gig diary
           </Checkbox>
         </FieldGroup>
       </Fieldset>
       <Fieldset>
-        <FieldLegend>Input at the start</FieldLegend>
+        <FieldLegend>Email updates</FieldLegend>
         <FieldGroup name="checkbox-cards-start" orientation="horizontal">
           <Checkbox
             card
             defaultChecked
-            endText="The default surface."
-            value="outlined"
+            endText="Every Monday morning."
+            value="weekly"
           >
-            Outlined
+            Weekly jam recap
           </Checkbox>
           <Checkbox
             card
-            endText="A tinted surface."
-            value="tonal"
-            variant="tonal"
-          >
-            Tonal
-          </Checkbox>
-          <Checkbox
-            card
-            endText="A raised surface."
-            value="elevated"
+            endText="When your band books a gig."
+            value="usage"
             variant="elevated"
           >
-            Elevated
+            Gig alerts
+          </Checkbox>
+          <Checkbox
+            card
+            endText="After each payment."
+            value="invoices"
+            variant="tonal"
+          >
+            Gold receipts
           </Checkbox>
         </FieldGroup>
       </Fieldset>

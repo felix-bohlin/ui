@@ -1,5 +1,6 @@
 export type Props = {
   decreaseLabel?: string
+  disabled?: boolean
   endText?: string
   error?: boolean
   hideLabel?: boolean

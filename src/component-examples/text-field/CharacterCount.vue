@@ -5,7 +5,7 @@ import { TextField } from "opui-css/vue"
 <template>
   <TextField
     characterCount
-    endText="Letters, numbers and dashes."
+    endText="Up to 20 letters, numbers and dashes."
     label="Username"
     :maxlength="20"
   />

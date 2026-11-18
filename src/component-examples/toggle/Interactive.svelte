@@ -2,9 +2,10 @@
   import { ToggleButton, ToggleGroup } from "opui-css/svelte"
 </script>
 
-<ToggleGroup aria-label="Playback" name="transport">
+<ToggleGroup aria-label="Travel mode" name="transport">
   <ToggleButton defaultChecked value="walking">
     <svg
+      data-icon="walk"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -20,6 +21,7 @@
   </ToggleButton>
   <ToggleButton value="cycling">
     <svg
+      data-icon="bike"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -35,6 +37,7 @@
   </ToggleButton>
   <ToggleButton value="commuting">
     <svg
+      data-icon="train"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"

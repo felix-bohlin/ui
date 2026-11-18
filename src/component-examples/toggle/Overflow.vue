@@ -6,7 +6,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
   <div style="display: grid; gap: var(--ui-space-4); max-inline-size: 14rem">
     <div style="display: grid; gap: var(--ui-space-1)">
       <p>Wrap</p>
-      <ToggleGroup aria-label="Notifications" multiple name="overflow-wrap">
+      <ToggleGroup aria-label="Notifications">
         <ToggleButton value="all">Everything</ToggleButton>
         <ToggleButton value="mentions">Mentions</ToggleButton>
         <ToggleButton value="none">Nothing at all</ToggleButton>
@@ -14,12 +14,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
     </div>
     <div style="display: grid; gap: var(--ui-space-1)">
       <p>Scroll</p>
-      <ToggleGroup
-        aria-label="Notifications"
-        multiple
-        name="overflow-scroll"
-        overflow="scroll"
-      >
+      <ToggleGroup aria-label="Notifications" overflow="scroll">
         <ToggleButton value="all">Everything</ToggleButton>
         <ToggleButton value="mentions">Mentions</ToggleButton>
         <ToggleButton value="none">Nothing at all</ToggleButton>
@@ -27,12 +22,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
     </div>
     <div style="display: grid; gap: var(--ui-space-1)">
       <p>Shrink</p>
-      <ToggleGroup
-        aria-label="Notifications"
-        multiple
-        name="overflow-shrink"
-        overflow="shrink"
-      >
+      <ToggleGroup aria-label="Notifications" overflow="shrink">
         <ToggleButton value="all">Everything</ToggleButton>
         <ToggleButton value="mentions">Mentions</ToggleButton>
         <ToggleButton value="none">Nothing at all</ToggleButton>

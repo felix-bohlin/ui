@@ -4,7 +4,9 @@ export default function Snippet() {
   return (
     <Copy id="copy-snippet-1">
       <pre className="ui-code-block">
-        <code>npm install opui-css</code>
+        <code>
+          <span data-copy-ignore="">$ </span>npm install opui-css
+        </code>
       </pre>
       <Tooltip id="copy-snippet-2">
         <Button
@@ -15,6 +17,7 @@ export default function Snippet() {
           round
         >
           <svg
+            data-icon="copy"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"

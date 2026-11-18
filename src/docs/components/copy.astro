@@ -3,9 +3,11 @@ import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
+import { Button as UIButton, TextField as UITextField } from "opui-css/astro"
 
 import CopyCSS from "@opui/css/components/copy.css?raw"
 import CopyJS from "@opui/elements/copy.js?raw"
@@ -21,6 +23,7 @@ export const keywords = ["clipboard", "copy to clipboard"]
 <Component
   description={description}
   slug="copy"
+  heroAnatomy
   browserSupport={[
     "anchor-positioning",
     "container-style-queries",
@@ -37,15 +40,17 @@ export const keywords = ["clipboard", "copy to clipboard"]
     "starting-style",
     "transition-behavior",
   ]}
+  fallbacks={{
+    "display-animation":
+      "Without display animation, the Copied label disappears at once instead of sliding back.",
+    "interest-invokers":
+      "Without interest invokers, a tooltip on the copy button shows while the button is hovered or has keyboard focus, and the compat layer hides it while the Copied label shows.",
+    overlay:
+      "Without `overlay`, the page can cover the Copied label while it slides back.",
+    "popover-hint":
+      'Without `popover="hint"`, the tooltip on the copy button is a manual popover, which the compat layer still shows on hover and focus.',
+  }}
   apis={[{ title: "Copy API", api: copyApi }]}
-  changelogPaths={[
-    { path: "packages/opui/components/Copy/Copy.astro", type: "component" },
-    { path: "src/docs/components/copy.astro", type: "docs" },
-    { path: "src/component-examples/copy", type: "docs" },
-    { path: "packages/opui/css/components/copy.css", type: "css" },
-    { path: "packages/opui/elements/copy.js", type: "component" },
-    { path: "src/component-api/copy", type: "api" },
-  ]}
   installationTabs={[
     { title: "copy.css", code: CopyCSS, lang: "css" },
     { title: "copy.js", code: CopyJS, lang: "js" },
@@ -57,6 +62,58 @@ export const keywords = ["clipboard", "copy to clipboard"]
       A <DocLink href="/components/button">Button</DocLink> that copies text or
       a field's value.
     </p>
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <opui-copy
+        class="ui-copy"
+        id="copy-anatomy"
+        style="
+          align-items: center;
+          display: flex;
+          flex-wrap: wrap;
+          gap: var(--ui-space-2);
+          inline-size: 20rem;
+        "
+      >
+        <UITextField
+          hideLabel
+          label="Invite link"
+          readonly
+          style="flex: 1"
+          value="https://example.com/invite/8f3k2"
+        />
+        <UIButton style="anchor-name: --copy-anatomy-button" variant="outlined"
+          >Copy</UIButton
+        >
+        <span
+          class="ui-sr-only"
+          role="status"
+          style="
+            block-size: auto;
+            clip-path: none;
+            flex-basis: 100%;
+            inline-size: auto;
+            position: static;
+          "
+          >Copied</span
+        >
+        <span
+          aria-hidden="true"
+          class="ui-floating"
+          popover
+          style="
+            clip-path: none;
+            display: block;
+            opacity: 1;
+            position: absolute;
+            position-anchor: --copy-anatomy-button;
+          "
+          >Copied</span
+        >
+      </opui-copy>
+    </Anatomy>
   </Fragment>
 
   <Usage slot="usage">
@@ -119,6 +176,14 @@ export const keywords = ["clipboard", "copy to clipboard"]
   </section>
 
   <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Screen readers announce the copied label, or the failed label when the
+        clipboard is blocked.
+      </li>
+      <li>A failed copy moves focus to the field, or selects the text.</li>
+      <li>Name an icon-only copy button with <code>aria-label</code>.</li>
+    </ul>
     <KeyboardSupport />
   </Fragment>
 </Component>

@@ -1,9 +1,13 @@
 ---
 import Guide from "../../layouts/Guide.astro"
+import Baseline from "../../components/Baseline.astro"
+import BrowserSupportChips from "../../components/BrowserSupportChips.astro"
+import FeatureSupport from "../../components/UnderTheHood/FeatureSupport.astro"
 import {
   getCategorizedBaselineIds,
   getBaselineMappings,
 } from "../../utils/baseline"
+import { SHARED_FEATURES } from "../../utils/browser-support"
 import { componentHrefFor } from "../../utils/components"
 import { componentHasFramework } from "../../utils/framework"
 import { baselineYears } from "../../../packages/opui/scripts/features.mjs"
@@ -22,6 +26,15 @@ const levels = baselineYears()
 const years = Object.keys(categorized)
   .filter((k) => k !== "all" && k !== "limited")
   .sort((a, b) => a.localeCompare(b)) // 2024, 2025...
+
+export const keywords = [
+  "baseline",
+  "chrome",
+  "compat",
+  "fallback",
+  "firefox",
+  "safari",
+]
 ---
 
 <Guide>
@@ -42,7 +55,8 @@ const years = Object.keys(categorized)
       <li>
         The component CSS has no code for one browser. Where a browser lacks a
         feature, the component falls back to what that browser does by default,
-        or to a fallback from the <a href="#compat">compat layer</a>.
+        or to a fallback from the <a href="#compat">compat layer</a>. Its page
+        says what changes, under Browser support.
       </li>
       <li>
         Chromium, Firefox and WebKit run the tests. Known failures are recorded
@@ -50,6 +64,19 @@ const years = Object.keys(categorized)
         entry is removed.
       </li>
     </ul>
+  </section>
+
+  <section id="shared-features">
+    <h2>Shared features</h2>
+    <p>
+      Every component relies on these features. Each stylesheet sits in a
+      cascade layer and nests its rules, and the palette and the theme build
+      every color with <code>oklch()</code>, <code>light-dark()</code>, relative
+      colors and <code>color-mix()</code>. Every component page counts them into
+      its browser versions.
+    </p>
+    <BrowserSupportChips ids={SHARED_FEATURES} />
+    <Baseline ids={SHARED_FEATURES} />
   </section>
 
   <section id="compat">
@@ -66,7 +93,8 @@ const years = Object.keys(categorized)
       <li>
         Anchor (<code>css/compat/anchor.css</code>): without interest invokers,
         a hover card shows while its anchor is hovered or holds keyboard focus,
-        also while the pointer or the focus is in the card. Like the Tooltip
+        also while the pointer or the focus is in the card, and Esc doesn't hide
+        it, also with the <code>interestfor</code> polyfill. Like the Tooltip
         fallback, it isn't in the top layer there, and a tap on a touch screen
         follows the trigger link instead of opening the card.
       </li>
@@ -76,16 +104,22 @@ const years = Object.keys(categorized)
         at 27% of its size, which scales like the squircle does.
       </li>
       <li>
-        ButtonGroup (<code>css/compat/button-group.css</code>): without
-        <code>overflow-inline</code>, a group with
-        <code>.ui-overflow-scroll</code> scrolls through <code>overflow-x</code
-        >.
-      </li>
-      <li>
         Carousel (<code>css/compat/carousel.css</code>): without
         <code>overflow-inline</code>, the carousel scrolls through
         <code>overflow-x</code>, or <code>overflow-y</code> when it's vertical,
-        instead of spilling its items into the page.
+        instead of spilling its items into the page. Without <code>if()</code>,
+        smooth scrolling follows <code>--ui-motion</code> through a style query,
+        and <code>.ui-motion-off</code> on the carousel itself.
+      </li>
+      <li>
+        Control group (<code>css/compat/control-group.css</code>): without
+        <code>overflow-inline</code>, a group with
+        <code>.ui-overflow-scroll</code> scrolls through <code>overflow-x</code
+        >. Without gap decorations, buttons overlap and the later button's start
+        border is the line between them, so a row that wraps starts with that
+        line. Without <code>if()</code>, which reads a
+        <code>--ui-control-border-color-filled</code> set on the group itself, a
+        filled or tonal group does the same.
       </li>
       <li>
         Copy (<code>css/compat/copy.css</code>): without interest invokers, a
@@ -109,12 +143,17 @@ const years = Object.keys(categorized)
         menu, because iOS Safari doesn't place them at their trigger item.
       </li>
       <li>
-        OneTimeCode (<code>css/compat/one-time-code.css</code>): on iOS Safari,
-        the input keeps a fixed width with room for the caret and the next empty
-        box isn't ringed, because iOS Safari hides the last typed character
-        while the input sizes itself to its content. A required field hides its
-        caret once the code is complete, since iOS draws the caret past the last
-        box, where the field's <code>overflow: clip</code> doesn't reach it.
+        One-time code (<code>css/compat/one-time-code.css</code>): on iOS
+        Safari, the input keeps a fixed width with room for the caret and the
+        next empty box isn't ringed, because iOS Safari hides the last typed
+        character while the input sizes itself to its content. A required field
+        hides its caret once the code is complete, since iOS draws the caret
+        past the last box, where the field's <code>overflow: clip</code> doesn't
+        reach it.
+      </li>
+      <li>
+        Spinner (<code>css/compat/spinner.css</code>): without <code>if()</code
+        >, the spinner reads more contrast through a style query.
       </li>
       <li>
         Table (<code>css/compat/table.css</code>): without
@@ -124,28 +163,47 @@ const years = Object.keys(categorized)
       </li>
       <li>
         Tabs (<code>css/compat/tabs.css</code>): without
-        <code>overflow-inline</code>, tabs with <code>.ui-overflow-scroll</code>
-        scroll through <code>overflow-x</code>.
+        <code>overflow-inline</code>, horizontal tabs without
+        <code>.ui-overflow-wrap</code> scroll through <code>overflow-x</code>.
       </li>
       <li>
-        ToggleGroup (<code>css/compat/toggle-group.css</code>): without
+        Number field, One-time code, Select, Text field and Textarea
+        (<code>css/compat/text-field.css</code>): on iPhone and iPad, fields of
+        every size set their text in <code>--ui-font-size-control</code> or
+        16px, whichever is larger, because iOS Safari zooms the page in on a
+        focused field with text under 16px.
+      </li>
+      <li>
+        Toggle group (<code>css/compat/toggle-group.css</code>): without
         <code>overflow-inline</code>, a group with
         <code>.ui-overflow-scroll</code> scrolls through <code>overflow-x</code
-        >.
+        >. Without gap decorations, each button draws the lines on its start and
+        top edges as shadows, which the group clips at its outer edge, and as
+        borders in forced colors.
       </li>
       <li>
         Tooltip (<code>css/compat/tooltip.css</code>): without interest
         invokers, the tooltip shows while its trigger is hovered or has keyboard
-        focus. It isn't in the top layer there, so an ancestor that clips its
+        focus, and Esc doesn't hide it, also with the <code>interestfor</code>
+        polyfill. It isn't in the top layer there, so an ancestor that clips its
         overflow and has a transform, filter or containment can hide it, and
         later content can cover it.
       </li>
       <li>
         Typography (<code>css/compat/typography.css</code>): without
         <code>overflow-inline</code>, code blocks and plain tables in rich text
-        scroll through <code>overflow-x</code>.
+        scroll through <code>overflow-x</code>. Without <code>if()</code>, the
+        heading group subtitle reads more contrast through a style query.
       </li>
     </ul>
+    <p>
+      <code>theme.css</code> and <code>normalize.css</code> have no file in the
+      layer, so each keeps its fallback next to the rule: the
+      <code>clamp()</code> heading sizes without <code>progress()</code>, and
+      smooth page scrolling, which follows <code>prefers-reduced-motion</code>
+      and the motion classes without <code>if()</code>. The files below leave
+      them out like the layer's.
+    </p>
     <h3 id="support-level">Support level</h3>
     <p>Pick the file that matches the browsers you support:</p>
     <ul>
@@ -194,8 +252,9 @@ const years = Object.keys(categorized)
         <a href="https://github.com/keithamus/invokers-polyfill"
           ><code>invokers-polyfill</code></a
         >: Invoker Commands (<code>commandfor</code> and <code>command</code>),
-        for Button Group (its Menu), Copy, Dialog, Drawer, Menu, Text Field
-        (password toggle), Toast and Tooltip.
+        for Callout (close button), Control group (its Menu), Copy, Dialog,
+        Drawer, Menu, Number field (step buttons), Text field (password toggle),
+        Toast and Tooltip (toggletip).
       </li>
     </ul>
   </section>
@@ -312,7 +371,7 @@ const years = Object.keys(categorized)
         class="feature-list ui-card ui-outlined ui-not-rich-text"
       >
         {allFeatures.map((id) => <div class="feature" data-id={id}>
-          <baseline-status featureId={id} />
+          <FeatureSupport ids={[id]} />
           <p class="used-by">
             Used by{" "}
             {featureToComponents[id].map((component, index) => (
@@ -411,9 +470,8 @@ const years = Object.keys(categorized)
       background-color: var(--ui-surface-tonal);
     }
 
-    baseline-status {
-      border-radius: 0;
-      display: block;
+    :global(.feature-support li) {
+      background-color: transparent;
       padding: 0;
     }
   }
@@ -429,12 +487,6 @@ const years = Object.keys(categorized)
 </style>
 
 <script>
-  import { BaselineStatus } from "baseline-status/baseline-status"
-
-  if (!customElements.get("baseline-status")) {
-    customElements.define("baseline-status", BaselineStatus)
-  }
-
   const dataEl = document.getElementById("baseline-data")
   if (!dataEl) throw new Error("Baseline data missing")
 

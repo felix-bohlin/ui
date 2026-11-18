@@ -1,39 +1,41 @@
 ---
-import { Switch, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/astro"
+import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/astro"
 ---
 
 <Form>
   <Fieldset>
-    <FieldLegend>Input at the end</FieldLegend>
+    <FieldLegend>Notifications</FieldLegend>
     <FieldGroup name="switch-cards-end" orientation="horizontal">
-      <Switch card checked spread value="outlined">
-        Outlined
-        <Fragment slot="end-text">The default surface.</Fragment>
+      <Switch card checked spread value="email">
+        Email
+        <Fragment slot="end-text">A summary every morning.</Fragment>
       </Switch>
-      <Switch card spread value="tonal" variant="tonal">
-        Tonal
-        <Fragment slot="end-text">A tinted surface.</Fragment>
+      <Switch card spread value="push" variant="elevated">
+        Push
+        <Fragment slot="end-text">On this device only.</Fragment>
       </Switch>
-      <Switch card spread value="elevated" variant="elevated">
-        Elevated
-        <Fragment slot="end-text">A raised surface.</Fragment>
+      <Switch card spread value="sms" variant="tonal">
+        SMS
+        <Fragment slot="end-text">For security alerts only.</Fragment>
       </Switch>
     </FieldGroup>
   </Fieldset>
   <Fieldset>
-    <FieldLegend>Input at the start</FieldLegend>
+    <FieldLegend>Privacy</FieldLegend>
     <FieldGroup name="switch-cards-start" orientation="horizontal">
-      <Switch card checked value="outlined">
-        Outlined
-        <Fragment slot="end-text">The default surface.</Fragment>
+      <Switch card checked value="status">
+        Online status
+        <Fragment slot="end-text">Others see when you're active.</Fragment>
       </Switch>
-      <Switch card value="tonal" variant="tonal">
-        Tonal
-        <Fragment slot="end-text">A tinted surface.</Fragment>
+      <Switch card value="receipts" variant="elevated">
+        Read receipts
+        <Fragment slot="end-text"
+          >Others see when you've read a message.</Fragment
+        >
       </Switch>
-      <Switch card value="elevated" variant="elevated">
-        Elevated
-        <Fragment slot="end-text">A raised surface.</Fragment>
+      <Switch card value="search" variant="tonal">
+        Profile search
+        <Fragment slot="end-text">People can find you by email.</Fragment>
       </Switch>
     </FieldGroup>
   </Fieldset>

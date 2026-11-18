@@ -1,8 +1,12 @@
 import { readFileSync } from "node:fs"
+import { createRequire } from "node:module"
+import { pathToFileURL } from "node:url"
 import { convertToTSX } from "@astrojs/compiler"
 import { experimental_AstroContainer as AstroContainer } from "astro/container"
 import { parseFragment } from "parse5"
 import { describe, expect, test } from "vitest"
+import { compileTemplate } from "vue/compiler-sfc"
+import BooleanSpread from "./fixtures/BooleanSpread.astro"
 import EmptyUnknown from "./fixtures/EmptyUnknown.astro"
 import UndefinedSpread from "./fixtures/UndefinedSpread.astro"
 
@@ -32,6 +36,30 @@ describe("tooling bugs the generator and the components work around", () => {
         "the defined(rest) spreads in the Avatar, Button, Chip, Copy, Fieldset, ListItem, SortableTable and Toaster Astro files",
       ),
     ).toEqual([false, false])
+  })
+
+  test('Astro writes multiple="true" for a true boolean attribute it doesn\'t list', async () => {
+    const container = await AstroContainer.create()
+    expect(
+      await container.renderToString(BooleanSpread),
+      fixed(
+        'attributeOf in scripts/example-html.mjs and normalizeAttribute in tests/unit/normalize.ts, which read a boolean attribute with the value "true" as the bare attribute',
+      ),
+    ).toContain('multiple="true"')
+  })
+
+  test("Vue takes <search> for a component it can't resolve", () => {
+    const { code } = compileTemplate({
+      filename: "Search.vue",
+      id: "search",
+      source: "<search><form></form></search>",
+    })
+    expect(
+      code,
+      fixed(
+        'VUE_UNKNOWN_TAGS in scripts/build-examples.mjs, which writes <search> as <component is="search"> in Vue',
+      ),
+    ).toContain("resolveComponent")
   })
 
   test("Astro's dev CSS collector compiles the files behind ?raw imports", () => {
@@ -65,6 +93,48 @@ describe("tooling bugs the generator and the components work around", () => {
         'src/components/Conditional.astro, which writes its Props as Partial<Record<"as", ...>>',
       ),
     ).toContain("_props: Record<string, any>")
+  })
+
+  test("Lightning CSS folds animation-timeline into the animation shorthand when Astro minifies", () => {
+    const astro = createRequire(import.meta.url).resolve("astro/package.json")
+    const vite = createRequire(astro).resolve("vite")
+    const { transform } = createRequire(vite)("lightningcss")
+    expect(
+      readFileSync(
+        new URL("dist/core/build/vite-build-config.js", pathToFileURL(astro)),
+        "utf-8",
+      ),
+    ).toContain('target: "esnext"')
+    expect(
+      transform({
+        code: Buffer.from(
+          ".a{animation:fill linear both;animation-timeline:scroll(root)}",
+        ),
+        filename: "a.css",
+        minify: true,
+      }).code.toString(),
+      fixed(
+        "the components that write animation-* longhands, and the timeline shorthand problem in scripts/check-dist.mjs",
+      ),
+    ).toBe(".a{animation:linear both fill scroll(root)}")
+  })
+
+  test("Lightning CSS rejects an anchored() container query", () => {
+    const astro = createRequire(import.meta.url).resolve("astro/package.json")
+    const vite = createRequire(astro).resolve("vite")
+    const { transform } = createRequire(vite)("lightningcss")
+    expect(
+      () =>
+        transform({
+          code: Buffer.from(
+            "@container anchored(fallback: flip-inline){.a{color:red}}",
+          ),
+          filename: "a.css",
+        }),
+      fixed(
+        "packages/opui/css/components/menu.css, the inset formula for submenus of submenus",
+      ),
+    ).toThrow('Function("anchored")')
   })
 
   test("parse5 drops the button and div inside a select", () => {

@@ -59,7 +59,7 @@
     bind:group
   />
   {#if label || children}
-    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}>
+    <span class={hideLabel ? "ui-sr-only" : "ui-label"}>
       {label}{@render children?.()}
     </span>
   {/if}

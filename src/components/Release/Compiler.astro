@@ -1,6 +1,13 @@
 ---
 import { readdirSync, readFileSync } from "node:fs"
+import {
+  EXAMPLE_EXTENSIONS,
+  FRAMEWORKS,
+  HYDRATED_FRAMEWORK_IDS,
+  PACKAGE_FRAMEWORK_IDS,
+} from "../../utils/framework"
 import ReactLogo from "../ReactLogo.astro"
+import SolidLogo from "../SolidLogo.astro"
 import SvelteLogo from "../SvelteLogo.astro"
 import VueLogo from "../VueLogo.astro"
 
@@ -12,6 +19,7 @@ const componentsDir = "packages/opui/components"
 const sources = {
   astro: readFileSync(`${componentsDir}/${folder}/${name}.astro`, "utf8"),
   react: readFileSync(`${componentsDir}/${folder}/${name}.react.tsx`, "utf8"),
+  solid: readFileSync(`${componentsDir}/${folder}/${name}.solid.tsx`, "utf8"),
   svelte: readFileSync(`${componentsDir}/${folder}/${name}.svelte`, "utf8"),
   vue: readFileSync(`${componentsDir}/${folder}/${name}.vue`, "utf8"),
 }
@@ -44,6 +52,7 @@ const list = (text: string) =>
     .join(", ")
 
 const reactProps = find("react", /function (\w+)\(\{([^}]*)\}: Props\)/)
+const solidProps = find("solid", /function (\w+)\(props: Props\)/)
 const svelteProps = find("svelte", /let \{([^}]*)\}: Props = \$props\(\)/)
 
 if (/v-bind/.test(sources.vue)) {
@@ -58,6 +67,7 @@ const rows: {
     cells: {
       astro: { code: find("astro", /const \{[^}]*\} = Astro\.props/)[0] },
       react: { code: `function ${reactProps[1]}({ ${list(reactProps[2])} })` },
+      solid: { code: `function ${solidProps[1]}(props)` },
       svelte: { code: `let { ${list(svelteProps[1])} } = $props()` },
       vue: { code: find("vue", /const \{[^}]*\} = defineProps<Props>\(\)/)[0] },
     },
@@ -70,6 +80,7 @@ const rows: {
         ...has("react", "className={cx(["),
         code: "className={cx([…])}",
       },
+      solid: { ...has("solid", "class={["), code: "class={[…]}" },
       svelte: { ...has("svelte", "class={["), code: "class={[…]}" },
       vue: { ...has("vue", ':class="['), code: ':class="[…]"' },
     },
@@ -79,6 +90,7 @@ const rows: {
     cells: {
       astro: has("astro", "{...rest}"),
       react: has("react", "{...rest}"),
+      solid: has("solid", "{...rest}"),
       svelte: has("svelte", "{...rest}"),
       vue: { text: "Fall through to the root" },
     },
@@ -88,6 +100,7 @@ const rows: {
     cells: {
       astro: has("astro", "<slot />"),
       react: has("react", "{children}"),
+      solid: has("solid", "{props.children}"),
       svelte: has("svelte", "{@render children?.()}"),
       vue: has("vue", "<slot></slot>"),
     },
@@ -95,12 +108,29 @@ const rows: {
   },
 ]
 
-const frameworks = [
-  { Logo: undefined, id: "astro", label: "Astro" },
-  { Logo: ReactLogo, id: "react", label: "React" },
-  { Logo: SvelteLogo, id: "svelte", label: "Svelte" },
-  { Logo: VueLogo, id: "vue", label: "Vue" },
-] as const
+const logos = {
+  astro: undefined,
+  react: ReactLogo,
+  solid: SolidLogo,
+  svelte: SvelteLogo,
+  vue: VueLogo,
+}
+
+const labelOf = (framework: Framework) =>
+  FRAMEWORKS.find(({ id: frameworkId }) => frameworkId === framework)!.label
+
+const joined = (items: string[]) =>
+  items.length > 1
+    ? `${items.slice(0, -1).join(", ")} and ${items.at(-1)}`
+    : items.join("")
+
+const frameworks = PACKAGE_FRAMEWORK_IDS.map((framework) => ({
+  Logo: logos[framework],
+  id: framework,
+  label: labelOf(framework),
+}))
+
+const targets = joined(HYDRATED_FRAMEWORK_IDS.map(labelOf))
 
 const stages = [
   {
@@ -114,7 +144,7 @@ const stages = [
     title: "Model",
   },
   {
-    detail: "React, Svelte and Vue, and a type file for each",
+    detail: `${targets}, and a type file for each`,
     title: "Emit",
   },
   {
@@ -132,7 +162,12 @@ const examples = readdirSync("src/component-examples", {
   recursive: true,
 }).filter((file) => typeof file === "string" && file.endsWith(".astro")).length
 
-const PORTS = { ".react.tsx": "React", ".svelte": "Svelte", ".vue": "Vue" }
+const PORTS = Object.fromEntries(
+  HYDRATED_FRAMEWORK_IDS.map((framework) => [
+    `.${EXAMPLE_EXTENSIONS[framework]}`,
+    labelOf(framework),
+  ]),
+)
 
 const handWritten = Object.keys(
   JSON.parse(readFileSync("scripts/hand-written-components.json", "utf8")),
@@ -144,11 +179,6 @@ const handWritten = Object.keys(
 
 const totalPorts = astroComponents * Object.keys(PORTS).length
 const compiledPorts = totalPorts - handWritten.length
-
-const joined = (items: string[]) =>
-  items.length > 1
-    ? `${items.slice(0, -1).join(", ")} and ${items.at(-1)}`
-    : items.join("")
 
 const handWrittenComponents = joined(
   [...new Set(handWritten.map(({ component }) => component))]
@@ -166,7 +196,7 @@ const handWrittenComponents = joined(
 const format = (value: number) => value.toLocaleString("en")
 
 const checks = [
-  `Contract: all ${format(astroComponents)} components with every prop value their types allow, in four frameworks`,
+  `Contract: all ${format(astroComponents)} components with every prop value their types allow, in ${joined(frameworks.map(({ label }) => label))}`,
   `Parity: ${format(examples)} examples, markup compared with Astro`,
   "Types: every rule of the type compiler pinned with expectTypeOf",
   "Formatting: each source compiled at 40 and 200 columns, same files",
@@ -176,8 +206,8 @@ const checks = [
 
 <figure class="compiler ui-not-rich-text" id={id}>
   <figcaption class="compiler-title">
-    How one Astro file becomes React, Svelte and Vue. The code and the numbers
-    come from the repo at build time.
+    How one Astro file becomes {targets}. The code and the numbers come from the
+    repo at build time.
   </figcaption>
   <div class="compiler-source">
     <p class="compiler-file">
@@ -245,8 +275,8 @@ const checks = [
     </li>)}
   </ul>
   <p class="compiler-ledger">
-    <strong>{format(compiledPorts)} of {format(totalPorts)}</strong> React,
-    Svelte and Vue component files come out of the compiler. The other
+    <strong>{format(compiledPorts)} of {format(totalPorts)}</strong>
+    {targets} component files come out of the compiler. The other
     {format(handWritten.length)} are written by hand, each with its reason in
     <code>scripts/hand-written-components.json</code>: {handWrittenComponents}.
   </p>
@@ -410,8 +440,8 @@ const checks = [
     margin: 0;
     padding: 0;
 
-    @container (inline-size >= 40rem) {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+    @container (inline-size >= 30rem) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
@@ -509,43 +539,55 @@ const checks = [
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
       .compiler-source {
-        animation: compiler-rise linear both;
+        animation-fill-mode: both;
+        animation-name: compiler-rise;
         animation-range: entry 0% entry 60%;
         animation-timeline: view();
+        animation-timing-function: linear;
       }
 
       .compiler-stages::before {
-        animation: compiler-fill linear both;
+        animation-fill-mode: both;
+        animation-name: compiler-fill;
         animation-range: cover 20% cover 50%;
         animation-timeline: --compiler-stages;
+        animation-timing-function: linear;
       }
 
       .compiler-stage {
-        animation: compiler-light linear both;
+        animation-fill-mode: both;
+        animation-name: compiler-light;
         animation-range: cover calc(20% + var(--compiler-i) * 8%) cover
           calc(26% + var(--compiler-i) * 8%);
         animation-timeline: --compiler-stages;
+        animation-timing-function: linear;
       }
 
       .compiler-cell {
-        animation: compiler-rise linear both;
-        animation-range: entry calc(var(--compiler-j) * 25%) cover
+        animation-fill-mode: both;
+        animation-name: compiler-rise;
+        animation-range: entry calc(var(--compiler-j) * 20%) cover
           calc(20% + var(--compiler-j) * 6%);
         animation-timeline: --compiler-row;
+        animation-timing-function: linear;
 
         &::before {
-          animation: compiler-drop linear both;
+          animation-fill-mode: both;
+          animation-name: compiler-drop;
           animation-range: cover calc(14% + var(--compiler-j) * 6%) cover
             calc(20% + var(--compiler-j) * 6%);
           animation-timeline: --compiler-row;
+          animation-timing-function: linear;
         }
       }
 
       .compiler-tick {
-        animation: compiler-tick linear both;
+        animation-fill-mode: both;
+        animation-name: compiler-tick;
         animation-range: cover calc(15% + var(--compiler-i) * 5%) cover
           calc(19% + var(--compiler-i) * 5%);
         animation-timeline: --compiler-checks;
+        animation-timing-function: linear;
       }
     }
   }

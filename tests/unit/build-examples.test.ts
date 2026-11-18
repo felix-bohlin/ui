@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs"
+import { globSync, readFileSync } from "node:fs"
 import { stripTypeScriptTypes } from "node:module"
 import { compile as compileSvelte } from "svelte/compiler"
 import { beforeAll, describe, expect, test } from "vitest"
@@ -12,6 +12,7 @@ import {
   runtimeImports,
   scriptImports,
   REACT_DEFAULT_VALUE,
+  VUE_MODEL_VALUE,
 } from "../../scripts/build-examples.mjs"
 import { typeDiagnostics } from "../../scripts/example-react-props.mjs"
 import { formatCode } from "../../scripts/format.mjs"
@@ -24,13 +25,15 @@ import {
   TARGETS,
 } from "../../scripts/example-targets.mjs"
 import type { ComponentApi } from "../../src/component-api/types"
+import { HYDRATED_FRAMEWORK_IDS } from "../../src/utils/framework"
 
 const EXAMPLES = "../../src/component-examples/"
 
 const sources = import.meta.glob<string>(
-  "../../src/component-examples/**/*.{astro,html,react.tsx,svelte,vue}",
+  "../../src/component-examples/**/*.{astro,html,react.tsx,solid.tsx,svelte,vue}",
   { eager: true, import: "default", query: "?raw" },
 )
+const blocks = import.meta.glob("../../src/blocks/*/*.astro")
 const apis = import.meta.glob<ComponentApi>(
   "../../src/component-api/*/api.ts",
   { eager: true, import: "default" },
@@ -75,7 +78,7 @@ const convert = async (source: string, framework: string, name?: string) =>
   convertExample(await formatted(source, name), framework, sampleFile(name))
 
 beforeAll(async () => {
-  for (const framework of ["react", "svelte", "vue"]) {
+  for (const framework of HYDRATED_FRAMEWORK_IDS) {
     await convert(
       astro('<Button type="button">Hi</Button>', "Button"),
       framework,
@@ -234,6 +237,65 @@ describe("React", () => {
     expect(code).toContain(
       '<>\n      <p className="note">Hi</p>\n      <style>{`\n        .note {\n          color: red;\n        }\n      `}</style>\n    </>',
     )
+  })
+})
+
+describe("Solid", () => {
+  test("keeps the HTML attribute names and turns static state into defaults, like React", async () => {
+    const code = await convert(
+      astro(
+        '<TextField autocomplete="off" class="field" value="Ada" />\n<label for="name" tabindex="0">Name</label>\n<Radio name="pick" value="b" checked />\n<input type="checkbox" checked />',
+        "Radio, TextField",
+      ),
+      "solid",
+    )
+    expect(code).toMatch(
+      /^\/\*\* @jsxImportSource @solidjs\/web \*\/\nimport \{ Radio, TextField \} from "opui-css\/solid"\n/,
+    )
+    expect(code).toContain(
+      '<TextField autocomplete="off" class="field" defaultValue="Ada" />',
+    )
+    expect(code).toContain('<label for="name" tabindex="0">')
+    expect(code).toContain('<Radio defaultChecked name="pick" value="b" />')
+    expect(code).toContain('<input type="checkbox" defaultChecked />')
+  })
+
+  test("keeps value on a read-only field, and a selected option on the option", async () => {
+    expect(
+      await convert(
+        astro('<TextField readonly value="x" />', "TextField"),
+        "solid",
+      ),
+    ).toContain('<TextField readonly value="x" />')
+    const code = await convert(
+      astro(
+        '<Select label="Pick">\n  <option>a</option>\n  <option selected value="b">B</option>\n</Select>',
+        "Select",
+      ),
+      "solid",
+    )
+    expect(code).toContain('<Select label="Pick">')
+    expect(code).toContain('<option selected value="b">')
+  })
+
+  test("a map callback takes no key, and no parameter when its element doesn't read it", async () => {
+    const list = (params: string, item: string) =>
+      convert(
+        astro(
+          `<ul>\n  {items.map((${params}) => <li>${item}</li>)}\n</ul>`,
+          "",
+          'const items = [{ label: "a" }, { label: "b" }]\n',
+        ),
+        "solid",
+      )
+    expect(await list("item", "Row")).toContain("{items.map(() => (")
+    expect(await list("item", "{item.label}")).toContain(
+      "{items.map((item) => (",
+    )
+    expect(await list("{ label }", "{label}")).toContain(
+      "{items.map(({ label }) => (",
+    )
+    expect(await list("item", "{item.label}")).not.toContain("key=")
   })
 })
 
@@ -541,7 +603,7 @@ describe("reading the frontmatter", () => {
       "",
       '// The title\nconst title: string = "Hi" // trailing\nconst sizes = ["a", "b"] as const\n',
     )
-    for (const framework of ["react", "svelte", "vue"]) {
+    for (const framework of HYDRATED_FRAMEWORK_IDS) {
       const code = await convert(source, framework)
       expect(code, framework).toContain("// The title")
       expect(code, framework).toContain(
@@ -557,7 +619,7 @@ describe("reading the frontmatter", () => {
       "Rating",
       "const starLabel = (value: number) => `${value} stars`\n",
     )
-    for (const framework of ["react", "svelte", "vue"]) {
+    for (const framework of HYDRATED_FRAMEWORK_IDS) {
       expect(await convert(source, framework), framework).toContain(
         "const starLabel = (value: number) => `${value} stars`",
       )
@@ -749,7 +811,7 @@ describe("the source layout", () => {
     const lines = astro(
       `<div style="\n    ${declarations.replaceAll("; ", ";\n    ")};\n  "></div>`,
     )
-    for (const framework of ["react", "svelte", "vue"]) {
+    for (const framework of HYDRATED_FRAMEWORK_IDS) {
       expect(await convert(lines, framework)).toBe(
         await convert(oneLine, framework),
       )
@@ -790,12 +852,26 @@ describe("HTML", () => {
       'import "opui-css/elements/copy.js"',
       'import "opui-css/elements/toaster.js"',
     ])
-    expect(imports("<input data-indeterminate>")).toContain(
-      "activateIndeterminate()",
-    )
+    expect(imports("<input data-indeterminate>")).toEqual([
+      'import "opui-css/css/js/checkbox.js"',
+    ])
     expect(imports('<output class="ui-value" data-live>')).toEqual([
       'import "opui-css/css/js/range.js"',
     ])
+    expect(
+      imports(
+        '<label class="ui-range"><input list="a" type="range"><datalist id="a"><option label="Low" value="0"></option></datalist></label>',
+      ),
+    ).toEqual(['import "opui-css/css/js/range.js"'])
+    expect(
+      imports(
+        '<label class="ui-text-field"><input list="b"><datalist id="b"><option label="Low" value="Low"></option></datalist></label>',
+      ),
+    ).toEqual([])
+    expect(
+      imports('<dialog class="ui-drawer" data-close-on-navigate></dialog>'),
+    ).toEqual(['import "opui-css/elements/close-on-navigate.js"'])
+    expect(imports('<dialog class="ui-drawer"></dialog>')).toEqual([])
   })
 
   test("matches elements and attributes, not text", () => {
@@ -817,9 +893,7 @@ describe("HTML", () => {
       ),
     ).toEqual([
       'import "opui-css/elements/select-all.js"',
-      'import { activateIndeterminate } from "opui-css/css/js/checkbox.js"',
-      "",
-      "activateIndeterminate()",
+      'import "opui-css/css/js/checkbox.js"',
     ])
   })
 
@@ -848,6 +922,36 @@ test("REACT_DEFAULT_VALUE lists the components that hold their value as state", 
     .map((api) => api.component)
     .toSorted()
   expect(REACT_DEFAULT_VALUE).toEqual(state)
+})
+
+test("VUE_MODEL_VALUE lists the components whose Vue file holds the value in a model no element binds", () => {
+  const held = Object.values(apis)
+    .filter(
+      (api) =>
+        api.model?.prop === "value" &&
+        globSync(`packages/opui/components/*/${api.component}.vue`)
+          .map((file) => readFileSync(file, "utf8"))
+          .some(
+            (source) =>
+              /^const model = defineModel/m.test(source) &&
+              !source.includes('v-model="model"'),
+          ),
+    )
+    .map((api) => api.component)
+    .toSorted()
+  expect(VUE_MODEL_VALUE).toEqual(held)
+})
+
+test("Vue takes the value of a group as model-value, and <search> through <component>", async () => {
+  const source =
+    '---\nimport { ToggleButton, ToggleGroup } from "opui-css/astro"\n---\n\n<search>\n  <ToggleGroup name="range" value="7">\n    <ToggleButton label="7 days" value="7" />\n  </ToggleGroup>\n</search>\n'
+  const vue = await convertExample(source, "vue", sampleFile())
+  expect(vue).toContain('<component is="search">')
+  expect(vue).toContain('<ToggleGroup name="range" model-value="7">')
+  expect(vue).toContain('<ToggleButton label="7 days" value="7" />')
+  const svelte = await convertExample(source, "svelte", sampleFile())
+  expect(svelte).toContain("<search>")
+  expect(svelte).toContain('<ToggleGroup name="range" value="7">')
 })
 
 describe("generated examples", () => {
@@ -912,11 +1016,18 @@ describe("generated examples", () => {
   })
 
   test("every example has its generated files", () => {
-    const expected = keys.flatMap((key) =>
-      generatedTargets(key, handWritten).map(
-        (framework) => `src/component-examples/${key}${TARGETS[framework]}`,
+    const expected = [
+      ...Object.keys(blocks).flatMap((path) =>
+        Object.values(TARGETS).map((extension) =>
+          path.replace("../../", "").replace(/\.astro$/, extension),
+        ),
       ),
-    )
+      ...keys.flatMap((key) =>
+        generatedTargets(key, handWritten).map(
+          (framework) => `src/component-examples/${key}${TARGETS[framework]}`,
+        ),
+      ),
+    ]
     expect([...all.outputs.keys()].toSorted()).toEqual(expected.toSorted())
   })
 
@@ -1025,7 +1136,7 @@ describe("an example's structure", () => {
   ])("rejects a script with %s in every target", async (_, script, reason) => {
     const source = astro(`<p>Hi</p>\n${script}`)
     await expect(readExample(source, sampleFile())).rejects.toThrow(reason)
-    for (const framework of ["react", "svelte", "vue"]) {
+    for (const framework of HYDRATED_FRAMEWORK_IDS) {
       await expect(
         convertExample(source, framework, sampleFile()),
       ).rejects.toThrow(reason)
@@ -1046,7 +1157,7 @@ describe("an example's structure", () => {
     const source = astro(`<p>Hi</p>\n${style}`)
     const reason = "a <style> that isn't exactly <style is:global>"
     await expect(readExample(source, sampleFile())).rejects.toThrow(reason)
-    for (const framework of ["react", "svelte", "vue"]) {
+    for (const framework of HYDRATED_FRAMEWORK_IDS) {
       await expect(
         convertExample(source, framework, sampleFile()),
       ).rejects.toThrow(reason)
@@ -1226,6 +1337,23 @@ describe("stale files", () => {
       astroSourceOf("src/component-examples/button/Sizes.astro", read),
     ).toBe(undefined)
     expect(astroSourceOf("README.md", read)).toBe(undefined)
+  })
+
+  test("a block's generated file maps to its Astro file", () => {
+    const read = (file: string) =>
+      file === "src/blocks/sign-in/SignIn.astro" ? "" : undefined
+    expect(astroSourceOf("src/blocks/sign-in/SignIn.react.tsx", read)).toBe(
+      "src/blocks/sign-in/SignIn.astro",
+    )
+    expect(astroSourceOf("src/blocks/gone/Gone.html", read)).toBe(undefined)
+    expect(
+      staleProblems(
+        new Map([["src/blocks/sign-in/SignIn.vue", "new"]]),
+        () => "old",
+      ),
+    ).toEqual([
+      "src/blocks/sign-in/SignIn.vue is stale: edit src/blocks/sign-in/SignIn.astro and run pnpm build-examples",
+    ])
   })
 })
 

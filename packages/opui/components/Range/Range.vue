@@ -4,7 +4,8 @@ import { computed, inject, useId } from "vue"
 import { useInputAttrs, vSeed } from "../vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { idRefs } from "../id"
-import { middleValue } from "./value"
+import { formatValue, middleValue } from "./value"
+import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
@@ -14,6 +15,7 @@ const {
   id,
   items,
   label,
+  lang,
   list,
   max,
   min,
@@ -63,7 +65,10 @@ const hasDatalist = () => !!items || slots.datalist
 
 const current = computed(() => model.value ?? middleValue({ max, min, step }))
 
-const readout = computed(() => `${current.value}${valueSuffix ?? ""}`)
+const readout = computed(
+  () =>
+    `${formatValue(current.value, { lang, min, step })}${valueSuffix ?? ""}`,
+)
 
 const tick = computed(() =>
   items?.find(
@@ -102,11 +107,12 @@ const describedBy = () =>
       $props.class,
     ]"
     :for="hasValue() ? inputId() : undefined"
-    :style="$attrs.style"
+    :lang="lang"
+    v-bind="styleAttrs($attrs.style)"
   >
     <span
       v-if="hasLabel()"
-      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
+      :class="hideLabel ? 'ui-sr-only' : 'ui-label'"
       :id="labelId()"
       >{{ label }}<slot name="label"></slot
     ></span>

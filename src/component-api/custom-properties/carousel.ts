@@ -12,7 +12,7 @@ export default {
   },
   "--_button-bg-color": {
     description:
-      "Background of the scroll buttons. Defaults to `--ui-surface-inverse`.",
+      "Background of the scroll buttons. Defaults to `--ui-surface-inverse`. The icon is drawn in its inverse, so keep it very dark or very light.",
     kind: "input",
   },
   "--_button-border-color": {
@@ -42,7 +42,7 @@ export default {
   },
   "--_button-image": {
     description:
-      "Icon of the scroll buttons, pointing forward. The previous button mirrors it.",
+      "Icon of the scroll buttons, pointing forward. Defaults to `--ui-icon-next`. Draw it in black, as icon sets do: the button shows it in the inverse of `--_button-bg-color`. The previous button mirrors it.",
     kind: "input",
   },
   "--_button-image-size": {
@@ -58,7 +58,7 @@ export default {
       "Accessible name of the next button, a CSS string. `nextLabel` sets it.",
     kind: "input",
   },
-  "--_button-prev-label": {
+  "--_button-previous-label": {
     description:
       "Accessible name of the previous button, a CSS string. `previousLabel` sets it.",
     kind: "input",
@@ -122,6 +122,11 @@ export default {
     description: "Space between markers.",
     kind: "input",
   },
+  "--_marker-group-offset": {
+    description:
+      "Distance from the items to the markers in either orientation: the `margin-block-start` of `::scroll-marker-group`, and in `.ui-vertical` the room at the inline end of the items and the group's `inset-inline-start`.",
+    kind: "input",
+  },
   "--_marker-label": {
     description:
       "Accessible name of each marker, CSS strings with `counter(ui-carousel-item)` where the item number goes. `markerLabel` sets it.",
@@ -139,15 +144,16 @@ export default {
   },
   "--_marker-size": {
     description:
-      "Size of the markers. The dot sits inside, inset by `--ui-space-2`.",
-    kind: "input",
-  },
-  "--_markers-gap": {
-    description: "Space between the items and the markers.",
+      "Size of the markers: `--ui-space-5`, and at least `--ui-target-min-size`, so they stay pointer targets in a theme with a smaller spacing scale. The dot sits inside, inset by `--ui-space-2`.",
     kind: "input",
   },
   "--_media-aspect-ratio": {
     description: "Aspect ratio of `img`, `video` and `iframe` in items.",
+    kind: "input",
+  },
+  "--_media-fit": {
+    description:
+      "How `img`, `video` and `iframe` in items fill their aspect ratio: `cover` crops them, `contain` shows them whole, like photos of mixed orientation in a viewer.",
     kind: "input",
   },
   "--_media-radius": {

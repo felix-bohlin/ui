@@ -22,6 +22,10 @@
     --_focus-ring-duration: calc(var(--ui-duration) * var(--_motion));
     --_thumb-size: 3ex;
 
+    @media print {
+      print-color-adjust: exact;
+    }
+
     @media (hover: none) {
       --_thumb-size: 30px;
     }
@@ -92,6 +96,18 @@
         justify-content: center;
         padding: 0;
         white-space: nowrap;
+
+        &:first-child {
+          justify-content: start;
+          margin-inline: calc(var(--_thumb-size) / -2)
+            calc(var(--_thumb-size) / 2);
+        }
+
+        &:last-child {
+          justify-content: end;
+          margin-inline: calc(var(--_thumb-size) / 2)
+            calc(var(--_thumb-size) / -2);
+        }
       }
     }
 
@@ -125,13 +141,19 @@
 
     /* Sizes */
     &.ui-x-small {
-      --_thumb-size: 2ex;
       --_track-block-size: 0.5ex;
+
+      @media (hover: hover) {
+        --_thumb-size: 2ex;
+      }
     }
 
     &.ui-small {
-      --_thumb-size: 2.5ex;
       --_track-block-size: 0.625ex;
+
+      @media (hover: hover) {
+        --_thumb-size: 2.5ex;
+      }
     }
 
     &.ui-large {
@@ -190,10 +212,6 @@
       }
 
       @container (inline-size < 25rem) {
-        * {
-          grid-column: 1/-1;
-        }
-
         .ui-label {
           align-self: baseline;
           grid-column: 1/-1;
@@ -240,6 +258,20 @@
       .ui-value {
         color: var(--ui-invalid-text);
       }
+
+      & > input[type="range"] {
+        @media (forced-colors: active) {
+          &::-webkit-slider-thumb {
+            border-color: CanvasText;
+            border-style: dashed;
+          }
+
+          &::-moz-range-thumb {
+            border-color: CanvasText;
+            border-style: dashed;
+          }
+        }
+      }
     }
 
     /* Range input */
@@ -250,7 +282,10 @@
       );
       --_thumb-bg-color: var(--_accent);
       --_thumb-border-width: 3px;
-      --_thumb-highlight-bg-color: light-dark(
+      --_thumb-offset: calc(
+        (var(--_track-block-size) - var(--_thumb-size)) / 2
+      );
+      --_thumb-ripple-bg-color: light-dark(
         oklch(
           from var(--_accent) 70% 100% h / var(--ui-state-active-alpha-light)
         ),
@@ -258,10 +293,7 @@
           from var(--_accent) 70% 100% h / var(--ui-state-active-alpha-dark)
         )
       );
-      --_thumb-highlight-size: 0px;
-      --_thumb-offset: calc(
-        (var(--_track-block-size) - var(--_thumb-size)) / 2
-      );
+      --_thumb-ripple-size: 0px;
       --_track-bg-color: var(--_track-base-bg-color);
       --_track-fill-bg-color: var(--_accent);
       --_track-fill-fraction: 0%;
@@ -351,8 +383,8 @@
         block-size: var(--_thumb-size);
         border: var(--_thumb-border-width) solid var(--ui-surface);
         border-radius: 50%;
-        box-shadow: 0 0 0 var(--_thumb-highlight-size)
-          var(--_thumb-highlight-bg-color);
+        box-shadow: 0 0 0 var(--_thumb-ripple-size)
+          var(--_thumb-ripple-bg-color);
         cursor: ew-resize;
         inline-size: var(--_thumb-size);
         margin-block-start: var(--_thumb-offset);
@@ -368,8 +400,8 @@
         block-size: var(--_thumb-size);
         border: var(--_thumb-border-width) solid var(--ui-surface);
         border-radius: 50%;
-        box-shadow: 0 0 0 var(--_thumb-highlight-size)
-          var(--_thumb-highlight-bg-color);
+        box-shadow: 0 0 0 var(--_thumb-ripple-size)
+          var(--_thumb-ripple-bg-color);
         cursor: ew-resize;
         inline-size: var(--_thumb-size);
         margin-block-start: var(--_thumb-offset);
@@ -381,12 +413,12 @@
       &:not(:disabled) {
         @media (hover: hover) {
           &:hover {
-            --_thumb-highlight-size: var(--ui-space-1);
+            --_thumb-ripple-size: var(--ui-space-1);
           }
         }
 
         &:active {
-          --_thumb-highlight-size: var(--ui-space-2);
+          --_thumb-ripple-size: var(--ui-space-2);
           --_track-bg-color: light-dark(
             oklch(from var(--_track-base-bg-color) calc(l * 0.9) c h),
             oklch(from var(--_track-base-bg-color) calc(l * 1.1) c h)

@@ -114,6 +114,10 @@ const id = Astro.locals.$id("code")
       margin: 0;
       overflow-x: auto;
       padding: 1rem 1.35rem;
+
+      &:focus-visible {
+        outline-offset: var(--ui-focus-ring-inset);
+      }
     }
 
     code {
@@ -241,28 +245,17 @@ const id = Astro.locals.$id("code")
     }
 
     @media (hover: hover) {
-      opacity: 0;
+      &:not(:hover, :focus-visible) {
+        opacity: 0;
 
-      .code-block:hover &,
-      .code-block:focus-within & {
-        opacity: 0.75;
-      }
-
-      &:hover,
-      &:focus-visible {
-        opacity: 1;
+        .code-block:is(:hover, :focus-within) & {
+          opacity: 0.75;
+        }
       }
     }
   }
 </style>
 
 <script>
-  import {
-    highlightCode,
-    renewHighlightsWhenShown,
-  } from "../utils/syntax-highlight"
-
-  document.addEventListener("syntax-highlight", () => highlightCode())
-  renewHighlightsWhenShown()
-  highlightCode()
+  import "../utils/code-blocks"
 </script>

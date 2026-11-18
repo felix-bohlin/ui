@@ -13,6 +13,14 @@ export default {
         prop: "indeterminate",
       },
     ],
+    solid: [
+      {
+        description:
+          "A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs.",
+        fallback: "Import `opui-css/css/js/checkbox.js` in the page.",
+        prop: "indeterminate",
+      },
+    ],
     svelte: [
       {
         description:
@@ -67,6 +75,8 @@ export default {
         "To hide the label, set `hideLabel` and keep the text in `label` or the slot.",
       react:
         "To hide the label, set `hideLabel` and keep the text in `label` or `children`. Use `checked` with `onChange`, or `defaultChecked`. For a group, keep the checked values in your own state.",
+      solid:
+        "To hide the label, set `hideLabel` and keep the text in `label` or `children`. `checked` sets the state and follows it when it changes, and `onChange` reports changes. For a group, keep the checked values in your own state.",
       svelte:
         "To hide the label, set `hideLabel` and keep the text in `label` or `children`.",
     }),
@@ -129,7 +139,7 @@ export default {
     },
     {
       description:
-        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.",
+        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
       inherited: true,
       prop: "name",
       type: "string",

@@ -25,15 +25,17 @@ export default {
     html: 'Each tab is three elements, in this order: `input.ui-input[type="radio"]`, `label.ui-label` and `.ui-panel`.',
     react:
       "Use `value` with `onValueChange`, or `defaultValue`. Without them the items keep their own state, and `onValueChange` still reports changes.",
+    solid:
+      "Use `value` with `onValueChange`, or `defaultValue`. Without them the items keep their own state, and `onValueChange` still reports changes.",
     svelte:
-      "Bind `value` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state.",
-    vue: "Bind `v-model` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state.",
+      "Bind `value` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state. A `value` passed without `bind:` is a starting value: the tabs keep the selection themselves until you pass another.",
+    vue: "Bind `v-model` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state. A `model-value` passed without an `update:modelValue` listener is a starting value: the tabs keep the selection themselves until you pass another.",
   },
   options: [
     {
       description:
         "The `value` of the tab selected at the start, when `value` is omitted.",
-      frameworks: ["react"],
+      frameworks: ["react", "solid"],
       prop: "defaultValue",
     },
     {
@@ -46,17 +48,34 @@ export default {
     },
     {
       description: "Called with the `value` of the tab when one is selected.",
-      frameworks: ["react"],
+      frameworks: ["react", "solid"],
       prop: "onValueChange",
       type: "(value: string) => void",
     },
     {
-      default: '"wrap"',
+      default: '"horizontal"',
       description:
-        'What the tabs do when they don\'t fit. `"wrap"` wraps them onto more rows, and `"scroll"` keeps them on one row and scrolls it sideways.',
+        "The orientation of the tabs. `vertical` stacks them in a column at the inline start, with the panel beside them.",
+      group: "Orientation",
+      prop: "orientation",
+      values: { horizontal: null, vertical: ".ui-vertical" },
+    },
+    {
+      default: '"scroll"',
+      description:
+        "What the tabs do when they don't fit. `scroll` keeps them on one row and scrolls it sideways, and `wrap` wraps them onto more rows. Vertical tabs ignore it: long labels wrap within the column.",
       group: "Overflow",
       prop: "overflow",
-      values: { scroll: ".ui-overflow-scroll", wrap: null },
+      values: { scroll: null, wrap: ".ui-overflow-wrap" },
+    },
+    {
+      attribute: '[role="radiogroup"]',
+      description:
+        "Makes tabs without panels a radio group, which `aria-label` names. Tabs with panels take no role: the root holds the panels, and a radio group holds only radios.",
+      group: "Role",
+      inherited: true,
+      prop: "role",
+      type: "string",
     },
     {
       default: '"tonal"',
@@ -74,7 +93,7 @@ export default {
     {
       description:
         "The `value` of the selected tab. The item whose `value` matches is checked, and the items' own `checked` is ignored.",
-      frameworks: ["astro", "react"],
+      frameworks: ["astro", "react", "solid"],
       prop: "value",
     },
   ],

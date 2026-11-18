@@ -31,19 +31,21 @@ export default {
     },
     {
       description:
-        'Closes the menu and returns focus to the trigger. In a submenu, it closes only the submenu, and Chromium moves focus to the page instead of the submenu\'s item. A menu with `popover="manual"` stays open.',
+        'Closes the menu and returns focus to the trigger. In a submenu, it closes only the submenu, and focus moves to the page instead of the submenu\'s item. That is confirmed in Chromium and not yet checked in Firefox and Safari. A menu with `popover="manual"` stays open.',
       keys: ["Esc"],
     },
   ],
   notes: {
     ...components(
-      "Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `target` or `data-*`.",
+      "Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `target` or `data-*`. Open menus close when the page navigates, also with a client router, through `opui-css/elements/close-on-navigate.js`, which the component loads.",
     ),
-    html: 'Items are built like `List` items: icons in `.ui-start`, the text in `.ui-text` and shortcuts in `.ui-end`. Open the menu with a button that has `commandfor` set to the menu id and `command="toggle-popover"`.',
+    html: 'Items are built like `List` items: icons in `.ui-start`, the text in `.ui-text` and shortcuts in `.ui-end`. Open the menu with a button that has `commandfor` set to the menu id and `command="toggle-popover"`. Import `opui-css/elements/close-on-navigate.js` to close open menus when the page navigates, also with a client router.',
     react:
-      "Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onClick`, `target` or `data-*`.",
+      "Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onClick`, `target` or `data-*`. Open menus close when the page navigates, also with a client router, through `opui-css/elements/close-on-navigate.js`, which the component loads.",
+    solid:
+      "Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onClick`, `target` or `data-*`. Open menus close when the page navigates, also with a client router, through `opui-css/elements/close-on-navigate.js`, which the component loads.",
     svelte:
-      "Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onclick`, `target` or `data-*`.",
+      "Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onclick`, `target` or `data-*`. Open menus close when the page navigates, also with a client router, through `opui-css/elements/close-on-navigate.js`, which the component loads.",
   },
   options: [
     {
@@ -102,7 +104,7 @@ export default {
     {
       default: '"auto"',
       description:
-        "The popover type. With `\"manual\"`, Esc and a click outside don't close the menu, and opening another menu doesn't either.",
+        "The popover type. With `manual`, Esc and a click outside don't close the menu, and opening another menu doesn't either.",
       group: "Behavior",
       prop: "popover",
       values: { auto: null, manual: '[popover="manual"]' },
@@ -155,6 +157,13 @@ export default {
       description:
         "Optional content at the end, such as a shortcut in a `<kbd>` (`shortcut` on an item).",
       selector: ".ui-menu > li > :is(a, button) > .ui-end",
+    },
+    {
+      code: ".ui-icon-checked",
+      description:
+        "Your own check on the current item, which replaces the default check. The `icon-checked` slot puts it on every item from `items`.",
+      selector: ".ui-menu > li > :is(a, button) > .ui-icon-checked",
+      slots: ["icon-checked"],
     },
   ],
   root: {

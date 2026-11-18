@@ -6,6 +6,7 @@ export default {
   notes: {
     astro: "Add the classes to elements in your templates.",
     react: "Add the classes to elements in your markup.",
+    solid: "Add the classes to elements in your markup.",
     svelte: "Add the classes to elements in your markup.",
     vue: "Add the classes to elements in your templates.",
   },
@@ -23,6 +24,14 @@ export default {
       },
     },
     {
+      class: ".ui-bordered",
+      default: "false",
+      description:
+        "Draws a line in the middle of each gap of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid` and `.ui-layout-columns`, only between two children, so a wrapped row or the short last row of a grid starts and ends without one. Browsers without gap decorations leave the gap without the line.",
+      group: "Borders",
+      prop: "bordered",
+    },
+    {
       default: '"medium"',
       description:
         "The container width at which `.ui-layout-columns` goes from one column to `--_columns`: `40rem`, `56rem` or `72rem`.",
@@ -36,7 +45,8 @@ export default {
     },
     {
       class: ".ui-layout-column",
-      description: "A column with even space between its children.",
+      description:
+        "A column with even space between its children. On a `ul` or `ol` it also drops the list bullets and margins.",
       group: "Column",
       prop: "column",
     },
@@ -71,7 +81,7 @@ export default {
     {
       class: ".ui-layout-row",
       description:
-        "A wrapping row with its children centered on one line. On a `ul` or `ol` it also drops the list bullets and margins.",
+        "A wrapping row with its children centered vertically. On a `ul` or `ol` it also drops the list bullets and margins.",
       group: "Row",
       prop: "row",
     },

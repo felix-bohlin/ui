@@ -1,10 +1,13 @@
 <script lang="ts">
+  import { untrack } from "svelte"
   import { getAnchorContext } from "./context.svelte"
-  import { defined } from "../attrs"
+  import { warnReplacedAnchorAttributes } from "../dev"
   import type { AnchorContentProps as Props } from "./types.svelte"
 
   let {
     class: className,
+    id,
+    popover,
 
     // Snippets
     children,
@@ -12,13 +15,21 @@
   }: Props = $props()
 
   const anchor = getAnchorContext()
+  untrack(() =>
+    warnReplacedAnchorAttributes(
+      id,
+      popover,
+      anchor?.floatingId,
+      anchor?.popover,
+    ),
+  )
 </script>
 
 <span
   class={["ui-floating", className]}
-  id={anchor?.floatingId}
-  popover={anchor?.popover}
-  {...defined(rest)}
+  id={anchor?.floatingId ?? id}
+  popover={anchor?.popover ?? popover}
+  {...rest}
 >
   {@render children?.()}
 </span>

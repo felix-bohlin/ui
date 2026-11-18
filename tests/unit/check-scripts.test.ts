@@ -1,13 +1,24 @@
 import { execFileSync, spawnSync } from "node:child_process"
-import { mkdirSync, mkdtempSync, readdirSync, writeFileSync } from "node:fs"
+import {
+  mkdirSync,
+  mkdtempSync,
+  readdirSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs"
 import { tmpdir } from "node:os"
 import { dirname, join } from "node:path"
 import stylelint from "stylelint"
-import { describe, expect, test } from "vitest"
+import { describe, expect, onTestFinished, test } from "vitest"
 import { featureIds, patterns } from "../../packages/opui/scripts/features.mjs"
 import {
+  fallbackProblems,
+  fallbacksOf,
   htmlFeatureIds,
+  lackingIds,
   pageProblems,
+  unusedSharedFeatures,
+  usedFeatureIds,
   withBrowserSupport,
 } from "../../scripts/check-browser-support.mjs"
 import { findProblems } from "../../scripts/check-characters.mjs"
@@ -21,11 +32,13 @@ import {
   checkExampleClient,
   checkExampleWrapper,
   checkIndexSignature,
+  checkLoopKeys,
   checkModel,
   checkPropsType,
   checkProvide,
   checkReactExample,
   checkRest,
+  checkSolidProps,
   checkSortedKeys,
   checkTypeNames,
   checkTypesImport,
@@ -61,6 +74,7 @@ import { localBaselines } from "../../scripts/check-screenshot-authors.mjs"
 import { releasedApi } from "../../scripts/released-api.mjs"
 import { sortSource } from "../../scripts/sort-css.mjs"
 import logicalShorthands from "../../scripts/stylelint-logical-shorthands.mjs"
+import { SHARED_FEATURES } from "../../src/utils/browser-support"
 
 const EM_DASH = String.fromCodePoint(0x2014)
 const MIDDLE_DOT = String.fromCodePoint(0x00b7)
@@ -97,6 +111,7 @@ describe("sort-css", () => {
 
 describe("check-browser-support", () => {
   const samples: Record<string, string> = {
+    "alt-text-generated-content": '.a::after { content: "*" / ""; }',
     "anchor-positioning": ".a { anchor-name: --a; }",
     attr: '.a { content: attr(data-label type(<string>), ""); }',
     "backdrop-filter": "::backdrop { backdrop-filter: blur(4px); }",
@@ -115,7 +130,9 @@ describe("check-browser-support", () => {
     "display-animation": ".a { transition: display 1s allow-discrete; }",
     "exp-functions": ".a { font-size: calc(1rem * pow(1.2, 2)); }",
     "field-sizing": "textarea { field-sizing: content; }",
+    "gap-decorations": ".a { row-rule: 1px solid; }",
     has: ".a:has(> svg) { gap: 0; }",
+    if: ".a { --b: if(style(--c): 0px; else: 1px); }",
     "interest-invokers": ".a { interest-delay: 0.5s; }",
     "interpolate-size": ":root { interpolate-size: allow-keywords; }",
     lh: ".a { block-size: 0.5lh; }",
@@ -128,6 +145,7 @@ describe("check-browser-support", () => {
     overlay: ".a { transition: opacity 1s, overlay 1s allow-discrete; }",
     popover: ".a:popover-open { opacity: 1; }",
     "progress-function": ".a { --p: progress(100vi, 20rem, 80rem); }",
+    "reading-flow": ".a { display: grid; reading-flow: grid-rows; }",
     "registered-custom-properties":
       '@property --a { inherits: false; initial-value: 0; syntax: "<number>"; }',
     "relative-color": ".a { color: oklch(from red l c h); }",
@@ -159,6 +177,26 @@ describe("check-browser-support", () => {
     ).toEqual([])
   })
 
+  test("finds each shared feature in a sheet, and reports the ones it doesn't use", () => {
+    const shared: Record<string, string> = {
+      "cascade-layers": "@layer a { .a { gap: 0; } }",
+      "color-mix": ".a { color: color-mix(in oklch, red, blue); }",
+      "light-dark": ".a { color: light-dark(white, black); }",
+      nesting: ".a { @media (width > 30em) { gap: 0; } }",
+      oklab: ".a { color: oklch(50% 0.1 200); }",
+      "relative-color": ".a { color: oklch(from red l c h); }",
+    }
+    expect(Object.keys(shared)).toEqual(SHARED_FEATURES)
+    expect(
+      Object.entries(shared).filter(([id, css]) =>
+        unusedSharedFeatures(css).includes(id),
+      ),
+    ).toEqual([])
+    expect(
+      unusedSharedFeatures("@media (width > 30em) { .a { color: red; } }"),
+    ).toEqual(SHARED_FEATURES)
+  })
+
   test("the patterns skip near misses", () => {
     expect(
       featureIds(
@@ -166,6 +204,7 @@ describe("check-browser-support", () => {
       ),
     ).toEqual([])
     expect(featureIds(".a { overflow-clip-margin: 4px; }")).toEqual([])
+    expect(featureIds(".a::before { content: attr(data-label); }")).toEqual([])
   })
 
   test("anchor positioning is found in every property, function and at-rule of its compat keys", () => {
@@ -180,6 +219,15 @@ describe("check-browser-support", () => {
         "@position-try --a { inset: auto; }",
       ].filter((css) => !featureIds(css).includes("anchor-positioning")),
     ).toEqual([])
+  })
+
+  test("a rule inside @scope applies only when its root can match the examples", () => {
+    const css =
+      "@scope (.ui-rich-text) to (.ui-not-rich-text) { .ui-callout { border: 0; } }"
+    expect(usedFeatureIds(css, new Set([".ui-callout"]))).toEqual([])
+    expect(
+      usedFeatureIds(css, new Set([".ui-callout", ".ui-rich-text"])),
+    ).toEqual(["scope"])
   })
 
   test("reads the HTML features from the attributes and elements of the examples", () => {
@@ -224,6 +272,48 @@ describe("check-browser-support", () => {
         used: new Set(["has", "popover", "starting-style"]),
       }),
     ).toEqual({ missing: ["has"], undetected: [], unused: [] })
+  })
+
+  test("reads a page's fallbacks, with quoted and bare ids", async () => {
+    expect(
+      await fallbacksOf(`---
+import Component from "../../layouts/Component.astro"
+---
+
+<Component
+  slug="a"
+  browserSupport={["overlay", "popover-hint"]}
+  fallbacks={{
+    overlay: "Without \`overlay\`, the page can cover it {at once}.",
+    "popover-hint": 'Without \`popover="hint"\`, it stays open.',
+  }}
+>
+  <p>Text</p>
+</Component>
+`),
+    ).toEqual({
+      overlay: "Without `overlay`, the page can cover it {at once}.",
+      "popover-hint": 'Without `popover="hint"`, it stays open.',
+    })
+    expect(
+      await fallbacksOf('<Component slug="a" browserSupport={["has"]} />'),
+    ).toEqual({})
+  })
+
+  test("asks for a fallback sentence for each id some browser lacks, and for no other", () => {
+    expect(lackingIds(["has", "nesting"])).toEqual([])
+    expect(
+      fallbackProblems({
+        fallbacks: { has: "Without :has()", overlay: "Without overlay" },
+        lacking: ["corner-shape", "overlay"],
+      }),
+    ).toEqual({ missing: ["corner-shape"], unneeded: ["has"] })
+    expect(
+      fallbackProblems({
+        fallbacks: { overlay: "Without overlay" },
+        lacking: ["overlay"],
+      }),
+    ).toEqual({ missing: [], unneeded: [] })
   })
 
   test("--write replaces a page's list, or adds one after its slug", () => {
@@ -410,6 +500,15 @@ describe("check-colors", () => {
       [],
     )
     expect(colorProblems("notes.txt", "#fff")).toEqual([])
+    expect(
+      colorProblems(
+        "src/component-examples/button/Colors.react.tsx",
+        "<a>#2482</a>",
+      ),
+    ).toEqual([])
+    expect(
+      colorProblems("src/component-examples/button/Gone.react.tsx", "#2482"),
+    ).toEqual(["src/component-examples/button/Gone.react.tsx:1: #2482"])
     expect(colorProblems("docs/notes.md", "PR `#418`")).toEqual([
       "docs/notes.md:1: #418",
     ])
@@ -509,12 +608,13 @@ describe("released-api", () => {
   })
 })
 
-describe("file discovery", () => {
+describe("file discovery", { timeout: 15_000 }, () => {
   const UNSORTED = `/* one ${EM_DASH} two */\n.a {\n  inset: 0;\n  color: #fff;\n}\n`
   const SORTED = ".a {\n  color: oklch(100% 0 0);\n  inset: 0;\n}\n"
 
   const repo = (files: Record<string, string>) => {
     const root = mkdtempSync(join(tmpdir(), "opui-scan-"))
+    onTestFinished(() => rmSync(root, { force: true, recursive: true }))
     execFileSync("git", ["init", "-q"], { cwd: root })
     for (const [file, text] of Object.entries({
       ".gitignore": "ignored/\n",
@@ -581,6 +681,7 @@ describe("check-ratchets", () => {
 
   test("the hand-written examples list grows only with the intended trailer", () => {
     const dir = mkdtempSync(join(tmpdir(), "opui-ratchets-"))
+    onTestFinished(() => rmSync(dir, { force: true, recursive: true }))
     const git = (...args: string[]) =>
       execFileSync(
         "git",
@@ -638,7 +739,7 @@ describe("check-ratchets", () => {
     writeFileSync(list, JSON.stringify({}))
     git("commit", "-q", "-am", "chore: generate B")
     expect(run().status).toBe(0)
-  })
+  }, 15_000)
 
   test("reports a new drift file and new drift lines, not moved context or fewer lines", () => {
     const diff = "===\n--- astro\n+++ react\n@@ -1,2 +1,2 @@\n <a>\n-x\n+y\n"
@@ -782,6 +883,11 @@ describe("check-components", () => {
     expect(checkClient(`"use client"\n\n${plain}`)).toEqual([
       expect.stringContaining("uses no context, state"),
     ])
+    const listening =
+      'export default function A({ onDismiss, ref }) {\n  const rootRef = useListener(ref, "dismiss", onDismiss)\n  return <div ref={rootRef} />\n}\n'
+    expect(checkClient(listening)).toEqual([
+      expect.stringContaining('start it with "use client"'),
+    ])
   })
 
   test("props are declared, not taken from an index signature", () => {
@@ -880,6 +986,237 @@ describe("check-components", () => {
       ),
     ).toEqual([
       'does not type its props with Props from "./types.react": annotate the props parameter with it',
+    ])
+  })
+
+  test("a list in a React, Svelte or Vue component gives each row a key", () => {
+    const react = (rows: string) =>
+      `export default function List({ items }: Props) {\n  return <ul>{${rows}}</ul>\n}\n`
+    expect(
+      checkLoopKeys(
+        "List.react.tsx",
+        react("items.map((item, index) => (<li key={index}>{item}</li>))"),
+      ),
+    ).toEqual([])
+    expect(
+      checkLoopKeys(
+        "List.react.tsx",
+        react("items.map((item) => (<li>{item}</li>))"),
+      ),
+    ).toEqual([
+      "builds <li>{item}</li> with .map() and no key: React matches the rows of a list by their key, so give each row key={...}, the item's own value where it has one and the index otherwise",
+    ])
+    expect(
+      checkLoopKeys(
+        "List.react.tsx",
+        react(
+          'items.map((item, index) => typeof item === "object" ? <li key={index}>{item.label}</li> : <li>{item}</li>)',
+        ),
+      ),
+    ).toHaveLength(1)
+    expect(
+      checkLoopKeys(
+        "List.react.tsx",
+        react("items.map((item) => { return <>{item}</> })"),
+      ),
+    ).toHaveLength(1)
+    expect(
+      checkLoopKeys(
+        "List.svelte",
+        "<ul>\n  {#each items ?? [] as { label, ...item }, index (index)}\n    <li {...item}>{label}</li>\n  {/each}\n</ul>\n",
+      ),
+    ).toEqual([])
+    expect(
+      checkLoopKeys(
+        "List.svelte",
+        "<ul>\n  {#each items as { label }, index}\n    <li>{label}</li>\n  {/each}\n</ul>\n",
+      ),
+    ).toEqual([
+      "has {#each items as { label }, index} without a key: Svelte matches the rows of a list by their key, so end the block's opening with (key), the item's own value where it has one and the index otherwise",
+    ])
+    expect(
+      checkLoopKeys(
+        "List.vue",
+        '<template>\n  <ul>\n    <li v-for="item in items" :key="item.value" :title="item.value > 1 ? \'a\' : \'b\'">{{ item.label }}</li>\n  </ul>\n</template>\n',
+      ),
+    ).toEqual([])
+    expect(
+      checkLoopKeys(
+        "List.vue",
+        '<template>\n  <ul>\n    <li v-for="(item, index) in items" :title="item">{{ item }}</li>\n    <li :key="1" />\n  </ul>\n</template>\n',
+      ),
+    ).toEqual([
+      'has v-for="(item, index) in items" on <li> without :key: Vue matches the rows of a list by their key, so bind :key on the element with v-for, the item\'s own value where it has one and the index otherwise',
+    ])
+    expect(checkLoopKeys("List.solid.tsx", "items.map(() => <li />)")).toEqual(
+      [],
+    )
+  })
+
+  test("a Solid port reads props as props.x and omits them in order", () => {
+    const solid = (body: string) =>
+      `/** @jsxImportSource @solidjs/web */\nimport { omit } from "solid-js"\n\nexport default function Badge(props: Props) {\n${body}\n}\n`
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class", "size", "children", "end")\n  return <span {...rest} />',
+        ),
+        ["end"],
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "size", "class")\n  return <span {...rest} />',
+        ),
+      ),
+    ).toEqual([expect.stringContaining("expected class, size")])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "children", "class")\n  return <span {...rest} />',
+        ),
+      ),
+    ).toEqual([expect.stringContaining("expected class, children")])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid('  const rest = omit(props, "class")\n  return <span />'),
+      ),
+    ).toEqual([expect.stringContaining("never spreads it")])
+    expect(
+      checkSolidProps("Badge.solid.tsx", solid("  return <span />"), [], true),
+    ).toEqual([expect.stringContaining("does not take the rest with omit")])
+    expect(
+      checkSolidProps("Badge.solid.tsx", solid("  return <span />"), [], false),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class", "children")\n  return props.children && <span {...rest}>{props.children}</span>',
+        ),
+      ),
+    ).toEqual([expect.stringContaining("reads props.children 2 times")])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class", "items", "end")\n  const resolvedEnd = children(() => props.end)\n  return (\n    <ul {...rest}>\n      <For each={props.items}>\n        {(item) => <li>{item}{resolvedEnd() && <i>{props.end}</i>}</li>}\n      </For>\n    </ul>\n  )',
+        ),
+        ["end"],
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class", "items")\n  return <ul {...rest}>{props.items.map((item) => <li>{item}</li>)}</ul>',
+        ),
+      ),
+    ).toEqual([expect.stringContaining("builds JSX with .map()")])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class", "items")\n  const labels = props.items.map((item) => item.label)\n  return <ul {...rest}><For each={labels}>{(label) => <li>{label}</li>}</For></ul>',
+        ),
+      ),
+    ).toEqual([])
+    for (const condition of [
+      'title={props.label ? "Labelled" : rest.title}',
+      "title={props.label && rest.title}",
+      "title={(rest.title || props.label)}",
+      "aria-label={label() ?? rest.title}",
+    ]) {
+      expect(
+        checkSolidProps(
+          "Badge.solid.tsx",
+          solid(
+            `  const rest = omit(props, "label")\n  return <span {...rest}><Button ${condition} /></span>`,
+          ),
+        ),
+      ).toEqual([
+        expect.stringContaining(
+          `passes the condition ${condition} to <Button>`,
+        ),
+      ])
+    }
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "label")\n  const title = () => (props.label ? "Labelled" : rest.title)\n  const fallback = "Close"\n  return (\n    <span title={props.label ? "Labelled" : rest.title} {...rest}>\n      <Button aria-label={fallback || "Close"} disabled={!(props.label && rest.title)} title={title()} />\n    </span>\n  )',
+        ),
+      ),
+    ).toEqual([])
+    for (const tag of [
+      'const Tag = dynamic("selectedcontent")',
+      'const Tag = dynamic(() => "selectedcontent")',
+      'const tag = () => "selectedcontent"\n  const Tag = dynamic(tag)',
+    ]) {
+      expect(
+        checkSolidProps(
+          "Badge.solid.tsx",
+          solid(
+            `  const rest = omit(props, "class")\n  ${tag}\n  return <Tag {...rest} />`,
+          ),
+        ),
+      ).toEqual([
+        expect.stringContaining("calls dynamic() on a string literal"),
+      ])
+    }
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "as", "class")\n  const tag = () => props.as || "span"\n  const Tag = dynamic(tag)\n  return <Tag {...rest} />',
+        ),
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class", "children")\n  const resolvedChildren = children(() => props.children)\n  return resolvedChildren() && <span {...rest}>{resolvedChildren()}</span>',
+        ),
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class")\n  return <span {...(rest as object)} />',
+        ),
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class")\n  return <span {...(props.size ? (rest as object) : {})} />',
+        ),
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const all = mergeProps({ size: "medium" }, props)\n  return <span />',
+        ),
+      ),
+    ).toEqual([expect.stringContaining("calls mergeProps()")])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        "export default function Badge({ size }: Props) {\n  return <span />\n}\n",
+      ),
+    ).toEqual([
+      expect.stringContaining("does not start with"),
+      expect.stringContaining("destructures its props"),
     ])
   })
 

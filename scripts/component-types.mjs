@@ -2,12 +2,16 @@ import { existsSync, readFileSync } from "node:fs"
 import { dirname, join } from "node:path"
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
-import { reactPropsOf, resolveReactProp } from "./example-react-props.mjs"
+import { MODEL_KINDS } from "./component-models.mjs"
+import {
+  REACT_ATTRIBUTE_NAMES,
+  propsOf,
+  reactAttributeName,
+} from "./example-react-props.mjs"
 import {
   byName,
   containsKind,
   propKey,
-  REACT_ATTRIBUTE_NAMES,
   root,
   sourceFileOf,
   unsupported,
@@ -15,6 +19,7 @@ import {
 
 const ELEMENT_TYPES = {
   react: (element) => `ComponentProps<${element}>`,
+  solid: (element) => `ComponentProps<${element}>`,
   svelte: (element) => `SvelteHTMLElements[${element}]`,
   vue: (element) => `IntrinsicElementAttributes[${element}]`,
 }
@@ -95,6 +100,12 @@ const baseRef = (node, name) =>
   node.typeName.left.getText() === "Base" &&
   node.typeName.right.text === name
 
+const omitsBase = (node, name) =>
+  isReference(node, "Omit") &&
+  node.typeArguments?.length === 2 &&
+  baseRef(node.typeArguments[0], name) &&
+  otherKeys(node.typeArguments[1]).length === 0
+
 const members = (node) =>
   ts.isIntersectionTypeNode(node)
     ? node.types
@@ -126,12 +137,12 @@ const replacing = (node, text) => ({
 const appending = (node, text) => ({ end: node.end, start: node.end, text })
 
 const frameworkKey = (framework, element, key) =>
-  framework === "react"
-    ? (resolveReactProp(
-        reactPropsOf(JSON.parse(element), false) ?? new Map(),
-        key,
-      ) ?? key)
-    : key
+  framework === "react" ? reactAttributeName(JSON.parse(element), key) : key
+
+const declaredAttributes = (element, keys) => {
+  const attributes = propsOf("solid", JSON.parse(element), false)
+  return attributes ? keys.filter((key) => attributes.has(key)) : []
+}
 
 const omitted = (framework, element, keys, others = []) =>
   keys.length || others.length
@@ -239,6 +250,57 @@ const slotMembers = (node, parameter) =>
         ]
       : []
 
+export const eventProp = (framework, event) =>
+  framework === "react" || framework === "solid"
+    ? `on${event[0].toUpperCase()}${event.slice(1)}`
+    : `on${event}`
+
+export const eventsTypeOf = (name) =>
+  name === "Props" ? "Events" : name.replace(/Props$/, "Events")
+
+export const emitsTypeOf = (name) =>
+  name === "Props" ? "Emits" : name.replace(/Props$/, "Emits")
+
+const eventNames = (alias, file) => {
+  if (!ts.isTypeLiteralNode(alias.type)) {
+    throw unsupported(
+      file,
+      `the type ${alias.name.text}, which isn't an object type`,
+      "list each event the root element fires with the type of its event object: `{ dismiss: Event }`",
+    )
+  }
+  return alias.type.members.map((member) => {
+    const name = member.name?.getText() ?? ""
+    if (
+      !ts.isPropertySignature(member) ||
+      !member.type ||
+      member.questionToken ||
+      !/^[a-z]+$/.test(name)
+    ) {
+      throw unsupported(
+        file,
+        `the event ${name || member.getText()} in ${alias.name.text}`,
+        "name each event the root element fires in lowercase letters, with the type of its event object: `dismiss: Event`",
+      )
+    }
+    return name
+  })
+}
+
+export const eventsOf = (base, name, folder) => {
+  if (!base) return []
+  const alias = sourceFileOf(base, "types.ts")
+    .statements.filter(ts.isTypeAliasDeclaration)
+    .find(
+      (statement) =>
+        statement.name.text ===
+        eventsTypeOf(name === folder ? "Props" : `${name}Props`),
+    )
+  return alias
+    ? eventNames(alias, `packages/opui/components/${folder}/types.ts`)
+    : []
+}
+
 export const toTypes = (
   folder,
   { astro, base },
@@ -283,6 +345,25 @@ export const toTypes = (
     }
   }
   const propsAliases = aliases.filter(({ name }) => name.endsWith("Props"))
+  const baseFileName = `packages/opui/components/${folder}/types.ts`
+  const eventTypes = new Map(
+    baseAliases
+      .filter(({ name }) => name.text.endsWith("Events"))
+      .map((alias) => [alias.name.text, alias]),
+  )
+  for (const eventsName of eventTypes.keys()) {
+    if (!propsAliases.some(({ name }) => eventsTypeOf(name) === eventsName)) {
+      throw unsupported(
+        baseFileName,
+        `the type ${eventsName}, which names no props type in types.astro.ts`,
+        "name it after the props it belongs to: Events for Props, <Root><Part>Events for <Root><Part>Props",
+      )
+    }
+  }
+  const eventsFor = (name) =>
+    eventTypes.has(eventsTypeOf(name))
+      ? eventNames(eventTypes.get(eventsTypeOf(name)), baseFileName)
+      : []
   const slotted = propsAliases.filter(({ name }) =>
     slotTypes.has(slotsTypeOf(name)),
   )
@@ -352,17 +433,20 @@ export const toTypes = (
     )
       ? "\n\ntype Without<T, K extends PropertyKey> = T extends unknown\n  ? Omit<T, K>\n  : never"
       : ""
-  const slotsMember = { react: "ReactNode", svelte: "Snippet" }
-  const radioGrouped = Object.values(modelsByComponent).some(
-    (model) => model?.kind === "radioGroup",
-  )
+  const slotsMember = {
+    react: "ReactNode",
+    solid: "JSX.Element",
+    svelte: "Snippet",
+  }
   const typed = (framework) => {
     const edits = [
       replacing(
         elementImport,
         framework === "react"
-          ? `import type { ${[...(radioGrouped ? ["ChangeEventHandler"] : []), "ComponentProps", ...(slotted.length ? ["ReactNode"] : [])].join(", ")} } from "react"${withoutHelper(framework)}`
-          : `import type { SvelteHTMLElements } from "svelte/elements"${slotted.length ? '\nimport type { Snippet } from "svelte"' : ""}${withoutHelper(framework)}`,
+          ? `import type { ${["ComponentProps", ...(slotted.length ? ["ReactNode"] : [])].join(", ")} } from "react"${withoutHelper(framework)}`
+          : framework === "solid"
+            ? `import type { ${["ComponentProps", ...(slotted.length ? ["JSX"] : [])].join(", ")} } from "@solidjs/web"${withoutHelper(framework)}`
+            : `import type { SvelteHTMLElements } from "svelte/elements"${slotted.length ? '\nimport type { Snippet } from "svelte"' : ""}${withoutHelper(framework)}`,
       ),
     ]
     for (const alias of aliases) {
@@ -376,8 +460,9 @@ export const toTypes = (
       const tag = isProps ? customRoot(name) : undefined
       const baseAlias = baseAliases.find((entry) => entry.name.text === name)
       const known = baseAlias ? typeKeys(baseAlias.type, baseAliases) : []
+      const kind = MODEL_KINDS[model?.kind]
       const extras =
-        framework === "svelte" && model && model.kind !== "value"
+        framework === "svelte" && kind?.svelte?.typedBindables
           ? model.bindables
               .filter(
                 ({ prop }) =>
@@ -385,13 +470,14 @@ export const toTypes = (
               )
               .toSorted((a, b) => byName(a.prop, b.prop))
           : []
-      const group = framework === "react" && model?.kind === "group"
-      const radioGroup = framework === "react" && model?.kind === "radioGroup"
+      const callbacks = !!kind?.[framework]?.entries
+      const ownDefault = !!kind?.[framework]?.ownDefault?.(model)
+      const events = isProps ? eventsFor(name) : []
       const omit = [
         ...(slots && !slots.includes("default") ? ["children"] : []),
         ...extras.map(({ prop }) => prop),
-        ...(group ? ["defaultValue"] : []),
-        ...(radioGroup ? ["onChange"] : []),
+        ...(callbacks || ownDefault ? ["defaultValue"] : []),
+        ...(tag ? events.map((event) => eventProp(framework, event)) : []),
       ]
       for (const ref of elementRefs(type)) {
         edits.push(
@@ -400,14 +486,25 @@ export const toTypes = (
             omitted(
               framework,
               tag ? JSON.stringify(tag) : ref.element,
-              ref.omittable ? [...ref.keys, ...omit] : ref.keys,
+              ref.omittable
+                ? [
+                    ...ref.keys,
+                    ...omit,
+                    ...(framework === "solid"
+                      ? declaredAttributes(
+                          tag ? JSON.stringify(tag) : ref.element,
+                          known,
+                        )
+                      : []),
+                  ]
+                : ref.keys,
               ref.others,
             ),
           ),
         )
       }
       const tied = []
-      if (group) {
+      if (callbacks && kind[framework].tiedCallbacks) {
         const visit = (node) => {
           if (ts.isTypeLiteralNode(node)) {
             const member = node.members.find(
@@ -445,7 +542,10 @@ export const toTypes = (
       const collect = (node) => {
         if (ts.isIntersectionTypeNode(node)) {
           node.types.forEach((part, index) => {
-            if (baseRef(part, name) && index < node.types.length - 1) {
+            if (
+              (baseRef(part, name) || omitsBase(part, name)) &&
+              index < node.types.length - 1
+            ) {
               baseParts.push(part)
             }
           })
@@ -453,29 +553,46 @@ export const toTypes = (
         ts.forEachChild(node, collect)
       }
       collect(type)
+      if (events.length > 0 && baseParts.length === 0) {
+        throw unsupported(
+          file,
+          `the type ${name}, which has ${eventsTypeOf(name)} but no Base.${name} to join them to`,
+          `start it with Base.${name} &`,
+        )
+      }
       baseParts.forEach((part) => {
         const withSlots = slotTypes.has(slotsTypeOf(name))
           ? ` & Base.${slotsTypeOf(name)}<${slotsMember[framework]}>`
           : ""
+        const handlers = events.length
+          ? ` & { ${events.map((event) => `${eventProp(framework, event)}?: (event: Base.${eventsTypeOf(name)}[${JSON.stringify(event)}]) => void`).join("; ")} }`
+          : ""
         const untied =
-          group && tied.length === 0
-            ? ` & { defaultValue?: ${model.type}; onValueChange?: (value: ${model.type}) => void${declaresProperty(type, model.prop) ? "" : `; ${model.prop}?: ${model.type}`} }`
-            : ""
+          callbacks && tied.length === 0
+            ? ` & { defaultValue?: ${model.type}; onValueChange?: (value: ${model.type}) => void${declaresProperty(type, model.prop) || known.includes(model.prop) ? "" : `; ${model.prop}?: ${model.type}`} }`
+            : ownDefault
+              ? ` & { defaultValue?: ${model.type} }`
+              : ""
         const renamed = framework === "react" ? reactRenamed(name) : []
+        const omitted = omitsBase(part, name)
+          ? literalKeys(part.typeArguments[1])
+          : []
         const dropped = [...strings, ...renamed].toSorted(byName)
         const wrapped = dropped.length
-          ? `Without<Base.${name}, ${dropped.map((key) => JSON.stringify(key)).join(" | ")}>`
-          : `Base.${name}`
+          ? `Without<Base.${name}, ${[...omitted, ...dropped]
+              .toSorted(byName)
+              .map((key) => JSON.stringify(key))
+              .join(" | ")}>`
+          : omitted.length
+            ? part.getText()
+            : `Base.${name}`
         const reactNames = renamed.length
           ? ` & { ${renamed.map((key) => `${REACT_ATTRIBUTE_NAMES[key]}?: Base.${name}[${JSON.stringify(key)}]`).join("; ")} }`
-          : ""
-        const radioChange = radioGroup
-          ? " & { onChange?: ChangeEventHandler<HTMLInputElement> }"
           : ""
         edits.push(
           replacing(
             part,
-            `${wrapped}${reactNames}${withSlots}${untied}${radioChange}`,
+            `${wrapped}${reactNames}${withSlots}${handlers}${untied}`,
           ),
         )
       })
@@ -491,6 +608,7 @@ export const toTypes = (
     return spliced(astro, edits)
   }
   const react = typed("react")
+  const solid = typed("solid")
   const svelte = typed("svelte")
   const based = aliases
     .filter(({ name, node }) =>
@@ -539,7 +657,19 @@ export const toTypes = (
       : ""
     return `export type ${slotsName} = ${[literal, ...(hasDefault ? ["DefaultSlots"] : [])].filter(Boolean).join(" & ")}`
   })
-  const imported = based
+  const emitting = propsAliases
+    .map(({ name }) => name)
+    .filter((name) => eventsFor(name).length > 0)
+  const vueEmits = emitting.map(
+    (name) =>
+      `export type ${emitsTypeOf(name)} = { ${eventsFor(name)
+        .map(
+          (event) =>
+            `${event}: [event: Base${eventsTypeOf(name)}[${JSON.stringify(event)}]]`,
+        )
+        .join("; ")} }`,
+  )
+  const imported = [...based, ...emitting.map(eventsTypeOf)]
     .map((name) => `${name} as Base${name}`)
     .toSorted(byName)
   const vueText = (node) => {
@@ -574,11 +704,12 @@ export const toTypes = (
   }
   const vueMembers = (alias) => {
     const model = modelsByComponent[componentOf(alias.name)]
+    const undeclared = MODEL_KINDS[model?.kind]?.vue?.undeclared
     const modelOnly = (node) =>
-      model?.kind === "group" &&
+      !!undeclared &&
       ts.isTypeLiteralNode(node) &&
       node.members.length > 0 &&
-      node.members.every((member) => member.name.getText() === model.prop)
+      node.members.every((member) => undeclared(model, member.name.getText()))
     const kept = []
     let hasClass = false
     for (const part of members(alias.node.type)) {
@@ -653,7 +784,7 @@ export const toTypes = (
           prop !== "as" &&
           !known.includes(prop) &&
           !declaresProperty(node.type, prop) &&
-          !(modelled?.kind === "group" && prop === modelled.prop),
+          !MODEL_KINDS[modelled?.kind]?.vue?.undeclared?.(modelled, prop),
       )
       .toSorted(byName)
     const elements = elementsOf(node.type)
@@ -727,7 +858,11 @@ export const toTypes = (
     : []
   const vueBody = [
     ...vueAliases,
-    ...(slotTypes.has("Slots") ? [] : ["export type Slots = DefaultSlots"]),
+    ...vueEmits,
+    ...(slotTypes.has("Slots") ||
+    !(slotsByComponent[folder] ?? ["default"]).includes("default")
+      ? []
+      : ["export type Slots = DefaultSlots"]),
     ...[...vueSlotTypes, ...defaultOnlySlotTypes].toSorted(byName),
   ]
   const vue = [
@@ -740,7 +875,7 @@ export const toTypes = (
     ].join("\n"),
     ...vueBody,
   ].join("\n\n")
-  return { react, svelte, vue: `${vue}\n` }
+  return { react, solid, svelte, vue: `${vue}\n` }
 }
 
 export const astroTypesOf = (file) => {

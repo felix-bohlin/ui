@@ -3,7 +3,7 @@
 A scrolling list with snap points, buttons and markers.
 
 - CSS: `opui-css/css/components/carousel.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/carousel.md), [Astro](https://open-props-ui.netlify.app/astro/components/carousel.md), [React](https://open-props-ui.netlify.app/react/components/carousel.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/carousel.md), [Vue](https://open-props-ui.netlify.app/vue/components/carousel.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/carousel.md), [Astro](https://opui.dev/astro/components/carousel.md), [React](https://opui.dev/react/components/carousel.md), [Solid](https://opui.dev/solid/components/carousel.md), [Svelte](https://opui.dev/svelte/components/carousel.md), [Vue](https://opui.dev/vue/components/carousel.md).
 
 ## Carousel
 
@@ -18,24 +18,25 @@ A scrolling list with snap points, buttons and markers.
 ### Props and modifiers
 
 - `align`: `"center"` (`.ui-align-center`), `"start"` (default). Where items snap.
-- `aria-label`: `string`, `[aria-label]`. The accessible name of the carousel. The Astro, React and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.
+- `aria-label`: `string`, `[aria-label]`. The accessible name of the carousel. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.
 - `aria-labelledby`: `string`. The id of the element that names the carousel, instead of `aria-label`.
 - `aspectRatio`: `number | string`, `--_media-aspect-ratio`, default `"16 / 9"`. Aspect ratio that images, videos and iframes are cropped to.
 - `buttons`: `"inside"` (default), `"none"` (`.ui-buttons-none`), `"outside"` (`.ui-buttons-outside`). Previous and next buttons. `outside` places them beside the items, and `none` leaves them out.
 - `itemsPerView`: `number`, `--_items-per-view`, default `1`. Number of visible items.
-- `markerLabel`: `string`, `--_marker-label`, default `"Slide {count}"`. Accessible name of each marker, with `{count}` where the item number goes.
+- `markerLabel`: `string`, `--_marker-label`, default `"Slide {number}"`. Accessible name of each marker, with `{number}` where the item number goes.
 - `markers`: `boolean`, `.ui-markers`. One marker per item, after the list.
 - `nextLabel`: `string`, `--_button-next-label`, default `"Next"`. Accessible name of the next button.
 - `orientation`: `"horizontal"` (default), `"vertical"` (`.ui-vertical`). The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default.
 - `peek`: `boolean`, `.ui-peek`. Shows part of the neighboring items.
 - `persistentButtons`: `boolean`, `.ui-persistent-buttons`. Keeps the buttons visible at the ends. A disabled button has a muted border.
-- `previousLabel`: `string`, `--_button-prev-label`, default `"Previous"`. Accessible name of the previous button.
+- `previousLabel`: `string`, `--_button-previous-label`, default `"Previous"`. Accessible name of the previous button.
+- `role`: `string`, default `"list"`. The `role` of the `<ul>`. `list` keeps Safari announcing a list.
 - `stretch`: `boolean`, `.ui-stretch`. Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.
 
 ### Notes
 
 - HTML: The root is a `<ul>` with an `aria-label`. CSS adds the buttons, and `.ui-markers` the markers. Smooth scrolling follows `--ui-motion`: `.ui-motion-off` on the carousel or a parent turns it off.
-- Astro, React, Svelte and Vue: Smooth scrolling follows `--ui-motion`: `.ui-motion-off` on the carousel or a parent turns it off.
+- Astro, React, Solid, Svelte and Vue: Smooth scrolling follows `--ui-motion`: `.ui-motion-off` on the carousel or a parent turns it off.
 
 ## Component properties
 
@@ -44,13 +45,13 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 ### carousel.css
 
 - `--_block-size`: The height of `.ui-vertical`.
-- `--_button-bg-color`: Background of the scroll buttons. Defaults to `--ui-surface-inverse`.
+- `--_button-bg-color`: Background of the scroll buttons. Defaults to `--ui-surface-inverse`. The icon is drawn in its inverse, so keep it very dark or very light.
 - `--_button-disabled-opacity`: Opacity of disabled scroll buttons. `0` hides them, `.ui-persistent-buttons` sets `1`.
-- `--_button-image`: Icon of the scroll buttons, pointing forward. The previous button mirrors it.
+- `--_button-image`: Icon of the scroll buttons, pointing forward. Defaults to `--ui-icon-next`. Draw it in black, as icon sets do: the button shows it in the inverse of `--_button-bg-color`. The previous button mirrors it.
 - `--_button-image-size`: The icon size in the scroll buttons.
 - `--_button-inset`: Space between the scroll buttons and the carousel edge.
 - `--_button-next-label`: Accessible name of the next button, a CSS string. `nextLabel` sets it.
-- `--_button-prev-label`: Accessible name of the previous button, a CSS string. `previousLabel` sets it.
+- `--_button-previous-label`: Accessible name of the previous button, a CSS string. `previousLabel` sets it.
 - `--_button-shadow`: Shadow of the scroll buttons. Defaults to `--ui-shadow-overlay`.
 - `--_button-size`: Size of the scroll buttons. Defaults to `--ui-button-size-small`.
 - `--_ease`: Easing of the transitions. Defaults to `--ui-ease`.
@@ -59,12 +60,13 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_marker-bg-color`: Fill of the other markers. Defaults to `transparent`.
 - `--_marker-border-color`: Ring of the other markers. Defaults to `--ui-text`, which keeps its contrast against the page in every theme.
 - `--_marker-gap`: Space between markers.
+- `--_marker-group-offset`: Distance from the items to the markers in either orientation: the `margin-block-start` of `::scroll-marker-group`, and in `.ui-vertical` the room at the inline end of the items and the group's `inset-inline-start`.
 - `--_marker-label`: Accessible name of each marker, CSS strings with `counter(ui-carousel-item)` where the item number goes. `markerLabel` sets it.
 - `--_marker-selected-bg-color`: Fill and ring of the current marker. Defaults to `--ui-selected-strong`.
 - `--_marker-selected-padding`: Inset of the current marker's dot, smaller than the `--ui-space-2` of the other markers, so the current dot is larger. Defaults to `--ui-space-1`.
-- `--_marker-size`: Size of the markers. The dot sits inside, inset by `--ui-space-2`.
-- `--_markers-gap`: Space between the items and the markers.
+- `--_marker-size`: Size of the markers: `--ui-space-5`, and at least `--ui-target-min-size`, so they stay pointer targets in a theme with a smaller spacing scale. The dot sits inside, inset by `--ui-space-2`.
 - `--_media-aspect-ratio`: Aspect ratio of `img`, `video` and `iframe` in items.
+- `--_media-fit`: How `img`, `video` and `iframe` in items fill their aspect ratio: `cover` crops them, `contain` shows them whole, like photos of mixed orientation in a viewer.
 - `--_media-radius`: Corner radius of `img`, `video` and `iframe` in items. Defaults to `--ui-radius`.
 - `--_motion`: Motion multiplier for the button and marker transitions. `0` turns them off.
 - `--_padding-block`: Block padding of `.ui-vertical`, showing the neighboring items. Set by `.ui-peek`.
@@ -76,14 +78,18 @@ Outputs: `--_block-room`, `--_button-border-color`, `--_button-disabled-border-c
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width`, `--ui-button-size-small`, `--ui-control-border-color-filled`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-motion`, `--ui-radius`, `--ui-radius-round`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-8`, `--ui-surface-inverse` and `--ui-text`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width`, `--ui-button-size-small`, `--ui-control-border-color-filled`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-icon-next`, `--ui-motion`, `--ui-radius`, `--ui-radius-round`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-8`, `--ui-surface-inverse`, `--ui-target-min-size` and `--ui-text`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
 ### Example: Basics
 
 ```html
-<ul class="ui-carousel ui-markers" aria-label="Destinations">
+<ul
+  class="ui-carousel ui-markers ui-buttons-outside"
+  role="list"
+  aria-label="Destinations"
+>
   <li>
     <div class="ui-card ui-tonal">
       <hgroup class="ui-header">
@@ -151,7 +157,7 @@ const places = [
 ]
 ---
 
-<Carousel aria-label="Destinations" markers>
+<Carousel aria-label="Destinations" buttons="outside" markers>
   {places.map(({ description, title }) => <li>
     <Card variant="tonal">
       <CardHeader>
@@ -183,9 +189,46 @@ const places = [
 
 export default function Basics() {
   return (
-    <Carousel aria-label="Destinations" markers>
+    <Carousel aria-label="Destinations" buttons="outside" markers>
       {places.map(({ description, title }) => (
         <li key={title}>
+          <Card variant="tonal">
+            <CardHeader>
+              <p>Destination</p>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </CardHeader>
+          </Card>
+        </li>
+      ))}
+    </Carousel>
+  )
+}
+```
+
+## Solid
+
+`import { Carousel } from "opui-css/solid"`
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Card, CardHeader, Carousel } from "opui-css/solid"
+
+const places = [
+  { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
+  { description: "Ceviche by the Pacific.", title: "Lima" },
+  { description: "Tiles, trams and custard tarts.", title: "Lisbon" },
+  { description: "Fjords, saunas and modern architecture.", title: "Oslo" },
+  { description: "Medina markets and Mediterranean light.", title: "Tunis" },
+]
+
+export default function Basics() {
+  return (
+    <Carousel aria-label="Destinations" buttons="outside" markers>
+      {places.map(({ description, title }) => (
+        <li>
           <Card variant="tonal">
             <CardHeader>
               <p>Destination</p>
@@ -219,7 +262,7 @@ export default function Basics() {
   ]
 </script>
 
-<Carousel aria-label="Destinations" markers>
+<Carousel aria-label="Destinations" buttons="outside" markers>
   {#each places as { description, title } (title)}
     <li>
       <Card variant="tonal">
@@ -254,7 +297,7 @@ const places = [
 </script>
 
 <template>
-  <Carousel aria-label="Destinations" markers>
+  <Carousel aria-label="Destinations" buttons="outside" markers>
     <li v-for="{ description, title } in places" :key="title">
       <Card variant="tonal">
         <CardHeader>

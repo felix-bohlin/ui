@@ -780,6 +780,7 @@ const x = 1</code></pre>
     </div>
     <article class="ui-callout ui-info">
       <svg
+        data-icon="info"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -818,6 +819,7 @@ const x = 1</code></pre>
       <summary>
         Accordion with rich text
         <svg
+          data-icon="chevron-down"
           class="ui-marker"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -975,6 +977,7 @@ const x = 1</code></pre>
       inline with text, then a badge
       <span class="ui-badge">
         <svg
+          data-icon="mail"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -1003,29 +1006,30 @@ const x = 1</code></pre>
     </article>
     <p>A paragraph after the callout, then a form in the middle of the text:</p>
     <form class="stress-stack">
-      <label class="ui-text-field">
-        <span class="ui-label">Name</span>
+      <div class="ui-text-field">
+        <label class="ui-label" for="stress-typo-text-field-1">Name</label>
         <span class="ui-field">
           <input
             type="text"
             placeholder="Your name"
             aria-describedby="stress-typo-cip-help"
+            id="stress-typo-text-field-1"
           />
         </span>
         <span class="ui-end-text" id="stress-typo-cip-help"
           >Supporting text</span
         >
-      </label>
-      <label class="ui-select">
-        <span class="ui-label" id="stress-typo-cip-select-label">Roast</span>
+      </div>
+      <div class="ui-select">
+        <label class="ui-label" for="stress-typo-cip-select">Roast</label>
         <span class="ui-field">
-          <select aria-labelledby="stress-typo-cip-select-label">
+          <select id="stress-typo-cip-select">
             <option>Light</option>
             <option>Medium</option>
             <option>Dark</option>
           </select>
         </span>
-      </label>
+      </div>
       <label class="ui-checkbox">
         <input type="checkbox" checked />
         <span class="ui-label">Subscribe to the newsletter</span>

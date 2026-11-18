@@ -1,8 +1,10 @@
 ---
 import Component from "../../layouts/Component.astro"
 import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import DocLink from "../../components/DocLink.astro"
+import { Avatar as UIAvatar } from "opui-css/astro"
 
 import AvatarCSS from "@opui/css/components/avatar.css?raw"
 
@@ -13,7 +15,7 @@ import avatarApi from "../../component-api/avatar/api"
 import avatarGroupApi from "../../component-api/avatar-group/api"
 import AvatarBuild from "../../components/UnderTheHood/AvatarBuild.astro"
 export const description =
-  "Avatars show a person or entity as an image, initials or icon."
+  "An image, initials or icon that stands for a person or an entity."
 
 export const keywords = ["initials", "photo", "profile picture", "user"]
 ---
@@ -21,27 +23,34 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
 <Component
   description={description}
   slug="avatar"
+  heroAnatomy
   apis={[
     { title: "Avatar API", api: avatarApi },
     { title: "Avatar group API", api: avatarGroupApi },
   ]}
   browserSupport={["corner-shape", "has", "overflow-clip"]}
-  changelogPaths={[
-    {
-      path: "packages/opui/components/Avatar/Avatar.astro",
-      type: "component",
-    },
-    { path: "src/docs/components/avatar.astro", type: "docs" },
-    { path: "src/component-examples/avatar", type: "docs" },
-    {
-      path: "packages/opui/css/components/avatar.css",
-      type: "css",
-    },
-    { path: "src/component-api/avatar", type: "api" },
-  ]}
+  fallbacks={{
+    "corner-shape":
+      "Without `corner-shape`, the compat layer draws a squircle avatar as a rounded square with corners at 27% of its size.",
+  }}
   installationTabs={[{ title: "avatar.css", code: AvatarCSS, lang: "css" }]}
 >
   <Fragment slot="title">Avatar</Fragment>
+  <Fragment slot="preamble">
+    Who did something, like a comment's author, as an image, initials or an
+    icon. For a count or status, add a
+    <DocLink href="/components/badge">Badge</DocLink>.
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy zoom={2}>
+      <UIAvatar
+        alt="Lou Headstock"
+        size="large"
+        src="/photos/lou-headstock.png"
+      />
+    </Anatomy>
+  </Fragment>
 
   <Usage slot="usage">
     <li slot="when">Who did something, like a comment's author.</li>
@@ -115,6 +124,9 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
     <h2>Disabled</h2>
 
     <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>disabled</code>, on a link too.
+      </Fragment>
       <Fragment slot="html">
         Links: drop <code>href</code>, add <code>role="link"</code> and
         <code>aria-disabled="true"</code>.
@@ -129,7 +141,8 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
 
     <p>
       Use <PropOrClass prop="AvatarGroup" class=".ui-avatar-group" /> with an
-      <code>aria-label</code>.
+      <code>aria-label</code>. Link and button avatars in a group need the
+      default size or larger.
     </p>
 
     <AutoExample name="Grouped" row />
@@ -146,7 +159,8 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
       </li>
       <li>
         Give initials and icons <code>role="img"</code> and an
-        <code>aria-label</code>.
+        <code>aria-label</code>, or <code>aria-hidden="true"</code> next to the
+        name.
       </li>
       <li>
         Link and button avatars take their name from what they show: the image's

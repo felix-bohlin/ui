@@ -3,7 +3,9 @@
 </script>
 
 <Copy id="copy-snippet-1">
-  <pre class="ui-code-block"><code>npm install opui-css</code></pre>
+  <pre class="ui-code-block"><code
+      ><span data-copy-ignore>${" "}</span>npm install opui-css</code
+    ></pre>
   <Tooltip id="copy-snippet-2">
     <Button
       aria-label="Copy"
@@ -13,6 +15,7 @@
       round
     >
       <svg
+        data-icon="copy"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"

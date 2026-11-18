@@ -2,18 +2,18 @@
   import {
     Avatar,
     Message,
-    Messages,
+    MessageList,
     ToggleButton,
     ToggleGroup,
   } from "opui-css/svelte"
 </script>
 
-<Messages aria-label="Messages with Saga">
-  <Message author="Saga" datetime="2026-10-08T16:05" time="16:05">
+<MessageList aria-label="Messages with Stella">
+  <Message author="Stella" datetime="2026-10-08T16:05" time="16:05">
     {#snippet start()}
-      <Avatar aria-label="Saga Nyström" role="img">SN</Avatar>
+      <Avatar aria-hidden="true">SN</Avatar>
     {/snippet}
-    <p>The deck is out. Thanks everyone!</p>
+    <p>My slap cover is up. Thanks for listening, everyone!</p>
     {#snippet bottom()}
       <ToggleGroup aria-label="Reactions" multiple name="reaction">
         <ToggleButton aria-label="Thumbs up, 2" defaultChecked value="+1"
@@ -26,7 +26,7 @@
     {/snippet}
   </Message>
   <Message author="You" datetime="2026-10-08T16:07" outgoing time="16:07">
-    <p>Great work, it looks sharp.</p>
+    <p>Totally rad, that low B rattled my windows.</p>
     {#snippet bottom()}
       <ToggleGroup aria-label="Reactions" multiple name="reaction">
         <ToggleButton aria-label="Heart, 1" value="heart"
@@ -35,4 +35,4 @@
       </ToggleGroup>
     {/snippet}
   </Message>
-</Messages>
+</MessageList>

@@ -23,13 +23,13 @@ const attrs = useAttrs() as HTMLAttributes
 
 const uid = useId()
 
-const titleId = computed(() => `${attrs.id ?? `dialog-${uid}`}-title`)
+const titleId = computed(() => `${attrs.id || `dialog-${uid}`}-title`)
 
 const labelledBy = computed(() => autoLabelledBy(attrs, titleId.value))
 
 provide(
   DialogKey,
-  reactive({ id: computed(() => attrs.id ?? undefined), titleId: labelledBy }),
+  reactive({ id: computed(() => attrs.id || undefined), titleId: labelledBy }),
 )
 </script>
 

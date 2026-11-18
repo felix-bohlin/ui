@@ -4,7 +4,7 @@ import "../../css/js/range.js"
 import { useFieldGroupContext } from "../FieldGroup/context.solid"
 import { idRefs } from "../id"
 import { formatValue, middleValue } from "./value"
-import { bound } from "../solid"
+import { control } from "../solid"
 import type { Props } from "./types.solid"
 
 export default function Range(props: Props) {
@@ -45,8 +45,11 @@ export default function Range(props: Props) {
   const resolvedValueText = children(() => props.valueText)
   const field = useFieldGroupContext()
   const uid = createUniqueId()
-  const initialValue = untrack(() => props.value)
-  const valueRef = bound("value", () => props.value)
+  const valueControl = control(
+    "value",
+    () => props.value,
+    untrack(() => props.value),
+  )
   const value = () => props.value ?? props.defaultValue
   const base = () => props.id || `range-${uid}`
   const hasLabel = () => !!resolvedLabel()
@@ -119,8 +122,8 @@ export default function Range(props: Props) {
         </span>
       )}
       <input
-        defaultValue={initialValue}
-        ref={[props.ref, valueRef]}
+        {...valueControl.server}
+        ref={[props.ref, valueControl.ref]}
         {...rest}
         aria-describedby={describedBy()}
         aria-invalid={props.error ? "true" : props["aria-invalid"]}

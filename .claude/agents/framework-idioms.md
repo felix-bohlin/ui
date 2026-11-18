@@ -50,7 +50,7 @@ Read the compiled file next to the closest hand-written sibling of its kind (`Te
 - `children(() => props.label)` for a slot read more than once, created under the provider when the component provides a context, and once per item inside a `<For>`, where a slot read once is `{props.end}`: a node has one parent.
 - A tag that is always one string is the element (`<selectedcontent />`), a per-item tag `<Dynamic component={tag}>`, and `dynamic()` only for a tag that reads a prop.
 - A class list of one entry is the entry (`class={props.class}`); several are the `class={[...]}` array with objects for toggles, never a joined string.
-- A model prop (`value`, `checked`) stays out of the rest and the element's spread: the first value is captured once in the body as the `defaultValue` or `defaultChecked`, and `bound` from `packages/opui/components/solid.ts` writes the prop through the `ref` only when it changes. Solid writes a stateful property again on every run of a spread, over what the user entered.
+- A model prop (`value`, `checked`) stays out of the rest and the element's spread: `control` from `packages/opui/components/solid.ts` captures the first value once in the body, hands it to the server render as a plain `value` or `checked` (`{...valueControl.server}`), sets it as the default through the `ref` on a client render, and writes the prop through the `ref` only when it changes. Solid writes a stateful property again on every run of a spread, over what the user entered.
 
 **Svelte**
 

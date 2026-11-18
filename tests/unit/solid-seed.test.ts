@@ -1,9 +1,9 @@
 import { describe, expect, test } from "vitest"
+import { createRoot } from "solid-js"
 import {
   callHandler,
-  checkedProps,
+  control,
   seedChecked,
-  serverValue,
 } from "../../packages/opui/components/solid"
 
 const inputOf = (
@@ -63,25 +63,6 @@ describe("seedChecked", () => {
   })
 })
 
-describe("checkedProps", () => {
-  test("a checked state binds checked and keeps the default it started with, so a client render prints it and a change before hydration leaves the server's default alone", () => {
-    expect(checkedProps(true, false)).toEqual({
-      checked: true,
-      defaultChecked: false,
-    })
-    expect(checkedProps(false, true)).toEqual({
-      checked: false,
-      defaultChecked: true,
-    })
-  })
-
-  test("without a checked state only the default is set, so Solid never writes over what the user picked", () => {
-    expect(checkedProps(undefined, true)).toEqual({ defaultChecked: true })
-    expect(checkedProps(undefined)).toEqual({ defaultChecked: undefined })
-    expect("checked" in checkedProps(undefined, true)).toBe(false)
-  })
-})
-
 describe("callHandler", () => {
   test("calls a function handler and a bound [handler, data] pair, and ignores anything else", () => {
     const calls: unknown[][] = []
@@ -93,10 +74,22 @@ describe("callHandler", () => {
   })
 })
 
-describe("serverValue", () => {
-  test("the server render hands a select its first value, which picks its options, and leaves the key out when there is none", () => {
-    expect(serverValue("b")).toEqual({ value: "b" })
-    expect(serverValue(["a", "c"])).toEqual({ value: ["a", "c"] })
-    expect("value" in serverValue(undefined)).toBe(false)
+describe("control", () => {
+  const server = (...args: Parameters<typeof control>) =>
+    createRoot((dispose) => {
+      const result = control(...args).server
+      dispose()
+      return result
+    })
+
+  test("the server render hands a control its first state under the HTML name, and leaves the key out when there is none", () => {
+    expect(server("value", () => "a", "b")).toEqual({ value: "b" })
+    expect(server("value", () => undefined, ["a", "c"])).toEqual({
+      value: ["a", "c"],
+    })
+    expect(server("checked", () => true, false)).toEqual({ checked: false })
+    expect(server("selected", undefined, true)).toEqual({ selected: true })
+    expect(server("value", () => "a")).toEqual({})
+    expect(server("selected", undefined, undefined)).toEqual({})
   })
 })

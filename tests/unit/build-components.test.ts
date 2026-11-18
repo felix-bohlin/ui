@@ -850,7 +850,7 @@ describe("the ports of a sample", () => {
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<select class:list={["ui-sample", className]} {...rest}>\n  {items.map((item) => <option selected={item.selected || undefined} value={item.value}>{item.label}</option>)}\n</select>\n',
     )
     expect(options["solid.tsx"]).toContain(
-      "      <For each={props.items} keyed={(item) => item.value}>\n        {(item) => {\n          const initialItemSelected = untrack(\n            () => item().selected || undefined,\n          )\n          return (\n            <option defaultSelected={initialItemSelected} value={item().value}>\n              {item().label}\n            </option>\n          )\n        }}\n      </For>\n",
+      '      <For each={props.items} keyed={(item) => item.value}>\n        {(item) => {\n          const itemSelectedControl = control(\n            "selected",\n            undefined,\n            untrack(() => item().selected || undefined),\n          )\n          return (\n            <option\n              {...itemSelectedControl.server}\n              ref={itemSelectedControl.ref}\n              value={item().value}\n            >\n              {item().label}\n            </option>\n          )\n        }}\n      </For>\n',
     )
     const rows = await compile(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<ol class:list={["ui-sample", className]} {...rest}>\n  {items.map(({ description, ...item }) => <li {...item}>{description}</li>)}\n</ol>\n',
@@ -973,14 +973,12 @@ describe("the ports of a sample", () => {
       "const current = () => Number(props.value ?? props.defaultValue)",
     )
     expect(solid).toContain(
-      "const initialChecked = untrack(() => current() === 0)",
+      'const checkedControl = control(\n    "checked",\n    () => (props.value === undefined ? undefined : current() === 0),\n    untrack(() => current() === 0),\n  )',
     )
     expect(solid).toContain(
-      "const initialItemChecked = untrack(() => current() === star())",
+      'const itemCheckedControl = control(\n            "checked",\n            () =>\n              props.value === undefined ? undefined : current() === star(),\n            untrack(() => current() === star()),\n          )',
     )
-    expect(solid).toContain(
-      "props.value === undefined ? undefined : current() === star(),\n                initialItemChecked,\n",
-    )
+    expect(solid).toContain("{...itemCheckedControl.server}\n")
     expect(solid).toContain(
       'onChange={(event) => {\n          props.onValueChange?.("0")\n          restoreChecked(event.currentTarget, () => props.value)\n        }}',
     )
@@ -988,10 +986,10 @@ describe("the ports of a sample", () => {
       "onChange={(event) => {\n                props.onValueChange?.(star())\n                restoreChecked(event.currentTarget, () => props.value)\n              }}",
     )
     expect(solid).toContain(
-      'import { checkedProps, restoreChecked, seedChecked } from "../solid"\n',
+      'import { control, restoreChecked, seedChecked } from "../solid"\n',
     )
     expect(solid).toContain(
-      "ref={seedChecked((input) => {\n                props.onValueChange?.(star())\n                restoreChecked(input, () => props.value)\n              })}",
+      "ref={[\n                itemCheckedControl.ref,\n                seedChecked((input) => {\n                  props.onValueChange?.(star())\n                  restoreChecked(input, () => props.value)\n                }),\n              ]}",
     )
   })
 
@@ -1040,7 +1038,7 @@ describe("the ports of a sample", () => {
       '<script setup lang="ts">\nimport { computed } from "vue"\nimport { useInputAttrs, vSeed } from "../vue"\nimport type { Props } from "./types.vue-props"\n\nconst { value } = defineProps<Props>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useInputAttrs()\n\nconst modelValue = defineModel<number | string>()\n\nconst model = computed({\n  get: () => modelValue.value ?? value,\n  set: (value) => {\n    modelValue.value = value\n  },\n})\n</script>\n\n<template>\n  <label :class="[\'ui-sample\', $props.class]">\n    <textarea v-bind="attrs" v-seed v-model="model"></textarea>\n  </label>\n</template>\n',
     )
     expect(port(".solid.tsx")).toBe(
-      '/** @jsxImportSource @solidjs/web */\nimport { omit, untrack } from "solid-js"\nimport { bound } from "../solid"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "ref", "value")\n  const initialValue = untrack(() => props.value)\n  const valueRef = bound("value", () => props.value)\n\n  return (\n    <label class={["ui-sample", props.class]}>\n      <textarea\n        defaultValue={initialValue}\n        ref={[props.ref, valueRef]}\n        {...rest}\n      />\n    </label>\n  )\n}\n',
+      '/** @jsxImportSource @solidjs/web */\nimport { omit, untrack } from "solid-js"\nimport { control } from "../solid"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "ref", "value")\n  const valueControl = control(\n    "value",\n    () => props.value,\n    untrack(() => props.value),\n  )\n\n  return (\n    <label class={["ui-sample", props.class]}>\n      <textarea\n        {...valueControl.server}\n        ref={[props.ref, valueControl.ref]}\n        {...rest}\n      />\n    </label>\n  )\n}\n',
     )
   })
 
@@ -1065,7 +1063,7 @@ describe("the ports of a sample", () => {
       "  const value = () => props.value ?? props.defaultValue\n  const shown = () => `${value() ?? 0}%`\n",
     )
     expect(port(".solid.tsx")).toContain(
-      '<input\n        defaultValue={initialValue}\n        ref={[props.ref, valueRef]}\n        {...rest}\n        type="range"\n      />',
+      '<input\n        {...valueControl.server}\n        ref={[props.ref, valueControl.ref]}\n        {...rest}\n        type="range"\n      />',
     )
   })
 
@@ -1230,7 +1228,7 @@ describe("the ports of a sample", () => {
       '<input\n    type="checkbox"\n    :name="name"\n    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"\n    v-seed\n    v-model="model"\n  />',
     )
     expect(outputs.get(sampleFile().replace(".astro", ".solid.tsx"))).toContain(
-      '  const rest = omit(props, "checked", "name", "ref")\n  const initialChecked = untrack(() => props.checked)\n  const checkedRef = bound("checked", () => props.checked)\n\n  return (\n    <input\n      type="checkbox"\n      name={props.name}\n      defaultChecked={initialChecked}\n      ref={[props.ref, checkedRef]}\n      {...defined(rest)}\n',
+      '  const rest = omit(props, "checked", "name", "ref")\n  const checkedControl = control(\n    "checked",\n    () => props.checked,\n    untrack(() => props.checked),\n  )\n\n  return (\n    <input\n      type="checkbox"\n      name={props.name}\n      {...checkedControl.server}\n      ref={[props.ref, checkedControl.ref]}\n      {...defined(rest)}\n',
     )
   })
 
@@ -1253,7 +1251,7 @@ describe("the ports of a sample", () => {
       '<input\n    type="radio"\n    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"\n    :value="attrs.value"\n    v-seed\n    v-model="model"\n  />',
     )
     expect(outputs.get(sampleFile().replace(".astro", ".solid.tsx"))).toContain(
-      '  const initialChecked = untrack(() => props.checked)\n  const checkedRef = bound("checked", () => props.checked)\n\n  return (\n    <input\n      type="radio"\n      defaultChecked={initialChecked}\n      ref={[props.ref, checkedRef]}\n      {...defined(rest)}\n',
+      '  const checkedControl = control(\n    "checked",\n    () => props.checked,\n    untrack(() => props.checked),\n  )\n\n  return (\n    <input\n      type="radio"\n      {...checkedControl.server}\n      ref={[props.ref, checkedControl.ref]}\n      {...defined(rest)}\n',
     )
   })
 
@@ -1370,13 +1368,13 @@ describe("the ports of a sample", () => {
       '      props.checked ?? props.defaultChecked,\n      "Tabs",\n',
     )
     expect(solid).toContain(
-      'import { callHandler, checkedProps, seedChecked } from "../solid"\n',
+      'import { callHandler, control, seedChecked } from "../solid"\n',
     )
     expect(solid).toContain(
-      "  const initialChecked = untrack(\n    () => grouped() ?? props.checked ?? props.defaultChecked,\n  )\n",
+      '  const checkedControl = control(\n    "checked",\n    () => grouped() ?? props.checked,\n    untrack(() => grouped() ?? props.checked ?? props.defaultChecked),\n  )\n',
     )
     expect(solid).toContain(
-      '        {...checkedProps(grouped() ?? props.checked, initialChecked)}\n        class={["ui-sample", props.class]}\n        type="radio"\n        value={props.value}\n        {...defined(rest)}\n        ref={[props.ref, seedChecked((input) => parent?.change?.(input))]}\n',
+      '        {...checkedControl.server}\n        class={["ui-sample", props.class]}\n        type="radio"\n        value={props.value}\n        {...defined(rest)}\n        ref={[\n          props.ref,\n          checkedControl.ref,\n          seedChecked((input) => parent?.change?.(input)),\n        ]}\n',
     )
     expect(solid).toContain(
       "        onChange={(event) => {\n          parent?.change?.(event.currentTarget)\n          callHandler(props.onChange, event)\n        }}\n",
@@ -1507,11 +1505,11 @@ describe("the ports of a sample", () => {
     expect(vue).not.toContain("v-model")
     const solid = outputs.get(sampleFile().replace(".astro", ".solid.tsx"))
     expect(solid).toContain(
-      "{...checkedProps(grouped() ?? props.checked, initialChecked)}",
+      '"checked",\n    () => grouped() ?? props.checked,\n    untrack(() => grouped() ?? props.checked ?? props.defaultChecked),',
     )
     expect(solid).toContain("data-off={!props.checked}")
     expect(solid).toContain(
-      "ref={[props.ref, seedChecked((input) => group?.change?.(input))]}",
+      "ref={[\n          props.ref,\n          checkedControl.ref,\n          seedChecked((input) => group?.change?.(input)),\n        ]}",
     )
     expect(solid).not.toMatch(/\schecked=\{/)
   })
@@ -1527,18 +1525,18 @@ describe("the ports of a sample", () => {
       'const rest = omit(props, "class", "defaultValue", "items", "ref", "value")',
     )
     expect(solid).toContain(
-      '  const initialValue = untrack(() => props.value ?? props.defaultValue)\n  const valueRef = bound("value", () => props.value, initialValue)\n  const value = () => props.value ?? props.defaultValue\n',
+      '  const valueControl = control(\n    "value",\n    () => props.value,\n    untrack(() => props.value ?? props.defaultValue),\n  )\n  const value = () => props.value ?? props.defaultValue\n',
     )
     expect(solid).toContain(
       "  const isSelected = (item: string) => {\n    const current = value()\n    return current === undefined ? undefined : current === item\n  }\n",
     )
     expect(solid).toContain(
-      "<select\n        {...serverValue(initialValue)}\n        ref={[props.ref, valueRef]}\n        {...rest}\n      >",
+      "<select\n        {...valueControl.server}\n        ref={[props.ref, valueControl.ref]}\n        {...rest}\n      >",
     )
     const clash = await compileComponent(
       source.replace(
         "const isSelected",
-        "const valueRef = items.length\nconst isSelected",
+        "const valueControl = items.length\nconst isSelected",
       ),
       sampleFile(),
       { api: modelApi("value", "select") },
@@ -1546,7 +1544,7 @@ describe("the ports of a sample", () => {
     expect(
       clash.refused.get(sampleFile().replace(".astro", ".solid.tsx"))?.message,
     ).toContain(
-      "the name `valueRef`, which the Solid port also declares for its value model",
+      "the name `valueControl`, which the Solid port also declares for its value model",
     )
   })
 

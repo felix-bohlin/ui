@@ -4,7 +4,7 @@ import { useFieldGroupContext } from "../FieldGroup/context.solid"
 import type { SelectItem } from "./types"
 import { fieldDescribedBy } from "../id"
 import { sameValue } from "./selection"
-import { bound, serverValue } from "../solid"
+import { control } from "../solid"
 import type { Props } from "./types.solid"
 
 export default function Select(props: Props) {
@@ -46,8 +46,11 @@ export default function Select(props: Props) {
   const resolvedTop = children(() => props.top)
   const field = useFieldGroupContext()
   const uid = createUniqueId()
-  const initialValue = untrack(() => props.value ?? props.defaultValue)
-  const valueRef = bound("value", () => props.value, initialValue)
+  const valueControl = control(
+    "value",
+    () => props.value,
+    untrack(() => props.value ?? props.defaultValue),
+  )
   const value = () => props.value ?? props.defaultValue
   const items = () => (props.items === undefined ? [] : props.items)
   const variant = () =>
@@ -122,8 +125,8 @@ export default function Select(props: Props) {
           </span>
         )}
         <select
-          {...serverValue(initialValue)}
-          ref={[props.ref, valueRef]}
+          {...valueControl.server}
+          ref={[props.ref, valueControl.ref]}
           {...rest}
           aria-describedby={describedBy()}
           aria-invalid={props.error ? "true" : props["aria-invalid"]}
@@ -137,12 +140,15 @@ export default function Select(props: Props) {
           <div class={["ui-list", { "ui-dense": props.dense }]}>
             <For each={items()} keyed={(item) => item.value}>
               {(item) => {
-                const initialItemSelected = untrack(
-                  () => isSelected(item()) || undefined,
+                const itemSelectedControl = control(
+                  "selected",
+                  undefined,
+                  untrack(() => isSelected(item()) || undefined),
                 )
                 return (
                   <option
-                    defaultSelected={initialItemSelected}
+                    {...itemSelectedControl.server}
+                    ref={itemSelectedControl.ref}
                     value={item().value}
                   >
                     {item().label}

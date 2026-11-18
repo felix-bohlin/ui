@@ -27,16 +27,15 @@ const numeric = (model) =>
 
 const solidChecked = {
   attributes: () => [
-    "defaultChecked={initialChecked}",
-    "ref={[props.ref, checkedRef]}",
+    "{...checkedControl.server}",
+    "ref={[props.ref, checkedControl.ref]}",
   ],
   body: () => [
-    "const initialChecked = untrack(() => props.checked)",
-    'const checkedRef = bound("checked", () => props.checked)',
+    'const checkedControl = control(\n  "checked",\n  () => props.checked,\n  untrack(() => props.checked),\n)',
   ],
   omits: () => ["checked", "ref"],
-  locals: () => ["checkedRef", "initialChecked"],
-  solidHelpers: () => ["bound"],
+  locals: () => ["checkedControl"],
+  solidHelpers: () => ["control"],
   solidValues: () => ["untrack"],
 }
 
@@ -183,15 +182,17 @@ export const MODEL_KINDS = {
     },
     solid: {
       entries: () => ["defaultValue", "onValueChange"],
-      radioAttributes: (model, value, checked, initial) => [
-        `{...checkedProps(props.${model.prop} === undefined ? undefined : ${checked}, ${initial})}`,
+      radioAttributes: (model, value, control) => [
+        `{...${control}.server}`,
         `onChange={(event) => {\n  props.onValueChange?.(${value})\n  restoreChecked(event.currentTarget, () => props.${model.prop})\n}}`,
-        `ref={seedChecked((input) => {\n  props.onValueChange?.(${value})\n  restoreChecked(input, () => props.${model.prop})\n})}`,
+        `ref={[\n  ${control}.ref,\n  seedChecked((input) => {\n    props.onValueChange?.(${value})\n    restoreChecked(input, () => props.${model.prop})\n  }),\n]}`,
       ],
+      radioChecked: (model, checked) =>
+        `props.${model.prop} === undefined ? undefined : ${checked}`,
       rename: (model) => [
         [model.local, `props.${model.prop} ?? props.defaultValue`],
       ],
-      solidHelpers: () => ["checkedProps", "restoreChecked", "seedChecked"],
+      solidHelpers: () => ["control", "restoreChecked", "seedChecked"],
     },
     svelte: {
       bindables: (model) => [model.prop],
@@ -268,14 +269,11 @@ export const MODEL_KINDS = {
     },
     solid: {
       attributes: (model) => [
-        resettable(model)
-          ? `default${capitalize(model.prop)}={initial${capitalize(model.prop)}}`
-          : `{...serverValue(initial${capitalize(model.prop)})}`,
-        `ref={[props.ref, ${model.prop}Ref]}`,
+        `{...${model.prop}Control.server}`,
+        `ref={[props.ref, ${model.prop}Control.ref]}`,
       ],
       body: (model, _, read) => [
-        `const initial${capitalize(model.prop)} = untrack(() => props.${model.prop}${ownsDefault(model) ? ` ?? props.default${capitalize(model.prop)}` : ""})`,
-        `const ${model.prop}Ref = bound(${JSON.stringify(model.prop)}, () => props.${model.prop}${resettable(model) ? "" : `, initial${capitalize(model.prop)}`})`,
+        `const ${model.prop}Control = control(\n  ${JSON.stringify(model.prop)},\n  () => props.${model.prop},\n  untrack(() => props.${model.prop}${ownsDefault(model) ? ` ?? props.default${capitalize(model.prop)}` : ""}),\n)`,
         ...(read
           ? [
               `const ${model.local} = () => props.${model.prop} ?? props.default${capitalize(model.prop)}`,
@@ -283,17 +281,11 @@ export const MODEL_KINDS = {
           : []),
       ],
       omits: (model) => [model.prop, "ref"],
-      locals: (model) => [
-        `initial${capitalize(model.prop)}`,
-        `${model.prop}Ref`,
-      ],
+      locals: (model) => [`${model.prop}Control`],
       ownDefault: ownsDefault,
       rename: (model) =>
         model.local ? [[model.local, `${model.local}()`]] : [],
-      solidHelpers: (model) => [
-        "bound",
-        ...(resettable(model) ? [] : ["serverValue"]),
-      ],
+      solidHelpers: () => ["control"],
       solidValues: () => ["untrack"],
     },
     svelte: {

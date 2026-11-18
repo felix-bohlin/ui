@@ -456,18 +456,17 @@ export const toSolid = (component) => {
       code,
       (name) => `const ${name} = () => ${code}`,
     )
-  let usesInitial = false
-  const initialState = (state, code, scope) => {
-    usesInitial = true
-    const initial = `untrack(() => ${code})`
+  let usesControl = false
+  const controlOf = (state, read, initial, scope) => {
+    usesControl = true
+    const code = `control(${JSON.stringify(state)}, ${read}, untrack(() => ${initial}))`
     return declare(
       scope,
-      [`initial${scope.loop ? "Item" : ""}${capitalize(state)}`],
-      initial,
-      (name) => `const ${name} = ${initial}`,
+      [scope.loop ? `item${capitalize(state)}Control` : `${state}Control`],
+      code,
+      (name) => `const ${name} = ${code}`,
     )
   }
-  const initialChecked = (code, scope) => initialState("checked", code, scope)
   const attribute = (node, entry, scope) => {
     if (entry.kind === "class") {
       const only = onlyClass(entry.code)
@@ -506,7 +505,8 @@ export const toSolid = (component) => {
     if (entry.kind === "boolean") return entry.name
     const code = rewrite(entry.code, scope)
     if (node.tag === "option" && entry.name === "selected") {
-      return `defaultSelected={${initialState("selected", code, scope)}}`
+      const selected = controlOf("selected", "undefined", code, scope)
+      return `{...${selected}.server} ref={${selected}.ref}`
     }
     if (
       (node.component || node.variable) &&
@@ -692,6 +692,15 @@ export const toSolid = (component) => {
       const checks = (entry) =>
         entry.kind === "expression" && entry.name === "checked"
       const loopTag = node.variable && scope.loopTags?.get(node.tag)
+      const checked = node.item && node.attributes.find(checks)
+      const itemControl =
+        checked &&
+        controlOf(
+          "checked",
+          `() => ${rewrite(checked.code, scope)}`,
+          `${rewrite(checked.code, scope)} ?? props.defaultChecked`,
+          scope,
+        )
       return [
         ...(loopTag ? [`component={${loopTag}}`] : []),
         ...node.attributes.flatMap((entry, index) => [
@@ -700,19 +709,21 @@ export const toSolid = (component) => {
             ? kind.radioAttributes(
                 model,
                 rewrite(node.groupRadio, scope),
-                rewrite(entry.code, scope),
-                initialChecked(rewrite(entry.code, scope), scope),
+                controlOf(
+                  "checked",
+                  `() => ${kind.radioChecked(model, rewrite(entry.code, scope))}`,
+                  rewrite(entry.code, scope),
+                  scope,
+                ),
               )
             : node.item && checks(entry)
-              ? [
-                  `{...checkedProps(${rewrite(entry.code, scope)}, ${initialChecked(`${rewrite(entry.code, scope)} ?? props.defaultChecked`, scope)})}`,
-                ]
+              ? [`{...${itemControl}.server}`]
               : [attribute(node, entry, scope)]),
         ]),
         ...(restAt === -1 ? modelAttributes : []),
         ...(node.item
           ? [
-              `ref={[props.ref, seedChecked((input) => ${item.parent}?.change?.(input))]}`,
+              `ref={[\n  props.ref,\n  ${itemControl ? `${itemControl}.ref,\n  ` : ""}seedChecked((input) => ${item.parent}?.change?.(input)),\n]}`,
               `onChange={(event) => {\n  ${item.parent}?.change?.(event.currentTarget)\n  callHandler(props.onChange, event)\n}}`,
             ]
           : []),
@@ -840,11 +851,12 @@ export const toSolid = (component) => {
     ...(kind?.solidValues?.(model) ?? []),
     ...(rest || usesOmit ? ["omit"] : []),
     ...(uid ? ["createUniqueId"] : []),
-    ...(warnings.length > 0 || item || usesInitial ? ["untrack"] : []),
+    ...(warnings.length > 0 || item || usesControl ? ["untrack"] : []),
   ].toSorted(byName)
   const solidHelpers = [
     ...(kind?.solidHelpers?.(model) ?? []),
-    ...(item ? ["callHandler", "checkedProps", "seedChecked"] : []),
+    ...(usesControl ? ["control"] : []),
+    ...(item ? ["callHandler", "seedChecked"] : []),
   ].toSorted(byName)
   const webValues = [
     ...(tagProps.length > 0 || tagConsts.length > 0 ? ["dynamic"] : []),

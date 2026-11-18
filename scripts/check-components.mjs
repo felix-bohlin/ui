@@ -441,6 +441,31 @@ const inList = (node) => {
   return false
 }
 
+const CONDITION_OPERATORS = [
+  ts.SyntaxKind.AmpersandAmpersandToken,
+  ts.SyntaxKind.BarBarToken,
+  ts.SyntaxKind.QuestionQuestionToken,
+]
+
+const isReactiveCondition = (node) => {
+  let expression = node
+  while (ts.isParenthesizedExpression(expression)) {
+    expression = expression.expression
+  }
+  return (
+    (ts.isConditionalExpression(expression) ||
+      (ts.isBinaryExpression(expression) &&
+        CONDITION_OPERATORS.includes(expression.operatorToken.kind))) &&
+    nodesIn(
+      expression,
+      (child) =>
+        ts.isCallExpression(child) ||
+        ts.isElementAccessExpression(child) ||
+        ts.isPropertyAccessExpression(child),
+    ).length > 0
+  )
+}
+
 const callsTo = (script, name) =>
   nodesIn(
     script,
@@ -702,6 +727,21 @@ export const checkSolidProps = (
   if (mapped.length > 0) {
     problems.push(
       "builds JSX with .map(): Solid runs the whole callback again when the list changes and builds every row anew, so list with <For each={list}> or <Repeat count={count}>",
+    )
+  }
+  const conditions = nodesIn(
+    script,
+    (node) =>
+      ts.isJsxAttribute(node) &&
+      /^[A-Z]/.test(node.parent.parent.tagName.getText()) &&
+      !!node.initializer &&
+      ts.isJsxExpression(node.initializer) &&
+      !!node.initializer.expression &&
+      isReactiveCondition(node.initializer.expression),
+  )
+  for (const condition of conditions) {
+    problems.push(
+      `passes the condition ${condition.getText()} to <${condition.parent.parent.tagName.getText()}>: Solid compiles a ternary, &&, || or ?? in a component's prop to a memo per read, which takes a hydration id, and the server and the client don't read a prop equally often, so declare it as an accessor (const ${condition.name.getText().replace(/^.*[-:]/, "")} = () => ...) and pass its call`,
     )
   }
   const literalTag = (node) =>

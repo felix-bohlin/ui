@@ -93,6 +93,12 @@ const itemBinding = (text) => {
   return { fields, rest }
 }
 
+const CONDITION_OPERATORS = [
+  ts.SyntaxKind.AmpersandAmpersandToken,
+  ts.SyntaxKind.BarBarToken,
+  ts.SyntaxKind.QuestionQuestionToken,
+]
+
 const isCondition = (code) => {
   const [statement] = sourceFileOf(`(${code})`, "condition.ts").statements
   let expression =
@@ -111,8 +117,7 @@ const isCondition = (code) => {
     !!expression &&
     (ts.isConditionalExpression(expression) ||
       (ts.isBinaryExpression(expression) &&
-        expression.operatorToken.kind ===
-          ts.SyntaxKind.AmpersandAmpersandToken))
+        CONDITION_OPERATORS.includes(expression.operatorToken.kind)))
   )
 }
 

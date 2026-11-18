@@ -1061,6 +1061,33 @@ describe("check-components", () => {
         ),
       ),
     ).toEqual([])
+    for (const condition of [
+      'title={props.label ? "Labelled" : rest.title}',
+      "title={props.label && rest.title}",
+      "title={(rest.title || props.label)}",
+      "aria-label={label() ?? rest.title}",
+    ]) {
+      expect(
+        checkSolidProps(
+          "Badge.solid.tsx",
+          solid(
+            `  const rest = omit(props, "label")\n  return <span {...rest}><Button ${condition} /></span>`,
+          ),
+        ),
+      ).toEqual([
+        expect.stringContaining(
+          `passes the condition ${condition} to <Button>`,
+        ),
+      ])
+    }
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "label")\n  const title = () => (props.label ? "Labelled" : rest.title)\n  const fallback = "Close"\n  return (\n    <span title={props.label ? "Labelled" : rest.title} {...rest}>\n      <Button aria-label={fallback || "Close"} disabled={!(props.label && rest.title)} title={title()} />\n    </span>\n  )',
+        ),
+      ),
+    ).toEqual([])
     for (const tag of [
       'const Tag = dynamic("selectedcontent")',
       'const Tag = dynamic(() => "selectedcontent")',

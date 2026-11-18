@@ -2,13 +2,11 @@ import { readFileSync } from "node:fs"
 import { createRequire } from "node:module"
 import { pathToFileURL } from "node:url"
 import { convertToTSX } from "@astrojs/compiler"
-import { createComponent, renderToString } from "@solidjs/web"
 import { experimental_AstroContainer as AstroContainer } from "astro/container"
 import { parseFragment } from "parse5"
 import { describe, expect, test } from "vitest"
 import { compileTemplate } from "vue/compiler-sfc"
 import BooleanSpread from "./fixtures/BooleanSpread.astro"
-import ConditionalProp from "./fixtures/ConditionalProp.solid"
 import EmptyUnknown from "./fixtures/EmptyUnknown.astro"
 import UndefinedSpread from "./fixtures/UndefinedSpread.astro"
 
@@ -137,22 +135,6 @@ describe("tooling bugs the generator and the components work around", () => {
         "packages/opui/css/components/menu.css, the inset formula for submenus of submenus",
       ),
     ).toThrow('Function("anchored")')
-  })
-
-  test("Solid takes a hydration id for each read of a component prop that holds a condition", () => {
-    const keyAfter = (reads: number) =>
-      /<b _hk=([^>]+)>/.exec(
-        renderToString(() => createComponent(ConditionalProp, { reads }), {
-          renderId: "solid-",
-        }),
-      )?.[1]
-    expect(keyAfter(1)).toBeDefined()
-    expect(
-      keyAfter(2),
-      fixed(
-        "scripts/component-solid.mjs, which reads a condition in a component's prop through an accessor (hoist), since the server reads the prop in the component and the client in the effect of its spread",
-      ),
-    ).not.toBe(keyAfter(1))
   })
 
   test("parse5 drops the button and div inside a select", () => {

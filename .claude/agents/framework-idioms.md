@@ -23,7 +23,7 @@ The components you are given, or the ones touched by `git diff --name-only` agai
 
 ## Already checked by tools
 
-- `pnpm check-ports` fails on a compiled file that differs from what the compiler writes, and `pnpm check-components` checks props types, `...rest`, `$bindable` and `defineModel` lists, class order, `"use client"` and context files, and in a Solid file the pragma, the `omit()` keys, a slot read twice outside a `<For>`, JSX built with `.map()` and `dynamic()` on a string literal.
+- `pnpm check-ports` fails on a compiled file that differs from what the compiler writes, and `pnpm check-components` checks props types, `...rest`, `$bindable` and `defineModel` lists, class order, `"use client"` and context files, and in a Solid file the pragma, the `omit()` keys, a slot read twice outside a `<For>`, JSX built with `.map()`, `dynamic()` on a string literal and a ternary, `&&`, `||` or `??` passed to a component.
 - `tests/unit/component-contract.test.ts` and `tests/unit/parity.test.ts` compare the rendered markup with Astro's.
 - `pnpm test:apps` (`tests/apps/apps.spec.ts`) runs every example in Next.js, Nuxt, SvelteKit, the Vite starters and React's StrictMode, with changes made before hydration, elements loaded before React, a restored page and a form reset. Behavior that only shows at runtime belongs there: name the scenario that would catch it instead of guessing from the code.
 
@@ -46,7 +46,7 @@ Read the compiled file next to the closest hand-written sibling of its kind (`Te
 - Lists are `<For each={list}>` (the item a plain value, the index an accessor) or `<Repeat count={count}>`, never `.map()` in JSX, which builds every row again when the list changes.
 - `<Show>` only where the content needs the narrowed value, as an argument or a tag. Any other condition is `&&` or a ternary.
 - Props read as `props.x`, never destructured, and the rest taken with `omit(props, ...)`. No `merge`, `mergeProps` or `splitProps`.
-- An accessor (`const size = () => ...`) for a default and for a derived value that reads a prop, a context or a slot, named after the Astro const, or after the attribute for a condition hoisted out of a component's prop. No object with one getter where an accessor does the job.
+- An accessor (`const size = () => ...`) for a default and for a derived value that reads a prop, a context or a slot, named after the Astro const, or after the attribute for a condition (a ternary, `&&`, `||` or `??`) hoisted out of a component's prop, which Solid would compile to a memo with a hydration id per read. No object with one getter where an accessor does the job.
 - `children(() => props.label)` for a slot read more than once, created under the provider when the component provides a context, and once per item inside a `<For>`, where a slot read once is `{props.end}`: a node has one parent.
 - A tag that is always one string is the element (`<selectedcontent />`), a per-item tag `<Dynamic component={tag}>`, and `dynamic()` only for a tag that reads a prop.
 - A class list of one entry is the entry (`class={props.class}`); several are the `class={[...]}` array with objects for toggles, never a joined string.

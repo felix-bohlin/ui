@@ -821,12 +821,18 @@ describe("the ports of a sample", () => {
     ).toContain("uses the name firstValue")
   })
 
-  test("Solid reads a condition in a component's prop through an accessor named after the attribute, since each read of the compiled prop takes a hydration id", async () => {
+  test("Solid reads a ternary, &&, || or ?? in a component's prop through an accessor named after the attribute, since each read of the compiled prop takes a hydration id", async () => {
     const ports = await compile(
       '---\nimport type { Props } from "./types.astro"\nimport Button from "../Button/Button.astro"\n\nconst buttonTitle = "Close"\nconst { class: className, items, label, ...rest } = Astro.props\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Button title={label ? "Labelled" : rest.title}>Close</Button>\n  {items.map((item) => <Button title={item && label}>{item}</Button>)}\n  <p title={label ? buttonTitle : undefined} />\n</div>\n',
     )
     expect(ports["solid.tsx"]).toBe(
       '/** @jsxImportSource @solidjs/web */\nimport { For, omit } from "solid-js"\nimport Button from "../Button/Button.solid"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "items", "label")\n  const buttonTitle = "Close"\n  const title = () => (props.label ? "Labelled" : rest.title)\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      <Button title={title()}>Close</Button>{" "}\n      <For each={props.items} keyed={false}>\n        {(item) => {\n          const itemTitle = () => item() && props.label\n          return <Button title={itemTitle()}>{item()}</Button>\n        }}\n      </For>\n      <p title={props.label ? buttonTitle : undefined} />\n    </div>\n  )\n}\n',
+    )
+    const logical = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport Button from "../Button/Button.astro"\n\nconst { class: className, label, ...rest } = Astro.props\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Button id={label ?? rest.id} title={rest.title || label} type="button">Close</Button>\n</div>\n',
+    )
+    expect(logical["solid.tsx"]).toContain(
+      '  const id = () => props.label ?? rest.id\n  const title = () => rest.title || props.label\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      <Button id={id()} title={title()} type="button">\n',
     )
   })
 

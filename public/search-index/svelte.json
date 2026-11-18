@@ -1546,11 +1546,25 @@
     "url": "/svelte/components/menu/#current-item"
   },
   {
+    "id": "component-menu-svelte-pressed-items",
+    "title": "Pressed items",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/svelte/components/menu/#pressed-items"
+  },
+  {
     "id": "component-menu-svelte-custom-check",
     "title": "Custom check",
     "page": "Menu",
     "category": "Component",
     "url": "/svelte/components/menu/#custom-check"
+  },
+  {
+    "id": "component-menu-svelte-long-menus",
+    "title": "Long menus",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/svelte/components/menu/#long-menus"
   },
   {
     "id": "component-menu-svelte-placement",

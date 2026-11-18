@@ -1546,11 +1546,25 @@
     "url": "/vue/components/menu/#current-item"
   },
   {
+    "id": "component-menu-vue-pressed-items",
+    "title": "Pressed items",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/vue/components/menu/#pressed-items"
+  },
+  {
     "id": "component-menu-vue-custom-check",
     "title": "Custom check",
     "page": "Menu",
     "category": "Component",
     "url": "/vue/components/menu/#custom-check"
+  },
+  {
+    "id": "component-menu-vue-long-menus",
+    "title": "Long menus",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/vue/components/menu/#long-menus"
   },
   {
     "id": "component-menu-vue-placement",

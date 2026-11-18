@@ -1546,11 +1546,25 @@
     "url": "/html/components/menu/#current-item"
   },
   {
+    "id": "component-menu-html-pressed-items",
+    "title": "Pressed items",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/html/components/menu/#pressed-items"
+  },
+  {
     "id": "component-menu-html-custom-check",
     "title": "Custom check",
     "page": "Menu",
     "category": "Component",
     "url": "/html/components/menu/#custom-check"
+  },
+  {
+    "id": "component-menu-html-long-menus",
+    "title": "Long menus",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/html/components/menu/#long-menus"
   },
   {
     "id": "component-menu-html-placement",

@@ -616,6 +616,15 @@ export const toVue = (component) => {
         0,
       )
     if (!node.consts.some(({ name }) => reads(name) > 1)) return undefined
+    const readsSlot = node.consts.some(({ code }) => {
+      const ids = identifiersIn(code)
+      return (
+        slotsUsedIn(code).length > 0 ||
+        trimmedSlots.some(({ local }) => ids.has(local)) ||
+        [...ids].some((name) => slotReaders.has(name))
+      )
+    })
+    if (readsSlot) return undefined
     const binding = itemBinding(node.item)
     if (!binding) {
       throw unsupported(

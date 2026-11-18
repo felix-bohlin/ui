@@ -1875,6 +1875,17 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): keep the consts inline when the list or a const reads a name the template declares, such as an outer loop's item
     - B: refuse the loop with a named construct
   - Fixed: Option A. The `each` branch of `emitOne` in `scripts/component-vue.mjs` carries the names the template declares (each enclosing loop's item names, index and consts) in the scope as `declared`, and `rowsOf` returns no rows list when the list or a const of the loop reads one of them, so the inner loop stays `v-for="(entry, index) in group.items"` with its consts where they are read. The probe is a sample in `tests/unit/build-components.test.ts`, which fails on a `computed` and on `group` in the script. No compiled file changed. `scripts/AGENTS.md` and `packages/opui/components/AGENTS.md` state the rule.
+- [ ] (2) Tooling: the React emitter builds the dependency list of a memoized context value from the names each entry reads, and it lists `rest` for an element access (`rest["aria-label"]`) and a body const that is a function or an object by its name, each new on every render, so the memo never holds. The compiler emits it without naming the construct, and oxlint then fails on the compiled file (`react-hooks(exhaustive-deps)`). No component has such a provider yet (`scripts/component-react.mjs:59-86`)
+  - Summary: A provider that reads `rest["..."]` or a local function would compile to a memo that never holds, and fail lint in a generated file.
+  - Recommended: Fix with option A. The compiler names a construct it can't write, and the author hears it from the build, not from lint on a file they can't edit.
+  - Fix: found by reviewing commit `dafdb6524` with probe sources: a provided `{ label: rest["aria-label"], id: rest.id }` emits `[rest, rest.id]`, and a provided body const `const label = () => name + "!"` emits `[label]`. The lists are complete, only too wide. Add each probe as a sample to `tests/unit/build-components.test.ts`.
+  - Options:
+    - A (recommended): refuse a provided entry whose dependency is `rest` itself or a body const that isn't a primitive, with a named construct
+    - B: hoist such a const into its own `useMemo` or `useCallback` and read an element access into a local first, so the list stays narrow
+- [ ] (2) Tests: no test holds the memoized React context in place: nothing asserts that a memoized consumer skips a render when only the provider's parent renders, or that `onValueChange` fires once per change in StrictMode, `check-components` has no rule against an object literal as a context `value`, and four emitter branches have no sample (the hoisted `const attrs = defined(rest)`, the carried `ComponentProps<"li">` cast, the refusal of a body const named `Context` and the `contextValue` fallback name) (`scripts/component-react.mjs:393-405`, `scripts/check-components.mjs`, `tests/unit/build-components.test.ts`)
+  - Summary: The memoized React context values work today, but only the compiled files themselves would show a regression.
+  - Recommended: Fix. The review ran both behaviors by hand in Chromium, so the tests only need to record what already passes.
+  - Fix: Add a unit test that renders ToggleGroup with a `memo` consumer of its context and counts renders and `onValueChange` calls under `<StrictMode>`, a rule in `checkReactProps` with a flagged sample in `tests/unit/check-scripts.test.ts`, and a sample per branch in `tests/unit/build-components.test.ts`.
 
 ## Docs
 

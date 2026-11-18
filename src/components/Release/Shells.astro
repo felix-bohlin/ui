@@ -6,6 +6,7 @@ import {
   exampleSources,
 } from "../../utils/examples"
 import { FRAMEWORKS, type FrameworkId } from "../../utils/framework"
+import { SOLID_PRAGMA } from "../../../scripts/component-shared.mjs"
 import { renderSolid } from "../Example/render-solid"
 
 const id = "shells"
@@ -136,7 +137,7 @@ const source = (framework: FrameworkId) => {
   if (!code) {
     throw new Error(`Shells.astro: ${slug}/${name} has no ${framework} file`)
   }
-  return code.trimEnd()
+  return code.replace(`${SOLID_PRAGMA}\n`, "").trimEnd()
 }
 
 const displayLabel = (framework: FrameworkId, label: string) =>

@@ -1,13 +1,6 @@
 <script setup lang="ts">
 import "../../elements/callout.js"
-import {
-  computed,
-  type HTMLAttributes,
-  provide,
-  reactive,
-  useAttrs,
-  useId,
-} from "vue"
+import { computed, provide, reactive, useAttrs, useId } from "vue"
 import { vHydrated } from "../vue"
 import Button from "../Button/Button.vue"
 import { CalloutKey } from "./context.vue"
@@ -28,7 +21,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs() as HTMLAttributes
+const attrs = useAttrs()
 
 const uid = useId()
 

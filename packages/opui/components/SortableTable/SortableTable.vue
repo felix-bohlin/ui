@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import "../../elements/sortable-table.js"
-import { type HTMLAttributes, useAttrs } from "vue"
+import { useAttrs } from "vue"
 import { vHydrated } from "../vue"
 import { defined } from "../attrs"
 import type { Props, Emits, Slots } from "./types.vue-props"
@@ -13,7 +13,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs() as HTMLAttributes
+const attrs = useAttrs()
 </script>
 
 <template>

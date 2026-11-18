@@ -929,10 +929,13 @@ test("VUE_MODEL_VALUE lists the components whose Vue file holds the value in a m
     .filter(
       (api) =>
         api.model?.prop === "value" &&
-        globSync(`packages/opui/components/*/${api.component}.vue`).some(
-          (file) =>
-            /^const model = defineModel/m.test(readFileSync(file, "utf8")),
-        ),
+        globSync(`packages/opui/components/*/${api.component}.vue`)
+          .map((file) => readFileSync(file, "utf8"))
+          .some(
+            (source) =>
+              /^const model = defineModel/m.test(source) &&
+              !source.includes('v-model="model"'),
+          ),
     )
     .map((api) => api.component)
     .toSorted()

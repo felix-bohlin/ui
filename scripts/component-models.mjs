@@ -5,8 +5,8 @@ const arrayRead = (model) => model.read.startsWith("selectionOf")
 
 const bindableProps = (model) => model.bindables.map(({ prop }) => prop)
 
-const optionalModel = (model) =>
-  `const modelValue = defineModel<${model.type} | undefined>({\n  default: undefined,\n})`
+const optionalModel = (model, name = "modelValue") =>
+  `const ${name} = defineModel<${model.type} | undefined>({\n  default: undefined,\n})`
 
 const selectionImports = (component, model) =>
   arrayRead(model)
@@ -102,8 +102,8 @@ export const MODEL_KINDS = {
       typedBindables: true,
     },
     vue: {
-      attributes: () => ['v-model="modelValue"'],
-      setup: (model) => [optionalModel(model)],
+      attributes: () => ['v-model="model"'],
+      setup: (model) => [optionalModel(model, "model")],
     },
   },
   group: {

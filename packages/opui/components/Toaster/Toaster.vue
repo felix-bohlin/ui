@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import "../../elements/toaster.js"
-import { type HTMLAttributes, useAttrs } from "vue"
+import { useAttrs } from "vue"
 import { warnMissingId } from "../dev"
 import { defined } from "../attrs"
 import type { Props } from "./types.vue-props"
@@ -11,7 +11,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs() as HTMLAttributes
+const attrs = useAttrs()
 
 warnMissingId("Toaster", id)
 </script>

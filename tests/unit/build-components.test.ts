@@ -195,7 +195,7 @@ describe("the ports of a sample", () => {
     )
     expect(ports.svelte).toContain("{...onItem ? {} : (rest as object)}")
     expect(ports.vue).toContain("inheritAttrs: false")
-    expect(ports.vue).toContain("const attrs = useAttrs() as HTMLAttributes")
+    expect(ports.vue).toContain("const attrs = useAttrs()\n")
     expect(ports.vue).toContain('v-bind="onItem ? attrs : {}"')
     expect(ports.vue).toContain('v-bind="onItem ? {} : attrs"')
   })
@@ -225,7 +225,7 @@ describe("the ports of a sample", () => {
       '<script lang="ts">\n  import { defined } from "../attrs"\n  import { classAttrs } from "../cx"\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n    label,\n    numeric,\n    sortable,\n\n    // Snippets\n    children,\n    endText,\n    ...rest\n  }: Props = $props()\n</script>\n\n<th\n  {...classAttrs([{ "ui-numeric": numeric }, className])}\n  data-sort={sortable ? "" : undefined}\n  {...defined(rest)}\n>\n  {#if sortable}\n    <button type="button">\n      {@render children?.()}\n    </button>\n  {:else}\n    {@render children?.()}\n  {/if}\n  {#if label}\n    <span class="ui-label">\n      {label}{@render endText?.()}\n    </span>\n  {/if}\n</th>\n',
     )
     expect(ports.vue).toBe(
-      '<script setup lang="ts">\nimport { type HTMLAttributes, useAttrs } from "vue"\nimport { defined } from "../attrs"\nimport { classAttrs } from "../cx"\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { label, numeric, sortable } = defineProps<Props>()\ndefineSlots<Slots>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useAttrs() as HTMLAttributes\n</script>\n\n<template>\n  <th\n    :data-sort="sortable ? \'\' : undefined"\n    v-bind="{\n      ...defined(attrs),\n      ...classAttrs([{ \'ui-numeric\': numeric }, $props.class]),\n    }"\n  >\n    <button v-if="sortable" type="button"><slot></slot></button>\n    <slot v-else></slot>{{ " "\n    }}<span v-if="label" class="ui-label"\n      >{{ label }}<slot name="end-text"></slot\n    ></span>\n  </th>\n</template>\n',
+      '<script setup lang="ts">\nimport { useAttrs } from "vue"\nimport { defined } from "../attrs"\nimport { classAttrs } from "../cx"\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { label, numeric, sortable } = defineProps<Props>()\ndefineSlots<Slots>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useAttrs()\n</script>\n\n<template>\n  <th\n    :data-sort="sortable ? \'\' : undefined"\n    v-bind="{\n      ...defined(attrs),\n      ...classAttrs([{ \'ui-numeric\': numeric }, $props.class]),\n    }"\n  >\n    <button v-if="sortable" type="button"><slot></slot></button>\n    <slot v-else></slot>{{ " "\n    }}<span v-if="label" class="ui-label"\n      >{{ label }}<slot name="end-text"></slot\n    ></span>\n  </th>\n</template>\n',
     )
     expect(ports["solid.tsx"]).toBe(
       '/** @jsxImportSource @solidjs/web */\nimport { children, omit } from "solid-js"\nimport { defined } from "../attrs"\nimport { cx } from "../cx"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(\n    props,\n    "class",\n    "label",\n    "numeric",\n    "sortable",\n    "children",\n    "endText",\n  )\n  const resolvedChildren = children(() => props.children)\n\n  return (\n    <th\n      class={cx([{ "ui-numeric": props.numeric }, props.class])}\n      data-sort={props.sortable ? "" : undefined}\n      {...defined(rest)}\n    >\n      {props.sortable ? (\n        <button type="button">{resolvedChildren()}</button>\n      ) : (\n        resolvedChildren()\n      )}{" "}\n      {props.label && (\n        <span class="ui-label">\n          {props.label}\n          {props.endText}\n        </span>\n      )}\n    </th>\n  )\n}\n',
@@ -445,7 +445,7 @@ describe("the ports of a sample", () => {
       '<script lang="ts">\n  import "../../elements/sample.js"\n  import { defined } from "../attrs"\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n    label,\n\n    // Snippets\n    children,\n    ...rest\n  }: Props = $props()\n</script>\n\n<opui-sample\n  class={["ui-sample", className]}\n  data-label={label}\n  {...defined(rest)}\n>\n  {@render children?.()}\n  <span class="ui-sr-only" role="status"></span>\n</opui-sample>\n',
     )
     expect(ports.vue).toBe(
-      '<script setup lang="ts">\nimport "../../elements/sample.js"\nimport { type HTMLAttributes, useAttrs } from "vue"\nimport { defined } from "../attrs"\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { label } = defineProps<Props>()\ndefineSlots<Slots>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useAttrs() as HTMLAttributes\n</script>\n\n<template>\n  <component\n    is="opui-sample"\n    :class="[\'ui-sample\', $props.class]"\n    :data-label="label"\n    v-bind="defined(attrs)"\n  >\n    <slot></slot>{{ " " }}<span class="ui-sr-only" role="status"></span>\n  </component>\n</template>\n',
+      '<script setup lang="ts">\nimport "../../elements/sample.js"\nimport { useAttrs } from "vue"\nimport { defined } from "../attrs"\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { label } = defineProps<Props>()\ndefineSlots<Slots>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useAttrs()\n</script>\n\n<template>\n  <component\n    is="opui-sample"\n    :class="[\'ui-sample\', $props.class]"\n    :data-label="label"\n    v-bind="defined(attrs)"\n  >\n    <slot></slot>{{ " " }}<span class="ui-sr-only" role="status"></span>\n  </component>\n</template>\n',
     )
     expect(ports["solid.tsx"]).toBe(
       '/** @jsxImportSource @solidjs/web */\nimport { omit } from "solid-js"\nimport "../../elements/sample.js"\nimport { defined } from "../attrs"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "label", "children")\n\n  return (\n    <opui-sample\n      class={["ui-sample", props.class]}\n      data-label={props.label}\n      {...defined(rest)}\n    >\n      {props.children} <span class="ui-sr-only" role="status" />\n    </opui-sample>\n  )\n}\n',
@@ -702,7 +702,7 @@ describe("the ports of a sample", () => {
       'import { cx } from "../cx"\nimport type { Props } from "./types.react"\n\nexport default function Sample({ className, items, children, ...rest }: Props) {\n  return (\n    <ul className={cx(["ui-sample", className])} {...rest}>\n      {items?.map(({ href, label, ...itemRest }, index) => {\n        const Tag = href ? "a" : "span"\n        return (\n          <li key={index}>\n            <Tag href={href} {...itemRest}>\n              {label}\n            </Tag>\n          </li>\n        )\n      })}\n      {children}\n    </ul>\n  )\n}\n',
     )
     expect(ports.svelte).toContain(
-      '{#each items ?? [] as { href, label, ...itemRest }, index (index)}\n    {@const Tag = href ? "a" : "span"}\n    <li>\n      <svelte:element this={Tag} {href} {...itemRest}>{label}</svelte:element>\n    </li>\n  {/each}',
+      '{#each items as { href, label, ...itemRest }, index (index)}\n    {@const Tag = href ? "a" : "span"}\n    <li>\n      <svelte:element this={Tag} {href} {...itemRest}>{label}</svelte:element>\n    </li>\n  {/each}',
     )
     expect(ports.vue).toBe(
       '<script setup lang="ts">\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { items } = defineProps<Props>()\ndefineSlots<Slots>()\n</script>\n\n<template>\n  <ul :class="[\'ui-sample\', $props.class]">\n    <li v-for="({ href, label, ...itemRest }, index) in items" :key="index">\n      <component :is="href ? \'a\' : \'span\'" :href="href" v-bind="itemRest">{{\n        label\n      }}</component>\n    </li>\n    <slot></slot>\n  </ul>\n</template>\n',
@@ -794,7 +794,7 @@ describe("the ports of a sample", () => {
       '      {items?.map((option, index) =>\n        typeof option === "object" ? (\n          <option key={index} value={option.value} label={option.label} />\n        ) : (\n          <option key={index} value={option} />\n        ),\n      )}\n',
     )
     expect(ports.svelte).toContain(
-      '{#each items ?? [] as option, index (index)}\n    {#if typeof option === "object"}\n      <option',
+      '{#each items as option, index (index)}\n    {#if typeof option === "object"}\n      <option',
     )
     expect(ports.vue).toContain(
       '<template v-for="(option, index) in items" :key="index"',
@@ -1306,9 +1306,9 @@ describe("the ports of a sample", () => {
     )
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
     expect(vue).toContain(
-      "const modelValue = defineModel<string | number | boolean | undefined>({\n  default: undefined,\n})",
+      "const model = defineModel<string | number | boolean | undefined>({\n  default: undefined,\n})",
     )
-    expect(vue).toContain('<RadioInput v-bind="attrs" v-model="modelValue" />')
+    expect(vue).toContain('<RadioInput v-bind="attrs" v-model="model" />')
     expect(outputs.get(sampleFile().replace(".astro", ".solid.tsx"))).toContain(
       "<RadioInput {...rest} />",
     )

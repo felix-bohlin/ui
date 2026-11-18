@@ -374,7 +374,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Checkbox`, `Radio` and `Switch` keep a light marker in dark mode on a fill darkened to keep 3:1 contrast.
 - `Checkbox`, `Radio` and `Switch` line up with the first line of their label and center on it.
 - `Checkbox` and `Radio` root selectors are wrapped in `:where()`, like other components.
-- `Checkbox` and `Radio` no longer render an empty `.ui-label` without a default slot, and warn in development when they have no label, `aria-label` or `aria-labelledby`, like `Switch`. All three warn in Vue too.
+- `Checkbox` and `Radio` no longer render an empty `.ui-label` without a default slot, and warn in development when they have no label, `aria-label` or `aria-labelledby`, like `Switch`. All three warn in Vue too. A development warning logs once per message, where React logged it on every render.
 - `Checkbox`, `Radio`, `Switch` and `Progress` align to the middle when there's no visible label, so they center in table cells and lines of text. Give them a hidden label (`hideLabel`, or `.ui-sr-only` in HTML). `Checkbox`, `Radio` and `Switch` then keep a box of at least `--ui-target-min-size` (24px) around the control, so the label stays a 24px pointer target.
 - `Chip` uses `--ui-radius` (8px) instead of Open Props `--radius-2` (5px).
 - `Chip` small is `--ui-chip-size-small` (28px, the x-small control size) instead of 24px.

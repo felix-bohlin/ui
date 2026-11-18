@@ -25,7 +25,7 @@ defineOptions({
 
 const attrs = useInputAttrs()
 
-const modelValue = defineModel<string | number | boolean | undefined>({
+const model = defineModel<string | number | boolean | undefined>({
   default: undefined,
 })
 
@@ -47,7 +47,7 @@ warnUnnamed("Radio", hasName({ ...attrs.value, label }, slots.default))
     <RadioInput
       v-bind="attrs"
       :aria-invalid="error ? 'true' : attrs['aria-invalid']"
-      v-model="modelValue"
+      v-model="model"
     />
     <span
       v-if="label || $slots.default"

@@ -223,7 +223,7 @@ export const toSvelte = (component) => {
                 `{@const ${name} = ${rewriteExpression(code, options)}}`,
             )
             .join("\n")
-          return `{#each ${node.list}${node.optional ? " ?? []" : ""} as ${node.item}${node.index ? `, ${node.index}` : ""} (${node.key?.code ?? node.index})}${body(node.children, scope, consts)}{/each}`
+          return `{#each ${node.list} as ${node.item}${node.index ? `, ${node.index}` : ""} (${node.key?.code ?? node.index})}${body(node.children, scope, consts)}{/each}`
         }
         const groupChecked =
           node.groupRadio !== undefined && kind?.modelsGroupRadio

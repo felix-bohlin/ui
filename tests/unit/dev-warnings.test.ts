@@ -63,6 +63,7 @@ import ToggleGroupReact from "../../packages/opui/components/ToggleGroup/ToggleG
 import ToggleGroupSolid from "../../packages/opui/components/ToggleGroup/ToggleGroup.solid"
 import ToggleGroupSvelte from "../../packages/opui/components/ToggleGroup/ToggleGroup.svelte"
 import ToggleGroupVue from "../../packages/opui/components/ToggleGroup/ToggleGroup.vue"
+import { resetWarnings } from "../../packages/opui/components/dev"
 import AnchorContentAttributesAstro from "./fixtures/AnchorContentAttributes.astro"
 import AnchorContentAttributesSvelte from "./fixtures/AnchorContentAttributes.svelte"
 import ReplacedIdsAstro from "./fixtures/ReplacedIds.astro"
@@ -102,6 +103,7 @@ const warnings = () => warn.mock.calls.map(([message]) => String(message))
 
 beforeEach(() => {
   warn.mockClear()
+  resetWarnings()
 })
 
 afterAll(() => {
@@ -113,6 +115,17 @@ describe.each(Object.entries(CONTROLS))("%s", (name, components) => {
     "%s warns when it has no accessible name",
     async (framework) => {
       await render[framework](components[framework], { value: "a" })
+      expect(warnings()).toEqual([
+        `[OPUI ${name}] Missing accessible name. Provide a default slot, and set \`hideLabel\` to hide it visually.`,
+      ])
+    },
+  )
+
+  test.each(CONTROL_FRAMEWORKS)(
+    "%s warns once when it renders again",
+    async (framework) => {
+      await render[framework](components[framework], { value: "a" })
+      await render[framework](components[framework], { value: "b" })
       expect(warnings()).toEqual([
         `[OPUI ${name}] Missing accessible name. Provide a default slot, and set \`hideLabel\` to hide it visually.`,
       ])

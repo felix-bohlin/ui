@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import "../../elements/copy.js"
-import { type HTMLAttributes, useAttrs } from "vue"
+import { useAttrs } from "vue"
 import { warnMissingId } from "../dev"
 import { defined } from "../attrs"
 import type { Props, Slots } from "./types.vue-props"
@@ -12,7 +12,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs() as HTMLAttributes
+const attrs = useAttrs()
 
 warnMissingId("Copy", id)
 </script>

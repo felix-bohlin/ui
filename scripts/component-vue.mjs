@@ -620,6 +620,79 @@ export const toVue = (component) => {
         ),
       ]
     : undefined
+  const vueHelpers = [
+    ...(computedAttrs ? ["useInputAttrs"] : []),
+    ...(kind?.vueHelpers?.(model) ?? []),
+    ...(item ? ["seedChecked"] : []),
+    ...(hydrating.size ? ["vHydrated"] : []),
+  ].toSorted(byName)
+  const vueProps = generic ? "Props & { multiple?: Multiple }" : "Props"
+  const modelType = generic
+    ? `type Model = Multiple extends true ? ${unionMembers(model.type)
+        .filter(isArrayType)
+        .join(" | ")} : ${unionMembers(model.type)
+        .filter((member) => !isArrayType(member))
+        .join(" | ")}`
+    : undefined
+  const propsLine = `${modelType ? `${modelType}\n\n` : ""}${
+    declared.length
+      ? `const { ${declared.join(", ")} } = defineProps<${vueProps}>()`
+      : `defineProps<${vueProps}>()`
+  }`
+  const slotsLine = slotsInScript
+    ? `const slots = defineSlots<${slotsType}>()`
+    : `defineSlots<${slotsType}>()`
+  const declarations = derived.map(({ code, fn, name }) => ({
+    line: fn
+      ? `const ${name} = ${rewriteExpression(code, script)}`
+      : getters.has(name)
+        ? `const ${name} = () => ${rewriteExpression(code, script)}`
+        : `const ${name} = computed(() => ${rewriteExpression(code, script)})`,
+    name,
+  }))
+  const statements = [
+    ...(filteredAttrs
+      ? [
+          `const restAttrs = computed(() =>\n  Object.fromEntries(\n    Object.entries(attrs).filter(\n      ([key]) => ${attributeProps.map(({ prop }) => `key !== ${JSON.stringify(prop)}`).join(" && ")},\n    ),\n  ),\n)`,
+        ]
+      : []),
+    ...(kind?.setup?.(model, generic) ?? []),
+    ...reads.map(
+      ({ context, name }) =>
+        `const ${name} = inject(${context.name}Key, undefined)`,
+    ),
+    ...(uid ? ["const uid = useId()"] : []),
+    ...declarations.map(({ line }) => line),
+    ...warnings.map((code) => rewriteStatement(code, script)),
+    ...(item
+      ? [
+          `watchEffect(() =>\n  ${groupWarning(component, item, kind?.warningChecked?.(item) ?? item.checked ?? "undefined", `${item.grouped}.value`)},\n)`,
+          `const change = (input: HTMLInputElement) => {\n${[
+            ...(kind?.change?.(item) ?? []),
+            `${item.parent}?.change?.(input)`,
+          ]
+            .map((line) => `  ${line}\n`)
+            .join("")}}`,
+          "const vSeedChecked = seedChecked(change)",
+        ]
+      : []),
+    ...(provide
+      ? [
+          `provide(${provide.context.name}Key, reactive({ ${provided.join(", ")} }))`,
+        ]
+      : []),
+  ]
+  const plainAttrs =
+    !computedAttrs && (allAttrs || explicitAttrs || restUsed || definedRoot)
+  const typedAttrs =
+    plainAttrs &&
+    !explicitAttrs &&
+    (/(?<![$\w.])attrs[.[]/.test(markup) ||
+      withoutUnused(statements, markup, declarations).some((code) =>
+        /(?<![$\w.])attrs(?![$\w])/.test(
+          code.replaceAll("Object.entries(attrs)", ""),
+        ),
+      ))
   const vueImports = [
     ...(computedConsts.length ||
     filteredAttrs ||
@@ -631,19 +704,15 @@ export const toVue = (component) => {
     ...(provide ? ["provide", "reactive"] : []),
     ...(explicitAttrs
       ? ["type IntrinsicElementAttributes", "useAttrs"]
-      : allAttrs || definedRoot || (restUsed && !attrsOnInner)
+      : typedAttrs
         ? ["type HTMLAttributes", "useAttrs"]
-        : []),
+        : plainAttrs
+          ? ["useAttrs"]
+          : []),
     ...(attributeHelpers.has("mergeProps") ? ["mergeProps"] : []),
     ...(item ? ["watchEffect"] : []),
     ...(uid ? ["useId"] : []),
   ].toSorted((a, b) => byName(a.replace(/^type /, ""), b.replace(/^type /, "")))
-  const vueHelpers = [
-    ...(computedAttrs ? ["useInputAttrs"] : []),
-    ...(kind?.vueHelpers?.(model) ?? []),
-    ...(item ? ["seedChecked"] : []),
-    ...(hydrating.size ? ["vHydrated"] : []),
-  ].toSorted(byName)
   const importLines = [
     ...scriptImports(component),
     ...(vueImports.length
@@ -679,30 +748,6 @@ export const toVue = (component) => {
       ...(slots.length ? [slotsType] : []),
     ]),
   ]
-  const vueProps = generic ? "Props & { multiple?: Multiple }" : "Props"
-  const modelType = generic
-    ? `type Model = Multiple extends true ? ${unionMembers(model.type)
-        .filter(isArrayType)
-        .join(" | ")} : ${unionMembers(model.type)
-        .filter((member) => !isArrayType(member))
-        .join(" | ")}`
-    : undefined
-  const propsLine = `${modelType ? `${modelType}\n\n` : ""}${
-    declared.length
-      ? `const { ${declared.join(", ")} } = defineProps<${vueProps}>()`
-      : `defineProps<${vueProps}>()`
-  }`
-  const slotsLine = slotsInScript
-    ? `const slots = defineSlots<${slotsType}>()`
-    : `defineSlots<${slotsType}>()`
-  const declarations = derived.map(({ code, fn, name }) => ({
-    line: fn
-      ? `const ${name} = ${rewriteExpression(code, script)}`
-      : getters.has(name)
-        ? `const ${name} = () => ${rewriteExpression(code, script)}`
-        : `const ${name} = computed(() => ${rewriteExpression(code, script)})`,
-    name,
-  }))
   const setup = [
     importLines.join("\n"),
     [
@@ -713,45 +758,16 @@ export const toVue = (component) => {
     ...(inheritsAttrs ? [] : ["defineOptions({\n  inheritAttrs: false,\n})"]),
     ...(computedAttrs
       ? ["const attrs = useInputAttrs()"]
-      : allAttrs
-        ? ["const attrs = useAttrs() as HTMLAttributes"]
-        : explicitAttrs
-          ? [
-              `const attrs = useAttrs() as IntrinsicElementAttributes[${JSON.stringify(model.element.tag)}]`,
-            ]
-          : restUsed || definedRoot
-            ? ["const attrs = useAttrs() as HTMLAttributes"]
-            : []),
-    ...(filteredAttrs
-      ? [
-          `const restAttrs = computed(() =>\n  Object.fromEntries(\n    Object.entries(attrs).filter(\n      ([key]) => ${attributeProps.map(({ prop }) => `key !== ${JSON.stringify(prop)}`).join(" && ")},\n    ),\n  ),\n)`,
-        ]
-      : []),
-    ...(kind?.setup?.(model, generic) ?? []),
-    ...reads.map(
-      ({ context, name }) =>
-        `const ${name} = inject(${context.name}Key, undefined)`,
-    ),
-    ...(uid ? ["const uid = useId()"] : []),
-    ...declarations.map(({ line }) => line),
-    ...warnings.map((code) => rewriteStatement(code, script)),
-    ...(item
-      ? [
-          `watchEffect(() =>\n  ${groupWarning(component, item, kind?.warningChecked?.(item) ?? item.checked ?? "undefined", `${item.grouped}.value`)},\n)`,
-          `const change = (input: HTMLInputElement) => {\n${[
-            ...(kind?.change?.(item) ?? []),
-            `${item.parent}?.change?.(input)`,
+      : explicitAttrs
+        ? [
+            `const attrs = useAttrs() as IntrinsicElementAttributes[${JSON.stringify(model.element.tag)}]`,
           ]
-            .map((line) => `  ${line}\n`)
-            .join("")}}`,
-          "const vSeedChecked = seedChecked(change)",
-        ]
-      : []),
-    ...(provide
-      ? [
-          `provide(${provide.context.name}Key, reactive({ ${provided.join(", ")} }))`,
-        ]
-      : []),
+        : typedAttrs
+          ? ["const attrs = useAttrs() as HTMLAttributes"]
+          : plainAttrs
+            ? ["const attrs = useAttrs()"]
+            : []),
+    ...statements,
   ]
   const kept = withoutUnused(setup, markup, declarations)
   return `<script setup lang="ts"${generic ? ' generic="Multiple extends boolean = false"' : ""}>\n${kept.join("\n\n")}\n</script>\n\n<template>\n${indent(markup, 2)}\n</template>\n`

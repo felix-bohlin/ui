@@ -25,7 +25,7 @@ defineOptions({
 
 const attrs = useInputAttrs()
 
-const modelValue = defineModel<boolean | (string | number)[] | undefined>({
+const model = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
 
@@ -59,7 +59,7 @@ warnUnnamed("Switch", hasName({ ...attrs.value, label }, slots.default))
     }}<SwitchInput
       v-bind="attrs"
       :aria-invalid="error ? 'true' : attrs['aria-invalid']"
-      v-model="modelValue"
+      v-model="model"
     />
     <span
       v-if="label || $slots.default"

@@ -29,10 +29,14 @@ import {
   byName,
   chosenSpreadCode,
   classMayBeEmpty,
+  codesIn,
+  elementsIn,
   filtersRest,
+  identifierCounts,
   identifiersIn,
   isArrayType,
   isBlank,
+  itemBinding,
   onlyClass,
   PRESERVED_TAGS,
   propKey,
@@ -424,18 +428,23 @@ export const toVue = (component) => {
       return `${consequent}\n${directive(node.alternate, "v-else", undefined, scope)}`
     }
     if (node.type === "each") {
-      const inner = {
-        ...scope,
-        rename: new Map([
-          ...scope.rename,
-          ...node.consts.map(({ code, name }) => [
-            name,
-            rewriteExpression(code, scope),
-          ]),
-        ]),
-      }
+      const rows = rowsOf(node)
+      const inner = rows
+        ? scope
+        : {
+            ...scope,
+            rename: new Map([
+              ...scope.rename,
+              ...node.consts.map(({ code, name }) => [
+                name,
+                rewriteExpression(code, scope),
+              ]),
+            ]),
+          }
       const root = node.children.find((child) => !isBlank(child))
-      const loop = `v-for="${node.index ? `(${node.item}, ${node.index})` : node.item} in ${rewriteExpression(node.list, scope)}" :key="${node.key?.code ?? node.index}"`
+      const item = rows?.item ?? node.item
+      const list = rows?.name ?? rewriteExpression(node.list, scope)
+      const loop = `v-for="${node.index ? `(${item}, ${node.index})` : item} in ${list}" :key="${node.key?.code ?? node.index}"`
       return root.type === "element"
         ? emitOne(root, loop, inner)
         : `<template ${loop}>${emitOne(root, undefined, inner)}</template>`
@@ -592,6 +601,103 @@ export const toVue = (component) => {
         }),
       )
       .join("")
+  const rowLists = []
+  const rowsOf = (node) => {
+    const codes = [
+      ...node.consts.map(({ code }) => code),
+      ...codesIn(node.children),
+      ...elementsIn(node.children).flatMap((element) =>
+        element.variable ? [element.tag] : [],
+      ),
+    ]
+    const reads = (name) =>
+      codes.reduce(
+        (total, code) => total + (identifierCounts(code).get(name) ?? 0),
+        0,
+      )
+    if (!node.consts.some(({ name }) => reads(name) > 1)) return undefined
+    const binding = itemBinding(node.item)
+    if (!binding) {
+      throw unsupported(
+        component.file,
+        `the loop item \`${node.item}\`, whose consts the Vue port computes once per row`,
+        "take the item as one name, or as an object pattern of plain names",
+      )
+    }
+    const declared = new Set([
+      ...(binding.name ? [binding.name] : []),
+      ...binding.fields.map(({ local }) => local),
+      ...(binding.rest ? [binding.rest] : []),
+      ...node.consts.map(({ name }) => name),
+      node.index,
+    ])
+    const free = (bases) => {
+      const found = bases.find((base) => !used.has(base) && !declared.has(base))
+      if (!found) {
+        throw unsupported(
+          component.file,
+          `the names ${bases.join(", ")}`,
+          "rename one: the Vue port declares it for the rows of a loop",
+        )
+      }
+      return found
+    }
+    const name = free([
+      "rows",
+      ...(/^[A-Za-z_$][\w$]*$/.test(node.list.trim())
+        ? [`${node.list.trim()}Rows`]
+        : []),
+      `rows${rowLists.length + 1}`,
+    ])
+    used.add(name)
+    const key = free(["item", "entry", "row"])
+    const constCodes = node.consts.map(({ code }) => code)
+    const readInConsts = (local) =>
+      constCodes.some((code) => identifiersIn(code).has(local))
+    const fields = binding.fields.filter(({ local }) => readInConsts(local))
+    const pattern = binding.name
+      ? undefined
+      : binding.rest && readInConsts(binding.rest)
+        ? node.item
+        : fields.length
+          ? `{ ${fields.map(({ key: field, local }) => (field === local ? local : `${field}: ${local}`)).join(", ")} }`
+          : undefined
+    const parameter = binding.name ?? key
+    const rowScope = {
+      ...script,
+      rename: new Map(
+        [...script.rename].filter(([local]) => !declared.has(local)),
+      ),
+    }
+    const usesIndex = constCodes.some((code) =>
+      identifiersIn(code).has(node.index),
+    )
+    const entries = [
+      ...node.consts.map(({ name: local }) => local),
+      binding.name && binding.name !== key ? `${key}: ${binding.name}` : key,
+    ].toSorted(byName)
+    rowLists.push(
+      `const ${name} = computed(() =>\n  ${rewriteExpression(node.list, script)}${node.optional ? "?." : "."}map((${parameter}${usesIndex ? `, ${node.index}` : ""}) => {\n${[
+        ...(pattern ? [`const ${pattern} = ${parameter}`] : []),
+        ...node.consts.map(
+          ({ code, name: local }) =>
+            `const ${local} = ${rewriteExpression(code, rowScope)}`,
+        ),
+        `return { ${entries.join(", ")} }`,
+      ]
+        .map((line) => `    ${line}\n`)
+        .join("")}  }),\n)`,
+    )
+    return {
+      item: `{ ${[
+        ...node.consts.map(({ name: local }) => local),
+        `${key}: ${node.item}`,
+      ]
+        .toSorted(byName)
+        .join(", ")} }`,
+      name,
+    }
+  }
   const body = (nodes, scope) => {
     const inner =
       scope.preserved || scope.hugged
@@ -663,6 +769,7 @@ export const toVue = (component) => {
     ),
     ...(uid ? ["const uid = useId()"] : []),
     ...declarations.map(({ line }) => line),
+    ...rowLists,
     ...warnings.map((code) => rewriteStatement(code, script)),
     ...(item
       ? [
@@ -695,6 +802,7 @@ export const toVue = (component) => {
       ))
   const vueImports = [
     ...(computedConsts.length ||
+    rowLists.length ||
     filteredAttrs ||
     kind?.computed === true ||
     provided?.some((entry) => entry.includes("computed("))

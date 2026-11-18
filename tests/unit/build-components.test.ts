@@ -945,6 +945,23 @@ describe("the ports of a sample", () => {
     )
   })
 
+  test("Vue computes the consts of a loop once per row where one is read more than once, and writes a const read once where it is read", async () => {
+    const twice = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, label, ...rest } = Astro.props\n---\n\n<ul class:list={["ui-sample", className]} {...rest}>\n  {items.map(({ href, text, ...item }) => {\n    const closes = !href && !label\n    return <li data-command={closes ? "hide" : undefined} title={closes ? label : undefined} {...item}>{text}</li>\n  })}\n</ul>\n',
+    )
+    expect(twice.vue).toContain(
+      "const rows = computed(() =>\n  items.map((entry) => {\n    const { href } = entry\n    const closes = !href && !label\n    return { closes, entry }\n  }),\n)\n",
+    )
+    expect(twice.vue).toContain(
+      '      v-for="({ closes, entry: { href, text, ...item } }, index) in rows"\n      :key="index"\n      :data-command="closes ? \'hide\' : undefined"\n      :title="closes ? label : undefined"\n',
+    )
+    const once = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, label, ...rest } = Astro.props\n---\n\n<ul class:list={["ui-sample", className]} {...rest}>\n  {items.map(({ href, text, ...item }) => {\n    const closes = !href && !label\n    return <li data-command={closes ? "hide" : undefined} {...item}>{text}</li>\n  })}\n</ul>\n',
+    )
+    expect(once.vue).not.toContain("computed")
+    expect(once.vue).toContain("!href && !label ? 'hide' : undefined")
+  })
+
   test("accepts a helper import from another component folder", async () => {
     await expect(
       readComponent(

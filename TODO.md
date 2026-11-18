@@ -5516,6 +5516,24 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Options:
     - A (recommended): keep the glued form and document it in `packages/opui/components/AGENTS.md`, since it is what keeps the markup equal to Astro's.
     - B: where the parent is a flex or grid container, which renders no whitespace, start each block on its own line and normalize that whitespace in `tests/unit/normalize.ts`.
+- [ ] (1) ToggleGroup: the React and Solid ports call `onValueChange?.(next as never)`, where a cast to the callback's parameter type would say that the value is a string, or an array of strings with `multiple` (`packages/opui/components/ToggleGroup/ToggleGroup.react.tsx:29`, `packages/opui/components/ToggleGroup/ToggleGroup.solid.tsx:29`, `scripts/component-models.mjs:113`, `scripts/component-models.mjs:131`)
+  - Summary: The compiled React and Solid ToggleGroup pass the new value to `onValueChange` as `never`, which hides what the value is.
+  - Recommended: Fix. A named cast reads better and changes no behavior.
+  - Fix: in the `group` kind of `scripts/component-models.mjs`, emit a cast to the parameter of the callback for a model read with `selectionOf` (`next as Parameters<NonNullable<Props["onValueChange"]>>[0]`, or a `Value` type the React and Solid type files export) in place of `as never`. Found by the framework idioms blind port of ToggleGroup. Rendering is the same either way.
+- [ ] (1) Tooling: the React emitter spreads the rest props of a variable tag as `object` (`{...defined(rest as object)}` in Button, Avatar and Chip), where the Astro file casts them to `HTMLAttributes<"button">`, so the spread checks no attribute type. The Astro cast carried over as `ComponentProps<"button">` fails the type check on a tag that is `"a" | "button"`: the `ref` and every event handler are typed for one element (`packages/opui/components/Button/Button.react.tsx:31`, `scripts/component-react.mjs:203-217`)
+  - Summary: The compiled React Button, Avatar and Chip spread their rest props as `object`, so the spread checks no attribute type.
+  - Recommended: Fix with option A. It type checked in a trial and names the attributes every tag takes.
+  - Fix: found by the framework idioms blind port of Button. Rendering is the same either way, and Callout, Card, CardHeader, FieldLegend, Fieldset, Form, List and ListItem spread `rest as object` on a variable tag too, with no cast in the Astro file.
+  - Options:
+    - A (recommended): on a variable tag, cast to `HTMLAttributes<HTMLElement>` from `react`, whose handlers every element accepts, and on a plain element carry the Astro cast over as `ComponentProps` (`rest as ComponentProps<"li">` in ListItem). `pnpm typecheck` passed with both in a trial.
+    - B: keep `as object` and say in `scripts/AGENTS.md` that React spreads the rest of a variable tag untyped, since no single element type fits a union of tags.
+- [ ] (1) Tooling: the React emitter writes the value of a provided context as an object literal in the JSX (`<ToggleGroupContext value={{ change, groupName, inputType, value: value ?? inner }}>`, `<MenuContext value={{ rootId }}>`), and `change` is a new function on every render, so each render of the provider gives its consumers a new value. The same is in Callout, Dialog, Drawer, FieldGroup, Fieldset, Tabs and TabsItem (`packages/opui/components/ToggleGroup/ToggleGroup.react.tsx:36-38`, `packages/opui/components/Menu/Menu.react.tsx:32`, `scripts/component-react.mjs:302-305`)
+  - Summary: A compiled React provider gives its consumers a new context object on every render, so they render again when nothing changed.
+  - Recommended: Fix with option A. A memoized value costs little and needs nothing from the app's build.
+  - Fix: found by the framework idioms blind port of ToggleGroup and Menu. Rendering is the same either way; the cost is a render of every consumer when the provider's parent renders.
+  - Options:
+    - A (recommended): emit `const context = useMemo(() => ({ ... }), [...])` with the provided values as dependencies, and wrap a provided function such as `change` in `useCallback`.
+    - B: leave it and note in `packages/opui/components/AGENTS.md` that providers rely on the React Compiler or on children that aren't memoized.
 - [ ] (3) Docs site: the icon libraries list no Solid package: `lucide-solid` 1.74 and `@tabler/icons-solidjs` 3.52 require solid-js 1, and Fluent, Material Symbols and Phosphor ship none (`src/utils/icon-libraries.ts`)
   - Summary: The icon pages name React, Svelte and Vue icon packages but none for Solid, since none supports Solid 2 yet.
   - Recommended: Fix. List each library's Solid package once it accepts solid-js 2.

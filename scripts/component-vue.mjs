@@ -428,11 +428,18 @@ export const toVue = (component) => {
       return `${consequent}\n${directive(node.alternate, "v-else", undefined, scope)}`
     }
     if (node.type === "each") {
-      const rows = rowsOf(node)
+      const rows = rowsOf(node, scope)
+      const declared = new Set([
+        ...(scope.declared ?? []),
+        ...identifiersIn(node.item),
+        ...(node.index ? [node.index] : []),
+        ...node.consts.map(({ name }) => name),
+      ])
       const inner = rows
-        ? scope
+        ? { ...scope, declared }
         : {
             ...scope,
+            declared,
             rename: new Map([
               ...scope.rename,
               ...node.consts.map(({ code, name }) => [
@@ -602,7 +609,7 @@ export const toVue = (component) => {
       )
       .join("")
   const rowLists = []
-  const rowsOf = (node) => {
+  const rowsOf = (node, scope) => {
     const codes = [
       ...node.consts.map(({ code }) => code),
       ...codesIn(node.children),
@@ -616,15 +623,19 @@ export const toVue = (component) => {
         0,
       )
     if (!node.consts.some(({ name }) => reads(name) > 1)) return undefined
-    const readsSlot = node.consts.some(({ code }) => {
-      const ids = identifiersIn(code)
-      return (
-        slotsUsedIn(code).length > 0 ||
-        trimmedSlots.some(({ local }) => ids.has(local)) ||
-        [...ids].some((name) => slotReaders.has(name))
-      )
-    })
-    if (readsSlot) return undefined
+    const inTemplate = [node.list, ...node.consts.map(({ code }) => code)].some(
+      (code) => {
+        const ids = identifiersIn(code)
+        return (
+          slotsUsedIn(code).length > 0 ||
+          trimmedSlots.some(({ local }) => ids.has(local)) ||
+          [...ids].some(
+            (name) => slotReaders.has(name) || scope.declared?.has(name),
+          )
+        )
+      },
+    )
+    if (inTemplate) return undefined
     const binding = itemBinding(node.item)
     if (!binding) {
       throw unsupported(

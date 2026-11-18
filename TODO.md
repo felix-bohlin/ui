@@ -1856,13 +1856,14 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): keep the consts inline when one of them reads a slot
     - B: refuse the loop with a named construct, so the component is written by hand
   - Fixed: Option A. `rowsOf` in `scripts/component-vue.mjs` returns no rows list when a const of the loop reads a slot (`Astro.slots.has`, a trimmed slot or a derived value that reads one), so the consts stay where they are read and compile to `$slots.icon`. The probe is a sample in `tests/unit/build-components.test.ts`, which fails on a `computed` and on a bare `slots`. No compiled file changed. `scripts/AGENTS.md` and `packages/opui/components/AGENTS.md` state the rule.
-- [ ] (3) Tooling: the Vue emitter hoists the list of an inner loop into a script `computed` when one of its consts is read more than once, and the list and the consts still name the outer loop's item (`group.items.map(...)`, `group.label + entry.label`), which the script doesn't have. The compiler emits it without refusing. No component nests such a loop yet (`scripts/component-vue.mjs:605-690`)
+- [x] (3) Tooling: the Vue emitter hoists the list of an inner loop into a script `computed` when one of its consts is read more than once, and the list and the consts still name the outer loop's item (`group.items.map(...)`, `group.label + entry.label`), which the script doesn't have. The compiler emits it without refusing. No component nests such a loop yet (`scripts/component-vue.mjs:605-690`)
   - Summary: A Vue component with a nested loop whose const is used twice would compile to a script that reads an undefined variable.
   - Recommended: Fix with option A. A const or list that reads a template-scoped name can't live in the script, and the inline form handles it.
   - Fix: found by reviewing commit `60d8d9a62` with a probe source: `items.map((group) => group.items.map((entry) => { const both = group.label + entry.label; ... }))` with `both` read twice. Add the probe as a sample to `tests/unit/build-components.test.ts`.
   - Options:
     - A (recommended): keep the consts inline when the list or a const reads a name the template declares, such as an outer loop's item
     - B: refuse the loop with a named construct
+  - Fixed: Option A. The `each` branch of `emitOne` in `scripts/component-vue.mjs` carries the names the template declares (each enclosing loop's item names, index and consts) in the scope as `declared`, and `rowsOf` returns no rows list when the list or a const of the loop reads one of them, so the inner loop stays `v-for="(entry, index) in group.items"` with its consts where they are read. The probe is a sample in `tests/unit/build-components.test.ts`, which fails on a `computed` and on `group` in the script. No compiled file changed. `scripts/AGENTS.md` and `packages/opui/components/AGENTS.md` state the rule.
 
 ## Docs
 

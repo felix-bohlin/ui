@@ -1,5 +1,9 @@
 import { expect, type Page, test } from "@playwright/test"
-import { instantScrolling, stubExternalHosts } from "./fixtures"
+import {
+  examplesMounted,
+  instantScrolling,
+  stubExternalHosts,
+} from "./fixtures"
 
 const THEME_KEY = "opui-theme"
 
@@ -46,9 +50,10 @@ for (const framework of FRAMEWORKS) {
     page,
   }) => {
     await page.goto(`/${framework}/components/button/`)
+    await examplesMounted(page, framework)
     await expect(
       page.locator("svg[data-icon]").first(),
-      "the examples are mounted",
+      "the examples show icons",
     ).toBeVisible()
     const fluent = await icons(page)
     expect(fluent.length).toBeGreaterThan(0)

@@ -67,7 +67,7 @@
           times louder. Here's what's new and how we built it.
         </p>
       </hgroup>
-      <ul class="ui-layout-row ui-x-small" aria-label="Tags">
+      <ul class="ui-layout-row ui-x-small blog-tags" aria-label="Tags">
         <li><Chip label="Bassbook news" size="small" /></li>
         <li><Chip label="Release" size="small" /></li>
       </ul>
@@ -105,7 +105,7 @@
             </p>
           </hgroup>
           <CardContent class="blog-meta">
-            <ul class="ui-layout-row ui-x-small" aria-label="Tags">
+            <ul class="ui-layout-row ui-x-small blog-tags" aria-label="Tags">
               <li><Chip label="Gear Talk" size="small" /></li>
               <li><Chip label="Pedals" size="small" /></li>
             </ul>
@@ -141,7 +141,7 @@
             </p>
           </hgroup>
           <CardContent class="blog-meta">
-            <ul class="ui-layout-row ui-x-small" aria-label="Tags">
+            <ul class="ui-layout-row ui-x-small blog-tags" aria-label="Tags">
               <li><Chip label="Guides" size="small" /></li>
               <li><Chip label="Jamming" size="small" /></li>
             </ul>
@@ -177,7 +177,7 @@
             </p>
           </hgroup>
           <CardContent class="blog-meta">
-            <ul class="ui-layout-row ui-x-small" aria-label="Tags">
+            <ul class="ui-layout-row ui-x-small blog-tags" aria-label="Tags">
               <li><Chip label="Member diaries" size="small" /></li>
             </ul>
             <div class="ui-layout-media">
@@ -211,7 +211,7 @@
             </p>
           </hgroup>
           <CardContent class="blog-meta">
-            <ul class="ui-layout-row ui-x-small" aria-label="Tags">
+            <ul class="ui-layout-row ui-x-small blog-tags" aria-label="Tags">
               <li><Chip label="Member diaries" size="small" /></li>
             </ul>
             <div class="ui-layout-media">
@@ -246,7 +246,7 @@
             </p>
           </hgroup>
           <CardContent class="blog-meta">
-            <ul class="ui-layout-row ui-x-small" aria-label="Tags">
+            <ul class="ui-layout-row ui-x-small blog-tags" aria-label="Tags">
               <li><Chip label="Tabs & tips" size="small" /></li>
               <li><Chip label="Technique" size="small" /></li>
             </ul>
@@ -282,7 +282,7 @@
             </p>
           </hgroup>
           <CardContent class="blog-meta">
-            <ul class="ui-layout-row ui-x-small" aria-label="Tags">
+            <ul class="ui-layout-row ui-x-small blog-tags" aria-label="Tags">
               <li><Chip label="Dear diary" size="small" /></li>
             </ul>
             <div class="ui-layout-media">
@@ -339,6 +339,10 @@
 
       .blog-more {
         align-self: center;
+      }
+
+      .blog-tags li {
+        display: flex;
       }
     }
   }

@@ -202,6 +202,7 @@ import { Avatar, Card, CardContent, Rating } from "opui-css/vue"
     figure {
       display: grid;
       gap: var(--ui-space-3);
+      place-items: normal;
     }
   }
 

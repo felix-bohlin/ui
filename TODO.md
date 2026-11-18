@@ -5451,10 +5451,11 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Summary: Two compiled Solid files reuse a name in an inner scope, with no effect on behavior.
   - Recommended: Fix. A distinct name in the inner scope reads better in the files the docs show.
   - Fix: in `scripts/component-solid.mjs`, name the narrowed `<Show>` parameter and a per-item initial value apart from a body-level name they would shadow.
-- [ ] (3) Package: the server-rendered Solid app test runs on the `start` option of `@solidjs/vite-plugin`, not on SolidStart, since SolidStart 2.2.3 requires solid-js 1.9 (`tests/apps/apps.ts`, `tests/apps/solid-start/vite.config.ts`)
+- [x] (3) Package: the server-rendered Solid app test runs on the `start` option of `@solidjs/vite-plugin`, not on SolidStart, since SolidStart 2.2.3 requires solid-js 1.9 (`tests/apps/apps.ts`, `tests/apps/solid-start/vite.config.ts`)
   - Summary: The Solid app test uses the Vite plugin's server layer until SolidStart supports Solid 2.
   - Recommended: Fix. Add a SolidStart app next to it once a release takes solid-js 2, so the meta-framework people scaffold is covered like Next.js, Nuxt and SvelteKit.
   - Fix: when a `@solidjs/start` release takes solid-js 2 as a peer, add a SolidStart app to `tests/apps/apps.ts` with `ssr: true`, and name it in the app test lines of `AGENTS.md` and `README.md`.
+  - Removed: Solid 2 needs no SolidStart: start mode of `@solidjs/vite-plugin` is its own application layer ("in place of SolidStart" in the plugin's README), and `tests/apps/solid-start` already renders every example on the server with it. The Solid Getting started page and the README name the `start` and `ssr` options.
 - [ ] (3) Docs site: the icon libraries list no Solid package: `lucide-solid` 1.74 and `@tabler/icons-solidjs` 3.52 require solid-js 1, and Fluent, Material Symbols and Phosphor ship none (`src/utils/icon-libraries.ts`)
   - Summary: The icon pages name React, Svelte and Vue icon packages but none for Solid, since none supports Solid 2 yet.
   - Recommended: Fix. List each library's Solid package once it accepts solid-js 2.

@@ -433,7 +433,7 @@ Slots are props: `children`, and camelCased names like `endText`.
 
 Every component renders full HTML on the server. Components with state or effects are marked `"use client"`, the rest are Server Components. The props in the last column need hydration.
 
-A choice the user makes before the page hydrates stays on screen. `Rating`, `Tabs` and `ToggleGroup` pass it to `onValueChange` as they hydrate. `Checkbox`, `Radio` and `Switch` pass `checked` and `onChange` to the native input, so they work like a plain React input: React doesn't call `onChange` for that choice, and a controlled `checked` misses it. A form that reads its values on submit gets it.
+A choice the user makes before the page hydrates stays on screen. The form controls pass `value`, `checked`, their defaults and `onChange` to the native input, and `Rating`, `Tabs` and `ToggleGroup` render their inputs like native radios, so they work like plain React inputs: React doesn't call `onChange` or `onValueChange` for that choice, and a controlled value misses it. A form that reads its values on submit gets it.
 
 - **69** of 72 need no hydration
 - **3** hydrate for `indeterminate`, `valueSuffix`, `valueText`
@@ -595,7 +595,7 @@ A page with more than one root gives each its own `renderId` in `renderToString`
 
 The props in the last column need hydration.
 
-A choice the user makes before the page hydrates stays on screen. `Rating`, `Tabs` and `ToggleGroup` pass it to `onValueChange` as they hydrate.
+A choice the user makes before the page hydrates stays on screen, as on a plain Solid input: Solid doesn't call `onChange` or `onValueChange` for it, and a controlled value misses it. A form that reads its values on submit gets it.
 
 - **69** of 72 need no hydration
 - **3** hydrate for `indeterminate`, `valueSuffix`, `valueText`

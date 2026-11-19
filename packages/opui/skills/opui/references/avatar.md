@@ -14,7 +14,7 @@ An image, initials or icon that stands for a person or an entity.
 
 ### Props and modifiers
 
-- `aria-label`: `string`. The accessible name of a link or button avatar, instead of `label`. The Astro, React and Svelte types require one of `label`, `aria-label` and `aria-labelledby` on a link or button. In Vue it passes through as an attribute.
+- `aria-label`: `string`. The accessible name of a link or button avatar, instead of `label`. The Astro, React, Solid and Svelte types require one of `label`, `aria-label` and `aria-labelledby` on a link or button. In Vue it passes through as an attribute.
 - `aria-labelledby`: `string`. The id of the element that names a link or button avatar, instead of `label`.
 - `as`: `"a" | "button" | "div"`, default `"div"`. The element to render. Defaults to `"a"` with `href`.
 - `disabled`: `boolean`. Disables a button avatar. A link avatar drops its `href` and gets `role="link"` and `aria-disabled="true"` instead.
@@ -143,11 +143,11 @@ import { Avatar } from "opui-css/solid"
 export default function Image() {
   return (
     <>
-      <Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
+      <Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
 
-      <Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
+      <Avatar label="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
-      <Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
+      <Avatar label="Percy Groove" src="/photos/percy-groove.png" />
     </>
   )
 }

@@ -11,9 +11,14 @@ export const metadata: Metadata = {
   title: { default: "Reference", template: "%s | Reference" },
 }
 
+const theme = `try{const t=localStorage.getItem("reference-theme");if(t)document.documentElement.dataset.theme=t}catch{}`
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: theme }} />
+      </head>
       <body>
         <a className="ui-sr-only ui-focusable" href="#main">
           Skip to content

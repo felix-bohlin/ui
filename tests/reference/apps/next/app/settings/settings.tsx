@@ -23,14 +23,16 @@ import {
 import { verifyCode } from "reference-shared"
 import { useState, type FormEvent } from "react"
 
-const success = (text: string) => (
-  <Callout severity="success">
-    <CalloutIcon />
-    <CalloutContent>
-      <p>{text}</p>
-    </CalloutContent>
-  </Callout>
-)
+function Success({ text }: { text: string }) {
+  return (
+    <Callout severity="success">
+      <CalloutIcon />
+      <CalloutContent>
+        <p>{text}</p>
+      </CalloutContent>
+    </Callout>
+  )
+}
 
 export default function Settings() {
   const [status, setStatus] = useState("")
@@ -101,7 +103,7 @@ export default function Settings() {
             </FieldGroup>
           </Fieldset>
           <div id="settings-status" role="status">
-            {status && success(status)}
+            {status && <Success text={status} />}
           </div>
           <FieldGroup>
             <Button type="submit" variant="filled">
@@ -125,7 +127,9 @@ export default function Settings() {
               required
             />
             <div role="status">
-              {codeState === "verified" && success("Two-factor sign-in is on.")}
+              {codeState === "verified" && (
+                <Success text="Two-factor sign-in is on." />
+              )}
             </div>
             <FieldGroup>
               <Button type="submit" variant="outlined">

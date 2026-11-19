@@ -12,16 +12,18 @@ import {
   ToggleGroup,
 } from "opui-css/react"
 import { photo, user, type Post } from "reference-shared"
-import { useState } from "react"
+import { useState, type Ref } from "react"
 import Icon from "./icon"
 import UserAvatar from "./user-avatar"
 
 export default function PostCard({
+  authorRef,
   onHide,
   onToggleSave,
   post,
   saved,
 }: {
+  authorRef: Ref<HTMLAnchorElement>
   onHide: () => void
   onToggleSave: () => void
   post: Post
@@ -41,10 +43,12 @@ export default function PostCard({
       variant="outlined"
     >
       <CardHeader as="header">
-        <UserAvatar link user={author} />
+        <UserAvatar user={author} />
         <hgroup>
           <h2 id={`post-${post.id}-author`}>
-            <Link href={`/u/${author.handle}`}>{author.name}</Link>
+            <Link href={`/u/${author.handle}`} ref={authorRef}>
+              {author.name}
+            </Link>
           </h2>
           <p>
             <time dateTime={post.datetime}>{post.time}</time>

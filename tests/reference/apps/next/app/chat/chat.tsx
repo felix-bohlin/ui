@@ -27,9 +27,15 @@ export default function Chat({ handle }: { handle: string | null }) {
   const lines = [...open.lines, ...mine]
 
   const send = (form: FormData) =>
-    setSent({
-      ...sent,
-      [open.with]: [...mine, outgoing(String(form.get("text")), mine.length)],
+    setSent((all) => {
+      const lines = all[open.with] ?? []
+      return {
+        ...all,
+        [open.with]: [
+          ...lines,
+          outgoing(String(form.get("text")), lines.length),
+        ],
+      }
     })
 
   return (

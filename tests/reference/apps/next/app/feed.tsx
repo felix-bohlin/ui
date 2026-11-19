@@ -10,7 +10,8 @@ import {
   type FeedFilter,
   type Post,
 } from "reference-shared"
-import { useState, useTransition } from "react"
+import { useRef, useState, useTransition, type MouseEvent } from "react"
+import { flushSync } from "react-dom"
 import PostCard from "@/lib/post-card"
 
 const first = feedPage(0)
@@ -27,6 +28,9 @@ export default function Feed() {
   const [hidden, setHidden] = useState<string[]>([])
   const [saved, setSaved] = useState<string[]>([])
   const [filter, setFilter] = useState<FeedFilter>("all")
+  const list = useRef<HTMLOListElement>(null)
+  const authorLinks = useRef(new Map<string, HTMLAnchorElement>())
+  const focusEnd = useRef(false)
 
   const shown = (post: Post) => !hidden.includes(post.id)
   const visible =
@@ -40,7 +44,8 @@ export default function Feed() {
           )
         : [...created, ...loaded].filter(shown)
 
-  const loadMore = () =>
+  const loadMore = (event: MouseEvent<HTMLButtonElement>) => {
+    focusEnd.current = event.currentTarget === document.activeElement
     startLoading(async () => {
       const next = await fetchFeedPage(pageIndex + 1)
       startLoading(() => {
@@ -49,6 +54,14 @@ export default function Feed() {
         setHasMore(next.hasMore)
       })
     })
+  }
+
+  const hide = (id: string) => {
+    const at = visible.findIndex((post) => post.id === id)
+    const target = visible[at + 1] ?? visible[at - 1]
+    flushSync(() => setHidden((ids) => [...ids, id]))
+    ;(target ? authorLinks.current.get(target.id) : list.current)?.focus()
+  }
 
   const post = (form: FormData) =>
     setCreated((posts) => [
@@ -94,16 +107,26 @@ export default function Feed() {
           </ToggleButton>
         ))}
       </ToggleGroup>
-      {visible.length > 0 ? (
+      {filter === "saved" && visible.length === 0 ? (
+        <p className="app-empty">No saved posts yet.</p>
+      ) : (
         <ol
           aria-busy={loading || undefined}
           aria-label="Posts"
           className="app-posts"
+          ref={list}
+          tabIndex={-1}
         >
           {visible.map((post) => (
             <li key={post.id}>
               <PostCard
-                onHide={() => setHidden((ids) => [...ids, post.id])}
+                authorRef={(link) => {
+                  if (link) authorLinks.current.set(post.id, link)
+                  return () => {
+                    authorLinks.current.delete(post.id)
+                  }
+                }}
+                onHide={() => hide(post.id)}
                 onToggleSave={() => toggleSave(post.id)}
                 post={post}
                 saved={saved.includes(post.id)}
@@ -111,8 +134,6 @@ export default function Feed() {
             </li>
           ))}
         </ol>
-      ) : (
-        filter === "saved" && <p className="app-empty">No saved posts yet.</p>
       )}
       {filter === "all" &&
         (hasMore ? (
@@ -122,7 +143,16 @@ export default function Feed() {
             </Button>
           </div>
         ) : (
-          <p className="app-end">You're all caught up.</p>
+          <p
+            className="app-end"
+            ref={(end) => {
+              if (end && focusEnd.current) end.focus()
+              focusEnd.current = false
+            }}
+            tabIndex={-1}
+          >
+            You're all caught up.
+          </p>
         ))}
     </div>
   )

@@ -20,13 +20,14 @@ import {
   Textarea,
 } from "opui-css/react"
 import { ME, photosBy, postsBy, type User } from "reference-shared"
-import { useEffect, useState, type FormEvent, type SyntheticEvent } from "react"
+import { useEffect, useState, type FormEvent } from "react"
 import UserAvatar from "@/lib/user-avatar"
 
 export default function Profile({ profile }: { profile: User }) {
   const [edit, setEdit] = useState<{ bio: string; name: string }>()
   const name = edit?.name ?? profile.name
   const bio = edit?.bio ?? profile.bio
+  const [form, setForm] = useState({ bio, key: 0, name })
   const posts = postsBy(profile.handle)
   const photos = photosBy(profile.handle)
 
@@ -39,12 +40,6 @@ export default function Profile({ profile }: { profile: User }) {
     setEdit({ bio: String(form.get("bio")), name: String(form.get("name")) })
   }
 
-  const reset = (event: SyntheticEvent<HTMLDialogElement>) => {
-    const { elements } = event.currentTarget.querySelector("form")!
-    ;(elements.namedItem("name") as HTMLInputElement).value = name
-    ;(elements.namedItem("bio") as HTMLTextAreaElement).value = bio
-  }
-
   return (
     <>
       <div className="app-screen" data-screen="profile">
@@ -55,6 +50,9 @@ export default function Profile({ profile }: { profile: User }) {
             <Button
               command="show-modal"
               commandfor="edit-profile"
+              onClick={() =>
+                setForm(({ key }) => ({ bio, key: key + 1, name }))
+              }
               variant="outlined"
             >
               Edit profile
@@ -119,19 +117,19 @@ export default function Profile({ profile }: { profile: User }) {
         </Tabs>
       </div>
       {profile.handle === ME && (
-        <Dialog id="edit-profile" onClose={reset}>
+        <Dialog id="edit-profile">
           <DialogHeader closeButton>
             <DialogTitle>Edit profile</DialogTitle>
           </DialogHeader>
-          <form method="dialog" onSubmit={save}>
+          <form key={form.key} method="dialog" onSubmit={save}>
             <DialogContent>
               <TextField
-                defaultValue={profile.name}
+                defaultValue={form.name}
                 label="Name"
                 name="name"
                 required
               />
-              <Textarea defaultValue={profile.bio} label="Bio" name="bio" />
+              <Textarea defaultValue={form.bio} label="Bio" name="bio" />
             </DialogContent>
             <DialogFooter>
               <Button command="close" commandfor="edit-profile">

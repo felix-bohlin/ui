@@ -18,5 +18,5 @@ export const generateMetadata = async ({
 export default async function ProfilePage({ params }: Props) {
   const found = user((await params).handle)
   if (!found) notFound()
-  return <Profile key={found.handle} profile={found} />
+  return <Profile profile={found} />
 }

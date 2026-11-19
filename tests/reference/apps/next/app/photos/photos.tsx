@@ -8,18 +8,12 @@ import {
   DialogHeader,
 } from "opui-css/react"
 import { PHOTOS, user } from "reference-shared"
-import { useRef, useState, type KeyboardEvent } from "react"
+import { useState, type KeyboardEvent } from "react"
 import Icon from "@/lib/icon"
 
 export default function Photos() {
-  const viewer = useRef<HTMLDialogElement>(null)
   const [index, setIndex] = useState(0)
   const current = PHOTOS[index]!
-
-  const show = (at: number) => {
-    setIndex(at)
-    viewer.current?.showModal()
-  }
 
   const step = (by: number) =>
     setIndex((at) => (at + by + PHOTOS.length) % PHOTOS.length)
@@ -38,7 +32,9 @@ export default function Photos() {
             <li key={id}>
               <button
                 className="app-photo"
-                onClick={() => show(at)}
+                command="show-modal"
+                commandfor="photo-viewer"
+                onClick={() => setIndex(at)}
                 type="button"
               >
                 <img alt={alt} src={src} />
@@ -53,7 +49,6 @@ export default function Photos() {
         closedby="any"
         id="photo-viewer"
         onKeyDown={keydown}
-        ref={viewer}
       >
         <DialogHeader closeButton>
           <p aria-live="polite">{`Photo ${index + 1} of ${PHOTOS.length}`}</p>

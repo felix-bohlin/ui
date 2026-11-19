@@ -15,7 +15,7 @@ import {
   user,
   type ChatLine,
 } from "reference-shared"
-import { createMemo, createSignal, For, Show } from "solid-js"
+import { createMemo, createSignal, For } from "solid-js"
 import UserAvatar from "../lib/UserAvatar"
 import { useSent } from "../lib/chat"
 import { useTitle } from "../lib/title"
@@ -68,35 +68,26 @@ export default function Chat() {
           <h2 id="chat-title">{open().user.name}</h2>
           <MessageList aria-label={`Messages with ${open().user.name}`} direct>
             <For each={lines()}>
-              {(line) => (
-                <Show
-                  when={line.kind === "message" ? line : undefined}
-                  fallback={
-                    <li class="ui-divider">
-                      {line.kind === "divider" ? line.label : ""}
-                    </li>
-                  }
-                >
-                  {(message) => (
-                    <Message
-                      author={user(message().from)!.name}
-                      datetime={message().datetime}
-                      outgoing={message().from === ME}
-                      start={
-                        message().from === ME ? undefined : (
-                          <UserAvatar
-                            size="small"
-                            user={user(message().from)!}
-                          />
-                        )
-                      }
-                      time={message().time}
-                    >
-                      <p>{message().text}</p>
-                    </Message>
-                  )}
-                </Show>
-              )}
+              {(line) => {
+                if (line.kind === "divider")
+                  return <li class="ui-divider">{line.label}</li>
+                const from = user(line.from)!
+                return (
+                  <Message
+                    author={from.name}
+                    datetime={line.datetime}
+                    outgoing={line.from === ME}
+                    start={
+                      line.from === ME ? undefined : (
+                        <UserAvatar size="small" user={from} />
+                      )
+                    }
+                    time={line.time}
+                  >
+                    <p>{line.text}</p>
+                  </Message>
+                )
+              }}
             </For>
           </MessageList>
           <form

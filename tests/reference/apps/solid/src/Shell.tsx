@@ -21,8 +21,7 @@ import type { JSX } from "@solidjs/web"
 import { For, onSettled } from "solid-js"
 import Icon from "./lib/Icon"
 import { SentMessages } from "./lib/chat"
-
-const THEME_KEY = "reference-theme"
+import { THEME_KEY } from "./lib/theme"
 
 export default function Shell(props: { children?: JSX.Element }) {
   const location = useLocation()
@@ -41,24 +40,13 @@ export default function Shell(props: { children?: JSX.Element }) {
     } catch {}
   }
 
-  const focusMain = () => document.getElementById("main")?.focus()
-
   onSettled(() => {
-    try {
-      const saved = localStorage.getItem(THEME_KEY)
-      if (saved) document.documentElement.dataset.theme = saved
-    } catch {}
     document.documentElement.dataset.hydrated = ""
   })
 
   return (
     <SentMessages>
-      <a
-        aria-current="false"
-        class="ui-sr-only ui-focusable"
-        href="#main"
-        onClick={focusMain}
-      >
+      <a class="ui-sr-only ui-focusable" href="#main" target="_self">
         Skip to content
       </a>
       <header class="app-header">
@@ -124,8 +112,8 @@ export default function Shell(props: { children?: JSX.Element }) {
         />
         <Avatar
           aria-current="false"
-          aria-label="Your profile"
           href={`/u/${user.handle}`}
+          label="Your profile"
           size="small"
         >
           {user.initials}

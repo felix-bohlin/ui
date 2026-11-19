@@ -49,7 +49,7 @@ Copy is the same in every app, since the specs find elements by role and name. T
 The app uses the components as their docs say, and doesn't work around a bug in them. A bug that one of the specs hits goes in `spec/known.ts`, with the issue that tracks it:
 
 - A behavior the bug breaks gets a test that calls `test.fail(true, KNOWN.<name>)`, which passes while the bug is there. When a fix lands, it fails with "expected to fail but passed": remove the `test.fail` line and the entry.
-- An axe violation goes in `KNOWN_AXE`, and a console message in `KNOWN_CONSOLE`. Every other test ignores them, and the `known:` test fails once the violation is gone.
+- An axe violation goes in `KNOWN_AXE`, and a console message in `KNOWN_CONSOLE`. Every other test ignores them, so each also gets a test named `known: <reason>` that checks it still appears and fails once it is gone.
 
 Fredahead's open findings are indexed in felix-bohlin/ui#443. A bug found here that isn't on that list goes in `TODO.md`.
 

@@ -122,7 +122,6 @@ test("the filters show posts with photos, and saved posts", async ({
 })
 
 test("Save post closes the menu", async ({ page }) => {
-  test.fail(true, KNOWN.menuSubmit)
   await page
     .getByRole("button", { name: "Options for Lou Headstock's post" })
     .click()

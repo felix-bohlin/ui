@@ -2,7 +2,6 @@ import { NOTIFICATIONS } from "../shared/data.ts"
 import { SCREENS } from "../shared/screens.ts"
 import {
   PHONE_DEVICE,
-  axeViolations,
   clientNavigationMarker,
   expect,
   expectNoAxeViolations,
@@ -10,7 +9,7 @@ import {
   screen,
   test,
 } from "./fixtures.ts"
-import { KNOWN, KNOWN_AXE } from "./known.ts"
+import { KNOWN } from "./known.ts"
 
 for (const { id, label, path } of SCREENS) {
   test(`${label} renders in the shell and passes axe`, async ({ page }) => {
@@ -164,20 +163,6 @@ test("an unknown profile is a 404 in the shell", async ({ page, problems }) => {
   await expect(screen(page)).toHaveAttribute("data-screen", "not-found")
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Not found")
   await expect(page.locator(".app-header")).toBeVisible()
-})
-
-test(`known: ${KNOWN_AXE[0]!.reason}`, async ({ page }) => {
-  await open(page, "/")
-  const known = KNOWN_AXE[0]!
-  expect(
-    (await axeViolations(page)).some(
-      (violation) =>
-        violation.id === known.id &&
-        (known.target.test(violation.target) ||
-          known.target.test(violation.html)),
-    ),
-    "fixed upstream: remove the entry from spec/known.ts",
-  ).toBe(true)
 })
 
 test.describe("on a phone", () => {

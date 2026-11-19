@@ -19,7 +19,7 @@ import {
   Textarea,
 } from "opui-css/solid"
 import { ME, photosBy, postsBy, user, type User } from "reference-shared"
-import { createMemo, createStore, For, Show } from "solid-js"
+import { createMemo, createSignal, createStore, For, Show } from "solid-js"
 import UserAvatar from "../lib/UserAvatar"
 import { useTitle } from "../lib/title"
 import NotFound from "./NotFound"
@@ -46,23 +46,21 @@ function ProfileScreen(props: { profile: User }) {
   )
   const posts = createMemo(() => postsBy(props.profile.handle))
   const photos = createMemo(() => photosBy(props.profile.handle))
+  const [draftName, setDraftName] = createSignal(() => name())
+  const [draftBio, setDraftBio] = createSignal(() => bio())
   useTitle(name)
 
-  const save = (event: SubmitEvent & { currentTarget: HTMLFormElement }) => {
-    const form = new FormData(event.currentTarget)
+  const save = () => {
     const handle = props.profile.handle
+    const edit = { bio: draftBio(), name: draftName() }
     setEdits((draft) => {
-      draft[handle] = {
-        bio: String(form.get("bio")),
-        name: String(form.get("name")),
-      }
+      draft[handle] = edit
     })
   }
 
-  const reset = (event: Event & { currentTarget: HTMLDialogElement }) => {
-    const { elements } = event.currentTarget.querySelector("form")!
-    ;(elements.namedItem("name") as HTMLInputElement).value = name()
-    ;(elements.namedItem("bio") as HTMLTextAreaElement).value = bio()
+  const reset = () => {
+    setDraftName(name())
+    setDraftBio(bio())
   }
 
   return (
@@ -153,8 +151,19 @@ function ProfileScreen(props: { profile: User }) {
           </DialogHeader>
           <form method="dialog" onSubmit={save}>
             <DialogContent>
-              <TextField label="Name" name="name" required value={name()} />
-              <Textarea label="Bio" name="bio" value={bio()} />
+              <TextField
+                label="Name"
+                name="name"
+                onInput={(event) => setDraftName(event.currentTarget.value)}
+                required
+                value={draftName()}
+              />
+              <Textarea
+                label="Bio"
+                name="bio"
+                onInput={(event) => setDraftBio(event.currentTarget.value)}
+                value={draftBio()}
+              />
             </DialogContent>
             <DialogFooter>
               <Button command="close" commandfor="edit-profile">

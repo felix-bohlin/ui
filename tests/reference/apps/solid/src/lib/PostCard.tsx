@@ -35,7 +35,7 @@ export default function PostCard(props: Props) {
       variant="outlined"
     >
       <CardHeader as="header">
-        <UserAvatar link user={author()} />
+        <UserAvatar user={author()} />
         <hgroup>
           <h2 id={`post-${props.post.id}-author`}>
             <a href={`/u/${author().handle}`}>{author().name}</a>

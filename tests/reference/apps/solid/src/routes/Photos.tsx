@@ -14,13 +14,6 @@ export default function Photos() {
   useTitle(() => "Photos")
   const [index, setIndex] = createSignal(0)
   const current = createMemo(() => PHOTOS[index()]!)
-  let viewer: HTMLDialogElement | undefined
-
-  const show = (at: number) => {
-    setIndex(at)
-    viewer?.showModal()
-  }
-
   const step = (by: number) =>
     setIndex((at) => (at + by + PHOTOS.length) % PHOTOS.length)
 
@@ -39,7 +32,9 @@ export default function Photos() {
               <li>
                 <button
                   class="app-photo"
-                  onClick={() => show(at())}
+                  command="show-modal"
+                  commandfor="photo-viewer"
+                  onClick={() => setIndex(at())}
                   type="button"
                 >
                   <img alt={item.alt} src={item.src} />
@@ -55,7 +50,6 @@ export default function Photos() {
         closedby="any"
         id="photo-viewer"
         onKeyDown={keydown}
-        ref={(element) => (viewer = element)}
       >
         <DialogHeader closeButton>
           <p aria-live="polite">

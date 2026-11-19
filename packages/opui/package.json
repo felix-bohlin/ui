@@ -1,6 +1,6 @@
 {
   "name": "opui-css",
-  "version": "6.0.0-rc.5",
+  "version": "6.0.0-rc.6",
   "description": "Design system. Components. Modern HTML & CSS. HTML, Astro, React, Solid, Svelte and Vue. The tokens started from Open Props, and the components don't need it.",
   "type": "module",
   "license": "MIT",

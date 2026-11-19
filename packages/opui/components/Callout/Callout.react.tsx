@@ -1,12 +1,12 @@
 "use client"
 
-import { useEffect, useId } from "react"
+import { type HTMLAttributes, useEffect, useId, useMemo } from "react"
 import { cx } from "../cx"
-import { useListener } from "../react"
+import { useHydrated, useListener } from "../react"
 import Button from "../Button/Button.react"
 import { CalloutContext } from "./context.react"
-import { closePath } from "./icons"
 import type { Props } from "./types.react"
+import type { Context } from "./types"
 
 export default function Callout({
   className,
@@ -25,13 +25,14 @@ export default function Callout({
   const base = id || `callout-${uid}`
   const Root = closeButton ? "opui-callout" : "div"
   const rootId = closeButton ? base : id
-  const rootRef = useListener(ref, "dismiss", onDismiss)
+  const rootRef = useHydrated(useListener(ref, "dismiss", onDismiss))
   useEffect(() => {
     void import("../../elements/callout.js")
   }, [])
+  const context = useMemo<Context>(() => ({ severity }), [severity])
 
   return (
-    <CalloutContext value={{ severity }}>
+    <CalloutContext value={context}>
       <Root
         className={cx([
           "ui-callout",
@@ -40,8 +41,9 @@ export default function Callout({
           className,
         ])}
         id={rootId}
+        data-hydrating={Root.includes("-") ? "" : undefined}
         ref={rootRef}
-        {...(rest as object)}
+        {...(rest as HTMLAttributes<HTMLElement>)}
       >
         {children}
         {closeButton && (
@@ -59,9 +61,7 @@ export default function Callout({
                 width="32"
                 height="32"
                 viewBox="0 0 32 32"
-              >
-                <path fill="currentColor" d={closePath} />
-              </svg>
+              />
             ) : (
               closeIcon
             )}

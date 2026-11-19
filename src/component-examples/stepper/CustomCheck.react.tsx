@@ -8,6 +8,7 @@ export default function CustomCheck() {
         href="#"
         iconComplete={
           <svg
+            data-icon="check-all"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -30,6 +31,7 @@ export default function CustomCheck() {
         href="#"
         iconComplete={
           <svg
+            data-icon="check-all"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"

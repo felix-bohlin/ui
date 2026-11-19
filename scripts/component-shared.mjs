@@ -3,6 +3,8 @@ import ts from "typescript"
 
 export const root = fileURLToPath(new URL("..", import.meta.url))
 
+export const SOLID_PRAGMA = "/** @jsxImportSource @solidjs/web */"
+
 export const unsupported = (file, what, hint) =>
   new Error(
     `${file} uses ${what}, which scripts/build-components.mjs can't compile: ${hint ?? "support the construct in scripts/build-components.mjs, or list the file in scripts/hand-written-components.json with the reason"}`,
@@ -41,8 +43,6 @@ export const elementsIn = (nodes) =>
     if (node.type === "slot") return elementsIn(node.fallback)
     return []
   })
-
-export const REACT_ATTRIBUTE_NAMES = { class: "className", for: "htmlFor" }
 
 export const spreads = (node, code) =>
   node.attributes.some(
@@ -83,10 +83,10 @@ export const chosenSpreadCode = (item, spread, condition) =>
 
 const identifierCache = new Map()
 
-export const identifiersIn = (code) => {
+export const identifierCounts = (code) => {
   const cached = identifierCache.get(code)
   if (cached) return cached
-  const names = new Set()
+  const counts = new Map()
   const visit = (node) => {
     if (
       ts.isIdentifier(node) &&
@@ -95,13 +95,43 @@ export const identifiersIn = (code) => {
       ) &&
       !(ts.isPropertyAssignment(node.parent) && node.parent.name === node)
     ) {
-      names.add(node.text)
+      counts.set(node.text, (counts.get(node.text) ?? 0) + 1)
     }
     ts.forEachChild(node, visit)
   }
   visit(sourceFileOf(`(${code})`, "expression.ts"))
-  identifierCache.set(code, names)
-  return names
+  identifierCache.set(code, counts)
+  return counts
+}
+
+export const identifiersIn = (code) => new Set(identifierCounts(code).keys())
+
+export const itemBinding = (text) => {
+  const [statement] = sourceFileOf(`(${text}) => 0`, "item.ts").statements
+  const arrow =
+    statement && ts.isExpressionStatement(statement)
+      ? statement.expression
+      : undefined
+  const name =
+    arrow && ts.isArrowFunction(arrow) ? arrow.parameters[0]?.name : undefined
+  if (!name) return undefined
+  if (ts.isIdentifier(name)) return { fields: [], name: name.text }
+  if (!ts.isObjectBindingPattern(name)) return undefined
+  const fields = []
+  let rest
+  for (const element of name.elements) {
+    const key = element.propertyName ?? element.name
+    if (
+      element.initializer ||
+      !ts.isIdentifier(element.name) ||
+      !ts.isIdentifier(key)
+    ) {
+      return undefined
+    }
+    if (element.dotDotDotToken) rest = element.name.text
+    else fields.push({ key: key.text, local: element.name.text })
+  }
+  return { fields, rest }
 }
 
 const typeNodeOf = (type) =>
@@ -152,7 +182,7 @@ export const slotsUsedIn = (code) => {
   return names
 }
 
-const codesIn = (nodes) =>
+export const codesIn = (nodes) =>
   nodes.flatMap((node) => {
     if (node.type === "expression") return [node.code]
     if (node.type === "each") {
@@ -243,4 +273,23 @@ export const classText = (code) => {
       ? node.elements[0]
       : node
   return only && isClassText(only) ? unwrap(only).getText() : undefined
+}
+
+export const onlyClass = (code) => {
+  const [statement] = sourceFileOf(`(${code})`, "class.ts").statements
+  const list =
+    statement && ts.isExpressionStatement(statement)
+      ? unwrap(statement.expression)
+      : undefined
+  if (!list || !ts.isArrayLiteralExpression(list)) return undefined
+  const [entry] = list.elements
+  if (list.elements.length !== 1) return undefined
+  const value = unwrap(entry)
+  return ts.isObjectLiteralExpression(value) ||
+    ts.isArrayLiteralExpression(value) ||
+    ts.isSpreadElement(value) ||
+    (ts.isBinaryExpression(value) &&
+      value.operatorToken.kind === ts.SyntaxKind.AmpersandAmpersandToken)
+    ? undefined
+    : entry.getText()
 }

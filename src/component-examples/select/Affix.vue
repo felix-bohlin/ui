@@ -14,6 +14,7 @@ import { Select } from "opui-css/vue"
   <Select label="Country">
     <template #start>
       <svg
+        data-icon="globe"
         aria-hidden="true"
         width="16"
         height="16"

@@ -17,6 +17,7 @@ const {
   peek,
   persistentButtons,
   previousLabel,
+  role,
   stretch,
   style,
   ...rest
@@ -48,7 +49,7 @@ const {
     },
     style,
   )}
-  role="list"
+  role={role ?? "list"}
   {...rest}
 >
   <slot />

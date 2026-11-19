@@ -4,19 +4,20 @@ import { cx } from "../cx"
 import Button from "../Button/Button.react"
 import { useDialogContext } from "./context.react"
 import { warnMissingCloseTarget } from "../dev"
-import { closePath } from "./icons"
 import type { DialogHeaderProps as Props } from "./types.react"
 
 export default function DialogHeader({
   className,
   closeButton,
   closeLabel = "Close",
+  commandfor,
   children,
   closeIcon,
   ...rest
 }: Props) {
   const dialog = useDialogContext()
-  if (closeButton) warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
+  const target = commandfor ?? dialog?.id
+  if (closeButton) warnMissingCloseTarget("DialogHeader", target, "Dialog")
 
   return (
     <div className={cx(["ui-header", className])} {...rest}>
@@ -25,7 +26,7 @@ export default function DialogHeader({
         <Button
           aria-label={closeLabel}
           command="close"
-          commandfor={dialog?.id}
+          commandfor={target}
           round
           size="small"
         >
@@ -36,9 +37,7 @@ export default function DialogHeader({
               width="32"
               height="32"
               viewBox="0 0 32 32"
-            >
-              <path fill="currentColor" d={closePath} />
-            </svg>
+            />
           ) : (
             closeIcon
           )}

@@ -3,7 +3,7 @@
 Classes that space and group form fields, with fieldsets and field groups.
 
 - CSS: `opui-css/css/components/form.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/form.md), [Astro](https://opui.dev/astro/components/form.md), [React](https://opui.dev/react/components/form.md), [Svelte](https://opui.dev/svelte/components/form.md), [Vue](https://opui.dev/vue/components/form.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/form.md), [Astro](https://opui.dev/astro/components/form.md), [React](https://opui.dev/react/components/form.md), [Solid](https://opui.dev/solid/components/form.md), [Svelte](https://opui.dev/svelte/components/form.md), [Vue](https://opui.dev/vue/components/form.md).
 
 ## Form
 
@@ -106,26 +106,18 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-field-helper-font-size`, `--
       How can we reach you?
     </p>
     <div class="ui-field-group">
-      <label class="ui-text-field">
-        <span class="ui-label" id="form-basics-2-label">Name</span>
+      <div class="ui-text-field">
+        <label class="ui-label" for="form-basics-2">Name</label>
         <span class="ui-field">
-          <input
-            autocomplete="name"
-            aria-labelledby="form-basics-2-label"
-            type="text"
-          />
+          <input autocomplete="name" id="form-basics-2" type="text" />
         </span>
-      </label>
-      <label class="ui-text-field">
-        <span class="ui-label" id="form-basics-3-label">Email</span>
+      </div>
+      <div class="ui-text-field">
+        <label class="ui-label" for="form-basics-3">Email</label>
         <span class="ui-field">
-          <input
-            autocomplete="email"
-            aria-labelledby="form-basics-3-label"
-            type="email"
-          />
+          <input autocomplete="email" id="form-basics-3" type="email" />
         </span>
-      </label>
+      </div>
     </div>
   </fieldset>
   <div class="ui-field-group">
@@ -200,6 +192,47 @@ export default function Basics() {
         <FieldGroup>
           <TextField autoComplete="name" label="Name" />
           <TextField autoComplete="email" label="Email" type="email" />
+        </FieldGroup>
+      </Fieldset>
+      <FieldGroup>
+        <Button type="submit" variant="filled">
+          Send
+        </Button>
+      </FieldGroup>
+    </Form>
+  )
+}
+```
+
+## Solid
+
+`import { FieldDescription, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/solid"`
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import {
+  Button,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form,
+  TextField,
+} from "opui-css/solid"
+
+export default function Basics() {
+  return (
+    <Form>
+      <Fieldset aria-describedby="form-basics-1-description">
+        <FieldLegend>Contact</FieldLegend>
+        <FieldDescription id="form-basics-1-description">
+          How can we reach you?
+        </FieldDescription>
+        <FieldGroup>
+          <TextField autocomplete="name" label="Name" />
+          <TextField autocomplete="email" label="Email" type="email" />
         </FieldGroup>
       </Fieldset>
       <FieldGroup>

@@ -2,7 +2,8 @@
 import Baseline from "./Baseline.astro"
 import BrowserSupportChips from "./BrowserSupportChips.astro"
 import DocLink from "./DocLink.astro"
-import { pageSources } from "../component-api/custom-properties"
+import { kebab } from "../component-api/catalog"
+import { catalog } from "../component-api/catalog.glob"
 import { withSharedFeatures } from "../utils/browser-support"
 import { compatCss } from "../utils/compat"
 import { components } from "../utils/components"
@@ -21,7 +22,7 @@ const name = components.find(
   (component) => component.slug === Astro.locals.componentSlug,
 )?.name
 const slug = Astro.locals.componentSlug ?? ""
-const compat = [...new Set([slug, ...pageSources(slug)])]
+const compat = [...new Set([slug, ...catalog.sourcesOf(slug).map(kebab)])]
   .map((name) => `${name}.css`)
   .filter((file) => compatCss[file])
   .toSorted()

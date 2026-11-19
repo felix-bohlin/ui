@@ -12,7 +12,7 @@
 >
   <CalloutIcon />
   <CalloutContent>
-    The new editor is on for everyone. Your drafts from the old one are in
+    The new tab editor is on for everyone. Your drafts from the old one are in
     Settings.
   </CalloutContent>
 </Callout>

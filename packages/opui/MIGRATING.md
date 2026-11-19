@@ -79,7 +79,12 @@ The Vue type files are `types.vue-props.ts` instead of `types.d.vue.ts`, since T
 
 `opui-css/open-props` (`dist/op.css`) no longer includes Open Props' palette (`--palette-*` and `--color-1` to `--color-16`). If you load `op.css` on its own and read those properties, import `opui-css/core/palette.css` with `opui-css/css/theme.css`, which sets the palette knobs, and read the `--ui-` names (`--ui-palette-*` and `--ui-color-1` to `--ui-color-16`).
 
-The `types.solid.ts` files are gone. There are no Solid components; write your own prop types if you used them.
+The `types.solid.ts` files type the Solid 2 components in `opui-css/solid` instead of Solid 1 attributes, so they need `solid-js` and `@solidjs/web` 2. Import the props from the barrel:
+
+```diff
+- import type { Props } from "opui-css/components/Button/types.solid"
++ import type { ButtonProps } from "opui-css/solid"
+```
 
 ## Theme and tokens
 
@@ -1104,9 +1109,11 @@ Deep type imports from `opui-css/components/*` are renamed, see [Package and imp
 
 The picker is `--ui-surface-elevated` with a `--ui-border-color-on-raised` edge, like `Menu`, instead of `--ui-surface-filled` with the field border. Set `--_bg-color` on the picker's `.ui-list` to keep the old fill, or `--ui-border-color-raised` in your theme to outline every raised surface at once.
 
-Astro and Vue no longer generate an `id` for the select. Pass `id` when something outside the component references it.
+Astro and Vue generate an `id` for the select only when the label points at it. Pass `id` when something outside the component references it.
 
-In Astro and Vue, `style` goes to the root `<label>` instead of the `<select>`, like `class`. Set `--_` properties through `style`, and style the select itself with a class or CSS.
+In Astro and Vue, `style` goes to the root instead of the `<select>`, like `class`. Set `--_` properties through `style`, and style the select itself with a class or CSS.
+
+Same as Text field: the root is a `<div>` with a `<label for>` inside, instead of a `<label>`, the label alone names the select, and the start and end text, the affixes and the `top` and `bottom` parts describe it. A click on those parts no longer opens the select. Target `.ui-select` instead of `label.ui-select`, and in HTML give the select an `id` for the label's `for` and mark its `<button>` `inert`, so the select alone takes clicks, focus and the name.
 
 With `spread`, label and field split the container into equal columns. Selects keep a `12ch` minimum width in table cells, and the arrow is a chevron instead of a triangle.
 
@@ -1160,7 +1167,7 @@ The switch lines up with the first line of its label, keeps a light marker in da
 
 `aria-invalid="true"` on the `<input role="switch">` replaces `data-invalid` on `.ui-switch`.
 
-In Astro, `type` is no longer a typed prop. Remove it, the component sets it.
+In Astro, `type` and `role` are no longer typed props. Remove them, the component sets them.
 
 In Astro and Vue, `style` goes to the root `<label>` instead of the `<input>`, like `class`. Set `--_` properties through `style`, and style the input itself with a class or CSS.
 
@@ -1227,17 +1234,24 @@ Tabs look like segmented controls: the tabs sit on a rounded track and the selec
 
 `TabsItem` takes `id` and `TabsLabel` takes `for` (`htmlFor` in React) instead of `tabId`; when both are omitted the item still generates the id and hands it to its label.
 
-Tabs are a radio group without tab roles. Remove `role="tablist"`, `role="tab"`, `role="tabpanel"`, `aria-controls` and `aria-labelledby` from HTML tabs, put `role="radiogroup"` and an `aria-label` on `.ui-tabs`, and remove `panelId` (and `tabId` on the panel) from Astro and Vue, where `Tabs` renders the role and `aria-label` names it. Styles that target `[role="tab"]` or `[role="tabpanel"]` need `.ui-label` and `.ui-panel`.
+Tabs are radios without tab roles. Remove `role="tablist"`, `role="tab"`, `role="tabpanel"`, `aria-controls` and `aria-labelledby` from HTML tabs, and `panelId` (and `tabId` on the panel) from Astro and Vue. Tabs with panels take no role, since the root holds the panels and a radio group holds only radios; screen readers still announce each tab as one of the set. Styles that target `[role="tab"]` or `[role="tabpanel"]` need `.ui-label` and `.ui-panel`.
 
 ```diff
 - <div class="ui-tabs" role="tablist">
 -   <input type="radio" name="tabs" id="tab-1" class="ui-tab-input" aria-controls="panel-1" checked />
 -   <label for="tab-1" class="ui-tab-label" role="tab">Profile</label>
 -   <div id="panel-1" class="ui-tab-panel" role="tabpanel" aria-labelledby="tab-1">…</div>
-+ <div class="ui-tabs" role="radiogroup" aria-label="Account settings">
++ <div class="ui-tabs">
 +   <input type="radio" name="tabs" id="tab-1" class="ui-input" checked />
 +   <label for="tab-1" class="ui-label">Profile</label>
 +   <div class="ui-panel">…</div>
+```
+
+Tabs without panels are a radio group: put `role="radiogroup"` and an `aria-label` on `.ui-tabs`, or pass them to `Tabs`.
+
+```diff
+- <div class="ui-tabs" role="tablist">
++ <div class="ui-tabs" role="radiogroup" aria-label="Show in the feed">
 ```
 
 The parts are `.ui-input`, `.ui-label` and `.ui-panel` instead of `.ui-tab-input`, `.ui-tab-label` and `.ui-tab-panel`, and `TabsTab` is `TabsLabel`.
@@ -1279,11 +1293,26 @@ Tabs that don't fit stay on one row and scroll sideways instead of wrapping onto
 + <TextField size="small" label="Name" />
 ```
 
-Astro and Vue no longer generate an input `id`. Pass `id` when something outside the component references the input.
+Astro and Vue generate an input `id` only when the label or the password toggle points at it. Pass `id` when something outside the component references the input.
 
-In Astro, extra attributes go to the `<input>` instead of the `<label>`. `class` and `style` stay on the label. In Vue, `style` now goes to the label instead of the input. Check selectors and tests that look for attributes on the label.
+In Astro, extra attributes go to the `<input>` instead of the root. `class` and `style` stay on the root. In Vue, `style` now goes to the root instead of the input. Check selectors and tests that look for attributes on the root.
 
-In Astro and Vue, a `TextField` without `label` renders a `div` root instead of a `label`, and its start and end text describe the input instead of naming it. Give such a field an `aria-label` or `aria-labelledby`, and target `.ui-text-field` instead of `label.ui-text-field` in your CSS.
+The root is a `<div>` with a `<label for>` inside, instead of a `<label>` around the whole field, so the field can hold buttons. The label alone names the input. The start and end text, the `start` and `end` affixes and the `top` and `bottom` parts describe it through `aria-describedby`, read after the name, where the affixes used to join the name. A click on the start or end text, an affix or the `top` or `bottom` part no longer focuses the input, since only the label is a `<label>`. Target `.ui-text-field` instead of `label.ui-text-field` in your CSS, and give a field without `label` an `aria-label` or `aria-labelledby`. In HTML, the input needs an `id` for the label's `for`, and an affix or a hint an `id` for `aria-describedby`. Put `.ui-top` and `.ui-start` before the input, in the order they're drawn, so Tab reaches them there in every browser.
+
+```diff
+- <label class="ui-text-field">
+-   <span class="ui-label">Price</span>
++ <div class="ui-text-field">
++   <label class="ui-label" for="price">Price</label>
+    <span class="ui-field">
+-     <input />
+-     <span class="ui-start">€</span>
++     <span class="ui-start" id="price-start">€</span>
++     <input aria-describedby="price-start" id="price" />
+    </span>
+- </label>
++ </div>
+```
 
 ```diff
 - <TextField startText="Search the docs" />
@@ -1310,7 +1339,7 @@ The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is
 
 ```diff
 - <label class="ui-text-field" data-invalid> … <input>
-+ <label class="ui-text-field"> … <input aria-invalid="true">
++ <div class="ui-text-field"> … <input aria-invalid="true">
 ```
 
 `text-input.css` is gone, its styles are in `text-field.css`. Remove the import:
@@ -1350,9 +1379,9 @@ In Vue, use `<template #start>€</template>` and `<template #end>EUR</template>
 + <Textarea size="small" label="Message" />
 ```
 
-Astro and Vue no longer generate an `id`, extra attributes go to the `<textarea>` in Astro (`class` and `style` stay on the label), and in Vue `style` goes to the label. `description` is `startText` (the `start-text` slot), like Text field. `supportingText` (the `supporting-text` slot) is gone. Use `endText`.
+Astro and Vue generate an `id` only when the label points at it, extra attributes go to the `<textarea>` in Astro (`class` and `style` stay on the root), and in Vue `style` goes to the root. `description` is `startText` (the `start-text` slot), like Text field. `supportingText` (the `supporting-text` slot) is gone. Use `endText`.
 
-Same as Text field: without `label`, Astro and Vue render a `div` root instead of a `label`, and the start and end text describe the textarea instead of naming it. Give it an `aria-label` or `aria-labelledby`, and target `.ui-textarea` instead of `label.ui-textarea`.
+Same as Text field: the root is a `<div>` with a `<label for>` inside, the label alone names the textarea, and the start and end text, the affixes and the `top` and `bottom` parts describe it. A click on those parts no longer focuses the textarea. Give a textarea without `label` an `aria-label` or `aria-labelledby`, target `.ui-textarea` instead of `label.ui-textarea`, and in HTML give the textarea an `id` for the label's `for`.
 
 The minimum height is three lines plus padding at every size (small was a fixed 64px), or the lines in `rows` where the browser reads typed `attr()`. With `spread`, the fixed `30ch` minimum is gone and label and field split the container into equal columns. Textareas keep a `12ch` minimum width in table cells.
 

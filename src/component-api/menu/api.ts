@@ -31,7 +31,7 @@ export default {
     },
     {
       description:
-        'Closes the menu and returns focus to the trigger. In a submenu, it closes only the submenu, and Chromium moves focus to the page instead of the submenu\'s item. A menu with `popover="manual"` stays open.',
+        'Closes the menu and returns focus to the trigger. In a submenu, it closes only the submenu, and focus moves to the page instead of the submenu\'s item. That is confirmed in Chromium and not yet checked in Firefox and Safari. A menu with `popover="manual"` stays open.',
       keys: ["Esc"],
     },
   ],
@@ -41,6 +41,8 @@ export default {
     ),
     html: 'Items are built like `List` items: icons in `.ui-start`, the text in `.ui-text` and shortcuts in `.ui-end`. Open the menu with a button that has `commandfor` set to the menu id and `command="toggle-popover"`. Import `opui-css/elements/close-on-navigate.js` to close open menus when the page navigates, also with a client router, and `opui-css/elements/menu.js` to close them on a click on a link, or on a submit or reset button.',
     react:
+      "Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onClick`, `target` or `data-*`. Open menus close when the page navigates, also with a client router, through `opui-css/elements/close-on-navigate.js`, which the component loads. A link item, and an item that submits or resets a form, closes the menu on click through `opui-css/elements/menu.js`, which the component loads too.",
+    solid:
       "Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onClick`, `target` or `data-*`. Open menus close when the page navigates, also with a client router, through `opui-css/elements/close-on-navigate.js`, which the component loads. A link item, and an item that submits or resets a form, closes the menu on click through `opui-css/elements/menu.js`, which the component loads too.",
     svelte:
       "Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onclick`, `target` or `data-*`. Open menus close when the page navigates, also with a client router, through `opui-css/elements/close-on-navigate.js`, which the component loads. A link item, and an item that submits or resets a form, closes the menu on click through `opui-css/elements/menu.js`, which the component loads too.",

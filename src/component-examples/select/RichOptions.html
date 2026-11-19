@@ -1,8 +1,8 @@
-<label class="ui-select">
-  <span class="ui-label" id="select-rich-options-1-label">Jam buddy</span>
+<div class="ui-select">
+  <label class="ui-label" for="select-rich-options-1">Jam buddy</label>
   <span class="ui-field">
-    <select aria-labelledby="select-rich-options-1-label">
-      <button>
+    <select id="select-rich-options-1">
+      <button inert>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
@@ -36,13 +36,13 @@
       </div>
     </select>
   </span>
-</label>
+</div>
 
-<label class="ui-select">
-  <span class="ui-label" id="select-rich-options-2-label">Song status</span>
+<div class="ui-select">
+  <label class="ui-label" for="select-rich-options-2">Song status</label>
   <span class="ui-field">
-    <select aria-labelledby="select-rich-options-2-label">
-      <button>
+    <select id="select-rich-options-2">
+      <button inert>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
@@ -67,19 +67,20 @@
       </div>
     </select>
   </span>
-</label>
+</div>
 
-<label class="ui-select">
-  <span class="ui-label" id="select-rich-options-3-label">Visibility</span>
+<div class="ui-select">
+  <label class="ui-label" for="select-rich-options-3">Visibility</label>
   <span class="ui-field">
-    <select aria-labelledby="select-rich-options-3-label">
-      <button>
+    <select id="select-rich-options-3">
+      <button inert>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
         <option value="private">
           <span class="ui-start">
             <svg
+              data-icon="lock"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -100,6 +101,7 @@
         <option value="team">
           <span class="ui-start">
             <svg
+              data-icon="people"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -120,6 +122,7 @@
         <option value="public">
           <span class="ui-start">
             <svg
+              data-icon="globe"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -140,4 +143,4 @@
       </div>
     </select>
   </span>
-</label>
+</div>

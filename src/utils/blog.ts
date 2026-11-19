@@ -6,7 +6,7 @@ import {
   type FrameworkId,
 } from "./framework"
 import { posts } from "./blog-posts"
-import { componentName } from "./names"
+import { componentName } from "./components"
 
 export { componentName, posts }
 

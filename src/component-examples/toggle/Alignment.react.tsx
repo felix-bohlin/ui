@@ -5,6 +5,7 @@ export default function Alignment() {
     <ToggleGroup aria-label="Text alignment" name="alignment">
       <ToggleButton aria-label="Align left" value="left">
         <svg
+          data-icon="align-left"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -19,6 +20,7 @@ export default function Alignment() {
       </ToggleButton>
       <ToggleButton aria-label="Align center" defaultChecked value="center">
         <svg
+          data-icon="align-center"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -33,6 +35,7 @@ export default function Alignment() {
       </ToggleButton>
       <ToggleButton aria-label="Align right" value="right">
         <svg
+          data-icon="align-right"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"

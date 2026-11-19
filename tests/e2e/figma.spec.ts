@@ -7,6 +7,7 @@ import {
   figmaTokenMeta,
   type TokensJson,
 } from "../../src/utils/figma-tokens"
+import { instantScrolling } from "./fixtures"
 
 const ORIGIN = "https://figma.opui.test"
 const PACKAGE = new URL("../../packages/opui/", import.meta.url).pathname
@@ -63,6 +64,7 @@ for (const theme of themes) {
         contentType: TYPES[extname(url.pathname)] ?? "text/plain",
       })
     })
+    await instantScrolling(page)
     await page.goto(`${ORIGIN}/`)
     const probe = await page.evaluate(probeFigmaTokens, request)
     const file = join(RECORDED, `${theme}.json`)

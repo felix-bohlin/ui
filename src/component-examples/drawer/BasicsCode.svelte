@@ -20,7 +20,7 @@
 <Button command="show-modal" commandfor="drawer-basics-2">Inline end</Button>
 <Button command="show-modal" commandfor="drawer-basics-4">Block end</Button>
 
-<Drawer id="drawer-basics-1" side="inline-start">
+<Drawer closeOnNavigate id="drawer-basics-1" side="inline-start">
   <DrawerHeader closeButton>
     <DrawerTitle>Menu</DrawerTitle>
   </DrawerHeader>
@@ -44,6 +44,7 @@
     <DrawerTitle>Friday gig prep</DrawerTitle>
     <Button aria-label="Edit" round size="small">
       <svg
+        data-icon="edit"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"

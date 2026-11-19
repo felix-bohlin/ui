@@ -3,7 +3,7 @@
 Chat bubbles that group by sender, with attachments, reactions and a typing indicator.
 
 - CSS: `opui-css/css/components/message.css` and `opui-css/css/components/avatar.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/message.md), [Astro](https://opui.dev/astro/components/message.md), [React](https://opui.dev/react/components/message.md), [Svelte](https://opui.dev/svelte/components/message.md), [Vue](https://opui.dev/vue/components/message.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/message.md), [Astro](https://opui.dev/astro/components/message.md), [React](https://opui.dev/react/components/message.md), [Solid](https://opui.dev/solid/components/message.md), [Svelte](https://opui.dev/svelte/components/message.md), [Vue](https://opui.dev/vue/components/message.md).
 
 ## MessageList
 
@@ -11,6 +11,11 @@ Chat bubbles that group by sender, with attachments, reactions and a typing indi
 
 - `ol.ui-message-list` (root): The conversation, an ordered list.
 - `li.ui-message` (`Message`): A message. Consecutive messages on the same side group into a run.
+
+### Props and modifiers
+
+- `direct`: `boolean`, `.ui-direct`. A chat between two people: no message shows its author's name or avatar, since the chat's own title names the other person. Screen readers still hear the name.
+- `role`: `string`, default `"list"`. The `role` of the `<ol>`, such as `log` for a live conversation. `list` keeps Safari announcing a list.
 
 ### Slots
 
@@ -190,6 +195,56 @@ export default function Basics() {
           author="Stella"
           datetime="2026-10-08T14:03"
           start={<Avatar>SN</Avatar>}
+          time="14:03"
+        >
+          <p>Flatwounds, right? So rad.</p>
+        </Message>
+        <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
+          <p>Nope, not even the drummer. Bummer, but WE know.</p>
+        </Message>
+        <Message
+          author="You"
+          datetime="2026-10-08T14:19"
+          end="Read"
+          outgoing
+          time="14:19"
+        >
+          <p>Can you send me the tab for your slap break?</p>
+        </Message>
+      </MessageList>
+    </div>
+  )
+}
+```
+
+## Solid
+
+`import { Message, MessageList } from "opui-css/solid"`
+
+- `Message` slot props (`JSX.Element`): `bottom`, `children`, `end` and `start`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Avatar, Message, MessageList } from "opui-css/solid"
+
+export default function Basics() {
+  return (
+    <div aria-label="Chat with Stella" role="log">
+      <MessageList aria-label="Messages with Stella">
+        <Message
+          author="Stella"
+          datetime="2026-10-08T14:02"
+          start={<Avatar aria-hidden="true">SN</Avatar>}
+          time="14:02"
+        >
+          <p>Heyyy! Did your band notice you changed strings yet?</p>
+        </Message>
+        <Message
+          author="Stella"
+          datetime="2026-10-08T14:03"
+          start={<Avatar aria-hidden="true">SN</Avatar>}
           time="14:03"
         >
           <p>Flatwounds, right? So rad.</p>

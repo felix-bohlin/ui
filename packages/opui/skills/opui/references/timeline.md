@@ -3,7 +3,7 @@
 A list of dated events with markers and a connecting line.
 
 - CSS: `opui-css/css/components/timeline.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/timeline.md), [Astro](https://opui.dev/astro/components/timeline.md), [React](https://opui.dev/react/components/timeline.md), [Svelte](https://opui.dev/svelte/components/timeline.md), [Vue](https://opui.dev/vue/components/timeline.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/timeline.md), [Astro](https://opui.dev/astro/components/timeline.md), [React](https://opui.dev/react/components/timeline.md), [Solid](https://opui.dev/solid/components/timeline.md), [Svelte](https://opui.dev/svelte/components/timeline.md), [Vue](https://opui.dev/vue/components/timeline.md).
 
 ## Timeline
 
@@ -71,20 +71,18 @@ The stylesheets read `--ui-border-color`, `--ui-border-width-thick`, `--ui-font-
 <ol class="ui-timeline">
   <li>
     <time datetime="2026-08-04">Aug 4, 2026</time>
-    <h3 class="ui-h6">Bug fixes</h3>
-    <p>Faster search and fewer duplicate notifications.</p>
+    <h3 class="ui-h6">Whoops fixes</h3>
+    <p>Faster search and fewer double pokes from your drummer.</p>
   </li>
   <li>
     <time datetime="2026-09-12">Sep 12, 2026</time>
-    <h3 class="ui-h6">Saved views</h3>
-    <p>Save filters and sorting as named views and share them with a link.</p>
+    <h3 class="ui-h6">Saved setlists</h3>
+    <p>Save your setlists with cute names and share them with the band.</p>
   </li>
   <li>
     <time datetime="2026-10-01">Oct 1, 2026</time>
-    <h3 class="ui-h6">Planning and a faster board</h3>
-    <p>
-      Estimates from past work, and a board that renders three times faster.
-    </p>
+    <h3 class="ui-h6">Gig planner and a faster wall</h3>
+    <p>Reminders for every gig, and a wall that loads three times faster.</p>
   </li>
 </ol>
 ```
@@ -103,20 +101,22 @@ import { Timeline, TimelineItem } from "opui-css/astro"
 ---
 
 <Timeline>
-  <TimelineItem datetime="2026-08-04" label="Bug fixes" time="Aug 4, 2026">
-    <p>Faster search and fewer duplicate notifications.</p>
+  <TimelineItem datetime="2026-08-04" label="Whoops fixes" time="Aug 4, 2026">
+    <p>Faster search and fewer double pokes from your drummer.</p>
   </TimelineItem>
-  <TimelineItem datetime="2026-09-12" label="Saved views" time="Sep 12, 2026">
-    <p>Save filters and sorting as named views and share them with a link.</p>
+  <TimelineItem
+    datetime="2026-09-12"
+    label="Saved setlists"
+    time="Sep 12, 2026"
+  >
+    <p>Save your setlists with cute names and share them with the band.</p>
   </TimelineItem>
   <TimelineItem
     datetime="2026-10-01"
-    label="Planning and a faster board"
+    label="Gig planner and a faster wall"
     time="Oct 1, 2026"
   >
-    <p>
-      Estimates from past work, and a board that renders three times faster.
-    </p>
+    <p>Reminders for every gig, and a wall that loads three times faster.</p>
   </TimelineItem>
 </Timeline>
 ```
@@ -135,25 +135,70 @@ import { Timeline, TimelineItem } from "opui-css/react"
 export default function Basics() {
   return (
     <Timeline>
-      <TimelineItem datetime="2026-08-04" label="Bug fixes" time="Aug 4, 2026">
-        <p>Faster search and fewer duplicate notifications.</p>
+      <TimelineItem
+        datetime="2026-08-04"
+        label="Whoops fixes"
+        time="Aug 4, 2026"
+      >
+        <p>Faster search and fewer double pokes from your drummer.</p>
       </TimelineItem>
       <TimelineItem
         datetime="2026-09-12"
-        label="Saved views"
+        label="Saved setlists"
         time="Sep 12, 2026"
       >
-        <p>
-          Save filters and sorting as named views and share them with a link.
-        </p>
+        <p>Save your setlists with cute names and share them with the band.</p>
       </TimelineItem>
       <TimelineItem
         datetime="2026-10-01"
-        label="Planning and a faster board"
+        label="Gig planner and a faster wall"
         time="Oct 1, 2026"
       >
         <p>
-          Estimates from past work, and a board that renders three times faster.
+          Reminders for every gig, and a wall that loads three times faster.
+        </p>
+      </TimelineItem>
+    </Timeline>
+  )
+}
+```
+
+## Solid
+
+`import { Timeline, TimelineItem } from "opui-css/solid"`
+
+- `TimelineItem` slot props (`JSX.Element`): `children`, `label` and `marker`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Timeline, TimelineItem } from "opui-css/solid"
+
+export default function Basics() {
+  return (
+    <Timeline>
+      <TimelineItem
+        datetime="2026-08-04"
+        label="Whoops fixes"
+        time="Aug 4, 2026"
+      >
+        <p>Faster search and fewer double pokes from your drummer.</p>
+      </TimelineItem>
+      <TimelineItem
+        datetime="2026-09-12"
+        label="Saved setlists"
+        time="Sep 12, 2026"
+      >
+        <p>Save your setlists with cute names and share them with the band.</p>
+      </TimelineItem>
+      <TimelineItem
+        datetime="2026-10-01"
+        label="Gig planner and a faster wall"
+        time="Oct 1, 2026"
+      >
+        <p>
+          Reminders for every gig, and a wall that loads three times faster.
         </p>
       </TimelineItem>
     </Timeline>
@@ -175,20 +220,22 @@ export default function Basics() {
 </script>
 
 <Timeline>
-  <TimelineItem datetime="2026-08-04" label="Bug fixes" time="Aug 4, 2026">
-    <p>Faster search and fewer duplicate notifications.</p>
+  <TimelineItem datetime="2026-08-04" label="Whoops fixes" time="Aug 4, 2026">
+    <p>Faster search and fewer double pokes from your drummer.</p>
   </TimelineItem>
-  <TimelineItem datetime="2026-09-12" label="Saved views" time="Sep 12, 2026">
-    <p>Save filters and sorting as named views and share them with a link.</p>
+  <TimelineItem
+    datetime="2026-09-12"
+    label="Saved setlists"
+    time="Sep 12, 2026"
+  >
+    <p>Save your setlists with cute names and share them with the band.</p>
   </TimelineItem>
   <TimelineItem
     datetime="2026-10-01"
-    label="Planning and a faster board"
+    label="Gig planner and a faster wall"
     time="Oct 1, 2026"
   >
-    <p>
-      Estimates from past work, and a board that renders three times faster.
-    </p>
+    <p>Reminders for every gig, and a wall that loads three times faster.</p>
   </TimelineItem>
 </Timeline>
 ```
@@ -208,20 +255,22 @@ import { Timeline, TimelineItem } from "opui-css/vue"
 
 <template>
   <Timeline>
-    <TimelineItem datetime="2026-08-04" label="Bug fixes" time="Aug 4, 2026">
-      <p>Faster search and fewer duplicate notifications.</p>
+    <TimelineItem datetime="2026-08-04" label="Whoops fixes" time="Aug 4, 2026">
+      <p>Faster search and fewer double pokes from your drummer.</p>
     </TimelineItem>
-    <TimelineItem datetime="2026-09-12" label="Saved views" time="Sep 12, 2026">
-      <p>Save filters and sorting as named views and share them with a link.</p>
+    <TimelineItem
+      datetime="2026-09-12"
+      label="Saved setlists"
+      time="Sep 12, 2026"
+    >
+      <p>Save your setlists with cute names and share them with the band.</p>
     </TimelineItem>
     <TimelineItem
       datetime="2026-10-01"
-      label="Planning and a faster board"
+      label="Gig planner and a faster wall"
       time="Oct 1, 2026"
     >
-      <p>
-        Estimates from past work, and a board that renders three times faster.
-      </p>
+      <p>Reminders for every gig, and a wall that loads three times faster.</p>
     </TimelineItem>
   </Timeline>
 </template>

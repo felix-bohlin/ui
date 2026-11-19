@@ -7,6 +7,7 @@ import {
   type ComponentFramework,
   type Framework,
 } from "../component-api/frameworks"
+import { stylesheetsOf } from "../component-api/catalog"
 import { KEYS, type ApiKey } from "../component-api/keyboard"
 import type { ApiOption, ComponentApi } from "../component-api/types"
 import { isHydratedFramework } from "./framework"
@@ -122,13 +123,8 @@ const cleanType = (text: string) => {
 
 type Target = Pick<ComponentApi, "component" | "source">
 
-const kebab = (name: string) =>
-  name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
-
 export const stylesheets = (api: Pick<ComponentApi, "css" | "source">) =>
-  (api.css ?? (api.source ? [kebab(api.source)] : [])).map((file) =>
-    path.join(stylesheetRoot, `${file}.css`),
-  )
+  stylesheetsOf(api).map((file) => path.join(stylesheetRoot, `${file}.css`))
 
 const readCss = (file: string) =>
   fs.existsSync(file) ? stripComments(fs.readFileSync(file, "utf8")) : ""
@@ -176,6 +172,7 @@ const documentedClasses = (api: ComponentApi) => [
 const SCRIPTS: Record<ComponentFramework, RegExp> = {
   astro: /^---\n([\s\S]*?)\n---/g,
   react: /^([\s\S]*)$/g,
+  solid: /^([\s\S]*)$/g,
   svelte: /<script\b[^>]*>([\s\S]*?)<\/script>/g,
   vue: /<script\b[^>]*>([\s\S]*?)<\/script>/g,
 }
@@ -221,6 +218,45 @@ const literal = (node: ts.Expression | undefined): string | undefined => {
   return undefined
 }
 
+const propKeyOf = (node: ts.Expression) =>
+  ts.isPropertyAccessExpression(node) && node.expression.getText() === "props"
+    ? node.name.text
+    : ts.isElementAccessExpression(node) &&
+        node.expression.getText() === "props" &&
+        ts.isStringLiteral(node.argumentExpression)
+      ? node.argumentExpression.text
+      : undefined
+
+const accessorDefaults = (node: ts.Node): [string, string][] => {
+  const body =
+    ts.isVariableDeclaration(node) &&
+    node.initializer &&
+    ts.isArrowFunction(node.initializer) &&
+    ts.isExpression(node.initializer.body)
+      ? ts.isParenthesizedExpression(node.initializer.body)
+        ? node.initializer.body.expression
+        : node.initializer.body
+      : undefined
+  if (
+    body &&
+    ts.isConditionalExpression(body) &&
+    ts.isBinaryExpression(body.condition) &&
+    body.condition.operatorToken.kind ===
+      ts.SyntaxKind.EqualsEqualsEqualsToken &&
+    ts.isIdentifier(body.condition.right) &&
+    body.condition.right.text === "undefined"
+  ) {
+    const key = propKeyOf(body.condition.left)
+    const value = literal(body.whenTrue)
+    return key && value ? [[key, value]] : []
+  }
+  const found: [string, string][] = []
+  ts.forEachChild(node, (child) => {
+    found.push(...accessorDefaults(child))
+  })
+  return found
+}
+
 export const destructuredDefaults = (
   framework: ComponentFramework,
   source: string,
@@ -228,15 +264,16 @@ export const destructuredDefaults = (
   const script = [...source.matchAll(SCRIPTS[framework])]
     .map(([, code]) => code)
     .join("\n")
-  const binding = propsBinding(
-    ts.createSourceFile(
-      `component.${framework === "react" ? "tsx" : "ts"}`,
-      script,
-      ts.ScriptTarget.Latest,
-      true,
-      framework === "react" ? ts.ScriptKind.TSX : ts.ScriptKind.TS,
-    ),
+  const jsx = framework === "react" || framework === "solid"
+  const sourceFile = ts.createSourceFile(
+    `component.${jsx ? "tsx" : "ts"}`,
+    script,
+    ts.ScriptTarget.Latest,
+    true,
+    jsx ? ts.ScriptKind.TSX : ts.ScriptKind.TS,
   )
+  if (framework === "solid") return new Map(accessorDefaults(sourceFile))
+  const binding = propsBinding(sourceFile)
   return new Map(
     (binding?.elements ?? []).flatMap((element) => {
       const value = literal(element.initializer)
@@ -293,25 +330,44 @@ const declaredByPackage = (
   )
 }
 
+const propsAlias = (target: Target, framework: ComponentFramework) => {
+  if (!target.source) return undefined
+  const filePath = path.join(root, target.source, frameworks[framework].types)
+  const name =
+    target.component === target.source ? "Props" : `${target.component}Props`
+  return program()
+    .getSourceFile(filePath)
+    ?.statements.filter(ts.isTypeAliasDeclaration)
+    .find((statement) => statement.name.text === name)
+}
+
+const propertiesOf = (alias: ts.TypeAliasDeclaration) => {
+  const checker = program().getTypeChecker()
+  const type = checker.getTypeAtLocation(alias)
+  return [type, ...(type.isUnion() ? type.types : [])].flatMap((member) =>
+    checker.getPropertiesOfType(member),
+  )
+}
+
+export const typedAttributes = (
+  target: Target,
+  framework: ComponentFramework,
+) => {
+  const alias = propsAlias(target, framework)
+  return new Set(alias ? propertiesOf(alias).map(({ name }) => name) : [])
+}
+
 export const frameworkProps = (
   target: Target,
   framework: ComponentFramework,
 ) => {
   const props = new Map<string, string>()
-  if (!target.source) return props
-  const filePath = path.join(root, target.source, frameworks[framework].types)
-  const name =
-    target.component === target.source ? "Props" : `${target.component}Props`
-  const alias = program()
-    .getSourceFile(filePath)
-    ?.statements.filter(ts.isTypeAliasDeclaration)
-    .find((statement) => statement.name.text === name)
+  const alias = propsAlias(target, framework)
   if (!alias) return props
+  const name = alias.name.text
 
   const checker = program().getTypeChecker()
-  const type = checker.getTypeAtLocation(alias)
-  ;[type, ...(type.isUnion() ? type.types : [])]
-    .flatMap((member) => checker.getPropertiesOfType(member))
+  propertiesOf(alias)
     .filter((symbol) =>
       symbol.declarations?.some((declaration) =>
         declaredByPackage(declaration, framework),

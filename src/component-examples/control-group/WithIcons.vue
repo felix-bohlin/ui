@@ -6,6 +6,7 @@ import { Button, ControlGroup } from "opui-css/vue"
   <ControlGroup aria-label="RSVP" variant="outlined">
     <Button aria-label="OK">
       <svg
+        data-icon="check"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -21,6 +22,7 @@ import { Button, ControlGroup } from "opui-css/vue"
     <Button> Maybe </Button>
     <Button aria-label="No">
       <svg
+        data-icon="close"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -38,6 +40,7 @@ import { Button, ControlGroup } from "opui-css/vue"
   <ControlGroup aria-label="RSVP" variant="outlined">
     <Button>
       <svg
+        data-icon="check"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -53,6 +56,7 @@ import { Button, ControlGroup } from "opui-css/vue"
     </Button>
     <Button>
       <svg
+        data-icon="help"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -68,6 +72,7 @@ import { Button, ControlGroup } from "opui-css/vue"
     </Button>
     <Button>
       <svg
+        data-icon="close"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"

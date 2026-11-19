@@ -6,6 +6,7 @@ import {
   edgeTrimmed,
   eventRoots,
   groupWarning,
+  hydratingRoots,
   importedNames,
   propsImport,
   rewriteExpression,
@@ -16,12 +17,14 @@ import {
   withImport,
 } from "./component-emit.mjs"
 import { MODEL_KINDS } from "./component-models.mjs"
+import { markupAttribute } from "./example-encoders.mjs"
 import { eventProp } from "./component-types.mjs"
 import {
   byName,
   chosenSpreadCode,
   classMayBeEmpty,
   filtersSpread,
+  onlyClass,
   PRESERVED_TAGS,
   propKey,
   unsupported,
@@ -71,6 +74,7 @@ export const toSvelte = (component) => {
   const handlers = (component.events ?? []).map((event) =>
     eventProp("svelte", event),
   )
+  const hydrating = hydratingRoots(component, listened)
   const plainProps = [
     ...(kind?.plainProps?.(model) ?? []),
     ...(component.item ? ["defaultChecked", "onchange"] : []),
@@ -106,7 +110,7 @@ export const toSvelte = (component) => {
   let usesDefined = false
   const attribute = (node, item) => {
     if (item.kind === "class") {
-      const code = rewriteExpression(item.code, options)
+      const code = rewriteExpression(onlyClass(item.code) ?? item.code, options)
       if (!classMayBeEmpty(item.code)) return `class={${code}}`
       usesClassAttrs = true
       return `{...classAttrs(${code})}`
@@ -145,7 +149,7 @@ export const toSvelte = (component) => {
       return `{...${spread}}`
     }
     if (item.kind === "static") {
-      return `${item.name}=${JSON.stringify(item.value)}`
+      return markupAttribute(item.name, item.value, true)
     }
     if (item.kind === "boolean") return item.name
     if (node.item && item.name === "checked") {
@@ -219,7 +223,7 @@ export const toSvelte = (component) => {
                 `{@const ${name} = ${rewriteExpression(code, options)}}`,
             )
             .join("\n")
-          return `{#each ${node.list}${node.optional ? " ?? []" : ""} as ${node.item}, ${node.index} (${node.index})}${body(node.children, scope, consts)}{/each}`
+          return `{#each ${node.list} as ${node.item}${node.index ? `, ${node.index}` : ""} (${node.key?.code ?? node.index})}${body(node.children, scope, consts)}{/each}`
         }
         const groupChecked =
           node.groupRadio !== undefined && kind?.modelsGroupRadio
@@ -231,7 +235,17 @@ export const toSvelte = (component) => {
             )
           : -1
         const listeners = listened.includes(node)
-          ? handlers.map((handler) => `{${handler}}`)
+          ? [
+              ...handlers.map((handler) => `{${handler}}`),
+              ...(hydrating.has(node)
+                ? [
+                    hydrating.get(node)
+                      ? `data-hydrating={${rewriteExpression(hydrating.get(node), options)}.includes("-") ? "" : undefined}`
+                      : 'data-hydrating=""',
+                    "{@attach hydrated}",
+                  ]
+                : []),
+            ]
           : []
         const attributes = [
           ...node.attributes
@@ -293,6 +307,7 @@ export const toSvelte = (component) => {
     ...(usesContent ? [`import { content } from "../content.svelte"`] : []),
     ...(kind?.imports?.(component, model) ?? []),
     ...(component.item ? [`import { seedChecked } from "../svelte"`] : []),
+    ...(hydrating.size ? [`import { hydrated } from "../svelte"`] : []),
     ...components
       .map((entry) => componentImport(entry, ".svelte"))
       .toSorted(byName),

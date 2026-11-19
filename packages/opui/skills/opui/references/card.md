@@ -3,7 +3,7 @@
 A surface for related content and actions.
 
 - CSS: `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/card.md), [Astro](https://opui.dev/astro/components/card.md), [React](https://opui.dev/react/components/card.md), [Svelte](https://opui.dev/svelte/components/card.md), [Vue](https://opui.dev/vue/components/card.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/card.md), [Astro](https://opui.dev/astro/components/card.md), [React](https://opui.dev/react/components/card.md), [Solid](https://opui.dev/solid/components/card.md), [Svelte](https://opui.dev/svelte/components/card.md), [Vue](https://opui.dev/vue/components/card.md).
 
 ## Card
 
@@ -86,7 +86,7 @@ Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor
 
 ## Theme tokens
 
-The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-card-padding`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-card-padding`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-icon-close`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -154,6 +154,43 @@ import { Card, CardContent } from "opui-css/astro"
 
 ```tsx
 import { Card, CardContent } from "opui-css/react"
+
+export default function Variants() {
+  return (
+    <>
+      <Card>
+        <CardContent>Plain</CardContent>
+      </Card>
+
+      <Card variant="elevated">
+        <CardContent>Elevated</CardContent>
+      </Card>
+
+      <Card variant="outlined">
+        <CardContent>Outlined</CardContent>
+      </Card>
+
+      <Card variant="tonal">
+        <CardContent>Tonal</CardContent>
+      </Card>
+
+      <Card variant="transparent">
+        <CardContent>Transparent</CardContent>
+      </Card>
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Card, CardActions, CardContent, CardHeader } from "opui-css/solid"`
+
+### Example: Variants
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Card, CardContent } from "opui-css/solid"
 
 export default function Variants() {
   return (

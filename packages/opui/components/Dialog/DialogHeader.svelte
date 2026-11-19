@@ -3,13 +3,13 @@
   import Button from "../Button/Button.svelte"
   import { getDialogContext } from "./context.svelte"
   import { warnMissingCloseTarget } from "../dev"
-  import { closePath } from "./icons"
   import type { DialogHeaderProps as Props } from "./types.svelte"
 
   let {
     class: className,
     closeButton,
     closeLabel = "Close",
+    commandfor,
 
     // Snippets
     children,
@@ -18,9 +18,9 @@
   }: Props = $props()
 
   const dialog = getDialogContext()
+  const target = $derived(commandfor ?? dialog?.id)
   untrack(() => {
-    if (closeButton)
-      warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
+    if (closeButton) warnMissingCloseTarget("DialogHeader", target, "Dialog")
   })
 </script>
 
@@ -29,7 +29,7 @@
     <Button
       aria-label={closeLabel}
       command="close"
-      commandfor={dialog?.id}
+      commandfor={target}
       round
       size="small"
     >
@@ -42,9 +42,7 @@
           width="32"
           height="32"
           viewBox="0 0 32 32"
-        >
-          <path fill="currentColor" d={closePath} />
-        </svg>
+        ></svg>
       {/if}
     </Button>
   {/if}

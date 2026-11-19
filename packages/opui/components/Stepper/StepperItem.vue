@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, type HTMLAttributes, useAttrs } from "vue"
 import { TrimmedSlot } from "../whitespace.vue"
-import { defined } from "../attrs"
 import { classAttrs } from "../cx"
 import type {
   StepperItemProps as Props,
@@ -26,6 +25,12 @@ defineOptions({
 
 const attrs = useAttrs() as HTMLAttributes
 
+const restAttrs = computed(() =>
+  Object.fromEntries(
+    Object.entries(attrs).filter(([key]) => key !== "aria-current"),
+  ),
+)
+
 const state = computed(() =>
   error ? errorLabel : complete ? completeLabel : undefined,
 )
@@ -35,9 +40,9 @@ const link = computed(() => href && !current && (complete || error))
 
 <template>
   <li
-    :aria-current="current ? 'step' : undefined"
+    :aria-current="attrs['aria-current'] ?? (current ? 'step' : undefined)"
     v-bind="{
-      ...defined(attrs),
+      ...restAttrs,
       ...classAttrs([
         { 'ui-complete': complete, 'ui-error': error },
         $props.class,

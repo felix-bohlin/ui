@@ -1,13 +1,14 @@
 "use client"
 
-import { defined } from "../attrs"
 import { cx } from "../cx"
+import { seedChecked } from "../react"
 import { mergeStyle, pluralLabel } from "../style"
 import type { Props } from "./types.react"
 
 export default function Rating({
   "aria-describedby": ariaDescribedBy,
   "aria-invalid": ariaInvalid,
+  "aria-label": ariaLabel,
   className,
   clearLabel = "No rating",
   defaultValue,
@@ -32,6 +33,7 @@ export default function Rating({
 
   return name ? (
     <fieldset
+      aria-label={ariaLabel}
       className={cx([
         "ui-rating",
         size && size !== "medium" && `ui-${size}`,
@@ -51,6 +53,7 @@ export default function Rating({
           checked={value !== undefined ? current === 0 : undefined}
           defaultChecked={value !== undefined ? undefined : current === 0}
           onChange={() => onValueChange?.(0)}
+          ref={seedChecked(() => onValueChange?.(0))}
           name={name}
           type="radio"
           value={0}
@@ -65,6 +68,7 @@ export default function Rating({
           checked={value !== undefined ? current === star : undefined}
           defaultChecked={value !== undefined ? undefined : current === star}
           onChange={() => onValueChange?.(star)}
+          ref={seedChecked(() => onValueChange?.(star))}
           name={name}
           required={required}
           type="radio"
@@ -75,7 +79,7 @@ export default function Rating({
   ) : (
     <meter
       aria-describedby={ariaDescribedBy}
-      aria-label={label}
+      aria-label={ariaLabel ?? label}
       className={cx([
         "ui-rating",
         size && size !== "medium" && `ui-${size}`,
@@ -88,7 +92,7 @@ export default function Rating({
         style ?? {},
       )}
       value={value ?? defaultValue ?? 0}
-      {...defined(rest)}
+      {...rest}
     />
   )
 }

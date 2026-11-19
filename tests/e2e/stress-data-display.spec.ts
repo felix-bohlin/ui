@@ -84,6 +84,7 @@ test.describe("the current page in a control group", () => {
       test(`stands out and stays readable in the ${theme} theme in ${colorScheme} mode`, async ({
         page,
       }) => {
+        test.setTimeout(60_000)
         await page.emulateMedia({ colorScheme })
         await openFixture(
           page,

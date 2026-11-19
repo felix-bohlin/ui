@@ -1,4 +1,10 @@
-import { mkdtempSync, readdirSync, readFileSync, statSync } from "node:fs"
+import {
+  mkdtempSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  statSync,
+} from "node:fs"
 import { tmpdir } from "node:os"
 import { join } from "node:path"
 import vm from "node:vm"
@@ -32,9 +38,11 @@ describe("the Figma plugin", () => {
   const themes = FIGMA_THEMES.map(({ id }) =>
     pluginTheme(id, figmaThemeFile(id)),
   )
-  const out = buildPlugin(mkdtempSync(join(tmpdir(), "opui-figma-")), themes)
+  const dir = mkdtempSync(join(tmpdir(), "opui-figma-"))
+  const out = buildPlugin(dir, themes)
   const code = readFileSync(join(out, "code.js"), "utf8")
   const ui = readFileSync(join(out, "ui.html"), "utf8")
+  rmSync(dir, { force: true, recursive: true })
 
   test("its manifest points at the built files and asks for no network", () => {
     expect(manifest).toMatchObject({

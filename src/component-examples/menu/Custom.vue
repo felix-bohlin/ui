@@ -11,6 +11,7 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     size="small"
   >
     <svg
+      data-icon="more-vertical"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
@@ -31,6 +32,7 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     >
       <template #start>
         <svg
+          data-icon="edit"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -53,6 +55,7 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     >
       <template #start>
         <svg
+          data-icon="copy"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -74,6 +77,7 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     >
       <template #start>
         <svg
+          data-icon="open"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -95,6 +99,7 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     >
       <template #start>
         <svg
+          data-icon="delete"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"

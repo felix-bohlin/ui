@@ -6,7 +6,7 @@ A theme sets [knobs and roles](https://opui.dev/html/guide/concepts.md#token-tie
 
 1. Knobs
 
-   `--ui-palette-hue` 223 `--ui-palette-chroma` 0.5
+   `--ui-palette-hue` 223 `--ui-palette-chroma` 0.50
 
 2. Palette `--ui-color-1` to `--ui-color-16`
 
@@ -81,6 +81,8 @@ Use `--ui-density` to change the size of every control.
   --ui-density: 0.875;
 }
 ```
+
+A `Button` in a field's start or end, a checkbox, radio or switch whose label is hidden, the stars of a rating and the markers of a carousel stay at least `--ui-target-min-size` (24px, the minimum target size) at any density. A field with less than 24px inside its border grows to fit its button, such as an x-small field at `0.875` or a small one at `0.75`.
 
 ## Spacing
 
@@ -222,6 +224,33 @@ To follow it in your own CSS:
 ```css
 transition: transform calc(var(--ui-duration) * var(--ui-motion)) var(--ui-ease);
 ```
+
+## Icons
+
+Every icon a component draws itself reads a `--ui-icon-*` token, one for each role, such as `--ui-icon-close` and `--ui-icon-expand`. Each is an SVG image used as a mask, so only its shape counts and it takes the text color. The defaults are Fluent UI System Icons, and [Theme tokens](https://opui.dev/html/guide/theme-tokens.md#icons) lists them all. Set them to the icons of your icon set:
+
+```css
+:where(html) {
+  --ui-icon-close: url("/icons/x.svg");
+  --ui-icon-expand: url("/icons/chevron-down.svg");
+}
+```
+
+### Icon sets
+
+The package has a stylesheet for each of five icon sets that sets every icon token: `fluent`, `lucide`, `material-symbols`, `phosphor` and `tabler`. Import one to draw every component icon from that set:
+
+```css
+@import "opui-css/icons/lucide.css";
+```
+
+Each file names the set's version, licence and SVG package in a comment, and `THIRD-PARTY-NOTICES` in the package holds the licences.
+
+### Your own icons
+
+An icon slot takes any `svg` with a `viewBox`. The slot sizes it, and it takes the text color through `currentColor`, which `normalize.css` sets as the fill of an `svg` without one. Take them from the same set as the tokens so every icon matches. Icon fonts aren't supported.
+
+In HTML, some icons are an `svg` you write: the Accordion marker, the Callout severity icon, the close buttons of a Callout, Dialog and Drawer, the Number field buttons and the password toggle. Left empty, with a `viewBox` and nothing between its tags, not even a line break, it shows the token's icon. With shapes inside it shows those. The components render the empty `svg` themselves, and their icon slots replace it.
 
 ## Contrast
 

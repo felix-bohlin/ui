@@ -2,11 +2,11 @@
 import { Stepper } from "opui-css/vue"
 
 const items = [
-  { label: "Create your workspace" },
-  { label: "Invite your team" },
-  { label: "Connect a calendar" },
-  { label: "Import your projects" },
-  { label: "Set up billing" },
+  { label: "Create your profile" },
+  { label: "Invite your band" },
+  { label: "Connect a gig calendar" },
+  { label: "Add your basses" },
+  { label: "Try Bassbook Gold" },
 ]
 </script>
 

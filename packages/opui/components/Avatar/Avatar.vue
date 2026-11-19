@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, type HTMLAttributes, useAttrs } from "vue"
+import { computed, useAttrs } from "vue"
 import { warnUnnamedControl } from "../dev"
 import { tagAttrs } from "../tag"
 import { defined } from "../attrs"
@@ -13,7 +13,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs() as HTMLAttributes
+const attrs = useAttrs()
 
 const Tag = computed(() => as || (href ? "a" : "div"))
 

@@ -63,6 +63,7 @@ export default {
           "The component loads `opui-css/elements/number-field.js`, which steps the value when a button is pressed or held.",
         react:
           "Use `value` with `onChange`, or `defaultValue`. The step buttons work once the component mounts and loads `opui-css/elements/number-field.js`, or as soon as the page imports it.",
+        solid: `${imported} \`value\` sets the value and follows it when it changes, and leaves the field as it is once it is \`undefined\`. Follow typing with \`onInput\`.`,
         svelte: imported,
         vue: imported,
       },
@@ -212,7 +213,7 @@ export default {
   ],
   root: {
     description:
-      "The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max` and keeps both disabled while the input is disabled, as the component renders them.",
+      "The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max`, and keeps both disabled while the input is disabled and `aria-disabled` while the input is, also when a script changes the input.",
     selector: "opui-number-field.ui-number-field",
   },
   source: "NumberField",

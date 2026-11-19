@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, inject } from "vue"
+import { computed, inject, useId } from "vue"
 import { useInputAttrs, vSeed } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
-import { defined } from "../attrs"
+import { fieldDescribedBy } from "../id"
 import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -13,6 +13,7 @@ const {
   endText,
   error,
   grouped,
+  id,
   inputmode,
   label,
   length = 6,
@@ -22,7 +23,7 @@ const {
   spellcheck = undefined,
   value,
 } = defineProps<Props>()
-defineSlots<Slots>()
+const slots = defineSlots<Slots>()
 
 defineOptions({
   inheritAttrs: false,
@@ -40,12 +41,23 @@ const model = computed({
 })
 
 const field = inject(FieldGroupKey, undefined)
+
+const uid = useId()
+
+const hasLabel = () => Boolean(label || slots.label)
+
+const hasEndText = () => Boolean(endText || slots["end-text"])
+
+const base = computed(() => id || `one-time-code-${uid}`)
+
+const inputId = () => (hasLabel() ? base.value : id)
+
+const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
 </script>
 
 <template>
-  <label
+  <div
     :class="[
-      'ui-text-field',
       'ui-one-time-code',
       { 'ui-grouped': grouped },
       size && size !== 'medium' && `ui-${size}`,
@@ -53,23 +65,28 @@ const field = inject(FieldGroupKey, undefined)
     ]"
     v-bind="styleAttrs($attrs.style)"
   >
-    <span v-if="label || $slots.label" class="ui-label"
+    <label v-if="hasLabel()" class="ui-label" :for="inputId()"
       >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
-    /></span>
+    /></label>
     <span class="ui-field">
       <input
         :autocapitalize="
           autocapitalize ?? (alphanumeric ? 'characters' : undefined)
         "
-        autocomplete="one-time-code"
         :inputmode="inputmode ?? (alphanumeric ? undefined : 'numeric')"
         :pattern="
           pattern ??
           (alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`)
         "
         :spellcheck="spellcheck ?? (alphanumeric ? 'false' : undefined)"
-        v-bind="defined(attrs)"
+        v-bind="attrs"
+        :aria-describedby="
+          fieldDescribedBy({ endText: endTextId() }, attrs['aria-describedby'])
+        "
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+        :aria-labelledby="attrs['aria-labelledby']"
+        autocomplete="one-time-code"
+        :id="inputId()"
         :maxlength="length"
         :name="name ?? field?.name"
         type="text"
@@ -77,8 +94,8 @@ const field = inject(FieldGroupKey, undefined)
         v-model="model"
       />
     </span>
-    <span v-if="endText || $slots['end-text']" class="ui-end-text"
+    <span v-if="hasEndText()" class="ui-end-text" :id="endTextId()"
       >{{ endText }}<slot name="end-text"></slot
     ></span>
-  </label>
+  </div>
 </template>

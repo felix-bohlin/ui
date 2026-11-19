@@ -1,5 +1,6 @@
 ---
 import Component from "../../layouts/Component.astro"
+import DefaultIcon from "./partials/DefaultIcon.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
 import DocLink from "../../components/DocLink.astro"
@@ -69,19 +70,6 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
     { title: "Drawer API", api: drawerApi },
     { title: "Drawer header API", api: drawerHeaderApi },
     { title: "Drawer footer API", api: drawerFooterApi },
-  ]}
-  changelogPaths={[
-    {
-      path: "packages/opui/components/Drawer",
-      type: "component",
-    },
-    { path: "src/docs/components/drawer.astro", type: "docs" },
-    { path: "src/component-examples/drawer", type: "docs" },
-    {
-      path: "packages/opui/css/components/drawer.css",
-      type: "css",
-    },
-    { path: "src/component-api/drawer", type: "api" },
   ]}
   installationTabs={[
     { title: "drawer.css", code: DrawerCSS, lang: "css" },
@@ -215,6 +203,34 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
         >.
       </Fragment>
     </Conditional>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The button closes the <code>Drawer</code> it is in. A header outside a
+        <code>Drawer</code>, in a <code>&lt;dialog&gt;</code> of your own or in
+        an island on an Astro page, can't find the drawer to close: set
+        <code>commandfor</code> to its <code>id</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Point its <code>commandfor</code> at the drawer's <code>id</code>.
+      </Fragment>
+    </Conditional>
+    <DefaultIcon slots={["close-icon"]} tokens={["--ui-icon-close"]} />
+
+    <AutoExample name="CloseButton" row />
+  </section>
+
+  <section id="safe-areas">
+    <h2>Safe areas</h2>
+    <p>
+      With <code>viewport-fit=cover</code> in the viewport meta tag, a phone
+      draws the page under its notch and home indicator. Each side of a drawer
+      that touches the screen edge pads its content clear of them, by the
+      <DocLink href="/guide/theme-tokens#safe-areas"
+        ><code>--ui-safe-area-inset-*</code></DocLink
+      >
+      tokens, and its background runs under them. Without
+      <code>viewport-fit=cover</code> they are <code>0px</code>.
+    </p>
   </section>
 
   <section id="how-to-close">
@@ -222,6 +238,19 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
     <ClosedbyTable componentDefault="any" name="drawer" />
 
     <AutoExample name="CloseBehaviors" row />
+
+    <h3 id="swipe-to-close">Swipe to close</h3>
+    <p>
+      On a touch screen, a drawer at the block start or end has a grab handle.
+      Drag the handle or the header toward the edge, past a quarter of the
+      drawer or with a flick, and the drawer closes. Let go sooner and it
+      settles back. The content scrolls as usual and never moves the drawer.
+    </p>
+    <p>
+      The swipe is a close request, like <kbd>Esc</kbd>: with
+      <code>closedby="none"</code> there's no handle and no swipe, and a
+      <code>cancel</code> listener can keep the drawer open.
+    </p>
   </section>
 
   <Fragment slot="anatomy">

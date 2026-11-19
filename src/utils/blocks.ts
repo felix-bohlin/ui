@@ -1,24 +1,42 @@
 import { blockCategories, blocks, type Block } from "./blocks-data"
+import { SOLID_PRAGMA } from "../../scripts/component-shared.mjs"
+import { exampleExtension, FRAMEWORK_IDS, type FrameworkId } from "./framework"
 
-const sources = import.meta.glob<string>("../blocks/*.html", {
-  eager: true,
-  import: "default",
-  query: "?raw",
-})
+const sources = import.meta.glob<string>(
+  "../blocks/*/*.{astro,html,react.tsx,solid.tsx,svelte,vue}",
+  {
+    eager: true,
+    import: "default",
+    query: "?raw",
+  },
+)
 
-const sourceOf = (slug: string) => sources[`../blocks/${slug}.html`]
+export const blockFile = (slug: string, framework: FrameworkId) =>
+  `${slug}/${slug.replace(/(^|-)([a-z0-9])/g, (_, _dash, letter: string) => letter.toUpperCase())}.${exampleExtension(framework)}`
 
-const missing = blocks.filter((block) => sourceOf(block.slug) === undefined)
+const sourceOf = (slug: string, framework: FrameworkId) =>
+  sources[`../blocks/${blockFile(slug, framework)}`]?.replace(
+    `${SOLID_PRAGMA}\n`,
+    "",
+  )
+
+const missing = blocks.flatMap((block) =>
+  FRAMEWORK_IDS.filter(
+    (framework) => sourceOf(block.slug, framework) === undefined,
+  ).map((framework) => blockFile(block.slug, framework)),
+)
 if (missing.length > 0) {
   throw new Error(
-    `[blocks] missing src/blocks/${missing.map((block) => block.slug).join(".html, ")}.html`,
+    `[blocks] missing src/blocks/${missing.join(", src/blocks/")}`,
   )
 }
 
 const listed = new Set(blocks.map((block) => block.slug))
-const unlisted = Object.keys(sources)
-  .map((path) => path.match(/blocks\/([^/]+)\.html$/)![1])
-  .filter((slug) => !listed.has(slug))
+const unlisted = [
+  ...new Set(
+    Object.keys(sources).map((path) => path.match(/blocks\/([^/]+)\//)![1]),
+  ),
+].filter((slug) => !listed.has(slug))
 if (unlisted.length > 0) {
   throw new Error(
     `[blocks] add ${unlisted.join(", ")} to src/utils/blocks-data.ts`,
@@ -28,7 +46,16 @@ if (unlisted.length > 0) {
 export { blockCategories, type Block }
 
 export const allBlocks = blocks
-  .map((block) => ({ ...block, source: sourceOf(block.slug)! }))
+  .map((block) => ({
+    ...block,
+    source: sourceOf(block.slug, "html")!,
+    sources: Object.fromEntries(
+      FRAMEWORK_IDS.map((framework) => [
+        framework,
+        sourceOf(block.slug, framework)!,
+      ]),
+    ) as Record<FrameworkId, string>,
+  }))
   .toSorted((a, b) => a.name.localeCompare(b.name))
 
 export const blockGroups = blockCategories

@@ -12,6 +12,7 @@ import { Avatar, Card, CardContent, Message, MessageList } from "opui-css/vue"
       <Card variant="outlined">
         <CardContent class="ui-layout-media ui-small">
           <svg
+            data-icon="document"
             aria-hidden="true"
             class="ui-icon"
             xmlns="http://www.w3.org/2000/svg"
@@ -34,6 +35,7 @@ import { Avatar, Card, CardContent, Message, MessageList } from "opui-css/vue"
       <Card variant="outlined">
         <CardContent class="ui-layout-media ui-small">
           <svg
+            data-icon="document"
             aria-hidden="true"
             class="ui-icon"
             xmlns="http://www.w3.org/2000/svg"

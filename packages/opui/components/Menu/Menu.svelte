@@ -50,7 +50,7 @@
   popover={popover === "auto" ? "" : popover}
   {...rest}
 >
-  {#each items ?? [] as { borderTop, color, disabled, href, keepOpen, label, shortcut, ...itemRest }, index (index)}
+  {#each items as { borderTop, color, disabled, href, keepOpen, label, shortcut, ...itemRest }, index (index)}
     {@const Tag = href ? "a" : "button"}
     {@const closes =
       !href &&

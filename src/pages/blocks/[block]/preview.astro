@@ -2,6 +2,7 @@
 import "@opui/css/imports.css"
 import "@opui/open-props.css"
 import ThemeBootstrap from "../../../components/ThemeBootstrap.astro"
+import ThemeIcons from "../../../components/ThemeIcons.astro"
 import { allBlocks, isFullPage } from "../../../utils/blocks"
 import { importMap } from "../../../utils/import-map"
 import { testPagesEnabled } from "../../../utils/test-pages"
@@ -112,6 +113,7 @@ const themes = testPagesEnabled()
         document.documentElement.dataset.theme = theme
       }
     </script>
+    <ThemeIcons />
   </body>
 </html>
 

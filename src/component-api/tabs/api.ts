@@ -25,15 +25,17 @@ export default {
     html: 'Each tab is three elements, in this order: `input.ui-input[type="radio"]`, `label.ui-label` and `.ui-panel`.',
     react:
       "Use `value` with `onValueChange`, or `defaultValue`. Without them the items keep their own state, and `onValueChange` still reports changes.",
+    solid:
+      "Use `value` with `onValueChange`, or `defaultValue`. Without them the items keep their own state, and `onValueChange` still reports changes.",
     svelte:
-      "Bind `value` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state.",
-    vue: "Bind `v-model` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state.",
+      "Bind `value` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state. A `value` passed without `bind:` is a starting value: the tabs keep the selection themselves until you pass another.",
+    vue: "Bind `v-model` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state. A `model-value` passed without an `update:modelValue` listener is a starting value: the tabs keep the selection themselves until you pass another.",
   },
   options: [
     {
       description:
         "The `value` of the tab selected at the start, when `value` is omitted.",
-      frameworks: ["react"],
+      frameworks: ["react", "solid"],
       prop: "defaultValue",
     },
     {
@@ -46,7 +48,7 @@ export default {
     },
     {
       description: "Called with the `value` of the tab when one is selected.",
-      frameworks: ["react"],
+      frameworks: ["react", "solid"],
       prop: "onValueChange",
       type: "(value: string) => void",
     },
@@ -67,6 +69,15 @@ export default {
       values: { scroll: null, wrap: ".ui-overflow-wrap" },
     },
     {
+      attribute: '[role="radiogroup"]',
+      description:
+        "Makes tabs without panels a radio group, which `aria-label` names. Tabs with panels take no role: the root holds the panels, and a radio group holds only radios.",
+      group: "Role",
+      inherited: true,
+      prop: "role",
+      type: "string",
+    },
+    {
       default: '"tonal"',
       description:
         "The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.",
@@ -82,7 +93,7 @@ export default {
     {
       description:
         "The `value` of the selected tab. The item whose `value` matches is checked, and the items' own `checked` is ignored.",
-      frameworks: ["astro", "react"],
+      frameworks: ["astro", "react", "solid"],
       prop: "value",
     },
   ],

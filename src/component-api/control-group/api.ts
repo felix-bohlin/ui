@@ -58,6 +58,14 @@ export default {
       },
     },
     {
+      default: '"group"',
+      description:
+        "The `role` of the root, such as `toolbar`. A passed role replaces `group`.",
+      inherited: true,
+      prop: "role",
+      type: "string",
+    },
+    {
       default: '"medium"',
       description: "The size of the buttons and fields.",
       group: "Sizes",
@@ -87,7 +95,7 @@ export default {
       code: "& > :is(.ui-number-field, .ui-select, .ui-text-field, .ui-textarea)",
       component: "TextField",
       description:
-        "A number field, select, text field or textarea. Its `.ui-field` joins the controls next to it.",
+        "A number field, select, text field or textarea (a textarea only in a vertical group). Its `.ui-field` joins the controls next to it.",
       selector: ".ui-control-group > .ui-text-field",
     },
     {

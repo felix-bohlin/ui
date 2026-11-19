@@ -32,29 +32,19 @@ export const keywords = ["multiline", "text area"]
     "field-sizing",
     "has",
     "lh",
+    "reading-flow",
+    "registered-custom-properties",
     "user-pseudos",
   ]}
   fallbacks={{
     attr: "Without typed `attr()`, a textarea is at least three lines tall, whatever `rows` says.",
+    "reading-flow":
+      "Without `reading-flow`, Tab and screen readers follow the markup, which puts the top and start parts before the control, as they're drawn. Hand-written HTML needs that order too.",
   }}
   heroAnatomy
   apis={[{ title: "Textarea API", api: textareaApi }]}
   changelogPaths={[
-    {
-      path: "packages/opui/components/Textarea/Textarea.astro",
-      type: "component",
-    },
-    { path: "src/docs/components/textarea.astro", type: "docs" },
-    { path: "src/component-examples/textarea", type: "docs" },
-    {
-      path: "packages/opui/css/components/textarea.css",
-      type: "css",
-    },
-    {
-      path: "packages/opui/css/components/text-field.css",
-      type: "css",
-    },
-    { path: "src/component-api/textarea", type: "api" },
+    { path: "packages/opui/css/components/text-field.css", type: "css" },
     { path: "src/component-api/text-field", type: "api" },
   ]}
   installationTabs={[
@@ -152,6 +142,13 @@ export const keywords = ["multiline", "text area"]
 
     <AutoExample name="Affix" row />
 
+    <h3 id="buttons">Buttons</h3>
+    <p>
+      A button can go in an affix, like a send button. The label alone names the
+      field, and the button is read after it, with the other affixes.
+    </p>
+    <AutoExample name="AffixButton" row />
+
     <h3 id="top-and-bottom">Top and bottom</h3>
 
     <AutoExample name="TopAndBottom" column />
@@ -168,6 +165,9 @@ export const keywords = ["multiline", "text area"]
       >
       <Fragment slot="react">
         Use <code>value</code> and <code>onChange</code>.
+      </Fragment>
+      <Fragment slot="solid">
+        Use <code>value</code> and <code>onInput</code>.
       </Fragment>
       <Fragment slot="svelte">Use <code>bind:value</code>.</Fragment>
       <Fragment slot="vue">Use <code>v-model</code>.</Fragment>
@@ -219,10 +219,12 @@ export const keywords = ["multiline", "text area"]
   <Fragment slot="accessibility">
     <ul>
       <li>
-        The label and the affixes are the field's name, through
-        <code>aria-labelledby</code>. The start text, end text and the top and
-        bottom regions are its description, through <code>aria-describedby</code
-        >, so a hint or an error is read after the name.
+        The label alone is the field's name, through
+        <code>&lt;label for&gt;</code>. The affixes, the start text, end text
+        and the top and bottom regions are its description, through
+        <code>aria-describedby</code>, so a unit, a hint or an error is read
+        after the name in any language's word order, and buttons in the affixes
+        stay out of the name.
       </li>
     </ul>
     <KeyboardSupport />

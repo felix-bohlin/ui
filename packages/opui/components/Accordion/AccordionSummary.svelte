@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { markerPath } from "./icons"
   import { classAttrs } from "../cx"
   import type { AccordionSummaryProps as Props } from "./types.svelte"
 
@@ -13,7 +12,7 @@
   }: Props = $props()
 </script>
 
-<summary {...classAttrs([className])} {...rest}>
+<summary {...classAttrs(className)} {...rest}>
   {@render children?.()}{" "}{#if marker}
     {@render marker()}
   {:else}
@@ -24,8 +23,6 @@
       width="24"
       height="24"
       viewBox="0 0 24 24"
-    >
-      <path fill="currentColor" d={markerPath} />
-    </svg>
+    ></svg>
   {/if}
 </summary>

@@ -62,6 +62,8 @@ export default {
       "Attributes that aren't props go to the root `<opui-toaster>`. The component loads `opui-css/elements/toaster.js`, which exports `toast()` for a client script.",
     react:
       "Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once `opui-css/elements/toaster.js` runs, which the component loads once it mounts and `toast()` brings with your code. `opui-css/react` exports `toast()` next to `Toaster`.",
+    solid:
+      "Attributes that aren't props go to the root `<opui-toaster>`. Toasts show as soon as the component's code loads, which imports `opui-css/elements/toaster.js`. `opui-css/solid` exports `toast()` next to `Toaster`.",
     svelte:
       "Attributes that aren't props go to the root `<opui-toaster>`. Toasts show as soon as the component's code loads, which imports `opui-css/elements/toaster.js`. `opui-css/svelte` exports `toast()` next to `Toaster`.",
     vue: "Attributes that aren't props go to the root `<opui-toaster>`. Toasts show as soon as the component's code loads, which imports `opui-css/elements/toaster.js`. `opui-css/vue` exports `toast()` next to `Toaster`.",
@@ -90,7 +92,7 @@ export default {
       attribute: "[duration]",
       default: "5000",
       description:
-        "How long a toast stays, in milliseconds, while the pointer and focus are elsewhere. A toast with an action stays twice as long.",
+        "How long a toast stays, in milliseconds, while the pointer and focus are elsewhere. A toast with an action stays twice as long, and `Infinity` keeps a toast until it's closed.",
       group: "Duration",
       prop: "duration",
     },

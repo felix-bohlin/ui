@@ -52,6 +52,7 @@ import { Select } from "opui-css/vue"
     <option value="private">
       <span class="ui-start">
         <svg
+          data-icon="lock"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -71,6 +72,7 @@ import { Select } from "opui-css/vue"
     <option value="team">
       <span class="ui-start">
         <svg
+          data-icon="people"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -90,6 +92,7 @@ import { Select } from "opui-css/vue"
     <option value="public">
       <span class="ui-start">
         <svg
+          data-icon="globe"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"

@@ -1,21 +1,22 @@
 <script setup lang="ts">
-import { inject } from "vue"
+import { computed, inject } from "vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
 import { DialogKey } from "./context.vue"
 import { warnMissingCloseTarget } from "../dev"
-import { closePath } from "./icons"
 import type {
   DialogHeaderProps as Props,
   DialogHeaderSlots,
 } from "./types.vue-props"
 
-const { closeButton, closeLabel = "Close" } = defineProps<Props>()
+const { closeButton, closeLabel = "Close", commandfor } = defineProps<Props>()
 defineSlots<DialogHeaderSlots>()
 
 const dialog = inject(DialogKey, undefined)
 
-if (closeButton) warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
+const target = computed(() => commandfor ?? dialog?.id)
+
+if (closeButton) warnMissingCloseTarget("DialogHeader", target.value, "Dialog")
 </script>
 
 <template>
@@ -24,7 +25,7 @@ if (closeButton) warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
       v-if="closeButton"
       :aria-label="closeLabel"
       command="close"
-      :commandfor="dialog?.id"
+      :commandfor="target"
       round
       size="small"
       ><slot v-if="$slots['close-icon']" name="close-icon"></slot>
@@ -35,8 +36,7 @@ if (closeButton) warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
         width="32"
         height="32"
         viewBox="0 0 32 32"
-      >
-        <path fill="currentColor" :d="closePath" /></svg
+      ></svg
     ></Button>
   </div>
 </template>

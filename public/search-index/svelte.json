@@ -470,6 +470,13 @@
     "url": "/svelte/components/carousel/#images"
   },
   {
+    "id": "component-carousel-svelte-whole-photos",
+    "title": "Whole photos",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/svelte/components/carousel/#whole-photos"
+  },
+  {
     "id": "component-carousel-svelte-gallery",
     "title": "Gallery",
     "page": "Carousel",
@@ -966,6 +973,13 @@
     "url": "/svelte/components/dialog/#long-content"
   },
   {
+    "id": "component-dialog-svelte-close-button",
+    "title": "Close button",
+    "page": "Dialog",
+    "category": "Component",
+    "url": "/svelte/components/dialog/#close-button"
+  },
+  {
     "id": "component-dialog-svelte-how-to-close",
     "title": "How to close a dialog",
     "page": "Dialog",
@@ -1059,11 +1073,25 @@
     "url": "/svelte/components/drawer/#close-button"
   },
   {
+    "id": "component-drawer-svelte-safe-areas",
+    "title": "Safe areas",
+    "page": "Drawer",
+    "category": "Component",
+    "url": "/svelte/components/drawer/#safe-areas"
+  },
+  {
     "id": "component-drawer-svelte-how-to-close",
     "title": "How to close a drawer",
     "page": "Drawer",
     "category": "Component",
     "url": "/svelte/components/drawer/#how-to-close"
+  },
+  {
+    "id": "component-drawer-svelte-swipe-to-close",
+    "title": "Swipe to close",
+    "page": "Drawer",
+    "category": "Component",
+    "url": "/svelte/components/drawer/#swipe-to-close"
   },
   {
     "id": "component-drawer-svelte-role-attributes",
@@ -1412,6 +1440,13 @@
     "url": "/svelte/components/list/#switch"
   },
   {
+    "id": "component-list-svelte-ordered",
+    "title": "Ordered",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list/#ordered"
+  },
+  {
     "id": "component-list-svelte-inset",
     "title": "Inset",
     "page": "List",
@@ -1580,6 +1615,13 @@
     "page": "Message",
     "category": "Component",
     "url": "/svelte/components/message/#group-chat"
+  },
+  {
+    "id": "component-message-svelte-direct",
+    "title": "Direct",
+    "page": "Message",
+    "category": "Component",
+    "url": "/svelte/components/message/#direct"
   },
   {
     "id": "component-message-svelte-attachments",
@@ -2822,6 +2864,13 @@
     "url": "/svelte/components/textarea/#affix"
   },
   {
+    "id": "component-textarea-svelte-buttons",
+    "title": "Buttons",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/svelte/components/textarea/#buttons"
+  },
+  {
     "id": "component-textarea-svelte-top-and-bottom",
     "title": "Top and bottom",
     "page": "Textarea",
@@ -2848,13 +2897,6 @@
     "page": "Textarea",
     "category": "Component",
     "url": "/svelte/components/textarea/#spread"
-  },
-  {
-    "id": "component-textarea-svelte-rows",
-    "title": "Rows",
-    "page": "Textarea",
-    "category": "Component",
-    "url": "/svelte/components/textarea/#rows"
   },
   {
     "id": "component-textarea-svelte-auto-fit",
@@ -3697,6 +3739,27 @@
     "url": "/svelte/guide/theming/#motion-personality"
   },
   {
+    "id": "guide-theming-svelte-icons",
+    "title": "Icons",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming/#icons"
+  },
+  {
+    "id": "guide-theming-svelte-icons-sets",
+    "title": "Icon sets",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming/#icons-sets"
+  },
+  {
+    "id": "guide-theming-svelte-icons-slots",
+    "title": "Your own icons",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming/#icons-slots"
+  },
+  {
     "id": "guide-theming-svelte-contrast",
     "title": "Contrast",
     "page": "Theming",
@@ -3941,7 +4004,7 @@
     "id": "blog-release-6",
     "title": "opui 6.0",
     "description": "What changed in 6.0 and why, with live demos.",
-    "headings": "It's a proper design system now Five example themes Token tiers Contrast as a guarantee Loads of new components So much cool stuff in the docs Blocks! Theme builder The CSS is the component One Astro file, four frameworks Slots become parts, props get one naming model The platform did the work Browser support, honestly The new \"by hand\" Where it landed Migrating",
+    "headings": "It's a proper design system now Five example themes Token tiers Contrast as a guarantee Loads of new components So much cool stuff in the docs Blocks! Theme builder The CSS is the component One Astro file, four frameworks Slots become parts, props get one naming model The platform did the work Browser support, honestly The new \"by hand\" Working with AI Where it landed Migrating",
     "category": "Blog",
     "url": "/blog/release-6/"
   },
@@ -4323,16 +4386,16 @@
   },
   {
     "id": "api-accordion-actions-svelte",
-    "title": "Accordion Actions API",
-    "description": "Reference for Accordion Actions Svelte component.",
+    "title": "Accordion actions API",
+    "description": "Reference for Accordion actions Svelte component.",
     "api": "AccordionActions A group of actions, such as buttons. align Alignment for the actions.",
     "category": "API",
     "url": "/svelte/api/#accordion-actions"
   },
   {
     "id": "api-accordion-summary-svelte",
-    "title": "Accordion Summary API",
-    "description": "Reference for Accordion Summary Svelte component.",
+    "title": "Accordion summary API",
+    "description": "Reference for Accordion summary Svelte component.",
     "api": "AccordionSummary The always visible header. The marker. Renders a chevron by default. Only `.ui-marker` animates. marker",
     "category": "API",
     "url": "/svelte/api/#accordion-summary"
@@ -4341,7 +4404,7 @@
     "id": "api-accordion-svelte",
     "title": "Accordion API",
     "description": "Reference for Accordion Svelte component.",
-    "api": "Accordion Container element. The always visible header. The marker. In Astro, React, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates. The collapsible content. A group of actions, such as buttons. name Groups accordions so only one of them can be open at a time. markerAnimation How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` turns it a quarter turn, for a marker that points to the inline end and then points down when open. The default chevron points down, so `turn` needs a custom marker. open Whether the accordion is open. variant The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface or border, and no inline padding.",
+    "api": "Accordion Container element. The always visible header. The marker. In Astro, React, Solid, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates. The collapsible content. A group of actions, such as buttons. name Groups accordions so only one of them can be open at a time. markerAnimation How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` turns it a quarter turn, for a marker that points to the inline end and then points down when open. The default chevron points down, so `turn` needs a custom marker. open Whether the accordion is open. variant The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface or border, and no inline padding.",
     "category": "API",
     "url": "/svelte/api/#accordion"
   },
@@ -4349,15 +4412,15 @@
     "id": "api-anchor-svelte",
     "title": "Anchor API",
     "description": "Reference for Anchor Svelte component.",
-    "api": "Anchor Container element. Scopes the anchor to its content. The content the floating content is anchored to. The floating content. id The id of the root. With `trigger=\"hover\"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. Required with `trigger=\"hover\"`. positionArea Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. trigger Shows the floating content on hover and focus with `popover=\"hint\"`. Without it, the content always shows.",
+    "api": "Anchor Container element. Scopes the anchor to its content. The content the floating content is anchored to. The floating content. With `trigger=\"hover\"`, it takes the anchor's `id` and `popover=\"hint\"` over its own, so the trigger's `interestfor` always reaches it. In an anchor that always shows it, its own `id` and `popover` stay. id The id of the root. With `trigger=\"hover\"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. Required with `trigger=\"hover\"`. positionArea Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. trigger Shows the floating content on hover and focus with `popover=\"hint\"`. Without it, the content always shows.",
     "category": "API",
     "url": "/svelte/api/#anchor"
   },
   {
     "id": "api-avatar-group-svelte",
-    "title": "Avatar Group API",
-    "description": "Reference for Avatar Group Svelte component.",
-    "api": "AvatarGroup A group of overlapping avatars. aria-label The accessible name of the group. The Astro, React and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. aria-labelledby The id of the element that names the group, instead of `aria-label`.",
+    "title": "Avatar group API",
+    "description": "Reference for Avatar group Svelte component.",
+    "api": "AvatarGroup A group of overlapping avatars. aria-label The accessible name of the group. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. aria-labelledby The id of the element that names the group, instead of `aria-label`. role The `role` of the root. A passed role replaces `group`.",
     "category": "API",
     "url": "/svelte/api/#avatar-group"
   },
@@ -4365,7 +4428,7 @@
     "id": "api-avatar-svelte",
     "title": "Avatar API",
     "description": "Reference for Avatar Svelte component.",
-    "api": "Avatar Container element. The avatar image. Its `alt` is `label`. label src aria-label The accessible name of a link or button avatar, instead of `label`. The Astro, React and Svelte types require one of `label`, `aria-label` and `aria-labelledby` on a link or button. In Vue it passes through as an attribute. aria-labelledby The id of the element that names a link or button avatar, instead of `label`. as The element to render. Defaults to `\"a\"` with `href`. disabled Disables a button avatar. A link avatar drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"` instead. href The link to use. Renders an `<a>`. label The name of the person or thing: the `alt` of the image, or visually hidden text next to the letters or icon. Leave it out when the name is shown next to the avatar, which then is decorative. A link or button avatar needs it. shape The shape of the avatar. size The size of the element. src The image source. Replaces the content. Without it, the avatar shows its content, so a missing photo falls back to the letters. variant The variant to use. `filled` is the primary color, `outlined` the border color with no fill and `tonal` the primary tint.",
+    "api": "Avatar Container element. The avatar image. alt src alt Alternative text for the image. Required with `src`. Use an empty string when the name is shown next to it. as The element to render. Defaults to `\"a\"` with `href`. disabled Disables a button avatar. A link avatar drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"` instead. href The link to use. Renders an `<a>`. shape The shape of the avatar. size The size of the element. src The image source. Replaces the content. variant The variant to use. `filled` is the primary color, `outlined` the border color with no fill and `tonal` the primary tint.",
     "category": "API",
     "url": "/svelte/api/#avatar"
   },
@@ -4381,7 +4444,7 @@
     "id": "api-button-svelte",
     "title": "Button API",
     "description": "Reference for Button Svelte component.",
-    "api": "Button Container element. An optional icon. The label next to an icon. The CSS styles the `span`, and `.ui-text` is a hook for your own styles. An optional keyboard hint. aria-label The accessible name, for a button without visible text. React and Svelte require it, or `aria-labelledby`, when there are no `children`. aria-labelledby The id of the element that names a button without visible text, instead of `aria-label`. as The element to render. Defaults to `\"a\"` with `href`. color Optional colors. disabled Disables the button. A link button drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"`. href The link to use. Renders an `<a>`. round Fully rounded corners, a circle when icon-only. size The size of the element. type The button type. Use `\"submit\"` to submit a form, which a native `<button>` does by default. variant The variant to use.",
+    "api": "Button Container element. An optional icon. The label next to an icon. The CSS styles the `span`, and `.ui-text` is a hook for your own styles. An optional keyboard hint. aria-label The accessible name, for a button without visible text. React, Solid and Svelte require it, or `aria-labelledby`, when there are no `children`. aria-labelledby The id of the element that names a button without visible text, instead of `aria-label`. as The element to render. Defaults to `\"a\"` with `href`. color Optional colors. disabled Disables the button. A link button drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"`. href The link to use. Renders an `<a>`. round Fully rounded corners, a circle when icon-only. size The size of the element. type The button type. Use `\"submit\"` to submit a form, which a native `<button>` does by default. variant The variant to use.",
     "category": "API",
     "url": "/svelte/api/#button"
   },
@@ -4389,22 +4452,22 @@
     "id": "api-callout-svelte",
     "title": "Callout API",
     "description": "Reference for Callout Svelte component.",
-    "api": "Callout Container element, a `<div>`. With `closeButton`, the `<opui-callout>` custom element, which a button with `commandfor` and `command=\"--dismiss\"` dismisses. An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. The content, with an optional heading first. A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon A row of buttons under the content. closeButton Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>`, and the component loads `opui-css/elements/callout.js`, which runs the button. closeLabel The accessible name of the close button. id The id of the callout. With `closeButton`, the close button points at it with `commandfor`, so the component generates one when it's left out. ondismiss Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first. severity The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders. variant The variant to use. dismiss Fires on the callout before it hides. It bubbles, and `preventDefault()` keeps the callout. dismiss() Fires `dismiss` and, unless a listener cancels it, sets `hidden` on the callout and moves focus that was inside it to the next focusable element after it, or else the one before. Returns whether the callout hid.",
+    "api": "Callout Container element, an `<article>`. With `closeButton`, the `<opui-callout>` custom element with `role=\"article\"`, which a button with `commandfor` and `command=\"--dismiss\"` dismisses. An optional icon before the content. In Astro, React, Solid, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. The content, with an optional heading first. A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon A row of buttons under the content. closeButton Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>` with `role=\"article\"`, and the component loads `opui-css/elements/callout.js`, which runs the button. While the root has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, the button does nothing. closeLabel The accessible name of the close button. id The id of the callout. With `closeButton`, the close button points at it with `commandfor`, so the component generates one when it's left out. ondismiss Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first. severity The severity. Sets the color, and in Astro, React, Solid, Svelte and Vue the icon `CalloutIcon` renders. variant The variant to use. dismiss Fires on the callout before it hides. It bubbles, and `preventDefault()` keeps the callout. dismiss() Fires `dismiss` and, unless a listener cancels it, sets `hidden` on the callout and moves focus that was inside it to the next focusable element after it, or else the one before. Returns whether the callout hid.",
     "category": "API",
     "url": "/svelte/api/#callout"
   },
   {
     "id": "api-card-actions-svelte",
-    "title": "Card Actions API",
-    "description": "Reference for Card Actions Svelte component.",
+    "title": "Card actions API",
+    "description": "Reference for Card actions Svelte component.",
     "api": "CardActions A group of actions, such as buttons. align Alignment for the actions.",
     "category": "API",
     "url": "/svelte/api/#card-actions"
   },
   {
     "id": "api-card-header-svelte",
-    "title": "Card Header API",
-    "description": "Reference for Card Header Svelte component.",
+    "title": "Card header API",
+    "description": "Reference for Card header Svelte component.",
     "api": "CardHeader The card header. as The element to render. Use `div` for a header row with an avatar or a button next to the heading, and put the heading in an `hgroup` inside it. Use `header` for the same row in an `article` card.",
     "category": "API",
     "url": "/svelte/api/#card-header"
@@ -4421,14 +4484,14 @@
     "id": "api-carousel-svelte",
     "title": "Carousel API",
     "description": "Reference for Carousel Svelte component.",
-    "api": "Carousel The scroller. The previous button. `::scroll-button(block-start)` when vertical. buttons previousLabel An item. default The next button. `::scroll-button(block-end)` when vertical. buttons nextLabel A marker, one per item. markerLabel markers align Where items snap. aria-label The accessible name of the carousel. The Astro, React and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. aria-labelledby The id of the element that names the carousel, instead of `aria-label`. aspectRatio Aspect ratio that images, videos and iframes are cropped to. buttons Previous and next buttons. `outside` places them beside the items, and `none` leaves them out. itemsPerView Number of visible items. markerLabel Accessible name of each marker, with `{number}` where the item number goes. markers One marker per item, after the list. nextLabel Accessible name of the next button. orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. peek Shows part of the neighboring items. persistentButtons Keeps the buttons visible at the ends. A disabled button has a muted border. previousLabel Accessible name of the previous button. stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
+    "api": "Carousel The scroller. The previous button. `::scroll-button(block-start)` when vertical. buttons previousLabel An item. default The next button. `::scroll-button(block-end)` when vertical. buttons nextLabel A marker, one per item. markerLabel markers align Where items snap. aria-label The accessible name of the carousel. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. aria-labelledby The id of the element that names the carousel, instead of `aria-label`. aspectRatio Aspect ratio that images, videos and iframes are cropped to. buttons Previous and next buttons. `outside` places them beside the items, and `none` leaves them out. itemsPerView Number of visible items. markerLabel Accessible name of each marker, with `{number}` where the item number goes. markers One marker per item, after the list. nextLabel Accessible name of the next button. orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. peek Shows part of the neighboring items. persistentButtons Keeps the buttons visible at the ends. A disabled button has a muted border. previousLabel Accessible name of the previous button. role The `role` of the `<ul>`. `list` keeps Safari announcing a list. stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
     "category": "API",
     "url": "/svelte/api/#carousel"
   },
   {
     "id": "api-checkbox-input-svelte",
-    "title": "Checkbox Input API",
-    "description": "Reference for Checkbox Input Svelte component.",
+    "title": "Checkbox input API",
+    "description": "Reference for Checkbox input Svelte component.",
     "api": "CheckboxInput The checkbox input, without a label. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. indeterminate Shows a partially checked state. Sets the `indeterminate` property on the `<input>`.",
     "category": "API",
     "url": "/svelte/api/#checkbox-input"
@@ -4451,9 +4514,9 @@
   },
   {
     "id": "api-control-group-svelte",
-    "title": "Control Group API",
-    "description": "Reference for Control Group Svelte component.",
-    "api": "ControlGroup Container element. A number field, select, text field or textarea. Its `.ui-field` joins the controls next to it. A button or button link. color Optional colors for the buttons. orientation The orientation of the element. overflow What the controls do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis. Icon-only buttons keep their size. size The size of the buttons and fields. variant The variant of the buttons.",
+    "title": "Control group API",
+    "description": "Reference for Control group Svelte component.",
+    "api": "ControlGroup Container element. A number field, select, text field or textarea (a textarea only in a vertical group). Its `.ui-field` joins the controls next to it. A button or button link. color Optional colors for the buttons. orientation The orientation of the element. overflow What the controls do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis. Icon-only buttons keep their size. role The `role` of the root, such as `toolbar`. A passed role replaces `group`. size The size of the buttons and fields. variant The variant of the buttons.",
     "category": "API",
     "url": "/svelte/api/#control-group"
   },
@@ -4467,33 +4530,33 @@
   },
   {
     "id": "api-description-list-item-svelte",
-    "title": "Description List Item API",
-    "description": "Reference for Description List Item Svelte component.",
+    "title": "Description list item API",
+    "description": "Reference for Description list item Svelte component.",
     "api": "DescriptionListItem Groups a term with its description. total Marks the item as the total of the list: a line above it, larger bold text and the strong text color, for the last row of an order summary.",
     "category": "API",
     "url": "/svelte/api/#description-list-item"
   },
   {
     "id": "api-description-list-svelte",
-    "title": "Description List API",
-    "description": "Reference for Description List Svelte component.",
+    "title": "Description list API",
+    "description": "Reference for Description list Svelte component.",
     "api": "DescriptionList Container element. Groups a term with its description. The term. The description. border The style of the line between the term and the description. Without it, there's no line. orientation The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width.",
     "category": "API",
     "url": "/svelte/api/#description-list"
   },
   {
     "id": "api-dialog-footer-svelte",
-    "title": "Dialog Footer API",
-    "description": "Reference for Dialog Footer Svelte component.",
+    "title": "Dialog footer API",
+    "description": "Reference for Dialog footer Svelte component.",
     "api": "DialogFooter A row at the end, for buttons, text or anything else. Groups buttons. Moves to the end when other content comes first. align Alignment for the footer content.",
     "category": "API",
     "url": "/svelte/api/#dialog-footer"
   },
   {
     "id": "api-dialog-header-svelte",
-    "title": "Dialog Header API",
-    "description": "Reference for Dialog Header Svelte component.",
-    "api": "DialogHeader Container element. Closes the dialog, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon closeButton Adds a close button at the end of the title row, which closes its `Dialog` through the dialog's `id`. closeLabel The accessible name of the close button.",
+    "title": "Dialog header API",
+    "description": "Reference for Dialog header Svelte component.",
+    "api": "DialogHeader Container element. Closes the dialog, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon closeButton Adds a close button at the end of the title row, which closes its `Dialog` through the dialog's `id`, or the `<dialog>` that `commandfor` names. closeLabel The accessible name of the close button. commandfor The id of the dialog the close button closes with the `close` command. Without it, the button closes its `Dialog`. Outside a `Dialog`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.",
     "category": "API",
     "url": "/svelte/api/#dialog-header"
   },
@@ -4515,16 +4578,16 @@
   },
   {
     "id": "api-drawer-footer-svelte",
-    "title": "Drawer Footer API",
-    "description": "Reference for Drawer Footer Svelte component.",
+    "title": "Drawer footer API",
+    "description": "Reference for Drawer footer Svelte component.",
     "api": "DrawerFooter A row at the end, for buttons, text or anything else. Groups buttons. Moves to the end when other content comes first. align Alignment for the footer content.",
     "category": "API",
     "url": "/svelte/api/#drawer-footer"
   },
   {
     "id": "api-drawer-header-svelte",
-    "title": "Drawer Header API",
-    "description": "Reference for Drawer Header Svelte component.",
+    "title": "Drawer header API",
+    "description": "Reference for Drawer header Svelte component.",
     "api": "DrawerHeader Container element. Closes the drawer, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon closeButton Adds a close button at the end of the title row, which closes its `Drawer`, or the `<dialog>` that `commandfor` names. closeLabel The accessible name of the close button. commandfor The id of the drawer the close button closes with the `close` command. Without it, the button closes its `Drawer`. Outside a `Drawer`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.",
     "category": "API",
     "url": "/svelte/api/#drawer-header"
@@ -4533,30 +4596,30 @@
     "id": "api-drawer-svelte",
     "title": "Drawer API",
     "description": "Reference for Drawer Svelte component.",
-    "api": "Drawer Container element. The header, a row for the title and anything next to it, with an optional close button. The title. Names the drawer through `aria-labelledby`. The scrollable content. The footer, a row at the end. backdrop The backdrop style. `transparent` keeps the page behind it fully visible. closedby How the drawer can be closed. `any` also closes it on a click outside. closeOnNavigate Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API. id The id of the `<dialog>`, which the trigger's `commandfor` points at. Required. scrollLock Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`. side The side it opens from.",
+    "api": "Drawer Container element. The header, a row for the title and anything next to it, with an optional close button. The title. Names the drawer through `aria-labelledby`. The scrollable content. The footer, a row at the end. backdrop The backdrop style. `transparent` keeps the page behind it fully visible. closedby How the drawer can be closed. `any` also closes it on a click outside. Swiping a drawer at the block start or end toward its edge is a close request too, so `none` turns it off. closeOnNavigate Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API. id The id of the `<dialog>`, which the trigger's `commandfor` points at. Required. scrollLock Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`. side The side it opens from.",
     "category": "API",
     "url": "/svelte/api/#drawer"
   },
   {
     "id": "api-field-description-svelte",
-    "title": "Field Description API",
-    "description": "Reference for Field Description Svelte component.",
+    "title": "Field description API",
+    "description": "Reference for Field description Svelte component.",
     "api": "FieldDescription Supporting text for a fieldset.",
     "category": "API",
     "url": "/svelte/api/#field-description"
   },
   {
     "id": "api-field-group-svelte",
-    "title": "Field Group API",
-    "description": "Reference for Field Group Svelte component.",
+    "title": "Field group API",
+    "description": "Reference for Field group Svelte component.",
     "api": "FieldGroup Container element. name Sets `name` on the OPUI fields inside that don't set their own. orientation The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row.",
     "category": "API",
     "url": "/svelte/api/#field-group"
   },
   {
     "id": "api-field-legend-svelte",
-    "title": "Field Legend API",
-    "description": "Reference for Field Legend Svelte component.",
+    "title": "Field legend API",
+    "description": "Reference for Field legend Svelte component.",
     "api": "FieldLegend The label of a fieldset. as The element to render. Adds `.ui-legend` when not `\"legend\"`. id The id of the legend. Inside a `Fieldset` rendered with `as`, the legend takes the fieldset's generated id instead, unless the fieldset has `aria-label` or `aria-labelledby`.",
     "category": "API",
     "url": "/svelte/api/#field-legend"
@@ -4587,8 +4650,8 @@
   },
   {
     "id": "api-list-item-svelte",
-    "title": "List Item API",
-    "description": "Reference for List Item Svelte component.",
+    "title": "List item API",
+    "description": "Reference for List item Svelte component.",
     "api": "ListItem The list item. The clickable row, rendered by `as`, `href` or `choice`. as choice href Optional content at the start, such as an icon or avatar. start The text content. The label, the first paragraph. label label Supporting text, the second paragraph. description description Optional content at the end, such as a value or an action. end Your own check, shown at the end while the row is selected or current. In a `Menu` or a listbox it replaces the default check. icon-checked as The element to render inside the `<li>`: `\"a\"` or `\"button\"`. Defaults to `\"a\"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type=\"button\"`. borderTop Adds a border above the item. choice Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`. color Optional colors. `critical` marks a destructive item in a [Menu](/components/menu). disabled Disables a button item. A link item drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"` instead. for The `for` attribute of the `<label>` when `choice` is set. href The link to use. Renders an `<a>` inside the `<li>`. inset Aligns the text with items that have start content.",
     "category": "API",
     "url": "/svelte/api/#list-item"
@@ -4597,7 +4660,7 @@
     "id": "api-list-svelte",
     "title": "List API",
     "description": "Reference for List Svelte component.",
-    "api": "List Container element. A list item. bordered Adds a border between list items. dense Packs the items tighter. flush Removes the inline padding of the items and the block padding of the list. variant The variant to use.",
+    "api": "List Container element. A list item. as The element to render. Use `ol` when the order is the content, like a ranking or steps. bordered Adds a border between list items. dense Packs the items tighter. flush Removes the inline padding of the items and the block padding of the list. role The `role` of the `<ul>`, such as `listbox`. `list` keeps Safari announcing a list. variant The variant to use.",
     "category": "API",
     "url": "/svelte/api/#list"
   },
@@ -4605,15 +4668,15 @@
     "id": "api-menu-svelte",
     "title": "Menu API",
     "description": "Reference for Menu Svelte component.",
-    "api": "Menu The menu surface, a popover anchored to its trigger. A group heading. HTML and CSS only. An item, holding a `<button>` or an `<a>` with `href`. Rendered from `items`, or a `ListItem` in the default slot. Optional content at the start, such as an icon. The label (`label` on an item). Optional content at the end, such as a shortcut in a `<kbd>` (`shortcut` on an item). Your own check on the current item, which replaces the default check. The `icon-checked` slot puts it on every item from `items`. icon-checked align Which edge of the trigger the menu lines up with. bordered Adds a border between the items. dense Packs the items tighter. id The id of the menu, which the trigger's `commandfor` points at. Required. items The items, as `{ borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `borderTop` adds a border above the item, `color: \"critical\"` marks a destructive one, a disabled link has no `href`, and `keepOpen` keeps the menu open on click. Other keys go to the item's `<a>` or `<button>`, like `type: \"submit\"` with `form` for an item that submits a form. popover The popover type. With `manual`, Esc and a click outside don't close the menu, and opening another menu doesn't either. side The side of the trigger the menu opens on.",
+    "api": "Menu The menu surface, a popover anchored to its trigger. A group heading. HTML and CSS only. An item, holding a `<button>` or an `<a>` with `href`. Rendered from `items`, or a `ListItem` in the default slot. Optional content at the start, such as an icon. The label (`label` on an item). Optional content at the end, such as a shortcut in a `<kbd>` (`shortcut` on an item). Your own check on the current item, which replaces the default check. The `icon-checked` slot puts it on every item from `items`. icon-checked align Which edge of the trigger the menu lines up with. bordered Adds a border between the items. dense Packs the items tighter. id The id of the menu, which the trigger's `commandfor` points at. Required. items The items, as `{ borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `borderTop` adds a border above the item, `color: \"critical\"` marks a destructive one, a disabled link has no `href`, and `keepOpen` keeps the menu open on click. Other keys go to the item's `<a>` or `<button>`. popover The popover type. With `manual`, Esc and a click outside don't close the menu, and opening another menu doesn't either. side The side of the trigger the menu opens on.",
     "category": "API",
     "url": "/svelte/api/#menu"
   },
   {
     "id": "api-message-list-svelte",
-    "title": "Message List API",
-    "description": "Reference for Message List Svelte component.",
-    "api": "MessageList The conversation, an ordered list. A message. Consecutive messages on the same side group into a run.",
+    "title": "Message list API",
+    "description": "Reference for Message list Svelte component.",
+    "api": "MessageList The conversation, an ordered list. A message. Consecutive messages on the same side group into a run. direct A chat between two people: no message shows its author's name or avatar, since the chat's own title names the other person. Screen readers still hear the name. role The `role` of the `<ol>`, such as `log` for a live conversation. `list` keeps Safari announcing a list.",
     "category": "API",
     "url": "/svelte/api/#message-list"
   },
@@ -4621,23 +4684,23 @@
     "id": "api-message-svelte",
     "title": "Message API",
     "description": "Reference for Message Svelte component.",
-    "api": "Message A message. The sender's `Avatar`, from the `start` slot, shown on the last message of a run. It takes no `label`: `author` names the message. start The bubble. default The sender's name. author The time, and content such as a read receipt. datetime time Content after the time, such as a read receipt. end Reactions in a `ToggleGroup`, drawn as separate pills over the bottom edge of the bubble. bottom author The sender, shown on the first message of a run and read by screen readers on every message. datetime The machine-readable date and time of `time`. newAuthor Starts a new run when the author changes, for a group chat. outgoing A message you sent. It aligns to the end in the primary color, and its author is visually hidden. time The time as shown, at the end of the bubble. typing Shows animated dots instead of the content. The default slot becomes the status text for screen readers.",
+    "api": "Message A message. The sender's `Avatar`, from the `start` slot, shown on the last message of a run. start The bubble. default The sender's name. author The time, and content such as a read receipt. datetime time Content after the time, such as a read receipt. end Reactions in a `ToggleGroup`, drawn as separate pills over the bottom edge of the bubble. bottom author The sender, shown on the first message of a run and read by screen readers on every message. datetime The machine-readable date and time of `time`. newAuthor Starts a new run when the author changes, for a group chat. outgoing A message you sent. It aligns to the end in the primary color, and its author is visually hidden. time The time as shown, at the end of the bubble. typing Shows animated dots instead of the content. The default slot becomes the status text for screen readers.",
     "category": "API",
     "url": "/svelte/api/#message"
   },
   {
     "id": "api-number-field-svelte",
-    "title": "Number Field API",
-    "description": "Reference for Number Field Svelte component.",
-    "api": "NumberField The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max` and keeps both disabled while the input is disabled, as the component renders them. The label for the field. label label Start text displayed above the field. startText start-text The boxed input area. The decrease button, with `command=\"--step-down\"`. Renders a minus icon by default, or the `svg` in `decrease-icon`. Hidden until the element is defined. decreaseLabel decrease-icon The input element. The increase button, with `command=\"--step-up\"`. Renders a plus icon by default, or the `svg` in `increase-icon`. Hidden until the element is defined. increaseLabel increase-icon Supporting text displayed below the field. endText end-text decreaseLabel The accessible name of the decrease button. disabled Dims the field and blocks input and the step buttons. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. The label and the step buttons point at it, so the component generates one when it's left out. The start and end text ids start with it: `x-start-text` and `x-end-text` for `id=\"x\"`. increaseLabel The accessible name of the increase button. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the field to the other. stretch Fills the available width. Without it, the field fits its value, from `--_min-inline-size` (`4ch`). variant The variant to use. input The `<input type=\"number\">` inside, or `null`. Read-only. stepDown() Steps the value down by `step`, unless the input is disabled, read-only or at `min`, and fires `input` and `change`. stepUp() Steps the value up by `step`, unless the input is disabled, read-only or at `max`, and fires `input` and `change`.",
+    "title": "Number field API",
+    "description": "Reference for Number field Svelte component.",
+    "api": "NumberField The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max`, and keeps both disabled while the input is disabled and `aria-disabled` while the input is, also when a script changes the input. The label for the field. label label Start text displayed above the field. startText start-text The boxed input area. The decrease button, with `command=\"--step-down\"`. Renders a minus icon by default, or the `svg` in `decrease-icon`. Hidden until the element is defined. decreaseLabel decrease-icon The input element. The increase button, with `command=\"--step-up\"`. Renders a plus icon by default, or the `svg` in `increase-icon`. Hidden until the element is defined. increaseLabel increase-icon Supporting text displayed below the field. endText end-text decreaseLabel The accessible name of the decrease button. disabled Dims the field and blocks input and the step buttons. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. The label and the step buttons point at it, so the component generates one when it's left out. The start and end text ids start with it: `x-start-text` and `x-end-text` for `id=\"x\"`. increaseLabel The accessible name of the increase button. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the field to the other. stretch Fills the available width. Without it, the field fits its value, from `--_min-inline-size` (`4ch`). variant The variant to use. input The `<input type=\"number\">` inside, or `null`. Read-only. stepDown() Steps the value down by `step`, unless the input is disabled, read-only or at `min`, and fires `input` and `change`. stepUp() Steps the value up by `step`, unless the input is disabled, read-only or at `max`, and fires `input` and `change`.",
     "category": "API",
     "url": "/svelte/api/#number-field"
   },
   {
     "id": "api-one-time-code-svelte",
-    "title": "One Time Code API",
-    "description": "Reference for One Time Code Svelte component.",
-    "api": "OneTimeCode Container element. The label for the field. label label Draws a box per character and a ring on the next one. The input element. Supporting text displayed below the field. endText end-text alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. autocapitalize The `autocapitalize` of the `<input>`. With `alphanumeric` it is `characters`. autocomplete The `autocomplete` of the `<input>`. `one-time-code` lets the browser fill in a code it received. disabled Dims the field and blocks input. error Marks the control invalid and shows error styles. grouped Draws a dash between the two halves of the code. Use it with an even `length`. id The id of the `<input>`. inputmode The `inputmode` of the `<input>`. Without `alphanumeric` it is `numeric`. length The number of characters and boxes, from 4 to 8. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. pattern The `pattern` of the `<input>`. It is `[0-9]{length}`, or `[A-Za-z0-9]{length}` with `alphanumeric`. required Adds a required mark after the label. The form won't submit while the code is incomplete. size The size of the element. spellcheck The `spellcheck` of the `<input>`. With `alphanumeric` it is `false`.",
+    "title": "One-time code API",
+    "description": "Reference for One-time code Svelte component.",
+    "api": "OneTimeCode Container element. The label for the field. label label Draws a box per character and a ring on the next one. The input element, with `autocomplete=\"one-time-code\"`, which lets the browser fill in a code it received. Supporting text displayed below the field. endText end-text alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. autocapitalize The `autocapitalize` of the `<input>`. With `alphanumeric` it is `characters`. disabled Dims the field and blocks input. error Marks the control invalid and shows error styles. grouped Draws a dash between the two halves of the code. Use it with an even `length`. id The id of the `<input>`. With a label, the `<label for>` points at it, so the component generates one when it's left out. The end text's id, `x-end-text`, starts with it. inputmode The `inputmode` of the `<input>`. Without `alphanumeric` it is `numeric`. length The number of characters and boxes, from 4 to 8. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. pattern The `pattern` of the `<input>`. It is `[0-9]{length}`, or `[A-Za-z0-9]{length}` with `alphanumeric`. required Adds a required mark after the label. The form won't submit while the code is incomplete. size The size of the element. spellcheck The `spellcheck` of the `<input>`. With `alphanumeric` it is `false`.",
     "category": "API",
     "url": "/svelte/api/#one-time-code"
   },
@@ -4651,8 +4714,8 @@
   },
   {
     "id": "api-radio-input-svelte",
-    "title": "Radio Input API",
-    "description": "Reference for Radio Input Svelte component.",
+    "title": "Radio input API",
+    "description": "Reference for Radio input Svelte component.",
     "api": "RadioInput The radio input, without a label. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
     "category": "API",
     "url": "/svelte/api/#radio-input"
@@ -4669,7 +4732,7 @@
     "id": "api-range-svelte",
     "title": "Range API",
     "description": "Reference for Range Svelte component.",
-    "api": "Range Container element. The label for the range. label label Shows the current value, with an optional `valueSuffix`. `opui-css/css/js/range.js` keeps it in step with the thumb, and content in the `value-text` slot replaces it. valueSuffix value-text Description text displayed above the input. startText start-text The range input. Tick marks and their labels, under the input. items list datalist Supporting text displayed below the input. endText end-text disabled Dims the slider and blocks input. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. Generated when omitted and the value is shown. The ids the component generates start with it: `x-label`, `x-start-text`, `x-end-text` and `x-list` for `id=\"x\"`. items Tick marks, rendered as `<option>` elements in a `<datalist>`. Each is a value, or a `{ label, value }` object for a labeled tick. Without `valueSuffix`, the label of the tick at the value is the input's `aria-valuetext`. list The id of the `<datalist>`. Generated when `items` or the `datalist` slot is used. max The largest value of the `<input>`. min The smallest value of the `<input>`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. size The size of the element. spread Pushes the label and start text to one side and the input to the other. step The step between values of the `<input>`. Without a `value`, the slider starts at the step nearest the middle. value The current value. valueSuffix Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`. variant The variant to use. The default `outlined` track uses `--ui-track-bg-color`, or the field border color when the theme doesn't set it.",
+    "api": "Range Container element. The label for the range. label label Shows the current value, with an optional `valueSuffix`. `opui-css/css/js/range.js` keeps it in step with the thumb, and content in the `value-text` slot replaces it. valueSuffix value-text Description text displayed above the input. startText start-text The range input. Tick marks and their labels, under the input. items list datalist Supporting text displayed below the input. endText end-text disabled Dims the slider and blocks input. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. Generated when omitted and the value is shown. The ids the component generates start with it: `x-label`, `x-start-text`, `x-end-text` and `x-list` for `id=\"x\"`. items Tick marks, rendered as `<option>` elements in a `<datalist>`. Each is a value, or a `{ label, value }` object for a labeled tick. Without `valueSuffix`, the label of the tick at the value is the input's `aria-valuetext`. lang The language of the `<label>`, which formats the shown value with `Intl.NumberFormat`. Without it, the value is formatted in English until `opui-css/css/js/range.js` formats it for the closest `lang` in the page. list The id of the `<datalist>`. Generated when `items` or the `datalist` slot is used. max The largest value of the `<input>`. min The smallest value of the `<input>`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. size The size of the element. spread Pushes the label and start text to one side and the input to the other. step The step between values of the `<input>`. Without a `value`, the slider starts at the step nearest the middle. value The current value. valueSuffix Text after the shown value, such as `%`. Setting it shows the current value in an `<output>` and as the input's `aria-valuetext`, formatted for `lang` with the decimals of `min` and `step` and no grouping. variant The variant to use. The default `outlined` track uses `--ui-track-bg-color`, or the field border color when the theme doesn't set it.",
     "category": "API",
     "url": "/svelte/api/#range"
   },
@@ -4683,8 +4746,8 @@
   },
   {
     "id": "api-select-all-svelte",
-    "title": "Select All API",
-    "description": "Reference for Select All Svelte component.",
+    "title": "Select all API",
+    "description": "Reference for Select all Svelte component.",
     "api": "SelectAll The `<opui-select-all>` custom element, `display: contents`, around the group, such as a `Fieldset` or a `Table`. The checkbox that checks and unchecks the other enabled checkboxes inside. It's checked when they all are, and `indeterminate` when some are. control The controlling checkbox, the one with `data-select-all`, or `null`. Read-only. items The enabled checkboxes it controls, in document order. Read-only. sync() Sets the controlling checkbox's `checked` and `indeterminate` from the others. The element calls it when one changes, so call it only after setting `checked` from a script.",
     "category": "API",
     "url": "/svelte/api/#select-all"
@@ -4693,15 +4756,15 @@
     "id": "api-select-svelte",
     "title": "Select API",
     "description": "Reference for Select Svelte component.",
-    "api": "Select Container element. The label for the field. label label Start text displayed above the field. startText start-text The boxed select area. Content above the select, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start The select. Its options are in a popover list. Content at the inline-end of the field, inside the border. end Content below the select, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text autoFit Lets the width follow the selected option, from `25ch`. dense Packs the items tighter. disabled Dims the select and blocks input. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<select>`. The ids the component generates start with it: `x-label`, `x-start-text`, `x-end-text`, `x-start`, `x-end`, `x-top` and `x-bottom` for `id=\"x\"`. items The options, as `{ label, selected, value }` objects. `value` selects among them; child `<option>` elements set `selected` themselves. name The name of the `<select>`. Inside a `FieldGroup`, the group's `name` when omitted. required Adds a required mark after the label. The form won't submit until an option with a value is selected. size The size of the element. spread Pushes the label and start text to one side and the select to the other. variant The variant to use.",
+    "api": "Select Container element. The label for the field. label label Start text displayed above the field. startText start-text The boxed select area. Content above the select, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start The select. Its options are in a popover list. Content at the inline-end of the field, inside the border. end Content below the select, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text autoFit Lets the width follow the selected option, from `25ch`. dense Packs the items tighter. disabled Dims the select and blocks input. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<select>`. The `<label for>` points at it, so the component generates one when it's left out and there's a label. The ids the component generates start with it: `x-start-text`, `x-end-text`, `x-start`, `x-end`, `x-top` and `x-bottom` for `id=\"x\"`. items The options, as `{ label, selected, value }` objects. `value` selects among them; child `<option>` elements set `selected` themselves. name The name of the `<select>`. Inside a `FieldGroup`, the group's `name` when omitted. required Adds a required mark after the label. The form won't submit until an option with a value is selected. size The size of the element. spread Pushes the label and start text to one side and the select to the other. variant The variant to use.",
     "category": "API",
     "url": "/svelte/api/#select"
   },
   {
     "id": "api-sortable-table-svelte",
-    "title": "Sortable Table API",
-    "description": "Reference for Sortable Table Svelte component.",
-    "api": "SortableTable The `<opui-sortable-table>` custom element, `display: contents`, around the table. It moves the body rows and announces the new order in its `role=\"status\"` child, or one it adds. While it has `data-hydrating`, which the React component renders until it hydrates, header clicks do nothing. The button around a sortable header's label. A press sorts by its column, ascending first, and sets `aria-sort` on the header. ascendingLabel What a sort in ascending order announces, with `{column}` where the header's label goes. descendingLabel What a sort in descending order announces, with `{column}` where the header's label goes. onsort Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are. sort Fires before the rows move, with the column index, the direction and the header in `event.detail`. It bubbles, and `preventDefault()` keeps the rows where they are. sort(header, direction) Sorts by the column of `header`, in `direction` (`\"ascending\"` or `\"descending\"`), or else the other way from its `aria-sort`, ascending first. It fires `sort`, sets `aria-sort` and announces the order. table The `<table>` inside, or `null`. Read-only.",
+    "title": "Sortable table API",
+    "description": "Reference for Sortable table Svelte component.",
+    "api": "SortableTable The `<opui-sortable-table>` custom element, `display: contents`, around the table. It moves the body rows and announces the new order in its `role=\"status\"` child, or one it adds. While it has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, header clicks do nothing. The button around a sortable header's label. A press sorts by its column, ascending first, and sets `aria-sort` on the header. ascendingLabel What a sort in ascending order announces, with `{column}` where the header's label goes. descendingLabel What a sort in descending order announces, with `{column}` where the header's label goes. onsort Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are. sort Fires before the rows move, with the column index, the direction and the header in `event.detail`. It bubbles, and `preventDefault()` keeps the rows where they are. sort(header, direction) Sorts by the column of `header`, in `direction` (`\"ascending\"` or `\"descending\"`), or else the other way from its `aria-sort`, ascending first. It fires `sort`, sets `aria-sort` and announces the order. table The `<table>` inside, or `null`. Read-only.",
     "category": "API",
     "url": "/svelte/api/#sortable-table"
   },
@@ -4723,8 +4786,8 @@
   },
   {
     "id": "api-stepper-item-svelte",
-    "title": "Stepper Item API",
-    "description": "Reference for Stepper Item Svelte component.",
+    "title": "Stepper item API",
+    "description": "Reference for Stepper item Svelte component.",
     "api": "StepperItem A step. Replaces the check in the marker of a complete step. Hidden from screen readers. icon-complete The label, as a link back to the step. href label label A short line under the label. description description complete Marks the step complete: a check in the marker and the line to the next step in the accent color. completeLabel Screen reader text after the label of a complete step. current Marks the current step. The steps before it show as complete, with or without `.ui-complete`. description A short line under the label. error Marks a step with an error: an exclamation mark in the marker and the label in the invalid color. Wins over `complete`. errorLabel Screen reader text after the label of a step with an error. href Renders the label as a link on a complete step or a step with an error, but not on the current one. label The name of the step.",
     "category": "API",
     "url": "/svelte/api/#stepper-item"
@@ -4739,8 +4802,8 @@
   },
   {
     "id": "api-switch-input-svelte",
-    "title": "Switch Input API",
-    "description": "Reference for Switch Input Svelte component.",
+    "title": "Switch input API",
+    "description": "Reference for Switch input Svelte component.",
     "api": "SwitchInput The switch input, without a label. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
     "category": "API",
     "url": "/svelte/api/#switch-input"
@@ -4755,32 +4818,32 @@
   },
   {
     "id": "api-table-cell-svelte",
-    "title": "Table Cell API",
-    "description": "Reference for Table Cell Svelte component.",
+    "title": "Table cell API",
+    "description": "Reference for Table cell Svelte component.",
     "api": "TableCell A data cell, inside `TableRow`. numeric Aligns the cell to the end and uses tabular figures, so the digits of a column line up.",
     "category": "API",
     "url": "/svelte/api/#table-cell"
   },
   {
     "id": "api-table-column-group-svelte",
-    "title": "Table Column Group API",
-    "description": "Reference for Table Column Group Svelte component.",
+    "title": "Table column group API",
+    "description": "Reference for Table column group Svelte component.",
     "api": "TableColumnGroup A group of columns, before the table head.",
     "category": "API",
     "url": "/svelte/api/#table-column-group"
   },
   {
     "id": "api-table-column-svelte",
-    "title": "Table Column API",
-    "description": "Reference for Table Column Svelte component.",
+    "title": "Table column API",
+    "description": "Reference for Table column Svelte component.",
     "api": "TableColumn A column, inside `TableColumnGroup`. width The column width, merged into `style`.",
     "category": "API",
     "url": "/svelte/api/#table-column"
   },
   {
     "id": "api-table-header-cell-svelte",
-    "title": "Table Header Cell API",
-    "description": "Reference for Table Header Cell Svelte component.",
+    "title": "Table header cell API",
+    "description": "Reference for Table header cell Svelte component.",
     "api": "TableHeaderCell A header cell, inside `TableRow`. numeric Aligns the header to the end, over a column of `numeric` cells. sortable Wraps the label in a `<button>` that sorts the table by this column, inside a `SortableTable`.",
     "category": "API",
     "url": "/svelte/api/#table-header-cell"
@@ -4795,24 +4858,24 @@
   },
   {
     "id": "api-tabs-item-svelte",
-    "title": "Tabs Item API",
-    "description": "Reference for Tabs Item Svelte component.",
+    "title": "Tabs item API",
+    "description": "Reference for Tabs item Svelte component.",
     "api": "TabsItem The radio input for a tab, followed by the tab and the panel. checked Selects the tab. id The id of the input. Generated when omitted. name Overrides the name shared by the tab inputs. value The value of the input. The tab is selected while it matches the `value` of `Tabs`.",
     "category": "API",
     "url": "/svelte/api/#tabs-item"
   },
   {
     "id": "api-tabs-label-svelte",
-    "title": "Tabs Label API",
-    "description": "Reference for Tabs Label Svelte component.",
+    "title": "Tabs label API",
+    "description": "Reference for Tabs label Svelte component.",
     "api": "TabsLabel The tab. for The id of the input it labels. Set by the item.",
     "category": "API",
     "url": "/svelte/api/#tabs-label"
   },
   {
     "id": "api-tabs-panel-svelte",
-    "title": "Tabs Panel API",
-    "description": "Reference for Tabs Panel Svelte component.",
+    "title": "Tabs panel API",
+    "description": "Reference for Tabs panel Svelte component.",
     "api": "TabsPanel The panel.",
     "category": "API",
     "url": "/svelte/api/#tabs-panel"
@@ -4821,15 +4884,15 @@
     "id": "api-tabs-svelte",
     "title": "Tabs API",
     "description": "Reference for Tabs Svelte component.",
-    "api": "Tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. A tab. The panel of the selected tab. name The name shared by the tab inputs. Generated when omitted. orientation The orientation of the tabs. `vertical` stacks them in a column at the inline start, with the panel beside them. overflow What the tabs do when they don't fit. `scroll` keeps them on one row and scrolls it sideways, and `wrap` wraps them onto more rows. Vertical tabs ignore it: long labels wrap within the column. variant The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.",
+    "api": "Tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. A tab. The panel of the selected tab. name The name shared by the tab inputs. Generated when omitted. orientation The orientation of the tabs. `vertical` stacks them in a column at the inline start, with the panel beside them. overflow What the tabs do when they don't fit. `scroll` keeps them on one row and scrolls it sideways, and `wrap` wraps them onto more rows. Vertical tabs ignore it: long labels wrap within the column. role Makes tabs without panels a radio group, which `aria-label` names. Tabs with panels take no role: the root holds the panels, and a radio group holds only radios. variant The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.",
     "category": "API",
     "url": "/svelte/api/#tabs"
   },
   {
     "id": "api-text-field-svelte",
-    "title": "Text Field API",
-    "description": "Reference for Text Field Svelte component.",
-    "api": "TextField Container element: a `<label>`, a `<div>` when there's no label, or the `<opui-text-field>` custom element with a password toggle. The label for the field. label label Start text displayed above the field. startText start-text The boxed input area. Content above the input, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start The input element. Content at the inline-end of the field, inside the border, and the password toggle. end The password toggle, with `aria-pressed` and `command=\"--toggle-password\"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Hidden until `<opui-text-field>` is defined. passwordToggle passwordToggleLabel icon-checked icon-unchecked Content below the input, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left. characterCount characterCountLabel autoFit Lets the width follow the content, from `25ch`. characterCount Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count. characterCountLabel The announcement near the limit, with `{count}` for the characters left. Pass it translated. dropZone Makes a `type=\"file\"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker. disabled Dims the field and blocks input. `aria-disabled=\"true\"` looks the same, but keeps the field focusable, its text editable and its value in the form. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. With `passwordToggle`, the label and the toggle point at it, so the component generates one when it's left out. The ids the component generates start with it: `x-label`, `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id=\"x\"`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. passwordToggle Adds a button to the end of a `type=\"password\"` field that shows and hides the password. The root becomes `<opui-text-field>` with a `<label for>`, since a button inside a `<label>` would join the field's name, and the start and end text describe the input. The component loads `opui-css/elements/text-field.js`, which runs the button. passwordToggleLabel The accessible name of the password toggle. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the input to the other. type The input type. variant The variant to use. control The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only. hidePassword() Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits. input The `<input>` inside, or `null`. Read-only. showPassword() Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.",
+    "title": "Text field API",
+    "description": "Reference for Text field Svelte component.",
+    "api": "TextField Container element: a `<div>`, or the `<opui-text-field>` custom element with a password toggle. The label inside is a `<label for>` that names the input by itself. The label for the field. label label Start text displayed above the field. startText start-text The boxed input area. Content above the input, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start The input element. Content at the inline-end of the field, inside the border, and the password toggle. end The password toggle, with `aria-pressed` and `command=\"--toggle-password\"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is, and `aria-disabled` while the input is. `<opui-text-field>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-text-field>` is defined. passwordToggle passwordToggleLabel icon-checked icon-unchecked Content below the input, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left. characterCount characterCountLabel autoFit Lets the width follow the content, from `25ch`. characterCount Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count. characterCountLabel The announcement near the limit, with `{count}` for the characters left. Pass it translated. dropZone Makes a `type=\"file\"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker. disabled Dims the field and blocks input and the password toggle. `aria-disabled=\"true\"` on the input looks the same, but keeps the field focusable, its text editable and its value in the form. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. The `<label for>` and the password toggle point at it, so the component generates one when it's left out. The ids the component generates start with it: `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id=\"x\"`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. passwordToggle Adds a button to the end of a `type=\"password\"` field that shows and hides the password. The root becomes `<opui-text-field>`, and the button stays out of the input's description, unless there's also an `end` slot, whose part it shares. The component loads `opui-css/elements/text-field.js`, which runs the button. passwordToggleLabel The accessible name of the password toggle. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the input to the other. type The input type. variant The variant to use. control The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only. hidePassword() Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits. input The `<input>` inside, or `null`. Read-only. showPassword() Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.",
     "category": "API",
     "url": "/svelte/api/#text-field"
   },
@@ -4837,14 +4900,14 @@
     "id": "api-textarea-svelte",
     "title": "Textarea API",
     "description": "Reference for Textarea Svelte component.",
-    "api": "Textarea Container element: a `<label>`, or a `<div>` when there's no label. The label for the field. label label Start text displayed above the field. startText start-text The boxed textarea area. Content above the textarea, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start The textarea element. Content at the inline-end of the field, inside the border. end Content below the textarea, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left. characterCount characterCountLabel autoFit Lets the width follow the content and allows resizing in both directions. characterCount Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count. characterCountLabel The announcement near the limit, with `{count}` for the characters left. Pass it translated. disabled Dims the field and blocks input. `aria-disabled=\"true\"` looks the same, but keeps the field focusable, its text editable and its value in the form. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<textarea>`. The ids the component generates start with it: `x-label`, `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id=\"x\"`. name The name of the `<textarea>`. Inside a `FieldGroup`, the group's `name` when omitted. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the textarea to the other. variant The variant to use. control The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only.",
+    "api": "Textarea Container element, a `<div>`. The label inside is a `<label for>` that names the textarea by itself. The label for the field. label label Start text displayed above the field. startText start-text The boxed textarea area. Content above the textarea, inside the border, with a divider. top Content at the inline-start of the field, inside the border, centered on the first line. Taller content starts `--_affix-padding-block` below the field's top, or below `.ui-top`. start The textarea element. Content at the inline-end of the field, inside the border, centered on the first line. Taller content starts `--_affix-padding-block` below the field's top, or below `.ui-top`. end Content below the textarea, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left. characterCount characterCountLabel autoFit Lets the width follow the content and allows resizing in both directions. characterCount Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count. characterCountLabel The announcement near the limit, with `{count}` for the characters left. Pass it translated. disabled Dims the field and blocks input. `aria-disabled=\"true\"` looks the same, but keeps the field focusable, its text editable and its value in the form. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<textarea>`. The `<label for>` points at it, so the component generates one when it's left out and there's a label. The ids the component generates start with it: `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id=\"x\"`. name The name of the `<textarea>`. Inside a `FieldGroup`, the group's `name` when omitted. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the textarea to the other. variant The variant to use. control The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only.",
     "category": "API",
     "url": "/svelte/api/#textarea"
   },
   {
     "id": "api-timeline-item-svelte",
-    "title": "Timeline Item API",
-    "description": "Reference for Timeline Item Svelte component.",
+    "title": "Timeline item API",
+    "description": "Reference for Timeline item Svelte component.",
     "api": "TimelineItem An event. The date, in its own column. datetime time Replaces the dot with an icon. It follows the item's color and the current state. marker The title of the event. headingLevel label label color Optional colors. current Marks the current item, which fills its marker with `--ui-selected-strong` and a halo. `true` renders `aria-current=\"true\"`, and `step`, `date` or `time` that value. datetime The machine-readable date of `time`. headingLevel The heading level of `label`, so the item fits the page outline. label The title of the event, rendered as a heading. time The date as shown, in the date column.",
     "category": "API",
     "url": "/svelte/api/#timeline-item"
@@ -4861,23 +4924,23 @@
     "id": "api-toast-svelte",
     "title": "Toast API",
     "description": "Reference for Toast Svelte component.",
-    "api": "Toaster The `<opui-toaster>` custom element, with `display: contents`. A button with `commandfor` and `command=\"--toast\"` shows a toast with its `data-toast` text and `data-toast-severity`, and `toast(message, { action, duration, severity })` or `toast.success(message)` does it from a script, where `action` takes a `label` and an `onClick`, and `toaster` takes the id or the element of the toaster to show it in. The stack of toasts, a manual popover at the block end and the inline end of the viewport unless `side` and `align` move it. It opens with the first toast and closes after the last. A toast, a `Callout` with the severity class, its icon (an empty `svg` that `--_icon-image` masks), the message in `.ui-content`, an action `Button` when it has an `action`, and a close `Button`. The element adds it, and on dismiss makes it `inert`, fades it out and closes its gap before it removes it. The polite live region that announces each toast but a critical one, visually hidden with `.ui-sr-only` and outside the popover, so it's always in the page. The assertive live region that announces a critical toast at once, visually hidden like the status region. Without it, critical toasts go to the status region. align Where the toasts sit along their side of the viewport. closeLabel The accessible name of the close button of each toast. duration How long a toast stays, in milliseconds, while the pointer and focus are elsewhere. A toast with an action stays twice as long. id The id the buttons point at with `commandfor`. Required. limit The most toasts shown at once. Past it, the oldest is dismissed, unless it holds focus. side The side of the viewport the toasts sit on. alert The `<div role=\"alert\">` that announces critical toasts, or `null`. Read-only. dismiss(toast) Dismisses a toast: makes it `inert`, moves focus that was in it to the next toast, fades it out and removes it. Returns a promise that resolves once it's gone. list The `<ol>` that holds the toasts, or `null`. Read-only. show(message, options) Shows a toast and announces it, with the `action`, `duration` and `severity` options of `toast()`. Returns the toast's `<li>`, or `null` without a list. status The `<div role=\"status\">` that announces the other toasts, or `null`. Read-only.",
+    "api": "Toaster The `<opui-toaster>` custom element, with `display: contents`. A button with `commandfor` and `command=\"--toast\"` shows a toast with its `data-toast` text and `data-toast-severity`, and `toast(message, { action, duration, severity })` or `toast.success(message)` does it from a script, where `action` takes a `label` and an `onClick`, and `toaster` takes the id or the element of the toaster to show it in. The stack of toasts, a manual popover at the block end and the inline end of the viewport unless `side` and `align` move it. It opens with the first toast and closes after the last. A toast, a `Callout` with the severity class, its icon (an empty `svg` that `--_icon-image` masks), the message in `.ui-content`, an action `Button` when it has an `action`, and a close `Button`. The element adds it, and on dismiss makes it `inert`, fades it out and closes its gap before it removes it. The polite live region that announces each toast but a critical one, visually hidden with `.ui-sr-only` and outside the popover, so it's always in the page. The assertive live region that announces a critical toast at once, visually hidden like the status region. Without it, critical toasts go to the status region. align Where the toasts sit along their side of the viewport. closeLabel The accessible name of the close button of each toast. duration How long a toast stays, in milliseconds, while the pointer and focus are elsewhere. A toast with an action stays twice as long, and `Infinity` keeps a toast until it's closed. id The id the buttons point at with `commandfor`. Required. limit The most toasts shown at once. Past it, the oldest is dismissed, unless it holds focus. side The side of the viewport the toasts sit on. alert The `<div role=\"alert\">` that announces critical toasts, or `null`. Read-only. dismiss(toast) Dismisses a toast: makes it `inert`, moves focus that was in it to the next toast, fades it out and removes it. Returns a promise that resolves once it's gone. list The `<ol>` that holds the toasts, or `null`. Read-only. show(message, options) Shows a toast and announces it, with the `action`, `duration` and `severity` options of `toast()`. Returns the toast's `<li>`, or `null` without a list. status The `<div role=\"status\">` that announces the other toasts, or `null`. Read-only.",
     "category": "API",
     "url": "/svelte/api/#toast"
   },
   {
     "id": "api-toggle-button-svelte",
-    "title": "Toggle Button API",
-    "description": "Reference for Toggle Button Svelte component.",
+    "title": "Toggle button API",
+    "description": "Reference for Toggle button Svelte component.",
     "api": "ToggleButton Container element. A visually hidden checkbox or radio input. checked Selects the button. disabled Dims the button and skips it with Tab and the arrow keys. `aria-disabled=\"true\"` looks the same, but keeps the button focusable and its value in the form, and doesn't stop the change, so block it with a script. id The id of the `<input>`. label The button text when there is no child content. name The name of the input. Falls back to the `ToggleGroup`'s name, then to a `FieldGroup`'s. required The form won't submit until it's checked. A `ToggleGroup` without `multiple` needs it on one button only. size The size of the element. type The input type. `radio` allows one selection in a group. A `ToggleGroup` without `multiple` makes every button a radio. value The value of the input.",
     "category": "API",
     "url": "/svelte/api/#toggle-button"
   },
   {
     "id": "api-toggle-group-svelte",
-    "title": "Toggle Group API",
-    "description": "Reference for Toggle Group Svelte component.",
-    "api": "ToggleGroup Container element. A toggle button. multiple Lets several buttons be checked, with checkbox inputs. Without it, one button is checked at a time, with radio inputs in a `[role=\"radiogroup\"]`. name The name shared by the inputs. Generated when omitted. orientation The orientation of the element. overflow What the items do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. size The size of the buttons.",
+    "title": "Toggle group API",
+    "description": "Reference for Toggle group Svelte component.",
+    "api": "ToggleGroup Container element. A toggle button. multiple Lets several buttons be checked, with checkbox inputs. Without it, one button is checked at a time, with radio inputs in a `[role=\"radiogroup\"]`. name The name shared by the inputs. Generated when omitted. orientation The orientation of the element. overflow What the items do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. role The `role` of the root, such as `toolbar`. Without it, `radiogroup`, or `group` with `multiple`. size The size of the buttons.",
     "category": "API",
     "url": "/svelte/api/#toggle-group"
   },

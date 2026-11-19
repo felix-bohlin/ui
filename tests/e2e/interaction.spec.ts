@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test"
-import type { Locator, Page } from "@playwright/test"
+import type { CDPSession, Locator, Page } from "@playwright/test"
+import { PACKAGE_FRAMEWORK_IDS } from "../../src/utils/framework"
 import {
   failsIn,
   WEBKIT_ARROW_FOCUS_SCROLL,
@@ -11,6 +12,7 @@ import {
   computed,
   FRAMEWORKS,
   hasExample,
+  HYDRATED,
   needs,
   openFixture,
   resolveColor,
@@ -38,12 +40,17 @@ const interaction = (
     throw new Error(`no ${component}/${name} example in any framework`)
   }
   for (const framework of available) {
-    test(`${framework} ${title}`, async ({ page }) => {
-      await openFixture(page, framework, component)
-      const root = page.locator(`[data-example="${name}"]`)
-      await expect(root, `${framework} ${component}/${name}`).toHaveCount(1)
-      await run({ framework, page, root })
-    })
+    const modes = HYDRATED.includes(framework) ? ["", "?hydrate"] : [""]
+    for (const search of modes) {
+      test(`${framework}${search ? " hydrated" : ""} ${title}`, async ({
+        page,
+      }) => {
+        await openFixture(page, framework, component, search)
+        const root = page.locator(`[data-example="${name}"]`)
+        await expect(root, `${framework} ${component}/${name}`).toHaveCount(1)
+        await run({ framework, page, root })
+      })
+    }
   }
 }
 
@@ -104,7 +111,7 @@ interaction(
   "FieldGroupBinding",
   "checkbox group binds the checked values",
   async ({ root }) => {
-    const updates = root.getByRole("checkbox", { name: "Product updates" })
+    const updates = root.getByRole("checkbox", { name: "Bassbook news" })
     const events = root.getByRole("checkbox", { name: "Events" })
     const selection = root.getByText(/Selected:/)
 
@@ -113,10 +120,10 @@ interaction(
     await root.getByText("Events", { exact: true }).click()
     await expect(events).toBeChecked()
     await expect(selection).toHaveText("Selected: updates, events")
-    await root.getByText("Product updates", { exact: true }).click()
+    await root.getByText("Bassbook news", { exact: true }).click()
     await expect(updates).not.toBeChecked()
     await expect(selection).toHaveText("Selected: events")
-    await root.getByText("Product updates", { exact: true }).click()
+    await root.getByText("Bassbook news", { exact: true }).click()
     await expect(updates).toBeChecked()
     await expect(selection).toHaveText("Selected: updates, events")
 
@@ -287,6 +294,22 @@ interaction(
 )
 
 interaction(
+  "dialog",
+  "CloseButton",
+  "a header outside its dialog closes the dialog that commandfor names and returns focus",
+  async ({ root }) => {
+    const trigger = root.getByRole("button", { name: "Show release notes" })
+    const dialog = root.locator("dialog")
+
+    await trigger.click()
+    await expect(dialog).toBeVisible()
+    await dialog.getByRole("button", { name: "Close" }).click()
+    await expect(dialog).toBeHidden()
+    await expect(trigger).toBeFocused()
+  },
+)
+
+interaction(
   "drawer",
   "Basics",
   "drawer opens and closes with Escape",
@@ -313,7 +336,7 @@ interaction(
     await root.getByRole("button", { name: "Inline start" }).click()
     const menu = root.locator("dialog#drawer-basics-1")
     await expect(menu).toHaveAttribute("open")
-    await menu.getByRole("link", { name: "Projects" }).click()
+    await menu.getByRole("link", { name: "My bands" }).click()
     await expect(menu).not.toHaveAttribute("open")
 
     await root.getByRole("button", { name: "Inline end" }).click()
@@ -321,6 +344,22 @@ interaction(
     await expect(details).toHaveAttribute("open")
     await page.evaluate(() => history.pushState({}, "", "elsewhere/"))
     await expect(details).toHaveAttribute("open")
+  },
+)
+
+interaction(
+  "drawer",
+  "CloseButton",
+  "a header outside its drawer closes the dialog that commandfor names and returns focus",
+  async ({ root }) => {
+    const trigger = root.getByRole("button", { name: "Show filters" })
+    const dialog = root.locator("dialog")
+
+    await trigger.click()
+    await expect(dialog).toBeVisible()
+    await dialog.getByRole("button", { name: "Close" }).click()
+    await expect(dialog).toBeHidden()
+    await expect(trigger).toBeFocused()
   },
 )
 
@@ -378,6 +417,224 @@ const clickBackdrop = async (page: Page, dialog: Locator) => {
   )
 }
 
+// A phone held sideways: a notch on the left, a smaller one on the right and
+// a home indicator. Chromium emulates the insets without viewport-fit=cover.
+const SAFE_AREA = { bottom: 21, left: 47, right: 30, top: 20 }
+const NO_SAFE_AREA = { bottom: 0, left: 0, right: 0, top: 0 }
+
+const setSafeArea = (cdp: CDPSession, insets: typeof SAFE_AREA) =>
+  cdp.send("Emulation.setSafeAreaInsetsOverride", { insets })
+
+// How far the box moves in from each edge of the viewport once the insets apply.
+const insetBy = async (cdp: CDPSession, measure: () => Promise<DOMRect>) => {
+  await setSafeArea(cdp, NO_SAFE_AREA)
+  const before = await measure()
+  await setSafeArea(cdp, SAFE_AREA)
+  const after = await measure()
+  await setSafeArea(cdp, NO_SAFE_AREA)
+  return {
+    bottom: before.bottom - after.bottom,
+    left: after.left - before.left,
+    right: before.right - after.right,
+    top: after.top - before.top,
+  }
+}
+
+test("html drawer pads each side on a screen edge by the safe area", async ({
+  browserName,
+  page,
+}) => {
+  test.skip(browserName !== "chromium", "only Chromium emulates safe areas")
+  await page.setViewportSize({ height: 400, width: 700 })
+  const cdp = await page.context().newCDPSession(page)
+  await openFixture(page, "html", "drawer")
+  const root = page.locator('[data-example="Basics"]')
+  // The parts inside the drawer, which have to stay clear.
+  const content = (drawer: Locator) => () =>
+    drawer.evaluate((element) => {
+      const boxes = [...element.children].map((child) =>
+        child.getBoundingClientRect(),
+      )
+      const top = Math.min(...boxes.map((box) => box.top))
+      const left = Math.min(...boxes.map((box) => box.left))
+      return new DOMRect(
+        left,
+        top,
+        Math.max(...boxes.map((box) => box.right)) - left,
+        Math.max(...boxes.map((box) => box.bottom)) - top,
+      )
+    })
+  const { bottom, left, right, top } = SAFE_AREA
+  const sides = [
+    ["Inline start", { bottom, left, right: 0, top }],
+    ["Inline end", { bottom, left: 0, right, top }],
+    ["Block start", { bottom: 0, left, right, top }],
+    ["Block end", { bottom, left, right, top: 0 }],
+  ] as const
+  for (const [name, expected] of sides) {
+    await root.getByRole("button", { exact: true, name }).click()
+    const drawer = root.locator("dialog[open]")
+    await settle(drawer)
+    expect(await insetBy(cdp, content(drawer)), name).toEqual(expected)
+    await page.keyboard.press("Escape")
+    await expect(drawer).toHaveCount(0)
+  }
+
+  // Right to left, the inline start is the right edge.
+  await page.evaluate(() => (document.documentElement.dir = "rtl"))
+  await root.getByRole("button", { exact: true, name: "Inline start" }).click()
+  const drawer = root.locator("dialog[open]")
+  await settle(drawer)
+  expect(await insetBy(cdp, content(drawer))).toEqual({
+    bottom,
+    left: 0,
+    right,
+    top,
+  })
+})
+
+test("html toaster measures its insets from the safe area", async ({
+  browserName,
+  page,
+}) => {
+  test.skip(browserName !== "chromium", "only Chromium emulates safe areas")
+  await page.setViewportSize({ height: 400, width: 700 })
+  const cdp = await page.context().newCDPSession(page)
+  await openFixture(page, "html", "toast")
+  await page.waitForFunction(() => customElements.get("opui-toaster"))
+  const root = page.locator('[data-example="Position"]')
+  const { bottom, left, right, top } = SAFE_AREA
+  const stack = (name: string) => () =>
+    root
+      .locator("opui-toaster ol")
+      .filter({ hasText: name })
+      .evaluate((element) => element.getBoundingClientRect())
+  for (const [name, check] of [
+    ["Top start", { left, top }],
+    ["Bottom end", { bottom, right }],
+  ] as const) {
+    await root.getByRole("button", { exact: true, name }).click()
+    expect(await insetBy(cdp, stack(name)), name).toMatchObject(check)
+  }
+
+  // Centered in the safe area, between the two notches.
+  await root.getByRole("button", { exact: true, name: "Bottom center" }).click()
+  const moved = await insetBy(cdp, stack("Bottom center"))
+  expect(moved.bottom).toBe(bottom)
+  expect(moved.left).toBe((left - right) / 2)
+})
+
+test.describe("drawer swipe", () => {
+  test.use({ hasTouch: true })
+
+  // A finger on `target` that moves `by` a share of the drawer's height,
+  // in `steps` moves `pause` milliseconds apart, then lifts. Each touch
+  // carries its time, so the speed the script measures is the one asked
+  // for, however long CDP takes to deliver the touches.
+  const swipe = async (
+    page: Page,
+    cdp: CDPSession,
+    target: Locator,
+    drawer: Locator,
+    by: number,
+    pause = 16,
+    steps = 8,
+  ) => {
+    const box = (await target.boundingBox())!
+    const { height } = (await drawer.boundingBox())!
+    const x = box.x + box.width / 2
+    const y = box.y + Math.min(box.height / 2, 12)
+    const start = Date.now() / 1000
+    const touch = (
+      type: "touchEnd" | "touchMove" | "touchStart",
+      step: number,
+      touchPoints: { x: number; y: number }[],
+    ) =>
+      cdp.send("Input.dispatchTouchEvent", {
+        timestamp: start + (pause * step) / 1000,
+        touchPoints,
+        type,
+      })
+    const at = (step: number) => [{ x, y: y + (height * by * step) / steps }]
+    await touch("touchStart", 0, at(0))
+    for (let step = 1; step <= steps; step++) {
+      await page.waitForTimeout(pause)
+      await touch("touchMove", step, at(step))
+    }
+    await touch("touchEnd", steps, [])
+  }
+
+  test("html drawer at the block start or end closes with a swipe of its header", async ({
+    browserName,
+    page,
+  }) => {
+    test.skip(browserName !== "chromium", "touch input goes through CDP")
+    const cdp = await page.context().newCDPSession(page)
+    await openFixture(page, "html", "drawer")
+    const root = page.locator('[data-example="Basics"]')
+    const drawer = root.locator("dialog[open]")
+    const open = async (name: string) => {
+      await root.getByRole("button", { exact: true, name }).click()
+      await settle(drawer)
+      return (await drawer.boundingBox())!.y
+    }
+    const settledAt = async (top: number) => {
+      await expect.poll(async () => (await drawer.boundingBox())?.y).toBe(top)
+      expect(
+        await drawer.evaluate((element) =>
+          (element as HTMLElement).style.getPropertyValue("--_swipe-offset"),
+        ),
+      ).toBe("")
+    }
+
+    // A short, slow drag settles back.
+    const top = await open("Block end")
+    await swipe(page, cdp, drawer.locator(".ui-header"), drawer, 0.1, 60)
+    await settledAt(top)
+
+    // The content scrolls and never moves the drawer.
+    await swipe(page, cdp, drawer.locator(".ui-content"), drawer, 0.6, 60)
+    await settledAt(top)
+
+    // Past a quarter, it closes.
+    await swipe(page, cdp, drawer.locator(".ui-header"), drawer, 0.6, 60)
+    await expect(drawer).toHaveCount(0)
+
+    // So does a short flick.
+    await open("Block end")
+    await swipe(page, cdp, drawer.locator(".ui-header"), drawer, 0.15, 16, 2)
+    await expect(drawer).toHaveCount(0)
+
+    // A drawer at the block start closes toward the top.
+    const above = await open("Block start")
+    await swipe(page, cdp, drawer.locator(".ui-header"), drawer, 0.1, 60)
+    await settledAt(above)
+    await swipe(page, cdp, drawer.locator(".ui-header"), drawer, -0.6, 60)
+    await expect(drawer).toHaveCount(0)
+
+    // It's a close request: a cancel listener keeps the drawer open.
+    await open("Block end")
+    await drawer.evaluate((element) =>
+      element.addEventListener("cancel", (event) => event.preventDefault(), {
+        once: true,
+      }),
+    )
+    await swipe(page, cdp, drawer.locator(".ui-header"), drawer, 0.6, 60)
+    await settledAt(top)
+    await page.keyboard.press("Escape")
+    await expect(drawer).toHaveCount(0)
+
+    // closedby="none" turns it off.
+    const blockEnd = root.locator("dialog.ui-block-end")
+    await blockEnd.evaluate((element) =>
+      element.setAttribute("closedby", "none"),
+    )
+    await open("Block end")
+    await swipe(page, cdp, drawer.locator(".ui-header"), drawer, 0.6, 60)
+    await settledAt(top)
+  })
+})
+
 for (const component of ["dialog", "drawer"]) {
   interaction(
     component,
@@ -426,24 +683,24 @@ interaction(
   "FieldGroupBinding",
   "radio group binds the selected value and resets",
   async ({ root }) => {
-    const starter = root.getByRole("radio", { name: "Starter" })
-    const team = root.getByRole("radio", { name: "Team" })
+    const basic = root.getByRole("radio", { name: "Basic" })
+    const gold = root.getByRole("radio", { name: "Gold" })
     const selection = root.getByText(/Selected:/)
 
-    await expect(starter).toBeChecked()
-    await root.getByText("Team", { exact: true }).click()
-    await expect(team).toBeChecked()
-    await expect(selection).toHaveText("Selected: team")
-    await root.getByText("Starter", { exact: true }).click()
-    await expect(starter).toBeChecked()
-    await expect(selection).toHaveText("Selected: starter")
-    await root.getByText("Team", { exact: true }).click()
-    await expect(team).toBeChecked()
+    await expect(basic).toBeChecked()
+    await root.getByText("Gold", { exact: true }).click()
+    await expect(gold).toBeChecked()
+    await expect(selection).toHaveText("Selected: gold")
+    await root.getByText("Basic", { exact: true }).click()
+    await expect(basic).toBeChecked()
+    await expect(selection).toHaveText("Selected: basic")
+    await root.getByText("Gold", { exact: true }).click()
+    await expect(gold).toBeChecked()
 
     await root.getByRole("button", { name: "Reset" }).click()
-    await expect(starter).toBeChecked()
-    await expect(team).not.toBeChecked()
-    await expect(selection).toHaveText("Selected: starter")
+    await expect(basic).toBeChecked()
+    await expect(gold).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: basic")
   },
 )
 
@@ -591,12 +848,12 @@ interaction(
   "select starts on its preselected option and follows a new pick",
   async ({ root }) => {
     const role = root.locator("select").nth(0)
-    const team = root.locator("select").nth(1)
+    const band = root.locator("select").nth(1)
 
-    await expect(role).toHaveValue("developer")
-    await expect(team).toHaveValue("engineering")
-    await role.selectOption("manager")
-    await expect(role).toHaveValue("manager")
+    await expect(role).toHaveValue("bass")
+    await expect(band).toHaveValue("low-end-theory")
+    await role.selectOption("tambourine")
+    await expect(role).toHaveValue("tambourine")
   },
 )
 
@@ -1068,9 +1325,9 @@ interaction(
   "Toggletip",
   "toggletip toggles on click without hover",
   async ({ root }) => {
-    const trigger = root.getByRole("button", { name: "About billing" })
+    const trigger = root.getByRole("button", { name: "About Bassbook Gold" })
     const tooltip = root.getByText(
-      "You're billed on the first day of each month.",
+      "Bassbook Gold renews on the first day of each month.",
     )
 
     await expect(tooltip).toBeHidden()
@@ -1286,6 +1543,19 @@ const nextButtonPoint = (carousel: Locator) =>
 
 interaction(
   "carousel",
+  "WholePhotos",
+  "--_media-fit: contain shows portrait and landscape photos whole",
+  async ({ root }) => {
+    const images = root.locator("img")
+    await expect(images).toHaveCount(4)
+    for (const image of await images.all()) {
+      expect(await computed(image, "object-fit")).toBe("contain")
+    }
+  },
+)
+
+interaction(
+  "carousel",
   "Basics",
   "the next button scrolls the carousel",
   async ({ page, root }) => {
@@ -1479,7 +1749,7 @@ interaction(
     await page.evaluate(() => history.pushState({}, "", "elsewhere/"))
     await expect(menu).toBeHidden()
   },
-  ["astro", "react", "svelte", "vue"],
+  PACKAGE_FRAMEWORK_IDS,
 )
 
 interaction(
@@ -1512,7 +1782,7 @@ interaction(
     })
     await expect(menu).toBeHidden()
   },
-  ["astro", "react", "svelte", "vue"],
+  PACKAGE_FRAMEWORK_IDS,
 )
 
 interaction(
@@ -1729,6 +1999,22 @@ interaction(
 interaction(
   "one-time-code",
   "Basics",
+  "a one-time code is named by its label and described by its end text",
+  async ({ root }) => {
+    const input = root.getByRole("textbox", {
+      exact: true,
+      name: "Verification code",
+    })
+
+    await expect(input).toHaveAccessibleDescription(
+      "The code expires in 10 minutes.",
+    )
+  },
+)
+
+interaction(
+  "one-time-code",
+  "Basics",
   "a required one-time code only looks invalid once the user leaves it incomplete",
   async ({ page, root }) => {
     const input = root.getByRole("textbox", { name: "Verification code" })
@@ -1786,6 +2072,28 @@ interaction(
     expect(await computed(pill, "outline-color")).toBe(
       await resolveColor(root, "var(--ui-focus-ring-color)"),
     )
+  },
+)
+
+interaction(
+  "message",
+  "Direct",
+  "a direct chat shows no names or avatars, and keeps each name for screen readers",
+  async ({ root }) => {
+    for (const avatar of await root.locator(".ui-message > .ui-avatar").all()) {
+      await expect(avatar).toBeHidden()
+    }
+    const headers = root.locator(".ui-message > .ui-content > .ui-header")
+    await expect(headers).toHaveText(["Stella", "Stella", "You", "Stella"])
+    for (const header of await headers.all()) {
+      expect(await computed(header, "clip-path")).toBe("inset(50%)")
+      expect(await computed(header, "display")).not.toBe("none")
+      expect(
+        await header.evaluate((element) =>
+          element.closest('[aria-hidden="true"]'),
+        ),
+      ).toBeNull()
+    }
   },
 )
 
@@ -1889,6 +2197,33 @@ interaction(
 interaction(
   "table",
   "Sortable",
+  "a sortable header under spanning headers sorts by its own column",
+  async ({ root }) => {
+    await root.locator("table").evaluate((table: HTMLTableElement) => {
+      const [head] = table.tHead?.rows ?? []
+      head?.insertAdjacentHTML(
+        "beforebegin",
+        '<tr><th rowspan="2">Row</th><th colspan="3">Planets</th></tr>',
+      )
+      for (const [index, row] of [
+        ...(table.tBodies[0]?.rows ?? []),
+      ].entries()) {
+        row.insertAdjacentHTML("afterbegin", `<td>${index + 1}</td>`)
+      }
+    })
+    const planet = root.locator("tbody tr").first().locator("td").nth(1)
+
+    await root.getByRole("button", { name: "Moons" }).click()
+    await expect(planet).toHaveText("Mercury")
+    await root.getByRole("button", { name: "Moons" }).click()
+    await expect(planet).toHaveText("Saturn")
+  },
+  ["html"],
+)
+
+interaction(
+  "table",
+  "Sortable",
   "sortable headers sort the rows and move aria-sort",
   async ({ root }) => {
     const header = (name: string) =>
@@ -1982,6 +2317,41 @@ interaction(
     await root.getByRole("button", { name: "Planet" }).click()
     await root.getByRole("button", { name: "Planet" }).click()
     await expect(planets.last()).toHaveText("Östra")
+  },
+)
+
+interaction(
+  "table",
+  "SortableData",
+  "a sort listener sorts the data the rows render from, and the header gets aria-sort",
+  async ({ root }) => {
+    const header = (name: string) =>
+      root.getByRole("columnheader", { name, exact: true })
+    const names = root.locator("tbody tr td:first-child")
+    const byGigs = [
+      "Percy Groove",
+      "Stella Nut",
+      "Ines Hertz",
+      "Rory Rootnote",
+      "Holly Humbucker",
+      "Lou Headstock",
+    ]
+
+    await expect(root.locator("opui-sortable-table")).not.toHaveAttribute(
+      "data-hydrating",
+    )
+    await expect(header("Name")).toHaveAttribute("aria-sort", "ascending")
+    await expect(names).toHaveText(byGigs.toSorted())
+
+    await root.getByRole("button", { name: "Gigs" }).click()
+    await expect(header("Gigs")).toHaveAttribute("aria-sort", "ascending")
+    await expect(header("Name")).not.toHaveAttribute("aria-sort")
+    await expect(names).toHaveText(byGigs)
+
+    await root.getByRole("button", { name: "Gigs" }).click()
+    await expect(header("Gigs")).toHaveAttribute("aria-sort", "descending")
+    await expect(names).toHaveText(byGigs.toReversed())
+    await expect(root.getByRole("status")).toHaveText("Gigs, sorted descending")
   },
 )
 
@@ -2554,6 +2924,42 @@ interaction(
 )
 
 interaction(
+  "toast",
+  "Basics",
+  "a toast with an infinite duration stays, and a duration of 0 dismisses it at once",
+  async ({ page, root }) => {
+    const toaster = root.locator("opui-toaster")
+    const toasts = toaster.locator("li")
+    const show = (message: string, options?: object) =>
+      toaster.evaluate(
+        (
+          element: HTMLElement & {
+            show: (message: string, options?: object) => void
+          },
+          [text, given],
+        ) => element.show(text, given),
+        [message, options] as const,
+      )
+
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    await toaster.evaluate((element) =>
+      element.setAttribute("duration", "Infinity"),
+    )
+    await show("Stays until it's closed")
+    await page.waitForTimeout(700)
+    await expect(toasts).toHaveCount(1)
+    await toasts.getByRole("button").click()
+    await expect(toasts).toHaveCount(0, { timeout: 2000 })
+
+    await page.mouse.move(0, 0)
+    await toaster.evaluate((element) => element.setAttribute("duration", "0"))
+    await show("Gone at once")
+    await expect(toasts).toHaveCount(0, { timeout: 2000 })
+  },
+  ["html"],
+)
+
+interaction(
   "text-field",
   "PasswordToggle",
   "password toggle shows and hides the password",
@@ -2599,13 +3005,49 @@ interaction(
 
 interaction(
   "text-field",
+  "CharacterCount",
+  "the character count announces in the language of its field",
+  async ({ page, root }) => {
+    await root
+      .locator(".ui-text-field")
+      .evaluate((field) => field.setAttribute("lang", "sv"))
+    await root
+      .locator("opui-character-count")
+      .evaluate((count) => count.setAttribute("label", "Tecken kvar: {count}"))
+    await root.locator("input").fill("opui-fan-2026")
+    const announcer = page.locator("[data-opui-announcer]")
+    await expect(announcer).toHaveText("Tecken kvar: 7")
+    await expect(announcer).toHaveAttribute("lang", "sv")
+  },
+)
+
+interaction(
+  "text-field",
+  "CharacterCount",
+  "the character count announces in the language set on its input",
+  async ({ page, root }) => {
+    await root
+      .locator("input")
+      .evaluate((input) => input.setAttribute("lang", "sv"))
+    await root
+      .locator("opui-character-count")
+      .evaluate((count) => count.setAttribute("label", "Tecken kvar: {count}"))
+    await root.locator("input").fill("opui-fan-2026")
+    const announcer = page.locator("[data-opui-announcer]")
+    await expect(announcer).toHaveText("Tecken kvar: 7")
+    await expect(announcer).toHaveAttribute("lang", "sv")
+  },
+)
+
+interaction(
+  "text-field",
   "Validation",
   "a labelled field is named by its label and described by its end text",
   async ({ root }) => {
     const input = root.getByRole("textbox", { name: "Username", exact: true })
 
     await expect(input).toHaveAccessibleDescription(
-      "This username is taken. Try another one.",
+      "Whoops, this username is taken. Try another one.",
     )
   },
 )
@@ -2613,11 +3055,37 @@ interaction(
 interaction(
   "text-field",
   "Affix",
-  "the affixes join the name of a labelled field",
+  "the label alone names a field, and its affixes describe it",
   async ({ root }) => {
     await expect(
-      root.getByRole("textbox", { name: "Weight kg", exact: true }),
+      root.getByRole("textbox", { name: "Amount", exact: true }),
+    ).toHaveAccessibleDescription("€ EUR")
+    await expect(
+      root.getByRole("textbox", { name: "Weight", exact: true }),
+    ).toHaveAccessibleDescription("kg")
+  },
+)
+
+interaction(
+  "select",
+  "Affix",
+  "the label alone names a select, and its affix describes it",
+  async ({ root }) => {
+    await expect(
+      root.getByRole("combobox", { name: "Delivery time", exact: true }),
+    ).toHaveAccessibleDescription("days")
+  },
+)
+
+interaction(
+  "textarea",
+  "AffixButton",
+  "a button in an affix stays out of the field's name",
+  async ({ root }) => {
+    await expect(
+      root.getByRole("textbox", { name: "Message", exact: true }),
     ).toHaveCount(1)
+    await expect(root.getByRole("button", { name: "Send" })).toBeVisible()
   },
 )
 

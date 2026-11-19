@@ -14,6 +14,7 @@
   >
     {#snippet decreaseIcon()}
       <svg
+        data-icon="chevron-down"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -28,6 +29,7 @@
     {/snippet}
     {#snippet increaseIcon()}
       <svg
+        data-icon="chevron-up"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"

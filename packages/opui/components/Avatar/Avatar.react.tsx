@@ -1,3 +1,4 @@
+import type { HTMLAttributes } from "react"
 import { defined } from "../attrs"
 import { cx } from "../cx"
 import { warnUnnamedControl } from "../dev"
@@ -30,7 +31,7 @@ export default function Avatar({
         className,
       ])}
       {...tagAttrs(Tag, disabled, href)}
-      {...defined(rest as object)}
+      {...defined(rest as HTMLAttributes<HTMLElement>)}
     >
       {src ? (
         <img src={src} alt={label ?? ""} />

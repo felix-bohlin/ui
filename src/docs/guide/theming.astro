@@ -172,6 +172,14 @@ export const keywords = [
 }`}
       lang="css"
     />
+    <p>
+      A <code>Button</code> in a field's start or end, a checkbox, radio or
+      switch whose label is hidden, the stars of a rating and the markers of a
+      carousel stay at least <code>--ui-target-min-size</code> (24px, the
+      minimum target size) at any density. A field with less than 24px inside
+      its border grows to fit its button, such as an x-small field at
+      <code>0.875</code> or a small one at <code>0.75</code>.
+    </p>
   </section>
 
   <section id="spacing">
@@ -332,6 +340,58 @@ export const keywords = [
     />
   </section>
 
+  <section id="icons">
+    <h2>Icons</h2>
+    <p>
+      Every icon a component draws itself reads a <code>--ui-icon-*</code>
+      token, one for each role, such as <code>--ui-icon-close</code> and
+      <code>--ui-icon-expand</code>. Each is an SVG image used as a mask, so
+      only its shape counts and it takes the text color. The defaults are Fluent
+      UI System Icons, and
+      <DocLink href="/guide/theme-tokens#icons">Theme tokens</DocLink> lists
+      them all. Set them to the icons of your icon set:
+    </p>
+    <Code
+      code={`:where(html) {
+  --ui-icon-close: url("/icons/x.svg");
+  --ui-icon-expand: url("/icons/chevron-down.svg");
+}`}
+      lang="css"
+    />
+
+    <h3 id="icons-sets">Icon sets</h3>
+    <p>
+      The package has a stylesheet for each of five icon sets that sets every
+      icon token: <code>fluent</code>, <code>lucide</code>,
+      <code>material-symbols</code>, <code>phosphor</code> and
+      <code>tabler</code>. Import one to draw every component icon from that
+      set:
+    </p>
+    <Code code={`@import "opui-css/icons/lucide.css";`} lang="css" />
+    <p>
+      Each file names the set's version, licence and SVG package in a comment,
+      and <code>THIRD-PARTY-NOTICES</code> in the package holds the licences.
+    </p>
+
+    <h3 id="icons-slots">Your own icons</h3>
+    <p>
+      An icon slot takes any <code>svg</code> with a <code>viewBox</code>. The
+      slot sizes it, and it takes the text color through
+      <code>currentColor</code>, which <code>normalize.css</code> sets as the
+      fill of an <code>svg</code> without one. Take them from the same set as
+      the tokens so every icon matches. Icon fonts aren't supported.
+    </p>
+    <p>
+      In HTML, some icons are an <code>svg</code> you write: the Accordion
+      marker, the Callout severity icon, the close buttons of a Callout, Dialog
+      and Drawer, the Number field buttons and the password toggle. Left empty,
+      with a <code>viewBox</code> and nothing between its tags, not even a line
+      break, it shows the token's icon. With shapes inside it shows those. The
+      components render the empty <code>svg</code> themselves, and their icon
+      slots replace it.
+    </p>
+  </section>
+
   <section id="contrast">
     <h2>Contrast</h2>
     <p>
@@ -367,26 +427,40 @@ export const keywords = [
       <div class="contrast-demo">
         <section>
           <p class="ui-caption">Default</p>
-          <label class="ui-text-field">
-            <span class="ui-label">Email</span>
+          <div class="ui-text-field">
+            <label class="ui-label" for="contrast-demo-email">Email</label>
             <span class="ui-field">
-              <input type="email" placeholder="name@example.com" />
+              <input
+                aria-describedby="contrast-demo-email-hint"
+                id="contrast-demo-email"
+                placeholder="name@example.com"
+                type="email"
+              />
             </span>
-            <span class="ui-end-text">We'll never share it.</span>
-          </label>
+            <span class="ui-end-text" id="contrast-demo-email-hint"
+              >We'll never share it.</span
+            >
+          </div>
           <button class="ui-button ui-primary ui-outlined" type="button">
             Subscribe
           </button>
         </section>
         <section class="ui-contrast-more">
           <p class="ui-caption">.ui-contrast-more</p>
-          <label class="ui-text-field">
-            <span class="ui-label">Email</span>
+          <div class="ui-text-field">
+            <label class="ui-label" for="contrast-demo-email-more">Email</label>
             <span class="ui-field">
-              <input type="email" placeholder="name@example.com" />
+              <input
+                aria-describedby="contrast-demo-email-more-hint"
+                id="contrast-demo-email-more"
+                placeholder="name@example.com"
+                type="email"
+              />
             </span>
-            <span class="ui-end-text">We'll never share it.</span>
-          </label>
+            <span class="ui-end-text" id="contrast-demo-email-more-hint"
+              >We'll never share it.</span
+            >
+          </div>
           <button class="ui-button ui-primary ui-outlined" type="button">
             Subscribe
           </button>

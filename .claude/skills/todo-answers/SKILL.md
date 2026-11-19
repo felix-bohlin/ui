@@ -1,12 +1,12 @@
 ---
 name: todo-answers
-description: Applies the answers the user copied from the /todo page ("TODO.md with my comments") to TODO.md, does what each answer asks and records the outcome. Use when the user pastes that text or asks to work through their todo answers.
+description: Applies the answers the user copied from the /dev/todo page ("TODO.md with my comments") to TODO.md, does what each answer asks and records the outcome. Use when the user pastes that text or asks to work through their todo answers.
 argument-hint: "[pasted answers]"
 ---
 
 # Todo answers
 
-Take the text the user copied from the `/todo` page, add the answers to `TODO.md`, do the work and record what happened.
+Take the text the user copied from the `/dev/todo` page, add the answers to `TODO.md`, do the work and record what happened.
 
 ## Read first
 

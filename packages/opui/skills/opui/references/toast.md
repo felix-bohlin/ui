@@ -3,7 +3,7 @@
 Short messages that confirm an action and dismiss themselves.
 
 - CSS: `opui-css/css/components/toaster.css`, `opui-css/css/components/callout.css` and `opui-css/css/components/button.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/toast.md), [Astro](https://opui.dev/astro/components/toast.md), [React](https://opui.dev/react/components/toast.md), [Svelte](https://opui.dev/svelte/components/toast.md), [Vue](https://opui.dev/vue/components/toast.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/toast.md), [Astro](https://opui.dev/astro/components/toast.md), [React](https://opui.dev/react/components/toast.md), [Solid](https://opui.dev/solid/components/toast.md), [Svelte](https://opui.dev/svelte/components/toast.md), [Vue](https://opui.dev/vue/components/toast.md).
 
 ## Toaster
 
@@ -19,7 +19,7 @@ Short messages that confirm an action and dismiss themselves.
 
 - `align`: `"center"` (`.ui-align-center`), `"end"` (default), `"start"` (`.ui-align-start`). Where the toasts sit along their side of the viewport.
 - `closeLabel`: `string`, `[close-label]`, default `"Close"`. The accessible name of the close button of each toast.
-- `duration`: `number`, `[duration]`, default `5000`. How long a toast stays, in milliseconds, while the pointer and focus are elsewhere. A toast with an action stays twice as long.
+- `duration`: `number`, `[duration]`, default `5000`. How long a toast stays, in milliseconds, while the pointer and focus are elsewhere. A toast with an action stays twice as long, and `Infinity` keeps a toast until it's closed.
 - `id`: `string`. The id the buttons point at with `commandfor`. Required.
 - `limit`: `number`, `[limit]`, default `3`. The most toasts shown at once. Past it, the oldest is dismissed, unless it holds focus.
 - `side`: `"block-end"` (default), `"block-start"` (`.ui-block-start`). The side of the viewport the toasts sit on.
@@ -38,6 +38,7 @@ Short messages that confirm an action and dismiss themselves.
 - HTML: Put an `<ol popover="manual">`, a `<div class="ui-sr-only" role="status">` and a `<div class="ui-sr-only" role="alert">` in `<opui-toaster class="ui-toaster">` with an id, and import `opui-css/elements/toaster.js`.
 - Astro: Attributes that aren't props go to the root `<opui-toaster>`. The component loads `opui-css/elements/toaster.js`, which exports `toast()` for a client script.
 - React: Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once `opui-css/elements/toaster.js` runs, which the component loads once it mounts and `toast()` brings with your code. `opui-css/react` exports `toast()` next to `Toaster`.
+- Solid: Attributes that aren't props go to the root `<opui-toaster>`. Toasts show as soon as the component's code loads, which imports `opui-css/elements/toaster.js`. `opui-css/solid` exports `toast()` next to `Toaster`.
 - Svelte: Attributes that aren't props go to the root `<opui-toaster>`. Toasts show as soon as the component's code loads, which imports `opui-css/elements/toaster.js`. `opui-css/svelte` exports `toast()` next to `Toaster`.
 - Vue: Attributes that aren't props go to the root `<opui-toaster>`. Toasts show as soon as the component's code loads, which imports `opui-css/elements/toaster.js`. `opui-css/vue` exports `toast()` next to `Toaster`.
 
@@ -47,18 +48,15 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### toaster.css
 
-- `--_close-image`: The icon of the close button, as an image used as a mask. Defaults to the Drawer's close icon.
-- `--_critical-image`: The icon of a critical toast, as an image used as a mask. Defaults to the `Callout` icon.
 - `--_ease`: Easing of a toast fading and sliding in.
 - `--_gap`: Space between stacked toasts.
-- `--_info-image`: The icon of an info toast, as an image used as a mask. Defaults to the `Callout` icon.
 - `--_inset`: Distance of the stack from the edges of the viewport.
+- `--_inset-block`: Distance of the stack from the top or bottom edge, `--_inset` by default. Raise it to clear a bottom navigation bar.
+- `--_inset-inline`: Distance of the stack from the side edges, `--_inset` by default. The stack's width leaves it on both sides.
 - `--_max-inline-size`: Maximum width of a toast.
 - `--_motion`: Motion multiplier, `0` with reduced motion.
-- `--_success-image`: The icon of a success toast, as an image used as a mask. Defaults to the `Callout` icon.
-- `--_warning-image`: The icon of a warning toast, as an image used as a mask. Defaults to the `Callout` icon.
 
-Outputs: `--_duration`, `--_icon-image` and `--_shadow`.
+Outputs: `--_duration` and `--_shadow`.
 
 ### callout.css
 
@@ -79,7 +77,7 @@ Outputs: `--_duration`, `--_icon-image` and `--_shadow`.
 - `--_surface-bg-color`: The opaque background under the tint. Defaults to `--ui-surface`.
 - `--_title-font-size`: Font size of headings in `.ui-content`.
 
-Outputs: `--_bg-color`, `--_border-color`, `--_icon-text-color`, `--_link-duration` and `--_text-color`.
+Outputs: `--_bg-color`, `--_border-color`, `--_icon-image`, `--_icon-text-color`, `--_link-duration` and `--_text-color`.
 
 ### button.css
 
@@ -106,7 +104,7 @@ Outputs: `--_accent-text`, `--_actions-shift`, `--_bg-color`, `--_border-color`,
 
 ## Theme tokens
 
-The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-button-accent`, `--ui-button-accent-filled`, `--ui-button-focus`, `--ui-button-font-weight`, `--ui-button-hover`, `--ui-button-hover-shadow`, `--ui-button-hover-translate`, `--ui-button-on-accent`, `--ui-button-on-accent-filled`, `--ui-button-padding-inline`, `--ui-button-padding-inline-large`, `--ui-button-padding-inline-small`, `--ui-button-padding-inline-x-small`, `--ui-button-radius`, `--ui-button-shadow`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-card-padding`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-control-on-accent`, `--ui-critical`, `--ui-critical-text`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-highlight`, `--ui-focus-ring-offset`, `--ui-focus-ring-width`, `--ui-font-code`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-font-weight-semibold`, `--ui-icon-size`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-fill`, `--ui-on-focus-highlight`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-accent`, `--ui-palette-border`, `--ui-palette-on-strong`, `--ui-palette-on-tint`, `--ui-palette-strong`, `--ui-palette-tint`, `--ui-palette-tint-subtle`, `--ui-press-scale`, `--ui-primary`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-shadow-control`, `--ui-shadow-overlay`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-state-active-alpha-accent`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-state-hover-alpha-accent`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-text-disabled`, `--ui-text-max-chroma`, `--ui-text-min-lightness` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-button-accent`, `--ui-button-accent-filled`, `--ui-button-focus`, `--ui-button-font-weight`, `--ui-button-hover`, `--ui-button-hover-shadow`, `--ui-button-hover-translate`, `--ui-button-on-accent`, `--ui-button-on-accent-filled`, `--ui-button-padding-inline`, `--ui-button-padding-inline-large`, `--ui-button-padding-inline-small`, `--ui-button-padding-inline-x-small`, `--ui-button-radius`, `--ui-button-shadow`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-card-padding`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-control-on-accent`, `--ui-critical`, `--ui-critical-text`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-highlight`, `--ui-focus-ring-offset`, `--ui-focus-ring-width`, `--ui-font-code`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-font-weight-semibold`, `--ui-icon-close`, `--ui-icon-critical`, `--ui-icon-info`, `--ui-icon-size`, `--ui-icon-success`, `--ui-icon-warning`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-fill`, `--ui-on-focus-highlight`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-accent`, `--ui-palette-border`, `--ui-palette-on-strong`, `--ui-palette-on-tint`, `--ui-palette-strong`, `--ui-palette-tint`, `--ui-palette-tint-subtle`, `--ui-press-scale`, `--ui-primary`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-safe-area-inset-block-end`, `--ui-safe-area-inset-block-start`, `--ui-safe-area-inset-inline-end`, `--ui-safe-area-inset-inline-start`, `--ui-shadow-control`, `--ui-shadow-overlay`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-state-active-alpha-accent`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-state-hover-alpha-accent`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-text-disabled`, `--ui-text-max-chroma`, `--ui-text-min-lightness` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -166,6 +164,34 @@ import { Button, Toaster } from "opui-css/astro"
 
 ```tsx
 import { Button, Toaster } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <>
+      <Button
+        command="--toast"
+        commandfor="toast-basics-1"
+        data-toast="Changes saved"
+        data-toast-severity="success"
+        variant="filled"
+      >
+        Save changes
+      </Button>
+      <Toaster id="toast-basics-1" />
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Toaster } from "opui-css/solid"`
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Button, Toaster } from "opui-css/solid"
 
 export default function Basics() {
   return (

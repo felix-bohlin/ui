@@ -4,6 +4,7 @@
 
 {#snippet plusIcon()}
   <svg
+    data-icon="add"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -22,6 +23,7 @@
 
 {#snippet minusIcon()}
   <svg
+    data-icon="remove"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="24"

@@ -3,7 +3,7 @@
   import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
-  import { idRefs } from "../id"
+  import { fieldDescribedBy } from "../id"
   import type { Props } from "./types.svelte"
 
   let {
@@ -45,21 +45,19 @@
   }
   const initialValue = untrack(getValue)
   const base = $derived(id || `textarea-${uid}`)
-  const named = $derived(Boolean(label))
-  const Root = $derived(named ? "label" : "div")
+  const hasLabel = $derived(Boolean(label))
   const hasStartText = $derived(Boolean(startText))
   const hasEndText = $derived(Boolean(endText || characterCount))
-  const labelId = $derived(named ? `${base}-label` : undefined)
-  const startId = $derived(named && start ? `${base}-start` : undefined)
-  const endId = $derived(named && end ? `${base}-end` : undefined)
+  const textareaId = $derived(hasLabel ? base : id)
+  const startId = $derived(start ? `${base}-start` : undefined)
+  const endId = $derived(end ? `${base}-end` : undefined)
   const topId = $derived(top ? `${base}-top` : undefined)
   const bottomId = $derived(bottom ? `${base}-bottom` : undefined)
   const startTextId = $derived(hasStartText ? `${base}-start-text` : undefined)
   const endTextId = $derived(hasEndText ? `${base}-end-text` : undefined)
 </script>
 
-<svelte:element
-  this={Root}
+<div
   class={[
     "ui-textarea",
     {
@@ -72,12 +70,10 @@
   ]}
   {style}
 >
-  {#if named}
-    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]} id={labelId}>
+  {#if hasLabel}
+    <label class={hideLabel ? "ui-sr-only" : "ui-label"} for={textareaId}>
       {@render content(label)}
-    </span>
-  {:else}
-    {@render content(label)}
+    </label>
   {/if}
   {#if hasStartText}
     <span class="ui-start-text" id={startTextId}>
@@ -85,34 +81,38 @@
     </span>
   {/if}
   <span class="ui-field">
-    <textarea
-      {...rest}
-      aria-describedby={idRefs(
-        startTextId,
-        topId,
-        bottomId,
-        endTextId,
-        ariaDescribedBy,
-      )}
-      aria-invalid={error ? "true" : ariaInvalid}
-      aria-labelledby={named ? idRefs(labelId, startId, endId) : ariaLabelledBy}
-      {id}
-      name={name ?? field?.name}
-      bind:value={getValue, setValue}
-      defaultValue={defaultValue ?? initialValue}></textarea>
+    {#if top}
+      <span class="ui-top" id={topId}>
+        {@render content(top)}
+      </span>
+    {/if}
     {#if start}
       <span class="ui-start" id={startId}>
         {@render content(start)}
       </span>
     {/if}
+    <textarea
+      {...rest}
+      aria-describedby={fieldDescribedBy(
+        {
+          bottom: bottomId,
+          end: endId,
+          endText: endTextId,
+          start: startId,
+          startText: startTextId,
+          top: topId,
+        },
+        ariaDescribedBy,
+      )}
+      aria-invalid={error ? "true" : ariaInvalid}
+      aria-labelledby={ariaLabelledBy}
+      id={textareaId}
+      name={name ?? field?.name}
+      bind:value={getValue, setValue}
+      defaultValue={defaultValue ?? initialValue}></textarea>
     {#if end}
       <span class="ui-end" id={endId}>
         {@render content(end)}
-      </span>
-    {/if}
-    {#if top}
-      <span class="ui-top" id={topId}>
-        {@render content(top)}
       </span>
     {/if}
     {#if bottom}
@@ -133,4 +133,4 @@
     </span>
   {/if}
   {@render children?.()}
-</svelte:element>
+</div>

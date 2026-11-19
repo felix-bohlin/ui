@@ -12,6 +12,7 @@ import { Avatar, Button, Card, CardContent, CardHeader } from "opui-css/vue"
       </hgroup>
       <Button aria-label="More actions" round size="small">
         <svg
+          data-icon="more-vertical"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"

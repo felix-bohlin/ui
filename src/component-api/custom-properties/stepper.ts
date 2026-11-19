@@ -61,7 +61,7 @@ export default {
   },
   "--_marker-complete-image": {
     description:
-      "The check cut out of a complete marker, as an image used as a mask. Defaults to `--ui-check-image`, then a built-in check.",
+      "The check cut out of a complete marker, as an image used as a mask. Defaults to `--ui-icon-check`.",
     kind: "input",
   },
   "--_marker-error-image": {

@@ -1,6 +1,7 @@
 ---
 import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
+import DefaultIcon from "./partials/DefaultIcon.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
@@ -37,24 +38,16 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
     "invoker-commands",
     "lh",
     "light-dark",
+    "reading-flow",
+    "registered-custom-properties",
     "relative-color",
     "user-pseudos",
   ]}
+  fallbacks={{
+    "reading-flow":
+      "Without `reading-flow` nothing changes: the step buttons already come before and after the input in the markup.",
+  }}
   apis={[{ title: "Number field API", api: numberFieldApi }]}
-  changelogPaths={[
-    {
-      path: "packages/opui/components/NumberField/NumberField.astro",
-      type: "component",
-    },
-    { path: "src/docs/components/number-field.astro", type: "docs" },
-    { path: "src/component-examples/number-field", type: "docs" },
-    {
-      path: "packages/opui/css/components/number-field.css",
-      type: "css",
-    },
-    { path: "packages/opui/elements/number-field.js", type: "component" },
-    { path: "src/component-api/number-field", type: "api" },
-  ]}
   installationTabs={[
     { title: "number-field.css", code: NumberFieldCSS, lang: "css" },
     { title: "number-field.js", code: NumberFieldJS, lang: "js" },
@@ -176,6 +169,10 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
         Translate their <code>aria-label</code>.
       </Fragment>
     </Conditional>
+    <DefaultIcon
+      slots={["decrease-icon", "increase-icon"]}
+      tokens={["--ui-icon-decrease", "--ui-icon-increase"]}
+    />
     <AutoExample name="Buttons" />
   </section>
 

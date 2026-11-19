@@ -76,6 +76,19 @@ const HOOKS = [
         : undefined,
   },
   {
+    hook: 'a dialog.ui-drawer at the block start or end without closedby="none"',
+    module: (element: Element) =>
+      element.tagName === "dialog" &&
+      hasClass(element, "ui-drawer") &&
+      (hasClass(element, "ui-block-start") ||
+        hasClass(element, "ui-block-end")) &&
+      element.attrs
+        .find((attr) => attr.name === "closedby")
+        ?.value.toLowerCase() !== "none"
+        ? "opui-css/elements/drawer-swipe.js"
+        : undefined,
+  },
+  {
     hook: "a link or a submit or reset button as a .ui-menu item",
     module: (element: Element) =>
       !hasAttribute(element, "data-keep-open") &&

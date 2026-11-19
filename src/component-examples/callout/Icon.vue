@@ -5,6 +5,7 @@ import { Callout, CalloutContent } from "opui-css/vue"
 <template>
   <Callout>
     <svg
+      data-icon="info"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -17,7 +18,7 @@ import { Callout, CalloutContent } from "opui-css/vue"
       ></path>
     </svg>
     <CalloutContent>
-      Exports run overnight and arrive by email the next morning.
+      Setlist exports run overnight and arrive by email the next morning.
     </CalloutContent>
   </Callout>
 </template>

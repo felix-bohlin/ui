@@ -1,0 +1,429 @@
+<div
+  class="account-settings ui-layout-container ui-layout-column ui-large"
+  style="--_max-inline-size: 48rem"
+>
+  <hgroup class="ui-hgroup">
+    <h1 class="ui-h3">Account settings</h1>
+    <p>Tweak your profile, your password and how Bassbook looks for you.</p>
+  </hgroup>
+  <div class="ui-tabs ui-line" style="--_panel-gap: var(--ui-space-5)">
+    <input
+      checked
+      class="ui-input"
+      id="account-settings-tab-profile"
+      name="account-settings-tabs"
+      type="radio"
+    />
+    <label for="account-settings-tab-profile" class="ui-label">Profile</label>
+    <div class="ui-panel">
+      <form class="ui-form" action="#">
+        <fieldset class="ui-fieldset">
+          <legend>Photo</legend>
+          <div class="ui-layout-row acct-photo">
+            <div
+              class="ui-avatar ui-rounded"
+              aria-label="Percy Groove"
+              role="img"
+            >
+              <span aria-hidden="true">PG</span>
+            </div>
+            <div class="ui-layout-row ui-small">
+              <button class="ui-button ui-small ui-outlined" type="button">
+                Upload new pic
+              </button>
+              <button class="ui-button ui-small" type="button">Remove</button>
+            </div>
+            <p class="ui-caption">
+              JPG or PNG, at least 256 × 256 px. Bass in frame encouraged!
+            </p>
+          </div>
+        </fieldset>
+        <fieldset class="ui-fieldset">
+          <legend>Personal details</legend>
+          <div class="ui-field-group">
+            <div class="ui-layout-grid" style="--_min-inline-size: 18rem">
+              <div class="ui-text-field">
+                <label class="ui-label" for="account-settings-first-name"
+                  >First name</label
+                >
+                <span class="ui-field">
+                  <input
+                    autocomplete="given-name"
+                    required
+                    value="Percy"
+                    id="account-settings-first-name"
+                    name="first-name"
+                    type="text"
+                  />
+                </span>
+              </div>
+              <div class="ui-text-field">
+                <label class="ui-label" for="account-settings-last-name"
+                  >Last name</label
+                >
+                <span class="ui-field">
+                  <input
+                    autocomplete="family-name"
+                    required
+                    value="Groove"
+                    id="account-settings-last-name"
+                    name="last-name"
+                    type="text"
+                  />
+                </span>
+              </div>
+            </div>
+            <div class="ui-text-field">
+              <label class="ui-label" for="account-settings-email">Email</label>
+              <span class="ui-field">
+                <input
+                  autocomplete="email"
+                  required
+                  value="percy@lowend.example"
+                  aria-describedby="account-settings-email-end-text"
+                  id="account-settings-email"
+                  name="email"
+                  type="email"
+                />
+              </span>
+              <span class="ui-end-text" id="account-settings-email-end-text">
+                <span class="ui-p ui-success">Verified</span>, used for sign-in
+                and wall scribble alerts
+              </span>
+            </div>
+            <div class="ui-text-field">
+              <label class="ui-label" for="account-settings-username"
+                >Username</label
+              >
+              <span class="ui-field">
+                <span class="ui-start" id="account-settings-username-start"
+                  >bassbook.example/</span
+                >
+                <input
+                  autocomplete="username"
+                  value="percygroove"
+                  aria-describedby="account-settings-username-start"
+                  id="account-settings-username"
+                  name="username"
+                  type="text"
+                />
+              </span>
+            </div>
+            <div class="ui-textarea">
+              <label class="ui-label" for="account-settings-bio">Bio</label>
+              <span class="ui-start-text" id="account-settings-bio-start-text"
+                >Shown on your profile for the whole world to admire</span
+              >
+              <span class="ui-field">
+                <textarea
+                  rows="3"
+                  aria-describedby="account-settings-bio-start-text account-settings-bio-bottom"
+                  id="account-settings-bio"
+                  name="bio"
+                >
+Fretless bassist in a garage band. Into flatwounds, drop D and very long root notes.</textarea>
+                <span class="ui-bottom" id="account-settings-bio-bottom"
+                  >84 / 160</span
+                >
+              </span>
+            </div>
+          </div>
+        </fieldset>
+        <div class="ui-field-group acct-actions">
+          <button class="ui-button" type="reset">Cancel</button>
+          <button class="ui-button ui-filled" type="submit">
+            Save my profile
+          </button>
+        </div>
+      </form>
+    </div>
+    <input
+      class="ui-input"
+      id="account-settings-tab-password"
+      name="account-settings-tabs"
+      type="radio"
+    />
+    <label for="account-settings-tab-password" class="ui-label">Password</label>
+    <div class="ui-panel">
+      <form class="ui-form" action="#">
+        <fieldset class="ui-fieldset">
+          <legend>Change password</legend>
+          <p class="ui-description">
+            Last changed on 12 June 2026. Wow, so fresh!
+          </p>
+          <div class="ui-field-group">
+            <div class="ui-text-field">
+              <label class="ui-label" for="account-settings-current-password"
+                >Current password</label
+              >
+              <span class="ui-field">
+                <input
+                  autocomplete="current-password"
+                  required
+                  id="account-settings-current-password"
+                  name="current-password"
+                  type="password"
+                />
+              </span>
+            </div>
+            <div class="ui-text-field">
+              <label class="ui-label" for="account-settings-new-password"
+                >New password</label
+              >
+              <span class="ui-field">
+                <input
+                  autocomplete="new-password"
+                  minlength="12"
+                  required
+                  aria-describedby="account-settings-new-password-end-text"
+                  id="account-settings-new-password"
+                  name="new-password"
+                  type="password"
+                />
+              </span>
+              <span
+                class="ui-end-text"
+                id="account-settings-new-password-end-text"
+                >At least 12 characters. "slap-that-low-B" works great.</span
+              >
+            </div>
+            <div class="ui-text-field">
+              <label class="ui-label" for="account-settings-confirm-password"
+                >Confirm new password</label
+              >
+              <span class="ui-field">
+                <input
+                  autocomplete="new-password"
+                  required
+                  id="account-settings-confirm-password"
+                  name="confirm-password"
+                  type="password"
+                />
+              </span>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="ui-fieldset">
+          <legend>Sign-in security</legend>
+          <div class="ui-field-group">
+            <label class="ui-switch ui-spread">
+              <input type="checkbox" role="switch" name="two-factor" checked />
+              <span class="ui-label">Two-factor authentication</span>
+              <span class="ui-end-text"
+                >Ask for a code so nobody sneaks onto your wall.</span
+              >
+            </label>
+            <label class="ui-switch ui-spread">
+              <input
+                type="checkbox"
+                role="switch"
+                name="sign-in-alerts"
+                checked
+              />
+              <span class="ui-label">Sign-in alerts</span>
+              <span class="ui-end-text"
+                >Email me when a new computer signs in.</span
+              >
+            </label>
+          </div>
+        </fieldset>
+        <div class="ui-field-group acct-actions">
+          <button class="ui-button ui-filled" type="submit">
+            Update password
+          </button>
+        </div>
+      </form>
+    </div>
+    <input
+      class="ui-input"
+      id="account-settings-tab-preferences"
+      name="account-settings-tabs"
+      type="radio"
+    />
+    <label for="account-settings-tab-preferences" class="ui-label"
+      >Preferences</label
+    >
+    <div class="ui-panel">
+      <form class="ui-form" action="#">
+        <fieldset class="ui-fieldset">
+          <legend>Theme</legend>
+          <div class="ui-toggle-group" role="radiogroup" aria-label="Theme">
+            <label class="ui-toggle-button">
+              <input name="account-settings-theme" type="radio" value="light" />
+              Light
+            </label>
+            <label class="ui-toggle-button">
+              <input name="account-settings-theme" type="radio" value="dark" />
+              Dark
+            </label>
+            <label class="ui-toggle-button">
+              <input
+                checked
+                name="account-settings-theme"
+                type="radio"
+                value="system"
+              />
+              System
+            </label>
+          </div>
+        </fieldset>
+        <fieldset class="ui-fieldset">
+          <legend>Region</legend>
+          <div class="ui-layout-grid" style="--_min-inline-size: 18rem">
+            <div class="ui-select">
+              <label class="ui-label" for="account-settings-language"
+                >Language</label
+              >
+              <span class="ui-field">
+                <select id="account-settings-language" name="language">
+                  <button inert>
+                    <selectedcontent></selectedcontent>
+                  </button>
+                  <div class="ui-list">
+                    <option value="da">Dansk</option>
+                    <option value="de">Deutsch</option>
+                    <option selected value="en">English</option>
+                    <option value="nb">Norsk</option>
+                    <option value="sv">Svenska</option>
+                  </div>
+                </select>
+              </span>
+            </div>
+            <div class="ui-select">
+              <label class="ui-label" for="account-settings-timezone"
+                >Time zone</label
+              >
+              <span class="ui-field">
+                <select id="account-settings-timezone" name="timezone">
+                  <button inert>
+                    <selectedcontent></selectedcontent>
+                  </button>
+                  <div class="ui-list">
+                    <option value="london">London (GMT+1)</option>
+                    <option selected value="stockholm">
+                      Stockholm (GMT+2)
+                    </option>
+                    <option value="helsinki">Helsinki (GMT+3)</option>
+                  </div>
+                </select>
+              </span>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="ui-fieldset">
+          <legend>Accessibility</legend>
+          <div class="ui-field-group">
+            <label class="ui-switch ui-spread">
+              <input type="checkbox" role="switch" name="reduce-motion" />
+              <span class="ui-label">Reduce motion</span>
+            </label>
+            <label class="ui-switch ui-spread">
+              <input
+                type="checkbox"
+                role="switch"
+                name="underline-links"
+                checked
+              />
+              <span class="ui-label">Always underline links</span>
+            </label>
+          </div>
+        </fieldset>
+        <div class="ui-field-group acct-actions">
+          <button class="ui-button ui-filled" type="submit">
+            Save my prefs
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <section
+    class="ui-card ui-outlined acct-danger"
+    aria-labelledby="account-settings-danger-heading"
+  >
+    <hgroup>
+      <h2 class="ui-h5" id="account-settings-danger-heading">Danger zone</h2>
+    </hgroup>
+    <div class="ui-content ui-layout-row ui-spread">
+      <p>
+        Deleting your account removes your profile, wall and bass photos for
+        good. Save your favourite pics first! We'll miss you :(
+      </p>
+      <button
+        class="ui-button ui-critical ui-outlined"
+        type="button"
+        command="show-modal"
+        commandfor="account-settings-delete-dialog"
+      >
+        Delete account
+      </button>
+    </div>
+  </section>
+  <dialog
+    aria-labelledby="account-settings-delete-dialog-title"
+    class="ui-dialog ui-elevated"
+    aria-describedby="account-settings-delete-description"
+    id="account-settings-delete-dialog"
+    role="alertdialog"
+  >
+    <div class="ui-header">
+      <h2 id="account-settings-delete-dialog-title">Delete your account?</h2>
+    </div>
+    <div class="ui-content">
+      <p id="account-settings-delete-description">
+        This deletes percy@lowend.example, your wall and every photo of your
+        gear. You can't undo this.
+      </p>
+    </div>
+    <div class="ui-footer">
+      <button
+        class="ui-button"
+        type="button"
+        command="close"
+        commandfor="account-settings-delete-dialog"
+      >
+        Cancel
+      </button>
+      <button
+        class="ui-button ui-critical ui-filled"
+        type="button"
+        command="close"
+        commandfor="account-settings-delete-dialog"
+      >
+        Delete account
+      </button>
+    </div>
+  </dialog>
+</div>
+
+<style>
+  .account-settings {
+    container-type: inline-size;
+
+    .acct-photo {
+      .ui-avatar {
+        font-size: var(--ui-font-size-600);
+        inline-size: 5rem;
+      }
+
+      p {
+        flex-basis: 100%;
+
+        @container (inline-size >= 40rem) {
+          flex-basis: auto;
+        }
+      }
+    }
+
+    .acct-actions {
+      justify-content: end;
+    }
+
+    .acct-danger {
+      --_outlined-border-color: var(--ui-critical-text);
+
+      p {
+        flex: 1 1 18rem;
+      }
+    }
+  }
+</style>

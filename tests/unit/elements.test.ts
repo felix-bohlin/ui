@@ -12,15 +12,6 @@ import type { SortableTableElement } from "../../packages/opui/elements/sortable
 import type { TextFieldElement } from "../../packages/opui/elements/text-field.js"
 import type { ToasterElement } from "../../packages/opui/elements/toaster.js"
 
-const icons = (file: string) =>
-  Object.fromEntries(
-    [
-      ...readFileSync(file, "utf8").matchAll(
-        /(\w+): \{\n\s+d: "([^"]+)",\n\s+viewBox: "([^"]+)",/g,
-      ),
-    ].map(([, name, d, viewBox]) => [name, { d, viewBox }]),
-  )
-
 const importErrors = (urls: string[]) =>
   JSON.parse(
     execFileSync(
@@ -42,35 +33,27 @@ console.log(JSON.stringify(errors))`,
     ),
   )
 
-const images = (source: string) =>
-  Object.fromEntries(
-    [
-      ...source.matchAll(
-        /--_(\w+)-image: url\("data:image\/svg\+xml,%3Csvg xmlns='http:\/\/www\.w3\.org\/2000\/svg' viewBox='([^']+)'%3E%3Cpath d='([^']+)'\/%3E%3C\/svg%3E"\);/g,
-      ),
-    ].map(([, name, viewBox, d]) => [name, { d, viewBox }]),
-  )
+const iconTokens = (source: string) =>
+  [...source.matchAll(/(?:-image|mask): var\(--ui-icon-([a-z-]+)\)/g)]
+    .map(([, role]) => role)
+    .toSorted()
 
-test("toaster.css draws the Callout severity icons and the Drawer close icon", () => {
-  const callout = icons("packages/opui/components/Callout/icons.ts")
-  const closePath = readFileSync(
-    "packages/opui/components/Drawer/icons.ts",
-    "utf8",
-  ).match(/closePath =\s*"([^"]+)"/)?.[1]
-  expect(Object.keys(callout).length).toBeGreaterThan(0)
-  expect(closePath).toBeTruthy()
+test("callout.css draws the icons of a toast from the icon tokens, and toaster.css draws none of its own", () => {
   expect(
-    images(readFileSync("packages/opui/css/components/toaster.css", "utf8")),
-  ).toEqual({ ...callout, close: { d: closePath, viewBox: "0 0 32 32" } })
+    iconTokens(
+      readFileSync("packages/opui/css/components/callout.css", "utf8"),
+    ),
+  ).toEqual(["close", "critical", "info", "success", "warning"])
+  expect(
+    readFileSync("packages/opui/css/components/toaster.css", "utf8"),
+  ).not.toMatch(/\bmask\b|-image\b/)
 })
 
-test("the image reader flags an icon that differs", () => {
-  const sample =
-    "--_info-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M1 1'/%3E%3C/svg%3E\");"
-  expect(images(sample)).toEqual({ info: { d: "M1 1", viewBox: "0 0 32 32" } })
-  expect(images(sample)).not.toEqual({
-    info: { d: "M2 2", viewBox: "0 0 32 32" },
-  })
+test("the icon reader flags an icon that isn't a token", () => {
+  expect(iconTokens("mask: var(--ui-icon-info) center;")).toEqual(["info"])
+  expect(
+    iconTokens(`mask: url("data:image/svg+xml,%3Csvg/%3E") center;`),
+  ).toEqual([])
 })
 
 test("the elements and the css/js scripts import in Node, which has no DOM", () => {
@@ -283,6 +266,87 @@ test("the documentation check flags a member, an event, an attribute and an expo
   ])
   expect(documentationProblems("a.js", script, types, [])).toEqual([
     "no api.ts lists <opui-a> from a.js in elements",
+  ])
+})
+
+const typedAttributes = (types: string, tag: string) => {
+  const from = types.indexOf(`"${tag}":`)
+  if (from === -1) return undefined
+  const rest = types.slice(from + tag.length + 3)
+  const next = rest.search(/\n\s*"opui-[\w-]+":/)
+  return [
+    ...rest
+      .slice(0, next === -1 ? undefined : next)
+      .matchAll(/(?:"([\w-]+)"|\b(\w+))\?:/g),
+  ].map(([, quoted, bare]) => quoted ?? bare ?? "")
+}
+
+const attributeTypeProblems = (
+  script: string,
+  frameworks: Record<string, string>,
+) => {
+  const { attributes, tag } = publicApi(script, "")
+  if (!tag) return []
+  const own = [...new Set(attributes)].filter(
+    (name) => !/^(?:aria|data)-/.test(name),
+  )
+  return Object.entries(frameworks).flatMap(([file, types]) => {
+    const typed = typedAttributes(types, tag)
+    if (!typed) return [`${file} doesn't type <${tag}>`]
+    return own
+      .filter(
+        (name) =>
+          !typed.some((key) =>
+            new RegExp(`^${name.replace(/\$\{[^}]*\}/g, "[\\w-]+")}$`).test(
+              key,
+            ),
+          ),
+      )
+      .map(
+        (name) =>
+          `${file} doesn't type the ${name} attribute that <${tag}> reads`,
+      )
+  })
+}
+
+test("react/elements.ts, solid/elements.ts and svelte/elements.ts type every attribute an element reads", () => {
+  const scripts = globSync("packages/opui/elements/*.js").toSorted()
+  const frameworks = {
+    "react/elements.ts": readFileSync(
+      "packages/opui/react/elements.ts",
+      "utf8",
+    ),
+    "solid/elements.ts": readFileSync(
+      "packages/opui/solid/elements.ts",
+      "utf8",
+    ),
+    "svelte/elements.ts": readFileSync(
+      "packages/opui/svelte/elements.ts",
+      "utf8",
+    ),
+  }
+  expect(
+    scripts.flatMap((file) =>
+      attributeTypeProblems(readFileSync(file, "utf8"), frameworks),
+    ),
+    "type the attribute on the element's tag in every file, so a component's props reach it in React, Solid and Svelte",
+  ).toEqual([])
+})
+
+test("the attribute type check flags an attribute one framework leaves out, and a tag it doesn't type", () => {
+  const script =
+    'this.getAttribute("close-label")\nthis.getAttribute(`${side}-label`)\nthis.hasAttribute("data-busy")\ncustomElements.define("opui-a", AElement)\n'
+  expect(
+    attributeTypeProblems(script, {
+      "react/elements.ts":
+        '"opui-a": Props & { "start-label"?: string }\n"opui-b": Props & { "close-label"?: string }',
+      "svelte/elements.ts":
+        '"opui-a": Props & {\n  "close-label"?: string\n  "end-label"?: string\n}',
+      "vue/elements.ts": '"opui-b": Props',
+    }),
+  ).toEqual([
+    "react/elements.ts doesn't type the close-label attribute that <opui-a> reads",
+    "vue/elements.ts doesn't type <opui-a>",
   ])
 })
 

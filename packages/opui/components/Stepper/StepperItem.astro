@@ -3,6 +3,7 @@ import type { StepperItemProps as Props } from "./types.astro"
 import { trimEdges } from "../whitespace"
 
 const {
+  "aria-current": ariaCurrent,
   class: className,
   complete,
   completeLabel = ", completed",
@@ -23,7 +24,7 @@ const labelSlot = Astro.slots.has("label")
 ---
 
 <li
-  aria-current={current ? "step" : undefined}
+  aria-current={ariaCurrent ?? (current ? "step" : undefined)}
   class:list={[{ "ui-complete": complete, "ui-error": error }, className]}
   {...rest}
 >

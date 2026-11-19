@@ -10,8 +10,15 @@ import "../../packages/opui/react/elements"
 export type Intrinsic = JSX.IntrinsicElements
 export type Components = typeof ui
 `
+const solidFile = join(root, "src/component-examples/solid-props.tsx")
+const solidSource = `import type { JSX } from "@solidjs/web"
+import * as ui from "opui-css/solid"
+import "../../packages/opui/solid/elements"
+export type Intrinsic = JSX.IntrinsicElements
+export type Components = typeof ui
+`
 
-const ALIASES = { class: "className", for: "htmlFor" }
+export const REACT_ATTRIBUTE_NAMES = { class: "className", for: "htmlFor" }
 
 const compilerOptions = () =>
   ts.parseJsonConfigFileContent(
@@ -22,7 +29,10 @@ const compilerOptions = () =>
         module: "esnext",
         moduleResolution: "bundler",
         noEmit: true,
-        paths: { "opui-css/react": ["./packages/opui/react/index.ts"] },
+        paths: {
+          "opui-css/react": ["./packages/opui/react/index.ts"],
+          "opui-css/solid": ["./packages/opui/solid/index.ts"],
+        },
         skipLibCheck: true,
         strict: true,
         target: "esnext",
@@ -35,7 +45,11 @@ const compilerOptions = () =>
 
 const createProgram = (files = new Map()) => {
   const options = compilerOptions()
-  const sources = new Map([[virtualFile, virtualSource], ...files])
+  const sources = new Map([
+    [virtualFile, virtualSource],
+    [solidFile, solidSource],
+    ...files,
+  ])
   const host = ts.createCompilerHost(options)
   const { fileExists, getSourceFile, readFile } = host
   host.fileExists = (file) => sources.has(file) || fileExists(file)
@@ -67,38 +81,46 @@ export const typeDiagnostics = (samples) => {
   )
 }
 
-let loaded
-const load = () => {
-  if (!loaded) {
-    const program = createProgram()
-    const checker = program.getTypeChecker()
-    const source = program.getSourceFile(virtualFile)
+let shared
+const loaded = new Map()
+const load = (framework = "react") => {
+  if (!loaded.has(framework)) {
+    shared ??= createProgram()
+    const checker = shared.getTypeChecker()
+    const source = shared.getSourceFile(
+      framework === "solid" ? solidFile : virtualFile,
+    )
     const alias = (name) =>
       source.statements.find(
         (statement) =>
           ts.isTypeAliasDeclaration(statement) && statement.name.text === name,
       )
-    loaded = {
+    loaded.set(framework, {
       cache: new Map(),
       checker,
       components: alias("Components"),
       intrinsic: alias("Intrinsic"),
-    }
+    })
   }
-  return loaded
+  return loaded.get(framework)
 }
 
 const members = (type) => (type.isUnion() ? type.types : [type])
 
 const kindsOf = (checker, symbol, location) => {
   const kinds = new Set()
-  for (const member of members(
-    checker.getTypeOfSymbolAtLocation(symbol, location),
-  )) {
+  const all = members(checker.getTypeOfSymbolAtLocation(symbol, location))
+  const allowsTrue = all.some(
+    (member) =>
+      member.flags & ts.TypeFlags.BooleanLike &&
+      checker.typeToString(member) !== "false",
+  )
+  for (const member of all) {
     const { flags } = member
     if (flags & (ts.TypeFlags.Undefined | ts.TypeFlags.Null)) continue
-    if (flags & ts.TypeFlags.BooleanLike) kinds.add("boolean")
-    else if (flags & ts.TypeFlags.NumberLike) kinds.add("number")
+    if (flags & ts.TypeFlags.BooleanLike) {
+      if (allowsTrue) kinds.add("boolean")
+    } else if (flags & ts.TypeFlags.NumberLike) kinds.add("number")
     else if (flags & ts.TypeFlags.StringLike) kinds.add("string")
     else if (flags & (ts.TypeFlags.Any | ts.TypeFlags.Unknown)) kinds.add("any")
     else kinds.add("other")
@@ -120,8 +142,8 @@ const propsOfType = (checker, type, location) => {
   return props
 }
 
-export const reactPropsOf = (tag, component) => {
-  const state = load()
+export const propsOf = (framework, tag, component) => {
+  const state = load(framework)
   const key = `${component ? "component" : "intrinsic"}:${tag}`
   if (!state.cache.has(key)) {
     const { checker } = state
@@ -150,9 +172,13 @@ export const reactPropsOf = (tag, component) => {
   return state.cache.get(key)
 }
 
+export const reactPropsOf = (tag, component) => propsOf("react", tag, component)
+
 export const resolveReactProp = (props, name) => {
   if (props.has(name)) return name
-  if (ALIASES[name] && props.has(ALIASES[name])) return ALIASES[name]
+  if (REACT_ATTRIBUTE_NAMES[name] && props.has(REACT_ATTRIBUTE_NAMES[name])) {
+    return REACT_ATTRIBUTE_NAMES[name]
+  }
   if (name.startsWith("data-")) return name
   const normalized = (text) => text.toLowerCase().replace(/[-:]/g, "")
   const matches = [...props.keys()].filter(
@@ -164,3 +190,17 @@ export const resolveReactProp = (props, name) => {
 export const reactKinds = (props, name) =>
   props.get(name) ??
   (name.startsWith("data-") ? new Set(["string"]) : new Set())
+
+export const reactAttributeName = (tag, name) =>
+  REACT_ATTRIBUTE_NAMES[name] ??
+  (tag
+    ? resolveReactProp(reactPropsOf(tag, false) ?? new Map(), name)
+    : undefined) ??
+  name
+
+export const reactBareAttribute = (name, kinds) =>
+  ["any", "boolean", "other"].some((kind) => kinds.has(kind))
+    ? name
+    : kinds.has("string")
+      ? `${name}=""`
+      : undefined

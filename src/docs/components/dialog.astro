@@ -1,5 +1,6 @@
 ---
 import Component from "../../layouts/Component.astro"
+import DefaultIcon from "./partials/DefaultIcon.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
 import DocLink from "../../components/DocLink.astro"
@@ -70,19 +71,6 @@ export const keywords = ["lightbox", "modal", "overlay", "popup"]
     overlay:
       "Without `overlay`, the backdrop disappears as soon as the dialog starts to close, and the page can cover the dialog while it fades out.",
   }}
-  changelogPaths={[
-    {
-      path: "packages/opui/components/Dialog/Dialog.astro",
-      type: "component",
-    },
-    { path: "src/docs/components/dialog.astro", type: "docs" },
-    { path: "src/component-examples/dialog", type: "docs" },
-    {
-      path: "packages/opui/css/components/dialog.css",
-      type: "css",
-    },
-    { path: "src/component-api/dialog", type: "api" },
-  ]}
   installationTabs={[
     { title: "dialog.css", code: DialogCSS, lang: "css" },
     { title: "card.css", code: CardCSS, lang: "css", isDependency: true },
@@ -116,11 +104,6 @@ export const keywords = ["lightbox", "modal", "overlay", "popup"]
 
     <h3 id="modal">Modal</h3>
     <Conditional as="p">
-      <Fragment slot="components">
-        Set <code>closeButton</code> on <code>DialogHeader</code> for a close
-        button. It says "Close" unless you translate it with
-        <code>closeLabel</code>.
-      </Fragment>
       <Fragment slot="html">
         Point <code>aria-labelledby</code> at the heading.
       </Fragment>
@@ -177,6 +160,40 @@ export const keywords = ["lightbox", "modal", "overlay", "popup"]
     </p>
 
     <AutoExample name="LongContent" row />
+  </section>
+
+  <section id="close-button">
+    <h2>Close button</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>closeButton</code> on <code>DialogHeader</code> to add it. It
+        says "Close" unless you translate it with <code>closeLabel</code>, like
+        the other
+        <DocLink href="/guide/accessibility#built-in-labels"
+          >built-in labels</DocLink
+        >.
+      </Fragment>
+      <Fragment slot="html">
+        Translate its <code>aria-label</code>, like the other
+        <DocLink href="/guide/accessibility#built-in-labels"
+          >built-in labels</DocLink
+        >.
+      </Fragment>
+    </Conditional>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The button closes the <code>Dialog</code> it is in. A header outside a
+        <code>Dialog</code>, in a <code>&lt;dialog&gt;</code> of your own or in
+        an island on an Astro page, can't find the dialog to close: set
+        <code>commandfor</code> to its <code>id</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Point its <code>commandfor</code> at the dialog's <code>id</code>.
+      </Fragment>
+    </Conditional>
+    <DefaultIcon slots={["close-icon"]} tokens={["--ui-icon-close"]} />
+
+    <AutoExample name="CloseButton" row />
   </section>
 
   <section id="how-to-close">

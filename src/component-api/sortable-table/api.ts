@@ -1,8 +1,13 @@
 import { elementNotes } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
+const sortNote =
+  "The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead."
+
 const sortEvent =
   "Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are."
+
+const element = elementNotes("sortable-table.js", sortNote)
 
 export default {
   component: "SortableTable",
@@ -32,10 +37,7 @@ export default {
     },
   ],
   notes: {
-    ...elementNotes(
-      "sortable-table.js",
-      "The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead.",
-    ),
+    ...element,
     html: 'Wrap the table in `<opui-sortable-table class="ui-sortable-table">`, add `data-sort` to each sortable header with a `<button type="button">` around its label, and import `opui-css/elements/sortable-table.js`. A cell sorts by its `data-sort-value`, or else its text.',
   },
   options: [
@@ -67,7 +69,7 @@ export default {
     },
     {
       description: sortEvent,
-      frameworks: ["react"],
+      frameworks: ["react", "solid"],
       prop: "onSort",
     },
   ],
@@ -83,7 +85,7 @@ export default {
   ],
   root: {
     description:
-      'The `<opui-sortable-table>` custom element, `display: contents`, around the table. It moves the body rows and announces the new order in its `role="status"` child, or one it adds. While it has `data-hydrating`, which the React component renders until it hydrates, header clicks do nothing.',
+      'The `<opui-sortable-table>` custom element, `display: contents`, around the table. It moves the body rows and announces the new order in its `role="status"` child, or one it adds. While it has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, header clicks do nothing.',
     selector: "opui-sortable-table.ui-sortable-table",
   },
   slots: [

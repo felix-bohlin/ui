@@ -8,7 +8,7 @@ export default {
   },
   "--_check-image": {
     description:
-      'The check on the selected item of a `.ui-menu`, a `[role="listbox"]` list or a `Select` picker, as an image used as a mask in the text color. Defaults to `--ui-check-image`, then a built-in check.',
+      'The check on the selected item of a `.ui-menu`, a `[role="listbox"]` list or a `Select` picker, as an image used as a mask in the text color. Defaults to `--ui-icon-check`.',
     kind: "input",
   },
   "--_description-text-color": {

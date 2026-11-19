@@ -12,9 +12,12 @@
     --_ease: var(--ui-ease-exit);
     --_edge-border-color: var(--ui-border-color-raised, var(--_border-color));
     --_footer-padding: var(--ui-card-padding, var(--ui-space-3));
+    --_handle-border-color: var(--ui-border-color);
     --_header-padding: var(--ui-card-padding, var(--ui-space-3));
     --_inline-size: min(375px, 100vi);
     --_shadow: var(--ui-shadow-overlay);
+    --_swipe-offset: 0px;
+    --_swipe-progress: 0;
     --_text-color: var(--ui-text-strong);
     --ui-border-color: var(--ui-border-color-on-raised);
     --ui-divider-gap: var(--ui-space-3);
@@ -61,17 +64,21 @@
       padding: var(--_footer-padding);
     }
 
+    /* Each side on a screen edge keeps its content out of the safe area. */
     &:not(.ui-block-end, .ui-block-start) {
       block-size: 100dvb;
       inline-size: var(--_inline-size);
       inset-block: 0;
       max-block-size: 100%;
+      padding-block: var(--ui-safe-area-inset-block-start)
+        var(--ui-safe-area-inset-block-end);
     }
 
     &:not(.ui-block-end, .ui-block-start, .ui-inline-end) {
       border-inline-end: var(--_border-width) solid var(--_edge-border-color);
       inset-inline-end: auto;
       inset-inline-start: 0;
+      padding-inline-start: var(--ui-safe-area-inset-inline-start);
     }
 
     &.ui-inline-end {
@@ -80,6 +87,7 @@
       border-inline-start: var(--_border-width) solid var(--_edge-border-color);
       inset-inline-end: 0;
       inset-inline-start: auto;
+      padding-inline-end: var(--ui-safe-area-inset-inline-end);
     }
 
     &.ui-block-start,
@@ -88,6 +96,8 @@
       inline-size: 100dvi;
       inset-inline: 0;
       max-block-size: 100%;
+      padding-inline: var(--ui-safe-area-inset-inline-start)
+        var(--ui-safe-area-inset-inline-end);
     }
 
     &.ui-block-start {
@@ -96,6 +106,7 @@
       border-block-end: var(--_border-width) solid var(--_edge-border-color);
       inset-block-end: auto;
       inset-block-start: 0;
+      padding-block-start: var(--ui-safe-area-inset-block-start);
     }
 
     &.ui-block-end {
@@ -104,12 +115,49 @@
       border-block-start: var(--_border-width) solid var(--_edge-border-color);
       inset-block-end: 0;
       inset-block-start: auto;
+      padding-block-end: var(--ui-safe-area-inset-block-end);
+    }
+
+    /* Swiping a drawer at the block start or end toward its edge closes it,
+       from its grab handle or header (elements/drawer-swipe.js). Vertical
+       pans stay with the script there; the content scrolls on its own. */
+    &:is(.ui-block-start, .ui-block-end):not([closedby="none" i]) {
+      touch-action: pan-x pinch-zoom;
+
+      /* The handle is a border, so forced colors keep it. */
+      @media (any-pointer: coarse) {
+        &.ui-block-end::before,
+        &.ui-block-start::after {
+          align-self: center;
+          block-size: 0;
+          border-block-start: var(--ui-space-1) solid
+            var(--_handle-border-color);
+          border-radius: var(--ui-radius-round);
+          content: "";
+          flex: none;
+          inline-size: var(--ui-space-7);
+          margin-block: var(--ui-space-2);
+        }
+
+        &.ui-block-end::before {
+          margin-block-end: 0;
+        }
+
+        &.ui-block-start::after {
+          margin-block-start: 0;
+        }
+      }
     }
 
     &[open] {
       --_ease: var(--ui-ease-enter);
 
-      translate: 0 0;
+      translate: 0 var(--_swipe-offset);
+
+      /* The backdrop fades as the drawer is swiped away. */
+      &::backdrop {
+        opacity: calc(1 - var(--_swipe-progress));
+      }
 
       @starting-style {
         translate: var(--_closed-translate);

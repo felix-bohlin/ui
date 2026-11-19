@@ -3,8 +3,9 @@ import { Avatar } from "opui-css/react"
 export default function Icon() {
   return (
     <>
-      <Avatar label="Developer">
+      <Avatar label="Bassist">
         <svg
+          data-icon="code"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -20,6 +21,7 @@ export default function Icon() {
 
       <Avatar label="Contact">
         <svg
+          data-icon="contact"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -35,6 +37,7 @@ export default function Icon() {
 
       <Avatar label="Guest">
         <svg
+          data-icon="person-circle"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"

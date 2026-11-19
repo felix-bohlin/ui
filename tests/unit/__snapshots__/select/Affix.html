@@ -1,8 +1,9 @@
-<label class="ui-select">
-  <span class="ui-label" id="id-1">Currency</span>
+<div class="ui-select">
+  <label class="ui-label" for="id-2">Currency</label>
   <span class="ui-field">
-    <select aria-labelledby="id-1 id-2">
-      <button>
+    <span class="ui-start" id="id-1">¤</span>
+    <select aria-describedby="id-1" id="id-2">
+      <button inert>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
@@ -12,14 +13,20 @@
         <option>USD</option>
       </div>
     </select>
-    <span class="ui-start" id="id-2">¤</span>
   </span>
-</label>
-<label class="ui-select">
-  <span class="ui-label" id="id-3">Country</span>
+</div>
+<div class="ui-select">
+  <label class="ui-label" for="id-4">Country</label>
   <span class="ui-field">
-    <select aria-labelledby="id-3 id-4">
-      <button>
+    <span class="ui-start" id="id-3">
+      <svg aria-hidden="true" data-icon="globe" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16">
+        <circle cx="12" cy="12" r="10"></circle>
+        <path d="M2 12h20"></path>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+      </svg>
+    </span>
+    <select aria-describedby="id-3" id="id-4">
+      <button inert>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
@@ -29,20 +36,13 @@
         <option>Sweden</option>
       </div>
     </select>
-    <span class="ui-start" id="id-4">
-      <svg aria-hidden="true" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16">
-        <circle cx="12" cy="12" r="10"></circle>
-        <path d="M2 12h20"></path>
-        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-      </svg>
-    </span>
   </span>
-</label>
-<label class="ui-select">
-  <span class="ui-label" id="id-5">Delivery time</span>
+</div>
+<div class="ui-select">
+  <label class="ui-label" for="id-5">Delivery time</label>
   <span class="ui-field">
-    <select aria-labelledby="id-5 id-6">
-      <button>
+    <select aria-describedby="id-6" id="id-5">
+      <button inert>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
@@ -53,4 +53,4 @@
     </select>
     <span class="ui-end" id="id-6">days</span>
   </span>
-</label>
+</div>

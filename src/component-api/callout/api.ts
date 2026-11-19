@@ -44,6 +44,7 @@ export default {
     astro: `${icon} ${closeButton.astro} Listen for \`dismiss\` in a client script.`,
     html: 'For a close button that hides the callout, use `<opui-callout class="ui-callout">` with an id, end it with a `.ui-button` with `commandfor` naming it and `command="--dismiss"`, and import `opui-css/elements/callout.js`. Until it loads, the button is hidden.',
     react: `${icon} ${closeButton.react}`,
+    solid: `${icon} ${closeButton.solid}`,
     svelte: `${icon} ${closeButton.svelte}`,
     vue: `${icon} ${closeButton.vue}`,
   },
@@ -56,7 +57,7 @@ export default {
     {
       default: "false",
       description:
-        "Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>`, and the component loads `opui-css/elements/callout.js`, which runs the button.",
+        "Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>`, and the component loads `opui-css/elements/callout.js`, which runs the button. While the root has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, the button does nothing.",
       group: "Close button",
       prop: "closeButton",
     },
@@ -79,12 +80,12 @@ export default {
     },
     {
       description: dismissEvent,
-      frameworks: ["react"],
+      frameworks: ["react", "solid"],
       prop: "onDismiss",
     },
     {
       description:
-        "The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders.",
+        "The severity. Sets the color, and in Astro, React, Solid, Svelte and Vue the icon `CalloutIcon` renders.",
       group: "Severities",
       prop: "severity",
       values: {
@@ -108,7 +109,7 @@ export default {
       code: "<svg>",
       component: "CalloutIcon",
       description:
-        "An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning.",
+        "An optional icon before the content. In Astro, React, Solid, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning.",
       selector: ".ui-callout > svg",
     },
     {

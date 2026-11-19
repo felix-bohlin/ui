@@ -57,18 +57,18 @@ const variants = [
 const callouts = [
   {
     severity: "critical",
-    text: "The payment failed. Check the card details.",
+    text: "Whoops, the Gold payment failed. Check the card details.",
     title: "Error",
   },
   {
     severity: "info",
-    text: "A new version is ready to install.",
+    text: "A totally rad new Bassbook is ready to install.",
     title: "Info",
   },
-  { severity: "success", text: "Your changes were saved.", title: "Success" },
+  { severity: "success", text: "Your slap video was saved.", title: "Success" },
   {
     severity: "warning",
-    text: "Your trial ends in 3 days.",
+    text: "Your Gold trial ends in 3 days.",
     title: "Warning",
   },
 ] as const
@@ -77,11 +77,11 @@ const callouts = [
 <div class="specimen">
   <div class="specimen-block specimen-type ui-rich-text">
     <p class="ui-overline">Typography</p>
-    <div class="ui-h2">Weekly report</div>
-    <div class="ui-h4">Everything the team shipped</div>
+    <div class="ui-h2">Weekly low end</div>
+    <div class="ui-h4">Everything the bassists posted</div>
     <p>
-      The new sign-up flow lifted conversions by 12%. Read the
-      <a href="#">release notes</a> or run <code>npm run report</code> to build
+      Slap videos got 12% more likes this week, woohoo. Read the
+      <a href="#">gig notes</a> or run <code>npm run soundcheck</code> to tune
       it again.
     </p>
   </div>
@@ -124,16 +124,16 @@ const callouts = [
   <div class="specimen-block">
     <p class="specimen-caption">Chips, badge and avatars</p>
     <div class="specimen-row">
-      <Chip label="Design" variant="outlined" />
-      <Chip label="In review" variant="tonal" />
+      <Chip label="Gear Talk" variant="outlined" />
+      <Chip label="Rehearsing" variant="tonal" />
       <Chip dot label="Live" severity="success" />
-      <Chip label="Blocked" severity="critical" />
+      <Chip label="Snapped string" severity="critical" />
     </div>
     <div class="specimen-row">
       <Badge label="3">
         <Button type="button" variant="outlined">Inbox</Button>
       </Badge>
-      <AvatarGroup aria-label="Team">
+      <AvatarGroup aria-label="Band">
         <Avatar>HH</Avatar>
         <Avatar>PG</Avatar>
         <Avatar>SN</Avatar>
@@ -147,7 +147,7 @@ const callouts = [
       endText="We never share it."
       label="Email"
       name={name("email")}
-      placeholder="you@example.com"
+      placeholder="rory@lowend.example"
       required
       type="email"
     />
@@ -156,17 +156,17 @@ const callouts = [
       error
       label="Username"
       name={name("username")}
-      value="ada"
+      value="slapqueen"
     />
     <Select label="Plan" name={name("plan")}>
       <option>Free</option>
-      <option selected>Team</option>
-      <option>Enterprise</option>
+      <option selected>Gold</option>
+      <option>Platinum</option>
     </Select>
     <Textarea
       label="Message"
       name={name("message")}
-      placeholder="Tell us more"
+      placeholder="Tell us about your bass"
       rows="2"
     />
   </div>
@@ -174,13 +174,15 @@ const callouts = [
   <div class="specimen-block specimen-form">
     <p class="specimen-caption">Choices</p>
     <Fieldset>
-      <FieldLegend>Billing</FieldLegend>
+      <FieldLegend>Pay for Gold</FieldLegend>
       <FieldGroup name={name("billing")} orientation="horizontal">
         <Radio checked value="monthly">Monthly</Radio>
         <Radio value="yearly">Yearly</Radio>
       </FieldGroup>
     </Fieldset>
-    <Checkbox checked name={name("updates")}>Email me product updates</Checkbox>
+    <Checkbox checked name={name("updates")}
+      >Email me when I get poked</Checkbox
+    >
     <Switch checked name={name("alerts")}>Alerts</Switch>
     <Range label="Volume" name={name("volume")} value={60} />
     <ToggleGroup aria-label="Period" name={name("period")} size="small">
@@ -212,10 +214,12 @@ const callouts = [
     <p class="specimen-caption">Card</p>
     <Card variant="outlined">
       <CardHeader>
-        <p>Project</p>
-        <div class="ui-h4">Website refresh</div>
+        <p>Gig</p>
+        <div class="ui-h4">Basement show</div>
       </CardHeader>
-      <CardContent>New pages, faster images and a darker footer.</CardContent>
+      <CardContent
+        >Three songs, one bass solo and a very tiny stage.</CardContent
+      >
       <CardActions>
         <Button size="small" type="button">Details</Button>
         <Button color="primary" size="small" type="button" variant="filled"
@@ -238,7 +242,7 @@ const callouts = [
     <div class="specimen-backdrop">
       <div class="ui-dialog ui-elevated specimen-dialog">
         <div class="ui-header">
-          <div class="ui-h4">Delete this file?</div>
+          <div class="ui-h4">Delete this slap video?</div>
           <p>You can restore it from the trash for 30 days.</p>
         </div>
         <div class="ui-footer">
@@ -253,7 +257,7 @@ const callouts = [
 
   <div class="specimen-block">
     <p class="specimen-caption">Menu</p>
-    <menu aria-label="File actions" class="ui-menu specimen-menu">
+    <menu aria-label="Video actions" class="ui-menu specimen-menu">
       <li>
         <button type="button">
           <div class="ui-text"><p>Rename</p></div>
@@ -264,7 +268,7 @@ const callouts = [
         <button type="button">
           <div class="ui-text">
             <p>Duplicate</p>
-            <p>Keeps the comments</p>
+            <p>Keeps the likes and comments</p>
           </div>
         </button>
       </li>
@@ -295,21 +299,21 @@ const callouts = [
     <Table density="dense">
       <TableHead>
         <TableRow>
-          <TableHeaderCell scope="col">Plan</TableHeaderCell>
-          <TableHeaderCell scope="col">Seats</TableHeaderCell>
+          <TableHeaderCell scope="col">Band</TableHeaderCell>
+          <TableHeaderCell scope="col">Members</TableHeaderCell>
           <TableHeaderCell scope="col">Status</TableHeaderCell>
         </TableRow>
       </TableHead>
       <TableBody>
         <TableRow>
-          <TableCell>Free</TableCell>
+          <TableCell>Brad and the Brads</TableCell>
           <TableCell numeric>3</TableCell>
-          <TableCell>Active</TableCell>
+          <TableCell>Gigging</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Team</TableCell>
+          <TableCell>The Low Enders</TableCell>
           <TableCell numeric>12</TableCell>
-          <TableCell>Trial</TableCell>
+          <TableCell>On break</TableCell>
         </TableRow>
       </TableBody>
     </Table>

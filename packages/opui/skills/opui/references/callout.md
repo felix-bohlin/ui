@@ -3,14 +3,14 @@
 A message in the flow of the page, without interrupting the task.
 
 - CSS: `opui-css/css/components/callout.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/callout.md), [Astro](https://opui.dev/astro/components/callout.md), [React](https://opui.dev/react/components/callout.md), [Svelte](https://opui.dev/svelte/components/callout.md), [Vue](https://opui.dev/vue/components/callout.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/callout.md), [Astro](https://opui.dev/astro/components/callout.md), [React](https://opui.dev/react/components/callout.md), [Solid](https://opui.dev/solid/components/callout.md), [Svelte](https://opui.dev/svelte/components/callout.md), [Vue](https://opui.dev/vue/components/callout.md).
 
 ## Callout
 
 ### Parts
 
-- `.ui-callout` (root): Container element, a `<div>`. With `closeButton`, the `<opui-callout>` custom element, which a button with `commandfor` and `command="--dismiss"` dismisses.
-- `<svg>` (`CalloutIcon`): An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning.
+- `.ui-callout` (root): Container element, an `<article>`. With `closeButton`, the `<opui-callout>` custom element with `role="article"`, which a button with `commandfor` and `command="--dismiss"` dismisses.
+- `<svg>` (`CalloutIcon`): An optional icon before the content. In Astro, React, Solid, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning.
 - `.ui-content` (`CalloutContent`): The content, with an optional heading first.
 - `<button>` (prop `closeButton`, prop `closeLabel`, slot `close-icon`): A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command="--dismiss"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`.
 - `.ui-actions` (`CalloutActions`): A row of buttons under the content.
@@ -18,12 +18,12 @@ A message in the flow of the page, without interrupting the task.
 ### Props and modifiers
 
 - `@dismiss` (Vue): `(event: Event) => void`. Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first.
-- `closeButton`: `boolean`. Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>`, and the component loads `opui-css/elements/callout.js`, which runs the button.
+- `closeButton`: `boolean`. Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>` with `role="article"`, and the component loads `opui-css/elements/callout.js`, which runs the button. While the root has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, the button does nothing.
 - `closeLabel`: `string`, default `"Close"`. The accessible name of the close button.
 - `id`: `string`. The id of the callout. With `closeButton`, the close button points at it with `commandfor`, so the component generates one when it's left out.
 - `ondismiss` (Svelte): `(event: Event) => void`. Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first.
-- `onDismiss` (React): `(event: Event) => void`. Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first.
-- `severity`: `"critical"` (`.ui-critical`), `"info"` (`.ui-info`), `"neutral"` (`.ui-neutral`), `"success"` (`.ui-success`), `"warning"` (`.ui-warning`). The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders.
+- `onDismiss` (React and Solid): `(event: Event) => void`. Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first.
+- `severity`: `"critical"` (`.ui-critical`), `"info"` (`.ui-info`), `"neutral"` (`.ui-neutral`), `"success"` (`.ui-success`), `"warning"` (`.ui-warning`). The severity. Sets the color, and in Astro, React, Solid, Svelte and Vue the icon `CalloutIcon` renders.
 - `variant`: `"outlined"` (`.ui-outlined`), `"tonal"` (default). The variant to use.
 
 ### Slots
@@ -38,10 +38,10 @@ A message in the flow of the page, without interrupting the task.
 
 ### Notes
 
-- HTML: For a close button that hides the callout, use `<opui-callout class="ui-callout">` with an id, end it with a `.ui-button` with `commandfor` naming it and `command="--dismiss"`, and import `opui-css/elements/callout.js`. Until it loads, the button is hidden.
+- HTML: For a close button that hides the callout, use `<opui-callout class="ui-callout" role="article">` with an id, end it with a `.ui-button` with `commandfor` naming it and `command="--dismiss"`, and import `opui-css/elements/callout.js`. Until it loads, the button is hidden.
 - Astro: For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`. The component loads `opui-css/elements/callout.js`. With `closeButton`, the root is `<opui-callout>`, and the close button shows and works once the element runs. Listen for `dismiss` in a client script.
 - React: For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`. The component loads `opui-css/elements/callout.js` once it mounts, unless the page imports it first. With `closeButton`, the root is `<opui-callout>`, and the close button shows and works once the element runs.
-- Svelte and Vue: For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`. The component imports `opui-css/elements/callout.js`, so the element runs as soon as the component's code loads. With `closeButton`, the root is `<opui-callout>`, and the close button shows and works once the element runs.
+- Solid, Svelte and Vue: For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`. The component imports `opui-css/elements/callout.js`, so the element runs as soon as the component's code loads. With `closeButton`, the root is `<opui-callout>`, and the close button shows and works once the element runs.
 
 ## Component properties
 
@@ -66,35 +66,35 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_surface-bg-color`: The opaque background under the tint. Defaults to `--ui-surface`.
 - `--_title-font-size`: Font size of headings in `.ui-content`.
 
-Outputs: `--_bg-color`, `--_border-color`, `--_icon-text-color`, `--_link-duration` and `--_text-color`.
+Outputs: `--_bg-color`, `--_border-color`, `--_icon-image`, `--_icon-text-color`, `--_link-duration` and `--_text-color`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color-on-raised`, `--ui-font-size-body`, `--ui-font-size-small`, `--ui-font-weight-semibold`, `--ui-icon-size`, `--ui-motion`, `--ui-palette-accent`, `--ui-palette-border`, `--ui-palette-strong`, `--ui-palette-tint-subtle`, `--ui-primary-text`, `--ui-radius`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-surface`, `--ui-surface-tonal` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color-on-raised`, `--ui-font-size-body`, `--ui-font-size-small`, `--ui-font-weight-semibold`, `--ui-icon-close`, `--ui-icon-critical`, `--ui-icon-info`, `--ui-icon-size`, `--ui-icon-success`, `--ui-icon-warning`, `--ui-motion`, `--ui-palette-accent`, `--ui-palette-border`, `--ui-palette-strong`, `--ui-palette-tint-subtle`, `--ui-primary-text`, `--ui-radius`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-surface`, `--ui-surface-tonal` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
 ### Example: Variants
 
 ```html
-<div class="ui-callout">
+<article class="ui-callout">
   <div class="ui-content">
     <h3>Scheduled maintenance</h3>
     <p>
-      The dashboard is read-only on Sunday from 02:00 to 04:00 UTC while we
-      upgrade the database.
+      Bassbook is read-only on Sunday from 02:00 to 04:00 UTC while we restring
+      the servers.
     </p>
   </div>
-</div>
-<div class="ui-callout ui-outlined">
+</article>
+<article class="ui-callout ui-outlined">
   <div class="ui-content">
-    <h3>Billing has moved</h3>
+    <h3>Bassbook Gold has moved</h3>
     <p>
-      Invoices and payment methods are now in the Billing tab of your workspace
-      settings.
+      Receipts and payment methods now live in the Gold tab of your profile
+      settings, right next to your gear list.
     </p>
   </div>
-</div>
+</article>
 ```
 
 ## Astro
@@ -114,17 +114,17 @@ import { Callout, CalloutContent } from "opui-css/astro"
   <CalloutContent>
     <h3>Scheduled maintenance</h3>
     <p>
-      The dashboard is read-only on Sunday from 02:00 to 04:00 UTC while we
-      upgrade the database.
+      Bassbook is read-only on Sunday from 02:00 to 04:00 UTC while we restring
+      the servers.
     </p>
   </CalloutContent>
 </Callout>
 <Callout variant="outlined">
   <CalloutContent>
-    <h3>Billing has moved</h3>
+    <h3>Bassbook Gold has moved</h3>
     <p>
-      Invoices and payment methods are now in the Billing tab of your workspace
-      settings.
+      Receipts and payment methods now live in the Gold tab of your profile
+      settings, right next to your gear list.
     </p>
   </CalloutContent>
 </Callout>
@@ -149,17 +149,55 @@ export default function Variants() {
         <CalloutContent>
           <h3>Scheduled maintenance</h3>
           <p>
-            The dashboard is read-only on Sunday from 02:00 to 04:00 UTC while
-            we upgrade the database.
+            Bassbook is read-only on Sunday from 02:00 to 04:00 UTC while we
+            restring the servers.
           </p>
         </CalloutContent>
       </Callout>
       <Callout variant="outlined">
         <CalloutContent>
-          <h3>Billing has moved</h3>
+          <h3>Bassbook Gold has moved</h3>
           <p>
-            Invoices and payment methods are now in the Billing tab of your
-            workspace settings.
+            Receipts and payment methods now live in the Gold tab of your
+            profile settings, right next to your gear list.
+          </p>
+        </CalloutContent>
+      </Callout>
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Callout, CalloutActions, CalloutContent, CalloutIcon } from "opui-css/solid"`
+
+- `Callout` slot props (`JSX.Element`): `children` and `closeIcon`.
+
+### Example: Variants
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Callout, CalloutContent } from "opui-css/solid"
+
+export default function Variants() {
+  return (
+    <>
+      <Callout>
+        <CalloutContent>
+          <h3>Scheduled maintenance</h3>
+          <p>
+            Bassbook is read-only on Sunday from 02:00 to 04:00 UTC while we
+            restring the servers.
+          </p>
+        </CalloutContent>
+      </Callout>
+      <Callout variant="outlined">
+        <CalloutContent>
+          <h3>Bassbook Gold has moved</h3>
+          <p>
+            Receipts and payment methods now live in the Gold tab of your
+            profile settings, right next to your gear list.
           </p>
         </CalloutContent>
       </Callout>
@@ -185,17 +223,17 @@ export default function Variants() {
   <CalloutContent>
     <h3>Scheduled maintenance</h3>
     <p>
-      The dashboard is read-only on Sunday from 02:00 to 04:00 UTC while we
-      upgrade the database.
+      Bassbook is read-only on Sunday from 02:00 to 04:00 UTC while we restring
+      the servers.
     </p>
   </CalloutContent>
 </Callout>
 <Callout variant="outlined">
   <CalloutContent>
-    <h3>Billing has moved</h3>
+    <h3>Bassbook Gold has moved</h3>
     <p>
-      Invoices and payment methods are now in the Billing tab of your workspace
-      settings.
+      Receipts and payment methods now live in the Gold tab of your profile
+      settings, right next to your gear list.
     </p>
   </CalloutContent>
 </Callout>
@@ -219,17 +257,17 @@ import { Callout, CalloutContent } from "opui-css/vue"
     <CalloutContent>
       <h3>Scheduled maintenance</h3>
       <p>
-        The dashboard is read-only on Sunday from 02:00 to 04:00 UTC while we
-        upgrade the database.
+        Bassbook is read-only on Sunday from 02:00 to 04:00 UTC while we
+        restring the servers.
       </p>
     </CalloutContent>
   </Callout>
   <Callout variant="outlined">
     <CalloutContent>
-      <h3>Billing has moved</h3>
+      <h3>Bassbook Gold has moved</h3>
       <p>
-        Invoices and payment methods are now in the Billing tab of your
-        workspace settings.
+        Receipts and payment methods now live in the Gold tab of your profile
+        settings, right next to your gear list.
       </p>
     </CalloutContent>
   </Callout>

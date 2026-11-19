@@ -10,6 +10,7 @@ import {
   edgeTrimmed,
   eventRoots,
   groupWarning,
+  hydratingRoots,
   indent,
   isLoose,
   objectCode,
@@ -21,16 +22,22 @@ import {
   withImport,
 } from "./component-emit.mjs"
 import { MODEL_KINDS } from "./component-models.mjs"
+import { markupAttribute } from "./example-encoders.mjs"
 import { emitsTypeOf } from "./component-types.mjs"
 import {
   allCodes,
   byName,
   chosenSpreadCode,
   classMayBeEmpty,
+  codesIn,
+  elementsIn,
   filtersRest,
+  identifierCounts,
   identifiersIn,
   isArrayType,
   isBlank,
+  itemBinding,
+  onlyClass,
   PRESERVED_TAGS,
   propKey,
   scriptCodes,
@@ -248,6 +255,7 @@ export const toVue = (component) => {
   const kind = MODEL_KINDS[model?.kind]?.vue
   const events = component.events ?? []
   const listened = eventRoots(component)
+  const hydrating = hydratingRoots(component, listened)
   if (events.length > 0 && used.has("emit")) {
     throw unsupported(
       component.file,
@@ -343,7 +351,7 @@ export const toVue = (component) => {
   }
   const attribute = (node, item, scope) => {
     if (item.kind === "class") {
-      return `:class="${rewriteExpression(item.code, scope)}"`
+      return `:class="${rewriteExpression(onlyClass(item.code) ?? item.code, scope)}"`
     }
     if (item.kind === "spread") {
       if (item.code === rest && item.condition !== undefined) {
@@ -367,7 +375,7 @@ export const toVue = (component) => {
       return `v-bind="${definedSpread(item, rewriteExpression(item.code, scope))}"`
     }
     if (item.kind === "static") {
-      return `${item.name}=${JSON.stringify(item.value)}`
+      return markupAttribute(item.name, item.value, false, '"')
     }
     if (item.kind === "boolean") return item.name
     if (
@@ -420,18 +428,30 @@ export const toVue = (component) => {
       return `${consequent}\n${directive(node.alternate, "v-else", undefined, scope)}`
     }
     if (node.type === "each") {
-      const inner = {
-        ...scope,
-        rename: new Map([
-          ...scope.rename,
-          ...node.consts.map(({ code, name }) => [
-            name,
-            rewriteExpression(code, scope),
-          ]),
-        ]),
-      }
+      const rows = rowsOf(node, scope)
+      const declared = new Set([
+        ...(scope.declared ?? []),
+        ...identifiersIn(node.item),
+        ...(node.index ? [node.index] : []),
+        ...node.consts.map(({ name }) => name),
+      ])
+      const inner = rows
+        ? { ...scope, declared }
+        : {
+            ...scope,
+            declared,
+            rename: new Map([
+              ...scope.rename,
+              ...node.consts.map(({ code, name }) => [
+                name,
+                rewriteExpression(code, scope),
+              ]),
+            ]),
+          }
       const root = node.children.find((child) => !isBlank(child))
-      const loop = `v-for="(${node.item}, ${node.index}) in ${rewriteExpression(node.list, scope)}" :key="${node.index}"`
+      const item = rows?.item ?? node.item
+      const list = rows?.name ?? rewriteExpression(node.list, scope)
+      const loop = `v-for="${node.index ? `(${item}, ${node.index})` : item} in ${list}" :key="${node.key?.code ?? node.index}"`
       return root.type === "element"
         ? emitOne(root, loop, inner)
         : `<template ${loop}>${emitOne(root, undefined, inner)}</template>`
@@ -536,6 +556,14 @@ export const toVue = (component) => {
       ...(listened.includes(node)
         ? events.map((event) => `@${event}="emit('${event}', $event)"`)
         : []),
+      ...(hydrating.has(node)
+        ? [
+            hydrating.get(node)
+              ? `:data-hydrating="${scope.rename.get(hydrating.get(node)) ?? hydrating.get(node)}.includes('-') ? '' : undefined"`
+              : 'data-hydrating=""',
+            "v-hydrated",
+          ]
+        : []),
       ...((rootElements.includes(node) ||
         (multiRoot &&
           node.attributes.some(
@@ -580,6 +608,116 @@ export const toVue = (component) => {
         }),
       )
       .join("")
+  const rowLists = []
+  const rowsOf = (node, scope) => {
+    const codes = [
+      ...node.consts.map(({ code }) => code),
+      ...codesIn(node.children),
+      ...elementsIn(node.children).flatMap((element) =>
+        element.variable ? [element.tag] : [],
+      ),
+    ]
+    const reads = (name) =>
+      codes.reduce(
+        (total, code) => total + (identifierCounts(code).get(name) ?? 0),
+        0,
+      )
+    if (!node.consts.some(({ name }) => reads(name) > 1)) return undefined
+    const inTemplate = [node.list, ...node.consts.map(({ code }) => code)].some(
+      (code) => {
+        const ids = identifiersIn(code)
+        return (
+          slotsUsedIn(code).length > 0 ||
+          trimmedSlots.some(({ local }) => ids.has(local)) ||
+          [...ids].some(
+            (name) => slotReaders.has(name) || scope.declared?.has(name),
+          )
+        )
+      },
+    )
+    if (inTemplate) return undefined
+    const binding = itemBinding(node.item)
+    if (!binding) {
+      throw unsupported(
+        component.file,
+        `the loop item \`${node.item}\`, whose consts the Vue port computes once per row`,
+        "take the item as one name, or as an object pattern of plain names",
+      )
+    }
+    const declared = new Set([
+      ...(binding.name ? [binding.name] : []),
+      ...binding.fields.map(({ local }) => local),
+      ...(binding.rest ? [binding.rest] : []),
+      ...node.consts.map(({ name }) => name),
+      node.index,
+    ])
+    const free = (bases) => {
+      const found = bases.find((base) => !used.has(base) && !declared.has(base))
+      if (!found) {
+        throw unsupported(
+          component.file,
+          `the names ${bases.join(", ")}`,
+          "rename one: the Vue port declares it for the rows of a loop",
+        )
+      }
+      return found
+    }
+    const name = free([
+      "rows",
+      ...(/^[A-Za-z_$][\w$]*$/.test(node.list.trim())
+        ? [`${node.list.trim()}Rows`]
+        : []),
+      `rows${rowLists.length + 1}`,
+    ])
+    used.add(name)
+    const key = free(["item", "entry", "row"])
+    const constCodes = node.consts.map(({ code }) => code)
+    const readInConsts = (local) =>
+      constCodes.some((code) => identifiersIn(code).has(local))
+    const fields = binding.fields.filter(({ local }) => readInConsts(local))
+    const pattern = binding.name
+      ? undefined
+      : binding.rest && readInConsts(binding.rest)
+        ? node.item
+        : fields.length
+          ? `{ ${fields.map(({ key: field, local }) => (field === local ? local : `${field}: ${local}`)).join(", ")} }`
+          : undefined
+    const parameter = binding.name ?? key
+    const rowScope = {
+      ...script,
+      rename: new Map(
+        [...script.rename].filter(([local]) => !declared.has(local)),
+      ),
+    }
+    const usesIndex = constCodes.some((code) =>
+      identifiersIn(code).has(node.index),
+    )
+    const entries = [
+      ...node.consts.map(({ name: local }) => local),
+      binding.name && binding.name !== key ? `${key}: ${binding.name}` : key,
+    ].toSorted(byName)
+    rowLists.push(
+      `const ${name} = computed(() =>\n  ${rewriteExpression(node.list, script)}${node.optional ? "?." : "."}map((${parameter}${usesIndex ? `, ${node.index}` : ""}) => {\n${[
+        ...(pattern ? [`const ${pattern} = ${parameter}`] : []),
+        ...node.consts.map(
+          ({ code, name: local }) =>
+            `const ${local} = ${rewriteExpression(code, rowScope)}`,
+        ),
+        `return { ${entries.join(", ")} }`,
+      ]
+        .map((line) => `    ${line}\n`)
+        .join("")}  }),\n)`,
+    )
+    return {
+      item: `{ ${[
+        ...node.consts.map(({ name: local }) => local),
+        `${key}: ${node.item}`,
+      ]
+        .toSorted(byName)
+        .join(", ")} }`,
+      name,
+    }
+  }
   const body = (nodes, scope) => {
     const inner =
       scope.preserved || scope.hugged
@@ -608,8 +746,83 @@ export const toVue = (component) => {
         ),
       ]
     : undefined
+  const vueHelpers = [
+    ...(computedAttrs ? ["useInputAttrs"] : []),
+    ...(kind?.vueHelpers?.(model) ?? []),
+    ...(item ? ["seedChecked"] : []),
+    ...(hydrating.size ? ["vHydrated"] : []),
+  ].toSorted(byName)
+  const vueProps = generic ? "Props & { multiple?: Multiple }" : "Props"
+  const modelType = generic
+    ? `type Model = Multiple extends true ? ${unionMembers(model.type)
+        .filter(isArrayType)
+        .join(" | ")} : ${unionMembers(model.type)
+        .filter((member) => !isArrayType(member))
+        .join(" | ")}`
+    : undefined
+  const propsLine = `${modelType ? `${modelType}\n\n` : ""}${
+    declared.length
+      ? `const { ${declared.join(", ")} } = defineProps<${vueProps}>()`
+      : `defineProps<${vueProps}>()`
+  }`
+  const slotsLine = slotsInScript
+    ? `const slots = defineSlots<${slotsType}>()`
+    : `defineSlots<${slotsType}>()`
+  const declarations = derived.map(({ code, fn, name }) => ({
+    line: fn
+      ? `const ${name} = ${rewriteExpression(code, script)}`
+      : getters.has(name)
+        ? `const ${name} = () => ${rewriteExpression(code, script)}`
+        : `const ${name} = computed(() => ${rewriteExpression(code, script)})`,
+    name,
+  }))
+  const statements = [
+    ...(filteredAttrs
+      ? [
+          `const restAttrs = computed(() =>\n  Object.fromEntries(\n    Object.entries(attrs).filter(\n      ([key]) => ${attributeProps.map(({ prop }) => `key !== ${JSON.stringify(prop)}`).join(" && ")},\n    ),\n  ),\n)`,
+        ]
+      : []),
+    ...(kind?.setup?.(model, generic) ?? []),
+    ...reads.map(
+      ({ context, name }) =>
+        `const ${name} = inject(${context.name}Key, undefined)`,
+    ),
+    ...(uid ? ["const uid = useId()"] : []),
+    ...declarations.map(({ line }) => line),
+    ...rowLists,
+    ...warnings.map((code) => rewriteStatement(code, script)),
+    ...(item
+      ? [
+          `watchEffect(() =>\n  ${groupWarning(component, item, kind?.warningChecked?.(item) ?? item.checked ?? "undefined", `${item.grouped}.value`)},\n)`,
+          `const change = (input: HTMLInputElement) => {\n${[
+            ...(kind?.change?.(item) ?? []),
+            `${item.parent}?.change?.(input)`,
+          ]
+            .map((line) => `  ${line}\n`)
+            .join("")}}`,
+          "const vSeedChecked = seedChecked(change)",
+        ]
+      : []),
+    ...(provide
+      ? [
+          `provide(${provide.context.name}Key, reactive({ ${provided.join(", ")} }))`,
+        ]
+      : []),
+  ]
+  const plainAttrs =
+    !computedAttrs && (allAttrs || explicitAttrs || restUsed || definedRoot)
+  const typedAttrs =
+    plainAttrs &&
+    !explicitAttrs &&
+    (/(?<![$\w.])attrs[.[]/.test(markup) ||
+      withoutUnused(statements, markup, declarations).some((code) =>
+        /(?<![$\w.])attrs(?![$\w])/.test(
+          code.replaceAll("Object.entries(attrs)", ""),
+        ),
+      ))
   const vueImports = [
     ...(computedConsts.length ||
+    rowLists.length ||
     filteredAttrs ||
     kind?.computed === true ||
     provided?.some((entry) => entry.includes("computed("))
@@ -619,18 +832,15 @@ export const toVue = (component) => {
     ...(provide ? ["provide", "reactive"] : []),
     ...(explicitAttrs
       ? ["type IntrinsicElementAttributes", "useAttrs"]
-      : allAttrs || definedRoot || (restUsed && !attrsOnInner)
+      : typedAttrs
         ? ["type HTMLAttributes", "useAttrs"]
-        : []),
+        : plainAttrs
+          ? ["useAttrs"]
+          : []),
     ...(attributeHelpers.has("mergeProps") ? ["mergeProps"] : []),
     ...(item ? ["watchEffect"] : []),
     ...(uid ? ["useId"] : []),
   ].toSorted((a, b) => byName(a.replace(/^type /, ""), b.replace(/^type /, "")))
-  const vueHelpers = [
-    ...(computedAttrs ? ["useInputAttrs"] : []),
-    ...(kind?.vueHelpers?.(model) ?? []),
-    ...(item ? ["seedChecked"] : []),
-  ].toSorted(byName)
   const importLines = [
     ...scriptImports(component),
     ...(vueImports.length
@@ -666,30 +876,6 @@ export const toVue = (component) => {
       ...(slots.length ? [slotsType] : []),
     ]),
   ]
-  const vueProps = generic ? "Props & { multiple?: Multiple }" : "Props"
-  const modelType = generic
-    ? `type Model = Multiple extends true ? ${unionMembers(model.type)
-        .filter(isArrayType)
-        .join(" | ")} : ${unionMembers(model.type)
-        .filter((member) => !isArrayType(member))
-        .join(" | ")}`
-    : undefined
-  const propsLine = `${modelType ? `${modelType}\n\n` : ""}${
-    declared.length
-      ? `const { ${declared.join(", ")} } = defineProps<${vueProps}>()`
-      : `defineProps<${vueProps}>()`
-  }`
-  const slotsLine = slotsInScript
-    ? `const slots = defineSlots<${slotsType}>()`
-    : `defineSlots<${slotsType}>()`
-  const declarations = derived.map(({ code, fn, name }) => ({
-    line: fn
-      ? `const ${name} = ${rewriteExpression(code, script)}`
-      : getters.has(name)
-        ? `const ${name} = () => ${rewriteExpression(code, script)}`
-        : `const ${name} = computed(() => ${rewriteExpression(code, script)})`,
-    name,
-  }))
   const setup = [
     importLines.join("\n"),
     [
@@ -700,45 +886,16 @@ export const toVue = (component) => {
     ...(inheritsAttrs ? [] : ["defineOptions({\n  inheritAttrs: false,\n})"]),
     ...(computedAttrs
       ? ["const attrs = useInputAttrs()"]
-      : allAttrs
-        ? ["const attrs = useAttrs() as HTMLAttributes"]
-        : explicitAttrs
-          ? [
-              `const attrs = useAttrs() as IntrinsicElementAttributes[${JSON.stringify(model.element.tag)}]`,
-            ]
-          : restUsed || definedRoot
-            ? ["const attrs = useAttrs() as HTMLAttributes"]
-            : []),
-    ...(filteredAttrs
-      ? [
-          `const restAttrs = computed(() =>\n  Object.fromEntries(\n    Object.entries(attrs).filter(\n      ([key]) => ${attributeProps.map(({ prop }) => `key !== ${JSON.stringify(prop)}`).join(" && ")},\n    ),\n  ),\n)`,
-        ]
-      : []),
-    ...(kind?.setup?.(model, generic) ?? []),
-    ...reads.map(
-      ({ context, name }) =>
-        `const ${name} = inject(${context.name}Key, undefined)`,
-    ),
-    ...(uid ? ["const uid = useId()"] : []),
-    ...declarations.map(({ line }) => line),
-    ...warnings.map((code) => rewriteStatement(code, script)),
-    ...(item
-      ? [
-          `watchEffect(() =>\n  ${groupWarning(component, item, kind?.warningChecked?.(item) ?? item.checked ?? "undefined", `${item.grouped}.value`)},\n)`,
-          `const change = (input: HTMLInputElement) => {\n${[
-            ...(kind?.change?.(item) ?? []),
-            `${item.parent}?.change?.(input)`,
+      : explicitAttrs
+        ? [
+            `const attrs = useAttrs() as IntrinsicElementAttributes[${JSON.stringify(model.element.tag)}]`,
           ]
-            .map((line) => `  ${line}\n`)
-            .join("")}}`,
-          "const vSeedChecked = seedChecked(change)",
-        ]
-      : []),
-    ...(provide
-      ? [
-          `provide(${provide.context.name}Key, reactive({ ${provided.join(", ")} }))`,
-        ]
-      : []),
+        : typedAttrs
+          ? ["const attrs = useAttrs() as HTMLAttributes"]
+          : plainAttrs
+            ? ["const attrs = useAttrs()"]
+            : []),
+    ...statements,
   ]
   const kept = withoutUnused(setup, markup, declarations)
   return `<script setup lang="ts"${generic ? ' generic="Multiple extends boolean = false"' : ""}>\n${kept.join("\n\n")}\n</script>\n\n<template>\n${indent(markup, 2)}\n</template>\n`

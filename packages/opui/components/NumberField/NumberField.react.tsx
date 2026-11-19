@@ -4,8 +4,7 @@ import { useEffect, useId } from "react"
 import { cx } from "../cx"
 import Button from "../Button/Button.react"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
-import { idRefs } from "../id"
-import { minusPath, plusPath } from "./icons"
+import { fieldDescribedBy } from "../id"
 import type { Props } from "./types.react"
 
 export default function NumberField({
@@ -85,9 +84,7 @@ export default function NumberField({
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
-              >
-                <path fill="currentColor" d={minusPath} />
-              </svg>
+              />
             ) : (
               decreaseIcon
             )}
@@ -95,7 +92,10 @@ export default function NumberField({
         </span>
         <input
           {...rest}
-          aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
+          aria-describedby={fieldDescribedBy(
+            { endText: endTextId, startText: startTextId },
+            ariaDescribedBy,
+          )}
           aria-invalid={error ? "true" : ariaInvalid}
           disabled={disabled}
           id={inputId}
@@ -118,9 +118,7 @@ export default function NumberField({
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
-              >
-                <path fill="currentColor" d={plusPath} />
-              </svg>
+              />
             ) : (
               increaseIcon
             )}

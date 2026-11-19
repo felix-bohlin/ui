@@ -113,6 +113,7 @@ describe("theme tokens", () => {
       "Choice controls",
       "Elevation",
       "Overlays",
+      "Safe areas",
     ])
   })
 
@@ -212,6 +213,10 @@ describe("theme tokens", () => {
     --x-card: 1;
   }
 
+  :where(html:dir(rtl)) {
+    --x-motion: -1;
+  }
+
   @container style(--ui-contrast: more) {
     :where(*) {
       --x-text: black;
@@ -260,11 +265,27 @@ describe("theme tokens", () => {
       "--ui-button-focus",
       "--ui-button-hover",
       "--ui-button-hover-translate",
-      "--ui-check-image",
       "--ui-choice-checked",
       "--ui-color-scheme",
       "--ui-contrast",
       "--ui-ease-move",
+      "--ui-icon-check",
+      "--ui-icon-clear",
+      "--ui-icon-close",
+      "--ui-icon-critical",
+      "--ui-icon-decrease",
+      "--ui-icon-expand",
+      "--ui-icon-hide",
+      "--ui-icon-increase",
+      "--ui-icon-info",
+      "--ui-icon-invalid",
+      "--ui-icon-next",
+      "--ui-icon-rating",
+      "--ui-icon-rating-empty",
+      "--ui-icon-show",
+      "--ui-icon-sort",
+      "--ui-icon-success",
+      "--ui-icon-warning",
       "--ui-link-focus",
     ])
   })

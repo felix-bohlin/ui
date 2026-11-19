@@ -12,6 +12,7 @@ export class CalloutElement extends Base {
     this.addEventListener(
       "command",
       (event) => {
+        if (this.hasAttribute("data-hydrating")) return
         if (event.command === DISMISS && event.target === this) this.dismiss()
       },
       { signal: this.#controller.signal },

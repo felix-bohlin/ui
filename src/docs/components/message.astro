@@ -47,14 +47,6 @@ export const keywords = ["chat", "chat bubble", "conversation"]
     "corner-shape":
       "Without `corner-shape`, the bubbles keep plain rounded corners.",
   }}
-  changelogPaths={[
-    { path: "packages/opui/components/Message", type: "component" },
-    { path: "src/docs/components/message.astro", type: "docs" },
-    { path: "src/component-examples/message", type: "docs" },
-    { path: "packages/opui/css/components/message.css", type: "css" },
-    { path: "src/component-api/message", type: "api" },
-    { path: "src/component-api/message-list", type: "api" },
-  ]}
   installationTabs={[
     { title: "message.css", code: MessageCSS, lang: "css" },
     { title: "avatar.css", code: AvatarCSS, lang: "css", isDependency: true },
@@ -128,6 +120,18 @@ export const keywords = ["chat", "chat bubble", "conversation"]
       <code>li</code>, since it's a list.
     </p>
     <AutoExample name="GroupChat" />
+  </section>
+
+  <section id="direct">
+    <h2>Direct</h2>
+    <p>
+      In a chat between two people, the chat's title already names the other
+      person. <PropOrClass prop="direct" class=".ui-direct" /> on the
+      <PropOrClass prop="MessageList" class=".ui-message-list" /> leaves out
+      every author name and avatar, so the messages are just the bubbles on each
+      side. A screen reader still hears who wrote each one.
+    </p>
+    <AutoExample name="Direct" />
   </section>
 
   <section id="attachments">

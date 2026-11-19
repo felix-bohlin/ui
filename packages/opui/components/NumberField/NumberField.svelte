@@ -4,8 +4,7 @@
   import { content } from "../content.svelte"
   import Button from "../Button/Button.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
-  import { idRefs } from "../id"
-  import { minusPath, plusPath } from "./icons"
+  import { fieldDescribedBy } from "../id"
   import type { Props } from "./types.svelte"
 
   let {
@@ -63,7 +62,7 @@
   {style}
 >
   {#if label}
-    <label class={[hideLabel ? "ui-sr-only" : "ui-label"]} for={inputId}>
+    <label class={hideLabel ? "ui-sr-only" : "ui-label"} for={inputId}>
       {@render content(label)}
     </label>
   {/if}
@@ -91,15 +90,16 @@
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" d={minusPath} />
-          </svg>
+          ></svg>
         {/if}
       </Button>
     </span>
     <input
       {...rest}
-      aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
+      aria-describedby={fieldDescribedBy(
+        { endText: endTextId, startText: startTextId },
+        ariaDescribedBy,
+      )}
       aria-invalid={error ? "true" : ariaInvalid}
       {disabled}
       id={inputId}
@@ -126,9 +126,7 @@
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" d={plusPath} />
-          </svg>
+          ></svg>
         {/if}
       </Button>
     </span>

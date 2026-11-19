@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import "../../elements/callout.js"
 import { computed, provide, reactive, useId } from "vue"
+import { vHydrated } from "../vue"
 import Button from "../Button/Button.vue"
 import { CalloutKey } from "./context.vue"
-import { closePath } from "./icons"
 import type { Props, Emits, Slots } from "./types.vue-props"
 
 const {
@@ -38,6 +38,8 @@ provide(CalloutKey, reactive({ severity: computed(() => severity) }))
     ]"
     :id="rootId"
     @dismiss="emit('dismiss', $event)"
+    :data-hydrating="Root.includes('-') ? '' : undefined"
+    v-hydrated
   >
     <slot></slot
     ><Button
@@ -55,8 +57,7 @@ provide(CalloutKey, reactive({ severity: computed(() => severity) }))
         width="32"
         height="32"
         viewBox="0 0 32 32"
-      >
-        <path fill="currentColor" :d="closePath" /></svg
+      ></svg
     ></Button>
   </component>
 </template>

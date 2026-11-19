@@ -9,6 +9,7 @@ export default function CustomMarker() {
         label="Ordered"
         marker={
           <svg
+            data-icon="check"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -31,6 +32,7 @@ export default function CustomMarker() {
         label="Packed"
         marker={
           <svg
+            data-icon="check"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -53,6 +55,7 @@ export default function CustomMarker() {
         label="Shipped"
         marker={
           <svg
+            data-icon="check"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="16"

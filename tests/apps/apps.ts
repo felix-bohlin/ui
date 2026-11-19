@@ -1,17 +1,22 @@
 import { readdirSync } from "node:fs"
 import path from "node:path"
 import { withoutCodeVariants } from "../../src/utils/example-variants.ts"
+import {
+  exampleExtension,
+  HYDRATED_FRAMEWORK_IDS,
+} from "../../src/utils/framework.js"
 
 export const appsDir = import.meta.dirname
 export const root = path.resolve(appsDir, "../..")
 
-const EXTENSIONS = {
-  react: ".react.tsx",
-  svelte: ".svelte",
-  vue: ".vue",
-}
+type Framework = (typeof HYDRATED_FRAMEWORK_IDS)[number]
 
-type Framework = keyof typeof EXTENSIONS
+const EXTENSIONS = Object.fromEntries(
+  HYDRATED_FRAMEWORK_IDS.map((framework) => [
+    framework,
+    `.${exampleExtension(framework)}`,
+  ]),
+) as Record<Framework, string>
 
 type App = {
   build: string[]
@@ -34,7 +39,7 @@ type App = {
   start: string
 }
 
-const ALL_APPS: App[] = [
+export const ALL_APPS: App[] = [
   {
     build: ["next", "build"],
     check: [],
@@ -70,6 +75,18 @@ const ALL_APPS: App[] = [
     scripts: "/_nuxt/",
     ssr: true,
     start: "node .output/server/index.mjs",
+  },
+  {
+    build: ["vite", "build"],
+    check: [["tsc", "--noEmit", "-p", "."]],
+    examples: "src/examples",
+    framework: "solid",
+    name: "solid-start",
+    port: 4409,
+    publicDir: "public",
+    scripts: "/assets/",
+    ssr: true,
+    start: "PORT=4409 node dist/server/node.js",
   },
   {
     build: ["vite", "build"],
@@ -112,7 +129,18 @@ const ALL_APPS: App[] = [
     port: 4407,
     publicDir: "public",
     ssr: false,
-    start: "pnpm exec vite --port 4407 --strictPort",
+    start: "pnpm exec vite --force --port 4407 --strictPort",
+  },
+  {
+    build: ["vite", "build"],
+    check: [["tsc", "--noEmit", "-p", "."]],
+    examples: "src/examples",
+    framework: "solid",
+    name: "vite-solid",
+    port: 4408,
+    publicDir: "public",
+    ssr: false,
+    start: "pnpm exec vite preview --port 4408 --strictPort",
   },
   {
     build: ["vite", "build"],

@@ -3,10 +3,10 @@ import { List, ListItem } from "opui-css/react"
 export default function Dense() {
   return (
     <List dense>
-      <ListItem label="Q3 report.pdf" />
+      <ListItem label="Gig poster.pdf" />
       <ListItem
-        description="Logo, colors and type in print and on the web, with an example of each in use."
-        label="Brand guidelines.pdf"
+        description="Our logo in every color, with the bass drawn way bigger than the drum kit, at last."
+        label="Band logo pack.pdf"
       />
       <ListItem end="100+" label="Photos" />
     </List>

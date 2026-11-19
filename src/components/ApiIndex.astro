@@ -3,10 +3,11 @@ import Document from "../layouts/Document.astro"
 import FrameworkPicker from "./FrameworkPicker.astro"
 import ComponentAPI, { type FrameworkApis } from "./ComponentAPI.astro"
 import type { AstroInstance } from "astro"
+import { kebab } from "../component-api/catalog"
+import { catalog } from "../component-api/catalog.glob"
 import type { ComponentApi } from "../component-api/types"
 import { TextField } from "opui-css/astro"
-import { components } from "../utils/components"
-import { componentName } from "../utils/names"
+import { componentName, components } from "../utils/components"
 import {
   componentHasFramework,
   FRAMEWORKS,
@@ -17,11 +18,6 @@ const apiModules = import.meta.glob<AstroInstance>(
   "../component-api/**/*.astro",
   { eager: true },
 )
-
-const apiData = import.meta.glob<ComponentApi>("../component-api/*/api.ts", {
-  eager: true,
-  import: "default",
-})
 
 const API_LABEL_PATTERN = FRAMEWORKS.map((f) => f.label).join("|")
 const LABEL_TO_ID = Object.fromEntries(
@@ -58,14 +54,8 @@ for (const path in apiModules) {
   ;(groups[key].apis as FrameworkApis)[frameworkId] = apiModules[path].default
 }
 
-for (const path in apiData) {
-  const folder = path.split("/").at(-2)!
-  groups[`${folder}/`] = {
-    apis: [{ api: apiData[path] }],
-    folder,
-    page: apiData[path].page,
-    prefix: "",
-  }
+for (const { api, folder, page } of catalog.apis) {
+  groups[`${folder}/`] = { apis: [{ api }], folder, page, prefix: "" }
 }
 
 const { link } = Astro.locals
@@ -73,13 +63,13 @@ const currentFramework = Astro.locals.framework
 const pages = new Set(components.map((component) => component.slug))
 const sectionOf = (apis: ApiGroup["apis"]) => {
   const api = Array.isArray(apis) ? apis[0]?.api : undefined
-  return api
-    ? `${api.component.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()}-api`
-    : "api"
+  return api ? `${kebab(api.component)}-api` : "api"
 }
 
 const apiList = Object.values(groups)
-  .filter(({ folder }) => componentHasFramework(currentFramework, folder))
+  .filter(({ folder, page }) =>
+    componentHasFramework(currentFramework, page ?? folder),
+  )
   .map((group) => {
     let slug = group.prefix ? group.prefix.toLowerCase() : group.folder
 

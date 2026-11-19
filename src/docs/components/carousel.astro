@@ -89,16 +89,6 @@ const translation = `.ui-carousel:lang(sv) {
     "scroll-markers":
       "Without scroll markers, the carousel has no markers to jump to an item.",
   }}
-  changelogPaths={[
-    {
-      path: "packages/opui/components/Carousel/Carousel.astro",
-      type: "component",
-    },
-    { path: "src/docs/components/carousel.astro", type: "docs" },
-    { path: "src/component-examples/carousel", type: "docs" },
-    { path: "packages/opui/css/components/carousel.css", type: "css" },
-    { path: "src/component-api/carousel", type: "api" },
-  ]}
   installationTabs={[{ title: "carousel.css", code: CarouselCSS, lang: "css" }]}
 >
   <Fragment slot="title">Carousel</Fragment>
@@ -200,6 +190,15 @@ const translation = `.ui-carousel:lang(sv) {
 
     <AutoExample name="Images" />
 
+    <h3 id="whole-photos">Whole photos</h3>
+    <p>
+      Media fills its aspect ratio and is cropped. With
+      <code>--_media-fit: contain</code> it's shown whole, so portrait and
+      landscape photos side by side keep their edges, like in a photo viewer.
+    </p>
+
+    <AutoExample name="WholePhotos" />
+
     <h3 id="gallery">Gallery</h3>
 
     <AutoExample name="Gallery" />
@@ -237,7 +236,11 @@ const translation = `.ui-carousel:lang(sv) {
 
   <section id="custom-buttons">
     <h2>Custom buttons</h2>
-    <p>Set <code>--_button-image</code> to a white SVG that points right.</p>
+    <p>
+      Set <code>--ui-icon-next</code> in your theme to change the icon of every
+      carousel, or <code>--_button-image</code> for one. Use an SVG that points
+      right, drawn in black like the icons of an icon set.
+    </p>
 
     <AutoExample name="CustomButtons" />
   </section>

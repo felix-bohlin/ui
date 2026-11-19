@@ -15,3 +15,7 @@ export const seedChecked = (
     input.checked = checked
   }
 }
+
+export const hydrated = (element: Element) => {
+  element.removeAttribute("data-hydrating")
+}

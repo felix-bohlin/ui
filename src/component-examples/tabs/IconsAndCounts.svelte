@@ -2,10 +2,11 @@
   import { Chip, Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/svelte"
 </script>
 
-<Tabs aria-label="Mailbox" name="tabs-icons-and-counts-1" variant="line">
+<Tabs name="tabs-icons-and-counts-1" variant="line">
   <TabsItem defaultChecked>
     <TabsLabel>
       <svg
+        data-icon="inbox"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="20"
@@ -20,11 +21,12 @@
       Inbox
       <Chip as="span" label="12" size="x-small" />
     </TabsLabel>
-    <TabsPanel>12 unread messages from customers.</TabsPanel>
+    <TabsPanel>12 unread messages from fellow bassists.</TabsPanel>
   </TabsItem>
   <TabsItem>
     <TabsLabel>
       <svg
+        data-icon="send"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="20"
@@ -40,6 +42,7 @@
   <TabsItem>
     <TabsLabel>
       <svg
+        data-icon="edit"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="20"

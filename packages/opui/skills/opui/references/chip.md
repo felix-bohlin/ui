@@ -3,7 +3,7 @@
 A compact label or control for filters, tags and choices.
 
 - CSS: `opui-css/css/components/chip.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/chip.md), [Astro](https://opui.dev/astro/components/chip.md), [React](https://opui.dev/react/components/chip.md), [Svelte](https://opui.dev/svelte/components/chip.md), [Vue](https://opui.dev/vue/components/chip.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/chip.md), [Astro](https://opui.dev/astro/components/chip.md), [React](https://opui.dev/react/components/chip.md), [Solid](https://opui.dev/solid/components/chip.md), [Svelte](https://opui.dev/svelte/components/chip.md), [Vue](https://opui.dev/vue/components/chip.md).
 
 ## Chip
 
@@ -88,6 +88,28 @@ import { Chip } from "opui-css/astro"
 
 ```tsx
 import { Chip } from "opui-css/react"
+
+export default function Variants() {
+  return (
+    <>
+      <Chip label="Tonal" variant="tonal" />
+      <Chip label="Outlined" variant="outlined" />
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Chip } from "opui-css/solid"`
+
+- `Chip` slot props (`JSX.Element`): `end`, `label` and `start`.
+
+### Example: Variants
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Chip } from "opui-css/solid"
 
 export default function Variants() {
   return (

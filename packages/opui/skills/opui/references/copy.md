@@ -3,7 +3,7 @@
 A button that copies text or a field's value to the clipboard.
 
 - CSS: `opui-css/css/components/copy.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/copy.md), [Astro](https://opui.dev/astro/components/copy.md), [React](https://opui.dev/react/components/copy.md), [Svelte](https://opui.dev/svelte/components/copy.md), [Vue](https://opui.dev/vue/components/copy.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/copy.md), [Astro](https://opui.dev/astro/components/copy.md), [React](https://opui.dev/react/components/copy.md), [Solid](https://opui.dev/solid/components/copy.md), [Svelte](https://opui.dev/svelte/components/copy.md), [Vue](https://opui.dev/vue/components/copy.md).
 
 ## Copy
 
@@ -34,7 +34,7 @@ A button that copies text or a field's value to the clipboard.
 - HTML: Wrap the text or the field in `<opui-copy class="ui-copy">` with an id, and end it with `<span class="ui-sr-only" role="status">` for the announcement and `<span class="ui-floating" popover aria-hidden="true">` for the label. Point a button at it with `commandfor` and `command="--copy"`, inside the element or right after it, and import `opui-css/elements/copy.js`. Until it loads, the button is hidden.
 - Astro: The component loads `opui-css/elements/copy.js`. Attributes that aren't props go to the root `<opui-copy>`, and the button works once the element runs.
 - React: The component loads `opui-css/elements/copy.js` once it mounts, unless the page imports it first. Attributes that aren't props go to the root `<opui-copy>`, and the button works once the element runs.
-- Svelte and Vue: The component imports `opui-css/elements/copy.js`, so the element runs as soon as the component's code loads. Attributes that aren't props go to the root `<opui-copy>`, and the button works once the element runs.
+- Solid, Svelte and Vue: The component imports `opui-css/elements/copy.js`, so the element runs as soon as the component's code loads. Attributes that aren't props go to the root `<opui-copy>`, and the button works once the element runs.
 
 ## Component properties
 
@@ -58,17 +58,17 @@ The stylesheets read `--ui-border-width`, `--ui-button-accent`, `--ui-button-fon
 
 ```html
 <opui-copy id="copy-basics-1" class="ui-copy">
-  <label class="ui-text-field">
-    <span class="ui-sr-only" id="copy-basics-2-label">Invite link</span>
+  <div class="ui-text-field">
+    <label class="ui-sr-only" for="copy-basics-2">Invite link</label>
     <span class="ui-field">
       <input
         readonly
         value="https://example.com/invite/8f3k2"
-        aria-labelledby="copy-basics-2-label"
+        id="copy-basics-2"
         type="text"
       />
     </span>
-  </label>
+  </div>
   <span class="ui-sr-only" role="status"></span>
   <span aria-hidden="true" class="ui-floating" popover></span>
 </opui-copy>
@@ -129,6 +129,35 @@ export default function Basics() {
           hideLabel
           label="Invite link"
           readOnly
+          value="https://example.com/invite/8f3k2"
+        />
+      </Copy>
+      <Button command="--copy" commandfor="copy-basics-1" variant="outlined">
+        Copy
+      </Button>
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Copy } from "opui-css/solid"`
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Button, Copy, TextField } from "opui-css/solid"
+
+export default function Basics() {
+  return (
+    <>
+      <Copy id="copy-basics-1">
+        <TextField
+          hideLabel
+          label="Invite link"
+          readonly
           value="https://example.com/invite/8f3k2"
         />
       </Copy>

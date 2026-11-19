@@ -1,4 +1,6 @@
 import { exampleTheme } from "./example-themes"
+import { iconUrl } from "./icon-libraries"
+import ICON_SETS from "./icon-sets.json" with { type: "json" }
 import {
   BRAND_TOKENS,
   COMPONENT_RADII,
@@ -9,10 +11,12 @@ import {
 } from "./theme"
 import { BALANCED_PRIMARY, MONOCHROME_PRIMARY } from "./theme-brand"
 import { WEB_FONTS, fontStack } from "./theme-fonts"
+import { iconTokensOf } from "./theme-icons"
 
 type ChoiceOption = {
   group?: string
   label: string
+  preview?: string[]
   tokens: ThemeTokens
   value: string
 }
@@ -33,6 +37,7 @@ export type ChoiceControl = Base & {
   display: "select" | "toggle"
   dynamic?: "brand-hue" | "primary-tone"
   font?: boolean
+  icons?: boolean
   kind: "choice"
   options: ChoiceOption[]
 }
@@ -229,6 +234,17 @@ export const tidy = (value: string) =>
     .replace(/\s\)/g, ")")
     .replace(/\s*,\s*/g, ", ")
     .trim()
+
+const ICON_PREVIEW = ["check", "close", "rating"] as const
+
+export const ICON_OPTIONS: ChoiceOption[] = Object.entries(ICON_SETS)
+  .map(([value, set]) => ({
+    label: set.name,
+    preview: ICON_PREVIEW.map((role) => iconUrl(set.icons[role])),
+    tokens: iconTokensOf(value)!,
+    value,
+  }))
+  .toSorted((a, b) => a.label.localeCompare(b.label))
 
 export const GROUPS: ControlGroup[] = [
   {
@@ -969,10 +985,31 @@ export const GROUPS: ControlGroup[] = [
         ],
         tier: "fine",
       },
+      {
+        display: "select",
+        icons: true,
+        id: "icons",
+        kind: "choice",
+        label: "Icons",
+        options: ICON_OPTIONS,
+        tier: "basic",
+      },
+      {
+        display: "unit",
+        id: "icon-size",
+        kind: "range",
+        label: "Icon size",
+        max: 1.5,
+        min: 1,
+        step: 0.125,
+        tier: "fine",
+        token: "--ui-icon-size",
+        unit: "rem",
+      },
     ],
-    description: "Fonts, weights and line height.",
+    description: "Fonts, weights, line height and the icon set.",
     id: "typography",
-    label: "Typography",
+    label: "Typography and icons",
   },
   {
     controls: [
@@ -1059,18 +1096,6 @@ export const GROUPS: ControlGroup[] = [
         step: 0.125,
         tier: "fine",
         token: "--ui-list-item-padding-inline",
-        unit: "rem",
-      },
-      {
-        display: "unit",
-        id: "icon-size",
-        kind: "range",
-        label: "Icon size",
-        max: 1.5,
-        min: 1,
-        step: 0.125,
-        tier: "fine",
-        token: "--ui-icon-size",
         unit: "rem",
       },
       {

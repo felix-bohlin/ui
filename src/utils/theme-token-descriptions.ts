@@ -67,8 +67,6 @@ export const themeTokenDescriptions: Record<string, string> = {
     "`Button` and `ControlGroup` height with `.ui-x-small`.",
   "--ui-card-padding":
     "Padding of `Card`, `Dialog`, `Drawer` and `Accordion` content, headers, footers and actions, and of `Checkbox`, `Radio` and `Switch` cards. When unset, `--ui-space-3`. Card and accordion actions set it to their own inline padding, which caps how far a text button at either end pulls itself out.",
-  "--ui-check-image":
-    "The check that marks the current item of a `Menu`, the selected item of a listbox and `Select` picker, and a complete `Stepper` step, as an image used as a mask, so it takes the text color. Set it to an icon from your icon set, such as `url(check.svg)`, on `:root` or on one component. When unset, a built-in check.",
   "--ui-chip-radius":
     "Corner radius for `Chip`. When unset, chips follow `--ui-radius`.",
   "--ui-chip-size": "Default `Chip` height.",
@@ -259,6 +257,34 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-gray-hue": "Hue of the gray ramp.",
   "--ui-green":
     "A literal green, hue 145 at `0.53`, the lightness of palette step 9 in every palette. No severity meaning.",
+  "--ui-icon-check":
+    "The check that marks the current item of a `Menu`, the selected item of a listbox and `Select` picker, and a complete `Stepper` step. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-clear":
+    "The clear option of a `Rating`. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-close":
+    "The close button of a `Callout`, `Dialog`, `Drawer` and `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-critical":
+    "The icon of a critical `Callout` and `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-decrease":
+    "The decrease button of a `NumberField`. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-expand":
+    "The `Accordion` marker, and the arrow of a `Select` and of a `TextField` with a datalist. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-hide":
+    "The password toggle of a `TextField` while the password shows. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-increase":
+    "The increase button of a `NumberField`. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-info":
+    "The icon of an info `Callout` and `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-invalid":
+    "The mark of a `Stepper` step with an error. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-next":
+    "The `Carousel` buttons, pointing to the next item and turned for the previous one. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-rating":
+    "A filled star of a `Rating`, drawn over `--ui-icon-rating-empty`, so the two need the same outline. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-rating-empty":
+    "An empty star of a `Rating`. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-show":
+    "The password toggle of a `TextField` while the password is hidden. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-size": "Default icon size inside components.",
   "--ui-icon-size-large":
     "Icon size inside `Avatar`, and of an `svg` without a `width` in `normalize.css`.",
@@ -266,6 +292,12 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron.",
   "--ui-icon-size-x-small":
     "Smallest icon size, for icons in x-small controls. Not read by a component yet.",
+  "--ui-icon-sort":
+    "The arrow of a sorted `SortableTable` column, turned for the other direction. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-success":
+    "The icon of a success `Callout` and `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+  "--ui-icon-warning":
+    "The icon of a warning `Callout` and `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-info":
     "Severity color for informational messages, and the dotted underline of `abbr`, `dfn`, `.ui-abbr` and `.ui-dfn`.",
   "--ui-info-text":
@@ -395,6 +427,14 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Space above `h1` to `h6` in `.ui-rich-text`, rounded to `--ui-rhythm-step`. It overlaps the margin of the block before, so `0px` leaves the paragraph gap. Give a length: a unitless `0` drops both margins. `em` is the heading's own font size, so larger headings get more room, and `rem` gives every level the same space. When unset, each level takes a multiple of `--ui-rich-text-flow-gap`: 3 above `h1` and `h2`, 2 above `h3` and 1.5 above `h4` to `h6`. A heading group keeps its own spacing.",
   "--ui-rich-text-line-height":
     "Line height of `.ui-rich-text`, for themes whose prose is looser than their interface text. When unset, rich text keeps the line height around it, `--ui-line-height-relaxed` on the page.",
+  "--ui-safe-area-inset-block-end":
+    "The part of the bottom of the screen a home indicator covers, `env(safe-area-inset-bottom)`. A `Drawer` at the block end or on an inline side pads its content above it, and a `Toaster` at the block end sits above it. `0px` unless the viewport meta tag has `viewport-fit=cover`.",
+  "--ui-safe-area-inset-block-start":
+    "The part of the top of the screen a notch or a status bar covers, `env(safe-area-inset-top)`. A `Drawer` at the block start or on an inline side pads its content below it, and a `Toaster` at the block start sits below it. `0px` unless the viewport meta tag has `viewport-fit=cover`.",
+  "--ui-safe-area-inset-inline-end":
+    "The part of the inline end side a notch or a rounded corner covers, as on a phone held sideways: `env(safe-area-inset-right)`, and `env(safe-area-inset-left)` on a right-to-left page. A `Drawer` on that side or at the block start or end pads its content clear of it, and a `Toaster` keeps its toasts clear of it. `0px` unless the viewport meta tag has `viewport-fit=cover`.",
+  "--ui-safe-area-inset-inline-start":
+    "The part of the inline start side a notch or a rounded corner covers, as on a phone held sideways: `env(safe-area-inset-left)`, and `env(safe-area-inset-right)` on a right-to-left page. A `Drawer` on that side or at the block start or end pads its content clear of it, and a `Toaster` keeps its toasts clear of it. `0px` unless the viewport meta tag has `viewport-fit=cover`.",
   "--ui-selected":
     "Background of a selected control: a checked `ToggleButton`, the selected `ToggleGroup` item, a pressed `Chip`, a selected or current `List` item and `Select` option, and a checked `Message` reaction. When unset, `--ui-primary` on toggles, `--ui-primary` at `--ui-state-selected-alpha-accent` on list items and options, and the same mixed into `--ui-surface` on reactions. Pair it with `--ui-on-selected`.",
   "--ui-selected-strong":
@@ -478,6 +518,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Width of the `Switch` track with `.ui-x-small`. Twice `--ui-switch-track-block-size-x-small` until a theme sets it.",
   "--ui-tabs-accent":
     "Color of the selected `Tabs` label, and of the indicator with `.ui-line`. When unset, `--ui-text-strong`. Filled tabs keep `--ui-on-selected-strong`.",
+  "--ui-target-min-size":
+    "The least width and height of a control that has no text of its own: a `Button` in a field's `.ui-start` or `.ui-end`, a `Checkbox`, `Radio` or `Switch` whose label is hidden, the `Carousel` markers and the stars of an input `Rating`. `24px`, the WCAG 2.5.8 minimum target size. It follows neither `--ui-density` nor `--ui-space-scale`, so a compact density or a small spacing scale doesn't shrink it. A theme that copies a design system with smaller targets sets it lower, as `bootstrap.css`, `shadcn.css` and `brutalist.css` set `0px`. See [Density](/guide/theming#density).",
   "--ui-text":
     "Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`.",
   "--ui-text-disabled":

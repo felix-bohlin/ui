@@ -53,6 +53,18 @@ export const attributeText = (value, quote = '"') => {
   return encoded
 }
 
+const lineBreaks = (encoded) =>
+  encoded.replace(/\n/g, "&#10;").replace(/\r/g, "&#13;")
+
+export const markupAttribute = (name, value, braces, quote) => {
+  const quoted = value.includes('"') && !value.includes("'")
+  if (braces && (/[{}\n\r]/.test(value) || quoted)) {
+    return `${name}={${JSON.stringify(value)}}`
+  }
+  const mark = quote ?? (quoted ? "'" : '"')
+  return `${name}=${mark}${lineBreaks(attributeText(value, mark))}${mark}`
+}
+
 const jsxDecoded = (source) => {
   const { outputText } = ts.transpileModule(`<p>${source}</p>`, {
     compilerOptions: { jsx: ts.JsxEmit.React, jsxFactory: "h" },
@@ -115,7 +127,7 @@ const jsxAttributeIsStable = (value, quote) => {
 
 export const jsxAttribute = (name, value) => {
   const literal = (quote) => `${name}=${quote}${value}${quote}`
-  if (value.includes('"') && value.includes("'")) {
+  if ((value.includes('"') && value.includes("'")) || /[\n\r]/.test(value)) {
     return `${name}={${JSON.stringify(value)}}`
   }
   const quote = value.includes('"') ? "'" : '"'

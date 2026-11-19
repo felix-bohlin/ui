@@ -8,6 +8,8 @@ import ComponentAPI, { type Apis } from "../components/ComponentAPI.astro"
 import type { AstroInstance } from "astro"
 import ComponentProperties from "../components/ComponentProperties.astro"
 import HydrationChip from "../components/HydrationChip.astro"
+import { kebab } from "../component-api/catalog"
+import { catalog } from "../component-api/catalog.glob"
 import type { ComponentApi } from "../component-api/types"
 import Installation, { type Tab } from "../components/Installation.astro"
 import Pagination from "../components/Pagination.astro"
@@ -163,7 +165,12 @@ const migratingHref = link(
 )
 const COLLAPSED = 5
 
-const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
+const changelog = currentSlug
+  ? getComponentChangelog([
+      ...catalog.filesOf(currentSlug),
+      ...(changelogPaths ?? []),
+    ])
+  : []
 
 const imports =
   currentSlug && currentFramework !== "html"
@@ -194,11 +201,9 @@ const blogPosts = currentSlug
   ? posts.filter((post) => post.component === currentSlug)
   : []
 
-const kebab = (name: string) =>
-  name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
-const rootClassLists = Object.entries(apiData)
-  .filter(([file, api]) => (api.page ?? file.split("/").at(-2)) === currentSlug)
-  .flatMap(([, api]) =>
+const rootClassLists = catalog
+  .apisOf(currentSlug ?? "")
+  .flatMap(({ api }) =>
     api.root.selector
       .split(",")
       .map((selector) =>

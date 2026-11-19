@@ -1,5 +1,5 @@
 import { featureOf } from "../../packages/opui/scripts/features.mjs"
-import { componentName } from "./names"
+import { componentName } from "./components"
 
 export async function getBaselineMappings() {
   const modules = import.meta.glob("../docs/components/*.astro", {

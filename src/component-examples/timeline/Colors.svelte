@@ -9,7 +9,7 @@
     label="Investigating"
     time="12:18"
   >
-    <p>Search is slower in eu-north.</p>
+    <p>Scribbles are slow to show up in Europe.</p>
   </TimelineItem>
   <TimelineItem
     color="warning"
@@ -17,7 +17,7 @@
     label="Identified"
     time="13:40"
   >
-    <p>An index rebuild competes with live traffic.</p>
+    <p>A huge photo upload from the gig hogs the servers.</p>
   </TimelineItem>
   <TimelineItem
     color="info"
@@ -25,7 +25,7 @@
     label="Monitoring"
     time="14:05"
   >
-    <p>Response times are back to normal.</p>
+    <p>Scribbles show up as fast as a slap again.</p>
   </TimelineItem>
   <TimelineItem
     color="success"
@@ -33,7 +33,7 @@
     label="Resolved"
     time="15:30"
   >
-    <p>The rebuild finished. No data was lost.</p>
+    <p>The upload finished. No scribbles were lost, phew.</p>
   </TimelineItem>
   <TimelineItem
     color="neutral"
@@ -41,6 +41,6 @@
     label="Postmortem"
     time="Oct 9"
   >
-    <p>A full report follows within a week.</p>
+    <p>A full report for the Bassbook crew within a week.</p>
   </TimelineItem>
 </Timeline>

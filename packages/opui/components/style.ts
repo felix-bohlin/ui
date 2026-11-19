@@ -18,11 +18,11 @@ export function mergeStyle<S extends object>(
   vars: Vars,
   style: S,
 ): S | undefined
-export function mergeStyle(
+export function mergeStyle<S extends object>(
   vars: Vars,
-  style?: object | string | null,
-): Record<string, unknown> | string | undefined
-export function mergeStyle(vars: Vars, style?: object | string | null) {
+  style?: S | string | false | null,
+): S | string | undefined
+export function mergeStyle(vars: Vars, style?: object | string | false | null) {
   if (typeof style === "object" && style !== null) {
     const entries = definedVars(vars)
     return entries.length || Object.keys(style).length
@@ -35,7 +35,10 @@ export function mergeStyle(vars: Vars, style?: object | string | null) {
 export const styleAttrs = <S>(style: S) => (style ? { style } : {})
 
 export const cssString = (text: string) =>
-  `"${text.replace(/["\\]/g, "\\$&").replace(/\n/g, "\\a ")}"`
+  `"${text
+    .replace(/["\\]/g, "\\$&")
+    .replace(/\r\n|[\n\r]/g, "\\a ")
+    .replace(/\f/g, "\\c ")}"`
 
 export const counterLabel = (template: string, counter: string) =>
   template
@@ -47,7 +50,7 @@ export const counterLabel = (template: string, counter: string) =>
     .filter(Boolean)
     .join(" ")
 
-const pluralRules = (lang?: string | null) => {
+const pluralRules = (lang?: string | false | null) => {
   try {
     return new Intl.PluralRules(lang || "en")
   } catch {
@@ -58,7 +61,7 @@ const pluralRules = (lang?: string | null) => {
 export const pluralLabel = (
   templates: Partial<Record<Intl.LDMLPluralRule, string>> & { other: string },
   count: number,
-  lang?: string | null,
+  lang?: string | false | null,
 ) =>
   (templates[pluralRules(lang).select(count)] ?? templates.other).replaceAll(
     "{count}",

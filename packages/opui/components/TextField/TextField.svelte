@@ -5,8 +5,7 @@
   import { content } from "../content.svelte"
   import Button from "../Button/Button.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
-  import { idRefs } from "../id"
-  import { hidePath, showPath } from "./icons"
+  import { fieldDescribedBy } from "../id"
   import type { Props } from "./types.svelte"
 
   let {
@@ -18,6 +17,7 @@
     characterCountLabel,
     class: className,
     defaultValue,
+    disabled,
     dropZone,
     error,
     hideLabel,
@@ -55,17 +55,12 @@
   const initialValue = untrack(getValue)
   const base = $derived(id || `text-field-${uid}`)
   const hasLabel = $derived(Boolean(label))
-  const Root = $derived(
-    passwordToggle ? "opui-text-field" : hasLabel ? "label" : "div",
-  )
-  const Label = $derived(passwordToggle ? "label" : "span")
+  const Root = $derived(passwordToggle ? "opui-text-field" : "div")
   const hasStartText = $derived(Boolean(startText))
   const hasEndText = $derived(Boolean(endText || characterCount))
-  const inputId = $derived(passwordToggle ? base : id)
-  const named = $derived(hasLabel && !passwordToggle)
-  const labelId = $derived(named ? `${base}-label` : undefined)
-  const startId = $derived(named && start ? `${base}-start` : undefined)
-  const endId = $derived(named && end ? `${base}-end` : undefined)
+  const inputId = $derived(hasLabel || passwordToggle ? base : id)
+  const startId = $derived(start ? `${base}-start` : undefined)
+  const endId = $derived(end ? `${base}-end` : undefined)
   const topId = $derived(top ? `${base}-top` : undefined)
   const bottomId = $derived(bottom ? `${base}-bottom` : undefined)
   const startTextId = $derived(hasStartText ? `${base}-start-text` : undefined)
@@ -88,14 +83,9 @@
   {style}
 >
   {#if hasLabel}
-    <svelte:element
-      this={Label}
-      class={[hideLabel ? "ui-sr-only" : "ui-label"]}
-      for={passwordToggle ? inputId : undefined}
-      id={labelId}
-    >
+    <label class={hideLabel ? "ui-sr-only" : "ui-label"} for={inputId}>
       {@render content(label)}
-    </svelte:element>
+    </label>
   {/if}
   {#if hasStartText}
     <span class="ui-start-text" id={startTextId}>
@@ -103,28 +93,38 @@
     </span>
   {/if}
   <span class="ui-field">
+    {#if top}
+      <span class="ui-top" id={topId}>
+        {@render content(top)}
+      </span>
+    {/if}
+    {#if start}
+      <span class="ui-start" id={startId}>
+        {@render content(start)}
+      </span>
+    {/if}
     <input
       {...rest}
-      aria-describedby={idRefs(
-        startTextId,
-        topId,
-        bottomId,
-        endTextId,
+      aria-describedby={fieldDescribedBy(
+        {
+          bottom: bottomId,
+          end: endId,
+          endText: endTextId,
+          start: startId,
+          startText: startTextId,
+          top: topId,
+        },
         ariaDescribedBy,
       )}
       aria-invalid={error ? "true" : ariaInvalid}
-      aria-labelledby={named ? idRefs(labelId, startId, endId) : ariaLabelledBy}
+      aria-labelledby={ariaLabelledBy}
+      {disabled}
       id={inputId}
       name={name ?? field?.name}
       {type}
       bind:value={getValue, setValue}
       defaultValue={defaultValue ?? initialValue}
     />
-    {#if start}
-      <span class="ui-start" id={startId}>
-        {@render content(start)}
-      </span>
-    {/if}
     {#if end || passwordToggle}
       <span class="ui-end" id={endId}>
         {@render content(end)}{#if passwordToggle}
@@ -133,6 +133,7 @@
             aria-pressed="false"
             command="--toggle-password"
             commandfor={inputId}
+            {disabled}
             round
           >
             {#if iconUnchecked}
@@ -147,9 +148,7 @@
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
-              >
-                <path fill="currentColor" d={showPath} />
-              </svg>
+              ></svg>
             {/if}{#if iconChecked}
               <span aria-hidden="true" class="ui-icon-checked">
                 {@render iconChecked()}
@@ -162,17 +161,10 @@
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
-              >
-                <path fill="currentColor" d={hidePath} />
-              </svg>
+              ></svg>
             {/if}
           </Button>
         {/if}
-      </span>
-    {/if}
-    {#if top}
-      <span class="ui-top" id={topId}>
-        {@render content(top)}
       </span>
     {/if}
     {#if bottom}

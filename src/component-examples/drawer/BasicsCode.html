@@ -35,6 +35,7 @@
   closedby="any"
   class="ui-drawer"
   aria-labelledby="drawer-basics-1-title"
+  data-close-on-navigate
   id="drawer-basics-1"
 >
   <div class="ui-header">
@@ -52,12 +53,7 @@
         width="32"
         height="32"
         viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
-        ></path>
-      </svg>
+      ></svg>
     </button>
   </div>
   <div class="ui-content">
@@ -114,6 +110,7 @@
     <h2 id="drawer-basics-2-title">Friday gig prep</h2>
     <button class="ui-button ui-round ui-small" type="button" aria-label="Edit">
       <svg
+        data-icon="edit"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -139,12 +136,7 @@
         width="32"
         height="32"
         viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
-        ></path>
-      </svg>
+      ></svg>
     </button>
   </div>
   <div class="ui-content" aria-label="Gig details" role="region" tabindex="0">
@@ -226,12 +218,7 @@
         width="32"
         height="32"
         viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
-        ></path>
-      </svg>
+      ></svg>
     </button>
   </div>
   <div class="ui-content">
@@ -272,12 +259,7 @@
         width="32"
         height="32"
         viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
-        ></path>
-      </svg>
+      ></svg>
     </button>
   </div>
   <div class="ui-content">
@@ -314,3 +296,8 @@
     </div>
   </div>
 </dialog>
+
+<script type="module">
+  import "opui-css/elements/close-on-navigate.js"
+  import "opui-css/elements/drawer-swipe.js"
+</script>

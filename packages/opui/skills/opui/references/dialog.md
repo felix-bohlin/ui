@@ -3,7 +3,7 @@
 A window over the page for a question or a short task, modal or not.
 
 - CSS: `opui-css/css/components/dialog.css` and `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/dialog.md), [Astro](https://opui.dev/astro/components/dialog.md), [React](https://opui.dev/react/components/dialog.md), [Svelte](https://opui.dev/svelte/components/dialog.md), [Vue](https://opui.dev/vue/components/dialog.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/dialog.md), [Astro](https://opui.dev/astro/components/dialog.md), [React](https://opui.dev/react/components/dialog.md), [Solid](https://opui.dev/solid/components/dialog.md), [Svelte](https://opui.dev/svelte/components/dialog.md), [Vue](https://opui.dev/vue/components/dialog.md).
 
 ## Dialog
 
@@ -26,7 +26,7 @@ A window over the page for a question or a short task, modal or not.
 ### Notes
 
 - HTML: Add `.ui-elevated` to the root for the raised surface.
-- Astro, React, Svelte and Vue: Attributes that aren't props go to the `<dialog>`, like `id`, which also starts the generated title id: `x-title` for `id="x"`. Without `aria-label` or `aria-labelledby`, the `DialogTitle` names the dialog. A dialog without a `DialogTitle` needs an `aria-label`. An `id` on `DialogTitle` only applies when the dialog has `aria-label` or `aria-labelledby`.
+- Astro, React, Solid, Svelte and Vue: Attributes that aren't props go to the `<dialog>`, like `id`, which also starts the generated title id: `x-title` for `id="x"`. Without `aria-label` or `aria-labelledby`, the `DialogTitle` names the dialog. A dialog without a `DialogTitle` needs an `aria-label`. An `id` on `DialogTitle` only applies when the dialog has `aria-label` or `aria-labelledby`.
 
 ## DialogHeader
 
@@ -37,8 +37,9 @@ A window over the page for a question or a short task, modal or not.
 
 ### Props and modifiers
 
-- `closeButton`: `boolean`. Adds a close button at the end of the title row, which closes its `Dialog` through the dialog's `id`.
+- `closeButton`: `boolean`. Adds a close button at the end of the title row, which closes its `Dialog` through the dialog's `id`, or the `<dialog>` that `commandfor` names.
 - `closeLabel`: `string`, default `"Close"`. The accessible name of the close button.
+- `commandfor`: `string`. The id of the dialog the close button closes with the `close` command. Without it, the button closes its `Dialog`. Outside a `Dialog`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.
 
 ### Slots
 
@@ -94,7 +95,7 @@ Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor
 
 ## Theme tokens
 
-The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-card-padding`, `--ui-dialog-radius`, `--ui-duration`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-card-padding`, `--ui-dialog-radius`, `--ui-duration`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-icon-close`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -131,12 +132,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
         width="32"
         height="32"
         viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
-        ></path>
-      </svg>
+      ></svg>
     </button>
   </div>
   <div class="ui-content">
@@ -226,6 +222,61 @@ import {
   DialogHeader,
   DialogTitle,
 } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <>
+      <Button
+        command="show-modal"
+        commandfor="dialog-basics-1"
+        variant="outlined"
+      >
+        Open dialog
+      </Button>
+
+      <Dialog id="dialog-basics-1">
+        <DialogHeader closeButton closeLabel="Close">
+          <DialogTitle>Newsletter</DialogTitle>
+          <p>Sent by the product team.</p>
+        </DialogHeader>
+        <DialogContent>
+          <p>
+            Get a short email when we ship something new. No more than once a
+            month.
+          </p>
+        </DialogContent>
+        <DialogFooter>
+          <Button command="close" commandfor="dialog-basics-1">
+            Not now
+          </Button>
+          <Button command="close" commandfor="dialog-basics-1" variant="filled">
+            Subscribe
+          </Button>
+        </DialogFooter>
+      </Dialog>
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "opui-css/solid"`
+
+- `DialogHeader` slot props (`JSX.Element`): `children` and `closeIcon`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "opui-css/solid"
 
 export default function Basics() {
   return (

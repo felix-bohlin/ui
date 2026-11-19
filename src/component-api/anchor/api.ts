@@ -48,7 +48,8 @@ export default {
     },
     {
       component: "AnchorContent",
-      description: "The floating content.",
+      description:
+        'The floating content. With `trigger="hover"`, it takes the anchor\'s `id` and `popover="hint"` over its own, so the trigger\'s `interestfor` always reaches it. In an anchor that always shows it, its own `id` and `popover` stay.',
       selector: ".ui-floating",
     },
   ],

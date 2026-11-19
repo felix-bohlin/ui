@@ -3,7 +3,7 @@
 An image, initials or icon that stands for a person or an entity.
 
 - CSS: `opui-css/css/components/avatar.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/avatar.md), [Astro](https://opui.dev/astro/components/avatar.md), [React](https://opui.dev/react/components/avatar.md), [Svelte](https://opui.dev/svelte/components/avatar.md), [Vue](https://opui.dev/vue/components/avatar.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/avatar.md), [Astro](https://opui.dev/astro/components/avatar.md), [React](https://opui.dev/react/components/avatar.md), [Solid](https://opui.dev/solid/components/avatar.md), [Svelte](https://opui.dev/svelte/components/avatar.md), [Vue](https://opui.dev/vue/components/avatar.md).
 
 ## Avatar
 
@@ -38,8 +38,9 @@ An image, initials or icon that stands for a person or an entity.
 
 ### Props and modifiers
 
-- `aria-label`: `string`, `[aria-label]`. The accessible name of the group. The Astro, React and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.
+- `aria-label`: `string`, `[aria-label]`. The accessible name of the group. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.
 - `aria-labelledby`: `string`. The id of the element that names the group, instead of `aria-label`.
+- `role`: `string`, default `"group"`. The `role` of the root. A passed role replaces `group`.
 
 ### Slots
 
@@ -124,6 +125,29 @@ export default function Image() {
       <Avatar label="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
       <Avatar label="Percy Groove" src="/photos/percy-groove.png" />
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Avatar, AvatarGroup } from "opui-css/solid"`
+
+### Example: Image
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Avatar } from "opui-css/solid"
+
+export default function Image() {
+  return (
+    <>
+      <Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
+
+      <Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
+
+      <Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
     </>
   )
 }

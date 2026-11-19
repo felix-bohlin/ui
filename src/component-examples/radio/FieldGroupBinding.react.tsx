@@ -10,10 +10,10 @@ import {
 } from "opui-css/react"
 
 export default function FieldGroupBinding() {
-  const [plan, setPlan] = useState("starter")
+  const [plan, setPlan] = useState("basic")
 
   function reset() {
-    setPlan("starter")
+    setPlan("basic")
   }
 
   return (
@@ -22,25 +22,25 @@ export default function FieldGroupBinding() {
         <FieldLegend>Plan</FieldLegend>
         <FieldGroup name="radio-binding">
           <Radio
-            checked={plan === "starter"}
-            onChange={() => setPlan("starter")}
-            value="starter"
+            checked={plan === "basic"}
+            onChange={() => setPlan("basic")}
+            value="basic"
           >
-            Starter
+            Basic
           </Radio>
           <Radio
-            checked={plan === "team"}
-            onChange={() => setPlan("team")}
-            value="team"
+            checked={plan === "gold"}
+            onChange={() => setPlan("gold")}
+            value="gold"
           >
-            Team
+            Gold
           </Radio>
           <Radio
-            checked={plan === "business"}
-            onChange={() => setPlan("business")}
-            value="business"
+            checked={plan === "platinum"}
+            onChange={() => setPlan("platinum")}
+            value="platinum"
           >
-            Business
+            Platinum
           </Radio>
         </FieldGroup>
       </Fieldset>

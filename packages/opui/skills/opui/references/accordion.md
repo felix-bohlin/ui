@@ -3,7 +3,7 @@
 A summary that opens to show more content, on its own or in a group.
 
 - CSS: `opui-css/css/components/accordion.css` and `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/accordion.md), [Astro](https://opui.dev/astro/components/accordion.md), [React](https://opui.dev/react/components/accordion.md), [Svelte](https://opui.dev/svelte/components/accordion.md), [Vue](https://opui.dev/vue/components/accordion.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/accordion.md), [Astro](https://opui.dev/astro/components/accordion.md), [React](https://opui.dev/react/components/accordion.md), [Solid](https://opui.dev/solid/components/accordion.md), [Svelte](https://opui.dev/svelte/components/accordion.md), [Vue](https://opui.dev/vue/components/accordion.md).
 
 ## Accordion
 
@@ -11,7 +11,7 @@ A summary that opens to show more content, on its own or in a group.
 
 - `details.ui-accordion` (root): Container element.
 - `<summary>` (`AccordionSummary`): The always visible header.
-- `<svg class="ui-marker">`: The marker. In Astro, React, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates.
+- `<svg class="ui-marker">`: The marker. In Astro, React, Solid, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates.
 - `.ui-content` (`AccordionContent`): The collapsible content.
 - `.ui-actions` (`AccordionActions`): A group of actions, such as buttons.
 
@@ -29,7 +29,7 @@ A summary that opens to show more content, on its own or in a group.
 ### Notes
 
 - HTML: To group accordions, wrap them in a `.ui-card[role="group"]` with an `aria-label`. A variant on the group styles every accordion in it.
-- Astro, React, Svelte and Vue: Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">` with an `aria-label`. Its `variant` styles every accordion in it.
+- Astro, React, Solid, Svelte and Vue: Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">` with an `aria-label`. Its `variant` styles every accordion in it.
 
 ## AccordionSummary
 
@@ -104,7 +104,7 @@ Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor
 
 ## Theme tokens
 
-The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-card-padding`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-font-weight-bold`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-card-padding`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-font-weight-bold`, `--ui-icon-close`, `--ui-icon-expand`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -113,7 +113,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 ```html
 <details class="ui-accordion">
   <summary>
-    What is included in the free plan?
+    What is included in free Bassbook?
     <svg
       aria-hidden="true"
       class="ui-marker"
@@ -121,17 +121,12 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
       width="24"
       height="24"
       viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
-      ></path>
-    </svg>
+    ></svg>
   </summary>
   <div class="ui-content">
     <p>
-      Three projects, 2 GB of storage and email support. Upgrade at any time to
-      add more projects and invite your team.
+      Three setlists, 2 GB of slap videos and email support. Upgrade to Bassbook
+      Gold at any time to add more setlists and invite your band.
     </p>
   </div>
 </details>
@@ -151,11 +146,11 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/astro"
 ---
 
 <Accordion>
-  <AccordionSummary>What is included in the free plan?</AccordionSummary>
+  <AccordionSummary>What is included in free Bassbook?</AccordionSummary>
   <AccordionContent>
     <p>
-      Three projects, 2 GB of storage and email support. Upgrade at any time to
-      add more projects and invite your team.
+      Three setlists, 2 GB of slap videos and email support. Upgrade to Bassbook
+      Gold at any time to add more setlists and invite your band.
     </p>
   </AccordionContent>
 </Accordion>
@@ -175,11 +170,38 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/react"
 export default function Basics() {
   return (
     <Accordion>
-      <AccordionSummary>What is included in the free plan?</AccordionSummary>
+      <AccordionSummary>What is included in free Bassbook?</AccordionSummary>
       <AccordionContent>
         <p>
-          Three projects, 2 GB of storage and email support. Upgrade at any time
-          to add more projects and invite your team.
+          Three setlists, 2 GB of slap videos and email support. Upgrade to
+          Bassbook Gold at any time to add more setlists and invite your band.
+        </p>
+      </AccordionContent>
+    </Accordion>
+  )
+}
+```
+
+## Solid
+
+`import { Accordion, AccordionActions, AccordionContent, AccordionSummary } from "opui-css/solid"`
+
+- `AccordionSummary` slot props (`JSX.Element`): `children` and `marker`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Accordion, AccordionContent, AccordionSummary } from "opui-css/solid"
+
+export default function Basics() {
+  return (
+    <Accordion>
+      <AccordionSummary>What is included in free Bassbook?</AccordionSummary>
+      <AccordionContent>
+        <p>
+          Three setlists, 2 GB of slap videos and email support. Upgrade to
+          Bassbook Gold at any time to add more setlists and invite your band.
         </p>
       </AccordionContent>
     </Accordion>
@@ -205,11 +227,11 @@ export default function Basics() {
 </script>
 
 <Accordion>
-  <AccordionSummary>What is included in the free plan?</AccordionSummary>
+  <AccordionSummary>What is included in free Bassbook?</AccordionSummary>
   <AccordionContent>
     <p>
-      Three projects, 2 GB of storage and email support. Upgrade at any time to
-      add more projects and invite your team.
+      Three setlists, 2 GB of slap videos and email support. Upgrade to Bassbook
+      Gold at any time to add more setlists and invite your band.
     </p>
   </AccordionContent>
 </Accordion>
@@ -230,11 +252,11 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/vue"
 
 <template>
   <Accordion>
-    <AccordionSummary>What is included in the free plan?</AccordionSummary>
+    <AccordionSummary>What is included in free Bassbook?</AccordionSummary>
     <AccordionContent>
       <p>
-        Three projects, 2 GB of storage and email support. Upgrade at any time
-        to add more projects and invite your team.
+        Three setlists, 2 GB of slap videos and email support. Upgrade to
+        Bassbook Gold at any time to add more setlists and invite your band.
       </p>
     </AccordionContent>
   </Accordion>

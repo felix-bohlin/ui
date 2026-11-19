@@ -50,6 +50,8 @@ export const description =
     "logical-properties",
     "nth-child-of",
     "popover",
+    "reading-flow",
+    "registered-custom-properties",
     "relative-color",
     "user-pseudos",
   ]}
@@ -59,6 +61,8 @@ export const description =
     "gap-decorations":
       "Without gap decorations, the compat layer overlaps the controls and draws each line with a control's start border, so a row that wraps starts with a line.",
     if: "Without `if()`, the compat layer draws the lines of a filled or tonal group with the controls' start borders.",
+    "reading-flow":
+      "Without `reading-flow`, Tab and screen readers follow a field's markup, which puts its top and start parts before its control, as they're drawn.",
   }}
   heroAnatomy
   apis={[
@@ -67,26 +71,12 @@ export const description =
   ]}
   changelogPaths={[
     {
-      path: "packages/opui/components/ControlGroup/ControlGroup.astro",
-      type: "component",
-    },
-    {
       path: "packages/opui/components/ButtonGroup/ButtonGroup.astro",
       type: "component",
     },
-    { path: "src/docs/components/control-group.astro", type: "docs" },
     { path: "src/docs/components/button-group.astro", type: "docs" },
-    { path: "src/component-examples/control-group", type: "docs" },
     { path: "src/component-examples/button-group", type: "docs" },
-    {
-      path: "packages/opui/css/components/control-group.css",
-      type: "css",
-    },
-    {
-      path: "packages/opui/css/components/button-group.css",
-      type: "css",
-    },
-    { path: "src/component-api/control-group", type: "api" },
+    { path: "packages/opui/css/components/button-group.css", type: "css" },
     { path: "src/component-api/button-group", type: "api" },
   ]}
   installationTabs={[
@@ -203,6 +193,12 @@ export const description =
       Use <PropOrClass prop='orientation="vertical"' class=".ui-vertical" />.
     </p>
     <AutoExample name="Vertical" column centered />
+    <p>
+      A textarea joins a vertical group only. Beside the buttons, a field that
+      grows past one line would leave a corner square with nothing next to it,
+      so put buttons for a multi-line field next to it instead, as in the
+      <DocLink href="/blocks/chat">Chat block</DocLink>.
+    </p>
   </section>
 
   <section id="overflow">

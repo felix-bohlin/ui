@@ -36,14 +36,6 @@ export const keywords = ["progress steps", "wizard"]
     "container-style-queries",
     "has",
   ]}
-  changelogPaths={[
-    { path: "packages/opui/components/Stepper", type: "component" },
-    { path: "src/docs/components/stepper.astro", type: "docs" },
-    { path: "src/component-examples/stepper", type: "docs" },
-    { path: "packages/opui/css/components/stepper.css", type: "css" },
-    { path: "src/component-api/stepper", type: "api" },
-    { path: "src/component-api/stepper-item", type: "api" },
-  ]}
   installationTabs={[{ title: "stepper.css", code: StepperCSS, lang: "css" }]}
 >
   <Fragment slot="title">Stepper</Fragment>
@@ -146,7 +138,7 @@ export const keywords = ["progress steps", "wizard"]
     </Conditional>
     <p>
       To change the check of every step, and of menus and selects, set
-      <code>--ui-check-image</code> to an image, like <code>url(check.svg)</code
+      <code>--ui-icon-check</code> to an image, like <code>url(check.svg)</code
       >.
     </p>
 
@@ -199,9 +191,12 @@ export const keywords = ["progress steps", "wizard"]
   <section id="narrow">
     <h2>Narrow containers</h2>
     <p>
-      Stacks under <code>32rem</code>.
+      Stacks under <code>32rem</code>, whatever the labels. For longer labels,
+      such as translated ones, set
+      <PropOrClass prop='orientation="vertical"' class=".ui-vertical" /> under a
+      breakpoint of your own.
       <PropOrClass prop='orientation="horizontal"' class=".ui-horizontal" />
-      keeps it in a row.
+      never stacks, and wraps the steps onto another row when they don't fit.
     </p>
 
     <AutoExample name="Narrow" />

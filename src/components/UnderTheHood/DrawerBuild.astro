@@ -229,9 +229,9 @@ const drawers = [
 const filters = [
   {
     legend: "Status",
-    options: ["Open", "In progress", "In review", "Done", "Closed"],
+    options: ["Booked", "Rehearsing", "Soundcheck", "Played", "Cancelled"],
   },
-  { legend: "Owner", options: ["Holly", "Ines", "Lou", "Percy", "Stella"] },
+  { legend: "Bandmate", options: ["Holly", "Ines", "Lou", "Percy", "Stella"] },
   { legend: "Updated", options: ["Today", "This week", "This month"] },
 ]
 
@@ -268,8 +268,8 @@ const close = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width=
     </div>
     <div class="content">
       <p>
-        Narrow the results down by status, owner and date. Changes apply when
-        you press Apply.
+        Narrow your gigs down by status, bandmate and date. Changes apply when
+        you press Apply, easy peasy.
       </p>
       {filters.map((filter) => <fieldset>
         <legend>{filter.legend}</legend>

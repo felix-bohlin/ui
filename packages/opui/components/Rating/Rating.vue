@@ -2,7 +2,6 @@
 import { computed, type HTMLAttributes, mergeProps, useAttrs } from "vue"
 import { vSeed } from "../vue"
 import { mergeStyle, pluralLabel, styleAttrs } from "../style"
-import { defined } from "../attrs"
 import type { Props } from "./types.vue-props"
 
 const {
@@ -28,7 +27,10 @@ const attrs = useAttrs() as HTMLAttributes
 const restAttrs = computed(() =>
   Object.fromEntries(
     Object.entries(attrs).filter(
-      ([key]) => key !== "aria-describedby" && key !== "aria-invalid",
+      ([key]) =>
+        key !== "aria-describedby" &&
+        key !== "aria-invalid" &&
+        key !== "aria-label",
     ),
   ),
 )
@@ -54,6 +56,7 @@ const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
 <template>
   <fieldset
     v-if="name"
+    :aria-label="attrs['aria-label']"
     :class="[
       'ui-rating',
       size && size !== 'medium' && `ui-${size}`,
@@ -91,7 +94,7 @@ const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
   <meter
     v-else
     :aria-describedby="attrs['aria-describedby']"
-    :aria-label="label"
+    :aria-label="attrs['aria-label'] ?? label"
     :class="[
       'ui-rating',
       size && size !== 'medium' && `ui-${size}`,
@@ -105,7 +108,7 @@ const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
         styleAttrs(
           mergeStyle({ '--_max': count === 5 ? undefined : count }, {}),
         ),
-        { ...defined(restAttrs) },
+        { ...restAttrs },
       )
     "
   ></meter>

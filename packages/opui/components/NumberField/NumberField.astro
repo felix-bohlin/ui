@@ -4,8 +4,7 @@ import { trimEdges } from "../whitespace"
 
 import type { Props } from "./types.astro"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
-import { createIds, idRefs } from "../id"
-import { minusPath, plusPath } from "./icons"
+import { createIds, fieldDescribedBy } from "../id"
 import { cx } from "../cx"
 
 export const title = "Number Field"
@@ -85,15 +84,16 @@ const LabelTag = label || labelSlot ? "label" : Fragment
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" d={minusPath}></path>
-          </svg>
+          ></svg>
         </slot>
       </Button>
     </span>
     <input
       {...rest}
-      aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
+      aria-describedby={fieldDescribedBy(
+        { endText: endTextId, startText: startTextId },
+        ariaDescribedBy,
+      )}
       aria-invalid={error ? "true" : ariaInvalid}
       disabled={disabled}
       id={inputId}
@@ -116,9 +116,7 @@ const LabelTag = label || labelSlot ? "label" : Fragment
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" d={plusPath}></path>
-          </svg>
+          ></svg>
         </slot>
       </Button>
     </span>

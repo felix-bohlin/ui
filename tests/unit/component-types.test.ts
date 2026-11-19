@@ -1,3 +1,7 @@
+import type {
+  ComponentProps as SolidComponentProps,
+  JSX as SolidJSX,
+} from "@solidjs/web"
 import type { ComponentProps, ReactNode } from "react"
 import type { Snippet } from "svelte"
 import type { IntrinsicElementAttributes, Slot } from "vue"
@@ -8,6 +12,7 @@ import type * as BadgeReact from "../../packages/opui/components/Badge/types.rea
 import type * as BadgeSvelte from "../../packages/opui/components/Badge/types.svelte"
 import type * as BadgeVue from "../../packages/opui/components/Badge/types.vue-props"
 import type * as CalloutReact from "../../packages/opui/components/Callout/types.react"
+import type * as CalloutSolid from "../../packages/opui/components/Callout/types.solid"
 import type * as CalloutSvelte from "../../packages/opui/components/Callout/types.svelte"
 import type * as CalloutVue from "../../packages/opui/components/Callout/types.vue-props"
 import type * as FieldLegendVue from "../../packages/opui/components/FieldLegend/types.vue-props"
@@ -19,21 +24,27 @@ import type * as NumberFieldVue from "../../packages/opui/components/NumberField
 import type * as RangeReact from "../../packages/opui/components/Range/types.react"
 import type * as RangeSvelte from "../../packages/opui/components/Range/types.svelte"
 import type * as RatingReact from "../../packages/opui/components/Rating/types.react"
+import type * as RatingSolid from "../../packages/opui/components/Rating/types.solid"
 import type * as RatingSvelte from "../../packages/opui/components/Rating/types.svelte"
 import type * as RatingVue from "../../packages/opui/components/Rating/types.vue-props"
+import type * as SelectSolid from "../../packages/opui/components/Select/types.solid"
 import type { SortDetail } from "../../packages/opui/components/SortableTable/types"
+import type * as SortableTableSolid from "../../packages/opui/components/SortableTable/types.solid"
 import type * as SortableTableSvelte from "../../packages/opui/components/SortableTable/types.svelte"
 import type * as SwitchReact from "../../packages/opui/components/Switch/types.react"
 import type * as SwitchSvelte from "../../packages/opui/components/Switch/types.svelte"
 import type * as SwitchVue from "../../packages/opui/components/Switch/types.vue-props"
 import type * as TabsReact from "../../packages/opui/components/Tabs/types.react"
+import type * as TabsSolid from "../../packages/opui/components/Tabs/types.solid"
 import type * as TabsSvelte from "../../packages/opui/components/Tabs/types.svelte"
 import type * as TabsVue from "../../packages/opui/components/Tabs/types.vue-props"
 import type * as TextareaReact from "../../packages/opui/components/Textarea/types.react"
 import type * as TextareaSvelte from "../../packages/opui/components/Textarea/types.svelte"
 import type * as TextareaVue from "../../packages/opui/components/Textarea/types.vue-props"
+import type * as TextFieldSolid from "../../packages/opui/components/TextField/types.solid"
 import type * as ToggleButtonVue from "../../packages/opui/components/ToggleButton/types.vue-props"
 import type * as ToggleGroupReact from "../../packages/opui/components/ToggleGroup/types.react"
+import type * as ToggleGroupSolid from "../../packages/opui/components/ToggleGroup/types.solid"
 import type * as ToggleGroupSvelte from "../../packages/opui/components/ToggleGroup/types.svelte"
 import type * as ToggleGroupVue from "../../packages/opui/components/ToggleGroup/types.vue-props"
 
@@ -247,6 +258,55 @@ test("an event is on<Event> in React, on<event> in Svelte and an emit in Vue, wi
   expectTypeOf<CalloutVue.Props>().not.toHaveProperty("onDismiss")
   expectTypeOf<CalloutVue.Emits["dismiss"]>().toEqualTypeOf<[event: Event]>()
   expectTypeOf<SortableTableSvelte.Props["onsort"]>().toEqualTypeOf<
+    ((event: CustomEvent<SortDetail>) => void) | undefined
+  >()
+})
+
+test("Solid types a slot as JSX.Element, keeps the element's value, and takes defaultValue and onValueChange on a group and a radio group like React", () => {
+  expectTypeOf<TextFieldSolid.Props["endText"]>().toEqualTypeOf<
+    SolidJSX.Element | undefined
+  >()
+  expectTypeOf<TextFieldSolid.Props["value"]>().toEqualTypeOf<
+    SolidComponentProps<"input">["value"]
+  >()
+  expectTypeOf<TextFieldSolid.Props["defaultValue"]>().toEqualTypeOf<
+    SolidComponentProps<"input">["defaultValue"]
+  >()
+  expectTypeOf<TabsSolid.Props["defaultValue"]>().toEqualTypeOf<
+    string | undefined
+  >()
+  expectTypeOf<Single<ToggleGroupSolid.Props>["onValueChange"]>().toEqualTypeOf<
+    ((value: string) => void) | undefined
+  >()
+  expectTypeOf<Multiple<ToggleGroupSolid.Props>["value"]>().toEqualTypeOf<
+    string[] | undefined
+  >()
+  expectTypeOf<
+    Multiple<ToggleGroupSolid.Props>["defaultValue"]
+  >().toEqualTypeOf<string[] | undefined>()
+  expectTypeOf<RatingSolid.Props["defaultValue"]>().toEqualTypeOf<
+    number | string | undefined
+  >()
+  expectTypeOf<RatingSolid.Props["onValueChange"]>().toEqualTypeOf<
+    ((value: number | string) => void) | undefined
+  >()
+})
+
+test("Solid gives a select its own defaultValue, an item the input's props, and an event on<Event> with the element's event object", () => {
+  expectTypeOf<SelectSolid.Props["defaultValue"]>().toEqualTypeOf<
+    string | number | (string | number)[] | undefined
+  >()
+  expectTypeOf<TabsSolid.TabsItemProps["defaultChecked"]>().toEqualTypeOf<
+    SolidComponentProps<"input">["defaultChecked"]
+  >()
+  expectTypeOf<TabsSolid.TabsItemProps["onChange"]>().toEqualTypeOf<
+    SolidComponentProps<"input">["onChange"]
+  >()
+  expectTypeOf<TabsSolid.TabsItemProps>().not.toHaveProperty("type")
+  expectTypeOf<CalloutSolid.Props["onDismiss"]>().toEqualTypeOf<
+    ((event: Event) => void) | undefined
+  >()
+  expectTypeOf<SortableTableSolid.Props["onSort"]>().toEqualTypeOf<
     ((event: CustomEvent<SortDetail>) => void) | undefined
   >()
 })

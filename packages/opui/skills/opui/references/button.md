@@ -3,7 +3,7 @@
 A button for actions, like saving a form, with variants, colors, sizes and icons.
 
 - CSS: `opui-css/css/components/button.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/button.md), [Astro](https://opui.dev/astro/components/button.md), [React](https://opui.dev/react/components/button.md), [Svelte](https://opui.dev/svelte/components/button.md), [Vue](https://opui.dev/vue/components/button.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/button.md), [Astro](https://opui.dev/astro/components/button.md), [React](https://opui.dev/react/components/button.md), [Solid](https://opui.dev/solid/components/button.md), [Svelte](https://opui.dev/svelte/components/button.md), [Vue](https://opui.dev/vue/components/button.md).
 
 ## Button
 
@@ -16,7 +16,7 @@ A button for actions, like saving a form, with variants, colors, sizes and icons
 
 ### Props and modifiers
 
-- `aria-label`: `string`. The accessible name, for a button without visible text. React and Svelte require it, or `aria-labelledby`, when there are no `children`.
+- `aria-label`: `string`. The accessible name, for a button without visible text. React, Solid and Svelte require it, or `aria-labelledby`, when there are no `children`.
 - `aria-labelledby`: `string`. The id of the element that names a button without visible text, instead of `aria-label`.
 - `as`: `"a" | "button"`, default `"button"`. The element to render. Defaults to `"a"` with `href`.
 - `color`: `"critical"` (`.ui-critical`), `"primary"` (`.ui-primary`). Optional colors.
@@ -164,6 +164,59 @@ export default function Variants() {
         </Button>
       </div>
       <div className="example-row">
+        <Button variant="filled">Filled</Button>
+        <Button disabled variant="filled">
+          Disabled
+        </Button>
+        <Button href="#" variant="filled">
+          Link
+        </Button>
+      </div>
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Button } from "opui-css/solid"`
+
+### Example: Variants
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Button } from "opui-css/solid"
+
+export default function Variants() {
+  return (
+    <>
+      <div class="example-row">
+        <Button>Transparent</Button>
+        <Button disabled>Disabled</Button>
+        <Button href="#">Link</Button>
+        <Button aria-current="page" href="#">
+          Current
+        </Button>
+      </div>
+      <div class="example-row">
+        <Button variant="outlined">Outlined</Button>
+        <Button disabled variant="outlined">
+          Disabled
+        </Button>
+        <Button href="#" variant="outlined">
+          Link
+        </Button>
+      </div>
+      <div class="example-row">
+        <Button variant="tonal">Tonal</Button>
+        <Button disabled variant="tonal">
+          Disabled
+        </Button>
+        <Button href="#" variant="tonal">
+          Link
+        </Button>
+      </div>
+      <div class="example-row">
         <Button variant="filled">Filled</Button>
         <Button disabled variant="filled">
           Disabled

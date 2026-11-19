@@ -3,28 +3,44 @@ import type { ComponentFramework } from "../../src/component-api/frameworks"
 import { render } from "./renderers"
 import CalloutAstro from "../../packages/opui/components/Callout/Callout.astro"
 import CalloutReact from "../../packages/opui/components/Callout/Callout.react"
+import CalloutSolid from "../../packages/opui/components/Callout/Callout.solid"
 import CalloutSvelte from "../../packages/opui/components/Callout/Callout.svelte"
 import CalloutVue from "../../packages/opui/components/Callout/Callout.vue"
 import DialogAstro from "../../packages/opui/components/Dialog/Dialog.astro"
 import DialogReact from "../../packages/opui/components/Dialog/Dialog.react"
+import DialogSolid from "../../packages/opui/components/Dialog/Dialog.solid"
 import DialogSvelte from "../../packages/opui/components/Dialog/Dialog.svelte"
 import DialogVue from "../../packages/opui/components/Dialog/Dialog.vue"
 import NumberFieldAstro from "../../packages/opui/components/NumberField/NumberField.astro"
 import NumberFieldReact from "../../packages/opui/components/NumberField/NumberField.react"
+import NumberFieldSolid from "../../packages/opui/components/NumberField/NumberField.solid"
 import NumberFieldSvelte from "../../packages/opui/components/NumberField/NumberField.svelte"
 import NumberFieldVue from "../../packages/opui/components/NumberField/NumberField.vue"
+import OneTimeCodeAstro from "../../packages/opui/components/OneTimeCode/OneTimeCode.astro"
+import OneTimeCodeReact from "../../packages/opui/components/OneTimeCode/OneTimeCode.react"
+import OneTimeCodeSolid from "../../packages/opui/components/OneTimeCode/OneTimeCode.solid"
+import OneTimeCodeSvelte from "../../packages/opui/components/OneTimeCode/OneTimeCode.svelte"
+import OneTimeCodeVue from "../../packages/opui/components/OneTimeCode/OneTimeCode.vue"
 import RangeAstro from "../../packages/opui/components/Range/Range.astro"
 import RangeReact from "../../packages/opui/components/Range/Range.react"
+import RangeSolid from "../../packages/opui/components/Range/Range.solid"
 import RangeSvelte from "../../packages/opui/components/Range/Range.svelte"
 import RangeVue from "../../packages/opui/components/Range/Range.vue"
 import SelectAstro from "../../packages/opui/components/Select/Select.astro"
 import SelectReact from "../../packages/opui/components/Select/Select.react"
+import SelectSolid from "../../packages/opui/components/Select/Select.solid"
 import SelectSvelte from "../../packages/opui/components/Select/Select.svelte"
 import SelectVue from "../../packages/opui/components/Select/Select.vue"
 import TextFieldAstro from "../../packages/opui/components/TextField/TextField.astro"
 import TextFieldReact from "../../packages/opui/components/TextField/TextField.react"
+import TextFieldSolid from "../../packages/opui/components/TextField/TextField.solid"
 import TextFieldSvelte from "../../packages/opui/components/TextField/TextField.svelte"
 import TextFieldVue from "../../packages/opui/components/TextField/TextField.vue"
+import TextareaAstro from "../../packages/opui/components/Textarea/Textarea.astro"
+import TextareaReact from "../../packages/opui/components/Textarea/Textarea.react"
+import TextareaSolid from "../../packages/opui/components/Textarea/Textarea.solid"
+import TextareaSvelte from "../../packages/opui/components/Textarea/Textarea.svelte"
+import TextareaVue from "../../packages/opui/components/Textarea/Textarea.vue"
 
 type Components = Record<ComponentFramework, unknown>
 
@@ -65,6 +81,7 @@ const CASES: {
     components: {
       astro: CalloutAstro,
       react: CalloutReact,
+      solid: CalloutSolid,
       svelte: CalloutSvelte,
       vue: CalloutVue,
     },
@@ -78,6 +95,7 @@ const CASES: {
     components: {
       astro: DialogAstro,
       react: DialogReact,
+      solid: DialogSolid,
       svelte: DialogSvelte,
       vue: DialogVue,
     },
@@ -90,6 +108,7 @@ const CASES: {
     components: {
       astro: NumberFieldAstro,
       react: NumberFieldReact,
+      solid: NumberFieldSolid,
       svelte: NumberFieldSvelte,
       vue: NumberFieldVue,
     },
@@ -100,8 +119,22 @@ const CASES: {
   {
     base: inputId,
     components: {
+      astro: OneTimeCodeAstro,
+      react: OneTimeCodeReact,
+      solid: OneTimeCodeSolid,
+      svelte: OneTimeCodeSvelte,
+      vue: OneTimeCodeVue,
+    },
+    name: "OneTimeCode",
+    prefix: "one-time-code",
+    props: { endText: "E", label: "L" },
+  },
+  {
+    base: inputId,
+    components: {
       astro: RangeAstro,
       react: RangeReact,
+      solid: RangeSolid,
       svelte: RangeSvelte,
       vue: RangeVue,
     },
@@ -116,10 +149,11 @@ const CASES: {
     },
   },
   {
-    base: (html) => /\sid="([^"]+)-label"/.exec(html)?.[1],
+    base: (html) => /<select[^>]*\sid="([^"]+)"/.exec(html)?.[1],
     components: {
       astro: SelectAstro,
       react: SelectReact,
+      solid: SelectSolid,
       svelte: SelectSvelte,
       vue: SelectVue,
     },
@@ -137,12 +171,26 @@ const CASES: {
     components: {
       astro: TextFieldAstro,
       react: TextFieldReact,
+      solid: TextFieldSolid,
       svelte: TextFieldSvelte,
       vue: TextFieldVue,
     },
     name: "TextField",
     prefix: "text-field",
     props: { endText: "E", label: "L", passwordToggle: true, startText: "S" },
+  },
+  {
+    base: (html) => /<textarea[^>]*\sid="([^"]+)"/.exec(html)?.[1],
+    components: {
+      astro: TextareaAstro,
+      react: TextareaReact,
+      solid: TextareaSolid,
+      svelte: TextareaSvelte,
+      vue: TextareaVue,
+    },
+    name: "Textarea",
+    prefix: "textarea",
+    props: { endText: "E", label: "L", startText: "S" },
   },
 ]
 

@@ -16,7 +16,7 @@
     <TableHead>
       <TableRow>
         <TableHeaderCell>
-          <Checkbox data-select-all="" hideLabel>Select all files</Checkbox>
+          <Checkbox data-select-all="" hideLabel>Select all tabs</Checkbox>
         </TableHeaderCell>
         <TableHeaderCell>File</TableHeaderCell>
         <TableHeaderCell>Size</TableHeaderCell>
@@ -29,28 +29,28 @@
             defaultChecked
             hideLabel
             name="checkbox-hidden-label"
-            value="invoice">Select Invoice.pdf</Checkbox
+            value="invoice">Select Setlist.pdf</Checkbox
           >
         </TableCell>
-        <TableCell>Invoice.pdf</TableCell>
+        <TableCell>Setlist.pdf</TableCell>
         <TableCell>120 kB</TableCell>
       </TableRow>
       <TableRow>
         <TableCell>
           <Checkbox hideLabel name="checkbox-hidden-label" value="logo"
-            >Select Logo.svg</Checkbox
+            >Select Band-logo.svg</Checkbox
           >
         </TableCell>
-        <TableCell>Logo.svg</TableCell>
+        <TableCell>Band-logo.svg</TableCell>
         <TableCell>8 kB</TableCell>
       </TableRow>
       <TableRow>
         <TableCell>
           <Checkbox hideLabel name="checkbox-hidden-label" value="notes"
-            >Select Notes.md</Checkbox
+            >Select Slap-tabs.md</Checkbox
           >
         </TableCell>
-        <TableCell>Notes.md</TableCell>
+        <TableCell>Slap-tabs.md</TableCell>
         <TableCell>2 kB</TableCell>
       </TableRow>
     </TableBody>

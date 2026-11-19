@@ -8,10 +8,7 @@ Lists meant to be used stand-alone or as part of Select elements
 */
   :where(.ui-list, .ui-menu) {
     --_bg-color: var(--ui-surface-filled);
-    --_check-image: var(
-      --ui-check-image,
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E")
-    );
+    --_check-image: var(--ui-icon-check);
     --_description-text-color: var(--ui-text-subtle);
     --_divider-border-color: var(--ui-border-color);
     --_divider-gap: var(--ui-space-3);
@@ -490,6 +487,14 @@ Lists meant to be used stand-alone or as part of Select elements
           inline-size: var(--_start-size);
           margin-inline-start: auto;
           mask: var(--_check-image) center / contain no-repeat;
+
+          @media (forced-colors: active) {
+            background-color: SelectedItemText;
+          }
+
+          @media print {
+            print-color-adjust: exact;
+          }
         }
       }
     }

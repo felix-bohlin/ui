@@ -2,7 +2,7 @@
 import type { Props } from "./types.astro"
 import { trimEdges } from "../whitespace"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
-import { createIds, idRefs } from "../id"
+import { createIds, fieldDescribedBy } from "../id"
 import { cx } from "../cx"
 
 export const title = "Textarea"
@@ -35,23 +35,21 @@ const ids = createIds(Astro.locals, "textarea", id)
 const labelSlot = Astro.slots.has("label")
   ? trimEdges(await Astro.slots.render("label"))
   : ""
-const named = Boolean(label || labelSlot)
-const LabelTag = named ? "span" : Fragment
-const Root = named ? "label" : "div"
+const hasLabel = Boolean(label || labelSlot)
 const hasStartText = Boolean(startText || Astro.slots.has("start-text"))
 const hasEndText = Boolean(
   endText || Astro.slots.has("end-text") || characterCount,
 )
-const labelId = named ? ids("label") : undefined
-const startId = named && Astro.slots.has("start") ? ids("start") : undefined
-const endId = named && Astro.slots.has("end") ? ids("end") : undefined
+const textareaId = hasLabel ? ids() : id
+const startId = Astro.slots.has("start") ? ids("start") : undefined
+const endId = Astro.slots.has("end") ? ids("end") : undefined
 const topId = Astro.slots.has("top") ? ids("top") : undefined
 const bottomId = Astro.slots.has("bottom") ? ids("bottom") : undefined
 const startTextId = hasStartText ? ids("start-text") : undefined
 const endTextId = hasEndText ? ids("end-text") : undefined
 ---
 
-<Root
+<div
   class={cx([
     "ui-textarea",
     {
@@ -64,37 +62,43 @@ const endTextId = hasEndText ? ids("end-text") : undefined
   ])}
   style={style}
 >
-  <LabelTag class={cx([hideLabel ? "ui-sr-only" : "ui-label"])} id={labelId}
+  {hasLabel && <label
+    class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
+    for={textareaId}
     >{label}<Fragment set:html={labelSlot}
-  /></LabelTag>
+  /></label>}
 
   {hasStartText && <span class="ui-start-text" id={startTextId}>
     {startText}
     <slot name="start-text" />
   </span>}
   <span class="ui-field">
-    <textarea
-      {...rest}
-      aria-describedby={idRefs(
-        startTextId,
-        topId,
-        bottomId,
-        endTextId,
-        ariaDescribedBy,
-      )}
-      aria-invalid={error ? "true" : ariaInvalid}
-      aria-labelledby={named ? idRefs(labelId, startId, endId) : ariaLabelledBy}
-      id={id}
-      name={name ?? field?.name}
-    >{value}</textarea>
+    {Astro.slots.has("top") && <span class="ui-top" id={topId}>
+      <slot name="top" />
+    </span>}
     {Astro.slots.has("start") && <span class="ui-start" id={startId}>
       <slot name="start" />
     </span>}
+    <textarea
+      {...rest}
+      aria-describedby={fieldDescribedBy(
+        {
+          bottom: bottomId,
+          end: endId,
+          endText: endTextId,
+          start: startId,
+          startText: startTextId,
+          top: topId,
+        },
+        ariaDescribedBy,
+      )}
+      aria-invalid={error ? "true" : ariaInvalid}
+      aria-labelledby={ariaLabelledBy}
+      id={textareaId}
+      name={name ?? field?.name}
+    >{value}</textarea>
     {Astro.slots.has("end") && <span class="ui-end" id={endId}>
       <slot name="end" />
-    </span>}
-    {Astro.slots.has("top") && <span class="ui-top" id={topId}>
-      <slot name="top" />
     </span>}
     {Astro.slots.has("bottom") && <span class="ui-bottom" id={bottomId}>
       <slot name="bottom" />
@@ -113,7 +117,7 @@ const endTextId = hasEndText ? ids("end-text") : undefined
     )}
   </span>}
   <slot />
-</Root>
+</div>
 
 <script>
   import "../../elements/character-count.js"

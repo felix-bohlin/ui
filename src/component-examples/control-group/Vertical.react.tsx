@@ -2,6 +2,7 @@ import { Button, ControlGroup, Textarea } from "opui-css/react"
 
 const plusIcon = (
   <svg
+    data-icon="add"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -20,6 +21,7 @@ const plusIcon = (
 
 const minusIcon = (
   <svg
+    data-icon="remove"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="24"

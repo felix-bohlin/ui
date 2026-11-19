@@ -13,16 +13,16 @@ import ComponentCard from "../components/ComponentShowcase/ComponentCard.astro"
 import ComponentShowcase from "../components/ComponentShowcase/ComponentShowcase.astro"
 import Html5Logo from "../components/Html5Logo.astro"
 import ReactLogo from "../components/ReactLogo.astro"
+import SolidLogo from "../components/SolidLogo.astro"
 import SvelteLogo from "../components/SvelteLogo.astro"
 import ThemeQuickControls from "../components/ThemeQuickControls.astro"
 import VueLogo from "../components/VueLogo.astro"
 import Default from "../layouts/Default.astro"
 import { allBlocks, blockPreviewHref } from "../utils/blocks"
-import { components } from "../utils/components"
+import { componentName, components } from "../utils/components"
 import { formatInline } from "../utils/format-inline"
 import { FRAMEWORKS, hrefFor, type FrameworkId } from "../utils/framework"
 import { posts } from "../utils/blog-posts"
-import { componentName } from "../utils/names"
 import { releaseVersion } from "../utils/release"
 import { themeTokens, tokenTier } from "../utils/theme-tokens"
 
@@ -38,6 +38,7 @@ const FRAMEWORK_BRANDING: Record<FrameworkId, { Logo: typeof AstroLogo }> = {
   astro: { Logo: AstroLogo },
   html: { Logo: Html5Logo },
   react: { Logo: ReactLogo },
+  solid: { Logo: SolidLogo },
   svelte: { Logo: SvelteLogo },
   vue: { Logo: VueLogo },
 }

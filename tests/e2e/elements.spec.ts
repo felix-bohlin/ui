@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs"
 import { expect, test } from "@playwright/test"
 import type { Page } from "@playwright/test"
+import { instantScrolling } from "./fixtures"
 
 const ORIGIN = "https://opui.test"
 
@@ -85,16 +86,18 @@ const open = async (page: Page, file: string, markup: string, order: Order) => {
     order === "before"
       ? `<script>{${source(file).replaceAll(/^export /gm, "")}}</script>`
       : ""
+  await page.addInitScript(TRACKER)
   await page.route(`${ORIGIN}/**`, (route) =>
     route.fulfill(
       route.request().url().endsWith(".js")
         ? { body: source(file), contentType: "text/javascript" }
         : {
-            body: `<!doctype html><html lang="en"><head><script>${TRACKER}</script>${script}</head><body>${markup}</body></html>`,
+            body: `<!doctype html><html lang="en"><head>${script}</head><body>${markup}</body></html>`,
             contentType: "text/html",
           },
     ),
   )
+  await instantScrolling(page)
   await page.goto(`${ORIGIN}/`)
   if (order === "after") {
     await page.addScriptTag({ type: "module", url: `${ORIGIN}/${file}` })
@@ -305,6 +308,17 @@ const ELEMENTS: Scenario[] = [
       await expect(
         page.getByRole("button", { name: "Increase" }),
       ).toHaveAttribute("aria-disabled", "true")
+      const decrease = page.getByRole("button", { name: "Decrease" })
+      await input.evaluate((element) => {
+        element.setAttribute("aria-disabled", "true")
+      })
+      await expect(decrease).toHaveAttribute("aria-disabled", "true")
+      await decrease.click({ force: true })
+      await expect(input).toHaveValue("3")
+      await input.evaluate((element) => {
+        element.removeAttribute("aria-disabled")
+      })
+      await expect(decrease).not.toHaveAttribute("aria-disabled")
     },
   },
   {
@@ -409,7 +423,7 @@ const ELEMENTS: Scenario[] = [
   },
   {
     file: "text-field.js",
-    markup: `<form>
+    markup: `<form><fieldset>
       <opui-text-field class="ui-text-field">
         <label class="ui-label" for="password">Password</label>
         <span class="ui-field">
@@ -417,7 +431,7 @@ const ELEMENTS: Scenario[] = [
           <span class="ui-end"><button class="ui-button" type="button" aria-label="Show password" aria-pressed="false" command="--toggle-password" commandfor="password">o</button></span>
         </span>
       </opui-text-field>
-      <button type="reset">Reset</button>
+      </fieldset><button type="reset">Reset</button>
     </form>`,
     ready: async (page) => {
       await expect(
@@ -443,6 +457,40 @@ const ELEMENTS: Scenario[] = [
         document.querySelector("opui-text-field")!.hidePassword(),
       )
       await expect(input).toHaveAttribute("type", "password")
+      await toggle.click()
+      await expect(input).toHaveAttribute("type", "text")
+      await input.evaluate((element: HTMLInputElement) => {
+        element.disabled = true
+      })
+      await expect(toggle).toBeDisabled()
+      await expect(input).toHaveAttribute("type", "password")
+      await expect(toggle).toHaveAttribute("aria-pressed", "false")
+      await input.evaluate((element: HTMLInputElement) => {
+        element.disabled = false
+      })
+      await expect(toggle).toBeEnabled()
+      await toggle.click()
+      await expect(input).toHaveAttribute("type", "text")
+      const fieldset = page.locator("fieldset")
+      await fieldset.evaluate((element: HTMLFieldSetElement) => {
+        element.disabled = true
+      })
+      await expect(input).toHaveAttribute("type", "password")
+      await expect(toggle).toBeDisabled()
+      await fieldset.evaluate((element: HTMLFieldSetElement) => {
+        element.disabled = false
+      })
+      await expect(toggle).toBeEnabled()
+      await input.evaluate((element) => {
+        element.setAttribute("aria-disabled", "true")
+      })
+      await expect(toggle).toHaveAttribute("aria-disabled", "true")
+      await toggle.click({ force: true })
+      await expect(input).toHaveAttribute("type", "password")
+      await input.evaluate((element) => {
+        element.removeAttribute("aria-disabled")
+      })
+      await expect(toggle).not.toHaveAttribute("aria-disabled")
     },
   },
   {

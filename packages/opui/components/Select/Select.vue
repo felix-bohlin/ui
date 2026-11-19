@@ -10,7 +10,7 @@ import {
 import { useInputAttrs, vSeed } from "../vue"
 import type { Props, Slots } from "./types.vue-props"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
-import { idRefs } from "../id"
+import { fieldDescribedBy } from "../id"
 import { initialValue, sameValue } from "./selection"
 import { styleAttrs } from "../style"
 
@@ -34,7 +34,7 @@ const {
   value,
   variant = "outlined",
 } = defineProps<Props>()
-defineSlots<Slots>()
+const slots = defineSlots<Slots>()
 const attrs = useAttrs() as SelectHTMLAttributes
 const inputAttrs = useInputAttrs()
 const modelValue = defineModel<string | number | (string | number)[]>()
@@ -58,7 +58,8 @@ const selectedAtFirst = (value: unknown) =>
 
 const uid = useId()
 const base = computed(() => id || `select-${uid}`)
-const labelId = computed(() => `${base.value}-label`)
+const hasLabel = () => Boolean(label || slots.label)
+const selectId = () => (hasLabel() ? base.value : id)
 const startTextId = computed(() => `${base.value}-start-text`)
 const endTextId = computed(() => `${base.value}-end-text`)
 const startId = computed(() => `${base.value}-start`)
@@ -69,7 +70,7 @@ const field = inject(FieldGroupKey, undefined)
 </script>
 
 <template>
-  <label
+  <div
     :class="[
       'ui-select',
       {
@@ -82,13 +83,13 @@ const field = inject(FieldGroupKey, undefined)
     ]"
     v-bind="styleAttrs($attrs.style)"
   >
-    <span
-      v-if="label || $slots.label"
-      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
-      :id="labelId"
+    <label
+      v-if="hasLabel()"
+      :class="hideLabel ? 'ui-sr-only' : 'ui-label'"
+      :for="selectId()"
     >
       {{ label }}<TrimmedSlot :nodes="$slots.label?.()" />
-    </span>
+    </label>
 
     <span
       v-if="startText || $slots['start-text']"
@@ -99,29 +100,35 @@ const field = inject(FieldGroupKey, undefined)
     </span>
 
     <span class="ui-field">
+      <span class="ui-top" :id="topId" v-if="$slots.top"
+        ><slot name="top"></slot
+      ></span>
+      <span class="ui-start" :id="startId" v-if="$slots.start"
+        ><slot name="start"></slot
+      ></span>
       <select
         v-bind="inputAttrs"
         v-seed
         v-model="model"
         :aria-describedby="
-          idRefs(
-            $slots.top && topId,
-            (startText || $slots['start-text']) && startTextId,
-            (endText || $slots['end-text']) && endTextId,
-            $slots.bottom && bottomId,
+          fieldDescribedBy(
+            {
+              bottom: $slots.bottom && bottomId,
+              end: $slots.end && endId,
+              endText: (endText || $slots['end-text']) && endTextId,
+              start: $slots.start && startId,
+              startText: (startText || $slots['start-text']) && startTextId,
+              top: $slots.top && topId,
+            },
             attrs['aria-describedby'],
           )
         "
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
-        :aria-labelledby="
-          label || $slots.label
-            ? idRefs(labelId, $slots.start && startId, $slots.end && endId)
-            : attrs['aria-labelledby']
-        "
-        :id="id"
+        :aria-labelledby="attrs['aria-labelledby']"
+        :id="selectId()"
         :name="name ?? field?.name"
       >
-        <button v-pre>
+        <button inert v-pre>
           <selectedcontent></selectedcontent>
         </button>
         <div :class="['ui-list', { 'ui-dense': dense }]">
@@ -136,14 +143,8 @@ const field = inject(FieldGroupKey, undefined)
           <slot></slot>
         </div>
       </select>
-      <span class="ui-start" :id="startId" v-if="$slots.start"
-        ><slot name="start"></slot
-      ></span>
       <span class="ui-end" :id="endId" v-if="$slots.end"
         ><slot name="end"></slot
-      ></span>
-      <span class="ui-top" :id="topId" v-if="$slots.top"
-        ><slot name="top"></slot
       ></span>
       <span class="ui-bottom" :id="bottomId" v-if="$slots.bottom"
         ><slot name="bottom"></slot
@@ -157,5 +158,5 @@ const field = inject(FieldGroupKey, undefined)
     >
       {{ endText }}<slot name="end-text"></slot>
     </span>
-  </label>
+  </div>
 </template>

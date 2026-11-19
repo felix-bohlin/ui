@@ -2,7 +2,7 @@
 
 This guide defines the standards for implementing reusable UI components in this package. Every component ships an Astro, a React, a Svelte and a Vue version side by side (`packages/opui/components/<Name>/<Name>.astro`, `<Name>.react.tsx`, `<Name>.svelte` and `<Name>.vue`), based on the documentation specs at `src/docs/components/`. All should render the same markup as the HTML examples, which `pnpm build-examples` renders from the Astro ones and the parity snapshots in `tests/unit/__snapshots__/` record, and `tests/unit/component-contract.test.ts` compares the four frameworks over every prop value and slot. A framework can add some markup of its own because of how it works (recorded as `.diff` drift next to the parity snapshots), but in general the output is the same. Use it as a reference for maintaining consistency and accessibility across the library.
 
-**CRITICAL INSTRUCTION**: Always use components from this package (imported via `opui-css/astro`, `opui-css/react`, `opui-css/svelte` and `opui-css/vue`) and their corresponding CSS from `packages/opui/css/components/` whenever possible. Avoid writing custom CSS if an existing component or utility can achieve the desired result.
+Build on this package's components (imported via `opui-css/astro`, `opui-css/react`, `opui-css/svelte` and `opui-css/vue`) and their CSS in `packages/opui/css/components/`, and write custom CSS only where no existing component or utility does the job.
 
 ## 0. Implementation Checklist
 
@@ -11,13 +11,13 @@ When implementing or updating a component, ensure:
 - [ ] **All Frameworks**: Every `.astro` file has a matching `.react.tsx`, `.svelte` and `.vue` file in the same folder (`pnpm check-components` fails otherwise).
 - [ ] **Title Export**: `export const title = "Component Name"` in `<Name>.astro`, which the docs read (`pnpm check-components` fails without it).
 - [ ] **Props Type**: A component types its props with `Props` (the root) or `<Root><Part>Props` (a part, `CardActionsProps`) from its framework's own types file (`./types.astro`, `./types.react`, `./types.svelte`, `./types.vue-props`), and Vue its slots with `Slots` or, for a part with its own slots, `<Root><Part>Slots` (`AccordionSummarySlots`); `pnpm check-components` checks the names and the imports. `types.ts` names the named slots `Slots<S>` (`Badge`, `Range`) and declares no type for the default slot alone: `children` comes from `ComponentProps` and `SvelteHTMLElements`, and `types.vue-props.ts` names its slots `Slots` (`DefaultSlots` from `../vue` when the default slot is the only one).
-- [ ] **Sorting**: Props and destructuring are sorted alphabetically, slots last with `children` first. Classes follow section 3 (base, states, variants, `className`), in the same order in every framework. `pnpm check-components` checks the keys of every object type in the type files, the order of the destructured props (React's slots are the Svelte twin's snippets), `className` last, and the order of every class list against Astro.
+- [ ] **Sorting**: Props and destructuring are sorted alphabetically, slots last with `children` first. Classes follow section 3 (base, states, variants, `className`), in the same order in every framework. `pnpm check-components` checks the keys of every object type in the type files, the order of the destructured props (React's slots are the Svelte twin's snippets), `className` last, the order of every class list against Astro, and the key of every list in React, Svelte and Vue.
 - [ ] **Rest Props**: `...rest` goes onto the root element, or the input of a form control. `pnpm check-components` checks that Astro, React and Svelte capture and spread it, and that Vue binds the attributes it doesn't inherit.
 - [ ] **Class Management**: The class list of section 3 in each framework; `pnpm check-components` checks the `ui-` prefix and that every framework keeps Astro's order.
 - [ ] **ID Stability**: Used `createId(Astro.locals)` in Astro, `useId()` in React, `$props.id()` in Svelte and `useId()` in Vue for any internal element linking.
-- [ ] **Accessibility**: ARIA labels, roles, and relationships are correctly handled.
+- [ ] **Accessibility**: Names, roles and relationships follow the Accessible names rules in section 3 and the ids in section 6.
 - [ ] **Parts or Slots**: Containers expose parts (section 4); form controls and small components use props and named slots.
-- [ ] **Exports**: The component and its `Props` type are exported from `packages/opui/astro/index.ts`, `packages/opui/react/index.ts`, `packages/opui/svelte/index.ts` and `packages/opui/vue/index.ts`, sorted, the root's as `Props as <Root>Props` and each part's under its own name (`Props as CardProps`, `CardActionsProps`). `pnpm check-components` checks that the barrels are sorted and export the same components and types, with each `Props` type from the framework's own types file and a `<Name>Props` for every component.
+- [ ] **Exports**: The component and its `Props` type are exported from `packages/opui/astro/index.ts`, `packages/opui/react/index.ts`, `packages/opui/solid/index.ts`, `packages/opui/svelte/index.ts` and `packages/opui/vue/index.ts`, sorted, the root's as `Props as <Root>Props` and each part's under its own name (`Props as CardProps`, `CardActionsProps`). `pnpm check-components` checks that the barrels are sorted and export the same components and types, with each `Props` type from the framework's own types file and a `<Name>Props` for every component.
 
 ---
 
@@ -29,13 +29,14 @@ Every component uses layered type files:
 - `types.astro.ts` - Astro props = base + `HTMLAttributes<element>`
 - `types.vue-props.ts` - Vue props = base + `Class` from `../vue`, plus the `Slots` type for `defineSlots` (`DefaultSlots` from `../vue` when the default slot is the only one) and a `<Root><Part>Slots` for each part with its own slots. It imports the base types by name (`Props as BaseProps`), because the Vue compiler can't resolve `defineProps` types through `import type * as Base`. The name avoids `types.vue.ts`, which the Vue compiler reads as the `.vue` file, and `types.d.vue.ts`, a declaration file name that `skipLibCheck` leaves unchecked
 - `types.react.ts` - React props = base + named slot props (`Base.Slots<ReactNode>`, when there are any) + `ComponentProps<element>`, which brings `children`
+- `types.solid.ts` - Solid props = base + named slot props (`Base.Slots<JSX.Element>`, when there are any) + `ComponentProps<element>` from `@solidjs/web`, which brings `children`
 - `types.svelte.ts` - Svelte props = base + named snippets (`Base.Slots<Snippet>`, when there are any) + `SvelteHTMLElements[element]`, which brings `children`
 
-Every component folder has all five files; `pnpm check-components` fails when one is missing.
+Every component folder has all six files; `pnpm check-components` fails when one is missing.
 
-A custom element's attributes and events are typed on the element itself, in `react/elements.ts` and `svelte/elements.ts` (`ondismiss` on `opui-callout` in Svelte), so the component's framework types reach them through `ComponentProps<"opui-...">` or `SvelteHTMLElements["opui-..."]` and stay compiled. An event the component's root fires is also the component's own: `types.ts` lists it in `Events` (`<Root><Part>Events` for a part) with the type of its event object (`dismiss: Event`, `sort: CustomEvent<SortDetail>`), and `pnpm build-components` turns it into `onDismiss` in React, which `useListener` from `../react` attaches with a ref callback that also passes the caller's `ref` on, since React 19 attaches a custom element's `ondismiss` on a client render but not on hydration, `ondismiss` on the root element in Svelte, and in Vue an `Emits` type that `defineEmits` declares and the root re-emits (`@dismiss`). The API docs list them as `onDismiss`, `ondismiss` and `@dismiss` options, one per framework, like `onSort`, `onsort` and `@sort` on `SortableTable`.
+A custom element's attributes and events are typed on the element itself, in `react/elements.ts`, `solid/elements.ts` and `svelte/elements.ts` (`ondismiss` on `opui-callout` in Svelte, `onSort` on `opui-sortable-table` in Solid), so the component's framework types reach them through `ComponentProps<"opui-...">` or `SvelteHTMLElements["opui-..."]` and stay compiled. An event the component's root fires is also the component's own: `types.ts` lists it in `Events` (`<Root><Part>Events` for a part) with the type of its event object (`dismiss: Event`, `sort: CustomEvent<SortDetail>`), and `pnpm build-components` turns it into `onDismiss` in React, which `useListener` from `../react` attaches with a ref callback that also passes the caller's `ref` on, since React 19 attaches a custom element's `ondismiss` on a client render but not on hydration (a custom element root also renders `data-hydrating`, which `useHydrated` takes off once the listener is attached, and the element ignores presses while it's there, so none happens without `onDismiss`), `ondismiss` on the root element in Svelte, and in Vue an `Emits` type that `defineEmits` declares and the root re-emits (`@dismiss`). A custom element root renders `data-hydrating` in Solid, Svelte and Vue too, and each takes it off once the root has hydrated or rendered on the client: Solid spreads `hydrating()` from `../solid`, which prints it on the server only, and removes it with `hydrated` in the root's `ref`, next to the caller's, Svelte removes it with the `hydrated` attachment from `../svelte` and Vue with `v-hydrated` (`vHydrated` from `../vue`). `tests/e2e/hydration.spec.ts` lists the attribute in `LATE`, and `pnpm test:apps` presses the close button and a header before each server-rendered app hydrates. The API docs list them as `onDismiss`, `ondismiss` and `@dismiss` options, one per framework, like `onSort`, `onsort` and `@sort` on `SortableTable`.
 
-`tests/unit/elements.test.ts` checks the class each module in `elements/` exports, its tag in `HTMLElementTagNameMap`, and that the `elements` of an `api.ts` document its members. `tests/e2e/elements.spec.ts` loads each module before and after its markup, removes the element and adds it back.
+`tests/unit/elements.test.ts` checks the class each module in `elements/` exports, its tag in `HTMLElementTagNameMap`, that `react/elements.ts`, `solid/elements.ts` and `svelte/elements.ts` type every attribute it reads, and that the `elements` of an `api.ts` document its members. `tests/e2e/elements.spec.ts` loads each module before and after its markup, removes the element and adds it back.
 
 Every Astro component must follow this exact frontmatter layout:
 
@@ -67,7 +68,7 @@ defineSlots<Slots>()
 </script>
 ```
 
-Derived values go in `computed()`, so they update when props change. A value that reads a slot, or reads such a value, is a getter called in the script and the template (`hasEndText()`), since Vue doesn't track slots and a `computed()` would keep its first answer; `tests/unit/vue-slot-getters.test.ts` adds a slot after mount, and the compiler refuses a provided value that reads one. The compiler puts `v-seed` (`vSeed` from `../vue`) before every `v-model` on a native control: a value or choice the user changed before the page hydrated wins over the model, and a model without a value takes the element's. On a client render it makes the rendered state the control's default, and after a form reset it sets the model to the control's state, cast like `v-model` casts it, so a component writes no reset code of its own. It also drops a derived value nothing reads. A group item (`TabsItem`, `ToggleButton`) has no `v-model`, and `:checked` would be patched from the server's state on hydration and move the `checked` attribute with every change, so its input takes the state from `v-seed-checked`, a directive `seedChecked(change)` from `../vue` makes for each instance: it sets the property only, renders `checked` on the server, and calls `change` with an input the user changed before hydration or a form reset changed. `pnpm test:apps` checks the hydration in Nuxt, and `tests/unit/vue-seed.test.ts` the reset.
+Derived values go in `computed()`, so they update when props change. A template has no place to declare a value per `v-for` row, so a const of a loop callback is written where it is read, and when one is read more than once the loop's consts are computed once per row in a `computed` list (`const rows = computed(() => items?.map((item) => { ...; return { closes, item, Tag } }))`) that `v-for` destructures (`{ closes, item: { href, ...itemRest }, Tag }`). A loop with a const that reads a slot keeps its consts where they are read (`$slots.icon`), since a `computed` list would keep the slot's first answer. So does a nested loop whose list or consts read a name an enclosing loop declares (`group.items`), which the script doesn't have. A value that reads a slot, or reads such a value, is a getter called in the script and the template (`hasEndText()`), since Vue doesn't track slots and a `computed()` would keep its first answer; `tests/unit/vue-slot-getters.test.ts` adds a slot after mount, and the compiler refuses a provided value that reads one. The compiler puts `v-seed` (`vSeed` from `../vue`) before every `v-model` on a native control: a value or choice the user changed before the page hydrated wins over the model, and a model without a value takes the element's. On a client render it makes the rendered state the control's default, and after a form reset it sets the model to the control's state, cast like `v-model` casts it, so a component writes no reset code of its own. It also drops a derived value nothing reads. A group item (`TabsItem`, `ToggleButton`) has no `v-model`, and `:checked` would be patched from the server's state on hydration and move the `checked` attribute with every change, so its input takes the state from `v-seed-checked`, a directive `seedChecked(change)` from `../vue` makes for each instance: it sets the property only, renders `checked` on the server, and calls `change` with an input the user changed before hydration or a form reset changed. `pnpm test:apps` checks the hydration in Nuxt, and `tests/unit/vue-seed.test.ts` the reset.
 
 The Svelte component destructures props, snippets and `...rest` from `$props()`:
 
@@ -88,7 +89,7 @@ The Svelte component destructures props, snippets and `...rest` from `$props()`:
 </script>
 ```
 
-Derived values go in `$derived()`. Slots are snippets: the default slot is `children`, named slots are camelCased (`end-text` becomes `endText`). The components need Svelte 5.57 or later: `{@attach}` came in 5.29, and older versions clear the Select's `bind:value` when Chromium updates `<selectedcontent>`. Where Vue uses `defineModel`, Svelte uses `$bindable()`, for the props the `model` in the component's `api.ts` lists; `pnpm check-components` checks both. Vue's `provide`/`inject` maps to the typed `getContext`/`setContext` helpers in each component's `context.svelte.js`, plain JavaScript typed with JSDoc, since Vite's dependency optimizer compiles a `.svelte.ts` module with the Svelte compiler before anything strips its types. A radio can't `bind:checked`, and the input of a group item (`TabsItem`, `ToggleButton`) takes its state from the group, so the radios of `Radio` and `Rating` and the inputs of `TabsItem` and `ToggleButton` keep a choice made before hydration through the `seedChecked` attachment from `../svelte`, which hands a checkbox's change on both ways and a radio's only when it was checked (`tests/unit/svelte-seed.test.ts`).
+Derived values go in `$derived()`. Slots are snippets: the default slot is `children`, named slots are camelCased (`end-text` becomes `endText`). Two sibling blocks with no whitespace between them in the Astro file stay on one line (`{/if}{#if iconChecked}`): a line break between two blocks is a text node in Svelte, one space the Astro markup doesn't have, so the glued form is what keeps the markup the same in every framework. The components need Svelte 5.57 or later: `{@attach}` came in 5.29, and older versions clear the Select's `bind:value` when Chromium updates `<selectedcontent>`. Where Vue uses `defineModel`, Svelte uses `$bindable()`, for the props the `model` in the component's `api.ts` lists; `pnpm check-components` checks both. Vue's `provide`/`inject` maps to the typed `getContext`/`setContext` helpers in each component's `context.svelte.js`, plain JavaScript typed with JSDoc, since Vite's dependency optimizer compiles a `.svelte.ts` module with the Svelte compiler before anything strips its types. A radio can't `bind:checked`, and the input of a group item (`TabsItem`, `ToggleButton`) takes its state from the group, so the radios of `Radio` and `Rating` and the inputs of `TabsItem` and `ToggleButton` keep a choice made before hydration through the `seedChecked` attachment from `../svelte`, which hands a checkbox's change on both ways and a radio's only when it was checked (`tests/unit/svelte-seed.test.ts`). `bind:value` sets a select's first value as a property, so the hand-written Select marks the options that value names `defaultSelected` in an attachment (`keepSelected` in `Select/selection.ts`), and a form reset returns to them (`tests/e2e/models.spec.ts`).
 
 The React component destructures props, slot props and `...rest` the same way, with `className` instead of `class`:
 
@@ -120,12 +121,16 @@ export default function MyComponent({
 }
 ```
 
-Slots are props: the default slot is `children`, named slots are camelCased `ReactNode` props (`end-text` becomes `endText`), like Svelte snippets. There is no two-way binding: form controls pass the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` through, and a component that shows the current value (Range) renders it from those props and leaves the readout to its element script (`range.js`), which writes the value into the text node React rendered while the user drags. ToggleGroup has no native value, so it takes `value`, `defaultValue` and `onValueChange` and passes the selection to its buttons through context, and Rating, whose radios check themselves against its `value`, takes the same three. Vue's `provide`/`inject` maps to a React context in each component's `context.react.ts`. Components that use context, state, effects or their own event handlers start with `"use client"`; the others stay server components, so they also render in React Server Components. `pnpm check-components` checks both ways. In the Astro file, `set:html=""` on an empty element marks content the browser or a custom element writes (the character count, Copy's status, the toasts): the compiler gives it `dangerouslySetInnerHTML={{ __html: "" }}` and `suppressHydrationWarning` in React, so hydration leaves it alone.
+Slots are props: the default slot is `children`, named slots are camelCased `ReactNode` props (`end-text` becomes `endText`), like Svelte snippets. The value of a provided context is memoized (`const context = useMemo<Context>(() => ({ ... }), [...])`, with every name the value reads as a dependency), so a render of the provider that changes nothing gives its consumers the same object; a provider reads `defined(rest)` into `attrs` above the memo. The rest of a variable tag is spread as `HTMLAttributes<HTMLElement>`, the attributes every tag takes, and a cast on a plain element's rest in the Astro file carries over as `ComponentProps<"li">`. There is no two-way binding: form controls pass the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` through, and a component that shows the current value (Range) renders it from those props and leaves the readout to its element script (`range.js`), which writes the value into the text node React rendered while the user drags. ToggleGroup has no native value, so it takes `value`, `defaultValue` and `onValueChange` and passes the selection to its buttons through context (its `change` callback sits in `useCallback` and narrows on `multiple` before it calls `onValueChange`, so the call needs no cast), and Rating, whose radios check themselves against its `value`, takes the same three. React attaches its handlers after hydration and replays no change, so an input whose owner holds the value reports a choice made before the page hydrated once, as it attaches, through `seedChecked` from `../react`: a checkbox's change both ways and a radio's only when it was checked, like the Svelte attachment. Rating's radios take it as their `ref` and call `onValueChange`, and the input of a group item (`TabsItem`, `ToggleButton`) takes it through `useSeedChecked`, which also passes the caller's `ref` on, and calls the group's `change` (`tests/unit/react-seed.test.ts`, and `pnpm test:apps` for the hydration in Next.js). A control with only the native `onChange` (Checkbox, Radio, Switch) stays React's own: it keeps the choice and calls nothing. Vue's `provide`/`inject` maps to a React context in each component's `context.react.ts`. Components that use context, state, effects or their own event handlers start with `"use client"`; the others stay server components, so they also render in React Server Components. `pnpm check-components` checks both ways. In the Astro file, `set:html=""` on an empty element marks content the browser or a custom element writes (the character count, Copy's status, the toasts): the compiler gives it `dangerouslySetInnerHTML={{ __html: "" }}` and `suppressHydrationWarning` in React, so hydration leaves it alone.
+
+The Solid component (`<Name>.solid.tsx`, Solid 2) starts with `/** @jsxImportSource @solidjs/web */`, a compiler directive that makes TypeScript read the file as Solid JSX instead of the React JSX `tsconfig.json` sets. It reads every prop as `props.x` instead of destructuring, so the props stay reactive, and takes the rest with `omit(props, ...)`, the keys sorted like a destructuring with the slots last and `children` first. A prop with a default reads through an accessor that applies the default only to `undefined`, like a destructuring default (`const type = () => (props.type === undefined ? "text" : props.type)`), and so does a derived value that reads a prop, a context or a slot (`const inputId = () => ...`, read as `inputId()`). Each read of a JSX prop builds its DOM again, so a slot read more than once resolves once through `children(() => props.label)`, read as `resolvedLabel()`. A node has one parent, so a slot a list renders is built once per item: resolved in the `<For>` callback when the item reads it twice, read as `{props.end}` when it reads it once. A component that provides a context creates its `children()` memos in a `content` function it renders under the provider (`{content()}`), so slot content can read the context. A ternary, `&&`, `||` or `??` in a component's prop that reads a prop or an accessor (`aria-invalid={error ? "true" : ariaInvalid}` on `CheckboxInput`) reads through an accessor too, named after the attribute (`invalid()`, or `buttonTitle()` when `title` is taken): a call is the one form Solid never compiles to a memo, which would take a hydration id per read, and the server and the client don't read a prop equally often. A list is `<For each={items} keyed={false}>`, keyed by index like the other frameworks, never `.map()`, which builds every row again when the list changes. Its callback takes the item as an accessor and the index as a number: `item()`, `item().label` for a field the Astro file destructures and `omit(item(), ...)` for the rest of the pattern, read in JSX or in an accessor and never at the top of the callback, so an `items` array of new objects updates the rows in place and keeps their focus. A list of options whose `value` reads the item is keyed by it in every framework (`keyed={(item) => item.value}`, where the index is an accessor too, `key={item.value}` in React, `(item.value)` in Svelte and `:key="item.value"` in Vue), so a select keeps its choice, and a callback that returns a condition between two rows is keyed by index too (`keyed={false}`), with a `row` accessor in the callback that reads the item once into a const (`const row = () => { const option = item() ... }`, rendered as `<>{row()}</>`), so TypeScript narrows the condition and the row is built again when its item changes. That rebuild is by design: the condition picks the element, so the row can't be patched in place like the rows of Menu or Rating, and such a row holds no state (the Range ticks). A name the callback declares for itself says so (`initialItemChecked`, `itemTitle`), since the body may hold the plain one. A condition is `&&` or a ternary, and `<Show when={tag()}>{(shownTag) => ...}</Show>` only where the content passes the narrowed value to a function or renders it as a tag. Classes are a `class={[...]}` array, or the entry itself when the list has one entry that is no object and can't be `false` (`class={props.class}`), ids come from `createUniqueId()`, a tag that reads a prop is `dynamic(tag)` from `@solidjs/web`, a per-item tag in a list is `<Dynamic component={tag()}>`, a tag that is always one string is the element (`<selectedcontent />`), and a provided context is an object of getters, like Svelte's, each written inline when nothing else reads its accessor. Form controls take the native `value` and `checked` and report changes with `onInput` and `onChange`. The control keeps the prop out of the rest and hands it to `control()` from `../solid` with the first value, captured once in the body (`const valueControl = control("value", () => props.value, untrack(() => props.value))`). The element spreads `valueControl.server`, which holds the first value under its HTML name (`value`, `checked`) on the server and nothing on the client, and takes `valueControl.ref`, which on a client render sets the first value as `defaultValue` or `defaultChecked`, leaves a node it hydrates alone, and then writes the prop only when the prop itself changes. A form reset so returns to the first value, and the markup doesn't depend on how Solid maps `defaultValue` next to a spread. An option does the same with `selected` and no prop to follow (`control("selected", undefined, ...)`), since Solid writes a `selected` property again on every run of the option's effect, over the user's choice. In the rest it would be written again on every run of the element's spread, over text the user typed (`tests/e2e/models.spec.ts`). A select takes `value ?? defaultValue` as its first value, which the ref sets as its `value` on a client render, so `defaultValue` picks the options the caller writes as well as the `items`, and a microtask later, once the options exist, marks the ones it names `defaultSelected` (`keepSelected` in `Select/selection.ts`), so a form reset returns to them as it does in React and Vue (`tests/e2e/models.spec.ts`). A value the component reads is an accessor (`const value = () => props.value ?? props.defaultValue`). A group (Tabs, ToggleGroup) and Rating take `value`, `defaultValue` and `onValueChange`: a group keeps the selection it owns in `createSignal(untrack(() => props.defaultValue))`, hands `props.value ?? inner()` and its `change` to its items through context, and calls `onValueChange` with each choice. With `value` set, `restoreChecked` from `../solid` then writes the inputs of the group back to it in a microtask, so a change the caller doesn't store snaps back like a controlled input in React, and one it stores is left alone (`tests/e2e/models.spec.ts`). An event in `Events` needs no code: its `on<Event>` prop (`onDismiss`, typed on the element in `solid/elements.ts`) stays in the rest and the spread on the root attaches it, and a custom element root adds `{...hydrating()}` and `ref={[props.ref, hydrated]}` from `../solid` for the `data-hydrating` guard, with `ref` out of the rest. An input whose owner holds the checked state (`TabsItem`, `ToggleButton`, Rating's radios) follows it the same way (`control("checked", () => grouped() ?? props.checked, ...)`): the server prints the first state, a client render sets it as `defaultChecked`, and a later change of the owner's value writes `checked`, so a choice made before the page hydrated leaves the server's default alone. `seedChecked`, the input's `ref`, reports that choice in a microtask: a signal written while `hydrate()` still runs makes Solid build the group's items again instead of claiming the server's (`pnpm test:apps`, the `solid-start` app). Vue's `provide`/`inject` maps to a Solid context in each component's `context.solid.ts`, created with `null` as its value outside a provider. `pnpm check-components` checks the pragma, the `omit()` order, that each slot is read once outside a `<For>`, and that no port destructures its props, calls `merge`, `mergeProps` or `splitProps`, builds JSX with `.map()`, calls `dynamic()` on a string literal or passes a condition to a component.
 
 ### Key Rules:
 
 - **REST Support**: Native attributes come from `HTMLAttributes` in `types.astro.ts` and the other framework type files, never from `types.ts`. `pnpm check-components` checks the `...rest` spread and fails on an index signature such as `[key: string]: any`.
 - **Undefined attributes**: an attribute a caller passes as `undefined` or `null` never removes an attribute the component sets, in any framework. `tests/unit/component-contract.test.ts` renders every case again with them and says how to keep the attribute.
+- **Attributes before the spread**: a value a caller passes for an attribute an element sets before `{...rest}` renders the same in every framework. `tests/unit/component-contract.test.ts` renders every case again with one for each typed attribute and says how to settle which value wins.
+- **Attributes from the root**: the contract test renders a part without its root, so it can't see an attribute the root hands down through context. When another element points at it, the part destructures the attribute, renders the root's value over its own (`id={dialog?.titleId ?? id}`) and warns in development when it gets a different one (`warnReplacedId` on `DialogTitle`, `warnReplacedAnchorAttributes` on `AnchorContent`). `tests/unit/dev-warnings.test.ts` renders each part inside its root.
 
 ---
 
@@ -170,7 +175,7 @@ Components often share another component's styles (`Accordion` and `Dialog` look
 
 ## 3. Class Management
 
-Use `class:list` in Astro, or `class={cx([...])}` with `cx` from `../cx` on a variable tag such as `Tag`, which `pnpm check-components` checks, `cx([...])` from `../cx` in React, a `class` array in Svelte, and a `:class` array in Vue. `pnpm build-components` turns a list that can come out empty into a `classAttrs()` spread in Svelte and Vue, which print `class=""` otherwise; `tests/unit/component-contract.test.ts` fails on an empty class in any framework. Every library-owned class is prefixed with `ui-` (`pnpm check-components` checks the class lists); the public prop API stays unprefixed (`<Button size="small" variant="outlined">`) and the component interpolates the prefix when rendering.
+Use `class:list` in Astro, or `class={cx([...])}` with `cx` from `../cx` on a variable tag such as `Tag`, which `pnpm check-components` checks, `cx([...])` from `../cx` in React, a `class` array in Svelte, and a `:class` array in Vue. `pnpm build-components` writes a list of one entry that is no object and can't be `false` as the entry in every framework (`class={hideLabel ? "ui-sr-only" : "ui-label"}`, `classAttrs(className)`), and turns a list that can come out empty into a `classAttrs()` spread in Svelte and Vue, which print `class=""` otherwise; `tests/unit/component-contract.test.ts` fails on an empty class in any framework. Every library-owned class is prefixed with `ui-` (`pnpm check-components` checks the class lists); the public prop API stays unprefixed (`<Button size="small" variant="outlined">`) and the component interpolates the prefix when rendering.
 
 Follow this order for readability:
 
@@ -336,10 +341,14 @@ Check that a named slot exists before rendering its wrapper. `tests/unit/compone
 
 ### Label Wrapping
 
-Most inputs should be wrapped in a `<label>` to provide a larger hit area and built-in accessibility.
+Checkbox, Radio and Switch wrap their control in a `<label>` root, which makes the whole row the hit area and names the control.
+
+### Field Labels
+
+TextField, Textarea, Select, NumberField and OneTimeCode render a `<div>` root with a `<label class="ui-label" for>` inside, and give the control a generated `id` when it has a label. The label alone names the control, so a button can go in `.ui-start` or `.ui-end` without sitting inside a `<label>` or joining the name. Inside `.ui-field` the parts come in the order they're drawn, `.ui-top`, `.ui-start`, the control, `.ui-end` and `.ui-bottom`, so Tab and screen readers reach them in that order without `reading-flow`.
 
 ```astro
-<label
+<div
   class:list={[
     "ui-text-field",
     size && size !== "medium" && `ui-${size}`,
@@ -347,17 +356,25 @@ Most inputs should be wrapped in a `<label>` to provide a larger hit area and bu
   ]}
   style={style}
 >
-  <span class="ui-label">{label}</span>
+  {hasLabel && <label class="ui-label" for={inputId}>{label}</label>}
   <span class="ui-field">
-    <input {...rest} aria-invalid={error ? "true" : ariaInvalid} />
+    <input
+      {...rest}
+      aria-describedby={fieldDescribedBy(
+        { endText: endTextId },
+        ariaDescribedBy,
+      )}
+      aria-invalid={error ? "true" : ariaInvalid}
+      id={inputId}
+    />
   </span>
-  {endText && <span class="ui-end-text">{endText}</span>}
-</label>
+  {endText && <span class="ui-end-text" id={endTextId}>{endText}</span>}
+</div>
 ```
 
 ### End Text & ARIA
 
-When providing `endText`, give it a part id (see [Unique IDs](#unique-ids)) and link it to the input via `aria-describedby`, merged with the user's own `aria-describedby` by `idRefs` from `../id`. Checkbox, Radio and Switch are the exception while their `<label>` root wraps the control: the label names it and already includes the end text, so they don't link it. A Select, TextField or Textarea with a label names the control with `aria-labelledby` (the label, then the `start` and `end` affixes), so its start text, end text, top and bottom stay out of the name and describe it instead. A TextField with `passwordToggle` names it with `<label for>` and describes it the same way.
+When providing `endText`, give it a part id (see [Unique IDs](#unique-ids)) and link it to the input via `aria-describedby`, merged with the user's own `aria-describedby` by `idRefs` from `../id`. Checkbox, Radio and Switch are the exception while their `<label>` root wraps the control: the label names it and already includes the end text, so they don't link it. A NumberField, OneTimeCode, Select, TextField or Textarea names the control with its `<label for>` alone and describes it with its start text, `top`, `start` and `end` affixes, `bottom` and end text, in that order, so a unit, a hint or an error is read after the name in any word order. `fieldDescribedBy` from `../id` takes those part ids by name and lists them in that order, then the user's own `aria-describedby`, so every field builds the description the same way. A passed `aria-labelledby` goes through unchanged.
 
 ```astro
 ---
@@ -371,7 +388,10 @@ const ids = createIds(Astro.locals, "number-field", id)
 const endTextId = endText ? ids("end-text") : undefined
 ---
 
-<input {...rest} aria-describedby={idRefs(endTextId, ariaDescribedBy)} />
+<input
+  {...rest}
+  aria-describedby={fieldDescribedBy({ endText: endTextId }, ariaDescribedBy)}
+/>
 {endText && <span id={endTextId}>{endText}</span>}
 ```
 
@@ -440,14 +460,21 @@ const groupName = name || $id("tabs") // Prefer the passed value if available
 
 ### Default Icons
 
-A part renders the default icon, so users can leave it out or put their own `svg` in its place. `CalloutIcon` reads the severity from context:
+A part renders the default icon, so users can leave it out or put their own `svg` in its place, and a theme swaps every default by setting the `--ui-icon-*` tokens. `tests/unit/build-icons.test.ts` fails on a component that renders an `svg` with shapes, and says what to render instead. The stylesheet paints only an `:empty` `svg`, so a slotted one keeps its shapes, in `currentColor`, with a system color in forced colors and `print-color-adjust: exact`, since a mask is a background. A component whose markup is another component's leaves the painting to that stylesheet: a toast is a `Callout`, so `toaster.css` draws no icon.
 
-```astro
----
-const callout = calloutContext.get()
----
+```css
+&:is(.ui-critical, .ui-info, .ui-success, .ui-warning) > svg:empty {
+  background-color: currentColor;
+  mask: var(--_icon-image) center / contain no-repeat;
 
-{callout?.severity === "info" && <svg>...</svg>}
+  @media (forced-colors: active) {
+    background-color: CanvasText;
+  }
+
+  @media print {
+    print-color-adjust: exact;
+  }
+}
 ```
 
 ---
@@ -475,7 +502,7 @@ type Props = { items?: Item[] }
 
 1.  **Read the Spec**: Open `src/docs/components/[name].astro` to see required HTML and CSS classes, and the examples in `src/component-examples/[name]/` (`.html`, `.astro`, `.react.tsx`, `.svelte` and `.vue` per example, written from the `.astro` one by `pnpm build-examples`). `src/pages/[framework]/components/[component].astro` is the route shell that renders every docs page for each framework.
 2.  **Analyze the API**: Check `src/component-api/[name]/api.ts` for the documented props, slots and classes (see `src/component-api/AGENTS.md`). `[component-api]` problems in `pnpm test` and the build list what it's missing.
-3.  **Implement**: Write the Astro file, `types.ts` and `types.astro.ts` first, following the checklist in Section 0, then run `pnpm build-components`: it compiles the React, Svelte and Vue files and the framework type files, or names the construct it can't compile. For a component in `scripts/hand-written-components.json`, `/port-component <Name>` (`.claude/skills/port-component/SKILL.md`) writes or updates the three files and loops on the component tests.
+3.  **Implement**: Write the Astro file, `types.ts` and `types.astro.ts` first, following the checklist in Section 0, then run `pnpm build-components`: it compiles the React, Solid, Svelte and Vue files and the framework type files, or names the construct it can't compile. For a component in `scripts/hand-written-components.json`, `/port-component <Name>` (`.claude/skills/port-component/SKILL.md`) writes or updates the three files and loops on the component tests.
 4.  **Verify**: Run `pnpm exec vitest run tests/unit/component-contract.test.ts tests/unit/parity.test.ts -t <Name>`, then check the rendered pages at `/html/components/[name]`, `/astro/components/[name]`, `/react/components/[name]`, `/svelte/components/[name]` and `/vue/components/[name]`, and the fixture pages at `/[framework]/test/[name]`, which only exist with `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`).
 
 ---
@@ -524,7 +551,7 @@ Private `--_*` properties follow the same suffixes as component tokens, so one w
 - No abbreviations: `--_shift-x` and `--_direction`, never `--_tx` or `--_dir`.
 - A value that is neither a length nor a color is named by its type: `--_<part>-image`, `--_<part>-label`, `--_<part>-fraction`.
 - Role names carry no suffix, like the role tokens: `--_accent`, `--_on-accent`.
-- A line that stands in for a border keeps the border name even when a background draws it: the `Divider` line is `--_divider-border-color`, like the dividers in `Accordion`, `List` and `Menu`.
+- A line that stands in for a border keeps the border name even when a background draws it: the `Stepper` line, a background for its round caps, is `--_line-border-color`, like the `Timeline` line, and the `Divider` line is `--_divider-border-color`, like the dividers in `Accordion`, `List` and `Menu`.
 
 `tests/unit/css-properties.test.ts` fails, with no allowlist, on the names these rules ban (`-border-radius`, `-height` and `-width` except a border or outline width, `-space`, `-tx`, `-ty`, `-dir`, `--_input-size` and a bare `-color`) in every `--_*` property and component token, and on a component token that doesn't end in one of the suffixes above.
 
@@ -532,28 +559,29 @@ Private `--_*` properties follow the same suffixes as component tokens, so one w
 
 Windows High Contrast (`forced-colors: active`) repaints everything with system colors and drops backgrounds and shadows. A component needs a `@media (forced-colors: active)` block only where a boundary or a state is carried by color alone: a shadow-only edge, a tinted selected state, a filled track. Borders are forced to `CanvasText` by the browser and need nothing, and Chromium forces a `transparent` border color like any other. `tests/unit/forced-colors.test.ts` checks both lists against the stylesheets that contain the media query. The components with a block, and why:
 
+- `Accordion`: the default marker is a mask in `currentColor`, so it keeps the summary's forced text color with `forced-color-adjust: none`. Every variant border is real, including the elevated and tonal edge, which the browser forces to `CanvasText`.
 - `Avatar`: a letter avatar is a fill, so it gets a `CanvasText` border.
 - `Button`: the current page (`aria-current="page"`) is a tint, or a dropped fill on a filled button, so it gets `SelectedItem`, and `aria-disabled="true"` only dims the text or the fill, so it gets the `GrayText` the browser gives a native disabled button.
-- `Card`: the hovered card-link border only changes color, so it gets `Highlight`.
-- `Carousel`: the scroll markers are fills, so they get a `ButtonText` outline and `SelectedItem` for the current one.
+- `Callout`: every boundary is a real border, but the default severity and close icons are masks, so they get `CanvasText` and `ButtonText`.
+- `Card`: the hovered card-link border only changes color, so it gets `Highlight`, and the default close icon of a `Dialog` or `Drawer` header is a mask, so it gets `ButtonText`.
+- `Carousel`: the scroll markers are fills, so they get a `ButtonText` outline and `SelectedItem` for the current one, and the scroll buttons draw their icon in the inverse of their face from stacked backgrounds, so they keep it on `Canvas` with a `ButtonText` border and `forced-color-adjust: none`.
 - `Checkbox`, `Radio`, `Switch` and `Choice` (their shared root): the checked mark, the switch track and the checked `.ui-card` border are tints, so they get `SelectedItem`, `SelectedItemText` and `CanvasText`, and the invalid state is a color, so an invalid input, switch track or card gets a dashed border.
 - `Chip`: the severity dot and the selected state are fills, so they get `CanvasText` and `SelectedItem`, and the dot on a pressed chip `SelectedItemText`, like its label. `aria-disabled="true"` gets `GrayText`, like `Button`.
 - `ControlGroup`: the edges between controls are real borders, but a link button's would be `LinkText`, so every button gets a `ButtonBorder` border and the edges are one color.
-- `Divider`: the line is a background, so it becomes a `CanvasText` border.
-- `List`: selected and current items are tints, so they get `SelectedItem`, and the check of a `Menu`, listbox or `Select` option is a mask in `currentColor`, so it follows their `SelectedItemText`.
+- `List`: selected and current items are tints, so they get `SelectedItem`, and the check of a `Menu`, listbox or `Select` option is a mask, so it gets their `SelectedItemText`.
 - `Message`: the bubble is a fill, so it gets a `CanvasText` border, the typing dots keep `CanvasText`, and a checked reaction is a tint, so it gets `SelectedItem`.
+- `NumberField`: the default icons of the step buttons are masks, so they get `ButtonText`. `text-field.css` and `button.css` cover the field and the buttons.
 - `OneTimeCode`: the boxes and the ring are masks, so they get `CanvasText`, `GrayText` when disabled and `Highlight` with focus, and the field has no border for the dashed invalid border of `TextField`, so an invalid code gets a dashed outline.
 - `Progress`: the filled track, so it gets `SelectedItem` and a `CanvasText` outline, and the ring of `.ui-round` is a gradient, so it keeps `SelectedItem` and `GrayText` with `forced-color-adjust: none`.
 - `Range`: the track and its fill are backgrounds, so they get `CanvasText` and `SelectedItem`, and the invalid state is a color, so an invalid thumb gets a dashed border.
 - `Rating`: the stars are masks over backgrounds, so filled stars get `SelectedItem` on the input and `CanvasText` on the meter, empty stars `GrayText` and the clear icon `ButtonText`, and the invalid state is a color, so the stars of an invalid input get a dashed border.
-- `Select`: the picker chevron is a mask, so it gets `ButtonText`.
+- `Select`: the picker chevron is a mask, so it gets `ButtonText`, and the check of the selected option `SelectedItemText`.
 - `SortableTable`: the sort arrow is a mask, so it gets `ButtonText`.
 - `Spinner`: a `CanvasText` ring with `forced-color-adjust: none`, so its transparent segment is kept and the spin stays visible.
 - `Stepper`: complete and error markers and the line after a complete step are fills, so they get `CanvasText`, the current marker `Highlight` and the line to a later step `GrayText`.
 - `Tabs`: the selected tab is a tint, so it gets `SelectedItem` and a `CanvasText` border, and its focus ring, where it's drawn inside the fill, `SelectedItemText`.
-- `TextField`: the field border is real, but the focus outline gets `Highlight`, an invalid field, whose red border is forced away, a dashed border, and the autosuggest mask chevron `ButtonText`. `Select` and `Textarea` share the stylesheet.
+- `TextField`: the field border is real, but the focus outline gets `Highlight`, an invalid field, whose red border is forced away, a dashed border, and the autosuggest mask chevron and the default icons of the password toggle `ButtonText`. `Select` and `Textarea` share the stylesheet.
 - `Timeline`: colored and current markers are fills, so they get `CanvasText`, and the current marker and the tracked line `Highlight`.
-- `Toaster`: every toast is a `Callout`, whose boundary is a real border, and the severity and close icons are masks, so they get `CanvasText` and `ButtonText`.
 - `ToggleButton`: the checked state is a tint, so it gets `SelectedItem`.
 - `ToggleGroup`: the dividers are column and row rules, which the browser forces to `CanvasText`, but browsers without gap decorations draw them as shadows, which forced colors drops, so the block gives each button `CanvasText` borders, which `css/compat/toggle-group.css` sets to a border width there.
 - `Tooltip`: the surface and the arrow are fills, so they get a `CanvasText` border and arrow.
@@ -561,13 +589,12 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 
 The components without a block, and why:
 
-- `Accordion`: every variant border is real, including the elevated and tonal edge, which the browser forces to `CanvasText`.
 - `Anchor`, `Copy`, `SelectAll`: layout only, no boundary or state of their own. The `Copy` label is a bordered surface, which the browser forces to `CanvasText`, next to its announcement.
-- `DescriptionList`, `Form`, `Layout`: the browser forces their lines and colors itself. The `DescriptionList` leaders and total line are real borders and the `Layout` `.ui-bordered` lines are column and row rules, both forced to `CanvasText`. The invalid end text of a `Form` fieldset loses its color, while the invalid controls inside keep their dashed border.
-- `Badge`, `Callout`, `Dialog`, `Drawer`, `Menu`, `Table`: every boundary is a real border, which the browser forces to `CanvasText`.
+- `DescriptionList`, `Divider`, `Form`, `Layout`: the browser forces their lines and colors itself. The `DescriptionList` leaders and total line and the `Divider` line are real borders and the `Layout` `.ui-bordered` lines are column and row rules, all forced to `CanvasText`. The invalid end text of a `Form` fieldset loses its color, while the invalid controls inside keep their dashed border.
+- `Badge`, `Dialog`, `Drawer`, `Menu`, `Table`: every boundary is a real border, which the browser forces to `CanvasText`.
+- `Toaster`: every toast is a `Callout`, and `callout.css` has the block for its border and its severity and close icons.
 - `Link`: text and underlines, forced to `LinkText` and `CanvasText`.
 - `Stat`: text only, no boundary or state.
-- `NumberField`: `number-field.css` only centers the value and hides the spin buttons; `text-field.css` and `button.css` cover the field and the buttons.
 - `Textarea`: `textarea.css` only sizes the control; `text-field.css` has the block.
 
 When a component gains a shadow-only edge or a color-only state, it gets a block and this list is updated.
@@ -580,7 +607,7 @@ When a component gains a shadow-only edge or a color-only state, it gets a block
 
 `if()` reads a switch token (`--ui-contrast`, `--ui-motion`) on the element itself, so it also sees a value the element sets, which `@container style()` can't:
 
-- One declaration of a standard property that swaps on the switch is an `if(style(…): …; else: …)` value: `scroll-behavior` on `html` and the `Carousel`, the `Spinner` opacity. A browser without `if()` drops the declaration, so the compat layer holds the style query it replaced, behind `@supports not (inline-size: if(else: 0px))`.
+- One declaration of a standard property that swaps on the switch is an `if(style(…): …; else: …)` value: `scroll-behavior` on `html` and the `Carousel`, the `Spinner` opacity. A browser without `if()` drops the declaration, so the compat layer holds the style query it replaced, behind `@supports not (inline-size: if(else: 0px))`. `html` has no container to query and `normalize.css` no compat file, so its fallback sits next to the declaration and follows `prefers-reduced-motion` and the motion classes.
 - Several declarations, a nested rule or a query that also reads a size stay a `@container style()` block.
 - A custom property takes `if()` only where the value has to follow a token set on the element itself, like the `ControlGroup` dividers. A browser without `if()` can't drop it: it is invalid wherever it is read, so it needs its compat rule too. A swap that a `@container style()` block can do stays one.
 

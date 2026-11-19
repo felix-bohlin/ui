@@ -36,23 +36,6 @@ export const keywords = ["listbox", "menu list", "ul"]
     "overflow-clip",
     "relative-color",
   ]}
-  changelogPaths={[
-    {
-      path: "packages/opui/components/List/List.astro",
-      type: "component",
-    },
-    {
-      path: "packages/opui/components/ListItem/ListItem.astro",
-      type: "component",
-    },
-    { path: "src/docs/components/list.astro", type: "docs" },
-    { path: "src/component-examples/list", type: "docs" },
-    {
-      path: "packages/opui/css/components/list.css",
-      type: "css",
-    },
-    { path: "src/component-api/list", type: "api" },
-  ]}
   installationTabs={[{ title: "list.css", code: ListCSS, lang: "css" }]}
 >
   <Fragment slot="title">List</Fragment>
@@ -149,6 +132,18 @@ export const keywords = ["listbox", "menu list", "ul"]
         A <code>.ui-icon-checked</code> at the end of the row shows your own
         icon while the row is selected or current.
       </Fragment>
+      <Fragment slot="react">
+        The <code>iconChecked</code> prop of a <code>ListItem</code> shows your
+        own icon at the end while the row is selected or current.
+      </Fragment>
+      <Fragment slot="solid">
+        The <code>iconChecked</code> prop of a <code>ListItem</code> shows your
+        own icon at the end while the row is selected or current.
+      </Fragment>
+      <Fragment slot="svelte">
+        The <code>iconChecked</code> snippet of a <code>ListItem</code> shows
+        your own icon at the end while the row is selected or current.
+      </Fragment>
     </Conditional>
     <AutoExample name="Selected" />
   </section>
@@ -221,6 +216,15 @@ export const keywords = ["listbox", "menu list", "ul"]
 
     <h3 id="switch">Switch</h3>
     <AutoExample name="EndSwitch" />
+  </section>
+
+  <section id="ordered">
+    <h2>Ordered</h2>
+    <p>
+      When the order is the content, like a ranking or steps, render an
+      <PropOrClass prop='as="ol"' class="ol" /> so it's announced as one.
+    </p>
+    <AutoExample name="Ordered" column />
   </section>
 
   <section id="inset">
@@ -302,8 +306,8 @@ export const keywords = ["listbox", "menu list", "ul"]
         </ListItem>
         <ListItem
           aria-current="true"
-          label="Omar Haddad"
-          description="Developer"
+          label="Ozzy Thump"
+          description="Slap enthusiast"
           href="#selected"
         >
           <svg

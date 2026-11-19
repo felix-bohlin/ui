@@ -4,7 +4,7 @@
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { idRefs } from "../id"
-  import { middleValue } from "./value"
+  import { formatValue, middleValue } from "./value"
   import type { Props } from "./types.svelte"
 
   let {
@@ -18,6 +18,7 @@
     hideLabel,
     id,
     items,
+    lang,
     list,
     max,
     min,
@@ -54,7 +55,9 @@
   const hasValue = $derived(valueSuffix !== undefined || hasValueText)
   const hasDatalist = $derived(!!items || datalist)
   const current = $derived(getValue() ?? middleValue({ max, min, step }))
-  const readout = $derived(`${current}${valueSuffix ?? ""}`)
+  const readout = $derived(
+    `${formatValue(current, { lang, min, step })}${valueSuffix ?? ""}`,
+  )
   const tick = $derived(
     items?.find(
       (option) =>
@@ -81,10 +84,11 @@
     className,
   ]}
   for={hasValue ? inputId : undefined}
+  {lang}
   {style}
 >
   {#if hasLabel}
-    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]} id={labelId}>
+    <span class={hideLabel ? "ui-sr-only" : "ui-label"} id={labelId}>
       {@render content(label)}
     </span>
   {/if}
@@ -125,7 +129,7 @@
   />
   {#if hasDatalist}
     <datalist aria-hidden="true" id={listId}>
-      {#each items ?? [] as option, index (index)}
+      {#each items as option, index (index)}
         {#if typeof option === "object"}
           <option value={option.value} label={option.label}></option>
         {:else}

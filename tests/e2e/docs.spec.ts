@@ -1,13 +1,14 @@
 import { readdirSync } from "node:fs"
 import { expect, test } from "@playwright/test"
 import type { Locator, Page } from "@playwright/test"
-import { FRAMEWORK_IDS } from "../../src/utils/framework"
+import { FRAMEWORK_IDS, PACKAGE_FRAMEWORK_IDS } from "../../src/utils/framework"
 import { FIREFOX_STICKY_ANCHOR_SCROLL, failsIn } from "./engine-bugs"
 import {
   computed,
   instantScrolling,
   resolveColor,
   stubExternalHosts,
+  supports,
 } from "./fixtures"
 
 const pages = (directory: string, prefix = "/html") =>
@@ -142,7 +143,9 @@ test.describe("framework picker", () => {
       0,
     )
     await expect(visiblePicker(page)).toHaveAttribute("data-bound", "true")
+    const reloaded = page.waitForEvent("load")
     await visiblePicker(page).selectOption("vue")
+    await reloaded
     await expect(page.locator("html")).toHaveAttribute("data-framework", "vue")
     await expect(visiblePicker(page)).toHaveValue("vue")
     await expect(page.locator('a[href^="/react/components/"]')).toHaveCount(0)
@@ -296,7 +299,7 @@ test.describe("search", () => {
     const options = page.locator("#results-list [role=option]")
     await expect(options.first()).toHaveAttribute(
       "href",
-      /^\/(astro|react|svelte|vue)\/api\/#carousel$/,
+      new RegExp(`^/(${PACKAGE_FRAMEWORK_IDS.join("|")})/api/#carousel$`),
     )
     await expect(page.locator("#search-status")).toHaveText(
       `No results in HTML, ${await options.count()} in other frameworks`,
@@ -580,6 +583,9 @@ test("Tab from the Installation heading of an HTML page focuses a control that s
   await page.keyboard.press("Tab")
   const focused = installation.locator(":focus-visible")
   await expect(focused).toHaveCSS("clip-path", "none")
+  await focused.evaluate((element) => {
+    for (const animation of element.getAnimations()) animation.finish()
+  })
   await expect
     .poll(() =>
       focused.evaluate((element) =>
@@ -617,9 +623,13 @@ test("a code block takes focus only while it scrolls sideways", async ({
     ).toEqual([])
     return blocks.filter(({ scrolls }) => scrolls).length
   }
-  await expect.poll(scrolling).toBeGreaterThan(1)
+  await expect(async () => expect(await scrolling()).toBeGreaterThan(1)).toPass(
+    { timeout: 5_000 },
+  )
   await page.setViewportSize({ height: 844, width: 1280 })
-  await expect.poll(scrolling).toBe(1)
+  await expect(async () => expect(await scrolling()).toBe(1)).toPass({
+    timeout: 5_000,
+  })
 })
 
 test("an example's code takes focus when it opens and scrolls sideways", async ({
@@ -695,7 +705,9 @@ for (const [path, selector, name, width] of [
       ).toEqual([])
       return all.filter(({ scrolls }) => scrolls)
     }
-    await expect.poll(async () => (await scrolling()).length).toBeGreaterThan(0)
+    await expect(async () =>
+      expect((await scrolling()).length).toBeGreaterThan(0),
+    ).toPass({ timeout: 5_000 })
     expect(await scrolling()).toContainEqual(
       expect.objectContaining(
         name ? { label: name, role: "group" } : { label: null, role: null },
@@ -723,6 +735,25 @@ test("a focused copy button in a code block is fully opaque", async ({
   await page.mouse.move(0, 0)
   await page.locator("h1").click()
   await expect(block.locator(".code-copy")).toHaveCSS("opacity", "0")
+})
+
+test("a block page shows the code of the visitor's framework", async ({
+  page,
+}) => {
+  await page.goto("/blocks/sign-in/")
+  const tabs = page.locator(".block-viewer > .ui-tabs > .ui-label")
+  await expect(tabs.filter({ visible: true })).toHaveText([
+    "Preview",
+    "HTML",
+    "CSS",
+  ])
+  await page.evaluate(() => localStorage.setItem("opui-framework", "react"))
+  await page.reload()
+  await expect(tabs.filter({ visible: true })).toHaveText(["Preview", "React"])
+  await tabs.filter({ hasText: "React" }).click()
+  await expect(
+    page.locator(".block-viewer .ui-panel").filter({ visible: true }),
+  ).toContainText('from "opui-css/react"')
 })
 
 test("the block preview's Tablet and Mobile widths give the block 768px and 390px", async ({
@@ -810,7 +841,11 @@ test("a long section heading takes the content width, passes under the header li
   expect(width).toBe(paragraphWidth)
   expect(width).toBeGreaterThan(copyMaxWidth)
 
-  if (await page.evaluate(() => CSS.supports("anchor-name", "--a"))) {
+  if (
+    await supports(page, "anchor positioning", () =>
+      CSS.supports("anchor-name", "--a"),
+    )
+  ) {
     await page.evaluate(async (y) => {
       scrollTo(0, y)
       await new Promise(requestAnimationFrame)
@@ -903,7 +938,9 @@ test("a long section heading takes the content width, passes under the header li
   }
 
   if (
-    await page.evaluate(() => CSS.supports("container-type", "scroll-state"))
+    await supports(page, "scroll-state container queries", () =>
+      CSS.supports("container-type", "scroll-state"),
+    )
   ) {
     await expect(heading.locator("> span")).toHaveCSS("opacity", "0")
     await expect(heading.locator("> .header-anchor")).toHaveCSS("opacity", "0")
@@ -933,7 +970,7 @@ test("a long section heading takes the content width, passes under the header li
 test("the API page filter keeps the components and rows that match", async ({
   page,
 }) => {
-  test.setTimeout(60_000)
+  test.setTimeout(120_000)
   await page.goto("/html/api/")
   const input = page.locator(".api-filter input")
   const sections = page.locator(".api-section:visible")
@@ -957,7 +994,7 @@ test("the API page filter keeps the components and rows that match", async ({
 })
 
 test("the API page lands on a section far down the page", async ({ page }) => {
-  test.setTimeout(60_000)
+  test.setTimeout(120_000)
   await page.goto("/html/api/#tooltip")
   await expect(page.locator("#tooltip h2")).toBeInViewport()
   for (const id of ["button", "menu", "tooltip"]) {

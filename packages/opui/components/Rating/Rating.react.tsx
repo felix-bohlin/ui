@@ -1,7 +1,6 @@
 "use client"
 
 import { cx } from "../cx"
-import { seedChecked } from "../react"
 import { mergeStyle, pluralLabel } from "../style"
 import type { Props } from "./types.react"
 
@@ -53,7 +52,6 @@ export default function Rating({
           checked={value !== undefined ? current === 0 : undefined}
           defaultChecked={value !== undefined ? undefined : current === 0}
           onChange={() => onValueChange?.(0)}
-          ref={seedChecked(() => onValueChange?.(0))}
           name={name}
           type="radio"
           value={0}
@@ -68,7 +66,6 @@ export default function Rating({
           checked={value !== undefined ? current === star : undefined}
           defaultChecked={value !== undefined ? undefined : current === star}
           onChange={() => onValueChange?.(star)}
-          ref={seedChecked(() => onValueChange?.(star))}
           name={name}
           required={required}
           type="radio"

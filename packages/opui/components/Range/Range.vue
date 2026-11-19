@@ -5,7 +5,6 @@ import { useBound, useInputAttrs } from "../vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { idRefs } from "../id"
 import { formatValue, middleValue } from "./value"
-import { defined } from "../attrs"
 import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -149,7 +148,7 @@ const describedBy = () =>
     />
     <input
       v-else
-      v-bind="{ ...defined({ value }), ...attrs }"
+      v-bind="attrs"
       :aria-describedby="describedBy()"
       :aria-invalid="error ? 'true' : attrs['aria-invalid']"
       :aria-labelledby="labelId() ?? attrs['aria-labelledby']"
@@ -164,6 +163,7 @@ const describedBy = () =>
       :name="name ?? field?.name"
       :step="step"
       type="range"
+      :value.attr="value"
     />
     <datalist v-if="hasDatalist()" aria-hidden="true" :id="listId()">
       <template v-for="(option, index) in items" :key="index"

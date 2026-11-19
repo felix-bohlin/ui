@@ -24,6 +24,7 @@ const tabs = ["one", "two", "three"]
 const views = ["day", "week", "month"]
 
 export default function Opui() {
+  const [round, setRound] = createSignal(0)
   const [checkbox, setCheckbox] = createSignal(true)
   const [group, setGroup] = createSignal("week")
   const [radio, setRadio] = createSignal("coffee")
@@ -43,6 +44,9 @@ export default function Opui() {
           onChange={(event) => setCheckbox(event.currentTarget.checked)}
         />
         <output>{String(checkbox())}</output>
+      </form>
+      <form data-case="checkbox-rerender">
+        <Checkbox data-round={round()} defaultChecked label="Agree" />
       </form>
       <form data-case="checkbox-default">
         <Checkbox defaultChecked label="Agree" />
@@ -174,6 +178,9 @@ export default function Opui() {
         />
         <output>{text()}</output>
       </form>
+      <form data-case="text-rerender">
+        <TextField data-round={round()} defaultValue="Ada" label="Name" />
+      </form>
       <form data-case="text-default">
         <TextField defaultValue="Ada" label="Name" />
       </form>
@@ -195,6 +202,9 @@ export default function Opui() {
       <form data-case="toggle-empty">
         <ToggleButton>Bold</ToggleButton>
       </form>
+      <button data-rerender onClick={() => setRound(round() + 1)} type="button">
+        Render again
+      </button>
     </>
   )
 }

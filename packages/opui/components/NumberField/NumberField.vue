@@ -23,6 +23,7 @@ const {
   spread,
   startText,
   stretch,
+  value,
   variant,
 } = defineProps<Props>()
 const slots = defineSlots<Slots>()
@@ -130,6 +131,7 @@ const endTextId = () =>
         :id="inputId"
         :name="name ?? field?.name"
         type="number"
+        :value.attr="value"
       />
       <span class="ui-end">
         <Button

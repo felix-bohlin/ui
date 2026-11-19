@@ -1872,10 +1872,11 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): close a `dialog.ui-drawer[data-close-on-navigate][open]` on a click on an `a[href]` inside it, skipping `target`, `download` and modifier clicks, as `elements/menu.js` does for menu link items. Measured in the Astro reference app: the drawer closes while still connected, with its transition, before `astro:before-swap`.
     - B: also listen for `astro:before-preparation` and close unless `navigationType` is `traverse` or the destination keeps the page. It covers form submits and scripted navigations too, and does nothing outside Astro.
-- [ ] (3) Tabs, ToggleGroup: in React, a group that owns its selection ignores a form reset: the reset puts the inputs back to the first choice, but the group's `useState` keeps the last one and the next render writes it into `checked` again, and `onValueChange` never fires for the reset. Vue's item directive follows a reset (`packages/opui/components/Tabs/Tabs.react.tsx`, `packages/opui/components/ToggleGroup/ToggleGroup.react.tsx`, `packages/opui/components/react.ts:72`, `scripts/component-models.mjs:124`)
+- [x] (3) Tabs, ToggleGroup: in React, a group that owns its selection ignores a form reset: the reset puts the inputs back to the first choice, but the group's `useState` keeps the last one and the next render writes it into `checked` again, and `onValueChange` never fires for the reset. Vue's item directive follows a reset (`packages/opui/components/Tabs/Tabs.react.tsx`, `packages/opui/components/ToggleGroup/ToggleGroup.react.tsx`, `packages/opui/components/react.ts:72`, `scripts/component-models.mjs:124`)
   - Summary: In React, a toggle group or tabs in a form jump back to the last choice on the first render after a reset.
   - Recommended: Fix. Confirm it in a browser first, since it was read from the react-dom source.
   - Fix: not yet run in a browser: read from react-dom 19.3.1 (`updateInput` writes `checked` whenever the prop is set). Confirm with a form holding `<ToggleGroup defaultValue="left">`, two buttons, a reset button and a button that sets parent state: click Right, Reset, then the state button, and expect Left. Then let `useSeedChecked` listen for the form's `reset` and report the input whose state differs from the group's, and add the scenario to `pnpm test:apps`. `tests/unit/react-seed.test.ts` must stay green.
+  - Fixed: A React group keeps no state: it shares `value` and `defaultValue`, and an item renders `defaultChecked` from the group's `defaultValue`, so a form reset returns the inputs to the first choice and nothing writes the last one back, as with native radios (`packages/opui/components/Tabs/Tabs.react.tsx`, `packages/opui/components/Tabs/TabsItem.react.tsx`).
 - [ ] (3) Package: in Solid, a control whose `value` or `checked` prop is read again without changing gets that prop written over what the user entered, once: `control` defers its effect, and the first deferred run gets `undefined` as the previous value, so it writes. Later runs with an unchanged value write nothing (`packages/opui/components/solid.ts:11-27`, `packages/opui/components/TextField/TextField.solid.tsx:59`)
   - Summary: In Solid, typed text or a ticked box can snap back once when an unrelated prop of the same object changes.
   - Recommended: Fix. The helper only has to tell its first run from a changed value.
@@ -1915,7 +1916,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
             keyof Base.Props
           >)
     ```
-- [ ] (3) TextField: in Vue, a `value` prop passed without `v-model` stops being followed once the user has edited the field: `defineModel` keeps a local value from the first edit on and the model's getter prefers it. The Solid note for `value` says it "follows it when it changes", and Vue has no note that says otherwise (`scripts/component-models.mjs`, `packages/opui/components/TextField/TextField.vue:44-49`, `src/component-api/text-field/api.ts:66`)
+- [x] (3) TextField: in Vue, a `value` prop passed without `v-model` stops being followed once the user has edited the field: `defineModel` keeps a local value from the first edit on and the model's getter prefers it. The Solid note for `value` says it "follows it when it changes", and Vue has no note that says otherwise (`scripts/component-models.mjs`, `packages/opui/components/TextField/TextField.vue:44-49`, `src/component-api/text-field/api.ts:66`)
   - Summary: In Vue, a field given `:value` ignores a new value from the parent once the user has typed in it.
   - Recommended: Fix with option B. It matches how Vue's own `v-model` components treat a fallback prop.
   - Fix: the Vue reviewer ran the model on a test renderer: `value="a"`, the user types `ab`, the parent sets `reset`, and the input still shows `ab`. Before the first keystroke the same change does reach the input. NumberField, OneTimeCode, Range, Rating, Select and Textarea share the model and behave the same; Checkbox, Radio and Switch are not affected.
@@ -1930,6 +1931,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
       )
       ```
     - B (recommended): keep the behavior and say in each `api.ts` that in Vue `value` is the starting value and `v-model` the way to control the field.
+  - Fixed: A Vue control without `v-model` no longer runs through `defineModel`: it renders the plain input with `value` as its attribute (`:value.attr`), as in HTML. A new `value` updates a field the user hasn't edited and leaves the text of one they have, and `v-model` controls the field (`scripts/component-vue.mjs`, `packages/opui/components/TextField/TextField.vue`).
 - [ ] (4) Textarea: opui-character-count keeps the old count when a framework sets the field's value. It updates on `input`, on its form's `reset` and on attribute changes, but React, Solid, Svelte and Vue set the `value` property, and a `<textarea>` has no `value` attribute to observe, so a composer the app empties after a post still shows 20/280 (`packages/opui/elements/character-count.js:50-74`, `tests/reference/spec/feed.spec.ts:38-55`)
   - Summary: After an app clears a field with a character count, the count still shows the old length.
   - Recommended: Fix with option A. It covers every way a framework sets the value, with no change to the components.
@@ -4651,7 +4653,7 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - B: keep it opt-in in HTML, as the Menu page says, and leave the examples as they are.
   - Explained: Option B. The HTML examples stay opt-in, as the Menu page already says under Basics: "Import `opui-css/elements/close-on-navigate.js` to close an open menu when the page navigates, also with a client router." The components load it because they can't leave it out; HTML readers choose.
   - Removed: Settled with option B in the note above: the HTML examples stay opt-in, and the Menu page says under Basics to import `opui-css/elements/close-on-navigate.js` (`src/docs/components/menu.astro:157`). Nothing is left to change.
-- [ ] (3) Tabs, ToggleGroup: in Vue, a group whose `v-model` is bound to a ref that is still `undefined` never writes it: `change` only assigns the model when it already has a value, so the parent is not told about the first choice. The API note documents it, while the React and Solid notes promise that `onValueChange` still reports changes (`scripts/component-models.mjs:177`, `packages/opui/components/Tabs/Tabs.vue:21`, `packages/opui/components/ToggleGroup/ToggleGroup.vue:26-29`, `src/component-api/toggle-group/api.ts:38`)
+- [x] (3) Tabs, ToggleGroup: in Vue, a group whose `v-model` is bound to a ref that is still `undefined` never writes it: `change` only assigns the model when it already has a value, so the parent is not told about the first choice. The API note documents it, while the React and Solid notes promise that `onValueChange` still reports changes (`scripts/component-models.mjs:177`, `packages/opui/components/Tabs/Tabs.vue:21`, `packages/opui/components/ToggleGroup/ToggleGroup.vue:26-29`, `src/component-api/toggle-group/api.ts:38`)
   - Summary: In Vue, `v-model` on tabs or a toggle group bound to an empty ref never receives the user's choice.
   - Recommended: Explain further and provide an example. It is documented behavior that a Vue user would not expect.
   - Fix: the Vue reviewer ran the group on a test renderer: with `const picked = ref<string>()` and `<ToggleGroup v-model="picked">`, a click leaves `picked` undefined and emits nothing; starting from `"a"` it emits `b`.
@@ -4666,6 +4668,7 @@ Custom elements (web components) the library could add, for behavior that HTML a
       ```
     - B: keep it, and move the sentence from the API note to the top of the Vue binding sections of both pages.
   - Must stay green: `tests/e2e/example-state.spec.ts`, `tests/unit/dev-warnings.test.ts` (no false grouped `checked` warning) and the Nuxt and Vite Vue apps in `pnpm test:apps`.
+  - Fixed: A bound Vue group shares its model, and each item binds its input with `v-model` to it, so the first choice writes a ref that starts `undefined`, as `v-model` on native radios does (`packages/opui/components/Tabs/TabsItem.vue`, `src/component-api/tabs/api.ts`).
 
 ## Suggestions
 

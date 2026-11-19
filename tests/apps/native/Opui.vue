@@ -23,6 +23,8 @@ const colors = [
 const tabs = ["one", "two", "three"]
 const views = ["day", "week", "month"]
 
+const round = ref(0)
+
 const state = ref({
   checkbox: true,
   group: "week",
@@ -40,6 +42,9 @@ const state = ref({
   <form data-case="checkbox-bound">
     <Checkbox v-model="state.checkbox" label="Agree" />
     <output>{{ state.checkbox }}</output>
+  </form>
+  <form data-case="checkbox-rerender">
+    <Checkbox checked :data-round="round" label="Agree" />
   </form>
   <form data-case="checkbox-default">
     <Checkbox checked label="Agree" />
@@ -137,6 +142,9 @@ const state = ref({
     <TextField v-model="state.text" label="Name" />
     <output>{{ state.text }}</output>
   </form>
+  <form data-case="text-rerender">
+    <TextField :data-round="round" label="Name" value="Ada" />
+  </form>
   <form data-case="text-default">
     <TextField label="Name" value="Ada" />
   </form>
@@ -153,4 +161,5 @@ const state = ref({
   <form data-case="toggle-empty">
     <ToggleButton>Bold</ToggleButton>
   </form>
+  <button data-rerender type="button" @click="round++">Render again</button>
 </template>

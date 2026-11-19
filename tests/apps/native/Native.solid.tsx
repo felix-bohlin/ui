@@ -7,6 +7,7 @@ const tabs = ["one", "two", "three"]
 const views = ["day", "week", "month"]
 
 export default function Native() {
+  const [round, setRound] = createSignal(0)
   const [checkbox, setCheckbox] = createSignal(true)
   const [group, setGroup] = createSignal("week")
   const [radio, setRadio] = createSignal("coffee")
@@ -27,6 +28,14 @@ export default function Native() {
           type="checkbox"
         />
         <output>{String(checkbox())}</output>
+      </form>
+      <form data-case="checkbox-rerender">
+        <input
+          aria-label="Agree"
+          data-round={round()}
+          defaultChecked
+          type="checkbox"
+        />
       </form>
       <form data-case="checkbox-default">
         <input aria-label="Agree" defaultChecked type="checkbox" />
@@ -209,6 +218,9 @@ export default function Native() {
         />
         <output>{text()}</output>
       </form>
+      <form data-case="text-rerender">
+        <input aria-label="Name" data-round={round()} defaultValue="Ada" />
+      </form>
       <form data-case="text-default">
         <input aria-label="Name" defaultValue="Ada" />
       </form>
@@ -230,6 +242,9 @@ export default function Native() {
       <form data-case="toggle-empty">
         <input aria-label="Bold" type="checkbox" />
       </form>
+      <button data-rerender onClick={() => setRound(round() + 1)} type="button">
+        Render again
+      </button>
     </>
   )
 }

@@ -1,8 +1,7 @@
 /** @jsxImportSource @solidjs/web */
-import { createSignal, createUniqueId, omit, untrack } from "solid-js"
+import { createUniqueId, omit, untrack } from "solid-js"
 import { TabsContext } from "./context.solid"
 import { warnUnnamedGroup } from "../dev"
-import { restoreChecked } from "../solid"
 import type { Props } from "./types.solid"
 
 export default function Tabs(props: Props) {
@@ -20,12 +19,8 @@ export default function Tabs(props: Props) {
     "children",
   )
   const uid = createUniqueId()
-  const [inner, setInner] = createSignal(untrack(() => props.defaultValue))
   const change = (input: HTMLInputElement) => {
-    const next = input.value
-    if (inner() !== undefined) setInner(next)
-    props.onValueChange?.(next)
-    restoreChecked(input, () => props.value)
+    props.onValueChange?.(input.value)
   }
   untrack(() => {
     if (props.role === "radiogroup") warnUnnamedGroup("Tabs", rest)
@@ -35,11 +30,14 @@ export default function Tabs(props: Props) {
     <TabsContext
       value={{
         change,
+        get defaultValue() {
+          return props.defaultValue
+        },
         get groupName() {
           return props.name || `tabs-${uid}`
         },
         get value() {
-          return props.value ?? inner()
+          return props.value
         },
       }}
     >

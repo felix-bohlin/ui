@@ -22,6 +22,7 @@ const {
   pattern,
   size,
   spellcheck = undefined,
+  value,
 } = defineProps<Props>()
 const slots = defineSlots<Slots>()
 
@@ -110,6 +111,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
         :maxlength="length"
         :name="name ?? field?.name"
         type="text"
+        :value.attr="value"
       />
     </span>
     <span v-if="hasEndText()" class="ui-end-text" :id="endTextId()"

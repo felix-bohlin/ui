@@ -276,22 +276,9 @@ test("navigating to another page renders its examples", async ({
   ).toEqual([])
 })
 
-const VUE_VALUE =
-  "Vue sets an input's value again when it hydrates whenever the value comes through a prop, which every component receives it as, and leaves a static value on a native input alone"
-
-const CHANGES: {
-  differsIn?: { framework: string; reason: string }
-  example: string
-  label: string
-  to: boolean | string
-}[] = [
+const CHANGES = [
   { example: "checkbox/Basics", label: "Unchecked", to: true },
-  {
-    differsIn: { framework: "vue", reason: VUE_VALUE },
-    example: "number-field/Basics",
-    label: "Quantity",
-    to: "7",
-  },
+  { example: "number-field/Basics", label: "Quantity", to: "7" },
   { example: "radio/Basics", label: "PayPal", to: true },
   { example: "range/Basics", label: "Volume", to: "80" },
   { example: "rating/Input", label: "1 star", to: true },
@@ -316,11 +303,8 @@ const changedSlugs = [
   ...new Set(CHANGES.map(({ example }) => example.split("/")[0] ?? "")),
 ]
 
-const changesOn = (slug: string, framework: string) =>
-  CHANGES.filter(
-    ({ differsIn, example }) =>
-      example.startsWith(`${slug}/`) && differsIn?.framework !== framework,
-  )
+const changesOn = (slug: string) =>
+  CHANGES.filter(({ example }) => example.startsWith(`${slug}/`))
 
 const CONTROLS = "input, select, textarea"
 
@@ -396,7 +380,7 @@ for (const slug of changedSlugs) {
     const release = await holdScripts(page, app.scripts ?? "")
     await page.goto(`/${slug}`, { waitUntil: "commit" })
     const changed = []
-    for (const item of changesOn(slug, app.framework)) {
+    for (const item of changesOn(slug)) {
       const control = await controlOf(page, item)
       const { initial } = await formStateOf(control)
       await change(control, item)
@@ -430,7 +414,7 @@ for (const slug of changedSlugs) {
     const problems = await watch(page)
     await open(page, `/${slug}`)
     const changed = []
-    for (const item of changesOn(slug, app.framework)) {
+    for (const item of changesOn(slug)) {
       const control = await controlOf(page, item)
       const restored = await control.evaluate(
         (element) => (element as HTMLInputElement).type !== "password",
@@ -583,12 +567,14 @@ type NativeStep = { click: number } | { fill: string } | { select: string }
 
 const NATIVE_CASES: {
   after: NativeStep
-  before: NativeStep
+  before?: NativeStep
   name: string
+  rerender?: boolean
 }[] = [
   { after: { click: 0 }, before: { click: 0 }, name: "checkbox-bound" },
   { after: { click: 0 }, before: { click: 0 }, name: "checkbox-default" },
   { after: { click: 0 }, before: { click: 0 }, name: "checkbox-empty" },
+  { after: { click: 0 }, name: "checkbox-rerender", rerender: true },
   { after: { click: 0 }, before: { click: 2 }, name: "group-bound" },
   { after: { click: 0 }, before: { click: 2 }, name: "group-default" },
   { after: { click: 0 }, before: { click: 2 }, name: "group-empty" },
@@ -619,38 +605,26 @@ const NATIVE_CASES: {
     name: "text-default",
   },
   { after: { fill: "Linus" }, before: { fill: "Grace" }, name: "text-empty" },
+  { after: { fill: "Linus" }, name: "text-rerender", rerender: true },
   { after: { click: 0 }, before: { click: 0 }, name: "toggle-bound" },
   { after: { click: 0 }, before: { click: 0 }, name: "toggle-default" },
   { after: { click: 0 }, before: { click: 0 }, name: "toggle-empty" },
 ]
 
-const REACT_SEED =
-  "Rating, Tabs and ToggleGroup report a choice made before hydration to onValueChange (seedChecked in components/react.ts), which a native radio bound in React doesn't"
-const SOLID_DEFAULTS =
-  "the control prints its first value as defaultValue or defaultChecked (initialValue, initialChecked), which a native control bound in Solid doesn't, so a form reset returns to it"
-const SOLID_SEED =
-  "Rating, Tabs and ToggleGroup report a choice made before hydration to onValueChange (seedChecked in components/solid.ts), which a native radio bound in Solid doesn't"
 const SVELTE_DEFAULTS =
   "the control prints its first bound value as defaultValue or defaultChecked (initialValue, initialChecked, seedChecked in components/svelte.ts), which bind: on a native control doesn't, so a form reset returns to it"
 const SVELTE_SELECT =
   "the hand-written Select marks its options selected from the bound value, which bind:value on a native select doesn't"
+const SOLID_SELECT_DEFAULT =
+  "Solid has no defaultValue on a select, so the Select's defaultValue marks its options as the default, as React's native defaultValue does"
+
 const differences = (app: string, reason: string, names: string[]) =>
   names.map((name) => ({ app, name, reason }))
 
 const NATIVE_DIFFERENCES = [
-  ...differences("next", REACT_SEED, [
-    "group-bound",
-    "rating-bound",
-    "tabs-bound",
-  ]),
-  ...differences("nuxt", VUE_VALUE, ["range-default", "text-default"]),
-  ...differences("solid-start", SOLID_SEED, [
-    "group-bound",
-    "rating-bound",
-    "tabs-bound",
-  ]),
   ...differences("sveltekit", SVELTE_DEFAULTS, [
     "checkbox-bound",
+    "checkbox-rerender",
     "group-bound",
     "radio-bound",
     "range-bound",
@@ -660,20 +634,7 @@ const NATIVE_DIFFERENCES = [
     "text-bound",
     "toggle-bound",
   ]),
-  ...differences("sveltekit", SVELTE_SELECT, [
-    "select-bound",
-    "select-default",
-  ]),
-  ...differences("vite-solid", SOLID_DEFAULTS, [
-    "checkbox-bound",
-    "group-bound",
-    "radio-bound",
-    "range-bound",
-    "rating-bound",
-    "tabs-bound",
-    "text-bound",
-    "toggle-bound",
-  ]),
+  ...differences("vite-solid", SOLID_SELECT_DEFAULT, ["select-default"]),
   ...differences("vite-svelte", SVELTE_DEFAULTS, [
     "checkbox-bound",
     "group-bound",
@@ -731,7 +692,7 @@ const nativeStateOf = (form: Locator) =>
 const settle = (page: Page) =>
   page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 100)))
 
-for (const { after, before, name } of NATIVE_CASES) {
+for (const { after, before, name, rerender } of NATIVE_CASES) {
   test(`native/${name} holds the same state as the native control before hydration, after a change and after a form reset`, async ({
     page,
   }, testInfo) => {
@@ -758,16 +719,24 @@ for (const { after, before, name } of NATIVE_CASES) {
     }
 
     if (release) {
-      for (const form of forms) await act(form, before)
+      if (before) for (const form of forms) await act(form, before)
       release()
     }
     await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
     await page.waitForLoadState("load")
     await expectSame(
-      release ? "once it hydrates over a change" : "once it renders",
+      release && before ? "once it hydrates over a change" : "once it renders",
     )
     for (const form of forms) await act(form, after)
     await expectSame("after a change")
+    if (rerender) {
+      for (const side of ["Native", "Opui"]) {
+        await page
+          .locator(`[data-example="native/${side}"] [data-rerender]`)
+          .click()
+      }
+      await expectSame("after the page renders it again")
+    }
     for (const form of forms) {
       await form.evaluate((element) => (element as HTMLFormElement).reset())
     }

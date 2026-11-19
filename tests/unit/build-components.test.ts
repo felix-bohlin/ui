@@ -1139,8 +1139,8 @@ describe("the ports of a sample", () => {
     )
     expect(react).toContain('onChange={() => onValueChange?.("0")}')
     expect(react).toContain("onChange={() => onValueChange?.(star)}")
-    expect(react).toContain('import { seedChecked } from "../react"\n')
-    expect(react).toContain("ref={seedChecked(() => onValueChange?.(star))}")
+    expect(react).not.toContain("seedChecked")
+    expect(react).not.toContain("ref=")
     const svelte = port(".svelte")
     expect(svelte).toContain("value = $bindable(),")
     expect(svelte).toContain('value = "0"')
@@ -1169,18 +1169,10 @@ describe("the ports of a sample", () => {
       'const itemCheckedControl = control(\n            "checked",\n            () =>\n              props.value === undefined ? undefined : current() === star(),\n            untrack(() => current() === star()),\n          )',
     )
     expect(solid).toContain("{...itemCheckedControl.server}\n")
-    expect(solid).toContain(
-      'onChange={(event) => {\n          props.onValueChange?.("0")\n          restoreChecked(event.currentTarget, () => props.value)\n        }}',
-    )
-    expect(solid).toContain(
-      "onChange={(event) => {\n                props.onValueChange?.(star())\n                restoreChecked(event.currentTarget, () => props.value)\n              }}",
-    )
-    expect(solid).toContain(
-      'import { control, restoreChecked, seedChecked } from "../solid"\n',
-    )
-    expect(solid).toContain(
-      "ref={[\n                itemCheckedControl.ref,\n                seedChecked((input) => {\n                  props.onValueChange?.(star())\n                  restoreChecked(input, () => props.value)\n                }),\n              ]}",
-    )
+    expect(solid).toContain('onChange={() => props.onValueChange?.("0")}')
+    expect(solid).toContain("onChange={() => props.onValueChange?.(star())}")
+    expect(solid).toContain('import { control } from "../solid"\n')
+    expect(solid).toContain("ref={itemCheckedControl.ref}")
   })
 
   test("Vue keeps the hyphenated props a component reads out of the attrs its root spreads", async () => {
@@ -1257,7 +1249,7 @@ describe("the ports of a sample", () => {
     )
   })
 
-  test("a value model that only passes through rest declares the prop in Svelte and leaves it in the attrs in Vue", async () => {
+  test("a value model that only passes through rest declares the prop in Svelte and Vue, and Vue binds it as the attribute when nothing is bound", async () => {
     const { outputs } = await compileComponent(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<span class:list={["ui-sample", className]}>\n  <input {...rest} type="number" />\n</span>\n',
       sampleFile(),
@@ -1267,9 +1259,9 @@ describe("the ports of a sample", () => {
       "  let {\n    class: className,\n    defaultValue,\n    value = $bindable(),\n    ...rest\n  }: Props = $props()",
     )
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
-    expect(vue).toContain("defineProps<Props>()")
+    expect(vue).toContain("const { value } = defineProps<Props>()")
     expect(vue).toContain(
-      '<input v-if="bound" v-bind="attrs" type="number" v-model="modelValue" />\n    <input v-else v-bind="attrs" type="number" />',
+      '<input v-if="bound" v-bind="attrs" type="number" v-model="modelValue" />\n    <input v-else v-bind="attrs" type="number" :value.attr="value" />',
     )
   })
 
@@ -1488,7 +1480,7 @@ describe("the ports of a sample", () => {
     )
     const react = outputs.get(sampleFile().replace(".astro", ".react.tsx"))
     expect(react).toContain(
-      "export default function Sample({\n  className,\n  defaultValue,\n  name,\n  onValueChange,\n  value,\n  children,\n  ...rest\n}: Props) {\n  const [inner, setInner] = useState(defaultValue)\n  const change = useCallback(\n    (input: HTMLInputElement) => {\n      const next = input.value\n      setInner((current) => (current === undefined ? current : next))\n      onValueChange?.(next)\n    },\n    [onValueChange],\n  )\n  const context = useMemo<Context>(\n    () => ({ change, name, value: value ?? inner }),\n    [change, inner, name, value],\n  )\n",
+      "export default function Sample({\n  className,\n  defaultValue,\n  name,\n  onValueChange,\n  value,\n  children,\n  ...rest\n}: Props) {\n  const change = useCallback(\n    (input: HTMLInputElement) => {\n      onValueChange?.(input.value)\n    },\n    [onValueChange],\n  )\n",
     )
     expect(react).toContain("<SampleContext value={context}>")
     expect(outputs.get(sampleFile().replace(".astro", ".svelte"))).toContain(
@@ -1501,11 +1493,11 @@ describe("the ports of a sample", () => {
     expect(vue).not.toContain("change")
     const solid = outputs.get(sampleFile().replace(".astro", ".solid.tsx"))
     expect(solid).toContain(
-      "  const [inner, setInner] = createSignal(untrack(() => props.defaultValue))\n  const change = (input: HTMLInputElement) => {\n    const next = input.value\n    if (inner() !== undefined) setInner(next)\n    props.onValueChange?.(next)\n    restoreChecked(input, () => props.value)\n  }\n",
+      "  const change = (input: HTMLInputElement) => {\n    props.onValueChange?.(input.value)\n  }\n",
     )
-    expect(solid).toContain('import { restoreChecked } from "../solid"\n')
+    expect(solid).not.toContain('from "../solid"')
     expect(solid).toContain(
-      "        get value() {\n          return props.value ?? inner()\n        },\n",
+      "        get value() {\n          return props.value\n        },\n",
     )
   })
 
@@ -1520,12 +1512,9 @@ describe("the ports of a sample", () => {
       '  warnGroupedChecked("Sample", grouped, checked ?? defaultChecked, "Tabs")\n',
     )
     expect(react).toContain(
-      '    <>\n      <input\n        checked={grouped ?? checked}\n        defaultChecked={grouped === undefined ? defaultChecked : undefined}\n        className={cx(["ui-sample", className])}\n        type="radio"\n        value={value}\n        {...defined(rest)}\n        ref={inputRef}\n        onChange={(event) => {\n          parent?.change?.(event.currentTarget)\n          onChange?.(event)\n        }}\n      />\n      {children}\n    </>\n',
+      '    <>\n      <input\n        checked={grouped ?? checked}\n        defaultChecked={\n          grouped === undefined\n            ? (isSelected(parent?.defaultValue, value) ?? defaultChecked)\n            : undefined\n        }\n        className={cx(["ui-sample", className])}\n        type="radio"\n        value={value}\n        {...defined(rest)}\n        ref={ref}\n        onChange={(event) => {\n          parent?.change?.(event.currentTarget)\n          onChange?.(event)\n        }}\n      />\n      {children}\n    </>\n',
     )
-    expect(react).toContain('import { useSeedChecked } from "../react"\n')
-    expect(react).toContain(
-      "  const inputRef = useSeedChecked(ref, (input) => parent?.change?.(input))\n",
-    )
+    expect(react).not.toContain('from "../react"')
     const svelte = outputs.get(sampleFile().replace(".astro", ".svelte"))
     expect(svelte).toContain(
       '    warnGroupedChecked("Sample", grouped, checked ?? defaultChecked, "Tabs"),\n',
@@ -1560,14 +1549,12 @@ describe("the ports of a sample", () => {
     expect(solid).toContain(
       '      props.checked ?? props.defaultChecked,\n      "Tabs",\n',
     )
+    expect(solid).toContain('import { callHandler, control } from "../solid"\n')
     expect(solid).toContain(
-      'import { callHandler, control, seedChecked } from "../solid"\n',
+      '  const checkedControl = control(\n    "checked",\n    () => grouped() ?? props.checked,\n    untrack(\n      () =>\n        grouped() ??\n        props.checked ??\n        isSelected(parent?.defaultValue, props.value) ??\n        props.defaultChecked,\n    ),\n  )\n',
     )
     expect(solid).toContain(
-      '  const checkedControl = control(\n    "checked",\n    () => grouped() ?? props.checked,\n    untrack(() => grouped() ?? props.checked ?? props.defaultChecked),\n  )\n',
-    )
-    expect(solid).toContain(
-      '        {...checkedControl.server}\n        class={["ui-sample", props.class]}\n        type="radio"\n        value={props.value}\n        {...defined(rest)}\n        ref={[\n          props.ref,\n          checkedControl.ref,\n          seedChecked((input) => parent?.change?.(input)),\n        ]}\n',
+      '        {...checkedControl.server}\n        class={["ui-sample", props.class]}\n        type="radio"\n        value={props.value}\n        {...defined(rest)}\n        ref={[props.ref, checkedControl.ref]}\n',
     )
     expect(solid).toContain(
       "        onChange={(event) => {\n          parent?.change?.(event.currentTarget)\n          callHandler(props.onChange, event)\n        }}\n",
@@ -1653,7 +1640,7 @@ describe("the ports of a sample", () => {
     )
     expect(vue).not.toContain("selectionOf")
     expect(outputs.get(sampleFile().replace(".astro", ".react.tsx"))).toContain(
-      "      const next = selectionOf(input, multiple)\n      setInner((current) => (current === undefined ? current : next))\n      if (multiple) onValueChange?.(checkedValues(input))\n      else onValueChange?.(input.value)\n    },\n    [multiple, onValueChange],\n",
+      "      if (multiple) onValueChange?.(checkedValues(input))\n      else onValueChange?.(input.value)\n    },\n    [multiple, onValueChange],\n",
     )
     expect(outputs.get(sampleFile().replace(".astro", ".solid.tsx"))).toContain(
       "    if (props.multiple) props.onValueChange?.(checkedValues(input))\n    else props.onValueChange?.(input.value)\n",
@@ -1704,12 +1691,10 @@ describe("the ports of a sample", () => {
     expect(vue.match(/:data-off="!\(model \?\? checked\)"/g)).toHaveLength(2)
     const solid = outputs.get(sampleFile().replace(".astro", ".solid.tsx"))
     expect(solid).toContain(
-      '"checked",\n    () => grouped() ?? props.checked,\n    untrack(() => grouped() ?? props.checked ?? props.defaultChecked),',
+      '"checked",\n    () => grouped() ?? props.checked,\n    untrack(\n      () =>\n        grouped() ??\n        props.checked ??\n        isSelected(group?.defaultValue, props.value) ??\n        props.defaultChecked,\n    ),\n',
     )
     expect(solid).toContain("data-off={!props.checked}")
-    expect(solid).toContain(
-      "ref={[\n          props.ref,\n          checkedControl.ref,\n          seedChecked((input) => group?.change?.(input)),\n        ]}",
-    )
+    expect(solid).toContain("ref={[props.ref, checkedControl.ref]}")
     expect(solid).not.toMatch(/\schecked=\{/)
   })
 

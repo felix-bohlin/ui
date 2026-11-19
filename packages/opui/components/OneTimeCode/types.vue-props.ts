@@ -10,6 +10,7 @@ export type Props = BaseProps &
     name?: IntrinsicElementAttributes["input"]["name"]
     pattern?: IntrinsicElementAttributes["input"]["pattern"]
     spellcheck?: IntrinsicElementAttributes["input"]["spellcheck"]
+    value?: string
   }
 
 export type Slots = { "end-text"?: Slot; label?: Slot }

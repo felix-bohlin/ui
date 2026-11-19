@@ -17,6 +17,7 @@ export type TabsLabelProps = {}
 export type Context = {
   bound?: boolean
   change?: (input: HTMLInputElement) => void
+  defaultValue?: string
   groupName?: string
   tabId?: string
   value?: string

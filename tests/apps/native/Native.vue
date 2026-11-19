@@ -6,6 +6,8 @@ const stars = [0, 1, 2, 3, 4, 5]
 const tabs = ["one", "two", "three"]
 const views = ["day", "week", "month"]
 
+const round = ref(0)
+
 const state = ref({
   checkbox: true,
   group: "week",
@@ -23,6 +25,9 @@ const state = ref({
   <form data-case="checkbox-bound">
     <input v-model="state.checkbox" aria-label="Agree" type="checkbox" />
     <output>{{ state.checkbox }}</output>
+  </form>
+  <form data-case="checkbox-rerender">
+    <input aria-label="Agree" checked :data-round="round" type="checkbox" />
   </form>
   <form data-case="checkbox-default">
     <input aria-label="Agree" checked type="checkbox" />
@@ -166,6 +171,9 @@ const state = ref({
     <input v-model="state.text" aria-label="Name" />
     <output>{{ state.text }}</output>
   </form>
+  <form data-case="text-rerender">
+    <input aria-label="Name" :data-round="round" value="Ada" />
+  </form>
   <form data-case="text-default">
     <input aria-label="Name" value="Ada" />
   </form>
@@ -182,4 +190,5 @@ const state = ref({
   <form data-case="toggle-empty">
     <input aria-label="Bold" type="checkbox" />
   </form>
+  <button data-rerender type="button" @click="round++">Render again</button>
 </template>

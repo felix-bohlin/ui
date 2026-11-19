@@ -575,6 +575,7 @@ export const toVue = (component) => {
             : undefined
     const withOwn = (listed, entry) => {
       if (entry === undefined || entry.child) return listed
+      if (entry.attr) return [...listed, `:${entry.name}.attr="${entry.code}"`]
       usesDefined = true
       const own = `defined({ ${entry.name === entry.code ? entry.name : `${entry.name}: ${entry.code}`} })`
       const at = listed.findIndex((entry) => OBJECT_BINDING.test(entry))

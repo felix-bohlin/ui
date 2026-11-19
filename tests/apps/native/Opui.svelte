@@ -22,7 +22,9 @@
   const tabs = ["one", "two", "three"]
   const views = ["day", "week", "month"]
 
-  const state = $state({
+  let round = $state(0)
+
+  const values = $state({
     checkbox: true,
     group: "week",
     radio: "coffee",
@@ -36,8 +38,11 @@
 </script>
 
 <form data-case="checkbox-bound">
-  <Checkbox bind:checked={state.checkbox} label="Agree" />
-  <output>{state.checkbox}</output>
+  <Checkbox bind:checked={values.checkbox} label="Agree" />
+  <output>{values.checkbox}</output>
+</form>
+<form data-case="checkbox-rerender">
+  <Checkbox checked data-round={round} label="Agree" />
 </form>
 <form data-case="checkbox-default">
   <Checkbox checked label="Agree" />
@@ -46,12 +51,12 @@
   <Checkbox label="Agree" />
 </form>
 <form data-case="group-bound">
-  <ToggleGroup aria-label="View" bind:value={state.group} name="view">
+  <ToggleGroup aria-label="View" bind:value={values.group} name="view">
     {#each views as view (view)}
       <ToggleButton value={view}>{view}</ToggleButton>
     {/each}
   </ToggleGroup>
-  <output>{state.group}</output>
+  <output>{values.group}</output>
 </form>
 <form data-case="group-default">
   <ToggleGroup aria-label="View" name="view">
@@ -70,9 +75,9 @@
   </ToggleGroup>
 </form>
 <form data-case="radio-bound">
-  <Radio bind:group={state.radio} label="Tea" name="drink" value="tea" />
-  <Radio bind:group={state.radio} label="Coffee" name="drink" value="coffee" />
-  <output>{state.radio}</output>
+  <Radio bind:group={values.radio} label="Tea" name="drink" value="tea" />
+  <Radio bind:group={values.radio} label="Coffee" name="drink" value="coffee" />
+  <output>{values.radio}</output>
 </form>
 <form data-case="radio-default">
   <Radio label="Tea" name="drink" value="tea" />
@@ -83,15 +88,15 @@
   <Radio label="Coffee" name="drink" value="coffee" />
 </form>
 <form data-case="range-bound">
-  <Range bind:value={state.range} label="Level" />
-  <output>{state.range}</output>
+  <Range bind:value={values.range} label="Level" />
+  <output>{values.range}</output>
 </form>
 <form data-case="range-default">
   <Range label="Level" value="40" />
 </form>
 <form data-case="rating-bound">
-  <Rating bind:value={state.rating} label="Score" name="score" />
-  <output>{state.rating}</output>
+  <Rating bind:value={values.rating} label="Score" name="score" />
+  <output>{values.rating}</output>
 </form>
 <form data-case="rating-default">
   <Rating label="Score" name="score" value={3} />
@@ -100,14 +105,14 @@
   <Rating label="Score" name="score" />
 </form>
 <form data-case="select-bound">
-  <Select bind:value={state.select} items={colors} label="Color" />
-  <output>{state.select}</output>
+  <Select bind:value={values.select} items={colors} label="Color" />
+  <output>{values.select}</output>
 </form>
 <form data-case="select-default">
   <Select items={colors} label="Color" value="green" />
 </form>
 <form data-case="tabs-bound">
-  <Tabs bind:value={state.tabs} name="tab">
+  <Tabs bind:value={values.tabs} name="tab">
     {#each tabs as tab (tab)}
       <TabsItem value={tab}>
         <TabsLabel>{tab}</TabsLabel>
@@ -115,7 +120,7 @@
       </TabsItem>
     {/each}
   </Tabs>
-  <output>{state.tabs}</output>
+  <output>{values.tabs}</output>
 </form>
 <form data-case="tabs-default">
   <Tabs name="tab">
@@ -128,8 +133,11 @@
   </Tabs>
 </form>
 <form data-case="text-bound">
-  <TextField bind:value={state.text} label="Name" />
-  <output>{state.text}</output>
+  <TextField bind:value={values.text} label="Name" />
+  <output>{values.text}</output>
+</form>
+<form data-case="text-rerender">
+  <TextField data-round={round} label="Name" value="Ada" />
 </form>
 <form data-case="text-default">
   <TextField label="Name" value="Ada" />
@@ -138,8 +146,8 @@
   <TextField label="Name" />
 </form>
 <form data-case="toggle-bound">
-  <ToggleButton bind:checked={state.toggle}>Bold</ToggleButton>
-  <output>{state.toggle}</output>
+  <ToggleButton bind:checked={values.toggle}>Bold</ToggleButton>
+  <output>{values.toggle}</output>
 </form>
 <form data-case="toggle-default">
   <ToggleButton checked>Bold</ToggleButton>
@@ -147,3 +155,5 @@
 <form data-case="toggle-empty">
   <ToggleButton>Bold</ToggleButton>
 </form>
+<button data-rerender onclick={() => round++} type="button">Render again</button
+>

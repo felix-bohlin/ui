@@ -6,6 +6,7 @@ export type Props = BaseProps &
   Class & {
     id?: IntrinsicElementAttributes["input"]["id"]
     name?: IntrinsicElementAttributes["input"]["name"]
+    value?: number | string
   }
 
 export type Slots = {

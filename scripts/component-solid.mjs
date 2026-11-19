@@ -646,7 +646,15 @@ export const toSolid = (component) => {
         controlOf(
           "checked",
           `() => ${rewrite(checked.code, scope)}`,
-          `${rewrite(checked.code, scope)} ?? props.defaultChecked`,
+          `${rewrite(checked.code, scope)} ?? ${rewrite(
+            derived
+              .find(({ name }) => name === item.grouped)
+              .code.replace(
+                new RegExp(`\\b${item.parent}\\?\\.value\\b`),
+                `${item.parent}?.defaultValue`,
+              ),
+            scope,
+          )} ?? props.defaultChecked`,
           scope,
         )
       const guard = hydrating.has(node)
@@ -677,7 +685,9 @@ export const toSolid = (component) => {
         ...(restAt === -1 ? [...modelAttributes, ...guard] : []),
         ...(node.item
           ? [
-              `ref={[\n  props.ref,\n  ${itemControl ? `${itemControl}.ref,\n  ` : ""}seedChecked((input) => ${item.parent}?.change?.(input)),\n]}`,
+              itemControl
+                ? `ref={[props.ref, ${itemControl}.ref]}`
+                : "ref={props.ref}",
               `onChange={(event) => {\n  ${item.parent}?.change?.(event.currentTarget)\n  callHandler(props.onChange, event)\n}}`,
             ]
           : []),
@@ -810,7 +820,7 @@ export const toSolid = (component) => {
   const solidHelpers = [
     ...(kind?.solidHelpers?.(model) ?? []),
     ...(usesControl ? ["control"] : []),
-    ...(item ? ["callHandler", "seedChecked"] : []),
+    ...(item ? ["callHandler"] : []),
     ...(hydrating.size ? ["hydrated", "hydrating"] : []),
   ].toSorted(byName)
   const webValues = [

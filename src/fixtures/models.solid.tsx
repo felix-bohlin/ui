@@ -45,7 +45,7 @@ const Models = () => {
 
   return (
     <form>
-      <TextField error={error()} label="City" value="Lund" />
+      <TextField defaultValue="Lund" error={error()} label="City" />
       <Checkbox checked={false} error={error()}>
         Newsletter
       </Checkbox>

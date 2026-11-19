@@ -15,15 +15,13 @@ const selectionImports = (component, model) =>
 
 const reportImports = (component, model) =>
   arrayRead(model)
-    ? [
-        `import { checkedValues, selectionOf } from "${selectionImport(component)}"`,
-      ]
+    ? [`import { checkedValues } from "${selectionImport(component)}"`]
     : []
 
 const report = (model, callback, multiple) =>
   arrayRead(model)
     ? `if (${multiple}) ${callback}?.(checkedValues(input))\n  else ${callback}?.(input.value)`
-    : `${callback}?.(next)`
+    : `${callback}?.(${model.read})`
 
 const resettable = (model) =>
   model.prop === "value" && ["input", "textarea"].includes(model.element.tag)
@@ -108,40 +106,30 @@ export const MODEL_KINDS = {
   group: {
     react: {
       body: (model) => [
-        "const [inner, setInner] = useState(defaultValue)",
-        `const change = useCallback(\n  (input: HTMLInputElement) => {\n  const next = ${model.read}\n  setInner((current) => (current === undefined ? current : next))\n  ${report(model, "onValueChange", "multiple")}\n},\n  [${arrayRead(model) ? "multiple, " : ""}onValueChange],\n)`,
+        `const change = useCallback(\n  (input: HTMLInputElement) => {\n  ${report(model, "onValueChange", "multiple")}\n},\n  [${arrayRead(model) ? "multiple, " : ""}onValueChange],\n)`,
       ],
       entries: () => ["defaultValue", "onValueChange"],
       imports: reportImports,
-      provided: (model, provide) => [
+      provided: (_, provide) => [
         { code: "change", key: "change" },
-        ...provide.value.map((entry) =>
-          entry.key === model.prop
-            ? { code: `${model.prop} ?? inner`, key: entry.key }
-            : entry,
-        ),
+        { code: "defaultValue", key: "defaultValue" },
+        ...provide.value,
       ],
-      reactValues: () => ["useCallback", "useState"],
+      reactValues: () => ["useCallback"],
       tiedCallbacks: true,
     },
     solid: {
-      body: (model, rewrite) => [
-        "const [inner, setInner] = createSignal(untrack(() => props.defaultValue))",
-        `const change = (input: HTMLInputElement) => {\n  const next = ${rewrite(model.read)}\n  if (inner() !== undefined) setInner(next)\n  ${report(model, "props.onValueChange", "props.multiple")}\n  restoreChecked(input, () => props.${model.prop})\n}`,
+      body: (model) => [
+        `const change = (input: HTMLInputElement) => {\n  ${report(model, "props.onValueChange", "props.multiple")}\n}`,
       ],
       entries: () => ["defaultValue", "onValueChange"],
       imports: reportImports,
-      locals: () => ["change", "inner", "setInner"],
-      provided: (model, provide) => [
+      locals: () => ["change"],
+      provided: (_, provide) => [
         { code: "change", key: "change" },
-        ...provide.value.map((entry) =>
-          entry.key === model.prop
-            ? { code: `props.${model.prop} ?? inner()`, key: entry.key }
-            : entry,
-        ),
+        { code: "props.defaultValue", key: "defaultValue" },
+        ...provide.value,
       ],
-      solidHelpers: () => ["restoreChecked"],
-      solidValues: () => ["createSignal", "untrack"],
       tiedCallbacks: true,
     },
     svelte: {
@@ -173,24 +161,22 @@ export const MODEL_KINDS = {
         `checked={${model.local} !== undefined ? ${checked} : undefined}`,
         `defaultChecked={${model.local} !== undefined ? undefined : ${checked}}`,
         `onChange={() => onValueChange?.(${value})}`,
-        `ref={seedChecked(() => onValueChange?.(${value}))}`,
       ],
-      reactHelpers: () => ["seedChecked"],
       rename: (model) => [[model.local, `${model.local} ?? defaultValue`]],
     },
     solid: {
       entries: () => ["defaultValue", "onValueChange"],
-      radioAttributes: (model, value, control) => [
+      radioAttributes: (_, value, control) => [
         `{...${control}.server}`,
-        `onChange={(event) => {\n  props.onValueChange?.(${value})\n  restoreChecked(event.currentTarget, () => props.${model.prop})\n}}`,
-        `ref={[\n  ${control}.ref,\n  seedChecked((input) => {\n    props.onValueChange?.(${value})\n    restoreChecked(input, () => props.${model.prop})\n  }),\n]}`,
+        `onChange={() => props.onValueChange?.(${value})}`,
+        `ref={${control}.ref}`,
       ],
       radioChecked: (model, checked) =>
         `props.${model.prop} === undefined ? undefined : ${checked}`,
       rename: (model) => [
         [model.local, `props.${model.prop} ?? props.defaultValue`],
       ],
-      solidHelpers: () => ["control", "restoreChecked", "seedChecked"],
+      solidHelpers: () => ["control"],
     },
     svelte: {
       bindables: (model) => [model.prop],
@@ -318,14 +304,11 @@ export const MODEL_KINDS = {
           ? [`const model = computed(() => modelValue.value ?? ${model.local})`]
           : []),
       ],
+      declared: (model) => (model.local ? [] : [model.prop]),
       unboundOwn: (model) =>
-        model.local
-          ? {
-              child: model.element.tag === "textarea",
-              code: model.local,
-              name: model.prop,
-            }
-          : undefined,
+        model.element.tag === "textarea"
+          ? { child: true, code: model.local ?? model.prop, name: model.prop }
+          : { attr: true, code: model.local ?? model.prop, name: model.prop },
       vueHelpers: () => ["useBound"],
     },
   },

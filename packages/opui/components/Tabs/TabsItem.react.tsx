@@ -3,7 +3,6 @@
 import { useId, useMemo } from "react"
 import { defined } from "../attrs"
 import { cx } from "../cx"
-import { useSeedChecked } from "../react"
 import { TabsContext, useTabsContext } from "./context.react"
 import { isSelected } from "../ToggleGroup/selection"
 import { warnGroupedChecked } from "../dev"
@@ -28,7 +27,6 @@ export default function TabsItem({
   const tabId = id || `tab-${uid}`
   const grouped = isSelected(parent?.value, value)
   warnGroupedChecked("TabsItem", grouped, checked ?? defaultChecked, "Tabs")
-  const inputRef = useSeedChecked(ref, (input) => parent?.change?.(input))
   const attrs = defined(rest)
   const context = useMemo<Context>(
     () => ({ groupName, tabId }),
@@ -39,14 +37,18 @@ export default function TabsItem({
     <TabsContext value={context}>
       <input
         checked={grouped ?? checked}
-        defaultChecked={grouped === undefined ? defaultChecked : undefined}
+        defaultChecked={
+          grouped === undefined
+            ? (isSelected(parent?.defaultValue, value) ?? defaultChecked)
+            : undefined
+        }
         className={cx(["ui-input", className])}
         id={tabId}
         name={groupName}
         type="radio"
         value={value}
         {...attrs}
-        ref={inputRef}
+        ref={ref}
         onChange={(event) => {
           parent?.change?.(event.currentTarget)
           onChange?.(event)

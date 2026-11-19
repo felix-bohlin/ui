@@ -28,6 +28,7 @@ const {
   spread,
   startText,
   type = "text",
+  value,
   variant,
 } = defineProps<Props>()
 const slots = defineSlots<Slots>()
@@ -150,6 +151,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
         :id="inputId()"
         :name="name ?? field?.name"
         :type="type"
+        :value.attr="value"
       />
       <span v-if="$slots.end || passwordToggle" class="ui-end" :id="endId()">
         <slot name="end"></slot

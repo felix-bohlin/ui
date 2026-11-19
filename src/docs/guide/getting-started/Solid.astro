@@ -116,9 +116,10 @@ export default defineConfig({
     </p>
     <p>The props in the last column need hydration.</p>
     <p>
-      A choice the user makes before the page hydrates stays on screen.
-      <code>Rating</code>, <code>Tabs</code> and <code>ToggleGroup</code> pass
-      it to <code>onValueChange</code> as they hydrate.
+      A choice the user makes before the page hydrates stays on screen, as on a
+      plain Solid input: Solid doesn't call <code>onChange</code> or
+      <code>onValueChange</code> for it, and a controlled value misses it. A
+      form that reads its values on submit gets it.
     </p>
     <ServerSupport framework="solid" />
   </section>

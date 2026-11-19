@@ -4,7 +4,9 @@
   const tabs = ["one", "two", "three"]
   const views = ["day", "week", "month"]
 
-  const state = $state({
+  let round = $state(0)
+
+  const values = $state({
     checkbox: true,
     group: "week",
     radio: "coffee",
@@ -18,8 +20,11 @@
 </script>
 
 <form data-case="checkbox-bound">
-  <input aria-label="Agree" bind:checked={state.checkbox} type="checkbox" />
-  <output>{state.checkbox}</output>
+  <input aria-label="Agree" bind:checked={values.checkbox} type="checkbox" />
+  <output>{values.checkbox}</output>
+</form>
+<form data-case="checkbox-rerender">
+  <input aria-label="Agree" checked data-round={round} type="checkbox" />
 </form>
 <form data-case="checkbox-default">
   <input aria-label="Agree" checked type="checkbox" />
@@ -31,13 +36,13 @@
   {#each views as view (view)}
     <input
       aria-label={view}
-      bind:group={state.group}
+      bind:group={values.group}
       name="view"
       type="radio"
       value={view}
     />
   {/each}
-  <output>{state.group}</output>
+  <output>{values.group}</output>
 </form>
 <form data-case="group-default">
   {#each views as view (view)}
@@ -58,19 +63,19 @@
 <form data-case="radio-bound">
   <input
     aria-label="Tea"
-    bind:group={state.radio}
+    bind:group={values.radio}
     name="drink"
     type="radio"
     value="tea"
   />
   <input
     aria-label="Coffee"
-    bind:group={state.radio}
+    bind:group={values.radio}
     name="drink"
     type="radio"
     value="coffee"
   />
-  <output>{state.radio}</output>
+  <output>{values.radio}</output>
 </form>
 <form data-case="radio-default">
   <input aria-label="Tea" name="drink" type="radio" value="tea" />
@@ -81,8 +86,8 @@
   <input aria-label="Coffee" name="drink" type="radio" value="coffee" />
 </form>
 <form data-case="range-bound">
-  <input aria-label="Level" bind:value={state.range} type="range" />
-  <output>{state.range}</output>
+  <input aria-label="Level" bind:value={values.range} type="range" />
+  <output>{values.range}</output>
 </form>
 <form data-case="range-default">
   <input aria-label="Level" type="range" value="40" />
@@ -91,13 +96,13 @@
   {#each stars as star (star)}
     <input
       aria-label={`${star} stars`}
-      bind:group={state.rating}
+      bind:group={values.rating}
       name="score"
       type="radio"
       value={star}
     />
   {/each}
-  <output>{state.rating}</output>
+  <output>{values.rating}</output>
 </form>
 <form data-case="rating-default">
   {#each stars as star (star)}
@@ -121,12 +126,12 @@
   {/each}
 </form>
 <form data-case="select-bound">
-  <select aria-label="Color" bind:value={state.select}>
+  <select aria-label="Color" bind:value={values.select}>
     {#each colors as color (color)}
       <option value={color}>{color}</option>
     {/each}
   </select>
-  <output>{state.select}</output>
+  <output>{values.select}</output>
 </form>
 <form data-case="select-default">
   <select aria-label="Color" value="green">
@@ -139,13 +144,13 @@
   {#each tabs as tab (tab)}
     <input
       aria-label={tab}
-      bind:group={state.tabs}
+      bind:group={values.tabs}
       name="tab"
       type="radio"
       value={tab}
     />
   {/each}
-  <output>{state.tabs}</output>
+  <output>{values.tabs}</output>
 </form>
 <form data-case="tabs-default">
   {#each tabs as tab (tab)}
@@ -159,8 +164,11 @@
   {/each}
 </form>
 <form data-case="text-bound">
-  <input aria-label="Name" bind:value={state.text} />
-  <output>{state.text}</output>
+  <input aria-label="Name" bind:value={values.text} />
+  <output>{values.text}</output>
+</form>
+<form data-case="text-rerender">
+  <input aria-label="Name" data-round={round} value="Ada" />
 </form>
 <form data-case="text-default">
   <input aria-label="Name" value="Ada" />
@@ -169,8 +177,8 @@
   <input aria-label="Name" />
 </form>
 <form data-case="toggle-bound">
-  <input aria-label="Bold" bind:checked={state.toggle} type="checkbox" />
-  <output>{state.toggle}</output>
+  <input aria-label="Bold" bind:checked={values.toggle} type="checkbox" />
+  <output>{values.toggle}</output>
 </form>
 <form data-case="toggle-default">
   <input aria-label="Bold" checked type="checkbox" />
@@ -178,3 +186,5 @@
 <form data-case="toggle-empty">
   <input aria-label="Bold" type="checkbox" />
 </form>
+<button data-rerender onclick={() => round++} type="button">Render again</button
+>

@@ -50,6 +50,22 @@ const isSelected = (item: (typeof items)[number]) => {
       : sameValue(item.value, current)
 }
 
+const setValue = (select: HTMLSelectElement, value: unknown) => {
+  if (value === undefined) return
+  for (const option of select.options) {
+    option.selected = [value]
+      .flat()
+      .some((selected) => sameValue(selected, option.value))
+  }
+}
+
+const vValue: ObjectDirective<HTMLSelectElement, unknown> = {
+  mounted: (select, { value }) => setValue(select, value),
+  updated: (select, { oldValue, value }) => {
+    if (value !== oldValue) setValue(select, value)
+  },
+}
+
 const vServerSelected: ObjectDirective<HTMLOptionElement, boolean | undefined> =
   {
     getSSRProps: ({ value }) => (value ? { selected: true } : {}),
@@ -145,6 +161,7 @@ const field = inject(FieldGroupKey, undefined)
       <select
         v-else
         v-bind="inputAttrs"
+        v-value="value"
         :aria-describedby="
           fieldDescribedBy(
             {

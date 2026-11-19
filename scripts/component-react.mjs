@@ -229,6 +229,17 @@ export const toReact = (component) => {
   })
   const slotEntries = slotOrder(slots).map((slot) => slotProp(slot))
   const { item, model, multiRoot } = component
+  const defaultGrouped = item
+    ? rewriteExpression(
+        derived
+          .find(({ name }) => name === item.grouped)
+          .code.replace(
+            new RegExp(`\\b${item.parent}\\?\\.value\\b`),
+            `${item.parent}?.defaultValue`,
+          ),
+        options,
+      )
+    : undefined
   const extraEntries = [
     ...(kind?.entries?.() ?? []),
     ...(item ? ["defaultChecked", "onChange"] : []),
@@ -265,11 +276,6 @@ export const toReact = (component) => {
             item,
             `${item.checked ?? "undefined"} ?? defaultChecked`,
           ),
-        ]
-      : []),
-    ...(item
-      ? [
-          `const inputRef = useSeedChecked(ref, (input) => ${item.parent}?.change?.(input))`,
         ]
       : []),
     ...(events.length
@@ -381,13 +387,13 @@ export const toReact = (component) => {
           : [attribute(node, entry)]),
         ...(node.item && entry.kind === "expression" && entry.name === "checked"
           ? [
-              `defaultChecked={${item.grouped} === undefined ? defaultChecked : undefined}`,
+              `defaultChecked={${item.grouped} === undefined ? (${defaultGrouped} ?? defaultChecked) : undefined}`,
             ]
           : []),
       ]),
       ...(node.item
         ? [
-            "ref={inputRef}",
+            "ref={ref}",
             `onChange={(event) => {\n  ${item.parent}?.change?.(event.currentTarget)\n  onChange?.(event)\n}}`,
           ]
         : []),
@@ -485,7 +491,6 @@ export const toReact = (component) => {
     ...(kind?.reactHelpers?.() ?? []),
     ...(hydrating.size ? ["useHydrated"] : []),
     ...(events.length ? ["useListener"] : []),
-    ...(item ? ["useSeedChecked"] : []),
   ].toSorted(byName)
   const reactImport = reactValues.length
     ? reactValues.every((name) => name.startsWith("type "))

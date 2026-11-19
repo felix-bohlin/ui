@@ -154,7 +154,8 @@ const mount = <T>(read: () => T, tree: (consumer: ReactNode) => ReactNode) => {
 const mountGroup = (group: (consumer: ReactNode) => ReactNode) => {
   const { renderParent, seen } = mount(useToggleGroupContext, group)
   return {
-    change: (input: HTMLInputElement) => act(() => seen.context?.change(input)),
+    change: (input: HTMLInputElement) =>
+      act(() => seen.context?.change?.(input)),
     renderParent,
     seen,
   }
@@ -385,7 +386,7 @@ describe("the context a React ToggleGroup provides", () => {
     expect(seen.renders).toBe(4)
   })
 
-  test("a memoized consumer skips a render of the group's parent, renders when the selection changes, and onValueChange is called once per change", () => {
+  test("a memoized consumer skips a render of the group's parent, an uncontrolled group keeps its context when the choice changes, and onValueChange is called once per change", () => {
     const onValueChange = vi.fn<(value: string) => void>()
     const { change, renderParent, seen } = mountGroup((consumer) =>
       createElement(
@@ -396,30 +397,28 @@ describe("the context a React ToggleGroup provides", () => {
     )
     const first = seen.context
     expect(seen.renders).toBe(2)
-    expect(first?.value).toBe("bold")
+    expect(first?.defaultValue).toBe("bold")
+    expect(first?.value).toBeUndefined()
     renderParent()
     renderParent()
     expect(seen.renders).toBe(2)
     expect(seen.context).toBe(first)
     change(inputOf("italic", true, []))
-    expect(seen.renders).toBe(4)
-    expect(seen.context?.value).toBe("italic")
-    expect(onValueChange.mock.calls).toEqual([["italic"]])
     change(inputOf("bold", true, []))
-    expect(seen.context?.value).toBe("bold")
+    expect(seen.renders).toBe(2)
+    expect(seen.context).toBe(first)
     expect(onValueChange.mock.calls).toEqual([["italic"], ["bold"]])
-    renderParent()
-    expect(seen.renders).toBe(6)
   })
 
   test("a multiple group does the same with the list of checked values", () => {
     const onValueChange = vi.fn<(value: string[]) => void>()
+    const defaultValue = ["bold"]
     const { change, renderParent, seen } = mountGroup((consumer) =>
       createElement(
         ToggleGroup,
         {
           "aria-label": "Format",
-          defaultValue: ["bold"],
+          defaultValue,
           multiple: true,
           onValueChange,
         },
@@ -429,6 +428,7 @@ describe("the context a React ToggleGroup provides", () => {
     const first = seen.context
     expect(seen.renders).toBe(2)
     expect(first?.inputType).toBe("checkbox")
+    expect(first?.defaultValue).toEqual(["bold"])
     renderParent()
     expect(seen.renders).toBe(2)
     expect(seen.context).toBe(first)
@@ -436,18 +436,14 @@ describe("the context a React ToggleGroup provides", () => {
     const bold = inputOf("bold", true, group)
     const italic = inputOf("italic", true, group)
     change(italic)
-    expect(seen.renders).toBe(4)
-    expect(seen.context?.value).toEqual(["bold", "italic"])
-    expect(onValueChange.mock.calls).toEqual([[["bold", "italic"]]])
     bold.checked = false
     change(bold)
-    expect(seen.context?.value).toEqual(["italic"])
+    expect(seen.renders).toBe(2)
+    expect(seen.context).toBe(first)
     expect(onValueChange.mock.calls).toEqual([
       [["bold", "italic"]],
       [["italic"]],
     ])
-    renderParent()
-    expect(seen.renders).toBe(6)
   })
 })
 

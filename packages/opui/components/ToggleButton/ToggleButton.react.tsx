@@ -1,7 +1,6 @@
 "use client"
 
 import { cx } from "../cx"
-import { useSeedChecked } from "../react"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
 import { useToggleGroupContext } from "../ToggleGroup/context.react"
 import { isSelected } from "../ToggleGroup/selection"
@@ -35,7 +34,6 @@ export default function ToggleButton({
     checked ?? defaultChecked,
     "ToggleGroup",
   )
-  const inputRef = useSeedChecked(ref, (input) => group?.change?.(input))
 
   return (
     <label
@@ -48,12 +46,16 @@ export default function ToggleButton({
     >
       <input
         checked={grouped ?? checked}
-        defaultChecked={grouped === undefined ? defaultChecked : undefined}
+        defaultChecked={
+          grouped === undefined
+            ? (isSelected(group?.defaultValue, value) ?? defaultChecked)
+            : undefined
+        }
         name={finalName}
         type={finalType}
         value={value}
         {...rest}
-        ref={inputRef}
+        ref={ref}
         onChange={(event) => {
           group?.change?.(event.currentTarget)
           onChange?.(event)

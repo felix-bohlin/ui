@@ -1,7 +1,7 @@
 /** @jsxImportSource @solidjs/web */
 import { For, omit, untrack } from "solid-js"
 import { mergeStyle, pluralLabel } from "../style"
-import { control, restoreChecked, seedChecked } from "../solid"
+import { control } from "../solid"
 import type { Props } from "./types.solid"
 
 export default function Rating(props: Props) {
@@ -65,17 +65,8 @@ export default function Rating(props: Props) {
               aria-invalid={invalid()}
               aria-label={clearLabel()}
               {...checkedControl.server}
-              onChange={(event) => {
-                props.onValueChange?.(0)
-                restoreChecked(event.currentTarget, () => props.value)
-              }}
-              ref={[
-                checkedControl.ref,
-                seedChecked((input) => {
-                  props.onValueChange?.(0)
-                  restoreChecked(input, () => props.value)
-                }),
-              ]}
+              onChange={() => props.onValueChange?.(0)}
+              ref={checkedControl.ref}
               name={props.name}
               type="radio"
               value={0}
@@ -95,17 +86,8 @@ export default function Rating(props: Props) {
                   aria-invalid={invalid()}
                   aria-label={pluralLabel(starLabel(), star(), props.lang)}
                   {...itemCheckedControl.server}
-                  onChange={(event) => {
-                    props.onValueChange?.(star())
-                    restoreChecked(event.currentTarget, () => props.value)
-                  }}
-                  ref={[
-                    itemCheckedControl.ref,
-                    seedChecked((input) => {
-                      props.onValueChange?.(star())
-                      restoreChecked(input, () => props.value)
-                    }),
-                  ]}
+                  onChange={() => props.onValueChange?.(star())}
+                  ref={itemCheckedControl.ref}
                   name={props.name}
                   required={props.required}
                   type="radio"

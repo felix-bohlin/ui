@@ -4,7 +4,7 @@ import { useFieldGroupContext } from "../FieldGroup/context.solid"
 import { useToggleGroupContext } from "../ToggleGroup/context.solid"
 import { isSelected } from "../ToggleGroup/selection"
 import { warnGroupedChecked } from "../dev"
-import { callHandler, control, seedChecked } from "../solid"
+import { callHandler, control } from "../solid"
 import type { Props } from "./types.solid"
 
 export default function ToggleButton(props: Props) {
@@ -41,7 +41,13 @@ export default function ToggleButton(props: Props) {
   const checkedControl = control(
     "checked",
     () => grouped() ?? props.checked,
-    untrack(() => grouped() ?? props.checked ?? props.defaultChecked),
+    untrack(
+      () =>
+        grouped() ??
+        props.checked ??
+        isSelected(group?.defaultValue, props.value) ??
+        props.defaultChecked,
+    ),
   )
 
   return (
@@ -59,11 +65,7 @@ export default function ToggleButton(props: Props) {
         type={finalType()}
         value={props.value}
         {...rest}
-        ref={[
-          props.ref,
-          checkedControl.ref,
-          seedChecked((input) => group?.change?.(input)),
-        ]}
+        ref={[props.ref, checkedControl.ref]}
         onChange={(event) => {
           group?.change?.(event.currentTarget)
           callHandler(props.onChange, event)

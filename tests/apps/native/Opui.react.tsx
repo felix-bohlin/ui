@@ -37,6 +37,7 @@ const START = {
 }
 
 export default function Opui() {
+  const [round, setRound] = useState(0)
   const [state, setState] = useState(START)
   const set = <K extends keyof typeof START>(
     key: K,
@@ -52,6 +53,9 @@ export default function Opui() {
           onChange={(event) => set("checkbox", event.currentTarget.checked)}
         />
         <output>{String(state.checkbox)}</output>
+      </form>
+      <form data-case="checkbox-rerender">
+        <Checkbox data-round={round} defaultChecked label="Agree" />
       </form>
       <form data-case="checkbox-default">
         <Checkbox defaultChecked label="Agree" />
@@ -188,6 +192,9 @@ export default function Opui() {
         />
         <output>{state.text}</output>
       </form>
+      <form data-case="text-rerender">
+        <TextField data-round={round} defaultValue="Ada" label="Name" />
+      </form>
       <form data-case="text-default">
         <TextField defaultValue="Ada" label="Name" />
       </form>
@@ -209,6 +216,13 @@ export default function Opui() {
       <form data-case="toggle-empty">
         <ToggleButton>Bold</ToggleButton>
       </form>
+      <button
+        data-rerender
+        onClick={() => setRound((current) => current + 1)}
+        type="button"
+      >
+        Render again
+      </button>
     </>
   )
 }

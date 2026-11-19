@@ -4,7 +4,7 @@ import { defined } from "../attrs"
 import { TabsContext, useTabsContext } from "./context.solid"
 import { isSelected } from "../ToggleGroup/selection"
 import { warnGroupedChecked } from "../dev"
-import { callHandler, control, seedChecked } from "../solid"
+import { callHandler, control } from "../solid"
 import type { TabsItemProps as Props } from "./types.solid"
 
 export default function TabsItem(props: Props) {
@@ -36,7 +36,13 @@ export default function TabsItem(props: Props) {
   const checkedControl = control(
     "checked",
     () => grouped() ?? props.checked,
-    untrack(() => grouped() ?? props.checked ?? props.defaultChecked),
+    untrack(
+      () =>
+        grouped() ??
+        props.checked ??
+        isSelected(parent?.defaultValue, props.value) ??
+        props.defaultChecked,
+    ),
   )
 
   return (
@@ -58,11 +64,7 @@ export default function TabsItem(props: Props) {
         type="radio"
         value={props.value}
         {...defined(rest)}
-        ref={[
-          props.ref,
-          checkedControl.ref,
-          seedChecked((input) => parent?.change?.(input)),
-        ]}
+        ref={[props.ref, checkedControl.ref]}
         onChange={(event) => {
           parent?.change?.(event.currentTarget)
           callHandler(props.onChange, event)

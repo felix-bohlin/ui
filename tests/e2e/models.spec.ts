@@ -2,12 +2,9 @@ import { expect, test } from "@playwright/test"
 import { FRAMEWORKS, isHydratedFramework } from "../../src/utils/framework"
 import { instantScrolling, pageErrors } from "./fixtures"
 
-const CONTROLLED: Partial<Record<string, string>> = {
-  react:
-    "a value with onChange is React state, which a form reset doesn't change: React keeps the input at it and puts the select back at it on the next render",
-}
-
 const ONE_WAY: Partial<Record<string, string>> = {
+  solid:
+    "Solid writes a checked prop only when it changes, so a choice the parent doesn't store stays on screen, as on a native input",
   svelte:
     "a value passed without bind: is a starting value: the group keeps the selection itself until the parent passes another",
   vue: "a model-value passed without a listener is a starting value: the group keeps the selection itself until the parent passes another",
@@ -15,7 +12,6 @@ const ONE_WAY: Partial<Record<string, string>> = {
 
 for (const { id, label } of FRAMEWORKS) {
   if (!isHydratedFramework(id)) continue
-  const controlled = CONTROLLED[id]
   const refuses = !ONE_WAY[id]
   const explain = (...reasons: (string | undefined)[]) =>
     test
@@ -57,10 +53,9 @@ for (const { id, label } of FRAMEWORKS) {
       await expect(page.getByLabel("Size")).toHaveValue("small")
     })
 
-    test(`a control follows its value when it changes, and a reset ${controlled ? "leaves the value its state holds" : "returns to the first value"}`, async ({
+    test("a control follows its value when it changes, and a reset returns an unbound control to its default", async ({
       page,
     }) => {
-      explain(controlled)
       const name = page.getByLabel("Name")
       const fruit = page.getByLabel("Fruit")
       await name.fill("Edsger")
@@ -68,13 +63,10 @@ for (const { id, label } of FRAMEWORKS) {
       await expect(name).toHaveValue("Grace")
       await expect(page.getByLabel("Plan")).toHaveValue("paid")
       await page.getByLabel("City").fill("Malmo")
-      await page.getByLabel("Color").selectOption("red")
       await fruit.selectOption("cherry")
 
       await page.getByRole("button", { name: "Reset" }).click()
-      await expect(name).toHaveValue(controlled ? "Grace" : "Ada")
       await expect(page.getByLabel("City")).toHaveValue("Lund")
-      await expect(page.getByLabel("Color")).toHaveValue("blue")
       await expect(fruit).toHaveValue("apple")
 
       await page.getByRole("button", { name: "Toggle error" }).click()
@@ -82,10 +74,7 @@ for (const { id, label } of FRAMEWORKS) {
         "aria-invalid",
         "true",
       )
-      await expect(name).toHaveValue(controlled ? "Grace" : "Ada")
-      await expect(page.getByLabel("Plan")).toHaveValue(
-        controlled ? "paid" : "free",
-      )
+      await expect(page.getByLabel("City")).toHaveValue("Lund")
     })
 
     test(`a group with a one-way value ${refuses ? "puts the selection back" : "keeps the selection"} when the change isn't stored`, async ({

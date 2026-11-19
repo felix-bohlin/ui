@@ -1,5 +1,5 @@
 import { isServer, setProperty } from "@solidjs/web"
-import { createRenderEffect } from "solid-js"
+import { createRenderEffect, untrack } from "solid-js"
 import { keepSelected } from "./Select/selection"
 
 const INITIAL = {
@@ -11,9 +11,10 @@ const INITIAL = {
 export const control = <V>(
   prop: keyof typeof INITIAL,
   read: (() => V) | undefined,
-  initial?: V,
+  fallback?: V,
 ) => {
   let element: Element | undefined
+  const initial = read ? untrack(read) : fallback
   if (read) {
     createRenderEffect(
       read,
@@ -27,20 +28,19 @@ export const control = <V>(
   }
   return {
     ref: (node: Element) => {
-      if (!element && initial !== undefined) {
-        setProperty(
-          node,
-          node.nodeName === "SELECT" ? prop : INITIAL[prop],
-          initial,
-        )
-        if (node instanceof HTMLSelectElement) {
-          queueMicrotask(() => keepSelected(node, initial))
+      if (!element) {
+        if (initial !== undefined) setProperty(node, prop, initial)
+        else if (read && fallback !== undefined) {
+          if (node instanceof HTMLSelectElement) {
+            setProperty(node, prop, fallback)
+            queueMicrotask(() => keepSelected(node, fallback))
+          } else setProperty(node, INITIAL[prop], fallback)
         }
       }
       element = node
     },
-    server: (isServer && initial !== undefined
-      ? { [prop]: initial }
+    server: (isServer && (initial ?? fallback) !== undefined
+      ? { [prop]: initial ?? fallback }
       : {}) as object,
   }
 }
@@ -56,34 +56,3 @@ export const callHandler = <E extends Event>(handler: unknown, event: E) => {
   else if (Array.isArray(handler) && typeof handler[0] === "function")
     handler[0](handler[1], event)
 }
-
-export const restoreChecked = (input: HTMLInputElement, read: () => unknown) =>
-  queueMicrotask(() => {
-    const selected = read()
-    if (selected === undefined) return
-    const values = [selected].flat().map(String)
-    const inputs = input.form
-      ? [...input.form.elements]
-      : [...(input.getRootNode() as ParentNode).querySelectorAll("input")]
-    for (const item of input.name ? inputs : [input]) {
-      if (
-        item instanceof HTMLInputElement &&
-        item.form === input.form &&
-        item.name === input.name &&
-        item.type === input.type
-      ) {
-        const checked = values.includes(item.value)
-        if (item.checked !== checked) item.checked = checked
-      }
-    }
-  })
-
-export const seedChecked =
-  (report: (input: HTMLInputElement) => void) => (input: HTMLInputElement) => {
-    if (
-      input.checked !== input.defaultChecked &&
-      (input.checked || input.type === "checkbox")
-    ) {
-      queueMicrotask(() => report(input))
-    }
-  }

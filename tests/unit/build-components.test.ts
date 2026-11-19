@@ -434,6 +434,18 @@ describe("the ports of a sample", () => {
     )
   })
 
+  test("a dashed attribute of a declared prop needs no filter in Vue", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, closeLabel, ...rest } = Astro.props\n---\n\n<opui-sample class:list={["ui-sample", className]} close-label={closeLabel} {...rest}>\n  <slot />\n</opui-sample>\n',
+    )
+    expect(ports.vue).toContain(
+      '<component\n    is="opui-sample"\n    :class="[\'ui-sample\', $props.class]"\n    :close-label="closeLabel"\n  >',
+    )
+    expect(ports.vue).not.toContain("inheritAttrs")
+    expect(ports["react.tsx"]).toContain("{...defined(rest)}")
+    expect(ports.svelte).toContain("{...defined(rest)}")
+  })
+
   test("a side-effect script and a custom element", async () => {
     const ports = await compile(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, label, ...rest } = Astro.props\n---\n\n<opui-sample class:list={["ui-sample", className]} data-label={label} {...rest}>\n  <slot />\n  <span class="ui-sr-only" role="status"></span>\n</opui-sample>\n\n<script>\n  import "../../elements/sample.js"\n</script>\n',

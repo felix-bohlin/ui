@@ -41,6 +41,7 @@ export { default as FieldDescription } from "../components/FieldDescription/Fiel
 export { default as FieldGroup } from "../components/FieldGroup/FieldGroup.vue"
 export { default as FieldLegend } from "../components/FieldLegend/FieldLegend.vue"
 export { default as Fieldset } from "../components/Fieldset/Fieldset.vue"
+export { default as FileUpload } from "../components/FileUpload/FileUpload.vue"
 export { default as Form } from "../components/Form/Form.vue"
 export { default as List } from "../components/List/List.vue"
 export { default as ListItem } from "../components/ListItem/ListItem.vue"
@@ -149,6 +150,12 @@ export type { Props as FieldDescriptionProps } from "../components/FieldDescript
 export type { Props as FieldGroupProps } from "../components/FieldGroup/types.vue-props"
 export type { Props as FieldLegendProps } from "../components/FieldLegend/types.vue-props"
 export type { Props as FieldsetProps } from "../components/Fieldset/types.vue-props"
+export type {
+  FileUploadItem,
+  RemoveDetail,
+  SelectDetail,
+} from "../components/FileUpload/types"
+export type { Props as FileUploadProps } from "../components/FileUpload/types.vue-props"
 export type { Props as FormProps } from "../components/Form/types.vue-props"
 export type { Props as ListProps } from "../components/List/types.vue-props"
 export type { Props as ListItemProps } from "../components/ListItem/types.vue-props"

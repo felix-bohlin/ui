@@ -265,6 +265,62 @@ const ELEMENTS: Scenario[] = [
     },
   },
   {
+    file: "file-upload.js",
+    markup: `<opui-file-upload class="ui-file-upload">
+      <div class="ui-content">
+        <div class="ui-field">
+          <label class="ui-label">
+            <input accept=".png" class="ui-sr-only" id="photos" multiple type="file" />
+            <span class="ui-button">Choose photos</span>
+          </label>
+        </div>
+        <ul class="ui-list">
+          <li>
+            <div class="ui-text"><p>lou.png</p></div>
+            <div class="ui-end"><button class="ui-button" type="button" aria-label="Remove lou.png" command="--remove" commandfor="photos" value="lou">x</button></div>
+          </li>
+        </ul>
+      </div>
+      <span class="ui-sr-only" role="status"></span>
+    </opui-file-upload>`,
+    ready: async (page) => {
+      await expect(page.getByLabel("Choose photos")).toHaveValue("")
+    },
+    selector: "opui-file-upload",
+    title: "fires select for the accepted files of a pick and remove for a row",
+    works: async (page) => {
+      const heard = (type: string) =>
+        page.evaluate(
+          (type) =>
+            new Promise<string[]>((resolve) => {
+              document.querySelector("opui-file-upload")!.addEventListener(
+                type,
+                (event) => {
+                  const { files, value } = (
+                    event as CustomEvent<{ files?: File[]; value?: string }>
+                  ).detail
+                  resolve(files?.map((file) => file.name) ?? [value ?? ""])
+                },
+                { once: true },
+              )
+            }),
+          type,
+        )
+      const input = page.getByLabel("Choose photos")
+      const selected = heard("select")
+      await input.setInputFiles([
+        { buffer: Buffer.from("text"), mimeType: "text/plain", name: "a.txt" },
+        { buffer: Buffer.from("png"), mimeType: "image/png", name: "b.png" },
+        { buffer: Buffer.from("png"), mimeType: "image/png", name: "c.png" },
+      ])
+      expect(await selected).toEqual(["b.png", "c.png"])
+      await expect(input).toHaveValue("")
+      const removed = heard("remove")
+      await page.getByRole("button", { name: "Remove lou.png" }).click()
+      expect(await removed).toEqual(["lou"])
+    },
+  },
+  {
     busy: async (page) => {
       await page.getByRole("button", { name: "Decrease" }).hover()
       await page.mouse.down()

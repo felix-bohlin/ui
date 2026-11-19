@@ -22,6 +22,7 @@ Each component reference covers HTML, Astro, React, Solid, Svelte and Vue: the p
 | Dialog | `dialog.md` | A window over the page for a question or a short task, modal or not. |
 | Divider | `divider.md` | A line between content, plain or with a label at the start, middle or end. |
 | Drawer | `drawer.md` | A panel that slides in from an edge of the screen, for navigation, filters or side content. |
+| File upload | `file-upload.md` | A drop zone around a file input that lists the files your app is uploading, with a preview, progress, a message and a remove button for each. |
 | Form | `form.md` | Classes that space and group form fields, with fieldsets and field groups. |
 | Layout | `layout.md` | Classes for the space between components, in columns, rows and grids. |
 | List | `list.md` | Rows of similar items, like contacts, files or settings, with icons, controls and links. |

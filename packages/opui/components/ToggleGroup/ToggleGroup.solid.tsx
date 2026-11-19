@@ -1,7 +1,7 @@
 /** @jsxImportSource @solidjs/web */
 import { createSignal, createUniqueId, omit, untrack } from "solid-js"
 import { ToggleGroupContext } from "./context.solid"
-import { selectionOf } from "./selection"
+import { checkedValues, selectionOf } from "./selection"
 import { warnUnnamedGroup } from "../dev"
 import { restoreChecked } from "../solid"
 import type { Props } from "./types.solid"
@@ -26,7 +26,8 @@ export default function ToggleGroup(props: Props) {
   const change = (input: HTMLInputElement) => {
     const next = selectionOf(input, props.multiple)
     if (inner() !== undefined) setInner(next)
-    props.onValueChange?.(next as never)
+    if (props.multiple) props.onValueChange?.(checkedValues(input))
+    else props.onValueChange?.(input.value)
     restoreChecked(input, () => props.value)
   }
   untrack(() => {

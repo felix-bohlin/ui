@@ -1,12 +1,13 @@
 "use client"
 
-import { useEffect, useId } from "react"
+import { type HTMLAttributes, useEffect, useId, useMemo } from "react"
 import { defined } from "../attrs"
 import { cx } from "../cx"
 import { useHydrated, useListener } from "../react"
 import Button from "../Button/Button.react"
 import { CalloutContext } from "./context.react"
 import type { Props } from "./types.react"
+import type { Context } from "./types"
 
 export default function Callout({
   className,
@@ -29,9 +30,11 @@ export default function Callout({
   useEffect(() => {
     void import("../../elements/callout.js")
   }, [])
+  const attrs = defined(rest as HTMLAttributes<HTMLElement>)
+  const context = useMemo<Context>(() => ({ severity }), [severity])
 
   return (
-    <CalloutContext value={{ severity }}>
+    <CalloutContext value={context}>
       <Root
         className={cx([
           "ui-callout",
@@ -43,7 +46,7 @@ export default function Callout({
         role={closeButton ? "article" : undefined}
         data-hydrating={Root.includes("-") ? "" : undefined}
         ref={rootRef}
-        {...defined(rest as object)}
+        {...attrs}
       >
         {children}
         {closeButton && (

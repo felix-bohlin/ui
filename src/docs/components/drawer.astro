@@ -247,6 +247,15 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
       settles back. The content scrolls as usual and never moves the drawer.
     </p>
     <p>
+      Add <code>data-drawer-swipe</code> to an element in the drawer to start
+      the swipe from it too, such as the photos of a full-screen viewer. It
+      keeps scrolling sideways, so a
+      <DocLink href="/components/carousel">Carousel</DocLink> can carry it, but
+      it mustn't scroll up and down: there the swipe moves the drawer. The
+      controls inside it stay controls. The
+      <DocLink href="/blocks/lightbox">Lightbox block</DocLink> closes this way.
+    </p>
+    <p>
       The swipe is a close request, like <kbd>Esc</kbd>: with
       <code>closedby="none"</code> there's no handle and no swipe, and a
       <code>cancel</code> listener can keep the drawer open.

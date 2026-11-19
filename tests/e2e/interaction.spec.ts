@@ -564,7 +564,7 @@ test.describe("drawer swipe", () => {
     await touch("touchEnd", steps, [])
   }
 
-  test("html drawer at the block start or end closes with a swipe of its header", async ({
+  test("html drawer at the block start or end closes with a swipe of its header or a marked element", async ({
     browserName,
     page,
   }) => {
@@ -623,6 +623,42 @@ test.describe("drawer swipe", () => {
     await settledAt(top)
     await page.keyboard.press("Escape")
     await expect(drawer).toHaveCount(0)
+
+    // An element marked data-drawer-swipe starts the swipe too, also when
+    // it takes focus itself. A control inside it stays a control.
+    await open("Block end")
+    await drawer.locator(".ui-content").evaluate((element) => {
+      element.setAttribute("data-drawer-swipe", "")
+      element.setAttribute("tabindex", "0")
+      element.insertAdjacentHTML(
+        "afterbegin",
+        '<button style="display: block; inline-size: 100%" type="button">Stay</button>',
+      )
+    })
+    expect(
+      await drawer
+        .locator(".ui-content")
+        .evaluate((element) => getComputedStyle(element).touchAction),
+    ).toBe("pan-x pinch-zoom")
+    await swipe(
+      page,
+      cdp,
+      drawer.getByRole("button", { name: "Stay" }),
+      drawer,
+      0.6,
+      60,
+    )
+    await settledAt(top)
+    await drawer
+      .getByRole("button", { name: "Stay" })
+      .evaluate((element) => element.remove())
+    await swipe(page, cdp, drawer.locator(".ui-content"), drawer, 0.1, 60)
+    await settledAt(top)
+    await swipe(page, cdp, drawer.locator(".ui-content"), drawer, 0.6, 60)
+    await expect(drawer).toHaveCount(0)
+    await root
+      .locator("dialog.ui-block-end .ui-content")
+      .evaluate((element) => element.removeAttribute("data-drawer-swipe"))
 
     // closedby="none" turns it off.
     const blockEnd = root.locator("dialog.ui-block-end")

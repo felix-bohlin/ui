@@ -119,10 +119,15 @@
     }
 
     /* Swiping a drawer at the block start or end toward its edge closes it,
-       from its grab handle or header (elements/drawer-swipe.js). Vertical
-       pans stay with the script there; the content scrolls on its own. */
+       from its grab handle, its header or a [data-drawer-swipe] element
+       (elements/drawer-swipe.js). Vertical pans stay with the script there;
+       the content scrolls on its own. */
     &:is(.ui-block-start, .ui-block-end):not([closedby="none" i]) {
       touch-action: pan-x pinch-zoom;
+
+      [data-drawer-swipe] {
+        touch-action: pan-x pinch-zoom;
+      }
 
       /* The handle is a border, so forced colors keep it. */
       @media (any-pointer: coarse) {

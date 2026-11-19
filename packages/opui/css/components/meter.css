@@ -1,0 +1,59 @@
+@layer components.root {
+  :where(meter.ui-meter) {
+    appearance: none;
+    background-image: none;
+    border: 0;
+
+    &::-webkit-meter-inner-element {
+      display: block;
+    }
+
+    &::-webkit-meter-bar {
+      background: none;
+      border: 0;
+      border-radius: 0;
+      position: static;
+    }
+
+    &::-webkit-meter-optimum-value,
+    &::-webkit-meter-suboptimum-value,
+    &::-webkit-meter-even-less-good-value {
+      background: var(--_accent);
+      transition: inline-size var(--_duration) var(--_ease);
+    }
+
+    &::-webkit-meter-suboptimum-value {
+      background: var(--ui-warning);
+    }
+
+    &::-webkit-meter-even-less-good-value {
+      background: var(--ui-critical);
+    }
+
+    &::-moz-meter-bar {
+      background: var(--_accent);
+    }
+
+    &:-moz-meter-sub-optimum::-moz-meter-bar {
+      background: var(--ui-warning);
+    }
+
+    &:-moz-meter-sub-sub-optimum::-moz-meter-bar {
+      background: var(--ui-critical);
+    }
+
+    @media (forced-colors: active) {
+      &::-webkit-meter-optimum-value,
+      &::-webkit-meter-suboptimum-value,
+      &::-webkit-meter-even-less-good-value {
+        background: SelectedItem;
+      }
+
+      &::-moz-meter-bar,
+      &:-moz-meter-sub-optimum::-moz-meter-bar,
+      &:-moz-meter-sub-sub-optimum::-moz-meter-bar {
+        background: SelectedItem;
+      }
+    }
+  }
+}

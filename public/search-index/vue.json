@@ -1659,6 +1659,56 @@
     "url": "/vue/components/message/#typing"
   },
   {
+    "id": "component-meter-vue",
+    "title": "Meter",
+    "description": "A bar on the native meter element, for a value in a known range, like disk usage or a poll option's share.",
+    "keywords": "bar gauge measurement poll usage",
+    "category": "Component",
+    "url": "/vue/components/meter/"
+  },
+  {
+    "id": "component-meter-vue-basics",
+    "title": "Basics",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/vue/components/meter/#basics"
+  },
+  {
+    "id": "component-meter-vue-variants",
+    "title": "Variants",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/vue/components/meter/#variants"
+  },
+  {
+    "id": "component-meter-vue-size",
+    "title": "Size",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/vue/components/meter/#size"
+  },
+  {
+    "id": "component-meter-vue-label",
+    "title": "Label",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/vue/components/meter/#label"
+  },
+  {
+    "id": "component-meter-vue-ranges",
+    "title": "Low, high and optimum",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/vue/components/meter/#ranges"
+  },
+  {
+    "id": "component-meter-vue-poll",
+    "title": "Poll",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/vue/components/meter/#poll"
+  },
+  {
     "id": "component-number-field-vue",
     "title": "Number field",
     "description": "A number field with buttons that step the value down and up, for amounts like a quantity.",
@@ -4716,6 +4766,14 @@
     "api": "Message A message. The sender's `Avatar`, from the `start` slot, shown on the last message of a run. start The bubble. default The sender's name. author The time, and content such as a read receipt. datetime time Content after the time, such as a read receipt. end Reactions in a `ToggleGroup`, drawn as separate pills over the bottom edge of the bubble. bottom author The sender, shown on the first message of a run and read by screen readers on every message. datetime The machine-readable date and time of `time`. newAuthor Starts a new run when the author changes, for a group chat. outgoing A message you sent. It aligns to the end in the primary color, and its author is visually hidden. time The time as shown, at the end of the bubble. typing Shows animated dots instead of the content. The default slot becomes the status text for screen readers.",
     "category": "API",
     "url": "/vue/api/#message"
+  },
+  {
+    "id": "api-meter-vue",
+    "title": "Meter API",
+    "description": "Reference for Meter Vue component.",
+    "api": "Meter The meter. The browser draws the fill inside it. variant The variant to use.",
+    "category": "API",
+    "url": "/vue/api/#meter"
   },
   {
     "id": "api-number-field-vue",

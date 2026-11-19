@@ -1659,6 +1659,56 @@
     "url": "/react/components/message/#typing"
   },
   {
+    "id": "component-meter-react",
+    "title": "Meter",
+    "description": "A bar on the native meter element, for a value in a known range, like disk usage or a poll option's share.",
+    "keywords": "bar gauge measurement poll usage",
+    "category": "Component",
+    "url": "/react/components/meter/"
+  },
+  {
+    "id": "component-meter-react-basics",
+    "title": "Basics",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/react/components/meter/#basics"
+  },
+  {
+    "id": "component-meter-react-variants",
+    "title": "Variants",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/react/components/meter/#variants"
+  },
+  {
+    "id": "component-meter-react-size",
+    "title": "Size",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/react/components/meter/#size"
+  },
+  {
+    "id": "component-meter-react-label",
+    "title": "Label",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/react/components/meter/#label"
+  },
+  {
+    "id": "component-meter-react-ranges",
+    "title": "Low, high and optimum",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/react/components/meter/#ranges"
+  },
+  {
+    "id": "component-meter-react-poll",
+    "title": "Poll",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/react/components/meter/#poll"
+  },
+  {
     "id": "component-number-field-react",
     "title": "Number field",
     "description": "A number field with buttons that step the value down and up, for amounts like a quantity.",
@@ -4716,6 +4766,14 @@
     "api": "Message A message. The sender's `Avatar`, from the `start` slot, shown on the last message of a run. start The bubble. default The sender's name. author The time, and content such as a read receipt. datetime time Content after the time, such as a read receipt. end Reactions in a `ToggleGroup`, drawn as separate pills over the bottom edge of the bubble. bottom author The sender, shown on the first message of a run and read by screen readers on every message. datetime The machine-readable date and time of `time`. newAuthor Starts a new run when the author changes, for a group chat. outgoing A message you sent. It aligns to the end in the primary color, and its author is visually hidden. time The time as shown, at the end of the bubble. typing Shows animated dots instead of the content. The default slot becomes the status text for screen readers.",
     "category": "API",
     "url": "/react/api/#message"
+  },
+  {
+    "id": "api-meter-react",
+    "title": "Meter API",
+    "description": "Reference for Meter React component.",
+    "api": "Meter The meter. The browser draws the fill inside it. variant The variant to use.",
+    "category": "API",
+    "url": "/react/api/#meter"
   },
   {
     "id": "api-number-field-react",

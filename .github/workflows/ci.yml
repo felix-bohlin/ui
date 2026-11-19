@@ -16,6 +16,11 @@ jobs:
       contents: read
     uses: ./.github/workflows/apps.yml
 
+  reference:
+    permissions:
+      contents: read
+    uses: ./.github/workflows/reference.yml
+
   check:
     runs-on: ubuntu-latest
     env:

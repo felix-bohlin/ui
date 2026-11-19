@@ -55,7 +55,8 @@
       "files": [
         "**/*.solid.tsx",
         "tests/apps/solid-start/**/*.tsx",
-        "tests/apps/vite-solid/**/*.tsx"
+        "tests/apps/vite-solid/**/*.tsx",
+        "tests/reference/apps/solid/**/*.tsx"
       ],
       "rules": {
         "react/error-boundaries": "off",

@@ -436,7 +436,7 @@ A choice the user makes before the page hydrates stays on screen. `Rating`, `Tab
 
 - **67** of 70 need no hydration
 - **3** hydrate for `indeterminate`, `valueSuffix`, `valueText`
-- **39** are Server Components
+- **40** are Server Components
 
 | Component | Client | Server | Server Component | Needs hydration |
 | --- | --- | --- | --- | --- |
@@ -478,6 +478,7 @@ A choice the user makes before the page hydrates stays on screen. `Rating`, `Tab
 | [`Menu`](https://opui.dev/react/components/menu.md) | Yes | Yes | No | - |
 | [`Message`](https://opui.dev/react/components/message.md) | Yes | Yes | Yes | - |
 | [`MessageList`](https://opui.dev/react/components/message.md) | Yes | Yes | Yes | - |
+| [`Meter`](https://opui.dev/react/components/meter.md) | Yes | Yes | Yes | - |
 | [`NumberField`](https://opui.dev/react/components/number-field.md) | Yes | Yes | No | - |
 | [`OneTimeCode`](https://opui.dev/react/components/one-time-code.md) | Yes | Yes | No | - |
 | [`Progress`](https://opui.dev/react/components/progress.md) | Yes | Yes | Yes | - |
@@ -637,6 +638,7 @@ A choice the user makes before the page hydrates stays on screen. `Rating`, `Tab
 | [`Menu`](https://opui.dev/solid/components/menu.md) | Yes | Yes | - |
 | [`Message`](https://opui.dev/solid/components/message.md) | Yes | Yes | - |
 | [`MessageList`](https://opui.dev/solid/components/message.md) | Yes | Yes | - |
+| [`Meter`](https://opui.dev/solid/components/meter.md) | Yes | Yes | - |
 | [`NumberField`](https://opui.dev/solid/components/number-field.md) | Yes | Yes | - |
 | [`OneTimeCode`](https://opui.dev/solid/components/one-time-code.md) | Yes | Yes | - |
 | [`Progress`](https://opui.dev/solid/components/progress.md) | Yes | Yes | - |
@@ -834,6 +836,7 @@ Every component renders full HTML on the server. The props in the last column ne
 | [`Menu`](https://opui.dev/svelte/components/menu.md) | Yes | Yes | - |
 | [`Message`](https://opui.dev/svelte/components/message.md) | Yes | Yes | - |
 | [`MessageList`](https://opui.dev/svelte/components/message.md) | Yes | Yes | - |
+| [`Meter`](https://opui.dev/svelte/components/meter.md) | Yes | Yes | - |
 | [`NumberField`](https://opui.dev/svelte/components/number-field.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`OneTimeCode`](https://opui.dev/svelte/components/one-time-code.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Progress`](https://opui.dev/svelte/components/progress.md) | Yes | Yes | - |
@@ -994,6 +997,7 @@ Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` 
 | [`Menu`](https://opui.dev/vue/components/menu.md) | Yes | Yes | - |
 | [`Message`](https://opui.dev/vue/components/message.md) | Yes | Yes | - |
 | [`MessageList`](https://opui.dev/vue/components/message.md) | Yes | Yes | - |
+| [`Meter`](https://opui.dev/vue/components/meter.md) | Yes | Yes | - |
 | [`NumberField`](https://opui.dev/vue/components/number-field.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`OneTimeCode`](https://opui.dev/vue/components/one-time-code.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Progress`](https://opui.dev/vue/components/progress.md) | Yes | Yes | - |

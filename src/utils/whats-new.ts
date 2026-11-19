@@ -668,7 +668,7 @@ export const whatsNew = {
     `Styles use logical properties only, so the <a href="#basics">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
     {
       ...components(
-        `<a href="#close-button"><code>closeButton</code></a> on <code>DialogHeader</code> adds a close button at the end of the title row, named by <code>closeLabel</code>. Outside a <code>Dialog</code>, <code>commandfor</code> names the dialog it closes.`,
+        `<a href="#close-button"><code>closeButton</code></a> on <code>DialogHeader</code> adds a close button at the end of the title row, named by <code>closeLabel</code>. Outside a <code>Dialog</code>, <code>commandfor</code> names the dialog it closes. The types take both only with <code>closeButton</code>.`,
       ),
       html: `A <a href="#basics">close button</a> after the heading stays on the title row when a paragraph follows it.`,
     },
@@ -710,11 +710,11 @@ export const whatsNew = {
     `Themes can set <a href="#api"><code>--ui-card-padding</code></a> for the header, content and footer padding.`,
     {
       ...slots(
-        `Breaking: <code>DrawerHeader</code> renders its <a href="#close-button">close button</a> only with <code>closeButton</code>, like <code>DialogHeader</code>. Add it to keep the button.`,
+        `Breaking: <code>DrawerHeader</code> renders its <a href="#close-button">close button</a> only with <code>closeButton</code>, like <code>DialogHeader</code>. Add it to keep the button: the types take <code>closeLabel</code> and <code>commandfor</code> only with it.`,
       ),
-      react: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>.`,
-      solid: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>.`,
-      svelte: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>.`,
+      react: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>, which the types take only with it.`,
+      solid: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>, which the types take only with it.`,
+      svelte: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>, which the types take only with it.`,
     },
     {
       ...slots(
@@ -911,6 +911,7 @@ export const whatsNew = {
       html: `Import <code>opui-css/elements/close-on-navigate.js</code> to <a href="#basics">close an open menu</a> when the page navigates.`,
     },
     `Mark the <a href="#current-item">current item</a> with <code>aria-current</code>, like the language in use. It gets a check at the end.`,
+    `A <a href="#pressed-items">pressed item</a> (<code>aria-pressed="true"</code>) gets a check at the end, and a <a href="#long-menus">menu that scrolls</a> shows a shadow at each edge with more beyond it.`,
     {
       ...slots(
         `A <a href="#custom-check">custom check</a>: <code>--ui-icon-check</code> for the check of your icon set, or any icon in the <code>icon-checked</code> slot.`,
@@ -959,6 +960,9 @@ export const whatsNew = {
     `New: a <a href="#basics">Message</a> is a chat bubble that groups into runs, with <a href="#attachments">attachments</a>, <a href="#reactions">reactions</a> and a <a href="#typing">typing indicator</a>.`,
     `A chat between two people can leave out every name and avatar with <a href="#direct"><code>direct</code></a>.`,
   ],
+  meter: [
+    `New: a <a href="#basics">Meter</a> draws the native <code>&lt;meter&gt;</code> like a Progress bar, for a value in a known range. <a href="#ranges"><code>low</code>, <code>high</code> and <code>optimum</code></a> color the fill, and a meter as tall as its row is a <a href="#poll">poll</a> bar.`,
+  ],
   "number-field": [
     components(
       `The start and end text ids start with the <a href="#api"><code>id</code></a>: <code>x-start-text</code> and <code>x-end-text</code> for <code>id="x"</code>.`,
@@ -969,7 +973,7 @@ export const whatsNew = {
     },
   ],
   "one-time-code": [
-    `New: a <a href="#basics">One-time code</a> field draws one input as a box per character, with <a href="#grouped">grouped</a> halves, a <a href="#length">length</a> from 4 to 8 and <a href="#alphanumeric">alphanumeric</a> codes.`,
+    `New: a <a href="#basics">One-time code</a> field draws one input as a box per character, with <a href="#grouped">grouped</a> halves, a <a href="#length">length</a> from 4 to 8, <a href="#alphanumeric">alphanumeric</a> codes and autofill you can turn off for a code read off <a href="#another-screen">another screen</a>.`,
   ],
   progress: [
     `The <a href="#determinate">track</a> is always outlined with <code>--ui-field-border-color</code>, so the empty part is visible.`,
@@ -1001,6 +1005,7 @@ export const whatsNew = {
     },
     `The bar reads <a href="#api"><code>--ui-selected-strong</code></a>, like the done part of a Stepper and a tracked Timeline, so one theme value recolors all three.`,
     `<a href="#component-properties"><code>--_loop-duration</code></a> sets the length of the <a href="#indeterminate">indeterminate</a> loop.`,
+    `<a href="#component-properties"><code>--_block-size</code></a> sets the height of the track.`,
   ],
   radio: [
     `<a href="#cards">Cards</a> take <code>--ui-card-padding</code>.`,
@@ -1803,6 +1808,7 @@ export const highlighted = new Set<string>([
   "layout",
   "menu",
   "message",
+  "meter",
   "number-field",
   "one-time-code",
   "rating",
@@ -1821,6 +1827,7 @@ export const added = new Set<string>([
   "layout",
   "menu",
   "message",
+  "meter",
   "number-field",
   "one-time-code",
   "rating",

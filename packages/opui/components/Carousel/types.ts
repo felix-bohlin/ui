@@ -3,12 +3,20 @@ export type Props = {
   aspectRatio?: number | string
   buttons?: "inside" | "none" | "outside"
   itemsPerView?: number
-  markerLabel?: string
-  markers?: boolean
   nextLabel?: string
   orientation?: "horizontal" | "vertical"
   peek?: boolean
   persistentButtons?: boolean
   previousLabel?: string
   stretch?: boolean
-} & ({ "aria-label": string } | { "aria-labelledby": string })
+} & ({ "aria-label": string } | { "aria-labelledby": string }) &
+  (
+    | {
+        markerLabel?: string
+        markers: boolean
+      }
+    | {
+        markerLabel?: never
+        markers?: never
+      }
+  )

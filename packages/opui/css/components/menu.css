@@ -22,6 +22,7 @@
     --_offset: var(--ui-space-1);
     --_position-area: var(--_side) var(--_span);
     --_radius: var(--ui-menu-radius, var(--ui-radius));
+    --_scroll-shadow: var(--ui-shadow-scroll);
     --_selected-shadow: none;
     --_shadow: var(--ui-shadow-overlay);
     --_side: self-block-end;
@@ -33,6 +34,7 @@
     border: var(--_border-width) solid var(--_border-color);
     border-radius: var(--_radius);
     box-shadow: var(--_shadow);
+    container-type: scroll-state;
     margin: 0;
     max-block-size: var(--_max-block-size);
     min-inline-size: var(--_min-inline-size);
@@ -40,6 +42,42 @@
     overscroll-behavior: contain;
     padding-block: var(--ui-space-1);
     padding-inline: 0;
+
+    /* A menu that scrolls shows a shadow at each edge with more beyond it. */
+    &::before,
+    &::after {
+      block-size: var(--ui-space-2);
+      box-shadow: var(--_scroll-shadow);
+      content: "";
+      display: block;
+      margin-block: calc(-1 * var(--ui-space-2)) 0;
+      opacity: 0;
+      pointer-events: none;
+      position: sticky;
+      transition: opacity var(--_duration);
+      z-index: 1;
+    }
+
+    &::before {
+      inset-block-start: calc(-1 * var(--ui-space-2) - var(--ui-space-1));
+    }
+
+    &::after {
+      inset-block-end: calc(-1 * var(--ui-space-2) - var(--ui-space-1));
+      scale: 1 -1;
+    }
+
+    @container scroll-state(scrollable: block-start) {
+      &::before {
+        opacity: 1;
+      }
+    }
+
+    @container scroll-state(scrollable: block-end) {
+      &::after {
+        opacity: 1;
+      }
+    }
 
     /* Popover - positioned against its invoker (implicit anchor) */
     &[popover] {

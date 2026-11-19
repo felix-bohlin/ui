@@ -12,6 +12,7 @@ export default function OneTimeCode({
   "aria-invalid": ariaInvalid,
   "aria-labelledby": ariaLabelledBy,
   autoCapitalize,
+  autoComplete,
   className,
   error,
   grouped,
@@ -55,6 +56,7 @@ export default function OneTimeCode({
           autoCapitalize={
             autoCapitalize ?? (alphanumeric ? "characters" : undefined)
           }
+          autoComplete={autoComplete ?? "one-time-code"}
           inputMode={inputMode ?? (alphanumeric ? undefined : "numeric")}
           pattern={
             pattern ??
@@ -68,7 +70,6 @@ export default function OneTimeCode({
           )}
           aria-invalid={error ? "true" : ariaInvalid}
           aria-labelledby={ariaLabelledBy}
-          autoComplete="one-time-code"
           id={inputId}
           maxLength={length}
           name={name ?? field?.name}

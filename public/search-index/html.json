@@ -1610,11 +1610,25 @@
     "url": "/html/components/menu/#current-item"
   },
   {
+    "id": "component-menu-html-pressed-items",
+    "title": "Pressed items",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/html/components/menu/#pressed-items"
+  },
+  {
     "id": "component-menu-html-custom-check",
     "title": "Custom check",
     "page": "Menu",
     "category": "Component",
     "url": "/html/components/menu/#custom-check"
+  },
+  {
+    "id": "component-menu-html-long-menus",
+    "title": "Long menus",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/html/components/menu/#long-menus"
   },
   {
     "id": "component-menu-html-placement",
@@ -1707,6 +1721,56 @@
     "page": "Message",
     "category": "Component",
     "url": "/html/components/message/#typing"
+  },
+  {
+    "id": "component-meter-html",
+    "title": "Meter",
+    "description": "A bar on the native meter element, for a value in a known range, like disk usage or a poll option's share.",
+    "keywords": "bar gauge measurement poll usage",
+    "category": "Component",
+    "url": "/html/components/meter/"
+  },
+  {
+    "id": "component-meter-html-basics",
+    "title": "Basics",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/html/components/meter/#basics"
+  },
+  {
+    "id": "component-meter-html-variants",
+    "title": "Variants",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/html/components/meter/#variants"
+  },
+  {
+    "id": "component-meter-html-size",
+    "title": "Size",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/html/components/meter/#size"
+  },
+  {
+    "id": "component-meter-html-label",
+    "title": "Label",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/html/components/meter/#label"
+  },
+  {
+    "id": "component-meter-html-ranges",
+    "title": "Low, high and optimum",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/html/components/meter/#ranges"
+  },
+  {
+    "id": "component-meter-html-poll",
+    "title": "Poll",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/html/components/meter/#poll"
   },
   {
     "id": "component-number-field-html",
@@ -1856,6 +1920,13 @@
     "page": "One-time code",
     "category": "Component",
     "url": "/html/components/one-time-code/#disabled"
+  },
+  {
+    "id": "component-one-time-code-html-another-screen",
+    "title": "Another screen",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/html/components/one-time-code/#another-screen"
   },
   {
     "id": "component-one-time-code-html-right-to-left",
@@ -4563,7 +4634,7 @@
     "id": "api-carousel-html",
     "title": "Carousel API",
     "description": "Reference for Carousel HTML component.",
-    "api": "ul.ui-carousel The scroller. The previous button. `::scroll-button(block-start)` when vertical. .ui-carousel::scroll-button(inline-start) An item. .ui-carousel > :first-child The next button. `::scroll-button(block-end)` when vertical. .ui-carousel::scroll-button(inline-end) A marker, one per item. .ui-carousel > :first-child::scroll-marker .ui-align-center Alignment Where items snap. [aria-label] Label The accessible name of the carousel. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. --_media-aspect-ratio Aspect ratio Aspect ratio that images, videos and iframes are cropped to. .ui-buttons-none .ui-buttons-outside Buttons Previous and next buttons. `outside` places them beside the items, and `none` leaves them out. --_items-per-view Items per view Number of visible items. --_marker-label Marker label Accessible name of each marker, with `{number}` where the item number goes. .ui-markers Markers One marker per item, after the list. --_button-next-label Next label Accessible name of the next button. .ui-vertical Orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. .ui-peek Peek Shows part of the neighboring items. .ui-persistent-buttons Persistent buttons Keeps the buttons visible at the ends. A disabled button has a muted border. --_button-previous-label Previous label Accessible name of the previous button. .ui-stretch Stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
+    "api": "ul.ui-carousel The scroller. The previous button. `::scroll-button(block-start)` when vertical. .ui-carousel::scroll-button(inline-start) An item. .ui-carousel > :first-child The next button. `::scroll-button(block-end)` when vertical. .ui-carousel::scroll-button(inline-end) A marker, one per item. .ui-carousel > :first-child::scroll-marker .ui-align-center Alignment Where items snap. [aria-label] Label The accessible name of the carousel. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. --_media-aspect-ratio Aspect ratio Aspect ratio that images, videos and iframes are cropped to. .ui-buttons-none .ui-buttons-outside Buttons Previous and next buttons. `outside` places them beside the items, and `none` leaves them out. --_items-per-view Items per view Number of visible items. --_marker-label Marker label Accessible name of each marker, with `{number}` where the item number goes. The Astro, React, Solid and Svelte types take it only with `markers`. .ui-markers Markers One marker per item, after the list. --_button-next-label Next label Accessible name of the next button. .ui-vertical Orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. .ui-peek Peek Shows part of the neighboring items. .ui-persistent-buttons Persistent buttons Keeps the buttons visible at the ends. A disabled button has a muted border. --_button-previous-label Previous label Accessible name of the previous button. .ui-stretch Stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
     "category": "API",
     "url": "/html/api/#carousel"
   },
@@ -4776,6 +4847,14 @@
     "url": "/html/api/#message"
   },
   {
+    "id": "api-meter-html",
+    "title": "Meter API",
+    "description": "Reference for Meter HTML component.",
+    "api": "meter.ui-meter The meter. The browser draws the fill inside it. .ui-filled Variants The variant to use.",
+    "category": "API",
+    "url": "/html/api/#meter"
+  },
+  {
     "id": "api-number-field-html",
     "title": "Number field API",
     "description": "Reference for Number field HTML component.",
@@ -4787,7 +4866,7 @@
     "id": "api-one-time-code-html",
     "title": "One-time code API",
     "description": "Reference for One-time code HTML component.",
-    "api": "div.ui-one-time-code Container element. The label for the field. .ui-label Draws a box per character and a ring on the next one. .ui-field The input element, with `autocomplete=\"one-time-code\"`, which lets the browser fill in a code it received. input Supporting text displayed below the field. .ui-end-text [autocapitalize=\"characters\"] Alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. [disabled] Disabled Dims the field and blocks input. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. .ui-grouped Grouped Draws a dash between the two halves of the code. Use it with an even `length`. [maxlength] Length The number of characters and boxes, from 4 to 8. [required] Required Adds a required mark after the label. The form won't submit while the code is incomplete. .ui-large .ui-small .ui-x-small Sizes The size of the element.",
+    "api": "div.ui-one-time-code Container element. The label for the field. .ui-label Draws a box per character and a ring on the next one. .ui-field The input element, with `autocomplete=\"one-time-code\"` unless it is set to `off`, which lets the browser fill in a code it received. input Supporting text displayed below the field. .ui-end-text [autocapitalize=\"characters\"] Alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. [disabled] Disabled Dims the field and blocks input. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. .ui-grouped Grouped Draws a dash between the two halves of the code. Use it with an even `length`. [maxlength] Length The number of characters and boxes, from 4 to 8. [required] Required Adds a required mark after the label. The form won't submit while the code is incomplete. .ui-large .ui-small .ui-x-small Sizes The size of the element.",
     "category": "API",
     "url": "/html/api/#one-time-code"
   },

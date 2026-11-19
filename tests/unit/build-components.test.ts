@@ -680,7 +680,7 @@ describe("the ports of a sample", () => {
       'import { cx } from "../cx"\nimport type { Props } from "./types.react"\n\nexport default function Sample({ className, items, children, ...rest }: Props) {\n  return (\n    <ul className={cx(["ui-sample", className])} {...rest}>\n      {items?.map(({ href, label, ...itemRest }, index) => {\n        const Tag = href ? "a" : "span"\n        return (\n          <li key={index}>\n            <Tag href={href} {...itemRest}>\n              {label}\n            </Tag>\n          </li>\n        )\n      })}\n      {children}\n    </ul>\n  )\n}\n',
     )
     expect(ports.svelte).toContain(
-      '{#each items ?? [] as { href, label, ...itemRest }, index (index)}\n    {@const Tag = href ? "a" : "span"}\n    <li>\n      <svelte:element this={Tag} {href} {...itemRest}>{label}</svelte:element>\n    </li>\n  {/each}',
+      '{#each items as { href, label, ...itemRest }}\n    {@const Tag = href ? "a" : "span"}\n    <li>\n      <svelte:element this={Tag} {href} {...itemRest}>{label}</svelte:element>\n    </li>\n  {/each}',
     )
     expect(ports.vue).toBe(
       '<script setup lang="ts">\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { items } = defineProps<Props>()\ndefineSlots<Slots>()\n</script>\n\n<template>\n  <ul :class="[\'ui-sample\', $props.class]">\n    <li v-for="({ href, label, ...itemRest }, index) in items" :key="index">\n      <component :is="href ? \'a\' : \'span\'" :href="href" v-bind="itemRest">{{\n        label\n      }}</component>\n    </li>\n    <slot></slot>\n  </ul>\n</template>\n',
@@ -754,7 +754,7 @@ describe("the ports of a sample", () => {
       "{items.map((item, step) => (\n        <li key={step} value={step + 1}>",
     )
     expect(ports.svelte).toContain(
-      "{#each items as item, step (step)}\n    <li value={step + 1}>",
+      "{#each items as item, step}\n    <li value={step + 1}>",
     )
     expect(ports.vue).toContain(
       '<li v-for="(item, step) in items" :key="step" :value="step + 1">',
@@ -772,7 +772,7 @@ describe("the ports of a sample", () => {
       '      {items?.map((option, index) =>\n        typeof option === "object" ? (\n          <option key={index} value={option.value} label={option.label} />\n        ) : (\n          <option key={index} value={option} />\n        ),\n      )}\n',
     )
     expect(ports.svelte).toContain(
-      '{#each items ?? [] as option, index (index)}\n    {#if typeof option === "object"}\n      <option',
+      '{#each items as option}\n    {#if typeof option === "object"}\n      <option',
     )
     expect(ports.vue).toContain(
       '<template v-for="(option, index) in items" :key="index"',

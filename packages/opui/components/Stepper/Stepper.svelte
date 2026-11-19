@@ -27,7 +27,7 @@
   ]}
   {...rest}
 >
-  {#each items ?? [] as item, index (index)}
+  {#each items as item, index}
     <StepperItem
       {completeLabel}
       {errorLabel}

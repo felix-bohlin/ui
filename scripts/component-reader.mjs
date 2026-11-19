@@ -730,6 +730,7 @@ const expressionNode = (node, context) => {
         children,
         consts,
         index,
+        indexed: !!indexParameter,
         item: parameter.getText(sourceFile),
         list: expression.expression.expression.getText(sourceFile),
         optional: !!expression.expression.questionDotToken,

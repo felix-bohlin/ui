@@ -58,7 +58,7 @@
           value = 0
         }}
       />
-    {/if}{#each stars as star, index (index)}
+    {/if}{#each stars as star}
       <input
         aria-describedby={ariaDescribedBy}
         aria-invalid={invalid}

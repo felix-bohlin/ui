@@ -154,13 +154,13 @@ type Scenario = {
 const ELEMENTS: Scenario[] = [
   {
     file: "callout.js",
-    markup: `<opui-callout id="note" class="ui-callout" role="article">
+    markup: `<opui-callout id="note" class="ui-callout">
       <div class="ui-content"><p>Backups run nightly.</p></div>
       <button class="ui-button" type="button" aria-label="Close" command="--dismiss" commandfor="note">x</button>
     </opui-callout>
     <button type="button">Next</button>`,
     ready: async (page) => {
-      await expect(page.getByRole("article")).toBeVisible()
+      await expect(page.locator("opui-callout")).toBeVisible()
     },
     selector: "opui-callout",
     title: "hides the callout with its close button",

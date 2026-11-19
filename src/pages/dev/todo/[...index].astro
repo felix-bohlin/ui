@@ -49,14 +49,10 @@ import source from "../../../../TODO.md?raw"
 
 export function getStaticPaths() {
   if (!testPagesEnabled()) return []
-  return [{ params: { index: undefined } }, { params: { index: "done" } }]
+  return [{ params: { index: undefined } }]
 }
 
-const showDone = Astro.params.index === "done"
-const { done, sections: open } = parseTodo(source)
-const sections = showDone ? done : open
-const itemCount = (list: typeof done) =>
-  list.reduce((total, section) => total + section.items.length, 0)
+const { done, sections } = parseTodo(source)
 const stressExamples = Object.fromEntries(
   Object.entries(stressPages).map(([path, html]) => [
     stressSlug(path),
@@ -104,7 +100,7 @@ const stages = [
   { label: "Follow-up", value: "follow-up" },
   { label: "Answered", value: "answered" },
   { label: "Waiting", value: "waiting" },
-].filter((stage) => !showDone || stage.value !== "follow-up")
+]
 
 const todoSections = sections.map((section) => ({
   id: slugify(section.title),
@@ -114,7 +110,7 @@ const todoSections = sections.map((section) => ({
       const stage =
         state === "waiting"
           ? "waiting"
-          : state === "follow-up" && !showDone
+          : state === "follow-up"
             ? "follow-up"
             : "open"
       const lastReply = item.notes.findLastIndex(
@@ -166,32 +162,15 @@ const actions = ["None", ...actionValues]
 ---
 
 <Document
-  description={
-    showDone
-      ? "Check the fixed todos in TODO.md against their examples."
-      : "Comment on the todos in TODO.md and copy them with your comments."
-  }
+  description="Comment on the todos in TODO.md and copy them with your comments."
   showToc={false}
   wide
 >
-  <Fragment slot="title">{showDone ? "Done" : "TODO"}</Fragment>
+  <Fragment slot="title">TODO</Fragment>
   <p slot="preamble">
-    {showDone ? (
-      <>
-        Check the fixed items in <code>TODO.md</code> against their examples and
-        answer the ones that need more work.{" "}
-        <a class="ui-link" href="/dev/todo/">{`Open (${itemCount(open)})`}</a>
-      </>
-    ) : (
-      <>
-        Answer the open items in <code>TODO.md</code>: accept a recommendation,
-        pick an action or comment, then copy your answers for an agent, which
-        works through them with <code>/todo-answers</code>.{" "}
-        <a class="ui-link" href="/dev/todo/done/"
-          >{`Done (${itemCount(done)})`}</a
-        >
-      </>
-    )}
+    Answer the open items in <code>TODO.md</code>: accept a recommendation, pick
+    an action or comment, then copy your answers for an agent, which works
+    through them with <code>/todo-answers</code>.
   </p>
   <ProgressMap
     class="todo-map-sidebar"
@@ -639,7 +618,7 @@ const actions = ["None", ...actionValues]
     type="application/json"
     id="todo-keys"
     set:html={JSON.stringify(
-      [...open, ...done].flatMap((section) =>
+      [...sections, ...done].flatMap((section) =>
         section.items.map((item) => item.key),
       ),
     )}

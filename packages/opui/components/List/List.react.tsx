@@ -1,3 +1,4 @@
+import type { HTMLAttributes } from "react"
 import { cx } from "../cx"
 import type { Props } from "./types.react"
 
@@ -23,7 +24,7 @@ export default function List({
         className,
       ])}
       role={role ?? "list"}
-      {...(rest as object)}
+      {...(rest as HTMLAttributes<HTMLElement>)}
     >
       {children}
     </Tag>

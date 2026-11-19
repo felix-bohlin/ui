@@ -1,3 +1,4 @@
+import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
 import {
   reactAttributeName,
@@ -29,8 +30,61 @@ import {
   classText,
   filtersSpread,
   isIdentifierName,
+  sourceFileOf,
   unsupported,
 } from "./component-shared.mjs"
+
+const declaredNames = (code) => {
+  const [declaration] = sourceFileOf(code, "component.tsx").statements
+  const names = new Set()
+  const bind = (name) => {
+    if (ts.isIdentifier(name)) names.add(name.text)
+    else {
+      name.elements.forEach(
+        (element) => ts.isBindingElement(element) && bind(element.name),
+      )
+    }
+  }
+  declaration.parameters.forEach((parameter) => bind(parameter.name))
+  declaration.body.statements.forEach((statement) => {
+    if (ts.isVariableStatement(statement)) {
+      statement.declarationList.declarations.forEach((entry) =>
+        bind(entry.name),
+      )
+    }
+  })
+  return names
+}
+
+const dependenciesOf = (code, locals) => {
+  const found = new Set()
+  const visit = (node) => {
+    if (
+      ts.isIdentifier(node) &&
+      locals.has(node.text) &&
+      !(
+        ts.isPropertyAccessExpression(node.parent) && node.parent.name === node
+      ) &&
+      !(ts.isPropertyAssignment(node.parent) && node.parent.name === node)
+    ) {
+      let chain = node
+      while (
+        ts.isPropertyAccessExpression(chain.parent) &&
+        chain.parent.expression === chain &&
+        !(
+          ts.isCallExpression(chain.parent.parent) &&
+          chain.parent.parent.expression === chain.parent
+        )
+      ) {
+        chain = chain.parent
+      }
+      found.add(chain.getText())
+    }
+    ts.forEachChild(node, visit)
+  }
+  visit(sourceFileOf(`(${code})`, "expression.tsx"))
+  return [...found].toSorted(byName)
+}
 
 export const toReact = (component) => {
   const {
@@ -192,6 +246,29 @@ export const toReact = (component) => {
   ]
   let usesCx = false
   let usesDefined = false
+  const reactTypes = new Set()
+  const hoisted = new Map()
+  const filteredRest = (code) => {
+    if (!provide) return `{...defined(${code})}`
+    if (!hoisted.has(code)) {
+      const name = ["attrs", "restAttrs", "definedAttrs"]
+        .map((base) => (hoisted.size ? `${base}${hoisted.size + 1}` : base))
+        .find((base) => !taken.has(base))
+      hoisted.set(code, name)
+    }
+    return `{...${hoisted.get(code)}}`
+  }
+  const restType = (node, item) => {
+    if (node.variable) {
+      reactTypes.add("HTMLAttributes")
+      return "HTMLAttributes<HTMLElement>"
+    }
+    if (item.cast && !node.component && !node.custom) {
+      reactTypes.add("ComponentProps")
+      return `ComponentProps<${JSON.stringify(item.cast)}>`
+    }
+    return "object"
+  }
   const attribute = (node, item) => {
     if (item.kind === "class") {
       const text = classText(item.code)
@@ -205,17 +282,17 @@ export const toReact = (component) => {
       if (item.condition !== undefined) {
         const chosen = chosenSpreadCode(
           item,
-          `(${item.code} as object)`,
+          `(${item.code} as ${restType(node, item)})`,
           rewriteExpression(item.condition, options),
         )
         return filtered ? `{...defined(${chosen})}` : `{...(${chosen})}`
       }
       if (node.variable && item.code === rest) {
-        return filtered
-          ? `{...defined(${item.code} as object)}`
-          : `{...(${item.code} as object)}`
+        const cast = `${item.code} as ${restType(node, item)}`
+        return filtered ? filteredRest(cast) : `{...(${cast})}`
       }
       const code = rewriteExpression(item.code, options)
+      if (filtered && item.code === rest) return filteredRest(code)
       return filtered ? `{...defined(${code})}` : `{...${code}}`
     }
     const name = node.component
@@ -301,16 +378,45 @@ export const toReact = (component) => {
   const rendered = render(tree)
   const providedValue =
     kind?.provided && provide ? kind.provided(model, provide) : provide?.value
+  const contextCode = provide
+    ? rewriteExpression(objectCode(providedValue), options)
+    : undefined
+  const locals = provide
+    ? declaredNames(
+        `function f({ ${destructured.join(", ")} }) {\n${body.join("\n")}\n}`,
+      )
+    : undefined
+  const contextName = ["context", "contextValue", "providedContext"].find(
+    (name) => !locals?.has(name),
+  )
+  if (provide) {
+    if (
+      locals.has("Context") ||
+      imports.some((line) => /\bContext\b/.test(line))
+    ) {
+      throw unsupported(
+        component.file,
+        "the name `Context`, which the React port imports for the type of its provided value",
+        "rename the prop, const or import in the Astro file",
+      )
+    }
+    body.push(
+      ...[...hoisted].map(([code, name]) => `const ${name} = defined(${code})`),
+      `const ${contextName} = useMemo<Context>(\n  () => (${contextCode}),\n  [${dependenciesOf(contextCode, locals).join(", ")}],\n)`,
+    )
+  }
   const returned = provide
-    ? `<${provide.context.name}Context value={${rewriteExpression(objectCode(providedValue), options)}}>${rootNode.type === "if" ? `{${rendered}}` : rendered}</${provide.context.name}Context>`
+    ? `<${provide.context.name}Context value={${contextName}}>${rootNode.type === "if" ? `{${rendered}}` : rendered}</${provide.context.name}Context>`
     : multiRoot
       ? `<>${rendered}</>`
       : rendered
   const reactValues = [
     ...(scripts.length ? ["useEffect"] : []),
     ...(uid ? ["useId"] : []),
+    ...(provide ? ["useMemo"] : []),
     ...(kind?.reactValues?.() ?? []),
-  ]
+    ...[...reactTypes].map((name) => `type ${name}`),
+  ].toSorted((a, b) => byName(a.replace(/^type /, ""), b.replace(/^type /, "")))
   const reactHelpers = [
     ...(kind?.reactHelpers?.() ?? []),
     ...(hydrating.size ? ["useHydrated"] : []),
@@ -318,7 +424,9 @@ export const toReact = (component) => {
     ...(item ? ["useSeedChecked"] : []),
   ].toSorted(byName)
   const reactImport = reactValues.length
-    ? `import { ${reactValues.join(", ")} } from "react"`
+    ? reactValues.every((name) => name.startsWith("type "))
+      ? `import type { ${reactValues.map((name) => name.slice(5)).join(", ")} } from "react"`
+      : `import { ${reactValues.join(", ")} } from "react"`
     : undefined
   const importLines = [
     ...(reactImport ? [reactImport] : []),
@@ -337,6 +445,11 @@ export const toReact = (component) => {
     ...(kind?.imports?.(component, model) ?? []),
     ...(item ? withImport(imports, "../dev", "warnGroupedChecked") : imports),
     propsImport(propsType, "types.react"),
+    ...(provide
+      ? [
+          `import type { Context } from "${provide.context.folder ? `../${provide.context.folder}` : "."}/types"`,
+        ]
+      : []),
   ]
   const client =
     reads.length > 0 ||

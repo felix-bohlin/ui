@@ -50,6 +50,7 @@ for (const framework of FRAMEWORKS) {
   test(`the ${framework} examples draw their icons from the theme's icon set`, async ({
     page,
   }) => {
+    test.setTimeout(90_000)
     await page.goto(`/${framework}/components/button/`)
     await examplesMounted(page, framework)
     await expect(

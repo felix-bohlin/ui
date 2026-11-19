@@ -106,6 +106,34 @@ export const identifierCounts = (code) => {
 
 export const identifiersIn = (code) => new Set(identifierCounts(code).keys())
 
+export const itemBinding = (text) => {
+  const [statement] = sourceFileOf(`(${text}) => 0`, "item.ts").statements
+  const arrow =
+    statement && ts.isExpressionStatement(statement)
+      ? statement.expression
+      : undefined
+  const name =
+    arrow && ts.isArrowFunction(arrow) ? arrow.parameters[0]?.name : undefined
+  if (!name) return undefined
+  if (ts.isIdentifier(name)) return { fields: [], name: name.text }
+  if (!ts.isObjectBindingPattern(name)) return undefined
+  const fields = []
+  let rest
+  for (const element of name.elements) {
+    const key = element.propertyName ?? element.name
+    if (
+      element.initializer ||
+      !ts.isIdentifier(element.name) ||
+      !ts.isIdentifier(key)
+    ) {
+      return undefined
+    }
+    if (element.dotDotDotToken) rest = element.name.text
+    else fields.push({ key: key.text, local: element.name.text })
+  }
+  return { fields, rest }
+}
+
 const typeNodeOf = (type) =>
   sourceFileOf(`type T = ${type}`, "type.ts").statements[0].type
 

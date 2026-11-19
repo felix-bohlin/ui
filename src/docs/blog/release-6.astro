@@ -42,7 +42,7 @@ const openTodos = itemCount(todo.sections)
       <p><strong>TL;DR</strong></p>
       <ul>
         <li>
-          What is in 6.0: React and Svelte, {newComponents.length} new
+          What is in 6.0: React, Solid and Svelte, {newComponents.length} new
           components and the Layout classes, a token system with five example
           themes to prove it, blocks, the Theme builder and a lot more docs.
         </li>
@@ -411,11 +411,12 @@ const openTodos = itemCount(todo.sections)
         framework and by plain HTML.
       </li>
       <li>
-        Why React and Svelte could land in one release, and what each binding
-        adds: React 19 with Server Components by default and
+        Why React, Solid and Svelte could land in one release, and what each
+        binding adds: React 19 with Server Components by default and
         <code>"use client"</code> only on components that need context, state or
-        effects; Svelte 5 with <code>bind:value</code>,
-        <code>bind:checked</code> and <code>bind:group</code>; Astro and Vue
+        effects; Solid 2 with props read through signals, so a component runs
+        once and only what changed updates; Svelte 5 with <code>bind:value</code
+        >, <code>bind:checked</code> and <code>bind:group</code>; Astro and Vue
         with parts instead of slots.
       </li>
       <li>

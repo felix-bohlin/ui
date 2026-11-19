@@ -55,7 +55,7 @@ Fredahead's open findings are indexed in felix-bohlin/ui#443. A bug found here t
 
 ## The contract
 
-Icons are inline `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">` with one `<path>` from `ICONS` in `shared/icons.ts`. Every app renders the same markup with the opui components of its framework, imports `opui-css/css/imports.css`, `reference-shared/theme.css` and `reference-shared/app.css`, serves `shared/photos` and the repo's `public/photos` at `/photos/`, and sets `data-hydrated` on `<html>` once it is interactive. Paths, ids and text below are exact.
+Icons are inline `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">` with one `<path>` from `ICONS` in `shared/icons.ts`. A decorative avatar is an `Avatar` without `label`: the photo as `src`, or the initials as its content, which it hides from assistive tech. Every app renders the same markup with the opui components of its framework, imports `opui-css/css/imports.css`, `reference-shared/theme.css` and `reference-shared/app.css`, serves `shared/photos` and the repo's `public/photos` at `/photos/`, and sets `data-hydrated` on `<html>` once it is interactive. Paths, ids and text below are exact.
 
 ### Shell (every page)
 
@@ -67,7 +67,7 @@ Icons are inline `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke
   - `<nav aria-label="Main" class="app-nav">` with one link per screen in `SCREENS`, in order, as `Button`s with `href`. The link of the current screen has `aria-current="page"`. Profile pages of other people mark no link.
   - a notifications button (`aria-label="Notifications"`) wrapped in a `Badge` with `hideLabel` and `label="2 unread notifications"` and the visible count `2`, opening a `Menu` (`id="notifications-menu"`, `align="end"`) with one link item per entry in `NOTIFICATIONS`.
   - a theme button (`aria-label="Theme"`) opening a `Menu` (`id="theme-menu"`, `align="end"`) with two button items, `Default` and `Sunset`. Picking one sets `data-theme` on `<html>` (`default` or `sunset`), saves it in `localStorage` under `reference-theme` and closes the menu. A saved theme is applied by an inline script in `<head>`, before the first paint.
-  - an `Avatar` link to `/u/sam` (`aria-label="Your profile"`, the initials `SR`, since Sam has no photo).
+  - an `Avatar` link to `/u/sam` with `label="Your profile"` and the initials `SR`, since Sam has no photo.
 - `<main class="app-main" id="main" tabindex="-1">` holds the screen, whose root element is `<div class="app-screen" data-screen="<id>">`.
 - Navigation between screens is client-side in every app (Astro uses `ClientRouter`).
 
@@ -77,7 +77,7 @@ Icons are inline `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke
 - A composer `<form aria-label="New post">` with a `Textarea` (`label="What's on your mind?"`, `name="text"`, `maxlength="280"`, `characterCount`, `required`) and a filled `Button` `Post` (`type="submit"`). Submitting adds a post by Sam at the top of the list with the time `Just now`, and empties the field.
 - A `ToggleGroup` (`aria-label="Filter posts"`, `name="filter"`) with `All`, `Photos` and `Saved` from `FEED_FILTERS`, `All` checked. `Photos` shows only posts with photos. `Saved` shows the posts saved this session, or the empty state `<p class="app-empty">No saved posts yet.</p>`. The `Load more` button only shows for `All`.
 - `<ol aria-label="Posts" class="app-posts">` with one `<li>` per post, each a `Card` with `as="article"`, `variant="outlined"` and `aria-labelledby` naming the author's name element:
-  - a `CardHeader` with `as="header"` holding an `Avatar` link to `/u/<handle>` that is hidden from assistive tech and Tab (`aria-hidden="true"`, `tabindex="-1"`, the photo with `alt=""` or the initials), then an `<hgroup>` with the author's name as a link to `/u/<handle>` in `<h2 id="post-<id>-author">` and a `<p>` with a `<time datetime>` holding the post time.
+  - a `CardHeader` with `as="header"` holding a decorative `Avatar` (no `label`, the photo as `src` or the initials as content, not a link), then an `<hgroup>` with the author's name as a link to `/u/<handle>` in `<h2 id="post-<id>-author">` and a `<p>` with a `<time datetime>` holding the post time.
   - a post options button (`aria-label="Options for <name>'s post"`) opening a `Menu` (`id="post-menu-<id>"`, `align="end"`) with three items:
     - `Copy link`, a button that writes `<origin>/posts/<id>` to the clipboard.
     - `Save post`, or `Remove from saved` once saved: a submit button (`type="submit"`, `form="save-post-<id>"`) for a hidden `<form id="save-post-<id>">` after the menu. Submitting it toggles the post in the saved list and must close the menu.
@@ -89,9 +89,9 @@ Icons are inline `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke
 ### Chat (`/chat`, `data-screen="chat"`)
 
 - `<h1>Chat</h1>`.
-- `<nav aria-label="Conversations">` with a `List` of links, one per conversation, to `/chat?with=<handle>`, as `ListItem`s with the avatar in `start` (a photo with `alt=""`, or the initials with `aria-hidden="true"`), the name as `label` and, when `unread` is above 0, `description="<n> unread"`. The open conversation has `aria-current="page"`.
+- `<nav aria-label="Conversations">` with a `List` of links, one per conversation, to `/chat?with=<handle>`, as `ListItem`s with a decorative avatar in `start`, the name as `label` and, when `unread` is above 0, `description="<n> unread"`. The open conversation has `aria-current="page"`.
 - `/chat` opens the first conversation, `/chat?with=<handle>` that one, and an unknown handle the first.
-- `<section aria-labelledby="chat-title">` with `<h2 id="chat-title">` naming the other person, then a `MessageList` (`aria-label="Messages with <name>"`, `direct`) with a `<li class="ui-divider">` per divider line and a `Message` per message (`outgoing` for Sam, `author`, `time`, `datetime`, the other person's `Avatar` in `start` with `aria-hidden="true"`).
+- `<section aria-labelledby="chat-title">` with `<h2 id="chat-title">` naming the other person, then a `MessageList` (`aria-label="Messages with <name>"`, `direct`) with a `<li class="ui-divider">` per divider line and a `Message` per message (`outgoing` for Sam, `author`, `time`, `datetime`, the other person's decorative `Avatar` in `start`).
 - A `<form aria-label="Send a message">` under it with a `Textarea` (`label="Message"`, `hideLabel`, `name="text"`, `required`) and a filled `Button` `Send` (`type="submit"`). Sending appends an outgoing message with `outgoing()` and empties the field. Switching conversations keeps each one's sent messages for the session.
 
 ### Photos (`/photos`, `data-screen="photos"`)
@@ -104,7 +104,7 @@ Icons are inline `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke
 ### Profile (`/u/<handle>`, `data-screen="profile"`)
 
 - An unknown handle is a 404 page with `<h1>Not found</h1>` in the shell, `data-screen="not-found"`. The response has the status text `Not Found`, since the spec matches the console message Chromium logs for it, and some frameworks send another text unless the app sets it.
-- `<h1>` with the name, a large `Avatar` (`size="large"`, photo with `alt=""` or initials with `aria-hidden="true"`), the bio in `<p>`.
+- `<h1>` with the name, a large decorative `Avatar` (`size="large"`), the bio in `<p>`.
 - A `DescriptionList` with `Location` and `Joined`, and two `Stat`s, `Posts` and `Photos`, with the counts from `postsBy()` and `photosBy()`.
 - On `/u/sam`, an `Edit profile` button (`variant="outlined"`) opens a `Dialog` (`id="edit-profile"`) with `DialogHeader` `closeButton`, `DialogTitle` `Edit profile`, and a `<form method="dialog">` around `DialogContent` (`TextField` `Name`, `name="name"`, `required`, the current name; `Textarea` `Bio`, `name="bio"`, the current bio) and `DialogFooter` (`Cancel`, `type="button"`, closes; `Save`, filled, `type="submit"`). Saving updates the `<h1>`, the title and the bio; Cancel and Escape leave them, and the fields show the saved name and bio the next time the dialog opens.
 - On other profiles, a `Send message` button links to `/chat?with=<handle>`.

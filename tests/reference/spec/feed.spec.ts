@@ -66,10 +66,12 @@ test("each post is an article named by its author", async ({ page }) => {
   await expect(
     article.getByRole("link", { name: "Holly Humbucker" }),
   ).toHaveAttribute("href", "/u/holly")
-  const avatar = article.locator("a.ui-avatar")
-  await expect(avatar).toHaveAttribute("href", "/u/holly")
-  await expect(avatar).toHaveAttribute("tabindex", "-1")
-  await expect(avatar).toHaveAttribute("aria-hidden", "true")
+  await expect(article.locator("header .ui-avatar")).toHaveCount(1)
+  await expect(article.locator("a.ui-avatar")).toHaveCount(0)
+  await expect(article.locator("header .ui-avatar img")).toHaveAttribute(
+    "alt",
+    "",
+  )
 })
 
 test("a reaction adds one to its count", async ({ page }) => {

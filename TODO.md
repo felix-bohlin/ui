@@ -1397,6 +1397,38 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix. Rounding to the decimals of `min` and `step` gives the value the browser itself picks for the input.
   - Fix: in `middleValue`, round to the larger number of decimals in `min` and `step` (`Number(result.toFixed(decimals))`).
   - Fixed: Fixed in e7b3d83d9: `middleValue` rounds to the larger number of decimals in `min` and `step`, so `min="0" max="0.6" step="0.1"` starts at 0.3. `tests/unit/range-value.test.ts` checks `middleValue` and the readout and `aria-valuetext` Range renders without a `value` in all four frameworks.
+- [ ] (1) Anchor, Carousel, Rating: in React, a component that sets style variables keeps an empty `style=""` on its element once the last variable is unset. The component passes `undefined`, as it should, but when a `style` prop goes from an object to nothing React clears each property and never removes the attribute. Solid, Svelte and Vue remove it (`packages/opui/components/Anchor/Anchor.react.tsx:39`, `packages/opui/components/Carousel/Carousel.react.tsx:39`, `packages/opui/components/Rating/Rating.react.tsx:90`, `packages/opui/components/style.ts:25`)
+  - Summary: In React, an anchor, carousel, rating or tooltip keeps an empty style attribute after its last style variable is unset.
+  - Recommended: Fix with option A. Nothing a user sees changes, and the other fixes cost every render or every caller.
+  - Fix: found by the update probe and confirmed in Chromium: `<Anchor positionArea="top">` rendered again without `positionArea` leaves `<span class="ui-anchor" style="">`, and a fresh render has no `style`. The same holds for Carousel's `aspectRatio`, `itemsPerView` and labels, Rating's `max`, and a Tooltip through its Anchor. The server markup and the first render never have the attribute, which the contract test already checks. No rule in the package selects on `[style]`, so the leftover only shows to a caller's own `[style]` selector, a DOM snapshot or a `MutationObserver`. react-dom 19.3.1's `setValueForStyles` has no `removeAttribute`.
+  - Options:
+    - A (recommended): leave it, since it is React's behavior on an update, and say so under Limitations on the React pages of the four components. Check first whether React has an open issue for it, and report it if not, with the plain repro below.
+      ```tsx
+      const [on, setOn] = useState(true)
+      return (
+        <div
+          style={on ? { "--x": 1 } : undefined}
+          onClick={() => setOn(false)}
+        />
+      )
+      // after the click: <div style="">
+      ```
+    - B: remove the empty attribute in the compiled React port, through a ref helper in `react.ts` that the compiler puts on an element whose style can come out empty. It runs after every render of four components.
+      ```tsx
+      export const useCleanStyle = (ref?: Ref<HTMLElement>) =>
+        useCallback(
+          (element: HTMLElement) => {
+            const detach = attach(ref, element)
+            if (element.getAttribute("style") === "")
+              element.removeAttribute("style")
+            return detach
+          },
+          [ref],
+        )
+      ```
+    - C: give the element a `key` that changes when the style becomes empty, so React builds it again without the attribute. It needs no helper, but the element and everything in it remounts, which drops focus, scroll position and the state of slotted content.
+    - D: always render one variable, such as `--_set: 0`, so the style is never empty and all four frameworks render the same attribute. It changes the server markup and every parity snapshot of the four components for a leftover only React has.
+  - Must stay green with B: `tests/unit/component-contract.test.ts` (no empty `style` on the server) and the hydration spec, which fails when hydration changes an element.
 - [ ] (2) Range: in WebKit, the fill animation (`ui-range-fill` on the `--ui-range-thumb` view timeline) keeps `/theme-builder/` rendering a new frame about every 45 ms while nothing changes: in WebKitGTK 2.52 the main thread is busy for 3.5 s of every 4 s at idle, from the two Range inputs in the preview specimen, 1,900 px below the viewport. With their animation off it is 0.4 s, and Chromium shows no idle cost. A plain page with the same Range markup and `dist/opui.css` costs 0.1 to 0.2 s per 3 s, also inside `.ui-palette`, so the repro still needs the part of the builder that makes it expensive (`packages/opui/css/components/range.css:301-305`, `packages/opui/css/components/range.css:393-394`, `src/components/ThemeBuilder/PreviewSpecimen.astro:187`)
   - Summary: In WebKit the theme builder keeps redrawing while idle because of the Range fill animation, which slows every action there.
   - Recommended: Fix with option A. The cost comes from the engine, so it belongs in an engine bug report with a repro, not a workaround.

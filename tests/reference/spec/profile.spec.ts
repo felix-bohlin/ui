@@ -129,6 +129,9 @@ test.describe("Edit profile", () => {
       "Sam Rivera",
     )
     await page.getByRole("button", { name: "Edit profile" }).click()
+    await expect(
+      dialog(page).getByRole("textbox", { name: "Name" }),
+    ).toHaveValue("Sam Rivera")
     await dialog(page).getByRole("textbox", { name: "Name" }).fill("Nope")
     await page.keyboard.press("Escape")
     await expect(dialog(page)).toBeHidden()

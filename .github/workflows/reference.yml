@@ -41,7 +41,7 @@ jobs:
           fi
           changed=$(git diff --name-only "$base" HEAD)
           printf '%s\n' "$changed"
-          if printf '%s\n' "$changed" | grep -qE '^(\.github/workflows/(ci|publish|reference)\.yml|packages/opui/|tests/reference/)'; then
+          if printf '%s\n' "$changed" | grep -qE '^(\.github/workflows/(ci|publish|reference)\.yml|package\.json$|packages/opui/|pnpm-lock\.yaml$|public/photos/|tests/reference/)'; then
             echo "run=true" >> "$GITHUB_OUTPUT"
           else
             echo "::notice::Nothing the reference app renders changed, so its tests are skipped"

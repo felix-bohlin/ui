@@ -46,6 +46,14 @@ export const ME = "sam"
 
 export const USERS: User[] = [
   {
+    bio: "Photographer. Mostly harbors, sometimes cats.",
+    handle: "ada",
+    initials: "AO",
+    joined: "August 2025",
+    location: "Lisbon",
+    name: "Ada Okafor",
+  },
+  {
     bio: "Bass player, coffee snob, and the one who always brings snacks to rehearsal.",
     handle: "holly",
     initials: "HH",
@@ -53,6 +61,14 @@ export const USERS: User[] = [
     location: "Gothenburg",
     name: "Holly Humbucker",
     photo: "/photos/holly-humbucker.png",
+  },
+  {
+    bio: "Keeps a list of every concert since 2009.",
+    handle: "juno",
+    initials: "JP",
+    joined: "February 2026",
+    location: "Oslo",
+    name: "Juno Park",
   },
   {
     bio: "Drums on weekends, spreadsheets on weekdays.",
@@ -71,22 +87,6 @@ export const USERS: User[] = [
     location: "Uppsala",
     name: "Percy Groove",
     photo: "/photos/percy-groove.png",
-  },
-  {
-    bio: "Photographer. Mostly harbors, sometimes cats.",
-    handle: "ada",
-    initials: "AO",
-    joined: "August 2025",
-    location: "Lisbon",
-    name: "Ada Okafor",
-  },
-  {
-    bio: "Keeps a list of every concert since 2009.",
-    handle: "juno",
-    initials: "JP",
-    joined: "February 2026",
-    location: "Oslo",
-    name: "Juno Park",
   },
   {
     bio: "Organizes the Thursday jam. Bring your own cable.",

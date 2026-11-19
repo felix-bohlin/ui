@@ -22,7 +22,7 @@ export default defineConfig({
     command: app.start,
     cwd: appDir(app),
     env: { HOST: "localhost", PORT: String(portOf(app)) },
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
     timeout: 60_000,
     url: `http://localhost:${portOf(app)}/settings`,
   })),

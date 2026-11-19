@@ -24,9 +24,9 @@ import { verifyCode } from "reference-shared"
 useHead({ title: "Settings" })
 
 const languages = [
+  { label: "Deutsch", value: "de" },
   { label: "English", value: "en" },
   { label: "Svenska", value: "sv" },
-  { label: "Deutsch", value: "de" },
 ]
 
 const status = ref("")

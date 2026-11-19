@@ -72,9 +72,9 @@ export default function Settings() {
               <Select
                 defaultValue="en"
                 items={[
+                  { label: "Deutsch", value: "de" },
                   { label: "English", value: "en" },
                   { label: "Svenska", value: "sv" },
-                  { label: "Deutsch", value: "de" },
                 ]}
                 label="Language"
                 name="language"

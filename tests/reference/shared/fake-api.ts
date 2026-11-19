@@ -71,7 +71,7 @@ export const conversation = (handle: string | null | undefined) => {
 }
 
 export const outgoing = (text: string, minute: number): ChatLine => {
-  const time = `12:${String(minute).padStart(2, "0")}`
+  const time = `${12 + Math.floor(minute / 60)}:${String(minute % 60).padStart(2, "0")}`
   return {
     datetime: `2026-11-19T${time}`,
     from: ME,

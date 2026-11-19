@@ -20,7 +20,7 @@ import {
   Textarea,
 } from "opui-css/react"
 import { ME, photosBy, postsBy, type User } from "reference-shared"
-import { useEffect, useState, type FormEvent } from "react"
+import { useEffect, useState, type FormEvent, type SyntheticEvent } from "react"
 import UserAvatar from "@/lib/user-avatar"
 
 export default function Profile({ profile }: { profile: User }) {
@@ -37,6 +37,12 @@ export default function Profile({ profile }: { profile: User }) {
   const save = (event: FormEvent<HTMLFormElement>) => {
     const form = new FormData(event.currentTarget)
     setEdit({ bio: String(form.get("bio")), name: String(form.get("name")) })
+  }
+
+  const reset = (event: SyntheticEvent<HTMLDialogElement>) => {
+    const { elements } = event.currentTarget.querySelector("form")!
+    ;(elements.namedItem("name") as HTMLInputElement).value = name
+    ;(elements.namedItem("bio") as HTMLTextAreaElement).value = bio
   }
 
   return (
@@ -113,7 +119,7 @@ export default function Profile({ profile }: { profile: User }) {
         </Tabs>
       </div>
       {profile.handle === ME && (
-        <Dialog id="edit-profile">
+        <Dialog id="edit-profile" onClose={reset}>
           <DialogHeader closeButton>
             <DialogTitle>Edit profile</DialogTitle>
           </DialogHeader>

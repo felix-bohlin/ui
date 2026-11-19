@@ -30,7 +30,10 @@ const sourcesOf = (dir: string): string[] =>
 
 const missingScreens = (sources: string[], ids: string[]) =>
   ids.filter(
-    (id) => !sources.some((source) => source.includes(`data-screen="${id}"`)),
+    (id) =>
+      !sources.some((source) =>
+        new RegExp(`(?<!\\[)data-screen="${id}"`).test(source),
+      ),
   )
 
 const SCREEN_IDS = [...SCREENS.map((screen) => screen.id), "not-found"]
@@ -38,7 +41,11 @@ const SCREEN_IDS = [...SCREENS.map((screen) => screen.id), "not-found"]
 test("the check flags a screen that no source file renders", () => {
   expect(
     missingScreens(
-      ['<div class="app-screen" data-screen="feed">', "data-screen={id}"],
+      [
+        '<div class="app-screen" data-screen="feed">',
+        "data-screen={id}",
+        `document.querySelector('[data-screen="chat"]')`,
+      ],
       ["chat", "feed"],
     ),
   ).toEqual(["chat"])

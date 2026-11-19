@@ -15,10 +15,11 @@
     outgoing,
     user,
   } from "reference-shared"
-  import { sent } from "#lib/chat.svelte.ts"
+  import { getSent } from "#lib/chat.svelte.ts"
   import UserAvatar from "#lib/UserAvatar.svelte"
 
   const all = conversations()
+  const sent = getSent()
   const open = $derived(conversation(page.url.searchParams.get("with")))
   const lines = $derived([...open.lines, ...(sent[open.with] ?? [])])
   let text = $state("")
@@ -57,7 +58,7 @@
     <section aria-labelledby="chat-title" class="app-screen">
       <h2 id="chat-title">{open.user.name}</h2>
       <MessageList aria-label="Messages with {open.user.name}" direct>
-        {#each lines as line, index (index)}
+        {#each lines as line}
           {#if line.kind === "divider"}
             <li class="ui-divider">{line.label}</li>
           {:else}

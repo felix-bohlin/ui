@@ -9,6 +9,7 @@
     type FeedFilter,
     type Post,
   } from "reference-shared"
+  import { tick } from "svelte"
   import PostCard from "#lib/PostCard.svelte"
 
   const first = feedPage(0)
@@ -21,11 +22,10 @@
   let saved: string[] = $state([])
   let filter: FeedFilter = $state("all")
   let text = $state("")
+  let list: HTMLOListElement | undefined = $state()
+  let end: HTMLParagraphElement | undefined = $state()
 
   const visible = $derived.by(() => {
-    const all = [...created, ...loaded].filter(
-      (post) => !hidden.includes(post.id),
-    )
     if (filter === "photos")
       return [...created, ...POSTS]
         .filter((post) => !hidden.includes(post.id))
@@ -34,16 +34,32 @@
       return [...created, ...POSTS].filter(
         (post) => saved.includes(post.id) && !hidden.includes(post.id),
       )
-    return all
+    return [...created, ...loaded].filter((post) => !hidden.includes(post.id))
   })
 
-  const loadMore = async () => {
+  const hide = async (id: string) => {
+    const at = visible.findIndex((post) => post.id === id)
+    const next = visible[at + 1] ?? visible[at - 1]
+    hidden = [...hidden, id]
+    await tick()
+    const target = next
+      ? list?.querySelector<HTMLElement>(`#post-${next.id}-author a`)
+      : list
+    target?.focus()
+  }
+
+  const loadMore = async (event: MouseEvent) => {
+    const hadFocus = document.activeElement === event.currentTarget
     loading = true
     const next = await fetchFeedPage(pageIndex + 1)
     pageIndex += 1
     loaded = next.posts
     hasMore = next.hasMore
     loading = false
+    if (hadFocus && !hasMore) {
+      await tick()
+      end?.focus()
+    }
   }
 
   const submit = (event: SubmitEvent) => {
@@ -83,24 +99,25 @@
       <ToggleButton {value}>{label}</ToggleButton>
     {/each}
   </ToggleGroup>
-  {#if visible.length}
-    <ol
-      aria-busy={loading ? "true" : undefined}
-      aria-label="Posts"
-      class="app-posts"
-    >
-      {#each visible as post (post.id)}
-        <li>
-          <PostCard
-            onhide={() => (hidden = [...hidden, post.id])}
-            ontogglesave={() => toggleSave(post.id)}
-            {post}
-            saved={saved.includes(post.id)}
-          />
-        </li>
-      {/each}
-    </ol>
-  {:else if filter === "saved"}
+  <ol
+    aria-busy={loading ? "true" : undefined}
+    aria-label="Posts"
+    bind:this={list}
+    class="app-posts"
+    tabindex="-1"
+  >
+    {#each visible as post (post.id)}
+      <li>
+        <PostCard
+          onhide={() => hide(post.id)}
+          ontogglesave={() => toggleSave(post.id)}
+          {post}
+          saved={saved.includes(post.id)}
+        />
+      </li>
+    {/each}
+  </ol>
+  {#if !visible.length && filter === "saved"}
     <p class="app-empty">No saved posts yet.</p>
   {/if}
   {#if filter === "all"}
@@ -111,7 +128,7 @@
         >
       </div>
     {:else}
-      <p class="app-end">You're all caught up.</p>
+      <p bind:this={end} class="app-end" tabindex="-1">You're all caught up.</p>
     {/if}
   {/if}
 </div>

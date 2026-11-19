@@ -18,14 +18,18 @@
     SCREENS,
     me,
     unreadNotifications,
+    type ChatLine,
   } from "reference-shared"
   import { onMount } from "svelte"
+  import { setSent } from "#lib/chat.svelte.ts"
   import Icon from "#lib/Icon.svelte"
 
   let { children } = $props()
 
   const user = me()
   const unread = unreadNotifications()
+  const sent: Record<string, ChatLine[]> = $state({})
+  setSent(sent)
 
   const isCurrent = (path: string) =>
     path === "/"
@@ -40,10 +44,6 @@
   }
 
   onMount(() => {
-    try {
-      const saved = localStorage.getItem("reference-theme")
-      if (saved) document.documentElement.dataset.theme = saved
-    } catch {}
     document.documentElement.dataset.hydrated = ""
   })
 </script>
@@ -93,7 +93,7 @@
       { label: "Sunset", onclick: () => setTheme("sunset") },
     ]}
   />
-  <Avatar aria-label="Your profile" href="/u/{user.handle}" size="small"
+  <Avatar href="/u/{user.handle}" label="Your profile" size="small"
     >{user.initials}</Avatar
   >
 </header>

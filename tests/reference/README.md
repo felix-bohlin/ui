@@ -75,8 +75,8 @@ Icons are inline `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke
 
 - `<h1>Feed</h1>`.
 - A composer `<form aria-label="New post">` with a `Textarea` (`label="What's on your mind?"`, `name="text"`, `maxlength="280"`, `characterCount`, `required`) and a filled `Button` `Post` (`type="submit"`). Submitting adds a post by Sam at the top of the list with the time `Just now`, and empties the field.
-- A `ToggleGroup` (`aria-label="Filter posts"`, `name="filter"`) with `All`, `Photos` and `Saved` from `FEED_FILTERS`, `All` checked. `Photos` shows only posts with photos. `Saved` shows the posts saved this session, or the empty state `<p class="app-empty">No saved posts yet.</p>`. The `Load more` button only shows for `All`.
-- `<ol aria-label="Posts" class="app-posts">` with one `<li>` per post, each a `Card` with `as="article"`, `variant="outlined"` and `aria-labelledby` naming the author's name element:
+- A `ToggleGroup` (`aria-label="Filter posts"`, `name="filter"`) with `All`, `Photos` and `Saved` from `FEED_FILTERS`, `All` checked. `Photos` shows only posts with photos. `Saved` shows the posts saved this session, or the empty state `<p class="app-empty">No saved posts yet.</p>` after the list. The `Load more` button only shows for `All`.
+- `<ol aria-label="Posts" class="app-posts" tabindex="-1">`, rendered even when empty so it can take focus, with one `<li>` per post, each a `Card` with `as="article"`, `variant="outlined"` and `aria-labelledby` naming the author's name element:
   - a `CardHeader` with `as="header"` holding a decorative `Avatar` (no `label`, the photo as `src` or the initials as content, not a link), then an `<hgroup>` with the author's name as a link to `/u/<handle>` in `<h2 id="post-<id>-author">` and a `<p>` with a `<time datetime>` holding the post time.
   - a post options button (`aria-label="Options for <name>'s post"`) opening a `Menu` (`id="post-menu-<id>"`, `align="end"`) with three items:
     - `Copy link`, a button that writes `<origin>/posts/<id>` to the clipboard.

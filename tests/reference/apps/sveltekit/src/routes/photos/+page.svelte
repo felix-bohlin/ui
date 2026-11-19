@@ -12,14 +12,6 @@
   let index = $state(0)
   const current = $derived(PHOTOS[index]!)
 
-  const viewer = () =>
-    document.getElementById("photo-viewer") as HTMLDialogElement
-
-  const show = (at: number) => {
-    index = at
-    viewer().showModal()
-  }
-
   const step = (by: number) => {
     index = (index + by + PHOTOS.length) % PHOTOS.length
   }
@@ -39,7 +31,13 @@
   <ul aria-label="Photos" class="app-photo-grid">
     {#each PHOTOS as { alt, id, src }, at (id)}
       <li>
-        <button class="app-photo" onclick={() => show(at)} type="button">
+        <button
+          class="app-photo"
+          command="show-modal"
+          commandfor="photo-viewer"
+          onclick={() => (index = at)}
+          type="button"
+        >
           <img {alt} {src} />
         </button>
       </li>

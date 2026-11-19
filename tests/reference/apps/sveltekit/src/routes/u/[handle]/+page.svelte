@@ -1,11 +1,6 @@
 <script lang="ts">
   import {
     Button,
-    Dialog,
-    DialogContent,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
     DescriptionList,
     DescriptionListDescription,
     DescriptionListItem,
@@ -15,10 +10,9 @@
     TabsItem,
     TabsLabel,
     TabsPanel,
-    TextField,
-    Textarea,
   } from "opui-css/svelte"
   import { ME, photosBy, postsBy } from "reference-shared"
+  import EditProfile from "#lib/EditProfile.svelte"
   import UserAvatar from "#lib/UserAvatar.svelte"
 
   let { data } = $props()
@@ -29,22 +23,6 @@
   const bio = $derived(edits[profile.handle]?.bio ?? profile.bio)
   const posts = $derived(postsBy(profile.handle))
   const photos = $derived(photosBy(profile.handle))
-
-  const save = (event: SubmitEvent) => {
-    const form = new FormData(event.currentTarget as HTMLFormElement)
-    edits[profile.handle] = {
-      bio: String(form.get("bio")),
-      name: String(form.get("name")),
-    }
-  }
-
-  const reset = (event: Event) => {
-    const { elements } = (
-      event.currentTarget as HTMLDialogElement
-    ).querySelector("form")!
-    ;(elements.namedItem("name") as HTMLInputElement).value = name
-    ;(elements.namedItem("bio") as HTMLTextAreaElement).value = bio
-  }
 </script>
 
 <svelte:head>
@@ -113,19 +91,5 @@
 </div>
 
 {#if profile.handle === ME}
-  <Dialog id="edit-profile" onclose={reset}>
-    <DialogHeader closeButton>
-      <DialogTitle>Edit profile</DialogTitle>
-    </DialogHeader>
-    <form method="dialog" onsubmit={save}>
-      <DialogContent>
-        <TextField label="Name" name="name" required value={name} />
-        <Textarea label="Bio" name="bio" value={bio} />
-      </DialogContent>
-      <DialogFooter>
-        <Button command="close" commandfor="edit-profile">Cancel</Button>
-        <Button type="submit" variant="filled">Save</Button>
-      </DialogFooter>
-    </form>
-  </Dialog>
+  <EditProfile {bio} {name} onsave={(edit) => (edits[profile.handle] = edit)} />
 {/if}

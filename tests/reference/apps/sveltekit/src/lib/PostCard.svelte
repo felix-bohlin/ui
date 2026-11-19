@@ -35,7 +35,7 @@
 
 <Card aria-labelledby="post-{post.id}-author" as="article" variant="outlined">
   <CardHeader as="header">
-    <UserAvatar link user={author} />
+    <UserAvatar user={author} />
     <hgroup>
       <h2 id="post-{post.id}-author">
         <a href="/u/{author.handle}">{author.name}</a>

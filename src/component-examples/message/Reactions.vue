@@ -12,7 +12,7 @@ import {
   <MessageList aria-label="Messages with Stella">
     <Message author="Stella" datetime="2026-10-08T16:05" time="16:05">
       <template #start>
-        <Avatar aria-hidden="true">SN</Avatar>
+        <Avatar>SN</Avatar>
       </template>
       <p>My slap cover is up. Thanks for listening, everyone!</p>
       <template #bottom>

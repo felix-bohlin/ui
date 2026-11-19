@@ -2,7 +2,6 @@
 import { dynamic } from "@solidjs/web"
 import { children, createUniqueId, omit } from "solid-js"
 import "../../elements/callout.js"
-import { defined } from "../attrs"
 import Button from "../Button/Button.solid"
 import { CalloutContext } from "./context.solid"
 import { hydrated, hydrating } from "../solid"
@@ -25,10 +24,9 @@ export default function Callout(props: Props) {
   const closeLabel = () =>
     props.closeLabel === undefined ? "Close" : props.closeLabel
   const base = () => props.id || `callout-${uid}`
-  const root = () => (props.closeButton ? "opui-callout" : "article")
+  const root = () => (props.closeButton ? "opui-callout" : "div")
   const Root = dynamic(root)
   const rootId = () => (props.closeButton ? base() : props.id)
-  const role = () => (props.closeButton ? "article" : undefined)
   const content = () => {
     const resolvedCloseIcon = children(() => props.closeIcon)
     return (
@@ -40,10 +38,9 @@ export default function Callout(props: Props) {
           props.class,
         ]}
         id={rootId()}
-        role={role()}
         {...hydrating(root().includes("-"))}
         ref={[props.ref, hydrated]}
-        {...defined(rest as object)}
+        {...(rest as object)}
       >
         {props.children}
         {props.closeButton && (

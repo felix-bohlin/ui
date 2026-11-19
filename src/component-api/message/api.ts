@@ -54,7 +54,7 @@ export default {
   parts: [
     {
       description:
-        "The sender's `Avatar`, from the `start` slot, shown on the last message of a run.",
+        "The sender's `Avatar`, from the `start` slot, shown on the last message of a run. It takes no `label`: `author` names the message.",
       selector: ".ui-avatar",
       slots: ["start"],
     },

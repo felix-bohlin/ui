@@ -6,12 +6,12 @@ export default function Typing() {
       <Message
         author="Stella"
         datetime="2026-10-08T14:32"
-        start={<Avatar aria-hidden="true">SN</Avatar>}
+        start={<Avatar>SN</Avatar>}
         time="14:32"
       >
         <p>Let me ask if the band even noticed.</p>
       </Message>
-      <Message start={<Avatar aria-hidden="true">SN</Avatar>} typing>
+      <Message start={<Avatar>SN</Avatar>} typing>
         Stella is typing…
       </Message>
     </MessageList>

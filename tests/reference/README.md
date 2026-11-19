@@ -59,7 +59,7 @@ Icons are inline `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke
 
 ### Shell (every page)
 
-- `<html lang="en">`, `<link href="data:," rel="icon">` so no favicon request fails, and the page `<title>` is `<Screen label> | Reference`, and `<Name> | Reference` on a profile.
+- `<html lang="en">`, `<link href="data:," rel="icon">` so no favicon request fails, and the page `<title>` is `<Screen label> | Reference`, and `<Name> | Reference` on a profile (it follows an edited name), and `Not found | Reference` on the not-found screen.
 - The first focusable element is a skip link, `<a class="ui-sr-only ui-focusable" href="#main">Skip to content</a>`.
 - `<header class="app-header">` holds, in order:
   - a `Menu` button (`aria-label="Menu"`, an icon) that opens the navigation `Drawer` (`id="nav-drawer"`, `closeOnNavigate`, title `Navigate`). The drawer has the same links as the nav. The button is hidden from `48rem` up by `app.css`.
@@ -89,7 +89,7 @@ Icons are inline `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke
 ### Chat (`/chat`, `data-screen="chat"`)
 
 - `<h1>Chat</h1>`.
-- `<nav aria-label="Conversations">` with a `List` of links, one per conversation, to `/chat?with=<handle>`, as `ListItem`s with the avatar (`aria-hidden="true"`) in `start`, the name as `label` and, when `unread` is above 0, `description="<n> unread"`. The open conversation has `aria-current="page"`.
+- `<nav aria-label="Conversations">` with a `List` of links, one per conversation, to `/chat?with=<handle>`, as `ListItem`s with the avatar in `start` (a photo with `alt=""`, or the initials with `aria-hidden="true"`), the name as `label` and, when `unread` is above 0, `description="<n> unread"`. The open conversation has `aria-current="page"`.
 - `/chat` opens the first conversation, `/chat?with=<handle>` that one, and an unknown handle the first.
 - `<section aria-labelledby="chat-title">` with `<h2 id="chat-title">` naming the other person, then a `MessageList` (`aria-label="Messages with <name>"`, `direct`) with a `<li class="ui-divider">` per divider line and a `Message` per message (`outgoing` for Sam, `author`, `time`, `datetime`, the other person's `Avatar` in `start` with `aria-hidden="true"`).
 - A `<form aria-label="Send a message">` under it with a `Textarea` (`label="Message"`, `hideLabel`, `name="text"`, `required`) and a filled `Button` `Send` (`type="submit"`). Sending appends an outgoing message with `outgoing()` and empties the field. Switching conversations keeps each one's sent messages for the session.
@@ -103,10 +103,10 @@ Icons are inline `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke
 
 ### Profile (`/u/<handle>`, `data-screen="profile"`)
 
-- An unknown handle is a 404 page with `<h1>Not found</h1>` in the shell, `data-screen="not-found"`.
+- An unknown handle is a 404 page with `<h1>Not found</h1>` in the shell, `data-screen="not-found"`. The response has the status text `Not Found`, since the spec matches the console message Chromium logs for it, and some frameworks send another text unless the app sets it.
 - `<h1>` with the name, a large `Avatar` (`size="large"`, photo with `alt=""` or initials with `aria-hidden="true"`), the bio in `<p>`.
 - A `DescriptionList` with `Location` and `Joined`, and two `Stat`s, `Posts` and `Photos`, with the counts from `postsBy()` and `photosBy()`.
-- On `/u/sam`, an `Edit profile` button (`variant="outlined"`) opens a `Dialog` (`id="edit-profile"`) with `DialogHeader` `closeButton`, `DialogTitle` `Edit profile`, and a `<form method="dialog">` around `DialogContent` (`TextField` `Name`, `name="name"`, `required`, the current name; `Textarea` `Bio`, `name="bio"`, the current bio) and `DialogFooter` (`Cancel`, `type="button"`, closes; `Save`, filled, `type="submit"`). Saving updates the `<h1>` and the bio; Cancel and Escape leave them.
+- On `/u/sam`, an `Edit profile` button (`variant="outlined"`) opens a `Dialog` (`id="edit-profile"`) with `DialogHeader` `closeButton`, `DialogTitle` `Edit profile`, and a `<form method="dialog">` around `DialogContent` (`TextField` `Name`, `name="name"`, `required`, the current name; `Textarea` `Bio`, `name="bio"`, the current bio) and `DialogFooter` (`Cancel`, `type="button"`, closes; `Save`, filled, `type="submit"`). Saving updates the `<h1>`, the title and the bio, and reopening the dialog shows the saved values. Cancel and Escape leave the profile as it was. What the fields show when the dialog reopens after a Cancel is up to the app: Astro and Nuxt reset them, SvelteKit, Next and Solid keep what was typed.
 - On other profiles, a `Send message` button links to `/chat?with=<handle>`.
 - `Tabs` (`name="profile-tabs"`) with `Posts` (checked: the user's posts as `<article>`s with the text and time, or `<p class="app-empty">No posts yet.</p>`) and `Photos` (the user's photos as images, or `<p class="app-empty">No photos yet.</p>`).
 

@@ -176,6 +176,23 @@ test.describe("on a phone", () => {
     )
   })
 
+  test("the nav drawer closes when a link only changes the query", async ({
+    page,
+  }) => {
+    test.fail(
+      test.info().project.name !== "astro",
+      `${KNOWN.queryNavigation}. Astro's ClientRouter swaps in a new drawer, so the open one is gone`,
+    )
+    await open(page, "/chat?with=lou")
+    await page.getByRole("button", { name: "Menu" }).click()
+    const drawer = page.getByRole("dialog", { name: "Navigate" })
+    await expect(drawer).toBeVisible()
+    await drawer.getByRole("link", { name: "Chat" }).click()
+    await expect(page).toHaveURL("/chat")
+    await expect(page.locator("#chat-title")).toHaveText("Holly Humbucker")
+    await expect(drawer).toBeHidden({ timeout: 2000 })
+  })
+
   for (const { label, path } of SCREENS) {
     test(`${label} has no horizontal scroll`, async ({ page }) => {
       await open(page, path)

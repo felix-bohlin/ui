@@ -21,5 +21,7 @@ export const KNOWN = {
     "TODO.md: opui-character-count keeps the old count when a framework sets the field's value",
   dialogForm: `${UPSTREAM}: A <form> around a Dialog's content and footer loses the dialog's layout`,
   menuSubmit: KNOWN_CONSOLE[0]!.reason,
+  queryNavigation:
+    "TODO.md: closeOnNavigate keeps a drawer or menu open when a navigation only changes the query",
   skipLink: `${UPSTREAM}: A .ui-focusable skip link opens in the flow and pushes the header down`,
 }

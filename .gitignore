@@ -55,6 +55,7 @@ tests/apps/*/tsconfig.tsbuildinfo
 # reference app tests (tests/reference/prepare.ts)
 tests/reference/.tarball/
 tests/reference/apps/*/.astro/
+tests/reference/apps/next/AGENTS.md
 tests/reference/apps/*/.next/
 tests/reference/apps/*/.nuxt/
 tests/reference/apps/*/.output/

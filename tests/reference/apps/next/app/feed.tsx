@@ -1,0 +1,129 @@
+"use client"
+
+import { Button, Textarea, ToggleButton, ToggleGroup } from "opui-css/react"
+import {
+  FEED_FILTERS,
+  POSTS,
+  feedPage,
+  fetchFeedPage,
+  newPost,
+  type FeedFilter,
+  type Post,
+} from "reference-shared"
+import { useState, useTransition } from "react"
+import PostCard from "@/lib/post-card"
+
+const first = feedPage(0)
+
+const isFilter = (value: string): value is FeedFilter =>
+  FEED_FILTERS.some((filter) => filter.value === value)
+
+export default function Feed() {
+  const [pageIndex, setPageIndex] = useState(0)
+  const [loaded, setLoaded] = useState<Post[]>(first.posts)
+  const [hasMore, setHasMore] = useState(first.hasMore)
+  const [loading, startLoading] = useTransition()
+  const [created, setCreated] = useState<Post[]>([])
+  const [hidden, setHidden] = useState<string[]>([])
+  const [saved, setSaved] = useState<string[]>([])
+  const [filter, setFilter] = useState<FeedFilter>("all")
+
+  const shown = (post: Post) => !hidden.includes(post.id)
+  const visible =
+    filter === "photos"
+      ? [...created, ...POSTS].filter(
+          (post) => shown(post) && post.photos.length > 0,
+        )
+      : filter === "saved"
+        ? [...created, ...POSTS].filter(
+            (post) => shown(post) && saved.includes(post.id),
+          )
+        : [...created, ...loaded].filter(shown)
+
+  const loadMore = () =>
+    startLoading(async () => {
+      const next = await fetchFeedPage(pageIndex + 1)
+      startLoading(() => {
+        setPageIndex(pageIndex + 1)
+        setLoaded(next.posts)
+        setHasMore(next.hasMore)
+      })
+    })
+
+  const post = (form: FormData) =>
+    setCreated([
+      newPost(String(form.get("text")), `new-${created.length + 1}`),
+      ...created,
+    ])
+
+  const toggleSave = (id: string) =>
+    setSaved(
+      saved.includes(id)
+        ? saved.filter((candidate) => candidate !== id)
+        : [...saved, id],
+    )
+
+  return (
+    <div className="app-screen" data-screen="feed">
+      <h1>Feed</h1>
+      <form action={post} aria-label="New post" className="ui-layout-column">
+        <Textarea
+          characterCount
+          label="What's on your mind?"
+          maxLength={280}
+          name="text"
+          required
+        />
+        <div>
+          <Button type="submit" variant="filled">
+            Post
+          </Button>
+        </div>
+      </form>
+      <ToggleGroup
+        aria-label="Filter posts"
+        name="filter"
+        onValueChange={(value) => {
+          if (isFilter(value)) setFilter(value)
+        }}
+        value={filter}
+      >
+        {FEED_FILTERS.map(({ label, value }) => (
+          <ToggleButton key={value} value={value}>
+            {label}
+          </ToggleButton>
+        ))}
+      </ToggleGroup>
+      {visible.length > 0 ? (
+        <ol
+          aria-busy={loading || undefined}
+          aria-label="Posts"
+          className="app-posts"
+        >
+          {visible.map((post) => (
+            <li key={post.id}>
+              <PostCard
+                onHide={() => setHidden([...hidden, post.id])}
+                onToggleSave={() => toggleSave(post.id)}
+                post={post}
+                saved={saved.includes(post.id)}
+              />
+            </li>
+          ))}
+        </ol>
+      ) : (
+        filter === "saved" && <p className="app-empty">No saved posts yet.</p>
+      )}
+      {filter === "all" &&
+        (hasMore ? (
+          <div>
+            <Button disabled={loading} onClick={loadMore} variant="outlined">
+              Load more
+            </Button>
+          </div>
+        ) : (
+          <p className="app-end">You're all caught up.</p>
+        ))}
+    </div>
+  )
+}

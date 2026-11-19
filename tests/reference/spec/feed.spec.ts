@@ -39,8 +39,8 @@ test("the character count follows the field when the app empties it", async ({
   page,
 }) => {
   test.fail(
-    test.info().project.name !== "astro",
-    `${KNOWN.characterCount}. Astro empties the field with form.reset(), which the element follows`,
+    ["nuxt", "solid", "sveltekit"].includes(test.info().project.name),
+    `${KNOWN.characterCount}. Astro and Next empty the field with form.reset(), which the element follows`,
   )
   const count = page.locator(".ui-textarea opui-character-count")
   await page

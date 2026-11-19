@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import "../../elements/character-count.js"
 import { computed, inject, useId } from "vue"
-import { useInputAttrs, vSeed } from "../vue"
+import { useBound, useInputAttrs } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { fieldDescribedBy } from "../id"
@@ -34,12 +34,7 @@ const attrs = useInputAttrs()
 
 const modelValue = defineModel<string>()
 
-const model = computed({
-  get: () => modelValue.value ?? value,
-  set: (value) => {
-    modelValue.value = value
-  },
-})
+const bound = useBound()
 
 const field = inject(FieldGroupKey, undefined)
 
@@ -100,6 +95,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
         <slot name="start"></slot>
       </span>
       <textarea
+        v-if="bound"
         v-bind="attrs"
         :aria-describedby="
           fieldDescribedBy(
@@ -118,9 +114,29 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
         :aria-labelledby="attrs['aria-labelledby']"
         :id="textareaId()"
         :name="name ?? field?.name"
-        v-seed
-        v-model="model"
+        v-model="modelValue"
       ></textarea>
+      <textarea
+        v-else
+        v-bind="attrs"
+        :aria-describedby="
+          fieldDescribedBy(
+            {
+              bottom: bottomId(),
+              end: endId(),
+              endText: endTextId(),
+              start: startId(),
+              startText: startTextId(),
+              top: topId(),
+            },
+            attrs['aria-describedby'],
+          )
+        "
+        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+        :aria-labelledby="attrs['aria-labelledby']"
+        :id="textareaId()"
+        :name="name ?? field?.name"
+        >{{ value }}</textarea>
       <span v-if="$slots.end" class="ui-end" :id="endId()">
         <slot name="end"></slot>
       </span>

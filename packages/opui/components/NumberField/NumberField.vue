@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import "../../elements/number-field.js"
 import { computed, inject, useId } from "vue"
-import { useInputAttrs, vSeed } from "../vue"
+import { useBound, useInputAttrs } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
@@ -23,7 +23,6 @@ const {
   spread,
   startText,
   stretch,
-  value,
   variant,
 } = defineProps<Props>()
 const slots = defineSlots<Slots>()
@@ -36,12 +35,7 @@ const attrs = useInputAttrs()
 
 const modelValue = defineModel<number | string>()
 
-const model = computed({
-  get: () => modelValue.value ?? value,
-  set: (value) => {
-    modelValue.value = value
-  },
-})
+const bound = useBound()
 
 const field = inject(FieldGroupKey, undefined)
 
@@ -107,6 +101,7 @@ const endTextId = () =>
         </Button>
       </span>
       <input
+        v-if="bound"
         v-bind="attrs"
         :aria-describedby="
           fieldDescribedBy(
@@ -119,8 +114,22 @@ const endTextId = () =>
         :id="inputId"
         :name="name ?? field?.name"
         type="number"
-        v-seed
-        v-model.number="model"
+        v-model="modelValue"
+      />
+      <input
+        v-else
+        v-bind="attrs"
+        :aria-describedby="
+          fieldDescribedBy(
+            { endText: endTextId(), startText: startTextId() },
+            attrs['aria-describedby'],
+          )
+        "
+        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+        :disabled="disabled"
+        :id="inputId"
+        :name="name ?? field?.name"
+        type="number"
       />
       <span class="ui-end">
         <Button

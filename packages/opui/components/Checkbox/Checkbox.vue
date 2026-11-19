@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useInputAttrs } from "../vue"
+import { useBound, useInputAttrs } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import CheckboxInput from "./CheckboxInput.vue"
 import { hasName, warnUnnamed } from "../dev"
@@ -30,6 +30,8 @@ const model = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
 
+const bound = useBound()
+
 warnUnnamed("Checkbox", hasName({ ...attrs.value, label }, slots.default))
 </script>
 
@@ -46,10 +48,17 @@ warnUnnamed("Checkbox", hasName({ ...attrs.value, label }, slots.default))
     v-bind="styleAttrs($attrs.style)"
   >
     <CheckboxInput
+      v-if="bound"
       v-bind="attrs"
       :indeterminate="indeterminate"
       :aria-invalid="error ? 'true' : attrs['aria-invalid']"
       v-model="model"
+    />
+    <CheckboxInput
+      v-else
+      v-bind="attrs"
+      :indeterminate="indeterminate"
+      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
     />
     <span
       v-if="label || $slots.default"

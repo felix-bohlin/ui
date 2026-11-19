@@ -45,6 +45,7 @@ import {
   checkTypesImport,
   checkVariableTagClassList,
   checkVueAttrs,
+  withoutBoundBranches,
 } from "../../scripts/check-components.mjs"
 import { colorProblems } from "../../scripts/check-colors.mjs"
 import {
@@ -871,6 +872,22 @@ describe("check-components", () => {
       "className must be the last entry in cx",
     ])
     expect(checkClassOrder([['"ui-badge"', "className"]], "cx")).toEqual([])
+  })
+
+  test("a Vue control's bound branch is left out of the class lists", () => {
+    const pair =
+      '<input v-if="bound" :class="[\'ui-input\']" v-model="modelValue" />\n<input v-else :class="[\'ui-input\']" />'
+    expect(withoutBoundBranches(pair)).toBe(
+      "\n<input v-else :class=\"['ui-input']\" />",
+    )
+    const select =
+      '<select v-if="bound" v-model="modelValue"><div :class="[\'ui-list\']"></div></select><select v-else><div :class="[\'ui-list\']"></div></select>'
+    expect(withoutBoundBranches(select)).toBe(
+      "<select v-else><div :class=\"['ui-list']\"></div></select>",
+    )
+    const roots =
+      '<fieldset v-if="name" :class="[\'ui-rating\']"></fieldset><meter v-else :class="[\'ui-rating\']" />'
+    expect(withoutBoundBranches(roots)).toBe(roots)
   })
 
   test('"use client" marks exactly the React components with state or handlers', () => {

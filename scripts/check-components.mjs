@@ -264,6 +264,26 @@ export const checkClassOrder = (lists, label) =>
     })
     .map(() => `className must be the last entry in ${label}`)
 
+const BOUND_BRANCH = /<([\w-]+)\s+v-if="[^"]*\bbound\b[^"]*"/g
+
+export const withoutBoundBranches = (source) => {
+  let result = source
+  for (const match of [...source.matchAll(BOUND_BRANCH)].toReversed()) {
+    const tag = match[1]
+    const after = source.slice(match.index)
+    const selfClosing = /^<[^>]*?\/>/.exec(after)
+    const close = after.indexOf(`</${tag}>`)
+    const end = selfClosing
+      ? selfClosing[0].length
+      : close === -1
+        ? -1
+        : close + `</${tag}>`.length
+    if (end === -1) continue
+    result = result.slice(0, match.index) + result.slice(match.index + end)
+  }
+  return result
+}
+
 const classTokens = (lists) =>
   lists
     .map((items) =>
@@ -1359,9 +1379,14 @@ const main = async () => {
       for (const [extension, pattern, label] of CLASS_LISTS) {
         if (!file.endsWith(extension)) continue
         const lists = classLists(
-          extension === ".vue" || extension === ".solid.tsx"
-            ? source.replace(/\$?props\.class\b/g, "className")
-            : source,
+          extension === ".vue"
+            ? withoutBoundBranches(source).replace(
+                /\$?props\.class\b/g,
+                "className",
+              )
+            : extension === ".solid.tsx"
+              ? source.replace(/\$?props\.class\b/g, "className")
+              : source,
           pattern,
         )
         reportAll(path, checkClassOrder(lists, label))

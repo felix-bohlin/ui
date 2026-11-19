@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useInputAttrs } from "../vue"
+import { useBound, useInputAttrs } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import RadioInput from "./RadioInput.vue"
 import { hasName, warnUnnamed } from "../dev"
@@ -29,6 +29,8 @@ const model = defineModel<string | number | boolean | undefined>({
   default: undefined,
 })
 
+const bound = useBound()
+
 warnUnnamed("Radio", hasName({ ...attrs.value, label }, slots.default))
 </script>
 
@@ -45,9 +47,15 @@ warnUnnamed("Radio", hasName({ ...attrs.value, label }, slots.default))
     v-bind="styleAttrs($attrs.style)"
   >
     <RadioInput
+      v-if="bound"
       v-bind="attrs"
       :aria-invalid="error ? 'true' : attrs['aria-invalid']"
       v-model="model"
+    />
+    <RadioInput
+      v-else
+      v-bind="attrs"
+      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
     />
     <span
       v-if="label || $slots.default"

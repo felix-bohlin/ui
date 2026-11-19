@@ -28,15 +28,6 @@ const report = (model, callback, multiple) =>
 const resettable = (model) =>
   model.prop === "value" && ["input", "textarea"].includes(model.element.tag)
 
-const numeric = (model) =>
-  model.element.tag === "input" &&
-  model.element.attributes.some(
-    (item) =>
-      item.kind === "static" &&
-      item.name === "type" &&
-      ["number", "range"].includes(item.value),
-  )
-
 const solidChecked = {
   attributes: () => [
     "{...checkedControl.server}",
@@ -50,6 +41,8 @@ const solidChecked = {
   solidHelpers: () => ["control"],
   solidValues: () => ["untrack"],
 }
+
+const BOUND = "const bound = useBound()"
 
 const ownsDefault = (model) => model.element?.tag === "select"
 
@@ -74,14 +67,10 @@ export const MODEL_KINDS = {
       untrack: () => true,
     },
     vue: {
-      attributes: () => ["v-seed", 'v-model="model"'],
-      computed: true,
+      boundAttributes: () => ['v-model="modelValue"'],
       explicitAttrs: true,
-      setup: (model) => [
-        optionalModel(model),
-        "const model = computed({\n  get: () =>\n    modelValue.value ??\n    (attrs.checked !== undefined && attrs.checked !== false),\n  set: (value) => {\n    modelValue.value = value\n  },\n})",
-      ],
-      vueHelpers: () => ["vSeed"],
+      setup: (model) => [optionalModel(model), BOUND],
+      vueHelpers: () => ["useBound"],
     },
   },
   checkedItem: {
@@ -94,14 +83,11 @@ export const MODEL_KINDS = {
       typedBindables: true,
     },
     vue: {
-      change: (item) => [
-        `if (${item.grouped}.value === undefined) model.value = input.checked`,
-      ],
       checkedRename: (item) =>
         item.checked ? [item.checked, `model ?? ${item.checked}`] : undefined,
-      setup: (model) => [
-        `const model = defineModel<${model.type} | undefined>({\n  default: undefined,\n})`,
-      ],
+      ownModel: true,
+      setup: (model) => [optionalModel(model, "model"), BOUND],
+      vueHelpers: () => ["useBound"],
       warningChecked: (item) =>
         item.checked ? `${item.checked} ?? model.value` : undefined,
     },
@@ -114,8 +100,9 @@ export const MODEL_KINDS = {
       typedBindables: true,
     },
     vue: {
-      attributes: () => ['v-model="model"'],
-      setup: (model) => [optionalModel(model, "model")],
+      boundAttributes: () => ['v-model="model"'],
+      setup: (model) => [optionalModel(model, "model"), BOUND],
+      vueHelpers: () => ["useBound"],
     },
   },
   group: {
@@ -166,17 +153,16 @@ export const MODEL_KINDS = {
       typedBindables: true,
     },
     vue: {
-      computed: true,
       generic: arrayRead,
-      imports: selectionImports,
       providedEntry: (model, key) =>
         key === model.prop ? `${key}: model` : undefined,
-      providedFirst: () => ["change"],
+      providedFirst: () => ["bound"],
       setup: (model, generic) => [
         `const model = defineModel<${generic ? "Model" : model.type}>()`,
-        `const change = (input: HTMLInputElement) => {\n  if (model.value !== undefined) model.value = ${model.read}${generic ? " as Model" : ""}\n}`,
+        BOUND,
       ],
       undeclared: (model, prop) => prop === model.prop,
+      vueHelpers: () => ["useBound"],
     },
   },
   radioGroup: {
@@ -219,18 +205,19 @@ export const MODEL_KINDS = {
       untrack: () => true,
     },
     vue: {
+      boundAttributes: () => ['v-model="modelValue"'],
       computed: true,
       modelsGroupRadio: true,
-      radioAttributes: () => ["v-seed", 'v-model="model"'],
       rename: (model) => ({
         script: [[model.local, "model.value"]],
         template: [[model.local, "model"]],
       }),
       setup: (model) => [
         `const modelValue = defineModel<${model.type}>()`,
-        `const model = computed({\n  get: () => modelValue.value ?? ${model.local},\n  set: (value) => {\n    modelValue.value = value\n  },\n})`,
+        BOUND,
+        `const model = computed(() => modelValue.value ?? ${model.local})`,
       ],
-      vueHelpers: () => ["vSeed"],
+      vueHelpers: () => ["useBound"],
     },
   },
   radio: {
@@ -255,15 +242,10 @@ export const MODEL_KINDS = {
       untrack: () => true,
     },
     vue: {
-      attributes: () => [':value="attrs.value"', "v-seed", 'v-model="model"'],
-      computed: true,
+      boundAttributes: () => [':value="attrs.value"', 'v-model="modelValue"'],
       explicitAttrs: true,
-      setup: (model) => [
-        optionalModel(model),
-        "const unchecked = Symbol()",
-        `const model = computed({\n  get: () =>\n    modelValue.value ??\n    (attrs.checked !== undefined && attrs.checked !== false\n      ? attrs.value\n      : unchecked),\n  set: (value: ${model.type} | undefined) => {\n    modelValue.value = value\n  },\n})`,
-      ],
-      vueHelpers: () => ["vSeed"],
+      setup: (model) => [optionalModel(model), BOUND],
+      vueHelpers: () => ["useBound"],
     },
   },
   value: {
@@ -323,21 +305,28 @@ export const MODEL_KINDS = {
       untrack: resettable,
     },
     vue: {
-      attributes: (model) => [
-        "v-seed",
-        `v-model${numeric(model) ? ".number" : ""}="model"`,
-      ],
-      computed: true,
-      declared: (model) => (model.local ? [] : [model.prop]),
+      boundAttributes: () => ['v-model="modelValue"'],
+      computed: (_, read) => read,
       rename: (model) => ({
         script: model.local ? [[model.local, "model.value"]] : [],
         template: model.local ? [[model.local, "model"]] : [],
       }),
-      setup: (model) => [
+      setup: (model, _, read) => [
         `const modelValue = defineModel<${model.type}>()`,
-        `const model = computed({\n  get: () => modelValue.value ?? ${model.local ?? model.prop},\n  set: (value) => {\n    modelValue.value = value\n  },\n})`,
+        BOUND,
+        ...(read
+          ? [`const model = computed(() => modelValue.value ?? ${model.local})`]
+          : []),
       ],
-      vueHelpers: () => ["vSeed"],
+      unboundOwn: (model) =>
+        model.local
+          ? {
+              child: model.element.tag === "textarea",
+              code: model.local,
+              name: model.prop,
+            }
+          : undefined,
+      vueHelpers: () => ["useBound"],
     },
   },
 }

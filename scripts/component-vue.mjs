@@ -287,6 +287,7 @@ export const toVue = (component) => {
     definedRoot
   )
   const generic = kind?.generic?.(model) === true
+  const modelRead = !!model?.local && used.has(model.local)
   const { item } = component
   const forwarded = (component.baseProps ?? [])
     .filter(
@@ -532,74 +533,131 @@ export const toVue = (component) => {
     const bindScope = checkedRename
       ? { ...scope, rename: new Map([...scope.rename, checkedRename]) }
       : scope
-    const listed = [
-      ...(clause ? [clause] : []),
-      ...bound
-        .filter(
-          (item) =>
-            !(
-              node.groupRadio !== undefined &&
-              kind?.modelsGroupRadio &&
-              item.name === "checked"
-            ),
-        )
-        .map((item) =>
-          item.kind === "bound" ? item.text : attribute(node, item, bindScope),
-        )
-        .filter(Boolean),
-      ...(node.model ? kind.attributes(model) : []),
-      ...(itemChecked
-        ? [
-            `v-seed-checked="${rewriteExpression(itemChecked.code, bindScope)}"`,
-            '@change="change($event.currentTarget as HTMLInputElement)"',
-          ]
-        : []),
-      ...(node.groupRadio !== undefined
-        ? kind.radioAttributes(model, rewriteExpression(node.groupRadio, scope))
-        : []),
-      ...(listened.includes(node)
-        ? events.map((event) => `@${event}="emit('${event}', $event)"`)
-        : []),
-      ...(hydrating.has(node)
-        ? [
-            hydrating.get(node)
-              ? `:data-hydrating="${scope.rename.get(hydrating.get(node)) ?? hydrating.get(node)}.includes('-') ? '' : undefined"`
-              : 'data-hydrating=""',
-            "v-hydrated",
-          ]
-        : []),
-      ...((rootElements.includes(node) ||
-        (multiRoot &&
-          node.attributes.some(
-            (entry) => entry.kind === "spread" && entry.code === rest,
-          ))) &&
-      !node.attributes.some((entry) => entry.kind === "class")
-        ? [':class="$props.class"']
-        : []),
-    ].flatMap((entry) => entry.match(ATTRIBUTE) ?? [])
-    const omitted = omitEmptyAttributes(listed)
-    for (const helper of omitted.helpers) attributeHelpers.add(helper)
-    const attributes = omitted.attributes.join(" ")
-    const tag = node.variable || node.custom ? "component" : node.tag
-    const is = node.variable
-      ? ` :is="${scope.rename.get(node.tag) ?? node.tag}"`
-      : node.custom
-        ? ` is="${node.tag}"`
-        : ""
-    const open = `<${tag}${is}${attributes ? ` ${attributes}` : ""}`
-    if (
-      node.children.length === 0 &&
-      (node.component ||
-        node.variable ||
-        node.foreign ||
-        VOID_ELEMENTS.has(node.tag))
-    ) {
-      return `${open} />`
+    const pair =
+      node.model && kind?.boundAttributes
+        ? {
+            bound: kind.boundAttributes(model),
+            condition: "bound",
+            drop: () => false,
+            own: kind.unboundOwn?.(model),
+            unbound: [],
+          }
+        : node.groupRadio !== undefined && kind?.boundAttributes
+          ? {
+              bound: kind.boundAttributes(model),
+              condition: "bound",
+              drop: (entry) => entry.name === "checked",
+              own: {
+                code: rewriteExpression(
+                  node.attributes.find(
+                    (entry) =>
+                      entry.kind === "expression" && entry.name === "checked",
+                  ).code,
+                  scope,
+                ),
+                name: "checked",
+              },
+              unbound: [],
+            }
+          : itemChecked
+            ? {
+                bound: ['v-model="target"'],
+                condition: kind?.ownModel
+                  ? `${component.item.parent}?.bound || bound`
+                  : `${component.item.parent}?.bound`,
+                drop: () => false,
+                own: {
+                  code: rewriteExpression(itemChecked.code, bindScope),
+                  name: "checked",
+                },
+                unbound: [],
+              }
+            : undefined
+    const withOwn = (listed, entry) => {
+      if (entry === undefined || entry.child) return listed
+      usesDefined = true
+      const own = `defined({ ${entry.name === entry.code ? entry.name : `${entry.name}: ${entry.code}`} })`
+      const at = listed.findIndex((entry) => OBJECT_BINDING.test(entry))
+      if (at === -1) return [...listed, `v-bind="${own}"`]
+      const spread = OBJECT_BINDING.exec(listed[at])[1]
+      return listed.map((entry, index) =>
+        index === at ? `v-bind="{ ...${own}, ...${spread} }"` : entry,
+      )
     }
-    return `${open}>${body(node.children, {
-      ...scope,
-      preserved: scope.preserved || PRESERVED_TAGS.has(node.tag),
-    })}</${tag}>`
+    const listedFor = (first, extra, drop, own) =>
+      withOwn(
+        [
+          ...(first ? [first] : []),
+          ...bound
+            .filter((entry) => !drop(entry))
+            .map((entry) =>
+              entry.kind === "bound"
+                ? entry.text
+                : attribute(node, entry, bindScope),
+            )
+            .filter(Boolean),
+          ...extra,
+          ...(listened.includes(node)
+            ? events.map((event) => `@${event}="emit('${event}', $event)"`)
+            : []),
+          ...(hydrating.has(node)
+            ? [
+                hydrating.get(node)
+                  ? `:data-hydrating="${scope.rename.get(hydrating.get(node)) ?? hydrating.get(node)}.includes('-') ? '' : undefined"`
+                  : 'data-hydrating=""',
+                "v-hydrated",
+              ]
+            : []),
+          ...((rootElements.includes(node) ||
+            (multiRoot &&
+              node.attributes.some(
+                (entry) => entry.kind === "spread" && entry.code === rest,
+              ))) &&
+          !node.attributes.some((entry) => entry.kind === "class")
+            ? [':class="$props.class"']
+            : []),
+        ].flatMap((entry) => entry.match(ATTRIBUTE) ?? []),
+        own,
+      )
+    const render = (listed, child) => {
+      const omitted = omitEmptyAttributes(listed)
+      for (const helper of omitted.helpers) attributeHelpers.add(helper)
+      const attributes = omitted.attributes.join(" ")
+      const tag = node.variable || node.custom ? "component" : node.tag
+      const is = node.variable
+        ? ` :is="${scope.rename.get(node.tag) ?? node.tag}"`
+        : node.custom
+          ? ` is="${node.tag}"`
+          : ""
+      const open = `<${tag}${is}${attributes ? ` ${attributes}` : ""}`
+      if (child !== undefined) return `${open}>{{ ${child} }}</${tag}>`
+      if (
+        node.children.length === 0 &&
+        (node.component ||
+          node.variable ||
+          node.foreign ||
+          VOID_ELEMENTS.has(node.tag))
+      ) {
+        return `${open} />`
+      }
+      return `${open}>${body(node.children, {
+        ...scope,
+        preserved: scope.preserved || PRESERVED_TAGS.has(node.tag),
+      })}</${tag}>`
+    }
+    if (!pair) return render(listedFor(clause, [], () => false))
+    const both = `${render(
+      listedFor(`v-if="${pair.condition}"`, pair.bound, pair.drop),
+    )}\n${render(
+      listedFor(
+        "v-else",
+        pair.unbound,
+        (entry) => pair.own?.name === "checked" && entry.name === "checked",
+        pair.own,
+      ),
+      pair.own?.child ? pair.own.code : undefined,
+    )}`
+    return clause ? `<template ${clause}>${both}</template>` : both
   }
   const emit = (nodes, scope) =>
     nodes
@@ -753,7 +811,6 @@ export const toVue = (component) => {
   const vueHelpers = [
     ...(computedAttrs ? ["useInputAttrs"] : []),
     ...(kind?.vueHelpers?.(model) ?? []),
-    ...(item ? ["seedChecked"] : []),
     ...(hydrating.size ? ["vHydrated"] : []),
   ].toSorted(byName)
   const vueProps = generic ? "Props & { multiple?: Multiple }" : "Props"
@@ -786,7 +843,7 @@ export const toVue = (component) => {
           `const restAttrs = computed(() =>\n  Object.fromEntries(\n    Object.entries(attrs).filter(\n      ([key]) => ${attributeProps.map(({ prop }) => `key !== ${JSON.stringify(prop)}`).join(" && ")},\n    ),\n  ),\n)`,
         ]
       : []),
-    ...(kind?.setup?.(model, generic) ?? []),
+    ...(kind?.setup?.(model, generic, modelRead) ?? []),
     ...reads.map(
       ({ context, name }) =>
         `const ${name} = inject(${context.name}Key, undefined)`,
@@ -798,13 +855,9 @@ export const toVue = (component) => {
     ...(item
       ? [
           `watchEffect(() =>\n  ${groupWarning(component, item, kind?.warningChecked?.(item) ?? item.checked ?? "undefined", `${item.grouped}.value`)},\n)`,
-          `const change = (input: HTMLInputElement) => {\n${[
-            ...(kind?.change?.(item) ?? []),
-            `${item.parent}?.change?.(input)`,
-          ]
-            .map((line) => `  ${line}\n`)
-            .join("")}}`,
-          "const vSeedChecked = seedChecked(change)",
+          kind?.ownModel
+            ? `const target = computed({\n  get: () => (${item.parent}?.bound ? ${item.parent}.value : model.value),\n  set: (next) => {\n    if (${item.parent}?.bound) ${item.parent}.value = next as typeof ${item.parent}.value\n    else model.value = next as typeof model.value\n  },\n})`
+            : `const target = computed({\n  get: () => ${item.parent}?.value,\n  set: (next) => {\n    if (${item.parent}) ${item.parent}.value = next\n  },\n})`,
         ]
       : []),
     ...(provide
@@ -828,7 +881,10 @@ export const toVue = (component) => {
     ...(computedConsts.length ||
     rowLists.length ||
     filteredAttrs ||
-    kind?.computed === true ||
+    (typeof kind?.computed === "function"
+      ? kind.computed(model, modelRead)
+      : kind?.computed === true) ||
+    !!item ||
     provided?.some((entry) => entry.includes("computed("))
       ? ["computed"]
       : []),

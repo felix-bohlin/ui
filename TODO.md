@@ -1861,10 +1861,11 @@ Findings with a page and section in brackets come from the stress pages in `src/
       ```
     - B: keep the declared prop and type it without `Boolean`, so no value is cast.
   - Must stay green: the class order and empty `class` checks of `tests/unit/component-contract.test.ts`, `pnpm check-components` and `tests/unit/component-types.test.ts`.
-- [ ] (2) OneTimeCode, TextField, Textarea: in Vue 3.5.45, a text field edited before hydration reports the typed value twice: Vue's own `v-model` now assigns an edited value to the model on mount, and `v-seed` does the same before it (`packages/opui/components/vue.ts:204-214`)
+- [x] (2) OneTimeCode, TextField, Textarea: in Vue 3.5.45, a text field edited before hydration reports the typed value twice: Vue's own `v-model` now assigns an edited value to the model on mount, and `v-seed` does the same before it (`packages/opui/components/vue.ts:204-214`)
   - Summary: In Vue, a text field the user typed in before the page hydrated emits its update twice.
   - Recommended: Fix. Confirm it in Nuxt first, since it ran on a test renderer.
   - Fix: the Vue reviewer ran the real `vSeed` and `vModelText` hooks on a test element: `onUpdate:modelValue` is called with `typed` twice for `text` and `textarea`, once for `email`. Which 3.5 release added it is unknown and the peer range starts at 3.5.2. Confirm by counting emits in the changes before hydration scenario of `pnpm test:apps` in Nuxt, then skip the edited case Vue handles and pin it with an entry in `tests/unit/tooling-bugs.test.ts`.
+  - Fixed: `vSeed` is gone: a Vue control binds `v-model` only when the parent passes one, so only Vue's own `v-model` assigns an edited text field on mount, once (`packages/opui/components/vue.ts`, `tests/apps/native/`).
 - [ ] (3) Drawer: under Astro's `ClientRouter`, `closeOnNavigate` doesn't close a drawer when a link in it navigates: the router swaps the page before `history.pushState`, so the `navigate` event fires on a detached drawer that never runs its close transition. A `transition:persist` drawer and Back and Forward do close (`packages/opui/elements/close-on-navigate.js:24`, `tests/reference/apps/astro/src/layouts/Layout.astro:99`)
   - Summary: In Astro with the ClientRouter, a navigation drawer vanishes with the page swap instead of closing.
   - Recommended: Fix with option A. The same click listener fixes the query item below, and menus already close this way.

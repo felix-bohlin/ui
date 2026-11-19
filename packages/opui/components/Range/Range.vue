@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import "../../css/js/range.js"
 import { computed, inject, useId } from "vue"
-import { useInputAttrs, vSeed } from "../vue"
+import { useBound, useInputAttrs } from "../vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { idRefs } from "../id"
 import { formatValue, middleValue } from "./value"
+import { defined } from "../attrs"
 import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -38,12 +39,9 @@ const attrs = useInputAttrs()
 
 const modelValue = defineModel<number | string>()
 
-const model = computed({
-  get: () => modelValue.value ?? value,
-  set: (value) => {
-    modelValue.value = value
-  },
-})
+const bound = useBound()
+
+const model = computed(() => modelValue.value ?? value)
 
 const field = inject(FieldGroupKey, undefined)
 
@@ -131,6 +129,7 @@ const describedBy = () =>
       >{{ startText }}<slot name="start-text"></slot
     ></span>
     <input
+      v-if="bound"
       v-bind="attrs"
       :aria-describedby="describedBy()"
       :aria-invalid="error ? 'true' : attrs['aria-invalid']"
@@ -146,8 +145,25 @@ const describedBy = () =>
       :name="name ?? field?.name"
       :step="step"
       type="range"
-      v-seed
-      v-model.number="model"
+      v-model="modelValue"
+    />
+    <input
+      v-else
+      v-bind="{ ...defined({ value }), ...attrs }"
+      :aria-describedby="describedBy()"
+      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+      :aria-labelledby="labelId() ?? attrs['aria-labelledby']"
+      :aria-valuetext="
+        attrs['aria-valuetext'] ??
+        (valueSuffix && !hasValueText() ? readout : tickLabel)
+      "
+      :id="inputId()"
+      :list="listId()"
+      :max="max"
+      :min="min"
+      :name="name ?? field?.name"
+      :step="step"
+      type="range"
     />
     <datalist v-if="hasDatalist()" aria-hidden="true" :id="listId()">
       <template v-for="(option, index) in items" :key="index"

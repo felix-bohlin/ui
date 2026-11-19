@@ -43,15 +43,9 @@ const state = ref({
     <output>{{ state.group }}</output>
   </form>
   <form data-case="group-default">
-    <input
-      v-for="view in views"
-      :key="view"
-      :aria-label="view"
-      :checked="view === 'week'"
-      name="view"
-      type="radio"
-      :value="view"
-    />
+    <input aria-label="day" name="view" type="radio" value="day" />
+    <input aria-label="week" checked name="view" type="radio" value="week" />
+    <input aria-label="month" name="view" type="radio" value="month" />
   </form>
   <form data-case="group-empty">
     <input
@@ -114,15 +108,12 @@ const state = ref({
     <output>{{ state.rating }}</output>
   </form>
   <form data-case="rating-default">
-    <input
-      v-for="star in stars"
-      :key="star"
-      :aria-label="`${star} stars`"
-      :checked="star === 3"
-      name="score"
-      type="radio"
-      :value="star"
-    />
+    <input aria-label="0 stars" name="score" type="radio" value="0" />
+    <input aria-label="1 stars" name="score" type="radio" value="1" />
+    <input aria-label="2 stars" name="score" type="radio" value="2" />
+    <input aria-label="3 stars" checked name="score" type="radio" value="3" />
+    <input aria-label="4 stars" name="score" type="radio" value="4" />
+    <input aria-label="5 stars" name="score" type="radio" value="5" />
   </form>
   <form data-case="rating-empty">
     <input
@@ -167,15 +158,9 @@ const state = ref({
     <output>{{ state.tabs }}</output>
   </form>
   <form data-case="tabs-default">
-    <input
-      v-for="tab in tabs"
-      :key="tab"
-      :aria-label="tab"
-      :checked="tab === 'two'"
-      name="tab"
-      type="radio"
-      :value="tab"
-    />
+    <input aria-label="one" name="tab" type="radio" value="one" />
+    <input aria-label="two" checked name="tab" type="radio" value="two" />
+    <input aria-label="three" name="tab" type="radio" value="three" />
   </form>
   <form data-case="text-bound">
     <input v-model="state.text" aria-label="Name" />

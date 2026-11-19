@@ -63,8 +63,8 @@ Read the compiled file next to the closest hand-written sibling of its kind (`Te
 
 **Vue**
 
-- `defineModel` for the model, a `computed` with get and set only when the model falls back to a prop.
-- `v-model` on native controls, with `v-seed` from `packages/opui/components/vue.ts` before it. No `:checked` and `@change` pair where `v-model` and `:value` do the job.
+- `defineModel` for the model, and a read-only `computed` only when the component reads the value to render.
+- `v-model` on a native control only when the parent binds one (`useBound` from `packages/opui/components/vue.ts`), the plain element with the attributes as passed otherwise. No `:checked` and `@change` pair where `v-model` does the job.
 - Destructured `defineProps` with defaults (Vue 3.5), `useId`, typed `InjectionKey`s and a `reactive()` provide.
 - No `computed` or function the template and script never read. `inheritAttrs: false` only with an explicit `v-bind` of the attrs.
 - `<component :is>` only for a variable tag, `is="opui-…"` for a custom element.

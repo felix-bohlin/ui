@@ -556,7 +556,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Checkbox`, `Radio`, `Select`, `Switch`, `TextField` and `Textarea` in Astro and Vue render the label slot without the whitespace around its content, like React and Svelte, so a required field no longer shows a space before its asterisk.
 - `Checkbox` and `Radio` draw a disabled input in `GrayText` in forced colors mode, like `Switch`, instead of the enabled colors at reduced opacity.
 - `Checkbox`, `Radio`, `Range`, `Select`, `Switch`, `Textarea` and `TextField` get a dashed border when invalid in forced colors, where the red is forced away: on the input, switch track, range thumb or card, and around the field.
-- `Checkbox`, `Radio`, `Range`, `Select`, `Switch`, `TabsItem`, `Textarea`, `TextField` and `ToggleButton` in Vue keep what the user changed before the page hydrated (typed, picked, filled in by a password manager or restored by the browser) instead of resetting it, and the `v-model` of a `Tabs` or `ToggleGroup` takes a tab or button picked then. A form reset returns them to the value or state they were rendered with, also when the browser rendered them, and sets the `v-model` value to it, a number `TextField`'s as a number. A `Checkbox` or `Switch` bound to an array adds or removes its value instead of replacing the array with `true` or `false`. A color `TextField` without a value no longer logs a warning in Nuxt.
+- `Checkbox`, `Radio`, `Range`, `Select`, `Switch`, `TabsItem`, `Textarea`, `TextField` and `ToggleButton` in Vue bind their native element with `v-model` only when you pass one, and otherwise render it with the attributes you pass, like a plain input. A choice made before the page hydrates stays unless Vue sets the value again, and a form reset leaves your `v-model` value as it is, as with `v-model` on a native input. A `Checkbox` or `Switch` bound to an array adds or removes its value instead of replacing the array with `true` or `false`. A color `TextField` without a value no longer logs a warning in Nuxt.
 - `Chip` with a start and an end icon gets the smaller padding on both sides, and an icon inside `.ui-text` no longer changes the padding.
 - `Chip` in Astro only renders `href` when the chip is an `a`.
 - `Chip` button and link chips fade with `--ui-disabled-opacity` when disabled, like a tonal `Button`, and an outlined chip takes `--ui-text-disabled` for its text instead, so a disabled chip no longer keeps its full fill.
@@ -619,14 +619,14 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Radio` no longer puts the required asterisk on every option of a required group; the group's legend carries it.
 - `Range` focus ring sits `--ui-focus-ring-offset` outside the thumb instead of `1ex` outside the track, also at every size.
 - `Range`, `Select`, `TextField` and `Textarea` with `spread` (`.ui-spread`) collapse to a column when narrower than `25rem`, a breakpoint that follows the reader's font size. The field was squeezed next to the label, and the `Range` container query had no container, so it never applied and the slider's minimum width could push its parent wider.
-- `Range` in Vue shows the default value without `value` or `v-model`, and `v-model` returns a number.
+- `Range` in Vue shows the default value without `value` or `v-model`.
 - `Range` writes the live readout through the `<output>` text node instead of replacing it, so each input no longer re-styles the whole page through `:has()` rules.
 - `Range` and `ToggleButton` in Vue take the `FieldGroup` name.
 - `Range` invalid state colors the thumb and its halo too, except on a disabled range.
 - `Range` hover ring is no longer clipped at min or max.
 - `Range` with `spread`, a value and tick marks no longer draws the value over the tick labels, and the end text of a narrow spread range no longer overlaps the slider or the tick labels.
 - `Range` tick labels line up with the thumb, and the first and last line up with the ends of the track and grow inward, so a long translated label stays inside the slider.
-- `Range` updates its value `<output>` after its form is reset, in every browser, and leaves it when a `reset` listener cancels the reset. In Vue the bound value follows the reset, so custom readout content does too.
+- `Range` updates its value `<output>` after its form is reset, in every browser, and leaves it when a `reset` listener cancels the reset.
 - `Range` (Astro) updates its value output after `<ClientRouter>` navigation, leaves `value-text` slot content and ranges it didn't render alone, and wires each output once.
 - `Range` thumb stays centered on the track when `--_thumb-size` or `--_track-block-size` changes, also on touch screens.
 - `Range` disabled thumb is opaque, so the track no longer shows through it, and takes `--ui-text-disabled`, which more contrast strengthens, instead of a fixed mix.

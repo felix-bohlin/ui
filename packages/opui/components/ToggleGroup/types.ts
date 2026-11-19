@@ -7,7 +7,8 @@ export type Props = {
 }
 
 export type Context = {
-  change: (input: HTMLInputElement) => void
+  bound?: boolean
+  change?: (input: HTMLInputElement) => void
   groupName: string
   inputType: "checkbox" | "radio"
   value?: string | string[]

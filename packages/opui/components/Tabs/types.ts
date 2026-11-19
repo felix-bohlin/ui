@@ -15,6 +15,7 @@ export type TabsPanelProps = {}
 export type TabsLabelProps = {}
 
 export type Context = {
+  bound?: boolean
   change?: (input: HTMLInputElement) => void
   groupName?: string
   tabId?: string

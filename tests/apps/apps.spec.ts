@@ -276,16 +276,28 @@ test("navigating to another page renders its examples", async ({
   ).toEqual([])
 })
 
-const CHANGES = [
+const VUE_VALUE =
+  "Vue sets an input's value again when it hydrates whenever the value comes through a prop, which every component receives it as, and leaves a static value on a native input alone"
+
+const CHANGES: {
+  differsIn?: { framework: string; reason: string }
+  example: string
+  label: string
+  to: boolean | string
+}[] = [
   { example: "checkbox/Basics", label: "Unchecked", to: true },
-  { example: "number-field/Basics", label: "Quantity", to: "7" },
+  {
+    differsIn: { framework: "vue", reason: VUE_VALUE },
+    example: "number-field/Basics",
+    label: "Quantity",
+    to: "7",
+  },
   { example: "radio/Basics", label: "PayPal", to: true },
   { example: "range/Basics", label: "Volume", to: "80" },
   { example: "rating/Input", label: "1 star", to: true },
   { example: "select/Variants", label: "Role", to: "Bass" },
   { example: "switch/Basics", label: "Bluetooth", to: true },
   { example: "tabs/Basics", label: "Settings", to: true },
-  { example: "tabs/Binding", label: "Notifications", to: true },
   { example: "text-field/InputTypes", label: "Color", to: "#ff0000" },
   { example: "text-field/InputTypes", label: "Email", to: "ada@example.com" },
   { example: "text-field/InputTypes", label: "Password", to: "secret" },
@@ -295,9 +307,6 @@ const CHANGES = [
     to: "https://example.com/",
   },
   { example: "textarea/Variants", label: "Outlined", to: "Typed early" },
-  { example: "toggle/Binding", label: "Bold", to: false },
-  { example: "toggle/Binding", label: "Italic", to: true },
-  { example: "toggle/Binding", label: "Month", to: true },
   { example: "toggle/Interactive", label: "Cycling", to: true },
 ]
 
@@ -307,8 +316,11 @@ const changedSlugs = [
   ...new Set(CHANGES.map(({ example }) => example.split("/")[0] ?? "")),
 ]
 
-const changesOn = (slug: string) =>
-  CHANGES.filter(({ example }) => example.startsWith(`${slug}/`))
+const changesOn = (slug: string, framework: string) =>
+  CHANGES.filter(
+    ({ differsIn, example }) =>
+      example.startsWith(`${slug}/`) && differsIn?.framework !== framework,
+  )
 
 const CONTROLS = "input, select, textarea"
 
@@ -384,7 +396,7 @@ for (const slug of changedSlugs) {
     const release = await holdScripts(page, app.scripts ?? "")
     await page.goto(`/${slug}`, { waitUntil: "commit" })
     const changed = []
-    for (const item of changesOn(slug)) {
+    for (const item of changesOn(slug, app.framework)) {
       const control = await controlOf(page, item)
       const { initial } = await formStateOf(control)
       await change(control, item)
@@ -409,42 +421,6 @@ for (const slug of changedSlugs) {
   })
 }
 
-const BOUND = [
-  {
-    example: "tabs/Binding",
-    readout: ".tabs-binding-text",
-    text: "Selected: notifications",
-  },
-  {
-    example: "toggle/Binding",
-    readout: ".toggle-binding-text",
-    text: "View: month. Format: italic.",
-  },
-]
-
-for (const { example, readout, text } of BOUND) {
-  test(`${example} binds what changed before it hydrated`, async ({
-    page,
-  }, testInfo) => {
-    const app = appOf(testInfo.project.name)
-    test.skip(!app.scripts, `${app.name} renders on the client only`)
-    const slug = example.split("/")[0] ?? ""
-    const problems = await watch(page)
-    const release = await holdScripts(page, app.scripts ?? "")
-    await page.goto(`/${slug}`, { waitUntil: "commit" })
-    for (const item of CHANGES.filter((entry) => entry.example === example)) {
-      await change(await controlOf(page, item), item)
-    }
-    release()
-    await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
-    await expect(
-      page.locator(`[data-example="${example}"] ${readout}`),
-      `${app.name} sets the bound value of ${example} to the choice made before it hydrated`,
-    ).toHaveText(text)
-    expect(unexpected(problems, app.name, slug)).toEqual([])
-  })
-}
-
 for (const slug of changedSlugs) {
   test(`${slug} keeps what the browser restores when the user comes back`, async ({
     page,
@@ -454,7 +430,7 @@ for (const slug of changedSlugs) {
     const problems = await watch(page)
     await open(page, `/${slug}`)
     const changed = []
-    for (const item of changesOn(slug)) {
+    for (const item of changesOn(slug, app.framework)) {
       const control = await controlOf(page, item)
       const restored = await control.evaluate(
         (element) => (element as HTMLInputElement).type !== "password",
@@ -658,9 +634,6 @@ const SVELTE_DEFAULTS =
   "the control prints its first bound value as defaultValue or defaultChecked (initialValue, initialChecked, seedChecked in components/svelte.ts), which bind: on a native control doesn't, so a form reset returns to it"
 const SVELTE_SELECT =
   "the hand-written Select marks its options selected from the bound value, which bind:value on a native select doesn't"
-const VUE_SEED =
-  "v-seed (vSeed and seedChecked in components/vue.ts) keeps a change made before hydration and writes it into the model, makes the first state the default on a client render and writes a form reset into the model, which v-model on a native control doesn't"
-
 const differences = (app: string, reason: string, names: string[]) =>
   names.map((name) => ({ app, name, reason }))
 
@@ -670,21 +643,7 @@ const NATIVE_DIFFERENCES = [
     "rating-bound",
     "tabs-bound",
   ]),
-  ...differences("nuxt", VUE_SEED, [
-    "checkbox-bound",
-    "group-bound",
-    "group-default",
-    "radio-bound",
-    "range-bound",
-    "rating-bound",
-    "rating-default",
-    "select-bound",
-    "select-default",
-    "tabs-bound",
-    "tabs-default",
-    "text-bound",
-    "toggle-bound",
-  ]),
+  ...differences("nuxt", VUE_VALUE, ["range-default", "text-default"]),
   ...differences("solid-start", SOLID_SEED, [
     "group-bound",
     "rating-bound",
@@ -729,17 +688,6 @@ const NATIVE_DIFFERENCES = [
   ...differences("vite-svelte", SVELTE_SELECT, [
     "select-bound",
     "select-default",
-  ]),
-  ...differences("vite-vue", VUE_SEED, [
-    "checkbox-bound",
-    "group-bound",
-    "radio-bound",
-    "range-bound",
-    "rating-bound",
-    "select-bound",
-    "tabs-bound",
-    "text-bound",
-    "toggle-bound",
   ]),
 ]
 

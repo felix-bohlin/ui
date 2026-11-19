@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useInputAttrs } from "../vue"
+import { useBound, useInputAttrs } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import SwitchInput from "./SwitchInput.vue"
 import { hasName, warnUnnamed } from "../dev"
@@ -29,6 +29,8 @@ const model = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
 
+const bound = useBound()
+
 warnUnnamed("Switch", hasName({ ...attrs.value, label }, slots.default))
 </script>
 
@@ -57,9 +59,15 @@ warnUnnamed("Switch", hasName({ ...attrs.value, label }, slots.default))
       ><slot name="icon-checked"></slot></span
     >{{ " "
     }}<SwitchInput
+      v-if="bound"
       v-bind="attrs"
       :aria-invalid="error ? 'true' : attrs['aria-invalid']"
       v-model="model"
+    />
+    <SwitchInput
+      v-else
+      v-bind="attrs"
+      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
     />
     <span
       v-if="label || $slots.default"

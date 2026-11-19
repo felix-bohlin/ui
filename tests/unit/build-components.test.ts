@@ -1146,11 +1146,15 @@ describe("the ports of a sample", () => {
     expect(svelte).toContain('value = "0"')
     expect(svelte).toContain("value = star")
     const vue = port(".vue")
-    expect(vue).toContain("const modelValue = defineModel<number | string>()")
-    expect(vue).not.toContain(":checked")
+    expect(vue).toContain(
+      "const modelValue = defineModel<number | string>()\n\nconst bound = useBound()\n\nconst model = computed(() => modelValue.value ?? value)",
+    )
     expect(vue).not.toContain("@change")
-    expect(vue.match(/v-seed\s+v-model="model"/g)).toHaveLength(2)
-    expect(vue).not.toContain("const current")
+    expect(vue.match(/v-if="bound"/g)).toHaveLength(2)
+    expect(vue.match(/v-model="modelValue"/g)).toHaveLength(2)
+    expect(vue).toContain('v-bind="defined({ checked: current === 0 })"')
+    expect(vue).toContain('v-bind="defined({ checked: current === star })"')
+    expect(vue).toContain("const current = computed(() => Number(model.value))")
     const solid = port(".solid.tsx")
     expect(solid).toContain(
       '    "defaultValue",\n    "name",\n    "onValueChange",\n',
@@ -1221,7 +1225,7 @@ describe("the ports of a sample", () => {
       '<script lang="ts">\n  import { untrack } from "svelte"\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n    defaultValue,\n    value = $bindable(),\n    ...rest\n  }: Props = $props()\n\n  const getValue = () => value ?? defaultValue\n  const setValue = (next: typeof value) => {\n    value = next\n  }\n  const initialValue = untrack(getValue)\n</script>\n\n<label class={["ui-sample", className]}>\n  <textarea\n    {...rest}\n    bind:value={getValue, setValue}\n    defaultValue={defaultValue ?? initialValue}></textarea>\n</label>\n',
     )
     expect(port(".vue")).toBe(
-      '<script setup lang="ts">\nimport { computed } from "vue"\nimport { useInputAttrs, vSeed } from "../vue"\nimport type { Props } from "./types.vue-props"\n\nconst { value } = defineProps<Props>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useInputAttrs()\n\nconst modelValue = defineModel<number | string>()\n\nconst model = computed({\n  get: () => modelValue.value ?? value,\n  set: (value) => {\n    modelValue.value = value\n  },\n})\n</script>\n\n<template>\n  <label :class="[\'ui-sample\', $props.class]">\n    <textarea v-bind="attrs" v-seed v-model="model"></textarea>\n  </label>\n</template>\n',
+      '<script setup lang="ts">\nimport { useBound, useInputAttrs } from "../vue"\nimport type { Props } from "./types.vue-props"\n\nconst { value } = defineProps<Props>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useInputAttrs()\n\nconst modelValue = defineModel<number | string>()\n\nconst bound = useBound()\n</script>\n\n<template>\n  <label :class="[\'ui-sample\', $props.class]">\n    <textarea v-if="bound" v-bind="attrs" v-model="modelValue"></textarea>\n    <textarea v-else v-bind="attrs">{{ value }}</textarea>\n  </label>\n</template>\n',
     )
     expect(port(".solid.tsx")).toBe(
       '/** @jsxImportSource @solidjs/web */\nimport { omit, untrack } from "solid-js"\nimport { control } from "../solid"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "ref", "value")\n  const valueControl = control(\n    "value",\n    () => props.value,\n    untrack(() => props.value),\n  )\n\n  return (\n    <label class={["ui-sample", props.class]}>\n      <textarea\n        {...valueControl.server}\n        ref={[props.ref, valueControl.ref]}\n        {...rest}\n      />\n    </label>\n  )\n}\n',
@@ -1253,7 +1257,7 @@ describe("the ports of a sample", () => {
     )
   })
 
-  test("a value model that only passes through rest declares the prop in Svelte and Vue", async () => {
+  test("a value model that only passes through rest declares the prop in Svelte and leaves it in the attrs in Vue", async () => {
     const { outputs } = await compileComponent(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<span class:list={["ui-sample", className]}>\n  <input {...rest} type="number" />\n</span>\n',
       sampleFile(),
@@ -1262,8 +1266,10 @@ describe("the ports of a sample", () => {
     expect(outputs.get(sampleFile().replace(".astro", ".svelte"))).toContain(
       "  let {\n    class: className,\n    defaultValue,\n    value = $bindable(),\n    ...rest\n  }: Props = $props()",
     )
-    expect(outputs.get(sampleFile().replace(".astro", ".vue"))).toContain(
-      '<input v-bind="attrs" type="number" v-seed v-model.number="model" />',
+    const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
+    expect(vue).toContain("defineProps<Props>()")
+    expect(vue).toContain(
+      '<input v-if="bound" v-bind="attrs" type="number" v-model="modelValue" />\n    <input v-else v-bind="attrs" type="number" />',
     )
   })
 
@@ -1408,10 +1414,10 @@ describe("the ports of a sample", () => {
       'const attrs = useAttrs() as IntrinsicElementAttributes["input"]',
     )
     expect(vue).toContain(
-      "const modelValue = defineModel<boolean | (string | number)[] | undefined>({\n  default: undefined,\n})\n\nconst model = computed({\n  get: () =>\n    modelValue.value ??\n    (attrs.checked !== undefined && attrs.checked !== false),\n  set: (value) => {\n    modelValue.value = value\n  },\n})",
+      "const modelValue = defineModel<boolean | (string | number)[] | undefined>({\n  default: undefined,\n})\n\nconst bound = useBound()",
     )
     expect(vue).toContain(
-      '<input\n    type="checkbox"\n    :name="name"\n    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"\n    v-seed\n    v-model="model"\n  />',
+      '<input\n    v-if="bound"\n    type="checkbox"\n    :name="name"\n    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"\n    v-model="modelValue"\n  />\n  <input\n    v-else\n    type="checkbox"\n    :name="name"\n    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"\n  />',
     )
     expect(outputs.get(sampleFile().replace(".astro", ".solid.tsx"))).toContain(
       '  const rest = omit(props, "checked", "name", "ref")\n  const checkedControl = control(\n    "checked",\n    () => props.checked,\n    untrack(() => props.checked),\n  )\n\n  return (\n    <input\n      type="checkbox"\n      name={props.name}\n      {...checkedControl.server}\n      ref={[props.ref, checkedControl.ref]}\n      {...defined(rest)}\n',
@@ -1432,9 +1438,9 @@ describe("the ports of a sample", () => {
       '<input\n  type="radio"\n  {...defined(rest)}\n  {@attach seedChecked(isChecked, check)}\n  defaultChecked={defaultChecked ?? initialChecked}\n  onchange={(event) => {\n    check()\n    onchange?.(event)\n  }}\n  {value}\n/>',
     )
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
-    expect(vue).toContain("const unchecked = Symbol()")
+    expect(vue).not.toContain("computed")
     expect(vue).toContain(
-      '<input\n    type="radio"\n    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"\n    :value="attrs.value"\n    v-seed\n    v-model="model"\n  />',
+      '<input\n    v-if="bound"\n    type="radio"\n    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"\n    :value="attrs.value"\n    v-model="modelValue"\n  />\n  <input\n    v-else\n    type="radio"\n    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"\n  />',
     )
     expect(outputs.get(sampleFile().replace(".astro", ".solid.tsx"))).toContain(
       '  const checkedControl = control(\n    "checked",\n    () => props.checked,\n    untrack(() => props.checked),\n  )\n\n  return (\n    <input\n      type="radio"\n      {...checkedControl.server}\n      ref={[props.ref, checkedControl.ref]}\n      {...defined(rest)}\n',
@@ -1459,13 +1465,15 @@ describe("the ports of a sample", () => {
     expect(vue).toContain(
       "const model = defineModel<string | number | boolean | undefined>({\n  default: undefined,\n})",
     )
-    expect(vue).toContain('<RadioInput v-bind="attrs" v-model="model" />')
+    expect(vue).toContain(
+      '<RadioInput v-if="bound" v-bind="attrs" v-model="model" />\n    <RadioInput v-else v-bind="attrs" />',
+    )
     expect(outputs.get(sampleFile().replace(".astro", ".solid.tsx"))).toContain(
       "<RadioInput {...rest} />",
     )
   })
 
-  test("a model the context shares compiles to a group with a change callback", async () => {
+  test("a model the context shares compiles to a group with a change callback, and in Vue to a group that shares its model", async () => {
     const { outputs } = await compileComponent(
       '---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\n\nconst { class: className, name, value, ...rest } = Astro.props\n\nconst html = await sampleContext.provide({ name, value }, () =>\n  Astro.slots.render("default"),\n)\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Fragment set:html={html} />\n</div>\n',
       sampleFile(),
@@ -1488,8 +1496,9 @@ describe("the ports of a sample", () => {
     )
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
     expect(vue).toContain(
-      "const model = defineModel<string>()\n\nconst change = (input: HTMLInputElement) => {\n  if (model.value !== undefined) model.value = input.value\n}\n\nprovide(\n  SampleKey,\n  reactive({ change, name: computed(() => name), value: model }),\n)",
+      "const model = defineModel<string>()\n\nconst bound = useBound()\n\nprovide(\n  SampleKey,\n  reactive({ bound, name: computed(() => name), value: model }),\n)",
     )
+    expect(vue).not.toContain("change")
     const solid = outputs.get(sampleFile().replace(".astro", ".solid.tsx"))
     expect(solid).toContain(
       "  const [inner, setInner] = createSignal(untrack(() => props.defaultValue))\n  const change = (input: HTMLInputElement) => {\n    const next = input.value\n    if (inner() !== undefined) setInner(next)\n    props.onValueChange?.(next)\n    restoreChecked(input, () => props.value)\n  }\n",
@@ -1533,16 +1542,16 @@ describe("the ports of a sample", () => {
       "  {...defined(rest)}\n  onchange={(event) => {\n    change(event.currentTarget)\n    onchange?.(event)\n  }}\n/>{@render children?.()}\n",
     )
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
-    expect(vue).toContain('import { seedChecked } from "../vue"\n')
+    expect(vue).not.toContain('from "../vue"')
     expect(vue).toContain(
       "const { checked = undefined, value } = defineProps<Props>()",
     )
     expect(vue).toContain(
-      "const change = (input: HTMLInputElement) => {\n  parent?.change?.(input)\n}\n\nconst vSeedChecked = seedChecked(change)",
+      "const target = computed({\n  get: () => parent?.value,\n  set: (next) => {\n    if (parent) parent.value = next\n  },\n})",
     )
-    expect(vue).not.toContain(":checked")
+    expect(vue).not.toContain("@change")
     expect(vue).toContain(
-      '    v-bind="defined(attrs)"\n    v-seed-checked="grouped ?? checked"\n    @change="change($event.currentTarget as HTMLInputElement)"\n  /><slot></slot>',
+      '    v-if="parent?.bound"\n    :class="[\'ui-sample\', $props.class]"\n    type="radio"\n    :value="value"\n    v-bind="defined(attrs)"\n    v-model="target"\n  />\n  <input\n    v-else\n    :class="[\'ui-sample\', $props.class]"\n    type="radio"\n    :value="value"\n    v-bind="{ ...defined({ checked: grouped ?? checked }), ...defined(attrs) }"\n  /><slot></slot>',
     )
     const solid = outputs.get(sampleFile().replace(".astro", ".solid.tsx"))
     expect(solid).toContain(
@@ -1640,8 +1649,9 @@ describe("the ports of a sample", () => {
       "type Model = Multiple extends true ? string[] : string\n\nconst { multiple } = defineProps<Props & { multiple?: Multiple }>()",
     )
     expect(vue).toContain(
-      "const model = defineModel<Model>()\n\nconst change = (input: HTMLInputElement) => {\n  if (model.value !== undefined)\n    model.value = selectionOf(input, multiple) as Model\n}",
+      "const model = defineModel<Model>()\n\nconst bound = useBound()\n\nprovide(SampleKey, reactive({ bound, value: model }))",
     )
+    expect(vue).not.toContain("selectionOf")
     expect(outputs.get(sampleFile().replace(".astro", ".react.tsx"))).toContain(
       "      const next = selectionOf(input, multiple)\n      setInner((current) => (current === undefined ? current : next))\n      if (multiple) onValueChange?.(checkedValues(input))\n      else onValueChange?.(input.value)\n    },\n    [multiple, onValueChange],\n",
     )
@@ -1650,7 +1660,7 @@ describe("the ports of a sample", () => {
     )
   })
 
-  test("an item with a checked model binds it when the group has no value", async () => {
+  test("an item with a checked model binds it when the group has no value, and in Vue binds the group's model when the group is bound", async () => {
     await loadApis()
     const { outputs } = await compileComponent(
       '---\nimport type { Props } from "./types.astro"\nimport { isSelected } from "../ToggleGroup/selection"\nimport { toggleGroupContext } from "../ToggleGroup/context.astro"\n\nconst { checked, class: className, type, value, ...rest } = Astro.props\n\nconst group = toggleGroupContext.get()\nconst finalType = group?.inputType === "radio" ? "radio" : (type ?? "checkbox")\nconst grouped = isSelected(group?.value, value)\n---\n\n<label class:list={["ui-sample", className]}>\n  <input checked={grouped ?? checked} data-off={!checked} type={finalType} value={value} {...rest} />\n  <slot />\n</label>\n',
@@ -1684,12 +1694,14 @@ describe("the ports of a sample", () => {
       'warnGroupedChecked(\n    "Sample",\n    grouped.value,\n    checked ?? model.value,\n    "ToggleGroup",\n  )',
     )
     expect(vue).toContain(
-      "const change = (input: HTMLInputElement) => {\n  if (grouped.value === undefined) model.value = input.checked\n  group?.change?.(input)\n}\n\nconst vSeedChecked = seedChecked(change)",
+      "const target = computed({\n  get: () => (group?.bound ? group.value : model.value),\n  set: (next) => {\n    if (group?.bound) group.value = next as typeof group.value\n    else model.value = next as typeof model.value\n  },\n})",
     )
-    expect(vue).not.toContain(":checked")
-    expect(vue).toContain('v-seed-checked="grouped ?? model ?? checked"')
-    expect(vue).toContain(':data-off="!(model ?? checked)"')
-    expect(vue).not.toContain("v-model")
+    expect(vue).toContain('v-if="group?.bound || bound"')
+    expect(vue).toContain('v-model="target"')
+    expect(vue).toContain(
+      "...defined({ checked: grouped ?? model ?? checked }),\n        ...defined(attrs),",
+    )
+    expect(vue.match(/:data-off="!\(model \?\? checked\)"/g)).toHaveLength(2)
     const solid = outputs.get(sampleFile().replace(".astro", ".solid.tsx"))
     expect(solid).toContain(
       '"checked",\n    () => grouped() ?? props.checked,\n    untrack(() => grouped() ?? props.checked ?? props.defaultChecked),',

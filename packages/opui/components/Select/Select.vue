@@ -3,15 +3,16 @@ import { TrimmedSlot } from "../whitespace.vue"
 import {
   computed,
   inject,
+  type ObjectDirective,
   type SelectHTMLAttributes,
   useAttrs,
   useId,
 } from "vue"
-import { useInputAttrs, vSeed } from "../vue"
+import { useBound, useInputAttrs } from "../vue"
 import type { Props, Slots } from "./types.vue-props"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { fieldDescribedBy } from "../id"
-import { initialValue, sameValue } from "./selection"
+import { sameValue } from "./selection"
 import { styleAttrs } from "../style"
 
 defineOptions({
@@ -38,23 +39,21 @@ const slots = defineSlots<Slots>()
 const attrs = useAttrs() as SelectHTMLAttributes
 const inputAttrs = useInputAttrs()
 const modelValue = defineModel<string | number | (string | number)[]>()
+const bound = useBound()
 
-const multiple = computed(
-  () => attrs.multiple !== undefined && attrs.multiple !== false,
-)
-const model = computed({
-  get: () => modelValue.value ?? value ?? initialValue(items, multiple.value),
-  set: (value) => {
-    modelValue.value = value
-  },
-})
+const isSelected = (item: (typeof items)[number]) => {
+  const current = bound ? modelValue.value : value
+  return current === undefined
+    ? item.selected
+    : Array.isArray(current)
+      ? current.some((selected) => sameValue(selected, item.value))
+      : sameValue(item.value, current)
+}
 
-const initialSelection = model.value
-
-const selectedAtFirst = (value: unknown) =>
-  Array.isArray(initialSelection)
-    ? initialSelection.some((selected) => sameValue(selected, value))
-    : initialSelection !== undefined && sameValue(initialSelection, value)
+const vServerSelected: ObjectDirective<HTMLOptionElement, boolean | undefined> =
+  {
+    getSSRProps: ({ value }) => (value ? { selected: true } : {}),
+  }
 
 const uid = useId()
 const base = computed(() => id || `select-${uid}`)
@@ -107,9 +106,9 @@ const field = inject(FieldGroupKey, undefined)
         ><slot name="start"></slot
       ></span>
       <select
+        v-if="bound"
         v-bind="inputAttrs"
-        v-seed
-        v-model="model"
+        v-model="modelValue"
         :aria-describedby="
           fieldDescribedBy(
             {
@@ -135,7 +134,43 @@ const field = inject(FieldGroupKey, undefined)
           <option
             v-for="item in items"
             :key="item.value"
-            :selected="selectedAtFirst(item.value) || undefined"
+            v-server-selected="isSelected(item)"
+            :value="item.value"
+          >
+            {{ item.label }}
+          </option>
+          <slot></slot>
+        </div>
+      </select>
+      <select
+        v-else
+        v-bind="inputAttrs"
+        :aria-describedby="
+          fieldDescribedBy(
+            {
+              bottom: $slots.bottom && bottomId,
+              end: $slots.end && endId,
+              endText: (endText || $slots['end-text']) && endTextId,
+              start: $slots.start && startId,
+              startText: (startText || $slots['start-text']) && startTextId,
+              top: $slots.top && topId,
+            },
+            attrs['aria-describedby'],
+          )
+        "
+        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+        :aria-labelledby="attrs['aria-labelledby']"
+        :id="selectId()"
+        :name="name ?? field?.name"
+      >
+        <button inert v-pre>
+          <selectedcontent></selectedcontent>
+        </button>
+        <div :class="['ui-list', { 'ui-dense': dense }]">
+          <option
+            v-for="item in items"
+            :key="item.value"
+            :selected="isSelected(item) || undefined"
             :value="item.value"
           >
             {{ item.label }}

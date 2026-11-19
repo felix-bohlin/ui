@@ -41,12 +41,14 @@ export { default as FieldDescription } from "../components/FieldDescription/Fiel
 export { default as FieldGroup } from "../components/FieldGroup/FieldGroup.astro"
 export { default as FieldLegend } from "../components/FieldLegend/FieldLegend.astro"
 export { default as Fieldset } from "../components/Fieldset/Fieldset.astro"
+export { default as FileUpload } from "../components/FileUpload/FileUpload.astro"
 export { default as Form } from "../components/Form/Form.astro"
 export { default as List } from "../components/List/List.astro"
 export { default as ListItem } from "../components/ListItem/ListItem.astro"
 export { default as Menu } from "../components/Menu/Menu.astro"
 export { default as Message } from "../components/Message/Message.astro"
 export { default as MessageList } from "../components/Message/MessageList.astro"
+export { default as Meter } from "../components/Meter/Meter.astro"
 export { default as NumberField } from "../components/NumberField/NumberField.astro"
 export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.astro"
 export { default as Progress } from "../components/Progress/Progress.astro"
@@ -148,6 +150,12 @@ export type { Props as FieldDescriptionProps } from "../components/FieldDescript
 export type { Props as FieldGroupProps } from "../components/FieldGroup/types.astro"
 export type { Props as FieldLegendProps } from "../components/FieldLegend/types.astro"
 export type { Props as FieldsetProps } from "../components/Fieldset/types.astro"
+export type {
+  FileUploadItem,
+  RemoveDetail,
+  SelectDetail,
+} from "../components/FileUpload/types"
+export type { Props as FileUploadProps } from "../components/FileUpload/types.astro"
 export type { Props as FormProps } from "../components/Form/types.astro"
 export type { Props as ListProps } from "../components/List/types.astro"
 export type { Props as ListItemProps } from "../components/ListItem/types.astro"
@@ -159,6 +167,7 @@ export type {
   MessageListProps,
   Props as MessageProps,
 } from "../components/Message/types.astro"
+export type { Props as MeterProps } from "../components/Meter/types.astro"
 export type { Props as NumberFieldProps } from "../components/NumberField/types.astro"
 export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.astro"
 export type { Props as ProgressProps } from "../components/Progress/types.astro"

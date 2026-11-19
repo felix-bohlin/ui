@@ -28,11 +28,13 @@ import {
   FieldGroup,
   FieldLegend,
   Fieldset,
+  FileUpload,
   Form,
   List,
   ListItem,
   Message,
   MessageList,
+  Meter,
   NumberField,
   OneTimeCode,
   Progress,
@@ -295,6 +297,30 @@ const Wrapper = wrap ? "ul" : Carousel
       </div>
     </Fragment>
 
+    <Fragment slot="file-upload">
+      <div aria-hidden="true" inert style="inline-size: 100%">
+        <FileUpload
+          id="index-file-upload-showcase"
+          items={[
+            {
+              label: "lou-headstock.png",
+              preview: "/photos/lou-headstock.png",
+              state: "done",
+              value: "lou",
+            },
+            {
+              label: "percy-groove.png",
+              preview: "/photos/percy-groove.png",
+              progress: 0.6,
+              state: "uploading",
+              value: "percy",
+            },
+          ]}
+          label="Choose photos"
+        />
+      </div>
+    </Fragment>
+
     <Fragment slot="form">
       <Form aria-hidden="true" inert class="showcase-form">
         <Fieldset>
@@ -373,6 +399,10 @@ const Wrapper = wrap ? "ul" : Carousel
           <p>Totally rad.</p>
         </Message>
       </MessageList>
+    </Fragment>
+
+    <Fragment slot="meter">
+      <Meter aria-hidden="true" max="100" value="62" variant="filled" />
     </Fragment>
 
     <Fragment slot="number-field">

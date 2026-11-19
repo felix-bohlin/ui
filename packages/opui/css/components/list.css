@@ -478,7 +478,8 @@ Lists meant to be used stand-alone or as part of Select elements
           :has(> a, > button, > label)
         ),
       &:where([role="option"])[aria-selected="true"] > :where(a, button),
-      & > :where(a, button)[aria-current]:where(:not([aria-current="false"])) {
+      & > :where(a, button)[aria-current]:where(:not([aria-current="false"])),
+      & > :where(button)[aria-pressed="true"] {
         &:not(:has(> .ui-icon-checked))::after {
           background-color: currentColor;
           block-size: var(--_start-size);
@@ -495,6 +496,16 @@ Lists meant to be used stand-alone or as part of Select elements
           @media print {
             print-color-adjust: exact;
           }
+        }
+      }
+
+      /* A pressed item keeps its own row color, so its check mark does too. */
+      @media (forced-colors: active) {
+        &
+          > :where(button)[aria-pressed="true"]:not(
+            [aria-current]:where(:not([aria-current="false"]))
+          ):not(:has(> .ui-icon-checked))::after {
+          background-color: ButtonText;
         }
       }
     }

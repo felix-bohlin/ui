@@ -70,6 +70,11 @@ const KNOWN_ATTRIBUTES: Record<
       "the element ignores the close button until the framework has hydrated the callout and attached its dismiss handler",
     when: ({ closeButton }) => Boolean(closeButton),
   },
+  FileUpload: {
+    attribute: "data-hydrating",
+    reason:
+      "the element holds picked files back and ignores the remove buttons until the framework has hydrated the root and attached its select and remove handlers",
+  },
   Reactions: {
     attribute: "data-hydrating",
     reason:

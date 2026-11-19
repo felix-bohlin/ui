@@ -13,6 +13,7 @@ export default function OneTimeCode(props: Props) {
     "aria-invalid",
     "aria-labelledby",
     "autocapitalize",
+    "autocomplete",
     "class",
     "error",
     "grouped",
@@ -66,6 +67,7 @@ export default function OneTimeCode(props: Props) {
             props.autocapitalize ??
             (props.alphanumeric ? "characters" : undefined)
           }
+          autocomplete={props.autocomplete ?? "one-time-code"}
           inputmode={
             props.inputmode ?? (props.alphanumeric ? undefined : "numeric")
           }
@@ -87,7 +89,6 @@ export default function OneTimeCode(props: Props) {
           )}
           aria-invalid={props.error ? "true" : props["aria-invalid"]}
           aria-labelledby={props["aria-labelledby"]}
-          autocomplete="one-time-code"
           id={inputId()}
           maxlength={length()}
           name={props.name ?? field?.name}

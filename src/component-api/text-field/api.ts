@@ -146,7 +146,8 @@ export default {
     },
     {
       default: '"Show password"',
-      description: "The accessible name of the password toggle.",
+      description:
+        "The accessible name of the password toggle. The types take it only with `passwordToggle`.",
       prop: "passwordToggleLabel",
     },
     {

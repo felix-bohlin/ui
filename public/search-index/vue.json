@@ -1108,6 +1108,70 @@
     "url": "/vue/components/drawer/#keyboard-support"
   },
   {
+    "id": "component-file-upload-vue",
+    "title": "File upload",
+    "description": "A drop zone around a file input that lists the files your app is uploading, with a preview, progress, a message and a remove button for each.",
+    "keywords": "attachment drop zone dropzone photos",
+    "category": "Component",
+    "url": "/vue/components/file-upload/"
+  },
+  {
+    "id": "component-file-upload-vue-basics",
+    "title": "Basics",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/vue/components/file-upload/#basics"
+  },
+  {
+    "id": "component-file-upload-vue-files",
+    "title": "Files",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/vue/components/file-upload/#files"
+  },
+  {
+    "id": "component-file-upload-vue-upload-as-you-pick",
+    "title": "Upload as you pick",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/vue/components/file-upload/#upload-as-you-pick"
+  },
+  {
+    "id": "component-file-upload-vue-errors",
+    "title": "Errors",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/vue/components/file-upload/#errors"
+  },
+  {
+    "id": "component-file-upload-vue-disabled",
+    "title": "Disabled",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/vue/components/file-upload/#disabled"
+  },
+  {
+    "id": "component-file-upload-vue-compact",
+    "title": "Compact",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/vue/components/file-upload/#compact"
+  },
+  {
+    "id": "component-file-upload-vue-labels",
+    "title": "Labels",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/vue/components/file-upload/#labels"
+  },
+  {
+    "id": "component-file-upload-vue-keyboard-support",
+    "title": "Keyboard support",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/vue/components/file-upload/#keyboard-support"
+  },
+  {
     "id": "component-form-vue",
     "title": "Form",
     "description": "Classes that space and group form fields, with fieldsets and field groups.",
@@ -1553,11 +1617,25 @@
     "url": "/vue/components/menu/#current-item"
   },
   {
+    "id": "component-menu-vue-pressed-items",
+    "title": "Pressed items",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/vue/components/menu/#pressed-items"
+  },
+  {
     "id": "component-menu-vue-custom-check",
     "title": "Custom check",
     "page": "Menu",
     "category": "Component",
     "url": "/vue/components/menu/#custom-check"
+  },
+  {
+    "id": "component-menu-vue-long-menus",
+    "title": "Long menus",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/vue/components/menu/#long-menus"
   },
   {
     "id": "component-menu-vue-placement",
@@ -1671,6 +1749,56 @@
     "page": "Message",
     "category": "Component",
     "url": "/vue/components/message/#keyboard-support"
+  },
+  {
+    "id": "component-meter-vue",
+    "title": "Meter",
+    "description": "A bar on the native meter element, for a value in a known range, like disk usage or a poll option's share.",
+    "keywords": "bar gauge measurement poll usage",
+    "category": "Component",
+    "url": "/vue/components/meter/"
+  },
+  {
+    "id": "component-meter-vue-basics",
+    "title": "Basics",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/vue/components/meter/#basics"
+  },
+  {
+    "id": "component-meter-vue-variants",
+    "title": "Variants",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/vue/components/meter/#variants"
+  },
+  {
+    "id": "component-meter-vue-size",
+    "title": "Size",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/vue/components/meter/#size"
+  },
+  {
+    "id": "component-meter-vue-label",
+    "title": "Label",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/vue/components/meter/#label"
+  },
+  {
+    "id": "component-meter-vue-ranges",
+    "title": "Low, high and optimum",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/vue/components/meter/#ranges"
+  },
+  {
+    "id": "component-meter-vue-poll",
+    "title": "Poll",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/vue/components/meter/#poll"
   },
   {
     "id": "component-number-field-vue",
@@ -1820,6 +1948,13 @@
     "page": "One-time code",
     "category": "Component",
     "url": "/vue/components/one-time-code/#disabled"
+  },
+  {
+    "id": "component-one-time-code-vue-another-screen",
+    "title": "Another screen",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/vue/components/one-time-code/#another-screen"
   },
   {
     "id": "component-one-time-code-vue-right-to-left",
@@ -4488,7 +4623,7 @@
     "id": "api-callout-vue",
     "title": "Callout API",
     "description": "Reference for Callout Vue component.",
-    "api": "Callout Container element, an `<article>`. With `closeButton`, the `<opui-callout>` custom element with `role=\"article\"`, which a button with `commandfor` and `command=\"--dismiss\"` dismisses. An optional icon before the content. In Astro, React, Solid, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. The content, with an optional heading first. A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon A row of buttons under the content. @dismiss Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first. closeButton Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>` with `role=\"article\"`, and the component loads `opui-css/elements/callout.js`, which runs the button. While the root has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, the button does nothing. closeLabel The accessible name of the close button. id The id of the callout. With `closeButton`, the close button points at it with `commandfor`, so the component generates one when it's left out. severity The severity. Sets the color, and in Astro, React, Solid, Svelte and Vue the icon `CalloutIcon` renders. variant The variant to use. dismiss Fires on the callout before it hides. It bubbles, and `preventDefault()` keeps the callout. dismiss() Fires `dismiss` and, unless a listener cancels it, sets `hidden` on the callout and moves focus that was inside it to the next focusable element after it, or else the one before. Returns whether the callout hid.",
+    "api": "Callout Container element, an `<article>`. With `closeButton`, the `<opui-callout>` custom element with `role=\"article\"`, which a button with `commandfor` and `command=\"--dismiss\"` dismisses. An optional icon before the content. In Astro, React, Solid, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. The content, with an optional heading first. A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon A row of buttons under the content. @dismiss Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first. closeButton Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>` with `role=\"article\"`, and the component loads `opui-css/elements/callout.js`, which runs the button. While the root has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, the button does nothing. closeLabel The accessible name of the close button. The types take it only with `closeButton`. id The id of the callout. With `closeButton`, the close button points at it with `commandfor`, so the component generates one when it's left out. severity The severity. Sets the color, and in Astro, React, Solid, Svelte and Vue the icon `CalloutIcon` renders. variant The variant to use. dismiss Fires on the callout before it hides. It bubbles, and `preventDefault()` keeps the callout. dismiss() Fires `dismiss` and, unless a listener cancels it, sets `hidden` on the callout and moves focus that was inside it to the next focusable element after it, or else the one before. Returns whether the callout hid.",
     "category": "API",
     "url": "/vue/api/#callout"
   },
@@ -4520,7 +4655,7 @@
     "id": "api-carousel-vue",
     "title": "Carousel API",
     "description": "Reference for Carousel Vue component.",
-    "api": "Carousel The scroller. The previous button. `::scroll-button(block-start)` when vertical. buttons previousLabel An item. default The next button. `::scroll-button(block-end)` when vertical. buttons nextLabel A marker, one per item. markerLabel markers align Where items snap. aria-label The accessible name of the carousel. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. aria-labelledby The id of the element that names the carousel, instead of `aria-label`. aspectRatio Aspect ratio that images, videos and iframes are cropped to. buttons Previous and next buttons. `outside` places them beside the items, and `none` leaves them out. itemsPerView Number of visible items. markerLabel Accessible name of each marker, with `{number}` where the item number goes. markers One marker per item, after the list. nextLabel Accessible name of the next button. orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. peek Shows part of the neighboring items. persistentButtons Keeps the buttons visible at the ends. A disabled button has a muted border. previousLabel Accessible name of the previous button. role The `role` of the `<ul>`. `list` keeps Safari announcing a list. stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
+    "api": "Carousel The scroller. The previous button. `::scroll-button(block-start)` when vertical. buttons previousLabel An item. default The next button. `::scroll-button(block-end)` when vertical. buttons nextLabel A marker, one per item. markerLabel markers align Where items snap. aria-label The accessible name of the carousel. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. aria-labelledby The id of the element that names the carousel, instead of `aria-label`. aspectRatio Aspect ratio that images, videos and iframes are cropped to. buttons Previous and next buttons. `outside` places them beside the items, and `none` leaves them out. itemsPerView Number of visible items. markerLabel Accessible name of each marker, with `{number}` where the item number goes. The Astro, React, Solid and Svelte types take it only with `markers`. markers One marker per item, after the list. nextLabel Accessible name of the next button. orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. peek Shows part of the neighboring items. persistentButtons Keeps the buttons visible at the ends. A disabled button has a muted border. previousLabel Accessible name of the previous button. role The `role` of the `<ul>`. `list` keeps Safari announcing a list. stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
     "category": "API",
     "url": "/vue/api/#carousel"
   },
@@ -4592,7 +4727,7 @@
     "id": "api-dialog-header-vue",
     "title": "Dialog header API",
     "description": "Reference for Dialog header Vue component.",
-    "api": "DialogHeader Container element. Closes the dialog, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon closeButton Adds a close button at the end of the title row, which closes its `Dialog` through the dialog's `id`, or the `<dialog>` that `commandfor` names. closeLabel The accessible name of the close button. commandfor The id of the dialog the close button closes with the `close` command. Without it, the button closes its `Dialog`. Outside a `Dialog`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.",
+    "api": "DialogHeader Container element. Closes the dialog, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon closeButton Adds a close button at the end of the title row, which closes its `Dialog` through the dialog's `id`, or the `<dialog>` that `commandfor` names. closeLabel The accessible name of the close button. The types take it only with `closeButton`. commandfor The id of the dialog the close button closes with the `close` command. Without it, the button closes its `Dialog`. Outside a `Dialog`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.",
     "category": "API",
     "url": "/vue/api/#dialog-header"
   },
@@ -4624,7 +4759,7 @@
     "id": "api-drawer-header-vue",
     "title": "Drawer header API",
     "description": "Reference for Drawer header Vue component.",
-    "api": "DrawerHeader Container element. Closes the drawer, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon closeButton Adds a close button at the end of the title row, which closes its `Drawer`, or the `<dialog>` that `commandfor` names. closeLabel The accessible name of the close button. commandfor The id of the drawer the close button closes with the `close` command. Without it, the button closes its `Drawer`. Outside a `Drawer`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.",
+    "api": "DrawerHeader Container element. Closes the drawer, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon closeButton Adds a close button at the end of the title row, which closes its `Drawer`, or the `<dialog>` that `commandfor` names. closeLabel The accessible name of the close button. The types take it only with `closeButton`. commandfor The id of the drawer the close button closes with the `close` command. Without it, the button closes its `Drawer`. Outside a `Drawer`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.",
     "category": "API",
     "url": "/vue/api/#drawer-header"
   },
@@ -4667,6 +4802,14 @@
     "api": "Fieldset Container element. The label of the fieldset. Supporting text displayed below the legend. Supporting or error text for the whole group, after the fields. as The element to render. Elements other than `fieldset` get `role=\"group\"` and `aria-labelledby` pointing at the `FieldLegend`, unless `aria-label` or `aria-labelledby` is passed. disabled Disables every field inside. Only on a `<fieldset>`.",
     "category": "API",
     "url": "/vue/api/#fieldset"
+  },
+  {
+    "id": "api-file-upload-vue",
+    "title": "File upload API",
+    "description": "Reference for File upload Vue component.",
+    "api": "FileUpload The `<opui-file-upload>` custom element, a size container. It fires `select` for picks and drops and `remove` for the remove buttons, and has the `drag-over` custom state while files are dragged over it. While it has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, it holds picked files back and remove buttons do nothing. Lays out the drop zone and the files: stacked, or in one row when the root is narrower than `28rem`. The drop zone, dashed, and solid while files are dragged over the root. In the compact row it is a square add tile. Names the file input and covers the drop zone, so a click anywhere in it opens the picker. Its plus `<svg>` shows in the compact row. The file input, visually hidden. Its focus ring is drawn on the drop zone. accept disabled multiple The visible trigger, a `<span>` since a label can't hold a button. Visually hidden in the compact row. label The hint, linked to the input with `aria-describedby`. description The files, one `<li>` each: List rows, or square previews that scroll sideways in the compact row. items The preview: the `<img>` of the file, or a tonal placeholder until there is one. On a failed file it also holds the `<button popovertarget>` that opens the message in the compact row. The file name, a `Progress` while the file is queued or uploading, and the message in a `.ui-description`. In the compact row the name is visually hidden and the progress lies along the bottom edge. progressLabel The remove button, a round `.ui-button` with `command=\"--remove\"`, in every state. removeLabel The live region. It is always in the page, so a change of its text is announced. status @remove Called when a remove button is pressed, with the item's `value` in `event.detail.value`. Take the item out of `items`, and cancel its upload. @select Called with the new files of one pick or drop in `event.detail.files`, after the `accept` check, and with only the first one without `multiple`. accept The file types the input takes, as on a file input: extensions, MIME types and `type/*`. The element applies it to picks as well as drops. description The hint in the drop zone. It describes the input, and is visually hidden in the compact row. disabled Disables the input and dims the trigger. A drop does nothing. id The id of the file input. The remove buttons point at it, so the component generates one when it's left out. The ids the component generates start with it: `x-description` for the hint, and `x-label-0` and `x-description-0` for the first file's name and message, for `id=\"x\"`. items The files, as `{ description, label, preview, progress, state, value }` objects. `label` is the file name, `value` the id the `remove` event names, `preview` the URL of an image, `state` one of `\"done\"`, `\"error\"`, `\"queued\"` and `\"uploading\"`, `progress` a fraction from 0 to 1 while uploading, and `description` a message, which a failed file shows in the critical color. label The text of the trigger, which names the file input. multiple Takes several files in one pick or drop. Without it, `select` gets the first accepted file. progressLabel The name of each file's progress bar, with `{label}` where the file's `label` goes. removeLabel The name of each file's remove button, with `{label}` where the file's `label` goes. status The text of the `role=\"status\"` region, which a screen reader announces when it changes, like \"2 photos didn't upload.\" input The `<input type=\"file\">` inside, or `null`. Read-only. remove Fires when a remove button is pressed, with its `value` in `event.detail.value`. It bubbles. Once the row is gone, focus moves to the next row's remove button, or else the previous one, or else the input. select Fires after a pick or a drop, with the new files in `event.detail.files`: the ones the input's `accept` allows, and only the first without `multiple`. It bubbles, and the input is cleared afterwards.",
+    "category": "API",
+    "url": "/vue/api/#file-upload"
   },
   {
     "id": "api-form-vue",
@@ -4725,6 +4868,14 @@
     "url": "/vue/api/#message"
   },
   {
+    "id": "api-meter-vue",
+    "title": "Meter API",
+    "description": "Reference for Meter Vue component.",
+    "api": "Meter The meter. The browser draws the fill inside it. variant The variant to use.",
+    "category": "API",
+    "url": "/vue/api/#meter"
+  },
+  {
     "id": "api-number-field-vue",
     "title": "Number field API",
     "description": "Reference for Number field Vue component.",
@@ -4736,7 +4887,7 @@
     "id": "api-one-time-code-vue",
     "title": "One-time code API",
     "description": "Reference for One-time code Vue component.",
-    "api": "OneTimeCode Container element. The label for the field. label label Draws a box per character and a ring on the next one. The input element, with `autocomplete=\"one-time-code\"`, which lets the browser fill in a code it received. Supporting text displayed below the field. endText end-text alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. autocapitalize The `autocapitalize` of the `<input>`. With `alphanumeric` it is `characters`. disabled Dims the field and blocks input. error Marks the control invalid and shows error styles. grouped Draws a dash between the two halves of the code. Use it with an even `length`. id The id of the `<input>`. With a label, the `<label for>` points at it, so the component generates one when it's left out. The end text's id, `x-end-text`, starts with it. inputmode The `inputmode` of the `<input>`. Without `alphanumeric` it is `numeric`. length The number of characters and boxes, from 4 to 8. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. pattern The `pattern` of the `<input>`. It is `[0-9]{length}`, or `[A-Za-z0-9]{length}` with `alphanumeric`. required Adds a required mark after the label. The form won't submit while the code is incomplete. size The size of the element. spellcheck The `spellcheck` of the `<input>`. With `alphanumeric` it is `false`.",
+    "api": "OneTimeCode Container element. The label for the field. label label Draws a box per character and a ring on the next one. The input element, with `autocomplete=\"one-time-code\"` unless it is set to `off`, which lets the browser fill in a code it received. Supporting text displayed below the field. endText end-text alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. autocapitalize The `autocapitalize` of the `<input>`. With `alphanumeric` it is `characters`. autocomplete The `autocomplete` of the `<input>`. Set `off` for a code read off another screen, such as a TV or the computer you're signing in on. disabled Dims the field and blocks input. error Marks the control invalid and shows error styles. grouped Draws a dash between the two halves of the code. Use it with an even `length`. id The id of the `<input>`. With a label, the `<label for>` points at it, so the component generates one when it's left out. The end text's id, `x-end-text`, starts with it. inputmode The `inputmode` of the `<input>`. Without `alphanumeric` it is `numeric`. length The number of characters and boxes, from 4 to 8. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. pattern The `pattern` of the `<input>`. It is `[0-9]{length}`, or `[A-Za-z0-9]{length}` with `alphanumeric`. required Adds a required mark after the label. The form won't submit while the code is incomplete. size The size of the element. spellcheck The `spellcheck` of the `<input>`. With `alphanumeric` it is `false`.",
     "category": "API",
     "url": "/vue/api/#one-time-code"
   },
@@ -4936,7 +5087,7 @@
     "id": "api-text-field-vue",
     "title": "Text field API",
     "description": "Reference for Text field Vue component.",
-    "api": "TextField Container element: a `<div>`, or the `<opui-text-field>` custom element with a password toggle. The label inside is a `<label for>` that names the input by itself. The label for the field. label label Start text displayed above the field. startText start-text The boxed input area. Content above the input, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start The input element. Content at the inline-end of the field, inside the border, and the password toggle. end The password toggle, with `aria-pressed` and `command=\"--toggle-password\"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is, and `aria-disabled` while the input is. `<opui-text-field>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-text-field>` is defined. passwordToggle passwordToggleLabel icon-checked icon-unchecked Content below the input, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left. characterCount characterCountLabel autoFit Lets the width follow the content, from `25ch`. characterCount Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count. characterCountLabel The announcement near the limit, with `{count}` for the characters left. Pass it translated. dropZone Makes a `type=\"file\"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker. disabled Dims the field and blocks input and the password toggle. `aria-disabled=\"true\"` on the input looks the same, but keeps the field focusable, its text editable and its value in the form. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. The `<label for>` and the password toggle point at it, so the component generates one when it's left out. The ids the component generates start with it: `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id=\"x\"`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. passwordToggle Adds a button to the end of a `type=\"password\"` field that shows and hides the password. The root becomes `<opui-text-field>`, and the button stays out of the input's description, unless there's also an `end` slot, whose part it shares. The component loads `opui-css/elements/text-field.js`, which runs the button. passwordToggleLabel The accessible name of the password toggle. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the input to the other. type The input type. variant The variant to use. control The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only. hidePassword() Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits. input The `<input>` inside, or `null`. Read-only. showPassword() Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.",
+    "api": "TextField Container element: a `<div>`, or the `<opui-text-field>` custom element with a password toggle. The label inside is a `<label for>` that names the input by itself. The label for the field. label label Start text displayed above the field. startText start-text The boxed input area. Content above the input, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start The input element. Content at the inline-end of the field, inside the border, and the password toggle. end The password toggle, with `aria-pressed` and `command=\"--toggle-password\"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is, and `aria-disabled` while the input is. `<opui-text-field>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-text-field>` is defined. passwordToggle passwordToggleLabel icon-checked icon-unchecked Content below the input, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left. characterCount characterCountLabel autoFit Lets the width follow the content, from `25ch`. characterCount Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count. characterCountLabel The announcement near the limit, with `{count}` for the characters left. Pass it translated. dropZone Makes a `type=\"file\"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker. disabled Dims the field and blocks input and the password toggle. `aria-disabled=\"true\"` on the input looks the same, but keeps the field focusable, its text editable and its value in the form. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. The `<label for>` and the password toggle point at it, so the component generates one when it's left out. The ids the component generates start with it: `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id=\"x\"`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. passwordToggle Adds a button to the end of a `type=\"password\"` field that shows and hides the password. The root becomes `<opui-text-field>`, and the button stays out of the input's description, unless there's also an `end` slot, whose part it shares. The component loads `opui-css/elements/text-field.js`, which runs the button. passwordToggleLabel The accessible name of the password toggle. The types take it only with `passwordToggle`. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the input to the other. type The input type. variant The variant to use. control The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only. hidePassword() Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits. input The `<input>` inside, or `null`. Read-only. showPassword() Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.",
     "category": "API",
     "url": "/vue/api/#text-field"
   },

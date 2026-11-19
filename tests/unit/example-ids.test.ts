@@ -98,6 +98,7 @@ const ID_REFERENCES = [
 const OWNERS = [
   "ui-dialog",
   "ui-drawer",
+  "ui-file-upload",
   "ui-number-field",
   "ui-one-time-code",
   "ui-range",

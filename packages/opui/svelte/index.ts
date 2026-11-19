@@ -43,12 +43,14 @@ export { default as FieldDescription } from "../components/FieldDescription/Fiel
 export { default as FieldGroup } from "../components/FieldGroup/FieldGroup.svelte"
 export { default as FieldLegend } from "../components/FieldLegend/FieldLegend.svelte"
 export { default as Fieldset } from "../components/Fieldset/Fieldset.svelte"
+export { default as FileUpload } from "../components/FileUpload/FileUpload.svelte"
 export { default as Form } from "../components/Form/Form.svelte"
 export { default as List } from "../components/List/List.svelte"
 export { default as ListItem } from "../components/ListItem/ListItem.svelte"
 export { default as Menu } from "../components/Menu/Menu.svelte"
 export { default as Message } from "../components/Message/Message.svelte"
 export { default as MessageList } from "../components/Message/MessageList.svelte"
+export { default as Meter } from "../components/Meter/Meter.svelte"
 export { default as NumberField } from "../components/NumberField/NumberField.svelte"
 export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.svelte"
 export { default as Progress } from "../components/Progress/Progress.svelte"
@@ -151,6 +153,12 @@ export type { Props as FieldDescriptionProps } from "../components/FieldDescript
 export type { Props as FieldGroupProps } from "../components/FieldGroup/types.svelte"
 export type { Props as FieldLegendProps } from "../components/FieldLegend/types.svelte"
 export type { Props as FieldsetProps } from "../components/Fieldset/types.svelte"
+export type {
+  FileUploadItem,
+  RemoveDetail,
+  SelectDetail,
+} from "../components/FileUpload/types"
+export type { Props as FileUploadProps } from "../components/FileUpload/types.svelte"
 export type { Props as FormProps } from "../components/Form/types.svelte"
 export type { Props as ListProps } from "../components/List/types.svelte"
 export type { Props as ListItemProps } from "../components/ListItem/types.svelte"
@@ -162,6 +170,7 @@ export type {
   MessageListProps,
   Props as MessageProps,
 } from "../components/Message/types.svelte"
+export type { Props as MeterProps } from "../components/Meter/types.svelte"
 export type { Props as NumberFieldProps } from "../components/NumberField/types.svelte"
 export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.svelte"
 export type { Props as ProgressProps } from "../components/Progress/types.svelte"

@@ -3410,3 +3410,210 @@ interaction(
     )
   },
 )
+
+const PNG = Buffer.from(
+  "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==",
+  "base64",
+)
+const photo = (name: string) => ({ buffer: PNG, mimeType: "image/png", name })
+
+const countEvents = (root: Locator, type: string) =>
+  root.locator("opui-file-upload").evaluate((element, type) => {
+    element.setAttribute(`data-${type}-count`, "0")
+    element.addEventListener(type, () => {
+      const name = `data-${type}-count`
+      element.setAttribute(name, String(Number(element.getAttribute(name)) + 1))
+    })
+  }, type)
+
+const dragFiles = (root: Locator, type: string, kind: "files" | "text") =>
+  root.locator("opui-file-upload").evaluate(
+    (element, [type, kind]) => {
+      const dataTransfer = new DataTransfer()
+      if (kind === "files") {
+        dataTransfer.items.add(
+          new File(["photo"], "dropped.png", { type: "image/png" }),
+        )
+        dataTransfer.items.add(
+          new File(["notes"], "notes.txt", { type: "text/plain" }),
+        )
+      } else {
+        dataTransfer.setData("text/plain", "dragged text")
+      }
+      element.dispatchEvent(
+        new DragEvent(type, { bubbles: true, cancelable: true, dataTransfer }),
+      )
+      return element.matches(":state(drag-over)")
+    },
+    [type, kind] as const,
+  )
+
+interaction(
+  "file-upload",
+  "Controlled",
+  "file upload fires select once per pick, with only the accepted files",
+  async ({ root }) => {
+    const input = root.getByLabel("Choose photos", { exact: true })
+    const element = root.locator("opui-file-upload")
+    const rows = root.locator(".ui-list > li")
+
+    await expect(input).toHaveAccessibleDescription(
+      "Or drop them here. Nothing leaves your browser.",
+    )
+    await countEvents(root, "select")
+    await input.setInputFiles([
+      photo("lou.png"),
+      { buffer: Buffer.from("notes"), mimeType: "text/plain", name: "a.txt" },
+      photo("percy.png"),
+    ])
+    await expect(rows).toHaveCount(2)
+    await expect(rows.nth(0)).toContainText("lou.png")
+    await expect(rows.nth(1)).toContainText("percy.png")
+    await expect(element).toHaveAttribute("data-select-count", "1")
+    await expect(input).toHaveValue("")
+
+    await input.setInputFiles([photo("lou.png")])
+    await expect(rows).toHaveCount(3)
+    await expect(element).toHaveAttribute("data-select-count", "2")
+  },
+)
+
+interaction(
+  "file-upload",
+  "Controlled",
+  "file upload removes a file and moves focus to the next remove button, the previous one, then the input",
+  async ({ page, root }) => {
+    const input = root.getByLabel("Choose photos", { exact: true })
+    const element = root.locator("opui-file-upload")
+    const rows = root.locator(".ui-list > li")
+    const remove = (name: string) =>
+      root.getByRole("button", { name: `Remove ${name}` })
+
+    await input.setInputFiles([
+      photo("lou.png"),
+      photo("percy.png"),
+      photo("holly.png"),
+    ])
+    await expect(rows).toHaveCount(3)
+    await countEvents(root, "remove")
+
+    await remove("percy.png").focus()
+    await page.keyboard.press("Enter")
+    await expect(rows).toHaveCount(2)
+    await expect(element).toHaveAttribute("data-remove-count", "1")
+    await expect(remove("holly.png")).toBeFocused()
+
+    await page.keyboard.press("Enter")
+    await expect(rows).toHaveCount(1)
+    await expect(remove("lou.png")).toBeFocused()
+
+    await page.keyboard.press("Enter")
+    await expect(rows).toHaveCount(0)
+    await expect(element).toHaveAttribute("data-remove-count", "3")
+    await expect(input).toBeFocused()
+  },
+)
+
+interaction(
+  "file-upload",
+  "Controlled",
+  "file upload highlights a drag that carries files and takes the accepted files of a drop",
+  async ({ root }) => {
+    const element = root.locator("opui-file-upload")
+    const field = root.locator(".ui-field")
+    const rows = root.locator(".ui-list > li")
+
+    await expect(element).toHaveJSProperty("localName", "opui-file-upload")
+    await expect(element).not.toHaveAttribute("data-hydrating")
+    expect(await dragFiles(root, "dragenter", "text")).toBe(false)
+    expect(await computed(field, "border-block-start-style")).toBe("dashed")
+    expect(await dragFiles(root, "dragover", "files")).toBe(true)
+    expect(await computed(field, "border-block-start-style")).toBe("solid")
+    expect(await dragFiles(root, "drop", "files")).toBe(false)
+    await expect(rows).toHaveCount(1)
+    await expect(rows).toContainText("dropped.png")
+  },
+)
+
+interaction(
+  "file-upload",
+  "Disabled",
+  "a disabled file upload ignores a drop",
+  async ({ root }) => {
+    const element = root.locator("opui-file-upload")
+
+    await expect(element).not.toHaveAttribute("data-hydrating")
+    await countEvents(root, "select")
+    expect(await dragFiles(root, "dragover", "files")).toBe(false)
+    expect(await dragFiles(root, "drop", "files")).toBe(false)
+    await expect(element).toHaveAttribute("data-select-count", "0")
+    await expect(root.getByLabel("Choose photos")).toBeDisabled()
+  },
+)
+
+interaction(
+  "file-upload",
+  "Errors",
+  "file upload shows a failed file's message in its row and the status in a live region",
+  async ({ root }) => {
+    await expect(root.getByRole("status")).toHaveText("1 photo didn't upload.")
+    await expect(
+      root.getByText("The connection dropped. Remove it and choose it again."),
+    ).toBeVisible()
+    await expect(root.locator(".ui-start > button")).toBeHidden()
+    await expect(root.locator(".ui-label > .ui-button")).toBeVisible()
+  },
+)
+
+interaction(
+  "file-upload",
+  "Compact",
+  "file upload under 28rem is one row with the add tile first, and a failed file opens its message",
+  async ({ page, root }) => {
+    const element = root.locator("opui-file-upload")
+    const field = root.locator(".ui-field")
+    const list = root.locator(".ui-list")
+    const first = list.locator("li").first()
+    const failed = root.getByRole("button", {
+      name: "holly-humbucker.png This photo is larger than 10 MB.",
+    })
+    const message = root.locator(".ui-description[popover]")
+    const box = async (locator: Locator) => {
+      const found = await locator.boundingBox()
+      if (!found) throw new Error("no box")
+      return found
+    }
+
+    expect((await box(element)).width).toBeLessThan(448)
+    const tile = await box(field)
+    const preview = await box(first)
+    expect(tile.width).toBe(tile.height)
+    expect(preview.width).toBe(tile.width)
+    expect(preview.height).toBe(tile.height)
+    expect(tile.x + tile.width).toBeLessThanOrEqual(preview.x)
+    expect(Math.abs(tile.y - preview.y)).toBeLessThan(1)
+    expect(
+      await list.evaluate((node) => node.scrollWidth > node.clientWidth),
+    ).toBe(true)
+    await expect(root.getByLabel("Choose photos", { exact: true })).toHaveCount(
+      1,
+    )
+    expect(
+      (await box(root.locator(".ui-label > .ui-button"))).width,
+    ).toBeLessThan(16)
+    expect(await computed(first.locator("p"), "position")).toBe("absolute")
+
+    const open = () => message.evaluate((node) => node.matches(":popover-open"))
+
+    expect(await open()).toBe(false)
+    await failed.scrollIntoViewIfNeeded()
+    await failed.click()
+    await expect.poll(open).toBe(true)
+    await expect(message).toHaveText("This photo is larger than 10 MB.")
+    expect((await box(message)).y).toBeGreaterThanOrEqual(
+      (await box(failed)).y + (await box(failed)).height,
+    )
+    await page.keyboard.press("Escape")
+    await expect.poll(open).toBe(false)
+  },
+)

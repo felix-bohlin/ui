@@ -28,6 +28,10 @@ declare module "react" {
         "copied-label"?: string | undefined
         "failed-label"?: string | undefined
       }
+      "opui-file-upload": DetailedHTMLProps<
+        HTMLAttributes<HTMLElement>,
+        HTMLElement
+      >
       "opui-number-field": DetailedHTMLProps<
         HTMLAttributes<HTMLElement>,
         HTMLElement

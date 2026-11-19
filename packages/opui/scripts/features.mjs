@@ -171,6 +171,7 @@ export const patterns = [
   { id: "scrollbar-width", pattern: /\bscrollbar-width:/ },
   { id: "sibling-count", pattern: /\bsibling-(?:count|index)\(/ },
   { id: "starting-style", pattern: /@starting-style\b/ },
+  { id: "state", pattern: /:state\(/ },
   { id: "subgrid", pattern: /grid-template-(?:columns|rows):\s*subgrid\b/ },
   { id: "text-box", pattern: /\btext-box(?:-edge|-trim)?:/ },
   { id: "text-wrap-pretty", pattern: /\btext-wrap(?:-style)?:\s*pretty\b/ },

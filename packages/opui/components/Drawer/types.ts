@@ -13,15 +13,27 @@ export type DrawerFooterProps = {
   align?: "start" | "end"
 }
 
-export type DrawerHeaderProps = {
-  closeButton?: boolean
-  closeLabel?: string
-  commandfor?: string
-}
+export type DrawerHeaderProps =
+  | {
+      closeButton: boolean
+      closeLabel?: string
+      commandfor?: string
+    }
+  | {
+      closeButton?: never
+      closeLabel?: never
+      commandfor?: never
+    }
 
-export type DrawerHeaderSlots<S> = {
-  closeIcon?: S
-}
+export type DrawerHeaderSlots<S> =
+  | {
+      closeButton: boolean
+      closeIcon?: S
+    }
+  | {
+      closeButton?: never
+      closeIcon?: never
+    }
 
 export type DrawerTitleProps = {}
 

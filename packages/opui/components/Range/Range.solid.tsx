@@ -142,14 +142,18 @@ export default function Range(props: Props) {
       />
       {hasDatalist() && (
         <datalist aria-hidden="true" id={listId()}>
-          <For each={props.items}>
-            {(option) =>
-              typeof option === "object" ? (
-                <option value={option.value} label={option.label} />
-              ) : (
-                <option value={option} />
-              )
-            }
+          <For each={props.items} keyed={false}>
+            {(item) => {
+              const row = () => {
+                const option = item()
+                return typeof option === "object" ? (
+                  <option value={option.value} label={option.label} />
+                ) : (
+                  <option value={option} />
+                )
+              }
+              return <>{row()}</>
+            }}
           </For>
           {resolvedDatalist()}
         </datalist>

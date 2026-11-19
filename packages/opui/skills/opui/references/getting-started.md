@@ -220,7 +220,7 @@ Without a bundler, add this import map to the `head`:
 
 #### [Blocks](https://opui.dev/blocks.md)
 
-36 pages and sections built from the components.
+37 pages and sections built from the components.
 
 #### [Components](https://opui.dev/html/components.md)
 

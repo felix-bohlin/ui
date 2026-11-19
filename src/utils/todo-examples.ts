@@ -33,6 +33,13 @@ export const todoExamples = {
   "carousel-marker-focus": {
     match: "Carousel: the marker's own ring is drawn with `outline`",
   },
+  "control-group-end-text": {
+    match: "ControlGroup: the group lines its controls up at the bottom",
+  },
+  "control-group-wrapped-divider": {
+    match:
+      "ControlGroup: in a group that isn't outlined and has a field, in forced colors",
+  },
   "dialog-scrollbar-gutter": {
     match: "Dialog, Drawer: the scroll lock's `scrollbar-gutter: stable`",
   },

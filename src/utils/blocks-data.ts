@@ -153,6 +153,13 @@ export const blocks: Block[] = [
     slug: "kanban-board",
   },
   {
+    category: "application",
+    description:
+      "A post's photos in a dark full-screen viewer: swipe sideways between them, and down to close.",
+    name: "Lightbox",
+    slug: "lightbox",
+  },
+  {
     category: "marketing",
     description:
       "A newsletter sign-up with an email field, topic choices and a privacy note.",

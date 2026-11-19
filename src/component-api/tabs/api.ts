@@ -28,8 +28,8 @@ export default {
     solid:
       "Use `value` with `onValueChange`, or `defaultValue`. Without them the items keep their own state, and `onValueChange` still reports changes.",
     svelte:
-      "Bind `value` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state.",
-    vue: "Bind `v-model` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state.",
+      "Bind `value` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state. A `value` passed without `bind:` is a starting value: the tabs keep the selection themselves until you pass another.",
+    vue: "Bind `v-model` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state. A `model-value` passed without an `update:modelValue` listener is a starting value: the tabs keep the selection themselves until you pass another.",
   },
   options: [
     {

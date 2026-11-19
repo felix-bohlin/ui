@@ -3303,6 +3303,63 @@ Line five</textarea>
     </div>
   </div>
 </section>
+<section class="stress" data-example="WrappedControlGroup">
+  <h2>Wrapped control groups</h2>
+  <p>
+    Control groups too narrow for one row. A group of buttons and a group whose
+    field hides its label draw their dividers as gap rules, so a control that
+    wraps starts its row without one. A field with a visible label keeps start
+    borders, so the button that wraps after it starts with a line.
+  </p>
+  <div class="stress-row">
+    <div class="stress-narrow">
+      <div role="group" aria-label="Message" class="ui-control-group ui-tonal">
+        <button class="ui-button" type="button">Reply</button
+        ><button class="ui-button" type="button">Forward</button
+        ><button class="ui-button" type="button">Snooze</button
+        ><button class="ui-button" type="button">Archive</button>
+      </div>
+    </div>
+    <div class="stress-narrow">
+      <div
+        role="group"
+        aria-label="Invite by email"
+        class="ui-control-group ui-tonal"
+      >
+        <div class="ui-text-field">
+          <label class="ui-label" for="stress-wrap-label">Email</label
+          ><span class="ui-field"
+            ><input
+              value="ada@example.com"
+              id="stress-wrap-label"
+              name="stress-wrap-label"
+              type="email"
+          /></span>
+        </div>
+        <button class="ui-button" type="button">Invite</button
+        ><button class="ui-button" type="button">Copy link</button
+        ><button class="ui-button" type="button">Archive</button>
+      </div>
+    </div>
+    <div class="stress-narrow">
+      <div role="group" aria-label="Invite" class="ui-control-group ui-tonal">
+        <div class="ui-text-field">
+          <label class="ui-sr-only" for="stress-wrap-hidden">Email</label
+          ><span class="ui-field"
+            ><input
+              value="ada@example.com"
+              id="stress-wrap-hidden"
+              name="stress-wrap-hidden"
+              type="email"
+          /></span>
+        </div>
+        <button class="ui-button" type="button">Invite</button
+        ><button class="ui-button" type="button">Copy link</button
+        ><button class="ui-button" type="button">Archive</button>
+      </div>
+    </div>
+  </div>
+</section>
 <section class="stress" data-example="Spread">
   <h2>Spread</h2>
   <p>

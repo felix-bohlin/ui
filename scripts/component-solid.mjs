@@ -26,6 +26,7 @@ import {
   elementsIn,
   filtersSpread,
   identifierCounts,
+  itemBinding,
   identifiersIn,
   isIdentifierName,
   onlyClass,
@@ -63,34 +64,6 @@ const parameterNames = (text) => {
     arrow.parameters.forEach((parameter) => collect(parameter.name))
   }
   return names
-}
-
-const itemBinding = (text) => {
-  const [statement] = sourceFileOf(`(${text}) => 0`, "item.ts").statements
-  const arrow =
-    statement && ts.isExpressionStatement(statement)
-      ? statement.expression
-      : undefined
-  const name =
-    arrow && ts.isArrowFunction(arrow) ? arrow.parameters[0]?.name : undefined
-  if (!name) return undefined
-  if (ts.isIdentifier(name)) return { fields: [], name: name.text }
-  if (!ts.isObjectBindingPattern(name)) return undefined
-  const fields = []
-  let rest
-  for (const element of name.elements) {
-    const key = element.propertyName ?? element.name
-    if (
-      element.initializer ||
-      !ts.isIdentifier(element.name) ||
-      !ts.isIdentifier(key)
-    ) {
-      return undefined
-    }
-    if (element.dotDotDotToken) rest = element.name.text
-    else fields.push({ key: key.text, local: element.name.text })
-  }
-  return { fields, rest }
 }
 
 const CONDITION_OPERATORS = [
@@ -554,25 +527,27 @@ export const toSolid = (component) => {
       ...node.consts.map(({ name }) => name),
     ]
     const binding = itemBinding(node.item)
-    const keyed = !node.key
-      ? undefined
-      : node.key.by === "index"
+    const keyed =
+      !node.key || node.key.by === "index"
         ? "false"
         : `(${node.item}) => ${node.key.code}`
-    if (keyed && !binding) {
+    const narrows = node.key
+      ? undefined
+      : freeName(scope, ["row", "content", "rendered"], declared)
+    if (!narrows && !binding) {
       throw unsupported(
         component.file,
         `the loop item \`${node.item}\`, which Solid reads through an accessor`,
         "take the item as one name, or as an object pattern of plain names",
       )
     }
-    const row = keyed
-      ? (binding.name ?? freeName(scope, ["item", "entry", "row"], declared))
-      : undefined
-    const shadowed = [...declared, ...(row ? [row] : [])]
+    const row = narrows
+      ? freeName(scope, ["item", "entry"], [...declared, narrows])
+      : (binding.name ?? freeName(scope, ["item", "entry", "row"], declared))
+    const shadowed = [...declared, row, ...(narrows ? [narrows] : [])]
     const inner = new Map(scope.rename)
     shadowed.forEach((name) => inner.delete(name))
-    if (row) {
+    if (!narrows) {
       inner.set(binding.name ?? row, `${row}()`)
       binding.fields.forEach(({ key, local }) =>
         inner.set(local, `${row}().${key}`),
@@ -582,8 +557,9 @@ export const toSolid = (component) => {
         inner.set(binding.rest, `${binding.rest}()`)
       }
     }
-    const rowConsts =
-      row && binding.rest
+    const rowConsts = narrows
+      ? [`const ${node.item} = ${row}()`]
+      : binding.rest
         ? [
             `const ${binding.rest} = () => omit(${[`${row}()`, ...binding.fields.map(({ key }) => JSON.stringify(key))].join(", ")})`,
           ]
@@ -648,7 +624,8 @@ export const toSolid = (component) => {
       },
       keyed,
       list: rewrite(node.list, scope),
-      parameters: `${row ?? node.item}${usesIndex ? `, ${node.index}` : ""}`,
+      narrows,
+      parameters: `${row}${usesIndex ? `, ${node.index}` : ""}`,
       scope: eachScope,
     }
   }

@@ -75,6 +75,11 @@ const KNOWN_ATTRIBUTES: Record<
     reason:
       "the element holds picked files back and ignores the remove buttons until the framework has hydrated the root and attached its select and remove handlers",
   },
+  Reactions: {
+    attribute: "data-hydrating",
+    reason:
+      "the element asks for nothing on a click until the framework has hydrated the reactions and attached its reaction handler",
+  },
   SortableTable: {
     attribute: "data-hydrating",
     reason:

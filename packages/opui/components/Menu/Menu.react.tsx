@@ -16,6 +16,7 @@ export default function Menu({
   dense,
   id,
   items,
+  orientation,
   popover = "auto",
   side,
   children,
@@ -41,6 +42,7 @@ export default function Menu({
             "ui-bordered": bordered,
             "ui-dense": dense,
           },
+          orientation && orientation !== "vertical" && `ui-${orientation}`,
           side && side !== "block-end" && `ui-${side}`,
           className,
         ])}

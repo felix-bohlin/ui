@@ -36,6 +36,14 @@ declare module "react" {
         HTMLAttributes<HTMLElement>,
         HTMLElement
       >
+      "opui-reactions": DetailedHTMLProps<
+        HTMLAttributes<HTMLElement>,
+        HTMLElement
+      > & {
+        "quick-label"?: string | undefined
+        "quick-text"?: string | undefined
+        "quick-value"?: string | undefined
+      }
       "opui-select-all": DetailedHTMLProps<
         HTMLAttributes<HTMLElement>,
         HTMLElement

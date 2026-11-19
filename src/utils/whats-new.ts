@@ -936,9 +936,9 @@ export const whatsNew = {
     `The border and dividers are <a href="#api"><code>--ui-border-color-on-raised</code></a>, like other elevated surfaces.`,
     `Items are built like <code>List</code> items, with start and end icons, text and shortcuts (<a href="#basics">Basics</a>).`,
     {
-      html: `New component. A <a href="#basics">popover menu</a> that anchors to its trigger, with groups and submenus. No JavaScript.`,
+      html: `New component. A <a href="#basics">popover menu</a> that anchors to its trigger, with groups, submenus and a <a href="#horizontal">horizontal</a> row of items. No JavaScript.`,
       ...components(
-        `New component. A <a href="#basics">popover menu</a> that anchors to its trigger, with groups and submenus, built on <code>Menu</code> and <code>ListItem</code>. It opens, anchors and closes without JavaScript.`,
+        `New component. A <a href="#basics">popover menu</a> that anchors to its trigger, with groups, submenus and a <a href="#horizontal">horizontal</a> row of items, built on <code>Menu</code> and <code>ListItem</code>. It opens, anchors and closes without JavaScript.`,
       ),
     },
     {
@@ -966,7 +966,7 @@ export const whatsNew = {
     `Themes can make a menu spring open with <a href="#api"><code>--ui-ease-move</code></a>. It closes with <code>--ui-ease-exit</code>.`,
   ],
   message: [
-    `New: a <a href="#basics">Message</a> is a chat bubble that groups into runs, with <a href="#attachments">attachments</a>, <a href="#reactions">reactions</a> and a <a href="#typing">typing indicator</a>.`,
+    `New: a <a href="#basics">Message</a> is a chat bubble that groups into runs, with <a href="#attachments">attachments</a>, <a href="#reactions">reactions</a> that wait for your server (<a href="#saving-reactions">saving reactions</a>), also on their own under a post with a one-tap <a href="#quick-reaction">quick reaction</a>, and a <a href="#typing">typing indicator</a>.`,
     `A chat between two people can leave out every name and avatar with <a href="#direct"><code>direct</code></a>.`,
   ],
   meter: [

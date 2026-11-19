@@ -1,5 +1,6 @@
 import type {} from "@solidjs/web/jsx-runtime"
 import type { RemoveDetail, SelectDetail } from "../components/FileUpload/types"
+import type { ReactionDetail } from "../components/Reactions/types"
 import type { SortDetail } from "../components/SortableTable/types"
 
 declare module "@solidjs/web/jsx-runtime" {
@@ -24,6 +25,12 @@ declare module "@solidjs/web/jsx-runtime" {
         onSelect?: EventHandlerUnion<HTMLElement, CustomEvent<SelectDetail>>
       }
       "opui-number-field": HTMLAttributes<HTMLElement>
+      "opui-reactions": HTMLAttributes<HTMLElement> & {
+        onReaction?: EventHandlerUnion<HTMLElement, CustomEvent<ReactionDetail>>
+        "quick-label"?: string | RemoveAttribute
+        "quick-text"?: string | RemoveAttribute
+        "quick-value"?: string | RemoveAttribute
+      }
       "opui-select-all": HTMLAttributes<HTMLElement>
       "opui-sortable-table": HTMLAttributes<HTMLElement> & {
         "ascending-label"?: string | RemoveAttribute

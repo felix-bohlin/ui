@@ -19,6 +19,7 @@ export default function Menu(props: Props) {
     "dense",
     "id",
     "items",
+    "orientation",
     "popover",
     "side",
     "children",
@@ -47,6 +48,9 @@ export default function Menu(props: Props) {
             "ui-bordered": props.bordered,
             "ui-dense": props.dense,
           },
+          props.orientation &&
+            props.orientation !== "vertical" &&
+            `ui-${props.orientation}`,
           props.side && props.side !== "block-end" && `ui-${props.side}`,
           props.class,
         ]}

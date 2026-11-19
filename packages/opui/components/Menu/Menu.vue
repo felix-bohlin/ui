@@ -15,6 +15,7 @@ const {
   dense,
   id,
   items,
+  orientation,
   popover = "auto",
   side,
 } = defineProps<Props>()
@@ -61,6 +62,7 @@ provide(MenuKey, reactive({ rootId }))
         'ui-bordered': bordered,
         'ui-dense': dense,
       },
+      orientation && orientation !== 'vertical' && `ui-${orientation}`,
       side && side !== 'block-end' && `ui-${side}`,
       $props.class,
     ]"

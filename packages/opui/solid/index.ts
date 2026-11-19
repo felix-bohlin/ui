@@ -57,6 +57,7 @@ export { default as Radio } from "../components/Radio/Radio.solid"
 export { default as RadioInput } from "../components/Radio/RadioInput.solid"
 export { default as Range } from "../components/Range/Range.solid"
 export { default as Rating } from "../components/Rating/Rating.solid"
+export { default as Reactions } from "../components/Reactions/Reactions.solid"
 export { default as Select } from "../components/Select/Select.solid"
 export { default as SelectAll } from "../components/SelectAll/SelectAll.solid"
 export { default as SortableTable } from "../components/SortableTable/SortableTable.solid"
@@ -179,6 +180,11 @@ export type {
 export type { RangeItem } from "../components/Range/types"
 export type { Props as RangeProps } from "../components/Range/types.solid"
 export type { Props as RatingProps } from "../components/Rating/types.solid"
+export type {
+  ReactionDetail,
+  ReactionsItem,
+} from "../components/Reactions/types"
+export type { Props as ReactionsProps } from "../components/Reactions/types.solid"
 export type { SelectItem } from "../components/Select/types"
 export type { Props as SelectProps } from "../components/Select/types.solid"
 export type { Props as SelectAllProps } from "../components/SelectAll/types.solid"

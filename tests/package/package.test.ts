@@ -285,6 +285,7 @@ test("the tarball ships the package and nothing else", () => {
     "elements/copy.js",
     "elements/file-upload.js",
     "elements/number-field.js",
+    "elements/reactions.js",
     "elements/select-all.js",
     "elements/sortable-table.js",
     "elements/text-field.js",

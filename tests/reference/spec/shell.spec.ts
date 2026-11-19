@@ -112,6 +112,21 @@ test("the theme menu switches and keeps the theme", async ({ page }) => {
   expect(await hue()).toBe(before)
 })
 
+test("a saved theme is on <html> before any script runs", async ({
+  browser,
+  baseURL,
+}) => {
+  const context = await browser.newContext({ baseURL, javaScriptEnabled: true })
+  await context.addInitScript(() => {
+    localStorage.setItem("reference-theme", "sunset")
+  })
+  const page = await context.newPage()
+  await page.route(/\.(m?js)(\?.*)?$/, (route) => route.abort())
+  await page.goto("/settings")
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "sunset")
+  await context.close()
+})
+
 test("the notifications menu lists every notification", async ({ page }) => {
   await open(page, "/")
   const unread = NOTIFICATIONS.filter((item) => !item.read).length

@@ -66,7 +66,7 @@ Icons are inline `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke
   - a home link `Reference` to `/`, with `class="app-brand"`.
   - `<nav aria-label="Main" class="app-nav">` with one link per screen in `SCREENS`, in order, as `Button`s with `href`. The link of the current screen has `aria-current="page"`. Profile pages of other people mark no link.
   - a notifications button (`aria-label="Notifications"`) wrapped in a `Badge` with `hideLabel` and `label="2 unread notifications"` and the visible count `2`, opening a `Menu` (`id="notifications-menu"`, `align="end"`) with one link item per entry in `NOTIFICATIONS`.
-  - a theme button (`aria-label="Theme"`) opening a `Menu` (`id="theme-menu"`, `align="end"`) with two button items, `Default` and `Sunset`. Picking one sets `data-theme` on `<html>` (`default` or `sunset`), saves it in `localStorage` under `reference-theme` and closes the menu. On load, a saved theme is applied.
+  - a theme button (`aria-label="Theme"`) opening a `Menu` (`id="theme-menu"`, `align="end"`) with two button items, `Default` and `Sunset`. Picking one sets `data-theme` on `<html>` (`default` or `sunset`), saves it in `localStorage` under `reference-theme` and closes the menu. A saved theme is applied by an inline script in `<head>`, before the first paint.
   - an `Avatar` link to `/u/sam` (`aria-label="Your profile"`, the initials `SR`, since Sam has no photo).
 - `<main class="app-main" id="main" tabindex="-1">` holds the screen, whose root element is `<div class="app-screen" data-screen="<id>">`.
 - Navigation between screens is client-side in every app (Astro uses `ClientRouter`).
@@ -81,10 +81,10 @@ Icons are inline `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke
   - a post options button (`aria-label="Options for <name>'s post"`) opening a `Menu` (`id="post-menu-<id>"`, `align="end"`) with three items:
     - `Copy link`, a button that writes `<origin>/posts/<id>` to the clipboard.
     - `Save post`, or `Remove from saved` once saved: a submit button (`type="submit"`, `form="save-post-<id>"`) for a hidden `<form id="save-post-<id>">` after the menu. Submitting it toggles the post in the saved list and must close the menu.
-    - `Hide post`, a button that removes the post from the list.
+    - `Hide post`, a button that removes the post from the list and moves focus to the author link of the post after it, or before it when it was the last, or to the list when none is left.
   - `CardContent` with the text in `<p>`, and the photos, when there are any, as `<img>` (`alt` from `PHOTOS`) in `<div class="app-post-photos">`.
   - `CardActions` with a `ToggleGroup` (`multiple`, `aria-label="Reactions"`, `size="small"`) with one `ToggleButton` per reaction, labelled `<label> <count>`. Checking one adds 1 to its count.
-- The first page shows `PAGE_SIZE` posts. A `Load more` button (`variant="outlined"`) under the list fetches the next page with `fetchFeedPage`. While it loads, the button is `disabled` and the list has `aria-busy="true"`. When no posts are left, the button is replaced by `<p class="app-end">You're all caught up.</p>`.
+- The first page shows `PAGE_SIZE` posts. A `Load more` button (`variant="outlined"`) under the list fetches the next page with `fetchFeedPage`. While it loads, the button is `disabled` and the list has `aria-busy="true"`. When no posts are left, the button is replaced by `<p class="app-end" tabindex="-1">You're all caught up.</p>`, which takes focus if the button had it.
 
 ### Chat (`/chat`, `data-screen="chat"`)
 
@@ -98,7 +98,7 @@ Icons are inline `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke
 
 - `<h1>Photos</h1>`.
 - `<ul aria-label="Photos" class="app-photo-grid">` with a `<li>` per photo holding a `<button type="button" class="app-photo">` named by its image (`<img alt>`).
-- A button opens the viewer: a `Dialog` (`id="photo-viewer"`, `aria-label="Photo viewer"`, `closedby="any"`, `class="app-viewer"`) shown with `showModal()`, holding a `DialogHeader` with `closeButton` and the text `Photo <n> of <total>` in a `<p aria-live="polite">`, the photo as `<img>` with its `alt`, the photographer's name, and `Previous` and `Next` buttons that wrap around. The arrow keys Left and Right do the same while the viewer is open.
+- A button opens the viewer with `command="show-modal"` and `commandfor="photo-viewer"`, and sets the photo on click: a `Dialog` (`id="photo-viewer"`, `aria-label="Photo viewer"`, `closedby="any"`, `class="app-viewer"`), holding a `DialogHeader` with `closeButton` and the text `Photo <n> of <total>` in a `<p aria-live="polite">`, the photo as `<img>` with its `alt`, the photographer's name, and `Previous` and `Next` buttons that wrap around. The arrow keys Left and Right do the same while the viewer is open.
 - Closing returns focus to the button that opened it.
 
 ### Profile (`/u/<handle>`, `data-screen="profile"`)

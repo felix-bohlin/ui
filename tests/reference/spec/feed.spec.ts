@@ -166,6 +166,45 @@ test("Hide post removes the post", async ({ page }) => {
   await expect(page.getByText(POSTS[0]!.text)).toHaveCount(0)
 })
 
+test("Hide post moves focus to the next post", async ({ page }) => {
+  await page
+    .getByRole("button", { name: "Options for Holly Humbucker's post" })
+    .first()
+    .click()
+  await page
+    .locator("#post-menu-p12")
+    .getByRole("button", { name: "Hide post" })
+    .click()
+  await expect(
+    posts(page).first().getByRole("link", { name: "Ada Okafor" }),
+  ).toBeFocused()
+})
+
+test("Hide post on the last post moves focus to the post before it", async ({
+  page,
+}) => {
+  await page
+    .getByRole("button", { name: "Options for Percy Groove's post" })
+    .click()
+  await page
+    .locator("#post-menu-p8")
+    .getByRole("button", { name: "Hide post" })
+    .click()
+  await expect(
+    posts(page).last().getByRole("link", { name: "Sam Rivera" }),
+  ).toBeFocused()
+})
+
+test("the last Load more moves focus to the end of the list", async ({
+  page,
+}) => {
+  const more = page.getByRole("button", { name: "Load more" })
+  await more.click()
+  await expect(posts(page)).toHaveCount(PAGE_SIZE * 2)
+  await more.click()
+  await expect(page.getByText("You're all caught up.")).toBeFocused()
+})
+
 test("Copy link writes the post's link to the clipboard", async ({
   context,
   page,

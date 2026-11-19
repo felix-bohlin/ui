@@ -23,7 +23,13 @@ const viewer = PHOTOS.map(({ alt, by, src }) => ({
     <h1>Photos</h1>
     <ul aria-label="Photos" class="app-photo-grid">
       {PHOTOS.map(({ alt, src }, at) => <li>
-        <button class="app-photo" data-photo={at} type="button">
+        <button
+          class="app-photo"
+          command="show-modal"
+          commandfor="photo-viewer"
+          data-photo={at}
+          type="button"
+        >
           <img alt={alt} src={src} />
         </button>
       </li>)}

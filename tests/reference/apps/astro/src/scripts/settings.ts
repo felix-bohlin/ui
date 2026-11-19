@@ -19,7 +19,7 @@ const setStatus = (text: string) =>
 
 const verify = async (form: HTMLFormElement) => {
   const input = form.querySelector<HTMLInputElement>('input[name="code"]')!
-  const endText = form.querySelector(".ui-one-time-code .ui-end-text")!
+  const endText = form.querySelector("[data-code-error]")!
   const status = form.querySelector("[data-two-factor-status]")!
   const ok = await verifyCode(input.value)
   if (ok) {

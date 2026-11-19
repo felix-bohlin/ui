@@ -16,7 +16,7 @@ const append = (root: HTMLElement, line: ChatLine) => {
   const time = message.querySelector("time")!
   time.dateTime = line.datetime
   time.textContent = line.time
-  message.querySelector(".ui-content > p:not([class])")!.textContent = line.text
+  message.querySelector("[data-text]")!.textContent = line.text
   root.querySelector(".ui-message-list")!.append(message)
 }
 

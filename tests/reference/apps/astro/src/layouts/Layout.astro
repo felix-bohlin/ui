@@ -40,6 +40,18 @@ const isCurrent = (path: string) =>
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <link href="data:," rel="icon" />
     <title>{title} | Reference</title>
+    <script is:inline>
+      {
+        const apply = () => {
+          try {
+            const theme = localStorage.getItem("reference-theme")
+            if (theme) document.documentElement.dataset.theme = theme
+          } catch {}
+        }
+        apply()
+        document.addEventListener("astro:after-swap", apply)
+      }
+    </script>
     <ClientRouter />
   </head>
   <body>
@@ -92,7 +104,7 @@ const isCurrent = (path: string) =>
           { "data-theme-choice": "sunset", label: "Sunset" },
         ]}
       />
-      <Avatar aria-label="Your profile" href={`/u/${user.handle}`} size="small">
+      <Avatar href={`/u/${user.handle}`} label="Your profile" size="small">
         {user.initials}
       </Avatar>
     </header>

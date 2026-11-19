@@ -26,7 +26,6 @@ document.addEventListener("click", (event) => {
   const opener = target.closest<HTMLElement>("[data-photo]")
   if (opener) {
     show(dialog, Number(opener.dataset.photo))
-    dialog.showModal()
     return
   }
   const step = target.closest<HTMLElement>("[data-step]")

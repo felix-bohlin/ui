@@ -76,7 +76,7 @@ import Layout from "../layouts/Layout.astro"
       <h2 id="two-factor-title">Two-factor sign-in</h2>
       <Form aria-label="Two-factor sign-in" data-two-factor>
         <OneTimeCode label="Code from your app" name="code" required>
-          <Fragment slot="end-text" />
+          <span data-code-error slot="end-text"></span>
         </OneTimeCode>
         <div data-two-factor-status role="status"></div>
         <FieldGroup>

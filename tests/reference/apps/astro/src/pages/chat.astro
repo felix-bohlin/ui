@@ -7,20 +7,12 @@ import {
   MessageList,
   Textarea,
 } from "opui-css/astro"
-import {
-  ME,
-  conversation,
-  conversations,
-  me,
-  outgoing,
-  user,
-} from "reference-shared"
+import { ME, conversation, conversations, me, user } from "reference-shared"
 import UserAvatar from "../components/UserAvatar.astro"
 import Layout from "../layouts/Layout.astro"
 
 const all = conversations()
 const open = conversation(Astro.url.searchParams.get("with"))
-const template = outgoing("", 0)
 ---
 
 <Layout title="Chat">
@@ -59,19 +51,14 @@ const template = outgoing("", 0)
               {line.from !== ME && (
                 <UserAvatar size="small" slot="start" user={author} />
               )}
-              <p>{line.text}</p>
+              <p data-text>{line.text}</p>
             </Message>
           })}
         </MessageList>
         <template data-outgoing>
-          {template.kind === "message" && <Message
-            author={me().name}
-            datetime={template.datetime}
-            outgoing
-            time={template.time}
-          >
-            <p></p>
-          </Message>}
+          <Message author={me().name} outgoing time="0:00">
+            <p data-text></p>
+          </Message>
         </template>
         <form aria-label="Send a message" class="ui-layout-column">
           <Textarea hideLabel label="Message" name="text" required />

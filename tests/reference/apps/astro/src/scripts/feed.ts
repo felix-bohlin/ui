@@ -41,7 +41,6 @@ const render = () => {
       label.textContent = saved.has(item.id) ? "Remove from saved" : "Save post"
   }
   const list = root.querySelector<HTMLOListElement>(".app-posts")!
-  list.hidden = shown === 0
   if (loading) list.setAttribute("aria-busy", "true")
   else list.removeAttribute("aria-busy")
   root.querySelector<HTMLElement>("[data-feed-empty]")!.hidden = !(
@@ -70,8 +69,9 @@ const init = () => {
   render()
 }
 
-const loadMore = async () => {
+const loadMore = async (button: HTMLButtonElement) => {
   const current = state
+  const hadFocus = document.activeElement === button
   current.loading = true
   render()
   const next = await fetchFeedPage(current.page + 1)
@@ -81,6 +81,32 @@ const loadMore = async () => {
   current.hasMore = next.hasMore
   current.loading = false
   render()
+  const focusLost = [button, document.body].includes(
+    document.activeElement as HTMLElement,
+  )
+  if (!current.hasMore && hadFocus && focusLost)
+    screen()?.querySelector<HTMLElement>("[data-feed-end]")?.focus()
+}
+
+const shownSibling = (
+  li: Element,
+  step: "nextElementSibling" | "previousElementSibling",
+) => {
+  let sibling = li[step]
+  while (sibling instanceof HTMLElement && sibling.hidden)
+    sibling = sibling[step]
+  return sibling
+}
+
+const hidePost = (root: HTMLElement, li: HTMLLIElement, id: string) => {
+  const neighbour =
+    shownSibling(li, "nextElementSibling") ??
+    shownSibling(li, "previousElementSibling")
+  li.remove()
+  state.saved.delete(id)
+  render()
+  const author = neighbour?.querySelector<HTMLElement>("h2 a")
+  ;(author ?? root.querySelector<HTMLElement>(".app-posts")!).focus()
 }
 
 const addPost = (form: HTMLFormElement) => {
@@ -126,8 +152,9 @@ document.addEventListener("click", (event) => {
   const root = screen()
   const target = event.target as Element
   if (!root?.contains(target)) return
-  if (target.closest("[data-load-more] button")) {
-    void loadMore()
+  const more = target.closest<HTMLButtonElement>("[data-load-more] button")
+  if (more) {
+    void loadMore(more)
     return
   }
   const action = target.closest<HTMLElement>("[data-post-action]")
@@ -137,9 +164,7 @@ document.addEventListener("click", (event) => {
   if (action.dataset.postAction === "copy") {
     void navigator.clipboard.writeText(`${location.origin}/posts/${id}`)
   } else if (action.dataset.postAction === "hide") {
-    article.closest("li")!.remove()
-    state.saved.delete(id)
-    render()
+    hidePost(root, article.closest("li")!, id)
   }
 })
 

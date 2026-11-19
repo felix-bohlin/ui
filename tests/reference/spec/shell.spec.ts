@@ -29,6 +29,25 @@ for (const { id, label, path } of SCREENS) {
   })
 }
 
+for (const { label, path } of [
+  ...SCREENS,
+  { label: "Another profile", path: "/u/ada" },
+]) {
+  test(`${label} marks only its nav link as the current page`, async ({
+    page,
+  }) => {
+    await open(page, path)
+    const current = page.locator(
+      '[aria-current="page"]:not(#nav-drawer *, nav[aria-label="Conversations"] *)',
+    )
+    const expected = path === "/u/ada" ? [] : [label]
+    await expect(current).toHaveText(expected)
+    if (expected.length) {
+      await expect(current).toHaveAttribute("href", path)
+    }
+  })
+}
+
 test("the skip link is the first tab stop and moves focus to main", async ({
   page,
 }) => {

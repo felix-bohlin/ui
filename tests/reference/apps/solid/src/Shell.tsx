@@ -53,7 +53,12 @@ export default function Shell(props: { children?: JSX.Element }) {
 
   return (
     <SentMessages>
-      <a class="ui-sr-only ui-focusable" href="#main" onClick={focusMain}>
+      <a
+        aria-current="false"
+        class="ui-sr-only ui-focusable"
+        href="#main"
+        onClick={focusMain}
+      >
         Skip to content
       </a>
       <header class="app-header">
@@ -65,7 +70,7 @@ export default function Shell(props: { children?: JSX.Element }) {
         >
           <Icon name="menu" />
         </Button>
-        <a class="app-brand" href="/">
+        <a aria-current="false" class="app-brand" href="/">
           Reference
         </a>
         <nav aria-label="Main" class="app-nav">
@@ -96,7 +101,11 @@ export default function Shell(props: { children?: JSX.Element }) {
         <Menu
           align="end"
           id="notifications-menu"
-          items={NOTIFICATIONS.map(({ href, text }) => ({ href, label: text }))}
+          items={NOTIFICATIONS.map(({ href, text }) => ({
+            "aria-current": "false",
+            href,
+            label: text,
+          }))}
         />
         <Button
           aria-label="Theme"
@@ -114,6 +123,7 @@ export default function Shell(props: { children?: JSX.Element }) {
           ]}
         />
         <Avatar
+          aria-current="false"
           aria-label="Your profile"
           href={`/u/${user.handle}`}
           size="small"

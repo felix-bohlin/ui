@@ -66,7 +66,9 @@ onMounted(() => {
     >
       <AppIcon name="menu" />
     </Button>
-    <NuxtLink class="app-brand" to="/">Reference</NuxtLink>
+    <NuxtLink v-slot="{ navigate }" custom to="/">
+      <a class="app-brand" href="/" @click="navigate">Reference</a>
+    </NuxtLink>
     <nav aria-label="Main" class="app-nav">
       <NuxtLink
         v-for="screen in SCREENS"

@@ -35,6 +35,25 @@ test("the composer adds a post at the top and empties the field", async ({
   await expect(field).toHaveValue("")
 })
 
+test("the character count follows the field when the app empties it", async ({
+  page,
+}) => {
+  test.fail(
+    test.info().project.name !== "astro",
+    `${KNOWN.characterCount}. Astro empties the field with form.reset(), which the element follows`,
+  )
+  const count = page.locator(".ui-textarea opui-character-count")
+  await page
+    .getByRole("textbox", { name: "What's on your mind?" })
+    .fill("Testing the composer")
+  await expect(count).toHaveText("20/280")
+  await page.getByRole("button", { name: "Post", exact: true }).click()
+  await expect(
+    page.getByRole("textbox", { name: "What's on your mind?" }),
+  ).toHaveValue("")
+  await expect(count).toHaveText("0/280")
+})
+
 test("each post is an article named by its author", async ({ page }) => {
   await expect(posts(page)).toHaveCount(PAGE_SIZE)
   const first = POSTS[0]!

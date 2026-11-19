@@ -17,6 +17,8 @@ export const KNOWN_CONSOLE = [
 ]
 
 export const KNOWN = {
+  characterCount:
+    "TODO.md: opui-character-count keeps the old count when a framework sets the field's value",
   dialogForm: `${UPSTREAM}: A <form> around a Dialog's content and footer loses the dialog's layout`,
   menuSubmit: KNOWN_CONSOLE[0]!.reason,
   skipLink: `${UPSTREAM}: A .ui-focusable skip link opens in the flow and pushes the header down`,

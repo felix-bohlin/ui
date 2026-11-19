@@ -727,7 +727,7 @@ export const whatsNew = {
     `The edge reads <a href="#api"><code>--ui-border-color-raised</code></a> when a theme sets it, like menus and elevated cards, and <code>--_edge-border-color</code> sets it alone.`,
     `Opens over <a href="#api"><code>--ui-duration-slow</code></a> with <code>--ui-ease-enter</code> and closes with <code>--ui-ease-exit</code>.`,
     `With <code>viewport-fit=cover</code>, each side on a screen edge pads its content clear of a phone's notch and home indicator (<a href="#safe-areas">Safe areas</a>).`,
-    `On a touch screen, a drawer at the block start or end <a href="#swipe-to-close">closes with a swipe</a> of its grab handle or header toward the edge.`,
+    `On a touch screen, a drawer at the block start or end <a href="#swipe-to-close">closes with a swipe</a> of its grab handle, its header or an element marked <code>data-drawer-swipe</code> toward the edge.`,
     slots(
       `Breaking: <a href="#basics"><code>DrawerTitle</code> and <code>DrawerContent</code></a> replace the <code>heading</code> prop and the slots. <code>DrawerTitle</code> names the drawer; without it, pass <code>aria-label</code>. The <code>DrawerHeader</code> close button uses <code>command="close"</code>; outside a <code>Drawer</code>, set its <code>commandfor</code>.`,
     ),

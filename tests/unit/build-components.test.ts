@@ -326,6 +326,44 @@ describe("the ports of a sample", () => {
     )
   })
 
+  test("refuses a provided value whose React memo could never hold: one that reads rest as a whole, or a const that is a function or an object", async () => {
+    const react = sampleFile().replace(".astro", ".react.tsx")
+    const refusal = async (frontmatter: string) =>
+      (
+        await compileComponent(
+          `---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\n\nconst { class: className, name, ...rest } = Astro.props\n\n${frontmatter}\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Fragment set:html={html} />\n</div>\n`,
+          sampleFile(),
+        )
+      ).refused.get(react)?.message
+    expect(
+      await refusal(
+        'const html = await sampleContext.provide({ label: rest["aria-label"], id: rest.id }, () =>\n  Astro.slots.render("default"),\n)',
+      ),
+    ).toContain(
+      "a provided value that reads `rest` as a whole, which is a new object on every render",
+    )
+    expect(
+      await refusal(
+        'const label = () => name + "!"\nconst html = await sampleContext.provide({ label }, () =>\n  Astro.slots.render("default"),\n)',
+      ),
+    ).toContain(
+      "a provided value that reads the const `label`, which is a function built on every render",
+    )
+    expect(
+      await refusal(
+        'const box = name ? { name } : undefined\nconst label = box\nconst html = await sampleContext.provide({ label: label?.name }, () =>\n  Astro.slots.render("default"),\n)',
+      ),
+    ).toContain(
+      "a provided value that reads the const `label`, which is an object built on every render",
+    )
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\n\nconst { class: className, name, ...rest } = Astro.props\n\nconst label = rest["aria-label"]\nconst html = await sampleContext.provide({ id: rest.id, label }, () =>\n  Astro.slots.render("default"),\n)\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Fragment set:html={html} />\n</div>\n',
+    )
+    expect(ports["react.tsx"]).toContain(
+      "useMemo<Context>(\n    () => ({ id: rest.id, label }),\n    [label, rest.id],\n  )",
+    )
+  })
+
   test("ids from the framework's uid and a warning behind an if", async () => {
     const ports = await compile(
       '---\nimport type { Props } from "./types.astro"\nimport { autoLabelledBy, createIds } from "../id"\nimport { warnMissingId } from "../dev"\n\nconst { class: className, id: idProp, ...rest } = Astro.props\n\nconst titleId = createIds(Astro.locals, "sample", idProp)("title")\nconst labelledBy = autoLabelledBy(rest, titleId)\nif (!labelledBy) {\n  warnMissingId("Sample", idProp)\n}\n---\n\n<section\n  aria-labelledby={labelledBy}\n  class:list={["ui-sample", className]}\n  id={idProp}\n  {...rest}\n>\n  <slot />\n</section>\n',

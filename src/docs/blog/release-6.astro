@@ -319,8 +319,8 @@ const openTodos = itemCount(todo.sections)
         layer.
       </li>
       <li>
-        Every page in HTML, Astro, React, Svelte and Vue, with the examples and
-        the API of the framework you picked.
+        Every page in HTML, Astro, React, Solid, Svelte and Vue, with the
+        examples and the API of the framework you picked.
       </li>
       <li>
         Markdown for your agent: a <code>.md</code> copy of every page,
@@ -432,13 +432,13 @@ const openTodos = itemCount(todo.sections)
   </section>
 
   <section id="one-source">
-    <h2>One Astro file, four frameworks</h2>
+    <h2>One Astro file, five frameworks</h2>
     <p>
-      Four frameworks means four copies of every component, and keeping four
+      Five frameworks means five copies of every component, and keeping five
       copies in sync by hand is exactly the kind of busywork I'd rather leave to
       a machine. So in 6.0 every component is written once, as an Astro file,
-      and a compiler writes the React, Svelte and Vue versions and their types.
-      The examples in the docs work the same way.
+      and a compiler writes the React, Solid, Svelte and Vue versions and their
+      types. The examples in the docs work the same way.
     </p>
     <Compiler />
     <ul>
@@ -446,15 +446,15 @@ const openTodos = itemCount(todo.sections)
         <code>pnpm build-components</code> reads the Astro template and its
         TypeScript frontmatter, the types and the value a component binds,
         declared as its model in <code>api.ts</code>. It builds one tree of
-        elements, slots, conditions and loops, and writes the React, Svelte and
-        Vue files and a type file for each.
+        elements, slots, conditions and loops, and writes the React, Solid,
+        Svelte and Vue files and a type file for each.
       </li>
       <li>
         Two-way binding comes from that model: <code>bind:value</code> and
         <code>bind:checked</code> in Svelte, <code>v-model</code> in Vue,
         <code>value</code>, <code>defaultValue</code> and <code>onChange</code>
-        in React, and all of them go back to where they started when their form
-        is reset.
+        in React, a <code>value</code> read from a signal in Solid, and all of
+        them go back to where they started when their form is reset.
       </li>
       <li>
         It refuses rather than guesses. Anything outside its grammar fails with
@@ -466,18 +466,18 @@ const openTodos = itemCount(todo.sections)
       <li>
         The compiler isn't what you trust, the checks are. The contract test
         renders every component with every prop value its types allow in all
-        four frameworks and compares the markup with Astro, the parity test does
+        five frameworks and compares the markup with Astro, the parity test does
         the same for every example, and in the browser each example has to read
         the same and hold the same control state, also after a form reset.
       </li>
       <li>
         Examples go the same way: write the Astro example, and
-        <code>pnpm build-examples</code> writes its HTML, React, Svelte and Vue
-        versions.
+        <code>pnpm build-examples</code> writes its HTML, React, Solid, Svelte
+        and Vue versions.
       </li>
       <li>
         What it changed: a fix in the Astro file reaches every framework in one
-        commit, and a new component starts out in all four.
+        commit, and a new component starts out in all five.
       </li>
     </ul>
   </section>

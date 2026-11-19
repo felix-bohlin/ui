@@ -86,6 +86,60 @@ const dependenciesOf = (code, locals) => {
   return [...found].toSorted(byName)
 }
 
+const CONSTRUCTIONS = [
+  [ts.isArrowFunction, "a function"],
+  [ts.isFunctionExpression, "a function"],
+  [ts.isObjectLiteralExpression, "an object"],
+  [ts.isArrayLiteralExpression, "an array"],
+  [ts.isClassExpression, "a class"],
+  [ts.isNewExpression, "an object"],
+  [ts.isRegularExpressionLiteral, "a regular expression"],
+]
+
+const constructionIn = (node, consts, seen = new Set()) => {
+  if (
+    ts.isParenthesizedExpression(node) ||
+    ts.isAsExpression(node) ||
+    ts.isSatisfiesExpression(node) ||
+    ts.isNonNullExpression(node)
+  ) {
+    return constructionIn(node.expression, consts, seen)
+  }
+  if (ts.isConditionalExpression(node)) {
+    return (
+      constructionIn(node.whenTrue, consts, seen) ??
+      constructionIn(node.whenFalse, consts, seen)
+    )
+  }
+  if (
+    ts.isBinaryExpression(node) &&
+    [
+      ts.SyntaxKind.AmpersandAmpersandToken,
+      ts.SyntaxKind.BarBarToken,
+      ts.SyntaxKind.QuestionQuestionToken,
+    ].includes(node.operatorToken.kind)
+  ) {
+    return (
+      constructionIn(node.left, consts, seen) ??
+      constructionIn(node.right, consts, seen)
+    )
+  }
+  if (ts.isIdentifier(node) && consts.has(node.text) && !seen.has(node.text)) {
+    seen.add(node.text)
+    return constructionOf(consts.get(node.text), consts, seen)
+  }
+  return CONSTRUCTIONS.find(([test]) => test(node))?.[1]
+}
+
+const constructionOf = (code, consts, seen) =>
+  constructionIn(
+    sourceFileOf(`(${code})`, "expression.tsx").statements[0].expression,
+    consts,
+    seen,
+  )
+
+const rootOf = (dependency) => /^[A-Za-z_$][\w$]*/.exec(dependency)[0]
+
 export const toReact = (component) => {
   const {
     components,
@@ -400,9 +454,31 @@ export const toReact = (component) => {
         "rename the prop, const or import in the Astro file",
       )
     }
+    const dependencies = dependenciesOf(contextCode, locals)
+    if (dependencies.includes(rest)) {
+      throw unsupported(
+        component.file,
+        `a provided value that reads \`${rest}\` as a whole, which is a new object on every render, so the React port's memo of the value would never hold`,
+        `read the attribute into a const in the frontmatter (\`const label = ${rest}["aria-label"]\`) and provide the const, or read it as \`${rest}.name\``,
+      )
+    }
+    const consts = new Map(derived.map(({ code, name }) => [name, code]))
+    for (const dependency of dependencies) {
+      const name = rootOf(dependency)
+      const construction = consts.has(name)
+        ? constructionOf(consts.get(name), consts, new Set([name]))
+        : undefined
+      if (construction) {
+        throw unsupported(
+          component.file,
+          `a provided value that reads the const \`${name}\`, which is ${construction} built on every render, so the React port's memo of the value would never hold`,
+          "provide a string, number or boolean the const computes, or write the expression in the provided value",
+        )
+      }
+    }
     body.push(
       ...[...hoisted].map(([code, name]) => `const ${name} = defined(${code})`),
-      `const ${contextName} = useMemo<Context>(\n  () => (${contextCode}),\n  [${dependenciesOf(contextCode, locals).join(", ")}],\n)`,
+      `const ${contextName} = useMemo<Context>(\n  () => (${contextCode}),\n  [${dependencies.join(", ")}],\n)`,
     )
   }
   const returned = provide

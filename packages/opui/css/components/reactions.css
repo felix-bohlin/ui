@@ -4,6 +4,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: var(--ui-space-1);
+    position: relative;
 
     & > .ui-toggle-group {
       --_divider-gap: 0px;

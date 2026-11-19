@@ -145,6 +145,7 @@
       grid-area: bottom;
       margin-block: calc(-1 * var(--ui-space-2)) var(--ui-space-1);
       padding-inline: var(--ui-space-2);
+      position: relative;
 
       &:not(:has(.ui-toggle-button)) {
         margin-block: 0;

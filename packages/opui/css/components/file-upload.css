@@ -12,6 +12,7 @@
 
     container: ui-file-upload / inline-size;
     display: block;
+    position: relative;
 
     & > .ui-content {
       display: grid;

@@ -944,6 +944,24 @@ export const checkProvide = (file, source) => {
     )
 }
 
+export const checkReactProps = (file, source) =>
+  nodesIn(
+    parse(file, source),
+    (node) =>
+      ts.isJsxAttribute(node) &&
+      node.name.getText() === "value" &&
+      /Context(\.Provider)?$/.test(node.parent.parent.tagName.getText()) &&
+      !!node.initializer &&
+      ts.isJsxExpression(node.initializer) &&
+      !!node.initializer.expression &&
+      ts.isObjectLiteralExpression(
+        unwrapParentheses(node.initializer.expression),
+      ),
+  ).map(
+    (node) =>
+      `passes <${node.parent.parent.tagName.getText()}> an object literal as its value: it is a new object on every render, so every consumer renders again. Memoize it (const context = useMemo<Context>(() => ({ ... }), [...]))`,
+  )
+
 export const checkContext = (file, source, folder) => {
   const name = basename(file)
   const script = parse(file, source)
@@ -1301,6 +1319,7 @@ const main = async () => {
         reportAll(path, checkVueAttrs(source))
       }
       if (file.endsWith(".react.tsx")) {
+        reportAll(path, checkReactProps(path, source))
         const svelte = `${basename(file, ".react.tsx")}.svelte`
         const snippets = files.includes(svelte)
           ? (destructuredRuns(

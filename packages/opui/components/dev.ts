@@ -4,12 +4,15 @@ const DEV =
   (import.meta as { env?: { DEV?: boolean } }).env?.DEV ??
   (typeof process !== "undefined" && process.env.NODE_ENV !== "production")
 
+export const WARNED_ONCE =
+  "This warning shows once: other instances may have the same problem."
+
 const warned = new Set<string>()
 
 const warnOnce = (message: string) => {
   if (warned.has(message)) return
   warned.add(message)
-  console.warn(message)
+  console.warn(`${message} ${WARNED_ONCE}`)
 }
 
 export const hasName = (

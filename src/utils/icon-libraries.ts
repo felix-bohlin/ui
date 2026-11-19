@@ -120,7 +120,7 @@ export type IconSource =
 
 export type IconLibrary = {
   copyright?: string
-  frameworks: Partial<Record<"react" | "svelte" | "vue", string>>
+  frameworks: Partial<Record<"react" | "solid" | "svelte" | "vue", string>>
   icons: Record<IconRole, IconSource>
   license: string
   name: string
@@ -734,7 +734,12 @@ export const ICON_LIBRARIES = {
 
 export type IconLibraryId = keyof typeof ICON_LIBRARIES
 
-const FRAMEWORK_NAMES = { react: "React", svelte: "Svelte", vue: "Vue" }
+const FRAMEWORK_NAMES = {
+  react: "React",
+  solid: "Solid",
+  svelte: "Svelte",
+  vue: "Vue",
+}
 
 export type IconCredits = Pick<
   IconLibrary,

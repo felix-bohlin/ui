@@ -150,7 +150,12 @@ describe("the ports of a sample", () => {
     expect(ports["react.tsx"]).toContain(
       'export default function Sample({ as, className, children, ...rest }: Props) {\n  const Tag = as || "fieldset"',
     )
-    expect(ports["react.tsx"]).toContain("{...defined(rest as object)}")
+    expect(ports["react.tsx"]).toContain(
+      'import type { HTMLAttributes } from "react"\n',
+    )
+    expect(ports["react.tsx"]).toContain(
+      "{...defined(rest as HTMLAttributes<HTMLElement>)}",
+    )
     expect(ports.svelte).toContain('as: Tag = "fieldset",')
     expect(ports.svelte).toContain(
       '<svelte:element\n  this={Tag}\n  class={["ui-sample", className]}\n  role={Tag === "fieldset" ? undefined : "group"}\n  {...defined(rest)}\n>',
@@ -174,7 +179,7 @@ describe("the ports of a sample", () => {
       `---\nimport type { Props } from "./types.astro"\n\nconst { class: className, label, wide, ...rest } = Astro.props\nconst Label = wide ? "div" : "span"\n---\n\n<Label class:list={["ui-sample", className]} {...rest}>{label}</Label>\n`,
     )
     expect(ports["react.tsx"]).toContain(
-      'const Label = wide ? "div" : "span"\n\n  return (\n    <Label className={cx(["ui-sample", className])} {...(rest as object)}>',
+      'const Label = wide ? "div" : "span"\n\n  return (\n    <Label\n      className={cx(["ui-sample", className])}\n      {...(rest as HTMLAttributes<HTMLElement>)}\n    >',
     )
   })
 
@@ -188,7 +193,7 @@ describe("the ports of a sample", () => {
       "{...(onItem ? (rest as object) : {})}",
     )
     expect(ports["react.tsx"]).toContain(
-      "{...(onItem ? {} : (rest as object))}",
+      "{...(onItem ? {} : (rest as HTMLAttributes<HTMLElement>))}",
     )
     expect(ports.svelte).toContain(
       '{...onItem ? (rest as SvelteHTMLElements["li"]) : {}}',
@@ -270,7 +275,7 @@ describe("the ports of a sample", () => {
       '---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\nimport { fieldGroupContext } from "../FieldGroup/context.astro"\n\nconst { class: className, name, ...rest } = Astro.props\n\nconst field = fieldGroupContext.get()\nconst html = await sampleContext.provide(\n  { name: name || field?.name, open: true },\n  () => Astro.slots.render("default"),\n)\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Fragment set:html={html} />\n</div>\n',
     )
     expect(ports["react.tsx"]).toBe(
-      '"use client"\n\nimport { cx } from "../cx"\nimport { SampleContext } from "./context.react"\nimport { useFieldGroupContext } from "../FieldGroup/context.react"\nimport type { Props } from "./types.react"\n\nexport default function Sample({ className, name, children, ...rest }: Props) {\n  const field = useFieldGroupContext()\n\n  return (\n    <SampleContext value={{ name: name || field?.name, open: true }}>\n      <div className={cx(["ui-sample", className])} {...rest}>\n        {children}\n      </div>\n    </SampleContext>\n  )\n}\n',
+      '"use client"\n\nimport { useMemo } from "react"\nimport { cx } from "../cx"\nimport { SampleContext } from "./context.react"\nimport { useFieldGroupContext } from "../FieldGroup/context.react"\nimport type { Props } from "./types.react"\nimport type { Context } from "./types"\n\nexport default function Sample({ className, name, children, ...rest }: Props) {\n  const field = useFieldGroupContext()\n  const context = useMemo<Context>(\n    () => ({ name: name || field?.name, open: true }),\n    [field?.name, name],\n  )\n\n  return (\n    <SampleContext value={context}>\n      <div className={cx(["ui-sample", className])} {...rest}>\n        {children}\n      </div>\n    </SampleContext>\n  )\n}\n',
     )
     expect(ports.svelte).toBe(
       '<script lang="ts">\n  import { setSampleContext } from "./context.svelte"\n  import { getFieldGroupContext } from "../FieldGroup/context.svelte"\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n    name,\n\n    // Snippets\n    children,\n    ...rest\n  }: Props = $props()\n\n  const field = getFieldGroupContext()\n  setSampleContext({\n    get name() {\n      return name || field?.name\n    },\n    get open() {\n      return true\n    },\n  })\n</script>\n\n<div class={["ui-sample", className]} {...rest}>\n  {@render children?.()}\n</div>\n',
@@ -280,6 +285,101 @@ describe("the ports of a sample", () => {
     )
     expect(ports["solid.tsx"]).toBe(
       '/** @jsxImportSource @solidjs/web */\nimport { omit } from "solid-js"\nimport { SampleContext } from "./context.solid"\nimport { useFieldGroupContext } from "../FieldGroup/context.solid"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "name", "children")\n  const field = useFieldGroupContext()\n\n  return (\n    <SampleContext\n      value={{\n        get name() {\n          return props.name || field?.name\n        },\n        get open() {\n          return true\n        },\n      }}\n    >\n      <div class={["ui-sample", props.class]} {...rest}>\n        {props.children}\n      </div>\n    </SampleContext>\n  )\n}\n',
+    )
+  })
+
+  test("a React provider reads defined(rest) into attrs above its memo", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\n\nconst { class: className, name, ...rest } = Astro.props\n\nconst html = await sampleContext.provide({ name }, () =>\n  Astro.slots.render("default"),\n)\n---\n\n<section aria-label={name} class:list={["ui-sample", className]} {...rest}>\n  <Fragment set:html={html} />\n</section>\n',
+    )
+    expect(ports["react.tsx"]).toContain(
+      "  const attrs = defined(rest)\n  const context = useMemo<Context>(() => ({ name }), [name])\n",
+    )
+    expect(ports["react.tsx"]).toContain(
+      '        className={cx(["ui-sample", className])}\n        {...attrs}\n',
+    )
+    expect(ports["react.tsx"]).not.toContain("{...defined(")
+  })
+
+  test("a React provider names its memo contextValue when the body holds a context", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\n\nconst { class: className, name, ...rest } = Astro.props\n\nconst context = name || "sample"\nconst html = await sampleContext.provide({ name: context }, () =>\n  Astro.slots.render("default"),\n)\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Fragment set:html={html} />\n</div>\n',
+    )
+    expect(ports["react.tsx"]).toContain(
+      '  const context = name || "sample"\n  const contextValue = useMemo<Context>(() => ({ name: context }), [context])\n',
+    )
+    expect(ports["react.tsx"]).toContain("<SampleContext value={contextValue}>")
+  })
+
+  test("refuses a const named Context in a provider for React only, which imports the type under that name", async () => {
+    const result = await compileComponent(
+      '---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\n\nconst { class: className, name, ...rest } = Astro.props\n\nconst Context = name || "sample"\nconst html = await sampleContext.provide({ name: Context }, () =>\n  Astro.slots.render("default"),\n)\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Fragment set:html={html} />\n</div>\n',
+      sampleFile(),
+    )
+    expect([...result.refused.keys()]).toEqual([
+      sampleFile().replace(".astro", ".react.tsx"),
+    ])
+    expect(
+      result.refused.get(sampleFile().replace(".astro", ".react.tsx"))?.message,
+    ).toContain(
+      "the name `Context`, which the React port imports for the type of its provided value",
+    )
+  })
+
+  test.each([
+    [
+      "",
+      '{ label: rest["aria-label"], id: rest.id }',
+      "`rest` itself in the provided context value, an object that is new on every render",
+    ],
+    [
+      'const label = () => name + "!"\n',
+      "{ label }",
+      "the const `label` in the provided context value, a function, an object or an array that is new on every render",
+    ],
+    [
+      "const label = { name }\n",
+      "{ label }",
+      "the const `label` in the provided context value, a function, an object or an array that is new on every render",
+    ],
+    [
+      "const label = [name]\n",
+      "{ label }",
+      "the const `label` in the provided context value, a function, an object or an array that is new on every render",
+    ],
+    [
+      "const label = name ? [name] : undefined\n",
+      "{ label }",
+      "the const `label` in the provided context value, a function, an object or an array that is new on every render",
+    ],
+    [
+      "const box = { name }\nconst label = box\n",
+      "{ label }",
+      "the const `label` in the provided context value, a function, an object or an array that is new on every render",
+    ],
+  ])(
+    "refuses a provider whose memo would never hold for React only: %s%s",
+    async (lines, value, reason) => {
+      const result = await compileComponent(
+        `---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\n\nconst { class: className, name, ...rest } = Astro.props\n\n${lines}const html = await sampleContext.provide(${value}, () =>\n  Astro.slots.render("default"),\n)\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Fragment set:html={html} />\n</div>\n`,
+        sampleFile(),
+      )
+      expect([...result.refused.keys()]).toEqual([
+        sampleFile().replace(".astro", ".react.tsx"),
+      ])
+      expect(
+        result.refused.get(sampleFile().replace(".astro", ".react.tsx"))
+          ?.message,
+      ).toContain(reason)
+    },
+  )
+
+  test("a React provider that reads a member of rest, a primitive const and a const from a call lists them as the memo's dependencies", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\nimport { autoLabelledBy } from "../id"\n\nconst { class: className, name, ...rest } = Astro.props\n\nconst groupName = name || "sample"\nconst labelledBy = autoLabelledBy(rest, groupName)\nconst html = await sampleContext.provide(\n  { id: rest.id, labelledBy, name: groupName },\n  () => Astro.slots.render("default"),\n)\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Fragment set:html={html} />\n</div>\n',
+    )
+    expect(ports["react.tsx"]).toContain(
+      '  const groupName = name || "sample"\n  const labelledBy = autoLabelledBy(rest, groupName)\n  const context = useMemo<Context>(\n    () => ({ id: rest.id, labelledBy, name: groupName }),\n    [groupName, labelledBy, rest.id],\n  )\n',
     )
   })
 
@@ -873,7 +973,7 @@ describe("the ports of a sample", () => {
     )
   })
 
-  test("a list is keyed by index and options by their value in every framework, and Solid keys a condition between two rows by the item and reads an item through an accessor", async () => {
+  test("a list is keyed by index and options by their value in every framework, and Solid reads an item through an accessor, once per row for a condition between two rows", async () => {
     const options = await compile(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<select class:list={["ui-sample", className]} {...rest}>\n  {items.map((item) => <option selected={item.selected || undefined} value={item.value}>{item.label}</option>)}\n</select>\n',
     )
@@ -897,7 +997,7 @@ describe("the ports of a sample", () => {
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<datalist class:list={[className]} {...rest}>\n  {items?.map((option) =>\n    typeof option === "object" ? (\n      <option value={option.value} label={option.label} />\n    ) : (\n      <option value={option} />\n    ),\n  )}\n</datalist>\n',
     )
     expect(branches["solid.tsx"]).toContain(
-      '      <For each={props.items}>\n        {(option) =>\n          typeof option === "object" ? (\n',
+      '      <For each={props.items} keyed={false}>\n        {(item) => {\n          const row = () => {\n            const option = item()\n            return typeof option === "object" ? (\n',
     )
     const refused = await compileComponent(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<ol class:list={["ui-sample", className]} {...rest}>\n  {items.map(({ label = "x" }) => <li>{label}</li>)}\n</ol>\n',
@@ -942,6 +1042,45 @@ describe("the ports of a sample", () => {
     )
     expect(ports["solid.tsx"]).toBe(
       '/** @jsxImportSource @solidjs/web */\nimport { children, For, omit, untrack } from "solid-js"\nimport Button from "../Button/Button.solid"\nimport { hasName, warnUnnamed } from "../dev"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "items", "label", "children")\n  const resolvedChildren = children(() => props.children)\n  const title = "Close"\n  untrack(() => {\n    warnUnnamed("Sample", hasName(props, resolvedChildren()))\n  })\n  const invalid = () => (props.label ? "true" : rest["aria-invalid"])\n  const buttonTitle = () => (props.label ? title : undefined)\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      <Button aria-invalid={invalid()} title={buttonTitle()}>\n        Close\n      </Button>{" "}\n      <For each={props.items} keyed={false}>\n        {(item) => {\n          const closes = () => !item()\n          const command = () => (closes() ? "hide-popover" : undefined)\n          const itemTitle = () => (closes() ? props.label : undefined)\n          return (\n            <Button command={command()} title={itemTitle()}>\n              {item()}\n            </Button>\n          )\n        }}\n      </For>{" "}\n      {resolvedChildren()}\n    </div>\n  )\n}\n',
+    )
+  })
+
+  test("Vue computes the consts of a loop once per row where one is read more than once, and writes a const read once where it is read", async () => {
+    const twice = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, label, ...rest } = Astro.props\n---\n\n<ul class:list={["ui-sample", className]} {...rest}>\n  {items.map(({ href, text, ...item }) => {\n    const closes = !href && !label\n    return <li data-command={closes ? "hide" : undefined} title={closes ? label : undefined} {...item}>{text}</li>\n  })}\n</ul>\n',
+    )
+    expect(twice.vue).toContain(
+      "const rows = computed(() =>\n  items.map((entry) => {\n    const { href } = entry\n    const closes = !href && !label\n    return { closes, entry }\n  }),\n)\n",
+    )
+    expect(twice.vue).toContain(
+      '      v-for="({ closes, entry: { href, text, ...item } }, index) in rows"\n      :key="index"\n      :data-command="closes ? \'hide\' : undefined"\n      :title="closes ? label : undefined"\n',
+    )
+    const once = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, label, ...rest } = Astro.props\n---\n\n<ul class:list={["ui-sample", className]} {...rest}>\n  {items.map(({ href, text, ...item }) => {\n    const closes = !href && !label\n    return <li data-command={closes ? "hide" : undefined} {...item}>{text}</li>\n  })}\n</ul>\n',
+    )
+    expect(once.vue).not.toContain("computed")
+    expect(once.vue).toContain("!href && !label ? 'hide' : undefined")
+  })
+
+  test("Vue keeps the consts of a loop where they are read when one reads a slot, which a computed list would read once and without $slots", async () => {
+    const { vue } = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<ul class:list={["ui-sample", className]} {...rest}>\n  {items.map(({ href, text, ...item }) => {\n    const marked = !href && Astro.slots.has("icon")\n    return <li data-marked={marked ? "true" : undefined} title={marked ? text : undefined} {...item}>{text}</li>\n  })}\n  <slot name="icon" />\n</ul>\n',
+    )
+    expect(vue).not.toContain("computed")
+    expect(vue).not.toMatch(/(?<![$\w])slots\b/)
+    expect(vue).toContain(
+      '      v-for="({ href, text, ...item }, index) in items"\n      :key="index"\n      :data-marked="!href && $slots.icon ? \'true\' : undefined"\n      :title="!href && $slots.icon ? text : undefined"\n',
+    )
+  })
+
+  test("Vue keeps the consts of a nested loop where they are read when the list or a const reads the outer loop's item, which the script doesn't have", async () => {
+    const { vue } = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<ul class:list={["ui-sample", className]} {...rest}>\n  {items.map((group) => <li>{group.items.map((entry) => {\n    const both = group.label + entry.label\n    return <span data-both={both} title={both}>{entry.label}</span>\n  })}</li>)}\n</ul>\n',
+    )
+    expect(vue).not.toContain("computed")
+    expect(vue.split("<template>")[0]).not.toContain("group")
+    expect(vue).toContain(
+      '        v-for="(entry, index) in group.items"\n        :key="index"\n        :data-both="group.label + entry.label"\n        :title="group.label + entry.label"\n',
     )
   })
 
@@ -1329,11 +1468,9 @@ describe("the ports of a sample", () => {
     )
     const react = outputs.get(sampleFile().replace(".astro", ".react.tsx"))
     expect(react).toContain(
-      "export default function Sample({\n  className,\n  defaultValue,\n  name,\n  onValueChange,\n  value,\n  children,\n  ...rest\n}: Props) {\n  const [inner, setInner] = useState(defaultValue)\n  const change = (input: HTMLInputElement) => {\n    const next = input.value\n    if (inner !== undefined) setInner(next)\n    onValueChange?.(next)\n  }\n",
+      "export default function Sample({\n  className,\n  defaultValue,\n  name,\n  onValueChange,\n  value,\n  children,\n  ...rest\n}: Props) {\n  const [inner, setInner] = useState(defaultValue)\n  const change = useCallback(\n    (input: HTMLInputElement) => {\n      const next = input.value\n      setInner((current) => (current === undefined ? current : next))\n      onValueChange?.(next)\n    },\n    [onValueChange],\n  )\n  const context = useMemo<Context>(\n    () => ({ change, name, value: value ?? inner }),\n    [change, inner, name, value],\n  )\n",
     )
-    expect(react).toContain(
-      "<SampleContext value={{ change, name, value: value ?? inner }}>",
-    )
+    expect(react).toContain("<SampleContext value={context}>")
     expect(outputs.get(sampleFile().replace(".astro", ".svelte"))).toContain(
       "  setSampleContext({\n    change(input) {\n      if (value !== undefined) value = input.value\n    },\n    get name() {\n      return name\n    },\n    get value() {\n      return value\n    },\n  })\n",
     )
@@ -1494,7 +1631,10 @@ describe("the ports of a sample", () => {
       "const model = defineModel<Model>()\n\nconst change = (input: HTMLInputElement) => {\n  if (model.value !== undefined)\n    model.value = selectionOf(input, multiple) as Model\n}",
     )
     expect(outputs.get(sampleFile().replace(".astro", ".react.tsx"))).toContain(
-      "    const next = selectionOf(input, multiple)\n    if (inner !== undefined) setInner(next)\n    onValueChange?.(next as never)\n",
+      "      const next = selectionOf(input, multiple)\n      setInner((current) => (current === undefined ? current : next))\n      if (multiple) onValueChange?.(checkedValues(input))\n      else onValueChange?.(input.value)\n    },\n    [multiple, onValueChange],\n",
+    )
+    expect(outputs.get(sampleFile().replace(".astro", ".solid.tsx"))).toContain(
+      "    if (props.multiple) props.onValueChange?.(checkedValues(input))\n    else props.onValueChange?.(input.value)\n",
     )
   })
 
@@ -1690,6 +1830,21 @@ describe("the ports of a sample", () => {
       "{...defined(props.open ? (rest as object) : {})}",
     )
     expect(ports.vue).toContain('v-bind="defined(open ? {} : attrs)"')
+  })
+
+  test("a cast on a plain element's rest behind a condition carries over to React as ComponentProps", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport type { HTMLAttributes } from "astro/types"\n\nconst { class: className, open, ...rest } = Astro.props\n---\n\n<li class:list={["ui-sample", className]} {...((open ? rest : {}) as HTMLAttributes<"li">)}>\n  <b role="note" {...(open ? {} : rest)} />\n</li>\n',
+    )
+    expect(ports["react.tsx"]).toContain(
+      'import type { ComponentProps } from "react"\n',
+    )
+    expect(ports["react.tsx"]).toContain(
+      '{...(open ? (rest as ComponentProps<"li">) : {})}',
+    )
+    expect(ports["react.tsx"]).toContain(
+      "{...defined(open ? {} : (rest as object))}",
+    )
   })
 
   test("reads {...defined(rest)} in an Astro source as the rest spread and leaves the import to the ports", async () => {

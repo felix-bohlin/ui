@@ -13,6 +13,18 @@ const selectionImports = (component, model) =>
     ? [`import { selectionOf } from "${selectionImport(component)}"`]
     : []
 
+const reportImports = (component, model) =>
+  arrayRead(model)
+    ? [
+        `import { checkedValues, selectionOf } from "${selectionImport(component)}"`,
+      ]
+    : []
+
+const report = (model, callback, multiple) =>
+  arrayRead(model)
+    ? `if (${multiple}) ${callback}?.(checkedValues(input))\n  else ${callback}?.(input.value)`
+    : `${callback}?.(next)`
+
 const resettable = (model) =>
   model.prop === "value" && ["input", "textarea"].includes(model.element.tag)
 
@@ -110,10 +122,10 @@ export const MODEL_KINDS = {
     react: {
       body: (model) => [
         "const [inner, setInner] = useState(defaultValue)",
-        `const change = (input: HTMLInputElement) => {\n  const next = ${model.read}\n  if (inner !== undefined) setInner(next)\n  onValueChange?.(next${arrayRead(model) ? " as never" : ""})\n}`,
+        `const change = useCallback(\n  (input: HTMLInputElement) => {\n  const next = ${model.read}\n  setInner((current) => (current === undefined ? current : next))\n  ${report(model, "onValueChange", "multiple")}\n},\n  [${arrayRead(model) ? "multiple, " : ""}onValueChange],\n)`,
       ],
       entries: () => ["defaultValue", "onValueChange"],
-      imports: selectionImports,
+      imports: reportImports,
       provided: (model, provide) => [
         { code: "change", key: "change" },
         ...provide.value.map((entry) =>
@@ -122,16 +134,16 @@ export const MODEL_KINDS = {
             : entry,
         ),
       ],
-      reactValues: () => ["useState"],
+      reactValues: () => ["useCallback", "useState"],
       tiedCallbacks: true,
     },
     solid: {
       body: (model, rewrite) => [
         "const [inner, setInner] = createSignal(untrack(() => props.defaultValue))",
-        `const change = (input: HTMLInputElement) => {\n  const next = ${rewrite(model.read)}\n  if (inner() !== undefined) setInner(next)\n  props.onValueChange?.(next${arrayRead(model) ? " as never" : ""})\n  restoreChecked(input, () => props.${model.prop})\n}`,
+        `const change = (input: HTMLInputElement) => {\n  const next = ${rewrite(model.read)}\n  if (inner() !== undefined) setInner(next)\n  ${report(model, "props.onValueChange", "props.multiple")}\n  restoreChecked(input, () => props.${model.prop})\n}`,
       ],
       entries: () => ["defaultValue", "onValueChange"],
-      imports: selectionImports,
+      imports: reportImports,
       locals: () => ["change", "inner", "setInner"],
       provided: (model, provide) => [
         { code: "change", key: "change" },

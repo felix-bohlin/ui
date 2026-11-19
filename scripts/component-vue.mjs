@@ -103,7 +103,7 @@ const omitEmptyAttributes = (attributes) => {
     ...omitted,
     {
       at: place,
-      code: /^\{[\s\S]*\}$/.test(spread) ? spread : `{ ...${spread} }`,
+      code: spread,
     },
   ]
     .toSorted((a, b) => a.at - b.at)

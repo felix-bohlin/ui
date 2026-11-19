@@ -1,14 +1,14 @@
 ===================================================================
 --- astro
 +++ solid
-@@ -54,5 +54,5 @@
+@@ -56,5 +56,5 @@
      </div>
      <div class="ui-bottom">
 -      <opui-reactions class="ui-reactions" id="id-2">
 +      <opui-reactions class="ui-reactions" data-hydrating id="id-2">
          <div aria-label="Reactions" class="ui-toggle-group" role="group">
            <label class="ui-toggle-button">
-@@ -122,5 +122,5 @@
+@@ -124,5 +124,5 @@
      </div>
      <div class="ui-bottom">
 -      <opui-reactions class="ui-reactions" id="id-4">

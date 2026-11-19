@@ -28,6 +28,7 @@ export default function Menu({
   warnMissingId("Menu", id)
   useEffect(() => {
     void import("../../elements/close-on-navigate.js")
+    void import("../../elements/menu.js")
   }, [])
   const context = useMemo<Context>(() => ({ rootId }), [rootId])
 
@@ -64,7 +65,12 @@ export default function Menu({
             index,
           ) => {
             const Tag = href ? "a" : "button"
-            const closes = !href && !keepOpen && !disabled
+            const closes =
+              !href &&
+              !keepOpen &&
+              !disabled &&
+              itemRest.type !== "submit" &&
+              itemRest.type !== "reset"
             return (
               <li
                 key={index}
@@ -77,6 +83,7 @@ export default function Menu({
                   {...tagAttrs(Tag, disabled, href)}
                   command={closes ? "hide-popover" : undefined}
                   commandfor={closes ? rootId : undefined}
+                  data-keep-open={keepOpen ? "" : undefined}
                   {...defined(itemRest)}
                 >
                   <div className="ui-text">

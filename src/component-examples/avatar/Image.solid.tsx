@@ -4,11 +4,11 @@ import { Avatar } from "opui-css/solid"
 export default function Image() {
   return (
     <>
-      <Avatar alt="Lou Headstock" src="/photos/lou-headstock.png" />
+      <Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
 
-      <Avatar alt="Holly Humbucker" src="/photos/holly-humbucker.png" />
+      <Avatar label="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
-      <Avatar alt="Percy Groove" src="/photos/percy-groove.png" />
+      <Avatar label="Percy Groove" src="/photos/percy-groove.png" />
     </>
   )
 }

@@ -7,6 +7,7 @@ import type { Snippet } from "svelte"
 import type { IntrinsicElementAttributes, Slot } from "vue"
 import { expectTypeOf, test } from "vitest"
 import type * as AvatarReact from "../../packages/opui/components/Avatar/types.react"
+import type * as AvatarSolid from "../../packages/opui/components/Avatar/types.solid"
 import type * as AvatarVue from "../../packages/opui/components/Avatar/types.vue-props"
 import type * as BadgeReact from "../../packages/opui/components/Badge/types.react"
 import type * as BadgeSvelte from "../../packages/opui/components/Badge/types.svelte"
@@ -245,6 +246,41 @@ test("an attribute the base props require stays in React and falls through to th
   expectTypeOf<AvatarVue.AvatarGroupProps>().not.toHaveProperty(
     "aria-labelledby",
   )
+})
+
+test("a link or button Avatar needs a name in React, and a plain one or a photo doesn't", () => {
+  expectTypeOf<{ label: string; src: string }>().toExtend<AvatarReact.Props>()
+  expectTypeOf<{ src: string | undefined }>().toExtend<AvatarReact.Props>()
+  expectTypeOf<{}>().toExtend<AvatarReact.Props>()
+  expectTypeOf<{
+    as: "button"
+    label: string
+  }>().toExtend<AvatarReact.Props>()
+  expectTypeOf<{
+    "aria-label": string
+    href: string
+  }>().toExtend<AvatarReact.Props>()
+  expectTypeOf<{ as: "button" }>().not.toExtend<AvatarReact.Props>()
+  expectTypeOf<{ href: string }>().not.toExtend<AvatarReact.Props>()
+  expectTypeOf<AvatarReact.Props>().not.toHaveProperty("alt")
+  expectTypeOf<AvatarVue.Props>().not.toHaveProperty("aria-label")
+})
+
+test("a link or button Avatar needs a name in Solid, and a plain one or a photo doesn't", () => {
+  expectTypeOf<{ label: string; src: string }>().toExtend<AvatarSolid.Props>()
+  expectTypeOf<{ src: string | undefined }>().toExtend<AvatarSolid.Props>()
+  expectTypeOf<{}>().toExtend<AvatarSolid.Props>()
+  expectTypeOf<{
+    as: "button"
+    label: string
+  }>().toExtend<AvatarSolid.Props>()
+  expectTypeOf<{
+    "aria-label": string
+    href: string
+  }>().toExtend<AvatarSolid.Props>()
+  expectTypeOf<{ as: "button" }>().not.toExtend<AvatarSolid.Props>()
+  expectTypeOf<{ href: string }>().not.toExtend<AvatarSolid.Props>()
+  expectTypeOf<AvatarSolid.Props>().not.toHaveProperty("alt")
 })
 
 test("an attribute a component with several elements reads takes each element's type in Vue", () => {

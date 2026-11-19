@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import "../../elements/close-on-navigate.js"
+import "../../elements/menu.js"
 import { computed, inject, provide, reactive } from "vue"
 import { MenuKey } from "./context.vue"
 import { warnMissingId } from "../dev"
@@ -26,9 +27,23 @@ const rootId = computed(() => parent?.rootId ?? id)
 
 const rows = computed(() =>
   items?.map((item) => {
-    const { disabled, href, keepOpen } = item
+    const {
+      borderTop,
+      color,
+      disabled,
+      href,
+      keepOpen,
+      label,
+      shortcut,
+      ...itemRest
+    } = item
     const Tag = href ? "a" : "button"
-    const closes = !href && !keepOpen && !disabled
+    const closes =
+      !href &&
+      !keepOpen &&
+      !disabled &&
+      itemRest.type !== "submit" &&
+      itemRest.type !== "reset"
     return { closes, item, Tag }
   }),
 )
@@ -83,6 +98,7 @@ provide(MenuKey, reactive({ rootId }))
           ...tagAttrs(Tag, disabled, href),
           command: closes ? 'hide-popover' : undefined,
           commandfor: closes ? rootId : undefined,
+          'data-keep-open': keepOpen ? '' : undefined,
           ...defined(itemRest),
         }"
       >

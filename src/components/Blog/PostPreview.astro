@@ -72,18 +72,18 @@ const id = (name: string) => `blog-preview-${slug}-${name}`
     </button>
   </div>}
   {slug === "callout-relative-colors" && <div class="blog-preview-stack">
-    <article class="ui-callout ui-info">
+    <div class="ui-callout ui-info">
       <svg aria-hidden="true" viewBox="0 0 16 16">
         <path d={icons.info} fill="currentColor" />
       </svg>
       <div class="ui-content">One hue, every shade.</div>
-    </article>
-    <article class="ui-callout ui-success">
+    </div>
+    <div class="ui-callout ui-success">
       <svg aria-hidden="true" viewBox="0 0 16 16">
         <path d={icons.success} fill="currentColor" />
       </svg>
       <div class="ui-content">Derived with oklch(from).</div>
-    </article>
+    </div>
   </div>}
   {slug === "carousel-css-only" && <ul
     aria-label="Slides"

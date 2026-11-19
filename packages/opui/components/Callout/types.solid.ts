@@ -4,7 +4,7 @@ import type { ComponentProps, JSX } from "@solidjs/web"
 export type Props = Base.Props &
   Base.Slots<JSX.Element> & {
     onDismiss?: (event: Base.Events["dismiss"]) => void
-  } & ComponentProps<"article">
+  } & ComponentProps<"div">
 
 export type CalloutActionsProps = Base.CalloutActionsProps &
   ComponentProps<"div">

@@ -137,7 +137,7 @@ export default function ReactionsExample() {
           />
         }
         datetime="2026-10-08T16:05"
-        start={<Avatar aria-hidden="true">SN</Avatar>}
+        start={<Avatar>SN</Avatar>}
         time="16:05"
       >
         <p>My slap cover is up. Thanks for listening, everyone!</p>

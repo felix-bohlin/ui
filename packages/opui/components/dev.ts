@@ -107,6 +107,22 @@ export const warnUnnamed = (component: string, named: unknown) => {
   }
 }
 
+export const warnUnnamedControl = (
+  component: string,
+  control: unknown,
+  props: {
+    "aria-label"?: unknown
+    "aria-labelledby"?: unknown
+    label?: unknown
+  },
+) => {
+  if (DEV && control && !hasName(props, undefined)) {
+    warnOnce(
+      `[OPUI ${component}] Missing accessible name. A link or button ${component} needs \`label\`, \`aria-label\` or \`aria-labelledby\`.`,
+    )
+  }
+}
+
 export const warnUnnamedGroup = (
   component: string,
   props: { "aria-label"?: unknown; "aria-labelledby"?: unknown },

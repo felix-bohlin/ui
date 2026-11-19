@@ -1727,6 +1727,208 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix. ControlGroup's scroll mode already keeps its buttons at full width on one line.
   - Fix: `&.ui-overflow-scroll { & > .ui-toggle-button { flex: none; inline-size: max-content; } }`
   - Fixed: Fixed in 907d1a484: `inline-size: max-content` on the toggles of `.ui-overflow-scroll`. Checked in Chromium at 390px and 1280px, also with `dir="rtl"`, on the Overflow example with a long German first label: the scrolling row stays 40px high and scrolls, where the old rule made it 84px. The ToggleGroup `overflow` Added entry says so.
+- [ ] (2) Select: in Svelte and Vue, a Select whose `items` arrive after it mounted shows no option as selected, while React, Solid and a fresh mount select the first. The hand-written ports bind a value that is still `undefined`, and `bind:value` and `v-model` deselect every option for it (`packages/opui/components/Select/Select.svelte:37-44`, `packages/opui/components/Select/Select.vue:45-50`, `scripts/hand-written-components.json:3-4`)
+  - Summary: In Svelte and Vue, a select that loads its options after mounting stays blank until the user picks one.
+  - Recommended: Fix. Loading options after mount is common, and the first value is already derived from the items once.
+  - Fix: found by the update probe and confirmed in Chromium: mount with no `items`, then pass `[{ label: "A", value: "a" }]`. Svelte and Vue render the option without `selected` and an empty `selectedcontent`; a fresh mount with the same items selects A. Derive the starting value whenever the model is still unset and the items change, not only at setup, with `/port-component Select`, and add the case to the component tests.
+- [ ] (2) Select: in Svelte, two items with the same `value` throw `each_key_duplicate` on the client, also in production, because the hand-written port keys its loop by `item.value`. The server render has no keys, so the page renders and then fails to hydrate. React and Vue key the same way but only warn (`packages/opui/components/Select/Select.svelte:121`, `packages/opui/components/Select/Select.react.tsx:122`, `packages/opui/components/Select/Select.vue:137`)
+  - Summary: In Svelte, a select with two options of the same value crashes when the page hydrates.
+  - Recommended: Fix with option A. An unkeyed loop is what the compiler writes for every other list.
+  - Fix: confirmed in Chromium with `items={[{ label: "One", value: "a" }, { label: "Also one", value: "a" }]}`: Svelte throws, React, Solid and Vue render both options.
+  - Options:
+    - A (recommended): drop the key in the Svelte port: `{#each items as item}`.
+    - B: key all three hand-written ports by index, so React and Vue stop warning too.
+- [ ] (2) Package: in React and Solid, a slot given the number `0` renders a stray `0` without its wrapper, since both ports test the slot with `slot && <el>`. The slot types allow it (`ReactNode`, `JSX.Element`), and Svelte and Vue render nothing (`scripts/component-react.mjs:129`, `scripts/component-solid.mjs:256`, `packages/opui/components/Chip/Chip.react.tsx:37`, `packages/opui/components/Stat/Stat.react.tsx:23`, `packages/opui/components/NumberField/NumberField.react.tsx:37-38`)
+  - Summary: In React and Solid, `<Chip label={0}>` shows a bare 0, and a Stat with `description={0}` puts a 0 loose in the list.
+  - Recommended: Fix with option A. It renders the 0 the caller passed, inside its element.
+  - Fix: confirmed in Chromium: `<Chip label={0}>` renders `<div class="ui-chip">0</div>` in React and Solid and an empty chip in Svelte and Vue; `<Stat description={0}>` renders a bare `0` after the `dd`. 14 compiled React files and Select test a slot this way.
+  - Options:
+    - A (recommended): test the slot with a helper that only rejects what renders nothing, in a module without hooks so server components can use it.
+      ```tsx
+      export const filled = (node: ReactNode) =>
+        node != null && typeof node !== "boolean" && node !== ""
+
+      {
+        filled(label) && <span className="ui-text">{label}</span>
+      }
+      ```
+    - B: write the test as a ternary, `label ? (...) : null`, which stops the stray `0` but drops it, as Svelte and Vue do today.
+- [ ] (2) TextField: in Solid, when the root tag of a TextField changes (`passwordToggle` turned on after mount), the input is built again and shows the value it was mounted with, not the current `value`: `bound` writes the first value into a new node only the first time, and later only when the prop changes (`packages/opui/components/solid.ts:4-21`, `packages/opui/components/TextField/TextField.solid.tsx:59-60`, `packages/opui/components/TextField/TextField.solid.tsx:120-122`)
+  - Summary: In Solid, a text field that switches to a password toggle after mounting shows its first value again.
+  - Recommended: Fix. The helper only has to remember the last value it read.
+  - Fix: reproduced by the Solid reviewer on the real component in jsdom: `value: "a"`, then `"b"`, then `passwordToggle: true`: the new input shows `a`. `bound` has no unit test, so add one.
+    ```ts
+    let latest: V | undefined
+    createRenderEffect(read, (value, previous) => {
+      latest = value
+      if (!first && element && value !== undefined && value !== previous) {
+        setProperty(element, prop, value)
+      }
+      first = false
+    })
+    return (node: Element) => {
+      const value = element ? latest : initial
+      if (value !== undefined) setProperty(node, prop, value)
+      element = node
+    }
+    ```
+- [ ] (2) Select: in Solid, a Select rendered on the client has no default selection, so a form reset goes to the first option. The first value and an item's `selected` are written as properties, and neither creates the `selected` attribute a reset returns to. A server-rendered page has the attribute and resets correctly (`packages/opui/components/Select/Select.solid.tsx:49-51`, `packages/opui/components/Select/Select.solid.tsx:141`, `packages/opui/components/solid.ts:17-20`, `tests/e2e/solid-models.spec.ts:42-44`)
+  - Summary: In a client-rendered Solid app, resetting a form puts a select on its first option, not its starting one.
+  - Recommended: Fix. It needs a browser test, which the Solid models fixture can hold.
+  - Fix: confirmed in Chromium with a client render: items A, B (selected) and C, pick C, reset: Solid shows A, React and Vue show B. Make the ref set each option's `defaultSelected` from its state once the options exist, unless the server already printed `selected`, and assert the Color select of `src/fixtures/solid-models.solid.tsx` after Reset, which the spec leaves out today.
+    ```ts
+    if (!element && node instanceof HTMLSelectElement) {
+      queueMicrotask(() => {
+        if (node.querySelector("option[selected]")) return
+        for (const option of node.options)
+          option.defaultSelected = option.selected
+      })
+    }
+    ```
+- [ ] (2) Select: in Solid, an item's own `selected` switches off the value-driven selection on the server: once one option prints its own `selected`, Solid's server renderer stops applying the select's `value` to the options after it, so a `multiple` select with a slotted option renders fewer selected options than the client selects (`packages/opui/components/Select/Select.solid.tsx:75-82`, `packages/opui/components/Select/Select.solid.tsx:138-147`, `packages/opui/components/Select/selection.ts:3-11`)
+  - Summary: In Solid, a multiple select can render on the server with fewer options selected than its value names.
+  - Recommended: Fix. It is what the three hand-written ports already do.
+  - Fix: reproduced by the Solid reviewer with the real component on the server: `<Select multiple value={["b", "z"]} items={[a, b]}><option value="z">Z</option></Select>` prints `selected` on b only, and the client selects b and z. Fold the selected items into the first value with `initialValue` from `selection.ts` and render the options without their own `selected`, which the fix for the rebuilt rows needs too. Check the attribute order of the parity snapshot.
+- [ ] (2) Copy, Toaster: in React, an `id` that goes from a value back to `undefined` on a component whose root is a custom element is written as `id="undefined"`: on an update React assigns `undefined` to a property the element reflects (`packages/opui/components/Copy/Copy.react.tsx:22-28`, `packages/opui/components/Toaster/Toaster.react.tsx:1`)
+  - Summary: In React, clearing the `id` of a Copy or a Toaster leaves `id="undefined"` on the element.
+  - Recommended: Explain further. It is React's handling of custom elements, and a workaround costs every render.
+  - Fix: found by the update probe and confirmed in Chromium: `<Copy id="x">` rendered again without `id` gives `<opui-copy class="ui-copy" id="undefined">`, a fresh render gives no `id`. It applies to any reflected property (`title`, `lang`, `hidden`) on Callout, Copy, NumberField, SortableTable, TextField with `passwordToggle` and Toaster. Decide whether to list it under Limitations or to pass such attributes through a ref.
+- [ ] (2) Package: every Vue component declares `class` as a prop, typed `[Boolean, null, String, Object, Array]`, so Vue casts a value equal to the key to `true`: `<Card class="class">` loses the class. The declared prop also keeps static classes from being hoisted and needs `classAttrs()` wherever the list can be empty (`packages/opui/components/vue.ts:16-18`, `scripts/component-vue.mjs:174-175`, `packages/opui/components/Card/CardContent.vue:9`, `packages/opui/components/Table/TableRow.vue:10`)
+  - Summary: In Vue, a component given the class name `class` renders without it.
+  - Recommended: Explain further and provide an example. Dropping the prop changes the Vue types and the guide.
+  - Fix: the lost class is confirmed in Chromium: `<Card class="class">` renders `class="ui-card"`, and `class="a b"` renders `ui-card a b`.
+  - Options:
+    - A: stop declaring `class` in Vue and let fallthrough append it, as Vue does by default; roots that send their attrs to an inner element read `$attrs.class` and filter it next to `style`.
+      ```vue
+      <!-- before -->
+      <div :class="['ui-content', $props.class]"><slot></slot></div>
+      <tr v-bind="classAttrs($props.class)"><slot></slot></tr>
+      <!-- after -->
+      <div class="ui-content"><slot></slot></div>
+      <tr><slot></slot></tr>
+      ```
+    - B: keep the declared prop and type it without `Boolean`, so no value is cast.
+  - Must stay green: the class order and empty `class` checks of `tests/unit/component-contract.test.ts`, `pnpm check-components` and `tests/unit/component-types.test.ts`.
+- [ ] (2) OneTimeCode, TextField, Textarea: in Vue 3.5.45, a text field edited before hydration reports the typed value twice: Vue's own `v-model` now assigns an edited value to the model on mount, and `v-seed` does the same before it (`packages/opui/components/vue.ts:204-214`)
+  - Summary: In Vue, a text field the user typed in before the page hydrated emits its update twice.
+  - Recommended: Fix. Confirm it in Nuxt first, since it ran on a test renderer.
+  - Fix: the Vue reviewer ran the real `vSeed` and `vModelText` hooks on a test element: `onUpdate:modelValue` is called with `typed` twice for `text` and `textarea`, once for `email`. Which 3.5 release added it is unknown and the peer range starts at 3.5.2. Confirm by counting emits in the changes before hydration scenario of `pnpm test:apps` in Nuxt, then skip the edited case Vue handles and pin it with an entry in `tests/unit/tooling-bugs.test.ts`.
+- [ ] (3) Select: in Svelte, a form reset after the user picked another option keeps that option. The hand-written port writes `selected={isSelected(item) || undefined}` from the live value, so the `selected` attribute, which is what a reset returns to, moves with every choice (`packages/opui/components/Select/Select.svelte:71-76`, `packages/opui/components/Select/Select.svelte:122`, `packages/opui/components/Select/Select.vue:52-57`, `tests/e2e/example-state.spec.ts:61`)
+  - Summary: In Svelte, resetting a form leaves a select on the option the user picked, not the first selection.
+  - Recommended: Fix. The Vue port already has the fix to copy.
+  - Fix: confirmed in Chromium with items A, B (selected) and C in a form: pick C, reset. React and Vue return to B, Svelte stays on C. Take the selection once, as `Select.vue` does with `selectedAtFirst`, with `/port-component Select`, and make `example-state.spec.ts` change a control before it resets.
+    ```svelte
+    const initialSelection = untrack(() => value)
+    const selectedAtFirst = (item: SelectItem) =>
+      initialSelection === undefined
+        ? item.selected
+        : Array.isArray(initialSelection)
+          ? initialSelection.some((selected) => sameValue(selected, item.value))
+          : sameValue(item.value, initialSelection)
+
+    <option selected={selectedAtFirst(item) || undefined} value={item.value}>
+    ```
+- [ ] (3) Tabs, ToggleGroup: in React, a group that owns its selection ignores a form reset: the reset puts the inputs back to the first choice, but the group's `useState` keeps the last one and the next render writes it into `checked` again, and `onValueChange` never fires for the reset. Vue's item directive follows a reset (`packages/opui/components/Tabs/Tabs.react.tsx:23-28`, `packages/opui/components/ToggleGroup/ToggleGroup.react.tsx:25-30`, `packages/opui/components/react.ts:67-80`, `scripts/component-models.mjs:111-116`, `packages/opui/components/vue.ts:270-278`)
+  - Summary: In React, a toggle group or tabs in a form jump back to the last choice on the first render after a reset.
+  - Recommended: Fix. Confirm it in a browser first, since it was read from the react-dom source.
+  - Fix: not yet run in a browser: read from react-dom 19.3.1 (`updateInput` writes `checked` whenever the prop is set). Confirm with a form holding `<ToggleGroup defaultValue="left">`, two buttons, a reset button and a button that sets parent state: click Right, Reset, then the state button, and expect Left. Then let `useSeedChecked` listen for the form's `reset` and report the input whose state differs from the group's, and add the scenario to `pnpm test:apps`. `tests/unit/react-seed.test.ts` must stay green.
+- [ ] (3) Rating, TabsItem, ToggleButton: in Solid, a `checked` the caller owns (or Rating's `value`) sits in the input's spread, so any other attribute that changes writes it back over what the user just chose. Checkbox, Radio and Switch keep the model out of the spread and write it through `bound` (`packages/opui/components/ToggleButton/ToggleButton.solid.tsx:55`, `packages/opui/components/Tabs/TabsItem.solid.tsx:52`, `packages/opui/components/Rating/Rating.solid.tsx:63-66`, `packages/opui/components/solid.ts:29-32`, `scripts/component-models.mjs:185-189`, `tests/e2e/solid-models.spec.ts:10-25`)
+  - Summary: In Solid, a standalone toggle button or a rating flips back to the old value when an unrelated attribute changes.
+  - Recommended: Fix. It applies the rule the guide already states for the other Solid controls.
+  - Fix: reproduced by the Solid reviewer on the real components and client runtime in jsdom, not yet in Chromium: props `{ checked: false, "aria-describedby": "a" }`, click, then `"aria-describedby": "b"`: ToggleButton and a TabsItem outside Tabs uncheck again, a Rating with `value: 2` goes from the picked 4 back to 2, and Solid's dev build logs `UNCOMMITTED_INPUT_OVERWRITTEN`. A Checkbox with the same props stays checked. Keep the group's state in the spread and send the caller's own prop through `bound`, in the emitter's item and radio group code. It is a different case from the open Tabs item on an `onValueChange` that keeps the old value.
+    ```tsx
+    // before
+    {...checkedProps(grouped() ?? props.checked, initialChecked)}
+    ref={[props.ref, seedChecked((input) => group?.change?.(input))]}
+    // after
+    const checkedRef = bound("checked", () =>
+      grouped() === undefined ? props.checked : undefined,
+    )
+    {...checkedProps(grouped(), initialChecked)}
+    ref={[props.ref, checkedRef, seedChecked((input) => group?.change?.(input))]}
+    ```
+- [ ] (3) Menu, Rating: the React, Solid and Svelte types of Rating and of a Menu item intersect the attributes of two elements (`fieldset` and `meter`, `a` and `button`), copied from `types.astro.ts`, so `ref` becomes `Ref<HTMLFieldSetElement> & Ref<HTMLMeterElement>`, which no ref satisfies, and a handler typed for either element fails too (`packages/opui/components/Rating/types.astro.ts:4-5`, `packages/opui/components/Menu/types.astro.ts:4-8`, `packages/opui/components/Rating/types.react.ts:4-11`, `packages/opui/components/Menu/types.react.ts:4-8`, `scripts/component-types.mjs:482-505`)
+  - Summary: In React and Solid, passing a ref or a typed click handler to Rating or to a menu item is a type error.
+  - Recommended: Fix. Button already has the union shape to follow.
+  - Fix: checked with `tsc` 6.0.3 and `@types/react` 19.3.0: `const a: RatingProps = { label: "x", ref: fieldsetRef }` fails with TS2322, as do a meter ref, an `HTMLElement` ref, a callback ref and `onClick: (event: MouseEvent<HTMLFieldSetElement>) => ...`. Write the two as a union in `types.astro.ts`, as Button does, have `scripts/component-types.mjs` refuse two element types joined with `&`, and assert a `ref` in `tests/unit/component-types.test.ts`.
+    ```ts
+    export type Props =
+      | (Base.Props & { name: string } & Omit<
+            HTMLAttributes<"fieldset">,
+            keyof Base.Props
+          >)
+      | (Base.Props & { name?: undefined } & Omit<
+            HTMLAttributes<"meter">,
+            keyof Base.Props
+          >)
+    ```
+- [ ] (3) TextField: in Vue, a `value` prop passed without `v-model` stops being followed once the user has edited the field: `defineModel` keeps a local value from the first edit on and the model's getter prefers it. The Solid note for `value` says it "follows it when it changes", and Vue has no note that says otherwise (`scripts/component-models.mjs:320-336`, `packages/opui/components/TextField/TextField.vue:42-49`, `src/component-api/text-field/api.ts:65-66`)
+  - Summary: In Vue, a field given `:value` ignores a new value from the parent once the user has typed in it.
+  - Recommended: Fix with option B. It matches how Vue's own `v-model` components treat a fallback prop.
+  - Fix: the Vue reviewer ran the model on a test renderer: `value="a"`, the user types `ab`, the parent sets `reset`, and the input still shows `ab`. Before the first keystroke the same change does reach the input. NumberField, OneTimeCode, Range, Rating, Select and Textarea share the model and behave the same; Checkbox, Radio and Switch are not affected.
+  - Options:
+    - A: follow the prop: watch it and write the model, which also writes a parent's `v-model` when both are passed.
+      ```ts
+      watch(
+        () => value,
+        (next) => {
+          if (next !== undefined) modelValue.value = next
+        },
+      )
+      ```
+    - B (recommended): keep the behavior and say in each `api.ts` that in Vue `value` is the starting value and `v-model` the way to control the field.
+- [ ] (4) Package: in Vue, a component that sends its attributes to an inner element never passes on an attribute that arrives after mount when it was mounted with none. `useInputAttrs` and the compiled `restAttrs` read the attrs with `Object.entries()`, which tracks nothing on an empty attrs object, so the computed never runs again (`packages/opui/components/vue.ts:24-32`, `scripts/component-vue.mjs:719`, `packages/opui/components/Rating/Rating.vue:27-36`, `packages/opui/components/TextField/TextField.vue:40`)
+  - Summary: In Vue, a placeholder or error id added to a field after it mounted never reaches the input.
+  - Recommended: Fix. The change is small, and a client-render test pins it.
+  - Fix: confirmed in Chromium on TextField, Checkbox, Rating and StepperItem: mounted with only `label`, then given `placeholder` and `title`, the element gets neither; mounted with `lang` first, both arrive. It affects Checkbox, NumberField, OneTimeCode, Progress, Radio, Range, Select, Switch, TextField, Textarea and ToggleButton through `useInputAttrs`, and Rating, StepperItem and TimelineItem through `restAttrs`. Read one key so the proxy tracks, in the helper and in the emitter, and add a client-render test that passes the first attribute after mount (the contract test renders on the server only).
+    ```ts
+    // before
+    return computed(
+      () =>
+        Object.fromEntries(
+          Object.entries(attrs).filter(([key]) => key !== "style"),
+        ) as HTMLAttributes,
+    )
+    // after
+    return computed(() => {
+      const { style: _style, ...rest } = attrs
+      return rest as HTMLAttributes
+    })
+    ```
+- [ ] (4) Package: the Solid ports loop with `<For each>`, which keys rows by identity, so a list of fresh objects builds every row again: an inline `items={[{ label: "Bold", "aria-checked": String(bold()) }]}` returns new objects whenever anything it reads changes. React, Svelte and Vue keep the rows (`packages/opui/components/Menu/Menu.solid.tsx:56`, `packages/opui/components/Range/Range.solid.tsx:142`, `packages/opui/components/Select/Select.solid.tsx:138`, `packages/opui/components/Stepper/Stepper.solid.tsx:32`, `packages/opui/components/Timeline/Timeline.solid.tsx:20`, `scripts/component-solid.mjs:516`, `packages/opui/components/AGENTS.md:126`)
+  - Summary: In Solid, changing one menu item or step replaces every row, so a focused menu button loses focus.
+  - Recommended: Fix with option A. It gives Solid the row identity the other three frameworks already have.
+  - Fix: confirmed in Chromium: after `items` change to equal content in new objects, the first Menu button and the first Stepper `li` are new nodes in Solid and the same node in React, Svelte and Vue. The Solid reviewer also saw focus move to `body` after a click on a `menuitemcheckbox` that updates its own item, and a Select fall back to its first option when the same items arrive again. The guide's sentence on `.map()` and the `check-components` rule on `<For>` follow the fix, and `tests/e2e/hydration.spec.ts` must still see the rows claimed.
+  - Options:
+    - A (recommended): key the rows by index, as React (`key={index}`), Svelte and Vue do: the item becomes the accessor and the index a number. Select keys by `item.value`, like its hand-written siblings.
+      ```tsx
+      // before
+      <For each={props.items}>
+        {(item, index) => <StepperItem {...item} current={index() === props.current} />}
+      </For>
+      // after
+      <For each={props.items} keyed={false}>
+        {(item, index) => <StepperItem {...item()} current={index === props.current} />}
+      </For>
+      ```
+    - B: keep identity keys and say in the Menu, Range, Select, Stepper and Timeline docs that Solid callers must pass a stable `items` array (a store or a memo).
+- [ ] (5) TextField: in React, a password the user chose to show is hidden again by the next render. React assigns `input.type` on every commit of an input, changed or not, and `text-field.js` only observes `aria-disabled` and `disabled`, so it never sees the write and its toggle stays pressed (`packages/opui/components/TextField/TextField.react.tsx:101-120`, `packages/opui/elements/text-field.js:28-33`, `packages/opui/elements/text-field.js:51-65`, `tests/e2e/interaction.spec.ts:2898-2919`)
+  - Summary: In React, a shown password turns back into dots as soon as the user types in a controlled field.
+  - Recommended: Fix with option A. It fixes every framework in the element, with no new compiler construct.
+  - Fix: confirmed in Chromium with the compiled `TextField.react.tsx`: `passwordToggle` and `type="password"`, click Show password (`type` is `text`), render again with one more prop: `type` is `password` again and the button still has `aria-pressed="true"`. Solid, Svelte and Vue keep `text`. The interaction test never renders again after the click, so add a case that does, and a controlled field in `pnpm test:apps`.
+  - Options:
+    - A (recommended): make the element own the state: remember that the password is shown, observe `type`, and put `text` back when a framework writes `password` while it is shown.
+      ```js
+      #shown = false
+      // attributeFilter: ["aria-disabled", "disabled", "type"]
+      showPassword() { this.#shown = true; input.type = "text" }
+      hidePassword() { this.#shown = false; input.type = "password" }
+      #sync() {
+        if (this.#shown && input.type === "password") input.type = "text"
+        button.setAttribute("aria-pressed", String(input.type === "text"))
+      }
+      ```
+    - B: give the React port a `shown` state and render `type={shown ? "text" : type}`, which needs a new construct in `scripts/component-react.mjs` and leaves the element out of React.
 
 ## Docs
 
@@ -4247,6 +4449,21 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - B: keep it opt-in in HTML, as the Menu page says, and leave the examples as they are.
   - Explained: Option B. The HTML examples stay opt-in, as the Menu page already says under Basics: "Import `opui-css/elements/close-on-navigate.js` to close an open menu when the page navigates, also with a client router." The components load it because they can't leave it out; HTML readers choose.
   - Removed: Settled with option B in the note above: the HTML examples stay opt-in, and the Menu page says under Basics to import `opui-css/elements/close-on-navigate.js` (`src/docs/components/menu.astro:157`). Nothing is left to change.
+- [ ] (3) Tabs, ToggleGroup: in Vue, a group whose `v-model` is bound to a ref that is still `undefined` never writes it: `change` only assigns the model when it already has a value, so the parent is not told about the first choice. The API note documents it, while the React and Solid notes promise that `onValueChange` still reports changes (`scripts/component-models.mjs:163-166`, `packages/opui/components/Tabs/Tabs.vue:21-23`, `packages/opui/components/ToggleGroup/ToggleGroup.vue:26-29`, `src/component-api/toggle-group/api.ts:38`)
+  - Summary: In Vue, `v-model` on tabs or a toggle group bound to an empty ref never receives the user's choice.
+  - Recommended: Explain further and provide an example. It is documented behavior that a Vue user would not expect.
+  - Fix: the Vue reviewer ran the group on a test renderer: with `const picked = ref<string>()` and `<ToggleGroup v-model="picked">`, a click leaves `picked` undefined and emits nothing; starting from `"a"` it emits `b`.
+  - Options:
+    - A: tell the parent: emit `update:modelValue` when the model is unset, so the buttons keep their own state until the parent's ref takes the value.
+      ```ts
+      const emit = defineEmits<{ "update:modelValue": [value: string] }>()
+      const change = (input: HTMLInputElement) => {
+        if (model.value !== undefined) model.value = input.value
+        else emit("update:modelValue", input.value)
+      }
+      ```
+    - B: keep it, and move the sentence from the API note to the top of the Vue binding sections of both pages.
+  - Must stay green: `tests/e2e/example-state.spec.ts`, `tests/unit/dev-warnings.test.ts` (no false grouped `checked` warning) and the Nuxt and Vite Vue apps in `pnpm test:apps`.
 
 ## Suggestions
 
@@ -5451,6 +5668,200 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Summary: Two compiled Solid files reuse a name in an inner scope, with no effect on behavior.
   - Recommended: Fix. A distinct name in the inner scope reads better in the files the docs show.
   - Fix: in `scripts/component-solid.mjs`, name the narrowed `<Show>` parameter and a per-item initial value apart from a body-level name they would shadow.
+- [ ] (1) Tooling: `scripts/AGENTS.md` says `component-jsx.mjs` is what the React and Solid emitters share, but only the Solid emitter imports it: `component-react.mjs` has its own copy of the walk (`wrapFragment`, `conditional`, `emit` and the function template), which has already drifted in how it wraps an `if` (`scripts/AGENTS.md:23`, `scripts/component-react.mjs:252-359`, `scripts/component-jsx.mjs:22-111`, `scripts/component-solid.mjs:15`)
+  - Summary: The compiler guide describes a shared JSX walk that the React emitter does not use.
+  - Recommended: Fix with option A. The output must stay byte for byte the same, which `pnpm check-ports` proves.
+  - Options:
+    - A (recommended): make `toReact` call `jsxEmitter` with its own hooks for attributes, loops and slots.
+    - B: correct the row in `scripts/AGENTS.md` to say the walk is Solid's.
+- [ ] (1) Package: small leftovers in the compiled Svelte files and the hand-written Select: one-entry class lists stay arrays, Menu spreads `classAttrs()` on an `li` that has no other spread, two `$derived` only rename another value, a root event handler is destructured and written back next to the spread that carries it, and ListItem writes its body twice (`scripts/component-svelte.mjs:108-114`, `packages/opui/components/Menu/Menu.svelte:56`, `packages/opui/components/NumberField/NumberField.svelte:46`, `packages/opui/components/Range/Range.svelte:54`, `packages/opui/components/Callout/Callout.svelte:13`, `packages/opui/components/ListItem/ListItem.svelte:56-84`, `packages/opui/components/Select/Select.svelte:113`, `scripts/check-components.mjs:77`)
+  - Summary: The Svelte files carry a few wrappers and repeats that a hand-written component would not have.
+  - Recommended: Explain further. Each one touches the guide, a check or more than one emitter, so say which to take.
+  - Fix: none changes the markup. In turn: (1) `class={[hideLabel ? "ui-sr-only" : "ui-label"]}` in 7 files and `classAttrs([className])` in 7 could drop the array, as React and Solid do through `classText`, once the Svelte pattern of the class order check accepts a bare value. (2) Svelte omits an empty `class` itself on an element without a spread, so `Menu.svelte` could bind `class={[...]}` and get `set_class` instead of an attribute effect per item; the guide sentence on `classAttrs()` then needs "next to a spread". (3) `const inputId = $derived(base)` and `const hasValueText = $derived(valueText)` add a signal each; Solid and Vue have the same two aliases, so the fix belongs where the name is lowered, and it trades the readable name for the base. (4) `{ondismiss}` beside `{...defined(rest)}` compiles into the same attribute object as leaving it in the rest, as Solid does; `scripts/AGENTS.md` describes the handler prop. (5) `ListItem.astro` repeats 29 lines in both branches of its optional wrapper, which a snippet would hold once. (6) `Select.svelte` repeats `aria-labelledby` after the spread that carries it. (7) The `keepsDefault` branch of the emitter is never reached, and a tag that is always one string would become `$derived("...")` with `svelte:element` if Select were compiled.
+    ```svelte
+    <!-- before -->
+    <label class={[hideLabel ? "ui-sr-only" : "ui-label"]} for={inputId}>
+    <li {...classAttrs([{ "ui-border-top": borderTop }, color && `ui-${color}`])}>
+    <!-- after -->
+    <label class={hideLabel ? "ui-sr-only" : "ui-label"} for={inputId}>
+    <li class={[{ "ui-border-top": borderTop }, color && `ui-${color}`]}>
+    ```
+- [ ] (1) Package: small leftovers in the compiled Vue files and their helper: one-entry class lists stay arrays, an attribute is bound again to the value the attrs spread already carries, a computed only returns another, `.number` sits on `type="number"`, a slot fallback is a `v-if` and `v-else` pair, label slots go through `TrimmedSlot`, and `vue.ts` reaches into `v-model`'s private state (`scripts/component-vue.mjs:349-351`, `packages/opui/components/TextField/TextField.vue:129`, `packages/opui/components/Rating/Rating.vue:67`, `packages/opui/components/NumberField/NumberField.vue:52`, `packages/opui/components/NumberField/NumberField.vue:123`, `packages/opui/components/Callout/Callout.vue:65-73`, `packages/opui/components/whitespace.vue.ts:1-16`, `packages/opui/components/vue.ts:125-149`)
+  - Summary: The Vue files carry a few wrappers and repeats that a hand-written component would not have.
+  - Recommended: Explain further. Each one touches the guide, a check or a model kind, so say which to take.
+  - Fix: in turn: (1) `:class="[hideLabel ? 'ui-sr-only' : 'ui-label']"` in 7 files and `classAttrs([$props.class])` in 6 could drop the array once `CLASS_LISTS` in `scripts/check-components.mjs` accepts it. (2) `:aria-labelledby="attrs['aria-labelledby']"` after `v-bind="attrs"` (TextField, Textarea, OneTimeCode, Select) and `styleAttrs($attrs.style)` beside `restAttrs` in Rating bind a value the spread already holds; the emitter could drop a binding that reads the caller's own attribute after the unconditional attrs spread. (3) `const inputId = computed(() => base.value)` could be `const inputId = base`. (4) Vue casts a `type="number"` input to a number without `.number`. (5) `<slot name="close-icon"><svg ... /></slot>` is Vue's own fallback and also shows when the slot renders nothing, where the `v-if="$slots.x"` pair shows an empty button; it adds fragment markers to the server markup. (6) `TrimmedSlot` calls the slot outside `renderSlot`, so its content is diffed in full, to trim the space Vue leaves at the edges of slot text; it is the weakest challenge, since the parity with Astro's `trimEdges` depends on it. (7) `vue.ts` finds `v-model`'s binding in `vnode.dirs`, reads `_value` and calls `onUpdate:modelValue` itself, none of which is a documented contract; it works in 3.5.45, and the alternative is one model directive of about the same size.
+- [ ] (1) Package: small leftovers in the compiled Solid files: three condition accessors are hoisted where Solid's compiler adds no memo, two accessors only call another, six Table parts take `children` out of the rest only to put them back, and Badge resolves its `indicator` slot outside the Anchor it renders it in (`scripts/component-solid.mjs:470-476`, `packages/opui/components/Fieldset/Fieldset.solid.tsx:20`, `packages/opui/components/Callout/Callout.solid.tsx:29`, `packages/opui/components/Menu/Menu.solid.tsx:69`, `packages/opui/components/NumberField/NumberField.solid.tsx:50`, `packages/opui/components/Range/Range.solid.tsx:55`, `packages/opui/components/Table/TableBody.solid.tsx:1`, `packages/opui/components/Badge/Badge.solid.tsx:20`)
+  - Summary: The Solid files carry a few accessors and steps that a hand-written component would not have.
+  - Recommended: Explain further. Three of the four change a rule the guide or `check-components` states.
+  - Fix: in turn: (1) the installed compiler wraps a component prop's test in a memo only when the test and a branch both hold a call or a property access, so `role={isFieldset() ? undefined : "group"}` needs no accessor, in Callout, Fieldset and Menu (one closure per row); the guide states the broader rule. (2) `const inputId = () => base()` and `const hasValueText = () => resolvedValueText()` could alias the accessor. (3) a spread inserts `children` itself, so the six Table parts could be `<tbody {...props} />`; the guide and `check-components` name `omit`. (4) the `indicator` slot of Badge cannot read `AnchorContext`, which matters only for a slotted component that reads it.
+    ```tsx
+    // before
+    const role = () => (isFieldset() ? undefined : "group")
+    const inputId = () => base()
+    const rest = omit(props, "children")
+    return <tbody {...rest}>{props.children}</tbody>
+    // after
+    role={isFieldset() ? undefined : "group"}
+    const inputId = base
+    return <tbody {...props} />
+    ```
+- [ ] (1) OneTimeCode, Select, TextField, Textarea: four Astro files destructure `aria-labelledby` only to pass it back to the element that also gets the rest, which the components guide says not to do, and every port copies it (`packages/opui/components/TextField/TextField.astro:15`, `packages/opui/components/Textarea/Textarea.astro:13`, `packages/opui/components/OneTimeCode/OneTimeCode.astro:13`, `packages/opui/components/Select/Select.astro:15`, `packages/opui/components/AGENTS.md:401`)
+  - Summary: Four fields take `aria-labelledby` apart from their attributes and put it straight back.
+  - Recommended: Fix. Leaving it in the rest is the rule the guide already states.
+  - Fix: the attribute reaches the input either way (checked on the React TextField). Leave it in the rest in the four Astro files, run `pnpm build-components` and `pnpm build-examples`, and check whether the attribute order of the HTML examples moves.
+- [ ] (1) Package: the compiled type files carry keys that do nothing: `Without<Base.Props, ...>` lists slot names the base type lacks in Select, TextField and Textarea, inner `Omit`s repeat what the outer one removes in Menu and Rating, and the Solid types alone omit base keys the element also declares, in 17 folders (`scripts/component-types.mjs:476-505`, `packages/opui/components/TextField/types.react.ts:8-11`, `packages/opui/components/Menu/types.solid.ts:5-8`, `packages/opui/components/Tabs/types.solid.ts:10-11`)
+  - Summary: Hovering a props type in an editor shows omitted keys that the type never had.
+  - Recommended: Fix. The first two change only the text of the type files.
+  - Fix: the meaning of the types is unchanged for the first two (checked with a `tsc` equality test on four props). The Solid-only omit is verified equal for TextField, TabsItem and TableColumn only, so check the other 13 folders before removing it.
+    ```ts
+    // before
+    Omit<
+      Omit<ComponentProps<"a">, "href"> &
+        Omit<ComponentProps<"button">, "disabled">,
+      keyof Base.MenuItem | "children"
+    >
+    // after
+    Omit<
+      ComponentProps<"a"> & ComponentProps<"button">,
+      keyof Base.MenuItem | "children"
+    >
+    ```
+- [x] (1) Package: the Svelte ports key every loop by its index, `{#each stars as star, index (index)}`, which Svelte compiles like an unkeyed block, declare an `index` only one of the five loops reads, and add `?? []` to a list Svelte already takes as empty when it is `undefined` (`scripts/component-svelte.mjs:223`, `packages/opui/components/Menu/Menu.svelte:52`, `packages/opui/components/Range/Range.svelte:132`, `packages/opui/components/Rating/Rating.svelte:61`, `packages/opui/components/Stepper/Stepper.svelte:30`, `packages/opui/components/Timeline/Timeline.svelte:26`)
+  - Summary: Five Svelte loops carry a key, an index and a fallback that do nothing.
+  - Recommended: Fix. The compiled JavaScript is the same without them.
+  - Fix: found by the Svelte census (Svelte 5.57.3 treats `(index)` as a normal indexed block, and `each` reads `null` and `undefined` as an empty list).
+    ```svelte
+    <!-- before -->
+    {#each items ?? [] as option, index (index)}
+    <!-- after -->
+    {#each items as option}
+    ```
+  - Fixed: 80f97fac: `scripts/component-svelte.mjs` writes `{#each items as option}`, with `, index` only when the Astro callback takes the index, which `scripts/component-reader.mjs` now records as `indexed`. `pnpm build-components` changed Menu, Range, Rating, Stepper and Timeline, and only Stepper keeps its index. The three loop samples in `tests/unit/build-components.test.ts` pin the new form, and the contract and parity tests and `pnpm typecheck:svelte` pass. React keeps `key={index}` and Vue `:key="index"`.
+- [x] (1) Rating: the Vue Rating copies its attributes into a new object before it hands them to `mergeProps()`, which never changes its arguments (`scripts/component-vue.mjs:101-106`, `packages/opui/components/Rating/Rating.vue:67`)
+  - Summary: The Vue Rating builds a throwaway copy of its attributes on every render.
+  - Recommended: Fix. `mergeProps()` builds its own object.
+  - Fix: found by the Vue census.
+    ```vue
+    <!-- before -->
+    v-bind="mergeProps(styleAttrs($attrs.style), { ...restAttrs })"
+    <!-- after -->
+    v-bind="mergeProps(styleAttrs($attrs.style), restAttrs)"
+    ```
+  - Fixed: 77a757d0: the Vue emitter passes the spread to `mergeProps()` as written, so Rating binds `mergeProps(styleAttrs($attrs.style), restAttrs)` on the fieldset and the same on the meter. The sample in `tests/unit/build-components.test.ts` pins it. The `styleAttrs($attrs.style)` that `restAttrs` also carries is left for the open item on the Vue leftovers.
+- [ ] (2) Package: the dev warnings cost something in production: the flag in `dev.ts` only folds to `false` in Vite, so other bundlers ship every `[OPUI ...]` string; the arguments of a warning run either way (`hasName({ ...rest, label }, children)` on every React render); React warns again on each render; and the Vue TabsItem and ToggleButton keep a `watchEffect` alive per item (`packages/opui/components/dev.ts:3-5`, `scripts/component-react.mjs:178-187`, `packages/opui/components/Checkbox/Checkbox.react.tsx:22`, `packages/opui/components/Tabs/TabsItem.vue:38-40`, `packages/opui/components/ToggleButton/ToggleButton.vue:43-50`)
+  - Summary: Production bundles outside Vite carry the dev warning texts, and React repeats each warning on every render.
+  - Recommended: Fix with option A. It removes the call and its arguments from production in all four frameworks.
+  - Fix: measured by the shared reviewer: a Vite 8 production build drops the warning bodies and strings but keeps the `hasName(...)` call, and with only `process.env.NODE_ENV` defined the flag stays a runtime expression and the strings ship (513 bytes against 169 for the sample). Next.js itself is unverified. No test builds for production or checks that the strings are gone, so add one. `tests/unit/dev-warnings.test.ts` and the StrictMode app in `pnpm test:apps` must stay green.
+  - Options:
+    - A (recommended): export the flag and guard each call where the emitters write it, so a bundler drops the call with its arguments.
+      ```tsx
+      // dev.ts
+      export const DEV = ...
+      // each port
+      if (DEV) warnUnnamed("Checkbox", hasName({ ...rest, label }, children))
+      // Vue items
+      if (DEV) watchEffect(() => warnGroupedChecked("TabsItem", grouped.value, checked, "Tabs"))
+      ```
+    - B: option A, and take the flag from export conditions (`esm-env`, already installed through Svelte), so it also folds in bundlers that define neither `import.meta.env` nor `process.env`.
+    - C: only stop the repeats: have `dev.ts` remember each message it printed.
+- [ ] (2) Package: the React ports load a component's element script with `import()` in an effect, where Solid, Svelte and Vue import it statically. Each element becomes a separate chunk fetched after hydration, and Copy, SelectAll and Toaster are client components with a hook only for that effect (`scripts/component-react.mjs:202-206`, `packages/opui/components/Copy/Copy.react.tsx:18-20`, `packages/opui/components/Copy/Copy.solid.tsx:3`, `scripts/check-components.mjs:270-275`, `tests/apps/apps.spec.ts:124-131`)
+  - Summary: In React, copy buttons, number steppers and password toggles only start working after a second request.
+  - Recommended: Explain further and provide an example. It changes the order in which elements upgrade and React hydrates.
+  - Fix: both the React and the shared reviewer found nothing the deferred load protects: the element modules are safe on the server, `data-hydrating` already covers presses before hydration, and the elements-first scenario in Next.js already hydrates over upgraded elements. The cost was reasoned, not measured in a bundler, so measure the chunks before deciding. `pnpm check-components` ties `"use client"` to effects and would need the script import as a second reason.
+    ```tsx
+    // before
+    useEffect(() => {
+      void import("../../elements/copy.js")
+    }, [])
+    // after, still under "use client"
+    import "../../elements/copy.js"
+    ```
+  - Must stay green: the `/elements-first/` prefix and the two before React hydrates tests in `pnpm test:apps`, and `tests/e2e/elements.spec.ts`.
+- [ ] (2) Package: every React provider builds a new context value object on each render, so every consumer renders again whenever the provider does: each tab switch renders every TabsLabel, and a FieldGroup that renders again with stable children renders every field under it (`scripts/component-react.mjs:362-365`, `scripts/component-models.mjs:118-125`, `packages/opui/components/FieldGroup/FieldGroup.react.tsx:17`, `packages/opui/components/Tabs/Tabs.react.tsx:23-33`)
+  - Summary: In React, every field in a group and every tab label renders again whenever their provider renders.
+  - Recommended: Fix. Memoizing the value is the documented React pattern, and the emitter knows what each entry reads.
+  - Fix: ten files: Anchor, Callout, Dialog, Drawer, FieldGroup, Fieldset, Menu, Tabs, TabsItem and ToggleGroup. The practical effect is small, but it is also what triggers the hidden password in TextField. The emitter has to list the dependencies from the identifiers each entry reads, and a group's `change` needs `useCallback`.
+    ```tsx
+    // before
+    <FieldGroupContext value={{ name: name || parent?.name }}>
+    // after
+    const context = useMemo(() => ({ name: name || parent?.name }), [name, parent])
+    <FieldGroupContext value={context}>
+    ```
+- [ ] (2) Range: in React, the readout and `aria-valuetext` are computed from the props only, so after the user dragged the slider, any prop change that alters the text (`valueSuffix`, `lang`, `step`) renders the starting value again next to a slider that sits elsewhere. The components guide documents the design, and the framework-idioms agent names the readout as the case for state (`scripts/component-models.mjs:256-267`, `packages/opui/components/Range/Range.react.tsx:47-49`, `packages/opui/components/AGENTS.md:124`, `.claude/agents/framework-idioms.md:36`, `packages/opui/css/js/range.js:51-66`)
+  - Summary: In React, a range whose suffix changes after the user dragged it shows the starting value again.
+  - Recommended: Explain further and provide an example. The two guides disagree, so one of them is wrong.
+  - Fix: read from the React port, not run: render `<Range valueSuffix="%" defaultValue={50} />`, drag to 80, change `valueSuffix`, and expect `50` in the readout with the slider at 80.
+  - Options:
+    - A (recommended): hold the live value in state, seeded before hydration and cleared on reset by a new `useSeedValue` helper, at the price of a render per drag step.
+      ```tsx
+      const [live, setLive] = useState<string>()
+      const current =
+        rest.value ??
+        live ??
+        rest.defaultValue ??
+        middleValue({ max, min, step })
+      ```
+    - B: keep the props-only readout and correct `.claude/agents/framework-idioms.md`, which names it as state.
+- [ ] (2) Package: the `Props` type the Vue barrel exports for a component with a model leaves the model out, since `defineModel` adds `modelValue` in the component, so a wrapper that does `defineProps<TabsProps>()` and `v-bind="props"` cannot type or forward `v-model` (`scripts/component-types.mjs:705-712`, `packages/opui/components/Tabs/types.vue-props.ts:10-11`, `packages/opui/components/Tabs/Tabs.vue:19`, `tests/unit/component-types.test.ts:128-130`)
+  - Summary: In Vue, the exported props type of a field or a group has no `modelValue`, so a typed wrapper cannot pass `v-model` on.
+  - Recommended: Fix. A second exported type leaves the one `defineProps` reads as it is.
+  - Fix: keep `Props` for `defineProps`, since whether it may hold `modelValue` next to `defineModel` is unverified, and export a second type through the barrel. The type test asserts the absence today and changes with it.
+    ```ts
+    export type PublicProps = Props & { modelValue?: string }
+    // vue/index.ts
+    export type { PublicProps as TabsProps } from "../components/Tabs/types.vue-props"
+    ```
+- [ ] (2) Select: the hand-written React Select creates `<selectedcontent>` with `createElement`, so on a client render React builds the element itself and its dev build warns about an unrecognized tag in an engine that has no such element. The tests only run it in Chromium (`packages/opui/components/Select/Select.react.tsx:114-119`)
+  - Summary: In React's dev build, a Select may log an unrecognized tag warning in Firefox and Safari.
+  - Recommended: Explain further and provide an example. Confirm the warning in Firefox or WebKit first.
+  - Fix: read from the react-dom source, not run in another engine. The alternative leaves the tag to the browser and drops the `createElement` import, with the same server markup (checked with `react-dom/server`).
+    ```tsx
+    // before
+    <button inert>
+      {createElement("selectedcontent", {
+        dangerouslySetInnerHTML: { __html: "" },
+        suppressHydrationWarning: true,
+      })}
+    </button>
+    // after
+    <button
+      inert
+      dangerouslySetInnerHTML={{ __html: "<selectedcontent></selectedcontent>" }}
+      suppressHydrationWarning
+    />
+    ```
+- [ ] (2) Package: a part that only passes the caller's class on is written four ways. Six Astro files destructure `class` just to render `class:list={[className]}`, which compiles to `cx([className])`, `props.class`, `classAttrs([className])` and `classAttrs([$props.class])`, and ten Vue parts bind a class their Astro file never mentions (`packages/opui/components/DescriptionList/DescriptionListTerm.astro:1`, `packages/opui/components/Dialog/DialogTitle.react.tsx:18`, `packages/opui/components/Table/TableRow.vue:10`, `packages/opui/components/Table/TableRow.astro:1`, `scripts/component-types.mjs:840`)
+  - Summary: Parts with no class of their own still import a helper and wrap the caller's class in a list of one.
+  - Recommended: Fix with option A. It writes the six Astro files the way the Table parts already are.
+  - Fix: the six are AccordionSummary, CalloutIcon, DescriptionListDescription, DescriptionListTerm, DialogTitle and DrawerTitle (24 compiled files); the ten Vue parts are the Table parts and CheckboxInput, RadioInput and SwitchInput. The wrapper only turns an empty class into no attribute, which the empty-attribute check of `tests/unit/component-contract.test.ts` requires, so a caller's `class=""` must still print nothing.
+  - Options:
+    - A (recommended): leave `class` in the rest in the six Astro files, as `TableRow.astro` does, and make the Vue emitter declare no `class` on a part without a class list.
+      ```astro
+      ---
+      const { ...rest } = Astro.props
+      ---
+
+      <dt {...rest}><slot /></dt>
+      ```
+    - B: keep the Astro files and unwrap the one entry in each emitter: `className={className || undefined}` in React and `classAttrs(className)` in Svelte and Vue.
+- [ ] (2) Tests: no test changes a prop, a slot or a fallthrough attribute after a component mounted, or resets a form after changing a control. The contract test renders on the server, and the app and state tests reset untouched forms, which is how the Vue attrs bug, the Svelte Select reset and the rebuilt Solid rows got through (`tests/unit/component-contract.test.ts:420-422`, `tests/e2e/example-state.spec.ts:61`)
+  - Summary: Bugs that only show when props change after mount, or when a changed form is reset, reach users untested.
+  - Recommended: Fix. A throwaway version of the test already ran over every component and found three bugs.
+  - Fix: the probe behind these findings mounted every component in Chromium in React, Solid, Svelte and Vue, changed one prop or slot at a time (15,468 changes), and compared the DOM and the form state with a fresh render of the new props. It found no stale value in a compiled file, the late `items` of the Svelte and Vue Select and React's `id="undefined"`. It missed the Vue attrs bug because it kept the set of keys fixed. Make it an e2e spec on a fixture page that also adds a key after mount, keeps row identity when `items` change, and resets a form after changing each control, with a sample each check must flag.
+- [x] (2) Copy, SortableTable, Toaster: the Vue Copy, SortableTable and Toaster turn `inheritAttrs` off and bind `defined(attrs)` by hand, although no attribute a caller passes can collide with one the root sets: the compiler compared the attribute `copied-label` with the prop `copiedLabel`, and in Vue a declared prop takes both spellings (`scripts/component-shared.mjs:55-73`, `packages/opui/components/Copy/Copy.vue:1`, `packages/opui/components/SortableTable/SortableTable.vue:1`, `packages/opui/components/Toaster/Toaster.vue:1`)
+  - Summary: Three Vue components handle their attributes by hand where Vue's default does the same.
+  - Recommended: Fix. The markup is the same and three files lose an import, an option and a binding.
+  - Fix: found by the Vue census.
+    ```vue
+    <!-- before -->
+    defineOptions({ inheritAttrs: false })
+    const attrs = useAttrs() as HTMLAttributes
+    <component is="opui-copy" :copied-label="copiedLabel" :id="id" v-bind="defined(attrs)">
+    <!-- after -->
+    <component is="opui-copy" :copied-label="copiedLabel" :id="id">
+    ```
+  - Fixed: 1428c344: `filtersRest` in `scripts/component-shared.mjs` takes the framework's prop spelling, and the Vue emitter passes the camel case one, so an attribute such as `copied-label` counts as set by the declared prop `copiedLabel`. `pnpm build-components` changed only the three files, which now inherit their attributes. React and Svelte keep `defined(rest)`, since their rest can carry the dashed name. A sample in `tests/unit/build-components.test.ts` covers both, and the contract, parity and type tests pass.
 - [ ] (3) Package: the server-rendered Solid app test runs on the `start` option of `@solidjs/vite-plugin`, not on SolidStart, since SolidStart 2.2.3 requires solid-js 1.9 (`tests/apps/apps.ts`, `tests/apps/solid-start/vite.config.ts`)
   - Summary: The Solid app test uses the Vite plugin's server layer until SolidStart supports Solid 2.
   - Recommended: Fix. Add a SolidStart app next to it once a release takes solid-js 2, so the meta-framework people scaffold is covered like Next.js, Nuxt and SvelteKit.

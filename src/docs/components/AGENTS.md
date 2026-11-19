@@ -101,7 +101,7 @@ The `Component` layout renders a page in this order. Only the default slot is or
 1. `title` and `preamble`. Not every page needs a preamble. Use it for a short description, and name the close sibling when there is one (Chip vs Button, Dialog vs Drawer, Menu vs Select, Switch vs Checkbox vs Toggle, Tabs vs Toggle group), linked both ways with `<DocLink>`. The full guidance goes in the `usage` slot.
 2. Browser support chips (`browserSupport`).
 3. The `anatomy` slot, when `heroAnatomy` is set.
-4. On the Astro, React, Svelte and Vue pages, Installation (`installationTabs` and the `installation` slot), with a Command tab (the install command and the import line) and a Manual tab (the CSS files), then the `usage` slot, as "Usage" (see 5.7). Usage comes before the examples, so readers know they're on the right page before they read how to set it up, and starts collapsed, so the examples stay close to the top.
+4. On the Astro, React, Solid, Svelte and Vue pages, Installation (`installationTabs` and the `installation` slot), with a Command tab (the install command and the import line) and a Manual tab (the CSS files), then the `usage` slot, as "Usage" (see 5.7). Usage comes before the examples, so readers know they're on the right page before they read how to set it up, and starts collapsed, so the examples stay close to the top.
 5. The default slot, in this order. Skip what doesn't apply:
    1. Basics: the plain component, usually under `<section id="basics"><h2>Basics</h2>`.
    2. Variants, colors and severities.
@@ -205,7 +205,7 @@ Use the `anatomy` slot with the `<Anatomy>` component ([src/components/Anatomy.a
 
 Place logic in a `<script>` tag.
 
-- Use specific IDs to avoid global conflicts. Name ids in examples `<slug>-<example>-<n>`, with an optional part suffix (`dialog-basics-1-title`), and use the same ids in every format. The parity test checks this, skipping ids that components generate. In the HTML examples, `pnpm build-examples` numbers the ids components generate in document order after the numbers the example writes itself, and `tests/unit/example-ids.test.ts` checks that every id in them is unique, resolves and belongs to one component instance.
+- Use specific IDs to avoid global conflicts. Name ids in examples `<slug>-<example>-<n>`, with an optional part suffix (`dialog-basics-1-title`) and, for a part of a list item, its index (`file-upload-items-1-label-0`), and use the same ids in every format. The parity test checks this, skipping ids that components generate. In the HTML examples, `pnpm build-examples` numbers the ids components generate in document order after the numbers the example writes itself, and `tests/unit/example-ids.test.ts` checks that every id in them is unique, resolves and belongs to one component instance.
 - The HTML example gets each `<script>` without its types in its own `<script type="module">`, after one module that imports the custom elements and helpers its components render, less a module the `<script>` imports from `opui-css` itself. Write the React, Solid, Svelte and Vue versions of a script example by hand, with state where the `<script>` changes the DOM.
 - The site uses cross-document view transitions (`@view-transition` in `base.css`), not `<ClientRouter>`, so scripts run on every page load. Do not listen for `astro:after-swap`.
 

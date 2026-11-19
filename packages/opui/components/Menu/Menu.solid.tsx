@@ -2,6 +2,7 @@
 import { Dynamic } from "@solidjs/web"
 import { children, For, omit, untrack } from "solid-js"
 import "../../elements/close-on-navigate.js"
+import "../../elements/menu.js"
 import { defined } from "../attrs"
 import { MenuContext, useMenuContext } from "./context.solid"
 import { warnMissingId } from "../dev"
@@ -18,6 +19,7 @@ export default function Menu(props: Props) {
     "dense",
     "id",
     "items",
+    "orientation",
     "popover",
     "side",
     "children",
@@ -46,6 +48,9 @@ export default function Menu(props: Props) {
             "ui-bordered": props.bordered,
             "ui-dense": props.dense,
           },
+          props.orientation &&
+            props.orientation !== "vertical" &&
+            `ui-${props.orientation}`,
           props.side && props.side !== "block-end" && `ui-${props.side}`,
           props.class,
         ]}
@@ -68,9 +73,14 @@ export default function Menu(props: Props) {
               )
             const tag = () => (item().href ? "a" : "button")
             const closes = () =>
-              !item().href && !item().keepOpen && !item().disabled
+              !item().href &&
+              !item().keepOpen &&
+              !item().disabled &&
+              itemRest().type !== "submit" &&
+              itemRest().type !== "reset"
             const command = () => (closes() ? "hide-popover" : undefined)
             const commandfor = () => (closes() ? rootId() : undefined)
+            const tagKeepOpen = () => (item().keepOpen ? "" : undefined)
             const resolvedIconChecked = children(() => props.iconChecked)
             return (
               <li
@@ -84,6 +94,7 @@ export default function Menu(props: Props) {
                   {...tagAttrs(tag(), item().disabled, item().href)}
                   command={command()}
                   commandfor={commandfor()}
+                  data-keep-open={tagKeepOpen()}
                   {...defined(itemRest())}
                 >
                   <div class="ui-text">

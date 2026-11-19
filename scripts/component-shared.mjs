@@ -52,7 +52,7 @@ export const spreads = (node, code) =>
       item.condition === undefined,
   )
 
-export const filtersRest = (node, item, component) => {
+export const filtersRest = (node, item, component, propOf = (name) => name) => {
   if (
     node.component ||
     item.kind !== "spread" ||
@@ -66,7 +66,10 @@ export const filtersRest = (node, item, component) => {
     .some(
       (entry) =>
         entry.kind === "spread" ||
-        !destructured.has(entry.kind === "class" ? "class" : entry.name),
+        !(
+          destructured.has(entry.kind === "class" ? "class" : entry.name) ||
+          destructured.has(propOf(entry.name ?? ""))
+        ),
     )
 }
 

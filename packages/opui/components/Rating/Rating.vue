@@ -64,7 +64,7 @@ const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
     ]"
     :disabled="disabled"
     :lang="lang"
-    v-bind="mergeProps(styleAttrs($attrs.style), { ...restAttrs })"
+    v-bind="mergeProps(styleAttrs($attrs.style), restAttrs)"
   >
     <legend>{{ label }}</legend>
     <input
@@ -108,7 +108,7 @@ const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
         styleAttrs(
           mergeStyle({ '--_max': count === 5 ? undefined : count }, {}),
         ),
-        { ...restAttrs },
+        restAttrs,
       )
     "
   ></meter>

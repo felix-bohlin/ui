@@ -1,7 +1,6 @@
 "use client"
 
 import { type HTMLAttributes, useEffect, useId, useMemo } from "react"
-import { defined } from "../attrs"
 import { cx } from "../cx"
 import { useHydrated, useListener } from "../react"
 import Button from "../Button/Button.react"
@@ -24,13 +23,12 @@ export default function Callout({
 }: Props) {
   const uid = useId()
   const base = id || `callout-${uid}`
-  const Root = closeButton ? "opui-callout" : "article"
+  const Root = closeButton ? "opui-callout" : "div"
   const rootId = closeButton ? base : id
   const rootRef = useHydrated(useListener(ref, "dismiss", onDismiss))
   useEffect(() => {
     void import("../../elements/callout.js")
   }, [])
-  const attrs = defined(rest as HTMLAttributes<HTMLElement>)
   const context = useMemo<Context>(() => ({ severity }), [severity])
 
   return (
@@ -43,10 +41,9 @@ export default function Callout({
           className,
         ])}
         id={rootId}
-        role={closeButton ? "article" : undefined}
         data-hydrating={Root.includes("-") ? "" : undefined}
         ref={rootRef}
-        {...attrs}
+        {...(rest as HTMLAttributes<HTMLElement>)}
       >
         {children}
         {closeButton && (

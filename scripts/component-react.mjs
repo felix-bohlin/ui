@@ -86,6 +86,49 @@ const dependenciesOf = (code, locals) => {
   return [...found].toSorted(byName)
 }
 
+const isNewEachRender = (code, consts, seen = new Set()) => {
+  const builds = (node) => {
+    if (
+      ts.isParenthesizedExpression(node) ||
+      ts.isAsExpression(node) ||
+      ts.isSatisfiesExpression(node) ||
+      ts.isNonNullExpression(node)
+    ) {
+      return builds(node.expression)
+    }
+    if (ts.isConditionalExpression(node)) {
+      return builds(node.whenTrue) || builds(node.whenFalse)
+    }
+    if (
+      ts.isBinaryExpression(node) &&
+      [
+        ts.SyntaxKind.AmpersandAmpersandToken,
+        ts.SyntaxKind.BarBarToken,
+        ts.SyntaxKind.QuestionQuestionToken,
+      ].includes(node.operatorToken.kind)
+    ) {
+      return builds(node.left) || builds(node.right)
+    }
+    if (ts.isIdentifier(node)) {
+      if (!consts.has(node.text) || seen.has(node.text)) return false
+      seen.add(node.text)
+      return isNewEachRender(consts.get(node.text), consts, seen)
+    }
+    return (
+      ts.isArrowFunction(node) ||
+      ts.isFunctionExpression(node) ||
+      ts.isObjectLiteralExpression(node) ||
+      ts.isArrayLiteralExpression(node) ||
+      ts.isClassExpression(node) ||
+      ts.isNewExpression(node) ||
+      ts.isRegularExpressionLiteral(node)
+    )
+  }
+  return builds(
+    sourceFileOf(`(${code})`, "expression.tsx").statements[0].expression,
+  )
+}
+
 export const toReact = (component) => {
   const {
     components,
@@ -400,9 +443,30 @@ export const toReact = (component) => {
         "rename the prop, const or import in the Astro file",
       )
     }
+    const dependencies = dependenciesOf(contextCode, locals)
+    if (dependencies.includes(rest)) {
+      throw unsupported(
+        component.file,
+        `\`${rest}\` itself in the provided context value, an object that is new on every render, so the memo of the React port would never hold`,
+        `read a member of it (\`${rest}.id\`) or destructure the attribute in the Astro file`,
+      )
+    }
+    const consts = new Map(derived.map(({ code, name }) => [name, code]))
+    const unstable = derived.find(
+      ({ code, name }) =>
+        dependencies.includes(name) &&
+        isNewEachRender(code, consts, new Set([name])),
+    )
+    if (unstable) {
+      throw unsupported(
+        component.file,
+        `the const \`${unstable.name}\` in the provided context value, a function, an object or an array that is new on every render, itself or through a condition or another const, so the memo of the React port would never hold`,
+        "provide the primitive values it is built from in the Astro file",
+      )
+    }
     body.push(
       ...[...hoisted].map(([code, name]) => `const ${name} = defined(${code})`),
-      `const ${contextName} = useMemo<Context>(\n  () => (${contextCode}),\n  [${dependenciesOf(contextCode, locals).join(", ")}],\n)`,
+      `const ${contextName} = useMemo<Context>(\n  () => (${contextCode}),\n  [${dependencies.join(", ")}],\n)`,
     )
   }
   const returned = provide

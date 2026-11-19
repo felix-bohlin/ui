@@ -13,6 +13,7 @@ export type MessageListProps = {
 }
 
 export type Slots<S> = {
+  actions?: S
   bottom?: S
   end?: S
   start?: S

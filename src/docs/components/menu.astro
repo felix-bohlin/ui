@@ -26,6 +26,7 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
   browserSupport={[
     "anchor-positioning",
     "calc-size",
+    "container-scroll-state-queries",
     "dir-pseudo",
     "display-animation",
     "has",
@@ -40,6 +41,8 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
   fallbacks={{
     "calc-size":
       "Without `calc-size()`, a menu that doesn't fit on its side of the trigger flips to the other side, instead of shrinking to the space it has.",
+    "container-scroll-state-queries":
+      "Without scroll-state queries, a long menu scrolls without the shadows that mark more items above or below.",
     "display-animation":
       "Without display animation, the menu disappears at once instead of fading out.",
     overlay:
@@ -151,11 +154,16 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
     <Conditional as="p">
       <Fragment slot="components">
         An open menu closes when the page navigates, also with a client router,
-        so a link item never leaves it open over the next page.
+        so a link item never leaves it open over the next page. A link item and
+        an item that submits or resets a form, with <code>type: "submit"</code>
+        and <code>form</code>, close the menu on click as well.
       </Fragment>
       <Fragment slot="html">
         Import <code>opui-css/elements/close-on-navigate.js</code> to close an
-        open menu when the page navigates, also with a client router.
+        open menu when the page navigates, also with a client router. A
+        <code>command</code> only runs on a plain button, so import
+        <code>opui-css/elements/menu.js</code> to close the menu on a click on a
+        link, or on a submit or reset button.
       </Fragment>
     </Conditional>
   </section>
@@ -170,6 +178,18 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
     <h2>Dense</h2>
     <p>Use <PropOrClass prop="dense" class=".ui-dense" />.</p>
     <AutoExample name="Dense" centered />
+  </section>
+
+  <section id="horizontal">
+    <h2>Horizontal</h2>
+    <p>
+      <PropOrClass prop='orientation="horizontal"' class=".ui-horizontal" />
+      lays the items out in a row that fits its content, for short labels such
+      as emoji. Give an item an <code>aria-label</code> when its label is a
+      symbol.
+    </p>
+
+    <AutoExample name="Horizontal" centered />
   </section>
 
   <section id="custom">
@@ -190,6 +210,14 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
       color.
     </p>
     <AutoExample name="Current" centered />
+
+    <h3 id="pressed-items">Pressed items</h3>
+    <p>
+      A button item that turns something on and off takes
+      <code>aria-pressed</code>. A pressed item gets the same check, and keeps
+      its row color, since nothing about it is the current choice.
+    </p>
+    <AutoExample name="Pressed" centered />
 
     <h3 id="custom-check">Custom check</h3>
     <p>
@@ -232,6 +260,18 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
     <AutoExample name="CustomCheck" centered />
   </section>
 
+  <section id="long-menus">
+    <h2>Long menus</h2>
+    <p>
+      A menu that doesn't fit scrolls, with a shadow at each edge that has more
+      beyond it. <code>--_max-block-size</code> caps its height. On a phone, a
+      long list of actions or settings is easier to reach in a
+      <DocLink href="/components/drawer">Drawer</DocLink> at the block end than
+      in a menu that scrolls.
+    </p>
+    <AutoExample name="Long" centered />
+  </section>
+
   <section id="placement">
     <h2>Placement</h2>
     <Conditional as="p">
@@ -271,7 +311,9 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
       >
       <Fragment slot="html"
         >Use <code>popover="manual"</code>, and
-        <code>command="hide-popover"</code> on items that close it.</Fragment
+        <code>command="hide-popover"</code> on items that close it. A link, or a
+        submit or reset button, stays open with <code>data-keep-open</code
+        >.</Fragment
       >
     </Conditional>
     <AutoExample name="Manual" centered />

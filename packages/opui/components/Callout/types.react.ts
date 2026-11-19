@@ -4,7 +4,7 @@ import type { ComponentProps, ReactNode } from "react"
 export type Props = Base.Props &
   Base.Slots<ReactNode> & {
     onDismiss?: (event: Base.Events["dismiss"]) => void
-  } & ComponentProps<"article">
+  } & ComponentProps<"div">
 
 export type CalloutActionsProps = Base.CalloutActionsProps &
   ComponentProps<"div">

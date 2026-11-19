@@ -48,6 +48,9 @@ import {
 
 const vueSlot = (name) => (name.includes("-") ? `['${name}']` : `.${name}`)
 
+const declaredProp = (name) =>
+  name.replace(/-(\w)/g, (_, letter) => letter.toUpperCase())
+
 const ATTRIBUTE = /[^\s="]+(?:="[^"]*")?/g
 
 const withoutUnused = (lines, markup, declarations) => {
@@ -106,7 +109,7 @@ const omitEmptyAttributes = (attributes) => {
     ...omitted,
     {
       at: place,
-      code: /^\{[\s\S]*\}$/.test(spread) ? spread : `{ ...${spread} }`,
+      code: spread,
     },
   ]
     .toSorted((a, b) => a.at - b.at)
@@ -273,7 +276,8 @@ export const toVue = (component) => {
     rootElements.some((node) =>
       node.attributes.some(
         (item) =>
-          item.condition === undefined && filtersRest(node, item, component),
+          item.condition === undefined &&
+          filtersRest(node, item, component, declaredProp),
       ),
     )
   const inheritsAttrs = !(
@@ -340,7 +344,7 @@ export const toVue = (component) => {
   const attributeHelpers = new Set()
   let usesDefined = false
   const filteredSpread = (node, item, code) => {
-    if (!filtersRest(node, item, component)) return code
+    if (!filtersRest(node, item, component, declaredProp)) return code
     usesDefined = true
     return `defined(${code})`
   }

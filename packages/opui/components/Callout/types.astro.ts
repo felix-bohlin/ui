@@ -1,7 +1,7 @@
 import type * as Base from "./types"
 import type { HTMLAttributes } from "astro/types"
 
-export type Props = Base.Props & HTMLAttributes<"article">
+export type Props = Base.Props & HTMLAttributes<"div">
 
 export type CalloutActionsProps = Base.CalloutActionsProps &
   HTMLAttributes<"div">

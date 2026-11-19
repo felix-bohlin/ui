@@ -15,7 +15,7 @@ export type CalloutContentProps = BaseCalloutContentProps & Class
 export type CalloutIconProps = BaseCalloutIconProps & Class
 
 export type Props = BaseProps &
-  Class & { id?: IntrinsicElementAttributes["article"]["id"] }
+  Class & { id?: IntrinsicElementAttributes["div"]["id"] }
 
 export type Emits = { dismiss: [event: BaseEvents["dismiss"]] }
 

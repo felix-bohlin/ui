@@ -326,6 +326,63 @@ describe("the ports of a sample", () => {
     )
   })
 
+  test.each([
+    [
+      "",
+      '{ label: rest["aria-label"], id: rest.id }',
+      "`rest` itself in the provided context value, an object that is new on every render",
+    ],
+    [
+      'const label = () => name + "!"\n',
+      "{ label }",
+      "the const `label` in the provided context value, a function, an object or an array that is new on every render",
+    ],
+    [
+      "const label = { name }\n",
+      "{ label }",
+      "the const `label` in the provided context value, a function, an object or an array that is new on every render",
+    ],
+    [
+      "const label = [name]\n",
+      "{ label }",
+      "the const `label` in the provided context value, a function, an object or an array that is new on every render",
+    ],
+    [
+      "const label = name ? [name] : undefined\n",
+      "{ label }",
+      "the const `label` in the provided context value, a function, an object or an array that is new on every render",
+    ],
+    [
+      "const box = { name }\nconst label = box\n",
+      "{ label }",
+      "the const `label` in the provided context value, a function, an object or an array that is new on every render",
+    ],
+  ])(
+    "refuses a provider whose memo would never hold for React only: %s%s",
+    async (lines, value, reason) => {
+      const result = await compileComponent(
+        `---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\n\nconst { class: className, name, ...rest } = Astro.props\n\n${lines}const html = await sampleContext.provide(${value}, () =>\n  Astro.slots.render("default"),\n)\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Fragment set:html={html} />\n</div>\n`,
+        sampleFile(),
+      )
+      expect([...result.refused.keys()]).toEqual([
+        sampleFile().replace(".astro", ".react.tsx"),
+      ])
+      expect(
+        result.refused.get(sampleFile().replace(".astro", ".react.tsx"))
+          ?.message,
+      ).toContain(reason)
+    },
+  )
+
+  test("a React provider that reads a member of rest, a primitive const and a const from a call lists them as the memo's dependencies", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\nimport { autoLabelledBy } from "../id"\n\nconst { class: className, name, ...rest } = Astro.props\n\nconst groupName = name || "sample"\nconst labelledBy = autoLabelledBy(rest, groupName)\nconst html = await sampleContext.provide(\n  { id: rest.id, labelledBy, name: groupName },\n  () => Astro.slots.render("default"),\n)\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Fragment set:html={html} />\n</div>\n',
+    )
+    expect(ports["react.tsx"]).toContain(
+      '  const groupName = name || "sample"\n  const labelledBy = autoLabelledBy(rest, groupName)\n  const context = useMemo<Context>(\n    () => ({ id: rest.id, labelledBy, name: groupName }),\n    [groupName, labelledBy, rest.id],\n  )\n',
+    )
+  })
+
   test("ids from the framework's uid and a warning behind an if", async () => {
     const ports = await compile(
       '---\nimport type { Props } from "./types.astro"\nimport { autoLabelledBy, createIds } from "../id"\nimport { warnMissingId } from "../dev"\n\nconst { class: className, id: idProp, ...rest } = Astro.props\n\nconst titleId = createIds(Astro.locals, "sample", idProp)("title")\nconst labelledBy = autoLabelledBy(rest, titleId)\nif (!labelledBy) {\n  warnMissingId("Sample", idProp)\n}\n---\n\n<section\n  aria-labelledby={labelledBy}\n  class:list={["ui-sample", className]}\n  id={idProp}\n  {...rest}\n>\n  <slot />\n</section>\n',
@@ -475,6 +532,18 @@ describe("the ports of a sample", () => {
     expect(ports["solid.tsx"]).toContain(
       '<pre class={["ui-sample", props.class]} {...rest}>\n      <b>{props.label}</b> <i>{props.children}</i>\n    </pre>',
     )
+  })
+
+  test("a dashed attribute of a declared prop needs no filter in Vue", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, closeLabel, ...rest } = Astro.props\n---\n\n<opui-sample class:list={["ui-sample", className]} close-label={closeLabel} {...rest}>\n  <slot />\n</opui-sample>\n',
+    )
+    expect(ports.vue).toContain(
+      '<component\n    is="opui-sample"\n    :class="[\'ui-sample\', $props.class]"\n    :close-label="closeLabel"\n  >',
+    )
+    expect(ports.vue).not.toContain("inheritAttrs")
+    expect(ports["react.tsx"]).toContain("{...defined(rest)}")
+    expect(ports.svelte).toContain("{...defined(rest)}")
   })
 
   test("a side-effect script and a custom element", async () => {
@@ -1132,7 +1201,7 @@ describe("the ports of a sample", () => {
       'import { mergeStyle, styleAttrs } from "../style"',
     )
     expect(ports.vue).toContain(
-      "mergeProps(styleAttrs(mergeStyle({ '--_max': max }, {})), {\n        ...restAttrs,\n      })",
+      "mergeProps(styleAttrs(mergeStyle({ '--_max': max }, {})), restAttrs)",
     )
     expect(ports.vue).not.toContain(":style=")
   })

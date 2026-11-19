@@ -34,7 +34,7 @@ A single-line text input with a label, start and end text, and validation.
 - `id`: `string`. The id of the `<input>`. The `<label for>` and the password toggle point at it, so the component generates one when it's left out. The ids the component generates start with it: `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id="x"`.
 - `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
 - `passwordToggle`: `boolean`. Adds a button to the end of a `type="password"` field that shows and hides the password. The root becomes `<opui-text-field>`, and the button stays out of the input's description, unless there's also an `end` slot, whose part it shares. The component loads `opui-css/elements/text-field.js`, which runs the button.
-- `passwordToggleLabel`: `string`, default `"Show password"`. The accessible name of the password toggle.
+- `passwordToggleLabel`: `string`, default `"Show password"`. The accessible name of the password toggle. The types take it only with `passwordToggle`.
 - `required`: `boolean`, `input[required]`. Adds a required mark after the label. The form won't submit while the field is empty.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
 - `spread`: `boolean`, `.ui-spread`. Pushes the label and start text to one side and the input to the other.

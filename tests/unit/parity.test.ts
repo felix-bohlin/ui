@@ -222,7 +222,7 @@ const markup = (
 const idPattern = (key: string) =>
   key.startsWith(BLOCKS)
     ? new RegExp(`^${key.split("/")[1]}(-[a-z0-9]+)+$`)
-    : new RegExp(`^${exampleIdBase(key)}-\\d+(-[a-z]+)*$`)
+    : new RegExp(`^${exampleIdBase(key)}-\\d+(-[a-z]+)*(-\\d+)?$`)
 
 const authoredIds = async (example: Example, framework: Framework) => {
   const source = sourceOf(example.key, exampleExtension(framework))

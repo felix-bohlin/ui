@@ -1108,6 +1108,70 @@
     "url": "/react/components/drawer/#keyboard-support"
   },
   {
+    "id": "component-file-upload-react",
+    "title": "File upload",
+    "description": "A drop zone around a file input that lists the files your app is uploading, with a preview, progress, a message and a remove button for each.",
+    "keywords": "attachment drop zone dropzone photos",
+    "category": "Component",
+    "url": "/react/components/file-upload/"
+  },
+  {
+    "id": "component-file-upload-react-basics",
+    "title": "Basics",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/react/components/file-upload/#basics"
+  },
+  {
+    "id": "component-file-upload-react-files",
+    "title": "Files",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/react/components/file-upload/#files"
+  },
+  {
+    "id": "component-file-upload-react-upload-as-you-pick",
+    "title": "Upload as you pick",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/react/components/file-upload/#upload-as-you-pick"
+  },
+  {
+    "id": "component-file-upload-react-errors",
+    "title": "Errors",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/react/components/file-upload/#errors"
+  },
+  {
+    "id": "component-file-upload-react-disabled",
+    "title": "Disabled",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/react/components/file-upload/#disabled"
+  },
+  {
+    "id": "component-file-upload-react-compact",
+    "title": "Compact",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/react/components/file-upload/#compact"
+  },
+  {
+    "id": "component-file-upload-react-labels",
+    "title": "Labels",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/react/components/file-upload/#labels"
+  },
+  {
+    "id": "component-file-upload-react-keyboard-support",
+    "title": "Keyboard support",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/react/components/file-upload/#keyboard-support"
+  },
+  {
     "id": "component-form-react",
     "title": "Form",
     "description": "Classes that space and group form fields, with fieldsets and field groups.",
@@ -1525,6 +1589,13 @@
     "url": "/react/components/menu/#dense"
   },
   {
+    "id": "component-menu-react-horizontal",
+    "title": "Horizontal",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/react/components/menu/#horizontal"
+  },
+  {
     "id": "component-menu-react-custom",
     "title": "Custom items",
     "page": "Menu",
@@ -1546,11 +1617,25 @@
     "url": "/react/components/menu/#current-item"
   },
   {
+    "id": "component-menu-react-pressed-items",
+    "title": "Pressed items",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/react/components/menu/#pressed-items"
+  },
+  {
     "id": "component-menu-react-custom-check",
     "title": "Custom check",
     "page": "Menu",
     "category": "Component",
     "url": "/react/components/menu/#custom-check"
+  },
+  {
+    "id": "component-menu-react-long-menus",
+    "title": "Long menus",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/react/components/menu/#long-menus"
   },
   {
     "id": "component-menu-react-placement",
@@ -1638,11 +1723,82 @@
     "url": "/react/components/message/#reactions"
   },
   {
+    "id": "component-message-react-quick-reaction",
+    "title": "Quick reaction",
+    "page": "Message",
+    "category": "Component",
+    "url": "/react/components/message/#quick-reaction"
+  },
+  {
+    "id": "component-message-react-saving-reactions",
+    "title": "Saving reactions",
+    "page": "Message",
+    "category": "Component",
+    "url": "/react/components/message/#saving-reactions"
+  },
+  {
     "id": "component-message-react-typing",
     "title": "Typing indicator",
     "page": "Message",
     "category": "Component",
     "url": "/react/components/message/#typing"
+  },
+  {
+    "id": "component-message-react-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Message",
+    "category": "Component",
+    "url": "/react/components/message/#keyboard-support"
+  },
+  {
+    "id": "component-meter-react",
+    "title": "Meter",
+    "description": "A bar on the native meter element, for a value in a known range, like disk usage or a poll option's share.",
+    "keywords": "bar gauge measurement poll usage",
+    "category": "Component",
+    "url": "/react/components/meter/"
+  },
+  {
+    "id": "component-meter-react-basics",
+    "title": "Basics",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/react/components/meter/#basics"
+  },
+  {
+    "id": "component-meter-react-variants",
+    "title": "Variants",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/react/components/meter/#variants"
+  },
+  {
+    "id": "component-meter-react-size",
+    "title": "Size",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/react/components/meter/#size"
+  },
+  {
+    "id": "component-meter-react-label",
+    "title": "Label",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/react/components/meter/#label"
+  },
+  {
+    "id": "component-meter-react-ranges",
+    "title": "Low, high and optimum",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/react/components/meter/#ranges"
+  },
+  {
+    "id": "component-meter-react-poll",
+    "title": "Poll",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/react/components/meter/#poll"
   },
   {
     "id": "component-number-field-react",
@@ -1792,6 +1948,13 @@
     "page": "One-time code",
     "category": "Component",
     "url": "/react/components/one-time-code/#disabled"
+  },
+  {
+    "id": "component-one-time-code-react-another-screen",
+    "title": "Another screen",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/react/components/one-time-code/#another-screen"
   },
   {
     "id": "component-one-time-code-react-right-to-left",
@@ -2899,6 +3062,13 @@
     "url": "/react/components/textarea/#spread"
   },
   {
+    "id": "component-textarea-react-rows",
+    "title": "Rows",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/react/components/textarea/#rows"
+  },
+  {
     "id": "component-textarea-react-auto-fit",
     "title": "Auto-fit",
     "page": "Textarea",
@@ -4004,7 +4174,7 @@
     "id": "blog-release-6",
     "title": "opui 6.0",
     "description": "What changed in 6.0 and why, with live demos.",
-    "headings": "It's a proper design system now Five example themes Token tiers Contrast as a guarantee Loads of new components So much cool stuff in the docs Blocks! Theme builder The CSS is the component One Astro file, four frameworks Slots become parts, props get one naming model The platform did the work Browser support, honestly The new \"by hand\" Working with AI Where it landed Migrating",
+    "headings": "It's a proper design system now Five example themes Token tiers Contrast as a guarantee Loads of new components So much cool stuff in the docs Blocks! Theme builder The CSS is the component One Astro file, five frameworks Slots become parts, props get one naming model The platform did the work Browser support, honestly The new \"by hand\" Working with AI Where it landed Migrating",
     "category": "Blog",
     "url": "/blog/release-6/"
   },
@@ -4241,6 +4411,14 @@
     "url": "/blocks/kanban-board/"
   },
   {
+    "id": "block-lightbox",
+    "title": "Lightbox",
+    "description": "A post's photos in a dark full-screen viewer: swipe sideways between them, and down to close.",
+    "headings": "Application",
+    "category": "Blocks",
+    "url": "/blocks/lightbox/"
+  },
+  {
     "id": "block-newsletter",
     "title": "Newsletter",
     "description": "A newsletter sign-up with an email field, topic choices and a privacy note.",
@@ -4428,7 +4606,7 @@
     "id": "api-avatar-react",
     "title": "Avatar API",
     "description": "Reference for Avatar React component.",
-    "api": "Avatar Container element. The avatar image. alt src alt Alternative text for the image. Required with `src`. Use an empty string when the name is shown next to it. as The element to render. Defaults to `\"a\"` with `href`. disabled Disables a button avatar. A link avatar drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"` instead. href The link to use. Renders an `<a>`. shape The shape of the avatar. size The size of the element. src The image source. Replaces the content. variant The variant to use. `filled` is the primary color, `outlined` the border color with no fill and `tonal` the primary tint.",
+    "api": "Avatar Container element. The avatar image. Its `alt` is `label`. label src aria-label The accessible name of a link or button avatar, instead of `label`. The Astro, React, Solid and Svelte types require one of `label`, `aria-label` and `aria-labelledby` on a link or button. In Vue it passes through as an attribute. aria-labelledby The id of the element that names a link or button avatar, instead of `label`. as The element to render. Defaults to `\"a\"` with `href`. disabled Disables a button avatar. A link avatar drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"` instead. href The link to use. Renders an `<a>`. label The name of the person or thing: the `alt` of the image, or visually hidden text next to the letters or icon. Leave it out when the name is shown next to the avatar, which then is decorative. A link or button avatar needs it. shape The shape of the avatar. size The size of the element. src The image source. Replaces the content. Without it, the avatar shows its content, so a missing photo falls back to the letters. variant The variant to use. `filled` is the primary color, `outlined` the border color with no fill and `tonal` the primary tint.",
     "category": "API",
     "url": "/react/api/#avatar"
   },
@@ -4452,7 +4630,7 @@
     "id": "api-callout-react",
     "title": "Callout API",
     "description": "Reference for Callout React component.",
-    "api": "Callout Container element, an `<article>`. With `closeButton`, the `<opui-callout>` custom element with `role=\"article\"`, which a button with `commandfor` and `command=\"--dismiss\"` dismisses. An optional icon before the content. In Astro, React, Solid, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. The content, with an optional heading first. A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon A row of buttons under the content. closeButton Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>` with `role=\"article\"`, and the component loads `opui-css/elements/callout.js`, which runs the button. While the root has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, the button does nothing. closeLabel The accessible name of the close button. id The id of the callout. With `closeButton`, the close button points at it with `commandfor`, so the component generates one when it's left out. onDismiss Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first. severity The severity. Sets the color, and in Astro, React, Solid, Svelte and Vue the icon `CalloutIcon` renders. variant The variant to use. dismiss Fires on the callout before it hides. It bubbles, and `preventDefault()` keeps the callout. dismiss() Fires `dismiss` and, unless a listener cancels it, sets `hidden` on the callout and moves focus that was inside it to the next focusable element after it, or else the one before. Returns whether the callout hid.",
+    "api": "Callout Container element, a `<div>`. With `closeButton`, the `<opui-callout>` custom element, which a button with `commandfor` and `command=\"--dismiss\"` dismisses. An optional icon before the content. In Astro, React, Solid, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. The content, with an optional heading first. A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon A row of buttons under the content. closeButton Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>`, and the component loads `opui-css/elements/callout.js`, which runs the button. While the root has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, the button does nothing. closeLabel The accessible name of the close button. The types take it only with `closeButton`. id The id of the callout. With `closeButton`, the close button points at it with `commandfor`, so the component generates one when it's left out. onDismiss Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first. severity The severity. Sets the color, and in Astro, React, Solid, Svelte and Vue the icon `CalloutIcon` renders. variant The variant to use. dismiss Fires on the callout before it hides. It bubbles, and `preventDefault()` keeps the callout. dismiss() Fires `dismiss` and, unless a listener cancels it, sets `hidden` on the callout and moves focus that was inside it to the next focusable element after it, or else the one before. Returns whether the callout hid.",
     "category": "API",
     "url": "/react/api/#callout"
   },
@@ -4484,7 +4662,7 @@
     "id": "api-carousel-react",
     "title": "Carousel API",
     "description": "Reference for Carousel React component.",
-    "api": "Carousel The scroller. The previous button. `::scroll-button(block-start)` when vertical. buttons previousLabel An item. default The next button. `::scroll-button(block-end)` when vertical. buttons nextLabel A marker, one per item. markerLabel markers align Where items snap. aria-label The accessible name of the carousel. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. aria-labelledby The id of the element that names the carousel, instead of `aria-label`. aspectRatio Aspect ratio that images, videos and iframes are cropped to. buttons Previous and next buttons. `outside` places them beside the items, and `none` leaves them out. itemsPerView Number of visible items. markerLabel Accessible name of each marker, with `{number}` where the item number goes. markers One marker per item, after the list. nextLabel Accessible name of the next button. orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. peek Shows part of the neighboring items. persistentButtons Keeps the buttons visible at the ends. A disabled button has a muted border. previousLabel Accessible name of the previous button. role The `role` of the `<ul>`. `list` keeps Safari announcing a list. stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
+    "api": "Carousel The scroller. The previous button. `::scroll-button(block-start)` when vertical. buttons previousLabel An item. default The next button. `::scroll-button(block-end)` when vertical. buttons nextLabel A marker, one per item. markerLabel markers align Where items snap. aria-label The accessible name of the carousel. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. aria-labelledby The id of the element that names the carousel, instead of `aria-label`. aspectRatio Aspect ratio that images, videos and iframes are cropped to. buttons Previous and next buttons. `outside` places them beside the items, and `none` leaves them out. itemsPerView Number of visible items. markerLabel Accessible name of each marker, with `{number}` where the item number goes. The Astro, React, Solid and Svelte types take it only with `markers`. markers One marker per item, after the list. nextLabel Accessible name of the next button. orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. peek Shows part of the neighboring items. persistentButtons Keeps the buttons visible at the ends. A disabled button has a muted border. previousLabel Accessible name of the previous button. role The `role` of the `<ul>`. `list` keeps Safari announcing a list. stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
     "category": "API",
     "url": "/react/api/#carousel"
   },
@@ -4556,7 +4734,7 @@
     "id": "api-dialog-header-react",
     "title": "Dialog header API",
     "description": "Reference for Dialog header React component.",
-    "api": "DialogHeader Container element. Closes the dialog, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon closeButton Adds a close button at the end of the title row, which closes its `Dialog` through the dialog's `id`, or the `<dialog>` that `commandfor` names. closeLabel The accessible name of the close button. commandfor The id of the dialog the close button closes with the `close` command. Without it, the button closes its `Dialog`. Outside a `Dialog`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.",
+    "api": "DialogHeader Container element. Closes the dialog, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon closeButton Adds a close button at the end of the title row, which closes its `Dialog` through the dialog's `id`, or the `<dialog>` that `commandfor` names. closeLabel The accessible name of the close button. The types take it only with `closeButton`. commandfor The id of the dialog the close button closes with the `close` command. Without it, the button closes its `Dialog`. Outside a `Dialog`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.",
     "category": "API",
     "url": "/react/api/#dialog-header"
   },
@@ -4588,7 +4766,7 @@
     "id": "api-drawer-header-react",
     "title": "Drawer header API",
     "description": "Reference for Drawer header React component.",
-    "api": "DrawerHeader Container element. Closes the drawer, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon closeButton Adds a close button at the end of the title row, which closes its `Drawer`, or the `<dialog>` that `commandfor` names. closeLabel The accessible name of the close button. commandfor The id of the drawer the close button closes with the `close` command. Without it, the button closes its `Drawer`. Outside a `Drawer`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.",
+    "api": "DrawerHeader Container element. Closes the drawer, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon closeButton Adds a close button at the end of the title row, which closes its `Drawer`, or the `<dialog>` that `commandfor` names. closeLabel The accessible name of the close button. The types take it only with `closeButton`. commandfor The id of the drawer the close button closes with the `close` command. Without it, the button closes its `Drawer`. Outside a `Drawer`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.",
     "category": "API",
     "url": "/react/api/#drawer-header"
   },
@@ -4633,6 +4811,14 @@
     "url": "/react/api/#fieldset"
   },
   {
+    "id": "api-file-upload-react",
+    "title": "File upload API",
+    "description": "Reference for File upload React component.",
+    "api": "FileUpload The `<opui-file-upload>` custom element, a size container. It fires `select` for picks and drops and `remove` for the remove buttons, and has the `drag-over` custom state while files are dragged over it. While it has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, it holds picked files back and remove buttons do nothing. Lays out the drop zone and the files: stacked, or in one row when the root is narrower than `28rem`. The drop zone, dashed, and solid while files are dragged over the root. In the compact row it is a square add tile. Names the file input and covers the drop zone, so a click anywhere in it opens the picker. Its plus `<svg>` shows in the compact row. The file input, visually hidden. Its focus ring is drawn on the drop zone. accept disabled multiple The visible trigger, a `<span>` since a label can't hold a button. Visually hidden in the compact row. label The hint, linked to the input with `aria-describedby`. description The files, one `<li>` each: List rows, or square previews that scroll sideways in the compact row. items The preview: the `<img>` of the file, or a tonal placeholder until there is one. On a failed file it also holds the `<button popovertarget>` that opens the message in the compact row. The file name, a `Progress` while the file is queued or uploading, and the message in a `.ui-description`. In the compact row the name is visually hidden and the progress lies along the bottom edge. progressLabel The remove button, a round `.ui-button` with `command=\"--remove\"`, in every state. removeLabel The live region. It is always in the page, so a change of its text is announced. status accept The file types the input takes, as on a file input: extensions, MIME types and `type/*`. The element applies it to picks as well as drops. description The hint in the drop zone. It describes the input, and is visually hidden in the compact row. disabled Disables the input and dims the trigger. A drop does nothing. id The id of the file input. The remove buttons point at it, so the component generates one when it's left out. The ids the component generates start with it: `x-description` for the hint, and `x-label-0` and `x-description-0` for the first file's name and message, for `id=\"x\"`. items The files, as `{ description, label, preview, progress, state, value }` objects. `label` is the file name, `value` the id the `remove` event names, `preview` the URL of an image, `state` one of `\"done\"`, `\"error\"`, `\"queued\"` and `\"uploading\"`, `progress` a fraction from 0 to 1 while uploading, and `description` a message, which a failed file shows in the critical color. label The text of the trigger, which names the file input. multiple Takes several files in one pick or drop. Without it, `select` gets the first accepted file. onRemove Called when a remove button is pressed, with the item's `value` in `event.detail.value`. Take the item out of `items`, and cancel its upload. onSelect Called with the new files of one pick or drop in `event.detail.files`, after the `accept` check, and with only the first one without `multiple`. progressLabel The name of each file's progress bar, with `{label}` where the file's `label` goes. removeLabel The name of each file's remove button, with `{label}` where the file's `label` goes. status The text of the `role=\"status\"` region, which a screen reader announces when it changes, like \"2 photos didn't upload.\" input The `<input type=\"file\">` inside, or `null`. Read-only. remove Fires when a remove button is pressed, with its `value` in `event.detail.value`. It bubbles. Once the row is gone, focus moves to the next row's remove button, or else the previous one, or else the input. select Fires after a pick or a drop, with the new files in `event.detail.files`: the ones the input's `accept` allows, and only the first without `multiple`. It bubbles, and the input is cleared afterwards.",
+    "category": "API",
+    "url": "/react/api/#file-upload"
+  },
+  {
     "id": "api-form-react",
     "title": "Form API",
     "description": "Reference for Form React component.",
@@ -4668,7 +4854,7 @@
     "id": "api-menu-react",
     "title": "Menu API",
     "description": "Reference for Menu React component.",
-    "api": "Menu The menu surface, a popover anchored to its trigger. A group heading. HTML and CSS only. An item, holding a `<button>` or an `<a>` with `href`. Rendered from `items`, or a `ListItem` in the default slot. Optional content at the start, such as an icon. The label (`label` on an item). Optional content at the end, such as a shortcut in a `<kbd>` (`shortcut` on an item). Your own check on the current item, which replaces the default check. The `icon-checked` slot puts it on every item from `items`. icon-checked align Which edge of the trigger the menu lines up with. bordered Adds a border between the items. dense Packs the items tighter. id The id of the menu, which the trigger's `commandfor` points at. Required. items The items, as `{ borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `borderTop` adds a border above the item, `color: \"critical\"` marks a destructive one, a disabled link has no `href`, and `keepOpen` keeps the menu open on click. Other keys go to the item's `<a>` or `<button>`. popover The popover type. With `manual`, Esc and a click outside don't close the menu, and opening another menu doesn't either. side The side of the trigger the menu opens on.",
+    "api": "Menu The menu surface, a popover anchored to its trigger. A group heading. HTML and CSS only. An item, holding a `<button>` or an `<a>` with `href`. Rendered from `items`, or a `ListItem` in the default slot. Optional content at the start, such as an icon. The label (`label` on an item). Optional content at the end, such as a shortcut in a `<kbd>` (`shortcut` on an item). Your own check on the current item, which replaces the default check. The `icon-checked` slot puts it on every item from `items`. icon-checked align Which edge of the trigger the menu lines up with. bordered Adds a border between the items. dense Packs the items tighter. id The id of the menu, which the trigger's `commandfor` points at. Required. items The items, as `{ borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `borderTop` adds a border above the item, `color: \"critical\"` marks a destructive one, a disabled link has no `href`, and `keepOpen` keeps the menu open on click. Other keys go to the item's `<a>` or `<button>`, like `type: \"submit\"` with `form` for an item that submits a form. orientation The orientation of the element. `horizontal` lays the items out in a row, for short labels such as emoji. popover The popover type. With `manual`, Esc and a click outside don't close the menu, and opening another menu doesn't either. side The side of the trigger the menu opens on.",
     "category": "API",
     "url": "/react/api/#menu"
   },
@@ -4684,9 +4870,17 @@
     "id": "api-message-react",
     "title": "Message API",
     "description": "Reference for Message React component.",
-    "api": "Message A message. The sender's `Avatar`, from the `start` slot, shown on the last message of a run. start The bubble. default The sender's name. author The time, and content such as a read receipt. datetime time Content after the time, such as a read receipt. end Reactions in a `ToggleGroup`, drawn as separate pills over the bottom edge of the bubble. bottom author The sender, shown on the first message of a run and read by screen readers on every message. datetime The machine-readable date and time of `time`. newAuthor Starts a new run when the author changes, for a group chat. outgoing A message you sent. It aligns to the end in the primary color, and its author is visually hidden. time The time as shown, at the end of the bubble. typing Shows animated dots instead of the content. The default slot becomes the status text for screen readers.",
+    "api": "Message A message. The sender's `Avatar`, from the `start` slot, shown on the last message of a run. It takes no `label`: `author` names the message. start The bubble. default The sender's name. author The time, and content such as a read receipt. datetime time Content after the time, such as a read receipt. end Buttons beside the bubble, such as a round `Button` that opens a horizontal `Menu` of emoji. On a device that can hover, they show while the message is hovered, holds focus or has a popover open. actions The `Reactions`, whose pills sit over the bottom edge of the bubble. bottom author The sender, shown on the first message of a run and read by screen readers on every message. datetime The machine-readable date and time of `time`. newAuthor Starts a new run when the author changes, for a group chat. outgoing A message you sent. It aligns to the end in the primary color, and its author is visually hidden. time The time as shown, at the end of the bubble. typing Shows animated dots instead of the content. The default slot becomes the status text for screen readers.",
     "category": "API",
     "url": "/react/api/#message"
+  },
+  {
+    "id": "api-meter-react",
+    "title": "Meter API",
+    "description": "Reference for Meter React component.",
+    "api": "Meter The meter. The browser draws the fill inside it. variant The variant to use.",
+    "category": "API",
+    "url": "/react/api/#meter"
   },
   {
     "id": "api-number-field-react",
@@ -4700,7 +4894,7 @@
     "id": "api-one-time-code-react",
     "title": "One-time code API",
     "description": "Reference for One-time code React component.",
-    "api": "OneTimeCode Container element. The label for the field. label label Draws a box per character and a ring on the next one. The input element, with `autocomplete=\"one-time-code\"`, which lets the browser fill in a code it received. Supporting text displayed below the field. endText end-text alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. autoCapitalize The `autocapitalize` of the `<input>`, as `autoCapitalize` like on the element. With `alphanumeric` it is `characters`. disabled Dims the field and blocks input. error Marks the control invalid and shows error styles. grouped Draws a dash between the two halves of the code. Use it with an even `length`. id The id of the `<input>`. With a label, the `<label for>` points at it, so the component generates one when it's left out. The end text's id, `x-end-text`, starts with it. inputMode The `inputmode` of the `<input>`, as `inputMode` like on the element. Without `alphanumeric` it is `numeric`. length The number of characters and boxes, from 4 to 8. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. pattern The `pattern` of the `<input>`. It is `[0-9]{length}`, or `[A-Za-z0-9]{length}` with `alphanumeric`. required Adds a required mark after the label. The form won't submit while the code is incomplete. size The size of the element. spellCheck The `spellcheck` of the `<input>`, as `spellCheck` like on the element. With `alphanumeric` it is `false`.",
+    "api": "OneTimeCode Container element. The label for the field. label label Draws a box per character and a ring on the next one. The input element, with `autocomplete=\"one-time-code\"` unless it is set to `off`, which lets the browser fill in a code it received. Supporting text displayed below the field. endText end-text alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. autoCapitalize The `autocapitalize` of the `<input>`, as `autoCapitalize` like on the element. With `alphanumeric` it is `characters`. autoComplete The `autocomplete` of the `<input>`, as `autoComplete` like on the element. Set `off` for a code read off another screen, such as a TV or the computer you're signing in on. disabled Dims the field and blocks input. error Marks the control invalid and shows error styles. grouped Draws a dash between the two halves of the code. Use it with an even `length`. id The id of the `<input>`. With a label, the `<label for>` points at it, so the component generates one when it's left out. The end text's id, `x-end-text`, starts with it. inputMode The `inputmode` of the `<input>`, as `inputMode` like on the element. Without `alphanumeric` it is `numeric`. length The number of characters and boxes, from 4 to 8. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. pattern The `pattern` of the `<input>`. It is `[0-9]{length}`, or `[A-Za-z0-9]{length}` with `alphanumeric`. required Adds a required mark after the label. The form won't submit while the code is incomplete. size The size of the element. spellCheck The `spellcheck` of the `<input>`, as `spellCheck` like on the element. With `alphanumeric` it is `false`.",
     "category": "API",
     "url": "/react/api/#one-time-code"
   },
@@ -4743,6 +4937,14 @@
     "api": "Rating A `<meter>` for a read-only score, or a `<fieldset>` of radios for input. The label of the input. label Clears the rating. Drawn as a muted icon, left out with `required`. clearLabel A star, one per value from `1` to `max`. starLabel The checked and total count, such as `3/5`. Hidden from screen readers. clearLabel The accessible name of the radio that clears the rating. Not rendered with `required`. defaultValue The starting score of the meter or the star checked at the start, when `value` is omitted. disabled Disables the input. error Marks the radios invalid and tints the empty stars. label The `<legend>` of the input, or the `aria-label` of the meter. Include the score in a meter label. lang The language of the `<fieldset>` or the `<meter>`, which picks the plural form of `starLabel` with `Intl.PluralRules`. Without it, the rating picks the English form. max Number of stars. name Renders the input: a `<fieldset>` of radios with this name. Without it, a read-only `<meter>`. onValueChange Called with the `value` of the star when one is picked, or `0` for the clear radio. required Adds a required mark after the legend, requires a star and drops the clear radio. size The size of the element. starLabel The accessible name of each star radio: a template per plural category of `lang` (`zero`, `one`, `two`, `few`, `many` and `other`), with `{count}` where the number goes. A category without a template takes `other`. Use it to translate.",
     "category": "API",
     "url": "/react/api/#rating"
+  },
+  {
+    "id": "api-reactions-react",
+    "title": "Reactions API",
+    "description": "Reference for Reactions React component.",
+    "api": "Reactions The `<opui-reactions>` custom element, a row that wraps, and `display: contents` in the `bottom` slot of a `Message`. A click on a pill, or on a button with `command=\"--react\"`, this element in `commandfor` and the emoji as its `value`, fires a `reaction` event that bubbles, and changes nothing. A pick of an emoji you already reacted with asks to uncheck it, and the menu the button is in closes. While it has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, clicks ask for nothing. The `ToggleGroup` of pills, named by the `aria-label` or `aria-labelledby` of the component. A reaction: a checkbox `ToggleButton` drawn as a pill, checked when you reacted with it. items quick The live region that `announce()` writes to, visually hidden with `.ui-sr-only`. aria-label The accessible name of the group of pills. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. aria-labelledby The id of the element that names the group of pills, instead of `aria-label`. items The reactions in use, as `{ aria-label, checked, label, value }` objects: the name with the count in `aria-label`, such as `Thumbs up, 2`, the emoji with the count in `label`, and `checked` on the ones you reacted with. name The `name` of the checkboxes. onReaction Called when a pill is clicked or an emoji is picked, with the emoji's `value` and the `checked` state asked for in `event.detail`. Nothing changes until you change `items`. quick The one-tap reaction, as an item without a count: `{ aria-label, label, value }`. Its pill always comes first. While `items` has no entry with its `value`, the pill is unchecked, has a dashed border and shows `label` alone. announce(message) Reads `message` to screen readers, through the `role=\"status\"` child. delete(value) Removes the pill of `value`, and moves focus to the next pill, the previous one or the first button after the pills when the removed pill had it. The pill of the `quick-value` reaction stays, unchecked and `.ui-unused`, with the `quick-label` and `quick-text` attributes as its name and text, and keeps focus. group The `.ui-toggle-group` of pills, or `null`. Read-only. reaction Fires when a pill is clicked, or a button with `command=\"--react\"` and this element in `commandfor`, with the `value` and the `checked` state asked for in `event.detail`. It bubbles, and changes nothing. set(value, reaction) Updates the pill of `value` with `{ checked, label, text }`, the accessible name in `label` and the emoji and count in `text`, or adds one at the end, and the `quick-value` reaction first. It removes `.ui-unused` from the pill.",
+    "category": "API",
+    "url": "/react/api/#reactions"
   },
   {
     "id": "api-select-all-react",
@@ -4892,7 +5094,7 @@
     "id": "api-text-field-react",
     "title": "Text field API",
     "description": "Reference for Text field React component.",
-    "api": "TextField Container element: a `<div>`, or the `<opui-text-field>` custom element with a password toggle. The label inside is a `<label for>` that names the input by itself. The label for the field. label label Start text displayed above the field. startText start-text The boxed input area. Content above the input, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start The input element. Content at the inline-end of the field, inside the border, and the password toggle. end The password toggle, with `aria-pressed` and `command=\"--toggle-password\"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is, and `aria-disabled` while the input is. `<opui-text-field>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-text-field>` is defined. passwordToggle passwordToggleLabel icon-checked icon-unchecked Content below the input, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left. characterCount characterCountLabel autoFit Lets the width follow the content, from `25ch`. characterCount Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count. characterCountLabel The announcement near the limit, with `{count}` for the characters left. Pass it translated. dropZone Makes a `type=\"file\"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker. disabled Dims the field and blocks input and the password toggle. `aria-disabled=\"true\"` on the input looks the same, but keeps the field focusable, its text editable and its value in the form. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. The `<label for>` and the password toggle point at it, so the component generates one when it's left out. The ids the component generates start with it: `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id=\"x\"`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. passwordToggle Adds a button to the end of a `type=\"password\"` field that shows and hides the password. The root becomes `<opui-text-field>`, and the button stays out of the input's description, unless there's also an `end` slot, whose part it shares. The component loads `opui-css/elements/text-field.js`, which runs the button. passwordToggleLabel The accessible name of the password toggle. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the input to the other. type The input type. variant The variant to use. control The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only. hidePassword() Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits. input The `<input>` inside, or `null`. Read-only. showPassword() Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.",
+    "api": "TextField Container element: a `<div>`, or the `<opui-text-field>` custom element with a password toggle. The label inside is a `<label for>` that names the input by itself. The label for the field. label label Start text displayed above the field. startText start-text The boxed input area. Content above the input, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start The input element. Content at the inline-end of the field, inside the border, and the password toggle. end The password toggle, with `aria-pressed` and `command=\"--toggle-password\"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is, and `aria-disabled` while the input is. `<opui-text-field>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-text-field>` is defined. passwordToggle passwordToggleLabel icon-checked icon-unchecked Content below the input, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left. characterCount characterCountLabel autoFit Lets the width follow the content, from `25ch`. characterCount Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count. characterCountLabel The announcement near the limit, with `{count}` for the characters left. Pass it translated. dropZone Makes a `type=\"file\"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker. disabled Dims the field and blocks input and the password toggle. `aria-disabled=\"true\"` on the input looks the same, but keeps the field focusable, its text editable and its value in the form. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. The `<label for>` and the password toggle point at it, so the component generates one when it's left out. The ids the component generates start with it: `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id=\"x\"`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. passwordToggle Adds a button to the end of a `type=\"password\"` field that shows and hides the password. The root becomes `<opui-text-field>`, and the button stays out of the input's description, unless there's also an `end` slot, whose part it shares. The component loads `opui-css/elements/text-field.js`, which runs the button. passwordToggleLabel The accessible name of the password toggle. The types take it only with `passwordToggle`. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the input to the other. type The input type. variant The variant to use. control The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only. hidePassword() Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits. input The `<input>` inside, or `null`. Read-only. showPassword() Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.",
     "category": "API",
     "url": "/react/api/#text-field"
   },

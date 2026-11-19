@@ -1,9 +1,9 @@
 /**
  * Swipe a Drawer at the block start or block end toward its edge to close
- * it, from its grab handle or its header. The swipe is a close request, like
- * Esc: it does nothing with `closedby="none"`, and a `cancel` listener can
- * keep the drawer open. The content keeps scrolling as usual, and a mouse
- * drags nothing.
+ * it, from its grab handle, its header or an element in it marked
+ * `data-drawer-swipe`. The swipe is a close request, like Esc: it does
+ * nothing with `closedby="none"`, and a `cancel` listener can keep the drawer
+ * open. The content keeps scrolling as usual, and a mouse drags nothing.
  */
 const KEY = Symbol.for("opui-drawer-swipe")
 const DRAWER = "dialog.ui-drawer:is(.ui-block-start, .ui-block-end)[open]"
@@ -36,9 +36,16 @@ const grab = (event) => {
   // The grab handle is the drawer's own pseudo-element, so a touch on it
   // targets the drawer. The header's controls stay controls.
   const header = target.closest(".ui-header")
-  if (target !== drawer && header?.parentElement !== drawer) return
+  const zone = target.closest("[data-drawer-swipe]")
+  if (
+    target !== drawer &&
+    header?.parentElement !== drawer &&
+    !(zone && drawer.contains(zone))
+  ) {
+    return
+  }
   const control = target.closest(CONTROL)
-  if (control && drawer.contains(control)) return
+  if (control && control !== zone && drawer.contains(control)) return
 
   const toward = drawer.classList.contains("ui-block-start") ? -1 : 1
   const size = drawer.getBoundingClientRect().height || 1

@@ -48,6 +48,6 @@ test("a Solid root hydrated in a later task renders over its server markup", asy
   expect(first.kept).toBe(first.server)
   expect(
     second.kept,
-    "Solid now hydrates a root in a later task: drop the sentence about it in src/docs/guide/getting-started/Solid.astro and the TODO.md item, then this test",
+    "Solid now hydrates a root in a later task: drop the sentence about it in src/docs/guide/getting-started/Solid.astro, then this test",
   ).toBe(0)
 })

@@ -86,6 +86,24 @@ const dependenciesOf = (code, locals) => {
   return [...found].toSorted(byName)
 }
 
+const isNewEachRender = (code) => {
+  let node = sourceFileOf(`(${code})`, "expression.tsx").statements[0]
+    .expression
+  while (
+    ts.isParenthesizedExpression(node) ||
+    ts.isAsExpression(node) ||
+    ts.isSatisfiesExpression(node)
+  ) {
+    node = node.expression
+  }
+  return (
+    ts.isArrowFunction(node) ||
+    ts.isFunctionExpression(node) ||
+    ts.isObjectLiteralExpression(node) ||
+    ts.isArrayLiteralExpression(node)
+  )
+}
+
 export const toReact = (component) => {
   const {
     components,
@@ -400,9 +418,27 @@ export const toReact = (component) => {
         "rename the prop, const or import in the Astro file",
       )
     }
+    const dependencies = dependenciesOf(contextCode, locals)
+    if (dependencies.includes(rest)) {
+      throw unsupported(
+        component.file,
+        `\`${rest}\` itself in the provided context value, an object that is new on every render, so the memo of the React port would never hold`,
+        `read a member of it (\`${rest}.id\`) or destructure the attribute in the Astro file`,
+      )
+    }
+    const unstable = derived.find(
+      ({ code, name }) => dependencies.includes(name) && isNewEachRender(code),
+    )
+    if (unstable) {
+      throw unsupported(
+        component.file,
+        `the const \`${unstable.name}\` in the provided context value, a function, an object or an array that is new on every render, so the memo of the React port would never hold`,
+        "provide the primitive values it is built from in the Astro file",
+      )
+    }
     body.push(
       ...[...hoisted].map(([code, name]) => `const ${name} = defined(${code})`),
-      `const ${contextName} = useMemo<Context>(\n  () => (${contextCode}),\n  [${dependenciesOf(contextCode, locals).join(", ")}],\n)`,
+      `const ${contextName} = useMemo<Context>(\n  () => (${contextCode}),\n  [${dependencies.join(", ")}],\n)`,
     )
   }
   const returned = provide

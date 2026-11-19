@@ -110,6 +110,7 @@ export const whatsNew = {
         `Breaking: <a href="#letter"><code>label</code></a> replaces <code>alt</code> and names the avatar: the <code>alt</code> of the image, or visually hidden text next to the letters or icon, which assistive technology now skips. A link or button avatar needs it, or <code>aria-label</code>.`,
       ),
       react: `<a href="#letter"><code>label</code></a> names the avatar: the <code>alt</code> of the image, or visually hidden text next to the letters or icon. A link or button avatar needs it, or <code>aria-label</code>.`,
+      solid: `<a href="#letter"><code>label</code></a> names the avatar: the <code>alt</code> of the image, or visually hidden text next to the letters or icon. A link or button avatar needs it, or <code>aria-label</code>.`,
       svelte: `<a href="#letter"><code>label</code></a> names the avatar: the <code>alt</code> of the image, or visually hidden text next to the letters or icon. A link or button avatar needs it, or <code>aria-label</code>.`,
     },
     slots(

@@ -421,7 +421,7 @@ The floating content is `.ui-floating` instead of `.ui-anchor-floating`, also in
 + <Avatar as="button" label="Lou Headstock">LH</Avatar>
 ```
 
-The content is hidden from assistive technology, so a name inside it is no longer read: move it to `label`. A link or button avatar needs `label`, `aria-label` or `aria-labelledby` (types in Astro, React and Svelte, and a warning in development).
+The content is hidden from assistive technology, so a name inside it is no longer read: move it to `label`. A link or button avatar needs `label`, `aria-label` or `aria-labelledby` (types in Astro, React, Solid and Svelte, and a warning in development).
 
 A button avatar needs `as="button"`, and `disabled` only goes with it or with `href` (types).
 

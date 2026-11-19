@@ -2,6 +2,7 @@ import { describe, expect, test } from "vitest"
 import type { ComponentFramework } from "../../src/component-api/frameworks"
 import MenuAstro from "../../packages/opui/components/Menu/Menu.astro"
 import MenuReact from "../../packages/opui/components/Menu/Menu.react"
+import MenuSolid from "../../packages/opui/components/Menu/Menu.solid"
 import MenuSvelte from "../../packages/opui/components/Menu/Menu.svelte"
 import MenuVue from "../../packages/opui/components/Menu/Menu.vue"
 import { parseHtml } from "../../scripts/html-tokens.mjs"
@@ -12,6 +13,7 @@ type Node = ReturnType<typeof parseHtml>[number]
 const MENU: Record<ComponentFramework, unknown> = {
   astro: MenuAstro,
   react: MenuReact,
+  solid: MenuSolid,
   svelte: MenuSvelte,
   vue: MenuVue,
 }

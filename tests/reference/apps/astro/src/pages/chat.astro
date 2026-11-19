@@ -1,0 +1,89 @@
+---
+import {
+  Button,
+  List,
+  ListItem,
+  Message,
+  MessageList,
+  Textarea,
+} from "opui-css/astro"
+import {
+  ME,
+  conversation,
+  conversations,
+  me,
+  outgoing,
+  user,
+} from "reference-shared"
+import UserAvatar from "../components/UserAvatar.astro"
+import Layout from "../layouts/Layout.astro"
+
+const all = conversations()
+const open = conversation(Astro.url.searchParams.get("with"))
+const template = outgoing("", 0)
+---
+
+<Layout title="Chat">
+  <div class="app-screen" data-screen="chat">
+    <h1>Chat</h1>
+    <div class="app-chat">
+      <nav aria-label="Conversations">
+        <List variant="transparent">
+          {all.map((item) => <ListItem
+            aria-current={item.with === open.with ? "page" : undefined}
+            description={item.unread ? `${item.unread} unread` : undefined}
+            href={`/chat?with=${item.with}`}
+            label={item.user.name}
+          >
+            <UserAvatar size="small" slot="start" user={item.user} />
+          </ListItem>)}
+        </List>
+      </nav>
+      <section
+        aria-labelledby="chat-title"
+        class="app-screen"
+        data-with={open.with}
+      >
+        <h2 id="chat-title">{open.user.name}</h2>
+        <MessageList aria-label={`Messages with ${open.user.name}`} direct>
+          {open.lines.map((line) => {
+            if (line.kind === "divider")
+              return <li class="ui-divider">{line.label}</li>
+            const author = user(line.from)!
+            return <Message
+              author={author.name}
+              datetime={line.datetime}
+              outgoing={line.from === ME}
+              time={line.time}
+            >
+              {line.from !== ME && (
+                <UserAvatar size="small" slot="start" user={author} />
+              )}
+              <p>{line.text}</p>
+            </Message>
+          })}
+        </MessageList>
+        <template data-outgoing>
+          {template.kind === "message" && <Message
+            author={me().name}
+            datetime={template.datetime}
+            outgoing
+            time={template.time}
+          >
+            <p></p>
+          </Message>}
+        </template>
+        <form aria-label="Send a message" class="ui-layout-column">
+          <Textarea hideLabel label="Message" name="text" required />
+          <div>
+            <Button type="submit" variant="filled">Send</Button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  import "../scripts/chat.ts"
+</script>

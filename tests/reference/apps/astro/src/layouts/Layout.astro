@@ -1,0 +1,123 @@
+---
+import "../styles.css"
+import { ClientRouter } from "astro:transitions"
+import {
+  Avatar,
+  Badge,
+  Button,
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  List,
+  ListItem,
+  Menu,
+} from "opui-css/astro"
+import {
+  NOTIFICATIONS,
+  SCREENS,
+  me,
+  unreadNotifications,
+} from "reference-shared"
+import Icon from "../components/Icon.astro"
+
+const { title } = Astro.props as { title: string }
+
+const user = me()
+const unread = unreadNotifications()
+const { pathname } = Astro.url
+
+const isCurrent = (path: string) =>
+  path === "/"
+    ? pathname === "/"
+    : pathname === path || pathname.startsWith(`${path}/`)
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link href="data:," rel="icon" />
+    <title>{title} | Reference</title>
+    <ClientRouter />
+  </head>
+  <body>
+    <a class="ui-sr-only ui-focusable" href="#main">Skip to content</a>
+    <header class="app-header">
+      <Button
+        aria-label="Menu"
+        class="app-menu-button"
+        command="show-modal"
+        commandfor="nav-drawer"
+      >
+        <Icon name="menu" />
+      </Button>
+      <a class="app-brand" href="/">Reference</a>
+      <nav aria-label="Main" class="app-nav">
+        {SCREENS.map((screen) => <Button
+          aria-current={isCurrent(screen.path) ? "page" : undefined}
+          href={screen.path}
+        >
+          {screen.label}
+        </Button>)}
+      </nav>
+      <Badge hideLabel label={`${unread} unread notifications`}>
+        <Button
+          aria-label="Notifications"
+          command="toggle-popover"
+          commandfor="notifications-menu"
+        >
+          <Icon name="bell" />
+        </Button>
+        <Fragment slot="indicator">{unread}</Fragment>
+      </Badge>
+      <Menu
+        align="end"
+        id="notifications-menu"
+        items={NOTIFICATIONS.map(({ href, text }) => ({ href, label: text }))}
+      />
+      <Button
+        aria-label="Theme"
+        command="toggle-popover"
+        commandfor="theme-menu"
+      >
+        <Icon name="palette" />
+      </Button>
+      <Menu
+        align="end"
+        id="theme-menu"
+        items={[
+          { "data-theme-choice": "default", label: "Default" },
+          { "data-theme-choice": "sunset", label: "Sunset" },
+        ]}
+      />
+      <Avatar aria-label="Your profile" href={`/u/${user.handle}`} size="small">
+        {user.initials}
+      </Avatar>
+    </header>
+    <Drawer closeOnNavigate id="nav-drawer">
+      <DrawerHeader closeButton>
+        <DrawerTitle>Navigate</DrawerTitle>
+      </DrawerHeader>
+      <DrawerContent>
+        <List variant="transparent">
+          {SCREENS.map((screen) => (
+            <ListItem
+              aria-current={isCurrent(screen.path) ? "page" : undefined}
+              href={screen.path}
+              label={screen.label}
+            />
+          ))}
+        </List>
+      </DrawerContent>
+    </Drawer>
+    <main class="app-main" id="main" tabindex="-1">
+      <slot />
+    </main>
+  </body>
+</html>
+
+<script>
+  import "../scripts/shell.ts"
+</script>

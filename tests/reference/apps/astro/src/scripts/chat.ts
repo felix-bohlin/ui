@@ -1,0 +1,47 @@
+import { type ChatLine, outgoing } from "reference-shared"
+
+const sent: Record<string, ChatLine[]> = {}
+
+const section = () =>
+  document.querySelector<HTMLElement>('[data-screen="chat"] section[data-with]')
+
+const append = (root: HTMLElement, line: ChatLine) => {
+  if (line.kind !== "message") return
+  const template = root.querySelector<HTMLTemplateElement>(
+    "template[data-outgoing]",
+  )!
+  const message = template.content.firstElementChild!.cloneNode(
+    true,
+  ) as HTMLElement
+  const time = message.querySelector("time")!
+  time.dateTime = line.datetime
+  time.textContent = line.time
+  message.querySelector(".ui-content > p:not([class])")!.textContent = line.text
+  root.querySelector(".ui-message-list")!.append(message)
+}
+
+document.addEventListener("astro:page-load", () => {
+  const root = section()
+  if (!root) return
+  for (const line of sent[root.dataset.with!] ?? []) append(root, line)
+})
+
+document.addEventListener(
+  "submit",
+  (event) => {
+    const root = section()
+    const form = event.target as HTMLFormElement
+    if (!root?.contains(form)) return
+    event.preventDefault()
+    const handle = root.dataset.with!
+    const mine = (sent[handle] ??= [])
+    const line = outgoing(
+      String(new FormData(form).get("text") ?? ""),
+      mine.length,
+    )
+    mine.push(line)
+    append(root, line)
+    form.reset()
+  },
+  true,
+)

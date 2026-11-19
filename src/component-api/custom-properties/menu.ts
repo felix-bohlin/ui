@@ -86,6 +86,11 @@ export default {
       "The corner radius. Defaults to `--ui-menu-radius`, or `--ui-radius` when the theme doesn't set it.",
     kind: "input",
   },
+  "--_scroll-shadow": {
+    description:
+      "The shadow at an edge of a scrolling menu with more beyond it. Defaults to `--ui-shadow-scroll`.",
+    kind: "input",
+  },
   "--_selected-shadow": {
     description:
       "`none`: the current item is marked with a check (`--_check-image`) instead of the bar a `List` draws.",

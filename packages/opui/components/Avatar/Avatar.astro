@@ -3,17 +3,18 @@ import type { Props } from "./types.astro"
 import type { HTMLAttributes } from "astro/types"
 // A dynamic <Tag> or a custom element lets an undefined spread value remove an attribute set before it: tests/unit/tooling-bugs.test.ts
 import { defined } from "../attrs"
+import { warnUnnamedControl } from "../dev"
 import { tagAttrs } from "../tag"
 import { cx } from "../cx"
 
 export const title = "Avatar"
 
 const {
-  alt,
   as,
   class: className,
   disabled,
   href,
+  label,
   shape,
   size,
   src,
@@ -22,6 +23,8 @@ const {
 } = Astro.props
 
 const Tag = as || (href ? "a" : "div")
+
+warnUnnamedControl("Avatar", as === "button" || href, { ...rest, label })
 ---
 
 <Tag
@@ -34,5 +37,9 @@ const Tag = as || (href ? "a" : "div")
   ])}
   {...tagAttrs(Tag, disabled, href)}
   {...defined(rest as HTMLAttributes<"button">)}
-  >{src ? <img src={src} alt={alt ?? ""} /> : <slot />}</Tag
+  >{src ? (
+    <img src={src} alt={label ?? ""} />
+  ) : (
+    <span aria-hidden="true"><slot /></span>
+  )}{!src && label && <span class="ui-sr-only">{label}</span>}</Tag
 >

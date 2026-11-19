@@ -16,12 +16,15 @@ export default function Timeline(props: Props) {
       ]}
       {...rest}
     >
-      <For each={props.items}>
-        {({ description, ...item }) => (
-          <TimelineItem {...item}>
-            {description && <p>{description}</p>}
-          </TimelineItem>
-        )}
+      <For each={props.items} keyed={false}>
+        {(entry) => {
+          const item = () => omit(entry(), "description")
+          return (
+            <TimelineItem {...item()}>
+              {entry().description && <p>{entry().description}</p>}
+            </TimelineItem>
+          )
+        }}
       </For>{" "}
       {props.children}
     </ol>

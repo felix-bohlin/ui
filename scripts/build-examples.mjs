@@ -1817,6 +1817,21 @@ const HTML_SCRIPT_RULES = [
         ? ['import "opui-css/elements/drawer-swipe.js"']
         : [],
   },
+  {
+    covers: (path) => path === "elements/menu.js",
+    lines: (elements) =>
+      elements.some(
+        (element) =>
+          !element.attrs.has("data-keep-open") &&
+          ((element.tag === "a" && element.attrs.has("href")) ||
+            (element.tag === "button" &&
+              ["reset", "submit"].includes(element.values.get("type")))) &&
+          element.parent?.tag === "li" &&
+          !!element.parent.parent?.classes.has("ui-menu"),
+      )
+        ? ['import "opui-css/elements/menu.js"']
+        : [],
+  },
 ]
 
 export const scriptImports = (markup, tags) => {

@@ -151,6 +151,11 @@ export default {
     description: "Aspect ratio of `img`, `video` and `iframe` in items.",
     kind: "input",
   },
+  "--_media-fit": {
+    description:
+      "How `img`, `video` and `iframe` in items fill their aspect ratio: `cover` crops them, `contain` shows them whole, like photos of mixed orientation in a viewer.",
+    kind: "input",
+  },
   "--_media-radius": {
     description:
       "Corner radius of `img`, `video` and `iframe` in items. Defaults to `--ui-radius`.",

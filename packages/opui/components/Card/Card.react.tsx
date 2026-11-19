@@ -1,3 +1,4 @@
+import type { HTMLAttributes } from "react"
 import { cx } from "../cx"
 import type { Props } from "./types.react"
 
@@ -23,7 +24,7 @@ export default function Card({
         variant && variant !== "plain" && `ui-${variant}`,
         className,
       ])}
-      {...(rest as object)}
+      {...(rest as HTMLAttributes<HTMLElement>)}
     >
       {children}
     </Tag>

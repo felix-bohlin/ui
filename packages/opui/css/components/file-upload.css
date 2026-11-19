@@ -1,0 +1,339 @@
+@layer components.extended {
+  :where(.ui-file-upload) {
+    --_motion: var(--ui-motion);
+    --_description-max-inline-size: 16rem;
+    --_duration: calc(var(--ui-duration-fast) * var(--_motion));
+    --_ease: var(--ui-ease);
+    --_field-bg-color: transparent;
+    --_field-border-color: var(--ui-field-border-color);
+    --_item-size: 4.75rem;
+    --_preview-bg-color: var(--ui-surface-tonal);
+    --_preview-size: var(--ui-control-size);
+
+    container: ui-file-upload / inline-size;
+    display: block;
+    position: relative;
+
+    & > .ui-content {
+      display: grid;
+      gap: var(--ui-space-2);
+    }
+
+    /* Drop zone */
+    & > .ui-content > .ui-field {
+      align-items: center;
+      background-color: var(--_field-bg-color);
+      border: var(--ui-border-width) dashed var(--_field-border-color);
+      border-radius: var(--ui-radius);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: var(--ui-space-2);
+      justify-content: center;
+      padding-block: var(--ui-space-5);
+      padding-inline: var(--ui-space-4);
+      position: relative;
+      text-align: center;
+      transition:
+        background-color var(--_duration) var(--_ease),
+        border-color var(--_duration) var(--_ease);
+
+      &:has(input:focus-visible) {
+        outline: var(--ui-focus-ring-width) solid var(--ui-focus-ring-color);
+        outline-offset: var(--ui-focus-ring-offset);
+      }
+
+      &:has(input:disabled) {
+        cursor: not-allowed;
+
+        & > .ui-label {
+          opacity: var(--ui-disabled-opacity);
+        }
+      }
+
+      & > .ui-label {
+        cursor: inherit;
+        display: grid;
+        justify-items: center;
+
+        &::after {
+          content: "";
+          inset: 0;
+          position: absolute;
+        }
+
+        & > .ui-button {
+          pointer-events: none;
+        }
+
+        & > svg {
+          block-size: 0;
+          inline-size: 0;
+
+          &:empty {
+            background-color: currentColor;
+            mask: var(--ui-icon-increase) center / contain no-repeat;
+
+            @media (forced-colors: active) {
+              background-color: CanvasText;
+            }
+
+            @media print {
+              print-color-adjust: exact;
+            }
+          }
+        }
+      }
+
+      & > .ui-description {
+        color: var(--ui-text-subtle);
+        font-size: var(--ui-font-size-small);
+      }
+    }
+
+    &:state(drag-over) > .ui-content > .ui-field {
+      --_field-bg-color: var(
+        --ui-selected,
+        oklch(
+          from var(--ui-primary) l c h / var(--ui-state-selected-alpha-accent)
+        )
+      );
+      --_field-border-color: var(--ui-focus-ring-color);
+
+      border-style: solid;
+
+      @media (forced-colors: active) {
+        --_field-border-color: Highlight;
+      }
+
+      @media print {
+        print-color-adjust: exact;
+      }
+    }
+
+    /* Files */
+    & > .ui-content > .ui-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    & > .ui-content > .ui-list > li {
+      & > .ui-start {
+        background-color: var(--_preview-bg-color);
+        block-size: var(--_preview-size);
+        border-radius: var(--ui-radius-small);
+        flex: none;
+        inline-size: var(--_preview-size);
+        overflow: hidden;
+        position: relative;
+
+        @media (forced-colors: active) {
+          border: var(--ui-border-width) solid CanvasText;
+        }
+
+        @media print {
+          print-color-adjust: exact;
+        }
+
+        & > img {
+          block-size: 100%;
+          inline-size: 100%;
+          object-fit: cover;
+        }
+
+        & > button {
+          background-color: oklch(from var(--ui-critical) l c h / 75%);
+          border: 0;
+          cursor: pointer;
+          inset: 0;
+          outline-offset: var(--ui-focus-ring-inset);
+          padding: 0;
+          position: absolute;
+          visibility: hidden;
+
+          &::before {
+            background-color: var(--ui-on-fill);
+            block-size: var(--ui-icon-size-large);
+            content: "";
+            inline-size: var(--ui-icon-size-large);
+            inset: 0;
+            margin: auto;
+            mask: var(--ui-icon-invalid) center / contain no-repeat;
+            position: absolute;
+          }
+
+          @media (forced-colors: active) {
+            background-color: Canvas;
+
+            &::before {
+              background-color: ButtonText;
+            }
+          }
+
+          @media print {
+            print-color-adjust: exact;
+          }
+        }
+      }
+
+      & > .ui-text {
+        display: grid;
+        gap: var(--ui-space-1);
+
+        & > p:first-child {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        /* A message the compact row opens as a popover reads inline here */
+        & > .ui-description[popover]:not(:popover-open) {
+          background: none;
+          border: 0;
+          display: block;
+          inset: auto;
+          overflow: visible;
+          padding: 0;
+          position: static;
+        }
+      }
+
+      &.ui-error > .ui-text > .ui-description {
+        color: var(--ui-critical-text);
+      }
+
+      & > .ui-end > .ui-button > svg:empty {
+        background-color: currentColor;
+        mask: var(--ui-icon-close) center / contain no-repeat;
+
+        @media (forced-colors: active) {
+          background-color: ButtonText;
+        }
+
+        @media print {
+          print-color-adjust: exact;
+        }
+      }
+    }
+  }
+
+  /* Compact: the add tile, then a scrolling row of square previews */
+  @container ui-file-upload (inline-size < 28rem) {
+    :where(.ui-file-upload) > .ui-content {
+      align-items: start;
+      grid-template-columns: auto minmax(0, 1fr);
+
+      & > .ui-field {
+        block-size: var(--_item-size);
+        inline-size: var(--_item-size);
+        margin-block: var(--ui-space-1);
+        padding: 0;
+
+        & > .ui-label > .ui-button,
+        & > .ui-description {
+          block-size: 1lh;
+          clip-path: inset(50%);
+          inline-size: 1ch;
+          min-block-size: 0;
+          overflow: hidden;
+          padding: 0;
+          position: absolute;
+          text-wrap: nowrap;
+        }
+
+        & > .ui-label > svg {
+          block-size: var(--ui-icon-size-large);
+          inline-size: var(--ui-icon-size-large);
+        }
+      }
+
+      & > .ui-list {
+        background-color: transparent;
+        border-radius: 0;
+        flex-direction: row;
+        gap: var(--ui-space-2);
+        overflow-inline: auto;
+        overscroll-behavior-inline: contain;
+        padding: var(--ui-space-1);
+      }
+
+      & > .ui-list > li {
+        background-color: transparent;
+        block-size: var(--_item-size);
+        flex: none;
+        gap: 0;
+        inline-size: var(--_item-size);
+        min-block-size: 0;
+        padding: 0;
+
+        & > .ui-start {
+          block-size: 100%;
+          border-radius: var(--ui-radius);
+          inline-size: 100%;
+
+          & > button {
+            visibility: visible;
+          }
+        }
+
+        &.ui-error > .ui-start {
+          border: var(--ui-border-width-thick) solid var(--ui-critical);
+        }
+
+        & > .ui-text {
+          flex: none;
+          inline-size: 0;
+
+          & > p:first-child,
+          & > .ui-description:not(:popover-open) {
+            block-size: 1lh;
+            clip-path: inset(50%);
+            inline-size: 1ch;
+            overflow: hidden;
+            position: absolute;
+            text-wrap: nowrap;
+          }
+
+          & > .ui-progress {
+            inline-size: auto;
+            inset-block-end: var(--ui-space-1);
+            inset-inline: var(--ui-space-1);
+            position: absolute;
+            z-index: 1;
+          }
+
+          & > .ui-description:popover-open {
+            background-color: var(--ui-surface-elevated);
+            border: var(--ui-border-width) solid var(--ui-critical);
+            border-radius: var(--ui-radius);
+            box-shadow: var(--ui-shadow-overlay);
+            font-size: var(--ui-font-size-small);
+            max-inline-size: var(--_description-max-inline-size);
+            padding-block: var(--ui-space-2);
+            padding-inline: var(--ui-space-3);
+
+            @supports (position-area: block-end) {
+              inset: auto;
+              justify-self: anchor-center;
+              margin-block: var(--ui-space-1) 0;
+              margin-inline: var(--ui-space-2);
+              position-area: block-end span-all;
+              position-try-fallbacks: flip-block;
+            }
+          }
+        }
+
+        & > .ui-end {
+          inset-block-start: var(--ui-space-1);
+          inset-inline-end: var(--ui-space-1);
+          position: absolute;
+
+          & > .ui-button {
+            --_bg-color: var(--ui-surface);
+            --_size: var(--ui-button-size-x-small);
+          }
+        }
+      }
+    }
+  }
+}

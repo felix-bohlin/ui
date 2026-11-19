@@ -16,8 +16,11 @@ const attach = <T extends HTMLElement>(ref: Ref<T> | undefined, element: T) => {
   }
 }
 
-export const useListener = <E extends Event>(
-  ref: Ref<HTMLElement> | undefined,
+export const useListener = <
+  E extends Event,
+  T extends HTMLElement = HTMLElement,
+>(
+  ref: Ref<T> | undefined,
   type: string,
   listener: ((event: E) => void) | undefined,
 ) => {
@@ -26,7 +29,7 @@ export const useListener = <E extends Event>(
     latest.current = listener
   })
   return useCallback(
-    (element: HTMLElement) => {
+    (element: T) => {
       const detach = attach(ref, element)
       const handle = (event: Event) => latest.current?.(event as E)
       element.addEventListener(type, handle)
@@ -39,9 +42,11 @@ export const useListener = <E extends Event>(
   )
 }
 
-export const useHydrated = (ref: (element: HTMLElement) => () => void) =>
+export const useHydrated = <T extends HTMLElement = HTMLElement>(
+  ref: (element: T) => () => void,
+) =>
   useCallback(
-    (element: HTMLElement) => {
+    (element: T) => {
       const cleanup = ref(element)
       element.removeAttribute("data-hydrating")
       return cleanup

@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="data:," rel="icon" />
+    <script>
+      try {
+        const theme = localStorage.getItem("reference-theme")
+        if (theme) document.documentElement.dataset.theme = theme
+      } catch {}
+    </script>
+    %sveltekit.head%
+  </head>
+  <body>
+    <div style="display: contents">%sveltekit.body%</div>
+  </body>
+</html>

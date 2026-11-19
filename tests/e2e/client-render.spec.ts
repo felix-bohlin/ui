@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test"
+import { HYDRATED_FRAMEWORK_IDS } from "../../src/utils/framework"
 import { normalize } from "../unit/normalize"
 import {
   COMPONENTS,
@@ -9,7 +10,7 @@ import {
   type Framework,
 } from "./fixtures"
 
-const CLIENT_RENDERED: Framework[] = ["react", "solid", "svelte", "vue"]
+const CLIENT_RENDERED: Framework[] = HYDRATED_FRAMEWORK_IDS
 
 for (const framework of FRAMEWORKS) {
   const client = CLIENT_RENDERED.includes(framework)

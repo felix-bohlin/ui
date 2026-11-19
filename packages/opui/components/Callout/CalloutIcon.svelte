@@ -13,7 +13,7 @@
 {#if severity && severity !== "neutral"}
   <svg
     aria-hidden="true"
-    {...classAttrs([className])}
+    {...classAttrs(className)}
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"

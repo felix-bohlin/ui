@@ -3,9 +3,9 @@ import type { ComponentProps } from "react"
 
 export type Props = Base.Props &
   (
-    | ({ as?: "div" } & ComponentProps<"div">)
-    | ({ as: "button" } & ComponentProps<"button">)
-    | ({ as?: "a" } & ComponentProps<"a">)
+    | ({ as?: "div"; href?: never } & ComponentProps<"div">)
+    | ({ as: "button" } & ComponentProps<"button"> & Base.Named)
+    | ({ as?: "a" } & ComponentProps<"a"> & Base.Named)
   )
 
 export type AvatarGroupProps = Base.AvatarGroupProps & ComponentProps<"div">

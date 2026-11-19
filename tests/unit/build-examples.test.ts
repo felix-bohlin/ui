@@ -25,6 +25,7 @@ import {
   TARGETS,
 } from "../../scripts/example-targets.mjs"
 import type { ComponentApi } from "../../src/component-api/types"
+import { HYDRATED_FRAMEWORK_IDS } from "../../src/utils/framework"
 
 const EXAMPLES = "../../src/component-examples/"
 
@@ -77,7 +78,7 @@ const convert = async (source: string, framework: string, name?: string) =>
   convertExample(await formatted(source, name), framework, sampleFile(name))
 
 beforeAll(async () => {
-  for (const framework of ["react", "solid", "svelte", "vue"]) {
+  for (const framework of HYDRATED_FRAMEWORK_IDS) {
     await convert(
       astro('<Button type="button">Hi</Button>', "Button"),
       framework,
@@ -602,7 +603,7 @@ describe("reading the frontmatter", () => {
       "",
       '// The title\nconst title: string = "Hi" // trailing\nconst sizes = ["a", "b"] as const\n',
     )
-    for (const framework of ["react", "solid", "svelte", "vue"]) {
+    for (const framework of HYDRATED_FRAMEWORK_IDS) {
       const code = await convert(source, framework)
       expect(code, framework).toContain("// The title")
       expect(code, framework).toContain(
@@ -618,7 +619,7 @@ describe("reading the frontmatter", () => {
       "Rating",
       "const starLabel = (value: number) => `${value} stars`\n",
     )
-    for (const framework of ["react", "solid", "svelte", "vue"]) {
+    for (const framework of HYDRATED_FRAMEWORK_IDS) {
       expect(await convert(source, framework), framework).toContain(
         "const starLabel = (value: number) => `${value} stars`",
       )
@@ -810,7 +811,7 @@ describe("the source layout", () => {
     const lines = astro(
       `<div style="\n    ${declarations.replaceAll("; ", ";\n    ")};\n  "></div>`,
     )
-    for (const framework of ["react", "solid", "svelte", "vue"]) {
+    for (const framework of HYDRATED_FRAMEWORK_IDS) {
       expect(await convert(lines, framework)).toBe(
         await convert(oneLine, framework),
       )
@@ -871,6 +872,21 @@ describe("HTML", () => {
       imports('<dialog class="ui-drawer" data-close-on-navigate></dialog>'),
     ).toEqual(['import "opui-css/elements/close-on-navigate.js"'])
     expect(imports('<dialog class="ui-drawer"></dialog>')).toEqual([])
+    expect(
+      imports(
+        '<menu class="ui-menu" popover><li><a href="/help/">Help</a></li></menu>',
+      ),
+    ).toEqual(['import "opui-css/elements/menu.js"'])
+    expect(
+      imports(
+        '<menu class="ui-menu" popover><li><button form="a" type="submit">Delete</button></li></menu>',
+      ),
+    ).toEqual(['import "opui-css/elements/menu.js"'])
+    expect(
+      imports(
+        '<menu class="ui-menu" popover><li><button type="button">Edit</button></li><li><a data-keep-open href="/help/">Help</a></li></menu><ul class="ui-list"><li><a href="/help/">Help</a></li></ul>',
+      ),
+    ).toEqual([])
   })
 
   test("matches elements and attributes, not text", () => {
@@ -928,10 +944,13 @@ test("VUE_MODEL_VALUE lists the components whose Vue file holds the value in a m
     .filter(
       (api) =>
         api.model?.prop === "value" &&
-        globSync(`packages/opui/components/*/${api.component}.vue`).some(
-          (file) =>
-            /^const model = defineModel/m.test(readFileSync(file, "utf8")),
-        ),
+        globSync(`packages/opui/components/*/${api.component}.vue`)
+          .map((file) => readFileSync(file, "utf8"))
+          .some(
+            (source) =>
+              /^const model = defineModel/m.test(source) &&
+              !source.includes('v-model="model"'),
+          ),
     )
     .map((api) => api.component)
     .toSorted()
@@ -1132,7 +1151,7 @@ describe("an example's structure", () => {
   ])("rejects a script with %s in every target", async (_, script, reason) => {
     const source = astro(`<p>Hi</p>\n${script}`)
     await expect(readExample(source, sampleFile())).rejects.toThrow(reason)
-    for (const framework of ["react", "solid", "svelte", "vue"]) {
+    for (const framework of HYDRATED_FRAMEWORK_IDS) {
       await expect(
         convertExample(source, framework, sampleFile()),
       ).rejects.toThrow(reason)
@@ -1153,7 +1172,7 @@ describe("an example's structure", () => {
     const source = astro(`<p>Hi</p>\n${style}`)
     const reason = "a <style> that isn't exactly <style is:global>"
     await expect(readExample(source, sampleFile())).rejects.toThrow(reason)
-    for (const framework of ["react", "solid", "svelte", "vue"]) {
+    for (const framework of HYDRATED_FRAMEWORK_IDS) {
       await expect(
         convertExample(source, framework, sampleFile()),
       ).rejects.toThrow(reason)

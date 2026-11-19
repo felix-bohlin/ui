@@ -4,24 +4,14 @@ import { Avatar, AvatarGroup, Badge } from "opui-css/vue"
 
 <template>
   <AvatarGroup aria-label="Band">
-    <Avatar aria-label="Ada Bridge" role="img">AB</Avatar>
-    <Avatar aria-label="Holly Humbucker" role="img">HH</Avatar>
-    <Avatar as="button"
-      ><span aria-label="Ines Hertz" role="img">IH</span></Avatar
-    >
-    <Avatar as="button"
-      ><span aria-label="Lou Headstock" role="img">LH</span></Avatar
-    >
-    <Avatar href="#"
-      ><span aria-label="Percy Groove" role="img">PG</span></Avatar
-    >
-    <Avatar href="#"
-      ><span aria-label="Rory Rootnote" role="img">RR</span></Avatar
-    >
+    <Avatar label="Ada Bridge">AB</Avatar>
+    <Avatar label="Holly Humbucker">HH</Avatar>
+    <Avatar as="button" label="Ines Hertz">IH</Avatar>
+    <Avatar as="button" label="Lou Headstock">LH</Avatar>
+    <Avatar href="#" label="Percy Groove">PG</Avatar>
+    <Avatar href="#" label="Rory Rootnote">RR</Avatar>
     <Badge dot label="Online">
-      <Avatar href="#"
-        ><span aria-label="Stella Nut, online" role="img">SN</span></Avatar
-      >
+      <Avatar href="#" label="Stella Nut, online">SN</Avatar>
     </Badge>
   </AvatarGroup>
 </template>

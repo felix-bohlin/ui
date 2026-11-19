@@ -76,13 +76,13 @@ export default function ListItem(props: Props) {
           </>
         }
       >
-        {(tag) => (
+        {(shownTag) => (
           <Tag
             class={cx([hasControl() && `ui-${props.choice}`])}
             for={tagFor()}
             {...(hasControl()
               ? {}
-              : tagAttrs(tag(), props.disabled, props.href))}
+              : tagAttrs(shownTag(), props.disabled, props.href))}
             {...defined(restOnItem() ? {} : (rest as object))}
           >
             {resolvedStart() && <div class="ui-start">{resolvedStart()}</div>}

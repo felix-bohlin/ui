@@ -3,8 +3,8 @@ import { slotProp } from "../src/component-api/frameworks.ts"
 import {
   componentImport,
   contextImports,
-  eventRoots,
   groupWarning,
+  hydratingRoots,
   propsImport,
   rewriteExpression,
   rewriteStatement,
@@ -26,8 +26,10 @@ import {
   elementsIn,
   filtersSpread,
   identifierCounts,
+  itemBinding,
   identifiersIn,
   isIdentifierName,
+  onlyClass,
   slotsUsedIn,
   sourceFileOf,
   unsupported,
@@ -64,6 +66,12 @@ const parameterNames = (text) => {
   return names
 }
 
+const CONDITION_OPERATORS = [
+  ts.SyntaxKind.AmpersandAmpersandToken,
+  ts.SyntaxKind.BarBarToken,
+  ts.SyntaxKind.QuestionQuestionToken,
+]
+
 const isCondition = (code) => {
   const [statement] = sourceFileOf(`(${code})`, "condition.ts").statements
   let expression =
@@ -82,8 +90,7 @@ const isCondition = (code) => {
     !!expression &&
     (ts.isConditionalExpression(expression) ||
       (ts.isBinaryExpression(expression) &&
-        expression.operatorToken.kind ===
-          ts.SyntaxKind.AmpersandAmpersandToken))
+        CONDITION_OPERATORS.includes(expression.operatorToken.kind)))
   )
 }
 
@@ -143,25 +150,6 @@ const shortName = (attribute) =>
 const SPREAD_OF_PROPS =
   /\{\s*\.\.\.rest,(\s*([A-Za-z_$][\w$]*): props\.\2,?)+\s*\}/g
 
-const onlyClass = (code) => {
-  const [statement] = sourceFileOf(`(${code})`, "class.ts").statements
-  const list =
-    statement && ts.isExpressionStatement(statement)
-      ? unwrap(statement.expression)
-      : undefined
-  if (!list || !ts.isArrayLiteralExpression(list)) return undefined
-  const [entry] = list.elements
-  if (list.elements.length !== 1) return undefined
-  const value = unwrap(entry)
-  return ts.isObjectLiteralExpression(value) ||
-    ts.isArrayLiteralExpression(value) ||
-    ts.isSpreadElement(value) ||
-    (ts.isBinaryExpression(value) &&
-      value.operatorToken.kind === ts.SyntaxKind.AmpersandAmpersandToken)
-    ? undefined
-    : entry.getText()
-}
-
 export const toSolid = (component) => {
   const {
     components,
@@ -184,7 +172,7 @@ export const toSolid = (component) => {
     warnings,
   } = component
   if (model?.refusal) throw model.refusal
-  eventRoots(component)
+  const hydrating = hydratingRoots(component)
   const kind = MODEL_KINDS[model?.kind]?.solid
   if (model?.kind && !kind) {
     throw unsupported(
@@ -316,6 +304,7 @@ export const toSolid = (component) => {
   ]
   let usesChildren = false
   let usesFor = false
+  let usesOmit = false
   let usesShow = false
   let usesCx = false
   let usesDefined = false
@@ -327,6 +316,7 @@ export const toSolid = (component) => {
       ...(kind?.omits?.(model) ?? []),
       ...(kind?.ownDefault?.(model) ? ["defaultValue"] : []),
       ...(item ? ["defaultChecked", "onChange", "ref"] : []),
+      ...(hydrating.size ? ["ref"] : []),
     ]
       .filter((key, index, keys) => keys.indexOf(key) === index)
       .toSorted(byName),
@@ -392,19 +382,25 @@ export const toSolid = (component) => {
       : []),
   ]
   const hoistedNames = new Set()
-  const declare = (scope, bases, code, line) => {
-    const known = scope.hoisted.find((entry) => entry.code === code)
-    if (known) return known.name
+  const freeName = (scope, bases, used = []) => {
     const names = scope.names ?? hoistedNames
     const free = (name) =>
       !isReserved(name) &&
       !taken.has(name) &&
       !names.has(name) &&
+      !used.includes(name) &&
       !scope.shadowed?.includes(name)
     let name = bases.find(free)
     for (let count = 2; !name; count += 1) {
       if (free(`${bases[0]}${count}`)) name = `${bases[0]}${count}`
     }
+    return name
+  }
+  const declare = (scope, bases, code, line) => {
+    const known = scope.hoisted.find((entry) => entry.code === code)
+    if (known) return known.name
+    const name = freeName(scope, bases)
+    const names = scope.names ?? hoistedNames
     names.add(name)
     scope.hoisted.push({ code, line: line(name), name })
     return name
@@ -415,19 +411,20 @@ export const toSolid = (component) => {
       [
         shortName(entry.name),
         `${node.tag[0].toLowerCase()}${node.tag.slice(1)}${capitalize(shortName(entry.name))}`,
+        ...(scope.loop ? [`item${capitalize(shortName(entry.name))}`] : []),
       ],
       code,
       (name) => `const ${name} = () => ${code}`,
     )
-  let usesInitial = false
-  const initialChecked = (code, scope) => {
-    usesInitial = true
-    const initial = `untrack(() => ${code})`
+  let usesControl = false
+  const controlOf = (state, read, initial, scope) => {
+    usesControl = true
+    const code = `control(${JSON.stringify(state)}, ${read}, untrack(() => ${initial}))`
     return declare(
       scope,
-      ["initialChecked"],
-      initial,
-      (name) => `const ${name} = ${initial}`,
+      [scope.loop ? `item${capitalize(state)}Control` : `${state}Control`],
+      code,
+      (name) => `const ${name} = ${code}`,
     )
   }
   const attribute = (node, entry, scope) => {
@@ -467,6 +464,10 @@ export const toSolid = (component) => {
     if (entry.kind === "static") return jsxAttribute(entry.name, entry.value)
     if (entry.kind === "boolean") return entry.name
     const code = rewrite(entry.code, scope)
+    if (node.tag === "option" && entry.name === "selected") {
+      const selected = controlOf("selected", "undefined", code, scope)
+      return `{...${selected}.server} ref={${selected}.ref}`
+    }
     if (
       (node.component || node.variable) &&
       isCondition(code) &&
@@ -511,16 +512,58 @@ export const toSolid = (component) => {
     const fallback = node.alternate
       ? ` fallback={${branch(node.alternate, scope)}}`
       : ""
-    return `<Show when={${rewrite(node.test, scope)}}${fallback}>{(${accessor}) => (${branch(node.consequent, scope)})}</Show>`
+    const shown = freeName(scope, [`shown${capitalize(accessor)}`])
+    const inner = {
+      ...scope,
+      rename: new Map([...scope.rename, [name, `${shown}()`]]),
+      shadowed: [...(scope.shadowed ?? []), shown],
+    }
+    return `<Show when={${rewrite(node.test, scope)}}${fallback}>{(${shown}) => (${branch(node.consequent, inner)})}</Show>`
   }
   const each = (node, scope) => {
-    const shadowed = [
+    const declared = [
       ...parameterNames(node.item),
-      ...parameterNames(node.index),
+      ...(node.index ? parameterNames(node.index) : []),
       ...node.consts.map(({ name }) => name),
     ]
+    const binding = itemBinding(node.item)
+    const keyed =
+      !node.key || node.key.by === "index"
+        ? "false"
+        : `(${node.item}) => ${node.key.code}`
+    const narrows = node.key
+      ? undefined
+      : freeName(scope, ["row", "content", "rendered"], declared)
+    if (!narrows && !binding) {
+      throw unsupported(
+        component.file,
+        `the loop item \`${node.item}\`, which Solid reads through an accessor`,
+        "take the item as one name, or as an object pattern of plain names",
+      )
+    }
+    const row = narrows
+      ? freeName(scope, ["item", "entry"], [...declared, narrows])
+      : (binding.name ?? freeName(scope, ["item", "entry", "row"], declared))
+    const shadowed = [...declared, row, ...(narrows ? [narrows] : [])]
     const inner = new Map(scope.rename)
     shadowed.forEach((name) => inner.delete(name))
+    if (!narrows) {
+      inner.set(binding.name ?? row, `${row}()`)
+      binding.fields.forEach(({ key, local }) =>
+        inner.set(local, `${row}().${key}`),
+      )
+      if (binding.rest) {
+        usesOmit = true
+        inner.set(binding.rest, `${binding.rest}()`)
+      }
+    }
+    const rowConsts = narrows
+      ? [`const ${node.item} = ${row}()`]
+      : binding.rest
+        ? [
+            `const ${binding.rest} = () => omit(${[`${row}()`, ...binding.fields.map(({ key }) => JSON.stringify(key))].join(", ")})`,
+          ]
+        : []
     const loopTags = new Set(
       elementsIn(node.children)
         .filter((element) => element.variable)
@@ -531,7 +574,9 @@ export const toSolid = (component) => {
       ...node.consts.map(({ code }) => code),
       ...codesOf(node.children),
     ].some((code) => identifiersIn(code).has(node.index))
-    if (usesIndex) inner.set(node.index, `${node.index}()`)
+    if (usesIndex && keyed !== "false") {
+      inner.set(node.index, `${node.index}()`)
+    }
     const slotReads = [
       ...slotsIn(node.children),
       ...[...node.consts.map(({ code }) => code), ...codesOf(node.children)]
@@ -550,7 +595,7 @@ export const toSolid = (component) => {
       ]),
       loop: true,
       loopTags: new Map(scope.loopTags),
-      names: new Set(scope.names),
+      names: new Set(scope.names ?? hoistedNames),
       rename: inner,
       shadowed: [...(scope.shadowed ?? []), ...shadowed],
     }
@@ -571,10 +616,16 @@ export const toSolid = (component) => {
     })
     return {
       get consts() {
-        return [...consts, ...eachScope.hoisted.map(({ line }) => line)]
+        return [
+          ...rowConsts,
+          ...consts,
+          ...eachScope.hoisted.map(({ line }) => line),
+        ]
       },
+      keyed,
       list: rewrite(node.list, scope),
-      parameters: `${node.item}${usesIndex ? `, ${node.index}` : ""}`,
+      narrows,
+      parameters: `${row}${usesIndex ? `, ${node.index}` : ""}`,
       scope: eachScope,
     }
   }
@@ -589,27 +640,44 @@ export const toSolid = (component) => {
       const checks = (entry) =>
         entry.kind === "expression" && entry.name === "checked"
       const loopTag = node.variable && scope.loopTags?.get(node.tag)
+      const checked = node.item && node.attributes.find(checks)
+      const itemControl =
+        checked &&
+        controlOf(
+          "checked",
+          `() => ${rewrite(checked.code, scope)}`,
+          `${rewrite(checked.code, scope)} ?? props.defaultChecked`,
+          scope,
+        )
+      const guard = hydrating.has(node)
+        ? [
+            `{...hydrating(${hydrating.get(node) ? `${rewrite(hydrating.get(node), scope)}.includes("-")` : ""})}`,
+            "ref={[props.ref, hydrated]}",
+          ]
+        : []
       return [
         ...(loopTag ? [`component={${loopTag}}`] : []),
         ...node.attributes.flatMap((entry, index) => [
-          ...(index === restAt ? modelAttributes : []),
+          ...(index === restAt ? [...modelAttributes, ...guard] : []),
           ...(node.groupRadio !== undefined && checks(entry)
             ? kind.radioAttributes(
                 model,
                 rewrite(node.groupRadio, scope),
-                rewrite(entry.code, scope),
-                initialChecked(rewrite(entry.code, scope), scope),
+                controlOf(
+                  "checked",
+                  `() => ${kind.radioChecked(model, rewrite(entry.code, scope))}`,
+                  rewrite(entry.code, scope),
+                  scope,
+                ),
               )
             : node.item && checks(entry)
-              ? [
-                  `{...checkedProps(${rewrite(entry.code, scope)}, ${initialChecked(`${rewrite(entry.code, scope)} ?? props.defaultChecked`, scope)})}`,
-                ]
+              ? [`{...${itemControl}.server}`]
               : [attribute(node, entry, scope)]),
         ]),
-        ...(restAt === -1 ? modelAttributes : []),
+        ...(restAt === -1 ? [...modelAttributes, ...guard] : []),
         ...(node.item
           ? [
-              `ref={[props.ref, seedChecked((input) => ${item.parent}?.change?.(input))]}`,
+              `ref={[\n  props.ref,\n  ${itemControl ? `${itemControl}.ref,\n  ` : ""}seedChecked((input) => ${item.parent}?.change?.(input)),\n]}`,
               `onChange={(event) => {\n  ${item.parent}?.change?.(event.currentTarget)\n  callHandler(props.onChange, event)\n}}`,
             ]
           : []),
@@ -624,9 +692,9 @@ export const toSolid = (component) => {
       }
       return staticTags.get(node.tag) ?? node.tag
     },
-    loop: ({ list, parameters, returned }) => {
+    loop: ({ keyed, list, parameters, returned }) => {
       usesFor = true
-      return `<For each={${list}}>{(${parameters}) => ${returned}}</For>`
+      return `<For each={${list}}${keyed ? ` keyed={${keyed}}` : ""}>{(${parameters}) => ${returned}}</For>`
     },
     narrow,
     rewrite,
@@ -735,13 +803,15 @@ export const toSolid = (component) => {
     ...(usesShow ? ["Show"] : []),
     ...(resolvedSlots.length || usesChildren ? ["children"] : []),
     ...(kind?.solidValues?.(model) ?? []),
-    ...(rest ? ["omit"] : []),
+    ...(rest || usesOmit ? ["omit"] : []),
     ...(uid ? ["createUniqueId"] : []),
-    ...(warnings.length > 0 || item || usesInitial ? ["untrack"] : []),
+    ...(warnings.length > 0 || item || usesControl ? ["untrack"] : []),
   ].toSorted(byName)
   const solidHelpers = [
     ...(kind?.solidHelpers?.(model) ?? []),
-    ...(item ? ["callHandler", "checkedProps", "seedChecked"] : []),
+    ...(usesControl ? ["control"] : []),
+    ...(item ? ["callHandler", "seedChecked"] : []),
+    ...(hydrating.size ? ["hydrated", "hydrating"] : []),
   ].toSorted(byName)
   const webValues = [
     ...(tagProps.length > 0 || tagConsts.length > 0 ? ["dynamic"] : []),

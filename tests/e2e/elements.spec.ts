@@ -154,13 +154,13 @@ type Scenario = {
 const ELEMENTS: Scenario[] = [
   {
     file: "callout.js",
-    markup: `<opui-callout id="note" class="ui-callout" role="article">
+    markup: `<opui-callout id="note" class="ui-callout">
       <div class="ui-content"><p>Backups run nightly.</p></div>
       <button class="ui-button" type="button" aria-label="Close" command="--dismiss" commandfor="note">x</button>
     </opui-callout>
     <button type="button">Next</button>`,
     ready: async (page) => {
-      await expect(page.getByRole("article")).toBeVisible()
+      await expect(page.locator("opui-callout")).toBeVisible()
     },
     selector: "opui-callout",
     title: "hides the callout with its close button",
@@ -265,6 +265,62 @@ const ELEMENTS: Scenario[] = [
     },
   },
   {
+    file: "file-upload.js",
+    markup: `<opui-file-upload class="ui-file-upload">
+      <div class="ui-content">
+        <div class="ui-field">
+          <label class="ui-label">
+            <input accept=".png" class="ui-sr-only" id="photos" multiple type="file" />
+            <span class="ui-button">Choose photos</span>
+          </label>
+        </div>
+        <ul class="ui-list">
+          <li>
+            <div class="ui-text"><p>lou.png</p></div>
+            <div class="ui-end"><button class="ui-button" type="button" aria-label="Remove lou.png" command="--remove" commandfor="photos" value="lou">x</button></div>
+          </li>
+        </ul>
+      </div>
+      <span class="ui-sr-only" role="status"></span>
+    </opui-file-upload>`,
+    ready: async (page) => {
+      await expect(page.getByLabel("Choose photos")).toHaveValue("")
+    },
+    selector: "opui-file-upload",
+    title: "fires select for the accepted files of a pick and remove for a row",
+    works: async (page) => {
+      const heard = (type: string) =>
+        page.evaluate(
+          (type) =>
+            new Promise<string[]>((resolve) => {
+              document.querySelector("opui-file-upload")!.addEventListener(
+                type,
+                (event) => {
+                  const { files, value } = (
+                    event as CustomEvent<{ files?: File[]; value?: string }>
+                  ).detail
+                  resolve(files?.map((file) => file.name) ?? [value ?? ""])
+                },
+                { once: true },
+              )
+            }),
+          type,
+        )
+      const input = page.getByLabel("Choose photos")
+      const selected = heard("select")
+      await input.setInputFiles([
+        { buffer: Buffer.from("text"), mimeType: "text/plain", name: "a.txt" },
+        { buffer: Buffer.from("png"), mimeType: "image/png", name: "b.png" },
+        { buffer: Buffer.from("png"), mimeType: "image/png", name: "c.png" },
+      ])
+      expect(await selected).toEqual(["b.png", "c.png"])
+      await expect(input).toHaveValue("")
+      const removed = heard("remove")
+      await page.getByRole("button", { name: "Remove lou.png" }).click()
+      expect(await removed).toEqual(["lou"])
+    },
+  },
+  {
     busy: async (page) => {
       await page.getByRole("button", { name: "Decrease" }).hover()
       await page.mouse.down()
@@ -319,6 +375,61 @@ const ELEMENTS: Scenario[] = [
         element.removeAttribute("aria-disabled")
       })
       await expect(decrease).not.toHaveAttribute("aria-disabled")
+    },
+  },
+  {
+    file: "reactions.js",
+    markup: `<opui-reactions class="ui-reactions" quick-label="Thumbs up" quick-text="Up" quick-value="+1">
+      <div class="ui-toggle-group" role="group" aria-label="Reactions">
+        <label class="ui-toggle-button ui-unused"><input type="checkbox" name="reaction" value="+1" aria-label="Thumbs up" /><span aria-hidden="true">Up</span></label>
+      </div>
+      <span class="ui-sr-only" role="status"></span>
+    </opui-reactions>`,
+    ready: async (page) => {
+      await expect(page.getByRole("checkbox")).not.toBeChecked()
+    },
+    selector: "opui-reactions",
+    title:
+      "asks for a reaction, leaves the pill as it is and applies the reply",
+    works: async (page) => {
+      const pill = page.locator(".ui-toggle-button")
+      const quick = page.getByRole("checkbox")
+      await page.evaluate(() => {
+        document.querySelector("opui-reactions")!.addEventListener(
+          "reaction",
+          (event) => {
+            Object.assign(window, { asked: (event as CustomEvent).detail })
+          },
+          { once: true },
+        )
+      })
+      await pill.click()
+      await expect(quick).not.toBeChecked()
+      expect(
+        await page.evaluate(
+          () => (window as unknown as { asked: unknown }).asked,
+        ),
+      ).toEqual({ checked: true, value: "+1" })
+      await page.evaluate(() => {
+        document.querySelector("opui-reactions")!.set("+1", {
+          checked: true,
+          label: "Thumbs up, 1",
+          text: "Up 1",
+        })
+      })
+      await expect(quick).toBeChecked()
+      await expect(pill).toHaveText("Up 1")
+      await expect(pill).not.toHaveClass(/ui-unused/)
+      await page.evaluate(() => {
+        const element = document.querySelector("opui-reactions")!
+        element.delete("+1")
+        element.announce("Thumbs up removed")
+      })
+      await expect(quick).not.toBeChecked()
+      await expect(quick).toHaveAccessibleName("Thumbs up")
+      await expect(pill).toHaveText("Up")
+      await expect(pill).toHaveClass(/ui-unused/)
+      await expect(page.getByRole("status")).toHaveText("Thumbs up removed")
     },
   },
   {

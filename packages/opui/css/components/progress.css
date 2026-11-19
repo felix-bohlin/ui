@@ -1,14 +1,15 @@
 @layer components.root {
-  :where(.ui-progress) {
+  :where(.ui-progress, meter.ui-meter) {
     --_motion: var(--ui-motion);
     --_accent: var(--ui-selected-strong);
     --_bg-color: var(--ui-track-bg-color, var(--ui-surface-tonal));
+    --_block-size: var(--ui-space-1);
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease-enter);
     --_loop-duration: 2s;
 
     background-color: var(--_bg-color);
-    block-size: var(--ui-space-1);
+    block-size: var(--_block-size);
     border-radius: var(--ui-radius);
     display: inline-block;
     inline-size: 100%;
@@ -53,6 +54,16 @@
       &::-moz-progress-bar {
         background-color: var(--_accent);
       }
+
+      @media (forced-colors: active) {
+        &[value]::-webkit-progress-value {
+          background-color: SelectedItem;
+        }
+
+        &::-moz-progress-bar {
+          background-color: SelectedItem;
+        }
+      }
     }
   }
 
@@ -64,6 +75,10 @@
       content: "";
       inset-block: 0;
       position: absolute;
+
+      @media (forced-colors: active) {
+        background-color: SelectedItem;
+      }
     }
 
     @container style(--_motion: 0) {

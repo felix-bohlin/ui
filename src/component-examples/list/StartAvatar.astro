@@ -4,16 +4,9 @@ import { Avatar, List, ListItem } from "opui-css/astro"
 
 <List>
   <ListItem label="Ines Hertz">
-    <Avatar aria-hidden="true" slot="start">IH</Avatar>
+    <Avatar slot="start">IH</Avatar>
   </ListItem>
   <ListItem description="Fretless enthusiast" label="Lou Headstock">
-    <Avatar slot="start">
-      <img
-        src="/photos/lou-headstock.png"
-        alt=""
-        decoding="async"
-        loading="lazy"
-      />
-    </Avatar>
+    <Avatar slot="start" src="/photos/lou-headstock.png" />
   </ListItem>
 </List>

@@ -1,5 +1,6 @@
 "use client"
 
+import type { HTMLAttributes } from "react"
 import { cx } from "../cx"
 import { useFieldsetContext } from "../Fieldset/context.react"
 import { warnReplacedId } from "../dev"
@@ -20,7 +21,7 @@ export default function FieldLegend({
   return (
     <Tag
       className={cx([{ "ui-legend": !isLegend }, className])}
-      {...(rest as object)}
+      {...(rest as HTMLAttributes<HTMLElement>)}
       id={fieldset?.legendId ?? id}
     >
       {children}

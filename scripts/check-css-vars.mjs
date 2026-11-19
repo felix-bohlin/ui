@@ -30,6 +30,7 @@ const BASES = {
   "checkbox.css": ["choice.css"],
   "control-group.css": ["button.css"],
   "dialog.css": ["card.css"],
+  "meter.css": ["progress.css"],
   "number-field.css": ["text-field.css"],
   "one-time-code.css": ["text-field.css"],
   "radio.css": ["choice.css"],

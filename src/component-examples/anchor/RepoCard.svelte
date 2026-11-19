@@ -25,11 +25,7 @@
       <Card class="repo-card" variant="elevated">
         <CardContent>
           <div class="repo-card-identity">
-            <Avatar
-              alt=""
-              shape="rounded"
-              src="https://github.com/felix-bohlin.png"
-            />
+            <Avatar shape="rounded" src="https://github.com/felix-bohlin.png" />
             <div>
               <strong>felix-bohlin/ui</strong>
               <span class="ui-caption">Public repository</span>

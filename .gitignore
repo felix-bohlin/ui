@@ -52,5 +52,19 @@ tests/apps/*/public/photos/
 tests/apps/*/static/photos/
 tests/apps/*/tsconfig.tsbuildinfo
 
+# reference app tests (tests/reference/prepare.ts)
+tests/reference/.tarball/
+tests/reference/apps/*/.astro/
+tests/reference/apps/next/AGENTS.md
+tests/reference/apps/*/.next/
+tests/reference/apps/*/.nuxt/
+tests/reference/apps/*/.output/
+tests/reference/apps/*/.svelte-kit/
+tests/reference/apps/*/build/
+tests/reference/apps/*/next-env.d.ts
+tests/reference/apps/*/public/photos/
+tests/reference/apps/*/static/photos/
+tests/reference/apps/*/tsconfig.tsbuildinfo
+
 # Claude Code agent worktrees
 .claude/worktrees/

@@ -1,12 +1,14 @@
-import { createApp } from "vue"
-import { mountExamples } from "./mount-examples"
+import { createApp, createSSRApp } from "vue"
+import { hydratable, idPrefixOf, mountExamples } from "./mount-examples"
 
 const loaders = import.meta.glob<{
   default: Parameters<typeof createApp>[0]
 }>("../../component-examples/*/*.vue")
 
 mountExamples("vue", ".vue", loaders, (el, mod, id) => {
-  const app = createApp(mod.default)
-  app.config.idPrefix = id.replace(/[^\w-]/g, "-")
+  const app = hydratable(el)
+    ? createSSRApp(mod.default)
+    : createApp(mod.default)
+  app.config.idPrefix = idPrefixOf(id)
   app.mount(el)
 })

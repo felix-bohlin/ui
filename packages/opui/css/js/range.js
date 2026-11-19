@@ -98,6 +98,13 @@ if (typeof document !== "undefined") {
   })
   new MutationObserver((records) => {
     for (const record of records) {
+      if (
+        record.type === "attributes" &&
+        isRange(record.target) &&
+        !record.target.hasAttribute("aria-valuetext")
+      ) {
+        update(record.target)
+      }
       for (const node of record.addedNodes) {
         if (!(node instanceof Element)) continue
         if (isRange(node)) update(node)
@@ -106,7 +113,12 @@ if (typeof document !== "undefined") {
         }
       }
     }
-  }).observe(document, { childList: true, subtree: true })
+  }).observe(document, {
+    attributeFilter: ["aria-valuetext"],
+    attributes: true,
+    childList: true,
+    subtree: true,
+  })
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", sync, { once: true })
   } else {

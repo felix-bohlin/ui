@@ -8,6 +8,13 @@
       max-block-size: var(--_max-block-size);
       min-block-size: calc(var(--_field-padding-block-fit) * 2 + 3lh);
       resize: block;
+
+      @supports (min-block-size: calc(attr(rows type(<number>), 3) * 1lh)) {
+        min-block-size: calc(
+          var(--_field-padding-block-fit) * 2 + attr(rows type(<number>), 3) *
+            1lh
+        );
+      }
     }
 
     /* Auto-fit */

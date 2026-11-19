@@ -470,6 +470,13 @@
     "url": "/html/components/carousel/#images"
   },
   {
+    "id": "component-carousel-html-whole-photos",
+    "title": "Whole photos",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/html/components/carousel/#whole-photos"
+  },
+  {
     "id": "component-carousel-html-gallery",
     "title": "Gallery",
     "page": "Carousel",
@@ -1101,6 +1108,70 @@
     "url": "/html/components/drawer/#keyboard-support"
   },
   {
+    "id": "component-file-upload-html",
+    "title": "File upload",
+    "description": "A drop zone around a file input that lists the files your app is uploading, with a preview, progress, a message and a remove button for each.",
+    "keywords": "attachment drop zone dropzone photos",
+    "category": "Component",
+    "url": "/html/components/file-upload/"
+  },
+  {
+    "id": "component-file-upload-html-basics",
+    "title": "Basics",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/html/components/file-upload/#basics"
+  },
+  {
+    "id": "component-file-upload-html-files",
+    "title": "Files",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/html/components/file-upload/#files"
+  },
+  {
+    "id": "component-file-upload-html-upload-as-you-pick",
+    "title": "Upload as you pick",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/html/components/file-upload/#upload-as-you-pick"
+  },
+  {
+    "id": "component-file-upload-html-errors",
+    "title": "Errors",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/html/components/file-upload/#errors"
+  },
+  {
+    "id": "component-file-upload-html-disabled",
+    "title": "Disabled",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/html/components/file-upload/#disabled"
+  },
+  {
+    "id": "component-file-upload-html-compact",
+    "title": "Compact",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/html/components/file-upload/#compact"
+  },
+  {
+    "id": "component-file-upload-html-labels",
+    "title": "Labels",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/html/components/file-upload/#labels"
+  },
+  {
+    "id": "component-file-upload-html-keyboard-support",
+    "title": "Keyboard support",
+    "page": "File upload",
+    "category": "Component",
+    "url": "/html/components/file-upload/#keyboard-support"
+  },
+  {
     "id": "component-form-html",
     "title": "Form",
     "description": "Classes that space and group form fields, with fieldsets and field groups.",
@@ -1518,6 +1589,13 @@
     "url": "/html/components/menu/#dense"
   },
   {
+    "id": "component-menu-html-horizontal",
+    "title": "Horizontal",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/html/components/menu/#horizontal"
+  },
+  {
     "id": "component-menu-html-custom",
     "title": "Custom items",
     "page": "Menu",
@@ -1539,11 +1617,25 @@
     "url": "/html/components/menu/#current-item"
   },
   {
+    "id": "component-menu-html-pressed-items",
+    "title": "Pressed items",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/html/components/menu/#pressed-items"
+  },
+  {
     "id": "component-menu-html-custom-check",
     "title": "Custom check",
     "page": "Menu",
     "category": "Component",
     "url": "/html/components/menu/#custom-check"
+  },
+  {
+    "id": "component-menu-html-long-menus",
+    "title": "Long menus",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/html/components/menu/#long-menus"
   },
   {
     "id": "component-menu-html-placement",
@@ -1631,11 +1723,82 @@
     "url": "/html/components/message/#reactions"
   },
   {
+    "id": "component-message-html-quick-reaction",
+    "title": "Quick reaction",
+    "page": "Message",
+    "category": "Component",
+    "url": "/html/components/message/#quick-reaction"
+  },
+  {
+    "id": "component-message-html-saving-reactions",
+    "title": "Saving reactions",
+    "page": "Message",
+    "category": "Component",
+    "url": "/html/components/message/#saving-reactions"
+  },
+  {
     "id": "component-message-html-typing",
     "title": "Typing indicator",
     "page": "Message",
     "category": "Component",
     "url": "/html/components/message/#typing"
+  },
+  {
+    "id": "component-message-html-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Message",
+    "category": "Component",
+    "url": "/html/components/message/#keyboard-support"
+  },
+  {
+    "id": "component-meter-html",
+    "title": "Meter",
+    "description": "A bar on the native meter element, for a value in a known range, like disk usage or a poll option's share.",
+    "keywords": "bar gauge measurement poll usage",
+    "category": "Component",
+    "url": "/html/components/meter/"
+  },
+  {
+    "id": "component-meter-html-basics",
+    "title": "Basics",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/html/components/meter/#basics"
+  },
+  {
+    "id": "component-meter-html-variants",
+    "title": "Variants",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/html/components/meter/#variants"
+  },
+  {
+    "id": "component-meter-html-size",
+    "title": "Size",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/html/components/meter/#size"
+  },
+  {
+    "id": "component-meter-html-label",
+    "title": "Label",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/html/components/meter/#label"
+  },
+  {
+    "id": "component-meter-html-ranges",
+    "title": "Low, high and optimum",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/html/components/meter/#ranges"
+  },
+  {
+    "id": "component-meter-html-poll",
+    "title": "Poll",
+    "page": "Meter",
+    "category": "Component",
+    "url": "/html/components/meter/#poll"
   },
   {
     "id": "component-number-field-html",
@@ -1785,6 +1948,13 @@
     "page": "One-time code",
     "category": "Component",
     "url": "/html/components/one-time-code/#disabled"
+  },
+  {
+    "id": "component-one-time-code-html-another-screen",
+    "title": "Another screen",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/html/components/one-time-code/#another-screen"
   },
   {
     "id": "component-one-time-code-html-right-to-left",
@@ -2890,6 +3060,13 @@
     "page": "Textarea",
     "category": "Component",
     "url": "/html/components/textarea/#spread"
+  },
+  {
+    "id": "component-textarea-html-rows",
+    "title": "Rows",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/html/components/textarea/#rows"
   },
   {
     "id": "component-textarea-html-auto-fit",
@@ -4004,7 +4181,7 @@
     "id": "blog-release-6",
     "title": "opui 6.0",
     "description": "What changed in 6.0 and why, with live demos.",
-    "headings": "It's a proper design system now Five example themes Token tiers Contrast as a guarantee Loads of new components So much cool stuff in the docs Blocks! Theme builder The CSS is the component One Astro file, four frameworks Slots become parts, props get one naming model The platform did the work Browser support, honestly The new \"by hand\" Working with AI Where it landed Migrating",
+    "headings": "It's a proper design system now Five example themes Token tiers Contrast as a guarantee Loads of new components So much cool stuff in the docs Blocks! Theme builder The CSS is the component One Astro file, five frameworks Slots become parts, props get one naming model The platform did the work Browser support, honestly The new \"by hand\" Working with AI Where it landed Migrating",
     "category": "Blog",
     "url": "/blog/release-6/"
   },
@@ -4241,6 +4418,14 @@
     "url": "/blocks/kanban-board/"
   },
   {
+    "id": "block-lightbox",
+    "title": "Lightbox",
+    "description": "A post's photos in a dark full-screen viewer: swipe sideways between them, and down to close.",
+    "headings": "Application",
+    "category": "Blocks",
+    "url": "/blocks/lightbox/"
+  },
+  {
     "id": "block-newsletter",
     "title": "Newsletter",
     "description": "A newsletter sign-up with an email field, topic choices and a privacy note.",
@@ -4428,7 +4613,7 @@
     "id": "api-avatar-html",
     "title": "Avatar API",
     "description": "Reference for Avatar HTML component.",
-    "api": ".ui-avatar Container element. The avatar image. img .ui-rounded .ui-squared .ui-squircle Shape The shape of the avatar. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-outlined .ui-tonal Variants The variant to use. `filled` is the primary color, `outlined` the border color with no fill and `tonal` the primary tint. button[disabled] a[aria-disabled=\"true\"] State Disables a button avatar. A link avatar, which can't take `disabled`, drops its `href` and takes `role=\"link\"` and `aria-disabled=\"true\"` instead.",
+    "api": ".ui-avatar Container element. The avatar image. Its `alt` is `label`. img .ui-rounded .ui-squared .ui-squircle Shape The shape of the avatar. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-outlined .ui-tonal Variants The variant to use. `filled` is the primary color, `outlined` the border color with no fill and `tonal` the primary tint. button[disabled] a[aria-disabled=\"true\"] State Disables a button avatar. A link avatar, which can't take `disabled`, drops its `href` and takes `role=\"link\"` and `aria-disabled=\"true\"` instead.",
     "category": "API",
     "url": "/html/api/#avatar"
   },
@@ -4452,7 +4637,7 @@
     "id": "api-callout-html",
     "title": "Callout API",
     "description": "Reference for Callout HTML component.",
-    "api": ".ui-callout Container element, an `<article>`. With `closeButton`, the `<opui-callout>` custom element with `role=\"article\"`, which a button with `commandfor` and `command=\"--dismiss\"` dismisses. An optional icon before the content. In Astro, React, Solid, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. .ui-callout > svg The content, with an optional heading first. .ui-content A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. .ui-callout > .ui-button A row of buttons under the content. .ui-actions .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Severities The severity. Sets the color, and in Astro, React, Solid, Svelte and Vue the icon `CalloutIcon` renders. .ui-outlined Variants The variant to use. dismiss Fires on the callout before it hides. It bubbles, and `preventDefault()` keeps the callout. dismiss() Fires `dismiss` and, unless a listener cancels it, sets `hidden` on the callout and moves focus that was inside it to the next focusable element after it, or else the one before. Returns whether the callout hid.",
+    "api": ".ui-callout Container element, a `<div>`. With `closeButton`, the `<opui-callout>` custom element, which a button with `commandfor` and `command=\"--dismiss\"` dismisses. An optional icon before the content. In Astro, React, Solid, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. .ui-callout > svg The content, with an optional heading first. .ui-content A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. .ui-callout > .ui-button A row of buttons under the content. .ui-actions .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Severities The severity. Sets the color, and in Astro, React, Solid, Svelte and Vue the icon `CalloutIcon` renders. .ui-outlined Variants The variant to use. dismiss Fires on the callout before it hides. It bubbles, and `preventDefault()` keeps the callout. dismiss() Fires `dismiss` and, unless a listener cancels it, sets `hidden` on the callout and moves focus that was inside it to the next focusable element after it, or else the one before. Returns whether the callout hid.",
     "category": "API",
     "url": "/html/api/#callout"
   },
@@ -4484,7 +4669,7 @@
     "id": "api-carousel-html",
     "title": "Carousel API",
     "description": "Reference for Carousel HTML component.",
-    "api": "ul.ui-carousel The scroller. The previous button. `::scroll-button(block-start)` when vertical. .ui-carousel::scroll-button(inline-start) An item. .ui-carousel > :first-child The next button. `::scroll-button(block-end)` when vertical. .ui-carousel::scroll-button(inline-end) A marker, one per item. .ui-carousel > :first-child::scroll-marker .ui-align-center Alignment Where items snap. [aria-label] Label The accessible name of the carousel. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. --_media-aspect-ratio Aspect ratio Aspect ratio that images, videos and iframes are cropped to. .ui-buttons-none .ui-buttons-outside Buttons Previous and next buttons. `outside` places them beside the items, and `none` leaves them out. --_items-per-view Items per view Number of visible items. --_marker-label Marker label Accessible name of each marker, with `{number}` where the item number goes. .ui-markers Markers One marker per item, after the list. --_button-next-label Next label Accessible name of the next button. .ui-vertical Orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. .ui-peek Peek Shows part of the neighboring items. .ui-persistent-buttons Persistent buttons Keeps the buttons visible at the ends. A disabled button has a muted border. --_button-previous-label Previous label Accessible name of the previous button. .ui-stretch Stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
+    "api": "ul.ui-carousel The scroller. The previous button. `::scroll-button(block-start)` when vertical. .ui-carousel::scroll-button(inline-start) An item. .ui-carousel > :first-child The next button. `::scroll-button(block-end)` when vertical. .ui-carousel::scroll-button(inline-end) A marker, one per item. .ui-carousel > :first-child::scroll-marker .ui-align-center Alignment Where items snap. [aria-label] Label The accessible name of the carousel. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. --_media-aspect-ratio Aspect ratio Aspect ratio that images, videos and iframes are cropped to. .ui-buttons-none .ui-buttons-outside Buttons Previous and next buttons. `outside` places them beside the items, and `none` leaves them out. --_items-per-view Items per view Number of visible items. --_marker-label Marker label Accessible name of each marker, with `{number}` where the item number goes. The Astro, React, Solid and Svelte types take it only with `markers`. .ui-markers Markers One marker per item, after the list. --_button-next-label Next label Accessible name of the next button. .ui-vertical Orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. .ui-peek Peek Shows part of the neighboring items. .ui-persistent-buttons Persistent buttons Keeps the buttons visible at the ends. A disabled button has a muted border. --_button-previous-label Previous label Accessible name of the previous button. .ui-stretch Stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
     "category": "API",
     "url": "/html/api/#carousel"
   },
@@ -4633,6 +4818,14 @@
     "url": "/html/api/#fieldset"
   },
   {
+    "id": "api-file-upload-html",
+    "title": "File upload API",
+    "description": "Reference for File upload HTML component.",
+    "api": "opui-file-upload.ui-file-upload The `<opui-file-upload>` custom element, a size container. It fires `select` for picks and drops and `remove` for the remove buttons, and has the `drag-over` custom state while files are dragged over it. While it has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, it holds picked files back and remove buttons do nothing. Lays out the drop zone and the files: stacked, or in one row when the root is narrower than `28rem`. .ui-content The drop zone, dashed, and solid while files are dragged over the root. In the compact row it is a square add tile. .ui-content > .ui-field Names the file input and covers the drop zone, so a click anywhere in it opens the picker. Its plus `<svg>` shows in the compact row. .ui-field > .ui-label The file input, visually hidden. Its focus ring is drawn on the drop zone. .ui-label > input The visible trigger, a `<span>` since a label can't hold a button. Visually hidden in the compact row. .ui-label > .ui-button The hint, linked to the input with `aria-describedby`. .ui-field > .ui-description The files, one `<li>` each: List rows, or square previews that scroll sideways in the compact row. .ui-content > .ui-list The preview: the `<img>` of the file, or a tonal placeholder until there is one. On a failed file it also holds the `<button popovertarget>` that opens the message in the compact row. .ui-list > li > .ui-start The file name, a `Progress` while the file is queued or uploading, and the message in a `.ui-description`. In the compact row the name is visually hidden and the progress lies along the bottom edge. .ui-list > li > .ui-text The remove button, a round `.ui-button` with `command=\"--remove\"`, in every state. .ui-list > li > .ui-end The live region. It is always in the page, so a change of its text is announced. [role=\"status\"] [accept] Accept The file types the input takes, as on a file input: extensions, MIME types and `type/*`. The element applies it to picks as well as drops. :disabled State Disables the input and dims the trigger. A drop does nothing. .ui-error Items The files, as `{ description, label, preview, progress, state, value }` objects. `label` is the file name, `value` the id the `remove` event names, `preview` the URL of an image, `state` one of `\"done\"`, `\"error\"`, `\"queued\"` and `\"uploading\"`, `progress` a fraction from 0 to 1 while uploading, and `description` a message, which a failed file shows in the critical color. [multiple] Multiple Takes several files in one pick or drop. Without it, `select` gets the first accepted file. input The `<input type=\"file\">` inside, or `null`. Read-only. remove Fires when a remove button is pressed, with its `value` in `event.detail.value`. It bubbles. Once the row is gone, focus moves to the next row's remove button, or else the previous one, or else the input. select Fires after a pick or a drop, with the new files in `event.detail.files`: the ones the input's `accept` allows, and only the first without `multiple`. It bubbles, and the input is cleared afterwards.",
+    "category": "API",
+    "url": "/html/api/#file-upload"
+  },
+  {
     "id": "api-form-html",
     "title": "Form API",
     "description": "Reference for Form HTML component.",
@@ -4668,7 +4861,7 @@
     "id": "api-menu-html",
     "title": "Menu API",
     "description": "Reference for Menu HTML component.",
-    "api": "menu.ui-menu[popover] The menu surface, a popover anchored to its trigger. A group heading. HTML and CSS only. .ui-menu > li.ui-heading An item, holding a `<button>` or an `<a>` with `href`. Rendered from `items`, or a `ListItem` in the default slot. .ui-menu > li Optional content at the start, such as an icon. .ui-menu > li > :is(a, button) > .ui-start The label (`label` on an item). .ui-menu > li > :is(a, button) > .ui-text Optional content at the end, such as a shortcut in a `<kbd>` (`shortcut` on an item). .ui-menu > li > :is(a, button) > .ui-end Your own check on the current item, which replaces the default check. The `icon-checked` slot puts it on every item from `items`. .ui-menu > li > :is(a, button) > .ui-icon-checked .ui-align-end Alignment Which edge of the trigger the menu lines up with. --ui-anchor-position-area Anchor position area Any valid `position-area` value. Overrides the side and alignment classes. The `self-` keywords follow the menu's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. .ui-bordered Borders Adds a border between the items. .ui-dense Dense Packs the items tighter. li.ui-border-top li > button[command=\"hide-popover\"] li.ui-critical li > button[disabled], li > a[aria-disabled=\"true\"] Items The item states. `close` closes the whole menu on click, also from a submenu, and only button items take it. A disabled link has no `href`. [popover=\"manual\"] Behavior The popover type. With `manual`, Esc and a click outside don't close the menu, and opening another menu doesn't either. .ui-block-start .ui-inline-end .ui-inline-start Position The side of the trigger the menu opens on. [commandfor][command=\"toggle-popover\"] Trigger Opens the menu. `commandfor` is the menu id.",
+    "api": "menu.ui-menu[popover] The menu surface, a popover anchored to its trigger. A group heading. HTML and CSS only. .ui-menu > li.ui-heading An item, holding a `<button>` or an `<a>` with `href`. Rendered from `items`, or a `ListItem` in the default slot. .ui-menu > li Optional content at the start, such as an icon. .ui-menu > li > :is(a, button) > .ui-start The label (`label` on an item). .ui-menu > li > :is(a, button) > .ui-text Optional content at the end, such as a shortcut in a `<kbd>` (`shortcut` on an item). .ui-menu > li > :is(a, button) > .ui-end Your own check on the current item, which replaces the default check. The `icon-checked` slot puts it on every item from `items`. .ui-menu > li > :is(a, button) > .ui-icon-checked .ui-align-end Alignment Which edge of the trigger the menu lines up with. --ui-anchor-position-area Anchor position area Any valid `position-area` value. Overrides the side and alignment classes. The `self-` keywords follow the menu's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. .ui-bordered Borders Adds a border between the items. .ui-dense Dense Packs the items tighter. li.ui-border-top li > button[command=\"hide-popover\"] li.ui-critical li > button[disabled], li > a[aria-disabled=\"true\"] li > [data-keep-open] Items The item states. `close` closes the whole menu on click, also from a submenu, and only plain button items take it. A link, and a submit or reset button, closes it through `opui-css/elements/menu.js` unless it has `keepOpen`. A disabled link has no `href`. .ui-horizontal Orientation The orientation of the element. `horizontal` lays the items out in a row, for short labels such as emoji. [popover=\"manual\"] Behavior The popover type. With `manual`, Esc and a click outside don't close the menu, and opening another menu doesn't either. .ui-block-start .ui-inline-end .ui-inline-start Position The side of the trigger the menu opens on. [commandfor][command=\"toggle-popover\"] Trigger Opens the menu. `commandfor` is the menu id.",
     "category": "API",
     "url": "/html/api/#menu"
   },
@@ -4684,9 +4877,17 @@
     "id": "api-message-html",
     "title": "Message API",
     "description": "Reference for Message HTML component.",
-    "api": "li.ui-message A message. The sender's `Avatar`, from the `start` slot, shown on the last message of a run. .ui-avatar The bubble. .ui-content The sender's name. .ui-header The time, and content such as a read receipt. .ui-footer Content after the time, such as a read receipt. .ui-end Reactions in a `ToggleGroup`, drawn as separate pills over the bottom edge of the bubble. .ui-bottom [datetime] Datetime The machine-readable date and time of `time`. .ui-new-author New author Starts a new run when the author changes, for a group chat. .ui-outgoing Outgoing A message you sent. It aligns to the end in the primary color, and its author is visually hidden. .ui-typing Typing Shows animated dots instead of the content. The default slot becomes the status text for screen readers.",
+    "api": "li.ui-message A message. The sender's `Avatar`, from the `start` slot, shown on the last message of a run. It takes no `label`: `author` names the message. .ui-avatar The bubble. .ui-content The sender's name. .ui-header The time, and content such as a read receipt. .ui-footer Content after the time, such as a read receipt. .ui-end Buttons beside the bubble, such as a round `Button` that opens a horizontal `Menu` of emoji. On a device that can hover, they show while the message is hovered, holds focus or has a popover open. .ui-actions The `Reactions`, whose pills sit over the bottom edge of the bubble. .ui-bottom [datetime] Datetime The machine-readable date and time of `time`. .ui-new-author New author Starts a new run when the author changes, for a group chat. .ui-outgoing Outgoing A message you sent. It aligns to the end in the primary color, and its author is visually hidden. .ui-typing Typing Shows animated dots instead of the content. The default slot becomes the status text for screen readers.",
     "category": "API",
     "url": "/html/api/#message"
+  },
+  {
+    "id": "api-meter-html",
+    "title": "Meter API",
+    "description": "Reference for Meter HTML component.",
+    "api": "meter.ui-meter The meter. The browser draws the fill inside it. .ui-filled Variants The variant to use.",
+    "category": "API",
+    "url": "/html/api/#meter"
   },
   {
     "id": "api-number-field-html",
@@ -4700,7 +4901,7 @@
     "id": "api-one-time-code-html",
     "title": "One-time code API",
     "description": "Reference for One-time code HTML component.",
-    "api": "div.ui-one-time-code Container element. The label for the field. .ui-label Draws a box per character and a ring on the next one. .ui-field The input element, with `autocomplete=\"one-time-code\"`, which lets the browser fill in a code it received. input Supporting text displayed below the field. .ui-end-text [autocapitalize=\"characters\"] Alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. [disabled] Disabled Dims the field and blocks input. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. .ui-grouped Grouped Draws a dash between the two halves of the code. Use it with an even `length`. [maxlength] Length The number of characters and boxes, from 4 to 8. [required] Required Adds a required mark after the label. The form won't submit while the code is incomplete. .ui-large .ui-small .ui-x-small Sizes The size of the element.",
+    "api": "div.ui-one-time-code Container element. The label for the field. .ui-label Draws a box per character and a ring on the next one. .ui-field The input element, with `autocomplete=\"one-time-code\"` unless it is set to `off`, which lets the browser fill in a code it received. input Supporting text displayed below the field. .ui-end-text [autocapitalize=\"characters\"] Alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. [disabled] Disabled Dims the field and blocks input. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. .ui-grouped Grouped Draws a dash between the two halves of the code. Use it with an even `length`. [maxlength] Length The number of characters and boxes, from 4 to 8. [required] Required Adds a required mark after the label. The form won't submit while the code is incomplete. .ui-large .ui-small .ui-x-small Sizes The size of the element.",
     "category": "API",
     "url": "/html/api/#one-time-code"
   },
@@ -4745,6 +4946,14 @@
     "url": "/html/api/#rating"
   },
   {
+    "id": "api-reactions-html",
+    "title": "Reactions API",
+    "description": "Reference for Reactions HTML component.",
+    "api": "opui-reactions.ui-reactions The `<opui-reactions>` custom element, a row that wraps, and `display: contents` in the `bottom` slot of a `Message`. A click on a pill, or on a button with `command=\"--react\"`, this element in `commandfor` and the emoji as its `value`, fires a `reaction` event that bubbles, and changes nothing. A pick of an emoji you already reacted with asks to uncheck it, and the menu the button is in closes. While it has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, clicks ask for nothing. The `ToggleGroup` of pills, named by the `aria-label` or `aria-labelledby` of the component. .ui-toggle-group A reaction: a checkbox `ToggleButton` drawn as a pill, checked when you reacted with it. .ui-toggle-button The live region that `announce()` writes to, visually hidden with `.ui-sr-only`. [role=\"status\"] [quick-label] Quick label The name of the quick reaction without a count, such as `Thumbs up`, which `delete()` gives its pill. [quick-text] Quick text The emoji of the quick reaction without a count, which `delete()` gives its pill. [quick-value] Quick value The `value` of the quick reaction, the one-tap reaction whose pill comes first and stays when `delete()` is called with it. .ui-unused Unused The pill of the quick reaction while nobody has used it: a dashed border. announce(message) Reads `message` to screen readers, through the `role=\"status\"` child. delete(value) Removes the pill of `value`, and moves focus to the next pill, the previous one or the first button after the pills when the removed pill had it. The pill of the `quick-value` reaction stays, unchecked and `.ui-unused`, with the `quick-label` and `quick-text` attributes as its name and text, and keeps focus. group The `.ui-toggle-group` of pills, or `null`. Read-only. reaction Fires when a pill is clicked, or a button with `command=\"--react\"` and this element in `commandfor`, with the `value` and the `checked` state asked for in `event.detail`. It bubbles, and changes nothing. set(value, reaction) Updates the pill of `value` with `{ checked, label, text }`, the accessible name in `label` and the emoji and count in `text`, or adds one at the end, and the `quick-value` reaction first. It removes `.ui-unused` from the pill.",
+    "category": "API",
+    "url": "/html/api/#reactions"
+  },
+  {
     "id": "api-select-all-html",
     "title": "Select all API",
     "description": "Reference for Select all HTML component.",
@@ -4764,7 +4973,7 @@
     "id": "api-sortable-table-html",
     "title": "Sortable table API",
     "description": "Reference for Sortable table HTML component.",
-    "api": "opui-sortable-table.ui-sortable-table The `<opui-sortable-table>` custom element, `display: contents`, around the table. It moves the body rows and announces the new order in its `role=\"status\"` child, or one it adds. While it has `data-hydrating`, which the React component renders until it hydrates, header clicks do nothing. The button around a sortable header's label. A press sorts by its column, ascending first, and sets `aria-sort` on the header. th[data-sort] > button [ascending-label] Ascending label What a sort in ascending order announces, with `{column}` where the header's label goes. [descending-label] Descending label What a sort in descending order announces, with `{column}` where the header's label goes. sort Fires before the rows move, with the column index, the direction and the header in `event.detail`. It bubbles, and `preventDefault()` keeps the rows where they are. sort(header, direction) Sorts by the column of `header`, in `direction` (`\"ascending\"` or `\"descending\"`), or else the other way from its `aria-sort`, ascending first. It fires `sort`, sets `aria-sort` and announces the order. table The `<table>` inside, or `null`. Read-only.",
+    "api": "opui-sortable-table.ui-sortable-table The `<opui-sortable-table>` custom element, `display: contents`, around the table. It moves the body rows and announces the new order in its `role=\"status\"` child, or one it adds. While it has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, header clicks do nothing. The button around a sortable header's label. A press sorts by its column, ascending first, and sets `aria-sort` on the header. th[data-sort] > button [ascending-label] Ascending label What a sort in ascending order announces, with `{column}` where the header's label goes. [descending-label] Descending label What a sort in descending order announces, with `{column}` where the header's label goes. sort Fires before the rows move, with the column index, the direction and the header in `event.detail`. It bubbles, and `preventDefault()` keeps the rows where they are. sort(header, direction) Sorts by the column of `header`, in `direction` (`\"ascending\"` or `\"descending\"`), or else the other way from its `aria-sort`, ascending first. It fires `sort`, sets `aria-sort` and announces the order. table The `<table>` inside, or `null`. Read-only.",
     "category": "API",
     "url": "/html/api/#sortable-table"
   },

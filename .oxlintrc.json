@@ -22,7 +22,9 @@
         "packages/opui/elements/callout.d.ts",
         "packages/opui/elements/character-count.d.ts",
         "packages/opui/elements/copy.d.ts",
+        "packages/opui/elements/file-upload.d.ts",
         "packages/opui/elements/number-field.d.ts",
+        "packages/opui/elements/reactions.d.ts",
         "packages/opui/elements/select-all.d.ts",
         "packages/opui/elements/sortable-table.d.ts",
         "packages/opui/elements/text-field.d.ts",
@@ -55,7 +57,8 @@
       "files": [
         "**/*.solid.tsx",
         "tests/apps/solid-start/**/*.tsx",
-        "tests/apps/vite-solid/**/*.tsx"
+        "tests/apps/vite-solid/**/*.tsx",
+        "tests/reference/apps/solid/**/*.tsx"
       ],
       "rules": {
         "react/error-boundaries": "off",

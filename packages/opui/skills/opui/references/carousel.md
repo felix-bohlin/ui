@@ -23,7 +23,7 @@ A scrolling list with snap points, buttons and markers.
 - `aspectRatio`: `number | string`, `--_media-aspect-ratio`, default `"16 / 9"`. Aspect ratio that images, videos and iframes are cropped to.
 - `buttons`: `"inside"` (default), `"none"` (`.ui-buttons-none`), `"outside"` (`.ui-buttons-outside`). Previous and next buttons. `outside` places them beside the items, and `none` leaves them out.
 - `itemsPerView`: `number`, `--_items-per-view`, default `1`. Number of visible items.
-- `markerLabel`: `string`, `--_marker-label`, default `"Slide {number}"`. Accessible name of each marker, with `{number}` where the item number goes.
+- `markerLabel`: `string`, `--_marker-label`, default `"Slide {number}"`. Accessible name of each marker, with `{number}` where the item number goes. The Astro, React, Solid and Svelte types take it only with `markers`.
 - `markers`: `boolean`, `.ui-markers`. One marker per item, after the list.
 - `nextLabel`: `string`, `--_button-next-label`, default `"Next"`. Accessible name of the next button.
 - `orientation`: `"horizontal"` (default), `"vertical"` (`.ui-vertical`). The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default.
@@ -66,6 +66,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_marker-selected-padding`: Inset of the current marker's dot, smaller than the `--ui-space-2` of the other markers, so the current dot is larger. Defaults to `--ui-space-1`.
 - `--_marker-size`: Size of the markers: `--ui-space-5`, and at least `--ui-target-min-size`, so they stay pointer targets in a theme with a smaller spacing scale. The dot sits inside, inset by `--ui-space-2`.
 - `--_media-aspect-ratio`: Aspect ratio of `img`, `video` and `iframe` in items.
+- `--_media-fit`: How `img`, `video` and `iframe` in items fill their aspect ratio: `cover` crops them, `contain` shows them whole, like photos of mixed orientation in a viewer.
 - `--_media-radius`: Corner radius of `img`, `video` and `iframe` in items. Defaults to `--ui-radius`.
 - `--_motion`: Motion multiplier for the button and marker transitions. `0` turns them off.
 - `--_padding-block`: Block padding of `.ui-vertical`, showing the neighboring items. Set by `.ui-peek`.

@@ -9,6 +9,7 @@ import ToggleButtonVue from "../../packages/opui/components/ToggleButton/ToggleB
 import ToggleGroupReact from "../../packages/opui/components/ToggleGroup/ToggleGroup.react"
 import ToggleGroupSolid from "../../packages/opui/components/ToggleGroup/ToggleGroup.solid"
 import ToggleGroupVue from "../../packages/opui/components/ToggleGroup/ToggleGroup.vue"
+import { resetWarnings } from "../../packages/opui/components/dev"
 import GroupedDefaultCheckedSvelte from "./fixtures/GroupedDefaultChecked.svelte"
 import GroupedToggleSvelte from "./fixtures/GroupedToggle.svelte"
 import { render, renderSolid, type SolidComponent } from "./renderers"
@@ -41,6 +42,7 @@ describe("ToggleButton checked", () => {
 
   test("the group's value wins over a button's own checked", async () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {})
+    resetWarnings()
     expect(
       checkedInputs(
         await render.react(ToggleGroupReact, {
@@ -62,6 +64,7 @@ describe("ToggleButton checked", () => {
         }),
       ),
     ).toEqual(["left"])
+    resetWarnings()
     expect(
       checkedInputs(
         renderSolid(ToggleGroupSolid as SolidComponent, {
@@ -82,9 +85,11 @@ describe("ToggleButton checked", () => {
         }),
       ),
     ).toEqual(["left"])
+    resetWarnings()
     expect(checkedInputs(await render.svelte(GroupedToggleSvelte))).toEqual([
       "left",
     ])
+    resetWarnings()
     expect(
       checkedInputs(
         await render.vue({
@@ -111,6 +116,7 @@ describe("ToggleButton checked", () => {
 
   test("a group's value wins over a tab's or button's defaultChecked in Svelte, with a warning", async () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {})
+    resetWarnings()
     expect(
       checkedInputs(await render.svelte(GroupedDefaultCheckedSvelte)),
     ).toEqual(["profile", "left"])

@@ -33,6 +33,7 @@ import {
   ListItem,
   Message,
   MessageList,
+  Meter,
   NumberField,
   OneTimeCode,
   Progress,
@@ -373,6 +374,10 @@ const Wrapper = wrap ? "ul" : Carousel
           <p>Totally rad.</p>
         </Message>
       </MessageList>
+    </Fragment>
+
+    <Fragment slot="meter">
+      <Meter aria-hidden="true" max="100" value="62" variant="filled" />
     </Fragment>
 
     <Fragment slot="number-field">

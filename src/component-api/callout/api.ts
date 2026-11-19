@@ -63,7 +63,8 @@ export default {
     },
     {
       default: '"Close"',
-      description: "The accessible name of the close button.",
+      description:
+        "The accessible name of the close button. The types take it only with `closeButton`.",
       prop: "closeLabel",
     },
     {

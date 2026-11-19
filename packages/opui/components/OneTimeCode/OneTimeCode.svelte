@@ -11,6 +11,7 @@
     "aria-invalid": ariaInvalid,
     "aria-labelledby": ariaLabelledBy,
     autocapitalize,
+    autocomplete,
     class: className,
     defaultValue,
     error,
@@ -63,6 +64,7 @@
     <input
       autocapitalize={autocapitalize ??
         (alphanumeric ? "characters" : undefined)}
+      autocomplete={autocomplete ?? "one-time-code"}
       inputmode={inputmode ?? (alphanumeric ? undefined : "numeric")}
       pattern={pattern ??
         (alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`)}
@@ -74,7 +76,6 @@
       )}
       aria-invalid={error ? "true" : ariaInvalid}
       aria-labelledby={ariaLabelledBy}
-      autocomplete="one-time-code"
       id={inputId}
       maxlength={length}
       name={name ?? field?.name}

@@ -12,6 +12,7 @@ const {
   "aria-invalid": ariaInvalid,
   "aria-labelledby": ariaLabelledBy,
   autocapitalize,
+  autocomplete,
   class: className,
   endText,
   error,
@@ -56,6 +57,7 @@ const endTextId = hasEndText ? ids("end-text") : undefined
       autocapitalize={
         autocapitalize ?? (alphanumeric ? "characters" : undefined)
       }
+      autocomplete={autocomplete ?? "one-time-code"}
       inputmode={inputmode ?? (alphanumeric ? undefined : "numeric")}
       pattern={
         pattern ??
@@ -69,7 +71,6 @@ const endTextId = hasEndText ? ids("end-text") : undefined
       )}
       aria-invalid={error ? "true" : ariaInvalid}
       aria-labelledby={ariaLabelledBy}
-      autocomplete="one-time-code"
       id={inputId}
       maxlength={length}
       name={name ?? field?.name}

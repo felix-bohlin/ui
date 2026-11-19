@@ -34,8 +34,9 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### progress.css
 
-- `--_accent`: Color of the bar. Defaults to `--ui-selected-strong`, the role Stepper and Timeline read for the done part of their track, which is `--ui-primary` unless a theme sets it.
+- `--_accent`: Color of the bar, and of a `Meter` fill in its optimum range. Defaults to `--ui-selected-strong`, the role Stepper and Timeline read for the done part of their track, which is `--ui-primary` unless a theme sets it.
 - `--_bg-color`: Color of the track. `--ui-track-bg-color` when the theme sets it, otherwise `--ui-surface-tonal`; `.ui-filled` sets it to `--ui-surface-filled`.
+- `--_block-size`: Height of the track of a `Progress` or a `Meter`. Defaults to `--ui-space-1`. `.ui-round` reads `--_ring-size` instead.
 - `--_ease`: Easing of the value transition. Defaults to `--ui-ease-enter`.
 - `--_loop-duration`: Length of one cycle of the indeterminate animation, and of the pulse that replaces it when `--_motion` is `0`. `2s` by default, multiplied by `--_motion`.
 - `--_motion`: Motion multiplier for the value transition and the indeterminate animation.

@@ -3,12 +3,17 @@ import type { CustomProperties } from "../types"
 export default {
   "--_accent": {
     description:
-      "Color of the bar. Defaults to `--ui-selected-strong`, the role Stepper and Timeline read for the done part of their track, which is `--ui-primary` unless a theme sets it.",
+      "Color of the bar, and of a `Meter` fill in its optimum range. Defaults to `--ui-selected-strong`, the role Stepper and Timeline read for the done part of their track, which is `--ui-primary` unless a theme sets it.",
     kind: "input",
   },
   "--_bg-color": {
     description:
       "Color of the track. `--ui-track-bg-color` when the theme sets it, otherwise `--ui-surface-tonal`; `.ui-filled` sets it to `--ui-surface-filled`.",
+    kind: "input",
+  },
+  "--_block-size": {
+    description:
+      "Height of the track of a `Progress` or a `Meter`. Defaults to `--ui-space-1`. `.ui-round` reads `--_ring-size` instead.",
     kind: "input",
   },
   "--_duration": {

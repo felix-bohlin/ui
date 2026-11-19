@@ -26,6 +26,7 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
   browserSupport={[
     "anchor-positioning",
     "calc-size",
+    "container-scroll-state-queries",
     "dir-pseudo",
     "display-animation",
     "has",
@@ -40,6 +41,8 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
   fallbacks={{
     "calc-size":
       "Without `calc-size()`, a menu that doesn't fit on its side of the trigger flips to the other side, instead of shrinking to the space it has.",
+    "container-scroll-state-queries":
+      "Without scroll-state queries, a long menu scrolls without the shadows that mark more items above or below.",
     "display-animation":
       "Without display animation, the menu disappears at once instead of fading out.",
     overlay:
@@ -196,6 +199,14 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
     </p>
     <AutoExample name="Current" centered />
 
+    <h3 id="pressed-items">Pressed items</h3>
+    <p>
+      A button item that turns something on and off takes
+      <code>aria-pressed</code>. A pressed item gets the same check, and keeps
+      its row color, since nothing about it is the current choice.
+    </p>
+    <AutoExample name="Pressed" centered />
+
     <h3 id="custom-check">Custom check</h3>
     <p>
       To use the check from your icon set, set <code>--ui-icon-check</code> to
@@ -235,6 +246,18 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
       </Fragment>
     </Conditional>
     <AutoExample name="CustomCheck" centered />
+  </section>
+
+  <section id="long-menus">
+    <h2>Long menus</h2>
+    <p>
+      A menu that doesn't fit scrolls, with a shadow at each edge that has more
+      beyond it. <code>--_max-block-size</code> caps its height. On a phone, a
+      long list of actions or settings is easier to reach in a
+      <DocLink href="/components/drawer">Drawer</DocLink> at the block end than
+      in a menu that scrolls.
+    </p>
+    <AutoExample name="Long" centered />
   </section>
 
   <section id="placement">

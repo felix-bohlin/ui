@@ -59,6 +59,12 @@ function ProfileScreen(props: { profile: User }) {
     })
   }
 
+  const reset = (event: Event & { currentTarget: HTMLDialogElement }) => {
+    const { elements } = event.currentTarget.querySelector("form")!
+    ;(elements.namedItem("name") as HTMLInputElement).value = name()
+    ;(elements.namedItem("bio") as HTMLTextAreaElement).value = bio()
+  }
+
   return (
     <>
       <div class="app-screen" data-screen="profile">
@@ -141,7 +147,7 @@ function ProfileScreen(props: { profile: User }) {
         </Tabs>
       </div>
       <Show when={props.profile.handle === ME}>
-        <Dialog id="edit-profile">
+        <Dialog id="edit-profile" onClose={reset}>
           <DialogHeader closeButton>
             <DialogTitle>Edit profile</DialogTitle>
           </DialogHeader>

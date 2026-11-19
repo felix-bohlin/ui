@@ -37,6 +37,14 @@
       name: String(form.get("name")),
     }
   }
+
+  const reset = (event: Event) => {
+    const { elements } = (
+      event.currentTarget as HTMLDialogElement
+    ).querySelector("form")!
+    ;(elements.namedItem("name") as HTMLInputElement).value = name
+    ;(elements.namedItem("bio") as HTMLTextAreaElement).value = bio
+  }
 </script>
 
 <svelte:head>
@@ -105,7 +113,7 @@
 </div>
 
 {#if profile.handle === ME}
-  <Dialog id="edit-profile">
+  <Dialog id="edit-profile" onclose={reset}>
     <DialogHeader closeButton>
       <DialogTitle>Edit profile</DialogTitle>
     </DialogHeader>

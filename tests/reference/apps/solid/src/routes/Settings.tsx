@@ -23,9 +23,9 @@ import { createSignal, Show } from "solid-js"
 import { useTitle } from "../lib/title"
 
 const LANGUAGES = [
+  { label: "Deutsch", value: "de" },
   { label: "English", value: "en" },
   { label: "Svenska", value: "sv" },
-  { label: "Deutsch", value: "de" },
 ]
 
 export default function Settings() {

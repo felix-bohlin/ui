@@ -51,16 +51,16 @@ export default function Feed() {
     })
 
   const post = (form: FormData) =>
-    setCreated([
-      newPost(String(form.get("text")), `new-${created.length + 1}`),
-      ...created,
+    setCreated((posts) => [
+      newPost(String(form.get("text")), `new-${posts.length + 1}`),
+      ...posts,
     ])
 
   const toggleSave = (id: string) =>
-    setSaved(
-      saved.includes(id)
-        ? saved.filter((candidate) => candidate !== id)
-        : [...saved, id],
+    setSaved((ids) =>
+      ids.includes(id)
+        ? ids.filter((candidate) => candidate !== id)
+        : [...ids, id],
     )
 
   return (
@@ -103,7 +103,7 @@ export default function Feed() {
           {visible.map((post) => (
             <li key={post.id}>
               <PostCard
-                onHide={() => setHidden([...hidden, post.id])}
+                onHide={() => setHidden((ids) => [...ids, post.id])}
                 onToggleSave={() => toggleSave(post.id)}
                 post={post}
                 saved={saved.includes(post.id)}

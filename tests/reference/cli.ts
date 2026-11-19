@@ -13,24 +13,30 @@ const usage = `Usage:
 Apps: ${ALL_APPS.map((app) => app.name).join(", ")}`
 
 const children: ChildProcess[] = []
+const groups = new Set<ChildProcess>()
 const stop = () => {
-  for (const child of children) child.kill("SIGTERM")
+  for (const child of children) {
+    if (groups.has(child) && child.pid) {
+      try {
+        process.kill(-child.pid, "SIGTERM")
+      } catch {}
+    } else child.kill("SIGTERM")
+  }
 }
-process.on("SIGINT", () => {
-  stop()
-  process.exit(130)
-})
+process.on("exit", stop)
+process.on("SIGINT", () => process.exit(130))
+process.on("SIGTERM", () => process.exit(143))
 
 const run = (bin: string, args: string[], cwd: string, prefix?: string) => {
   const child = spawn(bin, args, {
     cwd,
+    detached: prefix !== undefined,
     env: {
       ...process.env,
       ASTRO_TELEMETRY_DISABLED: "1",
       NEXT_TELEMETRY_DISABLED: "1",
       NUXT_TELEMETRY_DISABLED: "1",
     },
-    shell: prefix !== undefined,
     stdio: prefix === undefined ? "inherit" : "pipe",
   })
   if (prefix !== undefined) {
@@ -43,6 +49,7 @@ const run = (bin: string, args: string[], cwd: string, prefix?: string) => {
     child.stderr?.on("data", write)
   }
   children.push(child)
+  if (prefix !== undefined) groups.add(child)
   return child
 }
 
@@ -88,7 +95,8 @@ if (command === "prepare") {
     process.exit(1)
   }
   for (const app of selected) {
-    run(app.dev, [], appDir(app), name ? "" : `[${app.name}]`)
+    const [bin = "", ...args] = app.dev.split(" ")
+    run(bin, args, appDir(app), name ? undefined : `[${app.name}]`)
   }
   if (!name) {
     createServer((_request, response) => {

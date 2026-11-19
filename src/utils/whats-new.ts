@@ -905,6 +905,7 @@ export const whatsNew = {
       html: `Import <code>opui-css/elements/close-on-navigate.js</code> to <a href="#basics">close an open menu</a> when the page navigates.`,
     },
     `Mark the <a href="#current-item">current item</a> with <code>aria-current</code>, like the language in use. It gets a check at the end.`,
+    `A <a href="#pressed-items">pressed item</a> (<code>aria-pressed="true"</code>) gets a check at the end, and a <a href="#long-menus">menu that scrolls</a> shows a shadow at each edge with more beyond it.`,
     {
       ...slots(
         `A <a href="#custom-check">custom check</a>: <code>--ui-icon-check</code> for the check of your icon set, or any icon in the <code>icon-checked</code> slot.`,

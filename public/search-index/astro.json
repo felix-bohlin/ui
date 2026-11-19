@@ -1546,11 +1546,25 @@
     "url": "/astro/components/menu/#current-item"
   },
   {
+    "id": "component-menu-astro-pressed-items",
+    "title": "Pressed items",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/astro/components/menu/#pressed-items"
+  },
+  {
     "id": "component-menu-astro-custom-check",
     "title": "Custom check",
     "page": "Menu",
     "category": "Component",
     "url": "/astro/components/menu/#custom-check"
+  },
+  {
+    "id": "component-menu-astro-long-menus",
+    "title": "Long menus",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/astro/components/menu/#long-menus"
   },
   {
     "id": "component-menu-astro-placement",

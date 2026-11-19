@@ -1765,6 +1765,29 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - B (recommended): give the Svelte, Vue and Solid SortableTable and Callout the `data-hydrating` guard React has, cleared once the component hydrates, and accept the parity `.diff` files for it as React's are.
     - C: have `sortable-table.js` and `callout.js` hold input on a server-rendered root until its framework marks it ready, with no markup difference: the element checks a marker the components set in their mount hook.
   - Fixed: with option B. The Solid, Svelte and Vue SortableTable and Callout render `data-hydrating` on a custom element root with events, like React, and take it off once the root has hydrated or rendered on the client: `hydrating()` and the `hydrated` ref in Solid, the `hydrated` attachment in Svelte and `v-hydrated` in Vue (`packages/opui/components/solid.ts`, `packages/opui/components/svelte.ts`, `packages/opui/components/vue.ts`, written by `scripts/component-solid.mjs`, `scripts/component-svelte.mjs` and `scripts/component-vue.mjs`). The two scenarios of `tests/apps/apps.spec.ts` run in every server-rendered app, `tests/e2e/hydration.spec.ts` lists the attribute in `LATE`, the parity drift is twelve `.diff` files with only the marker, and the API notes no longer say not to load the element script first.
+- [ ] (2) Carousel: Every Vite 8 build of an app that imports opui's CSS prints dozens of Lightning CSS warnings for `::scroll-marker-group`, `::scroll-marker` and `:target-current`, which it doesn't know yet, though it keeps the rules (`packages/opui/css/components/carousel.css:316-350`)
+  - Summary: Apps built with Vite 8 get a screen of minifier warnings from the Carousel CSS on every build, even when they don't use a Carousel.
+  - Recommended: Explain further. The fix may belong in Lightning CSS, and a workaround in the CSS costs the selectors.
+  - Options:
+    - A: Report the selectors to Lightning CSS and add a repro to `tests/unit/tooling-bugs.test.ts`, which fails once it's fixed.
+    - B: Document a `css.lightningcss.errorRecovery` or `build.cssMinify` setting in the package README's build section.
+- [ ] (3) Drawer: `closeOnNavigate` never closes a drawer under Astro's `ClientRouter`: the router swaps the page before it calls `history.pushState`, so the Navigation API `navigate` event fires after the open drawer is gone, and a drawer with `transition:persist` stays open (`packages/opui/elements/close-on-navigate.js:24`, `tests/reference/apps/astro/src/layouts/Layout.astro:99`)
+  - Summary: In Astro with the ClientRouter, a navigation drawer vanishes with the page swap instead of closing, and a persisted drawer stays open.
+  - Recommended: Fix with option A. It closes the drawer before the swap, with its own exit transition.
+  - Options:
+    - A (recommended): Also listen for `astro:before-preparation` on `document` and close on it when the destination leaves the page.
+    - B: Document that Astro's ClientRouter needs a `transition:persist`-free drawer, and that it disappears with the swap.
+- [ ] (4) Textarea: opui-character-count keeps the old count when a framework sets the field's value. It updates on `input`, on its form's `reset` and on `value` and `maxlength` attribute changes, but React, Solid, Svelte and Vue set the `value` property, so a composer the app empties after a post still shows 20/280 (`packages/opui/elements/character-count.js:50-74`, `tests/reference/spec/feed.spec.ts:38-55`)
+  - Summary: After an app clears a field with a character count, the count still shows the old length.
+  - Recommended: Fix with option A. It covers every way a framework sets the value, with no change to the components.
+  - Fix: remove the `test.fail` line from the character count test in `tests/reference/spec/feed.spec.ts` once it passes in every app.
+  - Options:
+    - A (recommended): Patch the `value` setter of the control the element watches (`Object.defineProperty` on the instance, calling the prototype setter, then `#update()`), and undo it on disconnect.
+    - B: Have each framework component call an `update()` method on the element after it writes `value`. Covers the components, but not an app that sets `value` itself.
+- [ ] (4) Drawer: `closeOnNavigate` keeps a drawer or menu open when a navigation only changes the query: `keepsPage` compares the pathname alone, so `/chat?with=lou` to `/chat` counts as staying on the page, though a client router renders another page (`packages/opui/elements/close-on-navigate.js:3-10`, `tests/reference/spec/shell.spec.ts:179-194`)
+  - Summary: Choosing a link in a drawer or menu that leads to the same path with another query leaves the drawer or menu open over the new content.
+  - Recommended: Fix. Comparing the search as well as the pathname matches what a router treats as a new page.
+  - Fix: compare `pathname + search` in `keepsPage`, keep ignoring hash-only changes, and remove the `test.fail` line from the query test in `tests/reference/spec/shell.spec.ts`.
 
 ## Compiler
 
@@ -5628,6 +5651,14 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Recommended: Fix. Add a SolidStart app next to it once a release takes solid-js 2, so the meta-framework people scaffold is covered like Next.js, Nuxt and SvelteKit.
   - Fix: when a `@solidjs/start` release takes solid-js 2 as a peer, add a SolidStart app to `tests/apps/apps.ts` with `ssr: true`, and name it in the app test lines of `AGENTS.md` and `README.md`.
   - Removed: Solid 2 needs no SolidStart: start mode of `@solidjs/vite-plugin` is its own application layer ("in place of SolidStart" in the plugin's README), and `tests/apps/solid-start` already renders every example on the server with it. The Solid Getting started page and the README name the `start` and `ssr` options.
+- [ ] (1) ToggleGroup: ToggleGroup and Tabs type `onValueChange` with plain `string`, so state typed as a union like `"all" | "photos"` needs a cast or a guard (`packages/opui/components/ToggleGroup/types.react.ts:8-13`, `packages/opui/components/ToggleGroup/types.solid.ts:8-13`)
+  - Summary: A ToggleGroup whose values are a union type can't hand its value to typed state without a cast.
+  - Recommended: Explain further. A generic changes the public types in two frameworks.
+  - Fix: make the React and Solid ToggleGroup and Tabs generic over `T extends string` for `value`, `defaultValue` and `onValueChange`.
+- [ ] (2) Dialog: React and Vue have no documented way to reach the `<dialog>` to call `showModal()`: React passes `ref` through `...rest` untyped and undocumented, and Vue's Dialog has no `defineExpose`, so apps use `$el` typed `any` (`packages/opui/components/Dialog/Dialog.vue:37`, `packages/opui/components/Dialog/Dialog.react.tsx:15`)
+  - Summary: Opening a Dialog from script in React or Vue means guessing that a ref works, with no types or docs behind it.
+  - Recommended: Fix. Typing the ref and exposing the element is small and matches what the apps already rely on.
+  - Fix: type `ref` as `Ref<HTMLDialogElement>` in the React Dialog and Drawer props, add `defineExpose({ el })` to the Vue Dialog and Drawer, and show opening from script in the Dialog docs for each framework.
 - [ ] (3) Docs site: the icon libraries list no Solid package: `lucide-solid` 1.74 and `@tabler/icons-solidjs` 3.52 require solid-js 1, and Fluent, Material Symbols and Phosphor ship none (`src/utils/icon-libraries.ts`)
   - Summary: The icon pages name React, Svelte and Vue icon packages but none for Solid, since none supports Solid 2 yet.
   - Recommended: Fix with option A. Add the `solid:` entries once each upstream package takes solid-js 2 as a peer.
@@ -5640,6 +5671,13 @@ Custom elements (web components) the library could add, for behavior that HTML a
   > Fix with option A
   > Wait
   - Still open: waiting for `lucide-solid` and `@tabler/icons-solidjs` to take solid-js 2 as a peer. Then add their `solid:` entries in `src/utils/icon-libraries.ts` and run `node scripts/build-icons.mjs`.
+- [ ] (3) Button: Button, Avatar, ListItem and Menu link items can't render a framework's link component: `as` takes only element names and `tagAttrs` drops `href` for any other tag, so in Next, Nuxt and SvelteKit-style SPAs every opui link reloads the page unless the app wraps it or intercepts clicks (`packages/opui/components/tag.ts:1-4`, `packages/opui/components/Button/types.ts:8-13`, `packages/opui/components/ListItem/types.ts:10-22`, `packages/opui/components/Avatar/types.ts:7-17`)
+  - Summary: Links rendered by opui components bypass the app's router, so they reload the page and lose prefetching unless the app works around it.
+  - Recommended: Explain further. It's an API decision across five frameworks.
+  - Options:
+    - A: Let `as` take a component in React, Solid and Vue, and pass `href` through to it.
+    - B: Add a link-component provider (like React Aria's RouterProvider) that every linked component and Menu item reads.
+    - C: Document the click-interception pattern the reference apps use (`tests/reference/apps/next/lib/client-links.tsx`, `tests/reference/apps/nuxt/app/composables/useFollowLink.ts`).
 - [ ] (4) New components the blocks point to. Each block currently draws these with its own CSS:
   - Summary: Blocks draw charts, breadcrumbs, steppers, timelines, ratings, pagination and stat cards with their own CSS for lack of components.
   - Recommended: Fix. Breadcrumb, empty state and pagination are left, and their blocks already show the markup each needs.

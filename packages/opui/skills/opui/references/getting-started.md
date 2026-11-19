@@ -225,7 +225,7 @@ Without a bundler, add this import map to the `head`:
 
 #### [Components](https://opui.dev/html/components.md)
 
-42 components, each with HTML examples and its API.
+43 components, each with HTML examples and its API.
 
 #### [Concepts](https://opui.dev/html/guide/concepts.md)
 
@@ -341,7 +341,7 @@ Add `/// <reference types="opui-css/env.d.ts" />` to `env.d.ts` for the types.
 
 #### [Components](https://opui.dev/astro/components.md)
 
-42 components, each with Astro examples and its API.
+43 components, each with Astro examples and its API.
 
 #### [Concepts](https://opui.dev/astro/guide/concepts.md)
 
@@ -434,7 +434,7 @@ Every component renders full HTML on the server. Components with state or effect
 
 A choice the user makes before the page hydrates stays on screen. `Rating`, `Tabs` and `ToggleGroup` pass it to `onValueChange` as they hydrate. `Checkbox`, `Radio` and `Switch` pass `checked` and `onChange` to the native input, so they work like a plain React input: React doesn't call `onChange` for that choice, and a controlled `checked` misses it. A form that reads its values on submit gets it.
 
-- **67** of 70 need no hydration
+- **68** of 71 need no hydration
 - **3** hydrate for `indeterminate`, `valueSuffix`, `valueText`
 - **40** are Server Components
 
@@ -520,7 +520,7 @@ A choice the user makes before the page hydrates stays on screen. `Rating`, `Tab
 
 #### [Components](https://opui.dev/react/components.md)
 
-42 components, each with React examples and its API.
+43 components, each with React examples and its API.
 
 #### [Concepts](https://opui.dev/react/guide/concepts.md)
 
@@ -595,7 +595,7 @@ The props in the last column need hydration.
 
 A choice the user makes before the page hydrates stays on screen. `Rating`, `Tabs` and `ToggleGroup` pass it to `onValueChange` as they hydrate.
 
-- **67** of 70 need no hydration
+- **68** of 71 need no hydration
 - **3** hydrate for `indeterminate`, `valueSuffix`, `valueText`
 
 | Component | Client | Server | Needs hydration |
@@ -680,7 +680,7 @@ A choice the user makes before the page hydrates stays on screen. `Rating`, `Tab
 
 #### [Components](https://opui.dev/solid/components.md)
 
-42 components, each with Solid examples and its API.
+43 components, each with Solid examples and its API.
 
 #### [Concepts](https://opui.dev/solid/guide/concepts.md)
 
@@ -793,7 +793,7 @@ Slots are snippets: `children`, and camelCased names like `endText`. Form contro
 
 Every component renders full HTML on the server. The props in the last column need hydration.
 
-- **54** of 70 need no hydration
+- **55** of 71 need no hydration
 - **16** hydrate for `bind:checked`, `bind:group`, `bind:value`, `indeterminate`, `valueSuffix`, `valueText`
 
 | Component | Client | Server | Needs hydration |
@@ -878,7 +878,7 @@ Every component renders full HTML on the server. The props in the last column ne
 
 #### [Components](https://opui.dev/svelte/components.md)
 
-42 components, each with Svelte examples and its API.
+43 components, each with Svelte examples and its API.
 
 #### [Concepts](https://opui.dev/svelte/guide/concepts.md)
 
@@ -954,7 +954,7 @@ Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` 
 
 ### Server rendering
 
-- **54** of 70 need no hydration
+- **55** of 71 need no hydration
 - **16** hydrate for `indeterminate`, `v-model`, `valueSuffix`
 
 | Component | Client | Server | Needs hydration |
@@ -1039,7 +1039,7 @@ Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` 
 
 #### [Components](https://opui.dev/vue/components.md)
 
-42 components, each with Vue examples and its API.
+43 components, each with Vue examples and its API.
 
 #### [Concepts](https://opui.dev/vue/guide/concepts.md)
 

@@ -63,7 +63,7 @@ import ToggleGroupReact from "../../packages/opui/components/ToggleGroup/ToggleG
 import ToggleGroupSolid from "../../packages/opui/components/ToggleGroup/ToggleGroup.solid"
 import ToggleGroupSvelte from "../../packages/opui/components/ToggleGroup/ToggleGroup.svelte"
 import ToggleGroupVue from "../../packages/opui/components/ToggleGroup/ToggleGroup.vue"
-import { resetWarnings } from "../../packages/opui/components/dev"
+import { resetWarnings, WARNED_ONCE } from "../../packages/opui/components/dev"
 import AnchorContentAttributesAstro from "./fixtures/AnchorContentAttributes.astro"
 import AnchorContentAttributesSvelte from "./fixtures/AnchorContentAttributes.svelte"
 import ReplacedIdsAstro from "./fixtures/ReplacedIds.astro"
@@ -99,7 +99,12 @@ const FRAMEWORKS = Object.keys(render) as ComponentFramework[]
 const CONTROL_FRAMEWORKS = Object.keys(render) as ComponentFramework[]
 
 const warn = vi.spyOn(console, "warn").mockImplementation(() => {})
-const warnings = () => warn.mock.calls.map(([message]) => String(message))
+const warnings = () =>
+  warn.mock.calls.map(([message]) => {
+    const text = String(message)
+    expect(text.endsWith(` ${WARNED_ONCE}`)).toBe(true)
+    return text.slice(0, -WARNED_ONCE.length - 1)
+  })
 
 beforeEach(() => {
   warn.mockClear()

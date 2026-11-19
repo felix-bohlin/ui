@@ -10,7 +10,6 @@ export function getStaticPaths() {
     "share-image",
     "tests",
     "todo",
-    "todo/done",
     ...Object.keys(stressPages).map((path) => `tests/${stressSlug(path)}`),
     ...Object.keys(todoExamples).map((name) => `todo/example/${name}`),
   ]

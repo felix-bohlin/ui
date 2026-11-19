@@ -523,9 +523,15 @@ const attributeNode = (item, context) => {
       ts.isIdentifier(unwrap(expression.expression))
         ? unwrap(expression.expression)
         : expression
+    const castTag = ts.isAsExpression(expression)
+      ? /^HTMLAttributes<"([\w-]+)">$/.exec(
+          expression.type.getText(sourceFile),
+        )?.[1]
+      : undefined
     const chosen = chosenSpread(expression)
     if (chosen) {
       return {
+        ...(castTag && { cast: castTag }),
         code: chosen.spread.text,
         condition: chosen.condition.getText(sourceFile),
         ...(filtered && { defined: true }),
@@ -534,6 +540,7 @@ const attributeNode = (item, context) => {
       }
     }
     return {
+      ...(castTag && { cast: castTag }),
       code: cast.getText(sourceFile),
       ...(filtered && { defined: true }),
       kind: "spread",

@@ -37,6 +37,7 @@ import {
   checkPropsType,
   checkProvide,
   checkReactExample,
+  checkReactProps,
   checkRest,
   checkSolidProps,
   checkSortedKeys,
@@ -1355,6 +1356,26 @@ describe("check-components", () => {
     ).toEqual([
       "provides TabsKey without reactive(): Vue provides the Context object as reactive({ ... })",
     ])
+  })
+
+  test("a React provider takes a memoized value, never an object literal", () => {
+    const react = (body: string, value: string) =>
+      `export default function Tabs({ value, children }: Props) {\n${body}  return <TabsContext value={${value}}>{children}</TabsContext>\n}\n`
+    expect(
+      checkReactProps(
+        "Tabs.react.tsx",
+        react(
+          "  const context = useMemo<Context>(() => ({ value }), [value])\n",
+          "context",
+        ),
+      ),
+    ).toEqual([])
+    expect(checkReactProps("Tabs.react.tsx", react("", "{ value }"))).toEqual([
+      "passes <TabsContext> an object literal as its value: it is a new object on every render, so every consumer renders again. Memoize it (const context = useMemo<Context>(() => ({ ... }), [...]))",
+    ])
+    expect(
+      checkReactProps("Tabs.react.tsx", react("", "({ value })")),
+    ).toHaveLength(1)
   })
 
   test("context files export their names, use the Context type and build on the framework", () => {

@@ -1,12 +1,13 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useMemo } from "react"
 import { defined } from "../attrs"
 import { cx } from "../cx"
 import { MenuContext, useMenuContext } from "./context.react"
 import { warnMissingId } from "../dev"
 import { tagAttrs } from "../tag"
 import type { Props } from "./types.react"
+import type { Context } from "./types"
 
 export default function Menu({
   align,
@@ -28,9 +29,10 @@ export default function Menu({
   useEffect(() => {
     void import("../../elements/close-on-navigate.js")
   }, [])
+  const context = useMemo<Context>(() => ({ rootId }), [rootId])
 
   return (
-    <MenuContext value={{ rootId }}>
+    <MenuContext value={context}>
       <menu
         className={cx([
           "ui-menu",

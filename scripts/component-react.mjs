@@ -86,59 +86,48 @@ const dependenciesOf = (code, locals) => {
   return [...found].toSorted(byName)
 }
 
-const CONSTRUCTIONS = [
-  [ts.isArrowFunction, "a function"],
-  [ts.isFunctionExpression, "a function"],
-  [ts.isObjectLiteralExpression, "an object"],
-  [ts.isArrayLiteralExpression, "an array"],
-  [ts.isClassExpression, "a class"],
-  [ts.isNewExpression, "an object"],
-  [ts.isRegularExpressionLiteral, "a regular expression"],
-]
-
-const constructionIn = (node, consts, seen = new Set()) => {
-  if (
-    ts.isParenthesizedExpression(node) ||
-    ts.isAsExpression(node) ||
-    ts.isSatisfiesExpression(node) ||
-    ts.isNonNullExpression(node)
-  ) {
-    return constructionIn(node.expression, consts, seen)
-  }
-  if (ts.isConditionalExpression(node)) {
+const isNewEachRender = (code, consts, seen = new Set()) => {
+  const builds = (node) => {
+    if (
+      ts.isParenthesizedExpression(node) ||
+      ts.isAsExpression(node) ||
+      ts.isSatisfiesExpression(node) ||
+      ts.isNonNullExpression(node)
+    ) {
+      return builds(node.expression)
+    }
+    if (ts.isConditionalExpression(node)) {
+      return builds(node.whenTrue) || builds(node.whenFalse)
+    }
+    if (
+      ts.isBinaryExpression(node) &&
+      [
+        ts.SyntaxKind.AmpersandAmpersandToken,
+        ts.SyntaxKind.BarBarToken,
+        ts.SyntaxKind.QuestionQuestionToken,
+      ].includes(node.operatorToken.kind)
+    ) {
+      return builds(node.left) || builds(node.right)
+    }
+    if (ts.isIdentifier(node)) {
+      if (!consts.has(node.text) || seen.has(node.text)) return false
+      seen.add(node.text)
+      return isNewEachRender(consts.get(node.text), consts, seen)
+    }
     return (
-      constructionIn(node.whenTrue, consts, seen) ??
-      constructionIn(node.whenFalse, consts, seen)
+      ts.isArrowFunction(node) ||
+      ts.isFunctionExpression(node) ||
+      ts.isObjectLiteralExpression(node) ||
+      ts.isArrayLiteralExpression(node) ||
+      ts.isClassExpression(node) ||
+      ts.isNewExpression(node) ||
+      ts.isRegularExpressionLiteral(node)
     )
   }
-  if (
-    ts.isBinaryExpression(node) &&
-    [
-      ts.SyntaxKind.AmpersandAmpersandToken,
-      ts.SyntaxKind.BarBarToken,
-      ts.SyntaxKind.QuestionQuestionToken,
-    ].includes(node.operatorToken.kind)
-  ) {
-    return (
-      constructionIn(node.left, consts, seen) ??
-      constructionIn(node.right, consts, seen)
-    )
-  }
-  if (ts.isIdentifier(node) && consts.has(node.text) && !seen.has(node.text)) {
-    seen.add(node.text)
-    return constructionOf(consts.get(node.text), consts, seen)
-  }
-  return CONSTRUCTIONS.find(([test]) => test(node))?.[1]
-}
-
-const constructionOf = (code, consts, seen) =>
-  constructionIn(
+  return builds(
     sourceFileOf(`(${code})`, "expression.tsx").statements[0].expression,
-    consts,
-    seen,
   )
-
-const rootOf = (dependency) => /^[A-Za-z_$][\w$]*/.exec(dependency)[0]
+}
 
 export const toReact = (component) => {
   const {
@@ -458,23 +447,22 @@ export const toReact = (component) => {
     if (dependencies.includes(rest)) {
       throw unsupported(
         component.file,
-        `a provided value that reads \`${rest}\` as a whole, which is a new object on every render, so the React port's memo of the value would never hold`,
-        `read the attribute into a const in the frontmatter (\`const label = ${rest}["aria-label"]\`) and provide the const, or read it as \`${rest}.name\``,
+        `\`${rest}\` itself in the provided context value, an object that is new on every render, so the memo of the React port would never hold`,
+        `read a member of it (\`${rest}.id\`) or destructure the attribute in the Astro file`,
       )
     }
     const consts = new Map(derived.map(({ code, name }) => [name, code]))
-    for (const dependency of dependencies) {
-      const name = rootOf(dependency)
-      const construction = consts.has(name)
-        ? constructionOf(consts.get(name), consts, new Set([name]))
-        : undefined
-      if (construction) {
-        throw unsupported(
-          component.file,
-          `a provided value that reads the const \`${name}\`, which is ${construction} built on every render, so the React port's memo of the value would never hold`,
-          "provide a string, number or boolean the const computes, or write the expression in the provided value",
-        )
-      }
+    const unstable = derived.find(
+      ({ code, name }) =>
+        dependencies.includes(name) &&
+        isNewEachRender(code, consts, new Set([name])),
+    )
+    if (unstable) {
+      throw unsupported(
+        component.file,
+        `the const \`${unstable.name}\` in the provided context value, a function, an object or an array that is new on every render, itself or through a condition or another const, so the memo of the React port would never hold`,
+        "provide the primitive values it is built from in the Astro file",
+      )
     }
     body.push(
       ...[...hoisted].map(([code, name]) => `const ${name} = defined(${code})`),

@@ -326,41 +326,60 @@ describe("the ports of a sample", () => {
     )
   })
 
-  test("refuses a provided value whose React memo could never hold: one that reads rest as a whole, or a const that is a function or an object", async () => {
-    const react = sampleFile().replace(".astro", ".react.tsx")
-    const refusal = async (frontmatter: string) =>
-      (
-        await compileComponent(
-          `---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\n\nconst { class: className, name, ...rest } = Astro.props\n\n${frontmatter}\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Fragment set:html={html} />\n</div>\n`,
-          sampleFile(),
-        )
-      ).refused.get(react)?.message
-    expect(
-      await refusal(
-        'const html = await sampleContext.provide({ label: rest["aria-label"], id: rest.id }, () =>\n  Astro.slots.render("default"),\n)',
-      ),
-    ).toContain(
-      "a provided value that reads `rest` as a whole, which is a new object on every render",
-    )
-    expect(
-      await refusal(
-        'const label = () => name + "!"\nconst html = await sampleContext.provide({ label }, () =>\n  Astro.slots.render("default"),\n)',
-      ),
-    ).toContain(
-      "a provided value that reads the const `label`, which is a function built on every render",
-    )
-    expect(
-      await refusal(
-        'const box = name ? { name } : undefined\nconst label = box\nconst html = await sampleContext.provide({ label: label?.name }, () =>\n  Astro.slots.render("default"),\n)',
-      ),
-    ).toContain(
-      "a provided value that reads the const `label`, which is an object built on every render",
-    )
+  test.each([
+    [
+      "",
+      '{ label: rest["aria-label"], id: rest.id }',
+      "`rest` itself in the provided context value, an object that is new on every render",
+    ],
+    [
+      'const label = () => name + "!"\n',
+      "{ label }",
+      "the const `label` in the provided context value, a function, an object or an array that is new on every render",
+    ],
+    [
+      "const label = { name }\n",
+      "{ label }",
+      "the const `label` in the provided context value, a function, an object or an array that is new on every render",
+    ],
+    [
+      "const label = [name]\n",
+      "{ label }",
+      "the const `label` in the provided context value, a function, an object or an array that is new on every render",
+    ],
+    [
+      "const label = name ? [name] : undefined\n",
+      "{ label }",
+      "the const `label` in the provided context value, a function, an object or an array that is new on every render",
+    ],
+    [
+      "const box = { name }\nconst label = box\n",
+      "{ label }",
+      "the const `label` in the provided context value, a function, an object or an array that is new on every render",
+    ],
+  ])(
+    "refuses a provider whose memo would never hold for React only: %s%s",
+    async (lines, value, reason) => {
+      const result = await compileComponent(
+        `---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\n\nconst { class: className, name, ...rest } = Astro.props\n\n${lines}const html = await sampleContext.provide(${value}, () =>\n  Astro.slots.render("default"),\n)\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Fragment set:html={html} />\n</div>\n`,
+        sampleFile(),
+      )
+      expect([...result.refused.keys()]).toEqual([
+        sampleFile().replace(".astro", ".react.tsx"),
+      ])
+      expect(
+        result.refused.get(sampleFile().replace(".astro", ".react.tsx"))
+          ?.message,
+      ).toContain(reason)
+    },
+  )
+
+  test("a React provider that reads a member of rest, a primitive const and a const from a call lists them as the memo's dependencies", async () => {
     const ports = await compile(
-      '---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\n\nconst { class: className, name, ...rest } = Astro.props\n\nconst label = rest["aria-label"]\nconst html = await sampleContext.provide({ id: rest.id, label }, () =>\n  Astro.slots.render("default"),\n)\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Fragment set:html={html} />\n</div>\n',
+      '---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\nimport { autoLabelledBy } from "../id"\n\nconst { class: className, name, ...rest } = Astro.props\n\nconst groupName = name || "sample"\nconst labelledBy = autoLabelledBy(rest, groupName)\nconst html = await sampleContext.provide(\n  { id: rest.id, labelledBy, name: groupName },\n  () => Astro.slots.render("default"),\n)\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Fragment set:html={html} />\n</div>\n',
     )
     expect(ports["react.tsx"]).toContain(
-      "useMemo<Context>(\n    () => ({ id: rest.id, label }),\n    [label, rest.id],\n  )",
+      '  const groupName = name || "sample"\n  const labelledBy = autoLabelledBy(rest, groupName)\n  const context = useMemo<Context>(\n    () => ({ id: rest.id, labelledBy, name: groupName }),\n    [groupName, labelledBy, rest.id],\n  )\n',
     )
   })
 

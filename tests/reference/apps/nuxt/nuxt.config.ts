@@ -3,6 +3,13 @@ export default defineNuxtConfig({
     head: {
       htmlAttrs: { lang: "en" },
       link: [{ href: "data:,", rel: "icon" }],
+      script: [
+        {
+          innerHTML:
+            'try{const theme=localStorage.getItem("reference-theme");if(theme)document.documentElement.dataset.theme=theme}catch{}',
+          tagPosition: "head",
+        },
+      ],
       titleTemplate: "%s | Reference",
     },
   },

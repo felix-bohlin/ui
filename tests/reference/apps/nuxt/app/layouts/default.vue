@@ -18,15 +18,9 @@ import {
   unreadNotifications,
 } from "reference-shared"
 
-const route = useRoute()
 const followLink = useFollowLink()
 const user = me()
 const unread = unreadNotifications()
-
-const isCurrent = (path: string) =>
-  path === "/"
-    ? route.path === "/"
-    : route.path === path || route.path.startsWith(`${path}/`)
 
 const setTheme = (theme: string) => {
   document.documentElement.dataset.theme = theme
@@ -47,10 +41,6 @@ const themes = [
 ]
 
 onMounted(() => {
-  try {
-    const saved = localStorage.getItem("reference-theme")
-    if (saved) document.documentElement.dataset.theme = saved
-  } catch {}
   document.documentElement.dataset.hydrated = ""
 })
 </script>
@@ -66,20 +56,20 @@ onMounted(() => {
     >
       <AppIcon name="menu" />
     </Button>
-    <NuxtLink v-slot="{ navigate }" custom to="/">
-      <a class="app-brand" href="/" @click="navigate">Reference</a>
+    <NuxtLink v-slot="{ href, navigate }" custom to="/">
+      <a class="app-brand" :href="href!" @click="navigate">Reference</a>
     </NuxtLink>
     <nav aria-label="Main" class="app-nav">
       <NuxtLink
         v-for="screen in SCREENS"
         :key="screen.id"
-        v-slot="{ navigate }"
+        v-slot="{ href, isActive, navigate }"
         custom
         :to="screen.path"
       >
         <Button
-          :aria-current="isCurrent(screen.path) ? 'page' : undefined"
-          :href="screen.path"
+          :aria-current="isActive ? 'page' : undefined"
+          :href="href!"
           @click="navigate"
           >{{ screen.label }}</Button
         >
@@ -100,10 +90,10 @@ onMounted(() => {
       <AppIcon name="palette" />
     </Button>
     <Menu align="end" id="theme-menu" :items="themes" />
-    <NuxtLink v-slot="{ navigate }" custom :to="`/u/${user.handle}`">
+    <NuxtLink v-slot="{ href, navigate }" custom :to="`/u/${user.handle}`">
       <Avatar
-        aria-label="Your profile"
-        :href="`/u/${user.handle}`"
+        :href="href!"
+        label="Your profile"
         size="small"
         @click="navigate"
         >{{ user.initials }}</Avatar
@@ -119,13 +109,13 @@ onMounted(() => {
         <NuxtLink
           v-for="screen in SCREENS"
           :key="screen.id"
-          v-slot="{ navigate }"
+          v-slot="{ href, isActive, navigate }"
           custom
           :to="screen.path"
         >
           <ListItem
-            :aria-current="isCurrent(screen.path) ? 'page' : undefined"
-            :href="screen.path"
+            :aria-current="isActive ? 'page' : undefined"
+            :href="href!"
             :label="screen.label"
             @click="navigate"
           />

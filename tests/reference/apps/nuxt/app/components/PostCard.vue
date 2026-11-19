@@ -39,7 +39,7 @@ const items = computed(() => [
     variant="outlined"
   >
     <CardHeader as="header">
-      <UserAvatar link :user="author" />
+      <UserAvatar :user="author" />
       <hgroup>
         <h2 :id="`post-${post.id}-author`">
           <NuxtLink :to="`/u/${author.handle}`">{{ author.name }}</NuxtLink>

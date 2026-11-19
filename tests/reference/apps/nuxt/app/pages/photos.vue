@@ -12,14 +12,6 @@ useHead({ title: "Photos" })
 
 const index = ref(0)
 const current = computed(() => PHOTOS[index.value]!)
-const viewer = useTemplateRef("viewer")
-
-const show = (at: number) => {
-  index.value = at
-  const dialog: HTMLDialogElement | undefined = viewer.value?.$el
-  dialog?.showModal()
-}
-
 const step = (by: number) => {
   index.value = (index.value + by + PHOTOS.length) % PHOTOS.length
 }
@@ -35,13 +27,18 @@ const keydown = (event: KeyboardEvent) => {
     <h1>Photos</h1>
     <ul aria-label="Photos" class="app-photo-grid">
       <li v-for="({ alt, id, src }, at) in PHOTOS" :key="id">
-        <button class="app-photo" type="button" @click="show(at)">
+        <button
+          class="app-photo"
+          command="show-modal"
+          commandfor="photo-viewer"
+          type="button"
+          @click="index = at"
+        >
           <img :alt="alt" :src="src" />
         </button>
       </li>
     </ul>
     <Dialog
-      ref="viewer"
       aria-label="Photo viewer"
       class="app-viewer"
       closedby="any"

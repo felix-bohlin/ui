@@ -23,7 +23,11 @@ import { ME, photosBy, postsBy, user } from "reference-shared"
 const route = useRoute()
 const profile = user(String(route.params.handle))
 if (!profile) {
-  throw createError({ statusCode: 404, statusMessage: "Not Found" })
+  throw createError({
+    fatal: true,
+    statusCode: 404,
+    statusMessage: "Not Found",
+  })
 }
 
 const name = ref(profile.name)

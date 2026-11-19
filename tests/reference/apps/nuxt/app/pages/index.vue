@@ -22,6 +22,8 @@ const hidden = ref<string[]>([])
 const saved = ref<string[]>([])
 const filter = ref<FeedFilter>("all")
 const text = ref("")
+const list = useTemplateRef("list")
+const end = useTemplateRef("end")
 
 const visible = computed(() => {
   const shown = (posts: Post[]) =>
@@ -37,13 +39,28 @@ const visible = computed(() => {
   return shown([...created.value, ...loaded.value])
 })
 
-const loadMore = async () => {
+const loadMore = async (event: MouseEvent) => {
+  const hadFocus = event.currentTarget === document.activeElement
   loading.value = true
   const next = await fetchFeedPage(pageIndex.value + 1)
   pageIndex.value += 1
   loaded.value = next.posts
   hasMore.value = next.hasMore
   loading.value = false
+  if (hasMore.value || !hadFocus) return
+  await nextTick()
+  end.value?.focus()
+}
+
+const hide = async (id: string) => {
+  const at = visible.value.findIndex((post) => post.id === id)
+  hidden.value = [...hidden.value, id]
+  await nextTick()
+  const next = visible.value[at] ?? visible.value[at - 1]
+  const target = next
+    ? document.querySelector<HTMLElement>(`#post-${next.id}-author a`)
+    : list.value
+  target?.focus()
 }
 
 const submit = () => {
@@ -90,28 +107,32 @@ const toggleSave = (id: string) => {
       >
     </ToggleGroup>
     <ol
-      v-if="visible.length"
+      v-if="visible.length || filter !== 'saved'"
+      ref="list"
       :aria-busy="loading ? 'true' : undefined"
       aria-label="Posts"
       class="app-posts"
+      tabindex="-1"
     >
       <li v-for="post in visible" :key="post.id">
         <PostCard
           :post="post"
           :saved="saved.includes(post.id)"
-          @hide="hidden = [...hidden, post.id]"
+          @hide="hide(post.id)"
           @toggle-save="toggleSave(post.id)"
         />
       </li>
     </ol>
-    <p v-else-if="filter === 'saved'" class="app-empty">No saved posts yet.</p>
+    <p v-else class="app-empty">No saved posts yet.</p>
     <template v-if="filter === 'all'">
       <div v-if="hasMore">
         <Button :disabled="loading" variant="outlined" @click="loadMore"
           >Load more</Button
         >
       </div>
-      <p v-else class="app-end">You're all caught up.</p>
+      <p v-else ref="end" class="app-end" tabindex="-1">
+        You're all caught up.
+      </p>
     </template>
   </div>
 </template>

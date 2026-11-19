@@ -668,7 +668,7 @@ export const whatsNew = {
     `Styles use logical properties only, so the <a href="#basics">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
     {
       ...components(
-        `<a href="#close-button"><code>closeButton</code></a> on <code>DialogHeader</code> adds a close button at the end of the title row, named by <code>closeLabel</code>. Outside a <code>Dialog</code>, <code>commandfor</code> names the dialog it closes.`,
+        `<a href="#close-button"><code>closeButton</code></a> on <code>DialogHeader</code> adds a close button at the end of the title row, named by <code>closeLabel</code>. Outside a <code>Dialog</code>, <code>commandfor</code> names the dialog it closes. The types take both only with <code>closeButton</code>.`,
       ),
       html: `A <a href="#basics">close button</a> after the heading stays on the title row when a paragraph follows it.`,
     },
@@ -710,11 +710,11 @@ export const whatsNew = {
     `Themes can set <a href="#api"><code>--ui-card-padding</code></a> for the header, content and footer padding.`,
     {
       ...slots(
-        `Breaking: <code>DrawerHeader</code> renders its <a href="#close-button">close button</a> only with <code>closeButton</code>, like <code>DialogHeader</code>. Add it to keep the button.`,
+        `Breaking: <code>DrawerHeader</code> renders its <a href="#close-button">close button</a> only with <code>closeButton</code>, like <code>DialogHeader</code>. Add it to keep the button: the types take <code>closeLabel</code> and <code>commandfor</code> only with it.`,
       ),
-      react: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>.`,
-      solid: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>.`,
-      svelte: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>.`,
+      react: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>, which the types take only with it.`,
+      solid: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>, which the types take only with it.`,
+      svelte: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>, which the types take only with it.`,
     },
     {
       ...slots(
@@ -964,7 +964,7 @@ export const whatsNew = {
     },
   ],
   "one-time-code": [
-    `New: a <a href="#basics">One-time code</a> field draws one input as a box per character, with <a href="#grouped">grouped</a> halves, a <a href="#length">length</a> from 4 to 8 and <a href="#alphanumeric">alphanumeric</a> codes.`,
+    `New: a <a href="#basics">One-time code</a> field draws one input as a box per character, with <a href="#grouped">grouped</a> halves, a <a href="#length">length</a> from 4 to 8, <a href="#alphanumeric">alphanumeric</a> codes and autofill you can turn off for a code read off <a href="#another-screen">another screen</a>.`,
   ],
   progress: [
     `The <a href="#determinate">track</a> is always outlined with <code>--ui-field-border-color</code>, so the empty part is visible.`,

@@ -1,5 +1,6 @@
 export type Props = {
   alphanumeric?: boolean
+  autocomplete?: "off" | "one-time-code"
   endText?: string
   error?: boolean
   grouped?: boolean

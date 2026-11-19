@@ -27,6 +27,7 @@ const SAMPLES: Record<string, unknown> = {
 }
 
 const REACT_NAMES: Record<string, string> = {
+  autocomplete: "autoComplete",
   checked: "defaultChecked",
   class: "className",
   for: "htmlFor",

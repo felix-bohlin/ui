@@ -608,3 +608,228 @@ test("a callout dismissed before React hydrates it waits for onDismiss", async (
   await expect(callout).toBeHidden()
   expect(unexpected(problems, app.name, "callout")).toEqual([])
 })
+
+type NativeStep = { click: number } | { fill: string } | { select: string }
+
+const NATIVE_CASES: {
+  after: NativeStep
+  before: NativeStep
+  name: string
+}[] = [
+  { after: { click: 0 }, before: { click: 0 }, name: "checkbox-bound" },
+  { after: { click: 0 }, before: { click: 0 }, name: "checkbox-default" },
+  { after: { click: 0 }, before: { click: 0 }, name: "checkbox-empty" },
+  { after: { click: 0 }, before: { click: 2 }, name: "group-bound" },
+  { after: { click: 0 }, before: { click: 2 }, name: "group-default" },
+  { after: { click: 0 }, before: { click: 2 }, name: "group-empty" },
+  { after: { click: 1 }, before: { click: 0 }, name: "radio-bound" },
+  { after: { click: 1 }, before: { click: 0 }, name: "radio-default" },
+  { after: { click: 1 }, before: { click: 0 }, name: "radio-empty" },
+  { after: { fill: "10" }, before: { fill: "70" }, name: "range-bound" },
+  { after: { fill: "10" }, before: { fill: "70" }, name: "range-default" },
+  { after: { click: 2 }, before: { click: 5 }, name: "rating-bound" },
+  { after: { click: 2 }, before: { click: 5 }, name: "rating-default" },
+  { after: { click: 2 }, before: { click: 5 }, name: "rating-empty" },
+  {
+    after: { select: "red" },
+    before: { select: "blue" },
+    name: "select-bound",
+  },
+  {
+    after: { select: "red" },
+    before: { select: "blue" },
+    name: "select-default",
+  },
+  { after: { click: 0 }, before: { click: 2 }, name: "tabs-bound" },
+  { after: { click: 0 }, before: { click: 2 }, name: "tabs-default" },
+  { after: { fill: "Linus" }, before: { fill: "Grace" }, name: "text-bound" },
+  {
+    after: { fill: "Linus" },
+    before: { fill: "Grace" },
+    name: "text-default",
+  },
+  { after: { fill: "Linus" }, before: { fill: "Grace" }, name: "text-empty" },
+  { after: { click: 0 }, before: { click: 0 }, name: "toggle-bound" },
+  { after: { click: 0 }, before: { click: 0 }, name: "toggle-default" },
+  { after: { click: 0 }, before: { click: 0 }, name: "toggle-empty" },
+]
+
+const REACT_SEED =
+  "Rating, Tabs and ToggleGroup report a choice made before hydration to onValueChange (seedChecked in components/react.ts), which a native radio bound in React doesn't"
+const SOLID_DEFAULTS =
+  "the control prints its first value as defaultValue or defaultChecked (initialValue, initialChecked), which a native control bound in Solid doesn't, so a form reset returns to it"
+const SOLID_SEED =
+  "Rating, Tabs and ToggleGroup report a choice made before hydration to onValueChange (seedChecked in components/solid.ts), which a native radio bound in Solid doesn't"
+const SVELTE_DEFAULTS =
+  "the control prints its first bound value as defaultValue or defaultChecked (initialValue, initialChecked, seedChecked in components/svelte.ts), which bind: on a native control doesn't, so a form reset returns to it"
+const SVELTE_SELECT =
+  "the hand-written Select marks its options selected from the bound value, which bind:value on a native select doesn't"
+const VUE_SEED =
+  "v-seed (vSeed and seedChecked in components/vue.ts) keeps a change made before hydration and writes it into the model, makes the first state the default on a client render and writes a form reset into the model, which v-model on a native control doesn't"
+
+const differences = (app: string, reason: string, names: string[]) =>
+  names.map((name) => ({ app, name, reason }))
+
+const NATIVE_DIFFERENCES = [
+  ...differences("next", REACT_SEED, [
+    "group-bound",
+    "rating-bound",
+    "tabs-bound",
+  ]),
+  ...differences("nuxt", VUE_SEED, [
+    "checkbox-bound",
+    "group-bound",
+    "group-default",
+    "radio-bound",
+    "range-bound",
+    "rating-bound",
+    "rating-default",
+    "select-bound",
+    "select-default",
+    "tabs-bound",
+    "tabs-default",
+    "text-bound",
+    "toggle-bound",
+  ]),
+  ...differences("solid-start", SOLID_SEED, [
+    "group-bound",
+    "rating-bound",
+    "tabs-bound",
+  ]),
+  ...differences("sveltekit", SVELTE_DEFAULTS, [
+    "checkbox-bound",
+    "group-bound",
+    "radio-bound",
+    "range-bound",
+    "rating-bound",
+    "rating-default",
+    "tabs-bound",
+    "text-bound",
+    "toggle-bound",
+  ]),
+  ...differences("sveltekit", SVELTE_SELECT, [
+    "select-bound",
+    "select-default",
+  ]),
+  ...differences("vite-solid", SOLID_DEFAULTS, [
+    "checkbox-bound",
+    "group-bound",
+    "radio-bound",
+    "range-bound",
+    "rating-bound",
+    "tabs-bound",
+    "text-bound",
+    "toggle-bound",
+  ]),
+  ...differences("vite-svelte", SVELTE_DEFAULTS, [
+    "checkbox-bound",
+    "group-bound",
+    "radio-bound",
+    "range-bound",
+    "rating-bound",
+    "rating-default",
+    "tabs-bound",
+    "text-bound",
+    "toggle-bound",
+  ]),
+  ...differences("vite-svelte", SVELTE_SELECT, [
+    "select-bound",
+    "select-default",
+  ]),
+  ...differences("vite-vue", VUE_SEED, [
+    "checkbox-bound",
+    "group-bound",
+    "radio-bound",
+    "range-bound",
+    "rating-bound",
+    "select-bound",
+    "tabs-bound",
+    "text-bound",
+    "toggle-bound",
+  ]),
+]
+
+const act = async (form: Locator, step: NativeStep) => {
+  const controls = form.locator(CONTROLS)
+  if ("click" in step) {
+    await controls
+      .nth(step.click)
+      .evaluate((element) => (element as HTMLInputElement).click())
+  } else if ("fill" in step) {
+    await controls.first().fill(step.fill)
+  } else await controls.first().selectOption(step.select)
+}
+
+const nativeStateOf = (form: Locator) =>
+  form.evaluate((element, controls) => {
+    const output = element.querySelector("output")
+    return {
+      bound: output?.textContent ?? null,
+      controls: [...element.querySelectorAll(controls)].map((control) => {
+        if (control instanceof HTMLSelectElement) {
+          return {
+            current: control.value,
+            initial: [...control.options].find(
+              (option) => option.defaultSelected,
+            )?.value,
+          }
+        }
+        if (
+          control instanceof HTMLInputElement &&
+          (control.type === "checkbox" || control.type === "radio")
+        ) {
+          return { current: control.checked, initial: control.defaultChecked }
+        }
+        const field = control as HTMLInputElement | HTMLTextAreaElement
+        return { current: field.value, initial: field.defaultValue }
+      }),
+    }
+  }, CONTROLS)
+
+const settle = (page: Page) =>
+  page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 100)))
+
+for (const { after, before, name } of NATIVE_CASES) {
+  test(`native/${name} holds the same state as the native control before hydration, after a change and after a form reset`, async ({
+    page,
+  }, testInfo) => {
+    const app = appOf(testInfo.project.name)
+    const difference = NATIVE_DIFFERENCES.find(
+      (entry) => entry.app === app.name && entry.name === name,
+    )
+    test.fail(!!difference, difference?.reason)
+    const problems = await watch(page)
+    const release = app.scripts
+      ? await holdScripts(page, app.scripts)
+      : undefined
+    await page.goto("/native", { waitUntil: release ? "commit" : "load" })
+    const forms = ["Native", "Opui"].map((side) =>
+      page.locator(`[data-example="native/${side}"] [data-case="${name}"]`),
+    )
+    const [native, opui] = forms as [Locator, Locator]
+    const expectSame = async (moment: string) => {
+      await settle(page)
+      expect(
+        await nativeStateOf(opui),
+        `${app.name}: the opui ${name} differs from the native control ${moment}. A component keeps no state: it hands the value to the native control in the framework's own way and behaves like it, so remove what the component adds`,
+      ).toEqual(await nativeStateOf(native))
+    }
+
+    if (release) {
+      for (const form of forms) await act(form, before)
+      release()
+    }
+    await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
+    await page.waitForLoadState("load")
+    await expectSame(
+      release ? "once it hydrates over a change" : "once it renders",
+    )
+    for (const form of forms) await act(form, after)
+    await expectSame("after a change")
+    for (const form of forms) {
+      await form.evaluate((element) => (element as HTMLFormElement).reset())
+    }
+    await expectSame("after a form reset")
+    expect(unexpected(problems, app.name, "native")).toEqual([])
+  })
+}

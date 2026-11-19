@@ -191,27 +191,30 @@ export const KNOWN_PROBLEMS: {
 }[] = []
 
 const examplesDir = path.join(root, "src/component-examples")
+const nativeDir = path.join(appsDir, "native")
+
+const filesOf = (dir: string, framework: Framework) =>
+  withoutCodeVariants(
+    readdirSync(dir)
+      .filter((file) => file.endsWith(EXTENSIONS[framework]))
+      .map((file) => ({
+        file,
+        name: file.slice(0, -EXTENSIONS[framework].length),
+      })),
+  ).toSorted((a, b) => a.name.localeCompare(b.name))
 
 export const examplesOf = (framework: Framework) =>
   new Map(
-    readdirSync(examplesDir)
-      .toSorted()
-      .map((slug) => {
-        const names = readdirSync(path.join(examplesDir, slug))
-          .filter((file) => file.endsWith(EXTENSIONS[framework]))
-          .map((file) => ({
-            file,
-            name: file.slice(0, -EXTENSIONS[framework].length),
-          }))
-        return [
-          slug,
-          withoutCodeVariants(names).toSorted((a, b) =>
-            a.name.localeCompare(b.name),
-          ),
-        ] as const
-      })
-      .filter(([, examples]) => examples.length > 0),
+    [
+      ...readdirSync(examplesDir)
+        .toSorted()
+        .map(
+          (slug) =>
+            [slug, filesOf(path.join(examplesDir, slug), framework)] as const,
+        ),
+      ["native", filesOf(nativeDir, framework)] as const,
+    ].filter(([, examples]) => examples.length > 0),
   )
 
 export const exampleSource = (slug: string, file: string) =>
-  path.join(examplesDir, slug, file)
+  path.join(slug === "native" ? nativeDir : path.join(examplesDir, slug), file)

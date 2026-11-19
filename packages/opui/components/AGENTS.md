@@ -17,6 +17,7 @@ When implementing or updating a component, ensure:
 - [ ] **ID Stability**: Used `createId(Astro.locals)` in Astro, `useId()` in React, `$props.id()` in Svelte and `useId()` in Vue for any internal element linking.
 - [ ] **Accessibility**: Names, roles and relationships follow the Accessible names rules in section 3 and the ids in section 6.
 - [ ] **Parts or Slots**: Containers expose parts (section 4); form controls and small components use props and named slots.
+- [ ] **No State**: The app owns every value; a form control behaves like the native control bound in the framework's own way ([State belongs to the app](#state-belongs-to-the-app)).
 - [ ] **Exports**: The component and its `Props` type are exported from `packages/opui/astro/index.ts`, `packages/opui/react/index.ts`, `packages/opui/solid/index.ts`, `packages/opui/svelte/index.ts` and `packages/opui/vue/index.ts`, sorted, the root's as `Props as <Root>Props` and each part's under its own name (`Props as CardProps`, `CardActionsProps`). `pnpm check-components` checks that the barrels are sorted and export the same components and types, with each `Props` type from the framework's own types file and a `<Name>Props` for every component.
 
 ---
@@ -337,6 +338,10 @@ Check that a named slot exists before rendering its wrapper. `tests/unit/compone
 ---
 
 ## 5. Form & Input Patterns
+
+### State belongs to the app
+
+A component renders its props as HTML and wires up what the platform needs: ids, labels, ARIA, and the custom elements that make a native feature work without a framework. It keeps no state of its own, so it never holds, adopts, restores or corrects a value: no magic. A form control hands its value to the native element in the framework's own way (`bind:value` in Svelte, `v-model` in Vue, `value` or `defaultValue` with `onChange` in React and Solid) and behaves like that framework's native control bound the same way, before the page hydrates, after a change and after a form reset. A group with no native element for its value (Tabs, ToggleGroup, Rating) takes `value` and reports each choice like a set of native radios bound in that framework. Reading a prop to render is fine: Range's readout, Rating's checked star, Select's selected item. `pnpm test:apps` renders every bound control next to the native one in each framework (`tests/apps/native/`) and fails where they differ.
 
 ### Label Wrapping
 

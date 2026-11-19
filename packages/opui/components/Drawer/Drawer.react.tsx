@@ -1,12 +1,13 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useMemo } from "react"
 import { defined } from "../attrs"
 import { cx } from "../cx"
 import { DrawerContext } from "./context.react"
 import { autoLabelledBy } from "../id"
 import { warnMissingId } from "../dev"
 import type { Props } from "./types.react"
+import type { Context } from "./types"
 
 export default function Drawer({
   backdrop = "blurred",
@@ -25,9 +26,14 @@ export default function Drawer({
     void import("../../elements/close-on-navigate.js")
     void import("../../elements/drawer-swipe.js")
   }, [])
+  const attrs = defined(rest)
+  const context = useMemo<Context>(
+    () => ({ id, titleId: labelledBy }),
+    [id, labelledBy],
+  )
 
   return (
-    <DrawerContext value={{ id, titleId: labelledBy }}>
+    <DrawerContext value={context}>
       <dialog
         closedby={closedby}
         className={cx([
@@ -42,7 +48,7 @@ export default function Drawer({
         aria-labelledby={labelledBy}
         data-close-on-navigate={closeOnNavigate ? "" : undefined}
         id={id}
-        {...defined(rest)}
+        {...attrs}
       >
         {children}
       </dialog>

@@ -289,3 +289,7 @@ export const seedChecked = (
     getSSRProps: ({ value }) => (value ? { checked: true } : undefined),
   }
 }
+
+export const vHydrated: ObjectDirective<Element> = {
+  mounted: (element) => element.removeAttribute("data-hydrating"),
+}

@@ -1,0 +1,9 @@
+===================================================================
+--- astro
++++ solid
+@@ -1,4 +1,4 @@
+ <div style="inline-size: 20rem; max-inline-size: 100%">
+-  <opui-file-upload class="ui-file-upload">
++  <opui-file-upload class="ui-file-upload" data-hydrating>
+     <div class="ui-content">
+       <div class="ui-field">

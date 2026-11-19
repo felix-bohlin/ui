@@ -10,6 +10,11 @@ import AnchorVue from "../../packages/opui/components/Anchor/Anchor.vue"
 import AnchorContentReact from "../../packages/opui/components/Anchor/AnchorContent.react"
 import AnchorContentSolid from "../../packages/opui/components/Anchor/AnchorContent.solid"
 import AnchorContentVue from "../../packages/opui/components/Anchor/AnchorContent.vue"
+import AvatarAstro from "../../packages/opui/components/Avatar/Avatar.astro"
+import AvatarReact from "../../packages/opui/components/Avatar/Avatar.react"
+import AvatarSolid from "../../packages/opui/components/Avatar/Avatar.solid"
+import AvatarSvelte from "../../packages/opui/components/Avatar/Avatar.svelte"
+import AvatarVue from "../../packages/opui/components/Avatar/Avatar.vue"
 import CheckboxAstro from "../../packages/opui/components/Checkbox/Checkbox.astro"
 import CheckboxReact from "../../packages/opui/components/Checkbox/Checkbox.react"
 import CheckboxSolid from "../../packages/opui/components/Checkbox/Checkbox.solid"
@@ -63,6 +68,7 @@ import ToggleGroupReact from "../../packages/opui/components/ToggleGroup/ToggleG
 import ToggleGroupSolid from "../../packages/opui/components/ToggleGroup/ToggleGroup.solid"
 import ToggleGroupSvelte from "../../packages/opui/components/ToggleGroup/ToggleGroup.svelte"
 import ToggleGroupVue from "../../packages/opui/components/ToggleGroup/ToggleGroup.vue"
+import { resetWarnings, WARNED_ONCE } from "../../packages/opui/components/dev"
 import AnchorContentAttributesAstro from "./fixtures/AnchorContentAttributes.astro"
 import AnchorContentAttributesSvelte from "./fixtures/AnchorContentAttributes.svelte"
 import ReplacedIdsAstro from "./fixtures/ReplacedIds.astro"
@@ -98,10 +104,16 @@ const FRAMEWORKS = Object.keys(render) as ComponentFramework[]
 const CONTROL_FRAMEWORKS = Object.keys(render) as ComponentFramework[]
 
 const warn = vi.spyOn(console, "warn").mockImplementation(() => {})
-const warnings = () => warn.mock.calls.map(([message]) => String(message))
+const warnings = () =>
+  warn.mock.calls.map(([message]) => {
+    const text = String(message)
+    expect(text.endsWith(` ${WARNED_ONCE}`)).toBe(true)
+    return text.slice(0, -WARNED_ONCE.length - 1)
+  })
 
 beforeEach(() => {
   warn.mockClear()
+  resetWarnings()
 })
 
 afterAll(() => {
@@ -113,6 +125,17 @@ describe.each(Object.entries(CONTROLS))("%s", (name, components) => {
     "%s warns when it has no accessible name",
     async (framework) => {
       await render[framework](components[framework], { value: "a" })
+      expect(warnings()).toEqual([
+        `[OPUI ${name}] Missing accessible name. Provide a default slot, and set \`hideLabel\` to hide it visually.`,
+      ])
+    },
+  )
+
+  test.each(CONTROL_FRAMEWORKS)(
+    "%s warns once when it renders again",
+    async (framework) => {
+      await render[framework](components[framework], { value: "a" })
+      await render[framework](components[framework], { value: "b" })
       expect(warnings()).toEqual([
         `[OPUI ${name}] Missing accessible name. Provide a default slot, and set \`hideLabel\` to hide it visually.`,
       ])
@@ -164,6 +187,69 @@ describe("ToggleGroup", () => {
         "aria-labelledby": "heading",
       })
       expect(warnings()).toEqual([])
+    },
+  )
+})
+
+const AVATAR: Record<ComponentFramework, unknown> = {
+  astro: AvatarAstro,
+  react: AvatarReact,
+  solid: AvatarSolid,
+  svelte: AvatarSvelte,
+  vue: AvatarVue,
+}
+
+describe("Avatar", () => {
+  test.each(FRAMEWORKS)(
+    "%s warns when a link or button avatar has no accessible name",
+    async (framework) => {
+      const message =
+        "[OPUI Avatar] Missing accessible name. A link or button Avatar needs `label`, `aria-label` or `aria-labelledby`."
+      await render[framework](AVATAR[framework], { as: "button" })
+      expect(warnings()).toEqual([message])
+      warn.mockClear()
+      resetWarnings()
+      await render[framework](AVATAR[framework], { href: "/people/lena" })
+      expect(warnings()).toEqual([message])
+    },
+  )
+
+  test.each(FRAMEWORKS)(
+    "%s doesn't warn for a named link or button avatar, or for a decorative one",
+    async (framework) => {
+      await render[framework](AVATAR[framework], {
+        as: "button",
+        label: "Lena Handén",
+      })
+      await render[framework](AVATAR[framework], {
+        "aria-label": "Lena Handén",
+        href: "/people/lena",
+      })
+      await render[framework](AVATAR[framework], {})
+      expect(warnings()).toEqual([])
+    },
+  )
+
+  test.each(FRAMEWORKS)(
+    "%s names an image with label, and hides the content of an avatar without an image",
+    async (framework) => {
+      expect(
+        await render[framework](AVATAR[framework], {
+          label: "Lena Handén",
+          src: "/lena.jpg",
+        }),
+      ).toContain('alt="Lena Handén"')
+      expect(
+        await render[framework](AVATAR[framework], { src: "/lena.jpg" }),
+      ).toMatch(/ alt(="")?[ />]/)
+      const letters = await render[framework](AVATAR[framework], {
+        label: "Lena Handén",
+      })
+      expect(letters).toContain('<span aria-hidden="true">')
+      expect(letters).toContain('<span class="ui-sr-only">Lena Handén</span>')
+      expect(await render[framework](AVATAR[framework], {})).not.toContain(
+        "ui-sr-only",
+      )
     },
   )
 })

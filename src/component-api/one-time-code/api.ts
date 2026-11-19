@@ -46,6 +46,20 @@ export default {
       type: "string",
     },
     {
+      default: '"one-time-code"',
+      description:
+        "The `autocomplete` of the `<input>`. Set `off` for a code read off another screen, such as a TV or the computer you're signing in on.",
+      frameworks: ["astro", "solid", "svelte", "vue"],
+      prop: "autocomplete",
+    },
+    {
+      default: '"one-time-code"',
+      description:
+        "The `autocomplete` of the `<input>`, as `autoComplete` like on the element. Set `off` for a code read off another screen, such as a TV or the computer you're signing in on.",
+      frameworks: ["react"],
+      prop: "autoComplete",
+    },
+    {
       attribute: "[disabled]",
       default: "false",
       description: "Dims the field and blocks input.",
@@ -171,7 +185,7 @@ export default {
     {
       code: "<input>",
       description:
-        'The input element, with `autocomplete="one-time-code"`, which lets the browser fill in a code it received.',
+        'The input element, with `autocomplete="one-time-code"` unless it is set to `off`, which lets the browser fill in a code it received.',
       model: true,
       selector: "input",
     },

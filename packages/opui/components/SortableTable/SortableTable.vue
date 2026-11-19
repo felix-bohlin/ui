@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import "../../elements/sortable-table.js"
+import { vHydrated } from "../vue"
 import type { Props, Emits, Slots } from "./types.vue-props"
 
 const { ascendingLabel, descendingLabel } = defineProps<Props>()
@@ -14,6 +15,8 @@ const emit = defineEmits<Emits>()
     :class="['ui-sortable-table', $props.class]"
     :descending-label="descendingLabel"
     @sort="emit('sort', $event)"
+    data-hydrating=""
+    v-hydrated
   >
     <slot></slot>{{ " " }}<span class="ui-sr-only" role="status"></span>
   </component>

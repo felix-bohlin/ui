@@ -1,3 +1,4 @@
+import type { HTMLAttributes } from "react"
 import { defined } from "../attrs"
 import { cx } from "../cx"
 import { tagAttrs } from "../tag"
@@ -28,7 +29,7 @@ export default function Button({
         className,
       ])}
       {...tagAttrs(Tag, disabled, href)}
-      {...defined(rest as object)}
+      {...defined(rest as HTMLAttributes<HTMLElement>)}
     >
       {children}
     </Tag>

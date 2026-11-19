@@ -71,7 +71,7 @@
   {style}
 >
   {#if hasLabel}
-    <label class={[hideLabel ? "ui-sr-only" : "ui-label"]} for={textareaId}>
+    <label class={hideLabel ? "ui-sr-only" : "ui-label"} for={textareaId}>
       {@render content(label)}
     </label>
   {/if}

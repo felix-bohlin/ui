@@ -1,3 +1,5 @@
+import type { RemoveDetail, SelectDetail } from "../components/FileUpload/types"
+import type { ReactionDetail } from "../components/Reactions/types"
 import type { SortDetail } from "../components/SortableTable/types"
 
 declare module "svelte/elements" {
@@ -16,7 +18,26 @@ declare module "svelte/elements" {
       "copied-label"?: string | undefined | null
       "failed-label"?: string | undefined | null
     }
+    "opui-file-upload": Omit<HTMLAttributes<HTMLElement>, "onselect"> & {
+      onremove?:
+        | EventHandler<CustomEvent<RemoveDetail>, HTMLElement>
+        | undefined
+        | null
+      onselect?:
+        | EventHandler<CustomEvent<SelectDetail>, HTMLElement>
+        | undefined
+        | null
+    }
     "opui-number-field": HTMLAttributes<HTMLElement>
+    "opui-reactions": HTMLAttributes<HTMLElement> & {
+      onreaction?:
+        | EventHandler<CustomEvent<ReactionDetail>, HTMLElement>
+        | undefined
+        | null
+      "quick-label"?: string | undefined | null
+      "quick-text"?: string | undefined | null
+      "quick-value"?: string | undefined | null
+    }
     "opui-select-all": HTMLAttributes<HTMLElement>
     "opui-sortable-table": HTMLAttributes<HTMLElement> & {
       "ascending-label"?: string | undefined | null

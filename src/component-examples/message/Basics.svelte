@@ -6,13 +6,13 @@
   <MessageList aria-label="Messages with Stella">
     <Message author="Stella" datetime="2026-10-08T14:02" time="14:02">
       {#snippet start()}
-        <Avatar aria-hidden="true">SN</Avatar>
+        <Avatar>SN</Avatar>
       {/snippet}
       <p>Heyyy! Did your band notice you changed strings yet?</p>
     </Message>
     <Message author="Stella" datetime="2026-10-08T14:03" time="14:03">
       {#snippet start()}
-        <Avatar aria-hidden="true">SN</Avatar>
+        <Avatar>SN</Avatar>
       {/snippet}
       <p>Flatwounds, right? So rad.</p>
     </Message>

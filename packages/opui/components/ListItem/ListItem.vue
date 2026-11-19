@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, type HTMLAttributes, useAttrs } from "vue"
+import { computed, useAttrs } from "vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import { tagAttrs } from "../tag"
 import { defined } from "../attrs"
@@ -24,7 +24,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs() as HTMLAttributes
+const attrs = useAttrs()
 
 const hasControl = computed(
   () => choice === "checkbox" || choice === "radio" || choice === "switch",

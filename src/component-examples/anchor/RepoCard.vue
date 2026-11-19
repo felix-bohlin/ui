@@ -29,7 +29,6 @@ import {
           <CardContent>
             <div class="repo-card-identity">
               <Avatar
-                alt=""
                 shape="rounded"
                 src="https://github.com/felix-bohlin.png"
               />

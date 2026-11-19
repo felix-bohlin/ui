@@ -83,7 +83,7 @@
   {style}
 >
   {#if hasLabel}
-    <label class={[hideLabel ? "ui-sr-only" : "ui-label"]} for={inputId}>
+    <label class={hideLabel ? "ui-sr-only" : "ui-label"} for={inputId}>
       {@render content(label)}
     </label>
   {/if}

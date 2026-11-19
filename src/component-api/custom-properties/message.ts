@@ -1,6 +1,11 @@
 import type { CustomProperties } from "../types"
 
 export default {
+  "--_actions-opacity": {
+    description:
+      "Opacity of the actions on a device that can hover, while the message isn't hovered, doesn't hold focus and has no popover open. Defaults to `0`; `1` always shows them.",
+    kind: "input",
+  },
   "--_avatar-size": {
     description:
       "Size of the avatar next to the bubble. Defaults to `--ui-control-size-small`.",
@@ -21,23 +26,22 @@ export default {
       "Radius of the bubble's corner on the avatar side at the top. Tightened on every message of a run but the first.",
     kind: "output",
   },
-  "--_border-color": {
-    description:
-      "Border of the `.ui-toggle-button` reactions in the `bottom` slot. The group's `--_border-color`, `--ui-text-subtle` on hover and `--ui-selected-strong` when checked. A focused reaction draws `--ui-focus-border-color` instead when the theme sets it.",
-    kind: "output",
-  },
-  "--_divider-gap": {
-    description:
-      "Set to `0px` on the `.ui-toggle-group` in the `bottom` slot, so the group draws no lines between the reaction pills, which keep their own gap.",
-    kind: "output",
-  },
   "--_dot-image": {
     description: "One dot of the typing indicator.",
     kind: "output",
   },
+  "--_duration": {
+    description:
+      "Duration of the fade of the actions, `--ui-duration` times `--_motion`.",
+    kind: "output",
+  },
+  "--_ease": {
+    description: "Easing of the fade of the actions. Defaults to `--ui-ease`.",
+    kind: "input",
+  },
   "--_font-size": {
     description:
-      "Font size of the avatar's initials and the reactions, set to `--ui-font-size-caption` on the `.ui-avatar` in the `start` slot and the `.ui-toggle-button` pills in the `bottom` slot.",
+      "Font size of the avatar's initials, set to `--ui-font-size-caption` on the `.ui-avatar` in the `start` slot.",
     kind: "output",
   },
   "--_max-inline-size": {
@@ -47,7 +51,7 @@ export default {
   },
   "--_motion": {
     description:
-      "Multiplies the typing animation. Defaults to `--ui-motion`, `0` under reduced motion.",
+      "Multiplies the typing animation and the fade of the actions. Defaults to `--ui-motion`, `0` under reduced motion.",
     kind: "input",
   },
   "--_radius": {
@@ -55,14 +59,9 @@ export default {
       "Radius of the bubble corners. Defaults to `--ui-radius`, larger with `corner-shape: squircle`.",
     kind: "input",
   },
-  "--_selected-bg-color": {
-    description:
-      "Fill of a checked `.ui-toggle-button` reaction in the `bottom` slot. `--ui-selected` when the theme sets it, otherwise `--ui-primary` mixed into `--ui-surface` at `--ui-state-selected-alpha-accent`. Its border is `--ui-selected-strong` and its text `--ui-on-selected`, or `--ui-text-strong`.",
-    kind: "output",
-  },
   "--_size": {
     description:
-      "Size of the `.ui-avatar` in the `start` slot, set to `--_avatar-size`, and of the `.ui-toggle-button` pills in the `bottom` slot, set to `--ui-button-size-x-small`.",
+      "Size of the `.ui-avatar` in the `start` slot, set to `--_avatar-size`.",
     kind: "output",
   },
   "--_text-color": {

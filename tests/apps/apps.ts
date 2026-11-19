@@ -1,18 +1,22 @@
 import { readdirSync } from "node:fs"
 import path from "node:path"
 import { withoutCodeVariants } from "../../src/utils/example-variants.ts"
+import {
+  exampleExtension,
+  HYDRATED_FRAMEWORK_IDS,
+} from "../../src/utils/framework.js"
 
 export const appsDir = import.meta.dirname
 export const root = path.resolve(appsDir, "../..")
 
-const EXTENSIONS = {
-  react: ".react.tsx",
-  solid: ".solid.tsx",
-  svelte: ".svelte",
-  vue: ".vue",
-}
+type Framework = (typeof HYDRATED_FRAMEWORK_IDS)[number]
 
-type Framework = keyof typeof EXTENSIONS
+const EXTENSIONS = Object.fromEntries(
+  HYDRATED_FRAMEWORK_IDS.map((framework) => [
+    framework,
+    `.${exampleExtension(framework)}`,
+  ]),
+) as Record<Framework, string>
 
 type App = {
   build: string[]
@@ -35,7 +39,7 @@ type App = {
   start: string
 }
 
-const ALL_APPS: App[] = [
+export const ALL_APPS: App[] = [
   {
     build: ["next", "build"],
     check: [],

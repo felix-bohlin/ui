@@ -102,7 +102,6 @@
     "stylelint": "^17.16.0",
     "svelte": "catalog:",
     "svelte-check": "^4.7.8",
-    "tsrs": "^0.25.0-ts7.1.0-beta",
     "unified": "^11.0.5",
     "vitest": "^5.1.0",
     "vue": "catalog:",

@@ -1,6 +1,8 @@
 <ol class="ui-message-list" role="list" aria-label="Messages with Stella">
   <li class="ui-message">
-    <div class="ui-avatar" aria-hidden="true">SN</div>
+    <div class="ui-avatar">
+      <span aria-hidden="true">SN</span>
+    </div>
     <div class="ui-content">
       <p class="ui-header">Stella</p>
       <p>My slap cover is up. Thanks for listening, everyone!</p>
@@ -8,28 +10,126 @@
         <time datetime="2026-10-08T16:05">16:05</time>
       </p>
     </div>
-    <div class="ui-bottom">
-      <div class="ui-toggle-group" role="group" aria-label="Reactions">
-        <label class="ui-toggle-button">
-          <input
-            checked
-            name="reaction"
-            type="checkbox"
+    <div class="ui-actions">
+      <button
+        class="ui-button ui-round ui-x-small"
+        type="button"
+        aria-label="Add reaction"
+        command="toggle-popover"
+        commandfor="message-reactions-1-picker"
+      >
+        <svg
+          data-icon="add"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+          ></path>
+        </svg>
+      </button>
+      <menu
+        class="ui-menu ui-horizontal ui-block-start"
+        id="message-reactions-1-picker"
+        popover
+        aria-label="Add reaction"
+      >
+        <li>
+          <button
+            type="button"
+            command="--react"
+            commandfor="message-reactions-1"
+            aria-label="Thumbs up"
             value="+1"
-            aria-label="Thumbs up, 2"
-          />
-          <span aria-hidden="true">👍 2</span>
-        </label>
-        <label class="ui-toggle-button">
-          <input
-            name="reaction"
-            type="checkbox"
+          >
+            <div class="ui-text">
+              <p>👍</p>
+            </div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            command="--react"
+            commandfor="message-reactions-1"
+            aria-label="Heart"
+            value="heart"
+          >
+            <div class="ui-text">
+              <p>❤️</p>
+            </div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            command="--react"
+            commandfor="message-reactions-1"
+            aria-label="Laughing"
+            value="joy"
+          >
+            <div class="ui-text">
+              <p>😂</p>
+            </div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            command="--react"
+            commandfor="message-reactions-1"
+            aria-label="Party"
             value="tada"
-            aria-label="Party, 1"
-          />
-          <span aria-hidden="true">🎉 1</span>
-        </label>
-      </div>
+          >
+            <div class="ui-text">
+              <p>🎉</p>
+            </div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            command="--react"
+            commandfor="message-reactions-1"
+            aria-label="Eyes"
+            value="eyes"
+          >
+            <div class="ui-text">
+              <p>👀</p>
+            </div>
+          </button>
+        </li>
+      </menu>
+    </div>
+    <div class="ui-bottom">
+      <opui-reactions id="message-reactions-1" class="ui-reactions">
+        <div class="ui-toggle-group" role="group" aria-label="Reactions">
+          <label class="ui-toggle-button">
+            <input
+              checked
+              name="reaction"
+              type="checkbox"
+              value="+1"
+              aria-label="Thumbs up, 2"
+            />
+            <span aria-hidden="true">👍 2</span>
+          </label>
+          <label class="ui-toggle-button">
+            <input
+              name="reaction"
+              type="checkbox"
+              value="tada"
+              aria-label="Party, 1"
+            />
+            <span aria-hidden="true">🎉 1</span>
+          </label>
+        </div>
+        <span class="ui-sr-only" role="status"></span>
+      </opui-reactions>
     </div>
   </li>
   <li class="ui-message ui-outgoing">
@@ -40,18 +140,120 @@
         <time datetime="2026-10-08T16:07">16:07</time>
       </p>
     </div>
-    <div class="ui-bottom">
-      <div class="ui-toggle-group" role="group" aria-label="Reactions">
-        <label class="ui-toggle-button">
-          <input
-            name="reaction"
-            type="checkbox"
+    <div class="ui-actions">
+      <button
+        class="ui-button ui-round ui-x-small"
+        type="button"
+        aria-label="Add reaction"
+        command="toggle-popover"
+        commandfor="message-reactions-2-picker"
+      >
+        <svg
+          data-icon="add"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+          ></path>
+        </svg>
+      </button>
+      <menu
+        class="ui-menu ui-align-end ui-horizontal ui-block-start"
+        id="message-reactions-2-picker"
+        popover
+        aria-label="Add reaction"
+      >
+        <li>
+          <button
+            type="button"
+            command="--react"
+            commandfor="message-reactions-2"
+            aria-label="Thumbs up"
+            value="+1"
+          >
+            <div class="ui-text">
+              <p>👍</p>
+            </div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            command="--react"
+            commandfor="message-reactions-2"
+            aria-label="Heart"
             value="heart"
-            aria-label="Heart, 1"
-          />
-          <span aria-hidden="true">❤️ 1</span>
-        </label>
-      </div>
+          >
+            <div class="ui-text">
+              <p>❤️</p>
+            </div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            command="--react"
+            commandfor="message-reactions-2"
+            aria-label="Laughing"
+            value="joy"
+          >
+            <div class="ui-text">
+              <p>😂</p>
+            </div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            command="--react"
+            commandfor="message-reactions-2"
+            aria-label="Party"
+            value="tada"
+          >
+            <div class="ui-text">
+              <p>🎉</p>
+            </div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            command="--react"
+            commandfor="message-reactions-2"
+            aria-label="Eyes"
+            value="eyes"
+          >
+            <div class="ui-text">
+              <p>👀</p>
+            </div>
+          </button>
+        </li>
+      </menu>
+    </div>
+    <div class="ui-bottom">
+      <opui-reactions id="message-reactions-2" class="ui-reactions">
+        <div class="ui-toggle-group" role="group" aria-label="Reactions">
+          <label class="ui-toggle-button">
+            <input
+              name="reaction"
+              type="checkbox"
+              value="heart"
+              aria-label="Heart, 1"
+            />
+            <span aria-hidden="true">❤️ 1</span>
+          </label>
+        </div>
+        <span class="ui-sr-only" role="status"></span>
+      </opui-reactions>
     </div>
   </li>
 </ol>
+
+<script type="module">
+  import "opui-css/elements/reactions.js"
+</script>

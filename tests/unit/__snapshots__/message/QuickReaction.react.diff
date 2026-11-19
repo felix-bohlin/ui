@@ -1,0 +1,17 @@
+===================================================================
+--- astro
++++ react
+@@ -2,5 +2,5 @@
+   <div class="ui-content">Scored a fretless four-string at the flea market. It only buzzes a little.</div>
+   <div class="ui-actions ui-align-start">
+-    <opui-reactions class="ui-reactions" id="id-1" quick-label="Thumbs up" quick-text="👍" quick-value="+1">
++    <opui-reactions class="ui-reactions" data-hydrating id="id-1" quick-label="Thumbs up" quick-text="👍" quick-value="+1">
+       <div aria-label="Reactions" class="ui-toggle-group" role="group">
+         <label class="ui-toggle-button ui-unused">
+@@ -58,5 +58,5 @@
+   <div class="ui-content">Band practice moved to Thursday. Bring your own patch cables.</div>
+   <div class="ui-actions ui-align-start">
+-    <opui-reactions class="ui-reactions" id="id-3" quick-label="Thumbs up" quick-text="👍" quick-value="+1">
++    <opui-reactions class="ui-reactions" data-hydrating id="id-3" quick-label="Thumbs up" quick-text="👍" quick-value="+1">
+       <div aria-label="Reactions" class="ui-toggle-group" role="group">
+         <label class="ui-toggle-button">

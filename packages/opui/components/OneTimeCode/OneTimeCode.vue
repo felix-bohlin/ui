@@ -10,6 +10,7 @@ import type { Props, Slots } from "./types.vue-props"
 const {
   alphanumeric,
   autocapitalize,
+  autocomplete,
   endText,
   error,
   grouped,
@@ -73,6 +74,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
         :autocapitalize="
           autocapitalize ?? (alphanumeric ? 'characters' : undefined)
         "
+        :autocomplete="autocomplete ?? 'one-time-code'"
         :inputmode="inputmode ?? (alphanumeric ? undefined : 'numeric')"
         :pattern="
           pattern ??
@@ -85,7 +87,6 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
         "
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
         :aria-labelledby="attrs['aria-labelledby']"
-        autocomplete="one-time-code"
         :id="inputId()"
         :maxlength="length"
         :name="name ?? field?.name"

@@ -18,6 +18,6 @@
   untrack(() => warnReplacedId("DrawerTitle", "Drawer", id, drawer?.titleId))
 </script>
 
-<h2 {...classAttrs([className])} id={drawer?.titleId ?? id} {...rest}>
+<h2 {...classAttrs(className)} id={drawer?.titleId ?? id} {...rest}>
   {@render children?.()}
 </h2>

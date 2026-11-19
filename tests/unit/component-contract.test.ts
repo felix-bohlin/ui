@@ -12,18 +12,18 @@ import { readComponent } from "../../scripts/component-reader.mjs"
 import { reactAttributeName } from "../../scripts/example-react-props.mjs"
 import { tagAttrs } from "../../packages/opui/components/tag"
 import { slotProp } from "../../src/component-api/frameworks"
-import type { ComponentApi } from "../../src/component-api/types"
-import {
-  frameworkProps,
-  splitUnion,
-  typedAttributes,
-} from "../../src/utils/component-source"
-import {
-  exampleExtension,
-  PACKAGE_FRAMEWORK_IDS,
-  type PackageFrameworkId,
-} from "../../src/utils/framework"
+import { typedAttributes } from "../../src/utils/component-source"
+import { exampleExtension } from "../../src/utils/framework"
 import { createIdGenerator } from "../../src/utils/id"
+import {
+  apis,
+  type Case,
+  casesOf,
+  FRAMEWORKS,
+  type Framework,
+  partCasesOf,
+  reactProps,
+} from "./component-cases"
 import { normalize } from "./normalize"
 import {
   CALLER_VALUE,
@@ -32,14 +32,9 @@ import {
   render as renderers,
   renderSolid,
   type SolidComponent,
-  TEXT,
   vueNodes,
 } from "./renderers"
 
-const apis = import.meta.glob<ComponentApi>(
-  "../../src/component-api/*/api.ts",
-  { eager: true, import: "default" },
-)
 const astroPaths = Object.keys(
   import.meta.glob("../../packages/opui/components/*/*.astro"),
 )
@@ -56,30 +51,6 @@ const vueComponents = import.meta.glob<VueComponent>(
   "../../packages/opui/components/*/*.vue",
   { import: "default" },
 )
-
-const FRAMEWORKS = PACKAGE_FRAMEWORK_IDS
-
-type Framework = PackageFrameworkId
-
-const SAMPLES: Record<string, unknown> = {
-  "MenuItem[]": [{ label: "A", value: "a" }],
-  "RangeItem[]": [{ label: "A", value: 1 }],
-  "SelectItem[]": [{ label: "A", value: "a" }],
-  HTMLInputTypeAttribute: "text",
-  boolean: true,
-  number: 2,
-  string: TEXT,
-}
-
-const REACT_NAMES: Record<string, string> = {
-  autocomplete: "autoComplete",
-  checked: "defaultChecked",
-  class: "className",
-  for: "htmlFor",
-  value: "defaultValue",
-}
-
-const SLOT_TYPE = /\b(Element|ReactNode|Snippet)\b/
 
 const PRELOAD = /<link rel="preload" as="image"[^>]*\/>/g
 
@@ -117,40 +88,6 @@ const loaderOf = <T>(
   Object.entries(modules).find(([path]) =>
     path.endsWith(`/${name}.${exampleExtension(framework)}`),
   )?.[1]
-
-const valuesOf = (type: string) =>
-  [
-    ...new Set(
-      splitUnion(type).flatMap((member) => {
-        const literal = /^"(.*)"$/.exec(member)
-        if (literal) return [literal[1]]
-        if (member === "true") return [true]
-        return member in SAMPLES ? [SAMPLES[member]] : []
-      }),
-    ),
-  ].slice(0, 6)
-
-const slotsOf = (api: ComponentApi) =>
-  [
-    ...new Set([
-      ...(api.slots ?? []).map(({ name }) => name),
-      ...api.parts.flatMap((part) => part.slots ?? []),
-    ]),
-  ].toSorted()
-
-const propName = (framework: Framework, name: string) =>
-  framework === "react" ? (REACT_NAMES[name] ?? name) : name
-
-type Case = {
-  beforeSpread?: boolean
-  component: string
-  name: string
-  plain?: Omit<Case, "plain">
-  props: Record<string, unknown>
-  reactNames?: Record<string, string>
-  slots: string[]
-  types: Record<Framework, Map<string, string>>
-}
 
 type TemplateNode = {
   attributes?: { code?: string; kind: string; name?: string }[]
@@ -371,61 +308,6 @@ const withAttributeCases = (cases: Case[]) =>
     ]
   })
 
-const casesOf = (api: ComponentApi): Case[] => {
-  const types = Object.fromEntries(
-    FRAMEWORKS.map((framework) => [framework, frameworkProps(api, framework)]),
-  ) as Record<Framework, Map<string, string>>
-  const shared = [...types.astro]
-    .filter(
-      ([name, type]) =>
-        !SLOT_TYPE.test(type) &&
-        FRAMEWORKS.every((framework) => {
-          const own = types[framework].get(propName(framework, name))
-          return own !== undefined && !SLOT_TYPE.test(own)
-        }),
-    )
-    .toSorted(([a], [b]) => a.localeCompare(b, "en"))
-  const slots = slotsOf(api)
-  const base = { component: api.component, types }
-  return [
-    { ...base, name: "nothing", props: {}, slots: [] },
-    { ...base, name: "every slot", props: {}, slots },
-    { ...base, name: 'class="Text"', props: { class: TEXT }, slots },
-    ...shared.flatMap(([name, type]) =>
-      valuesOf(type).map((value) => ({
-        ...base,
-        name: `${name}=${JSON.stringify(value)}`,
-        props: { [name]: value },
-        slots,
-      })),
-    ),
-  ]
-}
-
-const partCasesOf = (api: ComponentApi): Case[] =>
-  api.parts
-    .filter(
-      (part) =>
-        part.component &&
-        !Object.values(apis).some(
-          (other) => other.component === part.component,
-        ),
-    )
-    .flatMap((part) => {
-      const slots = (part.slots ?? ["default"]).toSorted()
-      const base = {
-        component: part.component!,
-        types: Object.fromEntries(
-          FRAMEWORKS.map((framework) => [framework, new Map()]),
-        ) as Record<Framework, Map<string, string>>,
-      }
-      return [
-        { ...base, name: "nothing", props: {}, slots: [] },
-        { ...base, name: "every slot", props: {}, slots },
-        { ...base, name: 'class="Text"', props: { class: TEXT }, slots },
-      ]
-    })
-
 const CASES = Object.values(apis)
   .toSorted((a, b) => a.component.localeCompare(b.component, "en"))
   .flatMap((api) => withAttributeCases([...casesOf(api), ...partCasesOf(api)]))
@@ -482,30 +364,15 @@ const render: Record<Framework, (entry: Case) => Promise<string | undefined>> =
         props: { props },
       })
     },
-    react: async ({ component, props, reactNames, slots, types }) => {
-      const load = loaderOf(reactComponents, component, "react")
+    react: async (entry) => {
+      const load = loaderOf(reactComponents, entry.component, "react")
       if (!load) return undefined
       const { default: Component } = await load()
-      const nodes = () => reactNodes(contentOf(component))
       return renderReact(
-        createElement(Component, {
-          ...Object.fromEntries(
-            Object.entries(props).map(([key, value]) => [
-              reactNames?.[key] ?? propName("react", key),
-              value,
-            ]),
-          ),
-          ...Object.fromEntries(
-            slots
-              .filter(
-                (slot) => slot === "default" || types.react.has(slotProp(slot)),
-              )
-              .map((slot) => [
-                slotProp(slot),
-                slotValue("react", types.react.get(slotProp(slot)), nodes),
-              ]),
-          ),
-        }),
+        createElement(
+          Component,
+          reactProps(entry, () => reactNodes(contentOf(entry.component))),
+        ),
       ).replace(PRELOAD, "")
     },
     solid: async ({ component, props, slots, types }) => {

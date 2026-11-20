@@ -454,8 +454,9 @@ const openTodos = itemCount(todo.sections)
         Two-way binding comes from that model: <code>bind:value</code> and
         <code>bind:checked</code> in Svelte, <code>v-model</code> in Vue,
         <code>value</code>, <code>defaultValue</code> and <code>onChange</code>
-        in React, a <code>value</code> read from a signal in Solid, and all of
-        them go back to where they started when their form is reset.
+        in React, a <code>value</code> read from a signal in Solid. Each one
+        hands the value to the native control and behaves like that framework's
+        own binding on a plain input, so the state stays yours.
       </li>
       <li>
         It refuses rather than guesses. Anything outside its grammar fails with

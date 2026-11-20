@@ -153,14 +153,21 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
         <a href="#basics">Basics</a>, closes when the page navigates with
         <code>closeOnNavigate</code>: a link inside it, Back and Forward, or a
         client router in SvelteKit, Next or Nuxt. Otherwise the new page loads
-        behind a modal drawer, inert, and screen readers miss the change.
+        behind a modal drawer, inert, and screen readers miss the change. A link
+        inside it closes it on click, also one that only changes the query,
+        unless it has <code>data-keep-open</code>, like a Load more link. A
+        change of the query alone from outside it, like a filter, leaves it
+        open.
       </Fragment>
       <Fragment slot="html">
         A drawer used as navigation, like the menu in
         <a href="#basics">Basics</a>, closes when the page navigates with
         <code>data-close-on-navigate</code> and
         <code>opui-css/elements/close-on-navigate.js</code>: a link inside it,
-        Back and Forward, or a client router.
+        Back and Forward, or a client router. A link inside it closes it on
+        click, also one that only changes the query, unless it has
+        <code>data-keep-open</code>, like a Load more link. A change of the
+        query alone from outside it, like a filter, leaves it open.
       </Fragment>
     </Conditional>
   </section>

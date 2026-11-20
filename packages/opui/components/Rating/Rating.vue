@@ -25,15 +25,15 @@ defineOptions({
 
 const attrs = useAttrs() as HTMLAttributes
 
-const restAttrs = () =>
-  Object.fromEntries(
-    Object.entries(attrs).filter(
-      ([key]) =>
-        key !== "aria-describedby" &&
-        key !== "aria-invalid" &&
-        key !== "aria-label",
-    ),
-  )
+const restAttrs = computed(() => {
+  const {
+    "aria-describedby": _ariaDescribedBy,
+    "aria-invalid": _ariaInvalid,
+    "aria-label": _ariaLabel,
+    ...rest
+  } = attrs
+  return rest
+})
 
 const modelValue = defineModel<number | string>()
 
@@ -63,7 +63,7 @@ const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
     ]"
     :disabled="disabled"
     :lang="lang"
-    v-bind="mergeProps(styleAttrs($attrs.style), restAttrs())"
+    v-bind="mergeProps(styleAttrs($attrs.style), restAttrs)"
   >
     <legend>{{ label }}</legend>
     <template v-if="!required"
@@ -125,7 +125,7 @@ const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
         styleAttrs(
           mergeStyle({ '--_max': count === 5 ? undefined : count }, {}),
         ),
-        restAttrs(),
+        restAttrs,
       )
     "
   ></meter>

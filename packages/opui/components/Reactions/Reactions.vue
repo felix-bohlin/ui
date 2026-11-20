@@ -18,12 +18,14 @@ defineOptions({
 
 const attrs = useAttrs() as HTMLAttributes
 
-const restAttrs = () =>
-  Object.fromEntries(
-    Object.entries(attrs).filter(
-      ([key]) => key !== "aria-label" && key !== "aria-labelledby",
-    ),
-  )
+const restAttrs = computed(() => {
+  const {
+    "aria-label": _ariaLabel,
+    "aria-labelledby": _ariaLabelledby,
+    ...rest
+  } = attrs
+  return rest
+})
 
 const used = computed(() => items.find((item) => item.value === quick?.value))
 
@@ -44,7 +46,7 @@ const pills = computed(() =>
     :quick-label="quick?.['aria-label']"
     :quick-text="quick?.label"
     :quick-value="quick?.value"
-    v-bind="defined(restAttrs())"
+    v-bind="defined(restAttrs)"
     @reaction="emit('reaction', $event)"
     data-hydrating=""
     v-hydrated

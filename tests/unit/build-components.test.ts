@@ -653,7 +653,7 @@ describe("the ports of a sample", () => {
     )
     expect(ports["react.tsx"]).toContain("<progress value={value} {...rest} />")
     expect(ports.vue).toContain(
-      '<progress :value="value" v-bind="attrs()"></progress>',
+      '<progress :value="value" v-bind="attrs"></progress>',
     )
   })
 
@@ -1261,9 +1261,9 @@ describe("the ports of a sample", () => {
     )
     expect(ports.vue).toContain("inheritAttrs: false")
     expect(ports.vue).toContain(
-      'Object.entries(attrs).filter(([key]) => key !== "aria-describedby")',
+      'const { "aria-describedby": _ariaDescribedBy, ...rest } = attrs',
     )
-    expect(ports.vue).toContain('v-bind="restAttrs()"')
+    expect(ports.vue).toContain('v-bind="restAttrs"')
   })
 
   test("Vue binds a style that can be empty through styleAttrs, merged with the attrs in attribute order", async () => {
@@ -1271,13 +1271,13 @@ describe("the ports of a sample", () => {
       '---\nimport type { Props } from "./types.astro"\nimport { mergeStyle } from "../style"\n\nconst { "aria-describedby": ariaDescribedBy, class: className, max, style, ...rest } = Astro.props\n---\n\n<fieldset class:list={["ui-sample", className]} style={mergeStyle({ "--_max": max }, style)} {...rest}>\n  <input aria-describedby={ariaDescribedBy} />\n</fieldset>\n',
     )
     expect(ports.vue).toContain(
-      'import { type HTMLAttributes, mergeProps, useAttrs } from "vue"',
+      'import { computed, type HTMLAttributes, mergeProps, useAttrs } from "vue"',
     )
     expect(ports.vue).toContain(
       'import { mergeStyle, styleAttrs } from "../style"',
     )
     expect(ports.vue).toContain(
-      "mergeProps(styleAttrs(mergeStyle({ '--_max': max }, {})), restAttrs())",
+      "mergeProps(styleAttrs(mergeStyle({ '--_max': max }, {})), restAttrs)",
     )
     expect(ports.vue).not.toContain(":style=")
   })
@@ -1297,7 +1297,7 @@ describe("the ports of a sample", () => {
       '<script lang="ts">\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n    defaultValue,\n    value = $bindable(),\n    ...rest\n  }: Props = $props()\n\n  const getValue = () => (value === undefined ? defaultValue : value)\n  const setValue = (next: typeof value) => {\n    value = next\n  }\n</script>\n\n<label class={["ui-sample", className]}>\n  <textarea {...rest} bind:value={getValue, setValue} {defaultValue}></textarea>\n</label>\n',
     )
     expect(port(".vue")).toBe(
-      '<script setup lang="ts">\nimport { useBound, useInputAttrs } from "../vue"\nimport type { Props } from "./types.vue-props"\n\nconst { value } = defineProps<Props>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useInputAttrs()\n\nconst modelValue = defineModel<number | string>()\n\nconst bound = useBound()\n</script>\n\n<template>\n  <label :class="[\'ui-sample\', $props.class]">\n    <textarea v-if="bound" v-bind="attrs()" v-model="modelValue"></textarea>\n    <textarea v-else v-bind="attrs()">{{ value }}</textarea>\n  </label>\n</template>\n',
+      '<script setup lang="ts">\nimport { useBound, useInputAttrs } from "../vue"\nimport type { Props } from "./types.vue-props"\n\nconst { value } = defineProps<Props>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useInputAttrs()\n\nconst modelValue = defineModel<number | string>()\n\nconst bound = useBound()\n</script>\n\n<template>\n  <label :class="[\'ui-sample\', $props.class]">\n    <textarea v-if="bound" v-bind="attrs" v-model="modelValue"></textarea>\n    <textarea v-else v-bind="attrs">{{ value }}</textarea>\n  </label>\n</template>\n',
     )
     expect(port(".solid.tsx")).toBe(
       '/** @jsxImportSource @solidjs/web */\nimport { omit } from "solid-js"\nimport { control } from "../solid"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "ref", "value")\n  const valueControl = control("value", () => props.value)\n\n  return (\n    <label class={["ui-sample", props.class]}>\n      <textarea\n        {...valueControl.server}\n        ref={[props.ref, valueControl.ref]}\n        {...rest}\n      />\n    </label>\n  )\n}\n',
@@ -1341,7 +1341,7 @@ describe("the ports of a sample", () => {
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
     expect(vue).toContain("const { value } = defineProps<Props>()")
     expect(vue).toContain(
-      '<input v-if="bound" v-bind="attrs()" type="number" v-model="modelValue" />\n    <input v-else v-bind="attrs()" type="number" :value.attr="value" />',
+      '<input v-if="bound" v-bind="attrs" type="number" v-model="modelValue" />\n    <input v-else v-bind="attrs" type="number" :value.attr="value" />',
     )
   })
 
@@ -1424,7 +1424,7 @@ describe("the ports of a sample", () => {
     )
     expect(ports.vue).toContain("const { error } = defineProps<Props>()")
     expect(ports.vue).toContain(
-      "<input\n      v-bind=\"attrs()\"\n      :aria-invalid=\"error ? 'true' : attrs()['aria-invalid']\"\n    />",
+      "<input\n      v-bind=\"attrs\"\n      :aria-invalid=\"error ? 'true' : attrs['aria-invalid']\"\n    />",
     )
     expect(ports["react.tsx"]).toContain('"aria-invalid": ariaInvalid,')
   })
@@ -1538,7 +1538,7 @@ describe("the ports of a sample", () => {
       "const model = defineModel<string | number | boolean | undefined>({\n  default: undefined,\n})",
     )
     expect(vue).toContain(
-      '<RadioInput v-if="bound" v-bind="attrs()" v-model="model" />\n    <RadioInput v-else v-bind="attrs()" />',
+      '<RadioInput v-if="bound" v-bind="attrs" v-model="model" />\n    <RadioInput v-else v-bind="attrs" />',
     )
     expect(outputs.get(sampleFile().replace(".astro", ".solid.tsx"))).toContain(
       "<RadioInput {...rest} />",
@@ -1668,7 +1668,7 @@ describe("the ports of a sample", () => {
       '<input type="checkbox" {...defined(rest)} />\n  {@render children?.()}\n</label>',
     )
     expect(outputs.get(sampleFile().replace(".astro", ".vue"))).toContain(
-      '<input type="checkbox" v-bind="defined(attrs())" />{{ " " }}<slot></slot>',
+      '<input type="checkbox" v-bind="defined(attrs)" />{{ " " }}<slot></slot>',
     )
   })
 
@@ -1686,7 +1686,7 @@ describe("the ports of a sample", () => {
       '  >Text\n  <input type="checkbox" {...defined(rest)} />\n  More</label\n>',
     )
     expect(outputs.get(sampleFile().replace(".astro", ".vue"))).toContain(
-      '>Text{{ " " }}<input type="checkbox" v-bind="defined(attrs())" />{{\n      " "\n    }}More</label',
+      '>Text{{ " " }}<input type="checkbox" v-bind="defined(attrs)" />{{\n      " "\n    }}More</label',
     )
   })
 
@@ -1779,7 +1779,7 @@ describe("the ports of a sample", () => {
     expect(vue).toContain('v-if="group?.bound || bound"')
     expect(vue).toContain('v-model="target"')
     expect(vue).toContain(
-      "...defined({ checked: grouped ?? model ?? checked }),\n        ...defined(attrs()),",
+      "...defined({ checked: grouped ?? model ?? checked }),\n        ...defined(attrs),",
     )
     expect(vue.match(/:data-off="!\(model \?\? checked\)"/g)).toHaveLength(2)
     const solid = outputs.get(sampleFile().replace(".astro", ".solid.tsx"))

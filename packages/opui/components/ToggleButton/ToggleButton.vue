@@ -75,7 +75,7 @@ const target = computed({
       :name="finalName"
       :type="finalType"
       :value="value"
-      v-bind="attrs()"
+      v-bind="attrs"
       v-model="target"
     />
     <input
@@ -85,7 +85,7 @@ const target = computed({
       :value="value"
       v-bind="{
         ...defined({ checked: grouped ?? model ?? checked }),
-        ...attrs(),
+        ...attrs,
       }"
     />{{ " " }}<slot v-if="$slots.default"></slot>
     <template v-else>{{ label }}</template>

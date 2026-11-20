@@ -77,15 +77,12 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
           (alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`)
         "
         :spellcheck="spellcheck ?? (alphanumeric ? 'false' : undefined)"
-        v-bind="attrs()"
+        v-bind="attrs"
         :aria-describedby="
-          fieldDescribedBy(
-            { endText: endTextId() },
-            attrs()['aria-describedby'],
-          )
+          fieldDescribedBy({ endText: endTextId() }, attrs['aria-describedby'])
         "
-        :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
-        :aria-labelledby="attrs()['aria-labelledby']"
+        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+        :aria-labelledby="attrs['aria-labelledby']"
         :id="inputId()"
         :maxlength="length"
         :name="name ?? field?.name"
@@ -104,15 +101,12 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
           (alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`)
         "
         :spellcheck="spellcheck ?? (alphanumeric ? 'false' : undefined)"
-        v-bind="attrs()"
+        v-bind="attrs"
         :aria-describedby="
-          fieldDescribedBy(
-            { endText: endTextId() },
-            attrs()['aria-describedby'],
-          )
+          fieldDescribedBy({ endText: endTextId() }, attrs['aria-describedby'])
         "
-        :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
-        :aria-labelledby="attrs()['aria-labelledby']"
+        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+        :aria-labelledby="attrs['aria-labelledby']"
         :id="inputId()"
         :maxlength="length"
         :name="name ?? field?.name"

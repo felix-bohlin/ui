@@ -103,14 +103,14 @@ const endTextId = () =>
       </span>
       <input
         v-if="bound"
-        v-bind="attrs()"
+        v-bind="attrs"
         :aria-describedby="
           fieldDescribedBy(
             { endText: endTextId(), startText: startTextId() },
-            attrs()['aria-describedby'],
+            attrs['aria-describedby'],
           )
         "
-        :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
+        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
         :disabled="disabled"
         :id="inputId"
         :name="name ?? field?.name"
@@ -119,14 +119,14 @@ const endTextId = () =>
       />
       <input
         v-else
-        v-bind="attrs()"
+        v-bind="attrs"
         :aria-describedby="
           fieldDescribedBy(
             { endText: endTextId(), startText: startTextId() },
-            attrs()['aria-describedby'],
+            attrs['aria-describedby'],
           )
         "
-        :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
+        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
         :disabled="disabled"
         :id="inputId"
         :name="name ?? field?.name"

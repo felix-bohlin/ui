@@ -4,6 +4,7 @@ const DELAY = 750
 const LABEL = "Characters left: {count}"
 
 const announcers = new WeakMap()
+const watched = new WeakMap()
 
 function announce(announcer, text, lang) {
   announcer.lang = lang
@@ -28,10 +29,68 @@ function announcerOf(control) {
   return announcer
 }
 
+function descriptorOf(object) {
+  for (let proto = object; proto; proto = Object.getPrototypeOf(proto)) {
+    const descriptor = Object.getOwnPropertyDescriptor(proto, "value")
+    if (descriptor) return descriptor
+  }
+}
+
+function watchValue(control, update) {
+  let watch = watched.get(control)
+  if (!watch) {
+    const own = Object.getOwnPropertyDescriptor(control, "value")
+    const { get, set } = own ?? descriptorOf(control)
+    const updates = new Set()
+    const value = {
+      configurable: true,
+      get() {
+        return get.call(this)
+      },
+      set(next) {
+        set.call(this, next)
+        for (const each of updates) each()
+      },
+    }
+    let restore
+    if (own) {
+      Object.defineProperty(control, "value", { ...own, ...value })
+      restore = () => {
+        if (
+          Object.getOwnPropertyDescriptor(control, "value")?.set === value.set
+        )
+          Object.defineProperty(control, "value", own)
+      }
+    } else {
+      const proto = Object.getPrototypeOf(control)
+      function Watched() {}
+      Watched.prototype = Object.create(proto, {
+        constructor: { configurable: true, value: Watched, writable: true },
+        value,
+      })
+      Object.setPrototypeOf(control, Watched.prototype)
+      restore = () => {
+        if (Object.getPrototypeOf(control) === Watched.prototype)
+          Object.setPrototypeOf(control, proto)
+      }
+    }
+    watch = { restore, updates }
+    watched.set(control, watch)
+  }
+  watch.updates.add(update)
+  return () => {
+    watch.updates.delete(update)
+    if (watch.updates.size) return
+    watch.restore()
+    watched.delete(control)
+  }
+}
+
 export class CharacterCountElement extends Base {
   #controller
   #observer
   #timeout
+  #unwatch
 
   get control() {
     return (
@@ -72,6 +131,8 @@ export class CharacterCountElement extends Base {
         subtree: true,
       })
     }
+    const control = this.control
+    if (control) this.#unwatch = watchValue(control, () => this.#update())
     this.#update()
     queueMicrotask(() => this.#update())
   }
@@ -79,6 +140,8 @@ export class CharacterCountElement extends Base {
   disconnectedCallback() {
     this.#controller?.abort()
     this.#observer?.disconnect()
+    this.#unwatch?.()
+    this.#unwatch = undefined
     clearTimeout(this.#timeout)
   }
 

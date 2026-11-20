@@ -51,6 +51,12 @@ export default function Models() {
   return (
     <form>
       <TextField defaultValue="Lund" error={error} label="City" />
+      <TextField
+        error={error}
+        label="Password"
+        passwordToggle
+        type="password"
+      />
       <NumberField defaultValue={1} error={error} label="Quantity" />
       <Checkbox defaultChecked={false} error={error}>
         Newsletter
@@ -64,7 +70,9 @@ export default function Models() {
         <option value="blue">Blue</option>
       </Select>
       <TextField
+        characterCount
         label="Name"
+        maxLength={20}
         onChange={(event) => setName(event.target.value)}
         value={name}
       />

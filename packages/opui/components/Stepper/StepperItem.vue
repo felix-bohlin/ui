@@ -25,10 +25,10 @@ defineOptions({
 
 const attrs = useAttrs() as HTMLAttributes
 
-const restAttrs = () =>
-  Object.fromEntries(
-    Object.entries(attrs).filter(([key]) => key !== "aria-current"),
-  )
+const restAttrs = computed(() => {
+  const { "aria-current": _ariaCurrent, ...rest } = attrs
+  return rest
+})
 
 const state = computed(() =>
   error ? errorLabel : complete ? completeLabel : undefined,
@@ -41,7 +41,7 @@ const link = computed(() => href && !current && (complete || error))
   <li
     :aria-current="attrs['aria-current'] ?? (current ? 'step' : undefined)"
     v-bind="{
-      ...restAttrs(),
+      ...restAttrs,
       ...classAttrs([
         { 'ui-complete': complete, 'ui-error': error },
         $props.class,

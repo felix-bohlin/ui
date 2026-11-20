@@ -91,7 +91,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
 const listId = () => list ?? (hasDatalist() ? `${base.value}-list` : undefined)
 
 const describedBy = () =>
-  idRefs(startTextId(), endTextId(), attrs()["aria-describedby"])
+  idRefs(startTextId(), endTextId(), attrs.value["aria-describedby"])
 </script>
 
 <template>
@@ -129,12 +129,12 @@ const describedBy = () =>
     ></span>
     <input
       v-if="bound"
-      v-bind="attrs()"
+      v-bind="attrs"
       :aria-describedby="describedBy()"
-      :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
-      :aria-labelledby="labelId() ?? attrs()['aria-labelledby']"
+      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+      :aria-labelledby="labelId() ?? attrs['aria-labelledby']"
       :aria-valuetext="
-        attrs()['aria-valuetext'] ??
+        attrs['aria-valuetext'] ??
         (valueSuffix && !hasValueText() ? readout : tickLabel)
       "
       :id="inputId()"
@@ -148,12 +148,12 @@ const describedBy = () =>
     />
     <input
       v-else
-      v-bind="attrs()"
+      v-bind="attrs"
       :aria-describedby="describedBy()"
-      :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
-      :aria-labelledby="labelId() ?? attrs()['aria-labelledby']"
+      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+      :aria-labelledby="labelId() ?? attrs['aria-labelledby']"
       :aria-valuetext="
-        attrs()['aria-valuetext'] ??
+        attrs['aria-valuetext'] ??
         (valueSuffix && !hasValueText() ? readout : tickLabel)
       "
       :id="inputId()"

@@ -1,7 +1,6 @@
 import { POSTS } from "../shared/data.ts"
 import { PAGE_SIZE } from "../shared/fake-api.ts"
 import { expect, expectNoAxeViolations, open, test } from "./fixtures.ts"
-import { KNOWN } from "./known.ts"
 
 const posts = (page: import("@playwright/test").Page) =>
   page.getByRole("list", { name: "Posts" }).getByRole("article")
@@ -38,10 +37,6 @@ test("the composer adds a post at the top and empties the field", async ({
 test("the character count follows the field when the app empties it", async ({
   page,
 }) => {
-  test.fail(
-    ["nuxt", "solid", "sveltekit"].includes(test.info().project.name),
-    `${KNOWN.characterCount}. Astro and Next empty the field with form.reset(), which the element follows`,
-  )
   const count = page.locator(".ui-textarea opui-character-count")
   await page
     .getByRole("textbox", { name: "What's on your mind?" })

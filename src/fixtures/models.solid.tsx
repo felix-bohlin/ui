@@ -47,6 +47,12 @@ const Models = () => {
   return (
     <form>
       <TextField defaultValue="Lund" error={error()} label="City" />
+      <TextField
+        error={error()}
+        label="Password"
+        passwordToggle
+        type="password"
+      />
       <NumberField defaultValue={1} error={error()} label="Quantity" />
       <Checkbox checked={false} error={error()}>
         Newsletter
@@ -59,7 +65,7 @@ const Models = () => {
         <option value="red">Red</option>
         <option value="blue">Blue</option>
       </Select>
-      <TextField label="Name" value={name()} />
+      <TextField characterCount label="Name" maxlength={20} value={name()} />
       <Select label="Plan" value={plan()}>
         <option value="free">Free</option>
         <option value="paid">Paid</option>

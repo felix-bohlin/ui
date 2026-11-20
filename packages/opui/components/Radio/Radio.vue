@@ -31,7 +31,7 @@ const model = defineModel<string | number | boolean | undefined>({
 
 const bound = useBound()
 
-warnUnnamed("Radio", hasName({ ...attrs(), label }, slots.default))
+warnUnnamed("Radio", hasName({ ...attrs.value, label }, slots.default))
 </script>
 
 <template>
@@ -48,14 +48,14 @@ warnUnnamed("Radio", hasName({ ...attrs(), label }, slots.default))
   >
     <RadioInput
       v-if="bound"
-      v-bind="attrs()"
-      :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
+      v-bind="attrs"
+      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
       v-model="model"
     />
     <RadioInput
       v-else
-      v-bind="attrs()"
-      :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
+      v-bind="attrs"
+      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
     />
     <span
       v-if="label || $slots.default"

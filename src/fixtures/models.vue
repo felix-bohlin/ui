@@ -69,6 +69,7 @@ onBeforeUnmount(() =>
 <template>
   <form>
     <TextField :error label="City" value="Lund" />
+    <TextField :error label="Password" password-toggle type="password" />
     <NumberField :error label="Quantity" :value="1" />
     <Checkbox :checked="false" :error>Newsletter</Checkbox>
     <Select :error label="Size" value="small">
@@ -79,7 +80,7 @@ onBeforeUnmount(() =>
       <option value="red">Red</option>
       <option value="blue">Blue</option>
     </Select>
-    <TextField label="Name" v-model="name" />
+    <TextField character-count label="Name" maxlength="20" v-model="name" />
     <Select label="Plan" v-model="plan">
       <option value="free">Free</option>
       <option value="paid">Paid</option>

@@ -31,7 +31,7 @@ const model = defineModel<boolean | (string | number)[] | undefined>({
 
 const bound = useBound()
 
-warnUnnamed("Switch", hasName({ ...attrs(), label }, slots.default))
+warnUnnamed("Switch", hasName({ ...attrs.value, label }, slots.default))
 </script>
 
 <template>
@@ -60,14 +60,14 @@ warnUnnamed("Switch", hasName({ ...attrs(), label }, slots.default))
     >{{ " "
     }}<SwitchInput
       v-if="bound"
-      v-bind="attrs()"
-      :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
+      v-bind="attrs"
+      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
       v-model="model"
     />
     <SwitchInput
       v-else
-      v-bind="attrs()"
-      :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
+      v-bind="attrs"
+      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
     />
     <span
       v-if="label || $slots.default"

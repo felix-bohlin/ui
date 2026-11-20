@@ -107,7 +107,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
       </span>
       <input
         v-if="bound"
-        v-bind="attrs()"
+        v-bind="attrs"
         :aria-describedby="
           fieldDescribedBy(
             {
@@ -118,11 +118,11 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
               startText: startTextId(),
               top: topId(),
             },
-            attrs()['aria-describedby'],
+            attrs['aria-describedby'],
           )
         "
-        :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
-        :aria-labelledby="attrs()['aria-labelledby']"
+        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+        :aria-labelledby="attrs['aria-labelledby']"
         :disabled="disabled"
         :id="inputId()"
         :name="name ?? field?.name"
@@ -131,7 +131,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
       />
       <input
         v-else
-        v-bind="attrs()"
+        v-bind="attrs"
         :aria-describedby="
           fieldDescribedBy(
             {
@@ -142,11 +142,11 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
               startText: startTextId(),
               top: topId(),
             },
-            attrs()['aria-describedby'],
+            attrs['aria-describedby'],
           )
         "
-        :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
-        :aria-labelledby="attrs()['aria-labelledby']"
+        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+        :aria-labelledby="attrs['aria-labelledby']"
         :disabled="disabled"
         :id="inputId()"
         :name="name ?? field?.name"

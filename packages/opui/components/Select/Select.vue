@@ -123,7 +123,7 @@ const field = inject(FieldGroupKey, undefined)
       ></span>
       <select
         v-if="bound"
-        v-bind="inputAttrs()"
+        v-bind="inputAttrs"
         v-model="modelValue"
         :aria-describedby="
           fieldDescribedBy(
@@ -160,7 +160,7 @@ const field = inject(FieldGroupKey, undefined)
       </select>
       <select
         v-else
-        v-bind="inputAttrs()"
+        v-bind="inputAttrs"
         v-value="value"
         :aria-describedby="
           fieldDescribedBy(

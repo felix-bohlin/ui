@@ -96,7 +96,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
       </span>
       <textarea
         v-if="bound"
-        v-bind="attrs()"
+        v-bind="attrs"
         :aria-describedby="
           fieldDescribedBy(
             {
@@ -107,18 +107,18 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
               startText: startTextId(),
               top: topId(),
             },
-            attrs()['aria-describedby'],
+            attrs['aria-describedby'],
           )
         "
-        :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
-        :aria-labelledby="attrs()['aria-labelledby']"
+        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+        :aria-labelledby="attrs['aria-labelledby']"
         :id="textareaId()"
         :name="name ?? field?.name"
         v-model="modelValue"
       ></textarea>
       <textarea
         v-else
-        v-bind="attrs()"
+        v-bind="attrs"
         :aria-describedby="
           fieldDescribedBy(
             {
@@ -129,11 +129,11 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
               startText: startTextId(),
               top: topId(),
             },
-            attrs()['aria-describedby'],
+            attrs['aria-describedby'],
           )
         "
-        :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
-        :aria-labelledby="attrs()['aria-labelledby']"
+        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+        :aria-labelledby="attrs['aria-labelledby']"
         :id="textareaId()"
         :name="name ?? field?.name"
         >{{ value }}</textarea>

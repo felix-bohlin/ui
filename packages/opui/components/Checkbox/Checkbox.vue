@@ -32,7 +32,7 @@ const model = defineModel<boolean | (string | number)[] | undefined>({
 
 const bound = useBound()
 
-warnUnnamed("Checkbox", hasName({ ...attrs(), label }, slots.default))
+warnUnnamed("Checkbox", hasName({ ...attrs.value, label }, slots.default))
 </script>
 
 <template>
@@ -49,16 +49,16 @@ warnUnnamed("Checkbox", hasName({ ...attrs(), label }, slots.default))
   >
     <CheckboxInput
       v-if="bound"
-      v-bind="attrs()"
+      v-bind="attrs"
       :indeterminate="indeterminate"
-      :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
+      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
       v-model="model"
     />
     <CheckboxInput
       v-else
-      v-bind="attrs()"
+      v-bind="attrs"
       :indeterminate="indeterminate"
-      :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
+      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
     />
     <span
       v-if="label || $slots.default"

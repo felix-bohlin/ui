@@ -1,4 +1,5 @@
 import {
+  computed,
   getCurrentInstance,
   type HTMLAttributes,
   type ObjectDirective,
@@ -16,10 +17,10 @@ export type DefaultSlots = {
 
 export const useInputAttrs = () => {
   const attrs = useAttrs()
-  return () =>
-    Object.fromEntries(
-      Object.entries(attrs).filter(([key]) => key !== "style"),
-    ) as HTMLAttributes
+  return computed(() => {
+    const { style: _style, ...rest } = attrs
+    return rest as HTMLAttributes
+  })
 }
 
 export const useBound = () => {

@@ -34,6 +34,12 @@ export function getStaticPaths() {
           }),
         ),
         { params: { fixture: "solid-roots" }, props: { title: "Solid roots" } },
+        ...FRAMEWORKS.filter(({ id }) => isHydratedFramework(id)).map(
+          ({ id, label }) => ({
+            params: { fixture: `${id}-updates` },
+            props: { title: `${label} updates` },
+          }),
+        ),
       ]
     : []
 }

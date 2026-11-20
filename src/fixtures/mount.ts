@@ -57,6 +57,7 @@ const fixtures: Record<string, (root: HTMLElement) => Promise<unknown>> = {
         }),
       ),
   ),
+  "react-updates": () => import("./updates"),
   "solid-models": async (root) => {
     const [{ render }, { createComponent }, { default: Models }] =
       await Promise.all([
@@ -81,6 +82,7 @@ const fixtures: Record<string, (root: HTMLElement) => Promise<unknown>> = {
       }),
   ),
   "solid-roots": () => import("./solid-roots"),
+  "solid-updates": () => import("./updates"),
   "svelte-models": async (root) => {
     const [{ mount }, { default: Models }] = await Promise.all([
       import("svelte"),
@@ -98,6 +100,7 @@ const fixtures: Record<string, (root: HTMLElement) => Promise<unknown>> = {
       ]),
     ([{ hydrate }, Side], root) => hydrate(Side.default, { target: root }),
   ),
+  "svelte-updates": () => import("./updates"),
   "vue-models": async (root) => {
     const [{ createApp }, { default: Models }] = await Promise.all([
       import("vue"),
@@ -119,6 +122,7 @@ const fixtures: Record<string, (root: HTMLElement) => Promise<unknown>> = {
       app.mount(root)
     },
   ),
+  "vue-updates": () => import("./updates"),
 }
 
 const fixture = document.body.dataset.fixture ?? ""

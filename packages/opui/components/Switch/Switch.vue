@@ -29,7 +29,7 @@ const modelValue = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
 
-warnUnnamed("Switch", hasName({ ...attrs.value, label }, slots.default))
+warnUnnamed("Switch", hasName({ ...attrs(), label }, slots.default))
 </script>
 
 <template>
@@ -57,8 +57,8 @@ warnUnnamed("Switch", hasName({ ...attrs.value, label }, slots.default))
       ><slot name="icon-checked"></slot></span
     >{{ " "
     }}<SwitchInput
-      v-bind="attrs"
-      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+      v-bind="attrs()"
+      :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
       v-model="modelValue"
     />
     <span

@@ -1,5 +1,4 @@
 import {
-  computed,
   type DirectiveBinding,
   type HTMLAttributes,
   type ObjectDirective,
@@ -23,12 +22,10 @@ export type DefaultSlots = {
 
 export const useInputAttrs = () => {
   const attrs = useAttrs()
-  return computed(
-    () =>
-      Object.fromEntries(
-        Object.entries(attrs).filter(([key]) => key !== "style"),
-      ) as HTMLAttributes,
-  )
+  return () =>
+    Object.fromEntries(
+      Object.entries(attrs).filter(([key]) => key !== "style"),
+    ) as HTMLAttributes
 }
 
 type Field = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement

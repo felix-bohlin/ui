@@ -155,6 +155,7 @@ export const toVue = (component) => {
   const { chosenRest, multiRoot } = component
   const allAttrs = multiRoot || chosenRest
   const computedAttrs = attrsOnInner && !allAttrs
+  const attrsCode = computedAttrs ? "attrs()" : "attrs"
   const attributeProps = props.filter(
     ({ local, prop }) => prop.includes("-") && used.has(local),
   )
@@ -205,10 +206,10 @@ export const toVue = (component) => {
         : prop === "style"
           ? [[local, "$attrs.style"]]
           : prop.includes("-")
-            ? [[local, `attrs['${prop}']`]]
+            ? [[local, `${attrsCode}['${prop}']`]]
             : [],
     ),
-    ...(restUsed ? [[rest, "attrs"]] : []),
+    ...(restUsed ? [[rest, attrsCode]] : []),
     ...trimmedSlots.map(({ local, slot }) => [local, `$slots${vueSlot(slot)}`]),
     ...[...getters].map((name) => [name, `${name}()`]),
     ...(modelRename?.template ?? []),
@@ -220,13 +221,6 @@ export const toVue = (component) => {
   const scriptRename = new Map([
     ...rename,
     ...(classInScript ? [[classProp.local, classProp.local]] : []),
-    ...(computedAttrs && restUsed ? [[rest, "attrs.value"]] : []),
-    ...(computedAttrs
-      ? attributeProps.map(({ local, prop }) => [
-          local,
-          `attrs.value['${prop}']`,
-        ])
-      : []),
     ...computedConsts.map(({ name }) => [name, `${name}.value`]),
     ...trimmedSlots.map(({ local, slot }) => [local, `slots${vueSlot(slot)}`]),
     ...(modelRename?.script ?? []),
@@ -348,18 +342,18 @@ export const toVue = (component) => {
     }
     if (item.kind === "spread") {
       if (item.code === rest && item.condition !== undefined) {
-        return `v-bind="${filteredSpread(node, item, chosenSpreadCode(item, "attrs", rewriteExpression(item.condition, scope)))}"`
+        return `v-bind="${filteredSpread(node, item, chosenSpreadCode(item, attrsCode, rewriteExpression(item.condition, scope)))}"`
       }
       if (item.code === rest) {
         const bound = forwarded.map((key) => `:${key}="${key}"`)
         const object =
           rootElements.includes(node) && !explicitAttrs
             ? filteredAttrs
-              ? "restAttrs"
+              ? "restAttrs()"
               : definedRoot
                 ? "attrs"
                 : undefined
-            : "attrs"
+            : attrsCode
         return [
           ...(object ? [`v-bind="${filteredSpread(node, item, object)}"`] : []),
           ...bound,
@@ -464,10 +458,10 @@ export const toVue = (component) => {
                   node,
                   item,
                   item.condition === undefined
-                    ? "attrs"
+                    ? attrsCode
                     : chosenSpreadCode(
                         item,
-                        "attrs",
+                        attrsCode,
                         rewriteExpression(item.condition, scope),
                       ),
                 )
@@ -611,7 +605,6 @@ export const toVue = (component) => {
     : undefined
   const vueImports = [
     ...(computedConsts.length ||
-    filteredAttrs ||
     kind?.computed === true ||
     provided?.some((entry) => entry.includes("computed("))
       ? ["computed"]
@@ -712,7 +705,7 @@ export const toVue = (component) => {
             : []),
     ...(filteredAttrs
       ? [
-          `const restAttrs = computed(() =>\n  Object.fromEntries(\n    Object.entries(attrs).filter(\n      ([key]) => ${attributeProps.map(({ prop }) => `key !== ${JSON.stringify(prop)}`).join(" && ")},\n    ),\n  ),\n)`,
+          `const restAttrs = () =>\n  Object.fromEntries(\n    Object.entries(attrs).filter(\n      ([key]) => ${attributeProps.map(({ prop }) => `key !== ${JSON.stringify(prop)}`).join(" && ")},\n    ),\n  )`,
         ]
       : []),
     ...(kind?.setup?.(model, generic) ?? []),

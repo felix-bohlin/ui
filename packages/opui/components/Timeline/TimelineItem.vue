@@ -22,11 +22,10 @@ defineOptions({
 
 const attrs = useAttrs() as HTMLAttributes
 
-const restAttrs = computed(() =>
+const restAttrs = () =>
   Object.fromEntries(
     Object.entries(attrs).filter(([key]) => key !== "aria-current"),
-  ),
-)
+  )
 
 const Heading = computed(
   () => `h${headingLevel}` as "h2" | "h3" | "h4" | "h5" | "h6",
@@ -40,7 +39,7 @@ const Heading = computed(
       (current === true ? 'true' : current || undefined)
     "
     v-bind="{
-      ...restAttrs,
+      ...restAttrs(),
       ...classAttrs([color && `ui-${color}`, $props.class]),
     }"
   >

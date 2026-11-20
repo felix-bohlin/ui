@@ -111,7 +111,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
         <slot name="start"></slot>
       </span>
       <input
-        v-bind="attrs"
+        v-bind="attrs()"
         :aria-describedby="
           fieldDescribedBy(
             {
@@ -122,11 +122,11 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
               startText: startTextId(),
               top: topId(),
             },
-            attrs['aria-describedby'],
+            attrs()['aria-describedby'],
           )
         "
-        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
-        :aria-labelledby="attrs['aria-labelledby']"
+        :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
+        :aria-labelledby="attrs()['aria-labelledby']"
         :disabled="disabled"
         :id="inputId()"
         :name="name ?? field?.name"

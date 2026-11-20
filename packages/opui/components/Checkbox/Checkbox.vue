@@ -30,7 +30,7 @@ const modelValue = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
 
-warnUnnamed("Checkbox", hasName({ ...attrs.value, label }, slots.default))
+warnUnnamed("Checkbox", hasName({ ...attrs(), label }, slots.default))
 </script>
 
 <template>
@@ -46,9 +46,9 @@ warnUnnamed("Checkbox", hasName({ ...attrs.value, label }, slots.default))
     v-bind="styleAttrs($attrs.style)"
   >
     <CheckboxInput
-      v-bind="attrs"
+      v-bind="attrs()"
       :indeterminate="indeterminate"
-      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+      :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
       v-model="modelValue"
     />
     <span

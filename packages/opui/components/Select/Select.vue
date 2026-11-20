@@ -107,7 +107,7 @@ const field = inject(FieldGroupKey, undefined)
         ><slot name="start"></slot
       ></span>
       <select
-        v-bind="inputAttrs"
+        v-bind="inputAttrs()"
         v-seed
         v-model="model"
         :aria-describedby="

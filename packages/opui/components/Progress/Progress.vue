@@ -23,7 +23,7 @@ const attrs = useInputAttrs()
     ]"
     v-bind="styleAttrs($attrs.style)"
   >
-    <progress :max="max" :value="value" v-bind="attrs">
+    <progress :max="max" :value="value" v-bind="attrs()">
       <slot></slot>
     </progress>
   </div>

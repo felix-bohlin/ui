@@ -29,7 +29,7 @@ const modelValue = defineModel<string | number | boolean | undefined>({
   default: undefined,
 })
 
-warnUnnamed("Radio", hasName({ ...attrs.value, label }, slots.default))
+warnUnnamed("Radio", hasName({ ...attrs(), label }, slots.default))
 </script>
 
 <template>
@@ -45,8 +45,8 @@ warnUnnamed("Radio", hasName({ ...attrs.value, label }, slots.default))
     v-bind="styleAttrs($attrs.style)"
   >
     <RadioInput
-      v-bind="attrs"
-      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+      v-bind="attrs()"
+      :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
       v-model="modelValue"
     />
     <span

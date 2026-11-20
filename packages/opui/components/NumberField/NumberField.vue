@@ -107,14 +107,14 @@ const endTextId = () =>
         </Button>
       </span>
       <input
-        v-bind="attrs"
+        v-bind="attrs()"
         :aria-describedby="
           fieldDescribedBy(
             { endText: endTextId(), startText: startTextId() },
-            attrs['aria-describedby'],
+            attrs()['aria-describedby'],
           )
         "
-        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+        :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
         :disabled="disabled"
         :id="inputId"
         :name="name ?? field?.name"

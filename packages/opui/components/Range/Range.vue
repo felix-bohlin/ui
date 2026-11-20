@@ -94,7 +94,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
 const listId = () => list ?? (hasDatalist() ? `${base.value}-list` : undefined)
 
 const describedBy = () =>
-  idRefs(startTextId(), endTextId(), attrs.value["aria-describedby"])
+  idRefs(startTextId(), endTextId(), attrs()["aria-describedby"])
 </script>
 
 <template>
@@ -131,12 +131,12 @@ const describedBy = () =>
       >{{ startText }}<slot name="start-text"></slot
     ></span>
     <input
-      v-bind="attrs"
+      v-bind="attrs()"
       :aria-describedby="describedBy()"
-      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
-      :aria-labelledby="labelId() ?? attrs['aria-labelledby']"
+      :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
+      :aria-labelledby="labelId() ?? attrs()['aria-labelledby']"
       :aria-valuetext="
-        attrs['aria-valuetext'] ??
+        attrs()['aria-valuetext'] ??
         (valueSuffix && !hasValueText() ? readout : tickLabel)
       "
       :id="inputId()"

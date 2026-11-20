@@ -46,14 +46,14 @@ export default function Opui() {
         />
         <output>{String(checkbox())}</output>
       </form>
-      <form data-case="checkbox-rerender">
-        <Checkbox data-round={round()} defaultChecked label="Agree" />
-      </form>
       <form data-case="checkbox-default">
         <Checkbox defaultChecked label="Agree" />
       </form>
       <form data-case="checkbox-empty">
         <Checkbox label="Agree" />
+      </form>
+      <form data-case="checkbox-rerender">
+        <Checkbox data-round={round()} defaultChecked label="Agree" />
       </form>
       <form data-case="group-bound">
         <ToggleGroup
@@ -182,14 +182,14 @@ export default function Opui() {
         />
         <output>{text()}</output>
       </form>
-      <form data-case="text-rerender">
-        <TextField data-round={round()} defaultValue="Ada" label="Name" />
-      </form>
       <form data-case="text-default">
         <TextField defaultValue="Ada" label="Name" />
       </form>
       <form data-case="text-empty">
         <TextField label="Name" />
+      </form>
+      <form data-case="text-rerender">
+        <TextField data-round={round()} defaultValue="Ada" label="Name" />
       </form>
       <form data-case="toggle-bound">
         <ToggleButton

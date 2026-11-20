@@ -44,14 +44,14 @@ const state = ref({
     <Checkbox v-model="state.checkbox" label="Agree" />
     <output>{{ state.checkbox }}</output>
   </form>
-  <form data-case="checkbox-rerender">
-    <Checkbox checked :data-round="round" label="Agree" />
-  </form>
   <form data-case="checkbox-default">
     <Checkbox checked label="Agree" />
   </form>
   <form data-case="checkbox-empty">
     <Checkbox label="Agree" />
+  </form>
+  <form data-case="checkbox-rerender">
+    <Checkbox checked :data-round="round" label="Agree" />
   </form>
   <form data-case="group-bound">
     <ToggleGroup v-model="state.group" aria-label="View" name="view">
@@ -146,14 +146,14 @@ const state = ref({
     <TextField v-model="state.text" label="Name" />
     <output>{{ state.text }}</output>
   </form>
-  <form data-case="text-rerender">
-    <TextField :data-round="round" label="Name" value="Ada" />
-  </form>
   <form data-case="text-default">
     <TextField label="Name" value="Ada" />
   </form>
   <form data-case="text-empty">
     <TextField label="Name" />
+  </form>
+  <form data-case="text-rerender">
+    <TextField :data-round="round" label="Name" value="Ada" />
   </form>
   <form data-case="toggle-bound">
     <ToggleButton v-model="state.toggle">Bold</ToggleButton>

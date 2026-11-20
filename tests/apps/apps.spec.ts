@@ -8,6 +8,14 @@ import {
 import { readdirSync, readFileSync } from "node:fs"
 import path from "node:path"
 import { APPS, appDir, examplesOf, KNOWN_PROBLEMS } from "./apps.ts"
+import {
+  compareNative,
+  differences,
+  NATIVE_CASES,
+  SOLID_SELECT_DEFAULT,
+  SVELTE_GROUP,
+  SVELTE_SPREAD,
+} from "./native/cases.ts"
 
 const PIXEL = Buffer.from(
   "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
@@ -563,66 +571,6 @@ test("a callout dismissed before the app hydrates it waits for the dismiss handl
   expect(unexpected(problems, app.name, "callout")).toEqual([])
 })
 
-type NativeStep = { click: number } | { fill: string } | { select: string }
-
-const NATIVE_CASES: {
-  after: NativeStep
-  before?: NativeStep
-  name: string
-  rerender?: boolean
-}[] = [
-  { after: { click: 0 }, before: { click: 0 }, name: "checkbox-bound" },
-  { after: { click: 0 }, before: { click: 0 }, name: "checkbox-default" },
-  { after: { click: 0 }, before: { click: 0 }, name: "checkbox-empty" },
-  { after: { click: 0 }, name: "checkbox-rerender", rerender: true },
-  { after: { click: 0 }, before: { click: 2 }, name: "group-bound" },
-  { after: { click: 0 }, before: { click: 2 }, name: "group-default" },
-  { after: { click: 0 }, before: { click: 2 }, name: "group-empty" },
-  { after: { fill: "" }, before: { fill: "7" }, name: "number-default" },
-  { after: { click: 1 }, before: { click: 0 }, name: "radio-bound" },
-  { after: { click: 1 }, before: { click: 0 }, name: "radio-default" },
-  { after: { click: 1 }, before: { click: 0 }, name: "radio-empty" },
-  { after: { fill: "10" }, before: { fill: "70" }, name: "range-bound" },
-  { after: { fill: "10" }, before: { fill: "70" }, name: "range-default" },
-  { after: { click: 2 }, before: { click: 5 }, name: "rating-bound" },
-  { after: { click: 2 }, before: { click: 5 }, name: "rating-default" },
-  { after: { click: 2 }, before: { click: 5 }, name: "rating-empty" },
-  {
-    after: { select: "red" },
-    before: { select: "blue" },
-    name: "select-bound",
-  },
-  {
-    after: { select: "red" },
-    before: { select: "blue" },
-    name: "select-default",
-  },
-  { after: { click: 0 }, before: { click: 2 }, name: "tabs-bound" },
-  { after: { click: 0 }, before: { click: 2 }, name: "tabs-default" },
-  { after: { fill: "Linus" }, before: { fill: "Grace" }, name: "text-bound" },
-  {
-    after: { fill: "Linus" },
-    before: { fill: "Grace" },
-    name: "text-default",
-  },
-  { after: { fill: "Linus" }, before: { fill: "Grace" }, name: "text-empty" },
-  { after: { fill: "Linus" }, name: "text-rerender", rerender: true },
-  { after: { click: 0 }, before: { click: 0 }, name: "toggle-bound" },
-  { after: { click: 0 }, before: { click: 0 }, name: "toggle-default" },
-  { after: { click: 0 }, before: { click: 0 }, name: "toggle-empty" },
-]
-
-const SOLID_SELECT_DEFAULT =
-  "Solid has no defaultValue on a select, so the Select's defaultValue marks its options as the default, as React's native defaultValue does"
-
-const SVELTE_GROUP =
-  "a component can't use bind:group, so Radio, Rating, TabsItem and ToggleButton write checked from the bound value with the seedChecked attachment (components/svelte.ts), which keeps the first state as defaultChecked to tell a choice made before hydration from the server's"
-const SVELTE_SPREAD =
-  "Svelte drops the server's value and checked attributes from an input with only bind: when it hydrates, and keeps them on an input with a spread, as every component's input has"
-
-const differences = (app: string, reason: string, names: string[]) =>
-  names.map((name) => ({ app, name, reason }))
-
 const NATIVE_DIFFERENCES = [
   ...differences("sveltekit", SVELTE_GROUP, [
     "group-bound",
@@ -648,53 +596,13 @@ const NATIVE_DIFFERENCES = [
   ]),
 ]
 
-const act = async (form: Locator, step: NativeStep) => {
-  const controls = form.locator(CONTROLS)
-  if ("click" in step) {
-    await controls
-      .nth(step.click)
-      .evaluate((element) => (element as HTMLInputElement).click())
-  } else if ("fill" in step) {
-    await controls.first().fill(step.fill)
-  } else await controls.first().selectOption(step.select)
-}
-
-const nativeStateOf = (form: Locator) =>
-  form.evaluate((element, controls) => {
-    const output = element.querySelector("output")
-    return {
-      bound: output?.textContent ?? null,
-      controls: [...element.querySelectorAll(controls)].map((control) => {
-        if (control instanceof HTMLSelectElement) {
-          return {
-            current: control.value,
-            initial: [...control.options].find(
-              (option) => option.defaultSelected,
-            )?.value,
-          }
-        }
-        if (
-          control instanceof HTMLInputElement &&
-          (control.type === "checkbox" || control.type === "radio")
-        ) {
-          return { current: control.checked, initial: control.defaultChecked }
-        }
-        const field = control as HTMLInputElement | HTMLTextAreaElement
-        return { current: field.value, initial: field.defaultValue }
-      }),
-    }
-  }, CONTROLS)
-
-const settle = (page: Page) =>
-  page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 100)))
-
-for (const { after, before, name, rerender } of NATIVE_CASES) {
-  test(`native/${name} holds the same state as the native control before hydration, after a change and after a form reset`, async ({
+for (const nativeCase of NATIVE_CASES) {
+  test(`native/${nativeCase.name} holds the same state as the native control before hydration, after a change and after a form reset`, async ({
     page,
   }, testInfo) => {
     const app = appOf(testInfo.project.name)
     const difference = NATIVE_DIFFERENCES.find(
-      (entry) => entry.app === app.name && entry.name === name,
+      (entry) => entry.where === app.name && entry.name === nativeCase.name,
     )
     test.fail(!!difference, difference?.reason)
     const problems = await watch(page)
@@ -702,41 +610,15 @@ for (const { after, before, name, rerender } of NATIVE_CASES) {
       ? await holdScripts(page, app.scripts)
       : undefined
     await page.goto("/native", { waitUntil: release ? "commit" : "load" })
-    const forms = ["Native", "Opui"].map((side) =>
-      page.locator(`[data-example="native/${side}"] [data-case="${name}"]`),
-    )
-    const [native, opui] = forms as [Locator, Locator]
-    const expectSame = async (moment: string) => {
-      await settle(page)
-      expect(
-        await nativeStateOf(opui),
-        `${app.name}: the opui ${name} differs from the native control ${moment}. A component keeps no state: it hands the value to the native control in the framework's own way and behaves like it, so remove what the component adds`,
-      ).toEqual(await nativeStateOf(native))
-    }
-
-    if (release) {
-      if (before) for (const form of forms) await act(form, before)
-      release()
-    }
-    await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
-    await page.waitForLoadState("load")
-    await expectSame(
-      release && before ? "once it hydrates over a change" : "once it renders",
-    )
-    for (const form of forms) await act(form, after)
-    await expectSame("after a change")
-    if (rerender) {
-      for (const side of ["Native", "Opui"]) {
-        await page
-          .locator(`[data-example="native/${side}"] [data-rerender]`)
-          .click()
-      }
-      await expectSame("after the page renders it again")
-    }
-    for (const form of forms) {
-      await form.evaluate((element) => (element as HTMLFormElement).reset())
-    }
-    await expectSame("after a form reset")
+    await compareNative(page, nativeCase, {
+      expect,
+      hydrated: async () => {
+        await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
+        await page.waitForLoadState("load")
+      },
+      release,
+      where: app.name,
+    })
     expect(unexpected(problems, app.name, "native")).toEqual([])
   })
 }

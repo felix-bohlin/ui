@@ -29,6 +29,12 @@ export default function Native() {
         />
         <output>{String(checkbox())}</output>
       </form>
+      <form data-case="checkbox-default">
+        <input aria-label="Agree" defaultChecked type="checkbox" />
+      </form>
+      <form data-case="checkbox-empty">
+        <input aria-label="Agree" type="checkbox" />
+      </form>
       <form data-case="checkbox-rerender">
         <input
           aria-label="Agree"
@@ -36,12 +42,6 @@ export default function Native() {
           defaultChecked
           type="checkbox"
         />
-      </form>
-      <form data-case="checkbox-default">
-        <input aria-label="Agree" defaultChecked type="checkbox" />
-      </form>
-      <form data-case="checkbox-empty">
-        <input aria-label="Agree" type="checkbox" />
       </form>
       <form data-case="group-bound">
         <For each={views}>
@@ -221,14 +221,14 @@ export default function Native() {
         />
         <output>{text()}</output>
       </form>
-      <form data-case="text-rerender">
-        <input aria-label="Name" data-round={round()} defaultValue="Ada" />
-      </form>
       <form data-case="text-default">
         <input aria-label="Name" defaultValue="Ada" />
       </form>
       <form data-case="text-empty">
         <input aria-label="Name" />
+      </form>
+      <form data-case="text-rerender">
+        <input aria-label="Name" data-round={round()} defaultValue="Ada" />
       </form>
       <form data-case="toggle-bound">
         <input

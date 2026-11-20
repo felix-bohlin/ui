@@ -42,14 +42,14 @@
   <Checkbox bind:checked={values.checkbox} label="Agree" />
   <output>{values.checkbox}</output>
 </form>
-<form data-case="checkbox-rerender">
-  <Checkbox defaultChecked data-round={round} label="Agree" />
-</form>
 <form data-case="checkbox-default">
   <Checkbox defaultChecked label="Agree" />
 </form>
 <form data-case="checkbox-empty">
   <Checkbox label="Agree" />
+</form>
+<form data-case="checkbox-rerender">
+  <Checkbox defaultChecked data-round={round} label="Agree" />
 </form>
 <form data-case="group-bound">
   <ToggleGroup aria-label="View" bind:value={values.group} name="view">
@@ -140,14 +140,14 @@
   <TextField bind:value={values.text} label="Name" />
   <output>{values.text}</output>
 </form>
-<form data-case="text-rerender">
-  <TextField data-round={round} label="Name" defaultValue="Ada" />
-</form>
 <form data-case="text-default">
   <TextField label="Name" defaultValue="Ada" />
 </form>
 <form data-case="text-empty">
   <TextField label="Name" />
+</form>
+<form data-case="text-rerender">
+  <TextField data-round={round} label="Name" defaultValue="Ada" />
 </form>
 <form data-case="toggle-bound">
   <ToggleButton bind:checked={values.toggle}>Bold</ToggleButton>

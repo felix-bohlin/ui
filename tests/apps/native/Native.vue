@@ -26,14 +26,14 @@ const state = ref({
     <input v-model="state.checkbox" aria-label="Agree" type="checkbox" />
     <output>{{ state.checkbox }}</output>
   </form>
-  <form data-case="checkbox-rerender">
-    <input aria-label="Agree" checked :data-round="round" type="checkbox" />
-  </form>
   <form data-case="checkbox-default">
     <input aria-label="Agree" checked type="checkbox" />
   </form>
   <form data-case="checkbox-empty">
     <input aria-label="Agree" type="checkbox" />
+  </form>
+  <form data-case="checkbox-rerender">
+    <input aria-label="Agree" checked :data-round="round" type="checkbox" />
   </form>
   <form data-case="group-bound">
     <input
@@ -174,14 +174,14 @@ const state = ref({
     <input v-model="state.text" aria-label="Name" />
     <output>{{ state.text }}</output>
   </form>
-  <form data-case="text-rerender">
-    <input aria-label="Name" :data-round="round" value="Ada" />
-  </form>
   <form data-case="text-default">
     <input aria-label="Name" value="Ada" />
   </form>
   <form data-case="text-empty">
     <input aria-label="Name" />
+  </form>
+  <form data-case="text-rerender">
+    <input aria-label="Name" :data-round="round" value="Ada" />
   </form>
   <form data-case="toggle-bound">
     <input v-model="state.toggle" aria-label="Bold" type="checkbox" />

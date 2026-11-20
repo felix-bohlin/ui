@@ -23,14 +23,14 @@
   <input aria-label="Agree" bind:checked={values.checkbox} type="checkbox" />
   <output>{values.checkbox}</output>
 </form>
-<form data-case="checkbox-rerender">
-  <input aria-label="Agree" defaultChecked data-round={round} type="checkbox" />
-</form>
 <form data-case="checkbox-default">
   <input aria-label="Agree" defaultChecked type="checkbox" />
 </form>
 <form data-case="checkbox-empty">
   <input aria-label="Agree" type="checkbox" />
+</form>
+<form data-case="checkbox-rerender">
+  <input aria-label="Agree" defaultChecked data-round={round} type="checkbox" />
 </form>
 <form data-case="group-bound">
   {#each views as view (view)}
@@ -176,14 +176,14 @@
   <input aria-label="Name" bind:value={values.text} />
   <output>{values.text}</output>
 </form>
-<form data-case="text-rerender">
-  <input aria-label="Name" data-round={round} defaultValue="Ada" />
-</form>
 <form data-case="text-default">
   <input aria-label="Name" defaultValue="Ada" />
 </form>
 <form data-case="text-empty">
   <input aria-label="Name" />
+</form>
+<form data-case="text-rerender">
+  <input aria-label="Name" data-round={round} defaultValue="Ada" />
 </form>
 <form data-case="toggle-bound">
   <input aria-label="Bold" bind:checked={values.toggle} type="checkbox" />

@@ -385,7 +385,7 @@ export const toReact = (component) => {
           : [attribute(node, entry)]),
         ...(node.item && entry.kind === "expression" && entry.name === "checked"
           ? [
-              `defaultChecked={${item.grouped} === undefined ? (${item.checked ? `(${item.checked} === undefined ? ${defaultGrouped} : undefined)` : defaultGrouped} ?? defaultChecked) : undefined}`,
+              `defaultChecked={${item.grouped} !== undefined ? undefined : ${item.checked ? `${item.checked} === undefined ? (${defaultGrouped} ?? defaultChecked) : defaultChecked` : `(${defaultGrouped} ?? defaultChecked)`}}`,
             ]
           : []),
       ]),

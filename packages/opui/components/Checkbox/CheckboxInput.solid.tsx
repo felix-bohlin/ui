@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { omit, untrack } from "solid-js"
+import { omit } from "solid-js"
 import "../../css/js/checkbox.js"
 import { defined } from "../attrs"
 import { useFieldGroupContext } from "../FieldGroup/context.solid"
@@ -9,11 +9,7 @@ import type { CheckboxInputProps as Props } from "./types.solid"
 export default function CheckboxInput(props: Props) {
   const rest = omit(props, "checked", "indeterminate", "name", "ref")
   const field = useFieldGroupContext()
-  const checkedControl = control(
-    "checked",
-    () => props.checked,
-    untrack(() => props.checked),
-  )
+  const checkedControl = control("checked", () => props.checked)
 
   return (
     <input

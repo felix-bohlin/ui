@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { children, createUniqueId, omit, untrack } from "solid-js"
+import { children, createUniqueId, omit } from "solid-js"
 import "../../elements/number-field.js"
 import Button from "../Button/Button.solid"
 import { useFieldGroupContext } from "../FieldGroup/context.solid"
@@ -40,11 +40,7 @@ export default function NumberField(props: Props) {
   const resolvedStartText = children(() => props.startText)
   const field = useFieldGroupContext()
   const uid = createUniqueId()
-  const valueControl = control(
-    "value",
-    () => props.value,
-    untrack(() => props.value),
-  )
+  const valueControl = control("value", () => props.value)
   const decreaseLabel = () =>
     props.decreaseLabel === undefined ? "Decrease" : props.decreaseLabel
   const increaseLabel = () =>

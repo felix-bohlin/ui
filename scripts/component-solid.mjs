@@ -422,10 +422,7 @@ export const toSolid = (component) => {
       code,
       (name) => `const ${name} = () => ${code}`,
     )
-  let usesControl = false
-  let usesOptionSelected = false
   const controlOf = (state, read, initial, scope) => {
-    usesControl = true
     const code = `control(${JSON.stringify(state)}, ${read}, untrack(() => ${initial}))`
     return declare(
       scope,
@@ -435,7 +432,6 @@ export const toSolid = (component) => {
     )
   }
   const optionSelectedOf = (selected, scope) => {
-    usesOptionSelected = true
     const code = `optionSelected(untrack(() => ${selected}))`
     return declare(
       scope,
@@ -663,7 +659,7 @@ export const toSolid = (component) => {
         controlOf(
           "checked",
           `() => ${rewrite(checked.code, scope)}`,
-          `${rewrite(checked.code, scope)} ?? ${rewrite(item.defaultGrouped, scope)} ?? props.defaultChecked`,
+          `${rewrite(item.defaultGrouped, scope)} ?? props.defaultChecked`,
           scope,
         )
       const guard = hydrating.has(node)
@@ -828,14 +824,9 @@ export const toSolid = (component) => {
     ...namesFrom(used, "solid-js"),
     ...(rest || usesOmit ? ["omit"] : []),
     ...(uid ? ["createUniqueId"] : []),
-    ...(warnings.length > 0 || item || usesControl || usesOptionSelected
-      ? ["untrack"]
-      : []),
   ].toSorted(byName)
   const solidHelpers = [
     ...namesFrom(used, "../solid"),
-    ...(usesControl ? ["control"] : []),
-    ...(usesOptionSelected ? ["optionSelected"] : []),
     ...(item ? ["callHandler"] : []),
     ...(hydrating.size ? ["hydrated", "hydrating"] : []),
   ].toSorted(byName)

@@ -47,11 +47,11 @@ export default function ToggleButton({
       <input
         checked={grouped ?? checked}
         defaultChecked={
-          grouped === undefined
-            ? ((checked === undefined
-                ? isSelected(group?.defaultValue, value)
-                : undefined) ?? defaultChecked)
-            : undefined
+          grouped !== undefined
+            ? undefined
+            : checked === undefined
+              ? (isSelected(group?.defaultValue, value) ?? defaultChecked)
+              : defaultChecked
         }
         name={finalName}
         type={finalType}

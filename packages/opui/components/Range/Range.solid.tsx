@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { children, createUniqueId, For, omit, untrack } from "solid-js"
+import { children, createUniqueId, For, omit } from "solid-js"
 import "../../css/js/range.js"
 import { useFieldGroupContext } from "../FieldGroup/context.solid"
 import { idRefs } from "../id"
@@ -45,11 +45,7 @@ export default function Range(props: Props) {
   const resolvedValueText = children(() => props.valueText)
   const field = useFieldGroupContext()
   const uid = createUniqueId()
-  const valueControl = control(
-    "value",
-    () => props.value,
-    untrack(() => props.value),
-  )
+  const valueControl = control("value", () => props.value)
   const value = () => props.value ?? props.defaultValue
   const base = () => props.id || `range-${uid}`
   const hasLabel = () => !!resolvedLabel()

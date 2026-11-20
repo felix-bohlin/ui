@@ -38,11 +38,11 @@ export default function TabsItem({
       <input
         checked={grouped ?? checked}
         defaultChecked={
-          grouped === undefined
-            ? ((checked === undefined
-                ? isSelected(parent?.defaultValue, value)
-                : undefined) ?? defaultChecked)
-            : undefined
+          grouped !== undefined
+            ? undefined
+            : checked === undefined
+              ? (isSelected(parent?.defaultValue, value) ?? defaultChecked)
+              : defaultChecked
         }
         className={cx(["ui-input", className])}
         id={tabId}

@@ -1,6 +1,6 @@
 /** @jsxImportSource @solidjs/web */
 import { dynamic } from "@solidjs/web"
-import { children, createUniqueId, omit, untrack } from "solid-js"
+import { children, createUniqueId, omit } from "solid-js"
 import "../../elements/character-count.js"
 import "../../elements/text-field.js"
 import Button from "../Button/Button.solid"
@@ -56,11 +56,7 @@ export default function TextField(props: Props) {
   const resolvedTop = children(() => props.top)
   const field = useFieldGroupContext()
   const uid = createUniqueId()
-  const valueControl = control(
-    "value",
-    () => props.value,
-    untrack(() => props.value),
-  )
+  const valueControl = control("value", () => props.value)
   const passwordToggleLabel = () =>
     props.passwordToggleLabel === undefined
       ? "Show password"

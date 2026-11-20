@@ -43,10 +43,7 @@ export default function ToggleButton(props: Props) {
     () => grouped() ?? props.checked,
     untrack(
       () =>
-        grouped() ??
-        props.checked ??
-        isSelected(group?.defaultValue, props.value) ??
-        props.defaultChecked,
+        isSelected(group?.defaultValue, props.value) ?? props.defaultChecked,
     ),
   )
 

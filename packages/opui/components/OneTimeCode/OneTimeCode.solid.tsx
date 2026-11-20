@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { children, createUniqueId, omit, untrack } from "solid-js"
+import { children, createUniqueId, omit } from "solid-js"
 import { useFieldGroupContext } from "../FieldGroup/context.solid"
 import { fieldDescribedBy } from "../id"
 import { control } from "../solid"
@@ -34,11 +34,7 @@ export default function OneTimeCode(props: Props) {
   const resolvedLabel = children(() => props.label)
   const field = useFieldGroupContext()
   const uid = createUniqueId()
-  const valueControl = control(
-    "value",
-    () => props.value,
-    untrack(() => props.value),
-  )
+  const valueControl = control("value", () => props.value)
   const length = () => (props.length === undefined ? 6 : props.length)
   const hasLabel = () => Boolean(resolvedLabel())
   const hasEndText = () => Boolean(resolvedEndText())

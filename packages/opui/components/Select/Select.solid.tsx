@@ -49,7 +49,7 @@ export default function Select(props: Props) {
   const valueControl = control(
     "value",
     () => props.value,
-    untrack(() => props.value ?? props.defaultValue),
+    untrack(() => props.defaultValue),
   )
   const value = () => props.value ?? props.defaultValue
   const items = () => (props.items === undefined ? [] : props.items)

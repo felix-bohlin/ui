@@ -22,7 +22,7 @@ const solidChecked = {
     "ref={[props.ref, checkedControl.ref]}",
   ],
   body: () => [
-    'const checkedControl = control(\n  "checked",\n  () => props.checked,\n  untrack(() => props.checked),\n)',
+    'const checkedControl = control("checked", () => props.checked)',
   ],
   omits: () => ["checked", "ref"],
   locals: () => ["checkedControl"],
@@ -36,6 +36,7 @@ export const modelHelpers = (framework, component) =>
     solid: {
       checkedValues: selectionImport(component),
       control: "../solid",
+      optionSelected: "../solid",
       untrack: "solid-js",
     },
     svelte: {
@@ -254,7 +255,7 @@ export const MODEL_KINDS = {
         `ref={[props.ref, ${model.prop}Control.ref]}`,
       ],
       body: (model, _, read) => [
-        `const ${model.prop}Control = control(\n  ${JSON.stringify(model.prop)},\n  () => props.${model.prop},\n  untrack(() => props.${model.prop}${ownsDefault(model) ? ` ?? props.default${capitalize(model.prop)}` : ""}),\n)`,
+        `const ${model.prop}Control = control(${JSON.stringify(model.prop)}, () => props.${model.prop}${ownsDefault(model) ? `, untrack(() => props.default${capitalize(model.prop)})` : ""})`,
         ...(read
           ? [
               `const ${model.local} = () => props.${model.prop} ?? props.default${capitalize(model.prop)}`,

@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { children, createUniqueId, omit, untrack } from "solid-js"
+import { children, createUniqueId, omit } from "solid-js"
 import "../../elements/character-count.js"
 import { useFieldGroupContext } from "../FieldGroup/context.solid"
 import { fieldDescribedBy } from "../id"
@@ -44,11 +44,7 @@ export default function Textarea(props: Props) {
   const resolvedTop = children(() => props.top)
   const field = useFieldGroupContext()
   const uid = createUniqueId()
-  const valueControl = control(
-    "value",
-    () => props.value,
-    untrack(() => props.value),
-  )
+  const valueControl = control("value", () => props.value)
   const base = () => props.id || `textarea-${uid}`
   const hasLabel = () => Boolean(resolvedLabel())
   const hasStartText = () => Boolean(resolvedStartText())

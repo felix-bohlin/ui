@@ -4,6 +4,7 @@ import { basename, extname, join, relative } from "node:path"
 import { fileURLToPath } from "node:url"
 import { parse as parseAstro } from "@astrojs/compiler"
 import ts from "typescript"
+import { parse as parseVue } from "vue/compiler-sfc"
 import {
   componentHasFramework,
   exampleExtension,
@@ -264,24 +265,43 @@ export const checkClassOrder = (lists, label) =>
     })
     .map(() => `className must be the last entry in ${label}`)
 
-const BOUND_BRANCH = /<([\w-]+)\s+v-if="[^"]*\bbound\b[^"]*"/g
+const ELEMENT = 1
+const DIRECTIVE = 7
+const TEMPLATE = "<template>"
+
+const templateOf = (source) => {
+  const own = parseVue(source).descriptor.template
+  if (own) return { ast: own.ast, offset: 0 }
+  return {
+    ast: parseVue(`${TEMPLATE}${source}</template>`).descriptor.template.ast,
+    offset: TEMPLATE.length,
+  }
+}
+
+const boundBranch = (node) =>
+  node.type === ELEMENT &&
+  node.props.some(
+    (prop) =>
+      prop.type === DIRECTIVE &&
+      prop.name === "if" &&
+      /\bbound\b/.test(prop.exp?.content ?? ""),
+  )
 
 export const withoutBoundBranches = (source) => {
-  let result = source
-  for (const match of [...source.matchAll(BOUND_BRANCH)].toReversed()) {
-    const tag = match[1]
-    const after = source.slice(match.index)
-    const selfClosing = /^<[^>]*?\/>/.exec(after)
-    const close = after.indexOf(`</${tag}>`)
-    const end = selfClosing
-      ? selfClosing[0].length
-      : close === -1
-        ? -1
-        : close + `</${tag}>`.length
-    if (end === -1) continue
-    result = result.slice(0, match.index) + result.slice(match.index + end)
+  const { ast, offset } = templateOf(source)
+  const ranges = []
+  const visit = (node) => {
+    if (boundBranch(node)) {
+      ranges.push([
+        node.loc.start.offset - offset,
+        node.loc.end.offset - offset,
+      ])
+    } else node.children?.forEach(visit)
   }
-  return result
+  ast.children.forEach(visit)
+  return ranges
+    .toReversed()
+    .reduce((text, [from, to]) => text.slice(0, from) + text.slice(to), source)
 }
 
 const classTokens = (lists) =>

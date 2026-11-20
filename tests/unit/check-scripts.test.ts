@@ -888,6 +888,18 @@ describe("check-components", () => {
     const roots =
       '<fieldset v-if="name" :class="[\'ui-rating\']"></fieldset><meter v-else :class="[\'ui-rating\']" />'
     expect(withoutBoundBranches(roots)).toBe(roots)
+    const nested =
+      '<span v-if="bound" :class="[\'ui-a\']"><span>x</span><b :class="[\'ui-b\']"></b></span><span v-else :class="[\'ui-a\']"></span>'
+    expect(withoutBoundBranches(nested)).toBe(
+      "<span v-else :class=\"['ui-a']\"></span>",
+    )
+    const arrow =
+      '<input v-if="bound" @input="(event) => emit(event)" v-model="modelValue" /><input v-else />'
+    expect(withoutBoundBranches(arrow)).toBe("<input v-else />")
+    const sfc = `<script setup lang="ts">\nconst bound = useBound()\n</script>\n\n<template>\n  ${pair}\n</template>\n`
+    expect(withoutBoundBranches(sfc)).toBe(
+      `<script setup lang="ts">\nconst bound = useBound()\n</script>\n\n<template>\n  \n<input v-else :class="['ui-input']" />\n</template>\n`,
+    )
   })
 
   test('"use client" marks exactly the React components with state or handlers', () => {

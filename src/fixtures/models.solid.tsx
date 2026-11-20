@@ -2,6 +2,7 @@
 import {
   Checkbox,
   Menu,
+  NumberField,
   Rating,
   Select,
   Stepper,
@@ -46,6 +47,7 @@ const Models = () => {
   return (
     <form>
       <TextField defaultValue="Lund" error={error()} label="City" />
+      <NumberField defaultValue={1} error={error()} label="Quantity" />
       <Checkbox checked={false} error={error()}>
         Newsletter
       </Checkbox>

@@ -1,6 +1,7 @@
 import {
   Checkbox,
   Menu,
+  NumberField,
   Rating,
   Select,
   Stepper,
@@ -50,6 +51,7 @@ export default function Models() {
   return (
     <form>
       <TextField defaultValue="Lund" error={error} label="City" />
+      <NumberField defaultValue={1} error={error} label="Quantity" />
       <Checkbox defaultChecked={false} error={error}>
         Newsletter
       </Checkbox>

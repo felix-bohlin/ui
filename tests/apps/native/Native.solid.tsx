@@ -78,6 +78,9 @@ export default function Native() {
           )}
         </For>
       </form>
+      <form data-case="number-default">
+        <input aria-label="Quantity" defaultValue="1" type="number" />
+      </form>
       <form data-case="radio-bound">
         <For each={["tea", "coffee"]}>
           {(drink) => (

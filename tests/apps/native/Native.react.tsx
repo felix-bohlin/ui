@@ -89,6 +89,9 @@ export default function Native() {
           />
         ))}
       </form>
+      <form data-case="number-default">
+        <input aria-label="Quantity" defaultValue="1" type="number" />
+      </form>
       <form data-case="radio-bound">
         {["tea", "coffee"].map((drink) => (
           <input

@@ -3,6 +3,7 @@
 import { useState } from "react"
 import {
   Checkbox,
+  NumberField,
   Radio,
   Range,
   Rating,
@@ -99,6 +100,9 @@ export default function Opui() {
             </ToggleButton>
           ))}
         </ToggleGroup>
+      </form>
+      <form data-case="number-default">
+        <NumberField defaultValue={1} label="Quantity" />
       </form>
       <form data-case="radio-bound">
         {["tea", "coffee"].map((drink) => (

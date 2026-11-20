@@ -3,6 +3,7 @@ import { onBeforeUnmount, onMounted, ref } from "vue"
 import {
   Checkbox,
   Menu,
+  NumberField,
   Rating,
   Select,
   Stepper,
@@ -68,6 +69,7 @@ onBeforeUnmount(() =>
 <template>
   <form>
     <TextField :error label="City" value="Lund" />
+    <NumberField :error label="Quantity" :value="1" />
     <Checkbox :checked="false" :error>Newsletter</Checkbox>
     <Select :error label="Size" value="small">
       <option value="small">Small</option>

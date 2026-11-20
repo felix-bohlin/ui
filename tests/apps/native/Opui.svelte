@@ -1,6 +1,7 @@
 <script lang="ts">
   import {
     Checkbox,
+    NumberField,
     Radio,
     Range,
     Rating,
@@ -73,6 +74,9 @@
       <ToggleButton value={view}>{view}</ToggleButton>
     {/each}
   </ToggleGroup>
+</form>
+<form data-case="number-default">
+  <NumberField label="Quantity" defaultValue={1} />
 </form>
 <form data-case="radio-bound">
   <Radio bind:group={values.radio} label="Tea" name="drink" value="tea" />

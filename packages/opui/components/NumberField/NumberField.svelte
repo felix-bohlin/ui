@@ -36,7 +36,7 @@
 
   const field = getFieldGroupContext()
   const uid = $props.id()
-  const getValue = () => value ?? defaultValue
+  const getValue = () => (value === undefined ? defaultValue : value)
   const setValue = (next: typeof value) => {
     value = next
   }

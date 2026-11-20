@@ -77,6 +77,25 @@ for (const { id, label } of FRAMEWORKS) {
       await expect(page.getByLabel("City")).toHaveValue("Lund")
     })
 
+    test("a number field with a starting value can be emptied, stays empty when another prop changes, and a reset brings the value back", async ({
+      page,
+    }) => {
+      const errors = pageErrors(page)
+      const quantity = page.getByLabel("Quantity")
+      await expect(quantity).toHaveValue("1")
+      await quantity.fill("")
+      await expect(quantity).toHaveValue("")
+      await page.getByRole("button", { name: "Toggle error" }).click()
+      await expect(quantity).toHaveAttribute("aria-invalid", "true")
+      await expect(quantity).toHaveValue("")
+      await quantity.fill("-5")
+      await expect(quantity).toHaveValue("-5")
+
+      await page.getByRole("button", { name: "Reset" }).click()
+      await expect(quantity).toHaveValue("1")
+      expect(errors).toEqual([])
+    })
+
     test(`a group with a one-way value ${refuses ? "puts the selection back" : "keeps the selection"} when the change isn't stored`, async ({
       page,
     }) => {

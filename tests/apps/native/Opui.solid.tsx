@@ -2,6 +2,7 @@
 import { createSignal, For } from "solid-js"
 import {
   Checkbox,
+  NumberField,
   Radio,
   Range,
   Rating,
@@ -84,6 +85,9 @@ export default function Opui() {
             {(view) => <ToggleButton value={view}>{view}</ToggleButton>}
           </For>
         </ToggleGroup>
+      </form>
+      <form data-case="number-default">
+        <NumberField defaultValue={1} label="Quantity" />
       </form>
       <form data-case="radio-bound">
         <For each={["tea", "coffee"]}>

@@ -278,7 +278,7 @@ export const MODEL_KINDS = {
       script: (model) =>
         resettable(model)
           ? [
-              "const getValue = () => value ?? defaultValue",
+              "const getValue = () => (value === undefined ? defaultValue : value)",
               "const setValue = (next: typeof value) => {\n  value = next\n}",
             ]
           : [],

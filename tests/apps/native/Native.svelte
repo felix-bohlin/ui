@@ -60,6 +60,9 @@
     <input aria-label={view} name="view" type="radio" value={view} />
   {/each}
 </form>
+<form data-case="number-default">
+  <input aria-label="Quantity" type="number" defaultValue="1" />
+</form>
 <form data-case="radio-bound">
   <input
     aria-label="Tea"

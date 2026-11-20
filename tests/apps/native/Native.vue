@@ -62,6 +62,9 @@ const state = ref({
       :value="view"
     />
   </form>
+  <form data-case="number-default">
+    <input aria-label="Quantity" type="number" value="1" />
+  </form>
   <form data-case="radio-bound">
     <input
       v-model="state.radio"

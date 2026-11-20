@@ -2,6 +2,7 @@
 import { ref } from "vue"
 import {
   Checkbox,
+  NumberField,
   Radio,
   Range,
   Rating,
@@ -78,6 +79,9 @@ const state = ref({
         {{ view }}
       </ToggleButton>
     </ToggleGroup>
+  </form>
+  <form data-case="number-default">
+    <NumberField label="Quantity" :value="1" />
   </form>
   <form data-case="radio-bound">
     <Radio v-model="state.radio" label="Tea" name="drink" value="tea" />

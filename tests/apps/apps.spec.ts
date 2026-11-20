@@ -578,6 +578,7 @@ const NATIVE_CASES: {
   { after: { click: 0 }, before: { click: 2 }, name: "group-bound" },
   { after: { click: 0 }, before: { click: 2 }, name: "group-default" },
   { after: { click: 0 }, before: { click: 2 }, name: "group-empty" },
+  { after: { fill: "" }, before: { fill: "7" }, name: "number-default" },
   { after: { click: 1 }, before: { click: 0 }, name: "radio-bound" },
   { after: { click: 1 }, before: { click: 0 }, name: "radio-default" },
   { after: { click: 1 }, before: { click: 0 }, name: "radio-empty" },

@@ -2,6 +2,7 @@
   import {
     Checkbox,
     Menu,
+    NumberField,
     Rating,
     Select,
     Stepper,
@@ -51,6 +52,7 @@
 
 <form>
   <TextField defaultValue="Lund" {error} label="City" />
+  <NumberField defaultValue={1} {error} label="Quantity" />
   <Checkbox checked={false} {error}>Newsletter</Checkbox>
   <Select {error} label="Size" value="small">
     <option value="small">Small</option>

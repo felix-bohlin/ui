@@ -25,7 +25,9 @@
   </DialogHeader>
   <form method="dialog" onsubmit={() => onsave({ ...draft })}>
     <DialogContent>
-      <TextField bind:value={draft.name} label="Name" name="name" required />
+      <TextField for="profile-name" label="Name">
+        <input bind:value={draft.name} id="profile-name" name="name" required />
+      </TextField>
       <Textarea bind:value={draft.bio} label="Bio" name="bio" />
     </DialogContent>
     <DialogFooter>

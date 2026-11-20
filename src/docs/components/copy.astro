@@ -78,12 +78,17 @@ export const keywords = ["clipboard", "copy to clipboard"]
         "
       >
         <UITextField
+          for="copy-invite-link"
           hideLabel
           label="Invite link"
-          readonly
           style="flex: 1"
-          value="https://example.com/invite/8f3k2"
-        />
+        >
+          <input
+            id="copy-invite-link"
+            readonly
+            value="https://example.com/invite/8f3k2"
+          />
+        </UITextField>
         <UIButton style="anchor-name: --copy-anatomy-button" variant="outlined"
           >Copy</UIButton
         >

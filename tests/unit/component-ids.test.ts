@@ -167,19 +167,6 @@ const CASES: {
     },
   },
   {
-    base: inputId,
-    components: {
-      astro: TextFieldAstro,
-      react: TextFieldReact,
-      solid: TextFieldSolid,
-      svelte: TextFieldSvelte,
-      vue: TextFieldVue,
-    },
-    name: "TextField",
-    prefix: "text-field",
-    props: { endText: "E", label: "L", passwordToggle: true, startText: "S" },
-  },
-  {
     base: (html) => /<textarea[^>]*\sid="([^"]+)"/.exec(html)?.[1],
     components: {
       astro: TextareaAstro,
@@ -239,6 +226,45 @@ describe.each(CASES)("$name", ({ base, components, prefix, props }) => {
         ),
       ).toEqual([])
       if (framework === "astro") expect(calls).toEqual([prefix])
+    },
+  )
+})
+
+describe("TextField", () => {
+  const components: Components = {
+    astro: TextFieldAstro,
+    react: TextFieldReact,
+    solid: TextFieldSolid,
+    svelte: TextFieldSvelte,
+    vue: TextFieldVue,
+  }
+
+  test.each(FRAMEWORKS)(
+    "%s: every id is the input's, from for, or a part of it, and none is generated",
+    async (framework) => {
+      const calls: string[] = []
+      const html = await renderWithIds(
+        framework,
+        components[framework],
+        {
+          endText: "E",
+          [framework === "react" ? "htmlFor" : "for"]: "x",
+          label: "L",
+          passwordToggle: true,
+          startText: "S",
+        },
+        (name: string) => {
+          calls.push(name)
+          return `${name}-1`
+        },
+      )
+      expect(idsIn(html)).toEqual(
+        expect.arrayContaining(["x", "x-end-text", "x-start-text"]),
+      )
+      expect(
+        idsIn(html).filter((id) => id !== "x" && !id.startsWith("x-")),
+      ).toEqual([])
+      expect(calls).toEqual([])
     },
   )
 })

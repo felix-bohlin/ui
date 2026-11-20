@@ -123,12 +123,14 @@ export default function Profile({ profile }: { profile: User }) {
           </DialogHeader>
           <form key={form.key} method="dialog" onSubmit={save}>
             <DialogContent>
-              <TextField
-                defaultValue={form.name}
-                label="Name"
-                name="name"
-                required
-              />
+              <TextField htmlFor="profile-name" label="Name">
+                <input
+                  defaultValue={form.name}
+                  id="profile-name"
+                  name="name"
+                  required
+                />
+              </TextField>
               <Textarea defaultValue={form.bio} label="Bio" name="bio" />
             </DialogContent>
             <DialogFooter>

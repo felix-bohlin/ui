@@ -55,15 +55,20 @@ import {
           <Form action="#">
             <FieldGroup>
               <TextField
-                autocomplete="email"
                 endText="The link works for 30 minutes, so be quick!"
-                id="forgot-password-email"
+                for="forgot-password-email"
                 label="Email"
-                name="email"
-                placeholder="rory@lowend.example"
-                required
-                type="email"
-              />
+              >
+                <input
+                  aria-describedby="forgot-password-email-end-text"
+                  autocomplete="email"
+                  id="forgot-password-email"
+                  name="email"
+                  placeholder="rory@lowend.example"
+                  required
+                  type="email"
+                />
+              </TextField>
               <Button
                 class="forgot-password-submit"
                 type="submit"

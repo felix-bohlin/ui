@@ -103,11 +103,9 @@ export default function EmptyStates() {
             <CardContent>
               <TextField
                 className="empty-states-search"
-                defaultValue="flatwond strings"
                 hideLabel
-                id="empty-states-q"
+                htmlFor="empty-states-q"
                 label="Search Bassbook"
-                name="q"
                 start={
                   <svg
                     data-icon="search"
@@ -123,8 +121,15 @@ export default function EmptyStates() {
                     ></path>
                   </svg>
                 }
-                type="search"
-              />
+              >
+                <input
+                  aria-describedby="empty-states-q-start"
+                  id="empty-states-q"
+                  name="q"
+                  type="search"
+                  defaultValue="flatwond strings"
+                />
+              </TextField>
               <hgroup>
                 <h2 className="ui-h5" id="empty-states-no-results">
                   No results for “flatwond strings”

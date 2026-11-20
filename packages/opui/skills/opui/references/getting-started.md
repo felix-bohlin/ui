@@ -775,13 +775,13 @@ Slots are snippets: `children`, and camelCased names like `endText`. Form contro
 - [CheckboxInput](https://opui.dev/svelte/components/checkbox.md)
 - [Switch](https://opui.dev/svelte/components/switch.md)
 - [SwitchInput](https://opui.dev/svelte/components/switch.md)
-- [ToggleButton](https://opui.dev/svelte/components/toggle.md)                                                                                                                                                                                                                                              |
+- [ToggleButton](https://opui.dev/svelte/components/toggle.md)                                                                                                                                                                              |
 | `bind:group` | * [Checkbox](https://opui.dev/svelte/components/checkbox.md)
 * [CheckboxInput](https://opui.dev/svelte/components/checkbox.md)
 * [Radio](https://opui.dev/svelte/components/radio.md)
 * [RadioInput](https://opui.dev/svelte/components/radio.md)
 * [Switch](https://opui.dev/svelte/components/switch.md)
-* [SwitchInput](https://opui.dev/svelte/components/switch.md)                                                                                                                                                                                          |
+* [SwitchInput](https://opui.dev/svelte/components/switch.md)                                                                                                                          |
 | `bind:value` | - [NumberField](https://opui.dev/svelte/components/number-field.md)
 - [OneTimeCode](https://opui.dev/svelte/components/one-time-code.md)
 - [Range](https://opui.dev/svelte/components/range.md)
@@ -789,15 +789,14 @@ Slots are snippets: `children`, and camelCased names like `endText`. Form contro
 - [Select](https://opui.dev/svelte/components/select.md)
 - [Tabs](https://opui.dev/svelte/components/tabs.md)
 - [Textarea](https://opui.dev/svelte/components/textarea.md)
-- [TextField](https://opui.dev/svelte/components/text-field.md)
 - [ToggleGroup](https://opui.dev/svelte/components/toggle.md) |
 
 ### Server rendering
 
 Every component renders full HTML on the server. The props in the last column need hydration.
 
-- **56** of 72 need no hydration
-- **16** hydrate for `bind:checked`, `bind:group`, `bind:value`, `indeterminate`, `valueSuffix`, `valueText`
+- **57** of 72 need no hydration
+- **15** hydrate for `bind:checked`, `bind:group`, `bind:value`, `indeterminate`, `valueSuffix`, `valueText`
 
 | Component | Client | Server | Needs hydration |
 | --- | --- | --- | --- |
@@ -866,7 +865,7 @@ Every component renders full HTML on the server. The props in the last column ne
 | [`TabsLabel`](https://opui.dev/svelte/components/tabs.md) | Yes | Yes | - |
 | [`TabsPanel`](https://opui.dev/svelte/components/tabs.md) | Yes | Yes | - |
 | [`Textarea`](https://opui.dev/svelte/components/textarea.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`TextField`](https://opui.dev/svelte/components/text-field.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`TextField`](https://opui.dev/svelte/components/text-field.md) | Yes | Yes | - |
 | [`Timeline`](https://opui.dev/svelte/components/timeline.md) | Yes | Yes | - |
 | [`TimelineItem`](https://opui.dev/svelte/components/timeline.md) | Yes | Yes | - |
 | [`Toaster`](https://opui.dev/svelte/components/toast.md) | Yes | Yes | - |
@@ -958,8 +957,8 @@ Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` 
 
 ### Server rendering
 
-- **56** of 72 need no hydration
-- **16** hydrate for `indeterminate`, `v-model`, `valueSuffix`
+- **57** of 72 need no hydration
+- **15** hydrate for `indeterminate`, `v-model`, `valueSuffix`
 
 | Component | Client | Server | Needs hydration |
 | --- | --- | --- | --- |
@@ -1028,7 +1027,7 @@ Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` 
 | [`TabsLabel`](https://opui.dev/vue/components/tabs.md) | Yes | Yes | - |
 | [`TabsPanel`](https://opui.dev/vue/components/tabs.md) | Yes | Yes | - |
 | [`Textarea`](https://opui.dev/vue/components/textarea.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`TextField`](https://opui.dev/vue/components/text-field.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`TextField`](https://opui.dev/vue/components/text-field.md) | Yes | Yes | - |
 | [`Timeline`](https://opui.dev/vue/components/timeline.md) | Yes | Yes | - |
 | [`TimelineItem`](https://opui.dev/vue/components/timeline.md) | Yes | Yes | - |
 | [`Toaster`](https://opui.dev/vue/components/toast.md) | Yes | Yes | - |

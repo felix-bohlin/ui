@@ -189,21 +189,29 @@ export default function Opui() {
         </Tabs>
       </form>
       <form data-case="text-bound">
-        <TextField
-          label="Name"
-          onChange={(event) => set("text", event.currentTarget.value)}
-          value={state.text}
-        />
+        <TextField htmlFor="text-bound" label="Name">
+          <input
+            id="text-bound"
+            onChange={(event) => set("text", event.currentTarget.value)}
+            value={state.text}
+          />
+        </TextField>
         <output>{state.text}</output>
       </form>
       <form data-case="text-default">
-        <TextField defaultValue="Ada" label="Name" />
+        <TextField htmlFor="text-default" label="Name">
+          <input defaultValue="Ada" id="text-default" />
+        </TextField>
       </form>
       <form data-case="text-empty">
-        <TextField label="Name" />
+        <TextField htmlFor="text-empty" label="Name">
+          <input id="text-empty" />
+        </TextField>
       </form>
       <form data-case="text-rerender">
-        <TextField data-round={round} defaultValue="Ada" label="Name" />
+        <TextField htmlFor="text-rerender" label="Name">
+          <input data-round={round} defaultValue="Ada" id="text-rerender" />
+        </TextField>
       </form>
       <form data-case="toggle-bound">
         <ToggleButton

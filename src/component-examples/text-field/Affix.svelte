@@ -2,20 +2,41 @@
   import { TextField } from "opui-css/svelte"
 </script>
 
-<TextField label="Amount" placeholder="0.00">
+<TextField for="text-field-affix-1" label="Amount">
+  <input
+    aria-describedby="text-field-affix-1-start text-field-affix-1-end"
+    id="text-field-affix-1"
+    placeholder="0.00"
+  />
   {#snippet start()}€{/snippet}
   {#snippet end()}EUR{/snippet}
 </TextField>
 
-<TextField label="Website" placeholder="example.com">
+<TextField for="text-field-affix-2" label="Website">
+  <input
+    aria-describedby="text-field-affix-2-start"
+    id="text-field-affix-2"
+    placeholder="example.com"
+  />
   {#snippet start()}https://{/snippet}
 </TextField>
 
-<TextField inputmode="decimal" label="Weight" placeholder="0">
+<TextField for="text-field-affix-3" label="Weight">
+  <input
+    aria-describedby="text-field-affix-3-end"
+    id="text-field-affix-3"
+    inputmode="decimal"
+    placeholder="0"
+  />
   {#snippet end()}kg{/snippet}
 </TextField>
 
-<TextField label="Search" placeholder="Search...">
+<TextField for="text-field-affix-4" label="Search">
+  <input
+    aria-describedby="text-field-affix-4-start"
+    id="text-field-affix-4"
+    placeholder="Search..."
+  />
   {#snippet start()}
     <svg
       data-icon="search"

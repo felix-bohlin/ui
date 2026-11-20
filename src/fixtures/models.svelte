@@ -51,8 +51,20 @@
 </script>
 
 <form>
-  <TextField defaultValue="Lund" {error} label="City" />
-  <TextField {error} label="Password" passwordToggle type="password" />
+  <TextField for="models-city" label="City">
+    <input
+      aria-invalid={error ? "true" : undefined}
+      id="models-city"
+      defaultValue="Lund"
+    />
+  </TextField>
+  <TextField for="models-password" label="Password" passwordToggle>
+    <input
+      aria-invalid={error ? "true" : undefined}
+      id="models-password"
+      type="password"
+    />
+  </TextField>
   <NumberField defaultValue={1} {error} label="Quantity" />
   <Checkbox checked={false} {error}>Newsletter</Checkbox>
   <Select {error} label="Size" value="small">
@@ -63,7 +75,14 @@
     <option value="red">Red</option>
     <option value="blue">Blue</option>
   </Select>
-  <TextField characterCount label="Name" maxlength={20} bind:value={name} />
+  <TextField characterCount for="models-name" label="Name">
+    <input
+      aria-describedby="models-name-end-text"
+      id="models-name"
+      maxlength={20}
+      bind:value={name}
+    />
+  </TextField>
   <Select label="Plan" bind:value={plan}>
     <option value="free">Free</option>
     <option value="paid">Paid</option>

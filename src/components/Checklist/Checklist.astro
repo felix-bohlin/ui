@@ -67,15 +67,19 @@ const doneIn = (list: typeof items) =>
 
   <div class="review-toolbar ui-not-rich-text">
     <TextField
-      autocomplete="off"
       class="review-search"
+      for="checks-search"
       hideLabel
-      id="checks-search"
       label="Filter items"
-      placeholder="Filter items"
       size="small"
-      type="search"
-    />
+    >
+      <input
+        autocomplete="off"
+        id="checks-search"
+        placeholder="Filter items"
+        type="search"
+      />
+    </TextField>
     <ToggleGroup
       aria-label="Show items"
       class="review-stages"
@@ -316,14 +320,19 @@ const doneIn = (list: typeof items) =>
       </Button>
       <form class="checks-add-form" data-check-add hidden>
         <TextField
-          autocomplete="off"
           class="checks-add-field"
+          for={`${section.id}-new-item`}
           hideLabel
           label={`New item in ${section.title}`}
-          name="item"
-          placeholder="What's missing?"
           size="small"
-        />
+        >
+          <input
+            autocomplete="off"
+            id={`${section.id}-new-item`}
+            name="item"
+            placeholder="What's missing?"
+          />
+        </TextField>
         <Button size="small" type="submit" variant="filled">Add</Button>
         <Button data-add-cancel size="small" variant="transparent"
           >Cancel</Button

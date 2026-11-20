@@ -46,13 +46,20 @@ const Models = () => {
 
   return (
     <form>
-      <TextField defaultValue="Lund" error={error()} label="City" />
-      <TextField
-        error={error()}
-        label="Password"
-        passwordToggle
-        type="password"
-      />
+      <TextField for="models-city" label="City">
+        <input
+          aria-invalid={error() ? "true" : undefined}
+          id="models-city"
+          defaultValue="Lund"
+        />
+      </TextField>
+      <TextField for="models-password" label="Password" passwordToggle>
+        <input
+          aria-invalid={error() ? "true" : undefined}
+          id="models-password"
+          type="password"
+        />
+      </TextField>
       <NumberField defaultValue={1} error={error()} label="Quantity" />
       <Checkbox checked={false} error={error()}>
         Newsletter
@@ -65,7 +72,14 @@ const Models = () => {
         <option value="red">Red</option>
         <option value="blue">Blue</option>
       </Select>
-      <TextField characterCount label="Name" maxlength={20} value={name()} />
+      <TextField characterCount for="models-name" label="Name">
+        <input
+          aria-describedby="models-name-end-text"
+          id="models-name"
+          maxlength={20}
+          value={name()}
+        />
+      </TextField>
       <Select label="Plan" value={plan()}>
         <option value="free">Free</option>
         <option value="paid">Paid</option>

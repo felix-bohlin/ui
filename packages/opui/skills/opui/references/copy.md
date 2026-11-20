@@ -62,10 +62,9 @@ The stylesheets read `--ui-border-width`, `--ui-button-accent`, `--ui-button-fon
     <label class="ui-sr-only" for="copy-basics-2">Invite link</label>
     <span class="ui-field">
       <input
+        id="copy-basics-2"
         readonly
         value="https://example.com/invite/8f3k2"
-        id="copy-basics-2"
-        type="text"
       />
     </span>
   </div>
@@ -98,12 +97,13 @@ import { Button, Copy, TextField } from "opui-css/astro"
 ---
 
 <Copy id="copy-basics-1">
-  <TextField
-    hideLabel
-    label="Invite link"
-    readonly
-    value="https://example.com/invite/8f3k2"
-  />
+  <TextField for="copy-basics-2" hideLabel label="Invite link">
+    <input
+      id="copy-basics-2"
+      readonly
+      value="https://example.com/invite/8f3k2"
+    />
+  </TextField>
 </Copy>
 <Button command="--copy" commandfor="copy-basics-1" variant="outlined"
   >Copy</Button
@@ -125,12 +125,13 @@ export default function Basics() {
   return (
     <>
       <Copy id="copy-basics-1">
-        <TextField
-          hideLabel
-          label="Invite link"
-          readOnly
-          value="https://example.com/invite/8f3k2"
-        />
+        <TextField hideLabel htmlFor="copy-basics-2" label="Invite link">
+          <input
+            id="copy-basics-2"
+            readOnly
+            value="https://example.com/invite/8f3k2"
+          />
+        </TextField>
       </Copy>
       <Button command="--copy" commandfor="copy-basics-1" variant="outlined">
         Copy
@@ -154,12 +155,13 @@ export default function Basics() {
   return (
     <>
       <Copy id="copy-basics-1">
-        <TextField
-          hideLabel
-          label="Invite link"
-          readonly
-          value="https://example.com/invite/8f3k2"
-        />
+        <TextField for="copy-basics-2" hideLabel label="Invite link">
+          <input
+            id="copy-basics-2"
+            readonly
+            value="https://example.com/invite/8f3k2"
+          />
+        </TextField>
       </Copy>
       <Button command="--copy" commandfor="copy-basics-1" variant="outlined">
         Copy
@@ -181,12 +183,13 @@ export default function Basics() {
 </script>
 
 <Copy id="copy-basics-1">
-  <TextField
-    hideLabel
-    label="Invite link"
-    readonly
-    value="https://example.com/invite/8f3k2"
-  />
+  <TextField for="copy-basics-2" hideLabel label="Invite link">
+    <input
+      id="copy-basics-2"
+      readonly
+      value="https://example.com/invite/8f3k2"
+    />
+  </TextField>
 </Copy>
 <Button command="--copy" commandfor="copy-basics-1" variant="outlined"
   >Copy</Button
@@ -206,12 +209,13 @@ import { Button, Copy, TextField } from "opui-css/vue"
 
 <template>
   <Copy id="copy-basics-1">
-    <TextField
-      hideLabel
-      label="Invite link"
-      readonly
-      value="https://example.com/invite/8f3k2"
-    />
+    <TextField for="copy-basics-2" hideLabel label="Invite link">
+      <input
+        id="copy-basics-2"
+        readonly
+        value="https://example.com/invite/8f3k2"
+      />
+    </TextField>
   </Copy>
   <Button command="--copy" commandfor="copy-basics-1" variant="outlined"
     >Copy</Button

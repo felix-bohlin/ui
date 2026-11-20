@@ -13,11 +13,13 @@ import { Button, Card, CardContent, Switch, TextField } from "opui-css/astro"
         <p aria-busy="false">Fetching the latest comments</p>
       </CardContent>
     </Card>
-    <TextField
-      aria-busy="false"
-      label="Search"
-      placeholder="Skipped by :not()"
-    />
+    <TextField for="busy-toggle-search" label="Search">
+      <input
+        aria-busy="false"
+        id="busy-toggle-search"
+        placeholder="Skipped by :not()"
+      />
+    </TextField>
   </div>
   <Switch label="Busy" name="busy" />
 </div>

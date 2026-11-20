@@ -58,15 +58,15 @@
       </svg>
       Bassbook
     </a>
-    <TextField
-      aria-label="Search"
-      class="shell-search"
-      id="app-shell-search"
-      name="app-shell-search"
-      placeholder="Search bassists and bands"
-      size="small"
-      type="search"
-    >
+    <TextField class="shell-search" for="app-shell-search" size="small">
+      <input
+        aria-describedby="app-shell-search-start"
+        aria-label="Search"
+        id="app-shell-search"
+        name="app-shell-search"
+        placeholder="Search bassists and bands"
+        type="search"
+      />
       {#snippet start()}
         <svg
           data-icon="search"

@@ -40,7 +40,9 @@ const rules = [
     <FieldLegend>Pet info</FieldLegend>
     <FieldDescription>We must know your pet's information.</FieldDescription>
     <FieldGroup>
-      <TextField label="Name" name="fieldset-has-name" />
+      <TextField for="fieldset-has-name" label="Name">
+        <input id="fieldset-has-name" name="fieldset-has-name" />
+      </TextField>
       <Textarea label="Life story" name="fieldset-has-story" required />
     </FieldGroup>
   </Fieldset>

@@ -2,7 +2,9 @@
 import { Button, TextField } from "opui-css/astro"
 ---
 
-<TextField label="Name" name="text-field-binding" value="Holly" />
+<TextField for="text-field-binding-1" label="Name">
+  <input id="text-field-binding-1" name="text-field-binding" value="Holly" />
+</TextField>
 <p class="text-field-binding-text">Heyyy, Holly.</p>
 <Button class="text-field-binding-reset">Reset</Button>
 

@@ -104,7 +104,9 @@ const photos = photosBy(profile.handle)
     </DialogHeader>
     <form data-edit-profile method="dialog">
       <DialogContent>
-        <TextField label="Name" name="name" required value={profile.name} />
+        <TextField for="profile-name" label="Name">
+          <input id="profile-name" name="name" required value={profile.name} />
+        </TextField>
         <Textarea label="Bio" name="bio" value={profile.bio} />
       </DialogContent>
       <DialogFooter>

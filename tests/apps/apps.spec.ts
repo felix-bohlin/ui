@@ -580,11 +580,7 @@ const NATIVE_DIFFERENCES = [
     "tabs-bound",
     "toggle-bound",
   ]),
-  ...differences("sveltekit", SVELTE_SPREAD, [
-    "checkbox-bound",
-    "range-bound",
-    "text-bound",
-  ]),
+  ...differences("sveltekit", SVELTE_SPREAD, ["checkbox-bound", "range-bound"]),
   ...differences("vite-solid", SOLID_SELECT_DEFAULT, ["select-default"]),
   ...differences("vite-svelte", SVELTE_GROUP, [
     "group-bound",

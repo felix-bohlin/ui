@@ -3,12 +3,12 @@ import { TextField } from "opui-css/react"
 export default function Autosuggest() {
   return (
     <>
-      <TextField
-        id="text-field-autosuggest-1"
-        label="Bassists"
-        list="text-field-autosuggest-1-list"
-        placeholder="Search bassists"
-      >
+      <TextField htmlFor="text-field-autosuggest-1" label="Bassists">
+        <input
+          id="text-field-autosuggest-1"
+          list="text-field-autosuggest-1-list"
+          placeholder="Search bassists"
+        />
         <datalist id="text-field-autosuggest-1-list">
           <option value="Ines Hertz"></option>
           <option value="Lou Headstock"></option>
@@ -17,13 +17,16 @@ export default function Autosuggest() {
       </TextField>
 
       <TextField
-        id="text-field-autosuggest-2"
+        htmlFor="text-field-autosuggest-2"
         label="Emails"
-        list="text-field-autosuggest-2-list"
-        placeholder="name@lowend.example"
-        type="email"
         variant="filled"
       >
+        <input
+          id="text-field-autosuggest-2"
+          list="text-field-autosuggest-2-list"
+          placeholder="name@lowend.example"
+          type="email"
+        />
         <datalist id="text-field-autosuggest-2-list">
           <option value="ines@lowend.example"></option>
           <option value="lou@lowend.example"></option>

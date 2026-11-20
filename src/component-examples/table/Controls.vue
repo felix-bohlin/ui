@@ -42,10 +42,15 @@ const roles = [
         </TableCell>
         <TableCell>
           <TextField
+            for="table-controls-1"
             hideLabel
             label="Notes for Lou Headstock"
-            placeholder="Add a note about their tone"
-          />
+          >
+            <input
+              id="table-controls-1"
+              placeholder="Add a note about their tone"
+            />
+          </TextField>
         </TableCell>
       </TableRow>
       <TableRow>
@@ -60,10 +65,15 @@ const roles = [
         </TableCell>
         <TableCell>
           <TextField
+            for="table-controls-2"
             hideLabel
             label="Notes for Percy Groove"
-            placeholder="Add a note about their tone"
-          />
+          >
+            <input
+              id="table-controls-2"
+              placeholder="Add a note about their tone"
+            />
+          </TextField>
         </TableCell>
       </TableRow>
     </TableBody>

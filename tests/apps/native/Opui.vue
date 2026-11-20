@@ -143,17 +143,25 @@ const state = ref({
     </Tabs>
   </form>
   <form data-case="text-bound">
-    <TextField v-model="state.text" label="Name" />
+    <TextField for="text-bound" label="Name">
+      <input id="text-bound" v-model="state.text" />
+    </TextField>
     <output>{{ state.text }}</output>
   </form>
   <form data-case="text-default">
-    <TextField label="Name" value="Ada" />
+    <TextField for="text-default" label="Name">
+      <input id="text-default" value="Ada" />
+    </TextField>
   </form>
   <form data-case="text-empty">
-    <TextField label="Name" />
+    <TextField for="text-empty" label="Name">
+      <input id="text-empty" />
+    </TextField>
   </form>
   <form data-case="text-rerender">
-    <TextField :data-round="round" label="Name" value="Ada" />
+    <TextField for="text-rerender" label="Name">
+      <input :data-round="round" id="text-rerender" value="Ada" />
+    </TextField>
   </form>
   <form data-case="toggle-bound">
     <ToggleButton v-model="state.toggle">Bold</ToggleButton>

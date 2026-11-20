@@ -9,7 +9,7 @@ export default {
   options: [
     {
       description:
-        "Sets `name` on the OPUI fields inside that don't set their own.",
+        "Sets `name` on the OPUI fields inside that don't set their own. A text field's input is your own, so name it there.",
       prop: "name",
     },
     {

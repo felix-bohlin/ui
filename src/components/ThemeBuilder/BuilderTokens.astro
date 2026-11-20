@@ -53,15 +53,20 @@ const count = sections.reduce((sum, section) => sum + section.tokens.length, 0)
           </span>
         </span>
         <TextField
-          autocomplete="off"
           class="builder-token-field"
+          for={`builder-token${token.name}`}
           hideLabel
           label={`${token.name} value`}
-          name={`token-${token.name.slice(2)}`}
-          placeholder="Set a value"
           size="small"
-          spellcheck="false"
-        />
+        >
+          <input
+            autocomplete="off"
+            id={`builder-token${token.name}`}
+            name={`token-${token.name.slice(2)}`}
+            placeholder="Set a value"
+            spellcheck="false"
+          />
+        </TextField>
       </li>)}
     </ul>
   </div>)}

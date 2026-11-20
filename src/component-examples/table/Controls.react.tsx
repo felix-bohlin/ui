@@ -42,9 +42,14 @@ export default function Controls() {
           <TableCell>
             <TextField
               hideLabel
+              htmlFor="table-controls-1"
               label="Notes for Lou Headstock"
-              placeholder="Add a note about their tone"
-            />
+            >
+              <input
+                id="table-controls-1"
+                placeholder="Add a note about their tone"
+              />
+            </TextField>
           </TableCell>
         </TableRow>
         <TableRow>
@@ -60,9 +65,14 @@ export default function Controls() {
           <TableCell>
             <TextField
               hideLabel
+              htmlFor="table-controls-2"
               label="Notes for Percy Groove"
-              placeholder="Add a note about their tone"
-            />
+            >
+              <input
+                id="table-controls-2"
+                placeholder="Add a note about their tone"
+              />
+            </TextField>
           </TableCell>
         </TableRow>
       </TableBody>

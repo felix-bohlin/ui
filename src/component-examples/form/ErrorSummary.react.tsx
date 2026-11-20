@@ -35,22 +35,32 @@ export default function ErrorSummary() {
       </Callout>
       <FieldGroup>
         <TextField
-          autoComplete="email"
           endText="Enter your work email."
-          error
-          id="form-error-summary-2"
+          htmlFor="form-error-summary-2"
           label="Email"
-          type="email"
-        />
+        >
+          <input
+            aria-describedby="form-error-summary-2-end-text"
+            aria-invalid="true"
+            autoComplete="email"
+            id="form-error-summary-2"
+            type="email"
+          />
+        </TextField>
         <TextField
-          autoComplete="new-password"
-          defaultValue="hunter2"
           endText="Choose a password with at least 12 characters."
-          error
-          id="form-error-summary-3"
+          htmlFor="form-error-summary-3"
           label="Password"
-          type="password"
-        />
+        >
+          <input
+            aria-describedby="form-error-summary-3-end-text"
+            aria-invalid="true"
+            autoComplete="new-password"
+            id="form-error-summary-3"
+            type="password"
+            defaultValue="hunter2"
+          />
+        </TextField>
       </FieldGroup>
       <FieldGroup>
         <Button type="submit" variant="filled">

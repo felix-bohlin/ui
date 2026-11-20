@@ -190,15 +190,19 @@ const actions = ["None", ...actionValues]
 
     <div class="review-toolbar ui-not-rich-text" id="todo-filters">
       <TextField
-        autocomplete="off"
         class="review-search"
+        for="todo-search"
         hideLabel
-        id="todo-search"
         label="Filter todos"
-        placeholder="Filter todos"
         size="small"
-        type="search"
-      />
+      >
+        <input
+          autocomplete="off"
+          id="todo-search"
+          placeholder="Filter todos"
+          type="search"
+        />
+      </TextField>
       <ToggleGroup
         aria-label="Show todos"
         class="review-stages"

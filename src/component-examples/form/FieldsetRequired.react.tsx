@@ -15,7 +15,9 @@ export default function FieldsetRequired() {
         Where should we send your order?
       </FieldDescription>
       <FieldGroup>
-        <TextField label="Recipient" name="recipient" />
+        <TextField htmlFor="form-fieldset-required-2" label="Recipient">
+          <input id="form-fieldset-required-2" name="recipient" />
+        </TextField>
         <Textarea label="Address" name="address" required />
       </FieldGroup>
     </Fieldset>

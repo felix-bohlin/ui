@@ -106,7 +106,7 @@ Icons are inline `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke
 - An unknown handle is a 404 page with `<h1>Not found</h1>` in the shell, `data-screen="not-found"`. The response has the status text `Not Found`, since the spec matches the console message Chromium logs for it, and some frameworks send another text unless the app sets it.
 - `<h1>` with the name, a large decorative `Avatar` (`size="large"`), the bio in `<p>`.
 - A `DescriptionList` with `Location` and `Joined`, and two `Stat`s, `Posts` and `Photos`, with the counts from `postsBy()` and `photosBy()`.
-- On `/u/sam`, an `Edit profile` button (`variant="outlined"`) opens a `Dialog` (`id="edit-profile"`) with `DialogHeader` `closeButton`, `DialogTitle` `Edit profile`, and a `<form method="dialog">` around `DialogContent` (`TextField` `Name`, `name="name"`, `required`, the current name; `Textarea` `Bio`, `name="bio"`, the current bio) and `DialogFooter` (`Cancel`, `type="button"`, closes; `Save`, filled, `type="submit"`). Saving updates the `<h1>`, the title and the bio; Cancel and Escape leave them, and the fields show the saved name and bio the next time the dialog opens.
+- On `/u/sam`, an `Edit profile` button (`variant="outlined"`) opens a `Dialog` (`id="edit-profile"`) with `DialogHeader` `closeButton`, `DialogTitle` `Edit profile`, and a `<form method="dialog">` around `DialogContent` (`TextField` `Name`, `for="profile-name"`, its input `name="name"`, `required`, the current name; `Textarea` `Bio`, `name="bio"`, the current bio) and `DialogFooter` (`Cancel`, `type="button"`, closes; `Save`, filled, `type="submit"`). Saving updates the `<h1>`, the title and the bio; Cancel and Escape leave them, and the fields show the saved name and bio the next time the dialog opens.
 - On other profiles, a `Send message` button links to `/chat?with=<handle>`.
 - `Tabs` (`name="profile-tabs"`) with `Posts` (checked: the user's posts as `<article>`s with the text and time, or `<p class="app-empty">No posts yet.</p>`) and `Photos` (the user's photos as images, or `<p class="app-empty">No photos yet.</p>`).
 
@@ -114,7 +114,7 @@ Icons are inline `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke
 
 - `<h1>Settings</h1>`.
 - `<form aria-label="Settings" class="ui-form">` (`Form`) with:
-  - `Fieldset` `Account`: `TextField` `Display name` (`name="name"`, `Sam Rivera`), `TextField` `Email` (`type="email"`, `name="email"`, `required`, `sam@example.com`), `Select` `Language` (`name="language"`, `Deutsch`, `English`, `Svenska`; English selected).
+  - `Fieldset` `Account`: `TextField` `Display name` (`for="settings-display-name"`, its input `name="name"`, `Sam Rivera`), `TextField` `Email` (`for="settings-email"`, its input `type="email"`, `name="email"`, `required`, `sam@example.com`), `Select` `Language` (`name="language"`, `Deutsch`, `English`, `Svenska`; English selected).
   - `Fieldset` `Who can see your posts` with `Radio`s `Everyone`, `Friends` (checked) and `Only me` (`name="visibility"`).
   - `Fieldset` `Notifications` with `Switch`es `Email notifications` (`name="email-notifications"`, checked) and `Push notifications` (`name="push-notifications"`).
   - A filled `Save` button (`type="submit"`). Above it, a `<div role="status" id="settings-status">` that is empty until the form is submitted: a valid submit puts a `Callout` with `severity="success"` and the text `Settings saved.` in it. An invalid form shows the browser's validation and nothing in the status.

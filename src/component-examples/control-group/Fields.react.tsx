@@ -19,10 +19,15 @@ export default function Fields() {
       >
         <TextField
           hideLabel
+          htmlFor="control-group-fields-2"
           label="Bassist name or handle"
-          placeholder="Search bassists"
-          type="search"
-        />
+        >
+          <input
+            id="control-group-fields-2"
+            placeholder="Search bassists"
+            type="search"
+          />
+        </TextField>
         <Button>Search</Button>
       </ControlGroup>
 
@@ -42,11 +47,16 @@ export default function Fields() {
             />
             <TextField
               hideLabel
-              inputMode="decimal"
+              htmlFor="control-group-fields-3"
               label="Amount"
-              name="amount"
-              placeholder="0.00"
-            />
+            >
+              <input
+                id="control-group-fields-3"
+                inputMode="decimal"
+                name="amount"
+                placeholder="0.00"
+              />
+            </TextField>
           </ControlGroup>
         </FieldGroup>
       </Fieldset>

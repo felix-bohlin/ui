@@ -91,13 +91,13 @@ describe("React", () => {
   test("renames attributes and turns static state into defaults", async () => {
     const code = await convert(
       astro(
-        '<TextField autocomplete="off" class="field" value="Ada" />\n<label for="name" tabindex="0">Name</label>\n<Radio name="pick" value="b" checked />',
-        "Radio, TextField",
+        '<Textarea autocomplete="off" class="field" value="Ada" />\n<label for="name" tabindex="0">Name</label>\n<Radio name="pick" value="b" checked />',
+        "Radio, Textarea",
       ),
       "react",
     )
     expect(code).toContain(
-      '<TextField autoComplete="off" className="field" defaultValue="Ada" />',
+      '<Textarea autoComplete="off" className="field" defaultValue="Ada" />',
     )
     expect(code).toContain('<label htmlFor="name" tabIndex={0}>')
     expect(code).toContain('<Radio defaultChecked name="pick" value="b" />')
@@ -106,10 +106,10 @@ describe("React", () => {
   test("keeps value on a read-only field", async () => {
     expect(
       await convert(
-        astro('<TextField readonly value="x" />', "TextField"),
+        astro('<Textarea readonly value="x" />', "Textarea"),
         "react",
       ),
-    ).toContain('<TextField readOnly value="x" />')
+    ).toContain('<Textarea readOnly value="x" />')
   })
 
   test("moves the selected option to the Select's defaultValue", async () => {
@@ -245,16 +245,16 @@ describe("Solid", () => {
   test("keeps the HTML attribute names and turns static state into defaults, like React", async () => {
     const code = await convert(
       astro(
-        '<TextField autocomplete="off" class="field" value="Ada" />\n<label for="name" tabindex="0">Name</label>\n<Radio name="pick" value="b" checked />\n<input type="checkbox" checked />',
-        "Radio, TextField",
+        '<Textarea autocomplete="off" class="field" value="Ada" />\n<label for="name" tabindex="0">Name</label>\n<Radio name="pick" value="b" checked />\n<input type="checkbox" checked />',
+        "Radio, Textarea",
       ),
       "solid",
     )
     expect(code).toMatch(
-      /^\/\*\* @jsxImportSource @solidjs\/web \*\/\nimport \{ Radio, TextField \} from "opui-css\/solid"\n/,
+      /^\/\*\* @jsxImportSource @solidjs\/web \*\/\nimport \{ Radio, Textarea \} from "opui-css\/solid"\n/,
     )
     expect(code).toContain(
-      '<TextField autocomplete="off" class="field" defaultValue="Ada" />',
+      '<Textarea autocomplete="off" class="field" defaultValue="Ada" />',
     )
     expect(code).toContain('<label for="name" tabindex="0">')
     expect(code).toContain('<Radio defaultChecked name="pick" value="b" />')
@@ -264,10 +264,10 @@ describe("Solid", () => {
   test("keeps value on a read-only field, and a selected option on the option", async () => {
     expect(
       await convert(
-        astro('<TextField readonly value="x" />', "TextField"),
+        astro('<Textarea readonly value="x" />', "Textarea"),
         "solid",
       ),
-    ).toContain('<TextField readonly value="x" />')
+    ).toContain('<Textarea readonly value="x" />')
     const code = await convert(
       astro(
         '<Select label="Pick">\n  <option>a</option>\n  <option selected value="b">B</option>\n</Select>',

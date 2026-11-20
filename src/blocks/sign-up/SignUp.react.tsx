@@ -37,46 +37,54 @@ export default function SignUp() {
               <Form action="#">
                 <FieldGroup>
                   <FieldGroup orientation="horizontal">
-                    <TextField
-                      autoComplete="given-name"
-                      id="sign-up-first-name"
-                      label="First name"
-                      name="first-name"
-                      placeholder="Rory"
-                      required
-                      type="text"
-                    />
-                    <TextField
-                      autoComplete="family-name"
-                      id="sign-up-last-name"
-                      label="Last name"
-                      name="last-name"
-                      placeholder="Rootnote"
-                      required
-                      type="text"
-                    />
+                    <TextField htmlFor="sign-up-first-name" label="First name">
+                      <input
+                        autoComplete="given-name"
+                        id="sign-up-first-name"
+                        name="first-name"
+                        placeholder="Rory"
+                        required
+                        type="text"
+                      />
+                    </TextField>
+                    <TextField htmlFor="sign-up-last-name" label="Last name">
+                      <input
+                        autoComplete="family-name"
+                        id="sign-up-last-name"
+                        name="last-name"
+                        placeholder="Rootnote"
+                        required
+                        type="text"
+                      />
+                    </TextField>
                   </FieldGroup>
+                  <TextField htmlFor="sign-up-email" label="Email">
+                    <input
+                      autoComplete="email"
+                      id="sign-up-email"
+                      name="email"
+                      placeholder="rory@lowend.example"
+                      required
+                      type="email"
+                    />
+                  </TextField>
                   <TextField
-                    autoComplete="email"
-                    id="sign-up-email"
-                    label="Email"
-                    name="email"
-                    placeholder="rory@lowend.example"
-                    required
-                    type="email"
-                  />
-                  <TextField
-                    autoComplete="new-password"
-                    defaultValue="four-strings-4ever"
                     endText="At least 12 characters, with a number or a symbol. Go wild!"
-                    id="sign-up-password"
+                    htmlFor="sign-up-password"
                     label="Password"
-                    minLength={12}
-                    name="password"
                     passwordToggle
-                    required
-                    type="password"
-                  />
+                  >
+                    <input
+                      aria-describedby="sign-up-password-end-text"
+                      autoComplete="new-password"
+                      id="sign-up-password"
+                      minLength={12}
+                      name="password"
+                      required
+                      type="password"
+                      defaultValue="four-strings-4ever"
+                    />
+                  </TextField>
                   <div className="ui-layout-column ui-x-small">
                     <span
                       className="ui-layout-row ui-spread sign-up-strength-label"

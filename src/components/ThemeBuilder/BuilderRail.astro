@@ -5,15 +5,20 @@ import { GROUPS } from "../../utils/theme-builder-controls"
 
 <nav aria-label="Settings" class="builder-rail">
   <TextField
-    autocomplete="off"
     class="builder-search"
+    for="builder-rail-search-settings"
     hideLabel
     label="Search settings"
-    name="builder-search"
-    placeholder="Search settings"
     size="small"
-    type="search"
-  />
+  >
+    <input
+      autocomplete="off"
+      id="builder-rail-search-settings"
+      name="builder-search"
+      placeholder="Search settings"
+      type="search"
+    />
+  </TextField>
   <ul class="builder-rooms">
     {GROUPS.map((group) => <li class="builder-room">
       <button

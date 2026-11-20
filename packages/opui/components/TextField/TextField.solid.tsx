@@ -1,38 +1,25 @@
 /** @jsxImportSource @solidjs/web */
 import { dynamic } from "@solidjs/web"
-import { children, createUniqueId, omit } from "solid-js"
+import { children, omit } from "solid-js"
 import "../../elements/character-count.js"
 import "../../elements/text-field.js"
 import Button from "../Button/Button.solid"
-import { useFieldGroupContext } from "../FieldGroup/context.solid"
-import { fieldDescribedBy } from "../id"
-import { control } from "../solid"
 import type { Props } from "./types.solid"
 
 export default function TextField(props: Props) {
   const rest = omit(
     props,
-    "aria-describedby",
-    "aria-invalid",
-    "aria-labelledby",
     "autoFit",
     "characterCount",
     "characterCountLabel",
     "class",
-    "disabled",
     "dropZone",
-    "error",
+    "for",
     "hideLabel",
-    "id",
-    "name",
     "passwordToggle",
     "passwordToggleLabel",
-    "ref",
     "size",
     "spread",
-    "style",
-    "type",
-    "value",
     "variant",
     "children",
     "bottom",
@@ -54,28 +41,22 @@ export default function TextField(props: Props) {
   const resolvedStart = children(() => props.start)
   const resolvedStartText = children(() => props.startText)
   const resolvedTop = children(() => props.top)
-  const field = useFieldGroupContext()
-  const uid = createUniqueId()
-  const valueControl = control("value", () => props.value)
   const passwordToggleLabel = () =>
     props.passwordToggleLabel === undefined
       ? "Show password"
       : props.passwordToggleLabel
-  const type = () => (props.type === undefined ? "text" : props.type)
-  const base = () => props.id || `text-field-${uid}`
   const hasLabel = () => Boolean(resolvedLabel())
   const root = () => (props.passwordToggle ? "opui-text-field" : "div")
   const Root = dynamic(root)
   const hasStartText = () => Boolean(resolvedStartText())
   const hasEndText = () => Boolean(resolvedEndText() || props.characterCount)
-  const inputId = () => (hasLabel() || props.passwordToggle ? base() : props.id)
-  const startId = () => (resolvedStart() ? `${base()}-start` : undefined)
-  const endId = () => (resolvedEnd() ? `${base()}-end` : undefined)
-  const topId = () => (resolvedTop() ? `${base()}-top` : undefined)
-  const bottomId = () => (resolvedBottom() ? `${base()}-bottom` : undefined)
+  const startId = () => (resolvedStart() ? `${props.for}-start` : undefined)
+  const endId = () => (resolvedEnd() ? `${props.for}-end` : undefined)
+  const topId = () => (resolvedTop() ? `${props.for}-top` : undefined)
+  const bottomId = () => (resolvedBottom() ? `${props.for}-bottom` : undefined)
   const startTextId = () =>
-    hasStartText() ? `${base()}-start-text` : undefined
-  const endTextId = () => (hasEndText() ? `${base()}-end-text` : undefined)
+    hasStartText() ? `${props.for}-start-text` : undefined
+  const endTextId = () => (hasEndText() ? `${props.for}-end-text` : undefined)
 
   return (
     <Root
@@ -90,12 +71,12 @@ export default function TextField(props: Props) {
         props.size && props.size !== "medium" && `ui-${props.size}`,
         props.class,
       ]}
-      style={props.style}
+      {...(rest as object)}
     >
       {hasLabel() && (
         <label
           class={props.hideLabel ? "ui-sr-only" : "ui-label"}
-          for={inputId()}
+          for={props.for}
         >
           {resolvedLabel()}
         </label>
@@ -116,28 +97,7 @@ export default function TextField(props: Props) {
             {resolvedStart()}
           </span>
         )}
-        <input
-          {...valueControl.server}
-          ref={[props.ref, valueControl.ref]}
-          {...rest}
-          aria-describedby={fieldDescribedBy(
-            {
-              bottom: bottomId(),
-              end: endId(),
-              endText: endTextId(),
-              start: startId(),
-              startText: startTextId(),
-              top: topId(),
-            },
-            props["aria-describedby"],
-          )}
-          aria-invalid={props.error ? "true" : props["aria-invalid"]}
-          aria-labelledby={props["aria-labelledby"]}
-          disabled={props.disabled}
-          id={inputId()}
-          name={props.name ?? field?.name}
-          type={type()}
-        />
+        {props.children}
         {(resolvedEnd() || props.passwordToggle) && (
           <span class="ui-end" id={endId()}>
             {resolvedEnd()}
@@ -146,8 +106,7 @@ export default function TextField(props: Props) {
                 aria-label={passwordToggleLabel()}
                 aria-pressed="false"
                 command="--toggle-password"
-                commandfor={inputId()}
-                disabled={props.disabled}
+                commandfor={props.for}
                 round
               >
                 {resolvedIconUnchecked() ? (
@@ -200,7 +159,6 @@ export default function TextField(props: Props) {
           )}
         </span>
       )}
-      {props.children}
     </Root>
   )
 }

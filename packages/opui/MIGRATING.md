@@ -1286,16 +1286,21 @@ Tabs that don't fit stay on one row and scroll sideways instead of wrapping onto
 
 ## Text field
 
+`TextField` takes your `<input>` instead of rendering one, and a required `for` (`htmlFor` in React) with the input's `id`, which the types enforce. Move the input's attributes, `type`, `name`, `value`, `placeholder`, `required`, `disabled` and the rest, onto the input, bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. Point its `aria-describedby` at the parts the field shows, in this order: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`. `id` on the component is gone, and attributes that aren't its props go to the root, as in 5.x. Inside a `FieldGroup`, name the input yourself.
+
+```diff
+- <TextField endText="Use your work email." error label="Email" type="email" v-model="email" />
++ <TextField endText="Use your work email." for="email" label="Email">
++   <input aria-describedby="email-end-text" aria-invalid="true" id="email" type="email" v-model="email" />
++ </TextField>
+```
+
 `TextField` takes a `size` prop like `Select`, with `x-small`, `small` and `large`.
 
 ```diff
 - <TextField small label="Name" />
 + <TextField size="small" label="Name" />
 ```
-
-Astro and Vue generate an input `id` only when the label or the password toggle points at it. Pass `id` when something outside the component references the input.
-
-In Astro, extra attributes go to the `<input>` instead of the root. `class` and `style` stay on the root. In Vue, `style` now goes to the root instead of the input. Check selectors and tests that look for attributes on the root.
 
 The root is a `<div>` with a `<label for>` inside, instead of a `<label>` around the whole field, so the field can hold buttons. The label alone names the input. The start and end text, the `start` and `end` affixes and the `top` and `bottom` parts describe it through `aria-describedby`, read after the name, where the affixes used to join the name. A click on the start or end text, an affix or the `top` or `bottom` part no longer focuses the input, since only the label is a `<label>`. Target `.ui-text-field` instead of `label.ui-text-field` in your CSS, and give a field without `label` an `aria-label` or `aria-labelledby`. In HTML, the input needs an `id` for the label's `for`, and an affix or a hint an `id` for `aria-describedby`. Put `.ui-top` and `.ui-start` before the input, in the order they're drawn, so Tab reaches them there in every browser.
 
@@ -1316,14 +1321,18 @@ The root is a `<div>` with a `<label for>` inside, instead of a `<label>` around
 
 ```diff
 - <TextField startText="Search the docs" />
-+ <TextField aria-label="Search" startText="Search the docs" />
++ <TextField for="search" startText="Search the docs">
++   <input aria-describedby="search-start-text" aria-label="Search" id="search" />
++ </TextField>
 ```
 
 `description` is `startText` (the `start-text` slot in Astro and Vue), matching `endText`. `supportingText` (the `supporting-text` slot) is gone. Use `endText`.
 
 ```diff
 - <TextField label="Name"><Fragment slot="supporting-text">Required</Fragment></TextField>
-+ <TextField label="Name" endText="Required" />
++ <TextField endText="Required" for="name" label="Name">
++   <input aria-describedby="name-end-text" id="name" />
++ </TextField>
 ```
 
 With `spread`, label and field split the container into equal columns. Fields keep a `12ch` minimum width in table cells, the invalid state uses `--ui-invalid`, and the auto-suggest arrow is a chevron with the `Select` arrow size.
@@ -1335,7 +1344,7 @@ The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is
 + <TextField variant="filled" label="Name" />
 ```
 
-`data-invalid` on `.ui-text-field` no longer does anything. Put `aria-invalid="true"` on the `<input>` (Astro and Vue: `error`, unchanged). Styles that targeted `[data-invalid]` should target `:has([aria-invalid="true"])`.
+`data-invalid` on `.ui-text-field` no longer does anything. Put `aria-invalid="true"` on the `<input>`. Styles that targeted `[data-invalid]` should target `:has([aria-invalid="true"])`.
 
 ```diff
 - <label class="ui-text-field" data-invalid> … <input>
@@ -1367,7 +1376,9 @@ In Vue, use `<template #start>€</template>` and `<template #end>EUR</template>
 
 ```diff
 - <TextField label="Card number" type="numeric" />
-+ <TextField inputmode="numeric" label="Card number" pattern="[0-9]*" />
++ <TextField for="card" label="Card number">
++   <input id="card" inputmode="numeric" pattern="[0-9]*" />
++ </TextField>
 ```
 
 ## Textarea

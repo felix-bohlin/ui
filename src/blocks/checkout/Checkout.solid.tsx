@@ -54,16 +54,17 @@ export default function Checkout() {
             <Fieldset>
               <FieldLegend>Contact</FieldLegend>
               <FieldGroup>
-                <TextField
-                  autocomplete="email"
-                  defaultValue="ines.hertz@example.com"
-                  id="checkout-email"
-                  label="Email"
-                  name="email"
-                  placeholder="you@example.com"
-                  required
-                  type="email"
-                />
+                <TextField for="checkout-email" label="Email">
+                  <input
+                    autocomplete="email"
+                    id="checkout-email"
+                    name="email"
+                    placeholder="you@example.com"
+                    required
+                    type="email"
+                    defaultValue="ines.hertz@example.com"
+                  />
+                </TextField>
                 <Checkbox defaultChecked id="checkout-news" name="news">
                   Email me about new gear and totally rad offers
                 </Checkbox>
@@ -73,54 +74,59 @@ export default function Checkout() {
               <FieldLegend>Shipping address</FieldLegend>
               <FieldGroup>
                 <FieldGroup orientation="horizontal">
-                  <TextField
-                    autocomplete="given-name"
-                    defaultValue="Ines"
-                    id="checkout-first-name"
-                    label="First name"
-                    name="first-name"
-                    required
-                    type="text"
-                  />
-                  <TextField
-                    autocomplete="family-name"
-                    defaultValue="Hertz"
-                    id="checkout-last-name"
-                    label="Last name"
-                    name="last-name"
-                    required
-                    type="text"
-                  />
+                  <TextField for="checkout-first-name" label="First name">
+                    <input
+                      autocomplete="given-name"
+                      id="checkout-first-name"
+                      name="first-name"
+                      required
+                      type="text"
+                      defaultValue="Ines"
+                    />
+                  </TextField>
+                  <TextField for="checkout-last-name" label="Last name">
+                    <input
+                      autocomplete="family-name"
+                      id="checkout-last-name"
+                      name="last-name"
+                      required
+                      type="text"
+                      defaultValue="Hertz"
+                    />
+                  </TextField>
                 </FieldGroup>
-                <TextField
-                  autocomplete="address-line1"
-                  defaultValue="4 Drop D Drive"
-                  id="checkout-address"
-                  label="Street address"
-                  name="address"
-                  required
-                  type="text"
-                />
+                <TextField for="checkout-address" label="Street address">
+                  <input
+                    autocomplete="address-line1"
+                    id="checkout-address"
+                    name="address"
+                    required
+                    type="text"
+                    defaultValue="4 Drop D Drive"
+                  />
+                </TextField>
                 <FieldGroup orientation="horizontal">
-                  <TextField
-                    autocomplete="postal-code"
-                    defaultValue="444 44"
-                    id="checkout-postal-code"
-                    inputmode="numeric"
-                    label="Postal code"
-                    name="postal-code"
-                    required
-                    type="text"
-                  />
-                  <TextField
-                    autocomplete="address-level2"
-                    defaultValue="Bassville"
-                    id="checkout-city"
-                    label="City"
-                    name="city"
-                    required
-                    type="text"
-                  />
+                  <TextField for="checkout-postal-code" label="Postal code">
+                    <input
+                      autocomplete="postal-code"
+                      id="checkout-postal-code"
+                      inputmode="numeric"
+                      name="postal-code"
+                      required
+                      type="text"
+                      defaultValue="444 44"
+                    />
+                  </TextField>
+                  <TextField for="checkout-city" label="City">
+                    <input
+                      autocomplete="address-level2"
+                      id="checkout-city"
+                      name="city"
+                      required
+                      type="text"
+                      defaultValue="Bassville"
+                    />
+                  </TextField>
                 </FieldGroup>
                 <FieldGroup orientation="horizontal">
                   <Select
@@ -136,14 +142,19 @@ export default function Checkout() {
                     name="country"
                   />
                   <TextField
-                    autocomplete="tel"
-                    defaultValue="555 0144"
                     endText="Only for delivery updates, promise!"
-                    id="checkout-phone"
+                    for="checkout-phone"
                     label="Phone"
-                    name="phone"
-                    type="tel"
-                  />
+                  >
+                    <input
+                      aria-describedby="checkout-phone-end-text"
+                      autocomplete="tel"
+                      id="checkout-phone"
+                      name="phone"
+                      type="tel"
+                      defaultValue="555 0144"
+                    />
+                  </TextField>
                 </FieldGroup>
               </FieldGroup>
             </Fieldset>
@@ -218,12 +229,8 @@ export default function Checkout() {
                   <TabsPanel>
                     <FieldGroup>
                       <TextField
-                        autocomplete="cc-number"
-                        id="checkout-card-number"
-                        inputmode="numeric"
+                        for="checkout-card-number"
                         label="Card number"
-                        name="card-number"
-                        placeholder="1234 1234 1234 1234"
                         start={
                           <svg
                             data-icon="credit-card"
@@ -239,27 +246,44 @@ export default function Checkout() {
                             ></path>
                           </svg>
                         }
-                        type="text"
-                      />
+                      >
+                        <input
+                          aria-describedby="checkout-card-number-start"
+                          autocomplete="cc-number"
+                          id="checkout-card-number"
+                          inputmode="numeric"
+                          name="card-number"
+                          placeholder="1234 1234 1234 1234"
+                          type="text"
+                        />
+                      </TextField>
                       <FieldGroup orientation="horizontal">
                         <TextField
-                          autocomplete="cc-exp"
-                          id="checkout-card-expiry"
-                          inputmode="numeric"
+                          for="checkout-card-expiry"
                           label="Expiry date"
-                          name="card-expiry"
-                          placeholder="MM / YY"
-                          type="text"
-                        />
+                        >
+                          <input
+                            autocomplete="cc-exp"
+                            id="checkout-card-expiry"
+                            inputmode="numeric"
+                            name="card-expiry"
+                            placeholder="MM / YY"
+                            type="text"
+                          />
+                        </TextField>
                         <TextField
-                          autocomplete="cc-csc"
-                          id="checkout-card-cvc"
-                          inputmode="numeric"
+                          for="checkout-card-cvc"
                           label="Security code"
-                          name="card-cvc"
-                          placeholder="CVC"
-                          type="text"
-                        />
+                        >
+                          <input
+                            autocomplete="cc-csc"
+                            id="checkout-card-cvc"
+                            inputmode="numeric"
+                            name="card-cvc"
+                            placeholder="CVC"
+                            type="text"
+                          />
+                        </TextField>
                       </FieldGroup>
                       <Checkbox defaultChecked name="billing-same">
                         Billing address is the same as shipping
@@ -377,13 +401,14 @@ export default function Checkout() {
               </List>
               <Divider />
               <ControlGroup size="small" variant="outlined">
-                <TextField
-                  defaultValue="LOWEND10"
-                  id="checkout-discount"
-                  label="Discount code"
-                  name="discount"
-                  type="text"
-                />
+                <TextField for="checkout-discount" label="Discount code">
+                  <input
+                    id="checkout-discount"
+                    name="discount"
+                    type="text"
+                    defaultValue="LOWEND10"
+                  />
+                </TextField>
                 <Button type="button">Apply</Button>
               </ControlGroup>
               <DescriptionList border="solid" orientation="horizontal">

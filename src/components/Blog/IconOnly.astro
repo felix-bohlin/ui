@@ -21,7 +21,9 @@ const icon = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="
       <span>{label}</span>
     </Button>
   </div>
-  <TextField label="Button label" value={label} />
+  <TextField for="icon-only-button-label" label="Button label">
+    <input id="icon-only-button-label" value={label} />
+  </TextField>
 </div>
 
 <style>

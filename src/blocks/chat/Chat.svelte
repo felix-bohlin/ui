@@ -41,14 +41,15 @@
             </svg></Button
           >
         </div>
-        <TextField
-          aria-label="Search messages"
-          id="chat-search"
-          name="chat-search"
-          placeholder="Search"
-          size="small"
-          type="search"
-        >
+        <TextField for="chat-search" size="small">
+          <input
+            aria-describedby="chat-search-start"
+            aria-label="Search messages"
+            id="chat-search"
+            name="chat-search"
+            placeholder="Search"
+            type="search"
+          />
           {#snippet start()}
             <svg
               data-icon="search"

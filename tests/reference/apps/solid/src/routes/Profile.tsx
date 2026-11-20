@@ -151,13 +151,15 @@ function ProfileScreen(props: { profile: User }) {
           </DialogHeader>
           <form method="dialog" onSubmit={save}>
             <DialogContent>
-              <TextField
-                label="Name"
-                name="name"
-                onInput={(event) => setDraftName(event.currentTarget.value)}
-                required
-                value={draftName()}
-              />
+              <TextField for="profile-name" label="Name">
+                <input
+                  id="profile-name"
+                  name="name"
+                  onInput={(event) => setDraftName(event.currentTarget.value)}
+                  required
+                  value={draftName()}
+                />
+              </TextField>
               <Textarea
                 label="Bio"
                 name="bio"

@@ -203,6 +203,32 @@ const typeKeys = (node, aliases) =>
             )
           : objectKeys(node)
 
+const requiredKey = (node, key, aliases) => {
+  let required = false
+  const visit = (child) => {
+    if (
+      ts.isPropertySignature(child) &&
+      child.name.getText().replace(/^["']|["']$/g, "") === key
+    ) {
+      required ||= !child.questionToken
+      return
+    }
+    if (
+      ts.isTypeReferenceNode(child) &&
+      aliases.some((alias) => alias.name.text === child.typeName.getText())
+    ) {
+      visit(
+        aliases.find((alias) => alias.name.text === child.typeName.getText())
+          .type,
+      )
+      return
+    }
+    ts.forEachChild(child, visit)
+  }
+  visit(node)
+  return required
+}
+
 const attributeKeys = (node, aliases) => {
   const keys = new Set()
   const visit = (child) => {
@@ -645,8 +671,9 @@ export const toTypes = (
           : omitted.length
             ? part.getText().replace(`Base.${name}`, baseType)
             : baseType
+        const baseAlias = baseAliases.find((entry) => entry.name.text === name)
         const reactNames = renamed.length
-          ? ` & { ${renamed.map((key) => `${REACT_ATTRIBUTE_NAMES[key]}?: Base.${name}[${JSON.stringify(key)}]`).join("; ")} }`
+          ? ` & { ${renamed.map((key) => `${REACT_ATTRIBUTE_NAMES[key]}${baseAlias && requiredKey(baseAlias.type, key, baseAliases) ? "" : "?"}: Base.${name}[${JSON.stringify(key)}]`).join("; ")} }`
           : ""
         edits.push(
           replacing(

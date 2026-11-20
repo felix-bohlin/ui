@@ -72,6 +72,7 @@ import type * as TabsSolid from "../../packages/opui/components/Tabs/types.solid
 import type * as TabsSvelte from "../../packages/opui/components/Tabs/types.svelte"
 import type * as TabsVue from "../../packages/opui/components/Tabs/types.vue-props"
 import type * as TextareaReact from "../../packages/opui/components/Textarea/types.react"
+import type * as TextareaSolid from "../../packages/opui/components/Textarea/types.solid"
 import type * as TextareaSvelte from "../../packages/opui/components/Textarea/types.svelte"
 import type * as TextareaVue from "../../packages/opui/components/Textarea/types.vue-props"
 import type * as TextFieldAstro from "../../packages/opui/components/TextField/types.astro"
@@ -374,11 +375,11 @@ test("Solid types a slot as JSX.Element, keeps the element's value, and takes de
   expectTypeOf<TextFieldSolid.Props["endText"]>().toEqualTypeOf<
     SolidJSX.Element | undefined
   >()
-  expectTypeOf<TextFieldSolid.Props["value"]>().toEqualTypeOf<
-    SolidComponentProps<"input">["value"]
+  expectTypeOf<TextareaSolid.Props["value"]>().toEqualTypeOf<
+    SolidComponentProps<"textarea">["value"]
   >()
-  expectTypeOf<TextFieldSolid.Props["defaultValue"]>().toEqualTypeOf<
-    SolidComponentProps<"input">["defaultValue"]
+  expectTypeOf<TextareaSolid.Props["defaultValue"]>().toEqualTypeOf<
+    SolidComponentProps<"textarea">["defaultValue"]
   >()
   expectTypeOf<TabsSolid.Props["defaultValue"]>().toEqualTypeOf<
     string | undefined
@@ -522,17 +523,27 @@ test("the label, target and icon of a generated control need the boolean that ad
   expectTypeOf<{ closeButton: boolean }>().toExtend<EveryCallout>()
   expectTypeOf<{}>().toExtend<EveryCallout>()
 
-  expectTypeOf<{ passwordToggleLabel: string }>().not.toExtend<AnyTextField>()
-  expectTypeOf<{
-    passwordToggle: true
-    passwordToggleLabel: string
-  }>().toExtend<EveryTextField>()
-  expectTypeOf<{
-    passwordToggle: boolean
-    passwordToggleLabel: string
-  }>().toExtend<EveryTextField>()
-  expectTypeOf<{ passwordToggle: boolean }>().toExtend<EveryTextField>()
-  expectTypeOf<{}>().toExtend<EveryTextField>()
+  type Labelled = { for: string; htmlFor: string }
+  expectTypeOf<
+    Labelled & { passwordToggleLabel: string }
+  >().not.toExtend<AnyTextField>()
+  expectTypeOf<
+    Labelled & {
+      passwordToggle: true
+      passwordToggleLabel: string
+    }
+  >().toExtend<EveryTextField>()
+  expectTypeOf<
+    Labelled & {
+      passwordToggle: boolean
+      passwordToggleLabel: string
+    }
+  >().toExtend<EveryTextField>()
+  expectTypeOf<
+    Labelled & { passwordToggle: boolean }
+  >().toExtend<EveryTextField>()
+  expectTypeOf<Labelled>().toExtend<EveryTextField>()
+  expectTypeOf<{}>().not.toExtend<AnyTextField>()
 
   expectTypeOf<{
     "aria-label": string
@@ -620,4 +631,10 @@ test("an attribute the base props narrow keeps the narrow type, under the elemen
   expectTypeOf<
     OneTimeCodeVue.Props["autocomplete"]
   >().toEqualTypeOf<Autocomplete>()
+})
+
+test("React keeps a renamed attribute required when the shared props require it", () => {
+  expectTypeOf<TextFieldReact.Props["htmlFor"]>().toEqualTypeOf<string>()
+  expectTypeOf<TextFieldSolid.Props["for"]>().toEqualTypeOf<string>()
+  expectTypeOf<TextFieldReact.Props>().not.toHaveProperty("for")
 })

@@ -65,11 +65,8 @@ export default function AppShell() {
             Bassbook
           </a>
           <TextField
-            aria-label="Search"
             className="shell-search"
-            id="app-shell-search"
-            name="app-shell-search"
-            placeholder="Search bassists and bands"
+            htmlFor="app-shell-search"
             size="small"
             start={
               <svg
@@ -86,8 +83,16 @@ export default function AppShell() {
                 ></path>
               </svg>
             }
-            type="search"
-          />
+          >
+            <input
+              aria-describedby="app-shell-search-start"
+              aria-label="Search"
+              id="app-shell-search"
+              name="app-shell-search"
+              placeholder="Search bassists and bands"
+              type="search"
+            />
+          </TextField>
           <Button
             aria-label="Notifications, 3 unread"
             round

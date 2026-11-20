@@ -4485,6 +4485,13 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Recommended: Fix. Add it next to Next.js, Nuxt and SvelteKit once a SolidStart release supports Solid 2.
   - Fix: when a SolidStart release takes solid-js 2 as a peer, add a solid-start app to tests/apps (a route per component that renders its examples, like tests/apps/sveltekit) with ssr: true in tests/apps/apps.ts, and name it in the app test lines of AGENTS.md and README.md.
   - Fixed: `tests/apps/solid-start` renders every example on the server and hydrates it, built on the `start` and `ssr` options of `@solidjs/vite-plugin`, the server layer Solid 2 ships. SolidStart 2.2.3 still requires solid-js 1.9.
+- [ ] (2) TextField: in Svelte, the Binding example's own `<input bind:value>` loses the `value` attribute the server rendered when it hydrates, so a form reset empties the field instead of returning to the starting value. Svelte does this to any input whose only dynamic attribute is `bind:` (`SVELTE_SPREAD` in `tests/apps/native/cases.ts`), and now that the input is yours, it applies to every Svelte text field (`src/component-examples/text-field/Binding.svelte:7-9`, `tests/apps/native/cases.ts:63-64`)
+  - Summary: A Svelte text field bound with bind:value forgets its starting value on a form reset.
+  - Recommended: Fix with option A. It documents the native Svelte behavior where Svelte users look.
+  - Fix: `tests/e2e/hydration.spec.ts` lists `text-field/Binding` in `KNOWN` for Svelte, which fails once Svelte keeps the attribute.
+  - Options:
+    - A (recommended): Note on the Text field page's Binding section, for Svelte, that a form reset returns a `bind:value` input to an empty value, and to pass `defaultValue` when the reset should restore it.
+    - B: Report it to Svelte with the plain-HTML repro from `tests/apps/native/`, and keep the note until it ships.
 
 ## Questions
 

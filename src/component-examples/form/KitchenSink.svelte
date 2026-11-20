@@ -30,19 +30,23 @@
       Heyyy, tell us who you are so your fans can find you.
     </FieldDescription>
     <FieldGroup>
-      <TextField
-        autocomplete="name"
-        label="Full name"
-        placeholder="Holly Humbucker"
-        required
-      />
-      <TextField
-        autocomplete="email"
-        label="Email address"
-        placeholder="rory@lowend.example"
-        required
-        type="email"
-      />
+      <TextField for="form-kitchen-sink-7" label="Full name">
+        <input
+          autocomplete="name"
+          id="form-kitchen-sink-7"
+          placeholder="Holly Humbucker"
+          required
+        />
+      </TextField>
+      <TextField for="form-kitchen-sink-8" label="Email address">
+        <input
+          autocomplete="email"
+          id="form-kitchen-sink-8"
+          placeholder="rory@lowend.example"
+          required
+          type="email"
+        />
+      </TextField>
       <Select items={roleItems} label="Role" />
     </FieldGroup>
   </Fieldset>

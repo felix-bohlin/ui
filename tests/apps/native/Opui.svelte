@@ -137,17 +137,25 @@
   </Tabs>
 </form>
 <form data-case="text-bound">
-  <TextField bind:value={values.text} label="Name" />
+  <TextField for="text-bound" label="Name">
+    <input bind:value={values.text} id="text-bound" />
+  </TextField>
   <output>{values.text}</output>
 </form>
 <form data-case="text-default">
-  <TextField label="Name" defaultValue="Ada" />
+  <TextField for="text-default" label="Name">
+    <input defaultValue="Ada" id="text-default" />
+  </TextField>
 </form>
 <form data-case="text-empty">
-  <TextField label="Name" />
+  <TextField for="text-empty" label="Name">
+    <input id="text-empty" />
+  </TextField>
 </form>
 <form data-case="text-rerender">
-  <TextField data-round={round} label="Name" defaultValue="Ada" />
+  <TextField for="text-rerender" label="Name">
+    <input data-round={round} defaultValue="Ada" id="text-rerender" />
+  </TextField>
 </form>
 <form data-case="toggle-bound">
   <ToggleButton bind:checked={values.toggle}>Bold</ToggleButton>

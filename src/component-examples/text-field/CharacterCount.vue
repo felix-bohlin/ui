@@ -6,7 +6,13 @@ import { TextField } from "opui-css/vue"
   <TextField
     characterCount
     endText="Up to 20 letters, numbers and dashes."
+    for="text-field-character-count-1"
     label="Username"
-    :maxlength="20"
-  />
+  >
+    <input
+      aria-describedby="text-field-character-count-1-end-text"
+      id="text-field-character-count-1"
+      :maxlength="20"
+    />
+  </TextField>
 </template>

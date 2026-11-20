@@ -46,14 +46,18 @@
     <Fieldset>
       <FieldLegend>Account</FieldLegend>
       <FieldGroup>
-        <TextField label="Display name" name="name" value="Sam Rivera" />
-        <TextField
-          label="Email"
-          name="email"
-          required
-          type="email"
-          value="sam@example.com"
-        />
+        <TextField for="settings-display-name" label="Display name">
+          <input id="settings-display-name" name="name" value="Sam Rivera" />
+        </TextField>
+        <TextField for="settings-email" label="Email">
+          <input
+            id="settings-email"
+            name="email"
+            required
+            type="email"
+            value="sam@example.com"
+          />
+        </TextField>
         <Select
           items={[
             { label: "Deutsch", value: "de" },

@@ -31,13 +31,15 @@ import {
       </hgroup>
     </div>
     <FieldGroup orientation="horizontal">
-      <TextField
-        aria-label="Search orders"
-        id="order-history-search"
-        name="search"
-        placeholder="Search by order number or gear"
-        type="search"
-      >
+      <TextField for="order-history-search">
+        <input
+          aria-describedby="order-history-search-start"
+          aria-label="Search orders"
+          id="order-history-search"
+          name="search"
+          placeholder="Search by order number or gear"
+          type="search"
+        />
         <template #start>
           <svg
             data-icon="search"

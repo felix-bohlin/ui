@@ -4,21 +4,30 @@ export default function PasswordToggle() {
   return (
     <>
       <TextField
-        autoComplete="current-password"
-        id="text-field-password-toggle-1"
+        htmlFor="text-field-password-toggle-1"
         label="Password"
         passwordToggle
-        type="password"
-      />
+      >
+        <input
+          autoComplete="current-password"
+          id="text-field-password-toggle-1"
+          type="password"
+        />
+      </TextField>
       <TextField
-        autoComplete="new-password"
         endText="At least 12 characters."
-        id="text-field-password-toggle-2"
+        htmlFor="text-field-password-toggle-2"
         label="New password"
-        minLength={12}
         passwordToggle
-        type="password"
-      />
+      >
+        <input
+          aria-describedby="text-field-password-toggle-2-end-text"
+          autoComplete="new-password"
+          id="text-field-password-toggle-2"
+          minLength={12}
+          type="password"
+        />
+      </TextField>
     </>
   )
 }

@@ -26,11 +26,17 @@ const columns = [
       </p>
       <TextField
         endText="Enter an email address."
+        for={`validity-compare-${column.mode}`}
         label={column.label}
-        placeholder="name@example.com"
-        required
-        type="email"
-      />
+      >
+        <input
+          aria-describedby={`validity-compare-${column.mode}-end-text`}
+          id={`validity-compare-${column.mode}`}
+          placeholder="name@example.com"
+          required
+          type="email"
+        />
+      </TextField>
     </div>)}
   </div>
   <div class="validity-compare-actions">

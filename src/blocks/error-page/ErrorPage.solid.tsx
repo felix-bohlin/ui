@@ -26,11 +26,9 @@ export default function ErrorPage() {
           <form action="#">
             <FieldGroup orientation="horizontal">
               <TextField
+                for="error-page-q"
                 hideLabel
-                id="error-page-q"
                 label="Search Bassbook"
-                name="q"
-                placeholder="Search bassists and bands"
                 start={
                   <svg
                     data-icon="search"
@@ -46,8 +44,15 @@ export default function ErrorPage() {
                     ></path>
                   </svg>
                 }
-                type="search"
-              />
+              >
+                <input
+                  aria-describedby="error-page-q-start"
+                  id="error-page-q"
+                  name="q"
+                  placeholder="Search bassists and bands"
+                  type="search"
+                />
+              </TextField>
               <Button type="submit" variant="filled">
                 Search
               </Button>

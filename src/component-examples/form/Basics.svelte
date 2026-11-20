@@ -17,8 +17,12 @@
       >How can we reach you?</FieldDescription
     >
     <FieldGroup>
-      <TextField autocomplete="name" label="Name" />
-      <TextField autocomplete="email" label="Email" type="email" />
+      <TextField for="form-basics-2" label="Name">
+        <input autocomplete="name" id="form-basics-2" />
+      </TextField>
+      <TextField for="form-basics-3" label="Email">
+        <input autocomplete="email" id="form-basics-3" type="email" />
+      </TextField>
     </FieldGroup>
   </Fieldset>
   <FieldGroup>

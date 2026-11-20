@@ -114,13 +114,18 @@ const sectionHref = (anchor: string) => link(`/guide/migrating#${anchor}`)
 
   <div class="renames-explorer">
     <TextField
-      autocomplete="off"
       class="renames-search"
+      for="renames-filter-renames"
       label="Filter renames"
-      name={`${id}-query`}
-      placeholder="slot, --primary, alignment"
-      type="search"
     >
+      <input
+        aria-describedby="renames-filter-renames-start"
+        autocomplete="off"
+        id="renames-filter-renames"
+        name={`${id}-query`}
+        placeholder="slot, --primary, alignment"
+        type="search"
+      />
       <svg
         aria-hidden="true"
         slot="start"

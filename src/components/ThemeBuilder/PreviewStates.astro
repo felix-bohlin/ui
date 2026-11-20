@@ -17,6 +17,7 @@ type Props = {
 }
 
 const { scheme } = Astro.props
+const statesId = Astro.locals.$id("preview-states")
 
 const name = (part: string) => `states-${scheme}-${part}`
 ---
@@ -42,24 +43,32 @@ const name = (part: string) => `states-${scheme}-${part}`
       >
       <Switch checked disabled name={name("disabled-switch")}>On</Switch>
     </div>
-    <TextField
-      disabled
-      label="Disabled field"
-      name={name("disabled-field")}
-      value="Read but not written"
-    />
+    <TextField for={`${statesId}-disabled-field`} label="Disabled field">
+      <input
+        disabled
+        id={`${statesId}-disabled-field`}
+        name={name("disabled-field")}
+        value="Read but not written"
+      />
+    </TextField>
   </div>
 
   <div class="states-block">
     <p class="states-caption">Invalid</p>
     <TextField
       endText="Use at least 8 characters."
-      error
+      for={`${statesId}-password`}
       label="Password"
-      name={name("invalid-field")}
-      type="password"
-      value="1234"
-    />
+    >
+      <input
+        aria-describedby={`${statesId}-password-end-text`}
+        aria-invalid="true"
+        id={`${statesId}-password`}
+        name={name("invalid-field")}
+        type="password"
+        value="1234"
+      />
+    </TextField>
     <Select error label="Country" name={name("invalid-select")}>
       <option>Choose one</option>
     </Select>
@@ -96,12 +105,14 @@ const name = (part: string) => `states-${scheme}-${part}`
 
   <div class="states-block">
     <p class="states-caption">Read-only and placeholder</p>
-    <TextField
-      label="Order number"
-      name={name("readonly")}
-      readonly
-      value="A-10492"
-    />
+    <TextField for={`${statesId}-order-number`} label="Order number">
+      <input
+        id={`${statesId}-order-number`}
+        name={name("readonly")}
+        readonly
+        value="A-10492"
+      />
+    </TextField>
     <Textarea
       label="Notes"
       name={name("placeholder")}

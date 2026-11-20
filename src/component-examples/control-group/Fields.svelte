@@ -13,11 +13,16 @@
 
 <ControlGroup aria-label="Find a bassist" color="primary" variant="filled">
   <TextField
+    for="control-group-fields-2"
     hideLabel
     label="Bassist name or handle"
-    placeholder="Search bassists"
-    type="search"
-  />
+  >
+    <input
+      id="control-group-fields-2"
+      placeholder="Search bassists"
+      type="search"
+    />
+  </TextField>
   <Button>Search</Button>
 </ControlGroup>
 
@@ -35,13 +40,14 @@
         label="Currency"
         name="currency"
       />
-      <TextField
-        hideLabel
-        inputmode="decimal"
-        label="Amount"
-        name="amount"
-        placeholder="0.00"
-      />
+      <TextField for="control-group-fields-3" hideLabel label="Amount">
+        <input
+          id="control-group-fields-3"
+          inputmode="decimal"
+          name="amount"
+          placeholder="0.00"
+        />
+      </TextField>
     </ControlGroup>
   </FieldGroup>
 </Fieldset>

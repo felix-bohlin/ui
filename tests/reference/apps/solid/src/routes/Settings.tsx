@@ -54,14 +54,22 @@ export default function Settings() {
           <Fieldset>
             <FieldLegend>Account</FieldLegend>
             <FieldGroup>
-              <TextField label="Display name" name="name" value="Sam Rivera" />
-              <TextField
-                label="Email"
-                name="email"
-                required
-                type="email"
-                value="sam@example.com"
-              />
+              <TextField for="settings-display-name" label="Display name">
+                <input
+                  defaultValue="Sam Rivera"
+                  id="settings-display-name"
+                  name="name"
+                />
+              </TextField>
+              <TextField for="settings-email" label="Email">
+                <input
+                  defaultValue="sam@example.com"
+                  id="settings-email"
+                  name="email"
+                  required
+                  type="email"
+                />
+              </TextField>
               <Select
                 items={LANGUAGES}
                 label="Language"

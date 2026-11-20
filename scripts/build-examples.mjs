@@ -76,7 +76,6 @@ export const REACT_DEFAULT_VALUE = [
   "Rating",
   "Select",
   "Tabs",
-  "TextField",
   "Textarea",
   "ToggleGroup",
 ]
@@ -85,7 +84,6 @@ export const SVELTE_DEFAULT_VALUE = [
   "NumberField",
   "OneTimeCode",
   "Range",
-  "TextField",
   "Textarea",
 ]
 

@@ -193,12 +193,16 @@ export default function ShoppingCart() {
               </div>
               <ControlGroup size="small" variant="outlined">
                 <TextField
-                  id="shopping-cart-discount"
+                  htmlFor="shopping-cart-discount"
                   label="Discount code"
-                  name="discount"
-                  placeholder="Enter code"
-                  type="text"
-                />
+                >
+                  <input
+                    id="shopping-cart-discount"
+                    name="discount"
+                    placeholder="Enter code"
+                    type="text"
+                  />
+                </TextField>
                 <Button type="button">Apply</Button>
               </ControlGroup>
               <div>

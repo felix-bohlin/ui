@@ -68,8 +68,20 @@ onBeforeUnmount(() =>
 
 <template>
   <form>
-    <TextField :error label="City" value="Lund" />
-    <TextField :error label="Password" password-toggle type="password" />
+    <TextField for="models-city" label="City">
+      <input
+        :aria-invalid="error ? 'true' : undefined"
+        id="models-city"
+        value="Lund"
+      />
+    </TextField>
+    <TextField for="models-password" label="Password" password-toggle>
+      <input
+        :aria-invalid="error ? 'true' : undefined"
+        id="models-password"
+        type="password"
+      />
+    </TextField>
     <NumberField :error label="Quantity" :value="1" />
     <Checkbox :checked="false" :error>Newsletter</Checkbox>
     <Select :error label="Size" value="small">
@@ -80,7 +92,14 @@ onBeforeUnmount(() =>
       <option value="red">Red</option>
       <option value="blue">Blue</option>
     </Select>
-    <TextField character-count label="Name" maxlength="20" v-model="name" />
+    <TextField character-count for="models-name" label="Name">
+      <input
+        aria-describedby="models-name-end-text"
+        id="models-name"
+        maxlength="20"
+        v-model="name"
+      />
+    </TextField>
     <Select label="Plan" v-model="plan">
       <option value="free">Free</option>
       <option value="paid">Paid</option>

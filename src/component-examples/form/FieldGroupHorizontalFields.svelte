@@ -4,7 +4,9 @@
 
 <Form>
   <FieldGroup orientation="horizontal">
-    <TextField label="Discount code" name="discount" />
+    <TextField for="form-field-group-horizontal-fields-1" label="Discount code">
+      <input id="form-field-group-horizontal-fields-1" name="discount" />
+    </TextField>
     <Button variant="outlined">Apply</Button>
   </FieldGroup>
 </Form>

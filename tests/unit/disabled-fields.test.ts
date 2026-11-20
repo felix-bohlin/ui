@@ -20,11 +20,6 @@ const cases = [
     file: "NumberField/NumberField",
     props: { label: "Quantity" },
   },
-  {
-    buttons: 1,
-    file: "TextField/TextField",
-    props: { label: "Password", passwordToggle: true, type: "password" },
-  },
 ]
 
 const elements = (node: Node): Element[] =>

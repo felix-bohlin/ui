@@ -33,10 +33,7 @@ export default function OrderHistory() {
         </div>
         <FieldGroup orientation="horizontal">
           <TextField
-            aria-label="Search orders"
-            id="order-history-search"
-            name="search"
-            placeholder="Search by order number or gear"
+            for="order-history-search"
             start={
               <svg
                 data-icon="search"
@@ -52,8 +49,16 @@ export default function OrderHistory() {
                 ></path>
               </svg>
             }
-            type="search"
-          />
+          >
+            <input
+              aria-describedby="order-history-search-start"
+              aria-label="Search orders"
+              id="order-history-search"
+              name="search"
+              placeholder="Search by order number or gear"
+              type="search"
+            />
+          </TextField>
           <ToggleGroup aria-label="Order status" name="order-history-status">
             <ToggleButton defaultChecked value="all">
               All

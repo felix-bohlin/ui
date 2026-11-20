@@ -256,7 +256,13 @@ export const description =
         style="inline-size: 22rem"
         variant="outlined"
       >
-        <UITextField hideLabel label="Order number" placeholder="Order" />
+        <UITextField
+          for="control-group-order-number"
+          hideLabel
+          label="Order number"
+        >
+          <input id="control-group-order-number" placeholder="Order" />
+        </UITextField>
         <UIButton>Search</UIButton>
         <UIButton>Clear</UIButton>
       </UIControlGroup>

@@ -11,6 +11,6 @@ export type Props =
     "bottom" | "end" | "endText" | "label" | "start" | "startText" | "top"
   > &
     Base.Slots<Snippet> &
-    // Input attributes
+    // Root attributes
     // include the rest
-    Omit<SvelteHTMLElements["input"], "size">
+    SvelteHTMLElements["div"]

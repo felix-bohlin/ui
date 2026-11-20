@@ -3,7 +3,9 @@
 </script>
 
 <form>
-  <TextField label="Name" name="name" />
+  <TextField for="name" label="Name">
+    <input id="name" name="name" />
+  </TextField>
   <Checkbox name="subscribe">Subscribe</Checkbox>
   <Button type="submit" variant="filled" color="primary">Save</Button>
 </form>

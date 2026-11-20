@@ -3,32 +3,20 @@
   import "../../elements/text-field.js"
   import { content } from "../content.svelte"
   import Button from "../Button/Button.svelte"
-  import { getFieldGroupContext } from "../FieldGroup/context.svelte"
-  import { fieldDescribedBy } from "../id"
   import type { Props } from "./types.svelte"
 
   let {
-    "aria-describedby": ariaDescribedBy,
-    "aria-invalid": ariaInvalid,
-    "aria-labelledby": ariaLabelledBy,
     autoFit,
     characterCount,
     characterCountLabel,
     class: className,
-    defaultValue,
-    disabled,
     dropZone,
-    error,
+    for: htmlFor,
     hideLabel,
-    id,
-    name,
     passwordToggle,
     passwordToggleLabel = "Show password",
     size,
     spread,
-    style,
-    type = "text",
-    value = $bindable(),
     variant,
 
     // Snippets
@@ -45,24 +33,18 @@
     ...rest
   }: Props = $props()
 
-  const field = getFieldGroupContext()
-  const uid = $props.id()
-  const getValue = () => (value === undefined ? defaultValue : value)
-  const setValue = (next: typeof value) => {
-    value = next
-  }
-  const base = $derived(id || `text-field-${uid}`)
   const hasLabel = $derived(Boolean(label))
   const Root = $derived(passwordToggle ? "opui-text-field" : "div")
   const hasStartText = $derived(Boolean(startText))
   const hasEndText = $derived(Boolean(endText || characterCount))
-  const inputId = $derived(hasLabel || passwordToggle ? base : id)
-  const startId = $derived(start ? `${base}-start` : undefined)
-  const endId = $derived(end ? `${base}-end` : undefined)
-  const topId = $derived(top ? `${base}-top` : undefined)
-  const bottomId = $derived(bottom ? `${base}-bottom` : undefined)
-  const startTextId = $derived(hasStartText ? `${base}-start-text` : undefined)
-  const endTextId = $derived(hasEndText ? `${base}-end-text` : undefined)
+  const startId = $derived(start ? `${htmlFor}-start` : undefined)
+  const endId = $derived(end ? `${htmlFor}-end` : undefined)
+  const topId = $derived(top ? `${htmlFor}-top` : undefined)
+  const bottomId = $derived(bottom ? `${htmlFor}-bottom` : undefined)
+  const startTextId = $derived(
+    hasStartText ? `${htmlFor}-start-text` : undefined,
+  )
+  const endTextId = $derived(hasEndText ? `${htmlFor}-end-text` : undefined)
 </script>
 
 <svelte:element
@@ -78,10 +60,10 @@
     size && size !== "medium" && `ui-${size}`,
     className,
   ]}
-  {style}
+  {...rest}
 >
   {#if hasLabel}
-    <label class={hideLabel ? "ui-sr-only" : "ui-label"} for={inputId}>
+    <label class={hideLabel ? "ui-sr-only" : "ui-label"} for={htmlFor}>
       {@render content(label)}
     </label>
   {/if}
@@ -101,28 +83,7 @@
         {@render content(start)}
       </span>
     {/if}
-    <input
-      {...rest}
-      aria-describedby={fieldDescribedBy(
-        {
-          bottom: bottomId,
-          end: endId,
-          endText: endTextId,
-          start: startId,
-          startText: startTextId,
-          top: topId,
-        },
-        ariaDescribedBy,
-      )}
-      aria-invalid={error ? "true" : ariaInvalid}
-      aria-labelledby={ariaLabelledBy}
-      {disabled}
-      id={inputId}
-      name={name ?? field?.name}
-      {type}
-      bind:value={getValue, setValue}
-      {defaultValue}
-    />
+    {@render children?.()}
     {#if end || passwordToggle}
       <span class="ui-end" id={endId}>
         {@render content(end)}{#if passwordToggle}
@@ -130,8 +91,7 @@
             aria-label={passwordToggleLabel}
             aria-pressed="false"
             command="--toggle-password"
-            commandfor={inputId}
-            {disabled}
+            commandfor={htmlFor}
             round
           >
             {#if iconUnchecked}
@@ -182,5 +142,4 @@
       {/if}
     </span>
   {/if}
-  {@render children?.()}
 </svelte:element>

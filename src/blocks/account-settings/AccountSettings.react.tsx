@@ -79,48 +79,66 @@ export default function AccountSettings() {
                       style={{ "--_min-inline-size": "18rem" }}
                     >
                       <TextField
-                        autoComplete="given-name"
-                        defaultValue="Percy"
-                        id="account-settings-first-name"
+                        htmlFor="account-settings-first-name"
                         label="First name"
-                        name="first-name"
-                        required
-                        type="text"
-                      />
+                      >
+                        <input
+                          autoComplete="given-name"
+                          id="account-settings-first-name"
+                          name="first-name"
+                          required
+                          type="text"
+                          defaultValue="Percy"
+                        />
+                      </TextField>
                       <TextField
-                        autoComplete="family-name"
-                        defaultValue="Groove"
-                        id="account-settings-last-name"
+                        htmlFor="account-settings-last-name"
                         label="Last name"
-                        name="last-name"
-                        required
-                        type="text"
-                      />
+                      >
+                        <input
+                          autoComplete="family-name"
+                          id="account-settings-last-name"
+                          name="last-name"
+                          required
+                          type="text"
+                          defaultValue="Groove"
+                        />
+                      </TextField>
                     </div>
                     <TextField
-                      autoComplete="email"
-                      defaultValue="percy@lowend.example"
                       endText={
                         <>
                           <span className="ui-p ui-success">Verified</span>,
                           used for sign-in and wall scribble alerts
                         </>
                       }
-                      id="account-settings-email"
+                      htmlFor="account-settings-email"
                       label="Email"
-                      name="email"
-                      required
-                      type="email"
-                    />
+                    >
+                      <input
+                        aria-describedby="account-settings-email-end-text"
+                        autoComplete="email"
+                        id="account-settings-email"
+                        name="email"
+                        required
+                        type="email"
+                        defaultValue="percy@lowend.example"
+                      />
+                    </TextField>
                     <TextField
-                      autoComplete="username"
-                      defaultValue="percygroove"
-                      id="account-settings-username"
+                      htmlFor="account-settings-username"
                       label="Username"
-                      name="username"
                       start="bassbook.example/"
-                      type="text"
-                    />
+                    >
+                      <input
+                        aria-describedby="account-settings-username-start"
+                        autoComplete="username"
+                        id="account-settings-username"
+                        name="username"
+                        type="text"
+                        defaultValue="percygroove"
+                      />
+                    </TextField>
                     <Textarea
                       bottom="84 / 160"
                       defaultValue="Fretless bassist in a garage band. Into flatwounds, drop D and very long root notes."
@@ -152,31 +170,44 @@ export default function AccountSettings() {
                   </FieldDescription>
                   <FieldGroup>
                     <TextField
-                      autoComplete="current-password"
-                      id="account-settings-current-password"
+                      htmlFor="account-settings-current-password"
                       label="Current password"
-                      name="current-password"
-                      required
-                      type="password"
-                    />
+                    >
+                      <input
+                        autoComplete="current-password"
+                        id="account-settings-current-password"
+                        name="current-password"
+                        required
+                        type="password"
+                      />
+                    </TextField>
                     <TextField
-                      autoComplete="new-password"
                       endText='At least 12 characters. "slap-that-low-B" works great.'
-                      id="account-settings-new-password"
+                      htmlFor="account-settings-new-password"
                       label="New password"
-                      minLength={12}
-                      name="new-password"
-                      required
-                      type="password"
-                    />
+                    >
+                      <input
+                        aria-describedby="account-settings-new-password-end-text"
+                        autoComplete="new-password"
+                        id="account-settings-new-password"
+                        minLength={12}
+                        name="new-password"
+                        required
+                        type="password"
+                      />
+                    </TextField>
                     <TextField
-                      autoComplete="new-password"
-                      id="account-settings-confirm-password"
+                      htmlFor="account-settings-confirm-password"
                       label="Confirm new password"
-                      name="confirm-password"
-                      required
-                      type="password"
-                    />
+                    >
+                      <input
+                        autoComplete="new-password"
+                        id="account-settings-confirm-password"
+                        name="confirm-password"
+                        required
+                        type="password"
+                      />
+                    </TextField>
                   </FieldGroup>
                 </Fieldset>
                 <Fieldset>

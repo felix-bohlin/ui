@@ -429,20 +429,22 @@
       </hgroup>
       <CardContent
         ><FieldGroup orientation="horizontal">
-          <TextField
-            id="notification-settings-quiet-from"
-            label="From"
-            name="quiet-from"
-            type="time"
-            defaultValue="22:00"
-          />
-          <TextField
-            id="notification-settings-quiet-to"
-            label="To"
-            name="quiet-to"
-            type="time"
-            defaultValue="07:00"
-          />
+          <TextField for="notification-settings-quiet-from" label="From">
+            <input
+              id="notification-settings-quiet-from"
+              name="quiet-from"
+              type="time"
+              value="22:00"
+            />
+          </TextField>
+          <TextField for="notification-settings-quiet-to" label="To">
+            <input
+              id="notification-settings-quiet-to"
+              name="quiet-to"
+              type="time"
+              value="07:00"
+            />
+          </TextField>
         </FieldGroup></CardContent
       >
     </Card>

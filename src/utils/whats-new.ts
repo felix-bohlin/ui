@@ -1482,9 +1482,15 @@ export const whatsNew = {
     },
   ],
   "text-field": [
+    {
+      ...components(
+        `Breaking: write the <a href="#input"><code>&lt;input&gt;</code></a> inside the field, with its <code>id</code> set to the required <code>for</code>, and bind, name and validate it like any input. <code>error</code>, <code>type</code>, <code>id</code>, <code>disabled</code>, <code>name</code> and the bound value move onto it, <code>aria-invalid="true"</code> for <code>error</code>.`,
+      ),
+      react: `Breaking: write the <a href="#input"><code>&lt;input&gt;</code></a> inside the field, with its <code>id</code> set to the required <code>htmlFor</code>, and bind, name and validate it like any input. <code>error</code>, <code>type</code>, <code>id</code>, <code>disabled</code>, <code>name</code>, <code>value</code> and <code>onChange</code> move onto it, <code>aria-invalid="true"</code> for <code>error</code>.`,
+    },
     `A <code>Button</code> in the <a href="#affix">start or end</a> fits the field, a little inside its border, and Tab reaches the top, start, end and bottom in the order they're drawn, in every browser.`,
     {
-      default: `Breaking: the root is a <code>&lt;div&gt;</code> with a <code>&lt;label for&gt;</code> inside, so the <a href="#affix">affixes</a> can hold buttons. The label alone <a href="#accessibility">names the field</a>, and the start text, top, affixes, bottom and end text describe it through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, in any language's word order. A click on them no longer focuses the field. The ids start with the <code>id</code>: <code>x-start-text</code>, <code>x-start</code>, <code>x-end-text</code> and so on for <code>id="x"</code>.`,
+      default: `Breaking: the root is a <code>&lt;div&gt;</code> with a <code>&lt;label for&gt;</code> inside, so the <a href="#affix">affixes</a> can hold buttons. The label alone <a href="#accessibility">names the field</a>, and the start text, top, affixes, bottom and end text describe it through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, in any language's word order. A click on them no longer focuses the field. The ids start with the input's <code>id</code>: <code>x-start-text</code>, <code>x-start</code>, <code>x-end-text</code> and so on for <code>id="x"</code>.`,
       html: `Breaking: give the root <code>&lt;div class="ui-text-field"&gt;</code> a <code>&lt;label class="ui-label" for&gt;</code> that <a href="#accessibility">names the field</a> alone, and describe it with the start text, the affixes and the end text through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, not in it.`,
     },
     `Placeholders and helper text read <a href="#api"><code>--ui-text-subtle</code></a>.`,

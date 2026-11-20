@@ -50,13 +50,20 @@ export default function Models() {
 
   return (
     <form>
-      <TextField defaultValue="Lund" error={error} label="City" />
-      <TextField
-        error={error}
-        label="Password"
-        passwordToggle
-        type="password"
-      />
+      <TextField htmlFor="models-city" label="City">
+        <input
+          aria-invalid={error ? "true" : undefined}
+          defaultValue="Lund"
+          id="models-city"
+        />
+      </TextField>
+      <TextField htmlFor="models-password" label="Password" passwordToggle>
+        <input
+          aria-invalid={error ? "true" : undefined}
+          id="models-password"
+          type="password"
+        />
+      </TextField>
       <NumberField defaultValue={1} error={error} label="Quantity" />
       <Checkbox defaultChecked={false} error={error}>
         Newsletter
@@ -69,13 +76,15 @@ export default function Models() {
         <option value="red">Red</option>
         <option value="blue">Blue</option>
       </Select>
-      <TextField
-        characterCount
-        label="Name"
-        maxLength={20}
-        onChange={(event) => setName(event.target.value)}
-        value={name}
-      />
+      <TextField characterCount htmlFor="models-name" label="Name">
+        <input
+          aria-describedby="models-name-end-text"
+          id="models-name"
+          maxLength={20}
+          onChange={(event) => setName(event.target.value)}
+          value={name}
+        />
+      </TextField>
       <Select
         label="Plan"
         onChange={(event) => setPlan(event.target.value)}

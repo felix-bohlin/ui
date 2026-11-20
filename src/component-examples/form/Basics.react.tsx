@@ -17,8 +17,12 @@ export default function Basics() {
           How can we reach you?
         </FieldDescription>
         <FieldGroup>
-          <TextField autoComplete="name" label="Name" />
-          <TextField autoComplete="email" label="Email" type="email" />
+          <TextField htmlFor="form-basics-2" label="Name">
+            <input autoComplete="name" id="form-basics-2" />
+          </TextField>
+          <TextField htmlFor="form-basics-3" label="Email">
+            <input autoComplete="email" id="form-basics-3" type="email" />
+          </TextField>
         </FieldGroup>
       </Fieldset>
       <FieldGroup>

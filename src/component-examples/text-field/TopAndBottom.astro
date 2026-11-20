@@ -2,15 +2,21 @@
 import { TextField } from "opui-css/astro"
 ---
 
-<TextField label="Name" placeholder="Holly Humbucker">
+<TextField for="text-field-top-and-bottom-1" label="Name">
+  <input
+    aria-describedby="text-field-top-and-bottom-1-top"
+    id="text-field-top-and-bottom-1"
+    placeholder="Holly Humbucker"
+  />
   <Fragment slot="top">Shown on your profile</Fragment>
 </TextField>
 
-<TextField
-  characterCount
-  label="Bass motto"
-  maxlength={80}
-  placeholder="Turn it up, not down"
->
+<TextField characterCount for="text-field-top-and-bottom-2" label="Bass motto">
+  <input
+    aria-describedby="text-field-top-and-bottom-2-bottom text-field-top-and-bottom-2-end-text"
+    id="text-field-top-and-bottom-2"
+    maxlength={80}
+    placeholder="Turn it up, not down"
+  />
   <Fragment slot="bottom">Plain text, no links</Fragment>
 </TextField>

@@ -43,7 +43,7 @@ const cases: {
     props: { endText: "E" },
     slots: {},
   },
-  ...["Select", "TextField", "Textarea"].map((name) => ({
+  ...["Select", "Textarea"].map((name) => ({
     describedBy: [
       "x-start-text",
       "x-top",
@@ -134,35 +134,94 @@ describe.each(cases)("$name", ({ describedBy, name, props, slots }) => {
   )
 })
 
-describe("TextField password toggle", () => {
-  const toggle = { ...NAMING, passwordToggle: true, type: "password" }
+const TEXT_FIELD_PARTS = [
+  "x-start-text",
+  "x-top",
+  "x-start",
+  "x-end",
+  "x-bottom",
+  "x-end-text",
+]
 
+const textField = (
+  framework: ComponentFramework,
+  props: Record<string, unknown>,
+  slots: Slots,
+) =>
+  renderField(
+    "TextField",
+    framework,
+    {
+      [framework === "react" ? "htmlFor" : "for"]: "x",
+      label: "L",
+      ...props,
+    },
+    {
+      default: `<input aria-describedby="${[...TEXT_FIELD_PARTS, "outside"].join(" ")}" id="x">`,
+      ...slots,
+    },
+  )
+
+describe("TextField", () => {
   test.each(FRAMEWORKS)(
-    "%s: the toggle stays out of the description on its own",
+    "%s: the label points at the input from for, and each part has the id the input's description names",
     async (framework) => {
-      const { all, control } = await renderField(
-        "TextField",
+      const { all, byId, control } = await textField(
         framework,
-        toggle,
-        {},
+        { endText: "E", startText: "S" },
+        PARTS,
       )
-      expect(attribute(control, "aria-describedby")).toBe("outside")
+      expect(control?.tagName).toBe("input")
       expect(
-        all.find((el) => attribute(el, "commandfor") === "x")?.tagName,
-      ).toBe("button")
+        all.filter(
+          (el) => el.tagName === "label" && attribute(el, "for") === "x",
+        ),
+      ).toHaveLength(1)
+      expect(TEXT_FIELD_PARTS.filter((id) => !byId(id))).toEqual([])
     },
   )
 
   test.each(FRAMEWORKS)(
-    "%s: with an end slot, the end part describes the control",
+    "%s: the field's parts come in the order they're drawn",
     async (framework) => {
-      const { byId, control } = await renderField(
-        "TextField",
+      const { all } = await textField(framework, {}, PARTS)
+      const field = all.find((el) => attribute(el, "class") === "ui-field")!
+      const parts = field.childNodes
+        .filter((node): node is Element => "tagName" in node)
+        .map((el) =>
+          el.tagName === "input"
+            ? "control"
+            : attribute(el, "class")!.replace("ui-", ""),
+        )
+      expect(parts).toEqual(DRAWN)
+    },
+  )
+})
+
+describe("TextField password toggle", () => {
+  test.each(FRAMEWORKS)(
+    "%s: the toggle points at the input and has no part id on its own",
+    async (framework) => {
+      const { all, byId } = await textField(
         framework,
-        toggle,
+        { passwordToggle: true },
+        {},
+      )
+      expect(
+        all.find((el) => attribute(el, "commandfor") === "x")?.tagName,
+      ).toBe("button")
+      expect(byId("x-end")).toBeUndefined()
+    },
+  )
+
+  test.each(FRAMEWORKS)(
+    "%s: with an end slot, the end part holds the toggle",
+    async (framework) => {
+      const { byId } = await textField(
+        framework,
+        { passwordToggle: true },
         { end: PARTS.end },
       )
-      expect(attribute(control, "aria-describedby")).toBe("x-end outside")
       expect(
         elements(byId("x-end")!).some(
           (el) => attribute(el, "commandfor") === "x",

@@ -54,12 +54,14 @@ const { link } = Astro.locals
             <Fragment slot="indicator">3</Fragment>
           </Badge>
         </div>
-        <TextField
-          label="Email"
-          name="theme-dice-email"
-          placeholder="bassist@lowend.example"
-          type="email"
-        />
+        <TextField for="theme-dice-email" label="Email">
+          <input
+            id="theme-dice-email"
+            name="theme-dice-email"
+            placeholder="bassist@lowend.example"
+            type="email"
+          />
+        </TextField>
         <Select label="Role" name="theme-dice-role">
           <option>Admin</option>
           <option>Fan</option>

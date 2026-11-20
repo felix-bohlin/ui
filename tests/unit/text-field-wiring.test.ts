@@ -1,0 +1,110 @@
+import { globSync, readFileSync } from "node:fs"
+import { parseFragment, type DefaultTreeAdapterMap } from "parse5"
+import { describe, expect, test } from "vitest"
+
+type Element = DefaultTreeAdapterMap["element"]
+type Node = DefaultTreeAdapterMap["childNode"] | Element
+
+const PARTS = ["start-text", "top", "start", "end", "bottom", "end-text"]
+
+const children = (node: Node) =>
+  "childNodes" in node
+    ? node.childNodes.filter((child): child is Element => "tagName" in child)
+    : []
+
+const descendants = (node: Node): Element[] =>
+  children(node).flatMap((child) => [child, ...descendants(child)])
+
+const attribute = (element: Element | undefined, name: string) =>
+  element?.attrs.find((attr) => attr.name === name)?.value
+
+const hasClass = (element: Element, name: string) =>
+  (attribute(element, "class") ?? "").split(/\s+/).includes(name)
+
+const togglesOnly = (element: Element) =>
+  children(element).every(
+    (child) => attribute(child, "command") === "--toggle-password",
+  )
+
+export const wiringProblems = (html: string) =>
+  descendants(parseFragment(html) as unknown as Node)
+    .filter((element) => hasClass(element, "ui-text-field"))
+    .flatMap((root) => {
+      const field = children(root).find((child) => hasClass(child, "ui-field"))
+      const input =
+        field && children(field).find((child) => child.tagName === "input")
+      const id = attribute(input, "id")
+      if (!input || !id) return ["no <input> with an id directly in .ui-field"]
+      const problems: string[] = []
+      const label = children(root).find((child) => child.tagName === "label")
+      if (label && attribute(label, "for") !== id) {
+        problems.push(
+          `the label points at ${attribute(label, "for")}, not ${id}`,
+        )
+      }
+      const shown = PARTS.flatMap((part) => {
+        const element = [...children(root), ...children(field!)].find((child) =>
+          hasClass(child, `ui-${part}`),
+        )
+        if (!element) return []
+        const partId = attribute(element, "id")
+        if (!partId && part === "end" && togglesOnly(element)) return []
+        if (partId !== `${id}-${part}`) {
+          problems.push(`.ui-${part} has the id ${partId}, not ${id}-${part}`)
+        }
+        return [`${id}-${part}`]
+      })
+      const described = (attribute(input, "aria-describedby") ?? "")
+        .split(/\s+/)
+        .filter((token) => token.startsWith(`${id}-`))
+      if (described.join(" ") !== shown.join(" ")) {
+        problems.push(
+          `${id} is described by "${described.join(" ")}", not "${shown.join(" ")}"`,
+        )
+      }
+      return problems
+    })
+
+const FILES = globSync("src/{blocks,component-examples}/*/*.html").toSorted()
+
+describe("every text field in the HTML examples and blocks points at its input", () => {
+  test("covers the files with a text field", () => {
+    expect(
+      FILES.filter((file) =>
+        readFileSync(file, "utf8").includes("ui-text-field"),
+      ).length,
+    ).toBeGreaterThan(20)
+  })
+
+  test.each(FILES)("%s", (file) => {
+    expect(wiringProblems(readFileSync(file, "utf8"))).toEqual([])
+  })
+
+  test("a sample the check must flag: a part the input doesn't point at, a wrong part id and a label pointing elsewhere", () => {
+    expect(
+      wiringProblems(
+        '<div class="ui-text-field"><label class="ui-label" for="y">Name</label><span class="ui-field"><input id="x" aria-describedby="x-end-text"><span class="ui-end" id="z">kg</span></span><span class="ui-start-text" id="x-start-text">Hint</span><span class="ui-end-text" id="x-end-text">Error</span></div>',
+      ),
+    ).toEqual([
+      "the label points at y, not x",
+      ".ui-end has the id z, not x-end",
+      'x is described by "x-end-text", not "x-start-text x-end x-end-text"',
+    ])
+  })
+
+  test("a sample the check must flag: no input in the field", () => {
+    expect(
+      wiringProblems(
+        '<div class="ui-text-field"><span class="ui-field"><span><input id="x"></span></span></div>',
+      ),
+    ).toEqual(["no <input> with an id directly in .ui-field"])
+  })
+
+  test("a password toggle alone needs no end id", () => {
+    expect(
+      wiringProblems(
+        '<opui-text-field class="ui-text-field"><label class="ui-label" for="x">Password</label><span class="ui-field"><input id="x" type="password"><span class="ui-end"><button command="--toggle-password" commandfor="x"></button></span></span></opui-text-field>',
+      ),
+    ).toEqual([])
+  })
+})

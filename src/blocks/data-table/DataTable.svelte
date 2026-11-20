@@ -62,14 +62,14 @@
   </div>
   <search>
     <FieldGroup orientation="horizontal">
-      <TextField
-        hideLabel
-        id="data-table-q"
-        label="Search members"
-        name="q"
-        placeholder="Search by name or email"
-        type="search"
-      >
+      <TextField for="data-table-q" hideLabel label="Search members">
+        <input
+          aria-describedby="data-table-q-start"
+          id="data-table-q"
+          name="q"
+          placeholder="Search by name or email"
+          type="search"
+        />
         {#snippet start()}
           <svg
             data-icon="search"

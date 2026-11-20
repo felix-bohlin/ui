@@ -131,7 +131,9 @@ const reset = () => {
       </DialogHeader>
       <form method="dialog" @submit="save">
         <DialogContent>
-          <TextField v-model="draftName" label="Name" name="name" required />
+          <TextField for="profile-name" label="Name">
+            <input id="profile-name" name="name" required v-model="draftName" />
+          </TextField>
           <Textarea v-model="draftBio" label="Bio" name="bio" />
         </DialogContent>
         <DialogFooter>

@@ -44,11 +44,9 @@ export default function UserDirectory() {
         </div>
         <search class="ui-layout-row ui-spread user-directory-filters">
           <TextField
+            for="user-directory-q"
             hideLabel
-            id="user-directory-q"
             label="Search bassists"
-            name="q"
-            placeholder="Search by name, gear or city"
             start={
               <svg
                 data-icon="search"
@@ -64,8 +62,15 @@ export default function UserDirectory() {
                 ></path>
               </svg>
             }
-            type="search"
-          />
+          >
+            <input
+              aria-describedby="user-directory-q-start"
+              id="user-directory-q"
+              name="q"
+              placeholder="Search by name, gear or city"
+              type="search"
+            />
+          </TextField>
           <ToggleGroup
             aria-label="Bass type"
             name="user-directory-department"

@@ -54,10 +54,7 @@ export default function Chat() {
                 </Button>
               </div>
               <TextField
-                aria-label="Search messages"
-                id="chat-search"
-                name="chat-search"
-                placeholder="Search"
+                for="chat-search"
                 size="small"
                 start={
                   <svg
@@ -74,8 +71,16 @@ export default function Chat() {
                     ></path>
                   </svg>
                 }
-                type="search"
-              />
+              >
+                <input
+                  aria-describedby="chat-search-start"
+                  aria-label="Search messages"
+                  id="chat-search"
+                  name="chat-search"
+                  placeholder="Search"
+                  type="search"
+                />
+              </TextField>
             </div>
             <List variant="transparent">
               <ListItem

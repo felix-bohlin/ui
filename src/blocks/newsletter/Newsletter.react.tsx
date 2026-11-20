@@ -62,15 +62,16 @@ export default function Newsletter() {
           </div>
           <Form action="#" className="newsletter-form">
             <FieldGroup orientation="horizontal">
-              <TextField
-                autoComplete="email"
-                id="newsletter-email"
-                label="Email"
-                name="email"
-                placeholder="you@lowend.example"
-                required
-                type="email"
-              />
+              <TextField htmlFor="newsletter-email" label="Email">
+                <input
+                  autoComplete="email"
+                  id="newsletter-email"
+                  name="email"
+                  placeholder="you@lowend.example"
+                  required
+                  type="email"
+                />
+              </TextField>
               <Button type="submit" variant="filled">
                 Sign me up!
               </Button>

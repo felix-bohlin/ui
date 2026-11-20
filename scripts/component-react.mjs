@@ -21,7 +21,13 @@ import {
   withImport,
 } from "./component-emit.mjs"
 import { componentFunction, jsxEmitter } from "./component-jsx.mjs"
-import { MODEL_KINDS } from "./component-models.mjs"
+import {
+  helpersCalled,
+  importLinesOf,
+  MODEL_KINDS,
+  modelHelpers,
+  namesFrom,
+} from "./component-models.mjs"
 import { jsxAttribute } from "./example-encoders.mjs"
 import { eventProp } from "./component-types.mjs"
 import {
@@ -472,11 +478,15 @@ export const toReact = (component) => {
     : multiRoot
       ? `<>${rendered}</>`
       : rendered
+  const used = helpersCalled(
+    [...body, returned].join("\n"),
+    modelHelpers("react", component),
+  )
   const reactValues = [
     ...(scripts.length ? ["useEffect"] : []),
     ...(uid ? ["useId"] : []),
     ...(provide ? ["useMemo"] : []),
-    ...(kind?.reactValues?.() ?? []),
+    ...namesFrom(used, "react"),
     ...[...reactTypes].map((name) => `type ${name}`),
   ].toSorted((a, b) => byName(a.replace(/^type /, ""), b.replace(/^type /, "")))
   const reactHelpers = [
@@ -502,7 +512,7 @@ export const toReact = (component) => {
       provide: (name) => `${name}Context`,
       read: (name) => `use${name}Context`,
     }),
-    ...(kind?.imports?.(component, model) ?? []),
+    ...importLinesOf(used, ["react"]),
     ...(item ? withImport(imports, "../dev", "warnGroupedChecked") : imports),
     propsImport(propsType, "types.react"),
     ...(provide

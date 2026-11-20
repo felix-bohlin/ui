@@ -13,7 +13,13 @@ import {
   withImport,
 } from "./component-emit.mjs"
 import { componentFunction, jsxEmitter, tagNamer } from "./component-jsx.mjs"
-import { MODEL_KINDS } from "./component-models.mjs"
+import {
+  helpersCalled,
+  importLinesOf,
+  MODEL_KINDS,
+  modelHelpers,
+  namesFrom,
+} from "./component-models.mjs"
 import { jsxAttribute } from "./example-encoders.mjs"
 import {
   SOLID_PRAGMA,
@@ -811,11 +817,15 @@ export const toSolid = (component) => {
     ...(scoped ? scoped.body : [...resolvedLines, ...lines]),
   ]
   const resolvedReturn = scoped ? scoped.returned : resolveSlots(returned)
+  const used = helpersCalled(
+    [...resolvedBody, resolvedReturn].join("\n"),
+    modelHelpers("solid", component),
+  )
   const solidValues = [
     ...(usesFor ? ["For"] : []),
     ...(usesShow ? ["Show"] : []),
     ...(resolvedSlots.length || usesChildren ? ["children"] : []),
-    ...(kind?.solidValues?.(model) ?? []),
+    ...namesFrom(used, "solid-js"),
     ...(rest || usesOmit ? ["omit"] : []),
     ...(uid ? ["createUniqueId"] : []),
     ...(warnings.length > 0 || item || usesControl || usesOptionSelected
@@ -823,7 +833,7 @@ export const toSolid = (component) => {
       : []),
   ].toSorted(byName)
   const solidHelpers = [
-    ...(kind?.solidHelpers?.(model) ?? []),
+    ...namesFrom(used, "../solid"),
     ...(usesControl ? ["control"] : []),
     ...(usesOptionSelected ? ["optionSelected"] : []),
     ...(item ? ["callHandler"] : []),
@@ -849,7 +859,7 @@ export const toSolid = (component) => {
       provide: (name) => `${name}Context`,
       read: (name) => `use${name}Context`,
     }),
-    ...(kind?.imports?.(component, model) ?? []),
+    ...importLinesOf(used, ["../solid", "solid-js"]),
     ...[
       ...(item ? [["../dev", "warnGroupedChecked"]] : []),
       ...(usesCx ? [["../cx", "cx"]] : []),

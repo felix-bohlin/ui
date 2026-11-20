@@ -21,7 +21,12 @@ import {
   styleOption,
   withImport,
 } from "./component-emit.mjs"
-import { MODEL_KINDS } from "./component-models.mjs"
+import {
+  helpersCalled,
+  MODEL_KINDS,
+  modelHelpers,
+  namesFrom,
+} from "./component-models.mjs"
 import { markupAttribute } from "./example-encoders.mjs"
 import { emitsTypeOf } from "./component-types.mjs"
 import {
@@ -809,11 +814,6 @@ export const toVue = (component) => {
         ),
       ]
     : undefined
-  const vueHelpers = [
-    ...(computedAttrs ? ["useInputAttrs"] : []),
-    ...(kind?.vueHelpers?.(model) ?? []),
-    ...(hydrating.size ? ["vHydrated"] : []),
-  ].toSorted(byName)
   const vueProps = generic ? "Props & { multiple?: Multiple }" : "Props"
   const modelType = generic
     ? `type Model = Multiple extends true ? ${unionMembers(model.type)
@@ -867,6 +867,17 @@ export const toVue = (component) => {
         ]
       : []),
   ]
+  const vueHelpers = [
+    ...(computedAttrs ? ["useInputAttrs"] : []),
+    ...namesFrom(
+      helpersCalled(
+        withoutUnused(statements, markup, declarations).join("\n"),
+        modelHelpers("vue", component),
+      ),
+      "../vue",
+    ),
+    ...(hydrating.size ? ["vHydrated"] : []),
+  ].toSorted(byName)
   const plainAttrs =
     !computedAttrs && (allAttrs || explicitAttrs || restUsed || definedRoot)
   const typedAttrs =

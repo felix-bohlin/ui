@@ -12,7 +12,11 @@ import {
   toTypes,
   TYPE_FILES,
 } from "../../scripts/build-components.mjs"
-import { MODEL_KINDS } from "../../scripts/component-models.mjs"
+import {
+  helpersCalled,
+  importLinesOf,
+  MODEL_KINDS,
+} from "../../scripts/component-models.mjs"
 import {
   classMayBeEmpty,
   isArrayType,
@@ -2604,6 +2608,20 @@ describe("the compiled components", () => {
     expect(
       hookProblems(MODEL_KINDS as Kinds, hookReads, GENERIC_READS),
     ).toEqual([])
+  })
+
+  test("a model kind's helper is imported when the code calls it, from its module", () => {
+    const used = helpersCalled(
+      'const checkedControl = control("checked", read)\nitemCheckedControl(x)\nprops.untrack(y)\nseedChecked(input)',
+      { control: "../solid", seedChecked: "../svelte", untrack: "solid-js" },
+    )
+    expect(used).toEqual([
+      { module: "../solid", name: "control" },
+      { module: "../svelte", name: "seedChecked" },
+    ])
+    expect(importLinesOf(used, ["../svelte"])).toEqual([
+      'import { control } from "../solid"',
+    ])
   })
 
   test("hookProblems reports a hook nothing reads and a read nothing defines", () => {

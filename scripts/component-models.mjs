@@ -8,16 +8,6 @@ const bindableProps = (model) => model.bindables.map(({ prop }) => prop)
 const optionalModel = (model, name = "modelValue") =>
   `const ${name} = defineModel<${model.type} | undefined>({\n  default: undefined,\n})`
 
-const selectionImports = (component, model) =>
-  arrayRead(model)
-    ? [`import { selectionOf } from "${selectionImport(component)}"`]
-    : []
-
-const reportImports = (component, model) =>
-  arrayRead(model)
-    ? [`import { checkedValues } from "${selectionImport(component)}"`]
-    : []
-
 const report = (model, callback, multiple) =>
   arrayRead(model)
     ? `if (${multiple}) ${callback}?.(checkedValues(input))\n  else ${callback}?.(input.value)`
@@ -36,11 +26,42 @@ const solidChecked = {
   ],
   omits: () => ["checked", "ref"],
   locals: () => ["checkedControl"],
-  solidHelpers: () => ["control"],
-  solidValues: () => ["untrack"],
 }
 
 const BOUND = "const bound = useBound()"
+
+export const modelHelpers = (framework, component) =>
+  ({
+    react: { checkedValues: selectionImport(component), useCallback: "react" },
+    solid: {
+      checkedValues: selectionImport(component),
+      control: "../solid",
+      untrack: "solid-js",
+    },
+    svelte: {
+      seedChecked: "../svelte",
+      selectionOf: selectionImport(component),
+      toggleInGroup: "../group",
+      untrack: "svelte",
+    },
+    vue: { useBound: "../vue" },
+  })[framework]
+
+export const helpersCalled = (code, helpers) =>
+  Object.entries(helpers)
+    .filter(([name]) => new RegExp(`(?<![\\w$.])${name}\\(`).test(code))
+    .map(([name, module]) => ({ module, name }))
+
+export const namesFrom = (used, module) =>
+  used.filter((entry) => entry.module === module).map(({ name }) => name)
+
+export const importLinesOf = (used, except) =>
+  [...new Set(used.map(({ module }) => module))]
+    .filter((module) => !except.includes(module))
+    .map(
+      (module) =>
+        `import { ${namesFrom(used, module).join(", ")} } from "${module}"`,
+    )
 
 const ownsDefault = (model) => model.element?.tag === "select"
 
@@ -54,7 +75,6 @@ export const MODEL_KINDS = {
         "{value}",
       ],
       bindables: bindableProps,
-      imports: () => [`import { toggleInGroup } from "../group"`],
       plainProps: () => ["defaultChecked", "value"],
       script: () => [
         "const getChecked = () =>\n  group ? group.includes(value) : !!(checked ?? defaultChecked)",
@@ -66,7 +86,6 @@ export const MODEL_KINDS = {
       boundAttributes: () => ['v-model="modelValue"'],
       explicitAttrs: true,
       setup: (model) => [optionalModel(model), BOUND],
-      vueHelpers: () => ["useBound"],
     },
   },
   checkedItem: {
@@ -83,7 +102,6 @@ export const MODEL_KINDS = {
         item.checked ? [item.checked, `model ?? ${item.checked}`] : undefined,
       ownModel: true,
       setup: (model) => [optionalModel(model, "model"), BOUND],
-      vueHelpers: () => ["useBound"],
       warningChecked: (item) =>
         item.checked ? `${item.checked} ?? model.value` : undefined,
     },
@@ -98,7 +116,6 @@ export const MODEL_KINDS = {
     vue: {
       boundAttributes: () => ['v-model="model"'],
       setup: (model) => [optionalModel(model, "model"), BOUND],
-      vueHelpers: () => ["useBound"],
     },
   },
   group: {
@@ -107,13 +124,11 @@ export const MODEL_KINDS = {
         `const change = useCallback(\n  (input: HTMLInputElement) => {\n  ${report(model, "onValueChange", "multiple")}\n},\n  [${arrayRead(model) ? "multiple, " : ""}onValueChange],\n)`,
       ],
       entries: () => ["defaultValue", "onValueChange"],
-      imports: reportImports,
       provided: (_, provide) => [
         { code: "change", key: "change" },
         { code: "defaultValue", key: "defaultValue" },
         ...provide.value,
       ],
-      reactValues: () => ["useCallback"],
       tiedCallbacks: true,
     },
     solid: {
@@ -121,7 +136,6 @@ export const MODEL_KINDS = {
         `const change = (input: HTMLInputElement) => {\n  ${report(model, "props.onValueChange", "props.multiple")}\n}`,
       ],
       entries: () => ["defaultValue", "onValueChange"],
-      imports: reportImports,
       locals: () => ["change"],
       provided: (_, provide) => [
         { code: "change", key: "change" },
@@ -135,7 +149,6 @@ export const MODEL_KINDS = {
       context: (model) => [
         `change(input) {\nif (${model.prop} !== undefined) ${model.prop} = ${model.read}\n},`,
       ],
-      imports: selectionImports,
       typedBindables: true,
     },
     vue: {
@@ -148,7 +161,6 @@ export const MODEL_KINDS = {
         BOUND,
       ],
       undeclared: (model, prop) => prop === model.prop,
-      vueHelpers: () => ["useBound"],
     },
   },
   radioGroup: {
@@ -174,11 +186,9 @@ export const MODEL_KINDS = {
       rename: (model) => [
         [model.local, `props.${model.prop} ?? props.defaultValue`],
       ],
-      solidHelpers: () => ["control"],
     },
     svelte: {
       bindables: (model) => [model.prop],
-      imports: () => [`import { seedChecked } from "../svelte"`],
       modelsGroupRadio: true,
       radioAttributes: (model, value, checked) => [
         `defaultChecked={untrack(() => ${checked})}`,
@@ -186,7 +196,6 @@ export const MODEL_KINDS = {
         `onchange={() => {\n  ${model.local} = ${value}\n}}`,
       ],
       typedBindables: true,
-      untrack: () => true,
     },
     vue: {
       boundAttributes: () => ['v-model="modelValue"'],
@@ -199,7 +208,6 @@ export const MODEL_KINDS = {
         BOUND,
         `const model = computed(() => modelValue.value ?? ${model.local})`,
       ],
-      vueHelpers: () => ["useBound"],
     },
   },
   radio: {
@@ -219,15 +227,12 @@ export const MODEL_KINDS = {
         "const initialChecked = untrack(isChecked)",
         "const check = () => {\n  group = value ?? true\n}",
       ],
-      imports: () => [`import { seedChecked } from "../svelte"`],
       typedBindables: true,
-      untrack: () => true,
     },
     vue: {
       boundAttributes: () => [':value="attrs.value"', 'v-model="modelValue"'],
       explicitAttrs: true,
       setup: (model) => [optionalModel(model), BOUND],
-      vueHelpers: () => ["useBound"],
     },
   },
   value: {
@@ -261,8 +266,6 @@ export const MODEL_KINDS = {
       ownDefault: ownsDefault,
       rename: (model) =>
         model.local ? [[model.local, `${model.local}()`]] : [],
-      solidHelpers: () => ["control"],
-      solidValues: () => ["untrack"],
     },
     svelte: {
       attributes: (model) =>
@@ -299,7 +302,6 @@ export const MODEL_KINDS = {
         model.element.tag === "textarea"
           ? { child: true, code: model.local ?? model.prop, name: model.prop }
           : { attr: true, code: model.local ?? model.prop, name: model.prop },
-      vueHelpers: () => ["useBound"],
     },
   },
 }

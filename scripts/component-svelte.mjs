@@ -16,7 +16,12 @@ import {
   truthyNames,
   withImport,
 } from "./component-emit.mjs"
-import { MODEL_KINDS } from "./component-models.mjs"
+import {
+  helpersCalled,
+  importLinesOf,
+  MODEL_KINDS,
+  modelHelpers,
+} from "./component-models.mjs"
 import { markupAttribute } from "./example-encoders.mjs"
 import { eventProp } from "./component-types.mjs"
 import {
@@ -299,35 +304,6 @@ export const toSvelte = (component) => {
       })
       .join("")
   const markup = emit(tree, { guards: new Set(), preserved: false })
-  const importLines = [
-    ...scriptImports(component),
-    ...(warnings.length || component.item || kind?.untrack?.(model)
-      ? [`import { untrack } from "svelte"`]
-      : []),
-    ...(usesContent ? [`import { content } from "../content.svelte"`] : []),
-    ...(kind?.imports?.(component, model) ?? []),
-    ...(component.item ? [`import { seedChecked } from "../svelte"`] : []),
-    ...(hydrating.size ? [`import { hydrated } from "../svelte"`] : []),
-    ...components
-      .map((entry) => componentImport(entry, ".svelte"))
-      .toSorted(byName),
-    ...contextImports(component, "svelte", {
-      provide: (name) => `set${name}Context`,
-      read: (name) => `get${name}Context`,
-    }),
-    ...[
-      ...(usesDefined ? [["../attrs", "defined"]] : []),
-      ...(component.item ? [["../dev", "warnGroupedChecked"]] : []),
-      ...(usesClassAttrs ? [["../cx", "classAttrs"]] : []),
-    ].reduce(
-      (lines, [module, name]) => withImport(lines, module, name),
-      imports,
-    ),
-    propsImport(propsType, "types.svelte"),
-    ...(usesElements
-      ? [`import type { SvelteHTMLElements } from "svelte/elements"`]
-      : []),
-  ]
   const destructured = [
     ...entries,
     ...(slotEntries.length ? ["", "// Snippets", ...slotEntries] : []),
@@ -379,6 +355,39 @@ export const toSvelte = (component) => {
             ),
           ].join("\n")}\n})`,
         ]
+      : []),
+  ]
+  const used = helpersCalled(
+    [...script, markup].join("\n"),
+    modelHelpers("svelte", component),
+  )
+  const importLines = [
+    ...scriptImports(component),
+    ...importLinesOf(
+      used.filter(({ module }) => module === "svelte"),
+      [],
+    ),
+    ...(usesContent ? [`import { content } from "../content.svelte"`] : []),
+    ...importLinesOf(used, ["svelte"]),
+    ...(hydrating.size ? [`import { hydrated } from "../svelte"`] : []),
+    ...components
+      .map((entry) => componentImport(entry, ".svelte"))
+      .toSorted(byName),
+    ...contextImports(component, "svelte", {
+      provide: (name) => `set${name}Context`,
+      read: (name) => `get${name}Context`,
+    }),
+    ...[
+      ...(usesDefined ? [["../attrs", "defined"]] : []),
+      ...(component.item ? [["../dev", "warnGroupedChecked"]] : []),
+      ...(usesClassAttrs ? [["../cx", "classAttrs"]] : []),
+    ].reduce(
+      (lines, [module, name]) => withImport(lines, module, name),
+      imports,
+    ),
+    propsImport(propsType, "types.svelte"),
+    ...(usesElements
+      ? [`import type { SvelteHTMLElements } from "svelte/elements"`]
       : []),
   ]
   return `<script lang="ts">\n${importLines.map((line) => `  ${line}`).join("\n")}\n\n  let {\n${lines.join("\n")}\n  }: Props = $props()\n${script.length ? `\n${script.map((line) => `  ${line}`).join("\n")}\n` : ""}</script>\n\n${markup}\n`

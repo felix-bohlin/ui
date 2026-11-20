@@ -1,6 +1,10 @@
 import { describe, expect, test } from "vitest"
 import { createRoot } from "solid-js"
-import { callHandler, control } from "../../packages/opui/components/solid"
+import {
+  callHandler,
+  control,
+  optionSelected,
+} from "../../packages/opui/components/solid"
 
 describe("callHandler", () => {
   test("calls a function handler and a bound [handler, data] pair, and ignores anything else", () => {
@@ -30,8 +34,13 @@ describe("control", () => {
     expect(server("checked", () => undefined, false)).toEqual({
       checked: false,
     })
-    expect(server("selected", undefined, true)).toEqual({ selected: true })
     expect(server("value", () => "a")).toEqual({ value: "a" })
-    expect(server("selected", undefined, undefined)).toEqual({})
+    expect(server("value", () => undefined)).toEqual({})
+  })
+
+  test("the server render hands an option its selected state, and leaves the key out when there is none", () => {
+    expect(optionSelected(true).server).toEqual({ selected: true })
+    expect(optionSelected(false).server).toEqual({ selected: false })
+    expect(optionSelected(undefined).server).toEqual({})
   })
 })

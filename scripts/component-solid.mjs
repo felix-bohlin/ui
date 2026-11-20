@@ -417,12 +417,23 @@ export const toSolid = (component) => {
       (name) => `const ${name} = () => ${code}`,
     )
   let usesControl = false
+  let usesOptionSelected = false
   const controlOf = (state, read, initial, scope) => {
     usesControl = true
     const code = `control(${JSON.stringify(state)}, ${read}, untrack(() => ${initial}))`
     return declare(
       scope,
       [scope.loop ? `item${capitalize(state)}Control` : `${state}Control`],
+      code,
+      (name) => `const ${name} = ${code}`,
+    )
+  }
+  const optionSelectedOf = (selected, scope) => {
+    usesOptionSelected = true
+    const code = `optionSelected(untrack(() => ${selected}))`
+    return declare(
+      scope,
+      [scope.loop ? "itemSelected" : "selected"],
       code,
       (name) => `const ${name} = ${code}`,
     )
@@ -465,7 +476,7 @@ export const toSolid = (component) => {
     if (entry.kind === "boolean") return entry.name
     const code = rewrite(entry.code, scope)
     if (node.tag === "option" && entry.name === "selected") {
-      const selected = controlOf("selected", "undefined", code, scope)
+      const selected = optionSelectedOf(code, scope)
       return `{...${selected}.server} ref={${selected}.ref}`
     }
     if (
@@ -807,11 +818,14 @@ export const toSolid = (component) => {
     ...(kind?.solidValues?.(model) ?? []),
     ...(rest || usesOmit ? ["omit"] : []),
     ...(uid ? ["createUniqueId"] : []),
-    ...(warnings.length > 0 || item || usesControl ? ["untrack"] : []),
+    ...(warnings.length > 0 || item || usesControl || usesOptionSelected
+      ? ["untrack"]
+      : []),
   ].toSorted(byName)
   const solidHelpers = [
     ...(kind?.solidHelpers?.(model) ?? []),
     ...(usesControl ? ["control"] : []),
+    ...(usesOptionSelected ? ["optionSelected"] : []),
     ...(item ? ["callHandler"] : []),
     ...(hydrating.size ? ["hydrated", "hydrating"] : []),
   ].toSorted(byName)

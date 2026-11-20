@@ -1066,7 +1066,7 @@ describe("the ports of a sample", () => {
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<select class:list={["ui-sample", className]} {...rest}>\n  {items.map((item) => <option selected={item.selected || undefined} value={item.value}>{item.label}</option>)}\n</select>\n',
     )
     expect(options["solid.tsx"]).toContain(
-      '      <For each={props.items} keyed={(item) => item.value}>\n        {(item) => {\n          const itemSelectedControl = control(\n            "selected",\n            undefined,\n            untrack(() => item().selected || undefined),\n          )\n          return (\n            <option\n              {...itemSelectedControl.server}\n              ref={itemSelectedControl.ref}\n              value={item().value}\n            >\n              {item().label}\n            </option>\n          )\n        }}\n      </For>\n',
+      "      <For each={props.items} keyed={(item) => item.value}>\n        {(item) => {\n          const itemSelected = optionSelected(\n            untrack(() => item().selected || undefined),\n          )\n          return (\n            <option\n              {...itemSelected.server}\n              ref={itemSelected.ref}\n              value={item().value}\n            >\n              {item().label}\n            </option>\n          )\n        }}\n      </For>\n",
     )
     expect(options["react.tsx"]).toContain(
       "{items.map((item) => (\n        <option\n          key={item.value}",

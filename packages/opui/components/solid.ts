@@ -8,28 +8,26 @@ const INITIAL = {
 }
 
 export const control = <V>(
-  prop: keyof typeof INITIAL | "selected",
-  read: (() => V) | undefined,
+  prop: keyof typeof INITIAL,
+  read: () => V,
   fallback?: V,
 ) => {
   let element: Element | undefined
-  const initial = read ? untrack(read) : fallback
-  if (read) {
-    createRenderEffect(
-      read,
-      (value, previous) => {
-        if (element && value !== undefined && value !== previous) {
-          setProperty(element, prop, value)
-        }
-      },
-      { defer: true },
-    )
-  }
+  const initial = untrack(read)
+  createRenderEffect(
+    read,
+    (value, previous) => {
+      if (element && value !== undefined && value !== previous) {
+        setProperty(element, prop, value)
+      }
+    },
+    { defer: true },
+  )
   return {
     ref: (node: Element) => {
       if (!element) {
         if (initial !== undefined) setProperty(node, prop, initial)
-        else if (read && fallback !== undefined && prop !== "selected") {
+        else if (fallback !== undefined) {
           if (node instanceof HTMLSelectElement) {
             setProperty(node, prop, fallback)
             queueMicrotask(() => keepSelected(node, fallback))
@@ -43,6 +41,13 @@ export const control = <V>(
       : {}) as object,
   }
 }
+
+export const optionSelected = (selected: boolean | undefined) => ({
+  ref: (option: HTMLOptionElement) => {
+    if (selected !== undefined) setProperty(option, "selected", selected)
+  },
+  server: (isServer && selected !== undefined ? { selected } : {}) as object,
+})
 
 export const hydrating = (custom = true) =>
   (isServer && custom ? { "data-hydrating": "" } : {}) as object

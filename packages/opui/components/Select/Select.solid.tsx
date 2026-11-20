@@ -4,7 +4,7 @@ import { useFieldGroupContext } from "../FieldGroup/context.solid"
 import type { SelectItem } from "./types"
 import { fieldDescribedBy } from "../id"
 import { sameValue } from "./selection"
-import { control } from "../solid"
+import { control, optionSelected } from "../solid"
 import type { Props } from "./types.solid"
 
 export default function Select(props: Props) {
@@ -140,15 +140,13 @@ export default function Select(props: Props) {
           <div class={["ui-list", { "ui-dense": props.dense }]}>
             <For each={items()} keyed={(item) => item.value}>
               {(item) => {
-                const itemSelectedControl = control(
-                  "selected",
-                  undefined,
+                const itemSelected = optionSelected(
                   untrack(() => isSelected(item()) || undefined),
                 )
                 return (
                   <option
-                    {...itemSelectedControl.server}
-                    ref={itemSelectedControl.ref}
+                    {...itemSelected.server}
+                    ref={itemSelected.ref}
                     value={item().value}
                   >
                     {item().label}

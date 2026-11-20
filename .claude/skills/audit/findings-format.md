@@ -55,6 +55,7 @@ Group the items under the `TODO.md` section they belong in, sorted by severity, 
 
 - `## Accessibility`
 - `## Bugs`
+- `## Compiler`
 - `## Docs`
 - `## Future plans`
 - `## Limitations`

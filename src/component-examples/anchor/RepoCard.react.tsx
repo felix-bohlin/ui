@@ -30,7 +30,6 @@ export default function RepoCard() {
               <CardContent>
                 <div className="repo-card-identity">
                   <Avatar
-                    alt=""
                     shape="rounded"
                     src="https://github.com/felix-bohlin.png"
                   />

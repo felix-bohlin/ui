@@ -28,10 +28,22 @@ declare module "react" {
         "copied-label"?: string | undefined
         "failed-label"?: string | undefined
       }
+      "opui-file-upload": DetailedHTMLProps<
+        HTMLAttributes<HTMLElement>,
+        HTMLElement
+      >
       "opui-number-field": DetailedHTMLProps<
         HTMLAttributes<HTMLElement>,
         HTMLElement
       >
+      "opui-reactions": DetailedHTMLProps<
+        HTMLAttributes<HTMLElement>,
+        HTMLElement
+      > & {
+        "quick-label"?: string | undefined
+        "quick-text"?: string | undefined
+        "quick-value"?: string | undefined
+      }
       "opui-select-all": DetailedHTMLProps<
         HTMLAttributes<HTMLElement>,
         HTMLElement

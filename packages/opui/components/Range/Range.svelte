@@ -1,6 +1,5 @@
 <script lang="ts">
   import "../../css/js/range.js"
-  import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { idRefs } from "../id"
@@ -42,11 +41,10 @@
 
   const field = getFieldGroupContext()
   const uid = $props.id()
-  const getValue = () => value ?? defaultValue
+  const getValue = () => (value === undefined ? defaultValue : value)
   const setValue = (next: typeof value) => {
     value = next
   }
-  const initialValue = untrack(getValue)
   const base = $derived(id || `range-${uid}`)
   const hasLabel = $derived(!!label)
   const hasStartText = $derived(!!startText)
@@ -88,7 +86,7 @@
   {style}
 >
   {#if hasLabel}
-    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]} id={labelId}>
+    <span class={hideLabel ? "ui-sr-only" : "ui-label"} id={labelId}>
       {@render content(label)}
     </span>
   {/if}
@@ -125,11 +123,11 @@
     {step}
     type="range"
     bind:value={getValue, setValue}
-    defaultValue={defaultValue ?? initialValue}
+    {defaultValue}
   />
   {#if hasDatalist}
     <datalist aria-hidden="true" id={listId}>
-      {#each items ?? [] as option, index (index)}
+      {#each items as option, index (index)}
         {#if typeof option === "object"}
           <option value={option.value} label={option.label}></option>
         {:else}

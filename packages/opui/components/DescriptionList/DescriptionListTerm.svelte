@@ -11,6 +11,6 @@
   }: Props = $props()
 </script>
 
-<dt {...classAttrs([className])} {...rest}>
+<dt {...classAttrs(className)} {...rest}>
   {@render children?.()}
 </dt>

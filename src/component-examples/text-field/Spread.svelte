@@ -22,11 +22,11 @@
   {#snippet startText()}Shown on your gig flyers{/snippet}
 </TextField>
 
-<TextField disabled label="Member ID" spread value="BASS-20931">
+<TextField disabled label="Member ID" spread defaultValue="BASS-20931">
   {#snippet startText()}Assigned when you joined Bassbook{/snippet}
 </TextField>
 
-<TextField error label="Display name" spread value="A">
+<TextField error label="Display name" spread defaultValue="A">
   {#snippet startText()}Shown next to your wall posts{/snippet}
   {#snippet endText()}Enter at least two characters.{/snippet}
 </TextField>

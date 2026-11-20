@@ -72,7 +72,7 @@
                   name="first-name"
                   required
                   type="text"
-                  value="Percy"
+                  defaultValue="Percy"
                 />
                 <TextField
                   autocomplete="family-name"
@@ -81,7 +81,7 @@
                   name="last-name"
                   required
                   type="text"
-                  value="Groove"
+                  defaultValue="Groove"
                 />
               </div>
               <TextField
@@ -91,7 +91,7 @@
                 name="email"
                 required
                 type="email"
-                value="percy@lowend.example"
+                defaultValue="percy@lowend.example"
               >
                 {#snippet endText()}
                   <span class="ui-p ui-success">Verified</span>, used for
@@ -103,7 +103,7 @@
                 label="Username"
                 name="username"
                 type="text"
-                value="percygroove"
+                defaultValue="percygroove"
               >
                 {#snippet start()}bassbook.example/{/snippet}
               </TextField>
@@ -113,7 +113,7 @@
                 name="bio"
                 rows={3}
                 startText="Shown on your profile for the whole world to admire"
-                value="Fretless bassist in a garage band. Into flatwounds, drop D and very long root notes."
+                defaultValue="Fretless bassist in a garage band. Into flatwounds, drop D and very long root notes."
               >
                 {#snippet bottom()}84 / 160{/snippet}
               </Textarea>

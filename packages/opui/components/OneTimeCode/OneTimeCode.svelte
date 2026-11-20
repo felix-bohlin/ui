@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { fieldDescribedBy } from "../id"
@@ -11,6 +10,7 @@
     "aria-invalid": ariaInvalid,
     "aria-labelledby": ariaLabelledBy,
     autocapitalize,
+    autocomplete,
     class: className,
     defaultValue,
     error,
@@ -33,11 +33,10 @@
 
   const field = getFieldGroupContext()
   const uid = $props.id()
-  const getValue = () => value ?? defaultValue
+  const getValue = () => (value === undefined ? defaultValue : value)
   const setValue = (next: typeof value) => {
     value = next
   }
-  const initialValue = untrack(getValue)
   const hasLabel = $derived(Boolean(label))
   const hasEndText = $derived(Boolean(endText))
   const base = $derived(id || `one-time-code-${uid}`)
@@ -63,6 +62,7 @@
     <input
       autocapitalize={autocapitalize ??
         (alphanumeric ? "characters" : undefined)}
+      autocomplete={autocomplete ?? "one-time-code"}
       inputmode={inputmode ?? (alphanumeric ? undefined : "numeric")}
       pattern={pattern ??
         (alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`)}
@@ -74,13 +74,12 @@
       )}
       aria-invalid={error ? "true" : ariaInvalid}
       aria-labelledby={ariaLabelledBy}
-      autocomplete="one-time-code"
       id={inputId}
       maxlength={length}
       name={name ?? field?.name}
       type="text"
       bind:value={getValue, setValue}
-      defaultValue={defaultValue ?? initialValue}
+      {defaultValue}
     />
   </span>
   {#if hasEndText}

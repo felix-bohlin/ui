@@ -14,5 +14,5 @@
   id="number-field-validation-2"
   label="Quantity"
   min={1}
-  value={6}
+  defaultValue={6}
 />

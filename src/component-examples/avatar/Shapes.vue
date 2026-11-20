@@ -3,12 +3,12 @@ import { Avatar } from "opui-css/vue"
 </script>
 
 <template>
-  <Avatar alt="Percy Groove" shape="rounded" src="/photos/percy-groove.png" />
+  <Avatar label="Percy Groove" shape="rounded" src="/photos/percy-groove.png" />
 
-  <Avatar aria-label="Rory Rootnote" role="img" shape="squared">RR</Avatar>
+  <Avatar label="Rory Rootnote" shape="squared">RR</Avatar>
 
   <Avatar
-    alt="Lou Headstock"
+    label="Lou Headstock"
     shape="squircle"
     src="/photos/lou-headstock.png"
   />

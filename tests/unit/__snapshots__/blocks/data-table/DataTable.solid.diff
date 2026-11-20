@@ -1,0 +1,10 @@
+===================================================================
+--- astro
++++ solid
+@@ -78,5 +78,5 @@
+   </div>
+   <opui-select-all class="ui-select-all">
+-    <opui-sortable-table class="ui-sortable-table">
++    <opui-sortable-table class="ui-sortable-table" data-hydrating>
+       <table class="ui-flush ui-overflow-scroll ui-table" tabindex="0">
+         <caption class="ui-sr-only">Members</caption>

@@ -9,6 +9,7 @@
     "playwright-report",
     "test-results",
     "tests/apps/*/**",
+    "tests/reference/apps/*/**",
     "tests/package/fixtures"
   ],
   "compilerOptions": {

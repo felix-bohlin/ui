@@ -1,14 +1,16 @@
+import type { HTMLAttributes } from "react"
 import { defined } from "../attrs"
 import { cx } from "../cx"
+import { warnUnnamedControl } from "../dev"
 import { tagAttrs } from "../tag"
 import type { Props } from "./types.react"
 
 export default function Avatar({
-  alt,
   as,
   className,
   disabled,
   href,
+  label,
   shape,
   size,
   src,
@@ -17,6 +19,7 @@ export default function Avatar({
   ...rest
 }: Props) {
   const Tag = as || (href ? "a" : "div")
+  warnUnnamedControl("Avatar", as === "button" || href, { ...rest, label })
 
   return (
     <Tag
@@ -28,9 +31,14 @@ export default function Avatar({
         className,
       ])}
       {...tagAttrs(Tag, disabled, href)}
-      {...defined(rest as object)}
+      {...defined(rest as HTMLAttributes<HTMLElement>)}
     >
-      {src ? <img src={src} alt={alt ?? ""} /> : children}
+      {src ? (
+        <img src={src} alt={label ?? ""} />
+      ) : (
+        <span aria-hidden="true">{children}</span>
+      )}
+      {!src && label && <span className="ui-sr-only">{label}</span>}
     </Tag>
   )
 }

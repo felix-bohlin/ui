@@ -434,14 +434,14 @@
             label="From"
             name="quiet-from"
             type="time"
-            value="22:00"
+            defaultValue="22:00"
           />
           <TextField
             id="notification-settings-quiet-to"
             label="To"
             name="quiet-to"
             type="time"
-            value="07:00"
+            defaultValue="07:00"
           />
         </FieldGroup></CardContent
       >

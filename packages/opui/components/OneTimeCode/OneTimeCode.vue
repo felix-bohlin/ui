@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, useId } from "vue"
-import { useInputAttrs, vSeed } from "../vue"
+import { useBound, useInputAttrs } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { fieldDescribedBy } from "../id"
@@ -10,6 +10,7 @@ import type { Props, Slots } from "./types.vue-props"
 const {
   alphanumeric,
   autocapitalize,
+  autocomplete,
   endText,
   error,
   grouped,
@@ -33,12 +34,7 @@ const attrs = useInputAttrs()
 
 const modelValue = defineModel<string>()
 
-const model = computed({
-  get: () => modelValue.value ?? value,
-  set: (value) => {
-    modelValue.value = value
-  },
-})
+const bound = useBound()
 
 const field = inject(FieldGroupKey, undefined)
 
@@ -70,9 +66,11 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
     /></label>
     <span class="ui-field">
       <input
+        v-if="bound"
         :autocapitalize="
           autocapitalize ?? (alphanumeric ? 'characters' : undefined)
         "
+        :autocomplete="autocomplete ?? 'one-time-code'"
         :inputmode="inputmode ?? (alphanumeric ? undefined : 'numeric')"
         :pattern="
           pattern ??
@@ -88,13 +86,38 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
         "
         :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
         :aria-labelledby="attrs()['aria-labelledby']"
-        autocomplete="one-time-code"
         :id="inputId()"
         :maxlength="length"
         :name="name ?? field?.name"
         type="text"
-        v-seed
-        v-model="model"
+        v-model="modelValue"
+      />
+      <input
+        v-else
+        :autocapitalize="
+          autocapitalize ?? (alphanumeric ? 'characters' : undefined)
+        "
+        :autocomplete="autocomplete ?? 'one-time-code'"
+        :inputmode="inputmode ?? (alphanumeric ? undefined : 'numeric')"
+        :pattern="
+          pattern ??
+          (alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`)
+        "
+        :spellcheck="spellcheck ?? (alphanumeric ? 'false' : undefined)"
+        v-bind="attrs()"
+        :aria-describedby="
+          fieldDescribedBy(
+            { endText: endTextId() },
+            attrs()['aria-describedby'],
+          )
+        "
+        :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
+        :aria-labelledby="attrs()['aria-labelledby']"
+        :id="inputId()"
+        :maxlength="length"
+        :name="name ?? field?.name"
+        type="text"
+        :value.attr="value"
       />
     </span>
     <span v-if="hasEndText()" class="ui-end-text" :id="endTextId()"

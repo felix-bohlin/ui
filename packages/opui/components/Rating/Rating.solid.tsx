@@ -1,7 +1,7 @@
 /** @jsxImportSource @solidjs/web */
 import { For, omit, untrack } from "solid-js"
 import { mergeStyle, pluralLabel } from "../style"
-import { checkedProps, seedChecked } from "../solid"
+import { control } from "../solid"
 import type { Props } from "./types.solid"
 
 export default function Rating(props: Props) {
@@ -37,7 +37,11 @@ export default function Rating(props: Props) {
   const stars = () => Array.from({ length: count() }, (_, index) => index + 1)
   const current = () => Number(props.value ?? props.defaultValue)
   const invalid = () => (props.error ? "true" : props["aria-invalid"])
-  const initialChecked = untrack(() => current() === 0)
+  const checkedControl = control(
+    "checked",
+    () => (props.value === undefined ? undefined : current() === 0),
+    untrack(() => current() === 0),
+  )
 
   return (
     <>
@@ -60,35 +64,34 @@ export default function Rating(props: Props) {
               aria-describedby={props["aria-describedby"]}
               aria-invalid={invalid()}
               aria-label={clearLabel()}
-              {...checkedProps(
-                props.value === undefined ? undefined : current() === 0,
-                initialChecked,
-              )}
+              {...checkedControl.server}
               onChange={() => props.onValueChange?.(0)}
-              ref={seedChecked(() => props.onValueChange?.(0))}
+              ref={checkedControl.ref}
               name={props.name}
               type="radio"
               value={0}
             />
           )}
-          <For each={stars()}>
+          <For each={stars()} keyed={false}>
             {(star) => {
-              const initialChecked = untrack(() => current() === star)
+              const itemCheckedControl = control(
+                "checked",
+                () =>
+                  props.value === undefined ? undefined : current() === star(),
+                untrack(() => current() === star()),
+              )
               return (
                 <input
                   aria-describedby={props["aria-describedby"]}
                   aria-invalid={invalid()}
-                  aria-label={pluralLabel(starLabel(), star, props.lang)}
-                  {...checkedProps(
-                    props.value === undefined ? undefined : current() === star,
-                    initialChecked,
-                  )}
-                  onChange={() => props.onValueChange?.(star)}
-                  ref={seedChecked(() => props.onValueChange?.(star))}
+                  aria-label={pluralLabel(starLabel(), star(), props.lang)}
+                  {...itemCheckedControl.server}
+                  onChange={() => props.onValueChange?.(star())}
+                  ref={itemCheckedControl.ref}
                   name={props.name}
                   required={props.required}
                   type="radio"
-                  value={star}
+                  value={star()}
                 />
               )
             }}

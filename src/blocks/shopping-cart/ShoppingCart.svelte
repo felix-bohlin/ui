@@ -61,7 +61,7 @@
               min={1}
               name="qty-gig-bag"
               size="small"
-              value={1}
+              defaultValue={1}
             />
             <p class="ui-tabular-nums cart-line-price">
               €119.00
@@ -109,7 +109,7 @@
               min={1}
               name="qty-strings"
               size="small"
-              value={2}
+              defaultValue={2}
             />
             <p class="ui-tabular-nums cart-line-price">€48.00</p>
           </div>
@@ -152,7 +152,7 @@
               min={1}
               name="qty-tee"
               size="small"
-              value={1}
+              defaultValue={1}
             />
             <p class="ui-tabular-nums cart-line-price">€29.00</p>
           </div>

@@ -12,16 +12,17 @@ import { readComponent } from "../../scripts/component-reader.mjs"
 import { reactAttributeName } from "../../scripts/example-react-props.mjs"
 import { tagAttrs } from "../../packages/opui/components/tag"
 import { slotProp } from "../../src/component-api/frameworks"
-import type { ComponentApi } from "../../src/component-api/types"
 import { typedAttributes } from "../../src/utils/component-source"
+import { exampleExtension } from "../../src/utils/framework"
 import { createIdGenerator } from "../../src/utils/id"
 import {
-  casesOf,
+  apis,
   type Case,
-  type Framework,
+  casesOf,
   FRAMEWORKS,
+  type Framework,
   partCasesOf,
-  propName,
+  reactProps,
 } from "./component-cases"
 import { normalize } from "./normalize"
 import {
@@ -34,10 +35,6 @@ import {
   vueNodes,
 } from "./renderers"
 
-const apis = import.meta.glob<ComponentApi>(
-  "../../src/component-api/*/api.ts",
-  { eager: true, import: "default" },
-)
 const astroPaths = Object.keys(
   import.meta.glob("../../packages/opui/components/*/*.astro"),
 )
@@ -67,27 +64,39 @@ const KNOWN_ATTRIBUTES: Record<
     when?: (props: Record<string, unknown>) => boolean
   }
 > = {
-  "Callout react": {
+  Callout: {
     attribute: "data-hydrating",
     reason:
-      "the element ignores the close button until React has hydrated the callout and attached onDismiss",
+      "the element ignores the close button until the framework has hydrated the callout and attached its dismiss handler",
     when: ({ closeButton }) => Boolean(closeButton),
   },
-  "SortableTable react": {
+  FileUpload: {
     attribute: "data-hydrating",
     reason:
-      "the element ignores header clicks until React has hydrated the table and attached onSort",
+      "the element holds picked files back and ignores the remove buttons until the framework has hydrated the root and attached its select and remove handlers",
+  },
+  Reactions: {
+    attribute: "data-hydrating",
+    reason:
+      "the element asks for nothing on a click until the framework has hydrated the reactions and attached its reaction handler",
+  },
+  SortableTable: {
+    attribute: "data-hydrating",
+    reason:
+      "the element ignores header clicks until the framework has hydrated the table and attached its sort handler",
   },
 }
 
 const withoutAttribute = (markup: string, attribute: string) =>
   markup.replace(new RegExp(`\\s${attribute}(?:="[^"]*")?(?=[\\s>])`), "")
 
-const loaderOf = <T>(modules: Record<string, () => Promise<T>>, name: string) =>
+const loaderOf = <T>(
+  modules: Record<string, () => Promise<T>>,
+  name: string,
+  framework: Framework,
+) =>
   Object.entries(modules).find(([path]) =>
-    path
-      .replace(/\.(react|solid)\.tsx$/, ".tsx")
-      .endsWith(`/${name}.${path.split(".").at(-1)}`),
+    path.endsWith(`/${name}.${exampleExtension(framework)}`),
   )?.[1]
 
 type TemplateNode = {
@@ -311,12 +320,7 @@ const withAttributeCases = (cases: Case[]) =>
 
 const CASES = Object.values(apis)
   .toSorted((a, b) => a.component.localeCompare(b.component, "en"))
-  .flatMap((api) =>
-    withAttributeCases([
-      ...casesOf(api),
-      ...partCasesOf(api, Object.values(apis)),
-    ]),
-  )
+  .flatMap((api) => withAttributeCases([...casesOf(api), ...partCasesOf(api)]))
 
 let renderer: Awaited<ReturnType<typeof createRenderer>>
 
@@ -370,34 +374,19 @@ const render: Record<Framework, (entry: Case) => Promise<string | undefined>> =
         props: { props },
       })
     },
-    react: async ({ component, props, reactNames, slots, types }) => {
-      const load = loaderOf(reactComponents, component)
+    react: async (entry) => {
+      const load = loaderOf(reactComponents, entry.component, "react")
       if (!load) return undefined
       const { default: Component } = await load()
-      const nodes = () => reactNodes(contentOf(component))
       return renderReact(
-        createElement(Component, {
-          ...Object.fromEntries(
-            Object.entries(props).map(([key, value]) => [
-              reactNames?.[key] ?? propName("react", key),
-              value,
-            ]),
-          ),
-          ...Object.fromEntries(
-            slots
-              .filter(
-                (slot) => slot === "default" || types.react.has(slotProp(slot)),
-              )
-              .map((slot) => [
-                slotProp(slot),
-                slotValue("react", types.react.get(slotProp(slot)), nodes),
-              ]),
-          ),
-        }),
+        createElement(
+          Component,
+          reactProps(entry, () => reactNodes(contentOf(entry.component))),
+        ),
       ).replace(PRELOAD, "")
     },
     solid: async ({ component, props, slots, types }) => {
-      const load = loaderOf(solidComponents, component)
+      const load = loaderOf(solidComponents, component, "solid")
       if (!load) return undefined
       const { default: Component } = await load()
       return renderSolid(Component, {
@@ -417,7 +406,7 @@ const render: Record<Framework, (entry: Case) => Promise<string | undefined>> =
       })
     },
     svelte: async ({ component, props, slots, types }) => {
-      const load = loaderOf(svelteComponents, component)
+      const load = loaderOf(svelteComponents, component, "svelte")
       if (!load) return undefined
       const { default: Component } = await load()
       return renderSvelte(Component, {
@@ -438,7 +427,7 @@ const render: Record<Framework, (entry: Case) => Promise<string | undefined>> =
       }).body
     },
     vue: async ({ component, props, slots }) => {
-      const load = loaderOf(vueComponents, component)
+      const load = loaderOf(vueComponents, component, "vue")
       if (!load) return undefined
       const Component = await load()
       return renderVue(
@@ -536,7 +525,7 @@ describe("every component renders the same in Astro, React, Solid, Svelte and Vu
         )
         .toBeDefined()
       if (rendered === undefined) continue
-      const known = KNOWN_ATTRIBUTES[`${entry.component} ${framework}`]
+      const known = KNOWN_ATTRIBUTES[entry.component]
       if (known && (known.when?.(entry.props) ?? true)) {
         expect
           .soft(

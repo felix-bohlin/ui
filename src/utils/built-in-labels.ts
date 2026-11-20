@@ -58,6 +58,20 @@ export const builtInLabels = [
     prop: "closeLabel",
   },
   {
+    component: "FileUpload",
+    default: "Uploading {label}",
+    html: "aria-label",
+    page: "file-upload",
+    prop: "progressLabel",
+  },
+  {
+    component: "FileUpload",
+    default: "Remove {label}",
+    html: "aria-label",
+    page: "file-upload",
+    prop: "removeLabel",
+  },
+  {
     component: "NumberField",
     default: "Decrease",
     html: "aria-label",

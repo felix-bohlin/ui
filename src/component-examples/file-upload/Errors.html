@@ -1,0 +1,98 @@
+<opui-file-upload class="ui-file-upload">
+  <div class="ui-content">
+    <div class="ui-field">
+      <label class="ui-label">
+        <input
+          accept="image/*"
+          aria-describedby="file-upload-errors-1-description"
+          class="ui-sr-only"
+          id="file-upload-errors-1"
+          multiple
+          type="file"
+        />
+        <span class="ui-button ui-outlined">Choose photos</span>
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        ></svg>
+      </label>
+      <span class="ui-description" id="file-upload-errors-1-description"
+        >Or drop them here. PNG or JPG.</span
+      >
+    </div>
+    <ul class="ui-list">
+      <li>
+        <div class="ui-start">
+          <img alt="" src="/photos/lou-headstock.png" />
+        </div>
+        <div class="ui-text">
+          <p dir="auto" id="file-upload-errors-1-label-0">lou-headstock.png</p>
+        </div>
+        <div class="ui-end">
+          <button
+            class="ui-button ui-round ui-small"
+            type="button"
+            aria-label="Remove lou-headstock.png"
+            command="--remove"
+            commandfor="file-upload-errors-1"
+            value="lou"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            ></svg>
+          </button>
+        </div>
+      </li>
+      <li class="ui-error">
+        <div class="ui-start">
+          <img alt="" src="/photos/percy-groove.png" />
+          <button
+            aria-labelledby="file-upload-errors-1-label-1 file-upload-errors-1-description-1"
+            popovertarget="file-upload-errors-1-description-1"
+            type="button"
+          ></button>
+        </div>
+        <div class="ui-text">
+          <p dir="auto" id="file-upload-errors-1-label-1">percy-groove.png</p>
+          <p
+            class="ui-description"
+            id="file-upload-errors-1-description-1"
+            popover="auto"
+          >
+            The connection dropped. Remove it and choose it again.
+          </p>
+        </div>
+        <div class="ui-end">
+          <button
+            class="ui-button ui-round ui-small"
+            type="button"
+            aria-label="Remove percy-groove.png"
+            command="--remove"
+            commandfor="file-upload-errors-1"
+            value="percy"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            ></svg>
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <span class="ui-sr-only" role="status">1 photo didn't upload.</span>
+</opui-file-upload>
+
+<script type="module">
+  import "opui-css/elements/file-upload.js"
+</script>

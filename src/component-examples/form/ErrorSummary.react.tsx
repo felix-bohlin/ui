@@ -11,10 +11,16 @@ import {
 export default function ErrorSummary() {
   return (
     <Form>
-      <Callout id="form-error-summary-1" severity="critical" tabIndex={-1}>
+      <Callout
+        aria-labelledby="form-error-summary-4"
+        id="form-error-summary-1"
+        role="group"
+        severity="critical"
+        tabIndex={-1}
+      >
         <CalloutIcon />
         <CalloutContent className="ui-rich-text">
-          <h3>Fix 2 fields to create your account</h3>
+          <h3 id="form-error-summary-4">Fix 2 fields to create your account</h3>
           <ul>
             <li>
               <a href="#form-error-summary-2">Enter your work email</a>

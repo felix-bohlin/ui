@@ -1,0 +1,51 @@
+---
+import { Button, Textarea, ToggleButton, ToggleGroup } from "opui-css/astro"
+import { FEED_FILTERS, PAGE_SIZE, POSTS, newPost } from "reference-shared"
+import PostCard from "../components/PostCard.astro"
+import Layout from "../layouts/Layout.astro"
+---
+
+<Layout title="Feed">
+  <div class="app-screen" data-screen="feed">
+    <h1>Feed</h1>
+    <form aria-label="New post" class="ui-layout-column" data-composer>
+      <Textarea
+        characterCount
+        label="What's on your mind?"
+        maxlength={280}
+        name="text"
+        required
+      />
+      <div>
+        <Button type="submit" variant="filled">Post</Button>
+      </div>
+    </form>
+    <ToggleGroup aria-label="Filter posts" name="filter" value="all">
+      {FEED_FILTERS.map(({ label, value }) => <ToggleButton value={value}
+        >{label}</ToggleButton
+      >)}
+    </ToggleGroup>
+    <ol aria-label="Posts" class="app-posts" tabindex="-1">
+      {POSTS.map((post, index) => <li
+        data-photos={post.photos.length > 0 ? "" : undefined}
+        hidden={index >= PAGE_SIZE}
+      >
+        <PostCard post={post} />
+      </li>)}
+    </ol>
+    <template data-new-post>
+      <li><PostCard post={newPost("", "new-post-template")} /></li>
+    </template>
+    <p class="app-empty" data-feed-empty hidden>No saved posts yet.</p>
+    <div data-load-more>
+      <Button variant="outlined">Load more</Button>
+    </div>
+    <p class="app-end" data-feed-end hidden tabindex="-1">
+      You're all caught up.
+    </p>
+  </div>
+</Layout>
+
+<script>
+  import "../scripts/feed.ts"
+</script>

@@ -12,7 +12,7 @@
   }: Props = $props()
 </script>
 
-<summary {...classAttrs([className])} {...rest}>
+<summary {...classAttrs(className)} {...rest}>
   {@render children?.()}{" "}{#if marker}
     {@render marker()}
   {:else}

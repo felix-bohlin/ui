@@ -1,3 +1,4 @@
+import type { ComponentProps, HTMLAttributes } from "react"
 import { defined } from "../attrs"
 import { cx } from "../cx"
 import { tagAttrs } from "../tag"
@@ -36,14 +37,14 @@ export default function ListItem({
         color && `ui-${color}`,
         className,
       ])}
-      {...(restOnItem ? (rest as object) : {})}
+      {...(restOnItem ? (rest as ComponentProps<"li">) : {})}
     >
       {Tag ? (
         <Tag
           className={cx([hasControl && `ui-${choice}`])}
           htmlFor={hasControl ? htmlFor : undefined}
           {...(hasControl ? {} : tagAttrs(Tag, disabled, href))}
-          {...defined(restOnItem ? {} : (rest as object))}
+          {...defined(restOnItem ? {} : (rest as HTMLAttributes<HTMLElement>))}
         >
           {start && <div className="ui-start">{start}</div>}
           {hasLabel || hasDescription ? (

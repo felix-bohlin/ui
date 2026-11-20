@@ -1,11 +1,12 @@
 "use client"
 
-import { useId, useState } from "react"
+import { useCallback, useId, useMemo } from "react"
 import { cx } from "../cx"
 import { ToggleGroupContext } from "./context.react"
-import { selectionOf } from "./selection"
+import { checkedValues } from "./selection"
 import { warnUnnamedGroup } from "../dev"
 import type { Props } from "./types.react"
+import type { Context } from "./types"
 
 export default function ToggleGroup({
   className,
@@ -22,20 +23,23 @@ export default function ToggleGroup({
   ...rest
 }: Props) {
   const uid = useId()
-  const [inner, setInner] = useState(defaultValue)
-  const change = (input: HTMLInputElement) => {
-    const next = selectionOf(input, multiple)
-    if (inner !== undefined) setInner(next)
-    onValueChange?.(next as never)
-  }
+  const change = useCallback(
+    (input: HTMLInputElement) => {
+      if (multiple) onValueChange?.(checkedValues(input))
+      else onValueChange?.(input.value)
+    },
+    [multiple, onValueChange],
+  )
   const groupName = name || `toggle-group-${uid}`
   const inputType = multiple ? "checkbox" : "radio"
   warnUnnamedGroup("ToggleGroup", rest)
+  const context = useMemo<Context>(
+    () => ({ change, defaultValue, groupName, inputType, value }),
+    [change, defaultValue, groupName, inputType, value],
+  )
 
   return (
-    <ToggleGroupContext
-      value={{ change, groupName, inputType, value: value ?? inner }}
-    >
+    <ToggleGroupContext value={context}>
       <div
         className={cx([
           "ui-toggle-group",

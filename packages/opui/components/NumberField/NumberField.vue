@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import "../../elements/number-field.js"
 import { computed, inject, useId } from "vue"
-import { useInputAttrs, vSeed } from "../vue"
+import { useBound, useInputAttrs } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
@@ -36,12 +36,7 @@ const attrs = useInputAttrs()
 
 const modelValue = defineModel<number | string>()
 
-const model = computed({
-  get: () => modelValue.value ?? value,
-  set: (value) => {
-    modelValue.value = value
-  },
-})
+const bound = useBound()
 
 const field = inject(FieldGroupKey, undefined)
 
@@ -75,7 +70,7 @@ const endTextId = () =>
   >
     <label
       v-if="label || $slots.label"
-      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
+      :class="hideLabel ? 'ui-sr-only' : 'ui-label'"
       :for="inputId"
       >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
     /></label>
@@ -107,6 +102,7 @@ const endTextId = () =>
         </Button>
       </span>
       <input
+        v-if="bound"
         v-bind="attrs()"
         :aria-describedby="
           fieldDescribedBy(
@@ -119,8 +115,23 @@ const endTextId = () =>
         :id="inputId"
         :name="name ?? field?.name"
         type="number"
-        v-seed
-        v-model.number="model"
+        v-model="modelValue"
+      />
+      <input
+        v-else
+        v-bind="attrs()"
+        :aria-describedby="
+          fieldDescribedBy(
+            { endText: endTextId(), startText: startTextId() },
+            attrs()['aria-describedby'],
+          )
+        "
+        :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
+        :disabled="disabled"
+        :id="inputId"
+        :name="name ?? field?.name"
+        type="number"
+        :value.attr="value"
       />
       <span class="ui-end">
         <Button

@@ -1,6 +1,5 @@
 <script lang="ts">
   import "../../elements/character-count.js"
-  import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { fieldDescribedBy } from "../id"
@@ -39,11 +38,10 @@
 
   const field = getFieldGroupContext()
   const uid = $props.id()
-  const getValue = () => value ?? defaultValue
+  const getValue = () => (value === undefined ? defaultValue : value)
   const setValue = (next: typeof value) => {
     value = next
   }
-  const initialValue = untrack(getValue)
   const base = $derived(id || `textarea-${uid}`)
   const hasLabel = $derived(Boolean(label))
   const hasStartText = $derived(Boolean(startText))
@@ -71,7 +69,7 @@
   {style}
 >
   {#if hasLabel}
-    <label class={[hideLabel ? "ui-sr-only" : "ui-label"]} for={textareaId}>
+    <label class={hideLabel ? "ui-sr-only" : "ui-label"} for={textareaId}>
       {@render content(label)}
     </label>
   {/if}
@@ -109,7 +107,7 @@
       id={textareaId}
       name={name ?? field?.name}
       bind:value={getValue, setValue}
-      defaultValue={defaultValue ?? initialValue}></textarea>
+      {defaultValue}></textarea>
     {#if end}
       <span class="ui-end" id={endId}>
         {@render content(end)}

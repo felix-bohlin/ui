@@ -54,7 +54,7 @@
     max={10}
     min={1}
     name="quantity"
-    value={1}
+    defaultValue={1}
   />
   <Button>Add to cart</Button>
 </ControlGroup>

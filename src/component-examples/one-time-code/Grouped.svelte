@@ -7,5 +7,5 @@
   label="Verification code"
   name="code"
   required
-  value="482"
+  defaultValue="482"
 />

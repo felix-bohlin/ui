@@ -714,6 +714,7 @@ describe("TODO.md", () => {
     expect(titles(source)).toEqual([
       "Accessibility",
       "Bugs",
+      "Compiler",
       "Docs",
       "Future plans",
       "Limitations",

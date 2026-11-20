@@ -10,7 +10,7 @@
 
 <Card variant="outlined">
   <CardHeader as="div">
-    <Avatar aria-hidden="true">LH</Avatar>
+    <Avatar>LH</Avatar>
     <hgroup>
       <h3>Lou Headstock</h3>
       <p>Posted 2 hours ago</p>

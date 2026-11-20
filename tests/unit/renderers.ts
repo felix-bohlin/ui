@@ -10,7 +10,7 @@ import { REACT_ATTRIBUTE_NAMES } from "../../scripts/example-react-props.mjs"
 import { parseHtml } from "../../scripts/html-tokens.mjs"
 import { slotProp } from "../../src/component-api/frameworks"
 import { renderSolid as renderSolidRoot } from "../../src/components/Example/render-solid"
-import { TEXT } from "./component-cases"
+import { TEXT } from "./case-table"
 
 type Node = ReturnType<typeof parseHtml>[number]
 

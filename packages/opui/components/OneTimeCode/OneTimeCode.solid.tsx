@@ -1,8 +1,8 @@
 /** @jsxImportSource @solidjs/web */
-import { children, createUniqueId, omit, untrack } from "solid-js"
+import { children, createUniqueId, omit } from "solid-js"
 import { useFieldGroupContext } from "../FieldGroup/context.solid"
 import { fieldDescribedBy } from "../id"
-import { bound } from "../solid"
+import { control } from "../solid"
 import type { Props } from "./types.solid"
 
 export default function OneTimeCode(props: Props) {
@@ -13,6 +13,7 @@ export default function OneTimeCode(props: Props) {
     "aria-invalid",
     "aria-labelledby",
     "autocapitalize",
+    "autocomplete",
     "class",
     "error",
     "grouped",
@@ -33,8 +34,7 @@ export default function OneTimeCode(props: Props) {
   const resolvedLabel = children(() => props.label)
   const field = useFieldGroupContext()
   const uid = createUniqueId()
-  const initialValue = untrack(() => props.value)
-  const valueRef = bound("value", () => props.value)
+  const valueControl = control("value", () => props.value)
   const length = () => (props.length === undefined ? 6 : props.length)
   const hasLabel = () => Boolean(resolvedLabel())
   const hasEndText = () => Boolean(resolvedEndText())
@@ -63,6 +63,7 @@ export default function OneTimeCode(props: Props) {
             props.autocapitalize ??
             (props.alphanumeric ? "characters" : undefined)
           }
+          autocomplete={props.autocomplete ?? "one-time-code"}
           inputmode={
             props.inputmode ?? (props.alphanumeric ? undefined : "numeric")
           }
@@ -75,8 +76,8 @@ export default function OneTimeCode(props: Props) {
           spellcheck={
             props.spellcheck ?? (props.alphanumeric ? "false" : undefined)
           }
-          defaultValue={initialValue}
-          ref={[props.ref, valueRef]}
+          {...valueControl.server}
+          ref={[props.ref, valueControl.ref]}
           {...rest}
           aria-describedby={fieldDescribedBy(
             { endText: endTextId() },
@@ -84,7 +85,6 @@ export default function OneTimeCode(props: Props) {
           )}
           aria-invalid={props.error ? "true" : props["aria-invalid"]}
           aria-labelledby={props["aria-labelledby"]}
-          autocomplete="one-time-code"
           id={inputId()}
           maxlength={length()}
           name={props.name ?? field?.name}

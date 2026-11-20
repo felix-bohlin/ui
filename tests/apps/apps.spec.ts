@@ -8,6 +8,14 @@ import {
 import { readdirSync, readFileSync } from "node:fs"
 import path from "node:path"
 import { APPS, appDir, examplesOf, KNOWN_PROBLEMS } from "./apps.ts"
+import {
+  compareNative,
+  differences,
+  NATIVE_CASES,
+  SOLID_SELECT_DEFAULT,
+  SVELTE_GROUP,
+  SVELTE_SPREAD,
+} from "./native/cases.ts"
 
 const PIXEL = Buffer.from(
   "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
@@ -285,7 +293,6 @@ const CHANGES = [
   { example: "select/Variants", label: "Role", to: "Bass" },
   { example: "switch/Basics", label: "Bluetooth", to: true },
   { example: "tabs/Basics", label: "Settings", to: true },
-  { example: "tabs/Binding", label: "Notifications", to: true },
   { example: "text-field/InputTypes", label: "Color", to: "#ff0000" },
   { example: "text-field/InputTypes", label: "Email", to: "ada@example.com" },
   { example: "text-field/InputTypes", label: "Password", to: "secret" },
@@ -295,9 +302,6 @@ const CHANGES = [
     to: "https://example.com/",
   },
   { example: "textarea/Variants", label: "Outlined", to: "Typed early" },
-  { example: "toggle/Binding", label: "Bold", to: false },
-  { example: "toggle/Binding", label: "Italic", to: true },
-  { example: "toggle/Binding", label: "Month", to: true },
   { example: "toggle/Interactive", label: "Cycling", to: true },
 ]
 
@@ -409,42 +413,6 @@ for (const slug of changedSlugs) {
   })
 }
 
-const BOUND = [
-  {
-    example: "tabs/Binding",
-    readout: ".tabs-binding-text",
-    text: "Selected: notifications",
-  },
-  {
-    example: "toggle/Binding",
-    readout: ".toggle-binding-text",
-    text: "View: month. Format: italic.",
-  },
-]
-
-for (const { example, readout, text } of BOUND) {
-  test(`${example} binds what changed before it hydrated`, async ({
-    page,
-  }, testInfo) => {
-    const app = appOf(testInfo.project.name)
-    test.skip(!app.scripts, `${app.name} renders on the client only`)
-    const slug = example.split("/")[0] ?? ""
-    const problems = await watch(page)
-    const release = await holdScripts(page, app.scripts ?? "")
-    await page.goto(`/${slug}`, { waitUntil: "commit" })
-    for (const item of CHANGES.filter((entry) => entry.example === example)) {
-      await change(await controlOf(page, item), item)
-    }
-    release()
-    await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
-    await expect(
-      page.locator(`[data-example="${example}"] ${readout}`),
-      `${app.name} sets the bound value of ${example} to the choice made before it hydrated`,
-    ).toHaveText(text)
-    expect(unexpected(problems, app.name, slug)).toEqual([])
-  })
-}
-
 for (const slug of changedSlugs) {
   test(`${slug} keeps what the browser restores when the user comes back`, async ({
     page,
@@ -495,14 +463,11 @@ test("a form reset after hydration restores the values and the readout", async (
   expect(unexpected(problems, app.name, "range")).toEqual([])
 })
 
-test("a sortable table clicked before React hydrates it waits for onSort", async ({
+test("a sortable table clicked before the app hydrates it waits for the sort handler", async ({
   page,
 }, testInfo) => {
   const app = appOf(testInfo.project.name)
-  test.skip(
-    app.framework !== "react" || !app.scripts || !app.ssr,
-    `${app.name} loads the element with the component`,
-  )
+  test.skip(!app.scripts || !app.ssr, `${app.name} renders on the client only`)
   const problems = await watch(page)
   const { promise, resolve: release } = Promise.withResolvers<void>()
   await page.route(
@@ -548,14 +513,11 @@ test("a sortable table clicked before React hydrates it waits for onSort", async
   expect(unexpected(problems, app.name, "table")).toEqual([])
 })
 
-test("a callout dismissed before React hydrates it waits for onDismiss", async ({
+test("a callout dismissed before the app hydrates it waits for the dismiss handler", async ({
   page,
 }, testInfo) => {
   const app = appOf(testInfo.project.name)
-  test.skip(
-    app.framework !== "react" || !app.scripts || !app.ssr,
-    `${app.name} loads the element with the component`,
-  )
+  test.skip(!app.scripts || !app.ssr, `${app.name} renders on the client only`)
   const problems = await watch(page)
   const { promise, resolve: release } = Promise.withResolvers<void>()
   await page.route(
@@ -608,3 +570,55 @@ test("a callout dismissed before React hydrates it waits for onDismiss", async (
   await expect(callout).toBeHidden()
   expect(unexpected(problems, app.name, "callout")).toEqual([])
 })
+
+const NATIVE_DIFFERENCES = [
+  ...differences("sveltekit", SVELTE_GROUP, [
+    "group-bound",
+    "radio-bound",
+    "rating-bound",
+    "rating-default",
+    "tabs-bound",
+    "toggle-bound",
+  ]),
+  ...differences("sveltekit", SVELTE_SPREAD, [
+    "checkbox-bound",
+    "range-bound",
+    "text-bound",
+  ]),
+  ...differences("vite-solid", SOLID_SELECT_DEFAULT, ["select-default"]),
+  ...differences("vite-svelte", SVELTE_GROUP, [
+    "group-bound",
+    "radio-bound",
+    "rating-bound",
+    "rating-default",
+    "tabs-bound",
+    "toggle-bound",
+  ]),
+]
+
+for (const nativeCase of NATIVE_CASES) {
+  test(`native/${nativeCase.name} holds the same state as the native control before hydration, after a change and after a form reset`, async ({
+    page,
+  }, testInfo) => {
+    const app = appOf(testInfo.project.name)
+    const difference = NATIVE_DIFFERENCES.find(
+      (entry) => entry.where === app.name && entry.name === nativeCase.name,
+    )
+    test.fail(!!difference, difference?.reason)
+    const problems = await watch(page)
+    const release = app.scripts
+      ? await holdScripts(page, app.scripts)
+      : undefined
+    await page.goto("/native", { waitUntil: release ? "commit" : "load" })
+    await compareNative(page, nativeCase, {
+      expect,
+      hydrated: async () => {
+        await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
+        await page.waitForLoadState("load")
+      },
+      release,
+      where: app.name,
+    })
+    expect(unexpected(problems, app.name, "native")).toEqual([])
+  })
+}

@@ -17,6 +17,7 @@ export default function List(props: Props) {
   )
   const tag = () => props.as || "ul"
   const Tag = dynamic(tag)
+  const tagRole = () => props.role ?? "list"
 
   return (
     <Tag
@@ -30,7 +31,7 @@ export default function List(props: Props) {
         props.variant && props.variant !== "filled" && `ui-${props.variant}`,
         props.class,
       ]}
-      role={props.role ?? "list"}
+      role={tagRole()}
       {...(rest as object)}
     >
       {props.children}

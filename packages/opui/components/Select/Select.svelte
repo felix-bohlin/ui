@@ -3,13 +3,13 @@
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { fieldDescribedBy } from "../id"
   import { initialValue, sameValue } from "./selection"
-  import type { SelectItem } from "./types"
   import type { Props } from "./types.svelte"
   import { untrack } from "svelte"
 
   let {
     autoFit,
     class: className,
+    defaultValue,
     dense,
     error,
     hideLabel,
@@ -66,13 +66,6 @@
       rest["aria-describedby"],
     ),
   )
-
-  const isSelected = (item: SelectItem) =>
-    value === undefined
-      ? item.selected
-      : Array.isArray(value)
-        ? value.some((selected) => sameValue(selected, item.value))
-        : sameValue(item.value, value)
 </script>
 
 <div
@@ -89,7 +82,7 @@
   {style}
 >
   {#if label}
-    <label class={[hideLabel ? "ui-sr-only" : "ui-label"]} for={selectId}>
+    <label class={hideLabel ? "ui-sr-only" : "ui-label"} for={selectId}>
       {@render content(label)}
     </label>
   {/if}
@@ -111,6 +104,7 @@
       aria-invalid={error ? "true" : rest["aria-invalid"]}
       aria-labelledby={rest["aria-labelledby"]}
       bind:value
+      defaultValue={defaultValue ?? initialValue(items, rest.multiple)}
       id={selectId}
       name={name ?? field?.name}
     >
@@ -119,9 +113,7 @@
       </button>
       <div class={["ui-list", { "ui-dense": dense }]}>
         {#each items as item (item.value)}
-          <option selected={isSelected(item) || undefined} value={item.value}
-            >{item.label}</option
-          >
+          <option value={item.value}>{item.label}</option>
         {/each}
         {@render children?.()}
       </div>

@@ -10,7 +10,7 @@
     label="Antal"
     max={10}
     min={1}
-    value={1}
+    defaultValue={1}
   >
     {#snippet decreaseIcon()}
       <svg

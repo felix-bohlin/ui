@@ -1,18 +1,22 @@
 import { readdirSync } from "node:fs"
 import path from "node:path"
 import { withoutCodeVariants } from "../../src/utils/example-variants.ts"
+import {
+  exampleExtension,
+  HYDRATED_FRAMEWORK_IDS,
+} from "../../src/utils/framework.js"
 
 export const appsDir = import.meta.dirname
 export const root = path.resolve(appsDir, "../..")
 
-const EXTENSIONS = {
-  react: ".react.tsx",
-  solid: ".solid.tsx",
-  svelte: ".svelte",
-  vue: ".vue",
-}
+type Framework = (typeof HYDRATED_FRAMEWORK_IDS)[number]
 
-type Framework = keyof typeof EXTENSIONS
+const EXTENSIONS = Object.fromEntries(
+  HYDRATED_FRAMEWORK_IDS.map((framework) => [
+    framework,
+    `.${exampleExtension(framework)}`,
+  ]),
+) as Record<Framework, string>
 
 type App = {
   build: string[]
@@ -35,7 +39,7 @@ type App = {
   start: string
 }
 
-const ALL_APPS: App[] = [
+export const ALL_APPS: App[] = [
   {
     build: ["next", "build"],
     check: [],
@@ -191,27 +195,30 @@ export const KNOWN_PROBLEMS: {
 }[] = []
 
 const examplesDir = path.join(root, "src/component-examples")
+const nativeDir = path.join(appsDir, "native")
+
+const filesOf = (dir: string, framework: Framework) =>
+  withoutCodeVariants(
+    readdirSync(dir)
+      .filter((file) => file.endsWith(EXTENSIONS[framework]))
+      .map((file) => ({
+        file,
+        name: file.slice(0, -EXTENSIONS[framework].length),
+      })),
+  ).toSorted((a, b) => a.name.localeCompare(b.name))
 
 export const examplesOf = (framework: Framework) =>
   new Map(
-    readdirSync(examplesDir)
-      .toSorted()
-      .map((slug) => {
-        const names = readdirSync(path.join(examplesDir, slug))
-          .filter((file) => file.endsWith(EXTENSIONS[framework]))
-          .map((file) => ({
-            file,
-            name: file.slice(0, -EXTENSIONS[framework].length),
-          }))
-        return [
-          slug,
-          withoutCodeVariants(names).toSorted((a, b) =>
-            a.name.localeCompare(b.name),
-          ),
-        ] as const
-      })
-      .filter(([, examples]) => examples.length > 0),
+    [
+      ...readdirSync(examplesDir)
+        .toSorted()
+        .map(
+          (slug) =>
+            [slug, filesOf(path.join(examplesDir, slug), framework)] as const,
+        ),
+      ["native", filesOf(nativeDir, framework)] as const,
+    ].filter(([, examples]) => examples.length > 0),
   )
 
 export const exampleSource = (slug: string, file: string) =>
-  path.join(examplesDir, slug, file)
+  path.join(slug === "native" ? nativeDir : path.join(examplesDir, slug), file)

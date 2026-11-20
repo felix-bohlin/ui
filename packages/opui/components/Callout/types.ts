@@ -1,9 +1,16 @@
 export type Props = {
-  closeButton?: boolean
-  closeLabel?: string
   severity?: "critical" | "info" | "neutral" | "success" | "warning"
   variant?: "outlined" | "tonal"
-}
+} & (
+  | {
+      closeButton: boolean
+      closeLabel?: string
+    }
+  | {
+      closeButton?: never
+      closeLabel?: never
+    }
+)
 
 export type CalloutActionsProps = {}
 
@@ -17,6 +24,12 @@ export type Events = {
   dismiss: Event
 }
 
-export type Slots<S> = {
-  closeIcon?: S
-}
+export type Slots<S> =
+  | {
+      closeButton: boolean
+      closeIcon?: S
+    }
+  | {
+      closeButton?: never
+      closeIcon?: never
+    }

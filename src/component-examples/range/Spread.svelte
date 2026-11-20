@@ -16,7 +16,7 @@
   error
   label="Alarm volume"
   spread
-  value="10"
+  defaultValue="10"
 >
   {#snippet startText()}Rings for alarms and timers.{/snippet}
 </Range>

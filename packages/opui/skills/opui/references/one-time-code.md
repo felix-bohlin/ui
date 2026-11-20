@@ -12,7 +12,7 @@ A one-time password (OTP) field: one input drawn as a box per character, with pa
 - `div.ui-one-time-code` (root): Container element.
 - `.ui-label` (prop `label`, slot `label`): The label for the field.
 - `.ui-field`: Draws a box per character and a ring on the next one.
-- `<input>` (model): The input element, with `autocomplete="one-time-code"`, which lets the browser fill in a code it received.
+- `<input>` (model): The input element, with `autocomplete="one-time-code"` unless it is set to `off`, which lets the browser fill in a code it received.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
 
 ### Props and modifiers
@@ -20,6 +20,8 @@ A one-time password (OTP) field: one input drawn as a box per character, with pa
 - `alphanumeric`: `boolean`, `input[autocapitalize="characters"]`. Accepts letters and digits. Letters show uppercase and keep the case they were typed in.
 - `autocapitalize` (Astro, Solid, Svelte and Vue): `string`. The `autocapitalize` of the `<input>`. With `alphanumeric` it is `characters`.
 - `autoCapitalize` (React): `string`. The `autocapitalize` of the `<input>`, as `autoCapitalize` like on the element. With `alphanumeric` it is `characters`.
+- `autocomplete` (Astro, Solid, Svelte and Vue): `"off" | "one-time-code"`, default `"one-time-code"`. The `autocomplete` of the `<input>`. Set `off` for a code read off another screen, such as a TV or the computer you're signing in on.
+- `autoComplete` (React): `"off" | "one-time-code"`, default `"one-time-code"`. The `autocomplete` of the `<input>`, as `autoComplete` like on the element. Set `off` for a code read off another screen, such as a TV or the computer you're signing in on.
 - `disabled`: `boolean`, `input[disabled]`. Dims the field and blocks input.
 - `error`: `boolean`, `input[aria-invalid="true"]`. Marks the control invalid and shows error styles.
 - `grouped`: `boolean`, `.ui-grouped`. Draws a dash between the two halves of the code. Use it with an even `length`.
@@ -95,11 +97,11 @@ The stylesheets read `--ui-border-width-thick`, `--ui-disabled-opacity`, `--ui-d
   <label class="ui-label" for="one-time-code-basics-1">Verification code</label>
   <span class="ui-field">
     <input
+      autocomplete="one-time-code"
       inputmode="numeric"
       pattern="[0-9]{6}"
       required
       aria-describedby="one-time-code-basics-1-end-text"
-      autocomplete="one-time-code"
       id="one-time-code-basics-1"
       maxlength="6"
       name="code"

@@ -17,6 +17,7 @@ import { tmpdir } from "node:os"
 import path from "node:path"
 import ts from "typescript"
 import { afterAll, beforeAll, describe, expect, test } from "vitest"
+import { HYDRATED_FRAMEWORK_IDS } from "../../src/utils/framework.js"
 import { lightDarkSettings } from "./readme.ts"
 
 const root = path.resolve(import.meta.dirname, "../..")
@@ -282,7 +283,9 @@ test("the tarball ships the package and nothing else", () => {
     "elements/callout.js",
     "elements/character-count.js",
     "elements/copy.js",
+    "elements/file-upload.js",
     "elements/number-field.js",
+    "elements/reactions.js",
     "elements/select-all.js",
     "elements/sortable-table.js",
     "elements/text-field.js",
@@ -447,11 +450,13 @@ test("every entry point's types and the declarations they import resolve with bu
   ).toEqual([])
 })
 
+const COMPILED = new RegExp(
+  `^dist/(components|${HYDRATED_FRAMEWORK_IDS.join("|")})/.+\\.(d\\.ts|jsx?)$`,
+)
+
 test("every compiled file has a source map to a source in the package", () => {
   const compiled = files.filter(
-    (file) =>
-      /^dist\/(components|react|svelte|vue)\/.+\.(d\.ts|js)$/.test(file) &&
-      !file.endsWith("/elements.d.ts"),
+    (file) => COMPILED.test(file) && !file.endsWith("/elements.d.ts"),
   )
   expect(compiled.length).toBeGreaterThan(0)
   expect(

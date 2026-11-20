@@ -6,5 +6,5 @@
   alphanumeric
   label="Recovery code"
   name="recovery-code"
-  value="k7q"
+  defaultValue="k7q"
 />

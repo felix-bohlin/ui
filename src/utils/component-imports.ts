@@ -1,6 +1,10 @@
 import { catalog } from "../component-api/catalog.glob"
 import { exampleSources, parseExamplePath } from "./examples"
-import { PACKAGE_FRAMEWORK_IDS, type PackageFrameworkId } from "./framework"
+import {
+  exampleExtension,
+  PACKAGE_FRAMEWORK_IDS,
+  type PackageFrameworkId,
+} from "./framework"
 
 const indexes = import.meta.glob<string>("../../packages/opui/*/index.ts", {
   eager: true,
@@ -80,13 +84,8 @@ const packageFiles = Object.fromEntries(
   ).map(([file, code]) => [file.replace("../../packages/opui/", ""), code]),
 )
 
-const sourceExtension = {
-  astro: "",
-  react: ".tsx",
-  solid: ".tsx",
-  svelte: "",
-  vue: "",
-} satisfies Record<PackageFrameworkId, string>
+const sourceExtension = (framework: PackageFrameworkId) =>
+  exampleExtension(framework).slice(framework.length)
 
 const langOf = (path: string) => path.slice(path.lastIndexOf(".") + 1)
 
@@ -116,7 +115,7 @@ export const componentSources = (
   for (const [, name, path] of index.matchAll(
     /^export \{ default as (\w+) \} from "\.\.\/components\/([^"]+)"/gm,
   )) {
-    exported.set(name, `components/${path}${sourceExtension[framework]}`)
+    exported.set(name, `components/${path}${sourceExtension(framework)}`)
   }
   const entries = names.flatMap((name) => {
     const path = exported.get(name)

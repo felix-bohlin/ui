@@ -10,7 +10,7 @@ defineSlots<AccordionSummarySlots>()
 </script>
 
 <template>
-  <summary v-bind="classAttrs([$props.class])">
+  <summary v-bind="classAttrs($props.class)">
     <slot></slot>{{ " " }}<slot v-if="$slots.marker" name="marker"></slot>
     <svg
       v-else

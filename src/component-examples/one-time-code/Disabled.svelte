@@ -2,4 +2,9 @@
   import { OneTimeCode } from "opui-css/svelte"
 </script>
 
-<OneTimeCode disabled label="Verification code" name="code" value="905" />
+<OneTimeCode
+  disabled
+  label="Verification code"
+  name="code"
+  defaultValue="905"
+/>

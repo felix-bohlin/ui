@@ -2,7 +2,7 @@
 import "../../elements/character-count.js"
 import "../../elements/text-field.js"
 import { computed, inject, useId } from "vue"
-import { useInputAttrs, vSeed } from "../vue"
+import { useBound, useInputAttrs } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
@@ -41,12 +41,7 @@ const attrs = useInputAttrs()
 
 const modelValue = defineModel<string | number>()
 
-const model = computed({
-  get: () => modelValue.value ?? value,
-  set: (value) => {
-    modelValue.value = value
-  },
-})
+const bound = useBound()
 
 const field = inject(FieldGroupKey, undefined)
 
@@ -96,7 +91,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
   >
     <label
       v-if="hasLabel()"
-      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
+      :class="hideLabel ? 'ui-sr-only' : 'ui-label'"
       :for="inputId()"
       >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
     /></label>
@@ -111,6 +106,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
         <slot name="start"></slot>
       </span>
       <input
+        v-if="bound"
         v-bind="attrs()"
         :aria-describedby="
           fieldDescribedBy(
@@ -131,8 +127,31 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
         :id="inputId()"
         :name="name ?? field?.name"
         :type="type"
-        v-seed
-        v-model="model"
+        v-model="modelValue"
+      />
+      <input
+        v-else
+        v-bind="attrs()"
+        :aria-describedby="
+          fieldDescribedBy(
+            {
+              bottom: bottomId(),
+              end: endId(),
+              endText: endTextId(),
+              start: startId(),
+              startText: startTextId(),
+              top: topId(),
+            },
+            attrs()['aria-describedby'],
+          )
+        "
+        :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
+        :aria-labelledby="attrs()['aria-labelledby']"
+        :disabled="disabled"
+        :id="inputId()"
+        :name="name ?? field?.name"
+        :type="type"
+        :value.attr="value"
       />
       <span v-if="$slots.end || passwordToggle" class="ui-end" :id="endId()">
         <slot name="end"></slot

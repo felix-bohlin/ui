@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useInputAttrs } from "../vue"
+import { useBound, useInputAttrs } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import SwitchInput from "./SwitchInput.vue"
 import { hasName, warnUnnamed } from "../dev"
@@ -25,9 +25,11 @@ defineOptions({
 
 const attrs = useInputAttrs()
 
-const modelValue = defineModel<boolean | (string | number)[] | undefined>({
+const model = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
+
+const bound = useBound()
 
 warnUnnamed("Switch", hasName({ ...attrs(), label }, slots.default))
 </script>
@@ -57,13 +59,19 @@ warnUnnamed("Switch", hasName({ ...attrs(), label }, slots.default))
       ><slot name="icon-checked"></slot></span
     >{{ " "
     }}<SwitchInput
+      v-if="bound"
       v-bind="attrs()"
       :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
-      v-model="modelValue"
+      v-model="model"
+    />
+    <SwitchInput
+      v-else
+      v-bind="attrs()"
+      :aria-invalid="error ? 'true' : attrs()['aria-invalid']"
     />
     <span
       v-if="label || $slots.default"
-      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
+      :class="hideLabel ? 'ui-sr-only' : 'ui-label'"
       >{{ label }}<TrimmedSlot :nodes="$slots.default?.()"
     /></span>
     <span v-if="endText || $slots['end-text']" class="ui-end-text"

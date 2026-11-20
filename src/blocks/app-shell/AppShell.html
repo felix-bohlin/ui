@@ -97,8 +97,8 @@
       command="toggle-popover"
       commandfor="app-shell-account"
     >
-      <span class="ui-sr-only">Account menu for</span>
-      <span aria-label="Rory Rootnote" role="img">RR</span>
+      <span aria-hidden="true">RR</span>
+      <span class="ui-sr-only">Account menu for Rory Rootnote</span>
     </button>
     <menu class="ui-menu ui-align-end" id="app-shell-account" popover>
       <li class="ui-heading">rory@lowend.example</li>
@@ -413,7 +413,7 @@
             <li>
               <div class="ui-start">
                 <div class="ui-avatar" aria-label="Percy Groove" role="img">
-                  PG
+                  <span aria-hidden="true">PG</span>
                 </div>
               </div>
               <div class="ui-text">
@@ -424,7 +424,7 @@
             <li>
               <div class="ui-start">
                 <div class="ui-avatar" aria-label="Stella Nut" role="img">
-                  SN
+                  <span aria-hidden="true">SN</span>
                 </div>
               </div>
               <div class="ui-text">
@@ -435,7 +435,7 @@
             <li>
               <div class="ui-start">
                 <div class="ui-avatar" aria-label="Ines Hertz" role="img">
-                  IH
+                  <span aria-hidden="true">IH</span>
                 </div>
               </div>
               <div class="ui-text">
@@ -571,3 +571,7 @@
     }
   }
 </style>
+
+<script type="module">
+  import "opui-css/elements/menu.js"
+</script>

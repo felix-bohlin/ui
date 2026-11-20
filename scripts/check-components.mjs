@@ -4,12 +4,15 @@ import { basename, extname, join, relative } from "node:path"
 import { fileURLToPath } from "node:url"
 import { parse as parseAstro } from "@astrojs/compiler"
 import ts from "typescript"
+import { parse as parseVue } from "vue/compiler-sfc"
 import {
   componentHasFramework,
   exampleExtension,
+  extensionPattern,
   FRAMEWORK_AGNOSTIC_EXAMPLES,
   FRAMEWORK_IDS,
   PACKAGE_FRAMEWORK_IDS,
+  TYPES_FILES,
 } from "../src/utils/framework.js"
 import { BARREL_TYPES, barrelExports } from "../src/utils/package-source.js"
 import { loadCatalog } from "./catalog.mjs"
@@ -21,24 +24,32 @@ const componentsDir = join(root, "packages/opui/components")
 const examplesDir = join(root, "src/component-examples")
 const docsDir = join(root, "src/docs/components")
 
-const SCRIPTS = [
-  [".astro", /^---\n([\s\S]*?)\n---/g],
-  [".react.tsx", /^([\s\S]*)$/g],
-  [".solid.tsx", /^([\s\S]*)$/g],
-  [".svelte", /<script\b[^>]*>([\s\S]*?)<\/script>/g],
-  [".vue", /<script\b[^>]*>([\s\S]*?)<\/script>/g],
-]
+const COMPONENT_FILES = Object.fromEntries(
+  PACKAGE_FRAMEWORK_IDS.map((framework) => [
+    framework,
+    `.${exampleExtension(framework)}`,
+  ]),
+)
 
-const TYPES_FILES = [
-  [".astro", "./types.astro"],
-  [".react.tsx", "./types.react"],
-  [".solid.tsx", "./types.solid"],
-  [".svelte", "./types.svelte"],
-  [".vue", "./types.vue-props"],
-]
+const SCRIPT_BLOCKS = {
+  astro: /^---\n([\s\S]*?)\n---/g,
+  svelte: /<script\b[^>]*>([\s\S]*?)<\/script>/g,
+  vue: /<script\b[^>]*>([\s\S]*?)<\/script>/g,
+}
+
+const SCRIPTS = Object.entries(COMPONENT_FILES).map(
+  ([framework, extension]) => [
+    extension,
+    SCRIPT_BLOCKS[framework] ?? /^([\s\S]*)$/g,
+  ],
+)
+
+const OWN_TYPES = Object.entries(COMPONENT_FILES).map(
+  ([framework, extension]) => [extension, `./${BARREL_TYPES[framework]}`],
+)
 
 export const checkTypesImport = (file, source) => {
-  const own = TYPES_FILES.find(([extension]) => file.endsWith(extension))?.[1]
+  const own = OWN_TYPES.find(([extension]) => file.endsWith(extension))?.[1]
   if (!own) return []
   return [...source.matchAll(/from\s+["'](\.\/types\.[\w-]+)["']/g)]
     .filter(([, from]) => from !== own)
@@ -74,9 +85,19 @@ const CLASS_LISTS = [
     /\bclass=\{\[|\bclass=\{cx\(\[|\bclass=\{(?!\[|cx\()/g,
     "class",
   ],
-  [".svelte", /\bclass=\{\[|\{\.\.\.classAttrs\(\[/g, "class"],
-  [".vue", /:class="\[|\bclassAttrs\(\[/g, ":class"],
+  [
+    ".svelte",
+    /\bclass=\{\[|\{\.\.\.classAttrs\(\[|\bclass=\{(?!\[)|\{\.\.\.classAttrs\((?!\[)/g,
+    "class",
+  ],
+  [
+    ".vue",
+    /:class="\[|\bclassAttrs\(\[|:class="(?!\[)|\bclassAttrs\((?!\[)/g,
+    ":class",
+  ],
 ]
+
+const CLASS_LIST_ENDS = { '"': '"', "(": ")", "[": "]", "{": "}" }
 
 const CLIENT =
   /\buse(?:ActionState|Context|Effect|ImperativeHandle|InsertionEffect|LayoutEffect|Listener|Optimistic|Reducer|Ref|State|SyncExternalStore|Transition)\(|\buse\w+Context\(|\bcreateContext\(|<\w+Context\b|\bon[A-Z]\w*(?:=\{|: )/
@@ -101,26 +122,16 @@ const CONTEXT_IMPORTS = {
   "context.vue.ts": ["vue", ["InjectionKey"]],
 }
 
-const TYPE_FILES = [
-  "types.astro.ts",
-  "types.vue-props.ts",
-  "types.react.ts",
-  "types.solid.ts",
-  "types.svelte.ts",
-  "types.ts",
-]
+const TYPE_FILES = [...Object.values(TYPES_FILES), "types.ts"]
 
 const BARRELS = Object.fromEntries(
   PACKAGE_FRAMEWORK_IDS.map((framework) => [framework, `.${framework}`]),
 )
 
-const COMPONENT_FILES = {
-  astro: ".astro",
-  react: ".react.tsx",
-  solid: ".solid.tsx",
-  svelte: ".svelte",
-  vue: ".vue",
-}
+const EXAMPLE_IMPORT = new RegExp(
+  `^import\\s+([\\w$]+)\\s+from\\s+["'][^"']*component-examples\\/([\\w-]+)\\/(\\w+)\\.(?:${extensionPattern()})(?:\\?raw)?["']`,
+  "gm",
+)
 
 const exportedNames = (source) =>
   barrelExports(source)
@@ -176,12 +187,12 @@ const splitTopLevel = (body) => {
 const classLists = (source, pattern) =>
   [...source.matchAll(pattern)].map((match) => {
     const open = match[0].at(-1)
-    const close = open === "[" ? "]" : "}"
+    const close = CLASS_LIST_ENDS[open]
     let depth = 1
     let end = match.index + match[0].length
     while (end < source.length && depth > 0) {
-      if (source[end] === open) depth++
       if (source[end] === close) depth--
+      else if (source[end] === open) depth++
       end++
     }
     return splitTopLevel(source.slice(match.index + match[0].length, end - 1))
@@ -254,17 +265,59 @@ export const checkClassOrder = (lists, label) =>
     })
     .map(() => `className must be the last entry in ${label}`)
 
+const ELEMENT = 1
+const DIRECTIVE = 7
+const TEMPLATE = "<template>"
+
+const templateOf = (source) => {
+  const own = parseVue(source).descriptor.template
+  if (own) return { ast: own.ast, offset: 0 }
+  return {
+    ast: parseVue(`${TEMPLATE}${source}</template>`).descriptor.template.ast,
+    offset: TEMPLATE.length,
+  }
+}
+
+const boundBranch = (node) =>
+  node.type === ELEMENT &&
+  node.props.some(
+    (prop) =>
+      prop.type === DIRECTIVE &&
+      prop.name === "if" &&
+      /\bbound\b/.test(prop.exp?.content ?? ""),
+  )
+
+export const withoutBoundBranches = (source) => {
+  const { ast, offset } = templateOf(source)
+  const ranges = []
+  const visit = (node) => {
+    if (boundBranch(node)) {
+      ranges.push([
+        node.loc.start.offset - offset,
+        node.loc.end.offset - offset,
+      ])
+    } else node.children?.forEach(visit)
+  }
+  ast.children.forEach(visit)
+  return ranges
+    .toReversed()
+    .reduce((text, [from, to]) => text.slice(0, from) + text.slice(to), source)
+}
+
 const classTokens = (lists) =>
   lists
     .map((items) =>
       [
         ...items
           .join(" ")
-          .matchAll(/ui-\$\{(?:props\.)?(\w+)|ui-[\w-]+|\bclassName\b/g),
+          .matchAll(
+            /ui-\$\{(?:props\.|\w+\(\)\.)?(\w+)|ui-[\w-]+|\bclassName\b/g,
+          ),
       ]
         .map(([token, name]) => (name ? `ui-\${${name}}` : token))
         .join(" "),
     )
+    .filter((tokens) => tokens !== "className")
     .join("\n")
 
 const clientProblems = (source, used, uses) => {
@@ -437,6 +490,31 @@ const inList = (node) => {
     }
   }
   return false
+}
+
+const CONDITION_OPERATORS = [
+  ts.SyntaxKind.AmpersandAmpersandToken,
+  ts.SyntaxKind.BarBarToken,
+  ts.SyntaxKind.QuestionQuestionToken,
+]
+
+const isReactiveCondition = (node) => {
+  let expression = node
+  while (ts.isParenthesizedExpression(expression)) {
+    expression = expression.expression
+  }
+  return (
+    (ts.isConditionalExpression(expression) ||
+      (ts.isBinaryExpression(expression) &&
+        CONDITION_OPERATORS.includes(expression.operatorToken.kind))) &&
+    nodesIn(
+      expression,
+      (child) =>
+        ts.isCallExpression(child) ||
+        ts.isElementAccessExpression(child) ||
+        ts.isPropertyAccessExpression(child),
+    ).length > 0
+  )
 }
 
 const callsTo = (script, name) =>
@@ -702,6 +780,21 @@ export const checkSolidProps = (
       "builds JSX with .map(): Solid runs the whole callback again when the list changes and builds every row anew, so list with <For each={list}> or <Repeat count={count}>",
     )
   }
+  const conditions = nodesIn(
+    script,
+    (node) =>
+      ts.isJsxAttribute(node) &&
+      /^[A-Z]/.test(node.parent.parent.tagName.getText()) &&
+      !!node.initializer &&
+      ts.isJsxExpression(node.initializer) &&
+      !!node.initializer.expression &&
+      isReactiveCondition(node.initializer.expression),
+  )
+  for (const condition of conditions) {
+    problems.push(
+      `passes the condition ${condition.getText()} to <${condition.parent.parent.tagName.getText()}>: Solid compiles a ternary, &&, || or ?? in a component's prop to a memo per read, which takes a hydration id, and the server and the client don't read a prop equally often, so declare it as an accessor (const ${condition.name.getText().replace(/^.*[-:]/, "")} = () => ...) and pass its call`,
+    )
+  }
   const literalTag = (node) =>
     !!node &&
     (ts.isStringLiteralLike(node) ||
@@ -721,6 +814,113 @@ export const checkSolidProps = (
     )
   }
   return problems
+}
+
+const unwrapParentheses = (node) =>
+  ts.isParenthesizedExpression(node) ? unwrapParentheses(node.expression) : node
+
+const rowsOf = (node) => {
+  const row = unwrapParentheses(node)
+  if (ts.isConditionalExpression(row)) {
+    return [...rowsOf(row.whenTrue), ...rowsOf(row.whenFalse)]
+  }
+  if (
+    ts.isBinaryExpression(row) &&
+    row.operatorToken.kind === ts.SyntaxKind.AmpersandAmpersandToken
+  ) {
+    return rowsOf(row.right)
+  }
+  return isJsx(row) ? [row] : []
+}
+
+const hasKey = (row) =>
+  !ts.isJsxFragment(row) &&
+  (ts.isJsxElement(row) ? row.openingElement : row).attributes.properties.some(
+    (attribute) =>
+      ts.isJsxAttribute(attribute) && attribute.name.getText() === "key",
+  )
+
+const openingTags = (source) => {
+  const tags = []
+  for (const match of source.matchAll(/<[A-Za-z][\w.:-]*/g)) {
+    let end = match.index + match[0].length
+    let quote
+    while (end < source.length && (quote || source[end] !== ">")) {
+      if (quote) {
+        if (source[end] === quote) quote = undefined
+      } else if (source[end] === '"' || source[end] === "'") {
+        quote = source[end]
+      }
+      end++
+    }
+    tags.push(source.slice(match.index, end + 1))
+  }
+  return tags
+}
+
+const eachHeaders = (source) =>
+  [...source.matchAll(/\{#each\s/g)].map((match) => {
+    let depth = 1
+    let end = match.index + match[0].length
+    while (end < source.length && depth > 0) {
+      if (source[end] === "{") depth++
+      if (source[end] === "}") depth--
+      end++
+    }
+    return source.slice(match.index + match[0].length, end - 1)
+  })
+
+export const checkLoopKeys = (file, source) => {
+  if (file.endsWith(".react.tsx")) {
+    return nodesIn(
+      parseScript(file, source),
+      (node) =>
+        ts.isCallExpression(node) &&
+        ts.isPropertyAccessExpression(node.expression) &&
+        node.expression.name.text === "map",
+    )
+      .flatMap((call) =>
+        call.arguments.filter(
+          (argument) =>
+            ts.isArrowFunction(argument) || ts.isFunctionExpression(argument),
+        ),
+      )
+      .flatMap((callback) =>
+        ts.isBlock(callback.body)
+          ? nodesIn(callback.body, ts.isReturnStatement).flatMap((statement) =>
+              statement.expression ? rowsOf(statement.expression) : [],
+            )
+          : rowsOf(callback.body),
+      )
+      .filter((row) => !hasKey(row))
+      .map(
+        (row) =>
+          `builds ${row.getText().split("\n")[0]} with .map() and no key: React matches the rows of a list by their key, so give each row key={...}, the item's own value where it has one and the index otherwise`,
+      )
+  }
+  if (file.endsWith(".svelte")) {
+    return eachHeaders(source)
+      .filter(
+        (header) =>
+          !header.includes(" as ") ||
+          !/\)\s*$/.test(header.slice(header.lastIndexOf(" as "))),
+      )
+      .map(
+        (header) =>
+          `has {#each ${header.trim()}} without a key: Svelte matches the rows of a list by their key, so end the block's opening with (key), the item's own value where it has one and the index otherwise`,
+      )
+  }
+  if (file.endsWith(".vue")) {
+    return openingTags(source)
+      .filter(
+        (tag) => /\sv-for="/.test(tag) && !/\s(?::|v-bind:)key="/.test(tag),
+      )
+      .map(
+        (tag) =>
+          `has ${/\sv-for="[^"]*"/.exec(tag)[0].trim()} on <${/^<([\w.:-]+)/.exec(tag)[1]}> without :key: Vue matches the rows of a list by their key, so bind :key on the element with v-for, the item's own value where it has one and the index otherwise`,
+      )
+  }
+  return []
 }
 
 export const checkVueAttrs = (source) =>
@@ -783,6 +983,24 @@ export const checkProvide = (file, source) => {
         `provides ${call.arguments[0]?.getText()} without reactive(): Vue provides the Context object as reactive({ ... })`,
     )
 }
+
+export const checkReactProps = (file, source) =>
+  nodesIn(
+    parse(file, source),
+    (node) =>
+      ts.isJsxAttribute(node) &&
+      node.name.getText() === "value" &&
+      /Context(\.Provider)?$/.test(node.parent.parent.tagName.getText()) &&
+      !!node.initializer &&
+      ts.isJsxExpression(node.initializer) &&
+      !!node.initializer.expression &&
+      ts.isObjectLiteralExpression(
+        unwrapParentheses(node.initializer.expression),
+      ),
+  ).map(
+    (node) =>
+      `passes <${node.parent.parent.tagName.getText()}> an object literal as its value: it is a new object on every render, so every consumer renders again. Memoize it (const context = useMemo<Context>(() => ({ ... }), [...]))`,
+  )
 
 export const checkContext = (file, source, folder) => {
   const name = basename(file)
@@ -989,7 +1207,7 @@ const pageExamples = async (file, slug, seen = new Set()) => {
     },
   )
   for (const [, binding, folder, name] of frontmatter.matchAll(
-    /^import\s+([\w$]+)\s+from\s+["'][^"']*component-examples\/([\w-]+)\/(\w+)\.(?:astro|html|react\.tsx|solid\.tsx|svelte|vue)(?:\?raw)?["']/gm,
+    EXAMPLE_IMPORT,
   )) {
     if (new RegExp(`(?<![\\w$])${binding}(?![\\w$])`).test(source)) {
       examples.push({ auto: false, name, slug: folder })
@@ -1135,11 +1353,13 @@ const main = async () => {
       if (CONTEXT_FILES.includes(file)) {
         reportAll(path, checkContext(path, source, folder))
       }
+      reportAll(path, checkLoopKeys(path, source))
       if (file.endsWith(".vue")) {
         reportAll(path, checkProvide(path, source))
         reportAll(path, checkVueAttrs(source))
       }
       if (file.endsWith(".react.tsx")) {
+        reportAll(path, checkReactProps(path, source))
         const svelte = `${basename(file, ".react.tsx")}.svelte`
         const snippets = files.includes(svelte)
           ? (destructuredRuns(
@@ -1179,9 +1399,14 @@ const main = async () => {
       for (const [extension, pattern, label] of CLASS_LISTS) {
         if (!file.endsWith(extension)) continue
         const lists = classLists(
-          extension === ".vue" || extension === ".solid.tsx"
-            ? source.replace(/\$?props\.class\b/g, "className")
-            : source,
+          extension === ".vue"
+            ? withoutBoundBranches(source).replace(
+                /\$?props\.class\b/g,
+                "className",
+              )
+            : extension === ".solid.tsx"
+              ? source.replace(/\$?props\.class\b/g, "className")
+              : source,
           pattern,
         )
         reportAll(path, checkClassOrder(lists, label))

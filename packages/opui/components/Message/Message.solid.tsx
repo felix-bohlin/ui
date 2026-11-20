@@ -13,10 +13,12 @@ export default function Message(props: Props) {
     "time",
     "typing",
     "children",
+    "actions",
     "bottom",
     "end",
     "start",
   )
+  const resolvedActions = children(() => props.actions)
   const resolvedBottom = children(() => props.bottom)
   const resolvedChildren = children(() => props.children)
   const resolvedEnd = children(() => props.end)
@@ -53,6 +55,7 @@ export default function Message(props: Props) {
           )}
         </div>
       )}
+      {resolvedActions() && <div class="ui-actions">{resolvedActions()}</div>}
       {resolvedBottom() && <div class="ui-bottom">{resolvedBottom()}</div>}
     </li>
   )

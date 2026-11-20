@@ -7,6 +7,7 @@ import {
   useAttrs,
   useId,
 } from "vue"
+import { useBound } from "../vue"
 import { TabsKey } from "./context.vue"
 import { warnUnnamedGroup } from "../dev"
 import type { Props, Slots } from "./types.vue-props"
@@ -18,9 +19,7 @@ const attrs = useAttrs() as HTMLAttributes
 
 const model = defineModel<string>()
 
-const change = (input: HTMLInputElement) => {
-  if (model.value !== undefined) model.value = input.value
-}
+const bound = useBound()
 
 const uid = useId()
 
@@ -28,7 +27,7 @@ const groupName = computed(() => name || `tabs-${uid}`)
 
 if (role === "radiogroup") warnUnnamedGroup("Tabs", attrs)
 
-provide(TabsKey, reactive({ change, groupName, value: model }))
+provide(TabsKey, reactive({ bound, groupName, value: model }))
 </script>
 
 <template>

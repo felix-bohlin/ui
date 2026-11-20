@@ -7,5 +7,5 @@
   label="Quantity"
   max={10}
   min={1}
-  value={1}
+  defaultValue={1}
 />

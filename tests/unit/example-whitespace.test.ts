@@ -5,6 +5,10 @@ import {
   createRenderer,
 } from "../../scripts/build-examples.mjs"
 import { whitespaceRoles } from "../../scripts/example-html.mjs"
+import {
+  EXAMPLE_EXTENSIONS,
+  HYDRATED_FRAMEWORK_IDS,
+} from "../../src/utils/framework"
 import { normalize } from "./normalize"
 import { render } from "./renderers"
 
@@ -23,16 +27,11 @@ afterAll(async () => {
   rmSync(samples, { force: true, recursive: true })
 })
 
-const EXTENSIONS = {
-  react: "react.tsx",
-  solid: "solid.tsx",
-  svelte: "svelte",
-  vue: "vue",
-}
+const EXTENSIONS = EXAMPLE_EXTENSIONS
 
-type Target = keyof typeof EXTENSIONS
+const TARGETS = HYDRATED_FRAMEWORK_IDS
 
-const TARGETS = Object.keys(EXTENSIONS) as Target[]
+type Target = (typeof TARGETS)[number]
 
 const renderSample = async (framework: Target, path: URL) =>
   render[framework](

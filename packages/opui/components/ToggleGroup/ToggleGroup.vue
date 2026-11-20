@@ -7,7 +7,7 @@ import {
   useAttrs,
   useId,
 } from "vue"
-import { selectionOf } from "./selection"
+import { useBound } from "../vue"
 import { ToggleGroupKey } from "./context.vue"
 import { warnUnnamedGroup } from "../dev"
 import type { Props, Slots } from "./types.vue-props"
@@ -23,10 +23,7 @@ const attrs = useAttrs() as HTMLAttributes
 
 const model = defineModel<Model>()
 
-const change = (input: HTMLInputElement) => {
-  if (model.value !== undefined)
-    model.value = selectionOf(input, multiple) as Model
-}
+const bound = useBound()
 
 const uid = useId()
 
@@ -36,10 +33,7 @@ const inputType = computed(() => (multiple ? "checkbox" : "radio"))
 
 warnUnnamedGroup("ToggleGroup", attrs)
 
-provide(
-  ToggleGroupKey,
-  reactive({ change, groupName, inputType, value: model }),
-)
+provide(ToggleGroupKey, reactive({ bound, groupName, inputType, value: model }))
 </script>
 
 <template>

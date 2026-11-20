@@ -7,7 +7,7 @@
     aria-describedby="control-group-labels-1"
     label="Discount code"
     name="discount"
-    value="SPRING10"
+    defaultValue="SPRING10"
   />
   <Button>Apply</Button>
 </ControlGroup>

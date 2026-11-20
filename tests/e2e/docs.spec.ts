@@ -1,7 +1,7 @@
 import { readdirSync } from "node:fs"
 import { expect, test } from "@playwright/test"
 import type { Locator, Page } from "@playwright/test"
-import { FRAMEWORK_IDS } from "../../src/utils/framework"
+import { FRAMEWORK_IDS, PACKAGE_FRAMEWORK_IDS } from "../../src/utils/framework"
 import { FIREFOX_STICKY_ANCHOR_SCROLL, failsIn } from "./engine-bugs"
 import {
   computed,
@@ -299,7 +299,7 @@ test.describe("search", () => {
     const options = page.locator("#results-list [role=option]")
     await expect(options.first()).toHaveAttribute(
       "href",
-      /^\/(astro|react|solid|svelte|vue)\/api\/#carousel$/,
+      new RegExp(`^/(${PACKAGE_FRAMEWORK_IDS.join("|")})/api/#carousel$`),
     )
     await expect(page.locator("#search-status")).toHaveText(
       `No results in HTML, ${await options.count()} in other frameworks`,

@@ -841,7 +841,7 @@ export const toVue = (component) => {
   const statements = [
     ...(filteredAttrs
       ? [
-          `const restAttrs = computed(() =>\n  Object.fromEntries(\n    Object.entries(attrs).filter(\n      ([key]) => ${attributeProps.map(({ prop }) => `key !== ${JSON.stringify(prop)}`).join(" && ")},\n    ),\n  ),\n)`,
+          `const restAttrs = computed(() => {\n  const { ${attributeProps.map(({ local, prop }) => `${JSON.stringify(prop)}: _${local}, `).join("")}...rest } = attrs\n  return rest\n})`,
         ]
       : []),
     ...(kind?.setup?.(model, generic, modelRead) ?? []),

@@ -220,6 +220,10 @@ const ELEMENTS: Scenario[] = [
       await expect(page.locator("[data-opui-announcer]")).toHaveText(
         `${12 - text.length} left`,
       )
+      await page.evaluate(() => {
+        document.querySelector("input")!.value = ""
+      })
+      await expect(page.locator("opui-character-count")).toHaveText("0/12")
     },
   },
   {
@@ -662,3 +666,61 @@ for (const order of ["before", "after"] as const) {
     }
   })
 }
+
+test("close-on-navigate.js closes a drawer on a click on a link in it, unless the link has data-keep-open", async ({
+  page,
+}) => {
+  await page.route(`${ORIGIN}/**`, (route) =>
+    route.fulfill(
+      route.request().url().endsWith(".js")
+        ? {
+            body: source("close-on-navigate.js"),
+            contentType: "text/javascript",
+          }
+        : {
+            body: `<!doctype html><html lang="en"><head>
+              <script type="module" src="/close-on-navigate.js"></script>
+              <script>
+                document.addEventListener("click", (event) => {
+                  const link = event.target.closest("a")
+                  if (!link) return
+                  event.preventDefault()
+                  history.pushState(null, "", link.href)
+                })
+              </script>
+            </head><body>
+              <dialog aria-label="Navigate" class="ui-drawer" data-close-on-navigate>
+                <a href="/chat">Chat</a>
+                <a data-keep-open href="/chat?pages=2">Load more</a>
+              </dialog>
+            </body></html>`,
+            contentType: "text/html",
+          },
+    ),
+  )
+  await instantScrolling(page)
+  await page.goto(`${ORIGIN}/chat?with=lou`)
+  const drawer = page.getByRole("dialog", { name: "Navigate" })
+  const show = () =>
+    page.evaluate(() => document.querySelector("dialog")!.showModal())
+  await page.waitForFunction(
+    () =>
+      (document as unknown as Record<symbol, boolean>)[
+        Symbol.for("opui-close-on-navigate")
+      ],
+  )
+
+  await show()
+  await drawer.getByRole("link", { name: "Load more" }).click()
+  await expect(page).toHaveURL(`${ORIGIN}/chat?pages=2`)
+  await expect(drawer).toBeVisible()
+  await page.evaluate(() => history.replaceState(null, "", "?sort=new"))
+  await expect(drawer).toBeVisible()
+  await drawer.getByRole("link", { name: "Chat" }).click()
+  await expect(page).toHaveURL(`${ORIGIN}/chat`)
+  await expect(drawer).toBeHidden()
+
+  await show()
+  await page.evaluate(() => history.pushState(null, "", "/photos"))
+  await expect(drawer).toBeHidden()
+})

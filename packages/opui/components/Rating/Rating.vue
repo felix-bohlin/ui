@@ -25,16 +25,15 @@ defineOptions({
 
 const attrs = useAttrs() as HTMLAttributes
 
-const restAttrs = computed(() =>
-  Object.fromEntries(
-    Object.entries(attrs).filter(
-      ([key]) =>
-        key !== "aria-describedby" &&
-        key !== "aria-invalid" &&
-        key !== "aria-label",
-    ),
-  ),
-)
+const restAttrs = computed(() => {
+  const {
+    "aria-describedby": _ariaDescribedBy,
+    "aria-invalid": _ariaInvalid,
+    "aria-label": _ariaLabel,
+    ...rest
+  } = attrs
+  return rest
+})
 
 const modelValue = defineModel<number | string>()
 

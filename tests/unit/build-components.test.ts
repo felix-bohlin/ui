@@ -1261,7 +1261,7 @@ describe("the ports of a sample", () => {
     )
     expect(ports.vue).toContain("inheritAttrs: false")
     expect(ports.vue).toContain(
-      'Object.entries(attrs).filter(([key]) => key !== "aria-describedby")',
+      'const { "aria-describedby": _ariaDescribedBy, ...rest } = attrs',
     )
     expect(ports.vue).toContain('v-bind="restAttrs"')
   })

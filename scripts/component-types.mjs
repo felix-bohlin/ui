@@ -833,9 +833,21 @@ export const toTypes = (
         const attributes = baseAlias
           ? attributeKeys(baseAlias.type, baseAliases)
           : []
-        return attributes.length
-          ? `Omit<${entry}, ${attributes.map((key) => JSON.stringify(key)).join(" | ")}>`
-          : entry
+        if (!attributes.length) return entry
+        const unions = members(baseAlias.type).filter(
+          (part) =>
+            isUnion(part) &&
+            !attributeKeys(part, baseAliases).length &&
+            !containsKind(part, ts.isTypeReferenceNode),
+        )
+        return [
+          `Omit<${entry}, ${attributes.map((key) => JSON.stringify(key)).join(" | ")}>`,
+          ...unions.map((part) =>
+            ts.isParenthesizedTypeNode(part)
+              ? part.getText()
+              : `(${part.getText()})`,
+          ),
+        ].join(" & ")
       })
       return `export type ${name} = ${[...withoutAttributes, "Class", ...(extras.length ? [`{ ${extras.join("; ")} }`] : [])].join(" & ")}`
     })

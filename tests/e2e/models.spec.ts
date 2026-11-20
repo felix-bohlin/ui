@@ -46,6 +46,26 @@ for (const { id, label } of FRAMEWORKS) {
       expect(errors).toEqual([])
     })
 
+    test("a shown password stays shown when another prop changes", async ({
+      page,
+    }) => {
+      const password = page.getByLabel("Password", { exact: true })
+      const toggle = page.getByRole("button", { name: "Show password" })
+      await password.fill("correct horse")
+      await toggle.click()
+      await expect(password).toHaveAttribute("type", "text")
+      await page.getByRole("button", { name: "Toggle error" }).click()
+
+      await expect(password).toHaveAttribute("aria-invalid", "true")
+      await expect(password).toHaveAttribute("type", "text")
+      await expect(toggle).toHaveAttribute("aria-pressed", "true")
+      await toggle.click()
+      await expect(password).toHaveAttribute("type", "password")
+      await page.getByRole("button", { name: "Toggle error" }).click()
+      await expect(password).toHaveAttribute("type", "password")
+      await expect(toggle).toHaveAttribute("aria-pressed", "false")
+    })
+
     test("a select picks the child option its defaultValue names", async ({
       page,
     }) => {
@@ -62,6 +82,7 @@ for (const { id, label } of FRAMEWORKS) {
       await page.getByRole("button", { name: "Set values" }).click()
       await expect(name).toHaveValue("Grace")
       await expect(page.getByLabel("Plan")).toHaveValue("paid")
+      await expect(page.locator("opui-character-count")).toHaveText("5/20")
       await page.getByLabel("City").fill("Malmo")
       await fruit.selectOption("cherry")
 

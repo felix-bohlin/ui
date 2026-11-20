@@ -198,10 +198,6 @@ test.describe("on a phone", () => {
   test("the nav drawer closes when a link only changes the query", async ({
     page,
   }) => {
-    test.fail(
-      test.info().project.name !== "astro",
-      `${KNOWN.queryNavigation}. Astro's ClientRouter swaps in a new drawer, so the open one is gone`,
-    )
     await open(page, "/chat?with=lou")
     await page.getByRole("button", { name: "Menu" }).click()
     const drawer = page.getByRole("dialog", { name: "Navigate" })

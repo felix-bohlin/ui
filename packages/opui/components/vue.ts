@@ -17,12 +17,10 @@ export type DefaultSlots = {
 
 export const useInputAttrs = () => {
   const attrs = useAttrs()
-  return computed(
-    () =>
-      Object.fromEntries(
-        Object.entries(attrs).filter(([key]) => key !== "style"),
-      ) as HTMLAttributes,
-  )
+  return computed(() => {
+    const { style: _style, ...rest } = attrs
+    return rest as HTMLAttributes
+  })
 }
 
 export const useBound = () => {

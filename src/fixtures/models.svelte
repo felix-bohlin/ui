@@ -52,6 +52,7 @@
 
 <form>
   <TextField defaultValue="Lund" {error} label="City" />
+  <TextField {error} label="Password" passwordToggle type="password" />
   <NumberField defaultValue={1} {error} label="Quantity" />
   <Checkbox checked={false} {error}>Newsletter</Checkbox>
   <Select {error} label="Size" value="small">
@@ -62,7 +63,7 @@
     <option value="red">Red</option>
     <option value="blue">Blue</option>
   </Select>
-  <TextField label="Name" bind:value={name} />
+  <TextField characterCount label="Name" maxlength={20} bind:value={name} />
   <Select label="Plan" bind:value={plan}>
     <option value="free">Free</option>
     <option value="paid">Paid</option>

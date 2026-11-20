@@ -18,13 +18,14 @@ defineOptions({
 
 const attrs = useAttrs() as HTMLAttributes
 
-const restAttrs = computed(() =>
-  Object.fromEntries(
-    Object.entries(attrs).filter(
-      ([key]) => key !== "aria-label" && key !== "aria-labelledby",
-    ),
-  ),
-)
+const restAttrs = computed(() => {
+  const {
+    "aria-label": _ariaLabel,
+    "aria-labelledby": _ariaLabelledby,
+    ...rest
+  } = attrs
+  return rest
+})
 
 const used = computed(() => items.find((item) => item.value === quick?.value))
 

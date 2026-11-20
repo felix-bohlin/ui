@@ -21,6 +21,7 @@ import type * as CarouselAstro from "../../packages/opui/components/Carousel/typ
 import type * as CarouselReact from "../../packages/opui/components/Carousel/types.react"
 import type * as CarouselSolid from "../../packages/opui/components/Carousel/types.solid"
 import type * as CarouselSvelte from "../../packages/opui/components/Carousel/types.svelte"
+import type * as CarouselVue from "../../packages/opui/components/Carousel/types.vue-props"
 import type * as DialogAstro from "../../packages/opui/components/Dialog/types.astro"
 import type * as DialogReact from "../../packages/opui/components/Dialog/types.react"
 import type * as DialogSolid from "../../packages/opui/components/Dialog/types.solid"
@@ -405,12 +406,14 @@ test("the label, target and icon of a generated control need the boolean that ad
   type EveryCarousel = CarouselAstro.Props &
     CarouselReact.Props &
     CarouselSolid.Props &
-    CarouselSvelte.Props
+    CarouselSvelte.Props &
+    CarouselVue.Props
   type AnyCarousel =
     | CarouselAstro.Props
     | CarouselReact.Props
     | CarouselSolid.Props
     | CarouselSvelte.Props
+    | CarouselVue.Props
 
   expectTypeOf<{ closeLabel: string }>().not.toExtend<AnyDrawerHeader>()
   expectTypeOf<{ commandfor: string }>().not.toExtend<AnyDrawerHeader>()

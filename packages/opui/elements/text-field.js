@@ -5,6 +5,7 @@ const TOGGLE = "--toggle-password"
 export class TextFieldElement extends Base {
   #controller
   #observer
+  #shown = false
 
   get input() {
     return this.querySelector("input")
@@ -28,7 +29,7 @@ export class TextFieldElement extends Base {
     }
     this.#observer = new MutationObserver(() => this.#sync())
     this.#observer.observe(this, {
-      attributeFilter: ["aria-disabled", "disabled"],
+      attributeFilter: ["aria-disabled", "disabled", "type"],
       childList: true,
       subtree: true,
     })
@@ -50,6 +51,7 @@ export class TextFieldElement extends Base {
 
   hidePassword() {
     const input = this.input
+    this.#shown = false
     if (input?.type === "text" && this.#toggle()) {
       input.type = "password"
       this.#sync()
@@ -59,6 +61,7 @@ export class TextFieldElement extends Base {
   showPassword() {
     const input = this.input
     if (input?.type === "password" && this.#toggle()) {
+      this.#shown = true
       input.type = "text"
       this.#sync()
     }
@@ -76,6 +79,7 @@ export class TextFieldElement extends Base {
     const input = this.input
     if (!button || !input) return
     if (input.matches(":disabled")) this.hidePassword()
+    else if (this.#shown && input.type === "password") input.type = "text"
     button.setAttribute("aria-pressed", String(input.type === "text"))
     if (button.disabled !== input.disabled) button.disabled = input.disabled
     const inert = input.getAttribute("aria-disabled") === "true"

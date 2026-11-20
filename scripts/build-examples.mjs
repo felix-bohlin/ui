@@ -81,6 +81,14 @@ export const REACT_DEFAULT_VALUE = [
   "ToggleGroup",
 ]
 
+export const SVELTE_DEFAULT_VALUE = [
+  "NumberField",
+  "OneTimeCode",
+  "Range",
+  "TextField",
+  "Textarea",
+]
+
 const NUMERIC_ATTRIBUTES = [
   "colspan",
   "maxlength",
@@ -1051,19 +1059,27 @@ const markupTarget = (framework, roles) => {
         ? `v-for="${item.value}"`
         : `:${item.name}="${attributeText(item.value)}"`
       : `${item.name}={${item.value}}`
-  const svelteDefaults = (node) =>
-    !vue &&
-    node.component &&
-    reactPropsOf(node.name, node.component)?.has("defaultChecked")
+  const svelteDefaults = (node) => {
+    if (vue || !node.component) return node
+    const checked = reactPropsOf(node.name, node.component)?.has(
+      "defaultChecked",
+    )
+    const value =
+      SVELTE_DEFAULT_VALUE.includes(node.name) &&
+      !node.attributes.some((item) => item.name === "readonly")
+    return checked || value
       ? {
           ...node,
           attributes: node.attributes.map((item) =>
-            item.name === "checked"
+            checked && item.name === "checked"
               ? { ...item, name: "defaultChecked" }
-              : item,
+              : value && item.name === "value"
+                ? { ...item, name: "defaultValue" }
+                : item,
           ),
         }
       : node
+  }
   const vueModel = (node) =>
     vue && node.component && VUE_MODEL_VALUE.includes(node.name)
       ? {

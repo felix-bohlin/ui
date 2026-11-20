@@ -50,7 +50,7 @@
 </script>
 
 <form>
-  <TextField {error} label="City" value="Lund" />
+  <TextField defaultValue="Lund" {error} label="City" />
   <Checkbox checked={false} {error}>Newsletter</Checkbox>
   <Select {error} label="Size" value="small">
     <option value="small">Small</option>

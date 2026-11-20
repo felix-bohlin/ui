@@ -1,7 +1,6 @@
 <script lang="ts">
   import "../../elements/character-count.js"
   import "../../elements/text-field.js"
-  import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import Button from "../Button/Button.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
@@ -52,7 +51,6 @@
   const setValue = (next: typeof value) => {
     value = next
   }
-  const initialValue = untrack(getValue)
   const base = $derived(id || `text-field-${uid}`)
   const hasLabel = $derived(Boolean(label))
   const Root = $derived(passwordToggle ? "opui-text-field" : "div")
@@ -123,7 +121,7 @@
       name={name ?? field?.name}
       {type}
       bind:value={getValue, setValue}
-      defaultValue={defaultValue ?? initialValue}
+      {defaultValue}
     />
     {#if end || passwordToggle}
       <span class="ui-end" id={endId}>

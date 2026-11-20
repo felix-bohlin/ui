@@ -17,13 +17,13 @@
     endText="Write at least 20 characters."
     error
     label="Review"
-    value="Great"
+    defaultValue="Great"
   />
   <Textarea
     endText="Remove the link. Bios are plain text."
     error
     label="Bio"
-    value="Designer at https://example.com"
+    defaultValue="Designer at https://example.com"
     variant="filled"
   />
 </div>

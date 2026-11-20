@@ -8,5 +8,5 @@
   max={10}
   min={1}
   stretch
-  value={1}
+  defaultValue={1}
 />

@@ -10,7 +10,7 @@
   min={1}
   spread
   startText="Count children too."
-  value={2}
+  defaultValue={2}
 />
 <NumberField
   id="number-field-spread-2"
@@ -19,6 +19,6 @@
   min={1}
   spread
   startText="Check-out is at 11:00."
-  value={3}
+  defaultValue={3}
   variant="filled"
 />

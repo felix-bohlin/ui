@@ -24,10 +24,10 @@
   <output>{values.checkbox}</output>
 </form>
 <form data-case="checkbox-rerender">
-  <input aria-label="Agree" checked data-round={round} type="checkbox" />
+  <input aria-label="Agree" defaultChecked data-round={round} type="checkbox" />
 </form>
 <form data-case="checkbox-default">
-  <input aria-label="Agree" checked type="checkbox" />
+  <input aria-label="Agree" defaultChecked type="checkbox" />
 </form>
 <form data-case="checkbox-empty">
   <input aria-label="Agree" type="checkbox" />
@@ -79,7 +79,13 @@
 </form>
 <form data-case="radio-default">
   <input aria-label="Tea" name="drink" type="radio" value="tea" />
-  <input aria-label="Coffee" checked name="drink" type="radio" value="coffee" />
+  <input
+    aria-label="Coffee"
+    defaultChecked
+    name="drink"
+    type="radio"
+    value="coffee"
+  />
 </form>
 <form data-case="radio-empty">
   <input aria-label="Tea" name="drink" type="radio" value="tea" />
@@ -90,7 +96,7 @@
   <output>{values.range}</output>
 </form>
 <form data-case="range-default">
-  <input aria-label="Level" type="range" value="40" />
+  <input aria-label="Level" type="range" defaultValue="40" />
 </form>
 <form data-case="rating-bound">
   {#each stars as star (star)}
@@ -168,10 +174,10 @@
   <output>{values.text}</output>
 </form>
 <form data-case="text-rerender">
-  <input aria-label="Name" data-round={round} value="Ada" />
+  <input aria-label="Name" data-round={round} defaultValue="Ada" />
 </form>
 <form data-case="text-default">
-  <input aria-label="Name" value="Ada" />
+  <input aria-label="Name" defaultValue="Ada" />
 </form>
 <form data-case="text-empty">
   <input aria-label="Name" />
@@ -181,7 +187,7 @@
   <output>{values.toggle}</output>
 </form>
 <form data-case="toggle-default">
-  <input aria-label="Bold" checked type="checkbox" />
+  <input aria-label="Bold" defaultChecked type="checkbox" />
 </form>
 <form data-case="toggle-empty">
   <input aria-label="Bold" type="checkbox" />

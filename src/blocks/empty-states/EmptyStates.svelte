@@ -99,7 +99,7 @@
           label="Search Bassbook"
           name="q"
           type="search"
-          value="flatwond strings"
+          defaultValue="flatwond strings"
         >
           {#snippet start()}
             <svg

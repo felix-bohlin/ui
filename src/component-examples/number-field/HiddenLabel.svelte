@@ -7,5 +7,5 @@
   id="number-field-hidden-label-1"
   label="Quantity"
   min={1}
-  value={1}
+  defaultValue={1}
 />

@@ -611,39 +611,40 @@ const NATIVE_CASES: {
   { after: { click: 0 }, before: { click: 0 }, name: "toggle-empty" },
 ]
 
-const SVELTE_DEFAULTS =
-  "the control prints its first bound value as defaultValue or defaultChecked (initialValue, initialChecked, seedChecked in components/svelte.ts), which bind: on a native control doesn't, so a form reset returns to it"
 const SVELTE_SELECT =
   "the hand-written Select marks its options selected from the bound value, which bind:value on a native select doesn't"
 const SOLID_SELECT_DEFAULT =
   "Solid has no defaultValue on a select, so the Select's defaultValue marks its options as the default, as React's native defaultValue does"
 
+const SVELTE_GROUP =
+  "a component can't use bind:group, so Radio, Rating, TabsItem and ToggleButton write checked from the bound value with the seedChecked attachment (components/svelte.ts), which keeps the first state as defaultChecked to tell a choice made before hydration from the server's"
+const SVELTE_SPREAD =
+  "Svelte drops the server's value and checked attributes from an input with only bind: when it hydrates, and keeps them on an input with a spread, as every component's input has"
+
 const differences = (app: string, reason: string, names: string[]) =>
   names.map((name) => ({ app, name, reason }))
 
 const NATIVE_DIFFERENCES = [
-  ...differences("sveltekit", SVELTE_DEFAULTS, [
-    "checkbox-bound",
-    "checkbox-rerender",
+  ...differences("sveltekit", SVELTE_GROUP, [
     "group-bound",
     "radio-bound",
-    "range-bound",
     "rating-bound",
     "rating-default",
     "tabs-bound",
-    "text-bound",
     "toggle-bound",
   ]),
-  ...differences("vite-solid", SOLID_SELECT_DEFAULT, ["select-default"]),
-  ...differences("vite-svelte", SVELTE_DEFAULTS, [
+  ...differences("sveltekit", SVELTE_SPREAD, [
     "checkbox-bound",
+    "range-bound",
+    "text-bound",
+  ]),
+  ...differences("vite-solid", SOLID_SELECT_DEFAULT, ["select-default"]),
+  ...differences("vite-svelte", SVELTE_GROUP, [
     "group-bound",
     "radio-bound",
-    "range-bound",
     "rating-bound",
     "rating-default",
     "tabs-bound",
-    "text-bound",
     "toggle-bound",
   ]),
   ...differences("vite-svelte", SVELTE_SELECT, [

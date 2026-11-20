@@ -134,7 +134,7 @@
             max={10}
             min={1}
             name="quantity"
-            value={1}
+            defaultValue={1}
           />
           <Button class="pd-add" type="submit" variant="filled">
             <svg

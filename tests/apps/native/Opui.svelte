@@ -42,10 +42,10 @@
   <output>{values.checkbox}</output>
 </form>
 <form data-case="checkbox-rerender">
-  <Checkbox checked data-round={round} label="Agree" />
+  <Checkbox defaultChecked data-round={round} label="Agree" />
 </form>
 <form data-case="checkbox-default">
-  <Checkbox checked label="Agree" />
+  <Checkbox defaultChecked label="Agree" />
 </form>
 <form data-case="checkbox-empty">
   <Checkbox label="Agree" />
@@ -81,7 +81,7 @@
 </form>
 <form data-case="radio-default">
   <Radio label="Tea" name="drink" value="tea" />
-  <Radio checked label="Coffee" name="drink" value="coffee" />
+  <Radio defaultChecked label="Coffee" name="drink" value="coffee" />
 </form>
 <form data-case="radio-empty">
   <Radio label="Tea" name="drink" value="tea" />
@@ -92,7 +92,7 @@
   <output>{values.range}</output>
 </form>
 <form data-case="range-default">
-  <Range label="Level" value="40" />
+  <Range label="Level" defaultValue="40" />
 </form>
 <form data-case="rating-bound">
   <Rating bind:value={values.rating} label="Score" name="score" />
@@ -137,10 +137,10 @@
   <output>{values.text}</output>
 </form>
 <form data-case="text-rerender">
-  <TextField data-round={round} label="Name" value="Ada" />
+  <TextField data-round={round} label="Name" defaultValue="Ada" />
 </form>
 <form data-case="text-default">
-  <TextField label="Name" value="Ada" />
+  <TextField label="Name" defaultValue="Ada" />
 </form>
 <form data-case="text-empty">
   <TextField label="Name" />
@@ -150,7 +150,7 @@
   <output>{values.toggle}</output>
 </form>
 <form data-case="toggle-default">
-  <ToggleButton checked>Bold</ToggleButton>
+  <ToggleButton defaultChecked>Bold</ToggleButton>
 </form>
 <form data-case="toggle-empty">
   <ToggleButton>Bold</ToggleButton>

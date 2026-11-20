@@ -4,9 +4,11 @@ import { pathToFileURL } from "node:url"
 import { convertToTSX } from "@astrojs/compiler"
 import { experimental_AstroContainer as AstroContainer } from "astro/container"
 import { parseFragment } from "parse5"
+import { render } from "svelte/server"
 import { describe, expect, test } from "vitest"
 import { compileTemplate } from "vue/compiler-sfc"
 import BooleanSpread from "./fixtures/BooleanSpread.astro"
+import BoundDefaultValue from "./fixtures/BoundDefaultValue.svelte"
 import EmptyUnknown from "./fixtures/EmptyUnknown.astro"
 import UndefinedSpread from "./fixtures/UndefinedSpread.astro"
 
@@ -135,6 +137,15 @@ describe("tooling bugs the generator and the components work around", () => {
         "packages/opui/css/components/menu.css, the inset formula for submenus of submenus",
       ),
     ).toThrow('Function("anchored")')
+  })
+
+  test("Svelte's server render leaves out the defaultValue of an input with bind:value", () => {
+    expect(
+      render(BoundDefaultValue).body,
+      fixed(
+        "scripts/component-models.mjs, whose Svelte value getter falls back to defaultValue so the server renders it: bind the value directly",
+      ),
+    ).not.toContain('value="Percy"')
   })
 
   test("parse5 drops the button and div inside a select", () => {

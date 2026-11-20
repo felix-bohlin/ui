@@ -18,13 +18,13 @@
     endText="Whoops, this username is taken. Try another one."
     error
     label="Username"
-    value="ada"
+    defaultValue="ada"
   />
   <TextField
     endText="Bummer, this code has expired."
     error
     label="Gear discount code"
-    value="STRINGS23"
+    defaultValue="STRINGS23"
     variant="filled"
   />
 </div>

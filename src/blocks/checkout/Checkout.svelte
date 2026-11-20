@@ -60,7 +60,7 @@
             placeholder="you@example.com"
             required
             type="email"
-            value="ines.hertz@example.com"
+            defaultValue="ines.hertz@example.com"
           />
           <Checkbox defaultChecked id="checkout-news" name="news">
             Email me about new gear and totally rad offers
@@ -78,7 +78,7 @@
               name="first-name"
               required
               type="text"
-              value="Ines"
+              defaultValue="Ines"
             />
             <TextField
               autocomplete="family-name"
@@ -87,7 +87,7 @@
               name="last-name"
               required
               type="text"
-              value="Hertz"
+              defaultValue="Hertz"
             />
           </FieldGroup>
           <TextField
@@ -97,7 +97,7 @@
             name="address"
             required
             type="text"
-            value="4 Drop D Drive"
+            defaultValue="4 Drop D Drive"
           />
           <FieldGroup orientation="horizontal">
             <TextField
@@ -108,7 +108,7 @@
               name="postal-code"
               required
               type="text"
-              value="444 44"
+              defaultValue="444 44"
             />
             <TextField
               autocomplete="address-level2"
@@ -117,7 +117,7 @@
               name="city"
               required
               type="text"
-              value="Bassville"
+              defaultValue="Bassville"
             />
           </FieldGroup>
           <FieldGroup orientation="horizontal">
@@ -140,7 +140,7 @@
               label="Phone"
               name="phone"
               type="tel"
-              value="555 0144"
+              defaultValue="555 0144"
             />
           </FieldGroup>
         </FieldGroup>
@@ -377,7 +377,7 @@
             label="Discount code"
             name="discount"
             type="text"
-            value="LOWEND10"
+            defaultValue="LOWEND10"
           />
           <Button type="button">Apply</Button>
         </ControlGroup>

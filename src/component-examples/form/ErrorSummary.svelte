@@ -47,7 +47,7 @@
       id="form-error-summary-3"
       label="Password"
       type="password"
-      value="hunter2"
+      defaultValue="hunter2"
     />
   </FieldGroup>
   <FieldGroup>

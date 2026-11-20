@@ -82,7 +82,7 @@
         min="0"
         startText="Drag the slider, and yes, the years on guitar count less."
         step="1"
-        value="5"
+        defaultValue="5"
       />
     </FieldGroup>
   </Fieldset>

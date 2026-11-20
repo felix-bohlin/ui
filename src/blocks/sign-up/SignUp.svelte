@@ -69,7 +69,7 @@
               passwordToggle
               required
               type="password"
-              value="four-strings-4ever"
+              defaultValue="four-strings-4ever"
             />
             <div class="ui-layout-column ui-x-small">
               <span

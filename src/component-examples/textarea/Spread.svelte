@@ -21,7 +21,7 @@
   {#snippet startText()}Orders can't change once they ship{/snippet}
 </Textarea>
 
-<Textarea error label="Review" spread value="Great">
+<Textarea error label="Review" spread defaultValue="Great">
   {#snippet startText()}Shown with your rating{/snippet}
   {#snippet endText()}Write at least 20 characters.{/snippet}
 </Textarea>

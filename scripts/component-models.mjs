@@ -50,7 +50,7 @@ export const MODEL_KINDS = {
     svelte: {
       attributes: () => [
         "bind:checked={getChecked, setChecked}",
-        "defaultChecked={defaultChecked ?? initialChecked}",
+        "{defaultChecked}",
         "{value}",
       ],
       bindables: bindableProps,
@@ -59,10 +59,8 @@ export const MODEL_KINDS = {
       script: () => [
         "const getChecked = () =>\n  group ? group.includes(value) : !!(checked ?? defaultChecked)",
         "const setChecked = (isChecked: boolean) => {\n  if (group) group = toggleInGroup(group, value, isChecked)\n  else checked = isChecked\n}",
-        "const initialChecked = untrack(getChecked)",
       ],
       typedBindables: true,
-      untrack: () => true,
     },
     vue: {
       boundAttributes: () => ['v-model="modelValue"'],
@@ -271,10 +269,7 @@ export const MODEL_KINDS = {
     svelte: {
       attributes: (model) =>
         resettable(model)
-          ? [
-              "bind:value={getValue, setValue}",
-              "defaultValue={defaultValue ?? initialValue}",
-            ]
+          ? ["bind:value={getValue, setValue}", "{defaultValue}"]
           : [`bind:${model.prop}`],
       bindables: (model) => [model.prop],
       plainProps: (model) => (resettable(model) ? ["defaultValue"] : []),
@@ -285,10 +280,8 @@ export const MODEL_KINDS = {
           ? [
               "const getValue = () => value ?? defaultValue",
               "const setValue = (next: typeof value) => {\n  value = next\n}",
-              "const initialValue = untrack(getValue)",
             ]
           : [],
-      untrack: resettable,
     },
     vue: {
       boundAttributes: () => ['v-model="modelValue"'],

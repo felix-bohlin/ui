@@ -8,5 +8,5 @@
   label="Guests"
   max={8}
   min={1}
-  value={2}
+  defaultValue={2}
 />

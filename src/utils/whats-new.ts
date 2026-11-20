@@ -12,6 +12,8 @@ const components = (note: string) => ({
 
 const slots = (note: string) => ({ astro: note, vue: note })
 
+const routed = (note: string) => ({ react: note, solid: note, vue: note })
+
 export const whatsNew = {
   accordion: [
     slots(
@@ -96,6 +98,9 @@ export const whatsNew = {
     ),
   ],
   avatar: [
+    routed(
+      `A link avatar takes <a href="#api"><code>as</code></a>: the link component of your router, such as Next's <code>Link</code>, Solid Router's <code>A</code> or Nuxt's <code>NuxtLink</code>, which gets the <code>href</code>. With <code>disabled</code> it renders a plain disabled link.`,
+    ),
     `<a href="#variants"><code>variant</code></a> takes <code>tonal</code> for the primary tint and <code>outlined</code> for the border color with no fill.`,
     components(
       `A link avatar takes <a href="#disabled"><code>disabled</code></a>: it drops its <code>href</code> and gets <code>role="link"</code> and <code>aria-disabled="true"</code>.`,
@@ -192,6 +197,9 @@ export const whatsNew = {
     `Text on a primary <a href="#colors">badge</a> reads <code>--ui-on-primary</code>.`,
   ],
   button: [
+    routed(
+      `A link button takes <a href="#api"><code>as</code></a>: the link component of your router, such as Next's <code>Link</code>, Solid Router's <code>A</code> or Nuxt's <code>NuxtLink</code>, which gets the <code>href</code>. With <code>disabled</code> it renders a plain disabled link.`,
+    ),
     `Themes can set <a href="#api"><code>--ui-button-hover</code></a> to <code>layer</code> for state-layer hover and pressed states, or to <code>shade-all</code> to shade tonal buttons like filled ones, and <code>--ui-button-padding-inline</code> with its <code>-x-small</code>, <code>-small</code> and <code>-large</code> variants for the horizontal padding per size.`,
     `Themes can set <a href="#api"><code>--ui-button-accent-filled</code></a> and <code>--ui-button-on-accent-filled</code> to give filled buttons a color of their own.`,
     `Themes can set <a href="#api"><code>--ui-button-focus: highlight</code></a> to fill a focused button with the focus color instead of drawing the ring, like GOV.UK.`,
@@ -466,6 +474,9 @@ export const whatsNew = {
     },
   ],
   chip: [
+    routed(
+      `A link chip takes <a href="#api"><code>as</code></a>: the link component of your router, such as Next's <code>Link</code>, Solid Router's <code>A</code> or Nuxt's <code>NuxtLink</code>, which gets the <code>href</code>. With <code>disabled</code> it renders a plain disabled link.`,
+    ),
     `Themes can set <a href="#api"><code>--ui-chip-radius</code></a> for a corner radius of its own.`,
     slots(
       `Breaking: the default slot is gone. Pass the text as <a href="#api"><code>label</code></a>, or rich content in the <code>label</code> slot.`,
@@ -835,6 +846,9 @@ export const whatsNew = {
     `<a href="#bordered"><code>.ui-bordered</code></a> draws a line in each gap between two children of a column, row, grid or columns, like a bordered list, so a wrapped row gets no stray line.`,
   ],
   list: [
+    routed(
+      `A link <a href="#api"><code>ListItem</code></a> takes <code>as</code>: the link component of your router, such as Next's <code>Link</code>, Solid Router's <code>A</code> or Nuxt's <code>NuxtLink</code>, which gets the <code>href</code>. With <code>disabled</code> it renders a plain disabled link.`,
+    ),
     `Rows with any <a href="#selected"><code>aria-current</code></a> but <code>false</code> look current, like <code>true</code> on a button, not only <code>page</code>.`,
     `<a href="#flush"><code>flush</code></a> also drops the block padding of the list, for a list in a card.`,
     `Themes can set <a href="#api"><code>--ui-list-item-padding-inline</code></a>. Descriptions read <code>--ui-text-subtle</code>, and <code>--ui-on-selected</code> on a selected row.`,
@@ -911,6 +925,9 @@ export const whatsNew = {
     `<a href="#clickable-list-item">Clickable rows</a> and <a href="#selected">selected rows</a> fade, and a hovered row changes at once and fades back over <code>--ui-duration-fast</code>, so the highlight trails the pointer.`,
   ],
   menu: [
+    routed(
+      `A link item in <a href="#api"><code>items</code></a> takes <code>as</code>: the link component of your router, such as Next's <code>Link</code>, Solid Router's <code>A</code> or Nuxt's <code>NuxtLink</code>, which gets the <code>href</code>. A disabled one renders a plain disabled link.`,
+    ),
     {
       default: `An open menu <a href="#basics">closes when the page navigates</a>, also with a client router.`,
       html: `Import <code>opui-css/elements/close-on-navigate.js</code> to <a href="#basics">close an open menu</a> when the page navigates.`,

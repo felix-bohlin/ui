@@ -4,7 +4,7 @@ import type { HTMLAttributes } from "astro/types"
 // A dynamic <Tag> or a custom element lets an undefined spread value remove an attribute set before it: tests/unit/tooling-bugs.test.ts
 import { defined } from "../attrs"
 import { cx } from "../cx"
-import { tagAttrs } from "../tag"
+import { disabledLink, tagAttrs } from "../tag"
 import { trimEdges } from "../whitespace"
 
 export const title = "List Item"
@@ -26,7 +26,11 @@ const {
 
 const hasControl =
   choice === "checkbox" || choice === "radio" || choice === "switch"
-const Tag = hasControl ? "label" : (as ?? (href ? "a" : undefined))
+const Tag = hasControl
+  ? "label"
+  : disabledLink(as, disabled)
+    ? "a"
+    : (as ?? (href ? "a" : undefined))
 const restOnItem = hasControl || !Tag
 const hasLabel = !!label || Astro.slots.has("label")
 const submenu = Astro.slots.has("submenu")

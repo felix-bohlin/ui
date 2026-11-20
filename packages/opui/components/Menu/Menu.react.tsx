@@ -5,7 +5,7 @@ import { defined } from "../attrs"
 import { cx } from "../cx"
 import { MenuContext, useMenuContext } from "./context.react"
 import { warnMissingId } from "../dev"
-import { tagAttrs } from "../tag"
+import { disabledLink, tagAttrs } from "../tag"
 import type { Props } from "./types.react"
 import type { Context } from "./types"
 
@@ -53,6 +53,7 @@ export default function Menu({
         {items?.map(
           (
             {
+              as,
               borderTop,
               color,
               disabled,
@@ -64,7 +65,9 @@ export default function Menu({
             },
             index,
           ) => {
-            const Tag = href ? "a" : "button"
+            const Tag = disabledLink(as, disabled)
+              ? "a"
+              : (as ?? (href ? "a" : "button"))
             const closes =
               !href &&
               !keepOpen &&

@@ -1,4 +1,4 @@
-export type Props = {
+export type Props<Link = never> = {
   label?: string
   shape?: "circle" | "rounded" | "squared" | "squircle"
   size?: "x-small" | "small" | "medium" | "large"
@@ -11,7 +11,7 @@ export type Props = {
       href?: never
     }
   | {
-      as?: "a"
+      as?: "a" | Link
       disabled?: boolean
       href: string
     }

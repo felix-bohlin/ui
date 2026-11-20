@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, useAttrs } from "vue"
 import { TrimmedSlot } from "../whitespace.vue"
-import { tagAttrs } from "../tag"
+import { disabledLink, tagAttrs } from "../tag"
 import { defined } from "../attrs"
 import { classAttrs } from "../cx"
 import type { Props, Slots } from "./types.vue-props"
@@ -31,7 +31,11 @@ const hasControl = computed(
 )
 
 const Tag = computed(() =>
-  hasControl.value ? "label" : (as ?? (href ? "a" : undefined)),
+  hasControl.value
+    ? "label"
+    : disabledLink(as, disabled)
+      ? "a"
+      : (as ?? (href ? "a" : undefined)),
 )
 
 const restOnItem = computed(() => hasControl.value || !Tag.value)

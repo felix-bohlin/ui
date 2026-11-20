@@ -1,8 +1,8 @@
-import type { Slot } from "vue"
+import type { Component, Slot } from "vue"
 import type { Class, DefaultSlots } from "../vue"
 import type { Props as BaseProps } from "./types"
 
-export type Props = BaseProps & Class & { as?: "a" | "button" }
+export type Props = BaseProps<Component> & Class
 
 export type Slots = {
   description?: Slot

@@ -3,7 +3,7 @@ import type { Props } from "./types.astro"
 import { menuContext } from "./context.astro"
 import { defined } from "../attrs"
 import { warnMissingId } from "../dev"
-import { tagAttrs } from "../tag"
+import { disabledLink, tagAttrs } from "../tag"
 
 export const title = "Menu"
 
@@ -46,6 +46,7 @@ const html = await menuContext.provide({ rootId }, () =>
 >
   {items?.map(
     ({
+      as,
       borderTop,
       color,
       disabled,
@@ -55,7 +56,9 @@ const html = await menuContext.provide({ rootId }, () =>
       shortcut,
       ...itemRest
     }) => {
-      const Tag = href ? "a" : "button"
+      const Tag = disabledLink(as, disabled)
+        ? "a"
+        : (as ?? (href ? "a" : "button"))
       const closes =
         !href &&
         !keepOpen &&

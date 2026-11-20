@@ -6,7 +6,7 @@ import "../../elements/menu.js"
 import { defined } from "../attrs"
 import { MenuContext, useMenuContext } from "./context.solid"
 import { warnMissingId } from "../dev"
-import { tagAttrs } from "../tag"
+import { disabledLink, tagAttrs } from "../tag"
 import { cx } from "../cx"
 import type { Props } from "./types.solid"
 
@@ -63,6 +63,7 @@ export default function Menu(props: Props) {
             const itemRest = () =>
               omit(
                 item(),
+                "as",
                 "borderTop",
                 "color",
                 "disabled",
@@ -71,7 +72,10 @@ export default function Menu(props: Props) {
                 "label",
                 "shortcut",
               )
-            const tag = () => (item().href ? "a" : "button")
+            const tag = () =>
+              disabledLink(item().as, item().disabled)
+                ? "a"
+                : (item().as ?? (item().href ? "a" : "button"))
             const closes = () =>
               !item().href &&
               !item().keepOpen &&

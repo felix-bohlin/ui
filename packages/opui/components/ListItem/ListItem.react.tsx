@@ -1,7 +1,7 @@
 import type { ComponentProps, HTMLAttributes } from "react"
 import { defined } from "../attrs"
 import { cx } from "../cx"
-import { tagAttrs } from "../tag"
+import { disabledLink, tagAttrs } from "../tag"
 import type { Props } from "./types.react"
 
 export default function ListItem({
@@ -25,7 +25,11 @@ export default function ListItem({
 }: Props) {
   const hasControl =
     choice === "checkbox" || choice === "radio" || choice === "switch"
-  const Tag = hasControl ? "label" : (as ?? (href ? "a" : undefined))
+  const Tag = hasControl
+    ? "label"
+    : disabledLink(as, disabled)
+      ? "a"
+      : (as ?? (href ? "a" : undefined))
   const restOnItem = hasControl || !Tag
   const hasLabel = !!label
   const hasDescription = !!description

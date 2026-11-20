@@ -3,7 +3,7 @@ import type { Props } from "./types.astro"
 import type { HTMLAttributes } from "astro/types"
 // A dynamic <Tag> or a custom element lets an undefined spread value remove an attribute set before it: tests/unit/tooling-bugs.test.ts
 import { defined } from "../attrs"
-import { tagAttrs } from "../tag"
+import { disabledLink, tagAttrs } from "../tag"
 import { cx } from "../cx"
 
 export const title = "Button"
@@ -20,7 +20,7 @@ const {
   ...rest
 } = Astro.props
 
-const Tag = as || (href ? "a" : "button")
+const Tag = disabledLink(as, disabled) ? "a" : as || (href ? "a" : "button")
 ---
 
 <Tag

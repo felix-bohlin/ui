@@ -16,7 +16,8 @@ A compact label or control for filters, tags and choices.
 
 ### Props and modifiers
 
-- `as`: `"a" | "button" | "div" | "span"`, default `"div"`. The element to render. Defaults to `"a"` with `href`. Use `"span"` inside a `<label>` or `<button>`, like a count in a tab.
+- `as` (Astro and Svelte): `"a" | "button" | "div" | "span"`, default `"div"`. The element to render. Defaults to `"a"` with `href`. Use `"span"` inside a `<label>` or `<button>`, like a count in a tab.
+- `as` (React, Solid and Vue): `"a" | "button" | "div" | "span" | ComponentType<any>`, default `"div"`. The element to render, or the link component of your router with `href`, such as Next's `Link`, Solid Router's `A` or Nuxt's `NuxtLink`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead. Use `"span"` inside a `<label>` or `<button>`, like a count in a tab.
 - `disabled`: `boolean`. Disables a button chip. A link chip drops its `href` and gets `role="link"` and `aria-disabled="true"` instead.
 - `dot`: `boolean`, `.ui-dot`. Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it.
 - `href`: `string`. The link to use. Renders an `<a>`.

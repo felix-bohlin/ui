@@ -2,7 +2,7 @@
 import { dynamic } from "@solidjs/web"
 import { children, omit } from "solid-js"
 import { defined } from "../attrs"
-import { tagAttrs } from "../tag"
+import { disabledLink, tagAttrs } from "../tag"
 import type { Props } from "./types.solid"
 
 export default function Chip(props: Props) {
@@ -23,7 +23,10 @@ export default function Chip(props: Props) {
   )
   const resolvedLabel = children(() => props.label)
   const variant = () => (props.variant === undefined ? "tonal" : props.variant)
-  const tag = () => props.as || (props.href ? "a" : "div")
+  const tag = () =>
+    disabledLink(props.as, props.disabled)
+      ? "a"
+      : props.as || (props.href ? "a" : "div")
   const Tag = dynamic(tag)
 
   return (

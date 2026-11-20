@@ -2156,6 +2156,60 @@ describe("toTypes", () => {
     )
   })
 
+  test("a Link parameter takes the link component in React, Solid and Vue, and so does an as that takes an a", () => {
+    const { react, solid, svelte, vue } = toTypes(
+      "Sample",
+      {
+        astro:
+          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props =\n  | (Base.Props & { as?: "button" } & HTMLAttributes<"button">)\n  | (Base.Props & { as?: "a"; href: string } & HTMLAttributes<"a">)\n',
+        base: 'export type Props<Link = never> =\n  | { as?: "a" | Link; href: string }\n  | { as?: "button"; href?: never }\n',
+      },
+      { Sample: ["default"] },
+    )
+    expect(react).toContain(
+      'import type { ComponentProps, ComponentType } from "react"',
+    )
+    expect(react).toContain(
+      '(Base.Props<ComponentType<any>> & { as?: "a" | ComponentType<any>; href: string } & ComponentProps<"a">)',
+    )
+    expect(react).toContain(
+      '(Base.Props<ComponentType<any>> & { as?: "button" } & ComponentProps<"button">)',
+    )
+    expect(solid).toContain('import type { Component } from "solid-js"')
+    expect(solid).toContain(
+      '(Base.Props<Component<any>> & { as?: "a" | Component<any>; href: string } & Omit<ComponentProps<"a">, "href">)',
+    )
+    expect(svelte).toContain(
+      '(Base.Props & { as?: "a"; href: string } & SvelteHTMLElements["a"])',
+    )
+    expect(vue).toContain('import type { Component } from "vue"')
+    expect(vue).toContain("export type Props = BaseProps<Component> & Class\n")
+  })
+
+  test("rejects an as that takes a link component in the type literal of a group's model", () => {
+    expect(() =>
+      toTypes(
+        "Sample",
+        {
+          astro:
+            'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & { as?: "a"; value?: string } & HTMLAttributes<"a">\n',
+          base: 'export type Props<Link = never> = {\n  as?: "a" | Link\n  href: string\n}\n',
+        },
+        { Sample: ["default"] },
+        {},
+        {},
+        {
+          Sample: {
+            bindables: [{ prop: "value", type: "string" }],
+            kind: "group",
+            prop: "value",
+            type: "string",
+          },
+        },
+      ),
+    ).toThrow("the type Props, whose as takes a link component next to a model")
+  })
+
   test("an Omit keeps the keyof members of its keys next to the literal ones", () => {
     const types = toTypes(
       "Sample",
@@ -2581,6 +2635,14 @@ describe("toTypes", () => {
       },
       { Sample: ["default"] },
       "the slot endText, whose Vue name is kebab-case",
+    ],
+    [
+      {
+        astro: simple,
+        base: 'export type Props<Link> = {\n  as?: "a" | Link\n}\n',
+      },
+      { Sample: ["default"] },
+      "the type parameter Link of Props without the default never",
     ],
   ])("rejects %j", (files, slots, reason) => {
     expect(() => toTypes("Sample", files, slots)).toThrow(reason)

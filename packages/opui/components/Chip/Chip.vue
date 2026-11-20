@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, useAttrs } from "vue"
-import { tagAttrs } from "../tag"
+import { disabledLink, tagAttrs } from "../tag"
 import { defined } from "../attrs"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -23,7 +23,9 @@ defineOptions({
 
 const attrs = useAttrs()
 
-const Tag = computed(() => as || (href ? "a" : "div"))
+const Tag = computed(() =>
+  disabledLink(as, disabled) ? "a" : as || (href ? "a" : "div"),
+)
 </script>
 
 <template>

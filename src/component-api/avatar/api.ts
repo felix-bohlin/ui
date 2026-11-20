@@ -20,6 +20,14 @@ export default {
     {
       default: '"div"',
       description: 'The element to render. Defaults to `"a"` with `href`.',
+      frameworks: ["astro", "svelte"],
+      prop: "as",
+    },
+    {
+      default: '"div"',
+      description:
+        'The element to render, or the link component of your router with `href`, such as Next\'s `Link`, Solid Router\'s `A` or Nuxt\'s `NuxtLink`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.',
+      frameworks: ["react", "solid", "vue"],
       prop: "as",
     },
     {

@@ -1,7 +1,7 @@
 import type { HTMLAttributes } from "react"
 import { defined } from "../attrs"
 import { cx } from "../cx"
-import { tagAttrs } from "../tag"
+import { disabledLink, tagAttrs } from "../tag"
 import type { Props } from "./types.react"
 
 export default function Button({
@@ -16,7 +16,7 @@ export default function Button({
   children,
   ...rest
 }: Props) {
-  const Tag = as || (href ? "a" : "button")
+  const Tag = disabledLink(as, disabled) ? "a" : as || (href ? "a" : "button")
 
   return (
     <Tag

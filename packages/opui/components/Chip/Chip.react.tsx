@@ -1,7 +1,7 @@
 import type { HTMLAttributes } from "react"
 import { defined } from "../attrs"
 import { cx } from "../cx"
-import { tagAttrs } from "../tag"
+import { disabledLink, tagAttrs } from "../tag"
 import type { Props } from "./types.react"
 
 export default function Chip({
@@ -19,7 +19,7 @@ export default function Chip({
   start,
   ...rest
 }: Props) {
-  const Tag = as || (href ? "a" : "div")
+  const Tag = disabledLink(as, disabled) ? "a" : as || (href ? "a" : "div")
 
   return (
     <Tag

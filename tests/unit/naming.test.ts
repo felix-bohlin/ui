@@ -18,7 +18,7 @@ const itemTypes = Object.values(
 ).flatMap((source) =>
   [
     ...source.matchAll(
-      /export type (\w+Item) =([\s\S]*?)(?=\nexport |(?![\s\S]))/g,
+      /export type (\w+Item)(?:<[^>]*>)? =([\s\S]*?)(?=\nexport |(?![\s\S]))/g,
     ),
   ].map(([, name, body]) => ({
     keys: [...body.matchAll(/(\w+)\??:/g)].map(([, key]) => key),

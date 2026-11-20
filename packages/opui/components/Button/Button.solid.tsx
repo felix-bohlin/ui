@@ -2,7 +2,7 @@
 import { dynamic } from "@solidjs/web"
 import { omit } from "solid-js"
 import { defined } from "../attrs"
-import { tagAttrs } from "../tag"
+import { disabledLink, tagAttrs } from "../tag"
 import type { Props } from "./types.solid"
 
 export default function Button(props: Props) {
@@ -18,7 +18,10 @@ export default function Button(props: Props) {
     "variant",
     "children",
   )
-  const tag = () => props.as || (props.href ? "a" : "button")
+  const tag = () =>
+    disabledLink(props.as, props.disabled)
+      ? "a"
+      : props.as || (props.href ? "a" : "button")
   const Tag = dynamic(tag)
 
   return (

@@ -2,9 +2,14 @@ import type {
   ComponentProps as SolidComponentProps,
   JSX as SolidJSX,
 } from "@solidjs/web"
-import type { ComponentProps, ReactNode } from "react"
+import type { ComponentProps, ComponentType, ReactNode } from "react"
+import type { Component as SolidComponent } from "solid-js"
 import type { Snippet } from "svelte"
-import type { IntrinsicElementAttributes, Slot } from "vue"
+import type {
+  Component as VueComponent,
+  IntrinsicElementAttributes,
+  Slot,
+} from "vue"
 import { expectTypeOf, test } from "vitest"
 import type * as AvatarReact from "../../packages/opui/components/Avatar/types.react"
 import type * as AvatarSolid from "../../packages/opui/components/Avatar/types.solid"
@@ -12,6 +17,11 @@ import type * as AvatarVue from "../../packages/opui/components/Avatar/types.vue
 import type * as BadgeReact from "../../packages/opui/components/Badge/types.react"
 import type * as BadgeSvelte from "../../packages/opui/components/Badge/types.svelte"
 import type * as BadgeVue from "../../packages/opui/components/Badge/types.vue-props"
+import type * as ButtonAstro from "../../packages/opui/components/Button/types.astro"
+import type * as ButtonReact from "../../packages/opui/components/Button/types.react"
+import type * as ButtonSolid from "../../packages/opui/components/Button/types.solid"
+import type * as ButtonSvelte from "../../packages/opui/components/Button/types.svelte"
+import type * as ButtonVue from "../../packages/opui/components/Button/types.vue-props"
 import type * as CalloutAstro from "../../packages/opui/components/Callout/types.astro"
 import type * as CalloutReact from "../../packages/opui/components/Callout/types.react"
 import type * as CalloutSolid from "../../packages/opui/components/Callout/types.solid"
@@ -34,6 +44,7 @@ import type * as DrawerSvelte from "../../packages/opui/components/Drawer/types.
 import type * as DrawerVue from "../../packages/opui/components/Drawer/types.vue-props"
 import type * as FieldLegendVue from "../../packages/opui/components/FieldLegend/types.vue-props"
 import type * as MenuReact from "../../packages/opui/components/Menu/types.react"
+import type * as MenuSolid from "../../packages/opui/components/Menu/types.solid"
 import type * as MenuSvelte from "../../packages/opui/components/Menu/types.svelte"
 import type * as MenuVue from "../../packages/opui/components/Menu/types.vue-props"
 import type * as NumberFieldReact from "../../packages/opui/components/NumberField/types.react"
@@ -282,6 +293,60 @@ test("a link or button Avatar needs a name in Solid, and a plain one or a photo 
   expectTypeOf<{ as: "button" }>().not.toExtend<AvatarSolid.Props>()
   expectTypeOf<{ href: string }>().not.toExtend<AvatarSolid.Props>()
   expectTypeOf<AvatarSolid.Props>().not.toHaveProperty("alt")
+})
+
+test("as takes a link component with href in React, Solid and Vue, also one with typed routes, and element names only in Astro and Svelte", () => {
+  type TypedRouteLink = (props: {
+    children?: ReactNode
+    href: `/${string}`
+    prefetch?: boolean
+  }) => ReactNode
+  expectTypeOf<{
+    as: TypedRouteLink
+    children: string
+    href: string
+  }>().toExtend<ButtonReact.Props>()
+  expectTypeOf<{
+    as: TypedRouteLink
+    children: string
+  }>().not.toExtend<ButtonReact.Props>()
+  expectTypeOf<{
+    as: ComponentType<{ href: string }>
+    href: string
+    label: string
+  }>().toExtend<AvatarReact.Props>()
+  expectTypeOf<{
+    as: SolidComponent<{ href: string }>
+    children: string
+    href: string
+  }>().toExtend<ButtonSolid.Props>()
+  expectTypeOf<{
+    as: SolidComponent<{ href: string }>
+    href: string
+    label: string
+  }>().toExtend<AvatarSolid.Props>()
+  expectTypeOf<{ as: VueComponent; href: string }>().toExtend<ButtonVue.Props>()
+  expectTypeOf<{ as: VueComponent }>().not.toExtend<ButtonVue.Props>()
+  expectTypeOf<{ as: VueComponent; href: string }>().toExtend<AvatarVue.Props>()
+  expectTypeOf<ButtonAstro.Props["as"]>().toEqualTypeOf<
+    "a" | "button" | undefined
+  >()
+  expectTypeOf<ButtonSvelte.Props["as"]>().toEqualTypeOf<
+    "a" | "button" | undefined
+  >()
+})
+
+test("a Menu item takes a link component in as in React, Solid and Vue, and nothing in Svelte", () => {
+  expectTypeOf<MenuReact.MenuItem["as"]>().toEqualTypeOf<
+    ComponentType<any> | undefined
+  >()
+  expectTypeOf<MenuSolid.MenuItem["as"]>().toEqualTypeOf<
+    SolidComponent<any> | undefined
+  >()
+  expectTypeOf<MenuVue.MenuItem["as"]>().toEqualTypeOf<
+    VueComponent | undefined
+  >()
+  expectTypeOf<MenuSvelte.MenuItem["as"]>().toEqualTypeOf<undefined>()
 })
 
 test("an attribute a component with several elements reads takes each element's type in Vue", () => {

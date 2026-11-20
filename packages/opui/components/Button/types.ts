@@ -1,11 +1,11 @@
-export type Props = {
+export type Props<Link = never> = {
   color?: "critical" | "primary"
   round?: boolean
   size?: "x-small" | "small" | "medium" | "large"
   variant?: "filled" | "outlined" | "tonal" | "transparent"
 } & (
   | {
-      as?: "a"
+      as?: "a" | Link
       disabled?: boolean
       href: string
     }

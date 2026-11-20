@@ -33,7 +33,7 @@ Read the compiled file next to the closest hand-written sibling of its kind (`Te
 
 **React**
 
-- State only for values the user changes and the component shows (Range's readout). No effect that copies props into state or derives a value a render could compute.
+- No state, as in State belongs to the app in `packages/opui/components/AGENTS.md`: a value the user changes lives in the native element, and what the component shows reads the props (Range's readout, which `packages/opui/css/js/range.js` updates as the user drags). No effect that copies props into state or derives a value a render could compute.
 - `"use client"` on the smallest component that needs it: a server component that renders one client part keeps the boundary at the part.
 - Form controls pass `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` through, never both of a pair.
 - React 19 forms: `ref` as a prop, no `forwardRef`, context as `<XContext value>`.

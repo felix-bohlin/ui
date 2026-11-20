@@ -39,7 +39,9 @@ export default function TabsItem({
         checked={grouped ?? checked}
         defaultChecked={
           grouped === undefined
-            ? (isSelected(parent?.defaultValue, value) ?? defaultChecked)
+            ? ((checked === undefined
+                ? isSelected(parent?.defaultValue, value)
+                : undefined) ?? defaultChecked)
             : undefined
         }
         className={cx(["ui-input", className])}

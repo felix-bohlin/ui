@@ -230,15 +230,7 @@ export const toReact = (component) => {
   const slotEntries = slotOrder(slots).map((slot) => slotProp(slot))
   const { item, model, multiRoot } = component
   const defaultGrouped = item
-    ? rewriteExpression(
-        derived
-          .find(({ name }) => name === item.grouped)
-          .code.replace(
-            new RegExp(`\\b${item.parent}\\?\\.value\\b`),
-            `${item.parent}?.defaultValue`,
-          ),
-        options,
-      )
+    ? rewriteExpression(item.defaultGrouped, options)
     : undefined
   const extraEntries = [
     ...(kind?.entries?.() ?? []),
@@ -387,7 +379,7 @@ export const toReact = (component) => {
           : [attribute(node, entry)]),
         ...(node.item && entry.kind === "expression" && entry.name === "checked"
           ? [
-              `defaultChecked={${item.grouped} === undefined ? (${defaultGrouped} ?? defaultChecked) : undefined}`,
+              `defaultChecked={${item.grouped} === undefined ? (${item.checked ? `(${item.checked} === undefined ? ${defaultGrouped} : undefined)` : defaultGrouped} ?? defaultChecked) : undefined}`,
             ]
           : []),
       ]),

@@ -12,6 +12,7 @@ import {
   runtimeImports,
   scriptImports,
   REACT_DEFAULT_VALUE,
+  SVELTE_DEFAULT_VALUE,
   VUE_MODEL_VALUE,
 } from "../../scripts/build-examples.mjs"
 import { typeDiagnostics } from "../../scripts/example-react-props.mjs"
@@ -937,6 +938,20 @@ test("REACT_DEFAULT_VALUE lists the components that hold their value as state", 
     .map((api) => api.component)
     .toSorted()
   expect(REACT_DEFAULT_VALUE).toEqual(state)
+})
+
+test("SVELTE_DEFAULT_VALUE lists the components whose Svelte file binds the value through a getter that falls back to defaultValue", () => {
+  const resettable = Object.values(apis)
+    .filter(
+      (api) =>
+        api.model?.prop === "value" &&
+        globSync(`packages/opui/components/*/${api.component}.svelte`)
+          .map((file) => readFileSync(file, "utf8"))
+          .some((source) => source.includes("bind:value={getValue, setValue}")),
+    )
+    .map((api) => api.component)
+    .toSorted()
+  expect(SVELTE_DEFAULT_VALUE).toEqual(resettable)
 })
 
 test("VUE_MODEL_VALUE lists the components whose Vue file holds the value in a model no element binds", () => {

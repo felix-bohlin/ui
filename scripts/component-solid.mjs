@@ -646,15 +646,7 @@ export const toSolid = (component) => {
         controlOf(
           "checked",
           `() => ${rewrite(checked.code, scope)}`,
-          `${rewrite(checked.code, scope)} ?? ${rewrite(
-            derived
-              .find(({ name }) => name === item.grouped)
-              .code.replace(
-                new RegExp(`\\b${item.parent}\\?\\.value\\b`),
-                `${item.parent}?.defaultValue`,
-              ),
-            scope,
-          )} ?? props.defaultChecked`,
+          `${rewrite(checked.code, scope)} ?? ${rewrite(item.defaultGrouped, scope)} ?? props.defaultChecked`,
           scope,
         )
       const guard = hydrating.has(node)

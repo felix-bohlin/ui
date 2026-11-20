@@ -1080,7 +1080,7 @@ export const readComponent = async (source, file, api) => {
   const stringSlots = frontmatter.props
     .filter(({ prop }) => slots.some((slot) => slotProp(slot) === prop))
     .map(({ local }) => local)
-  const item = itemOf(frontmatter, roots, file.split("/").at(-2))
+  const item = itemOf(file, frontmatter, roots, file.split("/").at(-2))
   const component = {
     ...frontmatter,
     file,
@@ -1168,7 +1168,55 @@ const unloweredIdCall = (code, { bases, prefixes }) => {
 
 const CONTROLS = new Set(["input", "select", "textarea"])
 
-const itemOf = (frontmatter, tree, folder) => {
+const groupDefaultOf = (file, grouped, parent) => {
+  const sourceFile = sourceFileOf(`(${grouped.code})`, "grouped.ts")
+  const reads = []
+  let other
+  const visit = (node) => {
+    if (
+      ts.isPropertyAccessExpression(node) &&
+      node.questionDotToken &&
+      ts.isIdentifier(node.expression) &&
+      node.expression.text === parent &&
+      node.name.text === "value"
+    ) {
+      reads.push(node)
+      return
+    }
+    if (
+      ts.isIdentifier(node) &&
+      node.text === parent &&
+      !(ts.isPropertyAccessExpression(node.parent) && node.parent.name === node)
+    ) {
+      let read = node
+      while (
+        (ts.isPropertyAccessExpression(read.parent) ||
+          ts.isElementAccessExpression(read.parent) ||
+          ts.isNonNullExpression(read.parent)) &&
+        read.parent.expression === read
+      ) {
+        read = read.parent
+      }
+      other ??= read.getText(sourceFile)
+    }
+    ts.forEachChild(node, visit)
+  }
+  visit(sourceFile)
+  if (other !== undefined || reads.length === 0) {
+    throw unsupported(
+      file,
+      `the group read as \`${other ?? parent}\` in \`${grouped.name}\``,
+      `read the group's value as \`${parent}?.value\`, which the compiler turns into \`${parent}?.defaultValue\` for the item's default`,
+    )
+  }
+  return reads.toReversed().reduce((code, read) => {
+    const start = read.getStart(sourceFile) - 1
+    const end = read.getEnd() - 1
+    return `${code.slice(0, start)}${parent}?.defaultValue${code.slice(end)}`
+  }, grouped.code)
+}
+
+const itemOf = (file, frontmatter, tree, folder) => {
   const read = frontmatter.reads.find((entry) => {
     const group = entry.context.folder ?? folder
     return apiIndex?.get(`${group}/${group}`)?.model
@@ -1193,6 +1241,7 @@ const itemOf = (frontmatter, tree, folder) => {
     checkedCode: inputs[0].attributes.find(
       (item) => item.kind === "expression" && item.name === "checked",
     ).code,
+    defaultGrouped: groupDefaultOf(file, grouped, read.name),
     group: read.context.folder ?? folder,
     grouped: grouped.name,
     parent: read.name,

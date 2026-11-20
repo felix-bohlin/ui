@@ -1577,6 +1577,19 @@ describe("the ports of a sample", () => {
     )
   })
 
+  test.each(["parent!.value", 'parent?.["value"]', "parent"])(
+    "refuses an item that reads the group as %s, whose defaultValue it couldn't find",
+    async (read) => {
+      await loadApis()
+      await expect(
+        compileComponent(
+          `---\nimport type { Props } from "./types.astro"\nimport { isSelected } from "../ToggleGroup/selection"\nimport { tabsContext } from "../Tabs/context.astro"\n\nconst { checked, class: className, value, ...rest } = Astro.props\n\nconst parent = tabsContext.get()\nconst grouped = isSelected(${read}, value)\n---\n\n<input checked={grouped ?? checked} class:list={["ui-sample", className]} type="radio" value={value} {...rest} />\n<slot />\n`,
+          sampleFile(),
+        ),
+      ).rejects.toThrow(`the group read as \`${read}\` in \`grouped\``)
+    },
+  )
+
   test("an item of a group wires its input's change to the group", async () => {
     await loadApis()
     const { outputs } = await compileComponent(
@@ -1588,7 +1601,7 @@ describe("the ports of a sample", () => {
       '  warnGroupedChecked("Sample", grouped, checked ?? defaultChecked, "Tabs")\n',
     )
     expect(react).toContain(
-      '    <>\n      <input\n        checked={grouped ?? checked}\n        defaultChecked={\n          grouped === undefined\n            ? (isSelected(parent?.defaultValue, value) ?? defaultChecked)\n            : undefined\n        }\n        className={cx(["ui-sample", className])}\n        type="radio"\n        value={value}\n        {...defined(rest)}\n        ref={ref}\n        onChange={(event) => {\n          parent?.change?.(event.currentTarget)\n          onChange?.(event)\n        }}\n      />\n      {children}\n    </>\n',
+      '    <>\n      <input\n        checked={grouped ?? checked}\n        defaultChecked={\n          grouped === undefined\n            ? ((checked === undefined\n                ? isSelected(parent?.defaultValue, value)\n                : undefined) ?? defaultChecked)\n            : undefined\n        }\n        className={cx(["ui-sample", className])}\n        type="radio"\n        value={value}\n        {...defined(rest)}\n        ref={ref}\n        onChange={(event) => {\n          parent?.change?.(event.currentTarget)\n          onChange?.(event)\n        }}\n      />\n      {children}\n    </>\n',
     )
     expect(react).not.toContain('from "../react"')
     const svelte = outputs.get(sampleFile().replace(".astro", ".svelte"))

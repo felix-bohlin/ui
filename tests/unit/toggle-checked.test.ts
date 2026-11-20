@@ -114,6 +114,31 @@ describe("ToggleButton checked", () => {
     warn.mockRestore()
   })
 
+  test("a React button with its own checked takes no default from its group's defaultValue", async () => {
+    const error = vi.spyOn(console, "error").mockImplementation(() => {})
+    const html = await render.react(ToggleGroupReact, {
+      children: [
+        createElement(ToggleButtonReact, {
+          checked: true,
+          key: "right",
+          label: "right",
+          onChange: () => {},
+          value: "right",
+        }),
+      ],
+      defaultValue: "left",
+    })
+    expect(checkedInputs(html)).toEqual(["right"])
+    expect(
+      error.mock.calls
+        .map(([message]) => String(message))
+        .filter((message) =>
+          message.includes("with both checked and defaultChecked props"),
+        ),
+    ).toEqual([])
+    error.mockRestore()
+  })
+
   test("a group's value wins over a tab's or button's defaultChecked in Svelte, with a warning", async () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {})
     resetWarnings()

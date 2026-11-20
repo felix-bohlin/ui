@@ -48,7 +48,9 @@ export default function ToggleButton({
         checked={grouped ?? checked}
         defaultChecked={
           grouped === undefined
-            ? (isSelected(group?.defaultValue, value) ?? defaultChecked)
+            ? ((checked === undefined
+                ? isSelected(group?.defaultValue, value)
+                : undefined) ?? defaultChecked)
             : undefined
         }
         name={finalName}

@@ -60,7 +60,14 @@ const Models = () => {
           type="password"
         />
       </TextField>
-      <NumberField defaultValue={1} error={error()} label="Quantity" />
+      <NumberField for="models-quantity" label="Quantity">
+        <input
+          aria-invalid={error() ? "true" : undefined}
+          defaultValue="1"
+          id="models-quantity"
+          type="number"
+        />
+      </NumberField>
       <Checkbox checked={false} error={error()}>
         Newsletter
       </Checkbox>

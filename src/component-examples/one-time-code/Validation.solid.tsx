@@ -4,12 +4,22 @@ import { OneTimeCode } from "opui-css/solid"
 export default function Validation() {
   return (
     <OneTimeCode
-      defaultValue="482193"
       endText="That code has expired. Request a new one."
-      error
+      for="one-time-code-validation-1"
       label="Verification code"
-      name="code"
-      required
-    />
+    >
+      <input
+        aria-describedby="one-time-code-validation-1-end-text"
+        aria-invalid="true"
+        autocomplete="one-time-code"
+        id="one-time-code-validation-1"
+        inputmode="numeric"
+        maxlength="6"
+        name="code"
+        pattern="[0-9]{6}"
+        required
+        defaultValue="482193"
+      />
+    </OneTimeCode>
   )
 }

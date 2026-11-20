@@ -2,7 +2,12 @@
 import { Button, Textarea } from "opui-css/astro"
 ---
 
-<Textarea label="Message" placeholder="Write a message...">
+<Textarea for="textarea-affix-button-1" label="Message">
+  <textarea
+    aria-describedby="textarea-affix-button-1-end"
+    id="textarea-affix-button-1"
+    placeholder="Write a message..."
+  ></textarea>
   <Button
     aria-label="Send"
     color="primary"

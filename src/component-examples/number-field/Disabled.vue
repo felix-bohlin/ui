@@ -3,10 +3,7 @@ import { NumberField } from "opui-css/vue"
 </script>
 
 <template>
-  <NumberField
-    disabled
-    id="number-field-disabled-1"
-    label="Quantity"
-    :value="1"
-  />
+  <NumberField for="number-field-disabled-1" label="Quantity">
+    <input disabled id="number-field-disabled-1" type="number" value="1" />
+  </NumberField>
 </template>

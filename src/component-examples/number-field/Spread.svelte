@@ -4,21 +4,33 @@
 
 <NumberField
   endText="Up to 8 per table."
-  id="number-field-spread-1"
+  for="number-field-spread-1"
   label="Guests"
-  max={8}
-  min={1}
   spread
   startText="Count children too."
-  defaultValue={2}
-/>
+>
+  <input
+    aria-describedby="number-field-spread-1-start-text number-field-spread-1-end-text"
+    id="number-field-spread-1"
+    max="8"
+    min="1"
+    type="number"
+    value="2"
+  />
+</NumberField>
 <NumberField
-  id="number-field-spread-2"
+  for="number-field-spread-2"
   label="Nights"
-  max={14}
-  min={1}
   spread
   startText="Check-out is at 11:00."
-  defaultValue={3}
   variant="filled"
-/>
+>
+  <input
+    aria-describedby="number-field-spread-2-start-text"
+    id="number-field-spread-2"
+    max="14"
+    min="1"
+    type="number"
+    value="3"
+  />
+</NumberField>

@@ -10,5 +10,5 @@ export type Props =
     "bottom" | "end" | "endText" | "label" | "start" | "startText" | "top"
   > &
     Base.Slots<JSX.Element> &
-    // Some input attributes for spreading
-    ComponentProps<"textarea">
+    // Root attributes
+    ComponentProps<"div">

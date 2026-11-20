@@ -437,7 +437,7 @@ A choice the user makes before the page hydrates stays on screen. The form contr
 
 - **69** of 72 need no hydration
 - **3** hydrate for `indeterminate`, `valueSuffix`, `valueText`
-- **40** are Server Components
+- **41** are Server Components
 
 | Component | Client | Server | Server Component | Needs hydration |
 | --- | --- | --- | --- | --- |
@@ -481,7 +481,7 @@ A choice the user makes before the page hydrates stays on screen. The form contr
 | [`MessageList`](https://opui.dev/react/components/message.md) | Yes | Yes | Yes | - |
 | [`Meter`](https://opui.dev/react/components/meter.md) | Yes | Yes | Yes | - |
 | [`NumberField`](https://opui.dev/react/components/number-field.md) | Yes | Yes | No | - |
-| [`OneTimeCode`](https://opui.dev/react/components/one-time-code.md) | Yes | Yes | No | - |
+| [`OneTimeCode`](https://opui.dev/react/components/one-time-code.md) | Yes | Yes | Yes | - |
 | [`Progress`](https://opui.dev/react/components/progress.md) | Yes | Yes | Yes | - |
 | [`Radio`](https://opui.dev/react/components/radio.md) | Yes | Yes | Yes | - |
 | [`RadioInput`](https://opui.dev/react/components/radio.md) | Yes | Yes | No | - |
@@ -775,28 +775,25 @@ Slots are snippets: `children`, and camelCased names like `endText`. Form contro
 - [CheckboxInput](https://opui.dev/svelte/components/checkbox.md)
 - [Switch](https://opui.dev/svelte/components/switch.md)
 - [SwitchInput](https://opui.dev/svelte/components/switch.md)
-- [ToggleButton](https://opui.dev/svelte/components/toggle.md)                                                                                                                                                                              |
+- [ToggleButton](https://opui.dev/svelte/components/toggle.md)                                                     |
 | `bind:group` | * [Checkbox](https://opui.dev/svelte/components/checkbox.md)
 * [CheckboxInput](https://opui.dev/svelte/components/checkbox.md)
 * [Radio](https://opui.dev/svelte/components/radio.md)
 * [RadioInput](https://opui.dev/svelte/components/radio.md)
 * [Switch](https://opui.dev/svelte/components/switch.md)
-* [SwitchInput](https://opui.dev/svelte/components/switch.md)                                                                                                                          |
-| `bind:value` | - [NumberField](https://opui.dev/svelte/components/number-field.md)
-- [OneTimeCode](https://opui.dev/svelte/components/one-time-code.md)
-- [Range](https://opui.dev/svelte/components/range.md)
+* [SwitchInput](https://opui.dev/svelte/components/switch.md) |
+| `bind:value` | - [Range](https://opui.dev/svelte/components/range.md)
 - [Rating](https://opui.dev/svelte/components/rating.md)
 - [Select](https://opui.dev/svelte/components/select.md)
 - [Tabs](https://opui.dev/svelte/components/tabs.md)
-- [Textarea](https://opui.dev/svelte/components/textarea.md)
-- [ToggleGroup](https://opui.dev/svelte/components/toggle.md) |
+- [ToggleGroup](https://opui.dev/svelte/components/toggle.md)                                                                              |
 
 ### Server rendering
 
 Every component renders full HTML on the server. The props in the last column need hydration.
 
-- **57** of 72 need no hydration
-- **15** hydrate for `bind:checked`, `bind:group`, `bind:value`, `indeterminate`, `valueSuffix`, `valueText`
+- **60** of 72 need no hydration
+- **12** hydrate for `bind:checked`, `bind:group`, `bind:value`, `indeterminate`, `valueSuffix`, `valueText`
 
 | Component | Client | Server | Needs hydration |
 | --- | --- | --- | --- |
@@ -839,8 +836,8 @@ Every component renders full HTML on the server. The props in the last column ne
 | [`Message`](https://opui.dev/svelte/components/message.md) | Yes | Yes | - |
 | [`MessageList`](https://opui.dev/svelte/components/message.md) | Yes | Yes | - |
 | [`Meter`](https://opui.dev/svelte/components/meter.md) | Yes | Yes | - |
-| [`NumberField`](https://opui.dev/svelte/components/number-field.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`OneTimeCode`](https://opui.dev/svelte/components/one-time-code.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`NumberField`](https://opui.dev/svelte/components/number-field.md) | Yes | Yes | - |
+| [`OneTimeCode`](https://opui.dev/svelte/components/one-time-code.md) | Yes | Yes | - |
 | [`Progress`](https://opui.dev/svelte/components/progress.md) | Yes | Yes | - |
 | [`Radio`](https://opui.dev/svelte/components/radio.md) | Yes | No | `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`RadioInput`](https://opui.dev/svelte/components/radio.md) | Yes | No | `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
@@ -864,7 +861,7 @@ Every component renders full HTML on the server. The props in the last column ne
 | [`TabsItem`](https://opui.dev/svelte/components/tabs.md) | Yes | Yes | - |
 | [`TabsLabel`](https://opui.dev/svelte/components/tabs.md) | Yes | Yes | - |
 | [`TabsPanel`](https://opui.dev/svelte/components/tabs.md) | Yes | Yes | - |
-| [`Textarea`](https://opui.dev/svelte/components/textarea.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Textarea`](https://opui.dev/svelte/components/textarea.md) | Yes | Yes | - |
 | [`TextField`](https://opui.dev/svelte/components/text-field.md) | Yes | Yes | - |
 | [`Timeline`](https://opui.dev/svelte/components/timeline.md) | Yes | Yes | - |
 | [`TimelineItem`](https://opui.dev/svelte/components/timeline.md) | Yes | Yes | - |
@@ -957,8 +954,8 @@ Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` 
 
 ### Server rendering
 
-- **57** of 72 need no hydration
-- **15** hydrate for `indeterminate`, `v-model`, `valueSuffix`
+- **60** of 72 need no hydration
+- **12** hydrate for `indeterminate`, `v-model`, `valueSuffix`
 
 | Component | Client | Server | Needs hydration |
 | --- | --- | --- | --- |
@@ -1001,8 +998,8 @@ Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` 
 | [`Message`](https://opui.dev/vue/components/message.md) | Yes | Yes | - |
 | [`MessageList`](https://opui.dev/vue/components/message.md) | Yes | Yes | - |
 | [`Meter`](https://opui.dev/vue/components/meter.md) | Yes | Yes | - |
-| [`NumberField`](https://opui.dev/vue/components/number-field.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`OneTimeCode`](https://opui.dev/vue/components/one-time-code.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`NumberField`](https://opui.dev/vue/components/number-field.md) | Yes | Yes | - |
+| [`OneTimeCode`](https://opui.dev/vue/components/one-time-code.md) | Yes | Yes | - |
 | [`Progress`](https://opui.dev/vue/components/progress.md) | Yes | Yes | - |
 | [`Radio`](https://opui.dev/vue/components/radio.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`RadioInput`](https://opui.dev/vue/components/radio.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
@@ -1026,7 +1023,7 @@ Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` 
 | [`TabsItem`](https://opui.dev/vue/components/tabs.md) | Yes | Yes | - |
 | [`TabsLabel`](https://opui.dev/vue/components/tabs.md) | Yes | Yes | - |
 | [`TabsPanel`](https://opui.dev/vue/components/tabs.md) | Yes | Yes | - |
-| [`Textarea`](https://opui.dev/vue/components/textarea.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Textarea`](https://opui.dev/vue/components/textarea.md) | Yes | Yes | - |
 | [`TextField`](https://opui.dev/vue/components/text-field.md) | Yes | Yes | - |
 | [`Timeline`](https://opui.dev/vue/components/timeline.md) | Yes | Yes | - |
 | [`TimelineItem`](https://opui.dev/vue/components/timeline.md) | Yes | Yes | - |

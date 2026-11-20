@@ -91,7 +91,9 @@ export default function Chat({ handle }: { handle: string | null }) {
             aria-label="Send a message"
             className="ui-layout-column"
           >
-            <Textarea hideLabel label="Message" name="text" required />
+            <Textarea hideLabel htmlFor="chat-message" label="Message">
+              <textarea id="chat-message" name="text" required />
+            </Textarea>
             <div>
               <Button type="submit" variant="filled">
                 Send

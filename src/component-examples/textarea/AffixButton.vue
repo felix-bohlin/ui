@@ -3,7 +3,12 @@ import { Button, Textarea } from "opui-css/vue"
 </script>
 
 <template>
-  <Textarea label="Message" placeholder="Write a message...">
+  <Textarea for="textarea-affix-button-1" label="Message">
+    <textarea
+      aria-describedby="textarea-affix-button-1-end"
+      id="textarea-affix-button-1"
+      placeholder="Write a message..."
+    ></textarea>
     <template #end>
       <Button
         aria-label="Send"

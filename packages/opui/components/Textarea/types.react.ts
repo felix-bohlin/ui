@@ -7,8 +7,14 @@ export type Props =
   // Unique component props
   Without<
     Base.Props,
-    "bottom" | "end" | "endText" | "label" | "start" | "startText" | "top"
-  > &
-    Base.Slots<ReactNode> &
-    // Some input attributes for spreading
-    ComponentProps<"textarea">
+    | "bottom"
+    | "end"
+    | "endText"
+    | "for"
+    | "label"
+    | "start"
+    | "startText"
+    | "top"
+  > & { htmlFor: Base.Props["for"] } & Base.Slots<ReactNode> &
+    // Root attributes
+    ComponentProps<"div">

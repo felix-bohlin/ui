@@ -106,32 +106,6 @@ const CASES: {
   {
     base: inputId,
     components: {
-      astro: NumberFieldAstro,
-      react: NumberFieldReact,
-      solid: NumberFieldSolid,
-      svelte: NumberFieldSvelte,
-      vue: NumberFieldVue,
-    },
-    name: "NumberField",
-    prefix: "number-field",
-    props: { endText: "E", label: "L", startText: "S" },
-  },
-  {
-    base: inputId,
-    components: {
-      astro: OneTimeCodeAstro,
-      react: OneTimeCodeReact,
-      solid: OneTimeCodeSolid,
-      svelte: OneTimeCodeSvelte,
-      vue: OneTimeCodeVue,
-    },
-    name: "OneTimeCode",
-    prefix: "one-time-code",
-    props: { endText: "E", label: "L" },
-  },
-  {
-    base: inputId,
-    components: {
       astro: RangeAstro,
       react: RangeReact,
       solid: RangeSolid,
@@ -165,19 +139,6 @@ const CASES: {
       label: "L",
       startText: "S",
     },
-  },
-  {
-    base: (html) => /<textarea[^>]*\sid="([^"]+)"/.exec(html)?.[1],
-    components: {
-      astro: TextareaAstro,
-      react: TextareaReact,
-      solid: TextareaSolid,
-      svelte: TextareaSvelte,
-      vue: TextareaVue,
-    },
-    name: "Textarea",
-    prefix: "textarea",
-    props: { endText: "E", label: "L", startText: "S" },
   },
 ]
 
@@ -230,37 +191,72 @@ describe.each(CASES)("$name", ({ base, components, prefix, props }) => {
   )
 })
 
-describe("TextField", () => {
-  const components: Components = {
-    astro: TextFieldAstro,
-    react: TextFieldReact,
-    solid: TextFieldSolid,
-    svelte: TextFieldSvelte,
-    vue: TextFieldVue,
-  }
+const OWN_CONTROL: {
+  components: Components
+  name: string
+  props: Record<string, unknown>
+}[] = [
+  {
+    components: {
+      astro: NumberFieldAstro,
+      react: NumberFieldReact,
+      solid: NumberFieldSolid,
+      svelte: NumberFieldSvelte,
+      vue: NumberFieldVue,
+    },
+    name: "NumberField",
+    props: { endText: "E", label: "L", startText: "S" },
+  },
+  {
+    components: {
+      astro: OneTimeCodeAstro,
+      react: OneTimeCodeReact,
+      solid: OneTimeCodeSolid,
+      svelte: OneTimeCodeSvelte,
+      vue: OneTimeCodeVue,
+    },
+    name: "OneTimeCode",
+    props: { endText: "E", label: "L" },
+  },
+  {
+    components: {
+      astro: TextFieldAstro,
+      react: TextFieldReact,
+      solid: TextFieldSolid,
+      svelte: TextFieldSvelte,
+      vue: TextFieldVue,
+    },
+    name: "TextField",
+    props: { endText: "E", label: "L", passwordToggle: true, startText: "S" },
+  },
+  {
+    components: {
+      astro: TextareaAstro,
+      react: TextareaReact,
+      solid: TextareaSolid,
+      svelte: TextareaSvelte,
+      vue: TextareaVue,
+    },
+    name: "Textarea",
+    props: { endText: "E", label: "L", startText: "S" },
+  },
+]
 
+describe.each(OWN_CONTROL)("$name", ({ components, props }) => {
   test.each(FRAMEWORKS)(
-    "%s: every id is the input's, from for, or a part of it, and none is generated",
+    "%s: every id is the control's, from for, or a part of it, and none is generated",
     async (framework) => {
       const calls: string[] = []
       const html = await renderWithIds(
         framework,
         components[framework],
-        {
-          endText: "E",
-          [framework === "react" ? "htmlFor" : "for"]: "x",
-          label: "L",
-          passwordToggle: true,
-          startText: "S",
-        },
+        { ...props, [framework === "react" ? "htmlFor" : "for"]: "x" },
         (name: string) => {
           calls.push(name)
           return `${name}-1`
         },
       )
-      expect(idsIn(html)).toEqual(
-        expect.arrayContaining(["x", "x-end-text", "x-start-text"]),
-      )
+      expect(idsIn(html)).toEqual(expect.arrayContaining(["x", "x-end-text"]))
       expect(
         idsIn(html).filter((id) => id !== "x" && !id.startsWith("x-")),
       ).toEqual([])

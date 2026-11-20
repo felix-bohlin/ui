@@ -128,14 +128,16 @@
           </FieldDescription>
         </Fieldset>
         <div class="ui-layout-row ui-small pd-buy">
-          <NumberField
-            id="product-detail-quantity"
-            label="Quantity"
-            max={10}
-            min={1}
-            name="quantity"
-            defaultValue={1}
-          />
+          <NumberField for="product-detail-quantity" label="Quantity">
+            <input
+              id="product-detail-quantity"
+              max="10"
+              min="1"
+              name="quantity"
+              type="number"
+              value="1"
+            />
+          </NumberField>
           <Button class="pd-add" type="submit" variant="filled">
             <svg
               data-icon="shopping-bag"

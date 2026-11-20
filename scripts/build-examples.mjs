@@ -70,22 +70,14 @@ export const REACT_FIXED_VALUE_TYPES = [
 ]
 
 export const REACT_DEFAULT_VALUE = [
-  "NumberField",
-  "OneTimeCode",
   "Range",
   "Rating",
   "Select",
   "Tabs",
-  "Textarea",
   "ToggleGroup",
 ]
 
-export const SVELTE_DEFAULT_VALUE = [
-  "NumberField",
-  "OneTimeCode",
-  "Range",
-  "Textarea",
-]
+export const SVELTE_DEFAULT_VALUE = ["Range"]
 
 const NUMERIC_ATTRIBUTES = [
   "colspan",

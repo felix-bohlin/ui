@@ -2,7 +2,6 @@
 
 import { type HTMLAttributes, useEffect } from "react"
 import { cx } from "../cx"
-import Button from "../Button/Button.react"
 import type { Props } from "./types.react"
 
 export default function TextField({
@@ -89,12 +88,13 @@ export default function TextField({
           <span className="ui-end" id={endId}>
             {end}
             {passwordToggle && (
-              <Button
+              <button
+                className="ui-button ui-round"
+                type="button"
                 aria-label={passwordToggleLabel}
                 aria-pressed="false"
                 command="--toggle-password"
                 commandfor={htmlFor}
-                round
               >
                 {iconUnchecked ? (
                   <span aria-hidden="true" className="ui-icon-unchecked">
@@ -124,7 +124,7 @@ export default function TextField({
                     viewBox="0 0 24 24"
                   />
                 )}
-              </Button>
+              </button>
             )}
           </span>
         )}

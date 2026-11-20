@@ -102,15 +102,27 @@
     <h2 id="two-factor-title">Two-factor sign-in</h2>
     <Form aria-label="Two-factor sign-in" onsubmit={verify}>
       <OneTimeCode
-        bind:value={code}
         endText={codeState === "error"
           ? "That code didn't work. Try again."
           : undefined}
-        error={codeState === "error"}
+        for="settings-code"
         label="Code from your app"
-        name="code"
-        required
-      />
+      >
+        <input
+          aria-describedby={codeState === "error"
+            ? "settings-code-end-text"
+            : undefined}
+          aria-invalid={codeState === "error" ? "true" : undefined}
+          autocomplete="one-time-code"
+          bind:value={code}
+          id="settings-code"
+          inputmode="numeric"
+          maxlength="6"
+          name="code"
+          pattern="[0-9]{6}"
+          required
+        />
+      </OneTimeCode>
       <div role="status">
         {#if codeState === "verified"}
           <Callout severity="success">

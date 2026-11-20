@@ -82,14 +82,15 @@
 <div class="app-screen" data-screen="feed">
   <h1>Feed</h1>
   <form aria-label="New post" class="ui-layout-column" onsubmit={submit}>
-    <Textarea
-      bind:value={text}
-      characterCount
-      label="What's on your mind?"
-      maxlength={280}
-      name="text"
-      required
-    />
+    <Textarea characterCount for="feed-post" label="What's on your mind?">
+      <textarea
+        aria-describedby="feed-post-end-text"
+        bind:value={text}
+        id="feed-post"
+        maxlength={280}
+        name="text"
+        required></textarea>
+    </Textarea>
     <div>
       <Button type="submit" variant="filled">Post</Button>
     </div>

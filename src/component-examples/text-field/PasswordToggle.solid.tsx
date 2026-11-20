@@ -25,7 +25,7 @@ export default function PasswordToggle() {
           aria-describedby="text-field-password-toggle-2-end-text"
           autocomplete="new-password"
           id="text-field-password-toggle-2"
-          minlength={12}
+          minlength="12"
           type="password"
         />
       </TextField>

@@ -1,27 +1,17 @@
 <script lang="ts">
   import "../../elements/character-count.js"
   import { content } from "../content.svelte"
-  import { getFieldGroupContext } from "../FieldGroup/context.svelte"
-  import { fieldDescribedBy } from "../id"
   import type { Props } from "./types.svelte"
 
   let {
-    "aria-describedby": ariaDescribedBy,
-    "aria-invalid": ariaInvalid,
-    "aria-labelledby": ariaLabelledBy,
     autoFit,
     characterCount,
     characterCountLabel,
     class: className,
-    defaultValue,
-    error,
+    for: htmlFor,
     hideLabel,
-    id,
-    name,
     size,
     spread,
-    style,
-    value = $bindable(),
     variant,
 
     // Snippets
@@ -36,23 +26,17 @@
     ...rest
   }: Props = $props()
 
-  const field = getFieldGroupContext()
-  const uid = $props.id()
-  const getValue = () => (value === undefined ? defaultValue : value)
-  const setValue = (next: typeof value) => {
-    value = next
-  }
-  const base = $derived(id || `textarea-${uid}`)
   const hasLabel = $derived(Boolean(label))
   const hasStartText = $derived(Boolean(startText))
   const hasEndText = $derived(Boolean(endText || characterCount))
-  const textareaId = $derived(hasLabel ? base : id)
-  const startId = $derived(start ? `${base}-start` : undefined)
-  const endId = $derived(end ? `${base}-end` : undefined)
-  const topId = $derived(top ? `${base}-top` : undefined)
-  const bottomId = $derived(bottom ? `${base}-bottom` : undefined)
-  const startTextId = $derived(hasStartText ? `${base}-start-text` : undefined)
-  const endTextId = $derived(hasEndText ? `${base}-end-text` : undefined)
+  const startId = $derived(start ? `${htmlFor}-start` : undefined)
+  const endId = $derived(end ? `${htmlFor}-end` : undefined)
+  const topId = $derived(top ? `${htmlFor}-top` : undefined)
+  const bottomId = $derived(bottom ? `${htmlFor}-bottom` : undefined)
+  const startTextId = $derived(
+    hasStartText ? `${htmlFor}-start-text` : undefined,
+  )
+  const endTextId = $derived(hasEndText ? `${htmlFor}-end-text` : undefined)
 </script>
 
 <div
@@ -66,10 +50,10 @@
     size && size !== "medium" && `ui-${size}`,
     className,
   ]}
-  {style}
+  {...rest}
 >
   {#if hasLabel}
-    <label class={hideLabel ? "ui-sr-only" : "ui-label"} for={textareaId}>
+    <label class={hideLabel ? "ui-sr-only" : "ui-label"} for={htmlFor}>
       {@render content(label)}
     </label>
   {/if}
@@ -89,25 +73,7 @@
         {@render content(start)}
       </span>
     {/if}
-    <textarea
-      {...rest}
-      aria-describedby={fieldDescribedBy(
-        {
-          bottom: bottomId,
-          end: endId,
-          endText: endTextId,
-          start: startId,
-          startText: startTextId,
-          top: topId,
-        },
-        ariaDescribedBy,
-      )}
-      aria-invalid={error ? "true" : ariaInvalid}
-      aria-labelledby={ariaLabelledBy}
-      id={textareaId}
-      name={name ?? field?.name}
-      bind:value={getValue, setValue}
-      {defaultValue}></textarea>
+    {@render children?.()}
     {#if end}
       <span class="ui-end" id={endId}>
         {@render content(end)}
@@ -130,5 +96,4 @@
       {/if}
     </span>
   {/if}
-  {@render children?.()}
 </div>

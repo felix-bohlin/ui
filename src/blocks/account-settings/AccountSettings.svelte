@@ -112,13 +112,17 @@
                 {#snippet start()}bassbook.example/{/snippet}
               </TextField>
               <Textarea
-                id="account-settings-bio"
+                for="account-settings-bio"
                 label="Bio"
-                name="bio"
-                rows={3}
                 startText="Shown on your profile for the whole world to admire"
-                defaultValue="Fretless bassist in a garage band. Into flatwounds, drop D and very long root notes."
               >
+                <textarea
+                  aria-describedby="account-settings-bio-start-text account-settings-bio-bottom"
+                  id="account-settings-bio"
+                  name="bio"
+                  rows="3"
+                  >Fretless bassist in a garage band. Into flatwounds, drop D and very long root notes.</textarea
+                >
                 {#snippet bottom()}84 / 160{/snippet}
               </Textarea>
             </FieldGroup>

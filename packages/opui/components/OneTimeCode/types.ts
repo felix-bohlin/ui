@@ -1,11 +1,8 @@
 export type Props = {
-  alphanumeric?: boolean
-  autocomplete?: "off" | "one-time-code"
   endText?: string
-  error?: boolean
+  for: string
   grouped?: boolean
   label?: string
-  length?: 4 | 5 | 6 | 7 | 8
   size?: "x-small" | "small" | "medium" | "large"
 }
 

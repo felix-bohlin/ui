@@ -84,13 +84,10 @@
         class="ui-layout-column"
         onsubmit={send}
       >
-        <Textarea
-          bind:value={text}
-          hideLabel
-          label="Message"
-          name="text"
-          required
-        />
+        <Textarea for="chat-message" hideLabel label="Message">
+          <textarea bind:value={text} id="chat-message" name="text" required
+          ></textarea>
+        </Textarea>
         <div>
           <Button type="submit" variant="filled">Send</Button>
         </div>

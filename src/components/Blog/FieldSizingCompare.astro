@@ -23,11 +23,16 @@ const columns = [
         <span>{column.caption}</span>
       </p>
       <Textarea
+        for={`field-sizing-compare-${column.sizing}`}
         label={`Notes, field-sizing: ${column.sizing}`}
-        name={`field-sizing-${column.sizing}`}
-        placeholder="Type a few lines"
-        rows={lines.min}
-      />
+      >
+        <textarea
+          id={`field-sizing-compare-${column.sizing}`}
+          name={`field-sizing-${column.sizing}`}
+          placeholder="Type a few lines"
+          rows={lines.min}
+        ></textarea>
+      </Textarea>
       <p class="field-sizing-compare-readout">Box: <span data-lines /></p>
     </div>)}
   </div>

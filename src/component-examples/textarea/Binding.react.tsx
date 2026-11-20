@@ -10,12 +10,14 @@ export default function Binding() {
 
   return (
     <>
-      <Textarea
-        label="Message"
-        name="textarea-binding"
-        value={message}
-        onChange={(event) => setMessage(event.currentTarget.value)}
-      />
+      <Textarea htmlFor="textarea-binding-1" label="Message">
+        <textarea
+          id="textarea-binding-1"
+          name="textarea-binding"
+          value={message}
+          onChange={(event) => setMessage(event.currentTarget.value)}
+        />
+      </Textarea>
       <p className="textarea-binding-text">{message.length} characters</p>
       <Button
         className="textarea-binding-reset"

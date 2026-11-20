@@ -1,30 +1,19 @@
 /** @jsxImportSource @solidjs/web */
-import { children, createUniqueId, omit } from "solid-js"
+import { children, omit } from "solid-js"
 import "../../elements/character-count.js"
-import { useFieldGroupContext } from "../FieldGroup/context.solid"
-import { fieldDescribedBy } from "../id"
-import { control } from "../solid"
 import type { Props } from "./types.solid"
 
 export default function Textarea(props: Props) {
   const rest = omit(
     props,
-    "aria-describedby",
-    "aria-invalid",
-    "aria-labelledby",
     "autoFit",
     "characterCount",
     "characterCountLabel",
     "class",
-    "error",
+    "for",
     "hideLabel",
-    "id",
-    "name",
-    "ref",
     "size",
     "spread",
-    "style",
-    "value",
     "variant",
     "children",
     "bottom",
@@ -42,21 +31,16 @@ export default function Textarea(props: Props) {
   const resolvedStart = children(() => props.start)
   const resolvedStartText = children(() => props.startText)
   const resolvedTop = children(() => props.top)
-  const field = useFieldGroupContext()
-  const uid = createUniqueId()
-  const valueControl = control("value", () => props.value)
-  const base = () => props.id || `textarea-${uid}`
   const hasLabel = () => Boolean(resolvedLabel())
   const hasStartText = () => Boolean(resolvedStartText())
   const hasEndText = () => Boolean(resolvedEndText() || props.characterCount)
-  const textareaId = () => (hasLabel() ? base() : props.id)
-  const startId = () => (resolvedStart() ? `${base()}-start` : undefined)
-  const endId = () => (resolvedEnd() ? `${base()}-end` : undefined)
-  const topId = () => (resolvedTop() ? `${base()}-top` : undefined)
-  const bottomId = () => (resolvedBottom() ? `${base()}-bottom` : undefined)
+  const startId = () => (resolvedStart() ? `${props.for}-start` : undefined)
+  const endId = () => (resolvedEnd() ? `${props.for}-end` : undefined)
+  const topId = () => (resolvedTop() ? `${props.for}-top` : undefined)
+  const bottomId = () => (resolvedBottom() ? `${props.for}-bottom` : undefined)
   const startTextId = () =>
-    hasStartText() ? `${base()}-start-text` : undefined
-  const endTextId = () => (hasEndText() ? `${base()}-end-text` : undefined)
+    hasStartText() ? `${props.for}-start-text` : undefined
+  const endTextId = () => (hasEndText() ? `${props.for}-end-text` : undefined)
 
   return (
     <div
@@ -70,12 +54,12 @@ export default function Textarea(props: Props) {
         props.size && props.size !== "medium" && `ui-${props.size}`,
         props.class,
       ]}
-      style={props.style}
+      {...rest}
     >
       {hasLabel() && (
         <label
           class={props.hideLabel ? "ui-sr-only" : "ui-label"}
-          for={textareaId()}
+          for={props.for}
         >
           {resolvedLabel()}
         </label>
@@ -96,26 +80,7 @@ export default function Textarea(props: Props) {
             {resolvedStart()}
           </span>
         )}
-        <textarea
-          {...valueControl.server}
-          ref={[props.ref, valueControl.ref]}
-          {...rest}
-          aria-describedby={fieldDescribedBy(
-            {
-              bottom: bottomId(),
-              end: endId(),
-              endText: endTextId(),
-              start: startId(),
-              startText: startTextId(),
-              top: topId(),
-            },
-            props["aria-describedby"],
-          )}
-          aria-invalid={props.error ? "true" : props["aria-invalid"]}
-          aria-labelledby={props["aria-labelledby"]}
-          id={textareaId()}
-          name={props.name ?? field?.name}
-        />
+        {props.children}
         {resolvedEnd() && (
           <span class="ui-end" id={endId()}>
             {resolvedEnd()}
@@ -139,7 +104,6 @@ export default function Textarea(props: Props) {
           )}
         </span>
       )}
-      {props.children}
     </div>
   )
 }

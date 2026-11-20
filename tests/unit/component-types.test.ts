@@ -56,10 +56,12 @@ import type * as OneTimeCodeSvelte from "../../packages/opui/components/OneTimeC
 import type * as OneTimeCodeVue from "../../packages/opui/components/OneTimeCode/types.vue-props"
 import type * as RangeReact from "../../packages/opui/components/Range/types.react"
 import type * as RangeSvelte from "../../packages/opui/components/Range/types.svelte"
+import type * as RangeVue from "../../packages/opui/components/Range/types.vue-props"
 import type * as RatingReact from "../../packages/opui/components/Rating/types.react"
 import type * as RatingSolid from "../../packages/opui/components/Rating/types.solid"
 import type * as RatingSvelte from "../../packages/opui/components/Rating/types.svelte"
 import type * as RatingVue from "../../packages/opui/components/Rating/types.vue-props"
+import type * as SelectReact from "../../packages/opui/components/Select/types.react"
 import type * as SelectSolid from "../../packages/opui/components/Select/types.solid"
 import type { SortDetail } from "../../packages/opui/components/SortableTable/types"
 import type * as SortableTableSolid from "../../packages/opui/components/SortableTable/types.solid"
@@ -72,7 +74,6 @@ import type * as TabsSolid from "../../packages/opui/components/Tabs/types.solid
 import type * as TabsSvelte from "../../packages/opui/components/Tabs/types.svelte"
 import type * as TabsVue from "../../packages/opui/components/Tabs/types.vue-props"
 import type * as TextareaReact from "../../packages/opui/components/Textarea/types.react"
-import type * as TextareaSolid from "../../packages/opui/components/Textarea/types.solid"
 import type * as TextareaSvelte from "../../packages/opui/components/Textarea/types.svelte"
 import type * as TextareaVue from "../../packages/opui/components/Textarea/types.vue-props"
 import type * as TextFieldAstro from "../../packages/opui/components/TextField/types.astro"
@@ -111,25 +112,21 @@ test("a slot without a string form is only the slot type", () => {
 })
 
 test("a value model keeps the element's value in React and Svelte and declares it in Vue", () => {
-  expectTypeOf<TextareaReact.Props["value"]>().toEqualTypeOf<
-    ComponentProps<"textarea">["value"]
+  expectTypeOf<SelectReact.Props["value"]>().toEqualTypeOf<
+    ComponentProps<"select">["value"]
   >()
-  expectTypeOf<TextareaSvelte.Props>().toHaveProperty("value")
-  expectTypeOf<TextareaVue.Props["value"]>().toEqualTypeOf<string | undefined>()
-  expectTypeOf<NumberFieldVue.Props["value"]>().toEqualTypeOf<
+  expectTypeOf<RangeSvelte.Props>().toHaveProperty("value")
+  expectTypeOf<RangeVue.Props["value"]>().toEqualTypeOf<
     number | string | undefined
   >()
 })
 
-test("a component without a default slot has no children, and a custom element root keeps the input's attributes", () => {
-  expectTypeOf<NumberFieldReact.Props>().not.toHaveProperty("children")
-  expectTypeOf<NumberFieldReact.Props>().not.toHaveProperty("type")
-  expectTypeOf<NumberFieldReact.Props["step"]>().toEqualTypeOf<
-    ComponentProps<"input">["step"]
+test("a component without a default slot has no children, and a custom element root types the rest with its own attributes", () => {
+  expectTypeOf<RangeReact.Props>().not.toHaveProperty("children")
+  expectTypeOf<NumberFieldReact.Props["title"]>().toEqualTypeOf<
+    ComponentProps<"opui-number-field">["title"]
   >()
-  expectTypeOf<NumberFieldVue.Props["name"]>().toEqualTypeOf<
-    IntrinsicElementAttributes["input"]["name"]
-  >()
+  expectTypeOf<NumberFieldVue.Props>().not.toHaveProperty("name")
 })
 
 test("a checked model declares the Svelte bindables, also on the wrapper that forwards it", () => {
@@ -375,11 +372,8 @@ test("Solid types a slot as JSX.Element, keeps the element's value, and takes de
   expectTypeOf<TextFieldSolid.Props["endText"]>().toEqualTypeOf<
     SolidJSX.Element | undefined
   >()
-  expectTypeOf<TextareaSolid.Props["value"]>().toEqualTypeOf<
-    SolidComponentProps<"textarea">["value"]
-  >()
-  expectTypeOf<TextareaSolid.Props["defaultValue"]>().toEqualTypeOf<
-    SolidComponentProps<"textarea">["defaultValue"]
+  expectTypeOf<SelectSolid.Props["value"]>().toEqualTypeOf<
+    SolidComponentProps<"select">["value"]
   >()
   expectTypeOf<TabsSolid.Props["defaultValue"]>().toEqualTypeOf<
     string | undefined
@@ -614,23 +608,14 @@ test("a close icon needs closeButton where the icon is a prop, and stays a slot 
 })
 
 test("an attribute the base props narrow keeps the narrow type, under the element's name in React", () => {
-  type Autocomplete = "off" | "one-time-code" | undefined
-  expectTypeOf<
-    OneTimeCodeAstro.Props["autocomplete"]
-  >().toEqualTypeOf<Autocomplete>()
-  expectTypeOf<
-    OneTimeCodeReact.Props["autoComplete"]
-  >().toEqualTypeOf<Autocomplete>()
-  expectTypeOf<OneTimeCodeReact.Props>().not.toHaveProperty("autocomplete")
-  expectTypeOf<
-    OneTimeCodeSolid.Props["autocomplete"]
-  >().toEqualTypeOf<Autocomplete>()
-  expectTypeOf<
-    OneTimeCodeSvelte.Props["autocomplete"]
-  >().toEqualTypeOf<Autocomplete>()
-  expectTypeOf<
-    OneTimeCodeVue.Props["autocomplete"]
-  >().toEqualTypeOf<Autocomplete>()
+  type ToggleType = "checkbox" | "radio" | undefined
+  expectTypeOf<ToggleButtonVue.Props["type"]>().toEqualTypeOf<ToggleType>()
+  expectTypeOf<OneTimeCodeReact.Props["htmlFor"]>().toEqualTypeOf<string>()
+  expectTypeOf<OneTimeCodeReact.Props>().not.toHaveProperty("for")
+  expectTypeOf<OneTimeCodeAstro.Props["for"]>().toEqualTypeOf<string>()
+  expectTypeOf<OneTimeCodeSolid.Props["for"]>().toEqualTypeOf<string>()
+  expectTypeOf<OneTimeCodeSvelte.Props["for"]>().toEqualTypeOf<string>()
+  expectTypeOf<OneTimeCodeVue.Props["for"]>().toEqualTypeOf<string>()
 })
 
 test("React keeps a renamed attribute required when the shared props require it", () => {

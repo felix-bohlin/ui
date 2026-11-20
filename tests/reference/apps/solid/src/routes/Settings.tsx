@@ -123,13 +123,25 @@ export default function Settings() {
                   ? "That code didn't work. Try again."
                   : undefined
               }
-              error={codeState() === "error"}
+              for="settings-code"
               label="Code from your app"
-              name="code"
-              onInput={(event) => setCode(event.currentTarget.value)}
-              required
-              value={code()}
-            />
+            >
+              <input
+                aria-describedby={
+                  codeState() === "error" ? "settings-code-end-text" : undefined
+                }
+                aria-invalid={codeState() === "error" ? "true" : undefined}
+                autocomplete="one-time-code"
+                id="settings-code"
+                inputmode="numeric"
+                maxlength={6}
+                name="code"
+                onInput={(event) => setCode(event.currentTarget.value)}
+                pattern="[0-9]{6}"
+                required
+                value={code()}
+              />
+            </OneTimeCode>
             <div role="status">
               <Show when={codeState() === "verified"}>
                 <Callout severity="success">

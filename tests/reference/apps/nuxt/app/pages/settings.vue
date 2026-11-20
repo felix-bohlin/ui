@@ -107,17 +107,29 @@ const deleteAccount = () => {
       <h2 id="two-factor-title">Two-factor sign-in</h2>
       <Form aria-label="Two-factor sign-in" @submit.prevent="verify">
         <OneTimeCode
-          v-model="code"
           :end-text="
             codeState === 'error'
               ? `That code didn't work. Try again.`
               : undefined
           "
-          :error="codeState === 'error'"
+          for="settings-code"
           label="Code from your app"
-          name="code"
-          required
-        />
+        >
+          <input
+            :aria-describedby="
+              codeState === 'error' ? 'settings-code-end-text' : undefined
+            "
+            :aria-invalid="codeState === 'error' ? 'true' : undefined"
+            autocomplete="one-time-code"
+            id="settings-code"
+            inputmode="numeric"
+            maxlength="6"
+            name="code"
+            pattern="[0-9]{6}"
+            required
+            v-model="code"
+          />
+        </OneTimeCode>
         <div role="status">
           <Callout v-if="codeState === 'verified'" severity="success">
             <CalloutIcon />

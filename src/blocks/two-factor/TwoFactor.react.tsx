@@ -49,12 +49,21 @@ export default function TwoFactor() {
               <FieldGroup>
                 <OneTimeCode
                   endText="The code expires in 10 minutes. No soloing!"
-                  id="two-factor-code"
+                  htmlFor="two-factor-code"
                   label="Verification code"
-                  name="code"
-                  required
                   size="large"
-                />
+                >
+                  <input
+                    aria-describedby="two-factor-code-end-text"
+                    autoComplete="one-time-code"
+                    id="two-factor-code"
+                    inputMode="numeric"
+                    maxLength={6}
+                    name="code"
+                    pattern="[0-9]{6}"
+                    required
+                  />
+                </OneTimeCode>
                 <Checkbox name="trust-device">
                   Trust this computer for 30 days
                 </Checkbox>

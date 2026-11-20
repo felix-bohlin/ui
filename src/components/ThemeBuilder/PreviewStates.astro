@@ -113,12 +113,14 @@ const name = (part: string) => `states-${scheme}-${part}`
         value="A-10492"
       />
     </TextField>
-    <Textarea
-      label="Notes"
-      name={name("placeholder")}
-      placeholder="Placeholder text"
-      rows="2"
-    />
+    <Textarea for={`${statesId}-notes`} label="Notes">
+      <textarea
+        id={`${statesId}-notes`}
+        name={name("placeholder")}
+        placeholder="Placeholder text"
+        rows="2"
+      ></textarea>
+    </Textarea>
   </div>
 
   <p class="states-note">

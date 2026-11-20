@@ -65,7 +65,14 @@
       type="password"
     />
   </TextField>
-  <NumberField defaultValue={1} {error} label="Quantity" />
+  <NumberField for="models-quantity" label="Quantity">
+    <input
+      aria-invalid={error ? "true" : undefined}
+      defaultValue="1"
+      id="models-quantity"
+      type="number"
+    />
+  </NumberField>
   <Checkbox checked={false} {error}>Newsletter</Checkbox>
   <Select {error} label="Size" value="small">
     <option value="small">Small</option>

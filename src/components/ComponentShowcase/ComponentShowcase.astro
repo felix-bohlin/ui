@@ -424,17 +424,33 @@ const Wrapper = wrap ? "ul" : Carousel
     <Fragment slot="number-field">
       <div aria-hidden="true" inert>
         <NumberField
+          for="index-number-field-showcase"
           hideLabel
-          id="index-number-field-showcase"
           label="Quantity"
-          min={1}
-          value={2}
-        />
+        >
+          <input
+            id="index-number-field-showcase"
+            min={1}
+            type="number"
+            value={2}
+          />
+        </NumberField>
       </div>
     </Fragment>
 
     <Fragment slot="one-time-code">
-      <OneTimeCode aria-hidden="true" inert grouped label="Code" value="4821" />
+      <OneTimeCode for="component-showcase-code" grouped label="Code">
+        <input
+          aria-hidden="true"
+          autocomplete="one-time-code"
+          id="component-showcase-code"
+          inert
+          inputmode="numeric"
+          maxlength="6"
+          pattern="[0-9]{6}"
+          value="4821"
+        />
+      </OneTimeCode>
     </Fragment>
 
     <Fragment slot="progress">
@@ -545,7 +561,14 @@ const Wrapper = wrap ? "ul" : Carousel
     </Fragment>
 
     <Fragment slot="textarea">
-      <Textarea aria-hidden="true" inert placeholder="Write a comment…" />
+      <Textarea for="component-showcase-write-a-comment">
+        <textarea
+          aria-hidden="true"
+          id="component-showcase-write-a-comment"
+          inert
+          placeholder="Write a comment…"
+        ></textarea>
+      </Textarea>
     </Fragment>
 
     <Fragment slot="timeline">

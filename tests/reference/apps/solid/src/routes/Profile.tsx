@@ -160,12 +160,14 @@ function ProfileScreen(props: { profile: User }) {
                   value={draftName()}
                 />
               </TextField>
-              <Textarea
-                label="Bio"
-                name="bio"
-                onInput={(event) => setDraftBio(event.currentTarget.value)}
-                value={draftBio()}
-              />
+              <Textarea for="profile-bio" label="Bio">
+                <textarea
+                  id="profile-bio"
+                  name="bio"
+                  onInput={(event) => setDraftBio(event.currentTarget.value)}
+                  value={draftBio()}
+                />
+              </Textarea>
             </DialogContent>
             <DialogFooter>
               <Button command="close" commandfor="edit-profile">

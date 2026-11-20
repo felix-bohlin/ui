@@ -5,8 +5,8 @@ export default function Affix() {
   return (
     <>
       <Textarea
+        for="textarea-affix-1"
         label="Notes"
-        placeholder="Add a note..."
         start={
           <svg
             data-icon="edit"
@@ -24,13 +24,21 @@ export default function Affix() {
             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
           </svg>
         }
-      />
+      >
+        <textarea
+          aria-describedby="textarea-affix-1-start"
+          id="textarea-affix-1"
+          placeholder="Add a note..."
+        ></textarea>
+      </Textarea>
 
-      <Textarea
-        end="Markdown"
-        label="Comment"
-        placeholder="Write a comment..."
-      />
+      <Textarea end="Markdown" for="textarea-affix-2" label="Comment">
+        <textarea
+          aria-describedby="textarea-affix-2-end"
+          id="textarea-affix-2"
+          placeholder="Write a comment..."
+        ></textarea>
+      </Textarea>
     </>
   )
 }

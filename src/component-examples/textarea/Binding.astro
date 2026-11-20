@@ -2,11 +2,12 @@
 import { Button, Textarea } from "opui-css/astro"
 ---
 
-<Textarea
-  label="Message"
-  name="textarea-binding"
-  value="Thanks for the update."
-/>
+<Textarea for="textarea-binding-1" label="Message">
+  <textarea
+    id="textarea-binding-1"
+    name="textarea-binding"
+  >Thanks for the update.</textarea>
+</Textarea>
 <p class="textarea-binding-text">22 characters</p>
 <Button class="textarea-binding-reset">Reset</Button>
 

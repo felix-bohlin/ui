@@ -32,18 +32,6 @@ const cases: {
   slots: Slots
 }[] = [
   {
-    describedBy: ["x-start-text", "x-end-text"],
-    name: "NumberField",
-    props: { endText: "E", startText: "S" },
-    slots: {},
-  },
-  {
-    describedBy: ["x-end-text"],
-    name: "OneTimeCode",
-    props: { endText: "E" },
-    slots: {},
-  },
-  ...["Select", "Textarea"].map((name) => ({
     describedBy: [
       "x-start-text",
       "x-top",
@@ -52,14 +40,14 @@ const cases: {
       "x-bottom",
       "x-end-text",
     ],
-    name,
+    name: "Select",
     props: {
       endText: "E",
+      items: [{ label: "A", value: "a" }],
       startText: "S",
-      ...(name === "Select" && { items: [{ label: "A", value: "a" }] }),
     },
     slots: PARTS,
-  })),
+  },
 ]
 
 const elements = (node: Node): Element[] =>
@@ -134,78 +122,121 @@ describe.each(cases)("$name", ({ describedBy, name, props, slots }) => {
   )
 })
 
-const TEXT_FIELD_PARTS = [
-  "x-start-text",
-  "x-top",
-  "x-start",
-  "x-end",
-  "x-bottom",
-  "x-end-text",
+const BOXED = ["start-text", "top", "start", "end", "bottom", "end-text"]
+
+const OWN_CONTROL = [
+  {
+    control: '<input id="x" type="number">',
+    drawn: ["start", "control", "end"],
+    name: "NumberField",
+    parts: ["start-text", "end-text"],
+    props: { endText: "E", startText: "S" },
+    slots: {},
+    tag: "input",
+  },
+  {
+    control: '<input id="x">',
+    drawn: ["control"],
+    name: "OneTimeCode",
+    parts: ["end-text"],
+    props: { endText: "E" },
+    slots: {},
+    tag: "input",
+  },
+  {
+    control: '<input id="x">',
+    drawn: DRAWN,
+    name: "TextField",
+    parts: BOXED,
+    props: { endText: "E", startText: "S" },
+    slots: PARTS,
+    tag: "input",
+  },
+  {
+    control: '<textarea id="x"></textarea>',
+    drawn: DRAWN,
+    name: "Textarea",
+    parts: BOXED,
+    props: { endText: "E", startText: "S" },
+    slots: PARTS,
+    tag: "textarea",
+  },
 ]
 
-const textField = (
+const ownField = (
+  name: string,
   framework: ComponentFramework,
   props: Record<string, unknown>,
   slots: Slots,
 ) =>
   renderField(
-    "TextField",
+    name,
     framework,
     {
       [framework === "react" ? "htmlFor" : "for"]: "x",
       label: "L",
       ...props,
     },
-    {
-      default: `<input aria-describedby="${[...TEXT_FIELD_PARTS, "outside"].join(" ")}" id="x">`,
-      ...slots,
-    },
+    slots,
   )
 
-describe("TextField", () => {
-  test.each(FRAMEWORKS)(
-    "%s: the label points at the input from for, and each part has the id the input's description names",
-    async (framework) => {
-      const { all, byId, control } = await textField(
-        framework,
-        { endText: "E", startText: "S" },
-        PARTS,
-      )
-      expect(control?.tagName).toBe("input")
-      expect(
-        all.filter(
-          (el) => el.tagName === "label" && attribute(el, "for") === "x",
-        ),
-      ).toHaveLength(1)
-      expect(TEXT_FIELD_PARTS.filter((id) => !byId(id))).toEqual([])
-    },
-  )
+describe.each(OWN_CONTROL)(
+  "$name",
+  ({ control, drawn, name, parts, props, slots, tag }) => {
+    test.each(FRAMEWORKS)(
+      "%s: the label points at the control from for, and each part has the id the control's description names",
+      async (framework) => {
+        const { all, byId } = await ownField(name, framework, props, {
+          default: control,
+          ...slots,
+        })
+        expect(byId("x")?.tagName).toBe(tag)
+        expect(
+          all.filter(
+            (el) => el.tagName === "label" && attribute(el, "for") === "x",
+          ),
+        ).toHaveLength(1)
+        expect(
+          parts.map((part) => `x-${part}`).filter((id) => !byId(id)),
+        ).toEqual([])
+      },
+    )
 
-  test.each(FRAMEWORKS)(
-    "%s: the field's parts come in the order they're drawn",
-    async (framework) => {
-      const { all } = await textField(framework, {}, PARTS)
-      const field = all.find((el) => attribute(el, "class") === "ui-field")!
-      const parts = field.childNodes
-        .filter((node): node is Element => "tagName" in node)
-        .map((el) =>
-          el.tagName === "input"
-            ? "control"
-            : attribute(el, "class")!.replace("ui-", ""),
+    test.each(FRAMEWORKS)(
+      "%s: the field's parts come in the order they're drawn",
+      async (framework) => {
+        const { all } = await ownField(
+          name,
+          framework,
+          {},
+          {
+            default: control,
+            ...slots,
+          },
         )
-      expect(parts).toEqual(DRAWN)
-    },
-  )
-})
+        const field = all.find((el) => attribute(el, "class") === "ui-field")!
+        const shown = field.childNodes
+          .filter((node): node is Element => "tagName" in node)
+          .map((el) =>
+            el.tagName === tag
+              ? "control"
+              : attribute(el, "class")!.replace("ui-", ""),
+          )
+        expect(shown).toEqual(drawn)
+      },
+    )
+  },
+)
 
 describe("TextField password toggle", () => {
   test.each(FRAMEWORKS)(
     "%s: the toggle points at the input and has no part id on its own",
     async (framework) => {
-      const { all, byId } = await textField(
+      const { all, byId } = await ownField(
+        "TextField",
         framework,
         { passwordToggle: true },
-        {},
+        { default: '<input id="x" type="password">' },
       )
       expect(
         all.find((el) => attribute(el, "commandfor") === "x")?.tagName,
@@ -217,10 +248,11 @@ describe("TextField password toggle", () => {
   test.each(FRAMEWORKS)(
     "%s: with an end slot, the end part holds the toggle",
     async (framework) => {
-      const { byId } = await textField(
+      const { byId } = await ownField(
+        "TextField",
         framework,
         { passwordToggle: true },
-        { end: PARTS.end },
+        { default: '<input id="x" type="password">', end: PARTS.end },
       )
       expect(
         elements(byId("x-end")!).some(

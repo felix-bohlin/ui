@@ -64,7 +64,14 @@ export default function Models() {
           type="password"
         />
       </TextField>
-      <NumberField defaultValue={1} error={error} label="Quantity" />
+      <NumberField htmlFor="models-quantity" label="Quantity">
+        <input
+          aria-invalid={error ? "true" : undefined}
+          defaultValue="1"
+          id="models-quantity"
+          type="number"
+        />
+      </NumberField>
       <Checkbox defaultChecked={false} error={error}>
         Newsletter
       </Checkbox>

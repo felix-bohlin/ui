@@ -360,11 +360,14 @@ export default function Chat() {
                       ></path>
                     </svg>
                   </Button>
-                  <Textarea
-                    aria-label="Message Stella Nut"
-                    name="chat-message"
-                    placeholder="Write something rad…"
-                  />
+                  <Textarea for="chat-chat-message">
+                    <textarea
+                      aria-label="Message Stella Nut"
+                      id="chat-chat-message"
+                      name="chat-message"
+                      placeholder="Write something rad…"
+                    ></textarea>
+                  </Textarea>
                   <Button
                     aria-label="Send"
                     color="primary"

@@ -11,6 +11,6 @@
   <input
     aria-describedby="text-field-character-count-1-end-text"
     id="text-field-character-count-1"
-    maxlength={20}
+    maxlength="20"
   />
 </TextField>

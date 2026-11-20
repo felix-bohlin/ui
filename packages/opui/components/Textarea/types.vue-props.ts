@@ -1,13 +1,8 @@
-import type { IntrinsicElementAttributes, Slot } from "vue"
+import type { Slot } from "vue"
 import type { Class, DefaultSlots } from "../vue"
 import type { Props as BaseProps } from "./types"
 
-export type Props = BaseProps &
-  Class & {
-    id?: IntrinsicElementAttributes["textarea"]["id"]
-    name?: IntrinsicElementAttributes["textarea"]["name"]
-    value?: string
-  }
+export type Props = BaseProps & Class
 
 export type Slots = {
   bottom?: Slot

@@ -7,9 +7,16 @@ type Props = {
 }
 
 const { text } = Astro.props
+const commentId = Astro.locals.$id("comment-field")
 ---
 
-<Textarea class="comment-field" placeholder="Comment" rows={1} size="small">
+<Textarea class="comment-field" for={commentId} size="small">
+  <textarea
+    aria-describedby={`${commentId}-end-text`}
+    id={commentId}
+    placeholder="Comment"
+    rows={1}
+  ></textarea>
   <span class="ui-sr-only" slot="label">
     {`Comment on: ${plainText(text)}`}
   </span>

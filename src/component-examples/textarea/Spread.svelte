@@ -2,37 +2,57 @@
   import { Textarea } from "opui-css/svelte"
 </script>
 
-<Textarea placeholder="Hi, I have a question about my order." spread>
+<Textarea for="textarea-spread-1" spread>
+  <textarea
+    aria-describedby="textarea-spread-1-start-text"
+    id="textarea-spread-1"
+    placeholder="Hi, I have a question about my order."></textarea>
   {#snippet label()}Message{/snippet}
   {#snippet startText()}Keep it under 100 characters.{/snippet}
 </Textarea>
 
-<Textarea placeholder="Additional notes..." spread variant="filled">
+<Textarea for="textarea-spread-2" spread variant="filled">
+  <textarea
+    aria-describedby="textarea-spread-2-start-text textarea-spread-2-end-text"
+    id="textarea-spread-2"
+    placeholder="Additional notes..."></textarea>
   {#snippet label()}Notes{/snippet}
   {#snippet startText()}Add any additional notes or comments{/snippet}
   {#snippet endText()}Only your team sees these.{/snippet}
 </Textarea>
 
-<Textarea label="Reason for return" required spread>
+<Textarea for="textarea-spread-3" label="Reason for return" spread>
+  <textarea
+    aria-describedby="textarea-spread-3-start-text"
+    id="textarea-spread-3"
+    required></textarea>
   {#snippet startText()}Helps us improve our products{/snippet}
 </Textarea>
 
-<Textarea disabled label="Order notes" spread>
+<Textarea for="textarea-spread-4" label="Order notes" spread>
+  <textarea
+    aria-describedby="textarea-spread-4-start-text"
+    disabled
+    id="textarea-spread-4"></textarea>
   {#snippet startText()}Orders can't change once they ship{/snippet}
 </Textarea>
 
-<Textarea error label="Review" spread defaultValue="Great">
+<Textarea for="textarea-spread-5" label="Review" spread>
+  <textarea
+    aria-describedby="textarea-spread-5-start-text textarea-spread-5-end-text"
+    aria-invalid="true"
+    id="textarea-spread-5">Great</textarea
+  >
   {#snippet startText()}Shown with your rating{/snippet}
   {#snippet endText()}Write at least 20 characters.{/snippet}
 </Textarea>
 
-<Textarea
-  characterCount
-  label="Bio"
-  maxlength={280}
-  placeholder="Tell us about yourself..."
-  spread
->
+<Textarea characterCount for="textarea-spread-6" label="Bio" spread>
+  <textarea
+    aria-describedby="textarea-spread-6-start-text textarea-spread-6-start textarea-spread-6-end-text"
+    id="textarea-spread-6"
+    maxlength="280"
+    placeholder="Tell us about yourself..."></textarea>
   {#snippet startText()}Shown on your public profile{/snippet}
   {#snippet start()}
     <svg
@@ -54,12 +74,11 @@
   {/snippet}
 </Textarea>
 
-<Textarea
-  label="Release notes"
-  placeholder="Markdown supported..."
-  spread
-  variant="filled"
->
+<Textarea for="textarea-spread-7" label="Release notes" spread variant="filled">
+  <textarea
+    aria-describedby="textarea-spread-7-start-text textarea-spread-7-top textarea-spread-7-bottom textarea-spread-7-end-text"
+    id="textarea-spread-7"
+    placeholder="Markdown supported..."></textarea>
   {#snippet startText()}Shown on the changelog page{/snippet}
   {#snippet top()}v1.4.0{/snippet}
   {#snippet bottom()}Saved 2 minutes ago{/snippet}

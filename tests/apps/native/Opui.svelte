@@ -76,7 +76,9 @@
   </ToggleGroup>
 </form>
 <form data-case="number-default">
-  <NumberField label="Quantity" defaultValue={1} />
+  <NumberField for="number-default" label="Quantity">
+    <input defaultValue="1" id="number-default" type="number" />
+  </NumberField>
 </form>
 <form data-case="radio-bound">
   <Radio bind:group={values.radio} label="Tea" name="drink" value="tea" />

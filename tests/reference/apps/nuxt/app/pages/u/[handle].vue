@@ -134,7 +134,9 @@ const reset = () => {
           <TextField for="profile-name" label="Name">
             <input id="profile-name" name="name" required v-model="draftName" />
           </TextField>
-          <Textarea v-model="draftBio" label="Bio" name="bio" />
+          <Textarea for="profile-bio" label="Bio">
+            <textarea id="profile-bio" name="bio" v-model="draftBio"></textarea>
+          </Textarea>
         </DialogContent>
         <DialogFooter>
           <Button command="close" commandfor="edit-profile">Cancel</Button>

@@ -5,7 +5,10 @@
   let message = $state(initial)
 </script>
 
-<Textarea label="Message" name="textarea-binding" bind:value={message} />
+<Textarea for="textarea-binding-1" label="Message">
+  <textarea bind:value={message} id="textarea-binding-1" name="textarea-binding"
+  ></textarea>
+</Textarea>
 <p class="textarea-binding-text">{message.length} characters</p>
 <Button class="textarea-binding-reset" onclick={() => (message = initial)}
   >Reset</Button

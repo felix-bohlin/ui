@@ -89,13 +89,14 @@ const send = () => {
           class="ui-layout-column"
           @submit.prevent="send"
         >
-          <Textarea
-            v-model="text"
-            hideLabel
-            label="Message"
-            name="text"
-            required
-          />
+          <Textarea for="chat-message" hideLabel label="Message">
+            <textarea
+              id="chat-message"
+              name="text"
+              required
+              v-model="text"
+            ></textarea>
+          </Textarea>
           <div>
             <Button type="submit" variant="filled">Send</Button>
           </div>

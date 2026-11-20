@@ -990,9 +990,12 @@ export const whatsNew = {
     `New: a <a href="#basics">Meter</a> draws the native <code>&lt;meter&gt;</code> like a Progress bar, for a value in a known range. <a href="#ranges"><code>low</code>, <code>high</code> and <code>optimum</code></a> color the fill, and a meter as tall as its row is a <a href="#poll">poll</a> bar.`,
   ],
   "number-field": [
-    components(
-      `The start and end text ids start with the <a href="#api"><code>id</code></a>: <code>x-start-text</code> and <code>x-end-text</code> for <code>id="x"</code>.`,
-    ),
+    {
+      ...components(
+        `You write the <a href="#basics"><code>&lt;input type="number"&gt;</code></a> inside the field, with its <code>id</code> set to the required <code>for</code>, and point its <code>aria-describedby</code> at <code>x-start-text</code> and <code>x-end-text</code> for <code>for="x"</code>.`,
+      ),
+      react: `You write the <a href="#basics"><code>&lt;input type="number"&gt;</code></a> inside the field, with its <code>id</code> set to the required <code>htmlFor</code>, and point its <code>aria-describedby</code> at <code>x-start-text</code> and <code>x-end-text</code> for <code>htmlFor="x"</code>.`,
+    },
     {
       default: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held, run by the <code>&lt;opui-number-field&gt;</code> custom element, which the component loads. It fits its value unless <a href="#stretch"><code>stretch</code></a> fills the width. The <a href="#buttons">buttons</a> take translated labels and your own icons.`,
       html: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held. Import <code>opui-css/elements/number-field.js</code> for the <code>&lt;opui-number-field&gt;</code> custom element that runs them. It fits its value unless <a href="#stretch"><code>.ui-stretch</code></a> fills the width. The <a href="#buttons">buttons</a> take translated labels and your own icons.`,
@@ -1582,6 +1585,12 @@ export const whatsNew = {
     `A field in a table cell keeps a <code>12ch</code> minimum width, so it stays usable with a <a href="#hidden-label">hidden label</a> in a narrow column.`,
   ],
   textarea: [
+    {
+      ...components(
+        `Breaking: write the <a href="#textarea"><code>&lt;textarea&gt;</code></a> inside the field, with its <code>id</code> set to the required <code>for</code>, and bind, name and validate it like any textarea. <code>error</code>, <code>id</code>, <code>disabled</code>, <code>name</code> and the bound value move onto it, the value as its content and <code>aria-invalid="true"</code> for <code>error</code>.`,
+      ),
+      react: `Breaking: write the <a href="#textarea"><code>&lt;textarea&gt;</code></a> inside the field, with its <code>id</code> set to the required <code>htmlFor</code>, and bind, name and validate it like any textarea. <code>error</code>, <code>id</code>, <code>disabled</code>, <code>name</code>, <code>value</code> and <code>onChange</code> move onto it, <code>aria-invalid="true"</code> for <code>error</code>.`,
+    },
     `A <code>Button</code> in the <a href="#affix">start or end</a> fits the first line and centers on it, taller content starts a little below the field's top, and Tab reaches the parts in the order they're drawn, in every browser.`,
     {
       default: `Breaking: the root is a <code>&lt;div&gt;</code> with a <code>&lt;label for&gt;</code> inside, so the <a href="#affix">affixes</a> can hold buttons. The label alone <a href="#accessibility">names the field</a>, and the start text, top, affixes, bottom and end text describe it through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, in any language's word order. A click on them no longer focuses the field.`,

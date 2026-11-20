@@ -3,7 +3,6 @@ import { dynamic } from "@solidjs/web"
 import { children, omit } from "solid-js"
 import "../../elements/character-count.js"
 import "../../elements/text-field.js"
-import Button from "../Button/Button.solid"
 import type { Props } from "./types.solid"
 
 export default function TextField(props: Props) {
@@ -102,12 +101,13 @@ export default function TextField(props: Props) {
           <span class="ui-end" id={endId()}>
             {resolvedEnd()}
             {props.passwordToggle && (
-              <Button
+              <button
+                class="ui-button ui-round"
+                type="button"
                 aria-label={passwordToggleLabel()}
                 aria-pressed="false"
                 command="--toggle-password"
                 commandfor={props.for}
-                round
               >
                 {resolvedIconUnchecked() ? (
                   <span aria-hidden="true" class="ui-icon-unchecked">
@@ -137,7 +137,7 @@ export default function TextField(props: Props) {
                     viewBox="0 0 24 24"
                   />
                 )}
-              </Button>
+              </button>
             )}
           </span>
         )}

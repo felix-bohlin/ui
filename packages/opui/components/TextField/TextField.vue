@@ -3,7 +3,6 @@ import "../../elements/character-count.js"
 import "../../elements/text-field.js"
 import { computed } from "vue"
 import { TrimmedSlot } from "../whitespace.vue"
-import Button from "../Button/Button.vue"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
@@ -79,14 +78,16 @@ const endTextId = () => (hasEndText() ? `${htmlFor}-end-text` : undefined)
       <slot></slot>
       <span v-if="$slots.end || passwordToggle" class="ui-end" :id="endId()">
         <slot name="end"></slot
-        ><Button
+        ><button
           v-if="passwordToggle"
+          class="ui-button ui-round"
+          type="button"
           :aria-label="passwordToggleLabel"
           aria-pressed="false"
           command="--toggle-password"
           :commandfor="htmlFor"
-          round
-          ><span
+        >
+          <span
             v-if="$slots['icon-unchecked']"
             aria-hidden="true"
             class="ui-icon-unchecked"
@@ -115,8 +116,8 @@ const endTextId = () => (hasEndText() ? `${htmlFor}-end-text` : undefined)
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          ></svg
-        ></Button>
+          ></svg>
+        </button>
       </span>
       <span v-if="$slots.bottom" class="ui-bottom" :id="bottomId()">
         <slot name="bottom"></slot>

@@ -34,6 +34,8 @@ const KNOWN: Record<string, string> = {
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   "react/FileUpload without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
+  "react/NumberField without native attributes, unset after a render with it":
+    "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   "react/Reactions without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   "react/SelectAll without native attributes, unset after a render with it":
@@ -50,6 +52,8 @@ const KNOWN: Record<string, string> = {
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   'svelte/Rating without value="Text", unset after a render with it':
     "TODO.md Bugs: Rating: a value or max that isn't a number",
+  "svelte/NumberField without native attributes, unset after a render with it":
+    "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   "svelte/Reactions without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   'svelte/Select with items=[{"label":"A","value":"a"}], set after a render without it':

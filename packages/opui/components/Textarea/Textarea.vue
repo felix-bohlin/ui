@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import "../../elements/character-count.js"
-import { computed, inject, useId } from "vue"
-import { useBound, useInputAttrs } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
-import { FieldGroupKey } from "../FieldGroup/context.vue"
-import { fieldDescribedBy } from "../id"
-import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
@@ -13,34 +8,15 @@ const {
   characterCount,
   characterCountLabel,
   endText,
-  error,
+  for: htmlFor,
   hideLabel,
-  id,
   label,
-  name,
   size,
   spread,
   startText,
-  value,
   variant,
 } = defineProps<Props>()
 const slots = defineSlots<Slots>()
-
-defineOptions({
-  inheritAttrs: false,
-})
-
-const attrs = useInputAttrs()
-
-const modelValue = defineModel<string>()
-
-const bound = useBound()
-
-const field = inject(FieldGroupKey, undefined)
-
-const uid = useId()
-
-const base = computed(() => id || `textarea-${uid}`)
 
 const hasLabel = () => Boolean(label || slots.label)
 
@@ -48,20 +24,17 @@ const hasStartText = () => Boolean(startText || slots["start-text"])
 
 const hasEndText = () => Boolean(endText || slots["end-text"] || characterCount)
 
-const textareaId = () => (hasLabel() ? base.value : id)
+const startId = () => (slots.start ? `${htmlFor}-start` : undefined)
 
-const startId = () => (slots.start ? `${base.value}-start` : undefined)
+const endId = () => (slots.end ? `${htmlFor}-end` : undefined)
 
-const endId = () => (slots.end ? `${base.value}-end` : undefined)
+const topId = () => (slots.top ? `${htmlFor}-top` : undefined)
 
-const topId = () => (slots.top ? `${base.value}-top` : undefined)
+const bottomId = () => (slots.bottom ? `${htmlFor}-bottom` : undefined)
 
-const bottomId = () => (slots.bottom ? `${base.value}-bottom` : undefined)
+const startTextId = () => (hasStartText() ? `${htmlFor}-start-text` : undefined)
 
-const startTextId = () =>
-  hasStartText() ? `${base.value}-start-text` : undefined
-
-const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
+const endTextId = () => (hasEndText() ? `${htmlFor}-end-text` : undefined)
 </script>
 
 <template>
@@ -76,12 +49,11 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
       size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
-    v-bind="styleAttrs($attrs.style)"
   >
     <label
       v-if="hasLabel()"
       :class="hideLabel ? 'ui-sr-only' : 'ui-label'"
-      :for="textareaId()"
+      :for="htmlFor"
       >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
     /></label>
     <span v-if="hasStartText()" class="ui-start-text" :id="startTextId()"
@@ -94,49 +66,7 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
       <span v-if="$slots.start" class="ui-start" :id="startId()">
         <slot name="start"></slot>
       </span>
-      <textarea
-        v-if="bound"
-        v-bind="attrs"
-        :aria-describedby="
-          fieldDescribedBy(
-            {
-              bottom: bottomId(),
-              end: endId(),
-              endText: endTextId(),
-              start: startId(),
-              startText: startTextId(),
-              top: topId(),
-            },
-            attrs['aria-describedby'],
-          )
-        "
-        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
-        :aria-labelledby="attrs['aria-labelledby']"
-        :id="textareaId()"
-        :name="name ?? field?.name"
-        v-model="modelValue"
-      ></textarea>
-      <textarea
-        v-else
-        v-bind="attrs"
-        :aria-describedby="
-          fieldDescribedBy(
-            {
-              bottom: bottomId(),
-              end: endId(),
-              endText: endTextId(),
-              start: startId(),
-              startText: startTextId(),
-              top: topId(),
-            },
-            attrs['aria-describedby'],
-          )
-        "
-        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
-        :aria-labelledby="attrs['aria-labelledby']"
-        :id="textareaId()"
-        :name="name ?? field?.name"
-        >{{ value }}</textarea>
+      <slot></slot>
       <span v-if="$slots.end" class="ui-end" :id="endId()">
         <slot name="end"></slot>
       </span>
@@ -154,6 +84,5 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
         :label="characterCountLabel"
       ></component
     ></span>
-    <slot></slot>
   </div>
 </template>

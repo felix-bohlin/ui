@@ -1,26 +1,18 @@
 "use client"
 
-import { useEffect, useId } from "react"
+import { useEffect } from "react"
 import { cx } from "../cx"
-import { useFieldGroupContext } from "../FieldGroup/context.react"
-import { fieldDescribedBy } from "../id"
 import type { Props } from "./types.react"
 
 export default function Textarea({
-  "aria-describedby": ariaDescribedBy,
-  "aria-invalid": ariaInvalid,
-  "aria-labelledby": ariaLabelledBy,
   autoFit,
   characterCount,
   characterCountLabel,
   className,
-  error,
   hideLabel,
-  id,
-  name,
+  htmlFor,
   size,
   spread,
-  style,
   variant,
   children,
   bottom,
@@ -32,19 +24,15 @@ export default function Textarea({
   top,
   ...rest
 }: Props) {
-  const field = useFieldGroupContext()
-  const uid = useId()
-  const base = id || `textarea-${uid}`
   const hasLabel = Boolean(label)
   const hasStartText = Boolean(startText)
   const hasEndText = Boolean(endText || characterCount)
-  const textareaId = hasLabel ? base : id
-  const startId = start ? `${base}-start` : undefined
-  const endId = end ? `${base}-end` : undefined
-  const topId = top ? `${base}-top` : undefined
-  const bottomId = bottom ? `${base}-bottom` : undefined
-  const startTextId = hasStartText ? `${base}-start-text` : undefined
-  const endTextId = hasEndText ? `${base}-end-text` : undefined
+  const startId = start ? `${htmlFor}-start` : undefined
+  const endId = end ? `${htmlFor}-end` : undefined
+  const topId = top ? `${htmlFor}-top` : undefined
+  const bottomId = bottom ? `${htmlFor}-bottom` : undefined
+  const startTextId = hasStartText ? `${htmlFor}-start-text` : undefined
+  const endTextId = hasEndText ? `${htmlFor}-end-text` : undefined
   useEffect(() => {
     void import("../../elements/character-count.js")
   }, [])
@@ -61,12 +49,12 @@ export default function Textarea({
         size && size !== "medium" && `ui-${size}`,
         className,
       ])}
-      style={style}
+      {...rest}
     >
       {hasLabel && (
         <label
           className={hideLabel ? "ui-sr-only" : "ui-label"}
-          htmlFor={textareaId}
+          htmlFor={htmlFor}
         >
           {label}
         </label>
@@ -87,24 +75,7 @@ export default function Textarea({
             {start}
           </span>
         )}
-        <textarea
-          {...rest}
-          aria-describedby={fieldDescribedBy(
-            {
-              bottom: bottomId,
-              end: endId,
-              endText: endTextId,
-              start: startId,
-              startText: startTextId,
-              top: topId,
-            },
-            ariaDescribedBy,
-          )}
-          aria-invalid={error ? "true" : ariaInvalid}
-          aria-labelledby={ariaLabelledBy}
-          id={textareaId}
-          name={name ?? field?.name}
-        />
+        {children}
         {end && (
           <span className="ui-end" id={endId}>
             {end}
@@ -130,7 +101,6 @@ export default function Textarea({
           )}
         </span>
       )}
-      {children}
     </div>
   )
 }

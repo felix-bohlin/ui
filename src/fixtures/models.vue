@@ -82,7 +82,14 @@ onBeforeUnmount(() =>
         type="password"
       />
     </TextField>
-    <NumberField :error label="Quantity" :value="1" />
+    <NumberField for="models-quantity" label="Quantity">
+      <input
+        :aria-invalid="error ? 'true' : undefined"
+        id="models-quantity"
+        type="number"
+        value="1"
+      />
+    </NumberField>
     <Checkbox :checked="false" :error>Newsletter</Checkbox>
     <Select :error label="Size" value="small">
       <option value="small">Small</option>

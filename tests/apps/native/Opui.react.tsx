@@ -102,7 +102,9 @@ export default function Opui() {
         </ToggleGroup>
       </form>
       <form data-case="number-default">
-        <NumberField defaultValue={1} label="Quantity" />
+        <NumberField htmlFor="number-default" label="Quantity">
+          <input defaultValue="1" id="number-default" type="number" />
+        </NumberField>
       </form>
       <form data-case="radio-bound">
         {["tea", "coffee"].map((drink) => (

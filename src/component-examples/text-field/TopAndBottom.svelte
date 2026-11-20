@@ -15,7 +15,7 @@
   <input
     aria-describedby="text-field-top-and-bottom-2-bottom text-field-top-and-bottom-2-end-text"
     id="text-field-top-and-bottom-2"
-    maxlength={80}
+    maxlength="80"
     placeholder="Turn it up, not down"
   />
   {#snippet bottom()}Plain text, no links{/snippet}

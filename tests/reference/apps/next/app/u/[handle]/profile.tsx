@@ -131,7 +131,9 @@ export default function Profile({ profile }: { profile: User }) {
                   required
                 />
               </TextField>
-              <Textarea defaultValue={form.bio} label="Bio" name="bio" />
+              <Textarea htmlFor="profile-bio" label="Bio">
+                <textarea defaultValue={form.bio} id="profile-bio" name="bio" />
+              </Textarea>
             </DialogContent>
             <DialogFooter>
               <Button command="close" commandfor="edit-profile">

@@ -18,7 +18,13 @@ export default function FieldsetRequired() {
         <TextField htmlFor="form-fieldset-required-2" label="Recipient">
           <input id="form-fieldset-required-2" name="recipient" />
         </TextField>
-        <Textarea label="Address" name="address" required />
+        <Textarea htmlFor="form-fieldset-required-3" label="Address">
+          <textarea
+            id="form-fieldset-required-3"
+            name="address"
+            required
+          ></textarea>
+        </Textarea>
       </FieldGroup>
     </Fieldset>
   )

@@ -125,11 +125,23 @@ export default function Settings() {
                   ? "That code didn't work. Try again."
                   : undefined
               }
-              error={codeState === "error"}
+              htmlFor="settings-code"
               label="Code from your app"
-              name="code"
-              required
-            />
+            >
+              <input
+                aria-describedby={
+                  codeState === "error" ? "settings-code-end-text" : undefined
+                }
+                aria-invalid={codeState === "error" ? "true" : undefined}
+                autoComplete="one-time-code"
+                id="settings-code"
+                inputMode="numeric"
+                maxLength={6}
+                name="code"
+                pattern="[0-9]{6}"
+                required
+              />
+            </OneTimeCode>
             <div role="status">
               {codeState === "verified" && (
                 <Success text="Two-factor sign-in is on." />

@@ -82,11 +82,17 @@ export default function Feed() {
       <form action={post} aria-label="New post" className="ui-layout-column">
         <Textarea
           characterCount
+          htmlFor="feed-post"
           label="What's on your mind?"
-          maxLength={280}
-          name="text"
-          required
-        />
+        >
+          <textarea
+            aria-describedby="feed-post-end-text"
+            id="feed-post"
+            maxLength={280}
+            name="text"
+            required
+          />
+        </Textarea>
         <div>
           <Button type="submit" variant="filled">
             Post

@@ -1,32 +1,21 @@
 /** @jsxImportSource @solidjs/web */
-import { children, createUniqueId, omit } from "solid-js"
+import { children, omit } from "solid-js"
 import "../../elements/number-field.js"
-import Button from "../Button/Button.solid"
-import { useFieldGroupContext } from "../FieldGroup/context.solid"
-import { fieldDescribedBy } from "../id"
-import { control } from "../solid"
 import type { Props } from "./types.solid"
 
 export default function NumberField(props: Props) {
   const rest = omit(
     props,
-    "aria-describedby",
-    "aria-invalid",
     "class",
     "decreaseLabel",
-    "disabled",
-    "error",
+    "for",
     "hideLabel",
-    "id",
     "increaseLabel",
-    "name",
-    "ref",
     "size",
     "spread",
     "stretch",
-    "style",
-    "value",
     "variant",
+    "children",
     "decreaseIcon",
     "endText",
     "increaseIcon",
@@ -38,18 +27,14 @@ export default function NumberField(props: Props) {
   const resolvedIncreaseIcon = children(() => props.increaseIcon)
   const resolvedLabel = children(() => props.label)
   const resolvedStartText = children(() => props.startText)
-  const field = useFieldGroupContext()
-  const uid = createUniqueId()
-  const valueControl = control("value", () => props.value)
   const decreaseLabel = () =>
     props.decreaseLabel === undefined ? "Decrease" : props.decreaseLabel
   const increaseLabel = () =>
     props.increaseLabel === undefined ? "Increase" : props.increaseLabel
-  const base = () => props.id || `number-field-${uid}`
-  const inputId = () => base()
   const startTextId = () =>
-    resolvedStartText() ? `${base()}-start-text` : undefined
-  const endTextId = () => (resolvedEndText() ? `${base()}-end-text` : undefined)
+    resolvedStartText() ? `${props.for}-start-text` : undefined
+  const endTextId = () =>
+    resolvedEndText() ? `${props.for}-end-text` : undefined
 
   return (
     <opui-number-field
@@ -63,12 +48,12 @@ export default function NumberField(props: Props) {
         props.size && props.size !== "medium" && `ui-${props.size}`,
         props.class,
       ]}
-      style={props.style}
+      {...rest}
     >
       {resolvedLabel() && (
         <label
           class={props.hideLabel ? "ui-sr-only" : "ui-label"}
-          for={inputId()}
+          for={props.for}
         >
           {resolvedLabel()}
         </label>
@@ -80,13 +65,13 @@ export default function NumberField(props: Props) {
       )}
       <span class="ui-field">
         <span class="ui-start">
-          <Button
-            aria-controls={inputId()}
+          <button
+            class="ui-button ui-round"
+            type="button"
+            aria-controls={props.for}
             aria-label={decreaseLabel()}
             command="--step-down"
-            commandfor={inputId()}
-            disabled={props.disabled}
-            round
+            commandfor={props.for}
           >
             {resolvedDecreaseIcon() === undefined ? (
               <svg
@@ -99,30 +84,17 @@ export default function NumberField(props: Props) {
             ) : (
               resolvedDecreaseIcon()
             )}
-          </Button>
+          </button>
         </span>
-        <input
-          {...valueControl.server}
-          ref={[props.ref, valueControl.ref]}
-          {...rest}
-          aria-describedby={fieldDescribedBy(
-            { endText: endTextId(), startText: startTextId() },
-            props["aria-describedby"],
-          )}
-          aria-invalid={props.error ? "true" : props["aria-invalid"]}
-          disabled={props.disabled}
-          id={inputId()}
-          name={props.name ?? field?.name}
-          type="number"
-        />
+        {props.children}
         <span class="ui-end">
-          <Button
-            aria-controls={inputId()}
+          <button
+            class="ui-button ui-round"
+            type="button"
+            aria-controls={props.for}
             aria-label={increaseLabel()}
             command="--step-up"
-            commandfor={inputId()}
-            disabled={props.disabled}
-            round
+            commandfor={props.for}
           >
             {resolvedIncreaseIcon() === undefined ? (
               <svg
@@ -135,7 +107,7 @@ export default function NumberField(props: Props) {
             ) : (
               resolvedIncreaseIcon()
             )}
-          </Button>
+          </button>
         </span>
       </span>
       {resolvedEndText() && (

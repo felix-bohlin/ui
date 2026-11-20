@@ -7,7 +7,13 @@ const message = ref(initial)
 </script>
 
 <template>
-  <Textarea label="Message" name="textarea-binding" v-model="message" />
+  <Textarea for="textarea-binding-1" label="Message">
+    <textarea
+      id="textarea-binding-1"
+      name="textarea-binding"
+      v-model="message"
+    ></textarea>
+  </Textarea>
   <p class="textarea-binding-text">{{ message.length }} characters</p>
   <Button class="textarea-binding-reset" @click="message = initial"
     >Reset</Button

@@ -5,29 +5,54 @@ export default function Validation() {
   return (
     <>
       <div class="example-row">
-        <Textarea label="Message" placeholder="How can we help?" required />
+        <Textarea for="textarea-validation-1" label="Message">
+          <textarea
+            id="textarea-validation-1"
+            placeholder="How can we help?"
+            required
+          ></textarea>
+        </Textarea>
         <Textarea
+          for="textarea-validation-2"
           label="Delivery instructions"
-          placeholder="Gate code, floor, where to leave it"
-          required
           variant="filled"
-        />
+        >
+          <textarea
+            id="textarea-validation-2"
+            placeholder="Gate code, floor, where to leave it"
+            required
+          ></textarea>
+        </Textarea>
       </div>
 
       <div class="example-row">
         <Textarea
-          defaultValue="Great"
           endText="Write at least 20 characters."
-          error
+          for="textarea-validation-3"
           label="Review"
-        />
+        >
+          <textarea
+            aria-describedby="textarea-validation-3-end-text"
+            aria-invalid="true"
+            id="textarea-validation-3"
+          >
+            Great
+          </textarea>
+        </Textarea>
         <Textarea
-          defaultValue="Designer at https://example.com"
           endText="Remove the link. Bios are plain text."
-          error
+          for="textarea-validation-4"
           label="Bio"
           variant="filled"
-        />
+        >
+          <textarea
+            aria-describedby="textarea-validation-4-end-text"
+            aria-invalid="true"
+            id="textarea-validation-4"
+          >
+            Designer at https://example.com
+          </textarea>
+        </Textarea>
       </div>
     </>
   )

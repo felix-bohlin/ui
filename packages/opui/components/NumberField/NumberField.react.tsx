@@ -1,28 +1,20 @@
 "use client"
 
-import { useEffect, useId } from "react"
+import { useEffect } from "react"
 import { cx } from "../cx"
-import Button from "../Button/Button.react"
-import { useFieldGroupContext } from "../FieldGroup/context.react"
-import { fieldDescribedBy } from "../id"
 import type { Props } from "./types.react"
 
 export default function NumberField({
-  "aria-describedby": ariaDescribedBy,
-  "aria-invalid": ariaInvalid,
   className,
   decreaseLabel = "Decrease",
-  disabled,
-  error,
   hideLabel,
-  id,
+  htmlFor,
   increaseLabel = "Increase",
-  name,
   size,
   spread,
   stretch,
-  style,
   variant,
+  children,
   decreaseIcon,
   endText,
   increaseIcon,
@@ -30,12 +22,8 @@ export default function NumberField({
   startText,
   ...rest
 }: Props) {
-  const field = useFieldGroupContext()
-  const uid = useId()
-  const base = id || `number-field-${uid}`
-  const inputId = base
-  const startTextId = startText ? `${base}-start-text` : undefined
-  const endTextId = endText ? `${base}-end-text` : undefined
+  const startTextId = startText ? `${htmlFor}-start-text` : undefined
+  const endTextId = endText ? `${htmlFor}-end-text` : undefined
   useEffect(() => {
     void import("../../elements/number-field.js")
   }, [])
@@ -52,12 +40,12 @@ export default function NumberField({
         size && size !== "medium" && `ui-${size}`,
         className,
       ])}
-      style={style}
+      {...rest}
     >
       {label && (
         <label
           className={hideLabel ? "ui-sr-only" : "ui-label"}
-          htmlFor={inputId}
+          htmlFor={htmlFor}
         >
           {label}
         </label>
@@ -69,13 +57,13 @@ export default function NumberField({
       )}
       <span className="ui-field">
         <span className="ui-start">
-          <Button
-            aria-controls={inputId}
+          <button
+            className="ui-button ui-round"
+            type="button"
+            aria-controls={htmlFor}
             aria-label={decreaseLabel}
             command="--step-down"
-            commandfor={inputId}
-            disabled={disabled}
-            round
+            commandfor={htmlFor}
           >
             {decreaseIcon === undefined ? (
               <svg
@@ -88,28 +76,17 @@ export default function NumberField({
             ) : (
               decreaseIcon
             )}
-          </Button>
+          </button>
         </span>
-        <input
-          {...rest}
-          aria-describedby={fieldDescribedBy(
-            { endText: endTextId, startText: startTextId },
-            ariaDescribedBy,
-          )}
-          aria-invalid={error ? "true" : ariaInvalid}
-          disabled={disabled}
-          id={inputId}
-          name={name ?? field?.name}
-          type="number"
-        />
+        {children}
         <span className="ui-end">
-          <Button
-            aria-controls={inputId}
+          <button
+            className="ui-button ui-round"
+            type="button"
+            aria-controls={htmlFor}
             aria-label={increaseLabel}
             command="--step-up"
-            commandfor={inputId}
-            disabled={disabled}
-            round
+            commandfor={htmlFor}
           >
             {increaseIcon === undefined ? (
               <svg
@@ -122,7 +99,7 @@ export default function NumberField({
             ) : (
               increaseIcon
             )}
-          </Button>
+          </button>
         </span>
       </span>
       {endText && (

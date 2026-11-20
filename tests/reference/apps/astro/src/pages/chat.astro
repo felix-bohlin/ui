@@ -61,7 +61,9 @@ const open = conversation(Astro.url.searchParams.get("with"))
           </Message>
         </template>
         <form aria-label="Send a message" class="ui-layout-column">
-          <Textarea hideLabel label="Message" name="text" required />
+          <Textarea for="chat-message" hideLabel label="Message">
+            <textarea id="chat-message" name="text" required></textarea>
+          </Textarea>
           <div>
             <Button type="submit" variant="filled">Send</Button>
           </div>

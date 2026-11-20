@@ -59,15 +59,16 @@ export default function Fields() {
       </Fieldset>
 
       <ControlGroup aria-label="Add to cart" color="primary" variant="filled">
-        <NumberField
-          defaultValue={1}
-          hideLabel
-          id="control-group-fields-1"
-          label="Quantity"
-          max={10}
-          min={1}
-          name="quantity"
-        />
+        <NumberField for="control-group-fields-1" hideLabel label="Quantity">
+          <input
+            id="control-group-fields-1"
+            max="10"
+            min="1"
+            name="quantity"
+            type="number"
+            defaultValue="1"
+          />
+        </NumberField>
         <Button>Add to cart</Button>
       </ControlGroup>
     </>

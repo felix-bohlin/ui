@@ -95,14 +95,15 @@ export default function Chat() {
             class="ui-layout-column"
             onSubmit={send}
           >
-            <Textarea
-              hideLabel
-              label="Message"
-              name="text"
-              onInput={(event) => setText(event.currentTarget.value)}
-              required
-              value={text()}
-            />
+            <Textarea for="chat-message" hideLabel label="Message">
+              <textarea
+                id="chat-message"
+                name="text"
+                onInput={(event) => setText(event.currentTarget.value)}
+                required
+                value={text()}
+              />
+            </Textarea>
             <div>
               <Button type="submit" variant="filled">
                 Send

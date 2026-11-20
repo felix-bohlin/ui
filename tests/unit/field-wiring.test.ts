@@ -7,6 +7,15 @@ type Node = DefaultTreeAdapterMap["childNode"] | Element
 
 const PARTS = ["start-text", "top", "start", "end", "bottom", "end-text"]
 
+const ROOTS = [
+  "ui-number-field",
+  "ui-one-time-code",
+  "ui-text-field",
+  "ui-textarea",
+]
+
+const CONTROLS = ["input", "textarea"]
+
 const children = (node: Node) =>
   "childNodes" in node
     ? node.childNodes.filter((child): child is Element => "tagName" in child)
@@ -21,20 +30,25 @@ const attribute = (element: Element | undefined, name: string) =>
 const hasClass = (element: Element, name: string) =>
   (attribute(element, "class") ?? "").split(/\s+/).includes(name)
 
-const togglesOnly = (element: Element) =>
-  children(element).every(
-    (child) => attribute(child, "command") === "--toggle-password",
+const BUTTON_COMMANDS = ["--step-down", "--step-up", "--toggle-password"]
+
+const buttonsOnly = (element: Element) =>
+  children(element).every((child) =>
+    BUTTON_COMMANDS.includes(attribute(child, "command") ?? ""),
   )
 
 export const wiringProblems = (html: string) =>
   descendants(parseFragment(html) as unknown as Node)
-    .filter((element) => hasClass(element, "ui-text-field"))
+    .filter((element) => ROOTS.some((root) => hasClass(element, root)))
     .flatMap((root) => {
       const field = children(root).find((child) => hasClass(child, "ui-field"))
       const input =
-        field && children(field).find((child) => child.tagName === "input")
+        field &&
+        children(field).find((child) => CONTROLS.includes(child.tagName))
       const id = attribute(input, "id")
-      if (!input || !id) return ["no <input> with an id directly in .ui-field"]
+      if (!input || !id) {
+        return ["no <input> or <textarea> with an id directly in .ui-field"]
+      }
       const problems: string[] = []
       const label = children(root).find((child) => child.tagName === "label")
       if (label && attribute(label, "for") !== id) {
@@ -48,7 +62,13 @@ export const wiringProblems = (html: string) =>
         )
         if (!element) return []
         const partId = attribute(element, "id")
-        if (!partId && part === "end" && togglesOnly(element)) return []
+        if (
+          !partId &&
+          ["end", "start"].includes(part) &&
+          buttonsOnly(element)
+        ) {
+          return []
+        }
         if (partId !== `${id}-${part}`) {
           problems.push(`.ui-${part} has the id ${partId}, not ${id}-${part}`)
         }
@@ -67,11 +87,11 @@ export const wiringProblems = (html: string) =>
 
 const FILES = globSync("src/{blocks,component-examples}/*/*.html").toSorted()
 
-describe("every text field in the HTML examples and blocks points at its input", () => {
+describe("every field in the HTML examples and blocks points at the control you write", () => {
   test("covers the files with a text field", () => {
     expect(
       FILES.filter((file) =>
-        readFileSync(file, "utf8").includes("ui-text-field"),
+        ROOTS.some((root) => readFileSync(file, "utf8").includes(root)),
       ).length,
     ).toBeGreaterThan(20)
   })
@@ -97,7 +117,15 @@ describe("every text field in the HTML examples and blocks points at its input",
       wiringProblems(
         '<div class="ui-text-field"><span class="ui-field"><span><input id="x"></span></span></div>',
       ),
-    ).toEqual(["no <input> with an id directly in .ui-field"])
+    ).toEqual(["no <input> or <textarea> with an id directly in .ui-field"])
+  })
+
+  test("step buttons need no start or end id", () => {
+    expect(
+      wiringProblems(
+        '<opui-number-field class="ui-number-field"><label class="ui-label" for="x">Quantity</label><span class="ui-field"><span class="ui-start"><button command="--step-down" commandfor="x"></button></span><input id="x" type="number"><span class="ui-end"><button command="--step-up" commandfor="x"></button></span></span></opui-number-field>',
+      ),
+    ).toEqual([])
   })
 
   test("a password toggle alone needs no end id", () => {

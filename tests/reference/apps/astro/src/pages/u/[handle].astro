@@ -107,7 +107,9 @@ const photos = photosBy(profile.handle)
         <TextField for="profile-name" label="Name">
           <input id="profile-name" name="name" required value={profile.name} />
         </TextField>
-        <Textarea label="Bio" name="bio" value={profile.bio} />
+        <Textarea for="profile-bio" label="Bio">
+          <textarea id="profile-bio" name="bio">{profile.bio}</textarea>
+        </Textarea>
       </DialogContent>
       <DialogFooter>
         <Button command="close" commandfor="edit-profile"> Cancel </Button>

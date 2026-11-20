@@ -1,43 +1,33 @@
 ---
-import Button from "../Button/Button.astro"
 import { trimEdges } from "../whitespace"
 
 import type { Props } from "./types.astro"
-import { fieldGroupContext } from "../FieldGroup/context.astro"
-import { createIds, fieldDescribedBy } from "../id"
 import { cx } from "../cx"
 
 export const title = "Number Field"
 
 const {
-  "aria-describedby": ariaDescribedBy,
-  "aria-invalid": ariaInvalid,
   class: className,
   decreaseLabel = "Decrease",
-  disabled,
   endText,
-  error,
+  for: htmlFor,
   hideLabel,
-  id,
   increaseLabel = "Increase",
   label,
-  name,
   size,
   spread,
   startText,
   stretch,
-  style,
   variant,
   ...rest
 } = Astro.props
 
-const field = fieldGroupContext.get()
-const ids = createIds(Astro.locals, "number-field", id)
-const inputId = ids()
 const startTextId =
-  startText || Astro.slots.has("start-text") ? ids("start-text") : undefined
+  startText || Astro.slots.has("start-text")
+    ? `${htmlFor}-start-text`
+    : undefined
 const endTextId =
-  endText || Astro.slots.has("end-text") ? ids("end-text") : undefined
+  endText || Astro.slots.has("end-text") ? `${htmlFor}-end-text` : undefined
 const labelSlot = Astro.slots.has("label")
   ? trimEdges(await Astro.slots.render("label"))
   : ""
@@ -55,9 +45,9 @@ const LabelTag = label || labelSlot ? "label" : Fragment
     size && size !== "medium" && `ui-${size}`,
     className,
   ]}
-  style={style}
+  {...rest}
 >
-  <LabelTag class={cx([hideLabel ? "ui-sr-only" : "ui-label"])} for={inputId}
+  <LabelTag class={cx([hideLabel ? "ui-sr-only" : "ui-label"])} for={htmlFor}
     >{label}<Fragment set:html={labelSlot}
   /></LabelTag>
   {(startText || Astro.slots.has("start-text")) && <span
@@ -69,13 +59,13 @@ const LabelTag = label || labelSlot ? "label" : Fragment
   </span>}
   <span class="ui-field">
     <span class="ui-start">
-      <Button
-        aria-controls={inputId}
+      <button
+        class="ui-button ui-round"
+        type="button"
+        aria-controls={htmlFor}
         aria-label={decreaseLabel}
         command="--step-down"
-        commandfor={inputId}
-        disabled={disabled}
-        round
+        commandfor={htmlFor}
       >
         <slot name="decrease-icon">
           <svg
@@ -86,28 +76,17 @@ const LabelTag = label || labelSlot ? "label" : Fragment
             viewBox="0 0 24 24"
           ></svg>
         </slot>
-      </Button>
+      </button>
     </span>
-    <input
-      {...rest}
-      aria-describedby={fieldDescribedBy(
-        { endText: endTextId, startText: startTextId },
-        ariaDescribedBy,
-      )}
-      aria-invalid={error ? "true" : ariaInvalid}
-      disabled={disabled}
-      id={inputId}
-      name={name ?? field?.name}
-      type="number"
-    />
+    <slot />
     <span class="ui-end">
-      <Button
-        aria-controls={inputId}
+      <button
+        class="ui-button ui-round"
+        type="button"
+        aria-controls={htmlFor}
         aria-label={increaseLabel}
         command="--step-up"
-        commandfor={inputId}
-        disabled={disabled}
-        round
+        commandfor={htmlFor}
       >
         <slot name="increase-icon">
           <svg
@@ -118,7 +97,7 @@ const LabelTag = label || labelSlot ? "label" : Fragment
             viewBox="0 0 24 24"
           ></svg>
         </slot>
-      </Button>
+      </button>
     </span>
   </span>
   {(endText || Astro.slots.has("end-text")) && <span

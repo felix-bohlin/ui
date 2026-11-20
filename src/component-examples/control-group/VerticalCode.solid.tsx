@@ -90,10 +90,15 @@ export default function VerticalCode() {
         variant="filled"
       >
         <Textarea
+          for="control-group-vertical-1"
           hideLabel
           label="Delivery note"
-          placeholder="Leave it at the back door"
-        />
+        >
+          <textarea
+            id="control-group-vertical-1"
+            placeholder="Leave it at the back door"
+          ></textarea>
+        </Textarea>
         <Button>Send note</Button>
       </ControlGroup>
     </>

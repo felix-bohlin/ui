@@ -24,7 +24,6 @@ const GLOB_FILES = [
   "src/utils/examples.ts",
   "tests/unit/align.test.ts",
   "tests/unit/build-examples.test.ts",
-  "tests/unit/disabled-fields.test.ts",
   "tests/unit/field-description.test.ts",
   "tests/unit/icon-slots.test.ts",
   "tests/unit/parity.test.ts",

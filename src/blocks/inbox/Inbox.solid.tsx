@@ -538,12 +538,13 @@ export default function Inbox() {
                 />
               </div>
               <form action="#" class="ui-layout-column ui-small inbox-reply">
-                <Textarea
-                  id="inbox-inbox-reply"
-                  label="Reply to Holly"
-                  name="inbox-reply"
-                  placeholder="Write something rad…"
-                />
+                <Textarea for="inbox-inbox-reply" label="Reply to Holly">
+                  <textarea
+                    id="inbox-inbox-reply"
+                    name="inbox-reply"
+                    placeholder="Write something rad…"
+                  ></textarea>
+                </Textarea>
                 <Button size="small" type="submit" variant="filled">
                   Send
                 </Button>

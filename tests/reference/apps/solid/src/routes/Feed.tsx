@@ -88,15 +88,17 @@ export default function Feed() {
     <div class="app-screen" data-screen="feed">
       <h1>Feed</h1>
       <form aria-label="New post" class="ui-layout-column" onSubmit={submit}>
-        <Textarea
-          characterCount
-          label="What's on your mind?"
-          maxlength={280}
-          name="text"
-          onInput={(event) => setText(event.currentTarget.value)}
-          required
-          value={text()}
-        />
+        <Textarea characterCount for="feed-post" label="What's on your mind?">
+          <textarea
+            aria-describedby="feed-post-end-text"
+            id="feed-post"
+            maxlength={280}
+            name="text"
+            onInput={(event) => setText(event.currentTarget.value)}
+            required
+            value={text()}
+          />
+        </Textarea>
         <div>
           <Button type="submit" variant="filled">
             Post

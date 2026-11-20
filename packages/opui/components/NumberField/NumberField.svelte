@@ -1,31 +1,21 @@
 <script lang="ts">
   import "../../elements/number-field.js"
   import { content } from "../content.svelte"
-  import Button from "../Button/Button.svelte"
-  import { getFieldGroupContext } from "../FieldGroup/context.svelte"
-  import { fieldDescribedBy } from "../id"
   import type { Props } from "./types.svelte"
 
   let {
-    "aria-describedby": ariaDescribedBy,
-    "aria-invalid": ariaInvalid,
     class: className,
     decreaseLabel = "Decrease",
-    defaultValue,
-    disabled,
-    error,
+    for: htmlFor,
     hideLabel,
-    id,
     increaseLabel = "Increase",
-    name,
     size,
     spread,
     stretch,
-    style,
-    value = $bindable(),
     variant,
 
     // Snippets
+    children,
     decreaseIcon,
     endText,
     increaseIcon,
@@ -34,16 +24,8 @@
     ...rest
   }: Props = $props()
 
-  const field = getFieldGroupContext()
-  const uid = $props.id()
-  const getValue = () => (value === undefined ? defaultValue : value)
-  const setValue = (next: typeof value) => {
-    value = next
-  }
-  const base = $derived(id || `number-field-${uid}`)
-  const inputId = $derived(base)
-  const startTextId = $derived(startText ? `${base}-start-text` : undefined)
-  const endTextId = $derived(endText ? `${base}-end-text` : undefined)
+  const startTextId = $derived(startText ? `${htmlFor}-start-text` : undefined)
+  const endTextId = $derived(endText ? `${htmlFor}-end-text` : undefined)
 </script>
 
 <opui-number-field
@@ -57,10 +39,10 @@
     size && size !== "medium" && `ui-${size}`,
     className,
   ]}
-  {style}
+  {...rest}
 >
   {#if label}
-    <label class={hideLabel ? "ui-sr-only" : "ui-label"} for={inputId}>
+    <label class={hideLabel ? "ui-sr-only" : "ui-label"} for={htmlFor}>
       {@render content(label)}
     </label>
   {/if}
@@ -71,13 +53,13 @@
   {/if}
   <span class="ui-field">
     <span class="ui-start">
-      <Button
-        aria-controls={inputId}
+      <button
+        class="ui-button ui-round"
+        type="button"
+        aria-controls={htmlFor}
         aria-label={decreaseLabel}
         command="--step-down"
-        commandfor={inputId}
-        {disabled}
-        round
+        commandfor={htmlFor}
       >
         {#if decreaseIcon}
           {@render decreaseIcon()}
@@ -90,30 +72,17 @@
             viewBox="0 0 24 24"
           ></svg>
         {/if}
-      </Button>
+      </button>
     </span>
-    <input
-      {...rest}
-      aria-describedby={fieldDescribedBy(
-        { endText: endTextId, startText: startTextId },
-        ariaDescribedBy,
-      )}
-      aria-invalid={error ? "true" : ariaInvalid}
-      {disabled}
-      id={inputId}
-      name={name ?? field?.name}
-      type="number"
-      bind:value={getValue, setValue}
-      {defaultValue}
-    />
+    {@render children?.()}
     <span class="ui-end">
-      <Button
-        aria-controls={inputId}
+      <button
+        class="ui-button ui-round"
+        type="button"
+        aria-controls={htmlFor}
         aria-label={increaseLabel}
         command="--step-up"
-        commandfor={inputId}
-        {disabled}
-        round
+        commandfor={htmlFor}
       >
         {#if increaseIcon}
           {@render increaseIcon()}
@@ -126,7 +95,7 @@
             viewBox="0 0 24 24"
           ></svg>
         {/if}
-      </Button>
+      </button>
     </span>
   </span>
   {#if endText}

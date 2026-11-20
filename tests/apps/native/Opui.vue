@@ -81,7 +81,9 @@ const state = ref({
     </ToggleGroup>
   </form>
   <form data-case="number-default">
-    <NumberField label="Quantity" :value="1" />
+    <NumberField for="number-default" label="Quantity">
+      <input id="number-default" type="number" value="1" />
+    </NumberField>
   </form>
   <form data-case="radio-bound">
     <Radio v-model="state.radio" label="Tea" name="drink" value="tea" />

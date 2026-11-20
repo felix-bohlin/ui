@@ -91,13 +91,13 @@ describe("React", () => {
   test("renames attributes and turns static state into defaults", async () => {
     const code = await convert(
       astro(
-        '<Textarea autocomplete="off" class="field" value="Ada" />\n<label for="name" tabindex="0">Name</label>\n<Radio name="pick" value="b" checked />',
-        "Radio, Textarea",
+        '<Select autocomplete="off" class="field" value="Ada" />\n<label for="name" tabindex="0">Name</label>\n<Radio name="pick" value="b" checked />',
+        "Radio, Select",
       ),
       "react",
     )
     expect(code).toContain(
-      '<Textarea autoComplete="off" className="field" defaultValue="Ada" />',
+      '<Select autoComplete="off" className="field" defaultValue="Ada" />',
     )
     expect(code).toContain('<label htmlFor="name" tabIndex={0}>')
     expect(code).toContain('<Radio defaultChecked name="pick" value="b" />')
@@ -105,11 +105,8 @@ describe("React", () => {
 
   test("keeps value on a read-only field", async () => {
     expect(
-      await convert(
-        astro('<Textarea readonly value="x" />', "Textarea"),
-        "react",
-      ),
-    ).toContain('<Textarea readOnly value="x" />')
+      await convert(astro('<input readonly value="x" />'), "react"),
+    ).toContain('<input readOnly value="x" />')
   })
 
   test("moves the selected option to the Select's defaultValue", async () => {
@@ -245,16 +242,16 @@ describe("Solid", () => {
   test("keeps the HTML attribute names and turns static state into defaults, like React", async () => {
     const code = await convert(
       astro(
-        '<Textarea autocomplete="off" class="field" value="Ada" />\n<label for="name" tabindex="0">Name</label>\n<Radio name="pick" value="b" checked />\n<input type="checkbox" checked />',
-        "Radio, Textarea",
+        '<Select autocomplete="off" class="field" value="Ada" />\n<label for="name" tabindex="0">Name</label>\n<Radio name="pick" value="b" checked />\n<input type="checkbox" checked />',
+        "Radio, Select",
       ),
       "solid",
     )
     expect(code).toMatch(
-      /^\/\*\* @jsxImportSource @solidjs\/web \*\/\nimport \{ Radio, Textarea \} from "opui-css\/solid"\n/,
+      /^\/\*\* @jsxImportSource @solidjs\/web \*\/\nimport \{ Radio, Select \} from "opui-css\/solid"\n/,
     )
     expect(code).toContain(
-      '<Textarea autocomplete="off" class="field" defaultValue="Ada" />',
+      '<Select autocomplete="off" class="field" defaultValue="Ada" />',
     )
     expect(code).toContain('<label for="name" tabindex="0">')
     expect(code).toContain('<Radio defaultChecked name="pick" value="b" />')
@@ -263,11 +260,8 @@ describe("Solid", () => {
 
   test("keeps value on a read-only field, and a selected option on the option", async () => {
     expect(
-      await convert(
-        astro('<Textarea readonly value="x" />', "Textarea"),
-        "solid",
-      ),
-    ).toContain('<Textarea readonly value="x" />')
+      await convert(astro('<input readonly value="x" />'), "solid"),
+    ).toContain('<input readonly value="x" />')
     const code = await convert(
       astro(
         '<Select label="Pick">\n  <option>a</option>\n  <option selected value="b">B</option>\n</Select>',
@@ -330,8 +324,8 @@ describe("Svelte", () => {
   test("writes values with braces or double quotes as expressions", async () => {
     const code = await convert(
       astro(
-        '<Textarea characterCountLabel="{count} left" description=\'A "b"\' />',
-        "Textarea",
+        '<Select characterCountLabel="{count} left" description=\'A "b"\' />',
+        "Select",
       ),
       "svelte",
     )

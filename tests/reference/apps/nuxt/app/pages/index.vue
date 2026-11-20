@@ -86,14 +86,16 @@ const toggleSave = (id: string) => {
       class="ui-layout-column"
       @submit.prevent="submit"
     >
-      <Textarea
-        v-model="text"
-        characterCount
-        label="What's on your mind?"
-        :maxlength="280"
-        name="text"
-        required
-      />
+      <Textarea characterCount for="feed-post" label="What's on your mind?">
+        <textarea
+          aria-describedby="feed-post-end-text"
+          id="feed-post"
+          :maxlength="280"
+          name="text"
+          required
+          v-model="text"
+        ></textarea>
+      </Textarea>
       <div>
         <Button type="submit" variant="filled">Post</Button>
       </div>

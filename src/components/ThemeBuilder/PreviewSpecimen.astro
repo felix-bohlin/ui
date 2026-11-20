@@ -176,12 +176,14 @@ const callouts = [
       <option selected>Gold</option>
       <option>Platinum</option>
     </Select>
-    <Textarea
-      label="Message"
-      name={name("message")}
-      placeholder="Tell us about your bass"
-      rows="2"
-    />
+    <Textarea for={`${specimenId}-message`} label="Message">
+      <textarea
+        id={`${specimenId}-message`}
+        name={name("message")}
+        placeholder="Tell us about your bass"
+        rows="2"
+      ></textarea>
+    </Textarea>
   </div>
 
   <div class="specimen-block specimen-form">

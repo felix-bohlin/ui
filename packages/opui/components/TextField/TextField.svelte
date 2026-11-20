@@ -2,7 +2,6 @@
   import "../../elements/character-count.js"
   import "../../elements/text-field.js"
   import { content } from "../content.svelte"
-  import Button from "../Button/Button.svelte"
   import type { Props } from "./types.svelte"
 
   let {
@@ -87,12 +86,13 @@
     {#if end || passwordToggle}
       <span class="ui-end" id={endId}>
         {@render content(end)}{#if passwordToggle}
-          <Button
+          <button
+            class="ui-button ui-round"
+            type="button"
             aria-label={passwordToggleLabel}
             aria-pressed="false"
             command="--toggle-password"
             commandfor={htmlFor}
-            round
           >
             {#if iconUnchecked}
               <span aria-hidden="true" class="ui-icon-unchecked">
@@ -121,7 +121,7 @@
                 viewBox="0 0 24 24"
               ></svg>
             {/if}
-          </Button>
+          </button>
         {/if}
       </span>
     {/if}

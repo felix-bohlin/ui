@@ -141,13 +141,18 @@ export default function AccountSettings() {
                     </TextField>
                     <Textarea
                       bottom="84 / 160"
-                      defaultValue="Fretless bassist in a garage band. Into flatwounds, drop D and very long root notes."
-                      id="account-settings-bio"
+                      htmlFor="account-settings-bio"
                       label="Bio"
-                      name="bio"
-                      rows={3}
                       startText="Shown on your profile for the whole world to admire"
-                    />
+                    >
+                      <textarea
+                        aria-describedby="account-settings-bio-start-text account-settings-bio-bottom"
+                        id="account-settings-bio"
+                        name="bio"
+                        rows={3}
+                        defaultValue="Fretless bassist in a garage band. Into flatwounds, drop D and very long root notes."
+                      ></textarea>
+                    </Textarea>
                   </FieldGroup>
                 </Fieldset>
                 <FieldGroup className="acct-actions">

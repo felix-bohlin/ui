@@ -61,14 +61,19 @@ export default function ShoppingCart() {
                 </div>
                 <div className="cart-buy">
                   <NumberField
-                    defaultValue={1}
                     hideLabel
-                    id="shopping-cart-qty-gig-bag"
+                    htmlFor="shopping-cart-qty-gig-bag"
                     label="Quantity of Comfy Cloud Gig Bag"
-                    min={1}
-                    name="qty-gig-bag"
                     size="small"
-                  />
+                  >
+                    <input
+                      id="shopping-cart-qty-gig-bag"
+                      min="1"
+                      name="qty-gig-bag"
+                      type="number"
+                      defaultValue="1"
+                    />
+                  </NumberField>
                   <p className="ui-tabular-nums cart-line-price">
                     €119.00
                     <s className="ui-caption">
@@ -111,14 +116,19 @@ export default function ShoppingCart() {
                 </div>
                 <div className="cart-buy">
                   <NumberField
-                    defaultValue={2}
                     hideLabel
-                    id="shopping-cart-qty-strings"
+                    htmlFor="shopping-cart-qty-strings"
                     label="Quantity of Flatwound string set"
-                    min={1}
-                    name="qty-strings"
                     size="small"
-                  />
+                  >
+                    <input
+                      id="shopping-cart-qty-strings"
+                      min="1"
+                      name="qty-strings"
+                      type="number"
+                      defaultValue="2"
+                    />
+                  </NumberField>
                   <p className="ui-tabular-nums cart-line-price">€48.00</p>
                 </div>
               </li>
@@ -156,14 +166,19 @@ export default function ShoppingCart() {
                 </div>
                 <div className="cart-buy">
                   <NumberField
-                    defaultValue={1}
                     hideLabel
-                    id="shopping-cart-qty-tee"
+                    htmlFor="shopping-cart-qty-tee"
                     label="Quantity of I'm with the bassist tee"
-                    min={1}
-                    name="qty-tee"
                     size="small"
-                  />
+                  >
+                    <input
+                      id="shopping-cart-qty-tee"
+                      min="1"
+                      name="qty-tee"
+                      type="number"
+                      defaultValue="1"
+                    />
+                  </NumberField>
                   <p className="ui-tabular-nums cart-line-price">€29.00</p>
                 </div>
               </li>

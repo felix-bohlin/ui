@@ -15,7 +15,7 @@ A multi-line text input with a label, start and end text, and validation.
 - `.ui-field`: The boxed textarea area.
 - `.ui-field > .ui-top` (slot `top`): Content above the textarea, inside the border, with a divider.
 - `.ui-field > .ui-start` (slot `start`): Content at the inline-start of the field, inside the border, centered on the first line. Taller content starts `--_affix-padding-block` below the field's top, or below `.ui-top`.
-- `<textarea>` (model): The textarea element.
+- `<textarea>`: Your textarea, written directly inside `.ui-field` with its `id` set to `for` and its value as its content. Bind it, name it and mark it `required`, `disabled` or `aria-invalid="true"` like any textarea.
 - `.ui-field > .ui-end` (slot `end`): Content at the inline-end of the field, inside the border, centered on the first line. Taller content starts `--_affix-padding-block` below the field's top, or below `.ui-top`.
 - `.ui-field > .ui-bottom` (slot `bottom`): Content below the textarea, inside the border, with a divider.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
@@ -26,33 +26,27 @@ A multi-line text input with a label, start and end text, and validation.
 - `autoFit`: `boolean`, `.ui-auto-fit`. Lets the width follow the content and allows resizing in both directions.
 - `characterCount`: `boolean`. Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count.
 - `characterCountLabel`: `string`, default `"Characters left: {count}"`. The announcement near the limit, with `{count}` for the characters left. Pass it translated.
-- `disabled`: `boolean`, `textarea[aria-disabled="true"]`, `textarea[disabled]`. Dims the field and blocks input. `aria-disabled="true"` looks the same, but keeps the field focusable, its text editable and its value in the form.
-- `error`: `boolean`, `textarea[aria-invalid="true"]`. Marks the control invalid and shows error styles.
+- `for` (Astro, Solid, Svelte and Vue): `string`. The `id` of your `<textarea>`. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`. Point the textarea's `aria-describedby` at the ones it shows, in that order.
 - `hideLabel`: `boolean`, `.ui-textarea > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
-- `id`: `string`. The id of the `<textarea>`. The `<label for>` points at it, so the component generates one when it's left out and there's a label. The ids the component generates start with it: `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id="x"`.
-- `name`: `string`. The name of the `<textarea>`. Inside a `FieldGroup`, the group's `name` when omitted.
-- `required`: `boolean`, `textarea[required]`. Adds a required mark after the label. The form won't submit while the field is empty.
+- `htmlFor` (React): `string`. The `id` of your `<textarea>`, as `htmlFor` like on the element. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `htmlFor="x"`. Point the textarea's `aria-describedby` at the ones it shows, in that order.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
 - `spread`: `boolean`, `.ui-spread`. Pushes the label and start text to one side and the textarea to the other.
 - `variant`: `"filled"` (`.ui-filled`), `"outlined"` (default). The variant to use.
 
 ### Slots
 
-- `default`: Extra content inside the root.
+- `default`: Your `<textarea>`, which goes in `.ui-field`.
 
 ### Element
 
 - `<opui-character-count>`, defined by `opui-css/elements/character-count.js`:
   - `control`: The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only.
 
-Model: `value` (`string`), the textarea value. Astro, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
-
 ### Notes
 
 - HTML: For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. With a label, put a `<label class="ui-label" for>` inside the root that points at the field's `id`, so the label alone names it, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Put `.ui-top` and `.ui-start` before the `<textarea>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they're drawn.
-- Astro, Svelte and Vue: Attributes that aren't props go to the `<textarea>`, like `maxlength` and `placeholder`, and `class` and `style` go to the `.ui-textarea` root.
-- React: Attributes that aren't props go to the `<textarea>`, like `maxlength` and `placeholder`, and `className` and `style` go to the `.ui-textarea` root. Use `value` with `onChange`, or `defaultValue`.
-- Solid: `value` sets the value and follows it when it changes. Follow typing with `onInput`.
+- Astro, Solid, Svelte and Vue: Write the `<textarea>` inside, with its `id` set to `for`, and bind it like any textarea. Other attributes go to the `.ui-textarea` root.
+- React: Write the `<textarea>` inside, with its `id` set to `htmlFor`, and give it `value` with `onChange`, or `defaultValue`. Other attributes go to the `.ui-textarea` root.
 
 ## Component properties
 
@@ -97,13 +91,13 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--u
 <div class="ui-textarea">
   <label class="ui-label" for="textarea-variants-1">Outlined</label>
   <span class="ui-field">
-    <textarea placeholder="Write a message" id="textarea-variants-1"></textarea>
+    <textarea id="textarea-variants-1" placeholder="Write a message"></textarea>
   </span>
 </div>
 <div class="ui-textarea ui-filled">
   <label class="ui-label" for="textarea-variants-2">Filled</label>
   <span class="ui-field">
-    <textarea placeholder="Write a message" id="textarea-variants-2"></textarea>
+    <textarea id="textarea-variants-2" placeholder="Write a message"></textarea>
   </span>
 </div>
 ```
@@ -121,8 +115,12 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--u
 import { Textarea } from "opui-css/astro"
 ---
 
-<Textarea label="Outlined" placeholder="Write a message" />
-<Textarea label="Filled" placeholder="Write a message" variant="filled" />
+<Textarea for="textarea-variants-1" label="Outlined">
+  <textarea id="textarea-variants-1" placeholder="Write a message"></textarea>
+</Textarea>
+<Textarea for="textarea-variants-2" label="Filled" variant="filled">
+  <textarea id="textarea-variants-2" placeholder="Write a message"></textarea>
+</Textarea>
 ```
 
 ## React
@@ -140,8 +138,18 @@ import { Textarea } from "opui-css/react"
 export default function Variants() {
   return (
     <>
-      <Textarea label="Outlined" placeholder="Write a message" />
-      <Textarea label="Filled" placeholder="Write a message" variant="filled" />
+      <Textarea htmlFor="textarea-variants-1" label="Outlined">
+        <textarea
+          id="textarea-variants-1"
+          placeholder="Write a message"
+        ></textarea>
+      </Textarea>
+      <Textarea htmlFor="textarea-variants-2" label="Filled" variant="filled">
+        <textarea
+          id="textarea-variants-2"
+          placeholder="Write a message"
+        ></textarea>
+      </Textarea>
     </>
   )
 }
@@ -162,8 +170,18 @@ import { Textarea } from "opui-css/solid"
 export default function Variants() {
   return (
     <>
-      <Textarea label="Outlined" placeholder="Write a message" />
-      <Textarea label="Filled" placeholder="Write a message" variant="filled" />
+      <Textarea for="textarea-variants-1" label="Outlined">
+        <textarea
+          id="textarea-variants-1"
+          placeholder="Write a message"
+        ></textarea>
+      </Textarea>
+      <Textarea for="textarea-variants-2" label="Filled" variant="filled">
+        <textarea
+          id="textarea-variants-2"
+          placeholder="Write a message"
+        ></textarea>
+      </Textarea>
     </>
   )
 }
@@ -174,7 +192,6 @@ export default function Variants() {
 `import { Textarea } from "opui-css/svelte"`
 
 - `Textarea` slot snippets: `bottom`, `children`, `end`, `endText`, `label`, `start`, `startText` and `top`.
-- Hydration: `bind:value` on `Textarea`. The bound value only updates on the client. The native control still changes and submits with its form. Without hydration: Read the value from the form instead.
 
 ### Example: Variants
 
@@ -183,8 +200,12 @@ export default function Variants() {
   import { Textarea } from "opui-css/svelte"
 </script>
 
-<Textarea label="Outlined" placeholder="Write a message" />
-<Textarea label="Filled" placeholder="Write a message" variant="filled" />
+<Textarea for="textarea-variants-1" label="Outlined">
+  <textarea id="textarea-variants-1" placeholder="Write a message"></textarea>
+</Textarea>
+<Textarea for="textarea-variants-2" label="Filled" variant="filled">
+  <textarea id="textarea-variants-2" placeholder="Write a message"></textarea>
+</Textarea>
 ```
 
 ## Vue
@@ -192,7 +213,6 @@ export default function Variants() {
 `import { Textarea } from "opui-css/vue"`
 
 - `Textarea` named slots: `bottom`, `end`, `end-text`, `label`, `start`, `start-text` and `top`. Fill one with `<template #bottom>`.
-- Hydration: `v-model` on `Textarea`. The bound value only updates on the client. The native control still changes and submits with its form. Without hydration: Read the value from the form instead.
 
 ### Example: Variants
 
@@ -202,7 +222,11 @@ import { Textarea } from "opui-css/vue"
 </script>
 
 <template>
-  <Textarea label="Outlined" placeholder="Write a message" />
-  <Textarea label="Filled" placeholder="Write a message" variant="filled" />
+  <Textarea for="textarea-variants-1" label="Outlined">
+    <textarea id="textarea-variants-1" placeholder="Write a message"></textarea>
+  </Textarea>
+  <Textarea for="textarea-variants-2" label="Filled" variant="filled">
+    <textarea id="textarea-variants-2" placeholder="Write a message"></textarea>
+  </Textarea>
 </template>
 ```

@@ -23,10 +23,7 @@ const DIFFERENCES = [
     "toggle-bound",
   ]),
   ...differences("svelte", SVELTE_SPREAD, ["checkbox-bound", "range-bound"]),
-  ...differences("vue", VUE_DEVELOPMENT_VALUE, [
-    "number-default",
-    "range-default",
-  ]),
+  ...differences("vue", VUE_DEVELOPMENT_VALUE, ["range-default"]),
 ]
 
 for (const { id, label } of FRAMEWORKS) {

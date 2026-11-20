@@ -1383,6 +1383,15 @@ In Vue, use `<template #start>€</template>` and `<template #end>EUR</template>
 
 ## Textarea
 
+Same as Text field: `Textarea` takes your `<textarea>` instead of rendering one, and a required `for` (`htmlFor` in React) with its `id`. Move `name`, `required`, `disabled`, `maxlength` and the rest onto the textarea, write its value as its content or bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. Point its `aria-describedby` at the parts the field shows: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`, in that order. `id` on the component is gone, and attributes that aren't its props go to the root, as in 5.x.
+
+```diff
+- <Textarea endText="Up to 160 characters." label="Bio" name="bio" value="Bassist." />
++ <Textarea endText="Up to 160 characters." for="bio" label="Bio">
++   <textarea aria-describedby="bio-end-text" id="bio" name="bio">Bassist.</textarea>
++ </Textarea>
+```
+
 `Textarea` takes a `size` prop instead of `small`, like `TextField`.
 
 ```diff
@@ -1390,7 +1399,7 @@ In Vue, use `<template #start>€</template>` and `<template #end>EUR</template>
 + <Textarea size="small" label="Message" />
 ```
 
-Astro and Vue generate an `id` only when the label points at it, extra attributes go to the `<textarea>` in Astro (`class` and `style` stay on the root), and in Vue `style` goes to the root. `description` is `startText` (the `start-text` slot), like Text field. `supportingText` (the `supporting-text` slot) is gone. Use `endText`.
+`description` is `startText` (the `start-text` slot), like Text field. `supportingText` (the `supporting-text` slot) is gone. Use `endText`.
 
 Same as Text field: the root is a `<div>` with a `<label for>` inside, the label alone names the textarea, and the start and end text, the affixes and the `top` and `bottom` parts describe it. A click on those parts no longer focuses the textarea. Give a textarea without `label` an `aria-label` or `aria-labelledby`, target `.ui-textarea` instead of `label.ui-textarea`, and in HTML give the textarea an `id` for the label's `for`.
 

@@ -309,11 +309,14 @@ import {
                     d="M16.5 6v11.5a4 4 0 0 1-8 0V5a2.5 2.5 0 0 1 5 0v10.5a1 1 0 0 1-2 0V6H10v9.5a2.5 2.5 0 0 0 5 0V5a4 4 0 0 0-8 0v12.5a5.5 5.5 0 0 0 11 0V6z"
                   ></path></svg
               ></Button>
-              <Textarea
-                aria-label="Message Stella Nut"
-                name="chat-message"
-                placeholder="Write something rad…"
-              />
+              <Textarea for="chat-chat-message">
+                <textarea
+                  aria-label="Message Stella Nut"
+                  id="chat-chat-message"
+                  name="chat-message"
+                  placeholder="Write something rad…"
+                ></textarea>
+              </Textarea>
               <Button
                 aria-label="Send"
                 color="primary"

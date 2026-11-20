@@ -190,8 +190,6 @@ export const MODEL_KINDS = {
     },
     vue: {
       boundAttributes: () => ['v-model="modelValue"'],
-      computed: true,
-      modelsGroupRadio: true,
       rename: (model) => ({
         script: [[model.local, "model.value"]],
         template: [[model.local, "model"]],
@@ -285,7 +283,6 @@ export const MODEL_KINDS = {
     },
     vue: {
       boundAttributes: () => ['v-model="modelValue"'],
-      computed: (_, read) => read,
       rename: (model) => ({
         script: model.local ? [[model.local, "model.value"]] : [],
         template: model.local ? [[model.local, "model"]] : [],

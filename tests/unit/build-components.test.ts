@@ -12,12 +12,88 @@ import {
   toTypes,
   TYPE_FILES,
 } from "../../scripts/build-components.mjs"
+import { MODEL_KINDS } from "../../scripts/component-models.mjs"
 import {
   classMayBeEmpty,
   isArrayType,
   unionMembers,
 } from "../../scripts/component-shared.mjs"
 import { formatCode } from "../../scripts/format.mjs"
+
+type Kinds = Record<string, Record<string, Record<string, unknown>>>
+
+const recordHookReads = (kinds: Kinds) => {
+  const reads = new Map<string, Set<string>>()
+  const originals = Object.entries(kinds).flatMap(([kind, frameworks]) =>
+    Object.entries(frameworks).map(([framework, hooks]) => {
+      const entry = `${kind}.${framework}`
+      reads.set(entry, new Set())
+      frameworks[framework] = new Proxy(hooks, {
+        get: (target, key, receiver) => {
+          if (typeof key === "string") reads.get(entry)!.add(key)
+          return Reflect.get(target, key, receiver)
+        },
+      })
+      return () => {
+        frameworks[framework] = hooks
+      }
+    }),
+  )
+  return {
+    reads,
+    restore: () => {
+      for (const restore of originals) restore()
+    },
+  }
+}
+
+const GENERIC_READS: Record<string, string> = {
+  entries:
+    "the type emitter asks the kind of every framework whether it takes defaultValue and onValueChange",
+  ownDefault:
+    "the type emitter asks the kind of every framework whether it declares its own defaultValue",
+}
+
+const hookProblems = (
+  kinds: Kinds,
+  reads: Map<string, Set<string>>,
+  generic: Record<string, string> = {},
+) => {
+  const defined = new Map<string, Set<string>>()
+  for (const frameworks of Object.values(kinds)) {
+    for (const [framework, hooks] of Object.entries(frameworks)) {
+      defined.set(
+        framework,
+        new Set([...(defined.get(framework) ?? []), ...Object.keys(hooks)]),
+      )
+    }
+  }
+  const unread = Object.entries(kinds).flatMap(([kind, frameworks]) =>
+    Object.entries(frameworks).flatMap(([framework, hooks]) =>
+      Object.keys(hooks)
+        .filter((key) => !reads.get(`${kind}.${framework}`)?.has(key))
+        .map(
+          (key) =>
+            `MODEL_KINDS.${kind}.${framework}.${key} is never read: remove it`,
+        ),
+    ),
+  )
+  const undefinedReads = [...reads].flatMap(([entry, keys]) => {
+    const framework = entry.split(".")[1]!
+    return [...keys]
+      .filter((key) => !(key in generic) && !defined.get(framework)?.has(key))
+      .map(
+        (key) =>
+          `the ${framework} emitter reads ${key}, which no model kind defines: remove the read`,
+      )
+  })
+  const staleGeneric = Object.keys(generic)
+    .filter((key) => ![...defined.values()].some((keys) => keys.has(key)))
+    .map((key) => `${key} is a generic read no model kind defines: remove it`)
+  return [
+    ...new Set([...unread, ...undefinedReads, ...staleGeneric]),
+  ].toSorted()
+}
 
 const sampleFile = (name = "Sample") =>
   `packages/opui/components/Sample/${name}.astro`
@@ -2497,12 +2573,46 @@ describe("toTypes", () => {
 describe("the compiled components", () => {
   let all: Awaited<ReturnType<typeof generate>>
   let unledgered: Awaited<ReturnType<typeof generate>>
+  let hookReads: Map<string, Set<string>>
   const handWritten = readHandWritten()
 
   beforeAll(async () => {
-    all = await generate()
+    const recorder = recordHookReads(MODEL_KINDS as Kinds)
+    try {
+      all = await generate()
+    } finally {
+      recorder.restore()
+    }
+    hookReads = recorder.reads
     unledgered = await generate({ handWritten: {} })
   }, 300_000)
+
+  test("every model kind hook is read when the components compile, and every hook read is defined", () => {
+    expect(
+      hookProblems(MODEL_KINDS as Kinds, hookReads, GENERIC_READS),
+    ).toEqual([])
+  })
+
+  test("hookProblems reports a hook nothing reads and a read nothing defines", () => {
+    const kinds: Kinds = {
+      a: { vue: { read: () => [], unread: () => [] } },
+      b: { react: { shared: () => [] }, vue: { read: () => [] } },
+    }
+    const { reads, restore } = recordHookReads(kinds)
+    for (const kind of ["a", "b"]) {
+      const hooks = kinds[kind]!.vue!
+      void hooks.read
+      void hooks.missing
+      void hooks.shared
+    }
+    void kinds.b!.react!.shared
+    restore()
+    expect(hookProblems(kinds, reads, { gone: "", shared: "" })).toEqual([
+      "MODEL_KINDS.a.vue.unread is never read: remove it",
+      "gone is a generic read no model kind defines: remove it",
+      "the vue emitter reads missing, which no model kind defines: remove the read",
+    ])
+  })
 
   const read = (file: string) =>
     existsSync(file) ? readFileSync(file, "utf8") : undefined

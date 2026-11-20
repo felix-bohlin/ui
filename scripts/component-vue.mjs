@@ -879,14 +879,9 @@ export const toVue = (component) => {
         ),
       ))
   const vueImports = [
-    ...(computedConsts.length ||
-    rowLists.length ||
-    filteredAttrs ||
-    (typeof kind?.computed === "function"
-      ? kind.computed(model, modelRead)
-      : kind?.computed === true) ||
-    !!item ||
-    provided?.some((entry) => entry.includes("computed("))
+    ...(withoutUnused(statements, markup, declarations).some((code) =>
+      /(?<![$\w.])computed\(/.test(code),
+    )
       ? ["computed"]
       : []),
     ...(reads.length ? ["inject"] : []),
@@ -910,7 +905,6 @@ export const toVue = (component) => {
     ...(vueHelpers.length
       ? [`import { ${vueHelpers.join(", ")} } from "../vue"`]
       : []),
-    ...(kind?.imports?.(component, model) ?? []),
     ...(usesTrimmedSlot
       ? [`import { TrimmedSlot } from "../whitespace.vue"`]
       : []),

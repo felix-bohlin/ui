@@ -4,12 +4,11 @@ import { keepSelected } from "./Select/selection"
 
 const INITIAL = {
   checked: "defaultChecked",
-  selected: "defaultSelected",
   value: "defaultValue",
 }
 
 export const control = <V>(
-  prop: keyof typeof INITIAL,
+  prop: keyof typeof INITIAL | "selected",
   read: (() => V) | undefined,
   fallback?: V,
 ) => {
@@ -30,7 +29,7 @@ export const control = <V>(
     ref: (node: Element) => {
       if (!element) {
         if (initial !== undefined) setProperty(node, prop, initial)
-        else if (read && fallback !== undefined) {
+        else if (read && fallback !== undefined && prop !== "selected") {
           if (node instanceof HTMLSelectElement) {
             setProperty(node, prop, fallback)
             queueMicrotask(() => keepSelected(node, fallback))

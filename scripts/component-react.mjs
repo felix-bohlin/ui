@@ -488,7 +488,6 @@ export const toReact = (component) => {
     ...[...reactTypes].map((name) => `type ${name}`),
   ].toSorted((a, b) => byName(a.replace(/^type /, ""), b.replace(/^type /, "")))
   const reactHelpers = [
-    ...(kind?.reactHelpers?.() ?? []),
     ...(hydrating.size ? ["useHydrated"] : []),
     ...(events.length ? ["useListener"] : []),
   ].toSorted(byName)

@@ -2,14 +2,14 @@
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { fieldDescribedBy } from "../id"
-  import { initialValue, keepSelected, sameValue } from "./selection"
-  import type { SelectItem } from "./types"
+  import { initialValue, sameValue } from "./selection"
   import type { Props } from "./types.svelte"
   import { untrack } from "svelte"
 
   let {
     autoFit,
     class: className,
+    defaultValue,
     dense,
     error,
     hideLabel,
@@ -66,19 +66,6 @@
       rest["aria-describedby"],
     ),
   )
-
-  const first = untrack(() => value)
-
-  const keepFirst = (select: HTMLSelectElement) => {
-    if (first !== undefined) keepSelected(select, first)
-  }
-
-  const isSelected = (item: SelectItem) =>
-    first === undefined
-      ? item.selected
-      : Array.isArray(first)
-        ? first.some((selected) => sameValue(selected, item.value))
-        : sameValue(item.value, first)
 </script>
 
 <div
@@ -117,7 +104,7 @@
       aria-invalid={error ? "true" : rest["aria-invalid"]}
       aria-labelledby={rest["aria-labelledby"]}
       bind:value
-      {@attach keepFirst}
+      defaultValue={defaultValue ?? initialValue(items, rest.multiple)}
       id={selectId}
       name={name ?? field?.name}
     >
@@ -126,9 +113,7 @@
       </button>
       <div class={["ui-list", { "ui-dense": dense }]}>
         {#each items as item (item.value)}
-          <option selected={isSelected(item) || undefined} value={item.value}
-            >{item.label}</option
-          >
+          <option value={item.value}>{item.label}</option>
         {/each}
         {@render children?.()}
       </div>

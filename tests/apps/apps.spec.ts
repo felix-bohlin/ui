@@ -611,8 +611,6 @@ const NATIVE_CASES: {
   { after: { click: 0 }, before: { click: 0 }, name: "toggle-empty" },
 ]
 
-const SVELTE_SELECT =
-  "the hand-written Select marks its options selected from the bound value, which bind:value on a native select doesn't"
 const SOLID_SELECT_DEFAULT =
   "Solid has no defaultValue on a select, so the Select's defaultValue marks its options as the default, as React's native defaultValue does"
 
@@ -646,10 +644,6 @@ const NATIVE_DIFFERENCES = [
     "rating-default",
     "tabs-bound",
     "toggle-bound",
-  ]),
-  ...differences("vite-svelte", SVELTE_SELECT, [
-    "select-bound",
-    "select-default",
   ]),
 ]
 

@@ -10,6 +10,7 @@ import { REACT_ATTRIBUTE_NAMES } from "../../scripts/example-react-props.mjs"
 import { parseHtml } from "../../scripts/html-tokens.mjs"
 import { slotProp } from "../../src/component-api/frameworks"
 import { renderSolid as renderSolidRoot } from "../../src/components/Example/render-solid"
+import { TEXT } from "./component-cases"
 
 type Node = ReturnType<typeof parseHtml>[number]
 
@@ -19,7 +20,7 @@ export type Slots = Record<string, string>
 
 export type SolidComponent<P = Props> = (props: P) => unknown
 
-export const TEXT = "Text"
+export { TEXT }
 
 export const CALLER_VALUE = "Caller"
 

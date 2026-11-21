@@ -82,7 +82,7 @@ if (count < 1) {
         <p>Asking for a friend.</p>
       </Message>
       <Message author="Frankie" datetime="2026-10-27T09:14" time="09:14">
-        <Avatar aria-label="Frankie" role="img" slot="start">F</Avatar>
+        <Avatar slot="start">F</Avatar>
         <p>Almost. Scroll down, it's all in here.</p>
       </Message>
     </MessageList>
@@ -123,12 +123,17 @@ if (count < 1) {
     <div class="new-components-row">
       <Copy id={`${id}-copy`}>
         <TextField
+          for="new-components-install-command"
           hideLabel
           label="Install command"
-          readonly
           size="small"
-          value="npm i opui-css"
-        />
+        >
+          <input
+            id="new-components-install-command"
+            readonly
+            value="npm i opui-css"
+          />
+        </TextField>
       </Copy>
       <Button
         command="--copy"
@@ -149,14 +154,9 @@ if (count < 1) {
     <p class="new-components-name">
       <DocLink href="/components/number-field">NumberField</DocLink>
     </p>
-    <NumberField
-      id={`${id}-coffees`}
-      label="Coffees, roughly"
-      min={0}
-      size="small"
-      step={10}
-      value={410}
-    />
+    <NumberField for={`${id}-coffees`} label="Coffees, roughly" size="small">
+      <input id={`${id}-coffees`} min={0} step={10} type="number" value={410} />
+    </NumberField>
   </li>
   <li class="new-components-tile">
     <p class="new-components-name">
@@ -164,11 +164,20 @@ if (count < 1) {
     </p>
     <OneTimeCode
       endText="Hint: the version, twice."
+      for="new-components-unlock-code"
       label="Unlock code"
-      length={4}
-      name={`${id}-code`}
       size="small"
-    />
+    >
+      <input
+        aria-describedby="new-components-unlock-code-end-text"
+        autocomplete="one-time-code"
+        id="new-components-unlock-code"
+        inputmode="numeric"
+        maxlength="4"
+        name={`${id}-code`}
+        pattern="[0-9]{4}"
+      />
+    </OneTimeCode>
   </li>
   <li class="new-components-tile new-components-wide">
     <p class="new-components-name">

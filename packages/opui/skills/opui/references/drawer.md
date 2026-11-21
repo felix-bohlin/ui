@@ -19,7 +19,7 @@ A panel that slides in from an edge of the screen, for navigation, filters or si
 
 - `backdrop`: `"blurred"` (default), `"transparent"` (`.ui-backdrop-transparent`). The backdrop style. `transparent` keeps the page behind it fully visible.
 - `closedby`: `"any" | "closerequest" | "none"`, `[closedby]`, default `"any"`. How the drawer can be closed. `any` also closes it on a click outside. Swiping a drawer at the block start or end toward its edge is a close request too, so `none` turns it off.
-- `closeOnNavigate`: `boolean`, `[data-close-on-navigate]`. Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API.
+- `closeOnNavigate`: `boolean`, `[data-close-on-navigate]`. Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. A link inside it closes it on click, unless it has `data-keep-open`, and a change of the query alone from outside it leaves it open. Reads the Navigation API.
 - `id`: `string`. The id of the `<dialog>`, which the trigger's `commandfor` points at. Required.
 - `scrollLock`: `boolean`, `.ui-scroll-lock`. Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`.
 - `side`: `"block-end"` (`.ui-block-end`), `"block-start"` (`.ui-block-start`), `"inline-end"` (`.ui-inline-end`), `"inline-start"` (default). The side it opens from.
@@ -31,7 +31,7 @@ A panel that slides in from an edge of the screen, for navigation, filters or si
 ### Notes
 
 - HTML: Add `autofocus` to the element that gets focus on open. It can be the root or an element inside. For `[data-close-on-navigate]`, import `opui-css/elements/close-on-navigate.js`. For swiping a `.ui-block-start` or `.ui-block-end` drawer closed, import `opui-css/elements/drawer-swipe.js`.
-- Astro, React, Solid, Svelte and Vue: Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer, with the id `x-title` for `id="x"`. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`.
+- Astro, React, Solid, Svelte and Vue: Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer, with the id `x-title` for `id="x"`. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`. `data-drawer-swipe` on an element in a drawer at the block start or end lets a swipe on it close the drawer.
 
 ## DrawerHeader
 
@@ -43,7 +43,7 @@ A panel that slides in from an edge of the screen, for navigation, filters or si
 ### Props and modifiers
 
 - `closeButton`: `boolean`. Adds a close button at the end of the title row, which closes its `Drawer`, or the `<dialog>` that `commandfor` names.
-- `closeLabel`: `string`, default `"Close"`. The accessible name of the close button.
+- `closeLabel`: `string`, default `"Close"`. The accessible name of the close button. The types take it only with `closeButton`.
 - `commandfor`: `string`. The id of the drawer the close button closes with the `close` command. Without it, the button closes its `Drawer`. Outside a `Drawer`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.
 
 ### Slots

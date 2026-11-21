@@ -1,4 +1,3 @@
-import { passThrough } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
@@ -29,18 +28,12 @@ export default {
       keys: ["Enter"],
     },
   ],
-  model: {
-    description: "The textarea value.",
-    prop: "value",
-    type: "string",
-  },
   notes: {
-    ...passThrough("textarea", ".ui-textarea", ["maxlength", "placeholder"], {
-      react: "Use `value` with `onChange`, or `defaultValue`.",
-    }),
+    default:
+      "Write the `<textarea>` inside, with its `id` set to `for`, and bind it like any textarea. Other attributes go to the `.ui-textarea` root.",
+    react:
+      "Write the `<textarea>` inside, with its `id` set to `htmlFor`, and give it `value` with `onChange`, or `defaultValue`. Other attributes go to the `.ui-textarea` root.",
     html: 'For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. With a label, put a `<label class="ui-label" for>` inside the root that points at the field\'s `id`, so the label alone names it, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Put `.ui-top` and `.ui-start` before the `<textarea>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they\'re drawn.',
-    solid:
-      "`value` sets the value and follows it when it changes. Follow typing with `onInput`.",
   },
   options: [
     {
@@ -65,26 +58,11 @@ export default {
       prop: "characterCountLabel",
     },
     {
-      default: "false",
       description:
-        'Dims the field and blocks input. `aria-disabled="true"` looks the same, but keeps the field focusable, its text editable and its value in the form.',
-      group: "Disabled",
-      inherited: true,
-      part: "textarea",
-      prop: "disabled",
-      type: "boolean",
-      values: {
-        "aria-disabled": '[aria-disabled="true"]',
-        disabled: "[disabled]",
-      },
-    },
-    {
-      attribute: '[aria-invalid="true"]',
-      default: "false",
-      description: "Marks the control invalid and shows error styles.",
-      group: "Validation",
-      part: "textarea",
-      prop: "error",
+        'The `id` of your `<textarea>`. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`. Point the textarea\'s `aria-describedby` at the ones it shows, in that order.',
+      frameworks: ["astro", "solid", "svelte", "vue"],
+      prop: "for",
+      type: "string",
     },
     {
       class: ".ui-sr-only",
@@ -97,27 +75,10 @@ export default {
     },
     {
       description:
-        "The id of the `<textarea>`. The `<label for>` points at it, so the component generates one when it's left out and there's a label. The ids the component generates start with it: `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id=\"x\"`.",
-      inherited: true,
-      prop: "id",
+        'The `id` of your `<textarea>`, as `htmlFor` like on the element. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `htmlFor="x"`. Point the textarea\'s `aria-describedby` at the ones it shows, in that order.',
+      frameworks: ["react"],
+      prop: "htmlFor",
       type: "string",
-    },
-    {
-      description:
-        "The name of the `<textarea>`. Inside a `FieldGroup`, the group's `name` when omitted.",
-      inherited: true,
-      prop: "name",
-      type: "string",
-    },
-    {
-      attribute: "[required]",
-      description:
-        "Adds a required mark after the label. The form won't submit while the field is empty.",
-      group: "Required",
-      inherited: true,
-      part: "textarea",
-      prop: "required",
-      type: "boolean",
     },
     {
       default: '"medium"',
@@ -162,36 +123,36 @@ export default {
     },
     {
       description: "The boxed textarea area.",
-      selector: ".ui-field",
+      selector: ".ui-field-container",
     },
     {
       description:
         "Content above the textarea, inside the border, with a divider.",
-      selector: ".ui-field > .ui-top",
+      selector: ".ui-field-container > .ui-top",
       slots: ["top"],
     },
     {
       description:
         "Content at the inline-start of the field, inside the border, centered on the first line. Taller content starts `--_affix-padding-block` below the field's top, or below `.ui-top`.",
-      selector: ".ui-field > .ui-start",
+      selector: ".ui-field-container > .ui-start",
       slots: ["start"],
     },
     {
       code: "<textarea>",
-      description: "The textarea element.",
-      model: true,
-      selector: "textarea",
+      description:
+        'Your textarea, written directly inside `.ui-field-container` with its `id` set to `for` and its value as its content. Bind it, name it and mark it `required`, `disabled` or `aria-invalid="true"` like any textarea.',
+      selector: ".ui-field-container > textarea",
     },
     {
       description:
         "Content at the inline-end of the field, inside the border, centered on the first line. Taller content starts `--_affix-padding-block` below the field's top, or below `.ui-top`.",
-      selector: ".ui-field > .ui-end",
+      selector: ".ui-field-container > .ui-end",
       slots: ["end"],
     },
     {
       description:
         "Content below the textarea, inside the border, with a divider.",
-      selector: ".ui-field > .ui-bottom",
+      selector: ".ui-field-container > .ui-bottom",
       slots: ["bottom"],
     },
     {
@@ -215,7 +176,7 @@ export default {
   },
   slots: [
     {
-      description: "Extra content inside the root.",
+      description: "Your `<textarea>`, which goes in `.ui-field-container`.",
       name: "default",
     },
   ],

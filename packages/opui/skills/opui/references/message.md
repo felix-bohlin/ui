@@ -2,7 +2,7 @@
 
 Chat bubbles that group by sender, with attachments, reactions and a typing indicator.
 
-- CSS: `opui-css/css/components/message.css` and `opui-css/css/components/avatar.css`.
+- CSS: `opui-css/css/components/message.css`, `opui-css/css/components/reactions.css` and `opui-css/css/components/avatar.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/message.md), [Astro](https://opui.dev/astro/components/message.md), [React](https://opui.dev/react/components/message.md), [Solid](https://opui.dev/solid/components/message.md), [Svelte](https://opui.dev/svelte/components/message.md), [Vue](https://opui.dev/vue/components/message.md).
 
 ## MessageList
@@ -30,12 +30,13 @@ Chat bubbles that group by sender, with attachments, reactions and a typing indi
 ### Parts
 
 - `li.ui-message` (root): A message.
-- `.ui-avatar` (slot `start`): The sender's `Avatar`, from the `start` slot, shown on the last message of a run.
+- `.ui-avatar` (slot `start`): The sender's `Avatar`, from the `start` slot, shown on the last message of a run. It takes no `label`: `author` names the message.
 - `.ui-content` (slot `default`): The bubble.
 - `.ui-header` (prop `author`): The sender's name.
 - `.ui-footer` (prop `datetime`, prop `time`): The time, and content such as a read receipt.
 - `.ui-end` (slot `end`): Content after the time, such as a read receipt.
-- `.ui-bottom` (slot `bottom`): Reactions in a `ToggleGroup`, drawn as separate pills over the bottom edge of the bubble.
+- `.ui-actions` (slot `actions`): Buttons beside the bubble, such as a round `Button` that opens a horizontal `Menu` of emoji. On a device that can hover, they show while the message is hovered, holds focus or has a popover open.
+- `.ui-bottom` (slot `bottom`): The `Reactions`, whose pills sit over the bottom edge of the bubble.
 
 ### Props and modifiers
 
@@ -46,21 +47,71 @@ Chat bubbles that group by sender, with attachments, reactions and a typing indi
 - `time`: `string`. The time as shown, at the end of the bubble.
 - `typing`: `boolean`, `.ui-typing`. Shows animated dots instead of the content. The default slot becomes the status text for screen readers.
 
+## Reactions
+
+### Parts
+
+- `opui-reactions.ui-reactions` (root): The `<opui-reactions>` custom element, a row that wraps, and `display: contents` in the `bottom` slot of a `Message`. A click on a pill, or on a button with `command="--react"`, this element in `commandfor` and the emoji as its `value`, fires a `reaction` event that bubbles, and changes nothing. A pick of an emoji you already reacted with asks to uncheck it, and the menu the button is in closes. While it has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, clicks ask for nothing.
+- `.ui-toggle-group`: The `ToggleGroup` of pills, named by the `aria-label` or `aria-labelledby` of the component.
+- `.ui-toggle-button` (prop `items`, prop `quick`): A reaction: a checkbox `ToggleButton` drawn as a pill, checked when you reacted with it.
+- `<span role="status">`: The live region that `announce()` writes to, visually hidden with `.ui-sr-only`.
+
+### Props and modifiers
+
+- `@reaction` (Vue): `(event: CustomEvent<ReactionDetail>) => void`. Called when a pill is clicked or an emoji is picked, with the emoji's `value` and the `checked` state asked for in `event.detail`. Nothing changes until you change `items`.
+- `aria-label`: `string`. The accessible name of the group of pills. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.
+- `aria-labelledby`: `string`. The id of the element that names the group of pills, instead of `aria-label`.
+- `items`: `ReactionsItem[]`. The reactions in use, as `{ aria-label, checked, label, value }` objects: the name with the count in `aria-label`, such as `Thumbs up, 2`, the emoji with the count in `label`, and `checked` on the ones you reacted with.
+- `name`: `string`. The `name` of the checkboxes.
+- `onreaction` (Svelte): `(event: CustomEvent<ReactionDetail>) => void`. Called when a pill is clicked or an emoji is picked, with the emoji's `value` and the `checked` state asked for in `event.detail`. Nothing changes until you change `items`.
+- `onReaction` (React and Solid): `(event: CustomEvent<ReactionDetail>) => void`. Called when a pill is clicked or an emoji is picked, with the emoji's `value` and the `checked` state asked for in `event.detail`. Nothing changes until you change `items`.
+- `quick`: `ReactionsItem`. The one-tap reaction, as an item without a count: `{ aria-label, label, value }`. Its pill always comes first. While `items` has no entry with its `value`, the pill is unchecked, has a dashed border and shows `label` alone.
+- Quick label (HTML): `[quick-label]`. The name of the quick reaction without a count, such as `Thumbs up`, which `delete()` gives its pill.
+- Quick text (HTML): `[quick-text]`. The emoji of the quick reaction without a count, which `delete()` gives its pill.
+- Quick value (HTML): `[quick-value]`. The `value` of the quick reaction, the one-tap reaction whose pill comes first and stays when `delete()` is called with it.
+- Unused (HTML): `.ui-toggle-button.ui-unused`. The pill of the quick reaction while nobody has used it: a dashed border.
+
+### Slots
+
+- `default`: Content after the pills, such as the add reaction button and its `Menu` when they aren't in the `actions` slot of a `Message`.
+
+### Element
+
+- `<opui-reactions>`, defined by `opui-css/elements/reactions.js`:
+  - `announce(message)`: Reads `message` to screen readers, through the `role="status"` child.
+  - `delete(value)`: Removes the pill of `value`, and moves focus to the next pill, the previous one or the first button after the pills when the removed pill had it. The pill of the `quick-value` reaction stays, unchecked and `.ui-unused`, with the `quick-label` and `quick-text` attributes as its name and text, and keeps focus.
+  - `group`: The `.ui-toggle-group` of pills, or `null`. Read-only.
+  - `reaction` event: Fires when a pill is clicked, or a button with `command="--react"` and this element in `commandfor`, with the `value` and the `checked` state asked for in `event.detail`. It bubbles, and changes nothing.
+  - `set(value, reaction)`: Updates the pill of `value` with `{ checked, label, text }`, the accessible name in `label` and the emoji and count in `text`, or adds one at the end, and the `quick-value` reaction first. It removes `.ui-unused` from the pill.
+
+### Notes
+
+- HTML: Put a `.ui-toggle-group` of checkbox `.ui-toggle-button` pills in `<opui-reactions class="ui-reactions">`, with an empty `<span class="ui-sr-only" role="status">` last, and import `opui-css/elements/reactions.js`. Each input takes the emoji's `value` and an `aria-label` with the name and the count, and a `<span aria-hidden="true">` after it shows the emoji and the count. Apply your server's answer with `set()` and `delete()`.
+- Astro: The component loads `opui-css/elements/reactions.js`. A click never checks or unchecks a pill on its own: change `items` when your server answers. `announce(message)` on `event.target` reads a message to screen readers.
+- React: The component loads `opui-css/elements/reactions.js` once it mounts, unless the page imports it first. A click never checks or unchecks a pill on its own: change `items` when your server answers. `announce(message)` on `event.target` reads a message to screen readers.
+- Solid, Svelte and Vue: The component imports `opui-css/elements/reactions.js`, so the element runs as soon as the component's code loads. A click never checks or unchecks a pill on its own: change `items` when your server answers. `announce(message)` on `event.target` reads a message to screen readers.
+
 ## Component properties
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 
 ### message.css
 
+- `--_actions-opacity`: Opacity of the actions on a device that can hover, while the message isn't hovered, doesn't hold focus and has no popover open. Defaults to `0`; `1` always shows them.
 - `--_avatar-size`: Size of the avatar next to the bubble. Defaults to `--ui-control-size-small`.
 - `--_bg-color`: Background of the bubble. Defaults to `--ui-surface-tonal`, and `--ui-primary` with `.ui-outgoing`.
+- `--_ease`: Easing of the fade of the actions. Defaults to `--ui-ease`.
 - `--_max-inline-size`: Widest bubble. Defaults to `36rem`, or 85% of the list when that is narrower.
-- `--_motion`: Multiplies the typing animation. Defaults to `--ui-motion`, `0` under reduced motion.
+- `--_motion`: Multiplies the typing animation and the fade of the actions. Defaults to `--ui-motion`, `0` under reduced motion.
 - `--_radius`: Radius of the bubble corners. Defaults to `--ui-radius`, larger with `corner-shape: squircle`.
 - `--_text-color`: Text color in the bubble. Defaults to `--ui-text-strong`, and `--ui-on-primary` with `.ui-outgoing`.
 - `--_tight-radius`: Radius of the corners inside a run. Defaults to `--ui-radius-small`.
 
-Outputs: `--_block-end-radius`, `--_block-start-radius`, `--_border-color`, `--_divider-gap`, `--_dot-image`, `--_font-size`, `--_selected-bg-color` and `--_size`.
+Outputs: `--_block-end-radius`, `--_block-start-radius`, `--_dot-image`, `--_duration`, `--_font-size` and `--_size`.
+
+### reactions.css
+
+Outputs: `--_border-color`, `--_divider-gap`, `--_font-size`, `--_selected-bg-color` and `--_size`.
 
 ### avatar.css
 
@@ -78,7 +129,7 @@ Outputs: `--_block-end-radius`, `--_block-start-radius`, `--_border-color`, `--_
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size-x-small`, `--ui-contrast`, `--ui-control-size-small`, `--ui-focus-border-color`, `--ui-font-size-caption`, `--ui-font-weight-semibold`, `--ui-motion`, `--ui-on-primary`, `--ui-on-selected`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-selected`, `--ui-selected-strong`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-7`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size-x-small`, `--ui-contrast`, `--ui-control-size-small`, `--ui-duration`, `--ui-ease`, `--ui-focus-border-color`, `--ui-font-size-caption`, `--ui-font-weight-semibold`, `--ui-motion`, `--ui-on-primary`, `--ui-on-selected`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-selected`, `--ui-selected-strong`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-7`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -88,7 +139,9 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size
 <div aria-label="Chat with Stella" role="log">
   <ol class="ui-message-list" role="list" aria-label="Messages with Stella">
     <li class="ui-message">
-      <div class="ui-avatar" aria-hidden="true">SN</div>
+      <div class="ui-avatar">
+        <span aria-hidden="true">SN</span>
+      </div>
       <div class="ui-content">
         <p class="ui-header">Stella</p>
         <p>Heyyy! Did your band notice you changed strings yet?</p>
@@ -98,7 +151,9 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size
       </div>
     </li>
     <li class="ui-message">
-      <div class="ui-avatar" aria-hidden="true">SN</div>
+      <div class="ui-avatar">
+        <span aria-hidden="true">SN</span>
+      </div>
       <div class="ui-content">
         <p class="ui-header">Stella</p>
         <p>Flatwounds, right? So rad.</p>
@@ -132,9 +187,9 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size
 
 ## Astro
 
-`import { Message, MessageList } from "opui-css/astro"`
+`import { Message, MessageList, Reactions } from "opui-css/astro"`
 
-- `Message` named slots: `bottom`, `end` and `start`. Fill one with `slot="bottom"` on a child.
+- `Message` named slots: `actions`, `bottom`, `end` and `start`. Fill one with `slot="actions"` on a child.
 
 ### Example: Basics
 
@@ -146,11 +201,11 @@ import { Avatar, Message, MessageList } from "opui-css/astro"
 <div aria-label="Chat with Stella" role="log">
   <MessageList aria-label="Messages with Stella">
     <Message author="Stella" datetime="2026-10-08T14:02" time="14:02">
-      <Avatar aria-hidden="true" slot="start">SN</Avatar>
+      <Avatar slot="start">SN</Avatar>
       <p>Heyyy! Did your band notice you changed strings yet?</p>
     </Message>
     <Message author="Stella" datetime="2026-10-08T14:03" time="14:03">
-      <Avatar aria-hidden="true" slot="start">SN</Avatar>
+      <Avatar slot="start">SN</Avatar>
       <p>Flatwounds, right? So rad.</p>
     </Message>
     <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
@@ -166,9 +221,10 @@ import { Avatar, Message, MessageList } from "opui-css/astro"
 
 ## React
 
-`import { Message, MessageList } from "opui-css/react"`
+`import { Message, MessageList, Reactions } from "opui-css/react"`
 
-- `Message` slot props (`ReactNode`): `bottom`, `children`, `end` and `start`.
+- `Message` slot props (`ReactNode`): `actions`, `bottom`, `children`, `end` and `start`.
+- Client components (`"use client"`): `Reactions`.
 
 ### Example: Basics
 
@@ -182,7 +238,7 @@ export default function Basics() {
         <Message
           author="Stella"
           datetime="2026-10-08T14:02"
-          start={<Avatar aria-hidden="true">SN</Avatar>}
+          start={<Avatar>SN</Avatar>}
           time="14:02"
         >
           <p>Heyyy! Did your band notice you changed strings yet?</p>
@@ -190,7 +246,7 @@ export default function Basics() {
         <Message
           author="Stella"
           datetime="2026-10-08T14:03"
-          start={<Avatar aria-hidden="true">SN</Avatar>}
+          start={<Avatar>SN</Avatar>}
           time="14:03"
         >
           <p>Flatwounds, right? So rad.</p>
@@ -215,9 +271,9 @@ export default function Basics() {
 
 ## Solid
 
-`import { Message, MessageList } from "opui-css/solid"`
+`import { Message, MessageList, Reactions } from "opui-css/solid"`
 
-- `Message` slot props (`JSX.Element`): `bottom`, `children`, `end` and `start`.
+- `Message` slot props (`JSX.Element`): `actions`, `bottom`, `children`, `end` and `start`.
 
 ### Example: Basics
 
@@ -232,7 +288,7 @@ export default function Basics() {
         <Message
           author="Stella"
           datetime="2026-10-08T14:02"
-          start={<Avatar aria-hidden="true">SN</Avatar>}
+          start={<Avatar>SN</Avatar>}
           time="14:02"
         >
           <p>Heyyy! Did your band notice you changed strings yet?</p>
@@ -240,7 +296,7 @@ export default function Basics() {
         <Message
           author="Stella"
           datetime="2026-10-08T14:03"
-          start={<Avatar aria-hidden="true">SN</Avatar>}
+          start={<Avatar>SN</Avatar>}
           time="14:03"
         >
           <p>Flatwounds, right? So rad.</p>
@@ -265,9 +321,9 @@ export default function Basics() {
 
 ## Svelte
 
-`import { Message, MessageList } from "opui-css/svelte"`
+`import { Message, MessageList, Reactions } from "opui-css/svelte"`
 
-- `Message` slot snippets: `bottom`, `children`, `end` and `start`.
+- `Message` slot snippets: `actions`, `bottom`, `children`, `end` and `start`.
 
 ### Example: Basics
 
@@ -280,13 +336,13 @@ export default function Basics() {
   <MessageList aria-label="Messages with Stella">
     <Message author="Stella" datetime="2026-10-08T14:02" time="14:02">
       {#snippet start()}
-        <Avatar aria-hidden="true">SN</Avatar>
+        <Avatar>SN</Avatar>
       {/snippet}
       <p>Heyyy! Did your band notice you changed strings yet?</p>
     </Message>
     <Message author="Stella" datetime="2026-10-08T14:03" time="14:03">
       {#snippet start()}
-        <Avatar aria-hidden="true">SN</Avatar>
+        <Avatar>SN</Avatar>
       {/snippet}
       <p>Flatwounds, right? So rad.</p>
     </Message>
@@ -303,9 +359,9 @@ export default function Basics() {
 
 ## Vue
 
-`import { Message, MessageList } from "opui-css/vue"`
+`import { Message, MessageList, Reactions } from "opui-css/vue"`
 
-- `Message` named slots: `bottom`, `end` and `start`. Fill one with `<template #bottom>`.
+- `Message` named slots: `actions`, `bottom`, `end` and `start`. Fill one with `<template #actions>`.
 
 ### Example: Basics
 
@@ -319,13 +375,13 @@ import { Avatar, Message, MessageList } from "opui-css/vue"
     <MessageList aria-label="Messages with Stella">
       <Message author="Stella" datetime="2026-10-08T14:02" time="14:02">
         <template #start>
-          <Avatar aria-hidden="true">SN</Avatar>
+          <Avatar>SN</Avatar>
         </template>
         <p>Heyyy! Did your band notice you changed strings yet?</p>
       </Message>
       <Message author="Stella" datetime="2026-10-08T14:03" time="14:03">
         <template #start>
-          <Avatar aria-hidden="true">SN</Avatar>
+          <Avatar>SN</Avatar>
         </template>
         <p>Flatwounds, right? So rad.</p>
       </Message>

@@ -7,10 +7,10 @@
     <label class="ui-sr-only" for="control-group-fields-2"
       >Bassist name or handle</label
     >
-    <span class="ui-field">
+    <span class="ui-field-container">
       <input
-        placeholder="Search bassists"
         id="control-group-fields-2"
+        placeholder="Search bassists"
         type="search"
       />
     </span>
@@ -23,9 +23,9 @@
   <div class="ui-field-group">
     <div class="ui-control-group" role="group">
       <div class="ui-select">
-        <label class="ui-sr-only" for="control-group-fields-3">Currency</label>
-        <span class="ui-field">
-          <select id="control-group-fields-3" name="currency">
+        <label class="ui-sr-only" for="control-group-fields-4">Currency</label>
+        <span class="ui-field-container">
+          <select id="control-group-fields-4" name="currency">
             <button inert>
               <selectedcontent></selectedcontent>
             </button>
@@ -38,14 +38,13 @@
         </span>
       </div>
       <div class="ui-text-field">
-        <label class="ui-sr-only" for="control-group-fields-4">Amount</label>
-        <span class="ui-field">
+        <label class="ui-sr-only" for="control-group-fields-3">Amount</label>
+        <span class="ui-field-container">
           <input
+            id="control-group-fields-3"
             inputmode="decimal"
-            placeholder="0.00"
-            id="control-group-fields-4"
             name="amount"
-            type="text"
+            placeholder="0.00"
           />
         </span>
       </div>
@@ -60,7 +59,7 @@
 >
   <opui-number-field class="ui-number-field">
     <label class="ui-sr-only" for="control-group-fields-1">Quantity</label>
-    <span class="ui-field">
+    <span class="ui-field-container">
       <span class="ui-start">
         <button
           class="ui-button ui-round"
@@ -80,12 +79,12 @@
         </button>
       </span>
       <input
+        id="control-group-fields-1"
         max="10"
         min="1"
-        value="1"
-        id="control-group-fields-1"
         name="quantity"
         type="number"
+        value="1"
       />
       <span class="ui-end">
         <button

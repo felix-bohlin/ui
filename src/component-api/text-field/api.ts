@@ -1,4 +1,3 @@
-import { passThrough } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
@@ -54,18 +53,12 @@ export default {
       keys: ["Esc"],
     },
   ],
-  model: {
-    description: "The input value.",
-    prop: "value",
-    type: "string | number",
-  },
   notes: {
-    ...passThrough("input", ".ui-text-field", ["autocomplete", "placeholder"], {
-      react: "Use `value` with `onChange`, or `defaultValue`.",
-      solid:
-        "`value` sets the value and follows it when it changes. Follow typing with `onInput`.",
-    }),
-    html: 'Use `.ui-select` for a `<select>` and `.ui-textarea` for a `<textarea>`. You can put a `<datalist>` inside the root. For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. For a password toggle, use `<opui-text-field class="ui-text-field">` with a `<label class="ui-label" for>`, put a `.ui-button` with `aria-pressed="false"`, `commandfor` naming the input and `command="--toggle-password"` in `.ui-end`, and import `opui-css/elements/text-field.js`. With a label, put a `<label class="ui-label" for>` inside the root that points at the field\'s `id`, so the label alone names it, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Put `.ui-top` and `.ui-start` before the `<input>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they\'re drawn.',
+    default:
+      "Write the `<input>` inside, with its `id` set to `for`, and bind it like any input. Other attributes go to the `.ui-text-field` root.",
+    react:
+      "Write the `<input>` inside, with its `id` set to `htmlFor`, and give it `value` with `onChange`, or `defaultValue`. Other attributes go to the `.ui-text-field` root.",
+    html: 'Use `.ui-select` for a `<select>` and `.ui-textarea` for a `<textarea>`. Put a `<datalist>` next to the input in `.ui-field-container`. For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. For a password toggle, use `<opui-text-field class="ui-text-field">` with a `<label class="ui-label" for>`, put a `.ui-button` with `aria-pressed="false"`, `commandfor` naming the input and `command="--toggle-password"` in `.ui-end`, and import `opui-css/elements/text-field.js`. With a label, put a `<label class="ui-label" for>` inside the root that points at the field\'s `id`, so the label alone names it, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Put `.ui-top` and `.ui-start` before the `<input>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they\'re drawn.',
   },
   options: [
     {
@@ -97,22 +90,11 @@ export default {
       prop: "dropZone",
     },
     {
-      attribute: "[disabled]",
-      default: "false",
       description:
-        'Dims the field and blocks input and the password toggle. `aria-disabled="true"` on the input looks the same, but keeps the field focusable, its text editable and its value in the form.',
-      group: "Disabled",
-      part: "input",
-      prop: "disabled",
-      type: "boolean",
-    },
-    {
-      attribute: '[aria-invalid="true"]',
-      default: "false",
-      description: "Marks the control invalid and shows error styles.",
-      group: "Validation",
-      part: "input",
-      prop: "error",
+        'The `id` of your `<input>`. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`. Point the input\'s `aria-describedby` at the ones it shows, in that order.',
+      frameworks: ["astro", "solid", "svelte", "vue"],
+      prop: "for",
+      type: "string",
     },
     {
       class: ".ui-sr-only",
@@ -125,16 +107,9 @@ export default {
     },
     {
       description:
-        'The id of the `<input>`. The `<label for>` and the password toggle point at it, so the component generates one when it\'s left out. The ids the component generates start with it: `x-start`, `x-end`, `x-top`, `x-bottom`, `x-start-text` and `x-end-text` for `id="x"`.',
-      inherited: true,
-      prop: "id",
-      type: "string",
-    },
-    {
-      description:
-        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
-      inherited: true,
-      prop: "name",
+        'The `id` of your `<input>`, as `htmlFor` like on the element. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `htmlFor="x"`. Point the input\'s `aria-describedby` at the ones it shows, in that order.',
+      frameworks: ["react"],
+      prop: "htmlFor",
       type: "string",
     },
     {
@@ -146,18 +121,9 @@ export default {
     },
     {
       default: '"Show password"',
-      description: "The accessible name of the password toggle.",
-      prop: "passwordToggleLabel",
-    },
-    {
-      attribute: "[required]",
       description:
-        "Adds a required mark after the label. The form won't submit while the field is empty.",
-      group: "Required",
-      inherited: true,
-      part: "input",
-      prop: "required",
-      type: "boolean",
+        "The accessible name of the password toggle. The types take it only with `passwordToggle`.",
+      prop: "passwordToggleLabel",
     },
     {
       default: '"medium"',
@@ -178,13 +144,6 @@ export default {
         "Pushes the label and start text to one side and the input to the other.",
       group: "Spread",
       prop: "spread",
-    },
-    {
-      default: '"text"',
-      description: "The input type.",
-      inherited: true,
-      prop: "type",
-      type: "string",
     },
     {
       default: '"outlined"',
@@ -209,43 +168,43 @@ export default {
     },
     {
       description: "The boxed input area.",
-      selector: ".ui-field",
+      selector: ".ui-field-container",
     },
     {
       description:
         "Content above the input, inside the border, with a divider.",
-      selector: ".ui-field > .ui-top",
+      selector: ".ui-field-container > .ui-top",
       slots: ["top"],
     },
     {
       description:
         "Content at the inline-start of the field, inside the border.",
-      selector: ".ui-field > .ui-start",
+      selector: ".ui-field-container > .ui-start",
       slots: ["start"],
     },
     {
       code: "<input>",
-      description: "The input element.",
-      model: true,
-      selector: "input",
+      description:
+        'Your input, written directly inside `.ui-field-container` with its `id` set to `for`. Bind it, name it and mark it `required`, `disabled` or `aria-invalid="true"` like any input.',
+      selector: ".ui-field-container > input",
     },
     {
       description:
         "Content at the inline-end of the field, inside the border, and the password toggle.",
-      selector: ".ui-field > .ui-end",
+      selector: ".ui-field-container > .ui-end",
       slots: ["end"],
     },
     {
       description:
         'The password toggle, with `aria-pressed` and `command="--toggle-password"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is, and `aria-disabled` while the input is. `<opui-text-field>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-text-field>` is defined.',
       props: ["passwordToggle", "passwordToggleLabel"],
-      selector: ".ui-field > .ui-end > .ui-button",
+      selector: ".ui-field-container > .ui-end > .ui-button",
       slots: ["icon-checked", "icon-unchecked"],
     },
     {
       description:
         "Content below the input, inside the border, with a divider.",
-      selector: ".ui-field > .ui-bottom",
+      selector: ".ui-field-container > .ui-bottom",
       slots: ["bottom"],
     },
     {
@@ -269,7 +228,8 @@ export default {
   },
   slots: [
     {
-      description: "Extra content inside the root, such as a `<datalist>`.",
+      description:
+        "Your `<input>`, and a `<datalist>` for it when it has suggestions. Both go in `.ui-field-container`.",
       name: "default",
     },
   ],

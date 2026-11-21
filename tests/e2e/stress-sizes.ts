@@ -3,8 +3,8 @@ import { expect, type Locator, type Page } from "@playwright/test"
 const CONTROLS = [
   ":scope > .ui-button",
   ":scope > .ui-control-group",
-  ":scope > .ui-select > .ui-field",
-  ":scope > .ui-text-field > .ui-field",
+  ":scope > .ui-select > .ui-field-container",
+  ":scope > .ui-text-field > .ui-field-container",
   ":scope > :is(.ui-select, .ui-text-field):not(:has(> .ui-label))",
   ":scope > .ui-toggle-button",
   ":scope > .ui-toggle-group",
@@ -120,7 +120,7 @@ export const measure = (page: Page) =>
         affixes: rows.flatMap(({ example, row, size }) =>
           [
             ...row.querySelectorAll<HTMLElement>(
-              ":scope > :is(.ui-text-field, .ui-textarea) > .ui-field > :is(.ui-start, .ui-end)",
+              ":scope > :is(.ui-text-field, .ui-textarea) > .ui-field-container > :is(.ui-start, .ui-end)",
             ),
           ].map((part) => measureAffix(part, `${example} ${size}`)),
         ),
@@ -149,9 +149,9 @@ export const measure = (page: Page) =>
           return {
             controls: [...row.querySelectorAll<HTMLElement>(selector)].map(
               (control) => {
-                const field = control.matches(".ui-field")
+                const field = control.matches(".ui-field-container")
                   ? control
-                  : control.querySelector(":scope > .ui-field")
+                  : control.querySelector(":scope > .ui-field-container")
                 const button = field?.querySelector(
                   ":scope > :is(.ui-start, .ui-end) > .ui-button",
                 )
@@ -229,7 +229,9 @@ export const expectSizedRows = async (page: Page) => {
   expectAffixes(affixes)
   expectAffixes(
     await measureAffixes(
-      page.locator("[data-tall-affixes] .ui-field > :is(.ui-start, .ui-end)"),
+      page.locator(
+        "[data-tall-affixes] .ui-field-container > :is(.ui-start, .ui-end)",
+      ),
     ),
   )
 }

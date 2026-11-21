@@ -71,16 +71,21 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
           </p>
           <div class="builder-paste-row">
             <TextField
-              aria-describedby="builder-paste-hint"
-              autocomplete="off"
               class="builder-paste-field"
+              for="builder-paste"
               hideLabel
               label="Paste a color, a theme.css or an image"
-              name="builder-paste"
-              placeholder="A color, a theme.css or an image"
               size="small"
-              spellcheck="false"
-            />
+            >
+              <input
+                aria-describedby="builder-paste-hint"
+                autocomplete="off"
+                id="builder-paste"
+                name="builder-paste"
+                placeholder="A color, a theme.css or an image"
+                spellcheck="false"
+              />
+            </TextField>
             <Button data-paste-image size="small" variant="outlined">
               Choose image
             </Button>

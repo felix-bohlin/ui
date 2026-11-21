@@ -4,79 +4,127 @@ export default function Spread() {
   return (
     <>
       <TextField
+        htmlFor="text-field-spread-1"
         label="Name"
-        placeholder="Holly Humbucker"
         spread
         startText="Your full name, as the drummer never says it"
-      />
+      >
+        <input
+          aria-describedby="text-field-spread-1-start-text"
+          id="text-field-spread-1"
+          placeholder="Holly Humbucker"
+        />
+      </TextField>
 
       <TextField
         endText="Use one the band checks."
+        htmlFor="text-field-spread-2"
         label="Email"
-        placeholder="name@lowend.example"
         spread
         startText="We'll send your gig invites here"
-        type="email"
         variant="filled"
-      />
+      >
+        <input
+          aria-describedby="text-field-spread-2-start-text text-field-spread-2-end-text"
+          id="text-field-spread-2"
+          placeholder="name@lowend.example"
+          type="email"
+        />
+      </TextField>
 
       <TextField
+        htmlFor="text-field-spread-3"
         label="Band"
-        required
         spread
         startText="Shown on your gig flyers"
-      />
+      >
+        <input
+          aria-describedby="text-field-spread-3-start-text"
+          id="text-field-spread-3"
+          required
+        />
+      </TextField>
 
       <TextField
-        defaultValue="BASS-20931"
-        disabled
+        htmlFor="text-field-spread-4"
         label="Member ID"
         spread
         startText="Assigned when you joined Bassbook"
-      />
+      >
+        <input
+          aria-describedby="text-field-spread-4-start-text"
+          disabled
+          id="text-field-spread-4"
+          defaultValue="BASS-20931"
+        />
+      </TextField>
 
       <TextField
-        defaultValue="A"
         endText="Enter at least two characters."
-        error
+        htmlFor="text-field-spread-5"
         label="Display name"
         spread
         startText="Shown next to your wall posts"
-      />
+      >
+        <input
+          aria-describedby="text-field-spread-5-start-text text-field-spread-5-end-text"
+          aria-invalid="true"
+          id="text-field-spread-5"
+          defaultValue="A"
+        />
+      </TextField>
 
       <TextField
         end="EUR"
+        htmlFor="text-field-spread-6"
         label="Amount"
-        placeholder="0.00"
         spread
         start="€"
         startText="Daily gear spending limit"
-      />
+      >
+        <input
+          aria-describedby="text-field-spread-6-start-text text-field-spread-6-start text-field-spread-6-end"
+          id="text-field-spread-6"
+          placeholder="0.00"
+        />
+      </TextField>
 
       <TextField
         endText="Include the domain, like example.com."
+        htmlFor="text-field-spread-7"
         label="Website"
-        placeholder="example.com"
         spread
         start="https://"
         startText="Your band homepage, totally rad"
         variant="filled"
-      />
+      >
+        <input
+          aria-describedby="text-field-spread-7-start-text text-field-spread-7-start text-field-spread-7-end-text"
+          id="text-field-spread-7"
+          placeholder="example.com"
+        />
+      </TextField>
 
       <TextField
         bottom="Lowercase letters and dashes only"
+        htmlFor="text-field-spread-8"
         label="Band page"
-        placeholder="my-band"
         spread
         startText="Used to make your band page URL"
         top="bassbook.example/"
-      />
+      >
+        <input
+          aria-describedby="text-field-spread-8-start-text text-field-spread-8-top text-field-spread-8-bottom"
+          id="text-field-spread-8"
+          placeholder="my-band"
+        />
+      </TextField>
 
       <TextField
         bottom="Changes every 90 days"
         endText="Never show it to the drummer."
+        htmlFor="text-field-spread-9"
         label="Secret riff"
-        placeholder="Paste your riff"
         spread
         start={
           <svg
@@ -97,9 +145,15 @@ export default function Spread() {
         }
         startText="Locked away from guitarists"
         top="Secret"
-        type="password"
         variant="filled"
-      />
+      >
+        <input
+          aria-describedby="text-field-spread-9-start-text text-field-spread-9-top text-field-spread-9-start text-field-spread-9-bottom text-field-spread-9-end-text"
+          id="text-field-spread-9"
+          placeholder="Paste your riff"
+          type="password"
+        />
+      </TextField>
     </>
   )
 }

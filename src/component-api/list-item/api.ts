@@ -16,6 +16,13 @@ export default {
     {
       description:
         'The element to render inside the `<li>`: `"a"` or `"button"`. Defaults to `"a"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type="button"`.',
+      frameworks: ["astro", "svelte"],
+      prop: "as",
+    },
+    {
+      description:
+        'The element to render inside the `<li>`: `"a"`, `"button"` or the link component of your router with `href`, such as Next\'s `Link`, Solid Router\'s `A` or Nuxt\'s `NuxtLink`, which gets the `href`. Defaults to `"a"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type="button"`, and a disabled link component renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.',
+      frameworks: ["react", "solid", "vue"],
       prop: "as",
     },
     {

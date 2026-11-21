@@ -38,7 +38,7 @@ A window over the page for a question or a short task, modal or not.
 ### Props and modifiers
 
 - `closeButton`: `boolean`. Adds a close button at the end of the title row, which closes its `Dialog` through the dialog's `id`, or the `<dialog>` that `commandfor` names.
-- `closeLabel`: `string`, default `"Close"`. The accessible name of the close button.
+- `closeLabel`: `string`, default `"Close"`. The accessible name of the close button. The types take it only with `closeButton`.
 - `commandfor`: `string`. The id of the dialog the close button closes with the `close` command. Without it, the button closes its `Dialog`. Outside a `Dialog`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.
 
 ### Slots

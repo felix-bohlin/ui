@@ -83,7 +83,21 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
 
   <Fragment slot="anatomy">
     <Anatomy>
-      <UIOneTimeCode endText="Supporting text" grouped label="Label" />
+      <UIOneTimeCode
+        endText="Supporting text"
+        for="one-time-code-label"
+        grouped
+        label="Label"
+      >
+        <input
+          aria-describedby="one-time-code-label-end-text"
+          autocomplete="one-time-code"
+          id="one-time-code-label"
+          inputmode="numeric"
+          maxlength="6"
+          pattern="[0-9]{6}"
+        />
+      </UIOneTimeCode>
     </Anatomy>
   </Fragment>
 
@@ -107,7 +121,13 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
   <section id="basics">
     <h2>Basics</h2>
     <Conditional as="p">
-      <Fragment slot="components">The code has 6 digits by default.</Fragment>
+      <Fragment slot="components">
+        Write the <code>&lt;input&gt;</code> inside the field, with its
+        <code>id</code> set to <code>for</code> (<code>htmlFor</code> in React),
+        <code>autocomplete="one-time-code"</code>,
+        <code>inputmode="numeric"</code>, <code>maxlength="6"</code> and
+        <code>pattern="[0-9]{6}"</code>.
+      </Fragment>
       <Fragment slot="html">
         Put the parts of a
         <DocLink href="/components/text-field">Text field</DocLink> in a
@@ -122,7 +142,7 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
     <h2>Grouped</h2>
     <p>
       Use <PropOrClass prop="grouped" class=".ui-grouped" /> with an even
-      length.
+      <code>maxlength</code>.
     </p>
 
     <AutoExample name="Grouped" />
@@ -136,29 +156,21 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
 
   <section id="length">
     <h2>Length</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Set <code>length</code>, from 4 to 8.
-      </Fragment>
-      <Fragment slot="html">
-        The boxes follow <code>maxlength</code>, from 4 to 8. Match the
-        <code>pattern</code>.
-      </Fragment>
-    </Conditional>
+    <p>
+      The boxes follow the input's <code>maxlength</code>, from 4 to 8. Match
+      the <code>pattern</code>.
+    </p>
 
     <AutoExample name="Length" />
   </section>
 
   <section id="alphanumeric">
     <h2>Alphanumeric</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Set <code>alphanumeric</code> for codes with letters.
-      </Fragment>
-      <Fragment slot="html">
-        Drop <code>inputmode</code> and widen the <code>pattern</code>.
-      </Fragment>
-    </Conditional>
+    <p>
+      For codes with letters, drop <code>inputmode</code>, widen the
+      <code>pattern</code> and add <code>autocapitalize="characters"</code> and
+      <code>spellcheck="false"</code>.
+    </p>
 
     <AutoExample name="Alphanumeric" />
   </section>
@@ -166,8 +178,8 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
   <section id="validation">
     <h2>Validation</h2>
     <p>
-      Use <PropOrClass prop="error" class='aria-invalid="true"' /> for
-      server-side errors.
+      Use <code>aria-invalid="true"</code> on the input for server-side errors,
+      and point its <code>aria-describedby</code> at the end text.
     </p>
 
     <AutoExample name="Validation" />
@@ -177,6 +189,32 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
     <h2>Disabled</h2>
 
     <AutoExample name="Disabled" />
+  </section>
+
+  <section id="another-screen">
+    <h2>Another screen</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The input has <code>autocomplete="one-time-code"</code>, so the browser
+        offers a code this device received. Set <code>autocomplete="off"</code>
+        for a code read off another screen, such as a TV or the computer you're
+        signing in on.
+      </Fragment>
+      <Fragment slot="react">
+        The input has <code>autoComplete="one-time-code"</code>, so the browser
+        offers a code this device received. Set <code>autoComplete="off"</code>
+        for a code read off another screen, such as a TV or the computer you're
+        signing in on.
+      </Fragment>
+      <Fragment slot="html">
+        <code>autocomplete="one-time-code"</code> lets the browser offer a code
+        this device received. Write <code>autocomplete="off"</code> for a code
+        read off another screen, such as a TV or the computer you're signing in
+        on.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="AnotherScreen" />
   </section>
 
   <section id="right-to-left">
@@ -199,9 +237,10 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
     <ul>
       <li>One input, so screen readers read the code once, not per box.</li>
       <li>
-        The label names the input through <code>aria-labelledby</code>, and the
-        end text describes it through <code>aria-describedby</code>, so a hint
-        or an error is read after the name, not as part of it.
+        The label names the input through <code>&lt;label for&gt;</code>, and
+        the end text describes it once the input's <code>aria-describedby</code>
+        points at it, so a hint or an error is read after the name, not as part
+        of it.
       </li>
     </ul>
   </Fragment>
@@ -215,22 +254,23 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
       container.
     </p>
     <p>
-      The boxes are one <code>.ui-field::before</code> with a <code>mask</code>
-      of gradient layers that repeat every <code>--_cell-size</code>: linear
-      gradients for the edges and radial gradient rings for the corners, sized
-      by <code>--_box-radius</code> and <code>--_box-border-width</code>, so
-      they follow the theme's field radius and border width. The input is
-      monospace with <code>letter-spacing: calc(var(--_cell-size) - 1ch)</code>,
-      so each character lands in its box, and <code>.ui-grouped</code> draws the
-      dash as a background at the midpoint.
+      The boxes are one <code>.ui-field-container::before</code> with a
+      <code>mask</code> of gradient layers that repeat every
+      <code>--_cell-size</code>: linear gradients for the edges and radial
+      gradient rings for the corners, sized by <code>--_box-radius</code> and
+      <code>--_box-border-width</code>, so they follow the theme's field radius
+      and border width. The input is monospace with
+      <code>letter-spacing: calc(var(--_cell-size) - 1ch)</code>, so each
+      character lands in its box, and <code>.ui-grouped</code> draws the dash as
+      a background at the midpoint.
     </p>
     <p>
       <code>:focus-within</code> doubles <code>--_box-border-width</code> on
       every box. With <code>field-sizing: content</code> the input is as wide as
-      its value, so <code>.ui-field::after</code>, in the grid column right
-      after it, is the ring on the next empty box, a real border with the same
-      radius. A complete code leaves no column for it, and the clipped field
-      hides it, so the thicker boxes are what shows focus.
+      its value, so <code>.ui-field-container::after</code>, in the grid column
+      right after it, is the ring on the next empty box, a real border with the
+      same radius. A complete code leaves no column for it, and the clipped
+      field hides it, so the thicker boxes are what shows focus.
     </p>
   </Fragment>
 </Component>

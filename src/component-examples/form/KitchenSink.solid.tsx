@@ -31,19 +31,23 @@ export default function KitchenSink() {
           Heyyy, tell us who you are so your fans can find you.
         </FieldDescription>
         <FieldGroup>
-          <TextField
-            autocomplete="name"
-            label="Full name"
-            placeholder="Holly Humbucker"
-            required
-          />
-          <TextField
-            autocomplete="email"
-            label="Email address"
-            placeholder="rory@lowend.example"
-            required
-            type="email"
-          />
+          <TextField for="form-kitchen-sink-7" label="Full name">
+            <input
+              autocomplete="name"
+              id="form-kitchen-sink-7"
+              placeholder="Holly Humbucker"
+              required
+            />
+          </TextField>
+          <TextField for="form-kitchen-sink-8" label="Email address">
+            <input
+              autocomplete="email"
+              id="form-kitchen-sink-8"
+              placeholder="rory@lowend.example"
+              required
+              type="email"
+            />
+          </TextField>
           <Select items={roleItems} label="Role" />
         </FieldGroup>
       </Fieldset>
@@ -98,12 +102,14 @@ export default function KitchenSink() {
           Favorite strings, dream rig, the band that ignores you?
         </FieldDescription>
         <FieldGroup>
-          <Textarea
-            label="Biography"
-            name="biography"
-            placeholder="I play a fretless 5-string and nobody watches me..."
-            rows={4}
-          />
+          <Textarea for="form-kitchen-sink-9" label="Biography">
+            <textarea
+              id="form-kitchen-sink-9"
+              name="biography"
+              placeholder="I play a fretless 5-string and nobody watches me..."
+              rows="4"
+            ></textarea>
+          </Textarea>
         </FieldGroup>
       </Fieldset>
       <Divider />

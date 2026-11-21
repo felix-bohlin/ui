@@ -73,14 +73,20 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
     <Anatomy>
       <UINumberField
         endText="Up to 10 per order."
-        id="number-field-anatomy"
+        for="number-field-anatomy"
         label="Quantity"
-        max={10}
-        min={1}
         startText="In stock."
         style="inline-size: 16rem"
-        value={1}
-      />
+      >
+        <input
+          aria-describedby="number-field-anatomy-start-text number-field-anatomy-end-text"
+          id="number-field-anatomy"
+          max={10}
+          min={1}
+          type="number"
+          value={1}
+        />
+      </UINumberField>
     </Anatomy>
   </Fragment>
 
@@ -104,7 +110,16 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
     <h2>Basics</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Set <code>min</code> and <code>max</code>.
+        Write the <code>&lt;input type="number"&gt;</code> inside the field,
+        with its <code>id</code> set to <code>for</code>, and give it
+        <code>min</code> and <code>max</code>. The types require <code>for</code
+        >.
+      </Fragment>
+      <Fragment slot="react">
+        Write the <code>&lt;input type="number"&gt;</code> inside the field,
+        with its <code>id</code> set to <code>htmlFor</code>, and give it
+        <code>min</code> and <code>max</code>. The types require
+        <code>htmlFor</code>.
       </Fragment>
       <Fragment slot="html">
         Import <code>opui-css/elements/number-field.js</code>.
@@ -183,7 +198,7 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
 
   <section id="validation">
     <h2>Validation</h2>
-    <ValidationNotes element="input" subject="Fields" />
+    <ValidationNotes element="input" own subject="Fields" />
     <AutoExample name="Validation" row />
   </section>
 

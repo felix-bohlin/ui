@@ -3,19 +3,21 @@
     <div class="ui-content">
       <div class="ui-layout-column ui-align-center">
         <div class="ui-avatar ui-squircle">
-          <svg
-            data-icon="smartphone"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="currentColor"
-              d="M17 1.01 7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99M17 19H7V5h10z"
-            ></path>
-          </svg>
+          <span aria-hidden="true">
+            <svg
+              data-icon="smartphone"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M17 1.01 7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99M17 19H7V5h10z"
+              ></path>
+            </svg>
+          </span>
         </div>
         <hgroup>
           <h1 class="ui-h4">Grab your phone!</h1>
@@ -31,17 +33,16 @@
             <label class="ui-label" for="two-factor-code"
               >Verification code</label
             >
-            <span class="ui-field">
+            <span class="ui-field-container">
               <input
-                inputmode="numeric"
-                pattern="[0-9]{6}"
-                required
                 aria-describedby="two-factor-code-end-text"
                 autocomplete="one-time-code"
                 id="two-factor-code"
+                inputmode="numeric"
                 maxlength="6"
                 name="code"
-                type="text"
+                pattern="[0-9]{6}"
+                required
               />
             </span>
             <span class="ui-end-text" id="two-factor-code-end-text"

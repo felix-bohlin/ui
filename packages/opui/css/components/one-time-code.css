@@ -26,7 +26,7 @@
     inline-size: min((var(--_length) - 0.25) * var(--_max-cell-size), 100%);
     min-inline-size: 0;
 
-    .ui-field {
+    .ui-field-container {
       background: none;
       border: 0;
       box-shadow: none;
@@ -164,7 +164,7 @@
       }
     }
 
-    .ui-field input {
+    .ui-field-container input {
       background: var(--_dash-image)
         calc(var(--_length) * var(--_cell-size) / 2 - var(--_cell-size) / 16)
         50% / calc(var(--_cell-size) / 8) var(--_dash-block-size) no-repeat;
@@ -179,7 +179,7 @@
       position: relative;
     }
 
-    .ui-field input[autocapitalize="characters"] {
+    .ui-field-container input[autocapitalize="characters"] {
       text-transform: uppercase;
     }
 
@@ -204,7 +204,7 @@
           :focus-within,
           :has([aria-invalid="true"], :user-invalid, :disabled)
         )
-        .ui-field::before {
+        .ui-field-container::before {
         background-color: var(--ui-text-strong);
       }
     }
@@ -213,17 +213,17 @@
       --_box-border-width: calc(var(--ui-field-border-width) * 2);
     }
 
-    &:focus-within .ui-field::before {
+    &:focus-within .ui-field-container::before {
       background-color: var(--_accent);
     }
 
-    .ui-field:has(> input:focus-within):has(:focus-visible) {
+    .ui-field-container:has(> input:focus-within):has(:focus-visible) {
       animation: none;
       outline: 0;
     }
 
     @supports (field-sizing: content) {
-      .ui-field input {
+      .ui-field-container input {
         field-sizing: content;
         inline-size: auto;
         margin-inline-end: calc(
@@ -232,7 +232,7 @@
         padding-inline-end: calc(var(--_length) * var(--_cell-size));
       }
 
-      &:focus-within .ui-field {
+      &:focus-within .ui-field-container {
         &::after {
           background-color: oklch(from var(--_accent) l c h / 12%);
           border: var(--_box-border-width) solid var(--_accent);
@@ -264,23 +264,23 @@
     @media (forced-colors: active) {
       --_dash-bg-color: CanvasText;
 
-      .ui-field::before {
+      .ui-field-container::before {
         background-color: CanvasText;
         forced-color-adjust: none;
       }
 
-      .ui-field::after {
+      .ui-field-container::after {
         background-color: transparent;
         forced-color-adjust: none;
       }
 
-      .ui-field input {
+      .ui-field-container input {
         caret-color: CanvasText;
         color: CanvasText;
         forced-color-adjust: none;
       }
 
-      &:has(:disabled) .ui-field {
+      &:has(:disabled) .ui-field-container {
         &::before {
           background-color: GrayText;
         }
@@ -290,7 +290,7 @@
         }
       }
 
-      &:focus-within .ui-field {
+      &:focus-within .ui-field-container {
         outline: 0;
 
         &::before {
@@ -302,8 +302,10 @@
         }
       }
 
-      &:has(.ui-field > input:is([aria-invalid="true"], :user-invalid))
-        .ui-field {
+      &:has(
+          .ui-field-container > input:is([aria-invalid="true"], :user-invalid)
+        )
+        .ui-field-container {
         outline: var(--ui-field-border-width) dashed CanvasText;
       }
     }

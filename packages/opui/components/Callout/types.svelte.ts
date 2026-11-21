@@ -5,7 +5,7 @@ import type { Snippet } from "svelte"
 export type Props = Base.Props &
   Base.Slots<Snippet> & {
     ondismiss?: (event: Base.Events["dismiss"]) => void
-  } & SvelteHTMLElements["article"]
+  } & SvelteHTMLElements["div"]
 
 export type CalloutActionsProps = Base.CalloutActionsProps &
   SvelteHTMLElements["div"]

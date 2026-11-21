@@ -196,10 +196,12 @@ A few features need a script in plain HTML:
 | [Close on navigate](https://opui.dev/html/components/drawer.md#navigation) | Closes open menus and `[data-close-on-navigate]` drawers when the page navigates | `opui-css/elements/close-on-navigate.js` |
 | [Copy](https://opui.dev/html/components/copy.md) | Copies text or a field's value | `opui-css/elements/copy.js` |
 | [Dismissible callout](https://opui.dev/html/components/callout.md#dismissible) | Hides a callout with its close button | `opui-css/elements/callout.js` |
+| [File upload](https://opui.dev/html/components/file-upload.md) | Fires `select` for picked and dropped files and `remove` for a file's remove button | `opui-css/elements/file-upload.js` |
 | [Indeterminate checkbox](https://opui.dev/html/components/checkbox.md#indeterminate) | Sets `indeterminate` from `data-indeterminate` | `opui-css/css/js/checkbox.js` |
 | [Number field](https://opui.dev/html/components/number-field.md) | Steps the value with its buttons | `opui-css/elements/number-field.js` |
 | [Password toggle](https://opui.dev/html/components/text-field.md#password-toggle) | Shows and hides the password | `opui-css/elements/text-field.js` |
 | [Range value](https://opui.dev/html/components/range.md#value) | Writes the value to the `output`, with `data-live` | `opui-css/css/js/range.js` |
+| [Reactions](https://opui.dev/html/components/message.md#saving-reactions) | Asks your server before a reaction changes | `opui-css/elements/reactions.js` |
 | [Select all](https://opui.dev/html/components/checkbox.md#select-all) | Checks or clears a group of checkboxes from one | `opui-css/elements/select-all.js` |
 | [Sortable table](https://opui.dev/html/components/table.md#sorting) | Sorts the rows by a column | `opui-css/elements/sortable-table.js` |
 | [Toast](https://opui.dev/html/components/toast.md) | Shows toasts and dismisses them | `opui-css/elements/toaster.js` |
@@ -220,11 +222,11 @@ Without a bundler, add this import map to the `head`:
 
 #### [Blocks](https://opui.dev/blocks.md)
 
-36 pages and sections built from the components.
+37 pages and sections built from the components.
 
 #### [Components](https://opui.dev/html/components.md)
 
-41 components, each with HTML examples and its API.
+43 components, each with HTML examples and its API.
 
 #### [Concepts](https://opui.dev/html/guide/concepts.md)
 
@@ -340,7 +342,7 @@ Add `/// <reference types="opui-css/env.d.ts" />` to `env.d.ts` for the types.
 
 #### [Components](https://opui.dev/astro/components.md)
 
-41 components, each with Astro examples and its API.
+43 components, each with Astro examples and its API.
 
 #### [Concepts](https://opui.dev/astro/guide/concepts.md)
 
@@ -431,11 +433,11 @@ Slots are props: `children`, and camelCased names like `endText`.
 
 Every component renders full HTML on the server. Components with state or effects are marked `"use client"`, the rest are Server Components. The props in the last column need hydration.
 
-A choice the user makes before the page hydrates stays on screen. `Rating`, `Tabs` and `ToggleGroup` pass it to `onValueChange` as they hydrate. `Checkbox`, `Radio` and `Switch` pass `checked` and `onChange` to the native input, so they work like a plain React input: React doesn't call `onChange` for that choice, and a controlled `checked` misses it. A form that reads its values on submit gets it.
+A choice the user makes before the page hydrates stays on screen. The form controls pass `value`, `checked`, their defaults and `onChange` to the native input, and `Rating`, `Tabs` and `ToggleGroup` render their inputs like native radios, so they work like plain React inputs: React doesn't call `onChange` or `onValueChange` for that choice, and a controlled value misses it. A form that reads its values on submit gets it.
 
-- **66** of 69 need no hydration
+- **69** of 72 need no hydration
 - **3** hydrate for `indeterminate`, `valueSuffix`, `valueText`
-- **39** are Server Components
+- **41** are Server Components
 
 | Component | Client | Server | Server Component | Needs hydration |
 | --- | --- | --- | --- | --- |
@@ -470,19 +472,22 @@ A choice the user makes before the page hydrates stays on screen. `Rating`, `Tab
 | [`FieldGroup`](https://opui.dev/react/components/form.md) | Yes | Yes | No | - |
 | [`FieldLegend`](https://opui.dev/react/components/form.md) | Yes | Yes | No | - |
 | [`Fieldset`](https://opui.dev/react/components/form.md) | Yes | Yes | No | - |
+| [`FileUpload`](https://opui.dev/react/components/file-upload.md) | Yes | Yes | No | - |
 | [`Form`](https://opui.dev/react/components/form.md) | Yes | Yes | Yes | - |
 | [`List`](https://opui.dev/react/components/list.md) | Yes | Yes | Yes | - |
 | [`ListItem`](https://opui.dev/react/components/list.md) | Yes | Yes | Yes | - |
 | [`Menu`](https://opui.dev/react/components/menu.md) | Yes | Yes | No | - |
 | [`Message`](https://opui.dev/react/components/message.md) | Yes | Yes | Yes | - |
 | [`MessageList`](https://opui.dev/react/components/message.md) | Yes | Yes | Yes | - |
+| [`Meter`](https://opui.dev/react/components/meter.md) | Yes | Yes | Yes | - |
 | [`NumberField`](https://opui.dev/react/components/number-field.md) | Yes | Yes | No | - |
-| [`OneTimeCode`](https://opui.dev/react/components/one-time-code.md) | Yes | Yes | No | - |
+| [`OneTimeCode`](https://opui.dev/react/components/one-time-code.md) | Yes | Yes | Yes | - |
 | [`Progress`](https://opui.dev/react/components/progress.md) | Yes | Yes | Yes | - |
 | [`Radio`](https://opui.dev/react/components/radio.md) | Yes | Yes | Yes | - |
 | [`RadioInput`](https://opui.dev/react/components/radio.md) | Yes | Yes | No | - |
 | [`Range`](https://opui.dev/react/components/range.md) | Yes | No | No | `valueSuffix` **Needs hydration** The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Import `opui-css/css/js/range.js` in the page. , `valueText` **Needs hydration** The `valueText` content is yours, so it follows the thumb when your own state changes, which takes hydration. Update the content on `input` yourself, or use `valueSuffix`. |
 | [`Rating`](https://opui.dev/react/components/rating.md) | Yes | Yes | No | - |
+| [`Reactions`](https://opui.dev/react/components/message.md) | Yes | Yes | No | - |
 | [`Select`](https://opui.dev/react/components/select.md) | Yes | Yes | No | - |
 | [`SelectAll`](https://opui.dev/react/components/checkbox.md) | Yes | Yes | No | - |
 | [`SortableTable`](https://opui.dev/react/components/table.md) | Yes | Yes | No | - |
@@ -517,7 +522,7 @@ A choice the user makes before the page hydrates stays on screen. `Rating`, `Tab
 
 #### [Components](https://opui.dev/react/components.md)
 
-41 components, each with React examples and its API.
+43 components, each with React examples and its API.
 
 #### [Concepts](https://opui.dev/react/guide/concepts.md)
 
@@ -569,17 +574,30 @@ The components ship as `.jsx` files with their types, which `@solidjs/vite-plugi
 
 ### TypeScript
 
-The types work with `moduleResolution` set to `"bundler"`, and `jsxImportSource` set to `"@solidjs/web"`.
+The types work with TypeScript 6 and 7, with `moduleResolution` set to `"bundler"` and `jsxImportSource` set to `"@solidjs/web"`.
 
 ### How to use
 
 ### Server rendering
 
-Every component renders full HTML on the server and hydrates. The props in the last column need hydration.
+Every component renders full HTML on the server and hydrates. Solid 2 renders on the server with the `start` and `ssr` options of `@solidjs/vite-plugin`, which need no setting for the package:
 
-A choice the user makes before the page hydrates stays on screen. `Rating`, `Tabs` and `ToggleGroup` pass it to `onValueChange` as they hydrate.
+```ts
+import solid from "@solidjs/vite-plugin"
+import { defineConfig } from "vite"
 
-- **66** of 69 need no hydration
+export default defineConfig({
+  plugins: [solid({ ssr: true, start: true })],
+})
+```
+
+A page with more than one root gives each its own `renderId` in `renderToString` and `hydrate`, so the ids the components generate differ between the roots. Roots hydrated in the same task each claim their server markup. A root hydrated in a later task renders again over its markup, so load the code of every root first and call `hydrate` for all of them in one loop.
+
+The props in the last column need hydration.
+
+A choice the user makes before the page hydrates stays on screen, as on a plain Solid input: Solid doesn't call `onChange` or `onValueChange` for it, and a controlled value misses it. A form that reads its values on submit gets it.
+
+- **69** of 72 need no hydration
 - **3** hydrate for `indeterminate`, `valueSuffix`, `valueText`
 
 | Component | Client | Server | Needs hydration |
@@ -615,12 +633,14 @@ A choice the user makes before the page hydrates stays on screen. `Rating`, `Tab
 | [`FieldGroup`](https://opui.dev/solid/components/form.md) | Yes | Yes | - |
 | [`FieldLegend`](https://opui.dev/solid/components/form.md) | Yes | Yes | - |
 | [`Fieldset`](https://opui.dev/solid/components/form.md) | Yes | Yes | - |
+| [`FileUpload`](https://opui.dev/solid/components/file-upload.md) | Yes | Yes | - |
 | [`Form`](https://opui.dev/solid/components/form.md) | Yes | Yes | - |
 | [`List`](https://opui.dev/solid/components/list.md) | Yes | Yes | - |
 | [`ListItem`](https://opui.dev/solid/components/list.md) | Yes | Yes | - |
 | [`Menu`](https://opui.dev/solid/components/menu.md) | Yes | Yes | - |
 | [`Message`](https://opui.dev/solid/components/message.md) | Yes | Yes | - |
 | [`MessageList`](https://opui.dev/solid/components/message.md) | Yes | Yes | - |
+| [`Meter`](https://opui.dev/solid/components/meter.md) | Yes | Yes | - |
 | [`NumberField`](https://opui.dev/solid/components/number-field.md) | Yes | Yes | - |
 | [`OneTimeCode`](https://opui.dev/solid/components/one-time-code.md) | Yes | Yes | - |
 | [`Progress`](https://opui.dev/solid/components/progress.md) | Yes | Yes | - |
@@ -628,6 +648,7 @@ A choice the user makes before the page hydrates stays on screen. `Rating`, `Tab
 | [`RadioInput`](https://opui.dev/solid/components/radio.md) | Yes | Yes | - |
 | [`Range`](https://opui.dev/solid/components/range.md) | Yes | No | `valueSuffix` **Needs hydration** The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Import `opui-css/css/js/range.js` in the page. , `valueText` **Needs hydration** The `valueText` content is yours, so it follows the thumb when your own state changes, which takes hydration. Update the content on `input` yourself, or use `valueSuffix`. |
 | [`Rating`](https://opui.dev/solid/components/rating.md) | Yes | Yes | - |
+| [`Reactions`](https://opui.dev/solid/components/message.md) | Yes | Yes | - |
 | [`Select`](https://opui.dev/solid/components/select.md) | Yes | Yes | - |
 | [`SelectAll`](https://opui.dev/solid/components/checkbox.md) | Yes | Yes | - |
 | [`SortableTable`](https://opui.dev/solid/components/table.md) | Yes | Yes | - |
@@ -662,7 +683,7 @@ A choice the user makes before the page hydrates stays on screen. `Rating`, `Tab
 
 #### [Components](https://opui.dev/solid/components.md)
 
-41 components, each with Solid examples and its API.
+43 components, each with Solid examples and its API.
 
 #### [Concepts](https://opui.dev/solid/guide/concepts.md)
 
@@ -754,29 +775,25 @@ Slots are snippets: `children`, and camelCased names like `endText`. Form contro
 - [CheckboxInput](https://opui.dev/svelte/components/checkbox.md)
 - [Switch](https://opui.dev/svelte/components/switch.md)
 - [SwitchInput](https://opui.dev/svelte/components/switch.md)
-- [ToggleButton](https://opui.dev/svelte/components/toggle.md)                                                                                                                                                                                                                                              |
+- [ToggleButton](https://opui.dev/svelte/components/toggle.md)                                                     |
 | `bind:group` | * [Checkbox](https://opui.dev/svelte/components/checkbox.md)
 * [CheckboxInput](https://opui.dev/svelte/components/checkbox.md)
 * [Radio](https://opui.dev/svelte/components/radio.md)
 * [RadioInput](https://opui.dev/svelte/components/radio.md)
 * [Switch](https://opui.dev/svelte/components/switch.md)
-* [SwitchInput](https://opui.dev/svelte/components/switch.md)                                                                                                                                                                                          |
-| `bind:value` | - [NumberField](https://opui.dev/svelte/components/number-field.md)
-- [OneTimeCode](https://opui.dev/svelte/components/one-time-code.md)
-- [Range](https://opui.dev/svelte/components/range.md)
+* [SwitchInput](https://opui.dev/svelte/components/switch.md) |
+| `bind:value` | - [Range](https://opui.dev/svelte/components/range.md)
 - [Rating](https://opui.dev/svelte/components/rating.md)
 - [Select](https://opui.dev/svelte/components/select.md)
 - [Tabs](https://opui.dev/svelte/components/tabs.md)
-- [Textarea](https://opui.dev/svelte/components/textarea.md)
-- [TextField](https://opui.dev/svelte/components/text-field.md)
-- [ToggleGroup](https://opui.dev/svelte/components/toggle.md) |
+- [ToggleGroup](https://opui.dev/svelte/components/toggle.md)                                                                              |
 
 ### Server rendering
 
 Every component renders full HTML on the server. The props in the last column need hydration.
 
-- **53** of 69 need no hydration
-- **16** hydrate for `bind:checked`, `bind:group`, `bind:value`, `indeterminate`, `valueSuffix`, `valueText`
+- **60** of 72 need no hydration
+- **12** hydrate for `bind:checked`, `bind:group`, `bind:value`, `indeterminate`, `valueSuffix`, `valueText`
 
 | Component | Client | Server | Needs hydration |
 | --- | --- | --- | --- |
@@ -811,19 +828,22 @@ Every component renders full HTML on the server. The props in the last column ne
 | [`FieldGroup`](https://opui.dev/svelte/components/form.md) | Yes | Yes | - |
 | [`FieldLegend`](https://opui.dev/svelte/components/form.md) | Yes | Yes | - |
 | [`Fieldset`](https://opui.dev/svelte/components/form.md) | Yes | Yes | - |
+| [`FileUpload`](https://opui.dev/svelte/components/file-upload.md) | Yes | Yes | - |
 | [`Form`](https://opui.dev/svelte/components/form.md) | Yes | Yes | - |
 | [`List`](https://opui.dev/svelte/components/list.md) | Yes | Yes | - |
 | [`ListItem`](https://opui.dev/svelte/components/list.md) | Yes | Yes | - |
 | [`Menu`](https://opui.dev/svelte/components/menu.md) | Yes | Yes | - |
 | [`Message`](https://opui.dev/svelte/components/message.md) | Yes | Yes | - |
 | [`MessageList`](https://opui.dev/svelte/components/message.md) | Yes | Yes | - |
-| [`NumberField`](https://opui.dev/svelte/components/number-field.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`OneTimeCode`](https://opui.dev/svelte/components/one-time-code.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Meter`](https://opui.dev/svelte/components/meter.md) | Yes | Yes | - |
+| [`NumberField`](https://opui.dev/svelte/components/number-field.md) | Yes | Yes | - |
+| [`OneTimeCode`](https://opui.dev/svelte/components/one-time-code.md) | Yes | Yes | - |
 | [`Progress`](https://opui.dev/svelte/components/progress.md) | Yes | Yes | - |
 | [`Radio`](https://opui.dev/svelte/components/radio.md) | Yes | No | `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`RadioInput`](https://opui.dev/svelte/components/radio.md) | Yes | No | `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Range`](https://opui.dev/svelte/components/range.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `valueSuffix` **Needs hydration** The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Import `opui-css/css/js/range.js` in the page. , `valueText` **Needs hydration** The `valueText` content is yours, so it follows the thumb when your own state changes, which takes hydration. Update the content on `input` yourself, or use `valueSuffix`. |
 | [`Rating`](https://opui.dev/svelte/components/rating.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Reactions`](https://opui.dev/svelte/components/message.md) | Yes | Yes | - |
 | [`Select`](https://opui.dev/svelte/components/select.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`SelectAll`](https://opui.dev/svelte/components/checkbox.md) | Yes | Yes | - |
 | [`SortableTable`](https://opui.dev/svelte/components/table.md) | Yes | Yes | - |
@@ -841,8 +861,8 @@ Every component renders full HTML on the server. The props in the last column ne
 | [`TabsItem`](https://opui.dev/svelte/components/tabs.md) | Yes | Yes | - |
 | [`TabsLabel`](https://opui.dev/svelte/components/tabs.md) | Yes | Yes | - |
 | [`TabsPanel`](https://opui.dev/svelte/components/tabs.md) | Yes | Yes | - |
-| [`Textarea`](https://opui.dev/svelte/components/textarea.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`TextField`](https://opui.dev/svelte/components/text-field.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Textarea`](https://opui.dev/svelte/components/textarea.md) | Yes | Yes | - |
+| [`TextField`](https://opui.dev/svelte/components/text-field.md) | Yes | Yes | - |
 | [`Timeline`](https://opui.dev/svelte/components/timeline.md) | Yes | Yes | - |
 | [`TimelineItem`](https://opui.dev/svelte/components/timeline.md) | Yes | Yes | - |
 | [`Toaster`](https://opui.dev/svelte/components/toast.md) | Yes | Yes | - |
@@ -858,7 +878,7 @@ Every component renders full HTML on the server. The props in the last column ne
 
 #### [Components](https://opui.dev/svelte/components.md)
 
-41 components, each with Svelte examples and its API.
+43 components, each with Svelte examples and its API.
 
 #### [Concepts](https://opui.dev/svelte/guide/concepts.md)
 
@@ -934,8 +954,8 @@ Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` 
 
 ### Server rendering
 
-- **53** of 69 need no hydration
-- **16** hydrate for `indeterminate`, `v-model`, `valueSuffix`
+- **60** of 72 need no hydration
+- **12** hydrate for `indeterminate`, `v-model`, `valueSuffix`
 
 | Component | Client | Server | Needs hydration |
 | --- | --- | --- | --- |
@@ -970,19 +990,22 @@ Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` 
 | [`FieldGroup`](https://opui.dev/vue/components/form.md) | Yes | Yes | - |
 | [`FieldLegend`](https://opui.dev/vue/components/form.md) | Yes | Yes | - |
 | [`Fieldset`](https://opui.dev/vue/components/form.md) | Yes | Yes | - |
+| [`FileUpload`](https://opui.dev/vue/components/file-upload.md) | Yes | Yes | - |
 | [`Form`](https://opui.dev/vue/components/form.md) | Yes | Yes | - |
 | [`List`](https://opui.dev/vue/components/list.md) | Yes | Yes | - |
 | [`ListItem`](https://opui.dev/vue/components/list.md) | Yes | Yes | - |
 | [`Menu`](https://opui.dev/vue/components/menu.md) | Yes | Yes | - |
 | [`Message`](https://opui.dev/vue/components/message.md) | Yes | Yes | - |
 | [`MessageList`](https://opui.dev/vue/components/message.md) | Yes | Yes | - |
-| [`NumberField`](https://opui.dev/vue/components/number-field.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`OneTimeCode`](https://opui.dev/vue/components/one-time-code.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Meter`](https://opui.dev/vue/components/meter.md) | Yes | Yes | - |
+| [`NumberField`](https://opui.dev/vue/components/number-field.md) | Yes | Yes | - |
+| [`OneTimeCode`](https://opui.dev/vue/components/one-time-code.md) | Yes | Yes | - |
 | [`Progress`](https://opui.dev/vue/components/progress.md) | Yes | Yes | - |
 | [`Radio`](https://opui.dev/vue/components/radio.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`RadioInput`](https://opui.dev/vue/components/radio.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Range`](https://opui.dev/vue/components/range.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `valueSuffix` **Needs hydration** The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Import `opui-css/css/js/range.js` in the page. |
 | [`Rating`](https://opui.dev/vue/components/rating.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Reactions`](https://opui.dev/vue/components/message.md) | Yes | Yes | - |
 | [`Select`](https://opui.dev/vue/components/select.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`SelectAll`](https://opui.dev/vue/components/checkbox.md) | Yes | Yes | - |
 | [`SortableTable`](https://opui.dev/vue/components/table.md) | Yes | Yes | - |
@@ -1000,8 +1023,8 @@ Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` 
 | [`TabsItem`](https://opui.dev/vue/components/tabs.md) | Yes | Yes | - |
 | [`TabsLabel`](https://opui.dev/vue/components/tabs.md) | Yes | Yes | - |
 | [`TabsPanel`](https://opui.dev/vue/components/tabs.md) | Yes | Yes | - |
-| [`Textarea`](https://opui.dev/vue/components/textarea.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`TextField`](https://opui.dev/vue/components/text-field.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Textarea`](https://opui.dev/vue/components/textarea.md) | Yes | Yes | - |
+| [`TextField`](https://opui.dev/vue/components/text-field.md) | Yes | Yes | - |
 | [`Timeline`](https://opui.dev/vue/components/timeline.md) | Yes | Yes | - |
 | [`TimelineItem`](https://opui.dev/vue/components/timeline.md) | Yes | Yes | - |
 | [`Toaster`](https://opui.dev/vue/components/toast.md) | Yes | Yes | - |
@@ -1017,7 +1040,7 @@ Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` 
 
 #### [Components](https://opui.dev/vue/components.md)
 
-41 components, each with Vue examples and its API.
+43 components, each with Vue examples and its API.
 
 #### [Concepts](https://opui.dev/vue/guide/concepts.md)
 

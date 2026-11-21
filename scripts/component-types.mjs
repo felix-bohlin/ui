@@ -24,6 +24,12 @@ const ELEMENT_TYPES = {
   vue: (element) => `IntrinsicElementAttributes[${element}]`,
 }
 
+const LINK_TYPES = {
+  react: "ComponentType<any>",
+  solid: "Component<any>",
+  vue: "Component",
+}
+
 const isReference = (node, name) =>
   ts.isTypeReferenceNode(node) && node.typeName.getText() === name
 
@@ -197,6 +203,32 @@ const typeKeys = (node, aliases) =>
             )
           : objectKeys(node)
 
+const requiredKey = (node, key, aliases) => {
+  let required = false
+  const visit = (child) => {
+    if (
+      ts.isPropertySignature(child) &&
+      child.name.getText().replace(/^["']|["']$/g, "") === key
+    ) {
+      required ||= !child.questionToken
+      return
+    }
+    if (
+      ts.isTypeReferenceNode(child) &&
+      aliases.some((alias) => alias.name.text === child.typeName.getText())
+    ) {
+      visit(
+        aliases.find((alias) => alias.name.text === child.typeName.getText())
+          .type,
+      )
+      return
+    }
+    ts.forEachChild(child, visit)
+  }
+  visit(node)
+  return required
+}
+
 const attributeKeys = (node, aliases) => {
   const keys = new Set()
   const visit = (child) => {
@@ -336,6 +368,41 @@ export const toTypes = (
       .filter(({ name }) => name.text.endsWith("Slots"))
       .map((alias) => [alias.name.text, alias]),
   )
+  const linked = new Set(
+    baseAliases
+      .filter((alias) =>
+        alias.typeParameters?.some(
+          (parameter) => parameter.name.text === "Link",
+        ),
+      )
+      .map((alias) => alias.name.text),
+  )
+  for (const alias of baseAliases) {
+    const parameter = alias.typeParameters?.find(
+      (entry) => entry.name.text === "Link",
+    )
+    if (parameter && parameter.default?.kind !== ts.SyntaxKind.NeverKeyword) {
+      throw unsupported(
+        "BC607",
+        `packages/opui/components/${folder}/types.ts`,
+        `the type parameter Link of ${alias.name.text} without the default never`,
+        "write `Link = never`: Astro and Svelte take element names only, and React, Solid and Vue pass their link component type",
+      )
+    }
+  }
+  const linksBase = (node) =>
+    containsKind(
+      node,
+      (child) =>
+        ts.isQualifiedName(child) &&
+        child.left.getText() === "Base" &&
+        linked.has(child.right.text),
+    )
+  const takesLink = (node) =>
+    ts.isPropertySignature(node) &&
+    node.name.getText() === "as" &&
+    !!node.type &&
+    literalKeys(node.type).includes("a")
   const slotsTypeOf = (name) =>
     name === "Props" ? "Slots" : name.replace(/Props$/, "Slots")
   const componentOf = (name) =>
@@ -444,14 +511,16 @@ export const toTypes = (
     solid: "JSX.Element",
     svelte: "Snippet",
   }
+  const linking = aliases.some(({ node }) => linksBase(node.type))
   const typed = (framework) => {
+    const link = linking ? LINK_TYPES[framework] : undefined
     const edits = [
       replacing(
         elementImport,
         framework === "react"
-          ? `import type { ${["ComponentProps", ...(slotted.length ? ["ReactNode"] : [])].join(", ")} } from "react"${withoutHelper(framework)}`
+          ? `import type { ${["ComponentProps", ...(link ? ["ComponentType"] : []), ...(slotted.length ? ["ReactNode"] : [])].join(", ")} } from "react"${withoutHelper(framework)}`
           : framework === "solid"
-            ? `import type { ${["ComponentProps", ...(slotted.length ? ["JSX"] : [])].join(", ")} } from "@solidjs/web"${withoutHelper(framework)}`
+            ? `import type { ${["ComponentProps", ...(slotted.length ? ["JSX"] : [])].join(", ")} } from "@solidjs/web"${link ? '\nimport type { Component } from "solid-js"' : ""}${withoutHelper(framework)}`
             : `import type { SvelteHTMLElements } from "svelte/elements"${slotted.length ? '\nimport type { Snippet } from "svelte"' : ""}${withoutHelper(framework)}`,
       ),
     ]
@@ -544,6 +613,23 @@ export const toTypes = (
         }
         visit(type)
       }
+      if (link && linksBase(type)) {
+        const visit = (node) => {
+          if (takesLink(node)) {
+            if (tied.length > 0) {
+              throw unsupported(
+                "BC607",
+                file,
+                `the type ${name}, whose as takes a link component next to a model`,
+              )
+            }
+            edits.push(replacing(node.type, `${node.type.getText()} | ${link}`))
+            return
+          }
+          ts.forEachChild(node, visit)
+        }
+        visit(type)
+      }
       const baseParts = []
       const collect = (node) => {
         if (ts.isIntersectionTypeNode(node)) {
@@ -585,16 +671,18 @@ export const toTypes = (
           ? literalKeys(part.typeArguments[1])
           : []
         const dropped = [...strings, ...renamed].toSorted(byName)
+        const baseType = `Base.${name}${link && linked.has(name) ? `<${link}>` : ""}`
         const wrapped = dropped.length
-          ? `Without<Base.${name}, ${[...omitted, ...dropped]
+          ? `Without<${baseType}, ${[...omitted, ...dropped]
               .toSorted(byName)
               .map((key) => JSON.stringify(key))
               .join(" | ")}>`
           : omitted.length
-            ? part.getText()
-            : `Base.${name}`
+            ? part.getText().replace(`Base.${name}`, baseType)
+            : baseType
+        const baseAlias = baseAliases.find((entry) => entry.name.text === name)
         const reactNames = renamed.length
-          ? ` & { ${renamed.map((key) => `${REACT_ATTRIBUTE_NAMES[key]}?: Base.${name}[${JSON.stringify(key)}]`).join("; ")} }`
+          ? ` & { ${renamed.map((key) => `${REACT_ATTRIBUTE_NAMES[key]}${baseAlias && requiredKey(baseAlias.type, key, baseAliases) ? "" : "?"}: Base.${name}[${JSON.stringify(key)}]`).join("; ")} }`
           : ""
         edits.push(
           replacing(
@@ -685,7 +773,12 @@ export const toTypes = (
     const edits = []
     const visit = (child) => {
       if (ts.isQualifiedName(child) && child.left.getText() === "Base") {
-        edits.push(replacing(child, `Base${child.right.text}`))
+        edits.push(
+          replacing(
+            child,
+            `Base${child.right.text}${linked.has(child.right.text) ? `<${LINK_TYPES.vue}>` : ""}`,
+          ),
+        )
         return
       }
       const ref = elementRef(child)
@@ -828,28 +921,47 @@ export const toTypes = (
       if (!name.endsWith("Props")) {
         return `export type ${name} = ${vueText(node.type)}`
       }
-      const values = asValues(node.type)
+      const values = linksBase(node.type) ? [] : asValues(node.type)
       const extras = [
         ...(values.length ? [`as?: ${values.join(" | ")}`] : []),
         ...extrasByAlias.get(name),
       ]
       const { kept } = isUnion(node.type)
-        ? { kept: based.includes(name) ? [`Base${name}`] : [] }
+        ? {
+            kept: based.includes(name)
+              ? [`Base${name}${linked.has(name) ? `<${LINK_TYPES.vue}>` : ""}`]
+              : [],
+          }
         : vueMembers(alias)
       const withoutAttributes = kept.map((entry) => {
         const baseAlias = baseAliases.find(
-          (candidate) => `Base${candidate.name.text}` === entry,
+          (candidate) =>
+            `Base${candidate.name.text}` ===
+            entry.replace(`<${LINK_TYPES.vue}>`, ""),
         )
         const attributes = baseAlias
           ? attributeKeys(baseAlias.type, baseAliases)
           : []
-        return attributes.length
-          ? `Omit<${entry}, ${attributes.map((key) => JSON.stringify(key)).join(" | ")}>`
-          : entry
+        if (!attributes.length) return entry
+        const unions = members(baseAlias.type).filter(
+          (part) =>
+            isUnion(part) &&
+            !attributeKeys(part, baseAliases).length &&
+            !containsKind(part, ts.isTypeReferenceNode),
+        )
+        return [
+          `Omit<${entry}, ${attributes.map((key) => JSON.stringify(key)).join(" | ")}>`,
+          ...unions.map((part) =>
+            ts.isParenthesizedTypeNode(part)
+              ? part.getText()
+              : `(${part.getText()})`,
+          ),
+        ].join(" & ")
       })
       return `export type ${name} = ${[...withoutAttributes, "Class", ...(extras.length ? [`{ ${extras.join("; ")} }`] : [])].join(" & ")}`
     })
   const vueTypeImports = [
+    ...(linking ? ["Component"] : []),
     ...([...extrasByAlias.values()].some((extras) => extras.length > 0) ||
     vueAliases.some((alias) => alias.includes("IntrinsicElementAttributes["))
       ? ["IntrinsicElementAttributes"]

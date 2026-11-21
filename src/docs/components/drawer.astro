@@ -153,14 +153,21 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
         <a href="#basics">Basics</a>, closes when the page navigates with
         <code>closeOnNavigate</code>: a link inside it, Back and Forward, or a
         client router in SvelteKit, Next or Nuxt. Otherwise the new page loads
-        behind a modal drawer, inert, and screen readers miss the change.
+        behind a modal drawer, inert, and screen readers miss the change. A link
+        inside it closes it on click, also one that only changes the query,
+        unless it has <code>data-keep-open</code>, like a Load more link. A
+        change of the query alone from outside it, like a filter, leaves it
+        open.
       </Fragment>
       <Fragment slot="html">
         A drawer used as navigation, like the menu in
         <a href="#basics">Basics</a>, closes when the page navigates with
         <code>data-close-on-navigate</code> and
         <code>opui-css/elements/close-on-navigate.js</code>: a link inside it,
-        Back and Forward, or a client router.
+        Back and Forward, or a client router. A link inside it closes it on
+        click, also one that only changes the query, unless it has
+        <code>data-keep-open</code>, like a Load more link. A change of the
+        query alone from outside it, like a filter, leaves it open.
       </Fragment>
     </Conditional>
   </section>
@@ -245,6 +252,15 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
       Drag the handle or the header toward the edge, past a quarter of the
       drawer or with a flick, and the drawer closes. Let go sooner and it
       settles back. The content scrolls as usual and never moves the drawer.
+    </p>
+    <p>
+      Add <code>data-drawer-swipe</code> to an element in the drawer to start
+      the swipe from it too, such as the photos of a full-screen viewer. It
+      keeps scrolling sideways, so a
+      <DocLink href="/components/carousel">Carousel</DocLink> can carry it, but
+      it mustn't scroll up and down: there the swipe moves the drawer. The
+      controls inside it stay controls. The
+      <DocLink href="/blocks/lightbox">Lightbox block</DocLink> closes this way.
     </p>
     <p>
       The swipe is a close request, like <kbd>Esc</kbd>: with

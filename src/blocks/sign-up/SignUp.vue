@@ -32,46 +32,54 @@ import {
           <Form action="#">
             <FieldGroup>
               <FieldGroup orientation="horizontal">
-                <TextField
-                  autocomplete="given-name"
-                  id="sign-up-first-name"
-                  label="First name"
-                  name="first-name"
-                  placeholder="Rory"
-                  required
-                  type="text"
-                />
-                <TextField
-                  autocomplete="family-name"
-                  id="sign-up-last-name"
-                  label="Last name"
-                  name="last-name"
-                  placeholder="Rootnote"
-                  required
-                  type="text"
-                />
+                <TextField for="sign-up-first-name" label="First name">
+                  <input
+                    autocomplete="given-name"
+                    id="sign-up-first-name"
+                    name="first-name"
+                    placeholder="Rory"
+                    required
+                    type="text"
+                  />
+                </TextField>
+                <TextField for="sign-up-last-name" label="Last name">
+                  <input
+                    autocomplete="family-name"
+                    id="sign-up-last-name"
+                    name="last-name"
+                    placeholder="Rootnote"
+                    required
+                    type="text"
+                  />
+                </TextField>
               </FieldGroup>
+              <TextField for="sign-up-email" label="Email">
+                <input
+                  autocomplete="email"
+                  id="sign-up-email"
+                  name="email"
+                  placeholder="rory@lowend.example"
+                  required
+                  type="email"
+                />
+              </TextField>
               <TextField
-                autocomplete="email"
-                id="sign-up-email"
-                label="Email"
-                name="email"
-                placeholder="rory@lowend.example"
-                required
-                type="email"
-              />
-              <TextField
-                autocomplete="new-password"
                 endText="At least 12 characters, with a number or a symbol. Go wild!"
-                id="sign-up-password"
+                for="sign-up-password"
                 label="Password"
-                minlength="12"
-                name="password"
                 passwordToggle
-                required
-                type="password"
-                value="four-strings-4ever"
-              />
+              >
+                <input
+                  aria-describedby="sign-up-password-end-text"
+                  autocomplete="new-password"
+                  id="sign-up-password"
+                  minlength="12"
+                  name="password"
+                  required
+                  type="password"
+                  value="four-strings-4ever"
+                />
+              </TextField>
               <div class="ui-layout-column ui-x-small">
                 <span
                   class="ui-layout-row ui-spread sign-up-strength-label"

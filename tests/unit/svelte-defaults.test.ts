@@ -4,8 +4,6 @@ import RadioSvelte from "../../packages/opui/components/Radio/Radio.svelte"
 import RangeSvelte from "../../packages/opui/components/Range/Range.svelte"
 import SwitchSvelte from "../../packages/opui/components/Switch/Switch.svelte"
 import TabsItemSvelte from "../../packages/opui/components/Tabs/TabsItem.svelte"
-import TextareaSvelte from "../../packages/opui/components/Textarea/Textarea.svelte"
-import TextFieldSvelte from "../../packages/opui/components/TextField/TextField.svelte"
 import ToggleButtonSvelte from "../../packages/opui/components/ToggleButton/ToggleButton.svelte"
 import { render } from "./renderers"
 
@@ -25,18 +23,6 @@ describe("a default the caller passes to a Svelte form control", () => {
       TabsItemSvelte,
       { defaultChecked: true },
       /<input[^>]*\schecked/,
-    ],
-    [
-      "Textarea",
-      TextareaSvelte,
-      { defaultValue: "kept" },
-      /<textarea[^>]*>kept</,
-    ],
-    [
-      "TextField",
-      TextFieldSvelte,
-      { defaultValue: "kept" },
-      /<input[^>]*\svalue="kept"/,
     ],
     [
       "ToggleButton",

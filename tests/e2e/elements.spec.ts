@@ -154,13 +154,13 @@ type Scenario = {
 const ELEMENTS: Scenario[] = [
   {
     file: "callout.js",
-    markup: `<opui-callout id="note" class="ui-callout" role="article">
+    markup: `<opui-callout id="note" class="ui-callout">
       <div class="ui-content"><p>Backups run nightly.</p></div>
       <button class="ui-button" type="button" aria-label="Close" command="--dismiss" commandfor="note">x</button>
     </opui-callout>
     <button type="button">Next</button>`,
     ready: async (page) => {
-      await expect(page.getByRole("article")).toBeVisible()
+      await expect(page.locator("opui-callout")).toBeVisible()
     },
     selector: "opui-callout",
     title: "hides the callout with its close button",
@@ -193,7 +193,7 @@ const ELEMENTS: Scenario[] = [
     file: "character-count.js",
     markup: `<label class="ui-text-field">
       <span class="ui-label">Username</span>
-      <span class="ui-field"><input maxlength="12" value="ab" type="text" /></span>
+      <span class="ui-field-container"><input maxlength="12" value="ab" type="text" /></span>
       <span class="ui-end-text">
         <opui-character-count aria-hidden="true" class="ui-value" label="{count} left"></opui-character-count>
       </span>
@@ -220,6 +220,10 @@ const ELEMENTS: Scenario[] = [
       await expect(page.locator("[data-opui-announcer]")).toHaveText(
         `${12 - text.length} left`,
       )
+      await page.evaluate(() => {
+        document.querySelector("input")!.value = ""
+      })
+      await expect(page.locator("opui-character-count")).toHaveText("0/12")
     },
   },
   {
@@ -265,6 +269,62 @@ const ELEMENTS: Scenario[] = [
     },
   },
   {
+    file: "file-upload.js",
+    markup: `<opui-file-upload class="ui-file-upload">
+      <div class="ui-content">
+        <div class="ui-field-container">
+          <label class="ui-label">
+            <input accept=".png" class="ui-sr-only" id="photos" multiple type="file" />
+            <span class="ui-button">Choose photos</span>
+          </label>
+        </div>
+        <ul class="ui-list">
+          <li>
+            <div class="ui-text"><p>lou.png</p></div>
+            <div class="ui-end"><button class="ui-button" type="button" aria-label="Remove lou.png" command="--remove" commandfor="photos" value="lou">x</button></div>
+          </li>
+        </ul>
+      </div>
+      <span class="ui-sr-only" role="status"></span>
+    </opui-file-upload>`,
+    ready: async (page) => {
+      await expect(page.getByLabel("Choose photos")).toHaveValue("")
+    },
+    selector: "opui-file-upload",
+    title: "fires select for the accepted files of a pick and remove for a row",
+    works: async (page) => {
+      const heard = (type: string) =>
+        page.evaluate(
+          (type) =>
+            new Promise<string[]>((resolve) => {
+              document.querySelector("opui-file-upload")!.addEventListener(
+                type,
+                (event) => {
+                  const { files, value } = (
+                    event as CustomEvent<{ files?: File[]; value?: string }>
+                  ).detail
+                  resolve(files?.map((file) => file.name) ?? [value ?? ""])
+                },
+                { once: true },
+              )
+            }),
+          type,
+        )
+      const input = page.getByLabel("Choose photos")
+      const selected = heard("select")
+      await input.setInputFiles([
+        { buffer: Buffer.from("text"), mimeType: "text/plain", name: "a.txt" },
+        { buffer: Buffer.from("png"), mimeType: "image/png", name: "b.png" },
+        { buffer: Buffer.from("png"), mimeType: "image/png", name: "c.png" },
+      ])
+      expect(await selected).toEqual(["b.png", "c.png"])
+      await expect(input).toHaveValue("")
+      const removed = heard("remove")
+      await page.getByRole("button", { name: "Remove lou.png" }).click()
+      expect(await removed).toEqual(["lou"])
+    },
+  },
+  {
     busy: async (page) => {
       await page.getByRole("button", { name: "Decrease" }).hover()
       await page.mouse.down()
@@ -278,7 +338,7 @@ const ELEMENTS: Scenario[] = [
     file: "number-field.js",
     markup: `<opui-number-field class="ui-number-field">
       <label class="ui-label" for="quantity">Quantity</label>
-      <span class="ui-field">
+      <span class="ui-field-container">
         <span class="ui-start"><button class="ui-button" type="button" aria-label="Decrease" command="--step-down" commandfor="quantity">-</button></span>
         <input max="3" min="1" value="1" id="quantity" type="number" />
         <span class="ui-end"><button class="ui-button" type="button" aria-label="Increase" command="--step-up" commandfor="quantity">+</button></span>
@@ -319,6 +379,61 @@ const ELEMENTS: Scenario[] = [
         element.removeAttribute("aria-disabled")
       })
       await expect(decrease).not.toHaveAttribute("aria-disabled")
+    },
+  },
+  {
+    file: "reactions.js",
+    markup: `<opui-reactions class="ui-reactions" quick-label="Thumbs up" quick-text="Up" quick-value="+1">
+      <div class="ui-toggle-group" role="group" aria-label="Reactions">
+        <label class="ui-toggle-button ui-unused"><input type="checkbox" name="reaction" value="+1" aria-label="Thumbs up" /><span aria-hidden="true">Up</span></label>
+      </div>
+      <span class="ui-sr-only" role="status"></span>
+    </opui-reactions>`,
+    ready: async (page) => {
+      await expect(page.getByRole("checkbox")).not.toBeChecked()
+    },
+    selector: "opui-reactions",
+    title:
+      "asks for a reaction, leaves the pill as it is and applies the reply",
+    works: async (page) => {
+      const pill = page.locator(".ui-toggle-button")
+      const quick = page.getByRole("checkbox")
+      await page.evaluate(() => {
+        document.querySelector("opui-reactions")!.addEventListener(
+          "reaction",
+          (event) => {
+            Object.assign(window, { asked: (event as CustomEvent).detail })
+          },
+          { once: true },
+        )
+      })
+      await pill.click()
+      await expect(quick).not.toBeChecked()
+      expect(
+        await page.evaluate(
+          () => (window as unknown as { asked: unknown }).asked,
+        ),
+      ).toEqual({ checked: true, value: "+1" })
+      await page.evaluate(() => {
+        document.querySelector("opui-reactions")!.set("+1", {
+          checked: true,
+          label: "Thumbs up, 1",
+          text: "Up 1",
+        })
+      })
+      await expect(quick).toBeChecked()
+      await expect(pill).toHaveText("Up 1")
+      await expect(pill).not.toHaveClass(/ui-unused/)
+      await page.evaluate(() => {
+        const element = document.querySelector("opui-reactions")!
+        element.delete("+1")
+        element.announce("Thumbs up removed")
+      })
+      await expect(quick).not.toBeChecked()
+      await expect(quick).toHaveAccessibleName("Thumbs up")
+      await expect(pill).toHaveText("Up")
+      await expect(pill).toHaveClass(/ui-unused/)
+      await expect(page.getByRole("status")).toHaveText("Thumbs up removed")
     },
   },
   {
@@ -426,7 +541,7 @@ const ELEMENTS: Scenario[] = [
     markup: `<form><fieldset>
       <opui-text-field class="ui-text-field">
         <label class="ui-label" for="password">Password</label>
-        <span class="ui-field">
+        <span class="ui-field-container">
           <input id="password" type="password" value="hunter2" />
           <span class="ui-end"><button class="ui-button" type="button" aria-label="Show password" aria-pressed="false" command="--toggle-password" commandfor="password">o</button></span>
         </span>
@@ -551,3 +666,61 @@ for (const order of ["before", "after"] as const) {
     }
   })
 }
+
+test("close-on-navigate.js closes a drawer on a click on a link in it, unless the link has data-keep-open", async ({
+  page,
+}) => {
+  await page.route(`${ORIGIN}/**`, (route) =>
+    route.fulfill(
+      route.request().url().endsWith(".js")
+        ? {
+            body: source("close-on-navigate.js"),
+            contentType: "text/javascript",
+          }
+        : {
+            body: `<!doctype html><html lang="en"><head>
+              <script type="module" src="/close-on-navigate.js"></script>
+              <script>
+                document.addEventListener("click", (event) => {
+                  const link = event.target.closest("a")
+                  if (!link) return
+                  event.preventDefault()
+                  history.pushState(null, "", link.href)
+                })
+              </script>
+            </head><body>
+              <dialog aria-label="Navigate" class="ui-drawer" data-close-on-navigate>
+                <a href="/chat">Chat</a>
+                <a data-keep-open href="/chat?pages=2">Load more</a>
+              </dialog>
+            </body></html>`,
+            contentType: "text/html",
+          },
+    ),
+  )
+  await instantScrolling(page)
+  await page.goto(`${ORIGIN}/chat?with=lou`)
+  const drawer = page.getByRole("dialog", { name: "Navigate" })
+  const show = () =>
+    page.evaluate(() => document.querySelector("dialog")!.showModal())
+  await page.waitForFunction(
+    () =>
+      (document as unknown as Record<symbol, boolean>)[
+        Symbol.for("opui-close-on-navigate")
+      ],
+  )
+
+  await show()
+  await drawer.getByRole("link", { name: "Load more" }).click()
+  await expect(page).toHaveURL(`${ORIGIN}/chat?pages=2`)
+  await expect(drawer).toBeVisible()
+  await page.evaluate(() => history.replaceState(null, "", "?sort=new"))
+  await expect(drawer).toBeVisible()
+  await drawer.getByRole("link", { name: "Chat" }).click()
+  await expect(page).toHaveURL(`${ORIGIN}/chat`)
+  await expect(drawer).toBeHidden()
+
+  await show()
+  await page.evaluate(() => history.pushState(null, "", "/photos"))
+  await expect(drawer).toBeHidden()
+})

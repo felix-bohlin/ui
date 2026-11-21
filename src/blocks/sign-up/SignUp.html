@@ -16,13 +16,13 @@
                 <label class="ui-label" for="sign-up-first-name"
                   >First name</label
                 >
-                <span class="ui-field">
+                <span class="ui-field-container">
                   <input
                     autocomplete="given-name"
-                    placeholder="Rory"
-                    required
                     id="sign-up-first-name"
                     name="first-name"
+                    placeholder="Rory"
+                    required
                     type="text"
                   />
                 </span>
@@ -31,13 +31,13 @@
                 <label class="ui-label" for="sign-up-last-name"
                   >Last name</label
                 >
-                <span class="ui-field">
+                <span class="ui-field-container">
                   <input
                     autocomplete="family-name"
-                    placeholder="Rootnote"
-                    required
                     id="sign-up-last-name"
                     name="last-name"
+                    placeholder="Rootnote"
+                    required
                     type="text"
                   />
                 </span>
@@ -45,29 +45,29 @@
             </div>
             <div class="ui-text-field">
               <label class="ui-label" for="sign-up-email">Email</label>
-              <span class="ui-field">
+              <span class="ui-field-container">
                 <input
                   autocomplete="email"
-                  placeholder="rory@lowend.example"
-                  required
                   id="sign-up-email"
                   name="email"
+                  placeholder="rory@lowend.example"
+                  required
                   type="email"
                 />
               </span>
             </div>
             <opui-text-field class="ui-text-field">
               <label class="ui-label" for="sign-up-password">Password</label>
-              <span class="ui-field">
+              <span class="ui-field-container">
                 <input
-                  autocomplete="new-password"
-                  minlength="12"
-                  required
-                  value="four-strings-4ever"
                   aria-describedby="sign-up-password-end-text"
+                  autocomplete="new-password"
                   id="sign-up-password"
+                  minlength="12"
                   name="password"
+                  required
                   type="password"
+                  value="four-strings-4ever"
                 />
                 <span class="ui-end">
                   <button

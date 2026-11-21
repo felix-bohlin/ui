@@ -52,16 +52,17 @@
       <Fieldset>
         <FieldLegend>Contact</FieldLegend>
         <FieldGroup>
-          <TextField
-            autocomplete="email"
-            id="checkout-email"
-            label="Email"
-            name="email"
-            placeholder="you@example.com"
-            required
-            type="email"
-            value="ines.hertz@example.com"
-          />
+          <TextField for="checkout-email" label="Email">
+            <input
+              autocomplete="email"
+              id="checkout-email"
+              name="email"
+              placeholder="you@example.com"
+              required
+              type="email"
+              value="ines.hertz@example.com"
+            />
+          </TextField>
           <Checkbox defaultChecked id="checkout-news" name="news">
             Email me about new gear and totally rad offers
           </Checkbox>
@@ -71,54 +72,59 @@
         <FieldLegend>Shipping address</FieldLegend>
         <FieldGroup>
           <FieldGroup orientation="horizontal">
-            <TextField
-              autocomplete="given-name"
-              id="checkout-first-name"
-              label="First name"
-              name="first-name"
-              required
-              type="text"
-              value="Ines"
-            />
-            <TextField
-              autocomplete="family-name"
-              id="checkout-last-name"
-              label="Last name"
-              name="last-name"
-              required
-              type="text"
-              value="Hertz"
-            />
+            <TextField for="checkout-first-name" label="First name">
+              <input
+                autocomplete="given-name"
+                id="checkout-first-name"
+                name="first-name"
+                required
+                type="text"
+                value="Ines"
+              />
+            </TextField>
+            <TextField for="checkout-last-name" label="Last name">
+              <input
+                autocomplete="family-name"
+                id="checkout-last-name"
+                name="last-name"
+                required
+                type="text"
+                value="Hertz"
+              />
+            </TextField>
           </FieldGroup>
-          <TextField
-            autocomplete="address-line1"
-            id="checkout-address"
-            label="Street address"
-            name="address"
-            required
-            type="text"
-            value="4 Drop D Drive"
-          />
+          <TextField for="checkout-address" label="Street address">
+            <input
+              autocomplete="address-line1"
+              id="checkout-address"
+              name="address"
+              required
+              type="text"
+              value="4 Drop D Drive"
+            />
+          </TextField>
           <FieldGroup orientation="horizontal">
-            <TextField
-              autocomplete="postal-code"
-              id="checkout-postal-code"
-              inputmode="numeric"
-              label="Postal code"
-              name="postal-code"
-              required
-              type="text"
-              value="444 44"
-            />
-            <TextField
-              autocomplete="address-level2"
-              id="checkout-city"
-              label="City"
-              name="city"
-              required
-              type="text"
-              value="Bassville"
-            />
+            <TextField for="checkout-postal-code" label="Postal code">
+              <input
+                autocomplete="postal-code"
+                id="checkout-postal-code"
+                inputmode="numeric"
+                name="postal-code"
+                required
+                type="text"
+                value="444 44"
+              />
+            </TextField>
+            <TextField for="checkout-city" label="City">
+              <input
+                autocomplete="address-level2"
+                id="checkout-city"
+                name="city"
+                required
+                type="text"
+                value="Bassville"
+              />
+            </TextField>
           </FieldGroup>
           <FieldGroup orientation="horizontal">
             <Select
@@ -134,14 +140,19 @@
               name="country"
             />
             <TextField
-              autocomplete="tel"
               endText="Only for delivery updates, promise!"
-              id="checkout-phone"
+              for="checkout-phone"
               label="Phone"
-              name="phone"
-              type="tel"
-              value="555 0144"
-            />
+            >
+              <input
+                aria-describedby="checkout-phone-end-text"
+                autocomplete="tel"
+                id="checkout-phone"
+                name="phone"
+                type="tel"
+                value="555 0144"
+              />
+            </TextField>
           </FieldGroup>
         </FieldGroup>
       </Fieldset>
@@ -210,15 +221,16 @@
             <TabsLabel>Card</TabsLabel>
             <TabsPanel>
               <FieldGroup>
-                <TextField
-                  autocomplete="cc-number"
-                  id="checkout-card-number"
-                  inputmode="numeric"
-                  label="Card number"
-                  name="card-number"
-                  placeholder="1234 1234 1234 1234"
-                  type="text"
-                >
+                <TextField for="checkout-card-number" label="Card number">
+                  <input
+                    aria-describedby="checkout-card-number-start"
+                    autocomplete="cc-number"
+                    id="checkout-card-number"
+                    inputmode="numeric"
+                    name="card-number"
+                    placeholder="1234 1234 1234 1234"
+                    type="text"
+                  />
                   {#snippet start()}
                     <svg
                       data-icon="credit-card"
@@ -236,24 +248,26 @@
                   {/snippet}
                 </TextField>
                 <FieldGroup orientation="horizontal">
-                  <TextField
-                    autocomplete="cc-exp"
-                    id="checkout-card-expiry"
-                    inputmode="numeric"
-                    label="Expiry date"
-                    name="card-expiry"
-                    placeholder="MM / YY"
-                    type="text"
-                  />
-                  <TextField
-                    autocomplete="cc-csc"
-                    id="checkout-card-cvc"
-                    inputmode="numeric"
-                    label="Security code"
-                    name="card-cvc"
-                    placeholder="CVC"
-                    type="text"
-                  />
+                  <TextField for="checkout-card-expiry" label="Expiry date">
+                    <input
+                      autocomplete="cc-exp"
+                      id="checkout-card-expiry"
+                      inputmode="numeric"
+                      name="card-expiry"
+                      placeholder="MM / YY"
+                      type="text"
+                    />
+                  </TextField>
+                  <TextField for="checkout-card-cvc" label="Security code">
+                    <input
+                      autocomplete="cc-csc"
+                      id="checkout-card-cvc"
+                      inputmode="numeric"
+                      name="card-cvc"
+                      placeholder="CVC"
+                      type="text"
+                    />
+                  </TextField>
                 </FieldGroup>
                 <Checkbox defaultChecked name="billing-same">
                   Billing address is the same as shipping
@@ -372,13 +386,14 @@
         </List>
         <Divider />
         <ControlGroup size="small" variant="outlined">
-          <TextField
-            id="checkout-discount"
-            label="Discount code"
-            name="discount"
-            type="text"
-            value="LOWEND10"
-          />
+          <TextField for="checkout-discount" label="Discount code">
+            <input
+              id="checkout-discount"
+              name="discount"
+              type="text"
+              value="LOWEND10"
+            />
+          </TextField>
           <Button type="button">Apply</Button>
         </ControlGroup>
         <DescriptionList border="solid" orientation="horizontal">

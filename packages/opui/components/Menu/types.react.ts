@@ -1,7 +1,7 @@
 import type * as Base from "./types"
-import type { ComponentProps, ReactNode } from "react"
+import type { ComponentProps, ComponentType, ReactNode } from "react"
 
-export type MenuItem = Base.MenuItem &
+export type MenuItem = Base.MenuItem<ComponentType<any>> &
   Omit<
     ComponentProps<"a"> & ComponentProps<"button">,
     keyof Base.MenuItem | "children"

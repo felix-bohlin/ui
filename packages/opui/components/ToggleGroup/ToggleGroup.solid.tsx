@@ -1,7 +1,7 @@
 /** @jsxImportSource @solidjs/web */
-import { createSignal, createUniqueId, omit, untrack } from "solid-js"
+import { createUniqueId, omit, untrack } from "solid-js"
 import { ToggleGroupContext } from "./context.solid"
-import { selectionOf } from "./selection"
+import { checkedValues } from "./selection"
 import { warnUnnamedGroup } from "../dev"
 import type { Props } from "./types.solid"
 
@@ -21,11 +21,9 @@ export default function ToggleGroup(props: Props) {
     "children",
   )
   const uid = createUniqueId()
-  const [inner, setInner] = createSignal(untrack(() => props.defaultValue))
   const change = (input: HTMLInputElement) => {
-    const next = selectionOf(input, props.multiple)
-    if (inner() !== undefined) setInner(next)
-    props.onValueChange?.(next as never)
+    if (props.multiple) props.onValueChange?.(checkedValues(input))
+    else props.onValueChange?.(input.value)
   }
   untrack(() => {
     warnUnnamedGroup("ToggleGroup", rest)
@@ -35,6 +33,9 @@ export default function ToggleGroup(props: Props) {
     <ToggleGroupContext
       value={{
         change,
+        get defaultValue() {
+          return props.defaultValue
+        },
         get groupName() {
           return props.name || `toggle-group-${uid}`
         },
@@ -42,7 +43,7 @@ export default function ToggleGroup(props: Props) {
           return props.multiple ? "checkbox" : "radio"
         },
         get value() {
-          return props.value ?? inner()
+          return props.value
         },
       }}
     >

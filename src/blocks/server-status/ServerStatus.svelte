@@ -392,15 +392,16 @@
     </DialogHeader>
     <DialogContent>
       <Form action="#" id="server-status-subscribe-form" method="dialog">
-        <TextField
-          autocomplete="email"
-          id="server-status-server-status-email"
-          label="Email"
-          name="server-status-email"
-          placeholder="you@lowend.example"
-          required
-          type="email"
-        />
+        <TextField for="server-status-server-status-email" label="Email">
+          <input
+            autocomplete="email"
+            id="server-status-server-status-email"
+            name="server-status-email"
+            placeholder="you@lowend.example"
+            required
+            type="email"
+          />
+        </TextField>
       </Form>
     </DialogContent>
     <DialogFooter>

@@ -1,4 +1,4 @@
-export type Props = {
+export type Props<Link = never> = {
   dot?: boolean
   label?: string
   multiline?: boolean
@@ -12,7 +12,7 @@ export type Props = {
       href?: never
     }
   | {
-      as?: "a"
+      as?: "a" | Link
       disabled?: boolean
       href: string
     }

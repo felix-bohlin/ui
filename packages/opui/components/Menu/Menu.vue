@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import "../../elements/close-on-navigate.js"
+import "../../elements/menu.js"
 import { computed, inject, provide, reactive } from "vue"
 import { MenuKey } from "./context.vue"
 import { warnMissingId } from "../dev"
-import { tagAttrs } from "../tag"
+import { disabledLink, tagAttrs } from "../tag"
 import { defined } from "../attrs"
 import { classAttrs } from "../cx"
 import type { Props, Slots } from "./types.vue-props"
@@ -14,6 +15,7 @@ const {
   dense,
   id,
   items,
+  orientation,
   popover = "auto",
   side,
 } = defineProps<Props>()
@@ -22,6 +24,32 @@ defineSlots<Slots>()
 const parent = inject(MenuKey, undefined)
 
 const rootId = computed(() => parent?.rootId ?? id)
+
+const rows = computed(() =>
+  items?.map((item) => {
+    const {
+      as,
+      borderTop,
+      color,
+      disabled,
+      href,
+      keepOpen,
+      label,
+      shortcut,
+      ...itemRest
+    } = item
+    const Tag = disabledLink(as, disabled)
+      ? "a"
+      : (as ?? (href ? "a" : "button"))
+    const closes =
+      !href &&
+      !keepOpen &&
+      !disabled &&
+      itemRest.type !== "submit" &&
+      itemRest.type !== "reset"
+    return { closes, item, Tag }
+  }),
+)
 
 warnMissingId("Menu", id)
 
@@ -37,6 +65,7 @@ provide(MenuKey, reactive({ rootId }))
         'ui-bordered': bordered,
         'ui-dense': dense,
       },
+      orientation && orientation !== 'vertical' && `ui-${orientation}`,
       side && side !== 'block-end' && `ui-${side}`,
       $props.class,
     ]"
@@ -46,28 +75,34 @@ provide(MenuKey, reactive({ rootId }))
     <li
       v-for="(
         {
-          borderTop,
-          color,
-          disabled,
-          href,
-          keepOpen,
-          label,
-          shortcut,
-          ...itemRest
+          closes,
+          item: {
+            as,
+            borderTop,
+            color,
+            disabled,
+            href,
+            keepOpen,
+            label,
+            shortcut,
+            ...itemRest
+          },
+          Tag,
         },
         index
-      ) in items"
+      ) in rows"
       :key="index"
       v-bind="
         classAttrs([{ 'ui-border-top': borderTop }, color && `ui-${color}`])
       "
     >
       <component
-        :is="href ? 'a' : 'button'"
+        :is="Tag"
         v-bind="{
-          ...tagAttrs(href ? 'a' : 'button', disabled, href),
-          command: !href && !keepOpen && !disabled ? 'hide-popover' : undefined,
-          commandfor: !href && !keepOpen && !disabled ? rootId : undefined,
+          ...tagAttrs(Tag, disabled, href),
+          command: closes ? 'hide-popover' : undefined,
+          commandfor: closes ? rootId : undefined,
+          'data-keep-open': keepOpen ? '' : undefined,
           ...defined(itemRest),
         }"
       >

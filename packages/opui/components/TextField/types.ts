@@ -2,19 +2,25 @@ export type Props = {
   autoFit?: boolean
   characterCount?: boolean
   characterCountLabel?: string
-  disabled?: boolean
   dropZone?: boolean
   endText?: string
-  error?: boolean
+  for: string
   hideLabel?: boolean
   label?: string
-  passwordToggle?: boolean
-  passwordToggleLabel?: string
   size?: "x-small" | "small" | "medium" | "large"
   spread?: boolean
   startText?: string
   variant?: "outlined" | "filled"
-}
+} & (
+  | {
+      passwordToggle: boolean
+      passwordToggleLabel?: string
+    }
+  | {
+      passwordToggle?: never
+      passwordToggleLabel?: never
+    }
+)
 
 export type Slots<S> = {
   bottom?: string | S

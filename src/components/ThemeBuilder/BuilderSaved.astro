@@ -35,14 +35,19 @@ const gallery = GALLERY.map((entry) => ({
   <DrawerContent class="builder-saved">
     <form class="builder-save-form" data-save-form>
       <TextField
-        autocomplete="off"
         class="builder-save-name"
+        for="builder-saved-save-the-current-theme-as"
         label="Save the current theme as"
-        maxlength="60"
-        name="snapshot-name"
-        placeholder="Name"
         size="small"
-      />
+      >
+        <input
+          autocomplete="off"
+          id="builder-saved-save-the-current-theme-as"
+          maxlength="60"
+          name="snapshot-name"
+          placeholder="Name"
+        />
+      </TextField>
       <Button color="primary" size="small" type="submit" variant="filled"
         >Save</Button
       >

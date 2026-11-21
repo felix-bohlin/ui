@@ -84,7 +84,7 @@ export default function Select({
           {startText}
         </span>
       )}
-      <span className="ui-field">
+      <span className="ui-field-container">
         {top && (
           <span className="ui-top" id={topId}>
             {top}

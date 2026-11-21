@@ -7,7 +7,7 @@ export default {
   keyboard: modalKeyboard("drawer"),
   notes: {
     default:
-      'Attributes that aren\'t props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer, with the id `x-title` for `id="x"`. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`.',
+      'Attributes that aren\'t props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer, with the id `x-title` for `id="x"`. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`. `data-drawer-swipe` on an element in a drawer at the block start or end lets a swipe on it close the drawer.',
     html: "Add `autofocus` to the element that gets focus on open. It can be the root or an element inside. For `[data-close-on-navigate]`, import `opui-css/elements/close-on-navigate.js`. For swiping a `.ui-block-start` or `.ui-block-end` drawer closed, import `opui-css/elements/drawer-swipe.js`.",
   },
   options: [
@@ -31,7 +31,7 @@ export default {
       attribute: "[data-close-on-navigate]",
       default: "false",
       description:
-        "Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. Reads the Navigation API.",
+        "Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. A link inside it closes it on click, unless it has `data-keep-open`, and a change of the query alone from outside it leaves it open. Reads the Navigation API.",
       group: "Close on navigate",
       prop: "closeOnNavigate",
     },

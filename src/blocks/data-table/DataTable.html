@@ -47,7 +47,7 @@
     <div class="ui-field-group ui-horizontal">
       <div class="ui-text-field">
         <label class="ui-sr-only" for="data-table-q">Search members</label>
-        <span class="ui-field">
+        <span class="ui-field-container">
           <span class="ui-start" id="data-table-q-start">
             <svg
               data-icon="search"
@@ -64,17 +64,17 @@
             </svg>
           </span>
           <input
-            placeholder="Search by name or email"
             aria-describedby="data-table-q-start"
             id="data-table-q"
             name="q"
+            placeholder="Search by name or email"
             type="search"
           />
         </span>
       </div>
       <div class="ui-select">
         <label class="ui-sr-only" for="data-table-status">Status</label>
-        <span class="ui-field">
+        <span class="ui-field-container">
           <select id="data-table-status" name="status">
             <button inert>
               <selectedcontent></selectedcontent>
@@ -91,7 +91,7 @@
       </div>
       <div class="ui-select">
         <label class="ui-sr-only" for="data-table-plan">Plan</label>
-        <span class="ui-field">
+        <span class="ui-field-container">
           <select id="data-table-plan" name="plan">
             <button inert>
               <selectedcontent></selectedcontent>
@@ -166,7 +166,9 @@
             </td>
             <td data-sort-value="Holly Humbucker">
               <div class="ui-layout-media ui-small">
-                <div class="ui-avatar" aria-hidden="true">HH</div>
+                <div class="ui-avatar" aria-hidden="true">
+                  <span aria-hidden="true">HH</span>
+                </div>
                 <div>
                   <p class="data-table-person">Holly Humbucker</p>
                   <p class="ui-caption">holly@humbucker.example</p>
@@ -249,7 +251,9 @@
             </td>
             <td data-sort-value="Ines Hertz">
               <div class="ui-layout-media ui-small">
-                <div class="ui-avatar" aria-hidden="true">IH</div>
+                <div class="ui-avatar" aria-hidden="true">
+                  <span aria-hidden="true">IH</span>
+                </div>
                 <div>
                   <p class="data-table-person">Ines Hertz</p>
                   <p class="ui-caption">ines@hertz.example</p>
@@ -337,7 +341,9 @@
             </td>
             <td data-sort-value="Lou Headstock">
               <div class="ui-layout-media ui-small">
-                <div class="ui-avatar" aria-hidden="true">LH</div>
+                <div class="ui-avatar" aria-hidden="true">
+                  <span aria-hidden="true">LH</span>
+                </div>
                 <div>
                   <p class="data-table-person">Lou Headstock</p>
                   <p class="ui-caption">lou@headstock.example</p>
@@ -420,7 +426,9 @@
             </td>
             <td data-sort-value="Percy Groove">
               <div class="ui-layout-media ui-small">
-                <div class="ui-avatar" aria-hidden="true">PG</div>
+                <div class="ui-avatar" aria-hidden="true">
+                  <span aria-hidden="true">PG</span>
+                </div>
                 <div>
                   <p class="data-table-person">Percy Groove</p>
                   <p class="ui-caption">percy@groove.example</p>
@@ -503,7 +511,9 @@
             </td>
             <td data-sort-value="Rory Rootnote">
               <div class="ui-layout-media ui-small">
-                <div class="ui-avatar" aria-hidden="true">RR</div>
+                <div class="ui-avatar" aria-hidden="true">
+                  <span aria-hidden="true">RR</span>
+                </div>
                 <div>
                   <p class="data-table-person">Rory Rootnote</p>
                   <p class="ui-caption">rory@lowend.example</p>
@@ -663,4 +673,5 @@
 <script type="module">
   import "opui-css/elements/select-all.js"
   import "opui-css/elements/sortable-table.js"
+  import "opui-css/elements/menu.js"
 </script>

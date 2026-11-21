@@ -34,8 +34,8 @@ export default {
     solid:
       "Use `value` with `onValueChange`, or `defaultValue`. Without them the buttons keep their own state, and `onValueChange` still reports changes.",
     svelte:
-      'Bind `value` with a starting value to control the selection, `""` or `[]` for none. Without it, or bound to `undefined`, the buttons keep their own state.',
-    vue: 'Bind `v-model` with a starting value to control the selection, `""` or `[]` for none. Without it, or bound to `undefined`, the buttons keep their own state.',
+      'Bind `value` with a starting value to control the selection, `""` or `[]` for none. Without it, or bound to `undefined`, the buttons keep their own state. A `value` passed without `bind:` is a starting value: the group keeps the selection itself until you pass another.',
+    vue: 'Bind `v-model` to control the selection, `""` or `[]` for none: each button binds its input with `v-model`, like native radios or checkboxes. Without it, the buttons keep their own state.',
   },
   options: [
     {

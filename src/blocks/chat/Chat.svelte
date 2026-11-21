@@ -41,14 +41,15 @@
             </svg></Button
           >
         </div>
-        <TextField
-          aria-label="Search messages"
-          id="chat-search"
-          name="chat-search"
-          placeholder="Search"
-          size="small"
-          type="search"
-        >
+        <TextField for="chat-search" size="small">
+          <input
+            aria-describedby="chat-search-start"
+            aria-label="Search messages"
+            id="chat-search"
+            name="chat-search"
+            placeholder="Search"
+            type="search"
+          />
           {#snippet start()}
             <svg
               data-icon="search"
@@ -302,11 +303,13 @@
                 ></path>
               </svg></Button
             >
-            <Textarea
-              aria-label="Message Stella Nut"
-              name="chat-message"
-              placeholder="Write something rad…"
-            />
+            <Textarea for="chat-chat-message">
+              <textarea
+                aria-label="Message Stella Nut"
+                id="chat-chat-message"
+                name="chat-message"
+                placeholder="Write something rad…"></textarea>
+            </Textarea>
             <Button
               aria-label="Send"
               color="primary"

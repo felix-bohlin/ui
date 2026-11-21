@@ -33,11 +33,22 @@ export const todoExamples = {
   "carousel-marker-focus": {
     match: "Carousel: the marker's own ring is drawn with `outline`",
   },
+  "control-group-end-text": {
+    match: "ControlGroup: the group lines its controls up at the bottom",
+  },
+  "control-group-wrapped-divider": {
+    match:
+      "ControlGroup: in a group that isn't outlined and has a field, in forced colors",
+  },
   "dialog-scrollbar-gutter": {
     match: "Dialog, Drawer: the scroll lock's `scrollbar-gutter: stable`",
   },
   "dialog-scrollbar-gutter-root": {
     match: "Dialog, Drawer: the scroll lock's `scrollbar-gutter: stable`",
+  },
+  "drawer-header-close-icon": {
+    match:
+      "DrawerHeader: in Astro and Vue, a `close-icon` slot without `closeButton` renders nothing",
   },
   "drawer-sidebar": {
     match:
@@ -69,6 +80,13 @@ export const todoExamples = {
   "rating-empty-stars": {
     match:
       "Rating: filled and empty stars differ by color alone, and more contrast pulls them together",
+  },
+  "rating-invalid": {
+    match: "Rating: the input sets `aria-invalid` on every radio",
+  },
+  "react-element-import": {
+    match:
+      "Package: the React ports load a component's element script with `import()` in an effect",
   },
   "resolved-tokens": {
     match: "Tokens: there is no Figma kit",

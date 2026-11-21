@@ -25,7 +25,7 @@
               aria-label="Percy Groove"
               role="img"
             >
-              PG
+              <span aria-hidden="true">PG</span>
             </div>
             <div class="ui-layout-row ui-small">
               <button class="ui-button ui-small ui-outlined" type="button">
@@ -46,14 +46,14 @@
                 <label class="ui-label" for="account-settings-first-name"
                   >First name</label
                 >
-                <span class="ui-field">
+                <span class="ui-field-container">
                   <input
                     autocomplete="given-name"
-                    required
-                    value="Percy"
                     id="account-settings-first-name"
                     name="first-name"
+                    required
                     type="text"
+                    value="Percy"
                   />
                 </span>
               </div>
@@ -61,29 +61,29 @@
                 <label class="ui-label" for="account-settings-last-name"
                   >Last name</label
                 >
-                <span class="ui-field">
+                <span class="ui-field-container">
                   <input
                     autocomplete="family-name"
-                    required
-                    value="Groove"
                     id="account-settings-last-name"
                     name="last-name"
+                    required
                     type="text"
+                    value="Groove"
                   />
                 </span>
               </div>
             </div>
             <div class="ui-text-field">
               <label class="ui-label" for="account-settings-email">Email</label>
-              <span class="ui-field">
+              <span class="ui-field-container">
                 <input
-                  autocomplete="email"
-                  required
-                  value="percy@lowend.example"
                   aria-describedby="account-settings-email-end-text"
+                  autocomplete="email"
                   id="account-settings-email"
                   name="email"
+                  required
                   type="email"
+                  value="percy@lowend.example"
                 />
               </span>
               <span class="ui-end-text" id="account-settings-email-end-text">
@@ -95,17 +95,17 @@
               <label class="ui-label" for="account-settings-username"
                 >Username</label
               >
-              <span class="ui-field">
+              <span class="ui-field-container">
                 <span class="ui-start" id="account-settings-username-start"
                   >bassbook.example/</span
                 >
                 <input
-                  autocomplete="username"
-                  value="percygroove"
                   aria-describedby="account-settings-username-start"
+                  autocomplete="username"
                   id="account-settings-username"
                   name="username"
                   type="text"
+                  value="percygroove"
                 />
               </span>
             </div>
@@ -114,12 +114,12 @@
               <span class="ui-start-text" id="account-settings-bio-start-text"
                 >Shown on your profile for the whole world to admire</span
               >
-              <span class="ui-field">
+              <span class="ui-field-container">
                 <textarea
-                  rows="3"
                   aria-describedby="account-settings-bio-start-text account-settings-bio-bottom"
                   id="account-settings-bio"
                   name="bio"
+                  rows="3"
                 >
 Fretless bassist in a garage band. Into flatwounds, drop D and very long root notes.</textarea>
                 <span class="ui-bottom" id="account-settings-bio-bottom"
@@ -156,12 +156,12 @@ Fretless bassist in a garage band. Into flatwounds, drop D and very long root no
               <label class="ui-label" for="account-settings-current-password"
                 >Current password</label
               >
-              <span class="ui-field">
+              <span class="ui-field-container">
                 <input
                   autocomplete="current-password"
-                  required
                   id="account-settings-current-password"
                   name="current-password"
+                  required
                   type="password"
                 />
               </span>
@@ -170,14 +170,14 @@ Fretless bassist in a garage band. Into flatwounds, drop D and very long root no
               <label class="ui-label" for="account-settings-new-password"
                 >New password</label
               >
-              <span class="ui-field">
+              <span class="ui-field-container">
                 <input
-                  autocomplete="new-password"
-                  minlength="12"
-                  required
                   aria-describedby="account-settings-new-password-end-text"
+                  autocomplete="new-password"
                   id="account-settings-new-password"
+                  minlength="12"
                   name="new-password"
+                  required
                   type="password"
                 />
               </span>
@@ -191,12 +191,12 @@ Fretless bassist in a garage band. Into flatwounds, drop D and very long root no
               <label class="ui-label" for="account-settings-confirm-password"
                 >Confirm new password</label
               >
-              <span class="ui-field">
+              <span class="ui-field-container">
                 <input
                   autocomplete="new-password"
-                  required
                   id="account-settings-confirm-password"
                   name="confirm-password"
+                  required
                   type="password"
                 />
               </span>
@@ -274,7 +274,7 @@ Fretless bassist in a garage band. Into flatwounds, drop D and very long root no
               <label class="ui-label" for="account-settings-language"
                 >Language</label
               >
-              <span class="ui-field">
+              <span class="ui-field-container">
                 <select id="account-settings-language" name="language">
                   <button inert>
                     <selectedcontent></selectedcontent>
@@ -293,7 +293,7 @@ Fretless bassist in a garage band. Into flatwounds, drop D and very long root no
               <label class="ui-label" for="account-settings-timezone"
                 >Time zone</label
               >
-              <span class="ui-field">
+              <span class="ui-field-container">
                 <select id="account-settings-timezone" name="timezone">
                   <button inert>
                     <selectedcontent></selectedcontent>

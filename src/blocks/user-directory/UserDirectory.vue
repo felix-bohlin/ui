@@ -44,14 +44,14 @@ import {
       is="search"
       class="ui-layout-row ui-spread user-directory-filters"
     >
-      <TextField
-        hideLabel
-        id="user-directory-q"
-        label="Search bassists"
-        name="q"
-        placeholder="Search by name, gear or city"
-        type="search"
-      >
+      <TextField for="user-directory-q" hideLabel label="Search bassists">
+        <input
+          aria-describedby="user-directory-q-start"
+          id="user-directory-q"
+          name="q"
+          placeholder="Search by name, gear or city"
+          type="search"
+        />
         <template #start>
           <svg
             data-icon="search"

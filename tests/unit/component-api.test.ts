@@ -144,6 +144,19 @@ describe("component api checks", () => {
     ).toBe(false)
   })
 
+  test("read a union of unions as one flat union, without the members no value can have", () => {
+    const chip = { component: "Chip", source: "Chip" }
+    expect(frameworkProps(chip, "astro").get("as")).toBe(
+      '"a" | "button" | "div" | "span"',
+    )
+    expect(frameworkProps(chip, "react").get("as")).toBe(
+      '"a" | "button" | "div" | "span" | ComponentType<any>',
+    )
+    expect(frameworkProps(chip, "solid").get("as")).toBe(
+      '"a" | "button" | "div" | "span" | Component<any>',
+    )
+  })
+
   test("read a component's events as onDismiss in React, ondismiss in Svelte and @dismiss in Vue, from its own Emits type", () => {
     const callout = { component: "Callout", source: "Callout" }
     expect(frameworkProps(callout, "react").get("onDismiss")).toBe(

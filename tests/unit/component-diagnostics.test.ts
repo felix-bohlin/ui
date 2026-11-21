@@ -34,7 +34,8 @@ test("every refusal passes a listed code, and every listed code is thrown", () =
 })
 
 test("diagnosticProblems flags a call without a code, an unlisted code, an unused code and unsorted codes", () => {
-  const thrown = Object.keys(DIAGNOSTICS)
+  const codes = Object.keys(DIAGNOSTICS)
+  const thrown = codes
     .map((code) => `throw unsupported("${code}", file, "x")`)
     .join("\n")
   expect(
@@ -42,13 +43,12 @@ test("diagnosticProblems flags a call without a code, an unlisted code, an unuse
       "a.mjs": `${thrown}\nthrow unsupported(file, "y")\nthrow unsupported(\n  "BC999",\n  file,\n)`,
     }),
   ).toEqual([
-    "a.mjs:37 calls unsupported() without a code: pass a code from scripts/component-diagnostics.mjs first",
-    "a.mjs:39 uses BC999, which scripts/component-diagnostics.mjs doesn't list",
+    `a.mjs:${codes.length + 1} calls unsupported() without a code: pass a code from scripts/component-diagnostics.mjs first`,
+    `a.mjs:${codes.length + 3} uses BC999, which scripts/component-diagnostics.mjs doesn't list`,
   ])
   expect(diagnosticProblems({ "a.mjs": "" })).toContain(
     "BC101 in scripts/component-diagnostics.mjs is never thrown: remove it",
   )
-  const codes = Object.keys(DIAGNOSTICS)
   expect(codes).toEqual(codes.toSorted())
 })
 

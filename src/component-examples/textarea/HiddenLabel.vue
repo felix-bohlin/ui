@@ -3,5 +3,10 @@ import { Textarea } from "opui-css/vue"
 </script>
 
 <template>
-  <Textarea hideLabel label="Reply" placeholder="Write a reply..." />
+  <Textarea for="textarea-hidden-label-1" hideLabel label="Reply">
+    <textarea
+      id="textarea-hidden-label-1"
+      placeholder="Write a reply..."
+    ></textarea>
+  </Textarea>
 </template>

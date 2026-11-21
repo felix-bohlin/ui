@@ -1,7 +1,9 @@
 <form class="ui-form">
-  <article
+  <div
     class="ui-callout ui-critical"
     id="form-error-summary-1"
+    aria-labelledby="form-error-summary-4"
+    role="group"
     tabindex="-1"
   >
     <svg
@@ -12,7 +14,7 @@
       viewBox="0 0 32 32"
     ></svg>
     <div class="ui-content ui-rich-text">
-      <h3>Fix 2 fields to create your account</h3>
+      <h3 id="form-error-summary-4">Fix 2 fields to create your account</h3>
       <ul>
         <li><a href="#form-error-summary-2">Enter your work email</a></li>
         <li>
@@ -22,15 +24,15 @@
         </li>
       </ul>
     </div>
-  </article>
+  </div>
   <div class="ui-field-group">
     <div class="ui-text-field">
       <label class="ui-label" for="form-error-summary-2">Email</label>
-      <span class="ui-field">
+      <span class="ui-field-container">
         <input
-          autocomplete="email"
           aria-describedby="form-error-summary-2-end-text"
           aria-invalid="true"
+          autocomplete="email"
           id="form-error-summary-2"
           type="email"
         />
@@ -41,14 +43,14 @@
     </div>
     <div class="ui-text-field">
       <label class="ui-label" for="form-error-summary-3">Password</label>
-      <span class="ui-field">
+      <span class="ui-field-container">
         <input
-          autocomplete="new-password"
-          value="hunter2"
           aria-describedby="form-error-summary-3-end-text"
           aria-invalid="true"
+          autocomplete="new-password"
           id="form-error-summary-3"
           type="password"
+          value="hunter2"
         />
       </span>
       <span class="ui-end-text" id="form-error-summary-3-end-text"

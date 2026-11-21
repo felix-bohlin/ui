@@ -42,11 +42,50 @@ export function isHydratedFramework(framework) {
   return framework !== "html" && framework !== "astro"
 }
 
+/** @type {Exclude<PackageFrameworkId, "astro">[]} */
+export const HYDRATED_FRAMEWORK_IDS =
+  PACKAGE_FRAMEWORK_IDS.filter(isHydratedFramework)
+
+/** @type {Record<FrameworkId, string>} */
+export const EXAMPLE_EXTENSIONS = {
+  astro: "astro",
+  html: "html",
+  react: "react.tsx",
+  solid: "solid.tsx",
+  svelte: "svelte",
+  vue: "vue",
+}
+
+/** @type {Record<PackageFrameworkId, string>} */
+export const TYPES_FILES = {
+  astro: "types.astro.ts",
+  react: "types.react.ts",
+  solid: "types.solid.ts",
+  svelte: "types.svelte.ts",
+  vue: "types.vue-props.ts",
+}
+
 /** @param {FrameworkId} framework */
 export function exampleExtension(framework) {
-  return framework === "react" || framework === "solid"
-    ? `${framework}.tsx`
-    : framework
+  return EXAMPLE_EXTENSIONS[framework]
+}
+
+/** @param {readonly FrameworkId[]} [frameworks] */
+export function extensionPattern(frameworks = FRAMEWORK_IDS) {
+  return frameworks
+    .map((framework) => EXAMPLE_EXTENSIONS[framework].replaceAll(".", "\\."))
+    .toSorted()
+    .join("|")
+}
+
+/**
+ * @param {string} file
+ * @returns {FrameworkId | undefined}
+ */
+export function frameworkOfFile(file) {
+  return FRAMEWORK_IDS.find((framework) =>
+    file.endsWith(`.${EXAMPLE_EXTENSIONS[framework]}`),
+  )
 }
 
 /**

@@ -2,6 +2,12 @@ import { TextField } from "opui-css/react"
 
 export default function HiddenLabel() {
   return (
-    <TextField hideLabel label="Search" placeholder="Search" type="search" />
+    <TextField hideLabel htmlFor="text-field-hidden-label-1" label="Search">
+      <input
+        id="text-field-hidden-label-1"
+        placeholder="Search"
+        type="search"
+      />
+    </TextField>
   )
 }

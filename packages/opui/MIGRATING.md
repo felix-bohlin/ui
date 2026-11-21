@@ -410,7 +410,18 @@ The floating content is `.ui-floating` instead of `.ui-anchor-floating`, also in
 
 ## Avatar
 
-`alt` is required when `src` is set (types). Use `alt=""` for decorative images.
+`alt` is `label`, the name of the person or thing. With `src` it is still the `alt` of the image. Without `src`, the letters or icon sit in a `<span aria-hidden="true">` and `label` is visually hidden text after them, so select `.ui-avatar svg` where a selector matched a direct child. Leave `label` out when the name is shown next to the avatar: the avatar is then decorative, with `alt=""` on the image.
+
+```diff
+- <Avatar alt="Lou Headstock" src="/lou.jpg" />
++ <Avatar label="Lou Headstock" src="/lou.jpg" />
+- <Avatar aria-label="Lou Headstock" role="img">LH</Avatar>
++ <Avatar label="Lou Headstock">LH</Avatar>
+- <Avatar as="button"><span aria-label="Lou Headstock" role="img">LH</span></Avatar>
++ <Avatar as="button" label="Lou Headstock">LH</Avatar>
+```
+
+The content is hidden from assistive technology, so a name inside it is no longer read: move it to `label`. A link or button avatar needs `label`, `aria-label` or `aria-labelledby` (types in Astro, React, Solid and Svelte, and a warning in development).
 
 A button avatar needs `as="button"`, and `disabled` only goes with it or with `href` (types).
 
@@ -423,7 +434,7 @@ Text uses `--ui-on-primary`, and sizes follow `--ui-control-size` and `--ui-cont
 ```diff
 - <Avatar aria-label="Team" isGroup>
 + <AvatarGroup aria-label="Team">
-    <Avatar alt="Lou Headstock" src="/lou.jpg" />
+    <Avatar label="Lou Headstock" src="/lou.jpg" />
 - </Avatar>
 + </AvatarGroup>
 ```
@@ -536,7 +547,14 @@ In Astro and Vue the regions are parts instead of slots. The root no longer rend
 
 The `Slots` type in `types.ts` drops `icon` and `title`, and has `closeIcon` for the close button's icon.
 
-In Astro and Vue the root no longer has `role="note"`, so screen readers announce the `<article>` it is. Pass `role="note"` to keep the old announcement.
+The root is a `<div>` instead of an `<article>`, and in Astro and Vue it no longer has `role="note"`, so screen readers read the callout as part of the content around it. Pass `role="note"` to keep the old announcement, and select `.ui-callout` where a selector or a test matched the `article`. The CSS still styles an `<article class="ui-callout">`, so HTML can stay as it is.
+
+```diff
+- <Callout>…</Callout>
++ <Callout role="note">…</Callout>
+- article.ui-callout { … }
++ .ui-callout { … }
+```
 
 ## Card
 
@@ -814,7 +832,7 @@ The primary line is a color, not a variant.
 
 The backdrop dims and blurs like `Dialog`, through `--ui-backdrop-bg-color` and `--ui-backdrop-blur`. `.ui-backdrop-transparent` still removes it. Header headings take the free space, so several header actions line up at the end.
 
-In Astro and Vue the regions are parts instead of slots. `DrawerTitle` replaces the `DrawerHeader` `heading` prop, and `aria-labelledby` points at it. A drawer is named by `DrawerTitle` or `aria-label` (5.x set no name itself). `DrawerHeader` closes its drawer with `command="close"` (Invoker Commands) instead of a click handler, so older browsers need a polyfill. A `DrawerHeader` outside a `Drawer` no longer closes the nearest `<dialog>` on its own: set `commandfor` to the dialog's id. `DrawerHeader` renders its close button only with `closeButton`, like `DialogHeader`, so add `closeButton` to keep it.
+In Astro and Vue the regions are parts instead of slots. `DrawerTitle` replaces the `DrawerHeader` `heading` prop, and `aria-labelledby` points at it. A drawer is named by `DrawerTitle` or `aria-label` (5.x set no name itself). `DrawerHeader` closes its drawer with `command="close"` (Invoker Commands) instead of a click handler, so older browsers need a polyfill. A `DrawerHeader` outside a `Drawer` no longer closes the nearest `<dialog>` on its own: set `commandfor` to the dialog's id. `DrawerHeader` renders its close button only with `closeButton`, like `DialogHeader`, so add `closeButton` to keep it. `closeLabel` or `commandfor` alone renders no button, and the types reject them without `closeButton`.
 
 ```diff
   <Drawer id="filters">
@@ -1268,16 +1286,23 @@ Tabs that don't fit stay on one row and scroll sideways instead of wrapping onto
 
 ## Text field
 
+The box around the input and the `top`, `start`, `end` and `bottom` parts is `.ui-field-container` instead of `.ui-field`. In HTML, rename the class on that wrapper; `Textarea` and `Select` follow the same rename.
+
+`TextField` takes your `<input>` instead of rendering one, and a required `for` (`htmlFor` in React) with the input's `id`, which the types enforce. Move the input's attributes, `type`, `name`, `value`, `placeholder`, `required`, `disabled` and the rest, onto the input, bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. Point its `aria-describedby` at the parts the field shows, in this order: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`. `id` on the component is gone, and attributes that aren't its props go to the root, as in 5.x. Inside a `FieldGroup`, name the input yourself.
+
+```diff
+- <TextField endText="Use your work email." error label="Email" type="email" v-model="email" />
++ <TextField endText="Use your work email." for="email" label="Email">
++   <input aria-describedby="email-end-text" aria-invalid="true" id="email" type="email" v-model="email" />
++ </TextField>
+```
+
 `TextField` takes a `size` prop like `Select`, with `x-small`, `small` and `large`.
 
 ```diff
 - <TextField small label="Name" />
 + <TextField size="small" label="Name" />
 ```
-
-Astro and Vue generate an input `id` only when the label or the password toggle points at it. Pass `id` when something outside the component references the input.
-
-In Astro, extra attributes go to the `<input>` instead of the root. `class` and `style` stay on the root. In Vue, `style` now goes to the root instead of the input. Check selectors and tests that look for attributes on the root.
 
 The root is a `<div>` with a `<label for>` inside, instead of a `<label>` around the whole field, so the field can hold buttons. The label alone names the input. The start and end text, the `start` and `end` affixes and the `top` and `bottom` parts describe it through `aria-describedby`, read after the name, where the affixes used to join the name. A click on the start or end text, an affix or the `top` or `bottom` part no longer focuses the input, since only the label is a `<label>`. Target `.ui-text-field` instead of `label.ui-text-field` in your CSS, and give a field without `label` an `aria-label` or `aria-labelledby`. In HTML, the input needs an `id` for the label's `for`, and an affix or a hint an `id` for `aria-describedby`. Put `.ui-top` and `.ui-start` before the input, in the order they're drawn, so Tab reaches them there in every browser.
 
@@ -1286,7 +1311,7 @@ The root is a `<div>` with a `<label for>` inside, instead of a `<label>` around
 -   <span class="ui-label">Price</span>
 + <div class="ui-text-field">
 +   <label class="ui-label" for="price">Price</label>
-    <span class="ui-field">
+    <span class="ui-field-container">
 -     <input />
 -     <span class="ui-start">€</span>
 +     <span class="ui-start" id="price-start">€</span>
@@ -1298,14 +1323,18 @@ The root is a `<div>` with a `<label for>` inside, instead of a `<label>` around
 
 ```diff
 - <TextField startText="Search the docs" />
-+ <TextField aria-label="Search" startText="Search the docs" />
++ <TextField for="search" startText="Search the docs">
++   <input aria-describedby="search-start-text" aria-label="Search" id="search" />
++ </TextField>
 ```
 
 `description` is `startText` (the `start-text` slot in Astro and Vue), matching `endText`. `supportingText` (the `supporting-text` slot) is gone. Use `endText`.
 
 ```diff
 - <TextField label="Name"><Fragment slot="supporting-text">Required</Fragment></TextField>
-+ <TextField label="Name" endText="Required" />
++ <TextField endText="Required" for="name" label="Name">
++   <input aria-describedby="name-end-text" id="name" />
++ </TextField>
 ```
 
 With `spread`, label and field split the container into equal columns. Fields keep a `12ch` minimum width in table cells, the invalid state uses `--ui-invalid`, and the auto-suggest arrow is a chevron with the `Select` arrow size.
@@ -1317,7 +1346,7 @@ The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is
 + <TextField variant="filled" label="Name" />
 ```
 
-`data-invalid` on `.ui-text-field` no longer does anything. Put `aria-invalid="true"` on the `<input>` (Astro and Vue: `error`, unchanged). Styles that targeted `[data-invalid]` should target `:has([aria-invalid="true"])`.
+`data-invalid` on `.ui-text-field` no longer does anything. Put `aria-invalid="true"` on the `<input>`. Styles that targeted `[data-invalid]` should target `:has([aria-invalid="true"])`.
 
 ```diff
 - <label class="ui-text-field" data-invalid> … <input>
@@ -1349,10 +1378,21 @@ In Vue, use `<template #start>€</template>` and `<template #end>EUR</template>
 
 ```diff
 - <TextField label="Card number" type="numeric" />
-+ <TextField inputmode="numeric" label="Card number" pattern="[0-9]*" />
++ <TextField for="card" label="Card number">
++   <input id="card" inputmode="numeric" pattern="[0-9]*" />
++ </TextField>
 ```
 
 ## Textarea
+
+Same as Text field: `Textarea` takes your `<textarea>` instead of rendering one, and a required `for` (`htmlFor` in React) with its `id`. Move `name`, `required`, `disabled`, `maxlength` and the rest onto the textarea, write its value as its content or bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. Point its `aria-describedby` at the parts the field shows: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`, in that order. `id` on the component is gone, and attributes that aren't its props go to the root, as in 5.x.
+
+```diff
+- <Textarea endText="Up to 160 characters." label="Bio" name="bio" value="Bassist." />
++ <Textarea endText="Up to 160 characters." for="bio" label="Bio">
++   <textarea aria-describedby="bio-end-text" id="bio" name="bio">Bassist.</textarea>
++ </Textarea>
+```
 
 `Textarea` takes a `size` prop instead of `small`, like `TextField`.
 
@@ -1361,11 +1401,11 @@ In Vue, use `<template #start>€</template>` and `<template #end>EUR</template>
 + <Textarea size="small" label="Message" />
 ```
 
-Astro and Vue generate an `id` only when the label points at it, extra attributes go to the `<textarea>` in Astro (`class` and `style` stay on the root), and in Vue `style` goes to the root. `description` is `startText` (the `start-text` slot), like Text field. `supportingText` (the `supporting-text` slot) is gone. Use `endText`.
+`description` is `startText` (the `start-text` slot), like Text field. `supportingText` (the `supporting-text` slot) is gone. Use `endText`.
 
 Same as Text field: the root is a `<div>` with a `<label for>` inside, the label alone names the textarea, and the start and end text, the affixes and the `top` and `bottom` parts describe it. A click on those parts no longer focuses the textarea. Give a textarea without `label` an `aria-label` or `aria-labelledby`, target `.ui-textarea` instead of `label.ui-textarea`, and in HTML give the textarea an `id` for the label's `for`.
 
-The minimum height is three lines plus padding at every size (small was a fixed 64px). With `spread`, the fixed `30ch` minimum is gone and label and field split the container into equal columns. Textareas keep a `12ch` minimum width in table cells.
+The minimum height is three lines plus padding at every size (small was a fixed 64px), or the lines in `rows` where the browser reads typed `attr()`. With `spread`, the fixed `30ch` minimum is gone and label and field split the container into equal columns. Textareas keep a `12ch` minimum width in table cells.
 
 The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is still `.ui-filled`.
 

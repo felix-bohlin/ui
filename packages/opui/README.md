@@ -63,7 +63,7 @@ export default function App() {
 }
 ```
 
-Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are props: `children`, and camelCased names such as `endText`. Form controls take the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` props, and Rating, Tabs and ToggleGroup report a choice with `onValueChange(value)`. Components that need context, state or effects (Anchor, Callout, Copy, Dialog, Drawer, FieldGroup, FieldLegend, Fieldset, Menu, NumberField, OneTimeCode, Range, Rating, Select, SelectAll, SortableTable, Tabs, TextField, Textarea, Toaster, ToggleButton and ToggleGroup, and the CheckboxInput, RadioInput and SwitchInput parts) are marked `"use client"`; the rest also render as React Server Components.
+Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are props: `children`, and camelCased names such as `endText`. Form controls take the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` props, and Rating, Tabs and ToggleGroup report a choice with `onValueChange(value)`. Components that need context, state or effects (Anchor, Callout, Copy, Dialog, Drawer, FieldGroup, FieldLegend, Fieldset, FileUpload, Menu, NumberField, Range, Rating, Reactions, Select, SelectAll, SortableTable, Tabs, TextField, Textarea, Toaster, ToggleButton and ToggleGroup, and the CheckboxInput, RadioInput and SwitchInput parts) are marked `"use client"`; the rest also render as React Server Components.
 
 ### Solid components
 
@@ -127,7 +127,7 @@ import { Button, Card } from "opui-css/vue"
 </template>
 ```
 
-`opui-css/react` and `opui-css/vue` export compiled JavaScript with `.d.ts` types, so they load in any bundler and in Node without extra configuration, on the server too, Next.js and Nuxt included. `opui-css/svelte` exports the `.svelte` files with their `.d.ts` types, which `@sveltejs/vite-plugin-svelte` compiles through the package's `svelte` export condition, in SvelteKit and in Vite alike. `opui-css/solid` exports `.jsx` files with their `.d.ts` types, which `@solidjs/vite-plugin` compiles through the package's `solid` export condition, on the server too. `opui-css/astro` exports the `.astro` sources, which Astro compiles.
+`opui-css/react` and `opui-css/vue` export compiled JavaScript with `.d.ts` types, so they load in any bundler and in Node without extra configuration, on the server too, Next.js and Nuxt included. `opui-css/svelte` exports the `.svelte` files with their `.d.ts` types, which `@sveltejs/vite-plugin-svelte` compiles through the package's `svelte` export condition, in SvelteKit and in Vite alike. `opui-css/solid` exports `.jsx` files with their `.d.ts` types, which `@solidjs/vite-plugin` compiles through the package's `solid` export condition, on the server too: its `start` and `ssr` options, the server layer Solid 2 ships, need no setting for the package. `opui-css/astro` exports the `.astro` sources, which Astro compiles.
 
 The compiled React, Svelte and Vue files are ES modules for ES2022, and Node can also `require()` them. A test runner that loads `node_modules` as CommonJS, such as Jest in its default setup, has to transform `opui-css` (Jest: leave it out of `transformIgnorePatterns`). Source maps and declaration maps point at the sources the package ships in `components/`, so stack traces and Go to Definition open the `.tsx`, `.vue` or `.svelte` file. The Vue components are compiled in production mode, so Vue doesn't warn at runtime when a prop has the wrong type; your type checker does.
 
@@ -143,7 +143,7 @@ The `.d.ts` files work with TypeScript 6 and 7. The TypeScript version a project
 
 - Astro: `astro check` (`@astrojs/check` 0.9) runs on TypeScript 6, not on 7.
 - React: `tsc` on TypeScript 6 or 7.
-- Solid: `tsc` on TypeScript 6, with `jsxImportSource: "@solidjs/web"`.
+- Solid: `tsc` on TypeScript 6 or 7, with `jsxImportSource: "@solidjs/web"`.
 - Svelte: `svelte-check` 4.7 runs on TypeScript 6. For TypeScript 7, install it next to TypeScript 6 (`npm install -D typescript@6 @typescript/native@npm:typescript@7`) and run `svelte-check --tsgo`.
 - Vue: `vue-tsc` checks the `.vue` files, and vue-tsc 3.3 runs on TypeScript 6, not on 7. Vue needs the TypeScript version vue-tsc supports.
 

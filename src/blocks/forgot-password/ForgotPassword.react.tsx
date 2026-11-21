@@ -56,15 +56,20 @@ export default function ForgotPassword() {
               <Form action="#">
                 <FieldGroup>
                   <TextField
-                    autoComplete="email"
                     endText="The link works for 30 minutes, so be quick!"
-                    id="forgot-password-email"
+                    htmlFor="forgot-password-email"
                     label="Email"
-                    name="email"
-                    placeholder="rory@lowend.example"
-                    required
-                    type="email"
-                  />
+                  >
+                    <input
+                      aria-describedby="forgot-password-email-end-text"
+                      autoComplete="email"
+                      id="forgot-password-email"
+                      name="email"
+                      placeholder="rory@lowend.example"
+                      required
+                      type="email"
+                    />
+                  </TextField>
                   <Button
                     className="forgot-password-submit"
                     type="submit"

@@ -52,23 +52,25 @@ import {
         <Divider>or use your email, easy peasy</Divider>
         <Form action="#">
           <FieldGroup>
-            <TextField
-              autocomplete="email"
-              id="sign-in-email"
-              label="Email"
-              name="email"
-              placeholder="rory@lowend.example"
-              required
-              type="email"
-            />
-            <TextField
-              autocomplete="current-password"
-              id="sign-in-password"
-              label="Password"
-              name="password"
-              required
-              type="password"
-            />
+            <TextField for="sign-in-email" label="Email">
+              <input
+                autocomplete="email"
+                id="sign-in-email"
+                name="email"
+                placeholder="rory@lowend.example"
+                required
+                type="email"
+              />
+            </TextField>
+            <TextField for="sign-in-password" label="Password">
+              <input
+                autocomplete="current-password"
+                id="sign-in-password"
+                name="password"
+                required
+                type="password"
+              />
+            </TextField>
             <div class="ui-layout-row ui-small ui-spread">
               <Checkbox name="remember">Remember me &lt;3</Checkbox>
               <a class="ui-link" href="#forgot-password">Forgot password?</a>

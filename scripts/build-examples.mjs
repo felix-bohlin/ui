@@ -70,16 +70,14 @@ export const REACT_FIXED_VALUE_TYPES = [
 ]
 
 export const REACT_DEFAULT_VALUE = [
-  "NumberField",
-  "OneTimeCode",
   "Range",
   "Rating",
   "Select",
   "Tabs",
-  "TextField",
-  "Textarea",
   "ToggleGroup",
 ]
+
+export const SVELTE_DEFAULT_VALUE = ["Range"]
 
 const NUMERIC_ATTRIBUTES = [
   "colspan",
@@ -1051,19 +1049,27 @@ const markupTarget = (framework, roles) => {
         ? `v-for="${item.value}"`
         : `:${item.name}="${attributeText(item.value)}"`
       : `${item.name}={${item.value}}`
-  const svelteDefaults = (node) =>
-    !vue &&
-    node.component &&
-    reactPropsOf(node.name, node.component)?.has("defaultChecked")
+  const svelteDefaults = (node) => {
+    if (vue || !node.component) return node
+    const checked = reactPropsOf(node.name, node.component)?.has(
+      "defaultChecked",
+    )
+    const value =
+      SVELTE_DEFAULT_VALUE.includes(node.name) &&
+      !node.attributes.some((item) => item.name === "readonly")
+    return checked || value
       ? {
           ...node,
           attributes: node.attributes.map((item) =>
-            item.name === "checked"
+            checked && item.name === "checked"
               ? { ...item, name: "defaultChecked" }
-              : item,
+              : value && item.name === "value"
+                ? { ...item, name: "defaultValue" }
+                : item,
           ),
         }
       : node
+  }
   const vueModel = (node) =>
     vue && node.component && VUE_MODEL_VALUE.includes(node.name)
       ? {
@@ -1815,6 +1821,21 @@ const HTML_SCRIPT_RULES = [
           values.get("closedby")?.toLowerCase() !== "none",
       )
         ? ['import "opui-css/elements/drawer-swipe.js"']
+        : [],
+  },
+  {
+    covers: (path) => path === "elements/menu.js",
+    lines: (elements) =>
+      elements.some(
+        (element) =>
+          !element.attrs.has("data-keep-open") &&
+          ((element.tag === "a" && element.attrs.has("href")) ||
+            (element.tag === "button" &&
+              ["reset", "submit"].includes(element.values.get("type")))) &&
+          element.parent?.tag === "li" &&
+          !!element.parent.parent?.classes.has("ui-menu"),
+      )
+        ? ['import "opui-css/elements/menu.js"']
         : [],
   },
 ]

@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import "../../css/js/checkbox.js"
-import {
-  computed,
-  inject,
-  type IntrinsicElementAttributes,
-  useAttrs,
-} from "vue"
-import { vSeed } from "../vue"
+import { inject, type IntrinsicElementAttributes, useAttrs } from "vue"
+import { useBound } from "../vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { defined } from "../attrs"
 import { classAttrs } from "../cx"
@@ -24,25 +19,25 @@ const modelValue = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
 
-const model = computed({
-  get: () =>
-    modelValue.value ??
-    (attrs.checked !== undefined && attrs.checked !== false),
-  set: (value) => {
-    modelValue.value = value
-  },
-})
+const bound = useBound()
 
 const field = inject(FieldGroupKey, undefined)
 </script>
 
 <template>
   <input
+    v-if="bound"
     type="checkbox"
     :data-indeterminate="indeterminate ? '' : undefined"
     :name="name ?? field?.name"
     v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"
-    v-seed
-    v-model="model"
+    v-model="modelValue"
+  />
+  <input
+    v-else
+    type="checkbox"
+    :data-indeterminate="indeterminate ? '' : undefined"
+    :name="name ?? field?.name"
+    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"
   />
 </template>

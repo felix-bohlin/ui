@@ -26,11 +26,17 @@ const columns = [
       </p>
       <TextField
         endText="Enter an email address."
+        for={`validity-compare-${column.mode}`}
         label={column.label}
-        placeholder="name@example.com"
-        required
-        type="email"
-      />
+      >
+        <input
+          aria-describedby={`validity-compare-${column.mode}-end-text`}
+          id={`validity-compare-${column.mode}`}
+          placeholder="name@example.com"
+          required
+          type="email"
+        />
+      </TextField>
     </div>)}
   </div>
   <div class="validity-compare-actions">
@@ -65,7 +71,8 @@ const columns = [
       --_helper-text-color: var(--ui-invalid-text);
     }
 
-    &[data-mode="invalid"] :global(.ui-text-field:has(:invalid) .ui-field) {
+    &[data-mode="invalid"]
+      :global(.ui-text-field:has(:invalid) .ui-field-container) {
       border-color: var(--_border-color);
     }
   }

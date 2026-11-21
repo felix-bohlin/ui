@@ -10,6 +10,6 @@ export type Props =
     "bottom" | "end" | "endText" | "label" | "start" | "startText" | "top"
   > &
     Base.Slots<JSX.Element> &
-    // Input attributes
+    // Root attributes
     // include the rest
-    Omit<ComponentProps<"input">, "disabled" | "size">
+    ComponentProps<"div">

@@ -12,4 +12,9 @@ export type Props = BaseProps & Class
 
 export type MessageListSlots = DefaultSlots
 
-export type Slots = { bottom?: Slot; end?: Slot; start?: Slot } & DefaultSlots
+export type Slots = {
+  actions?: Slot
+  bottom?: Slot
+  end?: Slot
+  start?: Slot
+} & DefaultSlots

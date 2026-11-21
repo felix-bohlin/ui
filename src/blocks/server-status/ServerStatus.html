@@ -16,7 +16,7 @@
       Subscribe to updates
     </button>
   </div>
-  <article class="ui-callout ui-warning">
+  <div class="ui-callout ui-warning">
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +34,7 @@
         >
       </p>
     </div>
-  </article>
+  </div>
   <div class="ui-layout-columns ui-large" style="--_columns: 3fr 2fr">
     <section
       class="ui-card ui-outlined"
@@ -383,13 +383,13 @@
           <label class="ui-label" for="server-status-server-status-email"
             >Email</label
           >
-          <span class="ui-field">
+          <span class="ui-field-container">
             <input
               autocomplete="email"
-              placeholder="you@lowend.example"
-              required
               id="server-status-server-status-email"
               name="server-status-email"
+              placeholder="you@lowend.example"
+              required
               type="email"
             />
           </span>

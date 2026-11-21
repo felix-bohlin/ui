@@ -60,23 +60,25 @@ export default function SignIn() {
             <Divider>or use your email, easy peasy</Divider>
             <Form action="#">
               <FieldGroup>
-                <TextField
-                  autoComplete="email"
-                  id="sign-in-email"
-                  label="Email"
-                  name="email"
-                  placeholder="rory@lowend.example"
-                  required
-                  type="email"
-                />
-                <TextField
-                  autoComplete="current-password"
-                  id="sign-in-password"
-                  label="Password"
-                  name="password"
-                  required
-                  type="password"
-                />
+                <TextField htmlFor="sign-in-email" label="Email">
+                  <input
+                    autoComplete="email"
+                    id="sign-in-email"
+                    name="email"
+                    placeholder="rory@lowend.example"
+                    required
+                    type="email"
+                  />
+                </TextField>
+                <TextField htmlFor="sign-in-password" label="Password">
+                  <input
+                    autoComplete="current-password"
+                    id="sign-in-password"
+                    name="password"
+                    required
+                    type="password"
+                  />
+                </TextField>
                 <div className="ui-layout-row ui-small ui-spread">
                   <Checkbox name="remember">Remember me &lt;3</Checkbox>
                   <a className="ui-link" href="#forgot-password">

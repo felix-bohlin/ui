@@ -165,7 +165,7 @@ const createPicker = () => {
     ).join("")}
     <div class="ui-text-field ui-small oklch-picker-value">
       <label class="ui-label" for="oklch-picker-value">Color value</label>
-      <span class="ui-field">
+      <span class="ui-field-container">
         <input aria-describedby="oklch-picker-gamut" autocomplete="off" id="oklch-picker-value" spellcheck="false" type="text" />
       </span>
     </div>
@@ -189,7 +189,9 @@ const createPicker = () => {
     }),
   )
   sliders.get("C")!.input.setAttribute("aria-describedby", "oklch-picker-gamut")
-  const field = root.querySelector<HTMLInputElement>(".ui-field input")!
+  const field = root.querySelector<HTMLInputElement>(
+    ".ui-field-container input",
+  )!
   const gamut = root.querySelector<HTMLElement>(".oklch-picker-gamut")!
   const title = root.querySelector<HTMLElement>(".oklch-picker-title")!
   const alert = root.querySelector<HTMLElement>("[role=alert]")!

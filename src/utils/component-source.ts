@@ -79,7 +79,7 @@ const program = () => {
   return cache.program
 }
 
-export const splitUnion = (text: string) => {
+export const splitUnion = (text: string, separator = "|") => {
   const parts: string[] = []
   let depth = 0
   let current = ""
@@ -87,7 +87,7 @@ export const splitUnion = (text: string) => {
   for (const char of text) {
     if ("(<[{".includes(char)) depth++
     if (")]}".includes(char) || (char === ">" && previous !== "=")) depth--
-    if (char === "|" && depth === 0) {
+    if (char === separator && depth === 0) {
       parts.push(current.trim())
       current = ""
     } else {
@@ -99,10 +99,36 @@ export const splitUnion = (text: string) => {
   return parts
 }
 
+const isWrapped = (text: string) => {
+  if (!text.startsWith("(") || !text.endsWith(")")) return false
+  let depth = 0
+  return [...text].every((char, index) => {
+    if (char === "(") depth++
+    if (char === ")") depth--
+    return depth > 0 || index === text.length - 1
+  })
+}
+
+const innerOf = (text: string) => (isWrapped(text) ? text.slice(1, -1) : text)
+
+const isLiteral = (text: string) =>
+  splitUnion(innerOf(text)).every((part) => /^"[^"]*"$/.test(part))
+
+const flattened = (part: string): string[] => {
+  const inner = innerOf(part)
+  const union = splitUnion(inner)
+  if (union.length > 1) {
+    return inner.includes("=>") ? [part] : union.flatMap(flattened)
+  }
+  const types = [...new Set(splitUnion(inner, "&"))]
+  if (types.length > 1) return types.some(isLiteral) ? [] : [part]
+  return types[0] === part ? [part] : flattened(types[0])
+}
+
 const cleanType = (text: string) => {
-  const parts = splitUnion(text).filter(
-    (part) => part !== "undefined" && part !== "null",
-  )
+  const parts = splitUnion(text)
+    .flatMap(flattened)
+    .filter((part) => part !== "undefined" && part !== "null")
   const hasString = parts.includes("string")
   return parts
     .filter((part) => !(hasString && /^\(string & .+\)$/.test(part)))

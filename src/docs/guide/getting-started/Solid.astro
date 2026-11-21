@@ -74,8 +74,8 @@ import "./styles/main.css"`}
   <section id="typescript">
     <h2>TypeScript</h2>
     <p>
-      The types work with <code>moduleResolution</code> set to
-      <code>"bundler"</code>, and <code>jsxImportSource</code> set to
+      The types work with TypeScript 6 and 7, with <code>moduleResolution</code>
+      set to <code>"bundler"</code> and <code>jsxImportSource</code> set to
       <code>"@solidjs/web"</code>.
     </p>
   </section>
@@ -91,13 +91,35 @@ import "./styles/main.css"`}
   <section id="ssr">
     <h2>Server rendering</h2>
     <p>
-      Every component renders full HTML on the server and hydrates. The props in
-      the last column need hydration.
+      Every component renders full HTML on the server and hydrates. Solid 2
+      renders on the server with the <code>start</code> and <code>ssr</code>
+      options of <code>@solidjs/vite-plugin</code>, which need no setting for
+      the package:
     </p>
+    <Code
+      code={`// vite.config.ts
+import solid from "@solidjs/vite-plugin"
+import { defineConfig } from "vite"
+
+export default defineConfig({
+  plugins: [solid({ ssr: true, start: true })],
+})`}
+      lang="ts"
+    />
     <p>
-      A choice the user makes before the page hydrates stays on screen.
-      <code>Rating</code>, <code>Tabs</code> and <code>ToggleGroup</code> pass
-      it to <code>onValueChange</code> as they hydrate.
+      A page with more than one root gives each its own <code>renderId</code> in
+      <code>renderToString</code> and <code>hydrate</code>, so the ids the
+      components generate differ between the roots. Roots hydrated in the same
+      task each claim their server markup. A root hydrated in a later task
+      renders again over its markup, so load the code of every root first and
+      call <code>hydrate</code> for all of them in one loop.
+    </p>
+    <p>The props in the last column need hydration.</p>
+    <p>
+      A choice the user makes before the page hydrates stays on screen, as on a
+      plain Solid input: Solid doesn't call <code>onChange</code> or
+      <code>onValueChange</code> for it, and a controlled value misses it. A
+      form that reads its values on submit gets it.
     </p>
     <ServerSupport framework="solid" />
   </section>

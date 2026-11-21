@@ -1,58 +1,27 @@
 <script setup lang="ts">
 import "../../elements/character-count.js"
 import "../../elements/text-field.js"
-import { computed, inject, useId } from "vue"
-import { useInputAttrs, vSeed } from "../vue"
+import { computed } from "vue"
 import { TrimmedSlot } from "../whitespace.vue"
-import Button from "../Button/Button.vue"
-import { FieldGroupKey } from "../FieldGroup/context.vue"
-import { fieldDescribedBy } from "../id"
-import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
   autoFit,
   characterCount,
   characterCountLabel,
-  disabled,
   dropZone,
   endText,
-  error,
+  for: htmlFor,
   hideLabel,
-  id,
   label,
-  name,
   passwordToggle,
   passwordToggleLabel = "Show password",
   size,
   spread,
   startText,
-  type = "text",
-  value,
   variant,
 } = defineProps<Props>()
 const slots = defineSlots<Slots>()
-
-defineOptions({
-  inheritAttrs: false,
-})
-
-const attrs = useInputAttrs()
-
-const modelValue = defineModel<string | number>()
-
-const model = computed({
-  get: () => modelValue.value ?? value,
-  set: (value) => {
-    modelValue.value = value
-  },
-})
-
-const field = inject(FieldGroupKey, undefined)
-
-const uid = useId()
-
-const base = computed(() => id || `text-field-${uid}`)
 
 const hasLabel = () => Boolean(label || slots.label)
 
@@ -62,20 +31,17 @@ const hasStartText = () => Boolean(startText || slots["start-text"])
 
 const hasEndText = () => Boolean(endText || slots["end-text"] || characterCount)
 
-const inputId = () => (hasLabel() || passwordToggle ? base.value : id)
+const startId = () => (slots.start ? `${htmlFor}-start` : undefined)
 
-const startId = () => (slots.start ? `${base.value}-start` : undefined)
+const endId = () => (slots.end ? `${htmlFor}-end` : undefined)
 
-const endId = () => (slots.end ? `${base.value}-end` : undefined)
+const topId = () => (slots.top ? `${htmlFor}-top` : undefined)
 
-const topId = () => (slots.top ? `${base.value}-top` : undefined)
+const bottomId = () => (slots.bottom ? `${htmlFor}-bottom` : undefined)
 
-const bottomId = () => (slots.bottom ? `${base.value}-bottom` : undefined)
+const startTextId = () => (hasStartText() ? `${htmlFor}-start-text` : undefined)
 
-const startTextId = () =>
-  hasStartText() ? `${base.value}-start-text` : undefined
-
-const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
+const endTextId = () => (hasEndText() ? `${htmlFor}-end-text` : undefined)
 </script>
 
 <template>
@@ -92,59 +58,36 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
       size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
-    v-bind="styleAttrs($attrs.style)"
   >
     <label
       v-if="hasLabel()"
-      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
-      :for="inputId()"
+      :class="hideLabel ? 'ui-sr-only' : 'ui-label'"
+      :for="htmlFor"
       >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
     /></label>
     <span v-if="hasStartText()" class="ui-start-text" :id="startTextId()"
       >{{ startText }}<slot name="start-text"></slot
     ></span>
-    <span class="ui-field">
+    <span class="ui-field-container">
       <span v-if="$slots.top" class="ui-top" :id="topId()">
         <slot name="top"></slot>
       </span>
       <span v-if="$slots.start" class="ui-start" :id="startId()">
         <slot name="start"></slot>
       </span>
-      <input
-        v-bind="attrs"
-        :aria-describedby="
-          fieldDescribedBy(
-            {
-              bottom: bottomId(),
-              end: endId(),
-              endText: endTextId(),
-              start: startId(),
-              startText: startTextId(),
-              top: topId(),
-            },
-            attrs['aria-describedby'],
-          )
-        "
-        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
-        :aria-labelledby="attrs['aria-labelledby']"
-        :disabled="disabled"
-        :id="inputId()"
-        :name="name ?? field?.name"
-        :type="type"
-        v-seed
-        v-model="model"
-      />
+      <slot></slot>
       <span v-if="$slots.end || passwordToggle" class="ui-end" :id="endId()">
         <slot name="end"></slot
-        ><Button
+        ><button
           v-if="passwordToggle"
+          class="ui-button ui-round"
+          type="button"
           :aria-label="passwordToggleLabel"
           aria-pressed="false"
           command="--toggle-password"
-          :commandfor="inputId()"
-          :disabled="disabled"
-          round
-          ><span
+          :commandfor="htmlFor"
+        >
+          <span
             v-if="$slots['icon-unchecked']"
             aria-hidden="true"
             class="ui-icon-unchecked"
@@ -173,8 +116,8 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
             width="24"
             height="24"
             viewBox="0 0 24 24"
-          ></svg
-        ></Button>
+          ></svg>
+        </button>
       </span>
       <span v-if="$slots.bottom" class="ui-bottom" :id="bottomId()">
         <slot name="bottom"></slot>
@@ -190,6 +133,5 @@ const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
         :label="characterCountLabel"
       ></component
     ></span>
-    <slot></slot>
   </component>
 </template>

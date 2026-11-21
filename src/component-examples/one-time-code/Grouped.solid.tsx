@@ -4,11 +4,20 @@ import { OneTimeCode } from "opui-css/solid"
 export default function Grouped() {
   return (
     <OneTimeCode
-      defaultValue="482"
+      for="one-time-code-grouped-1"
       grouped
       label="Verification code"
-      name="code"
-      required
-    />
+    >
+      <input
+        autocomplete="one-time-code"
+        id="one-time-code-grouped-1"
+        inputmode="numeric"
+        maxlength="6"
+        name="code"
+        pattern="[0-9]{6}"
+        required
+        defaultValue="482"
+      />
+    </OneTimeCode>
   )
 }

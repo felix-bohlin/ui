@@ -3,6 +3,7 @@ import { actionValues, fixOptions, parseTodo, replyOf } from "./todo.ts"
 const SECTIONS = [
   "Accessibility",
   "Bugs",
+  "Compiler",
   "Docs",
   "Future plans",
   "Limitations",

@@ -16,6 +16,11 @@ jobs:
       contents: read
     uses: ./.github/workflows/apps.yml
 
+  reference:
+    permissions:
+      contents: read
+    uses: ./.github/workflows/reference.yml
+
   check:
     runs-on: ubuntu-latest
     env:
@@ -104,7 +109,7 @@ jobs:
 
   deploy:
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-    needs: [apps, check, e2e]
+    needs: [apps, check, e2e, reference]
     runs-on: ubuntu-latest
     env:
       GIT_LFS_SKIP_SMUDGE: "1"

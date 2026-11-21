@@ -18,6 +18,6 @@
   untrack(() => warnReplacedId("DialogTitle", "Dialog", id, dialog?.titleId))
 </script>
 
-<h2 {...classAttrs([className])} id={dialog?.titleId ?? id} {...rest}>
+<h2 {...classAttrs(className)} id={dialog?.titleId ?? id} {...rest}>
   {@render children?.()}
 </h2>

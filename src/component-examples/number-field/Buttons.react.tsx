@@ -20,8 +20,7 @@ export default function Buttons() {
           </svg>
         }
         decreaseLabel="Minska"
-        defaultValue={1}
-        id="number-field-buttons-1"
+        htmlFor="number-field-buttons-1"
         increaseIcon={
           <svg
             data-icon="chevron-up"
@@ -39,9 +38,15 @@ export default function Buttons() {
         }
         increaseLabel="Öka"
         label="Antal"
-        max={10}
-        min={1}
-      />
+      >
+        <input
+          id="number-field-buttons-1"
+          max="10"
+          min="1"
+          type="number"
+          defaultValue="1"
+        />
+      </NumberField>
     </div>
   )
 }

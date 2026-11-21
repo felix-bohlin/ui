@@ -18,7 +18,7 @@ const itemTypes = Object.values(
 ).flatMap((source) =>
   [
     ...source.matchAll(
-      /export type (\w+Item) =([\s\S]*?)(?=\nexport |(?![\s\S]))/g,
+      /export type (\w+Item)(?:<[^>]*>)? =([\s\S]*?)(?=\nexport |(?![\s\S]))/g,
     ),
   ].map(([, name, body]) => ({
     keys: [...body.matchAll(/(\w+)\??:/g)].map(([, key]) => key),
@@ -136,7 +136,7 @@ const parts = new Set([
   ".ui-description",
   ".ui-end",
   ".ui-end-text",
-  ".ui-field",
+  ".ui-field-container",
   ".ui-floating",
   ".ui-footer",
   ".ui-header",
@@ -158,6 +158,7 @@ const parts = new Set([
 ])
 const partExceptions = new Set([".ui-card-link"])
 const slots = new Set([
+  "actions",
   "bottom",
   "close-icon",
   "datalist",

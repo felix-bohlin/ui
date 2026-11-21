@@ -4,5 +4,5 @@ import type { HTMLAttributes } from "astro/types"
 export type Props =
   // Unique component props
   Base.Props &
-    // Some input attributes for spreading
-    HTMLAttributes<"textarea">
+    // Root attributes
+    HTMLAttributes<"div">

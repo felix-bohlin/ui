@@ -12,10 +12,16 @@ import {
 
 <template>
   <Form>
-    <Callout id="form-error-summary-1" severity="critical" tabindex="-1">
+    <Callout
+      aria-labelledby="form-error-summary-4"
+      id="form-error-summary-1"
+      role="group"
+      severity="critical"
+      tabindex="-1"
+    >
       <CalloutIcon />
       <CalloutContent class="ui-rich-text">
-        <h3>Fix 2 fields to create your account</h3>
+        <h3 id="form-error-summary-4">Fix 2 fields to create your account</h3>
         <ul>
           <li><a href="#form-error-summary-2">Enter your work email</a></li>
           <li>
@@ -28,22 +34,32 @@ import {
     </Callout>
     <FieldGroup>
       <TextField
-        autocomplete="email"
         endText="Enter your work email."
-        error
-        id="form-error-summary-2"
+        for="form-error-summary-2"
         label="Email"
-        type="email"
-      />
+      >
+        <input
+          aria-describedby="form-error-summary-2-end-text"
+          aria-invalid="true"
+          autocomplete="email"
+          id="form-error-summary-2"
+          type="email"
+        />
+      </TextField>
       <TextField
-        autocomplete="new-password"
         endText="Choose a password with at least 12 characters."
-        error
-        id="form-error-summary-3"
+        for="form-error-summary-3"
         label="Password"
-        type="password"
-        value="hunter2"
-      />
+      >
+        <input
+          aria-describedby="form-error-summary-3-end-text"
+          aria-invalid="true"
+          autocomplete="new-password"
+          id="form-error-summary-3"
+          type="password"
+          value="hunter2"
+        />
+      </TextField>
     </FieldGroup>
     <FieldGroup>
       <Button type="submit" variant="filled">Create account</Button>

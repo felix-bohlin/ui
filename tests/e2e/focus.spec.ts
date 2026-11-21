@@ -80,7 +80,9 @@ for (const kind of ["number-field", "select", "text-field", "textarea"]) {
       ),
     )
     const field = page
-      .locator(`.ui-${kind}:not(:has(:disabled, [readonly])) .ui-field`)
+      .locator(
+        `.ui-${kind}:not(:has(:disabled, [readonly])) .ui-field-container`,
+      )
       .first()
     const before = await fieldEdge(field)
     await focusByKeyboard(
@@ -106,7 +108,7 @@ test("a focused field keeps its border width when the theme leaves --ui-focus-bo
   page,
 }) => {
   await openFixture(page, "html", "text-field")
-  const field = page.locator(".ui-text-field .ui-field").first()
+  const field = page.locator(".ui-text-field .ui-field-container").first()
   const before = await fieldEdge(field)
   await focusByKeyboard(page, field.locator("input").first())
 

@@ -27,6 +27,7 @@ export const keywords = ["multiline", "text area"]
   slug="textarea"
   browserSupport={[
     "alt-text-generated-content",
+    "attr",
     "container-queries",
     "field-sizing",
     "has",
@@ -36,6 +37,7 @@ export const keywords = ["multiline", "text area"]
     "user-pseudos",
   ]}
   fallbacks={{
+    attr: "Without typed `attr()`, a textarea is at least three lines tall, whatever `rows` says.",
     "reading-flow":
       "Without `reading-flow`, Tab and screen readers follow the markup, which puts the top and start parts before the control, as they're drawn. Hand-written HTML needs that order too.",
   }}
@@ -72,6 +74,34 @@ export const keywords = ["multiline", "text area"]
     </li>
     <li slot="when-not">Formatted text: use a rich text editor.</li>
   </Usage>
+
+  <section id="textarea">
+    <h2>Textarea</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Write the <code>&lt;textarea&gt;</code> inside the field, with its
+        <code>id</code> set to <code>for</code>, and bind, name and validate it
+        like any textarea. The types require <code>for</code>.
+      </Fragment>
+      <Fragment slot="react">
+        Write the <code>&lt;textarea&gt;</code> inside the field, with its
+        <code>id</code> set to <code>htmlFor</code>, and bind, name and validate
+        it like any textarea. The types require <code>htmlFor</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Put the <code>&lt;textarea&gt;</code> directly in
+        <code>.ui-field-container</code>, and point the
+        <code>&lt;label for&gt;</code> at its <code>id</code>.
+      </Fragment>
+    </Conditional>
+    <p>
+      Each part the field shows has an id that starts with the textarea's:
+      <code>x-start-text</code>, <code>x-top</code>, <code>x-start</code>,
+      <code>x-end</code>, <code>x-bottom</code> and <code>x-end-text</code> for
+      a textarea with <code>id="x"</code>. Point its
+      <code>aria-describedby</code> at the ones it shows, in that order.
+    </p>
+  </section>
 
   <section id="variants">
     <h2>Variants</h2>
@@ -156,26 +186,28 @@ export const keywords = ["multiline", "text area"]
     <h2>Binding</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        No bound value: read the <code>textarea</code> in a script.
+        Read the <code>textarea</code> in a script.
       </Fragment>
       <Fragment slot="html"
         >Read the <code>textarea</code> in a script.</Fragment
       >
       <Fragment slot="react">
-        Use <code>value</code> and <code>onChange</code>.
+        Give the textarea <code>value</code> and <code>onChange</code>.
       </Fragment>
       <Fragment slot="solid">
-        Use <code>value</code> and <code>onInput</code>.
+        Give the textarea <code>value</code> and <code>onInput</code>.
       </Fragment>
-      <Fragment slot="svelte">Use <code>bind:value</code>.</Fragment>
-      <Fragment slot="vue">Use <code>v-model</code>.</Fragment>
+      <Fragment slot="svelte">
+        Use <code>bind:value</code> on the textarea.
+      </Fragment>
+      <Fragment slot="vue">Use <code>v-model</code> on the textarea.</Fragment>
     </Conditional>
     <AutoExample name="Binding" column />
   </section>
 
   <section id="validation">
     <h2>Validation</h2>
-    <ValidationNotes element="textarea" named subject="Fields" />
+    <ValidationNotes element="textarea" own subject="Fields" />
 
     <AutoExample name="Validation" />
   </section>
@@ -190,11 +222,23 @@ export const keywords = ["multiline", "text area"]
     <AutoExample name="Spread" column spacious />
   </section>
 
+  <section id="rows">
+    <h2>Rows</h2>
+    <p>
+      A textarea starts three lines tall and grows with its text.
+      <code>rows</code> sets the lines it starts at, so <code>rows="1"</code>
+      makes a one-line field that grows, like a reply box.
+    </p>
+
+    <AutoExample name="Rows" column />
+  </section>
+
   <section id="auto-fit">
     <h2>Auto-fit</h2>
     <p>
-      Grows from 3 to 20 lines by default.
-      <PropOrClass prop="autoFit" class=".ui-auto-fit" /> also fits the width.
+      Grows from 3 lines, or the lines in <code>rows</code>, to 20 lines by
+      default. <PropOrClass prop="autoFit" class=".ui-auto-fit" /> also fits the
+      width.
     </p>
 
     <AutoExample name="AutoFit" class="flex" />
@@ -221,12 +265,17 @@ export const keywords = ["multiline", "text area"]
       <UITextarea
         characterCount
         endText="Supporting text"
+        for="textarea-label"
         label="Label"
-        maxlength={160}
-        placeholder="Placeholder"
         startText="Start text"
         style="inline-size: 20rem"
       >
+        <textarea
+          aria-describedby="textarea-label-start-text textarea-label-top textarea-label-start textarea-label-end textarea-label-bottom textarea-label-end-text"
+          id="textarea-label"
+          maxlength={160}
+          placeholder="Placeholder"
+        ></textarea>
         <span slot="top">Top</span>
         <span slot="start">€</span>
         <span slot="end">EUR</span>

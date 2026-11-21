@@ -1,6 +1,6 @@
 <opui-number-field class="ui-number-field">
   <label class="ui-label" for="number-field-validation-1">Bandmates</label>
-  <span class="ui-field">
+  <span class="ui-field-container">
     <span class="ui-start">
       <button
         class="ui-button ui-round"
@@ -19,7 +19,7 @@
         ></svg>
       </button>
     </span>
-    <input min="1" required id="number-field-validation-1" type="number" />
+    <input id="number-field-validation-1" min="1" required type="number" />
     <span class="ui-end">
       <button
         class="ui-button ui-round"
@@ -42,7 +42,7 @@
 </opui-number-field>
 <opui-number-field class="ui-number-field">
   <label class="ui-label" for="number-field-validation-2">Quantity</label>
-  <span class="ui-field">
+  <span class="ui-field-container">
     <span class="ui-start">
       <button
         class="ui-button ui-round"
@@ -62,12 +62,12 @@
       </button>
     </span>
     <input
-      min="1"
-      value="6"
       aria-describedby="number-field-validation-2-end-text"
       aria-invalid="true"
       id="number-field-validation-2"
+      min="1"
       type="number"
+      value="6"
     />
     <span class="ui-end">
       <button

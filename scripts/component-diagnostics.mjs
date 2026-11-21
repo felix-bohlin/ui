@@ -54,6 +54,11 @@ export const DIAGNOSTICS = {
     explain:
       'A component\'s `<script>` may only import modules for their side effects (`import "../../elements/callout"`), which the ports import the same way. Move the code into the module it imports.',
   },
+  BC112: {
+    title: "A group value read in a form the compiler can't follow",
+    explain:
+      "An item of a group (a radio or checkbox in a group) reads the group's value as `group?.value`, which the compiler turns into `group?.defaultValue` for the item's default. Read the group's value that way, and only that way.",
+  },
   BC201: {
     title: "An attribute the compiler can't translate",
     explain:
@@ -67,7 +72,7 @@ export const DIAGNOSTICS = {
   BC203: {
     title: "A .map() callback the compiler can't translate",
     explain:
-      "A list compiles from `items.map((item, index) => <el>)`: the item and an optional index, consts before the return, and one element or a condition between two as the result, which gets the key. Move other statements into a const before the list, and wrap several elements in one.",
+      "A list compiles from `items.map((item, index) => <el>)`: the item as one name or an object pattern of plain names, an optional index, consts before the return, and one element or a condition between two as the result, which gets the key. Move other statements into a const before the list, and wrap several elements in one.",
   },
   BC204: {
     title: "A <slot> with attributes other than name",
@@ -134,6 +139,11 @@ export const DIAGNOSTICS = {
     explain:
       "The events in the folder's Events type are listened to on the root element. A root that is a component, or several roots, has no element to listen on. Render one root element, the one that fires the event, or drop the Events type from types.ts.",
   },
+  BC405: {
+    title: "A provided context value that is new on every render",
+    explain:
+      "The React port memoizes the provided context value on what it reads. The rest props object itself, or a const that holds a function, an object or an array, is new on every render, so the memo would never hold. Read a member of the rest props (`rest.id`), destructure the attribute, or provide the primitive values the const is built from.",
+  },
   BC501: {
     title: "A Vue attribute order the compiler can't keep",
     explain:
@@ -178,6 +188,11 @@ export const DIAGNOSTICS = {
     title: "Type files of a folder with a hand-written component",
     explain:
       "The framework type files are compiled from every component of the folder, so a folder where one component is written by hand gets hand-written type files too. List the type files in scripts/hand-written-components.json, or make the component compile.",
+  },
+  BC607: {
+    title: "A link component type the compiler can't place",
+    explain:
+      "A props type whose `as` takes a framework's link component declares a type parameter `Link = never`, since Astro and Svelte take element names only, while React, Solid and Vue pass their link component type. Such an `as` can't sit next to a model. Write `Link = never`, and keep the link component off a component with a model.",
   },
 }
 

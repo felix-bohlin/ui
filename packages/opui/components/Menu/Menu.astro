@@ -3,7 +3,7 @@ import type { Props } from "./types.astro"
 import { menuContext } from "./context.astro"
 import { defined } from "../attrs"
 import { warnMissingId } from "../dev"
-import { tagAttrs } from "../tag"
+import { disabledLink, tagAttrs } from "../tag"
 
 export const title = "Menu"
 
@@ -14,6 +14,7 @@ const {
   dense,
   id,
   items,
+  orientation,
   popover = "auto",
   side,
   ...rest
@@ -35,6 +36,7 @@ const html = await menuContext.provide({ rootId }, () =>
       "ui-bordered": bordered,
       "ui-dense": dense,
     },
+    orientation && orientation !== "vertical" && `ui-${orientation}`,
     side && side !== "block-end" && `ui-${side}`,
     className,
   ]}
@@ -44,6 +46,7 @@ const html = await menuContext.provide({ rootId }, () =>
 >
   {items?.map(
     ({
+      as,
       borderTop,
       color,
       disabled,
@@ -53,8 +56,15 @@ const html = await menuContext.provide({ rootId }, () =>
       shortcut,
       ...itemRest
     }) => {
-      const Tag = href ? "a" : "button"
-      const closes = !href && !keepOpen && !disabled
+      const Tag = disabledLink(as, disabled)
+        ? "a"
+        : (as ?? (href ? "a" : "button"))
+      const closes =
+        !href &&
+        !keepOpen &&
+        !disabled &&
+        itemRest.type !== "submit" &&
+        itemRest.type !== "reset"
 
       return <li
         class:list={[{ "ui-border-top": borderTop }, color && `ui-${color}`]}
@@ -63,6 +73,7 @@ const html = await menuContext.provide({ rootId }, () =>
           {...tagAttrs(Tag, disabled, href)}
           command={closes ? "hide-popover" : undefined}
           commandfor={closes ? rootId : undefined}
+          data-keep-open={keepOpen ? "" : undefined}
           {...defined(itemRest)}
         >
           <div class="ui-text">
@@ -85,4 +96,5 @@ const html = await menuContext.provide({ rootId }, () =>
 
 <script>
   import "../../elements/close-on-navigate.js"
+  import "../../elements/menu.js"
 </script>

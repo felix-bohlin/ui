@@ -418,6 +418,10 @@ const READERS = {
     `<table><thead>  <tr>  <th>  <label> <input type="checkbox"> <span class="hidden">Select all</span>  </label>  </th> <th> File </th> <th> Size </th>  </tr>  </thead> <tbody>  <tr>  <td>  <label> <input type="checkbox"> <span class="hidden">Select Invoice.pdf</span>  </label>  </td> <td> Invoice.pdf </td> <td> 120 kB </td>  </tr>  </tbody></table>`,
     `<table><thead><tr><th><label><input type="checkbox"> <span class="hidden">Select all</span> </label></th><th>File</th><th>Size</th></tr></thead><tbody><tr><td><label><input type="checkbox"> <span class="hidden">Select Invoice.pdf</span> </label></td><td>Invoice.pdf</td><td>120 kB</td></tr></tbody></table>`,
   ],
+  "a table with visually hidden labels that end in a comment": [
+    `<table><thead>  <tr>  <th>  <label> <input type="checkbox"> <span class="hidden">Select all</span>  </label>  </th> <th> File </th> <th> Size </th>  </tr>  </thead> <tbody>  <tr>  <td>  <label> <input type="checkbox"> <span class="hidden">Select Invoice.pdf</span>  </label>  </td> <td> Invoice.pdf </td> <td> 120 kB </td>  </tr>  </tbody></table>`,
+    `<table><thead><tr><th><label><!--$--><input type="checkbox"><!--/--><!--$--><span class="hidden"><!--$--><!--/--><!--$-->Select all<!--/--></span><!--/--><!--$--><!--/--></label></th><th>File</th><th>Size</th></tr></thead><tbody><tr><td><label><!--$--><input type="checkbox"><!--/--><!--$--><span class="hidden"><!--$--><!--/--><!--$-->Select Invoice.pdf<!--/--></span><!--/--><!--$--><!--/--></label></td><td>Invoice.pdf</td><td>120 kB</td></tr></tbody></table>`,
+  ],
 }
 
 repro(WEBKIT_INNER_TEXT_HIDDEN_NODES, () => {

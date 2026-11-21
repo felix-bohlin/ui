@@ -5,13 +5,17 @@
 <div lang="sv">
   <NumberField
     decreaseLabel="Minska"
-    id="number-field-buttons-1"
+    for="number-field-buttons-1"
     increaseLabel="Öka"
     label="Antal"
-    max={10}
-    min={1}
-    value={1}
   >
+    <input
+      id="number-field-buttons-1"
+      max="10"
+      min="1"
+      type="number"
+      value="1"
+    />
     {#snippet decreaseIcon()}
       <svg
         data-icon="chevron-down"

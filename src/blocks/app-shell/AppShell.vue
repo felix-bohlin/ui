@@ -61,15 +61,15 @@ import {
         </svg>
         Bassbook
       </a>
-      <TextField
-        aria-label="Search"
-        class="shell-search"
-        id="app-shell-search"
-        name="app-shell-search"
-        placeholder="Search bassists and bands"
-        size="small"
-        type="search"
-      >
+      <TextField class="shell-search" for="app-shell-search" size="small">
+        <input
+          aria-describedby="app-shell-search-start"
+          aria-label="Search"
+          id="app-shell-search"
+          name="app-shell-search"
+          placeholder="Search bassists and bands"
+          type="search"
+        />
         <template #start>
           <svg
             data-icon="search"
@@ -111,10 +111,10 @@ import {
         as="button"
         command="toggle-popover"
         commandfor="app-shell-account"
+        label="Account menu for Rory Rootnote"
         type="button"
       >
-        <span class="ui-sr-only">Account menu for</span>
-        <span aria-label="Rory Rootnote" role="img">RR</span>
+        RR
       </Avatar>
       <Menu align="end" id="app-shell-account">
         <li class="ui-heading">rory@lowend.example</li>

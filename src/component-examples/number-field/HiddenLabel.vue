@@ -3,11 +3,7 @@ import { NumberField } from "opui-css/vue"
 </script>
 
 <template>
-  <NumberField
-    hideLabel
-    id="number-field-hidden-label-1"
-    label="Quantity"
-    :min="1"
-    :value="1"
-  />
+  <NumberField for="number-field-hidden-label-1" hideLabel label="Quantity">
+    <input id="number-field-hidden-label-1" min="1" type="number" value="1" />
+  </NumberField>
 </template>

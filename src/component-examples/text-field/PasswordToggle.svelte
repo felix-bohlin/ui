@@ -2,19 +2,24 @@
   import { TextField } from "opui-css/svelte"
 </script>
 
+<TextField for="text-field-password-toggle-1" label="Password" passwordToggle>
+  <input
+    autocomplete="current-password"
+    id="text-field-password-toggle-1"
+    type="password"
+  />
+</TextField>
 <TextField
-  autocomplete="current-password"
-  id="text-field-password-toggle-1"
-  label="Password"
-  passwordToggle
-  type="password"
-/>
-<TextField
-  autocomplete="new-password"
   endText="At least 12 characters."
-  id="text-field-password-toggle-2"
+  for="text-field-password-toggle-2"
   label="New password"
-  minlength={12}
   passwordToggle
-  type="password"
-/>
+>
+  <input
+    aria-describedby="text-field-password-toggle-2-end-text"
+    autocomplete="new-password"
+    id="text-field-password-toggle-2"
+    minlength="12"
+    type="password"
+  />
+</TextField>

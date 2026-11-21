@@ -14,7 +14,9 @@ export default function DividerExample() {
       <Fieldset>
         <FieldLegend>Post content</FieldLegend>
         <FieldGroup>
-          <TextField label="Title" placeholder="My new post" />
+          <TextField htmlFor="form-divider-1" label="Title">
+            <input id="form-divider-1" placeholder="My new post" />
+          </TextField>
         </FieldGroup>
       </Fieldset>
       <Divider />

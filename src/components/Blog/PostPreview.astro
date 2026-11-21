@@ -72,18 +72,18 @@ const id = (name: string) => `blog-preview-${slug}-${name}`
     </button>
   </div>}
   {slug === "callout-relative-colors" && <div class="blog-preview-stack">
-    <article class="ui-callout ui-info">
+    <div class="ui-callout ui-info">
       <svg aria-hidden="true" viewBox="0 0 16 16">
         <path d={icons.info} fill="currentColor" />
       </svg>
       <div class="ui-content">One hue, every shade.</div>
-    </article>
-    <article class="ui-callout ui-success">
+    </div>
+    <div class="ui-callout ui-success">
       <svg aria-hidden="true" viewBox="0 0 16 16">
         <path d={icons.success} fill="currentColor" />
       </svg>
       <div class="ui-content">Derived with oklch(from).</div>
-    </article>
+    </div>
   </div>}
   {slug === "carousel-css-only" && <ul
     aria-label="Slides"
@@ -148,7 +148,7 @@ const id = (name: string) => `blog-preview-${slug}-${name}`
     <legend>Contact</legend>
     <div class="ui-text-field ui-small">
       <label class="ui-label" for={id("email")}>Email</label>
-      <span class="ui-field">
+      <span class="ui-field-container">
         <input id={id("email")} required type="email" value="hi@opui.dev" />
       </span>
     </div>
@@ -200,7 +200,7 @@ const id = (name: string) => `blog-preview-${slug}-${name}`
   </label>}
   {slug === "select-base-select" && <div class="ui-select">
     <label class="ui-label" for={id("role")}>Role</label>
-    <span class="ui-field">
+    <span class="ui-field-container">
       <select id={id("role")}>
         <button inert>
           <selectedcontent />
@@ -265,7 +265,7 @@ const id = (name: string) => `blog-preview-${slug}-${name}`
   </div>}
   {slug === "text-field-user-invalid" && <div class="ui-text-field">
     <label class="ui-label" for={id("email-invalid")}>Email</label>
-    <span class="ui-field">
+    <span class="ui-field-container">
       <input
         aria-describedby={id("email-invalid-hint")}
         aria-invalid="true"
@@ -280,7 +280,7 @@ const id = (name: string) => `blog-preview-${slug}-${name}`
   </div>}
   {slug === "textarea-field-sizing" && <div class="ui-textarea">
     <label class="ui-label" for={id("message")}>Message</label>
-    <span class="ui-field">
+    <span class="ui-field-container">
       <textarea
         id={id("message")}
         rows="2"

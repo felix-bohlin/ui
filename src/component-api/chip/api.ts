@@ -22,8 +22,15 @@ export default {
       default: '"div"',
       description:
         'The element to render. Defaults to `"a"` with `href`. Use `"span"` inside a `<label>` or `<button>`, like a count in a tab.',
+      frameworks: ["astro", "svelte"],
       prop: "as",
-      type: '"a" | "button" | "div" | "span"',
+    },
+    {
+      default: '"div"',
+      description:
+        'The element to render, or the link component of your router with `href`, such as Next\'s `Link`, Solid Router\'s `A` or Nuxt\'s `NuxtLink`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead. Use `"span"` inside a `<label>` or `<button>`, like a count in a tab.',
+      frameworks: ["react", "solid", "vue"],
+      prop: "as",
     },
     {
       default: "false",

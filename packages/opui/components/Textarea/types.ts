@@ -3,7 +3,7 @@ export type Props = {
   characterCount?: boolean
   characterCountLabel?: string
   endText?: string
-  error?: boolean
+  for: string
   hideLabel?: boolean
   label?: string
   size?: "x-small" | "small" | "medium" | "large"

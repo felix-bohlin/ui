@@ -22,14 +22,14 @@ import { Button, FieldGroup, List, ListItem, TextField } from "opui-css/vue"
     <component is="search">
       <form action="#">
         <FieldGroup orientation="horizontal">
-          <TextField
-            hideLabel
-            id="error-page-q"
-            label="Search Bassbook"
-            name="q"
-            placeholder="Search bassists and bands"
-            type="search"
-          >
+          <TextField for="error-page-q" hideLabel label="Search Bassbook">
+            <input
+              aria-describedby="error-page-q-start"
+              id="error-page-q"
+              name="q"
+              placeholder="Search bassists and bands"
+              type="search"
+            />
             <template #start>
               <svg
                 data-icon="search"

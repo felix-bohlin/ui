@@ -1,9 +1,10 @@
 <script lang="ts">
   import "../../elements/close-on-navigate.js"
+  import "../../elements/menu.js"
   import { untrack } from "svelte"
   import { getMenuContext, setMenuContext } from "./context.svelte"
   import { warnMissingId } from "../dev"
-  import { tagAttrs } from "../tag"
+  import { disabledLink, tagAttrs } from "../tag"
   import { defined } from "../attrs"
   import { classAttrs } from "../cx"
   import type { Props } from "./types.svelte"
@@ -15,6 +16,7 @@
     dense,
     id,
     items,
+    orientation,
     popover = "auto",
     side,
 
@@ -42,6 +44,7 @@
       "ui-bordered": bordered,
       "ui-dense": dense,
     },
+    orientation && orientation !== "vertical" && `ui-${orientation}`,
     side && side !== "block-end" && `ui-${side}`,
     className,
   ]}
@@ -49,9 +52,16 @@
   popover={popover === "auto" ? "" : popover}
   {...rest}
 >
-  {#each items ?? [] as { borderTop, color, disabled, href, keepOpen, label, shortcut, ...itemRest }, index (index)}
-    {@const Tag = href ? "a" : "button"}
-    {@const closes = !href && !keepOpen && !disabled}
+  {#each items as { as, borderTop, color, disabled, href, keepOpen, label, shortcut, ...itemRest }, index (index)}
+    {@const Tag = disabledLink(as, disabled)
+      ? "a"
+      : (as ?? (href ? "a" : "button"))}
+    {@const closes =
+      !href &&
+      !keepOpen &&
+      !disabled &&
+      itemRest.type !== "submit" &&
+      itemRest.type !== "reset"}
     <li
       {...classAttrs([{ "ui-border-top": borderTop }, color && `ui-${color}`])}
     >
@@ -60,6 +70,7 @@
         {...tagAttrs(Tag, disabled, href)}
         command={closes ? "hide-popover" : undefined}
         commandfor={closes ? rootId : undefined}
+        data-keep-open={keepOpen ? "" : undefined}
         {...defined(itemRest)}
       >
         <div class="ui-text">

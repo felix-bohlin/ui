@@ -1,4 +1,3 @@
-import { passThrough } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 const imported =
@@ -48,26 +47,14 @@ export default {
       keys: ["Up Arrow", "Down Arrow"],
     },
   ],
-  model: {
-    description: "The input value.",
-    prop: "value",
-    type: "number | string",
-  },
   notes: {
-    ...passThrough(
-      "input",
-      "opui-number-field",
-      ["max", "min", "placeholder", "step"],
-      {
-        astro:
-          "The component loads `opui-css/elements/number-field.js`, which steps the value when a button is pressed or held.",
-        react:
-          "Use `value` with `onChange`, or `defaultValue`. The step buttons work once the component mounts and loads `opui-css/elements/number-field.js`, or as soon as the page imports it.",
-        solid: `${imported} \`value\` sets the value and follows it when it changes. Follow typing with \`onInput\`.`,
-        svelte: imported,
-        vue: imported,
-      },
-    ),
+    astro:
+      'Write the `<input type="number">` inside, with its `id` set to `for`. Other attributes go to the root. The component loads `opui-css/elements/number-field.js`, which steps the value when a button is pressed or held.',
+    react:
+      'Write the `<input type="number">` inside, with its `id` set to `htmlFor`, and give it `value` with `onChange`, or `defaultValue`. Other attributes go to the root. The step buttons work once the component mounts and loads `opui-css/elements/number-field.js`, or as soon as the page imports it.',
+    solid: `Write the \`<input type="number">\` inside, with its \`id\` set to \`for\`, and bind it like any input. Other attributes go to the root. ${imported}`,
+    svelte: `Write the \`<input type="number">\` inside, with its \`id\` set to \`for\`, and bind it like any input. Other attributes go to the root. ${imported}`,
+    vue: `Write the \`<input type="number">\` inside, with its \`id\` set to \`for\`, and bind it like any input. Other attributes go to the root. ${imported}`,
     html: 'Put the decrease and increase buttons in `.ui-start` and `.ui-end`, with `commandfor` and `aria-controls` naming the input and `command="--step-down"` or `command="--step-up"`, give the `<label>` a `for`, and import `opui-css/elements/number-field.js`. Without it, the buttons are hidden and the input keeps the browser\'s own spin buttons.',
   },
   options: [
@@ -77,21 +64,11 @@ export default {
       prop: "decreaseLabel",
     },
     {
-      attribute: "[disabled]",
-      default: "false",
-      description: "Dims the field and blocks input and the step buttons.",
-      group: "Disabled",
-      part: "input",
-      prop: "disabled",
-      type: "boolean",
-    },
-    {
-      attribute: '[aria-invalid="true"]',
-      default: "false",
-      description: "Marks the control invalid and shows error styles.",
-      group: "Validation",
-      part: "input",
-      prop: "error",
+      description:
+        'The `id` of your `<input>`. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text` and `x-end-text` for `for="x"`. Point the input\'s `aria-describedby` at the ones it shows, in that order.',
+      frameworks: ["astro", "solid", "svelte", "vue"],
+      prop: "for",
+      type: "string",
     },
     {
       class: ".ui-sr-only",
@@ -104,32 +81,15 @@ export default {
     },
     {
       description:
-        'The id of the `<input>`. The label and the step buttons point at it, so the component generates one when it\'s left out. The start and end text ids start with it: `x-start-text` and `x-end-text` for `id="x"`.',
-      inherited: true,
-      prop: "id",
+        'The `id` of your `<input>`, as `htmlFor` like on the element. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text` and `x-end-text` for `htmlFor="x"`. Point the input\'s `aria-describedby` at the ones it shows, in that order.',
+      frameworks: ["react"],
+      prop: "htmlFor",
       type: "string",
     },
     {
       default: '"Increase"',
       description: "The accessible name of the increase button.",
       prop: "increaseLabel",
-    },
-    {
-      description:
-        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
-      inherited: true,
-      prop: "name",
-      type: "string",
-    },
-    {
-      attribute: "[required]",
-      description:
-        "Adds a required mark after the label. The form won't submit while the field is empty.",
-      group: "Required",
-      inherited: true,
-      part: "input",
-      prop: "required",
-      type: "boolean",
     },
     {
       default: '"medium"',
@@ -182,26 +142,26 @@ export default {
     },
     {
       description: "The boxed input area.",
-      selector: ".ui-field",
+      selector: ".ui-field-container",
     },
     {
       description:
         'The decrease button, with `command="--step-down"`. Renders a minus icon by default, or the `svg` in `decrease-icon`. Hidden until the element is defined.',
       props: ["decreaseLabel"],
-      selector: ".ui-field > .ui-start",
+      selector: ".ui-field-container > .ui-start",
       slots: ["decrease-icon"],
     },
     {
       code: '<input type="number">',
-      description: "The input element.",
-      model: true,
-      selector: "input",
+      description:
+        'Your `<input type="number">`, written directly inside `.ui-field-container` between the buttons, with its `id` set to `for`. Give it `min`, `max` and `step`, and bind it, name it and mark it `required`, `disabled` or `aria-invalid="true"` like any input.',
+      selector: ".ui-field-container > input",
     },
     {
       description:
         'The increase button, with `command="--step-up"`. Renders a plus icon by default, or the `svg` in `increase-icon`. Hidden until the element is defined.',
       props: ["increaseLabel"],
-      selector: ".ui-field > .ui-end",
+      selector: ".ui-field-container > .ui-end",
       slots: ["increase-icon"],
     },
     {
@@ -216,5 +176,12 @@ export default {
       "The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max`, and keeps both disabled while the input is disabled and `aria-disabled` while the input is, also when a script changes the input.",
     selector: "opui-number-field.ui-number-field",
   },
+  slots: [
+    {
+      description:
+        'Your `<input type="number">`, which goes in `.ui-field-container` between the buttons.',
+      name: "default",
+    },
+  ],
   source: "NumberField",
 } satisfies ComponentApi

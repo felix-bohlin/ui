@@ -33,6 +33,7 @@
     grid-auto-flow: column;
     inline-size: fit-content;
     line-height: var(--ui-line-height-control);
+    position: relative;
     -webkit-user-select: none;
     user-select: none;
 

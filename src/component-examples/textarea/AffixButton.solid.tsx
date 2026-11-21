@@ -24,8 +24,14 @@ export default function AffixButton() {
           </svg>
         </Button>
       }
+      for="textarea-affix-button-1"
       label="Message"
-      placeholder="Write a message..."
-    />
+    >
+      <textarea
+        aria-describedby="textarea-affix-button-1-end"
+        id="textarea-affix-button-1"
+        placeholder="Write a message..."
+      ></textarea>
+    </Textarea>
   )
 }

@@ -11,5 +11,5 @@ export type Props =
     "bottom" | "end" | "endText" | "label" | "start" | "startText" | "top"
   > &
     Base.Slots<Snippet> &
-    // Some input attributes for spreading
-    SvelteHTMLElements["textarea"]
+    // Root attributes
+    SvelteHTMLElements["div"]

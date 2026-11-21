@@ -450,14 +450,18 @@ export default function ServerStatus() {
           <DialogContent>
             <Form action="#" id="server-status-subscribe-form" method="dialog">
               <TextField
-                autoComplete="email"
-                id="server-status-server-status-email"
+                htmlFor="server-status-server-status-email"
                 label="Email"
-                name="server-status-email"
-                placeholder="you@lowend.example"
-                required
-                type="email"
-              />
+              >
+                <input
+                  autoComplete="email"
+                  id="server-status-server-status-email"
+                  name="server-status-email"
+                  placeholder="you@lowend.example"
+                  required
+                  type="email"
+                />
+              </TextField>
             </Form>
           </DialogContent>
           <DialogFooter>

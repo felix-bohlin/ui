@@ -5,7 +5,7 @@
     inline-size: fit-content;
     max-inline-size: 100%;
 
-    & > .ui-field {
+    & > .ui-field-container {
       inline-size: auto;
 
       & input {
@@ -16,7 +16,7 @@
       }
     }
 
-    & > .ui-field .ui-button[command="--step-down"] > svg:empty {
+    & > .ui-field-container .ui-button[command="--step-down"] > svg:empty {
       background-color: currentColor;
       mask: var(--ui-icon-decrease) center / contain no-repeat;
 
@@ -29,7 +29,7 @@
       }
     }
 
-    & > .ui-field .ui-button[command="--step-up"] > svg:empty {
+    & > .ui-field-container .ui-button[command="--step-up"] > svg:empty {
       background-color: currentColor;
       mask: var(--ui-icon-increase) center / contain no-repeat;
 
@@ -49,12 +49,12 @@
     &.ui-stretch {
       inline-size: auto;
 
-      & > .ui-field input {
+      & > .ui-field-container input {
         inline-size: 100%;
       }
     }
 
-    &:defined > .ui-field input {
+    &:defined > .ui-field-container input {
       appearance: textfield;
 
       &::-webkit-inner-spin-button,
@@ -64,7 +64,7 @@
       }
     }
 
-    &:not(:defined) > .ui-field {
+    &:not(:defined) > .ui-field-container {
       & > :is(.ui-start, .ui-end) {
         display: none;
       }

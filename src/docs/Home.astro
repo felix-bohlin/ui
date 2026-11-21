@@ -258,7 +258,9 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
             </div>
 
             <div class="specimen-row">
-              <TextField label="Text field" placeholder="Type here" inert />
+              <TextField for="home-text-field" label="Text field">
+                <input id="home-text-field" inert placeholder="Type here" />
+              </TextField>
             </div>
 
             <Progress

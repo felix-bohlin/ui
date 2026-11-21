@@ -2,10 +2,11 @@
 import { Dynamic } from "@solidjs/web"
 import { children, For, omit, untrack } from "solid-js"
 import "../../elements/close-on-navigate.js"
+import "../../elements/menu.js"
 import { defined } from "../attrs"
 import { MenuContext, useMenuContext } from "./context.solid"
 import { warnMissingId } from "../dev"
-import { tagAttrs } from "../tag"
+import { disabledLink, tagAttrs } from "../tag"
 import { cx } from "../cx"
 import type { Props } from "./types.solid"
 
@@ -18,6 +19,7 @@ export default function Menu(props: Props) {
     "dense",
     "id",
     "items",
+    "orientation",
     "popover",
     "side",
     "children",
@@ -46,6 +48,9 @@ export default function Menu(props: Props) {
             "ui-bordered": props.bordered,
             "ui-dense": props.dense,
           },
+          props.orientation &&
+            props.orientation !== "vertical" &&
+            `ui-${props.orientation}`,
           props.side && props.side !== "block-end" && `ui-${props.side}`,
           props.class,
         ]}
@@ -53,41 +58,55 @@ export default function Menu(props: Props) {
         popover={popover() === "auto" ? "" : popover()}
         {...rest}
       >
-        <For each={props.items}>
-          {({
-            borderTop,
-            color,
-            disabled,
-            href,
-            keepOpen,
-            label,
-            shortcut,
-            ...itemRest
-          }) => {
-            const tag = href ? "a" : "button"
-            const closes = !href && !keepOpen && !disabled
-            const commandfor = () => (closes ? rootId() : undefined)
+        <For each={props.items} keyed={false}>
+          {(item) => {
+            const itemRest = () =>
+              omit(
+                item(),
+                "as",
+                "borderTop",
+                "color",
+                "disabled",
+                "href",
+                "keepOpen",
+                "label",
+                "shortcut",
+              )
+            const tag = () =>
+              disabledLink(item().as, item().disabled)
+                ? "a"
+                : (item().as ?? (item().href ? "a" : "button"))
+            const closes = () =>
+              !item().href &&
+              !item().keepOpen &&
+              !item().disabled &&
+              itemRest().type !== "submit" &&
+              itemRest().type !== "reset"
+            const command = () => (closes() ? "hide-popover" : undefined)
+            const commandfor = () => (closes() ? rootId() : undefined)
+            const tagKeepOpen = () => (item().keepOpen ? "" : undefined)
             const resolvedIconChecked = children(() => props.iconChecked)
             return (
               <li
                 class={cx([
-                  { "ui-border-top": borderTop },
-                  color && `ui-${color}`,
+                  { "ui-border-top": item().borderTop },
+                  item().color && `ui-${item().color}`,
                 ])}
               >
                 <Dynamic
-                  component={tag}
-                  {...tagAttrs(tag, disabled, href)}
-                  command={closes ? "hide-popover" : undefined}
+                  component={tag()}
+                  {...tagAttrs(tag(), item().disabled, item().href)}
+                  command={command()}
                   commandfor={commandfor()}
-                  {...defined(itemRest)}
+                  data-keep-open={tagKeepOpen()}
+                  {...defined(itemRest())}
                 >
                   <div class="ui-text">
-                    <p>{label}</p>
+                    <p>{item().label}</p>
                   </div>
-                  {shortcut && (
+                  {item().shortcut && (
                     <div class="ui-end">
-                      <kbd>{shortcut}</kbd>
+                      <kbd>{item().shortcut}</kbd>
                     </div>
                   )}
                   {resolvedIconChecked() && (

@@ -12,6 +12,8 @@ const components = (note: string) => ({
 
 const slots = (note: string) => ({ astro: note, vue: note })
 
+const routed = (note: string) => ({ react: note, solid: note, vue: note })
+
 export const whatsNew = {
   accordion: [
     slots(
@@ -96,6 +98,9 @@ export const whatsNew = {
     ),
   ],
   avatar: [
+    routed(
+      `A link avatar takes <a href="#api"><code>as</code></a>: the link component of your router, such as Next's <code>Link</code>, Solid Router's <code>A</code> or Nuxt's <code>NuxtLink</code>, which gets the <code>href</code>. With <code>disabled</code> it renders a plain disabled link.`,
+    ),
     `<a href="#variants"><code>variant</code></a> takes <code>tonal</code> for the primary tint and <code>outlined</code> for the border color with no fill.`,
     components(
       `A link avatar takes <a href="#disabled"><code>disabled</code></a>: it drops its <code>href</code> and gets <code>role="link"</code> and <code>aria-disabled="true"</code>.`,
@@ -105,9 +110,14 @@ export const whatsNew = {
     components(
       `<a href="#grouped"><code>AvatarGroup</code></a> requires <code>aria-label</code> or <code>aria-labelledby</code> in its types.`,
     ),
-    slots(
-      `Breaking: <a href="#image"><code>alt</code></a> is required when <code>src</code> is set.`,
-    ),
+    {
+      ...slots(
+        `Breaking: <a href="#letter"><code>label</code></a> replaces <code>alt</code> and names the avatar: the <code>alt</code> of the image, or visually hidden text next to the letters or icon, which assistive technology now skips. A link or button avatar needs it, or <code>aria-label</code>.`,
+      ),
+      react: `<a href="#letter"><code>label</code></a> names the avatar: the <code>alt</code> of the image, or visually hidden text next to the letters or icon. A link or button avatar needs it, or <code>aria-label</code>.`,
+      solid: `<a href="#letter"><code>label</code></a> names the avatar: the <code>alt</code> of the image, or visually hidden text next to the letters or icon. A link or button avatar needs it, or <code>aria-label</code>.`,
+      svelte: `<a href="#letter"><code>label</code></a> names the avatar: the <code>alt</code> of the image, or visually hidden text next to the letters or icon. A link or button avatar needs it, or <code>aria-label</code>.`,
+    },
     slots(
       `Breaking: <code>as="button"</code> renders <code>type="button"</code> by default. Pass <a href="#api"><code>type="submit"</code></a> for submit buttons.`,
     ),
@@ -187,6 +197,9 @@ export const whatsNew = {
     `Text on a primary <a href="#colors">badge</a> reads <code>--ui-on-primary</code>.`,
   ],
   button: [
+    routed(
+      `A link button takes <a href="#api"><code>as</code></a>: the link component of your router, such as Next's <code>Link</code>, Solid Router's <code>A</code> or Nuxt's <code>NuxtLink</code>, which gets the <code>href</code>. With <code>disabled</code> it renders a plain disabled link.`,
+    ),
     `Themes can set <a href="#api"><code>--ui-button-hover</code></a> to <code>layer</code> for state-layer hover and pressed states, or to <code>shade-all</code> to shade tonal buttons like filled ones, and <code>--ui-button-padding-inline</code> with its <code>-x-small</code>, <code>-small</code> and <code>-large</code> variants for the horizontal padding per size.`,
     `Themes can set <a href="#api"><code>--ui-button-accent-filled</code></a> and <code>--ui-button-on-accent-filled</code> to give filled buttons a color of their own.`,
     `Themes can set <a href="#api"><code>--ui-button-focus: highlight</code></a> to fill a focused button with the focus color instead of drawing the ring, like GOV.UK.`,
@@ -248,7 +261,7 @@ export const whatsNew = {
   ],
   callout: [
     slots(
-      `Breaking: no <code>role="note"</code>, so screen readers announce the <a href="#accessibility"><code>&lt;article&gt;</code></a> it is. Add <code>role="note"</code> to keep the old announcement.`,
+      `Breaking: the root is a <a href="#accessibility"><code>&lt;div&gt;</code></a> instead of an <code>&lt;article&gt;</code>, with no <code>role="note"</code>, so screen readers read the callout as part of the content around it. Add <code>role="note"</code> to keep the old announcement, and select <code>.ui-callout</code> where a selector matched the <code>article</code>.`,
     ),
     `Breaking: <code>--_border-radius</code> is <code>--_radius</code>, <code>--_outlined-icon-color</code> and <code>--_link-hover-color</code> are <code>--_outlined-icon-text-color</code> and <code>--_link-hover-text-color</code>, and <code>--_icon-color</code> is no longer an override: the severity classes and <code>.ui-outlined</code> set <code>--_icon-text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `Severity fills, borders, icons and text read the <a href="#api"><code>--ui-palette-*</code></a> roles, so a theme restyles every severity at once.`,
@@ -353,6 +366,7 @@ export const whatsNew = {
     },
   ],
   carousel: [
+    `<a href="#whole-photos"><code>--_media-fit: contain</code></a> shows photos whole instead of cropping them to the aspect ratio.`,
     components(
       `<code>Carousel</code> requires <a href="#accessibility"><code>aria-label</code></a> or <code>aria-labelledby</code> in its types.`,
     ),
@@ -460,6 +474,9 @@ export const whatsNew = {
     },
   ],
   chip: [
+    routed(
+      `A link chip takes <a href="#api"><code>as</code></a>: the link component of your router, such as Next's <code>Link</code>, Solid Router's <code>A</code> or Nuxt's <code>NuxtLink</code>, which gets the <code>href</code>. With <code>disabled</code> it renders a plain disabled link.`,
+    ),
     `Themes can set <a href="#api"><code>--ui-chip-radius</code></a> for a corner radius of its own.`,
     slots(
       `Breaking: the default slot is gone. Pass the text as <a href="#api"><code>label</code></a>, or rich content in the <code>label</code> slot.`,
@@ -667,7 +684,7 @@ export const whatsNew = {
     `Styles use logical properties only, so the <a href="#basics">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
     {
       ...components(
-        `<a href="#close-button"><code>closeButton</code></a> on <code>DialogHeader</code> adds a close button at the end of the title row, named by <code>closeLabel</code>. Outside a <code>Dialog</code>, <code>commandfor</code> names the dialog it closes.`,
+        `<a href="#close-button"><code>closeButton</code></a> on <code>DialogHeader</code> adds a close button at the end of the title row, named by <code>closeLabel</code>. Outside a <code>Dialog</code>, <code>commandfor</code> names the dialog it closes. The types take both only with <code>closeButton</code>.`,
       ),
       html: `A <a href="#basics">close button</a> after the heading stays on the title row when a paragraph follows it.`,
     },
@@ -709,11 +726,11 @@ export const whatsNew = {
     `Themes can set <a href="#api"><code>--ui-card-padding</code></a> for the header, content and footer padding.`,
     {
       ...slots(
-        `Breaking: <code>DrawerHeader</code> renders its <a href="#close-button">close button</a> only with <code>closeButton</code>, like <code>DialogHeader</code>. Add it to keep the button.`,
+        `Breaking: <code>DrawerHeader</code> renders its <a href="#close-button">close button</a> only with <code>closeButton</code>, like <code>DialogHeader</code>. Add it to keep the button: the types take <code>closeLabel</code> and <code>commandfor</code> only with it.`,
       ),
-      react: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>.`,
-      solid: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>.`,
-      svelte: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>.`,
+      react: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>, which the types take only with it.`,
+      solid: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>, which the types take only with it.`,
+      svelte: `<code>DrawerHeader</code> renders a <a href="#close-button">close button</a> with <code>closeButton</code>, named by <code>closeLabel</code>, which the types take only with it.`,
     },
     {
       ...slots(
@@ -726,7 +743,7 @@ export const whatsNew = {
     `The edge reads <a href="#api"><code>--ui-border-color-raised</code></a> when a theme sets it, like menus and elevated cards, and <code>--_edge-border-color</code> sets it alone.`,
     `Opens over <a href="#api"><code>--ui-duration-slow</code></a> with <code>--ui-ease-enter</code> and closes with <code>--ui-ease-exit</code>.`,
     `With <code>viewport-fit=cover</code>, each side on a screen edge pads its content clear of a phone's notch and home indicator (<a href="#safe-areas">Safe areas</a>).`,
-    `On a touch screen, a drawer at the block start or end <a href="#swipe-to-close">closes with a swipe</a> of its grab handle or header toward the edge.`,
+    `On a touch screen, a drawer at the block start or end <a href="#swipe-to-close">closes with a swipe</a> of its grab handle, its header or an element marked <code>data-drawer-swipe</code> toward the edge.`,
     slots(
       `Breaking: <a href="#basics"><code>DrawerTitle</code> and <code>DrawerContent</code></a> replace the <code>heading</code> prop and the slots. <code>DrawerTitle</code> names the drawer; without it, pass <code>aria-label</code>. The <code>DrawerHeader</code> close button uses <code>command="close"</code>; outside a <code>Drawer</code>, set its <code>commandfor</code>.`,
     ),
@@ -779,6 +796,12 @@ export const whatsNew = {
       `A <code>Drawer</code> without an <code>id</code> warns in development, since its trigger and <code>DrawerHeader</code> point at it (<a href="#basics">Basics</a>).`,
     ),
   ],
+  "file-upload": [
+    {
+      default: `New component. A <a href="#basics">drop zone</a> that lists the <a href="#files">files</a> your app uploads, with a preview, a progress bar, a message and a remove button for each. It uploads nothing: start each upload from its <a href="#upload-as-you-pick"><code>select</code> event</a> and pass the state back in <code>items</code>. Narrower than 28rem it is a <a href="#compact">compact row</a> of previews behind an add tile.`,
+      html: `New component. A <a href="#basics">drop zone</a> that lists the <a href="#files">files</a> your app uploads, with a preview, a progress bar, a message and a remove button for each. Import <code>opui-css/elements/file-upload.js</code> for the <code>&lt;opui-file-upload&gt;</code> custom element, and render the rows from its <a href="#upload-as-you-pick"><code>select</code> and <code>remove</code> events</a>. Narrower than 28rem it is a <a href="#compact">compact row</a> of previews behind an add tile.`,
+    },
+  ],
   form: [
     components(
       `A <a href="#without-fieldset"><code>Fieldset</code> rendered as another element</a> names itself from its <code>FieldLegend</code>.`,
@@ -823,6 +846,9 @@ export const whatsNew = {
     `<a href="#bordered"><code>.ui-bordered</code></a> draws a line in each gap between two children of a column, row, grid or columns, like a bordered list, so a wrapped row gets no stray line.`,
   ],
   list: [
+    routed(
+      `A link <a href="#api"><code>ListItem</code></a> takes <code>as</code>: the link component of your router, such as Next's <code>Link</code>, Solid Router's <code>A</code> or Nuxt's <code>NuxtLink</code>, which gets the <code>href</code>. With <code>disabled</code> it renders a plain disabled link.`,
+    ),
     `Rows with any <a href="#selected"><code>aria-current</code></a> but <code>false</code> look current, like <code>true</code> on a button, not only <code>page</code>.`,
     `<a href="#flush"><code>flush</code></a> also drops the block padding of the list, for a list in a card.`,
     `Themes can set <a href="#api"><code>--ui-list-item-padding-inline</code></a>. Descriptions read <code>--ui-text-subtle</code>, and <code>--ui-on-selected</code> on a selected row.`,
@@ -899,11 +925,19 @@ export const whatsNew = {
     `<a href="#clickable-list-item">Clickable rows</a> and <a href="#selected">selected rows</a> fade, and a hovered row changes at once and fades back over <code>--ui-duration-fast</code>, so the highlight trails the pointer.`,
   ],
   menu: [
+    routed(
+      `A link item in <a href="#api"><code>items</code></a> takes <code>as</code>: the link component of your router, such as Next's <code>Link</code>, Solid Router's <code>A</code> or Nuxt's <code>NuxtLink</code>, which gets the <code>href</code>. A disabled one renders a plain disabled link.`,
+    ),
     {
       default: `An open menu <a href="#basics">closes when the page navigates</a>, also with a client router.`,
       html: `Import <code>opui-css/elements/close-on-navigate.js</code> to <a href="#basics">close an open menu</a> when the page navigates.`,
     },
+    {
+      default: `A link item, and an item that submits or resets a form, <a href="#basics">closes the menu on click</a>.`,
+      html: `Import <code>opui-css/elements/menu.js</code> to <a href="#basics">close the menu</a> on a click on a link, or on a submit or reset button.`,
+    },
     `Mark the <a href="#current-item">current item</a> with <code>aria-current</code>, like the language in use. It gets a check at the end.`,
+    `A <a href="#pressed-items">pressed item</a> (<code>aria-pressed="true"</code>) gets a check at the end, and a <a href="#long-menus">menu that scrolls</a> shows a shadow at each edge with more beyond it.`,
     {
       ...slots(
         `A <a href="#custom-check">custom check</a>: <code>--ui-icon-check</code> for the check of your icon set, or any icon in the <code>icon-checked</code> slot.`,
@@ -919,9 +953,9 @@ export const whatsNew = {
     `The border and dividers are <a href="#api"><code>--ui-border-color-on-raised</code></a>, like other elevated surfaces.`,
     `Items are built like <code>List</code> items, with start and end icons, text and shortcuts (<a href="#basics">Basics</a>).`,
     {
-      html: `New component. A <a href="#basics">popover menu</a> that anchors to its trigger, with groups and submenus. No JavaScript.`,
+      html: `New component. A <a href="#basics">popover menu</a> that anchors to its trigger, with groups, submenus and a <a href="#horizontal">horizontal</a> row of items. No JavaScript.`,
       ...components(
-        `New component. A <a href="#basics">popover menu</a> that anchors to its trigger, with groups and submenus, built on <code>Menu</code> and <code>ListItem</code>. No JavaScript.`,
+        `New component. A <a href="#basics">popover menu</a> that anchors to its trigger, with groups, submenus and a <a href="#horizontal">horizontal</a> row of items, built on <code>Menu</code> and <code>ListItem</code>. It opens, anchors and closes without JavaScript.`,
       ),
     },
     {
@@ -949,20 +983,26 @@ export const whatsNew = {
     `Themes can make a menu spring open with <a href="#api"><code>--ui-ease-move</code></a>. It closes with <code>--ui-ease-exit</code>.`,
   ],
   message: [
-    `New: a <a href="#basics">Message</a> is a chat bubble that groups into runs, with <a href="#attachments">attachments</a>, <a href="#reactions">reactions</a> and a <a href="#typing">typing indicator</a>.`,
+    `New: a <a href="#basics">Message</a> is a chat bubble that groups into runs, with <a href="#attachments">attachments</a>, <a href="#reactions">reactions</a> that wait for your server (<a href="#saving-reactions">saving reactions</a>), also on their own under a post with a one-tap <a href="#quick-reaction">quick reaction</a>, and a <a href="#typing">typing indicator</a>.`,
     `A chat between two people can leave out every name and avatar with <a href="#direct"><code>direct</code></a>.`,
   ],
+  meter: [
+    `New: a <a href="#basics">Meter</a> draws the native <code>&lt;meter&gt;</code> like a Progress bar, for a value in a known range. <a href="#ranges"><code>low</code>, <code>high</code> and <code>optimum</code></a> color the fill, and a meter as tall as its row is a <a href="#poll">poll</a> bar.`,
+  ],
   "number-field": [
-    components(
-      `The start and end text ids start with the <a href="#api"><code>id</code></a>: <code>x-start-text</code> and <code>x-end-text</code> for <code>id="x"</code>.`,
-    ),
+    {
+      ...components(
+        `You write the <a href="#basics"><code>&lt;input type="number"&gt;</code></a> inside the field, with its <code>id</code> set to the required <code>for</code>, and point its <code>aria-describedby</code> at <code>x-start-text</code> and <code>x-end-text</code> for <code>for="x"</code>.`,
+      ),
+      react: `You write the <a href="#basics"><code>&lt;input type="number"&gt;</code></a> inside the field, with its <code>id</code> set to the required <code>htmlFor</code>, and point its <code>aria-describedby</code> at <code>x-start-text</code> and <code>x-end-text</code> for <code>htmlFor="x"</code>.`,
+    },
     {
       default: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held, run by the <code>&lt;opui-number-field&gt;</code> custom element, which the component loads. It fits its value unless <a href="#stretch"><code>stretch</code></a> fills the width. The <a href="#buttons">buttons</a> take translated labels and your own icons.`,
       html: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held. Import <code>opui-css/elements/number-field.js</code> for the <code>&lt;opui-number-field&gt;</code> custom element that runs them. It fits its value unless <a href="#stretch"><code>.ui-stretch</code></a> fills the width. The <a href="#buttons">buttons</a> take translated labels and your own icons.`,
     },
   ],
   "one-time-code": [
-    `New: a <a href="#basics">One-time code</a> field draws one input as a box per character, with <a href="#grouped">grouped</a> halves, a <a href="#length">length</a> from 4 to 8 and <a href="#alphanumeric">alphanumeric</a> codes.`,
+    `New: a <a href="#basics">One-time code</a> field draws one input as a box per character, with <a href="#grouped">grouped</a> halves, a <a href="#length">length</a> from 4 to 8, <a href="#alphanumeric">alphanumeric</a> codes and autofill you can turn off for a code read off <a href="#another-screen">another screen</a>.`,
   ],
   progress: [
     `The <a href="#determinate">track</a> is always outlined with <code>--ui-field-border-color</code>, so the empty part is visible.`,
@@ -994,6 +1034,7 @@ export const whatsNew = {
     },
     `The bar reads <a href="#api"><code>--ui-selected-strong</code></a>, like the done part of a Stepper and a tracked Timeline, so one theme value recolors all three.`,
     `<a href="#component-properties"><code>--_loop-duration</code></a> sets the length of the <a href="#indeterminate">indeterminate</a> loop.`,
+    `<a href="#component-properties"><code>--_block-size</code></a> sets the height of the track.`,
   ],
   radio: [
     `<a href="#cards">Cards</a> take <code>--ui-card-padding</code>.`,
@@ -1444,9 +1485,15 @@ export const whatsNew = {
     },
   ],
   "text-field": [
+    {
+      ...components(
+        `Breaking: write the <a href="#input"><code>&lt;input&gt;</code></a> inside the field, with its <code>id</code> set to the required <code>for</code>, and bind, name and validate it like any input. <code>error</code>, <code>type</code>, <code>id</code>, <code>disabled</code>, <code>name</code> and the bound value move onto it, <code>aria-invalid="true"</code> for <code>error</code>.`,
+      ),
+      react: `Breaking: write the <a href="#input"><code>&lt;input&gt;</code></a> inside the field, with its <code>id</code> set to the required <code>htmlFor</code>, and bind, name and validate it like any input. <code>error</code>, <code>type</code>, <code>id</code>, <code>disabled</code>, <code>name</code>, <code>value</code> and <code>onChange</code> move onto it, <code>aria-invalid="true"</code> for <code>error</code>.`,
+    },
     `A <code>Button</code> in the <a href="#affix">start or end</a> fits the field, a little inside its border, and Tab reaches the top, start, end and bottom in the order they're drawn, in every browser.`,
     {
-      default: `Breaking: the root is a <code>&lt;div&gt;</code> with a <code>&lt;label for&gt;</code> inside, so the <a href="#affix">affixes</a> can hold buttons. The label alone <a href="#accessibility">names the field</a>, and the start text, top, affixes, bottom and end text describe it through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, in any language's word order. A click on them no longer focuses the field. The ids start with the <code>id</code>: <code>x-start-text</code>, <code>x-start</code>, <code>x-end-text</code> and so on for <code>id="x"</code>.`,
+      default: `Breaking: the root is a <code>&lt;div&gt;</code> with a <code>&lt;label for&gt;</code> inside, so the <a href="#affix">affixes</a> can hold buttons. The label alone <a href="#accessibility">names the field</a>, and the start text, top, affixes, bottom and end text describe it through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, in any language's word order. A click on them no longer focuses the field. The ids start with the input's <code>id</code>: <code>x-start-text</code>, <code>x-start</code>, <code>x-end-text</code> and so on for <code>id="x"</code>.`,
       html: `Breaking: give the root <code>&lt;div class="ui-text-field"&gt;</code> a <code>&lt;label class="ui-label" for&gt;</code> that <a href="#accessibility">names the field</a> alone, and describe it with the start text, the affixes and the end text through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, not in it.`,
     },
     `Placeholders and helper text read <a href="#api"><code>--ui-text-subtle</code></a>.`,
@@ -1538,6 +1585,12 @@ export const whatsNew = {
     `A field in a table cell keeps a <code>12ch</code> minimum width, so it stays usable with a <a href="#hidden-label">hidden label</a> in a narrow column.`,
   ],
   textarea: [
+    {
+      ...components(
+        `Breaking: write the <a href="#textarea"><code>&lt;textarea&gt;</code></a> inside the field, with its <code>id</code> set to the required <code>for</code>, and bind, name and validate it like any textarea. <code>error</code>, <code>id</code>, <code>disabled</code>, <code>name</code> and the bound value move onto it, the value as its content and <code>aria-invalid="true"</code> for <code>error</code>.`,
+      ),
+      react: `Breaking: write the <a href="#textarea"><code>&lt;textarea&gt;</code></a> inside the field, with its <code>id</code> set to the required <code>htmlFor</code>, and bind, name and validate it like any textarea. <code>error</code>, <code>id</code>, <code>disabled</code>, <code>name</code>, <code>value</code> and <code>onChange</code> move onto it, <code>aria-invalid="true"</code> for <code>error</code>.`,
+    },
     `A <code>Button</code> in the <a href="#affix">start or end</a> fits the first line and centers on it, taller content starts a little below the field's top, and Tab reaches the parts in the order they're drawn, in every browser.`,
     {
       default: `Breaking: the root is a <code>&lt;div&gt;</code> with a <code>&lt;label for&gt;</code> inside, so the <a href="#affix">affixes</a> can hold buttons. The label alone <a href="#accessibility">names the field</a>, and the start text, top, affixes, bottom and end text describe it through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, in any language's word order. A click on them no longer focuses the field.`,
@@ -1566,7 +1619,7 @@ export const whatsNew = {
       html: `<a href="#sizes">x-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
     },
     `<a href="#spread">Spread</a> fields line up at one width.`,
-    `The minimum height is three lines plus padding at every <a href="#sizes">size</a>.`,
+    `The minimum height is three lines plus padding at every <a href="#sizes">size</a>, or the lines in <a href="#rows"><code>rows</code></a> in browsers with typed <code>attr()</code>.`,
     {
       astro: `Breaking: extra attributes such as <code>autocomplete</code> and <code>aria-*</code> go to the textarea. <code>class</code> and <code>style</code> stay on the label (<a href="#api">API</a>).`,
       vue: `Breaking: <code>style</code> goes to the label instead of the textarea (<a href="#api">API</a>).`,
@@ -1792,9 +1845,11 @@ export const highlighted = new Set<string>([
   "carousel",
   "control-group",
   "copy",
+  "file-upload",
   "layout",
   "menu",
   "message",
+  "meter",
   "number-field",
   "one-time-code",
   "rating",
@@ -1809,9 +1864,11 @@ export const highlighted = new Set<string>([
 export const added = new Set<string>([
   "carousel",
   "copy",
+  "file-upload",
   "layout",
   "menu",
   "message",
+  "meter",
   "number-field",
   "one-time-code",
   "rating",

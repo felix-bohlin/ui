@@ -32,10 +32,12 @@ import {
   checkExampleClient,
   checkExampleWrapper,
   checkIndexSignature,
+  checkLoopKeys,
   checkModel,
   checkPropsType,
   checkProvide,
   checkReactExample,
+  checkReactProps,
   checkRest,
   checkSolidProps,
   checkSortedKeys,
@@ -43,6 +45,7 @@ import {
   checkTypesImport,
   checkVariableTagClassList,
   checkVueAttrs,
+  withoutBoundBranches,
 } from "../../scripts/check-components.mjs"
 import { colorProblems } from "../../scripts/check-colors.mjs"
 import {
@@ -159,6 +162,7 @@ describe("check-browser-support", () => {
     "scrollbar-width": ".a { scrollbar-width: thin; }",
     "sibling-count": ".a { --n: sibling-count(); }",
     "starting-style": "@starting-style { .a { opacity: 0; } }",
+    state: ".a:state(drag-over) { gap: 0; }",
     subgrid: ".a { grid-template-columns: subgrid; }",
     "text-box": ".a { text-box: trim-both cap alphabetic; }",
     "text-wrap-pretty": ".a { text-wrap: pretty; }",
@@ -870,6 +874,34 @@ describe("check-components", () => {
     expect(checkClassOrder([['"ui-badge"', "className"]], "cx")).toEqual([])
   })
 
+  test("a Vue control's bound branch is left out of the class lists", () => {
+    const pair =
+      '<input v-if="bound" :class="[\'ui-input\']" v-model="modelValue" />\n<input v-else :class="[\'ui-input\']" />'
+    expect(withoutBoundBranches(pair)).toBe(
+      "\n<input v-else :class=\"['ui-input']\" />",
+    )
+    const select =
+      '<select v-if="bound" v-model="modelValue"><div :class="[\'ui-list\']"></div></select><select v-else><div :class="[\'ui-list\']"></div></select>'
+    expect(withoutBoundBranches(select)).toBe(
+      "<select v-else><div :class=\"['ui-list']\"></div></select>",
+    )
+    const roots =
+      '<fieldset v-if="name" :class="[\'ui-rating\']"></fieldset><meter v-else :class="[\'ui-rating\']" />'
+    expect(withoutBoundBranches(roots)).toBe(roots)
+    const nested =
+      '<span v-if="bound" :class="[\'ui-a\']"><span>x</span><b :class="[\'ui-b\']"></b></span><span v-else :class="[\'ui-a\']"></span>'
+    expect(withoutBoundBranches(nested)).toBe(
+      "<span v-else :class=\"['ui-a']\"></span>",
+    )
+    const arrow =
+      '<input v-if="bound" @input="(event) => emit(event)" v-model="modelValue" /><input v-else />'
+    expect(withoutBoundBranches(arrow)).toBe("<input v-else />")
+    const sfc = `<script setup lang="ts">\nconst bound = useBound()\n</script>\n\n<template>\n  ${pair}\n</template>\n`
+    expect(withoutBoundBranches(sfc)).toBe(
+      `<script setup lang="ts">\nconst bound = useBound()\n</script>\n\n<template>\n  \n<input v-else :class="['ui-input']" />\n</template>\n`,
+    )
+  })
+
   test('"use client" marks exactly the React components with state or handlers', () => {
     const stateful =
       "export default function A() {\n  const [open] = useState(false)\n  return open\n}\n"
@@ -988,6 +1020,70 @@ describe("check-components", () => {
     ])
   })
 
+  test("a list in a React, Svelte or Vue component gives each row a key", () => {
+    const react = (rows: string) =>
+      `export default function List({ items }: Props) {\n  return <ul>{${rows}}</ul>\n}\n`
+    expect(
+      checkLoopKeys(
+        "List.react.tsx",
+        react("items.map((item, index) => (<li key={index}>{item}</li>))"),
+      ),
+    ).toEqual([])
+    expect(
+      checkLoopKeys(
+        "List.react.tsx",
+        react("items.map((item) => (<li>{item}</li>))"),
+      ),
+    ).toEqual([
+      "builds <li>{item}</li> with .map() and no key: React matches the rows of a list by their key, so give each row key={...}, the item's own value where it has one and the index otherwise",
+    ])
+    expect(
+      checkLoopKeys(
+        "List.react.tsx",
+        react(
+          'items.map((item, index) => typeof item === "object" ? <li key={index}>{item.label}</li> : <li>{item}</li>)',
+        ),
+      ),
+    ).toHaveLength(1)
+    expect(
+      checkLoopKeys(
+        "List.react.tsx",
+        react("items.map((item) => { return <>{item}</> })"),
+      ),
+    ).toHaveLength(1)
+    expect(
+      checkLoopKeys(
+        "List.svelte",
+        "<ul>\n  {#each items ?? [] as { label, ...item }, index (index)}\n    <li {...item}>{label}</li>\n  {/each}\n</ul>\n",
+      ),
+    ).toEqual([])
+    expect(
+      checkLoopKeys(
+        "List.svelte",
+        "<ul>\n  {#each items as { label }, index}\n    <li>{label}</li>\n  {/each}\n</ul>\n",
+      ),
+    ).toEqual([
+      "has {#each items as { label }, index} without a key: Svelte matches the rows of a list by their key, so end the block's opening with (key), the item's own value where it has one and the index otherwise",
+    ])
+    expect(
+      checkLoopKeys(
+        "List.vue",
+        '<template>\n  <ul>\n    <li v-for="item in items" :key="item.value" :title="item.value > 1 ? \'a\' : \'b\'">{{ item.label }}</li>\n  </ul>\n</template>\n',
+      ),
+    ).toEqual([])
+    expect(
+      checkLoopKeys(
+        "List.vue",
+        '<template>\n  <ul>\n    <li v-for="(item, index) in items" :title="item">{{ item }}</li>\n    <li :key="1" />\n  </ul>\n</template>\n',
+      ),
+    ).toEqual([
+      'has v-for="(item, index) in items" on <li> without :key: Vue matches the rows of a list by their key, so bind :key on the element with v-for, the item\'s own value where it has one and the index otherwise',
+    ])
+    expect(checkLoopKeys("List.solid.tsx", "items.map(() => <li />)")).toEqual(
+      [],
+    )
+  })
+
   test("a Solid port reads props as props.x and omits them in order", () => {
     const solid = (body: string) =>
       `/** @jsxImportSource @solidjs/web */\nimport { omit } from "solid-js"\n\nexport default function Badge(props: Props) {\n${body}\n}\n`
@@ -1058,6 +1154,33 @@ describe("check-components", () => {
         "Badge.solid.tsx",
         solid(
           '  const rest = omit(props, "class", "items")\n  const labels = props.items.map((item) => item.label)\n  return <ul {...rest}><For each={labels}>{(label) => <li>{label}</li>}</For></ul>',
+        ),
+      ),
+    ).toEqual([])
+    for (const condition of [
+      'title={props.label ? "Labelled" : rest.title}',
+      "title={props.label && rest.title}",
+      "title={(rest.title || props.label)}",
+      "aria-label={label() ?? rest.title}",
+    ]) {
+      expect(
+        checkSolidProps(
+          "Badge.solid.tsx",
+          solid(
+            `  const rest = omit(props, "label")\n  return <span {...rest}><Button ${condition} /></span>`,
+          ),
+        ),
+      ).toEqual([
+        expect.stringContaining(
+          `passes the condition ${condition} to <Button>`,
+        ),
+      ])
+    }
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "label")\n  const title = () => (props.label ? "Labelled" : rest.title)\n  const fallback = "Close"\n  return (\n    <span title={props.label ? "Labelled" : rest.title} {...rest}>\n      <Button aria-label={fallback || "Close"} disabled={!(props.label && rest.title)} title={title()} />\n    </span>\n  )',
         ),
       ),
     ).toEqual([])
@@ -1263,6 +1386,26 @@ describe("check-components", () => {
     ).toEqual([
       "provides TabsKey without reactive(): Vue provides the Context object as reactive({ ... })",
     ])
+  })
+
+  test("a React provider takes a memoized value, never an object literal", () => {
+    const react = (body: string, value: string) =>
+      `export default function Tabs({ value, children }: Props) {\n${body}  return <TabsContext value={${value}}>{children}</TabsContext>\n}\n`
+    expect(
+      checkReactProps(
+        "Tabs.react.tsx",
+        react(
+          "  const context = useMemo<Context>(() => ({ value }), [value])\n",
+          "context",
+        ),
+      ),
+    ).toEqual([])
+    expect(checkReactProps("Tabs.react.tsx", react("", "{ value }"))).toEqual([
+      "passes <TabsContext> an object literal as its value: it is a new object on every render, so every consumer renders again. Memoize it (const context = useMemo<Context>(() => ({ ... }), [...]))",
+    ])
+    expect(
+      checkReactProps("Tabs.react.tsx", react("", "({ value })")),
+    ).toHaveLength(1)
   })
 
   test("context files export their names, use the Context type and build on the framework", () => {

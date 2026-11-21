@@ -1,12 +1,13 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useMemo } from "react"
 import { defined } from "../attrs"
 import { cx } from "../cx"
 import { MenuContext, useMenuContext } from "./context.react"
 import { warnMissingId } from "../dev"
-import { tagAttrs } from "../tag"
+import { disabledLink, tagAttrs } from "../tag"
 import type { Props } from "./types.react"
+import type { Context } from "./types"
 
 export default function Menu({
   align,
@@ -15,6 +16,7 @@ export default function Menu({
   dense,
   id,
   items,
+  orientation,
   popover = "auto",
   side,
   children,
@@ -26,10 +28,12 @@ export default function Menu({
   warnMissingId("Menu", id)
   useEffect(() => {
     void import("../../elements/close-on-navigate.js")
+    void import("../../elements/menu.js")
   }, [])
+  const context = useMemo<Context>(() => ({ rootId }), [rootId])
 
   return (
-    <MenuContext value={{ rootId }}>
+    <MenuContext value={context}>
       <menu
         className={cx([
           "ui-menu",
@@ -38,6 +42,7 @@ export default function Menu({
             "ui-bordered": bordered,
             "ui-dense": dense,
           },
+          orientation && orientation !== "vertical" && `ui-${orientation}`,
           side && side !== "block-end" && `ui-${side}`,
           className,
         ])}
@@ -48,6 +53,7 @@ export default function Menu({
         {items?.map(
           (
             {
+              as,
               borderTop,
               color,
               disabled,
@@ -59,8 +65,15 @@ export default function Menu({
             },
             index,
           ) => {
-            const Tag = href ? "a" : "button"
-            const closes = !href && !keepOpen && !disabled
+            const Tag = disabledLink(as, disabled)
+              ? "a"
+              : (as ?? (href ? "a" : "button"))
+            const closes =
+              !href &&
+              !keepOpen &&
+              !disabled &&
+              itemRest.type !== "submit" &&
+              itemRest.type !== "reset"
             return (
               <li
                 key={index}
@@ -73,6 +86,7 @@ export default function Menu({
                   {...tagAttrs(Tag, disabled, href)}
                   command={closes ? "hide-popover" : undefined}
                   commandfor={closes ? rootId : undefined}
+                  data-keep-open={keepOpen ? "" : undefined}
                   {...defined(itemRest)}
                 >
                   <div className="ui-text">

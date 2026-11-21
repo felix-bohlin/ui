@@ -18,6 +18,11 @@ const RATCHETS = [
     keys: true,
   },
   {
+    file: "tests/unit/framework-diagnostics-allowlist.json",
+    fix: "fix the warning in the component, its emitter or the example instead of allowing it",
+    keys: true,
+  },
+  {
     file: "tests/unit/todo-allowlist.json",
     fix: "fix the new TODO.md item instead of allowing it",
   },

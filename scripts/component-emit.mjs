@@ -406,6 +406,24 @@ export const eventRoots = (component) => {
   return rootElements
 }
 
+const CUSTOM_TAG_LITERAL = /(["'`])[a-z][\w.]*-[\w.-]*\1/
+
+export const hydratingRoots = (component, listened = eventRoots(component)) =>
+  new Map(
+    listened.flatMap((node) => {
+      if (node.custom) return [[node, undefined]]
+      const source = node.variable
+        ? [
+            ...component.derived.filter(({ name }) => name === node.tag),
+            ...component.props.filter(({ local }) => local === node.tag),
+          ]
+            .map((entry) => entry.code ?? entry.default ?? "")
+            .join(" ")
+        : ""
+      return CUSTOM_TAG_LITERAL.test(source) ? [[node, node.tag]] : []
+    }),
+  )
+
 export const isLoose = (node) =>
   isBlank(node) && node.value !== " " && !node.inline
 

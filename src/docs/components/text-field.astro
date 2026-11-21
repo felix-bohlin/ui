@@ -85,6 +85,35 @@ export const keywords = ["email", "input", "password", "search", "text box"]
     </li>
   </Usage>
 
+  <section id="input">
+    <h2>Input</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Write the <code>&lt;input&gt;</code> inside the field, with its
+        <code>id</code> set to <code>for</code>, and bind, name and validate it
+        like any input. The types require <code>for</code>.
+      </Fragment>
+      <Fragment slot="react">
+        Write the <code>&lt;input&gt;</code> inside the field, with its
+        <code>id</code> set to <code>htmlFor</code>, and bind, name and validate
+        it like any input. The types require <code>htmlFor</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Put the <code>&lt;input&gt;</code> directly in
+        <code>.ui-field-container</code>, and point the
+        <code>&lt;label for&gt;</code> at its <code>id</code>.
+      </Fragment>
+    </Conditional>
+    <p>
+      Each part the field shows has an id that starts with the input's:
+      <code>x-start-text</code>, <code>x-top</code>, <code>x-start</code>,
+      <code>x-end</code>, <code>x-bottom</code> and <code>x-end-text</code> for
+      an input with <code>id="x"</code>. Point the input's
+      <code>aria-describedby</code> at the ones it shows, in that order, so a
+      unit, a hint or an error is read after the name.
+    </p>
+  </section>
+
   <section id="variants">
     <h2>Variants</h2>
     <p>
@@ -107,15 +136,7 @@ export const keywords = ["email", "input", "password", "search", "text box"]
       keeps the accessible name.
     </p>
     <AutoExample name="HiddenLabel" />
-    <Conditional as="p">
-      <Fragment slot="components">
-        Without a label, add <code>aria-label</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Without a label, add <code>aria-label</code>, and link the start and end
-        text with <code>aria-describedby</code>.
-      </Fragment>
-    </Conditional>
+    <p>Without a label, add <code>aria-label</code> to the input.</p>
     <AutoExample name="NoLabel" />
   </section>
 
@@ -127,6 +148,10 @@ export const keywords = ["email", "input", "password", "search", "text box"]
 
   <section id="end-text">
     <h2>End text</h2>
+    <p>
+      Use <PropOrClass prop="endText" class=".ui-end-text" />, and point the
+      input's <code>aria-describedby</code> at it.
+    </p>
     <AutoExample name="EndText" centered />
   </section>
 
@@ -134,9 +159,9 @@ export const keywords = ["email", "input", "password", "search", "text box"]
     <h2>Character count</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        With <code>maxlength</code>, set <code>characterCount</code>. Screen
-        readers only hear the count near the limit, so name the limit in the end
-        text.
+        With <code>maxlength</code> on the input, set <code>characterCount</code
+        >. Screen readers only hear the count near the limit, so name the limit
+        in the end text.
       </Fragment>
       <Fragment slot="html">
         With <code>maxlength</code>, import
@@ -191,26 +216,28 @@ export const keywords = ["email", "input", "password", "search", "text box"]
     <h2>Binding</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        No bound value: read the <code>input</code> in a script.
+        Read the <code>input</code> in a script.
       </Fragment>
       <Fragment slot="html">
         Read the <code>input</code> in a script.
       </Fragment>
       <Fragment slot="react">
-        Use <code>value</code> and <code>onChange</code>.
+        Give the input <code>value</code> and <code>onChange</code>.
       </Fragment>
       <Fragment slot="solid">
-        Use <code>value</code> and <code>onInput</code>.
+        Give the input <code>value</code> and <code>onInput</code>.
       </Fragment>
-      <Fragment slot="svelte">Use <code>bind:value</code>.</Fragment>
-      <Fragment slot="vue">Use <code>v-model</code>.</Fragment>
+      <Fragment slot="svelte">
+        Use <code>bind:value</code> on the input.
+      </Fragment>
+      <Fragment slot="vue">Use <code>v-model</code> on the input.</Fragment>
     </Conditional>
     <AutoExample name="Binding" column />
   </section>
 
   <section id="validation">
     <h2>Validation</h2>
-    <ValidationNotes element="input" named subject="Fields" />
+    <ValidationNotes element="input" own subject="Fields" />
 
     <AutoExample name="Validation" column spacious />
   </section>
@@ -323,7 +350,11 @@ export const keywords = ["email", "input", "password", "search", "text box"]
     <AutoExample name="File" row />
 
     <h3 id="drop-zone">Drop zone</h3>
-    <p>Use <PropOrClass prop="dropZone" class=".ui-drop-zone" />.</p>
+    <p>
+      Use <PropOrClass prop="dropZone" class=".ui-drop-zone" />. For files that
+      upload as they're picked, use a
+      <DocLink href="/components/file-upload">File upload</DocLink>.
+    </p>
 
     <AutoExample name="DropZone" />
   </section>
@@ -342,10 +373,10 @@ export const keywords = ["email", "input", "password", "search", "text box"]
       <li>
         The label alone is the field's name, through
         <code>&lt;label for&gt;</code>. The affixes, the start text, end text
-        and the top and bottom regions are its description, through
-        <code>aria-describedby</code>, so a unit, a hint or an error is read
-        after the name in any language's word order, and buttons in the affixes
-        stay out of the name.
+        and the top and bottom regions are its description once the input's
+        <code>aria-describedby</code> points at them, so a unit, a hint or an
+        error is read after the name in any language's word order, and buttons
+        in the affixes stay out of the name.
       </li>
     </ul>
     <KeyboardSupport />
@@ -356,15 +387,19 @@ export const keywords = ["email", "input", "password", "search", "text box"]
       <UITextField
         characterCount
         endText="Supporting text"
-        id="text-field-anatomy"
+        for="text-field-anatomy"
         label="Label"
-        maxlength={24}
         passwordToggle
-        placeholder="Placeholder"
         startText="Start text"
-        type="password"
-        value="Value"
       >
+        <input
+          aria-describedby="text-field-anatomy-start-text text-field-anatomy-top text-field-anatomy-start text-field-anatomy-bottom text-field-anatomy-end-text"
+          id="text-field-anatomy"
+          maxlength={24}
+          placeholder="Placeholder"
+          type="password"
+          value="Value"
+        />
         <span slot="top">Top</span>
         <span slot="start">€</span>
         <span slot="bottom">Bottom</span>

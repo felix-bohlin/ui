@@ -90,14 +90,14 @@ import "./styles/main.css"`}
       Components. The props in the last column need hydration.
     </p>
     <p>
-      A choice the user makes before the page hydrates stays on screen.
-      <code>Rating</code>, <code>Tabs</code> and <code>ToggleGroup</code> pass
-      it to <code>onValueChange</code> as they hydrate. <code>Checkbox</code>,
-      <code>Radio</code> and <code>Switch</code> pass <code>checked</code> and
-      <code>onChange</code> to the native input, so they work like a plain React
-      input: React doesn't call <code>onChange</code> for that choice, and a
-      controlled <code>checked</code> misses it. A form that reads its values on
-      submit gets it.
+      A choice the user makes before the page hydrates stays on screen. The form
+      controls pass <code>value</code>, <code>checked</code>, their defaults and
+      <code>onChange</code> to the native input, and <code>Rating</code>,
+      <code>Tabs</code> and <code>ToggleGroup</code> render their inputs like
+      native radios, so they work like plain React inputs: React doesn't call
+      <code>onChange</code> or <code>onValueChange</code> for that choice, and a
+      controlled value misses it. A form that reads its values on submit gets
+      it.
     </p>
     <ServerSupport framework="react" />
   </section>

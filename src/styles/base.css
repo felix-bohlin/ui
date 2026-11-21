@@ -89,7 +89,7 @@ aside.sidebar {
 }
 
 .example-preview {
-  .ui-auto-fit .ui-field {
+  .ui-auto-fit .ui-field-container {
     inline-size: fit-content;
   }
 }

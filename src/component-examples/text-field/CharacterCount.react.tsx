@@ -5,8 +5,14 @@ export default function CharacterCount() {
     <TextField
       characterCount
       endText="Up to 20 letters, numbers and dashes."
+      htmlFor="text-field-character-count-1"
       label="Username"
-      maxLength={20}
-    />
+    >
+      <input
+        aria-describedby="text-field-character-count-1-end-text"
+        id="text-field-character-count-1"
+        maxLength={20}
+      />
+    </TextField>
   )
 }

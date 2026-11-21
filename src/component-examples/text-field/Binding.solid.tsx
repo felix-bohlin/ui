@@ -7,12 +7,14 @@ export default function Binding() {
 
   return (
     <>
-      <TextField
-        label="Name"
-        name="text-field-binding"
-        value={name()}
-        onInput={(event) => setName(event.currentTarget.value)}
-      />
+      <TextField for="text-field-binding-1" label="Name">
+        <input
+          id="text-field-binding-1"
+          name="text-field-binding"
+          value={name()}
+          onInput={(event) => setName(event.currentTarget.value)}
+        />
+      </TextField>
       <p class="text-field-binding-text">Heyyy, {name() || "stranger"}.</p>
       <Button class="text-field-binding-reset" onClick={() => setName("Holly")}>
         Reset

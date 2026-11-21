@@ -43,15 +43,16 @@
     </hgroup>
     <CardContent>
       <form class="team-invite" action="#">
-        <TextField
-          id="team-members-emails"
-          label="Email addresses"
-          multiple
-          name="emails"
-          placeholder="drummer@band.example, singer@band.example"
-          required
-          type="email"
-        />
+        <TextField for="team-members-emails" label="Email addresses">
+          <input
+            id="team-members-emails"
+            multiple
+            name="emails"
+            placeholder="drummer@band.example, singer@band.example"
+            required
+            type="email"
+          />
+        </TextField>
         <Select
           id="team-members-role"
           items={[

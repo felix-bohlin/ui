@@ -4,29 +4,48 @@ import { TextField } from "opui-css/vue"
 
 <template>
   <div class="example-row">
-    <TextField label="Full name" placeholder="Holly Humbucker" required />
-    <TextField
-      label="Email"
-      placeholder="name@lowend.example"
-      required
-      type="email"
-      variant="filled"
-    />
+    <TextField for="text-field-validation-1" label="Full name">
+      <input
+        id="text-field-validation-1"
+        placeholder="Holly Humbucker"
+        required
+      />
+    </TextField>
+    <TextField for="text-field-validation-2" label="Email" variant="filled">
+      <input
+        id="text-field-validation-2"
+        placeholder="name@lowend.example"
+        required
+        type="email"
+      />
+    </TextField>
   </div>
 
   <div class="example-row">
     <TextField
       endText="Whoops, this username is taken. Try another one."
-      error
+      for="text-field-validation-3"
       label="Username"
-      value="ada"
-    />
+    >
+      <input
+        aria-describedby="text-field-validation-3-end-text"
+        aria-invalid="true"
+        id="text-field-validation-3"
+        value="ada"
+      />
+    </TextField>
     <TextField
       endText="Bummer, this code has expired."
-      error
+      for="text-field-validation-4"
       label="Gear discount code"
-      value="STRINGS23"
       variant="filled"
-    />
+    >
+      <input
+        aria-describedby="text-field-validation-4-end-text"
+        aria-invalid="true"
+        id="text-field-validation-4"
+        value="STRINGS23"
+      />
+    </TextField>
   </div>
 </template>

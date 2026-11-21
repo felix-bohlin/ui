@@ -5,10 +5,16 @@ import { NumberField } from "opui-css/vue"
 <template>
   <NumberField
     endText="Up to 8 per table."
-    id="number-field-end-text-1"
+    for="number-field-end-text-1"
     label="Guests"
-    :max="8"
-    :min="1"
-    :value="2"
-  />
+  >
+    <input
+      aria-describedby="number-field-end-text-1-end-text"
+      id="number-field-end-text-1"
+      max="8"
+      min="1"
+      type="number"
+      value="2"
+    />
+  </NumberField>
 </template>

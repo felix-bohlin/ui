@@ -18,7 +18,11 @@ export type Intrinsic = JSX.IntrinsicElements
 export type Components = typeof ui
 `
 
-export const REACT_ATTRIBUTE_NAMES = { class: "className", for: "htmlFor" }
+export const REACT_ATTRIBUTE_NAMES = {
+  autocomplete: "autoComplete",
+  class: "className",
+  for: "htmlFor",
+}
 
 const compilerOptions = () =>
   ts.parseJsonConfigFileContent(

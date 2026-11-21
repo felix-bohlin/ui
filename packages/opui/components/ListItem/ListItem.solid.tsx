@@ -2,7 +2,7 @@
 import { dynamic } from "@solidjs/web"
 import { children, omit, Show } from "solid-js"
 import { defined } from "../attrs"
-import { tagAttrs } from "../tag"
+import { disabledLink, tagAttrs } from "../tag"
 import { cx } from "../cx"
 import type { Props } from "./types.solid"
 
@@ -37,7 +37,11 @@ export default function ListItem(props: Props) {
     props.choice === "radio" ||
     props.choice === "switch"
   const tag = () =>
-    hasControl() ? "label" : (props.as ?? (props.href ? "a" : undefined))
+    hasControl()
+      ? "label"
+      : disabledLink(props.as, props.disabled)
+        ? "a"
+        : (props.as ?? (props.href ? "a" : undefined))
   const Tag = dynamic(tag)
   const restOnItem = () => hasControl() || !tag()
   const hasLabel = () => !!resolvedLabel()
@@ -76,13 +80,13 @@ export default function ListItem(props: Props) {
           </>
         }
       >
-        {(tag) => (
+        {(shownTag) => (
           <Tag
             class={cx([hasControl() && `ui-${props.choice}`])}
             for={tagFor()}
             {...(hasControl()
               ? {}
-              : tagAttrs(tag(), props.disabled, props.href))}
+              : tagAttrs(shownTag(), props.disabled, props.href))}
             {...defined(restOnItem() ? {} : (rest as object))}
           >
             {resolvedStart() && <div class="ui-start">{resolvedStart()}</div>}

@@ -1,32 +1,21 @@
 "use client"
 
-import { useEffect, useId } from "react"
+import { type HTMLAttributes, useEffect } from "react"
 import { cx } from "../cx"
-import Button from "../Button/Button.react"
-import { useFieldGroupContext } from "../FieldGroup/context.react"
-import { fieldDescribedBy } from "../id"
 import type { Props } from "./types.react"
 
 export default function TextField({
-  "aria-describedby": ariaDescribedBy,
-  "aria-invalid": ariaInvalid,
-  "aria-labelledby": ariaLabelledBy,
   autoFit,
   characterCount,
   characterCountLabel,
   className,
-  disabled,
   dropZone,
-  error,
   hideLabel,
-  id,
-  name,
+  htmlFor,
   passwordToggle,
   passwordToggleLabel = "Show password",
   size,
   spread,
-  style,
-  type = "text",
   variant,
   children,
   bottom,
@@ -40,20 +29,16 @@ export default function TextField({
   top,
   ...rest
 }: Props) {
-  const field = useFieldGroupContext()
-  const uid = useId()
-  const base = id || `text-field-${uid}`
   const hasLabel = Boolean(label)
   const Root = passwordToggle ? "opui-text-field" : "div"
   const hasStartText = Boolean(startText)
   const hasEndText = Boolean(endText || characterCount)
-  const inputId = hasLabel || passwordToggle ? base : id
-  const startId = start ? `${base}-start` : undefined
-  const endId = end ? `${base}-end` : undefined
-  const topId = top ? `${base}-top` : undefined
-  const bottomId = bottom ? `${base}-bottom` : undefined
-  const startTextId = hasStartText ? `${base}-start-text` : undefined
-  const endTextId = hasEndText ? `${base}-end-text` : undefined
+  const startId = start ? `${htmlFor}-start` : undefined
+  const endId = end ? `${htmlFor}-end` : undefined
+  const topId = top ? `${htmlFor}-top` : undefined
+  const bottomId = bottom ? `${htmlFor}-bottom` : undefined
+  const startTextId = hasStartText ? `${htmlFor}-start-text` : undefined
+  const endTextId = hasEndText ? `${htmlFor}-end-text` : undefined
   useEffect(() => {
     void import("../../elements/character-count.js")
     void import("../../elements/text-field.js")
@@ -72,12 +57,12 @@ export default function TextField({
         size && size !== "medium" && `ui-${size}`,
         className,
       ])}
-      style={style}
+      {...(rest as HTMLAttributes<HTMLElement>)}
     >
       {hasLabel && (
         <label
           className={hideLabel ? "ui-sr-only" : "ui-label"}
-          htmlFor={inputId}
+          htmlFor={htmlFor}
         >
           {label}
         </label>
@@ -87,7 +72,7 @@ export default function TextField({
           {startText}
         </span>
       )}
-      <span className="ui-field">
+      <span className="ui-field-container">
         {top && (
           <span className="ui-top" id={topId}>
             {top}
@@ -98,37 +83,18 @@ export default function TextField({
             {start}
           </span>
         )}
-        <input
-          {...rest}
-          aria-describedby={fieldDescribedBy(
-            {
-              bottom: bottomId,
-              end: endId,
-              endText: endTextId,
-              start: startId,
-              startText: startTextId,
-              top: topId,
-            },
-            ariaDescribedBy,
-          )}
-          aria-invalid={error ? "true" : ariaInvalid}
-          aria-labelledby={ariaLabelledBy}
-          disabled={disabled}
-          id={inputId}
-          name={name ?? field?.name}
-          type={type}
-        />
+        {children}
         {(end || passwordToggle) && (
           <span className="ui-end" id={endId}>
             {end}
             {passwordToggle && (
-              <Button
+              <button
+                className="ui-button ui-round"
+                type="button"
                 aria-label={passwordToggleLabel}
                 aria-pressed="false"
                 command="--toggle-password"
-                commandfor={inputId}
-                disabled={disabled}
-                round
+                commandfor={htmlFor}
               >
                 {iconUnchecked ? (
                   <span aria-hidden="true" className="ui-icon-unchecked">
@@ -158,7 +124,7 @@ export default function TextField({
                     viewBox="0 0 24 24"
                   />
                 )}
-              </Button>
+              </button>
             )}
           </span>
         )}
@@ -182,7 +148,6 @@ export default function TextField({
           )}
         </span>
       )}
-      {children}
     </Root>
   )
 }

@@ -94,13 +94,17 @@
       <CardContent>
         <TextField
           class="empty-states-search"
+          for="empty-states-q"
           hideLabel
-          id="empty-states-q"
           label="Search Bassbook"
-          name="q"
-          type="search"
-          value="flatwond strings"
         >
+          <input
+            aria-describedby="empty-states-q-start"
+            id="empty-states-q"
+            name="q"
+            type="search"
+            value="flatwond strings"
+          />
           {#snippet start()}
             <svg
               data-icon="search"

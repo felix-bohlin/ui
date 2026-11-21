@@ -1,6 +1,5 @@
 <script lang="ts">
   import "../../css/js/checkbox.js"
-  import { untrack } from "svelte"
   import { toggleInGroup } from "../group"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { defined } from "../attrs"
@@ -23,7 +22,6 @@
     if (group) group = toggleInGroup(group, value, isChecked)
     else checked = isChecked
   }
-  const initialChecked = untrack(getChecked)
 </script>
 
 <input
@@ -32,6 +30,6 @@
   name={name ?? field?.name}
   {...defined(rest)}
   bind:checked={getChecked, setChecked}
-  defaultChecked={defaultChecked ?? initialChecked}
+  {defaultChecked}
   {value}
 />

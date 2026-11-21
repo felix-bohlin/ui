@@ -12,26 +12,27 @@ A number field with buttons that step the value down and up, for amounts like a 
 - `opui-number-field.ui-number-field` (root): The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max`, and keeps both disabled while the input is disabled and `aria-disabled` while the input is, also when a script changes the input.
 - `.ui-label` (prop `label`, slot `label`): The label for the field.
 - `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
-- `.ui-field`: The boxed input area.
-- `.ui-field > .ui-start` (prop `decreaseLabel`, slot `decrease-icon`): The decrease button, with `command="--step-down"`. Renders a minus icon by default, or the `svg` in `decrease-icon`. Hidden until the element is defined.
-- `<input type="number">` (model): The input element.
-- `.ui-field > .ui-end` (prop `increaseLabel`, slot `increase-icon`): The increase button, with `command="--step-up"`. Renders a plus icon by default, or the `svg` in `increase-icon`. Hidden until the element is defined.
+- `.ui-field-container`: The boxed input area.
+- `.ui-field-container > .ui-start` (prop `decreaseLabel`, slot `decrease-icon`): The decrease button, with `command="--step-down"`. Renders a minus icon by default, or the `svg` in `decrease-icon`. Hidden until the element is defined.
+- `<input type="number">`: Your `<input type="number">`, written directly inside `.ui-field-container` between the buttons, with its `id` set to `for`. Give it `min`, `max` and `step`, and bind it, name it and mark it `required`, `disabled` or `aria-invalid="true"` like any input.
+- `.ui-field-container > .ui-end` (prop `increaseLabel`, slot `increase-icon`): The increase button, with `command="--step-up"`. Renders a plus icon by default, or the `svg` in `increase-icon`. Hidden until the element is defined.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
 
 ### Props and modifiers
 
 - `decreaseLabel`: `string`, default `"Decrease"`. The accessible name of the decrease button.
-- `disabled`: `boolean`, `input[disabled]`. Dims the field and blocks input and the step buttons.
-- `error`: `boolean`, `input[aria-invalid="true"]`. Marks the control invalid and shows error styles.
+- `for` (Astro, Solid, Svelte and Vue): `string`. The `id` of your `<input>`. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text` and `x-end-text` for `for="x"`. Point the input's `aria-describedby` at the ones it shows, in that order.
 - `hideLabel`: `boolean`, `.ui-number-field > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
-- `id`: `string`. The id of the `<input>`. The label and the step buttons point at it, so the component generates one when it's left out. The start and end text ids start with it: `x-start-text` and `x-end-text` for `id="x"`.
+- `htmlFor` (React): `string`. The `id` of your `<input>`, as `htmlFor` like on the element. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text` and `x-end-text` for `htmlFor="x"`. Point the input's `aria-describedby` at the ones it shows, in that order.
 - `increaseLabel`: `string`, default `"Increase"`. The accessible name of the increase button.
-- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
-- `required`: `boolean`, `input[required]`. Adds a required mark after the label. The form won't submit while the field is empty.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
 - `spread`: `boolean`, `.ui-spread`. Pushes the label and start text to one side and the field to the other.
 - `stretch`: `boolean`, `.ui-stretch`. Fills the available width. Without it, the field fits its value, from `--_min-inline-size` (`4ch`).
 - `variant`: `"filled"` (`.ui-filled`), `"outlined"` (default). The variant to use.
+
+### Slots
+
+- `default`: Your `<input type="number">`, which goes in `.ui-field-container` between the buttons.
 
 ### Element
 
@@ -40,15 +41,12 @@ A number field with buttons that step the value down and up, for amounts like a 
   - `stepDown()`: Steps the value down by `step`, unless the input is disabled, read-only or at `min`, and fires `input` and `change`.
   - `stepUp()`: Steps the value up by `step`, unless the input is disabled, read-only or at `max`, and fires `input` and `change`.
 
-Model: `value` (`number | string`), the input value. Astro, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
-
 ### Notes
 
 - HTML: Put the decrease and increase buttons in `.ui-start` and `.ui-end`, with `commandfor` and `aria-controls` naming the input and `command="--step-down"` or `command="--step-up"`, give the `<label>` a `for`, and import `opui-css/elements/number-field.js`. Without it, the buttons are hidden and the input keeps the browser's own spin buttons.
-- Astro: Attributes that aren't props go to the `<input>`, like `max`, `min`, `placeholder` and `step`, and `class` and `style` go to the root `<opui-number-field>`. The component loads `opui-css/elements/number-field.js`, which steps the value when a button is pressed or held.
-- React: Attributes that aren't props go to the `<input>`, like `max`, `min`, `placeholder` and `step`, and `className` and `style` go to the root `<opui-number-field>`. Use `value` with `onChange`, or `defaultValue`. The step buttons work once the component mounts and loads `opui-css/elements/number-field.js`, or as soon as the page imports it.
-- Solid: Attributes that aren't props go to the `<input>`, like `max`, `min`, `placeholder` and `step`, and `class` and `style` go to the root `<opui-number-field>`. The step buttons work as soon as the component's code loads, which imports `opui-css/elements/number-field.js`. `value` sets the value and follows it when it changes. Follow typing with `onInput`.
-- Svelte and Vue: Attributes that aren't props go to the `<input>`, like `max`, `min`, `placeholder` and `step`, and `class` and `style` go to the root `<opui-number-field>`. The step buttons work as soon as the component's code loads, which imports `opui-css/elements/number-field.js`.
+- Astro: Write the `<input type="number">` inside, with its `id` set to `for`. Other attributes go to the root. The component loads `opui-css/elements/number-field.js`, which steps the value when a button is pressed or held.
+- React: Write the `<input type="number">` inside, with its `id` set to `htmlFor`, and give it `value` with `onChange`, or `defaultValue`. Other attributes go to the root. The step buttons work once the component mounts and loads `opui-css/elements/number-field.js`, or as soon as the page imports it.
+- Solid, Svelte and Vue: Write the `<input type="number">` inside, with its `id` set to `for`, and bind it like any input. Other attributes go to the root. The step buttons work as soon as the component's code loads, which imports `opui-css/elements/number-field.js`.
 
 ## Component properties
 
@@ -60,24 +58,24 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### text-field.css
 
-- `--_accent`: Border color of `.ui-field` when its control has focus without `:focus-visible`, such as a clicked file or color input or a Select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
+- `--_accent`: Border color of `.ui-field-container` when its control has focus without `:focus-visible`, such as a clicked file or color input or a Select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
 - `--_arrow-inset`: Distance of the select arrow from the inline end.
 - `--_chevron-image`: The select arrow, as an image used for a mask.
 - `--_chevron-size`: Width and height of the select arrow.
 - `--_ease`: Easing of the transitions. Defaults to `--ui-ease`.
-- `--_end-end-radius`: The radius of the end-end corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the next control.
-- `--_end-start-radius`: The radius of the end-start corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
+- `--_end-end-radius`: The radius of the end-end corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the next control.
+- `--_end-start-radius`: The radius of the end-start corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
 - `--_field-padding-block`: The preferred block padding of the control. Set by the size classes.
 - `--_field-padding-inline`: The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.
 - `--_file-button-padding`: The preferred gap around the `::file-selector-button` of a file field: `--ui-space-2`, or `--ui-space-1` in `.ui-small` and `.ui-x-small`.
 - `--_font-size`: The font size of the control and affixes. At least 16px on iPhone and iPad (`css/compat/text-field.css`), so iOS Safari doesn't zoom in on focus.
 - `--_min-inline-size`: The least width of the control next to `.ui-start` and `.ui-end`, which shrink and end in an ellipsis to keep it, or the whole field when it is narrower. Defaults to `8ch`; a `NumberField` sets its own.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
-- `--_radius`: The corner radius of `.ui-field` and a file input's button. Defaults to `--ui-field-radius`, or `--ui-radius` when the theme doesn't set it.
-- `--_shadow`: The shadow of `.ui-field`. Defaults to `--ui-field-shadow`, or `--ui-shadow-control` when the theme leaves it unset. `none` in a `ControlGroup`.
-- `--_size`: The height of `.ui-field`, a minimum so a textarea can grow, and the width and height of a color field. Defaults to `--ui-field-size`, set by the size classes.
-- `--_start-end-radius`: The radius of the start-end corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
-- `--_start-start-radius`: The radius of the start-start corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the control before it.
+- `--_radius`: The corner radius of `.ui-field-container` and a file input's button. Defaults to `--ui-field-radius`, or `--ui-radius` when the theme doesn't set it.
+- `--_shadow`: The shadow of `.ui-field-container`. Defaults to `--ui-field-shadow`, or `--ui-shadow-control` when the theme leaves it unset. `none` in a `ControlGroup`.
+- `--_size`: The height of `.ui-field-container`, a minimum so a textarea can grow, and the width and height of a color field. Defaults to `--ui-field-size`, set by the size classes.
+- `--_start-end-radius`: The radius of the start-end corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
+- `--_start-start-radius`: The radius of the start-start corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the control before it.
 
 Outputs: `--_affix-block-size`, `--_affix-button-size`, `--_affix-padding-block`, `--_affix-text-color`, `--_arrow-padding`, `--_bg-color`, `--_border-color`, `--_duration`, `--_field-padding-block-fit`, `--_file-button-inset` and `--_helper-text-color`.
 
@@ -115,7 +113,7 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--u
 ```html
 <opui-number-field class="ui-number-field">
   <label class="ui-label" for="number-field-basics-1">Quantity</label>
-  <span class="ui-field">
+  <span class="ui-field-container">
     <span class="ui-start">
       <button
         class="ui-button ui-round"
@@ -135,11 +133,11 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--u
       </button>
     </span>
     <input
+      id="number-field-basics-1"
       max="10"
       min="1"
-      value="1"
-      id="number-field-basics-1"
       type="number"
+      value="1"
     />
     <span class="ui-end">
       <button
@@ -174,20 +172,16 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--u
 import { NumberField } from "opui-css/astro"
 ---
 
-<NumberField
-  id="number-field-basics-1"
-  label="Quantity"
-  max={10}
-  min={1}
-  value={1}
-/>
+<NumberField for="number-field-basics-1" label="Quantity">
+  <input id="number-field-basics-1" max="10" min="1" type="number" value="1" />
+</NumberField>
 ```
 
 ## React
 
 `import { NumberField } from "opui-css/react"`
 
-- `NumberField` slot props (`ReactNode`): `decreaseIcon`, `endText`, `increaseIcon`, `label` and `startText`.
+- `NumberField` slot props (`ReactNode`): `children`, `decreaseIcon`, `endText`, `increaseIcon`, `label` and `startText`.
 - Client components (`"use client"`): `NumberField`.
 
 ### Example: Basics
@@ -197,13 +191,15 @@ import { NumberField } from "opui-css/react"
 
 export default function Basics() {
   return (
-    <NumberField
-      defaultValue={1}
-      id="number-field-basics-1"
-      label="Quantity"
-      max={10}
-      min={1}
-    />
+    <NumberField htmlFor="number-field-basics-1" label="Quantity">
+      <input
+        id="number-field-basics-1"
+        max="10"
+        min="1"
+        type="number"
+        defaultValue="1"
+      />
+    </NumberField>
   )
 }
 ```
@@ -212,7 +208,7 @@ export default function Basics() {
 
 `import { NumberField } from "opui-css/solid"`
 
-- `NumberField` slot props (`JSX.Element`): `decreaseIcon`, `endText`, `increaseIcon`, `label` and `startText`.
+- `NumberField` slot props (`JSX.Element`): `children`, `decreaseIcon`, `endText`, `increaseIcon`, `label` and `startText`.
 
 ### Example: Basics
 
@@ -222,13 +218,15 @@ import { NumberField } from "opui-css/solid"
 
 export default function Basics() {
   return (
-    <NumberField
-      defaultValue={1}
-      id="number-field-basics-1"
-      label="Quantity"
-      max={10}
-      min={1}
-    />
+    <NumberField for="number-field-basics-1" label="Quantity">
+      <input
+        id="number-field-basics-1"
+        max="10"
+        min="1"
+        type="number"
+        defaultValue="1"
+      />
+    </NumberField>
   )
 }
 ```
@@ -237,8 +235,7 @@ export default function Basics() {
 
 `import { NumberField } from "opui-css/svelte"`
 
-- `NumberField` slot snippets: `decreaseIcon`, `endText`, `increaseIcon`, `label` and `startText`.
-- Hydration: `bind:value` on `NumberField`. The bound value only updates on the client. The native control still changes and submits with its form. Without hydration: Read the value from the form instead.
+- `NumberField` slot snippets: `children`, `decreaseIcon`, `endText`, `increaseIcon`, `label` and `startText`.
 
 ### Example: Basics
 
@@ -247,13 +244,9 @@ export default function Basics() {
   import { NumberField } from "opui-css/svelte"
 </script>
 
-<NumberField
-  id="number-field-basics-1"
-  label="Quantity"
-  max={10}
-  min={1}
-  value={1}
-/>
+<NumberField for="number-field-basics-1" label="Quantity">
+  <input id="number-field-basics-1" max="10" min="1" type="number" value="1" />
+</NumberField>
 ```
 
 ## Vue
@@ -261,7 +254,6 @@ export default function Basics() {
 `import { NumberField } from "opui-css/vue"`
 
 - `NumberField` named slots: `decrease-icon`, `end-text`, `increase-icon`, `label` and `start-text`. Fill one with `<template #decrease-icon>`.
-- Hydration: `v-model` on `NumberField`. The bound value only updates on the client. The native control still changes and submits with its form. Without hydration: Read the value from the form instead.
 
 ### Example: Basics
 
@@ -271,12 +263,14 @@ import { NumberField } from "opui-css/vue"
 </script>
 
 <template>
-  <NumberField
-    id="number-field-basics-1"
-    label="Quantity"
-    :max="10"
-    :min="1"
-    :value="1"
-  />
+  <NumberField for="number-field-basics-1" label="Quantity">
+    <input
+      id="number-field-basics-1"
+      max="10"
+      min="1"
+      type="number"
+      value="1"
+    />
+  </NumberField>
 </template>
 ```

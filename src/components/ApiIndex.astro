@@ -90,7 +90,7 @@ const apiList = Object.values(groups)
 ---
 
 <Document
-  description="The props, slots, parts and classes of every component on one page, for HTML, Astro, React, Svelte and Vue."
+  description="The props, slots, parts and classes of every component on one page, for HTML, Astro, React, Solid, Svelte and Vue."
   overline="API"
 >
   <FrameworkPicker slot="sidebar" />
@@ -111,13 +111,15 @@ const apiList = Object.values(groups)
   </style>
 
   <search class="api-filter ui-not-rich-text">
-    <TextField
-      autocomplete="off"
-      label="Filter"
-      name="api-filter"
-      placeholder="Component, prop or class"
-      type="search"
-    />
+    <TextField for="api-index-filter" label="Filter">
+      <input
+        autocomplete="off"
+        id="api-index-filter"
+        name="api-filter"
+        placeholder="Component, prop or class"
+        type="search"
+      />
+    </TextField>
     <p aria-live="polite" class="api-filter-status" role="status"></p>
   </search>
 

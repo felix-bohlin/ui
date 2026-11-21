@@ -1,26 +1,33 @@
 /** @jsxImportSource @solidjs/web */
 import { dynamic } from "@solidjs/web"
-import { omit } from "solid-js"
+import { omit, untrack } from "solid-js"
 import { defined } from "../attrs"
-import { tagAttrs } from "../tag"
+import { warnUnnamedControl } from "../dev"
+import { disabledLink, tagAttrs } from "../tag"
 import type { Props } from "./types.solid"
 
 export default function Avatar(props: Props) {
   const rest = omit(
     props,
-    "alt",
     "as",
     "class",
     "disabled",
     "href",
+    "label",
     "shape",
     "size",
     "src",
     "variant",
     "children",
   )
-  const tag = () => props.as || (props.href ? "a" : "div")
+  const tag = () =>
+    disabledLink(props.as, props.disabled)
+      ? "a"
+      : props.as || (props.href ? "a" : "div")
   const Tag = dynamic(tag)
+  untrack(() => {
+    warnUnnamedControl("Avatar", props.as === "button" || props.href, props)
+  })
 
   return (
     <Tag
@@ -35,9 +42,12 @@ export default function Avatar(props: Props) {
       {...defined(rest as object)}
     >
       {props.src ? (
-        <img src={props.src} alt={props.alt ?? ""} />
+        <img src={props.src} alt={props.label ?? ""} />
       ) : (
-        props.children
+        <span aria-hidden="true">{props.children}</span>
+      )}
+      {!props.src && props.label && (
+        <span class="ui-sr-only">{props.label}</span>
       )}
     </Tag>
   )

@@ -3,6 +3,7 @@ import { fileURLToPath } from "node:url"
 import {
   componentHasFramework,
   exampleExtension,
+  extensionPattern,
   FRAMEWORK_IDS,
 } from "../src/utils/framework.js"
 
@@ -15,6 +16,10 @@ export const TARGETS = Object.fromEntries(
     id,
     `.${exampleExtension(id)}`,
   ]),
+)
+
+const TARGET_EXTENSION = new RegExp(
+  `\\.(${extensionPattern(FRAMEWORK_IDS.filter((id) => id !== "astro"))})$`,
 )
 
 export const EXAMPLES_DIR = "src/component-examples"
@@ -44,10 +49,7 @@ export const handWrittenProblems = (handWritten, exists) => {
       ? []
       : [`${list} is not sorted`]),
     ...files.flatMap((file) => {
-      const astro = file.replace(
-        /\.(html|react\.tsx|solid\.tsx|svelte|vue)$/,
-        ".astro",
-      )
+      const astro = file.replace(TARGET_EXTENSION, ".astro")
       return [
         ...(exists(`src/component-examples/${file}`)
           ? []

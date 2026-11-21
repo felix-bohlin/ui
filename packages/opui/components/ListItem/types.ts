@@ -1,4 +1,4 @@
-export type Props = {
+export type Props<Link = never> = {
   borderTop?: boolean
   color?: "critical"
   description?: string
@@ -7,7 +7,7 @@ export type Props = {
   label?: string
 } & (
   | {
-      as?: "a"
+      as?: "a" | Link
       choice?: never
       disabled?: boolean
       href: string

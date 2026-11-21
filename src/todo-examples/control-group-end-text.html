@@ -1,0 +1,120 @@
+<p class="todo-note">
+  The group lines its controls up at the bottom (<code>align-items: end</code>),
+  which is what puts a button level with a field that has a label above it. Help
+  or error text under the field is part of the field's box, so in A the bottom
+  of that box is the bottom of the text, and the input ends up above the button
+  by the height of the text. In B the text comes after the group, linked with
+  <code>aria-describedby</code>, as the Labels section of the docs asks, and the
+  input and the button share one line.
+</p>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">A: help text inside the field</p>
+    <div
+      class="ui-control-group ui-outlined"
+      role="group"
+      aria-label="Discount"
+    >
+      <div class="ui-text-field">
+        <label class="ui-label" for="todo-end-text-a">Discount code</label>
+        <span class="ui-field-container">
+          <input
+            value="SPRING10"
+            aria-describedby="todo-end-text-a-help"
+            id="todo-end-text-a"
+            name="discount-a"
+            type="text"
+          />
+        </span>
+        <span class="ui-end-text" id="todo-end-text-a-help"
+          >One code per order.</span
+        >
+      </div>
+      <button class="ui-button" type="button">Apply</button>
+    </div>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">B: help text after the group</p>
+    <div
+      class="ui-control-group ui-outlined"
+      role="group"
+      aria-label="Discount"
+    >
+      <div class="ui-text-field">
+        <label class="ui-label" for="todo-end-text-b">Discount code</label>
+        <span class="ui-field-container">
+          <input
+            value="SPRING10"
+            aria-describedby="todo-end-text-b-help"
+            id="todo-end-text-b"
+            name="discount-b"
+            type="text"
+          />
+        </span>
+      </div>
+      <button class="ui-button" type="button">Apply</button>
+    </div>
+    <p id="todo-end-text-b-help">One code per order.</p>
+  </section>
+</div>
+<p class="todo-note">
+  The same with an error, where the text is two lines in a narrow group: the gap
+  in A grows with every line, which is why no fixed offset on the button can
+  close it.
+</p>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">A: error text inside the field</p>
+    <div
+      class="ui-control-group ui-outlined"
+      role="group"
+      aria-label="Discount"
+      style="inline-size: 16rem"
+    >
+      <div class="ui-text-field">
+        <label class="ui-label" for="todo-end-text-c">Discount code</label>
+        <span class="ui-field-container">
+          <input
+            value="SPRING1O"
+            aria-describedby="todo-end-text-c-error"
+            aria-invalid="true"
+            id="todo-end-text-c"
+            name="discount-c"
+            type="text"
+          />
+        </span>
+        <span class="ui-end-text" id="todo-end-text-c-error"
+          >This code has expired. Codes are valid for 30 days.</span
+        >
+      </div>
+      <button class="ui-button" type="button">Apply</button>
+    </div>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">B: error text after the group</p>
+    <div
+      class="ui-control-group ui-outlined"
+      role="group"
+      aria-label="Discount"
+      style="inline-size: 16rem"
+    >
+      <div class="ui-text-field">
+        <label class="ui-label" for="todo-end-text-d">Discount code</label>
+        <span class="ui-field-container">
+          <input
+            value="SPRING1O"
+            aria-describedby="todo-end-text-d-error"
+            aria-invalid="true"
+            id="todo-end-text-d"
+            name="discount-d"
+            type="text"
+          />
+        </span>
+      </div>
+      <button class="ui-button" type="button">Apply</button>
+    </div>
+    <p id="todo-end-text-d-error" style="max-inline-size: 16rem">
+      This code has expired. Codes are valid for 30 days.
+    </p>
+  </section>
+</div>

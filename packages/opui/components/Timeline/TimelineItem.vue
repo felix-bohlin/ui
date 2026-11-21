@@ -22,11 +22,10 @@ defineOptions({
 
 const attrs = useAttrs() as HTMLAttributes
 
-const restAttrs = computed(() =>
-  Object.fromEntries(
-    Object.entries(attrs).filter(([key]) => key !== "aria-current"),
-  ),
-)
+const restAttrs = computed(() => {
+  const { "aria-current": _ariaCurrent, ...rest } = attrs
+  return rest
+})
 
 const Heading = computed(
   () => `h${headingLevel}` as "h2" | "h3" | "h4" | "h5" | "h6",

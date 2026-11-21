@@ -1,28 +1,26 @@
 <div class="ui-one-time-code">
   <label class="ui-label" for="one-time-code-length-1">PIN</label>
-  <span class="ui-field">
+  <span class="ui-field-container">
     <input
-      inputmode="numeric"
-      pattern="[0-9]{4}"
       autocomplete="one-time-code"
       id="one-time-code-length-1"
+      inputmode="numeric"
       maxlength="4"
       name="pin"
-      type="text"
+      pattern="[0-9]{4}"
     />
   </span>
 </div>
 <div class="ui-one-time-code ui-grouped">
   <label class="ui-label" for="one-time-code-length-2">Backup code</label>
-  <span class="ui-field">
+  <span class="ui-field-container">
     <input
-      inputmode="numeric"
-      pattern="[0-9]{8}"
       autocomplete="one-time-code"
       id="one-time-code-length-2"
+      inputmode="numeric"
       maxlength="8"
       name="backup-code"
-      type="text"
+      pattern="[0-9]{8}"
     />
   </span>
 </div>

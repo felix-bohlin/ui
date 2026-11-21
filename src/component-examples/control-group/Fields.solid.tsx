@@ -19,11 +19,16 @@ export default function Fields() {
         variant="filled"
       >
         <TextField
+          for="control-group-fields-2"
           hideLabel
           label="Bassist name or handle"
-          placeholder="Search bassists"
-          type="search"
-        />
+        >
+          <input
+            id="control-group-fields-2"
+            placeholder="Search bassists"
+            type="search"
+          />
+        </TextField>
         <Button>Search</Button>
       </ControlGroup>
 
@@ -41,27 +46,29 @@ export default function Fields() {
               label="Currency"
               name="currency"
             />
-            <TextField
-              hideLabel
-              inputmode="decimal"
-              label="Amount"
-              name="amount"
-              placeholder="0.00"
-            />
+            <TextField for="control-group-fields-3" hideLabel label="Amount">
+              <input
+                id="control-group-fields-3"
+                inputmode="decimal"
+                name="amount"
+                placeholder="0.00"
+              />
+            </TextField>
           </ControlGroup>
         </FieldGroup>
       </Fieldset>
 
       <ControlGroup aria-label="Add to cart" color="primary" variant="filled">
-        <NumberField
-          defaultValue={1}
-          hideLabel
-          id="control-group-fields-1"
-          label="Quantity"
-          max={10}
-          min={1}
-          name="quantity"
-        />
+        <NumberField for="control-group-fields-1" hideLabel label="Quantity">
+          <input
+            id="control-group-fields-1"
+            max="10"
+            min="1"
+            name="quantity"
+            type="number"
+            defaultValue="1"
+          />
+        </NumberField>
         <Button>Add to cart</Button>
       </ControlGroup>
     </>

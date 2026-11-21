@@ -1,4 +1,5 @@
-export type MenuItem = {
+export type MenuItem<Link = never> = {
+  as?: Link
   borderTop?: boolean
   color?: "critical"
   disabled?: boolean
@@ -14,6 +15,7 @@ export type Props = {
   dense?: boolean
   id: string
   items?: MenuItem[]
+  orientation?: "horizontal" | "vertical"
   popover?: "auto" | "manual"
   side?: "block-end" | "block-start" | "inline-end" | "inline-start"
 }

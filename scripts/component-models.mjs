@@ -5,40 +5,64 @@ const arrayRead = (model) => model.read.startsWith("selectionOf")
 
 const bindableProps = (model) => model.bindables.map(({ prop }) => prop)
 
-const optionalModel = (model) =>
-  `const modelValue = defineModel<${model.type} | undefined>({\n  default: undefined,\n})`
+const optionalModel = (model, name = "modelValue") =>
+  `const ${name} = defineModel<${model.type} | undefined>({\n  default: undefined,\n})`
 
-const selectionImports = (component, model) =>
+const report = (model, callback, multiple) =>
   arrayRead(model)
-    ? [`import { selectionOf } from "${selectionImport(component)}"`]
-    : []
+    ? `if (${multiple}) ${callback}?.(checkedValues(input))\n  else ${callback}?.(input.value)`
+    : `${callback}?.(${model.read})`
 
 const resettable = (model) =>
   model.prop === "value" && ["input", "textarea"].includes(model.element.tag)
 
-const numeric = (model) =>
-  model.element.tag === "input" &&
-  model.element.attributes.some(
-    (item) =>
-      item.kind === "static" &&
-      item.name === "type" &&
-      ["number", "range"].includes(item.value),
-  )
-
 const solidChecked = {
   attributes: () => [
-    "defaultChecked={initialChecked}",
-    "ref={[props.ref, checkedRef]}",
+    "{...checkedControl.server}",
+    "ref={[props.ref, checkedControl.ref]}",
   ],
   body: () => [
-    "const initialChecked = untrack(() => props.checked)",
-    'const checkedRef = bound("checked", () => props.checked)',
+    'const checkedControl = control("checked", () => props.checked)',
   ],
   omits: () => ["checked", "ref"],
-  locals: () => ["checkedRef", "initialChecked"],
-  solidHelpers: () => ["bound"],
-  solidValues: () => ["untrack"],
+  locals: () => ["checkedControl"],
 }
+
+const BOUND = "const bound = useBound()"
+
+export const modelHelpers = (framework, component) =>
+  ({
+    react: { checkedValues: selectionImport(component), useCallback: "react" },
+    solid: {
+      checkedValues: selectionImport(component),
+      control: "../solid",
+      optionSelected: "../solid",
+      untrack: "solid-js",
+    },
+    svelte: {
+      seedChecked: "../svelte",
+      selectionOf: selectionImport(component),
+      toggleInGroup: "../group",
+      untrack: "svelte",
+    },
+    vue: { useBound: "../vue" },
+  })[framework]
+
+export const helpersCalled = (code, helpers) =>
+  Object.entries(helpers)
+    .filter(([name]) => new RegExp(`(?<![\\w$.])${name}\\(`).test(code))
+    .map(([name, module]) => ({ module, name }))
+
+export const namesFrom = (used, module) =>
+  used.filter((entry) => entry.module === module).map(({ name }) => name)
+
+export const importLinesOf = (used, except) =>
+  [...new Set(used.map(({ module }) => module))]
+    .filter((module) => !except.includes(module))
+    .map(
+      (module) =>
+        `import { ${namesFrom(used, module).join(", ")} } from "${module}"`,
+    )
 
 const ownsDefault = (model) => model.element?.tag === "select"
 
@@ -48,29 +72,21 @@ export const MODEL_KINDS = {
     svelte: {
       attributes: () => [
         "bind:checked={getChecked, setChecked}",
-        "defaultChecked={defaultChecked ?? initialChecked}",
+        "{defaultChecked}",
         "{value}",
       ],
       bindables: bindableProps,
-      imports: () => [`import { toggleInGroup } from "../group"`],
       plainProps: () => ["defaultChecked", "value"],
       script: () => [
         "const getChecked = () =>\n  group ? group.includes(value) : !!(checked ?? defaultChecked)",
         "const setChecked = (isChecked: boolean) => {\n  if (group) group = toggleInGroup(group, value, isChecked)\n  else checked = isChecked\n}",
-        "const initialChecked = untrack(getChecked)",
       ],
       typedBindables: true,
-      untrack: () => true,
     },
     vue: {
-      attributes: () => ["v-seed", 'v-model="model"'],
-      computed: true,
+      boundAttributes: () => ['v-model="modelValue"'],
       explicitAttrs: true,
-      setup: (model) => [
-        optionalModel(model),
-        "const model = computed({\n  get: () =>\n    modelValue.value ??\n    (attrs.checked !== undefined && attrs.checked !== false),\n  set: (value) => {\n    modelValue.value = value\n  },\n})",
-      ],
-      vueHelpers: () => ["vSeed"],
+      setup: (model) => [optionalModel(model), BOUND],
     },
   },
   checkedItem: {
@@ -83,14 +99,10 @@ export const MODEL_KINDS = {
       typedBindables: true,
     },
     vue: {
-      change: (item) => [
-        `if (${item.grouped}.value === undefined) model.value = input.checked`,
-      ],
       checkedRename: (item) =>
         item.checked ? [item.checked, `model ?? ${item.checked}`] : undefined,
-      setup: (model) => [
-        `const model = defineModel<${model.type} | undefined>({\n  default: undefined,\n})`,
-      ],
+      ownModel: true,
+      setup: (model) => [optionalModel(model, "model"), BOUND],
       warningChecked: (item) =>
         item.checked ? `${item.checked} ?? model.value` : undefined,
     },
@@ -103,46 +115,34 @@ export const MODEL_KINDS = {
       typedBindables: true,
     },
     vue: {
-      attributes: () => ['v-model="modelValue"'],
-      setup: (model) => [optionalModel(model)],
+      boundAttributes: () => ['v-model="model"'],
+      setup: (model) => [optionalModel(model, "model"), BOUND],
     },
   },
   group: {
     react: {
       body: (model) => [
-        "const [inner, setInner] = useState(defaultValue)",
-        `const change = (input: HTMLInputElement) => {\n  const next = ${model.read}\n  if (inner !== undefined) setInner(next)\n  onValueChange?.(next${arrayRead(model) ? " as never" : ""})\n}`,
+        `const change = useCallback(\n  (input: HTMLInputElement) => {\n  ${report(model, "onValueChange", "multiple")}\n},\n  [${arrayRead(model) ? "multiple, " : ""}onValueChange],\n)`,
       ],
       entries: () => ["defaultValue", "onValueChange"],
-      imports: selectionImports,
-      provided: (model, provide) => [
+      provided: (_, provide) => [
         { code: "change", key: "change" },
-        ...provide.value.map((entry) =>
-          entry.key === model.prop
-            ? { code: `${model.prop} ?? inner`, key: entry.key }
-            : entry,
-        ),
+        { code: "defaultValue", key: "defaultValue" },
+        ...provide.value,
       ],
-      reactValues: () => ["useState"],
       tiedCallbacks: true,
     },
     solid: {
-      body: (model, rewrite) => [
-        "const [inner, setInner] = createSignal(untrack(() => props.defaultValue))",
-        `const change = (input: HTMLInputElement) => {\n  const next = ${rewrite(model.read)}\n  if (inner() !== undefined) setInner(next)\n  props.onValueChange?.(next${arrayRead(model) ? " as never" : ""})\n}`,
+      body: (model) => [
+        `const change = (input: HTMLInputElement) => {\n  ${report(model, "props.onValueChange", "props.multiple")}\n}`,
       ],
       entries: () => ["defaultValue", "onValueChange"],
-      imports: selectionImports,
-      locals: () => ["change", "inner", "setInner"],
-      provided: (model, provide) => [
+      locals: () => ["change"],
+      provided: (_, provide) => [
         { code: "change", key: "change" },
-        ...provide.value.map((entry) =>
-          entry.key === model.prop
-            ? { code: `props.${model.prop} ?? inner()`, key: entry.key }
-            : entry,
-        ),
+        { code: "props.defaultValue", key: "defaultValue" },
+        ...provide.value,
       ],
-      solidValues: () => ["createSignal", "untrack"],
       tiedCallbacks: true,
     },
     svelte: {
@@ -150,19 +150,16 @@ export const MODEL_KINDS = {
       context: (model) => [
         `change(input) {\nif (${model.prop} !== undefined) ${model.prop} = ${model.read}\n},`,
       ],
-      imports: selectionImports,
       typedBindables: true,
     },
     vue: {
-      computed: true,
       generic: arrayRead,
-      imports: selectionImports,
       providedEntry: (model, key) =>
         key === model.prop ? `${key}: model` : undefined,
-      providedFirst: () => ["change"],
+      providedFirst: () => ["bound"],
       setup: (model, generic) => [
         `const model = defineModel<${generic ? "Model" : model.type}>()`,
-        `const change = (input: HTMLInputElement) => {\n  if (model.value !== undefined) model.value = ${model.read}${generic ? " as Model" : ""}\n}`,
+        BOUND,
       ],
       undeclared: (model, prop) => prop === model.prop,
     },
@@ -175,26 +172,24 @@ export const MODEL_KINDS = {
         `checked={${model.local} !== undefined ? ${checked} : undefined}`,
         `defaultChecked={${model.local} !== undefined ? undefined : ${checked}}`,
         `onChange={() => onValueChange?.(${value})}`,
-        `ref={seedChecked(() => onValueChange?.(${value}))}`,
       ],
-      reactHelpers: () => ["seedChecked"],
       rename: (model) => [[model.local, `${model.local} ?? defaultValue`]],
     },
     solid: {
       entries: () => ["defaultValue", "onValueChange"],
-      radioAttributes: (model, value, checked, initial) => [
-        `{...checkedProps(props.${model.prop} === undefined ? undefined : ${checked}, ${initial})}`,
+      radioAttributes: (_, value, control) => [
+        `{...${control}.server}`,
         `onChange={() => props.onValueChange?.(${value})}`,
-        `ref={seedChecked(() => props.onValueChange?.(${value}))}`,
+        `ref={${control}.ref}`,
       ],
+      radioChecked: (model, checked) =>
+        `props.${model.prop} === undefined ? undefined : ${checked}`,
       rename: (model) => [
         [model.local, `props.${model.prop} ?? props.defaultValue`],
       ],
-      solidHelpers: () => ["checkedProps", "seedChecked"],
     },
     svelte: {
       bindables: (model) => [model.prop],
-      imports: () => [`import { seedChecked } from "../svelte"`],
       modelsGroupRadio: true,
       radioAttributes: (model, value, checked) => [
         `defaultChecked={untrack(() => ${checked})}`,
@@ -202,21 +197,18 @@ export const MODEL_KINDS = {
         `onchange={() => {\n  ${model.local} = ${value}\n}}`,
       ],
       typedBindables: true,
-      untrack: () => true,
     },
     vue: {
-      computed: true,
-      modelsGroupRadio: true,
-      radioAttributes: () => ["v-seed", 'v-model="model"'],
+      boundAttributes: () => ['v-model="modelValue"'],
       rename: (model) => ({
         script: [[model.local, "model.value"]],
         template: [[model.local, "model"]],
       }),
       setup: (model) => [
         `const modelValue = defineModel<${model.type}>()`,
-        `const model = computed({\n  get: () => modelValue.value ?? ${model.local},\n  set: (value) => {\n    modelValue.value = value\n  },\n})`,
+        BOUND,
+        `const model = computed(() => modelValue.value ?? ${model.local})`,
       ],
-      vueHelpers: () => ["vSeed"],
     },
   },
   radio: {
@@ -236,20 +228,12 @@ export const MODEL_KINDS = {
         "const initialChecked = untrack(isChecked)",
         "const check = () => {\n  group = value ?? true\n}",
       ],
-      imports: () => [`import { seedChecked } from "../svelte"`],
       typedBindables: true,
-      untrack: () => true,
     },
     vue: {
-      attributes: () => [':value="attrs.value"', "v-seed", 'v-model="model"'],
-      computed: true,
+      boundAttributes: () => [':value="attrs.value"', 'v-model="modelValue"'],
       explicitAttrs: true,
-      setup: (model) => [
-        optionalModel(model),
-        "const unchecked = Symbol()",
-        `const model = computed({\n  get: () =>\n    modelValue.value ??\n    (attrs.checked !== undefined && attrs.checked !== false\n      ? attrs.value\n      : unchecked),\n  set: (value: ${model.type} | undefined) => {\n    modelValue.value = value\n  },\n})`,
-      ],
-      vueHelpers: () => ["vSeed"],
+      setup: (model) => [optionalModel(model), BOUND],
     },
   },
   value: {
@@ -267,14 +251,11 @@ export const MODEL_KINDS = {
     },
     solid: {
       attributes: (model) => [
-        resettable(model)
-          ? `default${capitalize(model.prop)}={initial${capitalize(model.prop)}}`
-          : `{...serverValue(initial${capitalize(model.prop)})}`,
-        `ref={[props.ref, ${model.prop}Ref]}`,
+        `{...${model.prop}Control.server}`,
+        `ref={[props.ref, ${model.prop}Control.ref]}`,
       ],
       body: (model, _, read) => [
-        `const initial${capitalize(model.prop)} = untrack(() => props.${model.prop}${ownsDefault(model) ? ` ?? props.default${capitalize(model.prop)}` : ""})`,
-        `const ${model.prop}Ref = bound(${JSON.stringify(model.prop)}, () => props.${model.prop}${resettable(model) ? "" : `, initial${capitalize(model.prop)}`})`,
+        `const ${model.prop}Control = control(${JSON.stringify(model.prop)}, () => props.${model.prop}${ownsDefault(model) ? `, untrack(() => props.default${capitalize(model.prop)})` : ""})`,
         ...(read
           ? [
               `const ${model.local} = () => props.${model.prop} ?? props.default${capitalize(model.prop)}`,
@@ -282,26 +263,15 @@ export const MODEL_KINDS = {
           : []),
       ],
       omits: (model) => [model.prop, "ref"],
-      locals: (model) => [
-        `initial${capitalize(model.prop)}`,
-        `${model.prop}Ref`,
-      ],
+      locals: (model) => [`${model.prop}Control`],
       ownDefault: ownsDefault,
       rename: (model) =>
         model.local ? [[model.local, `${model.local}()`]] : [],
-      solidHelpers: (model) => [
-        "bound",
-        ...(resettable(model) ? [] : ["serverValue"]),
-      ],
-      solidValues: () => ["untrack"],
     },
     svelte: {
       attributes: (model) =>
         resettable(model)
-          ? [
-              "bind:value={getValue, setValue}",
-              "defaultValue={defaultValue ?? initialValue}",
-            ]
+          ? ["bind:value={getValue, setValue}", "{defaultValue}"]
           : [`bind:${model.prop}`],
       bindables: (model) => [model.prop],
       plainProps: (model) => (resettable(model) ? ["defaultValue"] : []),
@@ -310,29 +280,29 @@ export const MODEL_KINDS = {
       script: (model) =>
         resettable(model)
           ? [
-              "const getValue = () => value ?? defaultValue",
+              "const getValue = () => (value === undefined ? defaultValue : value)",
               "const setValue = (next: typeof value) => {\n  value = next\n}",
-              "const initialValue = untrack(getValue)",
             ]
           : [],
-      untrack: resettable,
     },
     vue: {
-      attributes: (model) => [
-        "v-seed",
-        `v-model${numeric(model) ? ".number" : ""}="model"`,
-      ],
-      computed: true,
-      declared: (model) => (model.local ? [] : [model.prop]),
+      boundAttributes: () => ['v-model="modelValue"'],
       rename: (model) => ({
         script: model.local ? [[model.local, "model.value"]] : [],
         template: model.local ? [[model.local, "model"]] : [],
       }),
-      setup: (model) => [
+      setup: (model, _, read) => [
         `const modelValue = defineModel<${model.type}>()`,
-        `const model = computed({\n  get: () => modelValue.value ?? ${model.local ?? model.prop},\n  set: (value) => {\n    modelValue.value = value\n  },\n})`,
+        BOUND,
+        ...(read
+          ? [`const model = computed(() => modelValue.value ?? ${model.local})`]
+          : []),
       ],
-      vueHelpers: () => ["vSeed"],
+      declared: (model) => (model.local ? [] : [model.prop]),
+      unboundOwn: (model) =>
+        model.element.tag === "textarea"
+          ? { child: true, code: model.local ?? model.prop, name: model.prop }
+          : { attr: true, code: model.local ?? model.prop, name: model.prop },
     },
   },
 }

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { content } from "../content.svelte"
-  import { tagAttrs } from "../tag"
+  import { disabledLink, tagAttrs } from "../tag"
   import { defined } from "../attrs"
   import { classAttrs } from "../cx"
   import type { Props } from "./types.svelte"
@@ -31,7 +31,13 @@
   const hasControl = $derived(
     choice === "checkbox" || choice === "radio" || choice === "switch",
   )
-  const Tag = $derived(hasControl ? "label" : (as ?? (href ? "a" : undefined)))
+  const Tag = $derived(
+    hasControl
+      ? "label"
+      : disabledLink(as, disabled)
+        ? "a"
+        : (as ?? (href ? "a" : undefined)),
+  )
   const restOnItem = $derived(hasControl || !Tag)
   const hasLabel = $derived(!!label)
   const hasDescription = $derived(!!description)

@@ -37,6 +37,62 @@ for (const fixture of SIZED) {
   })
 }
 
+test("a control that wraps in a control group starts its row without a divider, except after a field with a visible label", async ({
+  page,
+}) => {
+  await openFixture(page, "html", "stress/forms")
+  await needs(page, "gap decorations", () => CSS.supports("row-rule: none"))
+  test.info().annotations.push({
+    description:
+      "a gap rule runs the full height of the row and would show beside a visible label, so that group keeps start borders, and CSS can't tell that a button is first in its row",
+    type: "known limit",
+  })
+
+  expect(
+    await page
+      .locator('[data-example="WrappedControlGroup"] .ui-control-group')
+      .evaluateAll((groups) => {
+        const probe = new OffscreenCanvas(1, 1).getContext("2d")!
+        const paints = (color: string) => {
+          probe.clearRect(0, 0, 1, 1)
+          probe.fillStyle = color
+          probe.fillRect(0, 0, 1, 1)
+          return probe.getImageData(0, 0, 1, 1).data[3] > 0
+        }
+        return groups.map((group) => {
+          const controls = [...group.children]
+          return {
+            dividers: [
+              ...new Set(
+                controls.flatMap((control, index) => {
+                  if (index === 0) return []
+                  const previous = controls[index - 1].getBoundingClientRect()
+                  if (
+                    control.getBoundingClientRect().top <
+                    previous.bottom - 1
+                  ) {
+                    return []
+                  }
+                  const style = getComputedStyle(control)
+                  return [
+                    parseFloat(style.borderInlineStartWidth) > 0 &&
+                      paints(style.borderInlineStartColor),
+                  ]
+                }),
+              ),
+            ],
+            group: group.getAttribute("aria-label"),
+          }
+        })
+      }),
+    "whether the first control of each wrapped row starts with a divider",
+  ).toEqual([
+    { dividers: [false], group: "Message" },
+    { dividers: [true], group: "Invite by email" },
+    { dividers: [false], group: "Invite" },
+  ])
+})
+
 test("chips one size step up match the control size", async ({ page }) => {
   await openFixture(page, "html", "stress/forms")
 
@@ -88,7 +144,9 @@ test("content taller than a field's button keeps the button's inset", async ({
   await openFixture(page, "html", "stress/forms")
 
   const affixes = await measureAffixes(
-    page.locator("[data-tall-affixes] .ui-field > :is(.ui-start, .ui-end)"),
+    page.locator(
+      "[data-tall-affixes] .ui-field-container > :is(.ui-start, .ui-end)",
+    ),
   )
   expect(
     affixes.map(({ affix }) => affix.replace(/^TallAffixes > /, "")),
@@ -148,7 +206,7 @@ for (const root of ["ui-text-field", "ui-textarea"]) {
         `<button id="order-before" type="button">Before</button>
         <div class="${root}">
           <label class="ui-label" for="order-control">Order</label>
-          <span class="ui-field">${markup.map((part) => parts[part as keyof typeof parts]).join("")}</span>
+          <span class="ui-field-container">${markup.map((part) => parts[part as keyof typeof parts]).join("")}</span>
         </div>`,
       )
       await page.locator("#order-before").focus()

@@ -5,19 +5,12 @@
 <List>
   <ListItem label="Ines Hertz">
     {#snippet start()}
-      <Avatar aria-hidden="true">IH</Avatar>
+      <Avatar>IH</Avatar>
     {/snippet}
   </ListItem>
   <ListItem description="Fretless enthusiast" label="Lou Headstock">
     {#snippet start()}
-      <Avatar>
-        <img
-          src="/photos/lou-headstock.png"
-          alt=""
-          decoding="async"
-          loading="lazy"
-        />
-      </Avatar>
+      <Avatar src="/photos/lou-headstock.png" />
     {/snippet}
   </ListItem>
 </List>

@@ -7,9 +7,15 @@ export type Props =
   // Unique component props
   Without<
     Base.Props,
-    "bottom" | "end" | "endText" | "label" | "start" | "startText" | "top"
-  > &
-    Base.Slots<ReactNode> &
-    // Input attributes
+    | "bottom"
+    | "end"
+    | "endText"
+    | "for"
+    | "label"
+    | "start"
+    | "startText"
+    | "top"
+  > & { htmlFor: Base.Props["for"] } & Base.Slots<ReactNode> &
+    // Root attributes
     // include the rest
-    Omit<ComponentProps<"input">, "size">
+    ComponentProps<"div">

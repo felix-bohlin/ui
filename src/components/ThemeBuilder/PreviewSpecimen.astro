@@ -44,6 +44,7 @@ type Props = {
 }
 
 const { scheme } = Astro.props
+const specimenId = Astro.locals.$id("preview-specimen")
 
 const name = (part: string) => `preview-${scheme}-${part}`
 
@@ -145,30 +146,44 @@ const callouts = [
     <p class="specimen-caption">Fields</p>
     <TextField
       endText="We never share it."
+      for={`${specimenId}-email`}
       label="Email"
-      name={name("email")}
-      placeholder="rory@lowend.example"
-      required
-      type="email"
-    />
+    >
+      <input
+        aria-describedby={`${specimenId}-email-end-text`}
+        id={`${specimenId}-email`}
+        name={name("email")}
+        placeholder="rory@lowend.example"
+        required
+        type="email"
+      />
+    </TextField>
     <TextField
       endText="That name is taken."
-      error
+      for={`${specimenId}-username`}
       label="Username"
-      name={name("username")}
-      value="slapqueen"
-    />
+    >
+      <input
+        aria-describedby={`${specimenId}-username-end-text`}
+        aria-invalid="true"
+        id={`${specimenId}-username`}
+        name={name("username")}
+        value="slapqueen"
+      />
+    </TextField>
     <Select label="Plan" name={name("plan")}>
       <option>Free</option>
       <option selected>Gold</option>
       <option>Platinum</option>
     </Select>
-    <Textarea
-      label="Message"
-      name={name("message")}
-      placeholder="Tell us about your bass"
-      rows="2"
-    />
+    <Textarea for={`${specimenId}-message`} label="Message">
+      <textarea
+        id={`${specimenId}-message`}
+        name={name("message")}
+        placeholder="Tell us about your bass"
+        rows="2"
+      ></textarea>
+    </Textarea>
   </div>
 
   <div class="specimen-block specimen-form">
@@ -284,11 +299,11 @@ const callouts = [
     <p class="specimen-caption">List</p>
     <List bordered variant="transparent">
       <ListItem description="Can we move rehearsal to Friday?" label="Percy">
-        <Avatar aria-hidden="true" slot="start">PG</Avatar>
+        <Avatar slot="start">PG</Avatar>
         <span slot="end">09:41</span>
       </ListItem>
       <ListItem description="The new flatwounds are in." label="Rory">
-        <Avatar aria-hidden="true" slot="start">RR</Avatar>
+        <Avatar slot="start">RR</Avatar>
         <span slot="end">Mon</span>
       </ListItem>
     </List>

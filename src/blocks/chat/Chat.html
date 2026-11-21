@@ -25,7 +25,7 @@
           </button>
         </div>
         <div class="ui-text-field ui-small">
-          <span class="ui-field">
+          <span class="ui-field-container">
             <span class="ui-start" id="chat-search-start">
               <svg
                 data-icon="search"
@@ -42,11 +42,11 @@
               </svg>
             </span>
             <input
-              aria-label="Search messages"
-              placeholder="Search"
               aria-describedby="chat-search-start"
+              aria-label="Search messages"
               id="chat-search"
               name="chat-search"
+              placeholder="Search"
               type="search"
             />
           </span>
@@ -56,7 +56,9 @@
         <li>
           <a href="#chat-stella" aria-current="page">
             <div class="ui-start">
-              <div class="ui-avatar" aria-label="Stella Nut" role="img">SN</div>
+              <div class="ui-avatar" aria-label="Stella Nut" role="img">
+                <span aria-hidden="true">SN</span>
+              </div>
             </div>
             <div class="ui-text">
               <p>Stella Nut</p>
@@ -69,7 +71,7 @@
           <a href="#chat-low-end-theory">
             <div class="ui-start">
               <div class="ui-avatar" aria-label="Low End Theory" role="img">
-                LE
+                <span aria-hidden="true">LE</span>
               </div>
             </div>
             <div class="ui-text">
@@ -89,7 +91,7 @@
           <a href="#chat-percy">
             <div class="ui-start">
               <div class="ui-avatar" aria-label="Percy Groove" role="img">
-                PG
+                <span aria-hidden="true">PG</span>
               </div>
             </div>
             <div class="ui-text">
@@ -102,7 +104,9 @@
         <li>
           <a href="#chat-ines">
             <div class="ui-start">
-              <div class="ui-avatar" aria-label="Ines Hertz" role="img">IH</div>
+              <div class="ui-avatar" aria-label="Ines Hertz" role="img">
+                <span aria-hidden="true">IH</span>
+              </div>
             </div>
             <div class="ui-text">
               <p>Ines Hertz</p>
@@ -119,7 +123,7 @@
                 aria-label="Ignored Bassists Anonymous"
                 role="img"
               >
-                IB
+                <span aria-hidden="true">IB</span>
               </div>
             </div>
             <div class="ui-text">
@@ -154,7 +158,9 @@
             ></path>
           </svg>
         </button>
-        <div class="ui-avatar" aria-label="Stella Nut" role="img">SN</div>
+        <div class="ui-avatar" aria-label="Stella Nut" role="img">
+          <span aria-hidden="true">SN</span>
+        </div>
         <hgroup>
           <h1 class="ui-h6">Stella Nut</h1>
           <p>
@@ -248,7 +254,9 @@
       >
         <li class="ui-divider">Today</li>
         <li class="ui-message">
-          <div class="ui-avatar" aria-label="Stella Nut" role="img">SN</div>
+          <div class="ui-avatar" aria-label="Stella Nut" role="img">
+            <span aria-hidden="true">SN</span>
+          </div>
           <div class="ui-content">
             <p class="ui-header">Stella</p>
             <p>Heyyy! Did your band notice you changed strings yet?</p>
@@ -283,7 +291,9 @@
           </div>
         </li>
         <li class="ui-message">
-          <div class="ui-avatar" aria-label="Stella Nut" role="img">SN</div>
+          <div class="ui-avatar" aria-label="Stella Nut" role="img">
+            <span aria-hidden="true">SN</span>
+          </div>
           <div class="ui-content">
             <p class="ui-header">Stella</p>
             <p>Totally! Here it is:</p>
@@ -316,7 +326,9 @@
           </div>
         </li>
         <li class="ui-message">
-          <div class="ui-avatar" aria-label="Stella Nut" role="img">SN</div>
+          <div class="ui-avatar" aria-label="Stella Nut" role="img">
+            <span aria-hidden="true">SN</span>
+          </div>
           <div class="ui-content">
             <p class="ui-header">Stella</p>
             <p>Nobody will hear it, but WE will know 🤘</p>
@@ -326,7 +338,9 @@
           </div>
         </li>
         <li class="ui-message ui-typing">
-          <div class="ui-avatar" aria-label="Stella Nut" role="img">SN</div>
+          <div class="ui-avatar" aria-label="Stella Nut" role="img">
+            <span aria-hidden="true">SN</span>
+          </div>
           <div class="ui-content" role="status">
             <span class="ui-sr-only">Stella is typing</span>
           </div>
@@ -355,11 +369,12 @@
               </svg>
             </button>
             <div class="ui-textarea">
-              <span class="ui-field">
+              <span class="ui-field-container">
                 <textarea
                   aria-label="Message Stella Nut"
-                  placeholder="Write something rad…"
+                  id="chat-chat-message"
                   name="chat-message"
+                  placeholder="Write something rad…"
                 ></textarea>
               </span>
             </div>

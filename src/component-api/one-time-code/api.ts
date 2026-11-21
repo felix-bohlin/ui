@@ -1,132 +1,37 @@
-import { passThrough } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
   component: "OneTimeCode",
   css: ["one-time-code", "text-field"],
-  model: {
-    description: "The code.",
-    prop: "value",
-    type: "string",
-  },
   notes: {
-    ...passThrough("input", ".ui-one-time-code", ["autofocus", "placeholder"], {
-      react: "Use `value` with `onChange`, or `defaultValue`.",
-      solid:
-        "`value` sets the value and follows it when it changes. Follow typing with `onInput`.",
-    }),
+    default:
+      'Write the `<input>` inside, with its `id` set to `for`, `autocomplete="one-time-code"`, a `maxlength` from 4 to 8, which sets the number of boxes, and a matching `pattern`: `inputmode="numeric"` and `[0-9]{6}` for digits, or `autocapitalize="characters"`, `spellcheck="false"` and `[A-Za-z0-9]{6}` for letters and digits. Bind it like any input. Other attributes go to the `.ui-one-time-code` root.',
     html: 'Use one `<input>` with `autocomplete="one-time-code"`, `maxlength` and a matching `pattern`, such as `[0-9]{6}`, plus `inputmode="numeric"` for digits.',
+    react:
+      'Write the `<input>` inside, with its `id` set to `htmlFor`, `autoComplete="one-time-code"`, a `maxLength` from 4 to 8, which sets the number of boxes, and a matching `pattern`: `inputMode="numeric"` and `[0-9]{6}` for digits, or `autoCapitalize="characters"`, `spellCheck={false}` and `[A-Za-z0-9]{6}` for letters and digits. Give it `value` with `onChange`, or `defaultValue`. Other attributes go to the `.ui-one-time-code` root.',
   },
   options: [
     {
-      attribute: '[autocapitalize="characters"]',
-      default: "false",
       description:
-        "Accepts letters and digits. Letters show uppercase and keep the case they were typed in.",
-      group: "Alphanumeric",
-      htmlDescription:
-        "Shows letters uppercase. Pair it with a `pattern` such as `[A-Za-z0-9]{6}` and no `inputmode`.",
-      part: "input",
-      prop: "alphanumeric",
-    },
-    {
-      description:
-        "The `autocapitalize` of the `<input>`. With `alphanumeric` it is `characters`.",
+        "The `id` of your `<input>`. The label points at it, and the end text's id, `x-end-text`, starts with it, for the input's `aria-describedby`.",
       frameworks: ["astro", "solid", "svelte", "vue"],
-      inherited: true,
-      prop: "autocapitalize",
+      prop: "for",
       type: "string",
-    },
-    {
-      description:
-        "The `autocapitalize` of the `<input>`, as `autoCapitalize` like on the element. With `alphanumeric` it is `characters`.",
-      frameworks: ["react"],
-      inherited: true,
-      prop: "autoCapitalize",
-      type: "string",
-    },
-    {
-      attribute: "[disabled]",
-      default: "false",
-      description: "Dims the field and blocks input.",
-      group: "Disabled",
-      inherited: true,
-      part: "input",
-      prop: "disabled",
-      type: "boolean",
-    },
-    {
-      attribute: '[aria-invalid="true"]',
-      default: "false",
-      description: "Marks the control invalid and shows error styles.",
-      group: "Validation",
-      part: "input",
-      prop: "error",
     },
     {
       class: ".ui-grouped",
       default: "false",
       description:
-        "Draws a dash between the two halves of the code. Use it with an even `length`.",
+        "Draws a dash between the two halves of the code. Use it with an even `maxlength`.",
       group: "Grouped",
       prop: "grouped",
     },
     {
       description:
-        "The id of the `<input>`. With a label, the `<label for>` points at it, so the component generates one when it's left out. The end text's id, `x-end-text`, starts with it.",
-      inherited: true,
-      prop: "id",
-      type: "string",
-    },
-    {
-      description:
-        "The `inputmode` of the `<input>`. Without `alphanumeric` it is `numeric`.",
-      frameworks: ["astro", "solid", "svelte", "vue"],
-      inherited: true,
-      prop: "inputmode",
-      type: "string",
-    },
-    {
-      description:
-        "The `inputmode` of the `<input>`, as `inputMode` like on the element. Without `alphanumeric` it is `numeric`.",
+        "The `id` of your `<input>`, as `htmlFor` like on the element. The label points at it, and the end text's id, `x-end-text`, starts with it, for the input's `aria-describedby`.",
       frameworks: ["react"],
-      inherited: true,
-      prop: "inputMode",
+      prop: "htmlFor",
       type: "string",
-    },
-    {
-      attribute: "[maxlength]",
-      default: "6",
-      description: "The number of characters and boxes, from 4 to 8.",
-      group: "Length",
-      htmlDescription:
-        "The number of characters and boxes, from 4 to 8. Match the `pattern` to it.",
-      part: "input",
-      prop: "length",
-    },
-    {
-      description:
-        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
-      inherited: true,
-      prop: "name",
-      type: "string",
-    },
-    {
-      description:
-        "The `pattern` of the `<input>`. It is `[0-9]{length}`, or `[A-Za-z0-9]{length}` with `alphanumeric`.",
-      inherited: true,
-      prop: "pattern",
-      type: "string",
-    },
-    {
-      attribute: "[required]",
-      description:
-        "Adds a required mark after the label. The form won't submit while the code is incomplete.",
-      group: "Required",
-      inherited: true,
-      part: "input",
-      prop: "required",
-      type: "boolean",
     },
     {
       default: '"medium"',
@@ -140,22 +45,6 @@ export default {
         "x-small": ".ui-x-small",
       },
     },
-    {
-      description:
-        "The `spellcheck` of the `<input>`. With `alphanumeric` it is `false`.",
-      frameworks: ["astro", "solid", "svelte", "vue"],
-      inherited: true,
-      prop: "spellcheck",
-      type: "boolean",
-    },
-    {
-      description:
-        "The `spellcheck` of the `<input>`, as `spellCheck` like on the element. With `alphanumeric` it is `false`.",
-      frameworks: ["react"],
-      inherited: true,
-      prop: "spellCheck",
-      type: "boolean",
-    },
   ],
   parts: [
     {
@@ -166,14 +55,13 @@ export default {
     },
     {
       description: "Draws a box per character and a ring on the next one.",
-      selector: ".ui-field",
+      selector: ".ui-field-container",
     },
     {
       code: "<input>",
       description:
-        'The input element, with `autocomplete="one-time-code"`, which lets the browser fill in a code it received.',
-      model: true,
-      selector: "input",
+        'Your input, written directly inside `.ui-field-container` with its `id` set to `for`. Its `maxlength`, from 4 to 8, sets the number of boxes. `autocomplete="one-time-code"` lets the browser fill in a code it received; use `off` for a code read off another screen. Mark it `required`, `disabled` or `aria-invalid="true"` like any input.',
+      selector: ".ui-field-container > input",
     },
     {
       description: "Supporting text displayed below the field.",
@@ -186,5 +74,11 @@ export default {
     description: "Container element.",
     selector: "div.ui-one-time-code",
   },
+  slots: [
+    {
+      description: "Your `<input>`, which goes in `.ui-field-container`.",
+      name: "default",
+    },
+  ],
   source: "OneTimeCode",
 } satisfies ComponentApi

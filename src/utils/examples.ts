@@ -1,5 +1,10 @@
 import type { AstroInstance } from "astro"
-import { exampleExtension, type FrameworkId } from "./framework"
+import {
+  exampleExtension,
+  extensionPattern,
+  frameworkOfFile,
+  type FrameworkId,
+} from "./framework"
 
 // Eager globs scoped to the component-examples tree. Vite resolves these at
 // build time, so missing files mean `undefined` rather than a runtime fetch.
@@ -22,10 +27,12 @@ export const examplePath = (
   framework: FrameworkId,
 ) => `../component-examples/${slug}/${name}.${exampleExtension(framework)}`
 
+const EXAMPLE_PATH = new RegExp(
+  `component-examples/([^/]+)/([^/.]+)\\.(?:${extensionPattern()})$`,
+)
+
 export const parseExamplePath = (path: string) => {
-  const [, slug, name, extension] = path.match(
-    /component-examples\/([^/]+)\/([^/.]+)\.((?:react|solid)\.tsx|\w+)$/,
-  )!
-  const framework = extension.replace(/\.tsx$/, "") as FrameworkId
+  const [, slug, name] = path.match(EXAMPLE_PATH)!
+  const framework = frameworkOfFile(path)!
   return { framework, name, slug }
 }

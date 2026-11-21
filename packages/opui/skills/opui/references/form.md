@@ -71,7 +71,7 @@ Classes that space and group form fields, with fieldsets and field groups.
 
 ### Props and modifiers
 
-- `name`: `string`. Sets `name` on the OPUI fields inside that don't set their own.
+- `name`: `string`. Sets `name` on the OPUI fields inside that don't set their own. A text field's input is your own, so name it there.
 - `orientation`: `"auto"` (default), `"horizontal"` (`.ui-horizontal`), `"vertical"` (`.ui-vertical`). The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row.
 
 ### Slots
@@ -108,13 +108,13 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-field-helper-font-size`, `--
     <div class="ui-field-group">
       <div class="ui-text-field">
         <label class="ui-label" for="form-basics-2">Name</label>
-        <span class="ui-field">
-          <input autocomplete="name" id="form-basics-2" type="text" />
+        <span class="ui-field-container">
+          <input autocomplete="name" id="form-basics-2" />
         </span>
       </div>
       <div class="ui-text-field">
         <label class="ui-label" for="form-basics-3">Email</label>
-        <span class="ui-field">
+        <span class="ui-field-container">
           <input autocomplete="email" id="form-basics-3" type="email" />
         </span>
       </div>
@@ -152,8 +152,12 @@ import {
       >How can we reach you?</FieldDescription
     >
     <FieldGroup>
-      <TextField autocomplete="name" label="Name" />
-      <TextField autocomplete="email" label="Email" type="email" />
+      <TextField for="form-basics-2" label="Name">
+        <input autocomplete="name" id="form-basics-2" />
+      </TextField>
+      <TextField for="form-basics-3" label="Email">
+        <input autocomplete="email" id="form-basics-3" type="email" />
+      </TextField>
     </FieldGroup>
   </Fieldset>
   <FieldGroup>
@@ -190,8 +194,12 @@ export default function Basics() {
           How can we reach you?
         </FieldDescription>
         <FieldGroup>
-          <TextField autoComplete="name" label="Name" />
-          <TextField autoComplete="email" label="Email" type="email" />
+          <TextField htmlFor="form-basics-2" label="Name">
+            <input autoComplete="name" id="form-basics-2" />
+          </TextField>
+          <TextField htmlFor="form-basics-3" label="Email">
+            <input autoComplete="email" id="form-basics-3" type="email" />
+          </TextField>
         </FieldGroup>
       </Fieldset>
       <FieldGroup>
@@ -231,8 +239,12 @@ export default function Basics() {
           How can we reach you?
         </FieldDescription>
         <FieldGroup>
-          <TextField autocomplete="name" label="Name" />
-          <TextField autocomplete="email" label="Email" type="email" />
+          <TextField for="form-basics-2" label="Name">
+            <input autocomplete="name" id="form-basics-2" />
+          </TextField>
+          <TextField for="form-basics-3" label="Email">
+            <input autocomplete="email" id="form-basics-3" type="email" />
+          </TextField>
         </FieldGroup>
       </Fieldset>
       <FieldGroup>
@@ -271,8 +283,12 @@ export default function Basics() {
       >How can we reach you?</FieldDescription
     >
     <FieldGroup>
-      <TextField autocomplete="name" label="Name" />
-      <TextField autocomplete="email" label="Email" type="email" />
+      <TextField for="form-basics-2" label="Name">
+        <input autocomplete="name" id="form-basics-2" />
+      </TextField>
+      <TextField for="form-basics-3" label="Email">
+        <input autocomplete="email" id="form-basics-3" type="email" />
+      </TextField>
     </FieldGroup>
   </Fieldset>
   <FieldGroup>
@@ -308,8 +324,12 @@ import {
         >How can we reach you?</FieldDescription
       >
       <FieldGroup>
-        <TextField autocomplete="name" label="Name" />
-        <TextField autocomplete="email" label="Email" type="email" />
+        <TextField for="form-basics-2" label="Name">
+          <input autocomplete="name" id="form-basics-2" />
+        </TextField>
+        <TextField for="form-basics-3" label="Email">
+          <input autocomplete="email" id="form-basics-3" type="email" />
+        </TextField>
       </FieldGroup>
     </Fieldset>
     <FieldGroup>

@@ -25,7 +25,8 @@ const { label } = Astro.props
       This browser blocked copying. The text is selected: press and hold it,
       then copy.
     </p>
-    <Textarea class="copy-fallback-field" readonly rows={8}>
+    <Textarea class="copy-fallback-field" for="copy-fallback-label">
+      <textarea id="copy-fallback-label" readonly rows={8}></textarea>
       <span class="ui-sr-only" slot="label">{label}</span>
     </Textarea>
   </DialogContent>

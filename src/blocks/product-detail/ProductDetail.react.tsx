@@ -157,14 +157,16 @@ export default function ProductDetail() {
                 </FieldDescription>
               </Fieldset>
               <div className="ui-layout-row ui-small pd-buy">
-                <NumberField
-                  defaultValue={1}
-                  id="product-detail-quantity"
-                  label="Quantity"
-                  max={10}
-                  min={1}
-                  name="quantity"
-                />
+                <NumberField htmlFor="product-detail-quantity" label="Quantity">
+                  <input
+                    id="product-detail-quantity"
+                    max="10"
+                    min="1"
+                    name="quantity"
+                    type="number"
+                    defaultValue="1"
+                  />
+                </NumberField>
                 <Button className="pd-add" type="submit" variant="filled">
                   <svg
                     data-icon="shopping-bag"

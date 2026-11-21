@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { tagAttrs } from "../tag"
+  import { disabledLink, tagAttrs } from "../tag"
   import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
@@ -18,7 +18,9 @@
     ...rest
   }: Props = $props()
 
-  const Tag = $derived(as || (href ? "a" : "button"))
+  const Tag = $derived(
+    disabledLink(as, disabled) ? "a" : as || (href ? "a" : "button"),
+  )
 </script>
 
 <svelte:element
